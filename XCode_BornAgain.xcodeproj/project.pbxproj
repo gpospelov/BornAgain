@@ -180,6 +180,8 @@
 		627B1A4E170EFEEC003335DA /* SampleBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627B1A3D170EFEEC003335DA /* SampleBuilder.cpp */; };
 		627C2FDA160B515D004C1B11 /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
+		627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */; };
+		627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */; };
 		62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */; };
 		62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */; };
 		62B316141712FE29004A9D02 /* MessageService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62B316121712FE29004A9D02 /* MessageService.cpp */; };
@@ -1309,6 +1311,12 @@
 		627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = GISASFW.TestCore; path = BornAgain.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
+		627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePrintVisitor.h; sourceTree = "<group>"; };
+		627F5FFB1793EB17009E166F /* WinDllMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinDllMacros.h; sourceTree = "<group>"; };
+		627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplePrintVisitor.cpp; sourceTree = "<group>"; };
+		627F5FFE1793EB5E009E166F /* SpecularMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecularMatrix.h; sourceTree = "<group>"; };
+		627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecularMatrix.cpp; sourceTree = "<group>"; };
+		627F60011793EE9A009E166F /* AttFitting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttFitting.h; sourceTree = "<group>"; };
 		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
 		6286117B167F6CBD00971496 /* TestFumiliLMA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFumiliLMA.h; sourceTree = "<group>"; };
 		6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFumiliLMA.cpp; sourceTree = "<group>"; };
@@ -1755,6 +1763,7 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				627F5FFE1793EB5E009E166F /* SpecularMatrix.h */,
 				6236DD0B16CE9EBD00ECED4F /* Simulation.h */,
 				6236DD0716CE707C00ECED4F /* Instrument.h */,
 				62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */,
@@ -1800,6 +1809,7 @@
 		6222225C160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */,
 				6236DD0C16CE9EC600ECED4F /* Simulation.cpp */,
 				6236DD0816CE708600ECED4F /* Instrument.cpp */,
 				62EA20E816B9296C00184E9A /* StrategyBuilder.cpp */,
@@ -2064,6 +2074,8 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */,
+				627F5FFB1793EB17009E166F /* WinDllMacros.h */,
 				62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */,
 				62B316101712FE11004A9D02 /* MessageService.h */,
 				6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */,
@@ -2118,6 +2130,7 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */,
 				62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */,
 				62B316121712FE29004A9D02 /* MessageService.cpp */,
 				62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */,
@@ -68720,6 +68733,7 @@
 		625A170116BAACF9004943DB /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				627F60011793EE9A009E166F /* AttFitting.h */,
 				62B3161717130078004A9D02 /* FitSuitePrintObserver.h */,
 				625A170216BAACF9004943DB /* AttLimits.h */,
 				625A170316BAACF9004943DB /* FitObject.h */,
@@ -69501,6 +69515,8 @@
 				62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */,
 				62B316141712FE29004A9D02 /* MessageService.cpp in Sources */,
 				62B3161917130081004A9D02 /* FitSuitePrintObserver.cpp in Sources */,
+				627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */,
+				627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

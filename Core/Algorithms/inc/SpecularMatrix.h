@@ -33,12 +33,13 @@ public:
    //! layer coefficients for matrix formalism
    class LayerMatrixCoeff {
    public:
-       LayerMatrixCoeff() : lambda(0) {}
+       LayerMatrixCoeff() : lambda(0), kz(0) {}
        ~LayerMatrixCoeff() {}
        complex_t R() const { return (phi_psi(1)+phi_psi(0)/lambda)/2.0; }
        complex_t T() const { return (phi_psi(1)-phi_psi(0)/lambda)/2.0; }
        // A - amplitude of initial wave, R, T - amplitudes of reflected and transmitted waves
        complex_t lambda; // positive eigenvalue of transfer matrix
+       complex_t kz;
        Eigen::Vector2cd phi_psi;
        Eigen::Matrix2cd l;
        Eigen::Matrix2cd l_accumulated;

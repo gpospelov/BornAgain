@@ -200,17 +200,11 @@ void TestSpecularMatrix::test_roughness_set()
 {
     mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
 
-    std::cout << *mp_sample << std::endl;
-    std::cout << "-----" << std::endl;
     ParameterPool *newpool = mp_sample->createParameterTree();
-    std::cout << *newpool << std::endl;
 
     FitParameterLinked multipar;
 
     multipar.addMatchedParametersFromPool(newpool, "/*/*/*/sigma");
-    std::cout << "multipar: " << multipar << std::endl;
-
-    std::cout << *mp_sample << std::endl;
 
     mp_coeffs = new OutputData<SpecularMatrix::MultiLayerCoeff_t >;
     mp_coeffs->addAxis(std::string("alpha_i"), 1000, 0.0*Units::degree, 2.0*Units::degree);

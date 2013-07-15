@@ -19,7 +19,8 @@
 #include "Numeric.h"
 #include <cassert>
 
-void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec, MultiLayerCoeff_t& coeff)
+void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec,
+                             MultiLayerCoeff_t& coeff)
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
@@ -141,7 +142,7 @@ void OpticalFresnel::calculateRT(const MultiLayer& sample, MultiLayerCoeff_t& co
     coeff[0].T = 1;
 
     for(size_t i=0; i<coeff.size()-1; ++i) {
-        // First check for adjecant identical layers with k_z = 0
+        // First check for adjacent identical layers with k_z = 0
         if(coeff[i+1].kz == complex_t(0,0) && coeff[i].kz == complex_t(0,0)) {
             coeff[i+1].R = coeff[i].R;
             coeff[i+1].T = coeff[i].T;

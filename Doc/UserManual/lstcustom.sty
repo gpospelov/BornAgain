@@ -2,10 +2,8 @@
 % this is customisation of 'listings' package
 % TODO: cleanup
 
-
-
-\usepackage{color}
-
+%\usepackage{color}
+\usepackage{xcolor}
 \lstdefinelanguage{pseudo}{
   keywords={procedure,end,return,integer,real,foreach,for,each,
   do,if,then,else,while,until,true,false,algorithm}, 
@@ -211,22 +209,27 @@ height, collapsed, true, false%
 \definecolor{darkblue}{rgb}{0.1,0.1,0.9}
 \definecolor{darkgrey}{rgb}{0.5,0.5,0.5}
 \definecolor{lightblue}{rgb}{0.4,0.4,1}
+\definecolor{lightblue1}{rgb}{0 0.25 1}
+\definecolor{darkpink}{rgb}{1 0 0.75}
 
 \lstdefinestyle{eclipse}{
-	basicstyle=\small\lstfontfamily,
+    basicstyle=\small\lstfontfamily,
     emphstyle=\color{red}\bfseries, 
     keywordstyle=\color{darkviolet}\bfseries,
     commentstyle=\color{darkgreen},
     stringstyle=\color{darkblue},
     numberstyle=\color{darkgrey}\lstfontfamily,
-    emphstyle=\color{red},
+    emph={Simulation,MaterialManager,MultiLayer}, 
+    emphstyle=\color{cyan}, %darkpink}, %red},
     % get also javadoc style comments
     morecomment=[s][\color{lightblue}]{/**}{*/},
    %columns=fullflexible, %spaceflexible, %flexible, fullflexible             
 %  escapeinside=`',
 %  escapechar=@,
   showstringspaces=false,
-  numbers=left
+  numbers=left,
+escapeinside={@}{@}, %reference to line number in text
+breaklines = true
 }
 
 \lstdefinestyle{black}{
@@ -239,6 +242,31 @@ height, collapsed, true, false%
   tabsize=4,
   frame=lines,
   showstringspaces=false
+}
+
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\lstdefinestyle{eclipseboxed}{
+   escapeinside={@}{@},
+    basicstyle=\small\lstfontfamily,
+    emphstyle=\color{red}\bfseries, 
+    keywordstyle=\color{darkviolet}\bfseries,
+    commentstyle=\color{darkgreen},
+    stringstyle=\color{darkblue},
+    numberstyle=\color{darkgrey}\lstfontfamily,
+    emphstyle=\color{red},
+    backgroundcolor=\color{lightgrey},
+    morecomment=[s][\color{lightblue}]{/**}{*/},
+  showstringspaces=false,
+  numbers=left,%none,
+ emphstyle={[2]\color{blue}},
+ frame=shadowbox,
+firstnumber=auto,
+ rulesepcolor=\color{darkgrey},
+breaklines = true
+%showspaces=true,
+%showtabs=true,
+%tabsize=1
 }
 
 % use proper tt font that supports bold printing, e.g. by

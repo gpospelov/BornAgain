@@ -1,49 +1,195 @@
-\documentclass[a4paper,10pt]{article}
-
+\documentclass[a4paper,10pt]{report}
+\usepackage{cite}
+%----------------------------------------------------------------------------------------
+%	FONT
+%----------------------------------------------------------------------------------------
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
+
+%----------------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%----------------------------------------------------------------------------------------
+\usepackage[toc,page]{appendix}
+
+\textwidth = 410pt
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+\fancyhf{}
+
+%\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+%\nouppercase{\rightmark}
+
+\lhead{\bfseries \nouppercase{\leftmark}}
+\rhead{\bfseries \nouppercase{\rightmark}}
+\lfoot{}
+\rfoot{\bfseries Page \thepage}
+
+\headwidth=1.1\textwidth
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\fancyhfoffset[L]{24pt}
+\fancyhfoffset[R]{24pt}
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\headwidth=1.1\textwidth
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\lhead{\bfseries \nouppercase{\leftmark}}
+\rhead{\bfseries \nouppercase{\rightmark}}
+%\lhead{\leftmark}
+%\rhead{\rightmark}
+\lfoot{}
+\rfoot{\bfseries Page \thepage}
+%\rfoot{Page \thepage}
+\headwidth=1.1\textwidth
+\fancyhfoffset[L]{24pt}
+\fancyhfoffset[R]{24pt}
+}
+
+\newcommand{\mysection}[2]{%
+                         \sectionmark{#1}%
+                         \section{#2}%
+                         \sectionmark{#1}%
+                       }
+
+%%%%%%%%%
+%\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\thechapter.\ #1}}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}}
+%\newcommand{\helv}{\fontfamily{phv}\fontseries{b}\fontsize{9}{11}\selectfont}
+%\lhead[\helv \thepage]{\helv \rightmark}
+%\rhead[\helv \leftmark]{\helv \thepage}
+%\cfoot{}
+%----------------------------------------------------------------------------------------
+%	OTHER PACKAGES and COMMANDS
+%----------------------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{tikz-uml} 
 \usepackage{amsmath}
 
+\usepackage{pifont}
+\usepackage{fourier}
+\usepackage{dingbat}
 
-% custom listing settings
-\usepackage{listings}
-\usepackage{lstcustom}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
-\renewcommand{\lstfontfamily}{\ttfamily}
+\usepackage{hyperref}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
-%\usepackage{minted}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+%----------------------------------------------------------------------------------------
+%	CUSTON LISTING SETTINGS
+%----------------------------------------------------------------------------------------
+\usepackage{listings}
+\usepackage{lstcustom}
+\renewcommand{\lstfontfamily}{\ttfamily}
+%----------------------------------------------------------------------------------------
+%	COLORS
+%----------------------------------------------------------------------------------------
 
+\definecolor{Lightgray}{gray}{.80}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
 
-%\maketitle
+% Front page: logo?
+
+\title{BornAgain. }
+\author{}
+
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{results2_2.png}%
+\vfill
+}}}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%\AddToShipoutPicture*{\BackgroundPic} % add bakcground image to the
+%first page
+\maketitle
+
 
 %\begin{abstract}
 %This document describes the general architecture of the BornAgain project.
 %\end{abstract}
 
+\tableofcontents
+\lstlistoflistings
+\listoffigures
+\listoftables
 
-\title{BornAgain. }
-\author{}
+\newpage
+
+BornAgain is a  software to simulate and fit neutron and X-ray
+scattering at grazing incidence. It is a multi–platform open–source project that aims at supporting scientists in the analysis and fitting
+of their GISAS data, both for synchrotron (GISAXS) and neutron (GISANS) facilities. The name of the software,
+BornAgain, indicates the central role of the distorted-wave Born
+approximation (DWBA) in the physical description of the
+scattering process. The software provides a generic framework for modeling multilayer samples with smooth or
+rough interfaces and with various types of embedded nanoparticles. In this way, it reproduces and enhances the
+functionality of the present reference software, IsGISAXS by
+R. Lazzari \cite{Lazzari:vi0158}, and lays a solid base for future
+extensions in response to specific user needs. 
+
+To meet the growing demand for GISAS simulation of more
+complex structured materials, BornAgain has extended the IsGISAXS program’s functionality by removing the
+restrictions on the number of layers and particles, by providing diffuse reflection from rough layer interfaces and
+by adding particles with inner structure. \\
+
+
+For details about the theory (DWBA,\ldots), please refer to IsGISAXS manual (\url{http://ln-www.insp.upmc.fr/axe4/Oxydes/IsGISAXS/figures/doc/manual.html}).\\
+
+
+\colorbox{Lightgray}{\parbox{\linewidth-8\fboxsep}
+{\noindent \underline{Icons used in this manual:}
+\begin{itemize}
+\item[] \smallpencil: this sign highlights further references.
+%\item[] {\huge\ding{45}} - \smallpencil \textbf{\smallpencil}: this sign highlights further references.
+\item[] {\huge\danger}: this sign highlights essential points.
+\end{itemize}}}
 
 
 
-\begin{document}
-A software to simulate and fit neutron and x-ray scattering at grazing incidence
-Some software
-
-
-\input{QuickStart}
-\input{Introduction}
-\input{Installation}
-\input{Architecture}
-\input{Fitting}
+%\input{Introduction}
+%\input{Installation}
+%\input{Architecture}
+%\input{Fitting}
 \input{Examples}
+
+Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
+%\appendix
+%\input{Appendix}
+
+
+%\printindex
+%generate an index - hyperref
+
+\bibliography{ref}
+\bibliographystyle{unsrt}
+
+
+
 
 \end{document}
 

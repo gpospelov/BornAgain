@@ -32,14 +32,16 @@ HEADERS += \
     inc/MultiNumGradFunction.h \
     inc/GSLRngWrapper.h \
     inc/GSLRndmEngines.h \
-    inc/MultiNumGradFunction.h \
     inc/Derivator.h \
     inc/GSLDerivator.h
 
 INCLUDEPATH += inc
 
+# -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation
+# -----------------------------------------------------------------------------
 target.path = $$PWD/../../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_POST_LINK = (make install)
+isEmpty(MAKEFILE): MAKEFILE="Makefile"
+QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install

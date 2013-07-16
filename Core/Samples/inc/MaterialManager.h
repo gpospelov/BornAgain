@@ -97,7 +97,7 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name,
         double refractive_index_real, double refractive_index_imag);
-    int this_getNumberOfMaterials() const { return m_materials.size(); }
+    int this_getNumberOfMaterials() const { return (int)m_materials.size(); }
 
     void check_refractive_index(const complex_t &index);
 };

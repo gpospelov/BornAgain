@@ -16,6 +16,7 @@
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
 #include <cassert>
+#include <iostream>
 
 void DecouplingApproximationStrategy::init(
         const SafePointerVector<FormFactorInfo>& form_factor_infos,
@@ -39,6 +40,9 @@ double DecouplingApproximationStrategy::evaluate(
         complex_t ff =
             m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
 
+        if (std::isnan(ff.real())) {
+            std::cout << "Amplitude is NaN: i = " << i << std::endl;
+        }
         double fraction = m_ff_infos[i]->m_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(std::norm(ff));

@@ -36,7 +36,7 @@ void TestIsGISAXS1::execute()
     ISample *sample = factory.createSample("isgisaxs01");
 
     // Build simulation
-    Simulation simulation;
+    Simulation simulation(mp_options);
     simulation.setDetectorParameters(
         100,-1.0*Units::degree, 1.0*Units::degree, 100,
         0.0*Units::degree, 2.0*Units::degree, true);

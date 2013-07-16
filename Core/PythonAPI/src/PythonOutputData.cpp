@@ -38,7 +38,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output, int naxis);
 int GetOutputDataNdimensions(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
-    int ndims = data->getRank();
+    int ndims = (int)data->getRank();
     return ndims;
 }
 

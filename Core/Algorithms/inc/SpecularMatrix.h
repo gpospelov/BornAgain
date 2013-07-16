@@ -33,12 +33,13 @@ public:
    //! layer coefficients for matrix formalism
    class LayerMatrixCoeff {
    public:
-       LayerMatrixCoeff() : lambda(0) {}
+       LayerMatrixCoeff() : lambda(0), kz(0) {}
        ~LayerMatrixCoeff() {}
-       complex_t R() const { return (phi_psi(1)+phi_psi(0)/lambda)/2.0; }
-       complex_t T() const { return (phi_psi(1)-phi_psi(0)/lambda)/2.0; }
+       complex_t R() const;
+       complex_t T() const;
        // A - amplitude of initial wave, R, T - amplitudes of reflected and transmitted waves
        complex_t lambda; // positive eigenvalue of transfer matrix
+       complex_t kz;
        Eigen::Vector2cd phi_psi;
        Eigen::Matrix2cd l;
        Eigen::Matrix2cd l_accumulated;
@@ -75,6 +76,24 @@ private:
            complex_t lambda_lower, complex_t lambda_upper) const;
    Eigen::Matrix2cd getUnitMatrix() const;
    complex_t getPMatrixElement(complex_t sigma_lambda) const;
+   void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
 };
+
+inline complex_t SpecularMatrix::LayerMatrixCoeff::R() const {
+    if (lambda==0.0) {
+        if (phi_psi(1)==0.0) {
+            return -1.0;
+        }
+        else return 0.0;
+    }
+    return (phi_psi(1)+phi_psi(0)/lambda)/2.0;
+}
+
+inline complex_t SpecularMatrix::LayerMatrixCoeff::T() const {
+    if (lambda==complex_t(0.0, 0.0)) {
+        return 1.0;
+    }
+    return (phi_psi(1)-phi_psi(0)/lambda)/2.0;
+}
 
 #endif /* SPECULARMATRIX_H_ */

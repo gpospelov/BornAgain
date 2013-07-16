@@ -53,6 +53,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
+    double mag_k = k.mag();
     double sinalpha = std::abs( k.cosTheta() );
     double cosalpha2 = 1.0 - sinalpha*sinalpha;
     complex_t rindex0 = sample.getLayer(0)->getRefractiveIndex();
@@ -60,6 +61,7 @@ void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
         coeff[i].lambda = std::sqrt(rindex*rindex - r2cosalpha2);
+        coeff[i].kz = mag_k*coeff[i].lambda;
     }
 }
 
@@ -67,32 +69,53 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
     size_t N = coeff.size();
+    if (coeff[0].lambda == 0.0 && N>1) {
+        setForNoTransmission(coeff);
+        return;
+    }
+
     // Last layer boundary ensures no reflection
     coeff[N-1].phi_psi(0) = -coeff[N-1].lambda;
     coeff[N-1].phi_psi(1) = 1.0;
     coeff[N-1].l.setIdentity();
-    for(size_t i=N-2; i>0; --i) {
+
+    for(int i=(int)N-2; i>0; --i) {
         complex_t lambda = coeff[i].lambda;
-        complex_t kdlambda = k.mag()*sample.getLayer(i)->getThickness()*lambda;
-        complex_t cosine_term = std::cos(kdlambda);
-        complex_t sine_term =
-                ( std::abs(kdlambda) < Numeric::double_epsilon ) ?
-                k.mag()*sample.getLayer(i)->getThickness() :
-                std::sin(kdlambda)/lambda;
-        coeff[i].l(0,0) = cosine_term;
-        coeff[i].l(0,1) = complex_t(0.0, 1.0)*lambda*lambda*sine_term;
-        coeff[i].l(1,0) = complex_t(0.0, 1.0)*sine_term;
-        coeff[i].l(1,1) = cosine_term;
-        coeff[i].phi_psi = coeff[i].l * m_roughness_pmatrices[i]
-                                      * coeff[i+1].phi_psi;
+        if (lambda == complex_t(0.0, 0.0)) {
+            coeff[i].l(0,0) = complex_t(1.0, 0.0);
+            coeff[i].l(0,1) = complex_t(0.0, 0.0);
+            coeff[i].l(1,0) = complex_t(0.0, 1.0)*k.mag()
+                    *sample.getLayer(i)->getThickness();
+            coeff[i].l(1,1) = complex_t(1.0, 0.0);
+            coeff[i].phi_psi = coeff[i].l * m_roughness_pmatrices[i]
+                                          * coeff[i+1].phi_psi;
+        }
+        else {
+            complex_t kdlambda = k.mag()*sample.getLayer(i)->getThickness()
+                    *lambda;
+            complex_t cosine_term = std::cos(kdlambda);
+            complex_t sine_term =
+                    ( std::abs(kdlambda) < Numeric::double_epsilon ) ?
+                        k.mag()*sample.getLayer(i)->getThickness() :
+                        std::sin(kdlambda)/lambda;
+            coeff[i].l(0,0) = cosine_term;
+            coeff[i].l(0,1) = complex_t(0.0, 1.0)*lambda*lambda*sine_term;
+            coeff[i].l(1,0) = complex_t(0.0, 1.0)*sine_term;
+            coeff[i].l(1,1) = cosine_term;
+            coeff[i].phi_psi = coeff[i].l * m_roughness_pmatrices[i]
+                    * coeff[i+1].phi_psi;
+        }
     }
-    // First layer boundary is also top layer boundary:
-    coeff[0].l.setIdentity();
-    coeff[0].phi_psi = m_roughness_pmatrices[0] * coeff[1].phi_psi;
-    // Normalize all boundary values with top layer transmitted wave:
-    complex_t T0 = coeff[0].T();
-    for (size_t i=0; i<N; ++i) {
-        coeff[i].phi_psi = coeff[i].phi_psi/T0;
+    // If more than 1 layer, impose normalization:
+    if (N>1) {
+        // First layer boundary is also top layer boundary:
+        coeff[0].l.setIdentity();
+        coeff[0].phi_psi = m_roughness_pmatrices[0] * coeff[1].phi_psi;
+        // Normalize all boundary values with top layer transmitted wave:
+        complex_t T0 = coeff[0].T();
+        for (size_t i=0; i<N; ++i) {
+            coeff[i].phi_psi = coeff[i].phi_psi/T0;
+        }
     }
 }
 
@@ -132,4 +155,13 @@ complex_t SpecularMatrix::getPMatrixElement(complex_t sigma_lambda) const
         return 1.0;
     }
     return std::sqrt(std::tanh(sigma_lambda)/sigma_lambda);
+}
+
+void SpecularMatrix::setForNoTransmission(MultiLayerCoeff_t& coeff) const
+{
+    size_t N = coeff.size();
+    for (size_t i=0; i<N; ++i) {
+        coeff[i].phi_psi.setZero();
+        coeff[i].l.setIdentity();
+    }
 }

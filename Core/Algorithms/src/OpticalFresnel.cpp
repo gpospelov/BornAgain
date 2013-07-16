@@ -106,7 +106,12 @@ void OpticalFresnel::calculateFresnelCoefficients(const MultiLayer& sample, Mult
                              / std::sinh(a+b);
             }
             coeff[i].rb = -coeff[i].r;
-            coeff[i].tb = coeff[i].t*coeff[i+1].kz/coeff[i].kz;
+            if (coeff[i].t==complex_t(0.0, 0.0)) {
+                coeff[i].tb = 2.0;
+            }
+            else {
+                coeff[i].tb = coeff[i].t*coeff[i+1].kz/coeff[i].kz;
+            }
         }
     }
 }
@@ -136,8 +141,6 @@ void OpticalFresnel::calculateX(const MultiLayer& sample, MultiLayerCoeff_t& coe
 
 void OpticalFresnel::calculateRT(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const
 {
-    //complex_t ct0(0,0);
-
     coeff[0].R = coeff[0].X;
     coeff[0].T = 1;
 

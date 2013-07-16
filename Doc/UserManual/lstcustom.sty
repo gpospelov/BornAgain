@@ -211,6 +211,9 @@ height, collapsed, true, false%
 \definecolor{lightblue}{rgb}{0.4,0.4,1}
 \definecolor{lightblue1}{rgb}{0 0.25 1}
 \definecolor{darkpink}{rgb}{1 0 0.75}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{lightlightgrey}{rgb}{0.95 0.95 0.95}
+
 
 \lstdefinestyle{eclipse}{
     basicstyle=\small\lstfontfamily,
@@ -244,7 +247,6 @@ breaklines = true
   showstringspaces=false
 }
 
-\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 
 \lstdefinestyle{eclipseboxed}{
    escapeinside={@}{@},
@@ -268,6 +270,33 @@ breaklines = true
 %showtabs=true,
 %tabsize=1
 }
+
+
+\lstdefinestyle{commandline}{
+   escapeinside={@}{@},
+    basicstyle=\small\lstfontfamily,
+    emphstyle=\color{red}\bfseries, 
+    keywordstyle=\color{darkviolet}\bfseries,
+    commentstyle=\color{darkgreen},
+    stringstyle=\color{darkblue},
+    numberstyle=\color{darkgrey}\lstfontfamily,
+    emphstyle=\color{red},
+    backgroundcolor=\color{lightlightgrey},
+    morecomment=[s][\color{lightblue}]{/**}{*/},
+  showstringspaces=false,
+  numbers=left,%none,
+ emphstyle={[2]\color{blue}},
+ frame=single,
+firstnumber=auto,
+ rulesepcolor=\color{darkgrey},
+rulecolor=\color{darkgrey}, 
+breaklines = true,
+numbers=none,
+%showspaces=true,
+%showtabs=true,
+%tabsize=1
+}
+
 
 % use proper tt font that supports bold printing, e.g. by
 % \usepackage{courier}

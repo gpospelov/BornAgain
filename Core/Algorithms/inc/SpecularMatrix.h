@@ -90,8 +90,11 @@ inline complex_t SpecularMatrix::LayerMatrixCoeff::R() const {
 }
 
 inline complex_t SpecularMatrix::LayerMatrixCoeff::T() const {
-    if (lambda==complex_t(0.0, 0.0)) {
-        return 1.0;
+    if (lambda==0.0) {
+        if (phi_psi(1)==0.0) {
+            return 1.0;
+        }
+        else return phi_psi(1);
     }
     return (phi_psi(1)-phi_psi(0)/lambda)/2.0;
 }

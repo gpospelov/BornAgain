@@ -22,6 +22,8 @@
 #include "MaterialManager.h"
 #include "OpticalFresnel.h"
 #include "SampleFactory.h"
+#include "SpecularMatrix.h"
+#include "SampleBuilderFactory.h"
 
 #include "TSystem.h"
 #include "TDatime.h"
@@ -32,7 +34,6 @@
 #include <sstream>
 #include <iomanip>
 #include <time.h>
-#include "SpecularMatrix.h"
 
 TestPerformance::TestPerformance()
 {
@@ -210,7 +211,8 @@ void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_Pyramid"));
+    SampleBuilderFactory factory;
+    m_sample = dynamic_cast<MultiLayer *>(factory.createSample("isgisaxs09"));
 
     // simulation
     if(m_simulation) delete m_simulation;
@@ -234,7 +236,8 @@ void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_RotatedPyramid"));
+    SampleBuilderFactory factory;
+    m_sample = dynamic_cast<MultiLayer *>(factory.createSample("isgisaxs09_rotated"));
 
     // simulation
     if(m_simulation) delete m_simulation;

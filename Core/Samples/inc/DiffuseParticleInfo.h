@@ -29,7 +29,7 @@ class DiffuseParticleInfo: public ParticleInfo
         double depth=0, double abundance=0)
         : ParticleInfo(p_particle, transform, depth, abundance)
         , m_number_per_meso(0.0)
-    {}
+        , m_height_range(0.0) {}
 
     virtual ~DiffuseParticleInfo() {}
 

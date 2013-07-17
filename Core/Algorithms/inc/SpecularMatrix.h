@@ -20,7 +20,7 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 
-#include "Eigen/Core"
+#include <Eigen/Core>
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer
@@ -42,7 +42,6 @@ public:
        complex_t kz;
        Eigen::Vector2cd phi_psi;
        Eigen::Matrix2cd l;
-       Eigen::Matrix2cd l_accumulated;
    };
 
    //! multi layer coefficients for matrix formalism
@@ -54,8 +53,6 @@ public:
        inline size_t size() const { return m_data.size(); }
        inline void clear() { m_data.clear(); }
        inline void resize(size_t size) { m_data.resize(size); }
-       complex_t R; // total reflection coefficient
-       Eigen::Matrix2cd L;
    private:
        std::vector<LayerMatrixCoeff > m_data;
    };

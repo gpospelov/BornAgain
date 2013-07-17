@@ -20,6 +20,8 @@
 #include "Types.h"
 #include "IParameterized.h"
 
+#include <Eigen/Core>
+
 //! Ideal collimated Beam defined by wavelength, direction and intensity.
 
 class BA_CORE_API_ Beam : public IParameterized
@@ -31,14 +33,34 @@ class BA_CORE_API_ Beam : public IParameterized
 
     virtual ~Beam() {}
 
+    //! Get the value of the wavevector
     cvector_t getCentralK() const { return m_central_k; }
 
+    //! Sets the value of the incoming wavevector
     void setCentralK(const cvector_t& k_i);
+
+    //! Sets the value of the incoming wavevector in terms of wavelength
+    //! and incoming angles
     void setCentralK(double lambda, double alpha_i, double phi_i);
 
+    //! Gets the beam intensity in neutrons/sec
     double getIntensity() const { return m_intensity; }
 
+    //! Sets the beam intensity in neutrons/sec
     void setIntensity(double intensity) { m_intensity = intensity; }
+
+    //! Gets the polarization density matrix (in spin basis along z-axis)
+    Eigen::Matrix2cd getPolarization() const { return m_polarization; }
+
+    //! Sets the polarization density matrix (in spin basis along z-axis)
+    void setPolarization(const Eigen::Matrix2cd &polarization);
+
+    //! Sets the polarization density matrix to a value representing
+    //! a mixed ensemble with the given fraction of positive z spin
+    void SetSpinUpFraction(double up_fraction);
+
+    //! Checks if the given matrix can represent a physical density matrix
+    bool checkPolarization(const Eigen::Matrix2cd &polarization) const;
 
  protected:
     //! Registers some class members for later access via parameter pool
@@ -48,8 +70,12 @@ class BA_CORE_API_ Beam : public IParameterized
     //! swap function
     void swapContent(Beam& other);
 
-    cvector_t m_central_k;
-    double m_intensity;
+    //! Initialize polarization (for constructors)
+    void initPolarization();
+
+    cvector_t m_central_k;  //!< incoming wavevector
+    double m_intensity;     //!< beam intensity (neutrons/sec)
+    Eigen::Matrix2cd m_polarization; //!< polarization density matrix
 };
 
 #endif /* BEAM_H_ */

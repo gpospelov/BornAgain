@@ -50,11 +50,16 @@ if(BORNAGAIN_PYTHON)
 
     find_package(PythonInterp)
 
-    find_package(PythonLibs)
-    include_directories(${PYTHON_INCLUDE_DIRS})
+    find_package(PythonLibs REQUIRED)
+    if(PYTHONLIBS_FOUND)
+        include_directories(${PYTHON_INCLUDE_DIRS})
+    else()
+        message(SEND_ERROR "No python libraries have been found")     
+    endif()
 
-    find_package(Numpy)
+    find_package(Numpy REQUIRED)
     include_directories(${NUMPY_INCLUDE_DIR})
+        
 endif()
 
 # --- ROOT ---

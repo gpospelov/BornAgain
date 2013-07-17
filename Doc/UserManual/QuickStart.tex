@@ -29,7 +29,7 @@ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 {\bf Step III: $~$ building the source}
 \begin{lstlisting}[language=shell, style=commandline]
 mkdir <build_dir>; cd <build_dir>;
-cmake <source_dir> -DCMAKE_INSTALL_PREFFIX=<install_dir>
+cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
 make
 make check
 make install

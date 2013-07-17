@@ -22,3 +22,4 @@ TestCore.depends = ThirdParty/gtest
 TestCore.depends = ThirdParty/gtest
 
 CONFIG += ordered # compilation in lister order
+

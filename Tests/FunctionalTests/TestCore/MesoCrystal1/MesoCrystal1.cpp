@@ -53,7 +53,7 @@ Simulation *MesoCrystal1::createSimulation()
 
 int MesoCrystal1::analyseResults()
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
 
     // calculating average relative difference
     *m_result -= *m_reference;

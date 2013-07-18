@@ -120,7 +120,7 @@ void FunctionalTests::IsGISAXS06::runvariants()
 
 int FunctionalTests::IsGISAXS06::analyseResults(const std::string &path_to_executable)
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] = {
         "isgisaxs06_reference_lattice.ima.gz",
         "isgisaxs06_reference_centered.ima.gz",

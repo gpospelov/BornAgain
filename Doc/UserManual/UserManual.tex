@@ -1,12 +1,13 @@
-\documentclass[article,10pt]{report}
-\usepackage{cite}
+\documentclass[a4paper,10pt]{report}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.3}
 %----------------------------------------------------------------------------------------
 %	FONT
 %----------------------------------------------------------------------------------------
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-%`\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
+%\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
 
 %----------------------------------------------------------------------------------------
 %	PAGE LAYOUT
@@ -72,18 +73,21 @@
 \usepackage{graphicx}
 \usepackage{epstopdf}
 
+
 \usepackage{float}
 %\usepackage{tikz}
 %\usepackage{tikz-uml} 
 \usepackage{amsmath}
+
 \usepackage{pifont}
-%\usepackage{fourier}
-%\usepackage{dingbat}
+\usepackage{fourier}
+\usepackage{dingbat}
+
 \usepackage{hyperref}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
-\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 %----------------------------------------------------------------------------------------
 %	CUSTON LISTING SETTINGS
 %----------------------------------------------------------------------------------------
@@ -96,20 +100,15 @@
 
 \definecolor{Lightgray}{gray}{.80}
 \definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
 % Front page: logo?
 
-\title{
-BornAgain - simulating and fitting X-ray and neutron scattering at grazing incidence. \\
-\vspace*{10mm} User Guide \\
-\large{ version 0.1}
-}
-
-
-\author{Scientific Computing Group at FRM-II}
+\title{BornAgain. }
+\author{}
 
 \usepackage{eso-pic}
 \newcommand\BackgroundPic{%
@@ -122,23 +121,13 @@ keepaspectratio]{results2_2.png}%
 \vfill
 }}}
 
-
-%----------------------------------------------------------------------------------------
-%	Commands
-%----------------------------------------------------------------------------------------
-\newcommand{\Code}[1]{\texttt{#1}}
-\newcommand{\BornAgain}{\Code{BornAgain}}%
-\newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
-\newcommand{\SecLabel}[1]{\label{sec:#1}}%
-\newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
-
-
 %----------------------------------------------------------------------------------------
 %	DOCUMENT
 %----------------------------------------------------------------------------------------
+
 \begin{document}
 
-%\AddToShipoutPicture*{\BackgroundPic} % add bakcground image to the
+%\AddToShipoutPicture*{\BackgroundPic} % add background image to the
 %first page
 \maketitle
 
@@ -148,23 +137,50 @@ keepaspectratio]{results2_2.png}%
 %\end{abstract}
 
 \tableofcontents
-%\lstlistoflistings
-%\listoffigures
-%\listoftables
+\lstlistoflistings
+\listoffigures
+\listoftables
 
-%\newpage
+\newpage
 
-%\chapter{Working with BornAgain}
-\input{Introduction}
-\input{QuickStart}
-\input{SoftwareArchitecture}
-\input{Installation}
+BornAgain is a  software to simulate and fit neutron and X-ray
+scattering at grazing incidence. It is a multi–platform open–source project that aims at supporting scientists in the analysis and fitting
+of their GISAS data, both for synchrotron (GISAXS) and neutron (GISANS) facilities. The name of the software,
+BornAgain, indicates the central role of the distorted-wave Born
+approximation (DWBA) in the physical description of the
+scattering process. The software provides a generic framework for modeling multilayer samples with smooth or
+rough interfaces and with various types of embedded nanoparticles. In this way, it reproduces and enhances the
+functionality of the present reference software, IsGISAXS by
+R. Lazzari \cite{Lazzari:vi0158}, and lays a solid base for future
+extensions in response to specific user needs. 
+
+To meet the growing demand for GISAS simulation of more
+complex structured materials, BornAgain has extended the IsGISAXS program’s functionality by removing the
+restrictions on the number of layers and particles, by providing diffuse reflection from rough layer interfaces and
+by adding particles with inner structure. \\
+
+
+For details about the theory (DWBA,\ldots), please refer to IsGISAXS manual (\url{http://ln-www.insp.upmc.fr/axe4/Oxydes/IsGISAXS/figures/doc/manual.html}).\\
+
+
+\colorbox{Lightgray}{\parbox{\linewidth-8\fboxsep}
+{\noindent \underline{Icons used in this manual:}
+\begin{itemize}
+\item[] \smallpencil: this sign highlights further references.
+\item[] {\huge\ding{45}} - \smallpencil \textbf{\smallpencil}: this sign highlights further references.
+\item[] {\huge\danger}: this sign highlights essential points.
+\end{itemize}}}
+
+
+
+%\input{Introduction}
+%\input{Installation}
+%\input{Architecture}
 %\input{Fitting}
-%\input{Examples}
-%\input{Appendix}
+\input{Examples}
 
+%List of notations\\  Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
 
-%Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
 %\appendix
 %\input{Appendix}
 

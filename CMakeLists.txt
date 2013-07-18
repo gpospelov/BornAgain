@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(BornAgain)
 
 # --- General project settings ---
-set(BORNAGAIN_PYTHON OFF)
+set(BORNAGAIN_PYTHON ON)
 set(BORNAGAIN_APP ON)
 set(BORNAGAIN_GUI OFF)
 

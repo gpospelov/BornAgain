@@ -8,8 +8,8 @@ endif()
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 # --- FFTW3 ---
-find_package(FFTW)
-include_directories(${FFTW_INCLUDE_DIR} REQUIRED)
+find_package(FFTW REQUIRED)
+include_directories(${FFTW_INCLUDE_DIR})
 
 # --- Boost ---
 set(Boost_USE_STATIC_LIBS OFF)

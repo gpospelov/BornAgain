@@ -171,7 +171,7 @@ DEPENDPATH  += $$PWD/../Fit/Factory/inc
 # generate ROOT dictionaries
 # -----------------------------------------------------------------------------
 BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
-BORNAGAIN_ROOT_DICT_INCLUDES = ../Core/Tools/inc
+BORNAGAIN_ROOT_DICT_INCLUDES = $$PWD/../Core/Tools/inc
 
 # -----------------------------------------------------------------------------
 # general project settings

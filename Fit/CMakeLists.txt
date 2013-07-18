@@ -33,13 +33,16 @@ add_library(
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
+
+
 # copying library into lib directory for functional tests
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
 ADD_CUSTOM_COMMAND(
     TARGET ${library_name}
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     ${libprefix}${library_name}${libsuffix}
-    ${CMAKE_BINARY_DIR}/lib
+    ${CMAKE_BINARY_DIR}/lib/
 )
 
 # dependencies

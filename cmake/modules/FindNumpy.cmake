@@ -1,4 +1,3 @@
-# - Find numpy
 # Find the native numpy includes
 # This module defines
 #  NUMPY_INCLUDE_DIR, where to find numpy/arrayobject.h, etc.
@@ -6,7 +5,7 @@
 
 if (NUMPY_INCLUDE_DIR)
   # in cache already
-  set (NUMPY_FIND_QUIETLY TRUE)
+  set (Numpy_FIND_QUIETLY TRUE)
 endif (NUMPY_INCLUDE_DIR)
 
 EXEC_PROGRAM ("${PYTHON_EXECUTABLE}"
@@ -14,23 +13,29 @@ EXEC_PROGRAM ("${PYTHON_EXECUTABLE}"
   OUTPUT_VARIABLE NUMPY_INCLUDE_DIR
   RETURN_VALUE NUMPY_NOT_FOUND)
 
+
 if (NUMPY_INCLUDE_DIR MATCHES "Traceback")
-# Did not successfully include numpy
-  set(NUMPY_FOUND FALSE)
-else (NUMPY_INCLUDE_DIR MATCHES "Traceback")
-# successful
-  set (NUMPY_FOUND TRUE)
-  set (NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR} CACHE STRING "Numpy include path")
-endif (NUMPY_INCLUDE_DIR MATCHES "Traceback")
+    # Did not successfully include numpy
+    set(NUMPY_FOUND FALSE)
+else()
+    # successful
+    if(NOT EXISTS ${NUMPY_INCLUDE_DIR}/numpy/arrayobject.h)
+        message(STATUS "Can't find numpy/arrayobject.h, please install python-numpy-devel package")
+    else()
+        set (NUMPY_FOUND TRUE)
+        set (NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR} CACHE STRING "Numpy include path")
+    endif()
+endif()
 
 if (NUMPY_FOUND)
-  if (NOT NUMPY_FIND_QUIETLY)
-    message (STATUS "Numpy headers found")
-  endif (NOT NUMPY_FIND_QUIETLY)
-else (NUMPY_FOUND)
-  if (NUMPY_FIND_REQUIRED)
-    message (FATAL_ERROR "Numpy headers missing")
-  endif (NUMPY_FIND_REQUIRED)
-endif (NUMPY_FOUND)
+    if (NOT Numpy_FIND_QUIETLY)
+        message (STATUS "Numpy headers found")
+    endif()
+else()
+    if (Numpy_FIND_REQUIRED)
+        message (FATAL_ERROR "Numpy headers missing, please install python-numpy-devel package")
+    endif()
+endif()
+
 
 MARK_AS_ADVANCED (NUMPY_INCLUDE_DIR)

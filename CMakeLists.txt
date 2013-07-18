@@ -7,7 +7,10 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(BornAgain)
 
 # --- General project settings ---
-set(BORNAGAIN_PYTHON ON)
+set(BORNAGAIN_PYTHON OFF)
+set(BORNAGAIN_APP ON)
+set(BORNAGAIN_GUI OFF)
+
 
 #--- Where to look first for cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
@@ -25,7 +28,9 @@ add_subdirectory(Tests/UnitTests/TestCore)
 if(ROOT_FOUND)
     add_subdirectory(ThirdParty/RootMathMore)
     add_subdirectory(Fit)
-    add_subdirectory(App)
+    if(BORNAGAIN_APP)
+        add_subdirectory(App)
+    endif()
 endif()
 
 # functional tests (cmake; make check)

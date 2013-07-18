@@ -1,18 +1,59 @@
 \newpage
+\section{Quick start} \SecLabel{QuickStart}
 
-\section{Quick start.}
+This section shortly describes how to build \BornAgain\ from source and run first
+simulation. More details about software architecture and installation
+procedure are given in \SecRef{SoftwareArchitecture} and \SecRef{InstallationProcedure}. \\
+
+\noindent
+{\bf Step I: $~$ installing third party libraries}
+\begin{itemize}
+\item boost library ($\geq 1.48$)
+\item GNU scientific library ($\geq 1.15$)
+\item fftw3 library ($\geq 3.3.1$)
+\item Eigen3 library ($\geq 3.1.0$), optional
+\item ROOT framework ($\geq 5.34.00$), optional
+\end{itemize}
+\vspace*{2mm}
 
 
-Requirements
+\noindent
+{\bf Step II: $~$ getting the source}
+\begin{lstlisting}[language=bash, style=commandline]
+git clone git://apps.jcns.fz-juelich.de/BornAgain.git 
+\end{lstlisting}
+\vspace*{3mm}
 
-Hardware
-BornAgain is known to work on following platforms:
-Linux (x86, amd64)
-MacOS X (x86)
 
-Software
-GCC 4.1.2 or above   C/C++ compiler
-or
-clang
+\noindent
+{\bf Step III: $~$ building the source}
+\begin{lstlisting}[language=shell, style=commandline]
+mkdir <build_dir>; cd <build_dir>;
+cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
+make
+make check
+make install
+\end{lstlisting}
+\vspace*{3mm}
 
-gcc 4.1.2 or above, clang
+
+\noindent
+{\bf Step IV: $~$ running example}
+\begin{lstlisting}[language=shell, style=commandline]
+cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
+python CylindersAndPrisms.py
+\end{lstlisting}
+
+
+%Requirements
+
+%Hardware
+%BornAgain is known to work on following platforms:
+%Linux (x86, amd64)
+%MacOS X (x86)
+
+%Software
+%GCC 4.1.2 or above   C/C++ compiler
+%or
+%clang
+%gcc 4.1.2 or above, clang

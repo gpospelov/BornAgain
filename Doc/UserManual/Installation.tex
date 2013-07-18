@@ -1,3 +1,34 @@
-\section{Installation}
+\newpage
+\section{Installation} \SecLabel{installation}
 
-This is how to install
+This section shortly describes how to build \BornAgain\ from source and run first
+simulation.
+
+
+
+\subsection{Installation hints}
+
+In this section we give short installation instruction for several selected operation systems.
+
+% ---------------
+%  OpenSuse 12.3
+% ---------------
+\noindent
+{\bf OpenSuse 12.3} \newline
+Adding ``scientific'' repository 
+\begin{lstlisting}[language=shell, style=commandline]
+sudo zypper ar http://download.opensuse.org/repositories/science/openSUSE_12.3 science
+\end{lstlisting}
+
+\noindent
+Installing obligatory packages
+\begin{lstlisting}[language=shell, style=commandline]
+zypper install gsl-devel boost-devel fftw3-devel python-numpy-devel
+\end{lstlisting}
+
+\noindent
+Installing optional packages
+\begin{lstlisting}[language=shell, style=commandline]
+sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-devel
+\end{lstlisting}
+

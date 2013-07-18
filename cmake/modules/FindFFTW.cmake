@@ -17,7 +17,7 @@ find_path(FFTW_INCLUDE_DIR fftw3.h
   /usr/local/include
   /usr/include
   /opt/fftw3/include
-  HINTS /opt/local/include
+  /opt/local/include
   DOC "Specify the directory containing fftw3.h"
 )
 
@@ -38,6 +38,14 @@ if(FFTW_INCLUDE_DIR AND FFTW_LIBRARY)
      message(STATUS "Found fftw3 library at ${FFTW_LIBRARY}")
   endif()
 endif()
+
+
+if( NOT FFTW_FOUND )
+    if( FFTW_FIND_REQUIRED )
+        message( FATAL_ERROR "FindFFTW: can't find fftw3 header or library" )
+    endif()
+endif()
+
 
 set(FFTW_LIBRARIES ${FFTW_LIBRARY})
 

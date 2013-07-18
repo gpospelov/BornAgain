@@ -8,8 +8,8 @@ endif()
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 # --- FFTW3 ---
-find_package(FFTW)
-include_directories(${FFTW_INCLUDE_DIR} REQUIRED)
+find_package(FFTW REQUIRED)
+include_directories(${FFTW_INCLUDE_DIR})
 
 # --- Boost ---
 set(Boost_USE_STATIC_LIBS OFF)
@@ -50,11 +50,16 @@ if(BORNAGAIN_PYTHON)
 
     find_package(PythonInterp)
 
-    find_package(PythonLibs)
-    include_directories(${PYTHON_INCLUDE_DIRS})
+    find_package(PythonLibs REQUIRED)
+    if(PYTHONLIBS_FOUND)
+        include_directories(${PYTHON_INCLUDE_DIRS})
+    else()
+        message(SEND_ERROR "No python libraries have been found")     
+    endif()
 
-    find_package(Numpy)
+    find_package(Numpy REQUIRED)
     include_directories(${NUMPY_INCLUDE_DIR})
+        
 endif()
 
 # --- ROOT ---

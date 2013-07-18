@@ -43,7 +43,7 @@ void Layer::init_parameters()
 }
 
 
-//! Sets layer thickness in Angstrom.
+//! Sets layer thickness in nanometers.
 void Layer::setThickness(double thickness)
 {
     if (thickness < 0.)

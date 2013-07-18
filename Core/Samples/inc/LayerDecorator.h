@@ -44,7 +44,7 @@ class BA_CORE_API_ LayerDecorator : public Layer
     //! Sets _material_.
     virtual void setMaterial(const IMaterial* material);
 
-    //! Sets _material_ and _thickness_ in Angstrom.
+    //! Sets _material_ and _thickness_ in nanometers.
     virtual void setMaterial(const IMaterial* material, double thickness);
 
     //! Returns material

@@ -211,6 +211,11 @@ height, collapsed, true, false%
 \definecolor{lightblue}{rgb}{0.4,0.4,1}
 \definecolor{lightblue1}{rgb}{0 0.25 1}
 \definecolor{darkpink}{rgb}{1 0 0.75}
+\definecolor{dred}{rgb}{0.8,0,0}
+
+\definecolor{oneblue}{rgb}{0,0,0.75}
+\definecolor{dockerblue}{rgb}{0.11,0.56,0.98}
+\definecolor{MyDarkBlue1}{rgb}{0.1,0,0.55}
 
 \lstdefinestyle{eclipse}{
     basicstyle=\small\lstfontfamily,
@@ -219,8 +224,8 @@ height, collapsed, true, false%
     commentstyle=\color{darkgreen},
     stringstyle=\color{darkblue},
     numberstyle=\color{darkgrey}\lstfontfamily,
-    emph={Simulation,MaterialManager,MultiLayer}, 
-    emphstyle=\color{cyan}, %darkpink}, %red},
+    emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration}, 
+    emphstyle=\color{dockerblue},%dred}, %darkpink}, %red},
     % get also javadoc style comments
     morecomment=[s][\color{lightblue}]{/**}{*/},
    %columns=fullflexible, %spaceflexible, %flexible, fullflexible             
@@ -254,7 +259,9 @@ breaklines = true
     commentstyle=\color{darkgreen},
     stringstyle=\color{darkblue},
     numberstyle=\color{darkgrey}\lstfontfamily,
-    emphstyle=\color{red},
+    emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration}, 
+    emphstyle=\color{dockerblue},%dred}, %darkpink}, 
+   % emphstyle=\color{red},
     backgroundcolor=\color{lightgrey},
     morecomment=[s][\color{lightblue}]{/**}{*/},
   showstringspaces=false,

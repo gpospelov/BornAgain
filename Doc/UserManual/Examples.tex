@@ -3,7 +3,7 @@
 %\section{Examples}
 
 %\subsection{Hello listing}
-
+  
 %\begin{lstlisting}[language=python, style=eclipse]    
 %mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
 %mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
@@ -36,65 +36,98 @@
 \section{General methodology}
 A simulation of GISAXS using BornAgain platform can be decomposed into the following points:
 \begin{itemize}
-\item Definition of the materials, specifying their names and their
+\item Definition of the materials by specifying their names and their
   refractive indices,
 \item Definition of particles: shapes, sizes, refractive indices of
   the constituting material, interference functions,
-\item Definition of the layers: thicknesses, links with the previously defined
+\item Definition of the layers: thicknesses, roughnesses, associations with the previously defined
 materials,
-\item Inclusion of the particles in layers: density, positions, orientations, 
-\item Assembling the sample: generation of a mulitlayered system,
+\item Inclusion of the particles in layers: \textbf{density or proportion}, positions, orientations, 
+\item Assembling the sample: generation of a multilayered system,
 \item Specifying the input beam and the output detector's
   characteristics,
 \item Running the simulation,
 \item Saving the data.
 \end{itemize}
 
-The sample is built from object oriented building blocks \textbf{instead of
-the more common implementation of loading data files.}
+\noindent The sample is built from object oriented building blocks instead of loading data files.
 
 \section{Conventions}
-polarization term
 
 \subsection{Geometry of the sample}
-- Definitions of the angles:
 
-- Definitions of the layers:
+\noindent The geometry used to describe the sample is shown in
+Fig.~\ref{fig:multil3d}. The $z$-axis is perpendicular to the sample's
+surface and pointing upwards. The $x$-axis  is perpendicular to the
+plane of the detector and the $y$-axis is along it. The input and the scattered output beams are each by two angles
+$\alpha_0$, $\phi_0$ and $\alpha_f$, $\phi_f$ respectively. Then for each other layer
+$j=1,..., N-1$, the incident angles $\alpha_j$ and $\phi_j$  are defined with
+respect to the bottom of the layer. The angles are oriented
+considering the detector plane as the reference. This results in, for example, 
+$\alpha_f$, $\phi_f$ being positive and
+$\alpha_0$ and $\alpha_0$ negative in fig.~\ref{fig:multil3d}. \\
 
-- Definitions of the particles:
 
-\noindent vertical position in each layer.\\
-
-\noindent horizontal distribution of particles.\\
-
-\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta -i\beta$, with
-$\delta, \beta \in \mathbb{R}_+$ and $\delta, \beta \ll 1$. \\
+\noindent The layers are defined by their thicknesses (parallel to the
+$z$-direction), their possible
+roughnesses (equal to 0 by default) and the refractive index of the
+material. We do not define any dimensions in the $x$, $y$
+directions. And, except for roughness, the layer's vertical boundaries are plane and
+perpendicular to the $z$-axis. There is also no limitation to the
+number of layers that could be defined in BornAgain.\\
 
 \noindent {\huge\danger} 
 \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
-{\underline{Remark} - Order of the different steps: \\
+{\underline{Remark} - Order of the different steps for the simulation: \\
 When assembling the sample, the layers are defined from top to
 bottom. So in most cases the first layer will be the air layer.}}\\
 
+\noindent The particles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented
+  in BornAgain) and
+the refractive index of the composing material. The number of input parameters for the form
+  factor depends on the
+  particle symmetry; it ranges from one parameter for a sphere (its
+  radius) to three for an ellipsoid (its three main axis lengths).\\ By
+  placing the particles
+inside or on top of a layer, we impose their vertical positions. The in-plane distribution of particles is linked with the way the
+particles interfere with each other, which is therefore implemented
+when dealing with the interference function. \\
+
+\noindent {\huge\danger} 
+\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
+{\underline{Remark -} Depth of particles\\
+The vertical positions of particles in a layer are given in relative
+coordinates. For the top layer, the bottom corresponds to
+\texttt{depth}=0. But for all the other layers, it is the top of the
+layer which corresponds to \texttt{depth}=0.}}\\
+
+
+\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta -i\beta$, with
+$\delta, \beta \in \mathbb{R}$. \\
+
+
 \begin{figure}[h]
   \centering
-    \includegraphics[trim=20mm 70mm 150mm 60mm, clip=true, width=120mm]{multilayer3d.eps}
+    \includegraphics[clip=, width=120mm]{multilayer3d2.eps}
   \caption[Representation of the scattering geometry for multilayer
     specular reflectivity.]{Representation of the scattering geometry for multilayer
-    specular reflectivity. $n_i$ is
-    the refractive index of layer $i$ and $\alpha_i$ is the incident
-    angle of the wave propagating in layer i and incident on layer $i+1$. $\alpha_f$ is the exit angle with respect to the sample's surface and
-$\phi_f$ is the scattering angle with respect to the scattering plane.}
+    specular reflectivity. $n_j$ is
+    the refractive index of layer $j$ and $\alpha_j$ is the incident
+    angle of the wave propagating in layer $j$ and incident on layer $j+1$. $\alpha_f$ is the exit angle with respect to the sample's surface and
+$\phi_f$ is the scattering angle with respect to the scattering
+plane. }
   \label{fig:multil3d}
 \end{figure}
 
 \noindent The input beam is assumed to be monochromatic without any
-spatial divergence.
+spatial divergence.\\ \textbf{polarization term?}
 
 \subsection{Units}
 By default angles are expressed in radians and lengths are given in
 nanometers.  But it is possible to use other units by
-  specifying them right after the value of the corresponding parameter.
+specifying them right after the value of the corresponding
+parameter like, for example, \texttt{20.0*Units::micrometer} in C++.
+
 
 \subsection{Programs}
 
@@ -109,49 +142,6 @@ examples.\\
 
 \noindent Where can the following examples be found?\\
 
-\noindent List of examples:
-
-\begin{table}
-\begin{tabular}{|c|l|}
-\hline
-ex-1 &	Two types of islands (cylinder, prism3) on top of substrate.\\
-& No interference function \\
-\hline
- ex-2 &	Bimodal cylinders on top of substrate.\\
-         & Two gaussian size cylinder distribution \\	
-\hline
-ex-3 &	Cylinder formfactor in BA and DWBA \\
-\hline
-ex-4 &	1D and 2D paracrystal \\
-\hline
-ex-5 &	1D paracrystal fit example\\
-\hline
-ex-6 &	2D lattice with different disorder\\
-\hline
-ex-7 &	Mixture of different particles defined in morphology\\
-                  & file \\
-\hline
-ex-8 &	2DDL paracrystal\\
-\hline
-ex-9 & 	Pyramids on top of substrate \\
-                  & Rotated pyramids on top of substrate \\
-\hline
-ex-10 &	Cylinders with interference on top of substrate\\
-\hline
-ex-11 &	Core shell nano particles\\
-\hline
-ex-12 &	Constrained fit example\\
-           & Mixture of two cylinder types \\
-\hline
-ex-13 &	Simulated annealing fit example \\
-\hline
-ex-14 &	Layered spheres on graded interface \\
-\hline
-ex-15 &	Size spacing correlation approximation \\
-\hline
-\end{tabular}
-\caption{List of form factors implemented in BornAgain.}
-\end{table}
 
 \noindent What is the command to run the examples?
 
@@ -161,18 +151,19 @@ ex-15 &	Size spacing correlation approximation \\
 
 In this example, using Python language, we simulate the scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference
-between them. These particles are placed on top
-of a substrate. We are going to go through each step of the
-simulation. The Python script specific to one stage will be given at
-the beginning. But for the sake of completeness the full code is given
+between them. These particles are placed in air, on top
+of a substrate.\\ We are going to go through each step of the
+simulation. The Python script specific to each stage will be given at
+the beginning of the description. But for the sake of completeness the full code is given
 at the end of this section (Listing~\ref{script_ex1}). \\
 
-\noindent It starts by importing different functions from external
+\noindent We start by importing different functions from external
 modules (lines~\ref{import_begin}-\ref{import_end}). For example,
 line~\ref{import_numpy}  imports NumPy, which
-is the fundamental package for scientific computing with Python
+is a fundamental package for scientific computing with Python
 (\url{http://www.numpy.org/}).  In particular, line~\ref{import_end}
-imports the features of BornAgain software.
+imports the features of BornAgain software.\\
+
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 import sys@\label{import_begin}@
@@ -182,7 +173,6 @@ import numpy @\label{import_numpy}@
 sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..', '..', '..', 'lib')))
 
 from libBornAgainCore import * @\label{import_end}@
-
 \end{lstlisting}
 
 
@@ -204,15 +194,15 @@ materials using function \texttt{getHomogeneousMaterial} from class
 Interface material name = MaterialManager.getHomogeneousMaterial("name", Re(n), Im(n))
 \end{lstlisting}
 
-\noindent where \texttt{\textcolor{blue}{name}} is the name of the
+\noindent where \texttt{name} is the name of the
 material associated with its complex refractive index
 \texttt{n} decomposed into its real and imaginary parts. \texttt{Interface material name} is later used when
-referring to this particular material. The two defined materials in this example are \texttt{\textcolor{blue}{Air}} with a refractive
-index of 1 and a \texttt{\textcolor{blue}{Substrate}} associated with a complex refractive index
+referring to this particular material. The two defined materials in this example are \texttt{Air} with a refractive
+index of 1 and a \texttt{Substrate} associated with a complex refractive index
 equal to $1-6\times 10^{-6} -i2\times 10^{-8} $. \\
 
 \noindent \underline{Remark:} there is no condition on the choice of
-\texttt{\textcolor{blue}{name}}. 
+\texttt{name}. 
  %%%%%%%%%%%%% 
 \myparagraph{\underline{Second step:} Defining the particles} 
 
@@ -228,14 +218,10 @@ prism = Particle(n_particle, prism_ff) @\label{particlesprism2}@
 \end{lstlisting}
 
  \noindent We implement two different shapes of particles: cylinders and
- prisms (elongated particle with a constant equilateral triangular cross section).\\ All particles implemented in BornAgain are defined by their
- form factors (\textit{i.e.} The Fourier transform of the shape function - see the list of form factors implemented
-  in BornAgain), their sizes and the refractive index of the material
-  they are made of. The number of input parameters for the form
-  factor depends on the
-  particle symmetry; it ranges from one parameter for a sphere (its
-  radius) to three for an ellipsoid (its three main axis lengths). Here,  for the
-  cylinders we can input its radius and its height. For the prism, 
+ prisms (\textit{i.e.} elongated particles with a constant equilateral triangular cross section).\\ All particles implemented in BornAgain are defined by their
+ form factors, their sizes and the refractive index of the material
+  they are made of. Here, for the
+  cylindrical particle, we input its radius and its height.  For the prism, 
   the possible inputs are the length of one side of its equilateral triangular
   base and its height.\\
 
@@ -246,9 +232,9 @@ associated with both particle shapes: \texttt{n}$=1-6\times 10^{-4}-i2\times 10^
 the cylindrical particle, we first specify the form factor of a cylinder with 
 its radius and height, both equal to 5 nanometers in this particular
 case (see line~\ref{particlescyl1}). Then we associate this shape with
-the refractive index of the constituting material in line~\ref{particlescyl2}.\\
+the refractive index of the constituting material as in line~\ref{particlescyl2}.\\
 
-\noindent The same procedure has been applied for the prism in line~\ref{particlesprism1} and \ref{particlesprism2} respectively.
+\noindent The same procedure has been applied for the prism in lines~\ref{particlesprism1} and \ref{particlesprism2} respectively.
  %%%%%%%%%%%%% 
 \myparagraph{\underline{Third step:} Characterizing the layers and assembling the sample} 
 
@@ -263,9 +249,9 @@ particle_decoration.addInterferenceFunction(interference)  @\label{particlesinte
 \end{lstlisting}
 
 \noindent The process of defining the positions and densities of particles
-in our sample is called ``particle decoration''. We use the functions \texttt{ParticleDecoration()}
+in our sample is called ``particle decoration''. We use the function \texttt{ParticleDecoration()}
 (line~\ref{particlesdecor1}) and  the associated \texttt{addParticle}
-(lines~\ref{particlesdecor2}, \ref{particlesdecor3}). The general
+for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). The general
 syntax is 
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
@@ -275,10 +261,10 @@ particledecoration.addParticle(particle_name, depth, abundance)
 \noindent  where \texttt{particle\_name} is the name used to define the particles
 (lines~\ref{particlescyl2} and \ref{particlesprism2}), \texttt{depth}
 (default value =0)
-is the vertical positions, expressed in nanometers, of the particles in a given layer (the
+is the vertical position, expressed in nanometers, of the particles in a given layer (the
 association with a particular layer will be done during the next step) and
 \texttt{abundance} is the proportion of this type of particles, 
-normalized to the total number of particles, \textit{i.e.} here we have 50\% of cylinders
+normalized to the total number of particles. Here we have 50\% of cylinders
 and 50\% of prisms. \\ 
 
 \noindent {\huge\danger} 
@@ -286,8 +272,11 @@ and 50\% of prisms. \\
 {\underline{Remark -} Depth of particles\\
 The vertical positions of particles in a layer are given in relative
 coordinates. For the top layer, the bottom corresponds to
-\texttt{depth}=0. But for all the other layers, it is the top of the
+\texttt{depth}=0 and negative values would correspond to particles
+floating above layer 1 since the vertical axis, shown in
+fig.~\ref{fig:multil3d} is pointing upwards. But for all the other layers, it is the top of the
 layer which corresponds to \texttt{depth}=0.}}\\
+
 
 \noindent Finally lines~\ref{particlesnointerf} and
 \ref{particlesinterf} specify that there is \textbf{no coherent interference} between
@@ -296,8 +285,9 @@ the incoherent sum of the scattered waves: $\langle |F_n|^2\rangle$,
 where $F_n$ is the form factor associated with the particle of type $n$.  The way these waves
 interfere imposes the horizontal distribution of
 the particles as
-the interference reflects the long or short-range order of the particles distribution. On the opposite, the vertical position is
-imposed when we add the particles in a given layer by parameter \texttt{depth}, as shown in line~\ref{particlesdecor2} and \ref{particlesdecor3}. \\
+the interference reflects the long or short-range order of the
+particles distribution (\textbf{see Theory}). On the contrary, the vertical position is
+imposed when we add the particles in a given layer by parameter \texttt{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}. \\
 
 \noindent \textbf{Multilayer}\\
 
@@ -312,29 +302,30 @@ multi_layer.addLayer(substrate_layer)  @\label{layersubstrate}@
 \end{lstlisting}
 
 \noindent We now have to configure our sample. For this first example,
-the particles, cylinders and prisms, are on top of a substrate in an
+the particles, \textit{i.e.} cylinders and prisms, are on top of a substrate in an
 air layer. \textbf{The order in which we define these layers is important: we
-start from the top layer up to the bottom one}.\\
+start from the top layer down to the bottom one}.\\
 
 \noindent Let us start with the air layer. It contains the particles. In
 line~\ref{airlayer}, we use the previously defined \texttt{mAmbience}
-(="air'' material) (line~\ref{material2}). The command written in line~\ref{airlayerdecorator} shows that this layer is decorated by adding the
+(="air" material) (line~\ref{material2}). The command written in line~\ref{airlayerdecorator} shows that this layer is decorated by adding the
 particles using the function \texttt{particledecoration} defined in
 lines~\ref{particlesdecor1}-\ref{particlesinterf}. Note that the
 \texttt{depth} is referenced to the bottom of the top layer (negative
-alues would correspond to particles floating above the first layer as
-the vertical axis is pointing upwards) . The substrate layer
+values would correspond to particles floating above layer 1 as
+the vertical axis is pointing upwards). The substrate layer
 only contains the substrate material (line~\ref{substratelayer}).\\
  
 \noindent There are different possible syntaxes to define a layer. As shown in
 lines~\ref{airlayer} and \ref{substratelayer}, we can use
 \texttt{Layer(Interface material name,thickness)} or
-\texttt{Layer(Interface material name)}. The \texttt{thickness} is
+\texttt{Layer(Interface material name)}. The second case corresponds
+to the default value of the \texttt{thickness}, equal to 0. The \texttt{thickness} is
 expressed in  nanometers. \\
 
 \noindent Our two layers are now fully characterized. The sample is assembled using
 \texttt{MultiLayer()} constructor (line~\ref{multilayercanvas}): we start with the air layer decorated
-with the particles (line~\ref{layersubstrate}), which is the layer at
+with the particles (line~\ref{layerairdecor}), which is the layer at
 the top and end with the bottom layer, which is the
 substrate (line~\ref{layersubstrate}).
  %%%%%%%%%%%%% 
@@ -348,46 +339,47 @@ simulation = Simulation()  @\label{run2}@
 simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 
                                 100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
 simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)  @\label{runbeam}@
-simulation.setSample(multi_layer)  @\label{runSample}@
+simulation.setSample(multi_layer)  @\label{runsample}@
 simulation.runSimulation()  @\label{runsimul}@
 \end{lstlisting}
 
 
 \noindent The first stage is to define the \texttt{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
-parameters (line~\ref{runbeam}) to finally run
-the simulation using the sample previously defined
-(line~\ref{runSample}). Those functions are part of the Simulation
+parameters (line~\ref{runbeam}), which are associated with the
+sample previously defined (line~\ref{runsample}). Finally we run
+the simulation (line~\ref{runsimul}). Those functions are part of the Simulation
 class.  The
 different incident and exit angles are
 shown in Fig.~\ref{fig:multil3d}. \\
 
 \noindent The detector parameters are set using ranges of angles via
-the function\\
+the function:\\
 
 \noindent \texttt{setDetectorParameters(n\_phi, phi\_f\_min,
   phi\_f\_max,\\ \phantom{setDetectorParameters(}n\_alpha, alpha\_f\_min, alpha\_f\_max, isgisaxs\_style=false)}, \\
 
 \noindent where \texttt{n\_phi=100} is the number of points in the range of
 variations of angle $\phi_f$,\\ \texttt{phi\_f\_min=-1.0*degree} and \texttt{phi\_f\_max=1.0*degree}
-are the minimum and maximum values respectively of $\phi_f$, which is the in-plane direction of the scattering beam
+are the minimum and maximum values respectively of $\phi_f$, which is the in-plane direction of the scattered beam
 (measured with respect to the $x$-axis), \\ \texttt{n\_alpha=100} is
 the number of points in the range of variations of the exit angle
-$\alpha_f$ measured from the $x$-axis in the $z$-direction,\\ \texttt{alpha\_f\_min=0.0*degree} and \texttt{alpha\_f\_max=2.0*degree} 
+$\alpha_f$ measured from the $x,y$-plane in the $z$-direction,\\ \texttt{alpha\_f\_min=0.0*degree} and \texttt{alpha\_f\_max=2.0*degree} 
 are the minimum and maximum values respectively of $\alpha_f$,\\
 \texttt{isgisaxs\_style=True} (default value = False) is a boolean
 used to characterise the structure of the output data. If
-\texttt{isgisaxs\_style=True}, \textbf{ the output data is binned at constant
-values of the sine of $\alpha_f$ and $\phi_f$ otherwise it is binned
-at constant values of these two angles.}\\
+\texttt{isgisaxs\_style=True}, the output data is binned at constant
+values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
+at constant values of these two angles.\\
 
 
-\noindent For the beam the function is
+\noindent For the beam the function to use is
 \texttt{simulation.setBeamParameters(lambda, alpha\_i, phi\_i)}, where
 \texttt{lambda=1.0*angstrom} is the incident beam wavelength,\\
 \texttt{alpha\_i=-0.2*degree} is the incident
 grazing angle on the surface of the sample,
 \texttt{phi\_i=0.0*degree} is the in-plane
-direction of the incident beam (measured with respect to the $x$-axis).\\ 
+direction of the incident beam (measured with respect to the
+$x$-axis). Note that in Fig.\ref{fig:multil3d} $\alpha_i=\alpha_0$ and $\phi_i=\phi_0$.\\ 
 
 \noindent \underline{Remark}: Note that, except for
 \texttt{isgisaxs\_style}, there are no default values implemented for the
@@ -422,23 +414,22 @@ cylindrical and prismatic nanoparticles without any interference, deposited on t
 of a substrate]{Figure of example 1: Simulated grazing-incidence small-angle X-ray scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference, deposited on top
 of a substrate. The input beam is characterized by a wavelength
-$\lambda$ equal to 1~\AA\ and incident angles $\alpha_i=-0.2^{\circ}$, $\phi_i=0^{\circ}$. The
+$\lambda$ of 1~\AA\ and incident angles $\alpha_i=-0.2^{\circ}$, $\phi_i=0^{\circ}$. The
 cylinders have a radius and a height both equal to 5~nm, the prisms
 are characterized by a side length equal to 5~nm and they are also 5~nm high. The
 material of the particles has a refractive index of $1-6\times 10^{-4}-i2\times 10^{-8}$. For the substrate
 it is equal to $1-6\times 10^{-6} -i2\times 10^{-8} $. The colorscale
-is associated with the output intensity. }
+is associated with the output intensity in arbitrary units. }
 \label{fig:output_ex1}
 \end{figure}
 
 \newpage
-    
 \begin{lstlisting}[caption={Python script of example 1},
   label=script_ex1,captionpos=b,escapeinside={@}{@} ,language=python,style=eclipse, numbers= none,frame = leftline ,
       framerule = 2mm ,
       rulecolor = \color{lightgrey},
       breaklines = true]
-import sys 
+import sys
 import os
 import numpy 
 

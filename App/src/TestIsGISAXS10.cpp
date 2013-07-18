@@ -42,8 +42,11 @@ void TestIsGISAXS10::finalise()
     std::string isgi_file(getOutputPath()+"isgi_para1dcyl.ima.gz");
     std::string this_file(getOutputPath()+"this_para1dcyl.ima");
 
+    std::cout << "xxx 1.1" << std::endl;
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+    std::cout << "xxx 1.2" << std::endl;
     OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    std::cout << "xxx 1.3" << std::endl;
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS10_c1", "1D paracrystal cylinder islands");
 

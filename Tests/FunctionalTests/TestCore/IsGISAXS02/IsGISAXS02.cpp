@@ -35,7 +35,7 @@ void FunctionalTests::IsGISAXS02::run()
 
 int FunctionalTests::IsGISAXS02::analyseResults(const std::string &path_to_data)
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
 
     // retrieving reference data
     std::string filename = path_to_data + "isgisaxs02_reference.ima.gz";

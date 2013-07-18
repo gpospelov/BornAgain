@@ -162,7 +162,7 @@ def runTest():
     diff = GetDifference(result, reference_data)
     print diff
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "MesoCrystal1", "Mesocrystal simulation", status
 
 

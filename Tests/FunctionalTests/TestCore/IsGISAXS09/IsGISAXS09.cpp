@@ -71,7 +71,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 
 int FunctionalTests::IsGISAXS09::analyseResults(const std::string &path_to_data)
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] =
         {"isgisaxs09_reference_pyramid_Z0.ima.gz",
          "isgisaxs09_reference_pyramid_Z45.ima.gz"};

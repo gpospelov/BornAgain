@@ -61,7 +61,7 @@ void FunctionalTests::IsGISAXS04::run2DDL()
 
 int FunctionalTests::IsGISAXS04::analyseResults(const std::string &path_to_data)
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] = {"isgisaxs04_reference_1DDL.ima.gz", "isgisaxs04_reference_2DDLh.ima.gz"};
     bool status_ok(true);
 

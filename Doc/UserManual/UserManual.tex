@@ -1,12 +1,13 @@
-\documentclass[article,10pt]{report}
-\usepackage{cite}
+\documentclass[a4paper,10pt]{report}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.3}
 %----------------------------------------------------------------------------------------
 %	FONT
 %----------------------------------------------------------------------------------------
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-%`\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
+%\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
 
 %----------------------------------------------------------------------------------------
 %	PAGE LAYOUT
@@ -72,18 +73,21 @@
 \usepackage{graphicx}
 \usepackage{epstopdf}
 
+
 \usepackage{float}
 %\usepackage{tikz}
 %\usepackage{tikz-uml} 
 \usepackage{amsmath}
+
 \usepackage{pifont}
-%\usepackage{fourier}
-%\usepackage{dingbat}
+\usepackage{fourier}
+\usepackage{dingbat}
+
 \usepackage{hyperref}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
-\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 %----------------------------------------------------------------------------------------
 %	CUSTON LISTING SETTINGS
 %----------------------------------------------------------------------------------------
@@ -96,20 +100,33 @@
 
 \definecolor{Lightgray}{gray}{.80}
 \definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%       Commands
+%----------------------------------------------------------------------------------------
+\newcommand{\Code}[1]{\texttt{#1}}
+\newcommand{\BornAgain}{\Code{BornAgain}}%
+\newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
+\newcommand{\SecLabel}[1]{\label{sec:#1}}%
+\newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
+
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
-
-% Front page: logo?
-
 \title{
 BornAgain - simulating and fitting X-ray and neutron scattering at grazing incidence. \\
 \vspace*{10mm} User Guide \\
 \large{ version 0.1}
 }
 
-
 \author{Scientific Computing Group at FRM-II}
+
+
 
 \usepackage{eso-pic}
 \newcommand\BackgroundPic{%
@@ -122,23 +139,13 @@ keepaspectratio]{results2_2.png}%
 \vfill
 }}}
 
-
-%----------------------------------------------------------------------------------------
-%	Commands
-%----------------------------------------------------------------------------------------
-\newcommand{\Code}[1]{\texttt{#1}}
-\newcommand{\BornAgain}{\Code{BornAgain}}%
-\newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
-\newcommand{\SecLabel}[1]{\label{sec:#1}}%
-\newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
-
-
 %----------------------------------------------------------------------------------------
 %	DOCUMENT
 %----------------------------------------------------------------------------------------
+
 \begin{document}
 
-%\AddToShipoutPicture*{\BackgroundPic} % add bakcground image to the
+%\AddToShipoutPicture*{\BackgroundPic} % add background image to the
 %first page
 \maketitle
 
@@ -152,19 +159,15 @@ keepaspectratio]{results2_2.png}%
 %\listoffigures
 %\listoftables
 
-%\newpage
 
-%\chapter{Working with BornAgain}
 \input{Introduction}
 \input{QuickStart}
 \input{SoftwareArchitecture}
 \input{Installation}
-%\input{Fitting}
-%\input{Examples}
-%\input{Appendix}
+\input{Examples}
 
+%List of notations\\  Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
 
-%Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
 %\appendix
 %\input{Appendix}
 

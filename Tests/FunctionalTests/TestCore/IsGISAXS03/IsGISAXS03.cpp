@@ -86,7 +86,7 @@ void FunctionalTests::IsGISAXS03::runBA_Size()
 
 int FunctionalTests::IsGISAXS03::analyseResults(const std::string &path_to_data)
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] = {"isgisaxs03_reference_DWBA.ima.gz", "isgisaxs03_reference_BA.ima.gz", "isgisaxs03_reference_BA_size.ima.gz"};
     bool status_ok(true);
 

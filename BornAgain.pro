@@ -16,6 +16,8 @@ isEmpty(ROOT) {
 !isEmpty(ROOT) SUBDIRS += ThirdParty/RootMathMore Fit App
 
 SUBDIRS += Tests/UnitTests/TestCore
+SUBDIRS += Tests/FunctionalTests/TestCore
+SUBDIRS += Tests/FunctionalTests/TestFit
 
 
 TestCore.depends = ThirdParty/gtest

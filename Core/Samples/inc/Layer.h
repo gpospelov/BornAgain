@@ -44,10 +44,10 @@ class BA_CORE_API_ Layer : public ICompositeSample
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
-    //! Sets layer thickness in Angstrom.
+    //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);
 
-    //! Returns layer thickness in Angstrom.
+    //! Returns layer thickness in nanometers.
     virtual double getThickness() const { return m_thickness; }
 
     //! Sets _material_ of the layer.

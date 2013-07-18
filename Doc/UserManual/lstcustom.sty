@@ -212,6 +212,8 @@ height, collapsed, true, false%
 \definecolor{lightblue1}{rgb}{0 0.25 1}
 \definecolor{darkpink}{rgb}{1 0 0.75}
 \definecolor{dred}{rgb}{0.8,0,0}
+\definecolor{lightlightgrey}{rgb}{0.95 0.95 0.95}
+
 
 \definecolor{oneblue}{rgb}{0,0,0.75}
 \definecolor{dockerblue}{rgb}{0.11,0.56,0.98}
@@ -288,6 +290,31 @@ breaklines = true
   showstringspaces=false
 }
 
+
+\lstdefinestyle{commandline}{
+   escapeinside={@}{@},
+    basicstyle=\small\lstfontfamily,
+    emphstyle=\color{red}\bfseries, 
+    keywordstyle=\color{darkviolet}\bfseries,
+    commentstyle=\color{darkgreen},
+    stringstyle=\color{darkblue},
+    numberstyle=\color{darkgrey}\lstfontfamily,
+    emphstyle=\color{red},
+    backgroundcolor=\color{lightlightgrey},
+    morecomment=[s][\color{lightblue}]{/**}{*/},
+  showstringspaces=false,
+  numbers=left,%none,
+ emphstyle={[2]\color{blue}},
+ frame=single,
+firstnumber=auto,
+ rulesepcolor=\color{darkgrey},
+rulecolor=\color{darkgrey}, 
+breaklines = true,
+numbers=none,
+%showspaces=true,
+%showtabs=true,
+%tabsize=1
+}
 
 
 %

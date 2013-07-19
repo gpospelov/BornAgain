@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFittingModule3.cpp
@@ -99,7 +99,7 @@ void TestFittingModule3::initializeSimulation()
     m_simulation = new Simulation(mp_options);
     m_simulation->setSample(*m_sample);
     m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     m_simulation->setBeamIntensity(1e10);
 }
 

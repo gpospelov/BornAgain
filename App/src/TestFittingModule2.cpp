@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFittingModule2.cpp
@@ -99,7 +99,7 @@ void TestFittingModule2::fit_example_basics()
     initializeSimulation();
     initializeRealData();
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height", 
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
                                 5*Units::nanometer, 1*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
@@ -271,7 +271,7 @@ void TestFittingModule2::initializeSimulation()
         100, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(
          1.0*Units::angstrom,
-        -0.2*Units::degree,
+         0.2*Units::degree,
          0.0*Units::degree);
 }
 

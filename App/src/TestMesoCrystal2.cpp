@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestMesoCrystal2.cpp
@@ -505,7 +505,7 @@ void TestMesoCrystal2::initializeSimulation(const OutputData<double> *output_dat
 
     m_simulation = new Simulation(mp_options);
     m_simulation->setSampleBuilder( m_sample_builder );
-    m_simulation->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     m_simulation->setBeamIntensity(8e12);
     m_simulation->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
 

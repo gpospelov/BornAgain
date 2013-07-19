@@ -43,7 +43,7 @@ def RunSimulation():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(150,0.05*degree, 1.5*degree, 150, 0.05*degree, 1.5*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params = SimulationParameters()
     sim_params.me_if_approx = SimulationParameters.SSCA

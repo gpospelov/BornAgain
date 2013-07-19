@@ -52,7 +52,7 @@ def RunSimulation_lattice():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -110,7 +110,7 @@ def RunSimulation_centered():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -163,7 +163,7 @@ def RunSimulation_rotated():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params = SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -184,7 +184,7 @@ def RunSimulation_variants():
     # building simulation
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     
     sim_params = SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA

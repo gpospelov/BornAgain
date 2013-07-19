@@ -44,9 +44,11 @@ void MesoCrystal1::MesoCrystal1::run(const std::string &path_to_data)
 Simulation *MesoCrystal1::createSimulation()
 {
     Simulation *simulation = new Simulation();
-    simulation->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    simulation->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree,
+            0.0*Units::degree);
     simulation->setBeamIntensity(5.0090e+12);
-    simulation->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    simulation->setDetectorResolutionFunction(
+            new ResolutionFunction2DSimple(0.0002, 0.0002));
     return simulation;
 }
 
@@ -60,7 +62,8 @@ int MesoCrystal1::analyseResults()
     *m_result /= *m_reference;
 
     double diff(0);
-    for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {
+    for(OutputData<double>::const_iterator it=m_result->begin();
+            it!=m_result->end(); ++it) {
         diff+= std::fabs(*it);
     }
     diff /= m_result->getAllocatedSize();
@@ -69,7 +72,8 @@ int MesoCrystal1::analyseResults()
     if( diff > threshold || std::isnan(diff)) status_ok=false;
 
     std::cout << " diff " << diff << std::endl;
-    std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    std::cout << m_name << " " << m_description << " " <<
+            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (status_ok ? 0 : 1);
 }
 
@@ -79,7 +83,8 @@ int MesoCrystal1::analyseResults()
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) +
+            "../../../ReferenceData/BornAgain/";
 }
 
 int main(int argc, char **argv)

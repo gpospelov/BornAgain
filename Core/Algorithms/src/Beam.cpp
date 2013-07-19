@@ -50,6 +50,7 @@ void Beam::setCentralK(const cvector_t& k_i)
 void Beam::setCentralK(double lambda, double alpha_i, double phi_i)
 {
     cvector_t k_i;
+    if (alpha_i >0) alpha_i = - alpha_i;
     k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
     m_central_k = k_i;
 }

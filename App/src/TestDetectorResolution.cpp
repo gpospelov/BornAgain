@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestDetectorResolution.cpp
@@ -39,7 +39,7 @@ void TestDetectorResolution::execute()
         new ResolutionFunction2DSimple(0.001, 0.001);
     simulation.setDetectorResolutionFunction(p_resolution_function);
     simulation.setBeamParameters
-        (1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        (1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
     mp_intensity_output = simulation.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData

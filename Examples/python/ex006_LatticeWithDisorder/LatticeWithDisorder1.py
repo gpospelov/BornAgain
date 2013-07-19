@@ -17,8 +17,8 @@ M_PI = numpy.pi
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -52,7 +52,7 @@ def RunSimulation():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA

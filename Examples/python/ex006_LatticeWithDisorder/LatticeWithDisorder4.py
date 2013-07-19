@@ -20,7 +20,7 @@ def RunSimulation():
     # building simulation
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params = SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -52,8 +52,8 @@ def RunSimulation():
 # IsGISAXS6 functional test sample builder for varying xi angle
 def buildSample(xi_value):
     n_particle = complex(1.0-6e-4, 2e-8)
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     air_layer = Layer(mAmbience)
     substrate_layer = Layer(mSubstrate)
     

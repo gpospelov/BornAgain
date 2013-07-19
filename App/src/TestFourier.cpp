@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFourier.cpp
@@ -44,7 +44,7 @@ void TestFourier::execute()
     simulation.setSample(*mp_sample);
     simulation.setDetectorParameters(256, 0.3*Units::degree, 10.0*Units::degree
             ,256, 0.0*Units::degree, 10.0*Units::degree);
-    simulation.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     simulation.setBeamIntensity(8e12);
 
     simulation.runSimulation();

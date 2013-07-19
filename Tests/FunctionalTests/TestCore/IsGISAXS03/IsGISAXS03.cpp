@@ -30,8 +30,10 @@ void FunctionalTests::IsGISAXS03::runDWBA()
     // building simulation
     Simulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+                                     100, 0.0*Units::degree, 2.0*Units::degree,
+                                     true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
 
     // running simulation and copying data
     simulation.setSample(*sample);
@@ -51,8 +53,10 @@ void FunctionalTests::IsGISAXS03::runBA()
     // building simulation
     Simulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+                                     100, 0.0*Units::degree, 2.0*Units::degree,
+                                     true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
 
     // running simulation and copying data
     simulation.setSample(*sample);
@@ -72,8 +76,10 @@ void FunctionalTests::IsGISAXS03::runBA_Size()
     // building simulation
     Simulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+                                     100, 0.0*Units::degree, 2.0*Units::degree,
+                                     true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
 
     // running simulation and copying data
     simulation.setSample(*sample);

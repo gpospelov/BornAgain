@@ -35,7 +35,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(
-        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.setSample(*sample);
 
     // running simulation
@@ -58,7 +58,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(
-        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.setSample(*sample);
 
     // running simulation

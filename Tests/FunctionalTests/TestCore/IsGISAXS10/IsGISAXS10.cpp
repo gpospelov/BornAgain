@@ -34,9 +34,12 @@ void FunctionalTests::IsGISAXS10::run()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
+    IInterferenceFunction *p_interference_function =
+            new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
+                    7*Units::nanometer, 1e7*Units::nanometer);
     complex_t n_particle(1.0-5e-5, 2e-8);
-    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleDecoration particle_decoration(new Particle(n_particle,
+            new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -46,8 +49,10 @@ void FunctionalTests::IsGISAXS10::run()
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     simulation.setSample(multi_layer);
 
     // running simulation and copying data
@@ -70,7 +75,8 @@ int FunctionalTests::IsGISAXS10::analyseResults(const std::string &path_to_data)
     delete reference;
 
     double diff(0);
-    for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {
+    for(OutputData<double>::const_iterator it=m_result->begin();
+            it!=m_result->end(); ++it) {
         diff+= std::fabs(*it);
     }
     diff /= m_result->getAllocatedSize();
@@ -78,7 +84,8 @@ int FunctionalTests::IsGISAXS10::analyseResults(const std::string &path_to_data)
     bool status_ok(true);
     if( diff > threshold || std::isnan(diff)) status_ok=false;
 
-    std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    std::cout << m_name << " " << m_description << " " <<
+            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (status_ok ? 0 : 1);
 }
 
@@ -87,7 +94,8 @@ int FunctionalTests::IsGISAXS10::analyseResults(const std::string &path_to_data)
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) +
+            "../../../ReferenceData/BornAgain/";
 }
 
 int main(int argc, char **argv)

@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS14.cpp
@@ -39,7 +39,7 @@ void TestIsGISAXS14::execute()
     Simulation simulation(mp_options);
     simulation.setSample(*sample);
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
     OutputDataIOFactory::writeOutputData(*simulation.getOutputDataClone(), getOutputPath() + "this_multilayer_sphere.ima");
 }

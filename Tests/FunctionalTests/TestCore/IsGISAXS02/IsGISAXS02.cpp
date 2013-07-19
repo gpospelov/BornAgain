@@ -22,8 +22,10 @@ void FunctionalTests::IsGISAXS02::run()
     ISample *sample = factory.createSample("isgisaxs02");
 
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(100, 0.0*Units::degree,
+            2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     simulation.setSample(*sample);
     simulation.runSimulation();
 

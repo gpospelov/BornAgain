@@ -33,20 +33,22 @@ void FunctionalTests::IsGISAXS15::run()
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    InterferenceFunction1DParaCrystal *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e3*Units::nanometer);
+    InterferenceFunction1DParaCrystal *p_interference_function =
+            new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,
+                    5*Units::nanometer, 1e3*Units::nanometer);
     p_interference_function->setKappa(4.02698);
     ParticleDecoration particle_decoration;
-    Particle particle_prototype(n_particle, new FormFactorCylinder(5.0*Units::nanometer, 5.0*Units::nanometer));
+    Particle particle_prototype(n_particle, new FormFactorCylinder(
+            5.0*Units::nanometer, 5.0*Units::nanometer));
     StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
     StochasticSampledParameter stochastic_radius(sg,30, 2);
     ParticleBuilder particle_builder;
-    particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius", stochastic_radius);
+    particle_builder.setPrototype(particle_prototype,
+            "/Particle/FormFactorCylinder/radius", stochastic_radius);
     particle_builder.plantParticles(particle_decoration);
 
     // Set height of each particle to its radius (H/R fixed)
     ParameterPool *p_parameters = particle_decoration.createParameterTree();
-    //int nbr_replacements = p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
-    //std::cout << "Number of replacements: " << nbr_replacements << std::endl;
     p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
@@ -55,8 +57,10 @@ void FunctionalTests::IsGISAXS15::run()
 
    // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree, 150, 0.05*Units::degree, 1.5*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree,
+            150, 0.05*Units::degree, 1.5*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     SimulationParameters sim_params;
     sim_params.me_if_approx = SimulationParameters::SSCA;
     simulation.setSimulationParameters(sim_params);
@@ -82,7 +86,8 @@ int FunctionalTests::IsGISAXS15::analyseResults(const std::string &path_to_data)
     delete reference;
 
     double diff(0);
-    for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {
+    for(OutputData<double>::const_iterator it=m_result->begin();
+            it!=m_result->end(); ++it) {
         diff+= std::fabs(*it);
     }
     diff /= m_result->getAllocatedSize();
@@ -90,7 +95,8 @@ int FunctionalTests::IsGISAXS15::analyseResults(const std::string &path_to_data)
     bool status_ok(true);
     if( diff > threshold || std::isnan(diff)) status_ok=false;
 
-    std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    std::cout << m_name << " " << m_description << " " <<
+            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (status_ok ? 0 : 1);
 }
 
@@ -99,7 +105,8 @@ int FunctionalTests::IsGISAXS15::analyseResults(const std::string &path_to_data)
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) +
+            "../../../ReferenceData/BornAgain/";
 }
 
 int main(int argc, char **argv)

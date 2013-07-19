@@ -35,6 +35,11 @@ class IMaterial : public INamed
     //! Destructor.
     virtual ~IMaterial() {}
 
+    //! Indicates whether the interaction with the material is scalar.
+    //! This means that different polarization states will be diffracted
+    //! equally
+    virtual bool isScalarMaterial() { return true; }
+
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
     { m.print(ostr); return ostr; }
 

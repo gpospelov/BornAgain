@@ -102,6 +102,7 @@ SOURCES += \
     FormFactors/src/IFormFactorBorn.cpp \
     \
     Samples/src/Crystal.cpp \
+    Samples/src/HomogeneousMagneticMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/ISample.cpp \
@@ -261,6 +262,7 @@ HEADERS += \
     \
     Samples/inc/Crystal.h \
     Samples/inc/DiffuseParticleInfo.h \
+    Samples/inc/HomogeneousMagneticMaterial.h \
     Samples/inc/HomogeneousMaterial.h \
     Samples/inc/IClusteredParticles.h \
     Samples/inc/ICompositeIterator.h \

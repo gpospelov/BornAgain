@@ -37,14 +37,6 @@ class HomogeneousMaterial : public IMaterial
         m_refractive_index(complex_t(refractive_index_real,
                                      refractive_index_imag)) {}
 
-    //! TODO: is this needed?
-    HomogeneousMaterial(const complex_t &refractive_index)
-        : IMaterial("noname"), m_refractive_index(refractive_index) {}
-
-    // Copy constructor.
-//    HomogeneousMaterial(const HomogeneousMaterial& other)
-//        : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
-
     virtual ~HomogeneousMaterial() {}
 
     //! Return refractive index.

@@ -25,7 +25,14 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 
 # dependencies
 target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
-target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+
+if(ROOT_FOUND)
+    target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+else()
+    target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
+    include_directories(${RootMinimizers_INCLUDE_DIRS})
+endif()
+
 
 # copying library into lib directory for functional tests
 ADD_CUSTOM_COMMAND(

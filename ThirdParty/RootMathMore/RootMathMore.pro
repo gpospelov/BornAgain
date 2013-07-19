@@ -2,40 +2,53 @@ TARGET   = RootMathMore
 TEMPLATE = lib
 QT      -= core gui
 macx|unix {
-  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
   CONFIG  += plugin # to remove versions from file name
 }
-CONFIG  += BORNAGAIN_ROOT
 
 include(../../shared.pri)
 
 SOURCES += \
-    src/GSLMinimizer.cxx \
-    src/GSLMinimizer1D.cxx \
-    src/MultiNumGradFunction.cxx \
-    src/GSLSimAnnealing.cxx \
-    src/GSLRndmEngines.cxx \
     src/Derivator.cxx \
-    src/GSLDerivator.cxx
+    src/GSLDerivator.cxx \
+    src/GSLMinimizer1D.cxx \
+    src/GSLMinimizer.cxx \
+    src/GSLRndmEngines.cxx \
+    src/GSLSimAnnealing.cxx \
+    src/MultiNumGradFunction.cxx \
+    src/GSLNLSMinimizer.cxx \
+    src/GSLSimAnMinimizer.cxx \
 
 HEADERS += \
-    inc/GSLMinimizer.h \
-    inc/GSLMinimizer1D.h \
-    inc/GSLSimAnnealing.h \
-    inc/GSLMultiFitFunctionWrapper.h \
-    inc/GSLMultiFitFunctionAdapter.h \
-    inc/GSLMultiFit.h \
-    inc/GSLMultiMinimizer.h \
-    inc/GSLMultiMinFunctionWrapper.h \
-    inc/GSLMultiMinFunctionAdapter.h \
-    inc/GSLFunctionWrapper.h \
-    inc/MultiNumGradFunction.h \
-    inc/GSLRngWrapper.h \
-    inc/GSLRndmEngines.h \
-    inc/Derivator.h \
-    inc/GSLDerivator.h
+    inc/Math/Derivator.h \
+    inc/Math/GSLFunctionAdapter.h \
+    inc/Math/GSLFunctionWrapper.h \
+    inc/Math/GSLMinimizer1D.h \
+    inc/Math/GSLMinimizer.h \
+    inc/Math/GSLRndmEngines.h \
+    inc/Math/GSLSimAnnealing.h \
+    inc/Math/MultiNumGradFunction.h \
+    inc/Math/GSLNLSMinimizer.h \
+    inc/Math/GSLSimAnMinimizer.h \
+    \
+    src/GSL1DMinimizerWrapper.h \
+    src/GSLDerivator.h \
+    src/GSLFunctionWrapper.h \
+    src/GSLMultiFitFunctionAdapter.h \
+    src/GSLMultiFitFunctionWrapper.h \
+    src/GSLMultiFit.h \
+    src/GSLMultiMinFunctionAdapter.h \
+    src/GSLMultiMinFunctionWrapper.h \
+    src/GSLMultiMinimizer.h \
+    src/GSLRngWrapper.h \
 
-INCLUDEPATH += inc
+INCLUDEPATH +=  $$PWD/inc
+DEPENDPATH  +=  $$PWD/inc
+
+isEmpty(ROOT_FRAMEWORK) {
+    INCLUDEPATH += $$RootMinimizers_INCLUDEPATH
+} else {
+    INCLUDEPATH += $$ROOT_FRAMEWORK_INCLUDEPATH
+}
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

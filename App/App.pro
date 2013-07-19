@@ -3,7 +3,18 @@ CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
 QT      -= core gui
-CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
+
+
+# -----------------------------------------------------------------------------
+# generate ROOT dictionaries
+# -----------------------------------------------------------------------------
+BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
+BORNAGAIN_ROOT_DICT_INCLUDES = $$PWD/../Core/Tools/inc
+include($$PWD/../shared.pri)
+
+isEmpty(ROOT_FRAMEWORK) {
+    error("ROOT is absent")
+}
 
 # -----------------------------------------------------------------------------
 # propagating operation system type inside the code
@@ -137,43 +148,20 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
+myIncludes = $$PWD/inc \
+             $${FUNCTIONAL_TESTS}/IsGISAXS06 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS07 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS08 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS10 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS11 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS15
 
-LOCATIONS = $$PWD/inc \
-            $${FUNCTIONAL_TESTS}/IsGISAXS06 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS07 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS08 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS10 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS11 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS15
+myIncludes += $${BornAgainCore_INCLUDEPATH} $${BornAgainFit_INCLUDEPATH} $${ROOT_FRAMEWORK_INCLUDEPATH}
 
-INCLUDEPATH += $${LOCATIONS}
-DEPENDPATH  += $${LOCATIONS}
+INCLUDEPATH += $$myIncludes
+DEPENDPATH  += $$myIncludes
 
-# -----------------------------------------------------------------------------
-# to throw exception in the case floating point exception
-# -----------------------------------------------------------------------------
-#CONFIG(DEBUG) {
-#    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-#    # mac requires his own patched version of fp_exceptions
-#    macx:HEADERS += inc/fp_exception_glibc_extension.h
-#    macx:SOURCES += src/fp_exception_glibc_extension.c
-#}
+LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMathMore_LIB
+LIBS += $${ROOT_FRAMEWORK_LIBS}
 
-# -----------------------------------------------------------------------------
-# additional libraries
-# -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so $$PWD/../lib/libRootMathMore.so
 
-INCLUDEPATH += $$PWD/../Fit/Factory/inc
-DEPENDPATH  += $$PWD/../Fit/Factory/inc
-
-# -----------------------------------------------------------------------------
-# generate ROOT dictionaries
-# -----------------------------------------------------------------------------
-BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
-BORNAGAIN_ROOT_DICT_INCLUDES = $$PWD/../Core/Tools/inc
-
-# -----------------------------------------------------------------------------
-# general project settings
-# -----------------------------------------------------------------------------
-include($$PWD/../shared.pri)

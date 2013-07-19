@@ -48,8 +48,14 @@ ADD_CUSTOM_COMMAND(
 # dependencies
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
-target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+if(ROOT_FOUND)
+    target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+else()
+    target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
+    include_directories(${RootMinimizers_INCLUDE_DIRS})
+endif()
 target_link_libraries(${library_name} ${RootMathMore_LIBRARY}) 
+include_directories(${RootMathMore_INCLUDE_DIRS})
 
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

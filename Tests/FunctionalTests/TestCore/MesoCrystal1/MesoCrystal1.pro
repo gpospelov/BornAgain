@@ -5,8 +5,7 @@ QT      -= core gui
 
 include($$PWD/../../../../shared.pri)
 DEFINES += STANDALONE
-LIBS += $$PWD/../../../../lib/libBornAgainCore.so
-
+LIBS += $$BornAgainCore_LIB
 SOURCES += MesoCrystal1.cpp SampleBuilder.cpp
 HEADERS += MesoCrystal1.h SampleBuilder.h
 

@@ -10,7 +10,7 @@
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
 
-#include "TBenchmark.h"
+//#include "TBenchmark.h"
 
 #include <iostream>
 #include <iomanip>
@@ -63,8 +63,8 @@ int TestFit01::run()
 // run fitting using dedicated minimizer, return true in the case of success
 bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string &minimizer_algorithm)
 {
-    TBenchmark mb;
-    mb.Start("test");
+//    TBenchmark mb;
+//    mb.Start("test");
 
     ISample *sample = buildSample();
     Simulation *simulation = createSimulation();
@@ -89,9 +89,9 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
     double radius_found = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(1);
     double radius_diff = std::fabs(radius_found - m_cylinder_radius)/m_cylinder_radius;
 
-    mb.Stop("test");
-    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "RealTime" % mb.GetRealTime("test");
-    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "CpuTime" % mb.GetCpuTime("test");
+//    mb.Stop("test");
+//    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "RealTime" % mb.GetRealTime("test");
+//    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "CpuTime" % mb.GetCpuTime("test");
     std::cout << boost::format("%|12t| %-10s : %-4d \n") % "NCalls" % fitSuite->getNCalls();
     std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") % "Par1" % height_found % height_diff;
     std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") % "Par2" % radius_found % radius_diff;

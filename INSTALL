@@ -1,0 +1,13 @@
+Installation:
+
+see the online documentation at http://apps.jcns.fz-juelich.de/BornAgain
+
+Installation instructions for *nix:
+1) Install dependencies
+
+
+\item boost library ($\geq 1.48$)
+\item GNU scientific library ($\geq 1.15$)
+\item fftw3 library ($\geq 3.3.1$)
+\item Eigen3 library ($\geq 3.1.0$), optional
+\item ROOT framework ($\geq 5.34.00$), optional

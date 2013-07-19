@@ -1,6 +1,9 @@
+# -----------------------------------------------------------------------------
 # Common settings for all BornAgain compilations
+# -----------------------------------------------------------------------------
 
-CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+#CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+
 
 win32 {
     MAKE_COMMAND = mingw32-make
@@ -10,6 +13,7 @@ win32 {
 macx|unix {
     MAKE_COMMAND = make
     SONAME = so
+    QMAKE_EXTENSION_SHLIB = $$SONAME
 }
 
 # -----------------------------------------------------------------------------
@@ -31,6 +35,22 @@ isEqual(env_debug_variable, "yes") {
   #message("Compiling with DEBUG option")
   CONFIG += debug
 }
+
+
+# -----------------------------------------------------------------------------
+# Global variables
+# -----------------------------------------------------------------------------
+BornAgainCore_INCLUDEPATH = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/StandardSamples
+BornAgainCore_LIB = $$PWD/lib/libBornAgainCore.$${SONAME}
+
+BornAgainFit_INCLUDEPATH = $$PWD/Fit/Factory/inc
+BornAgainFit_LIB = $$PWD/lib/libBornAgainFit.$${SONAME}
+
+RootMinimizers_INCLUDEPATH = $${PWD}/ThirdParty/RootMinimizers/inc
+RootMinimizers_LIB = $$PWD/lib/libRootMinimizers.$${SONAME}
+
+RootMathMore_INCLUDEPATH = $${PWD}/ThirdParty/RootMathMore/inc
+RootMathMore_LIB = $$PWD/lib/libRootMathMore.$${SONAME}
 
 
 # -----------------------------------------------------------------------------
@@ -148,22 +168,13 @@ CONFIG(BORNAGAIN_JCNS) {
 # -----------------------------------------------------------------------------
 # general include paths
 # -----------------------------------------------------------------------------
-LOCATIONS = $$PWD/Core/Algorithms/inc \
-            $$PWD/Core/FormFactors/inc  \
-            $$PWD/Core/Geometry/inc  \
-            $$PWD/Core/Samples/inc  \
-            $$PWD/Core/Tools/inc \
-            $$PWD/Core/StandardSamples
-
-INCLUDEPATH += $${LOCATIONS}
-DEPENDPATH  += $${LOCATIONS}
+INCLUDEPATH += $$BornAgainCore_INCLUDEPATH
+DEPENDPATH  += $$BornAgainCore_INCLUDEPATH
 
 
 # -----------------------------------------------------------------------------
 # compiler options for debug and release
 # -----------------------------------------------------------------------------
-
-# QMAKE_CXXFLAGS += -std=c++11 # not possible because of boost bugs
 QMAKE_CXXFLAGS += -std=c++98
 
 # optimization flag used in release builds (the -O2 is the default used by qmake)
@@ -189,45 +200,51 @@ CONFIG(PEDANTIC) {
 
 
 # -----------------------------------------------------------------------------
+# check ROOT existance
+# -----------------------------------------------------------------------------
+macx|unix {
+    ROOT_FRAMEWORK = $$system(root-config --prefix)
+}
+win32 {
+    ROOT_FRAMEWORK = "C:/root"
+}
+
+# -----------------------------------------------------------------------------
 # add ROOT libraries
 # -----------------------------------------------------------------------------
-CONFIG(BORNAGAIN_ROOT) {
+!isEmpty(ROOT_FRAMEWORK) {
   macx|unix {
-    MYROOT = $$system(root-config --prefix)
     LIBEXT = so
   }
   win32 {
-    MYROOT = "C:/root"
     LIBEXT = lib
   }
-  isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
-  #message("Found ROOT under directory " $${MYROOT})
 
   macx|unix {
-    INCLUDEPATH += $$system(root-config --incdir)
+    ROOT_FRAMEWORK_INCLUDEPATH += $$system(root-config --incdir)
   }
   win32 {
-    INCLUDEPATH += "C:/root/include"
+    ROOT_FRAMEWORK_INCLUDEPATH += "C:/root/include"
   }
-  MYROOTCINT = $${MYROOT}/bin/rootcint
+  MYROOTCINT = $${ROOT_FRAMEWORK}/bin/rootcint
   macx|unix {
     ROOTLIBDIR = $$system(root-config --libdir)
   }
   win32 {
     ROOTLIBDIR = "C:/root/lib"
   }
-  LIBS += -L$${ROOTLIBDIR}
+  ROOT_FRAMEWORK_LIBS += -L$${ROOTLIBDIR}
   REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore Minuit2 Thread
 
   # check existence of required ROOT libraries
   for(x, REQUIRED_ROOT_LIBS) {
     libfile = $${ROOTLIBDIR}/lib$${x}.$${LIBEXT}
     !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
-    LIBS += $${libfile}
+    ROOT_FRAMEWORK_LIBS += $${libfile}
   }
   !isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
 
-  LIBS += -lpthread -lm #-ldl
+  ROOT_FRAMEWORK_LIBS += -lpthread -lm #-ldl
 
   # generation of ROOT dictionaries
   !isEmpty(BORNAGAIN_ROOT_DICT_FOR_CLASSES) {

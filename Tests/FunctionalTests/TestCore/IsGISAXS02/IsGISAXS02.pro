@@ -5,6 +5,6 @@ QT      -= core gui
 
 include($$PWD/../../../../shared.pri)
 DEFINES += STANDALONE
-LIBS += $$PWD/../../../../lib/libBornAgainCore.$${SONAME}
+LIBS += $$BornAgainCore_LIB
 SOURCES += IsGISAXS02.cpp
 HEADERS += IsGISAXS02.h

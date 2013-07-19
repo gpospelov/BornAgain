@@ -3,15 +3,18 @@ CONFIG  += console
 CONFIG  -= qt app_bundle
 QT      -= core gui
 
-CONFIG+= BORNAGAIN_ROOT
-
-INCLUDEPATH += $$PWD/../../../../Fit/Factory/inc
-DEPENDPATH  += $$PWD/../../../../Fit/Factory/inc
-
 include($$PWD/../../../../shared.pri)
-DEFINES += STANDALONE
-LIBS += $$PWD/../../../../lib/libBornAgainCore.so $$PWD/../../../../lib/libBornAgainFit.so $$PWD/../../../../lib/libRootMathMore.$${SONAME}
 
+myIncludes = $$BornAgainCore_INCLUDEPATH $$BornAgainFit_INCLUDEPATH
+
+INCLUDEPATH += $$myIncludes
+DEPENDPATH  += $$myIncludes
+
+DEFINES += STANDALONE
+LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMathMore_LIB
+isEmpty(ROOT_FRAMEWORK) {
+    LIBS += $$RootMinimizers_LIB
+}
 
 SOURCES += TestFit01.cpp
 HEADERS += TestFit01.h

@@ -83,11 +83,11 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
 
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string& name,
-    double refractive_index_real,
-    double refractive_index_imag)
+    double refractive_index_delta,
+    double refractive_index_beta)
 {
     return getHomogeneousMaterial(
-        name, complex_t(refractive_index_real, refractive_index_imag));
+        name, complex_t(1.0-refractive_index_delta, refractive_index_beta));
 }
 
 //! Dump this to stream.

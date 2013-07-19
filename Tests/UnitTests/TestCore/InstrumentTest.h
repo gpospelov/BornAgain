@@ -32,7 +32,7 @@ TEST_F(InstrumentTest, InstrumentInitialState)
 
 TEST_F(InstrumentTest, BeamManipulation)
 {
-    double lambda(1), alpha(1), phi(1);
+    double lambda(1), alpha(-1), phi(1);
     double k = 2.*M_PI/lambda;
     double x = k*std::cos(alpha) * std::cos(phi);
     double y = k*std::cos(alpha) * std::sin(phi);

@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFittingModule1.cpp
@@ -96,8 +96,10 @@ void TestFittingModule1::initializeSimulation()
     delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSample(*mp_sample);
-    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree,
+            2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     mp_simulation->setBeamIntensity(1e10);
 }
 
@@ -112,10 +114,12 @@ void TestFittingModule1::initializeSample1()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleDecoration particle_decoration( new Particle(n_particle,
+            new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     p_multi_layer->addLayer(air_layer_decorator);

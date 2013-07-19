@@ -41,7 +41,7 @@ ISample *IsGISAXS02Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
 

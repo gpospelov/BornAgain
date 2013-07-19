@@ -20,7 +20,9 @@ FunctionalTests::IsGISAXS04::IsGISAXS04()
 
 FunctionalTests::IsGISAXS04::~IsGISAXS04()
 {
-    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it) delete (*it);
+    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it) {
+        delete (*it);
+    }
 }
 
 
@@ -31,8 +33,10 @@ void FunctionalTests::IsGISAXS04::run1DDL()
     ISample *sample = factory.createSample("isgisaxs04_1DDL");
 
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     simulation.setSample(*sample);
     simulation.runSimulation();
     m_results[kTest_1DDL] = simulation.getOutputDataClone();
@@ -49,8 +53,10 @@ void FunctionalTests::IsGISAXS04::run2DDL()
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     simulation.setSample(*sample);
     simulation.runSimulation();
     m_results[kTest_2DDL] = simulation.getOutputDataClone();

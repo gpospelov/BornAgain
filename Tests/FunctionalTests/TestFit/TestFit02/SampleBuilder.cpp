@@ -42,8 +42,10 @@ void SampleBuilder::init_parameters()
 ISample *SampleBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 

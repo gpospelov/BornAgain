@@ -27,6 +27,15 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
     initializePrivateMemebers();
 }
 
+HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
+        const std::string& name, double refractive_index_delta,
+        double refractive_index_beta, const kvector_t& magnetic_field)
+: HomogeneousMaterial(name, refractive_index_delta, refractive_index_beta)
+, m_magnetic_field(magnetic_field)
+{
+    initializePrivateMemebers();
+}
+
 Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
         const kvector_t& k) const
 {

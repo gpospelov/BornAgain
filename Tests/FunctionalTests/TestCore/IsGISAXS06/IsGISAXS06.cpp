@@ -27,7 +27,8 @@ FunctionalTests::IsGISAXS06::IsGISAXS06()
     m_simulation.setDetectorParameters(
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
@@ -40,7 +41,9 @@ FunctionalTests::IsGISAXS06::IsGISAXS06()
 
 FunctionalTests::IsGISAXS06::~IsGISAXS06()
 {
-    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it) delete (*it);
+    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it) {
+        delete (*it);
+    }
 }
 
 
@@ -118,7 +121,8 @@ void FunctionalTests::IsGISAXS06::runvariants()
 }
 
 
-int FunctionalTests::IsGISAXS06::analyseResults(const std::string &path_to_executable)
+int FunctionalTests::IsGISAXS06::analyseResults(
+        const std::string &path_to_executable)
 {
     const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] = {
@@ -132,7 +136,8 @@ int FunctionalTests::IsGISAXS06::analyseResults(const std::string &path_to_execu
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
         OutputData<double> *reference =
-            OutputDataIOFactory::getOutputData(path_to_executable + reference_files[i_test]);
+            OutputDataIOFactory::getOutputData(path_to_executable
+                    + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference
@@ -159,7 +164,8 @@ int FunctionalTests::IsGISAXS06::analyseResults(const std::string &path_to_execu
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) +
+            "../../../ReferenceData/BornAgain/";
 }
 
 int main(int argc, char **argv)

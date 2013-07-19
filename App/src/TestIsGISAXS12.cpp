@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS12.cpp
@@ -430,7 +430,7 @@ void TestIsGISAXS12::initializeSimulation()
     m_simulation = new Simulation(mp_options);
     m_simulation->setSampleBuilder(m_sample_builder);
     m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 }
 
 
@@ -477,9 +477,9 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
 
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
     Layer air_layer(air_material);
 

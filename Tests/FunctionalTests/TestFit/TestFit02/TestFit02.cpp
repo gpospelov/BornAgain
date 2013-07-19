@@ -47,15 +47,24 @@ int TestFit02::run()
 
     // setting up fitting
     FitSuite *fitSuite = new FitSuite();
-    fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
+    fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2",
+            "Combined") );
     fitSuite->initPrint(10);
 
-    fitSuite->addFitParameter("*SampleBuilder/cylinder_height",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/cylinder_radius",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/prism3_half_side", 4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/prism3_height",    6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
-    //fitSuite->addFitParameter("*Normalizer/scale",    1, 0.01*Units::nanometer, AttLimits::limited(0.9,1.1) );
+    fitSuite->addFitParameter("*SampleBuilder/cylinder_height",
+            4*Units::nanometer, 0.01*Units::nanometer,
+            AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/cylinder_radius",
+            6*Units::nanometer, 0.01*Units::nanometer,
+            AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/prism3_half_side",
+            4*Units::nanometer, 0.01*Units::nanometer,
+            AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/prism3_height",
+            6*Units::nanometer, 0.01*Units::nanometer,
+            AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1,
+            AttLimits::fixed());
 
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
@@ -71,7 +80,6 @@ int TestFit02::run()
     // ---------------------------------------------------------------
     // analysing fit results
     // ---------------------------------------------------------------
-    //fitSuite->getFitParameters()->getParameter("*SampleBuilder/cylinder_height")->getValue() << std::endl;
     std::vector<double > initialParameters;
     initialParameters.push_back(cylinder_height);
     initialParameters.push_back(cylinder_radius);
@@ -82,11 +90,13 @@ int TestFit02::run()
     const double threshold = 1.0e-02;
     bool isSuccess = true;
     for(size_t i=0; i<results.size(); ++i) {
-        double diff = std::fabs(results[i] - initialParameters[i])/initialParameters[i];
+        double diff = std::fabs(results[i] - initialParameters[i])/
+                initialParameters[i];
         if(diff > threshold) isSuccess=false;
     }
 
-    std::cout << m_test_name << " " << m_test_description << " " << (isSuccess ? "[OK]" : "[FAILED]") << std::endl;
+    std::cout << m_test_name << " " << m_test_description << " " <<
+            (isSuccess ? "[OK]" : "[FAILED]") << std::endl;
     return (isSuccess ? 0 : 1);
 }
 
@@ -95,8 +105,10 @@ int TestFit02::run()
 Simulation *TestFit02::createSimulation()
 {
     Simulation *simulation = new Simulation();
-    simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100 , 0.0*Units::degree, 2.0*Units::degree);
+    simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     return simulation;
 }
 

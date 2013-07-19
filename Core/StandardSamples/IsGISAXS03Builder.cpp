@@ -35,8 +35,10 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -76,8 +78,10 @@ ISample *IsGISAXS03BABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -115,8 +119,10 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;

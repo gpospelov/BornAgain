@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestRootTree.cpp
@@ -115,7 +115,7 @@ void TestRootTree::complex_write()
         simulation.setDetectorParameters(
             nphi_f, phi_f_min, phi_f_max,
             nalpha_f , alpha_f_min, alpha_f_max);
-        simulation.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
+        simulation.setBeamParameters(1.77*Units::angstrom, alpha_i, phi_i);
         simulation.setBeamIntensity(1e7);
         simulation.runSimulation();
         simulation.normalize();
@@ -219,7 +219,7 @@ void TestRootTree::simple_write()
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);
     mp_simulation->setBeamParameters(
-        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     mp_simulation->setSample(*mp_sample);
 
     // variables below will be written in the tree
@@ -259,7 +259,7 @@ void TestRootTree::simple_write()
     for(int i_ev=0; i_ev<nTotalEvents; i_ev++) {
         if(i_ev%10 ==0 ) std::cout << "nevent:" << i_ev << std::endl;
 
-        alpha_i = -0.3 + 0.1*mr.Rndm(); // generating random alpha_i in the interval
+        alpha_i = 0.3 - 0.1*mr.Rndm(); // generating random alpha_i in the interval
         //phi_i = M_PI*2.*mr.Rndm(); // generating random phi_i in the interval
         phi_i = 0;
         nev = i_ev;

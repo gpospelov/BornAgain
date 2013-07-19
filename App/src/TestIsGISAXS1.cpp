@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS1.cpp
@@ -41,7 +41,7 @@ void TestIsGISAXS1::execute()
         100,-1.0*Units::degree, 1.0*Units::degree, 100,
         0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(
-        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     // Run simulation
     simulation.setSample(*sample);

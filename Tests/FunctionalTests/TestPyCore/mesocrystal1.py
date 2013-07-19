@@ -197,7 +197,7 @@ def GetDifference(data, reference):
 # create simulation
 def createSimulation():
     simulation = Simulation()
-    simulation.setBeamParameters(1.77*angstrom, -0.4*degree, 0.0*degree)
+    simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
     simulation.setBeamIntensity(5.0090e+12)
     simulation.setDetectorResolutionFunction(ResolutionFunction2DSimple(0.0002, 0.0002))
     return simulation

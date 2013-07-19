@@ -50,10 +50,10 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     //! Adds material to database.
     static const IMaterial *getHomogeneousMaterial(
         const std::string& name,
-        double refractive_index_real,
-        double refractive_index_imag)
+        double refractive_index_delta,
+        double refractive_index_beta)
     { return instance().this_getHomogeneousMaterial(
-            name, refractive_index_real, refractive_index_imag); }
+            name, refractive_index_delta, refractive_index_beta); }
 
     //! returns number of materials
     static int getNumberOfMaterials() { return instance().this_getNumberOfMaterials(); }
@@ -96,7 +96,7 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
         const std::string& name, const complex_t& refractive_index);
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name,
-        double refractive_index_real, double refractive_index_imag);
+        double refractive_index_delta, double refractive_index_beta);
     int this_getNumberOfMaterials() const { return (int)m_materials.size(); }
 
     void check_refractive_index(const complex_t &index);

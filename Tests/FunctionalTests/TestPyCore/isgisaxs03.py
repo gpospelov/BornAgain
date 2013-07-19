@@ -16,8 +16,8 @@ from libBornAgainCore import *
 def RunSimulationDWBA():
     
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )    
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )    
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)    
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -38,7 +38,7 @@ def RunSimulationDWBA():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
@@ -50,8 +50,8 @@ def RunSimulationDWBA():
 # ----------------------------------
 def RunSimulationBA():
      # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -70,7 +70,7 @@ def RunSimulationBA():
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     return GetOutputData(simulation)
@@ -81,8 +81,8 @@ def RunSimulationBA():
 # ----------------------------------
 def RunSimulationBA_Size():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
 
     multi_layer = MultiLayer()
 
@@ -112,7 +112,7 @@ def RunSimulationBA_Size():
     # build and run experiment  
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     return GetOutputData(simulation)

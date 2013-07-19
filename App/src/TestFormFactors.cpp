@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFormFactors.cpp
@@ -31,7 +31,7 @@ void TestFormFactors::execute()
     Simulation simulation(mp_options);
     simulation.setSample(*sample);
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
     m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/");
     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");

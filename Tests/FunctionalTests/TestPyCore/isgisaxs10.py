@@ -16,8 +16,8 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-5e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 5e-6, 2e-8 )
     # collection of particles
     n_particle = complex(1.0-5e-5, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)

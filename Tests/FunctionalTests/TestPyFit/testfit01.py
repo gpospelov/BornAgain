@@ -109,7 +109,7 @@ def buildSample():
     particle_decoration.addParticle(cylinder)
     particle_decoration.addInterferenceFunction(interference)
 
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     air_layer = Layer(mAmbience)
     air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
     multi_layer = MultiLayer()

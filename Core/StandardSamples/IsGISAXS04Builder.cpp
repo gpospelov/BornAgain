@@ -34,8 +34,10 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     MultiLayer *multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -84,8 +86,10 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     MultiLayer *multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;

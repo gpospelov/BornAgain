@@ -25,8 +25,10 @@ void FunctionalTests::IsGISAXS10::run()
 {
     // building sample
     MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air10", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate10", 1.0-5e-6, 2e-8);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air10", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+            MaterialManager::getHomogeneousMaterial("Substrate10", 5e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;

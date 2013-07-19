@@ -31,6 +31,13 @@ public:
                                 const complex_t& refractive_index,
                                 const kvector_t& magnetic_field);
 
+    //! Constructs a material with _name_, refractive_index parameters and
+    //! _magnetic_field_
+    HomogeneousMagneticMaterial(const std::string& name,
+                                double refractive_index_delta,
+                                double refractive_index_beta,
+                                const kvector_t& magnetic_field);
+
     //! Get the magnetic field (in Tesla)
     kvector_t getMagneticField() const { return m_magnetic_field; }
 

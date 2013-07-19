@@ -29,7 +29,8 @@ void FunctionalTests::IsGISAXS15::run()
     // building sample
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     InterferenceFunction1DParaCrystal *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e3*Units::nanometer);

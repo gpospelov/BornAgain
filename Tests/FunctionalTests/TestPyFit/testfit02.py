@@ -122,8 +122,8 @@ class MySampleBuilder(ISampleBuilder):
     # constructs the sample for current values of parameters
     def buildSample(self):
       multi_layer = MultiLayer()
-      air_material = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0)
-      substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8)
+      air_material = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+      substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
       air_layer = Layer(air_material)
       substrate_layer = Layer(substrate_material)
 

@@ -126,7 +126,7 @@ void MaterialBrowserView::addMaterial()
 {
     QString name = QString("unnamed%1").arg(m_IndexOfUnnamed);
     std::cout << "MaterialBrowserView::addMaterial() -> " << name.toStdString() << std::endl;
-    MaterialManager::instance().getHomogeneousMaterial(name.toStdString(), 1.0, 0.0);
+    MaterialManager::instance().getHomogeneousMaterial(name.toStdString(), 0.0, 0.0);
     m_tableModel->UpdateMaterials();
     m_tableView->scrollToBottom();
 

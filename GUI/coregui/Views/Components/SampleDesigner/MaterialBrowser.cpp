@@ -16,9 +16,9 @@ MaterialBrowser::MaterialBrowser(QWidget *parent)
     m_instance = this;
 
     // adding few default materials
-    MaterialManager::getHomogeneousMaterial("Air", 1., 0.);
-    MaterialManager::getHomogeneousMaterial("Substrate", 1-6e-6, 2e-8);
-    MaterialManager::getHomogeneousMaterial("Default", 1., 0.);
+    MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
+    MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    MaterialManager::getHomogeneousMaterial("Default", 0., 0.);
 
     m_browserModel = new MaterialBrowserModel(0);
 }

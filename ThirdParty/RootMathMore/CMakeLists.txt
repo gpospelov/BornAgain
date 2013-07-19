@@ -47,5 +47,8 @@ ADD_CUSTOM_COMMAND(
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+#message("XXX ${CMAKE_MODULE_LINKER_FLAGS}")
+#set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-undefined")
+
 # installation
 install (TARGETS ${library_name} DESTINATION lib)

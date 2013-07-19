@@ -34,7 +34,6 @@ add_subdirectory(Tests/UnitTests/TestCore)
 #    endif()
 #endif()
 
-
 add_subdirectory(ThirdParty/RootMinimizers)
 add_subdirectory(ThirdParty/RootMathMore)
 add_subdirectory(Fit)

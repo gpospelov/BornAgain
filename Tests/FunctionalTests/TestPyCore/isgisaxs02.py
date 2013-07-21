@@ -19,7 +19,7 @@ def RunSimulation():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     # collection of particles
-    n_particle = complex(6e-4, 2e-8)
+    n_particle = complex(1.0 - 6e-4, 2e-8)
     radius1 = 5.0*nanometer
     radius2 = 10.0*nanometer
     height1 = radius1

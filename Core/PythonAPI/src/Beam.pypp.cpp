@@ -132,6 +132,26 @@ void register_Beam_class(){
         Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", bp::init< >() );
         bp::scope Beam_scope( Beam_exposer );
         Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
+        { //::Beam::SetSpinUpFraction
+        
+            typedef void ( ::Beam::*SetSpinUpFraction_function_type )( double ) ;
+            
+            Beam_exposer.def( 
+                "SetSpinUpFraction"
+                , SetSpinUpFraction_function_type( &::Beam::SetSpinUpFraction )
+                , ( bp::arg("up_fraction") ) );
+        
+        }
+        { //::Beam::checkPolarization
+        
+            typedef bool ( ::Beam::*checkPolarization_function_type )( ::Eigen::Matrix2cd const & ) const;
+            
+            Beam_exposer.def( 
+                "checkPolarization"
+                , checkPolarization_function_type( &::Beam::checkPolarization )
+                , ( bp::arg("polarization") ) );
+        
+        }
         { //::Beam::getCentralK
         
             typedef ::cvector_t ( ::Beam::*getCentralK_function_type )(  ) const;
@@ -148,6 +168,15 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "getIntensity"
                 , getIntensity_function_type( &::Beam::getIntensity ) );
+        
+        }
+        { //::Beam::getPolarization
+        
+            typedef ::Eigen::Matrix2cd ( ::Beam::*getPolarization_function_type )(  ) const;
+            
+            Beam_exposer.def( 
+                "getPolarization"
+                , getPolarization_function_type( &::Beam::getPolarization ) );
         
         }
         { //::Beam::operator=
@@ -189,6 +218,16 @@ void register_Beam_class(){
                 "setIntensity"
                 , setIntensity_function_type( &::Beam::setIntensity )
                 , ( bp::arg("intensity") ) );
+        
+        }
+        { //::Beam::setPolarization
+        
+            typedef void ( ::Beam::*setPolarization_function_type )( ::Eigen::Matrix2cd const & ) ;
+            
+            Beam_exposer.def( 
+                "setPolarization"
+                , setPolarization_function_type( &::Beam::setPolarization )
+                , ( bp::arg("polarization") ) );
         
         }
         { //::IParameterized::areParametersChanged

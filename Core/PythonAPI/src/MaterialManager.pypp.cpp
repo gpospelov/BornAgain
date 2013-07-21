@@ -48,7 +48,7 @@ void register_MaterialManager_class(){
             MaterialManager_exposer.def( 
                 "getHomogeneousMaterial"
                 , getHomogeneousMaterial_function_type( &::MaterialManager::getHomogeneousMaterial )
-                , ( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )
+                , ( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }

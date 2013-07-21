@@ -14,13 +14,53 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
+struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
+
+    IMaterial_wrapper(IMaterial const & arg )
+    : IMaterial( arg )
+      , bp::wrapper< IMaterial >(){
+        // copy constructor
+        
+    }
+
+    IMaterial_wrapper(::std::string const & name )
+    : IMaterial( name )
+      , bp::wrapper< IMaterial >(){
+        // constructor
+    
+    }
+
+    virtual bool isScalarMaterial(  ) {
+        if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
+            return func_isScalarMaterial(  );
+        else{
+            return this->IMaterial::isScalarMaterial(  );
+        }
+    }
+    
+    bool default_isScalarMaterial(  ) {
+        return IMaterial::isScalarMaterial( );
+    }
+
+};
+
 void register_IMaterial_class(){
 
     { //::IMaterial
-        typedef bp::class_< IMaterial > IMaterial_exposer_t;
+        typedef bp::class_< IMaterial_wrapper > IMaterial_exposer_t;
         IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IMaterial_scope( IMaterial_exposer );
-        IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
+        { //::IMaterial::isScalarMaterial
+        
+            typedef bool ( ::IMaterial::*isScalarMaterial_function_type )(  ) ;
+            typedef bool ( IMaterial_wrapper::*default_isScalarMaterial_function_type )(  ) ;
+            
+            IMaterial_exposer.def( 
+                "isScalarMaterial"
+                , isScalarMaterial_function_type(&::IMaterial::isScalarMaterial)
+                , default_isScalarMaterial_function_type(&IMaterial_wrapper::default_isScalarMaterial) );
+        
+        }
     }
 
 }

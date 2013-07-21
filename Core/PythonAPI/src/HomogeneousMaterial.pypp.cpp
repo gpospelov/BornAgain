@@ -14,14 +14,50 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
+struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< HomogeneousMaterial > {
+
+    HomogeneousMaterial_wrapper(HomogeneousMaterial const & arg )
+    : HomogeneousMaterial( arg )
+      , bp::wrapper< HomogeneousMaterial >(){
+        // copy constructor
+        
+    }
+
+    HomogeneousMaterial_wrapper(::std::string const & name, ::complex_t const & refractive_index )
+    : HomogeneousMaterial( name, boost::ref(refractive_index) )
+      , bp::wrapper< HomogeneousMaterial >(){
+        // constructor
+    
+    }
+
+    HomogeneousMaterial_wrapper(::std::string const & name, double refractive_index_delta, double refractive_index_beta )
+    : HomogeneousMaterial( name, refractive_index_delta, refractive_index_beta )
+      , bp::wrapper< HomogeneousMaterial >(){
+        // constructor
+    
+    }
+
+    virtual bool isScalarMaterial(  ) {
+        if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
+            return func_isScalarMaterial(  );
+        else{
+            return this->IMaterial::isScalarMaterial(  );
+        }
+    }
+    
+    bool default_isScalarMaterial(  ) {
+        return IMaterial::isScalarMaterial( );
+    }
+
+};
+
 void register_HomogeneousMaterial_class(){
 
     { //::HomogeneousMaterial
-        typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
+        typedef bp::class_< HomogeneousMaterial_wrapper, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
         HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) );
         bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
-        HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) );
-        HomogeneousMaterial_exposer.def( bp::init< complex_t const & >(( bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") )) );
         { //::HomogeneousMaterial::getRefractiveIndex
         
             typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
@@ -39,6 +75,17 @@ void register_HomogeneousMaterial_class(){
                 "setRefractiveIndex"
                 , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
                 , ( bp::arg("refractive_index") ) );
+        
+        }
+        { //::IMaterial::isScalarMaterial
+        
+            typedef bool ( ::IMaterial::*isScalarMaterial_function_type )(  ) ;
+            typedef bool ( HomogeneousMaterial_wrapper::*default_isScalarMaterial_function_type )(  ) ;
+            
+            HomogeneousMaterial_exposer.def( 
+                "isScalarMaterial"
+                , isScalarMaterial_function_type(&::IMaterial::isScalarMaterial)
+                , default_isScalarMaterial_function_type(&HomogeneousMaterial_wrapper::default_isScalarMaterial) );
         
         }
     }

@@ -26,7 +26,8 @@ include_dirs = [
     '../../Core/Algorithms/inc',
     '../../Core/Tools/inc',
     '../../Core/PythonAPI/inc',
-    '../../Core/Geometry/inc'
+    '../../Core/Geometry/inc',
+    '../../ThirdParty/eigen3'
 ]
 
 include_classes = [
@@ -250,7 +251,7 @@ def MakePythonAPI(OutputTempDir):
     print "NOTE: If you update the source library code you need to manually delete the cache_core.xml file, or run 'python codegenerator.py clean'"
     xml_cached_fc = parser.create_cached_source_fc( "PythonCoreList.h", "cache_core.xml" )
     #xml_cached_fc = parser.create_cached_source_fc( ["PythonCoreList.h","PythonCoreExposer.h"], "cache_core.xml" )
-    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64")
+    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -msse -msse2 -fno-strict-aliasing -msse3")
 
     # -----------------
     # general rules

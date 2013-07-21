@@ -18,7 +18,6 @@
 
 #include <string>
 #include <iostream>
-//#include <typeinfo>
 #include "INamed.h"
 
 //! Interface to a named material.
@@ -28,9 +27,6 @@ class IMaterial : public INamed
  public:
     //! Constructor that sets _name_.
     explicit IMaterial(const std::string& name) : INamed(name) {}
-
-    //! Copy constructor. TODO: test whether needed
-    IMaterial(const IMaterial& other) : INamed(other) {}
 
     //! Destructor.
     virtual ~IMaterial() {}
@@ -46,7 +42,6 @@ class IMaterial : public INamed
  protected:
     virtual void print(std::ostream& ostr) const
     { ostr << "IMat:" << getName() << "<" << this << ">"; }
-        // TODO: try ostr << typeid(*this).name() << " " << this;
 };
 
 #endif // IMATERIAL_H

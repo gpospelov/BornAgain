@@ -25,7 +25,14 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 
 # dependencies
 target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
-target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+
+if(ROOT_FOUND)
+    target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+else()
+    target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
+    include_directories(${RootMinimizers_INCLUDE_DIRS})
+endif()
+
 
 # copying library into lib directory for functional tests
 ADD_CUSTOM_COMMAND(
@@ -39,6 +46,9 @@ ADD_CUSTOM_COMMAND(
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
+
+#message("XXX ${CMAKE_MODULE_LINKER_FLAGS}")
+#set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-undefined")
 
 # installation
 install (TARGETS ${library_name} DESTINATION lib)

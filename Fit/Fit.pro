@@ -5,14 +5,9 @@ TARGET   = BornAgainFit
 TEMPLATE = lib
 QT      -= core gui
 macx|unix {
-  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
   CONFIG  += plugin # to remove versions from file name
 }
-CONFIG  += BORNAGAIN_ROOT
 
-# -----------------------------------------------------------------------------
-# common project settings
-# -----------------------------------------------------------------------------
 include($$PWD/../shared.pri)
 
 # -----------------------------------------------------------------------------
@@ -60,18 +55,36 @@ HEADERS += \
     Factory/inc/ROOTMinimizerFunction.h \
     Factory/inc/ROOTMinimizerHelper.h \
 
-
-INCLUDEPATH += $$PWD/Factory/inc
-DEPENDPATH  += $$PWD/Factory/inc
-
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
 }
 
+
+# -----------------------------------------------------------------------------
+# includes
+# -----------------------------------------------------------------------------
+INCLUDEPATH += $$PWD/Factory/inc
+DEPENDPATH +=  $$PWD/Factory/inc
+
+INCLUDEPATH += $${RootMathMore_INCLUDEPATH}
+isEmpty(ROOT_FRAMEWORK) {
+    INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
+} else {
+    INCLUDEPATH += $${ROOT_FRAMEWORK_INCLUDEPATH}
+}
+
+
 # -----------------------------------------------------------------------------
 # additional libraries
 # -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME} $$PWD/../lib/libRootMathMore.$${SONAME}
+LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
+LIBS += $${RootMathMore_LIB}
+isEmpty(ROOT_FRAMEWORK) {
+    LIBS += $${RootMinimizers_LIB}
+} else {
+    LIBS += $${ROOT_FRAMEWORK_LIBS}
+}
+
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

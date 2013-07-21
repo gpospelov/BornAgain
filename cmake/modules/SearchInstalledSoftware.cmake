@@ -63,7 +63,7 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 # --- ROOT ---
-#find_package(ROOT)
-#if(ROOT_FOUND)
-#    include_directories(${ROOT_INCLUDE_DIR})
-#endif()
+find_package(ROOT)
+if(ROOT_FOUND)
+    include_directories(${ROOT_INCLUDE_DIR})
+endif()

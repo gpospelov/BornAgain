@@ -46,8 +46,10 @@ DEPENDPATH  +=  $$PWD/inc
 
 isEmpty(ROOT_FRAMEWORK) {
     INCLUDEPATH += $$RootMinimizers_INCLUDEPATH
+    LIBS += $${RootMinimizers_LIB}
 } else {
     INCLUDEPATH += $$ROOT_FRAMEWORK_INCLUDEPATH
+    LIBS += $${ROOT_FRAMEWORK_LIBS}
 }
 
 # -----------------------------------------------------------------------------

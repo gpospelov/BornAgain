@@ -21,6 +21,7 @@
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
+#include "ThreadInfo.h"
 
 #include <sstream>
 
@@ -92,7 +93,21 @@ class OutputData
     iterator end() { return iterator(this, getAllocatedSize()); }
 
     //! Returns  read-only iterator that points to the one past last element
-    const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
+    const_iterator end() const {
+        return const_iterator(this, getAllocatedSize());
+    }
+
+    //! Returns  read/write iterator that points to the first element
+    iterator begin(ThreadInfo thread_info);
+
+    //! Returns  read-only iterator that points to the first element
+    const_iterator begin(ThreadInfo thread_info) const;
+
+    //! Returns  read/write iterator that points to the one past last element
+    iterator end(ThreadInfo thread_info);
+
+    //! Returns  read-only iterator that points to the one past last element
+    const_iterator end(ThreadInfo thread_info) const;
 
     //! Returns mask that will be used by iterators
     Mask *getMask() const { return mp_mask; }
@@ -331,6 +346,60 @@ template <class T>
 typename OutputData<T>::const_iterator OutputData<T>::begin() const
 {
     typename OutputData<T>::const_iterator result(this);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::iterator OutputData<T>::begin(ThreadInfo thread_info)
+{
+    size_t total_size = getAllocatedSize();
+    thread_info.imposeConsistency();
+    int start_index = thread_info.getBeginIndex(total_size);
+
+    typename OutputData<T>::iterator result(this, start_index);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::const_iterator
+    OutputData<T>::begin(ThreadInfo thread_info) const
+{
+    size_t total_size = getAllocatedSize();
+    thread_info.imposeConsistency();
+    int start_index = thread_info.getBeginIndex(total_size);
+
+    typename OutputData<T>::const_iterator result(this, start_index);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::iterator OutputData<T>::end(ThreadInfo thread_info)
+{
+    size_t total_size = getAllocatedSize();
+    thread_info.imposeConsistency();
+    int end_index = thread_info.getEndIndex(total_size);
+
+    typename OutputData<T>::iterator result(this, end_index);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::const_iterator
+    OutputData<T>::end(ThreadInfo thread_info) const
+{
+    size_t total_size = getAllocatedSize();
+    thread_info.imposeConsistency();
+    int end_index = thread_info.getEndIndex(total_size);
+
+    typename OutputData<T>::const_iterator result(this, end_index);
     if (mp_mask)
         result.setMask(*mp_mask);
     return result;

@@ -2213,6 +2213,7 @@
 		62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataFunctions.cpp; sourceTree = "<group>"; };
 		62D7A934166E3F81009A45CE /* AxisDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDouble.h; sourceTree = "<group>"; };
 		62D7A935166E3F8D009A45CE /* AxisDouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisDouble.cpp; sourceTree = "<group>"; };
+		62E67703179D860900FCC446 /* ThreadInfoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadInfoTest.h; sourceTree = "<group>"; };
 		62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunctionStrategies.h; sourceTree = "<group>"; };
 		62EA20E616B9295C00184E9A /* SimulationParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationParameters.h; sourceTree = "<group>"; };
 		62EA20E716B9295C00184E9A /* StrategyBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrategyBuilder.h; sourceTree = "<group>"; };
@@ -70274,6 +70275,7 @@
 		627F62A817940B33009E166F /* TestCore */ = {
 			isa = PBXGroup;
 			children = (
+				62E67703179D860900FCC446 /* ThreadInfoTest.h */,
 				627F62AA17940B33009E166F /* AxisDoubleTest.h */,
 				627F62AB17940B33009E166F /* BeamTest.h */,
 				627F62BC17940B33009E166F /* CVectorTest.h */,
@@ -71580,6 +71582,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
+					/opt/local/include/eigen3,
 					"${ROOT_INCLUDE}",
 					"${SRCROOT}/App",
 				);
@@ -71616,6 +71619,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
+					/opt/local/include/eigen3,
 					"${ROOT_INCLUDE}",
 					"${SRCROOT}/App",
 				);
@@ -71655,6 +71659,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);
@@ -71697,6 +71702,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);
@@ -72064,8 +72070,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
-					/opt/local/include/root,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
+					/opt/local/include/root,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);
@@ -72109,8 +72116,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
-					/opt/local/include/root,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
+					/opt/local/include/root,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);

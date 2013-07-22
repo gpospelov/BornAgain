@@ -80,7 +80,7 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 void MultiLayerDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread "
-                       << m_thread_info.i_thread;
+                       << m_thread_info.current_thread;
     SpecularMatrix specularCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());

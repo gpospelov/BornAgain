@@ -14,6 +14,7 @@
 #include "OutputDataTest.h"
 #include "ParameterPoolTest.h"
 #include "RealParameterWrapperTest.h"
+#include "ThreadInfoTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

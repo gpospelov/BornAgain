@@ -38,7 +38,7 @@ void TestIsGISAXS9::execute()
 //    test.runpyramidZ45();
 //    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z45), getOutputPath()+"this_pyramid_Z45.ima");
 
-    Simulation simulation;
+    Simulation simulation(mp_options);
     simulation.setDetectorParameters(
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);

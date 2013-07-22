@@ -114,7 +114,7 @@ void Simulation::runSimulation()
     // retrieve batch and threading information
     if (mp_options) {
         thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
-        thread_info.current_batch = (*mp_options)["batch"].as<int>();
+        thread_info.current_batch = (*mp_options)["currentbatch"].as<int>();
         thread_info.n_threads = (*mp_options)["threads"].as<int>();
 //    }
 

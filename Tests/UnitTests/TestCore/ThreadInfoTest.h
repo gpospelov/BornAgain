@@ -158,6 +158,12 @@ TEST_F(ThreadInfoTest, ZeroSizeBatchesThreads)
     EXPECT_EQ(10, thread_info.getEndIndex(10));
 }
 
+TEST_F(ThreadInfoTest, SingleThread)
+{
+    EXPECT_EQ(0, thread_info.getBeginIndex(99));
+    EXPECT_EQ(99, thread_info.getEndIndex(99));
+}
+
 
 
 #endif /* THREADINFOTEST_H_ */

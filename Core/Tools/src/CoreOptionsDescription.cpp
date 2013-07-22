@@ -33,7 +33,7 @@ void AddCoreOptions(ProgramOptions *p_options)
              " specified number of threads.")
             ("nbatches", bpo::value<int>()->default_value(1),
              "number of batches\n")
-            ("batch", bpo::value<int>()->default_value(0),
+            ("currentbatch", bpo::value<int>()->default_value(0),
              "current batch number (must be smaller than \"nbatches\")")
             ("msglog", bpo::value<std::string>()->default_value("ERROR"),
              "Logging at one of the levels "

@@ -71580,6 +71580,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
+					/opt/local/include/eigen3,
 					"${ROOT_INCLUDE}",
 					"${SRCROOT}/App",
 				);
@@ -71616,6 +71617,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
+					/opt/local/include/eigen3,
 					"${ROOT_INCLUDE}",
 					"${SRCROOT}/App",
 				);
@@ -71655,6 +71657,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);
@@ -71697,6 +71700,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);
@@ -72064,8 +72068,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
-					/opt/local/include/root,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
+					/opt/local/include/root,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);
@@ -72109,8 +72114,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
-					/opt/local/include/root,
 					/opt/local/include/boost,
+					/opt/local/include/eigen3,
+					/opt/local/include/root,
 					"${PYTHON_INCLUDE}",
 					"${PYTHON_NUMPY_INCLUDE}",
 				);

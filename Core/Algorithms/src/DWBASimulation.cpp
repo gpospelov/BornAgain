@@ -50,37 +50,6 @@ DWBASimulation *DWBASimulation::clone() const
     return p_result;
 }
 
-DWBASimulation::iterator DWBASimulation::begin()
-{
-    if (m_thread_info.n_threads<2) {
-        m_thread_info.n_threads = 1;
-        m_thread_info.i_thread = 0;
-    }
-    iterator result(m_dwba_intensity.begin());
-    if (m_thread_info.n_threads>1) {
-        MaskIndexModulus thread_mask(
-            m_thread_info.n_threads, m_thread_info.i_thread);
-        result.addMask(thread_mask);
-    }
-    return result;
-}
-
-DWBASimulation::const_iterator DWBASimulation::begin() const
-{
-    size_t n_threads = m_thread_info.n_threads;
-    size_t i_thread = m_thread_info.i_thread;
-    if (m_thread_info.n_threads<2) {
-        n_threads = 1;
-        i_thread = 0;
-    }
-    const_iterator result(m_dwba_intensity.begin());
-    if (n_threads>1) {
-        MaskIndexModulus thread_mask(n_threads, i_thread);
-        result.addMask(thread_mask);
-    }
-    return result;
-}
-
 double DWBASimulation::getWaveLength() const
 {
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());

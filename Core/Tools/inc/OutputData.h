@@ -355,7 +355,6 @@ template <class T>
 typename OutputData<T>::iterator OutputData<T>::begin(ThreadInfo thread_info)
 {
     size_t total_size = getAllocatedSize();
-    thread_info.imposeConsistency();
     int start_index = thread_info.getBeginIndex(total_size);
 
     typename OutputData<T>::iterator result(this, start_index);
@@ -369,7 +368,6 @@ typename OutputData<T>::const_iterator
     OutputData<T>::begin(ThreadInfo thread_info) const
 {
     size_t total_size = getAllocatedSize();
-    thread_info.imposeConsistency();
     int start_index = thread_info.getBeginIndex(total_size);
 
     typename OutputData<T>::const_iterator result(this, start_index);
@@ -382,7 +380,6 @@ template <class T>
 typename OutputData<T>::iterator OutputData<T>::end(ThreadInfo thread_info)
 {
     size_t total_size = getAllocatedSize();
-    thread_info.imposeConsistency();
     int end_index = thread_info.getEndIndex(total_size);
 
     typename OutputData<T>::iterator result(this, end_index);
@@ -396,7 +393,6 @@ typename OutputData<T>::const_iterator
     OutputData<T>::end(ThreadInfo thread_info) const
 {
     size_t total_size = getAllocatedSize();
-    thread_info.imposeConsistency();
     int end_index = thread_info.getEndIndex(total_size);
 
     typename OutputData<T>::const_iterator result(this, end_index);

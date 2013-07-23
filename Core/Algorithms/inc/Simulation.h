@@ -101,6 +101,10 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     void setSimulationParameters(const SimulationParameters& sim_params)
     { m_sim_params = sim_params; }
 
+    //! Sets the batch and thread information to be used
+    void setThreadInfo(const ThreadInfo &thread_info)
+    { m_thread_info = thread_info; }
+
     //! Sets the program options
     void setProgramOptions(ProgramOptions *p_options)
     { mp_options = p_options; }
@@ -131,6 +135,7 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     const ISampleBuilder *mp_sample_builder;
     Instrument m_instrument;
     SimulationParameters m_sim_params;
+    ThreadInfo m_thread_info;
 
     OutputData<double> m_intensity_map;
     bool m_is_normalized;

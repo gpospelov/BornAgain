@@ -93,6 +93,7 @@
 %----------------------------------------------------------------------------------------
 \usepackage{listings}
 \usepackage{lstcustom}
+\usepackage{enumerate}
 \renewcommand{\lstfontfamily}{\ttfamily}
 %----------------------------------------------------------------------------------------
 %	COLORS
@@ -103,9 +104,6 @@
 
 
 %----------------------------------------------------------------------------------------
-%	COMMANDS
-%----------------------------------------------------------------------------------------
-%----------------------------------------------------------------------------------------
 %       Commands
 %----------------------------------------------------------------------------------------
 \newcommand{\Code}[1]{\texttt{#1}}
@@ -113,6 +111,9 @@
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
 \newcommand{\SecLabel}[1]{\label{sec:#1}}%
 \newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
+\newcommand{\MakeRemark}[2]
+{ \noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}			{\underline{#1} #2 }}
+}
 
 
 %----------------------------------------------------------------------------------------
@@ -139,26 +140,17 @@ keepaspectratio]{results2_2.png}%
 \vfill
 }}}
 
+
 %----------------------------------------------------------------------------------------
 %	DOCUMENT
 %----------------------------------------------------------------------------------------
-
 \begin{document}
 
-%\AddToShipoutPicture*{\BackgroundPic} % add background image to the
-%first page
 \maketitle
-
-
-%\begin{abstract}
-%This document describes the general architecture of the BornAgain project.
-%\end{abstract}
-
 \tableofcontents
 %\lstlistoflistings
 %\listoffigures
 %\listoftables
-
 
 \input{Introduction}
 \input{QuickStart}
@@ -171,14 +163,8 @@ keepaspectratio]{results2_2.png}%
 %\appendix
 %\input{Appendix}
 
-
-%\printindex
-%generate an index - hyperref
-
 \bibliography{ref}
 \bibliographystyle{unsrt}
-
-
 
 
 \end{document}

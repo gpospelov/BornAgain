@@ -114,7 +114,7 @@ sudo port install eigen3
 
 
 \subsection{Getting source code}
-\BornAgain\ source can be downloaded at \url{http://apps.jcns.fz-juelich.de/doku/sc/bornagain:start}
+\BornAgain\ source can be downloaded at \url{http://apps.jcns.fz-juelich.de/BornAgain}
 and unpacked with
 \begin{lstlisting}[language=shell, style=commandline]
 tar xfz bornagain-<version>.tgz
@@ -150,19 +150,69 @@ git pull
 \vspace*{3mm}
 
 
- \BornAgain\ 
 
-and develop branches are expected always to work. Master branch 
+\subsection{Building and installing the code}
 
-
-
-
-\newpage
-\subsection{Installation hints}
-
-In this section we give short installation instruction for several selected operation systems.
+\BornAgain\ should be build using \Code{CMake} cross platform build system. 
+Having third-party libraries installed on the system and \BornAgain\ source code acquired as was explained in
+previous sections, type build commands
+\begin{lstlisting}[language=bash, style=commandline]
+mkdir <build_dir>
+cd <build_dir>
+cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
+make
+\end{lstlisting}
 \vspace*{3mm}
 
+Here \Code{<source\_dir>} is the name of directory, where \BornAgain\ source code has been
+copied, \Code{<install\_dir>} is the directory, where user wants  the package
+to be installed, and \Code{<build\_dir>} is the directory where building will occur.
+
+\MakeRemark{About CMake}{
+\\ Having dedicated directory \Code{<build\_dir>} for build process
+is recommended by CMake. That allows several builds with different compilers/options from the same source and keeps source directory clean from build remnants.
+}
+
+Compilation process invoked by the command ``make'' lasts about 10 min for average laptop
+of 2012 edition. On multi-core machines the compilation can be speed up by invoking command
+make with the parameter ``make -j[N]'', where N is the number of cores.
+
+Running functional tests is an optional but recommended step. Command ``make check''
+will compile several additional tests and run them one by one. Every tests contains
+simulation of typical GISAS geometry and comparison of simulation results with reference files on numerical level. Having 100\% tests passed ensures that your local installation
+is correct.
+\begin{lstlisting}[language=bash, style=commandline]
+make check
+...
+100% tests passed, 0 tests failed out of 26
+Total Test time (real) = 89.19 sec
+[100%] Build target check
+\end{lstlisting}
+\vspace*{3mm}
+
+
+The last command ``make install'' copies compiled libraries and some usage examples
+into  installation directory.
+\begin{lstlisting}[language=bash, style=commandline]
+make install
+\end{lstlisting}
+\vspace*{3mm}
+
+
+\subsection{What is the next?}
+
+In your installation directory you will find
+\begin{lstlisting}[language=bash, style=commandline]
+./include - header files for compilation of your C++ program
+./lib - libraries to import into python or link with your C++ program
+./Examples - directory with examples
+\end{lstlisting}
+
+Run your first example and enjoy your first BornAgain simulation plot.
+\begin{lstlisting}[language=bash, style=commandline]
+cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
+python CylindersAndPrisms.py
+\end{lstlisting}
 
 
 

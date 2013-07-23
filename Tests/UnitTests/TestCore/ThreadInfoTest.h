@@ -29,28 +29,11 @@ class ThreadInfoTest : public ::testing::Test
     ThreadInfo thread_info;
 };
 
-TEST_F(ThreadInfoTest, DefaultIsSingleBatchAndThread)
+TEST_F(ThreadInfoTest, DefaultValues)
 {
     EXPECT_EQ(1, thread_info.n_batches);
     EXPECT_EQ(0, thread_info.current_batch);
-    EXPECT_EQ(1, thread_info.n_threads);
-    EXPECT_EQ(0, thread_info.current_thread);
-}
-
-TEST_F(ThreadInfoTest, MakeValuesConsistent)
-{
-    thread_info.n_batches = 0;
-    thread_info.n_threads = -1;
-    thread_info.current_batch = -5;
-    thread_info.current_thread = 10;
-    EXPECT_EQ(0, thread_info.n_batches);
-    EXPECT_EQ(-5, thread_info.current_batch);
-    EXPECT_EQ(-1, thread_info.n_threads);
-    EXPECT_EQ(10, thread_info.current_thread);
-    thread_info.imposeConsistency();
-    EXPECT_EQ(1, thread_info.n_batches);
-    EXPECT_EQ(0, thread_info.current_batch);
-    EXPECT_EQ(1, thread_info.n_threads);
+    EXPECT_EQ(0, thread_info.n_threads);
     EXPECT_EQ(0, thread_info.current_thread);
 }
 

@@ -62,10 +62,8 @@ surface and pointing upwards. The $x$-axis  is perpendicular to the
 plane of the detector and the $y$-axis is along it. The input and the scattered output beams are each by two angles
 $\alpha_0$, $\phi_0$ and $\alpha_f$, $\phi_f$ respectively. Then for each other layer
 $j=1,..., N-1$, the incident angles $\alpha_j$ and $\phi_j$  are defined with
-respect to the bottom of the layer. The angles are oriented
-considering the detector plane as the reference. This results in, for example, 
-$\alpha_f$, $\phi_f$ being positive and
-$\alpha_0$ and $\alpha_0$ negative in fig.~\ref{fig:multil3d}. \\
+respect to the bottom of the layer. Our choice of orientation for the
+angles $\alpha_j$ is so that $\alpha_0$ and $\alpha_f$ shown in fig.~\ref{fig:multil3d}  are positive. \\
 
 
 \noindent The layers are defined by their thicknesses (parallel to the
@@ -102,8 +100,9 @@ coordinates. For the top layer, the bottom corresponds to
 layer which corresponds to \texttt{depth}=0.}}\\
 
 
-\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta -i\beta$, with
-$\delta, \beta \in \mathbb{R}$. \\
+\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
+$\delta, \beta \in \mathbb{R}$. In our program we input $\delta$ and
+$\beta$ directly. \\
 
 
 \begin{figure}[h]
@@ -164,6 +163,8 @@ is a fundamental package for scientific computing with Python
 (\url{http://www.numpy.org/}).  In particular, line~\ref{import_end}
 imports the features of BornAgain software.\\
 
+\noindent Finally line~\ref{def_function} marks the beginning of the
+function to define and run the simulation. 
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 import sys@\label{import_begin}@
@@ -173,6 +174,8 @@ import numpy @\label{import_numpy}@
 sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..', '..', '..', 'lib')))
 
 from libBornAgainCore import * @\label{import_end}@
+
+def RunSimulation(): @\label{def_function}@
 \end{lstlisting}
 
 
@@ -182,8 +185,8 @@ from libBornAgainCore import * @\label{import_end}@
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 #  defining materials @\label{material1}@
-mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )  @\label{material2}@
-mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8) @\label{material3}@
+mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )  @\label{material2}@
+mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8) @\label{material3}@
 \end{lstlisting}
 
 \noindent Lines~\ref{material2} and \ref{material3} define two different
@@ -191,15 +194,15 @@ materials using function \texttt{getHomogeneousMaterial} from class
 \texttt{MaterialManager}. The general syntax is the following 
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-Interface material name = MaterialManager.getHomogeneousMaterial("name", Re(n), Im(n))
+Interface material name = MaterialManager.getHomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
 
 \noindent where \texttt{name} is the name of the
 material associated with its complex refractive index
-\texttt{n} decomposed into its real and imaginary parts. \texttt{Interface material name} is later used when
+\texttt{n=1-delta +i beta}. \texttt{Interface material name} is later used when
 referring to this particular material. The two defined materials in this example are \texttt{Air} with a refractive
-index of 1 and a \texttt{Substrate} associated with a complex refractive index
-equal to $1-6\times 10^{-6} -i2\times 10^{-8} $. \\
+index of 1 (\texttt{delta = beta =0}) and a \texttt{Substrate} associated with a complex refractive index
+equal to $1-6\times 10^{-6} +i2\times 10^{-8} $. \\
 
 \noindent \underline{Remark:} there is no condition on the choice of
 \texttt{name}. 
@@ -210,7 +213,7 @@ equal to $1-6\times 10^{-6} -i2\times 10^{-8} $. \\
 \begin{lstlisting}[language=python,
   style=eclipseboxed,name=ex1,nolol]
 # collection of particles @\label{particles1}@
-n_particle = complex(1.0-6e-4, 2e-8) @\label{complx_ref_index}@
+n_particle = complex(6e-4, 2e-8) @\label{complx_ref_index}@
 cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) @\label{particlescyl1}@
 cylinder = Particle(n_particle, cylinder_ff) @\label{particlescyl2}@
 prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer) @\label{particlesprism1}@
@@ -226,7 +229,7 @@ prism = Particle(n_particle, prism_ff) @\label{particlesprism2}@
   base and its height.\\
 
 \noindent In line~\ref{complx_ref_index}, we define the complex refractive index
-associated with both particle shapes: \texttt{n}$=1-6\times 10^{-4}-i2\times 10^{-8}$.\\
+associated with both particle shapes: \texttt{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\
   
 \noindent In order to define a particle, we proceed in two steps. For example for
 the cylindrical particle, we first specify the form factor of a cylinder with 
@@ -338,7 +341,7 @@ output detector and running the simulation}
 simulation = Simulation()  @\label{run2}@
 simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 
                                 100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
-simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)  @\label{runbeam}@
+simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)  @\label{runbeam}@
 simulation.setSample(multi_layer)  @\label{runsample}@
 simulation.runSimulation()  @\label{runsimul}@
 \end{lstlisting}
@@ -375,7 +378,7 @@ at constant values of these two angles.\\
 \noindent For the beam the function to use is
 \texttt{simulation.setBeamParameters(lambda, alpha\_i, phi\_i)}, where
 \texttt{lambda=1.0*angstrom} is the incident beam wavelength,\\
-\texttt{alpha\_i=-0.2*degree} is the incident
+\texttt{alpha\_i=0.2*degree} is the incident
 grazing angle on the surface of the sample,
 \texttt{phi\_i=0.0*degree} is the in-plane
 direction of the incident beam (measured with respect to the
@@ -393,7 +396,7 @@ previously defined setup.
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 # retrieving intensity data
-arr = GetOutputData(simulation) @\label{outputdata}@
+return GetOutputData(simulation) @\label{outputdata}@%arr = GetOutputData(simulation) @\label{outputdata}@
 \end{lstlisting}
 
 
@@ -414,11 +417,11 @@ cylindrical and prismatic nanoparticles without any interference, deposited on t
 of a substrate]{Figure of example 1: Simulated grazing-incidence small-angle X-ray scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference, deposited on top
 of a substrate. The input beam is characterized by a wavelength
-$\lambda$ of 1~\AA\ and incident angles $\alpha_i=-0.2^{\circ}$, $\phi_i=0^{\circ}$. The
+$\lambda$ of 1~\AA\ and incident angles $\alpha_i=0.2^{\circ}$, $\phi_i=0^{\circ}$. The
 cylinders have a radius and a height both equal to 5~nm, the prisms
 are characterized by a side length equal to 5~nm and they are also 5~nm high. The
-material of the particles has a refractive index of $1-6\times 10^{-4}-i2\times 10^{-8}$. For the substrate
-it is equal to $1-6\times 10^{-6} -i2\times 10^{-8} $. The colorscale
+material of the particles has a refractive index of $1-6\times 10^{-4}+i2\times 10^{-8}$. For the substrate
+it is equal to $1-6\times 10^{-6} +i2\times 10^{-8} $. The colorscale
 is associated with the output intensity in arbitrary units. }
 \label{fig:output_ex1}
 \end{figure}
@@ -437,11 +440,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..', '.
 
 from libBornAgainCore import * 
 
+def RunSimulation():
     #  defining materials 
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 ) 
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8) 
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 ) 
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8) 
     # collection of particles 
-    n_particle = complex(1.0-6e-4, 2e-8) 
+    n_particle = complex(6e-4, 2e-8) 
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) 
     cylinder = Particle(n_particle, cylinder_ff) 
     prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer) 
@@ -463,12 +467,12 @@ from libBornAgainCore import *
     simulation = Simulation()  
     simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 
                                     100, 0.0*degree, 2.0*degree, True) 
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree) 
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree) 
     simulation.setSample(multi_layer) 
     simulation.runSimulation()  
 
     # retrieving intensity data
-     arr = GetOutputData(simulation)
+     return GetOutputData(simulation)
 \end{lstlisting}
 
 

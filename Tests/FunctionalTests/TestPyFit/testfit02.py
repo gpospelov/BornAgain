@@ -139,8 +139,8 @@ class MySampleBuilder(ISampleBuilder):
       particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
       particle_decoration.addInterferenceFunction(interference)
 
-      layer_with_particles = LayerDecorator(air_layer, particle_decoration)
-      multi_layer.addLayer(layer_with_particles)
+      air_layer.setDecoration(particle_decoration)
+      multi_layer.addLayer(air_layer)
       multi_layer.addLayer(substrate_layer)
       self.sample = multi_layer
       return self.sample

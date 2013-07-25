@@ -27,7 +27,7 @@ include_dirs = [
 '../../Core/Geometry/inc',
 '../../Fit/Factory/inc',
 '../../Fit/PythonAPI/inc',
-'../../ThirdParty/eigen3',
+#'../../ThirdParty/eigen3',
 ]
 
 include_classes = [
@@ -100,7 +100,7 @@ def MakePythonAPI(OutputTempDir):
     #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
     print "NOTE: If you update the source library code you need to manually delete the cache_fit.xml file, or run 'python codegenerator.py clean'"
     xml_cached_fc = parser.create_cached_source_fc( "PythonFitList.h", "cache_fit.xml" )
-    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -msse3")
+    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -DGCCXML_SKIP_THIS")
 
     # -----------------
     # general rules

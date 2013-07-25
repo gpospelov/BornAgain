@@ -42,8 +42,8 @@ def RunSimulation():
     particle_decoration.addInterferenceFunction(interference)    
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-    multi_layer.addLayer(air_layer_decorator)
+    air_layer.setDecoration(particle_decoration)
+    multi_layer.addLayer(air_layer)
 
     # build and run experiment  
     simulation = Simulation()

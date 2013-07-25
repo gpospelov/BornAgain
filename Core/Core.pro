@@ -66,7 +66,6 @@ SOURCES += \
     Algorithms/src/Instrument.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
-    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
@@ -77,7 +76,6 @@ SOURCES += \
     Algorithms/src/Simulation.cpp \
     Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
     Algorithms/src/SpecularMatrix.cpp \
-    Algorithms/src/StrategyBuilder.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
     FormFactors/src/FormFactorCone.cpp \
@@ -130,7 +128,9 @@ SOURCES += \
     StandardSamples/IsGISAXS02Builder.cpp \
     StandardSamples/IsGISAXS03Builder.cpp \
     StandardSamples/IsGISAXS06Builder.cpp \
-    StandardSamples/IsGISAXS09Builder.cpp
+    StandardSamples/IsGISAXS09Builder.cpp \
+    Algorithms/src/LayerStrategyBuilder.cpp \
+    Algorithms/src/DecoratedLayerDWBASimulation.cpp
 
 
 HEADERS += \
@@ -212,7 +212,6 @@ HEADERS += \
     Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/LayerDWBASimulation.h \
-    Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
@@ -224,7 +223,6 @@ HEADERS += \
     Algorithms/inc/SimulationParameters.h \
     Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \
     Algorithms/inc/SpecularMatrix.h \
-    Algorithms/inc/StrategyBuilder.h \
     Algorithms/inc/ThreadInfo.h \
     \
     FormFactors/inc/FormFactorBox.h \
@@ -302,7 +300,9 @@ HEADERS += \
     StandardSamples/IsGISAXS02Builder.h \
     StandardSamples/IsGISAXS03Builder.h \
     StandardSamples/IsGISAXS06Builder.h \
-    StandardSamples/IsGISAXS09Builder.h
+    StandardSamples/IsGISAXS09Builder.h \
+    Algorithms/inc/LayerStrategyBuilder.h \
+    Algorithms/inc/DecoratedLayerDWBASimulation.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

@@ -20,7 +20,9 @@
 #include "Types.h"
 #include "IParameterized.h"
 
+#ifndef GCCXML_SKIP_THIS
 #include <Eigen/Core>
+#endif
 
 //! Ideal collimated Beam defined by wavelength, direction and intensity.
 
@@ -49,18 +51,24 @@ class BA_CORE_API_ Beam : public IParameterized
     //! Sets the beam intensity in neutrons/sec
     void setIntensity(double intensity) { m_intensity = intensity; }
 
+#ifndef GCCXML_SKIP_THIS
     //! Gets the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd getPolarization() const { return m_polarization; }
+#endif
 
+#ifndef GCCXML_SKIP_THIS
     //! Sets the polarization density matrix (in spin basis along z-axis)
     void setPolarization(const Eigen::Matrix2cd &polarization);
+#endif
 
     //! Sets the polarization density matrix to a value representing
     //! a mixed ensemble with the given fraction of positive z spin
     void SetSpinUpFraction(double up_fraction);
 
+#ifndef GCCXML_SKIP_THIS
     //! Checks if the given matrix can represent a physical density matrix
     bool checkPolarization(const Eigen::Matrix2cd &polarization) const;
+#endif
 
  protected:
     //! Registers some class members for later access via parameter pool
@@ -75,7 +83,9 @@ class BA_CORE_API_ Beam : public IParameterized
 
     cvector_t m_central_k;  //!< incoming wavevector
     double m_intensity;     //!< beam intensity (neutrons/sec)
+#ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization; //!< polarization density matrix
+#endif
 };
 
 #endif /* BEAM_H_ */

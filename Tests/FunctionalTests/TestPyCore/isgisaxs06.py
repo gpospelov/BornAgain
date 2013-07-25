@@ -44,10 +44,10 @@ def RunSimulation_lattice():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
@@ -102,10 +102,10 @@ def RunSimulation_centered():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
@@ -155,10 +155,10 @@ def RunSimulation_rotated():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
@@ -242,10 +242,11 @@ def buildSample(xi_value):
     particle_info = PositionParticleInfo( cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
     particle_decoration.addInterferenceFunction(p_interference_function)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    
+    air_layer.setDecoration(particle_decoration)
 
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/StrategyBuilder.h
-//! @brief     Defines classes LayerDecoratorStrategyBuilder, FormFactorInfo.
+//! @file      Algorithms/inc/LayerStrategyBuilder.h
+//! @brief     Defines classes LayerStrategyBuilder, FormFactorInfo.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef STRATEGYBUILDER_H_
-#define STRATEGYBUILDER_H_
+#ifndef LAYERSTRATEGYBUILDER_H_
+#define LAYERSTRATEGYBUILDER_H_
 
 #include "SimulationParameters.h"
 #include "SafePointerVector.h"
@@ -32,15 +32,15 @@ class IFormFactor;
 
 //! Methods to generate a simulation strategy for decorated Layer SimulationParameters
 
-class LayerDecoratorStrategyBuilder
+class LayerStrategyBuilder
 {
 public:
-    LayerDecoratorStrategyBuilder(
+    LayerStrategyBuilder(
         const Layer& decorated_layer,
         const Simulation& simulation,
         const SimulationParameters& sim_params);
 
-    virtual ~LayerDecoratorStrategyBuilder();
+    virtual ~LayerStrategyBuilder();
 
     //! Sets R and T coefficient map for DWBA simulation
     void setReflectionTransmissionFunction(
@@ -50,7 +50,7 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy();
 
 protected:
-    Layer *mp_layer_decorator;         //!< decorated layer
+    Layer *mp_layer;                            //!< decorated layer
     Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     IDoubleToPairOfComplexMap *mp_RT_function;  //!< R and T coefficients for DWBA
@@ -87,6 +87,6 @@ public:
     double m_abundance;
 };
 
-#endif /* STRATEGYBUILDER_H_ */
+#endif /* LAYERSTRATEGYBUILDER_H_ */
 
 

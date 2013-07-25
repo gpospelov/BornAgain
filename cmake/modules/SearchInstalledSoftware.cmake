@@ -50,6 +50,8 @@ if(BORNAGAIN_PYTHON)
 
     find_package(PythonInterp)
 
+    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_STRING})
+    
     find_package(PythonLibs REQUIRED)
     if(PYTHONLIBS_FOUND)
         include_directories(${PYTHON_INCLUDE_DIRS})

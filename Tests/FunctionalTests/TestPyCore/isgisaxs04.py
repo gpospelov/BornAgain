@@ -27,11 +27,12 @@ def RunSimulation1():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
@@ -65,11 +66,12 @@ def RunSimulation2():
     particle_decoration.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     #gsl_set_error_handler_off()

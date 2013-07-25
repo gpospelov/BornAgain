@@ -78,10 +78,11 @@ def buildSample(xi_value):
     particle_info = PositionParticleInfo( cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
     particle_decoration.addInterferenceFunction(p_interference_function)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    
+    air_layer.setDecoration(particle_decoration)
 
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 

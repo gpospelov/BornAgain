@@ -260,4 +260,9 @@
 2013-07-25 13:11:27 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 160000      | 4.37637     | 4.36681     | 1.37931     | 357143      | 
 2013-07-25 13:12:38 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 158730      | 4.37637     | 4.36681     | 1.37931     | 357143      | 
 
+# after removal of LayerDecorator
+# (and ./App --mesocrystal2 gives  23.3 (8 threads), 126.8 sec (1 thread))
+2013-07-25 13:51:26 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 173913      | 4.78469     | 4.75059     | 1.50376     | 392157      | 
+2013-07-25 13:51:54 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 173913      | 4.75059     | 4.73934     | 1.49254     | 400000      | 
+
 

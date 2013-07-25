@@ -15,34 +15,50 @@
 
 #include "Layer.h"
 #include "Exceptions.h"
+#include "DecoratedLayerDWBASimulation.h"
+
 #include <iomanip>
 
 
 Layer::Layer()
     : mp_material(0)
-    , mp_decoration(0)
     , m_thickness(0)
+    , mp_decoration(0)
 {
     setName("Layer");
     init_parameters();
 }
 
 
-Layer::Layer(const IMaterial* material, double thickness)
-    : mp_decoration(0)
-    , m_thickness(thickness)
+Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoration)
+    : m_thickness(thickness)
+    , mp_decoration(0)
 {
     setName("Layer");
+    setDecoration(decoration);
     setMaterial(material);
     init_parameters();
 }
+
+Layer::Layer(const IMaterial* material, double thickness, const IDecoration &decoration)
+    : m_thickness(thickness)
+    , mp_decoration(0)
+{
+    setName("Layer");
+    setDecoration(decoration);
+    setMaterial(material);
+    init_parameters();
+}
+
 
 
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
     mp_material = other.mp_material;
     mp_decoration = 0;
-    if(other.getDecoration()) mp_decoration = other.getDecoration()->clone();
+    if(other.getDecoration()) {
+        setDecoration(other.getDecoration()->clone());
+    }
     m_thickness = other.m_thickness;
     setName(other.getName());
     init_parameters();
@@ -87,6 +103,25 @@ void Layer::setMaterial(const IMaterial* material, double thickness)
 }
 
 
+
+void Layer::setDecoration(IDecoration *decoration)
+{
+    if( !decoration ) return;
+
+    if(mp_decoration) {
+        deregisterChild(mp_decoration);
+        delete mp_decoration;
+    }
+    mp_decoration = decoration;
+    registerChild(mp_decoration);
+}
+
+void Layer::setDecoration(const IDecoration &decoration)
+{
+    setDecoration(decoration.clone());
+}
+
+
 //! Prints description.
 void Layer::print(std::ostream& ostr) const
 {
@@ -98,7 +133,7 @@ void Layer::print(std::ostream& ostr) const
 LayerDWBASimulation *Layer::createDWBASimulation() const
 {
     if(mp_decoration) {
-        return new LayerDecoratorDWBASimulation(this);
+        return new DecoratedLayerDWBASimulation(this);
     }
     return 0;
 }
@@ -106,6 +141,8 @@ LayerDWBASimulation *Layer::createDWBASimulation() const
 
 DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
 {
+    if(!mp_decoration) return 0;
+
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;
     size_t nbr_particles = mp_decoration->getNumberOfParticles();
     double particle_density = mp_decoration->getTotalParticleSurfaceDensity();

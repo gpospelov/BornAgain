@@ -16,13 +16,13 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "WinDllMacros.h"
+#include "DiffuseDWBASimulation.h"
+#include "HomogeneousMaterial.h"
 #include "ICompositeSample.h"
 #include "IMaterial.h"
-#include "HomogeneousMaterial.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleDecoration.h"
-#include "LayerDecoratorDWBASimulation.h"
+#include "WinDllMacros.h"
 
 //! A Layer with thickness and pointer to the material
 
@@ -32,8 +32,9 @@ class BA_CORE_API_ Layer : public ICompositeSample
     //! Constructs empty layer.
     Layer();
 
-    //! Constructs layer made of _material_ with _thickness_ in nanometers.
-    Layer(const IMaterial* material, double thickness=0);
+    //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
+    Layer(const IMaterial* material, double thickness=0, IDecoration *decoration=0);
+    Layer(const IMaterial* material, double thickness, const IDecoration &decoration);
 
     virtual ~Layer();
 
@@ -61,8 +62,8 @@ class BA_CORE_API_ Layer : public ICompositeSample
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle decoration
-    void setDecoration(IDecoration *decoration) { delete mp_decoration; mp_decoration = decoration; }
-    void setDecoration(const IDecoration &decoration) { delete mp_decoration; mp_decoration = decoration.clone(); }
+    void setDecoration(IDecoration *decoration);
+    void setDecoration(const IDecoration &decoration);
 
     //! returns particle decoration
     const IDecoration* getDecoration() const { return mp_decoration; }
@@ -85,8 +86,8 @@ class BA_CORE_API_ Layer : public ICompositeSample
     void print(std::ostream& ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
-    IDecoration *mp_decoration;      //!< particle decoration
     double m_thickness;              //!< layer thickness in nanometers
+    IDecoration *mp_decoration;      //!< particle decoration
 };
 
 

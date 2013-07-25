@@ -92,12 +92,13 @@ class MySampleBuilder(ISampleBuilder):
 
         particle_decoration.setTotalParticleSurfaceDensity(surface_density)
         particle_decoration.addInterferenceFunction(p_interference_funtion)
-        avg_layer_decorator = LayerDecorator(avg_layer, particle_decoration)
+        
+        avg_layer.setDecoration(particle_decoration)
 
         roughness = LayerRoughness(self.roughness.value, 0.3, 500.0*nanometer)
 
         p_multi_layer.addLayer(air_layer)
-        p_multi_layer.addLayer(avg_layer_decorator)
+        p_multi_layer.addLayer(avg_layer)
         p_multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
 
         self.sample = p_multi_layer

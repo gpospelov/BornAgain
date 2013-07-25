@@ -29,6 +29,7 @@ HEADERS += \
     RealParameterWrapperTest.h \
     SimulationTest.h \
     ThreadInfoTest.h \
+    LayerTest.h
 
 #OBJECTS_DIR = obj
 

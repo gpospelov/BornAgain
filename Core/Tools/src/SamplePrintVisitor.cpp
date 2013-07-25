@@ -2,7 +2,6 @@
 #include "ISample.h"
 #include "FormFactors.h"
 #include "MultiLayer.h"
-#include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "Particle.h"
 #include "InterferenceFunction1DParaCrystal.h"
@@ -52,6 +51,7 @@ void SamplePrintVisitor::visit(const Layer *sample)
 }
 
 
+/*
 void SamplePrintVisitor::visit(const LayerDecorator *sample)
 {
     assert(sample);
@@ -69,7 +69,7 @@ void SamplePrintVisitor::visit(const LayerDecorator *sample)
 
     goBack();
 }
-
+*/
 
 void SamplePrintVisitor::visit(const LayerInterface *sample)
 {

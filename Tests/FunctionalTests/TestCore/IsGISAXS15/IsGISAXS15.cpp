@@ -1,7 +1,6 @@
 #include "IsGISAXS15.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "ParticleBuilder.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
@@ -52,8 +51,10 @@ void FunctionalTests::IsGISAXS15::run()
     p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer.addLayer(air_layer);
 
    // building simulation
     Simulation simulation;

@@ -53,9 +53,9 @@ def RunSimulation():
     particle_decoration.addInterferenceFunction(interference)
     #making layer holding all whose nano particles
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     
     # build and run experiment
     simulation = Simulation()

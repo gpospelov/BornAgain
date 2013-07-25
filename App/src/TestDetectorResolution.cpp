@@ -21,7 +21,6 @@
 #include "Simulation.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
-#include "LayerDecorator.h"
 #include "MathFunctions.h"
 #include "ResolutionFunction2DSimple.h"
 
@@ -73,9 +72,10 @@ void TestDetectorResolution::initializeSample()
                      new FormFactorCylinder(5*Units::nanometer,
                                             5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }

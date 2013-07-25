@@ -28,11 +28,11 @@ def RunSimulationDWBA():
     particle_decoration.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     
     # build and run experiment
@@ -62,10 +62,11 @@ def RunSimulationBA():
     particle_decoration.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     
     # build and run experiment
     simulation = Simulation()
@@ -106,8 +107,9 @@ def RunSimulationBA_Size():
     particle_decoration.addInterferenceFunction(interference)    
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-    multi_layer.addLayer(air_layer_decorator)
+    air_layer.setDecoration(particle_decoration)
+    
+    multi_layer.addLayer(air_layer)
 
     # build and run experiment  
     simulation = Simulation()

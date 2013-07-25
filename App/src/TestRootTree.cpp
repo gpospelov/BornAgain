@@ -18,7 +18,6 @@
 #include "MaterialManager.h"
 #include "ParticleDecoration.h"
 #include "Particle.h"
-#include "LayerDecorator.h"
 #include "Simulation.h"
 #include "FormFactors.h"
 #include "Units.h"
@@ -425,10 +424,11 @@ void TestRootTree::initializeMesoCrystal(
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }

@@ -13,7 +13,6 @@ public:
     void visit(const ISample *sample);
     void visit(const MultiLayer *sample);
     void visit(const Layer *sample);
-    void visit(const LayerDecorator *sample);
     void visit(const LayerInterface *sample);
     void visit(const ParticleDecoration *sample);
     void visit(const ParticleInfo *sample);

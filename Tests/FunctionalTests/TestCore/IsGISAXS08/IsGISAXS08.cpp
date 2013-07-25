@@ -1,7 +1,6 @@
 #include "IsGISAXS08.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "ParticleBuilder.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
@@ -54,9 +53,10 @@ void FunctionalTests::IsGISAXS08::run2DDL()
     ParticleDecoration particle_decoration( new Particle(n_particle,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer.addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer.addLayer(air_layer);
     multi_layer.addLayer(substrate_layer);
 
     // building simulation
@@ -99,9 +99,10 @@ void FunctionalTests::IsGISAXS08::run2DDL2()
     ParticleDecoration particle_decoration( new Particle(n_particle,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer.addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer.addLayer(air_layer);
     multi_layer.addLayer(substrate_layer);
 
     // building simulation

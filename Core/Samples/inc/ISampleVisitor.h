@@ -22,7 +22,6 @@ class ISample;
 class MultiLayer;
 class Layer;
 class LayerInterface;
-class LayerDecorator;
 class ParticleDecoration;
 class ParticleInfo;
 class Particle;
@@ -49,7 +48,6 @@ public:
     virtual void visit(const ISample *) { throw NotImplementedException("ISampleVisitor::visit(ISample *)"); }
     virtual void visit(const MultiLayer *) { throw NotImplementedException("ISampleVisitor::visit(MultiLayer *)"); }
     virtual void visit(const Layer *) { throw NotImplementedException("ISampleVisitor::visit(Layer *)"); }
-    virtual void visit(const LayerDecorator *) { throw NotImplementedException("ISampleVisitor::visit(LayerDecorator *)"); }
     virtual void visit(const LayerInterface *) { throw NotImplementedException("ISampleVisitor::visit(LayerInterface *)"); }
     virtual void visit(const ParticleDecoration *) { throw NotImplementedException("ISampleVisitor::visit(ParticleDecoration *)"); }
     virtual void visit(const ParticleInfo *) { throw NotImplementedException("ISampleVisitor::visit(ParticleInfo *)"); }

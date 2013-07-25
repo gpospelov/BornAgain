@@ -1,7 +1,6 @@
 #include "IsGISAXS06.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
 #include "Units.h"

@@ -5,16 +5,18 @@
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
 #include "DetectorTest.h"
-#include "SimulationTest.h"
 #include "InstrumentTest.h"
 #include "IParameterizedTest.h"
 #include "KVectorTest.h"
+#include "LayerTest.h"
 #include "MaskTest.h"
 #include "OutputDataIteratorTest.h"
 #include "OutputDataTest.h"
 #include "ParameterPoolTest.h"
 #include "RealParameterWrapperTest.h"
+#include "SimulationTest.h"
 #include "ThreadInfoTest.h"
+
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

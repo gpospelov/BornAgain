@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/LayerDecoratorDWBASimulation.h
-//! @brief     Defines class LayerDecoratorDWBASimulation.
+//! @file      Algorithms/inc/DecoratedLayerDWBASimulation.h
+//! @brief     Defines class DecoratedLayerDWBASimulation.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,24 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERDECORATORDWBASIMULATION_H_
-#define LAYERDECORATORDWBASIMULATION_H_
+#ifndef DECORATEDLAYERDWBASIMULATION_H_
+#define DECORATEDLAYERDWBASIMULATION_H_
 
 #include "LayerDWBASimulation.h"
-#include "DiffuseDWBASimulation.h"
 #include "IInterferenceFunctionStrategy.h"
+#include "DiffuseDWBASimulation.h"
 
-class LayerDecorator;
+class Layer;
 
 //! Calculates scattering cross sections in DWBA for a layer with particles in/on it
 
-class LayerDecoratorDWBASimulation : public LayerDWBASimulation
+class DecoratedLayerDWBASimulation : public LayerDWBASimulation
 {
  public:
-    LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
-    virtual ~LayerDecoratorDWBASimulation();
+    DecoratedLayerDWBASimulation(const Layer *p_layer);
+    virtual ~DecoratedLayerDWBASimulation();
 
-    LayerDecoratorDWBASimulation *clone() const
+    DecoratedLayerDWBASimulation *clone() const
     {
         throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> "
                                       "Error: not implemented.");
@@ -40,7 +40,7 @@ class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 
     virtual void run();
  protected:
-    LayerDecorator *mp_layer_decorator;
+    Layer *mp_layer;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 
  private:
@@ -51,6 +51,6 @@ class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 
 };
 
-#endif /* LAYERDECORATORDWBASIMULATION_H_ */
+#endif /* DECORATEDLAYERDWBASIMULATION_H_ */
 
 

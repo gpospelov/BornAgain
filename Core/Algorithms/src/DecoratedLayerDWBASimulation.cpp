@@ -13,25 +13,25 @@
 //
 // ************************************************************************** //
 
-#include "LayerDecoratorDWBASimulation.h"
-#include "LayerDecorator.h"
+#include "DecoratedLayerDWBASimulation.h"
+#include "Layer.h"
 #include "FormFactors.h"
 #include "MessageService.h"
 
-LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
-    const LayerDecorator *p_layer_decorator)
+DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
+    const Layer *p_layer)
 {
-    mp_layer_decorator = p_layer_decorator->clone();
-    mp_diffuseDWBA = mp_layer_decorator->createDiffuseDWBASimulation();
+    mp_layer = p_layer->clone();
+    mp_diffuseDWBA = mp_layer->createDiffuseDWBASimulation();
 }
 
-LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
+DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 {
-    delete mp_layer_decorator;
+    delete mp_layer;
     delete mp_diffuseDWBA;
 }
 
-void LayerDecoratorDWBASimulation::init(const Simulation& simulation)
+void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 {
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::init()";
     DWBASimulation::init(simulation);
@@ -40,7 +40,7 @@ void LayerDecoratorDWBASimulation::init(const Simulation& simulation)
     }
 }
 
-void LayerDecoratorDWBASimulation::run()
+void DecoratedLayerDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::run()";
     IInterferenceFunctionStrategy *p_strategy = createAndInitStrategy();
@@ -52,10 +52,10 @@ void LayerDecoratorDWBASimulation::run()
 }
 
 IInterferenceFunctionStrategy
-    *LayerDecoratorDWBASimulation::createAndInitStrategy() const
+    *DecoratedLayerDWBASimulation::createAndInitStrategy() const
 {
-    LayerDecoratorStrategyBuilder builder(
-        *mp_layer_decorator, *mp_simulation, m_sim_params);
+    LayerStrategyBuilder builder(
+        *mp_layer, *mp_simulation, m_sim_params);
     if (mp_RT_function)
         builder.setReflectionTransmissionFunction(*mp_RT_function);
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
@@ -63,12 +63,12 @@ IInterferenceFunctionStrategy
 }
 
 std::vector<IFormFactor*>
-LayerDecoratorDWBASimulation::createDWBAFormFactors() const
+DecoratedLayerDWBASimulation::createDWBAFormFactors() const
 {
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...()";
     std::vector<IFormFactor*> result;
-    const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
-    complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
+    const IDecoration *p_decoration = mp_layer->getDecoration();
+    complex_t n_layer = mp_layer->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     for (size_t particle_index =
             0; particle_index<number_of_particles; ++particle_index) {
@@ -103,13 +103,13 @@ LayerDecoratorDWBASimulation::createDWBAFormFactors() const
     return result;
 }
 
-void LayerDecoratorDWBASimulation::calculateCoherentIntensity(
+void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::calculateCoh...()";
     double wavelength = getWaveLength();
     double total_surface_density =
-        mp_layer_decorator->getTotalParticleSurfaceDensity();
+        mp_layer->getTotalParticleSurfaceDensity();
 
     cvector_t k_ij = m_ki;
     k_ij.setZ(-mp_kz_function->evaluate(-m_alpha_i));
@@ -135,7 +135,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(
     }
 }
 
-void LayerDecoratorDWBASimulation::calculateInCoherentIntensity()
+void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
 {
     msglog(MSG::DEBUG) << "Calculating incoherent scattering...";
     if (mp_diffuseDWBA) {

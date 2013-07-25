@@ -16,11 +16,13 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "WinDllMacros.h"
+#include "DiffuseDWBASimulation.h"
+#include "HomogeneousMaterial.h"
 #include "ICompositeSample.h"
 #include "IMaterial.h"
-#include "HomogeneousMaterial.h"
 #include "LayerDWBASimulation.h"
+#include "ParticleDecoration.h"
+#include "WinDllMacros.h"
 
 //! A Layer with thickness and pointer to the material
 
@@ -28,16 +30,13 @@ class BA_CORE_API_ Layer : public ICompositeSample
 {
  public:
     //! Constructs empty layer.
-    Layer() : mp_material(0), m_thickness(0)
-    {
-        setName("Layer");
-        init_parameters();
-    }
+    Layer();
 
-    //! Constructs layer made of _material_ with _thickness_ in nanometers.
-    Layer(const IMaterial* material, double thickness=0);
+    //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
+    Layer(const IMaterial* material, double thickness=0, IDecoration *decoration=0);
+    Layer(const IMaterial* material, double thickness, const IDecoration &decoration);
 
-    virtual ~Layer() {}
+    virtual ~Layer();
 
     virtual Layer *clone() const { return new Layer(*this); }
 
@@ -62,11 +61,22 @@ class BA_CORE_API_ Layer : public ICompositeSample
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;
 
-    //! Returns false (override is important for polymorphism of LayerDecorator).
-    virtual bool hasDWBASimulation() const { return false; }
+    //! sets particle decoration
+    void setDecoration(IDecoration *decoration);
+    void setDecoration(const IDecoration &decoration);
 
-    //! Returns zero pointer (override is important for polymorphism of LayerDecorator).
-    virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
+    //! returns particle decoration
+    const IDecoration* getDecoration() const { return mp_decoration; }
+
+    //! Returns true if decoration is present
+    virtual bool hasDWBASimulation() const { return (mp_decoration ? true : false); }
+
+    //! creates and return LayerDWBASimulation in the case of present decoration
+    virtual LayerDWBASimulation *createDWBASimulation() const;
+
+    virtual DiffuseDWBASimulation *createDiffuseDWBASimulation() const;
+
+    virtual double getTotalParticleSurfaceDensity() const;
 
  protected:
     Layer(const Layer& other);
@@ -77,6 +87,7 @@ class BA_CORE_API_ Layer : public ICompositeSample
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers
+    IDecoration *mp_decoration;      //!< particle decoration
 };
 
 
@@ -84,6 +95,14 @@ inline complex_t Layer::getRefractiveIndex() const
 {
     const HomogeneousMaterial *material = dynamic_cast<const HomogeneousMaterial *>(mp_material);
     return (material ? material->getRefractiveIndex() : complex_t(0,0));
+}
+
+inline double Layer::getTotalParticleSurfaceDensity() const
+{
+    if (mp_decoration) {
+        return mp_decoration->getTotalParticleSurfaceDensity();
+    }
+    return 0.0;
 }
 
 

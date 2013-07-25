@@ -59,7 +59,7 @@ def runTest():
 # run fitting specified minimizer
 # -----------------------------------------------------------------------------
 def run_fitting(minimizer_name, minimizer_algorithm):
-    sample = buildSample()
+    sample = buildSample()    
     simulation = createSimulation()
     simulation.setSample(sample)
 
@@ -111,9 +111,9 @@ def buildSample():
 
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
 
     return multi_layer
 

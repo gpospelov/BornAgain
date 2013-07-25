@@ -1,7 +1,6 @@
 #include "IsGISAXS06Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
 #include "Units.h"
@@ -58,9 +57,10 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -113,9 +113,10 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -166,9 +167,10 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
         new Particle(n_particle, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -228,9 +230,10 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 

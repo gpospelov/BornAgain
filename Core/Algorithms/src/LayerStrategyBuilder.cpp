@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#include "StrategyBuilder.h"
-#include "LayerDecorator.h"
+#include "LayerStrategyBuilder.h"
+#include "Layer.h"
 #include "Simulation.h"
 #include "IDoubleToComplexFunction.h"
 #include "InterferenceFunctions.h"
@@ -25,25 +25,26 @@
 
 #include <cmath>
 
-LayerDecoratorStrategyBuilder::LayerDecoratorStrategyBuilder(
-        const LayerDecorator& decorated_layer, const Simulation& simulation,
+LayerStrategyBuilder::LayerStrategyBuilder(
+        const Layer& decorated_layer, const Simulation& simulation,
         const SimulationParameters& sim_params)
-  : mp_layer_decorator(decorated_layer.clone())
+  : mp_layer(decorated_layer.clone())
   , mp_simulation(simulation.clone())
   , m_sim_params(sim_params)
   , mp_RT_function(0)
 {
+    assert(mp_layer->getDecoration());
 }
 
-LayerDecoratorStrategyBuilder::~LayerDecoratorStrategyBuilder()
+LayerStrategyBuilder::~LayerStrategyBuilder()
 {
-    delete mp_layer_decorator;
+    delete mp_layer;
     delete mp_simulation;
     delete mp_RT_function;
 }
 
 
-void LayerDecoratorStrategyBuilder::setReflectionTransmissionFunction(
+void LayerStrategyBuilder::setReflectionTransmissionFunction(
         const IDoubleToPairOfComplexMap& rt_map)
 {
     if (mp_RT_function !=& rt_map) {
@@ -52,7 +53,7 @@ void LayerDecoratorStrategyBuilder::setReflectionTransmissionFunction(
     }
 }
 
-IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
+IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     collectFormFactorInfos();
     collectInterferenceFunctions();
@@ -96,11 +97,12 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
     return p_result;
 }
 
-void LayerDecoratorStrategyBuilder::collectFormFactorInfos()
+void LayerStrategyBuilder::collectFormFactorInfos()
 {
+    assert(mp_layer->getDecoration());
     m_ff_infos.clear();
-    const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
-    complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
+    const IDecoration *p_decoration = mp_layer->getDecoration();
+    complex_t n_layer = mp_layer->getRefractiveIndex();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
     size_t number_of_particles = p_decoration->getNumberOfParticles();
@@ -119,23 +121,24 @@ void LayerDecoratorStrategyBuilder::collectFormFactorInfos()
     return;
 }
 
-void LayerDecoratorStrategyBuilder::collectInterferenceFunctions()
+void LayerStrategyBuilder::collectInterferenceFunctions()
 {
+    assert(mp_layer->getDecoration());
     m_ifs.clear();
-    if (mp_layer_decorator->getDecoration()->getNumberOfInterferenceFunctions()) {
-        m_ifs = mp_layer_decorator->getDecoration()->getInterferenceFunctions();
+    if (mp_layer->getDecoration()->getNumberOfInterferenceFunctions()) {
+        m_ifs = mp_layer->getDecoration()->getInterferenceFunctions();
     }
     else m_ifs.push_back(new InterferenceFunctionNone);
 }
 
-double LayerDecoratorStrategyBuilder::getWavelength()
+double LayerStrategyBuilder::getWavelength()
 {
     cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
     kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
     return 2*M_PI/ki_real.mag();
 }
 
-FormFactorInfo *LayerDecoratorStrategyBuilder::createFormFactorInfo(
+FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         const ParticleInfo *p_particle_info,
         complex_t n_ambient_refractive_index,
         complex_t factor) const

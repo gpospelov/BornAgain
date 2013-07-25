@@ -6,7 +6,6 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "FormFactorSphereGaussianRadius.h"
@@ -86,12 +85,13 @@ ISample* SampleBuilder::buildSample() const
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 
     return p_multi_layer;

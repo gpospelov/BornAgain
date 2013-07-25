@@ -4,7 +4,6 @@
 #include "MaterialManager.h"
 #include "FormFactorBox.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "Simulation.h"
 #include "OutputDataIOFactory.h"
 #include "PositionParticleInfo.h"
@@ -91,8 +90,8 @@ void FunctionalTests::IsGISAXS07::run()
     PositionParticleInfo particle_info10(new Particle(n_particle, ff10), m10, pos10, 0.5);
     particle_decoration.addParticleInfo(particle_info10);
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+    multi_layer.addLayer(air_layer);
 
     // ---------------------
     // building simulation

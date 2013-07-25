@@ -2,7 +2,6 @@
 #include "MaterialManager.h"
 #include "MessageService.h"
 #include "MultiLayer.h"
-#include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "InterferenceFunctions.h"
 #include "FormFactorCylinder.h"
@@ -112,13 +111,15 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
 ISample *TestFit01::buildSample()
 {
     MultiLayer *multi_layer = new MultiLayer();
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer(air_material);
     complex_t n_particle(1.0-6e-4, 2e-8);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     return multi_layer;
 }
 

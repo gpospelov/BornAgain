@@ -17,6 +17,7 @@ SUBDIRS += Fit
 !isEmpty(ROOT_FRAMEWORK) {
     SUBDIRS += App
 }
+
 SUBDIRS += Tests/FunctionalTests/TestCore
 SUBDIRS += Tests/FunctionalTests/TestFit
 

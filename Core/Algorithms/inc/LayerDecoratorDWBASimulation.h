@@ -20,14 +20,14 @@
 #include "DiffuseDWBASimulation.h"
 #include "IInterferenceFunctionStrategy.h"
 
-class LayerDecorator;
+class Layer;
 
 //! Calculates scattering cross sections in DWBA for a layer with particles in/on it
 
 class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 {
  public:
-    LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
+    LayerDecoratorDWBASimulation(const Layer *p_layer_decorator);
     virtual ~LayerDecoratorDWBASimulation();
 
     LayerDecoratorDWBASimulation *clone() const
@@ -40,7 +40,7 @@ class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 
     virtual void run();
  protected:
-    LayerDecorator *mp_layer_decorator;
+    Layer *mp_layer;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 
  private:

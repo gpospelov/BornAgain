@@ -1,7 +1,6 @@
 #include "IsGISAXS04Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
@@ -46,9 +45,10 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_corr_peak_distance,m_corr_width, m_corr_length);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -101,9 +101,10 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     p_interference_function->setProbabilityDistributions(pdf, pdf);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;

@@ -85,7 +85,7 @@ include_classes = [
 "Lattice2DIFParameters",
 "LatticeBasis",
 "Layer",
-"LayerDecorator",
+#"LayerDecorator",
 "LayerInterface",
 "LayerRoughness",
 "MaterialManager",

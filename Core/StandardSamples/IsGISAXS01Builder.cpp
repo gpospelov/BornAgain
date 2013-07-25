@@ -1,7 +1,6 @@
 #include "IsGISAXS01Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
@@ -56,9 +55,10 @@ ISample *IsGISAXS01Builder::buildSample() const
                 0.0, 1.0-m_cylinder_weight);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    //LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    air_layer.setDecoration(particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

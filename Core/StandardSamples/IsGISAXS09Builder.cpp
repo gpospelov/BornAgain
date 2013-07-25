@@ -1,7 +1,6 @@
 #include "IsGISAXS09Builder.h"
 #include "FormFactorPyramid.h"
 #include "InterferenceFunctionNone.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
@@ -50,8 +49,9 @@ ISample *IsGISAXS09Builder::buildSample() const
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -106,8 +106,9 @@ ISample *IsGISAXS09RotatedBuilder::buildSample() const
     particle_decoration.addParticle(pyramid, transform);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
 

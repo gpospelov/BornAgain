@@ -1,6 +1,5 @@
 #include "SampleBuilder.h"
 #include "MultiLayer.h"
-#include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "InterferenceFunctions.h"
 #include "FormFactorCylinder.h"
@@ -54,8 +53,10 @@ ISample *SampleBuilder::buildSample() const
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

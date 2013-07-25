@@ -1,7 +1,6 @@
 #include "IsGISAXS10.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction1DParaCrystal.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MultiLayer.h"
 #include "OutputDataIOFactory.h"
@@ -42,9 +41,9 @@ void FunctionalTests::IsGISAXS10::run()
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    air_layer.setDecoration(particle_decoration);
 
-    multi_layer.addLayer(air_layer_decorator);
+    multi_layer.addLayer(air_layer);
     multi_layer.addLayer(substrate_layer);
 
     // building simulation

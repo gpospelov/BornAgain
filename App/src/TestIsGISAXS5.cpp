@@ -24,7 +24,6 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -303,8 +302,9 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     builder.plantParticles(particle_decoration);
 
     // making layer holding all whose nano particles
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);

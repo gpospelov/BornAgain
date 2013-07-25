@@ -26,7 +26,6 @@
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
 #include "LatticeBasis.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
@@ -603,12 +602,13 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 
 //    std::cout << "Average layer index: " << n_avg << std::endl;

@@ -53,7 +53,6 @@
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
 #include "Layer.h"
-#include "LayerDecorator.h"
 #include "LayerRoughness.h"
 #include "MathFunctions.h"
 #include "MaterialManager.h"

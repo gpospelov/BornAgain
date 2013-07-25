@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "StrategyBuilder.h"
-#include "LayerDecorator.h"
+#include "Layer.h"
 #include "Simulation.h"
 #include "IDoubleToComplexFunction.h"
 #include "InterferenceFunctions.h"
@@ -26,7 +26,7 @@
 #include <cmath>
 
 LayerDecoratorStrategyBuilder::LayerDecoratorStrategyBuilder(
-        const LayerDecorator& decorated_layer, const Simulation& simulation,
+        const Layer& decorated_layer, const Simulation& simulation,
         const SimulationParameters& sim_params)
   : mp_layer_decorator(decorated_layer.clone())
   , mp_simulation(simulation.clone())

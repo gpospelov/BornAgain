@@ -1,7 +1,6 @@
 #include "IsGISAXS02Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
@@ -74,9 +73,10 @@ ISample *IsGISAXS02Builder::buildSample() const
     builder.plantParticles(particle_decoration);
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    // making layer holding all whose nano particles
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
 
     return multi_layer;
 }

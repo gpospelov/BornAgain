@@ -14,20 +14,21 @@
 // ************************************************************************** //
 
 #include "LayerDecoratorDWBASimulation.h"
-#include "LayerDecorator.h"
+//#include "LayerDecorator.h"
+#include "Layer.h"
 #include "FormFactors.h"
 #include "MessageService.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
-    const LayerDecorator *p_layer_decorator)
+    const Layer *p_layer)
 {
-    mp_layer_decorator = p_layer_decorator->clone();
-    mp_diffuseDWBA = mp_layer_decorator->createDiffuseDWBASimulation();
+    mp_layer = p_layer->clone();
+    mp_diffuseDWBA = mp_layer->createDiffuseDWBASimulation();
 }
 
 LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
 {
-    delete mp_layer_decorator;
+    delete mp_layer;
     delete mp_diffuseDWBA;
 }
 
@@ -55,7 +56,7 @@ IInterferenceFunctionStrategy
     *LayerDecoratorDWBASimulation::createAndInitStrategy() const
 {
     LayerDecoratorStrategyBuilder builder(
-        *mp_layer_decorator, *mp_simulation, m_sim_params);
+        *mp_layer, *mp_simulation, m_sim_params);
     if (mp_RT_function)
         builder.setReflectionTransmissionFunction(*mp_RT_function);
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
@@ -67,8 +68,8 @@ LayerDecoratorDWBASimulation::createDWBAFormFactors() const
 {
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...()";
     std::vector<IFormFactor*> result;
-    const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
-    complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
+    const IDecoration *p_decoration = mp_layer->getDecoration();
+    complex_t n_layer = mp_layer->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     for (size_t particle_index =
             0; particle_index<number_of_particles; ++particle_index) {
@@ -109,7 +110,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::calculateCoh...()";
     double wavelength = getWaveLength();
     double total_surface_density =
-        mp_layer_decorator->getTotalParticleSurfaceDensity();
+        mp_layer->getTotalParticleSurfaceDensity();
 
     cvector_t k_ij = m_ki;
     k_ij.setZ(-mp_kz_function->evaluate(-m_alpha_i));

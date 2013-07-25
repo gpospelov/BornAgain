@@ -24,7 +24,6 @@
 #include "Simulation.h"
 #include "IsGISAXSTools.h"
 #include "Lattice.h"
-#include "LayerDecorator.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
 #include "LatticeBasis.h"

@@ -21,7 +21,6 @@
 #include "FormFactors.h"
 #include "ParticleDecoration.h"
 #include "InterferenceFunctionNone.h"
-#include "LayerDecorator.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
 #include "Crystal.h"
@@ -368,8 +367,9 @@ ISample *StandardSamples::IsGISAXS7_morphology()
         (new Particle(n_particle, ff10), m10, pos10, 0.5);
     particle_decoration.addParticleInfo(particle_info10);
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     return p_multi_layer;
 }
 
@@ -401,9 +401,10 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
         (new Particle(n_particle, new FormFactorCylinder
                       (5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -436,9 +437,10 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
         (new Particle(n_particle, new FormFactorCylinder
                       (5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -465,9 +467,10 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
                       (5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
     //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -492,9 +495,10 @@ ISample *StandardSamples::IsGISAXS11_CoreShellParticles()
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
     ParticleDecoration particle_decoration(particle.clone());
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     return p_multi_layer;
 }
 
@@ -521,9 +525,10 @@ ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
         (new Particle(n_particle, new FormFactorSphere
                       (5*Units::nanometer, 5.*2.0*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;
@@ -562,8 +567,10 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
     std::cout << "Number of replacements: " << nbr_replacements << std::endl;
 
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     return p_multi_layer;
 }
 
@@ -616,9 +623,10 @@ ISample *StandardSamples::MesoCrystal1()
     particle_decoration.addParticle(meso.clone(), 0.0, 0.5);
     particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 
@@ -683,9 +691,11 @@ ISample *StandardSamples::MesoCrystal2()
     particle_decoration.addParticle(meso_crystal, 0.2*Units::micrometer);
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
+
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 
@@ -714,8 +724,10 @@ ISample *StandardSamples::FormFactor_Box()
                                         5*Units::nanometer)));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -743,8 +755,10 @@ ISample *StandardSamples::FormFactor_Cone()
                                          Units::deg2rad(54.73 ))));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -771,8 +785,10 @@ ISample *StandardSamples::FormFactor_Sphere()
                                            5*Units::nanometer)));
     particle_decoration.addInterferenceFunction
 (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -801,8 +817,10 @@ ISample *StandardSamples::FormFactor_Ellipsoid()
                                               Units::deg2rad(54.73 ))));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -829,8 +847,10 @@ ISample *StandardSamples::FormFactor_FullSpheroid()
                                                  7*Units::nanometer )));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -858,8 +878,10 @@ ISample *StandardSamples::FormFactor_HemiSpheroid()
                                                  2*Units::nanometer)));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -887,8 +909,10 @@ ISample *StandardSamples::FormFactor_Parallelpiped()
     ParticleDecoration particle_decoration(particle.clone());
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     return p_multi_layer;
 }
 
@@ -915,9 +939,11 @@ ISample *StandardSamples::FormFactor_Cylinder()
     ParticleDecoration particle_decoration(particle.clone());
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+
+    p_multi_layer->addLayer(air_layer);
     return p_multi_layer;
 }
 
@@ -944,9 +970,10 @@ ISample *StandardSamples::FormFactor_Pyramid()
                                             Units::deg2rad(54.73 ) ) ) );
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -973,9 +1000,10 @@ ISample *StandardSamples::FormFactor_Prism3()
                                            5*Units::nanometer)));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -1001,9 +1029,10 @@ ISample *StandardSamples::FormFactor_FullSphere()
                        new FormFactorFullSphere(5*Units::nanometer ) ) );
      particle_decoration.addInterferenceFunction
          (new InterferenceFunctionNone());
-     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-     p_multi_layer->addLayer(air_layer_decorator);
+     air_layer.setDecoration(particle_decoration);
+
+     p_multi_layer->addLayer(air_layer);
      p_multi_layer->addLayer(substrate_layer);
      return p_multi_layer;
 }

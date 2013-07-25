@@ -1,7 +1,6 @@
 #include "IsGISAXS03Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
@@ -47,8 +46,9 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_height, m_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -89,8 +89,9 @@ ISample *IsGISAXS03BABuilder::buildSample() const
     complex_t n_particle(1.0-6e-4, 2e-8);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_height, m_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+    multi_layer->addLayer(air_layer);
 
     return multi_layer;
 }
@@ -141,9 +142,10 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
     builder.plantParticles(particle_decoration);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
 
     return multi_layer;
 }

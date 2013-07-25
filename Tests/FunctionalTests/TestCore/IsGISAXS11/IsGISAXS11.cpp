@@ -1,7 +1,6 @@
 #include "IsGISAXS11.h"
 #include "FormFactorParallelepiped.h"
 #include "InterferenceFunctionNone.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MultiLayer.h"
 #include "OutputDataIOFactory.h"
@@ -44,9 +43,10 @@ void FunctionalTests::IsGISAXS11::run()
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
     ParticleDecoration particle_decoration(particle.clone());
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer.addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer.addLayer(air_layer);
 
     // building simulation
     Simulation simulation;

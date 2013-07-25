@@ -112,7 +112,6 @@ SOURCES += \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
-    Samples/src/LayerDecorator.cpp \
     Samples/src/LayerInterface.cpp \
     Samples/src/LayerRoughness.cpp \
     Samples/src/MaterialManager.cpp \
@@ -284,7 +283,6 @@ HEADERS += \
     Samples/inc/Lattice2DIFParameters.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
-    Samples/inc/LayerDecorator.h \
     Samples/inc/LayerInterface.h \
     Samples/inc/LayerRoughness.h \
     Samples/inc/MaterialManager.h \

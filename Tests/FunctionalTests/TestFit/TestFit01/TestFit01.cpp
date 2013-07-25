@@ -2,7 +2,6 @@
 #include "MaterialManager.h"
 #include "MessageService.h"
 #include "MultiLayer.h"
-#include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "InterferenceFunctions.h"
 #include "FormFactorCylinder.h"
@@ -117,8 +116,10 @@ ISample *TestFit01::buildSample()
     complex_t n_particle(1.0-6e-4, 2e-8);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     return multi_layer;
 }
 

@@ -251,5 +251,13 @@
 2013-07-17 17:19:14 | jcnsopc74  | macosx64, 2800 MHz      | 298507      | 23.8095     | 23.5294     | 6.06061     | 800000      | 
 
 # before removal of LayerDecorator
+# (and ./App --mesocrystal2 gives  29.69 (4 threads), 51.13 (1 thread))
 2013-07-25 13:03:17 | jcnsopc73  | macosx64, 2800 MHz      | 281690      | 22.4719     | 22.2222     | 5.88235     | 666667      | 
 2013-07-25 13:03:41 | jcnsopc73  | macosx64, 2800 MHz      | 281690      | 22.4719     | 22.2222     | 6.06061     | 689655      | 
+
+# New Gennady's PC
+# (and ./App --mesocrystal2 gives  22.3 (8 threads), 129 sec (1 thread)) <--!! When it's one thread, cpu-freq is always 1.6GHz
+2013-07-25 13:11:27 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 160000      | 4.37637     | 4.36681     | 1.37931     | 357143      | 
+2013-07-25 13:12:38 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 158730      | 4.37637     | 4.36681     | 1.37931     | 357143      | 
+
+

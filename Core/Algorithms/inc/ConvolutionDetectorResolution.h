@@ -16,6 +16,7 @@
 #ifndef CONVOLUTIONDETECTORRESOLUTION_H_
 #define CONVOLUTIONDETECTORRESOLUTION_H_
 
+#include "WinDllMacros.h"
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 
@@ -24,7 +25,7 @@
 //! Limitation: this class assumes that the data points are evenly
 //! distributed on each axis
 
-class ConvolutionDetectorResolution : public IDetectorResolution
+class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
 {
  public:
     typedef double (*cumulative_DF_1d)(double);

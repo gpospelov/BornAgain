@@ -17,7 +17,7 @@
 #define PYTHONLISTCONVERTER_H
 
 
-#include "Python.h"
+#include "boost/python/detail/wrap_python.hpp"
 
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
@@ -67,9 +67,9 @@ struct Vector_from_python_list
         std::vector<T>& v = *(new (storage) std::vector<T>());
 
         // populate the vector from list contains
-        int le = len(l);
+        ssize_t le = len(l);
         v.resize(le);
-        for(int i = 0;i!=le;++i) v[i] = bp::extract<T>(l[i]);
+        for(ssize_t i = 0;i!=le;++i) v[i] = bp::extract<T>(l[i]);
 
         // Stash the memory chunk pointer for later use by boost.python
         data->convertible = storage;

@@ -4,7 +4,6 @@
 #include "MaterialManager.h"
 #include "FormFactorBox.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "Simulation.h"
 #include "OutputDataIOFactory.h"
 #include "PositionParticleInfo.h"
@@ -24,7 +23,7 @@ void FunctionalTests::IsGISAXS07::run()
 {
     // building sample
     MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
 
@@ -91,8 +90,8 @@ void FunctionalTests::IsGISAXS07::run()
     PositionParticleInfo particle_info10(new Particle(n_particle, ff10), m10, pos10, 0.5);
     particle_decoration.addParticleInfo(particle_info10);
 
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+    multi_layer.addLayer(air_layer);
 
     // ---------------------
     // building simulation
@@ -118,17 +117,19 @@ void FunctionalTests::IsGISAXS07::run()
     m_result = simulation.getOutputDataClone();
 }
 
-int FunctionalTests::IsGISAXS07::analyseResults()
+int FunctionalTests::IsGISAXS07::analyseResults(const std::string &path_to_data)
 {
-    const double threshold(1e-10);
+    const double threshold(2e-10);
 
     // retrieving reference data
-    std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/FunctionalTests/TestCore/IsGISAXS07/isgisaxs07_reference.ima.gz";
+    std::string filename = path_to_data + "isgisaxs07_reference.ima.gz";
     OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
 
     // calculating average relative difference
     *m_result -= *reference;
     *m_result /= *reference;
+    delete reference;
+
     double diff(0);
     for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {
         diff+= std::fabs(*it);
@@ -143,11 +144,17 @@ int FunctionalTests::IsGISAXS07::analyseResults()
 }
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
+{
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS07 test;
     test.run();
 
-    return test.analyseResults();
+    return test.analyseResults(GetPathToData(argc, argv));
 }
 #endif

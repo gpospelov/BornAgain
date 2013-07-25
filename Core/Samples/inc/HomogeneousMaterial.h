@@ -19,7 +19,7 @@
 #include "IMaterial.h"
 #include "Types.h"
 
-//! A homogeneous material with refraction index.
+//! A homogeneous material with a refractive index.
 
 class HomogeneousMaterial : public IMaterial
 {
@@ -29,21 +29,14 @@ class HomogeneousMaterial : public IMaterial
                         const complex_t& refractive_index)
         : IMaterial(name), m_refractive_index(refractive_index) {}
 
-    //! Constructs a material with _name_ and refractive_index.
+    //! Constructs a material with _name_ and refractive_index parameters
+    //! delta and beta (n = 1 - delta + i*beta).
     HomogeneousMaterial(const std::string& name,
-                        double refractive_index_real,
-                        double refractive_index_imag )
+                        double refractive_index_delta,
+                        double refractive_index_beta)
         : IMaterial(name),
-        m_refractive_index(complex_t(refractive_index_real,
-                                     refractive_index_imag)) {}
-
-    //! TODO: is this needed?
-    HomogeneousMaterial(const complex_t &refractive_index)
-        : IMaterial("noname"), m_refractive_index(refractive_index) {}
-
-    // Copy constructor.
-//    HomogeneousMaterial(const HomogeneousMaterial& other)
-//        : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
+        m_refractive_index(complex_t(1.0-refractive_index_delta,
+                                     refractive_index_beta)) {}
 
     virtual ~HomogeneousMaterial() {}
 

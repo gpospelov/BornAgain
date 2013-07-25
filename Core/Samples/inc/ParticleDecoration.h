@@ -23,7 +23,7 @@
 
 //! Decorator class that adds particles to ISample objects
 
-class ParticleDecoration : public IDecoration
+class BA_CORE_API_ ParticleDecoration : public IDecoration
 {
  public:
     ParticleDecoration()
@@ -47,32 +47,32 @@ class ParticleDecoration : public IDecoration
         setName("ParticleDecoration");
         addParticle(p_particle.clone(), depth, abundance);
     }
-  
+
     ~ParticleDecoration()
     {
         for (size_t i=0; i<m_particles.size(); ++i)
             delete m_particles[i];
     }
-  
+
     virtual ParticleDecoration *clone() const;
 
-    //! Adds generic particle, *-version.
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
+    //! Adds generic particle
     void addParticle(
         Particle *p_particle, const Geometry::PTransform3D& transform,
         double depth=0, double abundance=1.0);
 
-    //! Adds generic particle, &-version.
     void addParticle(
         const Particle& p_particle, const Geometry::PTransform3D& transform,
         double depth=0, double abundance=1.0);
 
-    //! Adds particle without rotation, *-version.
-    void addParticle(
-        Particle *p_particle, double depth=0.0, double abundance=1.0);
+    //! Adds particle without rotation
+    void addParticle(Particle *p_particle, double depth=0.0, double abundance=1.0);
 
-    //! Adds particle without rotation, &-version.
-    void addParticle(
-        const Particle& particle, double depth=0.0, double abundance=1.0);
+    //! Adds particle without rotation
+    void addParticle(const Particle& particle, double depth=0.0, double abundance=1.0);
 
     //! Adds particle info
     void addParticleInfo(const ParticleInfo& info);
@@ -91,16 +91,13 @@ class ParticleDecoration : public IDecoration
     { return m_interference_functions.size(); }
 
     //! Returns interference functions
-    virtual SafePointerVector<IInterferenceFunction>
-        getInterferenceFunctions() const
+    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const
     { return m_interference_functions; }
 
     //! Adds interference function
-    void addInterferenceFunction(
-        IInterferenceFunction* p_interference_function);
+    void addInterferenceFunction(IInterferenceFunction* p_interference_function);
 
-    void addInterferenceFunction(
-        const IInterferenceFunction& interference_function);
+    void addInterferenceFunction(const IInterferenceFunction& interference_function);
 
     //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;

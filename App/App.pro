@@ -3,7 +3,18 @@ CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
 QT      -= core gui
-CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
+
+
+# -----------------------------------------------------------------------------
+# generate ROOT dictionaries
+# -----------------------------------------------------------------------------
+BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
+BORNAGAIN_ROOT_DICT_INCLUDES = $$PWD/../Core/Tools/inc
+include($$PWD/../shared.pri)
+
+isEmpty(ROOT_FRAMEWORK) {
+    error("ROOT is absent")
+}
 
 # -----------------------------------------------------------------------------
 # propagating operation system type inside the code
@@ -22,14 +33,9 @@ FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 # Our source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS04/IsGISAXS04.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS10/IsGISAXS10.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.cpp \
@@ -77,20 +83,16 @@ SOURCES += \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
+    src/TestSpecularMatrix.cpp \
     src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
     src/main.cpp
 
 
 HEADERS += \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS04/IsGISAXS04.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS10/IsGISAXS10.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.h \
@@ -141,52 +143,25 @@ HEADERS += \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
+    inc/TestSpecularMatrix.h \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
+myIncludes = $$PWD/inc \
+             $${FUNCTIONAL_TESTS}/IsGISAXS06 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS07 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS08 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS10 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS11 \
+             $${FUNCTIONAL_TESTS}/IsGISAXS15
 
-LOCATIONS = $$PWD/inc \
-            $${FUNCTIONAL_TESTS}/IsGISAXS01 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS02 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS03 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS04 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS06 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS07 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS08 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS09 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS10 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS11 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS15
+myIncludes += $${BornAgainCore_INCLUDEPATH} $${BornAgainFit_INCLUDEPATH} $${ROOT_FRAMEWORK_INCLUDEPATH}
 
-INCLUDEPATH += $${LOCATIONS}
-DEPENDPATH  += $${LOCATIONS}
+INCLUDEPATH += $$myIncludes
+DEPENDPATH  += $$myIncludes
 
-# -----------------------------------------------------------------------------
-# to throw exception in the case floating point exception
-# -----------------------------------------------------------------------------
-#CONFIG(DEBUG) {
-#    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-#    # mac requires his own patched version of fp_exceptions
-#    macx:HEADERS += inc/fp_exception_glibc_extension.h
-#    macx:SOURCES += src/fp_exception_glibc_extension.c
-#}
+LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMathMore_LIB
+LIBS += $${ROOT_FRAMEWORK_LIBS}
 
-# -----------------------------------------------------------------------------
-# additional libraries
-# -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so
 
-INCLUDEPATH += $$PWD/../Fit/Factory/inc
-DEPENDPATH  += $$PWD/../Fit/Factory/inc
-
-# -----------------------------------------------------------------------------
-# generate ROOT dictionaries
-# -----------------------------------------------------------------------------
-BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
-BORNAGAIN_ROOT_DICT_INCLUDES = ../Core/Tools/inc
-
-# -----------------------------------------------------------------------------
-# general project settings
-# -----------------------------------------------------------------------------
-include($$PWD/../shared.pri)

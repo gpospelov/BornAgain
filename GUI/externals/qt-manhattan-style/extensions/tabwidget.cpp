@@ -37,7 +37,7 @@ TabWidget::TabWidget(QWidget *parent) :
     m_drawFrame(false)
 {
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setContentsMargins(0, minimumSizeHint().height(), 0, 0);
+    layout->setContentsMargins(0, TAB_HEIGHT + CONTENT_HEIGHT_MARGIN + 1, 0, 0);
     m_stack = new QStackedWidget;
     layout->addWidget(m_stack);
     setLayout(layout);
@@ -76,11 +76,6 @@ void TabWidget::setFrameVisible(bool visible)
         m_drawFrame = visible;
         update();
     }
-}
-
-QSize TabWidget::minimumSizeHint() const
-{
-    return QSize(0, TAB_HEIGHT + CONTENT_HEIGHT_MARGIN + 1);
 }
 
 void TabWidget::addTab(const QString &name, QWidget *widget)
@@ -132,6 +127,11 @@ void TabWidget::removeTab(int index)
 int TabWidget::tabCount() const
 {
     return m_tabs.size();
+}
+
+QString TabWidget::tabText(int index) const
+{
+    return m_tabs.value(index).name;
 }
 
 /// Converts a position to the tab that is undeneath

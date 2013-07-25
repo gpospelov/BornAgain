@@ -29,8 +29,8 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 
 void FormFactorFullSphere::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
 }
 
 

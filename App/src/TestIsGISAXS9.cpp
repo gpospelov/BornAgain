@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS9.cpp
@@ -14,29 +14,47 @@
 // ************************************************************************** //
 
 #include "TestIsGISAXS9.h"
-#include "IsGISAXS09.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
+#include "SampleBuilderFactory.h"
+#include "Simulation.h"
 #include "Utils.h"
+#include "Units.h"
 
 #include <fstream>
 
 
 TestIsGISAXS9::TestIsGISAXS9() : IFunctionalTest("TestIsGISAXS9")
 {
-   setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/" );
+   setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-9/" );
 }
 
 
 void TestIsGISAXS9::execute()
 {
-    FunctionalTests::IsGISAXS09 test;
+//    FunctionalTests::IsGISAXS09 test;
+//    test.runpyramidZ0();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z0), getOutputPath()+"this_pyramid_Z0.ima");
+//    test.runpyramidZ45();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z45), getOutputPath()+"this_pyramid_Z45.ima");
 
-    test.runpyramidZ0();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z0), getOutputPath()+"this_pyramid_Z0.ima");
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
-    test.runpyramidZ45();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z45), getOutputPath()+"this_pyramid_Z45.ima");
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs09");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_pyramid_Z0.ima");
+
+    sample = factory.createSample("isgisaxs09_rotated");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_pyramid_Z45.ima");
 }
 
 

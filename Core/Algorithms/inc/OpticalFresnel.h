@@ -70,12 +70,9 @@ class OpticalFresnel : public ISimulation
     bool m_use_roughness;
 
     void calculateKZ(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-    void calculateFresnelCoefficients(MultiLayerCoeff_t& coeff) const;
-    void calculateFresnelCoefficientsWithRoughness(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
+    void calculateFresnelCoefficients(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
     void calculateX(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
-    void calculateX2(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
     void calculateRT(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
-    void calculateRT2(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
 };
 
 #endif // OPTICALFRESNEL_H

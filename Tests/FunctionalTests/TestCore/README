@@ -10,17 +10,18 @@ To run tests
 python TestCore.py
 
 Tests taken from IsGISAXS:
-IsGISAXS01 - Mixture of cylinders and prisms without interference
-IsGISAXS02 - Mixture cylinder particles with different size distribution
-IsGISAXS03 - Cylinder formfactor in BA and DWBA
-IsGISAXS04 - 1D and 2D paracrystal
-IsGISAXS06 - 2D lattice with different disorder
-IsGISAXS07 - Mixture of different particles defined in morphology file
-IsGISAXS08 - 2DDL paracrystal
-IsGISAXS09 - (a) Pyramids on top of substrate - (b) ditto, rotated
-IsGISAXS10 - Cylinders with interference on top of substrate
-IsGISAXS11 - Core shell nanoparticles
-IsGISAXS15 - Size spacing correlation approximation
+IsGISAXS01   - Mixture of cylinders and prisms without interference (IsGISAXS example #1)
+IsGISAXS02   - Mixture cylinder particles with different size distribution (IsGISAXS example #2)
+IsGISAXS03   - Cylinder formfactor in BA and DWBA (IsGISAXS example #3)
+IsGISAXS04   - 1D and 2D paracrystal (IsGISAXS example #4)
+IsGISAXS06   - 2D lattice with different disorder (IsGISAXS example #6)
+IsGISAXS07   - Mixture of different particles defined in morphology file (IsGISAXS example #7)
+IsGISAXS08   - 2DDL paracrystal (IsGISAXS example #8)
+IsGISAXS09   - Pyramids on top of substrate - Rotated pyramids on top of substrate (IsGISAXS example #9)
+IsGISAXS10   - Cylinders with interference on top of substrate (IsGISAXS example #10)
+IsGISAXS11   - Core shell nanoparticles (IsGISAXS example #11)
+IsGISAXS15   - Size spacing correlation approximation (IsGISAXS example #15)
+
 
 Other tests:
 MesoCrystal1 - Meso crystal simulation

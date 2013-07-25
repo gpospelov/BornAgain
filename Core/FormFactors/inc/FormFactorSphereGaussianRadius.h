@@ -30,6 +30,8 @@ class FormFactorSphereGaussianRadius : public IFormFactorBorn
     virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const;
     virtual bool isDistributedFormFactor() const { return true; }
     virtual void createDistributedFormFactors(

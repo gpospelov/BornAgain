@@ -83,11 +83,11 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
 
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string& name,
-    double refractive_index_real,
-    double refractive_index_imag)
+    double refractive_index_delta,
+    double refractive_index_beta)
 {
     return getHomogeneousMaterial(
-        name, complex_t(refractive_index_real, refractive_index_imag));
+        name, complex_t(1.0-refractive_index_delta, refractive_index_beta));
 }
 
 //! Dump this to stream.
@@ -119,4 +119,62 @@ void MaterialManager::check_refractive_index(const complex_t &index)
     }
 }
 
+
+//! set new material name
+bool MaterialManager::setMaterialName(const std::string &old_name, const std::string &new_name)
+{
+    std::cout << "MaterialManager::setMaterialName() -> " << std::endl;
+    if( !getMaterial(old_name) )  {
+        msglog(MSG::ERROR) << "MaterialManager::setMaterialName() -> "
+                           << "No material with name " << old_name;
+        return false;
+    }
+
+    if( getMaterial(new_name) )  {
+        msglog(MSG::ERROR) << "MaterialManager::setMaterialName() -> "
+                           << "Existingh name " << new_name;
+        return false;
+    }
+
+    IMaterial *mat = m_materials[old_name];
+    mat->setName(new_name);
+    m_materials.erase(old_name);
+    m_materials[new_name] = mat;
+    return true;
+}
+
+
+bool MaterialManager::deleteMaterial(const std::string &name)
+{
+    std::cout << "MaterialManager::deleteMaterial() -> " << std::endl;
+    if( !getMaterial(name) )  {
+        msglog(MSG::ERROR) << "MaterialManager::deleteMaterial() -> "
+                           << "No material with name " << name;
+        return false;
+    }
+
+    delete m_materials[name];
+    m_materials.erase(name);
+    return true;
+}
+
+
+bool MaterialManager::setMaterialRefractiveIndex(const std::string &name, const complex_t &index)
+{
+    std::cout << "MaterialManager::setMaterialRefractiveIndex() -> " << std::endl;
+    if( !getMaterial(name) )  {
+        msglog(MSG::ERROR) << "MaterialManager::setMaterialRefractiveIndex() -> "
+                           << "No material with name " << name;
+        return false;
+    }
+
+    HomogeneousMaterial *mat = dynamic_cast<HomogeneousMaterial *>(m_materials[name]);
+    if( !mat ) {
+        msglog(MSG::ERROR) << "MaterialManager::setMaterialRefractiveIndex() -> "
+                           << "can't cast to HomogeneousMaterial' " << name;
+        return false;
+    }
+    mat->setRefractiveIndex(index);
+    return true;
+}
 

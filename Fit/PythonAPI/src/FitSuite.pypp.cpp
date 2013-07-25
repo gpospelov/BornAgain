@@ -26,10 +26,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void runFit(  ) {
         if( bp::override func_runFit = this->get_override( "runFit" ) )
             func_runFit(  );
-        else{
+        else
             this->FitSuite::runFit(  );
-        }
     }
+    
     
     void default_runFit(  ) {
         FitSuite::runFit( );
@@ -96,7 +96,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getNCalls
         
-            typedef ::size_t ( ::FitSuite::*getNCalls_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitSuite::*getNCalls_function_type )(  ) const;
             
             FitSuite_exposer.def( 
                 "getNCalls"

@@ -3,12 +3,15 @@
 ###############################################################################
 TARGET   = gtest
 TEMPLATE = lib
-CONFIG  += lib plugin
+CONFIG  += lib
 QT      -= gui core
 
-QMAKE_EXTENSION_SHLIB = so
+macx|unix {
+  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+  CONFIG += plugin # to remove versions from file name
+}
 
-include($$PWD/../../shared.pri)
+include(../../shared.pri)
 
 mygtest = gtest-1.6.0
 
@@ -16,17 +19,17 @@ INCLUDEPATH += $$mygtest/include
 INCLUDEPATH += $$mygtest
 
 SOURCES += \
-    ./$$mygtest/src/gtest-all.cc
+    $$PWD/$$mygtest/src/gtest-all.cc
 
 HEADERS += \
-    ./$$mygtest/src/gtest-internal-inl.h
+    $$PWD/$$mygtest/src/gtest-internal-inl.h
 
 OBJECTS_DIR = obj
 
 ###############################################################################
 # Installing library into dedicated directory at the end of compilation
 ###############################################################################
-MYPREFIX = $$PWD/../.. # place to install library
+MYPREFIX = ../.. # place to install library
 target.path = $$MYPREFIX/lib
 INSTALLS += target
 ##includes.files = $$mygtest/include/gtest/*.h
@@ -40,5 +43,5 @@ INSTALLS += target
 #QMAKE_DISTCLEAN += -r $$includes.path/gtest
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
-QMAKE_POST_LINK = (make install)
-
+isEmpty(MAKEFILE): MAKEFILE="Makefile"
+QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install

@@ -17,18 +17,22 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
+#include "WinDllMacros.h"
 #include "ISample.h"
 #include "Bin.h"
 
 //! The basic interface for formfactors.
 
-class IFormFactor : public ISample
+class BA_CORE_API_ IFormFactor : public ISample
 {
  public:
     IFormFactor() {}
     virtual ~IFormFactor() {}
 
     virtual IFormFactor *clone() const=0;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientRefractiveIndex(const complex_t& refractive_index)

@@ -31,8 +31,9 @@ ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) const
 {
     if( !m_options_is_consistent ) {
-        // no consistent options, there reason might be that no call to parseConfigFile
-        // has been made (for example due to the absence of main())
+        // no consistent options, the reason might be that no call to
+        // parseConfigFile has been made (for example due to the absence of
+        // main())
         //parseConfigFile();
         //throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
     }
@@ -48,12 +49,13 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
 
     // parsing command line arguments
     try {
-        // if positional option description is empty, no command line arguments without '--' or '-' will be accepted
+        // if positional option description is empty, no command line arguments
+        // without '--' or '-' will be accepted
         // 'store' populates the variable map
         bpo::store( bpo::command_line_parser( argc, argv).options( m_options ).positional( m_positional_options ).run(), m_variables_map);
         //bpo::store(bpo::parse_command_line(argc, argv, m_options), m_variables_map);
 
-        // 'notify' raises any erros encountered
+        // 'notify' raises any errors encountered
         bpo::notify(m_variables_map);
 
         if (m_variables_map.count("help") || argc == 1) {

@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestPerformance.h
@@ -70,6 +70,18 @@ class PerfTest_FresnelCoeff : public IFunctionalTest
  public:
     PerfTest_FresnelCoeff() : IFunctionalTest("Fresnel"), m_sample(0){}
     virtual ~PerfTest_FresnelCoeff() { }
+    void initialise(ProgramOptions *p_options);
+    void execute();
+    ISample *m_sample;
+};
+
+//! @class PerfTest_SpecularMatrix
+//! measurement of the performance in specular matrix calculation
+class PerfTest_SpecularMatrix : public IFunctionalTest
+{
+ public:
+    PerfTest_SpecularMatrix() : IFunctionalTest("SpecularMatrix"), m_sample(0){}
+    virtual ~PerfTest_SpecularMatrix() { }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;

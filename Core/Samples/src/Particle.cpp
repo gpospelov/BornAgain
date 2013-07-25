@@ -40,6 +40,7 @@ Particle::~Particle()
     delete mp_form_factor;
 }
 
+
 Particle* Particle::clone() const
 {
     IFormFactor *p_form_factor = mp_form_factor->clone();

@@ -26,7 +26,8 @@ include_dirs = [
     '../../Core/Algorithms/inc',
     '../../Core/Tools/inc',
     '../../Core/PythonAPI/inc',
-    '../../Core/Geometry/inc'
+    '../../Core/Geometry/inc',
+#    '../../ThirdParty/eigen3'
 ]
 
 include_classes = [
@@ -72,6 +73,7 @@ include_classes = [
 "IResolutionFunction2D",
 "ISample",
 "ISampleBuilder",
+#"ISampleVisitor",
 "ISelectionRule",
 "ITransform3D",
 "Instrument",
@@ -83,7 +85,7 @@ include_classes = [
 "Lattice2DIFParameters",
 "LatticeBasis",
 "Layer",
-"LayerDecorator",
+#"LayerDecorator",
 "LayerInterface",
 "LayerRoughness",
 "MaterialManager",
@@ -122,11 +124,14 @@ def ManualClassTunings(mb):
     #
     shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
     shared_ptrs.disable_warnings( messages.W1040 )
+    # ISample
+    cl = mb.class_('ISample') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+    cl.member_function("accept").include();
     # BasicVector3D
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
         "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
-        "rotated","rotatedX","rotatedY","rotatedZ"
+        "rotated","rotatedX","rotatedY","rotatedZ","cross","dot"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >","BasicVector3D<double>","BasicVector3D<int>"]
     builder_utils.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
@@ -246,7 +251,8 @@ def MakePythonAPI(OutputTempDir):
     print "NOTE: If you update the source library code you need to manually delete the cache_core.xml file, or run 'python codegenerator.py clean'"
     xml_cached_fc = parser.create_cached_source_fc( "PythonCoreList.h", "cache_core.xml" )
     #xml_cached_fc = parser.create_cached_source_fc( ["PythonCoreList.h","PythonCoreExposer.h"], "cache_core.xml" )
-    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64")
+    #mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -msse -msse2 -fno-strict-aliasing -msse3")
+    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -DGCCXML_SKIP_THIS")
 
     # -----------------
     # general rules

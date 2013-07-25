@@ -28,6 +28,8 @@ class FormFactorParallelepiped : public IFormFactorBorn
     ~FormFactorParallelepiped() {}
     virtual FormFactorParallelepiped *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     //! Returns radius of parallelepiped

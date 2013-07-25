@@ -145,9 +145,23 @@ std::string Utils::FileSystem::GetHomePath()
             "Error. Cant parse path to application from line '"+path+"'");
     }
     path.erase(pos+project_name.size());
+
     path += "/";
     return path;
 }
+
+
+std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
+{
+    // local_path is the value argv[0] which might contain the name of executable
+    // and local path to executable
+    std::string result = boost::filesystem::canonical( argv0.c_str() ).string();
+    // have to strip everything after last "/" to get path to executable
+    std::string::size_type pos = result.rfind("/");
+    result.erase(pos+1);
+    return result;
+}
+
 
 //! Returns file extension.
 
@@ -185,7 +199,7 @@ void Utils::EnableFloatingPointExceptions()
 #ifdef DEBUG_FPE
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Enabling floating point exception debugging"
               << std::endl;
-    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+// NOT CROSS-PLATFORM!!!    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 //    feenableexcept(-1);
 #else
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Can't enable floating point exceptions. Available in debug mode only."

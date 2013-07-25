@@ -17,9 +17,9 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)
+    n_particle = complex(1.0 - 6e-4, 2e-8)
     radius1 = 5.0*nanometer
     radius2 = 10.0*nanometer
     height1 = radius1
@@ -53,14 +53,14 @@ def RunSimulation():
     particle_decoration.addInterferenceFunction(interference)
     #making layer holding all whose nano particles
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
   
     simulation.setSample(multi_layer)
     simulation.runSimulation()
@@ -73,7 +73,7 @@ def RunSimulation():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f = gzip.open(path+'../TestCore/IsGISAXS02/isgisaxs02_reference.ima.gz', 'rb')
+    f = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs02_reference.ima.gz', 'rb')
     reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
     f.close()
     return reference
@@ -109,7 +109,7 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS02", "Mixture cylinder particles with different size distribution", status
 
 
@@ -117,8 +117,9 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
 
 
 

@@ -19,14 +19,13 @@ class IsGISAXS04
     ~IsGISAXS04();
 
     void run1DDL(), run2DDL();
-    int analyseResults();
+    int analyseResults(const std::string &path_to_data = std::string());
 
     const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
 
  private:
     std::string m_name;
     std::string m_description;
-    std::string m_path;
     results_t m_results;
 };
 

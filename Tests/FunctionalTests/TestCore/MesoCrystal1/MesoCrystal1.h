@@ -19,18 +19,19 @@ class MesoCrystal1
 {
 public:
     MesoCrystal1();
-    ~MesoCrystal1();
+    ~MesoCrystal1() { delete m_result; delete m_reference;}
 
     //! run fitting
-    int run();
+    void run(const std::string &path_to_data = std::string());
+    int analyseResults();
 
 private:
-
     Simulation *createSimulation();
-    double getDifference(OutputData<double> *result, const OutputData<double> *reference);
 
-    std::string m_test_name;
-    std::string m_test_description;
+    std::string m_name;
+    std::string m_description;
+    OutputData<double> *m_result;
+    OutputData<double> *m_reference;
 };
 
 }

@@ -30,14 +30,15 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
+
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later
 // access via parameter pool
 /* ************************************************************************* */
 void MultiLayer::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
+    clearParameterPool();
+    registerParameter("crossCorrLength", &m_crossCorrLength);
 }
 
 /* ************************************************************************* */
@@ -57,7 +58,7 @@ void MultiLayer::clear()
 
     m_layers_z.clear();
 
-    getParameterPool()->clear();
+    clearParameterPool();
 }
 
 //! clone MultiLayer contents including interfaces

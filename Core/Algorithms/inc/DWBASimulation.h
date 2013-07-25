@@ -57,16 +57,20 @@ class DWBASimulation : public ISimulation
         const_iterator;
 
     //! Returns read/write iterator that points to the first element
-    iterator begin();
+    //! The iterator takes the member ThreadInfo object into consideration.
+    iterator begin() { return m_dwba_intensity.begin(m_thread_info); }
 
     //! Returns read-only iterator that points to the first element
-    const_iterator begin() const;
+    //! The iterator takes the member ThreadInfo object into consideration.
+    const_iterator begin() const  { return m_dwba_intensity.begin(m_thread_info); }
 
     //! Returns  read/write iterator that points to the one past last element
-    const iterator end() { return m_dwba_intensity.end(); }
+    //! The iterator takes the member ThreadInfo object into consideration.
+    const iterator end() { return m_dwba_intensity.end(m_thread_info); }
 
     //! Returns  read-only iterator that points to the one past last element
-    const const_iterator end() const { return m_dwba_intensity.end(); }
+    //! The iterator takes the member ThreadInfo object into consideration.
+    const const_iterator end() const { return m_dwba_intensity.end(m_thread_info); }
 
  protected:
     OutputData<double> m_dwba_intensity;

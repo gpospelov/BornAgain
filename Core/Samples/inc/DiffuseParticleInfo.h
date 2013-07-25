@@ -29,9 +29,12 @@ class DiffuseParticleInfo: public ParticleInfo
         double depth=0, double abundance=0)
         : ParticleInfo(p_particle, transform, depth, abundance)
         , m_number_per_meso(0.0)
-    {}
+        , m_height_range(0.0) {}
 
     virtual ~DiffuseParticleInfo() {}
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! scale abundance
     void scaleAbundance(double factor) { m_abundance *= factor; }

@@ -32,6 +32,8 @@ class InterferenceFunction1DParaCrystal : public IInterferenceFunction
         return p_clone;
     }
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     void setKappa(double kappa) { m_kappa = kappa; }
     virtual double getKappa() const { return m_kappa; }
     virtual double evaluate(const cvector_t& q) const;

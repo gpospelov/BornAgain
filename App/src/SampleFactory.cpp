@@ -44,21 +44,21 @@ SampleFactory::SampleFactory()
     //registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
 
     // IsGISAXS2 example: mixture of cylindrical particles with two size distribution
-    registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
+    //registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
 
     // IsGISAXS3 example: cylinder on top of substrate, cylinder in the air, cylinder with size distribution
-    registerItem("IsGISAXS3_CylinderDWBA", StandardSamples::IsGISAXS3_CylinderDWBA);
-    registerItem("IsGISAXS3_CylinderBA", StandardSamples::IsGISAXS3_CylinderBA);
-    registerItem("IsGISAXS3_CylinderBASize", StandardSamples::IsGISAXS3_CylinderBASize);
+//    registerItem("IsGISAXS3_CylinderDWBA", StandardSamples::IsGISAXS3_CylinderDWBA);
+//    registerItem("IsGISAXS3_CylinderBA", StandardSamples::IsGISAXS3_CylinderBA);
+//    registerItem("IsGISAXS3_CylinderBASize", StandardSamples::IsGISAXS3_CylinderBASize);
 
     // IsGISAXS4 example: cylinders on top of substrate with paracrystal structure factors
-    registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
-    registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
+    //registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
+    //registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
 
     // IsGISAXS6 example: cylinders with lattice interference function
-    registerItem("IsGISAXS6_lattice", StandardSamples::IsGISAXS6_lattice);
-    registerItem("IsGISAXS6_centered", StandardSamples::IsGISAXS6_centered);
-    registerItem("IsGISAXS6_rotated", StandardSamples::IsGISAXS6_rotated);
+//    registerItem("IsGISAXS6_lattice", StandardSamples::IsGISAXS6_lattice);
+//    registerItem("IsGISAXS6_centered", StandardSamples::IsGISAXS6_centered);
+//    registerItem("IsGISAXS6_rotated", StandardSamples::IsGISAXS6_rotated);
 
     // IsGISAXS7 example: particle mixture from morphology file
     registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);
@@ -68,8 +68,8 @@ SampleFactory::SampleFactory()
     registerItem("IsGISAXS8_2DDL_lattice2", StandardSamples::IsGISAXS8_2DDL_lattice2);
 
     // IsGISAXS9 example: pyramid and rotated pyramid
-    registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);
-    registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);
+//    registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);
+//    registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);
 
     // IsGISAXS10 example: cylinders with interference
     registerItem("IsGISAXS10_CylindersParacrystal1D", StandardSamples::IsGISAXS10_CylindersParacrystal1D);
@@ -93,7 +93,7 @@ SampleFactory::SampleFactory()
     registerItem("FormFactor_Ellipsoid", StandardSamples::FormFactor_Ellipsoid);
     registerItem("FormFactor_FullSpheroid", StandardSamples::FormFactor_FullSpheroid);
     registerItem("FormFactor_HemiSpheroid", StandardSamples::FormFactor_HemiSpheroid);
-    registerItem("FormFactor_Parallelpiped", StandardSamples::FormFactor_Parallelpiped);
+    registerItem("FormFactor_Parallelepiped", StandardSamples::FormFactor_Parallelpiped);
     registerItem("FormFactor_Cylinder", StandardSamples::FormFactor_Cylinder);
     registerItem("FormFactor_Pyramid", StandardSamples::FormFactor_Pyramid);
     registerItem("FormFactor_FullSphere", StandardSamples::FormFactor_FullSphere);

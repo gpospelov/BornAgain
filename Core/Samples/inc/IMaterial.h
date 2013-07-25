@@ -18,7 +18,6 @@
 
 #include <string>
 #include <iostream>
-//#include <typeinfo>
 #include "INamed.h"
 
 //! Interface to a named material.
@@ -29,11 +28,13 @@ class IMaterial : public INamed
     //! Constructor that sets _name_.
     explicit IMaterial(const std::string& name) : INamed(name) {}
 
-    //! Copy constructor. TODO: test whether needed
-    IMaterial(const IMaterial& other) : INamed(other) {}
-
     //! Destructor.
     virtual ~IMaterial() {}
+
+    //! Indicates whether the interaction with the material is scalar.
+    //! This means that different polarization states will be diffracted
+    //! equally
+    virtual bool isScalarMaterial() { return true; }
 
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
     { m.print(ostr); return ostr; }
@@ -41,7 +42,6 @@ class IMaterial : public INamed
  protected:
     virtual void print(std::ostream& ostr) const
     { ostr << "IMat:" << getName() << "<" << this << ">"; }
-        // TODO: try ostr << typeid(*this).name() << " " << this;
 };
 
 #endif // IMATERIAL_H

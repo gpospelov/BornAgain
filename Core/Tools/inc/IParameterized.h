@@ -16,13 +16,14 @@
 #ifndef IPARAMETERIZED_H_
 #define IPARAMETERIZED_H_
 
+#include "WinDllMacros.h"
 #include "INamed.h"
 #include "IChangeable.h"
 #include "ParameterPool.h"
 
 //! Manage a "local" parameter pool, and a tree of children's pools.
 
-class IParameterized : public INamed
+class BA_CORE_API_ IParameterized : public INamed
 {
  public:
     IParameterized()
@@ -35,7 +36,8 @@ class IParameterized : public INamed
     virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
-    ParameterPool* getParameterPool() { return& m_parameters; }
+    //ParameterPool* getParameterPool() { return& m_parameters; }
+    const ParameterPool* getParameterPool() const { return& m_parameters; }
 
     //! Creates new parameter pool, with all local parameter and parameters of children
     virtual ParameterPool* createParameterTree() const;
@@ -54,14 +56,14 @@ class IParameterized : public INamed
 
     //! main method to register data address in the pool
     virtual void registerParameter(const std::string &name, double *parpointer)
-    { getParameterPool()->registerParameter(name, parpointer); }
+    { m_parameters.registerParameter(name, parpointer); }
 
     //! set parameter value, return true in the case of success
     virtual bool setParameterValue(const std::string &name, double value)
-    { return getParameterPool()->setParameterValue(name, value); }
+    { return m_parameters.setParameterValue(name, value); }
 
     //! clear parameter pool
-    virtual void clearParameterPool() { getParameterPool()->clear(); }
+    virtual void clearParameterPool() { m_parameters.clear(); }
 
  protected:
     //! Throw non-implemented exception (needed for Python).

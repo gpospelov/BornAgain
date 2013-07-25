@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS1.cpp
@@ -14,26 +14,42 @@
 // ************************************************************************** //
 
 #include "TestIsGISAXS1.h"
-#include "IsGISAXS01.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
+#include "SampleBuilderFactory.h"
+#include "Simulation.h"
 #include "Utils.h"
+#include "Units.h"
 
 #include <fstream>
 
 
 TestIsGISAXS1::TestIsGISAXS1() : IFunctionalTest("TestIsGISAXS1")
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/" );
+    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-1/" );
 }
 
 
 void TestIsGISAXS1::execute()
 {
-    FunctionalTests::IsGISAXS01 test;
-    test.run();
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs01");
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_2-types-of-islands-ewald.ima");
+    // Build simulation
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(
+        100,-1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    // Run simulation
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_2-types-of-islands-ewald.ima");
+
+    delete sample;
 }
 
 

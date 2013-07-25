@@ -28,10 +28,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ICompositeSample * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->ICompositeSample::clone(  );
-        }
     }
+    
     
     ::ICompositeSample * default_clone(  ) const  {
         return ICompositeSample::clone( );
@@ -40,10 +40,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ICompositeSample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -52,34 +52,39 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ICompositeSample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else{
+        else
             return this->ICompositeSample::size(  );
-        }
     }
     
-    ::size_t default_size(  ) const  {
+    
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
+    }
+
+    virtual void accept( ::ISampleVisitor * p_visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(p_visitor) );
     }
 
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -88,10 +93,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -100,10 +105,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -112,10 +117,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -143,10 +148,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -155,10 +160,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -246,13 +251,23 @@ void register_ICompositeSample_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::size_t ( ICompositeSample_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( ICompositeSample_wrapper::*default_size_function_type )(  ) const;
             
             ICompositeSample_exposer.def( 
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&ICompositeSample_wrapper::default_size) );
+        
+        }
+        { //::ISample::accept
+        
+            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            ICompositeSample_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
+                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

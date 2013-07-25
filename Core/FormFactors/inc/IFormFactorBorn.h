@@ -20,12 +20,14 @@
 
 //! Pure virtual interface for Born formfactors (only depending on q=ki-kf).
 
-class IFormFactorBorn : public IFormFactor
+class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
  public:
     IFormFactorBorn() {}
     virtual ~IFormFactorBorn() {}
     virtual IFormFactorBorn *clone() const=0;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin,
@@ -63,6 +65,7 @@ class IFormFactorBorn : public IFormFactor
     //! calculates the integrated intensity along the z-direction
     double bigZPartIntegral(double qH2) const;
 };
+
 
 inline complex_t IFormFactorBorn::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin,

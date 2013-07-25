@@ -32,6 +32,8 @@ class FormFactorBox : public IFormFactorBorn
     FormFactorBox *clone() const
     { return new FormFactorBox(m_radius, m_width, m_height ); }
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     int getNumberOfStochasticParameters() const { return 2; }
 
     //! Returns radius of Box

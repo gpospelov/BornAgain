@@ -17,6 +17,7 @@
 #define MULTILAYER_H
 
 #include <vector>
+#include "WinDllMacros.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -35,11 +36,14 @@
 //!  ---------   interface #2
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
-class MultiLayer : public ICompositeSample
+class BA_CORE_API_ MultiLayer : public ICompositeSample
 {
  public:
     MultiLayer();
     ~MultiLayer();
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns number of layers in multilayer
     inline size_t getNumberOfLayers() const { return m_layers.size(); }
@@ -148,11 +152,11 @@ class MultiLayer : public ICompositeSample
     }
 
     //! stack of layers [nlayers]
-    std::vector<Layer *> m_layers;    
+    std::vector<Layer *> m_layers;
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double > m_layers_z;            
+    std::vector<double > m_layers_z;
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface *> m_interfaces; 
+    std::vector<LayerInterface *> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
 };

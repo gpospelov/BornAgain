@@ -82,9 +82,9 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
  protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {
-        getParameterPool()->clear();
-        getParameterPool()->registerParameter("hfactor", &m_h_dw_factor);
-        getParameterPool()->registerParameter("rfactor", &m_r_dw_factor);
+        clearParameterPool();
+        registerParameter("hfactor", &m_h_dw_factor);
+        registerParameter("rfactor", &m_r_dw_factor);
     }
 
  private:

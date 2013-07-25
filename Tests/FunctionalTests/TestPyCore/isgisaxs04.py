@@ -15,8 +15,8 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation1():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)   
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -27,16 +27,17 @@ def RunSimulation1():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
@@ -48,8 +49,8 @@ def RunSimulation1():
 # ----------------------------------
 def RunSimulation2():
 #    # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)
     
@@ -65,17 +66,18 @@ def RunSimulation2():
     particle_decoration.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     #gsl_set_error_handler_off()
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     return GetOutputData(simulation)
@@ -87,10 +89,10 @@ def RunSimulation2():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f1 = gzip.open(path+'../TestCore/IsGISAXS04/isgisaxs04_reference_1DDL.ima.gz', 'rb')
+    f1 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs04_reference_1DDL.ima.gz', 'rb')
     reference1=numpy.fromstring(f1.read(),numpy.float64,sep=' ')
     f1.close()
-    f2 = gzip.open(path+'../TestCore/IsGISAXS04/isgisaxs04_reference_2DDLh.ima.gz', 'rb')
+    f2 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs04_reference_2DDLh.ima.gz', 'rb')
     reference2=numpy.fromstring(f2.read(),numpy.float64,sep=' ')
     f2.close()
     reference=numpy.concatenate((reference1,reference2),axis=0)
@@ -129,7 +131,7 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS04", "1D and 2D paracrystal", status
 
 
@@ -137,7 +139,6 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
-
-
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)

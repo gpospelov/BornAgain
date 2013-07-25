@@ -18,7 +18,6 @@
 #include "MultiLayer.h"
 #include "Utils.h"
 #include "Lattice.h"
-#include "LayerDecorator.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
 #include "LatticeBasis.h"

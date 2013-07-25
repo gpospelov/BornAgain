@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "Python.h"
+#include "boost/python/detail/wrap_python.hpp"
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"
@@ -38,7 +38,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output, int naxis);
 int GetOutputDataNdimensions(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
-    int ndims = data->getRank();
+    int ndims = (int)data->getRank();
     return ndims;
 }
 

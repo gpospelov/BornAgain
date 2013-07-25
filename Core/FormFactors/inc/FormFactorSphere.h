@@ -32,6 +32,8 @@ class FormFactorSphere : public IFormFactorBorn
     virtual FormFactorSphere *clone() const
     { return new FormFactorSphere(m_radius, m_height); }
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }

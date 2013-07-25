@@ -24,7 +24,6 @@
 #include "Simulation.h"
 #include "IsGISAXSTools.h"
 #include "Lattice.h"
-#include "LayerDecorator.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
 #include "LatticeBasis.h"
@@ -33,6 +32,8 @@
 #include "Utils.h"
 #include "Types.h"
 #include "MessageService.h"
+#include "SampleBuilderFactory.h"
+#include "SamplePrintVisitor.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -41,6 +42,7 @@
 #include "TGraphPolar.h"
 #include "TRandom.h"
 #include "TBenchmark.h"
+#include "TStyle.h"
 
 TestMiscellaneous::TestMiscellaneous()
 {
@@ -48,16 +50,37 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    test_LogSystem();
+    test_PrintVisitor();
+    //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
     //test_DoubleToComplexInterpolatingFunction();
+    //test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
 }
 
+
+/* ************************************************************************* */
+// test of log system
+/* ************************************************************************* */
+void TestMiscellaneous::test_PrintVisitor()
+{
+    std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs04_2DDL");
+    //std::cout << (*sample) << std::endl;
+
+    SamplePrintVisitor visitor;
+    sample->accept(&visitor);
+}
+
+
+/* ************************************************************************* */
+// test of log system
+/* ************************************************************************* */
 void TestMiscellaneous::test_LogSystem()
 {
     std::cout << "TestMiscellaneous::test_LogSystem() -> Info" << std::endl;
@@ -321,6 +344,162 @@ void TestMiscellaneous::test_FormFactor()
         int indx = i*int(nbins/ndiv);
         vh2_yz[indx]->Draw("surf");
     }
+}
+
+/* ************************************************************************* */
+// plots of form factor :
+// contourplot (amp & phase or Re & Im) and log(|F|**2) vs. log(q)
+/* ************************************************************************* */
+void TestMiscellaneous::test_FormFactor1()
+{
+    FormFactorFullSphere ff_fullsphere(5.*Units::nanometer);
+
+    FormFactorCylinder ff_cylinder(10.*Units::nanometer,
+                                   5.*Units::nanometer);
+   //   IFormFactor& ff = ff_cylinder;
+
+    FormFactorParallelepiped ff_para(7.*Units::nanometer,
+                                     6.*Units::nanometer);
+   //   IFormFactor& ff = ff_para;
+
+    FormFactorPyramid ff_pyramid(10.*Units::nanometer,
+                                 5.*Units::nanometer,
+                                 Units::deg2rad(54.73 ));
+   //   IFormFactor& ff = ff_pyramid;
+
+    FormFactorPrism3 ff_prism3(5.*Units::nanometer,
+                              5.*Units::nanometer);
+   //   IFormFactor& ff = ff_prism3;
+
+    FormFactorSphere ff_sphere(5.*Units::nanometer,
+                               5.*Units::nanometer);
+   //   IFormFactor& ff = ff_sphere;
+
+    FormFactorBox ff_box(5*Units::nanometer,
+                         5*Units::nanometer,
+                         5*Units::nanometer);
+  //    IFormFactor& ff = ff_box;
+
+    IFormFactor& ff = ff_fullsphere;
+
+    double qmin(-4.0), qmax(4.0);
+    double lambda = 1.0;
+    double alpha_i = 0.2*M_PI/180.0;
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+    //double phi_fmin(-4.0), phi_fmax(4.0), alpha_fmin(-4.), alpha_fmax(4.);
+    int nbins(101);
+    double dq =(qmax-qmin)/(nbins-1);
+    //double dphi_f = (phi_fmax-phi_fmin)/(nbins-1);
+    //double dalpha_f = (alpha_fmax-alpha_fmin)/(nbins-1);
+
+    TH2D *vh2_xy = new TH2D("vh2_xy","vh2_xy;q_{x};q_{y};qz",nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+
+    OutputData<double> *p_data = new OutputData<double>();
+    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
+    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
+    p_data->addAxis(std::string("qz"), 1, qmin, qmax);
+    OutputData<double>::const_iterator it = p_data->begin();
+    double z = p_data->getValueOfAxis("qz", it.getIndex());
+
+    while (it != p_data->end()) {
+        double x = p_data->getValueOfAxis("qx", it.getIndex());
+        double y = p_data->getValueOfAxis("qy", it.getIndex());
+
+        cvector_t q(x,y,z);
+        cvector_t q0(0,0,0);
+        Bin1DCVector q0_bin(q0, q0);
+        double value = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
+        //double valuep = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
+        //double valuer = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
+        //double valuei = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
+
+        vh2_xy->Fill(x,y,value);
+
+        ++it;
+    }
+
+    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
+    DrawHelper::SetMagnifier(c1_xy);
+    //c1_xy->Divide(2,2);
+        c1_xy->cd(1);
+                gPad->SetRightMargin(0.11);
+                gPad->SetLogz();
+                vh2_xy->GetXaxis()->SetNdivisions(510);
+                vh2_xy->GetYaxis()->SetNdivisions(510);
+                vh2_xy->SetContour(99);
+                gStyle->SetPalette(1);
+                gStyle->SetOptStat(0);
+                vh2_xy->Draw("cont4 z");
+                c1_xy->Print("test.eps");
+
+
+
+
+    /*
+    OutputData<double>::iterator it = mp_intensity_output->begin();
+    const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
+    const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+    while (it != mp_intensity_output->end())
+    {
+        size_t index_y = mp_intensity_output->getIndexOfAxis("detector y-axis", it.getIndex());
+        size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis", it.getIndex());
+        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
+        double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
+        cvector_t k_f;
+        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+        Bin1DCVector k_f_zero_bin(k_f, k_f);
+        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_i, alpha_f)),2);
+        ++it;
+    }
+
+    const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
+    const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
+    size_t y_size = p_y_axis->getSize();
+    size_t z_size = p_z_axis->getSize();
+    double y_start = (*p_y_axis)[0];
+    double y_end = (*p_y_axis)[y_size-1];
+    double z_start = (*p_z_axis)[0];
+    double z_end = (*p_z_axis)[z_size-1];
+    p_hist2D->UseCurrentStyle();
+    p_hist2D->GetXaxis()->SetTitle("phi_f");
+    p_hist2D->GetYaxis()->SetTitle("alpha_f");
+*/
+
+    /*
+    c1->Divide(2,2);
+
+    c1->cd(1); gPad->SetLogz();
+    IsGISAXSTools::setMinimum(hmin);
+    if(hmax>0) IsGISAXSTools::setMaximum(hmax);
+
+    TH1 *hist(0);
+    hist = IsGISAXSTools::getOutputDataTH2D(output, "p_hist1D");
+    if( hasMinimum() ) hist->SetMinimum(m_hist_min);
+    if( hasMaximum() ) hist->SetMaximum(m_hist_max);
+    hist->SetTitle(histogram_title.c_str());
+    hist->DrawCopy(draw_options.c_str());
+
+    // dealing with masks
+    if(output.getMask()) {
+        TPolyMarker *poly = new TPolyMarker();
+        const IAxis *p_axis0 = output.getAxis(0);
+        const IAxis *p_axis1 = output.getAxis(1);
+        int i_point(0);
+        for(OutputData<double>::const_iterator it = output.begin();
+            it!= output.end(); ++it) {
+            size_t axis0_index = output.toCoordinate(it.getIndex(), 0);
+            size_t axis1_index = output.toCoordinate(it.getIndex(), 1);
+            double axis0_value = (*p_axis0)[axis0_index];
+            double axis1_value = (*p_axis1)[axis1_index];
+            poly->SetPoint(i_point++, axis0_value, axis1_value);
+        }
+        poly->Draw("same");
+    }
+*/
+
 }
 
 /* ************************************************************************* */

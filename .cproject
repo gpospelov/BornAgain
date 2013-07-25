@@ -2,7 +2,7 @@
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" moduleId="org.eclipse.cdt.core.settings" name="Default">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings>
 					<externalSetting/>
 				</externalSettings>
@@ -16,7 +16,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="BornAgain" buildProperties="" description="" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="BornAgain" buildProperties="" description="Config for release build" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" name="Release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647" name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.329208693" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.35496915" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
@@ -68,6 +68,9 @@
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<macros>
+					<stringMacro name="BORNAGAIN_DEBUG" type="VALUE_TEXT" value="yes"/>
+				</macros>
 				<externalSettings>
 					<externalSetting>
 						<entry flags="RESOLVED" kind="macro" name="BornAgain_DEBUG" value="yes"/>
@@ -87,7 +90,7 @@
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.443634681" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.966869129" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="${workspace_loc:/BornAgain}" cleanBuildTarget="distclean" id="cdt.managedbuild.target.gnu.builder.macosx.base.957115956" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.macosx.base">
+							<builder arguments="-j3" buildPath="${workspace_loc:/BornAgain}" cleanBuildTarget="distclean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.957115956" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base">
 								<outputEntries>
 									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
 								</outputEntries>
@@ -153,20 +156,20 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.44819609;cdt.managedbuild.tool.gnu.c.compiler.input.44052800">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1362645889;cdt.managedbuild.tool.gnu.cpp.compiler.input.2060403592">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1382053189;cdt.managedbuild.tool.gnu.cpp.compiler.input.913383985">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>

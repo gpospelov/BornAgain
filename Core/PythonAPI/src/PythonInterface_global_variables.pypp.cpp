@@ -30,6 +30,8 @@ void register_global_variables(){
 
     bp::scope().attr("degree") = Units::degree;
 
+    bp::scope().attr("gauss") = Units::gauss;
+
     bp::scope().attr("meter") = Units::meter;
 
     bp::scope().attr("micrometer") = Units::micrometer;
@@ -51,5 +53,7 @@ void register_global_variables(){
     bp::scope().attr("sr") = Units::sr;
 
     bp::scope().attr("steradian") = Units::steradian;
+
+    bp::scope().attr("tesla") = Units::tesla;
 
 }

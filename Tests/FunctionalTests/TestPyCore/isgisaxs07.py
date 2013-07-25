@@ -16,7 +16,7 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)   
     particle_decoration = ParticleDecoration()
@@ -115,9 +115,10 @@ def RunSimulation():
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
   
     #build and run experiment
     simulation = Simulation()
@@ -140,7 +141,7 @@ def RunSimulation():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f = gzip.open(path+'../TestCore/IsGISAXS07/isgisaxs07_reference.ima.gz', 'rb')
+    f = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs07_reference.ima.gz', 'rb')
     reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
     f.close()
     return reference
@@ -176,7 +177,7 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS07", "Mixture of different particles defined in morphology file", status
 
 
@@ -184,7 +185,6 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
-
-
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)

@@ -50,7 +50,7 @@ QT_BEGIN_NAMESPACE
 //class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
 
-class ISampleEditor;
+class SampleDesignerInterface;
 
 namespace qdesigner_internal {
 
@@ -61,11 +61,11 @@ class QT_WIDGETBOX_EXPORT WidgetBox : public QDesignerWidgetBox
     Q_OBJECT
 public:
 //    explicit WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = 0, Qt::WindowFlags flags = 0);
-    explicit WidgetBox(ISampleEditor *core, QWidget *parent = 0, Qt::WindowFlags flags = 0);
+    explicit WidgetBox(SampleDesignerInterface *core, QWidget *parent = 0, Qt::WindowFlags flags = 0);
     virtual ~WidgetBox();
 
 //    QDesignerFormEditorInterface *core() const;
-    ISampleEditor *core() const;
+    SampleDesignerInterface *core() const;
 
     virtual int categoryCount() const;
     virtual Category category(int cat_idx) const;
@@ -97,7 +97,7 @@ private slots:
 
 private:
     //QDesignerFormEditorInterface *m_core;
-    ISampleEditor *m_core;
+    SampleDesignerInterface *m_core;
 
     WidgetBoxTreeWidget *m_view;
 };

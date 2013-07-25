@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS12.cpp
@@ -24,7 +24,6 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -64,7 +63,7 @@ TestIsGISAXS12::TestIsGISAXS12()
     , m_fitSuite(0)
 {
     std::cout << "TestIsGISAXS12::TestIsGISAXS12() -> Info" << std::endl;
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-12/");
+    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-12/");
 }
 
 
@@ -430,7 +429,7 @@ void TestIsGISAXS12::initializeSimulation()
     m_simulation = new Simulation(mp_options);
     m_simulation->setSampleBuilder(m_sample_builder);
     m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 }
 
 
@@ -457,17 +456,17 @@ TestIsGISAXS12::TestSampleBuilder::TestSampleBuilder()
 
 void TestIsGISAXS12::TestSampleBuilder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("particle_probability1", &m_particle_probability1);
-    getParameterPool()->registerParameter("particle_radius1", &m_particle_radius1);
-    getParameterPool()->registerParameter("dispersion_radius1", &m_dispersion_radius1);
-    getParameterPool()->registerParameter("height_aspect_ratio1", &m_height_aspect_ratio1);
-    getParameterPool()->registerParameter("particle_probability2", &m_particle_probability2);
-    getParameterPool()->registerParameter("particle_radius2", &m_particle_radius2);
-    getParameterPool()->registerParameter("dispersion_radius2", &m_dispersion_radius2);
-    getParameterPool()->registerParameter("height_aspect_ratio2", &m_height_aspect_ratio2);
-    getParameterPool()->registerParameter("interf_distance", &m_interf_distance);
-    getParameterPool()->registerParameter("interf_width", &m_interf_width);
+    clearParameterPool();
+    registerParameter("particle_probability1", &m_particle_probability1);
+    registerParameter("particle_radius1", &m_particle_radius1);
+    registerParameter("dispersion_radius1", &m_dispersion_radius1);
+    registerParameter("height_aspect_ratio1", &m_height_aspect_ratio1);
+    registerParameter("particle_probability2", &m_particle_probability2);
+    registerParameter("particle_radius2", &m_particle_radius2);
+    registerParameter("dispersion_radius2", &m_dispersion_radius2);
+    registerParameter("height_aspect_ratio2", &m_height_aspect_ratio2);
+    registerParameter("interf_distance", &m_interf_distance);
+    registerParameter("interf_width", &m_interf_width);
 }
 
 
@@ -477,9 +476,9 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
 
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
     Layer air_layer(air_material);
 
@@ -519,9 +518,9 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
     builder.plantParticles(particle_decoration);
 
-    // making layer holding all whose nano particles
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);

@@ -25,13 +25,16 @@ class ParticleInfo;
 
 //! A particle with a form factor and refractive index
 
-class Particle : public ICompositeSample
+class BA_CORE_API_ Particle : public ICompositeSample
 {
  public:
     Particle(const complex_t& refractive_index, IFormFactor* p_form_factor = 0);
     Particle(const complex_t& refractive_index, const IFormFactor& form_factor);
     virtual ~Particle();
     virtual Particle *clone() const;
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)

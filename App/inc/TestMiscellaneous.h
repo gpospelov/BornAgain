@@ -34,6 +34,9 @@ class TestMiscellaneous : public IFunctionalTest
     //! form factor as a function of qx,qy,qz
     void test_FormFactor();
 
+    //! Re, Im or Amp, phase of form factors as functions of qx,qy,qz
+    void test_FormFactor1();
+
     //! opengl mesocrystal drawing
     void test_DrawMesocrystal();
 
@@ -51,6 +54,9 @@ class TestMiscellaneous : public IFunctionalTest
 
     //! testing of loggin system
     void test_LogSystem();
+
+    //! testing print visitor
+    void test_PrintVisitor();
 
 };
 

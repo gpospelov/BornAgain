@@ -16,15 +16,17 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
+#include "WinDllMacros.h"
 #include "IParameterized.h"
 #include "ICloneable.h"
+#include "ISampleVisitor.h"
 
 class ICompositeSample;
 class DWBASimulation;
 
 //! Interface for objects related to scattering
 
-class ISample : public IParameterized, public ICloneable
+class BA_CORE_API_ ISample : public IParameterized, public ICloneable
 {
  public:
     ISample() { setName("ISample"); }
@@ -34,6 +36,9 @@ class ISample : public IParameterized, public ICloneable
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
     virtual ISample *clone() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const = 0;
 
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }

@@ -25,6 +25,7 @@ public:
     void insertTab(int index, const QString &name, QWidget *widget);
     void removeTab(int index);
     int tabCount() const;
+    QString tabText(int index) const;
 
     int currentIndex() const;
     void setCurrentIndex(int index);
@@ -36,7 +37,6 @@ protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
     bool event(QEvent *event);
-    QSize minimumSizeHint() const;
 
 private:
     struct Tab {

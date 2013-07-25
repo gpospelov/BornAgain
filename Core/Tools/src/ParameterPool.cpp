@@ -150,7 +150,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
 
 void ParameterPool::print(std::ostream& ostr) const
 {
-    const size_t number_of_pars_in_line(4);
+    const size_t number_of_pars_in_line(12);
     if( m_map.size() ) {
         // printing in one line
         if(m_map.size() < number_of_pars_in_line) {
@@ -167,7 +167,7 @@ void ParameterPool::print(std::ostream& ostr) const
             }
         }
     } else {
-        ostr << "EMPTY";
+        ostr << "POOL_0";
     }
 }
 

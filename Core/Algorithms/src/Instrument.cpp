@@ -95,9 +95,13 @@ void Instrument::normalize(OutputData<double> *p_intensity) const
     if (getIntensity()>0.0) {
         p_intensity->scaleAll(getIntensity());
     }
+    kvector_t realpart(getBeam().getCentralK().x().real(),
+                   getBeam().getCentralK().y().real(),
+                   getBeam().getCentralK().z().real());
 
     // normalize by detector cell sizes
-    double sin_alpha_i = std::abs(getBeam().getCentralK().cosTheta());
+    //double sin_alpha_i = std::abs(getBeam().getCentralK().cosTheta());
+    double sin_alpha_i = std::abs(realpart.cosTheta());
     m_detector.normalize(p_intensity, sin_alpha_i);
 }
 

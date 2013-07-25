@@ -29,6 +29,8 @@ class FormFactorEllipsoid : public IFormFactorBorn
     ~FormFactorEllipsoid() {}
     virtual FormFactorEllipsoid *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     //! Returns radius of Ellipsoid

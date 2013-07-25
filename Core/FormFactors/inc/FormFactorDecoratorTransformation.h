@@ -45,7 +45,6 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
     virtual complex_t evaluate(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin,
         double alpha_i, double alpha_f) const;
-    // --> inline implementation below <--
 
     virtual int getNumberOfStochasticParameters() const
     { return mp_form_factor->getNumberOfStochasticParameters(); }
@@ -55,10 +54,6 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
     Geometry::PTransform3D mP_inverse_transform;
 };
 
-
-// -----------------------------------------------------------------------------
-// Inline implementations
-// -----------------------------------------------------------------------------
 
 inline complex_t FormFactorDecoratorTransformation::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin,

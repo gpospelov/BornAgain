@@ -1,4 +1,4 @@
-# date and time     | hostname   | system information      | FresnelCoeff Pyramid RotatedPyramid MesoCrystal
+# date and time     | hostname   | system information      | FresnelCoeff Pyramid RotatedPyramid MesoCrystal Matrix Method
 
 2012-07-24 18:21:18 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 4.14079 | 3.89105 | 0.23391 | 
 2012-07-24 18:22:36 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 4.14938 | 3.91389 | 0.23391 | 
@@ -243,4 +243,26 @@
 # (and ./App --mesocrystal2 gives  23.25 (4 threads), 50.85 (1 thread))
 2013-04-08 20:48:26 | jcnsops73  | macosx64, 2800 MHz      | 294118  | 21.978  | 22.7273 | 6.25    | 
 2013-04-08 20:48:32 | jcnsops73  | macosx64, 2800 MHz      | 289855  | 22.2222 | 22.7273 | 6.06061 | 
+
+# added performance method for matrix calculation of layer wave amplitudes
+2013-05-07 16:05:21 | jcnsopc74  | macosx64, 2800 MHz      | 294118      | 11.976      | 11.976      | 3.63636     | 1.05263e+06 | 
+2013-05-07 16:44:53 | jcnsopc74  | macosx64, 2800 MHz      | 298507      | 11.9048     | 11.8343     | 3.63636     | 1.05263e+06 | 
+2013-07-12 13:13:46 | jcnsopc74  | macosx64, 2800 MHz      | 298507      | 23.5294     | 17.2414     | 5.71429     | 800000      | 
+2013-07-17 17:19:14 | jcnsopc74  | macosx64, 2800 MHz      | 298507      | 23.8095     | 23.5294     | 6.06061     | 800000      | 
+
+# before removal of LayerDecorator
+# (and ./App --mesocrystal2 gives  29.69 (4 threads), 51.13 (1 thread))
+2013-07-25 13:03:17 | jcnsopc73  | macosx64, 2800 MHz      | 281690      | 22.4719     | 22.2222     | 5.88235     | 666667      | 
+2013-07-25 13:03:41 | jcnsopc73  | macosx64, 2800 MHz      | 281690      | 22.4719     | 22.2222     | 6.06061     | 689655      | 
+
+# New Gennady's PC
+# (and ./App --mesocrystal2 gives  22.3 (8 threads), 129 sec (1 thread)) <--!! When it's one thread, cpu-freq is always 1.6GHz
+2013-07-25 13:11:27 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 160000      | 4.37637     | 4.36681     | 1.37931     | 357143      | 
+2013-07-25 13:12:38 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 158730      | 4.37637     | 4.36681     | 1.37931     | 357143      | 
+
+# after removal of LayerDecorator
+# (and ./App --mesocrystal2 gives  23.3 (8 threads), 126.8 sec (1 thread))
+2013-07-25 13:51:26 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 173913      | 4.78469     | 4.75059     | 1.50376     | 392157      | 
+2013-07-25 13:51:54 | jcnsopc126 | linuxx8664gcc, 1600 MHz | 173913      | 4.75059     | 4.73934     | 1.49254     | 400000      | 
+
 

@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/AppOptionsDescription.h
@@ -17,9 +17,10 @@
 #define APPOPTIONSDESCRIPTION_H
 
 class ProgramOptions;
+class FunctionalTestFactory;
 
 //! Adds command line and config file options
-void AddApplicationOptions(ProgramOptions *p_options);
+void AddApplicationOptions(ProgramOptions *p_options, FunctionalTestFactory *p_test_factory);
 
 #endif // APPPROGRAMOPTIONS_H
 

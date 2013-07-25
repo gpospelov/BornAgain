@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFittingModule3.cpp
@@ -24,7 +24,6 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -99,7 +98,7 @@ void TestFittingModule3::initializeSimulation()
     m_simulation = new Simulation(mp_options);
     m_simulation->setSample(*m_sample);
     m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     m_simulation->setBeamIntensity(1e10);
 }
 
@@ -128,8 +127,10 @@ void TestFittingModule3::initializeSample()
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     m_sample = p_multi_layer;
 }

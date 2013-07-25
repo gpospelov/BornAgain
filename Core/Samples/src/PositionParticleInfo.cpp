@@ -74,10 +74,10 @@ void PositionParticleInfo::setPosition(kvector_t position)
 
 void PositionParticleInfo::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("x_position", &m_pos_x);
-    getParameterPool()->registerParameter("y_position", &m_pos_y);
-    getParameterPool()->registerParameter("z_position", &m_depth);
+    clearParameterPool();
+    registerParameter("x_position", &m_pos_x);
+    registerParameter("y_position", &m_pos_y);
+    registerParameter("z_position", &m_depth);
 }
 
 

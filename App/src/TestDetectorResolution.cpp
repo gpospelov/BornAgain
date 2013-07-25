@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestDetectorResolution.cpp
@@ -21,7 +21,6 @@
 #include "Simulation.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
-#include "LayerDecorator.h"
 #include "MathFunctions.h"
 #include "ResolutionFunction2DSimple.h"
 
@@ -39,7 +38,7 @@ void TestDetectorResolution::execute()
         new ResolutionFunction2DSimple(0.001, 0.001);
     simulation.setDetectorResolutionFunction(p_resolution_function);
     simulation.setBeamParameters
-        (1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        (1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
     mp_intensity_output = simulation.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData
@@ -73,9 +72,10 @@ void TestDetectorResolution::initializeSample()
                      new FormFactorCylinder(5*Units::nanometer,
                                             5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }

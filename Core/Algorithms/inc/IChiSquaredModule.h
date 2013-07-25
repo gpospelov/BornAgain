@@ -16,6 +16,7 @@
 #ifndef ICHISQUAREDMODULE_H_
 #define ICHISQUAREDMODULE_H_
 
+#include "WinDllMacros.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
@@ -23,7 +24,7 @@
 
 //! Interface for ChiSquaredModule, ChiSquaredFrequency.
 
-class IChiSquaredModule : public ICloneable
+class BA_CORE_API_ IChiSquaredModule : public ICloneable
 {
  public:
     IChiSquaredModule();

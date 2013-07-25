@@ -21,28 +21,6 @@ void register_kvector_t_class(){
         kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", bp::init< >() );
         bp::scope kvector_t_scope( kvector_t_exposer );
         kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
-        { //::Geometry::BasicVector3D< double >::cross
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "cross"
-                , cross_function_type( &::Geometry::BasicVector3D< double >::cross )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::dot
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "dot"
-                , dot_function_type( &::Geometry::BasicVector3D< double >::dot )
-                , ( bp::arg("v") ) );
-        
-        }
         { //::Geometry::BasicVector3D< double >::mag
         
             typedef Geometry::BasicVector3D< double > exported_class_t;

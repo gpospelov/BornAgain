@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS2.cpp
@@ -12,28 +12,34 @@
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-
 #include "TestIsGISAXS2.h"
-#include "IsGISAXS02.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
+#include "SampleBuilderFactory.h"
+#include "Simulation.h"
+#include "Units.h"
 #include "Utils.h"
-
 #include <fstream>
 
 
 TestIsGISAXS2::TestIsGISAXS2() : IFunctionalTest("TestIsGISAXS2")
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-2/" );
+    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-2/" );
 }
 
 
 void TestIsGISAXS2::execute()
 {
-    FunctionalTests::IsGISAXS02 test;
-    test.run();
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs02");
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_bimodal.ima");
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_bimodal.ima");
 }
 
 

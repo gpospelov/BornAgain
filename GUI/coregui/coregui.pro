@@ -2,7 +2,7 @@
 # qmake project file to compile GUI core
 # -----------------------------------------------------------------------------
 
-QT       += core gui webkit webkitwidgets designer designercomponents
+QT       += core gui script webkit webkitwidgets designer designercomponents
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = coregui
 TEMPLATE = app
@@ -12,7 +12,8 @@ CONFIG += BORNAGAIN_ROOT BORNAGAIN_PYTHON
 
 
 include($$PWD/Views/Components/widgetbox/widgetbox.pri)
-include($$PWD/Views/Components/SampleEditor/SampleEditor.pri)
+include($$PWD/Views/Components/SampleDesigner/SampleDesigner.pri)
+include($$PWD/qttools/qtpropertybrowser/qtpropertybrowser.pri)
 
 SOURCES += \
     mainwindow/main.cpp \
@@ -57,7 +58,7 @@ HEADERS  += \
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
 
 # visual style "Manhattan"
-LIBS += $$PWD/../../lib/libqt-manhattan-style.so
+LIBS += $$PWD/../../lib/libManhattanStyle.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 
 ## ROOT libraries integration
@@ -73,6 +74,7 @@ INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/FormFactors/inc \
     $$PWD/../../Core/Geometry/inc \
     $$PWD/../../Core/Samples/inc \
+    $$PWD/../../Core/StandardSamples/inc \
     $$PWD/../../Core/Tools/inc
 
 # -----------------------------------------------------------------------------
@@ -115,3 +117,6 @@ lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtX
 # -----------------------------------------------------------------------------
 include($$PWD/../../shared.pri)
 INCLUDEPATH -= /opt/local/include
+
+FORMS += \
+    form.ui

@@ -16,6 +16,7 @@
 #ifndef OUTPUTDATAFUNCTIONS_H
 #define OUTPUTDATAFUNCTIONS_H
 
+#include "WinDllMacros.h"
 #include "Types.h"
 #include "OutputData.h"
 #include "IIntensityFunction.h"
@@ -55,7 +56,7 @@ namespace OutputDataFunctions
         OutputData<double>& data, const IIntensityFunction *func);
 
     //! Creates a rectangular mask based on the given OutputData object and limits
-    Mask *CreateRectangularMask(
+    BA_CORE_API_ Mask *CreateRectangularMask(
         const OutputData<double>& data,
         const double *minima, const double *maxima);
     Mask *CreateRectangularMask(
@@ -63,7 +64,7 @@ namespace OutputDataFunctions
         double x1, double y1, double x2, double y2);
 
     //! Creates a elliptic mask based on the given OutputData object and limits
-    Mask *CreateEllipticMask(
+    BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
         const double *center, const double *radii);
     Mask *CreateEllipticMask(

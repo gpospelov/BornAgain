@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestMesoCrystal2.cpp
@@ -26,7 +26,6 @@
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
 #include "LatticeBasis.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
@@ -505,7 +504,7 @@ void TestMesoCrystal2::initializeSimulation(const OutputData<double> *output_dat
 
     m_simulation = new Simulation(mp_options);
     m_simulation->setSampleBuilder( m_sample_builder );
-    m_simulation->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     m_simulation->setBeamIntensity(8e12);
     m_simulation->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
 
@@ -603,12 +602,13 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 
 //    std::cout << "Average layer index: " << n_avg << std::endl;
@@ -620,18 +620,18 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
 
 void TestMesoCrystal2::SampleBuilder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("meso_radius", &m_meso_radius);
-    getParameterPool()->registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
-    getParameterPool()->registerParameter("meso_height", &m_meso_height);
-    getParameterPool()->registerParameter("sigma_meso_height", &m_sigma_meso_height);
-    getParameterPool()->registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
-    getParameterPool()->registerParameter("lattice_length_a", &m_lattice_length_a);
-    getParameterPool()->registerParameter("lattice_length_c", &m_lattice_length_c);
-    getParameterPool()->registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
-    getParameterPool()->registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
-    getParameterPool()->registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
-    getParameterPool()->registerParameter("roughness", &m_roughness);
+    clearParameterPool();
+    registerParameter("meso_radius", &m_meso_radius);
+    registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
+    registerParameter("meso_height", &m_meso_height);
+    registerParameter("sigma_meso_height", &m_sigma_meso_height);
+    registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
+    registerParameter("lattice_length_a", &m_lattice_length_a);
+    registerParameter("lattice_length_c", &m_lattice_length_c);
+    registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
+    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
+    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
+    registerParameter("roughness", &m_roughness);
 }
 
 //MesoCrystal* TestMesoCrystal2::SampleBuilder::createMesoCrystal(double stacking_radius, complex_t n_particle,

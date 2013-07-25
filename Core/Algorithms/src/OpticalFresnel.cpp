@@ -19,7 +19,8 @@
 #include "Numeric.h"
 #include <cassert>
 
-void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec, MultiLayerCoeff_t& coeff)
+void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec,
+                             MultiLayerCoeff_t& coeff)
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
@@ -34,14 +35,10 @@ void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec, Mu
         }
     }
 
-    if(m_use_roughness) {
-        calculateFresnelCoefficientsWithRoughness(sample, coeff);
-    } else {
-        calculateFresnelCoefficients(coeff);
-    }
+    calculateFresnelCoefficients(sample, coeff);
 
-    calculateX2(sample, coeff);
-    calculateRT2(sample, coeff);
+    calculateX(sample, coeff);
+    calculateRT(sample, coeff);
 
 #ifdef DEBUG_FPE
     // checking coeff
@@ -68,41 +65,20 @@ void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec, Mu
 void OpticalFresnel::calculateKZ(const MultiLayer& sample, const kvector_t& kvec, MultiLayerCoeff_t& coeff) const
 {
     // z-component of reflected wave vector inside each layer
-    // Q_{z,j}& = 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 }
+    // k is the vacuum wave number
+    // Q_{z,j}& = 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 n_0^2 }
+    // top layer refractive index:
+    complex_t rindex0 = sample.getLayer(0)->getRefractiveIndex();
+    complex_t rindex0_squared = rindex0*rindex0;
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
-        //coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy()*kvec.rho() );
-        //coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.perp2() );
-        coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy2() );
+        coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy2()*rindex0_squared );
     }
 }
 
-void OpticalFresnel::calculateFresnelCoefficients(MultiLayerCoeff_t& coeff) const
+void OpticalFresnel::calculateFresnelCoefficients(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const
 {
-    // calculation of reflection/transmission Fresnel coefficients
-    for(size_t i=0; i<coeff.size() - 1; i++) {
-        complex_t kzi = coeff[i].kz;
-        complex_t kziplus1 = coeff[i+1].kz;
-        if (kzi == complex_t(0, 0) && kziplus1 == complex_t(0, 0)) {
-            coeff[i].r = complex_t(0, 0);
-            coeff[i].t = complex_t(1, 0);
-            coeff[i].rb = complex_t(0, 0);
-            coeff[i].tb = complex_t(1, 0);
-        } else {
-            coeff[i].r = (coeff[i].kz - coeff[i + 1].kz)
-                    / (coeff[i].kz + coeff[i + 1].kz);
-            coeff[i].t = 2. * coeff[i].kz / (coeff[i].kz + coeff[i + 1].kz);
-            coeff[i].rb = (coeff[i + 1].kz - coeff[i].kz)
-                    / (coeff[i].kz + coeff[i + 1].kz);
-            coeff[i].tb = 2. * coeff[i + 1].kz
-                    / (coeff[i].kz + coeff[i + 1].kz);
-        }
-    }
-}
-
-void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const
-{
-    double picoeff = std::pow(M_PI/2., 1.5);
+    static const double picoeff = std::pow(M_PI/2., 1.5);
 
     // calculation of reflection/transmission Fresnel coefficients
     for(size_t i=0; i<coeff.size() - 1; i++) {
@@ -115,50 +91,39 @@ void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer&
             coeff[i].tb = complex_t(1, 0);
         } else {
             double sigma = 0.0;
-            if (sample.getLayerBottomInterface(i)) {
+            if (sample.getLayerBottomInterface(i)->getRoughness()) {
                 sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
             }
             if(sigma == 0.0) {
                 coeff[i].r = (coeff[i].kz - coeff[i + 1].kz)
                         / (coeff[i].kz + coeff[i + 1].kz);
+                coeff[i].t = 2. * coeff[i].kz / (coeff[i].kz + coeff[i + 1].kz);
             } else {
-                coeff[i].r =
-                    std::sinh(picoeff * sigma *
-                              (coeff[i].kz - coeff[i + 1].kz)) /
-                    std::sinh(picoeff * sigma *
-                              (coeff[i].kz + coeff[i + 1].kz));
-
+                complex_t a = picoeff * sigma * coeff[i].kz;
+                complex_t b = picoeff * sigma * coeff[i + 1].kz;
+                coeff[i].r = std::sinh(a-b)/std::sinh(a+b);
+                coeff[i].t = std::sqrt(a*std::sinh(2.*a)*std::sinh(2.*b)/b)
+                             / std::sinh(a+b);
             }
-
-            coeff[i].t = 2. * coeff[i].kz / (coeff[i].kz + coeff[i + 1].kz);
-            coeff[i].rb = (coeff[i + 1].kz - coeff[i].kz)
-                    / (coeff[i].kz + coeff[i + 1].kz);
-            coeff[i].tb = 2. * coeff[i + 1].kz
-                    / (coeff[i].kz + coeff[i + 1].kz);
+            coeff[i].rb = -coeff[i].r;
+            if (coeff[i].t==complex_t(0.0, 0.0)) {
+                coeff[i].tb = 2.0;
+            }
+            else {
+                coeff[i].tb = coeff[i].t*coeff[i+1].kz/coeff[i].kz;
+            }
         }
     }
 }
 
 void OpticalFresnel::calculateX(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const
 {
-    // ratio of amplitudes of outgoing and incoming waves
-    coeff[coeff.size()-1].X = complex_t(0, 0);
-    for(int i=(int)coeff.size()-2; i>=0; --i) {
-        double z = sample.getLayerBottomZ(i);
-        coeff[i].X = std::exp(complex_t(0,-2)*coeff[i].kz*z) *
-            (coeff[i].r + coeff[i+1].X*std::exp(complex_t(0,2)*coeff[i+1].kz*z) ) /
-            ( complex_t(1,0)+coeff[i].r*coeff[i+1].X*std::exp(complex_t(0,2)*coeff[i+1].kz*z) );
-    }
-}
-
-void OpticalFresnel::calculateX2(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const
-{
     // ratio of amplitudes of outgoing and incoming waves in alternative conventions
     coeff[coeff.size()-1].X = complex_t(0, 0);
     for(int i=(int)coeff.size()-2; i>=0; --i) {
         // first check for infinity
         if(std::abs(coeff[i].r*coeff[i+1].X + complex_t(1,0)) < Numeric::double_epsilon) {
-            throw DivisionByZeroException("Division by zer during calculation of X_i");
+            throw DivisionByZeroException("Division by zero during calculation of X_i");
         }
         double d = i==0 ? 0.0 : sample.getLayerThickness(i);
         complex_t exp_factor;
@@ -178,25 +143,9 @@ void OpticalFresnel::calculateRT(const MultiLayer& sample, MultiLayerCoeff_t& co
 {
     coeff[0].R = coeff[0].X;
     coeff[0].T = 1;
-    for(size_t i=0; i<coeff.size()-1; ++i) {
-        double z = sample.getLayerBottomZ(i);
-        coeff[i+1].R = complex_t(1,0)/coeff[i].tb * (coeff[i].T*coeff[i].rb*std::exp( complex_t(0,-1)*(coeff[i+1].kz+coeff[i].kz)*z ) +
-                                        coeff[i].R*std::exp( complex_t(0,-1)*(coeff[i+1].kz-coeff[i].kz)*z) );
-
-        coeff[i+1].T = complex_t(1,0)/coeff[i].tb * (coeff[i].T*std::exp( complex_t(0,1)*(coeff[i+1].kz-coeff[i].kz)*z ) +
-                                        coeff[i].R*coeff[i].rb*std::exp( complex_t(0,1)*(coeff[i+1].kz+coeff[i].kz)*z) );
-    }
-}
-
-void OpticalFresnel::calculateRT2(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const
-{
-    //complex_t ct0(0,0);
-
-    coeff[0].R = coeff[0].X;
-    coeff[0].T = 1;
 
     for(size_t i=0; i<coeff.size()-1; ++i) {
-        // First check for adjecant identical layers with k_z = 0
+        // First check for adjacent identical layers with k_z = 0
         if(coeff[i+1].kz == complex_t(0,0) && coeff[i].kz == complex_t(0,0)) {
             coeff[i+1].R = coeff[i].R;
             coeff[i+1].T = coeff[i].T;
@@ -218,14 +167,17 @@ void OpticalFresnel::calculateRT2(const MultiLayer& sample, MultiLayerCoeff_t& c
             coeff[i+1].T = complex_t(0,0);
             continue;
         }
-        complex_t log_prefactor = std::log(coeff[i].T) + complex_t(0,1)*coeff[i].kz*d - std::log(coeff[i].tb);
+        complex_t log_prefactor = std::log(coeff[i].T)
+            + complex_t(0,1)*coeff[i].kz*d - std::log(coeff[i].tb);
 
         // Calculate R
         complex_t numerator_R = coeff[i+1].X*(complex_t(1,0)-coeff[i].r*coeff[i].r);
         if(numerator_R == complex_t(0,0)) {
             coeff[i+1].R = complex_t(0,0);
         } else {
-            complex_t log_R = std::log(numerator_R) - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X) + log_prefactor;
+            complex_t log_R = std::log(numerator_R)
+                - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X)
+                + log_prefactor;
             if(log_R.real() < std::log(std::numeric_limits<double>::min())) {
                 coeff[i+1].R = complex_t(0,0);
             } else {
@@ -238,15 +190,13 @@ void OpticalFresnel::calculateRT2(const MultiLayer& sample, MultiLayerCoeff_t& c
         if(numerator_T == complex_t(0,0)) {
             coeff[i+1].T = complex_t(0,0);
         } else {
-            complex_t log_T = std::log(numerator_T) - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X) + log_prefactor;
+            complex_t log_T = std::log(numerator_T) - std::log(complex_t(1,0)
+                    +coeff[i].r*coeff[i+1].X) + log_prefactor;
             if(log_T.real() < std::log(std::numeric_limits<double>::min())) {
                 coeff[i+1].T = complex_t(0,0);
             } else {
                 coeff[i+1].T = std::exp(log_T);
             }
         }
-
     }
 }
-
-

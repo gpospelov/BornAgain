@@ -51,11 +51,11 @@ complex_t FormFactorEllipsoid::evaluate_for_q(const cvector_t& q) const
 
 void FormFactorEllipsoid::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("width", & m_width);
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("alpha" , &m_alpha);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
+    registerParameter("width", & m_width);
+    registerParameter("height", &m_height);
+    registerParameter("alpha" , &m_alpha);
 }
 
 

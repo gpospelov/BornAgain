@@ -20,7 +20,7 @@
 #include "IInterferenceFunction.h"
 #include "Bin.h"
 #include "SafePointerVector.h"
-#include "StrategyBuilder.h"
+#include "LayerStrategyBuilder.h"
 
 #include <vector>
 
@@ -28,7 +28,7 @@ class IInterferenceFunctionStrategy
 {
  public:
     IInterferenceFunctionStrategy(SimulationParameters sim_params)
-        : m_sim_params(sim_params) {};
+        : m_sim_params(sim_params) {}
     virtual ~IInterferenceFunctionStrategy() {}
     virtual void init(const SafePointerVector<FormFactorInfo>&
                       form_factor_infos,

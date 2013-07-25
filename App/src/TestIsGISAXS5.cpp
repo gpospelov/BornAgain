@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS5.cpp
@@ -24,7 +24,6 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -59,7 +58,7 @@ TestIsGISAXS5::TestIsGISAXS5()
 , mp_sample_builder(0)
 , mp_fitSuite(0)
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-5/");
+    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-5/");
 }
 
 void TestIsGISAXS5::execute()
@@ -247,7 +246,7 @@ void TestIsGISAXS5::initializeSimulation()
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 }
 
 /* ************************************************************************* */
@@ -265,12 +264,12 @@ TestIsGISAXS5::SampleBuilder::SampleBuilder()
 
 void TestIsGISAXS5::SampleBuilder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("particle_radius", &m_particle_radius);
-    getParameterPool()->registerParameter("dispersion_radius", &m_dispersion_radius);
-    getParameterPool()->registerParameter("height_aspect_ratio", &m_height_aspect_ratio);
-    getParameterPool()->registerParameter("interf_distance", &m_interf_distance);
-    getParameterPool()->registerParameter("interf_width", &m_interf_width);
+    clearParameterPool();
+    registerParameter("particle_radius", &m_particle_radius);
+    registerParameter("dispersion_radius", &m_dispersion_radius);
+    registerParameter("height_aspect_ratio", &m_height_aspect_ratio);
+    registerParameter("interf_distance", &m_interf_distance);
+    registerParameter("interf_width", &m_interf_width);
 }
 
 ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
@@ -278,8 +277,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
     Layer air_layer(air_material);
     double height = m_height_aspect_ratio*m_particle_radius;
@@ -303,8 +302,9 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     builder.plantParticles(particle_decoration);
 
     // making layer holding all whose nano particles
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);

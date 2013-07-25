@@ -14,7 +14,8 @@
 // ************************************************************************** //
 
 #include "MultiLayerDWBASimulation.h"
-#include "OpticalFresnel.h"
+//#include "OpticalFresnel.h"
+#include "SpecularMatrix.h"
 #include "MultiLayer.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
@@ -79,8 +80,8 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 void MultiLayerDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread "
-                       << m_thread_info.i_thread;
-    OpticalFresnel FresnelCalculator;
+                       << m_thread_info.current_thread;
+    SpecularMatrix specularCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
@@ -88,21 +89,21 @@ void MultiLayerDWBASimulation::run()
     double lambda = 2*M_PI/m_ki_real.mag();
 
     // collect all alpha angles and calculate Fresnel coefficients
-    typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t>
-        doubleFresnel_t;
-    std::vector<doubleFresnel_t> doubleFresnel_buffer;
+    typedef std::pair<double, SpecularMatrix::MultiLayerCoeff_t>
+        doubleFresnelPair_t;
+    std::vector<doubleFresnelPair_t> doubleFresnel_buffer;
     std::set<double> alpha_set = getAlphaList();
     doubleFresnel_buffer.reserve(alpha_set.size());
 
     double angle;
     kvector_t kvec;
-    OpticalFresnel::MultiLayerCoeff_t coeffs;
+    SpecularMatrix::MultiLayerCoeff_t coeffs;
     for (std::set<double>::const_iterator it =
              alpha_set.begin(); it != alpha_set.end(); ++it) {
         angle = *it;
         kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
-        FresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        doubleFresnel_buffer.push_back( doubleFresnel_t(angle,coeffs) );
+        specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
+        doubleFresnel_buffer.push_back( doubleFresnelPair_t(angle,coeffs) );
     }
 
     // run through layers and construct T,R functions
@@ -112,12 +113,12 @@ void MultiLayerDWBASimulation::run()
         DoubleToPairOfComplexMap RT_map;
         DoubleToComplexMap Kz_map;
 
-        for(std::vector<doubleFresnel_t >::const_iterator it=
+        for(std::vector<doubleFresnelPair_t >::const_iterator it=
                 doubleFresnel_buffer.begin();
             it!=doubleFresnel_buffer.end(); ++it) {
             double angle = (*it).first;
-            const OpticalFresnel::FresnelCoeff& coeff = (*it).second[i_layer];
-            RT_map[angle] = complexpair_t(coeff.R, coeff.T);
+            const SpecularMatrix::LayerMatrixCoeff& coeff = (*it).second[i_layer];
+            RT_map[angle] = complexpair_t(coeff.R(), coeff.T());
             Kz_map[angle] = coeff.kz;
         }
 

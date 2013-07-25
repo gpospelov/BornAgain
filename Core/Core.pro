@@ -3,10 +3,13 @@
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainCore
 TEMPLATE = lib
-CONFIG  += plugin # to remove versions from file name
+CONFIG  += lib
 QT      -= core gui
-QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-#CONFIG  += BORNAGAIN_PYTHON
+macx|unix {
+  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+  CONFIG += plugin # to remove versions from file name
+}
+# CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # common project settings
@@ -41,6 +44,7 @@ SOURCES += \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
     Tools/src/RealParameterWrapper.cpp \
+    Tools/src/SamplePrintVisitor.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
@@ -62,7 +66,6 @@ SOURCES += \
     Algorithms/src/Instrument.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
-    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
@@ -72,7 +75,7 @@ SOURCES += \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     Algorithms/src/Simulation.cpp \
     Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
-    Algorithms/src/StrategyBuilder.cpp \
+    Algorithms/src/SpecularMatrix.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
     FormFactors/src/FormFactorCone.cpp \
@@ -92,10 +95,12 @@ SOURCES += \
     FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
     FormFactors/src/FormFactorSphere.cpp \
+    FormFactors/src/FormFactorTethraedron.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
     FormFactors/src/IFormFactorBorn.cpp \
     \
     Samples/src/Crystal.cpp \
+    Samples/src/HomogeneousMagneticMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/ISample.cpp \
@@ -105,7 +110,6 @@ SOURCES += \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
-    Samples/src/LayerDecorator.cpp \
     Samples/src/LayerInterface.cpp \
     Samples/src/LayerRoughness.cpp \
     Samples/src/MaterialManager.cpp \
@@ -118,18 +122,16 @@ SOURCES += \
     Samples/src/ParticleInfo.cpp \
     Samples/src/PositionParticleInfo.cpp \
     \
-    Fitting/src/FitObject.cpp \
-    Fitting/src/FitParameter.cpp \
-    Fitting/src/FitParameterLinked.cpp \
-    Fitting/src/FitSuite.cpp \
-    Fitting/src/FitSuiteFunctions.cpp \
-    Fitting/src/FitSuiteObjects.cpp \
-    Fitting/src/FitSuiteParameters.cpp \
-    Fitting/src/FitSuitePrintObserver.cpp \
-    Fitting/src/FitSuiteStrategies.cpp \
-    Fitting/src/IFitSuiteStrategy.cpp \
-    Fitting/src/MinimizerScan.cpp \
-    Fitting/src/MinimizerTest.cpp
+    StandardSamples/SampleBuilderFactory.cpp \
+    StandardSamples/IsGISAXS01Builder.cpp \
+    StandardSamples/IsGISAXS04Builder.cpp \
+    StandardSamples/IsGISAXS02Builder.cpp \
+    StandardSamples/IsGISAXS03Builder.cpp \
+    StandardSamples/IsGISAXS06Builder.cpp \
+    StandardSamples/IsGISAXS09Builder.cpp \
+    Algorithms/src/LayerStrategyBuilder.cpp \
+    Algorithms/src/DecoratedLayerDWBASimulation.cpp
+
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
@@ -174,6 +176,7 @@ HEADERS += \
     Tools/inc/ProgramOptions.h \
     Tools/inc/RealParameterWrapper.h \
     Tools/inc/SafePointerVector.h \
+    Tools/inc/SamplePrintVisitor.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticDoubleGate.h \
     Tools/inc/StochasticGaussian.h \
@@ -182,6 +185,7 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
+    Tools/inc/WinDllMacros.h \
     \
     Algorithms/inc/Beam.h \
     Algorithms/inc/ChiSquaredFrequency.h \
@@ -208,7 +212,6 @@ HEADERS += \
     Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/LayerDWBASimulation.h \
-    Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
@@ -219,7 +222,7 @@ HEADERS += \
     Algorithms/inc/Simulation.h \
     Algorithms/inc/SimulationParameters.h \
     Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \
-    Algorithms/inc/StrategyBuilder.h \
+    Algorithms/inc/SpecularMatrix.h \
     Algorithms/inc/ThreadInfo.h \
     \
     FormFactors/inc/FormFactorBox.h \
@@ -246,6 +249,7 @@ HEADERS += \
     FormFactors/inc/FormFactorPyramid.h \
     FormFactors/inc/FormFactorSphere.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
+    FormFactors/inc/FormFactorTethraedron.h \
     FormFactors/inc/FormFactorWeighted.h \
     FormFactors/inc/FormFactors.h \
     FormFactors/inc/IFormFactor.h \
@@ -255,6 +259,7 @@ HEADERS += \
     \
     Samples/inc/Crystal.h \
     Samples/inc/DiffuseParticleInfo.h \
+    Samples/inc/HomogeneousMagneticMaterial.h \
     Samples/inc/HomogeneousMaterial.h \
     Samples/inc/IClusteredParticles.h \
     Samples/inc/ICompositeIterator.h \
@@ -265,6 +270,7 @@ HEADERS += \
     Samples/inc/IMaterial.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
+    Samples/inc/ISampleVisitor.h \
     Samples/inc/ISelectionRule.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
     Samples/inc/InterferenceFunction2DLattice.h \
@@ -275,7 +281,6 @@ HEADERS += \
     Samples/inc/Lattice2DIFParameters.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
-    Samples/inc/LayerDecorator.h \
     Samples/inc/LayerInterface.h \
     Samples/inc/LayerRoughness.h \
     Samples/inc/MaterialManager.h \
@@ -289,21 +294,15 @@ HEADERS += \
     Samples/inc/PositionParticleInfo.h \
     Samples/inc/Samples.h \
     \
-    Fitting/inc/AttFitting.h \
-    Fitting/inc/AttLimits.h \
-    Fitting/inc/FitObject.h \
-    Fitting/inc/FitParameter.h \
-    Fitting/inc/FitParameterLinked.h \
-    Fitting/inc/FitSuite.h \
-    Fitting/inc/FitSuiteFunctions.h \
-    Fitting/inc/FitSuiteObjects.h \
-    Fitting/inc/FitSuiteParameters.h \
-    Fitting/inc/FitSuitePrintObserver.h \
-    Fitting/inc/FitSuiteStrategies.h \
-    Fitting/inc/IFitSuiteStrategy.h \
-    Fitting/inc/IMinimizer.h \
-    Fitting/inc/MinimizerScan.h \
-    Fitting/inc/MinimizerTest.h
+    StandardSamples/SampleBuilderFactory.h \
+    StandardSamples/IsGISAXS01Builder.h \
+    StandardSamples/IsGISAXS04Builder.h \
+    StandardSamples/IsGISAXS02Builder.h \
+    StandardSamples/IsGISAXS03Builder.h \
+    StandardSamples/IsGISAXS06Builder.h \
+    StandardSamples/IsGISAXS09Builder.h \
+    Algorithms/inc/LayerStrategyBuilder.h \
+    Algorithms/inc/DecoratedLayerDWBASimulation.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
@@ -318,6 +317,9 @@ macx {
 }
 unix:!macx {
     DEFINES += Q_OS_LINUX
+}
+win32 {
+    DEFINES += BA_CORE_BUILD_DLL
 }
 
 CONFIG(debug, debug|release) {
@@ -334,5 +336,6 @@ CONFIG(debug, debug|release) {
 target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_POST_LINK = (make install)
+isEmpty(MAKEFILE): MAKEFILE="Makefile"
+QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install
 

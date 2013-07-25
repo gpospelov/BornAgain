@@ -110,53 +110,63 @@ void Simulation::runSimulation()
             "Simulation::runSimulation() -> Error! No sample set.");
     m_intensity_map.setAllTo(0.);
 
-    // retrieve threading information
-    int n_threads_total=0;
-    if (mp_options)
-        n_threads_total = (*mp_options)["threads"].as<int>();
-    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_threads=" <<
-                          n_threads_total << ", sample: " << *mp_sample;
-    // TODO: --threads=1 is ignored
-//    n_threads_total = -1;
-//    msglog(MSG::WARNING) << "TEMPORARILY SET n_threads_total = " << n_threads_total;
+    // retrieve batch and threading information
+    if (mp_options) {
+        if (mp_options->find("nbatches")) {
+            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
+        }
+        if (mp_options->find("currentbatch")) {
+            m_thread_info.current_batch = (*mp_options)["currentbatch"].as<int>();
+        }
+        if (mp_options->find("threads")) {
+            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
+        }
+    }
 
-    if(n_threads_total<0) {
+    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
+//    std::cout << "Simulation::runSimulation(): n_batches = " <<
+            m_thread_info.n_batches <<
+            ", current batch = " << m_thread_info.current_batch <<
+            ", n_threads = " << m_thread_info.n_threads <<
+            ", sample: " << *mp_sample;
+
+    if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
+    if(m_thread_info.n_threads==1) {
         // Single thread.
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
         if (!p_dwba_simulation)
             throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
+        p_dwba_simulation->setThreadInfo(m_thread_info);
         p_dwba_simulation->run();  // the work is done here
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
         delete p_dwba_simulation;
     } else {
         // Multithreading.
-        if(n_threads_total == 0 )  {
+        if(m_thread_info.n_threads == 0 )  {
             // Take optimal number of threads from the hardware.
-            n_threads_total = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads = (int)boost::thread::hardware_concurrency();
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
-                n_threads_total << " (taken from hardware concurrency)";
+                m_thread_info.n_threads << " (taken from hardware concurrency)";
         } else {
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
-                n_threads_total;
+                m_thread_info.n_threads;
         }
         std::vector<boost::thread*> threads;
         std::vector<DWBASimulation*> simulations;
 
         // Initialize n simulations.
-        ThreadInfo thread_info;
-        thread_info.n_threads = n_threads_total;
-        for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
+        for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
             DWBASimulation *p_dwba_simulation =
                 mp_sample->createDWBASimulation();
             if (!p_dwba_simulation) throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);
-            thread_info.i_thread = i_thread;
-            p_dwba_simulation->setThreadInfo(thread_info);
+            m_thread_info.current_thread = i_thread;
+            p_dwba_simulation->setThreadInfo(m_thread_info);
             simulations.push_back(p_dwba_simulation);
         }
 
@@ -407,5 +417,6 @@ void Simulation::addToIntensityMap(double alpha, double phi, double value)
     coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
     m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
+
 
 

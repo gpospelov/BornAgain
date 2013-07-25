@@ -26,6 +26,8 @@ class FormFactorPrism6 : public IFormFactorBorn
     ~FormFactorPrism6() {}
     virtual FormFactorPrism6 *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }

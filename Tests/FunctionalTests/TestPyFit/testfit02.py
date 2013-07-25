@@ -29,49 +29,49 @@ cylinder_ratio = 0.2
 # run minimization using sample builder
 # -----------------------------------------------------------------------------
 def runTest():
-  #print "**********************************************************************"
-  #print "*  Starting  TestFit02                                               *"
-  #print "**********************************************************************"
+    #print "**********************************************************************"
+    #print "*  Starting  TestFit02                                               *"
+    #print "**********************************************************************"
 
-  # setting sample builder to initial values
-  sample_builder = MySampleBuilder()
-  sample_builder.setParameterValue("cylinder_height", cylinder_height)
-  sample_builder.setParameterValue("cylinder_radius", cylinder_radius)
-  sample_builder.setParameterValue("prism3_half_side", prism3_half_side)
-  sample_builder.setParameterValue("prism3_height", prism3_height)
-  sample_builder.setParameterValue("cylinder_ratio", cylinder_ratio)
+    # setting sample builder to initial values
+    sample_builder = MySampleBuilder()
+    sample_builder.setParameterValue("cylinder_height", cylinder_height)
+    sample_builder.setParameterValue("cylinder_radius", cylinder_radius)
+    sample_builder.setParameterValue("prism3_half_side", prism3_half_side)
+    sample_builder.setParameterValue("prism3_height", prism3_height)
+    sample_builder.setParameterValue("cylinder_ratio", cylinder_ratio)
 
-  simulation = createSimulation()
-  simulation.setSampleBuilder(sample_builder)
+    simulation = createSimulation()
+    simulation.setSampleBuilder(sample_builder)
 
-  real_data = createRealData(simulation)
+    real_data = createRealData(simulation)
 
-  # setting up fitting
-  fitSuite = FitSuite()
-  fitSuite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Combined") )
-  fitSuite.initPrint(10);
-  fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-  fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-  fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-  fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
-  fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
+    # setting up fitting
+    fitSuite = FitSuite()
+    fitSuite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Combined") )
+    fitSuite.initPrint(10);
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
 
-  chiModule = ChiSquaredModule()
-  chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() )
+    chiModule = ChiSquaredModule()
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() )
 
-  fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
-  fitSuite.runFit()
+    fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
+    fitSuite.runFit()
 
-  # analysing fit results
-  initialParameters = [ cylinder_height, cylinder_radius, prism3_half_side, prism3_height, cylinder_ratio]
-  results = fitSuite.getFitParameters().getValues()
-  threshold = 1.0e-02
-  status = "OK"
-  for i in range(0, len(initialParameters)):
-    diff = abs(results[i] - initialParameters[i])/initialParameters[i]
-    if(diff > threshold): status = "FAILED"
+    # analysing fit results
+    initialParameters = [ cylinder_height, cylinder_radius, prism3_half_side, prism3_height, cylinder_ratio]
+    results = fitSuite.getFitParameters().getValues()
+    threshold = 1.0e-02
+    status = "OK"
+    for i in range(0, len(initialParameters)):
+        diff = abs(results[i] - initialParameters[i])/initialParameters[i]
+        if(diff > threshold): status = "FAILED"
 
-  return "TestFit02", "Fitting using sample builder.", status
+    return "TestFit02", "Fitting using sample builder.", status
 
 
 # create simulation
@@ -85,16 +85,16 @@ def createSimulation():
 
 # generating "real" data by adding noise to the simulated data
 def createRealData(simulation):
-  simulation.runSimulation();
-  real_data = simulation.getOutputDataClone()
-  noise_factor = 0.1
-  for i in range(0,real_data.getAllocatedSize()):
-    amplitude = real_data[i]
-    sigma = noise_factor*math.sqrt(amplitude)
-    noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-    if(noisy_amplitude < 0.0) : noisy_amplitude = 0.0
-    real_data[i] = noisy_amplitude
-  return real_data
+    simulation.runSimulation();
+    real_data = simulation.getOutputDataClone()
+    noise_factor = 0.1
+    for i in range(0,real_data.getAllocatedSize()):
+        amplitude = real_data[i]
+        sigma = noise_factor*math.sqrt(amplitude)
+        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
+        if(noisy_amplitude < 0.0) : noisy_amplitude = 0.0
+        real_data[i] = noisy_amplitude
+    return real_data
 
 
 # ----------------------------------------------------------------------------
@@ -122,8 +122,8 @@ class MySampleBuilder(ISampleBuilder):
     # constructs the sample for current values of parameters
     def buildSample(self):
       multi_layer = MultiLayer()
-      air_material = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0)
-      substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8)
+      air_material = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+      substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
       air_layer = Layer(air_material)
       substrate_layer = Layer(substrate_material)
 
@@ -139,8 +139,8 @@ class MySampleBuilder(ISampleBuilder):
       particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
       particle_decoration.addInterferenceFunction(interference)
 
-      layer_with_particles = LayerDecorator(air_layer, particle_decoration)
-      multi_layer.addLayer(layer_with_particles)
+      air_layer.setDecoration(particle_decoration)
+      multi_layer.addLayer(air_layer)
       multi_layer.addLayer(substrate_layer)
       self.sample = multi_layer
       return self.sample
@@ -149,6 +149,7 @@ class MySampleBuilder(ISampleBuilder):
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
 

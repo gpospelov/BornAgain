@@ -94,7 +94,7 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
 
 void InterferenceFunction2DLattice::init_parameters()
 {
-    getParameterPool()->clear();
+    clearParameterPool();
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()

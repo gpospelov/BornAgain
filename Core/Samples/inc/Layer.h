@@ -62,11 +62,11 @@ class BA_CORE_API_ Layer : public ICompositeSample
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle decoration
-    void setDecoration(IDecoration *decoration);
-    void setDecoration(const IDecoration &decoration);
+    virtual void setDecoration(IDecoration *decoration);
+    virtual void setDecoration(const IDecoration &decoration);
 
     //! returns particle decoration
-    const IDecoration* getDecoration() const { return mp_decoration; }
+    virtual const IDecoration* getDecoration() const { return mp_decoration; }
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const { return (mp_decoration ? true : false); }

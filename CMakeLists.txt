@@ -10,7 +10,7 @@ project(BornAgain)
 if(NOT BORNAGAIN_PYTHON)
     set(BORNAGAIN_PYTHON ON)
 endif()
-set(BORNAGAIN_APP ON)
+set(BORNAGAIN_APP OFF)
 set(BORNAGAIN_GUI OFF)
 
 #--- Path for additional cmake modules ---
@@ -40,3 +40,5 @@ endif()
 # functional tests (cmake; make check)
 add_subdirectory(Tests/FunctionalTests)
 
+# packaging
+#include(BornAgainCPack)

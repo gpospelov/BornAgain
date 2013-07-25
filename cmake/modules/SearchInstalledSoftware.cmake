@@ -49,9 +49,9 @@ endif()
 if(BORNAGAIN_PYTHON)
 
     find_package(PythonInterp)
+    # important to find interpreter and libraries from same python version
+    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
 
-    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_STRING})
-    
     find_package(PythonLibs REQUIRED)
     if(PYTHONLIBS_FOUND)
         include_directories(${PYTHON_INCLUDE_DIRS})

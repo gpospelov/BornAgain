@@ -18,8 +18,8 @@ SUBDIRS += Fit
     SUBDIRS += App
 }
 
-SUBDIRS += Tests/FunctionalTests/TestCore
-SUBDIRS += Tests/FunctionalTests/TestFit
+#SUBDIRS += Tests/FunctionalTests/TestCore
+#SUBDIRS += Tests/FunctionalTests/TestFit
 
 # compilation in lister order
 CONFIG += ordered

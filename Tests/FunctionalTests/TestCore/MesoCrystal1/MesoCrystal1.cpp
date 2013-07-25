@@ -36,7 +36,7 @@ void MesoCrystal1::MesoCrystal1::run(const std::string &path_to_data)
     simulation->runSimulation();
     simulation->normalize();
     m_result = simulation->getOutputDataClone();
-//    OutputDataIOFactory::writeOutputData(*result, "reference.txt");
+    //OutputDataIOFactory::writeOutputData(*m_result, "reference.txt");
 }
 
 

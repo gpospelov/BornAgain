@@ -1,40 +1,9 @@
 %\newpage
-\chapter{Examples}
+\chapter{Examples} \label{Exampleschap}
 %\section{Examples}
 
-%\subsection{Hello listing}
-  
-%\begin{lstlisting}[language=python, style=eclipse]    
-%mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-%mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
-%n_particle = complex(1.0-6e-4, 2e-8)
-%cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-%cylinder = Particle(n_particle, cylinder_ff)
-%prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
-%prism = Particle(n_particle, prism_ff)
-%particle_decoration = ParticleDecoration()
-%particle_decoration.addParticle(cylinder, 0.0, 0.5)
-%particle_decoration.addParticle(prism, 0.0, 0.5)
-%interference = InterferenceFunctionNone()
-%particle_decoration.addInterferenceFunction(interference)
-%# air layer with particles and substrate form multi layer
-%air_layer = Layer(mAmbience)
-%air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-%substrate_layer = Layer(mSubstrate, 0)
-%multi_layer = MultiLayer()
-%multi_layer.addLayer(air_layer_decorator)
-%multi_layer.addLayer(substrate_layer)
-
-%# build and run experiment
-%simulation = Simulation()
-%simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree 2.0*degree, True)
-%simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
-%simulation.setSample(multi_layer)
-%simulation.runSimulation()
-%\end{lstlisting}
-
 \section{General methodology}
-A simulation of GISAXS using BornAgain platform can be decomposed into the following points:
+A simulation of GISAXS using \BornAgain\ platform can be decomposed into the following points:
 \begin{itemize}
 \item Definition of the materials by specifying their names and their
   refractive indices,
@@ -72,7 +41,7 @@ roughnesses (equal to 0 by default) and the refractive index of the
 material. We do not define any dimensions in the $x$, $y$
 directions. And, except for roughness, the layer's vertical boundaries are plane and
 perpendicular to the $z$-axis. There is also no limitation to the
-number of layers that could be defined in BornAgain.\\
+number of layers that could be defined in \BornAgain.\\
 
 \noindent {\huge\danger} 
 \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
@@ -81,7 +50,7 @@ When assembling the sample, the layers are defined from top to
 bottom. So in most cases the first layer will be the air layer.}}\\
 
 \noindent The particles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented
-  in BornAgain) and
+  in \BornAgain) and
 the refractive index of the composing material. The number of input parameters for the form
   factor depends on the
   particle symmetry; it ranges from one parameter for a sphere (its
@@ -130,11 +99,10 @@ parameter like, for example, \texttt{20.0*Units::micrometer} in C++.
 
 \subsection{Programs}
 
-\noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
-{\underline{Programming}: The examples presented in the next
+\MakeRemark{Programming}{The examples presented in the next
   paragraphs are written in C++ or Python. For tutorials about these
    programming languages, the users are referred to
-  \cite{Cppref} and \cite{Pythonref} respectively.}}\\
+  \cite{Cppref} and \cite{Pythonref} respectively.}\\
 
 \noindent Note about the version of C++ and Python to run the
 examples.\\
@@ -161,7 +129,7 @@ modules (lines~\ref{import_begin}-\ref{import_end}). For example,
 line~\ref{import_numpy}  imports NumPy, which
 is a fundamental package for scientific computing with Python
 (\url{http://www.numpy.org/}).  In particular, line~\ref{import_end}
-imports the features of BornAgain software.\\
+imports the features of \BornAgain\ software.\\
 
 \noindent Finally line~\ref{def_function} marks the beginning of the
 function to define and run the simulation. 
@@ -221,7 +189,7 @@ prism = Particle(n_particle, prism_ff) @\label{particlesprism2}@
 \end{lstlisting}
 
  \noindent We implement two different shapes of particles: cylinders and
- prisms (\textit{i.e.} elongated particles with a constant equilateral triangular cross section).\\ All particles implemented in BornAgain are defined by their
+ prisms (\textit{i.e.} elongated particles with a constant equilateral triangular cross section).\\ All particles implemented in \BornAgain\ are defined by their
  form factors, their sizes and the refractive index of the material
   they are made of. Here, for the
   cylindrical particle, we input its radius and its height.  For the prism, 
@@ -368,7 +336,7 @@ are the minimum and maximum values respectively of $\phi_f$, which is the in-pla
 the number of points in the range of variations of the exit angle
 $\alpha_f$ measured from the $x,y$-plane in the $z$-direction,\\ \texttt{alpha\_f\_min=0.0*degree} and \texttt{alpha\_f\_max=2.0*degree} 
 are the minimum and maximum values respectively of $\alpha_f$,\\
-\texttt{isgisaxs\_style=True} (default value = False) is a boolean
+\texttt{isgisaxs\_style=True} (default value = \texttt{False}) is a boolean
 used to characterise the structure of the output data. If
 \texttt{isgisaxs\_style=True}, the output data is binned at constant
 values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
@@ -382,7 +350,7 @@ at constant values of these two angles.\\
 grazing angle on the surface of the sample,
 \texttt{phi\_i=0.0*degree} is the in-plane
 direction of the incident beam (measured with respect to the
-$x$-axis). Note that in Fig.\ref{fig:multil3d} $\alpha_i=\alpha_0$ and $\phi_i=\phi_0$.\\ 
+$x$-axis). Note that in Fig.~\ref{fig:multil3d} $\alpha_i=\alpha_0$ and $\phi_i=\phi_0$.\\ 
 
 \noindent \underline{Remark}: Note that, except for
 \texttt{isgisaxs\_style}, there are no default values implemented for the
@@ -404,7 +372,7 @@ return GetOutputData(simulation) @\label{outputdata}@%arr = GetOutputData(simula
 as a function of outgoing angles $\alpha_f$ and $\phi_f$ for further
 uses (plots, fits,\ldots) as a NumPy array containing
 \texttt{n\_phi}$\times$\texttt{n\_alpha}
-datapoints. Some options are provided by BornAgain. For example, figure~\ref{fig:output_ex1} shows the two-dimensional
+datapoints. Some options are provided by \BornAgain. For example, figure~\ref{fig:output_ex1} shows the two-dimensional
 contourplot of the intensity as a function of $\alpha_f$ and
 $\phi_f$. 
 

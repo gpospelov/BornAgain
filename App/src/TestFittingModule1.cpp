@@ -78,8 +78,8 @@ void TestFittingModule1::execute()
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createTreeObserver() );
+    //m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+    //m_fitSuite->attachObserver( FitSuiteObserverFactory::createTreeObserver() );
 
     m_fitSuite->runFit();
 }

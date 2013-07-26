@@ -1,5 +1,5 @@
 \newpage
-\chapter{Fitting}
+\chapter{Fitting} \label{Fittingchap}
 
 %     Minuit Library:
 %         Migrad Algorithm ("Minuit", "Migrad"),
@@ -15,7 +15,7 @@
 %         Minimize Algorithm ("Minuit2", "Minimize")
 %         Scan Algorithm ("Minuit2", "Scan")
 %         Fumili2 Algorithm ("Minuit2", "Fumili2")
-%     GSL Library: (Only available if GSL and MathMore are avaiable too)
+%     GSL Library: (Only available if GSL and MathMore are available too)
 %         Fletcher-Reeves Conjugate Gradient Algorithm ("GSLMultiMin", "conjugatefr")
 %         Polak-Ribiere Conjugate Gradient Algorithm ("GSLMultiMin", "conjugatepr")
 %         BFGS Conjugate Gradient Algorithm ("GSLMultiMin", "bfgs2")
@@ -23,29 +23,20 @@
 %         Simulated Annealing Algorithm ("GSLSimAn", "")
 
 In addition to the simulation of grazing incidence
-x-ray and neutron scattering by
-multilayered samples, BornAgain also offers the option to
+X-ray and neutron scattering by
+multilayered samples, \BornAgain\ also offers the option to
 fit a selection of simulated sample parameters to experimental data.  This aspect
-of the software is discussed in this chapter.
+of the software is discussed in the following chapter.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Short description of fitting theory}
 
-These features of BornAgain deal with estimating the optimum parameters
+These features of \BornAgain\ deal with estimating the optimum parameters
 in the simulation by minimizing the difference ($\chi^2$) between theory and experimental data.\\
 
-\textbf{From Minuit user's guide}: Minuit is usually used to find the ``best'' values of a set of
-parameters, where ``best'' is defined as those values which minimize a
-given function, FCN. The width of the function minimum in some
-neighbourhood of the minimum, gives information about the uncertainty
-in the best parameter values. An important feature of Minuit is that
-it offers several tools to analyze the parameter errors.
 
-
-
-\noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
-{\underline{Theory}: Users wanting to find out more about minimization (also called
-maximization or optimization methods) are referred to \ldots.}}\\
+\MakeRemark{Theory}{Users wanting to find out more about minimization (also called
+maximization or optimization methods) are referred to \ldots.}\\
 
 %The conjugate gradient and BFGS methods are described in detail in the following book,
 %    R. Fletcher, Practical Methods of Optimization (Second Edition) Wiley (1987), ISBN 0471915475. 
@@ -58,158 +49,181 @@ maximization or optimization methods) are referred to \ldots.}}\\
 
 Local minimum, multiple minima
 
+Multidimensional fit = fit using multiple parameters??
+
+Local or global minimization
 %\url{http://seal.web.cern.ch/seal/MathLibs/Minuit2/html/}
 
 %\url{http://seal.web.cern.ch/seal/documents/minuit/mntutorial.pdf}
 
 %\url{http://root.cern.ch/root/html/MATH_MINUIT2_Index.html}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementation in \BornAgain}
+\BornAgain\ fitting features include...\\
+Different geometries, number of fit parameters, variety of minimizers\\
+and minimization strategies.\\
+A detailed description of the architecture of Fit folder is given in
+\ldots \\
+Variable parameters: customize lists, inputs required, default values
+
+FitSuite: m\_minimizer, m\_is\_last\_iteration
+
+\textbf{From Minuit user's guide}: Minuit is usually used to find the ``best'' values of a set of
+parameters, where ``best'' is defined as those values which minimize a
+given function, FCN. The width of the function minimum in some
+neighbourhood of the minimum, gives information about the uncertainty
+in the best parameter values. An important feature of Minuit is that
+it offers several tools to analyze the parameter errors.\\
+
 A detailed tutorial of Minuit software can be downloaded at the
 following address \url{http://seal.web.cern.ch/seal/documents/minuit/mnusersguide.pdf}.
 %\cite{MinuitRoot}.
 
-Local or global minimization
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Implementation in BornAgain}
-BornAgain fitting features include...\\
-Different geometries, number of fit parameters, variety of minimizers\\
-and minimization strategies.\\
-
-Minimizer belongs to MinimizerFactory (interacts with Root)
-
-Variable parameters: customize lists, inputs required, default values
-
-Methods: implemented list, possibility to add your own.
-
-Set/create minimizer : name + algorithm + option (part of Minimizer
-factory). The minimizers can be chosen from the following list:
-
-FitSuite: m\_minimizer, m\_is\_last\_iteration
-
 \textbf{Questions}
 \begin{itemize}
+\item background noise, intensity threshold, beam intensity 
 \item Is it possible to fit on the particle kind (cylinder or prism or
 \ldots)?
 \item Fit using several experimental runs?
+\textbf{ Software Scatter :The program allows to automatically fit large number of data files such as files from timeresolved
+studies. A requirement is that subsequent scattering curves do not differ too much, so
+that the fitted values of the first curve can be used as starting parameters for a fit to the next
+curve. Before starting a fit series, choose the first data file and perform a fit so that the
+parameter values are set to an optimal start value. The first/last point, qmin/max and Imin for
+the fit will apply to all data sets.}
 \item Number of degrees of freedom?
 \item Weighted fits?
-\item Errorbars, epsilon for standard error
+\item Errorbars, epsilon for standard error - interpretation of values
+  and associated errors
 \item Normalisation of the data (in order to be compared)
 \item Constraints between parameters
 \item Quick fit option
 \item Possible exponential decrease of the form factor
-\item fit of 1D plots?
+\item fit of 1D plots - possible
+\item interrupt fit
 \end{itemize}
-%To run tests: python TestFit.py\\
-%List of tests\\
-%TestFit01 - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.\\
-%TestFit02 - Fitting using sample builder\\
-
-
-Class TestFittingModule1: 
-\begin{itemize}
-\item mp\_real\_data (experimental data), 
-\item mp\_simulated\_data,
-\item mp\_simulation, 
-\item mp\_sample, 
-\item mp\_fitsuite: \texttt{addSimulationAndRealdData}: link a given set of experimental data with a
-  particular set of simulated data in order to proceed to a fit. It is
-  therefore possible to generate a batch of different numerical
-  samples to test different configurations in order to obtain the best
-  fit by playing with the number of layers or the shape of particles
-  (different form factors). What about \texttt{chi2\_module} by default?
-\end{itemize} 
-
-\texttt{attachObserver} uses
-\texttt{FitSuiteObserverFactory::CreatePrintObserver()} or
-\texttt{FitSuiteObserverFactory::CreateDrawObserver()} or
-\texttt{FitSuiteObserverFactory::CreateTreeObserver()}.
-
-
-%runFit()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{General procedure to fit / for fitting}
+\subsubsection{General fitting procedure}
 
-Format of input (experimental data) - requirements (structure,
+Different steps:
+\begin{itemize}
+\item Creation of sample: multilayered sample, beam ,detector
+\item Parameters to fit
+\item Real (experimental) data (reduced, scaled, format)
+\item Format of input (experimental data) - requirements (structure,
 normalisation, values...)
-Experimental data can be entered by importing it from ASCII files created by other applications.
+\item Fit: algorithm, weights
+\end{itemize}
+
+Experimental data can be imported from ASCII files created by other applications.
 %Therefore the number of layers cannot be used as a fitting parameter
 
+Input = two-dimensional matrix of intensity as function of ...
+
+The class \texttt{FitSuite} contains the main functionalities to be used
+for the fit:
+\begin{itemize}
+\item \texttt{addFitParameter}: choice of fitting parameters, 
+\item \texttt{addFitStrategy}: choice of a fitting strategy
+  (\textbf{give description}),  
+\item Adds pair of (simulation, real data) for consecutive simulation
+\texttt{addSimulationAndRealData(simulation, real\_data, chi2\_module)}
+\item \texttt{runFit()} : run the fit,
+\item  \texttt{initPrint(print\_every\_nth)} to print intermediate
+  results or \texttt{printResults()} to print the final ones
+\end{itemize}
+
+FitSuite::FitSuite() : m\_minimizer(0), m\_is\_last\_iteration(false)
+    m\_function\_chi2.init(this);
+    m\_function\_gradient.init(this);
+   
+getNCalls() 
+
+    // running minimization using strategies
+    m\_fit\_strategies.minimize();
+
+%\textbf{Structure of fitting module in \BornAgain.}
+%\textbf{Structure of Fit folder (sources *.cpp):}
+%\begin{itemize}
+%\item FitObject.cpp
+%\item FitSuiteObjects.cpp		
+%\item MinimizerFactory.cpp
+%\item ROOTMinimizer.cpp
+%\item FitParameter.cpp		
+%\item FitSuiteParameters.cpp		
+%\item MinimizerScan.cpp		
+%\item ROOTMinimizerHelper.cpp
+%\item FitParameterLinked.cpp		
+%\item FitSuitePrintObserver.cpp	
+%\item MinimizerTest.cpp
+%\item FitSuite.cpp: addFitParameter, addSimulationAndRealData			
+%\item FitSuiteStrategies.cpp		
+%\item ROOTGSLNLSMinimizer.cpp
+%\item FitSuiteFunctions.cpp		
+%\item IFitSuiteStrategy.cpp
+%\item ROOTGSLSimAnMinimizer.cpp
+%\end{itemize}
+
+%\textbf{Structure of Fit folder (headers *.h):}
+%\begin{itemize}
+%\item AttFitting.h		
+%\item FitSuite.h		
+%\item FitSuiteStrategies.h	
+%\item MinimizerTest.h		
+%\item ROOTMinimizerHelper.h
+%\item AttLimits.h		
+%\item FitSuiteFunctions.h	
+%\item IFitSuiteStrategy.h	
+%\item ROOTGSLNLSMinimizer.h
+%\item FitObject.h		
+%\item FitSuiteObjects.h	
+%\item IMinimizer.h		
+%\item ROOTGSLSimAnMinimizer.h
+%\item FitParameter.h		
+%\item FitSuiteParameters.h	
+%\item MinimizerFactory.h	
+%\item ROOTMinimizer.h
+%\item FitParameterLinked.h	
+%\item FitSuitePrintObserver.h	
+%\item MinimizerScan.h		
+%\item ROOTMinimizerFunction.h
+%\end{itemize}
+
+\subsubsection{Building the sample}
+This step is similar / identical for any simulation using \BornAgain. It
+corresponds to first characterizing  the geomerey of the system: the particles (shapes, sizes, refractive
+indices), the different layers (thickness,
+order, refractive index, possible roughness of the interface), the
+interference between the particles and the way they are distributed in
+the layers (buried particles or particles sitting on top of a
+layer). Then we specify the parameters of the input beam and of the
+output detector.
+
+\subsubsection{Loading real data}
+By ``real'' data, we mean the system to which the fitting model will
+be compared to. It usually refers to experimental data.
+
+\subsubsection{Choice of parameters to be fitted}
 A fit is run for a fixed value of \textbf{the number of layers
-  constituting the sample}, the \textbf{input beam wavelength}.
-
-Input = matrix of intensity as function of ?
-
-Generation of the numerical model (cf other examples or detailed
-description or only script given and description of main steps)
-
-\textbf{Structure of fitting module in BornAgain.}
-
-
-\textbf{Structure of Fit folder (sources *.cpp):}
-\begin{itemize}
-\item FitObject.cpp
-\item FitSuiteObjects.cpp		
-\item MinimizerFactory.cpp
-\item ROOTMinimizer.cpp
-\item FitParameter.cpp		
-\item FitSuiteParameters.cpp		
-\item MinimizerScan.cpp		
-\item ROOTMinimizerHelper.cpp
-\item FitParameterLinked.cpp		
-\item FitSuitePrintObserver.cpp	
-\item MinimizerTest.cpp
-\item FitSuite.cpp			
-\item FitSuiteStrategies.cpp		
-\item ROOTGSLNLSMinimizer.cpp
-\item FitSuiteFunctions.cpp		
-\item IFitSuiteStrategy.cpp
-\item ROOTGSLSimAnMinimizer.cpp
-\end{itemize}
-
-\textbf{Structure of Fit folder (headers *.h):}
-\begin{itemize}
-\item AttFitting.h		
-\item FitSuite.h		
-\item FitSuiteStrategies.h	
-\item MinimizerTest.h		
-\item ROOTMinimizerHelper.h
-\item AttLimits.h		
-\item FitSuiteFunctions.h	
-\item IFitSuiteStrategy.h	
-\item ROOTGSLNLSMinimizer.h
-\item FitObject.h		
-\item FitSuiteObjects.h	
-\item IMinimizer.h		
-\item ROOTGSLSimAnMinimizer.h
-\item FitParameter.h		
-\item FitSuiteParameters.h	
-\item MinimizerFactory.h	
-\item ROOTMinimizer.h
-\item FitParameterLinked.h	
-\item FitSuitePrintObserver.h	
-\item MinimizerScan.h		
-\item ROOTMinimizerFunction.h
-\end{itemize}
-
-\myparagraph{\underline{Choice of parameters to be fitted}}
-In principle, every parameter used in the construction of the sample
-can be used as a fit parameter. For example
+  constituting the sample}, the \textbf{input beam wavelength}. In principle, every parameter used in the construction of the sample
+can be used as a fit parameter. For example,
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|@{}l||l@{}|}
 \hline
-\textbf{Particles} &  dimensions: height, radius, length, width, \\
-                             &  half side length, thickness, \textbf{index of refraction} 
-                             height\_aspect\_ratio, \textbf{orientation?} \\
-& (depending on the shape) \\
-& inteference (density, proportion, width, distance,\\
-& probability,
-dispersion radius) \\
+\textbf{Particles} &  dimensions (depending on the shape): height, radius, length, width, \\
+                             &  half side length, thickness,
+                             inclination of the lateral faces,
+                             \textbf{index of refraction}, height
+                             aspect ratio, \textbf{orientation?}\\
+& position ($x, ,y, z$), depth, abundance \\
+& interference (density, proportion, width, distance, probability\\
+& dispersion radius) \\
 \hline
-\textbf{Lattice} & \\
+\textbf{Lattice} & lengths of axis\\
 \hline
 \textbf{Layers} & roughness, thickness, \textbf{index of refraction} \\
 \hline
@@ -219,61 +233,31 @@ dispersion radius) \\
 \hline
 \end{tabular}
 \label{table:fitting_parameters}
-\caption{List of parameters that can be defined as fitting parameters.}
+\caption{List of parameters that can be used as fitting parameters.}
 \end{table}
 
-The heights of different particles can be associated to two different
-fitting parameters and optimized / minimized separately.
+\texttt{RegisterParameter}
+
+%m\_cylinder\_ratio                   
+% *Normalizer/scale,  *Normalizer/shift
+%  *SampleBuilder/particle\_probability1
+% *SampleBuilder/interf\_distance, *SampleBuilder/interf\_width, height\_aspect\_ratio
+% */lattice\_length\_a, */lattice\_length\_c   
+%*/nanoparticle\_radius   
+%*/sigma\_nanoparticle\_radius
+% */meso\_height, */meso\_radius  
+%*/sigma\_meso\_height, \_meso\_radius, \_lattice\_length\_a
+%*/surface\_filling\_ratio
+%*/roughness
 
 
-m\_cylinder\_ratio, m\_cylinder\_height
-m\_prism3\_half\_side, m\_prism3\_height
-                          
-  *Normalizer/scale
-  *Normalizer/shift
+If the sample contains different types of particles, the heights of different particles can be associated to two different
+fitting parameters and optimized / minimized separately.\\
 
-  *SampleBuilder/particle\_probability1
-  *SampleBuilder/particle\_radius1
-  *SampleBuilder/dispersion\_radius1
-  *SampleBuilder/height\_aspect\_ratio1
 
-  *SampleBuilder/interf\_distance
-  *SampleBuilder/interf\_width
+In \BornAgain, the parameters used for the fit are specified using the
+function \texttt{addFitParameter} with one of the following two syntaxes
 
- *SampleBuilder/height\_aspect\_ratio
- 
-   */lattice\_length\_a 
-   */lattice\_length\_c   
-   */nanoparticle\_radius",     
-   */sigma\_nanoparticle\_radius
-   */meso\_height       
-   */meso\_radius  
-   */sigma\_meso\_height
-   */sigma\_meso\_radius
-   */sigma\_lattice\_length\_a
-   */surface\_filling\_ratio
-   */roughness
-
- 
-In BornAgain, the parameters used for the fit are specified using the
-function \texttt{addFitParameter} with the following syntax:
-
-\begin{lstlisting}[language=C++, style=eclipse,numbers=none]
-m\_fitSuite->addFitParameter("*height", 4.*Units::nanometer,
-0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-
-m\_fitSuite->addFitParameter("*radius", 6.*Units::nanometer,
-0.06*Units::nanometer, AttLimits::lowerLimited(0.01) );
-
-m\_fitSuite->addFitParameter("*SampleBuilder/m\_cylinder\_height",4*Units::nanometer, 0.01*Units::nanometer,AttLimits::lowerLimited(0.01) );
-
-m\_fitSuite->addFitParameter("*SampleBuilder/m\_cylinder\_radius",
-  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-
-m\_fitSuite->addFitParameter("*SampleBuilder/m\_prism3\_half\_side", 4*Units::nanometer, 0.01*Units::nanometer,  AttLimits::lowerLimited(0.01) );
-\end{lstlisting}
-
-There are two possible syntaxes:
 \begin{itemize}
 \item First option: \\ \texttt{m\_fitSuite->addFitParameter(name, value, step, attlim, error);},
 where \texttt{value}, \texttt{step} and \texttt{error} are double values corresponding to the ... respectively.
@@ -281,9 +265,8 @@ where \texttt{value}, \texttt{step} and \texttt{error} are double values corresp
 \texttt{m\_fitSuite->addFitParameter(name, value, attlim, error);}
 \end{itemize}
 
-\texttt{attlim} is , \texttt{name} is ...
+\texttt{attlim} is , \texttt{name} is ... The path used corresponds to ...
 By default the input value of \texttt{error} is 0.
- 
 
 \texttt{AttLimits} can be
 \begin{itemize}
@@ -291,33 +274,70 @@ By default the input value of \texttt{error} is 0.
 \item lowerLimited(double value), 
 \item limited(double min value, double max value).
 \end{itemize}
-The unit of \texttt{AttLimits} is  identical to the one used to characterize the
+The unit of \texttt{AttLimits} is identical to the one used to characterize the
 parameter.
 
-Number of iterations
-Interrupt fit
-Procedure: initially choose a small number of fitting parameters
+\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+FitSuite().addFitParameter("*height", 4.*nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) )
+\end{lstlisting}
 
-\textbf{ Software Scatter :The program allows to automatically fit large number of data files such as files from timeresolved
-studies. A requirement is that subsequent scattering curves do not differ too much, so
-that the fitted values of the first curve can be used as starting parameters for a fit to the next
-curve. Before starting a fit series, choose the first data file and perform a fit so that the
-parameter values are set to an optimal start value. The first/last point, qmin/max and Imin for
-the fit will apply to all data sets.}
 
-Background noise, intensity threshold.
+
+\MakeRemark{Advice}{Initially choose a small number of fitting
+  parameters.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Associating real and numerical data}
+The function \texttt{addSimulationAndRealdData} links a given set of real data with a
+  particular set of simulated data in order to proceed to a fit. It is
+  therefore possible to generate a batch of different numerical
+  samples to test different configurations in order to obtain the best
+  fit by playing with the number of layers or the shape of particles
+  (different form factors). 
+
+There are two possible syntaxes: 
+\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+FitSuite().addSimulationAndRealData(simulation, real_data,
+chi2_module)
+
+FitSuite().addSimulationAndRealData(simulation, real_data)
+\end{lstlisting}
+
+
+What about \texttt{chi2\_module} by default?
+
+setChiSquaredFunction: SquaredFunctionWithSystematicError, SquaredFunctionDefault(), SquaredFunctionWhichOnlyWorks(),
+\texttt{SquaredFunctionWithGaussianError(m\_sigma)}
+,SquaredFunctionWithSystematicError(0.08) 
+chiModule.setChiSquaredFunction(SquaredFunctionDefault()) ( isgisaxs
+uses epsilon=0, which correspond to our SquaredFunctionDefault). 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Fitting methods implemented}
+\subsubsection{Choice of fitting method}
+Methods: implemented list, possibility to add your own.
+
+Number of iterations
+
+Minimizer belongs to MinimizerFactory (interacts with Root)
+
+Set/create minimizer : name + algorithm + option (part of Minimizer
+factory). The minimizers can be chosen from the following list:
+
 
 \textbf{Is there any default method implemented?}
-Different minimizers from Root library can be used in BornAgain. They are listed in
+Normalisation of data ?
+
+
+Different minimizers from Root library can be used in \BornAgain. They are listed in
 Table~\ref{table:fit_minimizers}. Users can also add their own by
 implementing their definition in the \texttt{Catalogue} contained in
 program \texttt{MinimizerFactory}.
 Minuit user's manual describes which minimizer to use in order to best
 fit our data\ldots  \cite{MinuitRoot}.
+
+SET STRATEGY chosen using...
+How to change options of algorithms.
 
 \begin{table}[h]
 \centering
@@ -339,15 +359,11 @@ Genetic &  \\ %TMVA Toolkit for Multivariate Data Analysis with ROOT
 \hline
 \end{tabular}
 \label{table:fit_minimizers}
-\caption{List of fitting minimizers implemented in BornAgain.}
+\caption{List of fitting minimizers implemented in \BornAgain.}
 \end{table}
 
+Give general syntax
 
-
-
-Minuit2, originally developed in the SEAL project, is now distributed
-within ROOT. The classes have been moved inside the namespace
-ROOT::Minuit2. 
 
 Minuit is conceived as a tool to find the minumum value of a
 multi-parameter function and analyze the shape of the function around
@@ -362,31 +378,40 @@ Minuit2, optional package in the ROOT framework, is a numerical minimization com
 originally written in C++ programming language. The program searches for minima in a user-defined function with
 respect to one or more parameters using several different methods as
 specified by the user. 
+%MIGRAD
+%This is the best minimizer for nearly all functions. It is a variable-metric method with inexact line search, a stable metric updating scheme, and checks for positive-definiteness. It will run faster if you SET STRATEGY 0 and will be more reliable if you SET STRATEGY 2 (although the latter option may not help much). Its main weakness is that it depends heavily on knowledge of the first derivatives, and fails miserably if they are very inaccurate. If first derivatives are a problem, they can be calculated analytically inside FCN (see elsewhere in this writeup) or if this is not feasible, the user can try to improve the accuracy of Minuit's numerical approximation by adjusting values using the SET EPS and/or SET STRATEGY commands (see Floating Point Precision and SET STRATEGY).
+%SCAN
+%This is not intended to minimize, and just scans the function, one parameter at a time. It does however retain the best value after each scan, so it does some sort of highly primitive minimization.
+%SIMPLEX
+%This genuine multidimensional minimization routine is usually much slower than MIGRAD, but it does not use first derivatives, so it should not be so sensitive to the precision of the FCN calculations, and is even rather robust with respect to gross fluctuations in the function value. However, it gives no reliable information about parameter errors, no information whatsoever about parameter correlations, and worst of all cannot be expected to converge accurately to the minimum in a finite time. Its estimate of EDM is largely fantasy, so it would not even know if it did converge. 
+%Minuit2, originally developed in the SEAL project, is now distributed
+%within ROOT. The classes have been moved inside the namespace
+%ROOT::Minuit2. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Outputs}
 log file, how to interpret the data, how to save the estimated parameters.
-Customize using \texttt{Observer}.
-See FitGISAXS, IsGISAXS, Fish.
+Output = two-dimensional matrix + errors $\chi^2$
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Examples}
-in C++ or Python?
-TestPyFit: testfit01.py, testfit02.py
-FitSuite
+\section{Example in Python}
 
-Observer
+In this example we use a simple sample geometry: cylindrical and
+prismatic particles
+in air layer, deposited on a substrate layer, with no interference
+between them. We consider 4 fitting parameters: radius and height of cylinders and the
+side length and height of prisms.  Our "real" data is a 2D intensity
+map obtained from the simulation of the same geometry with a fixed
+value of 5 nanometers for the height of both particle shapes as well
+as for the radius of the cylinders and the half side length of the
+prisms' triangular basis. Then we run our minimization consequently
+using ... as a  minimization engine, starting with a cylinder's height
+of 4~nm, a cylinder's radius of 6~nm, a prism's half side of ...~nm,
+and prism3\_length = ...nm as initial fit parameter values.
 
-Screenshot after running the program
-Graph?
-Simulation
-Real data
-
-
-Difference between TestFit and TestPyFit
-
-Different steps to follow - order of execution
-
+\MakeRemark{Order of steps}{ The first two steps could be interchanged.}
 %%%%%%%%%%%%%%%%%%%%%
 \myparagraph{\underline{First step:} Initializing the simulation}
+The details about the multilayered sample are given in Section%~\ref{}.
 
  definition of the detector's
   parameters \texttt{setDetectorParameters} and the beam's parameters
@@ -395,40 +420,152 @@ Different steps to follow - order of execution
 %%%%%%%%%%%%%%%%%%%%%
 \myparagraph{\underline{Generating the sample}}
 
-Layers, particles, 
+\begin{lstlisting}[language=python, style=eclipseboxed, name=exfit,nolol]
+import sys, os, numpy 
+import math @\label{import_libmath}@
+
+sys.path.append(os.path.abspath(
+                os.path.join(os.path.split(__file__)[0],
+                '..', '..', '..', 'lib')))
+
+from libBornAgainCore import * @\label{import_corelib}@
+from libBornAgainFit import * @\label{import_fitlib}@
+
+# values we want to find
+cylinder_height = 5.0*nanometer @\label{cylheightini}@
+cylinder_radius = 5.0*nanometer @\label{cylradini}@
+prism3_half_side = 5.0*nanometer @\label{prismhlfini}@
+prism3_height = 5.0*nanometer @\label{prismhightini}@
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, style=eclipseboxed, name=exfit,nolol]
+# ----------------------------------
+# create sample : cylinders and prisms in the air on substrate layer
+# ----------------------------------
+def buildSample(): 
+    # defining materials
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    # collection of particles
+    n_particle = complex(6e-4, 2e-8)
+    cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius) @\label{fit_cylff}@
+    cylinder = Particle(n_particle, cylinder_ff)
+    prism_ff = FormFactorPrism3(prism3_height,  prism3_half_side) @\label{fit_prismff}@
+    prism = Particle(n_particle, prism_ff)
+    particle_decoration = ParticleDecoration()
+    particle_decoration.addParticle(cylinder, 0.0, 0.5)
+    particle_decoration.addParticle(prism,0.0, 0.5)  
+    interference = InterferenceFunctionNone()
+    particle_decoration.addInterferenceFunction(interference)
+    # air layer with particles and substrate form multi layer
+    air_layer = Layer(mAmbience)
+    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    substrate_layer = Layer(mSubstrate, 0)
+    multi_layer = MultiLayer()
+    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(substrate_layer)
+    return multi_layer
+
+# ----------------------------------
+# create sample : input beam and detector - characteristics
+# ----------------------------------
+def createSimulation():
+    simulation = Simulation()
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree,100 , 0.0*degree, 2.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setBeamIntensity(1e10) @\label{fit_beamintensity}@
+    return simulation
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, style=eclipseboxed, name=exfit,nolol]
+# ----------------------------------
+# read "real" data from file
+# ----------------------------------
+def GetRealData(): 
+    real_data =
+    OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt') @\label{fit_input_realdata}@
+    return real_data
+\end{lstlisting}
+
+\texttt{'Refdata\_fitcylinderprisms.txt'}
+ 
+\begin{lstlisting}[language=python, style=eclipseboxed,
+  name=exfit,nolol]
+# ----------------------------------
+# run fitting  
+# ----------------------------------
+def run_fitting():
+    sample = buildSample() @\label{}@
+    simulation = createSimulation() @\label{}@
+    simulation.setSample(sample) @\label{}@
+
+    # get the real data, which is simply results of our simulation with default values
+    real_data = GetRealData() @\label{}@
+    
+    # run the simulation
+    simulation.runSimulation() @\label{}@
+
+    # linking real and numerical (to be fitted) data
+    fitSuite = FitSuite() @\label{}@
+    fitSuite.addSimulationAndRealData(simulation, real_data) @\label{}@
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%
-\myparagraph{\underline{Choice of parameters to be fitted}}
+\myparagraph{\underline{Choice of fitting minimizer}}
+
+\begin{lstlisting}[language=python, style=eclipseboxed,
+  name=exfit,nolol]
+    # setting fitting minimizer
+    fitSuite.setMinimizer(
+    MinimizerFactory.createMinimizer("Minuit2","Migrad") )  @\label{}@
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\myparagraph{\underline{Choice of numerical parameters to be fitted}}
+
+\begin{lstlisting}[language=python, style=eclipseboxed,
+  name=exfit,nolol]
+    # setting fitting parameters
+    fitSuite.addFitParameter("*FormFactorCylinder/height",
+    4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) ) @\label{}@
+    fitSuite.addFitParameter("*FormFactorCylinder/radius",
+    6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) ) @\label{}@
+    fitSuite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer,
+    0.01*nanometer, AttLimits.lowerLimited(0.01) ) @\label{}@
+    fitSuite.addFitParameter("*FormFactorPrism3/half_side",
+    6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) ) @\label{}@
+\end{lstlisting}
 
 choice of parameters
   to be used for minimization \texttt{addFitParameter}. 
 
 %%%%%%%%%%%%%%%%%%%%%
-\myparagraph{\underline{Running the simulation / the fit}}
+\myparagraph{\underline{Running the fit}}
 
-Normalisation ?
+\begin{lstlisting}[language=python, style=eclipseboxed, name=exfit,nolol]
+    # run fit @\label{}@
+    fitSuite.runFit()    
+    # print fit results
+    fitSuite.printResults()
 
-Output = two-dimensional matrix.
-
-How to run the fit: using the function \texttt{fit}
-
-
+# ----------------------------------
+# main()
+# ----------------------------------
+if __name__ == '__main__':
+    run_fitting()
+\end{lstlisting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+After running the fit, the following text should be displayed on your
+screen (generated by using \texttt{fitsuite.PrintResults})
 
 \begin{lstlisting}[caption={Python script of fitting example},
   label=script_exfit1,captionpos=b,escapeinside={@}{@} ,language=python,style=eclipse, numbers= none,frame = leftline ,
       framerule = 2mm ,
       rulecolor = \color{lightgrey},
       breaklines = true]
-# In this test we are using simple geometry: cylinders without interference in
-# air layer with two parameters (radius and height of cylinders), describing
-# the sample. Our "real" data is 2D intensity map obtained from the simulation of
-# the same geometry with fixed values height = 5nm and radius = 5nm.
-# Then we run our minimization consequently using different minimization engines,
-# with height=4nm, radius=6nm as starting fit parameter values.
-import sys
-import os
-import numpy
-import time
+import sys, os, numpy
+import math 
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -437,148 +574,114 @@ sys.path.append(os.path.abspath(
 from libBornAgainCore import *
 from libBornAgainFit import *
 
-# sample parameters we are going to find
-cylinder_height = 5*nanometer
-cylinder_radius = 5*nanometer
+# values we want to find
+cylinder_height = 5.0*nanometer
+cylinder_radius = 5.0*nanometer
+prism3_half_side = 5.0*nanometer
+prism3_height = 5.0*nanometer
 
-# minimizer name and type of minimization algorithm
-Minimizers = [ 
-    ("Minuit2","Migrad"), 
-    ("Minuit2","Fumili"), 
-    ("GSLMultiMin","BFGS"),
-    ("GSLMultiMin","SteepestDescent"),
-    ("GSLMultiFit",""),
-#    ("GSLSimAn","")
-]
+# ----------------------------------
+# create sample : cylinders and prisms in the air on substrate layer
+# ----------------------------------
+def buildSample(): 
+    # defining materials
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    # collection of particles
+    n_particle = complex(6e-4, 2e-8)
+    cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius)
+    cylinder = Particle(n_particle, cylinder_ff)
+    prism_ff = FormFactorPrism3(prism3_height,  prism3_half_side)
+    prism = Particle(n_particle, prism_ff)
+    particle_decoration = ParticleDecoration()
+    particle_decoration.addParticle(cylinder, 0.0, 0.5)
+    particle_decoration.addParticle(prism,0.0, 0.5)  
+    interference = InterferenceFunctionNone()
+    particle_decoration.addInterferenceFunction(interference)
+    # air layer with particles and substrate form multi layer
+    air_layer = Layer(mAmbience)
+    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    substrate_layer = Layer(mSubstrate, 0)
+    multi_layer = MultiLayer()
+    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(substrate_layer)
+    return multi_layer
 
-# -----------------------------------------------------------------------------
-# run several minimization rounds using different minimizers
-# -----------------------------------------------------------------------------
-def runTest():
-    #print "**********************************************************************"
-    #print "*  Starting  TestFit01                                               *"
-    #print "**********************************************************************"
-    nTest=0
-    status = "OK"
-    for m in Minimizers:
-        minimizer_name = m[0]
-        minimizer_algorithm = m[1]
-        print "Minimizer {0:-2d}   {1:}({2:})".format(nTest, minimizer_name, minimizer_algorithm)
-        result_ok = run_fitting(minimizer_name, minimizer_algorithm)
-        nTest+=1
-        if not result_ok: status = "FAILED"
+# ----------------------------------
+# create sample : input beam and detector - characteristics
+# ----------------------------------
+def createSimulation():
+    simulation = Simulation()
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree,100 , 0.0*degree, 2.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setBeamIntensity(1e10) # to leave or not
+    return simulation
 
-    return "TestFit01", "Two parameters fit using variety of minimizers.", status
+# ----------------------------------
+# read "real" data from file
+# ----------------------------------
+def GetRealData():
+    real_data = OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt')
+    return real_data
 
-# -----------------------------------------------------------------------------
-# run fitting specified minimizer
-# -----------------------------------------------------------------------------
-def run_fitting(minimizer_name, minimizer_algorithm):
+# ----------------------------------
+# run fitting 
+# ----------------------------------
+def run_fitting():
     sample = buildSample()
     simulation = createSimulation()
     simulation.setSample(sample)
 
-    # creating real data, which is simply results of our simulation with default values
+    # get the real data, which is simply results of our simulation with default values
+    real_data = GetRealData()
+    
+    # run the simulation
     simulation.runSimulation()
-    real_data = simulation.getOutputDataClone()
-
-    # setting fit suite
+    
+    # linking real and numerical (to be fitted) data
     fitSuite = FitSuite()
-    fitSuite.setMinimizer( MinimizerFactory.createMinimizer(minimizer_name, minimizer_algorithm) )
-    fitSuite.addFitParameter("*height", 4.*nanometer, 0.04*nanometer, AttLimits.lowerLimited(0.01) )
-    fitSuite.addFitParameter("*radius", 6.*nanometer, 0.06*nanometer, AttLimits.lowerLimited(0.01) )
     fitSuite.addSimulationAndRealData(simulation, real_data)
+    
+    # setting fitting minimizer
+    fitSuite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2","Migrad") ) 
+  
+    # setting fitting parameters
+    fitSuite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*FormFactorPrism3/half_side", 6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
 
     # run fit
-    start_time = time.time()
     fitSuite.runFit()
-    real_time = time.time() - start_time
+    
+    # print fit results
+    fitSuite.printResults()
 
-    height_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(0)
-    height_diff = abs(height_found - cylinder_height)/cylinder_height
-    radius_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(1)
-    radius_diff = abs(radius_found - cylinder_radius)/cylinder_radius
-
-    print "            RealTime : {0:.3f} sec".format(real_time)
-    print "            NCalls   : {0:<5d}".format(fitSuite.getNCalls())
-    print '            par1     : {0:.4f} ({1:.3g}) '.format(height_found, height_diff)
-    print '            par2     : {0:.4f} ({1:.3g}) '.format(radius_found, radius_diff)
-
-    diff = 1.0e-02
-    isSuccess = True
-    if( (height_diff > diff) or (radius_diff > diff) ) : isSuccess=False
-    return isSuccess
-
-# -----------------------------------------------------------------------------
-# create cylinders in the air
-# -----------------------------------------------------------------------------
-def buildSample():
-    cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius)
-    n_particle = complex(1.0-6e-4, 2e-8)
-    cylinder = Particle(n_particle, cylinder_ff)
-    interference = InterferenceFunctionNone()
-
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder)
-    particle_decoration.addInterferenceFunction(interference)
-
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-    multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
-
-    return multi_layer
-
-def createSimulation():
-    simulation = Simulation();
-    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree,100 , 0.0*degree, 2.0*degree);
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree);
-    simulation.setBeamIntensity(1e10);
-    return simulation
-
-#-------------------------------------------------------------
+# ----------------------------------
 # main()
-#-------------------------------------------------------------
+# ----------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    run_fitting()
+
 \end{lstlisting}
 
 
-Output of functional test: fit module 2 params
+\newpage
 
-TestFittingModule1.cpp with "Minuit2", "Migrad"
+fit with 4 parameters
 
-\begin{lstlisting}[style=eclipse,numbers=none]
-FitSuitePrintObserver::update() -> Info. NCall:0 NStrategy:0 Chi2:6.26500281e+09
-Time spend since last call, cpu:0.03 sec, wall time 0.03sec
-   # 0 *height                                 4.00000000e+00  lim(0.01,)
-   # 1 *radius                                 6.00000000e+00  lim(0.01,)
-FitSuitePrintObserver::update() -> Info. NCall:20 NStrategy:0 Chi2:9.29429839e+07
-Time spend since last call, cpu:1.27 sec, wall time 4.72sec
-   # 0 *height                                 4.51488966e+00  lim(0.01,)
-   # 1 *radius                                 4.68705140e+00  lim(0.01,)
-FitSuitePrintObserver::update() -> Info. NCall:40 NStrategy:0 Chi2:9.74308159e+05
-Time spend since last call, cpu:0.97 sec, wall time 1.05sec
-   # 0 *height                                 4.94285364e+00  lim(0.01,)
-   # 1 *radius                                 5.07666127e+00  lim(0.01,)
-FitSuitePrintObserver::update() -> Info. NCall:60 NStrategy:0 Chi2:7.91181985e+00
-Time spend since last call, cpu:1.00 sec, wall time 1.07sec
-   # 0 *height                                 4.99977322e+00  lim(0.01,)
-   # 1 *radius                                 4.99985065e+00  lim(0.01,)
-FitSuitePrintObserver::update() -> Info. NCall:80 NStrategy:0 Chi2:1.01820395e-02
-Time spend since last call, cpu:0.98 sec, wall time 1.05sec
-   # 0 *height                                 5.00000020e+00  lim(0.01,)
-   # 1 *radius                                 5.00000004e+00  lim(0.01,)
 
-FitSuiteObserverPrint::update() -> Info. Printing results
-
+\begin{lstlisting}[caption={Output of fit using Python script},
+  label=script_exfit1,captionpos=b,escapeinside={@}{@} ,style=eclipse, numbers= none,%frame = leftline,
+      %framerule = 2mm ,
+      %rulecolor = \color{lightgrey},
+      breaklines = true]
 --- FitSuite::printResults --------------------------
- Chi2:1.19798858e-02    chi2.NCall:85  grad.NCall:0,0,0 (neval, ngrad, total)
-   # 0 *height                                 4.99999992e+00  lim(0.01,)
-   # 1 *radius                                 5.00000004e+00  lim(0.01,)
+ Chi2:6.06100495e-07    chi2.NCall:159  grad.NCall:0,0,0 (neval, ngrad, total)
+   # 0 *FormFactorCylinder/height              4.99997446e+00  lim(0.01,)
+   # 1 *FormFactorCylinder/radius              5.00001015e+00  lim(0.01,)
+   # 2 *FormFactorPrism3/height                5.00000526e+00  lim(0.01,)
+   # 3 *FormFactorPrism3/half_side             4.99998321e+00  lim(0.01,)
 -----------------------------------------------------
   MinimizerType          : Minuit2
   MinimizerAlgorithm     : Migrad
@@ -594,18 +697,21 @@ FitSuiteObserverPrint::update() -> Info. Printing results
   Status                 : 0 'OK, valid minimum'
   IsValidError           : 0 'No detailed error validation'
   CovMatrixStatus        : 3 'full accurate'
-  NCalls                 : 85
-  MinValue               : 1.01756899e-02
-  Edm                    : 4.39332982e-12
+  NCalls                 : 159
+  MinValue               : 2.11285899e-07
+  Edm                    : 2.02968770e-08
 --- Variables ---------------------------------------
-  NumberOfVariables      : 2 (free), 2 (total) 
+  NumberOfVariables      : 4 (free), 4 (total) 
   Errors                 : yes, see below
       Npar  Name                                  Value         Error         GlobalCC      
-      0    *height                                5.000000e+00  1.109913e-04  1.208255e-01  
-      1    *radius                                5.000000e+00  8.941040e-05  1.208255e-01  
+      0    *FormFactorCylinder/height             4.999974e+00  2.545638e-01  5.698257e-01  
+      1    *FormFactorCylinder/radius             5.000010e+00  1.336151e-01  2.309216e-02  
+      2    *FormFactorPrism3/height               5.000005e+00  1.730972e-01  5.697503e-01  
+      3    *FormFactorPrism3/half_side            4.999983e+00  3.100541e-01  2.897434e-02  
 --- Correlations-------------------------------------
-      1.000000e+00  -1.208255e-01 
-      -1.208255e-01 1.000000e+00  
-fitting1  : Real Time =   8.33 seconds Cpu Time =   4.58 seconds
+      1.000000e+00  7.770605e-03  -5.695874e-01 1.079534e-02  
+      7.770605e-03  1.000000e+00  -1.702212e-03 -2.134996e-02 
+      -5.695874e-01 -1.702212e-03 1.000000e+00  7.135700e-03  
+      1.079534e-02  -2.134996e-02 7.135700e-03  1.000000e+00  
 \end{lstlisting}
 

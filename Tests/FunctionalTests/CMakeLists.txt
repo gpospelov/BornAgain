@@ -3,7 +3,11 @@
 ############################################################################
 
 enable_testing()
+
+include(CTestCustom)
+
 add_custom_target(check ${CMAKE_CTEST_COMMAND})
+#add_custom_target(check ${CMAKE_CTEST_COMMAND} -D Experimental)
 #add_custom_target(check ${CMAKE_CTEST_COMMAND} -V)
 # export CTEST_OUTPUT_ON_FAILURE=ON will give some output on failure
 

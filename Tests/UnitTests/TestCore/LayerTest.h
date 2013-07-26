@@ -104,8 +104,7 @@ TEST_F(LayerTest, LayerAndDecoration)
     EXPECT_EQ("NONAME", layer.getDecoration()->getName());
 
     EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
-
-}
+    }
 
 
 #endif // LAYERTEST_H

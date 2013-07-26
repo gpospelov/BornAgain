@@ -1,7 +1,7 @@
 \newpage
-\section{Installation} \SecLabel{InstallationProcedure}
+\section{Installation} \SecLabel{Installation}
 
-This section describes how to build and install \BornAgain\ libraries from source.
+This section describes how to build and install \BornAgain\ libraries from the source.
 At the moment we support building on x86/x86\_64 Linux and Mac OS X operating systems.
 Support for Windows systems is planned in next releases.
 %In the later releases we are planing to include support for Windows systems and provide
@@ -10,9 +10,9 @@ There are three major steps to building \BornAgain\ :
 \begin{enumerate}[1.]
 \item Acquire required third-party libraries.
 \item Get \BornAgain\ source code.
-\item Invoke cmake to build and install software.
+\item Use \Code{cmake} to build and install software.
 \end{enumerate}
-The remainder of this section explains each step in details.
+The remainder of this section explains each step in detail.
 
 \subsection{Third-party software.}
 To successfully build \BornAgain\ a number of prerequisite packages must be installed.
@@ -29,14 +29,14 @@ To successfully build \BornAgain\ a number of prerequisite packages must be inst
 
 Other packages are optional
 \begin{itemize}
-\item ROOT framework (adds bunch of additional fitting algorithms to \BornAgain)
+\item ROOT framework (adds several additional fitting algorithms to \BornAgain)
 \item python-matplotlib (allows to run usage examples with graphics)
 %\item Eigen3 library ($\geq 3.1.0$)
 \end{itemize}
 
-All required packages can be easily installed on most Linux distributions using system's package
-manager. Below we give few examples for several selected operation systems. Please note,
-that other distributions (Fedora, Mint, etc) may have different commands for invoking the package manager and slightly different names of packages (like ``boost'' instead of ``libboost'' etc). Besides that, installation should be very similar.
+All required packages can be easily installed on most Linux distributions using the system's package
+manager. Below we give a few examples for several selected operation systems. Please note,
+that other distributions (Fedora, Mint, etc) may have different commands for invoking the package manager and slightly different names of packages (like ``boost'' instead of ``libboost'' etc). Besides that, the installation should be very similar.
 \vspace*{3mm}
 
 % ---------------
@@ -50,7 +50,7 @@ sudo zypper ar http://download.opensuse.org/repositories/science/openSUSE_12.3 s
 \end{lstlisting}
 
 \noindent
-Installing obligatory packages
+Installing required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo zypper install git-core cmake gsl-devel boost-devel fftw3-devel python-devel python-numpy-devel
 \end{lstlisting}
@@ -68,7 +68,7 @@ sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-dev
 % ---------------
 \noindent
 {\large\bf Ubuntu 13.04} \newline
-Installing obligatory packages
+Installing required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy
 \end{lstlisting}
@@ -87,13 +87,13 @@ sudo apt-get install libroot-* root-plugin-* root-system-* ttf-root-installer li
 \noindent
 \noindent
 {\large\bf Mac OS X 10.8} \newline
-To simplify installation of third party open-source software on a Mac OS X system we recommend the use of \Code{MacPorts} package manager. 
+To simplify the installation of third party open-source software on a Mac OS X system we recommend the use of \Code{MacPorts} package manager. 
 The easiest way to install MacPorts is by downloading the \Code{dmg} 
 from \url{www.macports.org/install.php} and running the system's installer.
-After installation new command ``\Code{port}'' will be available in terminal window of your Mac. \
+After the installation new command ``\Code{port}'' will be available in terminal window of your Mac. \
 
 \noindent
-Installing obligatory packages
+Installing required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo port -v selfupdate
 sudo port install git-core cmake
@@ -132,17 +132,18 @@ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 \noindent
 {\bf\large More about Git} \\
 Our Git repository holds two main branches called ``master'' and ``develop''. We consider ``master''
-branch to be the main branch where the source code of HEAD always reflect latest stable release. Git clone command shown above
+branch to be the main branch where the source code of HEAD always reflects latest stable release. \Code{git clone} command shown above
 \begin{enumerate}[1.]
-\item Gives you source code snapshot corresponding to the latest stable release
-\item Automatically sets up your local master branch to track our remote master branch, 
-so you will be able to fetch changes from remote branch at any time using ``git pull'' command.
+\item gives you a source code snapshot corresponding to the latest stable release,
+\item automatically sets up your local master branch to track our remote master branch, 
+so you will be able to fetch changes from the remote branch at any time using ``git pull'' command.
 \end{enumerate}
 
-Master branch is updating approximately once per month, that reflects our release cycle.
-The second main branch, ``develop'' branch, is a snapshot of current development.
+Master branch is updating approximately once per month.
+% that reflects our release cycle.
+The second branch, ``develop'' branch, is a snapshot of the current development.
 This is where any automatic nightly builds are built from. The develop branch is
-expected always to work, so to get the most recent features one can switch source tree to it by
+always expected to work, so to get the most recent features one can switch source code to it by
 \begin{lstlisting}[language=bash, style=commandline]
 cd BornAgain
 git checkout develop
@@ -169,18 +170,19 @@ Here \Code{<source\_dir>} is the name of directory, where \BornAgain\ source cod
 copied, \Code{<install\_dir>} is the directory, where user wants  the package
 to be installed, and \Code{<build\_dir>} is the directory where building will occur.
 
-\MakeRemark{About CMake}{
-\\ Having dedicated directory \Code{<build\_dir>} for build process
-is recommended by CMake. That allows several builds with different compilers/options from the same source and keeps source directory clean from build remnants.
+\MakeRemark{About \Code{CMake}}{
+\\Having dedicated directory \Code{<build\_dir>} for build process
+is recommended by \Code{CMake}. That allows several builds with different compilers/options from the same source and keeps source directory clean from build remnants. \\
 }
 
-Compilation process invoked by the command ``make'' lasts about 10 min for average laptop
-of 2012 edition. On multi-core machines the compilation can be speed up by invoking command
-make with the parameter ``make -j[N]'', where N is the number of cores.
+
+Compilation process invoked by the command ``make'' lasts about 10 min for an average laptop
+of 2012 edition. On multi-core machines the compilation time  can be decreased by invoking command
+``make'' with the parameter ``make -j[N]'', where N is the number of cores.
 
 Running functional tests is an optional but recommended step. Command ``make check''
-will compile several additional tests and run them one by one. Every tests contains
-simulation of typical GISAS geometry and comparison of simulation results with reference files on numerical level. Having 100\% tests passed ensures that your local installation
+will compile several additional tests and run them one by one. Every test contains
+the simulation of a typical GISAS geometry and the comparison on numerical level of simulation results with reference files. Having 100\% tests passed ensures that your local installation
 is correct.
 \begin{lstlisting}[language=bash, style=commandline]
 make check
@@ -193,14 +195,32 @@ Total Test time (real) = 89.19 sec
 
 
 The last command ``make install'' copies compiled libraries and some usage examples
-into  installation directory.
+into  the installation directory.
 \begin{lstlisting}[language=bash, style=commandline]
 make install
 \end{lstlisting}
-\vspace*{3mm}
 
 
-\subsection{What is the next?}
+\subsubsection{Troubleshooting}
+
+In the case of complex system setup, with variety of libraries of different versions 
+scattered across multiple places (\Code{/opt/local}, \Code{/usr} etc.),
+you may want to help \Code{CMake} to find libraries in proper place. 
+In example below
+two system variables are defined to force \Code{CMake} to prefer libraries
+found in \Code{/opt/local} to other places.
+\begin{lstlisting}[language=bash, style=commandline]
+export CMAKE_LIBRARY_PATH=/opt/local/lib:$CMAKE_LIBRARY_PATH
+export CMAKE_INCLUDE_PATH=/opt/local/include:$CMAKE_INCLUDE_PATH
+\end{lstlisting}
+
+
+If compilation fails for some reason, please submit your bug report including compilation errors
+at \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues}
+
+
+
+\subsection{What is next?}
 
 In your installation directory you will find
 \begin{lstlisting}[language=bash, style=commandline]
@@ -209,7 +229,7 @@ In your installation directory you will find
 ./Examples - directory with examples
 \end{lstlisting}
 
-Run your first example and enjoy your first BornAgain simulation plot.
+Run your first example and enjoy first BornAgain simulation plot.
 \begin{lstlisting}[language=bash, style=commandline]
 cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
 python CylindersAndPrisms.py

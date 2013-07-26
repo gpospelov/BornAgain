@@ -115,9 +115,12 @@ void TestFittingModule1::initializeSample1()
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material =
             MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    ParticleDecoration particle_decoration( new Particle(n_particle,
+    ParticleDecoration particle_decoration( new Particle(particle_material,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -156,13 +159,15 @@ void TestFittingModule1::initializeSample2()
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);

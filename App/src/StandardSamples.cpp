@@ -259,10 +259,10 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 ISample *StandardSamples::IsGISAXS7_morphology()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
+        MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     ParticleDecoration particle_decoration;
@@ -273,7 +273,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                       1.0*Units::nanometer);
     kvector_t pos1(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
     PositionParticleInfo particle_info1
-        (new Particle(n_particle, ff1), pos1, 0.5);
+        (new Particle(particle_material, ff1), pos1, 0.5);
     particle_decoration.addParticleInfo(particle_info1);
     // add particle number 2:
     FormFactorBox ff2(1.0*Units::nanometer,
@@ -284,7 +284,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                    0.0);
     Geometry::PTransform3D m2(new Geometry::RotateZ_3D(10*Units::degree));
     PositionParticleInfo particle_info2
-        (new Particle(n_particle, ff2), m2, pos2, 0.5);
+        (new Particle(particle_material, ff2), m2, pos2, 0.5);
     particle_decoration.addParticleInfo(particle_info2);
     // add particle number 3:
     FormFactorBox ff3(1.0*Units::nanometer,
@@ -295,7 +295,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                    0.0);
     Geometry::PTransform3D m3(new Geometry::RotateZ_3D(20*Units::degree));
     PositionParticleInfo particle_info3
-        (new Particle(n_particle, ff3), m3, pos3, 0.5);
+        (new Particle(particle_material, ff3), m3, pos3, 0.5);
     particle_decoration.addParticleInfo(particle_info3);
     // add particle number 4:
     FormFactorBox ff4(1.0*Units::nanometer,
@@ -306,7 +306,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                    0.0);
     Geometry::PTransform3D m4(new Geometry::RotateZ_3D(30*Units::degree));
     PositionParticleInfo particle_info4
-        (new Particle(n_particle, ff4), m4, pos4, 0.5);
+        (new Particle(particle_material, ff4), m4, pos4, 0.5);
     particle_decoration.addParticleInfo(particle_info4);
     // add particle number 5:
     FormFactorBox ff5(1.0*Units::nanometer,
@@ -317,7 +317,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                    0.0);
     Geometry::PTransform3D m5(new Geometry::RotateZ_3D(40*Units::degree));
     PositionParticleInfo particle_info5
-        (new Particle(n_particle, ff5), m5, pos5, 0.5);
+        (new Particle(particle_material, ff5), m5, pos5, 0.5);
     particle_decoration.addParticleInfo(particle_info5);
     // add particle number 6:
     FormFactorBox ff6(1.0*Units::nanometer,
@@ -328,7 +328,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                    0.0);
     Geometry::PTransform3D m6(new Geometry::RotateZ_3D(50*Units::degree));
     PositionParticleInfo particle_info6
-        (new Particle(n_particle, ff6), m6, pos6, 0.5);
+        (new Particle(particle_material, ff6), m6, pos6, 0.5);
     particle_decoration.addParticleInfo(particle_info6);
     // add particle number 7:
     FormFactorBox ff7(1.0*Units::nanometer,
@@ -337,7 +337,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     Geometry::PTransform3D m7(new Geometry::RotateZ_3D(60*Units::degree));
     PositionParticleInfo particle_info7
-        (new Particle(n_particle, ff7), m7, pos7, 0.5);
+        (new Particle(particle_material, ff7), m7, pos7, 0.5);
     particle_decoration.addParticleInfo(particle_info7);
     // add particle number 8:
     FormFactorBox ff8(1.0*Units::nanometer,
@@ -346,7 +346,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
     Geometry::PTransform3D m8(new Geometry::RotateZ_3D(70*Units::degree));
     PositionParticleInfo particle_info8
-        (new Particle(n_particle, ff8), m8, pos8, 0.5);
+        (new Particle(particle_material, ff8), m8, pos8, 0.5);
     particle_decoration.addParticleInfo(particle_info8);
     // add particle number 9:
     FormFactorBox ff9(1.0*Units::nanometer,
@@ -355,7 +355,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
     Geometry::PTransform3D m9(new Geometry::RotateZ_3D(80*Units::degree));
     PositionParticleInfo particle_info9
-        (new Particle(n_particle, ff9), m9, pos9, 0.5);
+        (new Particle(particle_material, ff9), m9, pos9, 0.5);
     particle_decoration.addParticleInfo(particle_info9);
     // add particle number 10:
     FormFactorBox ff10(1.0*Units::nanometer,
@@ -364,7 +364,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     Geometry::PTransform3D m10(new Geometry::RotateZ_3D(90*Units::degree));
     PositionParticleInfo particle_info10
-        (new Particle(n_particle, ff10), m10, pos10, 0.5);
+        (new Particle(particle_material, ff10), m10, pos10, 0.5);
     particle_decoration.addParticleInfo(particle_info10);
 
     air_layer.setDecoration(particle_decoration);
@@ -385,6 +385,8 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -398,7 +400,7 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle, new FormFactorCylinder
+        (new Particle(particle_material, new FormFactorCylinder
                       (5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
@@ -421,6 +423,8 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -434,7 +438,7 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle, new FormFactorCylinder
+        (new Particle(particle_material, new FormFactorCylinder
                       (5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
@@ -455,6 +459,8 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
         MaterialManager::getHomogeneousMaterial("Air10", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate10", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -463,7 +469,7 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
         new InterferenceFunction1DParaCrystal
         (20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle, new FormFactorCylinder
+        (new Particle(particle_material, new FormFactorCylinder
                       (5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
     //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
@@ -485,11 +491,16 @@ ISample *StandardSamples::IsGISAXS11_CoreShellParticles()
     complex_t n_particle_core(1.0-6e-5, 2e-8);
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air11", n_air);
+    const IMaterial *core_material =
+            MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
+    const IMaterial *shell_material =
+            MaterialManager::getHomogeneousMaterial("Shell", n_particle_core);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    Particle shell_particle(n_particle_shell, new FormFactorParallelepiped
+    Particle shell_particle(shell_material, new FormFactorParallelepiped
                             (8*Units::nanometer, 8*Units::nanometer));
-    Particle core_particle(n_particle_core, new FormFactorParallelepiped
+    Particle core_particle(core_material, new FormFactorParallelepiped
                            (7*Units::nanometer, 6*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
@@ -514,6 +525,9 @@ ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
         MaterialManager::getHomogeneousMaterial("Air10", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate10", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -522,7 +536,7 @@ ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
         new InterferenceFunction1DParaCrystal
         (15.0*Units::nanometer,5*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle, new FormFactorSphere
+        (new Particle(particle_material, new FormFactorSphere
                       (5*Units::nanometer, 5.*2.0*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
@@ -543,6 +557,8 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     InterferenceFunction1DParaCrystal *p_interference_function =
@@ -550,7 +566,7 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
         (15.0*Units::nanometer,5*Units::nanometer, 1e3*Units::nanometer);
     p_interference_function->setKappa(4.02698);
     ParticleDecoration particle_decoration;
-    Particle particle_prototype(n_particle, new FormFactorCylinder
+    Particle particle_prototype(particle_material, new FormFactorCylinder
                                 (5.0*Units::nanometer, 5.0*Units::nanometer));
     StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
     StochasticSampledParameter stochastic_radius(sg,30, 2);
@@ -586,7 +602,10 @@ ISample *StandardSamples::MesoCrystal1()
     kvector_t bas_b = lat.getBasisVectorB();
     kvector_t bas_c = lat.getBasisVectorC();
     complex_t n_particle(1.0-1.5e-5, 1.3e-6);
-    Particle particle(n_particle,
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
+    Particle particle(particle_material,
                       new FormFactorFullSphere(nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
@@ -645,6 +664,11 @@ ISample *StandardSamples::MesoCrystal2()
                                 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted =
         std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
+
+    const IMaterial *particle_adapted_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle_adapted);
+
+
     FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
 
     // Create multilayer
@@ -675,7 +699,7 @@ ISample *StandardSamples::MesoCrystal2()
     kvector_t bas_a = lat.getBasisVectorA();
     kvector_t bas_b = lat.getBasisVectorB();
     kvector_t bas_c = lat.getBasisVectorC();
-    Particle particle(n_particle_adapted,
+    Particle particle(particle_adapted_material,
                       new FormFactorFullSphere(nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
@@ -713,12 +737,15 @@ ISample *StandardSamples::FormFactor_Box()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorBox(5*Units::nanometer,
                                         5*Units::nanometer,
                                         5*Units::nanometer)));
@@ -744,12 +771,14 @@ ISample *StandardSamples::FormFactor_Cone()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorCone(5*Units::nanometer,
                                          5*Units::nanometer,
                                          Units::deg2rad(54.73 ))));
@@ -775,12 +804,15 @@ ISample *StandardSamples::FormFactor_Sphere()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorSphere(5*Units::nanometer,
                                            5*Units::nanometer)));
     particle_decoration.addInterferenceFunction
@@ -805,12 +837,14 @@ ISample *StandardSamples::FormFactor_Ellipsoid()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorEllipsoid(5*Units::nanometer,
                                               5*Units::nanometer,
                                               5*Units::nanometer,
@@ -837,12 +871,14 @@ ISample *StandardSamples::FormFactor_FullSpheroid()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorFullSpheroid(5*Units::nanometer,
                                                  7*Units::nanometer )));
     particle_decoration.addInterferenceFunction
@@ -867,12 +903,15 @@ ISample *StandardSamples::FormFactor_HemiSpheroid()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorHemiSpheroid(5*Units::nanometer,
                                                  4*Units::nanometer,
                                                  2*Units::nanometer)));
@@ -896,12 +935,18 @@ ISample *StandardSamples::FormFactor_Parallelpiped()
     complex_t n_particle_core(1.0-6e-5, 2e-8);
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air11", n_air);
+
+    const IMaterial *shell_material =
+            MaterialManager::getHomogeneousMaterial("Shell", n_particle_shell);
+    const IMaterial *core_material =
+            MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    Particle shell_particle(n_particle_shell,
+    Particle shell_particle(shell_material,
                             new FormFactorParallelepiped(8*Units::nanometer,
                                                          8*Units::nanometer));
-    Particle core_particle(n_particle_core,
+    Particle core_particle(core_material,
                            new FormFactorParallelepiped(7*Units::nanometer,
                                                         6*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
@@ -926,12 +971,17 @@ ISample *StandardSamples::FormFactor_Cylinder()
     complex_t n_particle_core(1.0-6e-5, 2e-8);
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air11", n_air);
+    const IMaterial *shell_material =
+            MaterialManager::getHomogeneousMaterial("Shell", n_particle_shell);
+    const IMaterial *core_material =
+            MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    Particle shell_particle(n_particle_shell,
+    Particle shell_particle(shell_material,
                             new FormFactorCylinder(8*Units::nanometer,
                                                    8*Units::nanometer));
-    Particle core_particle(n_particle_core,
+    Particle core_particle(core_material,
                            new FormFactorCylinder(7*Units::nanometer,
                                                   6*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
@@ -959,12 +1009,15 @@ ISample *StandardSamples::FormFactor_Pyramid()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorPyramid(5*Units::nanometer,
                                             5*Units::nanometer,
                                             Units::deg2rad(54.73 ) ) ) );
@@ -990,12 +1043,14 @@ ISample *StandardSamples::FormFactor_Prism3()
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
-        (new Particle(n_particle,
+        (new Particle(particle_material,
                       new FormFactorPrism3(5*Units::nanometer,
                                            5*Units::nanometer)));
     particle_decoration.addInterferenceFunction
@@ -1020,12 +1075,14 @@ ISample *StandardSamples::FormFactor_FullSphere()
          MaterialManager::getHomogeneousMaterial("Air", n_air);
      const IMaterial *p_substrate_material =
          MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+     const IMaterial *particle_material =
+             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
      Layer air_layer;
      air_layer.setMaterial(p_air_material);
      Layer substrate_layer;
      substrate_layer.setMaterial(p_substrate_material);
      ParticleDecoration particle_decoration
-         (new Particle(n_particle,
+         (new Particle(particle_material,
                        new FormFactorFullSphere(5*Units::nanometer ) ) );
      particle_decoration.addInterferenceFunction
          (new InterferenceFunctionNone());

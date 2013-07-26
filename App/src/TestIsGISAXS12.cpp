@@ -479,6 +479,8 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer(air_material);
 
@@ -492,10 +494,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double height1 = m_height_aspect_ratio1*radius1;
     double height2 = m_height_aspect_ratio2*radius2;
     FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(height1, radius1);
-    Particle cylinder1(n_particle, p_ff_cylinder1 );
+    Particle cylinder1(particle_material, p_ff_cylinder1 );
 
     FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(height2, radius2);
-    Particle cylinder2(n_particle, p_ff_cylinder2 );
+    Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins=20;

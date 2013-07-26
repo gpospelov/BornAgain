@@ -323,18 +323,20 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(
-        new Particle(n_particle,
+        new Particle(particle_material,
                      new FormFactorCylinder(m_cylinder_height,
                                             m_cylinder_radius)),
         0.0, m_cylinder_ratio);
     particle_decoration.addParticle(
-        new Particle(n_particle,
+        new Particle(particle_material,
                      new FormFactorPrism3(m_prism3_height,
                                           m_prism3_half_side)),
         0.0, 1.0 - m_cylinder_ratio);

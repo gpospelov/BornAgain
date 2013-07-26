@@ -18,16 +18,16 @@ from libBornAgainCore import *
 def RunSimulation():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
-    n_particle = complex(1.0 - 6e-4, 2e-8)
     radius1 = 5.0*nanometer
     radius2 = 10.0*nanometer
     height1 = radius1
     height2 = radius2
     cylinder_ff1 = FormFactorCylinder(height1, radius1)
-    cylinder1 = Particle(n_particle, cylinder_ff1)
+    cylinder1 = Particle(mParticle, cylinder_ff1)
     cylinder_ff2 = FormFactorCylinder(height2, radius2)
-    cylinder2 = Particle(n_particle, cylinder_ff2)  
+    cylinder2 = Particle(mParticle, cylinder_ff2)  
     nbins = 150
     sigma1 = radius1*0.2
     sigma2 = radius2*0.02

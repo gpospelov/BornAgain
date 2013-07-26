@@ -20,7 +20,8 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+
     const IMaterial *p_air_material =
          MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
@@ -53,7 +54,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
+        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
@@ -74,7 +75,8 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+
     const IMaterial *p_air_material =
          MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
@@ -105,7 +107,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
+        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
@@ -130,7 +132,8 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
@@ -164,7 +167,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
+        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
     particle_decoration.addInterferenceFunction(p_interference_function);
 
@@ -196,7 +199,9 @@ void IsGISAXS06Lattice4Builder::init_parameters()
 ISample *IsGISAXS06Lattice4Builder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_particle(1.0-6e-4, 2e-8);
+
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     const IMaterial *p_air_material =
          MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
@@ -226,7 +231,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
+        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);

@@ -108,12 +108,15 @@ class MySampleBuilder(ISampleBuilder):
     # building meso crystal
     # -------------------------------------------------------------------------
     def createMesoCrystal(self,stacking_radius_a, stacking_radius_c, n_particle, p_meso_form_factor):
+        
+        mParticle = MaterialManager.getHomogeneousMaterial("Particle", n_particle )
+        
         p_lat = self.createLattice(stacking_radius_a, stacking_radius_c)
         bas_a = p_lat.getBasisVectorA()
         bas_b = p_lat.getBasisVectorB()
         bas_c = p_lat.getBasisVectorC()
         ff_sphere = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value, self.sigma_nanoparticle_radius.value)
-        particle = Particle(n_particle, ff_sphere )
+        particle = Particle(mParticle, ff_sphere )
         position_0 = kvector_t(0.0, 0.0, 0.0)
         position_1 = kvector_t(0.0, 0.0, 0.0)
         position_2 = kvector_t(0.0, 0.0, 0.0)        

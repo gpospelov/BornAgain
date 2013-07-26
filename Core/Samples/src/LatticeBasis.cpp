@@ -18,13 +18,11 @@
 #include "DiffuseParticleInfo.h"
 
 LatticeBasis::LatticeBasis()
-: Particle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
 }
 
 LatticeBasis::LatticeBasis(const Particle& particle)
-: Particle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
     std::vector<kvector_t> positions;
@@ -34,7 +32,6 @@ LatticeBasis::LatticeBasis(const Particle& particle)
 
 LatticeBasis::LatticeBasis(const Particle& particle,
         std::vector<kvector_t> positions)
-: Particle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
     addParticle(particle, positions);

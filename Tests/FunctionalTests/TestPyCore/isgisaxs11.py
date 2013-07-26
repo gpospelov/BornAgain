@@ -17,14 +17,14 @@ from libBornAgainCore import *
 def RunSimulation():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mShell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    mCore = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    n_particle_shell = complex(1.0-1e-4, 2e-8)
-    n_particle_core = complex(1.0-6e-5, 2e-8)
     parallelepiped1_ff = FormFactorParallelepiped(8*nanometer, 8*nanometer)
     parallelepiped2_ff = FormFactorParallelepiped(7*nanometer, 6*nanometer)
-    shell_particle = Particle(n_particle_shell, parallelepiped1_ff)
-    core_particle = Particle(n_particle_core, parallelepiped2_ff)
+    shell_particle = Particle(mShell, parallelepiped1_ff)
+    core_particle = Particle(mCore, parallelepiped2_ff)
     core_position = kvector_t(0.0, 0.0, 0.0)
     ##########################################
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)

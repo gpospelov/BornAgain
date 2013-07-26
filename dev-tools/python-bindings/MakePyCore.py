@@ -192,6 +192,10 @@ def ManualClassTunings(mb):
     cl = mb.class_( "Particle" )
     cl.member_function( "createDiffuseParticleInfo" ).exclude()
     cl.member_function( "createDistributedParticles" ).exclude()
+    for cls in cl.constructors():
+        if ("( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string):
+            cls.include()
+
     #
     cl = mb.class_( "ParticleDecoration" )
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors

@@ -36,8 +36,9 @@ void FunctionalTests::IsGISAXS10::run()
     IInterferenceFunction *p_interference_function =
             new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
                     7*Units::nanometer, 1e7*Units::nanometer);
-    complex_t n_particle(1.0-5e-5, 2e-8);
-    ParticleDecoration particle_decoration(new Particle(n_particle,
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
+
+    ParticleDecoration particle_decoration(new Particle(particle_material,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 

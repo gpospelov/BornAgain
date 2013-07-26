@@ -19,6 +19,8 @@ def RunSimulation_lattice():
 # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -34,9 +36,8 @@ def RunSimulation_lattice():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff.clone())
+    cylinder = Particle(mParticle, cylinder_ff.clone())
     position = kvector_t(0.0, 0.0, 0.0)
     particle_decoration = ParticleDecoration()
     particle_info =  PositionParticleInfo(cylinder, position, 1.0)
@@ -72,6 +73,7 @@ def RunSimulation_centered():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -86,12 +88,11 @@ def RunSimulation_centered():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
-    n_particle = complex(1.0-6e-4, 2e-8)
     particle_decoration = ParticleDecoration()
     position = kvector_t(0.0, 0.0, 0.0)
     # particle 1
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
@@ -130,6 +131,7 @@ def RunSimulation_rotated():
 # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -145,9 +147,8 @@ def RunSimulation_rotated():
     pdf.setGamma(30.0*degree)
     interference.setProbabilityDistribution(pdf)
     
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_decoration = ParticleDecoration()
     particle_info =  PositionParticleInfo(cylinder, position, 1.0)
@@ -215,9 +216,9 @@ def RunSimulation_variants():
 
 # IsGISAXS6 functional test sample builder for varying xi angle
 def buildSample(xi_value):
-    n_particle = complex(1.0-6e-4, 2e-8)
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     air_layer = Layer(mAmbience)
     substrate_layer = Layer(mSubstrate)
     
@@ -238,7 +239,7 @@ def buildSample(xi_value):
     # particle
     ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
-    cylinder = Particle(n_particle, ff_cyl.clone())
+    cylinder = Particle(mParticle, ff_cyl.clone())
     particle_info = PositionParticleInfo( cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
     particle_decoration.addInterferenceFunction(p_interference_function)

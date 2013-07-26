@@ -18,10 +18,10 @@ def RunSimulation1():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)   
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     interference = InterferenceFunction2DParaCrystal(10.0*nanometer, 10.0*nanometer, M_PI/2.0, 0.0, 0.0)
     interference.setDomainSizes(20.0*micrometer, 20.0*micrometer)
     pdf1 = FTDistribution2DCauchy(0.5*nanometer, 2.0*nanometer)
@@ -56,10 +56,11 @@ def RunSimulation2():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     interference = InterferenceFunction2DParaCrystal(10.0*nanometer, 10.0*nanometer, M_PI/2.0, 0.0, 0.0)
     interference.setDomainSizes(20.0*micrometer, 20.0*micrometer)
     pdf1 = FTDistribution2DCauchy(0.5*nanometer, 0.5*nanometer)

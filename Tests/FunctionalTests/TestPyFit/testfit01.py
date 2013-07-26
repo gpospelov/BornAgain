@@ -101,8 +101,9 @@ def run_fitting(minimizer_name, minimizer_algorithm):
 # -----------------------------------------------------------------------------
 def buildSample():
     cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius)
-    n_particle = complex(1.0-6e-4, 2e-8)
-    cylinder = Particle(n_particle, cylinder_ff)
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
+    cylinder = Particle(mParticle, cylinder_ff)
     interference = InterferenceFunctionNone()
 
     particle_decoration = ParticleDecoration()

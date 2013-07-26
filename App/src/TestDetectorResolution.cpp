@@ -55,11 +55,14 @@ void TestDetectorResolution::initializeSample()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-5e-6, 2e-8);
-    complex_t n_particle(1.0-5e-5, 2e-8);
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -68,7 +71,7 @@ void TestDetectorResolution::initializeSample()
         new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
             7*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration(
-        new Particle(n_particle,
+        new Particle(particle_material,
                      new FormFactorCylinder(5*Units::nanometer,
                                             5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_funtion);

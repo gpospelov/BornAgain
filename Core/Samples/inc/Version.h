@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/Version.h
@@ -16,11 +16,30 @@
 #ifndef VERSION_H_
 #define VERSION_H_
 
+#include <string>
+#include <sstream>
+
 namespace AppVersion {
-    const std::string g_app_name = "Born Again Functional tests";
-    const std::string g_app_version_number = "v0.8.1";
+    const std::string g_app_name = "Born Again";
+    const int major_version_number = 0;
+    const int minor_version_number = 8;
+    const int patch_version_number = 2;
+
+    std::string GetVersionNumber()
+    {
+        std::ostringstream ostr;
+        ostr << major_version_number
+             << "."
+             << minor_version_number
+             << "."
+             << patch_version_number ;
+
+        return ostr.str();
+    }
+
 }
 
-#endif /* VERSION_H_ */
 
+
+#endif /* VERSION_H_ */
 

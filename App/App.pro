@@ -147,7 +147,6 @@ HEADERS += \
     inc/TestSpecularMatrix.h \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
-    inc/Version.h \
     inc/TestBugs.h
 
 myIncludes = $$PWD/inc \

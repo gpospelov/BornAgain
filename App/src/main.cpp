@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     Utils::EnableFloatingPointExceptions();
 
     std::cout << AppVersion::g_app_name << " "
-              << AppVersion::g_app_version_number << std::endl;
+              << AppVersion::GetVersionNumber() << std::endl;
 
     FunctionalTestFactory test_factory;
     RegisterFunctionalTests(&test_factory);

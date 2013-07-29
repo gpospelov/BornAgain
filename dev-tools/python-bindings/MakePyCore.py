@@ -211,7 +211,7 @@ def ManualClassTunings(mb):
     for fun in cl.member_functions():
         if fun.name == "setMaterial":fun.include()
     for fun in cl.member_functions():
-        print "XXX", fun
+        if("void ( ::Layer::* )( ::IDecoration * )" in fun.decl_string): fun.exclude()
     cl.constructors().include() # including back constructors with pointers
     #
     cl = mb.class_("Simulation")

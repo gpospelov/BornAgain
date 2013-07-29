@@ -71,7 +71,7 @@ $m_i$. If these uncertainties are not known, and are simply left out
 of the calculation, then the fit may still have meaning, but not the
 quantitative values of the resulting parameter errors. If the
 $\sigma_i$ are all overestimated by a factor $\beta$, then the
-resulting parameter errors from the fit will be overstimated by the
+resulting parameter errors from the fit will be overestimated by the
 same factor $\beta$.
 
 %\url{http://seal.web.cern.ch/seal/MathLibs/Minuit2/html/}
@@ -105,7 +105,7 @@ The fitting procedure deals with one reference (experimental) datafile.
 \begin{itemize}
 \item background noise, intensity threshold, beam intensity 
 \item Fit using several experimental runs?
-\textbf{ Software Scatter:} The program allows to automatically fit large number of data files such as files from timeresolved
+\textbf{ Software Scatter:} The program allows to automatically fit large number of data files such as files from time-resolved
 studies. A requirement is that subsequent scattering curves do not differ too much, so
 that the fitted values of the first curve can be used as starting parameters for a fit to the next
 curve. Before starting a fit series, choose the first data file and perform a fit so that the
@@ -587,6 +587,7 @@ After running the fit, whose script is shown in
 Listing~\ref{script_exfit1}, the text given in~\ref{output_exfit1} should be displayed on your
 screen (generated using \texttt{PrintResults}).
 
+
 \begin{lstlisting}[caption={Python script of fitting example},
   label=script_exfit1,captionpos=b,escapeinside={@}{@} ,language=python,style=eclipse, numbers= none,frame = leftline ,
       framerule = 2mm ,
@@ -613,13 +614,14 @@ prism3_height = 5.0*nanometer
 def buildSample(): 
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",
+    6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
-    n_particle = complex(6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     prism_ff = FormFactorPrism3(prism3_height,  prism3_half_side)
-    prism = Particle(n_particle, prism_ff)
+    prism = Particle(mParticle, prism_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 0.5)
     particle_decoration.addParticle(prism,0.0, 0.5)  
@@ -627,10 +629,10 @@ def buildSample():
     particle_decoration.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 # ----------------------------------

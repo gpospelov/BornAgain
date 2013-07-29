@@ -52,7 +52,7 @@ namespace ROOT {
    plug-in manager.
 
    Provides interface for setting the function to be minimized. 
-   The function must  implemente the multi-dimensional generic interface
+   The function must implement the multi-dimensional generic interface
    ROOT::Math::IBaseFunctionMultiDim. 
    If the function provides gradient calculation 
    (implements the ROOT::Math::IGradientFunctionMultiDim interface) this will be 

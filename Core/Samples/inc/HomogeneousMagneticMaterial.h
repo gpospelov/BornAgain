@@ -52,7 +52,7 @@ public:
 
     //! Get the scattering matrix from the refractive index, the
     //! magnetic field and a given wavevector
-    Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
+    virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
 protected:
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:

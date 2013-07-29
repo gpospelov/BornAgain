@@ -4,6 +4,23 @@
 
 %\usepackage{color}
 \usepackage{xcolor}
+
+\definecolor{darkviolet}{rgb}{0.5,0,0.4} %
+\definecolor{darkgreen}{rgb}{0,0.4,0.2} %
+\definecolor{darkblue}{rgb}{0.1,0.1,0.9}%
+\definecolor{darkgrey}{rgb}{0.5,0.5,0.5} %
+\definecolor{lightblue}{rgb}{0.4,0.4,1} %
+\definecolor{lightblue1}{rgb}{0 0.25 1}
+\definecolor{darkpink}{rgb}{1 0 0.75}
+\definecolor{dred}{rgb}{0.8,0,0}
+\definecolor{lightlightgrey}{rgb}{0.95 0.95 0.95} %
+
+
+%\definecolor{oneblue}{rgb}{0,0,0.75}
+\definecolor{dockerblue}{rgb}{0.11,0.56,0.98} %
+%\definecolor{MyDarkBlue1}{rgb}{0.1,0,0.55}
+%\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
 \lstdefinelanguage{pseudo}{
   keywords={procedure,end,return,integer,real,foreach,for,each,
   do,if,then,else,while,until,true,false,algorithm}, 
@@ -204,21 +221,6 @@ height, collapsed, true, false%
   backgroundcolor=\color{lstbackgroundprogcolor}
 }
 
-\definecolor{darkviolet}{rgb}{0.5,0,0.4}
-\definecolor{darkgreen}{rgb}{0,0.4,0.2} 
-\definecolor{darkblue}{rgb}{0.1,0.1,0.9}
-\definecolor{darkgrey}{rgb}{0.5,0.5,0.5}
-\definecolor{lightblue}{rgb}{0.4,0.4,1}
-\definecolor{lightblue1}{rgb}{0 0.25 1}
-\definecolor{darkpink}{rgb}{1 0 0.75}
-\definecolor{dred}{rgb}{0.8,0,0}
-\definecolor{lightlightgrey}{rgb}{0.95 0.95 0.95}
-
-
-\definecolor{oneblue}{rgb}{0,0,0.75}
-\definecolor{dockerblue}{rgb}{0.11,0.56,0.98}
-\definecolor{MyDarkBlue1}{rgb}{0.1,0,0.55}
-
 \lstdefinestyle{eclipse}{
     basicstyle=\small\lstfontfamily,
     emphstyle=\color{red}\bfseries, 
@@ -227,7 +229,7 @@ height, collapsed, true, false%
     stringstyle=\color{darkblue},
     numberstyle=\color{darkgrey}\lstfontfamily,
     emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration}, 
-    emphstyle=\color{dockerblue},%dred}, %darkpink}, %red},
+    emphstyle=\color{dockerblue},
     % get also javadoc style comments
     morecomment=[s][\color{lightblue}]{/**}{*/},
    %columns=fullflexible, %spaceflexible, %flexible, fullflexible             
@@ -250,8 +252,6 @@ breaklines = true
   frame=lines,
   showstringspaces=false
 }
-
-\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 
 \lstdefinestyle{eclipseboxed}{
    escapeinside={@}{@},
@@ -303,7 +303,6 @@ breaklines = true
     backgroundcolor=\color{lightlightgrey},
     morecomment=[s][\color{lightblue}]{/**}{*/},
   showstringspaces=false,
-  numbers=left,%none,
  emphstyle={[2]\color{blue}},
  frame=single,
 firstnumber=auto,
@@ -317,9 +316,7 @@ numbers=none,
 }
 
 
-%
 % Another example of customisation (to Study)
-%
 
 % \documentclass[a4paper,12pt]{article}
 % \usepackage[utf8]{inputenc}

@@ -86,7 +86,8 @@ SOURCES += \
     src/TestSpecularMatrix.cpp \
     src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/TestBugs.cpp
 
 
 HEADERS += \
@@ -147,6 +148,7 @@ HEADERS += \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
     inc/Version.h \
+    inc/TestBugs.h
 
 myIncludes = $$PWD/inc \
              $${FUNCTIONAL_TESTS}/IsGISAXS06 \

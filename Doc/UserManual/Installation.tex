@@ -23,7 +23,7 @@ To successfully build \BornAgain\ a number of prerequisite packages must be inst
 \item boost library ($\geq 1.48$)
 \item GNU scientific library ($\geq 1.15$)
 \item fftw3 library ($\geq 3.3$)
-\item python ($\geq 2.7$), python-devel, python-numpy-devel
+\item python ($\geq 2.7$, $< 3.0$), python-devel, python-numpy-devel
 \end{itemize}
 \vspace*{2mm}
 
@@ -67,7 +67,7 @@ sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-dev
 %  Ubuntu 13.04
 % ---------------
 \noindent
-{\large\bf Ubuntu 13.04} \newline
+{\large\bf Ubuntu 12.10, 13.04} \newline
 Installing required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy

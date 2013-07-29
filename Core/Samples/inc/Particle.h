@@ -84,7 +84,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
         return 0;
     }
 
-    virtual bool hasDistributedFormFactor() const { return mp_form_factor->isDistributedFormFactor(); }
+    virtual bool hasDistributedFormFactor() const;
 
     virtual std::vector<ParticleInfo *> createDistributedParticles(size_t samples_per_particle, double factor) const;
 
@@ -99,6 +99,11 @@ inline complex_t Particle::getRefractiveIndex() const
 {
     const HomogeneousMaterial *material = dynamic_cast<const HomogeneousMaterial *>(m_material);
     return (material ? material->getRefractiveIndex() : complex_t(0,0));
+}
+
+inline bool Particle::hasDistributedFormFactor() const
+{
+    return ( !mp_form_factor ? false : mp_form_factor->isDistributedFormFactor() );
 }
 
 

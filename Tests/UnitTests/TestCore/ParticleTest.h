@@ -73,8 +73,6 @@ TEST_F(ParticleTest, ParticleConstructors)
 
     delete p3;
     delete p4;
-
-
 }
 
 

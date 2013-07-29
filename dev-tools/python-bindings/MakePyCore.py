@@ -210,6 +210,8 @@ def ManualClassTunings(mb):
     # including back methods which have been excluded by our pointer policy
     for fun in cl.member_functions():
         if fun.name == "setMaterial":fun.include()
+    for fun in cl.member_functions():
+        print "XXX", fun
     cl.constructors().include() # including back constructors with pointers
     #
     cl = mb.class_("Simulation")

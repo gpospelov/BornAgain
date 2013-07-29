@@ -42,6 +42,14 @@ void FormFactorSphere::init_parameters()
     registerParameter("height", &m_height);
 }
 
+FormFactorSphere *FormFactorSphere::clone() const
+{
+    FormFactorSphere *result = new FormFactorSphere(m_radius, m_height);
+    result->setName(getName());
+    return result;
+}
+
+
 //! Integrand for complex formfactor.
 
 complex_t FormFactorSphere::Integrand(double Z, void* params) const

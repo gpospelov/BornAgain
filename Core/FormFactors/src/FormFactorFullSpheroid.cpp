@@ -36,9 +36,10 @@ void FormFactorFullSpheroid::init_parameters()
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
 {
-   FormFactorFullSpheroid* ffFullSpheroid =
+   FormFactorFullSpheroid* result =
        new FormFactorFullSpheroid(m_radius, m_height);
-   return ffFullSpheroid;
+   result->setName(getName());
+   return result;
 }
 
 complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const

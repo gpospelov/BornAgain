@@ -36,7 +36,9 @@ void FormFactorPrism6::init_parameters()
 
 FormFactorPrism6* FormFactorPrism6::clone() const
 {
-      return new FormFactorPrism6(m_height, m_half_side);
+      FormFactorPrism6 *result = new FormFactorPrism6(m_height, m_half_side);
+      result->setName(getName());
+      return result;
 }
 
 complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const

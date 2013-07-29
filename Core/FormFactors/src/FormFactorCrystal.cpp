@@ -23,6 +23,7 @@ FormFactorCrystal::FormFactorCrystal(
 , m_ambient_refractive_index(ambient_refractive_index)
 , m_max_rec_length(0.0)
 {
+    setName("FormFactorCrystal");
     mp_particle = p_crystal.createBasis();
     mp_basis_form_factor = mp_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
@@ -40,9 +41,10 @@ FormFactorCrystal::~FormFactorCrystal()
 FormFactorCrystal* FormFactorCrystal::clone() const
 {
     Crystal np_crystal(*mp_particle, m_lattice);
-    FormFactorCrystal *p_new = new FormFactorCrystal(np_crystal,
+    FormFactorCrystal *result = new FormFactorCrystal(np_crystal,
             *mp_meso_form_factor, m_ambient_refractive_index);
-    return p_new;
+    result->setName(getName());
+    return result;
 }
 
 void FormFactorCrystal::setAmbientRefractiveIndex(

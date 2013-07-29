@@ -37,9 +37,10 @@ void FormFactorPyramid::init_parameters()
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    FormFactorPyramid *p_clone =
+    FormFactorPyramid *result =
         new FormFactorPyramid(m_height, m_half_side, m_alpha);
-    return p_clone;
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const

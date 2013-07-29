@@ -25,11 +25,11 @@ void TestBugs::test_item339()
 {
     std::cout << "TestBugs::test_item339() -> " << std::endl;
 
-    const IMaterial *mAmbience =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0 );
+//    const IMaterial *mAmbience =
+//            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0 );
 
-    const IMaterial *mSubstrate =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8 );
+//    const IMaterial *mSubstrate =
+//            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8 );
 
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *mParticle =

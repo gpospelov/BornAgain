@@ -29,8 +29,7 @@ class FormFactorSphere : public IFormFactorBorn
 
     ~FormFactorSphere() { delete m_integrator; }
 
-    virtual FormFactorSphere *clone() const
-    { return new FormFactorSphere(m_radius, m_height); }
+    virtual FormFactorSphere *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

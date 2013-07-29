@@ -47,8 +47,9 @@ void FormFactorGauss::init_parameters()
 
 FormFactorGauss* FormFactorGauss::clone() const
 {
-    FormFactorGauss *p_clone = new FormFactorGauss(m_height, m_width);
-    return p_clone;
+    FormFactorGauss *result = new FormFactorGauss(m_height, m_width);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const

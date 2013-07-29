@@ -45,8 +45,9 @@ void FormFactorLorentz::init_parameters()
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
-    FormFactorLorentz *p_clone = new FormFactorLorentz(m_height, m_width);
-    return p_clone;
+    FormFactorLorentz *result = new FormFactorLorentz(m_height, m_width);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const

@@ -44,13 +44,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
         m_ambient_refractive_index = refractive_index;
     }
 
-    virtual IFormFactor* createFormFactor() const
-    {
-        FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
-                mp_form_factor->clone(), getRefractiveIndex());
-        p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
-        return p_ff;
-    }
+    virtual IFormFactor* createFormFactor() const;
 
     //! Sets the form factor of the particle (not including scattering factor from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
@@ -94,6 +88,16 @@ class BA_CORE_API_ Particle : public ICompositeSample
     IFormFactor* mp_form_factor;
     //!< pointer to the form factor
 };
+
+inline IFormFactor* Particle::createFormFactor() const
+{
+    if(!mp_form_factor) return 0;
+    FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
+            mp_form_factor->clone(), getRefractiveIndex());
+    p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
+    return p_ff;
+}
+
 
 inline complex_t Particle::getRefractiveIndex() const
 {

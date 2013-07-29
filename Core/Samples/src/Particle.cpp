@@ -52,15 +52,21 @@ Particle::~Particle()
 
 Particle* Particle::clone() const
 {
-    IFormFactor *p_form_factor = mp_form_factor->clone();
+    IFormFactor *p_form_factor(0);
+    if(mp_form_factor) p_form_factor = mp_form_factor->clone();
+
     Particle *p_new = new Particle(m_material, p_form_factor);
     p_new->setAmbientRefractiveIndex(m_ambient_refractive_index);
+
+    p_new->setName(getName());
     return p_new;
 }
 
 std::vector<ParticleInfo*> Particle::createDistributedParticles(
         size_t samples_per_particle, double factor) const
 {
+    if(!mp_form_factor) throw NullPointerException("Particle::createDistributedParticles() -> No formfactor is defined.");
+
     std::vector<ParticleInfo*> result;
     if (mp_form_factor->isDistributedFormFactor()) {
         std::vector<IFormFactor *> form_factors;

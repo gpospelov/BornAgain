@@ -30,6 +30,9 @@ void FunctionalTests::IsGISAXS15::run()
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material =
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     InterferenceFunction1DParaCrystal *p_interference_function =
@@ -37,7 +40,7 @@ void FunctionalTests::IsGISAXS15::run()
                     5*Units::nanometer, 1e3*Units::nanometer);
     p_interference_function->setKappa(4.02698);
     ParticleDecoration particle_decoration;
-    Particle particle_prototype(n_particle, new FormFactorCylinder(
+    Particle particle_prototype(particle_material, new FormFactorCylinder(
             5.0*Units::nanometer, 5.0*Units::nanometer));
     StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
     StochasticSampledParameter stochastic_radius(sg,30, 2);

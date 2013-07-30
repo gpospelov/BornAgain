@@ -115,28 +115,46 @@
 { \noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}			{\underline{#1} #2 }}
 }
 
+\newcommand{\ImportantPoint}[2]
+{\noindent
+  {\huge\danger}\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
+ {\underline{#1} #2}}}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 \title{
-BornAgain - simulating and fitting X-ray and neutron scattering at grazing incidence. \\
+BornAgain - simulating and fitting X-ray and neutron small angle  scattering at grazing incidence. \\
 \vspace*{10mm} User Guide \\
 \large{ version 0.1}
+\vspace*{5mm}
 }
 
-\author{Scientific Computing Group at FRM-II}
+\author{ 
+{\large C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke }\\
+Scientific Computing Group at MLZ \\
+\vspace*{50mm}
+}
 
-\usepackage{eso-pic}
-\newcommand\BackgroundPic{%
-\put(0,0){%
-\parbox[b][\paperheight]{\paperwidth}{%
-\vfill
-\centering
-\includegraphics[width=\paperwidth,height=\paperheight,%
-keepaspectratio]{results2_2.png}%
-\vfill
-}}}
+
+\date{
+License: Creative Common CC-BY-SA \\
+\today
+}
+
+
+
+%\usepackage{eso-pic}
+%\newcommand\BackgroundPic{%
+%\put(0,0){%
+%\parbox[b][\paperheight]{\paperwidth}{%
+%\vfill
+%\centering
+%\includegraphics[width=\paperwidth,height=\paperheight,%
+%keepaspectratio]{results2_2.png}%
+%\vfill
+%}}}
+
 
 
 %----------------------------------------------------------------------------------------
@@ -155,6 +173,7 @@ keepaspectratio]{results2_2.png}%
 \input{SoftwareArchitecture}
 \input{Installation}
 \input{Examples}
+%\input{Fitting}
 
 %List of notations\\  Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
 

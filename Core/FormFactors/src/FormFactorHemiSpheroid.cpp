@@ -44,9 +44,10 @@ void FormFactorHemiSpheroid::init_parameters()
 
 FormFactorHemiSpheroid* FormFactorHemiSpheroid::clone() const
 {
-   FormFactorHemiSpheroid* ffSpheroid =
+   FormFactorHemiSpheroid* result =
        new FormFactorHemiSpheroid(m_radius,  m_width, m_height);
-   return ffSpheroid;
+   result->setName(getName());
+   return result;
 }
 
 //! Real part of the integral.

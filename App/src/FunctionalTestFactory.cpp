@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FunctionalTestFactory.h"
+#include "TestBugs.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestDiffuseReflection.h"
@@ -26,13 +27,13 @@
 #include "TestFourier.h"
 #include "TestFresnelCoeff.h"
 #include "TestFumiliLMA.h"
-#include "TestIsGISAXS1.h"
 #include "TestIsGISAXS10.h"
 #include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
 #include "TestIsGISAXS13.h"
 #include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
+#include "TestIsGISAXS1.h"
 #include "TestIsGISAXS2.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS4.h"
@@ -303,5 +304,9 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "specularmatrix",
         IFactoryCreateFunction<TestSpecularMatrix, IFunctionalTest>,
         "functional test: specular reflectivity with matrix formalism");
+    p_test_factory->registerItem(
+        "testbugs",
+        IFactoryCreateFunction<TestBugs , IFunctionalTest>,
+        "functional test: test bugs reported in Redmine");
 }
 

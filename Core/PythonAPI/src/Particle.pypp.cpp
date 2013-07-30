@@ -18,8 +18,15 @@ namespace bp = boost::python;
 
 struct Particle_wrapper : Particle, bp::wrapper< Particle > {
 
-    Particle_wrapper(::complex_t const & refractive_index, ::IFormFactor const & form_factor )
-    : Particle( boost::ref(refractive_index), boost::ref(form_factor) )
+    Particle_wrapper( )
+    : Particle( )
+      , bp::wrapper< Particle >(){
+        // null constructor
+    
+    }
+
+    Particle_wrapper(::IMaterial const * material, ::IFormFactor const & form_factor )
+    : Particle( boost::python::ptr(material), boost::ref(form_factor) )
       , bp::wrapper< Particle >(){
         // constructor
     
@@ -49,7 +56,19 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::createFormFactor( );
     }
 
-    virtual ::complex_t const getRefractiveIndex(  ) const  {
+    virtual ::IMaterial const * getMaterial(  ) const  {
+        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
+            return func_getMaterial(  );
+        else
+            return this->Particle::getMaterial(  );
+    }
+    
+    
+    ::IMaterial const * default_getMaterial(  ) const  {
+        return Particle::getMaterial( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
         else
@@ -57,7 +76,7 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     }
     
     
-    ::complex_t const default_getRefractiveIndex(  ) const  {
+    ::complex_t default_getRefractiveIndex(  ) const  {
         return Particle::getRefractiveIndex( );
     }
 
@@ -230,8 +249,9 @@ void register_Particle_class(){
 
     { //::Particle
         typedef bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Particle_exposer_t;
-        Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< complex_t const &, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("form_factor") )) );
+        Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< >() );
         bp::scope Particle_scope( Particle_exposer );
+        Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const & >(( bp::arg("material"), bp::arg("form_factor") )) );
         { //::Particle::clone
         
             typedef ::Particle * ( ::Particle::*clone_function_type )(  ) const;
@@ -256,10 +276,22 @@ void register_Particle_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::Particle::getMaterial
+        
+            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( Particle_wrapper::*default_getMaterial_function_type )(  ) const;
+            
+            Particle_exposer.def( 
+                "getMaterial"
+                , getMaterial_function_type(&::Particle::getMaterial)
+                , default_getMaterial_function_type(&Particle_wrapper::default_getMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Particle::getRefractiveIndex
         
-            typedef ::complex_t const ( ::Particle::*getRefractiveIndex_function_type )(  ) const;
-            typedef ::complex_t const ( Particle_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( Particle_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
             
             Particle_exposer.def( 
                 "getRefractiveIndex"

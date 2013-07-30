@@ -42,9 +42,11 @@ ISample *IsGISAXS09Builder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+
+//    complex_t n_particle(1.0-6e-4, 2e-8);
     ParticleDecoration particle_decoration(
-        new Particle(n_particle,
+        new Particle(particle_material,
                      new FormFactorPyramid(m_height, m_half_side, m_alpha) ) );
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -94,9 +96,10 @@ ISample *IsGISAXS09RotatedBuilder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     Particle *pyramid = new Particle(
-        n_particle,
+        particle_material,
         new FormFactorPyramid(m_height, m_half_side, m_alpha)
                 );
 

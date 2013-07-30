@@ -27,6 +27,26 @@ void register_free_functions(){
     
     }
 
+    { //::AppVersion::GetMajorVersionNumber
+    
+        typedef int ( *GetMajorVersionNumber_function_type )(  );
+        
+        bp::def( 
+            "GetMajorVersionNumber"
+            , GetMajorVersionNumber_function_type( &::AppVersion::GetMajorVersionNumber ) );
+    
+    }
+
+    { //::AppVersion::GetMinorVersionNumber
+    
+        typedef int ( *GetMinorVersionNumber_function_type )(  );
+        
+        bp::def( 
+            "GetMinorVersionNumber"
+            , GetMinorVersionNumber_function_type( &::AppVersion::GetMinorVersionNumber ) );
+    
+    }
+
     { //::GetOutputData
     
         typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );
@@ -57,6 +77,26 @@ void register_free_functions(){
             "GetOutputDataNdimensions"
             , GetOutputDataNdimensions_function_type( &::GetOutputDataNdimensions )
             , ( bp::arg("simulation") ) );
+    
+    }
+
+    { //::AppVersion::GetPatchVersionNumber
+    
+        typedef int ( *GetPatchVersionNumber_function_type )(  );
+        
+        bp::def( 
+            "GetPatchVersionNumber"
+            , GetPatchVersionNumber_function_type( &::AppVersion::GetPatchVersionNumber ) );
+    
+    }
+
+    { //::AppVersion::GetVersionNumber
+    
+        typedef ::std::string ( *GetVersionNumber_function_type )(  );
+        
+        bp::def( 
+            "GetVersionNumber"
+            , GetVersionNumber_function_type( &::AppVersion::GetVersionNumber ) );
     
     }
 

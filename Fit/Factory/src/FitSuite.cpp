@@ -102,7 +102,7 @@ void FitSuite::runFit()
     // running minimization using strategies
     m_fit_strategies.minimize();
 
-    // seting parameters to the optimum values found by the minimizer
+    // setting parameters to the optimum values found by the minimizer
     m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
 
     // calling observers to let them to get results
@@ -123,7 +123,7 @@ void FitSuite::minimize()
     // initializing minimizer's parameters with the list of local fit parameters
     m_minimizer->setParameters(m_fit_parameters);
 
-    // setting number of free parameters for propper chi2 normalization
+    // setting number of free parameters for proper chi2 normalization
     m_fit_objects.setNfreeParameters((int)m_fit_parameters.getNfreeParameters());
 
     // minimizing

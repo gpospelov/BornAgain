@@ -16,6 +16,15 @@
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
+
+FormFactorBox *FormFactorBox::clone() const
+{
+    FormFactorBox *result = new FormFactorBox(m_radius, m_width, m_height);
+    result->setName(getName());
+    return result;
+}
+
+
 complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 {
     complex_t qxR = m_radius*q.x();

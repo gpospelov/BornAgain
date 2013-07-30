@@ -38,7 +38,9 @@ void FormFactorCylinder::init_parameters()
 
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    return new FormFactorCylinder(m_height, m_radius);
+    FormFactorCylinder *result = new FormFactorCylinder(m_height, m_radius);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const

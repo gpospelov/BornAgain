@@ -37,6 +37,9 @@ void FunctionalTests::IsGISAXS08::run2DDL()
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -50,7 +53,7 @@ void FunctionalTests::IsGISAXS08::run2DDL()
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleDecoration particle_decoration( new Particle(n_particle,
+    ParticleDecoration particle_decoration( new Particle(particle_material,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
@@ -83,6 +86,9 @@ void FunctionalTests::IsGISAXS08::run2DDL2()
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -96,7 +102,7 @@ void FunctionalTests::IsGISAXS08::run2DDL2()
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleDecoration particle_decoration( new Particle(n_particle,
+    ParticleDecoration particle_decoration( new Particle(particle_material,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 

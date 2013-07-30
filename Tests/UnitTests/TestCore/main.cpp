@@ -13,6 +13,7 @@
 #include "OutputDataIteratorTest.h"
 #include "OutputDataTest.h"
 #include "ParameterPoolTest.h"
+#include "ParticleTest.h"
 #include "RealParameterWrapperTest.h"
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"

@@ -50,8 +50,12 @@ ISample *SampleBuilder::buildSample() const
 
     ParticleDecoration particle_decoration;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
+
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);

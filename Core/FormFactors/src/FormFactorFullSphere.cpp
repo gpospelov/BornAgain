@@ -36,8 +36,9 @@ void FormFactorFullSphere::init_parameters()
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
-    FormFactorFullSphere *p_clone = new FormFactorFullSphere(m_radius);
-    return p_clone;
+    FormFactorFullSphere *result = new FormFactorFullSphere(m_radius);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const

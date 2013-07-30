@@ -28,6 +28,8 @@ class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
 
     FormFactorDecoratorRefractiveIndex *clone() const;
 
+    virtual complex_t getAmbientRefractiveIndex() const { return m_refractive_index; }
+
     virtual void setAmbientRefractiveIndex(const complex_t& ambient_refractive_index);
  private:
     complex_t getRefractiveIndexFactor(const complex_t& ambient_index, const complex_t& particle_index) const;
@@ -50,10 +52,11 @@ inline FormFactorDecoratorRefractiveIndex::~FormFactorDecoratorRefractiveIndex()
 
 inline FormFactorDecoratorRefractiveIndex* FormFactorDecoratorRefractiveIndex::clone() const
 {
-    FormFactorDecoratorRefractiveIndex *p_new =
+    FormFactorDecoratorRefractiveIndex *result =
             new FormFactorDecoratorRefractiveIndex(mp_form_factor->clone(), m_refractive_index);
-    p_new->m_factor = m_factor;
-    return p_new;
+    result->m_factor = m_factor;
+    result->setName(getName());
+    return result;
 }
 
 inline void FormFactorDecoratorRefractiveIndex::setAmbientRefractiveIndex(

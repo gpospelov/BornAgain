@@ -103,47 +103,47 @@ def createRealData(simulation):
 2# ----------------------------------------------------------------------------
 class MySampleBuilder(ISampleBuilder):
     def __init__(self):
-      ISampleBuilder.__init__(self)
-      print "MySampleBuilder ctor"
-      self.sample = None
-      # parameters describing the sample
-      self.cylinder_height  = ctypes.c_double(5.0*nanometer)
-      self.cylinder_radius = ctypes.c_double(5.0*nanometer)
-      self.prism3_half_side = ctypes.c_double(5.0*nanometer)
-      self.prism3_height = ctypes.c_double(5.0*nanometer)
-      self.cylinder_ratio = ctypes.c_double(0.2)
-      # register parameters
-      self.registerParameter("cylinder_height", ctypes.addressof(self.cylinder_height) )
-      self.registerParameter("cylinder_radius", ctypes.addressof(self.cylinder_radius) )
-      self.registerParameter("prism3_half_side", ctypes.addressof(self.prism3_half_side) )
-      self.registerParameter("prism3_height", ctypes.addressof(self.prism3_height) )
-      self.registerParameter("cylinder_ratio", ctypes.addressof(self.cylinder_ratio) )
+        ISampleBuilder.__init__(self)
+        print "MySampleBuilder ctor"
+        self.sample = None
+        # parameters describing the sample
+        self.cylinder_height  = ctypes.c_double(5.0*nanometer)
+        self.cylinder_radius = ctypes.c_double(5.0*nanometer)
+        self.prism3_half_side = ctypes.c_double(5.0*nanometer)
+        self.prism3_height = ctypes.c_double(5.0*nanometer)
+        self.cylinder_ratio = ctypes.c_double(0.2)
+        # register parameters
+        self.registerParameter("cylinder_height", ctypes.addressof(self.cylinder_height) )
+        self.registerParameter("cylinder_radius", ctypes.addressof(self.cylinder_radius) )
+        self.registerParameter("prism3_half_side", ctypes.addressof(self.prism3_half_side) )
+        self.registerParameter("prism3_height", ctypes.addressof(self.prism3_height) )
+        self.registerParameter("cylinder_ratio", ctypes.addressof(self.cylinder_ratio) )
 
     # constructs the sample for current values of parameters
     def buildSample(self):
-      multi_layer = MultiLayer()
-      air_material = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-      substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-      air_layer = Layer(air_material)
-      substrate_layer = Layer(substrate_material)
+        multi_layer = MultiLayer()
+        air_material = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+        substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+        air_layer = Layer(air_material)
+        substrate_layer = Layer(substrate_material)
 
-      n_particle = complex(1.0-6e-4, 2e-8)
-      cylinder_ff = FormFactorCylinder( self.cylinder_height.value, self.cylinder_radius.value)
-      prism_ff = FormFactorPrism3( self.prism3_height.value, self.prism3_half_side.value)
-      cylinder = Particle(n_particle, cylinder_ff)
-      prism = Particle(n_particle, prism_ff)
-      interference = InterferenceFunctionNone()
+        cylinder_ff = FormFactorCylinder( self.cylinder_height.value, self.cylinder_radius.value)
+        prism_ff = FormFactorPrism3( self.prism3_height.value, self.prism3_half_side.value)
+        cylinder = Particle(mParticle, cylinder_ff)
+        prism = Particle(mParticle, prism_ff)
+        interference = InterferenceFunctionNone()
 
-      particle_decoration = ParticleDecoration()
-      particle_decoration.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
-      particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
-      particle_decoration.addInterferenceFunction(interference)
+        particle_decoration = ParticleDecoration()
+        particle_decoration.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
+        particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
+        particle_decoration.addInterferenceFunction(interference)
 
-      air_layer.setDecoration(particle_decoration)
-      multi_layer.addLayer(air_layer)
-      multi_layer.addLayer(substrate_layer)
-      self.sample = multi_layer
-      return self.sample
+        air_layer.setDecoration(particle_decoration)
+        multi_layer.addLayer(air_layer)
+        multi_layer.addLayer(substrate_layer)
+        self.sample = multi_layer
+        return self.sample
 
 #-------------------------------------------------------------
 # main()

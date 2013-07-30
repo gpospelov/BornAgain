@@ -38,9 +38,10 @@ void FormFactorTethraedron::init_parameters()
 
 FormFactorTethraedron* FormFactorTethraedron::clone() const
 {
-    FormFactorTethraedron *p_clone =
+    FormFactorTethraedron *result =
         new FormFactorTethraedron(m_height, m_half_side, m_alpha);
-    return p_clone;
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorTethraedron::evaluate_for_q(const cvector_t& q) const

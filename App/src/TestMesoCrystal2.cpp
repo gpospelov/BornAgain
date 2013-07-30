@@ -672,7 +672,12 @@ MesoCrystal* TestMesoCrystal2::SampleBuilder::createMesoCrystal(double stacking_
     kvector_t bas_a = p_lat->getBasisVectorA();
     kvector_t bas_b = p_lat->getBasisVectorB();
     kvector_t bas_c = p_lat->getBasisVectorC();
-    Particle particle(n_particle, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
+
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
+
+    Particle particle(particle_material, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);

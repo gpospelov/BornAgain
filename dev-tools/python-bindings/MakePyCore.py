@@ -192,6 +192,10 @@ def ManualClassTunings(mb):
     cl = mb.class_( "Particle" )
     cl.member_function( "createDiffuseParticleInfo" ).exclude()
     cl.member_function( "createDistributedParticles" ).exclude()
+    for cls in cl.constructors():
+        if ("( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string):
+            cls.include()
+
     #
     cl = mb.class_( "ParticleDecoration" )
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
@@ -206,6 +210,8 @@ def ManualClassTunings(mb):
     # including back methods which have been excluded by our pointer policy
     for fun in cl.member_functions():
         if fun.name == "setMaterial":fun.include()
+    for fun in cl.member_functions():
+        if("void ( ::Layer::* )( ::IDecoration * )" in fun.decl_string): fun.exclude()
     cl.constructors().include() # including back constructors with pointers
     #
     cl = mb.class_("Simulation")
@@ -218,7 +224,12 @@ def ManualClassTunings(mb):
     cl.member_functions( ).exclude()
     #
     mb.namespace( "MathFunctions" ).free_function("GenerateNormalRandom").include()
-
+    #
+    mb.namespace( "AppVersion" ).free_function("GetMajorVersionNumber").include()
+    mb.namespace( "AppVersion" ).free_function("GetMinorVersionNumber").include()
+    mb.namespace( "AppVersion" ).free_function("GetPatchVersionNumber").include()
+    mb.namespace( "AppVersion" ).free_function("GetVersionNumber").include()
+    
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):

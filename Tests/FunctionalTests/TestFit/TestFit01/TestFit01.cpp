@@ -114,7 +114,10 @@ ISample *TestFit01::buildSample()
     const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer(air_material);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
+    ParticleDecoration particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);

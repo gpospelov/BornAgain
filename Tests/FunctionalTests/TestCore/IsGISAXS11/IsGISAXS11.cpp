@@ -35,9 +35,15 @@ void FunctionalTests::IsGISAXS11::run()
 
     complex_t n_particle_shell(1.0-1e-4, 2e-8);
     complex_t n_particle_core(1.0-6e-5, 2e-8);
-    Particle shell_particle(n_particle_shell, new FormFactorParallelepiped(
+
+    const IMaterial *shell_material =
+            MaterialManager::getHomogeneousMaterial("Shell", n_particle_shell);
+    const IMaterial *core_material =
+            MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
+
+    Particle shell_particle(shell_material, new FormFactorParallelepiped(
             8*Units::nanometer, 8*Units::nanometer));
-    Particle core_particle(n_particle_core, new FormFactorParallelepiped(
+    Particle core_particle(core_material, new FormFactorParallelepiped(
             7*Units::nanometer, 6*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);

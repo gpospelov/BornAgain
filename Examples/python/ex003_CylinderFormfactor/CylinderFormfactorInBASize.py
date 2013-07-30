@@ -19,16 +19,16 @@ def RunSimulation():
     # defining materials
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     multi_layer = MultiLayer()
 
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     particle_decoration = ParticleDecoration()
     # preparing prototype of nano particle
     radius = 5*nanometer
     sigma = 0.2*radius
-    nano_particle = Particle(n_particle, cylinder_ff)
+    nano_particle = Particle(mParticle, cylinder_ff)
     # radius of nanoparticles will be sampled with gaussian probability
     nbins = 100
     nfwhm = 2

@@ -15,6 +15,16 @@
 
 #include "FormFactorDecoratorTransformation.h"
 
-// Everything done inline: Efficiency reasons? Proven useful?
+
+
+FormFactorDecoratorTransformation *FormFactorDecoratorTransformation::clone() const
+{
+    FormFactorDecoratorTransformation *result =  new FormFactorDecoratorTransformation(
+        mp_form_factor->clone(), mP_transform);
+
+    result->setName(getName());
+    return result;
+}
+
 
 

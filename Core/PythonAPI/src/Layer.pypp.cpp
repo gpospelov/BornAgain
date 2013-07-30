@@ -58,6 +58,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::clone( );
     }
 
+    virtual ::IDecoration const * getDecoration(  ) const  {
+        if( bp::override func_getDecoration = this->get_override( "getDecoration" ) )
+            return func_getDecoration(  );
+        else
+            return this->Layer::getDecoration(  );
+    }
+    
+    
+    ::IDecoration const * default_getDecoration(  ) const  {
+        return Layer::getDecoration( );
+    }
+
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
@@ -104,6 +116,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     double default_getTotalParticleSurfaceDensity(  ) const  {
         return Layer::getTotalParticleSurfaceDensity( );
+    }
+
+    virtual void setDecoration( ::IDecoration const & decoration ) {
+        if( bp::override func_setDecoration = this->get_override( "setDecoration" ) )
+            func_setDecoration( boost::ref(decoration) );
+        else
+            this->Layer::setDecoration( boost::ref(decoration) );
+    }
+    
+    
+    void default_setDecoration( ::IDecoration const & decoration ) {
+        Layer::setDecoration( boost::ref(decoration) );
     }
 
     virtual void setMaterial( ::IMaterial const * material ) {
@@ -295,10 +319,12 @@ void register_Layer_class(){
         { //::Layer::getDecoration
         
             typedef ::IDecoration const * ( ::Layer::*getDecoration_function_type )(  ) const;
+            typedef ::IDecoration const * ( Layer_wrapper::*default_getDecoration_function_type )(  ) const;
             
             Layer_exposer.def( 
                 "getDecoration"
-                , getDecoration_function_type( &::Layer::getDecoration )
+                , getDecoration_function_type(&::Layer::getDecoration)
+                , default_getDecoration_function_type(&Layer_wrapper::default_getDecoration)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -350,10 +376,12 @@ void register_Layer_class(){
         { //::Layer::setDecoration
         
             typedef void ( ::Layer::*setDecoration_function_type )( ::IDecoration const & ) ;
+            typedef void ( Layer_wrapper::*default_setDecoration_function_type )( ::IDecoration const & ) ;
             
             Layer_exposer.def( 
                 "setDecoration"
-                , setDecoration_function_type( &::Layer::setDecoration )
+                , setDecoration_function_type(&::Layer::setDecoration)
+                , default_setDecoration_function_type(&Layer_wrapper::default_setDecoration)
                 , ( bp::arg("decoration") ) );
         
         }

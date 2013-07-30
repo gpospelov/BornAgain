@@ -85,7 +85,19 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         return ICompositeSample::getCompositeSample( );
     }
 
-    virtual ::complex_t const getRefractiveIndex(  ) const  {
+    virtual ::IMaterial const * getMaterial(  ) const  {
+        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
+            return func_getMaterial(  );
+        else
+            return this->Particle::getMaterial(  );
+    }
+    
+    
+    ::IMaterial const * default_getMaterial(  ) const  {
+        return Particle::getMaterial( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
         else
@@ -93,7 +105,7 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     }
     
     
-    ::complex_t const default_getRefractiveIndex(  ) const  {
+    ::complex_t default_getRefractiveIndex(  ) const  {
         return Particle::getRefractiveIndex( );
     }
 
@@ -242,10 +254,22 @@ void register_ParticleCoreShell_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Particle::getMaterial
+        
+            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( ParticleCoreShell_wrapper::*default_getMaterial_function_type )(  ) const;
+            
+            ParticleCoreShell_exposer.def( 
+                "getMaterial"
+                , getMaterial_function_type(&::Particle::getMaterial)
+                , default_getMaterial_function_type(&ParticleCoreShell_wrapper::default_getMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Particle::getRefractiveIndex
         
-            typedef ::complex_t const ( ::Particle::*getRefractiveIndex_function_type )(  ) const;
-            typedef ::complex_t const ( ParticleCoreShell_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( ParticleCoreShell_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
             
             ParticleCoreShell_exposer.def( 
                 "getRefractiveIndex"

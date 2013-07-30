@@ -17,8 +17,7 @@
 #include "FormFactors.h"
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core, kvector_t relative_core_position)
-: Particle(shell.getRefractiveIndex())
-, m_relative_core_position(relative_core_position)
+    : m_relative_core_position(relative_core_position)
 {
     mp_shell = shell.clone();
     mp_core = core.clone();

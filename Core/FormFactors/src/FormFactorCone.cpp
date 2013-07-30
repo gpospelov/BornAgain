@@ -41,8 +41,9 @@ void FormFactorCone::init_parameters()
 
 FormFactorCone* FormFactorCone::clone() const
 {
-   FormFactorCone* ffCone = new FormFactorCone(m_radius, m_height, m_alpha);
-   return ffCone;
+   FormFactorCone* result = new FormFactorCone(m_radius, m_height, m_alpha);
+   result->setName(getName());
+   return result;
 }
 
 //! Real part of the integral.

@@ -16,15 +16,18 @@
 #ifndef IMATERIAL_H
 #define IMATERIAL_H
 
+#include "INamed.h"
+#include "Types.h"
+
 #include <string>
 #include <iostream>
-#include "INamed.h"
+#include <Eigen/Core>
 
 //! Interface to a named material.
 
 class IMaterial : public INamed
 {
- public:
+public:
     //! Constructor that sets _name_.
     explicit IMaterial(const std::string& name) : INamed(name) {}
 
@@ -39,7 +42,14 @@ class IMaterial : public INamed
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
     { m.print(ostr); return ostr; }
 
- protected:
+    //! Get the scattering matrix from the refractive index
+    //! and a given wavevector
+    virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const {
+        (void)k;
+        return Eigen::Matrix2cd::Identity();
+    }
+
+protected:
     virtual void print(std::ostream& ostr) const
     { ostr << "IMat:" << getName() << "<" << this << ">"; }
 };

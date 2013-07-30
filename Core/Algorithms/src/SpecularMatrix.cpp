@@ -141,12 +141,7 @@ Eigen::Matrix2cd SpecularMatrix::calculatePMatrix(double sigma_eff,
 
 Eigen::Matrix2cd SpecularMatrix::getUnitMatrix() const
 {
-    Eigen::Matrix2cd unit;
-    unit(0,0) = 1.0;
-    unit(0,1) = 0.0;
-    unit(1,0) = 0.0;
-    unit(1,1) = 1.0;
-    return unit;
+    return Eigen::Matrix2cd::Identity();
 }
 
 complex_t SpecularMatrix::getPMatrixElement(complex_t sigma_lambda) const

@@ -49,6 +49,7 @@
 #include "TestPerformance.h"
 #include "TestRootTree.h"
 #include "TestRoughness.h"
+#include "TestSpecularMagnetic.h"
 #include "TestSpecularMatrix.h"
 #include "TestToySimulation.h"
 
@@ -308,5 +309,9 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "testbugs",
         IFactoryCreateFunction<TestBugs , IFunctionalTest>,
         "functional test: test bugs reported in Redmine");
+    p_test_factory->registerItem(
+        "specularmagnetic",
+        IFactoryCreateFunction<TestSpecularMagnetic, IFunctionalTest>,
+        "functional test: specular reflectivity with magnetic matrix formalism");
 }
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestSpecularMatrix.h
-//! @brief     Defines class TestSpecularMatrix.
+//! @file      App/inc/TestSpecularMagnetic.h
+//! @brief     Defines class TestSpecularMagnetic.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,38 +13,34 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTSPECULARMATRIX_H_
-#define TESTSPECULARMATRIX_H_
+#ifndef TESTSPECULARMAGNETIC_H_
+#define TESTSPECULARMAGNETIC_H_
 
 #include "IFunctionalTest.h"
-#include "SpecularMatrix.h"
+#include "SpecularMagnetic.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
 
-//! Returns amplitudes for different wave components using the matrix formalism
-//! for several typical multilayer samples and produce validation plots
+//! Returns amplitudes for different wave components and polarizations using
+//! the magnetic matrix formalism for a typical multilayer sample and produce
+//! validation plots
 
-class TestSpecularMatrix : public IFunctionalTest
+class TestSpecularMagnetic : public IFunctionalTest
 {
 public:
-    TestSpecularMatrix();
+    TestSpecularMagnetic();
 
     void execute();
 
 private:
     //! Returns amplitudes vs. alpha_i for several standard samples
-    void test_standard_samples();
+    void test_standard_sample();
     //! draw results of the test
-    void draw_standard_samples();
-
-    //! Returns amplitudes vs. alpha_i for set of roughnesses
-    void test_roughness_set();
-    //! draw result of the test
-    void draw_roughness_set();
+    void draw_standard_sample();
 
     MultiLayer *mp_sample; //!< pointer to multilayer sample
-    OutputData<SpecularMatrix::MultiLayerCoeff_t  >
+    OutputData<SpecularMagnetic::MultiLayerCoeff_t  >
         *mp_coeffs; //!< output data structure
 };
 
-#endif /* TESTSPECULARMATRIX_H_ */
+#endif /* TESTSPECULARMAGNETIC_H_ */

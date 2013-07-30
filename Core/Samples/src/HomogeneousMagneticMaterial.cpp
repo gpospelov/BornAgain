@@ -41,8 +41,10 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
 {
     Eigen::Matrix2cd result;
     double kmag = k.mag();
+    double xy_proj2 = k.magxy2()/k.mag2();
     double factor = m_magnetic_prefactor/kmag/kmag;
-    result = m_refractive_index*m_refractive_index*m_unit_matrix
+    complex_t unit_factor = m_refractive_index*m_refractive_index - xy_proj2;
+    result = unit_factor*m_unit_matrix
             + factor*m_pauli_operator[0]*m_magnetic_field[0]
             + factor*m_pauli_operator[1]*m_magnetic_field[1]
             + factor*m_pauli_operator[2]*m_magnetic_field[2];

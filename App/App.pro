@@ -83,6 +83,7 @@ SOURCES += \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
+    src/TestSpecularMagnetic.cpp \
     src/TestSpecularMatrix.cpp \
     src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
@@ -144,6 +145,7 @@ HEADERS += \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
+    inc/TestSpecularMagnetic.h \
     inc/TestSpecularMatrix.h \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \

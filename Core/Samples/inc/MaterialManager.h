@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include "Exceptions.h"
 #include "ISingleton.h"
-#include "HomogeneousMaterial.h"
+#include "IMaterial.h"
 #include <iostream>
 #include <string>
 #include <map>
@@ -55,8 +55,26 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     { return instance().this_getHomogeneousMaterial(
             name, refractive_index_delta, refractive_index_beta); }
 
+    //! Adds magnetic material to database.
+    static const IMaterial *getHomogeneousMagneticMaterial(
+        const std::string& name, const complex_t& refractive_index,
+        const kvector_t &magnetic_field)
+    { return instance().this_getHomogeneousMagneticMaterial(name,
+            refractive_index, magnetic_field); }
+
+    //! Adds magnetic material to database.
+    static const IMaterial *getHomogeneousMagneticMaterial(
+        const std::string& name,
+        double refractive_index_delta,
+        double refractive_index_beta,
+        const kvector_t &magnetic_field)
+    { return instance().this_getHomogeneousMagneticMaterial(
+            name, refractive_index_delta, refractive_index_beta,
+            magnetic_field); }
+
     //! returns number of materials
-    static int getNumberOfMaterials() { return instance().this_getNumberOfMaterials(); }
+    static int getNumberOfMaterials() { return instance().
+            this_getNumberOfMaterials(); }
 
     //! Sends class description to stream.
     friend std::ostream& operator<<(
@@ -97,6 +115,13 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name,
         double refractive_index_delta, double refractive_index_beta);
+    const IMaterial *this_getHomogeneousMagneticMaterial(
+        const std::string& name, const complex_t& refractive_index,
+        const kvector_t &magnetic_field);
+    const IMaterial *this_getHomogeneousMagneticMaterial(
+        const std::string& name,
+        double refractive_index_delta, double refractive_index_beta,
+        const kvector_t &magnetic_field);
     int this_getNumberOfMaterials() const { return (int)m_materials.size(); }
 
     void check_refractive_index(const complex_t &index);

@@ -23,7 +23,7 @@
 
 class HomogeneousMaterial : public IMaterial
 {
- public:
+public:
     //! Constructs a material with _name_ and _refractive_index_.
     HomogeneousMaterial(const std::string& name,
                         const complex_t& refractive_index)
@@ -47,7 +47,10 @@ class HomogeneousMaterial : public IMaterial
     void setRefractiveIndex(const complex_t &refractive_index)
     { m_refractive_index = refractive_index; }
 
- protected:
+    //! Get the scattering matrix from the refractive index
+    //! and a given wavevector
+    virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
+protected:
     virtual void print(std::ostream& ostr) const
     {
         ostr  << "HomMat:" << getName() << "<" << this << ">{ " <<
@@ -56,6 +59,16 @@ class HomogeneousMaterial : public IMaterial
 
     complex_t m_refractive_index; //!< complex index of refraction
 };
+
+inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
+        const kvector_t& k) const
+{
+    Eigen::Matrix2cd result;
+    double xy_proj2 = k.magxy2()/k.mag2();
+    complex_t unit_factor = m_refractive_index*m_refractive_index - xy_proj2;
+    result = unit_factor*Eigen::Matrix2cd::Identity();
+    return result;
+}
 
 #endif // HOMOGENEOUSMATERIAL_H
 

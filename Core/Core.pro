@@ -75,6 +75,7 @@ SOURCES += \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     Algorithms/src/Simulation.cpp \
     Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
+    Algorithms/src/SpecularMagnetic.cpp \
     Algorithms/src/SpecularMatrix.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
@@ -222,6 +223,7 @@ HEADERS += \
     Algorithms/inc/Simulation.h \
     Algorithms/inc/SimulationParameters.h \
     Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \
+    Algorithms/inc/SpecularMagnetic.h \
     Algorithms/inc/SpecularMatrix.h \
     Algorithms/inc/ThreadInfo.h \
     \

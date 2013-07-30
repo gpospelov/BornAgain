@@ -20,12 +20,16 @@
 #include <sstream>
 
 namespace AppVersion {
-    const std::string g_app_name = "Born Again";
+    const std::string g_app_name = "BornAgain";
     const int major_version_number = 0;
     const int minor_version_number = 8;
     const int patch_version_number = 2;
 
-    std::string GetVersionNumber()
+    inline int GetMajorVersionNumber() { return major_version_number; }
+    inline int GetMinorVersionNumber() { return minor_version_number; }
+    inline int GetPatchVersionNumber() { return patch_version_number; }
+
+    inline std::string GetVersionNumber()
     {
         std::ostringstream ostr;
         ostr << major_version_number

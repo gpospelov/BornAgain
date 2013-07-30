@@ -1,1 +1,18 @@
-BornAgain-<version>, first source archive release, <date>
+
+
+BornAgain-0.8.2  2013.07.30
+  * Particle interface changed to accept HomogeneousMaterial
+
+BornAgain-0.8.1  2013.07.26
+  * CMake based build system
+  * PythonAPI automatic code generation redesign
+  * User Manual v0.1
+  * libBornAgainFit
+  * FunctionalTest collection
+  
+
+BornAgain-0.7.0  2013.04.10
+  * First public release
+
+
+

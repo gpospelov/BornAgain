@@ -224,7 +224,12 @@ def ManualClassTunings(mb):
     cl.member_functions( ).exclude()
     #
     mb.namespace( "MathFunctions" ).free_function("GenerateNormalRandom").include()
-
+    #
+    mb.namespace( "AppVersion" ).free_function("GetMajorVersionNumber").include()
+    mb.namespace( "AppVersion" ).free_function("GetMinorVersionNumber").include()
+    mb.namespace( "AppVersion" ).free_function("GetPatchVersionNumber").include()
+    mb.namespace( "AppVersion" ).free_function("GetVersionNumber").include()
+    
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):

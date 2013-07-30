@@ -45,7 +45,9 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
 
 inline FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const
 {
-    return new FormFactorDecoratorFactor(mp_form_factor->clone(), m_factor);
+    FormFactorDecoratorFactor *result = new FormFactorDecoratorFactor(mp_form_factor->clone(), m_factor);
+    result->setName(getName());
+    return result;
 }
 
 inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const

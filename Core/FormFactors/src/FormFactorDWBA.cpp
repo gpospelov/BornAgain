@@ -51,9 +51,10 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
-    FormFactorDWBA *p_new = new FormFactorDWBA(mp_form_factor->clone());
-    p_new->setReflectionTransmissionFunction(*mp_RT);
-    return p_new;
+    FormFactorDWBA *result = new FormFactorDWBA(mp_form_factor->clone());
+    result->setReflectionTransmissionFunction(*mp_RT);
+    result->setName(getName());
+    return result;
 }
 
 

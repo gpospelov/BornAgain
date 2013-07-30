@@ -44,13 +44,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
         m_ambient_refractive_index = refractive_index;
     }
 
-    virtual IFormFactor* createFormFactor() const
-    {
-        FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
-                mp_form_factor->clone(), getRefractiveIndex());
-        p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
-        return p_ff;
-    }
+    virtual IFormFactor* createFormFactor() const;
 
     //! Sets the form factor of the particle (not including scattering factor from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
@@ -84,7 +78,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
         return 0;
     }
 
-    virtual bool hasDistributedFormFactor() const { return mp_form_factor->isDistributedFormFactor(); }
+    virtual bool hasDistributedFormFactor() const;
 
     virtual std::vector<ParticleInfo *> createDistributedParticles(size_t samples_per_particle, double factor) const;
 
@@ -95,10 +89,25 @@ class BA_CORE_API_ Particle : public ICompositeSample
     //!< pointer to the form factor
 };
 
+inline IFormFactor* Particle::createFormFactor() const
+{
+    if(!mp_form_factor) return 0;
+    FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
+            mp_form_factor->clone(), getRefractiveIndex());
+    p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
+    return p_ff;
+}
+
+
 inline complex_t Particle::getRefractiveIndex() const
 {
     const HomogeneousMaterial *material = dynamic_cast<const HomogeneousMaterial *>(m_material);
     return (material ? material->getRefractiveIndex() : complex_t(0,0));
+}
+
+inline bool Particle::hasDistributedFormFactor() const
+{
+    return ( !mp_form_factor ? false : mp_form_factor->isDistributedFormFactor() );
 }
 
 

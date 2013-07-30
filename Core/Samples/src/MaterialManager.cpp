@@ -68,7 +68,7 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
             HomogeneousMaterial *non_const_mat =
                 const_cast<HomogeneousMaterial *>(old);
             non_const_mat->setRefractiveIndex(refractive_index);
-            msglog(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial()" <<
+            msglog(MSG::ERROR) << "MaterialManager::addHomogeneousMaterial()" <<
                 "-> Redefining refractive index for material '" << name << "'";
         }
         return mat;

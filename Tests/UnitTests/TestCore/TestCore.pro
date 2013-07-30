@@ -29,11 +29,13 @@ HEADERS += \
     RealParameterWrapperTest.h \
     SimulationTest.h \
     ThreadInfoTest.h \
-    LayerTest.h
+    LayerTest.h \
+    ParticleTest.h
 
 #OBJECTS_DIR = obj
 
 INCLUDEPATH += $${PWD}/../../../ThirdParty/gtest/gtest-1.6.0/include
+DEPENDPATH += ./
 
 ###############################################################################
 # generating package dependency flags

@@ -36,11 +36,7 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
 
     virtual ~FormFactorDecoratorTransformation() {}
 
-    virtual FormFactorDecoratorTransformation *clone() const
-    {
-        return new FormFactorDecoratorTransformation(
-            mp_form_factor->clone(), mP_transform);
-    }
+    virtual FormFactorDecoratorTransformation *clone() const;
 
     virtual complex_t evaluate(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin,

@@ -61,8 +61,11 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 
     virtual FormFactorDecoratorDebyeWaller *clone() const
     {
-        return new FormFactorDecoratorDebyeWaller(
+
+        FormFactorDecoratorDebyeWaller *result = new FormFactorDecoratorDebyeWaller(
             mp_form_factor->clone(), m_h_dw_factor, m_r_dw_factor);
+        result->setName(getName());
+        return result;
     }
 
     virtual complex_t evaluate(

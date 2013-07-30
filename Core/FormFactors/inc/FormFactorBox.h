@@ -29,8 +29,7 @@ class FormFactorBox : public IFormFactorBorn
 
     ~FormFactorBox() {}
 
-    FormFactorBox *clone() const
-    { return new FormFactorBox(m_radius, m_width, m_height ); }
+    FormFactorBox *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

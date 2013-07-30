@@ -20,7 +20,6 @@ class LayerTest : public ::testing::Test
 TEST_F(LayerTest, LayerInitialState)
 {
     Layer layer;
-
     EXPECT_EQ(NULL, layer.getMaterial());
     EXPECT_EQ(NULL, layer.getDecoration());
     EXPECT_EQ(0, layer.getThickness());
@@ -32,7 +31,6 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(NULL, layer.createDiffuseDWBASimulation());
 
     Layer *new_layer = layer.clone();
-
     EXPECT_EQ(NULL, new_layer->getMaterial());
     EXPECT_EQ(NULL, new_layer->getDecoration());
     EXPECT_EQ(0, new_layer->getThickness());

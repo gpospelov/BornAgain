@@ -66,9 +66,10 @@ inline FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mea
 
 inline FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *p_clone =
+    FormFactorSphereGaussianRadius *result =
         new FormFactorSphereGaussianRadius(m_mean, m_sigma);
-    return p_clone;
+    result->setName(getName());
+    return result;
 }
 
 inline FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()

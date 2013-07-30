@@ -29,11 +29,12 @@ FormFactorWeighted::~FormFactorWeighted()
 
 FormFactorWeighted* FormFactorWeighted::clone() const
 {
-    FormFactorWeighted *p_new = new FormFactorWeighted();
+    FormFactorWeighted *result = new FormFactorWeighted();
     for (size_t index=0; index<m_form_factors.size(); ++index) {
-        p_new->addFormFactor(*m_form_factors[index], m_weights[index]);
+        result->addFormFactor(*m_form_factors[index], m_weights[index]);
     }
-    return p_new;
+    result->setName(getName());
+    return result;
 }
 
 void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,

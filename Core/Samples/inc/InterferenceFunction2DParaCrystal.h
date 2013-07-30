@@ -18,21 +18,16 @@
 
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
+#include <iostream>
 
-//! ?
 
 class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
  public:
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
-    virtual InterferenceFunction2DParaCrystal *clone() const {
-        InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(m_lattice_lengths[0], m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
-        p_new->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
-        p_new->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
-        p_new->setIntegrationOverXi(m_integrate_xi);
-        return p_new;
-    }
+
+    virtual InterferenceFunction2DParaCrystal *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

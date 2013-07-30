@@ -302,7 +302,8 @@ HEADERS += \
     StandardSamples/IsGISAXS06Builder.h \
     StandardSamples/IsGISAXS09Builder.h \
     Algorithms/inc/LayerStrategyBuilder.h \
-    Algorithms/inc/DecoratedLayerDWBASimulation.h
+    Algorithms/inc/DecoratedLayerDWBASimulation.h \
+    Samples/inc/Version.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

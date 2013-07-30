@@ -54,6 +54,13 @@ public:
     //! magnetic field and a given wavevector
     virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
 protected:
+    virtual void print(std::ostream& ostr) const
+    {
+        ostr  << "HomMagMat:" << getName() << "<" << this << ">{ " <<
+                 "R=" << m_refractive_index <<
+                 ", B=" << m_magnetic_field << "}" ;
+    }
+
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:
     //! Function to initialize some private members

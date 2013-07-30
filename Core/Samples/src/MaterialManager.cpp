@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "MaterialManager.h"
+
+#include "HomogeneousMagneticMaterial.h"
 #include "Exceptions.h"
 #include "MessageService.h"
 #include <boost/thread.hpp>
@@ -86,8 +88,69 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     double refractive_index_delta,
     double refractive_index_beta)
 {
-    return getHomogeneousMaterial(
+    return this_getHomogeneousMaterial(
         name, complex_t(1.0-refractive_index_delta, refractive_index_beta));
+}
+
+//! Creates magnetic material, and add into database using name of material
+//! as identifier.
+
+const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
+        const std::string& name, const complex_t& refractive_index,
+        const kvector_t& magnetic_field)
+{
+    check_refractive_index(refractive_index);
+
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
+    const IMaterial *mat = getMaterial(name);
+    if( mat ) {
+        // check if user is trying to create material
+        // with same name but different parameters
+        const HomogeneousMaterial *old =
+            dynamic_cast<const HomogeneousMaterial *>(mat);
+        if(old->getRefractiveIndex() != refractive_index) {
+            HomogeneousMaterial *non_const_mat =
+                const_cast<HomogeneousMaterial *>(old);
+            non_const_mat->setRefractiveIndex(refractive_index);
+            msglog(MSG::WARNING) <<
+                "MaterialManager::addHomogeneousMagneticMaterial()" <<
+                "-> Redefining refractive index for material '" << name << "'";
+        }
+        const HomogeneousMagneticMaterial *mold =
+            dynamic_cast<const HomogeneousMagneticMaterial *>(mat);
+        if(mold && mold->getMagneticField() != magnetic_field) {
+            HomogeneousMagneticMaterial *non_const_mat =
+                const_cast<HomogeneousMagneticMaterial *>(mold);
+            non_const_mat->setMagneticField(magnetic_field);
+            msglog(MSG::WARNING) <<
+                "MaterialManager::addHomogeneousMagneticMaterial()" <<
+                "-> Redefining magnetic field for material '" << name << "'";
+        }
+        if(!mold) {
+            throw ExistingClassRegistrationException(
+                    "Non-magnetic material with this name"
+                    " was already registered: " + name);
+        }
+        return mat;
+    } else {
+        IMaterial *hmat = new HomogeneousMagneticMaterial(name,
+                refractive_index, magnetic_field);
+        m_materials[name] = hmat;
+        return hmat;
+    }
+}
+
+//! Creates magnetic material, and add into database using name of material
+//! as identifier.
+
+const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
+        const std::string& name, double refractive_index_delta,
+        double refractive_index_beta, const kvector_t& magnetic_field)
+{
+    return this_getHomogeneousMagneticMaterial(
+        name, complex_t(1.0-refractive_index_delta, refractive_index_beta),
+        magnetic_field);
 }
 
 //! Dump this to stream.

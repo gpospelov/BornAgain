@@ -1008,4 +1008,52 @@ ISample *StandardSamples::FormFactor_FullSphere()
      return p_multi_layer;
 }
 
+//! Multilayer specular magnetic testcase
+
+ISample *StandardSamples::MultilayerSpecularMagneticTestCase()
+{
+    const IMaterial *mAmbience =
+        MaterialManager::getHomogeneousMaterial
+        ("ambience", 0.0, 0.0 );
+    kvector_t magnetic_field(0.0, 1.0, 0.0);
+    const IMaterial *mPartA =
+        MaterialManager::getHomogeneousMagneticMaterial
+        ("PartA", 5e-6, 0.0, magnetic_field);
+    const IMaterial *mPartB =
+        MaterialManager::getHomogeneousMagneticMaterial
+        ("PartB", 8e-6, 0.0, -magnetic_field );
+    const IMaterial *mSubstrate =
+        MaterialManager::getHomogeneousMaterial
+        ("substrate", 15e-6, 0.0 );
+
+    Layer lAmbience;
+    lAmbience.setMaterial(mAmbience, 0);
+
+    Layer lPartA;
+    lPartA.setMaterial(mPartA, 5.0*Units::nanometer);
+
+    Layer lPartB;
+    lPartB.setMaterial(mPartB, 5.0*Units::nanometer);
+
+    Layer lSubstrate;
+    lSubstrate.setMaterial(mSubstrate, 0);
+
+    MultiLayer *mySample = new MultiLayer;
+
+    // adding layers
+    mySample->addLayer(lAmbience);
+
+    const unsigned nrepetitions = 10;
+    for(unsigned i=0; i<nrepetitions; ++i) {
+        mySample->addLayer(lPartA);
+        mySample->addLayer(lPartB);
+    }
+
+    mySample->addLayer(lSubstrate);
+
+    return mySample;
+}
+
+
+
 

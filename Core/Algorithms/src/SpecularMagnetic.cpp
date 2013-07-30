@@ -42,7 +42,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
                 coeff[i].m_scatt_matrix(1,1) )/2.0;
         coeff[i].lambda(0) = std::sqrt(coeff[i].m_a - coeff[i].m_b_mag);
         coeff[i].lambda(1) = std::sqrt(coeff[i].m_a + coeff[i].m_b_mag);
-        coeff[i].kz = mag_k*coeff[i].lambda;
+        coeff[i].kz = mag_k * coeff[i].lambda;
     }
 }
 
@@ -60,7 +60,7 @@ void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
     coeff[N-1].initializeBottomLayerPhiPsi();
 
     coeff[0].calculateTRMatrices();
-    coeff[0].l = Eigen::Matrix4cd::Identity();
+    coeff[0].l.setIdentity();
     for (int i=(int)N-2; i>0; --i) {
         coeff[i].calculateTRMatrices();
         double t = sample.getLayer(i)->getThickness();
@@ -76,35 +76,34 @@ void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
     // for spin-z polarization in top layer
     if (N>1) {
         // First layer boundary is also top layer boundary:
-        coeff[0].l.setIdentity();
         coeff[0].phi_psi_plus = coeff[1].phi_psi_plus;
         coeff[0].phi_psi_min = coeff[1].phi_psi_min;
         // Normalize all boundary values such that top layer has unit wave
         // amplitude for both spin up and down (and does not contain a
         // transmitted wave amplitude for the opposite polarization)
-        Eigen::Vector2cd T0plusV = coeff[0].T1plus() + coeff[0].T2plus();
-        Eigen::Vector2cd T0minV = coeff[0].T1plus() + coeff[0].T2plus();
-        complex_t cpp, cpm, cmp, cmm;
-        cpp = T0minV(1);
-        cpm = -T0plusV(1);
-        cmp = T0minV(0);
-        cmm = -T0minV(0);
-        Eigen::Vector4cd phipsitemp = cpp * coeff[0].phi_psi_plus +
-                cpm * coeff[0].phi_psi_min;
-        coeff[0].phi_psi_min = cmp * coeff[0].phi_psi_plus +
-                cmm * coeff[0].phi_psi_min;
+        Eigen::Vector2cd T0basisA = coeff[0].T1plus() + coeff[0].T2plus();
+        Eigen::Vector2cd T0basisB = coeff[0].T1min() + coeff[0].T2min();
+        complex_t cpA, cpB, cmA, cmB;
+        cpA = T0basisB(1);
+        cpB = -T0basisA(1);
+        cmA = T0basisB(0);
+        cmB = -T0basisA(0);
+        Eigen::Vector4cd phipsitemp = cpA * coeff[0].phi_psi_plus +
+                cpB * coeff[0].phi_psi_min;
+        coeff[0].phi_psi_min = cmA * coeff[0].phi_psi_plus +
+                cmB * coeff[0].phi_psi_min;
         coeff[0].phi_psi_plus = phipsitemp;
-        complex_t T0plus = coeff[0].phi_psi_plus(2);
-        complex_t T0min = coeff[0].phi_psi_min(3);
-        std::cout << T0plus << std::endl;
-        std::cout << T0min << std::endl;
+        Eigen::Vector2cd T0plusV = coeff[0].T1plus() + coeff[0].T2plus();
+        Eigen::Vector2cd T0minV = coeff[0].T1min() + coeff[0].T2min();
+        complex_t T0plus = T0plusV(0);
+        complex_t T0min = T0minV(1);
         coeff[0].phi_psi_min = coeff[0].phi_psi_min / T0min;
         coeff[0].phi_psi_plus = coeff[0].phi_psi_plus / T0plus;
         for (size_t i=1; i<N; ++i) {
-            phipsitemp = ( cpp * coeff[i].phi_psi_plus +
-                    cpm * coeff[i].phi_psi_min ) / T0plus;
-            coeff[i].phi_psi_min = ( cmp * coeff[i].phi_psi_plus +
-                    cmm * coeff[i].phi_psi_min ) / T0min;
+            phipsitemp = ( cpA * coeff[i].phi_psi_plus +
+                    cpB * coeff[i].phi_psi_min ) / T0plus;
+            coeff[i].phi_psi_min = ( cmA * coeff[i].phi_psi_plus +
+                    cmB * coeff[i].phi_psi_min ) / T0min;
             coeff[i].phi_psi_plus = phipsitemp;
         }
     }
@@ -260,17 +259,17 @@ void SpecularMagnetic::LayerMatrixCoeff::calculateTRWithoutMagnetization()
 
     // R1m:
     R1m.setZero();
-    R1m(0,0) = 0.5;
-    R1m(0,2) = -std::sqrt(m_a)/2.0;
-    R1m(2,0) = -1.0/(2.0*std::sqrt(m_a));
-    R1m(2,2) = 0.5;
+    R1m(1,1) = 0.5;
+    R1m(1,3) = std::sqrt(m_a)/2.0;
+    R1m(3,1) = 1.0/(2.0*std::sqrt(m_a));
+    R1m(3,3) = 0.5;
 
     // T2m:
     T2m.setZero();
-    T2m(1,1) = 0.5;
-    T2m(1,3) = std::sqrt(m_a)/2.0;
-    T2m(3,1) = 1.0/(2.0*std::sqrt(m_a));
-    T2m(3,3) = 0.5;
+    T2m(0,0) = 0.5;
+    T2m(0,2) = -std::sqrt(m_a)/2.0;
+    T2m(2,0) = -1.0/(2.0*std::sqrt(m_a));
+    T2m(2,2) = 0.5;
 
     // R2m:
     R2m.setZero();

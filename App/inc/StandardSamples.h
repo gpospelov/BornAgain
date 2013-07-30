@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/StandardSamples.h
@@ -30,6 +30,7 @@ ISample *MultilayerOffspecTestcase1a();
 ISample *MultilayerOffspecTestcase1b();
 ISample *MultilayerOffspecTestcase2a();
 ISample *MultilayerOffspecTestcase2b();
+ISample *MultilayerSpecularMagneticTestCase();
 //ISample *IsGISAXS1_CylinderAndPrism();
 //ISample *IsGISAXS2_CylindersMixture();
 //ISample *IsGISAXS3_CylinderDWBA();

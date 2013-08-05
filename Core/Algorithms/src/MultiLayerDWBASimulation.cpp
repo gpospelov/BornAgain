@@ -14,13 +14,15 @@
 // ************************************************************************** //
 
 #include "MultiLayerDWBASimulation.h"
-//#include "OpticalFresnel.h"
+
 #include "SpecularMatrix.h"
 #include "MultiLayer.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
 #include "MessageService.h"
+#include "SampleMaterialVisitor.h"
+
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
         const MultiLayer* p_multi_layer)
@@ -160,6 +162,29 @@ std::set<double> MultiLayerDWBASimulation::getAlphaList() const
     // Also add input angle
     result.insert(-m_alpha_i);
     return result;
+}
+
+bool MultiLayerDWBASimulation::checkPolarizationPresent() const
+{
+    if (!mp_simulation) {
+        throw ClassInitializationException("MultiLayerDWBASimulation::"
+                "checkPolarizationPresent(): simulation not initialized");
+    }
+    ISample *p_sample = mp_simulation->getSample();
+    if (!p_sample) {
+        throw ClassInitializationException("MultiLayerDWBASimulation::"
+                "checkPolarizationPresent(): sample not initialized");
+    }
+    SampleMaterialVisitor material_vis;
+    p_sample->accept(&material_vis);
+    std::vector<const IMaterial *> materials = material_vis.getMaterials();
+    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
+            it != materials.end(); ++it) {
+        if (!(*it)->isScalarMaterial()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 

@@ -24,11 +24,12 @@
 class MultiLayer;
 class MultiLayerRoughnessDWBASimulation;
 
-//! ?
+//! This is the class that will perform a DWBA calculation with the given
+//! sample and simulation parameters
 
 class MultiLayerDWBASimulation : public DWBASimulation
 {
- public:
+public:
     MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);
     virtual ~MultiLayerDWBASimulation();
 
@@ -45,7 +46,10 @@ class MultiLayerDWBASimulation : public DWBASimulation
 
     virtual void run();
 
- protected:
+protected:
+    //! Checks if the sample requires a polarized calculation
+    bool checkPolarizationPresent() const;
+
     std::set<double> getAlphaList() const;
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;

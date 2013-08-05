@@ -130,9 +130,6 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! Checks if the sample requires a polarized calculation
-    bool checkPolarizationPresent() const;
-
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     const ISampleBuilder *mp_sample_builder;

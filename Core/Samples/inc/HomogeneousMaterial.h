@@ -47,9 +47,11 @@ public:
     void setRefractiveIndex(const complex_t &refractive_index)
     { m_refractive_index = refractive_index; }
 
+#ifndef GCCXML_SKIP_THIS
     //! Get the scattering matrix from the refractive index
     //! and a given wavevector
     virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
+#endif
 protected:
     virtual void print(std::ostream& ostr) const
     {
@@ -60,6 +62,7 @@ protected:
     complex_t m_refractive_index; //!< complex index of refraction
 };
 
+#ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
         const kvector_t& k) const
 {
@@ -69,6 +72,7 @@ inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
     result = unit_factor*Eigen::Matrix2cd::Identity();
     return result;
 }
+#endif
 
 #endif // HOMOGENEOUSMATERIAL_H
 

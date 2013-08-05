@@ -21,7 +21,10 @@
 
 #include <string>
 #include <iostream>
+
+#ifndef GCCXML_SKIP_THIS
 #include <Eigen/Core>
+#endif
 
 //! Interface to a named material.
 
@@ -42,12 +45,14 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
     { m.print(ostr); return ostr; }
 
+#ifndef GCCXML_SKIP_THIS
     //! Get the scattering matrix from the refractive index
     //! and a given wavevector
     virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const {
         (void)k;
         return Eigen::Matrix2cd::Identity();
     }
+#endif
 
 protected:
     virtual void print(std::ostream& ostr) const

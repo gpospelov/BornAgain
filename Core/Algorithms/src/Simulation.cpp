@@ -19,6 +19,7 @@
 #include "ProgramOptions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
+#include "SampleMaterialVisitor.h"
 
 #include <boost/thread.hpp>
 #include <gsl/gsl_errno.h>
@@ -332,6 +333,24 @@ void Simulation::updateSample()
             mp_sample = p_new_sample;
         }
     }
+}
+
+bool Simulation::checkPolarizationPresent() const
+{
+    if (!mp_sample) {
+        throw ClassInitializationException("Simulation::"
+                "checkPolarizationPresent(): sample not initialized");
+    }
+    SampleMaterialVisitor material_vis;
+    mp_sample->accept(&material_vis);
+    std::vector<const IMaterial *> materials = material_vis.getMaterials();
+    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
+            it != materials.end(); ++it) {
+        if (!(*it)->isScalarMaterial()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Simulation::setDetectorParameters(const OutputData<double >& output_data)

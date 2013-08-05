@@ -48,7 +48,7 @@ public:
 
     //! Indicates that the material is not scalar. This means that different
     //! polarization states will be diffracted differently
-    virtual bool isScalarMaterial() { return false; }
+    virtual bool isScalarMaterial() const { return false; }
 
     //! Get the scattering matrix from the refractive index, the
     //! magnetic field and a given wavevector

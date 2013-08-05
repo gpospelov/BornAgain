@@ -15,12 +15,17 @@
 
 #include "DWBASimulation.h"
 
+#include "SampleMaterialVisitor.h"
 
 void DWBASimulation::init(const Simulation& simulation)
 {
     if (mp_simulation !=& simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();
+    }
+    if (mp_polarization_output) {
+        delete mp_polarization_output;
+        mp_polarization_output = 0;
     }
     m_dwba_intensity.clear();
     Detector detector = simulation.getInstrument().getDetector();
@@ -36,6 +41,16 @@ void DWBASimulation::init(const Simulation& simulation)
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
     m_sim_params = simulation.getSimulationParameters();
+    // initialize polarization output if needed
+    if (checkPolarizationPresent()) {
+        mp_polarization_output = new OutputData<Eigen::Matrix2cd>();
+        for (size_t dim=0; dim<detector_dimension; ++dim) {
+            mp_polarization_output->addAxis(detector.getAxis(dim));
+        }
+        if (simulation.getOutputData()->getMask()) {
+            mp_polarization_output->setMask(*simulation.getOutputData()->getMask());
+        }
+    }
 }
 
 DWBASimulation *DWBASimulation::clone() const
@@ -48,6 +63,29 @@ DWBASimulation *DWBASimulation::clone() const
     if (mp_simulation)
         p_result->mp_simulation = mp_simulation->clone();
     return p_result;
+}
+
+bool DWBASimulation::checkPolarizationPresent() const
+{
+    if (!mp_simulation) {
+        throw ClassInitializationException("DWBASimulation::"
+                "checkPolarizationPresent(): simulation not initialized");
+    }
+    ISample *p_sample = mp_simulation->getSample();
+    if (!p_sample) {
+        throw ClassInitializationException("DWBASimulation::"
+                "checkPolarizationPresent(): sample not initialized");
+    }
+    SampleMaterialVisitor material_vis;
+    p_sample->accept(&material_vis);
+    std::vector<const IMaterial *> materials = material_vis.getMaterials();
+    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
+            it != materials.end(); ++it) {
+        if (!(*it)->isScalarMaterial()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 double DWBASimulation::getWaveLength() const

@@ -21,7 +21,6 @@
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
 #include "MessageService.h"
-#include "SampleMaterialVisitor.h"
 
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
@@ -163,28 +162,3 @@ std::set<double> MultiLayerDWBASimulation::getAlphaList() const
     result.insert(-m_alpha_i);
     return result;
 }
-
-bool MultiLayerDWBASimulation::checkPolarizationPresent() const
-{
-    if (!mp_simulation) {
-        throw ClassInitializationException("MultiLayerDWBASimulation::"
-                "checkPolarizationPresent(): simulation not initialized");
-    }
-    ISample *p_sample = mp_simulation->getSample();
-    if (!p_sample) {
-        throw ClassInitializationException("MultiLayerDWBASimulation::"
-                "checkPolarizationPresent(): sample not initialized");
-    }
-    SampleMaterialVisitor material_vis;
-    p_sample->accept(&material_vis);
-    std::vector<const IMaterial *> materials = material_vis.getMaterials();
-    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
-            it != materials.end(); ++it) {
-        if (!(*it)->isScalarMaterial()) {
-            return true;
-        }
-    }
-    return false;
-}
-
-

@@ -22,14 +22,20 @@
 #include "ThreadInfo.h"
 #include "Types.h"
 
+#include <Eigen/Core>
+
 //! Base class for different simulations, using DWBA.
 
 class DWBASimulation : public ISimulation
 {
  public:
-    DWBASimulation() : m_alpha_i(0), m_thread_info(), mp_simulation(0) {}
+    DWBASimulation() : mp_polarization_output(0), m_alpha_i(0), m_thread_info(),
+        mp_simulation(0) {}
 
-    virtual ~DWBASimulation() { delete mp_simulation; }
+    virtual ~DWBASimulation() {
+        delete mp_polarization_output;
+        delete mp_simulation;
+    }
 
     //! Initializes the simulation with the parameters from simulation
     virtual void init(const Simulation& simulation);
@@ -72,11 +78,17 @@ class DWBASimulation : public ISimulation
     //! The iterator takes the member ThreadInfo object into consideration.
     const const_iterator end() const { return m_dwba_intensity.end(m_thread_info); }
 
- protected:
+protected:
+    //! Checks if the sample requires a polarized calculation
+    bool checkPolarizationPresent() const;
+
+    //! Returns the wavelength of the incoming beam
+    double getWaveLength() const;
+
     OutputData<double> m_dwba_intensity;
+    OutputData<Eigen::Matrix2cd> *mp_polarization_output;
     cvector_t m_ki;
     double m_alpha_i;
-    double getWaveLength() const;
     ThreadInfo m_thread_info;
     SimulationParameters m_sim_params;
     Simulation *mp_simulation;

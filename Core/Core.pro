@@ -44,6 +44,7 @@ SOURCES += \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
     Tools/src/RealParameterWrapper.cpp \
+    Tools/src/SampleMaterialVisitor.cpp \
     Tools/src/SamplePrintVisitor.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
@@ -177,6 +178,7 @@ HEADERS += \
     Tools/inc/ProgramOptions.h \
     Tools/inc/RealParameterWrapper.h \
     Tools/inc/SafePointerVector.h \
+    Tools/inc/SampleMaterialVisitor.h \
     Tools/inc/SamplePrintVisitor.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticDoubleGate.h \

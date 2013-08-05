@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      SampleMaterialVisitor.cpp
+//! @file      Tools/src/SampleMaterialVisitor.cpp
 //! @brief     Implements class SampleMaterialVisitor.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
@@ -14,6 +14,14 @@
 // ************************************************************************** //
 
 #include "SampleMaterialVisitor.h"
+
+#include "ISample.h"
+#include "FormFactors.h"
+#include "MultiLayer.h"
+#include "ParticleDecoration.h"
+#include "Particle.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DParaCrystal.h"
 
 #include <algorithm>
 
@@ -46,7 +54,7 @@ void SampleMaterialVisitor::visit(const Layer* sample)
 {
     assert(sample);
 
-    IMaterial *p_material = sample->getMaterial();
+    const IMaterial *p_material = sample->getMaterial();
     addMaterial(p_material);
     const IDecoration *p_decoration = sample->getDecoration();
     if (p_decoration) {

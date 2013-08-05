@@ -47,6 +47,9 @@ public:
     virtual void run();
 
 protected:
+    //! calculates intensity map for samples with magnetization
+    void runMagnetic();
+
     std::set<double> getAlphaList() const;
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;

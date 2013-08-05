@@ -46,11 +46,23 @@ class DWBASimulation : public ISimulation
 
     //! Returns output data containing calculated intensity.
     const OutputData<double>& getDWBAIntensity() const
-    { return m_dwba_intensity; }
+    {
+        if (mp_polarization_output) return getPolarizationData();
+        return m_dwba_intensity;
+    }
+
+    //! Returns output data containing calculated polarized intensity.
+    const OutputData<Eigen::Matrix2cd>& getPolarizedDWBAIntensity() const
+    { return *mp_polarization_output; }
 
     //! Adds intensity to current dwba intensity
     void addDWBAIntensity(const OutputData<double>& data_to_add)
     { m_dwba_intensity += data_to_add; }
+
+    //! Adds polarized intensity to current polarized dwba intensity
+    void addPolarizedDWBAIntensity(const OutputData<Eigen::Matrix2cd>
+        &data_to_add)
+    { (*mp_polarization_output) += data_to_add; }
 
     virtual DWBASimulation *clone() const;
 
@@ -85,7 +97,10 @@ protected:
     //! Returns the wavelength of the incoming beam
     double getWaveLength() const;
 
-    OutputData<double> m_dwba_intensity;
+    //! apply beam polarization to get specific polarized intensity map
+    const OutputData<double>&  getPolarizationData() const;
+
+    mutable OutputData<double> m_dwba_intensity;
     OutputData<Eigen::Matrix2cd> *mp_polarization_output;
     cvector_t m_ki;
     double m_alpha_i;

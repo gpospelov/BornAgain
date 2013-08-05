@@ -16,11 +16,13 @@
 #include "MultiLayerDWBASimulation.h"
 
 #include "SpecularMatrix.h"
+#include "SpecularMagnetic.h"
 #include "MultiLayer.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
 #include "MessageService.h"
+#include "MagneticCoefficientsMap.h"
 
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
@@ -146,6 +148,62 @@ void MultiLayerDWBASimulation::run()
         mp_roughness_dwba_simulation->run();
         addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
     }
+}
+
+void MultiLayerDWBASimulation::runMagnetic()
+{
+    SpecularMagnetic specularCalculator;
+
+    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
+
+    m_dwba_intensity.setAllTo(0.0);
+    mp_polarization_output->setAllTo(Eigen::Matrix2cd::Zero());
+    double lambda = 2*M_PI/m_ki_real.mag();
+
+    // collect all alpha angles and calculate Fresnel coefficients
+    typedef std::pair<double, SpecularMagnetic::MultiLayerCoeff_t>
+        doubleFresnelPair_t;
+    std::vector<doubleFresnelPair_t> doubleFresnel_buffer;
+    std::set<double> alpha_set = getAlphaList();
+    doubleFresnel_buffer.reserve(alpha_set.size());
+
+    double angle;
+    kvector_t kvec;
+    SpecularMagnetic::MultiLayerCoeff_t coeffs;
+    for (std::set<double>::const_iterator it =
+             alpha_set.begin(); it != alpha_set.end(); ++it) {
+        angle = *it;
+        kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
+        specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
+        doubleFresnel_buffer.push_back( doubleFresnelPair_t(angle,coeffs) );
+    }
+
+    // run through layers and add DWBA calculated from these layers
+    for(size_t i_layer=0;
+        i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
+        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::runMagnetic()"
+                "-> Layer " << i_layer;
+        MagneticCoefficientsMap coeff_map;
+
+        for(std::vector<doubleFresnelPair_t >::const_iterator it=
+                doubleFresnel_buffer.begin();
+            it!=doubleFresnel_buffer.end(); ++it) {
+            double angle = (*it).first;
+            const SpecularMagnetic::LayerMatrixCoeff& coeff = (*it).second[i_layer];
+            coeff_map[angle] = coeff;
+        }
+
+        // layer DWBA simulation
+        std::map<size_t, LayerDWBASimulation*>::const_iterator pos =
+            m_layer_dwba_simulation_map.find(i_layer);
+        if(pos != m_layer_dwba_simulation_map.end() ) {
+            LayerDWBASimulation *p_layer_dwba_sim = pos->second;
+            p_layer_dwba_sim->setMagneticCoefficientsMap(coeff_map);
+            p_layer_dwba_sim->run();
+            addPolarizedDWBAIntensity(
+                    p_layer_dwba_sim->getPolarizedDWBAIntensity() );
+        }
+    } // i_layer
 }
 
 std::set<double> MultiLayerDWBASimulation::getAlphaList() const

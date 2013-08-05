@@ -14,11 +14,15 @@
 // ************************************************************************** //
 
 #include "LayerDWBASimulation.h"
+
+#include "MagneticCoefficientsMap.h"
+
 #include <cassert>
 
 LayerDWBASimulation::LayerDWBASimulation()
-    : mp_kz_function(0)
-    , mp_RT_function(0)
+: mp_kz_function(0)
+, mp_RT_function(0)
+, mp_coeff_map(0)
 {
 }
 
@@ -26,6 +30,7 @@ LayerDWBASimulation::~LayerDWBASimulation()
 {
     delete mp_kz_function;
     delete mp_RT_function;
+    delete mp_coeff_map;
 }
 
 void LayerDWBASimulation::setKzFunction(const IDoubleToComplexMap& kz_function)
@@ -44,6 +49,12 @@ void LayerDWBASimulation::setKzAndRTFunctions(const IDoubleToComplexMap& kz_func
 {
     setKzFunction(kz_function);
     setReflectionTransmissionFunction(rt_map);
+}
+
+void LayerDWBASimulation::setMagneticCoefficientsMap(
+        const MagneticCoefficientsMap& coeff_map)
+{
+    mp_coeff_map = coeff_map.clone();
 }
 
 Bin1DCVector LayerDWBASimulation::getKfBin(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const

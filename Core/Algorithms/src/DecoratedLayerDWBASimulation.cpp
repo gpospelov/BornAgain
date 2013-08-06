@@ -56,8 +56,14 @@ IInterferenceFunctionStrategy
 {
     LayerStrategyBuilder builder(
         *mp_layer, *mp_simulation, m_sim_params);
-    if (mp_RT_function)
-        builder.setReflectionTransmissionFunction(*mp_RT_function);
+    if (checkPolarizationPresent()) {
+        assert(mp_coeff_map);
+        builder.setRTInfo(*mp_coeff_map);
+    }
+    else {
+        assert(mp_RT_function);
+        builder.setRTInfo(*mp_RT_function);
+    }
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
     return p_strategy;
 }

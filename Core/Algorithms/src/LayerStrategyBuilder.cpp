@@ -18,6 +18,7 @@
 #include "Layer.h"
 #include "Simulation.h"
 #include "IDoubleToComplexFunction.h"
+#include "MagneticCoefficientsMap.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
@@ -28,10 +29,11 @@
 LayerStrategyBuilder::LayerStrategyBuilder(
         const Layer& decorated_layer, const Simulation& simulation,
         const SimulationParameters& sim_params)
-  : mp_layer(decorated_layer.clone())
-  , mp_simulation(simulation.clone())
-  , m_sim_params(sim_params)
-  , mp_RT_function(0)
+: mp_layer(decorated_layer.clone())
+, mp_simulation(simulation.clone())
+, m_sim_params(sim_params)
+, mp_RT_function(0)
+, mp_magnetic_coeff_map(0)
 {
     assert(mp_layer->getDecoration());
 }
@@ -41,16 +43,30 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
     delete mp_layer;
     delete mp_simulation;
     delete mp_RT_function;
+    delete mp_magnetic_coeff_map;
 }
 
 
-void LayerStrategyBuilder::setReflectionTransmissionFunction(
+void LayerStrategyBuilder::setRTInfo(
         const IDoubleToPairOfComplexMap& rt_map)
 {
-    if (mp_RT_function !=& rt_map) {
+    if (mp_RT_function != &rt_map) {
         delete mp_RT_function;
         mp_RT_function = rt_map.clone();
     }
+    delete mp_magnetic_coeff_map;
+    mp_magnetic_coeff_map = 0;
+}
+
+void LayerStrategyBuilder::setRTInfo(
+        const MagneticCoefficientsMap& magnetic_coeff_map)
+{
+    if (mp_magnetic_coeff_map != &magnetic_coeff_map) {
+        delete mp_magnetic_coeff_map;
+        mp_magnetic_coeff_map = magnetic_coeff_map.clone();
+    }
+    delete mp_RT_function;
+    mp_RT_function = 0;
 }
 
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()

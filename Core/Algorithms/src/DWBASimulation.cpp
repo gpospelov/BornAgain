@@ -44,7 +44,7 @@ void DWBASimulation::init(const Simulation& simulation)
 
     // initialize polarization output if needed
     if (checkPolarizationPresent()) {
-        mp_polarization_output = new OutputData<Eigen::Matrix2cd>();
+        mp_polarization_output = new OutputData<Eigen::Matrix2d>();
         for (size_t dim=0; dim<detector_dimension; ++dim) {
             mp_polarization_output->addAxis(detector.getAxis(dim));
         }
@@ -100,7 +100,7 @@ const OutputData<double>& DWBASimulation::getPolarizationData() const
     Eigen::Matrix2cd pol_density = mp_simulation->getInstrument()
             .getBeam().getPolarization();
     OutputData<double>::iterator it = m_dwba_intensity.begin();
-    OutputData<Eigen::Matrix2cd>::const_iterator mat_it =
+    OutputData<Eigen::Matrix2d>::const_iterator mat_it =
             mp_polarization_output->begin();
     while (it != m_dwba_intensity.end()) {
         Eigen::Matrix2cd mat = pol_density * (*mat_it);

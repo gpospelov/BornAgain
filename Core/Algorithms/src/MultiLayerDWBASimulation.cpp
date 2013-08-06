@@ -161,7 +161,7 @@ void MultiLayerDWBASimulation::runMagnetic()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    mp_polarization_output->setAllTo(Eigen::Matrix2cd::Zero());
+    mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     double lambda = 2*M_PI/m_ki_real.mag();
 
     // collect all alpha angles and calculate Fresnel coefficients

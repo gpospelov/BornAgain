@@ -52,7 +52,7 @@ class DWBASimulation : public ISimulation
     }
 
     //! Returns output data containing calculated polarized intensity.
-    const OutputData<Eigen::Matrix2cd>& getPolarizedDWBAIntensity() const
+    const OutputData<Eigen::Matrix2d>& getPolarizedDWBAIntensity() const
     { return *mp_polarization_output; }
 
     //! Adds intensity to current dwba intensity
@@ -60,7 +60,7 @@ class DWBASimulation : public ISimulation
     { m_dwba_intensity += data_to_add; }
 
     //! Adds polarized intensity to current polarized dwba intensity
-    void addPolarizedDWBAIntensity(const OutputData<Eigen::Matrix2cd>
+    void addPolarizedDWBAIntensity(const OutputData<Eigen::Matrix2d>
         &data_to_add)
     { (*mp_polarization_output) += data_to_add; }
 
@@ -101,7 +101,7 @@ protected:
     const OutputData<double>&  getPolarizationData() const;
 
     mutable OutputData<double> m_dwba_intensity;
-    OutputData<Eigen::Matrix2cd> *mp_polarization_output;
+    OutputData<Eigen::Matrix2d> *mp_polarization_output;
     cvector_t m_ki;
     double m_alpha_i;
     ThreadInfo m_thread_info;

@@ -18,16 +18,16 @@
 FormFactorCrystal::FormFactorCrystal(
         const Crystal& p_crystal,
         const IFormFactor& meso_crystal_form_factor,
-        const complex_t& ambient_refractive_index)
+        const IMaterial *p_material)
 : m_lattice(p_crystal.getLattice())
-, m_ambient_refractive_index(ambient_refractive_index)
+, mp_ambient_material(p_material)
 , m_max_rec_length(0.0)
 {
     setName("FormFactorCrystal");
     mp_particle = p_crystal.createBasis();
     mp_basis_form_factor = mp_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
-    setAmbientRefractiveIndex(ambient_refractive_index);
+    setAmbientMaterial(mp_ambient_material);
     calculateLargestReciprocalDistance();
 }
 
@@ -42,16 +42,15 @@ FormFactorCrystal* FormFactorCrystal::clone() const
 {
     Crystal np_crystal(*mp_particle, m_lattice);
     FormFactorCrystal *result = new FormFactorCrystal(np_crystal,
-            *mp_meso_form_factor, m_ambient_refractive_index);
+            *mp_meso_form_factor, mp_ambient_material);
     result->setName(getName());
     return result;
 }
 
-void FormFactorCrystal::setAmbientRefractiveIndex(
-        const complex_t& refractive_index)
+void FormFactorCrystal::setAmbientMaterial(const IMaterial *p_material)
 {
-    mp_particle->setAmbientRefractiveIndex(refractive_index);
-    mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
+    mp_particle->setAmbientMaterial(p_material);
+    mp_basis_form_factor->setAmbientMaterial(p_material);
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const

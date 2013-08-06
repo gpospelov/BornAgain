@@ -34,7 +34,7 @@ class LatticeBasis : public Particle
 
     void addParticle(const Particle& particle, std::vector<kvector_t > positions);
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index);
+    virtual void setAmbientMaterial(const IMaterial *p_material);
 
     virtual IFormFactor* createFormFactor() const;
 

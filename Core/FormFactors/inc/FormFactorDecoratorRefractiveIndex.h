@@ -17,22 +17,28 @@
 #define FORMFACTORDECORATORREFRACTIVEINDEX_H_
 
 #include "FormFactorDecoratorFactor.h"
+#include "HomogeneousMaterial.h"
 
-//! ?
+//! Decorates a scalar form factor with the correct factor for the material's
+//! refractive index and that of its surrounding material
 
 class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
 {
  public:
-    FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor, const complex_t& refractive_index);
+    FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor,
+            const complex_t& refractive_index);
     ~FormFactorDecoratorRefractiveIndex();
 
     FormFactorDecoratorRefractiveIndex *clone() const;
 
-    virtual complex_t getAmbientRefractiveIndex() const { return m_refractive_index; }
+    virtual complex_t getAmbientRefractiveIndex() const {
+        return m_refractive_index;
+    }
 
-    virtual void setAmbientRefractiveIndex(const complex_t& ambient_refractive_index);
+    virtual void setAmbientMaterial(const IMaterial *p_material);
  private:
-    complex_t getRefractiveIndexFactor(const complex_t& ambient_index, const complex_t& particle_index) const;
+    complex_t getRefractiveIndexFactor(const complex_t& ambient_index,
+            const complex_t& particle_index) const;
 
     complex_t m_refractive_index;
 };
@@ -59,9 +65,15 @@ inline FormFactorDecoratorRefractiveIndex* FormFactorDecoratorRefractiveIndex::c
     return result;
 }
 
-inline void FormFactorDecoratorRefractiveIndex::setAmbientRefractiveIndex(
-        const complex_t& ambient_refractive_index)
+inline void FormFactorDecoratorRefractiveIndex::setAmbientMaterial(
+        const IMaterial *p_material)
 {
+    const HomogeneousMaterial *p_hom_mat =
+            dynamic_cast<const HomogeneousMaterial *>(p_material);
+    complex_t ambient_refractive_index(1.0, 0.0);
+    if (p_hom_mat) {
+        ambient_refractive_index = p_hom_mat->getRefractiveIndex();
+    }
     m_factor = getRefractiveIndexFactor(ambient_refractive_index, m_refractive_index);
 }
 

@@ -34,12 +34,12 @@ class Crystal : public IClusteredParticles
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)
-    { mp_lattice_basis->setAmbientRefractiveIndex(refractive_index); }
+    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)
+    { mp_lattice_basis->setAmbientMaterial(p_ambient_material); }
 
     virtual IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        complex_t ambient_refractive_index) const;
+        const IMaterial *p_ambient_material) const;
 
     Lattice getLattice() const { return m_lattice; }
     Particle *createBasis() const { return mp_lattice_basis->clone(); }

@@ -32,7 +32,7 @@ ParticleCoreShell::~ParticleCoreShell()
 ParticleCoreShell *ParticleCoreShell::clone() const
 {
     ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core, m_relative_core_position);
-    p_new->setAmbientRefractiveIndex(m_ambient_refractive_index);
+    p_new->setAmbientMaterial(mp_ambient_material);
     return p_new;
 }
 
@@ -41,14 +41,21 @@ IFormFactor *ParticleCoreShell::createFormFactor() const
     FormFactorWeighted *p_result = new FormFactorWeighted;
     FormFactorDecoratorRefractiveIndex ff_shell(mp_shell->getSimpleFormFactor()->clone(),
             mp_shell->getRefractiveIndex());
-    ff_shell.setAmbientRefractiveIndex(m_ambient_refractive_index);
+    ff_shell.setAmbientMaterial(mp_ambient_material);
     p_result->addFormFactor(ff_shell, 1.0);
+    const HomogeneousMaterial *p_hom_mat =
+            dynamic_cast<const HomogeneousMaterial *>(mp_ambient_material);
+    if (!p_hom_mat) {
+        throw NotImplementedException("ParticleCoreShell::createFormFactor:"
+                " ambient material must be homogeneous");
+    }
+    complex_t ambient_index = p_hom_mat->getRefractiveIndex();
     complex_t core_index = std::sqrt(mp_core->getRefractiveIndex()*mp_core->getRefractiveIndex()
             - mp_shell->getRefractiveIndex()*mp_shell->getRefractiveIndex()
-            + m_ambient_refractive_index*m_ambient_refractive_index);
+            + ambient_index*ambient_index);
     FormFactorDecoratorRefractiveIndex ff_core(mp_core->getSimpleFormFactor()->clone(),
             core_index);
-    ff_core.setAmbientRefractiveIndex(m_ambient_refractive_index);
+    ff_core.setAmbientMaterial(mp_ambient_material);
     FormFactorDecoratorPositionFactor ff_core_translated(ff_core, m_relative_core_position);
     p_result->addFormFactor(ff_core_translated, 1.0);
     return p_result;

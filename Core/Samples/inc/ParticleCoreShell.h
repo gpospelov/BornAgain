@@ -31,11 +31,11 @@ class ParticleCoreShell : public Particle
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)
+    virtual void setAmbientMaterial(const IMaterial *p_material)
     {
-        m_ambient_refractive_index = refractive_index;
-        mp_shell->setAmbientRefractiveIndex(refractive_index);
-        mp_core->setAmbientRefractiveIndex(refractive_index);
+        mp_ambient_material = p_material;
+        mp_shell->setAmbientMaterial(p_material);
+        mp_core->setAmbientMaterial(p_material);
     }
 
     virtual IFormFactor* createFormFactor() const;

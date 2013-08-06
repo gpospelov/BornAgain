@@ -19,11 +19,11 @@
 #include "IFormFactorDecorator.h"
 #include "IDoubleToComplexFunction.h"
 
-//! ?
+//! Evaluates a coherent sum of the four DWBA terms in a scalar form factor
 
 class FormFactorDWBA: public IFormFactorDecorator
 {
- public:
+public:
     FormFactorDWBA(IFormFactor* p_form_factor);
     virtual ~FormFactorDWBA();
 
@@ -35,11 +35,13 @@ class FormFactorDWBA: public IFormFactorDecorator
         mp_RT = p_rt.clone();
     }
 
-    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector&
+            k_f_bin, double alpha_i, double alpha_f) const;
 
- protected:
+protected:
     const complexpair_t& getRT(double alpha) const;
-    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+            double alpha_i, double alpha_f) const;
 
     IDoubleToPairOfComplexMap *mp_RT;
 

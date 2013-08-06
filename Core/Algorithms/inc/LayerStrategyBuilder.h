@@ -20,6 +20,7 @@
 #include "SafePointerVector.h"
 #include "ICloneable.h"
 #include "Types.h"
+#include "IMaterial.h"
 
 class FormFactorInfo;
 class IInterferenceFunction;
@@ -66,7 +67,7 @@ private:
     //! Creates formfactor info for single particle
     FormFactorInfo *createFormFactorInfo(
         const ParticleInfo *p_particle_info,
-        complex_t n_ambient_refractive_index,
+        const IMaterial *p_ambient_material,
         complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;

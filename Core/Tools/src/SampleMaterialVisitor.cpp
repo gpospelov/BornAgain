@@ -37,6 +37,7 @@ SampleMaterialVisitor::~SampleMaterialVisitor()
 
 void SampleMaterialVisitor::visit(const ISample* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::visit(ISample *)");
 }
 
@@ -64,6 +65,7 @@ void SampleMaterialVisitor::visit(const Layer* sample)
 
 void SampleMaterialVisitor::visit(const LayerInterface* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::visit(LayerInterface *)");
 }
 
@@ -97,36 +99,42 @@ void SampleMaterialVisitor::visit(const Particle* sample)
 
 void SampleMaterialVisitor::visit(const IFormFactor* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(IFormFactor *)");
 }
 
 void SampleMaterialVisitor::visit(const FormFactorFullSphere* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(FormFactorFullSphere *)");
 }
 
 void SampleMaterialVisitor::visit(const FormFactorPyramid* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(FormFactorPyramid *)");
 }
 
 void SampleMaterialVisitor::visit(const FormFactorCylinder* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(FormFactorCylinder *)");
 }
 
 void SampleMaterialVisitor::visit(const FormFactorPrism3* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(FormFactorPrism3 *)");
 }
 
 void SampleMaterialVisitor::visit(const IInterferenceFunction* sample)
 {
+    (void)sample;
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(IInterferenceFunction *)");
 }

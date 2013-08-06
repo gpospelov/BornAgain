@@ -44,10 +44,10 @@ void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
     m_weights.push_back(weight);
 }
 
-void FormFactorWeighted::setAmbientRefractiveIndex(const complex_t& refractive_index)
+void FormFactorWeighted::setAmbientMaterial(const IMaterial *p_material)
 {
     for (size_t index=0; index<m_form_factors.size(); ++index) {
-        m_form_factors[index]->setAmbientRefractiveIndex(refractive_index);
+        m_form_factors[index]->setAmbientMaterial(p_material);
     }
 }
 

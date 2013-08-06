@@ -102,7 +102,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     assert(mp_layer->getDecoration());
     m_ff_infos.clear();
     const IDecoration *p_decoration = mp_layer->getDecoration();
-    complex_t n_layer = mp_layer->getRefractiveIndex();
+    const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
     size_t number_of_particles = p_decoration->getNumberOfParticles();
@@ -111,8 +111,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
         const ParticleInfo *p_particle_info =
             p_decoration->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info =
-            createFormFactorInfo(p_particle_info,
-                                 n_layer,
+            createFormFactorInfo(p_particle_info, p_layer_material,
                                  wavevector_scattering_factor);
         p_ff_info->m_abundance =
             p_decoration->getAbundanceFractionOfParticle(particle_index);
@@ -140,7 +139,7 @@ double LayerStrategyBuilder::getWavelength()
 
 FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         const ParticleInfo *p_particle_info,
-        complex_t n_ambient_refractive_index,
+        const IMaterial *p_ambient_material,
         complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
@@ -149,7 +148,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         p_particle_info->getPTransform3D();
 
     // formfactor
-    p_particle_clone->setAmbientRefractiveIndex(n_ambient_refractive_index);
+    p_particle_clone->setAmbientMaterial(p_ambient_material);
     IFormFactor *ff_particle = p_particle_clone->createFormFactor();
     delete p_particle_clone;
     IFormFactor *ff_transformed(0);

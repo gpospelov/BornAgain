@@ -34,14 +34,15 @@ class MesoCrystal : public Particle
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)
+    virtual void setAmbientMaterial(const IMaterial *p_material)
     {
-        mp_particle_structure->setAmbientRefractiveIndex(refractive_index);
+        mp_particle_structure->setAmbientMaterial(p_material);
     }
 
     virtual IFormFactor* createFormFactor() const
     {
-        return mp_particle_structure->createTotalFormFactor(*mp_meso_form_factor, m_ambient_refractive_index);
+        return mp_particle_structure->createTotalFormFactor(
+                *mp_meso_form_factor, mp_ambient_material);
     }
 
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)

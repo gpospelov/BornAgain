@@ -32,7 +32,7 @@ class IClusteredParticles : public ICompositeSample
     //! clone method to allow for polymorphic copying
     virtual IClusteredParticles *clone() const { throw NotImplementedException("IClusteredParticles::clone() -> Error! Not implemented exception"); }
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)=0;
+    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)=0;
 
     //! @brief create a total form factor for the mesocrystal with a specific shape and content
     //! @param meso_crystal_form_factor  the form factor describing the shape of the mesocrystal
@@ -45,10 +45,10 @@ class IClusteredParticles : public ICompositeSample
 
 
     virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
-            complex_t ambient_refractive_index) const
+            const IMaterial *p_ambient_material) const
     {
         (void)meso_crystal_form_factor;
-        (void)ambient_refractive_index;
+        (void)p_ambient_material;
         throw NotImplementedException("IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
     }
 

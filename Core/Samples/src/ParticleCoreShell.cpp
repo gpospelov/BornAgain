@@ -43,13 +43,7 @@ IFormFactor *ParticleCoreShell::createFormFactor() const
             mp_shell->getRefractiveIndex());
     ff_shell.setAmbientMaterial(mp_ambient_material);
     p_result->addFormFactor(ff_shell, 1.0);
-    const HomogeneousMaterial *p_hom_mat =
-            dynamic_cast<const HomogeneousMaterial *>(mp_ambient_material);
-    if (!p_hom_mat) {
-        throw NotImplementedException("ParticleCoreShell::createFormFactor:"
-                " ambient material must be homogeneous");
-    }
-    complex_t ambient_index = p_hom_mat->getRefractiveIndex();
+    complex_t ambient_index = mp_ambient_material->getRefractiveIndex();
     complex_t core_index = std::sqrt(mp_core->getRefractiveIndex()*mp_core->getRefractiveIndex()
             - mp_shell->getRefractiveIndex()*mp_shell->getRefractiveIndex()
             + ambient_index*ambient_index);

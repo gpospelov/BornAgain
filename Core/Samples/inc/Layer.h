@@ -93,8 +93,8 @@ class BA_CORE_API_ Layer : public ICompositeSample
 
 inline complex_t Layer::getRefractiveIndex() const
 {
-    const HomogeneousMaterial *material = dynamic_cast<const HomogeneousMaterial *>(mp_material);
-    return (material ? material->getRefractiveIndex() : complex_t(0,0));
+    return (mp_material ? mp_material->getRefractiveIndex()
+                        : complex_t(1.0,0.0));
 }
 
 inline double Layer::getTotalParticleSurfaceDensity() const

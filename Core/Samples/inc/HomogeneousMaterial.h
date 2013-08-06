@@ -41,7 +41,7 @@ public:
     virtual ~HomogeneousMaterial() {}
 
     //! Return refractive index.
-    complex_t getRefractiveIndex() const { return m_refractive_index; }
+    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
 
     //! Set refractive index.
     void setRefractiveIndex(const complex_t &refractive_index)

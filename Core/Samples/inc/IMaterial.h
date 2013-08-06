@@ -45,6 +45,9 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
     { m.print(ostr); return ostr; }
 
+    //! Return refractive index.
+    virtual complex_t getRefractiveIndex() const { return 1.0; }
+
 #ifndef GCCXML_SKIP_THIS
     //! Get the scattering matrix from the refractive index
     //! and a given wavevector

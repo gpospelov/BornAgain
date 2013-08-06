@@ -107,8 +107,7 @@ inline IFormFactor* Particle::createFormFactor() const
 
 inline complex_t Particle::getRefractiveIndex() const
 {
-    const HomogeneousMaterial *material = dynamic_cast<const HomogeneousMaterial *>(mp_material);
-    return (material ? material->getRefractiveIndex() : complex_t(0,0));
+    return (mp_material ? mp_material->getRefractiveIndex() : complex_t(0,0));
 }
 
 inline bool Particle::hasDistributedFormFactor() const

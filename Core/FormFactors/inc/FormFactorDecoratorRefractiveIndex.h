@@ -68,11 +68,9 @@ inline FormFactorDecoratorRefractiveIndex* FormFactorDecoratorRefractiveIndex::c
 inline void FormFactorDecoratorRefractiveIndex::setAmbientMaterial(
         const IMaterial *p_material)
 {
-    const HomogeneousMaterial *p_hom_mat =
-            dynamic_cast<const HomogeneousMaterial *>(p_material);
     complex_t ambient_refractive_index(1.0, 0.0);
-    if (p_hom_mat) {
-        ambient_refractive_index = p_hom_mat->getRefractiveIndex();
+    if (p_material) {
+        ambient_refractive_index = p_material->getRefractiveIndex();
     }
     m_factor = getRefractiveIndexFactor(ambient_refractive_index, m_refractive_index);
 }

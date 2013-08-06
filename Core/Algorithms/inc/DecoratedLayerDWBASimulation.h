@@ -45,7 +45,6 @@ class DecoratedLayerDWBASimulation : public LayerDWBASimulation
 
  private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
-    std::vector<IFormFactor*> createDWBAFormFactors() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();
 

@@ -62,47 +62,6 @@ IInterferenceFunctionStrategy
     return p_strategy;
 }
 
-std::vector<IFormFactor*>
-DecoratedLayerDWBASimulation::createDWBAFormFactors() const
-{
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...()";
-    std::vector<IFormFactor*> result;
-    const IDecoration *p_decoration = mp_layer->getDecoration();
-    complex_t n_layer = mp_layer->getRefractiveIndex();
-    size_t number_of_particles = p_decoration->getNumberOfParticles();
-    for (size_t particle_index =
-            0; particle_index<number_of_particles; ++particle_index) {
-        Particle *p_particle = p_decoration->getParticleInfo(particle_index)->getParticle()->clone();
-        double depth = p_decoration->getParticleInfo(particle_index)->getDepth();
-        const Geometry::PTransform3D transform =
-            p_decoration->getParticleInfo(particle_index)->getPTransform3D();
-
-        p_particle->setAmbientRefractiveIndex(n_layer);
-        complex_t wavevector_scattering_factor =
-            M_PI/getWaveLength()/getWaveLength();
-
-        IFormFactor *ff_particle = p_particle->createFormFactor();
-        IFormFactor *ff_transformed(0);
-        if(transform) {
-            msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...() avec!";
-            ff_transformed = new FormFactorDecoratorTransformation(
-                ff_particle, transform);
-        } else {
-            msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...() sans!";
-            ff_transformed = ff_particle;
-        }
-
-        FormFactorDWBAConstZ dwba_z(ff_transformed, depth);
-        dwba_z.setReflectionTransmissionFunction(*mp_RT_function);
-        FormFactorDecoratorFactor *p_ff =
-            new FormFactorDecoratorFactor(
-                dwba_z.clone(), wavevector_scattering_factor);
-        result.push_back(p_ff);
-        delete p_particle;
-    }
-    return result;
-}
-
 void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {

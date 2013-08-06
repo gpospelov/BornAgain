@@ -29,7 +29,8 @@ public:
 
     virtual FormFactorDWBA *clone() const;
 
-    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap& p_rt)
+    //! Sets reflection/transmission map for scalar DWBA simulation
+    void setRTInfo(const IDoubleToPairOfComplexMap& p_rt)
     {
         delete mp_RT;
         mp_RT = p_rt.clone();

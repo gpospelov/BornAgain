@@ -42,7 +42,7 @@ FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 {
     FormFactorDWBAConstZ *p_new =
         new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
-    p_new->setReflectionTransmissionFunction(*mp_RT);
+    p_new->setRTInfo(*mp_RT);
     return p_new;
 }
 

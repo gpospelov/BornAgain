@@ -188,7 +188,7 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         double depth = p_particle_info->getDepth();
         FormFactorDWBAConstZ *p_dwba_ff =
             new FormFactorDWBAConstZ(ff_transformed, depth);
-        p_dwba_ff->setReflectionTransmissionFunction(*mp_RT_function);
+        p_dwba_ff->setRTInfo(*mp_RT_function);
         p_ff_framework = p_dwba_ff;
         break;
     }

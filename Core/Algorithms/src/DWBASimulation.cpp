@@ -17,6 +17,20 @@
 
 #include "SampleMaterialVisitor.h"
 
+DWBASimulation::DWBASimulation()
+: mp_polarization_output(0)
+, m_alpha_i(0)
+, m_thread_info()
+, mp_simulation(0)
+{
+}
+
+DWBASimulation::~DWBASimulation()
+{
+       delete mp_polarization_output;
+       delete mp_simulation;
+}
+
 void DWBASimulation::init(const Simulation& simulation)
 {
     if (mp_simulation !=& simulation) {
@@ -52,6 +66,12 @@ void DWBASimulation::init(const Simulation& simulation)
             mp_polarization_output->setMask(*simulation.getOutputData()->getMask());
         }
     }
+}
+
+const OutputData<double>& DWBASimulation::getDWBAIntensity() const
+{
+    if (mp_polarization_output) return getPolarizationData();
+    return m_dwba_intensity;
 }
 
 DWBASimulation *DWBASimulation::clone() const

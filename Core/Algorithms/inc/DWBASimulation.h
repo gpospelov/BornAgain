@@ -22,20 +22,18 @@
 #include "ThreadInfo.h"
 #include "Types.h"
 
+#ifndef GCCXML_SKIP_THIS
 #include <Eigen/Core>
+#endif
 
 //! Base class for different simulations, using DWBA.
 
 class DWBASimulation : public ISimulation
 {
  public:
-    DWBASimulation() : mp_polarization_output(0), m_alpha_i(0), m_thread_info(),
-        mp_simulation(0) {}
+    DWBASimulation();
 
-    virtual ~DWBASimulation() {
-        delete mp_polarization_output;
-        delete mp_simulation;
-    }
+    virtual ~DWBASimulation();
 
     //! Initializes the simulation with the parameters from simulation
     virtual void init(const Simulation& simulation);
@@ -45,24 +43,24 @@ class DWBASimulation : public ISimulation
     { m_thread_info = thread_info; }
 
     //! Returns output data containing calculated intensity.
-    const OutputData<double>& getDWBAIntensity() const
-    {
-        if (mp_polarization_output) return getPolarizationData();
-        return m_dwba_intensity;
-    }
+    const OutputData<double>& getDWBAIntensity() const;
 
+#ifndef GCCXML_SKIP_THIS
     //! Returns output data containing calculated polarized intensity.
     const OutputData<Eigen::Matrix2d>& getPolarizedDWBAIntensity() const
     { return *mp_polarization_output; }
+#endif
 
     //! Adds intensity to current dwba intensity
     void addDWBAIntensity(const OutputData<double>& data_to_add)
     { m_dwba_intensity += data_to_add; }
 
+#ifndef GCCXML_SKIP_THIS
     //! Adds polarized intensity to current polarized dwba intensity
     void addPolarizedDWBAIntensity(const OutputData<Eigen::Matrix2d>
         &data_to_add)
     { (*mp_polarization_output) += data_to_add; }
+#endif
 
     virtual DWBASimulation *clone() const;
 
@@ -101,7 +99,9 @@ protected:
     const OutputData<double>&  getPolarizationData() const;
 
     mutable OutputData<double> m_dwba_intensity;
+#ifndef GCCXML_SKIP_THIS
     OutputData<Eigen::Matrix2d> *mp_polarization_output;
+#endif
     cvector_t m_ki;
     double m_alpha_i;
     ThreadInfo m_thread_info;

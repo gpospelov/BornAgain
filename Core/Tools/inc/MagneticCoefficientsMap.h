@@ -19,6 +19,8 @@
 #include "Utils.h"
 #include "SpecularMagnetic.h"
 
+#include <boost/shared_ptr.hpp>
+
 //! Map from angles (double) to matrix coefficients for magnetic
 //! DWBA calculation.
 
@@ -26,18 +28,19 @@ class MagneticCoefficientsMap
 {
  public:
     typedef Utils::UnorderedMap<double, SpecularMagnetic::LayerMatrixCoeff>
-        container_t;
+        container_phi_t;
+    typedef Utils::UnorderedMap<double, container_phi_t> container_t;
 
     MagneticCoefficientsMap(){}
     MagneticCoefficientsMap(const container_t& value_map) : m_value_map(value_map) {}
 
-    SpecularMagnetic::LayerMatrixCoeff&  operator[] (double key) {
+    container_phi_t&  operator[] (double key) {
         return m_value_map[key];
     }
     MagneticCoefficientsMap *clone() const {
         return new MagneticCoefficientsMap(m_value_map);
     }
-    const SpecularMagnetic::LayerMatrixCoeff& evaluate(double value) const {
+    const container_phi_t& evaluate(double value) const {
         return m_value_map.find(value);
     }
  private:

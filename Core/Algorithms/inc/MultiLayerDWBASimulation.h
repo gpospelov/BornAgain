@@ -51,6 +51,7 @@ protected:
     void runMagnetic();
 
     std::set<double> getAlphaList() const;
+    std::set<double> getPhiList() const;
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;
     MultiLayerRoughnessDWBASimulation *mp_roughness_dwba_simulation;

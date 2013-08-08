@@ -164,37 +164,58 @@ void MultiLayerDWBASimulation::runMagnetic()
     mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     double lambda = 2*M_PI/m_ki_real.mag();
 
-    // collect all alpha angles and calculate Fresnel coefficients
-    typedef std::pair<double, SpecularMagnetic::MultiLayerCoeff_t>
-        doubleFresnelPair_t;
-    std::vector<doubleFresnelPair_t> doubleFresnel_buffer;
-    std::set<double> alpha_set = getAlphaList();
-    doubleFresnel_buffer.reserve(alpha_set.size());
+    // collect all (alpha, phi) angles and calculate Fresnel coefficients
 
-    double angle;
+    // TODO: reverse  B-field for k_f
+    typedef Utils::UnorderedMap<double, SpecularMagnetic::MultiLayerCoeff_t>
+        container_phi_t;
+    typedef Utils::UnorderedMap<double, container_phi_t> container_t;
+
+    container_t multi_layer_coeff_buffer;
+    std::set<double> alpha_set = getAlphaList();
+    std::set<double> phi_set = getPhiList();
+
+    double alpha, phi;
     kvector_t kvec;
+    container_phi_t phi_coeffs;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    for (std::set<double>::const_iterator it =
-             alpha_set.begin(); it != alpha_set.end(); ++it) {
-        angle = *it;
-        kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
-        specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        doubleFresnel_buffer.push_back( doubleFresnelPair_t(angle,coeffs) );
+    for (std::set<double>::const_iterator it_alpha =
+             alpha_set.begin(); it_alpha != alpha_set.end(); ++it_alpha) {
+        alpha = *it_alpha;
+        phi_coeffs.clear();
+        for (std::set<double>::const_iterator it_phi =
+             phi_set.begin(); it_phi != phi_set.end(); ++it_phi) {
+            phi = *it_phi;
+            kvec.setLambdaAlphaPhi(lambda, -alpha, -phi);
+            specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
+            phi_coeffs[phi] = coeffs;
+        }
+        multi_layer_coeff_buffer[alpha] = phi_coeffs;
     }
 
     // run through layers and add DWBA calculated from these layers
+    MagneticCoefficientsMap::container_phi_t phi_layer_coeffs;
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::runMagnetic()"
                 "-> Layer " << i_layer;
         MagneticCoefficientsMap coeff_map;
 
-        for(std::vector<doubleFresnelPair_t >::const_iterator it=
-                doubleFresnel_buffer.begin();
-            it!=doubleFresnel_buffer.end(); ++it) {
-            double angle = (*it).first;
-            const SpecularMagnetic::LayerMatrixCoeff& coeff = (*it).second[i_layer];
-            coeff_map[angle] = coeff;
+        for(Utils::UnorderedMap<double, container_phi_t>::const_iterator
+                it_alpha = multi_layer_coeff_buffer.begin();
+                it_alpha!=multi_layer_coeff_buffer.end(); ++it_alpha) {
+            alpha = (*it_alpha).first;
+            phi_layer_coeffs.clear();
+            for (Utils::UnorderedMap<double, SpecularMagnetic::
+                    MultiLayerCoeff_t>::const_iterator it_phi =
+                            (*it_alpha).second.begin();
+                    it_phi != (*it_alpha).second.end(); ++it_phi) {
+                phi = (*it_phi).first;
+                const SpecularMagnetic::LayerMatrixCoeff& coeff =
+                        (*it_phi).second[i_layer];
+                phi_layer_coeffs[phi] = coeff;
+            }
+            coeff_map[alpha] = phi_layer_coeffs;
         }
 
         // layer DWBA simulation
@@ -222,5 +243,20 @@ std::set<double> MultiLayerDWBASimulation::getAlphaList() const
     }
     // Also add input angle
     result.insert(-m_alpha_i);
+    return result;
+}
+
+std::set<double> MultiLayerDWBASimulation::getPhiList() const
+{
+    std::set<double> result;
+    const IAxis *p_phi_axis = getDWBAIntensity().getAxis("phi_f");
+    for (size_t i=0; i<p_phi_axis->getSize(); ++i) {
+        Bin1D phi_bin = p_phi_axis->getBin(i);
+        result.insert(phi_bin.m_lower);
+        result.insert(phi_bin.getMidPoint());
+        result.insert(phi_bin.m_upper);
+    }
+    // Also add input angle
+    result.insert(0.0);
     return result;
 }

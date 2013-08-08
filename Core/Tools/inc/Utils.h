@@ -126,7 +126,7 @@ inline std::string AdjustStringLength(std::string name, int length)
 template<class Key, class Object >
 class UnorderedMap
 {
- public:
+public:
     typedef boost::unordered_map<Key, Object > container_t;
     typedef typename container_t::iterator iterator;
     typedef typename container_t::const_iterator const_iterator;
@@ -134,10 +134,14 @@ class UnorderedMap
     UnorderedMap() {}
     virtual ~UnorderedMap(){}
 
+    void clear() {
+        m_value_map.clear();
+    }
+
     //UnorderedMap *clone() { return new UnorderedMap(m_value_map); }
 
-    const_iterator begin() { return m_value_map.begin(); }
-    const_iterator end() { return m_value_map.end(); }
+    const_iterator begin() const { return m_value_map.begin(); }
+    const_iterator end() const { return m_value_map.end(); }
     const Object& find(const Key& key) const
     {
         const_iterator pos = m_value_map.find(key);
@@ -152,8 +156,8 @@ class UnorderedMap
     size_t size() { return m_value_map.size(); }
     Object&  operator[] (const Key& key) { return m_value_map[key]; }
 
- private:
-    UnorderedMap& operator=(const UnorderedMap& );
+private:
+//    UnorderedMap& operator=(const UnorderedMap& );
 
     container_t m_value_map;
 };

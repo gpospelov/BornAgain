@@ -83,8 +83,12 @@ class BA_CORE_API_ MultiLayer : public ICompositeSample
     //! Destructs allocated objects
     void clear();
 
-    //! Returns alone of multilayer with clones of all layers and recreated interfaces between layers
+    //! Returns alone of multilayer with clones of all layers and recreated
+    //! interfaces between layers
     virtual MultiLayer *clone() const;
+
+    //! Returns a clone with inverted magnetic fields
+    virtual MultiLayer *cloneInvertB() const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     inline void setCrossCorrLength(double crossCorrLength)
@@ -100,7 +104,8 @@ class BA_CORE_API_ MultiLayer : public ICompositeSample
     ///! correlation function of roughnesses between the interfaces
     //double getCrossCorrFun(const kvector_t& k, int j, int k) const;
 
-    //! Fourier transform of the correlation function of roughnesses between the interfaces
+    //! Fourier transform of the correlation function of roughnesses between
+    //! the interfaces
     double getCrossCorrSpectralFun(
         const kvector_t& kvec, size_t j, size_t k) const;
 
@@ -111,7 +116,8 @@ class BA_CORE_API_ MultiLayer : public ICompositeSample
     friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m)
     { m.print(ostr); return ostr; }
 
-    //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
+    //! look for the presence of DWBA terms (e.g. included particles) and return
+    //! ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
  protected:

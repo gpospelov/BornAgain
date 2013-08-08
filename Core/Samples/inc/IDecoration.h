@@ -34,6 +34,9 @@ class IDecoration : public ICompositeSample
 
     virtual IDecoration *clone() const=0;
 
+    //! Returns a clone with inverted magnetic fields
+    virtual IDecoration *cloneInvertB() const=0;
+
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const=0;
 

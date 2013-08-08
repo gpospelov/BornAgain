@@ -40,6 +40,9 @@ class BA_CORE_API_ Layer : public ICompositeSample
 
     virtual Layer *clone() const { return new Layer(*this); }
 
+    //! Returns a clone with inverted magnetic fields
+    virtual Layer *cloneInvertB() const;
+
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 

@@ -43,7 +43,14 @@ MesoCrystal::~MesoCrystal()
 
 MesoCrystal* MesoCrystal::clone() const
 {
-    return new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
+    return new MesoCrystal(mp_particle_structure->clone(),
+            mp_meso_form_factor->clone());
+}
+
+MesoCrystal* MesoCrystal::cloneInvertB() const
+{
+    return new MesoCrystal(mp_particle_structure->cloneInvertB(),
+            mp_meso_form_factor->clone());
 }
 
 std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(

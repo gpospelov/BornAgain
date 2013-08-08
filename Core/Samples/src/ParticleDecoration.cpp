@@ -42,6 +42,25 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
+ParticleDecoration* ParticleDecoration::cloneInvertB() const
+{
+    //   msglog(MSG::DEBUG) << "ParticleDecoration::clone()";
+    ParticleDecoration *p_new = new ParticleDecoration();
+    p_new->setName(getName() + "_inv");
+
+    for (size_t i=0; i<m_particles.size(); ++i)
+        p_new->addAndRegisterParticleInfo(m_particles[i]->cloneInvertB());
+
+    for (size_t i=0; i<m_interference_functions.size(); ++i)
+        p_new->addAndRegisterInterferenceFunction(
+            m_interference_functions[i]->clone());
+
+    p_new->m_total_abundance = m_total_abundance;
+    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+
+    return p_new;
+}
+
 //! Adds generic particle, *-version.
 
 void ParticleDecoration::addParticle(

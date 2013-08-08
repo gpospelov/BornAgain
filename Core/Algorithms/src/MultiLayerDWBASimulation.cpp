@@ -24,6 +24,8 @@
 #include "MessageService.h"
 #include "MagneticCoefficientsMap.h"
 
+#include <boost/scoped_ptr.hpp>
+
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
         const MultiLayer* p_multi_layer)
@@ -100,6 +102,8 @@ void MultiLayerDWBASimulation::run()
         doubleFresnelPair_t;
     std::vector<doubleFresnelPair_t> doubleFresnel_buffer;
     std::set<double> alpha_set = getAlphaList();
+    // also add incoming alpha
+    alpha_set.insert(-m_alpha_i);
     doubleFresnel_buffer.reserve(alpha_set.size());
 
     double angle;
@@ -165,8 +169,7 @@ void MultiLayerDWBASimulation::runMagnetic()
     double lambda = 2*M_PI/m_ki_real.mag();
 
     // collect all (alpha, phi) angles and calculate Fresnel coefficients
-
-    // TODO: reverse  B-field for k_f
+    // (also one set of coefficients for the incoming wavevector)
     typedef Utils::UnorderedMap<double, SpecularMagnetic::MultiLayerCoeff_t>
         container_phi_t;
     typedef Utils::UnorderedMap<double, container_phi_t> container_t;
@@ -179,6 +182,10 @@ void MultiLayerDWBASimulation::runMagnetic()
     kvector_t kvec;
     container_phi_t phi_coeffs;
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
+    // the coefficients for the incoming wavevector are calculated on the
+    // sample with inverted magnetic field:
+    boost::scoped_ptr<MultiLayer> P_inverted_B_multi_layer(
+            mp_multi_layer->cloneInvertB());
     for (std::set<double>::const_iterator it_alpha =
              alpha_set.begin(); it_alpha != alpha_set.end(); ++it_alpha) {
         alpha = *it_alpha;
@@ -186,14 +193,17 @@ void MultiLayerDWBASimulation::runMagnetic()
         for (std::set<double>::const_iterator it_phi =
              phi_set.begin(); it_phi != phi_set.end(); ++it_phi) {
             phi = *it_phi;
-            kvec.setLambdaAlphaPhi(lambda, -alpha, -phi);
-            specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
+            kvec.setLambdaAlphaPhi(lambda, alpha, phi);
+            specularCalculator.execute(*P_inverted_B_multi_layer, -kvec, coeffs);
             phi_coeffs[phi] = coeffs;
         }
         multi_layer_coeff_buffer[alpha] = phi_coeffs;
     }
+    // the coefficients for the incoming wavevector are calculated on the
+    // original sample
+    specularCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
 
-    // run through layers and add DWBA calculated from these layers
+    // run through layers and add DWBA from each layer
     MagneticCoefficientsMap::container_phi_t phi_layer_coeffs;
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
@@ -201,6 +211,7 @@ void MultiLayerDWBASimulation::runMagnetic()
                 "-> Layer " << i_layer;
         MagneticCoefficientsMap coeff_map;
 
+        // construct the reflection/transmission coefficients for this layer
         for(Utils::UnorderedMap<double, container_phi_t>::const_iterator
                 it_alpha = multi_layer_coeff_buffer.begin();
                 it_alpha!=multi_layer_coeff_buffer.end(); ++it_alpha) {
@@ -217,6 +228,8 @@ void MultiLayerDWBASimulation::runMagnetic()
             }
             coeff_map[alpha] = phi_layer_coeffs;
         }
+        // add reflection/transmission coeffs from incoming beam
+        coeff_map.incomingCoeff() = coeffs[i_layer];
 
         // layer DWBA simulation
         std::map<size_t, LayerDWBASimulation*>::const_iterator pos =
@@ -241,8 +254,6 @@ std::set<double> MultiLayerDWBASimulation::getAlphaList() const
         result.insert(alpha_bin.getMidPoint());
         result.insert(alpha_bin.m_upper);
     }
-    // Also add input angle
-    result.insert(-m_alpha_i);
     return result;
 }
 
@@ -256,7 +267,5 @@ std::set<double> MultiLayerDWBASimulation::getPhiList() const
         result.insert(phi_bin.getMidPoint());
         result.insert(phi_bin.m_upper);
     }
-    // Also add input angle
-    result.insert(0.0);
     return result;
 }

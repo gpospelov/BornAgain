@@ -35,6 +35,9 @@ class BA_CORE_API_ Particle : public ICompositeSample
     virtual ~Particle();
     virtual Particle *clone() const;
 
+    //! Returns a clone with inverted magnetic fields
+    virtual Particle *cloneInvertB() const;
+
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

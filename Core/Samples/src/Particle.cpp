@@ -16,6 +16,8 @@
 #include "Particle.h"
 #include "ParticleInfo.h"
 
+#include "MaterialManager.h"
+
 
 Particle::Particle()
 : mp_material(0)
@@ -59,6 +61,23 @@ Particle* Particle::clone() const
     p_new->setAmbientMaterial(mp_ambient_material);
 
     p_new->setName(getName());
+    return p_new;
+}
+
+Particle* Particle::cloneInvertB() const
+{
+    IFormFactor *p_form_factor(0);
+    if(mp_form_factor) p_form_factor = mp_form_factor->clone();
+
+    const IMaterial *p_material = MaterialManager::getInvertedMaterial(
+            mp_material->getName());
+    const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
+            mp_ambient_material->getName());
+
+    Particle *p_new = new Particle(p_material, p_form_factor);
+    p_new->setAmbientMaterial(p_ambient_material);
+
+    p_new->setName(getName() + "_inv");
     return p_new;
 }
 

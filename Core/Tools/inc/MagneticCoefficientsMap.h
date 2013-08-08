@@ -26,30 +26,38 @@
 
 class MagneticCoefficientsMap
 {
- public:
+public:
     typedef Utils::UnorderedMap<double, SpecularMagnetic::LayerMatrixCoeff>
         container_phi_t;
     typedef Utils::UnorderedMap<double, container_phi_t> container_t;
 
     MagneticCoefficientsMap(){}
-    MagneticCoefficientsMap(const container_t& value_map) : m_value_map(value_map) {}
+    MagneticCoefficientsMap(const container_t& value_map,
+            SpecularMagnetic::LayerMatrixCoeff incoming_coeff)
+            : m_value_map(value_map)
+            , m_incoming_coeff(incoming_coeff) {}
+
+    MagneticCoefficientsMap *clone() const;
 
     container_phi_t&  operator[] (double key) {
         return m_value_map[key];
     }
-    MagneticCoefficientsMap *clone() const {
-        return new MagneticCoefficientsMap(m_value_map);
-    }
+
     const container_phi_t& evaluate(double value) const {
         return m_value_map.find(value);
     }
- private:
+
+    SpecularMagnetic::LayerMatrixCoeff& incomingCoeff() {
+        return m_incoming_coeff;
+    }
+private:
     container_t m_value_map;
+    SpecularMagnetic::LayerMatrixCoeff m_incoming_coeff;
 };
 
-//! Double to pair of complex unordered map.
-
-
-
+inline MagneticCoefficientsMap* MagneticCoefficientsMap::clone() const
+{
+    return new MagneticCoefficientsMap(m_value_map, m_incoming_coeff);
+}
 
 #endif /* MAGNETICCOEFFICIENTSMAP_H_ */

@@ -153,8 +153,21 @@ const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
         magnetic_field);
 }
 
-//! Dump this to stream.
+const IMaterial* MaterialManager::this_getInvertedMaterial(
+        const std::string& name)
+{
+    const IMaterial *p_orig_material = getMaterial(name);
+    if (!p_orig_material) return 0;
+    const HomogeneousMagneticMaterial *p_magn_material =
+            dynamic_cast<const HomogeneousMagneticMaterial *>(p_orig_material);
+    if (!p_magn_material) return p_orig_material;
+    std::string new_name = name + "_inv";
+    return this_getHomogeneousMagneticMaterial(new_name,
+            p_magn_material->getRefractiveIndex(),
+            -p_magn_material->getMagneticField());
+}
 
+//! Dump this to stream.
 void MaterialManager::print(std::ostream& ostr) const
 {
     ostr << typeid(*this).name() << " " << this <<

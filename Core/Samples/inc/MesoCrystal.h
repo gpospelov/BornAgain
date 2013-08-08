@@ -31,6 +31,9 @@ class MesoCrystal : public Particle
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
 
+    //! Returns a clone with inverted magnetic fields
+    virtual MesoCrystal *cloneInvertB() const;
+
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 

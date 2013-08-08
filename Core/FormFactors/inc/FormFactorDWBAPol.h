@@ -32,6 +32,7 @@ public:
 
     virtual FormFactorDWBAPol *clone() const;
 
+    // Forwards to the evaluate function of the embedded form factor
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const {
         (void)k_i;
@@ -41,19 +42,22 @@ public:
         return mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
     }
 
+    //! Calculates and returns a polarized form factor in DWBA
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+
     //! Sets magnetic reflection/transmission info for polarized DWBA
     void setRTInfo(const MagneticCoefficientsMap& magnetic_coeff_map);
 
+    //! Sets the material of the scatterer
     void setMaterial(const IMaterial *p_material) {
         mp_material = p_material;
     }
 
+    //! Sets the material of the surrounding structure
     virtual void setAmbientMaterial(const IMaterial *p_material) {
         mp_ambient_material = p_material;
     }
-
-    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i, const Bin1DCVector&
-            k_f_bin, double alpha_i, double alpha_f) const;
 protected:
     void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const;

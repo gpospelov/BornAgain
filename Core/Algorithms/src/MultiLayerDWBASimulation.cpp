@@ -204,7 +204,6 @@ void MultiLayerDWBASimulation::runMagnetic()
     specularCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
 
     // run through layers and add DWBA from each layer
-    MagneticCoefficientsMap::container_phi_t phi_layer_coeffs;
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::runMagnetic()"
@@ -216,6 +215,7 @@ void MultiLayerDWBASimulation::runMagnetic()
                 it_alpha = multi_layer_coeff_buffer.begin();
                 it_alpha!=multi_layer_coeff_buffer.end(); ++it_alpha) {
             alpha = (*it_alpha).first;
+            MagneticCoefficientsMap::container_phi_t phi_layer_coeffs;
             phi_layer_coeffs.clear();
             for (Utils::UnorderedMap<double, SpecularMagnetic::
                     MultiLayerCoeff_t>::const_iterator it_phi =

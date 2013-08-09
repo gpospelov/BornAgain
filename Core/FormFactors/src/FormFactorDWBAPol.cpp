@@ -19,16 +19,12 @@
 
 FormFactorDWBAPol::FormFactorDWBAPol(IFormFactor* p_formfactor)
 : FormFactorPol(p_formfactor)
-, mp_magnetic_coeffs(0)
-, mp_material(0)
-, mp_ambient_material(0)
 {
     setName("FormFactorDWBAPol");
 }
 
 FormFactorDWBAPol::~FormFactorDWBAPol()
 {
-    delete mp_magnetic_coeffs;
 }
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const

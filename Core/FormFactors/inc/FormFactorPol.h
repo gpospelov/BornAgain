@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/FormFactorPol.h
-//! @brief     Defines interface FormFactorPol.
+//! @brief     Defines class FormFactorPol.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,6 +17,12 @@
 #define FORMFACTORPOL_H_
 
 #include "IFormFactorDecorator.h"
+#include "SpecularMagnetic.h"
+#include "MagneticCoefficientsMap.h"
+
+#include <Eigen/Core>
+
+//! Evaluates a polarized form factor (which is a 2x2 matrix)
 
 class FormFactorPol : public IFormFactorDecorator
 {
@@ -24,7 +30,7 @@ public:
     FormFactorPol(IFormFactor *p_formfactor)
         : IFormFactorDecorator(p_formfactor)
         , mp_magnetic_coeffs(0), mp_material(0), mp_ambient_material(0) {}
-    virtual ~FormFactorPol() {}
+    virtual ~FormFactorPol();
 
     virtual FormFactorPol *clone() const;
 
@@ -52,9 +58,19 @@ public:
         mp_ambient_material = p_material;
     }
 protected:
+    const SpecularMagnetic::LayerMatrixCoeff& getOutCoeffs(double alpha_f,
+            double phi_f) const;
     MagneticCoefficientsMap *mp_magnetic_coeffs;
     const IMaterial *mp_material;
     const IMaterial *mp_ambient_material;
 };
+
+inline const SpecularMagnetic::LayerMatrixCoeff& FormFactorPol::getOutCoeffs(
+        double alpha_f, double phi_f) const
+{
+    MagneticCoefficientsMap::container_phi_t &phi_coeffs =
+            (*mp_magnetic_coeffs)[alpha_f];
+    return phi_coeffs[phi_f];
+}
 
 #endif /* FORMFACTORPOL_H_ */

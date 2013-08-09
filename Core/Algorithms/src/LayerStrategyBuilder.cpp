@@ -240,15 +240,25 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
     switch (m_sim_params.me_framework)
     {
     case SimulationParameters::BA:    // Born Approximation
+    {
+        if (!mp_magnetic_coeff_map) {
+            throw Exceptions::ClassInitializationException(
+                    "Magnetic coefficients are necessary for DWBA");
+        }
+        FormFactorPol *p_ff_pol = new FormFactorPol(ff_transformed);
+        p_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
+        p_ff_pol->setMaterial(p_material);
+        p_ff_pol->setAmbientMaterial(p_ambient_material);
+        p_ff_framework = p_ff_pol;
         break;
+    }
     case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
     {
         if (!mp_magnetic_coeff_map) {
             throw Exceptions::ClassInitializationException(
                     "Magnetic coefficients are necessary for DWBA");
         }
-        FormFactorDWBAPol *p_dwba_ff_pol =
-            new FormFactorDWBAPol(ff_transformed);
+        FormFactorDWBAPol *p_dwba_ff_pol = new FormFactorDWBAPol(ff_transformed);
         p_dwba_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
         p_dwba_ff_pol->setMaterial(p_material);
         p_dwba_ff_pol->setAmbientMaterial(p_ambient_material);

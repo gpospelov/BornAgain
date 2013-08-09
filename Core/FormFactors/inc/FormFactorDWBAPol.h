@@ -17,10 +17,6 @@
 #define FORMFACTORDWBAPOL_H_
 
 #include "FormFactorPol.h"
-#include "SpecularMagnetic.h"
-#include "MagneticCoefficientsMap.h"
-
-#include <Eigen/Core>
 
 //! Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized form factor
 
@@ -38,8 +34,6 @@ public:
             double alpha_i, double alpha_f, double phi_f) const;
 
 protected:
-    const SpecularMagnetic::LayerMatrixCoeff& getOutCoeffs(double alpha_f,
-            double phi_f) const;
     void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
             const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
             double phi_f) const;
@@ -67,13 +61,5 @@ protected:
     mutable Eigen::Matrix2cd m_M22_SR;
     mutable Eigen::Matrix2cd m_M22_RSR;
 };
-
-inline const SpecularMagnetic::LayerMatrixCoeff& FormFactorDWBAPol::getOutCoeffs(
-        double alpha_f, double phi_f) const
-{
-    MagneticCoefficientsMap::container_phi_t &phi_coeffs =
-            (*mp_magnetic_coeffs)[alpha_f];
-    return phi_coeffs[phi_f];
-}
 
 #endif /* FORMFACTORDWBAPOL_H_ */

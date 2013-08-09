@@ -21,6 +21,7 @@
 #include "Bin.h"
 #include "SafePointerVector.h"
 #include "LayerStrategyBuilder.h"
+#include "FormFactorDWBAPol.h"
 
 #include <vector>
 

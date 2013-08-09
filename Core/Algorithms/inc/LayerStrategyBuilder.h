@@ -73,6 +73,11 @@ private:
         const ParticleInfo *p_particle_info,
         const IMaterial *p_ambient_material,
         complex_t factor) const;
+    //! Creates formfactor info for single particle in presence of polarization
+    FormFactorInfo *createFormFactorInfoPol(
+        const ParticleInfo *p_particle_info,
+        const IMaterial *p_ambient_material,
+        complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;
     SafePointerVector<IInterferenceFunction> m_ifs;

@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(IFormFactor* p_formfactor)
-: IFormFactorDecorator(p_formfactor)
+: FormFactorPol(p_formfactor)
 , mp_magnetic_coeffs(0)
 , mp_material(0)
 , mp_ambient_material(0)
@@ -37,13 +37,6 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
     p_result->setRTInfo(*mp_magnetic_coeffs);
     p_result->setName(getName());
     return p_result;
-}
-
-void FormFactorDWBAPol::setRTInfo(
-        const MagneticCoefficientsMap& magnetic_coeff_map)
-{
-    delete mp_magnetic_coeffs;
-    mp_magnetic_coeffs = magnetic_coeff_map.clone();
 }
 
 Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const cvector_t& k_i,

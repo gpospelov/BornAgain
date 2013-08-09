@@ -94,6 +94,7 @@ SOURCES += \
     FormFactors/src/FormFactorHemiSpheroid.cpp \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorParallelepiped.cpp \
+    FormFactors/src/FormFactorPol.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
     FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
@@ -251,6 +252,7 @@ HEADERS += \
     FormFactors/inc/FormFactorHemiSpheroid.h \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactorParallelepiped.h \
+    FormFactors/inc/FormFactorPol.h \
     FormFactors/inc/FormFactorPrism3.h \
     FormFactors/inc/FormFactorPrism6.h \
     FormFactors/inc/FormFactorPyramid.h \

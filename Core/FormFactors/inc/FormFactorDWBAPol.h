@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDWBAPOL_H_
 #define FORMFACTORDWBAPOL_H_
 
-#include "IFormFactorDecorator.h"
+#include "FormFactorPol.h"
 #include "SpecularMagnetic.h"
 #include "MagneticCoefficientsMap.h"
 
@@ -24,7 +24,7 @@
 
 //! Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized form factor
 
-class FormFactorDWBAPol : public IFormFactorDecorator
+class FormFactorDWBAPol : public FormFactorPol
 {
 public:
     FormFactorDWBAPol(IFormFactor *p_formfactor);
@@ -32,29 +32,11 @@ public:
 
     virtual FormFactorDWBAPol *clone() const;
 
-    // Forwards to the evaluate function of the embedded form factor
-    virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const {
-        return mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
-    }
-
-    //! Calculates and returns a polarized form factor in DWBA
+    //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
             double alpha_i, double alpha_f, double phi_f) const;
 
-    //! Sets magnetic reflection/transmission info for polarized DWBA
-    void setRTInfo(const MagneticCoefficientsMap& magnetic_coeff_map);
-
-    //! Sets the material of the scatterer
-    void setMaterial(const IMaterial *p_material) {
-        mp_material = p_material;
-    }
-
-    //! Sets the material of the surrounding structure
-    virtual void setAmbientMaterial(const IMaterial *p_material) {
-        mp_ambient_material = p_material;
-    }
 protected:
     const SpecularMagnetic::LayerMatrixCoeff& getOutCoeffs(double alpha_f,
             double phi_f) const;
@@ -62,9 +44,6 @@ protected:
             const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
             double phi_f) const;
 
-    MagneticCoefficientsMap *mp_magnetic_coeffs;
-    const IMaterial *mp_material;
-    const IMaterial *mp_ambient_material;
     //! The following matrices each contain the four polarization conditions
     //! (p->p, p->m, m->p, m->m)
     //! The first two indices indicate a scattering from the 1/2 eigenstate into

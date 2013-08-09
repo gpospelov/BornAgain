@@ -66,4 +66,29 @@ Bin1DCVector LayerDWBASimulation::getKfBin(double wavelength, const Bin1D& alpha
     return k_f_bin;
 }
 
+Bin1DCVector LayerDWBASimulation::getKfBin1_magnetic(double wavelength,
+        const Bin1D& alpha_bin, const Bin1D& phi_bin) const
+{
+    assert(mp_coeff_map != NULL);
+    Bin1DCVector k_f_bin(wavelength, alpha_bin, phi_bin);
+    complex_t kz_lower = mp_coeff_map->evaluate(alpha_bin.m_lower).
+            find(phi_bin.m_lower).kz(0);
+    complex_t kz_upper = mp_coeff_map->evaluate(alpha_bin.m_upper).
+            find(phi_bin.m_upper).kz(0);
+    k_f_bin.m_q_lower.setZ(kz_lower);
+    k_f_bin.m_q_upper.setZ(kz_upper);
+    return k_f_bin;
+}
 
+Bin1DCVector LayerDWBASimulation::getKfBin2_magnetic(double wavelength,
+        const Bin1D& alpha_bin, const Bin1D& phi_bin) const
+{
+    assert(mp_coeff_map != NULL);
+    Bin1DCVector k_f_bin(wavelength, alpha_bin, phi_bin);
+    complex_t kz_lower = mp_coeff_map->evaluate(alpha_bin.m_lower).
+            find(phi_bin.m_lower).kz(1);
+    complex_t kz_upper = mp_coeff_map->evaluate(alpha_bin.m_upper).
+            find(phi_bin.m_upper).kz(1);
+    k_f_bin.m_q_lower.setZ(kz_lower);
+    k_f_bin.m_q_upper.setZ(kz_upper);
+    return k_f_bin;}

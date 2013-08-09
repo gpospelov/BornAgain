@@ -26,7 +26,7 @@ class Layer;
 
 class DecoratedLayerDWBASimulation : public LayerDWBASimulation
 {
- public:
+public:
     DecoratedLayerDWBASimulation(const Layer *p_layer);
     virtual ~DecoratedLayerDWBASimulation();
 
@@ -39,11 +39,13 @@ class DecoratedLayerDWBASimulation : public LayerDWBASimulation
     virtual void init(const Simulation& simulation);
 
     virtual void run();
- protected:
+protected:
+    void runMagnetic(const IInterferenceFunctionStrategy *p_strategy);
+
     Layer *mp_layer;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 
- private:
+private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();

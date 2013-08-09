@@ -19,8 +19,6 @@
 #include "Utils.h"
 #include "SpecularMagnetic.h"
 
-#include <boost/shared_ptr.hpp>
-
 //! Map from angles (double) to matrix coefficients for magnetic
 //! DWBA calculation.
 

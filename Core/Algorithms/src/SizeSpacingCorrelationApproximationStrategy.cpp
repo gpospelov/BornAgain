@@ -54,6 +54,22 @@ double SizeSpacingCorrelationApproximationStrategy::evaluate(const cvector_t& k_
     return diffuse_intensity + interference_intensity;
 }
 
+Eigen::Matrix2d SizeSpacingCorrelationApproximationStrategy::evaluatePol(
+        const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
+        const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
+        double phi_f) const
+{
+    (void)k_i;
+    (void)k_f1_bin;
+    (void)k_f2_bin;
+    (void)alpha_i;
+    (void)alpha_f;
+    (void)phi_f;
+    throw Exceptions::NotImplementedException(
+            "SizeSpacingCorrelationApproximationStrategy::evaluatePol: "
+            "this strategy is not implemented for magnetic systems");
+}
+
 bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
 {
     size_t n_ffs = m_ff_infos.size();

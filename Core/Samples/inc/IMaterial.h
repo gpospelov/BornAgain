@@ -49,18 +49,33 @@ public:
     virtual complex_t getRefractiveIndex() const { return 1.0; }
 
 #ifndef GCCXML_SKIP_THIS
-    //! Get the scattering matrix from the refractive index
-    //! and a given wavevector
-    virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const {
-        (void)k;
-        return Eigen::Matrix2cd::Identity();
-    }
+    //! Get the effective scattering matrix from the refractive index
+    //! and a given wavevector used for the specular calculation.
+    //! This matrix appears in the one-dimensional Schroedinger equation
+    //! in the z-direction
+    Eigen::Matrix2cd getSpecularScatteringMatrix(const kvector_t& k) const;
+
+    //! Get the scattering matrix (~potential V) from the material.
+    //! This matrix appears in the full three-dimensional Schroedinger equation.
+    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
 #endif
 
 protected:
     virtual void print(std::ostream& ostr) const
     { ostr << "IMat:" << getName() << "<" << this << ">"; }
 };
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(
+        const kvector_t& k) const
+{
+    Eigen::Matrix2cd result;
+    double k_mag2 = k.mag2();
+    double xy_proj2 = k.magxy2()/k_mag2;
+    result = getScatteringMatrix(k_mag2) - xy_proj2*Eigen::Matrix2cd::Identity();
+    return result;
+}
+#endif // GCCXML_SKIP_THIS
 
 #endif // IMATERIAL_H
 

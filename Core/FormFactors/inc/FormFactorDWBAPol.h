@@ -17,10 +17,10 @@
 #define FORMFACTORDWBAPOL_H_
 
 #include "IFormFactorDecorator.h"
+#include "SpecularMagnetic.h"
+#include "MagneticCoefficientsMap.h"
 
 #include <Eigen/Core>
-
-class MagneticCoefficientsMap;
 
 //! Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized form factor
 
@@ -35,17 +35,13 @@ public:
     // Forwards to the evaluate function of the embedded form factor
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const {
-        (void)k_i;
-        (void)k_f_bin;
-        (void)alpha_i;
-        (void)alpha_f;
         return mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
     }
 
     //! Calculates and returns a polarized form factor in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f,
-            double phi_f) const;
+            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+            double alpha_i, double alpha_f, double phi_f) const;
 
     //! Sets magnetic reflection/transmission info for polarized DWBA
     void setRTInfo(const MagneticCoefficientsMap& magnetic_coeff_map);
@@ -62,10 +58,9 @@ public:
 protected:
     const SpecularMagnetic::LayerMatrixCoeff& getOutCoeffs(double alpha_f,
             double phi_f) const;
-    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f, double phi_f) const;
-
-    Eigen::Matrix2cd getScatteringPotential(const kvector_t& k) const;
+    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
+            const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
+            double phi_f) const;
 
     MagneticCoefficientsMap *mp_magnetic_coeffs;
     const IMaterial *mp_material;

@@ -97,98 +97,98 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
     m_M11_S(0,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.T1plus();
     m_M11_S(1,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.T1min();
     m_M11_S(1,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.T1min();
-    m_M11_S = evaluate(ki_1T, kf_1T, alpha_i, alpha_f) * m_M11_S;
+    m_M11_S *= evaluate(ki_1T, kf_1T, alpha_i, alpha_f);
     // eigenmode 1 -> eigenmode 1: reflection and then scattering
     m_M11_RS(0,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.R1plus();
     m_M11_RS(0,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.R1plus();
     m_M11_RS(1,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.R1min();
     m_M11_RS(1,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.R1min();
-    m_M11_RS = evaluate(ki_1R, kf_1T, alpha_i, alpha_f) * m_M11_RS;
+    m_M11_RS *= evaluate(ki_1R, kf_1T, alpha_i, alpha_f);
     // eigenmode 1 -> eigenmode 1: scattering and then reflection
     m_M11_SR(0,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.T1plus();
     m_M11_SR(0,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.T1plus();
     m_M11_SR(1,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.T1min();
     m_M11_SR(1,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.T1min();
-    m_M11_SR = evaluate(ki_1T, kf_1R, alpha_i, alpha_f) * m_M11_SR;
+    m_M11_SR *= evaluate(ki_1T, kf_1R, alpha_i, alpha_f);
     // eigenmode 1 -> eigenmode 1: reflection, scattering and again reflection
     m_M11_RSR(0,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.R1plus();
     m_M11_RSR(0,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.R1plus();
     m_M11_RSR(1,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.R1min();
     m_M11_RSR(1,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.R1min();
-    m_M11_RSR = evaluate(ki_1R, kf_1R, alpha_i, alpha_f) * m_M11_RSR;
+    m_M11_RSR *= evaluate(ki_1R, kf_1R, alpha_i, alpha_f);
 
     // eigenmode 1 -> eigenmode 2: direct scattering
     m_M12_S(0,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.T1plus();
     m_M12_S(0,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.T1plus();
     m_M12_S(1,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.T1min();
     m_M12_S(1,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.T1min();
-    m_M12_S = evaluate(ki_1T, kf_2T, alpha_i, alpha_f) * m_M12_S;
+    m_M12_S *= evaluate(ki_1T, kf_2T, alpha_i, alpha_f);
     // eigenmode 1 -> eigenmode 2: reflection and then scattering
     m_M12_RS(0,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.R1plus();
     m_M12_RS(0,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.R1plus();
     m_M12_RS(1,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.R1min();
     m_M12_RS(1,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.R1min();
-    m_M12_RS = evaluate(ki_1R, kf_2T, alpha_i, alpha_f) * m_M12_RS;
+    m_M12_RS *= evaluate(ki_1R, kf_2T, alpha_i, alpha_f);
     // eigenmode 1 -> eigenmode 2: scattering and then reflection
     m_M12_SR(0,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.T1plus();
     m_M12_SR(0,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.T1plus();
     m_M12_SR(1,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.T1min();
     m_M12_SR(1,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.T1min();
-    m_M12_SR = evaluate(ki_1T, kf_2R, alpha_i, alpha_f) * m_M12_SR;
+    m_M12_SR *= evaluate(ki_1T, kf_2R, alpha_i, alpha_f);
     // eigenmode 1 -> eigenmode 2: reflection, scattering and again reflection
     m_M12_RSR(0,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.R1plus();
     m_M12_RSR(0,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.R1plus();
     m_M12_RSR(1,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.R1min();
     m_M12_RSR(1,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.R1min();
-    m_M12_RSR = evaluate(ki_1R, kf_2R, alpha_i, alpha_f) * m_M12_RSR;
+    m_M12_RSR *= evaluate(ki_1R, kf_2R, alpha_i, alpha_f);
 
     // eigenmode 2 -> eigenmode 1: direct scattering
     m_M21_S(0,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.T2plus();
     m_M21_S(0,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.T2plus();
     m_M21_S(1,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.T2min();
     m_M21_S(1,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.T2min();
-    m_M21_S = evaluate(ki_2T, kf_1T, alpha_i, alpha_f) * m_M21_S;
+    m_M21_S *= evaluate(ki_2T, kf_1T, alpha_i, alpha_f);
     // eigenmode 2 -> eigenmode 1: reflection and then scattering
     m_M21_RS(0,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.R2plus();
     m_M21_RS(0,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.R2plus();
     m_M21_RS(1,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.R2min();
     m_M21_RS(1,1) =  out_coeff.T1plus().adjoint() * V_eff * in_coeff.R2min();
-    m_M21_RS = evaluate(ki_2R, kf_1T, alpha_i, alpha_f) * m_M21_RS;
+    m_M21_RS *= evaluate(ki_2R, kf_1T, alpha_i, alpha_f);
     // eigenmode 2 -> eigenmode 1: scattering and then reflection
     m_M21_SR(0,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.T2plus();
     m_M21_SR(0,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.T2plus();
     m_M21_SR(1,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.T2min();
     m_M21_SR(1,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.T2min();
-    m_M21_SR = evaluate(ki_2T, kf_1R, alpha_i, alpha_f) * m_M21_SR;
+    m_M21_SR *= evaluate(ki_2T, kf_1R, alpha_i, alpha_f);
     // eigenmode 2 -> eigenmode 1: reflection, scattering and again reflection
     m_M21_RSR(0,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.R2plus();
     m_M21_RSR(0,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.R2plus();
     m_M21_RSR(1,0) = - out_coeff.R1min().adjoint() * V_eff * in_coeff.R2min();
     m_M21_RSR(1,1) =  out_coeff.R1plus().adjoint() * V_eff * in_coeff.R2min();
-    m_M21_RSR = evaluate(ki_2R, kf_1R, alpha_i, alpha_f) * m_M21_RSR;
+    m_M21_RSR *= evaluate(ki_2R, kf_1R, alpha_i, alpha_f);
 
     // eigenmode 2 -> eigenmode 2: direct scattering
     m_M22_S(0,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.T2plus();
     m_M22_S(0,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.T2plus();
     m_M22_S(1,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.T2min();
     m_M22_S(1,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.T2min();
-    m_M22_S = evaluate(ki_2T, kf_2T, alpha_i, alpha_f) * m_M22_S;
+    m_M22_S *= evaluate(ki_2T, kf_2T, alpha_i, alpha_f);
     // eigenmode 2 -> eigenmode 2: reflection and then scattering
     m_M22_RS(0,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.R2plus();
     m_M22_RS(0,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.R2plus();
     m_M22_RS(1,0) = - out_coeff.T2min().adjoint() * V_eff * in_coeff.R2min();
     m_M22_RS(1,1) =  out_coeff.T2plus().adjoint() * V_eff * in_coeff.R2min();
-    m_M22_RS = evaluate(ki_2R, kf_2T, alpha_i, alpha_f) * m_M22_RS;
+    m_M22_RS *= evaluate(ki_2R, kf_2T, alpha_i, alpha_f);
     // eigenmode 2 -> eigenmode 2: scattering and then reflection
     m_M22_SR(0,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.T2plus();
     m_M22_SR(0,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.T2plus();
     m_M22_SR(1,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.T2min();
     m_M22_SR(1,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.T2min();
-    m_M22_SR = evaluate(ki_2T, kf_2R, alpha_i, alpha_f) * m_M22_SR;
+    m_M22_SR *= evaluate(ki_2T, kf_2R, alpha_i, alpha_f);
     // eigenmode 2 -> eigenmode 2: reflection, scattering and again reflection
     m_M22_RSR(0,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.R2plus();
     m_M22_RSR(0,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.R2plus();
     m_M22_RSR(1,0) = - out_coeff.R2min().adjoint() * V_eff * in_coeff.R2min();
     m_M22_RSR(1,1) =  out_coeff.R2plus().adjoint() * V_eff * in_coeff.R2min();
-    m_M22_RSR = evaluate(ki_2R, kf_2R, alpha_i, alpha_f) * m_M22_RSR;
+    m_M22_RSR *= evaluate(ki_2R, kf_2R, alpha_i, alpha_f);
 }

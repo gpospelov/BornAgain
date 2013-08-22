@@ -26,7 +26,8 @@ materials,
 
 \noindent The geometry used to describe the sample is shown in \reffig{multil3d}. The $z$-axis is perpendicular to the sample's
 surface and pointing upwards. The $x$-axis  is perpendicular to the
-plane of the detector and the $y$-axis is along it. The input and the scattered output beams are each by two angles
+plane of the detector and the $y$-axis is along it. The input and the
+scattered output beams are each characterized by two angles
 $\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$ respectively. Our choice of orientation for the
 angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
 
@@ -63,11 +64,11 @@ when dealing with the interference function. \\
 
 \noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
 $\delta, \beta \in \mathbb{R}$. In our program, we input $\delta$ and
-$\beta$ directly when we create a material using the function \texttt{getHomogeneousMaterial}.
+$\beta$ directly.
 
 \begin{figure}[h]
   \centering
-    \includegraphics[clip=, width=120mm]{multilayer3d3.eps}
+    \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
   \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
     the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
     angle of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
@@ -83,7 +84,7 @@ spatial divergence.\\ %\textbf{polarization term?}
 By default the angles are expressed in radians and the lengths are given in
 nanometers.  But it is possible to use other units by
 specifying them right after the value of the corresponding
-parameter like, for example, \texttt{20.0*micrometer}.
+parameter like, for example, \Code{20.0*micrometer}.
 
 
 \subsection{Programs}
@@ -97,7 +98,7 @@ The examples presented in the next paragraphs are written in Python. For tutoria
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mysection{Example 1}{Example 1: Two types of islands on top of
-  substrate. No interference function}\SecLabel{Example1Python}
+  substrate. No interference function} \SecLabel{Example1Python}
 % \sectionmark{Example 1}
 
 In this example, we simulate the scattering from a mixture of
@@ -138,21 +139,21 @@ def RunSimulation(): @\label{def_function}@
 function to define and run the simulation. 
 
 \noindent Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
-materials using function \texttt{getHomogeneousMaterial} from class
-\texttt{MaterialManager}. The general syntax is the following 
+materials using function \Code{getHomogeneousMaterial} from class
+\Code{MaterialManager}. The general syntax is the following 
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
 <material_name> = MaterialManager.getHomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
 
-\noindent where \texttt{name} is the name of the
+\noindent where \Code{name} is the name of the
 material associated with its complex refractive index
-n=1-\texttt{delta} +i \texttt{beta}. \texttt{<material\_name>} is later used when
-referring to this particular material. The three defined materials in this example are \texttt{Air} with a refractive
-index of 1 (\texttt{delta = beta =0}), a \texttt{Substrate} associated with a complex refractive index
-equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, whose refractive index is \texttt{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\\\
+n=1-\Code{delta} +i \Code{beta}. \Code{<material\_name>} is later used when
+referring to this particular material. The three defined materials in this example are \Code{Air} with a refractive
+index of 1 (\Code{delta = beta =0}), a \Code{Substrate} associated with a complex refractive index
+equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, whose refractive index is \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\\\
 
-%\noindent \underline{Remark:} there is no condition on the choice of \texttt{name}. 
+%\noindent \underline{Remark:} there is no condition on the choice of \Code{name}. 
  %%%%%%%%%%%%% 
 \myparagraph{\underline{Second step:} Defining the particles} 
 
@@ -173,7 +174,7 @@ equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, 
   base and its height.\\
 
 %\noindent In line~\ref{complx_ref_index}, we define the complex refractive index
-%associated with both particle shapes: \texttt{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\
+%associated with both particle shapes: \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\
   
 \noindent In order to define a particle, we proceed in two steps. For example for
 the cylindrical particle, we first specify the form factor of a cylinder with 
@@ -197,30 +198,30 @@ the constituting material as in line~\ref{particlescyl2}.\\
 \end{lstlisting}
 
 \noindent The object which holds the information about the positions and densities of particles
-in our sample is called ``particle decoration''. We use the function \texttt{ParticleDecoration()}
-(line~\ref{particlesdecor1}) and  the associated \texttt{addParticle}
-for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). The general
+in our sample is called \Code{ParticleDecoration}
+(line~\ref{particlesdecor1}). We use the associated function \Code{addParticle}
+for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general
 syntax is 
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-particledecoration.addParticle(<particle_name>, depth, abundance) 
+addParticle(<particle_name>, depth, abundance) 
 \end{lstlisting}
 
-\noindent  where \texttt{<particle\_name>} is the name used to define the particles
-(lines~\ref{particlescyl2} and \ref{particlesprism2}), \texttt{depth}
+\noindent  where \Code{<particle\_name>} is the name used to define the particles
+(lines~\ref{particlescyl2} and \ref{particlesprism2}), \Code{depth}
 (default value =0)
 is the vertical position, expressed in nanometers, of the particles in a given layer (the
 association with a particular layer will be done during the next step) and
-\texttt{abundance} is the proportion of this type of particles, 
+\Code{abundance} is the proportion of this type of particles, 
 normalized to the total number of particles. Here we have 50\% of cylinders
 and 50\% of prisms. \\ 
 
 \ImportantPoint{Remark:}{Depth of particles\\
 The vertical positions of particles in a layer are given in relative
 coordinates. For the top layer, the bottom corresponds to
-\texttt{depth}=0 and negative values would correspond to particles
+\Code{depth}=0 and negative values would correspond to particles
 floating above layer 1 since the vertical axis, shown in \reffig{multil3d} is pointing upwards. But for all the other layers, it is the top of the
-layer which corresponds to \texttt{depth}=0.}\\
+layer which corresponds to \Code{depth}=0.}\\
 
 
 \noindent Finally lines~\ref{particlesnointerf} and
@@ -232,7 +233,7 @@ interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
 particles distribution (\textbf{see Theory}). On the contrary, the vertical position is
-imposed when we add the particles in a given layer by parameter \texttt{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}. \\
+imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}. \\
 
 \noindent \textbf{Multilayer}\\
   
@@ -252,24 +253,24 @@ air layer. \textbf{The order in which we define these layers is important: we
 start from the top layer down to the bottom one}.\\
 
 \noindent Let us start with the air layer. It contains the particles. In
-line~\ref{airlayer}, we use the previously defined \texttt{mAmbience}
+line~\ref{airlayer}, we use the previously defined \Code{mAmbience}
 (="air" material) (line~\ref{material2}). The command written in line~\ref{airlayerdecorator} shows that this layer is decorated by adding the
-particles using the function \texttt{particle\_decoration} defined in
+particles using the function \Code{particle\_decoration} defined in
 lines~\ref{particlesdecor1}-\ref{particlesinterf}. The substrate layer
 only contains the substrate material (line~\ref{substratelayer}).\\%Note that the
-%\texttt{depth} is referenced to the bottom of the top layer (negative
+%\Code{depth} is referenced to the bottom of the top layer (negative
 %values would correspond to particles floating above layer 1 as
 %the vertical axis is pointing upwards). 
  
 \noindent There are different possible syntaxes to define a layer. As shown in
 lines~\ref{airlayer} and \ref{substratelayer}, we can use
-\texttt{Layer(<material\_name>,thickness)} or
-\texttt{Layer(<material\_name>)}. The second case corresponds
-to the default value of the \texttt{thickness}, equal to 0. The \texttt{thickness} is
+\Code{Layer(<material\_name>,thickness)} or
+\Code{Layer(<material\_name>)}. The second case corresponds
+to the default value of the \Code{thickness}, equal to 0. The \Code{thickness} is
 expressed in  nanometers. \\
 
 \noindent Our two layers are now fully characterized. The sample is assembled using
-\texttt{MultiLayer()} constructor (line~\ref{multilayercanvas}): we start with the air layer decorated
+\Code{MultiLayer()} constructor (line~\ref{multilayercanvas}): we start with the air layer decorated
 with the particles (line~\ref{layerairdecor}), which is the layer at
 the top and end with the bottom layer, which is the
 substrate (line~\ref{layersubstrate}).
@@ -289,7 +290,7 @@ output detector and running the simulation}
 \end{lstlisting}
 
 
-\noindent The first stage is to define the \texttt{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
+\noindent The first stage is to define the \Code{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
 parameters (line~\ref{runbeam}), which are associated with the
 sample previously defined (line~\ref{runsample}). Finally we run
 the simulation (line~\ref{runsimul}). Those functions are part of the Simulation
@@ -300,32 +301,32 @@ shown in \reffig{multil3d}. \\
 \noindent The detector parameters are set using ranges of angles via
 the function:\\
 
-\noindent \texttt{setDetectorParameters(n\_phi, phi\_f\_min,
+\noindent \Code{setDetectorParameters(n\_phi, phi\_f\_min,
   phi\_f\_max,\\ \phantom{setDetectorParameters(}n\_alpha, alpha\_f\_min, alpha\_f\_max, isgisaxs\_style=false)}, \\
 
-\noindent where \texttt{n\_phi=100} is the number of iterations for $\phi_f$,\\ \texttt{phi\_f\_min=-1.0*degree} and \texttt{phi\_f\_max=1.0*degree}
-are the minimum and maximum values respectively of $\phi_f$, \\ \texttt{n\_alpha=100} is
-the number of iterations for $\alpha_f$,\\ \texttt{alpha\_f\_min=0.0*degree} and \texttt{alpha\_f\_max=2.0*degree} 
+\noindent where \Code{n\_phi=100} is the number of iterations for $\phi_f$,\\ \Code{phi\_f\_min=-1.0*degree} and \Code{phi\_f\_max=1.0*degree}
+are the minimum and maximum values respectively of $\phi_f$, \\ \Code{n\_alpha=100} is
+the number of iterations for $\alpha_f$,\\ \Code{alpha\_f\_min=0.0*degree} and \Code{alpha\_f\_max=2.0*degree} 
 are the minimum and maximum values respectively of
 $\alpha_f$. \\
-\texttt{isgisaxs\_style=True} (default value = \texttt{False}) is a boolean
+\Code{isgisaxs\_style=True} (default value = \Code{False}) is a boolean
 used to characterise the structure of the output data. If
-\texttt{isgisaxs\_style=True}, the output data is binned at constant
+\Code{isgisaxs\_style=True}, the output data is binned at constant
 values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
 at constant values of these two angles.\\
 
 
 \noindent For the beam the function to use is
-\texttt{setBeamParameters(lambda, alpha\_i, phi\_i)}, where\\
-\texttt{lambda=1.0*angstrom} is the incident beam wavelength,
-\texttt{alpha\_i=0.2*degree} is the incident
+\Code{setBeamParameters(lambda, alpha\_i, phi\_i)}, where\\
+\Code{lambda=1.0*angstrom} is the incident beam wavelength,
+\Code{alpha\_i=0.2*degree} is the incident
 grazing angle on the surface of the sample,
-\texttt{phi\_i=0.0*degree} is the in-plane
+\Code{phi\_i=0.0*degree} is the in-plane
 direction of the incident beam (measured with respect to the
 $x$-axis).\\ 
 
 \noindent \underline{Remark}: Note that, except for
-\texttt{isgisaxs\_style}, there are no default values implemented for the
+\Code{isgisaxs\_style}, there are no default values implemented for the
 parameters of the beam and detector.\\
 
 \noindent Line~\ref{runsimul} shows the command to run the simulation using the
@@ -343,14 +344,14 @@ previously defined setup.
 \noindent In line~\ref{outputdata} we obtain the simulated intensity
 as a function of outgoing angles $\alpha_f$ and $\phi_f$ for further
 uses (plots, fits,\ldots) as a NumPy array containing
-\texttt{n\_phi}$\times$\texttt{n\_alpha}
+\Code{n\_phi}$\times$\Code{n\_alpha}
 datapoints. Some options are provided by \BornAgain. For example, \reffig{output_ex1} shows the two-dimensional
 contourplot of the intensity as a function of $\alpha_f$ and
 $\phi_f$. 
 
 \begin{figure}[h]
   \begin{center}
-   \includegraphics[clip=true, width=120mm]{Manual_ex1.eps}
+   \includegraphics[clip=true, width=120mm]{Figures/Manual_ex1.eps}
   \end{center}
   \caption[Example 1: Simulated grazing-incidence small-angle X-ray scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference, deposited on top

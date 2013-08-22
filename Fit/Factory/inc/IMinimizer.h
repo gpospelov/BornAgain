@@ -31,7 +31,7 @@ class IMinimizer
     //! signature of chi squared function to minimize
     typedef boost::function<double(const double *)> function_chi2_t;
 
-    //! signature of gradient to minimize with acess to single data element residuals
+    //! signature of gradient to minimize with access to single data element residuals
     typedef boost::function<double(const double *, unsigned int, double *)> function_gradient_t;
 
     IMinimizer() { }

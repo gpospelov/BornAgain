@@ -124,7 +124,8 @@ void Simulation::runSimulation()
             m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
         }
         if (mp_options->find("currentbatch")) {
-            m_thread_info.current_batch = (*mp_options)["currentbatch"].as<int>();
+            m_thread_info.current_batch =
+                    (*mp_options)["currentbatch"].as<int>();
         }
         if (mp_options->find("threads")) {
             m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
@@ -141,7 +142,8 @@ void Simulation::runSimulation()
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
         // Single thread.
-        DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+        DWBASimulation *p_dwba_simulation =
+                mp_sample->createDWBASimulation();
         if (!p_dwba_simulation)
             throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
@@ -154,7 +156,8 @@ void Simulation::runSimulation()
         // Multithreading.
         if(m_thread_info.n_threads == 0 )  {
             // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads =
+                    (int)boost::thread::hardware_concurrency();
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
                 m_thread_info.n_threads << " (taken from hardware concurrency)";
@@ -338,7 +341,8 @@ void Simulation::updateSample()
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             msglog(MSG::INFO) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
-            setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
+            // p_new_sample belongs to python, don't delete it
+            setSample(*p_new_sample);
         } else {
             delete mp_sample;
             mp_sample = p_new_sample;

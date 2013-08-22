@@ -47,8 +47,11 @@ void TestPolarizedDWBA::execute()
     simulation.setSample(*mp_sample);
     simulation.runSimulation();
 
-    IsGISAXSTools::drawOutputData(*simulation.getOutputData(), "c1_polDWBA",
-            "Polarized DWBA", "CONT4 Z", "Polarized DWBA");
+//    IsGISAXSTools::drawOutputData(*simulation.getOutputData(), "c1_polDWBA",
+//            "Polarized DWBA", "CONT4 Z", "Polarized DWBA");
+//
+    IsGISAXSTools::drawLogOutputDataPol(*simulation.getPolarizedOutputData(),
+            "c1_polDWBA", "Polarized DWBA", "CONT4 Z", "Polarized DWBA");
 
     delete mp_sample;
 

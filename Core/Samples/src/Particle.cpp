@@ -71,8 +71,11 @@ Particle* Particle::cloneInvertB() const
 
     const IMaterial *p_material = MaterialManager::getInvertedMaterial(
             mp_material->getName());
-    const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
+    const IMaterial *p_ambient_material(0);
+    if (mp_ambient_material) {
+        p_ambient_material = MaterialManager::getInvertedMaterial(
             mp_ambient_material->getName());
+    }
 
     Particle *p_new = new Particle(p_material, p_form_factor);
     p_new->setAmbientMaterial(p_ambient_material);

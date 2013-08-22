@@ -63,11 +63,16 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
     //! Returns detector intensity map for all scan parameters
-    const OutputData<double>* getOutputData() const { return& m_intensity_map; }
+    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
     OutputData<double>* getOutputDataClone() const
     { return m_intensity_map.clone(); }
+
+    //! Returns polarized intensity map
+    const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
+        return &m_polarization_output;
+    }
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
@@ -82,7 +87,7 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     void setBeamIntensity(double intensity);
 
     //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double >& output_data);
+    void setDetectorParameters(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,

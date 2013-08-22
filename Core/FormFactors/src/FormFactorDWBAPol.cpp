@@ -32,6 +32,8 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
     FormFactorDWBAPol *p_result = new FormFactorDWBAPol(mp_form_factor->clone());
     p_result->setRTInfo(*mp_magnetic_coeffs);
     p_result->setName(getName());
+    p_result->setMaterial(mp_material);
+    p_result->setAmbientMaterial(mp_ambient_material);
     return p_result;
 }
 

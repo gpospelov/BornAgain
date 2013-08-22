@@ -153,7 +153,7 @@ void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal*)
 
 void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 {
-    if (std::find(m_materials.begin(), m_materials.end(), p_material) !=
+    if (std::find(m_materials.begin(), m_materials.end(), p_material) ==
             m_materials.end() ) {
         m_materials.push_back(p_material);
     }

@@ -1140,6 +1140,50 @@ ISample *StandardSamples::MultilayerSpecularMagneticTestCase()
     return mySample;
 }
 
+//! Multilayer specular magnetic testcase
+
+ISample *StandardSamples::PolarizedDWBATestCase()
+{
+    const IMaterial *mAmbience =
+        MaterialManager::getHomogeneousMaterial
+        ("ambience", 0.0, 0.0 );
+    kvector_t magnetic_field(0.0, 1.0, 0.0);
+    const IMaterial *mPart =
+        MaterialManager::getHomogeneousMagneticMaterial
+        ("particle", 5e-6, 0.0, magnetic_field);
+    const IMaterial *mSubstrate =
+        MaterialManager::getHomogeneousMaterial
+        ("substrate", 15e-6, 0.0 );
+
+    Layer lAmbience;
+    lAmbience.setMaterial(mAmbience, 0);
+
+    Layer lSubstrate;
+    lSubstrate.setMaterial(mSubstrate, 0);
+
+    ParticleDecoration particle_decoration;
+
+    particle_decoration.addParticle(
+                new Particle(mPart,
+                             new FormFactorCylinder(
+                                     5.0*Units::nanometer,
+                                     5.0*Units::nanometer)
+                             ));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+
+    //LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    lAmbience.setDecoration(particle_decoration);
+
+    MultiLayer *mySample = new MultiLayer;
+
+    // adding layers
+    mySample->addLayer(lAmbience);
+
+    mySample->addLayer(lSubstrate);
+
+    return mySample;
+}
+
 
 
 

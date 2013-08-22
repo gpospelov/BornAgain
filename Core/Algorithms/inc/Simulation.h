@@ -21,6 +21,10 @@
 #include "Instrument.h"
 #include "SimulationParameters.h"
 
+#ifndef GCCXML_SKIP_THIS
+#include <Eigen/Core>
+#endif
+
 class ProgramOptions;
 
 //! Run one simulation.
@@ -130,6 +134,9 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
+    //! Add the intensity maps from the DWBA simulation to the member maps
+    void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
+
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     const ISampleBuilder *mp_sample_builder;
@@ -138,7 +145,10 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     ThreadInfo m_thread_info;
 
     OutputData<double> m_intensity_map;
-    bool m_is_normalized;
+#ifndef GCCXML_SKIP_THIS
+    OutputData<Eigen::Matrix2d> m_polarization_output;
+#endif
+   bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     //TODO: investigate usage:

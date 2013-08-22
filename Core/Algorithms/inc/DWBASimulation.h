@@ -51,6 +51,11 @@ class DWBASimulation : public ISimulation
     { return *mp_polarization_output; }
 #endif
 
+    //! Indicates if polarized output data is present
+    bool hasPolarizedOutputData() const {
+        return mp_polarization_output!=0;
+    }
+
     //! Adds intensity to current dwba intensity
     void addDWBAIntensity(const OutputData<double>& data_to_add)
     { m_dwba_intensity += data_to_add; }

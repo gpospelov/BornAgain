@@ -227,7 +227,7 @@ void Simulation::runSimulationElement(size_t index)
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map);
+        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
         m_is_normalized = true;
     }
 }

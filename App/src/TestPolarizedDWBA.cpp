@@ -38,14 +38,17 @@ void TestPolarizedDWBA::execute()
     // calculate scattered intesity from sample
     Simulation simulation(mp_options);
     simulation.setDetectorParameters(
-        10,-1.0*Units::degree, 1.0*Units::degree, 10,
+        100, -1.0*Units::degree, 1.0*Units::degree, 100,
         0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamIntensity(8e12);
 
     // Run simulation
     simulation.setSample(*mp_sample);
     simulation.runSimulation();
+
+    simulation.normalize();
 
 //    IsGISAXSTools::drawOutputData(*simulation.getOutputData(), "c1_polDWBA",
 //            "Polarized DWBA", "CONT4 Z", "Polarized DWBA");

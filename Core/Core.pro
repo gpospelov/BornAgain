@@ -86,6 +86,7 @@ SOURCES += \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDWBAPol.cpp \
+    FormFactors/src/FormFactorDWBAPolConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
@@ -239,6 +240,7 @@ HEADERS += \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDWBAPol.h \
+    FormFactors/inc/FormFactorDWBAPolConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \

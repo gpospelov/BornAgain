@@ -241,12 +241,10 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
     {
     case SimulationParameters::BA:    // Born Approximation
     {
-        if (!mp_magnetic_coeff_map) {
-            throw Exceptions::ClassInitializationException(
-                    "Magnetic coefficients are necessary for DWBA");
-        }
         FormFactorPol *p_ff_pol = new FormFactorPol(ff_transformed);
-        p_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
+        if (mp_magnetic_coeff_map) {
+            p_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
+        }
         p_ff_pol->setMaterial(p_material);
         p_ff_pol->setAmbientMaterial(p_ambient_material);
         p_ff_framework = p_ff_pol;
@@ -258,7 +256,15 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
             throw Exceptions::ClassInitializationException(
                     "Magnetic coefficients are necessary for DWBA");
         }
-        FormFactorDWBAPol *p_dwba_ff_pol = new FormFactorDWBAPol(ff_transformed);
+        double depth = p_particle_info->getDepth();
+        FormFactorDWBAPol *p_dwba_ff_pol(0);
+        if (depth) {
+            p_dwba_ff_pol = new FormFactorDWBAPolConstZ(ff_transformed, depth);
+
+        }
+        else {
+            p_dwba_ff_pol = new FormFactorDWBAPol(ff_transformed);
+        }
         p_dwba_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
         p_dwba_ff_pol->setMaterial(p_material);
         p_dwba_ff_pol->setAmbientMaterial(p_ambient_material);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorDWBAConstZ.h
-//! @brief     Defines class FormFactorDWBAConstZ.
+//! @file      FormFactors/inc/FormFactorDWBAPolConstZ.h
+//! @brief     Defines class FormFactorDWBAPolConstZ.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,26 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDWBACONSTZ_H_
-#define FORMFACTORDWBACONSTZ_H_
+#ifndef FORMFACTORDWBAPOLCONSTZ_H_
+#define FORMFACTORDWBAPOLCONSTZ_H_
 
-#include "FormFactorDWBA.h"
+#include "FormFactorDWBAPol.h"
 
-//! Calculates a DWBA form factor for particles at fixed depth
+//! Calculates a polarized DWBA form factor for particles at fixed depth
 
-class FormFactorDWBAConstZ : public FormFactorDWBA
+class FormFactorDWBAPolConstZ : public FormFactorDWBAPol
 {
 public:
-    FormFactorDWBAConstZ(IFormFactor* p_form_factor, double depth=0.0);
-    virtual ~FormFactorDWBAConstZ() {}
-    virtual FormFactorDWBAConstZ *clone() const;
+    FormFactorDWBAPolConstZ(IFormFactor *p_formfactor, double depth=0.0);
+    virtual ~FormFactorDWBAPolConstZ();
 
-    virtual complex_t evaluate(const cvector_t& k_i,
-                               const Bin1DCVector& k_f_bin,
-                               double alpha_i, double alpha_f) const;
+    virtual FormFactorDWBAPolConstZ *clone() const;
+
+    //! Calculates and returns a polarized form factor calculation in DWBA
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+            double alpha_i, double alpha_f, double phi_f) const;
+
 protected:
     double m_depth;
 
@@ -42,6 +45,5 @@ private:
     }
 };
 
-#endif /* FORMFACTORDWBACONSTZ_H_ */
 
-
+#endif /* FORMFACTORDWBAPOLCONSTZ_H_ */

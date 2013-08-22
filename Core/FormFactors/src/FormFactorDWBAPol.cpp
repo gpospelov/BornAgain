@@ -40,7 +40,8 @@ Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const cvector_t& k_i,
         double alpha_i, double alpha_f, double phi_f) const
 {
     calculateTerms(k_i, k_f1_bin, k_f2_bin, alpha_i, alpha_f, phi_f);
-    Eigen::Matrix2cd result = m_M11_S + m_M11_RS + m_M11_SR + m_M11_RSR +
+    Eigen::Matrix2cd result =
+            m_M11_S + m_M11_RS + m_M11_SR + m_M11_RSR +
             m_M12_S + m_M12_RS + m_M12_SR + m_M12_RSR +
             m_M21_S + m_M21_RS + m_M21_SR + m_M21_RSR +
             m_M22_S + m_M22_RS + m_M22_SR + m_M22_RSR;

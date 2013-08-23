@@ -110,6 +110,7 @@ macx|unix {
 }
 win32 {
   BOOST_HEADER_LOCATIONS = "C:/Boost/include"
+  BOOST_LIB_SUFFIX = -mgw48-mt-1_54
 }
 for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
 isEmpty(BOOST_INCLUDE): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS})
@@ -128,7 +129,7 @@ win32 {
 isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
 INCLUDEPATH *=  $${BOOST_INCLUDE}
 LIBS *= -L$${BOOST_LIB}
-LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+LIBS += -lboost_program_options$${BOOST_LIB_SUFFIX} -lboost_iostreams$${BOOST_LIB_SUFFIX} -lboost_system$${BOOST_LIB_SUFFIX} -lboost_filesystem$${BOOST_LIB_SUFFIX} -lboost_regex$${BOOST_LIB_SUFFIX} -lboost_thread$${BOOST_LIB_SUFFIX}
 #LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread -lz
 # checking special case when system doesn't have libboost_thread library but have libboost_thread-mt
 !win32 {
@@ -138,9 +139,9 @@ LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesys
     LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
   }
 }
-win32 {
-  LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
-}
+#win32 {
+#  LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
+#}
 
 isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})
 isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
@@ -188,6 +189,10 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 #QMAKE_STRIP=: # produces non-stripped (very large) libraries
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
+
+#win32{
+#QMAKE_CXXFLAGS += -mincoming-stack-boundary=2
+#}
 
 # to compile with GPERFTOOLS support for code profiling
 CONFIG(GPERFTOOLS) {

@@ -34,6 +34,9 @@ GCC_DIAG_ON(unused-local-typedefs);
 class BA_CORE_API_ Beam : public IParameterized
 {
  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    // see http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
+
     Beam();
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);

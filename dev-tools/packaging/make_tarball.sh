@@ -1,6 +1,6 @@
 
 
-BornAgain="BornAgain-0.8.2"
+BornAgain="BornAgain-0.9"
 
 echo $BornAgain
 echo "copying..."

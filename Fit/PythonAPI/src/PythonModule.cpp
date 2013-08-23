@@ -6,21 +6,21 @@ GCC_DIAG_OFF(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 
-#include "SquaredFunctionWithGaussianError.pypp.h" 
-#include "OutputDataSimpleNormalizer.pypp.h" 
+#include "AttLimits.pypp.h" 
+#include "ChiSquaredModule.pypp.h" 
+#include "FitSuite.pypp.h" 
+#include "FitSuiteParameters.pypp.h" 
+#include "IChiSquaredModule.pypp.h" 
+#include "IMinimizer.pypp.h" 
+#include "IOutputDataNormalizer.pypp.h" 
 #include "ISquaredFunction.pypp.h" 
 #include "MinimizerFactory.pypp.h" 
 #include "OutputDataNormalizer.pypp.h" 
-#include "SquaredFunctionWithSystematicError.pypp.h" 
-#include "IOutputDataNormalizer.pypp.h" 
-#include "SquaredFunctionWhichOnlyWorks.pypp.h" 
-#include "IMinimizer.pypp.h" 
+#include "OutputDataSimpleNormalizer.pypp.h" 
 #include "SquaredFunctionDefault.pypp.h" 
-#include "ChiSquaredModule.pypp.h" 
-#include "FitSuite.pypp.h" 
-#include "AttLimits.pypp.h" 
-#include "IChiSquaredModule.pypp.h" 
-#include "FitSuiteParameters.pypp.h" 
+#include "SquaredFunctionWhichOnlyWorks.pypp.h" 
+#include "SquaredFunctionWithGaussianError.pypp.h" 
+#include "SquaredFunctionWithSystematicError.pypp.h" 
 
 BOOST_PYTHON_MODULE(libBornAgainFit){
 

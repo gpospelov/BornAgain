@@ -65,7 +65,7 @@ private:
     inline size_t check_index(size_t index) const { return index < m_positions_vector.size() ? index : throw OutOfBoundsException("LatticeBasis::check_index() -> Index is out of bounds"); }
 
     //! For internal use in cloneInvertB():
-    void addParticle(Particle *p_particle, std::vector<kvector_t > positions);
+    void addParticlePointer(Particle *p_particle, std::vector<kvector_t > positions);
 
     std::vector<Particle *> m_particles;
     std::vector<std::vector<kvector_t> > m_positions_vector;

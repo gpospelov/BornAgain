@@ -28,10 +28,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual ::FormFactorHemiSpheroid * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorHemiSpheroid::clone(  );
+        }
     }
-    
     
     ::FormFactorHemiSpheroid * default_clone(  ) const  {
         return FormFactorHemiSpheroid::clone( );
@@ -40,10 +40,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->FormFactorHemiSpheroid::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return FormFactorHemiSpheroid::getHeight( );
@@ -52,10 +52,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorHemiSpheroid::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorHemiSpheroid::getNumberOfStochasticParameters( );
@@ -64,10 +64,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -76,34 +76,46 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    virtual ::ISample * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else{
+            return this->ISample::cloneInvertB(  );
+        }
     }
     
+    ::ISample * default_cloneInvertB(  ) const  {
+        return ISample::cloneInvertB( );
+    }
+
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
+            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        else{
+            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
+    }
     
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -112,10 +124,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
-        else
+        else{
             return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
@@ -124,10 +136,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -136,10 +148,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactor::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
@@ -148,10 +160,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactorBorn::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactorBorn::getVolume( );
@@ -160,10 +172,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -172,10 +184,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -200,25 +212,13 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
         }
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
-        else
-            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
-    }
-    
-    
-    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -227,10 +227,10 @@ struct FormFactorHemiSpheroid_wrapper : FormFactorHemiSpheroid, bp::wrapper< For
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -300,10 +300,22 @@ void register_FormFactorHemiSpheroid_class(){
                 , default_clearParameterPool_function_type(&FormFactorHemiSpheroid_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::cloneInvertB
+        
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( FormFactorHemiSpheroid_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            
+            FormFactorHemiSpheroid_exposer.def( 
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::ISample::cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorHemiSpheroid_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorHemiSpheroid_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( FormFactorHemiSpheroid_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
             
             FormFactorHemiSpheroid_exposer.def( 
                 "createDistributedFormFactors"
@@ -401,18 +413,6 @@ void register_FormFactorHemiSpheroid_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorHemiSpheroid_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IFormFactor::setAmbientRefractiveIndex
-        
-            typedef void ( ::IFormFactor::*setAmbientRefractiveIndex_function_type )( ::complex_t const & ) ;
-            typedef void ( FormFactorHemiSpheroid_wrapper::*default_setAmbientRefractiveIndex_function_type )( ::complex_t const & ) ;
-            
-            FormFactorHemiSpheroid_exposer.def( 
-                "setAmbientRefractiveIndex"
-                , setAmbientRefractiveIndex_function_type(&::IFormFactor::setAmbientRefractiveIndex)
-                , default_setAmbientRefractiveIndex_function_type(&FormFactorHemiSpheroid_wrapper::default_setAmbientRefractiveIndex)
-                , ( bp::arg("refractive_index") ) );
         
         }
         { //::IParameterized::setParameterValue

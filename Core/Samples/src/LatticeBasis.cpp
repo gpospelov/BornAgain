@@ -60,7 +60,7 @@ LatticeBasis* LatticeBasis::cloneInvertB() const
 {
     LatticeBasis *p_new = new LatticeBasis();
     for (size_t index=0; index<m_particles.size(); ++index) {
-        p_new->addParticle(m_particles[index]->cloneInvertB(),
+        p_new->addParticlePointer(m_particles[index]->cloneInvertB(),
                 m_positions_vector[index]);
     }
     p_new->setName(getName() + "_inv");
@@ -114,7 +114,7 @@ std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() co
     return result;
 }
 
-void LatticeBasis::addParticle(Particle* p_particle,
+void LatticeBasis::addParticlePointer(Particle* p_particle,
         std::vector<kvector_t> positions)
 {
     registerChild(p_particle);

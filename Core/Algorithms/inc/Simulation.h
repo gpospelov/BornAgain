@@ -69,10 +69,12 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     OutputData<double>* getOutputDataClone() const
     { return m_intensity_map.clone(); }
 
+#ifndef GCCXML_SKIP_THIS
     //! Returns polarized intensity map
     const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
         return &m_polarization_output;
     }
+#endif
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);

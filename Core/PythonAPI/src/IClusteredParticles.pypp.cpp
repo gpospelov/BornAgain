@@ -28,30 +28,30 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual ::IClusteredParticles * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IClusteredParticles::clone(  );
+        }
     }
-    
     
     ::IClusteredParticles * default_clone(  ) const  {
         return IClusteredParticles::clone( );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
-        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
-            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
-        else
-            return this->IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+    virtual ::IClusteredParticles * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else{
+            return this->IClusteredParticles::cloneInvertB(  );
+        }
     }
     
-    
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
-        return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+    ::IClusteredParticles * default_cloneInvertB(  ) const  {
+        return IClusteredParticles::cloneInvertB( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ){
-        bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" );
-        func_setAmbientRefractiveIndex( refractive_index );
+    virtual void setAmbientMaterial( ::IMaterial const * p_ambient_material ){
+        bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" );
+        func_setAmbientMaterial( boost::python::ptr(p_ambient_material) );
     }
 
     virtual void accept( ::ISampleVisitor * p_visitor ) const {
@@ -62,10 +62,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -74,10 +74,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -86,10 +86,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -98,10 +98,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -110,10 +110,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -122,10 +122,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -153,10 +153,10 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -165,24 +165,24 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
     
-    
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -206,27 +206,26 @@ void register_IClusteredParticles_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IClusteredParticles::createTotalFormFactor
+        { //::IClusteredParticles::cloneInvertB
         
-            typedef ::IFormFactor * ( ::IClusteredParticles::*createTotalFormFactor_function_type )( ::IFormFactor const &,::complex_t ) const;
-            typedef ::IFormFactor * ( IClusteredParticles_wrapper::*default_createTotalFormFactor_function_type )( ::IFormFactor const &,::complex_t ) const;
+            typedef ::IClusteredParticles * ( ::IClusteredParticles::*cloneInvertB_function_type )(  ) const;
+            typedef ::IClusteredParticles * ( IClusteredParticles_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
             IClusteredParticles_exposer.def( 
-                "createTotalFormFactor"
-                , createTotalFormFactor_function_type(&::IClusteredParticles::createTotalFormFactor)
-                , default_createTotalFormFactor_function_type(&IClusteredParticles_wrapper::default_createTotalFormFactor)
-                , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB)
+                , default_cloneInvertB_function_type(&IClusteredParticles_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IClusteredParticles::setAmbientRefractiveIndex
+        { //::IClusteredParticles::setAmbientMaterial
         
-            typedef void ( ::IClusteredParticles::*setAmbientRefractiveIndex_function_type )( ::complex_t ) ;
+            typedef void ( ::IClusteredParticles::*setAmbientMaterial_function_type )( ::IMaterial const * ) ;
             
             IClusteredParticles_exposer.def( 
-                "setAmbientRefractiveIndex"
-                , bp::pure_virtual( setAmbientRefractiveIndex_function_type(&::IClusteredParticles::setAmbientRefractiveIndex) )
-                , ( bp::arg("refractive_index") ) );
+                "setAmbientMaterial"
+                , bp::pure_virtual( setAmbientMaterial_function_type(&::IClusteredParticles::setAmbientMaterial) )
+                , ( bp::arg("p_ambient_material") ) );
         
         }
         { //::ISample::accept
@@ -343,8 +342,8 @@ void register_IClusteredParticles_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( IClusteredParticles_wrapper::*default_size_function_type )(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::size_t ( IClusteredParticles_wrapper::*default_size_function_type )(  ) const;
             
             IClusteredParticles_exposer.def( 
                 "size"

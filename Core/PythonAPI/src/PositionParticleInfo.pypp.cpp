@@ -35,10 +35,10 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual ::PositionParticleInfo * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->PositionParticleInfo::clone(  );
+        }
     }
-    
     
     ::PositionParticleInfo * default_clone(  ) const  {
         return PositionParticleInfo::clone( );
@@ -47,10 +47,10 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -59,22 +59,34 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
     }
 
+    virtual ::ParticleInfo * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else{
+            return this->ParticleInfo::cloneInvertB(  );
+        }
+    }
+    
+    ::ParticleInfo * default_cloneInvertB(  ) const  {
+        return ParticleInfo::cloneInvertB( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -83,10 +95,10 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -95,10 +107,10 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -107,10 +119,10 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -138,10 +150,10 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -150,24 +162,24 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
     
-    
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -241,6 +253,18 @@ void register_PositionParticleInfo_class(){
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
                 , default_clearParameterPool_function_type(&PositionParticleInfo_wrapper::default_clearParameterPool) );
+        
+        }
+        { //::ParticleInfo::cloneInvertB
+        
+            typedef ::ParticleInfo * ( ::ParticleInfo::*cloneInvertB_function_type )(  ) const;
+            typedef ::ParticleInfo * ( PositionParticleInfo_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            
+            PositionParticleInfo_exposer.def( 
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::ParticleInfo::cloneInvertB)
+                , default_cloneInvertB_function_type(&PositionParticleInfo_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::createParameterTree
@@ -325,8 +349,8 @@ void register_PositionParticleInfo_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( PositionParticleInfo_wrapper::*default_size_function_type )(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::size_t ( PositionParticleInfo_wrapper::*default_size_function_type )(  ) const;
             
             PositionParticleInfo_exposer.def( 
                 "size"

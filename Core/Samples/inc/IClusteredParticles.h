@@ -51,7 +51,7 @@ public:
     //! ambient material
     //! The bulk content of the mesocrystal is encapsulated by the
     //! IClusteredParticles object itself
-   virtual IFormFactor *createTotalFormFactor(
+    virtual IFormFactor *createTotalFormFactor(
            const IFormFactor& meso_crystal_form_factor,
            const IMaterial *p_ambient_material) const
     {

@@ -49,12 +49,12 @@ class DWBASimulation : public ISimulation
     //! Returns output data containing calculated polarized intensity.
     const OutputData<Eigen::Matrix2d>& getPolarizedDWBAIntensity() const
     { return *mp_polarization_output; }
-#endif
 
     //! Indicates if polarized output data is present
     bool hasPolarizedOutputData() const {
         return mp_polarization_output!=0;
     }
+#endif
 
     //! Adds intensity to current dwba intensity
     void addDWBAIntensity(const OutputData<double>& data_to_add)

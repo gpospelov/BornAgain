@@ -183,6 +183,9 @@ def ManualClassTunings(mb):
     cl.member_function( "buildSample" ).include()
     cl.member_function( "buildSample" ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
     #
+    cl = mb.class_( "IClusteredParticles" )
+    cl.member_function( "setAmbientMaterial" ).include()
+    #
     cl = mb.class_( "MaterialManager" )
     cl.constructors().exclude()
     #

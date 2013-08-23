@@ -26,82 +26,82 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
-        else
+        else{
             this->IMinimizer::clear(  );
+        }
     }
-    
     
     void default_clear(  ) {
         IMinimizer::clear( );
     }
 
-    virtual double getErrorOfVariable( ::std::size_t index ) const  {
+    virtual double getErrorOfVariable( ::size_t index ) const  {
         if( bp::override func_getErrorOfVariable = this->get_override( "getErrorOfVariable" ) )
             return func_getErrorOfVariable( index );
-        else
+        else{
             return this->IMinimizer::getErrorOfVariable( index );
+        }
     }
     
-    
-    double default_getErrorOfVariable( ::std::size_t index ) const  {
+    double default_getErrorOfVariable( ::size_t index ) const  {
         return IMinimizer::getErrorOfVariable( index );
     }
 
     virtual double getMinValue(  ) const  {
         if( bp::override func_getMinValue = this->get_override( "getMinValue" ) )
             return func_getMinValue(  );
-        else
+        else{
             return this->IMinimizer::getMinValue(  );
+        }
     }
-    
     
     double default_getMinValue(  ) const  {
         return IMinimizer::getMinValue( );
     }
 
-    virtual ::std::size_t getNCalls(  ) const  {
+    virtual ::size_t getNCalls(  ) const  {
         if( bp::override func_getNCalls = this->get_override( "getNCalls" ) )
             return func_getNCalls(  );
-        else
+        else{
             return this->IMinimizer::getNCalls(  );
+        }
     }
     
-    
-    ::std::size_t default_getNCalls(  ) const  {
+    ::size_t default_getNCalls(  ) const  {
         return IMinimizer::getNCalls( );
     }
 
-    virtual ::std::size_t getNumberOfVariables(  ) const  {
+    virtual ::size_t getNumberOfVariables(  ) const  {
         if( bp::override func_getNumberOfVariables = this->get_override( "getNumberOfVariables" ) )
             return func_getNumberOfVariables(  );
-        else
+        else{
             return this->IMinimizer::getNumberOfVariables(  );
+        }
     }
     
-    
-    ::std::size_t default_getNumberOfVariables(  ) const  {
+    ::size_t default_getNumberOfVariables(  ) const  {
         return IMinimizer::getNumberOfVariables( );
     }
 
-    virtual double getValueOfVariableAtMinimum( ::std::size_t index ) const  {
+    virtual double getValueOfVariableAtMinimum( ::size_t index ) const  {
         if( bp::override func_getValueOfVariableAtMinimum = this->get_override( "getValueOfVariableAtMinimum" ) )
             return func_getValueOfVariableAtMinimum( index );
-        else
+        else{
             return this->IMinimizer::getValueOfVariableAtMinimum( index );
+        }
     }
     
-    
-    double default_getValueOfVariableAtMinimum( ::std::size_t index ) const  {
+    double default_getValueOfVariableAtMinimum( ::size_t index ) const  {
         return IMinimizer::getValueOfVariableAtMinimum( index );
     }
 
     virtual ::std::vector< double > getValueOfVariablesAtMinimum(  ) const  {
         if( bp::override func_getValueOfVariablesAtMinimum = this->get_override( "getValueOfVariablesAtMinimum" ) )
             return func_getValueOfVariablesAtMinimum(  );
-        else
+        else{
             return this->IMinimizer::getValueOfVariablesAtMinimum(  );
+        }
     }
-    
     
     ::std::vector< double > default_getValueOfVariablesAtMinimum(  ) const  {
         return IMinimizer::getValueOfVariablesAtMinimum( );
@@ -115,10 +115,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void printResults(  ) const  {
         if( bp::override func_printResults = this->get_override( "printResults" ) )
             func_printResults(  );
-        else
+        else{
             this->IMinimizer::printResults(  );
+        }
     }
-    
     
     void default_printResults(  ) const  {
         IMinimizer::printResults( );
@@ -127,10 +127,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void setOptions( ::std::string const & options ) {
         if( bp::override func_setOptions = this->get_override( "setOptions" ) )
             func_setOptions( options );
-        else
+        else{
             this->IMinimizer::setOptions( options );
+        }
     }
-    
     
     void default_setOptions( ::std::string const & options ) {
         IMinimizer::setOptions( options );
@@ -139,10 +139,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void setParameters( ::FitSuiteParameters const & parameters ) {
         if( bp::override func_setParameters = this->get_override( "setParameters" ) )
             func_setParameters( boost::ref(parameters) );
-        else
+        else{
             this->IMinimizer::setParameters( boost::ref(parameters) );
+        }
     }
-    
     
     void default_setParameters( ::FitSuiteParameters const & parameters ) {
         IMinimizer::setParameters( boost::ref(parameters) );
@@ -169,8 +169,8 @@ void register_IMinimizer_class(){
         }
         { //::IMinimizer::getErrorOfVariable
         
-            typedef double ( ::IMinimizer::*getErrorOfVariable_function_type )( ::std::size_t ) const;
-            typedef double ( IMinimizer_wrapper::*default_getErrorOfVariable_function_type )( ::std::size_t ) const;
+            typedef double ( ::IMinimizer::*getErrorOfVariable_function_type )( ::size_t ) const;
+            typedef double ( IMinimizer_wrapper::*default_getErrorOfVariable_function_type )( ::size_t ) const;
             
             IMinimizer_exposer.def( 
                 "getErrorOfVariable"
@@ -192,8 +192,8 @@ void register_IMinimizer_class(){
         }
         { //::IMinimizer::getNCalls
         
-            typedef ::std::size_t ( ::IMinimizer::*getNCalls_function_type )(  ) const;
-            typedef ::std::size_t ( IMinimizer_wrapper::*default_getNCalls_function_type )(  ) const;
+            typedef ::size_t ( ::IMinimizer::*getNCalls_function_type )(  ) const;
+            typedef ::size_t ( IMinimizer_wrapper::*default_getNCalls_function_type )(  ) const;
             
             IMinimizer_exposer.def( 
                 "getNCalls"
@@ -203,8 +203,8 @@ void register_IMinimizer_class(){
         }
         { //::IMinimizer::getNumberOfVariables
         
-            typedef ::std::size_t ( ::IMinimizer::*getNumberOfVariables_function_type )(  ) const;
-            typedef ::std::size_t ( IMinimizer_wrapper::*default_getNumberOfVariables_function_type )(  ) const;
+            typedef ::size_t ( ::IMinimizer::*getNumberOfVariables_function_type )(  ) const;
+            typedef ::size_t ( IMinimizer_wrapper::*default_getNumberOfVariables_function_type )(  ) const;
             
             IMinimizer_exposer.def( 
                 "getNumberOfVariables"
@@ -214,8 +214,8 @@ void register_IMinimizer_class(){
         }
         { //::IMinimizer::getValueOfVariableAtMinimum
         
-            typedef double ( ::IMinimizer::*getValueOfVariableAtMinimum_function_type )( ::std::size_t ) const;
-            typedef double ( IMinimizer_wrapper::*default_getValueOfVariableAtMinimum_function_type )( ::std::size_t ) const;
+            typedef double ( ::IMinimizer::*getValueOfVariableAtMinimum_function_type )( ::size_t ) const;
+            typedef double ( IMinimizer_wrapper::*default_getValueOfVariableAtMinimum_function_type )( ::size_t ) const;
             
             IMinimizer_exposer.def( 
                 "getValueOfVariableAtMinimum"

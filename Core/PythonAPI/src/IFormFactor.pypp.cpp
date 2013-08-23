@@ -30,15 +30,15 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return func_clone(  );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
     
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
@@ -50,10 +50,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->IFormFactor::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return IFormFactor::getHeight( );
@@ -62,10 +62,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return IFormFactor::getNumberOfStochasticParameters( );
@@ -74,10 +74,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactor::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
@@ -86,10 +86,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactor::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactor::getVolume( );
@@ -98,34 +98,22 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
-        else
-            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
-    }
-    
-    
-    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -134,22 +122,34 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
     }
 
+    virtual ::ISample * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else{
+            return this->ISample::cloneInvertB(  );
+        }
+    }
+    
+    ::ISample * default_cloneInvertB(  ) const  {
+        return ISample::cloneInvertB( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -158,10 +158,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -170,10 +170,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -201,10 +201,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -213,10 +213,10 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -242,8 +242,8 @@ void register_IFormFactor_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( IFormFactor_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( IFormFactor_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
             
             IFormFactor_exposer.def( 
                 "createDistributedFormFactors"
@@ -318,18 +318,6 @@ void register_IFormFactor_class(){
                 , default_isDistributedFormFactor_function_type(&IFormFactor_wrapper::default_isDistributedFormFactor) );
         
         }
-        { //::IFormFactor::setAmbientRefractiveIndex
-        
-            typedef void ( ::IFormFactor::*setAmbientRefractiveIndex_function_type )( ::complex_t const & ) ;
-            typedef void ( IFormFactor_wrapper::*default_setAmbientRefractiveIndex_function_type )( ::complex_t const & ) ;
-            
-            IFormFactor_exposer.def( 
-                "setAmbientRefractiveIndex"
-                , setAmbientRefractiveIndex_function_type(&::IFormFactor::setAmbientRefractiveIndex)
-                , default_setAmbientRefractiveIndex_function_type(&IFormFactor_wrapper::default_setAmbientRefractiveIndex)
-                , ( bp::arg("refractive_index") ) );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
@@ -350,6 +338,18 @@ void register_IFormFactor_class(){
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
                 , default_clearParameterPool_function_type(&IFormFactor_wrapper::default_clearParameterPool) );
+        
+        }
+        { //::ISample::cloneInvertB
+        
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( IFormFactor_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            
+            IFormFactor_exposer.def( 
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::ISample::cloneInvertB)
+                , default_cloneInvertB_function_type(&IFormFactor_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::createParameterTree

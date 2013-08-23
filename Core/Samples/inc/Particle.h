@@ -98,7 +98,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
     //!< pointer to the form factor
 };
 
-inline IFormFactor* Particle::createFormFactor() const
+BA_CORE_API_ inline IFormFactor* Particle::createFormFactor() const
 {
     if(!mp_form_factor) return 0;
     FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
@@ -108,12 +108,12 @@ inline IFormFactor* Particle::createFormFactor() const
 }
 
 
-inline complex_t Particle::getRefractiveIndex() const
+BA_CORE_API_ inline complex_t Particle::getRefractiveIndex() const
 {
     return (mp_material ? mp_material->getRefractiveIndex() : complex_t(0,0));
 }
 
-inline bool Particle::hasDistributedFormFactor() const
+BA_CORE_API_ inline bool Particle::hasDistributedFormFactor() const
 {
     return ( !mp_form_factor ? false : mp_form_factor->isDistributedFormFactor() );
 }

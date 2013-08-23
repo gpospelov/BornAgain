@@ -51,6 +51,8 @@ RootMinimizers_LIB = $$PWD/lib/libRootMinimizers.$${SONAME}
 RootMathMore_INCLUDEPATH = $${PWD}/ThirdParty/RootMathMore/inc
 RootMathMore_LIB = $$PWD/lib/libRootMathMore.$${SONAME}
 
+gtest_LIB = $$PWD/lib/libgtest.$${SONAME}
+
 
 # -----------------------------------------------------------------------------
 # general external libraries

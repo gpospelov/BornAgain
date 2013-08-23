@@ -24,17 +24,21 @@
 
 #include "Macros.h"
 GCC_DIAG_OFF(unused-local-typedefs);
+#ifdef _WIN32
+#define EIGEN_DONT_ALIGN 1
+#endif
 #include <Eigen/Core>
 GCC_DIAG_ON(unused-local-typedefs);
 
 #endif
+
 
 //! Ideal collimated Beam defined by wavelength, direction and intensity.
 
 class BA_CORE_API_ Beam : public IParameterized
 {
  public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    //EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     // see http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
 
     Beam();

@@ -34,22 +34,29 @@ HEADERS += \
 
 #OBJECTS_DIR = obj
 
+#DEFINES += GTEST_LINKED_AS_SHARED_LIBRARY=1
+
 INCLUDEPATH += $${PWD}/../../../ThirdParty/gtest/gtest-1.6.0/include
 DEPENDPATH += ./
+
 
 ###############################################################################
 # generating package dependency flags
 ###############################################################################
-MY_DEPENDENCY_LIB = gtest BornAgainCore
-MY_DEPENDENCY_DEST =$$PWD/../../..
-# INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
-for(dep, MY_DEPENDENCY_LIB) {
-    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-#    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
-}
+#MY_DEPENDENCY_LIB = gtest BornAgainCore
+#MY_DEPENDENCY_DEST =$$PWD/../../..
+## INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
+#for(dep, MY_DEPENDENCY_LIB) {
+#    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
+#    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
+##    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
+#}
+
+LIBS += $$BornAgainCore_LIB $$gtest_LIB
+
 
 ###############################################################################
 # runs automatically tests right after linking
 ###############################################################################
-QMAKE_POST_LINK = $$PWD/$(TARGET)
+QMAKE_POST_LINK += $$PWD/$(TARGET)
+

@@ -80,9 +80,9 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
     kf_1R.m_q_upper.setZ(-kf_1R.m_q_upper.z());
     Bin1DCVector kf_1T = k_f1_bin;
     Bin1DCVector kf_2R = k_f2_bin;
+    kf_2R.m_q_lower.setZ(-kf_2R.m_q_lower.z());
+    kf_2R.m_q_upper.setZ(-kf_2R.m_q_upper.z());
     Bin1DCVector kf_2T = k_f2_bin;
-    kf_2T.m_q_lower.setZ(-kf_2T.m_q_lower.z());
-    kf_2T.m_q_upper.setZ(-kf_2T.m_q_upper.z());
     // now each of the 16 matrix terms of the polarized DWBA is calculated:
     // eigenmode 1 -> eigenmode 1: direct scattering
     m_M11_S(0,0) = - out_coeff.T1min().adjoint() * V_eff * in_coeff.T1plus();

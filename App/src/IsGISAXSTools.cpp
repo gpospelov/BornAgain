@@ -84,14 +84,14 @@ void IsGISAXSTools::drawLogOutputDataPol(
     c1->cd(2); gPad->SetLogz();
     gPad->SetRightMargin(0.12);
     setMinimum(1.);
-    copyElementsWithPosition(output, data, 1, 0);
+    copyElementsWithPosition(output, data, 0, 1);
     drawOutputDataInPad(data, draw_options, histogram_title + ": + -");
 
     // min - plus
     c1->cd(3); gPad->SetLogz();
     gPad->SetRightMargin(0.12);
     setMinimum(1.);
-    copyElementsWithPosition(output, data, 0, 1);
+    copyElementsWithPosition(output, data, 1, 0);
     drawOutputDataInPad(data, draw_options, histogram_title + ": - +");
 
     // min - min

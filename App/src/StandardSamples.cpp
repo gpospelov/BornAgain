@@ -1140,7 +1140,7 @@ ISample *StandardSamples::MultilayerSpecularMagneticTestCase()
     return mySample;
 }
 
-//! Multilayer specular magnetic testcase
+//! Polarized DWBA test case
 
 ISample *StandardSamples::PolarizedDWBATestCase()
 {

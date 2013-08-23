@@ -64,6 +64,22 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
     return intensity;
 }
 
+Eigen::Matrix2d LocalMonodisperseApproximationStrategy::evaluatePol(
+        const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
+        const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
+        double phi_f) const
+{
+    (void)k_i;
+    (void)k_f1_bin;
+    (void)k_f2_bin;
+    (void)alpha_i;
+    (void)alpha_f;
+    (void)phi_f;
+    throw Exceptions::NotImplementedException(
+            "LocalMonodisperseApproximationStrategy::evaluatePol: "
+            "this strategy is not implemented for magnetic systems");
+}
+
 bool LocalMonodisperseApproximationStrategy::checkVectorSizes()
 {
     size_t n_ffs = m_ff_infos.size();

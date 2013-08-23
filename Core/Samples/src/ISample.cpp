@@ -27,6 +27,13 @@ ISample *ISample::clone() const
 
 //! Adds params from local to external pool and recurses over direct children.
 
+ISample* ISample::cloneInvertB() const
+{
+    throw NotImplementedException(
+        "ISample::cloneInvertB() -> "
+        "Error! Method is not implemented");
+}
+
 std::string ISample::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
 {

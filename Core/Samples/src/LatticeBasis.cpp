@@ -16,6 +16,7 @@
 #include "LatticeBasis.h"
 #include "FormFactors.h"
 #include "DiffuseParticleInfo.h"
+#include "MaterialManager.h"
 
 LatticeBasis::LatticeBasis()
 {
@@ -51,7 +52,21 @@ LatticeBasis* LatticeBasis::clone() const
         p_new->addParticle(*m_particles[index], m_positions_vector[index]);
     }
     p_new->setName(getName());
-    p_new->m_ambient_refractive_index = this->m_ambient_refractive_index;
+    p_new->mp_ambient_material = this->mp_ambient_material;
+    return p_new;
+}
+
+LatticeBasis* LatticeBasis::cloneInvertB() const
+{
+    LatticeBasis *p_new = new LatticeBasis();
+    for (size_t index=0; index<m_particles.size(); ++index) {
+        p_new->addParticle(m_particles[index]->cloneInvertB(),
+                m_positions_vector[index]);
+    }
+    p_new->setName(getName() + "_inv");
+    const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
+            this->mp_ambient_material->getName());
+    p_new->mp_ambient_material = p_ambient_material;
     return p_new;
 }
 
@@ -63,11 +78,11 @@ void LatticeBasis::addParticle(const Particle& particle, std::vector<kvector_t >
     m_positions_vector.push_back(positions);
 }
 
-void LatticeBasis::setAmbientRefractiveIndex(complex_t refractive_index)
+void LatticeBasis::setAmbientMaterial(const IMaterial *p_material)
 {
-    Particle::setAmbientRefractiveIndex(refractive_index);
+    Particle::setAmbientMaterial(p_material);
     for (size_t index=0; index<m_particles.size(); ++index) {
-        m_particles[index]->setAmbientRefractiveIndex(refractive_index);
+        m_particles[index]->setAmbientMaterial(p_material);
     }
 }
 
@@ -80,7 +95,7 @@ IFormFactor* LatticeBasis::createFormFactor() const
         p_ff->addFormFactor(pos_ff);
         delete p_particle_ff;
     }
-    p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
+    p_ff->setAmbientMaterial(mp_ambient_material);
     return p_ff;
 }
 
@@ -99,4 +114,10 @@ std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() co
     return result;
 }
 
-
+void LatticeBasis::addParticle(Particle* p_particle,
+        std::vector<kvector_t> positions)
+{
+    registerChild(p_particle);
+    m_particles.push_back(p_particle);
+    m_positions_vector.push_back(positions);
+}

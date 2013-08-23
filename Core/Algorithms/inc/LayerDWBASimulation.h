@@ -19,11 +19,13 @@
 #include "DWBASimulation.h"
 #include "IDoubleToComplexFunction.h"
 
+class MagneticCoefficientsMap;
+
 //! Base class for LayerDecoratorDWBASimulation, DiffuseDWBASimulation.
 
 class LayerDWBASimulation : public DWBASimulation
 {
- public:
+public:
     LayerDWBASimulation();
     virtual ~LayerDWBASimulation();
 
@@ -38,13 +40,18 @@ class LayerDWBASimulation : public DWBASimulation
         const IDoubleToPairOfComplexMap& rt_map);
     void setKzAndRTFunctions(const IDoubleToComplexMap& kz_function,
                              const IDoubleToPairOfComplexMap& rt_map);
+    void setMagneticCoefficientsMap(const MagneticCoefficientsMap& coeff_map);
 
- protected:
-    Bin1DCVector getKfBin(double wavelength,
-                          const Bin1D& alpha_bin,
+protected:
+    Bin1DCVector getKfBin(double wavelength, const Bin1D& alpha_bin,
+                          const Bin1D& phi_bin) const;
+    Bin1DCVector getKfBin1_magnetic(double wavelength, const Bin1D& alpha_bin,
+                          const Bin1D& phi_bin) const;
+    Bin1DCVector getKfBin2_magnetic(double wavelength, const Bin1D& alpha_bin,
                           const Bin1D& phi_bin) const;
     IDoubleToComplexMap *mp_kz_function;
     IDoubleToPairOfComplexMap *mp_RT_function;
+    MagneticCoefficientsMap *mp_coeff_map;
 };
 
 #endif /* LAYERDWBASIMULATION_H_ */

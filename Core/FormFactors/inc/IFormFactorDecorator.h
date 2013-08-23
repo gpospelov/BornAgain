@@ -18,17 +18,18 @@
 
 #include "IFormFactor.h"
 
-//! Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, ...).
+//! Encapsulates another formfactor and adds extra functionality
+//! (a scalar factor, a Debye-Waller factor, ...).
 
 class IFormFactorDecorator : public IFormFactor
 {
- public:
+public:
     IFormFactorDecorator(IFormFactor *p_form_factor)
         : mp_form_factor(p_form_factor) {}
     virtual ~IFormFactorDecorator();
     virtual IFormFactorDecorator *clone() const=0;
 
-    virtual void setAmbientRefractiveIndex(const complex_t& refractive_index);
+    virtual void setAmbientMaterial(const IMaterial *p_material);
 
     virtual double getVolume() const;
 
@@ -36,7 +37,7 @@ class IFormFactorDecorator : public IFormFactor
 
     virtual double getRadius() const;
 
- protected:
+protected:
     IFormFactor *mp_form_factor;
 };
 
@@ -45,11 +46,11 @@ inline IFormFactorDecorator::~IFormFactorDecorator()
     delete mp_form_factor;
 }
 
-inline void IFormFactorDecorator::setAmbientRefractiveIndex(
-    const complex_t& refractive_index)
+inline void IFormFactorDecorator::setAmbientMaterial(
+        const IMaterial *p_material)
 {
     if (mp_form_factor)
-        mp_form_factor->setAmbientRefractiveIndex(refractive_index);
+        mp_form_factor->setAmbientMaterial(p_material);
 }
 
 inline double IFormFactorDecorator::getVolume() const

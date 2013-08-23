@@ -37,6 +37,9 @@ class BA_CORE_API_ ISample : public IParameterized, public ICloneable
 
     virtual ISample *clone() const;
 
+    //! Returns a clone with inverted magnetic fields
+    virtual ISample *cloneInvertB() const;
+
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const = 0;
 

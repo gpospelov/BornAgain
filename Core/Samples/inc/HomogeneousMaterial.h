@@ -41,15 +41,17 @@ public:
     virtual ~HomogeneousMaterial() {}
 
     //! Return refractive index.
-    complex_t getRefractiveIndex() const { return m_refractive_index; }
+    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
 
     //! Set refractive index.
     void setRefractiveIndex(const complex_t &refractive_index)
     { m_refractive_index = refractive_index; }
 
-    //! Get the scattering matrix from the refractive index
-    //! and a given wavevector
-    virtual Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
+#ifndef GCCXML_SKIP_THIS
+    //! Get the scattering matrix (~potential V) from the material.
+    //! This matrix appears in the full three-dimensional Schroedinger equation.
+    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
+#endif
 protected:
     virtual void print(std::ostream& ostr) const
     {
@@ -60,15 +62,14 @@ protected:
     complex_t m_refractive_index; //!< complex index of refraction
 };
 
+#ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
-        const kvector_t& k) const
+        double k_mag2) const
 {
-    Eigen::Matrix2cd result;
-    double xy_proj2 = k.magxy2()/k.mag2();
-    complex_t unit_factor = m_refractive_index*m_refractive_index - xy_proj2;
-    result = unit_factor*Eigen::Matrix2cd::Identity();
-    return result;
+    (void)k_mag2;
+    return m_refractive_index*m_refractive_index*Eigen::Matrix2cd::Identity();
 }
+#endif
 
 #endif // HOMOGENEOUSMATERIAL_H
 

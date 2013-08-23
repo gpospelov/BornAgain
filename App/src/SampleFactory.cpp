@@ -50,6 +50,10 @@ SampleFactory::SampleFactory()
     registerItem("MultilayerSpecularMagneticTestCase",
             StandardSamples::MultilayerSpecularMagneticTestCase);
 
+    // magnetic cylinders on substrate for polarized DWBA
+    registerItem("PolarizedDWBATestCase",
+            StandardSamples::PolarizedDWBATestCase);
+
     // IsGISAXS7 example: particle mixture from morphology file
     registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);
 

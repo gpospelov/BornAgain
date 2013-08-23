@@ -16,6 +16,7 @@
 #include "Layer.h"
 #include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
+#include "MaterialManager.h"
 
 #include <iomanip>
 
@@ -71,6 +72,21 @@ Layer::~Layer()
 }
 
 
+Layer* Layer::cloneInvertB() const
+{
+    Layer *p_clone = new Layer();
+    p_clone->mp_material = MaterialManager::getInvertedMaterial(this->mp_material->getName());
+    p_clone->mp_decoration = 0;
+    if(this->getDecoration()) {
+        p_clone->setDecoration(this->getDecoration()->cloneInvertB());
+    }
+    p_clone->m_thickness = this->m_thickness;
+    std::string clone_name = this->getName() + "_inv";
+    p_clone->setName(clone_name);
+    p_clone->init_parameters();
+    return p_clone;
+}
+
 void Layer::init_parameters()
 {
     clearParameterPool();
@@ -120,7 +136,6 @@ void Layer::setDecoration(const IDecoration &decoration)
 {
     setDecoration(decoration.clone());
 }
-
 
 //! Prints description.
 void Layer::print(std::ostream& ostr) const

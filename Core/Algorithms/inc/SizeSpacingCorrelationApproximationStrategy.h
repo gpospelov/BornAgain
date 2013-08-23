@@ -23,7 +23,7 @@
 
 class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
 {
- public:
+public:
     SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params, double kappa);
     virtual ~SizeSpacingCorrelationApproximationStrategy() {}
 
@@ -31,7 +31,12 @@ class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunction
             const SafePointerVector<IInterferenceFunction>& ifs);
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const;
- private:
+
+    //! Calculates and returns a polarized form factor in DWBA
+    virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+            double alpha_i, double alpha_f, double phi_f) const;
+private:
     bool checkVectorSizes() const;
     complex_t getMeanCharacteristicFF(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const;

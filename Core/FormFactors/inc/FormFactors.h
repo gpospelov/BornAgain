@@ -28,6 +28,8 @@
 #include "FormFactorDecoratorTransformation.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAConstZ.h"
+#include "FormFactorDWBAPol.h"
+#include "FormFactorDWBAPolConstZ.h"
 #include "FormFactorEllipsoid.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorFullSpheroid.h"

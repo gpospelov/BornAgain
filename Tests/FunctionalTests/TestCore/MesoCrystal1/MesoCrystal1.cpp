@@ -13,8 +13,10 @@ using namespace FunctionalTests;
 
 
 MesoCrystal1::MesoCrystal1()
-    : m_name("MesoCrystal1")
-    , m_description("Meso crystal simulation")
+: m_name("MesoCrystal1")
+, m_description("Meso crystal simulation")
+, m_result(0)
+, m_reference(0)
 { }
 
 

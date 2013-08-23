@@ -31,6 +31,7 @@ ISample *MultilayerOffspecTestcase1b();
 ISample *MultilayerOffspecTestcase2a();
 ISample *MultilayerOffspecTestcase2b();
 ISample *MultilayerSpecularMagneticTestCase();
+ISample *PolarizedDWBATestCase();
 //ISample *IsGISAXS1_CylinderAndPrism();
 //ISample *IsGISAXS2_CylindersMixture();
 //ISample *IsGISAXS3_CylinderDWBA();

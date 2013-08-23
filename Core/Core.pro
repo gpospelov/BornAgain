@@ -44,6 +44,7 @@ SOURCES += \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
     Tools/src/RealParameterWrapper.cpp \
+    Tools/src/SampleMaterialVisitor.cpp \
     Tools/src/SamplePrintVisitor.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
@@ -84,6 +85,8 @@ SOURCES += \
     FormFactors/src/FormFactorCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
+    FormFactors/src/FormFactorDWBAPol.cpp \
+    FormFactors/src/FormFactorDWBAPolConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
@@ -92,6 +95,7 @@ SOURCES += \
     FormFactors/src/FormFactorHemiSpheroid.cpp \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorParallelepiped.cpp \
+    FormFactors/src/FormFactorPol.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
     FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
@@ -104,6 +108,7 @@ SOURCES += \
     Samples/src/HomogeneousMagneticMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
+    Samples/src/IMaterial.cpp \
     Samples/src/ISample.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/InterferenceFunction2DLattice.cpp \
@@ -177,6 +182,7 @@ HEADERS += \
     Tools/inc/ProgramOptions.h \
     Tools/inc/RealParameterWrapper.h \
     Tools/inc/SafePointerVector.h \
+    Tools/inc/SampleMaterialVisitor.h \
     Tools/inc/SamplePrintVisitor.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticDoubleGate.h \
@@ -233,6 +239,8 @@ HEADERS += \
     FormFactors/inc/FormFactorCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
+    FormFactors/inc/FormFactorDWBAPol.h \
+    FormFactors/inc/FormFactorDWBAPolConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
@@ -246,6 +254,7 @@ HEADERS += \
     FormFactors/inc/FormFactorHemiSpheroid.h \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactorParallelepiped.h \
+    FormFactors/inc/FormFactorPol.h \
     FormFactors/inc/FormFactorPrism3.h \
     FormFactors/inc/FormFactorPrism6.h \
     FormFactors/inc/FormFactorPyramid.h \

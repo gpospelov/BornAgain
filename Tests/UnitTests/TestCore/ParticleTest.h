@@ -58,9 +58,11 @@ TEST_F(ParticleTest, ParticleConstructors)
     EXPECT_EQ("FormFactorFullSphere", p2->getSimpleFormFactor()->getName());
     EXPECT_EQ(1, p2->getSimpleFormFactor()->getRadius());
     EXPECT_FALSE(p2->hasDistributedFormFactor());
-    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorRefractiveIndex *>(p2->createFormFactor()));
+    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorRefractiveIndex *>(
+            p2->createFormFactor()));
     EXPECT_EQ(complex_t(1,0),
-              dynamic_cast<FormFactorDecoratorRefractiveIndex *>(p2->createFormFactor())->getAmbientRefractiveIndex());
+              dynamic_cast<FormFactorDecoratorRefractiveIndex *>(
+                      p2->createFormFactor())->getAmbientRefractiveIndex());
     delete p2;
 
     FormFactorFullSphere *sphere3 = new FormFactorFullSphere(1.0);

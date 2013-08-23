@@ -16,8 +16,6 @@
 #ifndef DOUBLETOCOMPLEXUNORDEREDMAP_H
 #define DOUBLETOCOMPLEXUNORDEREDMAP_H
 
-//#include "Exceptions.h"
-//#include "Types.h"
 #include "Utils.h"
 #include "IDoubleToComplexFunction.h"
 

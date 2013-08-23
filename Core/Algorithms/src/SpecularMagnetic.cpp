@@ -34,7 +34,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
     double mag_k = k.mag();
     for(size_t i=0; i<coeff.size(); ++i) {
         coeff[i].m_scatt_matrix = sample.getLayer(i)->getMaterial()->
-                getScatteringMatrix(k);
+                getSpecularScatteringMatrix(k);
         coeff[i].m_kt = mag_k*sample.getLayer(i)->getThickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
         coeff[i].m_b_mag = std::sqrt(coeff[i].m_a*coeff[i].m_a -

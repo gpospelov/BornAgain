@@ -21,6 +21,10 @@
 #include "Instrument.h"
 #include "SimulationParameters.h"
 
+#ifndef GCCXML_SKIP_THIS
+#include <Eigen/Core>
+#endif
+
 class ProgramOptions;
 
 //! Run one simulation.
@@ -59,11 +63,16 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
     //! Returns detector intensity map for all scan parameters
-    const OutputData<double>* getOutputData() const { return& m_intensity_map; }
+    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
     OutputData<double>* getOutputDataClone() const
     { return m_intensity_map.clone(); }
+
+    //! Returns polarized intensity map
+    const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
+        return &m_polarization_output;
+    }
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
@@ -78,7 +87,7 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     void setBeamIntensity(double intensity);
 
     //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double >& output_data);
+    void setDetectorParameters(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
@@ -130,6 +139,9 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
+    //! Add the intensity maps from the DWBA simulation to the member maps
+    void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
+
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     const ISampleBuilder *mp_sample_builder;
@@ -138,7 +150,10 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     ThreadInfo m_thread_info;
 
     OutputData<double> m_intensity_map;
-    bool m_is_normalized;
+#ifndef GCCXML_SKIP_THIS
+    OutputData<Eigen::Matrix2d> m_polarization_output;
+#endif
+   bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     //TODO: investigate usage:

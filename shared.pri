@@ -2,7 +2,7 @@
 # Common settings for all BornAgain compilations
 # -----------------------------------------------------------------------------
 
-CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+#CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
 
 win32 {
     MAKE_COMMAND = mingw32-make
@@ -90,16 +90,18 @@ INCLUDEPATH *=  $${EIGEN_INCLUDE}
 FFTW3_HEADERFILE = fftw3.h
 macx|unix {
   FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  FFTW3_LIBNAME = fftw3
 }
 win32 {
   FFTW3_HEADER_LOCATIONS = "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
+  FFTW3_LIBNAME = fftw3-3
 }
 for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
 isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS})
 FFTW3_LIB = $$replace(FFTW3_INCLUDE,"include","lib")
 INCLUDEPATH *=  $${FFTW3_INCLUDE}
 LIBS *= -L$${FFTW3_LIB}
-LIBS += -lfftw3
+LIBS += -l$${FFTW3_LIBNAME}
 
 # --- checking boost ---
 BOOST_HEADERFILE = boost/version.hpp
@@ -286,10 +288,10 @@ CONFIG(BORNAGAIN_PYTHON) {
       pythonsysincdir=$${WhichPython}/include
       pythonsyslibdir=$${WhichPython}/libs
     }
-    #message(we have python)
-    #message($$pythonvers)
-    #message($$pythonsysincdir)
-    #message($$pythonsyslibdir)
+    message(we have python)
+    message($$pythonvers)
+    message($$pythonsysincdir)
+    message($$pythonsyslibdir)
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python

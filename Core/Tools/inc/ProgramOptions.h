@@ -18,10 +18,12 @@
 
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/positional_options.hpp>
-GCC_DIAG_ON(unused-parameter);
 #include <boost/program_options/variables_map.hpp>
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(unused-local-typedefs);
 
 #include <string>
 

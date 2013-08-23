@@ -21,7 +21,11 @@
 
 #include <string>
 #include <iostream>
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
+GCC_DIAG_ON(unused-local-typedefs);
 
 //! Interface to a named material.
 

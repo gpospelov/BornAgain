@@ -21,7 +21,12 @@
 #include "IParameterized.h"
 
 #ifndef GCCXML_SKIP_THIS
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
+GCC_DIAG_ON(unused-local-typedefs);
+
 #endif
 
 //! Ideal collimated Beam defined by wavelength, direction and intensity.

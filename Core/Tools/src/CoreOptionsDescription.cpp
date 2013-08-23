@@ -16,8 +16,6 @@
 #include "CoreOptionsDescription.h"
 #include "ProgramOptions.h"
 
-#include <boost/program_options/options_description.hpp>
-
 namespace bpo = boost::program_options;
 
 //! Adds command line and config file options

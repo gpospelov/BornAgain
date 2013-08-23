@@ -17,8 +17,10 @@
 #define HOMOGENEOUSMAGNETICMATERIAL_H_
 
 #include "HomogeneousMaterial.h"
-
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
+GCC_DIAG_ON(unused-local-typedefs);
 
 //! An homogeneous material with magnetization
 

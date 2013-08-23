@@ -21,7 +21,7 @@
 
 //! Formfactor of a sphere.
 
-class FormFactorFullSphere : public IFormFactorBorn
+class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
  public:
     FormFactorFullSphere(double radius);

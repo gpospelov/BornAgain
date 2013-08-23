@@ -48,12 +48,21 @@ public:
 
     //! Indicates that the material is not scalar. This means that different
     //! polarization states will be diffracted differently
-    virtual bool isScalarMaterial() { return false; }
+    virtual bool isScalarMaterial() const { return false; }
 
-    //! Get the scattering matrix from the refractive index, the
-    //! magnetic field and a given wavevector
-    Eigen::Matrix2cd getScatteringMatrix(const kvector_t& k) const;
+#ifndef GCCXML_SKIP_THIS
+    //! Get the scattering matrix (~potential V) from the material.
+    //! This matrix appears in the full three-dimensional Schroedinger equation.
+    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
+#endif
 protected:
+    virtual void print(std::ostream& ostr) const
+    {
+        ostr  << "HomMagMat:" << getName() << "<" << this << ">{ " <<
+                 "R=" << m_refractive_index <<
+                 ", B=" << m_magnetic_field << "}" ;
+    }
+
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:
     //! Function to initialize some private members

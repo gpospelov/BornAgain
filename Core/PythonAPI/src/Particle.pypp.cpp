@@ -25,8 +25,8 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     }
 
-    Particle_wrapper(::IMaterial const * material, ::IFormFactor const & form_factor )
-    : Particle( boost::python::ptr(material), boost::ref(form_factor) )
+    Particle_wrapper(::IMaterial const * p_material, ::IFormFactor const & form_factor )
+    : Particle( boost::python::ptr(p_material), boost::ref(form_factor) )
       , bp::wrapper< Particle >(){
         // constructor
     
@@ -35,22 +35,34 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::Particle * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->Particle::clone(  );
+        }
     }
-    
     
     ::Particle * default_clone(  ) const  {
         return Particle::clone( );
     }
 
+    virtual ::Particle * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else{
+            return this->Particle::cloneInvertB(  );
+        }
+    }
+    
+    ::Particle * default_cloneInvertB(  ) const  {
+        return Particle::cloneInvertB( );
+    }
+
     virtual ::IFormFactor * createFormFactor(  ) const  {
         if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
             return func_createFormFactor(  );
-        else
+        else{
             return this->Particle::createFormFactor(  );
+        }
     }
-    
     
     ::IFormFactor * default_createFormFactor(  ) const  {
         return Particle::createFormFactor( );
@@ -59,10 +71,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
-        else
+        else{
             return this->Particle::getMaterial(  );
+        }
     }
-    
     
     ::IMaterial const * default_getMaterial(  ) const  {
         return Particle::getMaterial( );
@@ -71,10 +83,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->Particle::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return Particle::getRefractiveIndex( );
@@ -83,10 +95,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
         if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
             return func_getSimpleFormFactor(  );
-        else
+        else{
             return this->Particle::getSimpleFormFactor(  );
+        }
     }
-    
     
     ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
         return Particle::getSimpleFormFactor( );
@@ -95,34 +107,22 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual bool hasDistributedFormFactor(  ) const  {
         if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
             return func_hasDistributedFormFactor(  );
-        else
+        else{
             return this->Particle::hasDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_hasDistributedFormFactor(  ) const  {
         return Particle::hasDistributedFormFactor( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
-        else
-            this->Particle::setAmbientRefractiveIndex( refractive_index );
-    }
-    
-    
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        Particle::setAmbientRefractiveIndex( refractive_index );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -131,10 +131,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -143,10 +143,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -155,10 +155,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -167,10 +167,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -179,10 +179,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -210,10 +210,10 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -222,24 +222,24 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
     
-    
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -251,7 +251,7 @@ void register_Particle_class(){
         typedef bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Particle_exposer_t;
         Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< >() );
         bp::scope Particle_scope( Particle_exposer );
-        Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const & >(( bp::arg("material"), bp::arg("form_factor") )) );
+        Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
         { //::Particle::clone
         
             typedef ::Particle * ( ::Particle::*clone_function_type )(  ) const;
@@ -262,6 +262,18 @@ void register_Particle_class(){
                 , clone_function_type(&::Particle::clone)
                 , default_clone_function_type(&Particle_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Particle::cloneInvertB
+        
+            typedef ::Particle * ( ::Particle::*cloneInvertB_function_type )(  ) const;
+            typedef ::Particle * ( Particle_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            
+            Particle_exposer.def( 
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::Particle::cloneInvertB)
+                , default_cloneInvertB_function_type(&Particle_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Particle::createFormFactor
@@ -320,18 +332,6 @@ void register_Particle_class(){
                 "hasDistributedFormFactor"
                 , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
                 , default_hasDistributedFormFactor_function_type(&Particle_wrapper::default_hasDistributedFormFactor) );
-        
-        }
-        { //::Particle::setAmbientRefractiveIndex
-        
-            typedef void ( ::Particle::*setAmbientRefractiveIndex_function_type )( ::complex_t ) ;
-            typedef void ( Particle_wrapper::*default_setAmbientRefractiveIndex_function_type )( ::complex_t ) ;
-            
-            Particle_exposer.def( 
-                "setAmbientRefractiveIndex"
-                , setAmbientRefractiveIndex_function_type(&::Particle::setAmbientRefractiveIndex)
-                , default_setAmbientRefractiveIndex_function_type(&Particle_wrapper::default_setAmbientRefractiveIndex)
-                , ( bp::arg("refractive_index") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -438,8 +438,8 @@ void register_Particle_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( Particle_wrapper::*default_size_function_type )(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::size_t ( Particle_wrapper::*default_size_function_type )(  ) const;
             
             Particle_exposer.def( 
                 "size"

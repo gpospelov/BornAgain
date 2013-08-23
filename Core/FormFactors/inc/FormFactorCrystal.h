@@ -26,14 +26,14 @@ class FormFactorCrystal : public IFormFactorBorn
  public:
     FormFactorCrystal(
         const Crystal& p_crystal, const IFormFactor& meso_crystal_form_factor,
-        const complex_t& ambient_refractive_index);
+        const IMaterial *p_material);
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual void setAmbientRefractiveIndex(const complex_t& refractive_index);
+    virtual void setAmbientMaterial(const IMaterial *p_material);
 
     virtual complex_t evaluate(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin,
@@ -50,7 +50,7 @@ class FormFactorCrystal : public IFormFactorBorn
     Particle *mp_particle;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
-    complex_t m_ambient_refractive_index;
+    const IMaterial *mp_ambient_material;
     double m_max_rec_length;
 };
 

@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/SampleFactory.cpp
@@ -32,33 +32,27 @@ SampleFactory::SampleFactory()
 
     // samples used for offspecular reflectivity validation
 
-    //10x2 layers for comparison of diffuse (off-specular) reflectivity with and without cross-correlation in layer's roughnesses
-    registerItem("MultilayerOffspecTestcase1a", StandardSamples::MultilayerOffspecTestcase1a);
-    registerItem("MultilayerOffspecTestcase1b", StandardSamples::MultilayerOffspecTestcase1b);
+    // 10x2 layers for comparison of diffuse (off-specular) reflectivity with
+    // and without cross-correlation in layer's roughnesses
+    registerItem("MultilayerOffspecTestcase1a",
+            StandardSamples::MultilayerOffspecTestcase1a);
+    registerItem("MultilayerOffspecTestcase1b",
+            StandardSamples::MultilayerOffspecTestcase1b);
 
-    // thin layer of air (two different thicknesses) to check diffuse (off-specular) reflectivity
-    registerItem("MultilayerOffspecTestcase2a", StandardSamples::MultilayerOffspecTestcase2a);
-    registerItem("MultilayerOffspecTestcase2b", StandardSamples::MultilayerOffspecTestcase2b);
+    // thin layer of air (two different thicknesses) to check diffuse
+    // (off-specular) reflectivity
+    registerItem("MultilayerOffspecTestcase2a",
+            StandardSamples::MultilayerOffspecTestcase2a);
+    registerItem("MultilayerOffspecTestcase2b",
+            StandardSamples::MultilayerOffspecTestcase2b);
 
-    // IsGISAXS1 example: cylinder and prism
-    //registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
+    // 10x2 layers with same index of refraction but opposite magnetization
+    registerItem("MultilayerSpecularMagneticTestCase",
+            StandardSamples::MultilayerSpecularMagneticTestCase);
 
-    // IsGISAXS2 example: mixture of cylindrical particles with two size distribution
-    //registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
-
-    // IsGISAXS3 example: cylinder on top of substrate, cylinder in the air, cylinder with size distribution
-//    registerItem("IsGISAXS3_CylinderDWBA", StandardSamples::IsGISAXS3_CylinderDWBA);
-//    registerItem("IsGISAXS3_CylinderBA", StandardSamples::IsGISAXS3_CylinderBA);
-//    registerItem("IsGISAXS3_CylinderBASize", StandardSamples::IsGISAXS3_CylinderBASize);
-
-    // IsGISAXS4 example: cylinders on top of substrate with paracrystal structure factors
-    //registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
-    //registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
-
-    // IsGISAXS6 example: cylinders with lattice interference function
-//    registerItem("IsGISAXS6_lattice", StandardSamples::IsGISAXS6_lattice);
-//    registerItem("IsGISAXS6_centered", StandardSamples::IsGISAXS6_centered);
-//    registerItem("IsGISAXS6_rotated", StandardSamples::IsGISAXS6_rotated);
+    // magnetic cylinders on substrate for polarized DWBA
+    registerItem("PolarizedDWBATestCase",
+            StandardSamples::PolarizedDWBATestCase);
 
     // IsGISAXS7 example: particle mixture from morphology file
     registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);

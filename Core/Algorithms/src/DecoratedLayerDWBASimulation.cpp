@@ -18,6 +18,8 @@
 #include "FormFactors.h"
 #include "MessageService.h"
 
+#include <boost/scoped_ptr.hpp>
+
 DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
     const Layer *p_layer)
 {
@@ -43,12 +45,47 @@ void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 void DecoratedLayerDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::run()";
-    IInterferenceFunctionStrategy *p_strategy = createAndInitStrategy();
+    boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(
+            createAndInitStrategy());
 
-    calculateCoherentIntensity(p_strategy);
+    if (checkPolarizationPresent()) {
+        runMagnetic(P_strategy.get());
+        return;
+    }
+    calculateCoherentIntensity(P_strategy.get());
     calculateInCoherentIntensity();
+}
 
-    delete p_strategy;
+void DecoratedLayerDWBASimulation::runMagnetic(
+        const IInterferenceFunctionStrategy *p_strategy)
+{
+    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::calculateCoh...()";
+    double wavelength = getWaveLength();
+    double total_surface_density =
+        mp_layer->getTotalParticleSurfaceDensity();
+
+    OutputData<Eigen::Matrix2d>::iterator it = mp_polarization_output->begin();
+    while ( it != mp_polarization_output->end() )
+    {
+        Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
+            "phi_f", it.getIndex());
+        Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
+            "alpha_f", it.getIndex());
+        double alpha_f = alpha_bin.getMidPoint();
+        double phi_f = phi_bin.getMidPoint();
+        if (m_sim_params.me_framework==SimulationParameters::DWBA &&
+                alpha_f<0) {
+            ++it;
+            continue;
+        }
+        Bin1DCVector k_f_bin1 = getKfBin1_magnetic(
+                wavelength, alpha_bin, phi_bin);
+        Bin1DCVector k_f_bin2 = getKfBin2_magnetic(
+                wavelength, alpha_bin, phi_bin);
+        *it = p_strategy->evaluatePol(m_ki, k_f_bin1, k_f_bin2, -m_alpha_i,
+                    alpha_f, phi_f) * total_surface_density;
+        ++it;
+    }
 }
 
 IInterferenceFunctionStrategy
@@ -56,51 +93,16 @@ IInterferenceFunctionStrategy
 {
     LayerStrategyBuilder builder(
         *mp_layer, *mp_simulation, m_sim_params);
-    if (mp_RT_function)
-        builder.setReflectionTransmissionFunction(*mp_RT_function);
+    if (checkPolarizationPresent()) {
+        assert(mp_coeff_map);
+        builder.setRTInfo(*mp_coeff_map);
+    }
+    else {
+        assert(mp_RT_function);
+        builder.setRTInfo(*mp_RT_function);
+    }
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
     return p_strategy;
-}
-
-std::vector<IFormFactor*>
-DecoratedLayerDWBASimulation::createDWBAFormFactors() const
-{
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...()";
-    std::vector<IFormFactor*> result;
-    const IDecoration *p_decoration = mp_layer->getDecoration();
-    complex_t n_layer = mp_layer->getRefractiveIndex();
-    size_t number_of_particles = p_decoration->getNumberOfParticles();
-    for (size_t particle_index =
-            0; particle_index<number_of_particles; ++particle_index) {
-        Particle *p_particle = p_decoration->getParticleInfo(particle_index)->getParticle()->clone();
-        double depth = p_decoration->getParticleInfo(particle_index)->getDepth();
-        const Geometry::PTransform3D transform =
-            p_decoration->getParticleInfo(particle_index)->getPTransform3D();
-
-        p_particle->setAmbientRefractiveIndex(n_layer);
-        complex_t wavevector_scattering_factor =
-            M_PI/getWaveLength()/getWaveLength();
-
-        IFormFactor *ff_particle = p_particle->createFormFactor();
-        IFormFactor *ff_transformed(0);
-        if(transform) {
-            msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...() avec!";
-            ff_transformed = new FormFactorDecoratorTransformation(
-                ff_particle, transform);
-        } else {
-            msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...() sans!";
-            ff_transformed = ff_particle;
-        }
-
-        FormFactorDWBAConstZ dwba_z(ff_transformed, depth);
-        dwba_z.setReflectionTransmissionFunction(*mp_RT_function);
-        FormFactorDecoratorFactor *p_ff =
-            new FormFactorDecoratorFactor(
-                dwba_z.clone(), wavevector_scattering_factor);
-        result.push_back(p_ff);
-        delete p_particle;
-    }
-    return result;
 }
 
 void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
@@ -146,5 +148,6 @@ void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
         addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
     }
 }
+
 
 

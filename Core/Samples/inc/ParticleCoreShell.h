@@ -22,25 +22,33 @@
 
 class ParticleCoreShell : public Particle
 {
- public:
-    ParticleCoreShell(const Particle& shell, const Particle& core, kvector_t relative_core_position);
+public:
+    ParticleCoreShell(const Particle& shell, const Particle& core,
+            kvector_t relative_core_position);
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    //! Returns a clone with inverted magnetic fields
+    virtual ParticleCoreShell *cloneInvertB() const;
 
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const {
+        p_visitor->visit(this);
+    }
+
+    //! Sets the refractive index of the ambient material (which influences
+    //! its scattering power)
+    virtual void setAmbientMaterial(const IMaterial *p_material)
     {
-        m_ambient_refractive_index = refractive_index;
-        mp_shell->setAmbientRefractiveIndex(refractive_index);
-        mp_core->setAmbientRefractiveIndex(refractive_index);
+        mp_ambient_material = p_material;
+        mp_shell->setAmbientMaterial(p_material);
+        mp_core->setAmbientMaterial(p_material);
     }
 
     virtual IFormFactor* createFormFactor() const;
 
-    //! Sets the formfactor of the particle (not including scattering factor from refractive index)
+    //! Sets the formfactor of the particle (not including scattering factor
+    //! from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_form_factor) {
@@ -51,16 +59,31 @@ class ParticleCoreShell : public Particle
         }
     }
 
-    //! Returns formfactor of the particle (not including scattering factor from refractive index)
-    virtual const IFormFactor *getSimpleFormFactor() const { return mp_form_factor;}
+    //! Returns formfactor of the particle (not including scattering factor
+    //! from refractive index)
+    virtual const IFormFactor *getSimpleFormFactor() const {
+        return mp_form_factor;
+    }
 
     //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const {
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
+            const ParticleInfo& parent_info) const {
         (void)parent_info;
         return 0;
     }
 
- protected:
+    //! Returns the core particle
+    const Particle *getCoreParticle() const {
+        return mp_core;
+    }
+
+    //! Returns the shell particle
+    const Particle *getShellParticle() const {
+        return mp_shell;
+    }
+
+protected:
+    ParticleCoreShell(kvector_t relative_core_position);
     Particle *mp_shell;
     Particle *mp_core;
     kvector_t m_relative_core_position;

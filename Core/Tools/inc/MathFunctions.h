@@ -29,6 +29,10 @@
 #include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
+#ifndef GCCXML_SKIP_THIS
+#include <Eigen/Core>
+#endif
+
 //! Various mathematical functions.
 
 namespace MathFunctions
@@ -84,6 +88,10 @@ complex_t FastCos(const complex_t &x);
 
 //! simultaneous complex sine and cosine calculations
 void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
+
+#ifndef GCCXML_SKIP_THIS
+Eigen::Matrix2d Norm(Eigen::Matrix2cd &M);
+#endif
 
 } // Namespace MathFunctions
 
@@ -182,6 +190,17 @@ inline void MathFunctions::FastSinCos(const complex_t &x,
     xsin = complex_t( sina*coshb,  cosa*sinhb );
     xcos = complex_t( cosa*coshb, -sina*sinhb );
 }
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2d MathFunctions::Norm(Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = std::norm((complex_t)M(0,0));
+    result(0,1) = std::norm((complex_t)M(0,1));
+    result(1,0) = std::norm((complex_t)M(1,0));
+    result(1,1) = std::norm((complex_t)M(1,1));
+    return result;
+}
+#endif
 
 #endif // MATHFUNCTIONS_H
 

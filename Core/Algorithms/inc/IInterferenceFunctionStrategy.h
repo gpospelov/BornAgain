@@ -21,12 +21,13 @@
 #include "Bin.h"
 #include "SafePointerVector.h"
 #include "LayerStrategyBuilder.h"
+#include "FormFactorDWBAPol.h"
 
 #include <vector>
 
 class IInterferenceFunctionStrategy
 {
- public:
+public:
     IInterferenceFunctionStrategy(SimulationParameters sim_params)
         : m_sim_params(sim_params) {}
     virtual ~IInterferenceFunctionStrategy() {}
@@ -35,7 +36,12 @@ class IInterferenceFunctionStrategy
                       const SafePointerVector<IInterferenceFunction>& ifs);
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const=0;
- protected:
+    //! Calculates and returns a polarized form factor in DWBA
+    virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+            double alpha_i, double alpha_f, double phi_f) const=0;
+
+protected:
     //! Returns mean form factor, possibly including their position information
     complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f, bool use_position=false) const;

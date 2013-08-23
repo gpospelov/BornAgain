@@ -56,6 +56,9 @@ class BA_CORE_API_ ParticleDecoration : public IDecoration
 
     virtual ParticleDecoration *clone() const;
 
+    //! Returns a clone with inverted magnetic fields
+    virtual ParticleDecoration *cloneInvertB() const;
+
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

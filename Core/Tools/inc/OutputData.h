@@ -37,6 +37,8 @@ class OutputData
 
     void copyFrom(const OutputData<T>& x);
 
+    template <class U> void copyShapeFrom(const OutputData<U>& other);
+
     void addAxis(const IAxis& new_axis);
     void addAxis(const std::string& name, size_t size,
                  double start, double end);
@@ -247,6 +249,20 @@ void OutputData<T>::copyFrom(const OutputData<T>& other)
     if (other.getMask())
         mp_mask = other.getMask()->clone();
 }
+
+template <class T>
+template <class U>
+void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
+{
+    clear();
+    size_t rank = other.getRank();
+    for (size_t i=0; i<rank; ++i) {
+        addAxis(*other.getAxis(i));
+    }
+    if (other.getMask())
+        mp_mask = other.getMask()->clone();
+}
+
 
 template <class T>
 void OutputData<T>::addAxis(const IAxis& new_axis)

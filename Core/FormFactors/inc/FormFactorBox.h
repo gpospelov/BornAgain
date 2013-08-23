@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! ?
+//! The form factor for a rectangular box
 
 class FormFactorBox : public IFormFactorBorn
 {

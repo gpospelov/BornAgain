@@ -26,36 +26,49 @@
 
 class IClusteredParticles : public ICompositeSample
 {
- public:
+public:
     IClusteredParticles() {}
     virtual ~IClusteredParticles() {}
     //! clone method to allow for polymorphic copying
-    virtual IClusteredParticles *clone() const { throw NotImplementedException("IClusteredParticles::clone() -> Error! Not implemented exception"); }
-
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)=0;
-
-    //! @brief create a total form factor for the mesocrystal with a specific shape and content
-    //! @param meso_crystal_form_factor  the form factor describing the shape of the mesocrystal
-    //! @param ambient_refractive_index  the refractive index of the ambient material
-    //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
-//    virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
-//            complex_t ambient_refractive_index) const=0;
-
-//    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const=0;
-
-
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
-            complex_t ambient_refractive_index) const
-    {
-        (void)meso_crystal_form_factor;
-        (void)ambient_refractive_index;
-        throw NotImplementedException("IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
+    virtual IClusteredParticles *clone() const {
+        throw NotImplementedException("IClusteredParticles::clone() -> Error! "
+                "Not implemented exception");
     }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const
+    //! Returns a clone with inverted magnetic fields
+    virtual IClusteredParticles *cloneInvertB() const {
+        throw NotImplementedException("IClusteredParticles::cloneInvertB() -> "
+                "Error! Not implemented exception");
+    }
+
+    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)=0;
+
+    //! @brief create a total form factor for the mesocrystal with a specific
+    //! shape and content
+    //! @param meso_crystal_form_factor  the form factor describing the shape
+    //! of the mesocrystal
+    //! @param ambient_refractive_index  the refractive index of the
+    //! ambient material
+    //! The bulk content of the mesocrystal is encapsulated by the
+    //! IClusteredParticles object itself
+    virtual IFormFactor *createTotalFormFactor(
+           const IFormFactor& meso_crystal_form_factor,
+           const IMaterial *p_ambient_material) const
+    {
+        (void)meso_crystal_form_factor;
+        (void)p_ambient_material;
+        throw NotImplementedException(
+                "IClusteredParticles::createTotalFormFactor() "
+                "-> NotImplementedException");
+    }
+
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
+            const ParticleInfo& parent_info) const
     {
         (void)parent_info;
-        throw NotImplementedException("IClusteredParticles::createDiffuseParticleInfo() -> NotImplementedException");
+        throw NotImplementedException(
+                "IClusteredParticles::createDiffuseParticleInfo() "
+                "-> NotImplementedException");
     }
 
 };

@@ -41,12 +41,21 @@ Crystal* Crystal::clone() const
     return p_new;
 }
 
+Crystal* Crystal::cloneInvertB() const
+{
+    Crystal *p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
+    p_new->setDWFactor(m_dw_factor);
+    p_new->setName(getName() + "_inv");
+    return p_new;
+}
+
 IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        complex_t ambient_refractive_index) const
+        const IMaterial *p_ambient_material) const
 {
     IFormFactor *p_ff_crystal =
-        new FormFactorCrystal(*this, meso_crystal_form_factor, ambient_refractive_index);
+        new FormFactorCrystal(*this, meso_crystal_form_factor,
+                p_ambient_material);
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
     }
@@ -81,4 +90,11 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     return p_result;
 }
 
-
+Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
+: m_lattice(lattice)
+, m_dw_factor(0.0)
+{
+    setName("Crystal");
+    mp_lattice_basis = p_lattice_basis;
+    registerChild(mp_lattice_basis);
+}

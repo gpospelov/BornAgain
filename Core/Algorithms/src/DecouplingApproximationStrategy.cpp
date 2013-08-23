@@ -15,6 +15,8 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
+#include "MathFunctions.h"
+
 #include <cassert>
 #include <iostream>
 
@@ -55,6 +57,33 @@ double DecouplingApproximationStrategy::evaluate(
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());
+    return intensity + amplitude_norm*(itf_function-1.0);
+}
+
+Eigen::Matrix2d DecouplingApproximationStrategy::evaluatePol(
+        const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
+        const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
+        double phi_f) const
+{
+    Eigen::Matrix2d intensity = Eigen::Matrix2d::Zero();
+    Eigen::Matrix2cd amplitude = Eigen::Matrix2cd::Zero();
+    for (size_t i=0; i<m_ff_infos.size(); ++i) {
+        FormFactorDWBAPol *p_ff_pol = dynamic_cast<FormFactorDWBAPol *>(
+                m_ff_infos[i]->mp_ff);
+        if (!p_ff_pol) {
+            throw Exceptions::ClassInitializationException(
+                    "DecouplingApproximationStrategy::evaluatePol: "
+                    "unpolarized form factor encountered");
+        }
+        Eigen::Matrix2cd  ff = p_ff_pol->evaluatePol(k_i, k_f1_bin, k_f2_bin,
+                alpha_i, alpha_f, phi_f);
+
+        double fraction = m_ff_infos[i]->m_abundance;
+        amplitude += fraction*ff;
+        intensity += fraction*(MathFunctions::Norm(ff));
+    }
+    Eigen::Matrix2d amplitude_norm = MathFunctions::Norm(amplitude);
+    double itf_function = m_ifs[0]->evaluate(k_i-k_f1_bin.getMidPoint());
     return intensity + amplitude_norm*(itf_function-1.0);
 }
 

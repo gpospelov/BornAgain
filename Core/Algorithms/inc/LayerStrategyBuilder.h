@@ -20,6 +20,7 @@
 #include "SafePointerVector.h"
 #include "ICloneable.h"
 #include "Types.h"
+#include "IMaterial.h"
 
 class FormFactorInfo;
 class IInterferenceFunction;
@@ -29,6 +30,7 @@ class Simulation;
 class IDoubleToPairOfComplexMap;
 class ParticleInfo;
 class IFormFactor;
+class MagneticCoefficientsMap;
 
 //! Methods to generate a simulation strategy for decorated Layer SimulationParameters
 
@@ -42,9 +44,11 @@ public:
 
     virtual ~LayerStrategyBuilder();
 
-    //! Sets R and T coefficient map for DWBA simulation
-    void setReflectionTransmissionFunction(
-        const IDoubleToPairOfComplexMap& rt_map);
+    //! Sets reflection/transmission map for scalar DWBA simulation
+    void setRTInfo(const IDoubleToPairOfComplexMap& rt_map);
+
+    //! Sets magnetic reflection/transmission info for polarized DWBA
+    void setRTInfo(const MagneticCoefficientsMap& magnetic_coeff_map);
 
     //! Creates a strategy object which is able to calculate the scattering for fixed k_f
     virtual IInterferenceFunctionStrategy *createStrategy();
@@ -54,6 +58,7 @@ protected:
     Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     IDoubleToPairOfComplexMap *mp_RT_function;  //!< R and T coefficients for DWBA
+    MagneticCoefficientsMap *mp_magnetic_coeff_map;  //!< magnetic reflection/transmission coefficients
 
 private:
     //! collect the formfactor info of all particles in the decoration and decorate
@@ -66,7 +71,12 @@ private:
     //! Creates formfactor info for single particle
     FormFactorInfo *createFormFactorInfo(
         const ParticleInfo *p_particle_info,
-        complex_t n_ambient_refractive_index,
+        const IMaterial *p_ambient_material,
+        complex_t factor) const;
+    //! Creates formfactor info for single particle in presence of polarization
+    FormFactorInfo *createFormFactorInfoPol(
+        const ParticleInfo *p_particle_info,
+        const IMaterial *p_ambient_material,
         complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;

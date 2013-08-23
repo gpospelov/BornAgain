@@ -18,6 +18,7 @@
 #define IFORMFACTOR_H
 
 #include "WinDllMacros.h"
+#include "IMaterial.h"
 #include "ISample.h"
 #include "Bin.h"
 
@@ -35,9 +36,9 @@ class BA_CORE_API_ IFormFactor : public ISample
     virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientRefractiveIndex(const complex_t& refractive_index)
+    virtual void setAmbientMaterial(const IMaterial *p_material)
     {
-        (void)refractive_index; // to prevent unused-variable warning
+        (void)p_material; // to prevent unused-variable warning
     }
 
     //! Returns scattering amplitude for complex wavevector bin

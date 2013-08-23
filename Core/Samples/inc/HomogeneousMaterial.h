@@ -23,7 +23,7 @@
 
 class HomogeneousMaterial : public IMaterial
 {
- public:
+public:
     //! Constructs a material with _name_ and _refractive_index_.
     HomogeneousMaterial(const std::string& name,
                         const complex_t& refractive_index)
@@ -41,13 +41,18 @@ class HomogeneousMaterial : public IMaterial
     virtual ~HomogeneousMaterial() {}
 
     //! Return refractive index.
-    complex_t getRefractiveIndex() const { return m_refractive_index; }
+    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
 
     //! Set refractive index.
     void setRefractiveIndex(const complex_t &refractive_index)
     { m_refractive_index = refractive_index; }
 
- protected:
+#ifndef GCCXML_SKIP_THIS
+    //! Get the scattering matrix (~potential V) from the material.
+    //! This matrix appears in the full three-dimensional Schroedinger equation.
+    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
+#endif
+protected:
     virtual void print(std::ostream& ostr) const
     {
         ostr  << "HomMat:" << getName() << "<" << this << ">{ " <<
@@ -56,6 +61,15 @@ class HomogeneousMaterial : public IMaterial
 
     complex_t m_refractive_index; //!< complex index of refraction
 };
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
+        double k_mag2) const
+{
+    (void)k_mag2;
+    return m_refractive_index*m_refractive_index*Eigen::Matrix2cd::Identity();
+}
+#endif
 
 #endif // HOMOGENEOUSMATERIAL_H
 

@@ -26,12 +26,12 @@
 
 class TestSpecularMatrix : public IFunctionalTest
 {
- public:
+public:
     TestSpecularMatrix();
 
     void execute();
 
- private:
+private:
     //! Returns amplitudes vs. alpha_i for several standard samples
     void test_standard_samples();
     //! draw results of the test
@@ -43,9 +43,8 @@ class TestSpecularMatrix : public IFunctionalTest
     void draw_roughness_set();
 
     MultiLayer *mp_sample; //!< pointer to multilayer sample
-    OutputData<SpecularMatrix::MultiLayerCoeff_t  > *mp_coeffs; //!< output data structure
+    OutputData<SpecularMatrix::MultiLayerCoeff_t  >
+        *mp_coeffs; //!< output data structure
 };
-
-
 
 #endif /* TESTSPECULARMATRIX_H_ */

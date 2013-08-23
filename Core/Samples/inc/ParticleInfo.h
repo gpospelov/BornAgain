@@ -44,6 +44,13 @@ class ParticleInfo : public ICompositeSample
             mp_particle->clone(), mP_transform, m_depth, m_abundance);
     }
 
+    //! Returns a clone with inverted magnetic fields
+    virtual ParticleInfo *cloneInvertB() const
+    {
+        return new ParticleInfo(
+            mp_particle->cloneInvertB(), mP_transform, m_depth, m_abundance);
+    }
+
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

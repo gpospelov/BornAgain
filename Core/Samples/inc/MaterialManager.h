@@ -19,7 +19,7 @@
 #include "WinDllMacros.h"
 #include "Exceptions.h"
 #include "ISingleton.h"
-#include "HomogeneousMaterial.h"
+#include "IMaterial.h"
 #include <iostream>
 #include <string>
 #include <map>
@@ -42,12 +42,12 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     static const IMaterial *getMaterial(const std::string& name)
     { return instance().this_getMaterial(name); }
 
-    //! Adds material to database.
+    //! Adds and returns material to database.
     static const IMaterial *getHomogeneousMaterial(
         const std::string& name, const complex_t& refractive_index)
     { return instance().this_getHomogeneousMaterial(name, refractive_index); }
 
-    //! Adds material to database.
+    //! Adds and returns material to database.
     static const IMaterial *getHomogeneousMaterial(
         const std::string& name,
         double refractive_index_delta,
@@ -55,8 +55,32 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     { return instance().this_getHomogeneousMaterial(
             name, refractive_index_delta, refractive_index_beta); }
 
+    //! Adds and returns magnetic material to database.
+    static const IMaterial *getHomogeneousMagneticMaterial(
+        const std::string& name, const complex_t& refractive_index,
+        const kvector_t &magnetic_field)
+    { return instance().this_getHomogeneousMagneticMaterial(name,
+            refractive_index, magnetic_field); }
+
+    //! Adds and returns magnetic material to database.
+    static const IMaterial *getHomogeneousMagneticMaterial(
+        const std::string& name,
+        double refractive_index_delta,
+        double refractive_index_beta,
+        const kvector_t &magnetic_field)
+    { return instance().this_getHomogeneousMagneticMaterial(
+            name, refractive_index_delta, refractive_index_beta,
+            magnetic_field); }
+
+    //! Adds and returns material with inverted magnetic field (if present) to
+    //! database. The new material is based on the material with the given name
+    static const IMaterial *getInvertedMaterial(
+            const std::string& name)
+    { return instance().this_getInvertedMaterial(name); }
+
     //! returns number of materials
-    static int getNumberOfMaterials() { return instance().this_getNumberOfMaterials(); }
+    static int getNumberOfMaterials() { return instance().
+            this_getNumberOfMaterials(); }
 
     //! Sends class description to stream.
     friend std::ostream& operator<<(
@@ -97,6 +121,15 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name,
         double refractive_index_delta, double refractive_index_beta);
+    const IMaterial *this_getHomogeneousMagneticMaterial(
+        const std::string& name, const complex_t& refractive_index,
+        const kvector_t &magnetic_field);
+    const IMaterial *this_getHomogeneousMagneticMaterial(
+        const std::string& name,
+        double refractive_index_delta, double refractive_index_beta,
+        const kvector_t &magnetic_field);
+    const IMaterial *this_getInvertedMaterial(
+        const std::string& name);
     int this_getNumberOfMaterials() const { return (int)m_materials.size(); }
 
     void check_refractive_index(const complex_t &index);

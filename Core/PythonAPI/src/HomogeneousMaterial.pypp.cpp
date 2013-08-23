@@ -37,15 +37,27 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
     
     }
 
-    virtual bool isScalarMaterial(  ) {
-        if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
-            return func_isScalarMaterial(  );
-        else
-            return this->IMaterial::isScalarMaterial(  );
+    virtual ::complex_t getRefractiveIndex(  ) const  {
+        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
+            return func_getRefractiveIndex(  );
+        else{
+            return this->HomogeneousMaterial::getRefractiveIndex(  );
+        }
     }
     
+    ::complex_t default_getRefractiveIndex(  ) const  {
+        return HomogeneousMaterial::getRefractiveIndex( );
+    }
+
+    virtual bool isScalarMaterial(  ) const  {
+        if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
+            return func_isScalarMaterial(  );
+        else{
+            return this->IMaterial::isScalarMaterial(  );
+        }
+    }
     
-    bool default_isScalarMaterial(  ) {
+    bool default_isScalarMaterial(  ) const  {
         return IMaterial::isScalarMaterial( );
     }
 
@@ -61,10 +73,12 @@ void register_HomogeneousMaterial_class(){
         { //::HomogeneousMaterial::getRefractiveIndex
         
             typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( HomogeneousMaterial_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
             
             HomogeneousMaterial_exposer.def( 
                 "getRefractiveIndex"
-                , getRefractiveIndex_function_type( &::HomogeneousMaterial::getRefractiveIndex ) );
+                , getRefractiveIndex_function_type(&::HomogeneousMaterial::getRefractiveIndex)
+                , default_getRefractiveIndex_function_type(&HomogeneousMaterial_wrapper::default_getRefractiveIndex) );
         
         }
         { //::HomogeneousMaterial::setRefractiveIndex
@@ -79,8 +93,8 @@ void register_HomogeneousMaterial_class(){
         }
         { //::IMaterial::isScalarMaterial
         
-            typedef bool ( ::IMaterial::*isScalarMaterial_function_type )(  ) ;
-            typedef bool ( HomogeneousMaterial_wrapper::*default_isScalarMaterial_function_type )(  ) ;
+            typedef bool ( ::IMaterial::*isScalarMaterial_function_type )(  ) const;
+            typedef bool ( HomogeneousMaterial_wrapper::*default_isScalarMaterial_function_type )(  ) const;
             
             HomogeneousMaterial_exposer.def( 
                 "isScalarMaterial"

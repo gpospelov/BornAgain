@@ -148,7 +148,7 @@ void FitSuite::printResults() const
               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
               << m_function_gradient.getNCallsGradient() << ","
               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
-    m_fit_parameters.printParameters();
+    //m_fit_parameters.printParameters();
     m_minimizer->printResults();
 }
 

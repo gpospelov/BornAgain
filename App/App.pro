@@ -81,8 +81,10 @@ SOURCES += \
     src/TestMiscellaneous.cpp \
     src/TestMultiLayerRoughness.cpp \
     src/TestPerformance.cpp \
+    src/TestPolarizedDWBA.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
+    src/TestSpecularMagnetic.cpp \
     src/TestSpecularMatrix.cpp \
     src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
@@ -142,8 +144,10 @@ HEADERS += \
     inc/TestMiscellaneous.h \
     inc/TestMultiLayerRoughness.h \
     inc/TestPerformance.h \
+    inc/TestPolarizedDWBA.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
+    inc/TestSpecularMagnetic.h \
     inc/TestSpecularMatrix.h \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \

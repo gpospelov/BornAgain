@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/IsGISAXSTools.cpp
@@ -55,6 +55,51 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
     c1->cd();
     gPad->SetLogz();
     drawOutputDataInPad(output, draw_options, histogram_title);
+}
+
+//! Draw 4 2D histograms representing logarithm of polarized OutputData
+//! (in new canvas).
+
+void IsGISAXSTools::drawLogOutputDataPol(
+        const OutputData<Eigen::Matrix2d>& output,
+        const std::string& canvas_name, const std::string& canvas_title,
+        const std::string& draw_options, const std::string& histogram_title)
+{
+    assert(&output);
+    TCanvas *c1 = new
+        TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
+    c1->Divide(2,2);
+
+    OutputData<double> data;
+    data.copyShapeFrom(output);
+
+    // plus - plus
+    c1->cd(1); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    setMinimum(1.);
+    copyElementsWithPosition(output, data, 0, 0);
+    drawOutputDataInPad(data, draw_options, histogram_title + ": + +");
+
+    // plus - min
+    c1->cd(2); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    setMinimum(1.);
+    copyElementsWithPosition(output, data, 0, 1);
+    drawOutputDataInPad(data, draw_options, histogram_title + ": + -");
+
+    // min - plus
+    c1->cd(3); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    setMinimum(1.);
+    copyElementsWithPosition(output, data, 1, 0);
+    drawOutputDataInPad(data, draw_options, histogram_title + ": - +");
+
+    // min - min
+    c1->cd(4); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    setMinimum(1.);
+    copyElementsWithPosition(output, data, 1, 1);
+    drawOutputDataInPad(data, draw_options, histogram_title + ": - -");
 }
 
 //! Draw 2D histogram representing OutputData (in new canvas).
@@ -647,8 +692,10 @@ OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData
     return real_data;
 }
 
-
-void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double>& data, const OutputData<double>& reference, const std::string& name, const std::string& title, double hmin, double hmax, double hdiff)
+void IsGISAXSTools::drawOutputDataComparisonResults(
+        const OutputData<double>& data, const OutputData<double>& reference,
+        const std::string& name, const std::string& title, double hmin,
+        double hmax, double hdiff)
 {
     assert(&data);
     assert(&reference);
@@ -672,15 +719,29 @@ void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double>& da
     gPad->SetRightMargin(0.12);
     IsGISAXSTools::setMinimum(-hdiff);
     IsGISAXSTools::setMaximum(hdiff);
-    IsGISAXSTools::drawOutputDataRelativeDifference2D(data, reference, "CONT4 Z", "2D Difference map");
+    IsGISAXSTools::drawOutputDataRelativeDifference2D(data, reference,
+            "CONT4 Z", "2D Difference map");
 
     // difference
     c1->cd(4);
     gPad->SetRightMargin(0.12);
     IsGISAXSTools::resetMinimumAndMaximum();
     IsGISAXSTools::setMinimum(1);
-    IsGISAXSTools::drawOutputDataDifference1D(data, reference, "", "Difference spectra");
+    IsGISAXSTools::drawOutputDataDifference1D(data, reference, "",
+            "Difference spectra");
 
 }
 
-
+void IsGISAXSTools::copyElementsWithPosition(
+        const OutputData<Eigen::Matrix2d>& source,
+        OutputData<double>& destination, int pos_x, int pos_y)
+{
+    OutputData<Eigen::Matrix2d>::const_iterator it_source =
+            source.begin();
+    OutputData<double>::iterator it_dest = destination.begin();
+    while (it_source != source.end()) {
+        *it_dest = (*it_source)(pos_x, pos_y);
+        it_source++;
+        it_dest++;
+    }
+}

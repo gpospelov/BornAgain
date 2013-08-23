@@ -29,6 +29,7 @@ Simulation::Simulation()
 , mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(0)
 {
@@ -42,11 +43,14 @@ Simulation::Simulation(const Simulation& other)
 , m_instrument(other.m_instrument)
 , m_sim_params(other.m_sim_params)
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
+    m_polarization_output.copyFrom(other.m_polarization_output);
+
     init_parameters();
 }
 
@@ -56,6 +60,7 @@ Simulation::Simulation(const ProgramOptions *p_options)
 , mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -69,6 +74,7 @@ Simulation::Simulation(
 , mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -82,6 +88,7 @@ Simulation::Simulation(
 , mp_sample_builder(p_sample_builder)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -109,6 +116,7 @@ void Simulation::runSimulation()
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
     m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 
     // retrieve batch and threading information
     if (mp_options) {
@@ -116,7 +124,8 @@ void Simulation::runSimulation()
             m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
         }
         if (mp_options->find("currentbatch")) {
-            m_thread_info.current_batch = (*mp_options)["currentbatch"].as<int>();
+            m_thread_info.current_batch =
+                    (*mp_options)["currentbatch"].as<int>();
         }
         if (mp_options->find("threads")) {
             m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
@@ -133,20 +142,22 @@ void Simulation::runSimulation()
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
         // Single thread.
-        DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+        DWBASimulation *p_dwba_simulation =
+                mp_sample->createDWBASimulation();
         if (!p_dwba_simulation)
             throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
         p_dwba_simulation->setThreadInfo(m_thread_info);
         p_dwba_simulation->run();  // the work is done here
-        m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+        addToIntensityMaps(p_dwba_simulation);
         delete p_dwba_simulation;
     } else {
         // Multithreading.
         if(m_thread_info.n_threads == 0 )  {
             // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads =
+                    (int)boost::thread::hardware_concurrency();
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
                 m_thread_info.n_threads << " (taken from hardware concurrency)";
@@ -184,7 +195,7 @@ void Simulation::runSimulation()
 
         // Merge simulated data.
         for(size_t i=0; i<simulations.size(); ++i) {
-            m_intensity_map += simulations[i]->getDWBAIntensity();
+            addToIntensityMaps(simulations[i]);
             delete simulations[i];
             delete threads[i];
         }
@@ -201,6 +212,7 @@ void Simulation::runSimulationElement(size_t index)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
     m_intensity_map.setAllTo(0);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
     if (!p_dwba_simulation)
@@ -215,7 +227,7 @@ void Simulation::runSimulationElement(size_t index)
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map);
+        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
         m_is_normalized = true;
     }
 }
@@ -311,11 +323,14 @@ void Simulation::init_parameters()
 void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
+    m_polarization_output.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+        m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
     }
     m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
 void Simulation::updateSample()
@@ -326,7 +341,8 @@ void Simulation::updateSample()
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             msglog(MSG::INFO) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
-            setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
+            // p_new_sample belongs to python, don't delete it
+            setSample(*p_new_sample);
         } else {
             delete mp_sample;
             mp_sample = p_new_sample;
@@ -338,10 +354,13 @@ void Simulation::setDetectorParameters(const OutputData<double >& output_data)
 {
     m_instrument.matchDetectorParameters(output_data);
 
-    //updateIntensityMapAxes();
     m_intensity_map.clear();
-    m_intensity_map.copyFrom(output_data); // to copy mask too
+    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
     m_intensity_map.setAllTo(0.);
+
+    m_polarization_output.clear();
+    m_polarization_output.copyShapeFrom(output_data);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
 void Simulation::setDetectorParameters(
@@ -405,6 +424,14 @@ void Simulation::createZetaAndProbVectors(
     assert(prob_total != 0);
     for (size_t i=0; i<nbr_zetas; ++i) {
         probs[i] /= prob_total;
+    }
+}
+
+void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
+{
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    if (p_dwba_simulation->hasPolarizedOutputData()) {
+        m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
     }
 }
 

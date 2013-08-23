@@ -19,7 +19,11 @@
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/thread.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
+
 
 template <class T>
 class ISingleton

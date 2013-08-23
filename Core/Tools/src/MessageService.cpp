@@ -1,5 +1,8 @@
 #include "MessageService.h"
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/assign/list_of.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
 #include "Exceptions.h"
 #include <sys/time.h>
 #include <cstdio>

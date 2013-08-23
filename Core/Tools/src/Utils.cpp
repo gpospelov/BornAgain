@@ -15,11 +15,15 @@
 
 #include "Utils.h"
 #include "Exceptions.h"
+#include <iomanip>
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
-#include <iomanip>
 #include <boost/algorithm/string.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
 
 #ifdef DEBUG_FPE
 #include <fenv.h>

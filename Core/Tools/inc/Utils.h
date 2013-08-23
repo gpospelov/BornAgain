@@ -19,7 +19,12 @@
 #include "WinDllMacros.h"
 #include "Types.h"
 #include "Exceptions.h"
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/unordered_map.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
+
 #include <map>
 
 namespace Utils {

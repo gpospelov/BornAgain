@@ -20,7 +20,10 @@
 #include "DWBASimulation.h"
 #include "MessageService.h"
 
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/thread.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
 #include <gsl/gsl_errno.h>
 
 Simulation::Simulation()

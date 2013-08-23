@@ -20,7 +20,11 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
+GCC_DIAG_ON(unused-local-typedefs);
+
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer with magnetization

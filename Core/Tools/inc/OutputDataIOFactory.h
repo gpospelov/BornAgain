@@ -20,7 +20,11 @@
 #include "OutputDataReader.h"
 #include "OutputDataWriter.h"
 #include <string>
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/shared_ptr.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
+
 
 //! Reads OutputData from files in different format
 

@@ -16,7 +16,6 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "Exceptions.h"
 #include <sstream>
-#include <boost/unordered_map.hpp>
 
 DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {

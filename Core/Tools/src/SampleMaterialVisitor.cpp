@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
 #include "Particle.h"
+#include "ParticleCoreShell.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 
@@ -95,6 +96,20 @@ void SampleMaterialVisitor::visit(const Particle* sample)
 
     const IMaterial *p_material = sample->getMaterial();
     addMaterial(p_material);
+}
+
+void SampleMaterialVisitor::visit(const ParticleCoreShell* sample)
+{
+    assert(sample);
+
+    const Particle *p_core = sample->getCoreParticle();
+    if (p_core) {
+        p_core->accept(this);
+    }
+    const Particle *p_shell = sample->getShellParticle();
+    if (p_shell) {
+        p_shell->accept(this);
+    }
 }
 
 void SampleMaterialVisitor::visit(const IFormFactor* sample)

@@ -72,6 +72,16 @@ public:
         return 0;
     }
 
+    //! Returns the core particle
+    const Particle *getCoreParticle() const {
+        return mp_core;
+    }
+
+    //! Returns the shell particle
+    const Particle *getShellParticle() const {
+        return mp_shell;
+    }
+
 protected:
     ParticleCoreShell(kvector_t relative_core_position);
     Particle *mp_shell;

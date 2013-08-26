@@ -22,7 +22,7 @@
 
 //! Holds additional information about particle (used in ParticleDecoration).
 
-class ParticleInfo : public ICompositeSample
+class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
  public:
     ParticleInfo(Particle *p_particle,

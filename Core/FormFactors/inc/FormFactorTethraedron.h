@@ -22,7 +22,7 @@
 
 //! Form factor of tethraedron.
 
-class FormFactorTethraedron : public IFormFactorBorn
+class BA_CORE_API_ FormFactorTethraedron : public IFormFactorBorn
 {
  public:
     //! @brief tethraedron constructor

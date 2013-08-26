@@ -22,7 +22,7 @@
 
 //! ?
 
-class InterferenceFunction2DLattice : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
  public:
     InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);

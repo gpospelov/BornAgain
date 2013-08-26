@@ -26,7 +26,7 @@ class DWBASimulation;
 
 //! Interface for objects related to scattering
 
-class BA_CORE_API_ ISample : public IParameterized, public ICloneable
+class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
  public:
     ISample() { setName("ISample"); }

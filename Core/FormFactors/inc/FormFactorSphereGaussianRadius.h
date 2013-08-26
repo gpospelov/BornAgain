@@ -23,7 +23,7 @@
 
 //! Form factor of ??
 
-class FormFactorSphereGaussianRadius : public IFormFactorBorn
+class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
  public:
     FormFactorSphereGaussianRadius(double mean, double sigma);

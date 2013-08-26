@@ -22,7 +22,7 @@
 
 //! Form factor of a truncated sphere.
 
-class FormFactorSphere : public IFormFactorBorn
+class BA_CORE_API_ FormFactorSphere : public IFormFactorBorn
 {
  public:
     FormFactorSphere(double radius, double height);

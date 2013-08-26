@@ -19,7 +19,7 @@
 #include "IStochasticParameter.h"
 #include <cmath>
 
-class StochasticDoubleGaussian : public StochasticParameter<double>
+class BA_CORE_API_ StochasticDoubleGaussian : public StochasticParameter<double>
 {
  public:
     StochasticDoubleGaussian(double average, double std_dev);

@@ -21,7 +21,7 @@
 
 //! Form factor of a ??
 
-class FormFactorHemiSpheroid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorHemiSpheroid : public IFormFactorBorn
 {
  public:
     //! @brief Cone constructor

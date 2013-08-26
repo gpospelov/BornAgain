@@ -23,7 +23,7 @@
 
 //! A crystal structure with a form factor as a basis.
 
-class Crystal : public IClusteredParticles
+class BA_CORE_API_ Crystal : public IClusteredParticles
 {
 public:
     Crystal(const LatticeBasis& lattice_basis, const Lattice& lattice);

@@ -21,7 +21,7 @@
 
 //! Form factor for mesocrystals with a bulk crystal structure of particles
 
-class FormFactorCrystal : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 {
  public:
     FormFactorCrystal(

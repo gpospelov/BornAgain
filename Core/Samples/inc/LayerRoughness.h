@@ -27,7 +27,7 @@
 //! "X-ray reflection and transmission by rough surfaces"
 //! See Appendix A2
 
-class LayerRoughness : public IRoughness
+class BA_CORE_API_ LayerRoughness : public IRoughness
 {
  public:
     LayerRoughness();

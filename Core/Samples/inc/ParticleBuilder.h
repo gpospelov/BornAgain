@@ -26,7 +26,7 @@
 //! currently produces particles but probably can produce directly
 //! ParticleInfo, or even ISample
 
-class ParticleBuilder
+class BA_CORE_API_ ParticleBuilder
 {
  public:
     ParticleBuilder();

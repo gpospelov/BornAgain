@@ -21,7 +21,7 @@
 
 //! ?
 
-class FormFactorGauss : public IFormFactorBorn
+class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 {
  public:
     FormFactorGauss(double volume);

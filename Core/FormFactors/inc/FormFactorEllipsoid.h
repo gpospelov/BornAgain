@@ -21,7 +21,7 @@
 
 //! Form factor of an ellipsoid.
 
-class FormFactorEllipsoid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorEllipsoid : public IFormFactorBorn
 {
  public:
     FormFactorEllipsoid(double radius, double width,

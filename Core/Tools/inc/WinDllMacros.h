@@ -4,6 +4,7 @@
 #ifdef _WIN32
 
 #ifdef BA_CORE_BUILD_DLL
+
 #define BA_CORE_API_ __declspec(dllexport)
 #else
 #define BA_CORE_API_ __declspec(dllimport)

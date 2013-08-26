@@ -19,7 +19,7 @@
 
 //! Formfactor of a prism based on a regular hexagonal.
 
-class FormFactorPrism6 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorPrism6 : public IFormFactorBorn
 {
  public:
     FormFactorPrism6(double height, double half_side);

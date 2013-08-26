@@ -7,6 +7,8 @@ SUBDIRS += ThirdParty/gtest
 SUBDIRS += Tests/UnitTests/TestCore
 TestCore.depends = ThirdParty/gtest
 
+SUBDIRS += Tests/FunctionalTests/TestCore
+
 isEmpty(ROOT_FRAMEWORK) {
     message("No ROOT installation found. Additional library libRootMinimizers.so will be compiled.")
     SUBDIRS += ThirdParty/RootMinimizers
@@ -18,7 +20,6 @@ SUBDIRS += Fit
     SUBDIRS += App
 }
 
-SUBDIRS += Tests/FunctionalTests/TestCore
 SUBDIRS += Tests/FunctionalTests/TestFit
 
 # compilation in lister order

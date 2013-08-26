@@ -20,7 +20,7 @@
 
 //! A particle with a core/shell geometry
 
-class ParticleCoreShell : public Particle
+class BA_CORE_API_ ParticleCoreShell : public Particle
 {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,

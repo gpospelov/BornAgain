@@ -21,7 +21,7 @@
 
 //! ?
 
-class FormFactorLorentz : public IFormFactorBorn
+class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
 {
  public:
     FormFactorLorentz(double volume);

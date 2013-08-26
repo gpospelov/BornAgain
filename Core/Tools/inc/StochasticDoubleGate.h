@@ -21,7 +21,7 @@
 
 #include <cmath>
 
-class StochasticDoubleGate : public StochasticParameter<double>
+class BA_CORE_API_ StochasticDoubleGate : public StochasticParameter<double>
 {
  public:
     StochasticDoubleGate(double min, double max);

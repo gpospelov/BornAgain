@@ -21,7 +21,7 @@
 
 //! Form factor of a parallelepiped.
 
-class FormFactorParallelepiped : public IFormFactorBorn
+class BA_CORE_API_ FormFactorParallelepiped : public IFormFactorBorn
 {
  public:
     FormFactorParallelepiped(double height, double radius);

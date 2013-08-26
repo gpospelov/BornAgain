@@ -20,7 +20,7 @@
 #include "Types.h"
 #include <vector>
 
-class LatticeBasis : public Particle
+class BA_CORE_API_ LatticeBasis : public Particle
 {
 public:
     LatticeBasis();

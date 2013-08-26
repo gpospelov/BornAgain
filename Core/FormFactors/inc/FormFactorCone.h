@@ -21,7 +21,7 @@
 
 //! Form factor of a cone.
 
-class FormFactorCone : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
  public:
     //! @brief Cone constructor

@@ -33,7 +33,7 @@ class IFTDistribution1D
     double m_omega;
 };
 
-class IFTDistribution2D : public IParameterized
+class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
  public:
     IFTDistribution2D(double omega_x, double omega_y)
@@ -67,7 +67,7 @@ class IFTDistribution2D : public IParameterized
     double m_delta;
 };
 
-class FTDistribution2DCauchy : public IFTDistribution2D
+class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
  public:
     FTDistribution2DCauchy(double omega_x, double omega_y);

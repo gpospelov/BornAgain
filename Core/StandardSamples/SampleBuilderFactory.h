@@ -1,12 +1,13 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
+#include "WinDllMacros.h"
 #include "IFactory.h"
 #include "ISampleBuilder.h"
 
 //! Factory to create standard pre-defined samples
 
-class SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
+class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
 {
  public:
     SampleBuilderFactory();

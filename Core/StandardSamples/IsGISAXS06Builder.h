@@ -1,11 +1,12 @@
 #ifndef ISGISAXS06BUILDER_H
 #define ISGISAXS06BUILDER_H
 
+#include "WinDllMacros.h"
 #include "ISampleBuilder.h"
 
 //! The IsGISAXS06Lattice1Builder class to build sample: 2D lattice with different
 //! disorder (IsGISAXS example #6)
-class IsGISAXS06Lattice1Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS06Lattice1Builder : public ISampleBuilder
 {
 public:
     IsGISAXS06Lattice1Builder(){}
@@ -15,7 +16,7 @@ public:
 
 //! The IsGISAXS06Lattice2Builder class to build sample: 2D lattice with different
 //! disorder (IsGISAXS example #6)
-class IsGISAXS06Lattice2Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS06Lattice2Builder : public ISampleBuilder
 {
 public:
     IsGISAXS06Lattice2Builder(){}
@@ -25,7 +26,7 @@ public:
 
 //! The IsGISAXS06Lattice3Builder class to build sample: 2D lattice with different
 //! disorder (IsGISAXS example #6)
-class IsGISAXS06Lattice3Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS06Lattice3Builder : public ISampleBuilder
 {
 public:
     IsGISAXS06Lattice3Builder(){}
@@ -35,7 +36,7 @@ public:
 
 //! The IsGISAXS06Lattice4Builder class to build sample: 2D lattice with different
 //! disorder (IsGISAXS example #6)
-class IsGISAXS06Lattice4Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS06Lattice4Builder : public ISampleBuilder
 {
 public:
     IsGISAXS06Lattice4Builder();

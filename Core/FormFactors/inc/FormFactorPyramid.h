@@ -21,7 +21,7 @@
 
 //! Form factor of pyramid.
 
-class FormFactorPyramid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorPyramid : public IFormFactorBorn
 {
  public:
     //! @brief pyramid constructor

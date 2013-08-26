@@ -21,7 +21,7 @@
 
 //! To have stochastic parameter beeing sampled between xmin and xmax values.
 
-class StochasticSampledParameter : public StochasticParameter<double>
+class BA_CORE_API_ StochasticSampledParameter : public StochasticParameter<double>
 {
  public:
     //! constructor with nbins, xmin, xmax

@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 
-class InterferenceFunction1DParaCrystal : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunction
 {
  public:
     InterferenceFunction1DParaCrystal(

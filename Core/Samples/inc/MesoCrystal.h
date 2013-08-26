@@ -22,7 +22,7 @@
 
 //! A particle with an internal structure of smaller particles
 
-class MesoCrystal : public Particle
+class BA_CORE_API_ MesoCrystal : public Particle
 {
  public:
     MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);

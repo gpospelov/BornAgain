@@ -30,7 +30,10 @@
 #include "gsl/gsl_integration.h"
 
 #ifndef GCCXML_SKIP_THIS
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
+GCC_DIAG_ON(unused-local-typedefs);
 #endif
 
 //! Various mathematical functions.
@@ -38,34 +41,34 @@
 namespace MathFunctions
 {
 
-double Gaussian(double value, double average, double std_dev);
+BA_CORE_API_ double Gaussian(double value, double average, double std_dev);
 
-double IntegratedGaussian(double value, double average, double std_dev);
+BA_CORE_API_ double IntegratedGaussian(double value, double average, double std_dev);
 
-double GenerateNormalRandom(double average, double std_dev);
+BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
 
-double StandardNormal(double value);
+BA_CORE_API_ double StandardNormal(double value);
 
-double GenerateStandardNormalRandom();
+BA_CORE_API_ double GenerateStandardNormalRandom();
 
-double GenerateUniformRandom();
+BA_CORE_API_ double GenerateUniformRandom();
 
 //! Bessel function of the first kind and order 1
-double Bessel_J1(double value);
+BA_CORE_API_ double Bessel_J1(double value);
 
 //! Bessel function  Bessel_J1(x)/x
-inline double Bessel_C1(double value);
+BA_CORE_API_ inline double Bessel_C1(double value);
 
 //! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
-double Si(double value);
+BA_CORE_API_ double Si(double value);
 
 //! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
-double Sinc(double value);
+BA_CORE_API_ double Sinc(double value);
 
 //! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
-complex_t Sinc(const complex_t &value);
+BA_CORE_API_ complex_t Sinc(const complex_t &value);
 
-complex_t Laue(const complex_t &value, size_t N);
+BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
 std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);

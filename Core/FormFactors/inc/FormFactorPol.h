@@ -24,7 +24,7 @@
 
 //! Evaluates a polarized form factor (which is a 2x2 matrix)
 
-class FormFactorPol : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorPol : public IFormFactorDecorator
 {
 public:
     FormFactorPol(IFormFactor *p_formfactor)

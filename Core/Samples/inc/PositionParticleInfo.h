@@ -23,7 +23,7 @@
 //! Used in IsGISAXSMorphologyFileDecoration.
 //! Note that position in z ("depth") is inherited from ParticleInfo.
 //!
-class PositionParticleInfo : public ParticleInfo
+class BA_CORE_API_ PositionParticleInfo : public ParticleInfo
 {
  public:
     PositionParticleInfo(

@@ -21,7 +21,7 @@
 
 //! Formfactor of a ?
 
-class FormFactorFullSpheroid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 {
  public:
     FormFactorFullSpheroid(double radius, double height);

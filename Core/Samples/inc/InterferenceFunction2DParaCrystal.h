@@ -21,7 +21,7 @@
 #include <iostream>
 
 
-class InterferenceFunction2DParaCrystal : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
  public:
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0);

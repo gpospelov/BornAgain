@@ -25,7 +25,7 @@
 
 //! A Lattice with three basis vectors.
 
-class Lattice
+class BA_CORE_API_ Lattice
 {
  public:
     Lattice();

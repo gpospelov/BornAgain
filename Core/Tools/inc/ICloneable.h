@@ -24,7 +24,7 @@
 //! in all its child classes.
 //! Child classes should provide clone().
 
-class ICloneable
+class BA_CORE_API_ ICloneable
 {
  public:
     ICloneable(){}

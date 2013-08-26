@@ -29,6 +29,9 @@ class IOutputDataReadStrategy
     virtual ~IOutputDataReadStrategy(){}
 
     virtual OutputData<double > *readOutputData(std::istream& input_stream) = 0;
+
+    //! returns true if strategy needs binary stream
+    virtual bool isBinary() { return false; }
  private:
 };
 
@@ -50,6 +53,8 @@ class OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
  public:
     OutputDataReadStreamGZip(IOutputDataReadStrategy *read_strategy) : IOutputDataReadStrategyDecorator(read_strategy) { }
     virtual ~OutputDataReadStreamGZip() { }
+
+    virtual bool isBinary() { return true; }
 
     OutputData<double > *readOutputData(std::istream& file_stream);
 };

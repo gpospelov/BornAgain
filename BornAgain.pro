@@ -9,18 +9,18 @@ TestCore.depends = ThirdParty/gtest
 
 SUBDIRS += Tests/FunctionalTests/TestCore
 
-isEmpty(ROOT_FRAMEWORK) {
-    message("No ROOT installation found. Additional library libRootMinimizers.so will be compiled.")
-    SUBDIRS += ThirdParty/RootMinimizers
-}
+#isEmpty(ROOT_FRAMEWORK) {
+#    message("No ROOT installation found. Additional library libRootMinimizers.so will be compiled.")
+#    SUBDIRS += ThirdParty/RootMinimizers
+#}
 
-SUBDIRS += ThirdParty/RootMathMore
-SUBDIRS += Fit
-!isEmpty(ROOT_FRAMEWORK) {
-    SUBDIRS += App
-}
+#SUBDIRS += ThirdParty/RootMathMore
+#SUBDIRS += Fit
+#!isEmpty(ROOT_FRAMEWORK) {
+#    SUBDIRS += App
+#}
 
-SUBDIRS += Tests/FunctionalTests/TestFit
+#SUBDIRS += Tests/FunctionalTests/TestFit
 
 # compilation in lister order
 CONFIG += ordered

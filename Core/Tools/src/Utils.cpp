@@ -157,14 +157,24 @@ std::string Utils::FileSystem::GetHomePath()
 
 std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
 {
-    // local_path is the value argv[0] which might contain the name of executable
-    // and local path to executable
-    std::string result = boost::filesystem::canonical( argv0.c_str() ).string();
-    // have to strip everything after last "/" to get path to executable
-    std::string::size_type pos = result.rfind("/");
-    result.erase(pos+1);
+    std::string result = boost::filesystem::canonical( argv0.c_str() ).parent_path().string();
     return result;
 }
+
+
+// TODO Remove this temporary ifdef
+std::string Utils::FileSystem::GetPathToData(const std::string& argv0, const std::string& rel_data_path)
+{
+#ifdef _WIN32
+    // windows build place executable in additional sub-directory 'release'
+    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path("../") / boost::filesystem::path(rel_data_path)).string();
+#else
+    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path(rel_data_path)).string();
+#endif
+    return result;
+}
+
+
 
 
 //! Returns file extension.

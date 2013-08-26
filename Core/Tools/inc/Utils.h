@@ -113,6 +113,9 @@ class BA_CORE_API_ FileSystem
     //! returns path to executable
     static std::string GetPathToExecutable(const std::string& argv0);
 
+    //! returns path to data
+    static std::string GetPathToData(const std::string& argv0, const std::string& rel_data_path);
+
  private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };

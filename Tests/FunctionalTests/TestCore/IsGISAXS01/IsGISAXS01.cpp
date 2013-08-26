@@ -62,6 +62,7 @@ int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
     bool status_ok(true);
     if( diff > threshold || std::isnan(diff) ) status_ok=false;
 
+
     std::cout << m_name << " " << m_description << " " <<
         (status_ok ? "[OK]" : "[FAILED]") << std::endl;
 
@@ -75,7 +76,7 @@ int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+    return Utils::FileSystem::GetPathToData(argv[0], "../../../ReferenceData/BornAgain/");
 }
 
 int main(int argc, char **argv)

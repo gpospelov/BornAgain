@@ -163,8 +163,7 @@ int FunctionalTests::IsGISAXS08::analyseResults(const std::string &path_to_data)
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToExecutable(argv[0]) +
-            "../../../ReferenceData/BornAgain/";
+    return Utils::FileSystem::GetPathToData(argv[0], "../../../ReferenceData/BornAgain/");
 }
 
 int main(int argc, char **argv)

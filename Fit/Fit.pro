@@ -70,11 +70,12 @@ INCLUDEPATH += $$PWD/Factory/inc
 DEPENDPATH +=  $$PWD/Factory/inc
 
 #INCLUDEPATH += $${RootMathMore_INCLUDEPATH}
-isEmpty(ROOT_FRAMEWORK) {
-    INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
-} else {
-    INCLUDEPATH += $${ROOT_FRAMEWORK_INCLUDEPATH}
-}
+#isEmpty(ROOT_FRAMEWORK) {
+#    INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
+#} else {
+#    INCLUDEPATH += $${ROOT_FRAMEWORK_INCLUDEPATH}
+#}
+INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
 
 
 # -----------------------------------------------------------------------------
@@ -82,11 +83,12 @@ isEmpty(ROOT_FRAMEWORK) {
 # -----------------------------------------------------------------------------
 LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
 #LIBS += $${RootMathMore_LIB}
-isEmpty(ROOT_FRAMEWORK) {
-    LIBS += $${RootMinimizers_LIB}
-} else {
-    LIBS += $${ROOT_FRAMEWORK_LIBS}
-}
+#isEmpty(ROOT_FRAMEWORK) {
+#    LIBS += $${RootMinimizers_LIB}
+#} else {
+#    LIBS += $${ROOT_FRAMEWORK_LIBS}
+#}
+LIBS += $${RootMinimizers_LIB}
 
 
 # -----------------------------------------------------------------------------

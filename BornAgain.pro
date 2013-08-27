@@ -9,10 +9,10 @@ TestCore.depends = ThirdParty/gtest
 
 SUBDIRS += Tests/FunctionalTests/TestCore
 
-isEmpty(ROOT_FRAMEWORK) {
-    message("No ROOT installation found. Additional library libRootMinimizers.so will be compiled.")
+#isEmpty(ROOT_FRAMEWORK) {
+#    message("No ROOT installation found. Additional library libRootMinimizers.so will be compiled.")
     SUBDIRS += ThirdParty/RootMinimizers
-}
+#}
 
 #SUBDIRS += ThirdParty/RootMathMore
 

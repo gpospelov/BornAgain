@@ -21,11 +21,9 @@
 #include "MessageService.h"
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
-GCC_DIAG_ON(unused-local-typedefs);
 #include <gsl/gsl_errno.h>
 
 Simulation::Simulation()

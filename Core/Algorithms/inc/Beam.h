@@ -21,17 +21,12 @@
 #include "IParameterized.h"
 
 #ifndef GCCXML_SKIP_THIS
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #ifdef _WIN32
 //#define EIGEN_DONT_ALIGN 1
 #define EIGEN_DONT_VECTORIZE 1
 #define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT 1
 #endif
 #include <Eigen/Core>
-GCC_DIAG_ON(unused-local-typedefs);
-
 #endif
 
 

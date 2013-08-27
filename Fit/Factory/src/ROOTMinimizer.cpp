@@ -3,15 +3,9 @@
 #include "FitSuiteParameters.h"
 #include "Utils.h"
 #include "ROOTMinimizerFunction.h"
-
 #include <iomanip>
 #include <sstream>
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/assign/list_of.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
-
 #include <boost/assign/list_of.hpp>
 #include "ROOTGSLNLSMinimizer.h"
 #include "ROOTGSLSimAnMinimizer.h"

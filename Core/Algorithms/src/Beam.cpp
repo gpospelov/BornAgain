@@ -15,10 +15,7 @@
 
 #include "Beam.h"
 #include "Exceptions.h"
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/LU>
-GCC_DIAG_ON(unused-local-typedefs);
 
 
 Beam::Beam() : m_central_k(), m_intensity(1.0)

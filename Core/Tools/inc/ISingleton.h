@@ -20,11 +20,9 @@
 #include <iostream>
 #include <typeinfo>
 #include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
-GCC_DIAG_ON(unused-local-typedefs);
 
 
 template <class T>

@@ -192,9 +192,16 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
 
+# Eigen alighnment under windows, warnings from boost
 win32{
-QMAKE_CXXFLAGS += -mincoming-stack-boundary=2
+    QMAKE_CXXFLAGS += -mincoming-stack-boundary=2 -Wno-unused-local-typedefs
 }
+
+# Because of clang which knows nothing about unused_local_typedefs pragma
+# TODO remove this by introducing clever macros in Macros.h
+#macx|unix {
+#    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+#}
 
 # to compile with GPERFTOOLS support for code profiling
 CONFIG(GPERFTOOLS) {
@@ -311,10 +318,10 @@ CONFIG(BORNAGAIN_PYTHON) {
 #    pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
 #    pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
 
-    message(pythonvers : $$pythonvers)
-    message(pythoninc  : $$pythonsysincdir)
-    message(pythonlib  : $$pythonsyslibdir)
-    message(pythonnumpy: $$pythonnumpy)
+    #message(pythonvers : $$pythonvers)
+    #message(pythoninc  : $$pythonsysincdir)
+    #message(pythonlib  : $$pythonsyslibdir)
+    #message(pythonnumpy: $$pythonnumpy)
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python

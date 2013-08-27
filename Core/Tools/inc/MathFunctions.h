@@ -30,10 +30,7 @@
 #include "gsl/gsl_integration.h"
 
 #ifndef GCCXML_SKIP_THIS
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
-GCC_DIAG_ON(unused-local-typedefs);
 #endif
 
 //! Various mathematical functions.

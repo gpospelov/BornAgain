@@ -18,13 +18,7 @@
 #include "IMinimizer.h"
 #include "MessageService.h"
 #include "FitSuitePrintObserver.h"
-
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/bind.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
-
 
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)
 {

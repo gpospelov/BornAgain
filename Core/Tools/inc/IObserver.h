@@ -18,10 +18,7 @@
 
 #include "Exceptions.h"
 #include <list>
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/shared_ptr.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
 
 
 class IObservable;

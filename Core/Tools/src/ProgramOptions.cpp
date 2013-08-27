@@ -16,11 +16,8 @@
 #include "ProgramOptions.h"
 #include "Utils.h"
 #include "MessageService.h"
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
 #include <iostream>
 #include <fstream>
 

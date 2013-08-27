@@ -28,13 +28,11 @@
 #include <algorithm>
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/copy.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <string>
-GCC_DIAG_ON(unused-local-typedefs);
 GCC_DIAG_ON(unused-parameter);
 
 

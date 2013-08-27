@@ -17,10 +17,7 @@
 #include "Exceptions.h"
 #include "Utils.h"
 #include "MessageService.h"
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/algorithm/string/replace.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
 #include <iostream>
 #include <sstream>
 

@@ -18,10 +18,7 @@
 
 #include "IDoubleToComplexFunction.h"
 #include <map>
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/unordered_map.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
 
 
 class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction

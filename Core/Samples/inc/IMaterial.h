@@ -23,13 +23,8 @@
 #include <iostream>
 
 #ifndef GCCXML_SKIP_THIS
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
-GCC_DIAG_ON(unused-local-typedefs);
 #endif
-
 
 //! Interface to a named material.
 

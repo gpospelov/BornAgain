@@ -1,11 +1,7 @@
 #include "ROOTMinimizerHelper.h"
 #include "ROOTGSLSimAnMinimizer.h"
 #include "Utils.h"
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/lexical_cast.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
 
 // ----------------------------------------------------------------------------
 // translate text with options into appropriate calls of minimizer's set method

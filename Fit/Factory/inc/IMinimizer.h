@@ -17,13 +17,8 @@
 #define IMINIMIZER_H
 
 #include "WinDllMacros.h"
-
 #include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/function.hpp>
-GCC_DIAG_ON(unused-local-typedefs);
-
-
 #include "Exceptions.h"
 #include <vector>
 

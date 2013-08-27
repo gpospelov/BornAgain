@@ -30,7 +30,7 @@ class ParameterPool;
 
 //! Main class to perform fitting
 
-class FitSuite : public IObservable
+class BA_CORE_API_ FitSuite : public IObservable
 {
  public:
     FitSuite();

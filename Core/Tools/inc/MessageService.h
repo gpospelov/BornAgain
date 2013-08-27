@@ -1,6 +1,7 @@
 #ifndef MESSAGESVC_H
 #define MESSAGESVC_H
 
+#include "WinDllMacros.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -15,7 +16,7 @@ namespace MSG
 enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 
-class Logger
+class BA_CORE_API_ Logger
 {
  public:
     Logger(MessageLevel level) {

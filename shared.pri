@@ -215,7 +215,7 @@ macx|unix {
     ROOT_FRAMEWORK = $$system(root-config --prefix)
 }
 win32 {
-    ROOT_FRAMEWORK = "C:/root"
+#    ROOT_FRAMEWORK = "C:/root"
 }
 
 # -----------------------------------------------------------------------------

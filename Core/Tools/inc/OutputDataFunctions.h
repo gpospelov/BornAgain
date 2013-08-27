@@ -27,7 +27,7 @@
 namespace OutputDataFunctions
 {
     //! double the bin size for each dimension
-    OutputData<double> *doubleBinSize(const OutputData<double>& source);
+    BA_CORE_API_ OutputData<double> *doubleBinSize(const OutputData<double>& source);
 
     //! unnormalized Fourier transformation for real data
     void FourierTransform(

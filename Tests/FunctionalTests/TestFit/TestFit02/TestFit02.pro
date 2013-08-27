@@ -11,7 +11,7 @@ INCLUDEPATH += $$myIncludes
 DEPENDPATH  += $$myIncludes
 
 DEFINES += STANDALONE
-LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMathMore_LIB
+LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB
 isEmpty(ROOT_FRAMEWORK) {
     LIBS += $$RootMinimizers_LIB
 }

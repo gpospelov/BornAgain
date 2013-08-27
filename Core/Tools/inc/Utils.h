@@ -31,7 +31,7 @@ namespace Utils {
 
 //! Collection of utilities for std::string.
 
-class String
+class BA_CORE_API_ String
 {
  public:
     //! Parse double values from string to vector of double.

@@ -16,7 +16,14 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
+#include "WinDllMacros.h"
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-local-typedefs);
 #include <boost/function.hpp>
+GCC_DIAG_ON(unused-local-typedefs);
+
+
 #include "Exceptions.h"
 #include <vector>
 
@@ -25,7 +32,7 @@ class FitSuiteParameters;
 
 //! Common interface for all kind minimizer's
 
-class IMinimizer
+class BA_CORE_API_ IMinimizer
 {
  public:
     //! signature of chi squared function to minimize

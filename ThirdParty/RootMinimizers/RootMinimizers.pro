@@ -84,6 +84,17 @@ SOURCES += \
     src/Minuit2/SqrtUpParameterTransformation.cxx \
     src/Minuit2/VariableMetricBuilder.cxx \
     src/Minuit2/VariableMetricEDMEstimator.cxx \
+    \ # from MathMore
+    src/Math/Derivator.cxx \
+    src/Math/GSLDerivator.cxx \
+    src/Math/GSLMinimizer1D.cxx \
+    src/Math/GSLMinimizer.cxx \
+    src/Math/GSLRndmEngines.cxx \
+    src/Math/GSLSimAnnealing.cxx \
+    src/Math/MultiNumGradFunction.cxx \
+    src/Math/GSLNLSMinimizer.cxx \
+    src/Math/GSLSimAnMinimizer.cxx \
+
 
 HEADERS += \
     inc/Fit/BinData.h \
@@ -235,11 +246,38 @@ HEADERS += \
     inc/Minuit2/VariableMetricEDMEstimator.h \
     inc/Minuit2/VariableMetricMinimizer.h \
     inc/Minuit2/VectorOuterProduct.h \
+    \ # from MathMore
+    inc/Math/Derivator.h \
+    inc/Math/GSLFunctionAdapter.h \
+    inc/Math/GSLFunctionWrapper.h \
+    inc/Math/GSLMinimizer1D.h \
+    inc/Math/GSLMinimizer.h \
+    inc/Math/GSLRndmEngines.h \
+    inc/Math/GSLSimAnnealing.h \
+    inc/Math/MultiNumGradFunction.h \
+    inc/Math/GSLNLSMinimizer.h \
+    inc/Math/GSLSimAnMinimizer.h \
+    \
+    src/Math/GSL1DMinimizerWrapper.h \
+    src/Math/GSLDerivator.h \
+    src/Math/GSLFunctionWrapper.h \
+    src/Math/GSLMultiFitFunctionAdapter.h \
+    src/Math/GSLMultiFitFunctionWrapper.h \
+    src/Math/GSLMultiFit.h \
+    src/Math/GSLMultiMinFunctionAdapter.h \
+    src/Math/GSLMultiMinFunctionWrapper.h \
+    src/Math/GSLMultiMinimizer.h \
+    src/Math/GSLRngWrapper.h \
+
 
 INCLUDEPATH += inc $${RootMathMore_INCLUDEPATH}
 DEPENDPATH += inc $${RootMathMore_INCLUDEPATH}
 
 QMAKE_CXXFLAGS += -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE
+
+win32 {
+    DEFINES += BA_CORE_BUILD_DLL
+}
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

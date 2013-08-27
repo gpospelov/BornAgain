@@ -25,7 +25,7 @@ class ParameterPool;
 
 //! Holds vector of parameters for FitSuite
 
-class FitSuiteParameters
+class BA_CORE_API_ FitSuiteParameters
 {
  public:
     //typedef SafePointerVector<FitParameter > parameters_t;

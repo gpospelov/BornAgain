@@ -59,6 +59,9 @@ contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
 }
 
+win32 {
+    DEFINES += BA_CORE_BUILD_DLL
+}
 
 # -----------------------------------------------------------------------------
 # includes
@@ -66,7 +69,7 @@ contains(CONFIG, BORNAGAIN_PYTHON) {
 INCLUDEPATH += $$PWD/Factory/inc
 DEPENDPATH +=  $$PWD/Factory/inc
 
-INCLUDEPATH += $${RootMathMore_INCLUDEPATH}
+#INCLUDEPATH += $${RootMathMore_INCLUDEPATH}
 isEmpty(ROOT_FRAMEWORK) {
     INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
 } else {
@@ -78,7 +81,7 @@ isEmpty(ROOT_FRAMEWORK) {
 # additional libraries
 # -----------------------------------------------------------------------------
 LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
-LIBS += $${RootMathMore_LIB}
+#LIBS += $${RootMathMore_LIB}
 isEmpty(ROOT_FRAMEWORK) {
     LIBS += $${RootMinimizers_LIB}
 } else {

@@ -5,7 +5,7 @@ include($$PWD/shared.pri)
 SUBDIRS += Core
 SUBDIRS += ThirdParty/gtest
 SUBDIRS += Tests/UnitTests/TestCore
-#TestCore.depends = ThirdParty/gtest
+TestCore.depends = ThirdParty/gtest
 
 SUBDIRS += Tests/FunctionalTests/TestCore
 

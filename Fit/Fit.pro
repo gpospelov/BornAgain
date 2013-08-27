@@ -96,5 +96,14 @@ target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 isEmpty(MAKEFILE): MAKEFILE="Makefile"
-QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install
+
+# for python import in Windows we need another extention and preffix
+win32{
+    extra_install.path = $$PWD\..\lib
+    extra_install.extra = $(COPY) /y \"release\BornAgainFit.dll\" \"release\libBornAgainFit.pyd\"
+    extra_install.files = $$PWD\release\libBornAgainFit.pyd
+    INSTALLS += extra_install
+}
+
+QMAKE_POST_LINK+= $$MAKE_COMMAND -f $${MAKEFILE} install
 

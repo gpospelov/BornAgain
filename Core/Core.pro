@@ -349,5 +349,14 @@ target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 isEmpty(MAKEFILE): MAKEFILE="Makefile"
+
+# for python import in Windows we need another extention and preffix
+win32{
+    extra_install.path = $$PWD\..\lib
+    extra_install.extra = $(COPY) /y \"release\BornAgainCore.dll\" \"release\libBornAgainCore.pyd\"
+    extra_install.files = $$PWD\release\libBornAgainCore.pyd
+    INSTALLS += extra_install
+}
+
 QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install
 

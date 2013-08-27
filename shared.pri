@@ -2,7 +2,7 @@
 # Common settings for all BornAgain compilations
 # -----------------------------------------------------------------------------
 
-#CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
 
 win32 {
     MAKE_COMMAND = mingw32-make
@@ -279,26 +279,42 @@ CONFIG(BORNAGAIN_PYTHON) {
     WhichPython=$$system(which python)
   }
   win32 {
-    WhichPython="C:/Python27"
+    WhichPython="C:/Python27/python.exe"
   }
   isEmpty(WhichPython) {
     # we do not have python
     error("Can not find any sign of python")
   } else {
+    #pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
+    #pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
+    pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+    pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     # we have python
-    pythonvers=$$system("python -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
     macx|unix {
-      pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
-      pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+      pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
+      pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/lib\' )\" ")
+#      pythonvers=$$system("python -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+#      pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+#      pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+#      pythonnumpy=$$system("python -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     }
     win32 {
-      pythonsysincdir=$${WhichPython}/include
-      pythonsyslibdir=$${WhichPython}/libs
+      pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include')\" ")
+      pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
+#      pythonsysincdir=$${WhichPython}/include
+#      pythonsyslibdir=$${WhichPython}/libs
+#      pythonvers=$$system("$${WhichPython}/python.exe -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+#      pythonnumpy=$$system("$${WhichPython}/python.exe -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     }
-    message(we have python)
-    message($$pythonvers)
-    message($$pythonsysincdir)
-    message($$pythonsyslibdir)
+#    pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
+#    pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
+#    pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+#    pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
+
+    message(pythonvers : $$pythonvers)
+    message(pythoninc  : $$pythonsysincdir)
+    message(pythonlib  : $$pythonsyslibdir)
+    message(pythonnumpy: $$pythonnumpy)
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
@@ -308,10 +324,9 @@ CONFIG(BORNAGAIN_PYTHON) {
     win32 {
       PYTHON_LIB_DIRECTIVE="-lpython27"
     }
-    LIBS += -lboost_python -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
+    LIBS += -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
 
     # we need to know the location of numpy
-    pythonnumpy=$$system("python -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
     INCLUDEPATH += $$pythonnumpy
   }

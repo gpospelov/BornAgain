@@ -38,7 +38,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
         coeff[i].m_kt = mag_k*sample.getLayer(i)->getThickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
         coeff[i].m_b_mag = std::sqrt(coeff[i].m_a*coeff[i].m_a -
-                coeff[i].m_scatt_matrix.determinant());
+                (complex_t)coeff[i].m_scatt_matrix.determinant());
         coeff[i].m_bz = ( coeff[i].m_scatt_matrix(0,0) -
                 coeff[i].m_scatt_matrix(1,1) )/2.0;
         coeff[i].lambda(0) = std::sqrt(coeff[i].m_a - coeff[i].m_b_mag);
@@ -61,17 +61,16 @@ void SpecularMagnetic::calculateTransferAndBoundary(const MultiLayer& sample,
     coeff[N-1].initializeBottomLayerPhiPsi();
 
     coeff[0].calculateTRMatrices();
-    coeff[0].l.setIdentity();
     for (int i=(int)N-2; i>0; --i) {
         double t = sample.getLayer(i)->getThickness();
         coeff[i].calculateTRMatrices();
-        coeff[i].l =
+        Eigen::Matrix4cd l =
                coeff[i].R1m * getImExponential((complex_t)(coeff[i].kz(0)*t)) +
                coeff[i].T1m * getImExponential((complex_t)(-coeff[i].kz(0)*t)) +
                coeff[i].R2m * getImExponential((complex_t)(coeff[i].kz(1)*t)) +
                coeff[i].T2m * getImExponential((complex_t)(-coeff[i].kz(1)*t));
-        coeff[i].phi_psi_plus = coeff[i].l * coeff[i+1].phi_psi_plus;
-        coeff[i].phi_psi_min = coeff[i].l * coeff[i+1].phi_psi_min;
+        coeff[i].phi_psi_plus = l * coeff[i+1].phi_psi_plus;
+        coeff[i].phi_psi_min = l * coeff[i+1].phi_psi_min;
     }
     // If more than one layer, impose normalization and correct correspondence
     // for spin-z polarization in top layer
@@ -121,8 +120,7 @@ void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff) const
     for (size_t i=0; i<N; ++i) {
         coeff[i].phi_psi_plus.setZero();
         coeff[i].phi_psi_min.setZero();
-        coeff[i].l.setIdentity();
-        coeff[i].T1m = coeff[i].l/4.0;
+        coeff[i].T1m = Eigen::Matrix4cd::Identity()/4.0;
         coeff[i].R1m = coeff[i].T1m;
         coeff[i].T2m = coeff[i].T1m;
         coeff[i].R2m = coeff[i].T1m;

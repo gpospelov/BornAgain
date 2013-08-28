@@ -67,6 +67,7 @@ SOURCES += \
     Algorithms/src/Instrument.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/LayerSpecularInfo.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
@@ -210,15 +211,18 @@ HEADERS += \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/ILayerRTCoefficients.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
     Algorithms/inc/ISimulation.h \
+    Algorithms/inc/ISpecularInfoMap.h \
     Algorithms/inc/ISquaredFunction.h \
     Algorithms/inc/Instrument.h \
     Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/LayerSpecularInfo.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \

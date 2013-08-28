@@ -63,7 +63,7 @@ TestIsGISAXS12::TestIsGISAXS12()
     , m_fitSuite(0)
 {
     std::cout << "TestIsGISAXS12::TestIsGISAXS12() -> Info" << std::endl;
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-12/");
+    setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-12/" ));
 }
 
 

@@ -44,7 +44,7 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) con
 void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
     // saving relative path to the application for later usage
-    Utils::FileSystem::SetRelativePath(argv[0]);
+    Utils::FileSystem::SetArgvPath(argv[0]);
 
     // parsing command line arguments
     try {
@@ -71,7 +71,8 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     }
 
     // and now call parsing of config file
-    parseConfigFile();
+//    parseConfigFile();
+    m_options_is_consistent = true;
 }
 
 //! parse config file for arguments

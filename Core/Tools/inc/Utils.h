@@ -94,7 +94,8 @@ class BA_CORE_API_ FileSystem
     static std::string GetHomePath();
 
     //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetRelativePath(const std::string& path) { m_relative_path = path; }
+    static void SetArgvPath(const std::string& argv0) { m_argv0_path = argv0; }
+    static std::string GetArgvPath() { return m_argv0_path; }
 
     //! Returns file extension
     static std::string GetFileExtension(const std::string& name);
@@ -106,13 +107,13 @@ class BA_CORE_API_ FileSystem
     static std::string GetFileMainExtension(const std::string& name);
 
     //! returns path to executable
-    static std::string GetPathToExecutable(const std::string& argv0);
+    static std::string GetPathToExecutable(const std::string& argv0=GetArgvPath());
 
-    //! returns path to data
-    static std::string GetPathToData(const std::string& argv0, const std::string& rel_data_path);
+    //! returns absolute path to data taking into acount location of executable
+    static std::string GetPathToData(const std::string& rel_data_path, const std::string& argv0=GetArgvPath());
 
  private:
-    static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
+    static std::string m_argv0_path; //!< it's value of argv[0], i.e. the path from working directory to executable module including the name of executable module
 };
 
 //! Adjust length of the string, padding with blanks.

@@ -29,7 +29,7 @@
 #endif
 
 
-std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
+std::string Utils::FileSystem::m_argv0_path = std::string();
 
 //! Parse double values from string to vector of double
 
@@ -118,10 +118,9 @@ std::string Utils::FileSystem::GetWorkingPath()
 
 std::string Utils::FileSystem::GetHomePath()
 {
-    throw NotImplementedException("Utils::FileSystem::GetHomePath()-> Not implemented yet");
+    throw NotImplementedException("Utils::FileSystem::GetHomePath()-> Not implemented anymore...");
     return std::string();
 }
-
 
 std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
 {
@@ -131,7 +130,7 @@ std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
 
 
 // TODO Remove this temporary ifdef
-std::string Utils::FileSystem::GetPathToData(const std::string& argv0, const std::string& rel_data_path)
+std::string Utils::FileSystem::GetPathToData(const std::string& rel_data_path, const std::string& argv0)
 {
 #ifdef _WIN32
     // windows build place executable in additional sub-directory 'release'
@@ -141,9 +140,6 @@ std::string Utils::FileSystem::GetPathToData(const std::string& argv0, const std
 #endif
     return result;
 }
-
-
-
 
 //! Returns file extension.
 

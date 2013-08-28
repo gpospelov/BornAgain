@@ -17,12 +17,7 @@
 
 #include "SampleFactory.h"
 #include "Units.h"
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-local-typedefs);
 #include <Eigen/Core>
-GCC_DIAG_ON(unused-local-typedefs);
-
 #include "TCanvas.h"
 #include "TGraph.h"
 #include "DrawHelper.h"

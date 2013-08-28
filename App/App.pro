@@ -166,7 +166,7 @@ myIncludes += $${BornAgainCore_INCLUDEPATH} $${BornAgainFit_INCLUDEPATH} $${ROOT
 INCLUDEPATH += $$myIncludes
 DEPENDPATH  += $$myIncludes
 
-LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMathMore_LIB
+LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMinimizers_LIB
 LIBS += $${ROOT_FRAMEWORK_LIBS}
 
 

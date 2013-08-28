@@ -26,7 +26,7 @@
 
 TestIsGISAXS4::TestIsGISAXS4() : IFunctionalTest("TestIsGISAXS4")
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-4/" );
+    setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-4/" ));
 }
 
 

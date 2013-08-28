@@ -85,7 +85,7 @@ int MesoCrystal1::analyseResults()
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToData(argv[0], "../../../ReferenceData/BornAgain/");
+    return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/", argv[0]);
 }
 
 int main(int argc, char **argv)

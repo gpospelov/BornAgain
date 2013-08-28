@@ -60,8 +60,7 @@ TestIsGISAXS13::TestIsGISAXS13()
 , mp_fitSuite(0)
 
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+
-            "./Examples/IsGISAXS_examples/ex-13/");
+    setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-13/" ));
 }
 
 

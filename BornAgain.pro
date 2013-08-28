@@ -5,7 +5,7 @@ include($$PWD/shared.pri)
 SUBDIRS += Core
 SUBDIRS += ThirdParty/gtest
 SUBDIRS += Tests/UnitTests/TestCore
-TestCore.depends = ThirdParty/gtest
+#TestCore.depends = ThirdParty/gtest
 
 SUBDIRS += Tests/FunctionalTests/TestCore
 
@@ -19,9 +19,9 @@ SUBDIRS += Tests/FunctionalTests/TestCore
 SUBDIRS += Fit
 SUBDIRS += Tests/FunctionalTests/TestFit
 
-#!isEmpty(ROOT_FRAMEWORK) {
-#    SUBDIRS += App
-#}
+!isEmpty(ROOT_FRAMEWORK) {
+    SUBDIRS += App
+}
 
 
 # compilation in lister order

@@ -10,7 +10,6 @@
 
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "ParticleInfo.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "Particle.h"
@@ -81,17 +80,17 @@ void IViewToISample::visit(LayerView *view)
 
     // with connections it is LayerDecorator
     } else {
-        goForward();
-        foreach(ConnectableView *item, connections) {
-            item->accept(this);
-            Q_ASSERT(m_view_to_sample[item]);
-            ParticleDecoration *particles = dynamic_cast<ParticleDecoration *>(m_view_to_sample[item]);
-            Q_ASSERT(particles);
-            LayerDecorator *decorator = new LayerDecorator(*view->getLayer(), *particles);
-            m_view_to_sample[view] = decorator;
-            delete particles;
-        }
-        goBack();
+//        goForward();
+//        foreach(ConnectableView *item, connections) {
+//            item->accept(this);
+//            Q_ASSERT(m_view_to_sample[item]);
+//            ParticleDecoration *particles = dynamic_cast<ParticleDecoration *>(m_view_to_sample[item]);
+//            Q_ASSERT(particles);
+//            LayerDecorator *decorator = new LayerDecorator(*view->getLayer(), *particles);
+//            m_view_to_sample[view] = decorator;
+//            delete particles;
+//        }
+//        goBack();
 
     }
 

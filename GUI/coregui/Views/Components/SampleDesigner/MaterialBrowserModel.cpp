@@ -1,6 +1,7 @@
 #include "MaterialBrowserModel.h"
 #include "DesignerHelper.h"
 #include "MaterialManager.h"
+#include "HomogeneousMaterial.h"
 #include <QColor>
 #include <QtScript>
 

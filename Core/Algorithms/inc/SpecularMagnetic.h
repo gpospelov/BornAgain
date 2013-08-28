@@ -43,9 +43,14 @@ public:
        Eigen::Vector2cd R1min() const;
        Eigen::Vector2cd T2min() const;
        Eigen::Vector2cd R2min() const;
-       // R, T - amplitudes of reflected and transmitted waves
-       Eigen::Vector2cd lambda; // positive eigenvalues of transfer matrix
+
        Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
+       friend class SpecularMagnetic;
+   private:
+       void calculateTRMatrices();
+       void initializeBottomLayerPhiPsi();
+       void calculateTRWithoutMagnetization();
+       Eigen::Vector2cd lambda; // positive eigenvalues of transfer matrix
        Eigen::Vector4cd phi_psi_plus; //!< boundary values for up-polarization
        Eigen::Vector4cd phi_psi_min; //!< boundary values for up-polarization
        Eigen::Matrix4cd T1m; //!< matrix selecting the transmitted part of
@@ -62,11 +67,6 @@ public:
        complex_t m_bz; //!< z-part of magnetic interaction term
        double m_kt; //!< wavevector length times thickness of layer for use when
                     //!< lambda=0
-       friend class SpecularMagnetic;
-   private:
-       void calculateTRMatrices();
-       void initializeBottomLayerPhiPsi();
-       void calculateTRWithoutMagnetization();
    };
 
    //! multi layer coefficients for matrix formalism

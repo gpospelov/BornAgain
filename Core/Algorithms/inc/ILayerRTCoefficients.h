@@ -26,33 +26,16 @@ public:
 
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
-    Eigen::Vector2cd T1plus() const;
-    Eigen::Vector2cd R1plus() const;
-    Eigen::Vector2cd T2plus() const;
-    Eigen::Vector2cd R2plus() const;
-    Eigen::Vector2cd T1min() const;
-    Eigen::Vector2cd R1min() const;
-    Eigen::Vector2cd T2min() const;
-    Eigen::Vector2cd R2min() const;
+    virtual Eigen::Vector2cd T1plus() const=0;
+    virtual Eigen::Vector2cd R1plus() const=0;
+    virtual Eigen::Vector2cd T2plus() const=0;
+    virtual Eigen::Vector2cd R2plus() const=0;
+    virtual Eigen::Vector2cd T1min() const=0;
+    virtual Eigen::Vector2cd R1min() const=0;
+    virtual Eigen::Vector2cd T2min() const=0;
+    virtual Eigen::Vector2cd R2min() const=0;
 
-    Eigen::Vector2cd lambda; // positive eigenvalues of transfer matrix
     Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
-    Eigen::Vector4cd phi_psi_plus; //!< boundary values for up-polarization
-    Eigen::Vector4cd phi_psi_min; //!< boundary values for up-polarization
-    Eigen::Matrix4cd T1m; //!< matrix selecting the transmitted part of
-                          //!< the first eigenmode
-    Eigen::Matrix4cd R1m; //!< matrix selecting the reflected part of
-                          //!< the first eigenmode
-    Eigen::Matrix4cd T2m; //!< matrix selecting the transmitted part of
-                          //!< the second eigenmode
-    Eigen::Matrix4cd R2m; //!< matrix selecting the reflected part of
-                          //!< the second eigenmode
-    Eigen::Matrix2cd m_scatt_matrix; //!< scattering matrix
-    complex_t m_a; //!< polarization independent part of scattering matrix
-    complex_t m_b_mag; //!< magnitude of magnetic interaction term
-    complex_t m_bz; //!< z-part of magnetic interaction term
-    double m_kt; //!< wavevector length times thickness of layer for use when
-                 //!< lambda=0
 };
 
 

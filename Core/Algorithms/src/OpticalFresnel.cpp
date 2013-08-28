@@ -87,7 +87,6 @@ void OpticalFresnel::calculateFresnelCoefficients(const MultiLayer& sample, Mult
         if (kzi == complex_t(0, 0) && kziplus1 == complex_t(0, 0)) {
             coeff[i].r = complex_t(0, 0);
             coeff[i].t = complex_t(1, 0);
-            coeff[i].rb = complex_t(0, 0);
             coeff[i].tb = complex_t(1, 0);
         } else {
             double sigma = 0.0;
@@ -105,7 +104,6 @@ void OpticalFresnel::calculateFresnelCoefficients(const MultiLayer& sample, Mult
                 coeff[i].t = std::sqrt(a*std::sinh(2.*a)*std::sinh(2.*b)/b)
                              / std::sinh(a+b);
             }
-            coeff[i].rb = -coeff[i].r;
             if (coeff[i].t==complex_t(0.0, 0.0)) {
                 coeff[i].tb = 2.0;
             }

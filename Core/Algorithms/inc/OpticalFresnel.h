@@ -31,17 +31,16 @@ class OpticalFresnel : public ISimulation
     //! reflection/transmission Fresnel coefficients
     class FresnelCoeff {
     public:
-        FresnelCoeff() : kz(0), r(0), t(0), rb(0), tb(0), X(0), R(0), T(0) {}
+        FresnelCoeff() : kz(0), r(0), t(0), tb(0), X(0), R(0), T(0) {}
         ~FresnelCoeff() {}
         // A - amplitude of initial wave, R, T - amplitudes of reflected and transmitted waves
-        complex_t kz; // z-component of the wavevector in given layer
-        complex_t r;  // r = R/A - Fresnel reflection coefficient
-        complex_t t;  // t = T/A - Fresnel transmission coefficient
-        complex_t rb;  // r = R/A - Fresnel reflection coefficient
-        complex_t tb;  // t = T/A - Fresnel transmission coefficient
-        complex_t X; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
-        complex_t R; //  amplitude of the reflected wave in layer
-        complex_t T; //  amplitude of the transmitted wave in layer
+        complex_t kz; //!< z-component of the wavevector in given layer
+        complex_t r;  //!< r = R/A - Fresnel reflection coefficient
+        complex_t t;  //!< t = T/A - Fresnel transmission coefficient
+        complex_t tb;  //!< t = T/A - Fresnel transmission coefficient
+        complex_t X; //!<  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
+        complex_t R; //!<  amplitude of the reflected wave in layer
+        complex_t T; //!<  amplitude of the transmitted wave in layer
 
         //! operator is necessary to make pyplusplus/boost happy during exposing of FresnelCoeff to python using boost::vector_indexing_suite
         bool operator==(FresnelCoeff const& other) const;

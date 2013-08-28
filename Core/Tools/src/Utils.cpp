@@ -129,15 +129,14 @@ std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
 }
 
 
-// TODO Remove this temporary ifdef
 std::string Utils::FileSystem::GetPathToData(const std::string& rel_data_path, const std::string& argv0)
 {
-#ifdef _WIN32
-    // windows build place executable in additional sub-directory 'release'
-    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path("../") / boost::filesystem::path(rel_data_path)).string();
-#else
+//#ifdef _WIN32
+//    // windows build place executable in additional sub-directory 'release'
+//    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path("../") / boost::filesystem::path(rel_data_path)).string();
+//#else
     std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path(rel_data_path)).string();
-#endif
+//#endif
     return result;
 }
 

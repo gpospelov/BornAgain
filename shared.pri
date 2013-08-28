@@ -194,7 +194,9 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 
 # Eigen alighnment under windows, warnings from boost
 win32{
-    QMAKE_CXXFLAGS += -mincoming-stack-boundary=2 -Wno-unused-local-typedefs
+    QMAKE_CXXFLAGS += -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes -Wno-unknown-pragmas
+#    QMAKE_CXXFLAGS += -D_MSC_VER=1301
+#    QMAKE_CXXFLAGS += -DTYPENAME=typename
 }
 
 # Because of clang which knows nothing about unused_local_typedefs pragma
@@ -222,7 +224,7 @@ macx|unix {
     ROOT_FRAMEWORK = $$system(root-config --prefix)
 }
 win32 {
-#    ROOT_FRAMEWORK = "C:/root"
+    ROOT_FRAMEWORK = "C:/root"
 }
 
 # -----------------------------------------------------------------------------
@@ -292,39 +294,23 @@ CONFIG(BORNAGAIN_PYTHON) {
     # we do not have python
     error("Can not find any sign of python")
   } else {
-    #pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
-    #pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
     pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
     pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
-    # we have python
     macx|unix {
       pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
       pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/lib\' )\" ")
-#      pythonvers=$$system("python -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
-#      pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
-#      pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
-#      pythonnumpy=$$system("python -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     }
     win32 {
       pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include')\" ")
       pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
-#      pythonsysincdir=$${WhichPython}/include
-#      pythonsyslibdir=$${WhichPython}/libs
-#      pythonvers=$$system("$${WhichPython}/python.exe -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
-#      pythonnumpy=$$system("$${WhichPython}/python.exe -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     }
-#    pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
-#    pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
-#    pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
-#    pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
-
     #message(pythonvers : $$pythonvers)
     #message(pythoninc  : $$pythonsysincdir)
     #message(pythonlib  : $$pythonsyslibdir)
     #message(pythonnumpy: $$pythonnumpy)
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
+
     INCLUDEPATH += $$pythonsysincdir
-    #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
     macx|unix {
       PYTHON_LIB_DIRECTIVE=-lpython$$pythonvers
     }
@@ -333,7 +319,7 @@ CONFIG(BORNAGAIN_PYTHON) {
     }
     LIBS += -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
 
-    # we need to know the location of numpy
+    # location of numpy
     !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
     INCLUDEPATH += $$pythonnumpy
   }
@@ -350,3 +336,10 @@ unix {
     RCC_DIR = $${OUT_PWD}/.rcc
     UI_DIR = $${OUT_PWD}/.uic
 }
+
+win32 {
+    Release:DESTDIR = $${OUT_PWD}
+    Debug:DESTDIR = $${OUT_PWD}
+}
+
+

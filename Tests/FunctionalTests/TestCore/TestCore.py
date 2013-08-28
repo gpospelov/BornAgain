@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 import time
+import platform
 
 
 Tests = [
@@ -25,7 +26,8 @@ test_info = []
 
 # run system command and catch multiline stdout and stderr
 def run_command(command):
-  p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell = True)
+  
   p.wait()
   return iter(p.stdout.readline, b''), iter(p.stderr.readline, b'')
 
@@ -56,8 +58,9 @@ def runTests():
   print ">>> Running TestCore, {0:-2d} tests total ...".format(len(Tests))
   for testName in Tests:
     command =  testName+"/"+testName # i.e. "path/executable" like "IsGISAXS01/IsGISAXS01"
+    if "Windows" in platform.system(): command =  testName+"\\"+testName+".exe"
     path = os.path.split(__file__)[0]
-    if path: command = path + "/" + command
+    if path: command = os.path.join(path, command)
     print "Running test ", testName
     start_time = time.time()
     stdout, stderr = run_command(command)

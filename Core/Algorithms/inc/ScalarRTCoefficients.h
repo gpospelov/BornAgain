@@ -35,6 +35,8 @@ public:
     virtual Eigen::Vector2cd R1min() const;
     virtual Eigen::Vector2cd T2min() const;
     virtual Eigen::Vector2cd R2min() const;
+    //! Returns z-part of the two wavevector eigenmodes
+    virtual Eigen::Vector2cd getKz() const;
 
     complex_t kz; //!< z-component of the wavevector in given layer
     complex_t r;  //!< r = R/A - Fresnel reflection coefficient
@@ -49,6 +51,7 @@ private:
 };
 
 inline ScalarRTCoefficients::ScalarRTCoefficients()
+: kz(0), r(0), t(0), tb(0), X(0), R(0), T(0)
 {
     m_ones_vector.setOnes();
 }
@@ -91,6 +94,11 @@ inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const
 inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
 {
     return m_ones_vector * R;
+}
+
+inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
+{
+    return m_ones_vector * kz;
 }
 
 #endif /* SCALARRTCOEFFICIENTS_H_ */

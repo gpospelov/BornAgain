@@ -21,7 +21,6 @@
 class ILayerRTCoefficients
 {
 public:
-    ILayerRTCoefficients();
     virtual ~ILayerRTCoefficients() {}
 
     //! The following functions return the transmitted and reflected amplitudes
@@ -34,8 +33,8 @@ public:
     virtual Eigen::Vector2cd R1min() const=0;
     virtual Eigen::Vector2cd T2min() const=0;
     virtual Eigen::Vector2cd R2min() const=0;
-
-    Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
+    //! Returns z-part of the two wavevector eigenmodes
+    virtual Eigen::Vector2cd getKz() const=0;
 };
 
 

@@ -1,5 +1,5 @@
 # IsGISAXS01 example: Mixture of cylinders and prisms without interference
-import sys, os, numpy
+import sys, os, numpy, pylab, matplotlib
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0], '..', '..', '..', 'lib')
@@ -8,7 +8,7 @@ sys.path.append(os.path.abspath(
 sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..')))
 
 from libBornAgainCore import *
-from utils.show2d import PlotNumpyArray
+#from utils.show2d import PlotNumpyArray
 
 
 # ----------------------------------
@@ -53,7 +53,11 @@ def RunSimulation():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    result = RunSimulation()
-    PlotNumpyArray(result)
+    result = RunSimulation() + 1 # for log scale
+    pylab.imshow(numpy.rot90(result, 1), 
+                 norm=matplotlib.colors.LogNorm(), 
+                 extent=[-1.0, 1.0, 0, 2.0])
+    pylab.show()    
+    
 
 

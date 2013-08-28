@@ -26,31 +26,10 @@
 
 class OpticalFresnel : public ISimulation
 {
- public:
+public:
     OpticalFresnel() : m_use_roughness(false) {}
 
-    //! reflection/transmission Fresnel coefficients
-//    class FresnelCoeff {
-//    public:
-//        FresnelCoeff() : kz(0), r(0), t(0), tb(0), X(0), R(0), T(0) {}
-//        ~FresnelCoeff() {}
-//        // A - amplitude of initial wave, R, T - amplitudes of reflected and
-//        // transmitted waves
-//        complex_t kz; //!< z-component of the wavevector in given layer
-//        complex_t r;  //!< r = R/A - Fresnel reflection coefficient
-//        complex_t t;  //!< t = T/A - Fresnel transmission coefficient
-//        complex_t tb; //!< t = T/A - Fresnel transmission coefficient
-//        complex_t X;  //!< ratio of amplitudes R/T of the outgoing to the
-//                      //!< incoming waves in layer
-//        complex_t R;  //!< amplitude of the reflected wave in layer
-//        complex_t T;  //!< amplitude of the transmitted wave in layer
-//
-//        //! operator is necessary to make pyplusplus/boost happy during exposing
-//        //! of FresnelCoeff to python using boost::vector_indexing_suite
-//        bool operator==(FresnelCoeff const& other) const;
-//    };
-//
-    //! collection of Fresnel coefficients for multi layer
+    //! collection of reflection/transmission coefficients for multi layer
     class MultiLayerCoeff
     {
     public:
@@ -65,13 +44,14 @@ class OpticalFresnel : public ISimulation
         std::vector<ScalarRTCoefficients > m_data;
     };
 
-    //! set of Fresnel coefficients for set of layers, [nlayer]
+    //! set of reflection/transmission coefficients for set of layers, [nlayer]
     typedef MultiLayerCoeff MultiLayerCoeff_t;
-    //! Returns Fresnel coefficients for given multi layer and kvector
+    //! Returns reflection/transmission coefficients for given multi layer
+    //! and kvector
     void execute(const MultiLayer& sample, const kvector_t& k,
             MultiLayerCoeff_t& coeff);
 
- private:
+private:
     bool m_use_roughness;
 
     void calculateKZ(const MultiLayer& sample, const kvector_t& k,

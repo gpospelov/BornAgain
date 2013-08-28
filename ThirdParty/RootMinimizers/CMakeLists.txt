@@ -44,7 +44,8 @@ ADD_CUSTOM_COMMAND(
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-#set(CMAKE_SHARED_LINKER_FLAGS "")
+# dependencies
+target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
 
 # -----------------------------------------------
 # installation

@@ -11,25 +11,41 @@ if(FFTW_LIBRARY AND FFTW_INCLUDE_DIR)
   set(FFTW_FIND_QUIETLY TRUE)
 endif()
 
-find_path(FFTW_INCLUDE_DIR fftw3.h
-  $ENV{FFTW_DIR}/include
-  $ENV{FFTW3} $ENV{FFTW3}/include $ENV{FFTW3}/api
-  /usr/local/include
-  /usr/include
-  /opt/fftw3/include
-  /opt/local/include
-  DOC "Specify the directory containing fftw3.h"
-)
+if(NOT WIN32)
+    find_path(FFTW_INCLUDE_DIR fftw3.h
+        $ENV{FFTW_DIR}/include
+        $ENV{FFTW3} $ENV{FFTW3}/include $ENV{FFTW3}/api
+        /usr/local/include
+        /usr/include
+        /opt/fftw3/include
+        /opt/local/include
+        DOC "Specify the directory containing fftw3.h"
+    )
 
-find_library(FFTW_LIBRARY NAMES fftw3 fftw3-3 PATHS
-  $ENV{FFTW_DIR}/lib
-  $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
-  /usr/local/lib
-  /usr/lib 
-  /opt/fftw3/lib
-  HINTS /opt/local/lib
-  DOC "Specify the fttw3 library here."
-)
+    find_library(FFTW_LIBRARY NAMES fftw3 fftw3-3 PATHS
+        $ENV{FFTW_DIR}/lib
+        $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
+        /usr/local/lib
+        /usr/lib 
+        /opt/fftw3/lib
+        HINTS /opt/local/lib
+        DOC "Specify the fttw3 library here."
+    )
+else()
+
+    find_path(FFTW_INCLUDE_DIR fftw3.h
+        $ENV{FFTW_DIR}/include
+        "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
+    )
+
+    find_library(FFTW_LIBRARY NAMES fftw3 fftw3-3
+#        $ENV{FFTW_DIR}/lib
+#        $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
+        HINTS "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/lib"
+    )
+
+endif()
+
 
 if(FFTW_INCLUDE_DIR AND FFTW_LIBRARY)
   set(FFTW_FOUND 1 )

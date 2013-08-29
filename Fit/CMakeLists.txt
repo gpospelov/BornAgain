@@ -3,13 +3,12 @@
 ############################################################################
 set(library_name BornAgainFit)
 
-# directories to include
+# source and include files
 set(include_dirs 
     ${CMAKE_CURRENT_SOURCE_DIR}/Factory/inc
 )
 include_directories(${include_dirs})
 
-# files to have in library
 file(GLOB source_files
     "Factory/src/*.cpp"
     "Factory/src/*.cxx"
@@ -23,6 +22,9 @@ if(BORNAGAIN_PYTHON)
     )
 endif()
 
+if(WIN32)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+endif()
 
 # making library
 add_library(
@@ -33,7 +35,13 @@ add_library(
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
-
+# dependencies
+include_directories(${BornAgainCore_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
+include_directories(${RootMinimizers_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
 
 # copying library into lib directory for functional tests
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
@@ -44,18 +52,6 @@ ADD_CUSTOM_COMMAND(
     ${libprefix}${library_name}${libsuffix}
     ${CMAKE_BINARY_DIR}/lib/
 )
-
-# dependencies
-include_directories(${BornAgainCore_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
-if(ROOT_FOUND)
-    target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
-else()
-    target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
-    include_directories(${RootMinimizers_INCLUDE_DIRS})
-endif()
-target_link_libraries(${library_name} ${RootMathMore_LIBRARY}) 
-include_directories(${RootMathMore_INCLUDE_DIRS})
 
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

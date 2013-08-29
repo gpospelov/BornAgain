@@ -20,6 +20,8 @@ if(BORNAGAIN_PYTHON)
     list(APPEND boost_libraries_required python)
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
+#message(STATUS "XXX ${Boost_INCLUDE_DIRS}")
+#message(STATUS "XXX ${Boost_LIBRARY_DIRS}")
 
 # --- GSL ---
 if(NOT BUILTIN_GSL)

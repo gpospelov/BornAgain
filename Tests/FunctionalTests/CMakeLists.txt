@@ -16,8 +16,8 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/T
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/FunctionalTests/TestPyFit ${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyFit)
 
 add_subdirectory(TestCore)
-add_subdirectory(TestPyCore)
-add_subdirectory(TestPyFit)
-add_subdirectory(TestFit)
+#add_subdirectory(TestPyCore)
+#add_subdirectory(TestFit)
+#add_subdirectory(TestPyFit)
 
 

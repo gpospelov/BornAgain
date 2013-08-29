@@ -19,8 +19,15 @@ set(list_of_tests
 #    "MesoCrystal1"
 )
 
+include_directories(${Boost_INCLUDE_DIRS})
+#link_directories(${CMAKE_BINARY_DIR}/lib)
+
 foreach(_test ${list_of_tests})
     BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
+    # to have executable in lib directory
+    #set_property(TARGET ${_test} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+    #BORNAGAIN_ADD_TEST(${CMAKE_BINARY_DIR}/lib/${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
+    set_property(TARGET ${_test} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
     BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
 endforeach()
 

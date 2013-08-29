@@ -25,13 +25,13 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
   # look for headers
   find_path( GSL_INCLUDE_DIR
     NAMES gsl/gsl_cdf.h gsl/gsl_randist.h
-	PATHS $ENV{GSL_DIR}/include
+	PATHS $ENV{GSL_DIR}/include "C:/Program Files (x86)/GnuWin32/include"
     )
   if( GSL_INCLUDE_DIR )
     # look for gsl library
     find_library( GSL_LIBRARY
       NAMES gsl
-	  PATHS $ENV{GSL_DIR}/lib
+	  PATHS $ENV{GSL_DIR}/lib "C:/Program Files (x86)/GnuWin32/lib"
     )
     if( GSL_LIBRARY )
       set( GSL_INCLUDE_DIRS ${GSL_INCLUDE_DIR} )

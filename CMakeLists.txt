@@ -8,7 +8,7 @@ project(BornAgain)
 
 # --- General project settings ---
 if(NOT BORNAGAIN_PYTHON)
-    set(BORNAGAIN_PYTHON ON)
+#    set(BORNAGAIN_PYTHON ON)
 endif()
 set(BORNAGAIN_APP OFF)
 set(BORNAGAIN_GUI OFF)
@@ -26,19 +26,16 @@ add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)
 add_subdirectory(Tests/UnitTests/TestCore)
 
-#if(NOT ROOT_FOUND)
 add_subdirectory(ThirdParty/RootMinimizers)
-#endif()
 
-#add_subdirectory(ThirdParty/RootMathMore)
 add_subdirectory(Fit)
 
 # functional tests (cmake; make check)
 add_subdirectory(Tests/FunctionalTests)
 
-if(ROOT_FOUND AND BORNAGAIN_APP)
-    add_subdirectory(App)
-endif()
+#if(ROOT_FOUND AND BORNAGAIN_APP)
+#    add_subdirectory(App)
+#endif()
 
 
 # packaging

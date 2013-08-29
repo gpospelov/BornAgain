@@ -307,7 +307,7 @@ CONFIG(BORNAGAIN_PYTHON) {
     #message(pythonvers : $$pythonvers)
     #message(pythoninc  : $$pythonsysincdir)
     #message(pythonlib  : $$pythonsyslibdir)
-    #message(pythonnumpy: $$pythonnumpy)
+    message(pythonnumpy: $$pythonnumpy)
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
 
     INCLUDEPATH += $$pythonsysincdir

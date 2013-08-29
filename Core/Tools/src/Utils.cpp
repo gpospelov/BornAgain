@@ -15,6 +15,7 @@
 
 #include "Utils.h"
 #include "Exceptions.h"
+#include <iostream>
 #include <iomanip>
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>

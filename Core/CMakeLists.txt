@@ -3,7 +3,7 @@
 ############################################################################
 set(library_name BornAgainCore)
 
-# directories to include
+# source and include files
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/inc
@@ -14,13 +14,12 @@ set(include_dirs
 )
 include_directories(${include_dirs})
 
-# files to have in library
 file(GLOB source_files
     "Algorithms/src/*.cpp"
     "FormFactors/src/*.cpp"
     "Geometry/src/*.cpp"
     "Samples/src/*.cpp"
-    "StandardSamples/*.cpp"
+    "StandardSamples/*.cpp" 
     "Tools/src/*.cpp"
 )
 
@@ -32,6 +31,10 @@ if(BORNAGAIN_PYTHON)
     )
 endif()
 
+if(WIN32)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+endif()
+
 # making library
 add_library(
     ${library_name}
@@ -40,6 +43,13 @@ add_library(
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
+
+# external dependencies
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
+target_link_libraries(${library_name} ${FFTW_LIBRARY}) 
+target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
+target_link_libraries(${library_name} ${PYTHON_LIBRARIES}) 
 
 # copying library into lib directory for functional tests
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
@@ -50,12 +60,6 @@ ADD_CUSTOM_COMMAND(
     ${libprefix}${library_name}${libsuffix}
     ${CMAKE_BINARY_DIR}/lib/
 )
-
-# dependencies
-target_link_libraries(${library_name} ${FFTW_LIBRARY}) 
-target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
-target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
-target_link_libraries(${library_name} ${PYTHON_LIBRARIES}) 
 
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

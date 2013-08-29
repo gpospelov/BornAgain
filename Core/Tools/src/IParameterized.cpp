@@ -16,6 +16,7 @@
 
 #include "IParameterized.h"
 #include "Utils.h"
+#include <iostream>
 
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {

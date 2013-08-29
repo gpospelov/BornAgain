@@ -1,26 +1,22 @@
 ############################################################################
-# CMakeLists.txt file for building ROOT math/minuit2 package
+# CMakeLists.txt file for building libRootMinimizers package
 ############################################################################
 
 set(library_name RootMinimizers)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
-
-# directories to include
+# source and include files
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 include_directories(${include_dirs})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../RootMathMore/inc)
 
-# files to have in library
 file(GLOB source_files
     "src/Minuit2/*.cxx"
     "src/Math/*.cxx"
     "src/Fit/*.cxx"
 )
 
-include_directories(${RootMathMore_INCLUDE_DIRS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
 
 # making library
 add_library(
@@ -30,6 +26,10 @@ add_library(
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
+
+# external dependencies
+include_directories(${GSL_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
 
 # copying library into lib directory for functional tests
 ADD_CUSTOM_COMMAND(
@@ -43,9 +43,6 @@ ADD_CUSTOM_COMMAND(
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
-# dependencies
-target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
 
 # -----------------------------------------------
 # installation

@@ -36,14 +36,26 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 
 
 # copying library into lib directory for functional tests
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
-ADD_CUSTOM_COMMAND(
-    TARGET ${library_name}
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-    ${libprefix}${library_name}${libsuffix}
-    ${CMAKE_BINARY_DIR}/lib/
-)
+#execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
+#ADD_CUSTOM_COMMAND(
+#    TARGET ${library_name}
+#    POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy
+#    ${libprefix}${library_name}${libsuffix}
+#    ${CMAKE_BINARY_DIR}/lib/
+#)
+
+# python in windows required .yd extention for the library name
+if(WIN32 AND BORNAGAIN_PYTHON)
+    ADD_CUSTOM_COMMAND(
+        TARGET ${library_name}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
+    )
+endif()
+
 
 # dependencies
 include_directories(${BornAgainCore_INCLUDE_DIRS})

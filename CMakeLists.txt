@@ -8,13 +8,16 @@ project(BornAgain)
 
 # --- General project settings ---
 if(NOT BORNAGAIN_PYTHON)
-#    set(BORNAGAIN_PYTHON ON)
+    set(BORNAGAIN_PYTHON ON)
 endif()
 set(BORNAGAIN_APP OFF)
 set(BORNAGAIN_GUI OFF)
 
 #--- Path for additional cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 #--- Including macros ---
 include(BornAgainMacros)

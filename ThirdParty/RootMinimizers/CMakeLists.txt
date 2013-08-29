@@ -32,13 +32,13 @@ include_directories(${GSL_INCLUDE_DIRS})
 target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
 
 # copying library into lib directory for functional tests
-ADD_CUSTOM_COMMAND(
-    TARGET ${library_name}
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-    ${libprefix}${library_name}${libsuffix}
-    ${CMAKE_BINARY_DIR}/lib
-)
+#ADD_CUSTOM_COMMAND(
+#    TARGET ${library_name}
+#    POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy
+#    ${libprefix}${library_name}${libsuffix}
+#    ${CMAKE_BINARY_DIR}/lib
+#)
 
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

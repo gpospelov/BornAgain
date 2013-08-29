@@ -55,7 +55,7 @@ endfunction()
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test)
     CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_DIR" "" "" ${ARGN})
-    add_test( ${test} ${test} "${ARG_INPUT_DIR}") # TestName ExeName
+    add_test( ${test}  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} "${ARG_INPUT_DIR}") # TestName ExeName
     add_dependencies(check ${test})
 endfunction()
 

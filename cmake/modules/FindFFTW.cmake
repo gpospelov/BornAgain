@@ -32,20 +32,20 @@ if(NOT WIN32)
         DOC "Specify the fttw3 library here."
     )
 else()
-
     find_path(FFTW_INCLUDE_DIR fftw3.h
         $ENV{FFTW_DIR}/include
+        "C:/opt/local_x86_msvc/include"
         "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
     )
 
-    find_library(FFTW_LIBRARY NAMES fftw3 fftw3-3
-#        $ENV{FFTW_DIR}/lib
-#        $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
-        HINTS "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/lib"
+#    set(CMAKE_FIND_LIBRARY_SUFFIXES .dll)
+    find_file(FFTW_LIBRARY NAMES libfftw3-3.dll PATHS
+        $ENV{FFTW_DIR}/lib
+        $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
+        "C:/opt/local_x86_msvc/lib"
+        "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/lib"
     )
-
 endif()
-
 
 if(FFTW_INCLUDE_DIR AND FFTW_LIBRARY)
   set(FFTW_FOUND 1 )

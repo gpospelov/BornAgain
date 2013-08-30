@@ -25,14 +25,22 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
   # look for headers
   find_path( GSL_INCLUDE_DIR
     NAMES gsl/gsl_cdf.h gsl/gsl_randist.h
-	PATHS $ENV{GSL_DIR}/include "C:/Program Files (x86)/GnuWin32/include"
+        PATHS 
+        $ENV{GSL_DIR}/include 
+        "C:/opt/local_x86_msvc/include"
+        "C:/Program Files (x86)/GnuWin32/include"
     )
+    message("XXXXX ${GSL_INCLUDE_DIR}")
   if( GSL_INCLUDE_DIR )
     # look for gsl library
     find_library( GSL_LIBRARY
-      NAMES gsl
-	  PATHS $ENV{GSL_DIR}/lib "C:/Program Files (x86)/GnuWin32/lib"
+      NAMES gsl libgsl
+          PATHS 
+          #$ENV{GSL_DIR}/lib 
+          "C:/opt/local_x86_msvc/lib"
+          #"C:/Program Files (x86)/GnuWin32/lib"
     )
+    message("XXXXX ${GSL_LIBRARY}")
     if( GSL_LIBRARY )
       set( GSL_INCLUDE_DIRS ${GSL_INCLUDE_DIR} )
       get_filename_component( GSL_LIBRARY_DIRS ${GSL_LIBRARY} PATH )
@@ -41,8 +49,9 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
  
     # look for gsl cblas library
     find_library( GSL_CBLAS_LIBRARY
-        NAMES gslcblas
+        NAMES gslcblas libgslcblas
 		PATHS $ENV{GSL_DIR}/lib
+          "C:/opt/local_x86_msvc/lib"
       )
     if( GSL_CBLAS_LIBRARY )
       set( GSL_CBLAS_FOUND ON )

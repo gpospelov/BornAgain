@@ -10,6 +10,8 @@ if(WIN32)
   set(ld_library_path PATH)
   set(libsuffix .dll)
   set(runtimedir bin)
+  #set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.lib;.dll") # doesn't work anyway for MSVC generator
+
 elseif(APPLE)
   set(ld_library_path DYLD_LIBRARY_PATH)
   set(ssuffix .csh)

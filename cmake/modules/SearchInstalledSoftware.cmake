@@ -12,9 +12,14 @@ find_package(FFTW REQUIRED)
 include_directories(${FFTW_INCLUDE_DIR})
 
 # --- Boost ---
+if(WIN32)
+    set(BOOST_ROOT "C:/opt/local_x86_msvc")
+endif()
+
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON) 
 set(Boost_USE_STATIC_RUNTIME OFF)
+#set(BOOST_ALL_DYN_LINK           ON) 
 set(boost_libraries_required program_options iostreams system filesystem regex thread)
 if(BORNAGAIN_PYTHON)
     list(APPEND boost_libraries_required python)

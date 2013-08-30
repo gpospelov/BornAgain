@@ -71,7 +71,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
 elseif(APPLE)
   include(SetUpMacOS)
 elseif(WIN32)
-  include(SetupWindows)
+  include(SetUpWindows)
 endif()
 
 if(c++11)

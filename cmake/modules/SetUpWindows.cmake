@@ -47,6 +47,4 @@ set(ROOT_PLATFORM win32)
 
 #set(CMAKE_C_OUTPUT_EXTENSION ".o")
 
-
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Dmincoming-stack-boundary=2 -DWno-unused-local-typedefs -DWno-attributes")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")

@@ -16,11 +16,12 @@
 #ifndef INAMED_H
 #define INAMED_H
 
+#include "WinDllMacros.h"
 #include <string>
 
 //! Standard mix-in for all objects that have a name.
 
-class INamed
+class BA_CORE_API_ INamed
 {
  public:
     //! Default constructor, setting name="".

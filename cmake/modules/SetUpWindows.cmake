@@ -20,13 +20,8 @@ set(ROOT_PLATFORM win32)
 #set(CMAKE_C_FLAGS_RELEASE          "-O2")
 #set(CMAKE_C_FLAGS_DEBUG            "-Od -Z7")
 
-#if(winrtdebug)
-#  set(BLDCXXFLAGS "-MDd -GR")
-#  set(BLDCFLAGS   "-MDd")
-#else()
-#  set(BLDCXXFLAGS "-MD -GR")
-#  set(BLDCFLAGS   "-MD")
-#endif()
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
 
 #if(CMAKE_PROJECT_NAME STREQUAL ROOT)
 #  set(CMAKE_CXX_FLAGS "-nologo -I${CMAKE_SOURCE_DIR}/build/win -FIw32pragma.h -FIsehmap.h ${BLDCXXFLAGS} -EHsc- -W3 -wd4244 -D_WIN32")
@@ -47,4 +42,10 @@ set(ROOT_PLATFORM win32)
 
 #set(CMAKE_C_OUTPUT_EXTENSION ".o")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")
+if (MSVC)
+message("XXX ${MSVC}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -FIw32pragma.h")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")
+endif()
+

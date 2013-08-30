@@ -20,7 +20,7 @@
 
 //! Interface for one-dimensional axes
 
-class IAxis
+class BA_CORE_API_ IAxis
 {
  public:
     //! constructors

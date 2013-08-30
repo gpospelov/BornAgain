@@ -23,6 +23,17 @@ file(GLOB source_files
     "Tools/src/*.cpp"
 )
 
+file(GLOB include_files 
+    "Algorithms/inc/*.h"
+    "FormFactors/inc/*.h"
+    "Geometry/inc/*.h"
+    "Samples/inc/*.h"
+    "StandardSamples/*.h" 
+    "Tools/inc/*.h"
+)
+#source_group(headers FILES ${include_files})
+
+
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")
     list(APPEND source_files ${pythonapi})
@@ -39,7 +50,7 @@ endif()
 add_library(
     ${library_name}
     SHARED
-    ${source_files}
+    ${source_files} ${include_files}
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
@@ -61,7 +72,7 @@ target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 #    ${CMAKE_BINARY_DIR}/lib/
 #)
 
-# python in windows required .yd extention for the library name
+# python in windows required .pyd extention for the library name
 if(WIN32 AND BORNAGAIN_PYTHON)
     ADD_CUSTOM_COMMAND(
         TARGET ${library_name}

@@ -6,6 +6,7 @@
 #include "Particle.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
+#include "ParticleInfo.h"
 #include <iostream>
 
 

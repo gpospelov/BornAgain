@@ -17,11 +17,10 @@
 #ifndef MASKCOORDINATEFUNCTION_H_
 #define MASKCOORDINATEFUNCTION_H_
 
-#include "WinDllMacros.h"
 #include <cstddef>
 #include "ICloneable.h"
 
-//! ?
+//! base class for all kind of OutputData's masks
 
 class MaskCoordinateFunction : public ICloneable
 {
@@ -38,7 +37,7 @@ class MaskCoordinateFunction : public ICloneable
     bool m_invert;  //!< if true, the complement is masked instead
 };
 
-//! ?
+//! rectangular mask for OutputData
 
 class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
@@ -55,7 +54,7 @@ class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFuncti
     int *m_maxima;
 };
 
-//! ?
+//! ellipse shaped mask for OutputData
 
 class BA_CORE_API_ MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {

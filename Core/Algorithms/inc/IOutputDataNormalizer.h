@@ -17,7 +17,6 @@
 #ifndef IOUTPUTDATANORMALIZER_H
 #define IOUTPUTDATANORMALIZER_H
 
-#include "WinDllMacros.h"
 #include "IParameterized.h"
 #include "OutputData.h"
 

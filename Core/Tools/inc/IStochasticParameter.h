@@ -18,7 +18,7 @@
 
 #include "ICloneable.h"
 
-class IStochasticParameter : public ICloneable
+class BA_CORE_API_ IStochasticParameter : public ICloneable
 {
  public:
     virtual ~IStochasticParameter() {}
@@ -26,7 +26,7 @@ class IStochasticParameter : public ICloneable
     virtual void setToAverage()=0;
 };
 
-template <class T> class StochasticParameter : public IStochasticParameter
+template <class T> class BA_CORE_API_ StochasticParameter : public IStochasticParameter
 {
  public:
     StochasticParameter(T average);

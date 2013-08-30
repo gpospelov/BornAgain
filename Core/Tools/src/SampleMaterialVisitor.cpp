@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
 #include "Particle.h"
+#include "ParticleInfo.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"

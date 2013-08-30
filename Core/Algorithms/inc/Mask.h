@@ -16,7 +16,6 @@
 #ifndef MASK_H_
 #define MASK_H_
 
-#include "WinDllMacros.h"
 #include "MaskCoordinateFunction.h"
 
 //! Base class for masking OutputData elements.

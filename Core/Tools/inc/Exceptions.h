@@ -19,6 +19,13 @@
 #include "WinDllMacros.h"
 #include <stdexcept>
 
+#ifdef _WIN32
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4275)
+#endif
+#endif
+
 namespace Exceptions {
 
     class BA_CORE_API_ NotImplementedException : public std::logic_error
@@ -117,6 +124,14 @@ namespace Exceptions {
 }
 
 using namespace Exceptions;
+
+
+#ifdef _WIN32
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+#endif
+
 
 #endif // EXCEPTIONS_H
 

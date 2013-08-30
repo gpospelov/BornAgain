@@ -16,7 +16,6 @@
 #ifndef CONVOLUTIONDETECTORRESOLUTION_H_
 #define CONVOLUTIONDETECTORRESOLUTION_H_
 
-#include "WinDllMacros.h"
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 
@@ -34,7 +33,6 @@ class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
     //! Constructor taking a 2 dimensional resolution function as argument
     ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d);
     ConvolutionDetectorResolution(const IResolutionFunction2D &p_res_function_2d);
-    //! Destructor
     virtual ~ConvolutionDetectorResolution();
 
     //! Convolve given intensities with the encapsulated resolution.
@@ -55,9 +53,6 @@ class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
     virtual void init_parameters();
 
  private:
-//    //! hiding copy constructor and disabling assignment operator
-//    ConvolutionDetectorResolution& operator=(const ConvolutionDetectorResolution& );
-
     void apply1dConvolution(OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;

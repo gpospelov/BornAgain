@@ -16,7 +16,6 @@
 #ifndef ICHISQUAREDMODULE_H_
 #define ICHISQUAREDMODULE_H_
 
-#include "WinDllMacros.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"

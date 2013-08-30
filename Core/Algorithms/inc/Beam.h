@@ -16,7 +16,6 @@
 #ifndef BEAM_H_
 #define BEAM_H_
 
-#include "WinDllMacros.h"
 #include "Types.h"
 #include "IParameterized.h"
 

@@ -16,7 +16,6 @@
 #ifndef IPARAMETERIZED_H_
 #define IPARAMETERIZED_H_
 
-#include "WinDllMacros.h"
 #include "INamed.h"
 #include "IChangeable.h"
 #include "ParameterPool.h"

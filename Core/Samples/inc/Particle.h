@@ -21,8 +21,8 @@
 #include "FormFactorDecoratorRefractiveIndex.h"
 #include "HomogeneousMaterial.h"
 
+class Particle;
 class DiffuseParticleInfo;
-class ParticleInfo;
 
 //! A particle with a form factor and refractive index
 

@@ -16,7 +16,6 @@
 #ifndef RESOLUTIONFUNCTION2DSIMPLE_H_
 #define RESOLUTIONFUNCTION2DSIMPLE_H_
 
-#include "WinDllMacros.h"
 #include "IResolutionFunction2D.h"
 
 //! ?

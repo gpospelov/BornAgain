@@ -21,7 +21,7 @@
 //! Encapsulates another formfactor and adds extra functionality
 //! (a scalar factor, a Debye-Waller factor, ...).
 
-class IFormFactorDecorator : public IFormFactor
+class BA_CORE_API_ IFormFactorDecorator : public IFormFactor
 {
 public:
     IFormFactorDecorator(IFormFactor *p_form_factor)

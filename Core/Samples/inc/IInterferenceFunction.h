@@ -21,7 +21,7 @@
 
 //! Interface to interference functions.
 
-class IInterferenceFunction : public ISample
+class BA_CORE_API_ IInterferenceFunction : public ISample
 {
  public:
     virtual ~IInterferenceFunction() {}

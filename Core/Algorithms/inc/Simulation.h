@@ -16,7 +16,6 @@
 #ifndef SIMULATION_H_
 #define SIMULATION_H_
 
-#include "WinDllMacros.h"
 #include "ISampleBuilder.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"

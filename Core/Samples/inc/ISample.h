@@ -16,7 +16,6 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
-#include "WinDllMacros.h"
 #include "IParameterized.h"
 #include "ICloneable.h"
 #include "ISampleVisitor.h"

@@ -1,7 +1,6 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include "WinDllMacros.h"
 #include "IFactory.h"
 #include "ISampleBuilder.h"
 

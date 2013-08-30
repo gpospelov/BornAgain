@@ -16,12 +16,10 @@
 #ifndef ICOMPOSITESAMPLE_H
 #define ICOMPOSITESAMPLE_H
 
-#include "WinDllMacros.h"
 #include "ISample.h"
 #include <list>
 
 //! Interface to equip ISample with a tree structure.
-
 
 class BA_CORE_API_ ICompositeSample : public ISample
 {

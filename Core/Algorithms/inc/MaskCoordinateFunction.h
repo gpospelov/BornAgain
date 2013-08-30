@@ -22,7 +22,7 @@
 
 //! base class for all kind of OutputData's masks
 
-class MaskCoordinateFunction : public ICloneable
+class BA_CORE_API_ MaskCoordinateFunction : public ICloneable
 {
  public:
     MaskCoordinateFunction(size_t rank);

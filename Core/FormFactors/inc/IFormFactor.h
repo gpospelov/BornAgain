@@ -17,7 +17,6 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
-#include "WinDllMacros.h"
 #include "IMaterial.h"
 #include "ISample.h"
 #include "Bin.h"

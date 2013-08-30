@@ -26,7 +26,7 @@ class IInterferenceFunction;
 
 //! Interface to equip a sample component with various properties.
 
-class IDecoration : public ICompositeSample
+class BA_CORE_API_ IDecoration : public ICompositeSample
 {
  public:
     IDecoration() : m_total_particle_surface_density(1.0) {}

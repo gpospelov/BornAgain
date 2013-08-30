@@ -22,7 +22,6 @@
 #include "IMaterial.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleDecoration.h"
-#include "WinDllMacros.h"
 
 //! A Layer with thickness and pointer to the material
 

@@ -16,12 +16,11 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include <vector>
-#include "WinDllMacros.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MultiLayerDWBASimulation.h"
+#include <vector>
 
 //! @class MultiLayer
 //! @brief Stack of layers one below the other

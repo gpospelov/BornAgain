@@ -16,7 +16,6 @@
 #ifndef MATERIALMANAGER_H
 #define MATERIALMANAGER_H
 
-#include "WinDllMacros.h"
 #include "Exceptions.h"
 #include "ISingleton.h"
 #include "IMaterial.h"

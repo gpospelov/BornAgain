@@ -1,7 +1,6 @@
 #ifndef ISGISAXS06BUILDER_H
 #define ISGISAXS06BUILDER_H
 
-#include "WinDllMacros.h"
 #include "ISampleBuilder.h"
 
 //! The IsGISAXS06Lattice1Builder class to build sample: 2D lattice with different

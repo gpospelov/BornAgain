@@ -71,6 +71,7 @@ SOURCES += \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
+    Algorithms/src/MatrixRTCoefficients.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
@@ -226,6 +227,7 @@ HEADERS += \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
+    Algorithms/inc/MatrixRTCoefficients.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \

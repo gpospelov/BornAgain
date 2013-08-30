@@ -19,6 +19,8 @@
 #include "ILayerRTCoefficients.h"
 #include "Types.h"
 
+//! Specular reflection and transmission coefficients in a layer in case
+//! of scalar interactions between the layers and the scattered particle
 class ScalarRTCoefficients : public ILayerRTCoefficients
 {
 public:

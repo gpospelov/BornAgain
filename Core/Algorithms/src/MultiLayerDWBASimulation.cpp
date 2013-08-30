@@ -222,7 +222,7 @@ void MultiLayerDWBASimulation::runMagnetic()
                             (*it_alpha).second.begin();
                     it_phi != (*it_alpha).second.end(); ++it_phi) {
                 phi = (*it_phi).first;
-                const SpecularMagnetic::LayerMatrixCoeff& coeff =
+                const MatrixRTCoefficients& coeff =
                         (*it_phi).second[i_layer];
                 phi_layer_coeffs[phi] = coeff;
             }

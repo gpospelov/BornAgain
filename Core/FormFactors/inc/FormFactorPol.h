@@ -58,14 +58,14 @@ public:
         mp_ambient_material = p_material;
     }
 protected:
-    const SpecularMagnetic::LayerMatrixCoeff& getOutCoeffs(double alpha_f,
+    const MatrixRTCoefficients& getOutCoeffs(double alpha_f,
             double phi_f) const;
     MagneticCoefficientsMap *mp_magnetic_coeffs;
     const IMaterial *mp_material;
     const IMaterial *mp_ambient_material;
 };
 
-inline const SpecularMagnetic::LayerMatrixCoeff& FormFactorPol::getOutCoeffs(
+inline const MatrixRTCoefficients& FormFactorPol::getOutCoeffs(
         double alpha_f, double phi_f) const
 {
     MagneticCoefficientsMap::container_phi_t &phi_coeffs =

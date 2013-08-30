@@ -41,12 +41,12 @@ Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
         double alpha_i, double alpha_f, double phi_f) const
 {
     // get all different z-components of wavevectors
-    SpecularMagnetic::LayerMatrixCoeff in_coeff =
+    MatrixRTCoefficients in_coeff =
             mp_magnetic_coeffs->incomingCoeff();
-    complex_t kiz_1R = in_coeff.kz(0);
-    complex_t kiz_1T = -in_coeff.kz(0);
-    complex_t kiz_2R = in_coeff.kz(1);
-    complex_t kiz_2T = -in_coeff.kz(1);
+    complex_t kiz_1R = in_coeff.getKz()(0);
+    complex_t kiz_1T = -in_coeff.getKz()(0);
+    complex_t kiz_2R = in_coeff.getKz()(1);
+    complex_t kiz_2T = -in_coeff.getKz()(1);
     complex_t kfz_1R = k_f1_bin.getMidPoint().z();
     complex_t kfz_1T = -kfz_1R;
     complex_t kfz_2R = k_f2_bin.getMidPoint().z();

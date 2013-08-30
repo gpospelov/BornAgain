@@ -54,9 +54,9 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
         const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
         double alpha_i, double alpha_f, double phi_f) const
 {
-    SpecularMagnetic::LayerMatrixCoeff in_coeff =
+    MatrixRTCoefficients in_coeff =
             mp_magnetic_coeffs->incomingCoeff();
-    SpecularMagnetic::LayerMatrixCoeff out_coeff = getOutCoeffs(alpha_f, phi_f);
+    MatrixRTCoefficients out_coeff = getOutCoeffs(alpha_f, phi_f);
     // the conjugated linear part of time reversal operator T
     // (T=UK with K complex conjugate operator and U is linear)
     Eigen::Matrix2cd time_reverse_conj = Eigen::Matrix2cd::Zero();
@@ -71,10 +71,10 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
     // different eigenmodes and in- and outgoing wavevector;
     complex_t kix = k_i.x();
     complex_t kiy = k_i.y();
-    cvector_t ki_1R(kix, kiy, in_coeff.kz(0));
-    cvector_t ki_1T(kix, kiy, -in_coeff.kz(0));
-    cvector_t ki_2R(kix, kiy, in_coeff.kz(1));
-    cvector_t ki_2T(kix, kiy, -in_coeff.kz(1));
+    cvector_t ki_1R(kix, kiy, in_coeff.getKz()(0));
+    cvector_t ki_1T(kix, kiy, -in_coeff.getKz()(0));
+    cvector_t ki_2R(kix, kiy, in_coeff.getKz()(1));
+    cvector_t ki_2T(kix, kiy, -in_coeff.getKz()(1));
     Bin1DCVector kf_1R = k_f1_bin;
     kf_1R.m_q_lower.setZ(-kf_1R.m_q_lower.z());
     kf_1R.m_q_upper.setZ(-kf_1R.m_q_upper.z());

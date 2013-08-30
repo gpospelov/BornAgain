@@ -19,6 +19,7 @@
 #include "Types.h"
 #include "ISimulation.h"
 #include "MultiLayer.h"
+#include "MatrixRTCoefficients.h"
 
 #include <Eigen/Core>
 
@@ -30,168 +31,36 @@ class SpecularMagnetic : public ISimulation
 public:
     SpecularMagnetic() {}
 
-   //! layer coefficients for matrix formalism
-   class LayerMatrixCoeff {
-   public:
-       LayerMatrixCoeff() : m_kt(0.0) {}
-       ~LayerMatrixCoeff() {}
-       Eigen::Vector2cd T1plus() const;
-       Eigen::Vector2cd R1plus() const;
-       Eigen::Vector2cd T2plus() const;
-       Eigen::Vector2cd R2plus() const;
-       Eigen::Vector2cd T1min() const;
-       Eigen::Vector2cd R1min() const;
-       Eigen::Vector2cd T2min() const;
-       Eigen::Vector2cd R2min() const;
-
-       Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
-       friend class SpecularMagnetic;
-   private:
-       void calculateTRMatrices();
-       void initializeBottomLayerPhiPsi();
-       void calculateTRWithoutMagnetization();
-       Eigen::Vector2cd lambda; // positive eigenvalues of transfer matrix
-       Eigen::Vector4cd phi_psi_plus; //!< boundary values for up-polarization
-       Eigen::Vector4cd phi_psi_min; //!< boundary values for up-polarization
-       Eigen::Matrix4cd T1m; //!< matrix selecting the transmitted part of
-                             //!< the first eigenmode
-       Eigen::Matrix4cd R1m; //!< matrix selecting the reflected part of
-                             //!< the first eigenmode
-       Eigen::Matrix4cd T2m; //!< matrix selecting the transmitted part of
-                             //!< the second eigenmode
-       Eigen::Matrix4cd R2m; //!< matrix selecting the reflected part of
-                             //!< the second eigenmode
-       Eigen::Matrix2cd m_scatt_matrix; //!< scattering matrix
-       complex_t m_a; //!< polarization independent part of scattering matrix
-       complex_t m_b_mag; //!< magnitude of magnetic interaction term
-       complex_t m_bz; //!< z-part of magnetic interaction term
-       double m_kt; //!< wavevector length times thickness of layer for use when
-                    //!< lambda=0
-   };
-
-   //! multi layer coefficients for matrix formalism
+   //! multilayer coefficients for matrix formalism
    class MultiLayerMatrixCoeff
    {
    public:
-       LayerMatrixCoeff& operator[](size_t i) { return m_data[i]; }
-       const LayerMatrixCoeff& operator[](size_t i) const { return m_data[i]; }
+       MatrixRTCoefficients& operator[](size_t i) { return m_data[i]; }
+       const MatrixRTCoefficients& operator[](size_t i) const {
+           return m_data[i];
+       }
        size_t size() const { return m_data.size(); }
        void clear() { m_data.clear(); }
        void resize(size_t size) { m_data.resize(size); }
    private:
-       std::vector<LayerMatrixCoeff > m_data;
+       std::vector<MatrixRTCoefficients > m_data;
    };
 
-   typedef MultiLayerMatrixCoeff MultiLayerCoeff_t; // set of layer coefficients for matrix formalism
+   //! set of layer coefficients for matrix formalism
+   typedef MultiLayerMatrixCoeff MultiLayerCoeff_t;
 
    //! Calculates Fresnel coefficients for given multi layer and kvector
-   void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
+   void execute(const MultiLayer& sample, const kvector_t& k,
+           MultiLayerCoeff_t& coeff);
 
 private:
-//   std::vector<Eigen::Matrix2cd> m_roughness_pmatrices;
-
    void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
            MultiLayerCoeff_t& coeff) const;
    void calculateTransferAndBoundary(const MultiLayer& sample,
            const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-//   Eigen::Matrix2cd calculatePMatrix(double sigma_eff,
-//           complex_t lambda_lower, complex_t lambda_upper) const;
    Eigen::Matrix2cd getUnitMatrix() const;
-//   complex_t getPMatrixElement(complex_t sigma_lambda) const;
    void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
    complex_t getImExponential(complex_t exponent) const;
 };
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::T1plus() const {
-    Eigen::Vector2cd result;
-    result(0) = T1m.row(2).dot(phi_psi_plus);
-    result(1) = T1m.row(3).dot(phi_psi_plus);
-    if (lambda(0)==0.0 && result==Eigen::Vector2cd::Zero()) {
-        result(0) = 0.5;
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::R1plus() const {
-    Eigen::Vector2cd result;
-    result(0) = R1m.row(2).dot(phi_psi_plus);
-    result(1) = R1m.row(3).dot(phi_psi_plus);
-    if (lambda(0)==0.0) {
-        if (T1m.row(2).dot(phi_psi_plus)==0.0
-                && T1m.row(3).dot(phi_psi_plus)==0.0) {
-            result(0) = -0.5;
-        }
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::T2plus() const {
-    Eigen::Vector2cd result;
-    result(0) = T2m.row(2).dot(phi_psi_plus);
-    result(1) = T2m.row(3).dot(phi_psi_plus);
-    if (lambda(1)==0.0 && result==Eigen::Vector2cd::Zero()) {
-        result(0) = 0.5;
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::R2plus() const {
-    Eigen::Vector2cd result;
-    result(0) = R2m.row(2).dot(phi_psi_plus);
-    result(1) = R2m.row(3).dot(phi_psi_plus);
-    if (lambda(1)==0.0) {
-        if (T2m.row(2).dot(phi_psi_plus)==0.0
-                && T2m.row(3).dot(phi_psi_plus)==0.0) {
-            result(0) = -0.5;
-        }
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::T1min() const {
-    Eigen::Vector2cd result;
-    result(0) = T1m.row(2).dot(phi_psi_min);
-    result(1) = T1m.row(3).dot(phi_psi_min);
-    if (lambda(0)==0.0 && result==Eigen::Vector2cd::Zero()) {
-        result(1) = 0.5;
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::R1min() const {
-    Eigen::Vector2cd result;
-    result(0) = R1m.row(2).dot(phi_psi_min);
-    result(1) = R1m.row(3).dot(phi_psi_min);
-    if (lambda(0)==0.0) {
-        if (T1m.row(2).dot(phi_psi_min)==0.0
-                && T1m.row(3).dot(phi_psi_min)==0.0) {
-            result(1) = -0.5;
-        }
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::T2min() const {
-    Eigen::Vector2cd result;
-    result(0) = T2m.row(2).dot(phi_psi_min);
-    result(1) = T2m.row(3).dot(phi_psi_min);
-    if (lambda(1)==0.0 && result==Eigen::Vector2cd::Zero()) {
-        result(1) = 0.5;
-    }
-    return result;
-}
-
-inline Eigen::Vector2cd SpecularMagnetic::LayerMatrixCoeff::R2min() const {
-    Eigen::Vector2cd result;
-    result(0) = R2m.row(2).dot(phi_psi_min);
-    result(1) = R2m.row(3).dot(phi_psi_min);
-    if (lambda(1)==0.0) {
-        if (T2m.row(2).dot(phi_psi_min)==0.0
-                && T2m.row(3).dot(phi_psi_min)==0.0) {
-            result(1) = -0.5;
-        }
-    }
-    return result;
-}
 
 #endif /* SPECULARMAGNETIC_H_ */

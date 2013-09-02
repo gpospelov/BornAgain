@@ -15,7 +15,7 @@
 
 #include "LocalMonodisperseApproximationStrategy.h"
 #include "Exceptions.h"
-#include "MathFunctions.h
+#include "MathFunctions.h"
 #include <cassert>
 
 

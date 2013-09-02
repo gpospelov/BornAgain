@@ -67,8 +67,7 @@ public:
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const {
-        (void)parent_info;
+            const ParticleInfo& /*parent_info*/) const {
         return 0;
     }
 

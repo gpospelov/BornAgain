@@ -82,6 +82,10 @@ template <class TValue, class TContainer> class OutputDataIterator
     typedef ptrdiff_t difference_type;
     typedef TValue* pointer_type;
     typedef TValue& reference_type;
+#ifdef _MSC_VER
+	typedef TValue* pointer;
+    typedef TValue& reference;
+#endif
 
  protected:
     virtual void swapContents(OutputDataIterator<TValue, TContainer>& other);

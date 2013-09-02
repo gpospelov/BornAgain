@@ -139,7 +139,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
                 parameter_t source = getParameter(parametername);
                 (*it).second.setValue(source.getValue()*ratio);
                 npars++;
-            } catch (Exceptions::LogicErrorException& e) {}
+            } catch (Exceptions::LogicErrorException& e) { (void)e;}
         }
     }
     return npars;

@@ -18,7 +18,7 @@
 
 #include "ISample.h"
 
-class ISampleBuilder : public IParameterized
+class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
  public:
     ISampleBuilder() { setName("SampleBuilder"); }

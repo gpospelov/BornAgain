@@ -94,7 +94,7 @@ void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 Eigen::Matrix2d Norm(Eigen::Matrix2cd &M);
 #endif
 
-BA_CORE_API_ bool isnan(double x)
+BA_CORE_API_ inline bool isnan(double x)
 {
 #ifdef _MSC_VER
 	return _isnan(x);
@@ -103,7 +103,7 @@ BA_CORE_API_ bool isnan(double x)
 #endif
 }
 
-BA_CORE_API_ bool isinf(double x)
+BA_CORE_API_ inline bool isinf(double x)
 {
 #ifdef _MSC_VER
 	return !_finite(x);

@@ -37,14 +37,16 @@ else()
         "C:/opt/local_x86_msvc/include"
         "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
     )
+    message("XXX ${FFTW_INCLUDE_DIR}")
 
-#    set(CMAKE_FIND_LIBRARY_SUFFIXES .dll)
-    find_file(FFTW_LIBRARY NAMES libfftw3-3.dll PATHS
+    find_library(FFTW_LIBRARY NAMES libfftw3-3 PATHS
         $ENV{FFTW_DIR}/lib
         $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
         "C:/opt/local_x86_msvc/lib"
         "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/lib"
     )
+    message("XXX ${FFTW_LIBRARY}")
+    
 endif()
 
 if(FFTW_INCLUDE_DIR AND FFTW_LIBRARY)

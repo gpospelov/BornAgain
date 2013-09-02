@@ -22,7 +22,7 @@
 
 //! Interface to OutputData normalizers.
 
-class IOutputDataNormalizer : public IParameterized
+class BA_CORE_API_ IOutputDataNormalizer : public IParameterized
 {
  public:
     virtual ~IOutputDataNormalizer() {}

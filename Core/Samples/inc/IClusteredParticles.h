@@ -24,7 +24,7 @@
 
 //! An ordered assembly of particles
 
-class IClusteredParticles : public ICompositeSample
+class BA_CORE_API_ IClusteredParticles : public ICompositeSample
 {
 public:
     IClusteredParticles() {}

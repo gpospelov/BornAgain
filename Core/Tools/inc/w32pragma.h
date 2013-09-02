@@ -59,6 +59,11 @@
 /* loop control variable is used outside the for-loop scope */
 #pragma warning (3: 4289)
 
+/* no override available for virtual member function from base */
+#pragma warning(disable: 4266)
+
+
+
 #define WIN32 1
 #define _WINDOWS 1
 #define WINVER 0x0400

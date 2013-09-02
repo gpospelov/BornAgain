@@ -20,7 +20,7 @@
 
 //! Interface providing two-dimensional resolution function.
 
-class IResolutionFunction2D : public IParameterized
+class BA_CORE_API_ IResolutionFunction2D : public IParameterized
 {
  public:
     virtual ~IResolutionFunction2D() {}

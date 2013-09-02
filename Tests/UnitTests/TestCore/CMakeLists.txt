@@ -6,9 +6,14 @@ enable_testing()
 
 add_executable( TestCore main.cpp )
 
+#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+
 # dependencies
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 target_link_libraries(TestCore gtest)
+add_definitions(-DGTEST_LINKED_AS_SHARED_LIBRARY=1)
+
 
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(TestCore ${BornAgainCore_LIBRARY}) 

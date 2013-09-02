@@ -39,7 +39,7 @@ TEST_F(AxisDoubleTest, AddElementsToEmpty)
 {
     angleAxis.push_back(1.0f);
     ASSERT_EQ((size_t)1, angleAxis.getSize());
-    EXPECT_FLOAT_EQ(1.0f, angleAxis[0]);
+    EXPECT_FLOAT_EQ(1.0, (float)angleAxis[0]);
 }
 
 TEST_F(AxisDoubleTest, ExtendedConstructor)

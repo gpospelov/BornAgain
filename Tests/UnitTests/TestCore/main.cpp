@@ -1,3 +1,6 @@
+#ifdef _MSC_VER
+#define _VARIADIC_MAX 10
+#endif
 #include "gtest/gtest.h"
 
 #include "AxisDoubleTest.h"

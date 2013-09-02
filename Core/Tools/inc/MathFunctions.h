@@ -23,6 +23,7 @@
 
 #include <cstdlib>
 #include <vector>
+#include <cmath>
 
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
@@ -92,6 +93,25 @@ void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 #ifndef GCCXML_SKIP_THIS
 Eigen::Matrix2d Norm(Eigen::Matrix2cd &M);
 #endif
+
+BA_CORE_API_ bool isnan(double x)
+{
+#ifdef _MSC_VER
+	return _isnan(x);
+#else
+	return std::isnan(x);
+#endif
+}
+
+BA_CORE_API_ bool isinf(double x)
+{
+#ifdef _MSC_VER
+	return !_finite(x);
+#else
+	return std::isinf(x);
+#endif
+}
+
 
 } // Namespace MathFunctions
 

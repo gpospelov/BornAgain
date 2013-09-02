@@ -15,6 +15,7 @@
 
 #include "LocalMonodisperseApproximationStrategy.h"
 #include "Exceptions.h"
+#include "MathFunctions.h
 #include <cassert>
 
 
@@ -58,8 +59,8 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
             intensity += fraction*(itf_function*std::norm(ff));
         }
     }
-    assert(!std::isnan(intensity));
-    assert(!std::isinf(intensity));
+    assert(!MathFunctions::isnan(intensity));
+    assert(!MathFunctions::isinf(intensity));
 
     return intensity;
 }

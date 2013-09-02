@@ -157,8 +157,6 @@ public:
     Object&  operator[] (const Key& key) { return m_value_map[key]; }
 
 private:
-//    UnorderedMap& operator=(const UnorderedMap& );
-
     container_t m_value_map;
 };
 

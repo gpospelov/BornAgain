@@ -40,67 +40,89 @@ public:
     //! Returns z-part of the two wavevector eigenmodes
     virtual Eigen::Vector2cd getKz() const;
 
-    complex_t kz; //!< z-component of the wavevector in given layer
-    complex_t r;  //!< r = R/A - Fresnel reflection coefficient
-    complex_t t;  //!< t = T/A - Fresnel transmission coefficient
-    complex_t tb; //!< t = T/A - Fresnel transmission coefficient
-    complex_t X;  //!<  ratio of amplitudes R/T of the outgoing to the incoming
-                  //!<waves in layer
-    complex_t R;  //!<  amplitude of the reflected wave in layer
-    complex_t T;  //!<  amplitude of the transmitted wave in layer
+    //! Scalar accessors for reflection/transmission coefficients
+    complex_t R() const;
+    complex_t T() const;
+
+    complex_t lambda;         //!< positive eigenvalue of transfer matrix
+    complex_t kz;             //!< z-part of the wavevector
+    Eigen::Vector2cd phi_psi; //!< boundary values of the amplitude
+    Eigen::Matrix2cd l;       //!< transfer matrix
+
 private:
     Eigen::Vector2cd m_ones_vector;
 };
 
 inline ScalarRTCoefficients::ScalarRTCoefficients()
-: kz(0), r(0), t(0), tb(0), X(0), R(0), T(0)
+: lambda(0), kz(0)
 {
     m_ones_vector.setOnes();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const
 {
-    return m_ones_vector * T;
+    return m_ones_vector * T();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1plus() const
 {
-    return m_ones_vector * R;
+    return m_ones_vector * R();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2plus() const
 {
-    return m_ones_vector * T;
+    return m_ones_vector * T();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2plus() const
 {
-    return m_ones_vector * R;
+    return m_ones_vector * R();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1min() const
 {
-    return m_ones_vector * T;
+    return m_ones_vector * T();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1min() const
 {
-    return m_ones_vector * R;
+    return m_ones_vector * R();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const
 {
-    return m_ones_vector * T;
+    return m_ones_vector * T();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
 {
-    return m_ones_vector * R;
+    return m_ones_vector * R();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
 {
     return m_ones_vector * kz;
+}
+
+inline complex_t ScalarRTCoefficients::R() const
+{
+    if (lambda==0.0) {
+        if (phi_psi(1)==0.0) {
+            return -1.0;
+        }
+        else return 0.0;
+    }
+    return (phi_psi(1)+phi_psi(0)/lambda)/2.0;}
+
+inline complex_t ScalarRTCoefficients::T() const
+{
+    if (lambda==0.0) {
+        if (phi_psi(1)==0.0) {
+            return 1.0;
+        }
+        else return phi_psi(1);
+    }
+    return (phi_psi(1)-phi_psi(0)/lambda)/2.0;
 }
 
 #endif /* SCALARRTCOEFFICIENTS_H_ */

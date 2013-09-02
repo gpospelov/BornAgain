@@ -19,6 +19,7 @@
 #include "Types.h"
 #include "ISimulation.h"
 #include "MultiLayer.h"
+#include "ScalarRTCoefficients.h"
 
 #include <Eigen/Core>
 
@@ -30,31 +31,17 @@ class SpecularMatrix : public ISimulation
 public:
     SpecularMatrix() {}
 
-   //! layer coefficients for matrix formalism
-   class LayerMatrixCoeff {
-   public:
-       LayerMatrixCoeff() : lambda(0), kz(0) {}
-       ~LayerMatrixCoeff() {}
-       complex_t R() const;
-       complex_t T() const;
-       // A - amplitude of initial wave, R, T - amplitudes of reflected and transmitted waves
-       complex_t lambda; // positive eigenvalue of transfer matrix
-       complex_t kz;
-       Eigen::Vector2cd phi_psi;
-       Eigen::Matrix2cd l;
-   };
-
    //! multi layer coefficients for matrix formalism
    class MultiLayerMatrixCoeff
    {
    public:
-       inline LayerMatrixCoeff& operator[](size_t i) { return m_data[i]; }
-       inline const LayerMatrixCoeff& operator[](size_t i) const { return m_data[i]; }
+       inline ScalarRTCoefficients& operator[](size_t i) { return m_data[i]; }
+       inline const ScalarRTCoefficients& operator[](size_t i) const { return m_data[i]; }
        inline size_t size() const { return m_data.size(); }
        inline void clear() { m_data.clear(); }
        inline void resize(size_t size) { m_data.resize(size); }
    private:
-       std::vector<LayerMatrixCoeff > m_data;
+       std::vector<ScalarRTCoefficients > m_data;
    };
 
    typedef MultiLayerMatrixCoeff MultiLayerCoeff_t; // set of layer coefficients for matrix formalism
@@ -75,25 +62,5 @@ private:
    complex_t getPMatrixElement(complex_t sigma_lambda) const;
    void setForNoTransmission(MultiLayerCoeff_t& coeff) const;
 };
-
-inline complex_t SpecularMatrix::LayerMatrixCoeff::R() const {
-    if (lambda==0.0) {
-        if (phi_psi(1)==0.0) {
-            return -1.0;
-        }
-        else return 0.0;
-    }
-    return (phi_psi(1)+phi_psi(0)/lambda)/2.0;
-}
-
-inline complex_t SpecularMatrix::LayerMatrixCoeff::T() const {
-    if (lambda==0.0) {
-        if (phi_psi(1)==0.0) {
-            return 1.0;
-        }
-        else return phi_psi(1);
-    }
-    return (phi_psi(1)-phi_psi(0)/lambda)/2.0;
-}
 
 #endif /* SPECULARMATRIX_H_ */

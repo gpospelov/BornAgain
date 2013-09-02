@@ -128,7 +128,7 @@ void MultiLayerDWBASimulation::run()
                 doubleFresnel_buffer.begin();
             it!=doubleFresnel_buffer.end(); ++it) {
             double angle = (*it).first;
-            const SpecularMatrix::LayerMatrixCoeff& coeff = (*it).second[i_layer];
+            const ScalarRTCoefficients& coeff = (*it).second[i_layer];
             RT_map[angle] = complexpair_t(coeff.R(), coeff.T());
             Kz_map[angle] = coeff.kz;
         }

@@ -18,11 +18,11 @@
 
 #include "ParticleInfo.h"
 
-//! ?
+//! Holds additional information about diffuse particle
 
-class DiffuseParticleInfo: public ParticleInfo
+class BA_CORE_API_ DiffuseParticleInfo : public ParticleInfo
 {
- public:
+public:
     DiffuseParticleInfo(
         Particle *p_particle,
         const Geometry::PTransform3D& transform = Geometry::PTransform3D(),
@@ -58,7 +58,7 @@ class DiffuseParticleInfo: public ParticleInfo
 
     //! Returns the range of height
     double getHeightRange() const { return m_height_range; }
- protected:
+protected:
     double m_number_per_meso;
     double m_height_range;
 };

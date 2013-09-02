@@ -19,6 +19,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <cmath>
 
 void DecouplingApproximationStrategy::init(
         const SafePointerVector<FormFactorInfo>& form_factor_infos,

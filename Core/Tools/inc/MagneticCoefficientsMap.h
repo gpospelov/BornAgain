@@ -31,7 +31,7 @@ public:
 
     MagneticCoefficientsMap(){}
     MagneticCoefficientsMap(const container_t& value_map,
-            SpecularMagnetic::LayerMatrixCoeff incoming_coeff)
+            const SpecularMagnetic::LayerMatrixCoeff &incoming_coeff)
             : m_value_map(value_map)
             , m_incoming_coeff(incoming_coeff) {}
 

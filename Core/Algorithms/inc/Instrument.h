@@ -34,7 +34,7 @@ class BA_CORE_API_ Instrument : public IParameterized
     Beam getBeam() const;
 
     //! Sets the beam data
-    void setBeam(Beam beam);
+    void setBeam(const Beam &beam);
 
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double lambda, double alpha_i, double phi_i);
@@ -93,7 +93,7 @@ inline Beam Instrument::getBeam() const
     return m_beam;
 }
 
-inline void Instrument::setBeam(Beam beam)
+inline void Instrument::setBeam(const Beam &beam)
 {
     m_beam = beam;
 }

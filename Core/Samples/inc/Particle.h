@@ -21,7 +21,7 @@
 #include "FormFactorDecoratorRefractiveIndex.h"
 #include "HomogeneousMaterial.h"
 
-class Particle;
+class ParticleInfo;
 class DiffuseParticleInfo;
 
 //! A particle with a form factor and refractive index
@@ -91,8 +91,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& parent_info) const {
-        (void)parent_info;
+            const ParticleInfo& /*parent_info*/) const {
         return 0;
     }
 

@@ -58,7 +58,6 @@
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "OpticalFresnel.h"
 #include "OutputData.h"
 #include "OutputDataIOFactory.h"
 #include "ParameterPool.h"

@@ -49,7 +49,8 @@ public:
    //! set of layer coefficients for matrix formalism
    typedef MultiLayerMatrixCoeff MultiLayerCoeff_t;
 
-   //! Calculates Fresnel coefficients for given multi layer and kvector
+   //! Calculates reflection/transmission coefficients for given multi layer
+   //! and wavevector k
    void execute(const MultiLayer& sample, const kvector_t& k,
            MultiLayerCoeff_t& coeff);
 

@@ -74,7 +74,6 @@ SOURCES += \
     Algorithms/src/MatrixRTCoefficients.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
-    Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     Algorithms/src/Simulation.cpp \
     Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
@@ -230,7 +229,6 @@ HEADERS += \
     Algorithms/inc/MatrixRTCoefficients.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
-    Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ScalarRTCoefficients.h \
     Algorithms/inc/ScalarSpecularInfoMap.h \

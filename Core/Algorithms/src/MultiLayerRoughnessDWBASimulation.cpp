@@ -15,7 +15,6 @@
 
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "MultiLayer.h"
-#include "OpticalFresnel.h"
 #include "DWBADiffuseReflection.h"
 
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(

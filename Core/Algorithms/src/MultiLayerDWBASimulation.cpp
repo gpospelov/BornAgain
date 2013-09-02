@@ -97,14 +97,15 @@ void MultiLayerDWBASimulation::run()
     m_dwba_intensity.setAllTo(0.0);
     double lambda = 2*M_PI/m_ki_real.mag();
 
-    // collect all alpha angles and calculate Fresnel coefficients
+    // collect all alpha angles and calculate reflection/transmission
+    // coefficients
     typedef std::pair<double, SpecularMatrix::MultiLayerCoeff_t>
-        doubleFresnelPair_t;
-    std::vector<doubleFresnelPair_t> doubleFresnel_buffer;
+        doubleRTCoeffPair_t;
+    std::vector<doubleRTCoeffPair_t> doubleRTCoeff_buffer;
     std::set<double> alpha_set = getAlphaList();
     // also add incoming alpha
     alpha_set.insert(-m_alpha_i);
-    doubleFresnel_buffer.reserve(alpha_set.size());
+    doubleRTCoeff_buffer.reserve(alpha_set.size());
 
     double angle;
     kvector_t kvec;
@@ -114,7 +115,7 @@ void MultiLayerDWBASimulation::run()
         angle = *it;
         kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
         specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        doubleFresnel_buffer.push_back( doubleFresnelPair_t(angle,coeffs) );
+        doubleRTCoeff_buffer.push_back( doubleRTCoeffPair_t(angle,coeffs) );
     }
 
     // run through layers and construct T,R functions
@@ -124,9 +125,9 @@ void MultiLayerDWBASimulation::run()
         DoubleToPairOfComplexMap RT_map;
         DoubleToComplexMap Kz_map;
 
-        for(std::vector<doubleFresnelPair_t >::const_iterator it=
-                doubleFresnel_buffer.begin();
-            it!=doubleFresnel_buffer.end(); ++it) {
+        for(std::vector<doubleRTCoeffPair_t >::const_iterator it=
+                doubleRTCoeff_buffer.begin();
+            it!=doubleRTCoeff_buffer.end(); ++it) {
             double angle = (*it).first;
             const ScalarRTCoefficients& coeff = (*it).second[i_layer];
             RT_map[angle] = complexpair_t(coeff.R(), coeff.T());
@@ -168,8 +169,8 @@ void MultiLayerDWBASimulation::runMagnetic()
     mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     double lambda = 2*M_PI/m_ki_real.mag();
 
-    // collect all (alpha, phi) angles and calculate Fresnel coefficients
-    // (also one set of coefficients for the incoming wavevector)
+    // collect all (alpha, phi) angles and calculate reflection/transmission
+    // coefficients (also one set of coefficients for the incoming wavevector)
     typedef Utils::UnorderedMap<double, SpecularMagnetic::MultiLayerCoeff_t>
         container_phi_t;
     typedef Utils::UnorderedMap<double, container_phi_t> container_t;

@@ -57,6 +57,7 @@ SOURCES += \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBASimulation.cpp \
+    Algorithms/src/DecoratedLayerDWBASimulation.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DiffuseDWBASimulation.cpp \
@@ -68,6 +69,7 @@ SOURCES += \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LayerSpecularInfo.cpp \
+    Algorithms/src/LayerStrategyBuilder.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
@@ -136,8 +138,6 @@ SOURCES += \
     StandardSamples/IsGISAXS03Builder.cpp \
     StandardSamples/IsGISAXS06Builder.cpp \
     StandardSamples/IsGISAXS09Builder.cpp \
-    Algorithms/src/LayerStrategyBuilder.cpp \
-    Algorithms/src/DecoratedLayerDWBASimulation.cpp
 
 
 HEADERS += \

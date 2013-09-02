@@ -28,7 +28,7 @@ class ProgramOptions;
 
 //! Run one simulation.
 
-class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
+class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
  public:
     Simulation();

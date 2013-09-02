@@ -20,7 +20,7 @@
 #include "IParameterized.h"
 #include "ICloneable.h"
 
-class BA_CORE_API_ IDetectorResolution : public IParameterized, public ICloneable
+class BA_CORE_API_ IDetectorResolution : public ICloneable, public IParameterized
 {
  public:
     virtual ~IDetectorResolution() {}

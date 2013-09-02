@@ -37,7 +37,7 @@ else()
         "C:/opt/local_x86_msvc/include"
         "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
     )
-    message("XXX ${FFTW_INCLUDE_DIR}")
+#    message("XXX ${FFTW_INCLUDE_DIR}")
 
     find_library(FFTW_LIBRARY NAMES libfftw3-3 PATHS
         $ENV{FFTW_DIR}/lib
@@ -45,7 +45,7 @@ else()
         "C:/opt/local_x86_msvc/lib"
         "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/lib"
     )
-    message("XXX ${FFTW_LIBRARY}")
+#    message("XXX ${FFTW_LIBRARY}")
     
 endif()
 

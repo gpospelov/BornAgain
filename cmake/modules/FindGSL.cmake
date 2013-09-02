@@ -30,7 +30,7 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
         "C:/opt/local_x86_msvc/include"
         "C:/Program Files (x86)/GnuWin32/include"
     )
-    message("XXXXX ${GSL_INCLUDE_DIR}")
+#    message("XXXXX ${GSL_INCLUDE_DIR}")
   if( GSL_INCLUDE_DIR )
     # look for gsl library
     find_library( GSL_LIBRARY
@@ -40,7 +40,7 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
           "C:/opt/local_x86_msvc/lib"
           #"C:/Program Files (x86)/GnuWin32/lib"
     )
-    message("XXXXX ${GSL_LIBRARY}")
+#    message("XXXXX ${GSL_LIBRARY}")
     if( GSL_LIBRARY )
       set( GSL_INCLUDE_DIRS ${GSL_INCLUDE_DIR} )
       get_filename_component( GSL_LIBRARY_DIRS ${GSL_LIBRARY} PATH )

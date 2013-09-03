@@ -50,16 +50,11 @@ Simulation::Simulation(const Simulation& other)
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
 {
-	std::cout << "BBB 1.1" << std::endl;
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
-	std::cout << "BBB 1.2" << std::endl;
     m_intensity_map.copyFrom(other.m_intensity_map);
-	std::cout << "BBB 1.3" << std::endl;
     m_polarization_output.copyFrom(other.m_polarization_output);
-	std::cout << "BBB 1.4" << std::endl;
 
     init_parameters();
-	std::cout << "BBB 1.5" << std::endl;
 }
 
 Simulation::Simulation(const ProgramOptions *p_options)

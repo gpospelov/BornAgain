@@ -28,7 +28,7 @@ OutputData<double > *OutputDataReader::getOutputData()
     std::ifstream fin;
 
     std::ios_base::openmode openmode = std::ios::in;
-    if(m_read_strategy->isBinary()) openmode = std::ios::in | std::ios::binary;
+    if(m_read_strategy->isBinary()) openmode = std::ios::in | std::ios_base::binary;
 
     fin.open(m_file_name.c_str(), openmode );
     if( !fin.is_open() ) {

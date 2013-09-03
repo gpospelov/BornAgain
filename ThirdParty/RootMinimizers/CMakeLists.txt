@@ -16,13 +16,20 @@ file(GLOB source_files
     "src/Fit/*.cxx"
 )
 
+file(GLOB include_files 
+    "inc/Fit/*.h"
+    "inc/Math/*.h"
+    "inc/Minuit2/*.h"
+    "src/Math/*.h"
+)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
 
 # making library
 add_library(
     ${library_name}
     SHARED
-    ${source_files}
+    ${source_files} ${include_files}
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)

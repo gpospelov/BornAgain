@@ -26,9 +26,9 @@ include(SearchInstalledSoftware)
 include(CheckCompiler)
 
 #--- Recurse into the given subdirectories ---
-#add_subdirectory(Core)
+add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)
-#add_subdirectory(Tests/UnitTests/TestCore)
+add_subdirectory(Tests/UnitTests/TestCore)
 
 #add_subdirectory(ThirdParty/RootMinimizers)
 

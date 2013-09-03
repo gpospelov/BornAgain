@@ -31,8 +31,6 @@ file(GLOB include_files
     "StandardSamples/*.h" 
     "Tools/inc/*.h"
 )
-#source_group(headers FILES ${include_files})
-
 
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")

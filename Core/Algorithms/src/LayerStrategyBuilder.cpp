@@ -203,8 +203,6 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
         const ParticleInfo* p_particle_info,
         const IMaterial* p_ambient_material, complex_t factor) const
 {
-    std::cout << "LayerStrategyBuilder::createFormFactorInfoPol"
-              << std::endl;
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
             getParticle()->clone());

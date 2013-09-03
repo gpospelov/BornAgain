@@ -28,11 +28,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -
 # making library
 add_library(
     ${library_name}
-    SHARED
+    STATIC
     ${source_files} ${include_files}
 )
-set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
-set(${library_name}_LIBRARY_TYPE SHARED)
+#set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+#set(${library_name}_LIBRARY_TYPE SHARED)
 
 # external dependencies
 include_directories(${GSL_INCLUDE_DIRS})

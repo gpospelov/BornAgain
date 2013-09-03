@@ -13,6 +13,7 @@
 #include "Utils.h"
 #include "SampleBuilderFactory.h"
 #include "IsGISAXS06Builder.h"
+#include "MathFunctions.h"
 
 #include <iostream>
 #include <cmath>
@@ -150,7 +151,7 @@ int FunctionalTests::IsGISAXS06::analyseResults(
             diff+= std::fabs(*it);
         }
         diff /= result->getAllocatedSize();
-        if( diff > threshold || std::isnan(diff)) status_ok=false;
+        if( diff > threshold || MathFunctions::isnan(diff)) status_ok=false;
     }
 
     std::cout << m_name << " " << m_description << " " <<

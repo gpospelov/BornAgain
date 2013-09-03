@@ -14,6 +14,10 @@ file(GLOB source_files
     "Factory/src/*.cxx"
 )
 
+file(GLOB include_files
+    "Factory/inc/*.h"
+)
+
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi "PythonAPI/src/*.cpp")
     list(APPEND source_files ${pythonapi})
@@ -30,7 +34,7 @@ endif()
 add_library(
     ${library_name}
     SHARED
-    ${source_files}
+    ${source_files} ${include_files}
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)

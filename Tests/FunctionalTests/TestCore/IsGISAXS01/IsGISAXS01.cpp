@@ -4,6 +4,7 @@
 #include "Simulation.h"
 #include "Utils.h"
 #include "Units.h"
+#include "MathFunctions.h"
 #include <iostream>
 #include <cmath>
 
@@ -60,7 +61,7 @@ int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
 
     // Assess result.
     bool status_ok(true);
-    if( diff > threshold || std::isnan(diff) ) status_ok=false;
+    if( diff > threshold || MathFunctions::isnan(diff) ) status_ok=false;
 
 
     std::cout << m_name << " " << m_description << " " <<

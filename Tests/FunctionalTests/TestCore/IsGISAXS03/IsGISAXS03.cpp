@@ -4,6 +4,7 @@
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
+#include "MathFunctions.h"
 #include <iostream>
 #include <cmath>
 
@@ -111,7 +112,7 @@ int FunctionalTests::IsGISAXS03::analyseResults(const std::string &path_to_data)
             diff+= std::fabs(*it);
         }
         diff /= result->getAllocatedSize();
-        if( diff > threshold || std::isnan(diff)) status_ok=false;
+        if( diff > threshold || MathFunctions::isnan(diff)) status_ok=false;
 
     }
 

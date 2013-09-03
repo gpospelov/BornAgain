@@ -4,10 +4,11 @@
 
 FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth)
     : m_print_every_nth(print_every_nth)
-    , m_last_call_clock(clock())
+//    , m_last_call_clock(clock())
     , m_last_call_time()
 {
-    gettimeofday(&m_last_call_time, 0);
+//    gettimeofday(&m_last_call_time, 0);
+	m_last_call_time = boost::posix_time::second_clock::local_time();
 }
 
 void FitSuitePrintObserver::update(IObservable *subject)
@@ -28,31 +29,35 @@ void FitSuitePrintObserver::update(IObservable *subject)
                   << " Chi2:" << std::scientific << std::setprecision(8)
                   << fitSuite->getFitObjects()->getChiSquaredValue() << std::endl;
 
-        std::cout << "Time spend since last call, cpu:"
-                  << std::fixed << std::setprecision(2) << getCpuTimeSinceLastCall()
-                  << " sec, wall time " << getWallTimeSinceLastCall() << "sec" << std::endl;
+//        std::cout << "Time spend since last call, cpu:"
+//                  << std::fixed << std::setprecision(2) << getCpuTimeSinceLastCall()
+//                  << " sec, wall time " << getWallTimeSinceLastCall() << "sec" << std::endl;
+		boost::posix_time::time_duration diff = boost::posix_time::second_clock::local_time() - m_last_call_time;
+		std::cout << "Time spend since last call, sec_wall_time:"
+                  << std::fixed << std::setprecision(2) 
+				  << diff.total_milliseconds()/1000. << std::endl;
 
         fitSuite->getFitParameters()->printParameters();
     }
 }
 
-double FitSuitePrintObserver::getCpuTimeSinceLastCall()
-{
-    clock_t call_clock = clock();
-    double result = double(call_clock-m_last_call_clock)/CLOCKS_PER_SEC;
-    m_last_call_clock = call_clock;
-    return result;
-}
+//double FitSuitePrintObserver::getCpuTimeSinceLastCall()
+//{
+//    clock_t call_clock = clock();
+//    double result = double(call_clock-m_last_call_clock)/CLOCKS_PER_SEC;
+//    m_last_call_clock = call_clock;
+//    return result;
+//}
 
 
-double FitSuitePrintObserver::getWallTimeSinceLastCall()
-{
-    timeval call_time;
-    gettimeofday(&call_time, 0);
-    double result = (call_time.tv_sec - m_last_call_time.tv_sec) + double(call_time.tv_usec - m_last_call_time.tv_usec)/1e+06;
-    m_last_call_time = call_time;
-    return result;
-}
+//double FitSuitePrintObserver::getWallTimeSinceLastCall()
+//{
+//    timeval call_time;
+//    gettimeofday(&call_time, 0);
+//    double result = (call_time.tv_sec - m_last_call_time.tv_sec) + double(call_time.tv_usec - m_last_call_time.tv_usec)/1e+06;
+//    m_last_call_time = call_time;
+//    return result;
+//}
 
 
 

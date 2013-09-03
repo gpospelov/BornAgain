@@ -28,14 +28,14 @@ include(CheckCompiler)
 #--- Recurse into the given subdirectories ---
 add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)
-add_subdirectory(Tests/UnitTests/TestCore)
+#add_subdirectory(Tests/UnitTests/TestCore)
 
-#add_subdirectory(ThirdParty/RootMinimizers)
+add_subdirectory(ThirdParty/RootMinimizers)
 
-#add_subdirectory(Fit)
+add_subdirectory(Fit)
 
 # functional tests (cmake; make check)
-#add_subdirectory(Tests/FunctionalTests)
+add_subdirectory(Tests/FunctionalTests)
 
 #if(ROOT_FOUND AND BORNAGAIN_APP)
 #    add_subdirectory(App)

@@ -18,7 +18,7 @@
 
 #include "IFormFactorDecorator.h"
 #include "SpecularMagnetic.h"
-#include "MagneticCoefficientsMap.h"
+#include "LayerSpecularInfo.h"
 
 #include <Eigen/Core>
 
@@ -29,7 +29,7 @@ class FormFactorPol : public IFormFactorDecorator
 public:
     FormFactorPol(IFormFactor *p_formfactor)
         : IFormFactorDecorator(p_formfactor)
-        , mp_magnetic_coeffs(0), mp_material(0), mp_ambient_material(0) {}
+        , mp_specular_info(0), mp_material(0), mp_ambient_material(0) {}
     virtual ~FormFactorPol();
 
     virtual FormFactorPol *clone() const;
@@ -46,7 +46,7 @@ public:
             double alpha_i, double alpha_f, double phi_f) const;
 
     //! Sets magnetic reflection/transmission info for polarized DWBA
-    void setRTInfo(const MagneticCoefficientsMap& magnetic_coeff_map);
+    void setRTInfo(const LayerSpecularInfo& layer_specular_info);
 
     //! Sets the material of the scatterer
     void setMaterial(const IMaterial *p_material) {
@@ -58,19 +58,17 @@ public:
         mp_ambient_material = p_material;
     }
 protected:
-    const MatrixRTCoefficients& getOutCoeffs(double alpha_f,
+    const ILayerRTCoefficients *getOutCoeffs(double alpha_f,
             double phi_f) const;
-    MagneticCoefficientsMap *mp_magnetic_coeffs;
+    LayerSpecularInfo *mp_specular_info;
     const IMaterial *mp_material;
     const IMaterial *mp_ambient_material;
 };
 
-inline const MatrixRTCoefficients& FormFactorPol::getOutCoeffs(
+inline const ILayerRTCoefficients *FormFactorPol::getOutCoeffs(
         double alpha_f, double phi_f) const
 {
-    MagneticCoefficientsMap::container_phi_t &phi_coeffs =
-            (*mp_magnetic_coeffs)[alpha_f];
-    return phi_coeffs[phi_f];
+    return mp_specular_info->getOutCoefficients(alpha_f, phi_f);
 }
 
 #endif /* FORMFACTORPOL_H_ */

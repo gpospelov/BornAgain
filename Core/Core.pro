@@ -227,6 +227,7 @@ HEADERS += \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
     Algorithms/inc/MatrixRTCoefficients.h \
+    Algorithms/inc/MatrixSpecularInfoMap.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \

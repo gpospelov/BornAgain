@@ -16,13 +16,16 @@
 #ifndef ILAYERRTCOEFFICIENTS_H_
 #define ILAYERRTCOEFFICIENTS_H_
 
+#ifndef GCCXML_SKIP_THIS
 #include <Eigen/Core>
+#endif
 
 class ILayerRTCoefficients
 {
 public:
     virtual ~ILayerRTCoefficients() {}
 
+#ifndef GCCXML_SKIP_THIS
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
     virtual Eigen::Vector2cd T1plus() const=0;
@@ -35,6 +38,7 @@ public:
     virtual Eigen::Vector2cd R2min() const=0;
     //! Returns z-part of the two wavevector eigenmodes
     virtual Eigen::Vector2cd getKz() const=0;
+#endif
 };
 
 

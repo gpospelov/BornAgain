@@ -23,10 +23,6 @@ class ISpecularInfoMap
 public:
     virtual ~ISpecularInfoMap() {}
 
-    //! Adds amplitude coefficients for the given angles
-    virtual void addCoefficients(ILayerRTCoefficients *rt_coefficients,
-            double alpha_f, double phi_f)=0;
-
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients *getCoefficients(
             double alhpa_f, double phi_f) const=0;

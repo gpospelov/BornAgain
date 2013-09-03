@@ -31,7 +31,7 @@ FormFactorDWBAPolConstZ* FormFactorDWBAPolConstZ::clone() const
 {
     FormFactorDWBAPolConstZ *p_result = new FormFactorDWBAPolConstZ(
             mp_form_factor->clone(), m_depth);
-    p_result->setRTInfo(*mp_magnetic_coeffs);
+    p_result->setRTInfo(*mp_specular_info);
     p_result->setName(getName());
     return p_result;
 }
@@ -41,12 +41,12 @@ Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
         double alpha_i, double alpha_f, double phi_f) const
 {
     // get all different z-components of wavevectors
-    MatrixRTCoefficients in_coeff =
-            mp_magnetic_coeffs->incomingCoeff();
-    complex_t kiz_1R = in_coeff.getKz()(0);
-    complex_t kiz_1T = -in_coeff.getKz()(0);
-    complex_t kiz_2R = in_coeff.getKz()(1);
-    complex_t kiz_2T = -in_coeff.getKz()(1);
+    const ILayerRTCoefficients *in_coeff =
+            mp_specular_info->getInCoefficients();
+    complex_t kiz_1R = in_coeff->getKz()(0);
+    complex_t kiz_1T = -in_coeff->getKz()(0);
+    complex_t kiz_2R = in_coeff->getKz()(1);
+    complex_t kiz_2T = -in_coeff->getKz()(1);
     complex_t kfz_1R = k_f1_bin.getMidPoint().z();
     complex_t kfz_1T = -kfz_1R;
     complex_t kfz_2R = k_f2_bin.getMidPoint().z();

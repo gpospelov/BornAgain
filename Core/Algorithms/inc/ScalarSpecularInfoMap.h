@@ -19,7 +19,9 @@
 #include "ISpecularInfoMap.h"
 #include "Utils.h"
 
-#include <boost/shared_ptr.hpp>
+//! Implementation of ISpecularInfoMap for scalar valued reflection/
+//! transmission coefficients (the map contains values only for alpha_f,
+//! because of rotation symmetry in the xy-plane
 
 class ScalarSpecularInfoMap : public ISpecularInfoMap
 {
@@ -28,7 +30,7 @@ public:
     virtual ~ScalarSpecularInfoMap() {}
 
     //! Adds amplitude coefficients for the given angles
-    virtual void addCoefficients(ILayerRTCoefficients *rt_coefficients,
+    void addCoefficients(ScalarRTCoefficients *rt_coefficients,
             double alpha_f, double phi_f);
 
     //! Retrieves the amplitude coefficients for the given angles
@@ -39,7 +41,7 @@ private:
 };
 
 inline void ScalarSpecularInfoMap::addCoefficients(
-        ILayerRTCoefficients* rt_coefficients, double alpha_f, double phi_f)
+        ScalarRTCoefficients* rt_coefficients, double alpha_f, double phi_f)
 {
     m_value_map[alpha_f] = *rt_coefficients;
 }

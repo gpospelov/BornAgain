@@ -38,8 +38,7 @@ public:
 
     //! Adds the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
-    void addOutCoefficients(ILayerRTCoefficients *rt_coefficients,
-            double alpha_f, double phi_f);
+    void addOutCoefficients(ISpecularInfoMap *rt_coefficient_map);
 
     //! Adds the amplitude coefficients for the incoming wavevector
     void addInCoefficients(ILayerRTCoefficients *rt_coefficients) {

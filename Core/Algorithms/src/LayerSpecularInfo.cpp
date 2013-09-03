@@ -27,11 +27,10 @@ LayerSpecularInfo* LayerSpecularInfo::clone() const
     return p_result;
 }
 
-void LayerSpecularInfo::addOutCoefficients(
-        ILayerRTCoefficients* rt_coefficients, double alpha_f, double phi_f)
+void LayerSpecularInfo::addOutCoefficients(ISpecularInfoMap* rt_coefficient_map)
 {
-    if (mP_out_coeff_map.get()) {
-        mP_out_coeff_map->addCoefficients(rt_coefficients, alpha_f, phi_f);
+    if (mP_out_coeff_map.get() != rt_coefficient_map) {
+        mP_out_coeff_map.reset(rt_coefficient_map);
     }
 }
 

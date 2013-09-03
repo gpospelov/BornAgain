@@ -78,9 +78,9 @@ void DecoratedLayerDWBASimulation::runMagnetic(
             ++it;
             continue;
         }
-        Bin1DCVector k_f_bin1 = getKfBin1_magnetic(
+        Bin1DCVector k_f_bin1 = getKfBin1_matrix(
                 wavelength, alpha_bin, phi_bin);
-        Bin1DCVector k_f_bin2 = getKfBin2_magnetic(
+        Bin1DCVector k_f_bin2 = getKfBin2_matrix(
                 wavelength, alpha_bin, phi_bin);
         *it = p_strategy->evaluatePol(m_ki, k_f_bin1, k_f_bin2, -m_alpha_i,
                     alpha_f, phi_f) * total_surface_density;
@@ -94,8 +94,8 @@ IInterferenceFunctionStrategy
     LayerStrategyBuilder builder(
         *mp_layer, *mp_simulation, m_sim_params);
     if (checkPolarizationPresent()) {
-        assert(mp_coeff_map);
-        builder.setRTInfo(*mp_coeff_map);
+        assert(mp_specular_info);
+        builder.setRTInfo(*mp_specular_info);
     }
     else {
         assert(mp_RT_function);

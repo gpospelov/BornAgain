@@ -78,7 +78,7 @@
 #include "StochasticSampledParameter.h"
 #include "Types.h"
 #include "Units.h"
-#include "Version.h"
+#include "BAVersion.h"
 
 //! file containig additional exposers
 #include "PythonCoreExposer.h"

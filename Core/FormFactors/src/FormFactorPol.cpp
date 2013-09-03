@@ -18,7 +18,7 @@
 FormFactorPol* FormFactorPol::clone() const
 {
     FormFactorPol *p_result = new FormFactorPol(mp_form_factor->clone());
-    p_result->setRTInfo(*mp_magnetic_coeffs);
+    p_result->setRTInfo(*mp_specular_info);
     p_result->setName(getName());
     p_result->setMaterial(mp_material);
     p_result->setAmbientMaterial(mp_ambient_material);
@@ -27,7 +27,7 @@ FormFactorPol* FormFactorPol::clone() const
 
 FormFactorPol::~FormFactorPol()
 {
-    delete mp_magnetic_coeffs;
+    delete mp_specular_info;
 }
 
 Eigen::Matrix2cd FormFactorPol::evaluatePol(const cvector_t& k_i,
@@ -49,8 +49,8 @@ Eigen::Matrix2cd FormFactorPol::evaluatePol(const cvector_t& k_i,
     return evaluate(k_i, k_f1_bin, alpha_i, alpha_f) * V_eff;
 }
 
-void FormFactorPol::setRTInfo(const MagneticCoefficientsMap& magnetic_coeff_map)
+void FormFactorPol::setRTInfo(const LayerSpecularInfo& layer_specular_info)
 {
-    delete mp_magnetic_coeffs;
-    mp_magnetic_coeffs = magnetic_coeff_map.clone();
+    delete mp_specular_info;
+    mp_specular_info = layer_specular_info.clone();
 }

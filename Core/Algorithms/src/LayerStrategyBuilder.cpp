@@ -18,7 +18,6 @@
 #include "Layer.h"
 #include "Simulation.h"
 #include "IDoubleToComplexFunction.h"
-#include "MagneticCoefficientsMap.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
@@ -34,7 +33,7 @@ LayerStrategyBuilder::LayerStrategyBuilder(
 , mp_simulation(simulation.clone())
 , m_sim_params(sim_params)
 , mp_RT_function(0)
-, mp_magnetic_coeff_map(0)
+, mp_specular_info(0)
 {
     assert(mp_layer->getDecoration());
 }
@@ -44,7 +43,7 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
     delete mp_layer;
     delete mp_simulation;
     delete mp_RT_function;
-    delete mp_magnetic_coeff_map;
+    delete mp_specular_info;
 }
 
 
@@ -55,16 +54,15 @@ void LayerStrategyBuilder::setRTInfo(
         delete mp_RT_function;
         mp_RT_function = rt_map.clone();
     }
-    delete mp_magnetic_coeff_map;
-    mp_magnetic_coeff_map = 0;
+    delete mp_specular_info;
+    mp_specular_info = 0;
 }
 
-void LayerStrategyBuilder::setRTInfo(
-        const MagneticCoefficientsMap& magnetic_coeff_map)
+void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 {
-    if (mp_magnetic_coeff_map != &magnetic_coeff_map) {
-        delete mp_magnetic_coeff_map;
-        mp_magnetic_coeff_map = magnetic_coeff_map.clone();
+    if (mp_specular_info != &specular_info) {
+        delete mp_specular_info;
+        mp_specular_info = specular_info.clone();
     }
     delete mp_RT_function;
     mp_RT_function = 0;
@@ -128,7 +126,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
         const ParticleInfo *p_particle_info =
             p_decoration->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info;
-        if (mp_magnetic_coeff_map) {
+        if (mp_specular_info) {
             p_ff_info = createFormFactorInfoPol(p_particle_info,
                     p_layer_material, wavevector_scattering_factor);
         }
@@ -242,8 +240,8 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
     case SimulationParameters::BA:    // Born Approximation
     {
         FormFactorPol *p_ff_pol = new FormFactorPol(ff_transformed);
-        if (mp_magnetic_coeff_map) {
-            p_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
+        if (mp_specular_info) {
+            p_ff_pol->setRTInfo(*mp_specular_info);
         }
         p_ff_pol->setMaterial(p_material);
         p_ff_pol->setAmbientMaterial(p_ambient_material);
@@ -252,7 +250,7 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
     }
     case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
     {
-        if (!mp_magnetic_coeff_map) {
+        if (!mp_specular_info) {
             throw Exceptions::ClassInitializationException(
                     "Magnetic coefficients are necessary for DWBA");
         }
@@ -265,7 +263,7 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
         else {
             p_dwba_ff_pol = new FormFactorDWBAPol(ff_transformed);
         }
-        p_dwba_ff_pol->setRTInfo(*mp_magnetic_coeff_map);
+        p_dwba_ff_pol->setRTInfo(*mp_specular_info);
         p_dwba_ff_pol->setMaterial(p_material);
         p_dwba_ff_pol->setAmbientMaterial(p_ambient_material);
         p_ff_framework = p_dwba_ff_pol;

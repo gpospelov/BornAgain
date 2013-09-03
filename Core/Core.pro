@@ -27,7 +27,6 @@ SOURCES += \
     Tools/src/AxisDouble.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
-    Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
     Tools/src/IFactory.cpp \
     Tools/src/IObserver.cpp \
@@ -150,14 +149,11 @@ HEADERS += \
     Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/CoreOptionsDescription.h \
-    Tools/inc/DoubleToComplexInterpolatingFunction.h \
-    Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
     Tools/inc/FastVector.h \
     Tools/inc/IAxis.h \
     Tools/inc/IChangeable.h \
     Tools/inc/ICloneable.h \
-    Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \

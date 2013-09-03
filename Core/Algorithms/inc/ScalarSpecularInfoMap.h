@@ -30,7 +30,7 @@ public:
     virtual ~ScalarSpecularInfoMap() {}
 
     //! Adds amplitude coefficients for the given angles
-    void addCoefficients(ScalarRTCoefficients *rt_coefficients,
+    void addCoefficients(const ScalarRTCoefficients &rt_coefficients,
             double alpha_f, double phi_f);
 
     //! Retrieves the amplitude coefficients for the given angles
@@ -41,16 +41,18 @@ private:
 };
 
 inline void ScalarSpecularInfoMap::addCoefficients(
-        ScalarRTCoefficients* rt_coefficients, double alpha_f, double phi_f)
+        const ScalarRTCoefficients& rt_coefficients, double alpha_f,
+        double phi_f)
 {
-    m_value_map[alpha_f] = *rt_coefficients;
+    (void)phi_f;
+    m_value_map[alpha_f] = rt_coefficients;
 }
 
 inline const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(
         double alpha_f, double phi_f) const
 {
     (void)phi_f;
-    return &m_value_map[alpha_f];
+    return &m_value_map.find(alpha_f);
 }
 
 #endif /* SCALARSPECULARINFOMAP_H_ */

@@ -112,7 +112,7 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
         coeff[0].l.setIdentity();
         coeff[0].phi_psi = m_roughness_pmatrices[0] * coeff[1].phi_psi;
         // Normalize all boundary values with top layer transmitted wave:
-        complex_t T0 = coeff[0].T();
+        complex_t T0 = coeff[0].getScalarT();
         for (size_t i=0; i<N; ++i) {
             coeff[i].phi_psi = coeff[i].phi_psi/T0;
         }

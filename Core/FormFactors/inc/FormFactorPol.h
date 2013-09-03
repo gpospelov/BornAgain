@@ -17,7 +17,6 @@
 #define FORMFACTORPOL_H_
 
 #include "IFormFactorDecorator.h"
-#include "SpecularMagnetic.h"
 #include "LayerSpecularInfo.h"
 
 #include <Eigen/Core>
@@ -36,9 +35,7 @@ public:
 
     // Forwards to the evaluate function of the embedded form factor
     virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const {
-        return mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
-    }
+            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
@@ -46,7 +43,7 @@ public:
             double alpha_i, double alpha_f, double phi_f) const;
 
     //! Sets magnetic reflection/transmission info for polarized DWBA
-    void setRTInfo(const LayerSpecularInfo& layer_specular_info);
+    void setSpecularInfo(const LayerSpecularInfo& layer_specular_info);
 
     //! Sets the material of the scatterer
     void setMaterial(const IMaterial *p_material) {

@@ -40,9 +40,13 @@ public:
     //! Returns z-part of the two wavevector eigenmodes
     virtual Eigen::Vector2cd getKz() const;
 
-    //! Scalar accessors for reflection/transmission coefficients
-    complex_t R() const;
-    complex_t T() const;
+    //! Scalar value getters; these throw errors by default as they should only
+    //! be used when the derived object is really scalar
+    virtual complex_t getScalarT() const;
+    virtual complex_t getScalarR() const;
+    virtual complex_t getScalarKz() const {
+        return kz;
+    }
 
     complex_t lambda;         //!< positive eigenvalue of transfer matrix
     complex_t kz;             //!< z-part of the wavevector
@@ -61,42 +65,42 @@ inline ScalarRTCoefficients::ScalarRTCoefficients()
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const
 {
-    return m_ones_vector * T();
+    return m_ones_vector * getScalarT();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1plus() const
 {
-    return m_ones_vector * R();
+    return m_ones_vector * getScalarR();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2plus() const
 {
-    return m_ones_vector * T();
+    return m_ones_vector * getScalarT();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2plus() const
 {
-    return m_ones_vector * R();
+    return m_ones_vector * getScalarR();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1min() const
 {
-    return m_ones_vector * T();
+    return m_ones_vector * getScalarT();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1min() const
 {
-    return m_ones_vector * R();
+    return m_ones_vector * getScalarR();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const
 {
-    return m_ones_vector * T();
+    return m_ones_vector * getScalarT();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
 {
-    return m_ones_vector * R();
+    return m_ones_vector * getScalarR();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
@@ -104,7 +108,7 @@ inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
     return m_ones_vector * kz;
 }
 
-inline complex_t ScalarRTCoefficients::R() const
+inline complex_t ScalarRTCoefficients::getScalarR() const
 {
     if (lambda==0.0) {
         if (phi_psi(1)==0.0) {
@@ -114,7 +118,7 @@ inline complex_t ScalarRTCoefficients::R() const
     }
     return (phi_psi(1)+phi_psi(0)/lambda)/2.0;}
 
-inline complex_t ScalarRTCoefficients::T() const
+inline complex_t ScalarRTCoefficients::getScalarT() const
 {
     if (lambda==0.0) {
         if (phi_psi(1)==0.0) {

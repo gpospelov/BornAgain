@@ -15,7 +15,6 @@
 
 #include "DWBASimulation.h"
 
-#include "SampleMaterialVisitor.h"
 
 DWBASimulation::DWBASimulation()
 : mp_polarization_output(0)
@@ -97,16 +96,7 @@ bool DWBASimulation::checkPolarizationPresent() const
         throw ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): sample not initialized");
     }
-    SampleMaterialVisitor material_vis;
-    p_sample->accept(&material_vis);
-    std::vector<const IMaterial *> materials = material_vis.getMaterials();
-    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
-            it != materials.end(); ++it) {
-        if (!(*it)->isScalarMaterial()) {
-            return true;
-        }
-    }
-    return false;
+    return p_sample->containsMagneticMaterial();
 }
 
 double DWBASimulation::getWaveLength() const

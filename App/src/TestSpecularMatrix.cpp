@@ -38,10 +38,10 @@ void TestSpecularMatrix::execute()
 {
     std::cout << "TestSpecularMatrix::execute() -> Info." << std::endl;
 
-    // calculate wavevector amplitudes for several standard multi-layer samples
+    // calculate wavevector amplitudes for several standard multilayer samples
     test_standard_samples();
 
-    // calculate wavevector amplitudes for multi-layer with different
+    // calculate wavevector amplitudes for multilayer with different
     // roughnesses
     test_roughness_set();
 }
@@ -115,9 +115,11 @@ void TestSpecularMatrix::draw_standard_samples()
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
             gr_coeff[i_layer][kCoeffR]->SetPoint(i_point,
-                    Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R()) );
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarR()) );
             gr_coeff[i_layer][kCoeffT]->SetPoint(i_point,
-                    Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T()) );
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarT()) );
         }
 
         // Filling graphics for |R|+|T| as a function of alpha_i taking R from
@@ -125,7 +127,8 @@ void TestSpecularMatrix::draw_standard_samples()
         int nlast = (int)nlayers - 1;
         double sum;
         if(coeffs[0].lambda.real()!=0.0) {
-            sum = std::norm(coeffs[0].R()) + std::norm(coeffs[nlast].T())
+            sum = std::norm(coeffs[0].getScalarR())
+                + std::norm(coeffs[nlast].getScalarT())
                   * coeffs[nlast].lambda.real()/coeffs[0].lambda.real();
         } else {
             sum = 1.0;
@@ -282,9 +285,11 @@ void TestSpecularMatrix::draw_roughness_set()
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
             gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha,
-                    Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R()) );
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarR()) );
             gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha,
-                    Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T()) );
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarT()) );
         }
         ++it;
     }

@@ -16,6 +16,8 @@
 #ifndef ILAYERRTCOEFFICIENTS_H_
 #define ILAYERRTCOEFFICIENTS_H_
 
+#include "Types.h"
+
 #ifndef GCCXML_SKIP_THIS
 #include <Eigen/Core>
 #endif
@@ -38,6 +40,20 @@ public:
     virtual Eigen::Vector2cd R2min() const=0;
     //! Returns z-part of the two wavevector eigenmodes
     virtual Eigen::Vector2cd getKz() const=0;
+    //! Scalar value getters; these throw errors by default as they should only
+    //! be used when the derived object is really scalar
+    virtual complex_t getScalarT() const {
+        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
+                "getScalarT(): coefficients are not scalar.");
+    }
+    virtual complex_t getScalarR() const {
+        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
+                "getScalarR(): coefficients are not scalar.");
+    }
+    virtual complex_t getScalarKz() const {
+        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
+                "getScalarKz(): coefficients are not scalar.");
+    }
 #endif
 };
 

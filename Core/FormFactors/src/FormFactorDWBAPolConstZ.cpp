@@ -31,7 +31,7 @@ FormFactorDWBAPolConstZ* FormFactorDWBAPolConstZ::clone() const
 {
     FormFactorDWBAPolConstZ *p_result = new FormFactorDWBAPolConstZ(
             mp_form_factor->clone(), m_depth);
-    p_result->setRTInfo(*mp_specular_info);
+    p_result->setSpecularInfo(*mp_specular_info);
     p_result->setName(getName());
     return p_result;
 }

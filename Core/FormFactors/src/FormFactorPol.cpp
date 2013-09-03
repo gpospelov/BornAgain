@@ -18,7 +18,7 @@
 FormFactorPol* FormFactorPol::clone() const
 {
     FormFactorPol *p_result = new FormFactorPol(mp_form_factor->clone());
-    p_result->setRTInfo(*mp_specular_info);
+    p_result->setSpecularInfo(*mp_specular_info);
     p_result->setName(getName());
     p_result->setMaterial(mp_material);
     p_result->setAmbientMaterial(mp_ambient_material);
@@ -28,6 +28,17 @@ FormFactorPol* FormFactorPol::clone() const
 FormFactorPol::~FormFactorPol()
 {
     delete mp_specular_info;
+}
+
+complex_t FormFactorPol::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+{
+    (void)k_i;
+    (void)k_f_bin;
+    (void)alpha_i;
+    (void)alpha_f;
+    throw Exceptions::NotImplementedException("FormFactorPol::evaluate:"
+            " scalar evaluate should never be called for matrix ff");
 }
 
 Eigen::Matrix2cd FormFactorPol::evaluatePol(const cvector_t& k_i,
@@ -46,10 +57,10 @@ Eigen::Matrix2cd FormFactorPol::evaluatePol(const cvector_t& k_i,
     Eigen::Matrix2cd V_eff = time_reverse_conj *
             (mp_material->getScatteringMatrix(k_mag2) -
              mp_ambient_material->getScatteringMatrix(k_mag2));
-    return evaluate(k_i, k_f1_bin, alpha_i, alpha_f) * V_eff;
+    return mp_form_factor->evaluate(k_i, k_f1_bin, alpha_i, alpha_f) * V_eff;
 }
 
-void FormFactorPol::setRTInfo(const LayerSpecularInfo& layer_specular_info)
+void FormFactorPol::setSpecularInfo(const LayerSpecularInfo& layer_specular_info)
 {
     delete mp_specular_info;
     mp_specular_info = layer_specular_info.clone();

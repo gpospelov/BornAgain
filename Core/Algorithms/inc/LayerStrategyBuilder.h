@@ -27,7 +27,6 @@ class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class Layer;
 class Simulation;
-class IDoubleToPairOfComplexMap;
 class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
@@ -44,9 +43,6 @@ public:
 
     virtual ~LayerStrategyBuilder();
 
-    //! Sets reflection/transmission map for scalar DWBA simulation
-    void setRTInfo(const IDoubleToPairOfComplexMap& rt_map);
-
     //! Sets reflection/transmission map for DWBA calculation
     void setRTInfo(const LayerSpecularInfo &specular_info);
 
@@ -57,10 +53,11 @@ protected:
     Layer *mp_layer;                            //!< decorated layer
     Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
-    IDoubleToPairOfComplexMap *mp_RT_function;  //!< R and T coefficients for DWBA
     LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
 
 private:
+    //! determines if the form factors need to be matrix valued
+    bool requiresMatrixFFs() const;
     //! collect the formfactor info of all particles in the decoration and decorate
     //! these for DWBA when needed
     void collectFormFactorInfos();

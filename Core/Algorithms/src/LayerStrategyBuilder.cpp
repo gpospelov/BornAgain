@@ -17,7 +17,6 @@
 #include "LayerStrategyBuilder.h"
 #include "Layer.h"
 #include "Simulation.h"
-#include "IDoubleToComplexFunction.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
@@ -32,7 +31,6 @@ LayerStrategyBuilder::LayerStrategyBuilder(
 : mp_layer(decorated_layer.clone())
 , mp_simulation(simulation.clone())
 , m_sim_params(sim_params)
-, mp_RT_function(0)
 , mp_specular_info(0)
 {
     assert(mp_layer->getDecoration());
@@ -42,21 +40,9 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 {
     delete mp_layer;
     delete mp_simulation;
-    delete mp_RT_function;
     delete mp_specular_info;
 }
 
-
-void LayerStrategyBuilder::setRTInfo(
-        const IDoubleToPairOfComplexMap& rt_map)
-{
-    if (mp_RT_function != &rt_map) {
-        delete mp_RT_function;
-        mp_RT_function = rt_map.clone();
-    }
-    delete mp_specular_info;
-    mp_specular_info = 0;
-}
 
 void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 {
@@ -64,8 +50,6 @@ void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
         delete mp_specular_info;
         mp_specular_info = specular_info.clone();
     }
-    delete mp_RT_function;
-    mp_RT_function = 0;
 }
 
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
@@ -112,6 +96,11 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     return p_result;
 }
 
+bool LayerStrategyBuilder::requiresMatrixFFs() const
+{
+    return mp_simulation->getSample()->containsMagneticMaterial();
+}
+
 void LayerStrategyBuilder::collectFormFactorInfos()
 {
     assert(mp_layer->getDecoration());
@@ -126,7 +115,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
         const ParticleInfo *p_particle_info =
             p_decoration->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info;
-        if (mp_specular_info) {
+        if (requiresMatrixFFs()) {
             p_ff_info = createFormFactorInfoPol(p_particle_info,
                     p_layer_material, wavevector_scattering_factor);
         }
@@ -164,9 +153,9 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         complex_t factor) const
 {
     FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->getParticle()->clone());
-    const Geometry::PTransform3D transform =
-        p_particle_info->getPTransform3D();
+    boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
+            getParticle()->clone());
+    const Geometry::PTransform3D transform = p_particle_info->getPTransform3D();
 
     // formfactor
     P_particle_clone->setAmbientMaterial(p_ambient_material);
@@ -182,14 +171,11 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         break;
     case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
     {
-        if (mp_RT_function==0) {
-            throw Exceptions::ClassInitializationException(
-                    "R and T coefficients are necessary for DWBA");
-        }
+        assert(mp_specular_info);
         double depth = p_particle_info->getDepth();
         FormFactorDWBAConstZ *p_dwba_ff =
             new FormFactorDWBAConstZ(ff_transformed, depth);
-        p_dwba_ff->setRTInfo(*mp_RT_function);
+        p_dwba_ff->setSpecularInfo(*mp_specular_info);
         p_ff_framework = p_dwba_ff;
         break;
     }
@@ -217,6 +203,8 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
         const ParticleInfo* p_particle_info,
         const IMaterial* p_ambient_material, complex_t factor) const
 {
+    std::cout << "LayerStrategyBuilder::createFormFactorInfoPol"
+              << std::endl;
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
             getParticle()->clone());
@@ -241,7 +229,7 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
     {
         FormFactorPol *p_ff_pol = new FormFactorPol(ff_transformed);
         if (mp_specular_info) {
-            p_ff_pol->setRTInfo(*mp_specular_info);
+            p_ff_pol->setSpecularInfo(*mp_specular_info);
         }
         p_ff_pol->setMaterial(p_material);
         p_ff_pol->setAmbientMaterial(p_ambient_material);
@@ -263,7 +251,7 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
         else {
             p_dwba_ff_pol = new FormFactorDWBAPol(ff_transformed);
         }
-        p_dwba_ff_pol->setRTInfo(*mp_specular_info);
+        p_dwba_ff_pol->setSpecularInfo(*mp_specular_info);
         p_dwba_ff_pol->setMaterial(p_material);
         p_dwba_ff_pol->setAmbientMaterial(p_ambient_material);
         p_ff_framework = p_dwba_ff_pol;

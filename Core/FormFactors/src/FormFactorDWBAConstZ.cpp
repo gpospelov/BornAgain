@@ -40,10 +40,12 @@ complex_t FormFactorDWBAConstZ::evaluate(
 
 FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 {
-    FormFactorDWBAConstZ *p_new =
+    FormFactorDWBAConstZ *p_clone =
         new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
-    p_new->setRTInfo(*mp_RT);
-    return p_new;
+    if (mp_specular_info) {
+        p_clone->setSpecularInfo(*mp_specular_info);
+    }
+    return p_clone;
 }
 
 

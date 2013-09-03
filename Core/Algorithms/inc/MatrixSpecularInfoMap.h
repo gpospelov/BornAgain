@@ -44,7 +44,8 @@ private:
 };
 
 inline void MatrixSpecularInfoMap::addCoefficients(
-        const MatrixRTCoefficients& rt_coefficients, double alpha_f, double phi_f)
+        const MatrixRTCoefficients& rt_coefficients, double alpha_f,
+        double phi_f)
 {
     container_phi_t &phi_map = m_value_map[alpha_f];
     phi_map[phi_f] = rt_coefficients;

@@ -17,7 +17,6 @@
 #define LAYERDWBASIMULATION_H_
 
 #include "DWBASimulation.h"
-#include "IDoubleToComplexFunction.h"
 #include "LayerSpecularInfo.h"
 
 //! Base class for LayerDecoratorDWBASimulation, DiffuseDWBASimulation.
@@ -34,11 +33,6 @@ public:
             "ISimulation::clone() -> Error: not implemented exception.");
     }
 
-    void setKzFunction(const IDoubleToComplexMap& kz_function);
-    void setReflectionTransmissionFunction(
-        const IDoubleToPairOfComplexMap& rt_map);
-    void setKzAndRTFunctions(const IDoubleToComplexMap& kz_function,
-                             const IDoubleToPairOfComplexMap& rt_map);
     void setSpecularInfo(const LayerSpecularInfo &specular_info);
 
 protected:
@@ -48,8 +42,6 @@ protected:
                           const Bin1D& phi_bin) const;
     Bin1DCVector getKfBin2_matrix(double wavelength, const Bin1D& alpha_bin,
                           const Bin1D& phi_bin) const;
-    IDoubleToComplexMap *mp_kz_function;
-    IDoubleToPairOfComplexMap *mp_RT_function;
     LayerSpecularInfo *mp_specular_info;
 };
 

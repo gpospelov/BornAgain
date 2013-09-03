@@ -93,14 +93,8 @@ IInterferenceFunctionStrategy
 {
     LayerStrategyBuilder builder(
         *mp_layer, *mp_simulation, m_sim_params);
-    if (checkPolarizationPresent()) {
-        assert(mp_specular_info);
-        builder.setRTInfo(*mp_specular_info);
-    }
-    else {
-        assert(mp_RT_function);
-        builder.setRTInfo(*mp_RT_function);
-    }
+    assert(mp_specular_info);
+    builder.setRTInfo(*mp_specular_info);
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
     return p_strategy;
 }
@@ -114,7 +108,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         mp_layer->getTotalParticleSurfaceDensity();
 
     cvector_t k_ij = m_ki;
-    k_ij.setZ(-mp_kz_function->evaluate(-m_alpha_i));
+    k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
 
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() )
@@ -124,8 +118,8 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
             "alpha_f", it_intensity.getIndex());
         double alpha_f = alpha_bin.getMidPoint();
-        if (std::abs(mp_RT_function->evaluate(alpha_f).first)!=0.0 &&
-            alpha_f<0) {
+        if (std::abs(mp_specular_info->getOutCoefficients(alpha_f, 0.0)
+                ->getScalarR())!=0.0 && alpha_f<0) {
             ++it_intensity;
             continue;
         }
@@ -141,8 +135,7 @@ void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
 {
     msglog(MSG::DEBUG) << "Calculating incoherent scattering...";
     if (mp_diffuseDWBA) {
-        mp_diffuseDWBA->setReflectionTransmissionFunction( *mp_RT_function);
-        mp_diffuseDWBA->setKzFunction( *mp_kz_function);
+        mp_diffuseDWBA->setSpecularInfo(*mp_specular_info);
         mp_diffuseDWBA->setThreadInfo(m_thread_info);
         mp_diffuseDWBA->run();
         addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );

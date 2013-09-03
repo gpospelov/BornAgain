@@ -35,11 +35,11 @@ public:
    class MultiLayerMatrixCoeff
    {
    public:
-       inline ScalarRTCoefficients& operator[](size_t i) { return m_data[i]; }
-       inline const ScalarRTCoefficients& operator[](size_t i) const { return m_data[i]; }
-       inline size_t size() const { return m_data.size(); }
-       inline void clear() { m_data.clear(); }
-       inline void resize(size_t size) { m_data.resize(size); }
+       ScalarRTCoefficients& operator[](size_t i) { return m_data[i]; }
+       const ScalarRTCoefficients& operator[](size_t i) const { return m_data[i]; }
+       size_t size() const { return m_data.size(); }
+       void clear() { m_data.clear(); }
+       void resize(size_t size) { m_data.resize(size); }
    private:
        std::vector<ScalarRTCoefficients > m_data;
    };

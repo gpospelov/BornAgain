@@ -33,7 +33,8 @@ void DiffuseDWBASimulation::run()
 
     double wavevector_scattering_factor = M_PI/SQR(getWaveLength());
     cvector_t k_ij = m_ki;
-    k_ij.setZ(-mp_kz_function->evaluate(-m_alpha_i));
+
+    k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
 
     for (DWBASimulation::iterator it_intensity =
              begin(); it_intensity != end(); ++it_intensity ) {
@@ -102,7 +103,7 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 IFormFactor *ff_particle = p_particle->createFormFactor();
                 FormFactorDWBAConstZ *p_dwba_z =
                     new FormFactorDWBAConstZ(ff_particle, depth);
-                p_dwba_z->setRTInfo(*mp_RT_function);
+                p_dwba_z->setSpecularInfo(*mp_specular_info);
 
                 p_diffuse_term->m_form_factors.push_back(p_dwba_z);
             }

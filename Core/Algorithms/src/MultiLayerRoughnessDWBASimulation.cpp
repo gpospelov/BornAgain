@@ -21,20 +21,15 @@ MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
 {
     mp_multi_layer = p_multi_layer->clone();
-    mp_RT_function.resize(mp_multi_layer->getNumberOfLayers(), 0);
+    mp_specular_info_vector.resize(mp_multi_layer->getNumberOfLayers(), 0);
 }
 
 MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
 {
-    for(size_t i=0; i<mp_RT_function.size(); ++i) delete mp_RT_function[i];
-    delete mp_multi_layer;
-}
+    for(size_t i=0; i<mp_specular_info_vector.size(); ++i)
+        delete mp_specular_info_vector[i];
 
-void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(
-    size_t i_layer, const IDoubleToPairOfComplexMap& RT_function)
-{
-    delete mp_RT_function[i_layer];
-    mp_RT_function[i_layer] = RT_function.clone();
+    delete mp_multi_layer;
 }
 
 void MultiLayerRoughnessDWBASimulation::run()
@@ -60,6 +55,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
     const cvector_t& k_i, const cvector_t& k_f,
     double alpha_i, double alpha_f)
 {
+    (void)alpha_i;
     kvector_t ki_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
     kvector_t kf_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
     kvector_t q = kf_real - ki_real;
@@ -73,7 +69,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
-        sterm[i] = get_sum4terms(i, k_i, k_f, alpha_i, alpha_f);
+        sterm[i] = get_sum4terms(i, k_i, k_f, alpha_f);
     }
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
@@ -110,24 +106,30 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(
 }
 
 complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
-    size_t ilayer, const cvector_t& k_i, const cvector_t& k_f,
-    double alpha_i, double alpha_f)
+    size_t ilayer, const cvector_t& k_i, const cvector_t& k_f, double alpha_f)
 {
     complex_t qz1 =  k_i.z() + k_f.z();
     complex_t qz2 =  k_i.z() - k_f.z();
     complex_t qz3 = -k_i.z() + k_f.z();
     complex_t qz4 = -k_i.z() - k_f.z();
 
-    complexpair_t ai_RT = mp_RT_function[ilayer+1]->evaluate(alpha_i);
-    complexpair_t af_RT = mp_RT_function[ilayer+1]->evaluate(alpha_f);
+    const ILayerRTCoefficients *p_in_coeff =
+            mp_specular_info_vector[ilayer+1]->getInCoefficients();
+    const ILayerRTCoefficients *p_out_coeff =
+            mp_specular_info_vector[ilayer+1]->getOutCoefficients(alpha_f, 0.0);
+
 
     double sigma = mp_multi_layer->getLayerBottomInterface(ilayer)->
         getRoughness()->getSigma();
     double sigma2 = -0.5*sigma*sigma;
-    complex_t term1 = ai_RT.second * af_RT.second * std::exp( sigma2*qz1*qz1 );
-    complex_t term2 = ai_RT.second * af_RT.first  * std::exp( sigma2*qz2*qz2 );
-    complex_t term3 = ai_RT.first  * af_RT.second * std::exp( sigma2*qz3*qz3 );
-    complex_t term4 = ai_RT.first  * af_RT.first  * std::exp( sigma2*qz4*qz4 );
+    complex_t term1 = p_in_coeff->getScalarT() * p_out_coeff->getScalarT()
+            * std::exp( sigma2*qz1*qz1 );
+    complex_t term2 = p_in_coeff->getScalarT() * p_out_coeff->getScalarR()
+            * std::exp( sigma2*qz2*qz2 );
+    complex_t term3 = p_in_coeff->getScalarR()  * p_out_coeff->getScalarT()
+            * std::exp( sigma2*qz3*qz3 );
+    complex_t term4 = p_in_coeff->getScalarR()  * p_out_coeff->getScalarR()
+            * std::exp( sigma2*qz4*qz4 );
 
     return term1 + term2 + term3 + term4;
 }

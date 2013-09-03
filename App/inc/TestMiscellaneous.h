@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestMiscellaneous.h
@@ -27,9 +27,6 @@ class TestMiscellaneous : public IFunctionalTest
     virtual ~TestMiscellaneous(){}
 
     virtual void execute();
-
-    //! test double to complex interpolating function
-    void test_DoubleToComplexInterpolatingFunction();
 
     //! form factor as a function of qx,qy,qz
     void test_FormFactor();

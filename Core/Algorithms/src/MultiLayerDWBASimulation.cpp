@@ -18,10 +18,9 @@
 #include "SpecularMatrix.h"
 #include "SpecularMagnetic.h"
 #include "MultiLayer.h"
-#include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
-#include "DoubleToComplexMap.h"
 #include "MessageService.h"
+#include "ScalarSpecularInfoMap.h"
 #include "MatrixSpecularInfoMap.h"
 
 #include <boost/scoped_ptr.hpp>
@@ -99,55 +98,61 @@ void MultiLayerDWBASimulation::run()
 
     // collect all alpha angles and calculate reflection/transmission
     // coefficients
-    typedef std::pair<double, SpecularMatrix::MultiLayerCoeff_t>
-        doubleRTCoeffPair_t;
-    std::vector<doubleRTCoeffPair_t> doubleRTCoeff_buffer;
-    std::set<double> alpha_set = getAlphaList();
-    // also add incoming alpha
-    alpha_set.insert(-m_alpha_i);
-    doubleRTCoeff_buffer.reserve(alpha_set.size());
+    typedef Utils::UnorderedMap<double, SpecularMatrix::MultiLayerCoeff_t>
+        container_t;
+    container_t multi_layer_coeff_buffer;
 
-    double angle;
+    std::set<double> alpha_set = getAlphaList();
+
+    double alpha;
     kvector_t kvec;
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     for (std::set<double>::const_iterator it =
              alpha_set.begin(); it != alpha_set.end(); ++it) {
-        angle = *it;
-        kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
+        alpha = *it;
+        kvec.setLambdaAlphaPhi(lambda, -alpha, 0.0);
         specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        doubleRTCoeff_buffer.push_back( doubleRTCoeffPair_t(angle,coeffs) );
+        multi_layer_coeff_buffer[alpha] = coeffs;
     }
+    // the coefficients for the incoming wavevector are calculated on the
+    // original sample
+    specularCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
 
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Layer " << i_layer;
-        DoubleToPairOfComplexMap RT_map;
-        DoubleToComplexMap Kz_map;
+        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run()"
+                "-> Layer " << i_layer;
+        LayerSpecularInfo layer_coeff_map;
+        ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap;
+        layer_coeff_map.addOutCoefficients(p_coeff_map);
 
-        for(std::vector<doubleRTCoeffPair_t >::const_iterator it=
-                doubleRTCoeff_buffer.begin();
-            it!=doubleRTCoeff_buffer.end(); ++it) {
-            double angle = (*it).first;
-            const ScalarRTCoefficients& coeff = (*it).second[i_layer];
-            RT_map[angle] = complexpair_t(coeff.R(), coeff.T());
-            Kz_map[angle] = coeff.kz;
+        // construct the reflection/transmission coefficients for this layer
+        for(Utils::UnorderedMap<double, SpecularMatrix::MultiLayerCoeff_t>::
+                const_iterator it_alpha = multi_layer_coeff_buffer.begin();
+                it_alpha != multi_layer_coeff_buffer.end(); ++it_alpha) {
+            alpha = (*it_alpha).first;
+            p_coeff_map->addCoefficients((*it_alpha).second[i_layer],
+                    alpha, 0.0);
         }
+        // add reflection/transmission coeffs from incoming beam
+        layer_coeff_map.addInCoefficients(new ScalarRTCoefficients(
+                coeffs[i_layer]));
 
         // layer DWBA simulation
         std::map<size_t, LayerDWBASimulation*>::const_iterator pos =
             m_layer_dwba_simulation_map.find(i_layer);
         if(pos != m_layer_dwba_simulation_map.end() ) {
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
-            p_layer_dwba_sim->setKzAndRTFunctions(Kz_map, RT_map);
+            p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             p_layer_dwba_sim->run();
             addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
         }
 
         // layer roughness DWBA
         if(mp_roughness_dwba_simulation) {
-            mp_roughness_dwba_simulation->setReflectionTransmissionFunction
-                (i_layer, RT_map);
+            mp_roughness_dwba_simulation->setSpecularInfo(i_layer,
+                    layer_coeff_map);
         }
 
     } // i_layer
@@ -161,6 +166,8 @@ void MultiLayerDWBASimulation::run()
 
 void MultiLayerDWBASimulation::runMagnetic()
 {
+    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::runMagnetic()"
+                          "-> Running thread " << m_thread_info.current_thread;
     SpecularMagnetic specularCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());

@@ -19,6 +19,7 @@
 #include "BasicVector3D.h"
 #include <boost/shared_ptr.hpp>
 
+
 namespace Geometry {
 
 typedef boost::shared_ptr<class ITransform3D> PTransform3D;

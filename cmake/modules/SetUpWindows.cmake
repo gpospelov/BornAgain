@@ -53,9 +53,9 @@ set(ROOT_PLATFORM win32)
       message(STATUS "Disabling static align for Eigen")
 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nologo -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -FIw32pragma.h")
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -FIw32pragma.h")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -FIw32pragma.h")
+#    set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -nologo /EHsc")
+
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nologo /EHsc -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -FIw32pragma.h")
 else()
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs -Wno-attributes")

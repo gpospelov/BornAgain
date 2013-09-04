@@ -31,14 +31,14 @@ GCC_DIAG_OFF(unused-parameter);
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/copy.hpp>
-//#ifdef _MSC_VER
-//#pragma warning(push)
-//#pragma warning(disable: 4244)
-//#endif
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
 #include <boost/iostreams/filter/gzip.hpp>
-//#ifdef _MSC_VER
-//#pragma warning(pop)
-//#endif
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include <string>
 GCC_DIAG_ON(unused-parameter);
 

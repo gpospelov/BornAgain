@@ -24,8 +24,9 @@ endif()
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON) 
 set(Boost_USE_STATIC_RUNTIME OFF)
-set(BOOST_ALL_DYN_LINK           ON) 
+#set(BOOST_ALL_DYN_LINK           ON) 
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
+#add_definitions(-DBOOST_LIB_DIAGNOSTIC) # shows during compilation linked libraries
 set(boost_libraries_required date_time chrono program_options zlib bzip2 iostreams system filesystem regex thread)
 
 if(BORNAGAIN_PYTHON)

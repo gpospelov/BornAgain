@@ -27,7 +27,11 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 #set(BOOST_ALL_DYN_LINK           ON) 
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 #add_definitions(-DBOOST_LIB_DIAGNOSTIC) # shows during compilation linked libraries
+if(WIN32)
 set(boost_libraries_required date_time chrono program_options zlib bzip2 iostreams system filesystem regex thread)
+else()
+set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
+endif()
 
 if(BORNAGAIN_PYTHON)
     list(APPEND boost_libraries_required python)

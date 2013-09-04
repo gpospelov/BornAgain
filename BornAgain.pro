@@ -10,7 +10,7 @@ SUBDIRS += ThirdParty/RootMinimizers
 SUBDIRS += Fit
 SUBDIRS += Tests/FunctionalTests/TestFit
 
-#!isEmpty(ROOT_FRAMEWORK): SUBDIRS += App
+!isEmpty(ROOT_FRAMEWORK): SUBDIRS += App
 
 # compilation in lister order
 CONFIG += ordered

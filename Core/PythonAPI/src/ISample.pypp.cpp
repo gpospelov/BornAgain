@@ -199,6 +199,15 @@ void register_ISample_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            
+            ISample_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type( &::ISample::containsMagneticMaterial ) );
+        
+        }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;

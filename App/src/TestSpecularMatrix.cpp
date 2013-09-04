@@ -30,17 +30,19 @@ TestSpecularMatrix::TestSpecularMatrix()
 : mp_sample(0)
 , mp_coeffs(0)
 {
-    std::cout << "TestSpecularMatrix::TestSpecularMatrix() -> Info." << std::endl;
+    std::cout << "TestSpecularMatrix::TestSpecularMatrix() -> Info."
+            << std::endl;
 }
 
 void TestSpecularMatrix::execute()
 {
     std::cout << "TestSpecularMatrix::execute() -> Info." << std::endl;
 
-    // calculate amplitudes for several standard multi-layer samples
+    // calculate wavevector amplitudes for several standard multilayer samples
     test_standard_samples();
 
-    // calculate Fresnel coefficients for multi-layer with different roughnesses
+    // calculate wavevector amplitudes for multilayer with different
+    // roughnesses
     test_roughness_set();
 }
 
@@ -51,13 +53,17 @@ void TestSpecularMatrix::test_standard_samples()
 
     // loop over standard samples defined in SampleFactory and StandardSamples
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
-        mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample]));
+        mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(
+                snames[i_sample]));
 
         mp_coeffs = new OutputData<SpecularMatrix::MultiLayerCoeff_t >;
-        mp_coeffs->addAxis(std::string("alpha_i"), 2000, 0.0*Units::degree, 2.0*Units::degree);
-        OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
+        mp_coeffs->addAxis(std::string("alpha_i"), 2000, 0.0*Units::degree,
+                2.0*Units::degree);
+        OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it =
+                mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
-            double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+            double alpha_i = mp_coeffs->getValueOfAxis("alpha_i",
+                    it.getIndex());
             kvector_t kvec;
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
@@ -99,7 +105,8 @@ void TestSpecularMatrix::draw_standard_samples()
     }
     TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
-    OutputData<SpecularMatrix::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
+    OutputData<SpecularMatrix::MultiLayerCoeff_t >::const_iterator it =
+            mp_coeffs->begin();
     int i_point = 0;
     while (it != mp_coeffs->end()) {
         double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
@@ -107,19 +114,28 @@ void TestSpecularMatrix::draw_standard_samples()
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_coeff[i_layer][kCoeffR]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R()) );
-            gr_coeff[i_layer][kCoeffT]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T()) );
+            gr_coeff[i_layer][kCoeffR]->SetPoint(i_point,
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarR()) );
+            gr_coeff[i_layer][kCoeffT]->SetPoint(i_point,
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarT()) );
         }
 
-        // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
+        // Filling graphics for |R|+|T| as a function of alpha_i taking R from
+        // the top and T from the bottom layers
         int nlast = (int)nlayers - 1;
         double sum;
         if(coeffs[0].lambda.real()!=0.0) {
-            sum = std::norm(coeffs[0].R()) + std::norm(coeffs[nlast].T())*coeffs[nlast].lambda.real()/coeffs[0].lambda.real();
+            sum = std::norm(coeffs[0].getScalarR())
+                + std::norm(coeffs[nlast].getScalarT())
+                  * coeffs[nlast].lambda.real()/coeffs[0].lambda.real();
         } else {
             sum = 1.0;
-            std::cout << "Re(k_{z,0}) = 0 for alpha_i = " << alpha_i << std::endl;
-            std::cout << " and Re(k_{z,N+1}) = " << coeffs[nlast].lambda.real() << std::endl;
+            std::cout << "Re(k_{z,0}) = 0 for alpha_i = " << alpha_i
+                    << std::endl;
+            std::cout << " and Re(k_{z,N+1}) = " << coeffs[nlast].lambda.real()
+                    << std::endl;
         }
         gr_absSum->SetPoint(i_point++, Units::rad2deg(alpha_i), sum);
     }
@@ -127,11 +143,13 @@ void TestSpecularMatrix::draw_standard_samples()
     // create name of canvas different for each new call of this method
     std::ostringstream os;
     os << (ncall++) << std::endl;
-    std::string cname = std::string("c1_test_Fresnel_sample")+os.str();
-    TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
+    std::string cname = std::string("c1_test_RT_sample")+os.str();
+    TCanvas *c1 = new TCanvas(cname.c_str(),"Reflection/transmission "
+            "Coefficients in Multilayer",1024,768);
     DrawHelper::SetMagnifier(c1);
 
-    // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
+    // estimate subdivision of canvas (we need place for 'nlayers' and for one
+    // sample picture)
     int ndiv(2);
     if( nlayers+1 > 4 ) ndiv = int(sqrt(nlayers+1)+1);
     c1->Divide(ndiv,ndiv);
@@ -198,7 +216,8 @@ void TestSpecularMatrix::draw_standard_samples()
 
 void TestSpecularMatrix::test_roughness_set()
 {
-    mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
+    mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(
+            "MultilayerOffspecTestcase1a"));
 
     ParameterPool *newpool = mp_sample->createParameterTree();
 
@@ -207,9 +226,11 @@ void TestSpecularMatrix::test_roughness_set()
     multipar.addMatchedParametersFromPool(newpool, "/*/*/*/sigma");
 
     mp_coeffs = new OutputData<SpecularMatrix::MultiLayerCoeff_t >;
-    mp_coeffs->addAxis(std::string("alpha_i"), 1000, 0.0*Units::degree, 2.0*Units::degree);
+    mp_coeffs->addAxis(std::string("alpha_i"), 1000, 0.0*Units::degree,
+            2.0*Units::degree);
     mp_coeffs->addAxis(std::string("roughness"), 6, 0.0, 12.0*Units::nanometer);
-    OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
+    OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it =
+            mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
         double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
         double roughness = mp_coeffs->getValueOfAxis("roughness", it.getIndex());
@@ -239,8 +260,8 @@ void TestSpecularMatrix::draw_roughness_set()
     const IAxis *p_rough = mp_coeffs->getAxis("roughness");
     size_t nroughness = p_rough->getSize();
 
-
-    std::vector<std::vector<std::vector<TGraph *> > > gr_coeff; // [nlayers][ncoeffs][nroughness]
+    // gr_coeff[nlayers][ncoeffs][nroughness]:
+    std::vector<std::vector<std::vector<TGraph *> > > gr_coeff;
     gr_coeff.resize(nlayers);
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
         gr_coeff[i_layer].resize(ncoeffs);
@@ -252,7 +273,8 @@ void TestSpecularMatrix::draw_roughness_set()
         }
     }
 
-    OutputData<SpecularMatrix::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
+    OutputData<SpecularMatrix::MultiLayerCoeff_t >::const_iterator it =
+            mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
         double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
         size_t i_alpha = mp_coeffs->getIndexOfAxis("alpha_i", it.getIndex());
@@ -262,8 +284,12 @@ void TestSpecularMatrix::draw_roughness_set()
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R()) );
-            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T()) );
+            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha,
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarR()) );
+            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha,
+                    Units::rad2deg(alpha_i),
+                    std::abs(coeffs[i_layer].getScalarT()) );
         }
         ++it;
     }
@@ -272,10 +298,12 @@ void TestSpecularMatrix::draw_roughness_set()
     std::ostringstream os;
     os << (ncall++) << std::endl;
     std::string cname = std::string("c1_test_Fresnel_roughness")+os.str();
-    TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
+    TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer"
+            ,1024,768);
     DrawHelper::SetMagnifier(c1);
 
-    // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
+    // estimate subdivision of canvas (we need place for 'nlayers' and for one
+    // sample picture)
     int ndiv(2);
     if( nlayers+1 > 4 ) ndiv = int(sqrt(nlayers+1)+1);
     c1->Divide(ndiv,ndiv);
@@ -289,7 +317,8 @@ void TestSpecularMatrix::draw_roughness_set()
         double xmin(0), ymin(0), xmax(0), ymax(0);
         for(size_t i_rough=0; i_rough<nroughness; i_rough++){
             double x1(0), y1(0), x2(0), y2(0);
-            gr_coeff[i_layer][i_coeff_sel][i_rough]->ComputeRange(x1, y1, x2, y2);
+            gr_coeff[i_layer][i_coeff_sel][i_rough]->ComputeRange(
+                    x1, y1, x2, y2);
             if(x1 < xmin ) xmin= x1;
             if(x2 > xmax ) xmax = x2;
             if(y1 < ymin ) ymin = y1;

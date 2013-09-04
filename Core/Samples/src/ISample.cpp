@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ISample.h"
+#include "SampleMaterialVisitor.h"
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
 #include "Utils.h"
@@ -92,6 +93,20 @@ void ISample::print_structure()
         }
     }
 */
+}
+
+bool ISample::containsMagneticMaterial() const
+{
+    SampleMaterialVisitor material_vis;
+    this->accept(&material_vis);
+    std::vector<const IMaterial *> materials = material_vis.getMaterials();
+    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
+            it != materials.end(); ++it) {
+        if (!(*it)->isScalarMaterial()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void ISample::print(std::ostream& ostr) const

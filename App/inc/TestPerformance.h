@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestPerformance.h
-//! @brief     Defines classes TestPerformance, PerfTest_FresnelCoeff.
+//! @brief     Defines classes TestPerformance, PerfTest_SpecularMatrix,
+//!            PerfTest_Pyramid, PerfTest_RotatedPyramid, PerfTest_MesoCrystal
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -62,18 +63,6 @@ class TestPerformance : public IFunctionalTest
 
 };
 
-
-//! @class PerfTest_FresnelCoeff
-//! measurement of the performance in Fresnel coefficients calculation
-class PerfTest_FresnelCoeff : public IFunctionalTest
-{
- public:
-    PerfTest_FresnelCoeff() : IFunctionalTest("Fresnel"), m_sample(0){}
-    virtual ~PerfTest_FresnelCoeff() { }
-    void initialise(ProgramOptions *p_options);
-    void execute();
-    ISample *m_sample;
-};
 
 //! @class PerfTest_SpecularMatrix
 //! measurement of the performance in specular matrix calculation

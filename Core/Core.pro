@@ -27,7 +27,6 @@ SOURCES += \
     Tools/src/AxisDouble.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
-    Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
     Tools/src/IFactory.cpp \
     Tools/src/IObserver.cpp \
@@ -57,6 +56,7 @@ SOURCES += \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBASimulation.cpp \
+    Algorithms/src/DecoratedLayerDWBASimulation.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DiffuseDWBASimulation.cpp \
@@ -67,12 +67,14 @@ SOURCES += \
     Algorithms/src/Instrument.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/LayerSpecularInfo.cpp \
+    Algorithms/src/LayerStrategyBuilder.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
+    Algorithms/src/MatrixRTCoefficients.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
-    Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     Algorithms/src/Simulation.cpp \
     Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
@@ -135,8 +137,6 @@ SOURCES += \
     StandardSamples/IsGISAXS03Builder.cpp \
     StandardSamples/IsGISAXS06Builder.cpp \
     StandardSamples/IsGISAXS09Builder.cpp \
-    Algorithms/src/LayerStrategyBuilder.cpp \
-    Algorithms/src/DecoratedLayerDWBASimulation.cpp
 
 
 HEADERS += \
@@ -149,14 +149,11 @@ HEADERS += \
     Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/CoreOptionsDescription.h \
-    Tools/inc/DoubleToComplexInterpolatingFunction.h \
-    Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
     Tools/inc/FastVector.h \
     Tools/inc/IAxis.h \
     Tools/inc/IChangeable.h \
     Tools/inc/ICloneable.h \
-    Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
@@ -210,22 +207,28 @@ HEADERS += \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/ILayerRTCoefficients.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
     Algorithms/inc/ISimulation.h \
+    Algorithms/inc/ISpecularInfoMap.h \
     Algorithms/inc/ISquaredFunction.h \
     Algorithms/inc/Instrument.h \
     Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/LayerSpecularInfo.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
+    Algorithms/inc/MatrixRTCoefficients.h \
+    Algorithms/inc/MatrixSpecularInfoMap.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
-    Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
+    Algorithms/inc/ScalarRTCoefficients.h \
+    Algorithms/inc/ScalarSpecularInfoMap.h \
     Algorithms/inc/Simulation.h \
     Algorithms/inc/SimulationParameters.h \
     Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \

@@ -19,7 +19,7 @@
 #include "ISimulation.h"
 #include "Units.h"
 #include "MultiLayer.h"
-#include "OpticalFresnel.h"
+#include "SpecularMatrix.h"
 
 //! Calculation of diffuse (aka off-specular) reflection from multilayers.
 
@@ -49,8 +49,8 @@ class DWBADiffuseReflection : public ISimulation
     complex_t get_sum4terms(size_t ilayer);
 
     const MultiLayer *m_sample;
-    OpticalFresnel::MultiLayerCoeff_t m_fcoeff_i;
-    OpticalFresnel::MultiLayerCoeff_t m_fcoeff_f;
+    SpecularMatrix::MultiLayerCoeff_t m_fcoeff_i;
+    SpecularMatrix::MultiLayerCoeff_t m_fcoeff_f;
     double m_diffuse_autocorr;
     double m_diffuse_crosscorr;
 

@@ -17,10 +17,11 @@
 #define MULTILAYERROUGHNESSDWBASIMULATION_H
 
 #include "DWBASimulation.h"
+#include "LayerSpecularInfo.h"
+
 #include <vector>
 
 class MultiLayer;
-#include "IDoubleToComplexFunction.h"
 
 //! Calculation of diffuse reflection from multilayer with rough interfaces
 
@@ -39,9 +40,9 @@ class MultiLayerRoughnessDWBASimulation : public DWBASimulation
 
     virtual void run();
 
-    // set T and R functions for given layer
-    void setReflectionTransmissionFunction(
-        size_t i_layer, const IDoubleToPairOfComplexMap& RT_function);
+    //! Sets magnetic reflection/transmission info for specific layer
+    void setSpecularInfo(size_t i_layer,
+            const LayerSpecularInfo &specular_info);
 
     // evaluate
     virtual double evaluate(const cvector_t& k_i, const cvector_t& k_f,
@@ -51,11 +52,18 @@ class MultiLayerRoughnessDWBASimulation : public DWBASimulation
     complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum4terms(size_t ilayer,
                             const cvector_t& k_i, const cvector_t& k_f,
-                            double alpha_i, double alpha_f);
+                            double alpha_f);
 
-    std::vector<IDoubleToPairOfComplexMap *> mp_RT_function;
     MultiLayer *mp_multi_layer;
+    std::vector<LayerSpecularInfo *> mp_specular_info_vector;
 };
+
+inline void MultiLayerRoughnessDWBASimulation::setSpecularInfo(size_t i_layer,
+        const LayerSpecularInfo &specular_info)
+{
+    delete mp_specular_info_vector[i_layer];
+    mp_specular_info_vector[i_layer] = specular_info.clone();
+}
 
 #endif // MULTILAYERROUGHNESSDWBASIMULATION_H
 

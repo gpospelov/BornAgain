@@ -18,7 +18,7 @@
 #include "ProgramOptions.h"
 #include "AppOptionsDescription.h"
 #include "CoreOptionsDescription.h"
-#include "Version.h"
+#include "BAVersion.h"
 #include "MessageService.h"
 #include "Utils.h"
 

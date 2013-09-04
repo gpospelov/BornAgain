@@ -25,15 +25,15 @@ SampleFactory::SampleFactory()
 {
     setOwnObjects(true); //factory will take care about samples
 
-    // samples used for Fresnel coefficients validation
+    // samples used for reflection/transmission coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);
     registerItem("SubstrateOnSubstrate", StandardSamples::SubstrateOnSubstrate);
     registerItem("SimpleMultilayer", StandardSamples::SimpleMultilayer);
 
-    // samples used for offspecular reflectivity validation
+    // samples used for off-specular reflectivity validation
 
     // 10x2 layers for comparison of diffuse (off-specular) reflectivity with
-    // and without cross-correlation in layer's roughnesses
+    // and without cross-correlation in layers' roughnesses
     registerItem("MultilayerOffspecTestcase1a",
             StandardSamples::MultilayerOffspecTestcase1a);
     registerItem("MultilayerOffspecTestcase1b",

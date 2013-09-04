@@ -112,7 +112,8 @@ void TestSpecularMagnetic::draw_standard_sample()
     os << (ncall++) << std::endl;
     std::string cname = std::string("c1_test_specular_magnetic")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),
-            "Fresnel Coefficients in Magnetic Multilayer",1024,768);
+            "Reflection/transmission Coefficients in Magnetic Multilayer",
+            1024,768);
     DrawHelper::SetMagnifier(c1);
 
     // create subdivision of canvas

@@ -35,7 +35,6 @@ def GenerateProjectFile(OutputTempDir, files_inc, files_src):
     fout.write("    PythonAPI/src/PythonModule.cpp \\ \n")
     fout.write("    PythonAPI/src/PythonListConverter.cpp \\ \n")
     fout.write("    PythonAPI/src/PythonOutputData.cpp \\ \n")
-    fout.write("    PythonAPI/src/PythonCoreExposer.cpp \\ \n")
     # automatically generated files
     for i_file in range(0,len(files_src)):
         delim = " \\"

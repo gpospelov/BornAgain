@@ -20,7 +20,6 @@
 #include "Exceptions.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
-#include "OpticalFresnel.h"
 #include "SampleFactory.h"
 #include "SpecularMatrix.h"
 #include "SampleBuilderFactory.h"
@@ -38,7 +37,6 @@
 TestPerformance::TestPerformance()
 {
     // preparing performance tests to run
-    m_tests.push_back( new PerformanceTestInfo(new PerfTest_FresnelCoeff(), 200000) );
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_Pyramid(), 20) );
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_RotatedPyramid(), 20) );
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_MesoCrystal(), 2) );
@@ -158,28 +156,6 @@ void TestPerformance::get_sysinfo()
         //os << ", " << 	sys_info.fL2Cache << " Kb";
         m_performance_info["sysinfo"] = os.str();
     }
-}
-
-//! Start PerfTest_FresnelCoeff.
-
-void PerfTest_FresnelCoeff::initialise(ProgramOptions *p_options)
-{
-    IFunctionalTest::initialise(p_options);
-    if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
-}
-
-//! Run PerfTest_FresnelCoeff.
-
-void PerfTest_FresnelCoeff::execute()
-{
-    static double alpha_i = -0.3;
-    kvector_t kvec;
-    kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
-    OpticalFresnel::MultiLayerCoeff_t coeffs;
-    OpticalFresnel FresnelCalculator;
-    MultiLayer *ml = dynamic_cast<MultiLayer *>(m_sample);
-    FresnelCalculator.execute(*ml, kvec, coeffs);
 }
 
 //! Start PerfTest_SpecularMatrix.

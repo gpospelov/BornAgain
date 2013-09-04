@@ -48,7 +48,7 @@ void DWBADiffuseReflection::setKvectors(const kvector_t& ki, const kvector_t& kf
     m_qz2 = std::pow(ki.z() - kf.z(), 2);
     m_qz3 = std::pow(-ki.z() + kf.z(), 2);
     m_qz4 = std::pow(-ki.z() - kf.z(), 2);
-    OpticalFresnel calculator;
+    SpecularMatrix calculator;
     calculator.execute(*m_sample, ki, m_fcoeff_i);
     calculator.execute(*m_sample, kf, m_fcoeff_f);
 }
@@ -95,10 +95,18 @@ complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer) const
 complex_t DWBADiffuseReflection::get_sum4terms(size_t ilayer)
 {
     double sigma2 = -0.5*std::pow(m_sample->getLayerBottomInterface(ilayer)->getRoughness()->getSigma(), 2);
-    complex_t term1 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].T * std::exp( sigma2*m_qz1 );
-    complex_t term2 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].R * std::exp( sigma2*m_qz2 );
-    complex_t term3 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].T * std::exp( sigma2*m_qz3 );
-    complex_t term4 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].R * std::exp( sigma2*m_qz4 );
+    complex_t term1 = m_fcoeff_i[ilayer+1].getScalarT()
+            * m_fcoeff_f[ilayer+1].getScalarT()
+            * std::exp( sigma2*m_qz1 );
+    complex_t term2 = m_fcoeff_i[ilayer+1].getScalarT()
+            * m_fcoeff_f[ilayer+1].getScalarR()
+            * std::exp( sigma2*m_qz2 );
+    complex_t term3 = m_fcoeff_i[ilayer+1].getScalarR()
+            * m_fcoeff_f[ilayer+1].getScalarT()
+            * std::exp( sigma2*m_qz3 );
+    complex_t term4 = m_fcoeff_i[ilayer+1].getScalarR()
+            * m_fcoeff_f[ilayer+1].getScalarR()
+            * std::exp( sigma2*m_qz4 );
 
     return term1 + term2 + term3 + term4;
 }

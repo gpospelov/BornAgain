@@ -56,6 +56,8 @@ class BA_CORE_API_ ISample : public ICloneable, public IParameterized
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
+    bool containsMagneticMaterial() const;
+
  protected:
     virtual void print(std::ostream& ostr) const;
 };

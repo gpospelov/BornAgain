@@ -96,7 +96,6 @@ SOURCES +=  \
     PythonAPI/src/PythonModule.cpp \ 
     PythonAPI/src/PythonListConverter.cpp \ 
     PythonAPI/src/PythonOutputData.cpp \ 
-    PythonAPI/src/PythonCoreExposer.cpp \ 
     PythonAPI/src/Beam.pypp.cpp \
     PythonAPI/src/Bin1D.pypp.cpp \
     PythonAPI/src/Bin1DCVector.pypp.cpp \

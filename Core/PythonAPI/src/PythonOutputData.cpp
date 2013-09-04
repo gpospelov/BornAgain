@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "boost/python/detail/wrap_python.hpp"
+#include <boost/python/detail/wrap_python.hpp>
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"

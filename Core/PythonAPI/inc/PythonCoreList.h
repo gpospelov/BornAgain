@@ -58,7 +58,6 @@
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "OpticalFresnel.h"
 #include "OutputData.h"
 #include "OutputDataIOFactory.h"
 #include "ParameterPool.h"
@@ -79,7 +78,7 @@
 #include "StochasticSampledParameter.h"
 #include "Types.h"
 #include "Units.h"
-#include "Version.h"
+#include "BAVersion.h"
 
 //! file containig additional exposers
 #include "PythonCoreExposer.h"

@@ -54,7 +54,6 @@
 //#include "Particle.h"
 //#include "Crystal.h"
 //#include "ParticleDecoration.h"
-//#include "OpticalFresnel.h"
 //#include "ParameterPool.h"
 //#include "ParticleInfo.h"
 //#include "DiffuseParticleInfo.h"

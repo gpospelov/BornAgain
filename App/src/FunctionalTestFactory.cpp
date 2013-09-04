@@ -25,7 +25,6 @@
 #include "TestFormFactor.h"
 #include "TestFormFactors.h"
 #include "TestFourier.h"
-#include "TestFresnelCoeff.h"
 #include "TestFumiliLMA.h"
 #include "TestIsGISAXS10.h"
 #include "TestIsGISAXS11.h"
@@ -153,10 +152,6 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "roughness",
         IFactoryCreateFunction<TestRoughness, IFunctionalTest>,
         "functional test: roughness parameters");
-    p_test_factory->registerItem(
-        "Fresnel",
-        IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest>,
-        "functional test: Fresnel coefficients calculations");
     p_test_factory->registerItem(
         "formfactor",
         IFactoryCreateFunction<TestFormFactor, IFunctionalTest>,

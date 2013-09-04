@@ -13,6 +13,46 @@ MSG::MessageLevel MSG::Logger::m_logLevel = MSG::ERROR;
 namespace MSG
 {
 
+void SetLevel(MessageLevel level) 
+{ 
+	Logger::SetLevel(level); 
+}
+
+void SetLevel(const std::string& levelname) 
+{ 
+	Logger::SetLevel(levelname); 
+}
+
+
+Logger::Logger(MessageLevel level) 
+{
+	//m_buffer << boost::this_thread::get_id();
+    m_buffer << "- " << NowTime();
+    m_buffer << " " << std::setw(8) << std::left << ToString(level) << ": ";
+}
+
+
+Logger::~Logger()
+{
+    m_buffer << std::endl;
+    std::cout << m_buffer.str();
+}
+
+const std::string& Logger::ToString(MessageLevel level) 
+{
+	return m_level_names[level];
+}
+
+void Logger::SetLevel(MessageLevel level) 
+{
+	m_logLevel = level; 
+}
+
+MessageLevel Logger::GetLevel() 
+{
+	return m_logLevel; 
+}
+
 std::string Logger::NowTime()
 {
 	//struct timeval tv;

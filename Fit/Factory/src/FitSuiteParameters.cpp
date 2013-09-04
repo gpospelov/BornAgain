@@ -35,6 +35,16 @@ void FitSuiteParameters::addParameter(const std::string& name, double value, dou
 }
 
 //! Returns fit parameter with given name.
+const FitParameter *FitSuiteParameters::getParameter(const std::string& name) const
+{
+    for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
+        if( (*it)->getName() == name ) return (*it);
+    }
+    throw LogicErrorException("FitSuiteParameters::getFitParameter() -> "
+                              "Error. No parameter with name '"+name+"'");
+}
+
+
 FitParameter *FitSuiteParameters::getParameter(const std::string& name)
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {

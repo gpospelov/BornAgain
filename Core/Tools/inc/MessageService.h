@@ -19,11 +19,7 @@ enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 class BA_CORE_API_ Logger
 {
  public:
-    Logger(MessageLevel level) {
-        //m_buffer << boost::this_thread::get_id();
-        m_buffer << "- " << NowTime();
-        m_buffer << " " << std::setw(8) << std::left << ToString(level) << ": ";
-    }
+    Logger(MessageLevel level);
 
     template <typename T>
     Logger&  operator<<(T const&  value)
@@ -32,18 +28,13 @@ class BA_CORE_API_ Logger
         return *this;
     }
 
-    ~Logger()
-    {
-        m_buffer << std::endl;
-        std::cout << m_buffer.str();
-    }
+    ~Logger();
 
     std::string NowTime();
-    const std::string& ToString(MessageLevel level) {return m_level_names[level];}
-
-    static void SetLevel(MessageLevel level) {m_logLevel = level; }
+    const std::string& ToString(MessageLevel level);
+    static void SetLevel(MessageLevel level);
     static void SetLevel(const std::string& levelname);
-    static MessageLevel GetLevel() {return m_logLevel; }
+    static MessageLevel GetLevel();
 
  private:
     static MessageLevel m_logLevel;
@@ -51,8 +42,11 @@ class BA_CORE_API_ Logger
     std::ostringstream m_buffer;
 };
 
-inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
-inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
+//inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
+//inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
+
+void SetLevel(MessageLevel level);
+void SetLevel(const std::string& levelname);
 
 }
 

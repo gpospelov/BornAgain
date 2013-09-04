@@ -108,6 +108,18 @@ std::vector<std::string> Utils::String::Split(
     return tokens;
 }
 
+
+void Utils::FileSystem::SetArgvPath(const std::string& argv0) 
+{ 
+	m_argv0_path = argv0; 
+}
+
+std::string Utils::FileSystem::GetArgvPath() 
+{ 
+	return m_argv0_path; 
+}
+
+
 //! Returns path to the current (working) directory.
 
 std::string Utils::FileSystem::GetWorkingPath()

@@ -94,8 +94,8 @@ class BA_CORE_API_ FileSystem
     static std::string GetHomePath();
 
     //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetArgvPath(const std::string& argv0) { m_argv0_path = argv0; }
-    static std::string GetArgvPath() { return m_argv0_path; }
+    static void SetArgvPath(const std::string& argv0);
+    static std::string GetArgvPath();
 
     //! Returns file extension
     static std::string GetFileExtension(const std::string& name);

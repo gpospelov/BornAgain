@@ -133,7 +133,7 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
 void register_Simulation_class(){
 
     { //::Simulation
-        typedef bp::class_< Simulation_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable > Simulation_exposer_t;
+        typedef bp::class_< Simulation_wrapper, bp::bases< ICloneable, IParameterized >, boost::noncopyable > Simulation_exposer_t;
         Simulation_exposer_t Simulation_exposer = Simulation_exposer_t( "Simulation", bp::init< >() );
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::clone

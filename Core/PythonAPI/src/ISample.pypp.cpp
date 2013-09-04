@@ -162,7 +162,7 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
 void register_ISample_class(){
 
     { //::ISample
-        typedef bp::class_< ISample_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable > ISample_exposer_t;
+        typedef bp::class_< ISample_wrapper, bp::bases< ICloneable, IParameterized >, boost::noncopyable > ISample_exposer_t;
         ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::init< >() );
         bp::scope ISample_scope( ISample_exposer );
         { //::ISample::accept

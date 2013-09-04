@@ -131,7 +131,7 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
 void register_IDetectorResolution_class(){
 
     { //::IDetectorResolution
-        typedef bp::class_< IDetectorResolution_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable > IDetectorResolution_exposer_t;
+        typedef bp::class_< IDetectorResolution_wrapper, bp::bases< ICloneable, IParameterized >, boost::noncopyable > IDetectorResolution_exposer_t;
         IDetectorResolution_exposer_t IDetectorResolution_exposer = IDetectorResolution_exposer_t( "IDetectorResolution" );
         bp::scope IDetectorResolution_scope( IDetectorResolution_exposer );
         { //::IDetectorResolution::applyDetectorResolution

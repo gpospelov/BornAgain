@@ -271,6 +271,7 @@ HEADERS += \
     FormFactors/inc/IFormFactorBornSeparable.h \
     FormFactors/inc/IFormFactorDecorator.h \
     \
+    Samples/inc/BAVersion.h \
     Samples/inc/Crystal.h \
     Samples/inc/DiffuseParticleInfo.h \
     Samples/inc/HomogeneousMagneticMaterial.h \

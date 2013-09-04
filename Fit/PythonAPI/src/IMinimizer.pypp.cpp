@@ -35,16 +35,16 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::clear( );
     }
 
-    virtual double getErrorOfVariable( ::size_t index ) const  {
+    virtual double getErrorOfVariable( ::size_t arg0 ) const  {
         if( bp::override func_getErrorOfVariable = this->get_override( "getErrorOfVariable" ) )
-            return func_getErrorOfVariable( index );
+            return func_getErrorOfVariable( arg0 );
         else{
-            return this->IMinimizer::getErrorOfVariable( index );
+            return this->IMinimizer::getErrorOfVariable( arg0 );
         }
     }
     
-    double default_getErrorOfVariable( ::size_t index ) const  {
-        return IMinimizer::getErrorOfVariable( index );
+    double default_getErrorOfVariable( ::size_t arg0 ) const  {
+        return IMinimizer::getErrorOfVariable( arg0 );
     }
 
     virtual double getMinValue(  ) const  {
@@ -83,16 +83,16 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         return IMinimizer::getNumberOfVariables( );
     }
 
-    virtual double getValueOfVariableAtMinimum( ::size_t index ) const  {
+    virtual double getValueOfVariableAtMinimum( ::size_t arg0 ) const  {
         if( bp::override func_getValueOfVariableAtMinimum = this->get_override( "getValueOfVariableAtMinimum" ) )
-            return func_getValueOfVariableAtMinimum( index );
+            return func_getValueOfVariableAtMinimum( arg0 );
         else{
-            return this->IMinimizer::getValueOfVariableAtMinimum( index );
+            return this->IMinimizer::getValueOfVariableAtMinimum( arg0 );
         }
     }
     
-    double default_getValueOfVariableAtMinimum( ::size_t index ) const  {
-        return IMinimizer::getValueOfVariableAtMinimum( index );
+    double default_getValueOfVariableAtMinimum( ::size_t arg0 ) const  {
+        return IMinimizer::getValueOfVariableAtMinimum( arg0 );
     }
 
     virtual ::std::vector< double > getValueOfVariablesAtMinimum(  ) const  {
@@ -124,28 +124,28 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::printResults( );
     }
 
-    virtual void setOptions( ::std::string const & options ) {
+    virtual void setOptions( ::std::string const & arg0 ) {
         if( bp::override func_setOptions = this->get_override( "setOptions" ) )
-            func_setOptions( options );
+            func_setOptions( arg0 );
         else{
-            this->IMinimizer::setOptions( options );
+            this->IMinimizer::setOptions( arg0 );
         }
     }
     
-    void default_setOptions( ::std::string const & options ) {
-        IMinimizer::setOptions( options );
+    void default_setOptions( ::std::string const & arg0 ) {
+        IMinimizer::setOptions( arg0 );
     }
 
-    virtual void setParameters( ::FitSuiteParameters const & parameters ) {
+    virtual void setParameters( ::FitSuiteParameters const & arg0 ) {
         if( bp::override func_setParameters = this->get_override( "setParameters" ) )
-            func_setParameters( boost::ref(parameters) );
+            func_setParameters( boost::ref(arg0) );
         else{
-            this->IMinimizer::setParameters( boost::ref(parameters) );
+            this->IMinimizer::setParameters( boost::ref(arg0) );
         }
     }
     
-    void default_setParameters( ::FitSuiteParameters const & parameters ) {
-        IMinimizer::setParameters( boost::ref(parameters) );
+    void default_setParameters( ::FitSuiteParameters const & arg0 ) {
+        IMinimizer::setParameters( boost::ref(arg0) );
     }
 
 };
@@ -176,7 +176,7 @@ void register_IMinimizer_class(){
                 "getErrorOfVariable"
                 , getErrorOfVariable_function_type(&::IMinimizer::getErrorOfVariable)
                 , default_getErrorOfVariable_function_type(&IMinimizer_wrapper::default_getErrorOfVariable)
-                , ( bp::arg("index") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::IMinimizer::getMinValue
@@ -221,7 +221,7 @@ void register_IMinimizer_class(){
                 "getValueOfVariableAtMinimum"
                 , getValueOfVariableAtMinimum_function_type(&::IMinimizer::getValueOfVariableAtMinimum)
                 , default_getValueOfVariableAtMinimum_function_type(&IMinimizer_wrapper::default_getValueOfVariableAtMinimum)
-                , ( bp::arg("index") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::IMinimizer::getValueOfVariablesAtMinimum
@@ -264,7 +264,7 @@ void register_IMinimizer_class(){
                 "setOptions"
                 , setOptions_function_type(&::IMinimizer::setOptions)
                 , default_setOptions_function_type(&IMinimizer_wrapper::default_setOptions)
-                , ( bp::arg("options") ) );
+                , ( bp::arg("arg0") ) );
         
         }
         { //::IMinimizer::setParameters
@@ -276,7 +276,7 @@ void register_IMinimizer_class(){
                 "setParameters"
                 , setParameters_function_type(&::IMinimizer::setParameters)
                 , default_setParameters_function_type(&IMinimizer_wrapper::default_setParameters)
-                , ( bp::arg("parameters") ) );
+                , ( bp::arg("arg0") ) );
         
         }
     }

@@ -4,6 +4,7 @@
 //! list of files to process with Py++
 
 #include "BasicVector3D.h"
+#include "BAVersion.h"
 #include "Bin.h"
 #include "Crystal.h"
 #include "DiffuseParticleInfo.h"

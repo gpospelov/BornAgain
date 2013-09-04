@@ -127,6 +127,10 @@ def ManualClassTunings(mb):
     # ISample
     cl = mb.class_('ISample') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
     cl.member_function("accept").include();
+    # ICompositeSample
+    cl = mb.class_('ICompositeSample')
+    cl.member_functions().exclude()
+    
     # BasicVector3D
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",

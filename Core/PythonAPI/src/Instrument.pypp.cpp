@@ -191,7 +191,7 @@ void register_Instrument_class(){
         }
         { //::Instrument::setBeam
         
-            typedef void ( ::Instrument::*setBeam_function_type )( ::Beam ) ;
+            typedef void ( ::Instrument::*setBeam_function_type )( ::Beam const & ) ;
             
             Instrument_exposer.def( 
                 "setBeam"

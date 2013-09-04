@@ -10,7 +10,9 @@ SUBDIRS += ThirdParty/RootMinimizers
 SUBDIRS += Fit
 SUBDIRS += Tests/FunctionalTests/TestFit
 
+!win32{
 !isEmpty(ROOT_FRAMEWORK): SUBDIRS += App
+}
 
 # compilation in lister order
 CONFIG += ordered

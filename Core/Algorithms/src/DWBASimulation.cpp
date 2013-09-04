@@ -113,8 +113,10 @@ const OutputData<double>& DWBASimulation::getPolarizationData() const
     OutputData<Eigen::Matrix2d>::const_iterator mat_it =
             mp_polarization_output->begin();
     while (it != m_dwba_intensity.end()) {
-        Eigen::Matrix2cd mat = pol_density * (*mat_it);
-        *it = std::abs(mat.trace());
+        *it = std::abs((complex_t)pol_density(0,0))
+                  * ( (*mat_it)(0,0) + (*mat_it)(1,0) )
+            + std::abs((complex_t)pol_density(1,1))
+                  * ( (*mat_it)(0,1) + (*mat_it)(1,1) );
         ++it, ++mat_it;
     }
     return m_dwba_intensity;

@@ -20,12 +20,12 @@
 #include "IParameterized.h"
 
 #ifndef GCCXML_SKIP_THIS
-#ifdef _WIN32
-#define EIGEN_DONT_ALIGN_STATICALLY 1
+//#ifdef _WIN32
+//#define EIGEN_DONT_ALIGN_STATICALLY 1
 //#define EIGEN_DONT_ALIGN 1
 //#define EIGEN_DONT_VECTORIZE 1
 //#define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT 1
-#endif
+//#endif
 #include <Eigen/Core>
 #endif
 
@@ -35,9 +35,9 @@
 class BA_CORE_API_ Beam : public IParameterized
 {
  public:
-//#ifndef GCCXML_SKIP_THIS
-//    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-//#endif
+#ifndef GCCXML_SKIP_THIS
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+#endif
     // see http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
 
     Beam();

@@ -1,4 +1,5 @@
 TARGET   = RootMinimizers
+
 TEMPLATE = lib
 QT      -= core gui
 macx|unix {
@@ -270,14 +271,16 @@ HEADERS += \
     src/Math/GSLRngWrapper.h \
 
 
-INCLUDEPATH += inc $${RootMathMore_INCLUDEPATH}
-DEPENDPATH += inc $${RootMathMore_INCLUDEPATH}
+#INCLUDEPATH += inc $${RootMathMore_INCLUDEPATH}
+#DEPENDPATH += inc $${RootMathMore_INCLUDEPATH}
+INCLUDEPATH += inc
+DEPENDPATH += inc
 
 QMAKE_CXXFLAGS += -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE
 
-win32 {
-    DEFINES += BA_CORE_BUILD_DLL
-}
+#win32 {
+#    DEFINES += BA_CORE_BUILD_DLL
+#}
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

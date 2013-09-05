@@ -13,7 +13,7 @@ include_directories(${FFTW_INCLUDE_DIR})
 
 # --- Boost ---
 if(WIN32)
-    set(BOOST_ROOT "C:/opt/local_x86_msvc")
+    set(BOOST_ROOT "C:/opt/local")
 endif()
 
 #set(Boost_USE_STATIC_LIBS ON)

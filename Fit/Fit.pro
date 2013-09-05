@@ -2,6 +2,7 @@
 # qmake project file to compile libBornAgainFit
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainFit
+
 TEMPLATE = lib
 QT      -= core gui
 macx|unix {
@@ -64,7 +65,7 @@ win32 {
 }
 
 # -----------------------------------------------------------------------------
-# includes
+#
 # -----------------------------------------------------------------------------
 INCLUDEPATH += $$PWD/Factory/inc
 DEPENDPATH +=  $$PWD/Factory/inc
@@ -81,14 +82,14 @@ INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
 # -----------------------------------------------------------------------------
 # additional libraries
 # -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
+#LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
 #LIBS += $${RootMathMore_LIB}
 #isEmpty(ROOT_FRAMEWORK) {
 #    LIBS += $${RootMinimizers_LIB}
 #} else {
 #    LIBS += $${ROOT_FRAMEWORK_LIBS}
 #}
-LIBS += $${RootMinimizers_LIB}
+LIBS += $${BornAgainCore_LIB} $${RootMinimizers_LIB}
 
 
 # -----------------------------------------------------------------------------
@@ -102,8 +103,8 @@ isEmpty(MAKEFILE): MAKEFILE="Makefile"
 # for python import in Windows we need another extention and preffix
 win32{
     extra_install.path = $$PWD\..\lib
-    extra_install.extra = $(COPY) /y \"release\BornAgainFit.dll\" \"release\libBornAgainFit.pyd\"
-    extra_install.files = $$PWD\release\libBornAgainFit.pyd
+    extra_install.extra = $(COPY) /y \"BornAgainFit.dll\" \"libBornAgainFit.pyd\"
+    extra_install.files = $$PWD\libBornAgainFit.pyd
     INSTALLS += extra_install
 }
 

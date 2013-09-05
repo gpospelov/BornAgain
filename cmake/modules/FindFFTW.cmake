@@ -34,16 +34,14 @@ if(NOT WIN32)
 else()
     find_path(FFTW_INCLUDE_DIR fftw3.h
         $ENV{FFTW_DIR}/include
-        "C:/opt/local_x86_msvc/include"
-        "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
+        "C:/opt/local/include"
     )
 #    message("XXX ${FFTW_INCLUDE_DIR}")
 
     find_library(FFTW_LIBRARY NAMES libfftw3-3 PATHS
         $ENV{FFTW_DIR}/lib
         $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
-        "C:/opt/local_x86_msvc/lib"
-        "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/lib"
+        "C:/opt/local/lib"
     )
 #    message("XXX ${FFTW_LIBRARY}")
     

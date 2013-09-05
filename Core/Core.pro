@@ -2,6 +2,7 @@
 # qmake project file to compile libBornAgainCore
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainCore
+
 TEMPLATE = lib
 CONFIG  += lib
 QT      -= core gui
@@ -357,8 +358,10 @@ isEmpty(MAKEFILE): MAKEFILE="Makefile"
 # for python import in Windows we need another extention and preffix
 win32{
     extra_install.path = $$PWD\..\lib
-    extra_install.extra = $(COPY) /y \"release\BornAgainCore.dll\" \"release\libBornAgainCore.pyd\"
-    extra_install.files = $$PWD\release\libBornAgainCore.pyd
+    #extra_install.extra = $(COPY) /y \"release\BornAgainCore.dll\" \"release\libBornAgainCore.pyd\"
+    #extra_install.files = $$PWD\release\libBornAgainCore.pyd
+    extra_install.extra = $(COPY) /y \"BornAgainCore.dll\" \"libBornAgainCore.pyd\"
+    extra_install.files = $$PWD\libBornAgainCore.pyd
     INSTALLS += extra_install
 }
 

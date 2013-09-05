@@ -37,7 +37,6 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
           PATHS 
           #$ENV{GSL_DIR}/lib 
           "C:/opt/local/lib"
-          #"C:/Program Files (x86)/GnuWin32/lib"
     )
 #    message("XXXXX ${GSL_LIBRARY}")
     if( GSL_LIBRARY )

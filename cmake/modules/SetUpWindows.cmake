@@ -57,7 +57,7 @@ if (MSVC)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nologo /EHsc -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -FIw32pragma.h")
 else()
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs -Wno-attributes")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs -Wno-attributes")
 endif()
 

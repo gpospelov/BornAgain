@@ -6,11 +6,12 @@ CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
 
 win32 {
     MAKE_COMMAND = mingw32-make
-    SONAME = a
+    SONAME = dll
     DEFINES += _WIN32
 }
 macx|unix {
     MAKE_COMMAND = make
+    SOPREFIX = lib
     SONAME = so
     QMAKE_EXTENSION_SHLIB = $$SONAME
 }
@@ -40,18 +41,19 @@ isEqual(env_debug_variable, "yes") {
 # Global variables
 # -----------------------------------------------------------------------------
 BornAgainCore_INCLUDEPATH = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/StandardSamples
-BornAgainCore_LIB = $$PWD/lib/libBornAgainCore.$${SONAME}
+BornAgainCore_LIB = $$PWD/lib/$${SOPREFIX}BornAgainCore.$${SONAME}
 
 BornAgainFit_INCLUDEPATH = $$PWD/Fit/Factory/inc
-BornAgainFit_LIB = $$PWD/lib/libBornAgainFit.$${SONAME}
+BornAgainFit_LIB = $$PWD/lib/$${SOPREFIX}BornAgainFit.$${SONAME}
 
 RootMinimizers_INCLUDEPATH = $${PWD}/ThirdParty/RootMinimizers/inc
-RootMinimizers_LIB = $$PWD/lib/libRootMinimizers.$${SONAME}
+RootMinimizers_LIB = $$PWD/lib/$${SOPREFIX}RootMinimizers.$${SONAME}
+#RootMinimizers_LIB = $$PWD/lib/libRootMinimizers.a
 
-RootMathMore_INCLUDEPATH = $${PWD}/ThirdParty/RootMathMore/inc
-RootMathMore_LIB = $$PWD/lib/libRootMathMore.$${SONAME}
+#RootMathMore_INCLUDEPATH = $${PWD}/ThirdParty/RootMathMore/inc
+#RootMathMore_LIB = $$PWD/lib/libRootMathMore.$${SONAME}
 
-gtest_LIB = $$PWD/lib/libgtest.$${SONAME}
+gtest_LIB = $$PWD/lib/$${SOPREFIX}gtest.$${SONAME}
 
 
 # -----------------------------------------------------------------------------

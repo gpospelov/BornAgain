@@ -20,13 +20,13 @@
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
-//#include "IsGISAXS03.h"
 #include <fstream>
 
 
 TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
 {
-    setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-3/" ));
+    setOutputPath(Utils::FileSystem::GetPathToData(
+            "../Tests/ReferenceData/IsGISAXS/ex-3/" ));
 }
 
 
@@ -46,28 +46,33 @@ void TestIsGISAXS3::execute()
     // building simulation
     Simulation simulation(mp_options);
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+                                     100, 0.0*Units::degree, 2.0*Units::degree,
+                                     true);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
 
     // test1
     ISample *sample = factory.createSample("isgisaxs03_dwba");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_cylinder_DWBA.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+            getOutputPath()+"this_cylinder_DWBA.ima");
     delete sample;
 
     // test2
     sample = factory.createSample("isgisaxs03_ba");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_cylinder_BA.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+            getOutputPath()+"this_cylinder_BA.ima");
     delete sample;
 
     // test3
     sample = factory.createSample("isgisaxs03_basize");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_cylinder_BA_size.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+            getOutputPath()+"this_cylinder_BA_size.ima");
     delete sample;
 
 }
@@ -76,22 +81,30 @@ void TestIsGISAXS3::execute()
 void TestIsGISAXS3::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_BA.ima.gz",      getOutputPath()+"this_cylinder_BA.ima",
-                                       "Cylinder BA Formfactor") );
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_BA_size.ima.gz", getOutputPath()+"this_cylinder_BA_size.ima",
-                                       "Cylinder BA Formfactor with size distribution") );
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_DWBA.ima.gz",    getOutputPath()+"this_cylinder_DWBA.ima",
-                                       "Cylinder DWBA Formfactor") );
+    tocompare.push_back( CompareStruct(
+            getOutputPath()+"isgi_cylinder_BA.ima.gz",
+            getOutputPath()+"this_cylinder_BA.ima",
+            "Cylinder BA Formfactor") );
+    tocompare.push_back( CompareStruct(
+            getOutputPath()+"isgi_cylinder_BA_size.ima.gz",
+            getOutputPath()+"this_cylinder_BA_size.ima",
+            "Cylinder BA Formfactor with size distribution") );
+    tocompare.push_back( CompareStruct(
+            getOutputPath()+"isgi_cylinder_DWBA.ima.gz",
+            getOutputPath()+"this_cylinder_DWBA.ima",
+            "Cylinder DWBA Formfactor") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(
+                tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(
+                tocompare[i].thisname);
 
-        IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
+        IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,
+                tocompare[i].descr, tocompare[i].descr);
 
         delete isgi_data;
         delete our_data;
     }
 }
-
 

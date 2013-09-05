@@ -47,6 +47,7 @@
 #include "TestMultiLayerRoughness.h"
 #include "TestPerformance.h"
 #include "TestPolarizedDWBA.h"
+#include "TestPolarizedDWBAZeroMag.h"
 #include "TestRootTree.h"
 #include "TestRoughness.h"
 #include "TestSpecularMagnetic.h"
@@ -313,5 +314,9 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "polarizedDWBA",
         IFactoryCreateFunction<TestPolarizedDWBA, IFunctionalTest>,
         "functional test: polarized DWBA (magnetic cylinders on substrate)");
+    p_test_factory->registerItem(
+        "polarizedDWBAZeroMag",
+        IFactoryCreateFunction<TestPolarizedDWBAZeroMag, IFunctionalTest>,
+        "functional test: polarized DWBA with zero magnetic field");
 }
 

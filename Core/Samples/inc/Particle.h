@@ -41,7 +41,8 @@ class BA_CORE_API_ Particle : public ICompositeSample
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
+    //! Sets the refractive index of the ambient material (which influences its
+    //! scattering power)
     virtual void setAmbientMaterial(const IMaterial* p_material)
     {
         mp_ambient_material = p_material;
@@ -50,13 +51,15 @@ class BA_CORE_API_ Particle : public ICompositeSample
     virtual IFormFactor* createFormFactor() const
     {
         if(!mp_form_factor) return 0;
-        FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
+        FormFactorDecoratorRefractiveIndex *p_ff =
+                new FormFactorDecoratorRefractiveIndex(
                 mp_form_factor->clone(), getRefractiveIndex());
         p_ff->setAmbientMaterial(mp_ambient_material);
         return p_ff;
     }
 
-    //! Sets the form factor of the particle (not including scattering factor from refractive index)
+    //! Sets the form factor of the particle (not including scattering factor
+    //! from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (!p_form_factor) return;
@@ -81,10 +84,12 @@ class BA_CORE_API_ Particle : public ICompositeSample
     //! Returns refractive index of the particle
     virtual complex_t getRefractiveIndex() const
     {
-        return (mp_material ? mp_material->getRefractiveIndex() : complex_t(0,0));
+        return (mp_material ? mp_material->getRefractiveIndex()
+                            : complex_t(0,0));
     }
 
-    //! Returns formfactor of the particle (not including scattering factor from refractive index)
+    //! Returns formfactor of the particle (not including scattering factor from
+    //! refractive index)
     virtual const IFormFactor *getSimpleFormFactor() const {
         return mp_form_factor;
     }
@@ -97,7 +102,8 @@ class BA_CORE_API_ Particle : public ICompositeSample
 
     virtual bool hasDistributedFormFactor() const
     {
-        return ( !mp_form_factor ? false : mp_form_factor->isDistributedFormFactor() );
+        return ( !mp_form_factor ? false
+                                 : mp_form_factor->isDistributedFormFactor() );
     }
 
     virtual std::vector<ParticleInfo *> createDistributedParticles(
@@ -109,27 +115,6 @@ class BA_CORE_API_ Particle : public ICompositeSample
     IFormFactor* mp_form_factor;
     //!< pointer to the form factor
 };
-
-//BA_CORE_API_ inline IFormFactor* Particle::createFormFactor() const
-//{
-//    if(!mp_form_factor) return 0;
-//    FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
-//            mp_form_factor->clone(), getRefractiveIndex());
-//    p_ff->setAmbientMaterial(mp_ambient_material);
-//    return p_ff;
-//}
-
-
-//BA_CORE_API_ inline complex_t Particle::getRefractiveIndex() const
-//{
-//    return (mp_material ? mp_material->getRefractiveIndex() : complex_t(0,0));
-//}
-
-//BA_CORE_API_ inline bool Particle::hasDistributedFormFactor() const
-//{
-//    return ( !mp_form_factor ? false : mp_form_factor->isDistributedFormFactor() );
-//}
-
 
 #endif // PARTICLE_H
 

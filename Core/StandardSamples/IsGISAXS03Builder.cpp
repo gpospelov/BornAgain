@@ -42,9 +42,11 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_height, m_radius)));
+    ParticleDecoration particle_decoration( new Particle(particle_material,
+            new FormFactorCylinder(m_height, m_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);

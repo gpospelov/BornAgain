@@ -66,7 +66,6 @@
 		6222485F160CB853008205AC /* ParticleDecoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222EF160CB745008205AC /* ParticleDecoration.cpp */; };
 		62224860160CB853008205AC /* ParticleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222F0160CB745008205AC /* ParticleInfo.cpp */; };
 		62224878160CB853008205AC /* Convolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230B160CB745008205AC /* Convolve.cpp */; };
-		62224879160CB853008205AC /* DoubleToComplexInterpolatingFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */; };
 		6222487A160CB853008205AC /* Exceptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230D160CB745008205AC /* Exceptions.cpp */; };
 		6222487D160CB853008205AC /* IFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222310160CB745008205AC /* IFactory.cpp */; };
 		62224880160CB853008205AC /* MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222313160CB745008205AC /* MathFunctions.cpp */; };
@@ -462,6 +461,7 @@
 		62EA737F1628422200656B41 /* OutputDataReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73781628422200656B41 /* OutputDataReader.cpp */; };
 		62EA73801628422200656B41 /* OutputDataWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73791628422200656B41 /* OutputDataWriter.cpp */; };
 		62EA73811628422200656B41 /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA737A1628422200656B41 /* ParameterPool.cpp */; };
+		62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */; };
 		62F3A3B4162D9966007FEE73 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */; };
 		62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
 		62FDC05D1615E3C500D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
@@ -2260,6 +2260,8 @@
 		62EA73791628422200656B41 /* OutputDataWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataWriter.cpp; sourceTree = "<group>"; };
 		62EA737A1628422200656B41 /* ParameterPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.cpp; sourceTree = "<group>"; };
 		62EA73821628425600656B41 /* ISampleBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISampleBuilder.h; sourceTree = "<group>"; };
+		62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedDWBAZeroMag.h; sourceTree = "<group>"; };
+		62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedDWBAZeroMag.cpp; sourceTree = "<group>"; };
 		62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../../../../opt/local/lib/libboost_iostreams.dylib; sourceTree = "<group>"; };
 		62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexMap.h; sourceTree = "<group>"; };
 		62FDC0591615E35900D28B08 /* ProgramOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramOptions.h; sourceTree = "<group>"; };
@@ -2494,6 +2496,7 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */,
 				6221C37017D5CFDF00D43C2F /* TestBugs.h */,
 				6221C37117D5CFDF00D43C2F /* TestPolarizedDWBA.h */,
 				6221C37217D5CFDF00D43C2F /* TestSpecularMagnetic.h */,
@@ -2553,6 +2556,7 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */,
 				6221C37317D5CFF500D43C2F /* TestBugs.cpp */,
 				6221C37417D5CFF500D43C2F /* TestPolarizedDWBA.cpp */,
 				6221C37517D5CFF500D43C2F /* TestSpecularMagnetic.cpp */,
@@ -71161,6 +71165,7 @@
 				6221C37617D5CFF500D43C2F /* TestBugs.cpp in Sources */,
 				6221C37717D5CFF500D43C2F /* TestPolarizedDWBA.cpp in Sources */,
 				6221C37817D5CFF500D43C2F /* TestSpecularMagnetic.cpp in Sources */,
+				62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71214,7 +71219,6 @@
 				6222485F160CB853008205AC /* ParticleDecoration.cpp in Sources */,
 				62224860160CB853008205AC /* ParticleInfo.cpp in Sources */,
 				62224878160CB853008205AC /* Convolve.cpp in Sources */,
-				62224879160CB853008205AC /* DoubleToComplexInterpolatingFunction.cpp in Sources */,
 				6222487A160CB853008205AC /* Exceptions.cpp in Sources */,
 				6222487D160CB853008205AC /* IFactory.cpp in Sources */,
 				62224880160CB853008205AC /* MathFunctions.cpp in Sources */,

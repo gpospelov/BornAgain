@@ -16,10 +16,6 @@ set(BORNAGAIN_GUI OFF)
 #--- Path for additional cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
 #--- Including macros ---
 include(BornAgainMacros)
 include(SearchInstalledSoftware)

@@ -27,8 +27,7 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
     NAMES gsl/gsl_cdf.h gsl/gsl_randist.h
         PATHS 
         $ENV{GSL_DIR}/include 
-        "C:/opt/local_x86_msvc/include"
-        "C:/Program Files (x86)/GnuWin32/include"
+        "C:/opt/local/include"
     )
 #    message("XXXXX ${GSL_INCLUDE_DIR}")
   if( GSL_INCLUDE_DIR )
@@ -37,7 +36,7 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
       NAMES gsl libgsl
           PATHS 
           #$ENV{GSL_DIR}/lib 
-          "C:/opt/local_x86_msvc/lib"
+          "C:/opt/local/lib"
           #"C:/Program Files (x86)/GnuWin32/lib"
     )
 #    message("XXXXX ${GSL_LIBRARY}")
@@ -51,7 +50,7 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
     find_library( GSL_CBLAS_LIBRARY
         NAMES gslcblas libgslcblas
 		PATHS $ENV{GSL_DIR}/lib
-          "C:/opt/local_x86_msvc/lib"
+          "C:/opt/local/lib"
       )
     if( GSL_CBLAS_LIBRARY )
       set( GSL_CBLAS_FOUND ON )

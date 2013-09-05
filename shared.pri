@@ -64,7 +64,7 @@ macx|unix {
   GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
 }
 win32 {
-  GSL_HEADER_LOCATIONS = "C:/Program Files (x86)/GnuWin32/include"
+  GSL_HEADER_LOCATIONS = "C:/opt/local/include"
 }
 for(dir, GSL_HEADER_LOCATIONS): isEmpty(GSL_INCLUDE): exists($${dir}/$${GSL_HEADERFILE}): GSL_INCLUDE = $${dir}
 isEmpty(GSL_INCLUDE): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER_LOCATIONS})
@@ -79,7 +79,7 @@ macx|unix {
   EIGEN_HEADER_LOCATIONS = /opt/local/include /opt/local/include/eigen3  /usr/local/include /usr/include
 }
 win32 {
-  EIGEN_HEADER_LOCATIONS = "C:/Program Files (x86)/Libraries/eigen-3.1.3"
+  EIGEN_HEADER_LOCATIONS = "C:/opt/local/include"
 }
 for(dir, EIGEN_HEADER_LOCATIONS): isEmpty(EIGEN_INCLUDE): exists($${dir}/$${EIGEN_HEADERFILE}): EIGEN_INCLUDE = $${dir}
 isEmpty(EIGEN_INCLUDE) {
@@ -95,7 +95,7 @@ macx|unix {
   FFTW3_LIBNAME = fftw3
 }
 win32 {
-  FFTW3_HEADER_LOCATIONS = "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
+  FFTW3_HEADER_LOCATIONS = "C:/opt/local/include"
   FFTW3_LIBNAME = fftw3-3
 }
 for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
@@ -111,7 +111,7 @@ macx|unix {
   BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
 }
 win32 {
-  BOOST_HEADER_LOCATIONS = "C:/Boost/include"
+  BOOST_HEADER_LOCATIONS = "C:/opt/local/include"
   BOOST_LIB_SUFFIX = -mgw48-mt-1_54
 }
 for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
@@ -224,7 +224,7 @@ macx|unix {
     ROOT_FRAMEWORK = $$system(root-config --prefix)
 }
 win32 {
-    ROOT_FRAMEWORK = "C:/root"
+#    ROOT_FRAMEWORK = "C:/root"
 }
 
 # -----------------------------------------------------------------------------
@@ -307,7 +307,7 @@ CONFIG(BORNAGAIN_PYTHON) {
     #message(pythonvers : $$pythonvers)
     #message(pythoninc  : $$pythonsysincdir)
     #message(pythonlib  : $$pythonsyslibdir)
-    message(pythonnumpy: $$pythonnumpy)
+    #message(pythonnumpy: $$pythonnumpy)
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
 
     INCLUDEPATH += $$pythonsysincdir

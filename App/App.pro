@@ -81,6 +81,7 @@ SOURCES += \
     src/TestMultiLayerRoughness.cpp \
     src/TestPerformance.cpp \
     src/TestPolarizedDWBA.cpp \
+    src/TestPolarizedDWBATerms.cpp \
     src/TestPolarizedDWBAZeroMag.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
@@ -144,6 +145,7 @@ HEADERS += \
     inc/TestMultiLayerRoughness.h \
     inc/TestPerformance.h \
     inc/TestPolarizedDWBA.h \
+    inc/TestPolarizedDWBATerms.h \
     inc/TestPolarizedDWBAZeroMag.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \

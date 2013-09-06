@@ -17,6 +17,7 @@
 #define SCALARSPECULARINFOMAP_H_
 
 #include "ISpecularInfoMap.h"
+#include "ScalarRTCoefficients.h"
 #include "Utils.h"
 
 //! Implementation of ISpecularInfoMap for scalar valued reflection/

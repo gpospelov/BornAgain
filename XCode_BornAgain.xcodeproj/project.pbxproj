@@ -20,6 +20,7 @@
 		621D0BF416A9883500134391 /* FormFactorPrism6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BF016A9883500134391 /* FormFactorPrism6.cpp */; };
 		621D0BF516A9883500134391 /* FormFactorSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BF116A9883500134391 /* FormFactorSphere.cpp */; };
 		621D0BF616A9886C00134391 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
+		622127BA17D9FEC200393360 /* TestPolarizedDWBATerms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */; };
 		6221C37617D5CFF500D43C2F /* TestBugs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6221C37317D5CFF500D43C2F /* TestBugs.cpp */; };
 		6221C37717D5CFF500D43C2F /* TestPolarizedDWBA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6221C37417D5CFF500D43C2F /* TestPolarizedDWBA.cpp */; };
 		6221C37817D5CFF500D43C2F /* TestSpecularMagnetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6221C37517D5CFF500D43C2F /* TestSpecularMagnetic.cpp */; };
@@ -719,6 +720,8 @@
 		621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorEllipsoid.cpp; sourceTree = "<group>"; };
 		621D0BF016A9883500134391 /* FormFactorPrism6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPrism6.cpp; sourceTree = "<group>"; };
 		621D0BF116A9883500134391 /* FormFactorSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSphere.cpp; sourceTree = "<group>"; };
+		622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedDWBATerms.h; sourceTree = "<group>"; };
+		622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedDWBATerms.cpp; sourceTree = "<group>"; };
 		6221C36F17D5CDCC00D43C2F /* BAVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAVersion.h; sourceTree = "<group>"; };
 		6221C37017D5CFDF00D43C2F /* TestBugs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestBugs.h; sourceTree = "<group>"; };
 		6221C37117D5CFDF00D43C2F /* TestPolarizedDWBA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedDWBA.h; sourceTree = "<group>"; };
@@ -2496,6 +2499,7 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */,
 				62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */,
 				6221C37017D5CFDF00D43C2F /* TestBugs.h */,
 				6221C37117D5CFDF00D43C2F /* TestPolarizedDWBA.h */,
@@ -2556,6 +2560,7 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */,
 				62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */,
 				6221C37317D5CFF500D43C2F /* TestBugs.cpp */,
 				6221C37417D5CFF500D43C2F /* TestPolarizedDWBA.cpp */,
@@ -71166,6 +71171,7 @@
 				6221C37717D5CFF500D43C2F /* TestPolarizedDWBA.cpp in Sources */,
 				6221C37817D5CFF500D43C2F /* TestSpecularMagnetic.cpp in Sources */,
 				62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */,
+				622127BA17D9FEC200393360 /* TestPolarizedDWBATerms.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

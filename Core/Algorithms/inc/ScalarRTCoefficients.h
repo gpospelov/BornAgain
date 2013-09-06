@@ -69,12 +69,12 @@ inline ScalarRTCoefficients::ScalarRTCoefficients()
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const
 {
-    return m_plus * getScalarT();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1plus() const
 {
-    return m_plus * getScalarR();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2plus() const
@@ -99,12 +99,12 @@ inline Eigen::Vector2cd ScalarRTCoefficients::R1min() const
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const
 {
-    return m_min * getScalarT();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
 {
-    return m_min * getScalarR();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const

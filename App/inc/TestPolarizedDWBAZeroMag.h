@@ -27,13 +27,13 @@
 
 class TestPolarizedDWBAZeroMag : public IFunctionalTest
 {
- public:
+public:
     TestPolarizedDWBAZeroMag();
     virtual ~TestPolarizedDWBAZeroMag(){}
     virtual void execute();
     virtual void finalise();
 
- private:
+private:
     // structure to hold info over several compare cases
     struct CompareStruct
     {

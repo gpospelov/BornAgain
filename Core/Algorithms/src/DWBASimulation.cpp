@@ -114,9 +114,9 @@ const OutputData<double>& DWBASimulation::getPolarizationData() const
             mp_polarization_output->begin();
     while (it != m_dwba_intensity.end()) {
         *it = std::abs((complex_t)pol_density(0,0))
-                  * ( (*mat_it)(0,0) + (*mat_it)(1,0) )
+                  * ( (*mat_it)(0,0) + (*mat_it)(0,1) )
             + std::abs((complex_t)pol_density(1,1))
-                  * ( (*mat_it)(0,1) + (*mat_it)(1,1) );
+                  * ( (*mat_it)(1,0) + (*mat_it)(1,1) );
         ++it, ++mat_it;
     }
     return m_dwba_intensity;

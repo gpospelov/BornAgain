@@ -48,7 +48,9 @@ public:
 
 protected:
     //! calculates intensity map for samples with magnetization
-    void runMagnetic();
+    void collectRTCoefficientsScalar();
+    void collectRTCoefficientsMatrix();
+    bool requiresMatrixRTCoefficients() const;
 
     std::set<double> getAlphaList() const;
     std::set<double> getPhiList() const;

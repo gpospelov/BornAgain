@@ -85,15 +85,47 @@ void MultiLayerDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread "
                        << m_thread_info.current_thread;
+    m_dwba_intensity.setAllTo(0.0);
     if (mp_polarization_output) {
-        runMagnetic();
-        return;
+        mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     }
+
+    if (requiresMatrixRTCoefficients()) {
+        collectRTCoefficientsMatrix();
+    }
+    else {
+        collectRTCoefficientsScalar();
+    }
+
+    // run through layers and run layer simulations
+    for (std::map<size_t, LayerDWBASimulation*>::const_iterator it =
+            m_layer_dwba_simulation_map.begin();
+            it != m_layer_dwba_simulation_map.end(); ++it)
+    {
+        LayerDWBASimulation *p_layer_dwba_sim = it->second;
+        p_layer_dwba_sim->run();
+        if (mp_polarization_output) {
+            addPolarizedDWBAIntensity(
+                p_layer_dwba_sim->getPolarizedDWBAIntensity() );
+        }
+        else {
+            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
+        }
+    }
+
+    if (!mp_polarization_output && mp_roughness_dwba_simulation) {
+        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> roughness";
+        mp_roughness_dwba_simulation->run();
+        addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
+    }
+}
+
+void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
+{
     SpecularMatrix specularCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
-    m_dwba_intensity.setAllTo(0.0);
     double lambda = 2*M_PI/m_ki_real.mag();
 
     // collect all alpha angles and calculate reflection/transmission
@@ -145,8 +177,6 @@ void MultiLayerDWBASimulation::run()
         if(pos != m_layer_dwba_simulation_map.end() ) {
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
             p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
-            p_layer_dwba_sim->run();
-            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
         }
 
         // layer roughness DWBA
@@ -156,24 +186,14 @@ void MultiLayerDWBASimulation::run()
         }
 
     } // i_layer
-
-    if(mp_roughness_dwba_simulation) {
-        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> roughness";
-        mp_roughness_dwba_simulation->run();
-        addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
-    }
 }
 
-void MultiLayerDWBASimulation::runMagnetic()
+void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
-    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::runMagnetic()"
-                          "-> Running thread " << m_thread_info.current_thread;
     SpecularMagnetic specularCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
-    m_dwba_intensity.setAllTo(0.0);
-    mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     double lambda = 2*M_PI/m_ki_real.mag();
 
     // collect all (alpha, phi) angles and calculate reflection/transmission
@@ -244,9 +264,6 @@ void MultiLayerDWBASimulation::runMagnetic()
         if(pos != m_layer_dwba_simulation_map.end() ) {
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
             p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
-            p_layer_dwba_sim->run();
-            addPolarizedDWBAIntensity(
-                    p_layer_dwba_sim->getPolarizedDWBAIntensity() );
         }
     } // i_layer
 }
@@ -262,6 +279,16 @@ std::set<double> MultiLayerDWBASimulation::getAlphaList() const
         result.insert(alpha_bin.m_upper);
     }
     return result;
+}
+
+bool MultiLayerDWBASimulation::requiresMatrixRTCoefficients() const
+{
+    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
+        const Layer *p_layer = mp_multi_layer->getLayer(i);
+        const IMaterial *p_material = p_layer->getMaterial();
+        if (!p_material->isScalarMaterial()) return true;
+    }
+    return false;
 }
 
 std::set<double> MultiLayerDWBASimulation::getPhiList() const

@@ -88,10 +88,17 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-install (TARGETS ${library_name} DESTINATION lib)
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples FILES_MATCHING PATTERN "*.py")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples FILES_MATCHING PATTERN "README")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION bin)
+install (TARGETS ${library_name} DESTINATION lib)
+install (TARGETS ${library_name} DESTINATION bin)
+
+if(WIN32)
+    install(FILES 
+    ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
+    DESTINATION bin)
+endif()
 
 # list of headers to install
 file(GLOB include_files

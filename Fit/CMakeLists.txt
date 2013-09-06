@@ -70,6 +70,10 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # -----------------------------------------------
 install (TARGETS ${library_name} DESTINATION lib)
 
+if(WIN32 AND BORNAGAIN_PYTHON)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION bin)
+endif()
+
 # list of headers to install
 file(GLOB include_files
     "Factory/inc/*.h"

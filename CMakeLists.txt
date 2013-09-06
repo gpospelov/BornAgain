@@ -8,7 +8,7 @@ project(BornAgain)
 
 # --- General project settings ---
 if(NOT BORNAGAIN_PYTHON)
-    set(BORNAGAIN_PYTHON ON)
+#    set(BORNAGAIN_PYTHON ON)
 endif()
 set(BORNAGAIN_APP OFF)
 set(BORNAGAIN_GUI OFF)
@@ -39,4 +39,4 @@ add_subdirectory(Tests/FunctionalTests)
 
 
 # packaging
-#include(BornAgainCPack)
+include(BornAgainCPack)

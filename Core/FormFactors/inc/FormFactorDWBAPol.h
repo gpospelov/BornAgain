@@ -33,6 +33,8 @@ public:
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
             double alpha_i, double alpha_f, double phi_f) const;
 
+    friend class TestPolarizedDWBATerms;
+
 protected:
     void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
             const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,

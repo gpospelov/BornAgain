@@ -69,11 +69,11 @@ PyObject *ExportOutputData(const OutputData<double >& output_data)
     for(size_t i=0; i<output_data.getRank(); i++) {
         //const AxisDouble *axis = output_data.getAxis(i);
         const IAxis *axis = output_data.getAxis(i);
-        dimensions.push_back( axis->getSize() );
+        dimensions.push_back( (int)axis->getSize() );
     }
 
     // creating ndarray objects describing size of dimensions
-    npy_int ndim_numpy= dimensions.size();
+    npy_int ndim_numpy= (int)dimensions.size();
     npy_intp *ndimsizes_numpy = new npy_intp[dimensions.size()];
     //npy_intp *ndimsizes_numpy = (npy_intp *) malloc(sizeof(npy_intp)*dimensions.size());
      for(size_t i=0; i<dimensions.size(); i++) {
@@ -108,7 +108,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output_data, int naxis
     std::vector<int > dimensions;
     for(size_t i=0; i<output_data.getRank(); i++) {
         const IAxis *axis = output_data.getAxis(i);
-        dimensions.push_back( axis->getSize() );
+        dimensions.push_back( (int)axis->getSize() );
     }
     size_t nbins(0);
     if (naxis < (int) dimensions.size() ) {

@@ -158,25 +158,25 @@ void MatrixRTCoefficients::calculateTRMatrices()
 void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
 {
     if (m_b_mag == 0.0) {
-        phi_psi_plus << 0.0, -std::sqrt(m_a), 0.0, 1.0;
-        phi_psi_min << -std::sqrt(m_a), 0.0, 1.0, 0.0;
+        phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
+        phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
         return;
     }
     // First basis vector that has no upward going wave amplitude
-    phi_psi_plus(0) = m_scatt_matrix(0,1) * ( lambda(0)-lambda(1) ) /
+    phi_psi_min(0) = m_scatt_matrix(0,1) * ( lambda(0)-lambda(1) ) /
             2.0/m_b_mag;
-    phi_psi_plus(1) = ( m_bz  * (lambda(1)-lambda(0)) / m_b_mag -
+    phi_psi_min(1) = ( m_bz  * (lambda(1) - lambda(0)) / m_b_mag -
             lambda(1) - lambda(0) )/2.0;
-    phi_psi_plus(2) = 0.0;
-    phi_psi_plus(3) = 1.0;
+    phi_psi_min(2) = 0.0;
+    phi_psi_min(3) = 1.0;
 
     // Second basis vector that has no upward going wave amplitude
-    phi_psi_min(0) = - (m_scatt_matrix(0,0) + lambda(0) * lambda(1) ) /
+    phi_psi_plus(0) = - (m_scatt_matrix(0,0) + lambda(0) * lambda(1) ) /
             ( lambda(0) + lambda(1) );
-    phi_psi_min(1) = m_scatt_matrix(1,0) * ( lambda(0) - lambda(1) ) /
+    phi_psi_plus(1) = m_scatt_matrix(1,0) * ( lambda(0) - lambda(1) ) /
             2.0/m_b_mag;
-    phi_psi_min(2) = 1.0;
-    phi_psi_min(3) = 0.0;
+    phi_psi_plus(2) = 1.0;
+    phi_psi_plus(3) = 0.0;
 }
 
 void MatrixRTCoefficients::calculateTRWithoutMagnetization()

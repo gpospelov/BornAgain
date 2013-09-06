@@ -54,58 +54,62 @@ public:
     Eigen::Matrix2cd l;       //!< transfer matrix
 
 private:
-    Eigen::Vector2cd m_ones_vector;
+    Eigen::Vector2cd m_plus;
+    Eigen::Vector2cd m_min;
 };
 
 inline ScalarRTCoefficients::ScalarRTCoefficients()
 : lambda(0), kz(0)
 {
-    m_ones_vector.setOnes();
+    m_plus(0) = complex_t(1.0, 0.0);
+    m_plus(1) = 0.0;
+    m_min(0) = 0.0;
+    m_min(1) = complex_t(1.0, 0.0);
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const
 {
-    return m_ones_vector * getScalarT();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1plus() const
 {
-    return m_ones_vector * getScalarR();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2plus() const
 {
-    return m_ones_vector * getScalarT();
+    return m_plus * getScalarT();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2plus() const
 {
-    return m_ones_vector * getScalarR();
+    return m_plus * getScalarR();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1min() const
 {
-    return m_ones_vector * getScalarT();
+    return m_min * getScalarT();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R1min() const
 {
-    return m_ones_vector * getScalarR();
+    return m_min * getScalarR();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const
 {
-    return m_ones_vector * getScalarT();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
 {
-    return m_ones_vector * getScalarR();
+    return Eigen::Vector2cd::Zero();
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
 {
-    return m_ones_vector * kz;
+    return (m_plus+m_min) * kz;
 }
 
 inline complex_t ScalarRTCoefficients::getScalarR() const

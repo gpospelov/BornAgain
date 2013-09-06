@@ -28,7 +28,7 @@
 
 //! Interface to a named material.
 
-class IMaterial : public INamed
+class BA_CORE_API_ IMaterial : public INamed
 {
 public:
     //! Constructor that sets _name_.

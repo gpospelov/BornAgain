@@ -42,10 +42,13 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 # dependencies
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
+target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
+message("XXX ${GSL_LIBRARIES}")
 include_directories(${RootMinimizers_INCLUDE_DIRS})
 target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
 include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
+
 
 # python in windows required .yd extention for the library name
 if(WIN32 AND BORNAGAIN_PYTHON)

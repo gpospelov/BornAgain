@@ -21,7 +21,7 @@
 
 //! An homogeneous material with magnetization
 
-class HomogeneousMagneticMaterial : public HomogeneousMaterial
+class BA_CORE_API_ HomogeneousMagneticMaterial : public HomogeneousMaterial
 {
 public:
     //! Constructs a material with _name_, _refractive_index_ and

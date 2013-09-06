@@ -30,10 +30,21 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
         "C:/opt/local/include"
     )
 #    message("XXXXX ${GSL_INCLUDE_DIR}")
+  
+  if(MSVC)
+    set(gsl_library_name gsl)  
+    set(gslcblas_library_name cblas)  
+  else()
+    set(gsl_library_name libgsl-0)
+    set(gslcblas_library_name libgslcblas-0)
+  endif()
+    
+    
+  
   if( GSL_INCLUDE_DIR )
     # look for gsl library
     find_library( GSL_LIBRARY
-      NAMES gsl libgsl
+      NAMES ${gsl_library_name}
           PATHS 
           #$ENV{GSL_DIR}/lib 
           "C:/opt/local/lib"
@@ -47,7 +58,7 @@ if( WIN32 AND NOT CYGWIN AND NOT MSYS )
  
     # look for gsl cblas library
     find_library( GSL_CBLAS_LIBRARY
-        NAMES gslcblas libgslcblas
+        NAMES ${gslcblas_library_name}
 		PATHS $ENV{GSL_DIR}/lib
           "C:/opt/local/lib"
       )

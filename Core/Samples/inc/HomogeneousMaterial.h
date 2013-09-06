@@ -21,7 +21,7 @@
 
 //! A homogeneous material with a refractive index.
 
-class HomogeneousMaterial : public IMaterial
+class BA_CORE_API_ HomogeneousMaterial : public IMaterial
 {
 public:
     //! Constructs a material with _name_ and _refractive_index_.

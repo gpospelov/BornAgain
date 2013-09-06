@@ -73,7 +73,13 @@ isEmpty(GSL_INCLUDE): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER
 GSL_LIB = $$replace(GSL_INCLUDE,"include","lib")
 INCLUDEPATH *=  $${GSL_INCLUDE}
 LIBS *= -L$${GSL_LIB}
+
+macx|unix {
 LIBS += -lgsl -lgslcblas
+}
+win32 {
+LIBS += -lgsl-0 -lgslcblas-0
+}
 
 # --- checking eigen headers ---
 EIGEN_HEADERFILE = Eigen/Core
@@ -182,7 +188,7 @@ DEPENDPATH  += $$BornAgainCore_INCLUDEPATH
 # -----------------------------------------------------------------------------
 # compiler options for debug and release
 # -----------------------------------------------------------------------------
-QMAKE_CXXFLAGS += -std=c++98
+#QMAKE_CXXFLAGS += -std=c++98
 
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
@@ -196,7 +202,7 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 
 # Eigen alighnment under windows, warnings from boost
 win32{
-    QMAKE_CXXFLAGS += -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes -Wno-unknown-pragmas
+    QMAKE_CXXFLAGS += -DEIGEN_DONT_ALIGN_STATICALLY=1 -mincoming-stack-boundary=2 -Wno-unused-local-typedefs -Wno-attributes -Wno-unknown-pragmas
 #    QMAKE_CXXFLAGS += -D_MSC_VER=1301
 #    QMAKE_CXXFLAGS += -DTYPENAME=typename
 }

@@ -50,23 +50,21 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     return p_new;
 }
 
-IFormFactor *ParticleCoreShell::createFormFactor() const
+IFormFactor *ParticleCoreShell::createFormFactor(
+        complex_t wavevector_scattering_factor) const
 {
     FormFactorWeighted *p_result = new FormFactorWeighted;
     FormFactorDecoratorRefractiveIndex ff_shell(mp_shell->
             getSimpleFormFactor()->clone(),
-            mp_shell->getRefractiveIndex());
+            wavevector_scattering_factor);
+    ff_shell.setMaterial(mp_shell->getMaterial());
     ff_shell.setAmbientMaterial(mp_ambient_material);
     p_result->addFormFactor(ff_shell, 1.0);
-    complex_t ambient_index = mp_ambient_material->getRefractiveIndex();
-    complex_t core_index = std::sqrt(mp_core->getRefractiveIndex()*mp_core->
-            getRefractiveIndex()
-            - mp_shell->getRefractiveIndex()*mp_shell->getRefractiveIndex()
-            + ambient_index*ambient_index);
     FormFactorDecoratorRefractiveIndex ff_core(mp_core->getSimpleFormFactor()->
             clone(),
-            core_index);
-    ff_core.setAmbientMaterial(mp_ambient_material);
+            wavevector_scattering_factor);
+    ff_core.setMaterial(mp_core->getMaterial());
+    ff_core.setAmbientMaterial(mp_shell->getMaterial());
     FormFactorDecoratorPositionFactor ff_core_translated(ff_core,
             m_relative_core_position);
     p_result->addFormFactor(ff_core_translated, 1.0);

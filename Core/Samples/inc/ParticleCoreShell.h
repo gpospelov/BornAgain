@@ -45,7 +45,8 @@ public:
         mp_core->setAmbientMaterial(p_material);
     }
 
-    virtual IFormFactor* createFormFactor() const;
+    virtual IFormFactor* createFormFactor(
+            complex_t wavevector_scattering_factor) const;
 
     //! Sets the formfactor of the particle (not including scattering factor
     //! from refractive index)

@@ -63,7 +63,8 @@ class DiffuseDWBASimulation: public LayerDWBASimulation
     };
     void initDiffuseFormFactorTerms(
         std::vector<DiffuseFormFactorTerm *>& terms,
-        size_t nbr_heights, size_t samples_per_particle);
+        size_t nbr_heights, size_t samples_per_particle,
+        complex_t wavevector_scattering_factor);
 };
 
 #endif /* DIFFUSEDWBASIMULATION_H_ */

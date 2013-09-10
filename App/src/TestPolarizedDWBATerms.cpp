@@ -16,6 +16,7 @@
 #include "TestPolarizedDWBATerms.h"
 
 #include "FormFactorDWBAPol.h"
+#include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorCylinder.h"
 #include "LayerSpecularInfo.h"
@@ -30,22 +31,24 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 , m_alpha_i(0.15)
 , m_alpha_f(0.1)
 {
-    mp_matrix_ff = new FormFactorDWBAPol(new FormFactorCylinder(
-            1.0, 1.0));
-    mp_scalar_ff = new FormFactorDWBA(new FormFactorCylinder(
-            1.0, 1.0));
-    mp_specular_info = new LayerSpecularInfo();
-    initSpecularInfo();
-    mp_matrix_ff->setSpecularInfo(*mp_specular_info);
-    mp_scalar_ff->setSpecularInfo(*mp_specular_info);
+    initWavevectors();
     const IMaterial *p_particle_material =
             MaterialManager::getHomogeneousMaterial(
             "particle", complex_t(1.0, 0.0));
     const IMaterial *p_ambient_material =
             MaterialManager::getHomogeneousMaterial(
             "ambient", complex_t(0.0, 0.0));
-    mp_matrix_ff->setMaterial(p_particle_material);
-    mp_matrix_ff->setAmbientMaterial(p_ambient_material);
+    FormFactorDecoratorMaterial *p_matrix_material_ff =
+            new FormFactorDecoratorMaterial(new FormFactorCylinder(1.0, 1.0));
+    p_matrix_material_ff->setMaterial(p_particle_material);
+    p_matrix_material_ff->setAmbientMaterial(p_ambient_material);
+    mp_matrix_ff = new FormFactorDWBAPol(p_matrix_material_ff);
+    mp_scalar_ff = new FormFactorDWBA(new FormFactorCylinder(
+            1.0, 1.0));
+    mp_specular_info = new LayerSpecularInfo();
+    initSpecularInfo();
+    mp_matrix_ff->setSpecularInfo(*mp_specular_info);
+    mp_scalar_ff->setSpecularInfo(*mp_specular_info);
 }
 
 void TestPolarizedDWBATerms::execute()

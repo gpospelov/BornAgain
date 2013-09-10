@@ -49,6 +49,18 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         IParameterized::clearParameterPool( );
     }
 
+    virtual ::FormFactorPol * createFormFactorMatrix( ::complex_t wavevector_scattering_factor ) const  {
+        if( bp::override func_createFormFactorMatrix = this->get_override( "createFormFactorMatrix" ) )
+            return func_createFormFactorMatrix( wavevector_scattering_factor );
+        else{
+            return this->Particle::createFormFactorMatrix( wavevector_scattering_factor );
+        }
+    }
+    
+    ::FormFactorPol * default_createFormFactorMatrix( ::complex_t wavevector_scattering_factor ) const  {
+        return Particle::createFormFactorMatrix( wavevector_scattering_factor );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -152,6 +164,18 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void setTransform( ::Geometry::PTransform3D const & transform ) {
+        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
+            func_setTransform( transform );
+        else{
+            this->Particle::setTransform( transform );
+        }
+    }
+    
+    void default_setTransform( ::Geometry::PTransform3D const & transform ) {
+        Particle::setTransform( transform );
+    }
+
 };
 
 void register_ParticleCoreShell_class(){
@@ -180,6 +204,19 @@ void register_ParticleCoreShell_class(){
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
                 , default_clearParameterPool_function_type(&ParticleCoreShell_wrapper::default_clearParameterPool) );
+        
+        }
+        { //::Particle::createFormFactorMatrix
+        
+            typedef ::FormFactorPol * ( ::Particle::*createFormFactorMatrix_function_type )( ::complex_t ) const;
+            typedef ::FormFactorPol * ( ParticleCoreShell_wrapper::*default_createFormFactorMatrix_function_type )( ::complex_t ) const;
+            
+            ParticleCoreShell_exposer.def( 
+                "createFormFactorMatrix"
+                , createFormFactorMatrix_function_type(&::Particle::createFormFactorMatrix)
+                , default_createFormFactorMatrix_function_type(&ParticleCoreShell_wrapper::default_createFormFactorMatrix)
+                , ( bp::arg("wavevector_scattering_factor") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::createParameterTree
@@ -270,6 +307,18 @@ void register_ParticleCoreShell_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&ParticleCoreShell_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::Particle::setTransform
+        
+            typedef void ( ::Particle::*setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
+            typedef void ( ParticleCoreShell_wrapper::*default_setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
+            
+            ParticleCoreShell_exposer.def( 
+                "setTransform"
+                , setTransform_function_type(&::Particle::setTransform)
+                , default_setTransform_function_type(&ParticleCoreShell_wrapper::default_setTransform)
+                , ( bp::arg("transform") ) );
         
         }
     }

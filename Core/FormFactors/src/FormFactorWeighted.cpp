@@ -70,4 +70,60 @@ int FormFactorWeighted::getNumberOfStochasticParameters() const
     return result;
 }
 
+FormFactorWeightedMat::FormFactorWeightedMat()
+{
+    setName("FormFactorWeightedMat");
+}
 
+FormFactorWeightedMat::~FormFactorWeightedMat()
+{
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        delete m_form_factors[index];
+    }
+}
+
+FormFactorWeightedMat* FormFactorWeightedMat::clone() const
+{
+    FormFactorWeightedMat *result = new FormFactorWeightedMat();
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        result->addFormFactor(*m_form_factors[index], m_weights[index]);
+    }
+    result->setName(getName());
+    return result;
+}
+
+void FormFactorWeightedMat::addFormFactor(const FormFactorPol& form_factor,
+        double weight)
+{
+    m_form_factors.push_back(form_factor.clone());
+    m_weights.push_back(weight);
+}
+
+void FormFactorWeightedMat::setAmbientMaterial(const IMaterial* p_material)
+{
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        m_form_factors[index]->setAmbientMaterial(p_material);
+    }
+}
+
+Eigen::Matrix2cd FormFactorWeightedMat::evaluatePol(const cvector_t& k_i,
+        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+        double alpha_i, double alpha_f, double phi_f) const
+{
+    Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        Eigen::Matrix2cd ff_evaluate = m_form_factors[index]->evaluatePol(
+                k_i, k_f1_bin, k_f2_bin, alpha_i, alpha_f, phi_f);
+        result += m_weights[index]*ff_evaluate;
+    }
+    return result;
+}
+
+int FormFactorWeightedMat::getNumberOfStochasticParameters() const
+{
+    int result=0;
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        result += m_form_factors[index]->getNumberOfStochasticParameters();
+    }
+    return result;
+}

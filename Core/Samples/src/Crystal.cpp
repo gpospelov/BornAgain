@@ -51,11 +51,12 @@ Crystal* Crystal::cloneInvertB() const
 
 IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        const IMaterial *p_ambient_material) const
+        const IMaterial *p_ambient_material,
+        complex_t wavevector_scattering_factor) const
 {
     IFormFactor *p_ff_crystal =
         new FormFactorCrystal(*this, meso_crystal_form_factor,
-                p_ambient_material);
+                p_ambient_material, wavevector_scattering_factor);
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
     }
@@ -65,7 +66,8 @@ IFormFactor* Crystal::createTotalFormFactor(
 std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
         const ParticleInfo& parent_info) const
 {
-    std::vector<DiffuseParticleInfo *> *p_result = new std::vector<DiffuseParticleInfo *>(
+    std::vector<DiffuseParticleInfo *> *p_result =
+            new std::vector<DiffuseParticleInfo *>(
             mp_lattice_basis->createDiffuseParticleInfos());
     if (p_result->empty()) return p_result;
 
@@ -81,7 +83,6 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
 
     for (size_t i=0; i<p_result->size(); ++i) {
         DiffuseParticleInfo *p_info = (*p_result)[i];
-        p_info->setTransform( parent_info.getPTransform3D() );
         p_info->setDepth(parent_depth);
         p_info->setNumberPerMeso(nbr_unit_cells*p_info->getNumberPerMeso());
         p_info->setHeightRange(parent_height);

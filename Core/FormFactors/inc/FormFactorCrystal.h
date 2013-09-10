@@ -26,7 +26,7 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
  public:
     FormFactorCrystal(
         const Crystal& p_crystal, const IFormFactor& meso_crystal_form_factor,
-        const IMaterial *p_material);
+        const IMaterial *p_material, complex_t wavevector_scattering_factor);
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;
@@ -47,6 +47,7 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
     void calculateLargestReciprocalDistance();
 
     Lattice m_lattice;
+    complex_t m_wavevector_scattering_factor;
     Particle *mp_particle;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;

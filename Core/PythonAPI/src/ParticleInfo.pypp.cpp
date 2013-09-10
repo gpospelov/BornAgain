@@ -18,13 +18,6 @@ namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
-    ParticleInfo_wrapper(::Particle const & p_particle, ::Geometry::PTransform3D const & transform, double depth=0, double abundance=0 )
-    : ParticleInfo( boost::ref(p_particle), transform, depth, abundance )
-      , bp::wrapper< ParticleInfo >(){
-        // constructor
-    
-    }
-
     ParticleInfo_wrapper(::Particle const & p_particle, double depth=0, double abundance=0 )
     : ParticleInfo( boost::ref(p_particle), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
@@ -153,9 +146,8 @@ void register_ParticleInfo_class(){
 
     { //::ParticleInfo
         typedef bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > ParticleInfo_exposer_t;
-        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< Particle const &, Geometry::PTransform3D const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
+        ParticleInfo_exposer_t ParticleInfo_exposer = ParticleInfo_exposer_t( "ParticleInfo", bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
-        ParticleInfo_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) );
         { //::ParticleInfo::clone
         
             typedef ::ParticleInfo * ( ::ParticleInfo::*clone_function_type )(  ) const;
@@ -198,15 +190,6 @@ void register_ParticleInfo_class(){
                 , getDepth_function_type( &::ParticleInfo::getDepth ) );
         
         }
-        { //::ParticleInfo::getPTransform3D
-        
-            typedef ::Geometry::PTransform3D const ( ::ParticleInfo::*getPTransform3D_function_type )(  ) const;
-            
-            ParticleInfo_exposer.def( 
-                "getPTransform3D"
-                , getPTransform3D_function_type( &::ParticleInfo::getPTransform3D ) );
-        
-        }
         { //::ParticleInfo::getParticle
         
             typedef ::Particle const * ( ::ParticleInfo::*getParticle_function_type )(  ) const;
@@ -235,16 +218,6 @@ void register_ParticleInfo_class(){
                 "setDepth"
                 , setDepth_function_type( &::ParticleInfo::setDepth )
                 , ( bp::arg("depth") ) );
-        
-        }
-        { //::ParticleInfo::setTransform
-        
-            typedef void ( ::ParticleInfo::*setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
-            
-            ParticleInfo_exposer.def( 
-                "setTransform"
-                , setTransform_function_type( &::ParticleInfo::setTransform )
-                , ( bp::arg("transform") ) );
         
         }
         { //::IParameterized::areParametersChanged

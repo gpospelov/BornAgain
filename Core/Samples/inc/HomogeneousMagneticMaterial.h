@@ -17,7 +17,9 @@
 #define HOMOGENEOUSMAGNETICMATERIAL_H_
 
 #include "HomogeneousMaterial.h"
+#ifndef GCCXML_SKIP_THIS
 #include <Eigen/Core>
+#endif
 
 //! An homogeneous material with magnetization
 
@@ -71,8 +73,10 @@ private:
     static const double m_magnetic_prefactor;
 
     //! The unit matrix
+#ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_unit_matrix;
     std::vector<Eigen::Matrix2cd> m_pauli_operator;
+#endif
 };
 
 

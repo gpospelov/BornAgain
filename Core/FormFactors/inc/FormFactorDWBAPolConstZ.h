@@ -23,7 +23,7 @@
 class FormFactorDWBAPolConstZ : public FormFactorDWBAPol
 {
 public:
-    FormFactorDWBAPolConstZ(IFormFactor *p_formfactor, double depth=0.0);
+    FormFactorDWBAPolConstZ(FormFactorPol *p_formfactor, double depth=0.0);
     virtual ~FormFactorDWBAPolConstZ();
 
     virtual FormFactorDWBAPolConstZ *clone() const;

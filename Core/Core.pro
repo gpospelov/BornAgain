@@ -90,6 +90,7 @@ SOURCES += \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDWBAPol.cpp \
     FormFactors/src/FormFactorDWBAPolConstZ.cpp \
+    FormFactors/src/FormFactorDecoratorMaterial.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
@@ -247,6 +248,7 @@ HEADERS += \
     FormFactors/inc/FormFactorDWBAPolConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
+    FormFactors/inc/FormFactorDecoratorMaterial.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
@@ -319,7 +321,6 @@ HEADERS += \
     StandardSamples/IsGISAXS09Builder.h \
     Algorithms/inc/LayerStrategyBuilder.h \
     Algorithms/inc/DecoratedLayerDWBASimulation.h \
-    Samples/inc/Version.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

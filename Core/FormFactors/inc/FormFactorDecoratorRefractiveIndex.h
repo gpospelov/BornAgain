@@ -26,10 +26,13 @@ class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
 {
  public:
     FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor,
-            const complex_t& refractive_index);
+            complex_t wavevector_scattering_factor=1.0);
     ~FormFactorDecoratorRefractiveIndex();
 
     FormFactorDecoratorRefractiveIndex *clone() const;
+
+    //! Sets the material of the scatterer
+    void setMaterial(const IMaterial *p_material);
 
     virtual complex_t getAmbientRefractiveIndex() const {
         return m_refractive_index;
@@ -41,13 +44,16 @@ class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
             const complex_t& particle_index) const;
 
     complex_t m_refractive_index;
+    complex_t m_ambient_refractive_index;
+    complex_t m_wavevector_scattering_factor;
 };
 
 inline FormFactorDecoratorRefractiveIndex::FormFactorDecoratorRefractiveIndex(
-        IFormFactor* p_form_factor, const complex_t& refractive_index)
-: FormFactorDecoratorFactor(p_form_factor,
-        getRefractiveIndexFactor(complex_t(1.0, 0.0), refractive_index))
-, m_refractive_index(refractive_index)
+        IFormFactor* p_form_factor, complex_t wavevector_scattering_factor)
+: FormFactorDecoratorFactor(p_form_factor, 1.0)
+, m_refractive_index(1.0)
+, m_ambient_refractive_index(1.0)
+, m_wavevector_scattering_factor(wavevector_scattering_factor)
 {
     setName("FormFactorDecoratorRefractiveIndex");
 }
@@ -56,29 +62,44 @@ inline FormFactorDecoratorRefractiveIndex::~FormFactorDecoratorRefractiveIndex()
 {
 }
 
-inline FormFactorDecoratorRefractiveIndex* FormFactorDecoratorRefractiveIndex::clone() const
+inline FormFactorDecoratorRefractiveIndex*
+FormFactorDecoratorRefractiveIndex::clone() const
 {
     FormFactorDecoratorRefractiveIndex *result =
-            new FormFactorDecoratorRefractiveIndex(mp_form_factor->clone(), m_refractive_index);
+            new FormFactorDecoratorRefractiveIndex(mp_form_factor->clone(),
+                    m_wavevector_scattering_factor);
+    result->m_refractive_index = m_refractive_index;
+    result->m_ambient_refractive_index = m_ambient_refractive_index;
     result->m_factor = m_factor;
     result->setName(getName());
     return result;
 }
 
+inline void FormFactorDecoratorRefractiveIndex::setMaterial(
+        const IMaterial* p_material)
+{
+    if (p_material) {
+        m_refractive_index = p_material->getRefractiveIndex();
+    }
+    m_factor = getRefractiveIndexFactor(m_ambient_refractive_index,
+                                        m_refractive_index);
+}
+
 inline void FormFactorDecoratorRefractiveIndex::setAmbientMaterial(
         const IMaterial *p_material)
 {
-    complex_t ambient_refractive_index(1.0, 0.0);
     if (p_material) {
-        ambient_refractive_index = p_material->getRefractiveIndex();
+        m_ambient_refractive_index = p_material->getRefractiveIndex();
     }
-    m_factor = getRefractiveIndexFactor(ambient_refractive_index, m_refractive_index);
+    m_factor = getRefractiveIndexFactor(m_ambient_refractive_index,
+                                        m_refractive_index);
 }
 
 inline complex_t FormFactorDecoratorRefractiveIndex::getRefractiveIndexFactor(
         const complex_t& ambient_index, const complex_t& particle_index) const
 {
-    return (ambient_index*ambient_index - particle_index*particle_index);
+    return m_wavevector_scattering_factor *
+            (particle_index*particle_index - ambient_index*ambient_index);
 }
 
 #endif /* FORMFACTORDECORATORREFRACTIVEINDEX_H_ */

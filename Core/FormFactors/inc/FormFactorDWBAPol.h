@@ -23,7 +23,7 @@
 class FormFactorDWBAPol : public FormFactorPol
 {
 public:
-    FormFactorDWBAPol(IFormFactor *p_formfactor);
+    FormFactorDWBAPol(FormFactorPol *p_form_factor);
     virtual ~FormFactorDWBAPol();
 
     virtual FormFactorDWBAPol *clone() const;
@@ -33,12 +33,23 @@ public:
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
             double alpha_i, double alpha_f, double phi_f) const;
 
+    //! Sets reflection/transmission info for polarized DWBA
+    void setSpecularInfo(const LayerSpecularInfo& layer_specular_info);
+
     friend class TestPolarizedDWBATerms;
 
 protected:
+    const ILayerRTCoefficients *getOutCoeffs(double alpha_f,
+            double phi_f) const;
     void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
             const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
             double phi_f) const;
+
+    //! The matrix form factor for BA
+    FormFactorPol *mp_form_factor;
+
+    //! The reflection/transmission coefficients in the layer
+    LayerSpecularInfo *mp_specular_info;
 
     //! The following matrices each contain the four polarization conditions
     //! (p->p, p->m, m->p, m->m)
@@ -63,5 +74,11 @@ protected:
     mutable Eigen::Matrix2cd m_M22_SR;
     mutable Eigen::Matrix2cd m_M22_RSR;
 };
+
+inline const ILayerRTCoefficients *FormFactorDWBAPol::getOutCoeffs(
+        double alpha_f, double phi_f) const
+{
+    return mp_specular_info->getOutCoefficients(alpha_f, phi_f);
+}
 
 #endif /* FORMFACTORDWBAPOL_H_ */

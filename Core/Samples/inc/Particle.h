@@ -17,8 +17,9 @@
 #define PARTICLE_H
 
 #include "ICompositeSample.h"
-#include "IFormFactor.h"
+#include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRefractiveIndex.h"
+#include "FormFactorDecoratorTransformation.h"
 #include "HomogeneousMaterial.h"
 
 class ParticleInfo;
@@ -32,6 +33,8 @@ class BA_CORE_API_ Particle : public ICompositeSample
     Particle();
     Particle(const IMaterial* p_material, IFormFactor* p_form_factor = 0);
     Particle(const IMaterial* p_material, const IFormFactor& form_factor);
+    Particle(const IMaterial* p_material, const IFormFactor& form_factor,
+            const Geometry::PTransform3D &transform);
     virtual ~Particle();
     virtual Particle *clone() const;
 
@@ -48,12 +51,32 @@ class BA_CORE_API_ Particle : public ICompositeSample
         mp_ambient_material = p_material;
     }
 
-    virtual IFormFactor* createFormFactor() const
+    virtual IFormFactor* createFormFactor(
+            complex_t wavevector_scattering_factor) const
     {
-        if(!mp_form_factor) return 0;
+        IFormFactor *p_transformed_ff = createTransformedFormFactor();
+        if (!p_transformed_ff) {
+            return 0;
+        }
         FormFactorDecoratorRefractiveIndex *p_ff =
                 new FormFactorDecoratorRefractiveIndex(
-                mp_form_factor->clone(), getRefractiveIndex());
+                        p_transformed_ff, wavevector_scattering_factor);
+        p_ff->setMaterial(mp_material);
+        p_ff->setAmbientMaterial(mp_ambient_material);
+        return p_ff;
+    }
+
+    virtual FormFactorPol* createFormFactorMatrix(
+            complex_t wavevector_scattering_factor) const
+    {
+        IFormFactor *p_transformed_ff = createTransformedFormFactor();
+        if (!p_transformed_ff) {
+            return 0;
+        }
+        FormFactorDecoratorMaterial *p_ff =
+                new FormFactorDecoratorMaterial(
+                        p_transformed_ff, wavevector_scattering_factor);
+        p_ff->setMaterial(mp_material);
         p_ff->setAmbientMaterial(mp_ambient_material);
         return p_ff;
     }
@@ -88,6 +111,14 @@ class BA_CORE_API_ Particle : public ICompositeSample
                             : complex_t(0,0));
     }
 
+    //! Returns transformation.
+    const Geometry::PTransform3D getPTransform3D() const
+    { return mP_transform; }
+
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::PTransform3D& transform)
+    { mP_transform = transform; }
+
     //! Returns formfactor of the particle (not including scattering factor from
     //! refractive index)
     virtual const IFormFactor *getSimpleFormFactor() const {
@@ -110,9 +141,11 @@ class BA_CORE_API_ Particle : public ICompositeSample
             size_t samples_per_particle, double factor) const;
 
  protected:
+    IFormFactor *createTransformedFormFactor() const;
     const IMaterial* mp_material;
     const IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;
+    Geometry::PTransform3D mP_transform;
     //!< pointer to the form factor
 };
 

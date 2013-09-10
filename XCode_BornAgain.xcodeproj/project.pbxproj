@@ -117,7 +117,6 @@
 		6223325F17C640A2004CCDAE /* SampleMaterialVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */; };
 		6223326617C640C7004CCDAE /* FormFactorDWBAPol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */; };
 		6223326717C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */; };
-		6223326817C640C7004CCDAE /* FormFactorPol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326517C640C7004CCDAE /* FormFactorPol.cpp */; };
 		6223326C17C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326917C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp */; };
 		6223326D17C64116004CCDAE /* LayerStrategyBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326A17C64116004CCDAE /* LayerStrategyBuilder.cpp */; };
 		6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */; };
@@ -763,7 +762,6 @@
 		62222277160CB745008205AC /* FormFactorDecoratorFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorFactor.h; sourceTree = "<group>"; };
 		62222278160CB745008205AC /* FormFactorDecoratorMultiPositionFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorMultiPositionFactor.h; sourceTree = "<group>"; };
 		62222279160CB745008205AC /* FormFactorDecoratorPositionFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorPositionFactor.h; sourceTree = "<group>"; };
-		6222227A160CB745008205AC /* FormFactorDecoratorRefractiveIndex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorRefractiveIndex.h; sourceTree = "<group>"; };
 		6222227B160CB745008205AC /* FormFactorDecoratorTransformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorTransformation.h; sourceTree = "<group>"; };
 		6222227C160CB745008205AC /* FormFactorFullSphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSphere.h; sourceTree = "<group>"; };
 		6222227D160CB745008205AC /* FormFactorGauss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorGauss.h; sourceTree = "<group>"; };
@@ -1435,10 +1433,8 @@
 		6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleMaterialVisitor.cpp; sourceTree = "<group>"; };
 		6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDWBAPol.h; sourceTree = "<group>"; };
 		6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDWBAPolConstZ.h; sourceTree = "<group>"; };
-		6223326217C640BC004CCDAE /* FormFactorPol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorPol.h; sourceTree = "<group>"; };
 		6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDWBAPol.cpp; sourceTree = "<group>"; };
 		6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDWBAPolConstZ.cpp; sourceTree = "<group>"; };
-		6223326517C640C7004CCDAE /* FormFactorPol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPol.cpp; sourceTree = "<group>"; };
 		6223326917C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DecoratedLayerDWBASimulation.cpp; sourceTree = "<group>"; };
 		6223326A17C64116004CCDAE /* LayerStrategyBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerStrategyBuilder.cpp; sourceTree = "<group>"; };
 		6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecularMagnetic.cpp; sourceTree = "<group>"; };
@@ -2719,7 +2715,6 @@
 				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
 				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
 				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
-				6223326217C640BC004CCDAE /* FormFactorPol.h */,
 				627F60031793FADB009E166F /* FormFactorTethraedron.h */,
 				625A173B16BAAE69004943DB /* FormFactorCone.h */,
 				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
@@ -2740,7 +2735,6 @@
 				62222277160CB745008205AC /* FormFactorDecoratorFactor.h */,
 				62222278160CB745008205AC /* FormFactorDecoratorMultiPositionFactor.h */,
 				62222279160CB745008205AC /* FormFactorDecoratorPositionFactor.h */,
-				6222227A160CB745008205AC /* FormFactorDecoratorRefractiveIndex.h */,
 				6222227B160CB745008205AC /* FormFactorDecoratorTransformation.h */,
 				6222227C160CB745008205AC /* FormFactorFullSphere.h */,
 				6222227D160CB745008205AC /* FormFactorGauss.h */,
@@ -2761,7 +2755,6 @@
 				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
 				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
 				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
-				6223326517C640C7004CCDAE /* FormFactorPol.cpp */,
 				627F60041793FAE3009E166F /* FormFactorTethraedron.cpp */,
 				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
 				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
@@ -71014,7 +71007,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PATH=/opt/local/bin:${PATH}\ncd ${SRCROOT}/Core\nqmake\nmake\ncd ${SRCROOT}/ThirdParty/RootMathMore\nqmake\nmake\ncd ${SRCROOT}/Fit\nqmake\nmake\ncd ${SRCROOT}/App\nqmake\nmake";
+			shellScript = "PATH=/opt/local/bin:${PATH}\ncd ${SRCROOT}/Core\nqmake\nmake\ncd ${SRCROOT}/Fit\nqmake\nmake\ncd ${SRCROOT}/App\nqmake\nmake";
 		};
 		6222D09B160C8EF0008205AC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -71298,7 +71291,6 @@
 				6223325F17C640A2004CCDAE /* SampleMaterialVisitor.cpp in Sources */,
 				6223326617C640C7004CCDAE /* FormFactorDWBAPol.cpp in Sources */,
 				6223326717C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp in Sources */,
-				6223326817C640C7004CCDAE /* FormFactorPol.cpp in Sources */,
 				6223326C17C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp in Sources */,
 				6223326D17C64116004CCDAE /* LayerStrategyBuilder.cpp in Sources */,
 				6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */,

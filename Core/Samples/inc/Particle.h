@@ -51,49 +51,21 @@ class BA_CORE_API_ Particle : public ICompositeSample
         mp_ambient_material = p_material;
     }
 
+    //! Create a scalar form factor which includes the particle's shape,
+    //! material, ambient material, an optional transformation and an extra
+    //! scattering factor
     virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const
-    {
-        IFormFactor *p_transformed_ff = createTransformedFormFactor();
-        if (!p_transformed_ff) {
-            return 0;
-        }
-        FormFactorDecoratorRefractiveIndex *p_ff =
-                new FormFactorDecoratorRefractiveIndex(
-                        p_transformed_ff, wavevector_scattering_factor);
-        p_ff->setMaterial(mp_material);
-        p_ff->setAmbientMaterial(mp_ambient_material);
-        return p_ff;
-    }
+            complex_t wavevector_scattering_factor) const;
 
+    //! Create a matrix form factor which includes the particle's shape,
+    //! material, ambient material, an optional transformation and an extra
+    //! scattering factor
     virtual FormFactorPol* createFormFactorMatrix(
-            complex_t wavevector_scattering_factor) const
-    {
-        IFormFactor *p_transformed_ff = createTransformedFormFactor();
-        if (!p_transformed_ff) {
-            return 0;
-        }
-        FormFactorDecoratorMaterial *p_ff =
-                new FormFactorDecoratorMaterial(
-                        p_transformed_ff, wavevector_scattering_factor);
-        p_ff->setMaterial(mp_material);
-        p_ff->setAmbientMaterial(mp_ambient_material);
-        return p_ff;
-    }
+            complex_t wavevector_scattering_factor) const;
 
     //! Sets the form factor of the particle (not including scattering factor
     //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
-    {
-        if (!p_form_factor) return;
-
-        if (p_form_factor != mp_form_factor) {
-            deregisterChild(mp_form_factor);
-            delete mp_form_factor;
-            mp_form_factor = p_form_factor;
-            registerChild(mp_form_factor);
-        }
-    }
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
 
     //! Sets _material_ and _thickness_.
     virtual void setMaterial(const IMaterial* p_material) {
@@ -119,23 +91,18 @@ class BA_CORE_API_ Particle : public ICompositeSample
     virtual void setTransform(const Geometry::PTransform3D& transform)
     { mP_transform = transform; }
 
-    //! Returns formfactor of the particle (not including scattering factor from
-    //! refractive index)
+    //! Returns form factor of the particle originating from its shape only
     virtual const IFormFactor *getSimpleFormFactor() const {
         return mp_form_factor;
     }
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo& /*parent_info*/) const {
-        return 0;
-    }
+            const ParticleInfo& parent_info) const;
 
-    virtual bool hasDistributedFormFactor() const
-    {
-        return ( !mp_form_factor ? false
-                                 : mp_form_factor->isDistributedFormFactor() );
-    }
+    //! Indicates whether the particle consists of an assembly of different
+    //! form factors according to a certain distribution
+    virtual bool hasDistributedFormFactor() const;
 
     virtual std::vector<ParticleInfo *> createDistributedParticles(
             size_t samples_per_particle, double factor) const;

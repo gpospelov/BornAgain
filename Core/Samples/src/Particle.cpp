@@ -99,29 +99,6 @@ Particle* Particle::cloneInvertB() const
     return p_new;
 }
 
-std::vector<ParticleInfo*> Particle::createDistributedParticles(
-        size_t samples_per_particle, double factor) const
-{
-    if(!mp_form_factor) throw NullPointerException("Particle::createDistributedParticles() -> No formfactor is defined.");
-
-    std::vector<ParticleInfo*> result;
-    if (mp_form_factor->isDistributedFormFactor()) {
-        std::vector<IFormFactor *> form_factors;
-        std::vector<double> probabilities;
-        mp_form_factor->createDistributedFormFactors(form_factors, probabilities, samples_per_particle);
-        if (form_factors.size() > 0 && form_factors.size()==probabilities.size()) {
-            for (size_t i=0; i<form_factors.size(); ++i) {
-                Particle *new_particle = clone();
-                new_particle->setSimpleFormFactor(form_factors[i]);
-                ParticleInfo *p_info =
-                    new ParticleInfo(new_particle, 0., probabilities[i]*factor);
-                result.push_back(p_info);
-            }
-        }
-    }
-    return result;
-}
-
 IFormFactor* Particle::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
@@ -150,6 +127,29 @@ FormFactorPol* Particle::createFormFactorMatrix(
     p_ff->setMaterial(mp_material);
     p_ff->setAmbientMaterial(mp_ambient_material);
     return p_ff;
+}
+
+std::vector<ParticleInfo*> Particle::createDistributedParticles(
+        size_t samples_per_particle, double factor) const
+{
+    if(!mp_form_factor) throw NullPointerException("Particle::createDistributedParticles() -> No formfactor is defined.");
+
+    std::vector<ParticleInfo*> result;
+    if (mp_form_factor->isDistributedFormFactor()) {
+        std::vector<IFormFactor *> form_factors;
+        std::vector<double> probabilities;
+        mp_form_factor->createDistributedFormFactors(form_factors, probabilities, samples_per_particle);
+        if (form_factors.size() > 0 && form_factors.size()==probabilities.size()) {
+            for (size_t i=0; i<form_factors.size(); ++i) {
+                Particle *new_particle = clone();
+                new_particle->setSimpleFormFactor(form_factors[i]);
+                ParticleInfo *p_info =
+                    new ParticleInfo(new_particle, 0., probabilities[i]*factor);
+                result.push_back(p_info);
+            }
+        }
+    }
+    return result;
 }
 
 void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)

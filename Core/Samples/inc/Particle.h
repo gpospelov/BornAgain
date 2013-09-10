@@ -63,10 +63,6 @@ class BA_CORE_API_ Particle : public ICompositeSample
     virtual FormFactorPol* createFormFactorMatrix(
             complex_t wavevector_scattering_factor) const;
 
-    //! Sets the form factor of the particle (not including scattering factor
-    //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
-
     //! Sets _material_ and _thickness_.
     virtual void setMaterial(const IMaterial* p_material) {
         mp_material = p_material;
@@ -95,6 +91,10 @@ class BA_CORE_API_ Particle : public ICompositeSample
     virtual const IFormFactor *getSimpleFormFactor() const {
         return mp_form_factor;
     }
+
+    //! Sets the form factor of the particle (not including scattering factor
+    //! from refractive index)
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(

@@ -1,25 +1,23 @@
-\documentclass[a4paper,10pt]{report}
+\documentclass[a4paper,11pt]{report}
 \usepackage{booktabs}
 \renewcommand{\arraystretch}{1.3}
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	FONT
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
 %\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	PAGE LAYOUT
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \usepackage[toc,page]{appendix}
 
 \textwidth = 410pt
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-
-
 \fancyhf{}
 
 %\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
@@ -67,9 +65,9 @@
 %\lhead[\helv \thepage]{\helv \rightmark}
 %\rhead[\helv \leftmark]{\helv \thepage}
 %\cfoot{}
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	OTHER PACKAGES and COMMANDS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \usepackage{graphicx}
 \usepackage{epstopdf}
 
@@ -84,28 +82,29 @@
 \usepackage{dingbat}
 
 \usepackage{hyperref}
+\usepackage{breakurl}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CUSTON LISTING SETTINGS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \usepackage{listings}
 \usepackage{lstcustom}
 \usepackage{enumerate}
 \renewcommand{\lstfontfamily}{\ttfamily}
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	COLORS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \definecolor{Lightgray}{gray}{.80}
 \definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %       Commands
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
@@ -120,28 +119,32 @@
   {\huge\danger}\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
  {\underline{#1} #2}}}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	TITLE PAGE
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \title{
-BornAgain - simulating and fitting X-ray and neutron small angle  scattering at grazing incidence. \\
+{\Huge\bf BornAgain}\\[10mm]
+Software for simulating and fitting\\
+X-ray and neutron small-angle scattering\\
+at grazing incidence\\
 \vspace*{10mm} User Guide \\
-\large{ version 0.1}
+\large{version 0.1.1\\\today}
 \vspace*{5mm}
 }
 
 \author{ 
-{\large C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke }\\
-Scientific Computing Group at MLZ \\
-\vspace*{50mm}
+{\LARGE C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke }\\[5mm]
+\large
+Scientific Computing Group\\
+J\"ulich Centre for Neutron Science\\
+outstation at Heinz Maier-Leibnitz Zentrum Garching\\
+Forschungszentrum J\"ulich GmbH
 }
 
-
-\date{
-License: Creative Common CC-BY-SA \\
-\today
-}
-
+\date{{}}
+%License: Creative Common CC-BY-SA \\
+%\today
+%}
 
 
 %\usepackage{eso-pic}
@@ -156,10 +159,9 @@ License: Creative Common CC-BY-SA \\
 %}}}
 
 
-
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	DOCUMENT
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \begin{document}
 
 \maketitle
@@ -185,4 +187,3 @@ License: Creative Common CC-BY-SA \\
 
 
 \end{document}
-

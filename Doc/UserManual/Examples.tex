@@ -3,19 +3,17 @@
 %\section{Examples} \SecLabel{Examples}
 
 \section{General methodology}
-A simulation of GISAXS using \BornAgain\ platform can be decomposed into the following points:
+A simulation of GISAXS using \BornAgain\ consists of following steps:
 \begin{itemize}
-\item definition of the materials by specifying their names and their
-  refractive indices,
-\item definition of particles: shapes, sizes, constituting materials, interference functions,
-\item definition of the layers: thicknesses, roughnesses, associations with the previously defined
-materials,
-\item inclusion of the particles in layers: density, positions, orientations, 
-\item assembling the sample: generation of a multilayered system,
-\item specifying the input beam and the detector's
-  characteristics,
-\item running the simulation,
-\item saving the data.
+\item define materials by specifying name and refractive index,
+\item define embedded particles by specifying shape, size,
+   constituting material, interference function,
+\item define layers by specifiying thickness, roughness, material
+\item include particles in layers, specifying density, position, orientation, 
+\item assemble a multilayered sample,
+\item specify input beam and detector characteristics,
+\item run the simulation,
+\item save the simulated detector image.
 \end{itemize}
 
 \noindent The sample is built from object oriented building blocks instead of loading data files.

@@ -1,4 +1,4 @@
-BornAgain-0.9    2013.08.23
+BornAgain-0.9, released 2013.08.23
   * FunctionalTests: fitting from python works two times faster than fitting from C++
   * Compile Error on Ubuntu 12.04
   * Strange warning in boost::python api generation
@@ -28,19 +28,15 @@ BornAgain-0.9    2013.08.23
   * Move all IsGISAXS geometries to Core/StandardSample directory
   * cmake build in Ubuntu and corresponding how to in the documentation
 
-BornAgain-0.8.2  2013.07.30
+BornAgain-0.8.2, released 2013.07.30
   * Particle interface changed to accept HomogeneousMaterial
 
-BornAgain-0.8.1  2013.07.26
+BornAgain-0.8.1, released 2013.07.26
   * CMake based build system
   * PythonAPI automatic code generation redesign
   * User Manual v0.1
   * libBornAgainFit
   * FunctionalTest collection
-  
 
-BornAgain-0.7.0  2013.04.10
+BornAgain-0.7.0, released 2013.04.10
   * First public release
-
-
-

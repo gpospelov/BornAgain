@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorDecoratorMaterial.h
-//! @brief     Defines class FormFactorDecoratorMaterial.
+//! @file      FormFactors/inc/FormFactorDecoratorMatrixMaterial.h
+//! @brief     Defines class FormFactorDecoratorMatrixMaterial.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,25 +13,25 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORMATERIAL_H_
-#define FORMFACTORDECORATORMATERIAL_H_
+#ifndef FORMFACTORDECORATORMATRIXMATERIAL_H_
+#define FORMFACTORDECORATORMATRIXMATERIAL_H_
 
 #include "FormFactorPol.h"
 #include "HomogeneousMagneticMaterial.h"
 
 //! Evaluates a polarized form factor (which is a 2x2 matrix)
 
-class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorPol
+class BA_CORE_API_ FormFactorDecoratorMatrixMaterial : public FormFactorPol
 {
 public:
-    FormFactorDecoratorMaterial(IFormFactor *p_formfactor,
+    FormFactorDecoratorMatrixMaterial(IFormFactor *p_formfactor,
             complex_t wavevector_scattering_factor=1.0)
         : mp_formfactor(p_formfactor)
         , mp_material(0), mp_ambient_material(0)
         , m_wavevector_scattering_factor(wavevector_scattering_factor) {}
-    virtual ~FormFactorDecoratorMaterial();
+    virtual ~FormFactorDecoratorMatrixMaterial();
 
-    virtual FormFactorDecoratorMaterial *clone() const;
+    virtual FormFactorDecoratorMatrixMaterial *clone() const;
 
 #ifndef GCCXML_SKIP_THIS
     //! Calculates and returns a polarized form factor calculation in DWBA
@@ -55,4 +55,4 @@ protected:
     complex_t m_wavevector_scattering_factor;
 };
 
-#endif /* FORMFACTORDECORATORMATERIAL_H_ */
+#endif /* FORMFACTORDECORATORMATRIXMATERIAL_H_ */

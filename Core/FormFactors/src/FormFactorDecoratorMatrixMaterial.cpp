@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/src/FormFactorDecoratorMaterial.cpp
-//! @brief     Implements class FormFactorDecoratorMaterial.
+//! @file      FormFactors/src/FormFactorDecoratorMatrixMaterial.cpp
+//! @brief     Implements class FormFactorDecoratorMatrixMaterial.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,15 +13,15 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDecoratorMaterial.h"
+#include "FormFactorDecoratorMatrixMaterial.h"
 
-FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial()
+FormFactorDecoratorMatrixMaterial::~FormFactorDecoratorMatrixMaterial()
 {
 }
 
-FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
+FormFactorDecoratorMatrixMaterial* FormFactorDecoratorMatrixMaterial::clone() const
 {
-    FormFactorDecoratorMaterial *p_result = new FormFactorDecoratorMaterial(
+    FormFactorDecoratorMatrixMaterial *p_result = new FormFactorDecoratorMatrixMaterial(
             mp_formfactor->clone(), m_wavevector_scattering_factor);
     p_result->setName(getName());
     p_result->setMaterial(mp_material);
@@ -29,7 +29,7 @@ FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
     return p_result;
 }
 
-Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t& k_i,
+Eigen::Matrix2cd FormFactorDecoratorMatrixMaterial::evaluatePol(const cvector_t& k_i,
         const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
         double alpha_i, double alpha_f, double phi_f) const
 {

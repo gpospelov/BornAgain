@@ -129,8 +129,8 @@ IFormFactor* Particle::createFormFactor(
     if (!p_transformed_ff) {
         return 0;
     }
-    FormFactorDecoratorRefractiveIndex *p_ff =
-            new FormFactorDecoratorRefractiveIndex(
+    FormFactorDecoratorScalarMaterial *p_ff =
+            new FormFactorDecoratorScalarMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
     p_ff->setMaterial(mp_material);
     p_ff->setAmbientMaterial(mp_ambient_material);
@@ -144,8 +144,8 @@ FormFactorPol* Particle::createFormFactorMatrix(
     if (!p_transformed_ff) {
         return 0;
     }
-    FormFactorDecoratorMaterial *p_ff =
-            new FormFactorDecoratorMaterial(
+    FormFactorDecoratorMatrixMaterial *p_ff =
+            new FormFactorDecoratorMatrixMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
     p_ff->setMaterial(mp_material);
     p_ff->setAmbientMaterial(mp_ambient_material);

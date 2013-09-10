@@ -16,7 +16,7 @@
 #include "TestPolarizedDWBATerms.h"
 
 #include "FormFactorDWBAPol.h"
-#include "FormFactorDecoratorMaterial.h"
+#include "FormFactorDecoratorMatrixMaterial.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorCylinder.h"
 #include "LayerSpecularInfo.h"
@@ -38,8 +38,8 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
     const IMaterial *p_ambient_material =
             MaterialManager::getHomogeneousMaterial(
             "ambient", complex_t(0.0, 0.0));
-    FormFactorDecoratorMaterial *p_matrix_material_ff =
-            new FormFactorDecoratorMaterial(new FormFactorCylinder(1.0, 1.0));
+    FormFactorDecoratorMatrixMaterial *p_matrix_material_ff =
+            new FormFactorDecoratorMatrixMaterial(new FormFactorCylinder(1.0, 1.0));
     p_matrix_material_ff->setMaterial(p_particle_material);
     p_matrix_material_ff->setAmbientMaterial(p_ambient_material);
     mp_matrix_ff = new FormFactorDWBAPol(p_matrix_material_ff);

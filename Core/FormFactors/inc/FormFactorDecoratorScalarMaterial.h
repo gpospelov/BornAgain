@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorDecoratorRefractiveIndex.h
-//! @brief     Defines class FormFactorDecoratorRefractiveIndex.
+//! @file      FormFactors/inc/FormFactorDecoratorScalarMaterial.h
+//! @brief     Defines class FormFactorDecoratorScalarMaterial.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORREFRACTIVEINDEX_H_
-#define FORMFACTORDECORATORREFRACTIVEINDEX_H_
+#ifndef FORMFACTORDECORATORSCALARMATERIAL_H_
+#define FORMFACTORDECORATORSCALARMATERIAL_H_
 
 #include "FormFactorDecoratorFactor.h"
 #include "HomogeneousMaterial.h"
@@ -22,14 +22,14 @@
 //! Decorates a scalar form factor with the correct factor for the material's
 //! refractive index and that of its surrounding material
 
-class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
+class FormFactorDecoratorScalarMaterial : public FormFactorDecoratorFactor
 {
  public:
-    FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor,
+    FormFactorDecoratorScalarMaterial(IFormFactor *p_form_factor,
             complex_t wavevector_scattering_factor=1.0);
-    ~FormFactorDecoratorRefractiveIndex();
+    ~FormFactorDecoratorScalarMaterial();
 
-    FormFactorDecoratorRefractiveIndex *clone() const;
+    FormFactorDecoratorScalarMaterial *clone() const;
 
     //! Sets the material of the scatterer
     void setMaterial(const IMaterial *p_material);
@@ -48,25 +48,25 @@ class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
     complex_t m_wavevector_scattering_factor;
 };
 
-inline FormFactorDecoratorRefractiveIndex::FormFactorDecoratorRefractiveIndex(
+inline FormFactorDecoratorScalarMaterial::FormFactorDecoratorScalarMaterial(
         IFormFactor* p_form_factor, complex_t wavevector_scattering_factor)
 : FormFactorDecoratorFactor(p_form_factor, 1.0)
 , m_refractive_index(1.0)
 , m_ambient_refractive_index(1.0)
 , m_wavevector_scattering_factor(wavevector_scattering_factor)
 {
-    setName("FormFactorDecoratorRefractiveIndex");
+    setName("FormFactorDecoratorScalarMaterial");
 }
 
-inline FormFactorDecoratorRefractiveIndex::~FormFactorDecoratorRefractiveIndex()
+inline FormFactorDecoratorScalarMaterial::~FormFactorDecoratorScalarMaterial()
 {
 }
 
-inline FormFactorDecoratorRefractiveIndex*
-FormFactorDecoratorRefractiveIndex::clone() const
+inline FormFactorDecoratorScalarMaterial*
+FormFactorDecoratorScalarMaterial::clone() const
 {
-    FormFactorDecoratorRefractiveIndex *result =
-            new FormFactorDecoratorRefractiveIndex(mp_form_factor->clone(),
+    FormFactorDecoratorScalarMaterial *result =
+            new FormFactorDecoratorScalarMaterial(mp_form_factor->clone(),
                     m_wavevector_scattering_factor);
     result->m_refractive_index = m_refractive_index;
     result->m_ambient_refractive_index = m_ambient_refractive_index;
@@ -75,7 +75,7 @@ FormFactorDecoratorRefractiveIndex::clone() const
     return result;
 }
 
-inline void FormFactorDecoratorRefractiveIndex::setMaterial(
+inline void FormFactorDecoratorScalarMaterial::setMaterial(
         const IMaterial* p_material)
 {
     if (p_material) {
@@ -85,7 +85,7 @@ inline void FormFactorDecoratorRefractiveIndex::setMaterial(
                                         m_refractive_index);
 }
 
-inline void FormFactorDecoratorRefractiveIndex::setAmbientMaterial(
+inline void FormFactorDecoratorScalarMaterial::setAmbientMaterial(
         const IMaterial *p_material)
 {
     if (p_material) {
@@ -95,13 +95,13 @@ inline void FormFactorDecoratorRefractiveIndex::setAmbientMaterial(
                                         m_refractive_index);
 }
 
-inline complex_t FormFactorDecoratorRefractiveIndex::getRefractiveIndexFactor(
+inline complex_t FormFactorDecoratorScalarMaterial::getRefractiveIndexFactor(
         const complex_t& ambient_index, const complex_t& particle_index) const
 {
     return m_wavevector_scattering_factor *
             (particle_index*particle_index - ambient_index*ambient_index);
 }
 
-#endif /* FORMFACTORDECORATORREFRACTIVEINDEX_H_ */
+#endif /* FORMFACTORDECORATORSCALARMATERIAL_H_ */
 
 

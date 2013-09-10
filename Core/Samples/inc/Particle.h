@@ -17,8 +17,8 @@
 #define PARTICLE_H
 
 #include "ICompositeSample.h"
-#include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorRefractiveIndex.h"
+#include "FormFactorDecoratorMatrixMaterial.h"
+#include "FormFactorDecoratorScalarMaterial.h"
 #include "FormFactorDecoratorTransformation.h"
 #include "HomogeneousMaterial.h"
 

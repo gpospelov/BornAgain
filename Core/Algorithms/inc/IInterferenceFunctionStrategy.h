@@ -35,7 +35,7 @@ public:
                       form_factor_infos,
                       const SafePointerVector<IInterferenceFunction>& ifs);
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const=0;
+            double alpha_f) const=0;
     //! Calculates and returns a polarized form factor in DWBA
     virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
@@ -44,10 +44,10 @@ public:
 protected:
     //! Returns mean form factor, possibly including their position information
     complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f, bool use_position=false) const;
+            double alpha_f, bool use_position=false) const;
     //! Returns mean squared form factor
     double meanSquaredFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const;
+            double alpha_f) const;
     //! Returns q-vector from k_i and the bin of k_f
     cvector_t getQ(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
     SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
@@ -64,14 +64,14 @@ inline void IInterferenceFunctionStrategy::init(
 }
 
 inline complex_t IInterferenceFunctionStrategy::meanFormFactor(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f, bool use_position) const
+        const Bin1DCVector& k_f_bin, double alpha_f, bool use_position) const
 {
     complex_t result;
     for (SafePointerVector<FormFactorInfo>::const_iterator
              it=m_ff_infos.begin();
          it != m_ff_infos.end(); ++it) {
         complex_t ff_value =
-            (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+            (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
         if (use_position) {
             cvector_t q = getQ(k_i, k_f_bin);
             complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
@@ -83,13 +83,12 @@ inline complex_t IInterferenceFunctionStrategy::meanFormFactor(const cvector_t& 
 }
 
 inline double IInterferenceFunctionStrategy::meanSquaredFormFactor(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     double result=0.0;
     for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
             it != m_ff_infos.end(); ++it) {
-        complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+        complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
         result += std::norm(ff_value);
     }
     return result;

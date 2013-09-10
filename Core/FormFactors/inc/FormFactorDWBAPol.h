@@ -30,9 +30,8 @@ public:
     virtual FormFactorDWBAPol *clone() const;
 
     //! Throws exception
-    virtual complex_t evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-        double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_f) const;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,

@@ -18,7 +18,7 @@
 
 #include "IFormFactor.h"
 
-//! Pure virtual interface for Born formfactors (only depending on q=ki-kf).
+//! Pure virtual interface for Born form factors (only depending on q=ki-kf).
 
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
@@ -29,18 +29,14 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    virtual complex_t evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-        double alpha_i, double alpha_f) const
-    {
-        (void)alpha_i;  // to avoid unused-variable warning
-        (void)alpha_f;  // to avoid unused-variable warning
-        Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
-        if (useLargeBinApproximation(q_bin)) {
-            return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
-        }
-        return evaluate_for_q(q_bin.getMidPoint());
-    }
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_f) const;
+
+#ifndef GCCXML_SKIP_THIS
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+            double alpha_i, double alpha_f, double phi_f) const;
+#endif
 
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
@@ -48,14 +44,10 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 
     //! Returns volume.
 
-    //! Default implementation: formfactor at q=0.
+    //! Default implementation: form factor at q=0.
     //! Overload this for more efficient implementation
     //! (or to avoid endless loop caused by big bin approximation).
-    //!
-    virtual double getVolume() const {
-        cvector_t zero;
-        return std::abs(evaluate_for_q(zero));
-    }
+    virtual double getVolume() const;
 
  protected:
     //! Returns radial part of scattering amplitude for large bins
@@ -66,18 +58,7 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 
  private:
     //! determine if a large bin size approximation should be used
-    bool useLargeBinApproximation(const Bin1DCVector& q_bin) const
-    {
-        double delta_qr = std::abs( q_bin.getDelta().magxy() );
-        double delta_qz = std::abs( q_bin.getDelta().z() );
-        if (delta_qr == 0 || delta_qz == 0)
-            return false;
-        if ( delta_qr > M_PI/2/getRadius() )
-            return true;
-        if ( delta_qz > M_PI/2/getHeight() )
-            return true;
-        return false;
-    }
+    bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
     //! approximate intensity that does not contain rapid oscillations
     double bigRadialIntegrand(double qR, void *params) const;
@@ -85,34 +66,6 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
     //! calculates the integrated intensity along the z-direction
     double bigZPartIntegral(double qH2) const;
 };
-
-
-//inline complex_t IFormFactorBorn::evaluate(
-//    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-//    double alpha_i, double alpha_f) const
-//{
-//    (void)alpha_i;  // to avoid unused-variable warning
-//    (void)alpha_f;  // to avoid unused-variable warning
-//    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
-//    if (useLargeBinApproximation(q_bin)) {
-//        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
-//    }
-//    return evaluate_for_q(q_bin.getMidPoint());
-//}
-
-//inline bool IFormFactorBorn::useLargeBinApproximation(
-//    const Bin1DCVector& q_bin) const
-//{
-//    double delta_qr = std::abs( q_bin.getDelta().magxy() );
-//    double delta_qz = std::abs( q_bin.getDelta().z() );
-//    if (delta_qr == 0 || delta_qz == 0)
-//        return false;
-//    if ( delta_qr > M_PI/2/getRadius() )
-//        return true;
-//    if ( delta_qz > M_PI/2/getHeight() )
-//        return true;
-//    return false;
-//}
 
 #endif /* IFORMFACTORBORN_H_ */
 

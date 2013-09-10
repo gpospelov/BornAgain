@@ -53,7 +53,7 @@ void DiffuseDWBASimulation::run()
             for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
                 complex_t amp =
                     p_diffuse_term->m_form_factors[j]->evaluate(
-                        k_ij, k_f_bin, -m_alpha_i, alpha_f);
+                        k_ij, k_f_bin, alpha_f);
                 amplitude += p_diffuse_term->m_probabilities[j]*amp;
                 intensity += p_diffuse_term->m_probabilities[j]*std::norm(amp);
             }

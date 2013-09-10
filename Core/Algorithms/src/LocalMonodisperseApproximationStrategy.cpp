@@ -35,7 +35,7 @@ void LocalMonodisperseApproximationStrategy::init(
 }
 
 double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     double intensity = 0.0;
     cvector_t q = getQ(k_i, k_f_bin);
@@ -45,7 +45,7 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
         for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
                 it != m_ff_infos.end(); ++it) {
             double fraction = (*it)->m_abundance;
-            complex_t ff = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+            complex_t ff = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
             complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
             amplitude += fraction*std::abs(ff)*std::exp(complex_t(0.0, 1.0)*phase);
         }
@@ -53,7 +53,7 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
     }
     else {
         for (size_t i=0; i<m_ff_infos.size(); ++i) {
-            complex_t ff = m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+            complex_t ff = m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
             double itf_function = m_ifs[i]->evaluate(k_i-k_f_bin.getMidPoint());
             double fraction = m_ff_infos[i]->m_abundance;
             intensity += fraction*(itf_function*std::norm(ff));

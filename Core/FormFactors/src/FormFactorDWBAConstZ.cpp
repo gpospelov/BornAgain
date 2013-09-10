@@ -24,10 +24,9 @@ FormFactorDWBAConstZ::FormFactorDWBAConstZ(
 }
 
 complex_t FormFactorDWBAConstZ::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_f) const
 {
-    calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
+    calculateTerms(k_i, k_f_bin, alpha_f);
     complex_t k_iz = k_i.z();
     complex_t k_fz = k_f_bin.getMidPoint().z();
     m_term_S *= getDepthPhase(k_iz-k_fz);

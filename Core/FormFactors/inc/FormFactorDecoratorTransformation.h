@@ -38,9 +38,8 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
 
     virtual FormFactorDecoratorTransformation *clone() const;
 
-    virtual complex_t evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-        double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const
     { return mp_form_factor->getNumberOfStochasticParameters(); }
@@ -52,8 +51,7 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
 
 
 inline complex_t FormFactorDecoratorTransformation::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     cvector_t new_ki =
         mP_inverse_transform->transformed(k_i);
@@ -62,7 +60,7 @@ inline complex_t FormFactorDecoratorTransformation::evaluate(
     cvector_t new_kf_upper =
         mP_inverse_transform->transformed(k_f_bin.m_q_upper);
     Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
-    return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_i, alpha_f);
+    return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_f);
 }
 
 #endif // FORMFACTORDECORATORTRANSFORMATION_H

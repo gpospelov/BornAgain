@@ -30,9 +30,8 @@ public:
     virtual void init(
         const SafePointerVector<FormFactorInfo>& form_factor_infos,
         const SafePointerVector<IInterferenceFunction>& ifs);
-    virtual double evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-        double alpha_i, double alpha_f) const;
+    virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+        double alpha_f) const;
 
     //! Calculates and returns a polarized form factor in DWBA
     virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,

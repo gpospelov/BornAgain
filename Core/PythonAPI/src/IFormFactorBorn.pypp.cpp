@@ -30,16 +30,16 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return func_clone(  );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const {
@@ -254,14 +254,14 @@ void register_IFormFactorBorn_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const;
-            typedef ::complex_t ( IFormFactorBorn_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double ) const;
+            typedef ::complex_t ( IFormFactorBorn_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double ) const;
             
             IFormFactorBorn_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::IFormFactorBorn::evaluate)
                 , default_evaluate_function_type(&IFormFactorBorn_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) );
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f") ) );
         
         }
         { //::IFormFactorBorn::evaluate_for_q

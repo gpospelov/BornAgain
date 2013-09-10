@@ -64,9 +64,8 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const
 }
 
 complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, double alpha_f) const
 {
-    (void)alpha_i;
     (void)alpha_f;
 
     // construct a real reciprocal vector
@@ -89,9 +88,9 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
         complex_t basis_factor = mp_basis_form_factor->evaluate(
-                k_zero, min_q_i_zero_bin, 0.0, 0.0);
+                k_zero, min_q_i_zero_bin, 0.0);
         complex_t meso_factor = mp_meso_form_factor->evaluate(
-                k_zero, q_i_min_q, 0.0, 0.0);
+                k_zero, q_i_min_q, 0.0);
         result += basis_factor*meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3

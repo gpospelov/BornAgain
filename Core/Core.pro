@@ -90,7 +90,9 @@ SOURCES += \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDWBAPol.cpp \
     FormFactors/src/FormFactorDWBAPolConstZ.cpp \
+    FormFactors/src/FormFactorDecoratorDebyeWaller.cpp \
     FormFactors/src/FormFactorDecoratorMaterial.cpp \
+    FormFactors/src/FormFactorDecoratorMultiPositionFactor.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \

@@ -51,9 +51,8 @@ class BA_CORE_API_ IFormFactor : public ISample
     //! @param k_f_bin   outgoing wavevector bin
     //! @param alpha_i incident angle wrt scattering surface
     //! @param alpha_f outgoing angle wrt scattering surface
-    virtual complex_t evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-        double alpha_i, double alpha_f) const=0;
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_f) const=0;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
@@ -101,10 +100,15 @@ inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
         const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
         double alpha_i, double alpha_f, double phi_f) const
 {
+    (void)k_i;
+    (void)k_f1_bin;
     (void)k_f2_bin;
+    (void)alpha_i;
+    (void)alpha_f;
     (void)phi_f;
-    Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
-    return evaluate(k_i, k_f1_bin, alpha_i, alpha_f) * unit_matrix;
+    // Throws to prevent unanticipated behaviour
+    throw NotImplementedException("IFormFactor::evaluatePol:"
+            " is not implemented by default");
 }
 #endif
 
@@ -112,7 +116,7 @@ inline double IFormFactor::getVolume() const
 {
     cvector_t zero;
     Bin1DCVector zero_bin(zero, zero);
-    return std::abs(evaluate(zero, zero_bin, 0.0, 0.0));
+    return std::abs(evaluate(zero, zero_bin, 0.0));
 }
 
 inline double IFormFactor::getHeight() const

@@ -17,6 +17,34 @@
 #include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
 
+complex_t IFormFactorBorn::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, double alpha_f) const
+{
+    (void)alpha_f;
+    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
+    if (useLargeBinApproximation(q_bin)) {
+        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
+    }
+    return evaluate_for_q(q_bin.getMidPoint());
+}
+
+Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const cvector_t& k_i,
+        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+        double alpha_i, double alpha_f, double phi_f) const
+{
+    (void)k_f2_bin;
+    (void)alpha_i;
+    (void)phi_f;
+    Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
+    return evaluate(k_i, k_f1_bin, alpha_f) * unit_matrix;
+}
+
+double IFormFactorBorn::getVolume() const
+{
+    cvector_t zero;
+    return std::abs(evaluate_for_q(zero));
+}
+
 double IFormFactorBorn::bigRadialPart(const Bin1DCVector& q_bin) const
 {
     // modulus of the radial part
@@ -50,6 +78,19 @@ complex_t IFormFactorBorn::bigZPart(const Bin1DCVector& q_bin) const
     double z_modulus = std::sqrt(z_average_intensity);
 
     return z_phase*z_modulus;
+}
+
+bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector& q_bin) const
+{
+    double delta_qr = std::abs( q_bin.getDelta().magxy() );
+    double delta_qz = std::abs( q_bin.getDelta().z() );
+    if (delta_qr == 0 || delta_qz == 0)
+        return false;
+    if ( delta_qr > M_PI/2/getRadius() )
+        return true;
+    if ( delta_qz > M_PI/2/getHeight() )
+        return true;
+    return false;
 }
 
 double IFormFactorBorn::bigRadialIntegrand(double t, void* params) const

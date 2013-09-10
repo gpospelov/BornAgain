@@ -37,17 +37,17 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 }
 
 double SizeSpacingCorrelationApproximationStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     double qp = getqp(k_i, k_f_bin);
     double diffuse_intensity = 0.0;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        complex_t ff = m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+        complex_t ff = m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
         double fraction = m_ff_infos[i]->m_abundance;
         diffuse_intensity += fraction*(std::norm(ff));
     }
-    complex_t mcff = getMeanCharacteristicFF(k_i, k_f_bin, alpha_i, alpha_f);
-    complex_t mcffc = getMeanConjCharacteristicFF(k_i, k_f_bin, alpha_i, alpha_f);
+    complex_t mcff = getMeanCharacteristicFF(k_i, k_f_bin, alpha_f);
+    complex_t mcffc = getMeanConjCharacteristicFF(k_i, k_f_bin, alpha_f);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0*m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0*( mcff*mcffc*omega/(1.0 - p2kappa*omega) ).real();
@@ -78,26 +78,26 @@ bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i,
-        double alpha_f) const
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     double qp = getqp(k_i, k_f_bin);
     complex_t result(0.0, 0.0);
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        result += m_ff_infos[i]->m_abundance*m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f)*
+        result += m_ff_infos[i]->m_abundance*m_ff_infos[i]->mp_ff->
+                evaluate(k_i, k_f_bin, alpha_f) *
                 calculatePositionOffsetPhase(qp, m_kappa, i);
     }
     return result;
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i,
-        double alpha_f) const
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     double qp = getqp(k_i, k_f_bin);
     complex_t result(0.0, 0.0);
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        result += m_ff_infos[i]->m_abundance*std::conj(m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f))*
+        result += m_ff_infos[i]->m_abundance*std::conj(m_ff_infos[i]->mp_ff->
+                evaluate(k_i, k_f_bin, alpha_f)) *
                 calculatePositionOffsetPhase(qp, m_kappa, i);
     }
     return result;

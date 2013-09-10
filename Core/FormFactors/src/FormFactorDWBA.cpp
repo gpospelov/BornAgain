@@ -38,9 +38,9 @@ FormFactorDWBA* FormFactorDWBA::clone() const
 }
 
 complex_t FormFactorDWBA::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, double alpha_f) const
 {
-    calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
+    calculateTerms(k_i, k_f_bin, alpha_f);
     return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
@@ -52,7 +52,7 @@ void FormFactorDWBA::setSpecularInfo(
 }
 
 void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, double alpha_f) const
 {
     cvector_t k_itilde(k_i.x(), k_i.y(), -k_i.z());
     Bin1DCVector k_f_bin_tilde =  k_f_bin;
@@ -65,13 +65,13 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
     const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
 
     m_term_S = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i, k_f_bin,
-            alpha_i, alpha_f)*p_out_coeff->getScalarT();
+            alpha_f) * p_out_coeff->getScalarT();
     m_term_RS = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_itilde,
-            k_f_bin, alpha_i, alpha_f)*p_out_coeff->getScalarT();
+            k_f_bin, alpha_f) * p_out_coeff->getScalarT();
     m_term_SR = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i,
-            k_f_bin_tilde, alpha_i, alpha_f)*p_out_coeff->getScalarR();
+            k_f_bin_tilde, alpha_f) * p_out_coeff->getScalarR();
     m_term_RSR = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_itilde,
-            k_f_bin_tilde, alpha_i, alpha_f)*p_out_coeff->getScalarR();
+            k_f_bin_tilde, alpha_f) * p_out_coeff->getScalarR();
 }
 
 

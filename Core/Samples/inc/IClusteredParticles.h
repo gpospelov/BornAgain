@@ -72,7 +72,6 @@ public:
                 "IClusteredParticles::createDiffuseParticleInfo() "
                 "-> NotImplementedException");
     }
-
 };
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

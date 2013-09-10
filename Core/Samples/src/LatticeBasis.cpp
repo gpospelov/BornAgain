@@ -91,11 +91,16 @@ IFormFactor* LatticeBasis::createFormFactor(
 {
     FormFactorWeighted *p_ff = new FormFactorWeighted();
     for (size_t index=0; index<m_particles.size(); ++index) {
-        IFormFactor *p_particle_ff = m_particles[index]->createFormFactor(
-                wavevector_scattering_factor);
-        FormFactorDecoratorMultiPositionFactor pos_ff(*p_particle_ff, m_positions_vector[index]);
-        p_ff->addFormFactor(pos_ff);
-        delete p_particle_ff;
+        boost::scoped_ptr<Particle> P_particle_clone(
+                m_particles[index]->clone());
+        FormFactorDecoratorMultiPositionFactor pos_ff(
+                *P_particle_clone->getSimpleFormFactor(),
+                m_positions_vector[index]);
+        P_particle_clone->setSimpleFormFactor(pos_ff.clone());
+        boost::scoped_ptr<IFormFactor> P_particles_ff(
+                P_particle_clone->createFormFactor(
+                        wavevector_scattering_factor));
+        p_ff->addFormFactor(*P_particles_ff);
     }
     p_ff->setAmbientMaterial(mp_ambient_material);
     return p_ff;

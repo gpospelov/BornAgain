@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFormFactor.cpp
@@ -58,7 +58,7 @@ void TestFormFactor::execute()
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         Bin1DCVector k_f_zero_bin(k_f, k_f);
-        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_i, alpha_f)),2);
+        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_f)),2);
         ++it;
     }
     draw4();

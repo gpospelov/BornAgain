@@ -52,7 +52,7 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 
 void TestPolarizedDWBATerms::execute()
 {
-    mp_scalar_ff->calculateTerms(m_ki, m_kf_bin, m_alpha_i, m_alpha_f);
+    mp_scalar_ff->calculateTerms(m_ki, m_kf_bin, m_alpha_f);
     mp_matrix_ff->calculateTerms(m_ki, m_kf_bin, m_kf_bin, m_alpha_i, m_alpha_f,
             0.1);
 

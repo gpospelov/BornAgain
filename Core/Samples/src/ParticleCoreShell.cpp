@@ -68,7 +68,7 @@ IFormFactor *ParticleCoreShell::createFormFactor(
     ff_shell.setAmbientMaterial(mp_ambient_material);
     p_result->addFormFactor(ff_shell, 1.0);
     IFormFactor *p_core_simple = new FormFactorDecoratorPositionFactor(
-            mp_core->getSimpleFormFactor()->clone(), m_relative_core_position);
+            *mp_core->getSimpleFormFactor(), m_relative_core_position);
     FormFactorDecoratorMaterial ff_core(p_core_simple,
             wavevector_scattering_factor);
     ff_core.setMaterial(mp_core->getMaterial());

@@ -17,8 +17,7 @@
 #define PARTICLE_H
 
 #include "ICompositeSample.h"
-#include "FormFactorDecoratorMatrixMaterial.h"
-#include "FormFactorDecoratorScalarMaterial.h"
+#include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorTransformation.h"
 #include "HomogeneousMaterial.h"
 
@@ -51,16 +50,10 @@ class BA_CORE_API_ Particle : public ICompositeSample
         mp_ambient_material = p_material;
     }
 
-    //! Create a scalar form factor which includes the particle's shape,
+    //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
     //! scattering factor
     virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const;
-
-    //! Create a matrix form factor which includes the particle's shape,
-    //! material, ambient material, an optional transformation and an extra
-    //! scattering factor
-    virtual FormFactorPol* createFormFactorMatrix(
             complex_t wavevector_scattering_factor) const;
 
     //! Sets _material_ and _thickness_.

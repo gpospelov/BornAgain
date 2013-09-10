@@ -18,7 +18,7 @@
 
 #include "IFormFactorDecorator.h"
 
-//! ?
+//! Decorates a form factor with a constant factor
 
 class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
@@ -27,7 +27,9 @@ class FormFactorDecoratorFactor : public IFormFactorDecorator
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
 
-    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+    //! Evaluate the formfactor for scalar calculations
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 

@@ -29,38 +29,18 @@ public:
 
     virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
-    virtual int getNumberOfStochasticParameters() const {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
-private:
-    complex_t getPositionsFactor(cvector_t q) const;
-    std::vector<kvector_t> m_positions;
-};
-
-class FormFactorDecoratorMultiPositionFactorMat : public FormFactorPol
-{
-public:
-    FormFactorDecoratorMultiPositionFactorMat(const FormFactorPol& form_factor,
-            std::vector<kvector_t> positions);
-    virtual ~FormFactorDecoratorMultiPositionFactorMat() {
-        delete mp_form_factor;
-    }
-    virtual FormFactorDecoratorMultiPositionFactorMat *clone() const;
-
-    virtual int getNumberOfStochasticParameters() const {
-        return mp_form_factor->getNumberOfStochasticParameters();
-    }
-
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
             double alpha_i, double alpha_f, double phi_f) const;
 
+    virtual int getNumberOfStochasticParameters() const {
+        return mp_form_factor->getNumberOfStochasticParameters();
+    }
+
 private:
     complex_t getPositionsFactor(cvector_t q) const;
     std::vector<kvector_t> m_positions;
-    FormFactorPol *mp_form_factor;
 };
 
 inline FormFactorDecoratorMultiPositionFactor::
@@ -87,35 +67,7 @@ inline complex_t FormFactorDecoratorMultiPositionFactor::evaluate(
             alpha_i, alpha_f);
 }
 
-inline complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(
-        cvector_t q) const
-{
-    complex_t result;
-    for (size_t i=0; i<m_positions.size(); ++i) {
-        complex_t qr = q.x()*m_positions[i].x() + q.y()*m_positions[i].y()
-                + q.z()*m_positions[i].z();
-        result += std::exp(complex_t(0.0, 1.0)*qr);
-    }
-    return result;
-}
-
-inline FormFactorDecoratorMultiPositionFactorMat::
-FormFactorDecoratorMultiPositionFactorMat(
-        const FormFactorPol& form_factor, std::vector<kvector_t> positions)
-: m_positions(positions)
-, mp_form_factor(form_factor.clone())
-{
-    setName("FormFactorDecoratorMultiPositionFactorMat");
-}
-
-inline FormFactorDecoratorMultiPositionFactorMat*
-FormFactorDecoratorMultiPositionFactorMat::clone() const
-{
-    return new FormFactorDecoratorMultiPositionFactorMat(
-            *mp_form_factor, m_positions);
-}
-
-inline Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactorMat::evaluatePol(
+inline Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
         const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
         const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
         double phi_f) const
@@ -125,7 +77,7 @@ inline Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactorMat::evaluatePol(
             k_f2_bin, alpha_i, alpha_f, phi_f);
 }
 
-inline complex_t FormFactorDecoratorMultiPositionFactorMat::getPositionsFactor(
+inline complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(
         cvector_t q) const
 {
     complex_t result;

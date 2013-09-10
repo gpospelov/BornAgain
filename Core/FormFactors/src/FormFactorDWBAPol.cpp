@@ -16,7 +16,7 @@
 #include "FormFactorDWBAPol.h"
 #include "Exceptions.h"
 
-FormFactorDWBAPol::FormFactorDWBAPol(FormFactorPol* p_form_factor)
+FormFactorDWBAPol::FormFactorDWBAPol(IFormFactor* p_form_factor)
 : mp_form_factor(p_form_factor)
 , mp_specular_info(0)
 {
@@ -34,6 +34,17 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
     p_result->setSpecularInfo(*mp_specular_info);
     p_result->setName(getName());
     return p_result;
+}
+
+complex_t FormFactorDWBAPol::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+{
+    (void)k_i;
+    (void)k_f_bin;
+    (void)alpha_i;
+    (void)alpha_f;
+    throw NotImplementedException("FormFactorDWBAPol::evaluate: "
+            "should never be called for matrix interactions");
 }
 
 Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const cvector_t& k_i,

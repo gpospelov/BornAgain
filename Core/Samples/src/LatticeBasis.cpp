@@ -101,22 +101,6 @@ IFormFactor* LatticeBasis::createFormFactor(
     return p_ff;
 }
 
-FormFactorPol* LatticeBasis::createFormFactorMatrix(
-        complex_t wavevector_scattering_factor) const
-{
-    //TODO: replace with matrix versions
-    FormFactorWeightedMat *p_ff = new FormFactorWeightedMat();
-    for (size_t index=0; index<m_particles.size(); ++index) {
-        FormFactorPol *p_particle_ff = m_particles[index]->createFormFactorMatrix(
-                wavevector_scattering_factor);
-        FormFactorDecoratorMultiPositionFactorMat pos_ff(*p_particle_ff, m_positions_vector[index]);
-        p_ff->addFormFactor(pos_ff);
-        delete p_particle_ff;
-    }
-    p_ff->setAmbientMaterial(mp_ambient_material);
-    return p_ff;
-}
-
 std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() const
 {
     std::vector<DiffuseParticleInfo *> result;

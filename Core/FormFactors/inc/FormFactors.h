@@ -24,7 +24,7 @@
 #include "FormFactorDecoratorFactor.h"
 #include "FormFactorDecoratorMultiPositionFactor.h"
 #include "FormFactorDecoratorPositionFactor.h"
-#include "FormFactorDecoratorScalarMaterial.h"
+#include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorTransformation.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAConstZ.h"

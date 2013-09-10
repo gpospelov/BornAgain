@@ -68,18 +68,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::createFormFactor( wavevector_scattering_factor );
     }
 
-    virtual ::FormFactorPol * createFormFactorMatrix( ::complex_t wavevector_scattering_factor ) const  {
-        if( bp::override func_createFormFactorMatrix = this->get_override( "createFormFactorMatrix" ) )
-            return func_createFormFactorMatrix( wavevector_scattering_factor );
-        else{
-            return this->Particle::createFormFactorMatrix( wavevector_scattering_factor );
-        }
-    }
-    
-    ::FormFactorPol * default_createFormFactorMatrix( ::complex_t wavevector_scattering_factor ) const  {
-        return Particle::createFormFactorMatrix( wavevector_scattering_factor );
-    }
-
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
@@ -273,19 +261,6 @@ void register_Particle_class(){
                 "createFormFactor"
                 , createFormFactor_function_type(&::Particle::createFormFactor)
                 , default_createFormFactor_function_type(&Particle_wrapper::default_createFormFactor)
-                , ( bp::arg("wavevector_scattering_factor") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::Particle::createFormFactorMatrix
-        
-            typedef ::FormFactorPol * ( ::Particle::*createFormFactorMatrix_function_type )( ::complex_t ) const;
-            typedef ::FormFactorPol * ( Particle_wrapper::*default_createFormFactorMatrix_function_type )( ::complex_t ) const;
-            
-            Particle_exposer.def( 
-                "createFormFactorMatrix"
-                , createFormFactorMatrix_function_type(&::Particle::createFormFactorMatrix)
-                , default_createFormFactorMatrix_function_type(&Particle_wrapper::default_createFormFactorMatrix)
                 , ( bp::arg("wavevector_scattering_factor") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         

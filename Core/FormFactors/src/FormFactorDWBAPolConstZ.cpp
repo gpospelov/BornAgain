@@ -15,7 +15,7 @@
 
 #include "FormFactorDWBAPolConstZ.h"
 
-FormFactorDWBAPolConstZ::FormFactorDWBAPolConstZ(FormFactorPol* p_formfactor,
+FormFactorDWBAPolConstZ::FormFactorDWBAPolConstZ(IFormFactor* p_formfactor,
         double depth)
 : FormFactorDWBAPol(p_formfactor)
 , m_depth(depth)

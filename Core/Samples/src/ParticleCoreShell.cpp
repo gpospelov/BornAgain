@@ -54,13 +54,13 @@ IFormFactor *ParticleCoreShell::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
     FormFactorWeighted *p_result = new FormFactorWeighted;
-    FormFactorDecoratorScalarMaterial ff_shell(mp_shell->
+    FormFactorDecoratorMaterial ff_shell(mp_shell->
             getSimpleFormFactor()->clone(),
             wavevector_scattering_factor);
     ff_shell.setMaterial(mp_shell->getMaterial());
     ff_shell.setAmbientMaterial(mp_ambient_material);
     p_result->addFormFactor(ff_shell, 1.0);
-    FormFactorDecoratorScalarMaterial ff_core(mp_core->getSimpleFormFactor()->
+    FormFactorDecoratorMaterial ff_core(mp_core->getSimpleFormFactor()->
             clone(),
             wavevector_scattering_factor);
     ff_core.setMaterial(mp_core->getMaterial());

@@ -90,7 +90,7 @@ SOURCES += \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDWBAPol.cpp \
     FormFactors/src/FormFactorDWBAPolConstZ.cpp \
-    FormFactors/src/FormFactorDecoratorMatrixMaterial.cpp \
+    FormFactors/src/FormFactorDecoratorMaterial.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
@@ -99,7 +99,6 @@ SOURCES += \
     FormFactors/src/FormFactorHemiSpheroid.cpp \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorParallelepiped.cpp \
-    FormFactors/src/FormFactorPol.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
     FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
@@ -248,10 +247,9 @@ HEADERS += \
     FormFactors/inc/FormFactorDWBAPolConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
-    FormFactors/inc/FormFactorDecoratorMatrixMaterial.h \
+    FormFactors/inc/FormFactorDecoratorMaterial.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
-    FormFactors/inc/FormFactorDecoratorScalarMaterial.h \
     FormFactors/inc/FormFactorDecoratorTransformation.h \
     FormFactors/inc/FormFactorEllipsoid.h \
     FormFactors/inc/FormFactorFullSphere.h \
@@ -260,7 +258,6 @@ HEADERS += \
     FormFactors/inc/FormFactorHemiSpheroid.h \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactorParallelepiped.h \
-    FormFactors/inc/FormFactorPol.h \
     FormFactors/inc/FormFactorPrism3.h \
     FormFactors/inc/FormFactorPrism6.h \
     FormFactors/inc/FormFactorPyramid.h \

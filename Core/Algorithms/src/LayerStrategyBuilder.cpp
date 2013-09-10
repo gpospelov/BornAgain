@@ -201,9 +201,8 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
     P_particle_clone->setAmbientMaterial(p_ambient_material);
 
     // particle formfactor (includes scattering power)
-    FormFactorPol *ff_particle = P_particle_clone->
-            createFormFactorMatrix(factor);
-    FormFactorPol *p_ff_framework(ff_particle);
+    IFormFactor *ff_particle = P_particle_clone->createFormFactor(factor);
+    IFormFactor *p_ff_framework(ff_particle);
     switch (m_sim_params.me_framework)
     {
     case SimulationParameters::BA:    // Born Approximation

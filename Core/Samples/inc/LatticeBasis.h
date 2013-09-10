@@ -45,9 +45,6 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    virtual FormFactorPol* createFormFactorMatrix(
-            complex_t wavevector_scattering_factor) const;
-
     //! Returns number of different particles
     size_t getNbrParticles() const {return m_particles.size(); }
 

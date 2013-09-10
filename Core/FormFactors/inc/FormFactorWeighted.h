@@ -17,7 +17,6 @@
 #define FORMFACTORWEIGHTED_H_
 
 #include "IFormFactor.h"
-#include "FormFactorPol.h"
 
 //! Coherent sum of different form factors with different weights
 //! (for scalar form factors)
@@ -33,28 +32,8 @@ class FormFactorWeighted : public IFormFactor
 
     virtual void setAmbientMaterial(const IMaterial *p_material);
 
-    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
-
-    virtual int getNumberOfStochasticParameters() const;
-
- protected:
-    std::vector<IFormFactor *> m_form_factors;
-    std::vector<double> m_weights;
-};
-
-//! Coherent sum of different form factors with different weights
-//! (for matrix form factors)
-
-class FormFactorWeightedMat : public FormFactorPol
-{
- public:
-    FormFactorWeightedMat();
-    virtual ~FormFactorWeightedMat();
-    virtual FormFactorWeightedMat *clone() const;
-
-    void addFormFactor(const FormFactorPol& form_factor, double weight=1.0);
-
-    virtual void setAmbientMaterial(const IMaterial *p_material);
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
@@ -64,7 +43,7 @@ class FormFactorWeightedMat : public FormFactorPol
     virtual int getNumberOfStochasticParameters() const;
 
  protected:
-    std::vector<FormFactorPol *> m_form_factors;
+    std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;
 };
 

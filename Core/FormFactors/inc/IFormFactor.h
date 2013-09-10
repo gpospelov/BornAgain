@@ -21,7 +21,11 @@
 #include "ISample.h"
 #include "Bin.h"
 
-//! The basic interface for formfactors.
+#ifndef GCCXML_SKIP_THIS
+#include <Eigen/Core>
+#endif
+
+//! The basic interface for form factors.
 
 class BA_CORE_API_ IFormFactor : public ISample
 {
@@ -32,11 +36,13 @@ class BA_CORE_API_ IFormFactor : public ISample
     virtual IFormFactor *clone() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *p_visitor) const {
+        p_visitor->visit(this);
+    }
 
-    //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial *p_material)
-    {
+    //! Passes the refractive index of the ambient material in which this
+    //! particle is embedded.
+    virtual void setAmbientMaterial(const IMaterial *p_material) {
         (void)p_material; // to prevent unused-variable warning
     }
 
@@ -49,22 +55,37 @@ class BA_CORE_API_ IFormFactor : public ISample
         const cvector_t& k_i, const Bin1DCVector& k_f_bin,
         double alpha_i, double alpha_f) const=0;
 
+#ifndef GCCXML_SKIP_THIS
+    //! Returns scattering amplitude for matrix interactions
+    //! @param k_i   incoming wavevector
+    //! @param k_f1_bin   outgoing wavevector bin for first eigenmode
+    //! @param k_f2_bin   outgoing wavevector bin for second eigenmode
+    //! @param alpha_i incident inclination angle wrt scattering surface
+    //! @param alpha_f outgoing inclination angle wrt scattering surface
+    //! @param phi_f outgoing azimuthal angle wrt scattering surface
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+            double alpha_i, double alpha_f, double phi_f) const;
+#endif
+
     //! Returns number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
 
-    //! Returns the total volume of the particle to which this formfactor belongs
+    //! Returns the total volume of the particle of this form factor's shape
     virtual double getVolume() const;
 
-    //! Returns the total height of the particle to which this formfactor belongs
+    //! Returns the total height of the particle of this form factor's shape
     virtual double getHeight() const;
 
-    //! Returns the total radial size of the particle to which this formfactor belongs
+    //! Returns the total radial size of the particle of this form factor's shape
     virtual double getRadius() const;
 
-    //! Returns true if the formfactor is constructed as an average over multiple simple ones
+    //! Returns true if the form factor is constructed as an average over
+    //! multiple simple ones
     virtual bool isDistributedFormFactor() const { return false; }
 
-    //! retrieve a list of simple formfactors and their probabilities when the formfactor is a distributed one
+    //! retrieve a list of simple form factors and their probabilities when the
+    //! form factor is a distributed one
     virtual void createDistributedFormFactors(
         std::vector<IFormFactor *>& form_factors,
         std::vector<double>& probabilities,
@@ -74,6 +95,18 @@ class BA_CORE_API_ IFormFactor : public ISample
         (void)nbr_samples;
     }
 };
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
+        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
+        double alpha_i, double alpha_f, double phi_f) const
+{
+    (void)k_f2_bin;
+    (void)phi_f;
+    Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
+    return evaluate(k_i, k_f1_bin, alpha_i, alpha_f) * unit_matrix;
+}
+#endif
 
 inline double IFormFactor::getVolume() const
 {

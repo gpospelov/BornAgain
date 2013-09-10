@@ -24,9 +24,11 @@
 
 class BA_CORE_API_ MesoCrystal : public Particle
 {
- public:
-    MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor);
+public:
+    MesoCrystal(IClusteredParticles *p_particle_structure,
+            IFormFactor *p_form_factor);
+    MesoCrystal(const IClusteredParticles& particle_structure,
+            IFormFactor& form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
@@ -35,7 +37,9 @@ class BA_CORE_API_ MesoCrystal : public Particle
     virtual MesoCrystal *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *p_visitor) const {
+        p_visitor->visit(this);
+    }
 
     virtual void setAmbientMaterial(const IMaterial *p_material)
     {
@@ -43,29 +47,24 @@ class BA_CORE_API_ MesoCrystal : public Particle
     }
 
     virtual IFormFactor* createFormFactor(
-            complex_t wavevector_scattering_factor) const
-    {
-        return mp_particle_structure->createTotalFormFactor(
-                *mp_meso_form_factor, mp_ambient_material,
-                wavevector_scattering_factor);
+            complex_t wavevector_scattering_factor) const;
+
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
+
+    virtual const IFormFactor *getSimpleFormFactor() const {
+        return mp_meso_form_factor;
     }
 
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
-    {
-        if (p_form_factor != mp_meso_form_factor) {
-            delete mp_meso_form_factor;
-            mp_meso_form_factor = p_form_factor;
-        }
+    //! @brief get the internal structure, which is in principle unbounded in
+    //! space (eg.  an infinite crystal)
+    const IClusteredParticles *getClusteredParticles() const {
+        return mp_particle_structure;
     }
 
-    virtual const IFormFactor *getSimpleFormFactor() const { return mp_meso_form_factor;}
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
+            const ParticleInfo& parent_info) const;
 
-    //! @brief get the internal structure, which is in principle unbounded in space (eg.  an infinite crystal)
-    const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
-
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const;
-
- private:
+private:
     IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };

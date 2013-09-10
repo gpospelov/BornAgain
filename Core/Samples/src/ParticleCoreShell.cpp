@@ -50,6 +50,13 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     return p_new;
 }
 
+void ParticleCoreShell::setAmbientMaterial(const IMaterial* p_material)
+{
+    mp_ambient_material = p_material;
+    mp_shell->setAmbientMaterial(p_material);
+    mp_core->setAmbientMaterial(p_material);
+}
+
 IFormFactor *ParticleCoreShell::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
@@ -60,15 +67,24 @@ IFormFactor *ParticleCoreShell::createFormFactor(
     ff_shell.setMaterial(mp_shell->getMaterial());
     ff_shell.setAmbientMaterial(mp_ambient_material);
     p_result->addFormFactor(ff_shell, 1.0);
-    FormFactorDecoratorMaterial ff_core(mp_core->getSimpleFormFactor()->
-            clone(),
+    IFormFactor *p_core_simple = new FormFactorDecoratorPositionFactor(
+            mp_core->getSimpleFormFactor()->clone(), m_relative_core_position);
+    FormFactorDecoratorMaterial ff_core(p_core_simple,
             wavevector_scattering_factor);
     ff_core.setMaterial(mp_core->getMaterial());
     ff_core.setAmbientMaterial(mp_shell->getMaterial());
-    FormFactorDecoratorPositionFactor ff_core_translated(ff_core,
-            m_relative_core_position);
-    p_result->addFormFactor(ff_core_translated, 1.0);
+    p_result->addFormFactor(ff_core, 1.0);
     return p_result;
+}
+
+void ParticleCoreShell::setSimpleFormFactor(IFormFactor* p_form_factor)
+{
+    if (p_form_factor != mp_form_factor) {
+        deregisterChild(mp_form_factor);
+        delete mp_form_factor;
+        mp_form_factor = p_form_factor;
+        registerChild(mp_form_factor);
+    }
 }
 
 ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)

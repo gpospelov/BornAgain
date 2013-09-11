@@ -21,30 +21,33 @@
 
 //! ?
 
-class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
+class SizeSpacingCorrelationApproximationStrategy
+        : public IInterferenceFunctionStrategy
 {
 public:
-    SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params, double kappa);
+    SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params,
+            double kappa);
     virtual ~SizeSpacingCorrelationApproximationStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
             const SafePointerVector<IInterferenceFunction>& ifs);
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const;
+            Bin1D alpha_f_bin) const;
 
     //! Calculates and returns a polarized form factor in DWBA
     virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-            double alpha_i, double alpha_f, double phi_f) const;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+            Bin1D phi_f_bin) const;
 private:
     bool checkVectorSizes() const;
-    complex_t getMeanCharacteristicFF(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const;
-    complex_t getMeanConjCharacteristicFF(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const;
+    complex_t getMeanCharacteristicFF(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+    complex_t getMeanConjCharacteristicFF(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
-    complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
+    complex_t calculatePositionOffsetPhase(double qp, double kappa,
+            size_t index) const;
     double getqp(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
     void initMeanRadius();
     double m_mean_radius;

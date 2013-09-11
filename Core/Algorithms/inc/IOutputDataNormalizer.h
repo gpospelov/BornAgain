@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ IOutputDataNormalizer : public IParameterized
 {
- public:
+public:
     virtual ~IOutputDataNormalizer() {}
 
     virtual IOutputDataNormalizer*clone() const=0;
@@ -39,7 +39,7 @@ class BA_CORE_API_ IOutputDataNormalizer : public IParameterized
 
 class BA_CORE_API_ OutputDataNormalizer : public IOutputDataNormalizer
 {
- public:
+public:
     OutputDataNormalizer(double scale=1.0, double shift=0.0)
         : m_scale(scale), m_shift(shift), m_max_intensity(0.0)
     {
@@ -56,7 +56,7 @@ class BA_CORE_API_ OutputDataNormalizer : public IOutputDataNormalizer
     virtual void setMaximumIntensity(double max_intensity) {
         m_max_intensity = max_intensity; }
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -69,7 +69,7 @@ class BA_CORE_API_ OutputDataNormalizer : public IOutputDataNormalizer
 
 class OutputDataSimpleNormalizer : public OutputDataNormalizer
 {
- public:
+public:
     OutputDataSimpleNormalizer(double scale=1.0, double shift=0.0)
     : OutputDataNormalizer(scale, shift) { m_max_intensity = 1.0; }
 

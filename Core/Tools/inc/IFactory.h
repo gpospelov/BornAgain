@@ -26,7 +26,7 @@
 template<class IdentifierType, class AbstractProduct >
 class IFactory
 {
- public:
+public:
     //! function which will be used to create object of AbstractProduct base type
     typedef AbstractProduct* (*CreateItemCallback) ();
 
@@ -101,7 +101,7 @@ class IFactory
     //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
 
- protected:
+protected:
     bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
     DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description

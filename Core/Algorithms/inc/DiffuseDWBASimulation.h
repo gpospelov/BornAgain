@@ -21,7 +21,7 @@
 
 class DiffuseDWBASimulation: public LayerDWBASimulation
 {
- public:
+public:
     DiffuseDWBASimulation()
         : m_refractive_index(1., 0.), m_surface_density(1.) {}
 
@@ -45,7 +45,7 @@ class DiffuseDWBASimulation: public LayerDWBASimulation
             m_np_infos[np_index]->scaleAbundance(factor);
     }
 
- protected:
+protected:
     complex_t m_refractive_index;
     double m_surface_density;
     SafePointerVector<DiffuseParticleInfo> m_np_infos;
@@ -63,7 +63,8 @@ class DiffuseDWBASimulation: public LayerDWBASimulation
     };
     void initDiffuseFormFactorTerms(
         std::vector<DiffuseFormFactorTerm *>& terms,
-        size_t nbr_heights, size_t samples_per_particle);
+        size_t nbr_heights, size_t samples_per_particle,
+        complex_t wavevector_scattering_factor);
 };
 
 #endif /* DIFFUSEDWBASIMULATION_H_ */

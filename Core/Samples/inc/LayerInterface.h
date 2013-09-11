@@ -25,7 +25,7 @@ class Layer;
 
 class LayerInterface : public ICompositeSample
 {
- public:
+public:
     virtual ~LayerInterface();
 
     //! calls the ISampleVisitor's visit method
@@ -65,10 +65,10 @@ class LayerInterface : public ICompositeSample
     //! Returns bottom layer.
     const Layer *getLayerBottom() const { return m_LayerBottom; }
 
- protected:
+protected:
     void print(std::ostream& ostr) const;
 
- private:
+private:
     LayerInterface();
 
     LayerRoughness *m_roughness;   //!< roughness of the interface

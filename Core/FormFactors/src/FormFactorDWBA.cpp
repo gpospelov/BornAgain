@@ -38,9 +38,9 @@ FormFactorDWBA* FormFactorDWBA::clone() const
 }
 
 complex_t FormFactorDWBA::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
-    calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
+    calculateTerms(k_i, k_f_bin, alpha_f_bin);
     return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
@@ -52,26 +52,39 @@ void FormFactorDWBA::setSpecularInfo(
 }
 
 void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
-    cvector_t k_itilde(k_i.x(), k_i.y(), -k_i.z());
-    Bin1DCVector k_f_bin_tilde =  k_f_bin;
-    k_f_bin_tilde.m_q_lower.setZ( -k_f_bin_tilde.m_q_lower.z() );
-    k_f_bin_tilde.m_q_upper.setZ( -k_f_bin_tilde.m_q_upper.z() );
-    // The four different scattering contributions; S stands for scattering
-    // off the particle, R for reflection off the layer interface
+    // Retrieve the two different incoming wavevectors in the layer
     const ILayerRTCoefficients *p_in_coeff =
             mp_specular_info->getInCoefficients();
-    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+    cvector_t k_i_R = k_i;
+    k_i_R.setZ(p_in_coeff->getScalarKz());
+    cvector_t k_i_T = k_i;
+    k_i_T.setZ(-k_i_R.z());
+    // Retrieve the two different outgoing wavevectors in the layer
+    const ILayerRTCoefficients *p_out_lower = getOutCoeffs(alpha_f_bin.m_lower);
+    const ILayerRTCoefficients *p_out_upper = getOutCoeffs(alpha_f_bin.m_upper);
+    Bin1DCVector k_f_T_bin = k_f_bin;
+    k_f_T_bin.m_q_lower.setZ(p_out_lower->getScalarKz());
+    k_f_T_bin.m_q_upper.setZ(p_out_upper->getScalarKz());
+    Bin1DCVector k_f_R_bin = k_f_bin;
+    k_f_R_bin.m_q_lower.setZ(-k_f_T_bin.m_q_lower.z());
+    k_f_R_bin.m_q_upper.setZ(-k_f_T_bin.m_q_upper.z());
 
-    m_term_S = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i, k_f_bin,
-            alpha_i, alpha_f)*p_out_coeff->getScalarT();
-    m_term_RS = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_itilde,
-            k_f_bin, alpha_i, alpha_f)*p_out_coeff->getScalarT();
-    m_term_SR = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i,
-            k_f_bin_tilde, alpha_i, alpha_f)*p_out_coeff->getScalarR();
-    m_term_RSR = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_itilde,
-            k_f_bin_tilde, alpha_i, alpha_f)*p_out_coeff->getScalarR();
+
+
+    // The four different scattering contributions; S stands for scattering
+    // off the particle, R for reflection off the layer interface
+    double alpha_f = alpha_f_bin.getMidPoint();
+    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+    m_term_S = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i_T,
+            k_f_T_bin, alpha_f_bin) * p_out_coeff->getScalarT();
+    m_term_RS = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_i_R,
+            k_f_T_bin, alpha_f_bin) * p_out_coeff->getScalarT();
+    m_term_SR = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i_T,
+            k_f_R_bin, alpha_f_bin) * p_out_coeff->getScalarR();
+    m_term_RSR = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_i_R,
+            k_f_R_bin, alpha_f_bin) * p_out_coeff->getScalarR();
 }
 
 

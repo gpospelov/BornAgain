@@ -22,7 +22,7 @@
 
 class BA_CORE_API_ IAxis
 {
- public:
+public:
     //! constructors
     IAxis(std::string name) : m_name(name) {}
 
@@ -64,7 +64,7 @@ class BA_CORE_API_ IAxis
         return left.equals(right);
     }
 
- protected:
+protected:
     virtual bool equals(const IAxis& other) const;
     std::string m_name;  //!< axis label
 };

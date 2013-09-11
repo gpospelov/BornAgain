@@ -30,7 +30,7 @@
 //!
 class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
 {
- public:
+public:
     typedef std::map<std::string, IMaterial*> materials_t;
     typedef materials_t::iterator iterator;
     typedef materials_t::const_iterator const_iterator;
@@ -101,7 +101,7 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
     //! delete material
     bool deleteMaterial(const std::string &name);
 
- protected:
+protected:
     MaterialManager(){}
     friend class ISingleton<MaterialManager >;
 
@@ -113,7 +113,7 @@ class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
 
     materials_t m_materials; //!< our database
 
- private:
+private:
     const IMaterial *this_getMaterial(const std::string& name);
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name, const complex_t& refractive_index);

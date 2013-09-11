@@ -25,7 +25,7 @@
 
 class BA_CORE_API_ IChiSquaredModule : public ICloneable
 {
- public:
+public:
     IChiSquaredModule();
     virtual ~IChiSquaredModule();
 
@@ -95,7 +95,7 @@ class BA_CORE_API_ IChiSquaredModule : public ICloneable
             "IChiSquaredModule::getResidualValue() -> "
             "Error! Not implemented."); }
 
- protected:
+protected:
     IChiSquaredModule(const IChiSquaredModule& other);
 
     virtual void initWeights();

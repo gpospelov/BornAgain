@@ -15,14 +15,9 @@
 
 #include "IMaterial.h"
 
-#ifndef GCCXML_SKIP_THIS
 Eigen::Matrix2cd IMaterial::getScatteringMatrix(double k_mag2) const
 {
     (void)k_mag2;
     return Eigen::Matrix2cd::Identity();
 }
-#endif
-
-
-
 

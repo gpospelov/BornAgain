@@ -28,7 +28,7 @@ class IInterferenceFunction;
 
 class BA_CORE_API_ IDecoration : public ICompositeSample
 {
- public:
+public:
     IDecoration() : m_total_particle_surface_density(1.0) {}
     virtual ~IDecoration() {}
 
@@ -61,7 +61,7 @@ class BA_CORE_API_ IDecoration : public ICompositeSample
     void setTotalParticleSurfaceDensity(double surface_density)
     { m_total_particle_surface_density = surface_density; }
 
- private:
+private:
     ///< To guarantee that fractions sum up to 1
     double m_total_particle_surface_density;
 };

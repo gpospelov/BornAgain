@@ -56,16 +56,16 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::cloneInvertB( );
     }
 
-    virtual ::IFormFactor * createFormFactor(  ) const  {
+    virtual ::IFormFactor * createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
         if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor(  );
+            return func_createFormFactor( wavevector_scattering_factor );
         else{
-            return this->Particle::createFormFactor(  );
+            return this->Particle::createFormFactor( wavevector_scattering_factor );
         }
     }
     
-    ::IFormFactor * default_createFormFactor(  ) const  {
-        return Particle::createFormFactor( );
+    ::IFormFactor * default_createFormFactor( ::complex_t wavevector_scattering_factor ) const  {
+        return Particle::createFormFactor( wavevector_scattering_factor );
     }
 
     virtual ::IMaterial const * getMaterial(  ) const  {
@@ -114,6 +114,18 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     bool default_hasDistributedFormFactor(  ) const  {
         return Particle::hasDistributedFormFactor( );
+    }
+
+    virtual void setTransform( ::Geometry::PTransform3D const & transform ) {
+        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
+            func_setTransform( transform );
+        else{
+            this->Particle::setTransform( transform );
+        }
+    }
+    
+    void default_setTransform( ::Geometry::PTransform3D const & transform ) {
+        Particle::setTransform( transform );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -242,13 +254,14 @@ void register_Particle_class(){
         }
         { //::Particle::createFormFactor
         
-            typedef ::IFormFactor * ( ::Particle::*createFormFactor_function_type )(  ) const;
-            typedef ::IFormFactor * ( Particle_wrapper::*default_createFormFactor_function_type )(  ) const;
+            typedef ::IFormFactor * ( ::Particle::*createFormFactor_function_type )( ::complex_t ) const;
+            typedef ::IFormFactor * ( Particle_wrapper::*default_createFormFactor_function_type )( ::complex_t ) const;
             
             Particle_exposer.def( 
                 "createFormFactor"
                 , createFormFactor_function_type(&::Particle::createFormFactor)
                 , default_createFormFactor_function_type(&Particle_wrapper::default_createFormFactor)
+                , ( bp::arg("wavevector_scattering_factor") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -262,6 +275,15 @@ void register_Particle_class(){
                 , getMaterial_function_type(&::Particle::getMaterial)
                 , default_getMaterial_function_type(&Particle_wrapper::default_getMaterial)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Particle::getPTransform3D
+        
+            typedef ::Geometry::PTransform3D const ( ::Particle::*getPTransform3D_function_type )(  ) const;
+            
+            Particle_exposer.def( 
+                "getPTransform3D"
+                , getPTransform3D_function_type( &::Particle::getPTransform3D ) );
         
         }
         { //::Particle::getRefractiveIndex
@@ -296,6 +318,18 @@ void register_Particle_class(){
                 "hasDistributedFormFactor"
                 , hasDistributedFormFactor_function_type(&::Particle::hasDistributedFormFactor)
                 , default_hasDistributedFormFactor_function_type(&Particle_wrapper::default_hasDistributedFormFactor) );
+        
+        }
+        { //::Particle::setTransform
+        
+            typedef void ( ::Particle::*setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
+            typedef void ( Particle_wrapper::*default_setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
+            
+            Particle_exposer.def( 
+                "setTransform"
+                , setTransform_function_type(&::Particle::setTransform)
+                , default_setTransform_function_type(&Particle_wrapper::default_setTransform)
+                , ( bp::arg("transform") ) );
         
         }
         { //::IParameterized::areParametersChanged

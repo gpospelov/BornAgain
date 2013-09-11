@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 {
- public:
+public:
     FormFactorGauss(double volume);
     FormFactorGauss(double height, double width);
     ~FormFactorGauss() {}
@@ -35,11 +35,11 @@ class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
- private:
+private:
     double m_height;
     double m_width;
 };

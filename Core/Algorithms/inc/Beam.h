@@ -34,7 +34,7 @@
 
 class BA_CORE_API_ Beam : public IParameterized
 {
- public:
+public:
 #ifndef GCCXML_SKIP_THIS
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 #endif
@@ -81,11 +81,11 @@ class BA_CORE_API_ Beam : public IParameterized
     bool checkPolarization(const Eigen::Matrix2cd &polarization) const;
 #endif
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
- private:
+private:
     //! swap function
     void swapContent(Beam& other);
 

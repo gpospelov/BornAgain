@@ -28,7 +28,7 @@ namespace Utils {
 
 class BA_CORE_API_ String
 {
- public:
+public:
     //! Parse double values from string to vector of double.
     static vdouble1d_t parse_doubles(const std::string& str);
 
@@ -48,7 +48,7 @@ class BA_CORE_API_ String
 
 class StringUsageMap
 {
- public:
+public:
     typedef std::map<std::string, int> nstringmap_t;
     typedef nstringmap_t::iterator iterator_t;
 
@@ -77,7 +77,7 @@ class StringUsageMap
     //! Returns current string
     std::string get_current() const { return m_current_string; }
 
- private:
+private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
 };
@@ -86,7 +86,7 @@ class StringUsageMap
 
 class BA_CORE_API_ FileSystem
 {
- public:
+public:
     //! Returns path to the current (working) directory
     static std::string GetWorkingPath();
 
@@ -112,7 +112,7 @@ class BA_CORE_API_ FileSystem
     //! returns absolute path to data taking into acount location of executable
     static std::string GetPathToData(const std::string& rel_data_path, const std::string& argv0=GetArgvPath());
 
- private:
+private:
     static std::string m_argv0_path; //!< it's value of argv[0], i.e. the path from working directory to executable module including the name of executable module
 };
 

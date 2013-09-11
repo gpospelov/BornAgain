@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ Instrument : public IParameterized
 {
- public:
+public:
     Instrument();
     Instrument(const Instrument& other);
 
@@ -80,7 +80,7 @@ class BA_CORE_API_ Instrument : public IParameterized
             OutputData<Eigen::Matrix2d> *p_polarized_intensity = 0) const;
 #endif
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

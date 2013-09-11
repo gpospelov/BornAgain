@@ -163,7 +163,7 @@ public:
         double hmax = -1.,
         double hdiff=0.0001 );
 
- private:
+private:
     //! selects specific matrix elements from polarized output data and puts
     //! these in a non-polarized output data structure
     static void copyElementsWithPosition(

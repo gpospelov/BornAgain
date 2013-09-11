@@ -42,7 +42,8 @@ public:
 
     virtual IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        const IMaterial *p_ambient_material) const;
+        const IMaterial *p_ambient_material,
+        complex_t wavevector_scattering_factor) const;
 
     Lattice getLattice() const { return m_lattice; }
     Particle *createBasis() const { return mp_lattice_basis->clone(); }

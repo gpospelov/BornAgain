@@ -273,18 +273,19 @@ void TestMiscellaneous::test_FormFactor()
         cvector_t q(x,y,z);
         cvector_t q0(0,0,0);
         Bin1DCVector q0_bin(q0, q0);
-        double value = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
-        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0)));
+        Bin1D zero_bin = { 0.0, 0.0 };
+        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
-        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0)));
+        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
         if(iy==0 && iz==0) {
             cvector_t kx(x,1.0,1.0);
             cvector_t ky(1.0,x,1.0);
             cvector_t kz(1.0,1.0,x);
-            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, 0.0, 0.0)));
-            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, 0.0, 0.0)));
-            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, 0.0, 0.0)));
+            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, zero_bin)));
+            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, zero_bin)));
+            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, zero_bin)));
         }
 
         vh2_xy[iz] ->Fill(x,y,value);
@@ -385,10 +386,11 @@ void TestMiscellaneous::test_FormFactor1()
         cvector_t q(x,y,z);
         cvector_t q0(0,0,0);
         Bin1DCVector q0_bin(q0, q0);
-        double value = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
-        //double valuep = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
-        //double valuer = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
-        //double valuei = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
+        Bin1D zero_bin = { 0.0, 0.0 };
+        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        //double valuep = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        //double valuer = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        //double valuei = std::abs(ff.evaluate(q,q0_bin, zero_bin));
 
         vh2_xy->Fill(x,y,value);
 

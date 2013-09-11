@@ -42,9 +42,9 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
     }
 
     virtual double getHeight(  ) const  {
@@ -255,12 +255,12 @@ void register_IFormFactor_class(){
         }
         { //::IFormFactor::evaluate
         
-            typedef ::complex_t ( ::IFormFactor::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const;
+            typedef ::complex_t ( ::IFormFactor::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
             
             IFormFactor_exposer.def( 
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) );
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
         { //::IFormFactor::getHeight

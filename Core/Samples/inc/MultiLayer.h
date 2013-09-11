@@ -37,7 +37,7 @@
 
 class BA_CORE_API_ MultiLayer : public ICompositeSample
 {
- public:
+public:
     MultiLayer();
     ~MultiLayer();
 
@@ -119,13 +119,13 @@ class BA_CORE_API_ MultiLayer : public ICompositeSample
     //! ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
     //! Prints class
     void print(std::ostream& ostr) const;
 
- private:
+private:
     //! Adds the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer *child)
     {

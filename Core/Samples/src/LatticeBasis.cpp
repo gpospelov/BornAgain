@@ -70,7 +70,8 @@ LatticeBasis* LatticeBasis::cloneInvertB() const
     return p_new;
 }
 
-void LatticeBasis::addParticle(const Particle& particle, std::vector<kvector_t > positions)
+void LatticeBasis::addParticle(const Particle& particle,
+        std::vector<kvector_t > positions)
 {
     Particle *np = particle.clone();
     registerChild(np);
@@ -86,20 +87,24 @@ void LatticeBasis::setAmbientMaterial(const IMaterial *p_material)
     }
 }
 
-IFormFactor* LatticeBasis::createFormFactor() const
+IFormFactor* LatticeBasis::createFormFactor(
+        complex_t wavevector_scattering_factor) const
 {
     FormFactorWeighted *p_ff = new FormFactorWeighted();
     for (size_t index=0; index<m_particles.size(); ++index) {
-        IFormFactor *p_particle_ff = m_particles[index]->createFormFactor();
-        FormFactorDecoratorMultiPositionFactor pos_ff(*p_particle_ff, m_positions_vector[index]);
+        boost::scoped_ptr<IFormFactor> P_particle_ff(
+                m_particles[index]->createFormFactor(
+                                      wavevector_scattering_factor));
+        FormFactorDecoratorMultiPositionFactor pos_ff(*P_particle_ff,
+                m_positions_vector[index]);
         p_ff->addFormFactor(pos_ff);
-        delete p_particle_ff;
     }
     p_ff->setAmbientMaterial(mp_ambient_material);
     return p_ff;
 }
 
-std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() const
+std::vector<DiffuseParticleInfo *>
+LatticeBasis::createDiffuseParticleInfos() const
 {
     std::vector<DiffuseParticleInfo *> result;
     for (size_t index=0; index<getNbrParticles(); ++index) {
@@ -107,7 +112,8 @@ std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() co
         if (p_particle->hasDistributedFormFactor()) {
             DiffuseParticleInfo *p_new_info = new DiffuseParticleInfo(
                     p_particle->clone());
-            p_new_info->setNumberPerMeso((double)getNbrPositionsForParticle(index));
+            p_new_info->setNumberPerMeso(
+                    (double)getNbrPositionsForParticle(index));
             result.push_back(p_new_info);
         }
     }

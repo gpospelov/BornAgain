@@ -27,7 +27,7 @@
 
 class BA_CORE_API_ OutputDataIOFactory
 {
- public:
+public:
     typedef boost::shared_ptr<OutputDataReader > OutputDataReader_t;
     typedef boost::shared_ptr<OutputDataWriter > OutputDataWriter_t;
 

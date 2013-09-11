@@ -18,13 +18,6 @@ namespace bp = boost::python;
 
 struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< PositionParticleInfo > {
 
-    PositionParticleInfo_wrapper(::Particle const & particle, ::Geometry::PTransform3D const & transform, ::kvector_t position, double abundance=0 )
-    : PositionParticleInfo( boost::ref(particle), transform, position, abundance )
-      , bp::wrapper< PositionParticleInfo >(){
-        // constructor
-    
-    }
-
     PositionParticleInfo_wrapper(::Particle const & particle, ::kvector_t position, double abundance=0 )
     : PositionParticleInfo( boost::ref(particle), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
@@ -153,9 +146,8 @@ void register_PositionParticleInfo_class(){
 
     { //::PositionParticleInfo
         typedef bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable > PositionParticleInfo_exposer_t;
-        PositionParticleInfo_exposer_t PositionParticleInfo_exposer = PositionParticleInfo_exposer_t( "PositionParticleInfo", bp::init< Particle const &, Geometry::PTransform3D const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("transform"), bp::arg("position"), bp::arg("abundance")=0 )) );
+        PositionParticleInfo_exposer_t PositionParticleInfo_exposer = PositionParticleInfo_exposer_t( "PositionParticleInfo", bp::init< Particle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) );
         bp::scope PositionParticleInfo_scope( PositionParticleInfo_exposer );
-        PositionParticleInfo_exposer.def( bp::init< Particle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) );
         { //::PositionParticleInfo::clone
         
             typedef ::PositionParticleInfo * ( ::PositionParticleInfo::*clone_function_type )(  ) const;

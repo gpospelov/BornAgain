@@ -35,7 +35,7 @@ namespace bpo = boost::program_options;
 
 class ProgramOptions
 {
- public:
+public:
     typedef bpo::options_description Variables_t;
 
     ProgramOptions();
@@ -70,7 +70,7 @@ class ProgramOptions
     //! Returns reference to the positional options description
     bpo::positional_options_description& getPositionalOptions() { return m_positional_options; }
 
- private:
+private:
     bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)
     bpo::options_description m_options; //! options description, to be filled with add() from different program modules
     bpo::positional_options_description m_positional_options; //! positional options description, to be filled with addPositional() from main module

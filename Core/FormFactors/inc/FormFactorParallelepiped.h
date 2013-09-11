@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorParallelepiped : public IFormFactorBorn
 {
- public:
+public:
     FormFactorParallelepiped(double height, double radius);
     ~FormFactorParallelepiped() {}
     virtual FormFactorParallelepiped *clone() const;
@@ -42,10 +42,10 @@ class BA_CORE_API_ FormFactorParallelepiped : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     virtual void init_parameters();
 
- private:
+private:
     double m_height;
     double m_radius;
 };

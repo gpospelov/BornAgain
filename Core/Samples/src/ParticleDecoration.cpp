@@ -67,8 +67,9 @@ void ParticleDecoration::addParticle(
     Particle* p_particle, const Geometry::PTransform3D& transform,
     double depth, double abundance)
 {
+    p_particle->setTransform(transform);
     addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle, transform, depth, abundance));
+        new ParticleInfo(p_particle, depth, abundance));
 }
 
 //! Adds generic particle, &-version.
@@ -77,8 +78,10 @@ void ParticleDecoration::addParticle(
     const Particle& p_particle, const Geometry::PTransform3D& transform,
     double depth, double abundance)
 {
+    Particle *p_particle_clone = p_particle.clone();
+    p_particle_clone->setTransform(transform);
     addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle.clone(), transform, depth, abundance));
+        new ParticleInfo(p_particle_clone, depth, abundance));
 }
 
 //! Adds particle without rotation, *-version.

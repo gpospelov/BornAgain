@@ -115,14 +115,8 @@ void LayerStrategyBuilder::collectFormFactorInfos()
         const ParticleInfo *p_particle_info =
             p_decoration->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info;
-        if (requiresMatrixFFs()) {
-            p_ff_info = createFormFactorInfoPol(p_particle_info,
-                    p_layer_material, wavevector_scattering_factor);
-        }
-        else {
-            p_ff_info = createFormFactorInfo(p_particle_info, p_layer_material,
-                    wavevector_scattering_factor);
-        }
+        p_ff_info = createFormFactorInfo(p_particle_info, p_layer_material,
+                wavevector_scattering_factor);
         p_ff_info->m_abundance =
             p_decoration->getAbundanceFractionOfParticle(particle_index);
         m_ff_infos.push_back(p_ff_info);
@@ -155,16 +149,11 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     FormFactorInfo *p_result = new FormFactorInfo;
     boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
             getParticle()->clone());
-    const Geometry::PTransform3D transform = p_particle_info->getPTransform3D();
+    P_particle_clone->setAmbientMaterial(p_ambient_material);
 
     // formfactor
-    P_particle_clone->setAmbientMaterial(p_ambient_material);
-    IFormFactor *ff_particle = P_particle_clone->createFormFactor();
-    IFormFactor *ff_transformed(ff_particle);
-    if(transform) {
-        ff_transformed = new FormFactorDecoratorTransformation(ff_particle, transform);
-    }
-    IFormFactor *p_ff_framework(ff_transformed);
+    IFormFactor *p_ff_particle = P_particle_clone->createFormFactor(factor);
+    IFormFactor *p_ff_framework(p_ff_particle);
     switch (m_sim_params.me_framework)
     {
     case SimulationParameters::BA:    // Born Approximation
@@ -173,93 +162,19 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     {
         assert(mp_specular_info);
         double depth = p_particle_info->getDepth();
-        FormFactorDWBAConstZ *p_dwba_ff =
-            new FormFactorDWBAConstZ(ff_transformed, depth);
-        p_dwba_ff->setSpecularInfo(*mp_specular_info);
-        p_ff_framework = p_dwba_ff;
-        break;
-    }
-    default:
-        throw Exceptions::RuntimeErrorException("Framework must be BA or DWBA");
-    }
-    IFormFactor *p_ff(p_ff_framework);
-    if ( factor != complex_t(1.0, 0.0) ) {
-        p_ff = new FormFactorDecoratorFactor(p_ff_framework, factor);
-    }
-    p_result->mp_ff = p_ff;
-    // Other info (position and abundance
-    const PositionParticleInfo *p_pos_particle_info =
-        dynamic_cast<const PositionParticleInfo *>(p_particle_info);
-    if (p_pos_particle_info) {
-        kvector_t position = p_pos_particle_info->getPosition();
-        p_result->m_pos_x = position.x();
-        p_result->m_pos_y = position.y();
-    }
-    p_result->m_abundance = p_particle_info->getAbundance();
-    return p_result;
-}
-
-FormFactorInfo* LayerStrategyBuilder::createFormFactorInfoPol(
-        const ParticleInfo* p_particle_info,
-        const IMaterial* p_ambient_material, complex_t factor) const
-{
-    FormFactorInfo *p_result = new FormFactorInfo;
-    boost::scoped_ptr<Particle> P_particle_clone(p_particle_info->
-            getParticle()->clone());
-    const Geometry::PTransform3D transform = p_particle_info->getPTransform3D();
-    const IMaterial *p_material = P_particle_clone->getMaterial();
-
-    // formfactor
-    IFormFactor *ff_particle = P_particle_clone->getSimpleFormFactor()->clone();
-    IFormFactor *ff_particle_factor(ff_particle);
-    if ( factor!=complex_t(1.0,0.0) ) {
-        ff_particle_factor = new FormFactorDecoratorFactor(ff_particle, factor);
-    }
-    IFormFactor *ff_transformed(ff_particle_factor);
-    if(transform) {
-        ff_transformed = new FormFactorDecoratorTransformation(
-                ff_particle_factor, transform);
-    }
-    IFormFactor *p_ff_framework(ff_transformed);
-    switch (m_sim_params.me_framework)
-    {
-    case SimulationParameters::BA:    // Born Approximation
-    {
-        FormFactorPol *p_ff_pol = new FormFactorPol(ff_transformed);
-        if (mp_specular_info) {
-            p_ff_pol->setSpecularInfo(*mp_specular_info);
-        }
-        p_ff_pol->setMaterial(p_material);
-        p_ff_pol->setAmbientMaterial(p_ambient_material);
-        p_ff_framework = p_ff_pol;
-        break;
-    }
-    case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
-    {
-        if (!mp_specular_info) {
-            throw Exceptions::ClassInitializationException(
-                    "Magnetic coefficients are necessary for DWBA");
-        }
-        double depth = p_particle_info->getDepth();
-        FormFactorDWBAPol *p_dwba_ff_pol(0);
-        if (depth) {
-            p_dwba_ff_pol = new FormFactorDWBAPolConstZ(ff_transformed, depth);
-
+        if (requiresMatrixFFs()) {
+            p_ff_framework = createDWBAMatrixFormFactor(p_ff_particle, depth);
         }
         else {
-            p_dwba_ff_pol = new FormFactorDWBAPol(ff_transformed);
+            p_ff_framework = createDWBAScalarFormFactor(p_ff_particle, depth);
         }
-        p_dwba_ff_pol->setSpecularInfo(*mp_specular_info);
-        p_dwba_ff_pol->setMaterial(p_material);
-        p_dwba_ff_pol->setAmbientMaterial(p_ambient_material);
-        p_ff_framework = p_dwba_ff_pol;
         break;
     }
     default:
         throw Exceptions::RuntimeErrorException("Framework must be BA or DWBA");
     }
     p_result->mp_ff = p_ff_framework;
-    // Other info (position and abundance)
+    // Other info (position and abundance
     const PositionParticleInfo *p_pos_particle_info =
         dynamic_cast<const PositionParticleInfo *>(p_particle_info);
     if (p_pos_particle_info) {
@@ -287,3 +202,25 @@ FormFactorInfo* FormFactorInfo::clone() const
     return p_result;
 }
 
+IFormFactor* LayerStrategyBuilder::createDWBAScalarFormFactor(
+        IFormFactor* p_form_factor, double depth) const
+{
+    FormFactorDWBAConstZ *p_result =
+        new FormFactorDWBAConstZ(p_form_factor, depth);
+    p_result->setSpecularInfo(*mp_specular_info);
+    return p_result;
+}
+
+IFormFactor* LayerStrategyBuilder::createDWBAMatrixFormFactor(
+        IFormFactor* p_form_factor, double depth) const
+{
+    FormFactorDWBAPol *p_result(0);
+    if (depth) {
+        p_result = new FormFactorDWBAPolConstZ(p_form_factor, depth);
+    }
+    else {
+        p_result = new FormFactorDWBAPol(p_form_factor);
+    }
+    p_result->setSpecularInfo(*mp_specular_info);
+    return p_result;
+}

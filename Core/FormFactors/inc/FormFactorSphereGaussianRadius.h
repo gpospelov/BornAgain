@@ -25,7 +25,7 @@
 
 class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
- public:
+public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
     virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
@@ -42,7 +42,7 @@ class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- private:
+private:
     double calculateMeanR3() const;
 
     double m_mean; //!< This is the mean radius

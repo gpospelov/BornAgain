@@ -38,26 +38,14 @@ public:
 
     //! Sets the refractive index of the ambient material (which influences
     //! its scattering power)
-    virtual void setAmbientMaterial(const IMaterial *p_material)
-    {
-        mp_ambient_material = p_material;
-        mp_shell->setAmbientMaterial(p_material);
-        mp_core->setAmbientMaterial(p_material);
-    }
+    virtual void setAmbientMaterial(const IMaterial *p_material);
 
-    virtual IFormFactor* createFormFactor() const;
+    virtual IFormFactor* createFormFactor(
+            complex_t wavevector_scattering_factor) const;
 
     //! Sets the formfactor of the particle (not including scattering factor
     //! from refractive index)
-    virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
-    {
-        if (p_form_factor != mp_form_factor) {
-            deregisterChild(mp_form_factor);
-            delete mp_form_factor;
-            mp_form_factor = p_form_factor;
-            registerChild(mp_form_factor);
-        }
-    }
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
 
     //! Returns formfactor of the particle (not including scattering factor
     //! from refractive index)

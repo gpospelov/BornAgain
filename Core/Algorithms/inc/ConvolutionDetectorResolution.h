@@ -26,7 +26,7 @@
 
 class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
 {
- public:
+public:
     typedef double (*cumulative_DF_1d)(double);
     //! Constructor taking a 1 dimensional resolution function as argument
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
@@ -47,12 +47,12 @@ class BA_CORE_API_ ConvolutionDetectorResolution : public IDetectorResolution
     //! clone object
     virtual ConvolutionDetectorResolution *clone() const;
 
- protected:
+protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
 
     virtual void init_parameters();
 
- private:
+private:
     void apply1dConvolution(OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;

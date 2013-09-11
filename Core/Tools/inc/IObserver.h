@@ -26,7 +26,7 @@ class IObservable;
 //! Observer interface from Observer pattern, for 1:n object dependencies.
 
 class BA_CORE_API_ IObserver {
- public:
+public:
 //    IObserver() : m_observed_subject(0) {}
     virtual ~IObserver() {}
 
@@ -42,7 +42,7 @@ class BA_CORE_API_ IObserver {
 //! Observable interface from Observer pattern, for 1:n object dependencies.
 
 class BA_CORE_API_ IObservable {
- public:
+public:
     typedef boost::shared_ptr<IObserver > observer_t;
     typedef std::list<observer_t > observerlist_t;
 
@@ -54,7 +54,7 @@ class BA_CORE_API_ IObservable {
     //! notify observers about change in status
     virtual void notifyObservers();
 
- private:
+private:
     observerlist_t m_observers;
 };
 

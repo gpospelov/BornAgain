@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {
- public:
+public:
     virtual ~IInterferenceFunction() {}
 
     //! Evaluates the interference function for a given wavevector transfer

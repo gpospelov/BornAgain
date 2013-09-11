@@ -27,7 +27,7 @@
 
 class BA_CORE_API_ Layer : public ICompositeSample
 {
- public:
+public:
     //! Constructs empty layer.
     Layer();
 
@@ -80,7 +80,7 @@ class BA_CORE_API_ Layer : public ICompositeSample
 
     virtual double getTotalParticleSurfaceDensity() const;
 
- protected:
+protected:
     Layer(const Layer& other);
 
     void init_parameters();

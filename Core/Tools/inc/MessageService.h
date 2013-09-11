@@ -18,7 +18,7 @@ enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 class BA_CORE_API_ Logger
 {
- public:
+public:
     Logger(MessageLevel level);
 
     template <typename T>
@@ -36,7 +36,7 @@ class BA_CORE_API_ Logger
     static void SetLevel(const std::string& levelname);
     static MessageLevel GetLevel();
 
- private:
+private:
     static MessageLevel m_logLevel;
     static std::vector<std::string > m_level_names;
     std::ostringstream m_buffer;

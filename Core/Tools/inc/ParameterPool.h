@@ -26,7 +26,7 @@
 
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
- public:
+public:
     //! definition of parameter type and parameter container
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
@@ -86,7 +86,7 @@ class BA_CORE_API_ ParameterPool : public ICloneable
                                     const ParameterPool& obj)
     { obj.print(ostr); return ostr; }
 
- protected:
+protected:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
 

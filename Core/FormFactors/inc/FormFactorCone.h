@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
- public:
+public:
     //! @brief Cone constructor
     //! @param height of Conee
     //! @param radius half of Cone's base
@@ -38,11 +38,11 @@ class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 
     virtual double getHeight() const { return m_height; }
 
- protected:
+protected:
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
     virtual void init_parameters();
 
- private:
+private:
     //    double ConeIntegral(double Z, void* params) const;
     double evaluate_for_q_real() const;
     double evaluate_for_q_imag() const;

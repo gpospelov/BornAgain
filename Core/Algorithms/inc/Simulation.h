@@ -30,7 +30,7 @@ class ProgramOptions;
 
 class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
- public:
+public:
     Simulation();
     Simulation(const ProgramOptions *p_options);
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
@@ -128,7 +128,7 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
     //! Apply smearing of intensity due to tilting of z-axis (DEPRECATED)
     void smearIntensityFromZAxisTilting();
 
- protected:
+protected:
     Simulation(const Simulation& other);
 
     //! Registers some class members for later access via parameter pool

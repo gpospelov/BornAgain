@@ -27,7 +27,7 @@ class DWBASimulation;
 
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
- public:
+public:
     ISample() { setName("ISample"); }
     virtual ~ISample() {}
 
@@ -58,7 +58,7 @@ class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 
     bool containsMagneticMaterial() const;
 
- protected:
+protected:
     virtual void print(std::ostream& ostr) const;
 };
 

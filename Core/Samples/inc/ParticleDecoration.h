@@ -25,7 +25,7 @@
 
 class BA_CORE_API_ ParticleDecoration : public IDecoration
 {
- public:
+public:
     ParticleDecoration()
         : m_total_abundance(0.0)
     {
@@ -105,7 +105,7 @@ class BA_CORE_API_ ParticleDecoration : public IDecoration
     //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
- private:
+private:
     //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child);
 

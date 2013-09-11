@@ -17,8 +17,6 @@
 #include "FormFactorDWBAConstZ.h"
 #include "MessageService.h"
 
-#define SQR(x) ((x)*(x))
-
 //! Carry out one simulation thread.
 
 void DiffuseDWBASimulation::run()
@@ -28,10 +26,10 @@ void DiffuseDWBASimulation::run()
     std::vector<DiffuseFormFactorTerm*> diffuse_terms;
     size_t nbr_heights = 50;
     size_t samples_per_particle = 9;
-    initDiffuseFormFactorTerms(
-        diffuse_terms, nbr_heights, samples_per_particle);
+    double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
+    initDiffuseFormFactorTerms(diffuse_terms, nbr_heights, samples_per_particle,
+            wavevector_scattering_factor);
 
-    double wavevector_scattering_factor = M_PI/SQR(getWaveLength());
     cvector_t k_ij = m_ki;
 
     k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
@@ -55,14 +53,14 @@ void DiffuseDWBASimulation::run()
             for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
                 complex_t amp =
                     p_diffuse_term->m_form_factors[j]->evaluate(
-                        k_ij, k_f_bin, -m_alpha_i, alpha_f);
+                        k_ij, k_f_bin, alpha_bin);
                 amplitude += p_diffuse_term->m_probabilities[j]*amp;
                 intensity += p_diffuse_term->m_probabilities[j]*std::norm(amp);
             }
             total_intensity +=
                 p_diffuse_term->m_factor * (intensity - std::norm(amplitude));
         }
-        *it_intensity = total_intensity * SQR(wavevector_scattering_factor);
+        *it_intensity = total_intensity;
     }
 
     for (size_t i=0; i<diffuse_terms.size(); ++i)
@@ -80,7 +78,7 @@ void DiffuseDWBASimulation::run()
 void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
         std::vector<DiffuseFormFactorTerm*>& terms,
         size_t nbr_heights,
-        size_t samples_per_particle)
+        size_t samples_per_particle, complex_t wavevector_scattering_factor)
 {
     msglog(MSG::DEBUG) << "DiffuseDWBASimulation::init...()";
     for (size_t i=0; i<m_np_infos.size(); ++i) {
@@ -100,7 +98,8 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 samples_per_particle);
             for (size_t ff_index=0; ff_index<form_factors.size(); ++ff_index) {
                 p_particle->setSimpleFormFactor(form_factors[ff_index]);
-                IFormFactor *ff_particle = p_particle->createFormFactor();
+                IFormFactor *ff_particle = p_particle->createFormFactor(
+                        wavevector_scattering_factor);
                 FormFactorDWBAConstZ *p_dwba_z =
                     new FormFactorDWBAConstZ(ff_particle, depth);
                 p_dwba_z->setSpecularInfo(*mp_specular_info);

@@ -117,12 +117,12 @@
 		6223325F17C640A2004CCDAE /* SampleMaterialVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */; };
 		6223326617C640C7004CCDAE /* FormFactorDWBAPol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */; };
 		6223326717C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */; };
-		6223326817C640C7004CCDAE /* FormFactorPol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326517C640C7004CCDAE /* FormFactorPol.cpp */; };
 		6223326C17C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326917C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp */; };
 		6223326D17C64116004CCDAE /* LayerStrategyBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326A17C64116004CCDAE /* LayerStrategyBuilder.cpp */; };
 		6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */; };
 		6223327617C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */; };
 		6223327717C641C5004CCDAE /* IMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223327517C641C5004CCDAE /* IMaterial.cpp */; };
+		622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */; };
 		6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0816CE708600ECED4F /* Instrument.cpp */; };
 		6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0C16CE9EC600ECED4F /* Simulation.cpp */; };
 		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
@@ -269,13 +269,6 @@
 		627F631C17941019009E166F /* libRIO.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D065160C82CB008205AC /* libRIO.5.34.so */; };
 		627F631D17941019009E166F /* libThread.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D066160C82CB008205AC /* libThread.5.34.so */; };
 		627F631E17941019009E166F /* libTree.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D067160C82CB008205AC /* libTree.5.34.so */; };
-		627F64E81794171A009E166F /* Derivator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64C71794171A009E166F /* Derivator.cxx */; };
-		627F64E91794171A009E166F /* GSLDerivator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64C81794171A009E166F /* GSLDerivator.cxx */; };
-		627F64EB1794171A009E166F /* GSLMinimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64CA1794171A009E166F /* GSLMinimizer.cxx */; };
-		627F64EC1794171A009E166F /* GSLMinimizer1D.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64CB1794171A009E166F /* GSLMinimizer1D.cxx */; };
-		627F64ED1794171A009E166F /* GSLRndmEngines.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64CC1794171A009E166F /* GSLRndmEngines.cxx */; };
-		627F64EE1794171A009E166F /* GSLSimAnnealing.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64CD1794171A009E166F /* GSLSimAnnealing.cxx */; };
-		627F64EF1794171A009E166F /* MultiNumGradFunction.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 627F64CE1794171A009E166F /* MultiNumGradFunction.cxx */; };
 		627F64F1179418FC009E166F /* libMathCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05C160C82CB008205AC /* libMathCore.5.34.so */; };
 		627F64F217941B35009E166F /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
 		627F64F317941BE3009E166F /* libMinuit2.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05F160C82CB008205AC /* libMinuit2.5.34.so */; };
@@ -346,6 +339,8 @@
 		627F657617944D37009E166F /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
 		627F657717944D37009E166F /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		627F657817944D37009E166F /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
+		628D3C1217E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */; };
+		628D3C1317E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */; };
 		62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */; };
 		62B316141712FE29004A9D02 /* MessageService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62B316121712FE29004A9D02 /* MessageService.cpp */; };
 		62B3161E1713030F004A9D02 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
@@ -769,7 +764,6 @@
 		62222277160CB745008205AC /* FormFactorDecoratorFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorFactor.h; sourceTree = "<group>"; };
 		62222278160CB745008205AC /* FormFactorDecoratorMultiPositionFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorMultiPositionFactor.h; sourceTree = "<group>"; };
 		62222279160CB745008205AC /* FormFactorDecoratorPositionFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorPositionFactor.h; sourceTree = "<group>"; };
-		6222227A160CB745008205AC /* FormFactorDecoratorRefractiveIndex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorRefractiveIndex.h; sourceTree = "<group>"; };
 		6222227B160CB745008205AC /* FormFactorDecoratorTransformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorTransformation.h; sourceTree = "<group>"; };
 		6222227C160CB745008205AC /* FormFactorFullSphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSphere.h; sourceTree = "<group>"; };
 		6222227D160CB745008205AC /* FormFactorGauss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorGauss.h; sourceTree = "<group>"; };
@@ -1441,10 +1435,8 @@
 		6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleMaterialVisitor.cpp; sourceTree = "<group>"; };
 		6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDWBAPol.h; sourceTree = "<group>"; };
 		6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDWBAPolConstZ.h; sourceTree = "<group>"; };
-		6223326217C640BC004CCDAE /* FormFactorPol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorPol.h; sourceTree = "<group>"; };
 		6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDWBAPol.cpp; sourceTree = "<group>"; };
 		6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDWBAPolConstZ.cpp; sourceTree = "<group>"; };
-		6223326517C640C7004CCDAE /* FormFactorPol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPol.cpp; sourceTree = "<group>"; };
 		6223326917C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DecoratedLayerDWBASimulation.cpp; sourceTree = "<group>"; };
 		6223326A17C64116004CCDAE /* LayerStrategyBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerStrategyBuilder.cpp; sourceTree = "<group>"; };
 		6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecularMagnetic.cpp; sourceTree = "<group>"; };
@@ -1454,6 +1446,8 @@
 		6223327217C641B9004CCDAE /* HomogeneousMagneticMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomogeneousMagneticMaterial.h; sourceTree = "<group>"; };
 		6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HomogeneousMagneticMaterial.cpp; sourceTree = "<group>"; };
 		6223327517C641C5004CCDAE /* IMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMaterial.cpp; sourceTree = "<group>"; };
+		622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorMaterial.h; sourceTree = "<group>"; };
+		622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorMaterial.cpp; sourceTree = "<group>"; };
 		6236DD0716CE707C00ECED4F /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
 		6236DD0816CE708600ECED4F /* Instrument.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Instrument.cpp; sourceTree = "<group>"; };
 		6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberComplexFunctionIntegrator.h; sourceTree = "<group>"; };
@@ -2021,36 +2015,14 @@
 		627F640417941210009E166F /* versiongenerate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = versiongenerate.py; sourceTree = "<group>"; };
 		627F640517941210009E166F /* gtest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = gtest.xcodeproj; sourceTree = "<group>"; };
 		627F640817941210009E166F /* gtest.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gtest.pro; sourceTree = "<group>"; };
-		627F64B31794171A009E166F /* RootMathMore.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RootMathMore.pro; sourceTree = "<group>"; };
-		627F64B61794171A009E166F /* Derivator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Derivator.h; sourceTree = "<group>"; };
-		627F64B71794171A009E166F /* GSL1DMinimizerWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSL1DMinimizerWrapper.h; sourceTree = "<group>"; };
-		627F64B81794171A009E166F /* GSLFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLFunctionWrapper.h; sourceTree = "<group>"; };
-		627F64B91794171A009E166F /* GSLMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMinimizer.h; sourceTree = "<group>"; };
-		627F64BA1794171A009E166F /* GSLMinimizer1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMinimizer1D.h; sourceTree = "<group>"; };
-		627F64BB1794171A009E166F /* GSLMultiFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiFit.h; sourceTree = "<group>"; };
-		627F64BC1794171A009E166F /* GSLMultiFitFunctionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiFitFunctionAdapter.h; sourceTree = "<group>"; };
-		627F64BD1794171A009E166F /* GSLMultiFitFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiFitFunctionWrapper.h; sourceTree = "<group>"; };
-		627F64BE1794171A009E166F /* GSLMultiMinFunctionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiMinFunctionAdapter.h; sourceTree = "<group>"; };
-		627F64BF1794171A009E166F /* GSLMultiMinFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiMinFunctionWrapper.h; sourceTree = "<group>"; };
-		627F64C01794171A009E166F /* GSLMultiMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiMinimizer.h; sourceTree = "<group>"; };
-		627F64C11794171A009E166F /* GSLRndmEngines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLRndmEngines.h; sourceTree = "<group>"; };
-		627F64C21794171A009E166F /* GSLRngWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLRngWrapper.h; sourceTree = "<group>"; };
-		627F64C31794171A009E166F /* GSLSimAnnealing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLSimAnnealing.h; sourceTree = "<group>"; };
-		627F64C41794171A009E166F /* MultiNumGradFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiNumGradFunction.h; sourceTree = "<group>"; };
-		627F64C71794171A009E166F /* Derivator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Derivator.cxx; sourceTree = "<group>"; };
-		627F64C81794171A009E166F /* GSLDerivator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLDerivator.cxx; sourceTree = "<group>"; };
-		627F64CA1794171A009E166F /* GSLMinimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLMinimizer.cxx; sourceTree = "<group>"; };
-		627F64CB1794171A009E166F /* GSLMinimizer1D.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLMinimizer1D.cxx; sourceTree = "<group>"; };
-		627F64CC1794171A009E166F /* GSLRndmEngines.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLRndmEngines.cxx; sourceTree = "<group>"; };
-		627F64CD1794171A009E166F /* GSLSimAnnealing.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLSimAnnealing.cxx; sourceTree = "<group>"; };
-		627F64CE1794171A009E166F /* MultiNumGradFunction.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiNumGradFunction.cxx; sourceTree = "<group>"; };
-		627F6501179423EA009E166F /* GSLDerivator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLDerivator.h; sourceTree = "<group>"; };
 		627F650717942E64009E166F /* libBornAgain.Fit.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.Fit.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F650817942F41009E166F /* libBornAgain.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F650E17943257009E166F /* libRootMathMore.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libRootMathMore.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F6552179444B8009E166F /* BornAgain.TestFit01 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BornAgain.TestFit01; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F657C17944D37009E166F /* BornAgain.TestFit02 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BornAgain.TestFit02; sourceTree = BUILT_PRODUCTS_DIR; };
 		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
+		628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorDebyeWaller.cpp; sourceTree = "<group>"; };
+		628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorMultiPositionFactor.cpp; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fp_exception_glibc_extension.h; sourceTree = "<group>"; };
 		62B316101712FE11004A9D02 /* MessageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageService.h; sourceTree = "<group>"; };
@@ -2744,9 +2716,9 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
 				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
 				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
-				6223326217C640BC004CCDAE /* FormFactorPol.h */,
 				627F60031793FADB009E166F /* FormFactorTethraedron.h */,
 				625A173B16BAAE69004943DB /* FormFactorCone.h */,
 				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
@@ -2767,7 +2739,6 @@
 				62222277160CB745008205AC /* FormFactorDecoratorFactor.h */,
 				62222278160CB745008205AC /* FormFactorDecoratorMultiPositionFactor.h */,
 				62222279160CB745008205AC /* FormFactorDecoratorPositionFactor.h */,
-				6222227A160CB745008205AC /* FormFactorDecoratorRefractiveIndex.h */,
 				6222227B160CB745008205AC /* FormFactorDecoratorTransformation.h */,
 				6222227C160CB745008205AC /* FormFactorFullSphere.h */,
 				6222227D160CB745008205AC /* FormFactorGauss.h */,
@@ -2785,9 +2756,11 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
+				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
+				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
 				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
 				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
-				6223326517C640C7004CCDAE /* FormFactorPol.cpp */,
 				627F60041793FAE3009E166F /* FormFactorTethraedron.cpp */,
 				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
 				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
@@ -69756,7 +69729,6 @@
 		622245E9160CB74C008205AC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				627F649A1794171A009E166F /* RootMathMore */,
 				627F63211794120F009E166F /* gtest */,
 			);
 			path = ThirdParty;
@@ -70635,53 +70607,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		627F649A1794171A009E166F /* RootMathMore */ = {
-			isa = PBXGroup;
-			children = (
-				627F64B31794171A009E166F /* RootMathMore.pro */,
-				627F64B51794171A009E166F /* inc */,
-				627F64C61794171A009E166F /* src */,
-			);
-			path = RootMathMore;
-			sourceTree = "<group>";
-		};
-		627F64B51794171A009E166F /* inc */ = {
-			isa = PBXGroup;
-			children = (
-				627F6501179423EA009E166F /* GSLDerivator.h */,
-				627F64B61794171A009E166F /* Derivator.h */,
-				627F64B71794171A009E166F /* GSL1DMinimizerWrapper.h */,
-				627F64B81794171A009E166F /* GSLFunctionWrapper.h */,
-				627F64B91794171A009E166F /* GSLMinimizer.h */,
-				627F64BA1794171A009E166F /* GSLMinimizer1D.h */,
-				627F64BB1794171A009E166F /* GSLMultiFit.h */,
-				627F64BC1794171A009E166F /* GSLMultiFitFunctionAdapter.h */,
-				627F64BD1794171A009E166F /* GSLMultiFitFunctionWrapper.h */,
-				627F64BE1794171A009E166F /* GSLMultiMinFunctionAdapter.h */,
-				627F64BF1794171A009E166F /* GSLMultiMinFunctionWrapper.h */,
-				627F64C01794171A009E166F /* GSLMultiMinimizer.h */,
-				627F64C11794171A009E166F /* GSLRndmEngines.h */,
-				627F64C21794171A009E166F /* GSLRngWrapper.h */,
-				627F64C31794171A009E166F /* GSLSimAnnealing.h */,
-				627F64C41794171A009E166F /* MultiNumGradFunction.h */,
-			);
-			path = inc;
-			sourceTree = "<group>";
-		};
-		627F64C61794171A009E166F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				627F64C71794171A009E166F /* Derivator.cxx */,
-				627F64C81794171A009E166F /* GSLDerivator.cxx */,
-				627F64CA1794171A009E166F /* GSLMinimizer.cxx */,
-				627F64CB1794171A009E166F /* GSLMinimizer1D.cxx */,
-				627F64CC1794171A009E166F /* GSLRndmEngines.cxx */,
-				627F64CD1794171A009E166F /* GSLSimAnnealing.cxx */,
-				627F64CE1794171A009E166F /* MultiNumGradFunction.cxx */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
 		62B3162E17130E4F004A9D02 /* Fit */ = {
 			isa = PBXGroup;
 			children = (
@@ -71088,7 +71013,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PATH=/opt/local/bin:${PATH}\ncd ${SRCROOT}/Core\nqmake\nmake\ncd ${SRCROOT}/ThirdParty/RootMathMore\nqmake\nmake\ncd ${SRCROOT}/Fit\nqmake\nmake\ncd ${SRCROOT}/App\nqmake\nmake";
+			shellScript = "PATH=/opt/local/bin:${PATH}\ncd ${SRCROOT}/Core\nqmake\nmake\ncd ${SRCROOT}/Fit\nqmake\nmake\ncd ${SRCROOT}/App\nqmake\nmake";
 		};
 		6222D09B160C8EF0008205AC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -71372,7 +71297,6 @@
 				6223325F17C640A2004CCDAE /* SampleMaterialVisitor.cpp in Sources */,
 				6223326617C640C7004CCDAE /* FormFactorDWBAPol.cpp in Sources */,
 				6223326717C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp in Sources */,
-				6223326817C640C7004CCDAE /* FormFactorPol.cpp in Sources */,
 				6223326C17C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp in Sources */,
 				6223326D17C64116004CCDAE /* LayerStrategyBuilder.cpp in Sources */,
 				6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */,
@@ -71380,6 +71304,9 @@
 				6223327717C641C5004CCDAE /* IMaterial.cpp in Sources */,
 				62D4124917D4E7A900BD34D1 /* LayerSpecularInfo.cpp in Sources */,
 				62D4124A17D4E7A900BD34D1 /* MatrixRTCoefficients.cpp in Sources */,
+				622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */,
+				628D3C1217E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp in Sources */,
+				628D3C1317E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71408,13 +71335,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				627F64E81794171A009E166F /* Derivator.cxx in Sources */,
-				627F64E91794171A009E166F /* GSLDerivator.cxx in Sources */,
-				627F64EB1794171A009E166F /* GSLMinimizer.cxx in Sources */,
-				627F64EC1794171A009E166F /* GSLMinimizer1D.cxx in Sources */,
-				627F64ED1794171A009E166F /* GSLRndmEngines.cxx in Sources */,
-				627F64EE1794171A009E166F /* GSLSimAnnealing.cxx in Sources */,
-				627F64EF1794171A009E166F /* MultiNumGradFunction.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

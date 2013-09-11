@@ -30,7 +30,7 @@
 
 class TestPerformance : public IFunctionalTest
 {
- public:
+public:
     //! class to hold performance information over functional test
     class PerformanceTestInfo {
     public:
@@ -48,7 +48,7 @@ class TestPerformance : public IFunctionalTest
     virtual ~TestPerformance();
 
     virtual void execute();
- private:
+private:
     //! fill system information
     void get_sysinfo();
 
@@ -68,7 +68,7 @@ class TestPerformance : public IFunctionalTest
 //! measurement of the performance in specular matrix calculation
 class PerfTest_SpecularMatrix : public IFunctionalTest
 {
- public:
+public:
     PerfTest_SpecularMatrix() : IFunctionalTest("SpecularMatrix"), m_sample(0){}
     virtual ~PerfTest_SpecularMatrix() { }
     void initialise(ProgramOptions *p_options);
@@ -80,7 +80,7 @@ class PerfTest_SpecularMatrix : public IFunctionalTest
 //! measurement of the performance in pyramid form factor calculations
 class PerfTest_Pyramid : public IFunctionalTest
 {
- public:
+public:
     PerfTest_Pyramid()
         : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_Pyramid() { delete m_simulation; }
@@ -94,7 +94,7 @@ class PerfTest_Pyramid : public IFunctionalTest
 //! measurement of the performance in pyramid formfactor and in rotation mechanism
 class PerfTest_RotatedPyramid : public IFunctionalTest
 {
- public:
+public:
     PerfTest_RotatedPyramid()
         : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_RotatedPyramid() { delete m_simulation; }
@@ -109,7 +109,7 @@ class PerfTest_RotatedPyramid : public IFunctionalTest
 //! measurement of the performance iof meso crystal
 class PerfTest_MesoCrystal : public IFunctionalTest
 {
- public:
+public:
     PerfTest_MesoCrystal()
         : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_MesoCrystal() { delete m_simulation; }

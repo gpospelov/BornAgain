@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestIsGISAXS5.h
@@ -27,7 +27,7 @@ class FitSuite;
 
 class TestIsGISAXS5 : public IFunctionalTest
 {
- public:
+public:
     TestIsGISAXS5();
     virtual ~TestIsGISAXS5() { }
 
@@ -49,7 +49,7 @@ class TestIsGISAXS5 : public IFunctionalTest
         double m_interf_width;
     };
 
- private:
+private:
 
     //! Initializes simulation
     void initializeSimulation();

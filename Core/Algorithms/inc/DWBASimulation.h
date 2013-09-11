@@ -30,7 +30,7 @@
 
 class DWBASimulation : public ISimulation
 {
- public:
+public:
     DWBASimulation();
 
     virtual ~DWBASimulation();

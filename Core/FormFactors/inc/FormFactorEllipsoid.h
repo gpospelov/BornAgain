@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorEllipsoid : public IFormFactorBorn
 {
- public:
+public:
     FormFactorEllipsoid(double radius, double width,
                         double height, double alpha);
     ~FormFactorEllipsoid() {}
@@ -47,11 +47,11 @@ class BA_CORE_API_ FormFactorEllipsoid : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
- private:
+private:
     double m_radius;
     double m_width;
     double m_height;

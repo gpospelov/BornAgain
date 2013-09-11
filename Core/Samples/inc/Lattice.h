@@ -27,7 +27,7 @@
 
 class BA_CORE_API_ Lattice
 {
- public:
+public:
     Lattice();
     Lattice(const kvector_t& a1, const kvector_t& a2, const kvector_t& a3);
     Lattice(const Lattice& lattice);
@@ -89,7 +89,7 @@ class BA_CORE_API_ Lattice
     static Lattice createTrigonalLattice(double a, double c);
 
     const KVectorContainer& getKVectorContainer() const { return m_kvector_container; }
- private:
+private:
     Lattice& operator=(const Lattice& lattice);
 //    std::vector<kvector_t> getVectorsWithinRadius(const kvector_t& input_vector,
 //            const IndexVector3D& nearest_coords, double radius,

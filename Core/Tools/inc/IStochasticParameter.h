@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ IStochasticParameter : public ICloneable
 {
- public:
+public:
     virtual ~IStochasticParameter() {}
     virtual void setToRandom()=0;
     virtual void setToAverage()=0;
@@ -28,7 +28,7 @@ class BA_CORE_API_ IStochasticParameter : public ICloneable
 
 template <class T> class BA_CORE_API_ StochasticParameter : public IStochasticParameter
 {
- public:
+public:
     StochasticParameter(T average) : m_average(average)
 	{
 		setToAverage();
@@ -56,7 +56,7 @@ template <class T> class BA_CORE_API_ StochasticParameter : public IStochasticPa
     virtual double probabilityDensity(T value) const=0;
     virtual double getFWHM() const { return 0.0;}
 
- protected:
+protected:
     T m_current;
     T m_average;
 };

@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ Detector : public IParameterized
 {
- public:
+public:
 
     Detector();
     Detector(const Detector& other);
@@ -66,7 +66,7 @@ class BA_CORE_API_ Detector : public IParameterized
     //! Normalize intensity data with detector cell sizes.
     void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
 
- protected:
+protected:
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
@@ -77,7 +77,7 @@ class BA_CORE_API_ Detector : public IParameterized
     //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
 
- private:
+private:
 
     //! swap function
     void swapContent(Detector& other);

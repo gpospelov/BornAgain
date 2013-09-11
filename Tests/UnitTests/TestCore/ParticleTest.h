@@ -10,10 +10,9 @@
 
 class ParticleTest : public ::testing::Test
 {
- protected:
+protected:
     ParticleTest(){}
     virtual ~ParticleTest(){}
-
 };
 
 
@@ -24,7 +23,7 @@ TEST_F(ParticleTest, ParticleInitialState)
     EXPECT_EQ(complex_t(0,0), particle.getRefractiveIndex());
     EXPECT_EQ(NULL, particle.getSimpleFormFactor());
     EXPECT_FALSE(particle.hasDistributedFormFactor());
-    EXPECT_EQ(NULL, particle.createFormFactor());
+    EXPECT_EQ(NULL, particle.createFormFactor(1.0));
     ASSERT_THROW(particle.createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle.getName());
 
@@ -33,7 +32,7 @@ TEST_F(ParticleTest, ParticleInitialState)
     EXPECT_EQ(complex_t(0,0), particle2->getRefractiveIndex());
     EXPECT_EQ(NULL, particle2->getSimpleFormFactor());
     EXPECT_FALSE(particle2->hasDistributedFormFactor());
-    EXPECT_EQ(NULL, particle2->createFormFactor());
+    EXPECT_EQ(NULL, particle2->createFormFactor(1.0));
     ASSERT_THROW(particle2->createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle2->getName());
     delete particle2;
@@ -49,7 +48,7 @@ TEST_F(ParticleTest, ParticleConstructors)
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(NULL, p1->getSimpleFormFactor());
     EXPECT_FALSE(p1->hasDistributedFormFactor());
-    EXPECT_EQ(NULL, p1->createFormFactor());
+    EXPECT_EQ(NULL, p1->createFormFactor(1.0));
     ASSERT_THROW(p1->createDistributedParticles(0,0).size(), NullPointerException);
     delete p1;
 
@@ -58,11 +57,11 @@ TEST_F(ParticleTest, ParticleConstructors)
     EXPECT_EQ("FormFactorFullSphere", p2->getSimpleFormFactor()->getName());
     EXPECT_EQ(1, p2->getSimpleFormFactor()->getRadius());
     EXPECT_FALSE(p2->hasDistributedFormFactor());
-    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorRefractiveIndex *>(
-            p2->createFormFactor()));
+    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(
+            p2->createFormFactor(1.0)));
     EXPECT_EQ(complex_t(1,0),
-              dynamic_cast<FormFactorDecoratorRefractiveIndex *>(
-                      p2->createFormFactor())->getAmbientRefractiveIndex());
+              dynamic_cast<FormFactorDecoratorMaterial *>(
+                      p2->createFormFactor(1.0))->getAmbientRefractiveIndex());
     delete p2;
 
     FormFactorFullSphere *sphere3 = new FormFactorFullSphere(1.0);

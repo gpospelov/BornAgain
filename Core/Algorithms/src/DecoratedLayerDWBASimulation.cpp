@@ -72,18 +72,14 @@ void DecoratedLayerDWBASimulation::runMagnetic(
         Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
             "alpha_f", it.getIndex());
         double alpha_f = alpha_bin.getMidPoint();
-        double phi_f = phi_bin.getMidPoint();
         if (m_sim_params.me_framework==SimulationParameters::DWBA &&
                 alpha_f<0) {
             ++it;
             continue;
         }
-        Bin1DCVector k_f_bin1 = getKfBin1_matrix(
-                wavelength, alpha_bin, phi_bin);
-        Bin1DCVector k_f_bin2 = getKfBin2_matrix(
-                wavelength, alpha_bin, phi_bin);
-        *it = p_strategy->evaluatePol(m_ki, k_f_bin1, k_f_bin2, -m_alpha_i,
-                    alpha_f, phi_f) * total_surface_density;
+        Bin1DCVector k_f_bin = getKfBin1_matrix(wavelength, alpha_bin, phi_bin);
+        *it = p_strategy->evaluatePol(m_ki, k_f_bin, alpha_bin, phi_bin)
+                * total_surface_density;
         ++it;
     }
 }
@@ -124,9 +120,8 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             continue;
         }
         Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
-        *it_intensity =
-            p_strategy->evaluate(k_ij, k_f_bin,
-                                 -m_alpha_i, alpha_f)*total_surface_density;
+        *it_intensity = p_strategy->evaluate(k_ij, k_f_bin, alpha_bin)
+                      * total_surface_density;
         ++it_intensity;
     }
 }

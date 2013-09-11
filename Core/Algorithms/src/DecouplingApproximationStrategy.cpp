@@ -32,15 +32,14 @@ void DecouplingApproximationStrategy::init(
     }
 }
 
-double DecouplingApproximationStrategy::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+double DecouplingApproximationStrategy::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         complex_t ff =
-            m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+            m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
 
         if (MathFunctions::isnan(ff.real())) {
             std::cout << "Amplitude is NaN: i = " << i << std::endl;
@@ -61,9 +60,8 @@ double DecouplingApproximationStrategy::evaluate(
 }
 
 Eigen::Matrix2d DecouplingApproximationStrategy::evaluatePol(
-        const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
-        const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
-        double phi_f) const
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     Eigen::Matrix2d intensity = Eigen::Matrix2d::Zero();
     Eigen::Matrix2cd amplitude = Eigen::Matrix2cd::Zero();
@@ -75,15 +73,15 @@ Eigen::Matrix2d DecouplingApproximationStrategy::evaluatePol(
                     "DecouplingApproximationStrategy::evaluatePol: "
                     "unpolarized form factor encountered");
         }
-        Eigen::Matrix2cd  ff = p_ff_pol->evaluatePol(k_i, k_f1_bin, k_f2_bin,
-                alpha_i, alpha_f, phi_f);
+        Eigen::Matrix2cd  ff = p_ff_pol->evaluatePol(k_i, k_f_bin,
+                alpha_f_bin, phi_f_bin);
 
         double fraction = m_ff_infos[i]->m_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(MathFunctions::Norm(ff));
     }
     Eigen::Matrix2d amplitude_norm = MathFunctions::Norm(amplitude);
-    double itf_function = m_ifs[0]->evaluate(k_i-k_f1_bin.getMidPoint());
+    double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());
     return intensity + amplitude_norm*(itf_function-1.0);
 }
 

@@ -45,6 +45,17 @@ Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor)
     if(mp_form_factor) registerChild(mp_form_factor);
 }
 
+Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor,
+        const Geometry::PTransform3D &transform)
+: mp_material(p_material)
+, mp_ambient_material(0)
+, mp_form_factor(form_factor.clone())
+, mP_transform(transform)
+{
+    setName("Particle");
+    if(mp_form_factor) registerChild(mp_form_factor);
+}
+
 
 Particle::~Particle()
 {
@@ -59,6 +70,8 @@ Particle* Particle::clone() const
 
     Particle *p_new = new Particle(mp_material, p_form_factor);
     p_new->setAmbientMaterial(mp_ambient_material);
+
+    p_new->setTransform(mP_transform);
 
     p_new->setName(getName());
     return p_new;
@@ -80,8 +93,25 @@ Particle* Particle::cloneInvertB() const
     Particle *p_new = new Particle(p_material, p_form_factor);
     p_new->setAmbientMaterial(p_ambient_material);
 
+    p_new->setTransform(mP_transform);
+
     p_new->setName(getName() + "_inv");
     return p_new;
+}
+
+IFormFactor* Particle::createFormFactor(
+        complex_t wavevector_scattering_factor) const
+{
+    IFormFactor *p_transformed_ff = createTransformedFormFactor();
+    if (!p_transformed_ff) {
+        return 0;
+    }
+    FormFactorDecoratorMaterial *p_ff =
+            new FormFactorDecoratorMaterial(
+                    p_transformed_ff, wavevector_scattering_factor);
+    p_ff->setMaterial(mp_material);
+    p_ff->setAmbientMaterial(mp_ambient_material);
+    return p_ff;
 }
 
 std::vector<ParticleInfo*> Particle::createDistributedParticles(
@@ -107,4 +137,41 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
     return result;
 }
 
+void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)
+{
+    if (!p_form_factor) return;
 
+    if (p_form_factor != mp_form_factor) {
+        deregisterChild(mp_form_factor);
+        delete mp_form_factor;
+        mp_form_factor = p_form_factor;
+        registerChild(mp_form_factor);
+    }
+}
+
+std::vector<DiffuseParticleInfo*>* Particle::createDiffuseParticleInfo(
+        const ParticleInfo& parent_info) const
+{
+    (void)parent_info;
+    return 0;
+}
+
+bool Particle::hasDistributedFormFactor() const
+{
+    return ( !mp_form_factor ? false
+                             : mp_form_factor->isDistributedFormFactor() );
+}
+
+IFormFactor* Particle::createTransformedFormFactor() const
+{
+    if(!mp_form_factor) return 0;
+    IFormFactor *p_result;
+    if(mP_transform.get()) {
+        p_result = new FormFactorDecoratorTransformation(
+                mp_form_factor->clone(), mP_transform);
+    }
+    else {
+        p_result = mp_form_factor->clone();
+    }
+    return p_result;
+}

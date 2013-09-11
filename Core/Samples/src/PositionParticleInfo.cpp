@@ -17,28 +17,6 @@
 #include <iostream>
 
 PositionParticleInfo::PositionParticleInfo(
-    Particle* p_particle, const Geometry::PTransform3D& transform,
-    kvector_t position, double abundance)
-    : ParticleInfo(p_particle, transform, position.z(), abundance)
-    , m_pos_x(position.x())
-    , m_pos_y(position.y())
-{
-    setName("PositionParticleInfo");
-    init_parameters();
-}
-
-PositionParticleInfo::PositionParticleInfo(
-    const Particle& particle, const Geometry::PTransform3D& transform,
-    kvector_t position, double abundance)
-    : ParticleInfo(particle.clone(), transform, position.z(), abundance)
-    , m_pos_x(position.x())
-    , m_pos_y(position.y())
-{
-    setName("PositionParticleInfo");
-    init_parameters();
-}
-
-PositionParticleInfo::PositionParticleInfo(
     Particle* p_particle, kvector_t position, double abundance)
     : ParticleInfo(p_particle, position.z(), abundance)
     , m_pos_x(position.x())
@@ -62,7 +40,7 @@ PositionParticleInfo* PositionParticleInfo::clone() const
 {
     kvector_t position(m_pos_x, m_pos_y, -m_depth);
     return new PositionParticleInfo(
-        mp_particle->clone(), mP_transform, position, m_abundance);
+        mp_particle->clone(), position, m_abundance);
 }
 
 void PositionParticleInfo::setPosition(kvector_t position)

@@ -20,7 +20,7 @@
 
 class SimulationParameters
 {
- public:
+public:
     SimulationParameters();
     enum EFramework { DWBA, BA } me_framework;
     enum EInterferenceApproximation { DA, LMA, SSCA, ISGISAXSMOR } me_if_approx;

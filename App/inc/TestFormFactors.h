@@ -24,13 +24,13 @@
 
 class TestFormFactors : public IFunctionalTest
 {
- public:
+public:
     TestFormFactors(){}
     virtual ~TestFormFactors(){}
 
     virtual void execute();
     virtual void finalise();
- private:
+private:
     std::string m_data_path;
 };
 

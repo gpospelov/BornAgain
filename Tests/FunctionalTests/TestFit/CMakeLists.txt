@@ -19,6 +19,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 #include_directories(${BornAgainCore_INCLUDE_DIRS})
 foreach(_test ${list_of_tests})
     BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainFit_LIBRARY} ${BornAgainCore_LIBRARY})
+    #install (TARGETS ${_test} DESTINATION bin COMPONENT Applications)
     BORNAGAIN_ADD_TEST(${_test})
 endforeach()
 

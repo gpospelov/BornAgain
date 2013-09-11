@@ -79,7 +79,7 @@ if(c++11)
 endif()
 
 #---Print the final compiler flags--------------------------------------------------------------------
-message(STATUS "BornAgain Platform: ${ROOT_PLATFORM}")
+message(STATUS "BornAgain Platform: ${BORNAGsAIN_PLATFORM}")
 message(STATUS "BornAgain Architecture: ${BORNAGAIN_ARCHITECTURE}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Compiler Flags: ${CMAKE_CXX_FLAGS} ${ALL_CXX_FLAGS_${CMAKE_BUILD_TYPE}}")

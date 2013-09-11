@@ -54,4 +54,4 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-install (TARGETS ${library_name} DESTINATION lib)
+install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)

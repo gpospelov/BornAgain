@@ -32,6 +32,13 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     }
 
+    Particle_wrapper(::IMaterial const * p_material, ::IFormFactor const & form_factor, ::Geometry::PTransform3D const & transform )
+    : Particle( boost::python::ptr(p_material), boost::ref(form_factor), transform )
+      , bp::wrapper< Particle >(){
+        // constructor
+    
+    }
+
     virtual ::Particle * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -228,6 +235,7 @@ void register_Particle_class(){
         Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< >() );
         bp::scope Particle_scope( Particle_exposer );
         Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
+        Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const &, Geometry::PTransform3D const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("transform") )) );
         { //::Particle::clone
         
             typedef ::Particle * ( ::Particle::*clone_function_type )(  ) const;

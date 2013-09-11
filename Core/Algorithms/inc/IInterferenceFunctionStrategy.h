@@ -38,16 +38,16 @@ public:
             Bin1D alpha_f_bin) const=0;
     //! Calculates and returns a polarized form factor in DWBA
     virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-            double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const=0;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+            Bin1D phi_f_bin) const=0;
 
 protected:
     //! Returns mean form factor, possibly including their position information
     complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             Bin1D alpha_f_bin, bool use_position=false) const;
     //! Returns mean squared form factor
-    double meanSquaredFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin) const;
+    double meanSquaredFormFactor(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
     //! Returns q-vector from k_i and the bin of k_f
     cvector_t getQ(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
     SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
@@ -63,8 +63,9 @@ inline void IInterferenceFunctionStrategy::init(
     m_ifs = ifs;
 }
 
-inline complex_t IInterferenceFunctionStrategy::meanFormFactor(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, bool use_position) const
+inline complex_t IInterferenceFunctionStrategy::meanFormFactor(
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+        bool use_position) const
 {
     complex_t result;
     for (SafePointerVector<FormFactorInfo>::const_iterator
@@ -86,8 +87,8 @@ inline double IInterferenceFunctionStrategy::meanSquaredFormFactor(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     double result=0.0;
-    for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
-            it != m_ff_infos.end(); ++it) {
+    for (SafePointerVector<FormFactorInfo>::const_iterator it =
+            m_ff_infos.begin(); it != m_ff_infos.end(); ++it) {
         complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f_bin);
         result += std::norm(ff_value);
     }

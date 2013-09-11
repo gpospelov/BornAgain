@@ -35,8 +35,7 @@ public:
 
     //! Calculates and returns a polarized form factor in DWBA
     virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-            double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
 private:
     bool checkVectorSizes() const;

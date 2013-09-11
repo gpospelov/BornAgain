@@ -63,8 +63,7 @@ class BA_CORE_API_ IFormFactor : public ISample
     //! @param alpha_f outgoing inclination angle wrt scattering surface
     //! @param phi_f outgoing azimuthal angle wrt scattering surface
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-            double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 #endif
 
     //! Returns number of variable/stochastic parameters
@@ -97,15 +96,12 @@ class BA_CORE_API_ IFormFactor : public ISample
 
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, Bin1D alpha_f, Bin1D phi_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     (void)k_i;
-    (void)k_f1_bin;
-    (void)k_f2_bin;
-    (void)alpha_i;
-    (void)alpha_f;
-    (void)phi_f;
+    (void)k_f_bin;
+    (void)alpha_f_bin;
+    (void)phi_f_bin;
     // Throws to prevent unanticipated behaviour
     throw NotImplementedException("IFormFactor::evaluatePol:"
             " is not implemented by default");

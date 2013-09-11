@@ -55,8 +55,7 @@ void TestPolarizedDWBATerms::execute()
     Bin1D alpha_f_bin = { m_alpha_f, m_alpha_f };
     Bin1D zero_bin = { 0.0, 0.0 };
     mp_scalar_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin);
-    mp_matrix_ff->calculateTerms(m_ki, m_kf_bin, m_kf_bin, m_alpha_i,
-            alpha_f_bin, zero_bin);
+    mp_matrix_ff->calculateTerms(m_ki, m_kf_bin, alpha_f_bin, zero_bin);
 
     std::cout << mp_scalar_ff->m_term_SR << std::endl;
 

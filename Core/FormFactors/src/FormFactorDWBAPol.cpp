@@ -47,10 +47,9 @@ complex_t FormFactorDWBAPol::evaluate(const cvector_t& k_i,
 }
 
 Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, Bin1D alpha_f, Bin1D phi_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f, Bin1D phi_f) const
 {
-    calculateTerms(k_i, k_f1_bin, k_f2_bin, alpha_i, alpha_f, phi_f);
+    calculateTerms(k_i, k_f_bin, alpha_f, phi_f);
     Eigen::Matrix2cd result =
             m_M11_S + m_M11_RS + m_M11_SR + m_M11_RSR +
             m_M12_S + m_M12_RS + m_M12_SR + m_M12_RSR +
@@ -67,8 +66,7 @@ void FormFactorDWBAPol::setSpecularInfo(
 }
 
 void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     const ILayerRTCoefficients *p_in_coeff =
             mp_specular_info->getInCoefficients();
@@ -87,16 +85,16 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
             phi_f_bin.m_lower);
     const ILayerRTCoefficients *p_out_upper = getOutCoeffs(alpha_f_bin.m_upper,
             phi_f_bin.m_upper);
-    Bin1DCVector kf_1R = k_f1_bin;
+    Bin1DCVector kf_1R = k_f_bin;
     kf_1R.m_q_lower.setZ(-(complex_t)p_out_lower->getKz()(0));
     kf_1R.m_q_upper.setZ(-(complex_t)p_out_upper->getKz()(0));
-    Bin1DCVector kf_1T = k_f1_bin;
+    Bin1DCVector kf_1T = k_f_bin;
     kf_1T.m_q_lower.setZ((complex_t)p_out_lower->getKz()(0));
     kf_1T.m_q_upper.setZ((complex_t)p_out_upper->getKz()(0));
-    Bin1DCVector kf_2R = k_f2_bin;
+    Bin1DCVector kf_2R = k_f_bin;
     kf_2R.m_q_lower.setZ(-(complex_t)p_out_lower->getKz()(1));
     kf_2R.m_q_upper.setZ(-(complex_t)p_out_upper->getKz()(1));
-    Bin1DCVector kf_2T = k_f2_bin;
+    Bin1DCVector kf_2T = k_f_bin;
     kf_2T.m_q_lower.setZ((complex_t)p_out_lower->getKz()(1));
     kf_2T.m_q_upper.setZ((complex_t)p_out_upper->getKz()(1));
     // now each of the 16 matrix terms of the polarized DWBA is calculated:
@@ -111,116 +109,100 @@ void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
     Eigen::Matrix2cd ff_BA;
 
     // eigenmode 1 -> eigenmode 1: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_1T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_1T, alpha_f_bin, phi_f_bin);
     m_M11_S(0,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M11_S(0,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M11_S(1,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->T1min();
     m_M11_S(1,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->T1min();
     // eigenmode 1 -> eigenmode 1: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_1T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_1T, alpha_f_bin, phi_f_bin);
     m_M11_RS(0,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M11_RS(0,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M11_RS(1,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->R1min();
     m_M11_RS(1,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->R1min();
     // eigenmode 1 -> eigenmode 1: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_1R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_1R, alpha_f_bin, phi_f_bin);
     m_M11_SR(0,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M11_SR(0,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M11_SR(1,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->T1min();
     m_M11_SR(1,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->T1min();
     // eigenmode 1 -> eigenmode 1: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_1R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_1R, alpha_f_bin, phi_f_bin);
     m_M11_RSR(0,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M11_RSR(0,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M11_RSR(1,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->R1min();
     m_M11_RSR(1,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->R1min();
 
     // eigenmode 1 -> eigenmode 2: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_2T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_2T, alpha_f_bin, phi_f_bin);
     m_M12_S(0,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M12_S(0,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M12_S(1,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->T1min();
     m_M12_S(1,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->T1min();
     // eigenmode 1 -> eigenmode 2: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_2T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_2T, alpha_f_bin, phi_f_bin);
     m_M12_RS(0,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M12_RS(0,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M12_RS(1,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->R1min();
     m_M12_RS(1,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->R1min();
     // eigenmode 1 -> eigenmode 2: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_2R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1T, kf_2R, alpha_f_bin, phi_f_bin);
     m_M12_SR(0,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M12_SR(0,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->T1plus();
     m_M12_SR(1,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->T1min();
     m_M12_SR(1,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->T1min();
     // eigenmode 1 -> eigenmode 2: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_2R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_1R, kf_2R, alpha_f_bin, phi_f_bin);
     m_M12_RSR(0,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M12_RSR(0,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->R1plus();
     m_M12_RSR(1,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->R1min();
     m_M12_RSR(1,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->R1min();
 
     // eigenmode 2 -> eigenmode 1: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_1T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_1T, alpha_f_bin, phi_f_bin);
     m_M21_S(0,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M21_S(0,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M21_S(1,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->T2min();
     m_M21_S(1,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->T2min();
     // eigenmode 2 -> eigenmode 1: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_1T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_1T, alpha_f_bin, phi_f_bin);
     m_M21_RS(0,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M21_RS(0,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M21_RS(1,0) = - p_out_coeff->T1min().transpose() * ff_BA * p_in_coeff->R2min();
     m_M21_RS(1,1) =  p_out_coeff->T1plus().transpose() * ff_BA * p_in_coeff->R2min();
     // eigenmode 2 -> eigenmode 1: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_1R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_1R, alpha_f_bin, phi_f_bin);
     m_M21_SR(0,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M21_SR(0,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M21_SR(1,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->T2min();
     m_M21_SR(1,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->T2min();
     // eigenmode 2 -> eigenmode 1: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_1R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_1R, alpha_f_bin, phi_f_bin);
     m_M21_RSR(0,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M21_RSR(0,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M21_RSR(1,0) = - p_out_coeff->R1min().transpose() * ff_BA * p_in_coeff->R2min();
     m_M21_RSR(1,1) =  p_out_coeff->R1plus().transpose() * ff_BA * p_in_coeff->R2min();
 
     // eigenmode 2 -> eigenmode 2: direct scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_2T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_2T, alpha_f_bin, phi_f_bin);
     m_M22_S(0,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M22_S(0,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M22_S(1,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->T2min();
     m_M22_S(1,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->T2min();
     // eigenmode 2 -> eigenmode 2: reflection and then scattering
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_2T, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_2T, alpha_f_bin, phi_f_bin);
     m_M22_RS(0,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M22_RS(0,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M22_RS(1,0) = - p_out_coeff->T2min().transpose() * ff_BA * p_in_coeff->R2min();
     m_M22_RS(1,1) =  p_out_coeff->T2plus().transpose() * ff_BA * p_in_coeff->R2min();
     // eigenmode 2 -> eigenmode 2: scattering and then reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_2R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2T, kf_2R, alpha_f_bin, phi_f_bin);
     m_M22_SR(0,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M22_SR(0,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->T2plus();
     m_M22_SR(1,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->T2min();
     m_M22_SR(1,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->T2min();
     // eigenmode 2 -> eigenmode 2: reflection, scattering and again reflection
-    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_2R, Bin1DCVector(),
-            alpha_i, alpha_f_bin, phi_f_bin);
+    ff_BA = mp_form_factor->evaluatePol(ki_2R, kf_2R, alpha_f_bin, phi_f_bin);
     m_M22_RSR(0,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M22_RSR(0,1) =  p_out_coeff->R2plus().transpose() * ff_BA * p_in_coeff->R2plus();
     m_M22_RSR(1,0) = - p_out_coeff->R2min().transpose() * ff_BA * p_in_coeff->R2min();

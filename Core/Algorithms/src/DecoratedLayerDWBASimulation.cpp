@@ -78,8 +78,8 @@ void DecoratedLayerDWBASimulation::runMagnetic(
             continue;
         }
         Bin1DCVector k_f_bin = getKfBin1_matrix(wavelength, alpha_bin, phi_bin);
-        *it = p_strategy->evaluatePol(m_ki, k_f_bin, k_f_bin, -m_alpha_i,
-                alpha_bin, phi_bin) * total_surface_density;
+        *it = p_strategy->evaluatePol(m_ki, k_f_bin, alpha_bin, phi_bin)
+                * total_surface_density;
         ++it;
     }
 }

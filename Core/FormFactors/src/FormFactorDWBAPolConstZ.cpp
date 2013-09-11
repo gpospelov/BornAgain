@@ -37,8 +37,7 @@ FormFactorDWBAPolConstZ* FormFactorDWBAPolConstZ::clone() const
 }
 
 Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     // get all different z-components of wavevectors
     const ILayerRTCoefficients *in_coeff =
@@ -55,7 +54,7 @@ Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
     complex_t kfz_1T = -kfz_1R;
     complex_t kfz_2R = p_out_coeffs->getKz()(1);;
     complex_t kfz_2T = -kfz_2R;
-    calculateTerms(k_i, k_f1_bin, k_f2_bin, alpha_i, alpha_f_bin, phi_f_bin);
+    calculateTerms(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
 
     // multiply with correct phases from depth of particle
     // eigenmode 1 -> eigenmode 1

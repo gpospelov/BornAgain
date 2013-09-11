@@ -4,6 +4,7 @@
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
 #include "Particle.h"
+#include "ParticleCoreShell.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "ParticleInfo.h"
@@ -131,6 +132,26 @@ void SamplePrintVisitor::visit(const Particle *sample)
     goBack();
 }
 
+
+void SamplePrintVisitor::visit(const ParticleCoreShell* sample)
+{
+    assert(sample);
+    std::cout << get_indent() << "PrintVisitor_ParticleCoreShell " <<
+            sample->getName() << std::endl;
+
+    goForward();
+
+    const Particle *p_core = sample->getCoreParticle();
+    if (p_core) {
+        p_core->accept(this);
+    }
+    const Particle *p_shell = sample->getShellParticle();
+    if (p_shell) {
+        p_shell->accept(this);
+    }
+
+    goBack();
+}
 
 void SamplePrintVisitor::visit(const IFormFactor *sample)
 {

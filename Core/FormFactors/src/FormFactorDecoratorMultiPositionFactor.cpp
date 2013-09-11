@@ -31,11 +31,11 @@ FormFactorDecoratorMultiPositionFactor::clone() const
 }
 
 complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     return getPositionsFactor(q)*mp_form_factor->
-               evaluate(k_i, k_f_bin, alpha_f);
+               evaluate(k_i, k_f_bin, alpha_f_bin);
 }
 
 complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(

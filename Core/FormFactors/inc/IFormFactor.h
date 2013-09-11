@@ -52,7 +52,7 @@ class BA_CORE_API_ IFormFactor : public ISample
     //! @param alpha_i incident angle wrt scattering surface
     //! @param alpha_f outgoing angle wrt scattering surface
     virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, double alpha_f) const=0;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const=0;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
@@ -64,7 +64,7 @@ class BA_CORE_API_ IFormFactor : public ISample
     //! @param phi_f outgoing azimuthal angle wrt scattering surface
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-            double alpha_i, double alpha_f, double phi_f) const;
+            double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 #endif
 
     //! Returns number of variable/stochastic parameters
@@ -98,7 +98,7 @@ class BA_CORE_API_ IFormFactor : public ISample
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
         const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, double alpha_f, double phi_f) const
+        double alpha_i, Bin1D alpha_f, Bin1D phi_f) const
 {
     (void)k_i;
     (void)k_f1_bin;
@@ -114,9 +114,10 @@ inline Eigen::Matrix2cd IFormFactor::evaluatePol(const cvector_t& k_i,
 
 inline double IFormFactor::getVolume() const
 {
-    cvector_t zero;
-    Bin1DCVector zero_bin(zero, zero);
-    return std::abs(evaluate(zero, zero_bin, 0.0));
+    cvector_t zero_vector;
+    Bin1DCVector zero_vector_bin(zero_vector, zero_vector);
+    Bin1D zero_bin = { 0.0, 0.0 };
+    return std::abs(evaluate(zero_vector, zero_vector_bin, zero_bin));
 }
 
 inline double IFormFactor::getHeight() const

@@ -35,25 +35,30 @@ void LocalMonodisperseApproximationStrategy::init(
 }
 
 double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     double intensity = 0.0;
     cvector_t q = getQ(k_i, k_f_bin);
     if (m_sim_params.me_lattice_type==SimulationParameters::LATTICE) {
         complex_t amplitude(0.0, 0.0);
-        //double mean_squared_ff = meanSquaredFormFactor(k_i, k_f_bin, alpha_i, alpha_f);
-        for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
-                it != m_ff_infos.end(); ++it) {
+        // double mean_squared_ff =
+        // meanSquaredFormFactor(k_i, k_f_bin, alpha_i, alpha_f);
+        for (SafePointerVector<FormFactorInfo>::const_iterator it =
+                m_ff_infos.begin(); it != m_ff_infos.end(); ++it) {
             double fraction = (*it)->m_abundance;
-            complex_t ff = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
+            complex_t ff = (*it)->mp_ff->evaluate(
+                    k_i, k_f_bin, alpha_f_bin);
             complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
-            amplitude += fraction*std::abs(ff)*std::exp(complex_t(0.0, 1.0)*phase);
+            amplitude += fraction*std::abs(ff)
+                       * std::exp(complex_t(0.0, 1.0)*phase);
         }
-        intensity = std::norm(amplitude)*m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());
+        intensity = std::norm(amplitude)*m_ifs[0]->evaluate(
+                k_i-k_f_bin.getMidPoint());
     }
     else {
         for (size_t i=0; i<m_ff_infos.size(); ++i) {
-            complex_t ff = m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_f);
+            complex_t ff = m_ff_infos[i]->mp_ff->evaluate(
+                    k_i, k_f_bin, alpha_f_bin);
             double itf_function = m_ifs[i]->evaluate(k_i-k_f_bin.getMidPoint());
             double fraction = m_ff_infos[i]->m_abundance;
             intensity += fraction*(itf_function*std::norm(ff));
@@ -67,15 +72,15 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
 
 Eigen::Matrix2d LocalMonodisperseApproximationStrategy::evaluatePol(
         const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
-        const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
-        double phi_f) const
+        const Bin1DCVector& k_f2_bin, double alpha_i, Bin1D alpha_f_bin,
+        Bin1D phi_f_bin) const
 {
     (void)k_i;
     (void)k_f1_bin;
     (void)k_f2_bin;
     (void)alpha_i;
-    (void)alpha_f;
-    (void)phi_f;
+    (void)alpha_f_bin;
+    (void)phi_f_bin;
     throw Exceptions::NotImplementedException(
             "LocalMonodisperseApproximationStrategy::evaluatePol: "
             "this strategy is not implemented for magnetic systems");

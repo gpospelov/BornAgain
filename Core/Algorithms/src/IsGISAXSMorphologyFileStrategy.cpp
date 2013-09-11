@@ -60,7 +60,7 @@ void IsGISAXSMorphologyFileStrategy::initPositions()
 }
 
 double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     complex_t mean_ff = complex_t(0., 0.);
@@ -69,7 +69,7 @@ double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
     std::vector<complex_t> ff_values;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         ff_values.push_back(m_ff_infos[i]->mp_ff->evaluate(
-                k_i, k_f_bin, alpha_f));
+                k_i, k_f_bin, alpha_f_bin));
         mean_ff += m_ff_infos[i]->m_abundance*ff_values[i];
     }
 
@@ -113,15 +113,15 @@ double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
 
 Eigen::Matrix2d IsGISAXSMorphologyFileStrategy::evaluatePol(
         const cvector_t& k_i, const Bin1DCVector& k_f1_bin,
-        const Bin1DCVector& k_f2_bin, double alpha_i, double alpha_f,
-        double phi_f) const
+        const Bin1DCVector& k_f2_bin, double alpha_i, Bin1D alpha_f_bin,
+        Bin1D phi_f_bin) const
 {
     (void)k_i;
     (void)k_f1_bin;
     (void)k_f2_bin;
     (void)alpha_i;
-    (void)alpha_f;
-    (void)phi_f;
+    (void)alpha_f_bin;
+    (void)phi_f_bin;
     throw Exceptions::NotImplementedException("IsGISAXSMorphologyFileStrategy::"
             "evaluatePol: this strategy is not implemented for magnetic "
             "systems");

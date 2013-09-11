@@ -30,12 +30,12 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, double alpha_f) const;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
 #ifndef GCCXML_SKIP_THIS
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-            double alpha_i, double alpha_f, double phi_f) const;
+            double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 #endif
 
     //! evaluate scattering amplitude for complex wavevector

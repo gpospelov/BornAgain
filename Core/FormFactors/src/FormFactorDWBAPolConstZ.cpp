@@ -38,20 +38,24 @@ FormFactorDWBAPolConstZ* FormFactorDWBAPolConstZ::clone() const
 
 Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
         const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, double alpha_f, double phi_f) const
+        double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     // get all different z-components of wavevectors
     const ILayerRTCoefficients *in_coeff =
             mp_specular_info->getInCoefficients();
+    double alpha_f = alpha_f_bin.getMidPoint();
+    double phi_f = phi_f_bin.getMidPoint();
+    const ILayerRTCoefficients *p_out_coeffs =
+            mp_specular_info->getOutCoefficients(alpha_f, phi_f);
     complex_t kiz_1R = in_coeff->getKz()(0);
     complex_t kiz_1T = -in_coeff->getKz()(0);
     complex_t kiz_2R = in_coeff->getKz()(1);
     complex_t kiz_2T = -in_coeff->getKz()(1);
-    complex_t kfz_1R = k_f1_bin.getMidPoint().z();
+    complex_t kfz_1R = p_out_coeffs->getKz()(0);
     complex_t kfz_1T = -kfz_1R;
-    complex_t kfz_2R = k_f2_bin.getMidPoint().z();
+    complex_t kfz_2R = p_out_coeffs->getKz()(1);;
     complex_t kfz_2T = -kfz_2R;
-    calculateTerms(k_i, k_f1_bin, k_f2_bin, alpha_i, alpha_f, phi_f);
+    calculateTerms(k_i, k_f1_bin, k_f2_bin, alpha_i, alpha_f_bin, phi_f_bin);
 
     // multiply with correct phases from depth of particle
     // eigenmode 1 -> eigenmode 1

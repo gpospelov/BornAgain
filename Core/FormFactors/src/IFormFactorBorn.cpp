@@ -18,9 +18,9 @@
 #include "MathFunctions.h"
 
 complex_t IFormFactorBorn::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_f) const
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
-    (void)alpha_f;
+    (void)alpha_f_bin;
     Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
     if (useLargeBinApproximation(q_bin)) {
         return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
@@ -30,13 +30,13 @@ complex_t IFormFactorBorn::evaluate(const cvector_t& k_i,
 
 Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const cvector_t& k_i,
         const Bin1DCVector& k_f1_bin, const Bin1DCVector& k_f2_bin,
-        double alpha_i, double alpha_f, double phi_f) const
+        double alpha_i, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     (void)k_f2_bin;
     (void)alpha_i;
-    (void)phi_f;
+    (void)phi_f_bin;
     Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
-    return evaluate(k_i, k_f1_bin, alpha_f) * unit_matrix;
+    return evaluate(k_i, k_f1_bin, alpha_f_bin) * unit_matrix;
 }
 
 double IFormFactorBorn::getVolume() const

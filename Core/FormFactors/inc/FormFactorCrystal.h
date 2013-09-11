@@ -36,7 +36,7 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
     virtual void setAmbientMaterial(const IMaterial *p_material);
 
     virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, double alpha_f) const;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

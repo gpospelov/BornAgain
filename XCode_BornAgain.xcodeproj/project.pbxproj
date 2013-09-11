@@ -339,6 +339,8 @@
 		627F657617944D37009E166F /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
 		627F657717944D37009E166F /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		627F657817944D37009E166F /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
+		628D3C1217E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */; };
+		628D3C1317E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */; };
 		62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */; };
 		62B316141712FE29004A9D02 /* MessageService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62B316121712FE29004A9D02 /* MessageService.cpp */; };
 		62B3161E1713030F004A9D02 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
@@ -2019,6 +2021,8 @@
 		627F6552179444B8009E166F /* BornAgain.TestFit01 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BornAgain.TestFit01; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F657C17944D37009E166F /* BornAgain.TestFit02 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BornAgain.TestFit02; sourceTree = BUILT_PRODUCTS_DIR; };
 		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
+		628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorDebyeWaller.cpp; sourceTree = "<group>"; };
+		628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorMultiPositionFactor.cpp; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fp_exception_glibc_extension.h; sourceTree = "<group>"; };
 		62B316101712FE11004A9D02 /* MessageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageService.h; sourceTree = "<group>"; };
@@ -2752,6 +2756,8 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
+				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
 				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
 				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
 				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
@@ -71299,6 +71305,8 @@
 				62D4124917D4E7A900BD34D1 /* LayerSpecularInfo.cpp in Sources */,
 				62D4124A17D4E7A900BD34D1 /* MatrixRTCoefficients.cpp in Sources */,
 				622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */,
+				628D3C1217E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp in Sources */,
+				628D3C1317E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

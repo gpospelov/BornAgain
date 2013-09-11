@@ -30,16 +30,16 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
         else{
-            return this->FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f );
+            return this->FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_f ) const  {
-        return FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+        return FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
@@ -263,14 +263,14 @@ void register_FormFactorCrystal_class(){
         }
         { //::FormFactorCrystal::evaluate
         
-            typedef ::complex_t ( ::FormFactorCrystal::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double ) const;
-            typedef ::complex_t ( FormFactorCrystal_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double ) const;
+            typedef ::complex_t ( ::FormFactorCrystal::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( FormFactorCrystal_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
             
             FormFactorCrystal_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::FormFactorCrystal::evaluate)
                 , default_evaluate_function_type(&FormFactorCrystal_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f") ) );
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
         { //::FormFactorCrystal::evaluate_for_q

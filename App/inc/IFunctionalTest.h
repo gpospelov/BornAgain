@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/IFunctionalTest.h
@@ -27,7 +27,7 @@ class ProgramOptions;
 //!
 class IFunctionalTest : public INamed
 {
- public:
+public:
     IFunctionalTest() : mp_options(0) {}
     IFunctionalTest(const std::string& name) : INamed(name), mp_options(0) {}
     virtual ~IFunctionalTest(){}
@@ -39,7 +39,7 @@ class IFunctionalTest : public INamed
     std::string getOutputPath() const { return m_output_path; }
     void setOutputPath(const std::string& output_path)
     { m_output_path = output_path; }
- protected:
+protected:
     ProgramOptions *mp_options;
     std::string m_output_path;
 };

@@ -8,7 +8,7 @@
 
 class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
 {
- public:
+public:
     SampleBuilderFactory();
 
     ISample *createSample(const std::string& name);

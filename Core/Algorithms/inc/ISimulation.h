@@ -22,7 +22,7 @@
 
 class ISimulation : public ICloneable
 {
- public:
+public:
     virtual ~ISimulation() {}
     ISimulation *clone() const
     {

@@ -24,7 +24,7 @@
 
 class FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 {
- public:
+public:
     FormFactorDecoratorMaterial(IFormFactor *p_form_factor,
             complex_t wavevector_scattering_factor=1.0);
     virtual ~FormFactorDecoratorMaterial();
@@ -46,7 +46,7 @@ class FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 
     //! Sets the ambient material
     virtual void setAmbientMaterial(const IMaterial *p_material);
- private:
+private:
     complex_t getRefractiveIndexFactor() const;
 
     complex_t m_wavevector_scattering_factor;

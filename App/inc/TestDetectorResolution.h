@@ -25,7 +25,7 @@
 
 class TestDetectorResolution : public IFunctionalTest
 {
- public:
+public:
     TestDetectorResolution() : mp_intensity_output(0), mp_sample(0) {}
     virtual ~TestDetectorResolution()
     {
@@ -34,7 +34,7 @@ class TestDetectorResolution : public IFunctionalTest
     }
     virtual void execute();
 
- private:
+private:
     void initializeSample();
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;

@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
- public:
+public:
     FormFactorBox( double radius, double width, double height)
         : m_radius(radius), m_width(width), m_height(height) {}
 
@@ -47,10 +47,10 @@ class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 
     double getHeight() const { return m_height; }
 
- protected:
+protected:
     void init_parameters();
 
- private:
+private:
     double m_radius;
     double m_width;
     double m_height;

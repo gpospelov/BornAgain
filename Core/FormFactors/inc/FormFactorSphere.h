@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ FormFactorSphere : public IFormFactorBorn
 {
- public:
+public:
     FormFactorSphere(double radius, double height);
 
     ~FormFactorSphere() { delete m_integrator; }
@@ -37,10 +37,10 @@ class BA_CORE_API_ FormFactorSphere : public IFormFactorBorn
 
     virtual double getHeight() const { return m_height; }
 
- protected:
+protected:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- private:
+private:
     complex_t Integrand(double Z, void* params) const;
 
     virtual void init_parameters();

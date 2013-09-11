@@ -29,7 +29,7 @@
 
 class BA_CORE_API_ IFormFactor : public ISample
 {
- public:
+public:
     IFormFactor() {}
     virtual ~IFormFactor() {}
 
@@ -63,7 +63,8 @@ class BA_CORE_API_ IFormFactor : public ISample
     //! @param alpha_f outgoing inclination angle wrt scattering surface
     //! @param phi_f outgoing azimuthal angle wrt scattering surface
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+            Bin1D phi_f_bin) const;
 #endif
 
     //! Returns number of variable/stochastic parameters

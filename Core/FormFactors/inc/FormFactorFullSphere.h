@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
- public:
+public:
     FormFactorFullSphere(double radius);
     ~FormFactorFullSphere() {}
     virtual FormFactorFullSphere *clone() const;
@@ -41,10 +41,10 @@ class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     virtual void init_parameters();
 
- private:
+private:
     double m_radius;
 };
 

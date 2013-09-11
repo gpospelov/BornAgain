@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
- public:
+public:
     ParticleInfo(Particle *p_particle,
                  double depth=0, double abundance=0);
     ParticleInfo(const Particle& p_particle,
@@ -62,7 +62,7 @@ class BA_CORE_API_ ParticleInfo : public ICompositeSample
     //! Sets abundance.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
- protected:
+protected:
     virtual void init_parameters();
 
     virtual void print(std::ostream& ostr) const;

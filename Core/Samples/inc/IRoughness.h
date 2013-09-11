@@ -22,7 +22,7 @@
 
 class BA_CORE_API_ IRoughness : public ISample
 {
- public:
+public:
     IRoughness() {}
     virtual ~IRoughness() {}
 //    virtual IRoughness *clone() const

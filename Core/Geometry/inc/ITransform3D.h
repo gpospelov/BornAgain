@@ -27,7 +27,7 @@ typedef boost::shared_ptr<class ITransform3D> PTransform3D;
 //! Interface to vector transforms in three dimensions.
 
 class ITransform3D {
- public:
+public:
 
     virtual ~ITransform3D() {}
 

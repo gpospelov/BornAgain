@@ -28,7 +28,7 @@ class DiffuseParticleInfo;
 
 class BA_CORE_API_ Particle : public ICompositeSample
 {
- public:
+public:
     Particle();
     Particle(const IMaterial* p_material, IFormFactor* p_form_factor = 0);
     Particle(const IMaterial* p_material, const IFormFactor& form_factor);
@@ -100,7 +100,7 @@ class BA_CORE_API_ Particle : public ICompositeSample
     virtual std::vector<ParticleInfo *> createDistributedParticles(
             size_t samples_per_particle, double factor) const;
 
- protected:
+protected:
     IFormFactor *createTransformedFormFactor() const;
     const IMaterial* mp_material;
     const IMaterial* mp_ambient_material;

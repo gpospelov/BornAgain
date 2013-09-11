@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 {
- public:
+public:
     FormFactorCrystal(
         const Crystal& p_crystal, const IFormFactor& meso_crystal_form_factor,
         const IMaterial *p_material, complex_t wavevector_scattering_factor);
@@ -38,11 +38,17 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
+#ifndef GCCXML_SKIP_THIS
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+            Bin1D phi_f_bin) const;
+#endif
+
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
     virtual double getVolume() const;
 
- private:
+private:
     void calculateLargestReciprocalDistance();
 
     Lattice m_lattice;

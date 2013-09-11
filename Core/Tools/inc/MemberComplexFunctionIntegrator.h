@@ -21,7 +21,7 @@
 
 template <class C> class MemberComplexFunctionIntegrator
 {
- public:
+public:
     //! member function type
     typedef complex_t (C::*mem_function)(double, void*) const;
 
@@ -30,7 +30,7 @@ template <class C> class MemberComplexFunctionIntegrator
 
     complex_t integrate(double lmin, double lmax);
 
- private:
+private:
 
     double integrand_real(double z, void* pars) const {
         return ((mp_object->*m_member_function)(z, pars)).real();

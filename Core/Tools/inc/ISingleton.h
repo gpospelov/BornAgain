@@ -28,7 +28,7 @@ GCC_DIAG_ON(strict-aliasing);
 template <class T>
 class ISingleton
 {
- public:
+public:
     static T& instance()
     {
         static boost::mutex single_mutex;
@@ -43,7 +43,7 @@ class ISingleton
         return *m_instance;
     }
 
- protected:
+protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
@@ -61,7 +61,7 @@ class ISingleton
 
     typedef T* T_Pointer;
 
- private:
+private:
     ISingleton(const ISingleton<T>& ) {}
     ISingleton& operator=(const ISingleton<T>& ) { throw std::runtime_error("ISingleton::operator=()"); }
 

@@ -29,7 +29,7 @@
 
 class BA_CORE_API_ LayerRoughness : public IRoughness
 {
- public:
+public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
 
@@ -62,7 +62,7 @@ class BA_CORE_API_ LayerRoughness : public IRoughness
     friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m)
     { m.print(ostr); return ostr; }
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

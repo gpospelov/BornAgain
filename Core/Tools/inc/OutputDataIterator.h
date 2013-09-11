@@ -24,7 +24,7 @@
 
 template <class TValue, class TContainer> class OutputDataIterator
 {
- public:
+public:
     //! Empty constructor to comply with stl forward iterators
     OutputDataIterator();
 
@@ -87,7 +87,7 @@ template <class TValue, class TContainer> class OutputDataIterator
     typedef TValue& reference;
 #endif
 
- protected:
+protected:
     virtual void swapContents(OutputDataIterator<TValue, TContainer>& other);
     size_t m_current_index;
     TContainer *mp_output_data;

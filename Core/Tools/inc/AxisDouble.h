@@ -25,7 +25,7 @@ class AxisBin;  // forward declaration needed for conversion constructor
 
 class BA_CORE_API_ AxisDouble : public IAxis
 {
- public:
+public:
     //! constructors
     AxisDouble(std::string name);
     AxisDouble(std::string name, size_t size, double start, double end);
@@ -68,10 +68,10 @@ class BA_CORE_API_ AxisDouble : public IAxis
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
 
- protected:
+protected:
     virtual bool equals(const IAxis& other) const;
 
- private:
+private:
     std::vector<double> m_sample_vector;  //!< vector containing the axis points
     double m_bin_size;
 };

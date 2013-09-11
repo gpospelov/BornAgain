@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ INamed
 {
- public:
+public:
     //! Default constructor, setting name="".
     INamed() : m_name() {}
 
@@ -39,7 +39,7 @@ class BA_CORE_API_ INamed
     //! Returns the name.
     std::string getName() const { return m_name; }
 
- protected:
+protected:
     //! The name of this object.
     std::string m_name;
 };

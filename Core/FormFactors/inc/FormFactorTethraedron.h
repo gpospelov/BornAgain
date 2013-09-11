@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ FormFactorTethraedron : public IFormFactorBorn
 {
- public:
+public:
     //! @brief tethraedron constructor
     //! @param height of tethraedron
     //! @param half_side half of tethraedron's base
@@ -42,10 +42,10 @@ class BA_CORE_API_ FormFactorTethraedron : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     virtual void init_parameters();
 
- private:
+private:
     double m_height;
     double m_half_side;
     double m_alpha;

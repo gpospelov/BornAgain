@@ -20,7 +20,7 @@
 
 template <class T> class StochasticDiracDelta : public StochasticParameter<T>
 {
- public:
+public:
     StochasticDiracDelta(T average);
     virtual ~StochasticDiracDelta() {}
     virtual StochasticDiracDelta *clone() const;
@@ -29,7 +29,7 @@ template <class T> class StochasticDiracDelta : public StochasticParameter<T>
     virtual void setToRandom() {}
     virtual double probabilityDensity(T /*value*/) const { return 0.0; }
 
- private:
+private:
     //! copy constructor and assignment operator are hidden since there is a clone method
     StochasticDiracDelta(const StochasticDiracDelta<T>& );
     StochasticDiracDelta<T>& operator=(const StochasticDiracDelta<T>& );

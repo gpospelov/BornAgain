@@ -24,7 +24,7 @@
 
 class BA_CORE_API_ IParameterized : public INamed
 {
- public:
+public:
     IParameterized()
         : m_parameters(), m_status() {}
     IParameterized(const std::string& name)
@@ -64,7 +64,7 @@ class BA_CORE_API_ IParameterized : public INamed
     //! clear parameter pool
     virtual void clearParameterPool() { m_parameters.clear(); }
 
- protected:
+protected:
     //! Throw non-implemented exception (needed for Python).
     virtual void init_parameters();
 

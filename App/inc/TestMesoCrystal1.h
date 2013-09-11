@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestMesoCrystal1.h
@@ -30,7 +30,7 @@
 
 class TestMesoCrystal1 : public IFunctionalTest
 {
- public:
+public:
     TestMesoCrystal1();
     virtual ~TestMesoCrystal1();
     virtual void execute();
@@ -61,7 +61,7 @@ class TestMesoCrystal1 : public IFunctionalTest
         double m_roughness;
     };
 
- private:
+private:
     OutputData<double> *mp_intensity_output;
     ISampleBuilder *mp_sample_builder;
 };

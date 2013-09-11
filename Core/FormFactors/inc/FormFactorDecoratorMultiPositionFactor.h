@@ -31,6 +31,12 @@ public:
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
+#ifndef GCCXML_SKIP_THIS
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+            Bin1D phi_f_bin) const;
+#endif
+
     virtual int getNumberOfStochasticParameters() const {
         return mp_form_factor->getNumberOfStochasticParameters();
     }

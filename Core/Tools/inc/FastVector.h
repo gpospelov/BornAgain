@@ -22,7 +22,7 @@
 //! A Vector of kvector_t's with optimised location/deallocation.
 
 class KVectorContainer {
- public:
+public:
     typedef std::vector<kvector_t > container_t;
     typedef container_t::const_iterator const_iterator;
     KVectorContainer(int buff_size = 3)
@@ -59,7 +59,7 @@ class KVectorContainer {
     const_iterator begin() const { return m_buffer.begin(); }
     const_iterator end() const { return m_buffer.begin()+m_current_position; }
 
- private:
+private:
     size_t m_current_position;
     size_t m_max_buff_size;
     container_t m_buffer;

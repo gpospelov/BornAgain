@@ -37,7 +37,7 @@ namespace MathFunctions
 //!
 class Convolve
 {
- public:
+public:
     //! definition of 1d vector of double
     typedef std::vector<double > double1d_t;
 
@@ -63,7 +63,7 @@ class Convolve
     //! Sets convolution mode
     void setMode(Mode mode) { m_mode = mode; }
 
- private:
+private:
     //! compute circual convolution of source and kernel using fast Fourier transformation
     void fftw_circular_convolution(const double2d_t& source, const double2d_t& kernel);
 

@@ -20,7 +20,7 @@
 
 class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunction
 {
- public:
+public:
     InterferenceFunction1DParaCrystal(
         double peak_distance, double width, double corr_length=0.0);
     virtual ~InterferenceFunction1DParaCrystal() {}
@@ -40,14 +40,14 @@ class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunct
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTGaussianCorrLength(double qpar) const;
 
- protected:
+protected:
     double m_peak_distance;
     double m_width;
     double m_corr_length;
     bool m_use_corr_length;
     double m_kappa;
 
- private:
+private:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 };

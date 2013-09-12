@@ -24,7 +24,7 @@ class BA_CORE_API_ LatticeBasis : public Particle
 {
 public:
     LatticeBasis();
-    LatticeBasis(const Particle& particle);
+    explicit LatticeBasis(const Particle& particle);
     LatticeBasis(const Particle& particle, std::vector<kvector_t > positions);
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;

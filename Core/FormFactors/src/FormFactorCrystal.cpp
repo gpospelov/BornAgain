@@ -25,8 +25,8 @@ FormFactorCrystal::FormFactorCrystal(
 , m_max_rec_length(0.0)
 {
     setName("FormFactorCrystal");
-    mp_particle = p_crystal.createBasis();
-    mp_basis_form_factor = mp_particle->createFormFactor(
+    mp_lattice_basis = p_crystal.createBasis();
+    mp_basis_form_factor = mp_lattice_basis->createFormFactor(
             m_wavevector_scattering_factor);
     mp_meso_form_factor = meso_crystal_form_factor.clone();
     setAmbientMaterial(mp_ambient_material);
@@ -35,14 +35,14 @@ FormFactorCrystal::FormFactorCrystal(
 
 FormFactorCrystal::~FormFactorCrystal()
 {
-    delete mp_particle;
+    delete mp_lattice_basis;
     delete mp_basis_form_factor;
     delete mp_meso_form_factor;
 }
 
 FormFactorCrystal* FormFactorCrystal::clone() const
 {
-    Crystal np_crystal(*mp_particle, m_lattice);
+    Crystal np_crystal(*mp_lattice_basis, m_lattice);
     FormFactorCrystal *result = new FormFactorCrystal(np_crystal,
             *mp_meso_form_factor, mp_ambient_material,
             m_wavevector_scattering_factor);
@@ -52,7 +52,7 @@ FormFactorCrystal* FormFactorCrystal::clone() const
 
 void FormFactorCrystal::setAmbientMaterial(const IMaterial *p_material)
 {
-    mp_particle->setAmbientMaterial(p_material);
+    mp_lattice_basis->setAmbientMaterial(p_material);
     mp_basis_form_factor->setAmbientMaterial(p_material);
 }
 
@@ -72,7 +72,7 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
-    double radius = 1.1*m_max_rec_length;
+    double radius = 2.1*m_max_rec_length;
 
     // retrieve nearest reciprocal lattice vectors
     m_lattice.computeReciprocalLatticeVectorsWithinRadius(q_real, radius);
@@ -92,7 +92,7 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
         result += basis_factor*meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
-    // is cancelled by the convolution of Fourier transforms :
+    // is canceled by the convolution of Fourier transforms :
     double volume = m_lattice.getVolume();
     return result/volume;
 }
@@ -106,7 +106,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
-    double radius = 1.1*m_max_rec_length;
+    double radius = 2.1*m_max_rec_length;
 
     // retrieve nearest reciprocal lattice vectors
     m_lattice.computeReciprocalLatticeVectorsWithinRadius(q_real, radius);
@@ -126,7 +126,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
         result += basis_factor*meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
-    // is cancelled by the convolution of Fourier transforms :
+    // is canceled by the convolution of Fourier transforms :
     double volume = m_lattice.getVolume();
     return result/volume;
 }

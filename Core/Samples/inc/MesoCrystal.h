@@ -41,10 +41,7 @@ public:
         p_visitor->visit(this);
     }
 
-    virtual void setAmbientMaterial(const IMaterial *p_material)
-    {
-        mp_particle_structure->setAmbientMaterial(p_material);
-    }
+    virtual void setAmbientMaterial(const IMaterial *p_material);
 
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;

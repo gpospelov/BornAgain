@@ -9,6 +9,7 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "ParticleInfo.h"
 #include <iostream>
+#include "MesoCrystal.h"
 
 
 void SamplePrintVisitor::visit(const ISample *sample)
@@ -153,6 +154,56 @@ void SamplePrintVisitor::visit(const ParticleCoreShell* sample)
     goBack();
 }
 
+void SamplePrintVisitor::visit(const MesoCrystal* sample)
+{
+    assert(sample);
+    std::cout << get_indent() << "PrintVisitor_MesoCrystal " <<
+            sample->getName() << std::endl;
+
+    goForward();
+
+    const IClusteredParticles *p_clustered_particles =
+            sample->getClusteredParticles();
+    p_clustered_particles->accept(this);
+
+    const IFormFactor *p_meso_ff = sample->getSimpleFormFactor();
+    p_meso_ff->accept(this);
+
+    goBack();
+}
+
+void SamplePrintVisitor::visit(const Crystal* sample)
+{
+    assert(sample);
+    std::cout << get_indent() << "PrintVisitor_Crystal " <<
+            sample->getName() << std::endl;
+
+    goForward();
+
+    const LatticeBasis *p_lattice_basis = sample->getLatticeBasis();
+    p_lattice_basis->accept(this);
+
+    goBack();
+}
+
+void SamplePrintVisitor::visit(const LatticeBasis* sample)
+{
+    assert(sample);
+    std::cout << get_indent() << "PrintVisitor_LatticeBasis " <<
+            sample->getName() << std::endl;
+
+    goForward();
+
+    size_t nbr_particles = sample->getNbrParticles();
+    for (size_t i=0; i<nbr_particles; ++i)
+    {
+        const Particle *p_particle = sample->getParticle(i);
+        p_particle->accept(this);
+    }
+
+    goBack();
+}
+
 void SamplePrintVisitor::visit(const IFormFactor *sample)
 {
     assert(sample);
@@ -215,7 +266,6 @@ void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
-
 
 void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
 {

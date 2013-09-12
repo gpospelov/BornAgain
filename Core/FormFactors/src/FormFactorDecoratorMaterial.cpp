@@ -66,9 +66,7 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t& k_i,
     time_reverse_conj(0,1) = 1.0;
     time_reverse_conj(1,0) = -1.0;
     // the interaction and time reversal taken together:
-    double alpha_f = alpha_f_bin.getMidPoint();
-    double k_mag2 = k_f_bin.getMidPoint().magxy2().real()
-                  / std::cos(alpha_f) / std::cos(alpha_f);
+    double k_mag2 = 4.0 * M_PI * m_wavevector_scattering_factor.real();
     Eigen::Matrix2cd V_eff = m_wavevector_scattering_factor * time_reverse_conj
             * (mp_material->getScatteringMatrix(k_mag2) -
                mp_ambient_material->getScatteringMatrix(k_mag2));

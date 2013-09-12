@@ -43,8 +43,8 @@ Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
         Bin1D phi_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
-    return getPositionsFactor(q)*mp_form_factor->
-               evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+    Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+    return getPositionsFactor(q)*ff;
 }
 
 complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(

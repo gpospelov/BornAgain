@@ -26,6 +26,10 @@ class ParticleDecoration;
 class ParticleInfo;
 class Particle;
 class ParticleCoreShell;
+class MesoCrystal;
+class Crystal;
+class LatticeBasis;
+class IClusteredParticles;
 class IFormFactor;
 class IInterferenceFunction;
 class FormFactorFullSphere;
@@ -66,6 +70,13 @@ public:
         throw NotImplementedException(
             "ISampleVisitor::visit(ParticleCoreShell *)");
     }
+    virtual void visit(const MesoCrystal *) { throw NotImplementedException(
+            "ISampleVisitor::visit(MesoCrystal *)"); }
+    virtual void visit(const Crystal *) {
+        throw NotImplementedException(
+            "ISampleVisitor::visit(Crystal *)"); }
+    virtual void visit(const LatticeBasis *) { throw NotImplementedException(
+            "ISampleVisitor::visit(LatticeBasis *)"); }
     virtual void visit(const IFormFactor *) { throw NotImplementedException(
             "ISampleVisitor::visit(IFormFactor *)"); }
     virtual void visit(const FormFactorFullSphere *) {

@@ -41,6 +41,11 @@ public:
                 "Error! Not implemented exception");
     }
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const {
+        p_visitor->visit(this);
+    }
+
     virtual void setAmbientMaterial(const IMaterial *p_ambient_material)=0;
 
     //! @brief create a total form factor for the mesocrystal with a specific

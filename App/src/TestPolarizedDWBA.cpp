@@ -35,7 +35,7 @@ void TestPolarizedDWBA::execute()
     mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(
             "PolarizedDWBATestCase"));
 
-    // calculate scattered intesity from sample
+    // calculate scattered intensity from sample
     Simulation simulation(mp_options);
     simulation.setDetectorParameters(
         100, -1.0*Units::degree, 1.0*Units::degree, 100,

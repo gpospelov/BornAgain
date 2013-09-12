@@ -8,30 +8,6 @@ set(BORNAGAIN_PATCH_VERSION "0")
 
 set(BORNAGAIN_VERSION "${BORNAGAIN_MAJOR_VERSION}.${BORNAGAIN_MINOR_VERSION}.${BORNAGAIN_PATCH_VERSION}")
 
-message("XXX ${Boost_LIBRARY_DIRS} ${FFTW_LIBRARY}")
-if(WIN32)
-    if(MSVC)
-        set(boost_suffix "-vc110-mt-1_54.dll")
-        install(FILES 
-        ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_program_options${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_zlib${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_bzip2${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
-        ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
-        DESTINATION bin COMPONENT Libraries)
-    else()
-        install (FILES ${Boost_LIBRARIES} DESTINATION bin COMPONENT Libraries)
-        install (FILES ${FFTW_LIBRARY} DESTINATION bin COMPONENT Libraries)
-        install (FILES ${GSL_LIBRARIES} DESTINATION bin COMPONENT Libraries)    
-    endif()
-endif()
-
 set(CPACK_PACKAGE_NAME "BornAgain")
 set(CPACK_PACKAGE_DESCRIPTION "BornAgain: simulate and fit scattering at grazing incidence")
 set(CPACK_PACKAGE_VENDOR "Sceintific Computing at MLZ")

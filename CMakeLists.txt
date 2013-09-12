@@ -37,6 +37,7 @@ add_subdirectory(Tests/FunctionalTests)
 #    add_subdirectory(App)
 #endif()
 
+#add_subdirectory(Tests/FunctionalTests/TestFit)
 
 # packaging
-#include(BornAgainCPack)
+include(BornAgainCPack)

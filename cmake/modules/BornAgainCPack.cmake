@@ -1,110 +1,94 @@
-#---------------------------------------------------------------------------------------------------
-#  RootCPack.cmake
-#   - basic setup for packaging ROOT using CTest
-#---------------------------------------------------------------------------------------------------
-
-set(BORNAGAIN_MAJOR_VERSION "0")
-set(BORNAGAIN_MINOR_VERSION "8")
-set(BORNAGAIN_PATCH_VERSION "1")
-
-set(ROOT_VERSION "${BORNAGAIN_MAJOR_VERSION}.${BORNAGAIN_MINOR_VERSION}.${BORNAGAIN_PATCH_VERSION}")
+# file to build installer
 
 
-#---------------------------------------------------------------------------------------------------
-# Package up needed system libraries - only for WIN32?
-#
 include(InstallRequiredSystemLibraries)
 
-#----------------------------------------------------------------------------------------------------
-# General packaging setup - variable relavant to all package formats
-#
-set(CPACK_PACKAGE_DESCRIPTION "BornAgain project")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "BornAgain project")
-#set(CPACK_PACKAGE_VENDOR "HEPSoft")
+set(BORNAGAIN_MAJOR_VERSION "0")
+set(BORNAGAIN_MINOR_VERSION "9")
+set(BORNAGAIN_PATCH_VERSION "0")
+
+set(BORNAGAIN_VERSION "${BORNAGAIN_MAJOR_VERSION}.${BORNAGAIN_MINOR_VERSION}.${BORNAGAIN_PATCH_VERSION}")
+
+set(CPACK_PACKAGE_NAME "BornAgain")
+set(CPACK_PACKAGE_DESCRIPTION "BornAgain: simulate and fit scattering at grazing incidence")
+set(CPACK_PACKAGE_VENDOR "Sceintific Computing at MLZ")
 set(CPACK_PACKAGE_VERSION ${BORNAGAIN_VERSION})
 set(CPACK_PACKAGE_VERSION_MAJOR ${BORNAGAIN_MAJOR_VERSION})
 set(CPACK_PACKAGE_VERSION_MINOR ${BORNAGAIN_MINOR_VERSION})
 set(CPACK_PACKAGE_VERSION_PATCH ${BORNAGAIN_PATCH_VERSION})
 
-#---Resource Files-----------------------------------------------------------------------------------
-#configure_file(README/README README.txt COPYONLY)
-#configure_file(LICENSE LICENSE.txt COPYONLY)
-#set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_BINARY_DIR}/README.txt")
-#set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_BINARY_DIR}/LICENSE.txt")
-#set(CPACK_RESOURCE_FILE_README "${CMAKE_BINARY_DIR}/README.txt")
+configure_file(LICENSE LICENSE.txt COPYONLY)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_BINARY_DIR}/LICENSE.txt")
 
-#---Source package settings--------------------------------------------------------------------------
-set(CPACK_SOURCE_IGNORE_FILES 
-    ${PROJECT_BINARY_DIR}
-    ${PROJECT_SOURCE_DIR}/tests
-    "~$"
-    "/CVS/"
-    "/.svn/"
-    "/\\\\\\\\.svn/"
-    "/.git/"
-    "/\\\\\\\\.git/"
-    "\\\\\\\\.swp$"
-    "\\\\\\\\.swp$"
-    "\\\\.swp"
-    "\\\\\\\\.#"
-    "/#"
-)
-set(CPACK_SOURCE_STRIP_FILES "")
 
-#---Binary package setup-----------------------------------------------------------------------------
+#set(CPACK_MONOLITHIC_INSTALL ON)
+
+# binary package setup
 set(CPACK_PACKAGE_RELOCATABLE True)
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "BornAgain ${BORNAGAIN_MAJOR_VERSION}.${BORNAGAIN_MINOR_VERSION}")
+
+
 if(CMAKE_BUILD_TYPE STREQUAL Release)
-  set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${BORNAGAIN_VERSION}-${BORNAGAIN_ARCHITECTURE}")
+    set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${BORNAGAIN_VERSION}-${BORNAGAIN_ARCHITECTURE}")
 else()
-  set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${BORNAGAIN_VERSION}-${BORNAGAIN_ARCHITECTURE}-${CMAKE_BUILD_TYPE}")
+    set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${BORNAGAIN_VERSION}-${BORNAGAIN_ARCHITECTURE}-${CMAKE_BUILD_TYPE}")
 endif()
-#set(CPACK_PACKAGE_EXECUTABLES "root" "ROOT")
+
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "${CMAKE_PROJECT_NAME}-${BORNAGAIN_VERSION}")
 
 if(WIN32)
-  set(CPACK_GENERATOR "NSIS;ZIP")
-  set(CPACK_SOURCE_GENERATOR "TGZ;ZIP")
+  set(CPACK_GENERATOR "NSIS")  
 elseif(APPLE)
-#  set(CPACK_GENERATOR "PackageMaker;TGZ")
-  set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
+  set(CPACK_GENERATOR "PackageMaker;TGZ")
 else()
   set(CPACK_GENERATOR "STGZ;TGZ")
-  set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2;ZIP")
 endif()
 
-#----------------------------------------------------------------------------------------------------
-# Finally, generate the CPack per-generator options file and include the
-# base CPack configuration.
-#
-#configure_file(cmake/modules/CMakeCPackOptions.cmake.in CMakeCPackOptions.cmake @ONLY)
-set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/CMakeCPackOptions.cmake)
+#configure_file(cmake/Templates/CMakeCPackOptions.cmake.in CMakeCPackOptions.cmake @ONLY)
+#set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/CMakeCPackOptions.cmake)
+
+set(CPACK_NSIS_MODIFY_PATH ON)
+
 include(CPack)
 
-#----------------------------------------------------------------------------------------------------
-# Define components and installation types (after CPack included!)
-#
-cpack_add_install_type(full      DISPLAY_NAME "Full Installation")
-cpack_add_install_type(minimal   DISPLAY_NAME "Minimal Installation")
-cpack_add_install_type(developer DISPLAY_NAME "Developer Installation")
+set(CPACK_COMPONENTS_ALL Libraries Headers Examples)
 
-cpack_add_component(applications 
-    DISPLAY_NAME "BornAgain Applications" 
-    DESCRIPTION "BornAgain executables such as root.exe"
-	  INSTALL_TYPES full minimal developer)
+#cpack_add_install_type(full      DISPLAY_NAME "Full Installation")
+#cpack_add_install_type(runtime   DISPLAY_NAME "Runtime Installation")
+#cpack_add_install_type(developer DISPLAY_NAME "Developer Installation")
 
-cpack_add_component(libraries 
-    DISPLAY_NAME "BornAgain Libraries" 
-    DESCRIPTION "All BornAgain libraries and dictionaries"
-	  INSTALL_TYPES full minimal developer)
+# - Components for Development
+#cpack_add_component(Headers
+#    DISPLAY_NAME "Development Components (headers)" 
+#    DESCRIPTION "Install all files needed for developing BornAgain applications"
+#    INSTALL_TYPES developer full
+#)
 
-cpack_add_component(headers 
-    DISPLAY_NAME "C++ Headers" 
-    DESCRIPTION "These are needed to do any development"
-	  INSTALL_TYPES full developer)
-	  
-cpack_add_component(tests 
-    DISPLAY_NAME "BornAgain Tests and Tutorials" 
-    DESCRIPTION "These are needed to do any test and tutorial"
-	  INSTALL_TYPES full developer)
+# - Components for Runtime
+#cpack_add_component(Libraries
+#    DISPLAY_NAME "BornAgain runtime Libraries" 
+#    DESCRIPTION "Install all BornAgain libraries"
+#    INSTALL_TYPES runtime developer full
+#)
+
+# - Components for Examples
+#cpack_add_component(Examples 
+#    DISPLAY_NAME "Usage Examples"
+#    DESCRIPTION "Install all BornAgain examples"
+#    INSTALL_TYPES full developer
+#)
+
+#cpack_add_component(Applications
+#    DISPLAY_NAME "Applications"
+#    DESCRIPTION "Install all BornAgain executables"
+##    INSTALL_TYPES full developer
+#)
+
+
+# - Components for Data
+#cpack_add_component(Data 
+#    DISPLAY_NAME "Geant4 Data Files" 
+#    DESCRIPTION "Install all Geant4 data files"
+#    INSTALL_TYPES full
+#)
 
 

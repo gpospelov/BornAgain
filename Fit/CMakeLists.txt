@@ -68,11 +68,17 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-install (TARGETS ${library_name} DESTINATION lib)
+install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
+install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
+
+if(WIN32 AND BORNAGAIN_PYTHON)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION lib COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION bin COMPONENT Libraries)
+endif()
 
 # list of headers to install
 file(GLOB include_files
     "Factory/inc/*.h"
 )
-install (FILES ${include_files} DESTINATION include)
+install (FILES ${include_files} DESTINATION include  COMPONENT Headers)
 

@@ -1,5 +1,5 @@
 set(BORNAGAIN_ARCHITECTURE linux)
-set(ROOT_PLATFORM linux)
+set(BORNAGAIN_PLATFORM linux)
 
 execute_process(COMMAND uname -m OUTPUT_VARIABLE SYSCTL_OUTPUT)
     

@@ -88,11 +88,23 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-install (TARGETS ${library_name} DESTINATION lib)
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples FILES_MATCHING PATTERN "*.py")
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples FILES_MATCHING PATTERN "README")
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION bin)
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION bin COMPONENT Libraries)
 
+install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
+install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
+
+if(WIN32 AND BORNAGAIN_PYTHON)
+    install(FILES 
+    ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
+    DESTINATION lib COMPONENT Libraries)
+
+    install(FILES 
+    ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
+    DESTINATION bin COMPONENT Libraries)
+    
+endif()
 # list of headers to install
 file(GLOB include_files
     "Algorithms/inc/*.h"
@@ -101,6 +113,30 @@ file(GLOB include_files
     "Samples/inc/*.h"
     "Tools/inc/*.h"
 )
-install (FILES ${include_files} DESTINATION include)
+install (FILES ${include_files} DESTINATION include COMPONENT Headers)
 
+# system libraries
+if(WIN32)
+    if(MSVC)
+        set(boost_suffix "-vc110-mt-1_54.dll")
+        install(FILES 
+        ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_program_options${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_zlib${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_bzip2${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_iostreams${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_system${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_filesystem${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_python${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
+        ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
+        DESTINATION bin COMPONENT Libraries)
+    else()
+        install (FILES ${Boost_LIBRARIES} DESTINATION bin COMPONENT Libraries)
+        install (FILES ${FFTW_LIBRARY} DESTINATION bin COMPONENT Libraries)
+        install (FILES ${GSL_LIBRARIES} DESTINATION bin COMPONENT Libraries)    
+    endif()
+endif()
 

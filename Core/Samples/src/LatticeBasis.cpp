@@ -52,7 +52,7 @@ LatticeBasis* LatticeBasis::clone() const
         p_new->addParticle(*m_particles[index], m_positions_vector[index]);
     }
     p_new->setName(getName());
-    p_new->mp_ambient_material = this->mp_ambient_material;
+    p_new->setAmbientMaterial(this->mp_ambient_material);
     return p_new;
 }
 

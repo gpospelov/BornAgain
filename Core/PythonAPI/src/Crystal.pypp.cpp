@@ -174,7 +174,7 @@ void register_Crystal_class(){
         }
         { //::Crystal::createBasis
         
-            typedef ::Particle * ( ::Crystal::*createBasis_function_type )(  ) const;
+            typedef ::LatticeBasis * ( ::Crystal::*createBasis_function_type )(  ) const;
             
             Crystal_exposer.def( 
                 "createBasis"

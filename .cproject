@@ -71,9 +71,6 @@
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600" moduleId="org.eclipse.cdt.core.settings" name="Debug">
-				<macros>
-					<stringMacro name="BORNAGAIN_DEBUG" type="VALUE_TEXT" value="yes"/>
-				</macros>
 				<externalSettings>
 					<externalSetting>
 						<entry flags="RESOLVED" kind="macro" name="BornAgain_DEBUG" value="yes"/>

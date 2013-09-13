@@ -53,7 +53,7 @@ private:
 
     Lattice m_lattice;
     complex_t m_wavevector_scattering_factor;
-    Particle *mp_particle;
+    LatticeBasis *mp_lattice_basis;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
     const IMaterial *mp_ambient_material;

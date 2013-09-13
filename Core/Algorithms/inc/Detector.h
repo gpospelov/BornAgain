@@ -20,6 +20,11 @@
 #include "DetectorParameters.h"
 #include "SafePointerVector.h"
 
+#ifndef GCCXML_SKIP_THIS
+#include <Eigen/Core>
+#endif
+
+
 //! Detector with axes and resolution function.
 
 class BA_CORE_API_ Detector : public IParameterized
@@ -63,9 +68,12 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
+#ifndef GCCXML_SKIP_THIS
     //! Normalize intensity data with detector cell sizes.
-    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
-
+    void normalize(OutputData<double> *p_data,
+            OutputData<Eigen::Matrix2d> *p_polarized_data,
+            double sin_alpha_i) const;
+#endif
 protected:
 
     //! Registers some class members for later access via parameter pool.

@@ -22,6 +22,7 @@
 #include "Particle.h"
 #include "ParticleInfo.h"
 #include "ParticleCoreShell.h"
+#include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 
@@ -110,6 +111,35 @@ void SampleMaterialVisitor::visit(const ParticleCoreShell* sample)
     const Particle *p_shell = sample->getShellParticle();
     if (p_shell) {
         p_shell->accept(this);
+    }
+}
+
+void SampleMaterialVisitor::visit(const MesoCrystal* sample)
+{
+    assert(sample);
+
+    const IClusteredParticles *p_clustered_particles =
+            sample->getClusteredParticles();
+    p_clustered_particles->accept(this);
+}
+
+void SampleMaterialVisitor::visit(const Crystal* sample)
+{
+    assert(sample);
+
+    const LatticeBasis *p_lattice_basis = sample->getLatticeBasis();
+    p_lattice_basis->accept(this);
+}
+
+void SampleMaterialVisitor::visit(const LatticeBasis* sample)
+{
+    assert(sample);
+
+    size_t nbr_particles = sample->getNbrParticles();
+    for (size_t i=0; i<nbr_particles; ++i)
+    {
+        const Particle *p_particle = sample->getParticle(i);
+        p_particle->accept(this);
     }
 }
 

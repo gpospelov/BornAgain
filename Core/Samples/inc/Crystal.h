@@ -46,7 +46,7 @@ public:
         complex_t wavevector_scattering_factor) const;
 
     Lattice getLattice() const { return m_lattice; }
-    Particle *createBasis() const { return mp_lattice_basis->clone(); }
+    LatticeBasis *createBasis() const { return mp_lattice_basis->clone(); }
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 

@@ -49,6 +49,7 @@
 #include "TestPolarizedDWBA.h"
 #include "TestPolarizedDWBATerms.h"
 #include "TestPolarizedDWBAZeroMag.h"
+#include "TestPolarizedMeso.h"
 #include "TestRootTree.h"
 #include "TestRoughness.h"
 #include "TestSpecularMagnetic.h"
@@ -324,5 +325,10 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
          IFactoryCreateFunction<TestPolarizedDWBATerms, IFunctionalTest>,
          "functional test: compare different terms in DWBA between"
          " scalar and matrix computation");
+    p_test_factory->registerItem(
+         "polarizedMeso",
+         IFactoryCreateFunction<TestPolarizedMeso, IFunctionalTest>,
+         "functional test: polarized mesocrystals");
+
 }
 

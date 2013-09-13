@@ -54,11 +54,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         func_setAmbientMaterial( boost::python::ptr(p_ambient_material) );
     }
 
-    virtual void accept( ::ISampleVisitor * p_visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(p_visitor) );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -190,16 +185,6 @@ void register_IClusteredParticles_class(){
                 "setAmbientMaterial"
                 , bp::pure_virtual( setAmbientMaterial_function_type(&::IClusteredParticles::setAmbientMaterial) )
                 , ( bp::arg("p_ambient_material") ) );
-        
-        }
-        { //::ISample::accept
-        
-            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
-            
-            IClusteredParticles_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
-                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

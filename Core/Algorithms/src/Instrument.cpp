@@ -107,7 +107,7 @@ void Instrument::normalize(OutputData<double> *p_intensity,
     // normalize by detector cell sizes
     //double sin_alpha_i = std::abs(getBeam().getCentralK().cosTheta());
     double sin_alpha_i = std::abs(realpart.cosTheta());
-    m_detector.normalize(p_intensity, sin_alpha_i);
+    m_detector.normalize(p_intensity, p_polarized_intensity, sin_alpha_i);
 }
 
 void Instrument::setDetectorResolutionFunction(

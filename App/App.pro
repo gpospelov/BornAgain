@@ -83,6 +83,7 @@ SOURCES += \
     src/TestPolarizedDWBA.cpp \
     src/TestPolarizedDWBATerms.cpp \
     src/TestPolarizedDWBAZeroMag.cpp \
+    src/TestPolarizedMeso.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
     src/TestSpecularMagnetic.cpp \
@@ -147,6 +148,7 @@ HEADERS += \
     inc/TestPolarizedDWBA.h \
     inc/TestPolarizedDWBATerms.h \
     inc/TestPolarizedDWBAZeroMag.h \
+    inc/TestPolarizedMeso.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
     inc/TestSpecularMagnetic.h \

@@ -125,6 +125,7 @@
 		622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */; };
 		6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0816CE708600ECED4F /* Instrument.cpp */; };
 		6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0C16CE9EC600ECED4F /* Simulation.cpp */; };
+		6248BE2917E1C5000027D960 /* TestPolarizedMeso.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */; };
 		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
 		625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173E16BAAE77004943DB /* FormFactorCone.cpp */; };
 		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
@@ -1453,6 +1454,8 @@
 		6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberComplexFunctionIntegrator.h; sourceTree = "<group>"; };
 		6236DD0B16CE9EBD00ECED4F /* Simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Simulation.h; sourceTree = "<group>"; };
 		6236DD0C16CE9EC600ECED4F /* Simulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Simulation.cpp; sourceTree = "<group>"; };
+		6248BE1A17E1C4F40027D960 /* TestPolarizedMeso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedMeso.h; sourceTree = "<group>"; };
+		6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedMeso.cpp; sourceTree = "<group>"; };
 		6254C2601666651F0098EE7E /* IFormFactorBorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBorn.h; sourceTree = "<group>"; };
 		6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBornSeparable.h; sourceTree = "<group>"; };
 		6254C2621666651F0098EE7E /* IFormFactorDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorDecorator.h; sourceTree = "<group>"; };
@@ -2471,6 +2474,7 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6248BE1A17E1C4F40027D960 /* TestPolarizedMeso.h */,
 				622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */,
 				62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */,
 				6221C37017D5CFDF00D43C2F /* TestBugs.h */,
@@ -2532,6 +2536,7 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */,
 				622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */,
 				62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */,
 				6221C37317D5CFF500D43C2F /* TestBugs.cpp */,
@@ -71097,6 +71102,7 @@
 				6221C37817D5CFF500D43C2F /* TestSpecularMagnetic.cpp in Sources */,
 				62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */,
 				622127BA17D9FEC200393360 /* TestPolarizedDWBATerms.cpp in Sources */,
+				6248BE2917E1C5000027D960 /* TestPolarizedMeso.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -186,22 +186,6 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
     return p_result;
 }
 
-// =============================================================================
-// Implementation of FormFactorInfo
-// =============================================================================
-
-FormFactorInfo::~FormFactorInfo() { delete mp_ff; }
-
-FormFactorInfo* FormFactorInfo::clone() const
-{
-    FormFactorInfo *p_result = new FormFactorInfo();
-    p_result->m_abundance = m_abundance;
-    p_result->m_pos_x = m_pos_x;
-    p_result->m_pos_y = m_pos_y;
-    p_result->mp_ff = mp_ff->clone();
-    return p_result;
-}
-
 IFormFactor* LayerStrategyBuilder::createDWBAScalarFormFactor(
         IFormFactor* p_form_factor, double depth) const
 {
@@ -224,3 +208,20 @@ IFormFactor* LayerStrategyBuilder::createDWBAMatrixFormFactor(
     p_result->setSpecularInfo(*mp_specular_info);
     return p_result;
 }
+
+// =============================================================================
+// Implementation of FormFactorInfo
+// =============================================================================
+
+FormFactorInfo::~FormFactorInfo() { delete mp_ff; }
+
+FormFactorInfo* FormFactorInfo::clone() const
+{
+    FormFactorInfo *p_result = new FormFactorInfo();
+    p_result->m_abundance = m_abundance;
+    p_result->m_pos_x = m_pos_x;
+    p_result->m_pos_y = m_pos_y;
+    p_result->mp_ff = mp_ff->clone();
+    return p_result;
+}
+

@@ -23,6 +23,10 @@ public:
     void visit(const ParticleDecoration *sample);
     void visit(const ParticleInfo *sample);
     void visit(const Particle *sample);
+    void visit(const ParticleCoreShell *sample);
+    void visit(const MesoCrystal *sample);
+    void visit(const Crystal *sample);
+    void visit(const LatticeBasis *sample);
     void visit(const IFormFactor *sample);
 
     void visit(const FormFactorFullSphere *sample);

@@ -45,7 +45,7 @@ void TestPolarizedDWBAZeroMag::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
-            getOutputPath()+"this_cylinder_DWBA_pol.ima");
+            "this_cylinder_DWBA_pol.ima");
     delete sample;
 
 }
@@ -55,7 +55,7 @@ void TestPolarizedDWBAZeroMag::finalise()
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct(
             getOutputPath()+"isgi_cylinder_DWBA.ima.gz",
-            getOutputPath()+"this_cylinder_DWBA_pol.ima",
+            "this_cylinder_DWBA_pol.ima",
             "Cylinder DWBA Formfactor with matrix calculation") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {

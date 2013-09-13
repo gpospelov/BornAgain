@@ -4,6 +4,7 @@ CONFIG  -= qt
 CONFIG  -= app_bundle
 QT      -= core gui
 
+DESTDIR = $$PWD/../bin
 
 # -----------------------------------------------------------------------------
 # generate ROOT dictionaries

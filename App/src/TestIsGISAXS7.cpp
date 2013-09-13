@@ -33,7 +33,8 @@ void TestIsGISAXS7::execute()
     FunctionalTests::IsGISAXS07 test;
     test.run();
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_morphology.ima");
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(),
+        "this_morphology.ima");
 
 }
 
@@ -41,12 +42,13 @@ void TestIsGISAXS7::execute()
 void TestIsGISAXS7::finalise()
 {
     std::string isgi_file(getOutputPath()+"isgi_morphology.ima.gz");
-    std::string this_file(getOutputPath()+"this_morphology.ima");
+    std::string this_file("this_morphology.ima");
 
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
     OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
-    IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS7_c1", "Morphology");
+    IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,
+        "TestIsGISAXS7_c1", "Morphology");
 
     delete isgi_data;
     delete our_data;

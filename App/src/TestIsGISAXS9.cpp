@@ -49,12 +49,14 @@ void TestIsGISAXS9::execute()
     ISample *sample = factory.createSample("isgisaxs09");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_pyramid_Z0.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+        "this_pyramid_Z0.ima");
 
     sample = factory.createSample("isgisaxs09_rotated");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_pyramid_Z45.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+        "this_pyramid_Z45.ima");
 }
 
 
@@ -65,8 +67,8 @@ void TestIsGISAXS9::finalise()
     isgi_files.push_back(getOutputPath()+"isgi_pyramid_Z45.ima.gz");
 
     std::vector<std::string > this_files;
-    this_files.push_back(getOutputPath()+"this_pyramid_Z0.ima");
-    this_files.push_back(getOutputPath()+"this_pyramid_Z45.ima");
+    this_files.push_back("this_pyramid_Z0.ima");
+    this_files.push_back("this_pyramid_Z45.ima");
 
     std::string descript[2];
     descript[0]="TestIsGISAXS9_c1";

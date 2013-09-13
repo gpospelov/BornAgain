@@ -83,11 +83,12 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
     mp_simulation->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(mp_simulation->getOutputData()), getOutputPath()+"this_fitexample.ima");
+    OutputDataIOFactory::writeOutputData(*(mp_simulation->getOutputData()),
+                                         "this_fitexample.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitexample.ima.gz");
-    std::string this_file(getOutputPath()+"this_fitexample.ima");
+    std::string this_file("this_fitexample.ima");
 
     // -------------
     // plot results

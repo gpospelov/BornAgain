@@ -95,7 +95,6 @@ function(ROOT_GENERATE_DICTIONARY dictionary)
       endif()
     endif()
   endforeach()
-  message("XXX DICTIONARY")
   #---call rootcint------------------------------------------
   add_custom_command(OUTPUT ${dictionary}.cxx ${dictionary}.h
                      COMMAND ${ROOTCINT_EXECUTABLE} -cint -f  ${dictionary}.cxx 

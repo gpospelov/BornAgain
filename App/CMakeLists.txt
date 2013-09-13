@@ -30,6 +30,9 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15
 )
 
+# data files are required by App for comparison
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/IsGISAXS ${CMAKE_BINARY_DIR}/Tests/ReferenceData/IsGISAXS)
+
 #dictionaries
 ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
 
@@ -40,6 +43,5 @@ include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainCore_LIBRARY}) 
 include_directories(${BornAgainFit_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainFit_LIBRARY}) 
-
 target_link_libraries(${executable_name} ${ROOT_LIBRARIES}) 
 

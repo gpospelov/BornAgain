@@ -30,22 +30,16 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15
 )
 
-
-
 #dictionaries
 ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
 
 add_executable(${executable_name} ${source_files} AppDict.cxx)
 
-
 # dependencies
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainCore_LIBRARY}) 
-
 include_directories(${BornAgainFit_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainFit_LIBRARY}) 
-target_link_libraries(${library_name} ${RootMathMore_LIBRARY}) 
-
 
 target_link_libraries(${executable_name} ${ROOT_LIBRARIES}) 
 

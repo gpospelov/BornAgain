@@ -8,10 +8,16 @@ project(BornAgain)
 
 # --- General project settings ---
 if(NOT BORNAGAIN_PYTHON)
-    set(BORNAGAIN_PYTHON ON)
+#    set(BORNAGAIN_PYTHON ON)
 endif()
-set(BORNAGAIN_APP OFF)
-set(BORNAGAIN_GUI OFF)
+
+if(NOT BORNAGAIN_APP)
+    set(BORNAGAIN_APP ON)
+endif()
+
+if(NOT BORNAGAIN_GUI)
+    set(BORNAGAIN_GUI OFF)
+endif()
 
 #--- Path for additional cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
@@ -25,19 +31,13 @@ include(CheckCompiler)
 add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)
 add_subdirectory(Tests/UnitTests/TestCore)
-
 add_subdirectory(ThirdParty/RootMinimizers)
-
 add_subdirectory(Fit)
+add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
-# functional tests (cmake; make check)
-add_subdirectory(Tests/FunctionalTests)
-
-#if(ROOT_FOUND AND BORNAGAIN_APP)
-#    add_subdirectory(App)
-#endif()
-
-#add_subdirectory(Tests/FunctionalTests/TestFit)
+if(ROOT_FOUND AND BORNAGAIN_APP)
+    add_subdirectory(App)
+endif()
 
 # packaging
 include(BornAgainCPack)

@@ -126,7 +126,8 @@ std::string Detector::addParametersToExternalPool(std::string path,
     return new_path;
 }
 
-void Detector::normalize(OutputData<double>* p_data, double sin_alpha_i) const
+void Detector::normalize(OutputData<double> *p_data,
+        OutputData<Eigen::Matrix2d> *p_polarized_data, double sin_alpha_i) const
 {
     // if shapes do not match, do nothing
     if (!dataShapeMatches(p_data)) return;
@@ -143,9 +144,18 @@ void Detector::normalize(OutputData<double>* p_data, double sin_alpha_i) const
     // This normalization assumes that the intensity map contains
     // total differential scattering cross sections
     // (as oppposed to the usual cross section per scattering particle)
-    for (OutputData<double>::iterator it = p_data->begin(); it != p_data->end(); ++it) {
+    OutputData<Eigen::Matrix2d>::iterator it_pol;
+    if (p_polarized_data) {
+        it_pol = p_polarized_data->begin();
+    }
+    for (OutputData<double>::iterator it = p_data->begin();
+            it != p_data->end(); ++it) {
         double factor = getSolidAngle(p_data, it.getIndex())/sin_alpha_i;
         (*it) *= factor;
+        if (p_polarized_data) {
+            (*it_pol) *= factor;
+            ++it_pol;
+        }
     }
 }
 

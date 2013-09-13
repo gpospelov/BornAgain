@@ -40,7 +40,7 @@ private:
     MultiLayer *mp_sample; //!< pointer to multilayer sample
     double m_meso_width;
     double m_surface_filling_ratio;
-    double m_meso_height;
+    double m_meso_size_steps;
 //    double m_sigma_meso_height;
 //    double m_sigma_meso_radius;
     double m_lattice_length_a;
@@ -48,7 +48,7 @@ private:
     double m_nanoparticle_size;
 //    double m_sigma_nanoparticle_size;
 //    double m_sigma_lattice_length_a;
-//    double m_roughness;
+    double m_roughness;
 };
 
 

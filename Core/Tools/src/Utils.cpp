@@ -109,14 +109,14 @@ std::vector<std::string> Utils::String::Split(
 }
 
 
-void Utils::FileSystem::SetArgvPath(const std::string& argv0) 
-{ 
-	m_argv0_path = argv0; 
+void Utils::FileSystem::SetArgvPath(const std::string& argv0)
+{
+	m_argv0_path = argv0;
 }
 
-std::string Utils::FileSystem::GetArgvPath() 
-{ 
-	return m_argv0_path; 
+std::string Utils::FileSystem::GetArgvPath()
+{
+	return m_argv0_path;
 }
 
 
@@ -187,10 +187,12 @@ std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
 void Utils::EnableFloatingPointExceptions()
 {
 #ifdef DEBUG_FPE
+#ifndef _WIN32
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Enabling floating point exception debugging"
               << std::endl;
-// NOT CROSS-PLATFORM!!!    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 //    feenableexcept(-1);
+#endif // _WIN32
 #else
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Can't enable floating point exceptions. Available in debug mode only."
               << std::endl;

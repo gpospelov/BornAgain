@@ -35,6 +35,7 @@ add_subdirectory(ThirdParty/RootMinimizers)
 add_subdirectory(Fit)
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
+message("XXX ${ROOT_FOUND}")
 if(ROOT_FOUND AND BORNAGAIN_APP)
     add_subdirectory(App)
 endif()

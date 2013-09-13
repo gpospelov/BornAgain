@@ -20,7 +20,7 @@
 
 //! Calculates a DWBA form factor for particles at fixed depth
 
-class FormFactorDWBAConstZ : public FormFactorDWBA
+class BA_CORE_API_ FormFactorDWBAConstZ : public FormFactorDWBA
 {
 public:
     FormFactorDWBAConstZ(IFormFactor* p_form_factor, double depth=0.0);

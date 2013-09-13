@@ -16,6 +16,7 @@
 #ifndef CONVOLVE_H
 #define CONVOLVE_H
 
+#include "WinDllMacros.h"
 #include <fftw3.h>
 #include <vector>
 
@@ -35,7 +36,7 @@ namespace MathFunctions
 //! "Efficient convolution using the Fast Fourier Transform, Application in C++"
 //! by Jeremy Fix, May 30, 2011
 //!
-class Convolve
+class BA_CORE_API_ Convolve
 {
 public:
     //! definition of 1d vector of double

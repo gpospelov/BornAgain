@@ -20,7 +20,7 @@
 
 //! Decorates a form factor with a constant factor
 
-class FormFactorDecoratorFactor : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t& factor);

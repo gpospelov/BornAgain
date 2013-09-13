@@ -16,6 +16,7 @@
 #ifndef PROGRAMOPTIONS_H
 #define PROGRAMOPTIONS_H
 
+#include "WinDllMacros.h"
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
@@ -33,7 +34,7 @@ namespace bpo = boost::program_options;
 //! CoreOptionsDescription, AppOptionsDescription modules and then
 //! added to given class using add() method
 
-class ProgramOptions
+class BA_CORE_API_ ProgramOptions
 {
 public:
     typedef bpo::options_description Variables_t;

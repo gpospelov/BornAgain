@@ -22,7 +22,7 @@
 //! Decorates a scalar form factor with the correct factor for the material's
 //! refractive index and that of its surrounding material
 
-class FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
+class BA_CORE_API_  FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
 {
 public:
     FormFactorDecoratorMaterial(IFormFactor *p_form_factor,

@@ -20,7 +20,7 @@
 
 //! Calculates a polarized DWBA form factor for particles at fixed depth
 
-class FormFactorDWBAPolConstZ : public FormFactorDWBAPol
+class BA_CORE_API_ FormFactorDWBAPolConstZ : public FormFactorDWBAPol
 {
 public:
     FormFactorDWBAPolConstZ(IFormFactor *p_formfactor, double depth=0.0);

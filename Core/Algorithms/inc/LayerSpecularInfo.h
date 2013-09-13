@@ -28,7 +28,7 @@
 //! the neutron beam in the top layer (these amplitudes correspond to the
 //! specular part of the neutron wavefunction)
 
-class LayerSpecularInfo : public ICloneable
+class BA_CORE_API_ LayerSpecularInfo : public ICloneable
 {
 public:
     LayerSpecularInfo();

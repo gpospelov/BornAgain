@@ -16,12 +16,13 @@
 #ifndef ATTFITTING_H
 #define ATTFITTING_H
 
+#include "WinDllMacros.h"
 #include <iostream>
 #include <iomanip>
 
 //! General fitting attributes.
 
-class AttFitting
+class BA_CORE_API_ AttFitting
 {
  public:
     AttFitting();

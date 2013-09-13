@@ -26,7 +26,7 @@
 
 //! class containing vector FitObject's (simulation and real data) to fit
 
-class FitSuiteObjects : public IParameterized
+class BA_CORE_API_  FitSuiteObjects : public IParameterized
 {
  public:
     typedef SafePointerVector<FitObject > FitObjects_t;

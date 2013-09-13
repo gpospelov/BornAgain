@@ -107,7 +107,7 @@ void DrawHelper::SetStyle()
     // use large fonts
     //Int_t font=72; // Helvetica italics
     Int_t font=42; // Helvetica
-    Double_t tsize=0.05;
+    float tsize=0.05;
     scattStyle->SetTextFont(font);
 
     scattStyle->SetTextSize(tsize);

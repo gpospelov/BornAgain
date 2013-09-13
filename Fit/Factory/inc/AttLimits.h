@@ -16,12 +16,13 @@
 #ifndef ATTLIMITS_H
 #define ATTLIMITS_H
 
+#include "WinDllMacros.h"
 #include <iostream>
 #include <iomanip>
 
 //! Limits for fit parameters
 
-class AttLimits
+class BA_CORE_API_ AttLimits
 {
  public:
     AttLimits() : m_has_lower_limit(false), m_has_upper_limit(false), m_is_fixed(false), m_lower_limit(0), m_upper_limit(0) {}

@@ -23,7 +23,7 @@
 
 //! Single simulation description, real data and chi2 module (used by FitSuite)
 
-class FitObject : public IParameterized
+class BA_CORE_API_ FitObject : public IParameterized
 {
  public:
     FitObject(const Simulation& simulation,

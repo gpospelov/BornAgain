@@ -16,9 +16,11 @@
 #ifndef COREOPTIONSDESCRIPTION_H
 #define COREOPTIONSDESCRIPTION_H
 
+#include "WinDllMacros.h"
+
 class ProgramOptions;
 
-void AddCoreOptions(ProgramOptions *p_options);
+void BA_CORE_API_ AddCoreOptions(ProgramOptions *p_options);
 
 #endif // COREOPTIONSDESCRIPTION_H
 

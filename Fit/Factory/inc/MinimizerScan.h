@@ -22,7 +22,7 @@
 
 //! Simple scan minimizer looks for minimum of chi2 function on the grid
 
-class MinimizerScan : public IMinimizer
+class BA_CORE_API_ MinimizerScan : public IMinimizer
 {
  public:
     MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) { }

@@ -5,7 +5,7 @@
 #include <string>
 
 //! The SamplePrintVisitor
-class SamplePrintVisitor : public ISampleVisitor
+class BA_CORE_API_ SamplePrintVisitor : public ISampleVisitor
 {
 public:
     SamplePrintVisitor() : m_level(0){}

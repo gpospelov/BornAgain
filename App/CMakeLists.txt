@@ -41,6 +41,11 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15
 )
 
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
+endif()
+
 # data files are required by App for comparison
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/IsGISAXS ${CMAKE_BINARY_DIR}/Tests/ReferenceData/IsGISAXS)
 

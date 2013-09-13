@@ -53,7 +53,7 @@ int main(int argc, char **argv)
         (void)theApp;
         gROOT->SetBatch(true);
     } else {
-        theApp = new TApplication("theApp", argc, argv);
+        theApp = new TApplication("theApp", &argc, argv);
         DrawHelper::SetStyle();
     }
 

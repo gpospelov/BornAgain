@@ -20,7 +20,7 @@ file(GLOB source_files
 # to get rid from files generated via qmake compilation
 list(REMOVE_ITEM source_files ${CMAKE_CURRENT_SOURCE_DIR}/src/AppDict.cpp)
 
-# header files
+# include files
 file(GLOB include_files
     "inc/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS06/*.h"
@@ -54,13 +54,38 @@ ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  L
 
 add_executable(${executable_name} ${source_files} AppDict.cxx ${header_files})
 
-# dependencies
+# --- dependencies ---
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainCore_LIBRARY}) 
 include_directories(${BornAgainFit_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainFit_LIBRARY}) 
-
-message("XXX ROOT_LIBRARIES ${ROOT_LIBRARIES}")
-message("XXX ROOT_INCLUDE_DIR ${ROOT_INCLUDE_DIR}")
 include_directories(${ROOT_INCLUDE_DIR})
 target_link_libraries(${executable_name} ${ROOT_LIBRARIES}) 
+
+# --- Installation ---
+install (TARGETS ${executable_name} DESTINATION bin COMPONENT Applications)
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/IsGISAXS DESTINATION Tests/ReferenceData COMPONENT Applications)
+
+# system libraries
+if(WIN32)
+    install(FILES 
+    ${ROOTSYS}bin/libGpad.dll
+    ${ROOTSYS}bin/libHist.dll
+    ${ROOTSYS}bin/libGraf.dll
+    ${ROOTSYS}bin/libGraf3d.dll
+    ${ROOTSYS}bin/libTree.dll
+    ${ROOTSYS}bin/libRint.dll
+    ${ROOTSYS}bin/libPostscript.dll
+    ${ROOTSYS}bin/libMatrix.dll
+    ${ROOTSYS}bin/libMathCore.dll
+    ${ROOTSYS}bin/libThread.dll
+    ${ROOTSYS}bin/libCore.dll
+    ${ROOTSYS}bin/libCint.dll
+    ${ROOTSYS}bin/libRIO.dll
+    ${ROOTSYS}bin/liblzma.dll
+    ${ROOTSYS}bin/libNet.dll
+    DESTINATION bin COMPONENT Libraries)
+endif()
+
+
+

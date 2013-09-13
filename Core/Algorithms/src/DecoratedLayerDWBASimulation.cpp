@@ -64,8 +64,9 @@ void DecoratedLayerDWBASimulation::runMagnetic(
     double total_surface_density =
         mp_layer->getTotalParticleSurfaceDensity();
 
-    OutputData<Eigen::Matrix2d>::iterator it = mp_polarization_output->begin();
-    while ( it != mp_polarization_output->end() )
+    OutputData<Eigen::Matrix2d>::iterator it = mp_polarization_output->begin(
+            m_thread_info);
+    while ( it != mp_polarization_output->end(m_thread_info) )
     {
         Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
             "phi_f", it.getIndex());

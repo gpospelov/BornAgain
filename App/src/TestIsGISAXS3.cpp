@@ -56,7 +56,7 @@ void TestIsGISAXS3::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
-            getOutputPath()+"this_cylinder_DWBA.ima");
+            "this_cylinder_DWBA.ima");
     delete sample;
 
     // test2
@@ -64,7 +64,7 @@ void TestIsGISAXS3::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
-            getOutputPath()+"this_cylinder_BA.ima");
+            "this_cylinder_BA.ima");
     delete sample;
 
     // test3
@@ -72,7 +72,7 @@ void TestIsGISAXS3::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
-            getOutputPath()+"this_cylinder_BA_size.ima");
+            "this_cylinder_BA_size.ima");
     delete sample;
 
 }
@@ -83,15 +83,15 @@ void TestIsGISAXS3::finalise()
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct(
             getOutputPath()+"isgi_cylinder_BA.ima.gz",
-            getOutputPath()+"this_cylinder_BA.ima",
+            "this_cylinder_BA.ima",
             "Cylinder BA Formfactor") );
     tocompare.push_back( CompareStruct(
             getOutputPath()+"isgi_cylinder_BA_size.ima.gz",
-            getOutputPath()+"this_cylinder_BA_size.ima",
+            "this_cylinder_BA_size.ima",
             "Cylinder BA Formfactor with size distribution") );
     tocompare.push_back( CompareStruct(
             getOutputPath()+"isgi_cylinder_DWBA.ima.gz",
-            getOutputPath()+"this_cylinder_DWBA.ima",
+            "this_cylinder_DWBA.ima",
             "Cylinder DWBA Formfactor") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {

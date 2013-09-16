@@ -21,7 +21,7 @@
 
 //! Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized form factor
 
-class FormFactorDWBAPol : public IFormFactor
+class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
 {
 public:
     FormFactorDWBAPol(IFormFactor *p_form_factor);

@@ -33,14 +33,14 @@ void TestIsGISAXS11::execute()
     FunctionalTests::IsGISAXS11 test;
     test.run();
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_core_shell_qxqy.ima");
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(), "this_core_shell_qxqy.ima");
 }
 
 
 void TestIsGISAXS11::finalise()
 {
     std::string isgi_file(getOutputPath()+"isgi_core_shell_qxqy.ima.gz");
-    std::string this_file(getOutputPath()+"this_core_shell_qxqy.ima");
+    std::string this_file("this_core_shell_qxqy.ima");
 
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
     OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);

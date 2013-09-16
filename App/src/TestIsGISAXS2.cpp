@@ -39,14 +39,14 @@ void TestIsGISAXS2::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
 
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_bimodal.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), "this_bimodal.ima");
 }
 
 
 void TestIsGISAXS2::finalise()
 {
     std::string isgi_file(getOutputPath()+"isgi_bimodal.ima.gz");
-    std::string this_file(getOutputPath()+"this_bimodal.ima");
+    std::string this_file("this_bimodal.ima");
 
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
     OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);

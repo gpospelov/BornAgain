@@ -26,7 +26,7 @@
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer
 
-class SpecularMatrix : public ISimulation
+class BA_CORE_API_ SpecularMatrix : public ISimulation
 {
 public:
     SpecularMatrix() {}

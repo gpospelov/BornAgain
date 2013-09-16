@@ -45,8 +45,8 @@ private:
 //inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
 //inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
 
-void SetLevel(MessageLevel level);
-void SetLevel(const std::string& levelname);
+BA_CORE_API_ void SetLevel(MessageLevel level);
+BA_CORE_API_ void SetLevel(const std::string& levelname);
 
 }
 

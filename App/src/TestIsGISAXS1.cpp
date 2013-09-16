@@ -47,7 +47,8 @@ void TestIsGISAXS1::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
 
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_2-types-of-islands-ewald.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+                                         "this_2-types-of-islands-ewald.ima");
 
     delete sample;
 }
@@ -56,7 +57,7 @@ void TestIsGISAXS1::execute()
 void TestIsGISAXS1::finalise()
 {
     std::string isgi_file(getOutputPath()+"isgi_2-types-of-islands-ewald.ima.gz");
-    std::string this_file(getOutputPath()+"this_2-types-of-islands-ewald.ima");
+    std::string this_file("this_2-types-of-islands-ewald.ima");
 
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
     OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);

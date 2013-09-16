@@ -21,7 +21,7 @@
 
 //! Evaluates a coherent sum of the four DWBA terms in a scalar form factor
 
-class FormFactorDWBA: public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {
 public:
     FormFactorDWBA(IFormFactor* p_form_factor);

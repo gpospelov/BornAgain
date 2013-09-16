@@ -103,8 +103,9 @@ if(WIN32 AND BORNAGAIN_PYTHON)
     install(FILES 
     ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
     DESTINATION bin COMPONENT Libraries)
-    
+
 endif()
+
 # list of headers to install
 file(GLOB include_files
     "Algorithms/inc/*.h"

@@ -166,7 +166,7 @@ private:
 
 
 //! enables exception throw in the case of NaN, Inf
-void EnableFloatingPointExceptions();
+BA_CORE_API_ void EnableFloatingPointExceptions();
 
 
 }

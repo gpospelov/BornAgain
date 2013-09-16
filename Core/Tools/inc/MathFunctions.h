@@ -69,11 +69,11 @@ BA_CORE_API_ complex_t Sinc(const complex_t &value);
 BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
-std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
+BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
 
-std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
+BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
 
-std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
+BA_CORE_API_ std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
 
 //! fast sine calculations (not actually fast)
 double FastSin(const double& x);

@@ -25,7 +25,7 @@
 
 //! Provide simultaneous access for several real parameters from parameter pool
 
-class FitParameterLinked : public FitParameter
+class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
  public:
     typedef std::vector<ParameterPool::parameter_t > pool_parameters_t;

@@ -17,6 +17,7 @@
 #ifndef FITSUITEFUNCTIONS_H
 #define FITSUITEFUNCTIONS_H
 
+#include "WinDllMacros.h"
 #include <vector>
 #include <cstddef>
 using std::size_t;
@@ -25,7 +26,7 @@ class FitSuite;
 
 //! Fitting functions interface to be used by Minimizer.
 
-class IFitSuiteFunction
+class BA_CORE_API_ IFitSuiteFunction
 {
  public:
     IFitSuiteFunction() : m_fit_suite(0), m_ncall(0) {}
@@ -39,7 +40,7 @@ class IFitSuiteFunction
 
 //! Chi squared fitting function for minimizer
 
-class FitSuiteChiSquaredFunction : public IFitSuiteFunction
+class BA_CORE_API_ FitSuiteChiSquaredFunction : public IFitSuiteFunction
 {
  public:
     FitSuiteChiSquaredFunction() {}
@@ -50,7 +51,7 @@ class FitSuiteChiSquaredFunction : public IFitSuiteFunction
 
 //! Gradient fitting function for minimizer
 
-class FitSuiteGradientFunction : public IFitSuiteFunction
+class BA_CORE_API_ FitSuiteGradientFunction : public IFitSuiteFunction
 {
  public:
     FitSuiteGradientFunction()

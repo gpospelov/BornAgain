@@ -30,16 +30,16 @@ namespace OutputDataFunctions
     BA_CORE_API_ OutputData<double> *doubleBinSize(const OutputData<double>& source);
 
     //! unnormalized Fourier transformation for real data
-    void FourierTransform(
+    BA_CORE_API_ void FourierTransform(
         const OutputData<double>& source, OutputData<complex_t> *p_destination);
 
     //! unnormalized reverse Fourier transformation for real data
-    void FourierTransformR(
+    BA_CORE_API_ void FourierTransformR(
         const OutputData<complex_t>& source, OutputData<double> *p_destination);
 
-    OutputData<double> *getRealPart(const OutputData<complex_t>& source);
-    OutputData<double> *getImagPart(const OutputData<complex_t>& source);
-    OutputData<double> *getModulusPart(const OutputData<complex_t>& source);
+    BA_CORE_API_ OutputData<double> *getRealPart(const OutputData<complex_t>& source);
+    BA_CORE_API_ OutputData<double> *getImagPart(const OutputData<complex_t>& source);
+    BA_CORE_API_ OutputData<double> *getModulusPart(const OutputData<complex_t>& source);
 
     //! Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name')
     OutputData<double> *sliceAccrossOneAxis(
@@ -47,7 +47,7 @@ namespace OutputDataFunctions
         double fixed_axis_value);
 
     //! Select range on one of the axis. Resulting output data will have same number of axes
-    OutputData<double> *selectRangeOnOneAxis(
+    BA_CORE_API_ OutputData<double> *selectRangeOnOneAxis(
         const OutputData<double>& data, const std::string& selected_axis_name,
         double axis_value1, double axis_value2);
 
@@ -59,7 +59,7 @@ namespace OutputDataFunctions
     BA_CORE_API_ Mask *CreateRectangularMask(
         const OutputData<double>& data,
         const double *minima, const double *maxima);
-    Mask *CreateRectangularMask(
+    BA_CORE_API_ Mask *CreateRectangularMask(
         const OutputData<double>& data,
         double x1, double y1, double x2, double y2);
 
@@ -67,7 +67,7 @@ namespace OutputDataFunctions
     BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
         const double *center, const double *radii);
-    Mask *CreateEllipticMask(
+    BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
         double xc, double yc, double rx, double ry);
 }

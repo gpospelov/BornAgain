@@ -41,7 +41,7 @@ class InterferenceFunction2DParaCrystal;
 
 //! Interface to visit a sample tree and perform operations on its nodes
 
-class ISampleVisitor
+class BA_CORE_API_ ISampleVisitor
 {
 public:
     //! Destructor

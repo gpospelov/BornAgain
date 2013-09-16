@@ -23,7 +23,7 @@ class FitSuite;
 
 //! Collection of strategies to fit
 
-class FitSuiteStrategies
+class BA_CORE_API_  FitSuiteStrategies
 {
  public:
     typedef SafePointerVector<IFitSuiteStrategy > strategies_t;

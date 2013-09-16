@@ -20,7 +20,7 @@
 
 //! Debye-Waller factors in radial and z directions.
 
-class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {
 public:
     //! Isotropic Debye-Waller factor.

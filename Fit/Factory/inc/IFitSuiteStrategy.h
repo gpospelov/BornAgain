@@ -31,13 +31,15 @@ class FitSuite;
 //  Concrete implementation should manipulate with fit parameters/data
 //  and then call minimizer.
 
-class IFitSuiteStrategy : public INamed
+class BA_CORE_API_ IFitSuiteStrategy : public INamed
 {
  public:
     // TODO refactor all strategies (decorator, policies?) to change the way of calling FitSuite's minimizer: simple call, clear parameters/matrices before the call, no call at all, see FitSuiteStrategyAdjustData
 
     IFitSuiteStrategy() : m_fit_suite(0) {}
     IFitSuiteStrategy(const std::string& name) : INamed(name), m_fit_suite(0) {}
+	virtual IFitSuiteStrategy *clone() const { throw NotImplementedException("IFitSuiteStrategy::clone() -> Error! Not implemented"); }
+
 
     virtual ~IFitSuiteStrategy(){}
     virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
@@ -48,7 +50,7 @@ class IFitSuiteStrategy : public INamed
 
 //! Default fit strategy just let FitSuite to run it's minimization round
 
-class FitSuiteStrategyDefault : public IFitSuiteStrategy
+class BA_CORE_API_ FitSuiteStrategyDefault : public IFitSuiteStrategy
 {
  public:
     FitSuiteStrategyDefault() : IFitSuiteStrategy("FitSuiteStrategyDefault") { }
@@ -57,7 +59,7 @@ class FitSuiteStrategyDefault : public IFitSuiteStrategy
 
 //! Strategy modifies data before running minimization round
 
-class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
+class BA_CORE_API_ FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 {
  public:
     FitSuiteStrategyAdjustData(int power_of_two = 1, bool preserve_original=true, bool call_minimize=true) : IFitSuiteStrategy("FitSuiteStrategyAdjustData"), m_power_of_two(power_of_two), m_preserve_original_data(preserve_original), m_call_minimize(call_minimize) { }
@@ -72,7 +74,7 @@ class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 
 //! Strategy which fixes/releases fit parameters and call minimizer
 
-class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
+class BA_CORE_API_ FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {
  public:
     FitSuiteStrategyAdjustParameters(const std::string& name) : IFitSuiteStrategy(name), m_fix_all(false), m_release_all(false), m_preserve_original_values(false) { }
@@ -94,7 +96,7 @@ class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 
 //! Helps minimizer get out of local minima by disturbing real data
 
-class FitSuiteStrategyBootstrap : public IFitSuiteStrategy
+class BA_CORE_API_ FitSuiteStrategyBootstrap : public IFitSuiteStrategy
 {
  public:
     FitSuiteStrategyBootstrap(int n_iterations = 5) : IFitSuiteStrategy("FitStrategyBootstrap"), m_n_iterations(n_iterations) { }

@@ -11,40 +11,47 @@ find_program(ROOT_CONFIG_EXECUTABLE root-config
   PATHS $ENV{ROOTSYS}/bin)
 
 if(NOT ROOT_CONFIG_EXECUTABLE)
-  set(ROOT_FOUND FALSE)
-else()    
-  set(ROOT_FOUND TRUE)
+    set(ROOT_FOUND FALSE)
+else()
+    set(ROOT_FOUND TRUE)
 
-  execute_process(
-    COMMAND ${ROOT_CONFIG_EXECUTABLE} --prefix 
-    OUTPUT_VARIABLE ROOTSYS 
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(WIN32)
+        STRING(REGEX REPLACE "\\\\" "/" ROOTSYS $ENV{ROOTSYS} ) # Convert C:\root\ to C:/root/
+        set(ROOT_INCLUDE_DIR ${ROOTSYS}/include)
+        set(ROOT_LIBRARY_DIR ${ROOTSYS}/lib)
+        #set(ROOT_LIBRARIES -LIBPATH:${ROOT_LIBRARY_DIR} libGpad.lib libHist.lib libGraf.lib libGraf3d.lib libTree.lib libRint.lib libPostscript.lib libMatrix.lib libPhysics.lib libMathCore.lib libRIO.lib libNet.lib libThread.lib libCore.lib libCint.lib)
+        set(ROOT_LIBRARIES -LIBPATH:${ROOT_LIBRARY_DIR} libGpad.lib libHist.lib libGraf.lib libGraf3d.lib libTree.lib libRint.lib libPostscript.lib libMatrix.lib libMathCore.lib libRIO.lib libNet.lib libThread.lib libCore.lib libCint.lib)
+    else()
 
-  execute_process(
-    COMMAND ${ROOT_CONFIG_EXECUTABLE} --version 
-    OUTPUT_VARIABLE ROOT_VERSION
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(
+            COMMAND ${ROOT_CONFIG_EXECUTABLE} --prefix 
+            OUTPUT_VARIABLE ROOTSYS 
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  execute_process(
-    COMMAND ${ROOT_CONFIG_EXECUTABLE} --incdir
-    OUTPUT_VARIABLE ROOT_INCLUDE_DIR
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(
+            COMMAND ${ROOT_CONFIG_EXECUTABLE} --version 
+            OUTPUT_VARIABLE ROOT_VERSION
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  execute_process(
-    COMMAND ${ROOT_CONFIG_EXECUTABLE} --libs
-    OUTPUT_VARIABLE ROOT_LIBRARIES
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(
+            COMMAND ${ROOT_CONFIG_EXECUTABLE} --incdir
+            OUTPUT_VARIABLE ROOT_INCLUDE_DIR
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  #set(ROOT_LIBRARIES ${ROOT_LIBRARIES} -lThread -lMinuit -lHtml -lVMC -lEG -lGeom -lTreePlayer -lXMLIO -lProof)
-  #set(ROOT_LIBRARIES ${ROOT_LIBRARIES} -lProofPlayer -lMLP -lSpectrum -lEve -lRGL -lGed -lXMLParser -lPhysics)
-  set(ROOT_LIBRARY_DIR ${ROOTSYS}/lib)
+        execute_process(
+            COMMAND ${ROOT_CONFIG_EXECUTABLE} --libs
+            OUTPUT_VARIABLE ROOT_LIBRARIES
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  # Make variables changeble to the advanced user
-  mark_as_advanced(ROOT_CONFIG_EXECUTABLE)
+        set(ROOT_LIBRARY_DIR ${ROOTSYS}/lib)
 
-  if(NOT ROOT_FIND_QUIETLY)
-    message(STATUS "Found ROOT ${ROOT_VERSION} in ${ROOTSYS}")
-  endif()
+        # Make variables changeble to the advanced user
+        mark_as_advanced(ROOT_CONFIG_EXECUTABLE)
+
+        if(NOT ROOT_FIND_QUIETLY)
+            message(STATUS "Found ROOT ${ROOT_VERSION} in ${ROOTSYS}")
+        endif()
+    endif()
 endif()
 
 

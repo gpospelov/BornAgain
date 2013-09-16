@@ -23,7 +23,7 @@
 
 //! Parameter with value, error and limits for fitting routines.
 
-class FitParameter : public INamed, public AttLimits
+class BA_CORE_API_ FitParameter : public INamed, public AttLimits
 {
  public:
     FitParameter();

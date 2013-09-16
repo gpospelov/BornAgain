@@ -7,7 +7,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 //! Print fit progress at the end of each FitSuite's iteration
-class FitSuitePrintObserver : public IObserver
+class BA_CORE_API_ FitSuitePrintObserver : public IObserver
 {
 public:
     FitSuitePrintObserver(int print_every_nth = 1);

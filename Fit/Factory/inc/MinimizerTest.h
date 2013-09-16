@@ -22,7 +22,7 @@
 
 //! Minimizer which calls minimization function once to test whole chain
 
-class MinimizerTest : public IMinimizer
+class BA_CORE_API_ MinimizerTest : public IMinimizer
 {
  public:
     MinimizerTest() : m_min_value(0) {}

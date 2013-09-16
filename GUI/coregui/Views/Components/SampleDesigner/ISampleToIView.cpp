@@ -3,7 +3,7 @@
 #include "ISampleToIView.h"
 #include "ISample.h"
 #include "MultiLayer.h"
-#include "LayerDecorator.h"
+//#include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "ParticleDecorationView.h"
 #include "FormFactorView.h"
@@ -94,28 +94,28 @@ void ISampleToIView::visit(const Layer *sample)
 //! should create view of LayerDecorator, but since LayerDecorator doesn't have
 //! own graphical representation, the method goes deeper in ISample hierarchy, and
 //! on the way back connects layer and it's decoration
-void ISampleToIView::visit(const LayerDecorator *sample)
-{
-    Q_ASSERT(sample);
-    std::cout << get_indent() << "ISampleToIView_LayerDecorator " << sample->getName()
-              << " " << sample
-              << " " << (*sample->getParameterPool())
-              << std::endl;
+//void ISampleToIView::visit(const LayerDecorator *sample)
+//{
+//    Q_ASSERT(sample);
+//    std::cout << get_indent() << "ISampleToIView_LayerDecorator " << sample->getName()
+//              << " " << sample
+//              << " " << (*sample->getParameterPool())
+//              << std::endl;
 
-    goForward();
+//    goForward();
 
-    const Layer *layer = sample->getDecoratedLayer();
-    layer->accept(this);
+//    const Layer *layer = sample->getDecoratedLayer();
+//    layer->accept(this);
 
-    const IDecoration *decoration = sample->getDecoration();
-    decoration->accept(this);
+//    const IDecoration *decoration = sample->getDecoration();
+//    decoration->accept(this);
 
-    goBack();
+//    goBack();
 
-    Q_ASSERT(m_sample_to_view[layer]);
-    Q_ASSERT(m_sample_to_view[decoration]);
-    m_connections += m_sample_to_view[layer]->connectInputPort(m_sample_to_view[decoration]);
-}
+//    Q_ASSERT(m_sample_to_view[layer]);
+//    Q_ASSERT(m_sample_to_view[decoration]);
+//    m_connections += m_sample_to_view[layer]->connectInputPort(m_sample_to_view[decoration]);
+//}
 
 
 //! creates view of LayerInterface

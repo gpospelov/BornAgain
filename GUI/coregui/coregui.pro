@@ -116,7 +116,10 @@ lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtX
 # general project settings
 # -----------------------------------------------------------------------------
 include($$PWD/../../shared.pri)
-INCLUDEPATH -= /opt/local/include
+#INCLUDEPATH -= /opt/local/include
+
+INCLUDEPATH += $${ROOT_FRAMEWORK_INCLUDEPATH}
+LIBS += $${ROOT_FRAMEWORK_LIBS}
 
 FORMS += \
     form.ui

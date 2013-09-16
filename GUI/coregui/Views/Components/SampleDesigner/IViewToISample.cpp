@@ -143,9 +143,9 @@ void IViewToISample::visit(FormFactorFullSphereView *view)
     Q_ASSERT(view);
     std::cout << get_indent() << "ViewVisitor(FormFactorFullSphereView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 //    m_views.insertMulti(m_level, view);
-    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
-    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
-    m_view_to_sample[view] = info;
+//    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
+//    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
+//    m_view_to_sample[view] = info;
 }
 
 
@@ -153,9 +153,9 @@ void IViewToISample::visit(FormFactorPyramidView *view)
 {
     Q_ASSERT(view);
     std::cout << get_indent() << "ViewVisitor(FormFactorPyramidView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
-    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
-    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
-    m_view_to_sample[view] = info;
+//    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
+//    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
+//    m_view_to_sample[view] = info;
 }
 
 
@@ -163,9 +163,9 @@ void IViewToISample::visit(FormFactorPrism3View *view)
 {
     Q_ASSERT(view);
     std::cout << get_indent() << "ViewVisitor(FormFactorPrism3View ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
-    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
-    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
-    m_view_to_sample[view] = info;
+//    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
+//    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
+//    m_view_to_sample[view] = info;
 }
 
 
@@ -173,9 +173,9 @@ void IViewToISample::visit(FormFactorCylinderView *view)
 {
     Q_ASSERT(view);
     std::cout << get_indent() << "ViewVisitor(FormFactorCylinderView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
-    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
-    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
-    m_view_to_sample[view] = info;
+//    Particle *particle = new Particle(complex_t(0,0), *view->getFormFactor()->clone());
+//    ParticleInfo *info = new ParticleInfo(particle, 0.0, view->getWeight());
+//    m_view_to_sample[view] = info;
 }
 
 

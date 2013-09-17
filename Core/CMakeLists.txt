@@ -3,7 +3,7 @@
 ############################################################################
 set(library_name BornAgainCore)
 
-# source and include files
+# --- source and include files ---
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/inc
@@ -44,7 +44,7 @@ if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
-# making library
+# --- making library ---
 add_library(
     ${library_name}
     SHARED
@@ -52,24 +52,29 @@ add_library(
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
+# exposing library name and list of include directories outside
+set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-# external dependencies
-include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
-target_link_libraries(${library_name} ${FFTW_LIBRARY}) 
-target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
-target_link_libraries(${library_name} ${PYTHON_LIBRARIES}) 
+# --- external dependencies ---
+include_directories(
+    ${EIGEN3_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
+    ${FFTW_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR}
+)
+target_link_libraries(
+    ${library_name}
+    ${Boost_LIBRARIES}
+    ${FFTW_LIBRARY}
+    ${GSL_LIBRARIES}
+)
+if(BORNAGAIN_PYTHON)
+    include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})
+    target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
+endif()
 
-# copying library into lib directory for functional tests
-#execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
-#ADD_CUSTOM_COMMAND(
-#    TARGET ${library_name}
-#    POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E copy
-#    ${libprefix}${library_name}${libsuffix}
-#    ${CMAKE_BINARY_DIR}/lib/
-#)
-
+# --- custom actions ---
 # python in windows required .pyd extention for the library name
 if(WIN32 AND BORNAGAIN_PYTHON)
     ADD_CUSTOM_COMMAND(
@@ -81,17 +86,13 @@ if(WIN32 AND BORNAGAIN_PYTHON)
     )
 endif()
 
-# exposing library name and list of include directories outside
-set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
-set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
 # -----------------------------------------------
 # installation
+# FIXME sometimes installation goes in two place (lib, bin), this is temporary
 # -----------------------------------------------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION bin COMPONENT Libraries)
-
 install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
 install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
 
@@ -103,7 +104,6 @@ if(WIN32 AND BORNAGAIN_PYTHON)
     install(FILES 
     ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
     DESTINATION bin COMPONENT Libraries)
-
 endif()
 
 # list of headers to install
@@ -140,4 +140,3 @@ if(WIN32)
         install (FILES ${GSL_LIBRARIES} DESTINATION bin COMPONENT Libraries)    
     endif()
 endif()
-

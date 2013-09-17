@@ -10,11 +10,15 @@ add_executable( TestCore main.cpp )
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 target_link_libraries(TestCore gtest)
 
-include_directories(${BornAgainCore_INCLUDE_DIRS})
-target_link_libraries(TestCore ${BornAgainCore_LIBRARY}) 
-
-include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(TestCore ${Boost_LIBRARIES}) 
+include_directories(
+    ${Boost_INCLUDE_DIRS}
+    ${BornAgainCore_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
+)
+target_link_libraries(TestCore
+    ${BornAgainCore_LIBRARY}
+    ${Boost_LIBRARIES}
+)
 
 # to build executable right in lib directory to not to have problems with finding libBornAgainCore.dll under Windows
 set_property(TARGET TestCore PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

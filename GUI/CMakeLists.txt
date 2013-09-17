@@ -4,7 +4,11 @@
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+find_package(Qt5Widgets REQUIRED)
+
 add_subdirectory(externals/qt-manhattan-style)
 add_subdirectory(externals/qt-root)
 add_subdirectory(externals/qt-root-gui-factory)
+add_subdirectory(coregui)
+
 

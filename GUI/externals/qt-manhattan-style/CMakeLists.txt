@@ -49,6 +49,9 @@ set(SRCS
     extensions/threelevelsitempicker.cpp
 )
 
+set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${include_dirs})
+
 set(RCS
     resources/resources.qrc
 )
@@ -60,7 +63,7 @@ set(UI_FILES
 # Qt5
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-find_package(Qt5Widgets)
+#find_package(Qt5Widgets)
 
 # Run uic on ui files
 qt5_wrap_ui(UI_HDRS ${UI_FILES})

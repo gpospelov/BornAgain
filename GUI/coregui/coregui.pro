@@ -2,7 +2,8 @@
 # qmake project file to compile GUI core
 # -----------------------------------------------------------------------------
 
-QT       += core gui script webkit webkitwidgets designer designercomponents
+#QT       += core gui script webkit webkitwidgets designer designercomponents
+QT       += core gui script webkit webkitwidgets designer
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = coregui
 TEMPLATE = app
@@ -116,7 +117,7 @@ lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtX
 # general project settings
 # -----------------------------------------------------------------------------
 include($$PWD/../../shared.pri)
-#INCLUDEPATH -= /opt/local/include
+INCLUDEPATH -= /opt/local/include
 
 INCLUDEPATH += $${ROOT_FRAMEWORK_INCLUDEPATH}
 LIBS += $${ROOT_FRAMEWORK_LIBS}

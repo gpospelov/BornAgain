@@ -24,7 +24,6 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---
-message("XXX ${GQt_INCLUDE_DIRS} XXX")
 include_directories(
     ${ROOT_INCLUDE_DIR}
     ${GQt_INCLUDE_DIRS}
@@ -32,6 +31,6 @@ include_directories(
 
 target_link_libraries(${library_name} ${ROOT_LIBRARIES})
 
-find_package(Qt5Widgets REQUIRED)
+#find_package(Qt5Widgets REQUIRED)
 qt5_use_modules(${library_name} Widgets)
 

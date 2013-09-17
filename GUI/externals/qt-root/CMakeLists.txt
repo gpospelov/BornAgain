@@ -21,7 +21,7 @@ set(CMAKE_AUTOMOC ON)
 #                      inc/TQtClientGuard.h" "inc/TQtClientWidget.h" "inc/TQtTimer.h"
 #                      inc/TQtRootSlot.h)
 
-find_package(Qt5Widgets REQUIRED)
+#find_package(Qt5Widgets REQUIRED)
 
 ROOT_GENERATE_DICTIONARY(G__GQt ${headers} LINKDEF LinkDef.h)
 ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)

@@ -52,7 +52,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/T
 # dictionaries
 ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
 
-add_executable(${executable_name} ${source_files} AppDict.cxx ${header_files})
+add_executable(${executable_name} ${source_files} AppDict.cxx ${include_files})
 
 # --- dependencies ---
 include_directories(

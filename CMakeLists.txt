@@ -12,11 +12,11 @@ if(NOT BORNAGAIN_PYTHON)
 endif()
 
 if(NOT BORNAGAIN_APP)
-    set(BORNAGAIN_APP ON)
+#    set(BORNAGAIN_APP ON)
 endif()
 
 if(NOT BORNAGAIN_GUI)
-    set(BORNAGAIN_GUI OFF)
+    set(BORNAGAIN_GUI ON)
 endif()
 
 #--- Path for additional cmake modules ---
@@ -37,6 +37,10 @@ add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 if(ROOT_FOUND AND BORNAGAIN_APP)
     add_subdirectory(App)
+endif()
+
+if(BORNAGAIN_GUI)
+    add_subdirectory(GUI)
 endif()
 
 # packaging

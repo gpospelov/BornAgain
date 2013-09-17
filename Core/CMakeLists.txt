@@ -88,7 +88,7 @@ endif()
 
 # -----------------------------------------------
 # installation
-# FIXME sometimes installation goes in two place (lib, bin), this is temporary
+# FIXME installation goes in two place (lib, bin), this is temporary
 # -----------------------------------------------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")

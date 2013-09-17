@@ -1,8 +1,11 @@
-# Manhattan project
+############################################################################
+# CMakeLists.txt file for building libManhattanStyle
+############################################################################
 
 cmake_minimum_required(VERSION 2.8.9)
 
-project(qt-manhattan-style)
+#project(qt-manhattan-style)
+set(library_name ManhattanStyle)
 
 set(SRCS
     stylehelper.cpp
@@ -71,10 +74,13 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
 # Create the target
 add_definitions(-DQTMANHATTANSTYLE_LIBRARY)
-add_library(${PROJECT_NAME} SHARED ${SRCS} ${UI_HDRS} ${RC_SRCS})
+add_library(${library_name} SHARED ${SRCS} ${UI_HDRS} ${RC_SRCS})
+set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
+
 
 # Link the target to its dependencies
 # The Qt5Widgets_LIBRARIES variable also includes QtGui and QtCore
-target_link_libraries(${PROJECT_NAME} ${Qt5Widgets_LIBRARIES})
+target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
 
-qt5_use_modules(${PROJECT_NAME} Widgets)
+qt5_use_modules(${library_name} Widgets)

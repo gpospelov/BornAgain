@@ -74,7 +74,7 @@ endif()
 
 # -----------------------------------------------
 # installation
-# FIXME sometimes installation goes in two place (lib, bin), this is temporary
+# FIXME installation goes in two place (lib, bin), this is temporary
 # -----------------------------------------------
 install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
 install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)

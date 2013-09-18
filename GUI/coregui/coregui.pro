@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # qmake project file to compile GUI core
 # -----------------------------------------------------------------------------
-QT       += core gui script webkit webkitwidgets designer designercomponents
+QT       = core gui script webkit webkitwidgets designer designercomponents
 #QT       += core gui script webkit webkitwidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = coregui
@@ -9,6 +9,7 @@ TEMPLATE = app
 
 #CONFIG  -= app_bundle
 #CONFIG += BORNAGAIN_ROOT BORNAGAIN_PYTHON
+#CONFIG -= qt
 
 include($$PWD/../../shared.pri)
 
@@ -61,18 +62,20 @@ RESOURCES   += coregui.qrc
 FORMS += \
     form.ui
 
-myIncludes = $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
+myIncludes = $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models $$PWD/
 
 # -----------------------------------------------------------------------------
 # dependencies
 # -----------------------------------------------------------------------------
 DEPENDPATH  += $$myIncludes
-INCLUDEPATH += $$myIncludes
-INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
-INCLUDEPATH *= $$BOOST_INCLUDE_DIR
-INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH += $$myIncludes $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH += $$EIGEN_INCLUDE_DIR
 INCLUDEPATH += $$ROOT_INCLUDE_DIR
+
+message("XXX $$ROOT_INCLUDE_DIR")
 INCLUDEPATH += $$PYTHON_INCLUDE_DIR
+INCLUDEPATH += $$BOOST_INCLUDE_DIR
+
 LIBS += $$BOOST_LIBRARY $$BornAgainCore_LIBRARY $$ROOT_LIBRARY $$PYTHON_LIBRARY
 
 LIBS += $$PWD/../../lib/libManhattanStyle.so

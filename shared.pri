@@ -59,7 +59,7 @@ gtest_LIBRARY = $$PWD/lib/$${SOPREFIX}gtest.$${SONAME}
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
 macx|unix {
-  GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  GSL_HEADER_LOCATIONS = /opt/local2/include /opt/local/include /usr/local/include /usr/include
 }
 win32 {
   GSL_HEADER_LOCATIONS = "C:/opt/local/include"
@@ -77,7 +77,7 @@ win32 {
 # --- checking eigen headers ---
 EIGEN_HEADERFILE = Eigen/Core
 macx|unix {
-  EIGEN_HEADER_LOCATIONS = /opt/local/include /opt/local/include/eigen3  /usr/local/include /usr/include
+  EIGEN_HEADER_LOCATIONS = /opt/local2/include  /opt/local/include /opt/local/include/eigen3  /usr/local/include /usr/include
 }
 win32 {
   EIGEN_HEADER_LOCATIONS = "C:/opt/local/include"
@@ -91,7 +91,7 @@ isEmpty(EIGEN_INCLUDE_DIR) {
 # --- checking fftw3 ---
 FFTW3_HEADERFILE = fftw3.h
 macx|unix {
-  FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  FFTW3_HEADER_LOCATIONS = /opt/local2/include  /opt/local/include /usr/local/include /usr/include
   FFTW3_LIBNAME = fftw3
 }
 win32 {
@@ -106,7 +106,7 @@ FFTW3_LIBRARY = -L$${FFTW3_LIBRARY_DIR} -l$${FFTW3_LIBNAME}
 # --- checking boost ---
 BOOST_HEADERFILE = boost/version.hpp
 macx|unix {
-  BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  BOOST_HEADER_LOCATIONS = /opt/local2/include  /opt/local/include /usr/local/include /usr/include
 }
 win32 {
   BOOST_HEADER_LOCATIONS = "C:/opt/local/include"
@@ -151,15 +151,15 @@ isEqual(env_jcns_variable, "yes") {
   CONFIG += BORNAGAIN_JCNS
 }
 
-CONFIG(BORNAGAIN_JCNS) {
-  message("Special config for JCNS")
-  INCLUDEPATH += /usr/users/jcns/pospelov/software/include
-  OLD_LIBS = $$LIBS
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
-         -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams \
-         -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex \
-         -lboost_thread $$OLD_LIBS
-}
+#CONFIG(BORNAGAIN_JCNS) {
+#  message("Special config for JCNS")
+#  INCLUDEPATH += /usr/users/jcns/pospelov/software/include
+#  OLD_LIBS = $$LIBS
+#  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
+#         -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams \
+#         -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex \
+#         -lboost_thread $$OLD_LIBS
+#}
 
 # -----------------------------------------------------------------------------
 # compiler options for debug and release

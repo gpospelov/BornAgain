@@ -270,17 +270,17 @@ HEADERS += \
     src/Math/GSLMultiMinimizer.h \
     src/Math/GSLRngWrapper.h \
 
-
-#INCLUDEPATH += inc $${RootMathMore_INCLUDEPATH}
-#DEPENDPATH += inc $${RootMathMore_INCLUDEPATH}
 INCLUDEPATH += inc
 DEPENDPATH += inc
 
 QMAKE_CXXFLAGS += -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE
 
-#win32 {
-#    DEFINES += BA_CORE_BUILD_DLL
-#}
+# -----------------------------------------------------------------------------
+# dependencies
+# -----------------------------------------------------------------------------
+INCLUDEPATH *= $${GSL_INCLUDE_DIR}
+LIBS += $${GSL_LIBRARY}
+
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

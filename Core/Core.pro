@@ -353,7 +353,7 @@ INCLUDEPATH *= $$FFTW3_INCLUDE_DIR
 INCLUDEPATH *= $$BOOST_INCLUDE_DIR
 INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR
 INCLUDEPATH += $$PYTHON_INCLUDE_DIR
-LIBS += $$GSL_LIBRARY $$EIGEN_LIBRARY $$FFTW3_LIBRARY $$BOOST_LIBRARY $$PYTHON_LIBRARY
+LIBS += $$GSL_LIBRARY $$FFTW3_LIBRARY $$BOOST_LIBRARY $$PYTHON_LIBRARY
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

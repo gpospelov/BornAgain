@@ -202,18 +202,11 @@ CONFIG(PEDANTIC) {
 
 
 # -----------------------------------------------------------------------------
-# check ROOT existance
+# ROOT framework settings
 # -----------------------------------------------------------------------------
-macx|unix {
-    ROOT_FRAMEWORK = $$system(root-config --prefix)
-}
-win32 {
-#    ROOT_FRAMEWORK = "C:/root"
-}
+macx|unix:ROOT_FRAMEWORK = $$system(root-config --prefix)
+win32:ROOT_FRAMEWORK = "C:/root"
 
-# -----------------------------------------------------------------------------
-# add ROOT libraries
-# -----------------------------------------------------------------------------
 !isEmpty(ROOT_FRAMEWORK) {
   macx|unix {
     LIBEXT = so
@@ -266,52 +259,47 @@ win32 {
 # -----------------------------------------------------------------------------
 # add python API support
 # -----------------------------------------------------------------------------
-CONFIG(BORNAGAIN_PYTHON) {
-  # user wants to compile python module
+macx|unix: WhichPython=$$system(which python)
+win32:WhichPython="C:/Python27/python.exe"
+!isEmpty(WhichPython) {
+  pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+  pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
   macx|unix {
-    WhichPython=$$system(which python)
+    pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
+    pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/lib\' )\" ")
   }
   win32 {
-    WhichPython="C:/Python27/python.exe"
+    pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include')\" ")
+    pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
   }
-  isEmpty(WhichPython) {
-    # we do not have python
-    error("Can not find any sign of python")
-  } else {
-    pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
-    pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
-    macx|unix {
-      pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
-      pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/lib\' )\" ")
-    }
-    win32 {
-      pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include')\" ")
-      pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
-    }
-    #message(pythonvers : $$pythonvers)
-    #message(pythoninc  : $$pythonsysincdir)
-    #message(pythonlib  : $$pythonsyslibdir)
-    #message(pythonnumpy: $$pythonnumpy)
-    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
+  #message(pythonvers : $$pythonvers)
+  #message(pythoninc  : $$pythonsysincdir)
+  #message(pythonlib  : $$pythonsyslibdir)
+  #message(pythonnumpy: $$pythonnumpy)
+  lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
 
-    #INCLUDEPATH += $$pythonsysincdir
-    macx|unix {
-      PYTHON_LIB_DIRECTIVE=-lpython$$pythonvers
-    }
-    win32 {
-      PYTHON_LIB_DIRECTIVE="-lpython27"
-    }
-    #LIBS += -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
-
-    # location of numpy
-    !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
-    #INCLUDEPATH += $$pythonnumpy
-    PYTHON_INCLUDE_DIR = $$pythonsysincdir $$pythonnumpy
-    PYTHON_LIBRARY = -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
+  #INCLUDEPATH += $$pythonsysincdir
+  macx|unix {
+    PYTHON_LIB_DIRECTIVE=-lpython$$pythonvers
   }
+  win32 {
+    PYTHON_LIB_DIRECTIVE="-lpython27"
+  }
+  #LIBS += -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
+
+  # location of numpy
+  !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
+  #INCLUDEPATH += $$pythonnumpy
+  PYTHON_INCLUDE_DIR = $$pythonsysincdir $$pythonnumpy
+  PYTHON_LIBRARY = -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
+}
+CONFIG(BORNAGAIN_PYTHON) {
+    isEmpty(WhichPython): error("Can't find any sign of python")
 }
 
+# -----------------------------------------------------------------------------
 # location of object files for debug/release builds
+# -----------------------------------------------------------------------------
 unix {
     CONFIG(debug, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/debug
     CONFIG(release, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/release

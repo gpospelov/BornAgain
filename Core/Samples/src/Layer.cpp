@@ -30,7 +30,6 @@ Layer::Layer()
     init_parameters();
 }
 
-
 Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoration)
     : m_thickness(thickness)
     , mp_decoration(0)
@@ -51,8 +50,6 @@ Layer::Layer(const IMaterial* material, double thickness, const IDecoration &dec
     init_parameters();
 }
 
-
-
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
     mp_material = other.mp_material;
@@ -65,12 +62,10 @@ Layer::Layer(const Layer& other) : ICompositeSample()
     init_parameters();
 }
 
-
 Layer::~Layer()
 {
     delete mp_decoration;
 }
-
 
 Layer* Layer::cloneInvertB() const
 {
@@ -93,7 +88,6 @@ void Layer::init_parameters()
     registerParameter("thickness", &m_thickness);
 }
 
-
 //! Sets layer thickness in nanometers.
 void Layer::setThickness(double thickness)
 {
@@ -101,7 +95,6 @@ void Layer::setThickness(double thickness)
         throw DomainErrorException("Layer thickness cannot be negative");
     m_thickness = thickness;
 }
-
 
 //! Sets _material_ of the layer.
 void Layer::setMaterial(const IMaterial* material)
@@ -111,14 +104,11 @@ void Layer::setMaterial(const IMaterial* material)
     mp_material = material;
 }
 
-
 void Layer::setMaterial(const IMaterial* material, double thickness)
 {
     setMaterial(material);
     setThickness(thickness);
 }
-
-
 
 void Layer::setDecoration(IDecoration *decoration)
 {
@@ -144,7 +134,6 @@ void Layer::print(std::ostream& ostr) const
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
 
-
 LayerDWBASimulation *Layer::createDWBASimulation() const
 {
     if(mp_decoration) {
@@ -152,7 +141,6 @@ LayerDWBASimulation *Layer::createDWBASimulation() const
     }
     return 0;
 }
-
 
 DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
 {
@@ -174,7 +162,9 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
                 p_sim->addParticleInfo((*p_diffuse_nps)[j]);
             }
             delete p_diffuse_nps;
-            break; // TODO: remove this break (this necessitates the creation of a phi-averaged mesocrystal class generating only one nanoparticle for diffuse calculations)
+            break; // TODO: remove this break (this necessitates the creation
+                   // of a phi-averaged mesocrystal class generating only one
+                   // nanoparticle for diffuse calculations)
         }
     }
     if (p_sim->getSize()>0) {

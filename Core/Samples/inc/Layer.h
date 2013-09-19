@@ -71,7 +71,9 @@ public:
     virtual const IDecoration* getDecoration() const { return mp_decoration; }
 
     //! Returns true if decoration is present
-    virtual bool hasDWBASimulation() const { return (mp_decoration ? true : false); }
+    virtual bool hasDWBASimulation() const {
+        return (mp_decoration ? true : false);
+    }
 
     //! creates and return LayerDWBASimulation in the case of present decoration
     virtual LayerDWBASimulation *createDWBASimulation() const;

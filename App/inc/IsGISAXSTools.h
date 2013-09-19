@@ -157,7 +157,7 @@ public:
     static void drawOutputDataComparisonResults(
         const OutputData<double>& data,
         const OutputData<double>& reference,
-        const std::string& name=std::string("noname"),
+        const std::string& name=std::string("no name"),
         const std::string& title=std::string("no title"),
         double hmin=1.,
         double hmax = -1.,

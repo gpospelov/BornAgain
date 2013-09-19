@@ -25,9 +25,9 @@
 
 TestPolarizedMeso::TestPolarizedMeso()
 : mp_sample(0)
-, m_meso_width(3e+3*Units::nanometer)
+, m_meso_width(2e+3*Units::nanometer)
 , m_surface_filling_ratio(0.03)
-, m_meso_size_steps(1e+3*Units::nanometer)
+, m_meso_size_steps(500.0*Units::nanometer)
 //, m_sigma_meso_height(10*Units::nanometer)
 //, m_sigma_meso_radius(10*Units::nanometer)
 , m_lattice_length_a(13.5*Units::nanometer)
@@ -55,11 +55,11 @@ void TestPolarizedMeso::execute()
     // calculate scattered intensity from sample
     Simulation simulation(mp_options);
     simulation.setDetectorParameters(
-        100, 0.0*Units::degree, 2.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree);
+        100, -1.0*Units::degree, 6.5*Units::degree, 100,
+        -1.0*Units::degree, 6.5*Units::degree);
     simulation.setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-    simulation.setBeamIntensity(1e8);
+        6.0*Units::angstrom, 0.25*Units::degree, 0.0*Units::degree);
+    simulation.setBeamIntensity(1e11);
 
     // Run simulation
     simulation.setSample(*mp_sample);
@@ -108,7 +108,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
         new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
     size_t n_max_phi_rotation_steps = 11;
-    size_t n_sizes = 4;
+    size_t n_sizes = 6;
 
     double phi_step = M_PI/4.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
@@ -149,7 +149,7 @@ MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
     kvector_t bas_c = p_lat->getBasisVectorC();
 
 
-    Particle particle(p_material, new FormFactorBox(cube_size, cube_size, cube_size));
+    Particle particle(p_material, new FormFactorFullSphere(cube_size/2.0));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/2.0*(bas_a + bas_b + bas_c);
     std::vector<kvector_t> pos_vector;

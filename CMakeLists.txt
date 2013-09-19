@@ -12,7 +12,7 @@ if(NOT BORNAGAIN_PYTHON)
 endif()
 
 if(NOT BORNAGAIN_APP)
-#    set(BORNAGAIN_APP ON)
+    set(BORNAGAIN_APP ON)
 endif()
 
 if(NOT BORNAGAIN_GUI)

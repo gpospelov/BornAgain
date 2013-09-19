@@ -88,3 +88,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
 
 qt5_use_modules(${library_name} Widgets)
+
+# --- installation ---
+install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
+

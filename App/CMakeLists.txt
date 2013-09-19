@@ -131,7 +131,7 @@ if(WIN32)
     ${ROOTSYS}/etc/plugins/TVirtualStreamerInfo
     ${ROOTSYS}/etc/plugins/TVirtualX
     DESTINATION etc/plugins COMPONENT Libraries)
-    
+        
 endif()
 
 

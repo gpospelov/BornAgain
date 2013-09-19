@@ -39,7 +39,7 @@ else()
             OUTPUT_STRIP_TRAILING_WHITESPACE)
 
         execute_process(
-            COMMAND ${ROOT_CONFIG_EXECUTABLE} --libs
+            COMMAND ${ROOT_CONFIG_EXECUTABLE} --glibs
             OUTPUT_VARIABLE ROOT_LIBRARIES
             OUTPUT_STRIP_TRAILING_WHITESPACE)
 

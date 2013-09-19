@@ -21,7 +21,7 @@ if(WIN32)
 else()
     set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
 endif()
-if(BORNAGAIN_PYTHON)
+if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     list(APPEND boost_libraries_required python)
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
@@ -57,7 +57,7 @@ find_package(GSL REQUIRED)
 
 
 # --- Python ---
-if(BORNAGAIN_PYTHON)
+if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     find_package(PythonInterp)
     # important to find interpreter and libraries from same python version
     set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})

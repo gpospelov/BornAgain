@@ -29,6 +29,7 @@ include_directories(
     ${GQt_INCLUDE_DIRS}
 )
 
+message("YYY ${ROOT_LIBRARIES}")
 target_link_libraries(${library_name} ${ROOT_LIBRARIES})
 
 #find_package(Qt5Widgets REQUIRED)

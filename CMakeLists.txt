@@ -8,7 +8,7 @@ project(BornAgain)
 
 # --- General project settings ---
 if(NOT BORNAGAIN_PYTHON)
-    set(BORNAGAIN_PYTHON ON)
+    set(BORNAGAIN_PYTHON OFF)
 endif()
 
 if(NOT BORNAGAIN_APP)

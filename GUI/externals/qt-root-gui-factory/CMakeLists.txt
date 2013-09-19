@@ -3,6 +3,8 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.9)
+cmake_policy(SET CMP0020 NEW)
+
 set(library_name QtRoot)
 
 # source files
@@ -17,7 +19,7 @@ ROOT_GENERATE_DICTIONARY(G__QtRoot ${include_files} LINKDEF LinkDef.h)
 # --- making library ---
 add_library(
     ${library_name}
-    SHARED
+    STATIC
     ${source_files} ${include_files} G__QtRoot.cxx
 )
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
@@ -29,8 +31,7 @@ include_directories(
     ${GQt_INCLUDE_DIRS}
 )
 
-message("YYY ${ROOT_LIBRARIES}")
-target_link_libraries(${library_name} ${ROOT_LIBRARIES})
+target_link_libraries(${library_name} ${ROOT_LIBRARIES} ${GQt_LIBRARY})
 
 #find_package(Qt5Widgets REQUIRED)
 qt5_use_modules(${library_name} Widgets)

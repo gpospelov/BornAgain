@@ -4,6 +4,8 @@
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+cmake_policy(SET CMP0020 NEW)
+
 set(executable_name coregui)
 
 # --- source and include files ---
@@ -72,6 +74,7 @@ add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
 # --- dependencies ---
 include_directories(
+    ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
     ${ROOT_INCLUDE_DIR}
@@ -97,8 +100,6 @@ target_link_libraries(${executable_name}
     ${GQt_LIBRARY}
     ${QtRoot_LIBRARY}
 )
-
-message("XXX ${ROOT_LIBRARIES}")
 
 #core gui script webkit webkitwidgets designer designercomponents
 qt5_use_modules(${executable_name} Widgets Core Gui Script WebKit WebKitWidgets Designer)

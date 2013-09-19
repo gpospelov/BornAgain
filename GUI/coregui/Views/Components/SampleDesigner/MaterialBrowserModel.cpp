@@ -4,6 +4,7 @@
 #include "HomogeneousMaterial.h"
 #include <QColor>
 #include <QtScript>
+#include "Types.h"
 
 
 #if QT_VERSION < 0x050000
@@ -172,7 +173,7 @@ bool MaterialBrowserModel::setData(const QModelIndex & index, const QVariant & v
                 return false;
             }
             refractiveIndex = mat->getRefractiveIndex();
-            refractiveIndex.real() = double_value;
+            refractiveIndex = complex_t(double_value, refractiveIndex.imag());
             status = MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
             if(!status) {
                 emit SetDataMessage("Can't set given value of RefractiveIndex");
@@ -190,7 +191,9 @@ bool MaterialBrowserModel::setData(const QModelIndex & index, const QVariant & v
                 return false;
             }
             refractiveIndex = mat->getRefractiveIndex();
-            refractiveIndex.imag() = double_value;
+            //refractiveIndex.imag()=double_value;
+            //refractiveIndex.imag(double_value);
+            refractiveIndex = complex_t(refractiveIndex.real(), double_value);
             status = MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
             if(!status) {
                 emit SetDataMessage("Can't set given value of RefractiveIndex");

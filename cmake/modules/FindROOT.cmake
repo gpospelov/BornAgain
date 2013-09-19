@@ -20,7 +20,7 @@ else()
         set(ROOT_INCLUDE_DIR ${ROOTSYS}/include)
         set(ROOT_LIBRARY_DIR ${ROOTSYS}/lib)
         #set(ROOT_LIBRARIES -LIBPATH:${ROOT_LIBRARY_DIR} libGpad.lib libHist.lib libGraf.lib libGraf3d.lib libTree.lib libRint.lib libPostscript.lib libMatrix.lib libPhysics.lib libMathCore.lib libRIO.lib libNet.lib libThread.lib libCore.lib libCint.lib)
-        set(ROOT_LIBRARIES -LIBPATH:${ROOT_LIBRARY_DIR} libGpad.lib libHist.lib libGraf.lib libGraf3d.lib libTree.lib libRint.lib libPostscript.lib libMatrix.lib libMathCore.lib libRIO.lib libNet.lib libThread.lib libCore.lib libCint.lib)
+        set(ROOT_LIBRARIES -LIBPATH:${ROOT_LIBRARY_DIR} libGui.lib libGpad.lib libHist.lib libGraf.lib libGraf3d.lib libTree.lib libRint.lib libPostscript.lib libMatrix.lib libMathCore.lib libRIO.lib libNet.lib libThread.lib libCore.lib libCint.lib)
     else()
 
         execute_process(

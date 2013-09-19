@@ -3,6 +3,8 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.9)
+cmake_policy(SET CMP0020 NEW)
+
 set(library_name GQt)
 
 # source files
@@ -29,7 +31,7 @@ ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  L
 # --- making library ---
 add_library(
     ${library_name}
-    SHARED
+    STATIC
     ${source_files} ${include_files} ${mocfiles} G__GQt.cxx
 )
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

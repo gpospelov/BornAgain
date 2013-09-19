@@ -4,6 +4,8 @@
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+cmake_policy(SET CMP0020 NEW)
+
 find_package(Qt5Widgets REQUIRED)
 
 add_subdirectory(externals/qt-manhattan-style)

@@ -350,6 +350,11 @@ template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
         const BasicVector3D<double>& v) const;
 
 
+template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
+
+
 }  // namespace Geometry
 
 #endif /* GEOMETRY_BASICVECTOR3D_H */

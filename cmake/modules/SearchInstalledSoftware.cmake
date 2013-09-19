@@ -67,6 +67,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
     find_package(Numpy REQUIRED)
 endif()
+message("XXX ${PYTHON_LIBRARIES}")
+
 
 # --- ROOT ---
 find_package(ROOT)

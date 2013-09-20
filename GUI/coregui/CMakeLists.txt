@@ -179,6 +179,7 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Designer.dll
     ${QTDIR}/bin/Qt5Xml.dll
     ${QTDIR}/bin/libGLESv2.dll
+    ${QTDIR}/bin/libEGL.dll    
     ${QTDIR}/bin/icuin51.dll
     ${QTDIR}/bin/icuuc51.dll
     ${QTDIR}/bin/icudt51.dll

@@ -81,7 +81,7 @@ if(WIN32 AND BORNAGAIN_PYTHON)
         TARGET ${library_name}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+        ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
         ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
     )
 endif()
@@ -93,7 +93,7 @@ endif()
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION bin COMPONENT Libraries)
-install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
+#install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
 install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
 
 if(WIN32 AND BORNAGAIN_PYTHON)

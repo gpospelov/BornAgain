@@ -67,7 +67,7 @@ if(WIN32 AND BORNAGAIN_PYTHON)
         TARGET ${library_name}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+        ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
         ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
     )
 endif()
@@ -76,7 +76,7 @@ endif()
 # installation
 # FIXME installation goes in two place (lib, bin), this is temporary
 # -----------------------------------------------
-install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
+#install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
 install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
 
 if(WIN32 AND BORNAGAIN_PYTHON)

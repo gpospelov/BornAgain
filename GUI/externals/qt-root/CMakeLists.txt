@@ -34,6 +34,8 @@ add_library(
     STATIC
     ${source_files} ${include_files} ${mocfiles} G__GQt.cxx
 )
+#set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+#set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
@@ -45,5 +47,7 @@ include_directories(
 target_link_libraries(${library_name} ${ROOT_LIBRARIES})
 qt5_use_modules(${library_name} Widgets)
 
+# --- installation ---
+#install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
 
 

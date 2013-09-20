@@ -22,17 +22,28 @@ add_library(
     STATIC
     ${source_files} ${include_files} G__QtRoot.cxx
 )
+#set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+#set(${library_name}_LIBRARY_TYPE SHARED)
+
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---
+message("XXX ${GQt_LIBRARY}")
+message("XXX ${ROOT_LIBRARIES} ")
 include_directories(
     ${ROOT_INCLUDE_DIR}
     ${GQt_INCLUDE_DIRS}
 )
 
-target_link_libraries(${library_name} ${ROOT_LIBRARIES} ${GQt_LIBRARY})
+target_link_libraries(
+    ${library_name} 
+    ${GQt_LIBRARY}
+    ${ROOT_LIBRARIES} 
+)
 
 #find_package(Qt5Widgets REQUIRED)
 qt5_use_modules(${library_name} Widgets)
 
+# --- installation ---
+#install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)

@@ -16,7 +16,7 @@ if(NOT BORNAGAIN_APP)
 endif()
 
 if(NOT BORNAGAIN_GUI)
-    set(BORNAGAIN_GUI ON)
+    set(BORNAGAIN_GUI OFF)
 endif()
 
 #--- Path for additional cmake modules ---

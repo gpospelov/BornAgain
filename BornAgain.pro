@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
+cache()
 
 include($$PWD/shared.pri)
 

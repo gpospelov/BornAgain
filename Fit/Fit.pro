@@ -65,32 +65,16 @@ win32 {
 }
 
 # -----------------------------------------------------------------------------
-#
+# dependencies
 # -----------------------------------------------------------------------------
-INCLUDEPATH += $$PWD/Factory/inc
-DEPENDPATH +=  $$PWD/Factory/inc
-
-#INCLUDEPATH += $${RootMathMore_INCLUDEPATH}
-#isEmpty(ROOT_FRAMEWORK) {
-#    INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
-#} else {
-#    INCLUDEPATH += $${ROOT_FRAMEWORK_INCLUDEPATH}
-#}
-INCLUDEPATH += $${RootMinimizers_INCLUDEPATH}
-
-
-# -----------------------------------------------------------------------------
-# additional libraries
-# -----------------------------------------------------------------------------
-#LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
-#LIBS += $${RootMathMore_LIB}
-#isEmpty(ROOT_FRAMEWORK) {
-#    LIBS += $${RootMinimizers_LIB}
-#} else {
-#    LIBS += $${ROOT_FRAMEWORK_LIBS}
-#}
-LIBS += $${BornAgainCore_LIB} $${RootMinimizers_LIB}
-
+INCLUDEPATH *= $$GSL_INCLUDE_DIR
+INCLUDEPATH *= $$BOOST_INCLUDE_DIR
+INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainFit_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH += $$RootMinimizers_INCLUDE_DIR
+INCLUDEPATH += $$PYTHON_INCLUDE_DIR
+LIBS += $$BOOST_LIBRARY $$GSL_LIBRARY $$BornAgainCore_LIBRARY $$RootMinimizers_LIBRARY $$PYTHON_LIBRARY
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

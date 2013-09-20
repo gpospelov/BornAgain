@@ -57,6 +57,7 @@ TQtApplication::TQtApplication(const char * /*appClassName*/, int &argc,char **a
 //______________________________________________________________________________
 TQtApplication::~TQtApplication()
 { }
+#include <iostream>
 //______________________________________________________________________________
 void TQtApplication::CreateQApplication(int &argc, char ** argv, bool GUIenabled)
 {
@@ -126,10 +127,12 @@ void TQtApplication::CreateQApplication(int &argc, char ** argv, bool GUIenabled
    }
   
    // Add Qt plugin path if  present (it is the case for Windows binary ROOT distribution)
-   char *qtPluginPath = gSystem->ConcatFileName(gSystem->Getenv("ROOTSYS"),"/Qt/plugins");
-   if (!gSystem->AccessPathName(qtPluginPath))
-       qApp->addLibraryPath(qtPluginPath);
-   delete [] qtPluginPath;
+   // FIXME I have commented this code 19.09.2013, program was crashing
+//   char *qtPluginPath = gSystem->ConcatFileName(gSystem->Getenv("ROOTSYS"),"/Qt/plugins");
+//   std::cout << "XXXXX qtPluginPath" << qtPluginPath << std::endl;
+//   if (!gSystem->AccessPathName(qtPluginPath))
+//       qApp->addLibraryPath(qtPluginPath);
+//   delete [] qtPluginPath;
 }
 //______________________________________________________________________________
 void TQtApplication::CreateGUIThread(int &argc, char **argv)

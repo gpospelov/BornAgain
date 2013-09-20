@@ -126,6 +126,24 @@ bool lightColored(const QWidget *widget)
     return false;
 }
 
+bool hasProperty(const QWidget *widget, const QByteArray& name)
+{
+    if (!widget)
+        return false;
+
+    // Don't style dialogs or explicitly ignored widgets
+    if ((widget->window()->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog)
+        return false;
+
+    const QWidget *p = widget;
+    while (p) {
+        if (p->property(name).isValid())
+            return true;
+        p = p->parentWidget();
+    }
+    return false;
+}
+
 class ManhattanStylePrivate
 {
 public:
@@ -291,7 +309,7 @@ void ManhattanStyle::polish(QWidget *widget)
             widget->setMaximumHeight(Utils::StyleHelper::navigationWidgetHeight() - 2);
         }
         else if (qobject_cast<QLabel*>(widget))
-            widget->setPalette(panelPalette(widget->palette()));
+            widget->setPalette(panelPalette(widget->palette(), lightColored(widget)));
         else if (widget->property("panelwidget_singlerow").toBool())
             widget->setFixedHeight(Utils::StyleHelper::navigationWidgetHeight());
         else if (qobject_cast<QStatusBar*>(widget))
@@ -630,7 +648,8 @@ void ManhattanStyle::drawControl(ControlElement element, const QStyleOption *opt
 
         if (const QStyleOptionTabV3 *tab = qstyleoption_cast<const QStyleOptionTabV3 *>(option)) {
             QStyleOptionTabV3 adjustedTab = *tab;
-            if (tab->cornerWidgets == QStyleOptionTab::NoCornerWidgets && (
+            if (!hasProperty(widget, "noTabBarShapeAdjustment") &&
+                tab->cornerWidgets == QStyleOptionTab::NoCornerWidgets && (
                     tab->position == QStyleOptionTab::Beginning ||
                     tab->position == QStyleOptionTab::OnlyOneTab))
             {
@@ -727,7 +746,7 @@ void ManhattanStyle::drawControl(ControlElement element, const QStyleOption *opt
                 } else {
                     painter->setOpacity(0.8);
                 }
-                painter->setPen(Utils::StyleHelper::panelTextColor());
+                painter->setPen(Utils::StyleHelper::panelTextColor(lightColored(widget)));
                 painter->drawText(editRect.adjusted(1, 0, -1, 0), Qt::AlignLeft | Qt::AlignVCenter, text);
 
                 painter->restore();

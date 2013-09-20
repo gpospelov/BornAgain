@@ -10,13 +10,11 @@ macx|unix {
   QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
   CONFIG += plugin # to remove versions from file name
 }
-# CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # common project settings
 # -----------------------------------------------------------------------------
 include($$PWD/../shared.pri)
-
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -140,7 +138,6 @@ SOURCES += \
     StandardSamples/IsGISAXS03Builder.cpp \
     StandardSamples/IsGISAXS06Builder.cpp \
     StandardSamples/IsGISAXS09Builder.cpp \
-
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
@@ -346,6 +343,17 @@ CONFIG(debug, debug|release) {
     macx:SOURCES += Tools/src/fp_exception_glibc_extension.c
 }
 
+# -----------------------------------------------------------------------------
+# dependencies
+# -----------------------------------------------------------------------------
+DEPENDPATH  += $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH *= $$GSL_INCLUDE_DIR
+INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
+INCLUDEPATH *= $$FFTW3_INCLUDE_DIR
+INCLUDEPATH *= $$BOOST_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH += $$PYTHON_INCLUDE_DIR
+LIBS += $$GSL_LIBRARY $$FFTW3_LIBRARY $$BOOST_LIBRARY $$PYTHON_LIBRARY
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

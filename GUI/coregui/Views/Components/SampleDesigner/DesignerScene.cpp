@@ -6,7 +6,6 @@
 #include "MultiLayerView.h"
 #include "DesignerMimeData.h"
 #include "DesignerHelper.h"
-#include "LayerDockView.h"
 #include "NodeEditor.h"
 #include "ISampleToIView.h"
 #include "SampleBuilderFactory.h"

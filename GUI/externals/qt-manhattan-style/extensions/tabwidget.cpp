@@ -78,11 +78,12 @@ void TabWidget::setFrameVisible(bool visible)
     }
 }
 
-void TabWidget::addTab(const QString &name, QWidget *widget)
+void TabWidget::addTab(const QString &name, QWidget *widget, const QColor &color)
 {
     Q_ASSERT(widget);
     Tab tab;
     tab.name = name;
+    tab.color = color;
     tab.widget = widget;
     m_tabs.append(tab);
     m_stack->addWidget(widget);
@@ -93,11 +94,12 @@ void TabWidget::addTab(const QString &name, QWidget *widget)
     update();
 }
 
-void TabWidget::insertTab(int index, const QString &name, QWidget *widget)
+void TabWidget::insertTab(int index, const QString &name, QWidget *widget, const QColor &color)
 {
     Q_ASSERT(widget);
     Tab tab;
     tab.name = name;
+    tab.color = color;
     tab.widget = widget;
     m_tabs.insert(index, tab);
     m_stack->insertWidget(index, widget);
@@ -108,9 +110,9 @@ void TabWidget::insertTab(int index, const QString &name, QWidget *widget)
     update();
 }
 
-void TabWidget::removeTab(int index)
+QWidget* TabWidget::removeTab(int index)
 {
-    m_tabs.takeAt(index);
+    Tab tab = m_tabs.takeAt(index);
     if (index <= m_currentIndex) {
         --m_currentIndex;
         if (m_currentIndex < 0 && m_tabs.size() > 0)
@@ -122,6 +124,7 @@ void TabWidget::removeTab(int index)
         }
     }
     update();
+    return tab.widget;
 }
 
 int TabWidget::tabCount() const
@@ -346,7 +349,7 @@ void TabWidget::paintEvent(QPaintEvent *event)
             }
 
             x += MARGIN;
-            painter.setPen(Qt::black);
+            painter.setPen(tab.color);
             painter.drawText(x, baseline, tab.name);
             x += nameWidth.at(actualIndex);
             x += MARGIN;
@@ -368,7 +371,9 @@ void TabWidget::paintEvent(QPaintEvent *event)
                 painter.drawLine(x, 0, x, r.height());
 
             x += MARGIN;
-            painter.setPen(QColor(0, 0, 0, 190));
+            QColor penColor(tab.color);
+            penColor.setAlpha(190);
+            painter.setPen(penColor);
             painter.drawText(x + 1, baseline, tab.name);
             x += nameWidth.at(actualIndex);
             x += MARGIN;

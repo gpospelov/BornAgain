@@ -26,8 +26,10 @@
 #  include <QDebug>
 #endif /* QT_VERSION */
 
-# if QT_VERSION >= 0x40000 and QT_VERSION <0x50000
+# if QT_VERSION >= 0x40000 
+# if QT_VERSION <0x50000
 #  include <QCustomEvent>
+#endif
 #endif
 
 
@@ -240,10 +242,15 @@ void TQtWidget::Init()
       HICON hIcon = ::LoadIcon(::GetModuleHandle(NULL), MAKEINTRESOURCE(101));
       if (!hIcon) hIcon = LoadIcon(NULL, IDI_APPLICATION);
       rootIcon = hIcon;
-      SetClassLong(winId(),        // handle to window
+//      SetClassLong(winId(),        // handle to window
+//                   GCL_HICON,      // index of value to change
+//                   LONG(rootIcon)  // new value
+//      );
+      SetClassLongPtr((HWND)winId(),        // handle to window
                    GCL_HICON,      // index of value to change
                    LONG(rootIcon)  // new value
       );
+
     }
 #endif
 }
@@ -739,7 +746,7 @@ void TQtWidget::resizeEvent(QResizeEvent *e)
       if (!fPaint)  {
          // real resize event
          fSizeChanged=kTRUE;
-         fNeedStretch=ktrue;
+         fNeedStretch=kTRUE;
       } else {
 #else
       {

@@ -52,15 +52,22 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/T
 # dictionaries
 ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
 
-add_executable(${executable_name} ${source_files} AppDict.cxx ${header_files})
+add_executable(${executable_name} ${source_files} AppDict.cxx ${include_files})
 
 # --- dependencies ---
-include_directories(${BornAgainCore_INCLUDE_DIRS})
-target_link_libraries(${executable_name} ${BornAgainCore_LIBRARY}) 
-include_directories(${BornAgainFit_INCLUDE_DIRS})
-target_link_libraries(${executable_name} ${BornAgainFit_LIBRARY}) 
-include_directories(${ROOT_INCLUDE_DIR})
-target_link_libraries(${executable_name} ${ROOT_LIBRARIES}) 
+include_directories(
+    ${Boost_INCLUDE_DIRS}
+    ${BornAgainCore_INCLUDE_DIRS}
+    ${BornAgainFit_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
+    ${ROOT_INCLUDE_DIR}
+)
+target_link_libraries(${executable_name}
+    ${Boost_LIBRARIES}
+    ${BornAgainCore_LIBRARY}
+    ${BornAgainFit_LIBRARY}
+    ${ROOT_LIBRARIES}
+)
 
 # --- Installation ---
 install (TARGETS ${executable_name} DESTINATION bin COMPONENT Applications)
@@ -124,7 +131,7 @@ if(WIN32)
     ${ROOTSYS}/etc/plugins/TVirtualStreamerInfo
     ${ROOTSYS}/etc/plugins/TVirtualX
     DESTINATION etc/plugins COMPONENT Libraries)
-    
+        
 endif()
 
 

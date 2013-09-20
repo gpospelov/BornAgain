@@ -38,35 +38,45 @@ add_library(
 )
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
+# exposing library name and list of include directories outside
+set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-# dependencies
-include_directories(${BornAgainCore_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
-target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
-include_directories(${RootMinimizers_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}) 
-include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
+# --- dependencies ---
+include_directories(
+    ${BornAgainCore_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
+    ${RootMinimizers_INCLUDE_DIRS}
+)
+target_link_libraries(
+    ${library_name}
+    ${BornAgainCore_LIBRARY}
+    ${Boost_LIBRARIES}
+    ${RootMinimizers_LIBRARY}
+)
+if(BORNAGAIN_PYTHON)
+    include_directories(${PYTHON_INCLUDE_DIRS})
+    target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
+endif()
 
-# python in windows required .yd extention for the library name
+# --- custom actions
+# python in windows required .pyd extention for the library name
 if(WIN32 AND BORNAGAIN_PYTHON)
     ADD_CUSTOM_COMMAND(
         TARGET ${library_name}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+        ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
         ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
     )
 endif()
 
-# exposing library name and list of include directories outside
-set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
-set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
 # -----------------------------------------------
 # installation
+# FIXME installation goes in two place (lib, bin), this is temporary
 # -----------------------------------------------
-install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
+#install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
 install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
 
 if(WIN32 AND BORNAGAIN_PYTHON)

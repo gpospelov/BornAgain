@@ -4,17 +4,12 @@ CONFIG  -= qt app_bundle
 QT      -= core gui
 
 include($$PWD/../../../../shared.pri)
-
-myIncludes = $$BornAgainCore_INCLUDEPATH $$BornAgainFit_INCLUDEPATH
-
-INCLUDEPATH += $$myIncludes
-DEPENDPATH  += $$myIncludes
-
 DEFINES += STANDALONE
-LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB
-#isEmpty(ROOT_FRAMEWORK) {
-#    LIBS += $$RootMinimizers_LIB
-#}
+
+INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
+INCLUDEPATH *= $$BOOST_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR $$BornAgainFit_INCLUDE_DIR
+LIBS += $$BOOST_LIBRARY $$BornAgainCore_LIBRARY  $$BornAgainFit_LIBRARY
 
 SOURCES += TestFit01.cpp
 HEADERS += TestFit01.h

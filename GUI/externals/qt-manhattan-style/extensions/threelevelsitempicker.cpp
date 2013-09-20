@@ -11,7 +11,6 @@
 #include <QLabel>
 #include <QTimer>
 
-
 namespace
 {
 
@@ -181,8 +180,7 @@ QListWidgetItem* find(const ListWidget* list, const QString& name)
             return item;
     }
 
-    //return nullptr;
-    return NULL;
+    return 0;
 }
 
 } // Anonymous namespace

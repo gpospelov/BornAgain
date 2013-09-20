@@ -39,5 +39,9 @@ if(ROOT_FOUND AND BORNAGAIN_APP)
     add_subdirectory(App)
 endif()
 
+if(BORNAGAIN_GUI)
+    add_subdirectory(GUI)
+endif()
+
 # packaging
 include(BornAgainCPack)

@@ -2,7 +2,7 @@
 # Common settings for all BornAgain compilations
 # -----------------------------------------------------------------------------
 
-#CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
 
 win32 {
     MAKE_COMMAND = mingw32-make
@@ -40,21 +40,17 @@ isEqual(env_debug_variable, "yes") {
 # -----------------------------------------------------------------------------
 # Global variables
 # -----------------------------------------------------------------------------
-BornAgainCore_INCLUDEPATH = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/StandardSamples
-BornAgainCore_LIB = $$PWD/lib/$${SOPREFIX}BornAgainCore.$${SONAME}
+BornAgainCore_INCLUDE_DIR = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/StandardSamples
+BornAgainCore_LIBRARY = $$PWD/lib/$${SOPREFIX}BornAgainCore.$${SONAME}
 
-BornAgainFit_INCLUDEPATH = $$PWD/Fit/Factory/inc
-BornAgainFit_LIB = $$PWD/lib/$${SOPREFIX}BornAgainFit.$${SONAME}
+BornAgainFit_INCLUDE_DIR = $$PWD/Fit/Factory/inc
+BornAgainFit_LIBRARY = $$PWD/lib/$${SOPREFIX}BornAgainFit.$${SONAME}
 
-RootMinimizers_INCLUDEPATH = $${PWD}/ThirdParty/RootMinimizers/inc
-RootMinimizers_LIB = $$PWD/lib/$${SOPREFIX}RootMinimizers.$${SONAME}
-#RootMinimizers_LIB = $$PWD/lib/libRootMinimizers.a
+RootMinimizers_INCLUDE_DIR = $${PWD}/ThirdParty/RootMinimizers/inc
+RootMinimizers_LIBRARY = $$PWD/lib/$${SOPREFIX}RootMinimizers.$${SONAME}
 
-#RootMathMore_INCLUDEPATH = $${PWD}/ThirdParty/RootMathMore/inc
-#RootMathMore_LIB = $$PWD/lib/libRootMathMore.$${SONAME}
-
-gtest_LIB = $$PWD/lib/$${SOPREFIX}gtest.$${SONAME}
-
+gtest_INCLUDE_DIR= $${PWD}/ThirdParty/gtest/gtest-1.6.0/include
+gtest_LIBRARY = $$PWD/lib/$${SOPREFIX}gtest.$${SONAME}
 
 # -----------------------------------------------------------------------------
 # general external libraries
@@ -63,100 +59,88 @@ gtest_LIB = $$PWD/lib/$${SOPREFIX}gtest.$${SONAME}
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
 macx|unix {
-  GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  GSL_HEADER_LOCATIONS = /opt/local2/include /opt/local/include /usr/local/include /usr/include
 }
 win32 {
   GSL_HEADER_LOCATIONS = "C:/opt/local/include"
 }
-for(dir, GSL_HEADER_LOCATIONS): isEmpty(GSL_INCLUDE): exists($${dir}/$${GSL_HEADERFILE}): GSL_INCLUDE = $${dir}
-isEmpty(GSL_INCLUDE): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER_LOCATIONS})
-GSL_LIB = $$replace(GSL_INCLUDE,"include","lib")
-INCLUDEPATH *=  $${GSL_INCLUDE}
-LIBS *= -L$${GSL_LIB}
-
+for(dir, GSL_HEADER_LOCATIONS): isEmpty(GSL_INCLUDE_DIR): exists($${dir}/$${GSL_HEADERFILE}): GSL_INCLUDE_DIR = $${dir}
+isEmpty(GSL_INCLUDE_DIR): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER_LOCATIONS})
+GSL_LIBRARY_DIR = $$replace(GSL_INCLUDE_DIR,"include","lib")
 macx|unix {
-LIBS += -lgsl -lgslcblas
+    GSL_LIBRARY = -L$${GSL_LIBRARY_DIR} -lgsl -lgslcblas
 }
 win32 {
-LIBS += -lgsl-0 -lgslcblas-0
+    GSL_LIBRARY = -L$${GSL_LIBRARY_DIR} -lgsl-0 -lgslcblas-0
 }
 
 # --- checking eigen headers ---
 EIGEN_HEADERFILE = Eigen/Core
 macx|unix {
-  EIGEN_HEADER_LOCATIONS = /opt/local/include /opt/local/include/eigen3  /usr/local/include /usr/include
+  EIGEN_HEADER_LOCATIONS = /opt/local2/include  /opt/local/include /opt/local/include/eigen3  /usr/local/include /usr/include
 }
 win32 {
   EIGEN_HEADER_LOCATIONS = "C:/opt/local/include"
 }
-for(dir, EIGEN_HEADER_LOCATIONS): isEmpty(EIGEN_INCLUDE): exists($${dir}/$${EIGEN_HEADERFILE}): EIGEN_INCLUDE = $${dir}
-isEmpty(EIGEN_INCLUDE) {
+for(dir, EIGEN_HEADER_LOCATIONS): isEmpty(EIGEN_INCLUDE_DIR): exists($${dir}/$${EIGEN_HEADERFILE}): EIGEN_INCLUDE_DIR = $${dir}
+isEmpty(EIGEN_INCLUDE_DIR) {
     #message("Can't find" $${EIGEN_HEADERFILE} "in" $${EIGEN_HEADER_LOCATIONS} " Using build in eigen3")
-    EIGEN_INCLUDE = $$PWD/ThirdParty/eigen3
+    EIGEN_INCLUDE_DIR = $$PWD/ThirdParty/eigen3
 }
-INCLUDEPATH *=  $${EIGEN_INCLUDE}
 
 # --- checking fftw3 ---
 FFTW3_HEADERFILE = fftw3.h
 macx|unix {
-  FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  FFTW3_HEADER_LOCATIONS = /opt/local2/include  /opt/local/include /usr/local/include /usr/include
   FFTW3_LIBNAME = fftw3
 }
 win32 {
   FFTW3_HEADER_LOCATIONS = "C:/opt/local/include"
   FFTW3_LIBNAME = fftw3-3
 }
-for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
-isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS})
-FFTW3_LIB = $$replace(FFTW3_INCLUDE,"include","lib")
-INCLUDEPATH *=  $${FFTW3_INCLUDE}
-LIBS *= -L$${FFTW3_LIB}
-LIBS += -l$${FFTW3_LIBNAME}
+for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE_DIR): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE_DIR = $${dir}
+isEmpty(FFTW3_INCLUDE_DIR): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS})
+FFTW3_LIBRARY_DIR = $$replace(FFTW3_INCLUDE_DIR,"include","lib")
+FFTW3_LIBRARY = -L$${FFTW3_LIBRARY_DIR} -l$${FFTW3_LIBNAME}
 
 # --- checking boost ---
 BOOST_HEADERFILE = boost/version.hpp
 macx|unix {
-  BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+  BOOST_HEADER_LOCATIONS = /opt/local2/include  /opt/local/include /usr/local/include /usr/include
 }
 win32 {
   BOOST_HEADER_LOCATIONS = "C:/opt/local/include"
   BOOST_LIB_SUFFIX = -mgw48-mt-1_54
 }
-for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
-isEmpty(BOOST_INCLUDE): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS})
+for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE_DIR): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE_DIR = $${dir}
+isEmpty(BOOST_INCLUDE_DIR): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS})
 BOOST_LIBFILES = libboost*
 # following check only works on *nix systems
 macx|unix {
   BOOST_LIB_LOCATIONS = /opt/local/lib /usr/local/lib /usr/lib64 /usr/lib
-  for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
+  for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIBRARY_DIR) {
     NumberOfSuchFiles=$$system(ls $${dir}/$${BOOST_LIBFILES} 2> /dev/null | wc -l)
-    !isEqual(NumberOfSuchFiles, 0): BOOST_LIB = $${dir}
+    !isEqual(NumberOfSuchFiles, 0): BOOST_LIBRARY_DIR = $${dir}
   }
 }
 win32 {
-  BOOST_LIB = "C:/Boost/lib"
+  BOOST_LIBRARY_DIR = "C:/Boost/lib"
 }
-isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
-INCLUDEPATH *=  $${BOOST_INCLUDE}
-LIBS *= -L$${BOOST_LIB}
-LIBS += -lboost_program_options$${BOOST_LIB_SUFFIX} -lboost_iostreams$${BOOST_LIB_SUFFIX} -lboost_system$${BOOST_LIB_SUFFIX} -lboost_filesystem$${BOOST_LIB_SUFFIX} -lboost_regex$${BOOST_LIB_SUFFIX} -lboost_thread$${BOOST_LIB_SUFFIX}
-#LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread -lz
+isEmpty(BOOST_LIBRARY_DIR): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
+BOOST_LIBRARY = -L$${BOOST_LIBRARY_DIR} -lboost_program_options$${BOOST_LIB_SUFFIX} -lboost_iostreams$${BOOST_LIB_SUFFIX} -lboost_system$${BOOST_LIB_SUFFIX} -lboost_filesystem$${BOOST_LIB_SUFFIX} -lboost_regex$${BOOST_LIB_SUFFIX} -lboost_thread$${BOOST_LIB_SUFFIX}
 # checking special case when system doesn't have libboost_thread library but have libboost_thread-mt
 !win32 {
-  NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)
+  NumberOfSuchFiles=$$system(ls $${BOOST_LIBRARY_DIR}/libboost_thread-mt* 2> /dev/null | wc -l)
   !isEqual(NumberOfSuchFiles, 0) {
     # library libboost_thread-mt exists
-    LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
+    BOOST_LIBRARY = $$replace(BOOST_LIBRARY, "-lboost_thread", "-lboost_thread-mt")
   }
 }
-#win32 {
-#  LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
-#}
 
-isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})
-isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
-isEmpty(BOOST_INCLUDE): error("missed dependency:" $${BOOST_HEADERFILE})
-isEmpty(BOOST_LIB): error("missed dependency:" $${BOOST_LIBFILES})
+isEmpty(GSL_INCLUDE_DIR): error("missed dependency:" $${GSL_HEADERFILE})
+isEmpty(FFTW3_INCLUDE_DIR): error("missed dependency:" $${FFTW3_HEADERFILE})
+isEmpty(BOOST_INCLUDE_DIR): error("missed dependency:" $${BOOST_HEADERFILE})
+isEmpty(BOOST_LIBRARY_DIR): error("missed dependency:" $${BOOST_LIBFILES})
 
 
 # -----------------------------------------------------------------------------
@@ -167,23 +151,15 @@ isEqual(env_jcns_variable, "yes") {
   CONFIG += BORNAGAIN_JCNS
 }
 
-CONFIG(BORNAGAIN_JCNS) {
-  message("Special config for JCNS")
-  INCLUDEPATH += /usr/users/jcns/pospelov/software/include
-  OLD_LIBS = $$LIBS
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
-         -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams \
-         -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex \
-         -lboost_thread $$OLD_LIBS
-}
-
-
-# -----------------------------------------------------------------------------
-# general include paths
-# -----------------------------------------------------------------------------
-INCLUDEPATH += $$BornAgainCore_INCLUDEPATH
-DEPENDPATH  += $$BornAgainCore_INCLUDEPATH
-
+#CONFIG(BORNAGAIN_JCNS) {
+#  message("Special config for JCNS")
+#  INCLUDEPATH += /usr/users/jcns/pospelov/software/include
+#  OLD_LIBS = $$LIBS
+#  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
+#         -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams \
+#         -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex \
+#         -lboost_thread $$OLD_LIBS
+#}
 
 # -----------------------------------------------------------------------------
 # compiler options for debug and release
@@ -226,18 +202,11 @@ CONFIG(PEDANTIC) {
 
 
 # -----------------------------------------------------------------------------
-# check ROOT existance
+# ROOT framework settings
 # -----------------------------------------------------------------------------
-macx|unix {
-    ROOT_FRAMEWORK = $$system(root-config --prefix)
-}
-win32 {
-#    ROOT_FRAMEWORK = "C:/root"
-}
+macx|unix:ROOT_FRAMEWORK = $$system(root-config --prefix)
+win32:ROOT_FRAMEWORK = "C:/root"
 
-# -----------------------------------------------------------------------------
-# add ROOT libraries
-# -----------------------------------------------------------------------------
 !isEmpty(ROOT_FRAMEWORK) {
   macx|unix {
     LIBEXT = so
@@ -247,10 +216,10 @@ win32 {
   }
 
   macx|unix {
-    ROOT_FRAMEWORK_INCLUDEPATH += $$system(root-config --incdir)
+    ROOT_INCLUDE_DIR += $$system(root-config --incdir)
   }
   win32 {
-    ROOT_FRAMEWORK_INCLUDEPATH += "C:/root/include"
+    ROOT_INCLUDE_DIR += "C:/root/include"
   }
   MYROOTCINT = $${ROOT_FRAMEWORK}/bin/rootcint
   macx|unix {
@@ -259,18 +228,18 @@ win32 {
   win32 {
     ROOTLIBDIR = "C:/root/lib"
   }
-  ROOT_FRAMEWORK_LIBS += -L$${ROOTLIBDIR}
+  ROOT_LIBRARY += -L$${ROOTLIBDIR}
   REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore Minuit2 Thread
 
   # check existence of required ROOT libraries
   for(x, REQUIRED_ROOT_LIBS) {
     libfile = $${ROOTLIBDIR}/lib$${x}.$${LIBEXT}
     !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
-    ROOT_FRAMEWORK_LIBS += $${libfile}
+    ROOT_LIBRARY += $${libfile}
   }
   !isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
 
-  ROOT_FRAMEWORK_LIBS += -lpthread -lm #-ldl
+  ROOT_LIBRARY += -lpthread -lm #-ldl
 
   # generation of ROOT dictionaries
   !isEmpty(BORNAGAIN_ROOT_DICT_FOR_CLASSES) {
@@ -290,50 +259,47 @@ win32 {
 # -----------------------------------------------------------------------------
 # add python API support
 # -----------------------------------------------------------------------------
-CONFIG(BORNAGAIN_PYTHON) {
-  # user wants to compile python module
+macx|unix: WhichPython=$$system(which python)
+win32:WhichPython="C:/Python27/python.exe"
+!isEmpty(WhichPython) {
+  pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+  pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
   macx|unix {
-    WhichPython=$$system(which python)
+    pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
+    pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/lib\' )\" ")
   }
   win32 {
-    WhichPython="C:/Python27/python.exe"
+    pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include')\" ")
+    pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
   }
-  isEmpty(WhichPython) {
-    # we do not have python
-    error("Can not find any sign of python")
-  } else {
-    pythonvers=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
-    pythonnumpy=$$system("$${WhichPython} -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
-    macx|unix {
-      pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include/python\' + sys.version[:3])\" ")
-      pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/lib\' )\" ")
-    }
-    win32 {
-      pythonsysincdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/include')\" ")
-      pythonsyslibdir=$$system("$${WhichPython} -c \"import sys; sys.stdout.write(sys.prefix + \'/libs\' )\" ")
-    }
-    #message(pythonvers : $$pythonvers)
-    #message(pythoninc  : $$pythonsysincdir)
-    #message(pythonlib  : $$pythonsyslibdir)
-    #message(pythonnumpy: $$pythonnumpy)
-    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
+  #message(pythonvers : $$pythonvers)
+  #message(pythoninc  : $$pythonsysincdir)
+  #message(pythonlib  : $$pythonsyslibdir)
+  #message(pythonnumpy: $$pythonnumpy)
+  lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
 
-    INCLUDEPATH += $$pythonsysincdir
-    macx|unix {
-      PYTHON_LIB_DIRECTIVE=-lpython$$pythonvers
-    }
-    win32 {
-      PYTHON_LIB_DIRECTIVE="-lpython27"
-    }
-    LIBS += -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
-
-    # location of numpy
-    !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
-    INCLUDEPATH += $$pythonnumpy
+  #INCLUDEPATH += $$pythonsysincdir
+  macx|unix {
+    PYTHON_LIB_DIRECTIVE=-lpython$$pythonvers
   }
+  win32 {
+    PYTHON_LIB_DIRECTIVE="-lpython27"
+  }
+  #LIBS += -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
+
+  # location of numpy
+  !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
+  #INCLUDEPATH += $$pythonnumpy
+  PYTHON_INCLUDE_DIR = $$pythonsysincdir $$pythonnumpy
+  PYTHON_LIBRARY = -lboost_python$${BOOST_LIB_SUFFIX} -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
+}
+CONFIG(BORNAGAIN_PYTHON) {
+    isEmpty(WhichPython): error("Can't find any sign of python")
 }
 
+# -----------------------------------------------------------------------------
 # location of object files for debug/release builds
+# -----------------------------------------------------------------------------
 unix {
     CONFIG(debug, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/debug
     CONFIG(release, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/release

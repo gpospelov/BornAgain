@@ -37,10 +37,6 @@ SOURCES += \
     extensions/simpleprogressbar.cpp \
     extensions/tabwidget.cpp \
     extensions/threelevelsitempicker.cpp \
-    #module2.cpp
-    module.cpp \
-    module_sip.cpp \
-    module_qstring.cpp
 
 HEADERS +=\
     stylehelper.h \

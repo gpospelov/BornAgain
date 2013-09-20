@@ -166,12 +166,19 @@ myIncludes = $$PWD/inc \
              $${FUNCTIONAL_TESTS}/IsGISAXS11 \
              $${FUNCTIONAL_TESTS}/IsGISAXS15
 
-myIncludes += $${BornAgainCore_INCLUDEPATH} $${BornAgainFit_INCLUDEPATH} $${ROOT_FRAMEWORK_INCLUDEPATH}
 
+# -----------------------------------------------------------------------------
+# dependencies
+# -----------------------------------------------------------------------------
+DEPENDPATH  += $$BornAgainCore_INCLUDE_DIR $$myIncludes
 INCLUDEPATH += $$myIncludes
-DEPENDPATH  += $$myIncludes
-
-LIBS += $$BornAgainCore_LIB $$BornAgainFit_LIB $$RootMinimizers_LIB
-LIBS += $${ROOT_FRAMEWORK_LIBS}
-
-
+INCLUDEPATH *= $$GSL_INCLUDE_DIR
+INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
+INCLUDEPATH *= $$FFTW3_INCLUDE_DIR
+INCLUDEPATH *= $$BOOST_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainFit_INCLUDE_DIR
+INCLUDEPATH += $$ROOT_INCLUDE_DIR
+LIBS += $$GSL_LIBRARY $$FFTW3_LIBRARY $$BOOST_LIBRARY
+LIBS += $$BornAgainCore_LIBRARY $$BornAgainFit_LIBRARY $$RootMinimizers_LIBRARY
+LIBS += $${ROOT_LIBRARY}

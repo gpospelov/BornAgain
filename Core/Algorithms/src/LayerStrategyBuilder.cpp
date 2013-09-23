@@ -20,6 +20,7 @@
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
 #include "FormFactors.h"
+#include "FormFactorTools.h"
 #include "PositionParticleInfo.h"
 
 #include <cmath>
@@ -163,10 +164,12 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         assert(mp_specular_info);
         double depth = p_particle_info->getDepth();
         if (requiresMatrixFFs()) {
-            p_ff_framework = createDWBAMatrixFormFactor(p_ff_particle, depth);
+            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(
+                    p_ff_particle, *mp_specular_info, depth);
         }
         else {
-            p_ff_framework = createDWBAScalarFormFactor(p_ff_particle, depth);
+            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(
+                    p_ff_particle, *mp_specular_info, depth);
         }
         break;
     }
@@ -183,29 +186,6 @@ FormFactorInfo *LayerStrategyBuilder::createFormFactorInfo(
         p_result->m_pos_y = position.y();
     }
     p_result->m_abundance = p_particle_info->getAbundance();
-    return p_result;
-}
-
-IFormFactor* LayerStrategyBuilder::createDWBAScalarFormFactor(
-        IFormFactor* p_form_factor, double depth) const
-{
-    FormFactorDWBAConstZ *p_result =
-        new FormFactorDWBAConstZ(p_form_factor, depth);
-    p_result->setSpecularInfo(*mp_specular_info);
-    return p_result;
-}
-
-IFormFactor* LayerStrategyBuilder::createDWBAMatrixFormFactor(
-        IFormFactor* p_form_factor, double depth) const
-{
-    FormFactorDWBAPol *p_result(0);
-    if (depth) {
-        p_result = new FormFactorDWBAPolConstZ(p_form_factor, depth);
-    }
-    else {
-        p_result = new FormFactorDWBAPol(p_form_factor);
-    }
-    p_result->setSpecularInfo(*mp_specular_info);
     return p_result;
 }
 

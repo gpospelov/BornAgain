@@ -90,18 +90,24 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
             double depth = p_diff_info->getDepth() -
                 j*p_diff_info->getHeightRange()/(nbr_heights-1.0);
             std::vector<IFormFactor*> form_factors;
-            p_diff_info->getParticle()->getSimpleFormFactor()->createDistributedFormFactors(
-                form_factors, p_diffuse_term->m_probabilities,
-                samples_per_particle);
+            p_diff_info->getParticle()->getSimpleFormFactor()
+                ->createDistributedFormFactors(
+                    form_factors, p_diffuse_term->m_probabilities,
+                    samples_per_particle);
             for (size_t ff_index=0; ff_index<form_factors.size(); ++ff_index) {
                 p_particle->setSimpleFormFactor(form_factors[ff_index]);
-                IFormFactor *ff_particle = p_particle->createFormFactor(
+                IFormFactor *p_ff_particle = p_particle->createFormFactor(
                         wavevector_scattering_factor);
-                FormFactorDWBAConstZ *p_dwba_z =
-                    new FormFactorDWBAConstZ(ff_particle, depth);
-                p_dwba_z->setSpecularInfo(*mp_specular_info);
-
-                p_diffuse_term->m_form_factors.push_back(p_dwba_z);
+                IFormFactor *p_dwba_ff(p_ff_particle);
+                if (checkPolarizationPresent()) {
+                    p_dwba_ff = FormFactorTools::createDWBAMatrixFormFactor(
+                            p_ff_particle, *mp_specular_info, depth);
+                }
+                else {
+                    p_dwba_ff = FormFactorTools::createDWBAScalarFormFactor(
+                            p_ff_particle, *mp_specular_info, depth);
+                }
+                p_diffuse_term->m_form_factors.push_back(p_dwba_ff);
             }
             terms.push_back(p_diffuse_term);
         }

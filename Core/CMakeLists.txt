@@ -88,14 +88,19 @@ endif()
 
 # -----------------------------------------------
 # installation
-# FIXME installation goes in two place (lib, bin), this is temporary
 # -----------------------------------------------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION bin COMPONENT Libraries)
-#install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
-install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
 
+if(WIN32)
+    set(libdir "bin")
+else()
+    set(libdir "lib")
+endif()
+install (TARGETS ${library_name} DESTINATION ${libdir} COMPONENT Libraries)
+
+# windows requires to rename *.dll into *.pyd to use them from python
 if(WIN32 AND BORNAGAIN_PYTHON)
     install(FILES 
     ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd

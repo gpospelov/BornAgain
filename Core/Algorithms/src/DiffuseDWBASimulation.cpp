@@ -23,7 +23,7 @@ void DiffuseDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "DiffuseDWBASimulation::run()";
     // Set diffuse terms.
-    std::vector<DiffuseFormFactorTerm*> diffuse_terms;
+    SafePointerVector<DiffuseFormFactorTerm> diffuse_terms;
     size_t nbr_heights = 50;
     size_t samples_per_particle = 9;
     double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
@@ -62,9 +62,6 @@ void DiffuseDWBASimulation::run()
         }
         *it_intensity = total_intensity;
     }
-
-    for (size_t i=0; i<diffuse_terms.size(); ++i)
-        delete diffuse_terms[i];
 }
 
 //! Initializes vector<DiffuseFormFactorTerm*> term.
@@ -76,7 +73,7 @@ void DiffuseDWBASimulation::run()
 //! - m_form_factors <- vector<FormFactorDWBAConstZ*>
 //!
 void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
-        std::vector<DiffuseFormFactorTerm*>& terms,
+        SafePointerVector<DiffuseFormFactorTerm>& terms,
         size_t nbr_heights,
         size_t samples_per_particle, complex_t wavevector_scattering_factor)
 {

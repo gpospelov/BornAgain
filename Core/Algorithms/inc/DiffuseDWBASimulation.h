@@ -62,7 +62,7 @@ protected:
         double m_factor;
     };
     void initDiffuseFormFactorTerms(
-        std::vector<DiffuseFormFactorTerm *>& terms,
+        SafePointerVector<DiffuseFormFactorTerm>& terms,
         size_t nbr_heights, size_t samples_per_particle,
         complex_t wavevector_scattering_factor);
 };

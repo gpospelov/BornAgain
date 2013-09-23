@@ -20,10 +20,7 @@
 #include "IMaterial.h"
 #include "ISample.h"
 #include "Bin.h"
-
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 //! The basic interface for form factors.
 

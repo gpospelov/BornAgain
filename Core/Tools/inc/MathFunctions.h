@@ -30,9 +30,7 @@
 #include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 //! Various mathematical functions.
 

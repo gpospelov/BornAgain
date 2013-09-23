@@ -17,10 +17,7 @@
 #define ILAYERRTCOEFFICIENTS_H_
 
 #include "Types.h"
-
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 class ILayerRTCoefficients
 {

@@ -20,8 +20,7 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 #include "MatrixRTCoefficients.h"
-
-#include <Eigen/Core>
+#include "EigenCore.h"
 
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of

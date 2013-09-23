@@ -18,16 +18,7 @@
 
 #include "Types.h"
 #include "IParameterized.h"
-
-#ifndef GCCXML_SKIP_THIS
-//#ifdef _WIN32
-//#define EIGEN_DONT_ALIGN_STATICALLY 1
-//#define EIGEN_DONT_ALIGN 1
-//#define EIGEN_DONT_VECTORIZE 1
-//#define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT 1
-//#endif
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 
 //! Ideal collimated Beam defined by wavelength, direction and intensity.

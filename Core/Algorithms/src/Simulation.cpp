@@ -40,7 +40,7 @@ Simulation::Simulation()
 }
 
 Simulation::Simulation(const Simulation& other)
-: IParameterized(other)
+: ICloneable(), IParameterized(other)
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
 , m_instrument(other.m_instrument)

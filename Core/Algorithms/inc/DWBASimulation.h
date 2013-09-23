@@ -21,10 +21,7 @@
 #include "OutputData.h"
 #include "ThreadInfo.h"
 #include "Types.h"
-
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 //! Base class for different simulations, using DWBA.
 

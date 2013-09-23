@@ -20,8 +20,8 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
+#include "EigenCore.h"
 
-#include <Eigen/Core>
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer

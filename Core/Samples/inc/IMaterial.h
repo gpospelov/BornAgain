@@ -18,13 +18,10 @@
 
 #include "INamed.h"
 #include "Types.h"
-
+#include "EigenCore.h"
 #include <string>
 #include <iostream>
 
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
 
 //! Interface to a named material.
 

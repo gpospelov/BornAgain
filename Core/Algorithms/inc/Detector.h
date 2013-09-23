@@ -19,10 +19,8 @@
 #include "IDetectorResolution.h"
 #include "DetectorParameters.h"
 #include "SafePointerVector.h"
+#include "EigenCore.h"
 
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
 
 
 //! Detector with axes and resolution function.

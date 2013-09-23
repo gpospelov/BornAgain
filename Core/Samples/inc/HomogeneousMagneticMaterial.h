@@ -17,9 +17,7 @@
 #define HOMOGENEOUSMAGNETICMATERIAL_H_
 
 #include "HomogeneousMaterial.h"
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 //! An homogeneous material with magnetization
 

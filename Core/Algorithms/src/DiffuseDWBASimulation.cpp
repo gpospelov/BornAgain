@@ -16,6 +16,7 @@
 #include "DiffuseDWBASimulation.h"
 #include "FormFactorDWBAConstZ.h"
 #include "MessageService.h"
+#include "FormFactorTools.h"
 
 //! Carry out one simulation thread.
 

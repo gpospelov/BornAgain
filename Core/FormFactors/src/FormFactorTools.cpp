@@ -14,10 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorTools.h"
+#include "FormFactorDWBAConstZ.h"
+#include "FormFactorDWBAPolConstZ.h"
 
 IFormFactor* FormFactorTools::createDWBAScalarFormFactor(
         IFormFactor* p_form_factor, const LayerSpecularInfo& specular_info,
-        double depth) const
+        double depth)
 {
     FormFactorDWBAConstZ *p_result =
         new FormFactorDWBAConstZ(p_form_factor, depth);
@@ -27,7 +29,7 @@ IFormFactor* FormFactorTools::createDWBAScalarFormFactor(
 
 IFormFactor* FormFactorTools::createDWBAMatrixFormFactor(
         IFormFactor* p_form_factor, const LayerSpecularInfo& specular_info,
-        double depth) const
+        double depth)
 {
     FormFactorDWBAPol *p_result(0);
     if (depth) {

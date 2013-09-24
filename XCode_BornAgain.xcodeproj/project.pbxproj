@@ -270,32 +270,13 @@
 		627F631C17941019009E166F /* libRIO.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D065160C82CB008205AC /* libRIO.5.34.so */; };
 		627F631D17941019009E166F /* libThread.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D066160C82CB008205AC /* libThread.5.34.so */; };
 		627F631E17941019009E166F /* libTree.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D067160C82CB008205AC /* libTree.5.34.so */; };
-		627F64F1179418FC009E166F /* libMathCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05C160C82CB008205AC /* libMathCore.5.34.so */; };
-		627F64F217941B35009E166F /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
-		627F64F317941BE3009E166F /* libMinuit2.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05F160C82CB008205AC /* libMinuit2.5.34.so */; };
-		627F64F417941C9B009E166F /* libCint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D053160C82CB008205AC /* libCint.5.34.so */; };
-		627F64F517941C9B009E166F /* libCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D054160C82CB008205AC /* libCore.5.34.so */; };
-		627F64F617941C9B009E166F /* libGpad.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D057160C82CB008205AC /* libGpad.5.34.so */; };
-		627F64F717941C9B009E166F /* libGraf.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D058160C82CB008205AC /* libGraf.5.34.so */; };
-		627F64F817941C9B009E166F /* libGraf3d.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D059160C82CB008205AC /* libGraf3d.5.34.so */; };
-		627F64F917941C9B009E166F /* libGui.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05A160C82CB008205AC /* libGui.5.34.so */; };
-		627F64FA17941C9B009E166F /* libHist.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05B160C82CB008205AC /* libHist.5.34.so */; };
-		627F64FB17941C9B009E166F /* libMatrix.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05E160C82CB008205AC /* libMatrix.5.34.so */; };
-		627F64FC17941C9B009E166F /* libRint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D064160C82CB008205AC /* libRint.5.34.so */; };
-		627F64FD17941C9B009E166F /* libRIO.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D065160C82CB008205AC /* libRIO.5.34.so */; };
-		627F64FE17941C9B009E166F /* libThread.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D066160C82CB008205AC /* libThread.5.34.so */; };
-		627F64FF17941C9B009E166F /* libTree.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D067160C82CB008205AC /* libTree.5.34.so */; };
-		627F6500179420C2009E166F /* libPostscript.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D062160C82CB008205AC /* libPostscript.5.34.so */; };
 		627F65091794306D009E166F /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
-		627F651117943526009E166F /* libRootMathMore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650E17943257009E166F /* libRootMathMore.dylib */; };
 		627F6516179436B2009E166F /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
 		627F6517179436FD009E166F /* libBornAgain.Fit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650717942E64009E166F /* libBornAgain.Fit.dylib */; };
-		627F6518179436FD009E166F /* libRootMathMore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650E17943257009E166F /* libRootMathMore.dylib */; };
 		627F651A17943D46009E166F /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F647717941211009E166F /* gtest.framework */; };
 		627F6534179444B8009E166F /* TestFit01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F620717940B33009E166F /* TestFit01.cpp */; settings = {COMPILER_FLAGS = "-DSTANDALONE"; }; };
 		627F6539179444B8009E166F /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F647717941211009E166F /* gtest.framework */; };
 		627F653A179444B8009E166F /* libBornAgain.Fit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650717942E64009E166F /* libBornAgain.Fit.dylib */; };
-		627F653B179444B8009E166F /* libRootMathMore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650E17943257009E166F /* libRootMathMore.dylib */; };
 		627F653C179444B8009E166F /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
 		627F653D179444B8009E166F /* libCint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D053160C82CB008205AC /* libCint.5.34.so */; };
 		627F653E179444B8009E166F /* libCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D054160C82CB008205AC /* libCore.5.34.so */; };
@@ -315,12 +296,10 @@
 		627F654C179444B8009E166F /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
 		627F654D179444B8009E166F /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		627F654E179444B8009E166F /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
-		627F6554179447BB009E166F /* libRootMathMore.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627F650E17943257009E166F /* libRootMathMore.dylib */; };
 		627F656017944D37009E166F /* SampleBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F620B17940B33009E166F /* SampleBuilder.cpp */; };
 		627F656117944D37009E166F /* TestFit02.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F620D17940B33009E166F /* TestFit02.cpp */; settings = {COMPILER_FLAGS = "-DSTANDALONE"; }; };
 		627F656317944D37009E166F /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F647717941211009E166F /* gtest.framework */; };
 		627F656417944D37009E166F /* libBornAgain.Fit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650717942E64009E166F /* libBornAgain.Fit.dylib */; };
-		627F656517944D37009E166F /* libRootMathMore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650E17943257009E166F /* libRootMathMore.dylib */; };
 		627F656617944D37009E166F /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
 		627F656717944D37009E166F /* libCint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D053160C82CB008205AC /* libCint.5.34.so */; };
 		627F656817944D37009E166F /* libCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D054160C82CB008205AC /* libCore.5.34.so */; };
@@ -429,7 +408,6 @@
 		62BADE70179535BC005BC59D /* TreeEventStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE3F179535BC005BC59D /* TreeEventStructure.cpp */; };
 		62BADE711795361A005BC59D /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
 		62BADE721795361A005BC59D /* libBornAgain.Fit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650717942E64009E166F /* libBornAgain.Fit.dylib */; };
-		62BADE731795361A005BC59D /* libRootMathMore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650E17943257009E166F /* libRootMathMore.dylib */; };
 		62BADE7417953749005BC59D /* IsGISAXS06.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61C417940B33009E166F /* IsGISAXS06.cpp */; };
 		62BADE7517953749005BC59D /* IsGISAXS07.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61C817940B33009E166F /* IsGISAXS07.cpp */; };
 		62BADE7617953749005BC59D /* IsGISAXS08.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61CC17940B33009E166F /* IsGISAXS08.cpp */; };
@@ -460,6 +438,262 @@
 		62EA73811628422200656B41 /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA737A1628422200656B41 /* ParameterPool.cpp */; };
 		62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */; };
 		62F3A3B4162D9966007FEE73 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */; };
+		62FD5BFA17F057E1007C0397 /* FormFactorTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */; };
+		62FD5DC717F061E3007C0397 /* BinData.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7117F061E3007C0397 /* BinData.h */; };
+		62FD5DC817F061E3007C0397 /* BinPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7217F061E3007C0397 /* BinPoint.h */; };
+		62FD5DC917F061E3007C0397 /* Chi2FCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7317F061E3007C0397 /* Chi2FCN.h */; };
+		62FD5DCA17F061E3007C0397 /* DataOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7417F061E3007C0397 /* DataOptions.h */; };
+		62FD5DCB17F061E3007C0397 /* DataRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7517F061E3007C0397 /* DataRange.h */; };
+		62FD5DCC17F061E3007C0397 /* DataVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7617F061E3007C0397 /* DataVector.h */; };
+		62FD5DCD17F061E3007C0397 /* DataVectorfwd.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7717F061E3007C0397 /* DataVectorfwd.h */; };
+		62FD5DCE17F061E3007C0397 /* FcnAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7817F061E3007C0397 /* FcnAdapter.h */; };
+		62FD5DCF17F061E3007C0397 /* FitConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7917F061E3007C0397 /* FitConfig.h */; };
+		62FD5DD017F061E3007C0397 /* FitResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7A17F061E3007C0397 /* FitResult.h */; };
+		62FD5DD117F061E3007C0397 /* FitUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7B17F061E3007C0397 /* FitUtil.h */; };
+		62FD5DD217F061E3007C0397 /* FitUtilParallel.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7C17F061E3007C0397 /* FitUtilParallel.h */; };
+		62FD5DD317F061E3007C0397 /* Fitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7D17F061E3007C0397 /* Fitter.h */; };
+		62FD5DD417F061E3007C0397 /* LogLikelihoodFCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7E17F061E3007C0397 /* LogLikelihoodFCN.h */; };
+		62FD5DD517F061E3007C0397 /* ParameterSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7F17F061E3007C0397 /* ParameterSettings.h */; };
+		62FD5DD617F061E3007C0397 /* PoissonLikelihoodFCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8017F061E3007C0397 /* PoissonLikelihoodFCN.h */; };
+		62FD5DD717F061E3007C0397 /* SparseData.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8117F061E3007C0397 /* SparseData.h */; };
+		62FD5DD817F061E3007C0397 /* UnBinData.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8217F061E3007C0397 /* UnBinData.h */; };
+		62FD5DD917F061E3007C0397 /* Derivator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8417F061E3007C0397 /* Derivator.h */; };
+		62FD5DDA17F061E3007C0397 /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8517F061E3007C0397 /* Error.h */; };
+		62FD5DDB17F061E3007C0397 /* Factory.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8617F061E3007C0397 /* Factory.h */; };
+		62FD5DDC17F061E3007C0397 /* FitMethodFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8717F061E3007C0397 /* FitMethodFunction.h */; };
+		62FD5DDD17F061E3007C0397 /* Functor.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8817F061E3007C0397 /* Functor.h */; };
+		62FD5DDE17F061E3007C0397 /* GSLFunctionAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8917F061E3007C0397 /* GSLFunctionAdapter.h */; };
+		62FD5DDF17F061E3007C0397 /* GSLFunctionWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8A17F061E3007C0397 /* GSLFunctionWrapper.h */; };
+		62FD5DE017F061E3007C0397 /* GSLMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8B17F061E3007C0397 /* GSLMinimizer.h */; };
+		62FD5DE117F061E3007C0397 /* GSLMinimizer1D.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8C17F061E3007C0397 /* GSLMinimizer1D.h */; };
+		62FD5DE217F061E3007C0397 /* GSLNLSMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8D17F061E3007C0397 /* GSLNLSMinimizer.h */; };
+		62FD5DE317F061E3007C0397 /* GSLRndmEngines.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8E17F061E3007C0397 /* GSLRndmEngines.h */; };
+		62FD5DE417F061E3007C0397 /* GSLSimAnMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C8F17F061E3007C0397 /* GSLSimAnMinimizer.h */; };
+		62FD5DE517F061E3007C0397 /* GSLSimAnnealing.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9017F061E3007C0397 /* GSLSimAnnealing.h */; };
+		62FD5DE617F061E3007C0397 /* GenAlgoOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */; };
+		62FD5DE717F061E3007C0397 /* IFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9217F061E3007C0397 /* IFunction.h */; };
+		62FD5DE817F061E3007C0397 /* IFunctionfwd.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9317F061E3007C0397 /* IFunctionfwd.h */; };
+		62FD5DE917F061E3007C0397 /* IMinimizer1D.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9417F061E3007C0397 /* IMinimizer1D.h */; };
+		62FD5DEA17F061E3007C0397 /* IOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9517F061E3007C0397 /* IOptions.h */; };
+		62FD5DEB17F061E3007C0397 /* IParamFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9617F061E3007C0397 /* IParamFunction.h */; };
+		62FD5DEC17F061E3007C0397 /* IParamFunctionfwd.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9717F061E3007C0397 /* IParamFunctionfwd.h */; };
+		62FD5DED17F061E3007C0397 /* MinimTransformFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */; };
+		62FD5DEE17F061E3007C0397 /* Minimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9917F061E3007C0397 /* Minimizer.h */; };
+		62FD5DEF17F061E3007C0397 /* MinimizerOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9A17F061E3007C0397 /* MinimizerOptions.h */; };
+		62FD5DF017F061E3007C0397 /* MinimizerVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9B17F061E3007C0397 /* MinimizerVariable.h */; };
+		62FD5DF117F061E3007C0397 /* MinimizerVariableTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9C17F061E3007C0397 /* MinimizerVariableTransformation.h */; };
+		62FD5DF217F061E3007C0397 /* MultiNumGradFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9D17F061E3007C0397 /* MultiNumGradFunction.h */; };
+		62FD5DF317F061E3007C0397 /* OneDimFunctionAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9E17F061E3007C0397 /* OneDimFunctionAdapter.h */; };
+		62FD5DF417F061E3007C0397 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C9F17F061E3007C0397 /* Util.h */; };
+		62FD5DF517F061E3007C0397 /* WrappedFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA017F061E3007C0397 /* WrappedFunction.h */; };
+		62FD5DF617F061E3007C0397 /* WrappedParamFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA117F061E3007C0397 /* WrappedParamFunction.h */; };
+		62FD5DF717F061E3007C0397 /* ABObj.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA317F061E3007C0397 /* ABObj.h */; };
+		62FD5DF817F061E3007C0397 /* ABProd.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA417F061E3007C0397 /* ABProd.h */; };
+		62FD5DF917F061E3007C0397 /* ABSum.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA517F061E3007C0397 /* ABSum.h */; };
+		62FD5DFA17F061E3007C0397 /* ABTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA617F061E3007C0397 /* ABTypes.h */; };
+		62FD5DFB17F061E3007C0397 /* AnalyticalGradientCalculator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA717F061E3007C0397 /* AnalyticalGradientCalculator.h */; };
+		62FD5DFC17F061E3007C0397 /* BasicFunctionGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA817F061E3007C0397 /* BasicFunctionGradient.h */; };
+		62FD5DFD17F061E3007C0397 /* BasicFunctionMinimum.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CA917F061E3007C0397 /* BasicFunctionMinimum.h */; };
+		62FD5DFE17F061E3007C0397 /* BasicMinimumError.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CAA17F061E3007C0397 /* BasicMinimumError.h */; };
+		62FD5DFF17F061E3007C0397 /* BasicMinimumParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CAB17F061E3007C0397 /* BasicMinimumParameters.h */; };
+		62FD5E0017F061E3007C0397 /* BasicMinimumSeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CAC17F061E3007C0397 /* BasicMinimumSeed.h */; };
+		62FD5E0117F061E3007C0397 /* BasicMinimumState.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CAD17F061E3007C0397 /* BasicMinimumState.h */; };
+		62FD5E0217F061E3007C0397 /* CombinedMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CAE17F061E3007C0397 /* CombinedMinimizer.h */; };
+		62FD5E0317F061E3007C0397 /* CombinedMinimumBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CAF17F061E3007C0397 /* CombinedMinimumBuilder.h */; };
+		62FD5E0417F061E3007C0397 /* ContoursError.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB017F061E3007C0397 /* ContoursError.h */; };
+		62FD5E0517F061E3007C0397 /* DavidonErrorUpdator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB117F061E3007C0397 /* DavidonErrorUpdator.h */; };
+		62FD5E0617F061E3007C0397 /* FCNAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB217F061E3007C0397 /* FCNAdapter.h */; };
+		62FD5E0717F061E3007C0397 /* FCNBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB317F061E3007C0397 /* FCNBase.h */; };
+		62FD5E0817F061E3007C0397 /* FCNGradAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB417F061E3007C0397 /* FCNGradAdapter.h */; };
+		62FD5E0917F061E3007C0397 /* FCNGradientBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB517F061E3007C0397 /* FCNGradientBase.h */; };
+		62FD5E0A17F061E3007C0397 /* FumiliBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB617F061E3007C0397 /* FumiliBuilder.h */; };
+		62FD5E0B17F061E3007C0397 /* FumiliChi2FCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB717F061E3007C0397 /* FumiliChi2FCN.h */; };
+		62FD5E0C17F061E3007C0397 /* FumiliErrorUpdator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB817F061E3007C0397 /* FumiliErrorUpdator.h */; };
+		62FD5E0D17F061E3007C0397 /* FumiliFCNAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CB917F061E3007C0397 /* FumiliFCNAdapter.h */; };
+		62FD5E0E17F061E3007C0397 /* FumiliFCNBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CBA17F061E3007C0397 /* FumiliFCNBase.h */; };
+		62FD5E0F17F061E3007C0397 /* FumiliGradientCalculator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CBB17F061E3007C0397 /* FumiliGradientCalculator.h */; };
+		62FD5E1017F061E3007C0397 /* FumiliMaximumLikelihoodFCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CBC17F061E3007C0397 /* FumiliMaximumLikelihoodFCN.h */; };
+		62FD5E1117F061E3007C0397 /* FumiliMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CBD17F061E3007C0397 /* FumiliMinimizer.h */; };
+		62FD5E1217F061E3007C0397 /* FumiliStandardChi2FCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CBE17F061E3007C0397 /* FumiliStandardChi2FCN.h */; };
+		62FD5E1317F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CBF17F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.h */; };
+		62FD5E1417F061E3007C0397 /* FunctionGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC017F061E3007C0397 /* FunctionGradient.h */; };
+		62FD5E1517F061E3007C0397 /* FunctionMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC117F061E3007C0397 /* FunctionMinimizer.h */; };
+		62FD5E1617F061E3007C0397 /* FunctionMinimum.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC217F061E3007C0397 /* FunctionMinimum.h */; };
+		62FD5E1717F061E3007C0397 /* GenericFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC317F061E3007C0397 /* GenericFunction.h */; };
+		62FD5E1817F061E3007C0397 /* GradientCalculator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC417F061E3007C0397 /* GradientCalculator.h */; };
+		62FD5E1917F061E3007C0397 /* HessianGradientCalculator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC517F061E3007C0397 /* HessianGradientCalculator.h */; };
+		62FD5E1A17F061E3007C0397 /* InitialGradientCalculator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC617F061E3007C0397 /* InitialGradientCalculator.h */; };
+		62FD5E1B17F061E3007C0397 /* LASymMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC717F061E3007C0397 /* LASymMatrix.h */; };
+		62FD5E1C17F061E3007C0397 /* LAVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC817F061E3007C0397 /* LAVector.h */; };
+		62FD5E1D17F061E3007C0397 /* LaInverse.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CC917F061E3007C0397 /* LaInverse.h */; };
+		62FD5E1E17F061E3007C0397 /* LaOuterProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CCA17F061E3007C0397 /* LaOuterProduct.h */; };
+		62FD5E1F17F061E3007C0397 /* LaProd.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CCB17F061E3007C0397 /* LaProd.h */; };
+		62FD5E2017F061E3007C0397 /* LaSum.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CCC17F061E3007C0397 /* LaSum.h */; };
+		62FD5E2117F061E3007C0397 /* MPIProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CCD17F061E3007C0397 /* MPIProcess.h */; };
+		62FD5E2217F061E3007C0397 /* MatrixInverse.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CCE17F061E3007C0397 /* MatrixInverse.h */; };
+		62FD5E2317F061E3007C0397 /* MinimumBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CCF17F061E3007C0397 /* MinimumBuilder.h */; };
+		62FD5E2417F061E3007C0397 /* MinimumError.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD017F061E3007C0397 /* MinimumError.h */; };
+		62FD5E2517F061E3007C0397 /* MinimumErrorUpdator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD117F061E3007C0397 /* MinimumErrorUpdator.h */; };
+		62FD5E2617F061E3007C0397 /* MinimumParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD217F061E3007C0397 /* MinimumParameters.h */; };
+		62FD5E2717F061E3007C0397 /* MinimumSeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD317F061E3007C0397 /* MinimumSeed.h */; };
+		62FD5E2817F061E3007C0397 /* MinimumSeedGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD417F061E3007C0397 /* MinimumSeedGenerator.h */; };
+		62FD5E2917F061E3007C0397 /* MinimumState.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD517F061E3007C0397 /* MinimumState.h */; };
+		62FD5E2A17F061E3007C0397 /* MinosError.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD617F061E3007C0397 /* MinosError.h */; };
+		62FD5E2B17F061E3007C0397 /* Minuit2Minimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD717F061E3007C0397 /* Minuit2Minimizer.h */; };
+		62FD5E2C17F061E3007C0397 /* MinuitParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD817F061E3007C0397 /* MinuitParameter.h */; };
+		62FD5E2D17F061E3007C0397 /* MnApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CD917F061E3007C0397 /* MnApplication.h */; };
+		62FD5E2E17F061E3007C0397 /* MnConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CDA17F061E3007C0397 /* MnConfig.h */; };
+		62FD5E2F17F061E3007C0397 /* MnContours.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CDB17F061E3007C0397 /* MnContours.h */; };
+		62FD5E3017F061E3007C0397 /* MnCovarianceSqueeze.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CDC17F061E3007C0397 /* MnCovarianceSqueeze.h */; };
+		62FD5E3117F061E3007C0397 /* MnCross.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CDD17F061E3007C0397 /* MnCross.h */; };
+		62FD5E3217F061E3007C0397 /* MnEigen.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CDE17F061E3007C0397 /* MnEigen.h */; };
+		62FD5E3317F061E3007C0397 /* MnFcn.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CDF17F061E3007C0397 /* MnFcn.h */; };
+		62FD5E3417F061E3007C0397 /* MnFumiliMinimize.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE017F061E3007C0397 /* MnFumiliMinimize.h */; };
+		62FD5E3517F061E3007C0397 /* MnFunctionCross.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE117F061E3007C0397 /* MnFunctionCross.h */; };
+		62FD5E3617F061E3007C0397 /* MnGlobalCorrelationCoeff.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE217F061E3007C0397 /* MnGlobalCorrelationCoeff.h */; };
+		62FD5E3717F061E3007C0397 /* MnHesse.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE317F061E3007C0397 /* MnHesse.h */; };
+		62FD5E3817F061E3007C0397 /* MnLineSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE417F061E3007C0397 /* MnLineSearch.h */; };
+		62FD5E3917F061E3007C0397 /* MnMachinePrecision.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE517F061E3007C0397 /* MnMachinePrecision.h */; };
+		62FD5E3A17F061E3007C0397 /* MnMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE617F061E3007C0397 /* MnMatrix.h */; };
+		62FD5E3B17F061E3007C0397 /* MnMigrad.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE717F061E3007C0397 /* MnMigrad.h */; };
+		62FD5E3C17F061E3007C0397 /* MnMinimize.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE817F061E3007C0397 /* MnMinimize.h */; };
+		62FD5E3D17F061E3007C0397 /* MnMinos.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CE917F061E3007C0397 /* MnMinos.h */; };
+		62FD5E3E17F061E3007C0397 /* MnParabola.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CEA17F061E3007C0397 /* MnParabola.h */; };
+		62FD5E3F17F061E3007C0397 /* MnParabolaFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CEB17F061E3007C0397 /* MnParabolaFactory.h */; };
+		62FD5E4017F061E3007C0397 /* MnParabolaPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CEC17F061E3007C0397 /* MnParabolaPoint.h */; };
+		62FD5E4117F061E3007C0397 /* MnParameterScan.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CED17F061E3007C0397 /* MnParameterScan.h */; };
+		62FD5E4217F061E3007C0397 /* MnPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CEE17F061E3007C0397 /* MnPlot.h */; };
+		62FD5E4317F061E3007C0397 /* MnPosDef.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CEF17F061E3007C0397 /* MnPosDef.h */; };
+		62FD5E4417F061E3007C0397 /* MnPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF017F061E3007C0397 /* MnPrint.h */; };
+		62FD5E4517F061E3007C0397 /* MnRefCountedPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF117F061E3007C0397 /* MnRefCountedPointer.h */; };
+		62FD5E4617F061E3007C0397 /* MnReferenceCounter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF217F061E3007C0397 /* MnReferenceCounter.h */; };
+		62FD5E4717F061E3007C0397 /* MnScan.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF317F061E3007C0397 /* MnScan.h */; };
+		62FD5E4817F061E3007C0397 /* MnSeedGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF417F061E3007C0397 /* MnSeedGenerator.h */; };
+		62FD5E4917F061E3007C0397 /* MnSimplex.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF517F061E3007C0397 /* MnSimplex.h */; };
+		62FD5E4A17F061E3007C0397 /* MnStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF617F061E3007C0397 /* MnStrategy.h */; };
+		62FD5E4B17F061E3007C0397 /* MnTiny.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF717F061E3007C0397 /* MnTiny.h */; };
+		62FD5E4C17F061E3007C0397 /* MnUserCovariance.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF817F061E3007C0397 /* MnUserCovariance.h */; };
+		62FD5E4D17F061E3007C0397 /* MnUserFcn.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CF917F061E3007C0397 /* MnUserFcn.h */; };
+		62FD5E4E17F061E3007C0397 /* MnUserParameterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */; };
+		62FD5E4F17F061E3007C0397 /* MnUserParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CFB17F061E3007C0397 /* MnUserParameters.h */; };
+		62FD5E5017F061E3007C0397 /* MnUserTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CFC17F061E3007C0397 /* MnUserTransformation.h */; };
+		62FD5E5117F061E3007C0397 /* MnVectorTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CFD17F061E3007C0397 /* MnVectorTransform.h */; };
+		62FD5E5217F061E3007C0397 /* ModularFunctionMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CFE17F061E3007C0397 /* ModularFunctionMinimizer.h */; };
+		62FD5E5317F061E3007C0397 /* NegativeG2LineSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5CFF17F061E3007C0397 /* NegativeG2LineSearch.h */; };
+		62FD5E5417F061E3007C0397 /* Numerical2PGradientCalculator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0017F061E3007C0397 /* Numerical2PGradientCalculator.h */; };
+		62FD5E5517F061E3007C0397 /* ParametricFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0117F061E3007C0397 /* ParametricFunction.h */; };
+		62FD5E5617F061E3007C0397 /* ScanBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0217F061E3007C0397 /* ScanBuilder.h */; };
+		62FD5E5717F061E3007C0397 /* ScanMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0317F061E3007C0397 /* ScanMinimizer.h */; };
+		62FD5E5817F061E3007C0397 /* SimplexBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0417F061E3007C0397 /* SimplexBuilder.h */; };
+		62FD5E5917F061E3007C0397 /* SimplexMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0517F061E3007C0397 /* SimplexMinimizer.h */; };
+		62FD5E5A17F061E3007C0397 /* SimplexParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0617F061E3007C0397 /* SimplexParameters.h */; };
+		62FD5E5B17F061E3007C0397 /* SimplexSeedGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0717F061E3007C0397 /* SimplexSeedGenerator.h */; };
+		62FD5E5C17F061E3007C0397 /* SinParameterTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0817F061E3007C0397 /* SinParameterTransformation.h */; };
+		62FD5E5D17F061E3007C0397 /* SqrtLowParameterTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0917F061E3007C0397 /* SqrtLowParameterTransformation.h */; };
+		62FD5E5E17F061E3007C0397 /* SqrtUpParameterTransformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0A17F061E3007C0397 /* SqrtUpParameterTransformation.h */; };
+		62FD5E5F17F061E3007C0397 /* StackAllocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0B17F061E3007C0397 /* StackAllocator.h */; };
+		62FD5E6017F061E3007C0397 /* VariableMetricBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0C17F061E3007C0397 /* VariableMetricBuilder.h */; };
+		62FD5E6117F061E3007C0397 /* VariableMetricEDMEstimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0D17F061E3007C0397 /* VariableMetricEDMEstimator.h */; };
+		62FD5E6217F061E3007C0397 /* VariableMetricMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0E17F061E3007C0397 /* VariableMetricMinimizer.h */; };
+		62FD5E6317F061E3007C0397 /* VectorOuterProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D0F17F061E3007C0397 /* VectorOuterProduct.h */; };
+		62FD5E6517F061E3007C0397 /* Derivator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D1317F061E3007C0397 /* Derivator.cxx */; };
+		62FD5E6617F061E3007C0397 /* Factory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D1417F061E3007C0397 /* Factory.cxx */; };
+		62FD5E6717F061E3007C0397 /* GSL1DMinimizerWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1517F061E3007C0397 /* GSL1DMinimizerWrapper.h */; };
+		62FD5E6817F061E3007C0397 /* GSLDerivator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D1617F061E3007C0397 /* GSLDerivator.cxx */; };
+		62FD5E6917F061E3007C0397 /* GSLDerivator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1717F061E3007C0397 /* GSLDerivator.h */; };
+		62FD5E6A17F061E3007C0397 /* GSLFunctionWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1817F061E3007C0397 /* GSLFunctionWrapper.h */; };
+		62FD5E6B17F061E3007C0397 /* GSLMinimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D1917F061E3007C0397 /* GSLMinimizer.cxx */; };
+		62FD5E6C17F061E3007C0397 /* GSLMinimizer1D.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D1A17F061E3007C0397 /* GSLMinimizer1D.cxx */; };
+		62FD5E6D17F061E3007C0397 /* GSLMultiFit.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1B17F061E3007C0397 /* GSLMultiFit.h */; };
+		62FD5E6E17F061E3007C0397 /* GSLMultiFitFunctionAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1C17F061E3007C0397 /* GSLMultiFitFunctionAdapter.h */; };
+		62FD5E6F17F061E3007C0397 /* GSLMultiFitFunctionWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1D17F061E3007C0397 /* GSLMultiFitFunctionWrapper.h */; };
+		62FD5E7017F061E3007C0397 /* GSLMultiMinFunctionAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1E17F061E3007C0397 /* GSLMultiMinFunctionAdapter.h */; };
+		62FD5E7117F061E3007C0397 /* GSLMultiMinFunctionWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D1F17F061E3007C0397 /* GSLMultiMinFunctionWrapper.h */; };
+		62FD5E7217F061E3007C0397 /* GSLMultiMinimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D2017F061E3007C0397 /* GSLMultiMinimizer.h */; };
+		62FD5E7317F061E3007C0397 /* GSLNLSMinimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2117F061E3007C0397 /* GSLNLSMinimizer.cxx */; };
+		62FD5E7417F061E3007C0397 /* GSLRndmEngines.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2217F061E3007C0397 /* GSLRndmEngines.cxx */; };
+		62FD5E7517F061E3007C0397 /* GSLRngWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5D2317F061E3007C0397 /* GSLRngWrapper.h */; };
+		62FD5E7617F061E3007C0397 /* GSLSimAnMinimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2417F061E3007C0397 /* GSLSimAnMinimizer.cxx */; };
+		62FD5E7717F061E3007C0397 /* GSLSimAnnealing.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2517F061E3007C0397 /* GSLSimAnnealing.cxx */; };
+		62FD5E7817F061E3007C0397 /* GenAlgoOptions.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */; };
+		62FD5E7917F061E3007C0397 /* MinimTransformFunction.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */; };
+		62FD5E7A17F061E3007C0397 /* MinimizerOptions.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2817F061E3007C0397 /* MinimizerOptions.cxx */; };
+		62FD5E7B17F061E3007C0397 /* MinimizerVariableTransformation.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2917F061E3007C0397 /* MinimizerVariableTransformation.cxx */; };
+		62FD5E7C17F061E3007C0397 /* MultiNumGradFunction.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2A17F061E3007C0397 /* MultiNumGradFunction.cxx */; };
+		62FD5E7D17F061E3007C0397 /* AnalyticalGradientCalculator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2C17F061E3007C0397 /* AnalyticalGradientCalculator.cxx */; };
+		62FD5E7E17F061E3007C0397 /* BasicMinimumError.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2D17F061E3007C0397 /* BasicMinimumError.cxx */; };
+		62FD5E7F17F061E3007C0397 /* CombinedMinimumBuilder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2E17F061E3007C0397 /* CombinedMinimumBuilder.cxx */; };
+		62FD5E8017F061E3007C0397 /* DavidonErrorUpdator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D2F17F061E3007C0397 /* DavidonErrorUpdator.cxx */; };
+		62FD5E8117F061E3007C0397 /* FumiliBuilder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3017F061E3007C0397 /* FumiliBuilder.cxx */; };
+		62FD5E8217F061E3007C0397 /* FumiliErrorUpdator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3117F061E3007C0397 /* FumiliErrorUpdator.cxx */; };
+		62FD5E8317F061E3007C0397 /* FumiliGradientCalculator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3217F061E3007C0397 /* FumiliGradientCalculator.cxx */; };
+		62FD5E8417F061E3007C0397 /* FumiliMinimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3317F061E3007C0397 /* FumiliMinimizer.cxx */; };
+		62FD5E8517F061E3007C0397 /* FumiliStandardChi2FCN.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3417F061E3007C0397 /* FumiliStandardChi2FCN.cxx */; };
+		62FD5E8617F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3517F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.cxx */; };
+		62FD5E8717F061E3007C0397 /* HessianGradientCalculator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3617F061E3007C0397 /* HessianGradientCalculator.cxx */; };
+		62FD5E8817F061E3007C0397 /* InitialGradientCalculator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3717F061E3007C0397 /* InitialGradientCalculator.cxx */; };
+		62FD5E8917F061E3007C0397 /* LaEigenValues.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3817F061E3007C0397 /* LaEigenValues.cxx */; };
+		62FD5E8A17F061E3007C0397 /* LaInnerProduct.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3917F061E3007C0397 /* LaInnerProduct.cxx */; };
+		62FD5E8B17F061E3007C0397 /* LaInverse.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3A17F061E3007C0397 /* LaInverse.cxx */; };
+		62FD5E8C17F061E3007C0397 /* LaOuterProduct.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3B17F061E3007C0397 /* LaOuterProduct.cxx */; };
+		62FD5E8D17F061E3007C0397 /* LaSumOfElements.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3C17F061E3007C0397 /* LaSumOfElements.cxx */; };
+		62FD5E8E17F061E3007C0397 /* LaVtMVSimilarity.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3D17F061E3007C0397 /* LaVtMVSimilarity.cxx */; };
+		62FD5E8F17F061E3007C0397 /* MPIProcess.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */; };
+		62FD5E9017F061E3007C0397 /* Minuit2Minimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D3F17F061E3007C0397 /* Minuit2Minimizer.cxx */; };
+		62FD5E9117F061E3007C0397 /* MnApplication.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4017F061E3007C0397 /* MnApplication.cxx */; };
+		62FD5E9217F061E3007C0397 /* MnContours.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4117F061E3007C0397 /* MnContours.cxx */; };
+		62FD5E9317F061E3007C0397 /* MnCovarianceSqueeze.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4217F061E3007C0397 /* MnCovarianceSqueeze.cxx */; };
+		62FD5E9417F061E3007C0397 /* MnEigen.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4317F061E3007C0397 /* MnEigen.cxx */; };
+		62FD5E9517F061E3007C0397 /* MnFcn.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4417F061E3007C0397 /* MnFcn.cxx */; };
+		62FD5E9617F061E3007C0397 /* MnFumiliMinimize.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4517F061E3007C0397 /* MnFumiliMinimize.cxx */; };
+		62FD5E9717F061E3007C0397 /* MnFunctionCross.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4617F061E3007C0397 /* MnFunctionCross.cxx */; };
+		62FD5E9817F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4717F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx */; };
+		62FD5E9917F061E3007C0397 /* MnHesse.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4817F061E3007C0397 /* MnHesse.cxx */; };
+		62FD5E9A17F061E3007C0397 /* MnLineSearch.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4917F061E3007C0397 /* MnLineSearch.cxx */; };
+		62FD5E9B17F061E3007C0397 /* MnMachinePrecision.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4A17F061E3007C0397 /* MnMachinePrecision.cxx */; };
+		62FD5E9C17F061E3007C0397 /* MnMinos.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4B17F061E3007C0397 /* MnMinos.cxx */; };
+		62FD5E9D17F061E3007C0397 /* MnParabolaFactory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4C17F061E3007C0397 /* MnParabolaFactory.cxx */; };
+		62FD5E9E17F061E3007C0397 /* MnParameterScan.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4D17F061E3007C0397 /* MnParameterScan.cxx */; };
+		62FD5E9F17F061E3007C0397 /* MnPlot.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4E17F061E3007C0397 /* MnPlot.cxx */; };
+		62FD5EA017F061E3007C0397 /* MnPosDef.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D4F17F061E3007C0397 /* MnPosDef.cxx */; };
+		62FD5EA117F061E3007C0397 /* MnPrint.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5017F061E3007C0397 /* MnPrint.cxx */; };
+		62FD5EA217F061E3007C0397 /* MnScan.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5117F061E3007C0397 /* MnScan.cxx */; };
+		62FD5EA317F061E3007C0397 /* MnSeedGenerator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5217F061E3007C0397 /* MnSeedGenerator.cxx */; };
+		62FD5EA417F061E3007C0397 /* MnStrategy.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5317F061E3007C0397 /* MnStrategy.cxx */; };
+		62FD5EA517F061E3007C0397 /* MnTiny.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5417F061E3007C0397 /* MnTiny.cxx */; };
+		62FD5EA617F061E3007C0397 /* MnUserFcn.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5517F061E3007C0397 /* MnUserFcn.cxx */; };
+		62FD5EA717F061E3007C0397 /* MnUserParameterState.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */; };
+		62FD5EA817F061E3007C0397 /* MnUserParameters.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5717F061E3007C0397 /* MnUserParameters.cxx */; };
+		62FD5EA917F061E3007C0397 /* MnUserTransformation.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5817F061E3007C0397 /* MnUserTransformation.cxx */; };
+		62FD5EAA17F061E3007C0397 /* ModularFunctionMinimizer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5917F061E3007C0397 /* ModularFunctionMinimizer.cxx */; };
+		62FD5EAB17F061E3007C0397 /* NegativeG2LineSearch.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5A17F061E3007C0397 /* NegativeG2LineSearch.cxx */; };
+		62FD5EAC17F061E3007C0397 /* Numerical2PGradientCalculator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5B17F061E3007C0397 /* Numerical2PGradientCalculator.cxx */; };
+		62FD5EAD17F061E3007C0397 /* ParametricFunction.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5C17F061E3007C0397 /* ParametricFunction.cxx */; };
+		62FD5EAE17F061E3007C0397 /* ScanBuilder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5D17F061E3007C0397 /* ScanBuilder.cxx */; };
+		62FD5EAF17F061E3007C0397 /* SimplexBuilder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5E17F061E3007C0397 /* SimplexBuilder.cxx */; };
+		62FD5EB017F061E3007C0397 /* SimplexParameters.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D5F17F061E3007C0397 /* SimplexParameters.cxx */; };
+		62FD5EB117F061E3007C0397 /* SimplexSeedGenerator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6017F061E3007C0397 /* SimplexSeedGenerator.cxx */; };
+		62FD5EB217F061E3007C0397 /* SinParameterTransformation.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6117F061E3007C0397 /* SinParameterTransformation.cxx */; };
+		62FD5EB317F061E3007C0397 /* SqrtLowParameterTransformation.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6217F061E3007C0397 /* SqrtLowParameterTransformation.cxx */; };
+		62FD5EB417F061E3007C0397 /* SqrtUpParameterTransformation.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6317F061E3007C0397 /* SqrtUpParameterTransformation.cxx */; };
+		62FD5EB517F061E3007C0397 /* VariableMetricBuilder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6417F061E3007C0397 /* VariableMetricBuilder.cxx */; };
+		62FD5EB617F061E3007C0397 /* VariableMetricEDMEstimator.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6517F061E3007C0397 /* VariableMetricEDMEstimator.cxx */; };
+		62FD5EB717F061E3007C0397 /* mnbins.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6617F061E3007C0397 /* mnbins.cxx */; };
+		62FD5EB817F061E3007C0397 /* mndasum.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6717F061E3007C0397 /* mndasum.cxx */; };
+		62FD5EB917F061E3007C0397 /* mndaxpy.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6817F061E3007C0397 /* mndaxpy.cxx */; };
+		62FD5EBA17F061E3007C0397 /* mnddot.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6917F061E3007C0397 /* mnddot.cxx */; };
+		62FD5EBB17F061E3007C0397 /* mndscal.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6A17F061E3007C0397 /* mndscal.cxx */; };
+		62FD5EBC17F061E3007C0397 /* mndspmv.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6B17F061E3007C0397 /* mndspmv.cxx */; };
+		62FD5EBD17F061E3007C0397 /* mndspr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6C17F061E3007C0397 /* mndspr.cxx */; };
+		62FD5EBE17F061E3007C0397 /* mnlsame.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6D17F061E3007C0397 /* mnlsame.cxx */; };
+		62FD5EBF17F061E3007C0397 /* mnteigen.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6E17F061E3007C0397 /* mnteigen.cxx */; };
+		62FD5EC017F061E3007C0397 /* mntplot.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D6F17F061E3007C0397 /* mntplot.cxx */; };
+		62FD5EC117F061E3007C0397 /* mnvert.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D7017F061E3007C0397 /* mnvert.cxx */; };
+		62FD5EC217F061E3007C0397 /* mnxerbla.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5D7117F061E3007C0397 /* mnxerbla.cxx */; };
+		62FD5EC317F0643B007C0397 /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
+		62FD5EC617F06C05007C0397 /* libBornAgain.RootMinimizers.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */; };
+		62FD5EC917F06C63007C0397 /* libBornAgain.RootMinimizers.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */; };
+		62FD5ECC17F06D1C007C0397 /* App in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BADDC917952FC2005BC59D /* App */; };
 		62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
 		62FDC05D1615E3C500D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
 		62FDC05F1615F0DE00D28B08 /* CoreOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */; };
@@ -470,13 +704,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		627C2FD8160B5149004C1B11 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 627C2F06160B4F98004C1B11;
-			remoteInfo = GISASFW.Core;
-		};
-		627C2FE4160B5900004C1B11 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
 			proxyType = 1;
@@ -560,20 +787,6 @@
 			remoteGlobalIDString = 3B07BDEA0E3F3F9E00647869;
 			remoteInfo = WidgetFrameworkTest;
 		};
-		627F650517942A76009E166F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 627F649517941708009E166F;
-			remoteInfo = RootMathMore;
-		};
-		627F650A17943083009E166F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 627F649517941708009E166F;
-			remoteInfo = RootMathMore;
-		};
 		627F651B17943D51009E166F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 627F640517941210009E166F /* gtest.xcodeproj */;
@@ -587,13 +800,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D07F2BC0486CC7A007CD1D0;
 			remoteInfo = "gtest-framework";
-		};
-		627F6521179444B8009E166F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 627F649517941708009E166F;
-			remoteInfo = RootMathMore;
 		};
 		627F6523179444B8009E166F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -616,13 +822,6 @@
 			remoteGlobalIDString = 8D07F2BC0486CC7A007CD1D0;
 			remoteInfo = "gtest-framework";
 		};
-		627F655917944D37009E166F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 627F649517941708009E166F;
-			remoteInfo = RootMathMore;
-		};
 		627F655B17944D37009E166F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
@@ -644,12 +843,33 @@
 			remoteGlobalIDString = 627C2F06160B4F98004C1B11;
 			remoteInfo = BornAgain.Core;
 		};
-		62B3175517131E36004A9D02 /* PBXContainerItemProxy */ = {
+		62FD5BFD17F059AB007C0397 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 627C2F06160B4F98004C1B11;
+			remoteInfo = BornAgain.Core;
+		};
+		62FD5BFF17F059AF007C0397 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 62B316B817131B55004A9D02;
 			remoteInfo = BornAgain.Fit;
+		};
+		62FD5EC717F06C2F007C0397 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62FD5C0C17F06186007C0397;
+			remoteInfo = BornAgain.RootMinimizers;
+		};
+		62FD5ECA17F06C6E007C0397 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62FD5C0C17F06186007C0397;
+			remoteInfo = BornAgain.RootMinimizers;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -657,19 +877,10 @@
 		626378A316666C5A00D1BD00 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /Users/herck/Development/git/GISASFW/App;
+			dstPath = "$(SRCROOT)/bin";
 			dstSubfolderSpec = 0;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		627F655317944760009E166F /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(SRCROOT)/lib";
-			dstSubfolderSpec = 0;
-			files = (
-				627F6554179447BB009E166F /* libRootMathMore.dylib in CopyFiles */,
+				62FD5ECC17F06D1C007C0397 /* App in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +891,16 @@
 			dstSubfolderSpec = 0;
 			files = (
 				62BADDDA17953229005BC59D /* libBornAgain.Core.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62FD5EC517F06BBB007C0397 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SRCROOT)/lib";
+			dstSubfolderSpec = 0;
+			files = (
+				62FD5EC617F06C05007C0397 /* libBornAgain.RootMinimizers.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2020,7 +2241,6 @@
 		627F640817941210009E166F /* gtest.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gtest.pro; sourceTree = "<group>"; };
 		627F650717942E64009E166F /* libBornAgain.Fit.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.Fit.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F650817942F41009E166F /* libBornAgain.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		627F650E17943257009E166F /* libRootMathMore.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libRootMathMore.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F6552179444B8009E166F /* BornAgain.TestFit01 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BornAgain.TestFit01; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F657C17944D37009E166F /* BornAgain.TestFit02 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BornAgain.TestFit02; sourceTree = BUILT_PRODUCTS_DIR; };
 		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
@@ -2242,6 +2462,262 @@
 		62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedDWBAZeroMag.cpp; sourceTree = "<group>"; };
 		62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../../../../opt/local/lib/libboost_iostreams.dylib; sourceTree = "<group>"; };
 		62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexMap.h; sourceTree = "<group>"; };
+		62FD5BEB17F057D9007C0397 /* FormFactorTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorTools.h; sourceTree = "<group>"; };
+		62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorTools.cpp; sourceTree = "<group>"; };
+		62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.RootMinimizers.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		62FD5C6C17F061E3007C0397 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		62FD5C6E17F061E3007C0397 /* RootMinimizers.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RootMinimizers.pro; sourceTree = "<group>"; };
+		62FD5C7117F061E3007C0397 /* BinData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinData.h; sourceTree = "<group>"; };
+		62FD5C7217F061E3007C0397 /* BinPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinPoint.h; sourceTree = "<group>"; };
+		62FD5C7317F061E3007C0397 /* Chi2FCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chi2FCN.h; sourceTree = "<group>"; };
+		62FD5C7417F061E3007C0397 /* DataOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataOptions.h; sourceTree = "<group>"; };
+		62FD5C7517F061E3007C0397 /* DataRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataRange.h; sourceTree = "<group>"; };
+		62FD5C7617F061E3007C0397 /* DataVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataVector.h; sourceTree = "<group>"; };
+		62FD5C7717F061E3007C0397 /* DataVectorfwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataVectorfwd.h; sourceTree = "<group>"; };
+		62FD5C7817F061E3007C0397 /* FcnAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FcnAdapter.h; sourceTree = "<group>"; };
+		62FD5C7917F061E3007C0397 /* FitConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitConfig.h; sourceTree = "<group>"; };
+		62FD5C7A17F061E3007C0397 /* FitResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitResult.h; sourceTree = "<group>"; };
+		62FD5C7B17F061E3007C0397 /* FitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitUtil.h; sourceTree = "<group>"; };
+		62FD5C7C17F061E3007C0397 /* FitUtilParallel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitUtilParallel.h; sourceTree = "<group>"; };
+		62FD5C7D17F061E3007C0397 /* Fitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fitter.h; sourceTree = "<group>"; };
+		62FD5C7E17F061E3007C0397 /* LogLikelihoodFCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogLikelihoodFCN.h; sourceTree = "<group>"; };
+		62FD5C7F17F061E3007C0397 /* ParameterSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterSettings.h; sourceTree = "<group>"; };
+		62FD5C8017F061E3007C0397 /* PoissonLikelihoodFCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoissonLikelihoodFCN.h; sourceTree = "<group>"; };
+		62FD5C8117F061E3007C0397 /* SparseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparseData.h; sourceTree = "<group>"; };
+		62FD5C8217F061E3007C0397 /* UnBinData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnBinData.h; sourceTree = "<group>"; };
+		62FD5C8417F061E3007C0397 /* Derivator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Derivator.h; sourceTree = "<group>"; };
+		62FD5C8517F061E3007C0397 /* Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
+		62FD5C8617F061E3007C0397 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		62FD5C8717F061E3007C0397 /* FitMethodFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitMethodFunction.h; sourceTree = "<group>"; };
+		62FD5C8817F061E3007C0397 /* Functor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functor.h; sourceTree = "<group>"; };
+		62FD5C8917F061E3007C0397 /* GSLFunctionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLFunctionAdapter.h; sourceTree = "<group>"; };
+		62FD5C8A17F061E3007C0397 /* GSLFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLFunctionWrapper.h; sourceTree = "<group>"; };
+		62FD5C8B17F061E3007C0397 /* GSLMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMinimizer.h; sourceTree = "<group>"; };
+		62FD5C8C17F061E3007C0397 /* GSLMinimizer1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMinimizer1D.h; sourceTree = "<group>"; };
+		62FD5C8D17F061E3007C0397 /* GSLNLSMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLNLSMinimizer.h; sourceTree = "<group>"; };
+		62FD5C8E17F061E3007C0397 /* GSLRndmEngines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLRndmEngines.h; sourceTree = "<group>"; };
+		62FD5C8F17F061E3007C0397 /* GSLSimAnMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLSimAnMinimizer.h; sourceTree = "<group>"; };
+		62FD5C9017F061E3007C0397 /* GSLSimAnnealing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLSimAnnealing.h; sourceTree = "<group>"; };
+		62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenAlgoOptions.h; sourceTree = "<group>"; };
+		62FD5C9217F061E3007C0397 /* IFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFunction.h; sourceTree = "<group>"; };
+		62FD5C9317F061E3007C0397 /* IFunctionfwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFunctionfwd.h; sourceTree = "<group>"; };
+		62FD5C9417F061E3007C0397 /* IMinimizer1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMinimizer1D.h; sourceTree = "<group>"; };
+		62FD5C9517F061E3007C0397 /* IOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOptions.h; sourceTree = "<group>"; };
+		62FD5C9617F061E3007C0397 /* IParamFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IParamFunction.h; sourceTree = "<group>"; };
+		62FD5C9717F061E3007C0397 /* IParamFunctionfwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IParamFunctionfwd.h; sourceTree = "<group>"; };
+		62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimTransformFunction.h; sourceTree = "<group>"; };
+		62FD5C9917F061E3007C0397 /* Minimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Minimizer.h; sourceTree = "<group>"; };
+		62FD5C9A17F061E3007C0397 /* MinimizerOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerOptions.h; sourceTree = "<group>"; };
+		62FD5C9B17F061E3007C0397 /* MinimizerVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerVariable.h; sourceTree = "<group>"; };
+		62FD5C9C17F061E3007C0397 /* MinimizerVariableTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerVariableTransformation.h; sourceTree = "<group>"; };
+		62FD5C9D17F061E3007C0397 /* MultiNumGradFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiNumGradFunction.h; sourceTree = "<group>"; };
+		62FD5C9E17F061E3007C0397 /* OneDimFunctionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneDimFunctionAdapter.h; sourceTree = "<group>"; };
+		62FD5C9F17F061E3007C0397 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		62FD5CA017F061E3007C0397 /* WrappedFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrappedFunction.h; sourceTree = "<group>"; };
+		62FD5CA117F061E3007C0397 /* WrappedParamFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrappedParamFunction.h; sourceTree = "<group>"; };
+		62FD5CA317F061E3007C0397 /* ABObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABObj.h; sourceTree = "<group>"; };
+		62FD5CA417F061E3007C0397 /* ABProd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABProd.h; sourceTree = "<group>"; };
+		62FD5CA517F061E3007C0397 /* ABSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABSum.h; sourceTree = "<group>"; };
+		62FD5CA617F061E3007C0397 /* ABTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTypes.h; sourceTree = "<group>"; };
+		62FD5CA717F061E3007C0397 /* AnalyticalGradientCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticalGradientCalculator.h; sourceTree = "<group>"; };
+		62FD5CA817F061E3007C0397 /* BasicFunctionGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicFunctionGradient.h; sourceTree = "<group>"; };
+		62FD5CA917F061E3007C0397 /* BasicFunctionMinimum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicFunctionMinimum.h; sourceTree = "<group>"; };
+		62FD5CAA17F061E3007C0397 /* BasicMinimumError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMinimumError.h; sourceTree = "<group>"; };
+		62FD5CAB17F061E3007C0397 /* BasicMinimumParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMinimumParameters.h; sourceTree = "<group>"; };
+		62FD5CAC17F061E3007C0397 /* BasicMinimumSeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMinimumSeed.h; sourceTree = "<group>"; };
+		62FD5CAD17F061E3007C0397 /* BasicMinimumState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMinimumState.h; sourceTree = "<group>"; };
+		62FD5CAE17F061E3007C0397 /* CombinedMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombinedMinimizer.h; sourceTree = "<group>"; };
+		62FD5CAF17F061E3007C0397 /* CombinedMinimumBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombinedMinimumBuilder.h; sourceTree = "<group>"; };
+		62FD5CB017F061E3007C0397 /* ContoursError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContoursError.h; sourceTree = "<group>"; };
+		62FD5CB117F061E3007C0397 /* DavidonErrorUpdator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DavidonErrorUpdator.h; sourceTree = "<group>"; };
+		62FD5CB217F061E3007C0397 /* FCNAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCNAdapter.h; sourceTree = "<group>"; };
+		62FD5CB317F061E3007C0397 /* FCNBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCNBase.h; sourceTree = "<group>"; };
+		62FD5CB417F061E3007C0397 /* FCNGradAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCNGradAdapter.h; sourceTree = "<group>"; };
+		62FD5CB517F061E3007C0397 /* FCNGradientBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCNGradientBase.h; sourceTree = "<group>"; };
+		62FD5CB617F061E3007C0397 /* FumiliBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliBuilder.h; sourceTree = "<group>"; };
+		62FD5CB717F061E3007C0397 /* FumiliChi2FCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliChi2FCN.h; sourceTree = "<group>"; };
+		62FD5CB817F061E3007C0397 /* FumiliErrorUpdator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliErrorUpdator.h; sourceTree = "<group>"; };
+		62FD5CB917F061E3007C0397 /* FumiliFCNAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliFCNAdapter.h; sourceTree = "<group>"; };
+		62FD5CBA17F061E3007C0397 /* FumiliFCNBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliFCNBase.h; sourceTree = "<group>"; };
+		62FD5CBB17F061E3007C0397 /* FumiliGradientCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliGradientCalculator.h; sourceTree = "<group>"; };
+		62FD5CBC17F061E3007C0397 /* FumiliMaximumLikelihoodFCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliMaximumLikelihoodFCN.h; sourceTree = "<group>"; };
+		62FD5CBD17F061E3007C0397 /* FumiliMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliMinimizer.h; sourceTree = "<group>"; };
+		62FD5CBE17F061E3007C0397 /* FumiliStandardChi2FCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliStandardChi2FCN.h; sourceTree = "<group>"; };
+		62FD5CBF17F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumiliStandardMaximumLikelihoodFCN.h; sourceTree = "<group>"; };
+		62FD5CC017F061E3007C0397 /* FunctionGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionGradient.h; sourceTree = "<group>"; };
+		62FD5CC117F061E3007C0397 /* FunctionMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionMinimizer.h; sourceTree = "<group>"; };
+		62FD5CC217F061E3007C0397 /* FunctionMinimum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionMinimum.h; sourceTree = "<group>"; };
+		62FD5CC317F061E3007C0397 /* GenericFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFunction.h; sourceTree = "<group>"; };
+		62FD5CC417F061E3007C0397 /* GradientCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientCalculator.h; sourceTree = "<group>"; };
+		62FD5CC517F061E3007C0397 /* HessianGradientCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HessianGradientCalculator.h; sourceTree = "<group>"; };
+		62FD5CC617F061E3007C0397 /* InitialGradientCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialGradientCalculator.h; sourceTree = "<group>"; };
+		62FD5CC717F061E3007C0397 /* LASymMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LASymMatrix.h; sourceTree = "<group>"; };
+		62FD5CC817F061E3007C0397 /* LAVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAVector.h; sourceTree = "<group>"; };
+		62FD5CC917F061E3007C0397 /* LaInverse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaInverse.h; sourceTree = "<group>"; };
+		62FD5CCA17F061E3007C0397 /* LaOuterProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaOuterProduct.h; sourceTree = "<group>"; };
+		62FD5CCB17F061E3007C0397 /* LaProd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaProd.h; sourceTree = "<group>"; };
+		62FD5CCC17F061E3007C0397 /* LaSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaSum.h; sourceTree = "<group>"; };
+		62FD5CCD17F061E3007C0397 /* MPIProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPIProcess.h; sourceTree = "<group>"; };
+		62FD5CCE17F061E3007C0397 /* MatrixInverse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixInverse.h; sourceTree = "<group>"; };
+		62FD5CCF17F061E3007C0397 /* MinimumBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumBuilder.h; sourceTree = "<group>"; };
+		62FD5CD017F061E3007C0397 /* MinimumError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumError.h; sourceTree = "<group>"; };
+		62FD5CD117F061E3007C0397 /* MinimumErrorUpdator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumErrorUpdator.h; sourceTree = "<group>"; };
+		62FD5CD217F061E3007C0397 /* MinimumParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumParameters.h; sourceTree = "<group>"; };
+		62FD5CD317F061E3007C0397 /* MinimumSeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumSeed.h; sourceTree = "<group>"; };
+		62FD5CD417F061E3007C0397 /* MinimumSeedGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumSeedGenerator.h; sourceTree = "<group>"; };
+		62FD5CD517F061E3007C0397 /* MinimumState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimumState.h; sourceTree = "<group>"; };
+		62FD5CD617F061E3007C0397 /* MinosError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinosError.h; sourceTree = "<group>"; };
+		62FD5CD717F061E3007C0397 /* Minuit2Minimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Minuit2Minimizer.h; sourceTree = "<group>"; };
+		62FD5CD817F061E3007C0397 /* MinuitParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitParameter.h; sourceTree = "<group>"; };
+		62FD5CD917F061E3007C0397 /* MnApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnApplication.h; sourceTree = "<group>"; };
+		62FD5CDA17F061E3007C0397 /* MnConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnConfig.h; sourceTree = "<group>"; };
+		62FD5CDB17F061E3007C0397 /* MnContours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnContours.h; sourceTree = "<group>"; };
+		62FD5CDC17F061E3007C0397 /* MnCovarianceSqueeze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnCovarianceSqueeze.h; sourceTree = "<group>"; };
+		62FD5CDD17F061E3007C0397 /* MnCross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnCross.h; sourceTree = "<group>"; };
+		62FD5CDE17F061E3007C0397 /* MnEigen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnEigen.h; sourceTree = "<group>"; };
+		62FD5CDF17F061E3007C0397 /* MnFcn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnFcn.h; sourceTree = "<group>"; };
+		62FD5CE017F061E3007C0397 /* MnFumiliMinimize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnFumiliMinimize.h; sourceTree = "<group>"; };
+		62FD5CE117F061E3007C0397 /* MnFunctionCross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnFunctionCross.h; sourceTree = "<group>"; };
+		62FD5CE217F061E3007C0397 /* MnGlobalCorrelationCoeff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnGlobalCorrelationCoeff.h; sourceTree = "<group>"; };
+		62FD5CE317F061E3007C0397 /* MnHesse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnHesse.h; sourceTree = "<group>"; };
+		62FD5CE417F061E3007C0397 /* MnLineSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnLineSearch.h; sourceTree = "<group>"; };
+		62FD5CE517F061E3007C0397 /* MnMachinePrecision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnMachinePrecision.h; sourceTree = "<group>"; };
+		62FD5CE617F061E3007C0397 /* MnMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnMatrix.h; sourceTree = "<group>"; };
+		62FD5CE717F061E3007C0397 /* MnMigrad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnMigrad.h; sourceTree = "<group>"; };
+		62FD5CE817F061E3007C0397 /* MnMinimize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnMinimize.h; sourceTree = "<group>"; };
+		62FD5CE917F061E3007C0397 /* MnMinos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnMinos.h; sourceTree = "<group>"; };
+		62FD5CEA17F061E3007C0397 /* MnParabola.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnParabola.h; sourceTree = "<group>"; };
+		62FD5CEB17F061E3007C0397 /* MnParabolaFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnParabolaFactory.h; sourceTree = "<group>"; };
+		62FD5CEC17F061E3007C0397 /* MnParabolaPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnParabolaPoint.h; sourceTree = "<group>"; };
+		62FD5CED17F061E3007C0397 /* MnParameterScan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnParameterScan.h; sourceTree = "<group>"; };
+		62FD5CEE17F061E3007C0397 /* MnPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnPlot.h; sourceTree = "<group>"; };
+		62FD5CEF17F061E3007C0397 /* MnPosDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnPosDef.h; sourceTree = "<group>"; };
+		62FD5CF017F061E3007C0397 /* MnPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnPrint.h; sourceTree = "<group>"; };
+		62FD5CF117F061E3007C0397 /* MnRefCountedPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnRefCountedPointer.h; sourceTree = "<group>"; };
+		62FD5CF217F061E3007C0397 /* MnReferenceCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnReferenceCounter.h; sourceTree = "<group>"; };
+		62FD5CF317F061E3007C0397 /* MnScan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnScan.h; sourceTree = "<group>"; };
+		62FD5CF417F061E3007C0397 /* MnSeedGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnSeedGenerator.h; sourceTree = "<group>"; };
+		62FD5CF517F061E3007C0397 /* MnSimplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnSimplex.h; sourceTree = "<group>"; };
+		62FD5CF617F061E3007C0397 /* MnStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnStrategy.h; sourceTree = "<group>"; };
+		62FD5CF717F061E3007C0397 /* MnTiny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnTiny.h; sourceTree = "<group>"; };
+		62FD5CF817F061E3007C0397 /* MnUserCovariance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnUserCovariance.h; sourceTree = "<group>"; };
+		62FD5CF917F061E3007C0397 /* MnUserFcn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnUserFcn.h; sourceTree = "<group>"; };
+		62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnUserParameterState.h; sourceTree = "<group>"; };
+		62FD5CFB17F061E3007C0397 /* MnUserParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnUserParameters.h; sourceTree = "<group>"; };
+		62FD5CFC17F061E3007C0397 /* MnUserTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnUserTransformation.h; sourceTree = "<group>"; };
+		62FD5CFD17F061E3007C0397 /* MnVectorTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnVectorTransform.h; sourceTree = "<group>"; };
+		62FD5CFE17F061E3007C0397 /* ModularFunctionMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularFunctionMinimizer.h; sourceTree = "<group>"; };
+		62FD5CFF17F061E3007C0397 /* NegativeG2LineSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeG2LineSearch.h; sourceTree = "<group>"; };
+		62FD5D0017F061E3007C0397 /* Numerical2PGradientCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Numerical2PGradientCalculator.h; sourceTree = "<group>"; };
+		62FD5D0117F061E3007C0397 /* ParametricFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParametricFunction.h; sourceTree = "<group>"; };
+		62FD5D0217F061E3007C0397 /* ScanBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanBuilder.h; sourceTree = "<group>"; };
+		62FD5D0317F061E3007C0397 /* ScanMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanMinimizer.h; sourceTree = "<group>"; };
+		62FD5D0417F061E3007C0397 /* SimplexBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplexBuilder.h; sourceTree = "<group>"; };
+		62FD5D0517F061E3007C0397 /* SimplexMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplexMinimizer.h; sourceTree = "<group>"; };
+		62FD5D0617F061E3007C0397 /* SimplexParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplexParameters.h; sourceTree = "<group>"; };
+		62FD5D0717F061E3007C0397 /* SimplexSeedGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplexSeedGenerator.h; sourceTree = "<group>"; };
+		62FD5D0817F061E3007C0397 /* SinParameterTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinParameterTransformation.h; sourceTree = "<group>"; };
+		62FD5D0917F061E3007C0397 /* SqrtLowParameterTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqrtLowParameterTransformation.h; sourceTree = "<group>"; };
+		62FD5D0A17F061E3007C0397 /* SqrtUpParameterTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqrtUpParameterTransformation.h; sourceTree = "<group>"; };
+		62FD5D0B17F061E3007C0397 /* StackAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackAllocator.h; sourceTree = "<group>"; };
+		62FD5D0C17F061E3007C0397 /* VariableMetricBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableMetricBuilder.h; sourceTree = "<group>"; };
+		62FD5D0D17F061E3007C0397 /* VariableMetricEDMEstimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableMetricEDMEstimator.h; sourceTree = "<group>"; };
+		62FD5D0E17F061E3007C0397 /* VariableMetricMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableMetricMinimizer.h; sourceTree = "<group>"; };
+		62FD5D0F17F061E3007C0397 /* VectorOuterProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorOuterProduct.h; sourceTree = "<group>"; };
+		62FD5D1317F061E3007C0397 /* Derivator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Derivator.cxx; sourceTree = "<group>"; };
+		62FD5D1417F061E3007C0397 /* Factory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Factory.cxx; sourceTree = "<group>"; };
+		62FD5D1517F061E3007C0397 /* GSL1DMinimizerWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSL1DMinimizerWrapper.h; sourceTree = "<group>"; };
+		62FD5D1617F061E3007C0397 /* GSLDerivator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLDerivator.cxx; sourceTree = "<group>"; };
+		62FD5D1717F061E3007C0397 /* GSLDerivator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLDerivator.h; sourceTree = "<group>"; };
+		62FD5D1817F061E3007C0397 /* GSLFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLFunctionWrapper.h; sourceTree = "<group>"; };
+		62FD5D1917F061E3007C0397 /* GSLMinimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLMinimizer.cxx; sourceTree = "<group>"; };
+		62FD5D1A17F061E3007C0397 /* GSLMinimizer1D.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLMinimizer1D.cxx; sourceTree = "<group>"; };
+		62FD5D1B17F061E3007C0397 /* GSLMultiFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiFit.h; sourceTree = "<group>"; };
+		62FD5D1C17F061E3007C0397 /* GSLMultiFitFunctionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiFitFunctionAdapter.h; sourceTree = "<group>"; };
+		62FD5D1D17F061E3007C0397 /* GSLMultiFitFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiFitFunctionWrapper.h; sourceTree = "<group>"; };
+		62FD5D1E17F061E3007C0397 /* GSLMultiMinFunctionAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiMinFunctionAdapter.h; sourceTree = "<group>"; };
+		62FD5D1F17F061E3007C0397 /* GSLMultiMinFunctionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiMinFunctionWrapper.h; sourceTree = "<group>"; };
+		62FD5D2017F061E3007C0397 /* GSLMultiMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLMultiMinimizer.h; sourceTree = "<group>"; };
+		62FD5D2117F061E3007C0397 /* GSLNLSMinimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLNLSMinimizer.cxx; sourceTree = "<group>"; };
+		62FD5D2217F061E3007C0397 /* GSLRndmEngines.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLRndmEngines.cxx; sourceTree = "<group>"; };
+		62FD5D2317F061E3007C0397 /* GSLRngWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLRngWrapper.h; sourceTree = "<group>"; };
+		62FD5D2417F061E3007C0397 /* GSLSimAnMinimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLSimAnMinimizer.cxx; sourceTree = "<group>"; };
+		62FD5D2517F061E3007C0397 /* GSLSimAnnealing.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSLSimAnnealing.cxx; sourceTree = "<group>"; };
+		62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenAlgoOptions.cxx; sourceTree = "<group>"; };
+		62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimTransformFunction.cxx; sourceTree = "<group>"; };
+		62FD5D2817F061E3007C0397 /* MinimizerOptions.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerOptions.cxx; sourceTree = "<group>"; };
+		62FD5D2917F061E3007C0397 /* MinimizerVariableTransformation.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerVariableTransformation.cxx; sourceTree = "<group>"; };
+		62FD5D2A17F061E3007C0397 /* MultiNumGradFunction.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiNumGradFunction.cxx; sourceTree = "<group>"; };
+		62FD5D2C17F061E3007C0397 /* AnalyticalGradientCalculator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnalyticalGradientCalculator.cxx; sourceTree = "<group>"; };
+		62FD5D2D17F061E3007C0397 /* BasicMinimumError.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicMinimumError.cxx; sourceTree = "<group>"; };
+		62FD5D2E17F061E3007C0397 /* CombinedMinimumBuilder.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CombinedMinimumBuilder.cxx; sourceTree = "<group>"; };
+		62FD5D2F17F061E3007C0397 /* DavidonErrorUpdator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DavidonErrorUpdator.cxx; sourceTree = "<group>"; };
+		62FD5D3017F061E3007C0397 /* FumiliBuilder.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FumiliBuilder.cxx; sourceTree = "<group>"; };
+		62FD5D3117F061E3007C0397 /* FumiliErrorUpdator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FumiliErrorUpdator.cxx; sourceTree = "<group>"; };
+		62FD5D3217F061E3007C0397 /* FumiliGradientCalculator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FumiliGradientCalculator.cxx; sourceTree = "<group>"; };
+		62FD5D3317F061E3007C0397 /* FumiliMinimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FumiliMinimizer.cxx; sourceTree = "<group>"; };
+		62FD5D3417F061E3007C0397 /* FumiliStandardChi2FCN.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FumiliStandardChi2FCN.cxx; sourceTree = "<group>"; };
+		62FD5D3517F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FumiliStandardMaximumLikelihoodFCN.cxx; sourceTree = "<group>"; };
+		62FD5D3617F061E3007C0397 /* HessianGradientCalculator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HessianGradientCalculator.cxx; sourceTree = "<group>"; };
+		62FD5D3717F061E3007C0397 /* InitialGradientCalculator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InitialGradientCalculator.cxx; sourceTree = "<group>"; };
+		62FD5D3817F061E3007C0397 /* LaEigenValues.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaEigenValues.cxx; sourceTree = "<group>"; };
+		62FD5D3917F061E3007C0397 /* LaInnerProduct.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaInnerProduct.cxx; sourceTree = "<group>"; };
+		62FD5D3A17F061E3007C0397 /* LaInverse.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaInverse.cxx; sourceTree = "<group>"; };
+		62FD5D3B17F061E3007C0397 /* LaOuterProduct.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaOuterProduct.cxx; sourceTree = "<group>"; };
+		62FD5D3C17F061E3007C0397 /* LaSumOfElements.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaSumOfElements.cxx; sourceTree = "<group>"; };
+		62FD5D3D17F061E3007C0397 /* LaVtMVSimilarity.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaVtMVSimilarity.cxx; sourceTree = "<group>"; };
+		62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MPIProcess.cxx; sourceTree = "<group>"; };
+		62FD5D3F17F061E3007C0397 /* Minuit2Minimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Minuit2Minimizer.cxx; sourceTree = "<group>"; };
+		62FD5D4017F061E3007C0397 /* MnApplication.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnApplication.cxx; sourceTree = "<group>"; };
+		62FD5D4117F061E3007C0397 /* MnContours.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnContours.cxx; sourceTree = "<group>"; };
+		62FD5D4217F061E3007C0397 /* MnCovarianceSqueeze.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnCovarianceSqueeze.cxx; sourceTree = "<group>"; };
+		62FD5D4317F061E3007C0397 /* MnEigen.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnEigen.cxx; sourceTree = "<group>"; };
+		62FD5D4417F061E3007C0397 /* MnFcn.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnFcn.cxx; sourceTree = "<group>"; };
+		62FD5D4517F061E3007C0397 /* MnFumiliMinimize.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnFumiliMinimize.cxx; sourceTree = "<group>"; };
+		62FD5D4617F061E3007C0397 /* MnFunctionCross.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnFunctionCross.cxx; sourceTree = "<group>"; };
+		62FD5D4717F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnGlobalCorrelationCoeff.cxx; sourceTree = "<group>"; };
+		62FD5D4817F061E3007C0397 /* MnHesse.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnHesse.cxx; sourceTree = "<group>"; };
+		62FD5D4917F061E3007C0397 /* MnLineSearch.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnLineSearch.cxx; sourceTree = "<group>"; };
+		62FD5D4A17F061E3007C0397 /* MnMachinePrecision.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnMachinePrecision.cxx; sourceTree = "<group>"; };
+		62FD5D4B17F061E3007C0397 /* MnMinos.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnMinos.cxx; sourceTree = "<group>"; };
+		62FD5D4C17F061E3007C0397 /* MnParabolaFactory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnParabolaFactory.cxx; sourceTree = "<group>"; };
+		62FD5D4D17F061E3007C0397 /* MnParameterScan.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnParameterScan.cxx; sourceTree = "<group>"; };
+		62FD5D4E17F061E3007C0397 /* MnPlot.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnPlot.cxx; sourceTree = "<group>"; };
+		62FD5D4F17F061E3007C0397 /* MnPosDef.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnPosDef.cxx; sourceTree = "<group>"; };
+		62FD5D5017F061E3007C0397 /* MnPrint.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnPrint.cxx; sourceTree = "<group>"; };
+		62FD5D5117F061E3007C0397 /* MnScan.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnScan.cxx; sourceTree = "<group>"; };
+		62FD5D5217F061E3007C0397 /* MnSeedGenerator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnSeedGenerator.cxx; sourceTree = "<group>"; };
+		62FD5D5317F061E3007C0397 /* MnStrategy.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnStrategy.cxx; sourceTree = "<group>"; };
+		62FD5D5417F061E3007C0397 /* MnTiny.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnTiny.cxx; sourceTree = "<group>"; };
+		62FD5D5517F061E3007C0397 /* MnUserFcn.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnUserFcn.cxx; sourceTree = "<group>"; };
+		62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnUserParameterState.cxx; sourceTree = "<group>"; };
+		62FD5D5717F061E3007C0397 /* MnUserParameters.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnUserParameters.cxx; sourceTree = "<group>"; };
+		62FD5D5817F061E3007C0397 /* MnUserTransformation.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MnUserTransformation.cxx; sourceTree = "<group>"; };
+		62FD5D5917F061E3007C0397 /* ModularFunctionMinimizer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularFunctionMinimizer.cxx; sourceTree = "<group>"; };
+		62FD5D5A17F061E3007C0397 /* NegativeG2LineSearch.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NegativeG2LineSearch.cxx; sourceTree = "<group>"; };
+		62FD5D5B17F061E3007C0397 /* Numerical2PGradientCalculator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Numerical2PGradientCalculator.cxx; sourceTree = "<group>"; };
+		62FD5D5C17F061E3007C0397 /* ParametricFunction.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParametricFunction.cxx; sourceTree = "<group>"; };
+		62FD5D5D17F061E3007C0397 /* ScanBuilder.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScanBuilder.cxx; sourceTree = "<group>"; };
+		62FD5D5E17F061E3007C0397 /* SimplexBuilder.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimplexBuilder.cxx; sourceTree = "<group>"; };
+		62FD5D5F17F061E3007C0397 /* SimplexParameters.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimplexParameters.cxx; sourceTree = "<group>"; };
+		62FD5D6017F061E3007C0397 /* SimplexSeedGenerator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimplexSeedGenerator.cxx; sourceTree = "<group>"; };
+		62FD5D6117F061E3007C0397 /* SinParameterTransformation.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinParameterTransformation.cxx; sourceTree = "<group>"; };
+		62FD5D6217F061E3007C0397 /* SqrtLowParameterTransformation.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SqrtLowParameterTransformation.cxx; sourceTree = "<group>"; };
+		62FD5D6317F061E3007C0397 /* SqrtUpParameterTransformation.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SqrtUpParameterTransformation.cxx; sourceTree = "<group>"; };
+		62FD5D6417F061E3007C0397 /* VariableMetricBuilder.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableMetricBuilder.cxx; sourceTree = "<group>"; };
+		62FD5D6517F061E3007C0397 /* VariableMetricEDMEstimator.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableMetricEDMEstimator.cxx; sourceTree = "<group>"; };
+		62FD5D6617F061E3007C0397 /* mnbins.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mnbins.cxx; sourceTree = "<group>"; };
+		62FD5D6717F061E3007C0397 /* mndasum.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mndasum.cxx; sourceTree = "<group>"; };
+		62FD5D6817F061E3007C0397 /* mndaxpy.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mndaxpy.cxx; sourceTree = "<group>"; };
+		62FD5D6917F061E3007C0397 /* mnddot.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mnddot.cxx; sourceTree = "<group>"; };
+		62FD5D6A17F061E3007C0397 /* mndscal.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mndscal.cxx; sourceTree = "<group>"; };
+		62FD5D6B17F061E3007C0397 /* mndspmv.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mndspmv.cxx; sourceTree = "<group>"; };
+		62FD5D6C17F061E3007C0397 /* mndspr.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mndspr.cxx; sourceTree = "<group>"; };
+		62FD5D6D17F061E3007C0397 /* mnlsame.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mnlsame.cxx; sourceTree = "<group>"; };
+		62FD5D6E17F061E3007C0397 /* mnteigen.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mnteigen.cxx; sourceTree = "<group>"; };
+		62FD5D6F17F061E3007C0397 /* mntplot.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mntplot.cxx; sourceTree = "<group>"; };
+		62FD5D7017F061E3007C0397 /* mnvert.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mnvert.cxx; sourceTree = "<group>"; };
+		62FD5D7117F061E3007C0397 /* mnxerbla.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mnxerbla.cxx; sourceTree = "<group>"; };
 		62FDC0591615E35900D28B08 /* ProgramOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramOptions.h; sourceTree = "<group>"; };
 		62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgramOptions.cpp; sourceTree = "<group>"; };
 		62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreOptionsDescription.cpp; sourceTree = "<group>"; };
@@ -2257,7 +2733,6 @@
 			files = (
 				62BADE711795361A005BC59D /* libBornAgain.Core.dylib in Frameworks */,
 				62BADE721795361A005BC59D /* libBornAgain.Fit.dylib in Frameworks */,
-				62BADE731795361A005BC59D /* libRootMathMore.dylib in Frameworks */,
 				621D0BF616A9886C00134391 /* libboost_signals.dylib in Frameworks */,
 				62FDC0681615F2B700D28B08 /* libboost_program_options.dylib in Frameworks */,
 				6222D086160C8513008205AC /* libboost_filesystem.dylib in Frameworks */,
@@ -2318,7 +2793,6 @@
 			files = (
 				627F651A17943D46009E166F /* gtest.framework in Frameworks */,
 				627F6517179436FD009E166F /* libBornAgain.Fit.dylib in Frameworks */,
-				627F6518179436FD009E166F /* libRootMathMore.dylib in Frameworks */,
 				627F6516179436B2009E166F /* libBornAgain.Core.dylib in Frameworks */,
 				627F631017941019009E166F /* libCint.5.34.so in Frameworks */,
 				627F631117941019009E166F /* libCore.5.34.so in Frameworks */,
@@ -2341,36 +2815,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		627F649317941708009E166F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				627F64F917941C9B009E166F /* libGui.5.34.so in Frameworks */,
-				627F64F517941C9B009E166F /* libCore.5.34.so in Frameworks */,
-				627F64F417941C9B009E166F /* libCint.5.34.so in Frameworks */,
-				627F64FD17941C9B009E166F /* libRIO.5.34.so in Frameworks */,
-				627F64FA17941C9B009E166F /* libHist.5.34.so in Frameworks */,
-				627F64F717941C9B009E166F /* libGraf.5.34.so in Frameworks */,
-				627F64F817941C9B009E166F /* libGraf3d.5.34.so in Frameworks */,
-				627F64F617941C9B009E166F /* libGpad.5.34.so in Frameworks */,
-				627F64FF17941C9B009E166F /* libTree.5.34.so in Frameworks */,
-				627F64FC17941C9B009E166F /* libRint.5.34.so in Frameworks */,
-				627F6500179420C2009E166F /* libPostscript.5.34.so in Frameworks */,
-				627F64FB17941C9B009E166F /* libMatrix.5.34.so in Frameworks */,
-				627F64F1179418FC009E166F /* libMathCore.5.34.so in Frameworks */,
-				627F64F317941BE3009E166F /* libMinuit2.5.34.so in Frameworks */,
-				627F64FE17941C9B009E166F /* libThread.5.34.so in Frameworks */,
-				627F64F217941B35009E166F /* libgsl.0.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		627F6538179444B8009E166F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				627F6539179444B8009E166F /* gtest.framework in Frameworks */,
 				627F653A179444B8009E166F /* libBornAgain.Fit.dylib in Frameworks */,
-				627F653B179444B8009E166F /* libRootMathMore.dylib in Frameworks */,
 				627F653C179444B8009E166F /* libBornAgain.Core.dylib in Frameworks */,
 				627F653D179444B8009E166F /* libCint.5.34.so in Frameworks */,
 				627F653E179444B8009E166F /* libCore.5.34.so in Frameworks */,
@@ -2399,7 +2849,6 @@
 			files = (
 				627F656317944D37009E166F /* gtest.framework in Frameworks */,
 				627F656417944D37009E166F /* libBornAgain.Fit.dylib in Frameworks */,
-				627F656517944D37009E166F /* libRootMathMore.dylib in Frameworks */,
 				627F656617944D37009E166F /* libBornAgain.Core.dylib in Frameworks */,
 				627F656717944D37009E166F /* libCint.5.34.so in Frameworks */,
 				627F656817944D37009E166F /* libCore.5.34.so in Frameworks */,
@@ -2426,7 +2875,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				627F651117943526009E166F /* libRootMathMore.dylib in Frameworks */,
+				62FD5EC917F06C63007C0397 /* libBornAgain.RootMinimizers.dylib in Frameworks */,
 				627F65091794306D009E166F /* libBornAgain.Core.dylib in Frameworks */,
 				62B3175017131DF9004A9D02 /* libMathCore.5.34.so in Frameworks */,
 				62B3175217131DF9004A9D02 /* libMinuit2.5.34.so in Frameworks */,
@@ -2455,6 +2904,14 @@
 				62B3173117131B55004A9D02 /* Python in Frameworks */,
 				62B3173217131B55004A9D02 /* libboost_python.dylib in Frameworks */,
 				62B3173317131B55004A9D02 /* libfftw3.3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62FD5C0A17F06186007C0397 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62FD5EC317F0643B007C0397 /* libgsl.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2721,6 +3178,7 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62FD5BEB17F057D9007C0397 /* FormFactorTools.h */,
 				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
 				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
 				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
@@ -2761,6 +3219,7 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */,
 				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
 				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
 				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
@@ -69734,6 +70193,7 @@
 		622245E9160CB74C008205AC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				62FD5C1117F061E2007C0397 /* RootMinimizers */,
 				627F63211794120F009E166F /* gtest */,
 			);
 			path = ThirdParty;
@@ -69789,12 +70249,12 @@
 				627C3031160B69D7004C1B11 /* libfftw3.3.dylib */,
 				627F650717942E64009E166F /* libBornAgain.Fit.dylib */,
 				627F650817942F41009E166F /* libBornAgain.Core.dylib */,
-				627F650E17943257009E166F /* libRootMathMore.dylib */,
 				627F6552179444B8009E166F /* BornAgain.TestFit01 */,
 				627F657C17944D37009E166F /* BornAgain.TestFit02 */,
 				62BADDC917952FC2005BC59D /* App */,
 				62BADDCA17952FC2005BC59D /* BornAgain.TestCore */,
 				62BADDCB17952FC2005BC59D /* BornAgain.CL.All */,
+				62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70741,7 +71201,500 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		62FD5C1117F061E2007C0397 /* RootMinimizers */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5C6C17F061E3007C0397 /* CMakeLists.txt */,
+				62FD5C6E17F061E3007C0397 /* RootMinimizers.pro */,
+				62FD5C6F17F061E3007C0397 /* inc */,
+				62FD5D1117F061E3007C0397 /* src */,
+			);
+			path = RootMinimizers;
+			sourceTree = "<group>";
+		};
+		62FD5C6F17F061E3007C0397 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5C7017F061E3007C0397 /* Fit */,
+				62FD5C8317F061E3007C0397 /* Math */,
+				62FD5CA217F061E3007C0397 /* Minuit2 */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		62FD5C7017F061E3007C0397 /* Fit */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5C7117F061E3007C0397 /* BinData.h */,
+				62FD5C7217F061E3007C0397 /* BinPoint.h */,
+				62FD5C7317F061E3007C0397 /* Chi2FCN.h */,
+				62FD5C7417F061E3007C0397 /* DataOptions.h */,
+				62FD5C7517F061E3007C0397 /* DataRange.h */,
+				62FD5C7617F061E3007C0397 /* DataVector.h */,
+				62FD5C7717F061E3007C0397 /* DataVectorfwd.h */,
+				62FD5C7817F061E3007C0397 /* FcnAdapter.h */,
+				62FD5C7917F061E3007C0397 /* FitConfig.h */,
+				62FD5C7A17F061E3007C0397 /* FitResult.h */,
+				62FD5C7B17F061E3007C0397 /* FitUtil.h */,
+				62FD5C7C17F061E3007C0397 /* FitUtilParallel.h */,
+				62FD5C7D17F061E3007C0397 /* Fitter.h */,
+				62FD5C7E17F061E3007C0397 /* LogLikelihoodFCN.h */,
+				62FD5C7F17F061E3007C0397 /* ParameterSettings.h */,
+				62FD5C8017F061E3007C0397 /* PoissonLikelihoodFCN.h */,
+				62FD5C8117F061E3007C0397 /* SparseData.h */,
+				62FD5C8217F061E3007C0397 /* UnBinData.h */,
+			);
+			path = Fit;
+			sourceTree = "<group>";
+		};
+		62FD5C8317F061E3007C0397 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5C8417F061E3007C0397 /* Derivator.h */,
+				62FD5C8517F061E3007C0397 /* Error.h */,
+				62FD5C8617F061E3007C0397 /* Factory.h */,
+				62FD5C8717F061E3007C0397 /* FitMethodFunction.h */,
+				62FD5C8817F061E3007C0397 /* Functor.h */,
+				62FD5C8917F061E3007C0397 /* GSLFunctionAdapter.h */,
+				62FD5C8A17F061E3007C0397 /* GSLFunctionWrapper.h */,
+				62FD5C8B17F061E3007C0397 /* GSLMinimizer.h */,
+				62FD5C8C17F061E3007C0397 /* GSLMinimizer1D.h */,
+				62FD5C8D17F061E3007C0397 /* GSLNLSMinimizer.h */,
+				62FD5C8E17F061E3007C0397 /* GSLRndmEngines.h */,
+				62FD5C8F17F061E3007C0397 /* GSLSimAnMinimizer.h */,
+				62FD5C9017F061E3007C0397 /* GSLSimAnnealing.h */,
+				62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */,
+				62FD5C9217F061E3007C0397 /* IFunction.h */,
+				62FD5C9317F061E3007C0397 /* IFunctionfwd.h */,
+				62FD5C9417F061E3007C0397 /* IMinimizer1D.h */,
+				62FD5C9517F061E3007C0397 /* IOptions.h */,
+				62FD5C9617F061E3007C0397 /* IParamFunction.h */,
+				62FD5C9717F061E3007C0397 /* IParamFunctionfwd.h */,
+				62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */,
+				62FD5C9917F061E3007C0397 /* Minimizer.h */,
+				62FD5C9A17F061E3007C0397 /* MinimizerOptions.h */,
+				62FD5C9B17F061E3007C0397 /* MinimizerVariable.h */,
+				62FD5C9C17F061E3007C0397 /* MinimizerVariableTransformation.h */,
+				62FD5C9D17F061E3007C0397 /* MultiNumGradFunction.h */,
+				62FD5C9E17F061E3007C0397 /* OneDimFunctionAdapter.h */,
+				62FD5C9F17F061E3007C0397 /* Util.h */,
+				62FD5CA017F061E3007C0397 /* WrappedFunction.h */,
+				62FD5CA117F061E3007C0397 /* WrappedParamFunction.h */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		62FD5CA217F061E3007C0397 /* Minuit2 */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5CA317F061E3007C0397 /* ABObj.h */,
+				62FD5CA417F061E3007C0397 /* ABProd.h */,
+				62FD5CA517F061E3007C0397 /* ABSum.h */,
+				62FD5CA617F061E3007C0397 /* ABTypes.h */,
+				62FD5CA717F061E3007C0397 /* AnalyticalGradientCalculator.h */,
+				62FD5CA817F061E3007C0397 /* BasicFunctionGradient.h */,
+				62FD5CA917F061E3007C0397 /* BasicFunctionMinimum.h */,
+				62FD5CAA17F061E3007C0397 /* BasicMinimumError.h */,
+				62FD5CAB17F061E3007C0397 /* BasicMinimumParameters.h */,
+				62FD5CAC17F061E3007C0397 /* BasicMinimumSeed.h */,
+				62FD5CAD17F061E3007C0397 /* BasicMinimumState.h */,
+				62FD5CAE17F061E3007C0397 /* CombinedMinimizer.h */,
+				62FD5CAF17F061E3007C0397 /* CombinedMinimumBuilder.h */,
+				62FD5CB017F061E3007C0397 /* ContoursError.h */,
+				62FD5CB117F061E3007C0397 /* DavidonErrorUpdator.h */,
+				62FD5CB217F061E3007C0397 /* FCNAdapter.h */,
+				62FD5CB317F061E3007C0397 /* FCNBase.h */,
+				62FD5CB417F061E3007C0397 /* FCNGradAdapter.h */,
+				62FD5CB517F061E3007C0397 /* FCNGradientBase.h */,
+				62FD5CB617F061E3007C0397 /* FumiliBuilder.h */,
+				62FD5CB717F061E3007C0397 /* FumiliChi2FCN.h */,
+				62FD5CB817F061E3007C0397 /* FumiliErrorUpdator.h */,
+				62FD5CB917F061E3007C0397 /* FumiliFCNAdapter.h */,
+				62FD5CBA17F061E3007C0397 /* FumiliFCNBase.h */,
+				62FD5CBB17F061E3007C0397 /* FumiliGradientCalculator.h */,
+				62FD5CBC17F061E3007C0397 /* FumiliMaximumLikelihoodFCN.h */,
+				62FD5CBD17F061E3007C0397 /* FumiliMinimizer.h */,
+				62FD5CBE17F061E3007C0397 /* FumiliStandardChi2FCN.h */,
+				62FD5CBF17F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.h */,
+				62FD5CC017F061E3007C0397 /* FunctionGradient.h */,
+				62FD5CC117F061E3007C0397 /* FunctionMinimizer.h */,
+				62FD5CC217F061E3007C0397 /* FunctionMinimum.h */,
+				62FD5CC317F061E3007C0397 /* GenericFunction.h */,
+				62FD5CC417F061E3007C0397 /* GradientCalculator.h */,
+				62FD5CC517F061E3007C0397 /* HessianGradientCalculator.h */,
+				62FD5CC617F061E3007C0397 /* InitialGradientCalculator.h */,
+				62FD5CC717F061E3007C0397 /* LASymMatrix.h */,
+				62FD5CC817F061E3007C0397 /* LAVector.h */,
+				62FD5CC917F061E3007C0397 /* LaInverse.h */,
+				62FD5CCA17F061E3007C0397 /* LaOuterProduct.h */,
+				62FD5CCB17F061E3007C0397 /* LaProd.h */,
+				62FD5CCC17F061E3007C0397 /* LaSum.h */,
+				62FD5CCD17F061E3007C0397 /* MPIProcess.h */,
+				62FD5CCE17F061E3007C0397 /* MatrixInverse.h */,
+				62FD5CCF17F061E3007C0397 /* MinimumBuilder.h */,
+				62FD5CD017F061E3007C0397 /* MinimumError.h */,
+				62FD5CD117F061E3007C0397 /* MinimumErrorUpdator.h */,
+				62FD5CD217F061E3007C0397 /* MinimumParameters.h */,
+				62FD5CD317F061E3007C0397 /* MinimumSeed.h */,
+				62FD5CD417F061E3007C0397 /* MinimumSeedGenerator.h */,
+				62FD5CD517F061E3007C0397 /* MinimumState.h */,
+				62FD5CD617F061E3007C0397 /* MinosError.h */,
+				62FD5CD717F061E3007C0397 /* Minuit2Minimizer.h */,
+				62FD5CD817F061E3007C0397 /* MinuitParameter.h */,
+				62FD5CD917F061E3007C0397 /* MnApplication.h */,
+				62FD5CDA17F061E3007C0397 /* MnConfig.h */,
+				62FD5CDB17F061E3007C0397 /* MnContours.h */,
+				62FD5CDC17F061E3007C0397 /* MnCovarianceSqueeze.h */,
+				62FD5CDD17F061E3007C0397 /* MnCross.h */,
+				62FD5CDE17F061E3007C0397 /* MnEigen.h */,
+				62FD5CDF17F061E3007C0397 /* MnFcn.h */,
+				62FD5CE017F061E3007C0397 /* MnFumiliMinimize.h */,
+				62FD5CE117F061E3007C0397 /* MnFunctionCross.h */,
+				62FD5CE217F061E3007C0397 /* MnGlobalCorrelationCoeff.h */,
+				62FD5CE317F061E3007C0397 /* MnHesse.h */,
+				62FD5CE417F061E3007C0397 /* MnLineSearch.h */,
+				62FD5CE517F061E3007C0397 /* MnMachinePrecision.h */,
+				62FD5CE617F061E3007C0397 /* MnMatrix.h */,
+				62FD5CE717F061E3007C0397 /* MnMigrad.h */,
+				62FD5CE817F061E3007C0397 /* MnMinimize.h */,
+				62FD5CE917F061E3007C0397 /* MnMinos.h */,
+				62FD5CEA17F061E3007C0397 /* MnParabola.h */,
+				62FD5CEB17F061E3007C0397 /* MnParabolaFactory.h */,
+				62FD5CEC17F061E3007C0397 /* MnParabolaPoint.h */,
+				62FD5CED17F061E3007C0397 /* MnParameterScan.h */,
+				62FD5CEE17F061E3007C0397 /* MnPlot.h */,
+				62FD5CEF17F061E3007C0397 /* MnPosDef.h */,
+				62FD5CF017F061E3007C0397 /* MnPrint.h */,
+				62FD5CF117F061E3007C0397 /* MnRefCountedPointer.h */,
+				62FD5CF217F061E3007C0397 /* MnReferenceCounter.h */,
+				62FD5CF317F061E3007C0397 /* MnScan.h */,
+				62FD5CF417F061E3007C0397 /* MnSeedGenerator.h */,
+				62FD5CF517F061E3007C0397 /* MnSimplex.h */,
+				62FD5CF617F061E3007C0397 /* MnStrategy.h */,
+				62FD5CF717F061E3007C0397 /* MnTiny.h */,
+				62FD5CF817F061E3007C0397 /* MnUserCovariance.h */,
+				62FD5CF917F061E3007C0397 /* MnUserFcn.h */,
+				62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */,
+				62FD5CFB17F061E3007C0397 /* MnUserParameters.h */,
+				62FD5CFC17F061E3007C0397 /* MnUserTransformation.h */,
+				62FD5CFD17F061E3007C0397 /* MnVectorTransform.h */,
+				62FD5CFE17F061E3007C0397 /* ModularFunctionMinimizer.h */,
+				62FD5CFF17F061E3007C0397 /* NegativeG2LineSearch.h */,
+				62FD5D0017F061E3007C0397 /* Numerical2PGradientCalculator.h */,
+				62FD5D0117F061E3007C0397 /* ParametricFunction.h */,
+				62FD5D0217F061E3007C0397 /* ScanBuilder.h */,
+				62FD5D0317F061E3007C0397 /* ScanMinimizer.h */,
+				62FD5D0417F061E3007C0397 /* SimplexBuilder.h */,
+				62FD5D0517F061E3007C0397 /* SimplexMinimizer.h */,
+				62FD5D0617F061E3007C0397 /* SimplexParameters.h */,
+				62FD5D0717F061E3007C0397 /* SimplexSeedGenerator.h */,
+				62FD5D0817F061E3007C0397 /* SinParameterTransformation.h */,
+				62FD5D0917F061E3007C0397 /* SqrtLowParameterTransformation.h */,
+				62FD5D0A17F061E3007C0397 /* SqrtUpParameterTransformation.h */,
+				62FD5D0B17F061E3007C0397 /* StackAllocator.h */,
+				62FD5D0C17F061E3007C0397 /* VariableMetricBuilder.h */,
+				62FD5D0D17F061E3007C0397 /* VariableMetricEDMEstimator.h */,
+				62FD5D0E17F061E3007C0397 /* VariableMetricMinimizer.h */,
+				62FD5D0F17F061E3007C0397 /* VectorOuterProduct.h */,
+			);
+			path = Minuit2;
+			sourceTree = "<group>";
+		};
+		62FD5D1117F061E3007C0397 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5D1217F061E3007C0397 /* Math */,
+				62FD5D2B17F061E3007C0397 /* Minuit2 */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		62FD5D1217F061E3007C0397 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5D1317F061E3007C0397 /* Derivator.cxx */,
+				62FD5D1417F061E3007C0397 /* Factory.cxx */,
+				62FD5D1517F061E3007C0397 /* GSL1DMinimizerWrapper.h */,
+				62FD5D1617F061E3007C0397 /* GSLDerivator.cxx */,
+				62FD5D1717F061E3007C0397 /* GSLDerivator.h */,
+				62FD5D1817F061E3007C0397 /* GSLFunctionWrapper.h */,
+				62FD5D1917F061E3007C0397 /* GSLMinimizer.cxx */,
+				62FD5D1A17F061E3007C0397 /* GSLMinimizer1D.cxx */,
+				62FD5D1B17F061E3007C0397 /* GSLMultiFit.h */,
+				62FD5D1C17F061E3007C0397 /* GSLMultiFitFunctionAdapter.h */,
+				62FD5D1D17F061E3007C0397 /* GSLMultiFitFunctionWrapper.h */,
+				62FD5D1E17F061E3007C0397 /* GSLMultiMinFunctionAdapter.h */,
+				62FD5D1F17F061E3007C0397 /* GSLMultiMinFunctionWrapper.h */,
+				62FD5D2017F061E3007C0397 /* GSLMultiMinimizer.h */,
+				62FD5D2117F061E3007C0397 /* GSLNLSMinimizer.cxx */,
+				62FD5D2217F061E3007C0397 /* GSLRndmEngines.cxx */,
+				62FD5D2317F061E3007C0397 /* GSLRngWrapper.h */,
+				62FD5D2417F061E3007C0397 /* GSLSimAnMinimizer.cxx */,
+				62FD5D2517F061E3007C0397 /* GSLSimAnnealing.cxx */,
+				62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */,
+				62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */,
+				62FD5D2817F061E3007C0397 /* MinimizerOptions.cxx */,
+				62FD5D2917F061E3007C0397 /* MinimizerVariableTransformation.cxx */,
+				62FD5D2A17F061E3007C0397 /* MultiNumGradFunction.cxx */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		62FD5D2B17F061E3007C0397 /* Minuit2 */ = {
+			isa = PBXGroup;
+			children = (
+				62FD5D2C17F061E3007C0397 /* AnalyticalGradientCalculator.cxx */,
+				62FD5D2D17F061E3007C0397 /* BasicMinimumError.cxx */,
+				62FD5D2E17F061E3007C0397 /* CombinedMinimumBuilder.cxx */,
+				62FD5D2F17F061E3007C0397 /* DavidonErrorUpdator.cxx */,
+				62FD5D3017F061E3007C0397 /* FumiliBuilder.cxx */,
+				62FD5D3117F061E3007C0397 /* FumiliErrorUpdator.cxx */,
+				62FD5D3217F061E3007C0397 /* FumiliGradientCalculator.cxx */,
+				62FD5D3317F061E3007C0397 /* FumiliMinimizer.cxx */,
+				62FD5D3417F061E3007C0397 /* FumiliStandardChi2FCN.cxx */,
+				62FD5D3517F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.cxx */,
+				62FD5D3617F061E3007C0397 /* HessianGradientCalculator.cxx */,
+				62FD5D3717F061E3007C0397 /* InitialGradientCalculator.cxx */,
+				62FD5D3817F061E3007C0397 /* LaEigenValues.cxx */,
+				62FD5D3917F061E3007C0397 /* LaInnerProduct.cxx */,
+				62FD5D3A17F061E3007C0397 /* LaInverse.cxx */,
+				62FD5D3B17F061E3007C0397 /* LaOuterProduct.cxx */,
+				62FD5D3C17F061E3007C0397 /* LaSumOfElements.cxx */,
+				62FD5D3D17F061E3007C0397 /* LaVtMVSimilarity.cxx */,
+				62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */,
+				62FD5D3F17F061E3007C0397 /* Minuit2Minimizer.cxx */,
+				62FD5D4017F061E3007C0397 /* MnApplication.cxx */,
+				62FD5D4117F061E3007C0397 /* MnContours.cxx */,
+				62FD5D4217F061E3007C0397 /* MnCovarianceSqueeze.cxx */,
+				62FD5D4317F061E3007C0397 /* MnEigen.cxx */,
+				62FD5D4417F061E3007C0397 /* MnFcn.cxx */,
+				62FD5D4517F061E3007C0397 /* MnFumiliMinimize.cxx */,
+				62FD5D4617F061E3007C0397 /* MnFunctionCross.cxx */,
+				62FD5D4717F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx */,
+				62FD5D4817F061E3007C0397 /* MnHesse.cxx */,
+				62FD5D4917F061E3007C0397 /* MnLineSearch.cxx */,
+				62FD5D4A17F061E3007C0397 /* MnMachinePrecision.cxx */,
+				62FD5D4B17F061E3007C0397 /* MnMinos.cxx */,
+				62FD5D4C17F061E3007C0397 /* MnParabolaFactory.cxx */,
+				62FD5D4D17F061E3007C0397 /* MnParameterScan.cxx */,
+				62FD5D4E17F061E3007C0397 /* MnPlot.cxx */,
+				62FD5D4F17F061E3007C0397 /* MnPosDef.cxx */,
+				62FD5D5017F061E3007C0397 /* MnPrint.cxx */,
+				62FD5D5117F061E3007C0397 /* MnScan.cxx */,
+				62FD5D5217F061E3007C0397 /* MnSeedGenerator.cxx */,
+				62FD5D5317F061E3007C0397 /* MnStrategy.cxx */,
+				62FD5D5417F061E3007C0397 /* MnTiny.cxx */,
+				62FD5D5517F061E3007C0397 /* MnUserFcn.cxx */,
+				62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */,
+				62FD5D5717F061E3007C0397 /* MnUserParameters.cxx */,
+				62FD5D5817F061E3007C0397 /* MnUserTransformation.cxx */,
+				62FD5D5917F061E3007C0397 /* ModularFunctionMinimizer.cxx */,
+				62FD5D5A17F061E3007C0397 /* NegativeG2LineSearch.cxx */,
+				62FD5D5B17F061E3007C0397 /* Numerical2PGradientCalculator.cxx */,
+				62FD5D5C17F061E3007C0397 /* ParametricFunction.cxx */,
+				62FD5D5D17F061E3007C0397 /* ScanBuilder.cxx */,
+				62FD5D5E17F061E3007C0397 /* SimplexBuilder.cxx */,
+				62FD5D5F17F061E3007C0397 /* SimplexParameters.cxx */,
+				62FD5D6017F061E3007C0397 /* SimplexSeedGenerator.cxx */,
+				62FD5D6117F061E3007C0397 /* SinParameterTransformation.cxx */,
+				62FD5D6217F061E3007C0397 /* SqrtLowParameterTransformation.cxx */,
+				62FD5D6317F061E3007C0397 /* SqrtUpParameterTransformation.cxx */,
+				62FD5D6417F061E3007C0397 /* VariableMetricBuilder.cxx */,
+				62FD5D6517F061E3007C0397 /* VariableMetricEDMEstimator.cxx */,
+				62FD5D6617F061E3007C0397 /* mnbins.cxx */,
+				62FD5D6717F061E3007C0397 /* mndasum.cxx */,
+				62FD5D6817F061E3007C0397 /* mndaxpy.cxx */,
+				62FD5D6917F061E3007C0397 /* mnddot.cxx */,
+				62FD5D6A17F061E3007C0397 /* mndscal.cxx */,
+				62FD5D6B17F061E3007C0397 /* mndspmv.cxx */,
+				62FD5D6C17F061E3007C0397 /* mndspr.cxx */,
+				62FD5D6D17F061E3007C0397 /* mnlsame.cxx */,
+				62FD5D6E17F061E3007C0397 /* mnteigen.cxx */,
+				62FD5D6F17F061E3007C0397 /* mntplot.cxx */,
+				62FD5D7017F061E3007C0397 /* mnvert.cxx */,
+				62FD5D7117F061E3007C0397 /* mnxerbla.cxx */,
+			);
+			path = Minuit2;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		62FD5C0B17F06186007C0397 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62FD5DC717F061E3007C0397 /* BinData.h in Headers */,
+				62FD5DC817F061E3007C0397 /* BinPoint.h in Headers */,
+				62FD5DC917F061E3007C0397 /* Chi2FCN.h in Headers */,
+				62FD5DCA17F061E3007C0397 /* DataOptions.h in Headers */,
+				62FD5DCB17F061E3007C0397 /* DataRange.h in Headers */,
+				62FD5DCC17F061E3007C0397 /* DataVector.h in Headers */,
+				62FD5DCD17F061E3007C0397 /* DataVectorfwd.h in Headers */,
+				62FD5DCE17F061E3007C0397 /* FcnAdapter.h in Headers */,
+				62FD5DCF17F061E3007C0397 /* FitConfig.h in Headers */,
+				62FD5DD017F061E3007C0397 /* FitResult.h in Headers */,
+				62FD5DD117F061E3007C0397 /* FitUtil.h in Headers */,
+				62FD5DD217F061E3007C0397 /* FitUtilParallel.h in Headers */,
+				62FD5DD317F061E3007C0397 /* Fitter.h in Headers */,
+				62FD5DD417F061E3007C0397 /* LogLikelihoodFCN.h in Headers */,
+				62FD5DD517F061E3007C0397 /* ParameterSettings.h in Headers */,
+				62FD5DD617F061E3007C0397 /* PoissonLikelihoodFCN.h in Headers */,
+				62FD5DD717F061E3007C0397 /* SparseData.h in Headers */,
+				62FD5DD817F061E3007C0397 /* UnBinData.h in Headers */,
+				62FD5DD917F061E3007C0397 /* Derivator.h in Headers */,
+				62FD5DDA17F061E3007C0397 /* Error.h in Headers */,
+				62FD5DDB17F061E3007C0397 /* Factory.h in Headers */,
+				62FD5DDC17F061E3007C0397 /* FitMethodFunction.h in Headers */,
+				62FD5DDD17F061E3007C0397 /* Functor.h in Headers */,
+				62FD5DDE17F061E3007C0397 /* GSLFunctionAdapter.h in Headers */,
+				62FD5DDF17F061E3007C0397 /* GSLFunctionWrapper.h in Headers */,
+				62FD5DE017F061E3007C0397 /* GSLMinimizer.h in Headers */,
+				62FD5DE117F061E3007C0397 /* GSLMinimizer1D.h in Headers */,
+				62FD5DE217F061E3007C0397 /* GSLNLSMinimizer.h in Headers */,
+				62FD5DE317F061E3007C0397 /* GSLRndmEngines.h in Headers */,
+				62FD5DE417F061E3007C0397 /* GSLSimAnMinimizer.h in Headers */,
+				62FD5DE517F061E3007C0397 /* GSLSimAnnealing.h in Headers */,
+				62FD5DE617F061E3007C0397 /* GenAlgoOptions.h in Headers */,
+				62FD5DE717F061E3007C0397 /* IFunction.h in Headers */,
+				62FD5DE817F061E3007C0397 /* IFunctionfwd.h in Headers */,
+				62FD5DE917F061E3007C0397 /* IMinimizer1D.h in Headers */,
+				62FD5DEA17F061E3007C0397 /* IOptions.h in Headers */,
+				62FD5DEB17F061E3007C0397 /* IParamFunction.h in Headers */,
+				62FD5DEC17F061E3007C0397 /* IParamFunctionfwd.h in Headers */,
+				62FD5DED17F061E3007C0397 /* MinimTransformFunction.h in Headers */,
+				62FD5DEE17F061E3007C0397 /* Minimizer.h in Headers */,
+				62FD5DEF17F061E3007C0397 /* MinimizerOptions.h in Headers */,
+				62FD5DF017F061E3007C0397 /* MinimizerVariable.h in Headers */,
+				62FD5DF117F061E3007C0397 /* MinimizerVariableTransformation.h in Headers */,
+				62FD5DF217F061E3007C0397 /* MultiNumGradFunction.h in Headers */,
+				62FD5DF317F061E3007C0397 /* OneDimFunctionAdapter.h in Headers */,
+				62FD5DF417F061E3007C0397 /* Util.h in Headers */,
+				62FD5DF517F061E3007C0397 /* WrappedFunction.h in Headers */,
+				62FD5DF617F061E3007C0397 /* WrappedParamFunction.h in Headers */,
+				62FD5DF717F061E3007C0397 /* ABObj.h in Headers */,
+				62FD5DF817F061E3007C0397 /* ABProd.h in Headers */,
+				62FD5DF917F061E3007C0397 /* ABSum.h in Headers */,
+				62FD5DFA17F061E3007C0397 /* ABTypes.h in Headers */,
+				62FD5DFB17F061E3007C0397 /* AnalyticalGradientCalculator.h in Headers */,
+				62FD5DFC17F061E3007C0397 /* BasicFunctionGradient.h in Headers */,
+				62FD5DFD17F061E3007C0397 /* BasicFunctionMinimum.h in Headers */,
+				62FD5DFE17F061E3007C0397 /* BasicMinimumError.h in Headers */,
+				62FD5DFF17F061E3007C0397 /* BasicMinimumParameters.h in Headers */,
+				62FD5E0017F061E3007C0397 /* BasicMinimumSeed.h in Headers */,
+				62FD5E0117F061E3007C0397 /* BasicMinimumState.h in Headers */,
+				62FD5E0217F061E3007C0397 /* CombinedMinimizer.h in Headers */,
+				62FD5E0317F061E3007C0397 /* CombinedMinimumBuilder.h in Headers */,
+				62FD5E0417F061E3007C0397 /* ContoursError.h in Headers */,
+				62FD5E0517F061E3007C0397 /* DavidonErrorUpdator.h in Headers */,
+				62FD5E0617F061E3007C0397 /* FCNAdapter.h in Headers */,
+				62FD5E0717F061E3007C0397 /* FCNBase.h in Headers */,
+				62FD5E0817F061E3007C0397 /* FCNGradAdapter.h in Headers */,
+				62FD5E0917F061E3007C0397 /* FCNGradientBase.h in Headers */,
+				62FD5E0A17F061E3007C0397 /* FumiliBuilder.h in Headers */,
+				62FD5E0B17F061E3007C0397 /* FumiliChi2FCN.h in Headers */,
+				62FD5E0C17F061E3007C0397 /* FumiliErrorUpdator.h in Headers */,
+				62FD5E0D17F061E3007C0397 /* FumiliFCNAdapter.h in Headers */,
+				62FD5E0E17F061E3007C0397 /* FumiliFCNBase.h in Headers */,
+				62FD5E0F17F061E3007C0397 /* FumiliGradientCalculator.h in Headers */,
+				62FD5E1017F061E3007C0397 /* FumiliMaximumLikelihoodFCN.h in Headers */,
+				62FD5E1117F061E3007C0397 /* FumiliMinimizer.h in Headers */,
+				62FD5E1217F061E3007C0397 /* FumiliStandardChi2FCN.h in Headers */,
+				62FD5E1317F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.h in Headers */,
+				62FD5E1417F061E3007C0397 /* FunctionGradient.h in Headers */,
+				62FD5E1517F061E3007C0397 /* FunctionMinimizer.h in Headers */,
+				62FD5E1617F061E3007C0397 /* FunctionMinimum.h in Headers */,
+				62FD5E1717F061E3007C0397 /* GenericFunction.h in Headers */,
+				62FD5E1817F061E3007C0397 /* GradientCalculator.h in Headers */,
+				62FD5E1917F061E3007C0397 /* HessianGradientCalculator.h in Headers */,
+				62FD5E1A17F061E3007C0397 /* InitialGradientCalculator.h in Headers */,
+				62FD5E1B17F061E3007C0397 /* LASymMatrix.h in Headers */,
+				62FD5E1C17F061E3007C0397 /* LAVector.h in Headers */,
+				62FD5E1D17F061E3007C0397 /* LaInverse.h in Headers */,
+				62FD5E1E17F061E3007C0397 /* LaOuterProduct.h in Headers */,
+				62FD5E1F17F061E3007C0397 /* LaProd.h in Headers */,
+				62FD5E2017F061E3007C0397 /* LaSum.h in Headers */,
+				62FD5E2117F061E3007C0397 /* MPIProcess.h in Headers */,
+				62FD5E2217F061E3007C0397 /* MatrixInverse.h in Headers */,
+				62FD5E2317F061E3007C0397 /* MinimumBuilder.h in Headers */,
+				62FD5E2417F061E3007C0397 /* MinimumError.h in Headers */,
+				62FD5E2517F061E3007C0397 /* MinimumErrorUpdator.h in Headers */,
+				62FD5E2617F061E3007C0397 /* MinimumParameters.h in Headers */,
+				62FD5E2717F061E3007C0397 /* MinimumSeed.h in Headers */,
+				62FD5E2817F061E3007C0397 /* MinimumSeedGenerator.h in Headers */,
+				62FD5E2917F061E3007C0397 /* MinimumState.h in Headers */,
+				62FD5E2A17F061E3007C0397 /* MinosError.h in Headers */,
+				62FD5E2B17F061E3007C0397 /* Minuit2Minimizer.h in Headers */,
+				62FD5E2C17F061E3007C0397 /* MinuitParameter.h in Headers */,
+				62FD5E2D17F061E3007C0397 /* MnApplication.h in Headers */,
+				62FD5E2E17F061E3007C0397 /* MnConfig.h in Headers */,
+				62FD5E2F17F061E3007C0397 /* MnContours.h in Headers */,
+				62FD5E3017F061E3007C0397 /* MnCovarianceSqueeze.h in Headers */,
+				62FD5E3117F061E3007C0397 /* MnCross.h in Headers */,
+				62FD5E3217F061E3007C0397 /* MnEigen.h in Headers */,
+				62FD5E3317F061E3007C0397 /* MnFcn.h in Headers */,
+				62FD5E3417F061E3007C0397 /* MnFumiliMinimize.h in Headers */,
+				62FD5E3517F061E3007C0397 /* MnFunctionCross.h in Headers */,
+				62FD5E3617F061E3007C0397 /* MnGlobalCorrelationCoeff.h in Headers */,
+				62FD5E3717F061E3007C0397 /* MnHesse.h in Headers */,
+				62FD5E3817F061E3007C0397 /* MnLineSearch.h in Headers */,
+				62FD5E3917F061E3007C0397 /* MnMachinePrecision.h in Headers */,
+				62FD5E3A17F061E3007C0397 /* MnMatrix.h in Headers */,
+				62FD5E3B17F061E3007C0397 /* MnMigrad.h in Headers */,
+				62FD5E3C17F061E3007C0397 /* MnMinimize.h in Headers */,
+				62FD5E3D17F061E3007C0397 /* MnMinos.h in Headers */,
+				62FD5E3E17F061E3007C0397 /* MnParabola.h in Headers */,
+				62FD5E3F17F061E3007C0397 /* MnParabolaFactory.h in Headers */,
+				62FD5E4017F061E3007C0397 /* MnParabolaPoint.h in Headers */,
+				62FD5E4117F061E3007C0397 /* MnParameterScan.h in Headers */,
+				62FD5E4217F061E3007C0397 /* MnPlot.h in Headers */,
+				62FD5E4317F061E3007C0397 /* MnPosDef.h in Headers */,
+				62FD5E4417F061E3007C0397 /* MnPrint.h in Headers */,
+				62FD5E4517F061E3007C0397 /* MnRefCountedPointer.h in Headers */,
+				62FD5E4617F061E3007C0397 /* MnReferenceCounter.h in Headers */,
+				62FD5E4717F061E3007C0397 /* MnScan.h in Headers */,
+				62FD5E4817F061E3007C0397 /* MnSeedGenerator.h in Headers */,
+				62FD5E4917F061E3007C0397 /* MnSimplex.h in Headers */,
+				62FD5E4A17F061E3007C0397 /* MnStrategy.h in Headers */,
+				62FD5E4B17F061E3007C0397 /* MnTiny.h in Headers */,
+				62FD5E4C17F061E3007C0397 /* MnUserCovariance.h in Headers */,
+				62FD5E4D17F061E3007C0397 /* MnUserFcn.h in Headers */,
+				62FD5E4E17F061E3007C0397 /* MnUserParameterState.h in Headers */,
+				62FD5E4F17F061E3007C0397 /* MnUserParameters.h in Headers */,
+				62FD5E5017F061E3007C0397 /* MnUserTransformation.h in Headers */,
+				62FD5E5117F061E3007C0397 /* MnVectorTransform.h in Headers */,
+				62FD5E5217F061E3007C0397 /* ModularFunctionMinimizer.h in Headers */,
+				62FD5E5317F061E3007C0397 /* NegativeG2LineSearch.h in Headers */,
+				62FD5E5417F061E3007C0397 /* Numerical2PGradientCalculator.h in Headers */,
+				62FD5E5517F061E3007C0397 /* ParametricFunction.h in Headers */,
+				62FD5E5617F061E3007C0397 /* ScanBuilder.h in Headers */,
+				62FD5E5717F061E3007C0397 /* ScanMinimizer.h in Headers */,
+				62FD5E5817F061E3007C0397 /* SimplexBuilder.h in Headers */,
+				62FD5E5917F061E3007C0397 /* SimplexMinimizer.h in Headers */,
+				62FD5E5A17F061E3007C0397 /* SimplexParameters.h in Headers */,
+				62FD5E5B17F061E3007C0397 /* SimplexSeedGenerator.h in Headers */,
+				62FD5E5C17F061E3007C0397 /* SinParameterTransformation.h in Headers */,
+				62FD5E5D17F061E3007C0397 /* SqrtLowParameterTransformation.h in Headers */,
+				62FD5E5E17F061E3007C0397 /* SqrtUpParameterTransformation.h in Headers */,
+				62FD5E5F17F061E3007C0397 /* StackAllocator.h in Headers */,
+				62FD5E6017F061E3007C0397 /* VariableMetricBuilder.h in Headers */,
+				62FD5E6117F061E3007C0397 /* VariableMetricEDMEstimator.h in Headers */,
+				62FD5E6217F061E3007C0397 /* VariableMetricMinimizer.h in Headers */,
+				62FD5E6317F061E3007C0397 /* VectorOuterProduct.h in Headers */,
+				62FD5E6717F061E3007C0397 /* GSL1DMinimizerWrapper.h in Headers */,
+				62FD5E6917F061E3007C0397 /* GSLDerivator.h in Headers */,
+				62FD5E6A17F061E3007C0397 /* GSLFunctionWrapper.h in Headers */,
+				62FD5E6D17F061E3007C0397 /* GSLMultiFit.h in Headers */,
+				62FD5E6E17F061E3007C0397 /* GSLMultiFitFunctionAdapter.h in Headers */,
+				62FD5E6F17F061E3007C0397 /* GSLMultiFitFunctionWrapper.h in Headers */,
+				62FD5E7017F061E3007C0397 /* GSLMultiMinFunctionAdapter.h in Headers */,
+				62FD5E7117F061E3007C0397 /* GSLMultiMinFunctionWrapper.h in Headers */,
+				62FD5E7217F061E3007C0397 /* GSLMultiMinimizer.h in Headers */,
+				62FD5E7517F061E3007C0397 /* GSLRngWrapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		6222D08F160C8E59008205AC /* BornAgain.CL.All */ = {
@@ -70763,7 +71716,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.App" */;
 			buildPhases = (
-				6222D09A160C8E67008205AC /* ShellScript */,
 				627C2EBF160B4E8F004C1B11 /* Sources */,
 				627C2EC0160B4E8F004C1B11 /* Frameworks */,
 				626378A316666C5A00D1BD00 /* CopyFiles */,
@@ -70771,8 +71723,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				62B3175617131E36004A9D02 /* PBXTargetDependency */,
-				627C2FE5160B5900004C1B11 /* PBXTargetDependency */,
+				62FD5EC817F06C2F007C0397 /* PBXTargetDependency */,
+				62FD5C0017F059AF007C0397 /* PBXTargetDependency */,
+				62FD5BFE17F059AB007C0397 /* PBXTargetDependency */,
 			);
 			name = BornAgain.App;
 			productName = GISASFW.App;
@@ -70807,7 +71760,6 @@
 			);
 			dependencies = (
 				627F651C17943D51009E166F /* PBXTargetDependency */,
-				627F650617942A76009E166F /* PBXTargetDependency */,
 				627F6320179411B7009E166F /* PBXTargetDependency */,
 				627C2FD9160B5149004C1B11 /* PBXTargetDependency */,
 			);
@@ -70815,23 +71767,6 @@
 			productName = GISASFW.TestCore;
 			productReference = 62BADDCA17952FC2005BC59D /* BornAgain.TestCore */;
 			productType = "com.apple.product-type.tool";
-		};
-		627F649517941708009E166F /* RootMathMore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 627F649717941708009E166F /* Build configuration list for PBXNativeTarget "RootMathMore" */;
-			buildPhases = (
-				627F649217941708009E166F /* Sources */,
-				627F649317941708009E166F /* Frameworks */,
-				627F655317944760009E166F /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RootMathMore;
-			productName = RootMathMore;
-			productReference = 627F650E17943257009E166F /* libRootMathMore.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
 		};
 		627F651D179444B8009E166F /* BornAgain.TestFit01 */ = {
 			isa = PBXNativeTarget;
@@ -70844,7 +71779,6 @@
 			);
 			dependencies = (
 				627F651E179444B8009E166F /* PBXTargetDependency */,
-				627F6520179444B8009E166F /* PBXTargetDependency */,
 				627F6522179444B8009E166F /* PBXTargetDependency */,
 				627F6524179444B8009E166F /* PBXTargetDependency */,
 			);
@@ -70864,7 +71798,6 @@
 			);
 			dependencies = (
 				627F655617944D37009E166F /* PBXTargetDependency */,
-				627F655817944D37009E166F /* PBXTargetDependency */,
 				627F655A17944D37009E166F /* PBXTargetDependency */,
 				627F655C17944D37009E166F /* PBXTargetDependency */,
 			);
@@ -70883,12 +71816,30 @@
 			buildRules = (
 			);
 			dependencies = (
-				627F650B17943083009E166F /* PBXTargetDependency */,
+				62FD5ECB17F06C6E007C0397 /* PBXTargetDependency */,
 				62B3174017131B75004A9D02 /* PBXTargetDependency */,
 			);
 			name = BornAgain.Fit;
 			productName = GISASFW.Core;
 			productReference = 627F650717942E64009E166F /* libBornAgain.Fit.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		62FD5C0C17F06186007C0397 /* BornAgain.RootMinimizers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62FD5C0E17F06186007C0397 /* Build configuration list for PBXNativeTarget "BornAgain.RootMinimizers" */;
+			buildPhases = (
+				62FD5C0917F06186007C0397 /* Sources */,
+				62FD5C0A17F06186007C0397 /* Frameworks */,
+				62FD5C0B17F06186007C0397 /* Headers */,
+				62FD5EC517F06BBB007C0397 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BornAgain.RootMinimizers;
+			productName = BornAgain.RootMinimizers;
+			productReference = 62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -70897,7 +71848,7 @@
 		627C2C5A160B4937004C1B11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_BornAgain" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -70923,11 +71874,11 @@
 			targets = (
 				627C2EC2160B4E8F004C1B11 /* BornAgain.App */,
 				627C2F06160B4F98004C1B11 /* BornAgain.Core */,
+				62B316B817131B55004A9D02 /* BornAgain.Fit */,
+				62FD5C0C17F06186007C0397 /* BornAgain.RootMinimizers */,
+				6222D08F160C8E59008205AC /* BornAgain.CL.All */,
 				627C2FCA160B50D6004C1B11 /* BornAgain.TestCore */,
 				627F651D179444B8009E166F /* BornAgain.TestFit01 */,
-				6222D08F160C8E59008205AC /* BornAgain.CL.All */,
-				62B316B817131B55004A9D02 /* BornAgain.Fit */,
-				627F649517941708009E166F /* RootMathMore */,
 				627F655517944D37009E166F /* BornAgain.TestFit02 */,
 			);
 		};
@@ -71007,19 +71958,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6222D09A160C8E67008205AC /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "PATH=/opt/local/bin:${PATH}\ncd ${SRCROOT}/Core\nqmake\nmake\ncd ${SRCROOT}/Fit\nqmake\nmake\ncd ${SRCROOT}/App\nqmake\nmake";
-		};
 		6222D09B160C8EF0008205AC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -71028,11 +71966,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/App/App",
+				"$(SRCROOT)/bin/App",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${SRCROOT}\nqmake\nmake";
+			shellScript = "cd ${SRCROOT}\ncmake -E chdir ../BornAgain_cmake_release/ cmake -G \"Unix Makefiles\" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release\ncd ../BornAgain_cmake_release\nmake";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -71313,6 +72251,7 @@
 				622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */,
 				628D3C1217E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp in Sources */,
 				628D3C1317E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp in Sources */,
+				62FD5BFA17F057E1007C0397 /* FormFactorTools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71334,13 +72273,6 @@
 				627F62DD17940B33009E166F /* MesoCrystal1.cpp in Sources */,
 				627F62DE17940B33009E166F /* SampleBuilder.cpp in Sources */,
 				627F62E717940B33009E166F /* main.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		627F649217941708009E166F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71385,6 +72317,97 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		62FD5C0917F06186007C0397 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62FD5E6517F061E3007C0397 /* Derivator.cxx in Sources */,
+				62FD5E6617F061E3007C0397 /* Factory.cxx in Sources */,
+				62FD5E6817F061E3007C0397 /* GSLDerivator.cxx in Sources */,
+				62FD5E6B17F061E3007C0397 /* GSLMinimizer.cxx in Sources */,
+				62FD5E6C17F061E3007C0397 /* GSLMinimizer1D.cxx in Sources */,
+				62FD5E7317F061E3007C0397 /* GSLNLSMinimizer.cxx in Sources */,
+				62FD5E7417F061E3007C0397 /* GSLRndmEngines.cxx in Sources */,
+				62FD5E7617F061E3007C0397 /* GSLSimAnMinimizer.cxx in Sources */,
+				62FD5E7717F061E3007C0397 /* GSLSimAnnealing.cxx in Sources */,
+				62FD5E7817F061E3007C0397 /* GenAlgoOptions.cxx in Sources */,
+				62FD5E7917F061E3007C0397 /* MinimTransformFunction.cxx in Sources */,
+				62FD5E7A17F061E3007C0397 /* MinimizerOptions.cxx in Sources */,
+				62FD5E7B17F061E3007C0397 /* MinimizerVariableTransformation.cxx in Sources */,
+				62FD5E7C17F061E3007C0397 /* MultiNumGradFunction.cxx in Sources */,
+				62FD5E7D17F061E3007C0397 /* AnalyticalGradientCalculator.cxx in Sources */,
+				62FD5E7E17F061E3007C0397 /* BasicMinimumError.cxx in Sources */,
+				62FD5E7F17F061E3007C0397 /* CombinedMinimumBuilder.cxx in Sources */,
+				62FD5E8017F061E3007C0397 /* DavidonErrorUpdator.cxx in Sources */,
+				62FD5E8117F061E3007C0397 /* FumiliBuilder.cxx in Sources */,
+				62FD5E8217F061E3007C0397 /* FumiliErrorUpdator.cxx in Sources */,
+				62FD5E8317F061E3007C0397 /* FumiliGradientCalculator.cxx in Sources */,
+				62FD5E8417F061E3007C0397 /* FumiliMinimizer.cxx in Sources */,
+				62FD5E8517F061E3007C0397 /* FumiliStandardChi2FCN.cxx in Sources */,
+				62FD5E8617F061E3007C0397 /* FumiliStandardMaximumLikelihoodFCN.cxx in Sources */,
+				62FD5E8717F061E3007C0397 /* HessianGradientCalculator.cxx in Sources */,
+				62FD5E8817F061E3007C0397 /* InitialGradientCalculator.cxx in Sources */,
+				62FD5E8917F061E3007C0397 /* LaEigenValues.cxx in Sources */,
+				62FD5E8A17F061E3007C0397 /* LaInnerProduct.cxx in Sources */,
+				62FD5E8B17F061E3007C0397 /* LaInverse.cxx in Sources */,
+				62FD5E8C17F061E3007C0397 /* LaOuterProduct.cxx in Sources */,
+				62FD5E8D17F061E3007C0397 /* LaSumOfElements.cxx in Sources */,
+				62FD5E8E17F061E3007C0397 /* LaVtMVSimilarity.cxx in Sources */,
+				62FD5E8F17F061E3007C0397 /* MPIProcess.cxx in Sources */,
+				62FD5E9017F061E3007C0397 /* Minuit2Minimizer.cxx in Sources */,
+				62FD5E9117F061E3007C0397 /* MnApplication.cxx in Sources */,
+				62FD5E9217F061E3007C0397 /* MnContours.cxx in Sources */,
+				62FD5E9317F061E3007C0397 /* MnCovarianceSqueeze.cxx in Sources */,
+				62FD5E9417F061E3007C0397 /* MnEigen.cxx in Sources */,
+				62FD5E9517F061E3007C0397 /* MnFcn.cxx in Sources */,
+				62FD5E9617F061E3007C0397 /* MnFumiliMinimize.cxx in Sources */,
+				62FD5E9717F061E3007C0397 /* MnFunctionCross.cxx in Sources */,
+				62FD5E9817F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx in Sources */,
+				62FD5E9917F061E3007C0397 /* MnHesse.cxx in Sources */,
+				62FD5E9A17F061E3007C0397 /* MnLineSearch.cxx in Sources */,
+				62FD5E9B17F061E3007C0397 /* MnMachinePrecision.cxx in Sources */,
+				62FD5E9C17F061E3007C0397 /* MnMinos.cxx in Sources */,
+				62FD5E9D17F061E3007C0397 /* MnParabolaFactory.cxx in Sources */,
+				62FD5E9E17F061E3007C0397 /* MnParameterScan.cxx in Sources */,
+				62FD5E9F17F061E3007C0397 /* MnPlot.cxx in Sources */,
+				62FD5EA017F061E3007C0397 /* MnPosDef.cxx in Sources */,
+				62FD5EA117F061E3007C0397 /* MnPrint.cxx in Sources */,
+				62FD5EA217F061E3007C0397 /* MnScan.cxx in Sources */,
+				62FD5EA317F061E3007C0397 /* MnSeedGenerator.cxx in Sources */,
+				62FD5EA417F061E3007C0397 /* MnStrategy.cxx in Sources */,
+				62FD5EA517F061E3007C0397 /* MnTiny.cxx in Sources */,
+				62FD5EA617F061E3007C0397 /* MnUserFcn.cxx in Sources */,
+				62FD5EA717F061E3007C0397 /* MnUserParameterState.cxx in Sources */,
+				62FD5EA817F061E3007C0397 /* MnUserParameters.cxx in Sources */,
+				62FD5EA917F061E3007C0397 /* MnUserTransformation.cxx in Sources */,
+				62FD5EAA17F061E3007C0397 /* ModularFunctionMinimizer.cxx in Sources */,
+				62FD5EAB17F061E3007C0397 /* NegativeG2LineSearch.cxx in Sources */,
+				62FD5EAC17F061E3007C0397 /* Numerical2PGradientCalculator.cxx in Sources */,
+				62FD5EAD17F061E3007C0397 /* ParametricFunction.cxx in Sources */,
+				62FD5EAE17F061E3007C0397 /* ScanBuilder.cxx in Sources */,
+				62FD5EAF17F061E3007C0397 /* SimplexBuilder.cxx in Sources */,
+				62FD5EB017F061E3007C0397 /* SimplexParameters.cxx in Sources */,
+				62FD5EB117F061E3007C0397 /* SimplexSeedGenerator.cxx in Sources */,
+				62FD5EB217F061E3007C0397 /* SinParameterTransformation.cxx in Sources */,
+				62FD5EB317F061E3007C0397 /* SqrtLowParameterTransformation.cxx in Sources */,
+				62FD5EB417F061E3007C0397 /* SqrtUpParameterTransformation.cxx in Sources */,
+				62FD5EB517F061E3007C0397 /* VariableMetricBuilder.cxx in Sources */,
+				62FD5EB617F061E3007C0397 /* VariableMetricEDMEstimator.cxx in Sources */,
+				62FD5EB717F061E3007C0397 /* mnbins.cxx in Sources */,
+				62FD5EB817F061E3007C0397 /* mndasum.cxx in Sources */,
+				62FD5EB917F061E3007C0397 /* mndaxpy.cxx in Sources */,
+				62FD5EBA17F061E3007C0397 /* mnddot.cxx in Sources */,
+				62FD5EBB17F061E3007C0397 /* mndscal.cxx in Sources */,
+				62FD5EBC17F061E3007C0397 /* mndspmv.cxx in Sources */,
+				62FD5EBD17F061E3007C0397 /* mndspr.cxx in Sources */,
+				62FD5EBE17F061E3007C0397 /* mnlsame.cxx in Sources */,
+				62FD5EBF17F061E3007C0397 /* mnteigen.cxx in Sources */,
+				62FD5EC017F061E3007C0397 /* mntplot.cxx in Sources */,
+				62FD5EC117F061E3007C0397 /* mnvert.cxx in Sources */,
+				62FD5EC217F061E3007C0397 /* mnxerbla.cxx in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -71393,25 +72416,10 @@
 			target = 627C2F06160B4F98004C1B11 /* BornAgain.Core */;
 			targetProxy = 627C2FD8160B5149004C1B11 /* PBXContainerItemProxy */;
 		};
-		627C2FE5160B5900004C1B11 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 627C2F06160B4F98004C1B11 /* BornAgain.Core */;
-			targetProxy = 627C2FE4160B5900004C1B11 /* PBXContainerItemProxy */;
-		};
 		627F6320179411B7009E166F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 62B316B817131B55004A9D02 /* BornAgain.Fit */;
 			targetProxy = 627F631F179411B7009E166F /* PBXContainerItemProxy */;
-		};
-		627F650617942A76009E166F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 627F649517941708009E166F /* RootMathMore */;
-			targetProxy = 627F650517942A76009E166F /* PBXContainerItemProxy */;
-		};
-		627F650B17943083009E166F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 627F649517941708009E166F /* RootMathMore */;
-			targetProxy = 627F650A17943083009E166F /* PBXContainerItemProxy */;
 		};
 		627F651C17943D51009E166F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -71422,11 +72430,6 @@
 			isa = PBXTargetDependency;
 			name = "gtest-framework";
 			targetProxy = 627F651F179444B8009E166F /* PBXContainerItemProxy */;
-		};
-		627F6520179444B8009E166F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 627F649517941708009E166F /* RootMathMore */;
-			targetProxy = 627F6521179444B8009E166F /* PBXContainerItemProxy */;
 		};
 		627F6522179444B8009E166F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -71443,11 +72446,6 @@
 			name = "gtest-framework";
 			targetProxy = 627F655717944D37009E166F /* PBXContainerItemProxy */;
 		};
-		627F655817944D37009E166F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 627F649517941708009E166F /* RootMathMore */;
-			targetProxy = 627F655917944D37009E166F /* PBXContainerItemProxy */;
-		};
 		627F655A17944D37009E166F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 62B316B817131B55004A9D02 /* BornAgain.Fit */;
@@ -71463,10 +72461,25 @@
 			target = 627C2F06160B4F98004C1B11 /* BornAgain.Core */;
 			targetProxy = 62B3173F17131B75004A9D02 /* PBXContainerItemProxy */;
 		};
-		62B3175617131E36004A9D02 /* PBXTargetDependency */ = {
+		62FD5BFE17F059AB007C0397 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 627C2F06160B4F98004C1B11 /* BornAgain.Core */;
+			targetProxy = 62FD5BFD17F059AB007C0397 /* PBXContainerItemProxy */;
+		};
+		62FD5C0017F059AF007C0397 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 62B316B817131B55004A9D02 /* BornAgain.Fit */;
-			targetProxy = 62B3175517131E36004A9D02 /* PBXContainerItemProxy */;
+			targetProxy = 62FD5BFF17F059AF007C0397 /* PBXContainerItemProxy */;
+		};
+		62FD5EC817F06C2F007C0397 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62FD5C0C17F06186007C0397 /* BornAgain.RootMinimizers */;
+			targetProxy = 62FD5EC717F06C2F007C0397 /* PBXContainerItemProxy */;
+		};
+		62FD5ECB17F06C6E007C0397 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62FD5C0C17F06186007C0397 /* BornAgain.RootMinimizers */;
+			targetProxy = 62FD5ECA17F06C6E007C0397 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -71475,7 +72488,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -71504,7 +72516,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
@@ -71527,6 +72538,7 @@
 			buildSettings = {
 				DSTROOT = /;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -71542,7 +72554,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71581,7 +72592,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71617,7 +72627,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71663,7 +72672,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71706,7 +72714,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71749,7 +72756,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71784,91 +72790,10 @@
 			};
 			name = Release;
 		};
-		627F649817941708009E166F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/opt/local/include/root,
-					/opt/local/include,
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ThirdParty/RootMathMore\"",
-					/opt/local/lib/root,
-					/opt/local/lib,
-				);
-				ONLY_ACTIVE_ARCH = YES;
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		627F649917941708009E166F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/opt/local/include/root,
-					/opt/local/include,
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ThirdParty/RootMathMore\"",
-					/opt/local/lib/root,
-					/opt/local/lib,
-				);
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		627F6550179444B8009E166F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71911,7 +72836,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71950,7 +72874,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -71993,7 +72916,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -72032,7 +72954,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -72080,7 +73001,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -72117,6 +73037,89 @@
 				PYTHON_INCLUDE = /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
 				PYTHON_LIB = /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib;
 				PYTHON_NUMPY_INCLUDE = "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/include";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		62FD5C0F17F06186007C0397 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MATH_NO_PLUGIN_MANAGER,
+					HAS_MINUIT2,
+					R__HAS_MATHMORE,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/ThirdParty/RootMinimizers/inc",
+					/opt/local/include,
+					/opt/local/include/root,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ThirdParty/RootMinimizers\"",
+					/opt/local/lib,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		62FD5C1017F06186007C0397 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MATH_NO_PLUGIN_MANAGER,
+					HAS_MINUIT2,
+					R__HAS_MATHMORE,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/ThirdParty/RootMinimizers/inc",
+					/opt/local/include,
+					/opt/local/include/root,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ThirdParty/RootMinimizers\"",
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -72169,15 +73172,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		627F649717941708009E166F /* Build configuration list for PBXNativeTarget "RootMathMore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				627F649817941708009E166F /* Debug */,
-				627F649917941708009E166F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		627F654F179444B8009E166F /* Build configuration list for PBXNativeTarget "BornAgain.TestFit01" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -72201,6 +73195,15 @@
 			buildConfigurations = (
 				62B3173717131B55004A9D02 /* Debug */,
 				62B3173817131B55004A9D02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62FD5C0E17F06186007C0397 /* Build configuration list for PBXNativeTarget "BornAgain.RootMinimizers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62FD5C0F17F06186007C0397 /* Debug */,
+				62FD5C1017F06186007C0397 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

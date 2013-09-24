@@ -40,8 +40,6 @@ public:
 
     virtual void run();
 protected:
-    void runMagnetic(const IInterferenceFunctionStrategy *p_strategy);
-
     Layer *mp_layer;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 

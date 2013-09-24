@@ -178,4 +178,3 @@ void ParticleDecoration::print(std::ostream& ostr) const
     ostr << "}";
 }
 
-

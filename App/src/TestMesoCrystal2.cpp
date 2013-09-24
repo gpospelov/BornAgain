@@ -121,29 +121,36 @@ void TestMesoCrystal2::draw_results()
     m_simulation->runSimulation();
     m_simulation->normalize();
 
-    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "found", "found params", 100, 1e6, 100);
+    IsGISAXSTools::drawOutputDataComparisonResults(
+            *m_simulation->getOutputData(), *m_real_data,
+            "found", "found params", 100, 1e6, 100);
 
     TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
-    c1->cd(); gPad->SetLogz();  gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
-    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(*m_real_data, "real_data");
+    c1->cd();
+    gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    gPad->SetLeftMargin(0.125);
+    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(
+            *m_real_data, "real_data");
     hist_real->SetMinimum(100);
     hist_real->SetMaximum(1e6);
     hist_real->GetYaxis()->SetTitleOffset(1.35);
     hist_real->DrawCopy("CONT4 Z");
 
     TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
-    c2->cd(); gPad->SetLogz(); gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
-    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(*m_simulation->getOutputData(), "simul_data");
+    c2->cd();
+    gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    gPad->SetLeftMargin(0.125);
+    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(
+            *m_simulation->getOutputData(), "simul_data");
     hist_simu->SetMinimum(100);
     hist_simu->SetMaximum(1e6);
     hist_simu->GetYaxis()->SetTitleOffset(1.35);
     hist_simu->DrawCopy("CONT4 Z");
 
-    OutputDataIOFactory::writeOutputData(*m_simulation->getOutputData(), "meso_simul.txt");
-//    OutputDataIOFactory::writeOutputData(*m_real_data, "meso_real.txt");
-//    OutputData<double> *tmp_real = OutputDataIOFactory::getOutputData("meso_real.txt");
-//    OutputData<double> *tmp_simul = OutputDataIOFactory::getOutputData("meso_simul.txt");
-//    IsGISAXSTools::drawOutputDataComparisonResults(*tmp_real, *tmp_simul, "tmp", "bla bla", 100, 1e6);
+    OutputDataIOFactory::writeOutputData(
+            *m_simulation->getOutputData(), "meso_simul.txt");
 }
 
 

@@ -149,6 +149,7 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;
     size_t nbr_particles = mp_decoration->getNumberOfParticles();
     double particle_density = mp_decoration->getTotalParticleSurfaceDensity();
+    const IMaterial *p_layer_material = getMaterial();
     for (size_t i=0; i<nbr_particles; ++i) {
         const ParticleInfo *p_info = mp_decoration->getParticleInfo(i);
         std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
@@ -156,6 +157,7 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
         if (p_diffuse_nps) {
             for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
                 DiffuseParticleInfo *p_diff_info = (*p_diffuse_nps)[j];
+                p_diff_info->setAmbientMaterial(p_layer_material);
                 p_diff_info->setNumberPerMeso(
                     particle_density * p_info->getAbundance() *
                     p_diff_info->getNumberPerMeso());

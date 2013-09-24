@@ -70,12 +70,6 @@ private:
         const ParticleInfo *p_particle_info,
         const IMaterial *p_ambient_material,
         complex_t factor) const;
-    //! Decorates the given formfactor with a scalar dwba formfactor
-    IFormFactor *createDWBAScalarFormFactor(IFormFactor *p_form_factor,
-            double depth) const;
-    //! Decorates the given formfactor with a matrix dwba formfactor
-    IFormFactor *createDWBAMatrixFormFactor(IFormFactor *p_form_factor,
-            double depth) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;
     SafePointerVector<IInterferenceFunction> m_ifs;

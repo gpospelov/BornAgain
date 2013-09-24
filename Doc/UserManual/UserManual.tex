@@ -119,6 +119,13 @@
   {\huge\danger}\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
  {\underline{#1} #2}}}
 
+\newcommand{\mychapter}[2]{
+    \setcounter{chapter}{#1}
+    \setcounter{section}{0}
+    \chapter*{#2}
+    \addcontentsline{toc}{chapter}{#2}
+}
+
 %-------------------------------------------------------------------------------
 %	TITLE PAGE
 %-------------------------------------------------------------------------------
@@ -172,10 +179,10 @@ Forschungszentrum J\"ulich GmbH
 
 \input{Introduction}
 \input{QuickStart}
-\input{SoftwareArchitecture}
 \input{Installation}
+\input{SoftwareArchitecture}
 \input{Examples}
-%\input{Fitting}
+\input{Fitting}
 
 %List of notations\\  Bugs\\ License agreement\\ Directory layout \\ FAQ \\ Future development.
 

@@ -1,10 +1,11 @@
 \newpage
-\chapter{Installation}
-\section{Quick start} \SecLabel{QuickStart}
+\chapter{Quick start} \SecLabel{QuickStart}
 
-This section shortly describes how to build \BornAgain\ from source and run the first
-simulation. More details about software architecture and installation
-procedure are given in \SecRef{SoftwareArchitecture} and \SecRef{Installation}. \\
+\section{Quick start on Unix Platforms}
+
+This section shortly describes how to build and install \BornAgain\ 
+from source on Unix Platforms  and run the first simulation. 
+More details about installation procedure are given in \SecRef{Installation}. \\
 
 \noindent
 {\bf Step I: $~$ installing third party software}
@@ -22,11 +23,15 @@ procedure are given in \SecRef{SoftwareArchitecture} and \SecRef{Installation}. 
 
 
 \noindent
-{\bf Step II: $~$ getting the source}
+{\bf Step II: $~$ getting the source} \newline
+Use git repository
 \begin{lstlisting}[language=bash, style=commandline]
 git clone git://apps.jcns.fz-juelich.de/BornAgain.git 
 \end{lstlisting}
+or download \BornAgain\ source tarball from Download section of \url{http://apps.jcns.fz-juelich.de/BornAgain}
+
 \vspace*{3mm}
+
 
 
 \noindent
@@ -47,6 +52,41 @@ make install
 cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
 python CylindersAndPrisms.py
 \end{lstlisting}
+
+
+
+\section{Quick start on Windows Platforms}
+
+\noindent
+{\bf Step I: $~$ installing third party software}
+\begin{itemize}
+\item python-2.7, matplotlib, numpy
+\end{itemize}
+\vspace*{2mm}
+
+\noindent
+{\bf Step II: $~$ using installation package } \newline
+Windows installation package can be downloaded from Download section of \url{http://apps.jcns.fz-juelich.de/BornAgain}.
+Double click it to start installation process, then follow instructions.
+\vspace*{2mm}
+
+\noindent
+{\bf Step IV: $~$ running example} \newline
+Run example by double-click on python script located in \BornAgain\ installation directory:
+\begin{lstlisting}[language=shell, style=commandline]
+python C:/BornAgain-0.9.1/Examples/python/ex001_CylindersAndPrisms/CylindersAndPrisms.py
+\end{lstlisting}
+
+
+\section{Getting help}
+Users of the software who encounter a problem in installation of the framework or in running the simulation can use a web based issue tracking system
+at \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues} to provide bug
+report. The same system can be used for enhancement requests.
+The system is open for all users in read mode, while 
+submitting of bug reports and feature requests are possible after simple registration
+procedure.
+
+
 
 
 %Requirements

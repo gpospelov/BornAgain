@@ -1,11 +1,11 @@
 \newpage
-\chapter*{Introduction}
+\mychapter{0}{Introduction}
 
 %\BornAgain\ is a  software to simulate and fit neutron and X-ray
 %scattering at grazing incidence. It is a multi–platform open–source project that aims at %supporting scientists in the analysis and fitting
 %of their GISAS data, both for synchrotron (GISAXS) and neutron (GISANS) facilities. 
 
-\BornAgain\ is a  software to simulate and fit small-angle
+\BornAgain\ is a free software package to simulate and fit small-angle
 scattering at grazing incidence (GISAS). 
 It supports analysis of both  X-ray (GISAXS) and neutron (GISANS) data.
 Its name, \BornAgain, indicates the central role of the distorted-wave Born
@@ -27,7 +27,7 @@ in response to specific user needs.
 
 \BornAgain\ is platform-independent software,
 with active support for Linux, MacOS and 
-Microsoft Windows (forthcoming). 
+Microsoft Windows. 
 It is a free and open source software provided under terms
 of GNU General Public License (GPL).
 This documentation is released under the Creative Commons license CC-BY-SA.
@@ -48,13 +48,24 @@ version $\langle\ldots\rangle$,\newline
 %For details about the theory (DWBA,\ldots), please refer to IsGISAXS manual \cite{IsGISAXSManual}.
 
 
-This user guide starts with a brief description of the steps necessary for compiling 
-the source code and running
-the simulation in \SecRef{QuickStart}. More detailed overview of software architecture and
-installation procedure are given in \SecRef{SoftwareArchitecture} and \SecRef{Installation}.
-General methodology of simulation with \BornAgain\ and detailed usage examples are given
-in Chapter~\ref{ExamplesChapter}.%\SecRef{Examples}.
+%This user guide starts with a brief description of the steps necessary for compiling 
+%the source code and running
+%the simulation in \SecRef{QuickStart}. More detailed overview of software architecture and
+%installation procedure are given in \SecRef{SoftwareArchitecture} and %\SecRef{Installation}.
+%General methodology of simulation with \BornAgain\ and detailed usage examples are given
+%in Chapter~\ref{ExamplesChapter}.%\SecRef{Examples}.
 %Fitting tools provided by the framework are presented in \SecRef{Fitting}.
+
+This user guide starts with a brief description of the steps necessary for 
+installing the software and running the simulation 
+on Unix and Windows platforms in \SecRef{QuickStart}.
+Detailed description of installation procedure is given in \SecRef{Installation}.
+\SecRef{SoftwareArchitecture} provides brief overview of software architecture,
+while general methodology of simulation with \BornAgain\ and detailed usage examples are given in \SecRef{Simulation}.
+Fitting toolkit provided by the framework are presented in \SecRef{Fitting}.
+
+
+
 \vspace*{2mm}
 
 \colorbox{Lightgray}{\parbox{0.95\linewidth}

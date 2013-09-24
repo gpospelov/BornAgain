@@ -1,16 +1,34 @@
 \newpage
-\section{Installation} \SecLabel{Installation}
+\chapter{Installation} \SecLabel{Installation}
 
-This section describes how to build and install \BornAgain\ libraries from the source.
-At the moment we support building on x86/x86\_64 Linux and Mac OS X operating systems.
-Support for Windows systems is planned in next releases.
-%In the later releases we are planing to include support for Windows systems and provide
-%binary distributions for major Windows/Mac/Linux.
-There are three major steps to building \BornAgain\ :
+\BornAgain\ is intended to work on x86/x86\_64 Linux, Mac OS X and Windows operating systems. It was successfully compiled and tested on
+\begin{itemize}
+\item Microsoft Windows 7 64-bit, Windows 8 64-bit
+\item Mac OS X 10.8 (Mountain Lion)
+\item OpenSuse 12.3 64-bit
+\item Ubuntu 12.10, 13.04 64-bit
+\item Debian 7.1.0, 32-bit, 64-bit
+\end{itemize}
+
+At the moment we support build and installation from source on Unix Platforms 
+(Linux, Mac OS) and
+installation using binary installer package on MS Windows 7 (see
+\SecRef{InstallationUnix} and \SecRef{InstallationWindows}).
+In the next releases we are planning to provide binary installers for 
+Mac OS X and Debian.
+
+We welcome user feedback and/or bug reports related to they installation experience
+via \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues}
+
+
+\section{Building and installing on Unix Platforms.} \SecLabel{InstallationUnix}
+
+
+\BornAgain\ uses \Code{CMake} to configure a build system for compiling and installing the framework. There are three major steps to building \BornAgain\ :
 \begin{enumerate}[1.]
 \item Acquire required third-party libraries.
 \item Get \BornAgain\ source code.
-\item Use \Code{cmake} to build and install software.
+\item Use \Code{CMake} to build and install software.
 \end{enumerate}
 The remainder of this section explains each step in detail.
 
@@ -39,6 +57,25 @@ manager. Below we give a few examples for several selected operation systems. Pl
 that other distributions (Fedora, Mint, etc) may have different commands for invoking the package manager and slightly different names of packages (like ``boost'' instead of ``libboost'' etc). Besides that, the installation should be very similar.
 \vspace*{3mm}
 
+
+% ---------------
+%  Ubuntu 13.04
+% ---------------
+\noindent
+{\large\bf Ubuntu (12.10, 13.04), Debian (7.1)} \newline
+Installing required packages
+\begin{lstlisting}[language=shell, style=commandline]
+sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy
+\end{lstlisting}
+
+\noindent
+Installing optional packages
+\begin{lstlisting}[language=shell, style=commandline]
+sudo apt-get install libroot-* root-plugin-* root-system-* ttf-root-installer libeigen3-dev python-matplotlib python-matplotlib-tk
+\end{lstlisting}
+\vspace*{3mm}
+
+
 % ---------------
 %  OpenSuse 12.3
 % ---------------
@@ -62,23 +99,6 @@ sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-dev
 \end{lstlisting}
 \vspace*{3mm}
 
-
-% ---------------
-%  Ubuntu 13.04
-% ---------------
-\noindent
-{\large\bf Ubuntu 12.10, 13.04} \newline
-Installing required packages
-\begin{lstlisting}[language=shell, style=commandline]
-sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy
-\end{lstlisting}
-
-\noindent
-Installing optional packages
-\begin{lstlisting}[language=shell, style=commandline]
-sudo apt-get install libroot-* root-plugin-* root-system-* ttf-root-installer libeigen3-dev python-matplotlib python-matplotlib-tk
-\end{lstlisting}
-\vspace*{3mm}
 
 
 % ---------------
@@ -215,12 +235,7 @@ export CMAKE_INCLUDE_PATH=/opt/local/include:$CMAKE_INCLUDE_PATH
 \end{lstlisting}
 
 
-If compilation fails for some reason, please submit your bug report including compilation errors
-at \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues}
-
-
-
-\subsection{What is next?}
+\subsection{Running first simulation}
 
 In your installation directory you will find
 \begin{lstlisting}[language=bash, style=commandline]
@@ -238,6 +253,36 @@ python CylindersAndPrisms.py
 
 
 
+\section{Installing on Windows Platforms.} \SecLabel{InstallationWindows}
+
+
+\noindent
+{\bf Step I: $~$ installing third party software} \newline
+Current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
+to be installed on the system.
+We recommend usage of \Code{PythonXY}
+at \url{https://code.google.com/p/pythonxy} which contains all three packages bundled
+together. User has to download and install given package before proceeding with
+\BornAgain\ installation.
+\vspace*{2mm}
+
+\noindent
+{\bf Step II: $~$ using installation package } \newline
+Windows installation package can be downloaded from download section at \url{http://apps.jcns.fz-juelich.de/BornAgain}.
+Double click it to start installation process, then follow instructions.
+\vspace*{2mm}
+
+\noindent
+{\bf Step IV: $~$ running example} \newline
+Run example by double-click on python script located in \BornAgain\ installation directory:
+\begin{lstlisting}[language=shell, style=commandline]
+python C:/BornAgain-0.9.1/Examples/python/ex001_CylindersAndPrisms/CylindersAndPrisms.py
+\end{lstlisting}
+
+
+%\MakeRemark{Compiling on Windows}{
+%Compilation of \BornAgain\ from source on Windows using Microsoft Visual Studio is %possible, although not easy. Build instructions can be provided on request.
+%}
 
 
 

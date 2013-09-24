@@ -82,7 +82,6 @@ else()
 endif()
 install (TARGETS ${library_name} DESTINATION ${libdir} COMPONENT Libraries)
 
-# windows requires to rename *.dll into *.pyd to use them from python
 if(WIN32 AND BORNAGAIN_PYTHON)
     install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION lib COMPONENT Libraries)
     install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION bin COMPONENT Libraries)

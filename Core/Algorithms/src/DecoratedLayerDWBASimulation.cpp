@@ -72,7 +72,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         mp_layer->getTotalParticleSurfaceDensity();
 
     if (checkPolarizationPresent()) {
-        // polarized dwba calculation:
+        // matrix dwba calculation
         OutputData<Eigen::Matrix2d>::iterator it =
                 mp_polarization_output->begin(m_thread_info);
         while ( it != mp_polarization_output->end(m_thread_info) )
@@ -95,7 +95,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         }
     }
     else {
-        // scalar dwba calculation:
+        // scalar dwba calculation
         cvector_t k_ij = m_ki;
         k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()
                 ->getScalarKz());
@@ -123,14 +123,17 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
 
 void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
 {
-    if (checkPolarizationPresent()) {
-        return;
-    }
     msglog(MSG::DEBUG) << "Calculating incoherent scattering...";
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->setSpecularInfo(*mp_specular_info);
         mp_diffuseDWBA->setThreadInfo(m_thread_info);
         mp_diffuseDWBA->run();
-        addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
+        if (checkPolarizationPresent()) {
+            addPolarizedDWBAIntensity(
+                    mp_diffuseDWBA->getPolarizedDWBAIntensity() );
+        }
+        else {
+            addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
+        }
     }
 }

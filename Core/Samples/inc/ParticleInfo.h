@@ -62,6 +62,11 @@ public:
     //! Sets abundance.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
+    //! Sets the ambient material
+    void setAmbientMaterial(const IMaterial *p_material) {
+        mp_particle->setAmbientMaterial(p_material);
+    }
+
 protected:
     virtual void init_parameters();
 

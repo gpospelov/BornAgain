@@ -59,13 +59,13 @@ void TestMesoCrystal1::execute()
     Simulation simulation(mp_options);
     simulation.setSampleBuilder(mp_sample_builder);
 
-//    simulation.setDetectorParameters(256, 0.3*Units::degree, 0.073
-//           , 256, -0.4*Units::degree, 0.066);
+    // values as in experimental sample from TestMesoCrystal2
+//    simulation.setDetectorParameters(
+//        28, 0.0201647, 0.0599528, 28, 0.00010879, 0.0399347);
     simulation.setDetectorParameters(
-        218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
-//    simulation.setDetectorParameters(80, -0.025, 0.026, 80 , 0.0, 0.05);
-    simulation.setDetectorResolutionFunction(
-        new ResolutionFunction2DSimple(0.00017, 0.00017));
+        150, 0.0, 5.0*Units::degree, 150, 0.0, 5.0*Units::degree);
+//    simulation.setDetectorResolutionFunction(
+//        new ResolutionFunction2DSimple(0.00017, 0.00017));
     simulation.setBeamParameters(
         1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     simulation.setBeamIntensity(8e12);
@@ -73,23 +73,19 @@ void TestMesoCrystal1::execute()
     ParameterPool *p_param_pool = simulation.createParameterTree();
     std::cout << (*p_param_pool) << std::endl;
 
+
     simulation.runSimulation();
-//    double count_before_normalize = simulation.getOutputData()->totalSum();
     simulation.normalize();
     mp_intensity_output = simulation.getOutputDataClone();
-//    double total_count = mp_intensity_output->totalSum();
-//    std::cout << "Total count in detector: " << total_count << std::endl;
-//    std::cout << "Scattered percentage in detector: " << 100*total_count/simulation.getBeam().getIntensity() << std::endl;
-//    std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
 
-//    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
-//            "CONT4 Z", "mesocrystal");
-    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal", "mesocrystal", 1024, 768);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
+            "mesocrystal", 1024, 768);
     c1->cd(); gPad->SetLogz();
     gPad->SetRightMargin(0.115);
     gPad->SetLeftMargin(0.13);
 
-    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*mp_intensity_output, "mesocrystal");
+    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*mp_intensity_output,
+            "mesocrystal");
     h2->SetTitle("");
     h2->SetMinimum(100.);
     h2->GetXaxis()->SetTitle("#phi_{f}");
@@ -99,34 +95,32 @@ void TestMesoCrystal1::execute()
     h2->SetMaximum(1e5);
     h2->Draw("CONT4 Z");
 
-
-//    IsGISAXSTools::setMinimum(100.);
-//    IsGISAXSTools::setMaximum(1e7);
-//    IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "meso");
-
-    OutputDataIOFactory::writeOutputData(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
-
-    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    OutputData<double > *real_data = OutputDataIOFactory::getOutputData(file_name);
-    TCanvas *c2 = DrawHelper::createAndRegisterCanvas("exp_meso_crystal", "mesocrystal", 1024, 768);
-    c2->cd(); gPad->SetLogz();
-    gPad->SetRightMargin(0.115);
-    gPad->SetLeftMargin(0.13);
-
-    TH2D *h2b = IsGISAXSTools::getOutputDataTH2D(*real_data, "mesocrystal");
-    h2b->SetTitle("");
-    h2b->SetMinimum(100.);
-    h2b->SetMaximum(1e5);
-    h2b->GetXaxis()->SetTitle("#phi_{f}");
-    h2b->GetYaxis()->SetTitle("#alpha_{f}");
-    h2b->GetXaxis()->SetTitleOffset(0.9);
-    h2b->GetYaxis()->SetTitleOffset(1.2);
-    h2b->GetYaxis()->SetRangeUser(0.0,0.039);
-    h2b->GetXaxis()->SetRangeUser(0.0,0.059);
-    h2b->Draw("COLZ Z");
-
-
-
+//    OutputDataIOFactory::writeOutputData(*mp_intensity_output,
+//            Utils::FileSystem::GetHomePath()
+//            + "./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
+//
+//    std::string file_name = Utils::FileSystem::GetHomePath()
+//        + "Examples/MesoCrystals/ex02_fitspheres/"
+//          "004_230_P144_im_full_phitheta.txt.gz";
+//    OutputData<double > *real_data =
+//            OutputDataIOFactory::getOutputData(file_name);
+//    TCanvas *c2 = DrawHelper::createAndRegisterCanvas(
+//            "exp_meso_crystal", "mesocrystal", 1024, 768);
+//    c2->cd(); gPad->SetLogz();
+//    gPad->SetRightMargin(0.115);
+//    gPad->SetLeftMargin(0.13);
+//
+//    TH2D *h2b = IsGISAXSTools::getOutputDataTH2D(*real_data, "mesocrystal");
+//    h2b->SetTitle("");
+//    h2b->SetMinimum(100.);
+//    h2b->SetMaximum(1e5);
+//    h2b->GetXaxis()->SetTitle("#phi_{f}");
+//    h2b->GetYaxis()->SetTitle("#alpha_{f}");
+//    h2b->GetXaxis()->SetTitleOffset(0.9);
+//    h2b->GetYaxis()->SetTitleOffset(1.2);
+//    h2b->GetYaxis()->SetRangeUser(0.0,0.039);
+//    h2b->GetXaxis()->SetRangeUser(0.0,0.059);
+//    h2b->Draw("COLZ Z");
 }
 
 /* ************************************************************************* */
@@ -176,7 +170,8 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
     double surface_density =
         m_surface_filling_ratio/M_PI/m_meso_radius/m_meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
-    complex_t n_particle(1.0-2.84e-5, 4.7e-7); // data from http://henke.lbl.gov/optical_constants/getdb2.html
+    // data from http://henke.lbl.gov/optical_constants/getdb2.html:
+    complex_t n_particle(1.0-2.84e-5, 4.7e-7);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg =
         std::sqrt(m_surface_filling_ratio*avg_n_squared_meso +
@@ -261,7 +256,8 @@ void TestMesoCrystal1::SampleBuilder::init_parameters()
     registerParameter("roughness", &m_roughness);
 }
 
-MesoCrystal* TestMesoCrystal1::SampleBuilder::createMesoCrystal(double stacking_radius, complex_t n_particle,
+MesoCrystal* TestMesoCrystal1::SampleBuilder::createMesoCrystal(
+        double stacking_radius, complex_t n_particle,
         const IFormFactor* p_meso_form_factor) const
 {
     const Lattice *p_lat = createLattice(stacking_radius);
@@ -273,7 +269,8 @@ MesoCrystal* TestMesoCrystal1::SampleBuilder::createMesoCrystal(double stacking_
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    Particle particle(particle_material, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
+    Particle particle(particle_material, new FormFactorSphereGaussianRadius(
+            m_nanoparticle_radius, m_sigma_nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
@@ -290,9 +287,11 @@ MesoCrystal* TestMesoCrystal1::SampleBuilder::createMesoCrystal(double stacking_
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 }
 
-const Lattice *TestMesoCrystal1::SampleBuilder::createLattice(double stacking_radius) const
+const Lattice *TestMesoCrystal1::SampleBuilder::createLattice(
+        double stacking_radius) const
 {
-    Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius*2.0, stacking_radius*2.0*2.3));
+    Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(
+            stacking_radius*2.0, stacking_radius*2.0*2.3));
     p_result->setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;
 }

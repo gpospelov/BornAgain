@@ -46,7 +46,7 @@ private:
     double m_lattice_length_a;
     double m_lattice_length_c;
     double m_nanoparticle_size;
-//    double m_sigma_nanoparticle_size;
+    double m_sigma_nanoparticle_size;
 //    double m_sigma_lattice_length_a;
     double m_roughness;
 };

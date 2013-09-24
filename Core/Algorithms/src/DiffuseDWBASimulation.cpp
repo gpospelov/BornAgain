@@ -17,6 +17,7 @@
 #include "FormFactorDWBAConstZ.h"
 #include "MessageService.h"
 #include "FormFactorTools.h"
+#include "MathFunctions.h"
 
 //! Carry out one simulation thread.
 
@@ -31,37 +32,82 @@ void DiffuseDWBASimulation::run()
     initDiffuseFormFactorTerms(diffuse_terms, nbr_heights, samples_per_particle,
             wavevector_scattering_factor);
 
-    cvector_t k_ij = m_ki;
-
-    k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
-
-    for (DWBASimulation::iterator it_intensity =
-             begin(); it_intensity != end(); ++it_intensity ) {
-        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
-            "phi_f", it_intensity.getIndex());
-        Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
-            "alpha_f", it_intensity.getIndex());
-        double alpha_f = alpha_bin.getMidPoint();
-        if (alpha_f<0)
-            continue;
-        Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin, phi_bin);
-
-        double total_intensity = 0;
-        for (size_t i=0; i<diffuse_terms.size(); ++i) {
-            DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
-            complex_t amplitude(0., 0.);
-            double intensity = 0;
-            for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
-                complex_t amp =
-                    p_diffuse_term->m_form_factors[j]->evaluate(
-                        k_ij, k_f_bin, alpha_bin);
-                amplitude += p_diffuse_term->m_probabilities[j]*amp;
-                intensity += p_diffuse_term->m_probabilities[j]*std::norm(amp);
+    if (checkPolarizationPresent()) {
+        // matrix dwba calculation
+        OutputData<Eigen::Matrix2d>::iterator it_intensity =
+                mp_polarization_output->begin(m_thread_info);
+        while ( it_intensity != mp_polarization_output->end(m_thread_info) )
+        {
+            Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
+                "phi_f", it_intensity.getIndex());
+            Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
+                "alpha_f", it_intensity.getIndex());
+            double alpha_f = alpha_bin.getMidPoint();
+            if (m_sim_params.me_framework==SimulationParameters::DWBA &&
+                    alpha_f<0) {
+                ++it_intensity;
+                continue;
             }
-            total_intensity +=
-                p_diffuse_term->m_factor * (intensity - std::norm(amplitude));
+            Bin1DCVector k_f_bin = getKfBin1_matrix(getWaveLength(), alpha_bin,
+                    phi_bin);
+
+            Eigen::Matrix2d total_intensity = Eigen::Matrix2d::Zero();
+            for (size_t i=0; i<diffuse_terms.size(); ++i) {
+                DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
+                Eigen::Matrix2cd amplitude = Eigen::Matrix2cd::Zero();
+                Eigen::Matrix2d intensity = Eigen::Matrix2d::Zero();
+                for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
+                    Eigen::Matrix2cd amp =
+                        p_diffuse_term->m_form_factors[j]->evaluatePol(
+                            m_ki, k_f_bin, alpha_bin, phi_bin);
+                    amplitude += p_diffuse_term->m_probabilities[j] * amp;
+                    intensity += p_diffuse_term->m_probabilities[j]
+                                 * MathFunctions::Norm(amp);
+                }
+                total_intensity += p_diffuse_term->m_factor
+                        * (intensity - MathFunctions::Norm(amplitude));
+            }
+            *it_intensity = total_intensity;
+            ++it_intensity;
         }
-        *it_intensity = total_intensity;
+    }
+    else {
+        // scalar dwba calculation
+        cvector_t k_ij = m_ki;
+        k_ij.setZ(-(complex_t)mp_specular_info->getInCoefficients()->getScalarKz());
+
+        DWBASimulation::iterator it_intensity = begin();
+        while ( it_intensity != end() )
+        {
+            Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
+                "phi_f", it_intensity.getIndex());
+            Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
+                "alpha_f", it_intensity.getIndex());
+            double alpha_f = alpha_bin.getMidPoint();
+            if (alpha_f<0) {
+                ++it_intensity;
+                continue;
+            }
+            Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin, phi_bin);
+
+            double total_intensity = 0;
+            for (size_t i=0; i<diffuse_terms.size(); ++i) {
+                DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
+                complex_t amplitude(0., 0.);
+                double intensity = 0;
+                for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
+                    complex_t amp =
+                        p_diffuse_term->m_form_factors[j]->evaluate(
+                            k_ij, k_f_bin, alpha_bin);
+                    amplitude += p_diffuse_term->m_probabilities[j]*amp;
+                    intensity += p_diffuse_term->m_probabilities[j]*std::norm(amp);
+                }
+                total_intensity +=
+                    p_diffuse_term->m_factor * (intensity - std::norm(amplitude));
+            }
+            *it_intensity = total_intensity;
+            ++it_intensity;
+        }
     }
 }
 

@@ -33,7 +33,7 @@ TestPolarizedMeso::TestPolarizedMeso()
 , m_lattice_length_a(13.5*Units::nanometer)
 , m_lattice_length_c(23.8*Units::nanometer)
 , m_nanoparticle_size(9.6*Units::nanometer)
-//, m_sigma_nanoparticle_size(6.8688e-02*Units::nanometer)
+, m_sigma_nanoparticle_size(0.2*Units::nanometer)
 //, m_sigma_lattice_length_a(2.3596*Units::nanometer)
 , m_roughness(0.6517*Units::nanometer)
 {
@@ -140,7 +140,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
 }
 
 MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
-        const IMaterial *p_material, double cube_size,
+        const IMaterial *p_material, double size,
         const IFormFactor* p_meso_form_factor) const
 {
     const Lattice *p_lat = createLattice(a, c);
@@ -149,7 +149,8 @@ MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
     kvector_t bas_c = p_lat->getBasisVectorC();
 
 
-    Particle particle(p_material, new FormFactorFullSphere(cube_size/2.0));
+    Particle particle(p_material, new FormFactorSphereGaussianRadius(
+            size/2.0, m_sigma_nanoparticle_size) );
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/2.0*(bas_a + bas_b + bas_c);
     std::vector<kvector_t> pos_vector;

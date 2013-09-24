@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactorTools.cpp
-//! @brief     Defines class .
+//! @file      FormFactors/src/FormFactorTools.cpp
+//! @brief     Implements global functions that facilitate IFormFactor handling.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

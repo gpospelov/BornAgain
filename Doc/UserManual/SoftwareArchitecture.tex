@@ -1,8 +1,33 @@
 \newpage
 \chapter{Software architecture}\SecLabel{SoftwareArchitecture}
  
- 
- 
+
+\BornAgain\ is written on C++
+and uses object oriented approach to 
+achieve modularity, extensibility and transparency.
+This leads to the task driven rather then command driven approach in 
+different aspects  of the simulation and fitting of GISAS data.
+User defines the sample structure, beam and detector characteristics,
+fit parameters, using building
+blocks -- \Code{classes} -- defined in kernel libraries of the framework.
+These buildings blocks are combined together by the user according to his current
+task using one the following approach.
+\begin{itemize}
+\item User imports \BornAgain\ libraries into the python to extent it
+with \BornAgain\ API and then prepare python script with sample description and simulation settings. 
+User runs the simulation by executing script in python interpreter and then assess
+simulation results using the way he likes, e.g. python + numpy + matplotlib.
+\item User may construct standalone C++ application linked to \BornAgain\ libraries.
+\item User interacts with the framework through graphical 
+user drag-and-drop interface (forthcoming).
+\end{itemize}
+
+Object oriented approach in the simulation design allows 
+to reach much higher level of flexibility in sample construction, 
+decouple interdependence in internal calculations and so facilitate creation of new models
+that entails little or no modification to the existing code. 
+
+
 \begin{figure}[htbp]
 \centering
   \resizebox{0.9\textwidth}{!}{%
@@ -12,3 +37,35 @@ Structure of \BornAgain\ libraries.
 }
 \label{fig:two_ratios}
 \end{figure}
+
+
+The general structure of \BornAgain\ and the way user interacts with it are
+shown in Fig.~\ref{fig:two_ratios}.
+The framework kernel consists of two shared libraries, \Code{libCore} and
+\Code{libFit}. Thanks to the python interface they can be imported to the python as external modules. The library \Code{libCore} contains a number of classes, grouped into several class categories necessary for the description of model and running the simulation.
+The library  \Code{libFit} contains a number of minimization engines 
+and interfaces to them, to let user to fit real data with the model defined.
+
+\BornAgain\ depends from a few external well established open-source libraries: boost, GNU scientific library, Eigen and Fast Fourier Transformation libraries. They are required to be present on the system to run \BornAgain . Other libraries shown
+on the plot (ROOT, matplotlib) are optional.
+
+ 
+
+
+
+\section{Design overview}
+
+% general considerations
+% general capabilities and properties
+% openess 
+% global structure
+% design and architecture
+
+% Software process
+% - configuration and release management
+% - quality assurance and testing
+% - user support process
+
+
+% The BornAgain framework provides a number of classes, grouped into several class categories.
+

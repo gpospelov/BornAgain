@@ -36,7 +36,7 @@ public:
                       const SafePointerVector<IInterferenceFunction>& ifs);
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             Bin1D alpha_f_bin) const=0;
-    //! Calculates and returns a polarized form factor in DWBA
+    //! Calculates a matrix valued intensity
     virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
             Bin1D phi_f_bin) const=0;

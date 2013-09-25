@@ -89,7 +89,11 @@ complex_t FastCos(const complex_t &x);
 void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
 #ifndef GCCXML_SKIP_THIS
+//! computes the norm element-wise
 Eigen::Matrix2d Norm(Eigen::Matrix2cd &M);
+
+//! computes the absolute value element-wise
+Eigen::Matrix2d Abs(Eigen::Matrix2cd &M);
 #endif
 
 BA_CORE_API_ inline bool isnan(double x)
@@ -216,6 +220,15 @@ inline Eigen::Matrix2d MathFunctions::Norm(Eigen::Matrix2cd &M) {
     result(0,1) = std::norm((complex_t)M(0,1));
     result(1,0) = std::norm((complex_t)M(1,0));
     result(1,1) = std::norm((complex_t)M(1,1));
+    return result;
+}
+
+inline Eigen::Matrix2d MathFunctions::Abs(Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = std::abs((complex_t)M(0,0));
+    result(0,1) = std::abs((complex_t)M(0,1));
+    result(1,0) = std::abs((complex_t)M(1,0));
+    result(1,1) = std::abs((complex_t)M(1,1));
     return result;
 }
 #endif

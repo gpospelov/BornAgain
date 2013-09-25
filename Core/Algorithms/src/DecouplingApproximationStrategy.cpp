@@ -52,7 +52,6 @@ double DecouplingApproximationStrategy::evaluate(const cvector_t& k_i,
         assert(!MathFunctions::isnan(amplitude.imag()));
         assert(!MathFunctions::isinf(amplitude.real()));
         assert(!MathFunctions::isinf(amplitude.imag()));
-
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());
@@ -79,6 +78,8 @@ Eigen::Matrix2d DecouplingApproximationStrategy::evaluatePol(
         double fraction = m_ff_infos[i]->m_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(MathFunctions::Norm(ff));
+
+        assert(!intensity.hasNaN());
     }
     Eigen::Matrix2d amplitude_norm = MathFunctions::Norm(amplitude);
     double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());

@@ -83,10 +83,10 @@ public:
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const { return m_particles.size(); }
 
-    /// get information about particle with index
+    //! get information about particle with index
     virtual const ParticleInfo *getParticleInfo(size_t index) const;
 
-    /// Get abundance fraction of particle with index
+    //! Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
 
     //! Returns number of interference functions

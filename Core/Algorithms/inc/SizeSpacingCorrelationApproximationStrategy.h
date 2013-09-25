@@ -31,19 +31,21 @@ public:
 
     virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
             const SafePointerVector<IInterferenceFunction>& ifs);
-    virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin) const;
 
-    //! Calculates and returns a polarized form factor in DWBA
-    virtual Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-            Bin1D phi_f_bin) const;
+protected:
+    //! Evaluates the intensity for given list of evaluated form factors
+    virtual double evaluateForList(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin,
+        const std::vector<complex_t> &ff_list) const;
+
 private:
     bool checkVectorSizes() const;
     complex_t getMeanCharacteristicFF(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+            const Bin1DCVector& k_f_bin,
+            const std::vector<complex_t> &ff_list) const;
     complex_t getMeanConjCharacteristicFF(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+            const Bin1DCVector& k_f_bin,
+            const std::vector<complex_t> &ff_list) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
     complex_t calculatePositionOffsetPhase(double qp, double kappa,

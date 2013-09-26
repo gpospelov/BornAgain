@@ -25,7 +25,7 @@ class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
     //! @brief Cone constructor
-    //! @param height of Conee
+    //! @param height of Cone
     //! @param radius half of Cone's base
     //! @param angle in radians between base and facet
     FormFactorCone(double radius, double height,  double alpha);

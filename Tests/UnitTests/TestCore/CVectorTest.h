@@ -37,19 +37,19 @@ TEST_F(CVectorTest, BasicArithmetics)
     EXPECT_TRUE(va.dot(vc) == complex_t(14.,3.));
 
     // Dot product defined in BasicVector3D
-    cvector_t a(complex_t(1.,0.), complex_t(2.,0.), complex_t(3.,0.));
-    cvector_t b(complex_t(2.,0.), complex_t(3.,0.), complex_t(4.,0.));
-    cvector_t c(complex_t(1.,1.), complex_t(2.,-5.), complex_t(3.,4.));
-    EXPECT_TRUE(a.dot(b) == complex_t(20.,0));
-    EXPECT_TRUE(a.dot(c) == complex_t(14.,3.));
-    EXPECT_TRUE(c.dot(b) == complex_t(20.,-3.));
-    EXPECT_TRUE(a.dot(a) == complex_t(14.,0));
-    EXPECT_TRUE(c.dot(c) == complex_t(56.,0));
+    cvector_t vec_a(complex_t(1.,0.), complex_t(2.,0.), complex_t(3.,0.));
+    cvector_t vec_b(complex_t(2.,0.), complex_t(3.,0.), complex_t(4.,0.));
+    cvector_t vec_c(complex_t(1.,1.), complex_t(2.,-5.), complex_t(3.,4.));
+    EXPECT_TRUE(vec_a.dot(vec_b) == complex_t(20.,0));
+    EXPECT_TRUE(vec_a.dot(vec_c) == complex_t(14.,3.));
+    EXPECT_TRUE(vec_c.dot(vec_b) == complex_t(20.,-3.));
+    EXPECT_TRUE(vec_a.dot(vec_a) == complex_t(14.,0));
+    EXPECT_TRUE(vec_c.dot(vec_c) == complex_t(56.,0));
 
     // f = f_re + j*f_im
-    cvector_t e(1,2,3);
-    cvector_t f(5,6,7);
-    EXPECT_TRUE( (e+complex_t(0,1)*f) == cvector_t(complex_t(1.,5.),
+    cvector_t vec_e(1.,2.,3.);
+    cvector_t vec_f(5.,6.,7.);
+    EXPECT_TRUE( (vec_e+complex_t(0,1)*vec_f) == cvector_t(complex_t(1.,5.),
                                                    complex_t(2.,6),
                                                    complex_t(3,7)) );
 }

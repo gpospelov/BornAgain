@@ -203,7 +203,13 @@ void Simulation::runSimulation()
             delete threads[i];
         }
     }
-    m_instrument.applyDetectorResolution(&m_intensity_map);
+    if( mp_sample->containsMagneticMaterial() ) {
+        m_instrument.applyDetectorResolution(&m_intensity_map,
+                &m_polarization_output);
+    }
+    else {
+        m_instrument.applyDetectorResolution(&m_intensity_map);
+    }
 }
 
 void Simulation::runSimulationElement(size_t index)

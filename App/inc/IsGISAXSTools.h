@@ -20,10 +20,7 @@
 #include "SafePointerVector.h"
 
 #include <string>
-
-#ifndef GCCXML_SKIP_THIS
-#include <Eigen/Core>
-#endif
+#include "EigenCore.h"
 
 class TH1;
 class TH1D;

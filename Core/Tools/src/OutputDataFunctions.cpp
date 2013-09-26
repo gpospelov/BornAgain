@@ -206,7 +206,7 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
 OutputData<double>* OutputDataFunctions::getComponentData(
         const OutputData<Eigen::Matrix2d>& source, int row, int column)
 {
-    OutputData<double> *p_result;
+    OutputData<double> *p_result = new OutputData<double>;
     p_result->copyShapeFrom(source);
 
     // no iterators to avoid use of masks
@@ -228,7 +228,7 @@ OutputData<Eigen::Matrix2d>* OutputDataFunctions::createFromComponents(
      || !component_00.hasSameShape(component_11) ) {
         return 0;
     }
-    OutputData<Eigen::Matrix2d> *p_result;
+    OutputData<Eigen::Matrix2d> *p_result = new OutputData<Eigen::Matrix2d>;
     p_result->copyShapeFrom(component_00);
 
     // no iterators to avoid use of masks

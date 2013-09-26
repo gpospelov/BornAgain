@@ -21,6 +21,7 @@
 #include "OutputData.h"
 #include "IIntensityFunction.h"
 #include "Mask.h"
+#include "EigenCore.h"
 
 //! Collection of functions to deal with OutputData
 
@@ -49,11 +50,11 @@ namespace OutputDataFunctions
 #ifndef GCCXML_SKIP_THIS
     //! Selects an element-wise component of the matrix-valued OutputData
     //! structure and returns a new double-valued one
-    BA_CORE_API OutputData<double> *getComponentData(
+    BA_CORE_API_ OutputData<double> *getComponentData(
             const OutputData<Eigen::Matrix2d> &source, int row, int column);
     //! Assembles a matrix-valued OuputData structure from its component
     //! maps
-    BA_CORE_API OutputData<Eigen::Matrix2d> *createFromComponents(
+    BA_CORE_API_ OutputData<Eigen::Matrix2d> *createFromComponents(
             const OutputData<double> &component_00,
             const OutputData<double> &component_01,
             const OutputData<double> &component_10,

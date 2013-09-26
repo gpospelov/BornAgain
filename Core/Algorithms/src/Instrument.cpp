@@ -125,10 +125,11 @@ void Instrument::setDetectorResolutionFunction(
 }
 
 
-void Instrument::applyDetectorResolution(
-        OutputData<double>* p_intensity_map) const
+void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map,
+        OutputData<Eigen::Matrix2d> *p_matrix_intensity) const
 {
-    m_detector.applyDetectorResolution(p_intensity_map);
+    m_detector.applyDetectorResolution(p_intensity_map,
+            p_matrix_intensity);
 }
 
 void Instrument::init_parameters()

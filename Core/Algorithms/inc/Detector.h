@@ -49,13 +49,18 @@ public:
     void clear()
     { m_axes.clear(); }
 
+    //! Sets the detector resolution
     void setDetectorResolution(IDetectorResolution *p_detector_resolution)
     {
         delete mp_detector_resolution;
         mp_detector_resolution = p_detector_resolution;
     }
 
-    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+#ifndef GCCXML_SKIP_THIS
+    //! Applies the detector resolution to the given intensity maps
+    void applyDetectorResolution(OutputData<double> *p_scalar_intensity,
+            OutputData<Eigen::Matrix2d> *p_matrix_intensity) const;
+#endif
 
     const IDetectorResolution *getDetectorResolutionFunction() const
     { return mp_detector_resolution; }

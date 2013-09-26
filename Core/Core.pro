@@ -61,6 +61,7 @@ SOURCES += \
     Algorithms/src/DiffuseDWBASimulation.cpp \
     Algorithms/src/FTDistributions.cpp \
     Algorithms/src/IChiSquaredModule.cpp \
+    Algorithms/src/IDetectorResolution.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/IInterferenceFunctionStrategy.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \

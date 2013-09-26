@@ -23,7 +23,7 @@ class DiffuseDWBASimulation: public LayerDWBASimulation
 {
 public:
     DiffuseDWBASimulation()
-        : m_refractive_index(1., 0.), m_surface_density(1.) {}
+        : m_surface_density(1.0) {}
 
     virtual ~DiffuseDWBASimulation() {}
 
@@ -34,7 +34,7 @@ public:
     void addParticleInfo(DiffuseParticleInfo *p_info)
     { m_np_infos.push_back(p_info); }
 
-    void setRefractiveIndex(complex_t n) { m_refractive_index = n; }
+    void setMaterial(const IMaterial *p_material);
 
     void setSurfaceDensity(double surface_density)
     { m_surface_density = surface_density; }
@@ -45,8 +45,7 @@ public:
             m_np_infos[np_index]->scaleAbundance(factor);
     }
 
-protected:
-    complex_t m_refractive_index;
+private:
     double m_surface_density;
     SafePointerVector<DiffuseParticleInfo> m_np_infos;
     struct DiffuseFormFactorTerm {

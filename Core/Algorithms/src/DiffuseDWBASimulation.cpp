@@ -111,8 +111,19 @@ void DiffuseDWBASimulation::run()
     }
 }
 
-//! Initializes vector<DiffuseFormFactorTerm*> term.
+void DiffuseDWBASimulation::setMaterial(const IMaterial* p_material)
+{
+    SafePointerVector<DiffuseParticleInfo>::iterator it =
+            m_np_infos.begin();
+    while (it != m_np_infos.end()) {
+        (*it)->setAmbientMaterial(p_material);
+        ++it;
+    }
+}
 
+
+//! Initializes vector<DiffuseFormFactorTerm*> term.
+//!
 //! Called near beginning of this->run().
 //! Collect one entry (p_diffuse_term) per particle type and layer[?].
 //! For each entry, set
@@ -161,6 +172,4 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
         delete p_particle;
     }
 }
-
-
 

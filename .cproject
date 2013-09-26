@@ -31,7 +31,6 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.macosx.base.682830013" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
 								<option id="gnu.both.asm.option.include.paths.1937969981" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/opt/local/include"/>
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -39,9 +38,7 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.20241922" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1362645889" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1365373536" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
-								</option>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1365373536" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
 								<option id="gnu.cpp.compiler.option.include.paths.61567316" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
@@ -53,9 +50,7 @@
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
-								</option>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.44052800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 						</toolChain>

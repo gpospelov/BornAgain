@@ -6,7 +6,7 @@
 #include "Types.h"
 #include <cmath>
 
-#include "Eigen/Core"
+#include "EigenCore.h"
 
 
 class CVectorTest : public ::testing::Test

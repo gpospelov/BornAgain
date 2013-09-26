@@ -17,7 +17,7 @@
 
 #include "SampleFactory.h"
 #include "Units.h"
-#include <Eigen/Core>
+#include "EigenCore.h"
 #include "TCanvas.h"
 #include "TGraph.h"
 #include "DrawHelper.h"

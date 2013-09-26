@@ -157,7 +157,6 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
         if (p_diffuse_nps) {
             for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
                 DiffuseParticleInfo *p_diff_info = (*p_diffuse_nps)[j];
-                p_diff_info->setAmbientMaterial(p_layer_material);
                 p_diff_info->setNumberPerMeso(
                     particle_density * p_info->getAbundance() *
                     p_diff_info->getNumberPerMeso());
@@ -170,7 +169,7 @@ DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
         }
     }
     if (p_sim->getSize()>0) {
-        p_sim->setRefractiveIndex(getRefractiveIndex());
+        p_sim->setMaterial(p_layer_material);
         return p_sim;
     }
     delete p_sim;

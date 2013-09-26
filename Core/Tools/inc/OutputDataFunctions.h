@@ -27,7 +27,8 @@
 namespace OutputDataFunctions
 {
     //! double the bin size for each dimension
-    BA_CORE_API_ OutputData<double> *doubleBinSize(const OutputData<double>& source);
+    BA_CORE_API_ OutputData<double> *doubleBinSize(
+            const OutputData<double>& source);
 
     //! unnormalized Fourier transformation for real data
     BA_CORE_API_ void FourierTransform(
@@ -37,16 +38,36 @@ namespace OutputDataFunctions
     BA_CORE_API_ void FourierTransformR(
         const OutputData<complex_t>& source, OutputData<double> *p_destination);
 
-    BA_CORE_API_ OutputData<double> *getRealPart(const OutputData<complex_t>& source);
-    BA_CORE_API_ OutputData<double> *getImagPart(const OutputData<complex_t>& source);
-    BA_CORE_API_ OutputData<double> *getModulusPart(const OutputData<complex_t>& source);
+    //! reduces the data to the element-wise real, imaginary or modulus part
+    BA_CORE_API_ OutputData<double> *getRealPart(
+            const OutputData<complex_t>& source);
+    BA_CORE_API_ OutputData<double> *getImagPart(
+            const OutputData<complex_t>& source);
+    BA_CORE_API_ OutputData<double> *getModulusPart(
+            const OutputData<complex_t>& source);
 
-    //! Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name')
+#ifndef GCCXML_SKIP_THIS
+    //! Selects an element-wise component of the matrix-valued OutputData
+    //! structure and returns a new double-valued one
+    BA_CORE_API OutputData<double> *getComponentData(
+            const OutputData<Eigen::Matrix2d> &source, int row, int column);
+    //! Assembles a matrix-valued OuputData structure from its component
+    //! maps
+    BA_CORE_API OutputData<Eigen::Matrix2d> *createFromComponents(
+            const OutputData<double> &component_00,
+            const OutputData<double> &component_01,
+            const OutputData<double> &component_10,
+            const OutputData<double> &component_11);
+#endif
+
+    //! Slice data, having one bin on selected axis fixed. Resulting output
+    //! data will have one axis less (without axis 'fixed_axis_name')
     OutputData<double> *sliceAccrossOneAxis(
         const OutputData<double>& data, const std::string& fixed_axis_name,
         double fixed_axis_value);
 
-    //! Select range on one of the axis. Resulting output data will have same number of axes
+    //! Select range on one of the axis. Resulting output data will have same
+    //! number of axes
     BA_CORE_API_ OutputData<double> *selectRangeOnOneAxis(
         const OutputData<double>& data, const std::string& selected_axis_name,
         double axis_value1, double axis_value2);
@@ -55,7 +76,8 @@ namespace OutputDataFunctions
     void applyFunction(
         OutputData<double>& data, const IIntensityFunction *func);
 
-    //! Creates a rectangular mask based on the given OutputData object and limits
+    //! Creates a rectangular mask based on the given OutputData object and
+    //! limits
     BA_CORE_API_ Mask *CreateRectangularMask(
         const OutputData<double>& data,
         const double *minima, const double *maxima);

@@ -203,11 +203,49 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
     return p_result;
 }
 
-//! Slice data, having one bin on selected axis fixed.
+OutputData<double>* OutputDataFunctions::getComponentData(
+        const OutputData<Eigen::Matrix2d>& source, int row, int column)
+{
+    OutputData<double> *p_result;
+    p_result->copyShapeFrom(source);
 
+    // no iterators to avoid use of masks
+    size_t nbr_elements = source.getAllocatedSize();
+    for (size_t i=0; i<nbr_elements; ++i) {
+        (*p_result)[i] = source[i](row, column);
+    }
+    return p_result;
+}
+
+OutputData<Eigen::Matrix2d>* OutputDataFunctions::createFromComponents(
+        const OutputData<double>& component_00,
+        const OutputData<double>& component_01,
+        const OutputData<double>& component_10,
+        const OutputData<double>& component_11)
+{
+    if (!component_00.hasSameShape(component_01)
+     || !component_00.hasSameShape(component_10)
+     || !component_00.hasSameShape(component_11) ) {
+        return 0;
+    }
+    OutputData<Eigen::Matrix2d> *p_result;
+    p_result->copyShapeFrom(component_00);
+
+    // no iterators to avoid use of masks
+    size_t nbr_elements = component_00.getAllocatedSize();
+    for (size_t i=0; i<nbr_elements; ++i) {
+        (*p_result)[i](0,0) = component_00[i];
+        (*p_result)[i](0,1) = component_01[i];
+        (*p_result)[i](1,0) = component_10[i];
+        (*p_result)[i](1,1) = component_11[i];
+    }
+    return p_result;
+}
+
+//! Slice data, having one bin on selected axis fixed.
+//!
 //! Resulting output data will have one axis less
 //! (without axis 'fixed_axis_name')
-//!
 OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     const OutputData<double >& data, const std::string& fixed_axis_name,
     double fixed_axis_value)
@@ -418,5 +456,4 @@ Mask* OutputDataFunctions::CreateEllipticMask(
     const double radii[2]={rx, ry};
     return OutputDataFunctions::CreateEllipticMask(data, center, radii);
 }
-
 

@@ -1,6 +1,6 @@
 # file to build installer
 
-option(BUILD_DEBIAN "Build a debian package" ON)
+option(BUILD_DEBIAN "Build a debian package" OFF)
 
 include(InstallRequiredSystemLibraries)
 
@@ -82,6 +82,7 @@ set(CPACK_SOURCE_IGNORE_FILES
 )
 
 
+if(BUILD_DEBIAN)
 # parameters to build a debian package
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Marina Ganeva <m.ganeva@fz-juelich.de>") 
 
@@ -114,18 +115,20 @@ set(CPACK_DEBIAN_PACKAGE_DESCRIPTION	"${CPACK_PACKAGE_DESCRIPTION}")
 set(CPACK_DEBIAN_PACKAGE_VERSION 1)
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}-${CPACK_DEBIAN_PACKAGE_VERSION}_${CMAKE_SYSTEM_PROCESSOR}")
 
+# write changelog file
+
 # write copyrite file [TODO:] fix the text of copyright
 file(WRITE "${CMAKE_BINARY_DIR}/copyright"
      "Copyright (C) 2013 Sceintific Computing at MLZ
-	
+
    This software is licensed under the terms of the
    GNU General Public License Version 3.
-	
+
    Software distributed under the License is distributed
    on an ``AS IS'' basis, WITHOUT WARRANTY OF ANY KIND, either
    express or implied. See the GPL for the specific language
    governing rights and limitations.
-	
+
    You should have received a copy of the GPL along with this
    program. If not, go to http://www.gnu.org/licenses/gpl.html
    or write to the Free Software Foundation, Inc.,
@@ -137,21 +140,22 @@ License can be found in `/usr/share/common-licenses/GPL-3'.")
 install(FILES "${CMAKE_BINARY_DIR}/copyright"
         DESTINATION "share/doc/${CPACK_DEBIAN_PACKAGE_NAME}")
 
-# write changelog file
-FIND_PROGRAM(GIT_EXECUTABLE git)
-FIND_PROGRAM(GIT2CL_EXECUTABLE git2cl)
 
-IF(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
+    FIND_PROGRAM(GIT_EXECUTABLE git)
+    FIND_PROGRAM(GIT2CL_EXECUTABLE git2cl)
+
+    if(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
 	set(GIT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 	execute_process(COMMAND ${GIT_EXECUTABLE} --git-dir=${GIT_DIR} log 
-				COMMAND ${GIT2CL_EXECUTABLE} 
-                COMMAND gzip -9
-                OUTPUT_FILE "${CMAKE_BINARY_DIR}/changelog.gz")
-	install(FILES "${CMAKE_BINARY_DIR}/changelog.gz"
+            COMMAND ${GIT2CL_EXECUTABLE}
+            COMMAND gzip -9
+            OUTPUT_FILE "${CMAKE_BINARY_DIR}/changelog.gz")
+    install(FILES "${CMAKE_BINARY_DIR}/changelog.gz"
         DESTINATION "share/doc/${CPACK_DEBIAN_PACKAGE_NAME}")
-else()
-    MESSAGE(STATUS "W: git or git2cl not found. Can't create the debian changelog file.")
-ENDIF(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
+    else()
+        MESSAGE(STATUS "W: git or git2cl not found. Can't create the debian changelog file.")
+    endif(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
+endif()
 
 
 # check if such commands are exist

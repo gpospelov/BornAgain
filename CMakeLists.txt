@@ -7,17 +7,21 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(BornAgain)
 
 # --- General project settings ---
-if(NOT BORNAGAIN_PYTHON)
-    set(BORNAGAIN_PYTHON ON)
-endif()
+option(BORNAGAIN_PYTHON "Build with python support" ON)
+option(BORNAGAIN_APP "Build test application" ON)
+option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 
-if(NOT BORNAGAIN_APP)
-    set(BORNAGAIN_APP ON)
-endif()
+#if(NOT BORNAGAIN_PYTHON)
+#    set(BORNAGAIN_PYTHON ON)
+#endif()
 
-if(NOT BORNAGAIN_GUI)
-    set(BORNAGAIN_GUI OFF)
-endif()
+#if(NOT BORNAGAIN_APP)
+#    set(BORNAGAIN_APP ON)
+#endif()
+
+#if(NOT BORNAGAIN_GUI)
+#    set(BORNAGAIN_GUI OFF)
+#endif()
 
 #--- Path for additional cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)

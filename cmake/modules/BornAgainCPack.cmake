@@ -97,6 +97,11 @@ IF(NOT CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
     )
 ENDIF(NOT CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
 
+if(${CPACK_DEBIAN_PACKAGE_ARCHITECTURE} MATCHES "i686")
+	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
+endif()
+
+
 set(CPACK_DEBIAN_PACKAGE_NAME "${CPACK_PACKAGE_NAME}")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
@@ -110,27 +115,43 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSIO
 file(WRITE "${CMAKE_BINARY_DIR}/copyright"
      "Copyright (C) 2013 Sceintific Computing at MLZ
 	
-   This software may be licensed under the terms of the
-   GNU Lesser General Public License Version 3 (the ``LGPL''),
-   or (at your option) any later version.
+   This software is licensed under the terms of the
+   GNU General Public License Version 3.
 	
    Software distributed under the License is distributed
    on an ``AS IS'' basis, WITHOUT WARRANTY OF ANY KIND, either
-   express or implied. See the LGPL for the specific language
+   express or implied. See the GPL for the specific language
    governing rights and limitations.
 	
-   You should have received a copy of the LGPL along with this
-   program. If not, go to http://www.gnu.org/licenses/lgpl.html
+   You should have received a copy of the GPL along with this
+   program. If not, go to http://www.gnu.org/licenses/gpl.html
    or write to the Free Software Foundation, Inc.,
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-On Debian systems, the complete text of the GNU Lesser General Public
-License can be found in `/usr/share/common-licenses/LGPL-3'.")
+On Debian systems, the complete text of the GNU General Public
+License can be found in `/usr/share/common-licenses/GPL-3'.")
 
 install(FILES "${CMAKE_BINARY_DIR}/copyright"
         DESTINATION "share/doc/${CPACK_DEBIAN_PACKAGE_NAME}")
 
-# write changelog file [TODO]
+# write changelog file
+FIND_PROGRAM(GIT_EXECUTABLE git)
+FIND_PROGRAM(GIT2CL_EXECUTABLE git2cl)
+
+IF(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
+	set(GIT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+	execute_process(COMMAND ${GIT_EXECUTABLE} --git-dir=${GIT_DIR} log 
+				COMMAND ${GIT2CL_EXECUTABLE} 
+                COMMAND gzip -9
+                OUTPUT_FILE "${CMAKE_BINARY_DIR}/changelog.gz")
+	install(FILES "${CMAKE_BINARY_DIR}/changelog.gz"
+        DESTINATION "share/doc/${CPACK_DEBIAN_PACKAGE_NAME}")
+else()
+    MESSAGE(STATUS "W: git or git2cl not found. Can't create the debian changelog file.")
+ENDIF(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
+
+
+# check if such commands are exist
 
 include(CPack)
 

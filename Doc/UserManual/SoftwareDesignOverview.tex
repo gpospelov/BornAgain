@@ -49,9 +49,9 @@ The Experiment class holds all references to data objects that are needed to per
 \label{fig:exp}
 \end{figure}
 
-\subsection{The ISample class hi\"erarchy}
+\subsection{The ISample class hierarchy}
 
-Samples are described by a hi\"erarchy tree of objects which all adhere to the ISample interface. The composite pattern is used to achieve a common interface for all objects in the sample tree. The sample description is maximally decoupled from all computational classes, with the exception of the ``createDWBASimulation()'' method. This method will create a new object of type ``DWBASimulation'' that is capable of calculating the scattering contributions originating from the sample in question. The coupling is however not very tight, since the ISample subclasses only need to know about which class to instantiate and return.
+Samples are described by a hierarchical tree of objects which all adhere to the ISample interface. The composite pattern is used to achieve a common interface for all objects in the sample tree. The sample description is maximally decoupled from all computational classes, with the exception of the ``createDWBASimulation()'' method. This method will create a new object of type ``DWBASimulation'' that is capable of calculating the scattering contributions originating from the sample part in question. This coupling is not very tight however, since the ISample subclasses only need to know about which class to instantiate and return.
 
 This interface and two of its subclasses are sketched in \reffig{isample}.
 

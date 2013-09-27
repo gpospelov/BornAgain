@@ -1,3 +1,31 @@
+BornAgain-0.9.1, released 2013.09.27
+  > Summary: Windows build, polarized neutrons and magnetic domains
+  * Bug #403: Debian unittest failure
+  * Feature #14: Choose platform-independent build system
+  * Feature #314: Windows compilation part 2
+  * Feature #360: Compile BornAgainCore and corresponding functional tests
+  * Feature #361: Compile BornAgainFit and corresponding minimizer libraries and functional tests
+  * Feature #362: Compile PythonAPI and run python functional tests
+  * Feature #363: Compile App using cmake-mingw and cmake-msvc
+  * Feature #364: Switch to cmake build system in windows build
+  * Feature #365: Switch to Microsoft VC2012 in windows build
+  * Feature #366: Create windows installer package
+  * Feature #367: Provide treatment of detector resolution for polarized neutrons
+  * Feature #368: Provide correct normalization of polarized neutron intensity
+  * Feature #388: Test polarization simulation with IsGISAXS03 example
+  * Feature #389: Make common interface for reflection/transmission coefficients and their maps
+  * Feature #390: Make implementations of interference functions transparent to whether coefficients are matrix- or scalar-valued
+  * Feature #391: Compile GUI for windows using cmake-mingw and cmake-msvc
+  * Feature #392: Use scalar reflection/transmission coefficients in absence of magnetization in layers (also when the particles might be magnetized)
+  * Feature #399: Provide diffuse calculation for polarized mesocrystals
+  * Feature #402: Use cmake in eclipse build
+  * Feature #411: Provide help functions for analysis of polarized OutputData structures
+  * Documentation #406: Review Software Architecture section
+  * Documentation #407: Review Installation section
+  * Documentation #408: Update wiki page to conform with the UserManual
+  * Refactoring #370: Remove unnecessary code duplication introduced during implementation of polarization
+  * Support #371: Simulate S. Disch's sample    
+
 BornAgain-0.9, released 2013.08.23
   * FunctionalTests: fitting from python works two times faster than fitting from C++
   * Compile Error on Ubuntu 12.04

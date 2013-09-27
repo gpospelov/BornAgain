@@ -1,6 +1,5 @@
-%\newpage
-\chapter{Examples}  \label{ExamplesChapter}
-%\section{Examples} \SecLabel{Examples}
+\newpage
+\chapter{Simulation examples}  \SecLabel{Simulation}
 
 \section{General methodology}
 A simulation of GISAXS using \BornAgain\ consists of following steps:
@@ -16,7 +15,14 @@ A simulation of GISAXS using \BornAgain\ consists of following steps:
 \item save the simulated detector image.
 \end{itemize}
 
-\noindent The sample is built from object oriented building blocks instead of loading data files.
+%\noindent The sample is built from object oriented building blocks and can be
+%instead of loading data files.
+\noindent
+User defines all these steps using \BornAgain\ API in Python script and then run 
+the simulation by executing the script in Python interpreter.
+More information about general software architecture and \BornAgain\ internal design
+are given in \SecRef{SoftwareArchitecture}.
+
 
 \section{Conventions}
 
@@ -28,6 +34,17 @@ plane of the detector and the $y$-axis is along it. The input and the
 scattered output beams are each characterized by two angles
 $\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$ respectively. Our choice of orientation for the
 angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
+  \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
+    the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
+    angle of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
+$\phi_f$ is the scattering angle with respect to the scattering
+plane. }
+  \label{fig:multil3d}
+\end{figure}
 
 
 \noindent The layers are defined by their thicknesses (parallel to the
@@ -64,16 +81,6 @@ when dealing with the interference function. \\
 $\delta, \beta \in \mathbb{R}$. In our program, we input $\delta$ and
 $\beta$ directly.
 
-\begin{figure}[h]
-  \centering
-    \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
-  \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
-    the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
-    angle of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
-$\phi_f$ is the scattering angle with respect to the scattering
-plane. }
-  \label{fig:multil3d}
-\end{figure}
 
 \noindent The input beam is assumed to be monochromatic without any
 spatial divergence.\\ %\textbf{polarization term?}
@@ -365,53 +372,6 @@ is associated with the output intensity in arbitrary units. }
 \label{fig:output_ex1}
 \end{figure}
 
-\newpage
-\begin{lstlisting}[caption={Python script of example 1},
-  label=script_ex1,captionpos=b,escapeinside={@}{@} ,language=python,style=eclipse, numbers= none,frame = leftline ,
-      framerule = 2mm ,
-      rulecolor = \color{lightgrey},
-      breaklines = true]
-import sys, os, numpy 
-
-sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..', '..', '..', 'lib')))
-
-from libBornAgainCore import * 
-
-def RunSimulation():
-    #  defining materials 
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 ) 
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",
-    6e-6, 2e-8) 
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
-    # collection of particles 
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) 
-    cylinder = Particle(mParticle, cylinder_ff) 
-    prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer) 
-    prism = Particle(mParticle, prism_ff) 
-    particle_decoration = ParticleDecoration()  
-    particle_decoration.addParticle(cylinder, 0.0, 0.5)  
-    particle_decoration.addParticle(prism, 0.0, 0.5)  
-    interference = InterferenceFunctionNone()  
-    particle_decoration.addInterferenceFunction(interference)  
-    # air layer with particles and substrate form multi layer 
-    air_layer = Layer(mAmbience)  
-    air_layer.setDecoration(particle_decoration)
-    substrate_layer = Layer(mSubstrate, 0) 
-    multi_layer = MultiLayer()  
-    multi_layer.addLayer(air_layer) 
-    multi_layer.addLayer(substrate_layer) 
-
-    # build and run simulation  
-    simulation = Simulation()  
-    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 
-                                    100, 0.0*degree, 2.0*degree, True) 
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree) 
-    simulation.setSample(multi_layer) 
-    simulation.runSimulation()  
-
-    # retrieving intensity data
-     return GetOutputData(simulation)
-\end{lstlisting}
 
 % \newpage
 % \subsection{Hello, minted}
@@ -445,6 +405,6 @@ def RunSimulation():
 % simulation.runSimulation()
 % \end{minted}
 
-\section{Example 2}
+%\section{Example 2}
 
-\ldots forthcoming
+%\ldots forthcoming

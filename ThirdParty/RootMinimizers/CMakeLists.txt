@@ -42,4 +42,4 @@ include_directories(${GSL_INCLUDE_DIRS})
 target_link_libraries(${library_name} ${GSL_LIBRARIES})
 
 # --- installation ---
-install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)
+#install (TARGETS ${library_name} DESTINATION lib COMPONENT Libraries)

@@ -138,7 +138,7 @@ sudo port install eigen3
 \BornAgain\ source can be downloaded at \url{http://apps.jcns.fz-juelich.de/BornAgain}
 and unpacked with
 \begin{lstlisting}[language=shell, style=commandline]
-tar xfz bornagain-<version>.tgz
+tar xfz bornagain-<version>.tar.gz
 \end{lstlisting}
 
 \noindent
@@ -181,7 +181,7 @@ previous sections, type build commands
 \begin{lstlisting}[language=bash, style=commandline]
 mkdir <build_dir>
 cd <build_dir>
-cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
+cmake  -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
 make
 \end{lstlisting}
 \vspace*{3mm}

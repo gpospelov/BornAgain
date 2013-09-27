@@ -38,7 +38,7 @@ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 {\bf Step III: $~$ building the source}
 \begin{lstlisting}[language=shell, style=commandline]
 mkdir <build_dir>; cd <build_dir>;
-cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
+cmake -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
 make
 make check
 make install
@@ -59,12 +59,11 @@ python CylindersAndPrisms.py
 
 \noindent
 {\bf Step I: $~$ installing third party software} \newline
-Current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
-to be installed on the system.
-If you don't have them already, you can use \Code{PythonXY} installer
-at \url{https://code.google.com/p/pythonxy} with default installation options
-to install all necessary packages (and more).
-together.
+The current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
+to be installed on the system. If you don't have them already installed,
+you can use \Code{PythonXY} installer
+at \url{https://code.google.com/p/pythonxy} which, with default installation options, will contain at least these three packages.
+\BornAgain\ installation.
 \vspace*{2mm}
 
 \noindent
@@ -74,7 +73,7 @@ Double click it to start installation process, then follow instructions.
 \vspace*{2mm}
 
 \noindent
-{\bf Step IV: $~$ running example} \newline
+{\bf Step III: $~$ running example} \newline
 Run an example simulation by double-clicking on the python script located in the \BornAgain\ installation directory:
 \begin{lstlisting}[language=shell, style=commandline]
 python C:/BornAgain-0.9.1/Examples/python/ex001_CylindersAndPrisms/CylindersAndPrisms.py

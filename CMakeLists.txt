@@ -8,7 +8,7 @@ project(BornAgain)
 
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
-option(BORNAGAIN_APP "Build test application" ON)
+option(BORNAGAIN_APP "Build test application" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 
 #--- Path for additional cmake modules ---

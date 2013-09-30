@@ -11,7 +11,7 @@ option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_APP "Build test application" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 
-#--- Path for additional cmake modules ---
+# --- Path for additional cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 #--- Including macros ---

@@ -1,5 +1,18 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+# --- The version number. Please define it here only! ---
+set(BornAgain_VERSION_MAJOR 0)
+set(BornAgain_VERSION_MINOR 9)
+set(BornAgain_VERSION_PATCH 1)
+
+# --- configure a header file to pass CMake settings to the source code
+configure_file(
+  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h.in"
+  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
+)
+
+# --- end of the version setting ---
+
 set(lib lib)
 set(bin bin)
 

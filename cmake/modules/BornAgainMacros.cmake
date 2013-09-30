@@ -11,6 +11,12 @@ configure_file(
   "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
 )
 
+# --- configure delpoyment script for release
+#configure_file(
+#  "${CMAKE_SOURCE_DIR}/bin/release.sh.in"
+#  "${CMAKE_BINARY_DIR}/bin/release.sh"
+#)
+
 # --- end of the version setting ---
 
 set(lib lib)

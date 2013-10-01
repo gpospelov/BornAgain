@@ -35,6 +35,10 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
+    virtual double getVolume() const {
+        return m_width*m_width*m_height;
+    }
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

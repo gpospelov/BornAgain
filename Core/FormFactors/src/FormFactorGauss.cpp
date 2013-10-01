@@ -63,4 +63,8 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const
     return radial_part*z_part;
 }
 
-
+bool FormFactorGauss::useLargeBinApproximation(const Bin1DCVector& q_bin) const
+{
+    (void)q_bin;
+    return false;
+}

@@ -39,6 +39,8 @@ protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
+    //! determine if a large bin size approximation should be used
+    virtual bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 private:
     double m_height;
     double m_width;

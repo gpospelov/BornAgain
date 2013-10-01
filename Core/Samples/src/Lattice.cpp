@@ -58,10 +58,6 @@ Lattice::~Lattice()
 void Lattice::initialize() const
 {
     computeReciprocalVectors();
-    if (!m_is_zero) {
-        computeInverseLatticeVectors();
-        computeInverseReciprocalLatticeVectors();
-    }
     m_cache_ok = true;
 }
 
@@ -84,19 +80,24 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
 
 IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vector_in) const
 {
-    kvector_t coordinate_vector = vector_in.x()*m_amin1 + vector_in.y()*m_amin2 + vector_in.z()*m_amin3;
-    int c1 = (int)std::floor(coordinate_vector.x() + 0.5);
-    int c2 = (int)std::floor(coordinate_vector.y() + 0.5);
-    int c3 = (int)std::floor(coordinate_vector.z() + 0.5);
+    double a1_coord = vector_in.dot(m_b1)/2.0/M_PI;
+    double a2_coord = vector_in.dot(m_b2)/2.0/M_PI;
+    double a3_coord = vector_in.dot(m_b3)/2.0/M_PI;
+    int c1 = (int)std::floor(a1_coord + 0.5);
+    int c2 = (int)std::floor(a2_coord + 0.5);
+    int c3 = (int)std::floor(a3_coord + 0.5);
     return IndexVector3D(c1, c2, c3);
 }
 
-IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t& vector_in) const
+IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(
+        const kvector_t& vector_in) const
 {
-    kvector_t coordinate_vector = vector_in.x()*m_bmin1 + vector_in.y()*m_bmin2 + vector_in.z()*m_bmin3;
-    int c1 = (int)std::floor(coordinate_vector.x() + 0.5);
-    int c2 = (int)std::floor(coordinate_vector.y() + 0.5);
-    int c3 = (int)std::floor(coordinate_vector.z() + 0.5);
+    double b1_coord = vector_in.dot(m_a1)/2.0/M_PI;
+    double b2_coord = vector_in.dot(m_a2)/2.0/M_PI;
+    double b3_coord = vector_in.dot(m_a3)/2.0/M_PI;
+    int c1 = (int)std::floor(b1_coord + 0.5);
+    int c2 = (int)std::floor(b2_coord + 0.5);
+    int c3 = (int)std::floor(b3_coord + 0.5);
     return IndexVector3D(c1, c2, c3);
 }
 
@@ -106,8 +107,10 @@ void Lattice::computeReciprocalLatticeVectorsWithinRadius(
     if (!m_cache_ok) {
         initialize();
     }
-    IndexVector3D nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
-    computeVectorsWithinRadius(input_vector, nearest_coords, radius, m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
+    IndexVector3D nearest_coords = getNearestReciprocalLatticeVectorCoordinates(
+            input_vector);
+    computeVectorsWithinRadius(input_vector, nearest_coords, radius,
+            m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
 }
 
 std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
@@ -132,7 +135,6 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
             result.push_back(phi);
         }
     }
-//    std::cout << "Returning " << result.size() << " angles" << std::endl;
     return result;
 }
 
@@ -158,9 +160,9 @@ void Lattice::computeReciprocalVectors() const
     kvector_t a23 = crossProduct(m_a2, m_a3);
     kvector_t a31 = crossProduct(m_a3, m_a1);
     kvector_t a12 = crossProduct(m_a1, m_a2);
-    m_b1 = 2*M_PI/dotProduct(m_a1, a23)*a23;
-    m_b2 = 2*M_PI/dotProduct(m_a2, a31)*a31;
-    m_b3 = 2*M_PI/dotProduct(m_a3, a12)*a12;
+    m_b1 = 2.0*M_PI/dotProduct(m_a1, a23)*a23;
+    m_b2 = 2.0*M_PI/dotProduct(m_a2, a31)*a31;
+    m_b3 = 2.0*M_PI/dotProduct(m_a3, a12)*a12;
 }
 
 void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
@@ -190,16 +192,6 @@ void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
             }
         }
     }
-}
-
-void Lattice::computeInverseLatticeVectors() const
-{
-    computeInverseVectors(m_a1, m_a2, m_a3, m_amin1, m_amin2, m_amin3);
-}
-
-void Lattice::computeInverseReciprocalLatticeVectors() const
-{
-    computeInverseVectors(m_b1, m_b2, m_b3, m_bmin1, m_bmin2, m_bmin3);
 }
 
 void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,

@@ -202,7 +202,7 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
     avg_layer.setThickness(m_meso_height);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion =
+    IInterferenceFunction *p_interference_function =
         new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
     size_t n_max_phi_rotation_steps = 180;
@@ -224,7 +224,7 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
     }
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_function);
 
     avg_layer.setDecoration(particle_decoration);
 

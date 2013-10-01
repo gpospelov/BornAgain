@@ -183,6 +183,8 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
         ff_meso(ff_cyl.clone(),
                 m_sigma_meso_height*m_sigma_meso_height/2.0,
                 m_sigma_meso_radius*m_sigma_meso_radius/2.0);
+    double mesovol = M_PI*m_meso_radius*m_meso_radius*m_meso_height;
+    FormFactorGauss ff_gauss(mesovol);
 
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -205,7 +207,7 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
     IInterferenceFunction *p_interference_function =
         new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
-    size_t n_max_phi_rotation_steps = 180;
+    size_t n_max_phi_rotation_steps = 1;
     size_t n_alpha_rotation_steps = 1;
 
     double phi_step = 2*M_PI/3.0/n_max_phi_rotation_steps;
@@ -217,7 +219,7 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
                 Geometry::RotateZ_3D(phi_start + i*phi_step));
             particle_decoration.addParticle(
                 createMesoCrystal(m_lattice_length_a,
-                                  n_particle_adapted, &ff_meso),
+                                  n_particle_adapted, &ff_gauss),
                 trafo,
                 m_meso_height);
         }

@@ -1,21 +1,16 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-# --- The version number. Please define it here only! ---
-set(BornAgain_VERSION_MAJOR 0)
-set(BornAgain_VERSION_MINOR 9)
-set(BornAgain_VERSION_PATCH 1)
-
 # --- configure a header file to pass CMake settings to the source code
 configure_file(
   "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h.in"
   "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
 )
 
-# --- configure delpoyment script for release
-#configure_file(
-#  "${CMAKE_SOURCE_DIR}/bin/release.sh.in"
-#  "${CMAKE_BINARY_DIR}/bin/release.sh"
-#)
+# --- configure deployment script for release
+configure_file(
+  "${CMAKE_SOURCE_DIR}/bin/release.sh.in"
+  "${CMAKE_BINARY_DIR}/bin/release.sh"
+)
 
 # --- end of the version setting ---
 

@@ -1,11 +1,11 @@
 # file to build installer
 
-option(BUILD_DEBIAN "Build a debian package" OFF)
+#option(BUILD_DEBIAN "Build a debian package" OFF)
 
 include(InstallRequiredSystemLibraries)
 
 # --- The BornAgain version is defined in ---
-# --- cmake/modules/ BornAgainMacros.cmake ---
+# --- the main file CMakeLists.txt ---
 #set(BORNAGAIN_MAJOR_VERSION "0")
 #set(BORNAGAIN_MINOR_VERSION "9")
 #set(BORNAGAIN_PATCH_VERSION "1")
@@ -104,21 +104,20 @@ IF(NOT CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
     )
 ENDIF(NOT CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
 
-if(${CPACK_DEBIAN_PACKAGE_ARCHITECTURE} MATCHES "i686")
-	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
-endif()
+#if(${CPACK_DEBIAN_PACKAGE_ARCHITECTURE} MATCHES "i686")
+#	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
+#endif()
 
 
 set(CPACK_DEBIAN_PACKAGE_NAME "${CPACK_PACKAGE_NAME}")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
 set(CPACK_STRIP_FILES "TRUE")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgsl, libboost, libfftw3, libpython") # [TODO:] set versions
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgsl0-dev, libboost-dev(>=1.48), libfftw3-dev, libpython2.7, libc6(>= 2.7)") 
 set(CPACK_DEBIAN_PACKAGE_DESCRIPTION	"${CPACK_PACKAGE_DESCRIPTION}")
 set(CPACK_DEBIAN_PACKAGE_VERSION 1)
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}-${CPACK_DEBIAN_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
 
-# write changelog file
 
 # write copyrite file [TODO:] fix the text of copyright
 file(WRITE "${CMAKE_BINARY_DIR}/copyright"
@@ -144,8 +143,12 @@ install(FILES "${CMAKE_BINARY_DIR}/copyright"
         DESTINATION "share/doc/${CPACK_DEBIAN_PACKAGE_NAME}")
 
 
+# write changelog file
+
     FIND_PROGRAM(GIT_EXECUTABLE git)
     FIND_PROGRAM(GIT2CL_EXECUTABLE git2cl)
+
+# check if such commands are exist
 
     if(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
 	set(GIT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.git")
@@ -161,7 +164,6 @@ install(FILES "${CMAKE_BINARY_DIR}/copyright"
 endif()
 
 
-# check if such commands are exist
 
 include(CPack)
 

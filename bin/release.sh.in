@@ -9,6 +9,10 @@ BA_VERSION_MINOR=@BornAgain_VERSION_MINOR@
 BA_VERSION_PATCH=@BornAgain_VERSION_PATCH@
 BA_VERSION=$BA_VERSION_MAJOR.$BA_VERSION_MINOR.$BA_VERSION_PATCH
 
+# path to the mirror-folder of the application server
+# after the release will be produces, we make rsync to syncronize 
+# the contents with the application server 
+RELEASE_DIR="/home/mary/build/bornagain/RELEASE/BornAgain"
 # 1. Making release branch
 # Where is your git source tree? 
 # Set the path here or CMake will set it for you.
@@ -21,22 +25,23 @@ CMAKE_BUILD_DIR="@CMAKE_BINARY_DIR@"
 
 # make a release branch
 RELEASE_BRANCH_NAME="release-$BA_VERSION"
-git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME develop
+#git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME develop
+git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME 
 
 # build BornAgain with App and UserManual
-# cd $CMAKE_BUILD_DIR
+cd $CMAKE_BUILD_DIR
 cmake -D BORNAGAIN_APP=ON -D BORNAGAIN_MAN=ON --build $CMAKE_BUILD_DIR $CMAKE_SOURCE_DIR && make
 
 # Update picture number of lines of code
 # [TODO:] change qqq.png to lines_of_code.png after testing
-python $CMAKE_SOURCE_DIR/dev-tools/git-utils/cl_lines_of_code.py -i $GIT_SOURCE_TREE -o $CMAKE_SOURCE_DIR/dev-tools/git-utils/qqq.png
+python $CMAKE_SOURCE_DIR/dev-tools/git-utils/cl_lines_of_code.py -i $CMAKE_SOURCE_DIR -o $CMAKE_SOURCE_DIR/dev-tools/git-utils/qqq.png
 
 # Measure the performance
 $CMAKE_BUILD_DIR/bin/App --performance --batch --threads=-1
 
 # Modify file dev-tools/log/perf_history.txt
 echo "Please, enter a comment for perf-history.txt [Press Enter if empty]"
-read PERF_COMMENT
+read -t 10 PERF_COMMENT
 if [ "PERF_COMMENT" != "" ]; then
 	echo $PERF_COMMENT >> $CMAKE_SOURCE_DIR/dev-tools/log/perf-history.txt
 fi
@@ -44,14 +49,43 @@ cat perf_history.txt >> $CMAKE_SOURCE_DIR/dev-tools/log/perf-history.txt
 
 # [FUTURE TASK] Modify CHANGELOG (SQL query to get data from the redmine roadmap database)
 PATH_TO_CHANGELOG="$CMAKE_SOURCE_DIR/CHANGELOG"
-# upload CHANGELOG
-#PATH_TO_UPLOAD_CHANGELOG="apps@apps.jcns.fz-juelich.de:/www/apps/src/BornAgain/"
-#scp $PATH_TO_CHANGELOG $PATH_TO_UPLOAD_CHANGELOG
+cp $PATH_TO_CHANGELOG $RELEASE_DIR
 
 # Update UserManual
-# [TODO:] remove old manual
+# remove old manual
+rm -f $RELEASE_DIR/UserManual*.pdf
 # upload new manual
-# PATH_TO_MANUAL=$CMAKE_BUILD_DIR/
+cp $CMAKE_BUILD_DIR/Doc/UserManual/UserManual-*.pdf $RELEASE_DIR
  
+# 2. Prepare package source tarball
+cd $CMAKE_BUILD_DIR
+make package_source
+# [Future Task:] write a validation script
+
+# move the old package 
+mv $RELEASE_DIR/BornAgain*.tar.gz $RELEASE_DIR/old/
+
+# put the package source to RELEASE_DIR for further upload
+cp $CMAKE_BUILD_DIR/BornAgain-$BA_VERSION.tar.gz $RELEASE_DIR
+
+# 3. make rsync to the application server
+# uncomment after you are sure that everything is working properly 
+# rsync -avzhe ssh $RELEASE_DIR apps@apps.jcns.fz-juelich.de:/www/apps/src/BornAgain
+
+# 4. Finalize git
+# finalize master
+git --git-dir=$GIT_SOURCE_TREE commit -a -m "Release $BA_VERSION"
+git --git-dir=$GIT_SOURCE_TREE checkout master
+git --git-dir=$GIT_SOURCE_TREE merge --no-ff $RELEASE_BRANCH_NAME 
+git --git-dir=$GIT_SOURCE_TREE tag -a $BA_VERSION
+# uncomment after you are sure that everything is working properly 
+# git --git-dir=$GIT_SOURCE_TREE push
       
-echo $RELEASE_BRANCH_NAME    
+# finalize develop
+git --git-dir=$GIT_SOURCE_TREE checkout develop
+git --git-dir=$GIT_SOURCE_TREE merge --no-ff $RELEASE_BRANCH_NAME
+# uncomment after you are sure that everything is working properly 
+# git --git-dir=$GIT_SOURCE_TREE push
+git --git-dir=$GIT_SOURCE_TREE branch -d $RELEASE_BRANCH_NAME
+
+echo "Congratulations with new $BA_VERSION release! Great job ;-)"    

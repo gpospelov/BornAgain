@@ -82,6 +82,10 @@ set(CPACK_SOURCE_IGNORE_FILES
     "\\\\.lssrc"
     "\\\\.DS_Store"
     "\\\\.obj"
+    "/bin/release.sh.in" # user will not need it
+    "/cmake/modules/UseLATEX.cmake" # user will not need it
+    "/dev-tools/git-utils/cl_lines_of_code.py"
+    "/dev-tools/git-utils/qqq.png" # remove this line when unneeded
 )
 
 
@@ -113,7 +117,7 @@ set(CPACK_DEBIAN_PACKAGE_NAME "${CPACK_PACKAGE_NAME}")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
 set(CPACK_STRIP_FILES "TRUE")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgsl0-dev, libboost-dev(>=1.48), libfftw3-dev, libpython2.7, libc6(>= 2.7)") 
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgsl0-dev(>=1.15), libboost-dev(>=1.48), libfftw3-dev(>=3.3.1), python(>=2.7), python-dev(>=2.7), libpython2.7, python-numpy, libc6(>= 2.7)") 
 set(CPACK_DEBIAN_PACKAGE_DESCRIPTION	"${CPACK_PACKAGE_DESCRIPTION}")
 set(CPACK_DEBIAN_PACKAGE_VERSION 1)
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}-${CPACK_DEBIAN_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")

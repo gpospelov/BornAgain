@@ -8,8 +8,8 @@ project(BornAgain)
 
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
-option(BORNAGAIN_APP "Build test application" OFF)
-option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
+option(BORNAGAIN_APP "Build test application" ON)
+option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 
 #--- Path for additional cmake modules ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)

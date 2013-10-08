@@ -3,7 +3,9 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.9)
+if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
+endif()
 
 #project(qt-manhattan-style)
 set(library_name ManhattanStyle)

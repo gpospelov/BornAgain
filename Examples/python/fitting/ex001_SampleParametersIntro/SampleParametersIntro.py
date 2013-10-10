@@ -70,14 +70,14 @@ def run_simulations():
 
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
-    sample.setParameterValue('/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height'
+    sample.setParameterValue("/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height"
         , 1.0*nanometer)
     simulation.runSimulation()
     results.append( GetOutputData(simulation) )
 
     # simulation #3
     # all parameters which are matching criteria will be changed
-    
+
 
     return results
 

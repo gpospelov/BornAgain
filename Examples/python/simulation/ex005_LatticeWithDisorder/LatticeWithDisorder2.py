@@ -1,25 +1,21 @@
 # 2D lattice with different disorder (IsGISAXS example #6), centered lattice
-import sys, os, numpy
-
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0], '..', '..', '..', 'lib')
-                ))
-
-sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..')))
-
+import numpy
+import matplotlib
+import pylab
 from libBornAgainCore import *
-from utils.show2d import PlotNumpyArray
 
 M_PI = numpy.pi
 
-# ----------------------------------
-# describe sample and run simulation 
-# ----------------------------------
-def RunSimulation():
+
+def get_sample():
+    """
+    Build and return the sample representing 2D lattice with different disorder
+    centered lattice
+    """
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     lattice_params = Lattice2DIFParameters()
@@ -39,8 +35,7 @@ def RunSimulation():
     position = kvector_t(0.0, 0.0, 0.0)
     # particle 1
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(mParticle, cylinder_ff)
-    position = kvector_t(0.0, 0.0, 0.0)
+    cylinder = Particle(m_particle, cylinder_ff)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
     # particle 2
@@ -49,38 +44,44 @@ def RunSimulation():
     particle_decoration.addParticleInfo(particle_info)
     particle_decoration.addInterferenceFunction(interference)
 
-    air_layer = Layer(mAmbience)
+    air_layer = Layer(m_ambience)
     air_layer.setDecoration(particle_decoration)
 
-    substrate_layer = Layer(mSubstrate, 0)
+    substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
-    # build and run experiment
-    simulation = Simulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    return multi_layer
 
-    sim_params= SimulationParameters()
+
+def get_simulation():
+    """
+    Create and return GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation()
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    sim_params = SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
     sim_params.me_if_approx = SimulationParameters.LMA
     sim_params.me_lattice_type = SimulationParameters.LATTICE
     simulation.setSimulationParameters(sim_params)
 
-    simulation.setSample(multi_layer)
+    return simulation
+
+
+def run_simulation():
+    """
+    Run simulation and plot results
+    """
+    sample = get_sample()
+    simulation = get_simulation()
+    simulation.setSample(sample)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    result = GetOutputData(simulation) + 1  # for log scale
+    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+    pylab.show()
 
 
-#-------------------------------------------------------------
-# main()
-#-------------------------------------------------------------
 if __name__ == '__main__':
-    result = RunSimulation()
-    PlotNumpyArray(result)
-
-
-
-
- 
- 
+    run_simulation()

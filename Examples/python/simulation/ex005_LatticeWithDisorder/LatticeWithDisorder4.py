@@ -1,63 +1,24 @@
 # 2D lattice with different disorder (IsGISAXS example #6), sum of lattices
-import sys, os, numpy
-
-sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0], '..', '..', '..', 'lib')
-                ))
-
-sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..')))
-
+import numpy
+import matplotlib
+import pylab
 from libBornAgainCore import *
-from utils.show2d import PlotNumpyArray
 
 M_PI = numpy.pi
 
 
-# ----------------------------------
-# describe sample and run simulation
-# ----------------------------------
-def RunSimulation():
-    # building simulation
-    simulation = Simulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+def get_sample(xi_value):
+    """
+    Build and return the sample representing 2D lattice with different disorder
+    rotated lattice
+    """
+    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    sim_params = SimulationParameters()
-    sim_params.me_framework = SimulationParameters.DWBA
-    sim_params.me_if_approx = SimulationParameters.LMA
-    sim_params.me_lattice_type = SimulationParameters.LATTICE
-    simulation.setSimulationParameters(sim_params)
+    air_layer = Layer(m_ambience)
+    substrate_layer = Layer(m_substrate)
 
-    # running simulation and copying data
-    OutputData_total = GetOutputData(simulation)
-    nbins = 3
-    xi_min = 0.0*degree
-    xi_max = 240.0*degree
-    xi= StochasticSampledParameter(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max)
-    #for size_t i in range(xi.getNbins()) :
-    for i in range(xi.getNbins()) :
-        xi_value = xi.getBinValue(i)
-        probability = xi.getNormalizedProbability(i)
-        p_sample =  buildSample(xi_value)
-        simulation.setSample(p_sample)
-        simulation.runSimulation()
-
-        single_output = GetOutputData(simulation)
-        single_output *= probability
-        OutputData_total += single_output
-
-    return OutputData_total
-
-
-# IsGISAXS6 functional test sample builder for varying xi angle
-def buildSample(xi_value):
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
-    
-    air_layer = Layer(mAmbience)
-    substrate_layer = Layer(mSubstrate)
-    
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
     lattice_params.m_length_2 = 10.0*nanometer
@@ -68,18 +29,18 @@ def buildSample(xi_value):
     lattice_params.m_corr_length_1 = 300.0*nanometer/2.0/M_PI
     lattice_params.m_corr_length_2 = 100.0*nanometer/2.0/M_PI
     p_interference_function = InterferenceFunction2DLattice(lattice_params)
-    pdf = FTDistribution2DCauchy (300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
+    pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)
 
     particle_decoration = ParticleDecoration()
     # particle
     ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
-    cylinder = Particle(mParticle, ff_cyl.clone())
-    particle_info = PositionParticleInfo( cylinder, position, 1.0)
+    cylinder = Particle(m_particle, ff_cyl.clone())
+    particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
     particle_decoration.addInterferenceFunction(p_interference_function)
-    
+
     air_layer.setDecoration(particle_decoration)
 
     multi_layer = MultiLayer()
@@ -88,15 +49,49 @@ def buildSample(xi_value):
     return multi_layer
 
 
-#-------------------------------------------------------------
-# main()
-#-------------------------------------------------------------
+def get_simulation():
+    """
+    Create and return GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation()
+    simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    sim_params = SimulationParameters()
+    sim_params.me_framework = SimulationParameters.DWBA
+    sim_params.me_if_approx = SimulationParameters.LMA
+    sim_params.me_lattice_type = SimulationParameters.LATTICE
+    simulation.setSimulationParameters(sim_params)
+    return simulation
+
+
+def run_simulation():
+    """
+    Run several simulations, sum up intensities from different rotated lattices and plot results
+    """
+
+    simulation = get_simulation()
+
+    OutputData_total = GetOutputData(simulation)
+    nbins = 3
+    xi_min = 0.0*degree
+    xi_max = 240.0*degree
+    xi= StochasticSampledParameter(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max)
+    for i in range(xi.getNbins()):
+        xi_value = xi.getBinValue(i)
+        probability = xi.getNormalizedProbability(i)
+        p_sample = get_sample(xi_value)
+        simulation.setSample(p_sample)
+        simulation.runSimulation()
+
+        single_output = GetOutputData(simulation)
+        single_output *= probability
+        OutputData_total += single_output
+
+    result = OutputData_total + 1  # for log scale
+    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+    pylab.show()
+
+
 if __name__ == '__main__':
-    result = RunSimulation()
-    PlotNumpyArray(result)
+    run_simulation()
 
-
-
-
- 
- 

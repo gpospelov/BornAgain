@@ -1,4 +1,4 @@
-\chapter{Fitting examples} \SecLabel{Fitting}
+\chapter{Fitting} \SecLabel{Fitting}
 
 In addition to the simulation of grazing incidence
 X-ray and neutron scattering by
@@ -9,23 +9,82 @@ of the software is discussed in the following chapter.
 
 The chapter starts from the short introduction to the basic concept of data fitting
 in \SecRef{Fit::BasicConcept}. Details of the implementation in \BornAgain\ are given
-in \SecRef{Fit::ImplementationBornAgain}. 
+in \SecRef{Fit::ImplementationBornAgain}.
+\SecRef{Fit::SimpleExample} contains Python fitting example with detailed explanations of every fitting step.
 
 
 \section{Basic concept of data fitting.} \SecLabel{Fit::BasicConcept}
 
+\subsection{Terminology.}
+Reference data: normally just experimental data or might be also simulated data
+spoiled with the noise for purpose of testing of minimization algorithms.
+Iterations
 
 \section{Implementation in BornAgain.} \SecLabel{Fit::ImplementationBornAgain}
 
+Fitting in  \BornAgain\ deals with estimating the optimum parameters
+in the numerical model by minimizing the difference between
+numerical and reference data using $\chi^2$  or maximum likelihood methods. The features include 
+
+\begin{itemize}
+\item Variety of multidimensional minimization algorithms and strategies.
+\item The choice over possible fitting parameters, they properties and correlations.
+\item Full control on $\chi^2$ calculations, including application of different normalizations and assignment of different masks and weights to the different areas of reference data.
+\item The possibility to fit simultaneously an arbitrary number of data sets.
+\end{itemize}
+
+Fig. ~\ref{fig:minimization_workflow} shows general work flow of fitting procedure.
 \begin{figure}[htbp]
 \centering
   \resizebox{0.99\textwidth}{!}{%
     \includegraphics{Figures/minimization_workflow.eps}}
 \caption{
-Structure of \BornAgain\ libraries.
+Fitting work flow.
 }
-\label{fig:two_ratios}
+\label{fig:minimization_workflow}
 \end{figure}
+Before running the fitting the user is required to prepare a number of data and to
+configure fitting kernel of \BornAgain\ . Necessary stages consist of
+
+\begin{itemize}
+\item Preparing sample description.
+\item Preparing simulation description (beam, detector parameters).
+\item Choice of fitting parameters.
+\item Loading of reference data.
+\item Defining minimization settings.
+\end{itemize}
+
+The class \Code{FitSuite} contains the main functionalities to be used for the fit
+and serve as main gate between user and fitting work flow. 
+The later involve iterations during which
+
+\begin{itemize}
+\item The minimizer makes aa assumption about optimal sample parameters.
+\item These parameters are propagated to the sample.
+\item The simulation is performed for the given state of the sample.
+\item Simulated data (intensities) are propagated to the $\chi^2$ module.
+\item The later performs calculation of $\chi^2$-value using simulated and reference data.
+\item $\chi^2$-value is propagated to the minimizer which makes new assumption about optimal sample parameters.
+\end{itemize}
+
+The control is returned to the user
+\begin{itemize}
+\item when the maximum number of iteration steps has been exceeded
+\item when the function's minimum has been reached within the tolerance window 
+\item if the minimizer could not improve the values of
+the parameters 
+\end{itemize}
+
+Some technical details of \Code{FitSuite} class implementation are given in \SecRef{FitSuiteClass}. The following parts of this section will detail each of
+the main stages necessary to run fitting procedure.
+
+
+
+
+
+
+
+
 
 
 
@@ -166,7 +225,7 @@ make the process more technically challenging than in unconstrained situations.
 \item number of degrees of freedom = number of data points - number of fitting parameters.
 \item The Hessian matrix or Hessian is a square matrix of second-order partial derivatives of a function. It describes the local curvature of a function of many variables.
 \end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% XXX
 \section{Implementation in \BornAgain}
 
 Fitting in  \BornAgain\ deals with estimating the optimum parameters

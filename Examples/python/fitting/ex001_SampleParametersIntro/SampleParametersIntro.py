@@ -72,8 +72,8 @@ def run_simulations():
 
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
-    sample.createParameterTree().setParameterValue("/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height"
-        , 10*nanometer)
+    sample.createParameterTree().setParameterValue(
+        "/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height", 10*nanometer)
 
     simulation.setSample(sample)
     simulation.runSimulation()

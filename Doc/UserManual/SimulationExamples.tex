@@ -1,109 +1,14 @@
-\newpage
-\chapter{Simulation examples}  \SecLabel{Simulation}
-
-\section{General methodology}
-A simulation of GISAXS using \BornAgain\ consists of following steps:
-\begin{itemize}
-\item define materials by specifying name and refractive index,
-\item define embedded particles by specifying shape, size,
-   constituting material, interference function,
-\item define layers by specifiying thickness, roughness, material
-\item include particles in layers, specifying density, position, orientation, 
-\item assemble a multilayered sample,
-\item specify input beam and detector characteristics,
-\item run the simulation,
-\item save the simulated detector image.
-\end{itemize}
-
-%\noindent The sample is built from object oriented building blocks and can be
-%instead of loading data files.
-\noindent
-User defines all these steps using \BornAgain\ API in Python script and then run 
-the simulation by executing the script in Python interpreter.
-More information about general software architecture and \BornAgain\ internal design
-are given in \SecRef{SoftwareArchitecture}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Conventions}
+%\mysection{Example 1}{Example 1: two types of islands on top of
+%  substrate without interference.} \SecLabel{Example1Python}
 
-\subsection{Geometry of the sample}
+\section{Example 1: two types of islands on top of
+  substrate without interference.} \SecLabel{Example1Python}
 
-\noindent The geometry used to describe the sample is shown in \reffig{multil3d}. The $z$-axis is perpendicular to the sample's
-surface and pointing upwards. The $x$-axis  is perpendicular to the
-plane of the detector and the $y$-axis is along it. The input and the
-scattered output beams are each characterized by two angles
-$\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$ respectively. Our choice of orientation for the
-angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
-
-\begin{figure}[h]
-  \centering
-    \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
-  \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
-    the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
-    angle of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
-$\phi_f$ is the scattering angle with respect to the scattering
-plane. }
-  \label{fig:multil3d}
-\end{figure}
-
-
-\noindent The layers are defined by their thicknesses (parallel to the
-$z$-direction), their possible
-roughnesses (equal to 0 by default) and the
-material they are made of. We do not define any dimensions in the $x$, $y$
-directions. And, except for roughness, the layer's vertical boundaries are plane and
-perpendicular to the $z$-axis. There is also no limitation to the
-number of layers that could be defined in \BornAgain. Note that the
-thickness of the top and bottom layer are not defined. \\
-
-\ImportantPoint{Remark:}{- Order of the different steps for the simulation: \\
-When assembling the sample, the layers are defined from top to
-bottom. So in most cases the first layer will be the air layer.}\\
-
-\noindent The particles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented
-  in \BornAgain) and the composing material. The number of input parameters for the form
-  factor depends on the
-  particle symmetry; it ranges from one parameter for a sphere (its
-  radius) to three for an ellipsoid (its three main axis lengths).\\ By
-  placing the particles
-inside or on top of a layer, we impose their vertical positions, whose
-values corresponds to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
-particles interfere with each other, which is therefore implemented
-when dealing with the interference function. \\
-
-%\ImportantPoint{Remark:}{Depth of particles\\
-%The vertical positions of particles in a layer are given in relative
-%coordinates. For the top layer, the bottom corresponds to
-%\texttt{depth}=0. But for all the other layers, it is the top of the
-%layer which corresponds to \texttt{depth}=0.}\\
-
-\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
-$\delta, \beta \in \mathbb{R}$. In our program, we input $\delta$ and
-$\beta$ directly.
-
-
-\noindent The input beam is assumed to be monochromatic without any
-spatial divergence.\\ %\textbf{polarization term?}
-
-\subsection{Units}
-By default the angles are expressed in radians and the lengths are given in
-nanometers.  But it is possible to use other units by
-specifying them right after the value of the corresponding
-parameter like, for example, \Code{20.0*micrometer}.
-
-
-\subsection{Programs}
-
-The examples presented in the next paragraphs are written in Python. For tutorials about this
-   programming language, the users are referred to \cite{Lut09}.
-
-%\noindent Note about the version of C++ and Python to run the examples.\\
-%\noindent Where can the following examples be found?\\
-%\noindent What is the command to run the examples?
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\mysection{Example 1}{Example 1: Two types of islands on top of
-  substrate. No interference function} \SecLabel{Example1Python}
 % \sectionmark{Example 1}
 
 In this example, we simulate the scattering from a mixture of
@@ -354,7 +259,7 @@ datapoints. Some options are provided by \BornAgain. For example, \reffig{output
 contourplot of the intensity as a function of $\alpha_f$ and
 $\phi_f$. 
 
-\begin{figure}[h]
+\begin{figure}[p!]
   \begin{center}
    \includegraphics[clip=true, width=120mm]{Figures/Manual_ex1.eps}
   \end{center}
@@ -373,38 +278,180 @@ is associated with the output intensity in arbitrary units. }
 \end{figure}
 
 
-% \newpage
-% \subsection{Hello, minted}
-% 
-% ￼￼\begin{minted}[linenos=true, frame=single]{python}
-% mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-% mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
-% n_particle = complex(1.0-6e-4, 2e-8)
-% cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-% cylinder = Particle(n_particle, cylinder_ff)
-% prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
-% prism = Particle(n_particle, prism_ff)
-% particle_decoration = ParticleDecoration()
-% particle_decoration.addParticle(cylinder, 0.0, 0.5)
-% particle_decoration.addParticle(prism, 0.0, 0.5)
-% interference = InterferenceFunctionNone()
-% particle_decoration.addInterferenceFunction(interference)
-% # air layer with particles and substrate form multi layer
-% air_layer = Layer(mAmbience)
-% air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-% substrate_layer = Layer(mSubstrate, 0)
-% multi_layer = MultiLayer()
-% multi_layer.addLayer(air_layer_decorator)
-% multi_layer.addLayer(substrate_layer)
-% 
-% # build and run experiment
-% simulation = Simulation()
-% simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-% simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
-% simulation.setSample(multi_layer)
-% simulation.runSimulation()
-% \end{minted}
 
-%\section{Example 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example 2: working with sample parameters.} \SecLabel{WorkingWithSampleParameters}
 
-%\ldots forthcoming
+This section gives additional details about the manipulation of sample parameters
+at run time, that is after the sample has already been constructed. 
+For single simulation this is normally not necessary, however it might be useful
+during interactive work when user tries to find optimal sample parameters by
+running a series of consequent simulations.
+Similarly, this task arises when the theoretical model, presented by the sample and the simulation descriptions, is used for the fitting of real data.
+In this case fitting kernel has to be informed about existing sample parameters
+and has to have a mechanism for changing values of these parameters to find 
+they optimal values.
+
+In \BornAgain\ this is done using so called sample parameter pool mechanism 
+and we will briefly explain it using example from the previous
+\SecRef{Example1Python}.
+
+Inside \BornAgain\ sample is described by a hierarchical tree of objects.
+For the multilayer created in previous section this tree can be graphically
+represented as shown in Fig.~\ref{fig:sample_tree}. 
+
+\begin{figure}[p!]
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {MultiLayer}
+    child { node {Layer \#0}
+		child { node {ParticleDecoration } 
+			child { node {Particle Info 0} 
+				child {node {Particle }  
+					child { node {FormFactorCylinder} 
+						child { node [optional] { height:5.0} }					
+						child { node [optional] { radius:5.0} }					
+					}				
+				}
+    			child [missing] {}		
+    			child [missing] {}		
+			    child [missing] {}		
+				child {node [optional] { abundance:0.5} }			
+				child {node [optional] { depth:0.0} }			
+			}
+    		child [missing] {}		
+    		child [missing] {}		
+			child [missing] {}		
+    		child [missing] {}		
+    		child [missing] {}		
+			child [missing] {}		
+			child { node {Particle Info 1} 
+				child {node {Particle }  
+					child { node {FormFactorPrism3} 
+						child { node [optional] { half\_side:5.0} }					
+						child { node [optional] { height:5.0} }					
+					}				
+				}
+    			child [missing] {}		
+    			child [missing] {}		
+			    child [missing] {}		
+				child {node [optional] { abundance:0.5} }			
+				child {node [optional] { depth:0.0} }						
+			}					
+		}
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+	    child [missing] {}		
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+	    child [missing] {}		
+		child {node [optional] { thickness:0.0} }				
+    }
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+	child { node {Layer interface \#0} 
+    	child {node { roughness} 
+    		child {node [optional] { corrlength:0.0} }				    	
+    		child {node [optional] { hurst:0.0} }				    	
+    		child {node [optional] { sigma:0.0} }				    	
+    	}					
+	}
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+    child { node {Layer \#1}
+    	child {node [optional] { thickness:0.0} }				
+    }
+	child [missing] {}		
+    child { node [optional] {CrossCorrLength:0.0} };
+    
+\end{tikzpicture}
+\caption{Tree representation of the sample structure.}
+\label{fig:sample_tree}
+\end{figure}
+
+
+The top \Code{MultiLayer} object is composed of three children, namely
+\Code{Layer \#0, Layer Interface \#0} and \Code{Layer \#1}. Children objects
+by turn might also be composed into tree-like structure. For example,
+\Code{Layer \#0} contains \Code{ParticleDecoration} object which holds all information
+related to the particles populating the layer. All numerical values which have been used
+during sample construction (thickness of layers, size of particles, roughness parameters) are the part of the same tree structure. 
+They are marked in the figure with shaded gray boxes.
+
+These values are registered in the sample parameter pool using the name
+composed from the names of corresponding nodes of the tree and can be accessed/changed
+during run time. For example, the \Code{height} of the cylinders populating first layer can be changed from 
+current $5~nm$ to $1~nm$ by running the command
+
+\begin{lstlisting}[language=shell, style=commandline]
+multi_layer.setParameterValue('/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height', 1.0)
+\end{lstlisting}
+
+
+The user can get names and values of all registered sample's parameters using the command 
+
+\begin{lstlisting}[language=shell, style=commandline]
+> multi_layer.printParameters()
+The sample contains following parameters ('name':value)
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/radius':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/abundance':0.5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/depth':0
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/half_side':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/height':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/abundance':0.5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/depth':0
+'/MultiLayer/Layer0/thickness':0
+'/MultiLayer/Layer1/thickness':0
+'/MultiLayer/LayerInterface/roughness/corrlength':0
+'/MultiLayer/LayerInterface/roughness/hurst':0
+'/MultiLayer/LayerInterface/roughness/sigma':0
+'/MultiLayer/crossCorrLength':0
+\end{lstlisting}
+
+Wildcards \Code{'*'} can be used to reduce typing or to work on group of parameters. In example below first command will change the height of the cylinders in the same way, as in previous example, while the second line will change the depth of both cylinders and prisms.
+\begin{lstlisting}[language=shell, style=commandline]
+multi_layer.setParameterValue('*FormFactorCylinder/height', 1.0)
+multi_layer.setParameterValue('*depth', 1.0)
+\end{lstlisting}
+
+The complete example to this section can be found at
+\begin{lstlisting}[language=shell, style=commandline]
+./Examples/python/fitting/ex001_SampleParametersIntro.py
+\end{lstlisting}
+
+
+
+
+

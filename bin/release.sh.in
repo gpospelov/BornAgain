@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-# !!! This script does not finished and tested yet! Please don't run it!
+# Feel free to test this script. Let me know id something goes wrong.
 
 # the script will exit if any of commands will return non-zero 
 set -e
@@ -48,7 +48,7 @@ H. Display a help message
 Q. Quit
 "
 
-read -p "Enter selection [0-3]: "
+read -p "Enter selection: "
 
 case $REPLY in
   q|Q) echo "Program terminated. "
@@ -63,7 +63,7 @@ case $REPLY in
   4. create the build directory somewhere outside the source tree
   5. cd path-to-build-directory
   6. cmake path-to-source-dir
-  7. run script bin/release.sh
+  7. run script path-to-build-dir/bin/release.sh
 	"
 	exit
 	;;
@@ -81,8 +81,8 @@ case $REPLY in
 	rsync -avzhe ssh apps@apps.jcns.fz-juelich.de:/www/apps/src/BornAgain/ $RELEASE_DIR
 
 	# make a release branch
-	#git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME develop
-	git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME 
+	git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME develop
+	#git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME 
 
 	# build BornAgain with App and UserManual
 	cd $CMAKE_BUILD_DIR
@@ -96,11 +96,13 @@ case $REPLY in
 	$CMAKE_BUILD_DIR/bin/App --performance --batch --threads=-1
 
 	# Modify file dev-tools/log/perf_history.txt
-	echo "Please, enter a comment for perf-history.txt [Press Enter if empty]"
-	read -t 10 PERF_COMMENT
-	if [ -n "$PERF_COMMENT" ]; then
-		echo $PERF_COMMENT >> $PATH_TO_PERF_TXT
-	fi
+	# the commented code exits in the case of no input with bash -e option
+	#echo "Please, enter a comment for perf-history.txt [Press Enter if empty]"
+	#read -t 10 PERF_COMMENT
+	#if [ -n "$PERF_COMMENT" ]; then
+	#	echo $PERF_COMMENT >> $PATH_TO_PERF_TXT
+	#fi
+	echo "Release $BA_VERSION" >> $PATH_TO_PERF_TXT
 	cat perf_history.txt >> $PATH_TO_PERF_TXT
 
 	# [FUTURE TASK] Modify CHANGELOG (SQL query to get data from the redmine roadmap database)

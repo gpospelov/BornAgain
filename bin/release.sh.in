@@ -31,7 +31,7 @@ RELEASE_BRANCH_NAME="release-$BA_VERSION"
 
 PATH_TO_CHANGELOG="$CMAKE_SOURCE_DIR/CHANGELOG"
 
-PATH_TO_PERF_TXT="$CMAKE_SOURCE_DIR/dev-tools/log/perf-history.txt"
+PATH_TO_PERF_TXT="$CMAKE_SOURCE_DIR/dev-tools/log/perf_history.txt"
 
 USER=$(git --git-dir=$GIT_SOURCE_TREE config user.name)
 
@@ -44,15 +44,29 @@ Please select what you want to do:
 1. Prepare a release
 2. Upload release to the apps server
 3. Finalize git
-0. Quit
+H. Display a help message
+Q. Quit
 "
 
 read -p "Enter selection [0-3]: "
 
 case $REPLY in
-  0) echo "Program terminated. "
+  q|Q) echo "Program terminated. "
 	 exit
 	 ;;
+  h|H) echo "
+  How to use the release script.
+
+  1. cd to some empty directory
+  2. git clone git://apps.jcns.fz-juelich.de/BornAgain.git
+  3. git checkout develop
+  4. create the build directory somewhere outside the source tree
+  5. cd path-to-build-directory
+  6. cmake path-to-source-dir
+  7. run script bin/release.sh
+	"
+	exit
+	;;
   1) echo "Let's start to prepare a release.."
 	# 1. Making release branch
 	# create the RELEASE_DIR if it does not exist.
@@ -114,7 +128,7 @@ case $REPLY in
 
 	exit
 	;;
-  2) echo "Uploading of the release to the apps server."
+  2) echo "Uploading the contents of the $RELEASE_DIR to the apps server."
 	read -p "Are you sure? (y/n)"
 	if [[ $REPLY =~ ^[yY]$ ]]; then
 	  echo "Starting to upload the files."
@@ -131,7 +145,7 @@ case $REPLY in
 	fi
 	exit
 	;;
-  3) echo "Finalysing git."
+  3) echo "Finalyzing git."
 	read -p "Are you sure? (y/n)"
 	if [[ $REPLY =~ ^[yY]$ ]]; then
 	  echo "Starting to finalize git."

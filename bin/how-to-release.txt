@@ -1,0 +1,10 @@
+How to use the release script.
+
+1. cd to some empty directory
+2. git clone git://apps.jcns.fz-juelich.de/BornAgain.git
+3. git checkout develop
+4. create the build directory somewhere outside the source tree
+5. cd path-to-build-directory
+6. cmake path-to-source-dir
+7. run script path-to-build-dir/bin/release.sh
+

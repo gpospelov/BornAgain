@@ -1,5 +1,19 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+# --- configure a header file to pass CMake settings to the source code
+configure_file(
+  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h.in"
+  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
+)
+
+# --- configure deployment script for release
+configure_file(
+  "${CMAKE_SOURCE_DIR}/bin/release.sh.in"
+  "${CMAKE_BINARY_DIR}/bin/release.sh"
+)
+
+# --- end of the version setting ---
+
 set(lib lib)
 set(bin bin)
 

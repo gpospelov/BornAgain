@@ -91,7 +91,8 @@ endif()
 # -----------------------------------------------
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin DESTINATION . COMPONENT Libraries)
+# the line below copies the contains ${CMAKE_SOURCE_DIR}/bin to the bin folder of the final package
+# install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin DESTINATION . COMPONENT Libraries)
 
 if(WIN32)
     set(libdir "bin")

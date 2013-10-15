@@ -31,7 +31,7 @@ void TestMultiLayerRoughness::execute()
     ISample *sample = SampleFactory::createSample("MultilayerOffspecTestcase1a");
 
     std::cout << *sample << std::endl;
-    sample->print_structure();
+    sample->printSampleTree();
 
     int npoints=100;
     double alphaMax = 2.0;

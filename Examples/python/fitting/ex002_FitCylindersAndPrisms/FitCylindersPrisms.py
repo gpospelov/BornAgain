@@ -135,10 +135,10 @@ def run_fitting():
     fitSuite = FitSuite()
     fitSuite.addSimulationAndRealData(simulation, real_data)#, chiModule)
 
-    MinimizerFactory.print_catalogue()
+    MinimizerFactory.printCatalogue()
 
     # setting fitting minimizer
-    fitSuite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2","Migrad")) #: Minuit2, Migrad
+    #fitSuite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2","Migrad")) #: Minuit2, Migrad
     #fitSuite.setMinimizer(MinimizerFactory.createMinimizer ("Minuit2","Simplex"))
     #fitSuite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2","Combined"))
     #fitSuite.setMinimizer(MinimizerFactory.createMinimizer ("Minuit2","Scan"))

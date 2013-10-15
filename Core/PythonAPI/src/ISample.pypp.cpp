@@ -66,6 +66,18 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         return ISample::getCompositeSample( );
     }
 
+    virtual void printSampleTree(  ) {
+        if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
+            func_printSampleTree(  );
+        else
+            this->ISample::printSampleTree(  );
+    }
+    
+    
+    void default_printSampleTree(  ) {
+        ISample::printSampleTree( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -232,13 +244,15 @@ void register_ISample_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ISample::print_structure
+        { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*print_structure_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
+            typedef void ( ISample_wrapper::*default_printSampleTree_function_type )(  ) ;
             
             ISample_exposer.def( 
-                "print_structure"
-                , print_structure_function_type( &::ISample::print_structure ) );
+                "printSampleTree"
+                , printSampleTree_function_type(&::ISample::printSampleTree)
+                , default_printSampleTree_function_type(&ISample_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::areParametersChanged

@@ -119,6 +119,18 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         IParameterized::printParameters( );
     }
 
+    virtual void printSampleTree(  ) {
+        if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
+            func_printSampleTree(  );
+        else
+            this->ISample::printSampleTree(  );
+    }
+    
+    
+    void default_printSampleTree(  ) {
+        ISample::printSampleTree( );
+    }
+
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
@@ -280,6 +292,17 @@ void register_IInterferenceFunction_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&IInterferenceFunction_wrapper::default_printParameters) );
+        
+        }
+        { //::ISample::printSampleTree
+        
+            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
+            typedef void ( IInterferenceFunction_wrapper::*default_printSampleTree_function_type )(  ) ;
+            
+            IInterferenceFunction_exposer.def( 
+                "printSampleTree"
+                , printSampleTree_function_type(&::ISample::printSampleTree)
+                , default_printSampleTree_function_type(&IInterferenceFunction_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter

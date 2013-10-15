@@ -28,10 +28,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual ::ParticleDecoration * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->ParticleDecoration::clone(  );
-        }
     }
+    
     
     ::ParticleDecoration * default_clone(  ) const  {
         return ParticleDecoration::clone( );
@@ -40,82 +40,82 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual ::ParticleDecoration * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else{
+        else
             return this->ParticleDecoration::cloneInvertB(  );
-        }
     }
+    
     
     ::ParticleDecoration * default_cloneInvertB(  ) const  {
         return ParticleDecoration::cloneInvertB( );
     }
 
-    virtual double getAbundanceFractionOfParticle( ::size_t index ) const  {
+    virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const  {
         if( bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" ) )
             return func_getAbundanceFractionOfParticle( index );
-        else{
+        else
             return this->ParticleDecoration::getAbundanceFractionOfParticle( index );
-        }
     }
     
-    double default_getAbundanceFractionOfParticle( ::size_t index ) const  {
+    
+    double default_getAbundanceFractionOfParticle( ::std::size_t index ) const  {
         return ParticleDecoration::getAbundanceFractionOfParticle( index );
     }
 
     virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
         if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
             return func_getInterferenceFunctions(  );
-        else{
+        else
             return this->ParticleDecoration::getInterferenceFunctions(  );
-        }
     }
+    
     
     ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
         return ParticleDecoration::getInterferenceFunctions( );
     }
 
-    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
+    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
-        else{
+        else
             return this->ParticleDecoration::getNumberOfInterferenceFunctions(  );
-        }
     }
     
-    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+    
+    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
         return ParticleDecoration::getNumberOfInterferenceFunctions( );
     }
 
-    virtual ::size_t getNumberOfParticles(  ) const  {
+    virtual ::std::size_t getNumberOfParticles(  ) const  {
         if( bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" ) )
             return func_getNumberOfParticles(  );
-        else{
+        else
             return this->ParticleDecoration::getNumberOfParticles(  );
-        }
     }
     
-    ::size_t default_getNumberOfParticles(  ) const  {
+    
+    ::std::size_t default_getNumberOfParticles(  ) const  {
         return ParticleDecoration::getNumberOfParticles( );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const  {
+    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const  {
         if( bp::override func_getParticleInfo = this->get_override( "getParticleInfo" ) )
             return func_getParticleInfo( index );
-        else{
+        else
             return this->ParticleDecoration::getParticleInfo( index );
-        }
     }
     
-    ::ParticleInfo const * default_getParticleInfo( ::size_t index ) const  {
+    
+    ::ParticleInfo const * default_getParticleInfo( ::std::size_t index ) const  {
         return ParticleDecoration::getParticleInfo( index );
     }
 
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -124,10 +124,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -136,10 +136,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -148,10 +148,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -179,10 +179,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
             return func_setMatchedParametersValue( wildcards, value );
-        else{
+        else
             return this->IParameterized::setMatchedParametersValue( wildcards, value );
-        }
     }
+    
     
     int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         return IParameterized::setMatchedParametersValue( wildcards, value );
@@ -191,10 +191,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -203,10 +203,10 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -286,8 +286,8 @@ void register_ParticleDecoration_class(){
         }
         { //::ParticleDecoration::getAbundanceFractionOfParticle
         
-            typedef double ( ::ParticleDecoration::*getAbundanceFractionOfParticle_function_type )( ::size_t ) const;
-            typedef double ( ParticleDecoration_wrapper::*default_getAbundanceFractionOfParticle_function_type )( ::size_t ) const;
+            typedef double ( ::ParticleDecoration::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
+            typedef double ( ParticleDecoration_wrapper::*default_getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
             
             ParticleDecoration_exposer.def( 
                 "getAbundanceFractionOfParticle"
@@ -298,7 +298,7 @@ void register_ParticleDecoration_class(){
         }
         { //::ParticleDecoration::getInterferenceFunction
         
-            typedef ::IInterferenceFunction const * ( ::ParticleDecoration::*getInterferenceFunction_function_type )( ::size_t ) const;
+            typedef ::IInterferenceFunction const * ( ::ParticleDecoration::*getInterferenceFunction_function_type )( ::std::size_t ) const;
             
             ParticleDecoration_exposer.def( 
                 "getInterferenceFunction"
@@ -320,8 +320,8 @@ void register_ParticleDecoration_class(){
         }
         { //::ParticleDecoration::getNumberOfInterferenceFunctions
         
-            typedef ::size_t ( ::ParticleDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
-            typedef ::size_t ( ParticleDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ::ParticleDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ParticleDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
             
             ParticleDecoration_exposer.def( 
                 "getNumberOfInterferenceFunctions"
@@ -331,8 +331,8 @@ void register_ParticleDecoration_class(){
         }
         { //::ParticleDecoration::getNumberOfParticles
         
-            typedef ::size_t ( ::ParticleDecoration::*getNumberOfParticles_function_type )(  ) const;
-            typedef ::size_t ( ParticleDecoration_wrapper::*default_getNumberOfParticles_function_type )(  ) const;
+            typedef ::std::size_t ( ::ParticleDecoration::*getNumberOfParticles_function_type )(  ) const;
+            typedef ::std::size_t ( ParticleDecoration_wrapper::*default_getNumberOfParticles_function_type )(  ) const;
             
             ParticleDecoration_exposer.def( 
                 "getNumberOfParticles"
@@ -342,8 +342,8 @@ void register_ParticleDecoration_class(){
         }
         { //::ParticleDecoration::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::ParticleDecoration::*getParticleInfo_function_type )( ::size_t ) const;
-            typedef ::ParticleInfo const * ( ParticleDecoration_wrapper::*default_getParticleInfo_function_type )( ::size_t ) const;
+            typedef ::ParticleInfo const * ( ::ParticleDecoration::*getParticleInfo_function_type )( ::std::size_t ) const;
+            typedef ::ParticleInfo const * ( ParticleDecoration_wrapper::*default_getParticleInfo_function_type )( ::std::size_t ) const;
             
             ParticleDecoration_exposer.def( 
                 "getParticleInfo"

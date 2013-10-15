@@ -18,9 +18,10 @@
 #include "IMinimizer.h"
 #include "MessageService.h"
 #include "FitSuitePrintObserver.h"
+#include "MinimizerFactory.h"
 #include <boost/bind.hpp>
 
-FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)
+FitSuite::FitSuite() : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad")), m_is_last_iteration(false)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);

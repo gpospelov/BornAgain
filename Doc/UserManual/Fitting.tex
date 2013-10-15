@@ -11,7 +11,7 @@ of the software is discussed in the following chapter.
 The chapter starts from the short introduction to the basic concept of data fitting
 in \SecRef{Fit::BasicConcept}. Details of the implementation in \BornAgain\ are given
 in \SecRef{Fit::ImplementationBornAgain}.
-\SecRef{Fit::SimpleExample} contains Python fitting example with detailed explanations of every fitting step.
+\SecRef{BasicPythonFittingExample} contains Python fitting example with detailed explanations of every fitting step.
 
 
 \section{Gentle introduction to the data fitting.} \SecLabel{Fit::BasicConcept}
@@ -102,50 +102,35 @@ output detector.
 \subsection{Choice of parameters to be fitted}
 In principle, every parameter used in the construction of the sample
 can be used as a fitting parameter. For example, the particles'
-heights, radii or the layer's roughness or thickness could be selected. These selected parameters
-  represent the variables on which the minimizer will operate.
+heights, radii or the layer's roughness or thickness could be selected using
+parameter pool mechanism explained in \SecRef{WorkingWithSampleParameters} (we recommend
+reading of this section before proceeding further).
 
+User specifies selected sample parameters as a fit parameter using \Code{FitSuite}
+and its \Code{addFitParameter} method
 
-\SecRef{WorkingWithSampleParameters}
+\begin{lstlisting}[language=shell, style=commandline]
+fit_suite = FitSuite()
+fit_suite.addFitParameter(<name>, <value>, <AttLimits>)
+\end{lstlisting}
 
+Here the \Code{<name>} correspond to the name of the parameter in the sample's parameter pool.
+By using wildcard's in the parameter name the group of sample parameters, corresponding to the given
+pattern, can be associated with single fitting parameter and 
+fitted simultaneously to get common optimal value.
 
-
-In \BornAgain, the parameters used for the fit are specified using the
-function \Code{addFitParameter} with the following list
-of variables: \Code{(<name>, <value>, <step>, <AttLimits>, <error>)} where \Code{<value>}, \Code{<step>} and \Code{<error>} are double
-values corresponding to the initial value of the parameter, the
-iteration step (optional parameter equal to 0.01 by default) and the error respectively. By default the input value
-of \Code{<error>} is 0. \Code{<AttLimits>} corresponds to
-the boundaries imposed on the range of variations of the fitting
-parameter's value. It can be
+The second parameter \Code <value> correspond to the initial value of fitting parameter
+while the third one \Code{<AttLimits>} corresponds to
+the boundaries imposed on the range of variations of that value. It can be
 \begin{itemize}
+\item \Code{limitless()} by default, 
 \item \Code{fixed()}, 
 \item \Code{lowerLimited(<min\_value>)}, 
+\item \Code{upperLimited(<max\_value>)}, 
 \item \Code{limited(<min\_value>, <max\_value>)}.
 \end{itemize}
 where \Code{<min\_value>} and \Code{<max\_value>} are
 double values corresponding to the lower and higher boundary respectively.
-The unit of \Code{<AttLimits>} is identical to the one used to characterize the
-parameter's \Code{<value>}.\\
-
-\noindent \Code{<name>} is the reference to the parameter as it had been registered
-using \Code{RegisterParameter}. For example, to add the beam
-intensity to the list, \Code{<name>} would be
-\Code{"*Beam/intensity"}. In the case of the cylindrical particles's
- height, it would become \Code{"*FormFactorCylinder/height"}.\\
-
-\noindent If the sample contains different types of particles, the heights of different particles can be associated to two different
-fitting parameters and minimized separately.\\
-
-
-\MakeRemark{Hints:}{
-\begin{itemize}
-\item initially choose a small number of fitting
-  parameters. 
-\item provide a ``good'' initial guess to save time and reduce the
-  risk of failure to find the minimum looked for.
-\end{itemize}}
-
 
 
 
@@ -158,11 +143,108 @@ is required to provide reduced and \textbf{normalized} data.
 
 
 
+\subsection{Minimizer settings.}
+
+\BornAgain\ contains a variety of minimization engines from \Code{ROOT} and \Code{GSL}
+libraries. By default \Code{Minuit2} minimizer with default settings will be used.
+The remainder of this section explains expert setting which can be applied to get better 
+fit results.
+
+The default minimization algorithm can be changed using 
+\Code{MinimizerFactory} as shown below
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none]
+fit_suite = FitSuite()
+minimizer = MinimizerFactory.createMinimizer("<Minimizer name>","<algorithm>")
+fit_suite.setMinimizer(minimizer)
+\end{lstlisting}
+
+where \Code{<Minimizer
+name>} and \Code{<algorithm>} can be chosen from the first and
+second column of Table~\ref{table:fit_minimizers} respectively. 
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\hline
+\hline
+\textbf{Minimizer name} & \textbf{Algorithm} & \textbf{Description}\\
+\hline
+\Code{Minuit2} \cite{MinuitURL} & \Code{Migrad} & According to
+\cite{mntutorial} best minimizer for nearly all functions,\\
+ & & variable-metric method with inexact line search, \\
+ & & a stable metric updating scheme,\\
+ & &  and checks for positive-definiteness.\\
+\hline
+                                       & \Code{Simplex} & simplex method of
+                                       Nelder and Mead\\ 
+ & & usually slower than \Code{Migrad}, \\
+ &  & rather robust with respect to gross fluctuations in the\\ & &  function
+ value, gives no reliable information about \\ & &  parameter errors, \\
+\hline
+                                       & \Code{Combined} & minimization with
+                                       \Code{Migrad} \\
+                                       & & but switches to Simplex if
+                                       Migrad fails to converge.\\
+\hline
+                                       & \Code{Scan} &  not intended to
+                                       minimize, just scans the
+                                       function,\\
+                                       & &  one parameter at a
+                                       time, retains the best value
+                                       after\\ &  & each scan\\
+\hline
+                                       & \Code{Fumili} & optimized
+                                       method for least square and log
+                                       likelihood\\ & &  minimizations \\
+\hline
+\Code{GSLMultiMin} \cite{GSLMultiMinURL} & \Code{ConjugateFR} & Fletcher-Reeves conjugate gradient
+  algorithm,\\
+\hline
+& \Code{ConjugatePR} & Polak-Ribiere conjugate gradient algorithm,\\ 
+\hline
+& \Code{BFGS} & Broyden-Fletcher-Goldfarb-Shanno algorithm,\\ 
+\hline
+& \Code{BFGS2} & improved version of BFGS,\\ 
+\hline
+& \Code{SteepestDescent} & follows the downhill gradient of the function at each step\\
+\hline
+\Code{GSLMultiFit} \cite{GSLMultiFitURL} & & Levenberg-Marquardt
+Algorithm\\
+\hline
+\Code{GSLSimAn} \cite{GSLSimAnURL}& & Simulated Annealing Algorithm\\ 
+\hline
+\hline
+\end{tabular}
+\caption{List of minimizers implemented in \BornAgain. }
+\label{table:fit_minimizers}
+\end{table}
+
+
+Every minimization algorithm have a number of setting which is set by default to the most
+
+which can be changed to tune minimization
+flow and achieve best results. 
+
+They will be explained elsewhere.
+
+
+
+
+
 
 
 
 
 \input{FittingExamples}
+
+\section {How to get right answer from \BornAgain\ fitting.}
+
+\begin{itemize}
+\item It is recommended to start from default minimizer settings and turn to the fine tunings
+only after some experience has been acquired.
+
+\end{itemize}
 
 
 

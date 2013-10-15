@@ -60,6 +60,7 @@ def run_simulations():
 
     simulation = get_simulation()
 
+
     results = []
 
     # FIXME below as soon as GetOutputData() and CreateParameterTree() are refactored
@@ -72,7 +73,7 @@ def run_simulations():
 
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
-    sample.createParameterTree().setParameterValue(
+    sample.setParameterValue(
         "/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height", 10*nanometer)
 
     simulation.setSample(sample)
@@ -81,16 +82,16 @@ def run_simulations():
 
     # simulation #3
     # all parameters which are matching criteria will be changed (height of the cylinder in this case)
-    sample.createParameterTree().setMatchedParametersValue("*/FormFactorCylinder/height", 100*nanometer)
+    sample.setMatchedParametersValue("*/FormFactorCylinder/height", 100*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(GetOutputData(simulation))
 
     # simulation #4
     # all parameters which are matching criteria will be changed
-    sample.createParameterTree().setMatchedParametersValue("*/FormFactorCylinder/height", 10*nanometer)
+    sample.setMatchedParametersValue("*/FormFactorCylinder/height", 10*nanometer)
     # both FormFactorPrism3/half_side and FormFactorPrism3/height will be set to 10 nanometer
-    sample.createParameterTree().setMatchedParametersValue("*/FormFactorPrism3/*", 10*nanometer)
+    sample.setMatchedParametersValue("*/FormFactorPrism3/*", 10*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(GetOutputData(simulation))

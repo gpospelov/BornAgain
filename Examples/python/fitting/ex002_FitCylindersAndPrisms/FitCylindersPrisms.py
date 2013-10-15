@@ -134,7 +134,9 @@ def run_fitting():
     #chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() )
     fitSuite = FitSuite()
     fitSuite.addSimulationAndRealData(simulation, real_data)#, chiModule)
-    
+
+    MinimizerFactory.print_catalogue()
+
     # setting fitting minimizer
     fitSuite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2","Migrad")) #: Minuit2, Migrad
     #fitSuite.setMinimizer(MinimizerFactory.createMinimizer ("Minuit2","Simplex"))

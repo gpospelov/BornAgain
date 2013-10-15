@@ -137,6 +137,13 @@ def run_fitting():
 
     MinimizerFactory.printCatalogue()
 
+    options = MinimizerOptions()
+    
+    options.setMaxFunctionCalls(5)
+    fitSuite.getMinimizer().setOptions(options)
+
+    print options.getTolerance(), options.getMaxIterations()
+
     # setting fitting minimizer
     #fitSuite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2","Migrad")) #: Minuit2, Migrad
     #fitSuite.setMinimizer(MinimizerFactory.createMinimizer ("Minuit2","Simplex"))

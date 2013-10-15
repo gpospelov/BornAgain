@@ -40,6 +40,7 @@ include_classes = [
 "IOutputDataNormalizer",
 "ISquaredFunction",
 "MinimizerFactory",
+"MinimizerOptions",
 "OutputDataNormalizer",
 "OutputDataSimpleNormalizer",
 "SquaredFunctionDefault",

@@ -12,6 +12,7 @@
 #include "FitSuiteParameters.h"
 #include "MinimizerFactory.h"
 #include "MathFunctions.h"
+#include "MinimizerOptions.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
 

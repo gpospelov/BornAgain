@@ -21,6 +21,7 @@
 #include <boost/function.hpp>
 #include "Exceptions.h"
 #include <vector>
+#include "MinimizerOptions.h"
 
 class FitParameter;
 class FitSuiteParameters;
@@ -75,11 +76,19 @@ class BA_CORE_API_ IMinimizer
     //! Prints fit results
     virtual void printResults() const;
 
-    //! Sets minimizer option
-    virtual void setOptions(const std::string& option);
 
     //! Returns number of calls of minimized function
     virtual size_t getNCalls() const;
+
+    //! return minimizer options
+    virtual MinimizerOptions getOptions() const;
+
+    //! set minimizer options
+    virtual void setOptions(const MinimizerOptions &options);
+
+    //! set minimizer option string
+    virtual void setOptions(const std::string& options);
+
 };
 
 inline void IMinimizer::setParameter(size_t /*index*/, const FitParameter* /*par*/)
@@ -137,14 +146,24 @@ inline void IMinimizer::printResults() const
     throw NotImplementedException("IMinimizer::printResults() -> Not implemented.");
 }
 
-inline void IMinimizer::setOptions(const std::string& /*options*/)
+inline size_t IMinimizer::getNCalls() const
+{
+    throw NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
+}
+
+inline MinimizerOptions IMinimizer::getOptions() const
+{
+    throw NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
+}
+
+inline void IMinimizer::setOptions(const MinimizerOptions &/*options*/)
 {
     throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
 }
 
-inline size_t IMinimizer::getNCalls() const
+inline void IMinimizer::setOptions(const std::string &/*options*/)
 {
-    throw NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
+    throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
 }
 
 #endif // IMINIMIZER_H

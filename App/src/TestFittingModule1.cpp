@@ -33,6 +33,7 @@
 #include "ParticleDecoration.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
+#include "ROOTMinimizer.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -69,6 +70,12 @@ void TestFittingModule1::execute()
     m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+
+    //ROOTMinimizer *root_minimizer = dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer());
+    //ROOT::Math::Minimizer *minim = root_minimizer->getROOTMinimizer();
+    //std::cout << " tolerance: " << minim->Tolerance() << " precision:" << minim->Precision() << std::endl;
+    //std::cout << " max_iterations: " << minim->MaxIterations() << " max_function_calls:" << minim->MaxFunctionCalls() << std::endl;
+
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA

@@ -109,7 +109,8 @@ void SamplePrintVisitor::visit(const Particle *sample)
 {
     assert(sample);
     std::cout << get_indent() << "Particle " << sample->getName()
-              << " Index:" << sample->getRefractiveIndex()
+              << " " << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL")
+              << " " << sample->getRefractiveIndex()
               << std::endl;
 
     goForward();

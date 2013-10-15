@@ -61,15 +61,22 @@ class ROOTMinimizer : public IMinimizer
 
     virtual void clear() { m_root_minimizer->Clear(); }
 
-    virtual void setOptions(const std::string& options);
-
     virtual size_t getNCalls() const;
+
+    //! return minimizer options
+    virtual MinimizerOptions getOptions() const;
+
+    //! set minimizer options
+    virtual void setOptions(const MinimizerOptions &options);
+
+    //! set minimizer option string
+    virtual void setOptions(const std::string& options);
 
     //! Returns created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
-    bool isGradientBasedAgorithm();
+    bool isGradientBasedAgorithm();    
 
  private:
     ROOTMinimizer(const ROOTMinimizer& );

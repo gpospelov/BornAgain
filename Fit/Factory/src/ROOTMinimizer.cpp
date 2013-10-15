@@ -10,6 +10,7 @@
 #include "ROOTGSLNLSMinimizer.h"
 #include "ROOTGSLSimAnMinimizer.h"
 #include "ROOTMinimizerHelper.h"
+#include "MinimizerOptions.h"
 
 
 // ----------------------------------------------------------------------------
@@ -38,8 +39,6 @@ ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::strin
     if(!m_root_minimizer) {
         throw LogicErrorException("Can't create minimizer with name '"+minimizer_name+"', algo '" + algo_type+"'");
     }
-    m_root_minimizer->SetMaxIterations(10000);
-    m_root_minimizer->SetMaxFunctionCalls(10000);
 }
 
 
@@ -147,14 +146,35 @@ void ROOTMinimizer::printResults() const
 }
 
 
-void ROOTMinimizer::setOptions(const std::string& options)
-{
-    // TODO: refactor ROOTMinimizerHelper::setOptions
-    ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
-}
-
 size_t ROOTMinimizer::getNCalls() const
 {
     return m_root_minimizer->NCalls();
 }
+
+
+MinimizerOptions ROOTMinimizer::getOptions() const
+{
+    MinimizerOptions options;
+    options.setTolerance(m_root_minimizer->Tolerance());
+    options.setPrecision(m_root_minimizer->Precision());
+    options.setMaxFunctionCalls(m_root_minimizer->MaxFunctionCalls());
+    options.setMaxIterations(m_root_minimizer->MaxIterations());
+    return options;
+}
+
+void ROOTMinimizer::setOptions(const MinimizerOptions &options)
+{
+    m_root_minimizer->SetTolerance(options.getTolerance());
+    m_root_minimizer->SetPrecision(options.getPrecision());
+    m_root_minimizer->SetMaxFunctionCalls(options.getMaxFunctionCalls());
+    m_root_minimizer->SetMaxIterations(options.getMaxIterations());
+}
+
+void ROOTMinimizer::setOptions(const std::string& options)
+{
+    ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
+}
+
+
+
 

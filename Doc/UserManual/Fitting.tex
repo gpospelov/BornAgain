@@ -146,8 +146,10 @@ is required to provide reduced and \textbf{normalized} data.
 \subsection{Minimizer settings.}
 
 \BornAgain\ contains a variety of minimization engines from \Code{ROOT} and \Code{GSL}
-libraries. By default \Code{Minuit2} minimizer with default settings will be used.
-The remainder of this section explains expert setting which can be applied to get better 
+libraries. They are listed in Table~\ref{table:fit_minimizers}.
+By default \Code{Minuit2} minimizer with default settings will be used and no additional
+configuration needs to be done.
+The remainder of this section explains some of the expert setting which can be applied to get better 
 fit results.
 
 The default minimization algorithm can be changed using 
@@ -158,9 +160,9 @@ minimizer = MinimizerFactory.createMinimizer("<Minimizer name>","<algorithm>")
 fit_suite.setMinimizer(minimizer)
 \end{lstlisting}
 
-where \Code{<Minimizer
-name>} and \Code{<algorithm>} can be chosen from the first and
-second column of Table~\ref{table:fit_minimizers} respectively. The list of algorithms
+where \Code{<Minimizer name>} and \Code{<algorithm>} can be chosen from the first and
+second column of Table~\ref{table:fit_minimizers} respectively. 
+The list of algorithms
 can also be obtained using \Code{MinimizerFactory.printCatalogue()} command.
 
 
@@ -221,25 +223,27 @@ Algorithm\\
 \label{table:fit_minimizers}
 \end{table}
 
+There are several options common for every minimization algorithms, which can be changed
+before minimization starts. They are handled by \Code{MinimizerOptions} class:
+\begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
+options = MinimizerOptions()
+options.setMaxFunctionCall(10)
+FitSuite().getMinimizer().setOptions()
+\end{lstlisting}
+In given code snippet a number of ``maximum function calls'', namely a number of times the minimizer is allowed to call the simulation, is limited to the 10. The minimizer will take that number into consideration and will try to limit number of iterations by that value.
 
-Every minimization algorithm have a number of setting which is set by default to the most
-
-which can be changed to tune minimization
-flow and achieve best results. 
-
-They will be explained elsewhere.
-
-
-
-
-
-
+There is also a number of expert level options common for all minimizers as well
+as a number of possibilities to tune individual minimization algorithms.
+They will be explained in \SecRef{AdvancedFitting}.
 
 
 
 \input{FittingExamples}
 
-\section {How to get right answer from \BornAgain\ fitting.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {How to get right answer from \BornAgain\ fitting.} \SecLabel{HowToGetRightAnswer}
 
 \begin{itemize}
 \item It is recommended to start from default minimizer settings and turn to the fine tunings
@@ -247,6 +251,10 @@ only after some experience has been acquired.
 
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Advanced fitting.} \SecLabel{AdvancedFitting}
 
 
 

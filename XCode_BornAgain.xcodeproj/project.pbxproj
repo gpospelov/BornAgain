@@ -126,6 +126,8 @@
 		6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0816CE708600ECED4F /* Instrument.cpp */; };
 		6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0C16CE9EC600ECED4F /* Simulation.cpp */; };
 		6248BE2917E1C5000027D960 /* TestPolarizedMeso.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */; };
+		624B527517F5A2CD0040AB8C /* IDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 624B527317F5A2CD0040AB8C /* IDetectorResolution.cpp */; };
+		624B527617F5A2CD0040AB8C /* IInterferenceFunctionStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 624B527417F5A2CD0040AB8C /* IInterferenceFunctionStrategy.cpp */; };
 		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
 		625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173E16BAAE77004943DB /* FormFactorCone.cpp */; };
 		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
@@ -1058,9 +1060,7 @@
 		622222EF160CB745008205AC /* ParticleDecoration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleDecoration.cpp; sourceTree = "<group>"; };
 		622222F0160CB745008205AC /* ParticleInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleInfo.cpp; sourceTree = "<group>"; };
 		622222F3160CB745008205AC /* Convolve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Convolve.h; sourceTree = "<group>"; };
-		622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexInterpolatingFunction.h; sourceTree = "<group>"; };
 		622222F7160CB745008205AC /* Exceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
-		622222FA160CB745008205AC /* IDoubleToComplexFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDoubleToComplexFunction.h; sourceTree = "<group>"; };
 		622222FB160CB745008205AC /* IFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFactory.h; sourceTree = "<group>"; };
 		622222FC160CB745008205AC /* INamed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INamed.h; sourceTree = "<group>"; };
 		622222FD160CB745008205AC /* ISingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISingleton.h; sourceTree = "<group>"; };
@@ -1076,7 +1076,6 @@
 		62222308160CB745008205AC /* Units.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Units.h; sourceTree = "<group>"; };
 		62222309160CB745008205AC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		6222230B160CB745008205AC /* Convolve.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Convolve.cpp; sourceTree = "<group>"; };
-		6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DoubleToComplexInterpolatingFunction.cpp; sourceTree = "<group>"; };
 		6222230D160CB745008205AC /* Exceptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Exceptions.cpp; sourceTree = "<group>"; };
 		62222310160CB745008205AC /* IFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFactory.cpp; sourceTree = "<group>"; };
 		62222313160CB745008205AC /* MathFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MathFunctions.cpp; sourceTree = "<group>"; };
@@ -1677,6 +1676,10 @@
 		6236DD0C16CE9EC600ECED4F /* Simulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Simulation.cpp; sourceTree = "<group>"; };
 		6248BE1A17E1C4F40027D960 /* TestPolarizedMeso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedMeso.h; sourceTree = "<group>"; };
 		6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedMeso.cpp; sourceTree = "<group>"; };
+		624B526417F5A25B0040AB8C /* EigenCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EigenCore.h; sourceTree = "<group>"; };
+		624B526517F5A25B0040AB8C /* w32pragma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = w32pragma.h; sourceTree = "<group>"; };
+		624B527317F5A2CD0040AB8C /* IDetectorResolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IDetectorResolution.cpp; sourceTree = "<group>"; };
+		624B527417F5A2CD0040AB8C /* IInterferenceFunctionStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IInterferenceFunctionStrategy.cpp; sourceTree = "<group>"; };
 		6254C2601666651F0098EE7E /* IFormFactorBorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBorn.h; sourceTree = "<group>"; };
 		6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBornSeparable.h; sourceTree = "<group>"; };
 		6254C2621666651F0098EE7E /* IFormFactorDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorDecorator.h; sourceTree = "<group>"; };
@@ -2461,7 +2464,6 @@
 		62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedDWBAZeroMag.h; sourceTree = "<group>"; };
 		62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedDWBAZeroMag.cpp; sourceTree = "<group>"; };
 		62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../../../../opt/local/lib/libboost_iostreams.dylib; sourceTree = "<group>"; };
-		62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexMap.h; sourceTree = "<group>"; };
 		62FD5BEB17F057D9007C0397 /* FormFactorTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorTools.h; sourceTree = "<group>"; };
 		62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorTools.cpp; sourceTree = "<group>"; };
 		62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.RootMinimizers.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3079,52 +3081,52 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				62D4123317D4E78F00BD34D1 /* ILayerRTCoefficients.h */,
-				62D4123417D4E78F00BD34D1 /* ISpecularInfoMap.h */,
-				62D4123517D4E78F00BD34D1 /* LayerSpecularInfo.h */,
-				62D4123617D4E78F00BD34D1 /* MatrixRTCoefficients.h */,
-				62D4123717D4E78F00BD34D1 /* MatrixSpecularInfoMap.h */,
-				62D4123817D4E78F00BD34D1 /* ScalarRTCoefficients.h */,
-				62D4123917D4E78F00BD34D1 /* ScalarSpecularInfoMap.h */,
-				6223326F17C64123004CCDAE /* DecoratedLayerDWBASimulation.h */,
-				6223327017C64123004CCDAE /* LayerStrategyBuilder.h */,
-				6223327117C64123004CCDAE /* SpecularMagnetic.h */,
-				627F5FFE1793EB5E009E166F /* SpecularMatrix.h */,
-				6236DD0B16CE9EBD00ECED4F /* Simulation.h */,
-				6236DD0716CE707C00ECED4F /* Instrument.h */,
-				62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */,
-				62EA20E616B9295C00184E9A /* SimulationParameters.h */,
-				621D0BD316A9851500134391 /* IsGISAXSMorphologyFileStrategy.h */,
-				621D0BD416A9851500134391 /* SizeSpacingCorrelationApproximationStrategy.h */,
-				62861177167F6C6200971496 /* DetectorParameters.h */,
-				6204B7961667A3FC003BF358 /* IIntensityFunction.h */,
-				6204B7971667A3FC003BF358 /* IOutputDataNormalizer.h */,
-				62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */,
-				62CC09641665046C00A5B720 /* FTDistributions.h */,
-				62CC09651665046C00A5B720 /* IChiSquaredModule.h */,
-				62CC09661665046C00A5B720 /* IResolutionFunction2D.h */,
-				62CC09671665046C00A5B720 /* Mask.h */,
-				62CC09681665046C00A5B720 /* MaskCoordinateFunction.h */,
-				62CC09691665046C00A5B720 /* ResolutionFunction2DSimple.h */,
-				62CC096A1665046C00A5B720 /* ThreadInfo.h */,
-				62EA73821628425600656B41 /* ISampleBuilder.h */,
 				62222246160CB745008205AC /* Beam.h */,
+				62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */,
 				62222247160CB745008205AC /* ChiSquaredModule.h */,
 				62222248160CB745008205AC /* ConvolutionDetectorResolution.h */,
-				62222249160CB745008205AC /* DWBADiffuseReflection.h */,
-				6222224A160CB745008205AC /* DWBASimulation.h */,
+				6223326F17C64123004CCDAE /* DecoratedLayerDWBASimulation.h */,
 				6222224B160CB745008205AC /* DecouplingApproximationStrategy.h */,
 				6222224C160CB745008205AC /* Detector.h */,
+				62861177167F6C6200971496 /* DetectorParameters.h */,
 				6222224D160CB745008205AC /* DiffuseDWBASimulation.h */,
+				62222249160CB745008205AC /* DWBADiffuseReflection.h */,
+				6222224A160CB745008205AC /* DWBASimulation.h */,
+				62CC09641665046C00A5B720 /* FTDistributions.h */,
+				62CC09651665046C00A5B720 /* IChiSquaredModule.h */,
 				62222251160CB745008205AC /* IDetectorResolution.h */,
 				62222252160CB745008205AC /* IFittingDataSelector.h */,
+				6204B7961667A3FC003BF358 /* IIntensityFunction.h */,
 				62222253160CB745008205AC /* IInterferenceFunctionStrategy.h */,
+				62D4123317D4E78F00BD34D1 /* ILayerRTCoefficients.h */,
+				6236DD0716CE707C00ECED4F /* Instrument.h */,
+				62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */,
+				6204B7971667A3FC003BF358 /* IOutputDataNormalizer.h */,
+				62CC09661665046C00A5B720 /* IResolutionFunction2D.h */,
+				62EA73821628425600656B41 /* ISampleBuilder.h */,
+				621D0BD316A9851500134391 /* IsGISAXSMorphologyFileStrategy.h */,
 				62222254160CB745008205AC /* ISimulation.h */,
+				62D4123417D4E78F00BD34D1 /* ISpecularInfoMap.h */,
 				62222255160CB745008205AC /* ISquaredFunction.h */,
 				62222256160CB745008205AC /* LayerDWBASimulation.h */,
+				62D4123517D4E78F00BD34D1 /* LayerSpecularInfo.h */,
+				6223327017C64123004CCDAE /* LayerStrategyBuilder.h */,
 				62222258160CB745008205AC /* LocalMonodisperseApproximationStrategy.h */,
+				62CC09671665046C00A5B720 /* Mask.h */,
+				62CC09681665046C00A5B720 /* MaskCoordinateFunction.h */,
+				62D4123617D4E78F00BD34D1 /* MatrixRTCoefficients.h */,
+				62D4123717D4E78F00BD34D1 /* MatrixSpecularInfoMap.h */,
 				62222259160CB745008205AC /* MultiLayerDWBASimulation.h */,
 				6222225A160CB745008205AC /* MultiLayerRoughnessDWBASimulation.h */,
+				62CC09691665046C00A5B720 /* ResolutionFunction2DSimple.h */,
+				62D4123817D4E78F00BD34D1 /* ScalarRTCoefficients.h */,
+				62D4123917D4E78F00BD34D1 /* ScalarSpecularInfoMap.h */,
+				6236DD0B16CE9EBD00ECED4F /* Simulation.h */,
+				62EA20E616B9295C00184E9A /* SimulationParameters.h */,
+				621D0BD416A9851500134391 /* SizeSpacingCorrelationApproximationStrategy.h */,
+				6223327117C64123004CCDAE /* SpecularMagnetic.h */,
+				627F5FFE1793EB5E009E166F /* SpecularMatrix.h */,
+				62CC096A1665046C00A5B720 /* ThreadInfo.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3132,36 +3134,38 @@
 		6222225C160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				62D4124717D4E7A900BD34D1 /* LayerSpecularInfo.cpp */,
-				62D4124817D4E7A900BD34D1 /* MatrixRTCoefficients.cpp */,
-				6223326917C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp */,
-				6223326A17C64116004CCDAE /* LayerStrategyBuilder.cpp */,
-				6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */,
-				627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */,
-				6236DD0C16CE9EC600ECED4F /* Simulation.cpp */,
-				6236DD0816CE708600ECED4F /* Instrument.cpp */,
-				621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */,
-				621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */,
-				6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */,
-				62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */,
-				62CC096C1665047E00A5B720 /* FTDistributions.cpp */,
-				62CC096D1665047E00A5B720 /* IChiSquaredModule.cpp */,
-				62CC096E1665047E00A5B720 /* Mask.cpp */,
-				62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */,
-				62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */,
+				624B527317F5A2CD0040AB8C /* IDetectorResolution.cpp */,
+				624B527417F5A2CD0040AB8C /* IInterferenceFunctionStrategy.cpp */,
 				6222225D160CB745008205AC /* Beam.cpp */,
+				62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */,
 				6222225E160CB745008205AC /* ChiSquaredModule.cpp */,
 				6222225F160CB745008205AC /* ConvolutionDetectorResolution.cpp */,
-				62222260160CB745008205AC /* DWBADiffuseReflection.cpp */,
-				62222261160CB745008205AC /* DWBASimulation.cpp */,
+				6223326917C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp */,
 				62222262160CB745008205AC /* DecouplingApproximationStrategy.cpp */,
 				62222263160CB745008205AC /* Detector.cpp */,
 				62222264160CB745008205AC /* DiffuseDWBASimulation.cpp */,
+				62222260160CB745008205AC /* DWBADiffuseReflection.cpp */,
+				62222261160CB745008205AC /* DWBASimulation.cpp */,
+				62CC096C1665047E00A5B720 /* FTDistributions.cpp */,
+				62CC096D1665047E00A5B720 /* IChiSquaredModule.cpp */,
 				62222267160CB745008205AC /* IFittingDataSelector.cpp */,
+				6236DD0816CE708600ECED4F /* Instrument.cpp */,
+				6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */,
+				621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */,
 				62222268160CB745008205AC /* LayerDWBASimulation.cpp */,
+				62D4124717D4E7A900BD34D1 /* LayerSpecularInfo.cpp */,
+				6223326A17C64116004CCDAE /* LayerStrategyBuilder.cpp */,
 				6222226A160CB745008205AC /* LocalMonodisperseApproximationStrategy.cpp */,
+				62CC096E1665047E00A5B720 /* Mask.cpp */,
+				62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */,
+				62D4124817D4E7A900BD34D1 /* MatrixRTCoefficients.cpp */,
 				6222226B160CB745008205AC /* MultiLayerDWBASimulation.cpp */,
 				6222226C160CB745008205AC /* MultiLayerRoughnessDWBASimulation.cpp */,
+				62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */,
+				6236DD0C16CE9EC600ECED4F /* Simulation.cpp */,
+				621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */,
+				6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */,
+				627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -3577,6 +3581,8 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				624B526417F5A25B0040AB8C /* EigenCore.h */,
+				624B526517F5A25B0040AB8C /* w32pragma.h */,
 				6223325017C64096004CCDAE /* SampleMaterialVisitor.h */,
 				627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */,
 				627F5FFB1793EB17009E166F /* WinDllMacros.h */,
@@ -3599,7 +3605,6 @@
 				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
 				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
 				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
-				62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */,
 				62EA736D1628421000656B41 /* IObserver.h */,
 				62EA736E1628421000656B41 /* IParameterized.h */,
 				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
@@ -3610,9 +3615,7 @@
 				62FDC0621615F11F00D28B08 /* Macros.h */,
 				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
 				622222F3160CB745008205AC /* Convolve.h */,
-				622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */,
 				622222F7160CB745008205AC /* Exceptions.h */,
-				622222FA160CB745008205AC /* IDoubleToComplexFunction.h */,
 				622222FB160CB745008205AC /* IFactory.h */,
 				622222FC160CB745008205AC /* INamed.h */,
 				622222FD160CB745008205AC /* ISingleton.h */,
@@ -3653,7 +3656,6 @@
 				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
 				62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */,
 				6222230B160CB745008205AC /* Convolve.cpp */,
-				6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */,
 				6222230D160CB745008205AC /* Exceptions.cpp */,
 				62222310160CB745008205AC /* IFactory.cpp */,
 				62222313160CB745008205AC /* MathFunctions.cpp */,
@@ -71235,9 +71237,9 @@
 				62FD5C7817F061E3007C0397 /* FcnAdapter.h */,
 				62FD5C7917F061E3007C0397 /* FitConfig.h */,
 				62FD5C7A17F061E3007C0397 /* FitResult.h */,
+				62FD5C7D17F061E3007C0397 /* Fitter.h */,
 				62FD5C7B17F061E3007C0397 /* FitUtil.h */,
 				62FD5C7C17F061E3007C0397 /* FitUtilParallel.h */,
-				62FD5C7D17F061E3007C0397 /* Fitter.h */,
 				62FD5C7E17F061E3007C0397 /* LogLikelihoodFCN.h */,
 				62FD5C7F17F061E3007C0397 /* ParameterSettings.h */,
 				62FD5C8017F061E3007C0397 /* PoissonLikelihoodFCN.h */,
@@ -71255,6 +71257,7 @@
 				62FD5C8617F061E3007C0397 /* Factory.h */,
 				62FD5C8717F061E3007C0397 /* FitMethodFunction.h */,
 				62FD5C8817F061E3007C0397 /* Functor.h */,
+				62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */,
 				62FD5C8917F061E3007C0397 /* GSLFunctionAdapter.h */,
 				62FD5C8A17F061E3007C0397 /* GSLFunctionWrapper.h */,
 				62FD5C8B17F061E3007C0397 /* GSLMinimizer.h */,
@@ -71263,18 +71266,17 @@
 				62FD5C8E17F061E3007C0397 /* GSLRndmEngines.h */,
 				62FD5C8F17F061E3007C0397 /* GSLSimAnMinimizer.h */,
 				62FD5C9017F061E3007C0397 /* GSLSimAnnealing.h */,
-				62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */,
 				62FD5C9217F061E3007C0397 /* IFunction.h */,
 				62FD5C9317F061E3007C0397 /* IFunctionfwd.h */,
 				62FD5C9417F061E3007C0397 /* IMinimizer1D.h */,
 				62FD5C9517F061E3007C0397 /* IOptions.h */,
 				62FD5C9617F061E3007C0397 /* IParamFunction.h */,
 				62FD5C9717F061E3007C0397 /* IParamFunctionfwd.h */,
-				62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */,
 				62FD5C9917F061E3007C0397 /* Minimizer.h */,
 				62FD5C9A17F061E3007C0397 /* MinimizerOptions.h */,
 				62FD5C9B17F061E3007C0397 /* MinimizerVariable.h */,
 				62FD5C9C17F061E3007C0397 /* MinimizerVariableTransformation.h */,
+				62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */,
 				62FD5C9D17F061E3007C0397 /* MultiNumGradFunction.h */,
 				62FD5C9E17F061E3007C0397 /* OneDimFunctionAdapter.h */,
 				62FD5C9F17F061E3007C0397 /* Util.h */,
@@ -71323,13 +71325,12 @@
 				62FD5CC417F061E3007C0397 /* GradientCalculator.h */,
 				62FD5CC517F061E3007C0397 /* HessianGradientCalculator.h */,
 				62FD5CC617F061E3007C0397 /* InitialGradientCalculator.h */,
-				62FD5CC717F061E3007C0397 /* LASymMatrix.h */,
-				62FD5CC817F061E3007C0397 /* LAVector.h */,
 				62FD5CC917F061E3007C0397 /* LaInverse.h */,
 				62FD5CCA17F061E3007C0397 /* LaOuterProduct.h */,
 				62FD5CCB17F061E3007C0397 /* LaProd.h */,
 				62FD5CCC17F061E3007C0397 /* LaSum.h */,
-				62FD5CCD17F061E3007C0397 /* MPIProcess.h */,
+				62FD5CC717F061E3007C0397 /* LASymMatrix.h */,
+				62FD5CC817F061E3007C0397 /* LAVector.h */,
 				62FD5CCE17F061E3007C0397 /* MatrixInverse.h */,
 				62FD5CCF17F061E3007C0397 /* MinimumBuilder.h */,
 				62FD5CD017F061E3007C0397 /* MinimumError.h */,
@@ -71374,11 +71375,12 @@
 				62FD5CF717F061E3007C0397 /* MnTiny.h */,
 				62FD5CF817F061E3007C0397 /* MnUserCovariance.h */,
 				62FD5CF917F061E3007C0397 /* MnUserFcn.h */,
-				62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */,
 				62FD5CFB17F061E3007C0397 /* MnUserParameters.h */,
+				62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */,
 				62FD5CFC17F061E3007C0397 /* MnUserTransformation.h */,
 				62FD5CFD17F061E3007C0397 /* MnVectorTransform.h */,
 				62FD5CFE17F061E3007C0397 /* ModularFunctionMinimizer.h */,
+				62FD5CCD17F061E3007C0397 /* MPIProcess.h */,
 				62FD5CFF17F061E3007C0397 /* NegativeG2LineSearch.h */,
 				62FD5D0017F061E3007C0397 /* Numerical2PGradientCalculator.h */,
 				62FD5D0117F061E3007C0397 /* ParametricFunction.h */,
@@ -71414,6 +71416,7 @@
 			children = (
 				62FD5D1317F061E3007C0397 /* Derivator.cxx */,
 				62FD5D1417F061E3007C0397 /* Factory.cxx */,
+				62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */,
 				62FD5D1517F061E3007C0397 /* GSL1DMinimizerWrapper.h */,
 				62FD5D1617F061E3007C0397 /* GSLDerivator.cxx */,
 				62FD5D1717F061E3007C0397 /* GSLDerivator.h */,
@@ -71431,10 +71434,9 @@
 				62FD5D2317F061E3007C0397 /* GSLRngWrapper.h */,
 				62FD5D2417F061E3007C0397 /* GSLSimAnMinimizer.cxx */,
 				62FD5D2517F061E3007C0397 /* GSLSimAnnealing.cxx */,
-				62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */,
-				62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */,
 				62FD5D2817F061E3007C0397 /* MinimizerOptions.cxx */,
 				62FD5D2917F061E3007C0397 /* MinimizerVariableTransformation.cxx */,
+				62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */,
 				62FD5D2A17F061E3007C0397 /* MultiNumGradFunction.cxx */,
 			);
 			path = Math;
@@ -71461,11 +71463,17 @@
 				62FD5D3B17F061E3007C0397 /* LaOuterProduct.cxx */,
 				62FD5D3C17F061E3007C0397 /* LaSumOfElements.cxx */,
 				62FD5D3D17F061E3007C0397 /* LaVtMVSimilarity.cxx */,
-				62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */,
 				62FD5D3F17F061E3007C0397 /* Minuit2Minimizer.cxx */,
 				62FD5D4017F061E3007C0397 /* MnApplication.cxx */,
+				62FD5D6617F061E3007C0397 /* mnbins.cxx */,
 				62FD5D4117F061E3007C0397 /* MnContours.cxx */,
 				62FD5D4217F061E3007C0397 /* MnCovarianceSqueeze.cxx */,
+				62FD5D6717F061E3007C0397 /* mndasum.cxx */,
+				62FD5D6817F061E3007C0397 /* mndaxpy.cxx */,
+				62FD5D6917F061E3007C0397 /* mnddot.cxx */,
+				62FD5D6A17F061E3007C0397 /* mndscal.cxx */,
+				62FD5D6B17F061E3007C0397 /* mndspmv.cxx */,
+				62FD5D6C17F061E3007C0397 /* mndspr.cxx */,
 				62FD5D4317F061E3007C0397 /* MnEigen.cxx */,
 				62FD5D4417F061E3007C0397 /* MnFcn.cxx */,
 				62FD5D4517F061E3007C0397 /* MnFumiliMinimize.cxx */,
@@ -71473,6 +71481,7 @@
 				62FD5D4717F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx */,
 				62FD5D4817F061E3007C0397 /* MnHesse.cxx */,
 				62FD5D4917F061E3007C0397 /* MnLineSearch.cxx */,
+				62FD5D6D17F061E3007C0397 /* mnlsame.cxx */,
 				62FD5D4A17F061E3007C0397 /* MnMachinePrecision.cxx */,
 				62FD5D4B17F061E3007C0397 /* MnMinos.cxx */,
 				62FD5D4C17F061E3007C0397 /* MnParabolaFactory.cxx */,
@@ -71483,12 +71492,17 @@
 				62FD5D5117F061E3007C0397 /* MnScan.cxx */,
 				62FD5D5217F061E3007C0397 /* MnSeedGenerator.cxx */,
 				62FD5D5317F061E3007C0397 /* MnStrategy.cxx */,
+				62FD5D6E17F061E3007C0397 /* mnteigen.cxx */,
 				62FD5D5417F061E3007C0397 /* MnTiny.cxx */,
+				62FD5D6F17F061E3007C0397 /* mntplot.cxx */,
 				62FD5D5517F061E3007C0397 /* MnUserFcn.cxx */,
-				62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */,
 				62FD5D5717F061E3007C0397 /* MnUserParameters.cxx */,
+				62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */,
 				62FD5D5817F061E3007C0397 /* MnUserTransformation.cxx */,
+				62FD5D7017F061E3007C0397 /* mnvert.cxx */,
+				62FD5D7117F061E3007C0397 /* mnxerbla.cxx */,
 				62FD5D5917F061E3007C0397 /* ModularFunctionMinimizer.cxx */,
+				62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */,
 				62FD5D5A17F061E3007C0397 /* NegativeG2LineSearch.cxx */,
 				62FD5D5B17F061E3007C0397 /* Numerical2PGradientCalculator.cxx */,
 				62FD5D5C17F061E3007C0397 /* ParametricFunction.cxx */,
@@ -71501,18 +71515,6 @@
 				62FD5D6317F061E3007C0397 /* SqrtUpParameterTransformation.cxx */,
 				62FD5D6417F061E3007C0397 /* VariableMetricBuilder.cxx */,
 				62FD5D6517F061E3007C0397 /* VariableMetricEDMEstimator.cxx */,
-				62FD5D6617F061E3007C0397 /* mnbins.cxx */,
-				62FD5D6717F061E3007C0397 /* mndasum.cxx */,
-				62FD5D6817F061E3007C0397 /* mndaxpy.cxx */,
-				62FD5D6917F061E3007C0397 /* mnddot.cxx */,
-				62FD5D6A17F061E3007C0397 /* mndscal.cxx */,
-				62FD5D6B17F061E3007C0397 /* mndspmv.cxx */,
-				62FD5D6C17F061E3007C0397 /* mndspr.cxx */,
-				62FD5D6D17F061E3007C0397 /* mnlsame.cxx */,
-				62FD5D6E17F061E3007C0397 /* mnteigen.cxx */,
-				62FD5D6F17F061E3007C0397 /* mntplot.cxx */,
-				62FD5D7017F061E3007C0397 /* mnvert.cxx */,
-				62FD5D7117F061E3007C0397 /* mnxerbla.cxx */,
 			);
 			path = Minuit2;
 			sourceTree = "<group>";
@@ -71716,6 +71718,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.App" */;
 			buildPhases = (
+				6256171D180EB0A600AAB151 /* ShellScript */,
 				627C2EBF160B4E8F004C1B11 /* Sources */,
 				627C2EC0160B4E8F004C1B11 /* Frameworks */,
 				626378A316666C5A00D1BD00 /* CopyFiles */,
@@ -71972,6 +71975,19 @@
 			shellPath = /bin/sh;
 			shellScript = "cd ${SRCROOT}\ncmake -E chdir ../BornAgain_cmake_release/ cmake -G \"Unix Makefiles\" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release\ncd ../BornAgain_cmake_release\nmake";
 		};
+		6256171D180EB0A600AAB151 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT/App\n/opt/local/bin/rootcint -cint -f src/AppDict.cpp -c -I/Users/herck/Development/git/BornAgain/Core/Tools/inc inc/App.h inc/AppLinkDef.h";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -72140,6 +72156,7 @@
 				6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */,
 				62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */,
 				62B316141712FE29004A9D02 /* MessageService.cpp in Sources */,
+				624B527617F5A2CD0040AB8C /* IInterferenceFunctionStrategy.cpp in Sources */,
 				627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */,
 				627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */,
 				627F60051793FAE3009E166F /* FormFactorTethraedron.cpp in Sources */,
@@ -72184,6 +72201,7 @@
 				627F60E01793FB22009E166F /* InterferenceFunction1DParaCrystal.pypp.cpp in Sources */,
 				627F60E11793FB22009E166F /* InterferenceFunction2DLattice.pypp.cpp in Sources */,
 				627F60E21793FB22009E166F /* InterferenceFunction2DParaCrystal.pypp.cpp in Sources */,
+				624B527517F5A2CD0040AB8C /* IDetectorResolution.cpp in Sources */,
 				627F60E31793FB22009E166F /* InterferenceFunctionNone.pypp.cpp in Sources */,
 				627F60E41793FB22009E166F /* IParameterized.pypp.cpp in Sources */,
 				627F60E51793FB22009E166F /* IResolutionFunction2D.pypp.cpp in Sources */,
@@ -72638,6 +72656,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG_FPE,
+					Q_OS_MAC,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -72682,6 +72704,10 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG_FPE,
+					Q_OS_MAC,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;

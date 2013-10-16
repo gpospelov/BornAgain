@@ -183,6 +183,8 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
         ff_meso(ff_cyl.clone(),
                 m_sigma_meso_height*m_sigma_meso_height/2.0,
                 m_sigma_meso_radius*m_sigma_meso_radius/2.0);
+    double gauss_width = std::sqrt(M_PI*m_meso_radius*m_meso_radius);
+    FormFactorGauss ff_gauss(m_meso_height, gauss_width);
 
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();

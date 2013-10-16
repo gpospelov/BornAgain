@@ -35,17 +35,19 @@ public:
 
     int getNumberOfStochasticParameters() const { return 2; }
 
+    //! Returns volume of Box
+    double getVolume() const { return 4*m_height*m_radius*m_width; }
+
+    //! Returns height of Box
+    double getHeight() const { return m_height; }
+
     //! Returns radius of Box
     double getRadius() const { return m_radius; }
 
     //! Returns width of Box
     double getwidth() const { return m_width; }
 
-    complex_t evaluate_for_q(const cvector_t& q) const;
-
-    double getVolume() const { return 4*m_height*m_radius*m_width; }
-
-    double getHeight() const { return m_height; }
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
     void init_parameters();

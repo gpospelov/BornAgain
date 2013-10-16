@@ -122,7 +122,7 @@ void TestFormFactor::draw4()
                 it.getIndex());
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
-        double z_value = std::log(*it);
+        double z_value = std::log(*it + 1.0);
         p_hist2D->Fill(x_value, y_value, z_value);
         p_hist2Da[0]->Fill(x_value, y_value, z_value);
         ++it;

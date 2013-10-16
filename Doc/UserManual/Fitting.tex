@@ -103,8 +103,8 @@ output detector.
 In principle, every parameter used in the construction of the sample
 can be used as a fitting parameter. For example, the particles'
 heights, radii or the layer's roughness or thickness could be selected using
-parameter pool mechanism explained in \SecRef{WorkingWithSampleParameters} (we recommend
-reading of this section before proceeding further).
+parameter pool mechanism. 
+That mechanism is explained in details in \SecRef{WorkingWithSampleParameters} and it is recommended to read it before proceeding further.
 
 User specifies selected sample parameters as a fit parameter using \Code{FitSuite}
 and its \Code{addFitParameter} method
@@ -134,15 +134,52 @@ double values corresponding to the lower and higher boundary respectively.
 
 
 
-\subsection{Loading reference data.}
-These are the data to which the fitting model will
-be compared to. They usually refer to experimental data. We assume that it is a
-two-dimensional intensity matrix as function of the output scattering
-angles $\alpha_f$ and $\phi_f$ (see Fig.~\ref{fig:multil3d}). The user
-is required to provide reduced and \textbf{normalized} data. 
+\subsection{Associating reference and simulated data.}
+
+The minimization procedure deals with a pair of reference data (normally
+associated with experimental data) and the theoretical model (presented by the sample and the simulation descriptions).
+
+We assume that the experimental data is a two-dimensional intensity 
+matrix as function of the output scattering
+angles $\alpha_f$ and $\phi_f$ (see Fig.~\ref{fig:multil3d}).
+The user is required to provide the data in the form of ASCII file containing axes
+binning description and the intensity data itself. 
+\vspace*{2mm}
+
+\ImportantPoint{Remark:}{
+We recognize the importance of the support of most common data formats. We are going to provide
+this feature in the following releases and welcome user requests on that subject.
+}
+\vspace*{1mm}
+
+To associate the simulation with the reference data the method \newline
+\Code{addSimulationAndRealData} has to be used as shown
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none]
+fit_suite = FitSuite()
+fit_suite.addSimulationAndRealData(<simulation>, <reference>, <chi2_module>)
+\end{lstlisting}
+
+here \Code{<simulation>} correspond to the \BornAgain\ simulation object with sample, beam and detector fully defined, \Code{<reference>} correspond to the experimental data object obtained from ASCII file and \Code{<chi2\_module>} is an optional parameter for advanced 
+control of $\chi2$ calculations.
+
+There is a possibility to call given method more than once to submit more than one pair of
+\Code{<simulation>, <reference>} to the fitting procedure and so to provide simultaneous fit of
+some combined data set.
+
+By using the third \Code{<chi2\_module>} parameter different normalization and weights
+can be applied to let the user fully control the way $\chi2$ is calculated.
+This feature will be explained in \SecRef{AdvancedFitting}.
 
 
 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Minimizer settings.}
 
 \BornAgain\ contains a variety of minimization engines from \Code{ROOT} and \Code{GSL}
@@ -227,8 +264,8 @@ There are several options common for every minimization algorithms, which can be
 before minimization starts. They are handled by \Code{MinimizerOptions} class:
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
 options = MinimizerOptions()
-options.setMaxFunctionCall(10)
-FitSuite().getMinimizer().setOptions()
+options.setMaxFunctionCalls(10)
+FitSuite().getMinimizer().setOptions(options)
 \end{lstlisting}
 In given code snippet a number of ``maximum function calls'', namely a number of times the minimizer is allowed to call the simulation, is limited to the 10. The minimizer will take that number into consideration and will try to limit number of iterations by that value.
 
@@ -237,8 +274,18 @@ as a number of possibilities to tune individual minimization algorithms.
 They will be explained in \SecRef{AdvancedFitting}.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Running the fitting ant retrieving the results.}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{FittingExamples}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -248,14 +295,21 @@ They will be explained in \SecRef{AdvancedFitting}.
 \begin{itemize}
 \item It is recommended to start from default minimizer settings and turn to the fine tunings
 only after some experience has been acquired.
+\item error interpretation
 
 \end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section {Advanced fitting.} \SecLabel{AdvancedFitting}
 
+\subsection{Affecting $\chi2$ calculations.}
+\subsection{Simultaneous fit of several data sets.}
+\subsection{Using fitting strategies.}
+\subsection{Masking the real data.}
+\subsection{Tuning fitting algorithms.}
 
 
 

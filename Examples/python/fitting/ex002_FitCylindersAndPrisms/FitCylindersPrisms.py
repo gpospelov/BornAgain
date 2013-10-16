@@ -138,7 +138,7 @@ def run_fitting():
     MinimizerFactory.printCatalogue()
 
     options = MinimizerOptions()
-    
+
     options.setMaxFunctionCalls(5)
     fitSuite.getMinimizer().setOptions(options)
 

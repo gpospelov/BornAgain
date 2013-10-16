@@ -441,10 +441,10 @@ The sample contains following parameters ('name':value)
 '/MultiLayer/crossCorrLength':0
 \end{lstlisting}
 
-Wildcards \Code{'*'} can be used to reduce typing or to work on group of parameters. In example below first command will change the height of the cylinders in the same way, as in previous example, while the second line will change the depth of both cylinders and prisms.
+Wildcards \Code{'*'} can be used to reduce typing or to work on group of parameters. In example below first command will change the height of the cylinders in the same way, as in previous example, while the second line will change simultaneously the height of {\it both} cylinders and prisms.
 \begin{lstlisting}[language=shell, style=commandline]
 multi_layer.setParameterValue('*FormFactorCylinder/height', 1.0)
-multi_layer.setParameterValue('*depth', 1.0)
+multi_layer.setParameterValue('*height', 1.0)
 \end{lstlisting}
 
 The complete example to this section can be found at

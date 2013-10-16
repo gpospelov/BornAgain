@@ -48,6 +48,7 @@ protected:
 private:
     double m_height;
     double m_width;
+    double m_max_ql;
 };
 
 #endif /* FORMFACTORGAUSS_H_ */

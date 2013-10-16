@@ -198,6 +198,3 @@ void Utils::EnableFloatingPointExceptions()
               << std::endl;
 #endif
 }
-
-
-

@@ -59,7 +59,7 @@ protected:
     complex_t bigZPart(const Bin1DCVector& q_bin) const;
 
     //! determine if a large bin size approximation should be used
-    virtual bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
+    bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
 private:
     //! approximate intensity that does not contain rapid oscillations

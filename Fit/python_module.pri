@@ -10,7 +10,9 @@ HEADERS +=  \
     PythonAPI/inc/SquaredFunctionWithSystematicError.pypp.h \
     PythonAPI/inc/IOutputDataNormalizer.pypp.h \
     PythonAPI/inc/SquaredFunctionWhichOnlyWorks.pypp.h \
+    PythonAPI/inc/FitParameter.pypp.h \
     PythonAPI/inc/IMinimizer.pypp.h \
+    PythonAPI/inc/INamed.pypp.h \
     PythonAPI/inc/SquaredFunctionDefault.pypp.h \
     PythonAPI/inc/ChiSquaredModule.pypp.h \
     PythonAPI/inc/FitSuite.pypp.h \
@@ -22,6 +24,8 @@ SOURCES +=  \
     PythonAPI/src/PythonModule.cpp \ 
     PythonAPI/src/OutputDataSimpleNormalizer.pypp.cpp \
     PythonAPI/src/SquaredFunctionWithSystematicError.pypp.cpp \
+    PythonAPI/src/INamed.pypp.cpp \
+    PythonAPI/src/FitParameter.pypp.cpp \
     PythonAPI/src/AttLimits.pypp.cpp \
     PythonAPI/src/ChiSquaredModule.pypp.cpp \
     PythonAPI/src/IChiSquaredModule.pypp.cpp \

@@ -111,12 +111,10 @@ bool ROOTMinimizerHelper::processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer 
 }
 
 
-// ----------------------------------------------------------------------------
 // Printing minimizer results on the screen
-// ----------------------------------------------------------------------------
 void ROOTMinimizerHelper::printResults(ROOT::Math::Minimizer *minimizer, const std::string& minimizer_name, const std::string& algo_type)
 {
-    std::cout << "-----------------------------------------------------" << std::endl;
+    std::cout << "--------------------------------------------------------------------------------" << std::endl;
     std::cout << std::setw(25) << std::left << "  MinimizerType"      << ": " << minimizer_name << std::endl;
     std::cout << std::setw(25) << std::left << "  MinimizerAlgorithm" << ": " << algo_type << std::endl;
     printOptions(minimizer);
@@ -127,12 +125,10 @@ void ROOTMinimizerHelper::printResults(ROOT::Math::Minimizer *minimizer, const s
 }
 
 
-/* ************************************************************************* */
 // print minimizer description
-/* ************************************************************************* */
 void ROOTMinimizerHelper::printOptions(ROOT::Math::Minimizer *minimizer)
 {
-    std::cout << "--- Options -----------------------------------------" << std::endl;
+    std::cout << "--- Options --------------------------------------------------------------------" << std::endl;
     ROOT::Math::MinimizerOptions opt = minimizer->Options();
     std::cout << std::setw(25) << std::left << "  Strategy"           << ": " << minimizer->Strategy() << std::endl;
     std::cout << std::setw(25) << std::left << "  Tolerance"          << ": " << minimizer->Tolerance() << std::endl;
@@ -146,7 +142,7 @@ void ROOTMinimizerHelper::printOptions(ROOT::Math::Minimizer *minimizer)
 
 void ROOTMinimizerHelper::printStatus(ROOT::Math::Minimizer *minimizer)
 {
-    std::cout << "--- Status ------------------------------------------ " << std::endl;
+    std::cout << "--- Status --------------------------------------------------------------------- " << std::endl;
     std::map<int, std::string> minimizerStatus;
     minimizerStatus[0] = std::string("OK, valid minimum");
     minimizerStatus[1] = std::string("Didn't converge, covariance was made pos defined");
@@ -185,7 +181,7 @@ void ROOTMinimizerHelper::printStatus(ROOT::Math::Minimizer *minimizer)
 
 void ROOTMinimizerHelper::printVariables(ROOT::Math::Minimizer *minimizer)
 {
-    std::cout << "--- Variables ---------------------------------------" << std::endl;
+    std::cout << "--- Variables ------------------------------------------------------------------" << std::endl;
     std::cout << std::setw(25) << std::left << "  NumberOfVariables"      << ": "
               << minimizer->NFree() << " (free), " << minimizer->NDim() << " (total) " << std::endl;
     std::cout << std::setw(25) << std::left << "  Errors"      << ": " << (minimizer->Errors() ? "yes, see below" : "no access") << std::endl;
@@ -204,7 +200,7 @@ void ROOTMinimizerHelper::printVariables(ROOT::Math::Minimizer *minimizer)
                   << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << minimizer->GlobalCC((int)i) << std::endl;
     }
     // correlation between parameters
-    std::cout << "--- Correlations-------------------------------------" << std::endl;
+    std::cout << "--- Correlations----------------------------------------------------------------" << std::endl;
     for(unsigned int i=0; i<minimizer->NDim(); ++i) {
         std::cout << "      ";
         for(unsigned int j=0; j<minimizer->NDim(); ++j) {

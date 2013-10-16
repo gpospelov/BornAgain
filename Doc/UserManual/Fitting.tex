@@ -14,6 +14,9 @@ in \SecRef{Fit::ImplementationBornAgain}.
 \SecRef{BasicPythonFittingExample} contains Python fitting example with detailed explanations of every fitting step.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Gentle introduction to the data fitting.} \SecLabel{Fit::BasicConcept}
 
 \subsection{Terminology.}
@@ -23,6 +26,9 @@ Iterations
 Minimizer:
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation in BornAgain.} \SecLabel{Fit::ImplementationBornAgain}
 
 Fitting in  \BornAgain\ deals with estimating the optimum parameters
@@ -84,8 +90,10 @@ of each interface are given in \SecRef{FitSuiteClass}. The following parts of th
 the main stages necessary to run fitting procedure.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Preparing sample and simulation description.}
-
 
 This step is similar for any simulation using \BornAgain\ (see \SecRef{Simulation}). It consists in first characterizing  the geometry of the system: the particles 
 (shapes, sizes, refractive
@@ -98,7 +106,9 @@ Then we specify the parameters of the input beam and of the
 output detector.
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Choice of parameters to be fitted}
 In principle, every parameter used in the construction of the sample
 can be used as a fitting parameter. For example, the particles'
@@ -133,7 +143,9 @@ where \Code{<min\_value>} and \Code{<max\_value>} are
 double values corresponding to the lower and higher boundary respectively.
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Associating reference and simulated data.}
 
 The minimization procedure deals with a pair of reference data (normally
@@ -169,12 +181,6 @@ some combined data set.
 By using the third \Code{<chi2\_module>} parameter different normalization and weights
 can be applied to let the user fully control the way $\chi2$ is calculated.
 This feature will be explained in \SecRef{AdvancedFitting}.
-
-
-
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -310,6 +316,7 @@ only after some experience has been acquired.
 \subsection{Using fitting strategies.}
 \subsection{Masking the real data.}
 \subsection{Tuning fitting algorithms.}
+\subsection{Fitting with correlated sample parameters.}
 
 
 

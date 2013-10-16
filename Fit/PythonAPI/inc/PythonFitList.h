@@ -3,6 +3,7 @@
 
 //! list of files to process with Py++
 
+#include "INamed.h"
 #include "AttLimits.h"
 #include "IChiSquaredModule.h"
 #include "IMinimizer.h"

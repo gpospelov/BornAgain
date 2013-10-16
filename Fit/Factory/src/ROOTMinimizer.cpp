@@ -140,6 +140,17 @@ std::vector<double > ROOTMinimizer::getValueOfVariablesAtMinimum() const
 }
 
 
+std::vector<double > ROOTMinimizer::getErrorOfVariables() const
+{
+    std::vector<double > result;
+    result.resize(getNumberOfVariables(), 0.0);
+    if(m_root_minimizer->Errors() != 0 ) {
+        std::copy(m_root_minimizer->Errors(), m_root_minimizer->Errors()+getNumberOfVariables(), result.begin());
+    }
+    return result;
+}
+
+
 void ROOTMinimizer::printResults() const
 {
     ROOTMinimizerHelper::printResults(m_root_minimizer, m_minimizer_name, m_algo_type);

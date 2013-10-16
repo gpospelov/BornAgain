@@ -21,7 +21,9 @@
 #include "MinimizerFactory.h"
 #include <boost/bind.hpp>
 
-FitSuite::FitSuite() : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad")), m_is_last_iteration(false)
+FitSuite::FitSuite()
+    : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
+    , m_is_last_iteration(false)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);
@@ -108,7 +110,12 @@ void FitSuite::runFit()
     // calling observers to let them to get results
     m_is_last_iteration = true;
     notifyObservers();
+
+    // setting the error
+    m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
+
 }
+
 
 //! run single minimization round (called by FitSuiteStrategy)
 void FitSuite::minimize()
@@ -128,7 +135,9 @@ void FitSuite::minimize()
 
     // minimizing
     m_minimizer->minimize();
-}
+
+    }
+
 
 // get current number of minimization function calls
 size_t FitSuite::getNCalls() const
@@ -138,19 +147,20 @@ size_t FitSuite::getNCalls() const
     return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
 }
 
+
 // results to stdout
 void FitSuite::printResults() const
 {
     std::cout << std::endl;
-    std::cout << "--- FitSuite::printResults --------------------------" << std::endl;
+    std::cout << "--- FitSuite::printResults -----------------------------------------------------" << std::endl;
     std::cout << " Chi2:" << std::scientific << std::setprecision(8) << m_fit_objects.getChiSquaredValue()
               << "    chi2.NCall:" << m_function_chi2.getNCalls()
               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
               << m_function_gradient.getNCallsGradient() << ","
               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
-    //m_fit_parameters.printParameters();
     m_minimizer->printResults();
 }
+
 
 // set print level
 void FitSuite::initPrint(int print_every_nth)

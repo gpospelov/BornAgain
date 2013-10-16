@@ -67,8 +67,11 @@ class BA_CORE_API_ IMinimizer
     //! Returns values of parameters at the minimum
     virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
-    //! Returns pointer to the parameters values at the minimum
+    //! Returns error of variable at minimum
     virtual double getErrorOfVariable(size_t index) const;
+
+    //! Returns errors of variables at minimum
+    virtual std::vector<double >  getErrorOfVariables() const;
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear();
@@ -134,6 +137,11 @@ inline std::vector<double > IMinimizer::getValueOfVariablesAtMinimum() const
 inline double IMinimizer::getErrorOfVariable(size_t /*index*/) const
 {
     throw NotImplementedException("IMinimizer::getErrorOfVariable() -> Not implemented.");
+}
+
+inline std::vector<double> IMinimizer::getErrorOfVariables() const
+{
+    throw NotImplementedException("IMinimizer::getErrorOfVariables() -> Not implemented.");
 }
 
 inline void IMinimizer::clear()

@@ -27,7 +27,6 @@ class BA_CORE_API_ FitParameter : public INamed, public AttLimits
 {
  public:
     FitParameter();
-    FitParameter(const AttLimits& limits);
     FitParameter(const std::string& name, double value, double step=0.0, const AttLimits& limits=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameter(){}
 

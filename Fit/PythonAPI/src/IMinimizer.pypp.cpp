@@ -47,6 +47,18 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         return IMinimizer::getErrorOfVariable( arg0 );
     }
 
+    virtual ::std::vector< double > getErrorOfVariables(  ) const  {
+        if( bp::override func_getErrorOfVariables = this->get_override( "getErrorOfVariables" ) )
+            return func_getErrorOfVariables(  );
+        else
+            return this->IMinimizer::getErrorOfVariables(  );
+    }
+    
+    
+    ::std::vector< double > default_getErrorOfVariables(  ) const  {
+        return IMinimizer::getErrorOfVariables( );
+    }
+
     virtual double getMinValue(  ) const  {
         if( bp::override func_getMinValue = this->get_override( "getMinValue" ) )
             return func_getMinValue(  );
@@ -201,6 +213,17 @@ void register_IMinimizer_class(){
                 , getErrorOfVariable_function_type(&::IMinimizer::getErrorOfVariable)
                 , default_getErrorOfVariable_function_type(&IMinimizer_wrapper::default_getErrorOfVariable)
                 , ( bp::arg("arg0") ) );
+        
+        }
+        { //::IMinimizer::getErrorOfVariables
+        
+            typedef ::std::vector< double > ( ::IMinimizer::*getErrorOfVariables_function_type )(  ) const;
+            typedef ::std::vector< double > ( IMinimizer_wrapper::*default_getErrorOfVariables_function_type )(  ) const;
+            
+            IMinimizer_exposer.def( 
+                "getErrorOfVariables"
+                , getErrorOfVariables_function_type(&::IMinimizer::getErrorOfVariables)
+                , default_getErrorOfVariables_function_type(&IMinimizer_wrapper::default_getErrorOfVariables) );
         
         }
         { //::IMinimizer::getMinValue

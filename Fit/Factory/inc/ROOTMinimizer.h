@@ -57,6 +57,8 @@ class ROOTMinimizer : public IMinimizer
 
     virtual double getErrorOfVariable(size_t i) const { return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[check_index(i)]); }
 
+    virtual std::vector<double > getErrorOfVariables() const;
+
     virtual void printResults() const;
 
     virtual void clear() { m_root_minimizer->Clear(); }

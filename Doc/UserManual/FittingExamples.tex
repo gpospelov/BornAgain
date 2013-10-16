@@ -1,2 +1,174 @@
 \section{Basic Python fitting example.} \SecLabel{BasicPythonFittingExample}
 
+In this section we are going to go through a complete example of
+fitting using \BornAgain. Each of the steps will be associated with a
+detailed piece of code written in Python. 
+The complete listing of
+the script is given at the end (see Listing~\ref{PythonFittingExampleScript}).
+Script itself can be found at
+\begin{lstlisting}[language=shell, style=commandline]
+./Examples/python/fitting/ex002_FitCylindersAndPrisms/FitCylindersAndPrisms.py
+\end{lstlisting}
+
+\noindent
+The example uses same sample geometry as in \SecRef{Example1Python}.
+It represents cylindrical and
+prismatic particles in equal proportion, in an air layer, deposited on a substrate layer, with no interference
+between the particles. We consider following parameters to be unkown
+\begin{itemize}
+\item the radius of cylinders
+\item the height of cylinders
+\item half side length of the prisms' triangular basis
+\item the height of prisms
+\end{itemize}
+
+Our reference data are a ``noisy'' two-dimensional intensity
+map obtained from the simulation of the same geometry with a fixed
+value of $5\,{\rm nm}$ for all four of these parameters. 
+Then we run our fitting using default minimizer settings
+starting with a cylinder's height
+of $4\,{\rm nm}$, a cylinder's radius of $6\,{\rm nm}$, 
+a prism's half side of $6\,{\rm nm}$ and a length equal to $4\,{\rm nm}$.
+As a result, fitting procedure is able to restore correct value of $5\,{\rm nm}$
+for all parameters.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Importing Python libraries}
+\begin{lstlisting}[language=python, style=eclipseboxed]
+from libBornAgainCore import *
+from libBornAgainFit import *
+\end{lstlisting}
+We start from importing two \BornAgain\ libraries required to create sample description
+and to run the fitting.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Building the sample}
+\begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=5]
+def get_sample(): @\label{script2::get_sample}@
+    """
+    Build the sample representing cylinders and pyramids on top of substrate without interference.
+    """
+    # defining materials
+    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+
+    # collection of particles
+    cylinder_ff = FormFactorCylinder(1.0*nanometer, 1.0*nanometer)
+    cylinder = Particle(m_particle, cylinder_ff)
+    prism_ff = FormFactorPrism3(1.0*nanometer, 1.0*nanometer)
+    prism = Particle(m_particle, prism_ff)
+    particle_decoration = ParticleDecoration()
+    particle_decoration.addParticle(cylinder, 0.0, 0.5)
+    particle_decoration.addParticle(prism, 0.0, 0.5)
+    interference = InterferenceFunctionNone()
+    particle_decoration.addInterferenceFunction(interference)
+
+    # air layer with particles and substrate form multi layer
+    air_layer = Layer(m_air)
+    air_layer.setDecoration(particle_decoration)
+    substrate_layer = Layer(m_substrate, 0)
+    multi_layer = MultiLayer()
+    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(substrate_layer)
+    return multi_layer
+\end{lstlisting}
+Function starting at the line ~\ref{script2::get_sample} creates multilayered sample
+with cylinders and prisms using arbitrary $1\,{\rm nm}$ value for all size's of particles.
+The details about the generation of this multilayered sample are given in \SecRef{Example1Python}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Creating the simulation.}
+\begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=35]
+def get_simulation(): @\label{script2::get_simulation}@
+    """
+    Create GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation()
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    return simulation
+\end{lstlisting}
+Function starting at the line ~\ref{script2::get_simulation} creates
+simulation object with beam and detector parameters defined.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Preparing the fitting pair.}
+\begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=45]
+def run_fitting(): @\label{script2::run_fitting}@
+    """
+    run fitting
+    """
+    sample = get_sample() @\label{script2::setup_simulation1}@
+    simulation = get_simulation()
+    simulation.setSample(sample) @\label{script2::setup_simulation2}@
+
+    real_data = OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt') @\label{script2::real_data}@
+\end{lstlisting}
+Lines ~\ref{script2::setup_simulation1}-~\ref{script2::setup_simulation2} generate
+sample and simulation description and assign the sample to the simulation.
+Our reference data are contained in the file \Code{'Refdata\_fitcylinderprisms.txt'}.
+ In our case this reference had been generated by adding noise
+on the scattered intensity from a numerical sample with a fixed length of 5~nm of the four fitting
+parameters (\textit{i.e.} the dimensions of the cylinders and prisms).
+Line ~\ref{script2::real_data} creates real data object by loading ASCII data from the file.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Setting up \rm\bf{FitSuite}.}
+\begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=55]
+    fit_suite = FitSuite() @\label{script2::fitsuite1}@
+    fit_suite.addSimulationAndRealData(simulation, real_data) @\label{script2::fitsuite2}@
+    fit_suite.initPrint(10) @\label{script2::fitsuite3}@
+\end{lstlisting}
+Line ~\ref{script2::fitsuite1} creates a \Code{FitSuite} object which provides
+the main interface to the minimization kernel of \BornAgain\ . 
+Line ~\ref{script2::fitsuite2} submits simulation description and real data pair to the 
+subsequent fitting. Line ~\ref{script2::fitsuite3} set up \Code{FitSuite} to print on
+the screen the information about fit progress every $10^{{\rm th}}$ iteration.
+\begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=60]
+    fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01)) @\label{script2::fitpars1}@
+    fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/half_side", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01)) @\label{script2::fitpars2}@
+\end{lstlisting}
+Lines ~\ref{script2::fitpars1}--~\ref{script2::fitpars2} enter the
+list of fitting parameters. Here we use the cylinders' height and
+radius and the prisms' height and half side length. The syntax of
+\Code{addFitParameter} is
+\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+FitSuite().addFitParameter(<name>, <initial value>, <iteration step>, <limits>)
+\end{lstlisting}
+where \Code{<name>} is the name of sample pool parameters (see \SecRef{WorkingWithSampleParameters}
+) selected
+as a fitting parameter. Then we input its initial
+value and the iteration step used in the minimization process. Finally
+\Code{<limits>} specify the boundaries of the parameter's value. Here
+the cylinder's length and prism half side are initially equal to $4\,{\rm nm}$,
+whereas the cylinder's radius and the prism length are equal to $6\,{\rm nm}$ before the minimization. The
+iteration step is equal to $0.01\,{\rm nm}$ and the boundaries are imposed only
+on the lower one of $0.01\,{\rm nm}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Running the fit and accessing results}
+\begin{lstlisting}[language=python, style=eclipseboxed, firstnumber=66]
+    fit_suite.runFit() @\label{script2::fitresults1}@
+
+    print "Fitting completed."
+    fit_suite.printResults()@\label{script2::fitresults2}@
+    print "chi2:", fit_suite.getMinimizer().getMinValue() 
+    fitpars = fit_suite.getFitParameters()
+    for i in range(0, fitpars.size()):
+        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError() @\label{script2::fitresults3}@
+\end{lstlisting}
+Line ~\ref{script2::fitresults1} shows the command to start the fitting process.
+During the fitting the progress will be displayed on the screen.
+Lines ~\ref{script2::fitresults2}--~\ref{script2::fitresults3} shows different ways of
+accessing to fit results.
+

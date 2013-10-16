@@ -71237,9 +71237,9 @@
 				62FD5C7817F061E3007C0397 /* FcnAdapter.h */,
 				62FD5C7917F061E3007C0397 /* FitConfig.h */,
 				62FD5C7A17F061E3007C0397 /* FitResult.h */,
+				62FD5C7D17F061E3007C0397 /* Fitter.h */,
 				62FD5C7B17F061E3007C0397 /* FitUtil.h */,
 				62FD5C7C17F061E3007C0397 /* FitUtilParallel.h */,
-				62FD5C7D17F061E3007C0397 /* Fitter.h */,
 				62FD5C7E17F061E3007C0397 /* LogLikelihoodFCN.h */,
 				62FD5C7F17F061E3007C0397 /* ParameterSettings.h */,
 				62FD5C8017F061E3007C0397 /* PoissonLikelihoodFCN.h */,
@@ -71257,6 +71257,7 @@
 				62FD5C8617F061E3007C0397 /* Factory.h */,
 				62FD5C8717F061E3007C0397 /* FitMethodFunction.h */,
 				62FD5C8817F061E3007C0397 /* Functor.h */,
+				62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */,
 				62FD5C8917F061E3007C0397 /* GSLFunctionAdapter.h */,
 				62FD5C8A17F061E3007C0397 /* GSLFunctionWrapper.h */,
 				62FD5C8B17F061E3007C0397 /* GSLMinimizer.h */,
@@ -71265,18 +71266,17 @@
 				62FD5C8E17F061E3007C0397 /* GSLRndmEngines.h */,
 				62FD5C8F17F061E3007C0397 /* GSLSimAnMinimizer.h */,
 				62FD5C9017F061E3007C0397 /* GSLSimAnnealing.h */,
-				62FD5C9117F061E3007C0397 /* GenAlgoOptions.h */,
 				62FD5C9217F061E3007C0397 /* IFunction.h */,
 				62FD5C9317F061E3007C0397 /* IFunctionfwd.h */,
 				62FD5C9417F061E3007C0397 /* IMinimizer1D.h */,
 				62FD5C9517F061E3007C0397 /* IOptions.h */,
 				62FD5C9617F061E3007C0397 /* IParamFunction.h */,
 				62FD5C9717F061E3007C0397 /* IParamFunctionfwd.h */,
-				62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */,
 				62FD5C9917F061E3007C0397 /* Minimizer.h */,
 				62FD5C9A17F061E3007C0397 /* MinimizerOptions.h */,
 				62FD5C9B17F061E3007C0397 /* MinimizerVariable.h */,
 				62FD5C9C17F061E3007C0397 /* MinimizerVariableTransformation.h */,
+				62FD5C9817F061E3007C0397 /* MinimTransformFunction.h */,
 				62FD5C9D17F061E3007C0397 /* MultiNumGradFunction.h */,
 				62FD5C9E17F061E3007C0397 /* OneDimFunctionAdapter.h */,
 				62FD5C9F17F061E3007C0397 /* Util.h */,
@@ -71325,13 +71325,12 @@
 				62FD5CC417F061E3007C0397 /* GradientCalculator.h */,
 				62FD5CC517F061E3007C0397 /* HessianGradientCalculator.h */,
 				62FD5CC617F061E3007C0397 /* InitialGradientCalculator.h */,
-				62FD5CC717F061E3007C0397 /* LASymMatrix.h */,
-				62FD5CC817F061E3007C0397 /* LAVector.h */,
 				62FD5CC917F061E3007C0397 /* LaInverse.h */,
 				62FD5CCA17F061E3007C0397 /* LaOuterProduct.h */,
 				62FD5CCB17F061E3007C0397 /* LaProd.h */,
 				62FD5CCC17F061E3007C0397 /* LaSum.h */,
-				62FD5CCD17F061E3007C0397 /* MPIProcess.h */,
+				62FD5CC717F061E3007C0397 /* LASymMatrix.h */,
+				62FD5CC817F061E3007C0397 /* LAVector.h */,
 				62FD5CCE17F061E3007C0397 /* MatrixInverse.h */,
 				62FD5CCF17F061E3007C0397 /* MinimumBuilder.h */,
 				62FD5CD017F061E3007C0397 /* MinimumError.h */,
@@ -71376,11 +71375,12 @@
 				62FD5CF717F061E3007C0397 /* MnTiny.h */,
 				62FD5CF817F061E3007C0397 /* MnUserCovariance.h */,
 				62FD5CF917F061E3007C0397 /* MnUserFcn.h */,
-				62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */,
 				62FD5CFB17F061E3007C0397 /* MnUserParameters.h */,
+				62FD5CFA17F061E3007C0397 /* MnUserParameterState.h */,
 				62FD5CFC17F061E3007C0397 /* MnUserTransformation.h */,
 				62FD5CFD17F061E3007C0397 /* MnVectorTransform.h */,
 				62FD5CFE17F061E3007C0397 /* ModularFunctionMinimizer.h */,
+				62FD5CCD17F061E3007C0397 /* MPIProcess.h */,
 				62FD5CFF17F061E3007C0397 /* NegativeG2LineSearch.h */,
 				62FD5D0017F061E3007C0397 /* Numerical2PGradientCalculator.h */,
 				62FD5D0117F061E3007C0397 /* ParametricFunction.h */,
@@ -71416,6 +71416,7 @@
 			children = (
 				62FD5D1317F061E3007C0397 /* Derivator.cxx */,
 				62FD5D1417F061E3007C0397 /* Factory.cxx */,
+				62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */,
 				62FD5D1517F061E3007C0397 /* GSL1DMinimizerWrapper.h */,
 				62FD5D1617F061E3007C0397 /* GSLDerivator.cxx */,
 				62FD5D1717F061E3007C0397 /* GSLDerivator.h */,
@@ -71433,10 +71434,9 @@
 				62FD5D2317F061E3007C0397 /* GSLRngWrapper.h */,
 				62FD5D2417F061E3007C0397 /* GSLSimAnMinimizer.cxx */,
 				62FD5D2517F061E3007C0397 /* GSLSimAnnealing.cxx */,
-				62FD5D2617F061E3007C0397 /* GenAlgoOptions.cxx */,
-				62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */,
 				62FD5D2817F061E3007C0397 /* MinimizerOptions.cxx */,
 				62FD5D2917F061E3007C0397 /* MinimizerVariableTransformation.cxx */,
+				62FD5D2717F061E3007C0397 /* MinimTransformFunction.cxx */,
 				62FD5D2A17F061E3007C0397 /* MultiNumGradFunction.cxx */,
 			);
 			path = Math;
@@ -71463,11 +71463,17 @@
 				62FD5D3B17F061E3007C0397 /* LaOuterProduct.cxx */,
 				62FD5D3C17F061E3007C0397 /* LaSumOfElements.cxx */,
 				62FD5D3D17F061E3007C0397 /* LaVtMVSimilarity.cxx */,
-				62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */,
 				62FD5D3F17F061E3007C0397 /* Minuit2Minimizer.cxx */,
 				62FD5D4017F061E3007C0397 /* MnApplication.cxx */,
+				62FD5D6617F061E3007C0397 /* mnbins.cxx */,
 				62FD5D4117F061E3007C0397 /* MnContours.cxx */,
 				62FD5D4217F061E3007C0397 /* MnCovarianceSqueeze.cxx */,
+				62FD5D6717F061E3007C0397 /* mndasum.cxx */,
+				62FD5D6817F061E3007C0397 /* mndaxpy.cxx */,
+				62FD5D6917F061E3007C0397 /* mnddot.cxx */,
+				62FD5D6A17F061E3007C0397 /* mndscal.cxx */,
+				62FD5D6B17F061E3007C0397 /* mndspmv.cxx */,
+				62FD5D6C17F061E3007C0397 /* mndspr.cxx */,
 				62FD5D4317F061E3007C0397 /* MnEigen.cxx */,
 				62FD5D4417F061E3007C0397 /* MnFcn.cxx */,
 				62FD5D4517F061E3007C0397 /* MnFumiliMinimize.cxx */,
@@ -71475,6 +71481,7 @@
 				62FD5D4717F061E3007C0397 /* MnGlobalCorrelationCoeff.cxx */,
 				62FD5D4817F061E3007C0397 /* MnHesse.cxx */,
 				62FD5D4917F061E3007C0397 /* MnLineSearch.cxx */,
+				62FD5D6D17F061E3007C0397 /* mnlsame.cxx */,
 				62FD5D4A17F061E3007C0397 /* MnMachinePrecision.cxx */,
 				62FD5D4B17F061E3007C0397 /* MnMinos.cxx */,
 				62FD5D4C17F061E3007C0397 /* MnParabolaFactory.cxx */,
@@ -71485,12 +71492,17 @@
 				62FD5D5117F061E3007C0397 /* MnScan.cxx */,
 				62FD5D5217F061E3007C0397 /* MnSeedGenerator.cxx */,
 				62FD5D5317F061E3007C0397 /* MnStrategy.cxx */,
+				62FD5D6E17F061E3007C0397 /* mnteigen.cxx */,
 				62FD5D5417F061E3007C0397 /* MnTiny.cxx */,
+				62FD5D6F17F061E3007C0397 /* mntplot.cxx */,
 				62FD5D5517F061E3007C0397 /* MnUserFcn.cxx */,
-				62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */,
 				62FD5D5717F061E3007C0397 /* MnUserParameters.cxx */,
+				62FD5D5617F061E3007C0397 /* MnUserParameterState.cxx */,
 				62FD5D5817F061E3007C0397 /* MnUserTransformation.cxx */,
+				62FD5D7017F061E3007C0397 /* mnvert.cxx */,
+				62FD5D7117F061E3007C0397 /* mnxerbla.cxx */,
 				62FD5D5917F061E3007C0397 /* ModularFunctionMinimizer.cxx */,
+				62FD5D3E17F061E3007C0397 /* MPIProcess.cxx */,
 				62FD5D5A17F061E3007C0397 /* NegativeG2LineSearch.cxx */,
 				62FD5D5B17F061E3007C0397 /* Numerical2PGradientCalculator.cxx */,
 				62FD5D5C17F061E3007C0397 /* ParametricFunction.cxx */,
@@ -71503,18 +71515,6 @@
 				62FD5D6317F061E3007C0397 /* SqrtUpParameterTransformation.cxx */,
 				62FD5D6417F061E3007C0397 /* VariableMetricBuilder.cxx */,
 				62FD5D6517F061E3007C0397 /* VariableMetricEDMEstimator.cxx */,
-				62FD5D6617F061E3007C0397 /* mnbins.cxx */,
-				62FD5D6717F061E3007C0397 /* mndasum.cxx */,
-				62FD5D6817F061E3007C0397 /* mndaxpy.cxx */,
-				62FD5D6917F061E3007C0397 /* mnddot.cxx */,
-				62FD5D6A17F061E3007C0397 /* mndscal.cxx */,
-				62FD5D6B17F061E3007C0397 /* mndspmv.cxx */,
-				62FD5D6C17F061E3007C0397 /* mndspr.cxx */,
-				62FD5D6D17F061E3007C0397 /* mnlsame.cxx */,
-				62FD5D6E17F061E3007C0397 /* mnteigen.cxx */,
-				62FD5D6F17F061E3007C0397 /* mntplot.cxx */,
-				62FD5D7017F061E3007C0397 /* mnvert.cxx */,
-				62FD5D7117F061E3007C0397 /* mnxerbla.cxx */,
 			);
 			path = Minuit2;
 			sourceTree = "<group>";
@@ -71718,6 +71718,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.App" */;
 			buildPhases = (
+				6256171D180EB0A600AAB151 /* ShellScript */,
 				627C2EBF160B4E8F004C1B11 /* Sources */,
 				627C2EC0160B4E8F004C1B11 /* Frameworks */,
 				626378A316666C5A00D1BD00 /* CopyFiles */,
@@ -71973,6 +71974,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd ${SRCROOT}\ncmake -E chdir ../BornAgain_cmake_release/ cmake -G \"Unix Makefiles\" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release\ncd ../BornAgain_cmake_release\nmake";
+		};
+		6256171D180EB0A600AAB151 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT/App\n/opt/local/bin/rootcint -cint -f src/AppDict.cpp -c -I/Users/herck/Development/git/BornAgain/Core/Tools/inc inc/App.h inc/AppLinkDef.h";
 		};
 /* End PBXShellScriptBuildPhase section */
 

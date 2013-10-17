@@ -164,8 +164,10 @@ def ManualClassTunings(mb):
     # 
     mb.free_function("GetOutputDataNdimensions").include()
     mb.free_function("GetOutputData").include()
+    mb.free_function("GetPolarizedOutputDataComponent").include()
     mb.free_function("GetOutputDataAxis").include()
     mb.free_function('GetOutputData').call_policies = call_policies.custom_call_policies("")
+    mb.free_function('GetPolarizedOutputDataComponent').call_policies = call_policies.custom_call_policies("")
     mb.free_function('GetOutputDataAxis').call_policies = call_policies.custom_call_policies("")
     #
     cl = mb.class_("BasicVector3D<double>")

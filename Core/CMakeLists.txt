@@ -33,8 +33,10 @@ file(GLOB include_files
 )
 
 if(BORNAGAIN_PYTHON)
-    file(GLOB pythonapi "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")
-    list(APPEND source_files ${pythonapi})
+    file(GLOB pythonapi_source "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")
+    list(APPEND source_files ${pythonapi_source})
+    file(GLOB pythonapi_include "PythonAPI/inc/*.h" "PythonAPI/inc/*.hpp")
+    list(APPEND include_files ${pythonapi_include})
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
     )

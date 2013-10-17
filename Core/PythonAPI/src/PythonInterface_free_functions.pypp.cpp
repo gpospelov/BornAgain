@@ -90,6 +90,17 @@ void register_free_functions(){
     
     }
 
+    { //::GetPolarizedOutputDataComponent
+    
+        typedef ::PyObject * ( *GetPolarizedOutputDataComponent_function_type )( ::Simulation const &,int,int );
+        
+        bp::def( 
+            "GetPolarizedOutputDataComponent"
+            , GetPolarizedOutputDataComponent_function_type( &::GetPolarizedOutputDataComponent )
+            , ( bp::arg("simulation"), bp::arg("row"), bp::arg("column") ) );
+    
+    }
+
     { //::AppVersion::GetVersionNumber
     
         typedef ::std::string ( *GetVersionNumber_function_type )(  );

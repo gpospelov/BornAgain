@@ -56,6 +56,18 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return FormFactorGauss::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->FormFactorGauss::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return FormFactorGauss::getHeight( );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
@@ -66,6 +78,30 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorGauss::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorGauss::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorGauss::getRadius( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->FormFactorGauss::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return FormFactorGauss::getVolume( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -150,42 +186,6 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
-    }
-
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactorBorn::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
     }
 
     virtual bool isDistributedFormFactor(  ) const  {
@@ -288,6 +288,17 @@ void register_FormFactorGauss_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::FormFactorGauss::getHeight
+        
+            typedef double ( ::FormFactorGauss::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorGauss_wrapper::*default_getHeight_function_type )(  ) const;
+            
+            FormFactorGauss_exposer.def( 
+                "getHeight"
+                , getHeight_function_type(&::FormFactorGauss::getHeight)
+                , default_getHeight_function_type(&FormFactorGauss_wrapper::default_getHeight) );
+        
+        }
         { //::FormFactorGauss::getNumberOfStochasticParameters
         
             typedef int ( ::FormFactorGauss::*getNumberOfStochasticParameters_function_type )(  ) const;
@@ -297,6 +308,28 @@ void register_FormFactorGauss_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorGauss::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorGauss_wrapper::default_getNumberOfStochasticParameters) );
+        
+        }
+        { //::FormFactorGauss::getRadius
+        
+            typedef double ( ::FormFactorGauss::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorGauss_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorGauss_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorGauss::getRadius)
+                , default_getRadius_function_type(&FormFactorGauss_wrapper::default_getRadius) );
+        
+        }
+        { //::FormFactorGauss::getVolume
+        
+            typedef double ( ::FormFactorGauss::*getVolume_function_type )(  ) const;
+            typedef double ( FormFactorGauss_wrapper::*default_getVolume_function_type )(  ) const;
+            
+            FormFactorGauss_exposer.def( 
+                "getVolume"
+                , getVolume_function_type(&::FormFactorGauss::getVolume)
+                , default_getVolume_function_type(&FormFactorGauss_wrapper::default_getVolume) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -380,39 +413,6 @@ void register_FormFactorGauss_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&FormFactorGauss_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactor::getHeight
-        
-            typedef double ( ::IFormFactor::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorGauss_wrapper::*default_getHeight_function_type )(  ) const;
-            
-            FormFactorGauss_exposer.def( 
-                "getHeight"
-                , getHeight_function_type(&::IFormFactor::getHeight)
-                , default_getHeight_function_type(&FormFactorGauss_wrapper::default_getHeight) );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorGauss_wrapper::*default_getRadius_function_type )(  ) const;
-            
-            FormFactorGauss_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorGauss_wrapper::default_getRadius) );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorGauss_wrapper::*default_getVolume_function_type )(  ) const;
-            
-            FormFactorGauss_exposer.def( 
-                "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&FormFactorGauss_wrapper::default_getVolume) );
         
         }
         { //::IFormFactor::isDistributedFormFactor

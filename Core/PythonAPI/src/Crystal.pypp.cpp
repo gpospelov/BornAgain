@@ -28,10 +28,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::Crystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->Crystal::clone(  );
-        }
     }
+    
     
     ::Crystal * default_clone(  ) const  {
         return Crystal::clone( );
@@ -40,10 +40,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::Crystal * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else{
+        else
             return this->Crystal::cloneInvertB(  );
-        }
     }
+    
     
     ::Crystal * default_cloneInvertB(  ) const  {
         return Crystal::cloneInvertB( );
@@ -52,10 +52,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -64,10 +64,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -76,10 +76,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -88,13 +88,25 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void printSampleTree(  ) {
+        if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
+            func_printSampleTree(  );
+        else
+            this->ISample::printSampleTree(  );
+    }
+    
+    
+    void default_printSampleTree(  ) {
+        ISample::printSampleTree( );
     }
 
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
@@ -116,13 +128,25 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -131,10 +155,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -256,6 +280,17 @@ void register_Crystal_class(){
                 , default_printParameters_function_type(&Crystal_wrapper::default_printParameters) );
         
         }
+        { //::ISample::printSampleTree
+        
+            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
+            typedef void ( Crystal_wrapper::*default_printSampleTree_function_type )(  ) ;
+            
+            Crystal_exposer.def( 
+                "printSampleTree"
+                , printSampleTree_function_type(&::ISample::printSampleTree)
+                , default_printSampleTree_function_type(&Crystal_wrapper::default_printSampleTree) );
+        
+        }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
@@ -264,6 +299,18 @@ void register_Crystal_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Crystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( Crystal_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            Crystal_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&Crystal_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

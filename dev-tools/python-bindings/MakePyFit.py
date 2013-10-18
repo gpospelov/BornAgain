@@ -27,19 +27,21 @@ include_dirs = [
 '../../Core/Geometry/inc',
 '../../Fit/Factory/inc',
 '../../Fit/PythonAPI/inc',
-#'../../ThirdParty/eigen3',
 ]
 
 include_classes = [
+"INamed",
 "AttLimits",
 "ChiSquaredModule",
 "FitSuite",
+"FitParameter",
 "FitSuiteParameters",
 "IChiSquaredModule",
 "IMinimizer",
 "IOutputDataNormalizer",
 "ISquaredFunction",
 "MinimizerFactory",
+"MinimizerOptions",
 "OutputDataNormalizer",
 "OutputDataSimpleNormalizer",
 "SquaredFunctionDefault",
@@ -57,26 +59,26 @@ def ManualClassTunings(mb):
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
     #
-    cl = mb.class_("FitSuite")
-    cl.member_functions().exclude()
-    for fun in cl.member_functions(allow_empty=True):
-      if "addFitParameter" in fun.name:
-          fun.include()
-    cl.member_function("getMinimizer").include()
-    cl.member_function("setMinimizer").include()
-    cl.member_function("addSimulationAndRealData").include()
-    cl.member_function("runFit").include()
-    cl.member_function("printResults").include()
-    cl.member_function("getNCalls").include()
-    cl.member_function("initPrint").include()
-    cl.member_function("getFitParameters").include()
+    #cl = mb.class_("FitSuite")
+    #cl.member_functions().exclude()
+    #for fun in cl.member_functions(allow_empty=True):
+      #if "addFitParameter" in fun.name:
+          #fun.include()
+    #cl.member_function("getMinimizer").include()
+    #cl.member_function("setMinimizer").include()
+    #cl.member_function("addSimulationAndRealData").include()
+    #cl.member_function("runFit").include()
+    #cl.member_function("printResults").include()
+    #cl.member_function("getNCalls").include()
+    #cl.member_function("initPrint").include()
+    #cl.member_function("getFitParameters").include()
     #
-    cl = mb.class_("FitSuiteParameters")
-    cl.member_functions().exclude()
-    cl.member_function("getValues").include()
-    for fun in cl.member_operators():
-        if "operator[]" in fun.name:
-            fun.exclude()
+    #cl = mb.class_("FitSuiteParameters")
+    #cl.member_functions().exclude()
+    #cl.member_function("getValues").include()
+    #for fun in cl.member_operators():
+        #if "operator[]" in fun.name:
+            #fun.exclude()
     #
     cl = mb.class_("MinimizerFactory")
     cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )

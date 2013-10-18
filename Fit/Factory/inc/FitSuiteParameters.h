@@ -53,6 +53,12 @@ class BA_CORE_API_ FitSuiteParameters
     //! Returns values of all defined parameters
     std::vector<double > getValues() const;
 
+    //! set errors to all parameters
+    void setErrors(const std::vector<double >& pars_errors);
+
+    //! Returns errors of all defined parameters
+    std::vector<double > getErrors() const;
+
     //! Returns number of parameters
     size_t size() const { return m_parameters.size(); }
 

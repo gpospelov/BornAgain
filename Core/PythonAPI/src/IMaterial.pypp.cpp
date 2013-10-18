@@ -33,10 +33,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else{
+        else
             return this->IMaterial::getRefractiveIndex(  );
-        }
     }
+    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return IMaterial::getRefractiveIndex( );
@@ -45,10 +45,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else{
+        else
             return this->IMaterial::isScalarMaterial(  );
-        }
     }
+    
     
     bool default_isScalarMaterial(  ) const  {
         return IMaterial::isScalarMaterial( );

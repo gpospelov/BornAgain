@@ -1,0 +1,29 @@
+BornAgain simulation examples.
+
+In this directory one can find examples of complete applications
+used for different simulation studies.
+
+--- ex001_CylindersAndPrisms ---
+    Mixture of cylinders and prisms without interference.
+    Corresponds to IsGISAXS example #1.
+
+--- ex002_CylindersWithSizeDistribution --- 
+    Mixture cylinder particles with different size distribution.
+    Corresponds to IsGISAXS example #2.
+
+--- ex003_CylinderFormfactor --- 
+    Cylinder formfactor in BA and DWBA.
+    Corresponds to IsGISAXS example #3.
+
+--- ex004_CylindersParaCrystal --- 
+    1D and 2D paracrystal. 
+    Corresponds to IsGISAXS example #4.
+
+--- ex005_LatticeWithDisorder ---
+    2D lattice with different disorder.
+    Corresponds to IsGISAXS example #6.
+
+--- ex006_RotatedPyramids ---
+    Pyramids, rotated pyramids on top of substrate.
+    Corresponds to IsGISAXS example #9.
+

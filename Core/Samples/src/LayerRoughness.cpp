@@ -23,7 +23,7 @@ LayerRoughness::LayerRoughness()
 , m_hurstParameter(0)
 , m_latteralCorrLength(0)
 {
-    setName("Roughness");
+    setName("LayerRoughness");
     init_parameters();
 }
 
@@ -32,7 +32,7 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
 , m_hurstParameter(hurstParameter)
 , m_latteralCorrLength(latteralCorrLength)
 {
-    setName("roughness");
+    setName("LayerRoughness");
     init_parameters();
 }
 

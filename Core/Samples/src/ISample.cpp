@@ -18,6 +18,7 @@
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
 #include "Utils.h"
+#include "SamplePrintVisitor.h"
 
 ISample *ISample::clone() const
 {
@@ -71,28 +72,10 @@ std::string ISample::addParametersToExternalPool(
     return new_path;
 }
 
-void ISample::print_structure()
+void ISample::printSampleTree()
 {
-    std::cout << getName() << " " << this << std::endl;
-    std::cout << "ISample::print_structure is broken\n";
-/*
-    if(getCompositeSample()) {
-        ICompositeIterator it = getCompositeSample()->createIterator();
-        it.first();
-        while(!it.is_done())
-        {
-            ISample *smp = it.get_current();
-            if(smp) {
-                int nlevel = (int)it.get_level();
-                for(int i=0; i<nlevel; i++) std::cout << "... ";
-                std::cout << (*smp) << std::endl;
-            } else {
-                std::cout << "NULL" << std::endl;
-            }
-            it.next();
-        }
-    }
-*/
+    SamplePrintVisitor visitor;
+    this->accept(&visitor);
 }
 
 bool ISample::containsMagneticMaterial() const

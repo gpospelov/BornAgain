@@ -28,7 +28,7 @@ class BA_CORE_API_ MinimizerFactory
 {
  public:
     static IMinimizer *createMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string() );
-    static void print_catalogue();
+    static void printCatalogue();
 
  private:
 

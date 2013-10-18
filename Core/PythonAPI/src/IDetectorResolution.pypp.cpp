@@ -38,10 +38,10 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -50,10 +50,10 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -62,10 +62,10 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -74,10 +74,10 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -102,13 +102,25 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -117,10 +129,10 @@ struct IDetectorResolution_wrapper : IDetectorResolution, bp::wrapper< IDetector
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -207,6 +219,18 @@ void register_IDetectorResolution_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IDetectorResolution_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( IDetectorResolution_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            IDetectorResolution_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&IDetectorResolution_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

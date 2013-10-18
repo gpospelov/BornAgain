@@ -104,8 +104,8 @@ bool ParameterPool::setParameterValue(const std::string& name, double value)
 {
     parameter_t x = getParameter(name);
     if( x.isNull() ) {
-        msglog(MSG::FATAL) << "ParameterPool::setParameterValue() -> Warning. No parameter with name '" << name << "'";
-        throw LogicErrorException("ParameterPool::setParameterValue() -> Warning. No such parameter");
+        msglog(MSG::FATAL) << "ParameterPool::setParameterValue() -> Error. No parameter with name '" << name << "'";
+        throw LogicErrorException("ParameterPool::setParameterValue() -> Error. No such parameter");
         return false;
     }
     x.setValue(value);

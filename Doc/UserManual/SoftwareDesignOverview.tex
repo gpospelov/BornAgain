@@ -5,6 +5,8 @@ This section will give an overview of the classes that are used to describe all 
 
 These classes constitute the main interface to the software's users, since they will mostly be interacting with the program by creating samples and running simulations with specific parameters. Since it is not the intent to explain internals of classes in this document, the text and figures will only mention the most important methods and fields of the classes discussed. Furthermore, getters and setters of private member fields will not be indicated, although these do belong to the public interface. For more detailed information about the project's classes, their methods and fields, the reader is referred to the source code documentation. REF?
 
+
+
 \subsection{The Experiment object}
 The Experiment class holds all references to data objects that are needed to perform a simulation. These consist of a sample description, possibly implemented by a builder object, detector and beam parameters and finally, a simulation parameter class that defines the different approximations that can be used during a simulation. Besides getters and setters for these fields, the class also contains a runSimulation() method that will generate an ISimulation object that will perform the actual computations. The class diagram for Experiment is shown in \reffig{exp}.
 
@@ -91,4 +93,12 @@ This interface and two of its subclasses are sketched in \reffig{isample}.
 \caption{The ISample interface}
 \label{fig:isample}
 \end{figure}
+
+
+
+\subsection{The FitSuite class.} \SecLabel{FitSuiteClass}
+
+\subsection{The IMinimizer class.} \SecLabel{IMinimizerClass}
+
+\subsection{The MinimizerOptions class.} \SecLabel{MinimizerOptionsClass}
 

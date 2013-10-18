@@ -58,11 +58,14 @@ public:
     { m_parameters.registerParameter(name, parpointer); }
 
     //! set parameter value, return true in the case of success
-    virtual bool setParameterValue(const std::string &name, double value)
-    { return m_parameters.setParameterValue(name, value); }
+    virtual bool setParameterValue(const std::string &name, double value);
+
+    //! Sets parameter value, return number of changed parameters
+    virtual int setMatchedParametersValue(const std::string& wildcards, double value);
 
     //! clear parameter pool
     virtual void clearParameterPool() { m_parameters.clear(); }
+
 
 protected:
     //! Throw non-implemented exception (needed for Python).

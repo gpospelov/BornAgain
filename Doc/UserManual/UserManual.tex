@@ -75,6 +75,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{tikz-uml} 
+\usetikzlibrary{trees}
 \usepackage{amsmath}
 
 \usepackage{pifont}
@@ -83,6 +84,8 @@
 
 \usepackage{hyperref}
 \usepackage{breakurl}
+
+\usepackage{verbatim}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
@@ -182,12 +185,12 @@ Forschungszentrum J\"ulich GmbH
 \input{Introduction}
 \input{QuickStart}
 \input{Installation}
-\input{SimulationExamples}
-%\input{FittingExamples}
+\input{Simulation}
+\input{Fitting}
 \input{SoftwareArchitecture}
-%\input{SoftwareDesignOverview}
-%\appendix
-%\input{AppendixListings}
+\input{SoftwareDesignOverview}
+\appendix
+\input{AppendixListings}
 %\input{AppendixPhysics}
 
 \bibliographystyle{switch}

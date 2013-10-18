@@ -125,8 +125,10 @@ def ManualClassTunings(mb):
     shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
     shared_ptrs.disable_warnings( messages.W1040 )
     # ISample
-    cl = mb.class_('ISample') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+    cl = mb.class_('ISample') 
     cl.member_function("accept").include();
+    cl.member_function("printSampleTree").include();
+    
     # ICompositeSample
     cl = mb.class_('ICompositeSample')
     cl.member_functions().exclude()
@@ -156,7 +158,7 @@ def ManualClassTunings(mb):
     cl.member_functions().exclude()
     cl.member_function("addParticle").include()
     #
-    cl = mb.class_('RealParameterWrapper') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+    cl = mb.class_('RealParameterWrapper') 
     cl.member_functions().exclude()
     cl.member_function("setValue").include()
     cl.member_function("getValue").include()

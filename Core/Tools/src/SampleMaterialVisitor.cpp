@@ -197,6 +197,12 @@ void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal*)
             "visit(InterferenceFunction2DParaCrystal *)");
 }
 
+void SampleMaterialVisitor::visit(const LayerRoughness*)
+{
+    throw NotImplementedException("SampleMaterialVisitor::"
+            "visit(LayerRoughness *)");
+}
+
 void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 {
     if (p_material && std::find(m_materials.begin(), m_materials.end(),

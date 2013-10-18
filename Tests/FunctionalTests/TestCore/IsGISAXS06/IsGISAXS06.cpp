@@ -106,7 +106,7 @@ void FunctionalTests::IsGISAXS06::runvariants()
     for (size_t i=0; i<xi.getNbins(); ++i) {
         double xi_value = xi.getBinValue(i);
         double probability = xi.getNormalizedProbability(i);
-        builder.setParameterValue("xi",xi_value);
+        builder.setMatchedParametersValue("*xi",xi_value);
         MultiLayer *p_sample = dynamic_cast<MultiLayer *>(builder.buildSample());
         m_simulation.setSample(*p_sample);
         m_simulation.runSimulation();

@@ -59,13 +59,13 @@ def ManualClassTunings(mb):
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
     #
-    #cl = mb.class_("FitSuite")
+    cl = mb.class_("FitSuite")
     #cl.member_functions().exclude()
     #for fun in cl.member_functions(allow_empty=True):
       #if "addFitParameter" in fun.name:
           #fun.include()
-    #cl.member_function("getMinimizer").include()
-    #cl.member_function("setMinimizer").include()
+    cl.member_function("getMinimizer").include()
+    cl.member_function("setMinimizer").include()
     #cl.member_function("addSimulationAndRealData").include()
     #cl.member_function("runFit").include()
     #cl.member_function("printResults").include()

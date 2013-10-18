@@ -246,6 +246,16 @@ void register_FitSuite_class(){
                 , ( bp::arg("fit_attributes") ) );
         
         }
+        { //::FitSuite::setMinimizer
+        
+            typedef void ( ::FitSuite::*setMinimizer_function_type )( ::IMinimizer * ) ;
+            
+            FitSuite_exposer.def( 
+                "setMinimizer"
+                , setMinimizer_function_type( &::FitSuite::setMinimizer )
+                , ( bp::arg("minimizer") ) );
+        
+        }
     }
 
 }

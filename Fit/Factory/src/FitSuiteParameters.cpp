@@ -111,7 +111,6 @@ void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
 std::vector<double > FitSuiteParameters::getValues() const
 {
     std::vector<double > result;
-    result.resize(m_parameters.size(), 0.0);
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
         result.push_back((*it)->getValue());
     }

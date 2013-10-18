@@ -90,6 +90,7 @@ SOURCES += \
     src/TestSpecularMagnetic.cpp \
     src/TestSpecularMatrix.cpp \
     src/TestToySimulation.cpp \
+    src/TestToyFitting.cpp \
     src/TreeEventStructure.cpp \
     src/main.cpp \
     src/TestBugs.cpp
@@ -155,6 +156,7 @@ HEADERS += \
     inc/TestSpecularMagnetic.h \
     inc/TestSpecularMatrix.h \
     inc/TestToySimulation.h \
+    inc/TestToyFitting.h  \
     inc/TreeEventStructure.h \
     inc/TestBugs.h
 

@@ -26,6 +26,7 @@ SOURCES += \
     Factory/src/FitSuiteStrategies.cpp \
     Factory/src/IFitSuiteStrategy.cpp \
     Factory/src/MinimizerFactory.cpp \
+    Factory/inc/MinimizerOptions.cpp \
     Factory/src/MinimizerScan.cpp \
     Factory/src/MinimizerTest.cpp \
     Factory/src/ROOTGSLNLSMinimizer.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     Factory/inc/FitSuiteStrategies.h \
     Factory/inc/IFitSuiteStrategy.h \
     Factory/inc/IMinimizer.h \
+    Factory/inc/MinimizerOptions.h \
     Factory/inc/MinimizerFactory.h \
     Factory/inc/MinimizerScan.h \
     Factory/inc/MinimizerTest.h \

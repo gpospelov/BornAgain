@@ -18,13 +18,13 @@ def RunSimulation():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5 * nanometer, 2 * nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
-#    sphere_ff = FormFactorFullSphere(4 * nanometer)
-#    sphere = Particle(mParticle, sphere_ff)
+    sphere_ff = FormFactorFullSphere(4 * nanometer)
+    sphere = Particle(mParticle, sphere_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder)
-#    particle_decoration.addParticle(sphere)
-#    interference = InterferenceFunction1DParaCrystal(20 * nanometer, 2 * nanometer)
-#    particle_decoration.addInterferenceFunction(interference)
+    particle_decoration.addParticle(sphere)
+    interference = InterferenceFunction1DParaCrystal(20 * nanometer, 2 * nanometer)
+    particle_decoration.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)

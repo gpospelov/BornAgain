@@ -2,9 +2,13 @@
 Simulation demo: Size Space Coupling Approximation
 '''
 
-import numpy, pylab, matplotlib
+import os, sys, numpy, pylab, matplotlib
 
 from libBornAgainCore import *
+
+Nframes = 50
+
+kappa = 0.
 
 # ----------------------------------
 # describe sample and run simulation
@@ -27,9 +31,9 @@ def RunSimulation():
     particle_decoration.addParticle(cylinder1)
     particle_decoration.addParticle(cylinder2)
     particle_decoration.addParticle(cylinder3)
-    interference = InterferenceFunction1DParaCrystal(5 * nanometer, 1 * nanometer)
+    interference = InterferenceFunction1DParaCrystal(6 * nanometer, .5 * nanometer)
     # set coupling between size and space
-    interference.setKappa(2)
+    interference.setKappa(kappa)
     particle_decoration.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
@@ -43,8 +47,7 @@ def RunSimulation():
 
     # simulation parameters
     sim_params = SimulationParameters()
-#    sim_params.me_if_approx = SimulationParameters.SSCA
-    sim_params.me_if_approx = SimulationParameters.DA
+    sim_params.me_if_approx = SimulationParameters.SSCA
     # build and run experiment
     simulation = Simulation()
     simulation.setSimulationParameters(sim_params)
@@ -55,16 +58,32 @@ def RunSimulation():
     # intensity data
     return GetOutputData(simulation)
 
+def SetParameters(i):
+    global kappa
+    kappa = 0.01 + (2.0/Nframes)*i
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    result = RunSimulation() + 1 # for log scale
-    im = pylab.imshow(numpy.rot90(result, 1),
+    files = []
+    fig = pylab.figure(figsize=(5,5))
+    ax = fig.add_subplot(111)
+    for i in range(Nframes):
+        SetParameters(i)
+        result = RunSimulation() + 1 # for log scale
+        ax.cla()
+        im = ax.imshow(numpy.rot90(result, 1), vmax=1e3,
                  norm=matplotlib.colors.LogNorm(),
                  extent=[-4.0, 4.0, 0, 8.0])
-    pylab.colorbar(im)
-    pylab.xlabel(r'$\phi_f$', fontsize=20)
-    pylab.ylabel(r'$\alpha_f$', fontsize=20)
-    pylab.show()
+        pylab.xlabel(r'$\phi_f$', fontsize=20)
+        pylab.ylabel(r'$\alpha_f$', fontsize=20)
+        if i==0:
+            pylab.colorbar(im)
+        fname = '_tmp%03d.png'%i
+        print 'Saving frame', fname
+        fig.savefig(fname)
+        files.append(fname)
+    os.system("mencoder 'mf://_tmp*.png' -mf type=png:fps=10 -ovc lavc -lavcopts vcodec=wmv2 -oac copy -o animation3.mpg")
+    print 'Removing temporary files'
+    os.system("rm _tmp*")

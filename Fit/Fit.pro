@@ -26,7 +26,7 @@ SOURCES += \
     Factory/src/FitSuiteStrategies.cpp \
     Factory/src/IFitSuiteStrategy.cpp \
     Factory/src/MinimizerFactory.cpp \
-    Factory/inc/MinimizerOptions.cpp \
+    Factory/src/MinimizerOptions.cpp \
     Factory/src/MinimizerScan.cpp \
     Factory/src/MinimizerTest.cpp \
     Factory/src/ROOTGSLNLSMinimizer.cpp \

@@ -56,7 +56,7 @@ void FunctionalTests::IsGISAXS06::runlattice()
     // running simulation and copying data
     m_simulation.setSample(*sample);
     m_simulation.runSimulation();
-    m_results[kTest_Lattice] = m_simulation.getOutputDataClone();
+    m_results[kTest_Lattice] = m_simulation.getIntensityData();
 
     delete sample;
 }
@@ -71,7 +71,7 @@ void FunctionalTests::IsGISAXS06::runcentered()
     // running simulation and copying data
     m_simulation.setSample(*sample);
     m_simulation.runSimulation();
-    m_results[kTest_Centered] = m_simulation.getOutputDataClone();
+    m_results[kTest_Centered] = m_simulation.getIntensityData();
 
     delete sample;
 }
@@ -86,7 +86,7 @@ void FunctionalTests::IsGISAXS06::runrotated()
     // running simulation and copying data
     m_simulation.setSample(*sample);
     m_simulation.runSimulation();
-    m_results[kTest_Rotated] = m_simulation.getOutputDataClone();
+    m_results[kTest_Rotated] = m_simulation.getIntensityData();
 }
 
 
@@ -96,7 +96,7 @@ void FunctionalTests::IsGISAXS06::runvariants()
     IsGISAXS06Lattice4Builder builder;
 
     // running simulation and copying data
-    OutputData<double> *p_total = m_simulation.getOutputDataClone();
+    OutputData<double> *p_total = m_simulation.getIntensityData();
     p_total->setAllTo(0.0);
     int nbins = 3;
     double xi_min = 0.0*Units::degree;
@@ -111,7 +111,7 @@ void FunctionalTests::IsGISAXS06::runvariants()
         m_simulation.setSample(*p_sample);
         m_simulation.runSimulation();
         delete p_sample;
-        OutputData<double> *p_single_output = m_simulation.getOutputDataClone();
+        OutputData<double> *p_single_output = m_simulation.getIntensityData();
         p_single_output->scaleAll(probability);
         *p_total += *p_single_output;
         delete p_single_output;

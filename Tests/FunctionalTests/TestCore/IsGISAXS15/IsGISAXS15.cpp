@@ -73,7 +73,7 @@ void FunctionalTests::IsGISAXS15::run()
 
     // running simulation and copying the data
     simulation.runSimulation();
-    m_result = simulation.getOutputDataClone();
+    m_result = simulation.getIntensityData();
 }
 
 

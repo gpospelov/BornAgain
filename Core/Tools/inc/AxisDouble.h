@@ -19,7 +19,8 @@
 #include "WinDllMacros.h"
 #include "IAxis.h"
 
-class AxisBin;  // forward declaration needed for conversion constructor
+//class AxisBin;  // forward declaration needed for conversion constructor
+#include "AxisBin.h"
 
 //! The points of an axis
 

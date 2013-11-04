@@ -3,6 +3,9 @@
 
 //! list of files to process with Py++
 
+#include "IAxis.h"
+#include "AxisBin.h"
+#include "AxisDouble.h"
 #include "BasicVector3D.h"
 #include "BAVersion.h"
 #include "Bin.h"

@@ -71,7 +71,7 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
 
     // Creating real data, which is simply results of our simulation with default values
     simulation->runSimulation();
-    OutputData<double> *real_data = simulation->getOutputDataClone();
+    OutputData<double> *real_data = simulation->getIntensityData();
 
     // setting fitting
     FitSuite *fitSuite = new FitSuite();

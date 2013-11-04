@@ -30,7 +30,7 @@ void FunctionalTests::IsGISAXS02::run()
     simulation.setSample(*sample);
     simulation.runSimulation();
 
-    m_result = simulation.getOutputDataClone();
+    m_result = simulation.getIntensityData();
 
     delete sample;
 }

@@ -40,7 +40,7 @@ void FunctionalTests::IsGISAXS04::run1DDL()
             0.0*Units::degree);
     simulation.setSample(*sample);
     simulation.runSimulation();
-    m_results[kTest_1DDL] = simulation.getOutputDataClone();
+    m_results[kTest_1DDL] = simulation.getIntensityData();
 
     delete sample;
 }
@@ -60,7 +60,7 @@ void FunctionalTests::IsGISAXS04::run2DDL()
             0.0*Units::degree);
     simulation.setSample(*sample);
     simulation.runSimulation();
-    m_results[kTest_2DDL] = simulation.getOutputDataClone();
+    m_results[kTest_2DDL] = simulation.getIntensityData();
 
     delete sample;
 }

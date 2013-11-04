@@ -118,7 +118,7 @@ OutputData<double> *TestFit02::createRealData(Simulation *simulation)
 {
     const double noise_factor = 0.1;
     simulation->runSimulation();
-    OutputData<double> *result = simulation->getOutputDataClone();
+    OutputData<double> *result = simulation->getIntensityData();
     OutputData<double>::iterator it = result->begin();
     int index(0);
     while (it != result->end()) {

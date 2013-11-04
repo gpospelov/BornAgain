@@ -76,7 +76,7 @@ void TestMesoCrystal1::execute()
 
     simulation.runSimulation();
     simulation.normalize();
-    mp_intensity_output = simulation.getOutputDataClone();
+    mp_intensity_output = simulation.getIntensityData();
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
             "mesocrystal", 1024, 768);

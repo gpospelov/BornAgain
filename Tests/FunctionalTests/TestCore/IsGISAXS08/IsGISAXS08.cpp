@@ -73,7 +73,7 @@ void FunctionalTests::IsGISAXS08::run2DDL()
 
     // running simulation and copying data
     simulation.runSimulation();
-    m_results[kTest_2DDL] = simulation.getOutputDataClone();
+    m_results[kTest_2DDL] = simulation.getIntensityData();
 }
 
 
@@ -122,7 +122,7 @@ void FunctionalTests::IsGISAXS08::run2DDL2()
     // running simulation and copying data
     simulation.setSample(multi_layer);
     simulation.runSimulation();
-    m_results[kTest_2DDL2] = simulation.getOutputDataClone();
+    m_results[kTest_2DDL2] = simulation.getIntensityData();
 }
 
 

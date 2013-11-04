@@ -63,7 +63,7 @@ public:
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
-    OutputData<double>* getOutputDataClone() const
+    OutputData<double>* getIntensityData() const
     { return m_intensity_map.clone(); }
 
 #ifndef GCCXML_SKIP_THIS

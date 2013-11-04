@@ -78,7 +78,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = GetOutputData(simulation) + 1  # for log scale
+    result = simulation.getIntensityData().getArray() + 1  # for log scale
     pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
     pylab.show()
 

@@ -63,7 +63,7 @@ def RunSimulation_lattice():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -121,7 +121,7 @@ def RunSimulation_centered():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -174,7 +174,7 @@ def RunSimulation_rotated():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -194,7 +194,7 @@ def RunSimulation_variants():
     simulation.setSimulationParameters(sim_params)
 
     # running simulation and copying data
-    OutputData_total = GetOutputData(simulation)
+    OutputData_total = simulation.getIntensityData().getArray()
     nbins = 3
     xi_min = 0.0*degree
     xi_max = 240.0*degree
@@ -207,7 +207,7 @@ def RunSimulation_variants():
         simulation.setSample(p_sample)
         simulation.runSimulation()
 
-        single_output = GetOutputData(simulation)
+        single_output = simulation.getIntensityData().getArray()
         single_output *= probability
         OutputData_total += single_output
 

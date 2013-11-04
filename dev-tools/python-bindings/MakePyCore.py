@@ -168,13 +168,13 @@ def ManualClassTunings(mb):
     cl.member_function("getValue").include()
     cl.member_function("isNull").include()
     # 
-    mb.free_function("GetOutputDataNdimensions").include()
-    mb.free_function("GetOutputData").include()
-    mb.free_function("GetPolarizedOutputDataComponent").include()
-    mb.free_function("GetOutputDataAxis").include()
-    mb.free_function('GetOutputData').call_policies = call_policies.custom_call_policies("")
-    mb.free_function('GetPolarizedOutputDataComponent').call_policies = call_policies.custom_call_policies("")
-    mb.free_function('GetOutputDataAxis').call_policies = call_policies.custom_call_policies("")
+    #mb.free_function("GetOutputDataNdimensions").include()
+    #mb.free_function("GetOutputData").include()
+    #mb.free_function("GetPolarizedOutputDataComponent").include()
+    #mb.free_function("GetOutputDataAxis").include()
+    #mb.free_function('GetOutputData').call_policies = call_policies.custom_call_policies("")
+    #mb.free_function('GetPolarizedOutputDataComponent').call_policies = call_policies.custom_call_policies("")
+    #mb.free_function('GetOutputDataAxis').call_policies = call_policies.custom_call_policies("")
     #
     cl = mb.class_("BasicVector3D<double>")
     cl.add_code("def( bp::self - bp::self )")
@@ -203,6 +203,8 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("OutputData<double>")
     cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')  # [] operator for OutputData
+    cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
+    #cl.member_function("getArray").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
     #
     cl = mb.class_("Particle")
     cl.member_function("createDiffuseParticleInfo").exclude()
@@ -290,7 +292,7 @@ def MakePythonAPI(OutputTempDir):
     #xml_cached_fc = parser.create_cached_source_fc( ["PythonCoreList.h","PythonCoreExposer.h"], "cache_core.xml" )
     #mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -msse -msse2 -fno-strict-aliasing -msse3")
     mb = module_builder.module_builder_t([xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml,
-                                         cflags="-m64 -DGCCXML_SKIP_THIS")
+                                         cflags="-m64 -DGCCXML_SKIP_THIS -DBORNAGAIN_PYTHON")
 
     # -----------------
     # general rules

@@ -68,6 +68,7 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
+    # FIXME after OutputDataIOFactory is refactored
     real_data = OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt')
     
     fit_suite = FitSuite()

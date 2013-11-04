@@ -94,6 +94,16 @@ void register_IntensityData_class(){
                 , getAllocatedSize_function_type( &::OutputData< double >::getAllocatedSize ) );
         
         }
+        { //::OutputData< double >::getArray
+        
+            typedef OutputData< double > exported_class_t;
+            typedef ::PyObject * ( exported_class_t::*getArray_function_type )(  ) const;
+            
+            IntensityData_exposer.def( 
+                "getArray"
+                , getArray_function_type( &::OutputData< double >::getArray ) );
+        
+        }
         { //::OutputData< double >::getAxis
         
             typedef OutputData< double > exported_class_t;

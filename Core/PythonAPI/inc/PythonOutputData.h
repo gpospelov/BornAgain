@@ -36,6 +36,9 @@ PyObject *GetPolarizedOutputDataComponent(const Simulation& simulation,
 //! Returns one dimensional python-numpy array representing binning of the axis with given index of simulation output data
 PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis);
 
+//! exports output data to the python numpy array
+PyObject *ExportOutputData(const OutputData<double >& output_data);
+
 #endif // PYTHONOUTPUTDATA_H
 
 

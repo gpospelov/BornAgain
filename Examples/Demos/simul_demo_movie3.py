@@ -56,7 +56,7 @@ def RunSimulation():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 def SetParameters(i):
     global kappa

@@ -73,7 +73,7 @@ def RunSimulation():
     # run simulation
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 #-------------------------------------------------------------

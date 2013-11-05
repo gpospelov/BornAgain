@@ -66,6 +66,9 @@ public:
     OutputData<double>* getIntensityData() const
     { return m_intensity_map.clone(); }
 
+    //! returns component of polarized intensity map
+    OutputData<double>* getPolarizedIntensityData(int row, int column) const;
+
 #ifndef GCCXML_SKIP_THIS
     //! Returns polarized intensity map
     const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {

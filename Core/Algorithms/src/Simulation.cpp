@@ -19,6 +19,7 @@
 #include "ProgramOptions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
+#include "OutputDataFunctions.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -454,5 +455,12 @@ void Simulation::addToIntensityMap(double alpha, double phi, double value)
     m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
 
+OutputData<double>* Simulation::getPolarizedIntensityData(int row, int column) const
+{
+    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
+    OutputData<double > *result =
+            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    return result;
+}
 
 

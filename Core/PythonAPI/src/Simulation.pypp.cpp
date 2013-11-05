@@ -180,6 +180,17 @@ void register_Simulation_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::Simulation::getPolarizedIntensityData
+        
+            typedef ::OutputData< double > * ( ::Simulation::*getPolarizedIntensityData_function_type )( int,int ) const;
+            
+            Simulation_exposer.def( 
+                "getPolarizedIntensityData"
+                , getPolarizedIntensityData_function_type( &::Simulation::getPolarizedIntensityData )
+                , ( bp::arg("row"), bp::arg("column") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Simulation::getSample
         
             typedef ::ISample * ( ::Simulation::*getSample_function_type )(  ) const;

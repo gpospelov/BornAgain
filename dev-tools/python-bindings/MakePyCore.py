@@ -240,6 +240,8 @@ def ManualClassTunings(mb):
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getPolarizedIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
 
     #
     cl = mb.class_("ParticleCoreShell")

@@ -7,6 +7,7 @@ HEADERS +=  \
     PythonAPI/inc/ISquaredFunction.pypp.h \
     PythonAPI/inc/MinimizerFactory.pypp.h \
     PythonAPI/inc/OutputDataNormalizer.pypp.h \
+    PythonAPI/inc/IObservable.pypp.h \
     PythonAPI/inc/MinimizerOptions.pypp.h \
     PythonAPI/inc/SquaredFunctionWithSystematicError.pypp.h \
     PythonAPI/inc/IOutputDataNormalizer.pypp.h \
@@ -19,6 +20,7 @@ HEADERS +=  \
     PythonAPI/inc/FitSuite.pypp.h \
     PythonAPI/inc/AttLimits.pypp.h \
     PythonAPI/inc/IChiSquaredModule.pypp.h \
+    PythonAPI/inc/IObserver.pypp.h \
     PythonAPI/inc/FitSuiteParameters.pypp.h 
 
 SOURCES +=  \ 
@@ -34,8 +36,10 @@ SOURCES +=  \
     PythonAPI/src/SquaredFunctionWhichOnlyWorks.pypp.cpp \
     PythonAPI/src/OutputDataNormalizer.pypp.cpp \
     PythonAPI/src/FitSuite.pypp.cpp \
+    PythonAPI/src/IObserver.pypp.cpp \
     PythonAPI/src/IMinimizer.pypp.cpp \
     PythonAPI/src/SquaredFunctionWithGaussianError.pypp.cpp \
+    PythonAPI/src/IObservable.pypp.cpp \
     PythonAPI/src/MinimizerFactory.pypp.cpp \
     PythonAPI/src/ISquaredFunction.pypp.cpp \
     PythonAPI/src/IOutputDataNormalizer.pypp.cpp \

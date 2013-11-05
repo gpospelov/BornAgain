@@ -31,7 +31,9 @@ public:
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
-    virtual void update (IObservable *subject) = 0;
+    virtual void update (IObservable */*subject*/) {
+        throw NotImplementedException("IObserver::update() -> Not implemented");
+    }
 
 //    //! Sets pointer to observed subject
 //    virtual void setObservedSubject(IObservable *subject);

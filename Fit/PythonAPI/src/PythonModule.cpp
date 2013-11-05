@@ -12,6 +12,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ISquaredFunction.pypp.h" 
 #include "MinimizerFactory.pypp.h" 
 #include "OutputDataNormalizer.pypp.h" 
+#include "IObservable.pypp.h" 
 #include "MinimizerOptions.pypp.h" 
 #include "SquaredFunctionWithSystematicError.pypp.h" 
 #include "IOutputDataNormalizer.pypp.h" 
@@ -24,6 +25,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FitSuite.pypp.h" 
 #include "AttLimits.pypp.h" 
 #include "IChiSquaredModule.pypp.h" 
+#include "IObserver.pypp.h" 
 #include "FitSuiteParameters.pypp.h" 
 
 BOOST_PYTHON_MODULE(libBornAgainFit){
@@ -33,10 +35,12 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
     register_ChiSquaredModule_class();
     register_INamed_class();
     register_FitParameter_class();
+    register_IObservable_class();
     register_FitSuite_class();
     register_FitSuiteObjects_class();
     register_FitSuiteParameters_class();
     register_IMinimizer_class();
+    register_IObserver_class();
     register_IOutputDataNormalizer_class();
     register_ISquaredFunction_class();
     register_MinimizerFactory_class();

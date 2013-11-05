@@ -113,13 +113,37 @@ def draw_results(real_data, simulated_data):
     pylab.colorbar(im)
     pylab.title('Simulated data')
 
-    diff_map = (real_data - simulated_data)/real_data
+    diff_map = (real_data - simulated_data)/(real_data + 1)
     pylab.subplot(2, 2, 3)
     im = pylab.imshow(numpy.rot90(diff_map, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
     pylab.colorbar(im)
     pylab.title('Difference map')
 
     pylab.show()
+
+
+class DrawObserver(IObserver):
+    """
+    class which draws fit progress every nth iteration
+    """
+    def __init__(self, draw_every=10):
+        IObserver.__init__(self)
+        print "MySampleBuilder ctor"
+        self.draw_every_nth = draw_every
+    def update(self, fit_suite):
+        if fit_suite.getNCalls() % self.draw_every_nth == 0:
+            real_data = fit_suite.getFitObjects().getRealData().getArray()
+            simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
+            pylab.subplot(2, 2, 1)
+            im = pylab.imshow(numpy.rot90(real_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+            pylab.colorbar(im)
+
+            pylab.title('\"Real\" data')
+            pylab.subplot(2, 2, 2)
+            im = pylab.imshow(numpy.rot90(simulated_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+            pylab.colorbar(im)
+            pylab.title('Simulated data')
+            print "hello"
 
 
 
@@ -140,6 +164,10 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
+    pylab.figure(1)
+    draw_observer = DrawObserver()
+    fit_suite.attachObserver(draw_observer)
+
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
@@ -149,7 +177,7 @@ def run_fitting():
     # running fit
     fit_suite.runFit()
 
-    draw_results(real_data.getArray(), fit_suite.getFitObjects().getSimulationData().getArray())
+    #draw_results(real_data.getArray(), fit_suite.getFitObjects().getSimulationData().getArray())
 
     print "Fitting completed."
     fit_suite.printResults()

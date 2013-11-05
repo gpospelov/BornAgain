@@ -21,34 +21,36 @@ import builder_utils
 
 
 include_dirs = [
-'../../Core/Samples/inc',
-'../../Core/Algorithms/inc',
-'../../Core/Tools/inc',
-'../../Core/Geometry/inc',
-'../../Fit/Factory/inc',
-'../../Fit/PythonAPI/inc',
+    '../../Core/Samples/inc',
+    '../../Core/Algorithms/inc',
+    '../../Core/Tools/inc',
+    '../../Core/Geometry/inc',
+    '../../Fit/Factory/inc',
+    '../../Fit/PythonAPI/inc',
 ]
 
 include_classes = [
-"INamed",
-"AttLimits",
-"ChiSquaredModule",
-"FitSuite",
-"FitParameter",
-"FitSuiteParameters",
-"FitSuiteObjects",
-"IChiSquaredModule",
-"IMinimizer",
-"IOutputDataNormalizer",
-"ISquaredFunction",
-"MinimizerFactory",
-"MinimizerOptions",
-"OutputDataNormalizer",
-"OutputDataSimpleNormalizer",
-"SquaredFunctionDefault",
-"SquaredFunctionWhichOnlyWorks",
-"SquaredFunctionWithGaussianError",
-"SquaredFunctionWithSystematicError",
+    "INamed",
+    "IObservable",
+    "IObserver",
+    "AttLimits",
+    "ChiSquaredModule",
+    "FitSuite",
+    "FitParameter",
+    "FitSuiteParameters",
+    "FitSuiteObjects",
+    "IChiSquaredModule",
+    "IMinimizer",
+    "IOutputDataNormalizer",
+    "ISquaredFunction",
+    "MinimizerFactory",
+    "MinimizerOptions",
+    "OutputDataNormalizer",
+    "OutputDataSimpleNormalizer",
+    "SquaredFunctionDefault",
+    "SquaredFunctionWhichOnlyWorks",
+    "SquaredFunctionWithGaussianError",
+    "SquaredFunctionWithSystematicError",
 ]
 
 
@@ -83,6 +85,9 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("MinimizerFactory")
     cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+
+    cl = mb.class_("IObserver")
+    cl.member_function("update").include()
 
 
 # excluding specific member functions

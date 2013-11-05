@@ -24,8 +24,8 @@
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
 public:
-    FormFactorBox( double radius, double width, double height)
-        : m_radius(radius), m_width(width), m_height(height) {}
+    FormFactorBox( double length, double width, double height)
+        : m_length(length), m_width(width), m_height(height) {}
 
     virtual ~FormFactorBox() {}
 
@@ -33,16 +33,16 @@ public:
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
-    int getNumberOfStochasticParameters() const { return 2; }
+    int getNumberOfStochasticParameters() const { return 3; }
 
     //! Returns volume of Box
-    double getVolume() const { return 4*m_height*m_radius*m_width; }
+    double getVolume() const { return 4*m_height*m_length*m_width; }
 
     //! Returns height of Box
     double getHeight() const { return m_height; }
 
     //! Returns radius of Box
-    double getRadius() const { return m_radius; }
+    double getRadius() const { return m_length/2.0; }
 
     //! Returns width of Box
     double getwidth() const { return m_width; }
@@ -53,7 +53,7 @@ protected:
     void init_parameters();
 
 private:
-    double m_radius;
+    double m_length;
     double m_width;
     double m_height;
 };

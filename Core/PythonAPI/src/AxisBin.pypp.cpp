@@ -223,6 +223,15 @@ void register_AxisBin_class(){
                 , default_getSize_function_type(&AxisBin_wrapper::default_getSize) );
         
         }
+        { //::AxisBin::getVector
+        
+            typedef ::std::vector< double > ( ::AxisBin::*getVector_function_type )(  ) const;
+            
+            AxisBin_exposer.def( 
+                "getVector"
+                , getVector_function_type( &::AxisBin::getVector ) );
+        
+        }
         { //::AxisBin::initBins
         
             typedef void ( ::AxisBin::*initBins_function_type )( ::std::size_t,double,double ) ;

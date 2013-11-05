@@ -203,6 +203,15 @@ void register_AxisDouble_class(){
                 , ( bp::arg("value") ) );
         
         }
+        { //::AxisDouble::getVector
+        
+            typedef ::std::vector< double > ( ::AxisDouble::*getVector_function_type )(  ) const;
+            
+            AxisDouble_exposer.def( 
+                "getVector"
+                , getVector_function_type( &::AxisDouble::getVector ) );
+        
+        }
         { //::AxisDouble::initElements
         
             typedef void ( ::AxisDouble::*initElements_function_type )( ::std::size_t,double,double ) ;

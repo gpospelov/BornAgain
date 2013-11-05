@@ -3,6 +3,7 @@
 import sys
 import os
 import unittest
+import numpy
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -58,6 +59,17 @@ class IntensityDataTest(unittest.TestCase):
         self.assertEqual(100, data.getAxis(1).getSize())
         self.assertEqual(0.0, data.getAxis(1).getMin())
         self.assertEqual(2.0, data.getAxis(1).getMax())
+
+        self.assertEqual(11, len(data.getAxis(0).getVector()))
+
+    def test_numpy_array(self):
+        data = IntensityData()
+        data.addAxis("axis0", 10, 0.0, 10.0)
+        data.addAxis("axis1", 20, 0.0, 20.0)
+        data.setAllTo(1)
+        arr = data.getArray()
+        self.assertEqual( (10,20), data.getArray().shape)
+        self.assertEqual( (data.totalSum()), numpy.sum(data.getArray()) )
 
 
 if __name__ == '__main__':

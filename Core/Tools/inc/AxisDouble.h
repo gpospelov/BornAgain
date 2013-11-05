@@ -69,6 +69,9 @@ public:
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
 
+    //! returns vector containing the axis points
+    std::vector<double> getVector() const { return m_sample_vector; }
+
 protected:
     virtual bool equals(const IAxis& other) const;
 

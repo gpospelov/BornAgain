@@ -64,7 +64,6 @@ public:
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle decoration
-    virtual void setDecoration(IDecoration *decoration);
     virtual void setDecoration(const IDecoration &decoration);
 
     //! returns particle decoration
@@ -88,6 +87,9 @@ protected:
     void init_parameters();
 
     void print(std::ostream& ostr) const;
+
+    //! sets particle decoration (separate pointer version due to python-bindings)
+    virtual void setDecorationPtr(IDecoration *decoration);
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers

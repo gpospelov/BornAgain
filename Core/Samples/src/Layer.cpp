@@ -35,7 +35,7 @@ Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoratio
     , mp_decoration(0)
 {
     setName("Layer");
-    setDecoration(decoration);
+    setDecorationPtr(decoration);
     setMaterial(material);
     init_parameters();
 }
@@ -55,7 +55,7 @@ Layer::Layer(const Layer& other) : ICompositeSample()
     mp_material = other.mp_material;
     mp_decoration = 0;
     if(other.getDecoration()) {
-        setDecoration(other.getDecoration()->clone());
+        setDecorationPtr(other.getDecoration()->clone());
     }
     m_thickness = other.m_thickness;
     setName(other.getName());
@@ -73,7 +73,7 @@ Layer* Layer::cloneInvertB() const
     p_clone->mp_material = MaterialManager::getInvertedMaterial(this->mp_material->getName());
     p_clone->mp_decoration = 0;
     if(this->getDecoration()) {
-        p_clone->setDecoration(this->getDecoration()->cloneInvertB());
+        p_clone->setDecorationPtr(this->getDecoration()->cloneInvertB());
     }
     p_clone->m_thickness = this->m_thickness;
     std::string clone_name = this->getName() + "_inv";
@@ -110,7 +110,7 @@ void Layer::setMaterial(const IMaterial* material, double thickness)
     setThickness(thickness);
 }
 
-void Layer::setDecoration(IDecoration *decoration)
+void Layer::setDecorationPtr(IDecoration *decoration)
 {
     if( !decoration ) return;
 
@@ -124,7 +124,7 @@ void Layer::setDecoration(IDecoration *decoration)
 
 void Layer::setDecoration(const IDecoration &decoration)
 {
-    setDecoration(decoration.clone());
+    setDecorationPtr(decoration.clone());
 }
 
 //! Prints description.

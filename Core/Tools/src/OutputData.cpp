@@ -16,7 +16,7 @@
 #include "OutputData.h"
 
 #ifdef BORNAGAIN_PYTHON
-
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <boost/python/detail/wrap_python.hpp>
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
@@ -42,6 +42,8 @@ PyObject *OutputData<double>::getArray() const
 
     // creating standalone numpy array
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
+    //std::vector<double> raw = getRawDataVector();
+    //PyObject *pyarray = PyArray_SimpleNewFromData(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE, &raw[0]);
     delete [] ndimsizes_numpy;
     if(pyarray == NULL ) {
         throw RuntimeErrorException(
@@ -50,7 +52,7 @@ PyObject *OutputData<double>::getArray() const
     Py_INCREF(pyarray);
 
     // getting pointer to data buffer of numpy array
-    double *array_buffer = (double *)PyArray_DATA(pyarray);
+    double *array_buffer = (double *)PyArray_DATA((PyArrayObject*)pyarray);
 
     // filling numpy array with output_data
     OutputData<double>::const_iterator it = begin();

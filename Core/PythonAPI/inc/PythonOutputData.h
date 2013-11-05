@@ -16,6 +16,7 @@
 #ifndef PYTHONOUTPUTDATA_H
 #define PYTHONOUTPUTDATA_H
 
+/*
 #include <Python.h>
 #include "OutputData.h"
 #include "Simulation.h"
@@ -38,6 +39,8 @@ PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis);
 
 //! exports output data to the python numpy array
 PyObject *ExportOutputData(const OutputData<double >& output_data);
+
+*/
 
 #endif // PYTHONOUTPUTDATA_H
 

@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+/*
 #include <boost/python/detail/wrap_python.hpp>
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
@@ -163,3 +164,5 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output_data,
     }
     return pyarray;
 }
+
+*/

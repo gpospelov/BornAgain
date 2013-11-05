@@ -36,7 +36,7 @@ public:
     int getNumberOfStochasticParameters() const { return 3; }
 
     //! Returns volume of Box
-    double getVolume() const { return 4*m_height*m_length*m_width; }
+    double getVolume() const { return m_height*m_length*m_width; }
 
     //! Returns height of Box
     double getHeight() const { return m_height; }

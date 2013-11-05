@@ -26,13 +26,13 @@ def RunSimulation():
     #particle_decoration.addParticleInfo(particle_info1);
     #
     # add particle number 1:
-    ff1 = FormFactorBox(1.0*nanometer, 1.0*nanometer,1.0*nanometer)
+    ff1 = FormFactorBox(2.0*nanometer, 2.0*nanometer,1.0*nanometer)
     pos1 = kvector_t(0.0*nanometer, 0.0*nanometer, 0.0)
     particle1 = Particle(mParticle, ff1)
     particle_info1 = PositionParticleInfo(particle1, pos1, 0.5)
     particle_decoration.addParticleInfo(particle_info1)
     #add particle number 2:
-    ff2 = FormFactorBox(1.0*nanometer, 2.0*nanometer,1.0*nanometer)
+    ff2 = FormFactorBox(2.0*nanometer, 4.0*nanometer,1.0*nanometer)
     pos2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
     #rotate3d2 = RotateZ_3D(10*degree)
     #p_rot2 = ITransform3D(rotate3d2)
@@ -42,7 +42,7 @@ def RunSimulation():
     particle_info2 = PositionParticleInfo(particle2, pos2, 0.5)
     particle_decoration.addParticleInfo(particle_info2)
     #add particle number 3:
-    ff3 = FormFactorBox(1.0*nanometer, 3.0*nanometer,1.0*nanometer)
+    ff3 = FormFactorBox(2.0*nanometer, 6.0*nanometer,1.0*nanometer)
     pos3 = kvector_t(-5.0*nanometer, -5.0*nanometer, 0.0)
     #rotate3d3 = RotateZ_3D(20*degree)
     #p_rot3 = ITransform3D(rotate3d3)   
@@ -51,7 +51,7 @@ def RunSimulation():
     particle_info3 = PositionParticleInfo(particle3, pos3, 0.5)
     particle_decoration.addParticleInfo(particle_info3)
     #add particle number 4:
-    ff4 = FormFactorBox(1.0*nanometer, 4.0*nanometer,1.0*nanometer)
+    ff4 = FormFactorBox(2.0*nanometer, 8.0*nanometer,1.0*nanometer)
     pos4 = kvector_t(5.0*nanometer, -5.0*nanometer, 0.0)
     #rotate3d4 = RotateZ_3D(30*degree)
     #p_rot4 = ITransform3D(rotate3d4)   
@@ -60,7 +60,7 @@ def RunSimulation():
     particle_info4 = PositionParticleInfo(particle4, pos4, 0.5)
     particle_decoration.addParticleInfo(particle_info4)
     #add particle number 5:
-    ff5 = FormFactorBox(1.0*nanometer, 5.0*nanometer,1.0*nanometer)
+    ff5 = FormFactorBox(2.0*nanometer, 10.0*nanometer,1.0*nanometer)
     pos5 = kvector_t(-5.0*nanometer, 5.0*nanometer, 0.0)
     #rotate3d5 = RotateZ_3D(40*degree)
     #p_rot5 = ITransform3D(rotate3d5)   
@@ -69,7 +69,7 @@ def RunSimulation():
     particle_info5 =  PositionParticleInfo(particle5, pos5, 0.5)
     particle_decoration.addParticleInfo(particle_info5)
     #add particle number 6:
-    ff6 = FormFactorBox(1.0*nanometer, 1.0*nanometer,1.0*nanometer)
+    ff6 = FormFactorBox(2.0*nanometer, 2.0*nanometer,1.0*nanometer)
     pos6 = kvector_t(0.0*nanometer, 0.0*nanometer, 0.0)
     #rotate3d6 = RotateZ_3D(50*degree)
     #p_rot6 = ITransform3D(rotate3d6)
@@ -78,7 +78,7 @@ def RunSimulation():
     particle_info6 = PositionParticleInfo(particle6, pos6, 0.5)
     particle_decoration.addParticleInfo(particle_info6)
     #add particle number 7:
-    ff7 = FormFactorBox(1.0*nanometer, 2.0*nanometer,1.0*nanometer)
+    ff7 = FormFactorBox(2.0*nanometer, 4.0*nanometer,1.0*nanometer)
     pos7 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
     #rotate3d7 = RotateZ_3D(60*degree)
     #p_rot7 = ITransform3D(rotate3d7)
@@ -87,7 +87,7 @@ def RunSimulation():
     particle_info7 = PositionParticleInfo(particle7, pos7, 0.5)
     particle_decoration.addParticleInfo(particle_info7)
     #add particle number 8:
-    ff8 = FormFactorBox(1.0*nanometer, 3.0*nanometer,1.0*nanometer)
+    ff8 = FormFactorBox(2.0*nanometer, 6.0*nanometer,1.0*nanometer)
     pos8 = kvector_t(-5.0*nanometer, -5.0*nanometer, 0.0)
     #rotate3d8 = RotateZ_3D(70*degree)
     #p_rot8 = ITransform3D(rotate3d8)
@@ -96,7 +96,7 @@ def RunSimulation():
     particle_info8 = PositionParticleInfo(particle8 , pos8, 0.5)
     particle_decoration.addParticleInfo(particle_info8)
     #add particle number 9:
-    ff9 = FormFactorBox(1.0*nanometer, 4.0*nanometer,1.0*nanometer)
+    ff9 = FormFactorBox(2.0*nanometer, 8.0*nanometer,1.0*nanometer)
     pos9 = kvector_t(5.0*nanometer, -5.0*nanometer, 0.0)
     #rotate3d9 = RotateZ_3D(80*degree)
     #p_rot9 = ITransform3D(rotate3d9)
@@ -105,7 +105,7 @@ def RunSimulation():
     particle_info9 = PositionParticleInfo(particle9, pos9, 0.5)
     particle_decoration.addParticleInfo(particle_info9)
     #add particle number 10:
-    ff10 = FormFactorBox(1.0*nanometer, 5.0*nanometer,1.0*nanometer)
+    ff10 = FormFactorBox(2.0*nanometer, 10.0*nanometer,1.0*nanometer)
     pos10 = kvector_t(-5.0*nanometer, 5.0*nanometer, 0.0)
     #rotate3d10 = RotateZ_3D(90*degree)
     #p_rot10 = ITransform3D(rotate3d10)

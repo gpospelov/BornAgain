@@ -39,7 +39,7 @@ void TestIsGISAXS2::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
 
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), "this_bimodal.ima");
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), "this_bimodal.ima");
 }
 
 
@@ -48,8 +48,8 @@ void TestIsGISAXS2::finalise()
     std::string isgi_file(getOutputPath()+"isgi_bimodal.ima.gz");
     std::string this_file("this_bimodal.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS2_c1", "Mixture of cylindrical particles with different size distribution");
 

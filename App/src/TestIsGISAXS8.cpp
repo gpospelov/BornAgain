@@ -33,10 +33,10 @@ void TestIsGISAXS8::execute()
     FunctionalTests::IsGISAXS08 test;
 
     test.run2DDL();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS08::kTest_2DDL), "this_2DDL_lattice.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(FunctionalTests::IsGISAXS08::kTest_2DDL), "this_2DDL_lattice.ima");
 
     test.run2DDL2();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS08::kTest_2DDL2), "this_2DDL_lattice2.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(FunctionalTests::IsGISAXS08::kTest_2DDL2), "this_2DDL_lattice2.ima");
 }
 
 
@@ -47,8 +47,8 @@ void TestIsGISAXS8::finalise()
     tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDL_lattice2.ima.gz", "this_2DDL_lattice2.ima", "Cylinder 2DDL lattice with isotropic pdfs") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(tocompare[i].thisname);
 
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
 

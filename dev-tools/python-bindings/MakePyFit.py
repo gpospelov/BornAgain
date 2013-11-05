@@ -36,6 +36,7 @@ include_classes = [
 "FitSuite",
 "FitParameter",
 "FitSuiteParameters",
+"FitSuiteObjects",
 "IChiSquaredModule",
 "IMinimizer",
 "IOutputDataNormalizer",

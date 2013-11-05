@@ -148,7 +148,7 @@ int FunctionalTests::IsGISAXS07::analyseResults(const std::string &path_to_data)
 
     // retrieving reference data
     std::string filename = path_to_data + "isgisaxs07_reference.ima.gz";
-    OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
+    OutputData<double > *reference = OutputDataIOFactory::readIntensityData(filename);
 
     // calculating average relative difference
     *m_result -= *reference;

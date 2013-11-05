@@ -49,13 +49,13 @@ void TestIsGISAXS9::execute()
     ISample *sample = factory.createSample("isgisaxs09");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
         "this_pyramid_Z0.ima");
 
     sample = factory.createSample("isgisaxs09_rotated");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
         "this_pyramid_Z45.ima");
 }
 
@@ -79,8 +79,8 @@ void TestIsGISAXS9::finalise()
     titlegraph[1]="Rotated pyramid DWBA formfactor";
 
     for(int i_comparison=0; i_comparison<2; i_comparison++) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_files[i_comparison]);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_files[i_comparison]);
+        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_files[i_comparison]);
+        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_files[i_comparison]);
 
         std::cout <<descript[i_comparison] <<std::endl;
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,descript[i_comparison] , titlegraph[i_comparison]);

@@ -12,4 +12,7 @@ used for fitting.
 --- ex002_FitCylindersAndPrisms ---
     The model "mixture of cylinders and prisms without interference"
     will be used to fit real data.
+    FitCylindersAndPrisms.py shows minimal fitting example
+    FitCylindersAndPrisms_detailed.py is more detailed version + some graphical output
+
 

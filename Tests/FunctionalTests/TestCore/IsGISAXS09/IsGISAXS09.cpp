@@ -81,7 +81,7 @@ int FunctionalTests::IsGISAXS09::analyseResults(const std::string &path_to_data)
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
         OutputData<double> *reference =
-                OutputDataIOFactory::getOutputData(path_to_data +
+                OutputDataIOFactory::readIntensityData(path_to_data +
                                                reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 

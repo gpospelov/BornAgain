@@ -33,7 +33,7 @@ void TestIsGISAXS11::execute()
     FunctionalTests::IsGISAXS11 test;
     test.run();
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), "this_core_shell_qxqy.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(), "this_core_shell_qxqy.ima");
 }
 
 
@@ -42,8 +42,8 @@ void TestIsGISAXS11::finalise()
     std::string isgi_file(getOutputPath()+"isgi_core_shell_qxqy.ima.gz");
     std::string this_file("this_core_shell_qxqy.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS11_c1", "Core shell parallelepiped islands");
 

@@ -106,7 +106,7 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
     m_simulation->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(m_simulation->getOutputData()), "this_fitconstraints.ima");
+    OutputDataIOFactory::writeIntensityData(*(m_simulation->getOutputData()), "this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitconstraints_optimal.ima.gz");
@@ -115,8 +115,8 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
     // -------------
     // plot results
     // -------------
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,"TestIsGISAXS12_c1", "ex-12: Mixture of cylindrical particles with different size distribution");
     delete isgi_data;

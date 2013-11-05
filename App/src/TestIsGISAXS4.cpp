@@ -41,13 +41,13 @@ void TestIsGISAXS4::execute()
     ISample *sample = factory.createSample("isgisaxs04_1DDL");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), "this_1DDL.ima");
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), "this_1DDL.ima");
     delete sample;
 
     sample = factory.createSample("isgisaxs04_2DDL");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), "this_2DDL.ima");
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), "this_2DDL.ima");
     delete sample;
 
 //    FunctionalTests::IsGISAXS04 test;
@@ -66,8 +66,8 @@ void TestIsGISAXS4::finalise()
         tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDLh.ima.gz", "this_2DDL.ima", "Cylinder 2DDL") );
 
         for(size_t i=0; i<tocompare.size(); ++i) {
-            OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-            OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+            OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(tocompare[i].isginame);
+            OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(tocompare[i].thisname);
 
             IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
 

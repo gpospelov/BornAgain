@@ -47,7 +47,7 @@ void TestIsGISAXS1::execute()
     simulation.setSample(*sample);
     simulation.runSimulation();
 
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
                                          "this_2-types-of-islands-ewald.ima");
 
     delete sample;
@@ -59,8 +59,8 @@ void TestIsGISAXS1::finalise()
     std::string isgi_file(getOutputPath()+"isgi_2-types-of-islands-ewald.ima.gz");
     std::string this_file("this_2-types-of-islands-ewald.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS1_c1", "Two particles mean DWBA Formfactor");
 

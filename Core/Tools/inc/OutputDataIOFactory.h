@@ -33,10 +33,10 @@ public:
 
     OutputDataIOFactory(){}
 
-    static OutputData<double > *getOutputData(const std::string& file_name);
+    static OutputData<double > *readIntensityData(const std::string& file_name);
     static OutputDataReader_t getReader(const std::string& file_name);
 
-    static void writeOutputData(const OutputData<double>& data,
+    static void writeIntensityData(const OutputData<double>& data,
             const std::string& file_name);
     static OutputDataWriter_t getWriter(const std::string& file_name);
 };

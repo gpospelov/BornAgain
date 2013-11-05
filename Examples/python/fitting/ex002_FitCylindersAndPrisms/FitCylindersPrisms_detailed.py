@@ -1,34 +1,39 @@
 """
 Fitting example
+(This is more detailed version of FitCylindersPrisms.py with graphics and generated "real" data)
+
 In this example we use a simple geometry: cylinders and prisms in
-air layer, deposited on a substrate layer, with no interference. 
-There are 4 fitting parameters: radius and height of cylinders and
- side length and height of prisms. 
- 
+air layer, deposited on a substrate layer, with no interference.
+There are 4 fitting parameters:
+1) radius of cylinders
+2) height of cylinders
+3) side length of prisms
+4) height of prisms
+
 Our reference data is 2D intensity map obtained from the simulation of
 the same geometry with fixed values cylinder_height = prism3_height
  = cylinder_radius = prism3_half_side = 5nm.
- 
+
 Then we run our minimization consequently using default
-minimization engine, with cylinder_height = prism3_length = 4nm,
+minimization engine, with starting values cylinder_height = prism3_length = 4nm,
 cylinder_radius = prism3_half_side = 6nm as initial fit parameter values.
 """
+
+
 import numpy
 import matplotlib
 import pylab
+import math
 from libBornAgainCore import *
 from libBornAgainFit import *
 
 
-# values we want to find
-cylinder_height = 5.0*nanometer
-cylinder_radius = 5.0*nanometer
-prism3_half_side = 5.0*nanometer
-prism3_height = 5.0*nanometer
-
-def get_sample():
+def get_sample(cylinder_height=1.0*nanometer,
+               cylinder_radius=1.0*nanometer,
+               prism_half_side=1.0*nanometer,
+               prism_height=1.0*nanometer):
     """
-    Build and return the sample representing cylinders and pyramids on top of
+    Build the sample representing cylinders and pyramids on top of
     substrate without interference.
     """
     # defining materials
@@ -37,9 +42,9 @@ def get_sample():
     m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius)
     cylinder = Particle(m_particle, cylinder_ff)
-    prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
+    prism_ff = FormFactorPrism3(prism_half_side, prism_height)
     prism = Particle(m_particle, prism_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 0.5)
@@ -57,23 +62,20 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    return simulation
-
-
-def create_real_data(simulation):
+def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     This function has been used once to generate Refdata_fitcylinderprisms.txt
     """
+    # creating sample with set of parameters we will later try to find during the fit
+    sample = get_sample(5.0*nanometer, 5.0*nanometer, 5.0*nanometer, 5.0*nanometer)
+    simulation = get_simulation()
+    simulation.setSample(sample)
+
     simulation.runSimulation()
-    real_data = simulation.getOutputDataClone()
+    real_data = simulation.getIntensityData()
+
+    # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
     for i in range(0, real_data.getAllocatedSize()):
         amplitude = real_data[i]
@@ -82,40 +84,63 @@ def create_real_data(simulation):
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
         real_data[i] = noisy_amplitude
-    # FIXME after OutputDataIOFactory is refactored
-    OutputDataIOFactory.writeOutputData(real_data, 'Refdata_fitcylinderprisms.txt')
-    return real_data
+    OutputDataIOFactory.writeIntensityData(real_data, 'Refdata_fitcylinderprisms.txt')
+
+
+
+def get_simulation():
+    """
+    Create GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation()
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    return simulation
+
+
+def draw_results(real_data, simulated_data):
+    """
+    Draw results of several simulations on canvas
+    """
+    pylab.figure(1)
+    pylab.subplot(2, 2, 1)
+    im = pylab.imshow(numpy.rot90(real_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+    pylab.colorbar(im)
+
+    pylab.title('\"Real\" data')
+    pylab.subplot(2, 2, 2)
+    im = pylab.imshow(numpy.rot90(simulated_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+    pylab.colorbar(im)
+    pylab.title('Simulated data')
+
+    diff_map = (real_data - simulated_data)/real_data
+    pylab.subplot(2, 2, 3)
+    im = pylab.imshow(numpy.rot90(diff_map, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+    pylab.colorbar(im)
+    pylab.title('Difference map')
+
+    pylab.show()
+
 
 
 def run_fitting():
     """
     run fitting
     """
+
+    #create_real_data() # to generate "real" data
+
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt')
-    
+    real_data = OutputDataIOFactory.readIntensityData('Refdata_fitcylinderprisms.txt')
+
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
-    # setting fitting minimizer
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Migrad"))  #: default
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Simplex"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Combined"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Scan"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("Minuit2", "Fumili"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLMultiMin", "ConjugateFR"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLMultiMin", "ConjugatePR"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLMultiMin", "BFGS"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLMultiMin", "BFGS2"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLMultiMin", "SteepestDescent"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLMultiFit"))
-    #fit_suite.setMinimizer(MinimizerFactory.createMinimizer("GSLSimAn"))
-
-    # setting fitting parameters
+    # setting fitting parameters with starting values
     fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
@@ -124,13 +149,14 @@ def run_fitting():
     # running fit
     fit_suite.runFit()
 
-    print "Fitting completed."
-    print "chi2:", fit_suite.getMinimizer().getMinValue()
-    pars = fit_suite.getMinimizer().getValueOfVariablesAtMinimum()
-    errs = fit_suite.getMinimizer().getErrorOfVariables()
-    print "variables at minimum:", pars[0], pars[1], pars[2], pars[3]
-    print "errors at minimum:", errs[0], errs[1], errs[2], errs[3]
+    draw_results(real_data.getArray(), fit_suite.getFitObjects().getSimulationData().getArray())
 
+    print "Fitting completed."
+    fit_suite.printResults()
+    print "chi2:", fit_suite.getMinimizer().getMinValue()
+    fitpars = fit_suite.getFitParameters()
+    for i in range(0, fitpars.size()):
+        print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
 
 if __name__ == '__main__':
     run_fitting()

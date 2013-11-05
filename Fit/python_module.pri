@@ -3,6 +3,7 @@ HEADERS +=  \
     PythonAPI/inc/PythonFitList.h \ 
     PythonAPI/inc/SquaredFunctionWithGaussianError.pypp.h \
     PythonAPI/inc/OutputDataSimpleNormalizer.pypp.h \
+    PythonAPI/inc/FitSuiteObjects.pypp.h \
     PythonAPI/inc/ISquaredFunction.pypp.h \
     PythonAPI/inc/MinimizerFactory.pypp.h \
     PythonAPI/inc/OutputDataNormalizer.pypp.h \
@@ -38,6 +39,7 @@ SOURCES +=  \
     PythonAPI/src/MinimizerFactory.pypp.cpp \
     PythonAPI/src/ISquaredFunction.pypp.cpp \
     PythonAPI/src/IOutputDataNormalizer.pypp.cpp \
+    PythonAPI/src/FitSuiteObjects.pypp.cpp \
     PythonAPI/src/FitSuiteParameters.pypp.cpp \
     PythonAPI/src/MinimizerOptions.pypp.cpp 
 

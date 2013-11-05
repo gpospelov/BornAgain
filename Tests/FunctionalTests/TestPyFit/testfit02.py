@@ -86,7 +86,7 @@ def createSimulation():
 # generating "real" data by adding noise to the simulated data
 def createRealData(simulation):
     simulation.runSimulation();
-    real_data = simulation.getOutputDataClone()
+    real_data = simulation.getIntensityData()
     noise_factor = 0.1
     for i in range(0,real_data.getAllocatedSize()):
         amplitude = real_data[i]

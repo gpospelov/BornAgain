@@ -40,7 +40,7 @@ void TestDetectorResolution::execute()
     simulation.setBeamParameters
         (1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
-    mp_intensity_output = simulation.getOutputDataClone();
+    mp_intensity_output = simulation.getIntensityData();
     IsGISAXSTools::drawLogOutputData
         (*mp_intensity_output,
          "c1_test_detector_resolution",

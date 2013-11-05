@@ -16,6 +16,7 @@ HEADERS +=  \
     PythonAPI/inc/StochasticSampledParameter.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
     PythonAPI/inc/vector_integer_t.pypp.h \
+    PythonAPI/inc/AxisDouble.pypp.h \
     PythonAPI/inc/IAxis.pypp.h \
     PythonAPI/inc/Layer.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
@@ -24,6 +25,7 @@ HEADERS +=  \
     PythonAPI/inc/MaterialManager.pypp.h \
     PythonAPI/inc/ResolutionFunction2DSimple.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
+    PythonAPI/inc/AxisBin.pypp.h \
     PythonAPI/inc/FormFactorGauss.pypp.h \
     PythonAPI/inc/FormFactorFullSpheroid.pypp.h \
     PythonAPI/inc/PythonInterface_global_variables.pypp.h \
@@ -67,13 +69,13 @@ HEADERS +=  \
     PythonAPI/inc/PositionParticleInfo.pypp.h \
     PythonAPI/inc/LayerRoughness.pypp.h \
     PythonAPI/inc/FormFactorCrystal.pypp.h \
+    PythonAPI/inc/IntensityData.pypp.h \
     PythonAPI/inc/IParameterized.pypp.h \
     PythonAPI/inc/Bin1DCVector.pypp.h \
     PythonAPI/inc/StochasticDoubleGate.pypp.h \
     PythonAPI/inc/IClusteredParticles.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
-    PythonAPI/inc/ndimdata_t.pypp.h \
     PythonAPI/inc/FormFactorLorentz.pypp.h \
     PythonAPI/inc/OutputDataIOFactory.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
@@ -128,6 +130,7 @@ SOURCES +=  \
     PythonAPI/src/StochasticSampledParameter.pypp.cpp \
     PythonAPI/src/FormFactorFullSphere.pypp.cpp \
     PythonAPI/src/StochasticParameter_t.pypp.cpp \
+    PythonAPI/src/AxisBin.pypp.cpp \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/IDecoration.pypp.cpp \
     PythonAPI/src/FTDistribution2DCauchy.pypp.cpp \
@@ -153,6 +156,8 @@ SOURCES +=  \
     PythonAPI/src/InterferenceFunction2DParaCrystal.pypp.cpp \
     PythonAPI/src/FormFactorCone.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
+    PythonAPI/src/IntensityData.pypp.cpp \
+    PythonAPI/src/AxisDouble.pypp.cpp \
     PythonAPI/src/FormFactorFullSpheroid.pypp.cpp \
     PythonAPI/src/MaterialManager.pypp.cpp \
     PythonAPI/src/ParticleBuilder.pypp.cpp \
@@ -161,7 +166,6 @@ SOURCES +=  \
     PythonAPI/src/FormFactorPrism3.pypp.cpp \
     PythonAPI/src/PositionParticleInfo.pypp.cpp \
     PythonAPI/src/ICompositeSample.pypp.cpp \
-    PythonAPI/src/ndimdata_t.pypp.cpp \
     PythonAPI/src/Beam.pypp.cpp \
     PythonAPI/src/FormFactorDecoratorDebyeWaller.pypp.cpp \
     PythonAPI/src/IFormFactor.pypp.cpp \

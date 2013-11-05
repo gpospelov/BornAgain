@@ -15,6 +15,7 @@
 #include "StochasticSampledParameter.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
 #include "vector_integer_t.pypp.h" 
+#include "AxisDouble.pypp.h" 
 #include "IAxis.pypp.h" 
 #include "Layer.pypp.h" 
 #include "IFormFactor.pypp.h" 
@@ -23,6 +24,7 @@
 #include "MaterialManager.pypp.h" 
 #include "ResolutionFunction2DSimple.pypp.h" 
 #include "SimulationParameters.pypp.h" 
+#include "AxisBin.pypp.h" 
 #include "FormFactorGauss.pypp.h" 
 #include "FormFactorFullSpheroid.pypp.h" 
 #include "PythonInterface_global_variables.pypp.h" 
@@ -66,13 +68,13 @@
 #include "PositionParticleInfo.pypp.h" 
 #include "LayerRoughness.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
+#include "IntensityData.pypp.h" 
 #include "IParameterized.pypp.h" 
 #include "Bin1DCVector.pypp.h" 
 #include "StochasticDoubleGate.pypp.h" 
 #include "IClusteredParticles.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "SimpleSelectionRule.pypp.h" 
-#include "ndimdata_t.pypp.h" 
 #include "FormFactorLorentz.pypp.h" 
 #include "OutputDataIOFactory.pypp.h" 
 #include "vector_kvector_t.pypp.h" 
@@ -100,6 +102,9 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
+    register_IAxis_class();
+    register_AxisBin_class();
+    register_AxisDouble_class();
     register_IParameterized_class();
     register_Beam_class();
     register_Bin1D_class();
@@ -139,7 +144,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_RotateZ_3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
-    register_IAxis_class();
     register_IDecoration_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
@@ -161,7 +165,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MaterialManager_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
-    register_ndimdata_t_class();
+    register_IntensityData_class();
     register_OutputDataIOFactory_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();

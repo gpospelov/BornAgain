@@ -134,7 +134,7 @@ void TestRootTree::complex_write()
         event->malpha = Units::rad2deg(meso_alpha);
         // copying output data into event frame
         delete mp_data;
-        mp_data = simulation.getOutputDataClone();
+        mp_data = simulation.getIntensityData();
         IsGISAXSTools::exportOutputDataInVectors2D(
             *mp_data, event->vi, event->vphi_f, event->valpha_f);
 
@@ -267,7 +267,7 @@ void TestRootTree::simple_write()
             1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
         mp_simulation->runSimulation();
 
-        mp_data = mp_simulation->getOutputDataClone();
+        mp_data = mp_simulation->getIntensityData();
         // accessing to scattering data
         const IAxis *axis0 = mp_data->getAxis(0);
         const IAxis *axis1 = mp_data->getAxis(1);

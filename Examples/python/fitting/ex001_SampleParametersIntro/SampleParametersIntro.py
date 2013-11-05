@@ -66,13 +66,11 @@ def run_simulations():
 
     results = []
 
-    # FIXME below as soon as GetOutputData() and CreateParameterTree() are refactored
-
     # simulation #1
     # initial sample is used
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(GetOutputData(simulation))
+    results.append(simulation.getIntensityData().getArray())
 
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
@@ -81,14 +79,14 @@ def run_simulations():
 
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(GetOutputData(simulation))
+    results.append(simulation.getIntensityData().getArray())
 
     # simulation #3
     # all parameters which are matching criteria will be changed (height of the cylinder in this case)
     sample.setMatchedParametersValue("*/FormFactorCylinder/height", 100*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(GetOutputData(simulation))
+    results.append(simulation.getIntensityData().getArray())
 
     # simulation #4
     # all parameters which are matching criteria will be changed
@@ -97,7 +95,7 @@ def run_simulations():
     sample.setMatchedParametersValue("*/FormFactorPrism3/*", 10*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results.append(GetOutputData(simulation))
+    results.append(simulation.getIntensityData().getArray())
 
     return results
 

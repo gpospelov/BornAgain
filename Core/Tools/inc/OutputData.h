@@ -16,13 +16,20 @@
 #ifndef OUTPUTDATA_H
 #define OUTPUTDATA_H
 
+#ifdef BORNAGAIN_PYTHON
+#ifndef PyObject_HEAD
+struct _object;
+typedef _object PyObject;
+#endif
+#endif
+
+
 #include "AxisDouble.h"
 #include "Types.h"
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
 #include "ThreadInfo.h"
-
 #include <sstream>
 
 //! Store data of any type in multi-dimensional space.
@@ -200,6 +207,12 @@ public:
 
     //! Returns true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T>& right) const;
+
+    //! returns data as Python numpy array
+#ifdef BORNAGAIN_PYTHON
+    PyObject *getArray() const;
+#endif
+
 private:
     //! disabled copy constructor and assignment operators
     OutputData(const OutputData& );
@@ -673,6 +686,11 @@ bool OutputData<T>::hasSameShape(const OutputData<T>& right) const
     }
     return true;
 }
+
+//! returns data as Python numpy array
+#ifdef BORNAGAIN_PYTHON
+template<> PyObject *OutputData<double>::getArray() const;
+#endif
 
 #endif // OUTPUTDATA_H
 

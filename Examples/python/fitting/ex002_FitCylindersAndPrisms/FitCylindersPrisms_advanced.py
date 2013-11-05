@@ -82,6 +82,7 @@ def create_real_data(simulation):
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
         real_data[i] = noisy_amplitude
+    # FIXME after OutputDataIOFactory is refactored
     OutputDataIOFactory.writeOutputData(real_data, 'Refdata_fitcylinderprisms.txt')
     return real_data
 

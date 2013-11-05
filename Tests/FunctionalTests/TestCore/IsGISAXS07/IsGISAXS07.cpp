@@ -139,7 +139,7 @@ void FunctionalTests::IsGISAXS07::run()
     // ---------------------
     // copying data
     // ---------------------
-    m_result = simulation.getOutputDataClone();
+    m_result = simulation.getIntensityData();
 }
 
 int FunctionalTests::IsGISAXS07::analyseResults(const std::string &path_to_data)

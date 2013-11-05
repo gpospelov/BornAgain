@@ -47,10 +47,11 @@ def RunSimulation():
     simulation.runSimulation()
     # intensity data components
 
-    intensity_pp = GetPolarizedOutputDataComponent(simulation, 0, 0)
-    intensity_pm = GetPolarizedOutputDataComponent(simulation, 0, 1)
-    intensity_mp = GetPolarizedOutputDataComponent(simulation, 1, 0)
-    intensity_mm = GetPolarizedOutputDataComponent(simulation, 1, 1)
+    intensity_pp = simulation.getPolarizedIntensityData(0, 0).getArray()
+    intensity_pm = simulation.getPolarizedIntensityData(0, 1).getArray()
+    intensity_mp = simulation.getPolarizedIntensityData(1, 0).getArray()
+    intensity_mm = simulation.getPolarizedIntensityData(1, 1).getArray()
+
     return intensity_pp, intensity_pm, intensity_mp, intensity_mm
 
 

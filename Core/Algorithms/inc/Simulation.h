@@ -63,8 +63,11 @@ public:
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
-    OutputData<double>* getOutputDataClone() const
+    OutputData<double>* getIntensityData() const
     { return m_intensity_map.clone(); }
+
+    //! returns component of polarized intensity map
+    OutputData<double>* getPolarizedIntensityData(int row, int column) const;
 
 #ifndef GCCXML_SKIP_THIS
     //! Returns polarized intensity map

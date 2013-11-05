@@ -170,24 +170,25 @@ void register_Simulation_class(){
                 , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
-        { //::Simulation::getOutputData
+        { //::Simulation::getIntensityData
         
-            typedef ::OutputData< double > const * ( ::Simulation::*getOutputData_function_type )(  ) const;
+            typedef ::OutputData< double > * ( ::Simulation::*getIntensityData_function_type )(  ) const;
             
             Simulation_exposer.def( 
-                "getOutputData"
-                , getOutputData_function_type( &::Simulation::getOutputData )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getIntensityData"
+                , getIntensityData_function_type( &::Simulation::getIntensityData )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Simulation::getOutputDataClone
+        { //::Simulation::getPolarizedIntensityData
         
-            typedef ::OutputData< double > * ( ::Simulation::*getOutputDataClone_function_type )(  ) const;
+            typedef ::OutputData< double > * ( ::Simulation::*getPolarizedIntensityData_function_type )( int,int ) const;
             
             Simulation_exposer.def( 
-                "getOutputDataClone"
-                , getOutputDataClone_function_type( &::Simulation::getOutputDataClone )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getPolarizedIntensityData"
+                , getPolarizedIntensityData_function_type( &::Simulation::getPolarizedIntensityData )
+                , ( bp::arg("row"), bp::arg("column") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::Simulation::getSample

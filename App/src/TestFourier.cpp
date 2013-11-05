@@ -50,7 +50,7 @@ void TestFourier::execute()
     simulation.runSimulation();
     simulation.normalize();
 
-    mp_intensity_output = simulation.getOutputDataClone();
+    mp_intensity_output = simulation.getIntensityData();
     OutputData<complex_t> fft_map;
     OutputDataFunctions::FourierTransform(*mp_intensity_output, &fft_map);
     OutputData<double> *p_real_fft_map = OutputDataFunctions::getModulusPart(fft_map);

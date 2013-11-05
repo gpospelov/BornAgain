@@ -41,7 +41,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
 
     // running simulation
     simulation.runSimulation();
-    m_results[kTest_Z0] = simulation.getOutputDataClone();
+    m_results[kTest_Z0] = simulation.getIntensityData();
 
     delete sample;
 }
@@ -64,7 +64,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 
     // running simulation
     simulation.runSimulation();
-    m_results[kTest_Z45] = simulation.getOutputDataClone();
+    m_results[kTest_Z45] = simulation.getIntensityData();
 
     delete sample;
 }

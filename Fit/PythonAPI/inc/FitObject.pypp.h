@@ -3,9 +3,9 @@
 // BornAgain: simulate and fit scattering at grazing incidence 
 //! @brief automatically generated boost::python code for PythonCoreAPI  
 
-#ifndef IObserver_hpp__pyplusplus_wrapper
-#define IObserver_hpp__pyplusplus_wrapper
+#ifndef FitObject_hpp__pyplusplus_wrapper
+#define FitObject_hpp__pyplusplus_wrapper
 
-void register_IObserver_class();
+void register_FitObject_class();
 
-#endif//IObserver_hpp__pyplusplus_wrapper
+#endif//FitObject_hpp__pyplusplus_wrapper

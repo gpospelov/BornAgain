@@ -106,7 +106,8 @@ def get_simulation():
 
 class DrawObserver(IObserver):
     """
-    class which draws fit progress every nth iteration
+    class which draws fit progress every nth iteration.
+    It has to be attached to fit_suite via AttachObserver command
     """
     def __init__(self, draw_every=10):
         IObserver.__init__(self)
@@ -122,19 +123,18 @@ class DrawObserver(IObserver):
             im = pylab.imshow(numpy.rot90(real_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
             pylab.colorbar(im)
             pylab.title('\"Real\" data')
-
             # plotting real data
             pylab.subplot(2, 2, 2)
             im = pylab.imshow(numpy.rot90(simulated_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
             pylab.colorbar(im)
             pylab.title('Simulated data')
-
+            # plotting difference map
             diff_map = (real_data - simulated_data)/(real_data + 1)
             pylab.subplot(2, 2, 3)
-            im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+            im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
             pylab.colorbar(im)
             pylab.title('Difference map')
-
+            # plotting parameters info
             pylab.subplot(2, 2, 4)
             pylab.title('Parameters')
             pylab.axis('off')
@@ -144,17 +144,17 @@ class DrawObserver(IObserver):
             for i in range(0, fitpars.size()):
                 pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
 
-
             pylab.draw()
 
 
 
 def run_fitting():
     """
-    run fitting
+    main function to run fitting
     """
 
-    #create_real_data() # to generate "real" data
+    # uncomment to regenerate "real" data
+    #create_real_data()
 
     sample = get_sample()
     simulation = get_simulation()
@@ -177,8 +177,6 @@ def run_fitting():
 
     # running fit
     fit_suite.runFit()
-
-    #draw_results(real_data.getArray(), fit_suite.getFitObjects().getSimulationData().getArray())
 
     print "Fitting completed."
     fit_suite.printResults()

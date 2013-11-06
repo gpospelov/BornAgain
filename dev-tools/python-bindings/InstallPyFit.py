@@ -89,7 +89,7 @@ def InstallCode(OutputTempDir, InstallDir):
     if not os.path.exists(InstallDir): exit("No install directory '" + InstallDir+"'")
 
     # skipping files which are already included into Core library
-    PatternsToExclude = ["vdouble1d_t", "vcomplex1d_t"]
+    PatternsToExclude = ["vdouble1d_t", "vcomplex1d_t", "IObservable", "IObserver"]
     for pattern in PatternsToExclude:
       files2remove = glob.glob(OutputTempDir+"/"+pattern+".*")
       for ff in files2remove:

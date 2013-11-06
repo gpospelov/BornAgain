@@ -1,6 +1,8 @@
 """
 Fitting example
-(This is more detailed version of FitCylindersPrisms.py with graphics and generated "real" data)
+(This is more detailed version of FitCylindersPrisms.py.
+We show how to generate "real" data and how to draw fit progress.
+Take a note, that performance here is determined by poor performance of matplotlib drawing routines.)
 
 In this example we use a simple geometry: cylinders and prisms in
 air layer, deposited on a substrate layer, with no interference.
@@ -12,7 +14,7 @@ There are 4 fitting parameters:
 
 Our reference data is 2D intensity map obtained from the simulation of
 the same geometry with fixed values cylinder_height = prism3_height
- = cylinder_radius = prism3_half_side = 5nm.
+ = cylinder_radius = prism3_half_side = 1nm.
 
 Then we run our minimization consequently using default
 minimization engine, with starting values cylinder_height = prism3_length = 4nm,
@@ -26,6 +28,10 @@ import pylab
 import math
 from libBornAgainCore import *
 from libBornAgainFit import *
+
+pylab.ion()
+fig = pylab.figure(1)
+#fig.canvas.draw()
 
 
 def get_sample(cylinder_height=1.0*nanometer,
@@ -98,30 +104,6 @@ def get_simulation():
     return simulation
 
 
-def draw_results(real_data, simulated_data):
-    """
-    Draw results of several simulations on canvas
-    """
-    pylab.figure(1)
-    pylab.subplot(2, 2, 1)
-    im = pylab.imshow(numpy.rot90(real_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-    pylab.colorbar(im)
-
-    pylab.title('\"Real\" data')
-    pylab.subplot(2, 2, 2)
-    im = pylab.imshow(numpy.rot90(simulated_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-    pylab.colorbar(im)
-    pylab.title('Simulated data')
-
-    diff_map = (real_data - simulated_data)/(real_data + 1)
-    pylab.subplot(2, 2, 3)
-    im = pylab.imshow(numpy.rot90(diff_map, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
-    pylab.colorbar(im)
-    pylab.title('Difference map')
-
-    pylab.show()
-
-
 class DrawObserver(IObserver):
     """
     class which draws fit progress every nth iteration
@@ -132,18 +114,38 @@ class DrawObserver(IObserver):
         self.draw_every_nth = draw_every
     def update(self, fit_suite):
         if fit_suite.getNCalls() % self.draw_every_nth == 0:
+            fig.clf()
+            # plotting real data
             real_data = fit_suite.getFitObjects().getRealData().getArray()
             simulated_data = fit_suite.getFitObjects().getSimulationData().getArray()
             pylab.subplot(2, 2, 1)
-            im = pylab.imshow(numpy.rot90(real_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+            im = pylab.imshow(numpy.rot90(real_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
             pylab.colorbar(im)
-
             pylab.title('\"Real\" data')
+
+            # plotting real data
             pylab.subplot(2, 2, 2)
-            im = pylab.imshow(numpy.rot90(simulated_data + 1, 1),norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+            im = pylab.imshow(numpy.rot90(simulated_data + 1, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
             pylab.colorbar(im)
             pylab.title('Simulated data')
-            print "hello"
+
+            diff_map = (real_data - simulated_data)/(real_data + 1)
+            pylab.subplot(2, 2, 3)
+            im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(),extent=[-1.0, 1.0, 0, 2.0])
+            pylab.colorbar(im)
+            pylab.title('Difference map')
+
+            pylab.subplot(2, 2, 4)
+            pylab.title('Parameters')
+            pylab.axis('off')
+            pylab.text(0.01, 0.85, "Iteration  " + str(fit_suite.getNCalls()))
+            pylab.text(0.01, 0.75, "Chi2       " + str(fit_suite.getFitObjects().getChiSquaredValue()))
+            fitpars = fit_suite.getFitParameters()
+            for i in range(0, fitpars.size()):
+                pylab.text(0.01, 0.55 - i*0.1, str(fitpars[i].getName()) + " " + str(fitpars[i].getValue())[0:5] )
+
+
+            pylab.draw()
 
 
 
@@ -164,15 +166,14 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
 
-    pylab.figure(1)
     draw_observer = DrawObserver()
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/half_side", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/half_side", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()
@@ -186,5 +187,9 @@ def run_fitting():
     for i in range(0, fitpars.size()):
         print fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError()
 
+
+
 if __name__ == '__main__':
     run_fitting()
+    pylab.ioff()
+    pylab.show()

@@ -3,6 +3,8 @@ HEADERS +=  \
     PythonAPI/inc/PythonFitList.h \ 
     PythonAPI/inc/SquaredFunctionWithGaussianError.pypp.h \
     PythonAPI/inc/OutputDataSimpleNormalizer.pypp.h \
+    PythonAPI/inc/AttFitting.pypp.h \
+    PythonAPI/inc/FitSuiteObjects.pypp.h \
     PythonAPI/inc/ISquaredFunction.pypp.h \
     PythonAPI/inc/MinimizerFactory.pypp.h \
     PythonAPI/inc/OutputDataNormalizer.pypp.h \
@@ -11,6 +13,7 @@ HEADERS +=  \
     PythonAPI/inc/IOutputDataNormalizer.pypp.h \
     PythonAPI/inc/SquaredFunctionWhichOnlyWorks.pypp.h \
     PythonAPI/inc/FitParameter.pypp.h \
+    PythonAPI/inc/FitObject.pypp.h \
     PythonAPI/inc/IMinimizer.pypp.h \
     PythonAPI/inc/INamed.pypp.h \
     PythonAPI/inc/SquaredFunctionDefault.pypp.h \
@@ -38,6 +41,9 @@ SOURCES +=  \
     PythonAPI/src/MinimizerFactory.pypp.cpp \
     PythonAPI/src/ISquaredFunction.pypp.cpp \
     PythonAPI/src/IOutputDataNormalizer.pypp.cpp \
+    PythonAPI/src/FitSuiteObjects.pypp.cpp \
+    PythonAPI/src/FitObject.pypp.cpp \
+    PythonAPI/src/AttFitting.pypp.cpp \
     PythonAPI/src/FitSuiteParameters.pypp.cpp \
     PythonAPI/src/MinimizerOptions.pypp.cpp 
 

@@ -44,7 +44,7 @@ void TestPolarizedDWBAZeroMag::execute()
             "PolarizedDWBAZeroMagTestCase");
     simulation.setSample(*sample);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
             "this_cylinder_DWBA_pol.ima");
     delete sample;
 
@@ -59,9 +59,9 @@ void TestPolarizedDWBAZeroMag::finalise()
             "Cylinder DWBA Formfactor with matrix calculation") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(
+        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(
                 tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(
+        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(
                 tocompare[i].thisname);
 
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,

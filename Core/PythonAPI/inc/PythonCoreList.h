@@ -39,6 +39,7 @@
 #include "IFormFactorDecorator.h"
 #include "IInterferenceFunction.h"
 #include "IMaterial.h"
+#include "IObserver.h"
 #include "IParameterized.h"
 #include "IResolutionFunction2D.h"
 #include "ISample.h"

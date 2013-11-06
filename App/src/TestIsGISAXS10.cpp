@@ -33,7 +33,7 @@ void TestIsGISAXS10::execute()
     FunctionalTests::IsGISAXS10 test;
     test.run();
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(),
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(),
                                          "this_para1dcyl.ima");
 }
 
@@ -43,8 +43,8 @@ void TestIsGISAXS10::finalise()
     std::string isgi_file(getOutputPath()+"isgi_para1dcyl.ima.gz");
     std::string this_file("this_para1dcyl.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS10_c1", "1D paracrystal cylinder islands");
 

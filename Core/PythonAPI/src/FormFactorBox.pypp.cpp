@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorBox_wrapper : FormFactorBox, bp::wrapper< FormFactorBox > {
 
-    FormFactorBox_wrapper(double radius, double width, double height )
-    : FormFactorBox( radius, width, height )
+    FormFactorBox_wrapper(double length, double width, double height )
+    : FormFactorBox( length, width, height )
       , bp::wrapper< FormFactorBox >(){
         // constructor
     
@@ -278,7 +278,7 @@ void register_FormFactorBox_class(){
 
     { //::FormFactorBox
         typedef bp::class_< FormFactorBox_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorBox_exposer_t;
-        FormFactorBox_exposer_t FormFactorBox_exposer = FormFactorBox_exposer_t( "FormFactorBox", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("width"), bp::arg("height") )) );
+        FormFactorBox_exposer_t FormFactorBox_exposer = FormFactorBox_exposer_t( "FormFactorBox", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") )) );
         bp::scope FormFactorBox_scope( FormFactorBox_exposer );
         { //::FormFactorBox::clone
         

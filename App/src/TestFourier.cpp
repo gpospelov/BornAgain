@@ -57,7 +57,7 @@ void TestFourier::execute()
     OutputDataFunctions::FourierTransformR(fft_map, mp_intensity_output);
     IsGISAXSTools::drawOutputData(*p_real_fft_map, "c1_four", "Fourier transform",
             "CONT4 Z", "Fourier transform");
-    OutputDataIOFactory::writeOutputData(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/Fourier.ima");
+    OutputDataIOFactory::writeIntensityData(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/Fourier.ima");
 }
 
 

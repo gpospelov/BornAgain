@@ -136,7 +136,7 @@ int FunctionalTests::IsGISAXS06::analyseResults(
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
         OutputData<double> *reference =
-            OutputDataIOFactory::getOutputData(path_to_executable
+            OutputDataIOFactory::readIntensityData(path_to_executable
                     + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 

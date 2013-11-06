@@ -2,15 +2,18 @@
 Fitting example
 In this example we use a simple geometry: cylinders and prisms in
 air layer, deposited on a substrate layer, with no interference. 
-There are 4 fitting parameters: radius and height of cylinders and
- side length and height of prisms. 
- 
+There are 4 fitting parameters:
+1) radius of cylinders
+2) height of cylinders
+3) side length of prisms
+4) height of prisms
+
 Our reference data is 2D intensity map obtained from the simulation of
 the same geometry with fixed values cylinder_height = prism3_height
  = cylinder_radius = prism3_half_side = 5nm.
  
 Then we run our minimization consequently using default
-minimization engine, with cylinder_height = prism3_length = 4nm,
+minimization engine, with starting values cylinder_height = prism3_length = 4nm,
 cylinder_radius = prism3_half_side = 6nm as initial fit parameter values.
 
 See example FitCylindersPrisms_detailed.py for more details & graphical output
@@ -68,9 +71,8 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    # FIXME after OutputDataIOFactory is refactored
-    real_data = OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt')
-    
+    real_data = OutputDataIOFactory.readIntensityData('Refdata_fitcylinderprisms.txt')
+
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)

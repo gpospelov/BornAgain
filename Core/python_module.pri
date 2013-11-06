@@ -20,6 +20,7 @@ HEADERS +=  \
     PythonAPI/inc/IAxis.pypp.h \
     PythonAPI/inc/Layer.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
+    PythonAPI/inc/IObservable.pypp.h \
     PythonAPI/inc/FormFactorParallelepiped.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
     PythonAPI/inc/MaterialManager.pypp.h \
@@ -87,6 +88,7 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorEllipsoid.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/ISample.pypp.h \
+    PythonAPI/inc/IObserver.pypp.h \
     PythonAPI/inc/ParticleBuilder.pypp.h \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
     PythonAPI/inc/Lattice2DIFParameters.pypp.h \
@@ -141,6 +143,7 @@ SOURCES +=  \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
     PythonAPI/src/IClusteredParticles.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
+    PythonAPI/src/IObserver.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
     PythonAPI/src/vector_longinteger_t.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
@@ -160,6 +163,7 @@ SOURCES +=  \
     PythonAPI/src/AxisDouble.pypp.cpp \
     PythonAPI/src/FormFactorFullSpheroid.pypp.cpp \
     PythonAPI/src/MaterialManager.pypp.cpp \
+    PythonAPI/src/IObservable.pypp.cpp \
     PythonAPI/src/ParticleBuilder.pypp.cpp \
     PythonAPI/src/Instrument.pypp.cpp \
     PythonAPI/src/FormFactorGauss.pypp.cpp \

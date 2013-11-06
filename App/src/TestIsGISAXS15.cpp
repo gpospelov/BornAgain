@@ -33,7 +33,7 @@ void TestIsGISAXS15::execute()
     FunctionalTests::IsGISAXS15 test;
     test.run();
 
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), "this_SSCA.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(), "this_SSCA.ima");
 }
 
 
@@ -42,8 +42,8 @@ void TestIsGISAXS15::finalise()
     std::string isgi_file(getOutputPath()+"isgi_SSCA.ima");
     std::string this_file("this_SSCA.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS15_c1", "SSCA Cylinders");
 

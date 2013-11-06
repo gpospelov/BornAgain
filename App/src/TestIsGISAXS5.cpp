@@ -83,7 +83,7 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
     mp_simulation->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(mp_simulation->getOutputData()),
+    OutputDataIOFactory::writeIntensityData(*(mp_simulation->getOutputData()),
                                          "this_fitexample.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
@@ -93,8 +93,8 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
     // -------------
     // plot results
     // -------------
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,"TestIsGISAXS5_c1", "ex-5: cylinders with size distribution and 1D paracrystal inderference function");
 

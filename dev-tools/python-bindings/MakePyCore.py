@@ -70,6 +70,8 @@ include_classes = [
     "IFormFactorDecorator",
     "IInterferenceFunction",
     "IMaterial",
+    "IObserver",
+    "IObservable",
     "IParameterized",
     "IResolutionFunction2D",
     "ISample",
@@ -198,6 +200,9 @@ def ManualClassTunings(mb):
     cl = mb.class_("IClusteredParticles")
     cl.member_function("setAmbientMaterial").include()
     #
+    cl = mb.class_("IObserver")
+    cl.member_function("update").include()
+
     cl = mb.class_("MaterialManager")
     cl.constructors().exclude()
     #

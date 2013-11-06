@@ -1,5 +1,5 @@
 #include "Python.h"
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION 
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY 
 #include "numpy/arrayobject.h"
 // the order of 3 guys above is important
@@ -20,6 +20,7 @@
 #include "IAxis.pypp.h" 
 #include "Layer.pypp.h" 
 #include "IFormFactor.pypp.h" 
+#include "IObservable.pypp.h" 
 #include "FormFactorParallelepiped.pypp.h" 
 #include "RealParameterWrapper.pypp.h" 
 #include "MaterialManager.pypp.h" 
@@ -87,6 +88,7 @@
 #include "FormFactorEllipsoid.pypp.h" 
 #include "Simulation.pypp.h" 
 #include "ISample.pypp.h" 
+#include "IObserver.pypp.h" 
 #include "ParticleBuilder.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
 #include "Lattice2DIFParameters.pypp.h" 
@@ -148,6 +150,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IDecoration_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
+    register_IObservable_class();
+    register_IObserver_class();
     register_IResolutionFunction2D_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();

@@ -108,7 +108,7 @@ def run_fitting(): @\label{script2::run_fitting}@
     simulation = get_simulation()
     simulation.setSample(sample) @\label{script2::setup_simulation2}@
 
-    real_data = OutputDataIOFactory.getOutputData('Refdata_fitcylinderprisms.txt') @\label{script2::real_data}@
+    real_data = OutputDataIOFactory.readIntensityData('Refdata_fitcylinderprisms.txt') @\label{script2::real_data}@
 \end{lstlisting}
 Lines ~\ref{script2::setup_simulation1}-~\ref{script2::setup_simulation2} generate
 sample and simulation description and assign the sample to the simulation.
@@ -171,4 +171,10 @@ Line ~\ref{script2::fitresults1} shows the command to start the fitting process.
 During the fitting the progress will be displayed on the screen.
 Lines ~\ref{script2::fitresults2}--~\ref{script2::fitresults3} shows different ways of
 accessing to fit results.
+
+
+More details about fitting, access to its results and visualization of fit progress using matplotlib libraries can be learned from detailed example
+\begin{lstlisting}[language=shell, style=commandline]
+./Examples/python/fitting/ex002_FitCylindersAndPrisms/FitCylindersAndPrisms_detailed.py
+\end{lstlisting}
 

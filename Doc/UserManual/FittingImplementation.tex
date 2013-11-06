@@ -243,7 +243,7 @@ before minimization starts. They are handled by \Code{MinimizerOptions} class:
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
 options = MinimizerOptions()
 options.setMaxFunctionCalls(10)
-FitSuite().getMinimizer().setOptions(options)
+fit_suite.getMinimizer().setOptions(options)
 \end{lstlisting}
 In given code snippet a number of ``maximum function calls'', namely a number of times the minimizer is allowed to call the simulation, is limited to the 10. The minimizer will take that number into consideration and will try to limit number of iterations by that value.
 
@@ -256,4 +256,19 @@ They will be explained in \SecRef{FittingAdvanced}.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Running the fitting ant retrieving the results.}
+
+After the initial configuration of \Code{FitSuite} has been performed, the fitting
+can be started using the command
+\begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
+fit_suite.runFit()
+\end{lstlisting}
+
+Depending on complexity of the sample and number of free sample parameters the fitting
+process can go from tenths to thousands of iterations. The results of the fit can
+be printed on the screen using the command
+\begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
+fit_suite.printResults()
+\end{lstlisting}
+\SecRef{FittingExamples} gives more details about access to fitting results.
+
 

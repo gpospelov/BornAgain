@@ -132,13 +132,15 @@
 %-------------------------------------------------------------------------------
 %	TITLE PAGE
 %-------------------------------------------------------------------------------
+\input{UserManualVersion} % defines command UserManualVersionNumber
 \title{
 {\Huge\bf BornAgain}\\[10mm]
 Software for simulating and fitting\\
 X-ray and neutron small-angle scattering\\
 at grazing incidence\\
 \vspace*{10mm} User Manual \\
-\large{version 0.1.1\\\today}
+\large{\UserManualVersionNumber} \\
+\large{\today}
 \vspace*{5mm}
 }
 
@@ -152,30 +154,14 @@ Forschungszentrum J\"ulich GmbH
 }
 
 \date{{}}
-%License: Creative Common CC-BY-SA \\
-%\today
-%}
 
 
-%\usepackage{eso-pic}
-%\newcommand\BackgroundPic{%
-%\put(0,0){%
-%\parbox[b][\paperheight]{\paperwidth}{%
-%\vfill
-%\centering
-%\includegraphics[width=\paperwidth,height=\paperheight,%
-%keepaspectratio]{results2_2.png}%
-%\vfill
-%}}}
-
-
-%-------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	DOCUMENT
-%-------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 \begin{document}
 
 \maketitle
-
 
 \input{Disclaimer}
 \tableofcontents

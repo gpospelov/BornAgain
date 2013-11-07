@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
 
 project(BornAgain)
 
-# --- The version number. Please define it here only! ---
+# --- The version number ---
 set(BornAgain_VERSION_MAJOR 0)
 set(BornAgain_VERSION_MINOR 9)
 set(BornAgain_VERSION_PATCH 1)

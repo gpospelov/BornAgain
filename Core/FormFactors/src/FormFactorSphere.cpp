@@ -37,10 +37,18 @@ FormFactorSphere::FormFactorSphere(double radius, double height)
 
 void FormFactorSphere::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("height", &m_height);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
+    registerParameter("height", &m_height);
 }
+
+FormFactorSphere *FormFactorSphere::clone() const
+{
+    FormFactorSphere *result = new FormFactorSphere(m_radius, m_height);
+    result->setName(getName());
+    return result;
+}
+
 
 //! Integrand for complex formfactor.
 

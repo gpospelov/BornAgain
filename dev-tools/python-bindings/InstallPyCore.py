@@ -35,7 +35,6 @@ def GenerateProjectFile(OutputTempDir, files_inc, files_src):
     fout.write("    PythonAPI/src/PythonModule.cpp \\ \n")
     fout.write("    PythonAPI/src/PythonListConverter.cpp \\ \n")
     fout.write("    PythonAPI/src/PythonOutputData.cpp \\ \n")
-    fout.write("    PythonAPI/src/PythonCoreExposer.cpp \\ \n")
     # automatically generated files
     for i_file in range(0,len(files_src)):
         delim = " \\"
@@ -60,6 +59,7 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
     python_module_file = OutputTempDir+"/PythonModule.cpp"
     fout = open(python_module_file, 'w')
     fout.write("#include \"Python.h\"\n")
+    fout.write("#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION \n")
     fout.write("#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY \n")
     fout.write("#include \"numpy/arrayobject.h\"\n")
     fout.write("// the order of 3 guys above is important\n")

@@ -41,7 +41,7 @@
 //!
 class TestIsGISAXS7 : public IFunctionalTest
 {
- public:
+public:
     TestIsGISAXS7();
     virtual ~TestIsGISAXS7(){}
     virtual void execute();

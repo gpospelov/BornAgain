@@ -20,20 +20,30 @@
 #include "Types.h"
 #include <vector>
 
-class LatticeBasis : public Particle
+class BA_CORE_API_ LatticeBasis : public Particle
 {
- public:
+public:
     LatticeBasis();
-    LatticeBasis(const Particle& particle);
+    explicit LatticeBasis(const Particle& particle);
     LatticeBasis(const Particle& particle, std::vector<kvector_t > positions);
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 
-    void addParticle(const Particle& particle, std::vector<kvector_t > positions);
+    //! Returns a clone with inverted magnetic fields
+    virtual LatticeBasis *cloneInvertB() const;
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index);
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const {
+        p_visitor->visit(this);
+    }
 
-    virtual IFormFactor* createFormFactor() const;
+    void addParticle(const Particle& particle,
+                     std::vector<kvector_t > positions);
+
+    virtual void setAmbientMaterial(const IMaterial *p_material);
+
+    virtual IFormFactor* createFormFactor(
+            complex_t wavevector_scattering_factor) const;
 
     //! Returns number of different particles
     size_t getNbrParticles() const {return m_particles.size(); }
@@ -42,21 +52,29 @@ class LatticeBasis : public Particle
     size_t getNbrPositionsForParticle(size_t index) const
     { return m_positions_vector[check_index(index)].size(); }
 
-    //! Returns position of element with given index
-//    kvector_t getPosition(size_t index) const { return m_positions[check_index(index)]; }
-
     //! Returns particle with given index
-    const Particle *getParticle(size_t index) const { return m_particles[check_index(index)]; }
+    const Particle *getParticle(size_t index) const {
+        return m_particles[check_index(index)];
+    }
 
     std::vector<kvector_t> getParticlePositions(size_t index) const
     { return m_positions_vector[check_index(index)]; }
 
-    //! Creates vector of size/shape distributed particles corresponding to the particle with index i
+    //! Creates vector of size/shape distributed particles corresponding to the
+    //! particle with index i
     std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
 
- private:
+private:
     //! Checks index
-    inline size_t check_index(size_t index) const { return index < m_positions_vector.size() ? index : throw OutOfBoundsException("LatticeBasis::check_index() -> Index is out of bounds"); }
+    inline size_t check_index(size_t index) const {
+        return index < m_positions_vector.size()
+                ? index
+                : throw OutOfBoundsException("LatticeBasis::check_index()"
+                        "-> Index is out of bounds"); }
+
+    //! For internal use in cloneInvertB():
+    void addParticlePointer(Particle *p_particle,
+            std::vector<kvector_t > positions);
 
     std::vector<Particle *> m_particles;
     std::vector<std::vector<kvector_t> > m_positions_vector;

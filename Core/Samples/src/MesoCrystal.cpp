@@ -17,9 +17,8 @@
 
 MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
         IFormFactor* p_form_factor)
-: Particle(complex_t(1.0, 0.0))
-, mp_particle_structure(p_particle_structure)
-, mp_meso_form_factor(p_form_factor)
+    : mp_particle_structure(p_particle_structure)
+    , mp_meso_form_factor(p_form_factor)
 {
     setName("MesoCrystal");
     registerChild(mp_particle_structure);
@@ -28,9 +27,8 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
 
 MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
         IFormFactor& form_factor)
-: Particle(complex_t(1.0, 0.0))
-, mp_particle_structure(particle_structure.clone())
-, mp_meso_form_factor(form_factor.clone())
+    : mp_particle_structure(particle_structure.clone())
+    , mp_meso_form_factor(form_factor.clone())
 {
     setName("MesoCrystal");
     registerChild(mp_particle_structure);
@@ -45,7 +43,36 @@ MesoCrystal::~MesoCrystal()
 
 MesoCrystal* MesoCrystal::clone() const
 {
-    return new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
+    return new MesoCrystal(mp_particle_structure->clone(),
+            mp_meso_form_factor->clone());
+}
+
+MesoCrystal* MesoCrystal::cloneInvertB() const
+{
+    return new MesoCrystal(mp_particle_structure->cloneInvertB(),
+            mp_meso_form_factor->clone());
+}
+
+void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
+{
+    Particle::setAmbientMaterial(p_material);
+    mp_particle_structure->setAmbientMaterial(p_material);
+}
+
+IFormFactor* MesoCrystal::createFormFactor(
+        complex_t wavevector_scattering_factor) const
+{
+    return mp_particle_structure->createTotalFormFactor(
+            *mp_meso_form_factor, mp_ambient_material,
+            wavevector_scattering_factor);
+}
+
+void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)
+{
+    if (p_form_factor != mp_meso_form_factor) {
+        delete mp_meso_form_factor;
+        mp_meso_form_factor = p_form_factor;
+    }
 }
 
 std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(

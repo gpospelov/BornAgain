@@ -16,12 +16,13 @@
 #ifndef PROGRAMOPTIONS_H
 #define PROGRAMOPTIONS_H
 
+#include "WinDllMacros.h"
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/positional_options.hpp>
-GCC_DIAG_ON(unused-parameter);
 #include <boost/program_options/variables_map.hpp>
+GCC_DIAG_ON(unused-parameter);
 
 #include <string>
 
@@ -33,9 +34,9 @@ namespace bpo = boost::program_options;
 //! CoreOptionsDescription, AppOptionsDescription modules and then
 //! added to given class using add() method
 
-class ProgramOptions
+class BA_CORE_API_ ProgramOptions
 {
- public:
+public:
     typedef bpo::options_description Variables_t;
 
     ProgramOptions();
@@ -70,7 +71,7 @@ class ProgramOptions
     //! Returns reference to the positional options description
     bpo::positional_options_description& getPositionalOptions() { return m_positional_options; }
 
- private:
+private:
     bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)
     bpo::options_description m_options; //! options description, to be filled with add() from different program modules
     bpo::positional_options_description m_positional_options; //! positional options description, to be filled with addPositional() from main module

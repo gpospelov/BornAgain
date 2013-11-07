@@ -17,43 +17,74 @@
 
 FormFactorDWBA::FormFactorDWBA(IFormFactor *p_form_factor)
     : IFormFactorDecorator(p_form_factor)
-    , mp_RT(0)
+    , mp_specular_info(0)
 {
     setName("FormFactorDWBA");
 }
 
 FormFactorDWBA::~FormFactorDWBA()
 {
-    delete mp_RT;
-}
-
-complex_t FormFactorDWBA::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
-{
-    calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
-    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
-}
-
-void FormFactorDWBA::calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
-{
-    cvector_t k_itilde(k_i.x(), k_i.y(), -k_i.z());
-    Bin1DCVector k_f_bin_tilde =  k_f_bin;
-    k_f_bin_tilde.m_q_lower.setZ( -k_f_bin_tilde.m_q_lower.z() );
-    k_f_bin_tilde.m_q_upper.setZ( -k_f_bin_tilde.m_q_upper.z() );
-    // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
-    const complexpair_t& ai_RT = getRT(alpha_i);
-    const complexpair_t& af_RT = getRT(alpha_f);
-
-    m_term_S = ai_RT.second*mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f)*af_RT.second;
-    m_term_RS = ai_RT.first*mp_form_factor->evaluate(k_itilde, k_f_bin, alpha_i, alpha_f)*af_RT.second;
-    m_term_SR = ai_RT.second*mp_form_factor->evaluate(k_i, k_f_bin_tilde, alpha_i, alpha_f)*af_RT.first;
-    m_term_RSR = ai_RT.first*mp_form_factor->evaluate(k_itilde, k_f_bin_tilde, alpha_i, alpha_f)*af_RT.first;
+    delete mp_specular_info;
 }
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
-    FormFactorDWBA *p_new = new FormFactorDWBA(mp_form_factor->clone());
-    p_new->setReflectionTransmissionFunction(*mp_RT);
-    return p_new;
+    FormFactorDWBA *result = new FormFactorDWBA(mp_form_factor->clone());
+    if (mp_specular_info) {
+        result->setSpecularInfo(*mp_specular_info);
+    }
+    result->setName(getName());
+    return result;
+}
+
+complex_t FormFactorDWBA::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+{
+    calculateTerms(k_i, k_f_bin, alpha_f_bin);
+    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
+}
+
+void FormFactorDWBA::setSpecularInfo(
+        const LayerSpecularInfo& layer_specular_info)
+{
+    delete mp_specular_info;
+    mp_specular_info = layer_specular_info.clone();
+}
+
+void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+{
+    // Retrieve the two different incoming wavevectors in the layer
+    const ILayerRTCoefficients *p_in_coeff =
+            mp_specular_info->getInCoefficients();
+    cvector_t k_i_R = k_i;
+    k_i_R.setZ(p_in_coeff->getScalarKz());
+    cvector_t k_i_T = k_i;
+    k_i_T.setZ(-k_i_R.z());
+    // Retrieve the two different outgoing wavevectors in the layer
+    const ILayerRTCoefficients *p_out_lower = getOutCoeffs(alpha_f_bin.m_lower);
+    const ILayerRTCoefficients *p_out_upper = getOutCoeffs(alpha_f_bin.m_upper);
+    Bin1DCVector k_f_T_bin = k_f_bin;
+    k_f_T_bin.m_q_lower.setZ(p_out_lower->getScalarKz());
+    k_f_T_bin.m_q_upper.setZ(p_out_upper->getScalarKz());
+    Bin1DCVector k_f_R_bin = k_f_bin;
+    k_f_R_bin.m_q_lower.setZ(-k_f_T_bin.m_q_lower.z());
+    k_f_R_bin.m_q_upper.setZ(-k_f_T_bin.m_q_upper.z());
+
+
+
+    // The four different scattering contributions; S stands for scattering
+    // off the particle, R for reflection off the layer interface
+    double alpha_f = alpha_f_bin.getMidPoint();
+    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+    m_term_S = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i_T,
+            k_f_T_bin, alpha_f_bin) * p_out_coeff->getScalarT();
+    m_term_RS = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_i_R,
+            k_f_T_bin, alpha_f_bin) * p_out_coeff->getScalarT();
+    m_term_SR = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i_T,
+            k_f_R_bin, alpha_f_bin) * p_out_coeff->getScalarR();
+    m_term_RSR = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_i_R,
+            k_f_R_bin, alpha_f_bin) * p_out_coeff->getScalarR();
 }
 
 

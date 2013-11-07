@@ -18,9 +18,9 @@
 
 #include "IChiSquaredModule.h"
 
-class ChiSquaredModule : public IChiSquaredModule
+class BA_CORE_API_ ChiSquaredModule : public IChiSquaredModule
 {
- public:
+public:
     ChiSquaredModule() {}
     ChiSquaredModule(const ChiSquaredModule& other)
         : IChiSquaredModule(other) {}

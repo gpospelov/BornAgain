@@ -6,7 +6,6 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "FormFactorSphereGaussianRadius.h"
@@ -63,7 +62,8 @@ ISample* SampleBuilder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
-    size_t n_max_phi_rotation_steps = 180;
+    //size_t n_max_phi_rotation_steps = 180; // mesocrystal1_reference.txt.gz
+    size_t n_max_phi_rotation_steps = 2; // mesocrystal1b_reference.txt.gz
     size_t n_alpha_rotation_steps = 1;
 
 //    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
@@ -85,12 +85,13 @@ ISample* SampleBuilder::buildSample() const
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 
     return p_multi_layer;
@@ -121,7 +122,12 @@ MesoCrystal* SampleBuilder::createMesoCrystal(double stacking_radius_a, double s
     kvector_t bas_a = p_lat->getBasisVectorA();
     kvector_t bas_b = p_lat->getBasisVectorB();
     kvector_t bas_c = p_lat->getBasisVectorC();
-    Particle particle(n_particle, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
+
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
+
+    Particle particle(particle_material, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);

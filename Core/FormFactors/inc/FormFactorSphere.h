@@ -22,24 +22,25 @@
 
 //! Form factor of a truncated sphere.
 
-class FormFactorSphere : public IFormFactorBorn
+class BA_CORE_API_ FormFactorSphere : public IFormFactorBorn
 {
- public:
+public:
     FormFactorSphere(double radius, double height);
 
     ~FormFactorSphere() { delete m_integrator; }
 
-    virtual FormFactorSphere *clone() const
-    { return new FormFactorSphere(m_radius, m_height); }
+    virtual FormFactorSphere *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }
 
- protected:
+protected:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- private:
+private:
     complex_t Integrand(double Z, void* params) const;
 
     virtual void init_parameters();

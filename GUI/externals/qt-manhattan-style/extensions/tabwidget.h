@@ -21,10 +21,11 @@ public:
 
     void setFrameVisible(bool visible);
 
-    void addTab(const QString &name, QWidget *widget);
-    void insertTab(int index, const QString &name, QWidget *widget);
-    void removeTab(int index);
+    void addTab(const QString &name, QWidget *widget, const QColor &color = Qt::black);
+    void insertTab(int index, const QString &name, QWidget *widget, const QColor &color = Qt::black);
+    QWidget* removeTab(int index);
     int tabCount() const;
+    QString tabText(int index) const;
 
     int currentIndex() const;
     void setCurrentIndex(int index);
@@ -36,11 +37,11 @@ protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
     bool event(QEvent *event);
-    QSize minimumSizeHint() const;
 
 private:
     struct Tab {
         QString name;
+        QColor color;
         QWidget* widget;
     };
     enum HitArea { HITNOTHING, HITOVERFLOW, HITTAB };

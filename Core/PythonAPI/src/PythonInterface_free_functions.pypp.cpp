@@ -27,36 +27,43 @@ void register_free_functions(){
     
     }
 
-    { //::GetOutputData
+    { //::AppVersion::GetMajorVersionNumber
     
-        typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );
+        typedef int ( *GetMajorVersionNumber_function_type )(  );
         
         bp::def( 
-            "GetOutputData"
-            , GetOutputData_function_type( &::GetOutputData )
-            , ( bp::arg("simulation") ) );
+            "GetMajorVersionNumber"
+            , GetMajorVersionNumber_function_type( &::AppVersion::GetMajorVersionNumber ) );
     
     }
 
-    { //::GetOutputDataAxis
+    { //::AppVersion::GetMinorVersionNumber
     
-        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Simulation const &,int );
+        typedef int ( *GetMinorVersionNumber_function_type )(  );
         
         bp::def( 
-            "GetOutputDataAxis"
-            , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
-            , ( bp::arg("simulation"), bp::arg("naxis") ) );
+            "GetMinorVersionNumber"
+            , GetMinorVersionNumber_function_type( &::AppVersion::GetMinorVersionNumber ) );
     
     }
 
-    { //::GetOutputDataNdimensions
+    { //::AppVersion::GetPatchVersionNumber
     
-        typedef int ( *GetOutputDataNdimensions_function_type )( ::Simulation const & );
+        typedef int ( *GetPatchVersionNumber_function_type )(  );
         
         bp::def( 
-            "GetOutputDataNdimensions"
-            , GetOutputDataNdimensions_function_type( &::GetOutputDataNdimensions )
-            , ( bp::arg("simulation") ) );
+            "GetPatchVersionNumber"
+            , GetPatchVersionNumber_function_type( &::AppVersion::GetPatchVersionNumber ) );
+    
+    }
+
+    { //::AppVersion::GetVersionNumber
+    
+        typedef ::std::string ( *GetVersionNumber_function_type )(  );
+        
+        bp::def( 
+            "GetVersionNumber"
+            , GetVersionNumber_function_type( &::AppVersion::GetVersionNumber ) );
     
     }
 

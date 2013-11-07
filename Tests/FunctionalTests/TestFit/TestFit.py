@@ -5,6 +5,7 @@ import sys
 import os
 import subprocess
 import time
+import platform
 
 Tests = [
     "TestFit01",
@@ -44,8 +45,9 @@ def runTests():
   print ">>> Running TestFit, {0:-2d} tests total ...".format(len(Tests))
   for testName in Tests:
     command =  testName+"/"+testName # i.e. "path/executable" like "IsGISAXS01/IsGISAXS01"
+    if "Windows" in platform.system(): command =  testName+"\\"+testName+".exe"
     path = os.path.split(__file__)[0]
-    if path: command = path + "/" + command
+    if path: command = os.path.join(path, command)
     print "Running test ", testName
     start_time = time.time()
     stdout, stderr = run_command(command)

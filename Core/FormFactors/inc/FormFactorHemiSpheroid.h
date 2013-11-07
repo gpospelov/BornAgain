@@ -21,9 +21,9 @@
 
 //! Form factor of a ??
 
-class FormFactorHemiSpheroid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorHemiSpheroid : public IFormFactorBorn
 {
- public:
+public:
     //! @brief Cone constructor
     //! @param height of Conee
     //! @param radius half of Cone's base
@@ -34,14 +34,16 @@ class FormFactorHemiSpheroid : public IFormFactorBorn
     ~FormFactorHemiSpheroid() {}
     virtual FormFactorHemiSpheroid* clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
 
- protected:
+protected:
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
- private:
+private:
     double evaluate_for_q_real() const;
     double evaluate_for_q_imag() const;
     double HemiSpheroidIntegralReal(double Z, void* params) const;

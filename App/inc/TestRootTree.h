@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestRootTree.h
@@ -25,7 +25,7 @@
 
 class TestRootTree : public IFunctionalTest
 {
- public:
+public:
     TestRootTree() : mp_sample(0), mp_simulation(0), mp_data(0) {}
     virtual ~TestRootTree()
     {
@@ -45,7 +45,7 @@ class TestRootTree : public IFunctionalTest
 
     virtual void execute();
 
- private:
+private:
     //! example showing writing in the tree simple data structures
     void simple_write();
 

@@ -1,0 +1,70 @@
+BornAgain-0.9.1, released 2013.09.27
+  > Summary: Windows build, polarized neutrons and magnetic domains
+  * Bug #403: Debian unittest failure
+  * Feature #14: Choose platform-independent build system
+  * Feature #314: Windows compilation part 2
+  * Feature #360: Compile BornAgainCore and corresponding functional tests
+  * Feature #361: Compile BornAgainFit and corresponding minimizer libraries and functional tests
+  * Feature #362: Compile PythonAPI and run python functional tests
+  * Feature #363: Compile App using cmake-mingw and cmake-msvc
+  * Feature #364: Switch to cmake build system in windows build
+  * Feature #365: Switch to Microsoft VC2012 in windows build
+  * Feature #366: Create windows installer package
+  * Feature #367: Provide treatment of detector resolution for polarized neutrons
+  * Feature #368: Provide correct normalization of polarized neutron intensity
+  * Feature #388: Test polarization simulation with IsGISAXS03 example
+  * Feature #389: Make common interface for reflection/transmission coefficients and their maps
+  * Feature #390: Make implementations of interference functions transparent to whether coefficients are matrix- or scalar-valued
+  * Feature #391: Compile GUI for windows using cmake-mingw and cmake-msvc
+  * Feature #392: Use scalar reflection/transmission coefficients in absence of magnetization in layers (also when the particles might be magnetized)
+  * Feature #399: Provide diffuse calculation for polarized mesocrystals
+  * Feature #402: Use cmake in eclipse build
+  * Feature #411: Provide help functions for analysis of polarized OutputData structures
+  * Documentation #406: Review Software Architecture section
+  * Documentation #407: Review Installation section
+  * Documentation #408: Update wiki page to conform with the UserManual
+  * Refactoring #370: Remove unnecessary code duplication introduced during implementation of polarization
+  * Support #371: Simulate S. Disch's sample    
+
+BornAgain-0.9, released 2013.08.23
+  * FunctionalTests: fitting from python works two times faster than fitting from C++
+  * Compile Error on Ubuntu 12.04
+  * Strange warning in boost::python api generation
+  * crash on addInterferenceFunction() without any error message
+  * Fix zero eigenvalue case for specular magnetic case
+  * Move ROOT minimization into ThirdParty and so get rid from ROOT dependency
+  * Change conventions (feedback from GISS Workshop)
+  * Ease installation for users
+  * Implement batch mode for the Simulation (suggestion of Gunthard Benecke)
+  * Develop enough neutron polarization support to simulate samples from S. Disch and A. Klapper
+  * Remove Decorator pattern from user interface
+  * Move specular calculation to the SpecularMatrix class (for scalar)
+  * Add polarization state to Beam
+  * Add magnetic materials
+  * Develop MatrixSpecular for magnetic materials
+  * Use magnetic calculation when a magnetic material is present
+  * Add DWBA for magnetic particles
+  * Develop roughness calculation for matrix formalism
+  * Add new cmake build configuration to TeamCity
+  * Write description of isgisaxs01 example for User Manual using latex
+  * Populate examples directory with several well commented python scripts
+  * Write how to install in manual and wiki
+  * Adapt local python script for plotting data
+  * Write simple fitting example and corresponding section in the documentation
+  * Provide import of ProgramOptions (nthreads, level of logging) into libBornAgainCore
+  * Replace Particle's index of refraction with material
+  * Move all IsGISAXS geometries to Core/StandardSample directory
+  * cmake build in Ubuntu and corresponding how to in the documentation
+
+BornAgain-0.8.2, released 2013.07.30
+  * Particle interface changed to accept HomogeneousMaterial
+
+BornAgain-0.8.1, released 2013.07.26
+  * CMake based build system
+  * PythonAPI automatic code generation redesign
+  * User Manual v0.1
+  * libBornAgainFit
+  * FunctionalTest collection
+
+BornAgain-0.7.0, released 2013.04.10
+  * First public release

@@ -28,7 +28,6 @@ BeamTest::~BeamTest()
 
 }
 
-
 TEST_F(BeamTest, BeamInitialState)
 {
     EXPECT_EQ(double(1), emptyBeam.getIntensity());
@@ -38,6 +37,7 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_EQ(size_t(1), emptyBeam.getParameterPool()->size());
     EXPECT_EQ(double(1), emptyBeam.getParameterPool()->getParameter("intensity").getValue() );
 }
+
 
 TEST_F(BeamTest, BeamAssignment)
 {

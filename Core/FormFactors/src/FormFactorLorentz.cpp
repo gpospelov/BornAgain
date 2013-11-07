@@ -38,15 +38,16 @@ FormFactorLorentz::FormFactorLorentz(double height, double width)
 
 void FormFactorLorentz::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("width", &m_width);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("width", &m_width);
 }
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
-    FormFactorLorentz *p_clone = new FormFactorLorentz(m_height, m_width);
-    return p_clone;
+    FormFactorLorentz *result = new FormFactorLorentz(m_height, m_width);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t& q) const

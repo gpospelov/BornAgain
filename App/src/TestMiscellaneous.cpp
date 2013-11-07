@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestMiscellaneous.cpp
@@ -16,15 +16,13 @@
 #include "TestMiscellaneous.h"
 #include "SampleFactory.h"
 #include "OutputData.h"
-#include "OpticalFresnel.h"
+#include "SpecularMatrix.h"
 #include "Units.h"
-#include "DoubleToComplexInterpolatingFunction.h"
 #include "FormFactors.h"
 #include "DrawHelper.h"
 #include "Simulation.h"
 #include "IsGISAXSTools.h"
 #include "Lattice.h"
-#include "LayerDecorator.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
 #include "LatticeBasis.h"
@@ -33,6 +31,8 @@
 #include "Utils.h"
 #include "Types.h"
 #include "MessageService.h"
+#include "SampleBuilderFactory.h"
+#include "SamplePrintVisitor.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -41,6 +41,7 @@
 #include "TGraphPolar.h"
 #include "TRandom.h"
 #include "TBenchmark.h"
+#include "TStyle.h"
 
 TestMiscellaneous::TestMiscellaneous()
 {
@@ -48,16 +49,36 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    test_LogSystem();
+    test_PrintVisitor();
+    //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
-    //test_DoubleToComplexInterpolatingFunction();
+    //test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
 }
 
+
+/* ************************************************************************* */
+// test of log system
+/* ************************************************************************* */
+void TestMiscellaneous::test_PrintVisitor()
+{
+    std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs04_2DDL");
+    //std::cout << (*sample) << std::endl;
+
+    SamplePrintVisitor visitor;
+    sample->accept(&visitor);
+}
+
+
+/* ************************************************************************* */
+// test of log system
+/* ************************************************************************* */
 void TestMiscellaneous::test_LogSystem()
 {
     std::cout << "TestMiscellaneous::test_LogSystem() -> Info" << std::endl;
@@ -137,8 +158,9 @@ void TestMiscellaneous::test_KVectorContainer()
 /* ************************************************************************* */
 void TestMiscellaneous::test_OutputDataIOFactory()
 {
-    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputData<double > *data = OutputDataIOFactory::getOutputData(file_name);
+    std::string file_name = Utils::FileSystem::GetHomePath()
+      +"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
+    OutputData<double > *data = OutputDataIOFactory::readIntensityData(file_name);
 
     TCanvas *c1 = new TCanvas("c1","c1",800, 800);
     c1->cd(); gPad->SetRightMargin(0.14);
@@ -161,39 +183,12 @@ void TestMiscellaneous::test_FastSin()
     double dx = (xmax-xmin)/double(npx-1);
     for(int i=0; i<npx; ++i){
         double x = (xmin + dx*i);
-//        std::cout << x << " " << std::sin(x) << " " << MathFunctions::FastSin<double, true>(x) << std::endl;
-//        std::cout << "x:" << x << " std::sin " << std::sin(x) << " sine:" << sine(y) << " FastSin:" << MathFunctions::FastSin<double, true>(y) << std::endl;
-        //std::cout << "xx:" << x << " std::sin " << std::sin(x) << " sine:" << sine1(mod_pi(x))  << std::endl;
-//        double s1 = std::sin(x);
-//        double s2 = sine2(x);
-//        double s2 = MathFunctions::FastSin(x);
-//        std::cout << "xx:" << x << " std::sin " << s1 << " sine:" << s2 << " diff:" << s1-s2 << std::endl;
 
         complex_t cx(x, x/2.);
         complex_t cs1 = std::sin(cx);
         complex_t cs2 = MathFunctions::FastSin(cx);
         std::cout << "xx:" << cx << " std::sin " << cs1 << " sine:" << cs2 << " diff:" << cs1-cs2 << std::endl;
     }
-
-//    const int nevents = 1000000000;
-////    TRandom mr;
-////    mr.SetSeed(1);
-
-//    TBenchmark mb;
-//    mb.Start("sin");
-//    for(int i=0; i<nevents; i++){
-////        double x = mr.Rndm();
-//        //double y = std::sin(1.0) + std::sin(2.0);
-//        //double y = MathFunctions::FastSin(1.0)+MathFunctions::FastSin(2.0);
-//        complex_t x(1.0,-.5);
-//        //complex_t y = std::sin(x);
-//        complex_t y = MathFunctions::FastComplexSin(x);
-//        (void)y;
-//    }
-//    mb.Stop("sin");
-
-//    mb.Show("sin");
-
 }
 
 /* ************************************************************************* */
@@ -201,7 +196,8 @@ void TestMiscellaneous::test_FastSin()
 /* ************************************************************************* */
 void TestMiscellaneous::test_DrawMesocrystal()
 {
-    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal2"));
+    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(
+            SampleFactory::createSample("MesoCrystal2"));
     DrawHelper::DrawMesoCrystal(m_sample);
 }
 
@@ -225,8 +221,10 @@ void TestMiscellaneous::test_FormFactor()
     h1[0] = new TH1D("h10","h10", nbins, qmin-dq/2., qmax+dq/2.);
     h1[1] = new TH1D("h11","h11", nbins, qmin-dq/2., qmax+dq/2.);
     h1[2] = new TH1D("h12","h12", nbins, qmin-dq/2., qmax+dq/2.);
-    TH2D *h2 = new TH2D("h2","h2", nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
-    TH3D *h3 = new TH3D("h3","h3", nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.,nbins, qmin-dq/2., qmax+dq/2.);
+    TH2D *h2 = new TH2D("h2","h2", nbins, qmin-dq/2., qmax+dq/2.,
+            nbins, qmin-dq/2., qmax+dq/2.);
+    TH3D *h3 = new TH3D("h3","h3", nbins, qmin-dq/2., qmax+dq/2.,
+            nbins, qmin-dq/2., qmax+dq/2.,nbins, qmin-dq/2., qmax+dq/2.);
 
 
     std::vector<TH2D *> vh2_xy;
@@ -240,17 +238,20 @@ void TestMiscellaneous::test_FormFactor()
     for(int i=0; i<nbins; ++i) {
         char str[128];
         sprintf(str, "h2_xy_z%d",i);
-        vh2_xy[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+        vh2_xy[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
+                nbins, qmin-dq/2., qmax+dq/2.);
         vh2_xy[i]->GetXaxis()->SetTitle("x");
         vh2_xy[i]->GetYaxis()->SetTitle("y");
 
         sprintf(str, "h2_xz_y%d",i);
-        vh2_xz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+        vh2_xz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
+                nbins, qmin-dq/2., qmax+dq/2.);
         vh2_xz[i]->GetXaxis()->SetTitle("x");
         vh2_xz[i]->GetYaxis()->SetTitle("z");
 
         sprintf(str, "h2_yz_x%d",i);
-        vh2_yz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+        vh2_yz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2.,
+                nbins, qmin-dq/2., qmax+dq/2.);
         vh2_yz[i]->GetXaxis()->SetTitle("y");
         vh2_yz[i]->GetYaxis()->SetTitle("z");
     }
@@ -272,18 +273,19 @@ void TestMiscellaneous::test_FormFactor()
         cvector_t q(x,y,z);
         cvector_t q0(0,0,0);
         Bin1DCVector q0_bin(q0, q0);
-        double value = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
-        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0)));
+        Bin1D zero_bin = { 0.0, 0.0 };
+        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
-        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0)));
+        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, zero_bin)));
 
         if(iy==0 && iz==0) {
             cvector_t kx(x,1.0,1.0);
             cvector_t ky(1.0,x,1.0);
             cvector_t kz(1.0,1.0,x);
-            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, 0.0, 0.0)));
-            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, 0.0, 0.0)));
-            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, 0.0, 0.0)));
+            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, zero_bin)));
+            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, zero_bin)));
+            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, zero_bin)));
         }
 
         vh2_xy[iz] ->Fill(x,y,value);
@@ -324,88 +326,88 @@ void TestMiscellaneous::test_FormFactor()
 }
 
 /* ************************************************************************* */
-// test double to complex interpolating function
+// plots of form factor :
+// contourplot (amp & phase or Re & Im) and log(|F|**2) vs. log(q)
 /* ************************************************************************* */
-void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
+void TestMiscellaneous::test_FormFactor1()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
+    FormFactorFullSphere ff_fullsphere(5.*Units::nanometer);
 
-    OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis("alpha_f", 200, 0.0*Units::degree, 2.0*Units::degree);
+    FormFactorCylinder ff_cylinder(10.*Units::nanometer,
+                                   5.*Units::nanometer);
+   //   IFormFactor& ff = ff_cylinder;
 
-    OpticalFresnel FresnelCalculator;
+    FormFactorParallelepiped ff_para(7.*Units::nanometer,
+                                     6.*Units::nanometer);
+   //   IFormFactor& ff = ff_para;
 
-    const IAxis *p_alpha_axis = data_alpha->getAxis("alpha_f");
-    std::map<double, OpticalFresnel::MultiLayerCoeff_t> Fresnel_coeff_map;
-    for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
-        double angle = (*p_alpha_axis)[i];
-        kvector_t kvec;
-        kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
-        OpticalFresnel::MultiLayerCoeff_t coeffs;
-        FresnelCalculator.execute(*sample, kvec, coeffs);
-        Fresnel_coeff_map[angle] = coeffs;
+    FormFactorPyramid ff_pyramid(10.*Units::nanometer,
+                                 5.*Units::nanometer,
+                                 Units::deg2rad(54.73 ));
+   //   IFormFactor& ff = ff_pyramid;
+
+    FormFactorPrism3 ff_prism3(5.*Units::nanometer,
+                              5.*Units::nanometer);
+   //   IFormFactor& ff = ff_prism3;
+
+    FormFactorSphere ff_sphere(5.*Units::nanometer,
+                               5.*Units::nanometer);
+   //   IFormFactor& ff = ff_sphere;
+
+    FormFactorBox ff_box(5*Units::nanometer,
+                         5*Units::nanometer,
+                         5*Units::nanometer);
+  //    IFormFactor& ff = ff_box;
+
+    IFormFactor& ff = ff_fullsphere;
+
+    double qmin(-4.0), qmax(4.0);
+    double lambda = 1.0;
+    double alpha_i = 0.2*M_PI/180.0;
+    cvector_t k_i;
+    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+    int nbins(101);
+    double dq =(qmax-qmin)/(nbins-1);
+
+    TH2D *vh2_xy = new TH2D("vh2_xy","vh2_xy;q_{x};q_{y};qz",nbins, qmin-dq/2.,
+            qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+
+    OutputData<double> *p_data = new OutputData<double>();
+    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
+    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
+    p_data->addAxis(std::string("qz"), 1, qmin, qmax);
+    OutputData<double>::const_iterator it = p_data->begin();
+    double z = p_data->getValueOfAxis("qz", it.getIndex());
+
+    while (it != p_data->end()) {
+        double x = p_data->getValueOfAxis("qx", it.getIndex());
+        double y = p_data->getValueOfAxis("qy", it.getIndex());
+
+        cvector_t q(x,y,z);
+        cvector_t q0(0,0,0);
+        Bin1DCVector q0_bin(q0, q0);
+        Bin1D zero_bin = { 0.0, 0.0 };
+        double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        //double valuep = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        //double valuer = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+        //double valuei = std::abs(ff.evaluate(q,q0_bin, zero_bin));
+
+        vh2_xy->Fill(x,y,value);
+
+        ++it;
     }
 
-    std::vector<DoubleToComplexInterpolatingFunction *> m_TT;
-    std::vector<DoubleToComplexInterpolatingFunction *> m_RR;
-    m_TT.resize(sample->getNumberOfInterfaces(), 0);
-    m_RR.resize(sample->getNumberOfInterfaces(), 0);
-
-    for(size_t i_layer=0; i_layer<sample->getNumberOfLayers(); ++i_layer) {
-        std::map<double, complex_t> T_map;
-        std::map<double, complex_t> R_map;
-        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=Fresnel_coeff_map.begin();
-                it!=Fresnel_coeff_map.end(); ++it) {
-            double angle = (*it).first;
-            complex_t T = (*it).second[i_layer].T;
-            complex_t R = (*it).second[i_layer].R;
-            T_map[angle] = T;
-            R_map[angle] = R;
-        }
-        DoubleToComplexInterpolatingFunction T_function(T_map);
-        DoubleToComplexInterpolatingFunction R_function(R_map, DoubleToComplexInterpolatingFunction::Nearest);
-
-        m_TT[i_layer] = T_function.clone();
-        m_RR[i_layer] = R_function.clone();
-    }
-
-    double alpha_min(0), alpha_max(2.0*Units::degree);
-    int npoints = 200*2;
-
-    TGraph *gr1_exact = new TGraph(npoints);
-    TGraph *gr2_interp = new TGraph(npoints);
-    TGraph *gr3_diff = new TGraph(npoints);
-
-    for(int i_point=0; i_point < npoints; i_point++){
-        int i_layer_sel = 0;
-        double angle = alpha_min + i_point*(alpha_max-alpha_min)/double(npoints-1);
-        kvector_t kvec;
-        kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
-        OpticalFresnel::MultiLayerCoeff_t coeffs;
-        FresnelCalculator.execute(*sample, kvec, coeffs);
-        complex_t R = m_RR[i_layer_sel]->evaluate(angle);
-        std::cout << i_point << " " << angle << " true R:" << coeffs[i_layer_sel].R << " interp:" << R << " " << std::abs(R - coeffs[i_layer_sel].R) << std::endl;
-//        complex_t r = coeffs[i_layer_sel].R;
-//        std::cout << "RRR " << r << " abs:" << std::abs(r) << " arg:" << std::arg(r) << " " << Units::rad2deg(std::arg(r)) << std::endl << std::endl;
-        gr1_exact->SetPoint(i_point, angle, std::abs(coeffs[i_layer_sel].R) );
-        gr2_interp->SetPoint(i_point, angle, std::abs(R) );
-        gr3_diff->SetPoint(i_point, angle, std::abs(R) - std::abs(coeffs[i_layer_sel].R) );
-    }
-
-
-    TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
-    c1->Divide(2,2);
-
-    c1->cd(1);
-    gr1_exact->SetTitle("exact");
-    gr1_exact->Draw("apl");
-    c1->cd(2);
-    gr2_interp->SetTitle("interpolated");
-    gr2_interp->Draw("apl");
-    c1->cd(3);
-    gr3_diff->SetTitle("difference");
-    gr3_diff->Draw("apl");
+    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
+    DrawHelper::SetMagnifier(c1_xy);
+    //c1_xy->Divide(2,2);
+        c1_xy->cd(1);
+                gPad->SetRightMargin(0.11);
+                gPad->SetLogz();
+                vh2_xy->GetXaxis()->SetNdivisions(510);
+                vh2_xy->GetYaxis()->SetNdivisions(510);
+                vh2_xy->SetContour(99);
+                gStyle->SetPalette(1);
+                gStyle->SetOptStat(0);
+                vh2_xy->Draw("cont4 z");
+                c1_xy->Print("test.eps");
 }
-
-
-

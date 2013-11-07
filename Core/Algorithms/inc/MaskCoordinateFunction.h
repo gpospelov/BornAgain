@@ -20,53 +20,53 @@
 #include <cstddef>
 #include "ICloneable.h"
 
-//! ?
+//! base class for all kind of OutputData's masks
 
-class MaskCoordinateFunction : public ICloneable
+class BA_CORE_API_ MaskCoordinateFunction : public ICloneable
 {
- public:
+public:
     MaskCoordinateFunction(size_t rank);
     virtual MaskCoordinateFunction *clone() const;
     virtual ~MaskCoordinateFunction() {}
 
     bool isMasked(size_t rank, const int *coordinates) const;
     void setInvertFlag(bool invert) { m_invert = invert; }
- protected:
+protected:
     virtual bool isInStandardMaskedArea(const int *coordinates) const;
     size_t m_rank;
     bool m_invert;  //!< if true, the complement is masked instead
 };
 
-//! ?
+//! rectangular mask for OutputData
 
-class MaskCoordinateRectangleFunction : public MaskCoordinateFunction
+class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
- public:
+public:
     MaskCoordinateRectangleFunction(size_t rank, const int *minima, const int *maxima);
     virtual MaskCoordinateRectangleFunction *clone() const;
     virtual ~MaskCoordinateRectangleFunction();
 
- protected:
+protected:
     virtual bool isInStandardMaskedArea(const int *coordinates) const;
 
- private:
+private:
     int *m_minima;
     int *m_maxima;
 };
 
-//! ?
+//! ellipse shaped mask for OutputData
 
-class MaskCoordinateEllipseFunction : public MaskCoordinateFunction
+class BA_CORE_API_ MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {
- public:
+public:
     MaskCoordinateEllipseFunction(size_t rank, const int *center, const int *radii);
     virtual MaskCoordinateEllipseFunction *clone() const;
     virtual ~MaskCoordinateEllipseFunction();
 
- protected:
+protected:
     virtual bool isInStandardMaskedArea(const int *coordinates) const;
 
- private:
+private:
     int *m_center;
     int *m_radii;
 };

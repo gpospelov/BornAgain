@@ -27,7 +27,7 @@ static const double micrometer  = 1.e+3*nanometer;
 static const double millimeter  = 1.e+6*nanometer;
 static const double meter       = 1.e+9*nanometer;
 
-// symbols
+// Symbols for length
 static const double nm  = nanometer;
 
 // Angle
@@ -39,13 +39,17 @@ static const double steradian = 1.;
 inline double rad2deg(double angle) {return angle/degree; }
 inline double deg2rad(double angle) {return angle*degree; }
 
-// symbols
+// Symbols for (solid) angle
 static const double rad  = radian;
 static const double mrad = milliradian;
 static const double sr   = steradian;
 static const double deg  = degree;
 
-// definitions of Pi for fast sine calculations
+// Magnetic field
+static const double tesla       = 1.;
+static const double gauss       = 1e-4;
+
+// Definitions of Pi for fast sine calculations
 static const double PI          = 3.14159265358979323846264338327950288f;
 static const double PI2         = 6.28318530717958647692528676655900577f;
 static const double PID2        = 1.57079632679489661923132169163975144f;

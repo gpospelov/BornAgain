@@ -22,10 +22,11 @@
 FormFactorGauss::FormFactorGauss(double volume)
 {
     setName("FormFactorGauss");
-    double R = std::pow(volume, 1.0/3.0);
-    m_height = R;
-    m_width = R;
+    m_height = std::pow(volume, 1.0/3.0);
+    m_width = m_height;
     init_parameters();
+    m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
+               / 3.0);
 }
 
 FormFactorGauss::FormFactorGauss(double height, double width)
@@ -34,32 +35,41 @@ FormFactorGauss::FormFactorGauss(double height, double width)
     m_height = height;
     m_width = width;
     init_parameters();
+    m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
+               / 3.0);
 }
 
 //! Registers some class members for later access via parameter pool
 
 void FormFactorGauss::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("width", &m_width);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("width", &m_width);
 }
 
 FormFactorGauss* FormFactorGauss::clone() const
 {
-    FormFactorGauss *p_clone = new FormFactorGauss(m_height, m_width);
-    return p_clone;
+    FormFactorGauss *result = new FormFactorGauss(m_height, m_width);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const
 {
-    double R = m_width;
-    double H = m_height;
+    complex_t qzHdiv2 = m_height*q.z()/2.0;
+    double qzh = q.z().real()*m_height;
+    if (std::abs(qzh)>m_max_ql) return 0.0;
+    double qxr = q.x().real()*m_width;
+    if (std::abs(qxr)>m_max_ql) return 0.0;
+    double qyr = q.y().real()*m_width;
+    if (std::abs(qyr)>m_max_ql) return 0.0;
 
-    complex_t z_part = H*std::exp(-q.z()*q.z()*H*H/8.0/M_PI);
-    complex_t radial_part = R*R*
-        std::exp(-(q.x()*q.x()+q.y()*q.y())*R*R/8.0/M_PI);
-    return radial_part*z_part;
+
+    complex_t z_part = std::exp(complex_t(0.,1.)*qzHdiv2) * m_height
+            * std::exp(-qzh*qzh/4.0/M_PI);
+    double radial_part = m_width * m_width
+            * std::exp(-(qxr*qxr+qyr*qyr)/4.0/M_PI);
+    complex_t result = radial_part * z_part;
+    return result;
 }
-
-

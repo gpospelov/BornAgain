@@ -18,21 +18,19 @@
 
 #include "IInterferenceFunction.h"
 #include "FTDistributions.h"
+#include <iostream>
 
-//! ?
 
-class InterferenceFunction2DParaCrystal : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
- public:
+public:
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
-    virtual InterferenceFunction2DParaCrystal *clone() const {
-        InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(m_lattice_lengths[0], m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
-        p_new->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
-        p_new->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
-        p_new->setIntegrationOverXi(m_integrate_xi);
-        return p_new;
-    }
+
+    virtual InterferenceFunction2DParaCrystal *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     static InterferenceFunction2DParaCrystal *createSquare(double peak_distance, double corr_length=0.0,
             double domain_size_1=0.0, double domain_size_2=0.0);
     static InterferenceFunction2DParaCrystal *createHexagonal(double peak_distance, double corr_length=0.0,
@@ -51,7 +49,8 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
- protected:
+
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -64,7 +63,7 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
     double m_corr_length;
     bool m_use_corr_length;
     double m_domain_sizes[2];
- private:
+private:
 
     //! Returns interference function for fixed rotation xi
     double interferenceForXi(double xi, void *params) const;

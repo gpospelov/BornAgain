@@ -1,94 +1,98 @@
 #include "Python.h"
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION 
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY 
 #include "numpy/arrayobject.h"
 // the order of 3 guys above is important
 
-#include "Beam.pypp.h" 
-#include "Bin1D.pypp.h" 
-#include "Bin1DCVector.pypp.h" 
-#include "Crystal.pypp.h" 
-#include "cvector_t.pypp.h" 
-#include "Detector.pypp.h" 
-#include "FormFactorBox.pypp.h" 
-#include "FormFactorCone.pypp.h" 
-#include "FormFactorCrystal.pypp.h" 
-#include "FormFactorCylinder.pypp.h" 
-#include "FormFactorDecoratorDebyeWaller.pypp.h" 
-#include "FormFactorEllipsoid.pypp.h" 
-#include "FormFactorFullSphere.pypp.h" 
-#include "FormFactorFullSpheroid.pypp.h" 
-#include "FormFactorGauss.pypp.h" 
-#include "FormFactorHemiSpheroid.pypp.h" 
-#include "FormFactorLorentz.pypp.h" 
-#include "FormFactorParallelepiped.pypp.h" 
-#include "FormFactorPrism3.pypp.h" 
-#include "FormFactorPrism6.pypp.h" 
-#include "FormFactorPyramid.pypp.h" 
-#include "FormFactorSphere.pypp.h" 
-#include "FormFactorSphereGaussianRadius.pypp.h" 
-#include "FTDistribution2DCauchy.pypp.h" 
-#include "HomogeneousMaterial.pypp.h" 
-#include "IAxis.pypp.h" 
-#include "ICloneable.pypp.h" 
-#include "IClusteredParticles.pypp.h" 
-#include "ICompositeSample.pypp.h" 
-#include "IDecoration.pypp.h" 
-#include "IDetectorResolution.pypp.h" 
-#include "IFormFactor.pypp.h" 
-#include "IFormFactorBorn.pypp.h" 
-#include "IFormFactorDecorator.pypp.h" 
+#include "RotateZ_3D.pypp.h" 
 #include "IFTDistribution2D.pypp.h" 
-#include "IInterferenceFunction.pypp.h" 
-#include "IMaterial.pypp.h" 
-#include "Instrument.pypp.h" 
-#include "InterferenceFunction1DParaCrystal.pypp.h" 
-#include "InterferenceFunction2DLattice.pypp.h" 
-#include "InterferenceFunction2DParaCrystal.pypp.h" 
-#include "InterferenceFunctionNone.pypp.h" 
-#include "IParameterized.pypp.h" 
-#include "IResolutionFunction2D.pypp.h" 
-#include "ISample.pypp.h" 
-#include "ISampleBuilder.pypp.h" 
-#include "ISelectionRule.pypp.h" 
-#include "ITransform3D.pypp.h" 
-#include "kvector_t.pypp.h" 
-#include "Lattice.pypp.h" 
-#include "Lattice2DIFParameters.pypp.h" 
+#include "Detector.pypp.h" 
 #include "LatticeBasis.pypp.h" 
+#include "ParticleCoreShell.pypp.h" 
+#include "Beam.pypp.h" 
+#include "Lattice.pypp.h" 
+#include "FormFactorCylinder.pypp.h" 
+#include "ICloneable.pypp.h" 
+#include "StochasticSampledParameter.pypp.h" 
+#include "HomogeneousMaterial.pypp.h" 
+#include "vector_integer_t.pypp.h" 
+#include "AxisDouble.pypp.h" 
+#include "IAxis.pypp.h" 
 #include "Layer.pypp.h" 
-#include "LayerDecorator.pypp.h" 
-#include "LayerInterface.pypp.h" 
-#include "LayerRoughness.pypp.h" 
+#include "IFormFactor.pypp.h" 
+#include "IObservable.pypp.h" 
+#include "FormFactorParallelepiped.pypp.h" 
+#include "RealParameterWrapper.pypp.h" 
 #include "MaterialManager.pypp.h" 
-#include "MesoCrystal.pypp.h" 
+#include "ResolutionFunction2DSimple.pypp.h" 
+#include "SimulationParameters.pypp.h" 
+#include "AxisBin.pypp.h" 
+#include "FormFactorGauss.pypp.h" 
+#include "FormFactorFullSpheroid.pypp.h" 
+#include "PythonInterface_global_variables.pypp.h" 
+#include "ISampleBuilder.pypp.h" 
+#include "StochasticParameter_t.pypp.h" 
+#include "StochasticDoubleGaussian.pypp.h" 
+#include "FormFactorPrism6.pypp.h" 
+#include "InterferenceFunction2DLattice.pypp.h" 
+#include "FormFactorPyramid.pypp.h" 
+#include "FormFactorBox.pypp.h" 
+#include "IResolutionFunction2D.pypp.h" 
+#include "IFormFactorBorn.pypp.h" 
 #include "MultiLayer.pypp.h" 
-#include "ndimdata_t.pypp.h" 
-#include "OutputDataIOFactory.pypp.h" 
+#include "ITransform3D.pypp.h" 
+#include "ParticleDecoration.pypp.h" 
+#include "IDecoration.pypp.h" 
+#include "FTDistribution2DCauchy.pypp.h" 
+#include "ICompositeSample.pypp.h" 
+#include "cvector_t.pypp.h" 
 #include "ParameterPool.pypp.h" 
 #include "Particle.pypp.h" 
-#include "ParticleBuilder.pypp.h" 
-#include "ParticleCoreShell.pypp.h" 
-#include "ParticleDecoration.pypp.h" 
-#include "ParticleInfo.pypp.h" 
-#include "PositionParticleInfo.pypp.h" 
-#include "PythonInterface_free_functions.pypp.h" 
-#include "PythonInterface_global_variables.pypp.h" 
-#include "RealParameterWrapper.pypp.h" 
-#include "ResolutionFunction2DSimple.pypp.h" 
-#include "RotateY_3D.pypp.h" 
-#include "RotateZ_3D.pypp.h" 
-#include "SimpleSelectionRule.pypp.h" 
-#include "Simulation.pypp.h" 
-#include "SimulationParameters.pypp.h" 
-#include "StochasticDoubleGate.pypp.h" 
-#include "StochasticDoubleGaussian.pypp.h" 
-#include "StochasticParameter_t.pypp.h" 
-#include "StochasticSampledParameter.pypp.h" 
+#include "FormFactorCone.pypp.h" 
+#include "FormFactorPrism3.pypp.h" 
+#include "InterferenceFunction2DParaCrystal.pypp.h" 
 #include "vdouble1d_t.pypp.h" 
+#include "MesoCrystal.pypp.h" 
+#include "RotateY_3D.pypp.h" 
+#include "FormFactorDecoratorDebyeWaller.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
-#include "vector_integer_t.pypp.h" 
-#include "vector_kvector_t.pypp.h" 
+#include "IMaterial.pypp.h" 
+#include "IFormFactorDecorator.pypp.h" 
+#include "Instrument.pypp.h" 
+#include "IDetectorResolution.pypp.h" 
+#include "ISelectionRule.pypp.h" 
+#include "Bin1D.pypp.h" 
+#include "ParticleInfo.pypp.h" 
 #include "vector_longinteger_t.pypp.h" 
+#include "FormFactorHemiSpheroid.pypp.h" 
+#include "LayerInterface.pypp.h" 
+#include "FormFactorFullSphere.pypp.h" 
+#include "PositionParticleInfo.pypp.h" 
+#include "LayerRoughness.pypp.h" 
+#include "FormFactorCrystal.pypp.h" 
+#include "IntensityData.pypp.h" 
+#include "IParameterized.pypp.h" 
+#include "Bin1DCVector.pypp.h" 
+#include "StochasticDoubleGate.pypp.h" 
+#include "IClusteredParticles.pypp.h" 
+#include "IInterferenceFunction.pypp.h" 
+#include "SimpleSelectionRule.pypp.h" 
+#include "FormFactorLorentz.pypp.h" 
+#include "OutputDataIOFactory.pypp.h" 
+#include "vector_kvector_t.pypp.h" 
+#include "InterferenceFunction1DParaCrystal.pypp.h" 
+#include "InterferenceFunctionNone.pypp.h" 
+#include "Crystal.pypp.h" 
+#include "PythonInterface_free_functions.pypp.h" 
+#include "kvector_t.pypp.h" 
+#include "FormFactorEllipsoid.pypp.h" 
+#include "Simulation.pypp.h" 
+#include "ISample.pypp.h" 
+#include "IObserver.pypp.h" 
+#include "ParticleBuilder.pypp.h" 
+#include "FormFactorSphereGaussianRadius.pypp.h" 
+#include "Lattice2DIFParameters.pypp.h" 
+#include "FormFactorSphere.pypp.h" 
 #include "__call_policies.pypp.hpp" 
 #include "__convenience.pypp.hpp" 
 
@@ -101,6 +105,9 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
+    register_IAxis_class();
+    register_AxisBin_class();
+    register_AxisDouble_class();
     register_IParameterized_class();
     register_Beam_class();
     register_Bin1D_class();
@@ -140,10 +147,11 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_RotateZ_3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
-    register_IAxis_class();
     register_IDecoration_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
+    register_IObservable_class();
+    register_IObserver_class();
     register_IResolutionFunction2D_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
@@ -157,13 +165,12 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Particle_class();
     register_LatticeBasis_class();
     register_Layer_class();
-    register_LayerDecorator_class();
     register_LayerInterface_class();
     register_LayerRoughness_class();
     register_MaterialManager_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
-    register_ndimdata_t_class();
+    register_IntensityData_class();
     register_OutputDataIOFactory_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();

@@ -19,8 +19,12 @@
 #include "ProgramOptions.h"
 #include "DWBASimulation.h"
 #include "MessageService.h"
+#include "OutputDataFunctions.h"
 
+#include "Macros.h"
+GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
+GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
 
 Simulation::Simulation()
@@ -29,6 +33,7 @@ Simulation::Simulation()
 , mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(0)
 {
@@ -36,17 +41,20 @@ Simulation::Simulation()
 }
 
 Simulation::Simulation(const Simulation& other)
-: IParameterized(other), ICloneable()
+: ICloneable(), IParameterized(other)
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
 , m_instrument(other.m_instrument)
 , m_sim_params(other.m_sim_params)
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
+    m_polarization_output.copyFrom(other.m_polarization_output);
+
     init_parameters();
 }
 
@@ -56,6 +64,7 @@ Simulation::Simulation(const ProgramOptions *p_options)
 , mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -69,6 +78,7 @@ Simulation::Simulation(
 , mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -82,6 +92,7 @@ Simulation::Simulation(
 , mp_sample_builder(p_sample_builder)
 , m_instrument()
 , m_intensity_map()
+, m_polarization_output()
 , m_is_normalized(false)
 , mp_options(p_options)
 {
@@ -109,54 +120,68 @@ void Simulation::runSimulation()
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
     m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 
-    // retrieve threading information
-    int n_threads_total=0;
-    if (mp_options)
-        n_threads_total = (*mp_options)["threads"].as<int>();
-    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_threads=" <<
-                          n_threads_total << ", sample: " << *mp_sample;
-    // TODO: --threads=1 is ignored
-//    n_threads_total = -1;
-//    msglog(MSG::WARNING) << "TEMPORARILY SET n_threads_total = " << n_threads_total;
+    // retrieve batch and threading information
+    if (mp_options) {
+        if (mp_options->find("nbatches")) {
+            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
+        }
+        if (mp_options->find("currentbatch")) {
+            m_thread_info.current_batch =
+                    (*mp_options)["currentbatch"].as<int>();
+        }
+        if (mp_options->find("threads")) {
+            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
+        }
+    }
 
-    if(n_threads_total<0) {
+    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
+//    std::cout << "Simulation::runSimulation(): n_batches = " <<
+            m_thread_info.n_batches <<
+            ", current batch = " << m_thread_info.current_batch <<
+            ", n_threads = " << m_thread_info.n_threads <<
+            ", sample: " << *mp_sample;
+
+    if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
+    if(m_thread_info.n_threads==1) {
         // Single thread.
-        DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+        DWBASimulation *p_dwba_simulation =
+                mp_sample->createDWBASimulation();
         if (!p_dwba_simulation)
             throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
+        p_dwba_simulation->setThreadInfo(m_thread_info);
         p_dwba_simulation->run();  // the work is done here
-        m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+        addToIntensityMaps(p_dwba_simulation);
         delete p_dwba_simulation;
     } else {
         // Multithreading.
-        if(n_threads_total == 0 )  {
+        if(m_thread_info.n_threads == 0 )  {
             // Take optimal number of threads from the hardware.
-            n_threads_total = (int)boost::thread::hardware_concurrency();
+            m_thread_info.n_threads =
+                    (int)boost::thread::hardware_concurrency();
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
-                n_threads_total << " (taken from hardware concurrency)";
+                m_thread_info.n_threads << " (taken from hardware concurrency)";
         } else {
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
-                n_threads_total;
+                m_thread_info.n_threads;
         }
         std::vector<boost::thread*> threads;
         std::vector<DWBASimulation*> simulations;
 
         // Initialize n simulations.
-        ThreadInfo thread_info;
-        thread_info.n_threads = n_threads_total;
-        for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
+        for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
             DWBASimulation *p_dwba_simulation =
                 mp_sample->createDWBASimulation();
             if (!p_dwba_simulation) throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);
-            thread_info.i_thread = i_thread;
-            p_dwba_simulation->setThreadInfo(thread_info);
+            m_thread_info.current_thread = i_thread;
+            p_dwba_simulation->setThreadInfo(m_thread_info);
             simulations.push_back(p_dwba_simulation);
         }
 
@@ -174,12 +199,18 @@ void Simulation::runSimulation()
 
         // Merge simulated data.
         for(size_t i=0; i<simulations.size(); ++i) {
-            m_intensity_map += simulations[i]->getDWBAIntensity();
+            addToIntensityMaps(simulations[i]);
             delete simulations[i];
             delete threads[i];
         }
     }
-    m_instrument.applyDetectorResolution(&m_intensity_map);
+    if( mp_sample->containsMagneticMaterial() ) {
+        m_instrument.applyDetectorResolution(&m_intensity_map,
+                &m_polarization_output);
+    }
+    else {
+        m_instrument.applyDetectorResolution(&m_intensity_map);
+    }
 }
 
 void Simulation::runSimulationElement(size_t index)
@@ -191,6 +222,7 @@ void Simulation::runSimulationElement(size_t index)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
     m_intensity_map.setAllTo(0);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
     if (!p_dwba_simulation)
@@ -205,7 +237,7 @@ void Simulation::runSimulationElement(size_t index)
 void Simulation::normalize()
 {
     if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map);
+        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
         m_is_normalized = true;
     }
 }
@@ -301,11 +333,14 @@ void Simulation::init_parameters()
 void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
+    m_polarization_output.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+        m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
     }
     m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
 void Simulation::updateSample()
@@ -316,7 +351,8 @@ void Simulation::updateSample()
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             msglog(MSG::INFO) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
-            setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
+            // p_new_sample belongs to python, don't delete it
+            setSample(*p_new_sample);
         } else {
             delete mp_sample;
             mp_sample = p_new_sample;
@@ -328,10 +364,13 @@ void Simulation::setDetectorParameters(const OutputData<double >& output_data)
 {
     m_instrument.matchDetectorParameters(output_data);
 
-    //updateIntensityMapAxes();
     m_intensity_map.clear();
-    m_intensity_map.copyFrom(output_data); // to copy mask too
+    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
     m_intensity_map.setAllTo(0.);
+
+    m_polarization_output.clear();
+    m_polarization_output.copyShapeFrom(output_data);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 }
 
 void Simulation::setDetectorParameters(
@@ -398,6 +437,14 @@ void Simulation::createZetaAndProbVectors(
     }
 }
 
+void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
+{
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    if (p_dwba_simulation->hasPolarizedOutputData()) {
+        m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
+    }
+}
+
 void Simulation::addToIntensityMap(double alpha, double phi, double value)
 {
     const IAxis *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
@@ -406,6 +453,14 @@ void Simulation::addToIntensityMap(double alpha, double phi, double value)
     coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
     coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
     m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
+}
+
+OutputData<double>* Simulation::getPolarizedIntensityData(int row, int column) const
+{
+    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
+    OutputData<double > *result =
+            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    return result;
 }
 
 

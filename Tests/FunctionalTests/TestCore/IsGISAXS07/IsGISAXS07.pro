@@ -5,7 +5,11 @@ QT      -= core gui
 
 include($$PWD/../../../../shared.pri)
 DEFINES += STANDALONE
-LIBS += $$PWD/../../../../lib/libBornAgainCore.so
+
+INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
+INCLUDEPATH *= $$BOOST_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR
+LIBS += $$BOOST_LIBRARY $$BornAgainCore_LIBRARY
 
 SOURCES += IsGISAXS07.cpp
 HEADERS += IsGISAXS07.h

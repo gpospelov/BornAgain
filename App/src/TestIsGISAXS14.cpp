@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS14.cpp
@@ -28,7 +28,7 @@
 
 TestIsGISAXS14::TestIsGISAXS14() : IFunctionalTest("TestIsGISAXS14")
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-14/" );
+    setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-14/" ));
 }
 
 
@@ -39,9 +39,9 @@ void TestIsGISAXS14::execute()
     Simulation simulation(mp_options);
     simulation.setSample(*sample);
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputDataClone(), getOutputPath() + "this_multilayer_sphere.ima");
+    OutputDataIOFactory::writeIntensityData(*simulation.getIntensityData(), "this_multilayer_sphere.ima");
 }
 
 
@@ -52,10 +52,10 @@ void TestIsGISAXS14::finalise()
 //    std::string isgi_file(getOutputPath()+"isgi_normal_sphere_H2.0_nocorr.ima");
 //    std::string isgi_file(getOutputPath()+"isgi_normal_fullsphere_nocorr.ima");
 //    std::string this_file(getOutputPath()+"this_multilayer_sphere_nocorr.ima");
-    std::string this_file(getOutputPath()+"this_multilayer_sphere.ima");
+    std::string this_file("this_multilayer_sphere.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS14_c1", "Multilayered sphere on graded interface");
 

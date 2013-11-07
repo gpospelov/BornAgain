@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/IsGISAXSTools.h
@@ -20,6 +20,7 @@
 #include "SafePointerVector.h"
 
 #include <string>
+#include "EigenCore.h"
 
 class TH1;
 class TH1D;
@@ -29,7 +30,7 @@ class TLine;
 //! Histogram management for IsGISAXS validation.
 
 class IsGISAXSTools {
- public:
+public:
     struct AxisStructure {
         size_t nbins;
         std::vector<double> xbins;
@@ -39,6 +40,15 @@ class IsGISAXSTools {
     //! Draw 2D histogram representing logarithm of OutputData (in new canvas)
     static void drawLogOutputData(
         const OutputData<double>& output,
+        const std::string& canvas_name,
+        const std::string& canvas_title,
+        const std::string& draw_options,
+        const std::string& histogram_title);
+
+    //! Draw 4 2D histograms representing logarithm of polarized OutputData
+    //! for different combinations of polarization (in new canvas)
+    static void drawLogOutputDataPol(
+        const OutputData<Eigen::Matrix2d>& output,
         const std::string& canvas_name,
         const std::string& canvas_title,
         const std::string& draw_options,
@@ -144,13 +154,18 @@ class IsGISAXSTools {
     static void drawOutputDataComparisonResults(
         const OutputData<double>& data,
         const OutputData<double>& reference,
-        const std::string& name=std::string("noname"),
+        const std::string& name=std::string("no name"),
         const std::string& title=std::string("no title"),
         double hmin=1.,
         double hmax = -1.,
         double hdiff=0.0001 );
 
- private:
+private:
+    //! selects specific matrix elements from polarized output data and puts
+    //! these in a non-polarized output data structure
+    static void copyElementsWithPosition(
+            const OutputData<Eigen::Matrix2d> &source,
+            OutputData<double> &destination, int pos_x, int pos_y);
     //! lower bound of y-axis (for 1D histograms), or z-axis (for 2D histograms)
     static double m_hist_min;
     //! upper bound of y-axis (for 1D histograms), or z-axis (for 2D histograms)
@@ -158,7 +173,7 @@ class IsGISAXSTools {
     //! user defined histogram minimum ?
     static bool m_has_min;
     //! user defined histogram maximum
-    static bool m_has_max;  
+    static bool m_has_max;
 };
 
 #endif /* ISGISAXSTOOLS_H_ */

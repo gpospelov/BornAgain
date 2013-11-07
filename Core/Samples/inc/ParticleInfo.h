@@ -18,23 +18,12 @@
 
 #include "ICompositeSample.h"
 #include "Particle.h"
-#include "ITransform3D.h"
 
 //! Holds additional information about particle (used in ParticleDecoration).
 
-//! Currently (March 2013), child classes are
-//! - DiffuseParticleInfo
-//! - PositionParticleInfo
-
-class ParticleInfo : public ICompositeSample
+class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {
- public:
-    ParticleInfo(Particle *p_particle,
-                 const Geometry::PTransform3D& transform,
-                 double depth=0, double abundance=0);
-    ParticleInfo(const Particle& p_particle,
-                 const Geometry::PTransform3D& transform,
-                 double depth=0, double abundance=0);
+public:
     ParticleInfo(Particle *p_particle,
                  double depth=0, double abundance=0);
     ParticleInfo(const Particle& p_particle,
@@ -45,19 +34,21 @@ class ParticleInfo : public ICompositeSample
     virtual ParticleInfo *clone() const
     {
         return new ParticleInfo(
-            mp_particle->clone(), mP_transform, m_depth, m_abundance);
+            mp_particle->clone(), m_depth, m_abundance);
     }
+
+    //! Returns a clone with inverted magnetic fields
+    virtual ParticleInfo *cloneInvertB() const
+    {
+        return new ParticleInfo(
+            mp_particle->cloneInvertB(), m_depth, m_abundance);
+    }
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
-
-    //! Returns transformation.
-    const Geometry::PTransform3D getPTransform3D() const
-    { return mP_transform; }
-
-    //! Sets transformation.
-    void setTransform(const Geometry::PTransform3D& transform)
-    { mP_transform = transform; }
 
     //! Returns depth.
     double getDepth() const { return m_depth; }
@@ -71,13 +62,17 @@ class ParticleInfo : public ICompositeSample
     //! Sets abundance.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
- protected:
+    //! Sets the ambient material
+    void setAmbientMaterial(const IMaterial *p_material) {
+        mp_particle->setAmbientMaterial(p_material);
+    }
+
+protected:
     virtual void init_parameters();
 
     virtual void print(std::ostream& ostr) const;
 
     Particle *mp_particle;
-    Geometry::PTransform3D mP_transform;
     double m_depth;
     double m_abundance;
 };

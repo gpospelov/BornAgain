@@ -20,9 +20,9 @@
 
 //! Interface class, encapsulating different simulations.
 
-class ISimulation : public ICloneable
+class BA_CORE_API_  ISimulation : public ICloneable
 {
- public:
+public:
     virtual ~ISimulation() {}
     ISimulation *clone() const
     {

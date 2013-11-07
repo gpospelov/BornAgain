@@ -3,7 +3,11 @@
 
 //! list of files to process with Py++
 
+#include "IAxis.h"
+#include "AxisBin.h"
+#include "AxisDouble.h"
 #include "BasicVector3D.h"
+#include "BAVersion.h"
 #include "Bin.h"
 #include "Crystal.h"
 #include "DiffuseParticleInfo.h"
@@ -35,6 +39,7 @@
 #include "IFormFactorDecorator.h"
 #include "IInterferenceFunction.h"
 #include "IMaterial.h"
+#include "IObserver.h"
 #include "IParameterized.h"
 #include "IResolutionFunction2D.h"
 #include "ISample.h"
@@ -53,13 +58,11 @@
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
 #include "Layer.h"
-#include "LayerDecorator.h"
 #include "LayerRoughness.h"
 #include "MathFunctions.h"
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "OpticalFresnel.h"
 #include "OutputData.h"
 #include "OutputDataIOFactory.h"
 #include "ParameterPool.h"
@@ -80,6 +83,7 @@
 #include "StochasticSampledParameter.h"
 #include "Types.h"
 #include "Units.h"
+#include "BAVersion.h"
 
 //! file containig additional exposers
 #include "PythonCoreExposer.h"

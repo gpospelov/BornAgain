@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFormFactors.cpp
@@ -31,87 +31,94 @@ void TestFormFactors::execute()
     Simulation simulation(mp_options);
     simulation.setSample(*sample);
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
     m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/");
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
 
      //Cone
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Cone"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
 
      //Ellipsoid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Ellipsoid"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
 
      //Sphere
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Sphere"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
 
      //Full Spheroid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_FullSpheroid"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
 
      //Hemi Spheroid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_HemiSpheroid"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
 
      //Pyramid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Pyramid"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
 
      //Cylinder
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Cylinder"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
 
      //Full Sphere
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_FullSphere"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
+
+     //Parallelepiped
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Parallelepiped"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Parallelepiped.ima");
+
 
      //Prism3
      sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Prism3"));
      simulation.setSample(*sample);
      simulation.runSimulation();
-     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
+     OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 }
 
 void TestFormFactors::finalise()
 {
     std::vector<std::string > this_files;
 //    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
-//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
-//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
-//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
-//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
-//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Parallelpiped.ima");
+    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
+    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
+    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
+    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Parallelepiped.ima");
 //    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
 //    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
 //    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 
     int ncomparison = (int)this_files.size();
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas("Form Factors", "TestFormFactors");
-    c1->Divide(4,5);
-
+   // c1->Divide(4,5);
+    c1->Divide(2,2);
     for(int i=0; i<ncomparison; i++) {
-            OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_files[i]);
+            OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_files[i]);
 
             IsGISAXSTools::setMinimum(1.);
             // our calculations

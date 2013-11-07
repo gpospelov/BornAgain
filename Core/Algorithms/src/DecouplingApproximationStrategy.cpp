@@ -15,7 +15,10 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
+#include "MathFunctions.h"
+
 #include <cassert>
+#include <iostream>
 
 void DecouplingApproximationStrategy::init(
         const SafePointerVector<FormFactorInfo>& form_factor_infos,
@@ -29,25 +32,25 @@ void DecouplingApproximationStrategy::init(
     }
 }
 
-double DecouplingApproximationStrategy::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+double DecouplingApproximationStrategy::evaluateForList(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, const std::vector<complex_t> &ff_list) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        complex_t ff =
-            m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+        complex_t ff = ff_list[i];
 
+        if (MathFunctions::isnan(ff.real())) {
+            std::cout << "Amplitude is NaN: i = " << i << std::endl;
+        }
         double fraction = m_ff_infos[i]->m_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(std::norm(ff));
 
-        assert(!std::isnan(amplitude.real()));
-        assert(!std::isnan(amplitude.imag()));
-        assert(!std::isinf(amplitude.real()));
-        assert(!std::isinf(amplitude.imag()));
-
+        assert(!MathFunctions::isnan(amplitude.real()));
+        assert(!MathFunctions::isnan(amplitude.imag()));
+        assert(!MathFunctions::isinf(amplitude.real()));
+        assert(!MathFunctions::isinf(amplitude.imag()));
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());

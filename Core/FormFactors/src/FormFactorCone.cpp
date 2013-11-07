@@ -33,16 +33,17 @@ FormFactorCone::FormFactorCone(double radius,double height,double alpha)
 
 void FormFactorCone::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("alpha", & m_alpha);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
+    registerParameter("height", &m_height);
+    registerParameter("alpha", & m_alpha);
 }
 
 FormFactorCone* FormFactorCone::clone() const
 {
-   FormFactorCone* ffCone = new FormFactorCone(m_radius, m_height, m_alpha);
-   return ffCone;
+   FormFactorCone* result = new FormFactorCone(m_radius, m_height, m_alpha);
+   result->setName(getName());
+   return result;
 }
 
 //! Real part of the integral.

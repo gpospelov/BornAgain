@@ -1,0 +1,15 @@
+BornAgain usage examples.
+
+This directory contains three sets of examples aimed to demonstrate 
+to the user how to simulate and fit with BornAgain.
+
+Content:
+./simulation - simulation examples
+./fitting    - fitting examples
+./demos      - collection of scripts used in different demonstrations
+
+
+
+
+
+

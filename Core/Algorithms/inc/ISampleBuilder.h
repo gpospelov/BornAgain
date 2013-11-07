@@ -18,15 +18,15 @@
 
 #include "ISample.h"
 
-class ISampleBuilder : public IParameterized
+class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
- public:
+public:
     ISampleBuilder() { setName("SampleBuilder"); }
     virtual ~ISampleBuilder() {}
 
     virtual ISample *buildSample() const {
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
- protected:
+protected:
 };
 
 #endif /* ISAMPLEBUILDER_H_ */

@@ -30,14 +30,15 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
+
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later
 // access via parameter pool
 /* ************************************************************************* */
 void MultiLayer::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
+    clearParameterPool();
+    registerParameter("crossCorrLength", &m_crossCorrLength);
 }
 
 /* ************************************************************************* */
@@ -57,7 +58,7 @@ void MultiLayer::clear()
 
     m_layers_z.clear();
 
-    getParameterPool()->clear();
+    clearParameterPool();
 }
 
 //! clone MultiLayer contents including interfaces
@@ -79,9 +80,44 @@ MultiLayer *MultiLayer::clone() const
 
         LayerInterface *newInterface(0);
         if(m_interfaces[i]->getRoughness()) {
-            newInterface = LayerInterface::createRoughInterface(topLayer, bottomLayer, *m_interfaces[i]->getRoughness() );
+            newInterface = LayerInterface::createRoughInterface(topLayer,
+                    bottomLayer, *m_interfaces[i]->getRoughness() );
         } else {
-            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
+            newInterface = LayerInterface::createSmoothInterface(topLayer,
+                    bottomLayer );
+        }
+        newMultiLayer->addAndRegisterInterface( newInterface );
+    }
+
+    newMultiLayer->m_crossCorrLength = m_crossCorrLength;
+
+    newMultiLayer->init_parameters();
+
+    return newMultiLayer;
+}
+
+MultiLayer* MultiLayer::cloneInvertB() const
+{
+    MultiLayer *newMultiLayer = new MultiLayer();
+    newMultiLayer->setName(getName());
+
+    newMultiLayer->m_layers_z = m_layers_z;
+
+    for(size_t i=0; i<m_layers.size(); i++) {
+        newMultiLayer->addAndRegisterLayer( m_layers[i]->cloneInvertB() );
+    }
+
+    for(size_t i=0; i<m_interfaces.size(); i++) {
+        const Layer *topLayer = newMultiLayer->m_layers[i];
+        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
+
+        LayerInterface *newInterface(0);
+        if(m_interfaces[i]->getRoughness()) {
+            newInterface = LayerInterface::createRoughInterface(topLayer,
+                    bottomLayer, *m_interfaces[i]->getRoughness() );
+        } else {
+            newInterface = LayerInterface::createSmoothInterface(topLayer,
+                    bottomLayer );
         }
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
@@ -94,9 +130,7 @@ MultiLayer *MultiLayer::clone() const
 }
 
 //! Returns pointer to the top interface of the layer.
-
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
-//!
 const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer) const
 {
     return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;

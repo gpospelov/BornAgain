@@ -21,23 +21,25 @@
 
 //! Formfactor of a ?
 
-class FormFactorFullSpheroid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 {
- public:
+public:
     FormFactorFullSpheroid(double radius, double height);
     double FullSpheroidIntegral(double Z, void* params) const;
     ~FormFactorFullSpheroid() {}
     virtual FormFactorFullSpheroid *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }
 
- protected:
+protected:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
     virtual void init_parameters();
 
- private:
+private:
     double evaluate_for_q_real() const;
     complex_t evaluate_for_q_imag() const;
     double FullSpheroidIntegralReal(double Z, void* params) const;

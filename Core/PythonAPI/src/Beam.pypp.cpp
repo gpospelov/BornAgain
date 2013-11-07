@@ -35,10 +35,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -47,10 +47,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -59,10 +59,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -71,10 +71,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -99,13 +99,25 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -114,10 +126,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -132,6 +144,16 @@ void register_Beam_class(){
         Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", bp::init< >() );
         bp::scope Beam_scope( Beam_exposer );
         Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
+        { //::Beam::SetSpinUpFraction
+        
+            typedef void ( ::Beam::*SetSpinUpFraction_function_type )( double ) ;
+            
+            Beam_exposer.def( 
+                "SetSpinUpFraction"
+                , SetSpinUpFraction_function_type( &::Beam::SetSpinUpFraction )
+                , ( bp::arg("up_fraction") ) );
+        
+        }
         { //::Beam::getCentralK
         
             typedef ::cvector_t ( ::Beam::*getCentralK_function_type )(  ) const;
@@ -244,6 +266,18 @@ void register_Beam_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Beam_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( Beam_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            Beam_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&Beam_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

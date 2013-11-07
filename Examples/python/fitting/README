@@ -1,0 +1,18 @@
+BornAgain fitting examples.
+
+In this directory one can find examples of complete applications
+used for fitting.
+
+--- ex001_SampleParametersIntro ---
+    This example shows how to create a sample with fixed parameters and then
+    change this parameters on the fly during runtime.
+    The example doesn't contain any fitting and serve as a gentle introduction
+    to other fitting examples.
+
+--- ex002_FitCylindersAndPrisms ---
+    The model "mixture of cylinders and prisms without interference"
+    will be used to fit real data.
+    FitCylindersAndPrisms.py shows minimal fitting example
+    FitCylindersAndPrisms_detailed.py is more detailed version + some graphical output
+
+

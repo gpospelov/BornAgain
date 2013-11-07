@@ -19,12 +19,16 @@
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
+#include "Macros.h"
+GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
+GCC_DIAG_ON(strict-aliasing);
+
 
 template <class T>
 class ISingleton
 {
- public:
+public:
     static T& instance()
     {
         static boost::mutex single_mutex;
@@ -39,7 +43,7 @@ class ISingleton
         return *m_instance;
     }
 
- protected:
+protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
@@ -57,7 +61,7 @@ class ISingleton
 
     typedef T* T_Pointer;
 
- private:
+private:
     ISingleton(const ISingleton<T>& ) {}
     ISingleton& operator=(const ISingleton<T>& ) { throw std::runtime_error("ISingleton::operator=()"); }
 
@@ -66,8 +70,8 @@ class ISingleton
 
 };
 
-template<class T > typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
-template< class T> bool ISingleton<T>::m_destroyed = false;
+template<class T> typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
+template<class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H
 

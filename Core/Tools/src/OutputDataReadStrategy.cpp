@@ -26,14 +26,19 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
-
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/copy.hpp>
-
-#include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
 #include <boost/iostreams/filter/gzip.hpp>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include <string>
 GCC_DIAG_ON(unused-parameter);
 
@@ -72,6 +77,13 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
 //    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     int x_size = (int)buff_2d.size();
     int y_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
+    if(x_size==0 || y_size==0) {
+        std::stringstream ostr;
+        ostr << "OutputDataReadStreamIMA::readOutputData() -> Error. Zero x_size: "
+             << x_size << " or y_size: " << y_size;
+        throw LogicErrorException(ostr.str());
+    }
+
     OutputData<double> *p_result = new OutputData<double>;
 //    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
 //    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));

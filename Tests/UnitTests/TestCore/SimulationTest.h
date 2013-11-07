@@ -89,6 +89,7 @@ TEST_F(SimulationTest, SimulationInitialStateOfClone)
 
 TEST_F(SimulationTest, SimulationClone)
 {
+    EXPECT_EQ(1,1);
     Simulation *originalSimulation = new Simulation();
     originalSimulation->setBeamIntensity(10);
     originalSimulation->setDetectorParameters(test_data);

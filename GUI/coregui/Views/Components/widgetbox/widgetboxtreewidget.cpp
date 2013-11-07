@@ -47,7 +47,7 @@
 #include <sheet_delegate_p.h>
 #include <ui4_p.h>
 #include <qdesigner_utils_p.h>
-#include <pluginmanager_p.h>
+//#include <pluginmanager_p.h>
 
 // sdk
 #include <QtDesigner/QDesignerFormEditorInterface>
@@ -137,7 +137,7 @@ static TopLevelRole topLevelRole(const  QTreeWidgetItem *item)
 namespace qdesigner_internal {
 
 //WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWidget *parent) :
-WidgetBoxTreeWidget::WidgetBoxTreeWidget(ISampleEditor *core, QWidget *parent) :
+WidgetBoxTreeWidget::WidgetBoxTreeWidget(SampleDesignerInterface *core, QWidget *parent) :
     QTreeWidget(parent),
     m_core(core),
     m_iconMode(false),

@@ -22,7 +22,7 @@
 
 class AxisBin : public IAxis
 {
- public:
+public:
     //! constructors
     AxisBin(std::string name);
     AxisBin(std::string name, size_t nbr_bins, double start, double end);
@@ -57,9 +57,13 @@ class AxisBin : public IAxis
 
 //    //! find the bin that contains the given value
 //    Bin1D findMatchingBin(double value) const;
- protected:
+
+    //! returns vector containing the bin limits
+    std::vector<double> getVector() const { return m_value_vector; }
+
+protected:
     virtual bool equals(const IAxis& other) const;
- private:
+private:
     std::vector<double> m_value_vector;  //!< vector containing the bin limits
 };
 

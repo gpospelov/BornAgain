@@ -23,17 +23,9 @@
 //! Used in IsGISAXSMorphologyFileDecoration.
 //! Note that position in z ("depth") is inherited from ParticleInfo.
 //!
-class PositionParticleInfo : public ParticleInfo
+class BA_CORE_API_ PositionParticleInfo : public ParticleInfo
 {
- public:
-    PositionParticleInfo(
-        Particle *p_particle, const Geometry::PTransform3D& transform,
-        kvector_t position, double abundance=0);
-
-    PositionParticleInfo(
-        const Particle& particle, const Geometry::PTransform3D& transform,
-        kvector_t position, double abundance=0);
-
+public:
     PositionParticleInfo(
         Particle *p_particle, kvector_t position, double abundance=0);
 
@@ -43,6 +35,9 @@ class PositionParticleInfo : public ParticleInfo
     virtual ~PositionParticleInfo() {}
 
     virtual PositionParticleInfo *clone() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
@@ -54,7 +49,7 @@ class PositionParticleInfo : public ParticleInfo
     //! Sets particle position, including depth.
     void setPosition(kvector_t position);
 
- protected:
+protected:
     PositionParticleInfo& operator=(const PositionParticleInfo& right);
     PositionParticleInfo(const PositionParticleInfo& source);
 

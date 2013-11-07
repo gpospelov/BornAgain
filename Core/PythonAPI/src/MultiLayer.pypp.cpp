@@ -28,22 +28,34 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     virtual ::MultiLayer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->MultiLayer::clone(  );
-        }
     }
+    
     
     ::MultiLayer * default_clone(  ) const  {
         return MultiLayer::clone( );
     }
 
+    virtual ::MultiLayer * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else
+            return this->MultiLayer::cloneInvertB(  );
+    }
+    
+    
+    ::MultiLayer * default_cloneInvertB(  ) const  {
+        return MultiLayer::cloneInvertB( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -52,10 +64,10 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -64,49 +76,37 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void printSampleTree(  ) {
+        if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
+            func_printSampleTree(  );
+        else
+            this->ISample::printSampleTree(  );
+    }
+    
+    
+    void default_printSampleTree(  ) {
+        ISample::printSampleTree( );
     }
 
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
@@ -128,13 +128,25 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -143,25 +155,13 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
-    }
-
-    virtual ::size_t size(  ) const  {
-        if( bp::override func_size = this->get_override( "size" ) )
-            return func_size(  );
-        else{
-            return this->ICompositeSample::size(  );
-        }
-    }
-    
-    ::size_t default_size(  ) const  {
-        return ICompositeSample::size( );
     }
 
 };
@@ -213,6 +213,18 @@ void register_MultiLayer_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::MultiLayer::cloneInvertB
+        
+            typedef ::MultiLayer * ( ::MultiLayer::*cloneInvertB_function_type )(  ) const;
+            typedef ::MultiLayer * ( MultiLayer_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            
+            MultiLayer_exposer.def( 
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::MultiLayer::cloneInvertB)
+                , default_cloneInvertB_function_type(&MultiLayer_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::MultiLayer::getCrossCorrLength
         
             typedef double ( ::MultiLayer::*getCrossCorrLength_function_type )(  ) const;
@@ -224,7 +236,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getCrossCorrSpectralFun
         
-            typedef double ( ::MultiLayer::*getCrossCorrSpectralFun_function_type )( ::kvector_t const &,::size_t,::size_t ) const;
+            typedef double ( ::MultiLayer::*getCrossCorrSpectralFun_function_type )( ::kvector_t const &,::std::size_t,::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getCrossCorrSpectralFun"
@@ -234,7 +246,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayer
         
-            typedef ::Layer const * ( ::MultiLayer::*getLayer_function_type )( ::size_t ) const;
+            typedef ::Layer const * ( ::MultiLayer::*getLayer_function_type )( ::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayer"
@@ -245,7 +257,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerBottomInterface
         
-            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerBottomInterface_function_type )( ::size_t ) const;
+            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerBottomInterface_function_type )( ::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerBottomInterface"
@@ -256,7 +268,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerBottomZ
         
-            typedef double ( ::MultiLayer::*getLayerBottomZ_function_type )( ::size_t ) const;
+            typedef double ( ::MultiLayer::*getLayerBottomZ_function_type )( ::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerBottomZ"
@@ -266,7 +278,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerInterface
         
-            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerInterface_function_type )( ::size_t ) const;
+            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerInterface_function_type )( ::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerInterface"
@@ -277,7 +289,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerThickness
         
-            typedef double ( ::MultiLayer::*getLayerThickness_function_type )( ::size_t ) const;
+            typedef double ( ::MultiLayer::*getLayerThickness_function_type )( ::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerThickness"
@@ -287,7 +299,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getLayerTopInterface
         
-            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerTopInterface_function_type )( ::size_t ) const;
+            typedef ::LayerInterface const * ( ::MultiLayer::*getLayerTopInterface_function_type )( ::std::size_t ) const;
             
             MultiLayer_exposer.def( 
                 "getLayerTopInterface"
@@ -298,7 +310,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getNumberOfInterfaces
         
-            typedef ::size_t ( ::MultiLayer::*getNumberOfInterfaces_function_type )(  ) const;
+            typedef ::std::size_t ( ::MultiLayer::*getNumberOfInterfaces_function_type )(  ) const;
             
             MultiLayer_exposer.def( 
                 "getNumberOfInterfaces"
@@ -307,7 +319,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::getNumberOfLayers
         
-            typedef ::size_t ( ::MultiLayer::*getNumberOfLayers_function_type )(  ) const;
+            typedef ::std::size_t ( ::MultiLayer::*getNumberOfLayers_function_type )(  ) const;
             
             MultiLayer_exposer.def( 
                 "getNumberOfLayers"
@@ -326,7 +338,7 @@ void register_MultiLayer_class(){
         }
         { //::MultiLayer::setLayerThickness
         
-            typedef void ( ::MultiLayer::*setLayerThickness_function_type )( ::size_t,double ) ;
+            typedef void ( ::MultiLayer::*setLayerThickness_function_type )( ::std::size_t,double ) ;
             
             MultiLayer_exposer.def( 
                 "setLayerThickness"
@@ -368,30 +380,6 @@ void register_MultiLayer_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( MultiLayer_wrapper::*default_getCompositeSample_function_type )(  ) ;
-            
-            MultiLayer_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&MultiLayer_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( MultiLayer_wrapper::*default_getCompositeSample_function_type )(  ) const;
-            
-            MultiLayer_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&MultiLayer_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
@@ -403,6 +391,17 @@ void register_MultiLayer_class(){
                 , default_printParameters_function_type(&MultiLayer_wrapper::default_printParameters) );
         
         }
+        { //::ISample::printSampleTree
+        
+            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
+            typedef void ( MultiLayer_wrapper::*default_printSampleTree_function_type )(  ) ;
+            
+            MultiLayer_exposer.def( 
+                "printSampleTree"
+                , printSampleTree_function_type(&::ISample::printSampleTree)
+                , default_printSampleTree_function_type(&MultiLayer_wrapper::default_printSampleTree) );
+        
+        }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
@@ -411,6 +410,18 @@ void register_MultiLayer_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &MultiLayer_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( MultiLayer_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            MultiLayer_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&MultiLayer_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue
@@ -434,17 +445,6 @@ void register_MultiLayer_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&MultiLayer_wrapper::default_setParametersAreChanged) );
-        
-        }
-        { //::ICompositeSample::size
-        
-            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::size_t ( MultiLayer_wrapper::*default_size_function_type )(  ) const;
-            
-            MultiLayer_exposer.def( 
-                "size"
-                , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&MultiLayer_wrapper::default_size) );
         
         }
     }

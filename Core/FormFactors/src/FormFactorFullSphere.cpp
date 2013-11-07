@@ -29,15 +29,16 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 
 void FormFactorFullSphere::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
 }
 
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
-    FormFactorFullSphere *p_clone = new FormFactorFullSphere(m_radius);
-    return p_clone;
+    FormFactorFullSphere *result = new FormFactorFullSphere(m_radius);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t& q) const

@@ -24,12 +24,15 @@ FormFactorDWBAConstZ::FormFactorDWBAConstZ(
 }
 
 complex_t FormFactorDWBAConstZ::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
-    calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
-    complex_t k_iz = k_i.z();
-    complex_t k_fz = k_f_bin.getMidPoint().z();
+    calculateTerms(k_i, k_f_bin, alpha_f_bin);
+    const ILayerRTCoefficients *p_in_coeff =
+            mp_specular_info->getInCoefficients();
+    double alpha_f = alpha_f_bin.getMidPoint();
+    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+    complex_t k_iz = -p_in_coeff->getScalarKz();
+    complex_t k_fz = p_out_coeff->getScalarKz();
     m_term_S *= getDepthPhase(k_iz-k_fz);
     m_term_RS *= getDepthPhase(-k_iz-k_fz);
     m_term_SR *= getDepthPhase(k_iz+k_fz);
@@ -40,10 +43,12 @@ complex_t FormFactorDWBAConstZ::evaluate(
 
 FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 {
-    FormFactorDWBAConstZ *p_new =
+    FormFactorDWBAConstZ *p_clone =
         new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
-    p_new->setReflectionTransmissionFunction(*mp_RT);
-    return p_new;
+    if (mp_specular_info) {
+        p_clone->setSpecularInfo(*mp_specular_info);
+    }
+    return p_clone;
 }
 
 

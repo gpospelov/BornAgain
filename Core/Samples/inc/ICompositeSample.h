@@ -21,26 +21,9 @@
 
 //! Interface to equip ISample with a tree structure.
 
-//! As of March 2013, this is the base class for
-//! - IClustered Particle
-//!   - Crystal
-//! - IDecoration
-//!   - ParticleDecoration
-//! - Layer
-//!   - LayerDecorator
-//! - LayerInterface
-//! - MultiLayer
-//! - Particle
-//!   - LatticeBasis
-//!   - MesoCrystal
-//!   - ParticleCoreShell
-//! - ParticleInfo
-//!   - DiffuseParticleInfo
-//!   - PositionParticleInfo
-//!
-class ICompositeSample : public ISample
+class BA_CORE_API_ ICompositeSample : public ISample
 {
- public:
+public:
     ICompositeSample() {}
     virtual ~ICompositeSample() {}
 
@@ -78,7 +61,7 @@ class ICompositeSample : public ISample
     //! Creates general iterator to walk through tree of composite children.
     class ICompositeIterator createIterator();
 
- private:
+private:
     //! List of registered children.
     std::list<ISample*> m_samples;
 };

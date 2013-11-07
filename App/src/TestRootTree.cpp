@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestRootTree.cpp
@@ -18,7 +18,6 @@
 #include "MaterialManager.h"
 #include "ParticleDecoration.h"
 #include "Particle.h"
-#include "LayerDecorator.h"
 #include "Simulation.h"
 #include "FormFactors.h"
 #include "Units.h"
@@ -115,7 +114,7 @@ void TestRootTree::complex_write()
         simulation.setDetectorParameters(
             nphi_f, phi_f_min, phi_f_max,
             nalpha_f , alpha_f_min, alpha_f_max);
-        simulation.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
+        simulation.setBeamParameters(1.77*Units::angstrom, alpha_i, phi_i);
         simulation.setBeamIntensity(1e7);
         simulation.runSimulation();
         simulation.normalize();
@@ -135,7 +134,7 @@ void TestRootTree::complex_write()
         event->malpha = Units::rad2deg(meso_alpha);
         // copying output data into event frame
         delete mp_data;
-        mp_data = simulation.getOutputDataClone();
+        mp_data = simulation.getIntensityData();
         IsGISAXSTools::exportOutputDataInVectors2D(
             *mp_data, event->vi, event->vphi_f, event->valpha_f);
 
@@ -219,7 +218,7 @@ void TestRootTree::simple_write()
         100, 0.0*Units::degree, 2.0*Units::degree,
         100, 0.0*Units::degree, 2.0*Units::degree, true);
     mp_simulation->setBeamParameters(
-        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     mp_simulation->setSample(*mp_sample);
 
     // variables below will be written in the tree
@@ -259,7 +258,7 @@ void TestRootTree::simple_write()
     for(int i_ev=0; i_ev<nTotalEvents; i_ev++) {
         if(i_ev%10 ==0 ) std::cout << "nevent:" << i_ev << std::endl;
 
-        alpha_i = -0.3 + 0.1*mr.Rndm(); // generating random alpha_i in the interval
+        alpha_i = 0.3 - 0.1*mr.Rndm(); // generating random alpha_i in the interval
         //phi_i = M_PI*2.*mr.Rndm(); // generating random phi_i in the interval
         phi_i = 0;
         nev = i_ev;
@@ -268,7 +267,7 @@ void TestRootTree::simple_write()
             1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
         mp_simulation->runSimulation();
 
-        mp_data = mp_simulation->getOutputDataClone();
+        mp_data = mp_simulation->getIntensityData();
         // accessing to scattering data
         const IAxis *axis0 = mp_data->getAxis(0);
         const IAxis *axis1 = mp_data->getAxis(1);
@@ -425,10 +424,11 @@ void TestRootTree::initializeMesoCrystal(
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
+
+    avg_layer.setDecoration(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(avg_layer);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }

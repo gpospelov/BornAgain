@@ -31,10 +31,10 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else{
+        else
             return this->StochasticParameter< double >::getFWHM(  );
-        }
     }
+    
     
     double default_getFWHM(  ) const  {
         return StochasticParameter< double >::getFWHM( );
@@ -43,10 +43,10 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else{
+        else
             return this->StochasticParameter< double >::getRandom(  );
-        }
     }
+    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -60,10 +60,10 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else{
+        else
             this->StochasticParameter< double >::setToAverage(  );
-        }
     }
+    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );

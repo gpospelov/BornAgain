@@ -16,6 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
+#include "WinDllMacros.h"
 #include "ICloneable.h"
 #include "RealParameterWrapper.h"
 #include <map>
@@ -23,9 +24,9 @@
 
 //! Holds a map of pointers to parameters (which must have different names).
 
-class ParameterPool : public ICloneable
+class BA_CORE_API_ ParameterPool : public ICloneable
 {
- public:
+public:
     //! definition of parameter type and parameter container
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
@@ -85,7 +86,7 @@ class ParameterPool : public ICloneable
                                     const ParameterPool& obj)
     { obj.print(ostr); return ostr; }
 
- protected:
+protected:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
 

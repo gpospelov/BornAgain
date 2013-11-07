@@ -14,20 +14,23 @@
 //
 // ************************************************************************** //
 
-#include "Python.h"
+/*
+#include <boost/python/detail/wrap_python.hpp>
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"
-// the order of 4 guys above is important, see explanation in PythonAPI/src/PythonModule.cpp
+// the order of 4 guys above is important, see explanation in
+// PythonAPI/src/PythonModule.cpp
 
 #include "PythonOutputData.h"
 #include "OutputData.h"
+#include "OutputDataFunctions.h"
 #include "Exceptions.h"
 
 #include <iostream>
 #include <vector>
 
-// export output data array to python-numpy array object
+// export output data array to python numpy array object
 PyObject *ExportOutputData(const OutputData<double >& output);
 
 // export axis of output data array as python-numpy array object
@@ -38,11 +41,11 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output, int naxis);
 int GetOutputDataNdimensions(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
-    int ndims = data->getRank();
+    int ndims = (int)data->getRank();
     return ndims;
 }
 
-//! export output data array of simulation to python-numpy array object
+//! export output data array of simulation to python numpy array object
 
 PyObject *GetOutputData(const Simulation& simulation)
 {
@@ -51,7 +54,22 @@ PyObject *GetOutputData(const Simulation& simulation)
     return obj;
 }
 
-//! Returns one-dim numpy array representing binning of the axis with given index of simulation's output data
+//! Exports single matrix component of output data array of simulation
+//! to python numpy array object
+
+PyObject* GetPolarizedOutputDataComponent(const Simulation& simulation, int row,
+        int column)
+{
+    const OutputData<Eigen::Matrix2d > *p_data_pol =
+            simulation.getPolarizedOutputData();
+    const OutputData<double > *p_data =
+            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    PyObject *obj = ExportOutputData(*p_data);
+    return obj;
+}
+
+//! Returns one-dim numpy array representing binning of the axis with given
+//! index of simulation's output data
 
 PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis)
 {
@@ -60,7 +78,7 @@ PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis)
     return obj;
 }
 
-//! export axis of output data array as python-numpy array object
+//! export axis of output data array as python numpy array object
 
 PyObject *ExportOutputData(const OutputData<double >& output_data)
 {
@@ -69,22 +87,23 @@ PyObject *ExportOutputData(const OutputData<double >& output_data)
     for(size_t i=0; i<output_data.getRank(); i++) {
         //const AxisDouble *axis = output_data.getAxis(i);
         const IAxis *axis = output_data.getAxis(i);
-        dimensions.push_back( axis->getSize() );
+        dimensions.push_back( (int)axis->getSize() );
     }
 
     // creating ndarray objects describing size of dimensions
-    npy_int ndim_numpy= dimensions.size();
+    npy_int ndim_numpy= (int)dimensions.size();
     npy_intp *ndimsizes_numpy = new npy_intp[dimensions.size()];
-    //npy_intp *ndimsizes_numpy = (npy_intp *) malloc(sizeof(npy_intp)*dimensions.size());
-     for(size_t i=0; i<dimensions.size(); i++) {
+    for(size_t i=0; i<dimensions.size(); i++) {
         ndimsizes_numpy[i] = dimensions[i];
     }
 
     // creating standalone numpy array
-    PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
+    PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy,
+            NPY_DOUBLE);
     delete [] ndimsizes_numpy;
     if(pyarray == NULL ) {
-        throw RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
+        throw RuntimeErrorException(
+                "ExportOutputData() -> Panic in PyArray_SimpleNew");
     }
     Py_INCREF(pyarray);
 
@@ -100,32 +119,38 @@ PyObject *ExportOutputData(const OutputData<double >& output_data)
     return pyarray;
 }
 
-//! Returns one dimensional python-numpy array representing binning of given axis of oputput data object
+//! Returns one dimensional python numpy array representing binning of given
+//! axis of output data object
 
-PyObject *ExportOutputDataAxis(const OutputData<double >& output_data, int naxis)
+PyObject *ExportOutputDataAxis(const OutputData<double >& output_data,
+        int naxis)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
     for(size_t i=0; i<output_data.getRank(); i++) {
         const IAxis *axis = output_data.getAxis(i);
-        dimensions.push_back( axis->getSize() );
+        dimensions.push_back( (int)axis->getSize() );
     }
     size_t nbins(0);
     if (naxis < (int) dimensions.size() ) {
         nbins = dimensions[naxis];
     } else {
-        throw OutOfBoundsException("ExportOutputDataAxis() -> Error. Wrong axis number");
+        throw OutOfBoundsException(
+                "ExportOutputDataAxis() -> Error. Wrong axis number");
     }
 
-    // creating ndarray objects describing size of dimensions, in given case it is one dimensional array, with length=1
+    // creating ndarray objects describing size of dimensions, in given case
+    // it is one dimensional array, with length=1
     npy_int ndim_numpy= 1;
     npy_intp ndimsizes_numpy[1];
     ndimsizes_numpy[0] = nbins;
 
     // creating standalone numpy array
-    PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
+    PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy,
+            NPY_DOUBLE);
     if(pyarray == NULL ) {
-        throw RuntimeErrorException("ExportOutputDataAxis() -> Panic in in PyArray_SimpleNew");
+        throw RuntimeErrorException(
+                "ExportOutputDataAxis() -> Panic in in PyArray_SimpleNew");
     }
     Py_INCREF(pyarray);
 
@@ -140,4 +165,4 @@ PyObject *ExportOutputDataAxis(const OutputData<double >& output_data, int naxis
     return pyarray;
 }
 
-
+*/

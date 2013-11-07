@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestFittingModule2.h
@@ -34,7 +34,7 @@ class FitSuite;
 //!
 class TestFittingModule2 : public IFunctionalTest
 {
- public:
+public:
     TestFittingModule2();
     virtual ~TestFittingModule2();
     virtual void execute();
@@ -42,13 +42,13 @@ class TestFittingModule2 : public IFunctionalTest
     //! builds sample for fitter testing
     class SampleBuilder : public ISampleBuilder
     {
-      public:
+    public:
         SampleBuilder();
         virtual ~SampleBuilder(){}
         virtual ISample *buildSample() const;
-      protected:
+    protected:
         virtual void init_parameters();
-      private:
+    private:
         double m_cylinder_height;
         double m_cylinder_radius;
         double m_prism3_half_side;
@@ -68,7 +68,7 @@ class TestFittingModule2 : public IFunctionalTest
     //! fit example with data masking
     void fit_example_mask();
 
- private:
+private:
     void initializeSimulation();
     void initializeRealData();
 

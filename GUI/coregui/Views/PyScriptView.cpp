@@ -45,6 +45,7 @@ PyScriptView::PyScriptView(SimulationDataModel *p_simulation_data_model, QWidget
     connect(scriptEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
     PyScriptSyntaxHighlighter *highlighter = new PyScriptSyntaxHighlighter(scriptEdit->document());
+    Q_UNUSED(highlighter);
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addLayout(buttonLayout, 0, 0);

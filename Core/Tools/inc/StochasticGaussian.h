@@ -19,9 +19,9 @@
 #include "IStochasticParameter.h"
 #include <cmath>
 
-class StochasticDoubleGaussian : public StochasticParameter<double>
+class BA_CORE_API_ StochasticDoubleGaussian : public StochasticParameter<double>
 {
- public:
+public:
     StochasticDoubleGaussian(double average, double std_dev);
     ~StochasticDoubleGaussian();
     virtual StochasticDoubleGaussian *clone() const;
@@ -33,7 +33,7 @@ class StochasticDoubleGaussian : public StochasticParameter<double>
 
     virtual double getFWHM() const { return 2.*m_std_dev*std::sqrt(2.*std::log(2.)); }
 
- private:
+private:
     double m_std_dev;
 };
 

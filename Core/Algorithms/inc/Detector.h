@@ -19,12 +19,15 @@
 #include "IDetectorResolution.h"
 #include "DetectorParameters.h"
 #include "SafePointerVector.h"
+#include "EigenCore.h"
+
+
 
 //! Detector with axes and resolution function.
 
-class Detector : public IParameterized
+class BA_CORE_API_ Detector : public IParameterized
 {
- public:
+public:
 
     Detector();
     Detector(const Detector& other);
@@ -46,13 +49,18 @@ class Detector : public IParameterized
     void clear()
     { m_axes.clear(); }
 
+    //! Sets the detector resolution
     void setDetectorResolution(IDetectorResolution *p_detector_resolution)
     {
         delete mp_detector_resolution;
         mp_detector_resolution = p_detector_resolution;
     }
 
-    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+#ifndef GCCXML_SKIP_THIS
+    //! Applies the detector resolution to the given intensity maps
+    void applyDetectorResolution(OutputData<double> *p_scalar_intensity,
+            OutputData<Eigen::Matrix2d> *p_matrix_intensity) const;
+#endif
 
     const IDetectorResolution *getDetectorResolutionFunction() const
     { return mp_detector_resolution; }
@@ -63,10 +71,13 @@ class Detector : public IParameterized
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
+#ifndef GCCXML_SKIP_THIS
     //! Normalize intensity data with detector cell sizes.
-    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
-
- protected:
+    void normalize(OutputData<double> *p_data,
+            OutputData<Eigen::Matrix2d> *p_polarized_data,
+            double sin_alpha_i) const;
+#endif
+protected:
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
@@ -77,7 +88,7 @@ class Detector : public IParameterized
     //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
 
- private:
+private:
 
     //! swap function
     void swapContent(Detector& other);

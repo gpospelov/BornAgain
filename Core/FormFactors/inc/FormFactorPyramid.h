@@ -21,9 +21,9 @@
 
 //! Form factor of pyramid.
 
-class FormFactorPyramid : public IFormFactorBorn
+class BA_CORE_API_ FormFactorPyramid : public IFormFactorBorn
 {
- public:
+public:
     //! @brief pyramid constructor
     //! @param height of pyramide
     //! @param half_side half of pyramid's base
@@ -33,16 +33,25 @@ class FormFactorPyramid : public IFormFactorBorn
     ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
+    virtual void setHeight(double height) { m_height = height; }
+
+    virtual double getHalfSide() const { return m_half_side; }
+    virtual void setHalfSide(double half_side) { m_half_side = half_side; }
+
+    virtual double getAlpha() const { return m_alpha; }
+    virtual void setAlpha(double alpha) { m_alpha = alpha; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     virtual void init_parameters();
 
- private:
+private:
     double m_height;
     double m_half_side;
     double m_alpha;

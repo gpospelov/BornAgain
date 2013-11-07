@@ -17,7 +17,6 @@
 #include "Exceptions.h"
 #include "Utils.h"
 #include "MessageService.h"
-
 #include <boost/algorithm/string/replace.hpp>
 #include <iostream>
 #include <sstream>
@@ -105,8 +104,8 @@ bool ParameterPool::setParameterValue(const std::string& name, double value)
 {
     parameter_t x = getParameter(name);
     if( x.isNull() ) {
-        msglog(MSG::FATAL) << "ParameterPool::setParameterValue() -> Warning. No parameter with name '" << name << "'";
-        throw LogicErrorException("ParameterPool::setParameterValue() -> Warning. No such parameter");
+        msglog(MSG::FATAL) << "ParameterPool::setParameterValue() -> Error. No parameter with name '" << name << "'";
+        throw LogicErrorException("ParameterPool::setParameterValue() -> Error. No such parameter");
         return false;
     }
     x.setValue(value);
@@ -140,7 +139,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
                 parameter_t source = getParameter(parametername);
                 (*it).second.setValue(source.getValue()*ratio);
                 npars++;
-            } catch (Exceptions::LogicErrorException& e) {}
+            } catch (Exceptions::LogicErrorException& e) { (void)e;}
         }
     }
     return npars;
@@ -150,7 +149,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
 
 void ParameterPool::print(std::ostream& ostr) const
 {
-    const size_t number_of_pars_in_line(4);
+    const size_t number_of_pars_in_line(12);
     if( m_map.size() ) {
         // printing in one line
         if(m_map.size() < number_of_pars_in_line) {
@@ -167,7 +166,7 @@ void ParameterPool::print(std::ostream& ostr) const
             }
         }
     } else {
-        ostr << "EMPTY";
+        ostr << "POOL_0";
     }
 }
 

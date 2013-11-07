@@ -26,7 +26,7 @@
 //!
 class TestMultiLayerRoughness : public IFunctionalTest
 {
- public:
+public:
     TestMultiLayerRoughness() {}
     virtual ~TestMultiLayerRoughness(){}
 

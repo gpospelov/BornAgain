@@ -27,13 +27,16 @@
 //! "X-ray reflection and transmission by rough surfaces"
 //! See Appendix A2
 
-class LayerRoughness : public IRoughness
+class BA_CORE_API_ LayerRoughness : public IRoughness
 {
- public:
+public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
 
     LayerRoughness *clone() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t& kvec) const;
@@ -59,7 +62,7 @@ class LayerRoughness : public IRoughness
     friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m)
     { m.print(ostr); return ostr; }
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

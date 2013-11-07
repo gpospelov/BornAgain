@@ -15,40 +15,12 @@
 
 #include "ParticleInfo.h"
 
-ParticleInfo::ParticleInfo(
-    Particle* p_particle, const Geometry::PTransform3D& transform,
-    double depth, double abundance)
-    : mp_particle(p_particle)
-    , mP_transform(transform)
-    , m_depth(depth)
-    , m_abundance(abundance)
-{
-    setName("ParticleInfo");
-    registerChild(mp_particle);
-    init_parameters();
-}
-
-ParticleInfo::ParticleInfo(
-    const Particle& p_particle,
-    const Geometry::PTransform3D& transform,
-    double depth,
-    double abundance)
-    : mp_particle(p_particle.clone())
-    , mP_transform(transform)
-    , m_depth(depth)
-    , m_abundance(abundance)
-{
-    setName("ParticleInfo");
-    registerChild(mp_particle);
-    init_parameters();
-}
 
 ParticleInfo::ParticleInfo(
     Particle *p_particle,
     double depth,
     double abundance)
     : mp_particle(p_particle)
-    , mP_transform(Geometry::PTransform3D())
     , m_depth(depth)
     , m_abundance(abundance)
 {
@@ -62,7 +34,6 @@ ParticleInfo::ParticleInfo(
     double depth,
     double abundance)
     : mp_particle(p_particle.clone())
-    , mP_transform(Geometry::PTransform3D())
     , m_depth(depth)
     , m_abundance(abundance)
 {
@@ -73,8 +44,9 @@ ParticleInfo::ParticleInfo(
 
 void ParticleInfo::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("depth", &m_depth);
+    clearParameterPool();
+    registerParameter("depth", &m_depth);
+    registerParameter("abundance", &m_abundance);
 }
 
 
@@ -82,12 +54,7 @@ void ParticleInfo::print(std::ostream& ostr) const
 {
     ostr << "ParticleInfo:" << getName() << "<" << this << "> : {" <<
         " depth=" << m_depth <<
-        ", abundance=" << m_abundance <<
-        ", transform=";
-    if ( mP_transform )
-        ostr << *mP_transform;
-    else
-        ostr << "NONE";
+        ", abundance=" << m_abundance;
     ostr << " }";
 }
 

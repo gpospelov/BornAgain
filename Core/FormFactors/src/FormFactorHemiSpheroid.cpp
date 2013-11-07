@@ -36,17 +36,18 @@ FormFactorHemiSpheroid::FormFactorHemiSpheroid(
 
 void FormFactorHemiSpheroid::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("width", & m_width);
-    getParameterPool()->registerParameter("height", &m_height);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
+    registerParameter("width", & m_width);
+    registerParameter("height", &m_height);
 }
 
 FormFactorHemiSpheroid* FormFactorHemiSpheroid::clone() const
 {
-   FormFactorHemiSpheroid* ffSpheroid =
+   FormFactorHemiSpheroid* result =
        new FormFactorHemiSpheroid(m_radius,  m_width, m_height);
-   return ffSpheroid;
+   result->setName(getName());
+   return result;
 }
 
 //! Real part of the integral.

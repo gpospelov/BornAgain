@@ -24,18 +24,22 @@
 //! in all its child classes.
 //! Child classes should provide clone().
 
-class ICloneable
+class BA_CORE_API_ ICloneable
 {
- public:
+public:
     ICloneable(){}
     virtual ~ICloneable() {}
     virtual ICloneable *clone() const = 0;
 
- private:
-    ICloneable(const ICloneable& ) { throw NotImplementedException(
-        "ICloneable(const ICloneable& ) -> Error: not implemented."); }
-    ICloneable& operator=(const ICloneable& ) { throw NotImplementedException(
-        "ICloneable& operator=(const ICloneable& ) -> Error: not implemented."); }
+private:
+    ICloneable(const ICloneable& ) {
+        throw NotImplementedException(
+        "ICloneable(const ICloneable& ) -> Error: not implemented.");
+    }
+    ICloneable& operator=(const ICloneable& ) {
+        throw NotImplementedException(
+        "ICloneable& operator=(const ICloneable& ) -> Error: not implemented.");
+    }
 };
 
 #endif // ICLONEABLE_H

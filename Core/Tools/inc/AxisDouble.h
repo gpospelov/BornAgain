@@ -16,15 +16,17 @@
 #ifndef AXISDOUBLE_H_
 #define AXISDOUBLE_H_
 
+#include "WinDllMacros.h"
 #include "IAxis.h"
 
-class AxisBin;  // forward declaration needed for conversion constructor
+//class AxisBin;  // forward declaration needed for conversion constructor
+#include "AxisBin.h"
 
 //! The points of an axis
 
-class AxisDouble : public IAxis
+class BA_CORE_API_ AxisDouble : public IAxis
 {
- public:
+public:
     //! constructors
     AxisDouble(std::string name);
     AxisDouble(std::string name, size_t size, double start, double end);
@@ -67,10 +69,13 @@ class AxisDouble : public IAxis
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
 
- protected:
+    //! returns vector containing the axis points
+    std::vector<double> getVector() const { return m_sample_vector; }
+
+protected:
     virtual bool equals(const IAxis& other) const;
 
- private:
+private:
     std::vector<double> m_sample_vector;  //!< vector containing the axis points
     double m_bin_size;
 };

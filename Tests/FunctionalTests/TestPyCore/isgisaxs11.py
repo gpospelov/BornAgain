@@ -16,15 +16,15 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mShell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    mCore = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    n_particle_shell = complex(1.0-1e-4, 2e-8)
-    n_particle_core = complex(1.0-6e-5, 2e-8)
     parallelepiped1_ff = FormFactorParallelepiped(8*nanometer, 8*nanometer)
     parallelepiped2_ff = FormFactorParallelepiped(7*nanometer, 6*nanometer)
-    shell_particle = Particle(n_particle_shell, parallelepiped1_ff)
-    core_particle = Particle(n_particle_core, parallelepiped2_ff)
+    shell_particle = Particle(mShell, parallelepiped1_ff)
+    core_particle = Particle(mCore, parallelepiped2_ff)
     core_position = kvector_t(0.0, 0.0, 0.0)
     ##########################################
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
@@ -34,18 +34,19 @@ def RunSimulation():
     particle_decoration.addInterferenceFunction(interference)
      
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -54,7 +55,7 @@ def RunSimulation():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f = gzip.open(path+'../TestCore/IsGISAXS11/isgisaxs11_reference.ima.gz', 'rb')
+    f = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs11_reference.ima.gz', 'rb')
     reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
     f.close()
     return reference
@@ -90,7 +91,7 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS11", "Core shell nanoparticles", status
 
 
@@ -98,7 +99,7 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
-
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
 

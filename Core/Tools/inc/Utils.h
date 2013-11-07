@@ -16,18 +16,19 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "WinDllMacros.h"
 #include "Types.h"
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
-
+#include <map>
 
 namespace Utils {
 
 //! Collection of utilities for std::string.
 
-class String
+class BA_CORE_API_ String
 {
- public:
+public:
     //! Parse double values from string to vector of double.
     static vdouble1d_t parse_doubles(const std::string& str);
 
@@ -47,7 +48,7 @@ class String
 
 class StringUsageMap
 {
- public:
+public:
     typedef std::map<std::string, int> nstringmap_t;
     typedef nstringmap_t::iterator iterator_t;
 
@@ -76,16 +77,16 @@ class StringUsageMap
     //! Returns current string
     std::string get_current() const { return m_current_string; }
 
- private:
+private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
 };
 
 //! Utilities to deal with file system.
 
-class FileSystem
+class BA_CORE_API_ FileSystem
 {
- public:
+public:
     //! Returns path to the current (working) directory
     static std::string GetWorkingPath();
 
@@ -93,7 +94,8 @@ class FileSystem
     static std::string GetHomePath();
 
     //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetRelativePath(const std::string& path) { m_relative_path = path; }
+    static void SetArgvPath(const std::string& argv0);
+    static std::string GetArgvPath();
 
     //! Returns file extension
     static std::string GetFileExtension(const std::string& name);
@@ -103,8 +105,15 @@ class FileSystem
 
     //! Returns file extension after stripping '.gz' if any
     static std::string GetFileMainExtension(const std::string& name);
- private:
-    static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
+
+    //! returns path to executable
+    static std::string GetPathToExecutable(const std::string& argv0=GetArgvPath());
+
+    //! returns absolute path to data taking into acount location of executable
+    static std::string GetPathToData(const std::string& rel_data_path, const std::string& argv0=GetArgvPath());
+
+private:
+    static std::string m_argv0_path; //!< it's value of argv[0], i.e. the path from working directory to executable module including the name of executable module
 };
 
 //! Adjust length of the string, padding with blanks.
@@ -121,7 +130,7 @@ inline std::string AdjustStringLength(std::string name, int length)
 template<class Key, class Object >
 class UnorderedMap
 {
- public:
+public:
     typedef boost::unordered_map<Key, Object > container_t;
     typedef typename container_t::iterator iterator;
     typedef typename container_t::const_iterator const_iterator;
@@ -129,10 +138,14 @@ class UnorderedMap
     UnorderedMap() {}
     virtual ~UnorderedMap(){}
 
+    void clear() {
+        m_value_map.clear();
+    }
+
     //UnorderedMap *clone() { return new UnorderedMap(m_value_map); }
 
-    const_iterator begin() { return m_value_map.begin(); }
-    const_iterator end() { return m_value_map.end(); }
+    const_iterator begin() const { return m_value_map.begin(); }
+    const_iterator end() const { return m_value_map.end(); }
     const Object& find(const Key& key) const
     {
         const_iterator pos = m_value_map.find(key);
@@ -147,15 +160,13 @@ class UnorderedMap
     size_t size() { return m_value_map.size(); }
     Object&  operator[] (const Key& key) { return m_value_map[key]; }
 
- private:
-    UnorderedMap& operator=(const UnorderedMap& );
-
+private:
     container_t m_value_map;
 };
 
 
 //! enables exception throw in the case of NaN, Inf
-void EnableFloatingPointExceptions();
+BA_CORE_API_ void EnableFloatingPointExceptions();
 
 
 }

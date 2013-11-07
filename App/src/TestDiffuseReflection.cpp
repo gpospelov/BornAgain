@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestDiffuseReflection.cpp
@@ -21,7 +21,6 @@
 #include "DrawHelper.h"
 #include "Units.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
-#include "DoubleToComplexInterpolatingFunction.h"
 
 #include <iostream>
 #include <iomanip>
@@ -36,7 +35,7 @@
 
 TestDiffuseReflection::TestDiffuseReflection()
 : m_sample(0)
-, m_data_spec(0)
+//, m_data_spec(0)
 , m_data_offspec(0)
 , m_alphaMin(0.0*Units::degree)
 , m_alphaMax(2.0*Units::degree)

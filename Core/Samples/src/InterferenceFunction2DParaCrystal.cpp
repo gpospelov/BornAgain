@@ -42,17 +42,23 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double leng
 
 InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
 {
-    for (size_t i=0; i<2; ++i) {
-        if (m_pdfs[i]) delete m_pdfs[i];
-    }
+    for (size_t i=0; i<2; ++i) delete m_pdfs[i];
 }
+
+InterferenceFunction2DParaCrystal *InterferenceFunction2DParaCrystal::clone() const {
+    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(m_lattice_lengths[0], m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
+    p_new->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
+    if(m_pdfs[0] && m_pdfs[1])
+        p_new->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
+    p_new->setIntegrationOverXi(m_integrate_xi);
+    return p_new;
+}
+
 
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
 {
-    for (size_t i=0; i<2; ++i) {
-        if (m_pdfs[i]) delete m_pdfs[i];
-    }
+    for (size_t i=0; i<2; ++i) delete m_pdfs[i];
     m_pdfs[0] = pdf_1.clone();
     m_pdfs[1] = pdf_2.clone();
 }
@@ -116,14 +122,14 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
 
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("lattice_length_1", &m_lattice_lengths[0]);
-    getParameterPool()->registerParameter("lattice_length_2", &m_lattice_lengths[1]);
-    getParameterPool()->registerParameter("lattice_angle", &m_alpha_lattice);
-    getParameterPool()->registerParameter("lattice_orientation", &m_xi);
-    getParameterPool()->registerParameter("corr_length", &m_corr_length);
-    getParameterPool()->registerParameter("domain_size_1", &m_domain_sizes[0]);
-    getParameterPool()->registerParameter("domain_size_2", &m_domain_sizes[1]);
+    clearParameterPool();
+    registerParameter("lattice_length_1", &m_lattice_lengths[0]);
+    registerParameter("lattice_length_2", &m_lattice_lengths[1]);
+    registerParameter("lattice_angle", &m_alpha_lattice);
+    registerParameter("lattice_orientation", &m_xi);
+    registerParameter("corr_length", &m_corr_length);
+    registerParameter("domain_size_1", &m_domain_sizes[0]);
+    registerParameter("domain_size_2", &m_domain_sizes[1]);
 }
 
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *params) const
@@ -136,10 +142,10 @@ double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *par
 double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, double xi, size_t index) const
 {
     if (index > 1) {
-        throw OutOfBoundsException("Index of interference function probability must be < 2");
+        throw OutOfBoundsException("InterferenceFunction2DParaCrystal::interference1D() -> Error! Index of interference function probability must be < 2");
     }
     if (!m_pdfs[0] || !m_pdfs[1]) {
-        throw NullPointerException("Probability distributions for interference funtion not properly initialized");
+        throw NullPointerException("InterferenceFunction2DParaCrystal::interference1D() -> Error! Probability distributions for interference funtion not properly initialized");
     }
     double result;
     int n = (int)std::abs(m_domain_sizes[index]/m_lattice_lengths[index]);

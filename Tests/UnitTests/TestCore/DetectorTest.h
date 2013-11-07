@@ -23,7 +23,6 @@ class DetectorTest : public ::testing::Test
     Detector copyOfOriginalDetector;
 };
 
-
 DetectorTest::DetectorTest()
 {
     originalDetector = new Detector();
@@ -31,8 +30,8 @@ DetectorTest::DetectorTest()
     AxisDouble axis1("axis1", 20, 0.0, 20.0);
     originalDetector->addAxis(axis0);
     originalDetector->addAxis(axis1);
-    originalDetector->setDetectorResolution(new ConvolutionDetectorResolution( new ResolutionFunction2DSimple(1,1)));
-
+    originalDetector->setDetectorResolution(new ConvolutionDetectorResolution(
+            new ResolutionFunction2DSimple(1,1)));
 }
 
 DetectorTest::~DetectorTest()
@@ -40,15 +39,14 @@ DetectorTest::~DetectorTest()
     delete originalDetector;
 }
 
-
 TEST_F(DetectorTest, InitialDetectorState)
 {
     EXPECT_EQ((size_t)0, emptyDetector.getDimension());
     ASSERT_THROW(emptyDetector.getAxis(0), OutOfBoundsException);
-    OutputData<double>* intensity_map(0);
-    ASSERT_THROW(emptyDetector.applyDetectorResolution(intensity_map), NullPointerException);
+    OutputData<double>* p_intensity_map(0);
+    ASSERT_THROW(emptyDetector.applyDetectorResolution(p_intensity_map, 0),
+            NullPointerException);
 }
-
 
 TEST_F(DetectorTest, DetectorConstruction)
 {
@@ -83,12 +81,8 @@ TEST_F(DetectorTest, DetectorCopying)
     EXPECT_EQ( (double)0, copyOfOriginalDetector.getAxis(1).getMin() );
     EXPECT_EQ( (double)20, copyOfOriginalDetector.getAxis(1).getMax() );
     EXPECT_EQ( (size_t)20, copyOfOriginalDetector.getAxis(1).getSize() );
-    EXPECT_TRUE(std::string("ConvolutionDetectorResolution") == copyOfOriginalDetector.getDetectorResolutionFunction()->getName());
-
-
+    EXPECT_TRUE(std::string("ConvolutionDetectorResolution")
+        == copyOfOriginalDetector.getDetectorResolutionFunction()->getName());
 }
-
-
-
 
 #endif // DETECTORTEST_H

@@ -13,16 +13,14 @@ using namespace FunctionalTests;
 
 
 MesoCrystal1::MesoCrystal1()
-    : m_test_name("MesoCrystal1")
-    , m_test_description("Meso crystal simulation")
+: m_name("MesoCrystal1")
+, m_description("Meso crystal simulation")
+, m_result(0)
+, m_reference(0)
 { }
 
 
-MesoCrystal1::~MesoCrystal1()
-{ }
-
-
-int MesoCrystal1::MesoCrystal1::run()
+void MesoCrystal1::MesoCrystal1::run(const std::string &path_to_data)
 {
     // setting up sample and simulation
     SampleBuilder *sample_builder = new SampleBuilder();
@@ -30,48 +28,17 @@ int MesoCrystal1::MesoCrystal1::run()
     simulation->setSampleBuilder( sample_builder );
 
     // loading reference data
-    std::string filename = Utils::FileSystem::GetHomePath() +
-        "/Tests/FunctionalTests/TestCore/MesoCrystal1/mesocrystal1_reference.txt.gz";
-    OutputData<double > *reference_data = OutputDataIOFactory::getOutputData(filename);
+    std::string filename = path_to_data + "mesocrystal1b_reference.txt.gz";
+    m_reference = OutputDataIOFactory::getOutputData(filename);
 
     // setting detector axis as in reference data
-    simulation->setDetectorParameters(*reference_data);
+    simulation->setDetectorParameters(*m_reference);
 
     //running simulation
     simulation->runSimulation();
     simulation->normalize();
-    OutputData<double > *result = simulation->getOutputDataClone();
-
-    // analysing results
-    double diff = getDifference(result, reference_data);
-    const double threshold(1e-10);
-    bool status_ok(true);
-    if( diff > threshold || std::isnan(diff) ) status_ok=false;
-
-    delete sample_builder;
-    delete simulation;
-    delete result;
-    delete reference_data;
-
-    std::cout << m_test_name << " " << m_test_description << " " <<
-        (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-
-    return (status_ok ? 0 : 1);
-}
-
-
-double MesoCrystal1::getDifference(OutputData<double> *result, const OutputData<double> *reference)
-{
-    double diff(0);
-    // Calculating average relative difference.
-    *result -= *reference;
-    *result /= *reference;
-    for(OutputData<double>::const_iterator it =
-            result->begin(); it!=result->end(); ++it) {
-        diff+= std::fabs(*it);
-    }
-    diff /= result->getAllocatedSize();
-    return diff;
+    m_result = simulation->getOutputDataClone();
+    //OutputDataIOFactory::writeOutputData(*m_result, "reference.txt");
 }
 
 
@@ -79,21 +46,53 @@ double MesoCrystal1::getDifference(OutputData<double> *result, const OutputData<
 Simulation *MesoCrystal1::createSimulation()
 {
     Simulation *simulation = new Simulation();
-    simulation->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    simulation->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree,
+            0.0*Units::degree);
     simulation->setBeamIntensity(5.0090e+12);
-    simulation->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    simulation->setDetectorResolutionFunction(
+            new ResolutionFunction2DSimple(0.0002, 0.0002));
     return simulation;
 }
 
 
+int MesoCrystal1::analyseResults()
+{
+    const double threshold(2e-10);
+
+    // calculating average relative difference
+    *m_result -= *m_reference;
+    *m_result /= *m_reference;
+
+    double diff(0);
+    for(OutputData<double>::const_iterator it=m_result->begin();
+            it!=m_result->end(); ++it) {
+        diff+= std::fabs(*it);
+    }
+    diff /= m_result->getAllocatedSize();
+
+    bool status_ok(true);
+    if( diff > threshold || std::isnan(diff)) status_ok=false;
+
+    std::cout << " diff " << diff << std::endl;
+    std::cout << m_name << " " << m_description << " " <<
+            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    return (status_ok ? 0 : 1);
+}
+
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
 {
-    //Utils::EnableFloatingPointExceptions();
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/", argv[0]);
+}
+
+int main(int argc, char **argv)
+{
     FunctionalTests::MesoCrystal1 test;
-    return test.run();
+    test.run(GetPathToData(argc, argv));
+    return test.analyseResults();
 }
 #endif
 

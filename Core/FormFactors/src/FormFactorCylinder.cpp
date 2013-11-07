@@ -31,14 +31,16 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
 
 void FormFactorCylinder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("radius", &m_radius);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius);
 }
 
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    return new FormFactorCylinder(m_height, m_radius);
+    FormFactorCylinder *result = new FormFactorCylinder(m_height, m_radius);
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const

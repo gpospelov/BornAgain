@@ -19,38 +19,41 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! ?
+//! The form factor for a rectangular box
 
-class FormFactorBox : public IFormFactorBorn
+class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
- public:
-    FormFactorBox( double radius, double width, double height)
-        : m_radius(radius), m_width(width), m_height(height) {}
+public:
+    FormFactorBox( double length, double width, double height)
+        : m_length(length), m_width(width), m_height(height) {}
 
-    ~FormFactorBox() {}
+    virtual ~FormFactorBox() {}
 
-    FormFactorBox *clone() const
-    { return new FormFactorBox(m_radius, m_width, m_height ); }
+    FormFactorBox *clone() const;
 
-    int getNumberOfStochasticParameters() const { return 2; }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
+    int getNumberOfStochasticParameters() const { return 3; }
+
+    //! Returns volume of Box
+    double getVolume() const { return m_height*m_length*m_width; }
+
+    //! Returns height of Box
+    double getHeight() const { return m_height; }
 
     //! Returns radius of Box
-    double getRadius() const { return m_radius; }
+    double getRadius() const { return m_length/2.0; }
 
     //! Returns width of Box
     double getwidth() const { return m_width; }
 
-    complex_t evaluate_for_q(const cvector_t& q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-    double getVolume() const { return 4*m_height*m_radius*m_width; }
-
-    double getHeight() const { return m_height; }
-
- protected:
+protected:
     void init_parameters();
 
- private:
-    double m_radius;
+private:
+    double m_length;
     double m_width;
     double m_height;
 };

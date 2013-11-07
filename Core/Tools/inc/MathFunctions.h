@@ -23,52 +23,55 @@
 
 #include <cstdlib>
 #include <vector>
+#include <cmath>
 
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
 #include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
+#include "EigenCore.h"
+
 //! Various mathematical functions.
 
 namespace MathFunctions
 {
 
-double Gaussian(double value, double average, double std_dev);
+BA_CORE_API_ double Gaussian(double value, double average, double std_dev);
 
-double IntegratedGaussian(double value, double average, double std_dev);
+BA_CORE_API_ double IntegratedGaussian(double value, double average, double std_dev);
 
-double GenerateNormalRandom(double average, double std_dev);
+BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
 
-double StandardNormal(double value);
+BA_CORE_API_ double StandardNormal(double value);
 
-double GenerateStandardNormalRandom();
+BA_CORE_API_ double GenerateStandardNormalRandom();
 
-double GenerateUniformRandom();
+BA_CORE_API_ double GenerateUniformRandom();
 
 //! Bessel function of the first kind and order 1
-double Bessel_J1(double value);
+BA_CORE_API_ double Bessel_J1(double value);
 
 //! Bessel function  Bessel_J1(x)/x
-inline double Bessel_C1(double value);
+BA_CORE_API_ inline double Bessel_C1(double value);
 
 //! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
-double Si(double value);
+BA_CORE_API_ double Si(double value);
 
 //! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
-double Sinc(double value);
+BA_CORE_API_ double Sinc(double value);
 
 //! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
-complex_t Sinc(const complex_t &value);
+BA_CORE_API_ complex_t Sinc(const complex_t &value);
 
-complex_t Laue(const complex_t &value, size_t N);
+BA_CORE_API_ complex_t Laue(const complex_t &value, size_t N);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
-std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
+BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
 
-std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
+BA_CORE_API_ std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
 
-std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
+BA_CORE_API_ std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
 
 //! fast sine calculations (not actually fast)
 double FastSin(const double& x);
@@ -84,6 +87,43 @@ complex_t FastCos(const complex_t &x);
 
 //! simultaneous complex sine and cosine calculations
 void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
+
+#ifndef GCCXML_SKIP_THIS
+//! computes the norm element-wise
+Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
+
+//! computes the absolute value element-wise
+Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
+
+//! computes the complex conjugate element-wise
+Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
+
+//! element-wise product
+Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
+        const Eigen::Matrix2cd &right);
+
+//! take element-wise real value
+Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
+#endif
+
+BA_CORE_API_ inline bool isnan(double x)
+{
+#ifdef _MSC_VER
+	return _isnan(x);
+#else
+	return std::isnan(x);
+#endif
+}
+
+BA_CORE_API_ inline bool isinf(double x)
+{
+#ifdef _MSC_VER
+	return !_finite(x);
+#else
+	return std::isinf(x);
+#endif
+}
+
 
 } // Namespace MathFunctions
 
@@ -182,6 +222,54 @@ inline void MathFunctions::FastSinCos(const complex_t &x,
     xsin = complex_t( sina*coshb,  cosa*sinhb );
     xcos = complex_t( cosa*coshb, -sina*sinhb );
 }
+
+#ifndef GCCXML_SKIP_THIS
+inline Eigen::Matrix2d MathFunctions::Norm(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = std::norm((complex_t)M(0,0));
+    result(0,1) = std::norm((complex_t)M(0,1));
+    result(1,0) = std::norm((complex_t)M(1,0));
+    result(1,1) = std::norm((complex_t)M(1,1));
+    return result;
+}
+
+inline Eigen::Matrix2d MathFunctions::Abs(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = std::abs((complex_t)M(0,0));
+    result(0,1) = std::abs((complex_t)M(0,1));
+    result(1,0) = std::abs((complex_t)M(1,0));
+    result(1,1) = std::abs((complex_t)M(1,1));
+    return result;
+}
+
+inline Eigen::Matrix2cd MathFunctions::Conj(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2cd result;
+    result(0,0) = std::conj((complex_t)M(0,0));
+    result(0,1) = std::conj((complex_t)M(0,1));
+    result(1,0) = std::conj((complex_t)M(1,0));
+    result(1,1) = std::conj((complex_t)M(1,1));
+    return result;
+}
+
+inline Eigen::Matrix2cd MathFunctions::ProductByElement(
+        const Eigen::Matrix2cd &left, const Eigen::Matrix2cd &right) {
+    Eigen::Matrix2cd result;
+    result(0,0) = left(0,0) * right(0,0);
+    result(0,1) = left(0,1) * right(0,1);
+    result(1,0) = left(1,0) * right(1,0);
+    result(1,1) = left(1,1) * right(1,1);
+    return result;
+}
+
+inline Eigen::Matrix2d MathFunctions::Real(const Eigen::Matrix2cd &M) {
+    Eigen::Matrix2d result;
+    result(0,0) = ((complex_t)M(0,0)).real();
+    result(0,1) = ((complex_t)M(0,1)).real();
+    result(1,0) = ((complex_t)M(1,0)).real();
+    result(1,1) = ((complex_t)M(1,1)).real();
+    return result;
+}
+#endif
 
 #endif // MATHFUNCTIONS_H
 

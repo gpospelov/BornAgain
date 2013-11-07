@@ -16,11 +16,29 @@
 #include "DWBASimulation.h"
 
 
+DWBASimulation::DWBASimulation()
+: mp_polarization_output(0)
+, m_alpha_i(0)
+, m_thread_info()
+, mp_simulation(0)
+{
+}
+
+DWBASimulation::~DWBASimulation()
+{
+       delete mp_polarization_output;
+       delete mp_simulation;
+}
+
 void DWBASimulation::init(const Simulation& simulation)
 {
     if (mp_simulation !=& simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();
+    }
+    if (mp_polarization_output) {
+        delete mp_polarization_output;
+        mp_polarization_output = 0;
     }
     m_dwba_intensity.clear();
     Detector detector = simulation.getInstrument().getDetector();
@@ -36,6 +54,23 @@ void DWBASimulation::init(const Simulation& simulation)
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
     m_sim_params = simulation.getSimulationParameters();
+
+    // initialize polarization output if needed
+    if (checkPolarizationPresent()) {
+        mp_polarization_output = new OutputData<Eigen::Matrix2d>();
+        for (size_t dim=0; dim<detector_dimension; ++dim) {
+            mp_polarization_output->addAxis(detector.getAxis(dim));
+        }
+        if (simulation.getOutputData()->getMask()) {
+            mp_polarization_output->setMask(*simulation.getOutputData()->getMask());
+        }
+    }
+}
+
+const OutputData<double>& DWBASimulation::getDWBAIntensity() const
+{
+    if (mp_polarization_output) return getPolarizationData();
+    return m_dwba_intensity;
 }
 
 DWBASimulation *DWBASimulation::clone() const
@@ -50,35 +85,18 @@ DWBASimulation *DWBASimulation::clone() const
     return p_result;
 }
 
-DWBASimulation::iterator DWBASimulation::begin()
+bool DWBASimulation::checkPolarizationPresent() const
 {
-    if (m_thread_info.n_threads<2) {
-        m_thread_info.n_threads = 1;
-        m_thread_info.i_thread = 0;
+    if (!mp_simulation) {
+        throw ClassInitializationException("DWBASimulation::"
+                "checkPolarizationPresent(): simulation not initialized");
     }
-    iterator result(m_dwba_intensity.begin());
-    if (m_thread_info.n_threads>1) {
-        MaskIndexModulus thread_mask(
-            m_thread_info.n_threads, m_thread_info.i_thread);
-        result.addMask(thread_mask);
+    ISample *p_sample = mp_simulation->getSample();
+    if (!p_sample) {
+        throw ClassInitializationException("DWBASimulation::"
+                "checkPolarizationPresent(): sample not initialized");
     }
-    return result;
-}
-
-DWBASimulation::const_iterator DWBASimulation::begin() const
-{
-    size_t n_threads = m_thread_info.n_threads;
-    size_t i_thread = m_thread_info.i_thread;
-    if (m_thread_info.n_threads<2) {
-        n_threads = 1;
-        i_thread = 0;
-    }
-    const_iterator result(m_dwba_intensity.begin());
-    if (n_threads>1) {
-        MaskIndexModulus thread_mask(n_threads, i_thread);
-        result.addMask(thread_mask);
-    }
-    return result;
+    return p_sample->containsMagneticMaterial();
 }
 
 double DWBASimulation::getWaveLength() const
@@ -87,4 +105,19 @@ double DWBASimulation::getWaveLength() const
     return 2*M_PI/real_ki.mag();
 }
 
-
+const OutputData<double>& DWBASimulation::getPolarizationData() const
+{
+    Eigen::Matrix2cd pol_density = mp_simulation->getInstrument()
+            .getBeam().getPolarization();
+    OutputData<double>::iterator it = m_dwba_intensity.begin();
+    OutputData<Eigen::Matrix2d>::const_iterator mat_it =
+            mp_polarization_output->begin();
+    while (it != m_dwba_intensity.end()) {
+        *it = std::abs((complex_t)pol_density(0,0))
+                  * ( (*mat_it)(0,0) + (*mat_it)(0,1) )
+            + std::abs((complex_t)pol_density(1,1))
+                  * ( (*mat_it)(1,0) + (*mat_it)(1,1) );
+        ++it, ++mat_it;
+    }
+    return m_dwba_intensity;
+}

@@ -22,9 +22,9 @@
 
 //! Assembles beam, detector and their relative positions wrt the sample.
 
-class Instrument : public IParameterized
+class BA_CORE_API_ Instrument : public IParameterized
 {
- public:
+public:
     Instrument();
     Instrument(const Instrument& other);
 
@@ -34,7 +34,7 @@ class Instrument : public IParameterized
     Beam getBeam() const;
 
     //! Sets the beam data
-    void setBeam(Beam beam);
+    void setBeam(const Beam &beam);
 
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double lambda, double alpha_i, double phi_i);
@@ -68,16 +68,21 @@ class Instrument : public IParameterized
     void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
     void setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function);
 
+#ifndef GCCXML_SKIP_THIS
     //! apply the detector resolution to the given intensity map
-    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
-
+    void applyDetectorResolution(OutputData<double> *p_intensity_map,
+            OutputData<Eigen::Matrix2d> *p_matrix_intensity=0) const;
+#endif
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+#ifndef GCCXML_SKIP_THIS
     //! normalize a detector image
-    void normalize(OutputData<double> *p_intensity) const;
+    void normalize(OutputData<double> *p_intensity,
+            OutputData<Eigen::Matrix2d> *p_polarized_intensity = 0) const;
+#endif
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -90,7 +95,7 @@ inline Beam Instrument::getBeam() const
     return m_beam;
 }
 
-inline void Instrument::setBeam(Beam beam)
+inline void Instrument::setBeam(const Beam &beam)
 {
     m_beam = beam;
 }

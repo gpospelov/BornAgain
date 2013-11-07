@@ -37,7 +37,7 @@ namespace pyplusplus {
         typedef std::vector<IFormFactor *> vector_IFormFactorPtr_t;
         typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
         typedef StochasticParameter<double> StochasticParameter_t;
-        typedef OutputData<double > ndimdata_t;
+        typedef OutputData<double > IntensityData;
         typedef std::vector<int > vector_integer_t;
         typedef std::vector<unsigned long int > vector_longinteger_t;
     }
@@ -60,6 +60,7 @@ namespace pyplusplus {
     inline size_t pyplusplus_boost_stochastic_parameter() { return sizeof(pyplusplus::aliases::StochasticParameter_t); }
     inline size_t pyplusplus_boost_vector_integer() { return sizeof(pyplusplus::aliases::vector_integer_t); }
     inline size_t pyplusplus_boost_vector_longinteger() { return sizeof(pyplusplus::aliases::vector_longinteger_t); }
+    inline size_t pyplusplus_boost_intensity_data() { return sizeof(pyplusplus::aliases::IntensityData); }
 }
 
 #endif // PYTHONCOREEXPOSER_H

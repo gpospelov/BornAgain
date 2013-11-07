@@ -16,12 +16,20 @@
 #ifndef OUTPUTDATA_H
 #define OUTPUTDATA_H
 
+#ifdef BORNAGAIN_PYTHON
+#ifndef PyObject_HEAD
+struct _object;
+typedef _object PyObject;
+#endif
+#endif
+
+
 #include "AxisDouble.h"
 #include "Types.h"
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
-
+#include "ThreadInfo.h"
 #include <sstream>
 
 //! Store data of any type in multi-dimensional space.
@@ -29,12 +37,14 @@
 template <class T>
 class OutputData
 {
- public:
+public:
     OutputData();
     ~OutputData() { clear(); }
     OutputData* clone() const;
 
     void copyFrom(const OutputData<T>& x);
+
+    template <class U> void copyShapeFrom(const OutputData<U>& other);
 
     void addAxis(const IAxis& new_axis);
     void addAxis(const std::string& name, size_t size,
@@ -92,7 +102,21 @@ class OutputData
     iterator end() { return iterator(this, getAllocatedSize()); }
 
     //! Returns  read-only iterator that points to the one past last element
-    const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
+    const_iterator end() const {
+        return const_iterator(this, getAllocatedSize());
+    }
+
+    //! Returns  read/write iterator that points to the first element
+    iterator begin(ThreadInfo thread_info);
+
+    //! Returns  read-only iterator that points to the first element
+    const_iterator begin(ThreadInfo thread_info) const;
+
+    //! Returns  read/write iterator that points to the one past last element
+    iterator end(ThreadInfo thread_info);
+
+    //! Returns  read-only iterator that points to the one past last element
+    const_iterator end(ThreadInfo thread_info) const;
 
     //! Returns mask that will be used by iterators
     Mask *getMask() const { return mp_mask; }
@@ -183,7 +207,13 @@ class OutputData
 
     //! Returns true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T>& right) const;
- private:
+
+    //! returns data as Python numpy array
+#ifdef BORNAGAIN_PYTHON
+    PyObject *getArray() const;
+#endif
+
+private:
     //! disabled copy constructor and assignment operators
     OutputData(const OutputData& );
     const OutputData& operator=(const OutputData& );
@@ -232,6 +262,20 @@ void OutputData<T>::copyFrom(const OutputData<T>& other)
     if (other.getMask())
         mp_mask = other.getMask()->clone();
 }
+
+template <class T>
+template <class U>
+void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
+{
+    clear();
+    size_t rank = other.getRank();
+    for (size_t i=0; i<rank; ++i) {
+        addAxis(*other.getAxis(i));
+    }
+    if (other.getMask())
+        mp_mask = other.getMask()->clone();
+}
+
 
 template <class T>
 void OutputData<T>::addAxis(const IAxis& new_axis)
@@ -331,6 +375,56 @@ template <class T>
 typename OutputData<T>::const_iterator OutputData<T>::begin() const
 {
     typename OutputData<T>::const_iterator result(this);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::iterator OutputData<T>::begin(ThreadInfo thread_info)
+{
+    int total_size = (int)getAllocatedSize();
+    int start_index = thread_info.getBeginIndex(total_size);
+
+    typename OutputData<T>::iterator result(this, start_index);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::const_iterator
+    OutputData<T>::begin(ThreadInfo thread_info) const
+{
+    int total_size = (int)getAllocatedSize();
+    int start_index = thread_info.getBeginIndex(total_size);
+
+    typename OutputData<T>::const_iterator result(this, start_index);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::iterator OutputData<T>::end(ThreadInfo thread_info)
+{
+    int total_size = (int)getAllocatedSize();
+    int end_index = thread_info.getEndIndex(total_size);
+
+    typename OutputData<T>::iterator result(this, end_index);
+    if (mp_mask)
+        result.setMask(*mp_mask);
+    return result;
+}
+
+template <class T>
+typename OutputData<T>::const_iterator
+    OutputData<T>::end(ThreadInfo thread_info) const
+{
+    int total_size = (int)getAllocatedSize();
+    int end_index = thread_info.getEndIndex(total_size);
+
+    typename OutputData<T>::const_iterator result(this, end_index);
     if (mp_mask)
         result.setMask(*mp_mask);
     return result;
@@ -592,6 +686,11 @@ bool OutputData<T>::hasSameShape(const OutputData<T>& right) const
     }
     return true;
 }
+
+//! returns data as Python numpy array
+#ifdef BORNAGAIN_PYTHON
+template<> PyObject *OutputData<double>::getArray() const;
+#endif
 
 #endif // OUTPUTDATA_H
 

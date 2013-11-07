@@ -5,9 +5,9 @@
 #include "OutputData.h"
 
 #include "ISampleBuilder.h"
+#include "Simulation.h"
 
 class MultiLayer;
-class Simulation;
 
 
 namespace FunctionalTests {
@@ -22,30 +22,17 @@ class IsGISAXS06
     ~IsGISAXS06();
 
     void runlattice(), runcentered(), runrotated(), runvariants();
-    int analyseResults();
+    int analyseResults(const std::string &path_to_data = std::string());
 
     const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
 
  private:
 
-    class LatticeVariantBuilder : public ISampleBuilder {
-    public:
-        LatticeVariantBuilder() : m_xi(0.0) {}
-        virtual ~LatticeVariantBuilder() {}
-
-        virtual ISample *buildSample() const;
-
-        void setXi(double xi) { m_xi = xi; }
-    private:
-        double m_xi;
-    };
-
     std::string m_name;
     std::string m_description;
-    LatticeVariantBuilder m_builder;
     std::string m_path;
-
     results_t m_results;
+    Simulation m_simulation;
 };
 
 

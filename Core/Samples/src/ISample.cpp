@@ -14,9 +14,11 @@
 // ************************************************************************** //
 
 #include "ISample.h"
+#include "SampleMaterialVisitor.h"
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
 #include "Utils.h"
+#include "SamplePrintVisitor.h"
 
 ISample *ISample::clone() const
 {
@@ -26,6 +28,13 @@ ISample *ISample::clone() const
 }
 
 //! Adds params from local to external pool and recurses over direct children.
+
+ISample* ISample::cloneInvertB() const
+{
+    throw NotImplementedException(
+        "ISample::cloneInvertB() -> "
+        "Error! Method is not implemented");
+}
 
 std::string ISample::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
@@ -63,28 +72,24 @@ std::string ISample::addParametersToExternalPool(
     return new_path;
 }
 
-void ISample::print_structure()
+void ISample::printSampleTree()
 {
-    std::cout << getName() << " " << this << std::endl;
-    std::cout << "ISample::print_structure is broken\n";
-/*
-    if(getCompositeSample()) {
-        ICompositeIterator it = getCompositeSample()->createIterator();
-        it.first();
-        while(!it.is_done())
-        {
-            ISample *smp = it.get_current();
-            if(smp) {
-                int nlevel = (int)it.get_level();
-                for(int i=0; i<nlevel; i++) std::cout << "... ";
-                std::cout << (*smp) << std::endl;
-            } else {
-                std::cout << "NULL" << std::endl;
-            }
-            it.next();
+    SamplePrintVisitor visitor;
+    this->accept(&visitor);
+}
+
+bool ISample::containsMagneticMaterial() const
+{
+    SampleMaterialVisitor material_vis;
+    this->accept(&material_vis);
+    std::vector<const IMaterial *> materials = material_vis.getMaterials();
+    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
+            it != materials.end(); ++it) {
+        if (!(*it)->isScalarMaterial()) {
+            return true;
         }
     }
-*/
+    return false;
 }
 
 void ISample::print(std::ostream& ostr) const

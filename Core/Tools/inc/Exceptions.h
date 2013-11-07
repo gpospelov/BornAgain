@@ -16,106 +16,122 @@
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
+#include "WinDllMacros.h"
 #include <stdexcept>
+
+#ifdef _WIN32
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4275)
+#endif
+#endif
 
 namespace Exceptions {
 
-    class NotImplementedException : public std::logic_error
-    {
-    public:
-        NotImplementedException(const std::string& message);
-    };
+class BA_CORE_API_ NotImplementedException : public std::logic_error
+{
+public:
+    NotImplementedException(const std::string& message);
+};
 
-    class NullPointerException : public std::logic_error
-    {
-    public:
-        NullPointerException(const std::string& message);
-    };
+class BA_CORE_API_ NullPointerException : public std::logic_error
+{
+public:
+    NullPointerException(const std::string& message);
+};
 
-    class OutOfBoundsException : public std::logic_error
-    {
-    public:
-        OutOfBoundsException(const std::string& message);
-    };
+class BA_CORE_API_ OutOfBoundsException : public std::logic_error
+{
+public:
+    OutOfBoundsException(const std::string& message);
+};
 
-    class ClassInitializationException : public std::runtime_error
-    {
-    public:
-        ClassInitializationException(const std::string& message);
-    };
+class BA_CORE_API_ ClassInitializationException : public std::runtime_error
+{
+public:
+    ClassInitializationException(const std::string& message);
+};
 
-    class SelfReferenceException : public std::logic_error
-    {
-    public:
-        SelfReferenceException(const std::string& message);
-    };
+class BA_CORE_API_ SelfReferenceException : public std::logic_error
+{
+public:
+    SelfReferenceException(const std::string& message);
+};
 
-    class DeadReferenceException : public std::runtime_error
-    {
-    public:
-        DeadReferenceException(const std::string& message);
-    };
+class BA_CORE_API_ DeadReferenceException : public std::runtime_error
+{
+public:
+    DeadReferenceException(const std::string& message);
+};
 
-    class UnknownClassRegistrationException : public std::runtime_error
-    {
-    public:
-        UnknownClassRegistrationException(const std::string& message);
-    };
+class BA_CORE_API_ UnknownClassRegistrationException : public std::runtime_error
+{
+public:
+    UnknownClassRegistrationException(const std::string& message);
+};
 
-    class ExistingClassRegistrationException : public std::runtime_error
-    {
-    public:
-        ExistingClassRegistrationException(const std::string& message);
-    };
+class BA_CORE_API_ ExistingClassRegistrationException : public std::runtime_error
+{
+public:
+    ExistingClassRegistrationException(const std::string& message);
+};
 
-    class LogicErrorException : public std::logic_error
-    {
-    public:
-        LogicErrorException(const std::string& message);
-    };
+class BA_CORE_API_ LogicErrorException : public std::logic_error
+{
+public:
+    LogicErrorException(const std::string& message);
+};
 
-    class RuntimeErrorException : public std::runtime_error
-    {
-    public:
-        RuntimeErrorException(const std::string& message);
-    };
+class BA_CORE_API_ RuntimeErrorException : public std::runtime_error
+{
+public:
+    RuntimeErrorException(const std::string& message);
+};
 
-    class DivisionByZeroException : public std::runtime_error
-    {
-    public:
-        DivisionByZeroException(const std::string& message);
-    };
+class BA_CORE_API_ DivisionByZeroException : public std::runtime_error
+{
+public:
+    DivisionByZeroException(const std::string& message);
+};
 
-    class DomainErrorException : public std::domain_error
-    {
-    public:
-        DomainErrorException(const std::string& message);
-    };
+class BA_CORE_API_ DomainErrorException : public std::domain_error
+{
+public:
+    DomainErrorException(const std::string& message);
+};
 
-    class FileNotIsOpenException : public std::runtime_error
-    {
-    public:
-        FileNotIsOpenException(const std::string& message);
-    };
+class BA_CORE_API_ FileNotIsOpenException : public std::runtime_error
+{
+public:
+    FileNotIsOpenException(const std::string& message);
+};
 
 
-    class FileIsBadException : public std::runtime_error
-    {
-    public:
-        FileIsBadException(const std::string& message);
-    };
+class BA_CORE_API_ FileIsBadException : public std::runtime_error
+{
+public:
+    FileIsBadException(const std::string& message);
+};
 
-    class FormatErrorException : public std::runtime_error
-    {
-    public:
-        FormatErrorException(const std::string& message);
-    };
+class BA_CORE_API_ FormatErrorException : public std::runtime_error
+{
+public:
+    FormatErrorException(const std::string& message);
+};
 
-    void LogExceptionMessage(const std::string& message);
+void LogExceptionMessage(const std::string& message);
 
 }
 
 using namespace Exceptions;
+
+
+#ifdef _WIN32
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+#endif
+
 
 #endif // EXCEPTIONS_H
 

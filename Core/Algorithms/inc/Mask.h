@@ -20,9 +20,9 @@
 
 //! Base class for masking OutputData elements.
 
-class Mask : public ICloneable
+class BA_CORE_API_ Mask : public ICloneable
 {
- public:
+public:
     template <class TValue, class TContainer> friend class OutputDataIterator;
     template <class TValue> friend class OutputData;
     explicit Mask(Mask *p_submask=0)
@@ -37,48 +37,48 @@ class Mask : public ICloneable
     size_t getOwnIndex() const { return m_own_index; }
     size_t getMaxIndex() const { return m_max_index; }
 
- protected:
+protected:
     virtual bool isMasked(size_t total_index) const;
     size_t m_own_index;
     size_t m_max_index;
     Mask *mp_submask;
- private:
+private:
     size_t nextSubIndex(size_t total_index);
 };
 
 //! Mask based on the index modulo a given number.
 
-class MaskIndexModulus : public Mask
+class BA_CORE_API_ MaskIndexModulus : public Mask
 {
- public:
+public:
     MaskIndexModulus(size_t modulus, size_t remainder, Mask *p_submask=0)
         : Mask(p_submask), m_modulus(modulus), m_remainder(remainder) {}
     virtual ~MaskIndexModulus() {}
     virtual MaskIndexModulus *clone() const;
 
- protected:
+protected:
     virtual bool isMasked(size_t total_index) const;
 
- private:
+private:
     size_t m_modulus;
     size_t m_remainder;
 };
 
 //! Mask based on the coordinates.
 
-class MaskCoordinates : public Mask
+class BA_CORE_API_ MaskCoordinates : public Mask
 {
- public:
+public:
     MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0);
     virtual ~MaskCoordinates();
     virtual MaskCoordinates *clone() const;
 
     void setMaskCoordinateFunction(MaskCoordinateFunction *p_mask_function);
 
- protected:
+protected:
     virtual bool isMasked(size_t total_index) const;
 
- private:
+private:
     void setCachedCoordinates(size_t index) const;
     size_t m_rank;
     int *m_dims;

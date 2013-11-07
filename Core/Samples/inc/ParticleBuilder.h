@@ -26,9 +26,9 @@
 //! currently produces particles but probably can produce directly
 //! ParticleInfo, or even ISample
 
-class ParticleBuilder
+class BA_CORE_API_ ParticleBuilder
 {
- public:
+public:
     ParticleBuilder();
     virtual ~ParticleBuilder();
 
@@ -42,7 +42,7 @@ class ParticleBuilder
     //! plant particles in given decoration
     void plantParticles(ParticleDecoration& decor);
 
- private:
+private:
     Particle *m_prototype; //!< prototype of the particle, all particles will be cloned from it
     std::string m_parameter_name; //!< name of parameter to variate
     StochasticParameter<double > *m_parameter;

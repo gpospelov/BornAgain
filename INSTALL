@@ -1,0 +1,44 @@
+Brief Installation instruction for BornAgain framework
+
+Detailed installation instructions can be found at
+http://apps.jcns.fz-juelich.de/BornAgain
+
+
+-------------------------------------------------------------------------------
+1) Install third party software
+-------------------------------------------------------------------------------
+Required:
+* compilers: clang  versions >=3.1 or GCC versions >=4.2
+* cmake >=2.8
+* boost library >=1.48
+* GNU scientific library >= 1.15
+* fftw3 library >=3.3
+* python >=2.7, python-devel, python-numpy-devel
+
+Optional:
+* python-matplotlib (allows to run usage examples with graphics)
+* ROOT framework (adds bunch of additional fitting algorithms to BornAgain)
+
+
+-------------------------------------------------------------------------------
+2) Getting the source
+-------------------------------------------------------------------------------
+git clone git://apps.jcns.fz-juelich.de/BornAgain.git 
+
+
+-------------------------------------------------------------------------------
+3) Building with CMake
+-------------------------------------------------------------------------------
+mkdir <build_dir>
+cd <build_dir>
+cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
+make
+make check
+make install
+
+
+-------------------------------------------------------------------------------
+4) Running first simulation
+-------------------------------------------------------------------------------
+cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
+python CylindersAndPrisms.py

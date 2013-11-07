@@ -16,25 +16,34 @@
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
+
+FormFactorBox *FormFactorBox::clone() const
+{
+    FormFactorBox *result = new FormFactorBox(m_length, m_width, m_height);
+    result->setName(getName());
+    return result;
+}
+
+
 complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 {
-    complex_t qxR = m_radius*q.x();
-    complex_t qyW = m_width*q.y();
-    complex_t qzHdiv2 = m_height/2*q.z();
+    complex_t qxRdiv2 = m_length*q.x()/2.0;
+    complex_t qyWdiv2 = m_width*q.y()/2.0;
+    complex_t qzHdiv2 = m_height*q.z()/2.0;
 
     return getVolume() *
         std::exp(complex_t(0.,1.)*qzHdiv2) *
-        MathFunctions::Sinc(qxR) *
-        MathFunctions::Sinc(qyW) *
+        MathFunctions::Sinc(qxRdiv2) *
+        MathFunctions::Sinc(qyWdiv2) *
         MathFunctions::Sinc(qzHdiv2);
 }
 
 void FormFactorBox::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter( "width", & m_width);
-    getParameterPool()->registerParameter("height", &m_height);
+    clearParameterPool();
+    registerParameter("radius", &m_length);
+    registerParameter( "width", & m_width);
+    registerParameter("height", &m_height);
 }
 
 

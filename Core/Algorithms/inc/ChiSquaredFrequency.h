@@ -22,7 +22,7 @@
 
 class ChiSquaredFrequency : public IChiSquaredModule
 {
- public:
+public:
     ChiSquaredFrequency()
         : mp_real_ft(0) , mp_simulation_ft(0) , m_cutoff(1.0) {}
     virtual ~ChiSquaredFrequency()
@@ -40,7 +40,7 @@ class ChiSquaredFrequency : public IChiSquaredModule
 
     //! Returns output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
- protected:
+protected:
     virtual void initWeights();
     OutputData<complex_t> *mp_real_ft;
     OutputData<complex_t> *mp_simulation_ft;

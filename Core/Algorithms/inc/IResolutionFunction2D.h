@@ -20,9 +20,9 @@
 
 //! Interface providing two-dimensional resolution function.
 
-class IResolutionFunction2D : public IParameterized
+class BA_CORE_API_ IResolutionFunction2D : public IParameterized
 {
- public:
+public:
     virtual ~IResolutionFunction2D() {}
 
     virtual double evaluateCDF(double x, double y) const=0;

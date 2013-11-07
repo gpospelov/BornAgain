@@ -1,19 +1,20 @@
 TEMPLATE = subdirs
+cache()
 
 include($$PWD/shared.pri)
 
-SUBDIRS += Core ThirdParty/gtest
-
-ROOT = $$system(root-config --prefix)
-isEmpty(ROOT) {
-    message("No ROOT installation found. libBornAgainFit and App" will not be compiled.)
-}
-!isEmpty(ROOT) SUBDIRS += Fit App
-
+SUBDIRS += Core
+SUBDIRS += ThirdParty/gtest
 SUBDIRS += Tests/UnitTests/TestCore
+SUBDIRS += Tests/FunctionalTests/TestCore
+SUBDIRS += ThirdParty/RootMinimizers
+SUBDIRS += Fit
+SUBDIRS += Tests/FunctionalTests/TestFit
 
+!win32{
+!isEmpty(ROOT_FRAMEWORK): SUBDIRS += App
+}
 
-TestCore.depends = ThirdParty/gtest
-TestCore.depends = ThirdParty/gtest
+# compilation in lister order
+CONFIG += ordered
 
-CONFIG += ordered # comiplation in lister order

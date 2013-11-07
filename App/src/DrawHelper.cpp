@@ -18,7 +18,6 @@
 #include "MultiLayer.h"
 #include "Utils.h"
 #include "Lattice.h"
-#include "LayerDecorator.h"
 #include "MesoCrystal.h"
 #include "Crystal.h"
 #include "LatticeBasis.h"
@@ -44,6 +43,7 @@
 #include "TFile.h"
 #include "TDatime.h"
 #include "TSystem.h"
+#include <cstdlib>
 
 std::vector<TCanvas *> DrawHelper::m_registered_canvases =
     std::vector<TCanvas *>();
@@ -67,7 +67,7 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
   if ( event == kButton1Double ) {
     TCanvas *c = (TCanvas *)gTQSender;
     char cname[256];
-    sprintf(cname,"%s_%d",c->GetTitle(),(int)time(0));
+    sprintf(cname,"%s_%d",c->GetTitle(),std::rand());
     TPad *pad = c->Pick(px, py, 0);
     TPad *pad_new = dynamic_cast<TPad *>(pad->Clone());
     pad_new->SetPad(0.0, 0.0, 1.0, 1.0);
@@ -107,7 +107,7 @@ void DrawHelper::SetStyle()
     // use large fonts
     //Int_t font=72; // Helvetica italics
     Int_t font=42; // Helvetica
-    Double_t tsize=0.05;
+    float tsize=0.05;
     scattStyle->SetTextFont(font);
 
     scattStyle->SetTextSize(tsize);

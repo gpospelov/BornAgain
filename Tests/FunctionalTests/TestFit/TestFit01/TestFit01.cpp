@@ -2,7 +2,6 @@
 #include "MaterialManager.h"
 #include "MessageService.h"
 #include "MultiLayer.h"
-#include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "InterferenceFunctions.h"
 #include "FormFactorCylinder.h"
@@ -10,7 +9,7 @@
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
 
-#include "TBenchmark.h"
+//#include "TBenchmark.h"
 
 #include <iostream>
 #include <iomanip>
@@ -63,8 +62,8 @@ int TestFit01::run()
 // run fitting using dedicated minimizer, return true in the case of success
 bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string &minimizer_algorithm)
 {
-    TBenchmark mb;
-    mb.Start("test");
+//    TBenchmark mb;
+//    mb.Start("test");
 
     ISample *sample = buildSample();
     Simulation *simulation = createSimulation();
@@ -72,7 +71,7 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
 
     // Creating real data, which is simply results of our simulation with default values
     simulation->runSimulation();
-    OutputData<double> *real_data = simulation->getOutputDataClone();
+    OutputData<double> *real_data = simulation->getIntensityData();
 
     // setting fitting
     FitSuite *fitSuite = new FitSuite();
@@ -89,9 +88,9 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
     double radius_found = fitSuite->getMinimizer()->getValueOfVariableAtMinimum(1);
     double radius_diff = std::fabs(radius_found - m_cylinder_radius)/m_cylinder_radius;
 
-    mb.Stop("test");
-    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "RealTime" % mb.GetRealTime("test");
-    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "CpuTime" % mb.GetCpuTime("test");
+//    mb.Stop("test");
+//    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "RealTime" % mb.GetRealTime("test");
+//    std::cout << boost::format("%|12t| %-10s : %-6.3f \n") % "CpuTime" % mb.GetCpuTime("test");
     std::cout << boost::format("%|12t| %-10s : %-4d \n") % "NCalls" % fitSuite->getNCalls();
     std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") % "Par1" % height_found % height_diff;
     std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) \n") % "Par2" % radius_found % radius_diff;
@@ -112,13 +111,18 @@ bool TestFit01::run_fitting(const std::string &minimizer_name, const std::string
 ISample *TestFit01::buildSample()
 {
     MultiLayer *multi_layer = new MultiLayer();
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     Layer air_layer(air_material);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
+    ParticleDecoration particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer->addLayer(air_layer);
     return multi_layer;
 }
 

@@ -21,27 +21,30 @@
 
 //! Formfactor of a sphere.
 
-class FormFactorFullSphere : public IFormFactorBorn
+class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
- public:
+public:
     FormFactorFullSphere(double radius);
     ~FormFactorFullSphere() {}
     virtual FormFactorFullSphere *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual int getNumberOfStochasticParameters() const { return 1; }
 
     //! Returns radius of sphere
     virtual double getRadius() const { return m_radius; }
+    virtual void setRadius(double radius) {m_radius = radius; }
 
     //! Returns diameter of sphere
     virtual double getHeight() const { return 2.0*m_radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     virtual void init_parameters();
 
- private:
+private:
     double m_radius;
 };
 

@@ -21,25 +21,41 @@
 
 //! ?
 
-class FormFactorGauss : public IFormFactorBorn
+class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 {
- public:
+public:
     FormFactorGauss(double volume);
     FormFactorGauss(double height, double width);
     ~FormFactorGauss() {}
     virtual FormFactorGauss *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+    //! Returns volume
+    virtual double getVolume() const {
+        return m_width*m_width*m_height;
+    }
+
+    //! Returns height
+    double getHeight() const { return m_height; }
+
+    //! Returns radius of Box
+    double getRadius() const { return m_width; }
+
+
+
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
- private:
+private:
     double m_height;
     double m_width;
+    double m_max_ql;
 };
 
 #endif /* FORMFACTORGAUSS_H_ */

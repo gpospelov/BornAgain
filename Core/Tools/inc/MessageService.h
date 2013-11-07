@@ -1,12 +1,12 @@
 #ifndef MESSAGESVC_H
 #define MESSAGESVC_H
 
+#include "WinDllMacros.h"
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
 #include <iomanip>
-//#include <boost/thread.hpp>
 
 
 //! Sets of logging utilities
@@ -16,14 +16,10 @@ namespace MSG
 enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 
-class Logger
+class BA_CORE_API_ Logger
 {
- public:
-    Logger(MessageLevel level) {
-        //m_buffer << boost::this_thread::get_id();
-        m_buffer << "- " << NowTime();
-        m_buffer << " " << std::setw(8) << std::left << ToString(level) << ": ";
-    }
+public:
+    Logger(MessageLevel level);
 
     template <typename T>
     Logger&  operator<<(T const&  value)
@@ -32,27 +28,25 @@ class Logger
         return *this;
     }
 
-    ~Logger()
-    {
-        m_buffer << std::endl;
-        std::cout << m_buffer.str();
-    }
+    ~Logger();
 
     std::string NowTime();
-    const std::string& ToString(MessageLevel level) {return m_level_names[level];}
-
-    static void SetLevel(MessageLevel level) {m_logLevel = level; }
+    const std::string& ToString(MessageLevel level);
+    static void SetLevel(MessageLevel level);
     static void SetLevel(const std::string& levelname);
-    static MessageLevel GetLevel() {return m_logLevel; }
+    static MessageLevel GetLevel();
 
- private:
+private:
     static MessageLevel m_logLevel;
     static std::vector<std::string > m_level_names;
     std::ostringstream m_buffer;
 };
 
-inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
-inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
+//inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
+//inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
+
+BA_CORE_API_ void SetLevel(MessageLevel level);
+BA_CORE_API_ void SetLevel(const std::string& levelname);
 
 }
 

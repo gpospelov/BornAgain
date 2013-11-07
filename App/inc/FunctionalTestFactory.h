@@ -27,7 +27,7 @@ class ProgramOptions;
 
 class FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
 {
-  public:
+public:
     FunctionalTestFactory();
     virtual ~FunctionalTestFactory();
 
@@ -49,7 +49,7 @@ class FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
     iterator begin() { return m_descriptions.begin(); }
     iterator end() { return m_descriptions.end(); }
 
-  private:
+private:
     TBenchmark *m_benchmark;
 };
 

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FunctionalTestFactory.h"
+#include "TestBugs.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestDiffuseReflection.h"
@@ -24,15 +25,14 @@
 #include "TestFormFactor.h"
 #include "TestFormFactors.h"
 #include "TestFourier.h"
-#include "TestFresnelCoeff.h"
 #include "TestFumiliLMA.h"
-#include "TestIsGISAXS1.h"
 #include "TestIsGISAXS10.h"
 #include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
 #include "TestIsGISAXS13.h"
 #include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
+#include "TestIsGISAXS1.h"
 #include "TestIsGISAXS2.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS4.h"
@@ -46,9 +46,16 @@
 #include "TestMiscellaneous.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestPerformance.h"
+#include "TestPolarizedDWBA.h"
+#include "TestPolarizedDWBATerms.h"
+#include "TestPolarizedDWBAZeroMag.h"
+#include "TestPolarizedMeso.h"
 #include "TestRootTree.h"
 #include "TestRoughness.h"
+#include "TestSpecularMagnetic.h"
+#include "TestSpecularMatrix.h"
 #include "TestToySimulation.h"
+#include "TestToyFitting.h"
 
 #include "TBenchmark.h"
 
@@ -149,10 +156,6 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "roughness",
         IFactoryCreateFunction<TestRoughness, IFunctionalTest>,
         "functional test: roughness parameters");
-    p_test_factory->registerItem(
-        "Fresnel",
-        IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest>,
-        "functional test: Fresnel coefficients calculations");
     p_test_factory->registerItem(
         "formfactor",
         IFactoryCreateFunction<TestFormFactor, IFunctionalTest>,
@@ -298,5 +301,40 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "FormFactors",
         IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
         "functional test: FormFactors");
+    p_test_factory->registerItem(
+        "specularmatrix",
+        IFactoryCreateFunction<TestSpecularMatrix, IFunctionalTest>,
+        "functional test: specular reflectivity with matrix formalism");
+    p_test_factory->registerItem(
+        "testbugs",
+        IFactoryCreateFunction<TestBugs , IFunctionalTest>,
+        "functional test: test bugs reported in Redmine");
+    p_test_factory->registerItem(
+        "specularmagnetic",
+        IFactoryCreateFunction<TestSpecularMagnetic, IFunctionalTest>,
+        "functional test: specular reflectivity with magnetic matrix formalism");
+    p_test_factory->registerItem(
+        "polarizedDWBA",
+        IFactoryCreateFunction<TestPolarizedDWBA, IFunctionalTest>,
+        "functional test: polarized DWBA (magnetic cylinders on substrate)");
+    p_test_factory->registerItem(
+        "polarizedDWBAZeroMag",
+        IFactoryCreateFunction<TestPolarizedDWBAZeroMag, IFunctionalTest>,
+        "functional test: polarized DWBA with zero magnetic field");
+    p_test_factory->registerItem(
+         "polarizedDWBATerms",
+         IFactoryCreateFunction<TestPolarizedDWBATerms, IFunctionalTest>,
+         "functional test: compare different terms in DWBA between"
+         " scalar and matrix computation");
+    p_test_factory->registerItem(
+         "polarizedMeso",
+         IFactoryCreateFunction<TestPolarizedMeso, IFunctionalTest>,
+         "functional test: polarized mesocrystals");
+    p_test_factory->registerItem(
+        "toyfit",
+        IFactoryCreateFunction<TestToyFitting, IFunctionalTest>,
+        "functional test: produces plots used in manual");
+
+
 }
 

@@ -74,7 +74,7 @@ class MySampleBuilder(ISampleBuilder):
         p_interference_funtion = InterferenceFunctionNone()
         particle_decoration = ParticleDecoration()
 
-        n_max_phi_rotation_steps = 180
+        n_max_phi_rotation_steps = 2
         n_alpha_rotation_steps = 1
         alpha_step = 5.0*degree/n_alpha_rotation_steps
         alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
@@ -92,12 +92,13 @@ class MySampleBuilder(ISampleBuilder):
 
         particle_decoration.setTotalParticleSurfaceDensity(surface_density)
         particle_decoration.addInterferenceFunction(p_interference_funtion)
-        avg_layer_decorator = LayerDecorator(avg_layer, particle_decoration)
+        
+        avg_layer.setDecoration(particle_decoration)
 
         roughness = LayerRoughness(self.roughness.value, 0.3, 500.0*nanometer)
 
         p_multi_layer.addLayer(air_layer)
-        p_multi_layer.addLayer(avg_layer_decorator)
+        p_multi_layer.addLayer(avg_layer)
         p_multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
 
         self.sample = p_multi_layer
@@ -107,12 +108,15 @@ class MySampleBuilder(ISampleBuilder):
     # building meso crystal
     # -------------------------------------------------------------------------
     def createMesoCrystal(self,stacking_radius_a, stacking_radius_c, n_particle, p_meso_form_factor):
+        
+        mParticle = MaterialManager.getHomogeneousMaterial("Particle", n_particle )
+        
         p_lat = self.createLattice(stacking_radius_a, stacking_radius_c)
         bas_a = p_lat.getBasisVectorA()
         bas_b = p_lat.getBasisVectorB()
         bas_c = p_lat.getBasisVectorC()
         ff_sphere = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value, self.sigma_nanoparticle_radius.value)
-        particle = Particle(n_particle, ff_sphere )
+        particle = Particle(mParticle, ff_sphere )
         position_0 = kvector_t(0.0, 0.0, 0.0)
         position_1 = kvector_t(0.0, 0.0, 0.0)
         position_2 = kvector_t(0.0, 0.0, 0.0)        
@@ -152,17 +156,17 @@ def runTest():
     reference_data = GetReferenceData()
 
     # setting detector axis as in reference data
-    simulation.setDetectorParameters(reference_data);
+    simulation.setDetectorParameters(reference_data)
 
     #running simulation
-    simulation.runSimulation();
-    simulation.normalize();
-    result = simulation.getOutputDataClone();
+    simulation.runSimulation()
+    simulation.normalize()
+    result = simulation.getIntensityData().getArray()
 
     diff = GetDifference(result, reference_data)
     print diff
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "MesoCrystal1", "Mesocrystal simulation", status
 
 
@@ -172,7 +176,7 @@ def runTest():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    filename = path+'../TestCore/MesoCrystal1/mesocrystal1_reference.txt.gz'
+    filename = path+'../../ReferenceData/BornAgain/mesocrystal1b_reference.txt.gz'
     return OutputDataIOFactory.getOutputData(filename)
     return reference
 
@@ -197,7 +201,7 @@ def GetDifference(data, reference):
 # create simulation
 def createSimulation():
     simulation = Simulation()
-    simulation.setBeamParameters(1.77*angstrom, -0.4*degree, 0.0*degree)
+    simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
     simulation.setBeamIntensity(5.0090e+12)
     simulation.setDetectorResolutionFunction(ResolutionFunction2DSimple(0.0002, 0.0002))
     return simulation
@@ -208,6 +212,6 @@ def createSimulation():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
-
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)

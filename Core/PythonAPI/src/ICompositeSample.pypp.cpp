@@ -25,61 +25,18 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     
     }
 
-    virtual ::ICompositeSample * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ICompositeSample::clone(  );
-        }
-    }
-    
-    ::ICompositeSample * default_clone(  ) const  {
-        return ICompositeSample::clone( );
-    }
-
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::size_t size(  ) const  {
-        if( bp::override func_size = this->get_override( "size" ) )
-            return func_size(  );
-        else{
-            return this->ICompositeSample::size(  );
-        }
-    }
-    
-    ::size_t default_size(  ) const  {
-        return ICompositeSample::size( );
+    virtual void accept( ::ISampleVisitor * p_visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(p_visitor) );
     }
 
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -88,22 +45,34 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
     }
 
+    virtual ::ISample * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else
+            return this->ISample::cloneInvertB(  );
+    }
+    
+    
+    ::ISample * default_cloneInvertB(  ) const  {
+        return ISample::cloneInvertB( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -112,13 +81,25 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void printSampleTree(  ) {
+        if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
+            func_printSampleTree(  );
+        else
+            this->ISample::printSampleTree(  );
+    }
+    
+    
+    void default_printSampleTree(  ) {
+        ISample::printSampleTree( );
     }
 
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
@@ -140,13 +121,25 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -155,10 +148,10 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -172,87 +165,14 @@ void register_ICompositeSample_class(){
         typedef bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable > ICompositeSample_exposer_t;
         ICompositeSample_exposer_t ICompositeSample_exposer = ICompositeSample_exposer_t( "ICompositeSample", bp::init< >() );
         bp::scope ICompositeSample_scope( ICompositeSample_exposer );
-        { //::ICompositeSample::begin_shallow
+        { //::ISample::accept
         
-            typedef ::std::_List_iterator< ISample* > ( ::ICompositeSample::*begin_shallow_function_type )(  ) ;
+            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
             
             ICompositeSample_exposer.def( 
-                "begin_shallow"
-                , begin_shallow_function_type( &::ICompositeSample::begin_shallow ) );
-        
-        }
-        { //::ICompositeSample::begin_shallow
-        
-            typedef ::std::_List_const_iterator< ISample* > ( ::ICompositeSample::*begin_shallow_function_type )(  ) const;
-            
-            ICompositeSample_exposer.def( 
-                "begin_shallow"
-                , begin_shallow_function_type( &::ICompositeSample::begin_shallow ) );
-        
-        }
-        { //::ICompositeSample::clone
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*clone_function_type )(  ) const;
-            typedef ::ICompositeSample * ( ICompositeSample_wrapper::*default_clone_function_type )(  ) const;
-            
-            ICompositeSample_exposer.def( 
-                "clone"
-                , clone_function_type(&::ICompositeSample::clone)
-                , default_clone_function_type(&ICompositeSample_wrapper::default_clone)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ICompositeSample::end_shallow
-        
-            typedef ::std::_List_iterator< ISample* > ( ::ICompositeSample::*end_shallow_function_type )(  ) ;
-            
-            ICompositeSample_exposer.def( 
-                "end_shallow"
-                , end_shallow_function_type( &::ICompositeSample::end_shallow ) );
-        
-        }
-        { //::ICompositeSample::end_shallow
-        
-            typedef ::std::_List_const_iterator< ISample* > ( ::ICompositeSample::*end_shallow_function_type )(  ) const;
-            
-            ICompositeSample_exposer.def( 
-                "end_shallow"
-                , end_shallow_function_type( &::ICompositeSample::end_shallow ) );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type )(  ) ;
-            
-            ICompositeSample_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ICompositeSample_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type )(  ) const;
-            
-            ICompositeSample_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ICompositeSample_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::size
-        
-            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::size_t ( ICompositeSample_wrapper::*default_size_function_type )(  ) const;
-            
-            ICompositeSample_exposer.def( 
-                "size"
-                , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&ICompositeSample_wrapper::default_size) );
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
+                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -275,6 +195,18 @@ void register_ICompositeSample_class(){
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
                 , default_clearParameterPool_function_type(&ICompositeSample_wrapper::default_clearParameterPool) );
+        
+        }
+        { //::ISample::cloneInvertB
+        
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ICompositeSample_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            
+            ICompositeSample_exposer.def( 
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::ISample::cloneInvertB)
+                , default_cloneInvertB_function_type(&ICompositeSample_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::createParameterTree
@@ -300,6 +232,17 @@ void register_ICompositeSample_class(){
                 , default_printParameters_function_type(&ICompositeSample_wrapper::default_printParameters) );
         
         }
+        { //::ISample::printSampleTree
+        
+            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
+            typedef void ( ICompositeSample_wrapper::*default_printSampleTree_function_type )(  ) ;
+            
+            ICompositeSample_exposer.def( 
+                "printSampleTree"
+                , printSampleTree_function_type(&::ISample::printSampleTree)
+                , default_printSampleTree_function_type(&ICompositeSample_wrapper::default_printSampleTree) );
+        
+        }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
@@ -308,6 +251,18 @@ void register_ICompositeSample_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ICompositeSample_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( ICompositeSample_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            ICompositeSample_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&ICompositeSample_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

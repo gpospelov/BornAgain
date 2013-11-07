@@ -16,6 +16,7 @@
 
 #include "IParameterized.h"
 #include "Utils.h"
+#include <iostream>
 
 IParameterized& IParameterized::operator=(const IParameterized& other)
 {
@@ -58,6 +59,24 @@ std::string IParameterized::addParametersToExternalPool(
     return path;
 }
 
+
+//! set parameter value, return true in the case of success
+bool IParameterized::setParameterValue(const std::string &name, double value)
+{
+    ParameterPool *p_pool = createParameterTree();
+    return p_pool->setParameterValue(name, value);
+    delete p_pool;
+}
+
+//! Sets parameter value, return number of changed parameters
+int IParameterized::setMatchedParametersValue(const std::string& wildcards, double value)
+{
+    ParameterPool *p_pool = createParameterTree();
+    return p_pool->setMatchedParametersValue(wildcards, value);
+    delete p_pool;
+}
+
+
 void IParameterized::printParameters() const
 {
     ParameterPool *p_pool = createParameterTree();
@@ -65,9 +84,7 @@ void IParameterized::printParameters() const
     delete p_pool;
 }
 
-//! Throw non-implemented exception (needed for Python).
-
-//! No pure virtual function here,
+//! No pure virtual function here, have to throw here,
 //! due to problems in exporting abstract classes to python
 //!
 void IParameterized::init_parameters()
@@ -75,5 +92,7 @@ void IParameterized::init_parameters()
     throw NotImplementedException("IParameterized::init_parameters() -> "
                                   "Error! Method is not implemented");
 }
+
+
 
 

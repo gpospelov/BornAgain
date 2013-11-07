@@ -37,7 +37,7 @@ TabWidget::TabWidget(QWidget *parent) :
     m_drawFrame(false)
 {
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setContentsMargins(0, minimumSizeHint().height(), 0, 0);
+    layout->setContentsMargins(0, TAB_HEIGHT + CONTENT_HEIGHT_MARGIN + 1, 0, 0);
     m_stack = new QStackedWidget;
     layout->addWidget(m_stack);
     setLayout(layout);
@@ -78,16 +78,12 @@ void TabWidget::setFrameVisible(bool visible)
     }
 }
 
-QSize TabWidget::minimumSizeHint() const
-{
-    return QSize(0, TAB_HEIGHT + CONTENT_HEIGHT_MARGIN + 1);
-}
-
-void TabWidget::addTab(const QString &name, QWidget *widget)
+void TabWidget::addTab(const QString &name, QWidget *widget, const QColor &color)
 {
     Q_ASSERT(widget);
     Tab tab;
     tab.name = name;
+    tab.color = color;
     tab.widget = widget;
     m_tabs.append(tab);
     m_stack->addWidget(widget);
@@ -98,11 +94,12 @@ void TabWidget::addTab(const QString &name, QWidget *widget)
     update();
 }
 
-void TabWidget::insertTab(int index, const QString &name, QWidget *widget)
+void TabWidget::insertTab(int index, const QString &name, QWidget *widget, const QColor &color)
 {
     Q_ASSERT(widget);
     Tab tab;
     tab.name = name;
+    tab.color = color;
     tab.widget = widget;
     m_tabs.insert(index, tab);
     m_stack->insertWidget(index, widget);
@@ -113,9 +110,9 @@ void TabWidget::insertTab(int index, const QString &name, QWidget *widget)
     update();
 }
 
-void TabWidget::removeTab(int index)
+QWidget* TabWidget::removeTab(int index)
 {
-    m_tabs.takeAt(index);
+    Tab tab = m_tabs.takeAt(index);
     if (index <= m_currentIndex) {
         --m_currentIndex;
         if (m_currentIndex < 0 && m_tabs.size() > 0)
@@ -127,11 +124,17 @@ void TabWidget::removeTab(int index)
         }
     }
     update();
+    return tab.widget;
 }
 
 int TabWidget::tabCount() const
 {
     return m_tabs.size();
+}
+
+QString TabWidget::tabText(int index) const
+{
+    return m_tabs.value(index).name;
 }
 
 /// Converts a position to the tab that is undeneath
@@ -346,7 +349,7 @@ void TabWidget::paintEvent(QPaintEvent *event)
             }
 
             x += MARGIN;
-            painter.setPen(Qt::black);
+            painter.setPen(tab.color);
             painter.drawText(x, baseline, tab.name);
             x += nameWidth.at(actualIndex);
             x += MARGIN;
@@ -368,7 +371,9 @@ void TabWidget::paintEvent(QPaintEvent *event)
                 painter.drawLine(x, 0, x, r.height());
 
             x += MARGIN;
-            painter.setPen(QColor(0, 0, 0, 190));
+            QColor penColor(tab.color);
+            penColor.setAlpha(190);
+            painter.setPen(penColor);
             painter.drawText(x + 1, baseline, tab.name);
             x += nameWidth.at(actualIndex);
             x += MARGIN;

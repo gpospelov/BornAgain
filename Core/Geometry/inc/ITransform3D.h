@@ -19,6 +19,7 @@
 #include "BasicVector3D.h"
 #include <boost/shared_ptr.hpp>
 
+
 namespace Geometry {
 
 typedef boost::shared_ptr<class ITransform3D> PTransform3D;
@@ -26,7 +27,7 @@ typedef boost::shared_ptr<class ITransform3D> PTransform3D;
 //! Interface to vector transforms in three dimensions.
 
 class ITransform3D {
- public:
+public:
 
     virtual ~ITransform3D() {}
 

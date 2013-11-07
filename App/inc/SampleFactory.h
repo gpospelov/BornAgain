@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/SampleFactory.h
@@ -27,7 +27,7 @@
 class SampleFactory : public ISingleton<SampleFactory>,
                       public IFactory<std::string, ISample>
 {
- public:
+public:
     SampleFactory();
 
     static ISample *createSample(const std::string& sample_name)

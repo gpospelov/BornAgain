@@ -21,10 +21,10 @@ struct LayerInterface_wrapper : LayerInterface, bp::wrapper< LayerInterface > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -33,73 +33,61 @@ struct LayerInterface_wrapper : LayerInterface, bp::wrapper< LayerInterface > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
     }
 
-    virtual ::ICompositeSample * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ICompositeSample::clone(  );
-        }
+    virtual ::ISample * cloneInvertB(  ) const  {
+        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
+            return func_cloneInvertB(  );
+        else
+            return this->ISample::cloneInvertB(  );
     }
     
-    ::ICompositeSample * default_clone(  ) const  {
-        return ICompositeSample::clone( );
+    
+    ::ISample * default_cloneInvertB(  ) const  {
+        return ISample::cloneInvertB( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void printSampleTree(  ) {
+        if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
+            func_printSampleTree(  );
+        else
+            this->ISample::printSampleTree(  );
+    }
+    
+    
+    void default_printSampleTree(  ) {
+        ISample::printSampleTree( );
     }
 
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
@@ -121,13 +109,25 @@ struct LayerInterface_wrapper : LayerInterface, bp::wrapper< LayerInterface > {
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -136,25 +136,13 @@ struct LayerInterface_wrapper : LayerInterface, bp::wrapper< LayerInterface > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
-    }
-
-    virtual ::size_t size(  ) const  {
-        if( bp::override func_size = this->get_override( "size" ) )
-            return func_size(  );
-        else{
-            return this->ICompositeSample::size(  );
-        }
-    }
-    
-    ::size_t default_size(  ) const  {
-        return ICompositeSample::size( );
     }
 
 };
@@ -227,16 +215,16 @@ void register_LayerInterface_class(){
                 , default_clearParameterPool_function_type(&LayerInterface_wrapper::default_clearParameterPool) );
         
         }
-        { //::ICompositeSample::clone
+        { //::ISample::cloneInvertB
         
-            typedef ::ICompositeSample * ( ::ICompositeSample::*clone_function_type )(  ) const;
-            typedef ::ICompositeSample * ( LayerInterface_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( LayerInterface_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
             LayerInterface_exposer.def( 
-                "clone"
-                , clone_function_type(&::ICompositeSample::clone)
-                , default_clone_function_type(&LayerInterface_wrapper::default_clone)
-                , bp::return_value_policy< bp::manage_new_object >() );
+                "cloneInvertB"
+                , cloneInvertB_function_type(&::ISample::cloneInvertB)
+                , default_cloneInvertB_function_type(&LayerInterface_wrapper::default_cloneInvertB)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::createParameterTree
@@ -251,30 +239,6 @@ void register_LayerInterface_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( LayerInterface_wrapper::*default_getCompositeSample_function_type )(  ) ;
-            
-            LayerInterface_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&LayerInterface_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ICompositeSample::getCompositeSample
-        
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( LayerInterface_wrapper::*default_getCompositeSample_function_type )(  ) const;
-            
-            LayerInterface_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&LayerInterface_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
@@ -286,6 +250,17 @@ void register_LayerInterface_class(){
                 , default_printParameters_function_type(&LayerInterface_wrapper::default_printParameters) );
         
         }
+        { //::ISample::printSampleTree
+        
+            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
+            typedef void ( LayerInterface_wrapper::*default_printSampleTree_function_type )(  ) ;
+            
+            LayerInterface_exposer.def( 
+                "printSampleTree"
+                , printSampleTree_function_type(&::ISample::printSampleTree)
+                , default_printSampleTree_function_type(&LayerInterface_wrapper::default_printSampleTree) );
+        
+        }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
@@ -294,6 +269,18 @@ void register_LayerInterface_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &LayerInterface_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( LayerInterface_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            LayerInterface_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&LayerInterface_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue
@@ -317,17 +304,6 @@ void register_LayerInterface_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&LayerInterface_wrapper::default_setParametersAreChanged) );
-        
-        }
-        { //::ICompositeSample::size
-        
-            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::size_t ( LayerInterface_wrapper::*default_size_function_type )(  ) const;
-            
-            LayerInterface_exposer.def( 
-                "size"
-                , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&LayerInterface_wrapper::default_size) );
         
         }
     }

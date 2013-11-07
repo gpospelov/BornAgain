@@ -22,7 +22,7 @@ namespace Geometry {
 //! Rotation around y axis.
 
 class RotateY_3D : public ITransform3D {
- public:
+public:
     //! Constructs a rotation by angle _a_.
 
     //! QUESTION: How can we construct identity transform for a=0?
@@ -57,7 +57,7 @@ class RotateY_3D : public ITransform3D {
     virtual void print(std::ostream& ostr) const
     { ostr << "Transform3D:Rotate_Y(" << m_ca << "," << m_sa << ")" ; }
 
- private:
+private:
     double m_ca, m_sa;
 
     //! Constructs a rotation by angle _a_ from cos(a) and sin(a).
@@ -68,7 +68,7 @@ class RotateY_3D : public ITransform3D {
 //! Rotation around z axis.
 
 class RotateZ_3D : public ITransform3D {
- public:
+public:
     //! Constructs a rotation by angle _a_.
 
     RotateZ_3D(double a)
@@ -98,7 +98,7 @@ class RotateZ_3D : public ITransform3D {
     virtual void print(std::ostream& ostr) const
     { ostr << "Transform3D:Rotate_Z(" << m_ca << "," << m_sa << ")" ; }
 
- private:
+private:
     double m_ca, m_sa;
 
     //! Constructs a rotation by angle _a_ from cos(a) and sin(a).

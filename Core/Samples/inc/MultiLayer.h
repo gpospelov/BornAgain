@@ -16,11 +16,11 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include <vector>
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MultiLayerDWBASimulation.h"
+#include <vector>
 
 //! @class MultiLayer
 //! @brief Stack of layers one below the other
@@ -35,11 +35,14 @@
 //!  ---------   interface #2
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
-class MultiLayer : public ICompositeSample
+class BA_CORE_API_ MultiLayer : public ICompositeSample
 {
- public:
+public:
     MultiLayer();
     ~MultiLayer();
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns number of layers in multilayer
     inline size_t getNumberOfLayers() const { return m_layers.size(); }
@@ -79,8 +82,12 @@ class MultiLayer : public ICompositeSample
     //! Destructs allocated objects
     void clear();
 
-    //! Returns alone of multilayer with clones of all layers and recreated interfaces between layers
+    //! Returns alone of multilayer with clones of all layers and recreated
+    //! interfaces between layers
     virtual MultiLayer *clone() const;
+
+    //! Returns a clone with inverted magnetic fields
+    virtual MultiLayer *cloneInvertB() const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     inline void setCrossCorrLength(double crossCorrLength)
@@ -96,7 +103,8 @@ class MultiLayer : public ICompositeSample
     ///! correlation function of roughnesses between the interfaces
     //double getCrossCorrFun(const kvector_t& k, int j, int k) const;
 
-    //! Fourier transform of the correlation function of roughnesses between the interfaces
+    //! Fourier transform of the correlation function of roughnesses between
+    //! the interfaces
     double getCrossCorrSpectralFun(
         const kvector_t& kvec, size_t j, size_t k) const;
 
@@ -107,16 +115,17 @@ class MultiLayer : public ICompositeSample
     friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m)
     { m.print(ostr); return ostr; }
 
-    //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
+    //! look for the presence of DWBA terms (e.g. included particles) and return
+    //! ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
- protected:
+protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
     //! Prints class
     void print(std::ostream& ostr) const;
 
- private:
+private:
     //! Adds the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer *child)
     {
@@ -148,11 +157,11 @@ class MultiLayer : public ICompositeSample
     }
 
     //! stack of layers [nlayers]
-    std::vector<Layer *> m_layers;    
+    std::vector<Layer *> m_layers;
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double > m_layers_z;            
+    std::vector<double > m_layers_z;
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface *> m_interfaces; 
+    std::vector<LayerInterface *> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
 };

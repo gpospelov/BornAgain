@@ -29,16 +29,17 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
 
 void FormFactorFullSpheroid::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("height", &m_height);
+    clearParameterPool();
+    registerParameter("radius", &m_radius);
+    registerParameter("height", &m_height);
 }
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
 {
-   FormFactorFullSpheroid* ffFullSpheroid =
+   FormFactorFullSpheroid* result =
        new FormFactorFullSpheroid(m_radius, m_height);
-   return ffFullSpheroid;
+   result->setName(getName());
+   return result;
 }
 
 complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const

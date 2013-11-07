@@ -41,13 +41,13 @@
 
 #include "widgetbox_dnditem.h"
 
-#include <widgetfactory_p.h>
+//#include <widgetfactory_p.h>
 #include <spacer_widget_p.h>
 #include <qdesigner_formbuilder_p.h>
-#include <qtresourcemodel_p.h>
+//#include <qtresourcemodel_p.h>
 #include <formwindowbase_p.h>
 #include <qdesigner_utils_p.h>
-#include <qdesigner_dockwidget_p.h>
+//#include <qdesigner_dockwidget_p.h>
 #include <qsimpleresource_p.h>
 
 #include <QtDesigner/QDesignerFormEditorInterface>
@@ -196,7 +196,7 @@ void WidgetBoxResource::createCustomWidgets(DomCustomWidgets *dc)
 
 
 //static QWidget *decorationFromDomWidget(DomUI *dom_ui, QDesignerFormEditorInterface *core)
-static QWidget *decorationFromDomWidget(DomUI *dom_ui, ISampleEditor *core)
+static QWidget *decorationFromDomWidget(DomUI *dom_ui, SampleDesignerInterface *core)
 {
     std::cout << " widgetbox_dnditem() -> QWidget *decorationFromDomWidget XXX not omplemented" << std::endl;
     (void) dom_ui;
@@ -237,7 +237,7 @@ static QWidget *decorationFromDomWidget(DomUI *dom_ui, ISampleEditor *core)
 }
 
 //WidgetBoxDnDItem::WidgetBoxDnDItem(QDesignerFormEditorInterface *core,
-WidgetBoxDnDItem::WidgetBoxDnDItem(ISampleEditor *core,
+WidgetBoxDnDItem::WidgetBoxDnDItem(SampleDesignerInterface *core,
                                    DomUI *dom_ui,
                                    const QPoint &global_mouse_pos) :
     QDesignerDnDItem(CopyDrop)

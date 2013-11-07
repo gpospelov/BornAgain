@@ -20,17 +20,6 @@ void register_OutputDataIOFactory_class(){
         typedef bp::class_< OutputDataIOFactory > OutputDataIOFactory_exposer_t;
         OutputDataIOFactory_exposer_t OutputDataIOFactory_exposer = OutputDataIOFactory_exposer_t( "OutputDataIOFactory", bp::init< >() );
         bp::scope OutputDataIOFactory_scope( OutputDataIOFactory_exposer );
-        { //::OutputDataIOFactory::getOutputData
-        
-            typedef ::OutputData< double > * ( *getOutputData_function_type )( ::std::string const & );
-            
-            OutputDataIOFactory_exposer.def( 
-                "getOutputData"
-                , getOutputData_function_type( &::OutputDataIOFactory::getOutputData )
-                , ( bp::arg("file_name") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
         { //::OutputDataIOFactory::getReader
         
             typedef ::boost::shared_ptr< OutputDataReader > ( *getReader_function_type )( ::std::string const & );
@@ -51,20 +40,31 @@ void register_OutputDataIOFactory_class(){
                 , ( bp::arg("file_name") ) );
         
         }
-        { //::OutputDataIOFactory::writeOutputData
+        { //::OutputDataIOFactory::readIntensityData
         
-            typedef void ( *writeOutputData_function_type )( ::OutputData< double > const &,::std::string const & );
+            typedef ::OutputData< double > * ( *readIntensityData_function_type )( ::std::string const & );
             
             OutputDataIOFactory_exposer.def( 
-                "writeOutputData"
-                , writeOutputData_function_type( &::OutputDataIOFactory::writeOutputData )
+                "readIntensityData"
+                , readIntensityData_function_type( &::OutputDataIOFactory::readIntensityData )
+                , ( bp::arg("file_name") )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::OutputDataIOFactory::writeIntensityData
+        
+            typedef void ( *writeIntensityData_function_type )( ::OutputData< double > const &,::std::string const & );
+            
+            OutputDataIOFactory_exposer.def( 
+                "writeIntensityData"
+                , writeIntensityData_function_type( &::OutputDataIOFactory::writeIntensityData )
                 , ( bp::arg("data"), bp::arg("file_name") ) );
         
         }
-        OutputDataIOFactory_exposer.staticmethod( "getOutputData" );
         OutputDataIOFactory_exposer.staticmethod( "getReader" );
         OutputDataIOFactory_exposer.staticmethod( "getWriter" );
-        OutputDataIOFactory_exposer.staticmethod( "writeOutputData" );
+        OutputDataIOFactory_exposer.staticmethod( "readIntensityData" );
+        OutputDataIOFactory_exposer.staticmethod( "writeIntensityData" );
     }
 
 }

@@ -15,32 +15,34 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation1():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)   
     pyramid_ff = FormFactorPyramid(5*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(n_particle, pyramid_ff)
+    pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(pyramid, 0.0, 1.0)
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -48,12 +50,13 @@ def RunSimulation1():
 # ----------------------------------
 def RunSimulation2():
    # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)   
     pyramid_ff = FormFactorPyramid(5*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(n_particle, pyramid_ff)
+    pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
     angle_around_z = 45.*degree
     #rotatez3d = RotateZ3D(angle_around_z)
@@ -65,34 +68,21 @@ def RunSimulation2():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return GetOutputData(simulation)
-
-
-
-
-        
-
-       
-
-       
-      
-
-    
-
-      
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -101,10 +91,10 @@ def RunSimulation2():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f1 = gzip.open(path+'../TestCore/IsGISAXS09/isgisaxs09_reference_pyramid_Z0.ima.gz', 'rb')
+    f1 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs09_reference_pyramid_Z0.ima.gz', 'rb')
     reference1=numpy.fromstring(f1.read(),numpy.float64,sep=' ')
     f1.close()   
-    f2 = gzip.open(path+'../TestCore/IsGISAXS09/isgisaxs09_reference_pyramid_Z45.ima.gz', 'rb')
+    f2 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs09_reference_pyramid_Z45.ima.gz', 'rb')
     reference2=numpy.fromstring(f2.read(),numpy.float64,sep=' ')
     f2.close()
     reference=numpy.concatenate((reference1,reference2),axis=0)    
@@ -140,10 +130,10 @@ def runTest():
     result2 = RunSimulation2()
     result = numpy.concatenate((result1,result2),axis=0) 
     reference = GetReferenceData()
-    
+
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS09", "Pyramids on top of substrate - Rotated pyramids on top of substrate", status
 
 
@@ -151,7 +141,9 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
+
 
 

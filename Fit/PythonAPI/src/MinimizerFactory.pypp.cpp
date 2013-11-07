@@ -31,17 +31,17 @@ void register_MinimizerFactory_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::MinimizerFactory::print_catalogue
+        { //::MinimizerFactory::printCatalogue
         
-            typedef void ( *print_catalogue_function_type )(  );
+            typedef void ( *printCatalogue_function_type )(  );
             
             MinimizerFactory_exposer.def( 
-                "print_catalogue"
-                , print_catalogue_function_type( &::MinimizerFactory::print_catalogue ) );
+                "printCatalogue"
+                , printCatalogue_function_type( &::MinimizerFactory::printCatalogue ) );
         
         }
         MinimizerFactory_exposer.staticmethod( "createMinimizer" );
-        MinimizerFactory_exposer.staticmethod( "print_catalogue" );
+        MinimizerFactory_exposer.staticmethod( "printCatalogue" );
     }
 
 }

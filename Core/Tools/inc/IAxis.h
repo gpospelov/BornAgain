@@ -20,9 +20,9 @@
 
 //! Interface for one-dimensional axes
 
-class IAxis
+class BA_CORE_API_ IAxis
 {
- public:
+public:
     //! constructors
     IAxis(std::string name) : m_name(name) {}
 
@@ -64,7 +64,7 @@ class IAxis
         return left.equals(right);
     }
 
- protected:
+protected:
     virtual bool equals(const IAxis& other) const;
     std::string m_name;  //!< axis label
 };

@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFittingModule1.cpp
@@ -25,7 +25,6 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -34,6 +33,7 @@
 #include "ParticleDecoration.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
+#include "ROOTMinimizer.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -70,6 +70,12 @@ void TestFittingModule1::execute()
     m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+
+    //ROOTMinimizer *root_minimizer = dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer());
+    //ROOT::Math::Minimizer *minim = root_minimizer->getROOTMinimizer();
+    //std::cout << " tolerance: " << minim->Tolerance() << " precision:" << minim->Precision() << std::endl;
+    //std::cout << " max_iterations: " << minim->MaxIterations() << " max_function_calls:" << minim->MaxFunctionCalls() << std::endl;
+
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
@@ -96,8 +102,10 @@ void TestFittingModule1::initializeSimulation()
     delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSample(*mp_sample);
-    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree,
+            2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
     mp_simulation->setBeamIntensity(1e10);
 }
 
@@ -112,13 +120,20 @@ void TestFittingModule1::initializeSample1()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material =
+            MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleDecoration particle_decoration( new Particle(particle_material,
+            new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     mp_sample = p_multi_layer;
 
     // defining parameters for minimization
@@ -151,17 +166,20 @@ void TestFittingModule1::initializeSample2()
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
 
     mp_sample = p_multi_layer;

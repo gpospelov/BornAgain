@@ -16,33 +16,33 @@ from libBornAgainCore import *
 def RunSimulationDWBA():
     
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )    
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )    
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)    
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 1.0)
     interference = InterferenceFunctionNone()
     particle_decoration.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -50,30 +50,32 @@ def RunSimulationDWBA():
 # ----------------------------------
 def RunSimulationBA():
      # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
     # collection of particles
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 1.0)
     interference = InterferenceFunctionNone()
     particle_decoration.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
+    
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -81,18 +83,18 @@ def RunSimulationBA():
 # ----------------------------------
 def RunSimulationBA_Size():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     multi_layer = MultiLayer()
 
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     particle_decoration = ParticleDecoration()
     # preparing prototype of nano particle
     radius = 5*nanometer
     sigma = 0.2*radius
-    nano_particle = Particle(n_particle, cylinder_ff)
+    nano_particle = Particle(mParticle, cylinder_ff)
     # radius of nanoparticles will be sampled with gaussian probability
     nbins = 100
     nfwhm = 2
@@ -106,16 +108,17 @@ def RunSimulationBA_Size():
     particle_decoration.addInterferenceFunction(interference)    
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-    multi_layer.addLayer(air_layer_decorator)
+    air_layer.setDecoration(particle_decoration)
+    
+    multi_layer.addLayer(air_layer)
 
     # build and run experiment  
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
       
 # ----------------------------------
@@ -124,13 +127,13 @@ def RunSimulationBA_Size():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    fBA = gzip.open(path+'../TestCore/IsGISAXS03/isgisaxs03_reference_BA.ima.gz', 'rb')
+    fBA = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_BA.ima.gz', 'rb')
     referenceBA=numpy.fromstring(fBA.read(),numpy.float64,sep=' ')
     fBA.close()
-    fBA_Size = gzip.open(path+'../TestCore/IsGISAXS03/isgisaxs03_reference_BA_size.ima.gz', 'rb')
+    fBA_Size = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_BA_size.ima.gz', 'rb')
     referenceBA_Size=numpy.fromstring(fBA_Size.read(),numpy.float64,sep=' ')
     fBA_Size.close()
-    fDWBA = gzip.open(path+'../TestCore/IsGISAXS03/isgisaxs03_reference_DWBA.ima.gz', 'rb')
+    fDWBA = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_DWBA.ima.gz', 'rb')
     referenceDWBA=numpy.fromstring(fDWBA.read(),numpy.float64,sep=' ')
     fDWBA.close()
     reference=numpy.concatenate((referenceBA,referenceBA_Size,referenceDWBA),axis=0)  
@@ -170,7 +173,7 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS03", "Cylinder formfactor in BA and DWBA", status
 
    
@@ -178,7 +181,9 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
+
 
 

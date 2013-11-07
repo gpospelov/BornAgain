@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestIsGISAXS9.cpp
@@ -14,29 +14,49 @@
 // ************************************************************************** //
 
 #include "TestIsGISAXS9.h"
-#include "IsGISAXS09.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
+#include "SampleBuilderFactory.h"
+#include "Simulation.h"
 #include "Utils.h"
+#include "Units.h"
 
 #include <fstream>
 
 
 TestIsGISAXS9::TestIsGISAXS9() : IFunctionalTest("TestIsGISAXS9")
 {
-   setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/" );
+   setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-9/" ));
 }
 
 
 void TestIsGISAXS9::execute()
 {
-    FunctionalTests::IsGISAXS09 test;
+//    FunctionalTests::IsGISAXS09 test;
+//    test.runpyramidZ0();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z0), getOutputPath()+"this_pyramid_Z0.ima");
+//    test.runpyramidZ45();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z45), getOutputPath()+"this_pyramid_Z45.ima");
 
-    test.runpyramidZ0();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z0), getOutputPath()+"this_pyramid_Z0.ima");
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
-    test.runpyramidZ45();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS09::kTest_Z45), getOutputPath()+"this_pyramid_Z45.ima");
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs09");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
+        "this_pyramid_Z0.ima");
+
+    sample = factory.createSample("isgisaxs09_rotated");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
+        "this_pyramid_Z45.ima");
 }
 
 
@@ -47,8 +67,8 @@ void TestIsGISAXS9::finalise()
     isgi_files.push_back(getOutputPath()+"isgi_pyramid_Z45.ima.gz");
 
     std::vector<std::string > this_files;
-    this_files.push_back(getOutputPath()+"this_pyramid_Z0.ima");
-    this_files.push_back(getOutputPath()+"this_pyramid_Z45.ima");
+    this_files.push_back("this_pyramid_Z0.ima");
+    this_files.push_back("this_pyramid_Z45.ima");
 
     std::string descript[2];
     descript[0]="TestIsGISAXS9_c1";
@@ -59,8 +79,8 @@ void TestIsGISAXS9::finalise()
     titlegraph[1]="Rotated pyramid DWBA formfactor";
 
     for(int i_comparison=0; i_comparison<2; i_comparison++) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_files[i_comparison]);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_files[i_comparison]);
+        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_files[i_comparison]);
+        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_files[i_comparison]);
 
         std::cout <<descript[i_comparison] <<std::endl;
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,descript[i_comparison] , titlegraph[i_comparison]);

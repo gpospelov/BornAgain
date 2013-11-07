@@ -18,9 +18,9 @@
 
 #include "IInterferenceFunction.h"
 
-class InterferenceFunction1DParaCrystal : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunction
 {
- public:
+public:
     InterferenceFunction1DParaCrystal(
         double peak_distance, double width, double corr_length=0.0);
     virtual ~InterferenceFunction1DParaCrystal() {}
@@ -32,20 +32,22 @@ class InterferenceFunction1DParaCrystal : public IInterferenceFunction
         return p_clone;
     }
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     void setKappa(double kappa) { m_kappa = kappa; }
     virtual double getKappa() const { return m_kappa; }
     virtual double evaluate(const cvector_t& q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTGaussianCorrLength(double qpar) const;
 
- protected:
+protected:
     double m_peak_distance;
     double m_width;
     double m_corr_length;
     bool m_use_corr_length;
     double m_kappa;
 
- private:
+private:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 };

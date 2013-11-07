@@ -23,7 +23,7 @@
 
 class OutputDataWriter
 {
- public:
+public:
     OutputDataWriter() : m_write_strategy(0) {}
     OutputDataWriter(const std::string& file_name) : m_file_name(file_name), m_write_strategy(0) {}
     OutputDataWriter(IOutputDataWriteStrategy *write_strategy) : m_write_strategy(write_strategy) {}
@@ -35,7 +35,7 @@ class OutputDataWriter
     //! Sets concrete writing strategy
     void setStrategy(IOutputDataWriteStrategy *write_strategy) { delete m_write_strategy; m_write_strategy = write_strategy; }
 
- private:
+private:
     std::string m_file_name;
     IOutputDataWriteStrategy *m_write_strategy;
 };

@@ -29,13 +29,13 @@ class FitSuite;
 //!
 class TestIsGISAXS13 : public IFunctionalTest
 {
- public:
+public:
     TestIsGISAXS13();
     virtual ~TestIsGISAXS13() { }
 
     virtual void execute();
 
- private:
+private:
     //! Initializes simulation
     void initializeSimulation();
 

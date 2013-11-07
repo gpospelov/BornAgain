@@ -16,7 +16,6 @@
 #include "ProgramOptions.h"
 #include "Utils.h"
 #include "MessageService.h"
-
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <iostream>
@@ -31,8 +30,9 @@ ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) const
 {
     if( !m_options_is_consistent ) {
-        // no consistent options, there reason might be that no call to parseConfigFile
-        // has been made (for example due to the absence of main())
+        // no consistent options, the reason might be that no call to
+        // parseConfigFile has been made (for example due to the absence of
+        // main())
         //parseConfigFile();
         //throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
     }
@@ -44,16 +44,17 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) con
 void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
     // saving relative path to the application for later usage
-    Utils::FileSystem::SetRelativePath(argv[0]);
+    Utils::FileSystem::SetArgvPath(argv[0]);
 
     // parsing command line arguments
     try {
-        // if positional option description is empty, no command line arguments without '--' or '-' will be accepted
+        // if positional option description is empty, no command line arguments
+        // without '--' or '-' will be accepted
         // 'store' populates the variable map
         bpo::store( bpo::command_line_parser( argc, argv).options( m_options ).positional( m_positional_options ).run(), m_variables_map);
         //bpo::store(bpo::parse_command_line(argc, argv, m_options), m_variables_map);
 
-        // 'notify' raises any erros encountered
+        // 'notify' raises any errors encountered
         bpo::notify(m_variables_map);
 
         if (m_variables_map.count("help") || argc == 1) {
@@ -70,7 +71,8 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     }
 
     // and now call parsing of config file
-    parseConfigFile();
+//    parseConfigFile();
+    m_options_is_consistent = true;
 }
 
 //! parse config file for arguments

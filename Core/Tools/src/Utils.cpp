@@ -15,10 +15,11 @@
 
 #include "Utils.h"
 #include "Exceptions.h"
+#include <iostream>
+#include <iomanip>
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
-#include <iomanip>
 #include <boost/algorithm/string.hpp>
 
 #ifdef DEBUG_FPE
@@ -29,7 +30,7 @@
 #endif
 
 
-std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
+std::string Utils::FileSystem::m_argv0_path = std::string();
 
 //! Parse double values from string to vector of double
 
@@ -107,6 +108,18 @@ std::vector<std::string> Utils::String::Split(
     return tokens;
 }
 
+
+void Utils::FileSystem::SetArgvPath(const std::string& argv0)
+{
+	m_argv0_path = argv0;
+}
+
+std::string Utils::FileSystem::GetArgvPath()
+{
+	return m_argv0_path;
+}
+
+
 //! Returns path to the current (working) directory.
 
 std::string Utils::FileSystem::GetWorkingPath()
@@ -118,35 +131,26 @@ std::string Utils::FileSystem::GetWorkingPath()
 
 std::string Utils::FileSystem::GetHomePath()
 {
-    // the path to executable module is: boost::filesystem::current_path() + argv[0]
-    // we expect that variable m_relative_path (aka argv[0]) has been set from outside
-    // and use boost::filesystem::system_complete() to get complete path to executable
+    throw NotImplementedException("Utils::FileSystem::GetHomePath()-> Not implemented anymore...");
+    return std::string();
+}
 
-    //std::string path = boost::filesystem::system_complete(m_relative_path.c_str()).string(); // without resolving symlinks
-    //std::string path = boost::filesystem::canonical( m_relative_path.c_str() ).string(); // with automatic resolving of symlinks, boost>= 1.48
+std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
+{
+    std::string result = boost::filesystem::canonical( argv0.c_str() ).parent_path().string();
+    return result;
+}
 
-    // for boost 1.46 lets use another way
-    std::string path;
-    if( boost::filesystem::is_symlink(m_relative_path.c_str()) ) {
-        path = boost::filesystem::read_symlink( m_relative_path.c_str() ).string();
-    } else {
-        path = boost::filesystem::system_complete(m_relative_path.c_str()).string();
-    }
 
-    // at this point the value should be something like '/Users/jamesbond/development/git/./BornAgain/App/App'
-    //std::cout << "Utils::FileSystem::GetHomePath() -> path '" << path << "'" << std::endl;
-
-    // lets strip everything after 'BornAgain' to get path to project home directory  
-    std::string project_name("BornAgain");
-    std::string::size_type pos = path.rfind(project_name);
-    if(pos == std::string::npos) {
-        throw LogicErrorException(
-            "Utils::FileSystem::GetHomePath() -> "
-            "Error. Cant parse path to application from line '"+path+"'");
-    }
-    path.erase(pos+project_name.size());
-    path += "/";
-    return path;
+std::string Utils::FileSystem::GetPathToData(const std::string& rel_data_path, const std::string& argv0)
+{
+//#ifdef _WIN32
+//    // windows build place executable in additional sub-directory 'release'
+//    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path("../") / boost::filesystem::path(rel_data_path)).string();
+//#else
+    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() / boost::filesystem::path(rel_data_path)).string();
+//#endif
+    return result;
 }
 
 //! Returns file extension.
@@ -183,15 +187,14 @@ std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
 void Utils::EnableFloatingPointExceptions()
 {
 #ifdef DEBUG_FPE
+#ifndef _WIN32
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Enabling floating point exception debugging"
               << std::endl;
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 //    feenableexcept(-1);
+#endif // _WIN32
 #else
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Can't enable floating point exceptions. Available in debug mode only."
               << std::endl;
 #endif
 }
-
-
-

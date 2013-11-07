@@ -21,9 +21,9 @@
 
 //! To have stochastic parameter beeing sampled between xmin and xmax values.
 
-class StochasticSampledParameter : public StochasticParameter<double>
+class BA_CORE_API_ StochasticSampledParameter : public StochasticParameter<double>
 {
- public:
+public:
     //! constructor with nbins, xmin, xmax
     StochasticSampledParameter(const StochasticParameter<double>& par, size_t nbins, double xmin, double xmax);
     //! constructor with nbin and nfwhm to derive xmin and xmax
@@ -57,7 +57,7 @@ class StochasticSampledParameter : public StochasticParameter<double>
     //! clone method
     virtual StochasticSampledParameter *clone() const;
 
- private:
+private:
     StochasticParameter<double > *m_stochastic_parameter;
     size_t m_nbins;
     double m_xmin;

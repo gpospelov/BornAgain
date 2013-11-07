@@ -17,38 +17,39 @@
 #define FORMFACTORDWBA_H_
 
 #include "IFormFactorDecorator.h"
-#include "IDoubleToComplexFunction.h"
+#include "LayerSpecularInfo.h"
 
-//! ?
+//! Evaluates a coherent sum of the four DWBA terms in a scalar form factor
 
-class FormFactorDWBA: public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {
- public:
+public:
     FormFactorDWBA(IFormFactor* p_form_factor);
     virtual ~FormFactorDWBA();
 
     virtual FormFactorDWBA *clone() const;
 
-    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap& p_rt)
-    {
-        delete mp_RT;
-        mp_RT = p_rt.clone();
-    }
+    //! Sets reflection/transmission info for scalar DWBA simulation
+    void setSpecularInfo(const LayerSpecularInfo& layer_specular_info);
 
-    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
- protected:
-    const complexpair_t& getRT(double alpha) const;
-    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+    friend class TestPolarizedDWBATerms;
 
-    IDoubleToPairOfComplexMap *mp_RT;
+protected:
+    const ILayerRTCoefficients *getOutCoeffs(double alpha_f) const;
+    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+            Bin1D alpha_f_bin) const;
+
+    LayerSpecularInfo *mp_specular_info;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
 };
 
-inline const complexpair_t& FormFactorDWBA::getRT(double alpha) const
-{
-    return mp_RT->evaluate(alpha);
+inline const ILayerRTCoefficients* FormFactorDWBA::getOutCoeffs(
+        double alpha) const {
+    return mp_specular_info->getOutCoefficients(alpha, 0.0);
 }
 
 #endif /* FORMFACTORDWBA_H_ */

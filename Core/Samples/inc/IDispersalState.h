@@ -20,7 +20,7 @@
 
 class IDispersalState
 {
- public:
+public:
     virtual ~IDispersalState() {}
 };
 

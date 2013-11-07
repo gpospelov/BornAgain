@@ -1,48 +1,199 @@
-\documentclass[a4paper,10pt]{article}
-
+\documentclass[a4paper,11pt]{report}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.3}
+%-------------------------------------------------------------------------------
+%	FONT
+%-------------------------------------------------------------------------------
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+%\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
+
+%-------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%-------------------------------------------------------------------------------
+\usepackage[toc,page]{appendix}
+
+\textwidth = 410pt
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+%\nouppercase{\rightmark}
+
+\lhead{\bfseries \nouppercase{\leftmark}}
+\rhead{\bfseries \nouppercase{\rightmark}}
+\lfoot{}
+\rfoot{\bfseries Page \thepage}
+
+\headwidth=1.1\textwidth
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\fancyhfoffset[L]{24pt}
+\fancyhfoffset[R]{24pt}
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\headwidth=1.1\textwidth
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\lhead{\bfseries \nouppercase{\leftmark}}
+\rhead{\bfseries \nouppercase{\rightmark}}
+%\lhead{\leftmark}
+%\rhead{\rightmark}
+\lfoot{}
+\rfoot{\bfseries Page \thepage}
+%\rfoot{Page \thepage}
+\headwidth=1.1\textwidth
+\fancyhfoffset[L]{24pt}
+\fancyhfoffset[R]{24pt}
+}
+
+\newcommand{\mysection}[2]{%
+                         \sectionmark{#1}%
+                         \section{#2}%
+                         \sectionmark{#1}%
+                       }
+
+%%%%%%%%%
+%\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\thechapter.\ #1}}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}}
+%\newcommand{\helv}{\fontfamily{phv}\fontseries{b}\fontsize{9}{11}\selectfont}
+%\lhead[\helv \thepage]{\helv \rightmark}
+%\rhead[\helv \leftmark]{\helv \thepage}
+%\cfoot{}
+%-------------------------------------------------------------------------------
+%	OTHER PACKAGES and COMMANDS
+%-------------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{tikz-uml} 
+\usetikzlibrary{trees}
 \usepackage{amsmath}
 
+\usepackage{pifont}
+\usepackage{fourier}
+\usepackage{dingbat}
 
-% custom listing settings
-\usepackage{listings}
-\usepackage{lstcustom}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
-\renewcommand{\lstfontfamily}{\ttfamily}
+\usepackage{hyperref}
+\usepackage{breakurl}
+
+\usepackage{verbatim}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
-%\usepackage{minted}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+%-------------------------------------------------------------------------------
+%	CUSTON LISTING SETTINGS
+%-------------------------------------------------------------------------------
+\usepackage{listings}
+\usepackage{lstcustom}
+\usepackage{enumerate}
+\renewcommand{\lstfontfamily}{\ttfamily}
+%-------------------------------------------------------------------------------
+%	COLORS
+%-------------------------------------------------------------------------------
+
+\definecolor{Lightgray}{gray}{.80}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 
 
-%\maketitle
+%-------------------------------------------------------------------------------
+%       Commands
+%-------------------------------------------------------------------------------
+\newcommand{\Code}[1]{\texttt{#1}}
+\newcommand{\BornAgain}{\Code{BornAgain}}%
+\newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
+\newcommand{\SecLabel}[1]{\label{sec:#1}}%
+\newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
+\newcommand{\MakeRemark}[2]
+{ \noindent \smallpencil \colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}			{\underline{#1} #2 }}
+}
 
-%\begin{abstract}
-%This document describes the general architecture of the BornAgain project.
-%\end{abstract}
+\newcommand{\ImportantPoint}[2]
+{\noindent
+  {\huge\danger}\colorbox{Lightgray}{\parbox{\dimexpr\linewidth-8\fboxsep}
+ {\underline{#1} #2}}}
+
+\newcommand{\mychapter}[2]{
+    \setcounter{chapter}{#1}
+    \setcounter{section}{0}
+    \chapter*{#2}
+    \addcontentsline{toc}{chapter}{#2}
+}
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+\title{
+{\Huge\bf BornAgain}\\[10mm]
+Software for simulating and fitting\\
+X-ray and neutron small-angle scattering\\
+at grazing incidence\\
+\vspace*{10mm} User Manual \\
+\large{version 0.1.1\\\today}
+\vspace*{5mm}
+}
+
+\author{ 
+{\LARGE C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke }\\[5mm]
+\large
+Scientific Computing Group\\
+J\"ulich Centre for Neutron Science\\
+outstation at Heinz Maier-Leibnitz Zentrum Garching\\
+Forschungszentrum J\"ulich GmbH
+}
+
+\date{{}}
+%License: Creative Common CC-BY-SA \\
+%\today
+%}
 
 
-\title{BornAgain. }
-\author{}
+%\usepackage{eso-pic}
+%\newcommand\BackgroundPic{%
+%\put(0,0){%
+%\parbox[b][\paperheight]{\paperwidth}{%
+%\vfill
+%\centering
+%\includegraphics[width=\paperwidth,height=\paperheight,%
+%keepaspectratio]{results2_2.png}%
+%\vfill
+%}}}
 
 
-
+%-------------------------------------------------------------------------------
+%	DOCUMENT
+%-------------------------------------------------------------------------------
 \begin{document}
-A software to simulate and fit neutron and x-ray scattering at grazing incidence
-Some software
+
+\maketitle
 
 
+\input{Disclaimer}
+\tableofcontents
+%\lstlistoflistings
+%\listoffigures
+%\listoftables
 \input{Introduction}
+\input{QuickStart}
 \input{Installation}
-\input{Architecture}
+\input{Simulation}
 \input{Fitting}
-\input{Examples}
+\input{SoftwareArchitecture}
+\input{SoftwareDesignOverview}
+\appendix
+\input{AppendixListings}
+%\input{AppendixPhysics}
+
+\bibliographystyle{switch}
+\bibliography{jw7}
 
 \end{document}
-

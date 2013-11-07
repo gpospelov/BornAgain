@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(5, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
     m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
 
+    m_tabWidget->setCurrentIndex(2);
     setCentralWidget(m_tabWidget);
 
 //    m_tabWidget->statusBar()->setProperty("p_styled", true);
@@ -111,20 +112,18 @@ Instrument *MainWindow::createDefaultInstrument()
 ISample *MainWindow::createDefaultSample()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *mAir = MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
+    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    const IMaterial *mParticle = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(mAir);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    substrate_layer.setMaterial(mSubstrate);
+    ParticleDecoration particle_decoration( new Particle(mParticle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    air_layer.setDecoration(particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }

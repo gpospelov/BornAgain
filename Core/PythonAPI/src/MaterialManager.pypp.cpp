@@ -20,6 +20,38 @@ void register_MaterialManager_class(){
         typedef bp::class_< MaterialManager, boost::noncopyable > MaterialManager_exposer_t;
         MaterialManager_exposer_t MaterialManager_exposer = MaterialManager_exposer_t( "MaterialManager", bp::no_init );
         bp::scope MaterialManager_scope( MaterialManager_exposer );
+        { //::MaterialManager::deleteMaterial
+        
+            typedef bool ( ::MaterialManager::*deleteMaterial_function_type )( ::std::string const & ) ;
+            
+            MaterialManager_exposer.def( 
+                "deleteMaterial"
+                , deleteMaterial_function_type( &::MaterialManager::deleteMaterial )
+                , ( bp::arg("name") ) );
+        
+        }
+        { //::MaterialManager::getHomogeneousMagneticMaterial
+        
+            typedef ::IMaterial const * ( *getHomogeneousMagneticMaterial_function_type )( ::std::string const &,::complex_t const &,::kvector_t const & );
+            
+            MaterialManager_exposer.def( 
+                "getHomogeneousMagneticMaterial"
+                , getHomogeneousMagneticMaterial_function_type( &::MaterialManager::getHomogeneousMagneticMaterial )
+                , ( bp::arg("name"), bp::arg("refractive_index"), bp::arg("magnetic_field") )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::MaterialManager::getHomogeneousMagneticMaterial
+        
+            typedef ::IMaterial const * ( *getHomogeneousMagneticMaterial_function_type )( ::std::string const &,double,double,::kvector_t const & );
+            
+            MaterialManager_exposer.def( 
+                "getHomogeneousMagneticMaterial"
+                , getHomogeneousMagneticMaterial_function_type( &::MaterialManager::getHomogeneousMagneticMaterial )
+                , ( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta"), bp::arg("magnetic_field") )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::MaterialManager::getHomogeneousMaterial
         
             typedef ::IMaterial const * ( *getHomogeneousMaterial_function_type )( ::std::string const &,::complex_t const & );
@@ -38,7 +70,18 @@ void register_MaterialManager_class(){
             MaterialManager_exposer.def( 
                 "getHomogeneousMaterial"
                 , getHomogeneousMaterial_function_type( &::MaterialManager::getHomogeneousMaterial )
-                , ( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )
+                , ( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::MaterialManager::getInvertedMaterial
+        
+            typedef ::IMaterial const * ( *getInvertedMaterial_function_type )( ::std::string const & );
+            
+            MaterialManager_exposer.def( 
+                "getInvertedMaterial"
+                , getInvertedMaterial_function_type( &::MaterialManager::getInvertedMaterial )
+                , ( bp::arg("name") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -53,8 +96,40 @@ void register_MaterialManager_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::MaterialManager::getNumberOfMaterials
+        
+            typedef int ( *getNumberOfMaterials_function_type )(  );
+            
+            MaterialManager_exposer.def( 
+                "getNumberOfMaterials"
+                , getNumberOfMaterials_function_type( &::MaterialManager::getNumberOfMaterials ) );
+        
+        }
+        { //::MaterialManager::setMaterialName
+        
+            typedef bool ( ::MaterialManager::*setMaterialName_function_type )( ::std::string const &,::std::string const & ) ;
+            
+            MaterialManager_exposer.def( 
+                "setMaterialName"
+                , setMaterialName_function_type( &::MaterialManager::setMaterialName )
+                , ( bp::arg("old_name"), bp::arg("new_name") ) );
+        
+        }
+        { //::MaterialManager::setMaterialRefractiveIndex
+        
+            typedef bool ( ::MaterialManager::*setMaterialRefractiveIndex_function_type )( ::std::string const &,::complex_t const & ) ;
+            
+            MaterialManager_exposer.def( 
+                "setMaterialRefractiveIndex"
+                , setMaterialRefractiveIndex_function_type( &::MaterialManager::setMaterialRefractiveIndex )
+                , ( bp::arg("name"), bp::arg("index") ) );
+        
+        }
+        MaterialManager_exposer.staticmethod( "getHomogeneousMagneticMaterial" );
         MaterialManager_exposer.staticmethod( "getHomogeneousMaterial" );
+        MaterialManager_exposer.staticmethod( "getInvertedMaterial" );
         MaterialManager_exposer.staticmethod( "getMaterial" );
+        MaterialManager_exposer.staticmethod( "getNumberOfMaterials" );
     }
 
 }

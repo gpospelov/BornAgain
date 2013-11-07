@@ -43,7 +43,8 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
     // calculate new data content
     OutputData<double>::const_iterator it_source = source.begin();
     while (it_source != source.end()) {
-        std::vector<int> source_indices = source.toCoordinates(it_source.getIndex());
+        std::vector<int> source_indices =
+                source.toCoordinates(it_source.getIndex());
         std::vector<int> dest_indices;
         double boundary_factor = 1.0;
         for (size_t i=0; i<source_indices.size(); ++i) {
@@ -54,7 +55,8 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
                 boundary_factor *= 2.0;
             }
         }
-        (*p_result)[p_result->toIndex(dest_indices)] = boundary_factor*(*it_source++);
+        (*p_result)[p_result->toIndex(dest_indices)] =
+                boundary_factor*(*it_source++);
     }
     return p_result;
 }
@@ -73,8 +75,10 @@ void OutputDataFunctions::FourierTransform(
     size_t total_complex_size = 1;
     for (size_t i=0; i<rank; ++i) {
         total_real_size *= (n_real_dims[i] = (int)dimensions[i]);
-        if (i<rank-1) total_complex_size *= (n_complex_dims[i] = (int)dimensions[i]);
-        else total_complex_size *= (n_complex_dims[i] = (int)dimensions[i]/2 +1);
+        if (i<rank-1) total_complex_size *=
+                (n_complex_dims[i] = (int)dimensions[i]);
+        else total_complex_size *=
+                (n_complex_dims[i] = (int)dimensions[i]/2 +1);
     }
     // allocate result
     if (p_destination->getAllocatedSize() != total_complex_size) {
@@ -83,7 +87,8 @@ void OutputDataFunctions::FourierTransform(
     //  initialize temporary arrays
     double *input = fftw_alloc_real(total_real_size);
     fftw_complex *output = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_r2c((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_r2c((int)rank, n_real_dims, input,
+            output, FFTW_ESTIMATE);
     source.fillRawDataArray(input);
 
     // execute the plan
@@ -117,19 +122,23 @@ void OutputDataFunctions::FourierTransformR(
     size_t total_complex_size = 1;
     for (size_t i=0; i<rank; ++i) {
         total_real_size *= (n_real_dims[i] = (int)dimensions[i]);
-        if (i<rank-1) total_complex_size *= (n_complex_dims[i] = (int)dimensions[i]);
-        else total_complex_size *= (n_complex_dims[i] = (int)dimensions[i]/2 +1);
+        if (i<rank-1) total_complex_size *=
+                (n_complex_dims[i] = (int)dimensions[i]);
+        else total_complex_size *=
+                (n_complex_dims[i] = (int)dimensions[i]/2 +1);
     }
     // allocate result
     if (source.getAllocatedSize() != total_complex_size) {
         delete[] n_real_dims;
         delete[] n_complex_dims;
-        throw ClassInitializationException("Inverse Fourier transform requires properly allocated map sizes");
+        throw ClassInitializationException("Inverse Fourier transform requires"
+                " properly allocated map sizes");
     }
     //  initialize temporary arrays
     double *output = fftw_alloc_real(total_real_size);
     fftw_complex *input = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_c2r((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_c2r((int)rank, n_real_dims, input,
+            output, FFTW_ESTIMATE);
     complex_t *input2 = new complex_t[total_complex_size];
     source.fillRawDataArray(input2);
     toFftw3Array(input2, total_complex_size, input);
@@ -188,7 +197,8 @@ OutputData<double>* OutputDataFunctions::getImagPart(
 
 //! ?
 
-OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex_t>& source)
+OutputData<double>* OutputDataFunctions::getModulusPart(
+        const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
@@ -203,20 +213,61 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
     return p_result;
 }
 
-//! Slice data, having one bin on selected axis fixed.
+OutputData<double>* OutputDataFunctions::getComponentData(
+        const OutputData<Eigen::Matrix2d>& source, int row, int column)
+{
+    OutputData<double> *p_result = new OutputData<double>;
+    p_result->copyShapeFrom(source);
 
+    // no iterators to avoid use of masks
+    size_t nbr_elements = source.getAllocatedSize();
+    for (size_t i=0; i<nbr_elements; ++i) {
+        (*p_result)[i] = source[i](row, column);
+    }
+    return p_result;
+}
+
+OutputData<Eigen::Matrix2d>* OutputDataFunctions::createFromComponents(
+        const OutputData<double>& component_00,
+        const OutputData<double>& component_01,
+        const OutputData<double>& component_10,
+        const OutputData<double>& component_11)
+{
+    if (!component_00.hasSameShape(component_01)
+     || !component_00.hasSameShape(component_10)
+     || !component_00.hasSameShape(component_11) ) {
+        return 0;
+    }
+    OutputData<Eigen::Matrix2d> *p_result = new OutputData<Eigen::Matrix2d>;
+    p_result->copyShapeFrom(component_00);
+
+    // no iterators to avoid use of masks
+    size_t nbr_elements = component_00.getAllocatedSize();
+    for (size_t i=0; i<nbr_elements; ++i) {
+        (*p_result)[i](0,0) = component_00[i];
+        (*p_result)[i](0,1) = component_01[i];
+        (*p_result)[i](1,0) = component_10[i];
+        (*p_result)[i](1,1) = component_11[i];
+    }
+    return p_result;
+}
+
+//! Slice data, having one bin on selected axis fixed.
+//!
 //! Resulting output data will have one axis less
 //! (without axis 'fixed_axis_name')
-//!
 OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     const OutputData<double >& data, const std::string& fixed_axis_name,
     double fixed_axis_value)
 {
     if (data.getRank() != 2) {
-        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
+        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
+                " -> Error! It was checked only with number of dimensions"
+                " equal 2.");
     }
     if( !data.getAxis(fixed_axis_name) ) {
-        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis() -> Error! No axis with name "+fixed_axis_name);
+        throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis()"
+                " -> Error! No axis with name "+fixed_axis_name);
     }
 
     OutputData<double > *sliced_data = new OutputData<double >;
@@ -241,7 +292,8 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     OutputData<double>::iterator it_sliced = sliced_data->begin();
     while (it_data != data.end())
     {
-        size_t current_fixed_axis_nbin = data.toCoordinates(it_data.getIndex())[fixed_axis_index];
+        size_t current_fixed_axis_nbin =
+                data.toCoordinates(it_data.getIndex())[fixed_axis_index];
         if( current_fixed_axis_nbin == nbin_found ) {
             *it_sliced = *it_data;
             ++it_sliced;
@@ -262,16 +314,20 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     double axis_value1,  double axis_value2)
 {
     if (data.getRank() != 2) {
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
+        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+                " -> Error! It was checked only with number of dimensions"
+                " equal 2.");
     }
 
     const IAxis *selected_axis = data.getAxis(selected_axis_name);
     if( !selected_axis ) {
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! No axis with name "+selected_axis_name);
+        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+                " -> Error! No axis with name "+selected_axis_name);
     }
 
     if(axis_value2 < axis_value1) {
-        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Axis range xmax<xmin. ");
+        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis()"
+                " -> Error! Axis range xmax<xmin. ");
     }
 
     size_t selected_axis_index = data.getAxisIndex(selected_axis_name);
@@ -360,7 +416,8 @@ Mask* OutputDataFunctions::CreateRectangularMask(
         maxima_i[i] = (int)p_axis->findClosestIndex(maxima[i]);
         dims_i[i] = (int)p_axis->getSize();
     }
-    MaskCoordinateRectangleFunction *p_rectangle_function = new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
+    MaskCoordinateRectangleFunction *p_rectangle_function =
+            new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
     p_rectangle_function->setInvertFlag(true);
     delete[] minima_i;
     delete[] maxima_i;
@@ -375,7 +432,9 @@ Mask* OutputDataFunctions::CreateRectangularMask(
 Mask* OutputDataFunctions::CreateRectangularMask(
     const OutputData<double>& data, double x1, double y1, double x2, double y2)
 {
-    if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
+    if(data.getRank() != 2) throw LogicErrorException(
+            "OutputDataFunctions::CreateRectangularMask2D()"
+            " -> Error! Number of dimensions should be 2");
     const double minima[2]={x1, y1};
     const double maxima[2]={x2, y2};
     return OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
@@ -394,11 +453,13 @@ Mask* OutputDataFunctions::CreateEllipticMask(
     for (size_t i=0; i<rank; ++i) {
         const IAxis *p_axis = data.getAxis(i);
         center_i[i] = (int)p_axis->findClosestIndex(center[i]);
-        int lower_index = (int)p_axis->findClosestIndex((*p_axis)[center_i[i]] - radii[i]);
+        int lower_index = (int)p_axis->findClosestIndex(
+                (*p_axis)[center_i[i]] - radii[i] );
         radii_i[i] = center_i[i] - lower_index;
         dims_i[i] = (int)p_axis->getSize();
     }
-    MaskCoordinateEllipseFunction *p_ellipse_function = new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
+    MaskCoordinateEllipseFunction *p_ellipse_function =
+            new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
     p_ellipse_function->setInvertFlag(true);
     delete[] center_i;
     delete[] radii_i;
@@ -413,10 +474,11 @@ Mask* OutputDataFunctions::CreateEllipticMask(
 Mask* OutputDataFunctions::CreateEllipticMask(
     const OutputData<double>& data, double xc, double yc, double rx, double ry)
 {
-    if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
+    if(data.getRank() != 2) throw LogicErrorException(
+            "OutputDataFunctions::CreateRectangularMask2D() -> Error! Number"
+            " of dimensions should be 2");
     const double center[2]={xc, yc};
     const double radii[2]={rx, ry};
     return OutputDataFunctions::CreateEllipticMask(data, center, radii);
 }
-
 

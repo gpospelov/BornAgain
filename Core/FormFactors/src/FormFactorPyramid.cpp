@@ -29,17 +29,18 @@ FormFactorPyramid::FormFactorPyramid(
 
 void FormFactorPyramid::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("half_side", &m_half_side);
-    getParameterPool()->registerParameter("alpha", &m_alpha);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("half_side", &m_half_side);
+    registerParameter("alpha", &m_alpha);
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    FormFactorPyramid *p_clone =
+    FormFactorPyramid *result =
         new FormFactorPyramid(m_height, m_half_side, m_alpha);
-    return p_clone;
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const

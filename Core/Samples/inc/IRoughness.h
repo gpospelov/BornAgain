@@ -20,11 +20,17 @@
 
 //! Interface to equip a sample with a roughness.
 
-class IRoughness : public ISample
+class BA_CORE_API_ IRoughness : public ISample
 {
- public:
+public:
     IRoughness() {}
     virtual ~IRoughness() {}
+//    virtual IRoughness *clone() const
+//    {
+//        throw NotImplementedException(
+//                "IRoughness::clone() -> Error! Not implemented.");
+//    }
+
 };
 
 #endif // IROUGHNESS_H

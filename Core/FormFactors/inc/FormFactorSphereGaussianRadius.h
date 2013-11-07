@@ -23,12 +23,14 @@
 
 //! Form factor of ??
 
-class FormFactorSphereGaussianRadius : public IFormFactorBorn
+class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
- public:
+public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
     virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual int getNumberOfStochasticParameters() const;
     virtual bool isDistributedFormFactor() const { return true; }
@@ -40,7 +42,7 @@ class FormFactorSphereGaussianRadius : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- private:
+private:
     double calculateMeanR3() const;
 
     double m_mean; //!< This is the mean radius
@@ -64,9 +66,10 @@ inline FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mea
 
 inline FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *p_clone =
+    FormFactorSphereGaussianRadius *result =
         new FormFactorSphereGaussianRadius(m_mean, m_sigma);
-    return p_clone;
+    result->setName(getName());
+    return result;
 }
 
 inline FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()

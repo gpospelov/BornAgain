@@ -17,8 +17,10 @@ M_PI = numpy.pi
 # ----------------------------------
 def RunSimulation_lattice():
 # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -34,9 +36,8 @@ def RunSimulation_lattice():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff.clone())
+    cylinder = Particle(mParticle, cylinder_ff.clone())
     position = kvector_t(0.0, 0.0, 0.0)
     particle_decoration = ParticleDecoration()
     particle_info =  PositionParticleInfo(cylinder, position, 1.0)
@@ -44,15 +45,15 @@ def RunSimulation_lattice():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -62,7 +63,7 @@ def RunSimulation_lattice():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -70,8 +71,9 @@ def RunSimulation_lattice():
 # ----------------------------------
 def RunSimulation_centered():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -86,12 +88,11 @@ def RunSimulation_centered():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
-    n_particle = complex(1.0-6e-4, 2e-8)
     particle_decoration = ParticleDecoration()
     position = kvector_t(0.0, 0.0, 0.0)
     # particle 1
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
@@ -102,15 +103,15 @@ def RunSimulation_centered():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params= SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -120,7 +121,7 @@ def RunSimulation_centered():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -128,8 +129,9 @@ def RunSimulation_centered():
 # ----------------------------------
 def RunSimulation_rotated():
 # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -145,9 +147,8 @@ def RunSimulation_rotated():
     pdf.setGamma(30.0*degree)
     interference.setProbabilityDistribution(pdf)
     
-    n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    cylinder = Particle(n_particle, cylinder_ff)
+    cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_decoration = ParticleDecoration()
     particle_info =  PositionParticleInfo(cylinder, position, 1.0)
@@ -155,15 +156,15 @@ def RunSimulation_rotated():
     particle_decoration.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    air_layer.setDecoration(particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     sim_params = SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -173,7 +174,7 @@ def RunSimulation_rotated():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -184,7 +185,7 @@ def RunSimulation_variants():
     # building simulation
     simulation = Simulation()
     simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     
     sim_params = SimulationParameters()
     sim_params.me_framework = SimulationParameters.DWBA
@@ -193,7 +194,7 @@ def RunSimulation_variants():
     simulation.setSimulationParameters(sim_params)
 
     # running simulation and copying data
-    OutputData_total = GetOutputData(simulation)
+    OutputData_total = simulation.getIntensityData().getArray()
     nbins = 3
     xi_min = 0.0*degree
     xi_max = 240.0*degree
@@ -206,7 +207,7 @@ def RunSimulation_variants():
         simulation.setSample(p_sample)
         simulation.runSimulation()
 
-        single_output = GetOutputData(simulation)
+        single_output = simulation.getIntensityData().getArray()
         single_output *= probability
         OutputData_total += single_output
 
@@ -215,9 +216,9 @@ def RunSimulation_variants():
 
 # IsGISAXS6 functional test sample builder for varying xi angle
 def buildSample(xi_value):
-    n_particle = complex(1.0-6e-4, 2e-8)
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     air_layer = Layer(mAmbience)
     substrate_layer = Layer(mSubstrate)
     
@@ -238,14 +239,15 @@ def buildSample(xi_value):
     # particle
     ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
-    cylinder = Particle(n_particle, ff_cyl.clone())
+    cylinder = Particle(mParticle, ff_cyl.clone())
     particle_info = PositionParticleInfo( cylinder, position, 1.0)
     particle_decoration.addParticleInfo(particle_info)
     particle_decoration.addInterferenceFunction(p_interference_function)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+    
+    air_layer.setDecoration(particle_decoration)
 
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 
@@ -256,16 +258,16 @@ def buildSample(xi_value):
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    flattice = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_lattice.ima.gz', 'rb')
+    flattice = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_lattice.ima.gz', 'rb')
     referencelattice=numpy.fromstring(flattice.read(),numpy.float64,sep=' ')
     flattice.close()
-    fcentered = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_centered.ima.gz', 'rb')
+    fcentered = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_centered.ima.gz', 'rb')
     referencecentered=numpy.fromstring(fcentered.read(),numpy.float64,sep=' ')
     fcentered.close()
-    frotated = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_rotated.ima.gz', 'rb')
+    frotated = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_rotated.ima.gz', 'rb')
     referencerotated=numpy.fromstring(frotated.read(),numpy.float64,sep=' ')
     frotated.close()
-    fvariants = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_variants.ima.gz', 'rb')
+    fvariants = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_variants.ima.gz', 'rb')
     referencevariants=numpy.fromstring(fvariants.read(),numpy.float64,sep=' ')
     fvariants.close()
     reference=numpy.concatenate((referencelattice,referencecentered,referencerotated,referencevariants),axis=0)  
@@ -307,7 +309,7 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
 
     return "IsGISAXS06", "2D lattice with different disorder", status
 
@@ -316,8 +318,9 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
 
 
 

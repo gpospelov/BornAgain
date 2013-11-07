@@ -20,13 +20,15 @@
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
-OutputData<double > *OutputDataIOFactory::getOutputData(const std::string& file_name)
+OutputData<double > *OutputDataIOFactory::readIntensityData(
+        const std::string& file_name)
 {
     return getReader(file_name)->getOutputData();
 }
 
 
-OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std::string& file_name)
+OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
+        const std::string& file_name)
 {
     OutputDataReader *reader = new OutputDataReader( file_name );
 
@@ -36,7 +38,8 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std
     } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".ima") {
         read_strategy = new OutputDataReadStreamIMA();
     } else {
-        throw LogicErrorException("OutputDataIOFactory::getReader() -> Error. Don't know how to read file '" + file_name+std::string("'"));
+        throw LogicErrorException("OutputDataIOFactory::getReader() -> Error. "
+                "Don't know how to read file '" + file_name+std::string("'"));
     }
 
     if( Utils::FileSystem::isGZipped(file_name) ) {
@@ -51,12 +54,14 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std
 /* ************************************************************************* */
 // writing output data
 /* ************************************************************************* */
-void OutputDataIOFactory::writeOutputData(const OutputData<double>& data, const std::string& file_name)
+void OutputDataIOFactory::writeIntensityData(const OutputData<double>& data,
+        const std::string& file_name)
 {
     return getWriter(file_name)->writeOutputData(data);
 }
 
-OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(const std::string& file_name)
+OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(
+        const std::string& file_name)
 {
     OutputDataWriter *writer = new OutputDataWriter( file_name );
 
@@ -66,7 +71,8 @@ OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(const std
     }else if(Utils::FileSystem::GetFileExtension(file_name) == ".txt") {
         write_strategy = new OutputDataWriteStreamV1();
     } else {
-        throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. Don't know how to write file '" + file_name+std::string("'"));
+        throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. "
+                "Don't know how to write file '" + file_name+std::string("'"));
     }
 
     writer->setStrategy( write_strategy );

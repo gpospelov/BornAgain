@@ -20,17 +20,22 @@
 
 //! ?
 
-class LocalMonodisperseApproximationStrategy : public IInterferenceFunctionStrategy
+class LocalMonodisperseApproximationStrategy :
+                                      public IInterferenceFunctionStrategy
 {
- public:
+public:
     LocalMonodisperseApproximationStrategy(SimulationParameters sim_params);
     virtual ~LocalMonodisperseApproximationStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
             const SafePointerVector<IInterferenceFunction>& ifs);
-    virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const;
- private:
+
+protected:
+    //! Evaluates the intensity for given list of evaluated form factors
+    virtual double evaluateForList(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, const std::vector<complex_t> &ff_list) const;
+
+private:
     bool checkVectorSizes();
 };
 

@@ -23,23 +23,30 @@
 
 //! A crystal structure with a form factor as a basis.
 
-class Crystal : public IClusteredParticles
+class BA_CORE_API_ Crystal : public IClusteredParticles
 {
- public:
+public:
     Crystal(const LatticeBasis& lattice_basis, const Lattice& lattice);
     ~Crystal();
 
     virtual Crystal *clone() const;
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index)
-    { mp_lattice_basis->setAmbientRefractiveIndex(refractive_index); }
+    //! Returns a clone with inverted magnetic fields
+    virtual Crystal *cloneInvertB() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+
+    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)
+    { mp_lattice_basis->setAmbientMaterial(p_ambient_material); }
 
     virtual IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        complex_t ambient_refractive_index) const;
+        const IMaterial *p_ambient_material,
+        complex_t wavevector_scattering_factor) const;
 
     Lattice getLattice() const { return m_lattice; }
-    Particle *createBasis() const { return mp_lattice_basis->clone(); }
+    LatticeBasis *createBasis() const { return mp_lattice_basis->clone(); }
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 
@@ -48,7 +55,9 @@ class Crystal : public IClusteredParticles
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
 
- private:
+private:
+    Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
+
     Lattice m_lattice;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;

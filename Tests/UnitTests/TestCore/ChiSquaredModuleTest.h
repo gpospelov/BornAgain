@@ -68,15 +68,15 @@ TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
 
 TEST_F(ChiSquaredModuleTest, DefaultModule)
 {
-    EXPECT_FLOAT_EQ( double(0.01), m_chi_default.calculateChiSquared());
+    EXPECT_FLOAT_EQ( 0.01, (float)m_chi_default.calculateChiSquared());
 }
 
 TEST_F(ChiSquaredModuleTest, CloneOfDefault)
 {
     ChiSquaredModule *clone_of_default = m_chi_default.clone();
-    EXPECT_FLOAT_EQ( double(0.01), clone_of_default->calculateChiSquared());
+    EXPECT_FLOAT_EQ( 0.01, (float)clone_of_default->calculateChiSquared());
     clone_of_default->setNdegreeOfFreedom(1);
-    EXPECT_FLOAT_EQ( double(1.0), clone_of_default->calculateChiSquared());
+    EXPECT_FLOAT_EQ( 1.0, (float)clone_of_default->calculateChiSquared());
     delete clone_of_default;
 }
 
@@ -101,7 +101,7 @@ TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
     chi_isgisaxs.setRealAndSimulatedData(real_data, simul_data);
     OutputDataNormalizer normalizer(100., 0.0);
     chi_isgisaxs.setOutputDataNormalizer( normalizer );
-    EXPECT_FLOAT_EQ( double(0.0), chi_isgisaxs.calculateChiSquared());
+    EXPECT_FLOAT_EQ( 0.0, (float)chi_isgisaxs.calculateChiSquared());
 
 //    m_chi_isgisaxs.setChiSquaredFunction( SquaredFunctionWithSystematicError(1.0) );
 //    EXPECT_FLOAT_EQ( double(0.005), m_chi_isgisaxs.calculateChiSquared());

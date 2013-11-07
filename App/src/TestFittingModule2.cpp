@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/TestFittingModule2.cpp
@@ -27,7 +27,6 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
-#include "LayerDecorator.h"
 #include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
@@ -99,7 +98,7 @@ void TestFittingModule2::fit_example_basics()
     initializeSimulation();
     initializeRealData();
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height", 
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",
                                 5*Units::nanometer, 1*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
@@ -271,7 +270,7 @@ void TestFittingModule2::initializeSimulation()
         100, 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(
          1.0*Units::angstrom,
-        -0.2*Units::degree,
+         0.2*Units::degree,
          0.0*Units::degree);
 }
 
@@ -324,25 +323,28 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
         MaterialManager::getHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(
-        new Particle(n_particle,
+        new Particle(particle_material,
                      new FormFactorCylinder(m_cylinder_height,
                                             m_cylinder_radius)),
         0.0, m_cylinder_ratio);
     particle_decoration.addParticle(
-        new Particle(n_particle,
+        new Particle(particle_material,
                      new FormFactorPrism3(m_prism3_height,
                                           m_prism3_half_side)),
         0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    air_layer.setDecoration(particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;
@@ -351,10 +353,10 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
 
 void TestFittingModule2::SampleBuilder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("m_cylinder_height", &m_cylinder_height);
-    getParameterPool()->registerParameter("m_cylinder_radius", &m_cylinder_radius);
-    getParameterPool()->registerParameter("m_prism3_half_side", &m_prism3_half_side);
-    getParameterPool()->registerParameter("m_prism3_height", &m_prism3_height);
-    getParameterPool()->registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
+    clearParameterPool();
+    registerParameter("m_cylinder_height", &m_cylinder_height);
+    registerParameter("m_cylinder_radius", &m_cylinder_radius);
+    registerParameter("m_prism3_half_side", &m_prism3_half_side);
+    registerParameter("m_prism3_height", &m_prism3_height);
+    registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
 }

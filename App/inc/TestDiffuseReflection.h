@@ -26,16 +26,16 @@ class MultiLayer;
 
 class TestDiffuseReflection : public IFunctionalTest
 {
- public:
+public:
     TestDiffuseReflection();
 
     void execute();
 
     void draw();
 
- private:
+private:
     MultiLayer *m_sample; //!< pointer to multilayer sample
-    OutputData<double  > *m_data_spec; //!< specular reflectivity
+//    OutputData<double  > *m_data_spec; //!< specular reflectivity
     OutputData<double  > *m_data_offspec; //!< off-specular reflectivity
 
     double m_alphaMin; //!< min alpha value

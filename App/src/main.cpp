@@ -18,7 +18,7 @@
 #include "ProgramOptions.h"
 #include "AppOptionsDescription.h"
 #include "CoreOptionsDescription.h"
-#include "Version.h"
+#include "BAVersion.h"
 #include "MessageService.h"
 #include "Utils.h"
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     Utils::EnableFloatingPointExceptions();
 
     std::cout << AppVersion::g_app_name << " "
-              << AppVersion::g_app_version_number << std::endl;
+              << AppVersion::GetVersionNumber() << std::endl;
 
     FunctionalTestFactory test_factory;
     RegisterFunctionalTests(&test_factory);
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
         (void)theApp;
         gROOT->SetBatch(true);
     } else {
-        theApp = new TApplication("theApp", 0, 0);
+        theApp = new TApplication("theApp", &argc, argv);
         DrawHelper::SetStyle();
     }
 

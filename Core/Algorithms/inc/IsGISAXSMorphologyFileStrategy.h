@@ -19,19 +19,25 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-//! Definition of interference function strategy that emulates the behaviour of IsGISAXS for morphology files
+//! Definition of interference function strategy that emulates the behaviour of
+//! IsGISAXS for morphology files
 
 class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
- public:
+public:
     IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params);
     virtual ~IsGISAXSMorphologyFileStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
             const SafePointerVector<IInterferenceFunction>& ifs);
-    virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            double alpha_i, double alpha_f) const;
- private:
+
+protected:
+    //! Evaluates the intensity for given list of evaluated form factors
+    virtual double evaluateForList(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin,
+        const std::vector<complex_t> &ff_list) const;
+
+private:
     void initPositions();
     bool checkVectorSizes();
     std::vector<double> m_x_positions;

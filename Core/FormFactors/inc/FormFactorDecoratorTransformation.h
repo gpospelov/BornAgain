@@ -23,8 +23,8 @@
 
 class FormFactorDecoratorTransformation : public IFormFactorDecorator
 {
- public:
-    //! Constructor, setting formfactor and rotation.
+public:
+    //! Constructor, setting form factor and rotation.
     FormFactorDecoratorTransformation(
         IFormFactor *p_form_factor, const Geometry::PTransform3D& transform)
         : IFormFactorDecorator(p_form_factor)
@@ -36,33 +36,22 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
 
     virtual ~FormFactorDecoratorTransformation() {}
 
-    virtual FormFactorDecoratorTransformation *clone() const
-    {
-        return new FormFactorDecoratorTransformation(
-            mp_form_factor->clone(), mP_transform);
-    }
+    virtual FormFactorDecoratorTransformation *clone() const;
 
-    virtual complex_t evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-        double alpha_i, double alpha_f) const;
-    // --> inline implementation below <--
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
 
     virtual int getNumberOfStochasticParameters() const
     { return mp_form_factor->getNumberOfStochasticParameters(); }
 
- protected:
+protected:
     Geometry::PTransform3D mP_transform;
     Geometry::PTransform3D mP_inverse_transform;
 };
 
 
-// -----------------------------------------------------------------------------
-// Inline implementations
-// -----------------------------------------------------------------------------
-
 inline complex_t FormFactorDecoratorTransformation::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-    double alpha_i, double alpha_f) const
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     cvector_t new_ki =
         mP_inverse_transform->transformed(k_i);
@@ -71,7 +60,7 @@ inline complex_t FormFactorDecoratorTransformation::evaluate(
     cvector_t new_kf_upper =
         mP_inverse_transform->transformed(k_f_bin.m_q_upper);
     Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
-    return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_i, alpha_f);
+    return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_f_bin);
 }
 
 #endif // FORMFACTORDECORATORTRANSFORMATION_H

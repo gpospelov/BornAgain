@@ -33,10 +33,10 @@ struct RotateY_3D_wrapper : Geometry::RotateY_3D, bp::wrapper< Geometry::RotateY
     virtual void print( ::std::ostream & ostr ) const  {
         if( bp::override func_print = this->get_override( "print" ) )
             func_print( boost::ref(ostr) );
-        else{
+        else
             this->Geometry::RotateY_3D::print( boost::ref(ostr) );
-        }
     }
+    
     
     void default_print( ::std::ostream & ostr ) const  {
         Geometry::RotateY_3D::print( boost::ref(ostr) );

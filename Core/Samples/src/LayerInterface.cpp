@@ -31,6 +31,7 @@ LayerInterface::~LayerInterface()
     delete m_roughness;
 }
 
+
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
 {
     LayerInterface *lr = new LayerInterface();

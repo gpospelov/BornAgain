@@ -20,24 +20,29 @@
 
 //! Form factor of a cylinder.
 
-class FormFactorCylinder : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {
- public:
+public:
     FormFactorCylinder(double height, double radius);
     ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }
+    virtual void setHeight(double height) { m_height = height; }
+
     virtual double getRadius() const { return m_radius; }
+    virtual void setRadius(double radius) { m_radius = radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
- protected:
+protected:
     virtual void init_parameters();
 
- private:
+private:
     double m_height;
     double m_radius;
 };

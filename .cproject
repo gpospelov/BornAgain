@@ -2,7 +2,7 @@
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" moduleId="org.eclipse.cdt.core.settings" name="Default">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings>
 					<externalSetting/>
 				</externalSettings>
@@ -16,11 +16,11 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="BornAgain" buildProperties="" description="" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="BornAgain" buildProperties="" description="Config for release build" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" name="Release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647" name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.329208693" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.35496915" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder arguments="" buildPath="${workspace_loc:/BornAgain}" cleanBuildTarget="distclean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.1780058782" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
+							<builder arguments="-C ../BornAgain_cmake_release" buildPath="" cleanBuildTarget="clean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.1780058782" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.2076947871" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.2050732830" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<option id="macosx.cpp.link.option.paths.102310300" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths"/>
@@ -31,7 +31,6 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.macosx.base.682830013" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
 								<option id="gnu.both.asm.option.include.paths.1937969981" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/opt/local/include"/>
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -39,11 +38,8 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.20241922" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1362645889" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1365373536" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
-								</option>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1365373536" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
 								<option id="gnu.cpp.compiler.option.include.paths.61567316" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/opt/local/include"/>
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -51,17 +47,17 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.44819609" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option id="gnu.c.compiler.option.include.paths.303264651" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/opt/local/include"/>
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
-								</option>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.44052800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -87,16 +83,14 @@
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.443634681" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.966869129" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="${workspace_loc:/BornAgain}" cleanBuildTarget="distclean" id="cdt.managedbuild.target.gnu.builder.macosx.base.957115956" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.macosx.base">
+							<builder arguments="-C ../BornAgain_cmake_debug VERBOSE=1" buildPath="" cleanBuildTarget="clean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.957115956" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base">
 								<outputEntries>
 									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
 								</outputEntries>
 							</builder>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.67524831" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.125523900" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
-								<option id="macosx.cpp.link.option.paths.1579896859" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="/Users/herck/Development/git/BornAgain/lib"/>
-								</option>
+								<option id="macosx.cpp.link.option.paths.1579896859" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths"/>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1727384347" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -116,7 +110,6 @@
 									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.include.paths.190562377" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/opt/local/include"/>
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -124,7 +117,6 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option id="gnu.c.compiler.option.include.paths.836055778" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/opt/local/include"/>
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -135,6 +127,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -147,26 +142,44 @@
 		<configuration configurationName="Default">
 			<resource resourceType="PROJECT" workspacePath="/BornAgain"/>
 		</configuration>
-		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/BornAgain"/>
-		</configuration>
+		<configuration configurationName="Release"/>
+		<configuration configurationName="Debug"/>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.44819609;cdt.managedbuild.tool.gnu.c.compiler.input.44052800">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1362645889;cdt.managedbuild.tool.gnu.cpp.compiler.input.2060403592">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1382053189;cdt.managedbuild.tool.gnu.cpp.compiler.input.913383985">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="CMake Release" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>cmake</buildCommand>
+				<buildArguments>-E chdir ../BornAgain_cmake_release/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release</buildArguments>
+				<buildTarget/>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="CMake Debug" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>cmake</buildCommand>
+				<buildArguments>-E chdir ../BornAgain_cmake_debug/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Debug</buildArguments>
+				<buildTarget/>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
+	</storageModule>
 </cproject>

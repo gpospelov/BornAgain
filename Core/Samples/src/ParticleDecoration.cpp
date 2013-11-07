@@ -42,14 +42,34 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
+ParticleDecoration* ParticleDecoration::cloneInvertB() const
+{
+    //   msglog(MSG::DEBUG) << "ParticleDecoration::clone()";
+    ParticleDecoration *p_new = new ParticleDecoration();
+    p_new->setName(getName() + "_inv");
+
+    for (size_t i=0; i<m_particles.size(); ++i)
+        p_new->addAndRegisterParticleInfo(m_particles[i]->cloneInvertB());
+
+    for (size_t i=0; i<m_interference_functions.size(); ++i)
+        p_new->addAndRegisterInterferenceFunction(
+            m_interference_functions[i]->clone());
+
+    p_new->m_total_abundance = m_total_abundance;
+    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+
+    return p_new;
+}
+
 //! Adds generic particle, *-version.
 
 void ParticleDecoration::addParticle(
     Particle* p_particle, const Geometry::PTransform3D& transform,
     double depth, double abundance)
 {
+    p_particle->setTransform(transform);
     addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle, transform, depth, abundance));
+        new ParticleInfo(p_particle, depth, abundance));
 }
 
 //! Adds generic particle, &-version.
@@ -58,8 +78,10 @@ void ParticleDecoration::addParticle(
     const Particle& p_particle, const Geometry::PTransform3D& transform,
     double depth, double abundance)
 {
+    Particle *p_particle_clone = p_particle.clone();
+    p_particle_clone->setTransform(transform);
     addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle.clone(), transform, depth, abundance));
+        new ParticleInfo(p_particle_clone, depth, abundance));
 }
 
 //! Adds particle without rotation, *-version.
@@ -95,7 +117,7 @@ const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
         return m_particles[index];
     throw OutOfBoundsException(
         "ParticleDecoration::getParticleInfo() -> "
-        "Error! Not so many interference functions in this decoration.");
+        "Error! Not so many particles in this decoration.");
 }
 
 double ParticleDecoration::getAbundanceFractionOfParticle(size_t index) const
@@ -155,5 +177,4 @@ void ParticleDecoration::print(std::ostream& ostr) const
              << *(m_particles[i]) << "}\n";
     ostr << "}";
 }
-
 

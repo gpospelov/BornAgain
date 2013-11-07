@@ -1026,7 +1026,7 @@ Bool_t TGQt::Init(void* /*display*/)
          QString libPath = gSystem->GetLinkedLibs();
          // detect the exact name of the Qt library
          TString qtlibdir= "$(QTDIR)";
-         qtlibdir += QDir::separator().toAscii();
+         qtlibdir += QDir::separator().toLatin1();
          qtlibdir += "lib";
 
          gSystem->ExpandPathName(qtlibdir);
@@ -1046,7 +1046,7 @@ Bool_t TGQt::Init(void* /*display*/)
 #else
                   libPath += "QtCore4.lib QtGui4.lib QtOpenGL4.lib Qt3Support4.lib";
 #endif
-               gSystem->SetLinkedLibs(libPath.toAscii().data());
+               gSystem->SetLinkedLibs(libPath.toStdString().c_str());
             }
          } else {
             qWarning(" Can not open the QTDIR %s",(const char*)qtlibdir);

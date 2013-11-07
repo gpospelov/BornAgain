@@ -20,17 +20,20 @@
 #include <list>
 #include <boost/shared_ptr.hpp>
 
+
 class IObservable;
 
 //! Observer interface from Observer pattern, for 1:n object dependencies.
 
-class IObserver {
- public:
+class BA_CORE_API_ IObserver {
+public:
 //    IObserver() : m_observed_subject(0) {}
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
-    virtual void update (IObservable *subject) = 0;
+    virtual void update (IObservable */*subject*/) {
+        throw NotImplementedException("IObserver::update() -> Not implemented");
+    }
 
 //    //! Sets pointer to observed subject
 //    virtual void setObservedSubject(IObservable *subject);
@@ -40,8 +43,8 @@ class IObserver {
 
 //! Observable interface from Observer pattern, for 1:n object dependencies.
 
-class IObservable {
- public:
+class BA_CORE_API_ IObservable {
+public:
     typedef boost::shared_ptr<IObserver > observer_t;
     typedef std::list<observer_t > observerlist_t;
 
@@ -53,7 +56,7 @@ class IObservable {
     //! notify observers about change in status
     virtual void notifyObservers();
 
- private:
+private:
     observerlist_t m_observers;
 };
 

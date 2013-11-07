@@ -59,17 +59,15 @@ void IsGISAXSMorphologyFileStrategy::initPositions()
     }
 }
 
-double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+double IsGISAXSMorphologyFileStrategy::evaluateForList(const cvector_t& k_i,
+     const Bin1DCVector& k_f_bin, const std::vector<complex_t> &ff_list) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     complex_t mean_ff = complex_t(0., 0.);
 
     // calculate form factors
-    std::vector<complex_t> ff_values;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        ff_values.push_back(m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f));
-        mean_ff += m_ff_infos[i]->m_abundance*ff_values[i];
+        mean_ff += m_ff_infos[i]->m_abundance * ff_list[i];
     }
 
     // coherent part
@@ -78,20 +76,22 @@ double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
         complex_t phase = q.x()*m_x_positions[i] + q.y()*m_y_positions[i];
         double fraction = m_ff_infos[i]->m_abundance;
         double hann_value = hannFunction(m_x_positions[i], m_y_positions[i]);
-        coherent_amplitude += fraction*ff_values[i]*std::exp( complex_t(0., 1.0)*phase )*hann_value;
+        coherent_amplitude += fraction*ff_list[i]
+                            * std::exp( complex_t(0., 1.0)*phase )*hann_value;
     }
     double coherent_intensity = std::norm(coherent_amplitude);
 
     // diffuse part
     double diffuse_intensity = 0.;
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        diffuse_intensity += m_ff_infos[i]->m_abundance*std::norm(ff_values[i]);
+        diffuse_intensity += m_ff_infos[i]->m_abundance*std::norm(ff_list[i]);
         for (size_t j=i+1; j<m_ff_infos.size(); ++j) {
             double x_diff = m_x_positions[i]-m_x_positions[j];
             double y_diff = m_y_positions[i]-m_y_positions[j];
             complex_t phase = q.x()*x_diff + q.y()*y_diff;
-            diffuse_intensity += m_ff_infos[i]->m_abundance * m_ff_infos[j]->m_abundance *
-                    2.0*(ff_values[i]*std::conj(ff_values[j]) *
+            diffuse_intensity += m_ff_infos[i]->m_abundance
+                    * m_ff_infos[j]->m_abundance *
+                    2.0*(ff_list[i]*std::conj(ff_list[j]) *
                     std::exp( complex_t(0., 1.0)*phase )).real();
         }
     }

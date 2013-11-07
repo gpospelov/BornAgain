@@ -19,22 +19,32 @@
 #include "Types.h"
 #include "IFormFactorDecorator.h"
 
-//! ?
+//! Decorates a form factor with a position dependent phase factor
 
 class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
- public:
-    FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, kvector_t position);
+public:
+    FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,
+            kvector_t position);
     virtual ~FormFactorDecoratorPositionFactor() {}
     virtual FormFactorDecoratorPositionFactor *clone() const;
 
-    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+
+#ifndef GCCXML_SKIP_THIS
+    virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
+            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+            Bin1D phi_f_bin) const;
+#endif
 
     virtual int getNumberOfStochasticParameters() const {
         return mp_form_factor->getNumberOfStochasticParameters();
     }
- protected:
+protected:
     kvector_t m_position;
+private:
+    complex_t getPositionFactor(cvector_t q) const;
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
@@ -45,18 +55,37 @@ inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     setName("FormFactorDecoratorPositionFactor");
 }
 
-inline FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const
+inline FormFactorDecoratorPositionFactor*
+FormFactorDecoratorPositionFactor::clone() const
 {
     return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorPositionFactor::evaluate(
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
-    complex_t qr = q.x()*m_position.x() + q.y()*m_position.y() + q.z()*m_position.z();
+    complex_t pos_factor = getPositionFactor(q);
+    return pos_factor*mp_form_factor->evaluate(k_i, k_f_bin, alpha_f_bin);
+}
+
+inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
+        Bin1D phi_f_bin) const
+{
+    cvector_t q = k_i - k_f_bin.getMidPoint();
+    complex_t pos_factor = getPositionFactor(q);
+    return pos_factor*mp_form_factor->evaluatePol(k_i, k_f_bin, alpha_f_bin,
+            phi_f_bin);
+}
+
+inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(
+        cvector_t q) const
+{
+    complex_t qr = q.x()*m_position.x() + q.y()*m_position.y()
+            + q.z()*m_position.z();
     complex_t pos_factor = std::exp(complex_t(0.0, 1.0)*qr);
-    return pos_factor*mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+    return pos_factor;
 }
 
 #endif /* FORMFACTORDECORATORPOSITIONFACTOR_H_ */

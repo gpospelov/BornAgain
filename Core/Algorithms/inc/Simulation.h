@@ -20,13 +20,15 @@
 #include "Instrument.h"
 #include "SimulationParameters.h"
 
+#include "EigenCore.h"
+
 class ProgramOptions;
 
 //! Run one simulation.
 
-class Simulation : public IParameterized, public ICloneable
+class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
- public:
+public:
     Simulation();
     Simulation(const ProgramOptions *p_options);
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
@@ -58,11 +60,21 @@ class Simulation : public IParameterized, public ICloneable
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
     //! Returns detector intensity map for all scan parameters
-    const OutputData<double>* getOutputData() const { return& m_intensity_map; }
+    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
-    OutputData<double>* getOutputDataClone() const
+    OutputData<double>* getIntensityData() const
     { return m_intensity_map.clone(); }
+
+    //! returns component of polarized intensity map
+    OutputData<double>* getPolarizedIntensityData(int row, int column) const;
+
+#ifndef GCCXML_SKIP_THIS
+    //! Returns polarized intensity map
+    const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
+        return &m_polarization_output;
+    }
+#endif
 
     //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
@@ -77,7 +89,7 @@ class Simulation : public IParameterized, public ICloneable
     void setBeamIntensity(double intensity);
 
     //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double >& output_data);
+    void setDetectorParameters(const OutputData<double> &output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
@@ -100,6 +112,10 @@ class Simulation : public IParameterized, public ICloneable
     void setSimulationParameters(const SimulationParameters& sim_params)
     { m_sim_params = sim_params; }
 
+    //! Sets the batch and thread information to be used
+    void setThreadInfo(const ThreadInfo &thread_info)
+    { m_thread_info = thread_info; }
+
     //! Sets the program options
     void setProgramOptions(ProgramOptions *p_options)
     { mp_options = p_options; }
@@ -113,7 +129,7 @@ class Simulation : public IParameterized, public ICloneable
     //! Apply smearing of intensity due to tilting of z-axis (DEPRECATED)
     void smearIntensityFromZAxisTilting();
 
- protected:
+protected:
     Simulation(const Simulation& other);
 
     //! Registers some class members for later access via parameter pool
@@ -125,14 +141,21 @@ class Simulation : public IParameterized, public ICloneable
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
+    //! Add the intensity maps from the DWBA simulation to the member maps
+    void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
+
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     const ISampleBuilder *mp_sample_builder;
     Instrument m_instrument;
     SimulationParameters m_sim_params;
+    ThreadInfo m_thread_info;
 
     OutputData<double> m_intensity_map;
-    bool m_is_normalized;
+#ifndef GCCXML_SKIP_THIS
+    OutputData<Eigen::Matrix2d> m_polarization_output;
+#endif
+   bool m_is_normalized;
     const ProgramOptions *mp_options;
 
     //TODO: investigate usage:

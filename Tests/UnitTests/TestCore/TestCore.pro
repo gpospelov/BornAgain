@@ -1,13 +1,15 @@
-###############################################################################
-# qmake project file to compile and run unit test of ScattCore library
-###############################################################################
+# -----------------------------------------------------------------------------
+# qmake project file to compile and run unit test of libBornAgainCore
+# -----------------------------------------------------------------------------
 TEMPLATE = app
 CONFIG  -= qt app_bundle
-CONFIG  += console build_all
+CONFIG  += console release
+TARGET = TestCore
+DESTDIR = $$PWD
 QT      -= core gui
 
 # including common project properties
-include($$PWD/../../../shared.pri)
+include(../../../shared.pri)
 
 SOURCES += main.cpp
 
@@ -26,30 +28,21 @@ HEADERS += \
     ParameterPoolTest.h \
     RealParameterWrapperTest.h \
     SimulationTest.h \
+    ThreadInfoTest.h \
+    LayerTest.h \
+    ParticleTest.h
 
-OBJECTS_DIR = obj
+# -----------------------------------------------------------------------------
+# dependencies
+# -----------------------------------------------------------------------------
+DEPENDPATH  += $$BornAgainCore_INCLUDE_DIR
+INCLUDEPATH *= $$EIGEN_INCLUDE_DIR
+INCLUDEPATH *= $$BOOST_INCLUDE_DIR
+INCLUDEPATH += $$BornAgainCore_INCLUDE_DIR $$gtest_INCLUDE_DIR
+LIBS += $$BOOST_LIBRARY $$BornAgainCore_LIBRARY $$gtest_LIBRARY
 
-#CORE = $$PWD/../../../Core
-#CORE_HEADERS = $${CORE}/Algorithms/inc $${CORE}/FormFactors/inc $${CORE}/Geometry/inc $${CORE}/Samples/inc $${CORE}/Tools/inc $${CORE}/../ThirdParty/gtest/gtest-1.6.0/include
-#INCLUDEPATH += $${CORE_HEADERS}
-#DEPENDPATH += $${CORE_HEADERS} $PWD
-
-INCLUDEPATH += $${PWD}/../../../ThirdParty/gtest/gtest-1.6.0/include
-
-###############################################################################
-# generating package dependency flags
-###############################################################################
-MY_DEPENDENCY_LIB = gtest BornAgainCore
-MY_DEPENDENCY_DEST =$$PWD/../../..
-SONAME = so
-# INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
-for(dep, MY_DEPENDENCY_LIB) {
-    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-#    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
-}
-
-###############################################################################
+# -----------------------------------------------------------------------------
 # runs automatically tests right after linking
-###############################################################################
-QMAKE_POST_LINK = $$PWD/$(TARGET) 2> /dev/null
+# -----------------------------------------------------------------------------
+QMAKE_POST_LINK += $$PWD/$(TARGET)
+

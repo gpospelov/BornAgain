@@ -18,15 +18,16 @@
 
 #include "IParameterized.h"
 #include "ICloneable.h"
+#include "ISampleVisitor.h"
 
 class ICompositeSample;
 class DWBASimulation;
 
 //! Interface for objects related to scattering
 
-class ISample : public IParameterized, public ICloneable
+class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
- public:
+public:
     ISample() { setName("ISample"); }
     virtual ~ISample() {}
 
@@ -34,6 +35,12 @@ class ISample : public IParameterized, public ICloneable
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
     virtual ISample *clone() const;
+
+    //! Returns a clone with inverted magnetic fields
+    virtual ISample *cloneInvertB() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) const = 0;
 
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
@@ -44,12 +51,14 @@ class ISample : public IParameterized, public ICloneable
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    void print_structure();
+    virtual void printSampleTree();
 
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
- protected:
+    bool containsMagneticMaterial() const;
+
+protected:
     virtual void print(std::ostream& ostr) const;
 };
 

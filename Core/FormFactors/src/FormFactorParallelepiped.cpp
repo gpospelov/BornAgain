@@ -20,13 +20,16 @@ FormFactorParallelepiped::FormFactorParallelepiped(double height, double radius)
 : m_height(height)
 , m_radius(radius)
 {
+    setName("FormFactorParallelepiped");
+    init_parameters();
 }
 
 FormFactorParallelepiped* FormFactorParallelepiped::clone() const
 {
-    FormFactorParallelepiped *p_clone =
+    FormFactorParallelepiped *result =
         new FormFactorParallelepiped(m_height, m_radius);
-    return p_clone;
+    result->setName(getName());
+    return result;
 }
 
 complex_t FormFactorParallelepiped::evaluate_for_q(const cvector_t& q) const
@@ -44,9 +47,9 @@ complex_t FormFactorParallelepiped::evaluate_for_q(const cvector_t& q) const
 
 void FormFactorParallelepiped::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("radius", &m_radius);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius);
 }
 
 

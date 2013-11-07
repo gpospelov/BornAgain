@@ -19,17 +19,18 @@ local minima in the objective function. The extended list of problems causing fi
 
 Given list, of course, is unrelated only to \BornAgain\ fitting. It remains the same
 while fitting the data with any fitting program and any kind of theoretical model.
-To address all these difficulties some amount of hand work might be necessary. Below we give some recommendations which might help the user to achieve reliable fit results.
+To address all these difficulties some amount of manual tuning might be necessary. Below we give some recommendations which might help the user to achieve reliable fit results.
 
 \subsection*{General recommendation}
 \begin{itemize}
 \item initially choose small number of free fitting parameters
+\item eliminate redundand parameters
 \item provide a good initial guess for fit parameters
 \item start from default minimizer settings and turn to the fine tuning after some experience has been acquired.
 \item repeat fit using different starting values for parameters or their limits
 \item repeat fit fixing and releasing different groups  of parameters
 \item use \Code{Minuit2} minimizer with \Code{Migrad} algorithm (default) to get most reliable parameter error estimation
-\item use \Code{GSLMultiFit} minimizer or \Code{Minuit2} minimizer with \Code{Fumili} algorithm to get less interation as possible
+\item try \Code{GSLMultiFit} minimizer or \Code{Minuit2} minimizer with \Code{Fumili} algorithm to get fewer iterations
 
 
 %\subsection*{Interpretation of errors.}

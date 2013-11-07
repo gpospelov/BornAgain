@@ -67,6 +67,9 @@ void ParticleDecoration::addParticle(
     Particle* p_particle, const Geometry::PTransform3D& transform,
     double depth, double abundance)
 {
+    if(!abundance) {
+        throw LogicErrorException("ParticleDecoration::addParticle() -> Error! Abundance can't be equal to 0.0");
+    }
     p_particle->setTransform(transform);
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle, depth, abundance));
@@ -78,6 +81,9 @@ void ParticleDecoration::addParticle(
     const Particle& p_particle, const Geometry::PTransform3D& transform,
     double depth, double abundance)
 {
+    if(!abundance) {
+        throw LogicErrorException("ParticleDecoration::addParticle() -> Error! Abundance can't be equal to 0.0");
+    }
     Particle *p_particle_clone = p_particle.clone();
     p_particle_clone->setTransform(transform);
     addAndRegisterParticleInfo(

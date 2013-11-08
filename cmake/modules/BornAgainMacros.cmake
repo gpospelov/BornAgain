@@ -86,3 +86,21 @@ function(BORNAGAIN_ADD_TEST test)
     add_dependencies(check ${test})
 endfunction()
 
+
+function (get_filename_component)
+  _get_filename_component (${ARGN})
+  list (GET ARGN 0 VAR)
+  list (GET ARGN 2 CMD)
+  if (${CMD} STREQUAL "EXT")
+    string (REGEX MATCHALL "\\.[^.]*" PARTS "${${VAR}}")
+    list (LENGTH PARTS LEN)
+    if (LEN GREATER 1)
+      math (EXPR LEN "${LEN} - 1")
+      list (GET PARTS ${LEN} ${VAR})
+    endif ()
+  else ()
+  endif ()
+  set (${VAR} "${${VAR}}" PARENT_SCOPE)
+endfunction ()
+
+

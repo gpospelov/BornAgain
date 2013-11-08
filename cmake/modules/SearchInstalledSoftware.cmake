@@ -68,6 +68,12 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     #    message(SEND_ERROR "No python libraries have been found")
     #endif()
 
+    GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)
+    if(${PyLibExtension}  STREQUAL ".a")
+        message(STATUS "--> Static python library, adding -ldl to linker flags")
+        set(CMAKE_SHARED_LINKER_FLAGS "-ldl")
+    endif()
+
 
     find_package(Numpy REQUIRED)
 endif()

@@ -71,7 +71,7 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = OutputDataIOFactory.readIntensityData('Refdata_fitcylinderprisms.txt')
+    real_data = OutputDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt')
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)

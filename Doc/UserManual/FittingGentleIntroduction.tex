@@ -23,10 +23,10 @@ as a function of (x,y) of the detector ``measured'' in toy scattering experiment
   toy experiment (left) and from the toy simulation (right).   }
   \label{fig:toyfit_data}
   \vspace*{4mm}
-    \includegraphics[width=0.49\textwidth]{Figures/toyfit_chi2_p23.eps}
     \includegraphics[width=0.49\textwidth]{Figures/toyfit_chi2_p12.eps}
+    \includegraphics[width=0.49\textwidth]{Figures/toyfit_chi2_p23.eps}
   \caption{$\chi^{2}$ value calculated between experimental and simulated data
-  as a function of $p_2,p_3$ parameters (left) or $p_1,p_2$ 
+  as a function of $p_1,p_2$ parameters (left) or $p_2,p_3$ 
   parameters (right) used in the model.   }
   \label{fig:toyfit_chi2}
 \end{figure}
@@ -41,8 +41,11 @@ Constant $0.1$ symbolize our experimental background and constant $0.01$ is refe
 to the detector noise. The rest of the formula represents our signal.
 
 Lets define our model, namely specific mathematical function, to which we will fit our toy experimental data. By making an educated guess we assume that scattering intensity observed
-in the experiment should be described with the help of $sinc$ function as follows
-$$ I(x,y) = p_0 + p_1 \cdot  sinc(x - p_2) \cdot sinc(y - p_3) $$
+in the experiment should be described with the help of $sinc$ functions as follows
+\begin{equation} \label{eq:toy_model}
+f(x,y;p) = p_0 + p_1 \cdot  sinc(x - p_2) \cdot sinc(y - p_3)
+\end{equation}
+
 The model has four parameters: $p_0$ describing background, $p_{1}$ describing signal strength
 and $p_2,p_3$ responsible for the peak position.
 Fig.~\ref{fig:toyfit_data},right shows the intensity as a function (x,y) calculated according
@@ -83,10 +86,72 @@ $-\text{ln}(\mathcal{L})$.
 
 
 \subsubsection*{$\chi^2$ or least squares minimization}
-A simple dataset consist of $n$ data pairs 
+A dataset consist of $n$ data pairs $(\mathbf{x_{i}}, a_{i}), i=1,N$ where 
+$\mathbf{x_{i}}$ is an independent variable and $a_{i}$ is dependent variable, whose
+value is found in the measurement $i$. The number $N$ denotes the total
+number of measurements. 
 
-\subsubsection*{Main features of minimization algorithm}
+In the case of intensity map measured in our toy experiment 
+and presented in Fig~\ref{fig:toyfit_data}, a variable $a_{i}$ denotes measured intensity, a variable $\mathbf{x_{i}}$ is a vector and correspond to the 
+$(x_{i}, y_{i})$ coordinates of pixels in our detector while number $N$  corresponds 
+to total number of detector pixels.
 
+The model function has the form
+$f(\mathbf{x_{i}},\mathbf{p})$
+where adjustable parameters are held in the vector $\mathbf{p}$.
+The least squared method finds the optimum of model function which 
+fit the data in the best way by searching for the minimum of the sum of squared
+residuals
+$$ \chi^{2}(\mathbf{p}) = \sum_{i=1}^{N}r_{i}^{2}$$
+where residual is defined as the difference between measured value and the value predicted by the model.
+$$r = a_{i} - f(\mathbf{x_{i}},\mathbf{p})$$
+
+In the case of normally distributed variables with the $\sigma^2$ variance
+the quantity to minimize becomes
+$$ \chi^{2}(\mathbf{p}) =
+\frac{1}{d}
+\sum_{i=1}^{N}  
+\frac{ (a_{i} - f(\mathbf{x_{i}},\mathbf{p}))^2}{\sigma^2}   $$
+where $d=N-k$ is number of degree of freedom ($k$ number of free fit parameters).
+
+\subsubsection*{Maximum of likelihood}
+to be written
+
+
+\subsubsection*{Minimization algorithms}
+There are a large number of minimization algorithms providing a solution to the problem
+of minimizing the objective function over the space of parameters of the function.
+The minimization starts from initial guess for the parameters provided by the user,
+and then evolves iteratively under control of minimization algorithm. The procedural
+modifications on the parameters, the objective function, as well as convergence
+criterion depend on the method implemented.
+Details of particular implementation is beyond the scope of this manual and
+ interested reader is encouraged to look at outside resources.
+
+
+
+\subsubsection*{Local minima trap}
+Finding the global minimum of objective function 
+is a general problem in optimization that is unlikely to have an exact and 
+tractable solution. The problem can be illustrated using our toy experiment.
+
+The theoretical model given by the formula \ref{eq:toy_model} is defined
+in $(x,y)$ space and additionally depends on parameter vector $\mathbf{p}$. 
+The $\chi^2$ 
+objective function is obtained by the calculation of sum of squared residuals between
+measured (Fig.~\ref{fig:toyfit_data}, left) and 
+predicted (Fig.~\ref{fig:toyfit_data}, right) values over $x,y$ space. It is defined
+in parameter space $\mathbf{p}$ which have 4 dimensions.
+
+Fig.~\ref{fig:toyfit_chi2} (left) shows $\chi^2$ as a function of
+$p_1,p_2$ parameters while parameters $p_0,p_3$ remain fixed.
+Fig.~\ref{fig:toyfit_chi2} (right) shows $\chi^2$ as a function of
+$p_2,p_3$ parameters while parameters $p_0,p_1$ remain fixed.
+
+One can see that given objective function have a strongly pronounced global minimum,
+the goal of our search, supplemented by a number of local minima.
+The later will provide a hostile environment for the minimization algorithm, causing
+poor or slow convergence to single global minimum.
 
 
 \subsection{Terminology.}

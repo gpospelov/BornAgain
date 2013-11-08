@@ -71,7 +71,7 @@ def get_sample(cylinder_height=1.0*nanometer,
 def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
-    This function has been used once to generate Refdata_fitcylinderprisms.txt
+    This function has been used once to generate refdata_fitcylinderprisms.txt
     """
     # creating sample with set of parameters we will later try to find during the fit
     sample = get_sample(5.0*nanometer, 5.0*nanometer, 5.0*nanometer, 5.0*nanometer)
@@ -90,7 +90,7 @@ def create_real_data():
         if noisy_amplitude < 0.0:
             noisy_amplitude = 0.0
         real_data[i] = noisy_amplitude
-    OutputDataIOFactory.writeIntensityData(real_data, 'Refdata_fitcylinderprisms.txt')
+    OutputDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.txt')
 
 
 
@@ -160,7 +160,7 @@ def run_fitting():
     simulation = get_simulation()
     simulation.setSample(sample)
 
-    real_data = OutputDataIOFactory.readIntensityData('Refdata_fitcylinderprisms.txt')
+    real_data = OutputDataIOFactory.readIntensityData('refdata_fitcylinderprisms.txt')
 
     fit_suite = FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)

@@ -75,6 +75,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
         message(STATUS "--> Static python library detected, adding ${syslibs}")
         set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}")
     endif()
+    message(STATUS "--> Python libraries ${PYTHON_LIBRARIES}")
+    
 
     find_package(Numpy REQUIRED)
 endif()

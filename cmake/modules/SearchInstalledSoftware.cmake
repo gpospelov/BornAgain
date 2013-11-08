@@ -70,10 +70,11 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
     GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)
     if(${PyLibExtension}  STREQUAL ".a")
-        message(STATUS "--> Static python library, adding -ldl to linker flags")
-        set(CMAKE_SHARED_LINKER_FLAGS "-ldl")
+        find_package( Threads )
+        set(syslibs "-lm -ldl -lutil ${CMAKE_THREAD_LIBS_INIT} -rdynamic")
+        message(STATUS "--> Static python library detected, adding ${syslibs}")
+        set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}")
     endif()
-
 
     find_package(Numpy REQUIRED)
 endif()

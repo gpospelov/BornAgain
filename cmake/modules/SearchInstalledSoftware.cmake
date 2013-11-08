@@ -58,8 +58,8 @@ find_package(GSL REQUIRED)
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package(PythonInterp 2.6 REQUIRED)
-    find_package(PythonLibsNew 2.6 REQUIRED)
+    find_package(PythonInterp REQUIRED)
+    find_package(PythonLibsNew)
 
     # important to find interpreter and libraries from same python version
     #set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
@@ -75,9 +75,8 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
         message(STATUS "--> Static python library detected, adding ${syslibs}")
         set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}")
     endif()
-    message(STATUS "--> Python libraries ${PYTHON_LIBRARIES}")
+    #message(STATUS "--> Python libraries ${PYTHON_LIBRARIES}")
     
-
     find_package(Numpy REQUIRED)
 endif()
 

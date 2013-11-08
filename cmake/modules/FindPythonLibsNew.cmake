@@ -56,11 +56,11 @@
 #  License text for the above reference.)
 
 # Use the Python interpreter to find the libs.
-if(PythonLibsNew_FIND_REQUIRED)
-    find_package(PythonInterp REQUIRED)
-else()
-    find_package(PythonInterp)
-endif()
+#if(PythonLibsNew_FIND_REQUIRED)
+#    find_package(PythonInterp REQUIRED)
+#else()
+#    find_package(PythonInterp)
+#endif()
 
 if(NOT PYTHONINTERP_FOUND)
     set(PYTHONLIBS_FOUND FALSE)
@@ -89,8 +89,6 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
     ERROR_VARIABLE _PYTHON_ERROR_VALUE
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-
-message("XXX ${_PYTHON_SUCCESS}")
 if(NOT _PYTHON_SUCCESS MATCHES 0)
     if(PythonLibsNew_FIND_REQUIRED)
         message(FATAL_ERROR

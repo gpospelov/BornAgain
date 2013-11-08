@@ -42,6 +42,7 @@
 #include "FormFactorPyramid.h"
 #include "FormFactorSphere.h"
 #include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorTetrahedron.h"
 #include "FormFactorWeighted.h"
 
 #endif /* FORMFACTORS_H_ */

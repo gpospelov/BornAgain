@@ -348,13 +348,13 @@ void register_FormFactorBox_class(){
                 , default_getVolume_function_type(&FormFactorBox_wrapper::default_getVolume) );
         
         }
-        { //::FormFactorBox::getwidth
+        { //::FormFactorBox::getWidth
         
-            typedef double ( ::FormFactorBox::*getwidth_function_type )(  ) const;
+            typedef double ( ::FormFactorBox::*getWidth_function_type )(  ) const;
             
             FormFactorBox_exposer.def( 
-                "getwidth"
-                , getwidth_function_type( &::FormFactorBox::getwidth ) );
+                "getWidth"
+                , getWidth_function_type( &::FormFactorBox::getWidth ) );
         
         }
         { //::IParameterized::areParametersChanged

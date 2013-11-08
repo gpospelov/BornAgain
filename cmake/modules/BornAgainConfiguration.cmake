@@ -30,10 +30,7 @@ configure_file(
 )
 
 # --- configure deployment script for release
-configure_file(
-  "${CMAKE_SOURCE_DIR}/bin/release.sh.in"
-  "${CMAKE_BINARY_DIR}/bin/release.sh"
-)
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/release.sh.in" "${CMAKE_BINARY_DIR}/bin/release.sh")
 
 # --- configure user setup script
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.sh" @ONLY)

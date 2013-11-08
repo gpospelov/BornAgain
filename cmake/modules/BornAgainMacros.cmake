@@ -1,64 +1,57 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+# --- Collection of scripts for BornAgain CMake infrastructure
 
-# --- configure a header file to pass CMake settings to the source code
-configure_file(
-  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h.in"
-  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
-)
+#cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-# --- configure deployment script for release
-configure_file(
-  "${CMAKE_SOURCE_DIR}/bin/release.sh.in"
-  "${CMAKE_BINARY_DIR}/bin/release.sh"
-)
+
 
 # --- end of the version setting ---
 
-set(lib lib)
-set(bin bin)
+#set(lib lib)
+#set(bin bin)
 
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
+#execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib)
+#execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin)
 
-#set(BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
+##set(BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
 
-#set(BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-#set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
-#set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+##set(BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+##set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
+##set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
+##set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
+##set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BORNAGAIN_RUNTIME_OUTPUT_DIRECTORY})
+##set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+##set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 
-if(WIN32)
-  set(ssuffix .bat)
-  set(scomment rem)
-  set(libprefix lib)
-  set(ld_library_path PATH)
-  set(libsuffix .dll)
-  set(runtimedir bin)
-  #set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.lib;.dll") # doesn't work anyway for MSVC generator
+#if(WIN32)
+#  set(ssuffix .bat)
+#  set(scomment rem)
+#  set(libprefix lib)
+#  set(ld_library_path PATH)
+#  set(libsuffix .dll)
+#  set(runtimedir bin)
+#  #set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.lib;.dll") # doesn't work anyway for MSVC generator
+#
+#elseif(APPLE)
+#  set(ld_library_path DYLD_LIBRARY_PATH)
+#  set(ssuffix .csh)
+#  set(scomment \#)
+#  set(libprefix lib)
+#  set(libsuffix .so)
+#  set(runtimedir lib)
+#else()
+#  set(ld_library_path LD_LIBRARY_PATH)
+#  set(ssuffix .csh)
+#  set(scomment \#)
+#  set(libprefix lib)
+#  set(libsuffix .so)
+#  set(runtimedir lib)
+#endif()
 
-elseif(APPLE)
-  set(ld_library_path DYLD_LIBRARY_PATH)
-  set(ssuffix .csh)
-  set(scomment \#)
-  set(libprefix lib)
-  set(libsuffix .so)
-  set(runtimedir lib)
-else()
-  set(ld_library_path LD_LIBRARY_PATH)
-  set(ssuffix .csh)
-  set(scomment \#)
-  set(libprefix lib)
-  set(libsuffix .so) 
-  set(runtimedir lib) 
-endif()
 
 
 

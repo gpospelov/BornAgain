@@ -26,6 +26,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(BornAgainMacros)
 include(SearchInstalledSoftware)
 include(CheckCompiler)
+include(BornAgainConfiguration)
+
 
 #--- Recurse into the given subdirectories ---
 add_subdirectory(Core)

@@ -58,8 +58,8 @@ find_package(GSL REQUIRED)
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package(PythonInterp REQUIRED)
-    find_package(PythonLibsNew REQUIRED)
+    find_package(PythonInterp 2.6 REQUIRED)
+    find_package(PythonLibsNew 2.6 REQUIRED)
 
     # important to find interpreter and libraries from same python version
     #set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})

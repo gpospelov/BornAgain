@@ -58,13 +58,17 @@ find_package(GSL REQUIRED)
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package(PythonInterp)
+    find_package(PythonInterp REQUIRED)
+    find_package(PythonLibsNew REQUIRED)
+
     # important to find interpreter and libraries from same python version
-    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
-    find_package(PythonLibs REQUIRED)
-    if(NOT PYTHONLIBS_FOUND)
-        message(SEND_ERROR "No python libraries have been found")
-    endif()
+    #set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
+    #find_package(PythonLibs REQUIRED)
+    #if(NOT PYTHONLIBS_FOUND)
+    #    message(SEND_ERROR "No python libraries have been found")
+    #endif()
+
+
     find_package(Numpy REQUIRED)
 endif()
 

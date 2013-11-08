@@ -49,14 +49,14 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    test_PrintVisitor();
+    //test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
     //test_FormFactor1();
-    //test_FormFactor();
+    test_FormFactor();
     //test_DrawMesocrystal();
 }
 

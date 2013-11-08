@@ -89,6 +89,8 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
     ERROR_VARIABLE _PYTHON_ERROR_VALUE
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+
+message("XXX ${_PYTHON_SUCCESS}")
 if(NOT _PYTHON_SUCCESS MATCHES 0)
     if(PythonLibsNew_FIND_REQUIRED)
         message(FATAL_ERROR
@@ -148,8 +150,8 @@ elseif(APPLE)
      # against the .dylib, otherwise it crashes. This flag is added
      # below
     #set(PYTHON_LIBRARY "")
-    #set(PYTHON_LIBRARY
-    #    "${PYTHON_PREFIX}/lib/libpython${PYTHON_LIBRARY_SUFFIX}.dylib")
+    set(PYTHON_LIBRARY
+        "${PYTHON_PREFIX}/lib/libpython${PYTHON_LIBRARY_SUFFIX}.dylib")
 else()
     if(${PYTHON_SIZEOF_VOID_P} MATCHES 8)
         set(_PYTHON_LIBS_SEARCH "${PYTHON_PREFIX}/lib64" "${PYTHON_PREFIX}/lib")

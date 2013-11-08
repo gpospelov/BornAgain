@@ -78,7 +78,15 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
         F = K1*std::cos( (qx-qy)*R ) + K2*std::sin( (qx-qy)*R ) - K3*std::cos( (qx+qy)*R ) - K4*std::sin( (qx+qy)*R );
         F = F*H/(qx*qy);
     } else if(std::abs(qx) <= Numeric::double_epsilon && std::abs(qy) <= Numeric::double_epsilon) {
-        F=(4.*im*(-2./tga/tga - 2.*im*qz*R/tga + qz*qz*R*R - std::exp(im*H*qz) * ((-1.+im + H*qz)/tga - qz*R)*((1.+im + H*qz)/tga - qz*R)  ))/std::pow(qz,3);
+        if (std::abs(qz) <= Numeric::double_epsilon)
+            F = 4./3.*tga*R*R*R*( 1.-
+                                 (1. - H/R/tga)*(1. - H/R/tga)*(1. - H/R/tga));
+        else
+             F=4.*im*(
+                 -2./tga/tga - 2.*im*qz*R/tga + qz*qz*R*R - std::exp(im*H*qz)
+                  * ((-1.+im + H*qz)/tga - qz*R)
+                  *((1.+im + H*qz)/tga - qz*R)
+                   )/std::pow(qz,3);
     } else {
         complex_t qxy;
         if(std::abs(qy) <= Numeric::double_epsilon && std::abs(qx) > Numeric::double_epsilon) {

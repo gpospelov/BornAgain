@@ -31,7 +31,7 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
     complex_t qyW = m_width*q.y();
     complex_t qzHdiv2 = m_height/2*q.z();
 
-    return getVolume() *
+    return 4*m_height*m_radius*m_width*
         std::exp(complex_t(0.,1.)*qzHdiv2) *
         MathFunctions::Sinc(qxR) *
         MathFunctions::Sinc(qyW) *

@@ -19,6 +19,7 @@ HEADERS += \
     ChiSquaredModuleTest.h \
     CVectorTest.h \
     DetectorTest.h \
+    FormFactorTest.h \
     InstrumentTest.h \
     IParameterizedTest.h \
     KVectorTest.h \

@@ -152,3 +152,10 @@ if(WIN32)
         install (FILES ${GSL_LIBRARIES} DESTINATION bin COMPONENT Libraries)    
     endif()
 endif()
+
+# postinstall for the debian 
+if(BUILD_DEBIAN)
+set(pythondir "/usr/lib/pymodules/python2.7/")
+    #install(CODE "EXECUTE_PROCESS(COMMAND ln -sf libBornAgainCore.so /usr/lib/pymodules/python2.7/libBornAgainCore.so WORKING_DIRECTORY ${libdir})")
+	install (TARGETS ${library_name} LIBRARY DESTINATION ${pythondir}  COMPONENT Library NAMELINK_ONLY)
+endif(BUILD_DEBIAN)

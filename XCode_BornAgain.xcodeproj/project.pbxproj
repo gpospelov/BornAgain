@@ -135,7 +135,6 @@
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */; };
 		627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */; };
-		627F60051793FAE3009E166F /* FormFactorTethraedron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60041793FAE3009E166F /* FormFactorTethraedron.cpp */; };
 		627F60BA1793FB22009E166F /* Beam.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60601793FB22009E166F /* Beam.pypp.cpp */; };
 		627F60BB1793FB22009E166F /* Bin1D.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60611793FB22009E166F /* Bin1D.pypp.cpp */; };
 		627F60BC1793FB22009E166F /* Bin1DCVector.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60621793FB22009E166F /* Bin1DCVector.pypp.cpp */; };
@@ -194,7 +193,6 @@
 		627F60F21793FB22009E166F /* MaterialManager.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60981793FB22009E166F /* MaterialManager.pypp.cpp */; };
 		627F60F31793FB22009E166F /* MesoCrystal.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60991793FB22009E166F /* MesoCrystal.pypp.cpp */; };
 		627F60F41793FB22009E166F /* MultiLayer.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F609A1793FB22009E166F /* MultiLayer.pypp.cpp */; };
-		627F60F51793FB22009E166F /* ndimdata_t.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F609B1793FB22009E166F /* ndimdata_t.pypp.cpp */; };
 		627F60F61793FB22009E166F /* OutputDataIOFactory.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F609C1793FB22009E166F /* OutputDataIOFactory.pypp.cpp */; };
 		627F60F71793FB22009E166F /* ParameterPool.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F609D1793FB22009E166F /* ParameterPool.pypp.cpp */; };
 		627F60F81793FB22009E166F /* Particle.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F609E1793FB22009E166F /* Particle.pypp.cpp */; };
@@ -702,6 +700,20 @@
 		62FDC0601615F11000D28B08 /* CoreOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */; };
 		62FDC0641615F1CB00D28B08 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */; };
 		62FDC0681615F2B700D28B08 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */; };
+		62FF6A4F1831351300E62E45 /* FormFactorTetrahedron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */; };
+		62FF6A551831387200E62E45 /* AxisBin.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A501831387200E62E45 /* AxisBin.pypp.cpp */; };
+		62FF6A561831387200E62E45 /* AxisDouble.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A511831387200E62E45 /* AxisDouble.pypp.cpp */; };
+		62FF6A571831387200E62E45 /* IntensityData.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A521831387200E62E45 /* IntensityData.pypp.cpp */; };
+		62FF6A581831387200E62E45 /* IObservable.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A531831387200E62E45 /* IObservable.pypp.cpp */; };
+		62FF6A591831387200E62E45 /* IObserver.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A541831387200E62E45 /* IObserver.pypp.cpp */; };
+		62FF6A6B18313BBA00E62E45 /* AttFitting.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A6518313BBA00E62E45 /* AttFitting.pypp.cpp */; };
+		62FF6A6C18313BBA00E62E45 /* FitObject.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A6618313BBA00E62E45 /* FitObject.pypp.cpp */; };
+		62FF6A6D18313BBA00E62E45 /* FitParameter.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A6718313BBA00E62E45 /* FitParameter.pypp.cpp */; };
+		62FF6A6E18313BBA00E62E45 /* FitSuiteObjects.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A6818313BBA00E62E45 /* FitSuiteObjects.pypp.cpp */; };
+		62FF6A6F18313BBA00E62E45 /* INamed.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A6918313BBA00E62E45 /* INamed.pypp.cpp */; };
+		62FF6A7018313BBA00E62E45 /* MinimizerOptions.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A6A18313BBA00E62E45 /* MinimizerOptions.pypp.cpp */; };
+		62FF6A7318313BDC00E62E45 /* MinimizerOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A7218313BDC00E62E45 /* MinimizerOptions.cpp */; };
+		62FF6A7618313C2D00E62E45 /* TestToyFitting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FF6A7518313C2D00E62E45 /* TestToyFitting.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1697,8 +1709,6 @@
 		627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplePrintVisitor.cpp; sourceTree = "<group>"; };
 		627F5FFE1793EB5E009E166F /* SpecularMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecularMatrix.h; sourceTree = "<group>"; };
 		627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecularMatrix.cpp; sourceTree = "<group>"; };
-		627F60031793FADB009E166F /* FormFactorTethraedron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorTethraedron.h; sourceTree = "<group>"; };
-		627F60041793FAE3009E166F /* FormFactorTethraedron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorTethraedron.cpp; sourceTree = "<group>"; };
 		627F60061793FB0F009E166F /* __call_policies.pypp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = __call_policies.pypp.hpp; sourceTree = "<group>"; };
 		627F60071793FB0F009E166F /* __convenience.pypp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = __convenience.pypp.hpp; sourceTree = "<group>"; };
 		627F60081793FB0F009E166F /* Beam.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beam.pypp.h; sourceTree = "<group>"; };
@@ -1759,7 +1769,6 @@
 		627F60401793FB0F009E166F /* MaterialManager.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialManager.pypp.h; sourceTree = "<group>"; };
 		627F60411793FB0F009E166F /* MesoCrystal.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MesoCrystal.pypp.h; sourceTree = "<group>"; };
 		627F60421793FB0F009E166F /* MultiLayer.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiLayer.pypp.h; sourceTree = "<group>"; };
-		627F60431793FB0F009E166F /* ndimdata_t.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ndimdata_t.pypp.h; sourceTree = "<group>"; };
 		627F60441793FB0F009E166F /* OutputDataIOFactory.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataIOFactory.pypp.h; sourceTree = "<group>"; };
 		627F60451793FB0F009E166F /* ParameterPool.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterPool.pypp.h; sourceTree = "<group>"; };
 		627F60461793FB0F009E166F /* Particle.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.pypp.h; sourceTree = "<group>"; };
@@ -1846,7 +1855,6 @@
 		627F60981793FB22009E166F /* MaterialManager.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialManager.pypp.cpp; sourceTree = "<group>"; };
 		627F60991793FB22009E166F /* MesoCrystal.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MesoCrystal.pypp.cpp; sourceTree = "<group>"; };
 		627F609A1793FB22009E166F /* MultiLayer.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLayer.pypp.cpp; sourceTree = "<group>"; };
-		627F609B1793FB22009E166F /* ndimdata_t.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ndimdata_t.pypp.cpp; sourceTree = "<group>"; };
 		627F609C1793FB22009E166F /* OutputDataIOFactory.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataIOFactory.pypp.cpp; sourceTree = "<group>"; };
 		627F609D1793FB22009E166F /* ParameterPool.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.pypp.cpp; sourceTree = "<group>"; };
 		627F609E1793FB22009E166F /* Particle.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.pypp.cpp; sourceTree = "<group>"; };
@@ -1855,7 +1863,6 @@
 		627F60A11793FB22009E166F /* ParticleDecoration.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleDecoration.pypp.cpp; sourceTree = "<group>"; };
 		627F60A21793FB22009E166F /* ParticleInfo.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleInfo.pypp.cpp; sourceTree = "<group>"; };
 		627F60A31793FB22009E166F /* PositionParticleInfo.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PositionParticleInfo.pypp.cpp; sourceTree = "<group>"; };
-		627F60A41793FB22009E166F /* PythonCoreExposer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PythonCoreExposer.cpp; sourceTree = "<group>"; };
 		627F60A51793FB22009E166F /* PythonInterface_free_functions.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_free_functions.pypp.cpp; sourceTree = "<group>"; };
 		627F60A61793FB22009E166F /* PythonInterface_global_variables.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_global_variables.pypp.cpp; sourceTree = "<group>"; };
 		627F60A71793FB22009E166F /* PythonListConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PythonListConverter.cpp; sourceTree = "<group>"; };
@@ -2268,7 +2275,6 @@
 		62B3164417130E50004A9D02 /* ROOTMinimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTMinimizer.cpp; sourceTree = "<group>"; };
 		62B3164517130E50004A9D02 /* ROOTMinimizerHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTMinimizerHelper.cpp; sourceTree = "<group>"; };
 		62B3164617130E50004A9D02 /* Fit.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fit.pro; sourceTree = "<group>"; };
-		62B3164717130E50004A9D02 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		62B3164A17130E50004A9D02 /* AttLimits.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttLimits.pypp.h; sourceTree = "<group>"; };
 		62B3164B17130E50004A9D02 /* ChiSquaredModule.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChiSquaredModule.pypp.h; sourceTree = "<group>"; };
 		62B3164C17130E50004A9D02 /* FitSuite.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuite.pypp.h; sourceTree = "<group>"; };
@@ -2726,6 +2732,34 @@
 		62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreOptionsDescription.h; sourceTree = "<group>"; };
 		62FDC0621615F11F00D28B08 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_program_options.dylib; path = ../../../../../opt/local/lib/libboost_program_options.dylib; sourceTree = "<group>"; };
+		62FF6A40183134EF00E62E45 /* FormFactorTetrahedron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorTetrahedron.h; sourceTree = "<group>"; };
+		62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorTetrahedron.cpp; sourceTree = "<group>"; };
+		62FF6A501831387200E62E45 /* AxisBin.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisBin.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A511831387200E62E45 /* AxisDouble.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisDouble.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A521831387200E62E45 /* IntensityData.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntensityData.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A531831387200E62E45 /* IObservable.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IObservable.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A541831387200E62E45 /* IObserver.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IObserver.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A5A1831388400E62E45 /* AxisBin.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisBin.pypp.h; sourceTree = "<group>"; };
+		62FF6A5B1831388400E62E45 /* AxisDouble.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDouble.pypp.h; sourceTree = "<group>"; };
+		62FF6A5C1831388400E62E45 /* IntensityData.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntensityData.pypp.h; sourceTree = "<group>"; };
+		62FF6A5D1831388400E62E45 /* IObservable.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IObservable.pypp.h; sourceTree = "<group>"; };
+		62FF6A5E1831388400E62E45 /* IObserver.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IObserver.pypp.h; sourceTree = "<group>"; };
+		62FF6A5F18313BA600E62E45 /* AttFitting.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttFitting.pypp.h; sourceTree = "<group>"; };
+		62FF6A6018313BA600E62E45 /* FitObject.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitObject.pypp.h; sourceTree = "<group>"; };
+		62FF6A6118313BA600E62E45 /* FitParameter.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitParameter.pypp.h; sourceTree = "<group>"; };
+		62FF6A6218313BA600E62E45 /* FitSuiteObjects.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteObjects.pypp.h; sourceTree = "<group>"; };
+		62FF6A6318313BA600E62E45 /* INamed.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INamed.pypp.h; sourceTree = "<group>"; };
+		62FF6A6418313BA600E62E45 /* MinimizerOptions.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerOptions.pypp.h; sourceTree = "<group>"; };
+		62FF6A6518313BBA00E62E45 /* AttFitting.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AttFitting.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A6618313BBA00E62E45 /* FitObject.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitObject.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A6718313BBA00E62E45 /* FitParameter.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameter.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A6818313BBA00E62E45 /* FitSuiteObjects.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteObjects.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A6918313BBA00E62E45 /* INamed.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = INamed.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A6A18313BBA00E62E45 /* MinimizerOptions.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerOptions.pypp.cpp; sourceTree = "<group>"; };
+		62FF6A7118313BCD00E62E45 /* MinimizerOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerOptions.h; sourceTree = "<group>"; };
+		62FF6A7218313BDC00E62E45 /* MinimizerOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerOptions.cpp; sourceTree = "<group>"; };
+		62FF6A7418313C1F00E62E45 /* TestToyFitting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToyFitting.h; sourceTree = "<group>"; };
+		62FF6A7518313C2D00E62E45 /* TestToyFitting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestToyFitting.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2933,12 +2967,6 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				6248BE1A17E1C4F40027D960 /* TestPolarizedMeso.h */,
-				622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */,
-				62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */,
-				6221C37017D5CFDF00D43C2F /* TestBugs.h */,
-				6221C37117D5CFDF00D43C2F /* TestPolarizedDWBA.h */,
-				6221C37217D5CFDF00D43C2F /* TestSpecularMagnetic.h */,
 				62BADDDB1795358E005BC59D /* App.h */,
 				62BADDDC1795358E005BC59D /* AppLinkDef.h */,
 				62BADDDD1795358E005BC59D /* AppOptionsDescription.h */,
@@ -2952,6 +2980,7 @@
 				62BADDE51795358E005BC59D /* IsGISAXSTools.h */,
 				62BADDE61795358E005BC59D /* SampleFactory.h */,
 				62BADDE71795358E005BC59D /* StandardSamples.h */,
+				6221C37017D5CFDF00D43C2F /* TestBugs.h */,
 				62BADDE81795358E005BC59D /* TestConvolution.h */,
 				62BADDE91795358E005BC59D /* TestDetectorResolution.h */,
 				62BADDEA1795358E005BC59D /* TestDiffuseReflection.h */,
@@ -2964,6 +2993,12 @@
 				62BADDF11795358E005BC59D /* TestFourier.h */,
 				62BADDF31795358E005BC59D /* TestFumiliLMA.h */,
 				62BADDF41795358E005BC59D /* TestIsGISAXS1.h */,
+				62BADDFD1795358E005BC59D /* TestIsGISAXS10.h */,
+				62BADDFE1795358E005BC59D /* TestIsGISAXS11.h */,
+				62BADDFF1795358E005BC59D /* TestIsGISAXS12.h */,
+				62BADE001795358E005BC59D /* TestIsGISAXS13.h */,
+				62BADE011795358E005BC59D /* TestIsGISAXS14.h */,
+				62BADE021795358E005BC59D /* TestIsGISAXS15.h */,
 				62BADDF51795358E005BC59D /* TestIsGISAXS2.h */,
 				62BADDF61795358E005BC59D /* TestIsGISAXS3.h */,
 				62BADDF71795358E005BC59D /* TestIsGISAXS4.h */,
@@ -2972,20 +3007,20 @@
 				62BADDFA1795358E005BC59D /* TestIsGISAXS7.h */,
 				62BADDFB1795358E005BC59D /* TestIsGISAXS8.h */,
 				62BADDFC1795358E005BC59D /* TestIsGISAXS9.h */,
-				62BADDFD1795358E005BC59D /* TestIsGISAXS10.h */,
-				62BADDFE1795358E005BC59D /* TestIsGISAXS11.h */,
-				62BADDFF1795358E005BC59D /* TestIsGISAXS12.h */,
-				62BADE001795358E005BC59D /* TestIsGISAXS13.h */,
-				62BADE011795358E005BC59D /* TestIsGISAXS14.h */,
-				62BADE021795358E005BC59D /* TestIsGISAXS15.h */,
 				62BADE031795358E005BC59D /* TestMesoCrystal1.h */,
 				62BADE041795358E005BC59D /* TestMesoCrystal2.h */,
 				62BADE051795358E005BC59D /* TestMiscellaneous.h */,
 				62BADE061795358E005BC59D /* TestMultiLayerRoughness.h */,
 				62BADE071795358E005BC59D /* TestPerformance.h */,
+				6221C37117D5CFDF00D43C2F /* TestPolarizedDWBA.h */,
+				622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */,
+				62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */,
+				6248BE1A17E1C4F40027D960 /* TestPolarizedMeso.h */,
 				62BADE081795358E005BC59D /* TestRootTree.h */,
 				62BADE091795358E005BC59D /* TestRoughness.h */,
+				6221C37217D5CFDF00D43C2F /* TestSpecularMagnetic.h */,
 				62BADE0A1795358E005BC59D /* TestSpecularMatrix.h */,
+				62FF6A7418313C1F00E62E45 /* TestToyFitting.h */,
 				62BADE0B1795358E005BC59D /* TestToySimulation.h */,
 				62BADE0C1795358E005BC59D /* TreeEventStructure.h */,
 			);
@@ -2995,12 +3030,6 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */,
-				622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */,
-				62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */,
-				6221C37317D5CFF500D43C2F /* TestBugs.cpp */,
-				6221C37417D5CFF500D43C2F /* TestPolarizedDWBA.cpp */,
-				6221C37517D5CFF500D43C2F /* TestSpecularMagnetic.cpp */,
 				62BADE0E179535BB005BC59D /* AppDict.cpp */,
 				62BADE0F179535BB005BC59D /* AppDict.h */,
 				62BADE10179535BB005BC59D /* AppOptionsDescription.cpp */,
@@ -3014,6 +3043,7 @@
 				62BADE18179535BC005BC59D /* main.cpp */,
 				62BADE19179535BC005BC59D /* SampleFactory.cpp */,
 				62BADE1A179535BC005BC59D /* StandardSamples.cpp */,
+				6221C37317D5CFF500D43C2F /* TestBugs.cpp */,
 				62BADE1B179535BC005BC59D /* TestConvolution.cpp */,
 				62BADE1C179535BC005BC59D /* TestDetectorResolution.cpp */,
 				62BADE1D179535BC005BC59D /* TestDiffuseReflection.cpp */,
@@ -3026,6 +3056,12 @@
 				62BADE24179535BC005BC59D /* TestFourier.cpp */,
 				62BADE26179535BC005BC59D /* TestFumiliLMA.cpp */,
 				62BADE27179535BC005BC59D /* TestIsGISAXS1.cpp */,
+				62BADE30179535BC005BC59D /* TestIsGISAXS10.cpp */,
+				62BADE31179535BC005BC59D /* TestIsGISAXS11.cpp */,
+				62BADE32179535BC005BC59D /* TestIsGISAXS12.cpp */,
+				62BADE33179535BC005BC59D /* TestIsGISAXS13.cpp */,
+				62BADE34179535BC005BC59D /* TestIsGISAXS14.cpp */,
+				62BADE35179535BC005BC59D /* TestIsGISAXS15.cpp */,
 				62BADE28179535BC005BC59D /* TestIsGISAXS2.cpp */,
 				62BADE29179535BC005BC59D /* TestIsGISAXS3.cpp */,
 				62BADE2A179535BC005BC59D /* TestIsGISAXS4.cpp */,
@@ -3034,20 +3070,20 @@
 				62BADE2D179535BC005BC59D /* TestIsGISAXS7.cpp */,
 				62BADE2E179535BC005BC59D /* TestIsGISAXS8.cpp */,
 				62BADE2F179535BC005BC59D /* TestIsGISAXS9.cpp */,
-				62BADE30179535BC005BC59D /* TestIsGISAXS10.cpp */,
-				62BADE31179535BC005BC59D /* TestIsGISAXS11.cpp */,
-				62BADE32179535BC005BC59D /* TestIsGISAXS12.cpp */,
-				62BADE33179535BC005BC59D /* TestIsGISAXS13.cpp */,
-				62BADE34179535BC005BC59D /* TestIsGISAXS14.cpp */,
-				62BADE35179535BC005BC59D /* TestIsGISAXS15.cpp */,
 				62BADE36179535BC005BC59D /* TestMesoCrystal1.cpp */,
 				62BADE37179535BC005BC59D /* TestMesoCrystal2.cpp */,
 				62BADE38179535BC005BC59D /* TestMiscellaneous.cpp */,
 				62BADE39179535BC005BC59D /* TestMultiLayerRoughness.cpp */,
 				62BADE3A179535BC005BC59D /* TestPerformance.cpp */,
+				6221C37417D5CFF500D43C2F /* TestPolarizedDWBA.cpp */,
+				622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */,
+				62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */,
+				6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */,
 				62BADE3B179535BC005BC59D /* TestRootTree.cpp */,
 				62BADE3C179535BC005BC59D /* TestRoughness.cpp */,
+				6221C37517D5CFF500D43C2F /* TestSpecularMagnetic.cpp */,
 				62BADE3D179535BC005BC59D /* TestSpecularMatrix.cpp */,
+				62FF6A7518313C2D00E62E45 /* TestToyFitting.cpp */,
 				62BADE3E179535BC005BC59D /* TestToySimulation.cpp */,
 				62BADE3F179535BC005BC59D /* TreeEventStructure.cpp */,
 			);
@@ -3182,11 +3218,11 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62FF6A40183134EF00E62E45 /* FormFactorTetrahedron.h */,
 				62FD5BEB17F057D9007C0397 /* FormFactorTools.h */,
 				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
 				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
 				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
-				627F60031793FADB009E166F /* FormFactorTethraedron.h */,
 				625A173B16BAAE69004943DB /* FormFactorCone.h */,
 				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
 				625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */,
@@ -3223,13 +3259,13 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */,
 				62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */,
 				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
 				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
 				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
 				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
 				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
-				627F60041793FAE3009E166F /* FormFactorTethraedron.cpp */,
 				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
 				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
 				625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */,
@@ -3294,6 +3330,11 @@
 		622222A3160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62FF6A5A1831388400E62E45 /* AxisBin.pypp.h */,
+				62FF6A5B1831388400E62E45 /* AxisDouble.pypp.h */,
+				62FF6A5C1831388400E62E45 /* IntensityData.pypp.h */,
+				62FF6A5D1831388400E62E45 /* IObservable.pypp.h */,
+				62FF6A5E1831388400E62E45 /* IObserver.pypp.h */,
 				627F60061793FB0F009E166F /* __call_policies.pypp.hpp */,
 				627F60071793FB0F009E166F /* __convenience.pypp.hpp */,
 				627F60081793FB0F009E166F /* Beam.pypp.h */,
@@ -3354,7 +3395,6 @@
 				627F60401793FB0F009E166F /* MaterialManager.pypp.h */,
 				627F60411793FB0F009E166F /* MesoCrystal.pypp.h */,
 				627F60421793FB0F009E166F /* MultiLayer.pypp.h */,
-				627F60431793FB0F009E166F /* ndimdata_t.pypp.h */,
 				627F60441793FB0F009E166F /* OutputDataIOFactory.pypp.h */,
 				627F60451793FB0F009E166F /* ParameterPool.pypp.h */,
 				627F60461793FB0F009E166F /* Particle.pypp.h */,
@@ -3393,6 +3433,11 @@
 		622222AD160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62FF6A501831387200E62E45 /* AxisBin.pypp.cpp */,
+				62FF6A511831387200E62E45 /* AxisDouble.pypp.cpp */,
+				62FF6A521831387200E62E45 /* IntensityData.pypp.cpp */,
+				62FF6A531831387200E62E45 /* IObservable.pypp.cpp */,
+				62FF6A541831387200E62E45 /* IObserver.pypp.cpp */,
 				627F60601793FB22009E166F /* Beam.pypp.cpp */,
 				627F60611793FB22009E166F /* Bin1D.pypp.cpp */,
 				627F60621793FB22009E166F /* Bin1DCVector.pypp.cpp */,
@@ -3451,7 +3496,6 @@
 				627F60981793FB22009E166F /* MaterialManager.pypp.cpp */,
 				627F60991793FB22009E166F /* MesoCrystal.pypp.cpp */,
 				627F609A1793FB22009E166F /* MultiLayer.pypp.cpp */,
-				627F609B1793FB22009E166F /* ndimdata_t.pypp.cpp */,
 				627F609C1793FB22009E166F /* OutputDataIOFactory.pypp.cpp */,
 				627F609D1793FB22009E166F /* ParameterPool.pypp.cpp */,
 				627F609E1793FB22009E166F /* Particle.pypp.cpp */,
@@ -3460,7 +3504,6 @@
 				627F60A11793FB22009E166F /* ParticleDecoration.pypp.cpp */,
 				627F60A21793FB22009E166F /* ParticleInfo.pypp.cpp */,
 				627F60A31793FB22009E166F /* PositionParticleInfo.pypp.cpp */,
-				627F60A41793FB22009E166F /* PythonCoreExposer.cpp */,
 				627F60A51793FB22009E166F /* PythonInterface_free_functions.pypp.cpp */,
 				627F60A61793FB22009E166F /* PythonInterface_global_variables.pypp.cpp */,
 				627F60A71793FB22009E166F /* PythonListConverter.cpp */,
@@ -71079,7 +71122,6 @@
 			children = (
 				62B3163817130E4F004A9D02 /* Factory */,
 				62B3164617130E50004A9D02 /* Fit.pro */,
-				62B3164717130E50004A9D02 /* Makefile */,
 				62B3164817130E50004A9D02 /* PythonAPI */,
 				62B3166D17130E50004A9D02 /* python_module.pri */,
 			);
@@ -71111,9 +71153,10 @@
 				627F62F217940C03009E166F /* FitSuiteStrategies.h */,
 				627F62F317940C03009E166F /* IFitSuiteStrategy.h */,
 				627F62F417940C03009E166F /* IMinimizer.h */,
+				62B3163A17130E4F004A9D02 /* MinimizerFactory.h */,
+				62FF6A7118313BCD00E62E45 /* MinimizerOptions.h */,
 				627F62F517940C03009E166F /* MinimizerScan.h */,
 				627F62F617940C03009E166F /* MinimizerTest.h */,
-				62B3163A17130E4F004A9D02 /* MinimizerFactory.h */,
 				62B3163B17130E4F004A9D02 /* ROOTGSLNLSMinimizer.h */,
 				62B3163C17130E4F004A9D02 /* ROOTGSLSimAnMinimizer.h */,
 				62B3163D17130E4F004A9D02 /* ROOTMinimizer.h */,
@@ -71136,9 +71179,10 @@
 				627F62FE17940C10009E166F /* FitSuitePrintObserver.cpp */,
 				627F62FF17940C10009E166F /* FitSuiteStrategies.cpp */,
 				627F630017940C10009E166F /* IFitSuiteStrategy.cpp */,
+				62B3164117130E50004A9D02 /* MinimizerFactory.cpp */,
+				62FF6A7218313BDC00E62E45 /* MinimizerOptions.cpp */,
 				627F630117940C10009E166F /* MinimizerScan.cpp */,
 				627F630217940C10009E166F /* MinimizerTest.cpp */,
-				62B3164117130E50004A9D02 /* MinimizerFactory.cpp */,
 				62B3164217130E50004A9D02 /* ROOTGSLNLSMinimizer.cpp */,
 				62B3164317130E50004A9D02 /* ROOTGSLSimAnMinimizer.cpp */,
 				62B3164417130E50004A9D02 /* ROOTMinimizer.cpp */,
@@ -71159,15 +71203,21 @@
 		62B3164917130E50004A9D02 /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62FF6A5F18313BA600E62E45 /* AttFitting.pypp.h */,
 				62B3164A17130E50004A9D02 /* AttLimits.pypp.h */,
 				62B3164B17130E50004A9D02 /* ChiSquaredModule.pypp.h */,
+				62FF6A6018313BA600E62E45 /* FitObject.pypp.h */,
+				62FF6A6118313BA600E62E45 /* FitParameter.pypp.h */,
 				62B3164C17130E50004A9D02 /* FitSuite.pypp.h */,
+				62FF6A6218313BA600E62E45 /* FitSuiteObjects.pypp.h */,
 				62B3164D17130E50004A9D02 /* FitSuiteParameters.pypp.h */,
 				62B3164E17130E50004A9D02 /* IChiSquaredModule.pypp.h */,
 				62B3164F17130E50004A9D02 /* IMinimizer.pypp.h */,
+				62FF6A6318313BA600E62E45 /* INamed.pypp.h */,
 				62B3165017130E50004A9D02 /* IOutputDataNormalizer.pypp.h */,
 				62B3165117130E50004A9D02 /* ISquaredFunction.pypp.h */,
 				62B3165217130E50004A9D02 /* MinimizerFactory.pypp.h */,
+				62FF6A6418313BA600E62E45 /* MinimizerOptions.pypp.h */,
 				62B3165317130E50004A9D02 /* OutputDataNormalizer.pypp.h */,
 				62B3165417130E50004A9D02 /* OutputDataSimpleNormalizer.pypp.h */,
 				62B3165517130E50004A9D02 /* PythonFitExposer.h */,
@@ -71183,15 +71233,21 @@
 		62B3165B17130E50004A9D02 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62FF6A6518313BBA00E62E45 /* AttFitting.pypp.cpp */,
 				62B3165C17130E50004A9D02 /* AttLimits.pypp.cpp */,
 				62B3165D17130E50004A9D02 /* ChiSquaredModule.pypp.cpp */,
+				62FF6A6618313BBA00E62E45 /* FitObject.pypp.cpp */,
+				62FF6A6718313BBA00E62E45 /* FitParameter.pypp.cpp */,
 				62B3165E17130E50004A9D02 /* FitSuite.pypp.cpp */,
+				62FF6A6818313BBA00E62E45 /* FitSuiteObjects.pypp.cpp */,
 				62B3165F17130E50004A9D02 /* FitSuiteParameters.pypp.cpp */,
 				62B3166017130E50004A9D02 /* IChiSquaredModule.pypp.cpp */,
 				62B3166117130E50004A9D02 /* IMinimizer.pypp.cpp */,
+				62FF6A6918313BBA00E62E45 /* INamed.pypp.cpp */,
 				62B3166217130E50004A9D02 /* IOutputDataNormalizer.pypp.cpp */,
 				62B3166317130E50004A9D02 /* ISquaredFunction.pypp.cpp */,
 				62B3166417130E50004A9D02 /* MinimizerFactory.pypp.cpp */,
+				62FF6A6A18313BBA00E62E45 /* MinimizerOptions.pypp.cpp */,
 				62B3166517130E50004A9D02 /* OutputDataNormalizer.pypp.cpp */,
 				62B3166617130E50004A9D02 /* OutputDataSimpleNormalizer.pypp.cpp */,
 				62B3166717130E50004A9D02 /* PythonModule.cpp */,
@@ -72024,6 +72080,7 @@
 				62BADE52179535BC005BC59D /* TestFittingModule3.cpp in Sources */,
 				62BADE53179535BC005BC59D /* TestFormFactor.cpp in Sources */,
 				62BADE54179535BC005BC59D /* TestFormFactors.cpp in Sources */,
+				62FF6A7618313C2D00E62E45 /* TestToyFitting.cpp in Sources */,
 				62BADE55179535BC005BC59D /* TestFourier.cpp in Sources */,
 				62BADE57179535BC005BC59D /* TestFumiliLMA.cpp in Sources */,
 				62BADE58179535BC005BC59D /* TestIsGISAXS1.cpp in Sources */,
@@ -72110,6 +72167,7 @@
 				6222485F160CB853008205AC /* ParticleDecoration.cpp in Sources */,
 				62224860160CB853008205AC /* ParticleInfo.cpp in Sources */,
 				62224878160CB853008205AC /* Convolve.cpp in Sources */,
+				62FF6A551831387200E62E45 /* AxisBin.pypp.cpp in Sources */,
 				6222487A160CB853008205AC /* Exceptions.cpp in Sources */,
 				6222487D160CB853008205AC /* IFactory.cpp in Sources */,
 				62224880160CB853008205AC /* MathFunctions.cpp in Sources */,
@@ -72159,7 +72217,6 @@
 				624B527617F5A2CD0040AB8C /* IInterferenceFunctionStrategy.cpp in Sources */,
 				627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */,
 				627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */,
-				627F60051793FAE3009E166F /* FormFactorTethraedron.cpp in Sources */,
 				627F60BA1793FB22009E166F /* Beam.pypp.cpp in Sources */,
 				627F60BB1793FB22009E166F /* Bin1D.pypp.cpp in Sources */,
 				627F60BC1793FB22009E166F /* Bin1DCVector.pypp.cpp in Sources */,
@@ -72170,6 +72227,7 @@
 				627F60C11793FB22009E166F /* FormFactorCone.pypp.cpp in Sources */,
 				627F60C21793FB22009E166F /* FormFactorCrystal.pypp.cpp in Sources */,
 				627F60C31793FB22009E166F /* FormFactorCylinder.pypp.cpp in Sources */,
+				62FF6A4F1831351300E62E45 /* FormFactorTetrahedron.cpp in Sources */,
 				627F60C41793FB22009E166F /* FormFactorDecoratorDebyeWaller.pypp.cpp in Sources */,
 				627F60C51793FB22009E166F /* FormFactorEllipsoid.pypp.cpp in Sources */,
 				627F60C61793FB22009E166F /* FormFactorFullSphere.pypp.cpp in Sources */,
@@ -72189,6 +72247,7 @@
 				627F60D41793FB22009E166F /* ICloneable.pypp.cpp in Sources */,
 				627F60D51793FB22009E166F /* IClusteredParticles.pypp.cpp in Sources */,
 				627F60D61793FB22009E166F /* ICompositeSample.pypp.cpp in Sources */,
+				62FF6A581831387200E62E45 /* IObservable.pypp.cpp in Sources */,
 				627F60D71793FB22009E166F /* IDecoration.pypp.cpp in Sources */,
 				627F60D81793FB22009E166F /* IDetectorResolution.pypp.cpp in Sources */,
 				627F60D91793FB22009E166F /* IFormFactor.pypp.cpp in Sources */,
@@ -72206,6 +72265,7 @@
 				627F60E41793FB22009E166F /* IParameterized.pypp.cpp in Sources */,
 				627F60E51793FB22009E166F /* IResolutionFunction2D.pypp.cpp in Sources */,
 				627F60E61793FB22009E166F /* ISample.pypp.cpp in Sources */,
+				62FF6A571831387200E62E45 /* IntensityData.pypp.cpp in Sources */,
 				627F60E71793FB22009E166F /* ISampleBuilder.pypp.cpp in Sources */,
 				627F60E81793FB22009E166F /* ISelectionRule.pypp.cpp in Sources */,
 				627F60E91793FB22009E166F /* ITransform3D.pypp.cpp in Sources */,
@@ -72219,7 +72279,6 @@
 				627F60F21793FB22009E166F /* MaterialManager.pypp.cpp in Sources */,
 				627F60F31793FB22009E166F /* MesoCrystal.pypp.cpp in Sources */,
 				627F60F41793FB22009E166F /* MultiLayer.pypp.cpp in Sources */,
-				627F60F51793FB22009E166F /* ndimdata_t.pypp.cpp in Sources */,
 				627F60F61793FB22009E166F /* OutputDataIOFactory.pypp.cpp in Sources */,
 				627F60F71793FB22009E166F /* ParameterPool.pypp.cpp in Sources */,
 				627F60F81793FB22009E166F /* Particle.pypp.cpp in Sources */,
@@ -72262,8 +72321,10 @@
 				6223326C17C64116004CCDAE /* DecoratedLayerDWBASimulation.cpp in Sources */,
 				6223326D17C64116004CCDAE /* LayerStrategyBuilder.cpp in Sources */,
 				6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */,
+				62FF6A561831387200E62E45 /* AxisDouble.pypp.cpp in Sources */,
 				6223327617C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp in Sources */,
 				6223327717C641C5004CCDAE /* IMaterial.cpp in Sources */,
+				62FF6A591831387200E62E45 /* IObserver.pypp.cpp in Sources */,
 				62D4124917D4E7A900BD34D1 /* LayerSpecularInfo.cpp in Sources */,
 				62D4124A17D4E7A900BD34D1 /* MatrixRTCoefficients.cpp in Sources */,
 				622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */,
@@ -72319,18 +72380,25 @@
 				62B3173B17131B6F004A9D02 /* ROOTGSLNLSMinimizer.cpp in Sources */,
 				62B3173C17131B6F004A9D02 /* ROOTGSLSimAnMinimizer.cpp in Sources */,
 				62B3173D17131B6F004A9D02 /* ROOTMinimizer.cpp in Sources */,
+				62FF6A7018313BBA00E62E45 /* MinimizerOptions.pypp.cpp in Sources */,
+				62FF6A6C18313BBA00E62E45 /* FitObject.pypp.cpp in Sources */,
+				62FF6A6D18313BBA00E62E45 /* FitParameter.pypp.cpp in Sources */,
 				62B3173E17131B6F004A9D02 /* ROOTMinimizerHelper.cpp in Sources */,
 				627F630317940C10009E166F /* FitObject.cpp in Sources */,
 				627F630417940C10009E166F /* FitParameter.cpp in Sources */,
 				627F630517940C10009E166F /* FitParameterLinked.cpp in Sources */,
 				627F630617940C10009E166F /* FitSuite.cpp in Sources */,
+				62FF6A6F18313BBA00E62E45 /* INamed.pypp.cpp in Sources */,
 				627F630717940C10009E166F /* FitSuiteFunctions.cpp in Sources */,
 				627F630817940C10009E166F /* FitSuiteObjects.cpp in Sources */,
+				62FF6A6B18313BBA00E62E45 /* AttFitting.pypp.cpp in Sources */,
 				627F630917940C10009E166F /* FitSuiteParameters.cpp in Sources */,
 				627F630A17940C10009E166F /* FitSuitePrintObserver.cpp in Sources */,
 				627F630B17940C10009E166F /* FitSuiteStrategies.cpp in Sources */,
 				627F630C17940C10009E166F /* IFitSuiteStrategy.cpp in Sources */,
 				627F630D17940C10009E166F /* MinimizerScan.cpp in Sources */,
+				62FF6A7318313BDC00E62E45 /* MinimizerOptions.cpp in Sources */,
+				62FF6A6E18313BBA00E62E45 /* FitSuiteObjects.pypp.cpp in Sources */,
 				627F630E17940C10009E166F /* MinimizerTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72658,6 +72726,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					DEBUG_FPE,
+					BORNAGAIN_PYTHON,
 					Q_OS_MAC,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -72706,6 +72775,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					DEBUG_FPE,
+					BORNAGAIN_PYTHON,
 					Q_OS_MAC,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

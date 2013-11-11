@@ -33,10 +33,10 @@ struct ITransform3D_wrapper : Geometry::ITransform3D, bp::wrapper< Geometry::ITr
     virtual void print( ::std::ostream & ostr ) const  {
         if( bp::override func_print = this->get_override( "print" ) )
             func_print( boost::ref(ostr) );
-        else
+        else{
             this->Geometry::ITransform3D::print( boost::ref(ostr) );
+        }
     }
-    
     
     void default_print( ::std::ostream & ostr ) const  {
         Geometry::ITransform3D::print( boost::ref(ostr) );

@@ -86,7 +86,7 @@ void register_FitSuiteParameters_class(){
         }
         { //::FitSuiteParameters::getNfreeParameters
         
-            typedef ::std::size_t ( ::FitSuiteParameters::*getNfreeParameters_function_type )(  ) const;
+            typedef ::size_t ( ::FitSuiteParameters::*getNfreeParameters_function_type )(  ) const;
             
             FitSuiteParameters_exposer.def( 
                 "getNfreeParameters"
@@ -126,7 +126,7 @@ void register_FitSuiteParameters_class(){
         }
         { //::FitSuiteParameters::operator[]
         
-            typedef ::FitParameter const * ( ::FitSuiteParameters::*__getitem___function_type )( ::std::size_t ) const;
+            typedef ::FitParameter const * ( ::FitSuiteParameters::*__getitem___function_type )( ::size_t ) const;
             
             FitSuiteParameters_exposer.def( 
                 "__getitem__"
@@ -137,7 +137,7 @@ void register_FitSuiteParameters_class(){
         }
         { //::FitSuiteParameters::operator[]
         
-            typedef ::FitParameter * ( ::FitSuiteParameters::*__getitem___function_type )( ::std::size_t ) ;
+            typedef ::FitParameter * ( ::FitSuiteParameters::*__getitem___function_type )( ::size_t ) ;
             
             FitSuiteParameters_exposer.def( 
                 "__getitem__"
@@ -199,7 +199,7 @@ void register_FitSuiteParameters_class(){
         }
         { //::FitSuiteParameters::size
         
-            typedef ::std::size_t ( ::FitSuiteParameters::*size_function_type )(  ) const;
+            typedef ::size_t ( ::FitSuiteParameters::*size_function_type )(  ) const;
             
             FitSuiteParameters_exposer.def( 
                 "size"

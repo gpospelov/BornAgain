@@ -41,7 +41,7 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 void FormFactorBox::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_length);
+    registerParameter("length", &m_length);
     registerParameter( "width", & m_width);
     registerParameter("height", &m_height);
 }

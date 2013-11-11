@@ -8,7 +8,7 @@ These classes constitute the main interface to the software's users, since they 
 
 
 \subsection{The Experiment object}
-The Experiment class holds all references to data objects that are needed to perform a simulation. These consist of a sample description, possibly implemented by a builder object, detector and beam parameters and finally, a simulation parameter class that defines the different approximations that can be used during a simulation. Besides getters and setters for these fields, the class also contains a runSimulation() method that will generate an ISimulation object that will perform the actual computations. The class diagram for Experiment is shown in \reffig{exp}.
+The \Code{Experiment} class holds all references to data objects that are needed to perform a simulation. These consist in a sample description, possibly implemented by a builder object, detector and beam parameters and finally, a simulation parameter class that defines the different approximations that can be used during a simulation. Besides getters and setters for these fields, the class also contains a \Code{runSimulation()} method that will generate an ISimulation object that will perform the actual computations. The class diagram for \Code{Experiment} is shown in \reffig{exp}.
 
 \vspace{8mm}
 \begin{figure}[H]
@@ -96,9 +96,9 @@ This interface and two of its subclasses are sketched in \reffig{isample}.
 
 
 
-\subsection{The FitSuite class.} \SecLabel{FitSuiteClass}
+\subsection{The FitSuite class} \SecLabel{FitSuiteClass}
 
-\subsection{The IMinimizer class.} \SecLabel{IMinimizerClass}
+\subsection{The IMinimizer class} \SecLabel{IMinimizerClass}
 
-\subsection{The MinimizerOptions class.} \SecLabel{MinimizerOptionsClass}
+\subsection{The MinimizerOptions class} \SecLabel{MinimizerOptionsClass}
 

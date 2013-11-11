@@ -4,8 +4,8 @@
 \section{Quick start on Unix Platforms}
 
 This section shortly describes how to build and install \BornAgain\ 
-from source  and run the first simulation on Unix Platforms. 
-More details about installation procedure are given in \SecRef{Installation}. \\
+from source and run the first simulation on Unix Platforms. 
+Further details about the installation procedure are given in \SecRef{Installation}. \\
 
 \noindent
 {\bf Step I: $~$ installing third party software}
@@ -15,7 +15,7 @@ More details about installation procedure are given in \SecRef{Installation}. \\
 \item boost library ($\geq 1.48$)
 \item GNU scientific library ($\geq 1.15$)
 \item fftw3 library ($\geq 3.3.1$)
-\item python-2.7, python-devel, python-numpy-devel
+\item \Python-2.7, python-devel, python-numpy-devel
 %\item Eigen3 library ($\geq 3.1.0$), optional
 %\item ROOT framework ($\geq 5.34.00$), optional
 \end{itemize}
@@ -25,7 +25,7 @@ More details about installation procedure are given in \SecRef{Installation}. \\
 \noindent
 {\bf Step II: $~$ getting the source} \newline
 Download \BornAgain\ source tarball from \url{http://apps.jcns.fz-juelich.de/BornAgain}
-or use git repository
+or use the following git repository
 \begin{lstlisting}[language=bash, style=commandline]
 git clone git://apps.jcns.fz-juelich.de/BornAgain.git 
 \end{lstlisting}
@@ -47,7 +47,7 @@ make install
 
 
 \noindent
-{\bf Step IV: $~$ running example}
+{\bf Step IV: $~$ running an example}
 \begin{lstlisting}[language=shell, style=commandline]
 cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
 python CylindersAndPrisms.py
@@ -58,34 +58,36 @@ python CylindersAndPrisms.py
 \section{Quick start on Windows Platforms}
 
 \noindent
-{\bf Step I: $~$ installing third party software} \newline
+{\bf Step I: $~$ installing the third party software} \newline
 The current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
 to be installed on the system. If you don't have them already installed,
-you can use \Code{PythonXY} installer
-at \url{https://code.google.com/p/pythonxy} which, with default installation options, will contain at least these three packages.
-\BornAgain\ installation.
+you can use \Code{PythonXY} installer available 
+at \url{https://code.google.com/p/pythonxy} which, with default installation options, contains at least these three packages.
+%\BornAgain\ installation.
 \vspace*{2mm}
 
 \noindent
-{\bf Step II: $~$ using installation package } \newline
-The Windows installation package can be downloaded from \url{http://apps.jcns.fz-juelich.de/BornAgain}.
-Double click it to start installation process, then follow instructions.
+{\bf Step II: $~$ using the installation package } \newline
+Windows installation package can be downloaded from \url{http://apps.jcns.fz-juelich.de/BornAgain}.
+Double-click on it to start the installation process. Then follow the instructions.
 \vspace*{2mm}
 
 \noindent
-{\bf Step III: $~$ running example} \newline
-Run an example simulation by double-clicking on the python script located in the \BornAgain\ installation directory:
+{\bf Step III: $~$ running the example} \newline
+Run an example simulation by double-clicking on the \Python\ script located in the \BornAgain\ installation directory:
 \begin{lstlisting}[language=shell, style=commandline]
 python C:/BornAgain-0.9.1/Examples/python/ex001_CylindersAndPrisms/CylindersAndPrisms.py
 \end{lstlisting}
 
 
 \section{Getting help}
-Users of the software who encounter a problem in the installation of the framework or in running a simulation can use a web based issue tracking system
-at \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues} to provide a bug
-report. The same system can be used for requests for new features.
-The system is open for all users in read mode, while 
-submitting of bug reports and feature requests are possible only after a simple registration
+Users of the software who encounter problems during the installation
+of the framework or during the run of a simulation can use the web-based issue tracking system
+at
+\url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues}
+to report a bug. The same system can be used to request new features.
+This system is open for all users in read mode, while 
+submitting bug reports and feature requests are possible only after a simple registration
 procedure.
 
 

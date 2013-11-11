@@ -1,36 +1,43 @@
-\section {How to get right answer from fitting.} 
+\section {How to get the right answer from fitting} 
 \SecLabel{FittingRightAnswers}
 
-As it was already mentioned in \SecRef{FittingGentleIntroducion}, 
+As it has already been mentioned in \SecRef{FittingGentleIntroducion}, 
 one of the main difficulties in fitting the data with the model 
 is the presence of multiple
-local minima in the objective function. The extended list of problems causing fit to failure includes
+local minima in the objective function. Many problems can cause the
+fit to fail, for example:
 \begin{itemize}
-\item unreliable physical model
-\item multiple local minima
-\item unphysical behavior of objective function, unphysical regions in parameter space
-\item unreliable parameter error calculation in the presence of limits on parameter value
-\item often exponential behavior of objective function and corresponding numerical inaccuracies and excessive numerical roundoff in calculation of its value and derivatives
-\item large correlations between parameters
-\item very different scale of parameters involved in calculation
-\item not positive definite error matrix even at minimum
+\item an unreliable physical model,
+\item multiple local minima,
+\item an unphysical behavior of the objective function, unphysical regions
+  in the parameters space,
+\item an unreliable parameter error calculation in the presence of
+  limits on the parameter value,
+\item often an exponential behavior of the objective function and the
+  corresponding numerical inaccuracies, excessive numerical roundoff
+  in the calculation of its value and derivatives,
+\item large correlations between parameters,
+\item very different scales of parameters involved in the calculation,
+\item not positive definite error matrix even at minimum.
 \end{itemize}
 
 
-Given list, of course, is unrelated only to \BornAgain\ fitting. It remains the same
-while fitting the data with any fitting program and any kind of theoretical model.
-To address all these difficulties some amount of manual tuning might be necessary. Below we give some recommendations which might help the user to achieve reliable fit results.
+The given list, of course, is not only related to \BornAgain\
+fitting. It remains applicable to any fitting program and any kind of theoretical model.
+%To address all these difficulties some amount of manual tuning might be necessary.
+ Below we give some recommendations which might help the user to achieve reliable fit results.
 
-\subsection*{General recommendation}
+\subsection*{General recommendations}
 \begin{itemize}
-\item initially choose small number of free fitting parameters
-\item eliminate redundand parameters
-\item provide a good initial guess for fit parameters
-\item start from default minimizer settings and turn to the fine tuning after some experience has been acquired.
-\item repeat fit using different starting values for parameters or their limits
-\item repeat fit fixing and releasing different groups  of parameters
-\item use \Code{Minuit2} minimizer with \Code{Migrad} algorithm (default) to get most reliable parameter error estimation
-\item try \Code{GSLMultiFit} minimizer or \Code{Minuit2} minimizer with \Code{Fumili} algorithm to get fewer iterations
+\item initially choose  a small number of free fitting parameters,
+\item eliminate redundant parameters,
+\item provide a good initial guess for the fit parameters,
+\item start from the default minimizer settings and perform some fine tuning after some experience has been acquired,
+\item repeat the fit using different starting values for the parameters or their limits,
+\item repeat the fit fixing and varying different groups of parameters,
+\item use \Code{Minuit2} minimizer with \Code{Migrad} algorithm
+  (default) to get the most reliable parameter error estimation,
+\item try \Code{GSLMultiFit} minimizer or \Code{Minuit2} minimizer with \Code{Fumili} algorithm to get fewer iterations.
 
 
 %\subsection*{Interpretation of errors.}

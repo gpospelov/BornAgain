@@ -7,7 +7,7 @@ A simulation of GISAXS using \BornAgain\ consists of following steps:
 \item define materials by specifying name and refractive index,
 \item define embedded particles by specifying shape, size,
    constituting material, interference function,
-\item define layers by specifiying thickness, roughness, material
+\item define layers by specifying thickness, roughness, material,
 \item include particles in layers, specifying density, position, orientation, 
 \item assemble a multilayered sample,
 \item specify input beam and detector characteristics,
@@ -18,9 +18,9 @@ A simulation of GISAXS using \BornAgain\ consists of following steps:
 %\noindent The sample is built from object oriented building blocks and can be
 %instead of loading data files.
 \noindent
-User defines all these steps using \BornAgain\ API in Python script and then run 
-the simulation by executing the script in Python interpreter.
-More information about general software architecture and \BornAgain\ internal design
+User defines all these steps using \BornAgain\ API in \Python\ script and then run 
+the simulation by executing the script in \Python\ interpreter.
+More information about the general software architecture and \BornAgain\ internal design
 are given in \SecRef{SoftwareArchitecture}.
 
 
@@ -32,7 +32,7 @@ are given in \SecRef{SoftwareArchitecture}.
 surface and pointing upwards. The $x$-axis  is perpendicular to the
 plane of the detector and the $y$-axis is along it. The input and the
 scattered output beams are each characterized by two angles
-$\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$ respectively. Our choice of orientation for the
+$\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$, respectively. Our choice of orientation for the
 angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
 
 \begin{figure}[h]
@@ -40,7 +40,7 @@ angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffi
     \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
   \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
     the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
-    angle of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
+    angles of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
 $\phi_f$ is the scattering angle with respect to the scattering
 plane. }
   \label{fig:multil3d}
@@ -56,7 +56,7 @@ perpendicular to the $z$-axis. There is also no limitation to the
 number of layers that could be defined in \BornAgain. Note that the
 thickness of the top and bottom layer are not defined. \\
 
-\ImportantPoint{Remark:}{- Order of the different steps for the simulation: \\
+\ImportantPoint{Remark:}{Order of the different steps for the simulation: \\
 When assembling the sample, the layers are defined from top to
 bottom. So in most cases the first layer will be the air layer.}\\
 
@@ -67,8 +67,8 @@ bottom. So in most cases the first layer will be the air layer.}\\
   radius) to three for an ellipsoid (its three main axis lengths).\\ By
   placing the particles
 inside or on top of a layer, we impose their vertical positions, whose
-values corresponds to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
-particles interfere with each other, which is therefore implemented
+values correspond to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
+particles interfere with each other. It is therefore implemented
 when dealing with the interference function. \\
 
 %\ImportantPoint{Remark:}{Depth of particles\\
@@ -94,7 +94,7 @@ parameter like, for example, \Code{20.0*micrometer}.
 
 \subsection{Programs}
 
-The examples presented in the next paragraphs are written in Python. For tutorials about this
+The examples presented in the next paragraphs are written in \Python. For tutorials about this
    programming language, the users are referred to \cite{Lut09}.
 
 %\noindent Note about the version of C++ and Python to run the examples.\\

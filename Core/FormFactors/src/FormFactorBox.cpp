@@ -31,7 +31,7 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
     complex_t qyWdiv2 = m_width*q.y()/2.0;
     complex_t qzHdiv2 = m_height*q.z()/2.0;
 
-    return 4*m_height*m_radius*m_width*
+    return m_height*m_length*m_width*
         std::exp(complex_t(0.,1.)*qzHdiv2) *
         MathFunctions::Sinc(qxRdiv2) *
         MathFunctions::Sinc(qyWdiv2) *
@@ -41,7 +41,7 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 void FormFactorBox::init_parameters()
 {
     clearParameterPool();
-    registerParameter("radius", &m_length);
+    registerParameter("length", &m_length);
     registerParameter( "width", & m_width);
     registerParameter("height", &m_height);
 }

@@ -3,11 +3,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%\mysection{Example 1}{Example 1: two types of islands on top of
-%  substrate without interference.} \SecLabel{Example1Python}
+\mysection{Example 1: two types of islands on a substrate without interference}{Example 1: two types of islands on top of
+  substrate without interference} \SecLabel{Example1Python}
 
-\section{Example 1: two types of islands on top of
-  substrate without interference.} \SecLabel{Example1Python}
+%\section{Example 1: two types of islands on top of
+%  substrate without interference.} \SecLabel{Example1Python}
 
 % \sectionmark{Example 1}
 
@@ -15,13 +15,14 @@ In this example, we simulate the scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference
 between them. These particles are placed in air, on top
 of a substrate.\\ We are going to go through each step of the
-simulation. The Python script specific to each stage will be given at
+simulation. The \Python script specific to each stage will be given at
 the beginning of the description. But for the sake of completeness the full code is given
-at the end of this section (Listing~\ref{script_ex1}). \\
+in Appendix~\ref{PythonSimulationExampleScript}. \\
 
 \noindent We start by importing different functions from external
-modules (line~\ref{import_lib}), for example NumPy, which
-is a fundamental package for scientific computing with Python \cite{s:numpy}.  In particular, line~\ref{import_end}
+modules (line~\ref{import_lib}), for example \Code{NumPy}, which
+is a fundamental package for scientific computing with \Python\
+\cite{s:numpy}.  In particular, line~\ref{import_end}
 imports the features of \BornAgain\ software.\\
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
@@ -32,17 +33,15 @@ from libBornAgainCore import * @\label{import_end}@
 
 
  %%%%%%%%%%%%%  
-\myparagraph{\underline{First step:} Defining materials} 
+\myparagraph{\underline{First step:} Defining the materials} 
  
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 def RunSimulation(): @\label{def_function}@
     #  defining materials @\label{material1}@
     mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",
-    6e-6, 2e-8) @\label{material3}@
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4,
-  2e-8 ) @\label{materialparticle}@
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",6e-6, 2e-8) @\label{material3}@
+    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@
 \end{lstlisting}
 
 \noindent Line~\ref{def_function} marks the beginning of the
@@ -60,7 +59,7 @@ materials using function \Code{getHomogeneousMaterial} from class
 material associated with its complex refractive index
 n=1-\Code{delta} +i \Code{beta}. \Code{<material\_name>} is later used when
 referring to this particular material. The three defined materials in this example are \Code{Air} with a refractive
-index of 1 (\Code{delta = beta =0}), a \Code{Substrate} associated with a complex refractive index
+index of 1 (\Code{delta = beta = 0}), a \Code{Substrate} associated with a complex refractive index
 equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, whose refractive index is \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\\\
 
 %\noindent \underline{Remark:} there is no condition on the choice of \Code{name}. 
@@ -92,7 +91,7 @@ its radius and height, both equal to 5 nanometers in this particular
 case (see line~\ref{particlescyl1}). Then we associate this shape with
 the constituting material as in line~\ref{particlescyl2}.\\
 
-\noindent The same procedure has been applied for the prism in lines~\ref{particlesprism1} and \ref{particlesprism2} respectively.
+\noindent The same procedure has been applied for the prism in lines~\ref{particlesprism1} and \ref{particlesprism2}, respectively.
  %%%%%%%%%%%%% 
 \myparagraph{\underline{Third step:} Characterizing the layers and assembling the sample} 
 
@@ -127,18 +126,18 @@ normalized to the total number of particles. Here we have 50\% of cylinders
 and 50\% of prisms. \\ 
 
 \ImportantPoint{Remark:}{Depth of particles\\
-The vertical positions of particles in a layer are given in relative
-coordinates. For the top layer, the bottom corresponds to
+The vertical positions of the particles in a layer are given in relative
+coordinates. For the top layer, the bottom of the layer corresponds to
 \Code{depth}=0 and negative values would correspond to particles
 floating above layer 1 since the vertical axis, shown in \reffig{multil3d} is pointing upwards. But for all the other layers, it is the top of the
 layer which corresponds to \Code{depth}=0.}\\
 
 
-\noindent Finally lines~\ref{particlesnointerf} and
+\noindent Finally, lines~\ref{particlesnointerf} and
 \ref{particlesinterf} specify that there is \textbf{no coherent interference} between
-the waves scattered by these particles. The intensity is calculated by
-the incoherent sum of the scattered waves: $\langle |F_n|^2\rangle$,
-where $F_n$ is the form factor associated with the particle of type $n$.  The way these waves
+the waves scattered by these particles. In this case, the intensity is calculated by
+the incoherent sum of the scattered waves: $\langle |F_j|^2\rangle$,
+where $F_j$ is the form factor associated with the particle of type $j$.  The way these waves
 interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
@@ -192,8 +191,7 @@ output detector and running the simulation}
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
     # run simulation  @\label{run1}@
     simulation = Simulation()  @\label{run2}@
-    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 
-                                100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
+    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)  @\label{runbeam}@
     simulation.setSample(multi_layer)  @\label{runsample}@
     simulation.runSimulation()  @\label{runsimul}@
@@ -282,25 +280,27 @@ is associated with the output intensity in arbitrary units. }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Example 2: working with sample parameters.} \SecLabel{WorkingWithSampleParameters}
+\section{Example 2: working with sample parameters} \SecLabel{WorkingWithSampleParameters}
 
 This section gives additional details about the manipulation of sample parameters
-at run time, that is after the sample has already been constructed. 
-For single simulation this is normally not necessary, however it might be useful
-during interactive work when user tries to find optimal sample parameters by
-running a series of consequent simulations.
-Similarly, this task arises when the theoretical model, presented by the sample and the simulation descriptions, is used for the fitting of real data.
-In this case fitting kernel has to be informed about existing sample parameters
-and has to have a mechanism for changing values of these parameters to find 
-they optimal values.
+during run time; that is after the sample has already been constructed. 
+For a single simulation this is normally not necessary. However it might be useful
+during interactive work when the user tries to find optimal sample parameters by
+running a series of simulations.
+A similar task also arises when the theoretical model, composed of the
+description of the sample and of the simulation, is used for fitting real data.
+In this case, the fitting kernel requires a list of the existing sample parameters
+and a mechanism for changing the values of these parameters in order to find 
+their optima.
 
-In \BornAgain\ this is done using so called sample parameter pool mechanism 
-and we will briefly explain it using example from the previous
-\SecRef{Example1Python}.
+In \BornAgain\ this is done using the so-called sample parameter pool
+mechanism. We are going to briefly explain this approach using the example
+of \SecRef{Example1Python}.
 
-Inside \BornAgain\ sample is described by a hierarchical tree of objects.
-For the multilayer created in previous section this tree can be graphically
-represented as shown in Fig.~\ref{fig:sample_tree}. Similar tree can be printed in Python
+In \BornAgain\ a sample is described by a hierarchical tree of objects.
+For the multilayer created in the previous section this tree can be graphically
+represented as shown in Fig.~\ref{fig:sample_tree}. Similar trees can
+be printed in a \Python\
 session by running \Code{multi\_layer.printSampleTree()}
 
 \begin{figure}[p!]
@@ -403,24 +403,26 @@ session by running \Code{multi\_layer.printSampleTree()}
 
 
 The top \Code{MultiLayer} object is composed of three children, namely
-\Code{Layer \#0, Layer Interface \#0} and \Code{Layer \#1}. Children objects
-by turn might also be composed into tree-like structure. For example,
-\Code{Layer \#0} contains \Code{ParticleDecoration} object which holds  information
-related to the two types of particles populating the layer. All numerical values which have been used
-during sample construction (thickness of layers, size of particles, roughness parameters) are the part of the same tree structure. 
+\Code{Layer \#0, Layer Interface \#0} and \Code{Layer \#1}. The
+children objects might themselves also be decomposed into tree-like structures. For example,
+\Code{Layer \#0} contains \Code{ParticleDecoration} object, which holds information
+related to the two types of particles populating the layer. All numerical values used
+during the sample construction (thickness of layers, size of particles, roughness parameters) are part of the same tree structure. 
 They are marked in the figure with shaded gray boxes.
 
 These values are registered in the sample parameter pool using the name
-composed from the names of corresponding nodes of the tree and can be accessed/changed
-during run time. For example, the \Code{height} of the cylinders populating first layer can be changed from 
-current $5~nm$ to $1~nm$ by running the command
+composed of the corresponding nodes' names. And they can be accessed/changed
+during run time. For example, the \Code{height} of the cylinders
+populating the first layer can be changed from the
+current value of $5~\rm{nm}$ to $1~\rm{nm}$ by running the command
 
 \begin{lstlisting}[language=shell, style=commandline]
 multi_layer.setParameterValue('/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height', 1.0)
 \end{lstlisting}
 
 
-The user can get names and values of all registered sample's parameters using the command 
+A list of the names and values of all registered sample's parameters
+can be displayed using the command 
 
 \begin{lstlisting}[language=shell, style=commandline]
 > multi_layer.printParameters()
@@ -441,13 +443,15 @@ The sample contains following parameters ('name':value)
 '/MultiLayer/crossCorrLength':0
 \end{lstlisting}
 
-Wildcards \Code{'*'} can be used to reduce typing or to work on group of parameters. In example below first command will change the height of the cylinders in the same way, as in previous example, while the second line will change simultaneously the height of {\it both} cylinders and prisms.
+Wildcards \Code{'*'} can be used to reduce typing or to work on a group
+of parameters. In the example below, the first command will change the
+height of all cylinders in the same way, as in the previous example. The second line will change simultaneously the height of {\it both} cylinders and prisms.
 \begin{lstlisting}[language=shell, style=commandline]
 multi_layer.setParameterValue('*FormFactorCylinder/height', 1.0)
 multi_layer.setParameterValue('*height', 1.0)
 \end{lstlisting}
 
-The complete example to this section can be found at
+The complete example described in this section can be found at 
 \begin{lstlisting}[language=shell, style=commandline]
 ./Examples/python/fitting/ex001_SampleParametersIntro/SampleParametersIntro.py
 \end{lstlisting}

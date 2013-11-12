@@ -41,6 +41,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY "${CMAKE_PROJECT_NAME}-${BORNAGAIN_VERSION}"
 
 if(WIN32)
   set(CPACK_GENERATOR "NSIS")  
+#  set(CPACK_GENERATOR "WIX")  
 elseif(APPLE)
   #set(CPACK_GENERATOR "PackageMaker;TGZ")
   set(CPACK_GENERATOR "STGZ;TGZ")
@@ -53,7 +54,7 @@ endif()
 #configure_file(cmake/Templates/CMakeCPackOptions.cmake.in CMakeCPackOptions.cmake @ONLY)
 #set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/CMakeCPackOptions.cmake)
 
-set(CPACK_NSIS_MODIFY_PATH ON)
+#set(CPACK_NSIS_MODIFY_PATH ON)
 
 # Generating the source package
 set(CPACK_SOURCE_GENERATOR "TGZ")
@@ -167,7 +168,74 @@ install(FILES "${CMAKE_BINARY_DIR}/copyright"
     endif(GIT_EXECUTABLE AND GIT2CL_EXECUTABLE)
 endif()
 
+#${EnvVarUpdate} "ResultVar" "EnvVarName" "Action" "RegLoc" "Pathname"
+# Push "EnvVarName" 
+# Push "Action"
+# Push "RegLoc"
+# Push "Pathname"
+# Call EnvVarUpdate
+# Pop  "ResultVar"
+# ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "C:\Program Files\Windows Resource Kits\Tools"  
 
+#        set (CPACK_NSIS_EXTRA_INSTALL_COMMAND 
+#        "\\\${EnvVarUpdate} \\\$0 \\\"PYTHONPATH\\\" \\\"A\\\" \\\"HKLM\\\" \\\"$INSTDIR\\\\bin\\\""
+#        )
+
+#        set (CPACK_NSIS_EXTRA_UNINSTALL_COMMAND 
+#        "\\\$\{un.EnvVarUpdate\} \\\$0 \\\"PYTHONPATH\\\" \\\"R\\\" \\\"HKLM\\\" \\\"$INSTDIR\\\\bin\\\""
+#        )
+        
+
+set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+  Push \\\"PATH\\\" 
+  Push \\\"A\\\" 
+  Push \\\"HKCU\\\" 
+  Push \\\"$INSTDIR\\\\bin\\\" 
+  Call EnvVarUpdate
+  Pop  \\\$0
+
+  Push \\\"PYTHONPATH\\\" 
+  Push \\\"A\\\" 
+  Push \\\"HKCU\\\" 
+  Push \\\"$INSTDIR\\\\bin\\\" 
+  Call EnvVarUpdate
+  Pop  \\\$0
+")
+        
+set (CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+  Push \\\"PATH\\\"
+  Push \\\"R\\\"
+  Push \\\"HKCU\\\"
+  Push \\\"$INSTDIR\\\\bin\\\"
+  Call un.EnvVarUpdate
+  Pop  \\\$0
+
+  Push \\\"PYTHONPATH\\\"
+  Push \\\"R\\\"
+  Push \\\"HKCU\\\"
+  Push \\\"$INSTDIR\\\\bin\\\"
+  Call un.EnvVarUpdate
+  Pop  \\\$0
+            
+")
+
+
+    # Update the PATH at installation.
+#    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "  Push 'PATH'
+#    Push 'A'
+#    Push 'HKCU'
+#    Push '$INSTDIR\\\\bin'
+#    Call EnvVarUpdate
+#    Pop  '$0' ")
+
+    # Update the PATH at uninstallation.
+#    set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "  Push 'PATH'
+#    Push 'R'
+#    Push 'HKCU'
+#    Push '$INSTDIR\\\\bin'
+#    Call un.EnvVarUpdate
+#    Pop  '$0' ")
+    
 
 include(CPack)
 

@@ -16,7 +16,7 @@ option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_APP "Build test application" ON)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 option(BORNAGAIN_MAN "Build a user manual" OFF)
-option(BUILD_DEBIAN "Build a debian package" ON)
+option(BUILD_DEBIAN "Build a debian package" OFF)
 
 
 # --- Path for additional cmake modules ---

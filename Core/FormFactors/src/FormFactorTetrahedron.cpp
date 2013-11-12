@@ -59,6 +59,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
 
     if (std::abs(qx)==0.0 && std::abs(qy)==0.0) {
         complex_t qzH_half = qz*H/2.0;
+        //WRONG
         F = m_root3*R*R*H*std::exp(im*qzH_half)*MathFunctions::Sinc(qzH_half);
     }
     else {

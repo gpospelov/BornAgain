@@ -58,6 +58,7 @@ def RunSimulation():
     # intensity data
     return simulation.getIntensityData().getArray()
 
+
 def SetParameters(i):
     global kappa
     kappa = 0.01 + (2.0/Nframes)*i
@@ -82,8 +83,23 @@ if __name__ == '__main__':
             pylab.colorbar(im)
         fname = '_tmp%03d.png'%i
         print 'Saving frame', fname
-        fig.savefig(fname)
-        files.append(fname)
-    os.system("mencoder 'mf://_tmp*.png' -mf type=png:fps=10 -ovc lavc -lavcopts vcodec=wmv2 -oac copy -o animation3.mpg")
-    print 'Removing temporary files'
-    os.system("rm _tmp*")
+        try:
+            fig.savefig(fname)
+        except IOError as e:
+            print "Frame cannot be saved. I/O error({0}): {1}".format(e.errno, e.strerror)
+            print "Copy these examples to the directory where you have a write permission and enough free space to save the movie."
+            sys.exit()
+        except:
+            print "Frame cannot be saved. Error:", sys.exc_info()[0]
+            sys.exit()
+        else:
+            files.append(fname)
+
+    try:
+        os.system("mencoder 'mf://_tmp*.png' -mf type=png:fps=10 -ovc lavc -lavcopts vcodec=wmv2 -oac copy -o animation3.mpg")
+        print 'Removing temporary files'
+        os.system("rm _tmp*")
+    except:
+        print "Movie cannot be saved. Error:", sys.exc_info()[0]
+        sys.exit()
+

@@ -91,6 +91,12 @@ def ManualClassTunings(mb):
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
 
+    cl = mb.class_("FitSuiteParameters")
+    for fun in cl.member_functions():
+        print fun.decl_string
+        if "__gnu_cxx::__normal_iterator" in fun.decl_string:
+            fun.exclude()
+
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):

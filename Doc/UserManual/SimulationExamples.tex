@@ -15,37 +15,51 @@ In this example, we simulate the scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference
 between them. These particles are placed in air, on top
 of a substrate.\\ We are going to go through each step of the
-simulation. The \Python script specific to each stage will be given at
+simulation. The \Python\ script specific to each stage will be given at
 the beginning of the description. But for the sake of completeness the full code is given
 in Appendix~\ref{PythonSimulationExampleScript}. \\
 
 \noindent We start by importing different functions from external
-modules (line~\ref{import_lib}), for example \Code{NumPy}, which
+modules, for example \Code{NumPy} (lines~\ref{import_lib_beg}-\ref{import_lib_end}), which
 is a fundamental package for scientific computing with \Python\
-\cite{s:numpy}.  In particular, line~\ref{import_end}
+\cite{s:numpy}.  In particular, line~\ref{import_ba}
 imports the features of \BornAgain\ software.\\
 
+%import sys, os, numpy @\label{import_lib}@
+%
+%from libBornAgainCore import * @\label{import_end}@
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-import sys, os, numpy @\label{import_lib}@
+import numpy @\label{import_lib_beg}@
+import matplotlib
+import pylab @\label{import_lib_end}@
+from libBornAgainCore import * @\label{import_ba}@
 
-from libBornAgainCore import * @\label{import_end}@
+
 \end{lstlisting}
-
 
  %%%%%%%%%%%%%  
 \myparagraph{\underline{First step:} Defining the materials} 
- 
+%def RunSimulation(): @\label{def_function}@
+%    #  defining materials @\label{material1}@
+%    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
+%    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",6e-6, 2e-8) @\label{material3}@
+%    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@ 
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-def RunSimulation(): @\label{def_function}@
-    #  defining materials @\label{material1}@
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",6e-6, 2e-8) @\label{material3}@
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@
+def get_sample(): @\label{def_function}@
+    """
+    Build and return the sample representing cylinders and pyramids on top of
+    substrate without interference.
+   """
+    # defining materials @\label{material1}@
+    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8) @\label{material3}@
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@
+
 \end{lstlisting}
 
 \noindent Line~\ref{def_function} marks the beginning of the
-function to define and run the simulation. 
+function to define our sample. 
 
 \noindent Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
 materials using function \Code{getHomogeneousMaterial} from class
@@ -69,9 +83,9 @@ equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, 
 \begin{lstlisting}[language=python,style=eclipseboxed,name=ex1,nolol]
     # collection of particles @\label{particles1}@
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) @\label{particlescyl1}@
-    cylinder = Particle(mParticle, cylinder_ff) @\label{particlescyl2}@
+    cylinder = Particle(m_particle, cylinder_ff) @\label{particlescyl2}@
     prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer) @\label{particlesprism1}@
-    prism = Particle(mParticle, prism_ff) @\label{particlesprism2}@
+    prism = Particle(m_particle, prism_ff) @\label{particlesprism2}@
 \end{lstlisting}
 
  \noindent We implement two different shapes of particles: cylinders and
@@ -96,14 +110,14 @@ the constituting material as in line~\ref{particlescyl2}.\\
 \myparagraph{\underline{Third step:} Characterizing the layers and assembling the sample} 
 
 \noindent \textbf{Particle decoration} \\
-  
-
+ 
 \begin{lstlisting}[language=python, style=eclipseboxed, name=ex1,nolol]
     particle_decoration = ParticleDecoration()  @\label{particlesdecor1}@
     particle_decoration.addParticle(cylinder, 0.0, 0.5)  @\label{particlesdecor2}@
     particle_decoration.addParticle(prism, 0.0, 0.5)@\label{particlesdecor3}@
     interference = InterferenceFunctionNone()  @\label{particlesnointerf}@
     particle_decoration.addInterferenceFunction(interference)  @\label{particlesinterf}@
+
 \end{lstlisting}
 
 \noindent The object which holds the information about the positions and densities of particles
@@ -146,14 +160,27 @@ imposed when we add the particles in a given layer by parameter \Code{depth}, as
 
 \noindent \textbf{Multilayer}\\
   
+%# air layer with particles and substrate form multi layer  @\label{sampleassembling}@
+%    air_layer = Layer(m_air) @\label{airlayer}@
+%    air_layer.setDecoration(particle_decoration) @\label{airlayerdecorator}@
+%    substrate_layer = Layer(m_substrate, 0)  @\label{substratelayer}@
+%    multi_layer = MultiLayer() @\label{multilayercanvas}@
+%    multi_layer.addLayer(air_layer) @\label{layerairdecor}@
+%    multi_layer.addLayer(substrate_layer) @\label{layersubstrate}@
+%    return multi_layer
+
+
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    # air layer with particles and substrate form multi layer  @\label{sampleassembling}@
-    air_layer = Layer(mAmbience)  @\label{airlayer}@
-    air_layer.setDecoration(particle_decoration)  @\label{airlayerdecorator}@
-    substrate_layer = Layer(mSubstrate, 0)  @\label{substratelayer}@
-    multi_layer = MultiLayer()  @\label{multilayercanvas}@
-    multi_layer.addLayer(air_layer)  @\label{layerairdecor}@
-    multi_layer.addLayer(substrate_layer)  @\label{layersubstrate}@
+# air layer with particles and substrate form multi layer  @\label{sampleassembling}@
+    air_layer = Layer(m_air) @\label{airlayer}@
+    air_layer.setDecoration(particle_decoration) @\label{airlayerdecorator}@
+    substrate_layer = Layer(m_substrate, 0)  @\label{substratelayer}@
+    multi_layer = MultiLayer() @\label{multilayercanvas}@
+    multi_layer.addLayer(air_layer) @\label{layerairdecor}@
+    multi_layer.addLayer(substrate_layer) @\label{layersubstrate}@
+    return multi_layer @\label{returnmlayer}@
+
+
 \end{lstlisting}
 
 \noindent We now have to configure our sample. For this first example,
@@ -185,25 +212,46 @@ the top and end with the bottom layer, which is the
 substrate (line~\ref{layersubstrate}).
  %%%%%%%%%%%%% 
 \myparagraph{\underline{Fourth step:} Characterizing the input beam and
-output detector and running the simulation} 
+output detector}% and running the simulation} 
 
+%def get_simulation():  @\label{run1}@
+%    """
+%    Create and return GISAXS simulation with beam and detector defined
+ %   """
+%    simulation = Simulation() @\label{run2}@
+%    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree,
+%    100, 0.0*degree, 2.0*degree, True) @\label{rundetector}@
+%    simulation.setBeamParameters(1.0*angstrom, 0.2*degree,
+%    0.0*degree) @\label{runbeam}@
+%    return simulation
+
+ %  # run simulation  @\label{run1}@
+%    simulation = Simulation()  @\label{run2}@
+ %   simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
+ %   simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)  @\label{runbeam}@
+ %   simulation.setSample(multi_layer)  @\label{runsample}@
+ %   simulation.runSimulation()  @\label{runsimul}@
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    # run simulation  @\label{run1}@
-    simulation = Simulation()  @\label{run2}@
-    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)  @\label{runbeam}@
-    simulation.setSample(multi_layer)  @\label{runsample}@
-    simulation.runSimulation()  @\label{runsimul}@
+def get_simulation():  @\label{run1}@
+    """
+    Create and return GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation() @\label{run2}@
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True) @\label{rundetector}@
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree) @\label{runbeam}@
+    return simulation @\label{returnsimul}@
+
+
 \end{lstlisting}
 
 
 \noindent The first stage is to define the \Code{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
-parameters (line~\ref{runbeam}), which are associated with the
-sample previously defined (line~\ref{runsample}). Finally we run
-the simulation (line~\ref{runsimul}). Those functions are part of the Simulation
-class.  The
-different incident and exit angles are
+parameters (line~\ref{runbeam}). %, which are associated with the
+%sample previously defined (line~\ref{runsample}). Finally we run
+%the simulation (line~\ref{runsimul}). 
+Those functions are part of the Simulation
+class.  The different incident and exit angles are
 shown in \reffig{multil3d}. \\
 
 \noindent The detector parameters are set using ranges of angles via
@@ -237,25 +285,39 @@ $x$-axis).\\
 \Code{isgisaxs\_style}, there are no default values implemented for the
 parameters of the beam and detector.\\
 
-\noindent Line~\ref{runsimul} shows the command to run the simulation using the
-previously defined setup.
+%\noindent Line~\ref{runsimul} shows the command to run the simulation using the
+%previously defined setup.
 %%%%%%%%%%%%%
-\myparagraph{\underline{Fifth step:} Saving the data} 
-
+\myparagraph{\underline{Fifth step:} Running the simulation  and
+  plotting and or saving the results} 
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    # retrieving intensity data
-    return GetOutputData(simulation) @\label{outputdata}@
+def run_simulation():
+    """
+   Run simulation and plot results
+    """
+    sample = get_sample()
+    simulation = get_simulation()
+    simulation.setSample(sample) )  @\label{runsample}@
+    simulation.runSimulation()  @\label{runsimul}@
+    result = GetOutputData(simulation) + 1  # for log scale  @\label{outputdata}@
+    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0]) @\label{plot1}@
+    pylab.show() @\label{plot2}@
 \end{lstlisting}
 
+ In function \Code{run\_simulation()}, we associate the sample
+ characterised by function \Code{get\_sample()} with the input beam and
+ output detector, defined in function \Code{get\_simulation()} (line~\ref{runsample}). Finally we run
+the simulation (line~\ref{runsimul}). 
 
 \noindent In line~\ref{outputdata} we obtain the simulated intensity
 as a function of outgoing angles $\alpha_f$ and $\phi_f$ for further
-uses (plots, fits,\ldots) as a NumPy array containing
+uses (plots, fits,\ldots) as a \Code{NumPy} array containing
 \Code{n\_phi}$\times$\Code{n\_alpha}
-datapoints. Some options are provided by \BornAgain. For example, \reffig{output_ex1} shows the two-dimensional
+datapoints. Some options are provided by \BornAgain. For example,
+using lines~\ref{plot1}-\ref{plot2} produces the two-dimensional
 contourplot of the intensity as a function of $\alpha_f$ and
-$\phi_f$. 
+$\phi_f$ shown in \reffig{output_ex1}. 
 
 \begin{figure}[p!]
   \begin{center}

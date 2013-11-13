@@ -9,7 +9,7 @@ project(BornAgain)
 # --- The version number ---
 set(BornAgain_VERSION_MAJOR 0)
 set(BornAgain_VERSION_MINOR 9)
-set(BornAgain_VERSION_PATCH 1)
+set(BornAgain_VERSION_PATCH 2)
 
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)

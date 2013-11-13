@@ -50,7 +50,7 @@ endif()
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/IsGISAXS ${CMAKE_BINARY_DIR}/Tests/ReferenceData/IsGISAXS)
 
 # dictionaries
-ROOT_GENERATE_DICTIONARY(AppDict    inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
+ROOT_GENERATE_DICTIONARY(AppDict inc/DrawHelper.h inc/TreeEventStructure.h  LINKDEF AppLinkDef.h)
 
 add_executable(${executable_name} ${source_files} AppDict.cxx ${include_files})
 
@@ -70,7 +70,7 @@ target_link_libraries(${executable_name}
 )
 
 # --- Installation ---
-install (TARGETS ${executable_name} DESTINATION bin COMPONENT Applications)
+install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/IsGISAXS DESTINATION Tests/ReferenceData COMPONENT Applications)
 
 # system libraries: ROOT installation

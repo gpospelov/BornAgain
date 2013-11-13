@@ -1,5 +1,6 @@
 # this script is a trick to print the message at the end of installation
 
+if(NOT WIN32)
 set(after_install_text "
 Installation done. Please read below.
 -------------------------------------------------------------------------------
@@ -13,3 +14,4 @@ Just add this command into your .bashrc or .bash_profile file.
 
 install(CODE "MESSAGE(\"${after_install_text}\")")
 
+endif()

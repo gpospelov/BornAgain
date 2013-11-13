@@ -13,7 +13,7 @@ set(BornAgain_VERSION_PATCH 2)
 
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
-option(BORNAGAIN_APP "Build test application" ON)
+option(BORNAGAIN_APP "Build test application" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 option(BORNAGAIN_MAN "Build a user manual" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)

@@ -49,5 +49,8 @@ if(BORNAGAIN_MAN)
 	add_subdirectory(Doc/UserManual)
 endif()
 
+add_subdirectory(cmake) # trick to print the message
+
 # packaging
 include(BornAgainCPack)
+

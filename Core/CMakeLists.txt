@@ -95,27 +95,17 @@ endif()
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "refdata*.txt" )
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples COMPONENT Examples FILES_MATCHING PATTERN "README")
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "refdata*.txt" )
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
 # the line below copies the contains ${CMAKE_SOURCE_DIR}/bin to the bin folder of the final package
 # install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin DESTINATION . COMPONENT Libraries)
 
-if(WIN32)
-    set(libdir "bin")
-else()
-    set(libdir "lib")
-endif()
-install (TARGETS ${library_name} DESTINATION ${libdir} COMPONENT Libraries)
+install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 
 if(WIN32 AND BORNAGAIN_PYTHON)
-    install(FILES 
-    ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
-    DESTINATION lib COMPONENT Libraries)
-
-    install(FILES 
-    ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
-    DESTINATION bin COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
 endif()
 
 # list of headers to install
@@ -126,7 +116,7 @@ file(GLOB include_files
     "Samples/inc/*.h"
     "Tools/inc/*.h"
 )
-install (FILES ${include_files} DESTINATION include COMPONENT Headers)
+install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
 # system libraries
 if(WIN32)
@@ -145,11 +135,11 @@ if(WIN32)
         ${CMAKE_LIBRARY_PATH}/boost_regex${boost_suffix}
         ${CMAKE_LIBRARY_PATH}/boost_thread${boost_suffix}
         ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
-        DESTINATION bin COMPONENT Libraries)
+        DESTINATION ${destination_lib} COMPONENT Libraries)
     else()
-        install (FILES ${Boost_LIBRARIES} DESTINATION bin COMPONENT Libraries)
-        install (FILES ${FFTW_LIBRARY} DESTINATION bin COMPONENT Libraries)
-        install (FILES ${GSL_LIBRARIES} DESTINATION bin COMPONENT Libraries)    
+        install (FILES ${Boost_LIBRARIES} DESTINATION ${destination_lib} COMPONENT Libraries)
+        install (FILES ${FFTW_LIBRARY} DESTINATION ${destination_lib} COMPONENT Libraries)
+        install (FILES ${GSL_LIBRARIES} DESTINATION ${destination_lib} COMPONENT Libraries)
     endif()
 endif()
 

@@ -15,22 +15,21 @@ A simulation of GISAXS using \BornAgain\ consists of following steps:
 \item save the simulated detector image.
 \end{itemize}
 
-%\noindent The sample is built from object oriented building blocks and can be
-%instead of loading data files.
 \noindent
-User defines all these steps using \BornAgain\ API in \Python\ script and then run 
-the simulation by executing the script in \Python\ interpreter.
-More information about the general software architecture and \BornAgain\ internal design
-are given in \SecRef{SoftwareArchitecture}.
+We are planing to organize all these steps in a graphical user interface (GUI).
+For the time being, however, \BornAgain\ must be involved via \Code{C++} program or
+\Code{Python} scripts. In the following, we describe how to write a 
+\Code{Python} script which runs a \BornAgain\ simulation. For tutorials about this programming language, the users are referred to \cite{Lut09}.
 
 
-\section{Conventions}
+More information about the general software architecture and \BornAgain\ internal design are given in \SecRef{SoftwareArchitecture}.
 
-\subsection{Geometry of the sample}
+
+\section{Geometry of the sample}
 
 \noindent The geometry used to describe the sample is shown in \reffig{multil3d}. The $z$-axis is perpendicular to the sample's
 surface and pointing upwards. The $x$-axis  is perpendicular to the
-plane of the detector and the $y$-axis is along it. The input and the
+detector plane. The input and the
 scattered output beams are each characterized by two angles
 $\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$, respectively. Our choice of orientation for the
 angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
@@ -47,29 +46,26 @@ plane. }
 \end{figure}
 
 
-\noindent The layers are defined by their thicknesses (parallel to the
+The layers are defined by their thicknesses (parallel to the
 $z$-direction), their possible
 roughnesses (equal to 0 by default) and the
-material they are made of. We do not define any dimensions in the $x$, $y$
-directions. And, except for roughness, the layer's vertical boundaries are plane and
+material they are made of. They have infinite extension in the $x$, $y$
+directions. And, except for roughness, they interfaces are plane and
 perpendicular to the $z$-axis. There is also no limitation to the
 number of layers that could be defined in \BornAgain. Note that the
-thickness of the top and bottom layer are not defined. \\
+thickness of the top and bottom layer are not defined.
 
-\ImportantPoint{Remark:}{Order of the different steps for the simulation: \\
-When assembling the sample, the layers are defined from top to
-bottom. So in most cases the first layer will be the air layer.}\\
+%\ImportantPoint{Remark:}{Order of layers: \\
+%When assembling the sample, the layers are defined from top to
+%bottom. So in most cases the first layer will be the air layer.}\\
 
-\noindent The particles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented
-  in \BornAgain) and the composing material. The number of input parameters for the form
-  factor depends on the
-  particle symmetry; it ranges from one parameter for a sphere (its
-  radius) to three for an ellipsoid (its three main axis lengths).\\ By
-  placing the particles
+The nanoparticles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented in \BornAgain) and the composing material. The number of input parameters for the form factor depends on the particle symmetry; it ranges from one parameter for a sphere (its radius) to three for an ellipsoid (its three main axis lengths).
+  
+By placing the particles
 inside or on top of a layer, we impose their vertical positions, whose
 values correspond to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
 particles interfere with each other. It is therefore implemented
-when dealing with the interference function. \\
+when dealing with the interference function.
 
 %\ImportantPoint{Remark:}{Depth of particles\\
 %The vertical positions of particles in a layer are given in relative
@@ -77,7 +73,7 @@ when dealing with the interference function. \\
 %\texttt{depth}=0. But for all the other layers, it is the top of the
 %layer which corresponds to \texttt{depth}=0.}\\
 
-\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
+The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
 $\delta, \beta \in \mathbb{R}$. In our program, we input $\delta$ and
 $\beta$ directly.
 
@@ -91,15 +87,6 @@ nanometers.  But it is possible to use other units by
 specifying them right after the value of the corresponding
 parameter like, for example, \Code{20.0*micrometer}.
 
-
-\subsection{Programs}
-
-The examples presented in the next paragraphs are written in \Python. For tutorials about this
-   programming language, the users are referred to \cite{Lut09}.
-
-%\noindent Note about the version of C++ and Python to run the examples.\\
-%\noindent Where can the following examples be found?\\
-%\noindent What is the command to run the examples?
 
 
 

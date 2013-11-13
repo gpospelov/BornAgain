@@ -22,6 +22,17 @@ else()
   set(libsuffix .so)
 endif()
 
+# --- installation destinations ---
+set(destination_bin bin)
+set(destination_lib lib)
+set(destination_include include/BornAgain)
+set(destination_examples share/BornAgain/Examples)
+if(WIN32)
+    set(destination_lib bin)
+    set(destination_include include)
+    set(destination_examples Examples)
+endif()
+
 
 # --- configure a header file to pass CMake settings to the source code
 configure_file(
@@ -37,11 +48,11 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${CMAKE_
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.csh" @ONLY)
 
 # --- installation
-
-install(FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.sh
-              ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.csh
-              PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
-                          GROUP_EXECUTE GROUP_READ
-                          WORLD_EXECUTE WORLD_READ
-              DESTINATION bin)
+if(NOT WIN32)
+    install(FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.sh
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.csh
+            PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+            GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
+            DESTINATION bin)
+endif()
 

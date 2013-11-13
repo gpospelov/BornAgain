@@ -33,7 +33,7 @@ as a function of $(x,y)$, the positions on the detector ``measured'' in this toy
 
 
 The scattering picture, similar to some GISAS patterns, has been generated using the simple function
-$$I(x,y) = G(0.1,~0.01) + \frac{\sin(x)}{x} \cdot \frac{\sin(y)}{y}$$
+$$I(x,y) = G(0.1,~0.01) + sincx(x) \cdot sinc(y)$$
 Here $G(0.1, 0.01)$ is a random variable distributed according to a Gaussian distribution
 with a mean of 0.1 and a standard deviation $\sigma=0.01$.
 Constant $0.1$ symbolizes our experimental background and constant $0.01$ refers
@@ -54,7 +54,7 @@ Figure~\ref{fig:toyfit_data},right shows the intensity as a function
 of $(x,y)$ calculated using  our model and a fixed set of parameters 
 $p_0=0, p_1=1, p_2=0, p_3=0$. 
 
-Two distributions are qualitatively identical. However in order to find the
+The two distributions are qualitatively identical. However in order to find the
 values of parameters which best describe the experimental data, one has to
 \begin{itemize}
 \item define criteria for the difference between the actual data and the model,
@@ -103,8 +103,7 @@ to total number of detector pixels.
 The model function has the form
 $f(\mathbf{x_{i}},\mathbf{p})$
 where adjustable parameters are held in vector $\mathbf{p}$.
-The least squared method finds the optimum of the model function which best
-fits the data by searching the minimum of the sum of squared
+The least squares method finds the optimum of the model function by searching the minimum of the sum of squared
 residuals
 $$ \chi^{2}(\mathbf{p}) = \sum_{i=1}^{N}r_{i}^{2}$$
 where the residual is defined as the difference between the measured value and the value predicted by the model.
@@ -145,7 +144,7 @@ The $\chi^2$
 objective function is obtained by calculating the sum of squared residuals between
 the measured (Fig.~\ref{fig:toyfit_data}, left) and the 
 predicted (Fig.~\ref{fig:toyfit_data}, right) values over $x,y$ space. It is defined
-in parameter space $\mathbf{p}$, which have 4 dimensions.
+in parameter space $\mathbf{p}$, which has 4 dimensions.
 
 Figure~\ref{fig:toyfit_chi2} (left) shows the $\chi^2$ distribution as a function of
 parameters $p_1,p_2$  while parameters $p_0,p_3$ remain fixed.
@@ -155,7 +154,7 @@ parameters $p_2,p_3$ while parameters $p_0,p_1$ remain fixed.
 One can see that the given objective function has a strongly
 pronounced global minimum, which we aim to determine. In addition the
 objective function presents a number of local minima.
-The presence of these minima leads to a poor or slow convergence
+The presence of these minima leads to slow, or even no convergence
 towards the  single global minimum.
 
 

@@ -81,21 +81,16 @@ endif()
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-if(WIN32)
-    set(libdir "bin")
-else()
-    set(libdir "lib")
-endif()
-install (TARGETS ${library_name} DESTINATION ${libdir} COMPONENT Libraries)
+install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 
 if(WIN32 AND BORNAGAIN_PYTHON)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION lib COMPONENT Libraries)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION bin COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
 endif()
 
 # list of headers to install
 file(GLOB include_files
     "Factory/inc/*.h"
 )
-install (FILES ${include_files} DESTINATION include  COMPONENT Headers)
+install (FILES ${include_files} DESTINATION ${destination_include}  COMPONENT Headers)
 

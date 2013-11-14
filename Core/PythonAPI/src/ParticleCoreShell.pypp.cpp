@@ -28,10 +28,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -40,10 +40,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -52,10 +52,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -64,10 +64,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
-        else{
+        else
             return this->Particle::getMaterial(  );
-        }
     }
+    
     
     ::IMaterial const * default_getMaterial(  ) const  {
         return Particle::getMaterial( );
@@ -76,10 +76,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else{
+        else
             return this->Particle::getRefractiveIndex(  );
-        }
     }
+    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return Particle::getRefractiveIndex( );
@@ -88,10 +88,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual bool hasDistributedFormFactor(  ) const  {
         if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
             return func_hasDistributedFormFactor(  );
-        else{
+        else
             return this->Particle::hasDistributedFormFactor(  );
-        }
     }
+    
     
     bool default_hasDistributedFormFactor(  ) const  {
         return Particle::hasDistributedFormFactor( );
@@ -100,10 +100,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -112,10 +112,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else{
+        else
             this->ISample::printSampleTree(  );
-        }
     }
+    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -143,10 +143,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
             return func_setMatchedParametersValue( wildcards, value );
-        else{
+        else
             return this->IParameterized::setMatchedParametersValue( wildcards, value );
-        }
     }
+    
     
     int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         return IParameterized::setMatchedParametersValue( wildcards, value );
@@ -155,10 +155,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -167,10 +167,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -179,10 +179,10 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     virtual void setTransform( ::Geometry::PTransform3D const & transform ) {
         if( bp::override func_setTransform = this->get_override( "setTransform" ) )
             func_setTransform( transform );
-        else{
+        else
             this->Particle::setTransform( transform );
-        }
     }
+    
     
     void default_setTransform( ::Geometry::PTransform3D const & transform ) {
         Particle::setTransform( transform );

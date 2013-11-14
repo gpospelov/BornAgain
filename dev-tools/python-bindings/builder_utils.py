@@ -57,7 +57,7 @@ def ExcludeMemberFunctionsArgPtr(mb):
 
 
 #------------------------------------------------------------------------------
-# excluding member functions if they have pointers in argument list
+# include pure virtual methods
 #------------------------------------------------------------------------------
 def IncludePureVirtualMethods(mb, include_classes):
     for cl in mb.classes():

@@ -210,6 +210,8 @@ def ManualClassTunings(mb):
     cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')  # [] operator for OutputData
     cl.member_function("getArray").call_policies = call_policies.custom_call_policies("")
     #cl.member_function("getArray").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
+    fun = cl.member_functions("getAxis").call_policies = call_policies.return_internal_reference()
+
     #
     cl = mb.class_("Particle")
     cl.member_function("createDiffuseParticleInfo").exclude()

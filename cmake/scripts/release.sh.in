@@ -86,7 +86,7 @@ case $REPLY in
 
 	# build BornAgain with App and UserManual
 	cd $CMAKE_BUILD_DIR
-	cmake -D BORNAGAIN_APP=ON -D BORNAGAIN_MAN=ON --build $CMAKE_BUILD_DIR $CMAKE_SOURCE_DIR && make -j 2
+	cmake -D BORNAGAIN_APP=ON -D BORNAGAIN_MAN=ON --build $CMAKE_BUILD_DIR $CMAKE_SOURCE_DIR && make -j 4
 
 	# Update picture number of lines of code
 	# [TODO:] change qqq.png to lines_of_code.png after testing
@@ -121,12 +121,18 @@ case $REPLY in
 	# [Future Task:] write a validation script
 
 	# move the old package 
-	mv $RELEASE_DIR/BornAgain*.tar.gz $RELEASE_DIR/old/
+    mv $RELEASE_DIR/BornAgain*.tar.gz $RELEASE_DIR/old/
+    mv $RELEASE_DIR/BornAgain*-win32.exe $RELEASE_DIR/old/
 
 	# put the package source to RELEASE_DIR for further upload
 	cp $CMAKE_BUILD_DIR/BornAgain-$BA_VERSION.tar.gz $RELEASE_DIR
+	
+	# copying windows build
+    #wget -P $RELEASE_DIR http://apps.jcns.fz-juelich.de/redmine/attachments/62/BornAgain-$BA_VERSION-win32.exe	
 
 	echo "New $BA_VERSION release is successfully created in the $RELEASE_DIR. Please check it now ;-)"    
+    echo "1) Update CHANGELOG"
+    echo "1) Copy new Windows build into $RELEASE_DIR"
 
 	exit
 	;;
@@ -153,17 +159,34 @@ case $REPLY in
 	  echo "Starting to finalize git."
 	  # 4. Finalize git
 	  # finalize master
-	  git --git-dir=$GIT_SOURCE_TREE commit -a -m "Release $BA_VERSION"
-	  git --git-dir=$GIT_SOURCE_TREE checkout master
-	  git --git-dir=$GIT_SOURCE_TREE merge --no-ff $RELEASE_BRANCH_NAME 
-	  git --git-dir=$GIT_SOURCE_TREE branch -d $RELEASE_BRANCH_NAME
-	  git --git-dir=$GIT_SOURCE_TREE tag -a $BA_VERSION
-	  git --git-dir=$GIT_SOURCE_TREE push
+	  echo "git --git-dir=$GIT_SOURCE_TREE commit -a -m "Release $BA_VERSION""
+	  #git --git-dir=$GIT_SOURCE_TREE commit -a -m "Release $BA_VERSION"
+
+	  echo "git --git-dir=$GIT_SOURCE_TREE checkout master"
+	  #git --git-dir=$GIT_SOURCE_TREE checkout master
+	  
+      echo "git --git-dir=$GIT_SOURCE_TREE merge --no-ff $RELEASE_BRANCH_NAME"
+	  #git --git-dir=$GIT_SOURCE_TREE merge --no-ff $RELEASE_BRANCH_NAME 
+	  
+      echo "git --git-dir=$GIT_SOURCE_TREE branch -d $RELEASE_BRANCH_NAME"
+	  #git --git-dir=$GIT_SOURCE_TREE branch -d $RELEASE_BRANCH_NAME
+	  
+      echo "git --git-dir=$GIT_SOURCE_TREE tag -a $BA_VERSION"
+	  #git --git-dir=$GIT_SOURCE_TREE tag -a $BA_VERSION
+	  
+      echo "git --git-dir=$GIT_SOURCE_TREE push"
+	  #git --git-dir=$GIT_SOURCE_TREE push
       
 	  # finalize develop
-	  git --git-dir=$GIT_SOURCE_TREE checkout develop
-	  git --git-dir=$GIT_SOURCE_TREE merge --no-ff master
-	  git --git-dir=$GIT_SOURCE_TREE push
+      echo "finalize develop"
+      echo "git --git-dir=$GIT_SOURCE_TREE checkout develop"
+	  #git --git-dir=$GIT_SOURCE_TREE checkout develop
+	  
+      echo "git --git-dir=$GIT_SOURCE_TREE merge --no-ff master"
+	  #git --git-dir=$GIT_SOURCE_TREE merge --no-ff master
+	  
+      echo "git --git-dir=$GIT_SOURCE_TREE push"
+	  #git --git-dir=$GIT_SOURCE_TREE push
 	  echo "Congratulations with new $BA_VERSION release! Great job ;-)"    
 	elif [[ $REPLY =~ ^[nN]$ ]]; then
 	  echo "Your choice is no. Nothing will be done with git."

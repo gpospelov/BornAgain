@@ -82,7 +82,7 @@ case $REPLY in
     rsync -avzhe ssh apps@apps.jcns.fz-juelich.de:/www/apps/src/BornAgain/ $RELEASE_DIR
 
     # make a release branch
-    git --git-dir=$GIT_SOURCE_TREE checkout -b $RELEASE_BRANCH_NAME origin/develop
+    $GIT_COMMAND checkout -b $RELEASE_BRANCH_NAME origin/develop
 
     # build BornAgain with App and UserManual
     cd $CMAKE_BUILD_DIR

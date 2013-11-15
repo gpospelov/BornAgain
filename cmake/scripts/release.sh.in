@@ -169,7 +169,7 @@ case $REPLY in
         echo "--> $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m \"Merge $BA_VERSION\""
         $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
 
-        echo "--> $GIT_COMMAND tag -a $BA_VERSION -m \"Release $BA_VERSION\"""
+        echo "--> $GIT_COMMAND tag -a $BA_VERSION -m \"Release $BA_VERSION\""
         $GIT_COMMAND tag -a $BA_VERSION -m "Release $BA_VERSION"
 
         #echo "--> $GIT_COMMAND push"

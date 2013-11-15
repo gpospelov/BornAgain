@@ -132,12 +132,12 @@ case $REPLY in
     #wget -P $RELEASE_DIR http://apps.jcns.fz-juelich.de/redmine/attachments/62/BornAgain-$BA_VERSION-win32.exe	
 
     echo "New $BA_VERSION release is successfully created in the $RELEASE_DIR. Please check it now ;-)"    
-    echo "1) Update CHANGELOG"
-    echo "1) Copy new Windows build into $RELEASE_DIR"
 
     exit
     ;;
   2) echo "Uploading the contents of the $RELEASE_DIR to the apps server."
+    cp $PATH_TO_CHANGELOG $RELEASE_DIR
+
     read -p "Are you sure? (y/n)"
     if [[ $REPLY =~ ^[yY]$ ]]; then
         echo "Starting to upload the files."
@@ -161,16 +161,16 @@ case $REPLY in
         # 4. Finalize git
         # finalize master
         echo "--> $GIT_COMMAND commit -a -m \"Release $BA_VERSION\""
-        #$GIT_COMMAND commit -a -m "Release $BA_VERSION"
+        $GIT_COMMAND commit -a -m "Release $BA_VERSION"
 
         echo "--> $GIT_COMMAND checkout master"
-        #$GIT_COMMAND checkout master
+        $GIT_COMMAND checkout master
 
         echo "--> $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m \"Merge $BA_VERSION\""
-        #$GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
+        $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
 
-        echo "--> $GIT_COMMAND tag -a $BA_VERSION"
-        #$GIT_COMMAND tag -a $BA_VERSION
+        echo "--> $GIT_COMMAND tag -a $BA_VERSION -m \"Release $BA_VERSION\"""
+        $GIT_COMMAND tag -a $BA_VERSION -m "Release $BA_VERSION"
 
         #echo "--> $GIT_COMMAND push"
         #$GIT_COMMAND push
@@ -178,17 +178,17 @@ case $REPLY in
         # finalize develop
         echo "finalize develop"
         echo "--> $GIT_COMMAND checkout develop"
-        #$GIT_COMMAND checkout develop
+        $GIT_COMMAND checkout develop
 
         echo "--> $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m \"Merge $BA_VERSION\""
-        #$GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
+        $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
 
         #echo "--> $GIT_COMMAND push"
         #$GIT_COMMAND push
 
         # deleting release branch
-        #echo "--> $GIT_COMMAND branch -d $RELEASE_BRANCH_NAME"
-        #$GIT_COMMAND branch -d $RELEASE_BRANCH_NAME
+        echo "--> $GIT_COMMAND branch -d $RELEASE_BRANCH_NAME"
+        $GIT_COMMAND branch -d $RELEASE_BRANCH_NAME
 
         echo "Congratulations with new $BA_VERSION release! Great job ;-)"    
     elif [[ $REPLY =~ ^[nN]$ ]]; then

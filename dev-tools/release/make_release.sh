@@ -18,4 +18,8 @@ cmake ../BornAgain
 
 ./bin/release.sh
 
-echo "You may want to run BornAgain-release/build/bin/release.sh again"
+echo " "
+echo "1) Modify BornAgain-release/BornAgain/CHANGELOG"
+echo "2) Copy new Windows build into BornAgain-release/build/RELEASE"
+echo "3) Run BornAgain-release/build/bin/release.sh with menu option #2 (upload on apps)"
+echo "4) Run BornAgain-release/build/bin/release.sh with menu option #3 (finalize git)"

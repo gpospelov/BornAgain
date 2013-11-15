@@ -33,6 +33,7 @@
 #include "MessageService.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
+#include "MaterialManager.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -417,12 +418,12 @@ void TestMiscellaneous::test_SampleGeometry()
 {
     MultiLayer multi_layer;
     complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material =
         MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;

@@ -15,6 +15,7 @@ BA_VERSION=$BA_VERSION_MAJOR.$BA_VERSION_MINOR.$BA_VERSION_PATCH
 # Where is your git source tree? 
 # Set the path here or CMake will set it for you.
 CMAKE_SOURCE_DIR="@CMAKE_SOURCE_DIR@"
+GIT_SOURCE_TREE=$CMAKE_SOURCE_DIR/.git
 GIT_COMMAND="git --git-dir=$CMAKE_SOURCE_DIR/.git --work-tree=$CMAKE_SOURCE_DIR"
 
 # Where do you want to put binaries? 

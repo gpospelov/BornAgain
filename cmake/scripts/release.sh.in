@@ -173,7 +173,7 @@ case $REPLY in
         $GIT_COMMAND tag -a $BA_VERSION -m "Release $BA_VERSION"
 
         #echo "--> $GIT_COMMAND push"
-        #$GIT_COMMAND push
+        $GIT_COMMAND push
 
         # finalize develop
         echo "finalize develop"
@@ -184,7 +184,7 @@ case $REPLY in
         $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
 
         #echo "--> $GIT_COMMAND push"
-        #$GIT_COMMAND push
+        $GIT_COMMAND push
 
         # deleting release branch
         echo "--> $GIT_COMMAND branch -d $RELEASE_BRANCH_NAME"

@@ -1,3 +1,37 @@
+BornAgain-0.9.2, released 2013.10.14
+  > Summary: build issues, fitting interface, user manual, conferences
+  * Bug #447: Our minimum required cmake version 2.8.0 doesn't contain PARSE_MACRO
+  * Bug #462: Provide compilation on Jülich MacOS server
+  * Bug #463: Provide compilation under Jülich CentOS 5.10
+  * Bug #468: Make use of python interpreter to guess libpython location
+  * Bug #470: fitting example failure
+  * Bug #473: Simulation fails at zero abundance in particle_decoration.addParticle
+  * Bug #497: Access to axis of IntensityData in Python leads to the segmentation fault
+  * Feature #396: Create deb package
+  * Feature #417: implement automatic propagation of BornAgain version number into cmake
+  * Feature #419: Write deployment script which will automatize the release
+  * Feature #431: Build: provide thisbornagain.sh to set system PATHs to the installation directory
+  * Feature #437: Provide OutputData with ExportToNumpy function for PythonAPI
+  * Feature #438: Adjust existing python examples to conform PEP8 style
+  * Feature #444: Prepare talk for ILL
+  * Feature #450: Provide python function to retrieve polarized output data
+  * Feature #493: Set PYTHONPATH under windows at the end of installation
+  * Documentation #372: Review fitting section
+  * Documentation #398: default installation from tgz; direct only experts to git snapshot
+  * Documentation #404: Prepare poster for GISAXS2013 Workshop in Hamburg
+  * Documentation #423: Prepare demo for GISASXS 2013
+  * Documentation #439: Explain sample parameters paradigm in simulation examples section
+  * Documentation #440: Create svg plot representing minimization flow
+  * Documentation #441: Prepare talk for Koordinierungstreffen
+  * Documentation #448: Examples: prepare FitCylindersAndPrism_detailed example
+  * Documentation #449: Review manual's simulation python example section to conform changes in the script itself
+  * Documentation #455: Add demos into Examples/python section
+  * Documentation #456: Prepare talk "Data Analysis in HEP" for ILL
+  * Documentation #458: Prepare talk about Python bindings for ILL
+  * Documentation #459: Review installation section
+  * Refactoring #443: Refactor IMinimizer for better control of minimizer option
+  * Support #460: Create git repository for user related info
+
 BornAgain-0.9.1, released 2013.09.27
   > Summary: Windows build, polarized neutrons and magnetic domains
   * Bug #403: Debian unittest failure

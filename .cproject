@@ -20,7 +20,7 @@
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647" name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1757831849" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.1776479929" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="" id="cdt.managedbuild.target.gnu.builder.macosx.base.1138925785" managedBuildOn="false" name="Gnu Make Builder.Release" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
+							<builder arguments="-C ../BornAgain_cmake_release" buildPath="" command="make" id="cdt.managedbuild.builder.xlupc.exe.debug.1857527826" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.builder.xlupc.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.1181146666" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.1056895260" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1630112062" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
@@ -29,7 +29,7 @@
 								</inputType>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.macosx.base.233719454" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
-								<option id="gnu.both.asm.option.include.paths.1787119842" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+								<option id="gnu.both.asm.option.include.paths.1787119842" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -37,14 +37,14 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.582123090" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.156215013" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
-								<option id="gnu.cpp.compiler.option.include.paths.1294547970" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.1294547970" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.579908943" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.354676307" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
-								<option id="gnu.c.compiler.option.include.paths.558177835" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.c.compiler.option.include.paths.558177835" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
@@ -87,7 +87,7 @@
 							</builder>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.67524831" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.125523900" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
-								<option id="macosx.cpp.link.option.paths.1579896859" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths"/>
+								<option id="macosx.cpp.link.option.paths.1579896859" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths"/>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1727384347" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

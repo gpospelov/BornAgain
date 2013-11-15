@@ -18,4 +18,4 @@ cmake ../BornAgain
 
 ./bin/release.sh
 
-cd BornAgain-release/build/RELEASE
+echo "You may want to run BornAgain-release/build/bin/release.sh again"

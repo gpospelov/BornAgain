@@ -136,7 +136,7 @@ case $REPLY in
     exit
     ;;
   2) echo "Uploading the contents of the $RELEASE_DIR to the apps server."
-    cp $PATH_TO_CHANGELOG $RELEASE_DIR
+    cp $RELEASE_DIR/CHANGELOG $CMAKE_SOURCE_DIR
 
     read -p "Are you sure? (y/n)"
     if [[ $REPLY =~ ^[yY]$ ]]; then

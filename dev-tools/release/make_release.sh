@@ -19,7 +19,7 @@ cmake ../BornAgain
 ./bin/release.sh
 
 echo " "
-echo "1) Modify BornAgain-release/BornAgain/CHANGELOG"
+echo "1) Modify BornAgain-release/build/RELEASE/CHANGELOG"
 echo "2) Copy new Windows build into BornAgain-release/build/RELEASE"
 echo "3) Run BornAgain-release/build/bin/release.sh with menu option #2 (upload on apps)"
 echo "4) Run BornAgain-release/build/bin/release.sh with menu option #3 (finalize git)"

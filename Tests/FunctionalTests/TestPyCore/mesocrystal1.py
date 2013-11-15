@@ -156,12 +156,12 @@ def runTest():
     reference_data = GetReferenceData()
 
     # setting detector axis as in reference data
-    simulation.setDetectorParameters(reference_data);
+    simulation.setDetectorParameters(reference_data)
 
     #running simulation
-    simulation.runSimulation();
-    simulation.normalize();
-    result = simulation.getOutputDataClone();
+    simulation.runSimulation()
+    simulation.normalize()
+    result = simulation.getIntensityData().getArray()
 
     diff = GetDifference(result, reference_data)
     print diff

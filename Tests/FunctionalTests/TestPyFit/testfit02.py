@@ -35,11 +35,11 @@ def runTest():
 
     # setting sample builder to initial values
     sample_builder = MySampleBuilder()
-    sample_builder.setParameterValue("cylinder_height", cylinder_height)
-    sample_builder.setParameterValue("cylinder_radius", cylinder_radius)
-    sample_builder.setParameterValue("prism3_half_side", prism3_half_side)
-    sample_builder.setParameterValue("prism3_height", prism3_height)
-    sample_builder.setParameterValue("cylinder_ratio", cylinder_ratio)
+    sample_builder.setMatchedParametersValue("*cylinder_height", cylinder_height)
+    sample_builder.setMatchedParametersValue("*cylinder_radius", cylinder_radius)
+    sample_builder.setMatchedParametersValue("*prism3_half_side", prism3_half_side)
+    sample_builder.setMatchedParametersValue("*prism3_height", prism3_height)
+    sample_builder.setMatchedParametersValue("*cylinder_ratio", cylinder_ratio)
 
     simulation = createSimulation()
     simulation.setSampleBuilder(sample_builder)
@@ -86,7 +86,7 @@ def createSimulation():
 # generating "real" data by adding noise to the simulated data
 def createRealData(simulation):
     simulation.runSimulation();
-    real_data = simulation.getOutputDataClone()
+    real_data = simulation.getIntensityData()
     noise_factor = 0.1
     for i in range(0,real_data.getAllocatedSize()):
         amplitude = real_data[i]
@@ -100,7 +100,7 @@ def createRealData(simulation):
 # ----------------------------------------------------------------------------
 # Sample builder to build mixture of cylinders and prisms on top of substrate
 # 5 parameters
-2# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 class MySampleBuilder(ISampleBuilder):
     def __init__(self):
         ISampleBuilder.__init__(self)

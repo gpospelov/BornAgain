@@ -3,6 +3,9 @@
 
 //! list of files to process with Py++
 
+#include "IAxis.h"
+#include "AxisBin.h"
+#include "AxisDouble.h"
 #include "BasicVector3D.h"
 #include "BAVersion.h"
 #include "Bin.h"
@@ -36,6 +39,7 @@
 #include "IFormFactorDecorator.h"
 #include "IInterferenceFunction.h"
 #include "IMaterial.h"
+#include "IObserver.h"
 #include "IParameterized.h"
 #include "IResolutionFunction2D.h"
 #include "ISample.h"

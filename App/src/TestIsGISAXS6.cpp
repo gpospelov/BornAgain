@@ -33,16 +33,16 @@ void TestIsGISAXS6::execute()
     FunctionalTests::IsGISAXS06 test;
 
     test.runlattice();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Lattice), "this_lattice.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Lattice), "this_lattice.ima");
 
     test.runcentered();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Centered), "this_centered.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Centered), "this_centered.ima");
 
     test.runrotated();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Rotated), "this_rotated.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Rotated), "this_rotated.ima");
 
     test.runvariants();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Variants), "this_variants.ima");
+    OutputDataIOFactory::writeIntensityData(*test.getOutputData(FunctionalTests::IsGISAXS06::kTest_Variants), "this_variants.ima");
 }
 
 
@@ -59,8 +59,8 @@ void TestIsGISAXS6::finalise()
         "this_variants.ima",     "Cylinder 2D lattice variants") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(tocompare[i].thisname);
 
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
 

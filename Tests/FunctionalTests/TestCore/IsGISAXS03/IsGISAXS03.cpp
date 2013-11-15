@@ -39,7 +39,7 @@ void FunctionalTests::IsGISAXS03::runDWBA()
     // running simulation and copying data
     simulation.setSample(*sample);
     simulation.runSimulation();
-    m_results[kTest_DWBA] = simulation.getOutputDataClone();
+    m_results[kTest_DWBA] = simulation.getIntensityData();
 
     delete sample;
 }
@@ -62,7 +62,7 @@ void FunctionalTests::IsGISAXS03::runBA()
     // running simulation and copying data
     simulation.setSample(*sample);
     simulation.runSimulation();
-    m_results[kTest_BA] = simulation.getOutputDataClone();
+    m_results[kTest_BA] = simulation.getIntensityData();
 
     delete sample;
 }
@@ -85,7 +85,7 @@ void FunctionalTests::IsGISAXS03::runBA_Size()
     // running simulation and copying data
     simulation.setSample(*sample);
     simulation.runSimulation();
-    m_results[kTest_BASize] = simulation.getOutputDataClone();
+    m_results[kTest_BASize] = simulation.getIntensityData();
 
     delete sample;
 }
@@ -99,7 +99,7 @@ int FunctionalTests::IsGISAXS03::analyseResults(const std::string &path_to_data)
 
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(path_to_data + reference_files[i_test]);
+        OutputData<double> *reference = OutputDataIOFactory::readIntensityData(path_to_data + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference

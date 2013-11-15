@@ -149,7 +149,7 @@ void TestMesoCrystal2::draw_results()
     hist_simu->GetYaxis()->SetTitleOffset(1.35);
     hist_simu->DrawCopy("CONT4 Z");
 
-    OutputDataIOFactory::writeOutputData(
+    OutputDataIOFactory::writeIntensityData(
             *m_simulation->getOutputData(), "meso_simul.txt");
 }
 
@@ -204,7 +204,7 @@ void TestMesoCrystal2::initializeRealData()
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
     std::string file_name = Utils::FileSystem::GetHomePath()+"dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
 
-    m_real_data = OutputDataIOFactory::getOutputData(file_name);
+    m_real_data = OutputDataIOFactory::readIntensityData(file_name);
 
     //    OutputData<double > *real_data_half = doubleBinSize(*real_data);
     //    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);

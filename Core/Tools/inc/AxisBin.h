@@ -57,6 +57,10 @@ public:
 
 //    //! find the bin that contains the given value
 //    Bin1D findMatchingBin(double value) const;
+
+    //! returns vector containing the bin limits
+    std::vector<double> getVector() const { return m_value_vector; }
+
 protected:
     virtual bool equals(const IAxis& other) const;
 private:

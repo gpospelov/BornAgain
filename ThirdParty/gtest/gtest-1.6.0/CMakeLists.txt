@@ -56,9 +56,6 @@ include_directories(
   ${gtest_SOURCE_DIR}/include
   ${gtest_SOURCE_DIR})
 
-# Where Google Test's libraries can be found.
-link_directories(${gtest_BINARY_DIR}/src)
-
 ########################################################################
 #
 # Defines the gtest & gtest_main libraries.  User tests should link
@@ -68,19 +65,7 @@ link_directories(${gtest_BINARY_DIR}/src)
 # are used for other targets, to ensure that gtest can be compiled by a user
 # aggressive about warnings.
 
-#if(MSVC)
-#add_library(
-#    gtest
-#    SHARED
-#    src/gtest-all.cc
-#)
-#set_Target_properties(gtest PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
-#set(gtest_LIBRARY_TYPE SHARED)
-#else()
 cxx_library(gtest "${cxx_strict}" src/gtest-all.cc)
-
-#cxx_library(gtest_main "${cxx_strict}" src/gtest_main.cc)
-#target_link_libraries(gtest_main gtest)
 
 ########################################################################
 #

@@ -47,39 +47,6 @@ void register_free_functions(){
     
     }
 
-    { //::GetOutputData
-    
-        typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );
-        
-        bp::def( 
-            "GetOutputData"
-            , GetOutputData_function_type( &::GetOutputData )
-            , ( bp::arg("simulation") ) );
-    
-    }
-
-    { //::GetOutputDataAxis
-    
-        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Simulation const &,int );
-        
-        bp::def( 
-            "GetOutputDataAxis"
-            , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
-            , ( bp::arg("simulation"), bp::arg("naxis") ) );
-    
-    }
-
-    { //::GetOutputDataNdimensions
-    
-        typedef int ( *GetOutputDataNdimensions_function_type )( ::Simulation const & );
-        
-        bp::def( 
-            "GetOutputDataNdimensions"
-            , GetOutputDataNdimensions_function_type( &::GetOutputDataNdimensions )
-            , ( bp::arg("simulation") ) );
-    
-    }
-
     { //::AppVersion::GetPatchVersionNumber
     
         typedef int ( *GetPatchVersionNumber_function_type )(  );

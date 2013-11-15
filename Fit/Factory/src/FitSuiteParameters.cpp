@@ -92,12 +92,38 @@ void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
     setValues(&pars_values[0]);
 }
 
+
+void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
+{
+    if(pars_errors.size() != m_parameters.size() ) {
+        std::ostringstream ostr;
+        ostr << "FitSuiteParameters::setErrors() -> Wrong size of array with parameter values " << pars_errors.size()
+             << ", number of parameters expected " << m_parameters.size() << std::endl;
+        throw OutOfBoundsException(ostr.str());
+    }
+    for(size_t i=0; i<m_parameters.size(); ++i) {
+        m_parameters[i]->setError(pars_errors[i]);
+    }
+}
+
+
 //! ?
 std::vector<double > FitSuiteParameters::getValues() const
 {
     std::vector<double > result;
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
         result.push_back((*it)->getValue());
+    }
+    return result;
+}
+
+//! ?
+std::vector<double > FitSuiteParameters::getErrors() const
+{
+    std::vector<double > result;
+    result.resize(m_parameters.size(), 0.0);
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+        result.push_back((*it)->getError());
     }
     return result;
 }

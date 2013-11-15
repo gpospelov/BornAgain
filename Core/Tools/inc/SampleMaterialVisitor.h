@@ -48,6 +48,8 @@ public:
     void visit(const InterferenceFunction1DParaCrystal  *);
     void visit(const InterferenceFunction2DParaCrystal  *);
 
+    void visit(const LayerRoughness  *);
+
     std::vector<const IMaterial *> getMaterials() const {
         return m_materials;
     }

@@ -39,9 +39,9 @@ public:
     //! Returns width of Ellipsoid
     double getWidth() const { return m_width; }
 
-    virtual double getVolume() const {
-        return 2.0*m_height*m_radius*m_width;
-    }
+   // virtual double getVolume() const {
+    //    return 2.0*m_height*m_radius*m_width;
+  //  }
 
     virtual double getHeight() const { return m_height; }
 

@@ -55,6 +55,7 @@
 #include "TestSpecularMagnetic.h"
 #include "TestSpecularMatrix.h"
 #include "TestToySimulation.h"
+#include "TestToyFitting.h"
 
 #include "TBenchmark.h"
 
@@ -329,6 +330,11 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
          "polarizedMeso",
          IFactoryCreateFunction<TestPolarizedMeso, IFunctionalTest>,
          "functional test: polarized mesocrystals");
+    p_test_factory->registerItem(
+        "toyfit",
+        IFactoryCreateFunction<TestToyFitting, IFunctionalTest>,
+        "functional test: produces plots used in manual");
+
 
 }
 

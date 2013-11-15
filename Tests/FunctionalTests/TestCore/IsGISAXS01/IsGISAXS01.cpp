@@ -33,7 +33,7 @@ void FunctionalTests::IsGISAXS01::run()
     simulation.runSimulation();
 
     // Copy results
-    m_result = simulation.getOutputDataClone();
+    m_result = simulation.getIntensityData();
 
     delete sample;
 }
@@ -46,7 +46,7 @@ int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
     // Retrieve reference data.
     std::string filename = path_to_data + "isgisaxs01_reference.ima.gz";
     OutputData<double > *reference =
-        OutputDataIOFactory::getOutputData(filename);
+        OutputDataIOFactory::readIntensityData(filename);
 
     // Calculating average relative difference.
     *m_result -= *reference;

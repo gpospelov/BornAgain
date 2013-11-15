@@ -51,7 +51,7 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    void print_structure();
+    virtual void printSampleTree();
 
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }

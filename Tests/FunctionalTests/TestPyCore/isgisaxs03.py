@@ -42,7 +42,7 @@ def RunSimulationDWBA():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -75,7 +75,7 @@ def RunSimulationBA():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -118,7 +118,7 @@ def RunSimulationBA_Size():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
       
 # ----------------------------------

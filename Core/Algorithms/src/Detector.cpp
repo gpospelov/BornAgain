@@ -166,11 +166,16 @@ void Detector::normalize(OutputData<double> *p_data,
 void Detector::initializeAnglesIsgisaxs(
     AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
 {
-    double start_sin = std::sin(axis_range.getMin());
-    double end_sin = std::sin(axis_range.getMax());
-    double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
-    for(size_t i=0; i<axis_range.getNSamples(); ++i) {
-        p_axis->push_back(std::asin(start_sin + step*i));
+    if (axis_range.getNSamples()>1) {
+        double start_sin = std::sin(axis_range.getMin());
+        double end_sin = std::sin(axis_range.getMax());
+        double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
+        for(size_t i=0; i<axis_range.getNSamples(); ++i) {
+            p_axis->push_back(std::asin(start_sin + step*i));
+        }
+    }
+    else {
+        p_axis->push_back((axis_range.getMax()-axis_range.getMin())/2.0);
     }
 }
 

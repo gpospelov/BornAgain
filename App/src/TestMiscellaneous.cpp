@@ -49,13 +49,13 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    test_PrintVisitor();
+    //test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
-    //test_FormFactor1();
+    test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
 }
@@ -160,7 +160,7 @@ void TestMiscellaneous::test_OutputDataIOFactory()
 {
     std::string file_name = Utils::FileSystem::GetHomePath()
       +"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputData<double > *data = OutputDataIOFactory::getOutputData(file_name);
+    OutputData<double > *data = OutputDataIOFactory::readIntensityData(file_name);
 
     TCanvas *c1 = new TCanvas("c1","c1",800, 800);
     c1->cd(); gPad->SetRightMargin(0.14);
@@ -344,7 +344,7 @@ void TestMiscellaneous::test_FormFactor1()
     FormFactorPyramid ff_pyramid(10.*Units::nanometer,
                                  5.*Units::nanometer,
                                  Units::deg2rad(54.73 ));
-   //   IFormFactor& ff = ff_pyramid;
+    IFormFactor& ff = ff_pyramid;
 
     FormFactorPrism3 ff_prism3(5.*Units::nanometer,
                               5.*Units::nanometer);
@@ -359,7 +359,7 @@ void TestMiscellaneous::test_FormFactor1()
                          5*Units::nanometer);
   //    IFormFactor& ff = ff_box;
 
-    IFormFactor& ff = ff_fullsphere;
+    //IFormFactor& ff = ff_fullsphere;
 
     double qmin(-4.0), qmax(4.0);
     double lambda = 1.0;

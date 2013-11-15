@@ -3,7 +3,9 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.9)
+if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
+endif()
 
 #project(qt-manhattan-style)
 set(library_name ManhattanStyle)
@@ -90,5 +92,5 @@ target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
 qt5_use_modules(${library_name} Widgets)
 
 # --- installation ---
-install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)
+install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 

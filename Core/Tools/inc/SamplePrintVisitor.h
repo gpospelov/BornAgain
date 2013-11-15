@@ -23,6 +23,7 @@ public:
     void visit(const LatticeBasis *sample);
     void visit(const IFormFactor *sample);
 
+
     void visit(const FormFactorFullSphere *sample);
     void visit(const FormFactorPyramid *sample);
     void visit(const FormFactorCylinder *sample);
@@ -31,6 +32,8 @@ public:
     void visit(const IInterferenceFunction *sample);
     void visit(const InterferenceFunction1DParaCrystal  *);
     void visit(const InterferenceFunction2DParaCrystal  *);
+
+    void visit(const LayerRoughness *sample);
 
     bool goForward();
     bool goBack();

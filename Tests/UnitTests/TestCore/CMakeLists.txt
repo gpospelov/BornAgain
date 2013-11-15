@@ -4,7 +4,9 @@
 
 enable_testing()
 
-add_executable( TestCore main.cpp )
+file(GLOB include_files "*.h")
+
+add_executable( TestCore main.cpp ${include_files})
 
 # dependencies
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})

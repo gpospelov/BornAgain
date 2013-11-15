@@ -73,7 +73,7 @@ void FunctionalTests::IsGISAXS08::run2DDL()
 
     // running simulation and copying data
     simulation.runSimulation();
-    m_results[kTest_2DDL] = simulation.getOutputDataClone();
+    m_results[kTest_2DDL] = simulation.getIntensityData();
 }
 
 
@@ -122,7 +122,7 @@ void FunctionalTests::IsGISAXS08::run2DDL2()
     // running simulation and copying data
     simulation.setSample(multi_layer);
     simulation.runSimulation();
-    m_results[kTest_2DDL2] = simulation.getOutputDataClone();
+    m_results[kTest_2DDL2] = simulation.getIntensityData();
 }
 
 
@@ -136,7 +136,7 @@ int FunctionalTests::IsGISAXS08::analyseResults(const std::string &path_to_data)
 
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(
+        OutputData<double> *reference = OutputDataIOFactory::readIntensityData(
                 path_to_data + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 

@@ -65,7 +65,7 @@ def run_fitting(minimizer_name, minimizer_algorithm):
 
     # creating real data, which is simply results of our simulation with default values
     simulation.runSimulation()
-    real_data = simulation.getOutputDataClone()
+    real_data = simulation.getIntensityData()
 
     # setting fit suite
     fitSuite = FitSuite()

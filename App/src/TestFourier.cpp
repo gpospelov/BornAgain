@@ -50,14 +50,14 @@ void TestFourier::execute()
     simulation.runSimulation();
     simulation.normalize();
 
-    mp_intensity_output = simulation.getOutputDataClone();
+    mp_intensity_output = simulation.getIntensityData();
     OutputData<complex_t> fft_map;
     OutputDataFunctions::FourierTransform(*mp_intensity_output, &fft_map);
     OutputData<double> *p_real_fft_map = OutputDataFunctions::getModulusPart(fft_map);
     OutputDataFunctions::FourierTransformR(fft_map, mp_intensity_output);
     IsGISAXSTools::drawOutputData(*p_real_fft_map, "c1_four", "Fourier transform",
             "CONT4 Z", "Fourier transform");
-    OutputDataIOFactory::writeOutputData(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/Fourier.ima");
+    OutputDataIOFactory::writeIntensityData(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/Fourier.ima");
 }
 
 

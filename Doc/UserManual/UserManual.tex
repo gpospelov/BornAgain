@@ -75,6 +75,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{tikz-uml} 
+\usetikzlibrary{trees}
 \usepackage{amsmath}
 
 \usepackage{pifont}
@@ -83,6 +84,8 @@
 
 \usepackage{hyperref}
 \usepackage{breakurl}
+
+\usepackage{verbatim}
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
@@ -107,6 +110,7 @@
 %-------------------------------------------------------------------------------
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
+\newcommand{\Python}{\Code{Python}}%
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
 \newcommand{\SecLabel}[1]{\label{sec:#1}}%
 \newcommand{\SecRef}[1]{Section~\ref{sec:#1}}% 
@@ -129,13 +133,15 @@
 %-------------------------------------------------------------------------------
 %	TITLE PAGE
 %-------------------------------------------------------------------------------
+\input{UserManualVersion} % defines command UserManualVersionNumber
 \title{
 {\Huge\bf BornAgain}\\[10mm]
 Software for simulating and fitting\\
 X-ray and neutron small-angle scattering\\
 at grazing incidence\\
 \vspace*{10mm} User Manual \\
-\large{version 0.1.1\\\today}
+\large{\UserManualVersionNumber} \\
+\large{\today}
 \vspace*{5mm}
 }
 
@@ -149,30 +155,14 @@ Forschungszentrum J\"ulich GmbH
 }
 
 \date{{}}
-%License: Creative Common CC-BY-SA \\
-%\today
-%}
 
 
-%\usepackage{eso-pic}
-%\newcommand\BackgroundPic{%
-%\put(0,0){%
-%\parbox[b][\paperheight]{\paperwidth}{%
-%\vfill
-%\centering
-%\includegraphics[width=\paperwidth,height=\paperheight,%
-%keepaspectratio]{results2_2.png}%
-%\vfill
-%}}}
-
-
-%-------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	DOCUMENT
-%-------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 \begin{document}
 
 \maketitle
-
 
 \input{Disclaimer}
 \tableofcontents
@@ -182,12 +172,15 @@ Forschungszentrum J\"ulich GmbH
 \input{Introduction}
 \input{QuickStart}
 \input{Installation}
-\input{SimulationExamples}
-%\input{FittingExamples}
+\input{Simulation}
+\input{Fitting}
 \input{SoftwareArchitecture}
-%\input{SoftwareDesignOverview}
-%\appendix
-%\input{AppendixListings}
+\input{SoftwareDesignOverview}
+\appendix
+\input{AppendixListings}
+
+
+
 %\input{AppendixPhysics}
 
 \bibliographystyle{switch}

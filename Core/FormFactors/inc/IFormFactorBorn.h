@@ -58,10 +58,10 @@ protected:
     //! Returns z-part of scattering amplitude for large bins
     complex_t bigZPart(const Bin1DCVector& q_bin) const;
 
-private:
     //! determine if a large bin size approximation should be used
     bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
+private:
     //! approximate intensity that does not contain rapid oscillations
     double bigRadialIntegrand(double qR, void *params) const;
 

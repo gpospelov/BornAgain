@@ -20,7 +20,7 @@
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
-OutputData<double > *OutputDataIOFactory::getOutputData(
+OutputData<double > *OutputDataIOFactory::readIntensityData(
         const std::string& file_name)
 {
     return getReader(file_name)->getOutputData();
@@ -54,7 +54,7 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
 /* ************************************************************************* */
 // writing output data
 /* ************************************************************************* */
-void OutputDataIOFactory::writeOutputData(const OutputData<double>& data,
+void OutputDataIOFactory::writeIntensityData(const OutputData<double>& data,
         const std::string& file_name)
 {
     return getWriter(file_name)->writeOutputData(data);

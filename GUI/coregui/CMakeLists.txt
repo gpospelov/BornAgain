@@ -2,9 +2,11 @@
 # CMakeLists.txt file for building coregui
 ############################################################################
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
 
+if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
+endif()
 
 set(executable_name coregui)
 
@@ -106,7 +108,7 @@ qt5_use_modules(${executable_name} Widgets Core Gui Script WebKit WebKitWidgets 
 
 # --- Installation ---
 
-install (TARGETS ${executable_name} DESTINATION bin COMPONENT Applications)
+install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
 
 # system libraries: ROOT installation
 if(WIN32)
@@ -133,7 +135,7 @@ if(WIN32)
     ${ROOTSYS}/bin/iconv-1.3.dll
     ${ROOTSYS}/bin/libWin32gdk.dll
     ${ROOTSYS}/bin/libAsImage.dll
-    DESTINATION bin COMPONENT Libraries)
+    DESTINATION ${destination_lib} COMPONENT Libraries)
     
     install(FILES
     ${ROOTSYS}/fonts/FreeSans.otf
@@ -194,7 +196,7 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Sql.dll
     ${QTDIR}/bin/Qt5V8.dll
     ${QTDIR}/bin/Qt5WebKit.dll    
-    DESTINATION bin COMPONENT Libraries)
+    DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES
     ${QTDIR}/plugins/platforms/qwindows.dll

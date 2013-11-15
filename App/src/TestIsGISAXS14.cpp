@@ -41,7 +41,7 @@ void TestIsGISAXS14::execute()
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputDataClone(), "this_multilayer_sphere.ima");
+    OutputDataIOFactory::writeIntensityData(*simulation.getIntensityData(), "this_multilayer_sphere.ima");
 }
 
 
@@ -54,8 +54,8 @@ void TestIsGISAXS14::finalise()
 //    std::string this_file(getOutputPath()+"this_multilayer_sphere_nocorr.ima");
     std::string this_file("this_multilayer_sphere.ima");
 
-    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
-    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(this_file);
 
     IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS14_c1", "Multilayered sphere on graded interface");
 

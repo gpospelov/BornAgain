@@ -1,0 +1,95 @@
+\newpage
+\chapter{Simulation}  \SecLabel{Simulation}
+
+\section{General methodology}
+A simulation of GISAXS using \BornAgain\ consists of following steps:
+\begin{itemize}
+\item define materials by specifying name and refractive index,
+\item define embedded particles by specifying shape, size,
+   constituting material, interference function,
+\item define layers by specifying thickness, roughness, material,
+\item include particles in layers, specifying density, position, orientation, 
+\item assemble a multilayered sample,
+\item specify input beam and detector characteristics,
+\item run the simulation,
+\item save the simulated detector image.
+\end{itemize}
+
+\noindent
+We are planing to organize all these steps in a graphical user interface (GUI).
+For the time being, however, \BornAgain\ must be involved via \Code{C++} program or
+\Code{Python} scripts. In the following, we describe how to write a 
+\Code{Python} script which runs a \BornAgain\ simulation. For tutorials about this programming language, the users are referred to \cite{Lut09}.
+
+
+More information about the general software architecture and \BornAgain\ internal design are given in \SecRef{SoftwareArchitecture}.
+
+
+\section{Geometry of the sample}
+
+\noindent The geometry used to describe the sample is shown in \reffig{multil3d}. The $z$-axis is perpendicular to the sample's
+surface and pointing upwards. The $x$-axis  is perpendicular to the
+detector plane. The input and the
+scattered output beams are each characterized by two angles
+$\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$, respectively. Our choice of orientation for the
+angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
+  \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
+    the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
+    angles of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
+$\phi_f$ is the scattering angle with respect to the scattering
+plane. }
+  \label{fig:multil3d}
+\end{figure}
+
+
+The layers are defined by their thicknesses (parallel to the
+$z$-direction), their possible
+roughnesses (equal to 0 by default) and the
+material they are made of. They have infinite extension in the $x$, $y$
+directions. And, except for roughness, they interfaces are plane and
+perpendicular to the $z$-axis. There is also no limitation to the
+number of layers that could be defined in \BornAgain. Note that the
+thickness of the top and bottom layer are not defined.
+
+%\ImportantPoint{Remark:}{Order of layers: \\
+%When assembling the sample, the layers are defined from top to
+%bottom. So in most cases the first layer will be the air layer.}\\
+
+The nanoparticles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented in \BornAgain) and the composing material. The number of input parameters for the form factor depends on the particle symmetry; it ranges from one parameter for a sphere (its radius) to three for an ellipsoid (its three main axis lengths).
+  
+By placing the particles
+inside or on top of a layer, we impose their vertical positions, whose
+values correspond to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
+particles interfere with each other. It is therefore implemented
+when dealing with the interference function.
+
+%\ImportantPoint{Remark:}{Depth of particles\\
+%The vertical positions of particles in a layer are given in relative
+%coordinates. For the top layer, the bottom corresponds to
+%\texttt{depth}=0. But for all the other layers, it is the top of the
+%layer which corresponds to \texttt{depth}=0.}\\
+
+The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
+$\delta, \beta \in \mathbb{R}$. In our program, we input $\delta$ and
+$\beta$ directly.
+
+
+\noindent The input beam is assumed to be monochromatic without any
+spatial divergence.\\ %\textbf{polarization term?}
+
+\subsection{Units}
+By default the angles are expressed in radians and the lengths are given in
+nanometers.  But it is possible to use other units by
+specifying them right after the value of the corresponding
+parameter like, for example, \Code{20.0*micrometer}.
+
+
+
+
+\input{SimulationExamples}
+
+

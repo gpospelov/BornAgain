@@ -1,16 +1,15 @@
 BornAgain usage examples.
 
+This directory contains three sets of examples aimed to demonstrate 
+to the user how to simulate and fit with BornAgain.
+
 Content:
-
-ex001_CylindersAndPrisms             - Mixture of cylinders and prisms without interference (IsGISAXS example #1)
-ex002_CylindersWithSizeDistribution  - Mixture cylinder particles with different size distribution (IsGISAXS example #2)
-ex003_CylinderFormfactor             - Cylinder formfactor in BA and DWBA (IsGISAXS example #3)
-ex004_CylindersParaCrystal           - 1D and 2D paracrystal (IsGISAXS example #4)
-ex006_LatticeWithDisorder            - 2D lattice with different disorder (IsGISAXS example #6)
-ex009_RotatedPyramids                - Pyramids, rotated pyramids on top of substrate (IsGISAXS example #9)
+./simulation - simulation examples
+./fitting    - fitting examples
+./demos      - collection of scripts used in different demonstrations
 
 
-More examples in ./Tests/FunctionalTests
+
 
 
 

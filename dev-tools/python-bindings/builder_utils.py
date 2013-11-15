@@ -17,15 +17,15 @@ from pyplusplus.file_writers.balanced_files import balanced_files_t
 from pyplusplus.file_writers.multiple_files import multiple_files_t
 
 
-license =  "// BornAgain: simulate and fit scattering at grazing incidence \n" \
+license = "// BornAgain: simulate and fit scattering at grazing incidence \n" \
            "//! @brief automatically generated boost::python code for PythonCoreAPI  \n"
 
 ModuleName = 'PythonInterface'
 
-balanced_files_t.HEADER_EXT='.h'
-balanced_files_t.SOURCE_EXT='.cpp'
-multiple_files_t.HEADER_EXT='.pypp.h'
-multiple_files_t.SOURCE_EXT='.pypp.cpp'
+balanced_files_t.HEADER_EXT = '.h'
+balanced_files_t.SOURCE_EXT = '.cpp'
+multiple_files_t.HEADER_EXT = '.pypp.h'
+multiple_files_t.SOURCE_EXT = '.pypp.cpp'
 
 
 #------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ def ExcludeMemberFunctionsArgPtr(mb):
 
 
 #------------------------------------------------------------------------------
-# excluding member functions if they have pointers in argument list
+# include pure virtual methods
 #------------------------------------------------------------------------------
 def IncludePureVirtualMethods(mb, include_classes):
     for cl in mb.classes():

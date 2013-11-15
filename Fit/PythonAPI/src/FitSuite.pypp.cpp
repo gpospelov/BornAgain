@@ -23,16 +23,64 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     
     }
 
+    virtual void link_fit_parameters(  ) {
+        if( bp::override func_link_fit_parameters = this->get_override( "link_fit_parameters" ) )
+            func_link_fit_parameters(  );
+        else
+            this->FitSuite::link_fit_parameters(  );
+    }
+    
+    
+    void default_link_fit_parameters(  ) {
+        FitSuite::link_fit_parameters( );
+    }
+
+    virtual void minimize(  ) {
+        if( bp::override func_minimize = this->get_override( "minimize" ) )
+            func_minimize(  );
+        else
+            this->FitSuite::minimize(  );
+    }
+    
+    
+    void default_minimize(  ) {
+        FitSuite::minimize( );
+    }
+
     virtual void runFit(  ) {
         if( bp::override func_runFit = this->get_override( "runFit" ) )
             func_runFit(  );
-        else{
+        else
             this->FitSuite::runFit(  );
-        }
     }
+    
     
     void default_runFit(  ) {
         FitSuite::runFit( );
+    }
+
+    virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
+        if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
+            func_attachObserver( obj );
+        else
+            this->IObservable::attachObserver( obj );
+    }
+    
+    
+    void default_attachObserver( ::boost::shared_ptr< IObserver > obj ) {
+        IObservable::attachObserver( obj );
+    }
+
+    virtual void notifyObservers(  ) {
+        if( bp::override func_notifyObservers = this->get_override( "notifyObservers" ) )
+            func_notifyObservers(  );
+        else
+            this->IObservable::notifyObservers(  );
+    }
+    
+    
+    void default_notifyObservers(  ) {
+        IObservable::notifyObservers( );
     }
 
 };
@@ -40,7 +88,7 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
 void register_FitSuite_class(){
 
     { //::FitSuite
-        typedef bp::class_< FitSuite_wrapper, boost::noncopyable > FitSuite_exposer_t;
+        typedef bp::class_< FitSuite_wrapper, bp::bases< IObservable >, boost::noncopyable > FitSuite_exposer_t;
         FitSuite_exposer_t FitSuite_exposer = FitSuite_exposer_t( "FitSuite", bp::no_init );
         bp::scope FitSuite_scope( FitSuite_exposer );
         FitSuite_exposer.def( bp::init< >() );
@@ -74,6 +122,35 @@ void register_FitSuite_class(){
                 , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule() ) );
         
         }
+        { //::FitSuite::clear
+        
+            typedef void ( ::FitSuite::*clear_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "clear"
+                , clear_function_type( &::FitSuite::clear ) );
+        
+        }
+        { //::FitSuite::getAttributes
+        
+            typedef ::AttFitting & ( ::FitSuite::*getAttributes_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "getAttributes"
+                , getAttributes_function_type( &::FitSuite::getAttributes )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::FitSuite::getFitObjects
+        
+            typedef ::FitSuiteObjects * ( ::FitSuite::*getFitObjects_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "getFitObjects"
+                , getFitObjects_function_type( &::FitSuite::getFitObjects )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::FitSuite::getFitParameters
         
             typedef ::FitSuiteParameters * ( ::FitSuite::*getFitParameters_function_type )(  ) ;
@@ -81,6 +158,16 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitParameters"
                 , getFitParameters_function_type( &::FitSuite::getFitParameters )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::FitSuite::getFitStrategies
+        
+            typedef ::FitSuiteStrategies * ( ::FitSuite::*getFitStrategies_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "getFitStrategies"
+                , getFitStrategies_function_type( &::FitSuite::getFitStrategies )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -96,11 +183,20 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getNCalls
         
-            typedef ::size_t ( ::FitSuite::*getNCalls_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitSuite::*getNCalls_function_type )(  ) const;
             
             FitSuite_exposer.def( 
                 "getNCalls"
                 , getNCalls_function_type( &::FitSuite::getNCalls ) );
+        
+        }
+        { //::FitSuite::getNStrategy
+        
+            typedef ::std::size_t ( ::FitSuite::*getNStrategy_function_type )(  ) const;
+            
+            FitSuite_exposer.def( 
+                "getNStrategy"
+                , getNStrategy_function_type( &::FitSuite::getNStrategy ) );
         
         }
         { //::FitSuite::initPrint
@@ -111,6 +207,37 @@ void register_FitSuite_class(){
                 "initPrint"
                 , initPrint_function_type( &::FitSuite::initPrint )
                 , ( bp::arg("print_every_nth") ) );
+        
+        }
+        { //::FitSuite::isLastIteration
+        
+            typedef bool ( ::FitSuite::*isLastIteration_function_type )(  ) const;
+            
+            FitSuite_exposer.def( 
+                "isLastIteration"
+                , isLastIteration_function_type( &::FitSuite::isLastIteration ) );
+        
+        }
+        { //::FitSuite::link_fit_parameters
+        
+            typedef void ( ::FitSuite::*link_fit_parameters_function_type )(  ) ;
+            typedef void ( FitSuite_wrapper::*default_link_fit_parameters_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "link_fit_parameters"
+                , link_fit_parameters_function_type(&::FitSuite::link_fit_parameters)
+                , default_link_fit_parameters_function_type(&FitSuite_wrapper::default_link_fit_parameters) );
+        
+        }
+        { //::FitSuite::minimize
+        
+            typedef void ( ::FitSuite::*minimize_function_type )(  ) ;
+            typedef void ( FitSuite_wrapper::*default_minimize_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "minimize"
+                , minimize_function_type(&::FitSuite::minimize)
+                , default_minimize_function_type(&FitSuite_wrapper::default_minimize) );
         
         }
         { //::FitSuite::printResults
@@ -133,6 +260,16 @@ void register_FitSuite_class(){
                 , default_runFit_function_type(&FitSuite_wrapper::default_runFit) );
         
         }
+        { //::FitSuite::setAttributes
+        
+            typedef void ( ::FitSuite::*setAttributes_function_type )( ::AttFitting const & ) ;
+            
+            FitSuite_exposer.def( 
+                "setAttributes"
+                , setAttributes_function_type( &::FitSuite::setAttributes )
+                , ( bp::arg("fit_attributes") ) );
+        
+        }
         { //::FitSuite::setMinimizer
         
             typedef void ( ::FitSuite::*setMinimizer_function_type )( ::IMinimizer * ) ;
@@ -141,6 +278,29 @@ void register_FitSuite_class(){
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
                 , ( bp::arg("minimizer") ) );
+        
+        }
+        { //::IObservable::attachObserver
+        
+            typedef void ( ::IObservable::*attachObserver_function_type )( ::boost::shared_ptr< IObserver > ) ;
+            typedef void ( FitSuite_wrapper::*default_attachObserver_function_type )( ::boost::shared_ptr< IObserver > ) ;
+            
+            FitSuite_exposer.def( 
+                "attachObserver"
+                , attachObserver_function_type(&::IObservable::attachObserver)
+                , default_attachObserver_function_type(&FitSuite_wrapper::default_attachObserver)
+                , ( bp::arg("obj") ) );
+        
+        }
+        { //::IObservable::notifyObservers
+        
+            typedef void ( ::IObservable::*notifyObservers_function_type )(  ) ;
+            typedef void ( FitSuite_wrapper::*default_notifyObservers_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "notifyObservers"
+                , notifyObservers_function_type(&::IObservable::notifyObservers)
+                , default_notifyObservers_function_type(&FitSuite_wrapper::default_notifyObservers) );
         
         }
     }

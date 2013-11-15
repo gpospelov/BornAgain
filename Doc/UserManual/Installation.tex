@@ -1,7 +1,8 @@
 \newpage
 \chapter{Installation} \SecLabel{Installation}
 
-\BornAgain\ is intended to work on x86/x86\_64 Linux, Mac OS X and Windows operating systems. It was successfully compiled and tested on
+\BornAgain\ is supported under x86/x86\_64 Linux, Mac OS X and Windows operating systems. 
+It has been successfully compiled and tested on
 \begin{itemize}
 \item Microsoft Windows 7 64-bit, Windows 8 64-bit
 \item Mac OS X 10.8 (Mountain Lion)
@@ -12,36 +13,37 @@
 
 At the moment we support build and installation from source on Unix Platforms 
 (Linux, Mac OS) and
-installation using binary installer package on MS Windows 7,8 (see
-\SecRef{InstallationUnix} and \SecRef{InstallationWindows}).
+installation using binary installer packages on MS Windows 7, 8 (see
+\SecRef{InstallationUnix} and \SecRef{InstallationWindows}, respectively).
 In the next releases we are planning to provide binary installers for 
 Mac OS X and Debian.
 
-We welcome user feedback and/or bug reports related to they installation experience
-via \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues}
+We welcome feedback and bug reports related to
+installation and use of \BornAgain\
+ via \url{http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues}
 
 
-\section{Building and installing on Unix Platforms.} \SecLabel{InstallationUnix}
+\section{Building and installing on Unix Platforms} \SecLabel{InstallationUnix}
 
 
-\BornAgain\ uses \Code{CMake} to configure a build system for compiling and installing the framework. There are three major steps to building \BornAgain\ :
+\BornAgain\ uses \Code{CMake} to configure a build system for compiling and installing the framework. There are three major steps to build \BornAgain\ :
 \begin{enumerate}[1.]
-\item Acquire required third-party libraries.
-\item Get \BornAgain\ source code.
-\item Use \Code{CMake} to build and install software.
+\item Acquiring the required third-party libraries.
+\item Getting \BornAgain\ source code.
+\item Using \Code{CMake} to build and install the software.
 \end{enumerate}
 The remainder of this section explains each step in detail.
 
-\subsection{Third-party software.}
+\subsection{Third-party software}
 To successfully build \BornAgain\ a number of prerequisite packages must be installed.
 
 \begin{itemize}
 \item compilers: clang  versions $\geq 3.1$ or GCC versions $\geq 4.2$
-\item cmake ($\geq 2.8$)
+\item cmake ($\geq 2.8.3$)
 \item boost library ($\geq 1.48$)
 \item GNU scientific library ($\geq 1.15$)
 \item fftw3 library ($\geq 3.3$)
-\item python ($\geq 2.7$, $< 3.0$), python-devel, python-numpy-devel
+\item \Python\ ($\geq 2.7$, $< 3.0$), python-devel, python-numpy-devel
 \end{itemize}
 \vspace*{2mm}
 
@@ -53,8 +55,9 @@ Other packages are optional
 \end{itemize}
 
 All required packages can be easily installed on most Linux distributions using the system's package
-manager. Below we give a few examples for several selected operation systems. Please note,
-that other distributions (Fedora, Mint, etc) may have different commands for invoking the package manager and slightly different names of packages (like ``boost'' instead of ``libboost'' etc). Besides that, the installation should be very similar.
+manager. Below we give examples for a few selected operation systems. Please note,
+that other distributions (Fedora, Mint, etc) may have different
+commands for invoking the package manager as well as slightly different names of packages (like ``boost'' instead of ``libboost'' etc). Besides  the installation should be very similar.
 \vspace*{3mm}
 
 
@@ -63,13 +66,13 @@ that other distributions (Fedora, Mint, etc) may have different commands for inv
 % ---------------
 \noindent
 {\large\bf Ubuntu (12.10, 13.04), Debian (7.1)} \newline
-Installing required packages
+Installing the required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-dev python-numpy
 \end{lstlisting}
 
 \noindent
-Installing optional packages
+Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo apt-get install libroot-* root-plugin-* root-system-* ttf-root-installer libeigen3-dev python-matplotlib python-matplotlib-tk
 \end{lstlisting}
@@ -81,19 +84,19 @@ sudo apt-get install libroot-* root-plugin-* root-system-* ttf-root-installer li
 % ---------------
 \noindent
 {\large\bf OpenSuse 12.3} \newline
-Adding ``scientific'' repository 
+Adding the ``scientific'' repository 
 \begin{lstlisting}[language=shell, style=commandline]
 sudo zypper ar http://download.opensuse.org/repositories/science/openSUSE_12.3 science
 \end{lstlisting}
 
 \noindent
-Installing required packages
+Installing the required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo zypper install git-core cmake gsl-devel boost-devel fftw3-devel python-devel python-numpy-devel
 \end{lstlisting}
 
 \noindent
-Installing optional packages
+Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-devel python-matplotlib
 \end{lstlisting}
@@ -110,21 +113,22 @@ sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-dev
 To simplify the installation of third party open-source software on a Mac OS X system we recommend the use of \Code{MacPorts} package manager. 
 The easiest way to install MacPorts is by downloading the \Code{dmg} 
 from \url{www.macports.org/install.php} and running the system's installer.
-After the installation new command ``\Code{port}'' will be available in terminal window of your Mac. \
+After the installation new command ``\Code{port}'' will be available
+in a terminal window of your Mac. \
+
 
 \noindent
-Installing required packages
+Installing the required packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo port -v selfupdate
 sudo port install git-core cmake
 sudo port install fftw-3 gsl
 sudo port install boost -no_single-no_static+python27 
-
-
+sudo port select --set python python27
 \end{lstlisting}
 
 \noindent
-Installing optional packages
+Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
 sudo port install py27-matplotlib py27-numpy py27-scipy
 sudo port install root +fftw3+python27
@@ -134,16 +138,16 @@ sudo port install eigen3
 
 
 
-\subsection{Getting source code}
+\subsection{Getting {\rm\bf BornAgain} source code}
 \BornAgain\ source can be downloaded at \url{http://apps.jcns.fz-juelich.de/BornAgain}
 and unpacked with
 \begin{lstlisting}[language=shell, style=commandline]
-tar xfz bornagain-<version>.tgz
+tar xfz bornagain-<version>.tar.gz
 \end{lstlisting}
 
 \noindent
 Alternatively one can obtain \BornAgain\ source from our public Git repository.
-\begin{lstlisting}[language=bash, style=commandline]
+\begin{lstlisting}[language=shell, style=commandline]
 git clone git://apps.jcns.fz-juelich.de/BornAgain.git 
 \end{lstlisting}
 \vspace*{3mm}
@@ -152,19 +156,21 @@ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 \noindent
 {\bf\large More about Git} \\
 Our Git repository holds two main branches called ``master'' and ``develop''. We consider ``master''
-branch to be the main branch where the source code of HEAD always reflects latest stable release. \Code{git clone} command shown above
+branch to be the main branch where the source code of HEAD always
+reflects the latest stable release. \Code{git clone} command shown above
 \begin{enumerate}[1.]
 \item gives you a source code snapshot corresponding to the latest stable release,
 \item automatically sets up your local master branch to track our remote master branch, 
-so you will be able to fetch changes from the remote branch at any time using ``git pull'' command.
+so you will be able to fetch changes from the remote branch at any time using \Code{git pull} command.
 \end{enumerate}
 
-Master branch is updating approximately once per month.
+``Master'' branch is updated approximately once per month.
 % that reflects our release cycle.
 The second branch, ``develop'' branch, is a snapshot of the current development.
 This is where any automatic nightly builds are built from. The develop branch is
-always expected to work, so to get the most recent features one can switch source code to it by
-\begin{lstlisting}[language=bash, style=commandline]
+always expected to work. So in order to get the most recent features
+of the source code, one can switch to it by
+\begin{lstlisting}[language=shell, style=commandline]
 cd BornAgain
 git checkout develop
 git pull
@@ -175,36 +181,38 @@ git pull
 
 \subsection{Building and installing the code}
 
-\BornAgain\ should be build using \Code{CMake} cross platform build system. 
-Having third-party libraries installed on the system and \BornAgain\ source code acquired as was explained in
-previous sections, type build commands
-\begin{lstlisting}[language=bash, style=commandline]
+\BornAgain\ should be built using \Code{CMake} cross platform build system. 
+Having the third-party libraries installed on your system and
+\BornAgain\ source code acquired as explained in the
+previous sections, type the build commands
+\begin{lstlisting}[language=shell, style=commandline]
 mkdir <build_dir>
 cd <build_dir>
-cmake <source_dir> -DCMAKE_INSTALL_PREFIX=<install_dir>
+cmake  -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
 make
 \end{lstlisting}
 \vspace*{3mm}
 
-Here \Code{<source\_dir>} is the name of directory, where \BornAgain\ source code has been
-copied, \Code{<install\_dir>} is the directory, where user wants  the package
-to be installed, and \Code{<build\_dir>} is the directory where building will occur.
+Here \Code{<source\_dir>} is the name of the directory, where \BornAgain\ source code has been
+copied, \Code{<install\_dir>} is the directory, where you want the package
+to be installed, and \Code{<build\_dir>} is the directory where the building will occur.
 
 \MakeRemark{About \Code{CMake}}{
-\\Having dedicated directory \Code{<build\_dir>} for build process
-is recommended by \Code{CMake}. That allows several builds with different compilers/options from the same source and keeps source directory clean from build remnants. \\
+\\Having a dedicated directory \Code{<build\_dir>} for the build process
+is recommended by \Code{CMake}. This allows several builds with
+different compilers/options from the same source and keeps the source directory clean from build remnants. \\
 }
 
 
-Compilation process invoked by the command ``make'' lasts about 10 min for an average laptop
+The compilation process invoked by the command ``make'' lasts about 10 minutes on an average laptop
 of 2012 edition. On multi-core machines the compilation time  can be decreased by invoking command
 ``make'' with the parameter ``make -j[N]'', where N is the number of cores.
 
 Running functional tests is an optional but recommended step. Command ``make check''
-will compile several additional tests and run them one by one. Every test contains
+will compile several additional tests and run them one by one. Each test contains
 the simulation of a typical GISAS geometry and the comparison on numerical level of simulation results with reference files. Having 100\% tests passed ensures that your local installation
 is correct.
-\begin{lstlisting}[language=bash, style=commandline]
+\begin{lstlisting}[language=shell, style=commandline]
 make check
 ...
 100% tests passed, 0 tests failed out of 26
@@ -214,69 +222,89 @@ Total Test time (real) = 89.19 sec
 \vspace*{3mm}
 
 
-The last command ``make install'' copies compiled libraries and some usage examples
+The last command ``make install'' copies the compiled libraries and some usage examples
 into  the installation directory.
-\begin{lstlisting}[language=bash, style=commandline]
+\begin{lstlisting}[language=shell, style=commandline]
 make install
 \end{lstlisting}
+
+After installation is completed, the location of \BornAgain\ libraries needs to be included into
+\Code{LD\_LIBRARY\_PATH} and \Code{PYTHONPATH} environment variables.
+This can be done by running \BornAgain\ setup script in the terminal session
+\begin{lstlisting}[language=shell, style=commandline]
+source <install_dir>/bin/thisbornagain.sh
+\end{lstlisting}
+Conveniently, given call can be placed in your \Code{.bashrc} file.
 
 
 \subsubsection{Troubleshooting}
 
-In the case of complex system setup, with variety of libraries of different versions 
-scattered across multiple places (\Code{/opt/local}, \Code{/usr} etc.),
-you may want to help \Code{CMake} to find libraries in proper place. 
-In example below
-two system variables are defined to force \Code{CMake} to prefer libraries
-found in \Code{/opt/local} to other places.
-\begin{lstlisting}[language=bash, style=commandline]
-export CMAKE_LIBRARY_PATH=/opt/local/lib:$CMAKE_LIBRARY_PATH
-export CMAKE_INCLUDE_PATH=/opt/local/include:$CMAKE_INCLUDE_PATH
+In the case of a complex system setup, with libraries of different versions 
+scattered across multiple places (\Code{/opt/local}, \Code{/usr/local} etc.),
+you may want to help \Code{CMake} in finding the correct library paths
+by running cmake with additional parameter 
+\begin{lstlisting}[language=shell, style=commandline]
+cmake -DCMAKE_PREFIX_PATH=/usr/local -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
 \end{lstlisting}
 
 
-\subsection{Running first simulation}
+
+\subsection{Running the first simulation}
 
 In your installation directory you will find
-\begin{lstlisting}[language=bash, style=commandline]
-./include - header files for compilation of your C++ program
+\begin{lstlisting}[language=shell, style=commandline, keywordstyle=\color{black}]
+./include/BornAgain - header files for compilation of your C++ program
 ./lib - libraries to import into python or link with your C++ program
-./Examples - directory with examples
+./share/BornAgain/Examples - directory with examples
 \end{lstlisting}
 
-Run your first example and enjoy first BornAgain simulation plot.
-\begin{lstlisting}[language=bash, style=commandline]
-cd <install_dir>/Examples/python/ex001_CylindersAndPrisms
-python CylindersAndPrisms.py
-\end{lstlisting}
-
-
-
-
-\section{Installing on Windows Platforms.} \SecLabel{InstallationWindows}
-
-
-\noindent
-{\bf Step I: $~$ installing third party software} \newline
-The current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
-to be installed on the system. If you don't have them already installed,
-you can use \Code{PythonXY} installer
-at \url{https://code.google.com/p/pythonxy} which, with default installation options, will contain at least these three packages.
-The user has to download and install this package before proceeding with
-\BornAgain\ installation.
-\vspace*{2mm}
-
-\noindent
-{\bf Step II: $~$ using installation package } \newline
-The Windows installation package can be downloaded from \url{http://apps.jcns.fz-juelich.de/BornAgain}.
-Double click it to start the installation process, then follow the instructions.
-\vspace*{2mm}
-
-\noindent
-{\bf Step IV: $~$ running example} \newline
-Run an example by double-clicking on the python script located in the \BornAgain\ installation directory:
+Run your first example and enjoy the first BornAgain simulation plot.
 \begin{lstlisting}[language=shell, style=commandline]
-python C:/BornAgain-0.9.1/Examples/python/ex001_CylindersAndPrisms/CylindersAndPrisms.py
+python <install_dir>/share/BornAgain/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py
+\end{lstlisting}
+
+
+
+
+\section{Installing on Windows Platforms} \SecLabel{InstallationWindows}
+
+
+\noindent
+{\bf Step I: $~$ install the third party software} \newline
+The current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
+to be installed on the system. 
+
+\subsubsection{If you do not have have Python installed}
+You can use \Code{PythonXY} installer
+at \url{https://code.google.com/p/pythonxy} which, with the default installation options, contains at least these three packages.
+The user has to download and install this package before proceeding to
+the installation of \BornAgain.
+\vspace*{2mm}
+
+
+\subsubsection{If you have Python already installed}
+You might want to keep using this installation and to install missed modules.
+Required libraries can be found at
+\begin{lstlisting}[language=shell, style=commandline]
+matlab:
+http://matplotlib.org/downloads.html
+
+numpy, dateutil, pyparsing:
+http://www.lfd.uci.edu/~gohlke/pythonlibs
+\end{lstlisting}
+
+
+\noindent
+{\bf Step II: $~$ use the installation package } \newline
+\BornAgain\ installation package for Windows can be downloaded from \url{http://apps.jcns.fz-juelich.de/BornAgain}.
+Double-click on it to start the installation process. And then follow the instructions.
+\vspace*{2mm}
+
+\noindent
+{\bf Step IV: $~$ run an example} \newline
+Run an example located in \BornAgain\ installation directory:
+\begin{lstlisting}[language=shell, style=commandline]
+python C:/BornAgain-0.9.2/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py
 \end{lstlisting}
 
 

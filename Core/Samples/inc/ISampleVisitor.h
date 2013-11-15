@@ -38,6 +38,8 @@ class FormFactorCylinder;
 class FormFactorPrism3;
 class InterferenceFunction1DParaCrystal;
 class InterferenceFunction2DParaCrystal;
+class LayerRoughness;
+
 
 //! Interface to visit a sample tree and perform operations on its nodes
 
@@ -107,6 +109,12 @@ public:
         throw NotImplementedException(
                 "ISampleVisitor::visit(InterferenceFunction2DParaCrystal  *)");
     }
+
+    virtual void visit(const LayerRoughness  *) {
+        throw NotImplementedException(
+                "ISampleVisitor::visit(LayerRoughness *)");
+    }
+
 
     virtual bool goForward(){ return true; }
     virtual bool goBack(){ return true; }

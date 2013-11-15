@@ -25,9 +25,9 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     list(APPEND boost_libraries_required python)
 endif()
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
-#message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-#message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
-#message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
+message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
 # --- GSL ---
 find_package(GSL REQUIRED)
@@ -58,13 +58,25 @@ find_package(GSL REQUIRED)
 
 # --- Python ---
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package(PythonInterp)
+    find_package(PythonInterp REQUIRED)
+    find_package(PythonLibsNew)
+
     # important to find interpreter and libraries from same python version
-    set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
-    find_package(PythonLibs REQUIRED)
-    if(NOT PYTHONLIBS_FOUND)
-        message(SEND_ERROR "No python libraries have been found")
+    #set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
+    #find_package(PythonLibs REQUIRED)
+    #if(NOT PYTHONLIBS_FOUND)
+    #    message(SEND_ERROR "No python libraries have been found")
+    #endif()
+
+    GET_FILENAME_COMPONENT(PyLibExtension ${PYTHON_LIBRARIES} EXT)
+    if(${PyLibExtension}  STREQUAL ".a")
+        find_package( Threads )
+        set(syslibs "-lm -ldl -lutil ${CMAKE_THREAD_LIBS_INIT} -rdynamic")
+        message(STATUS "--> Static python library detected, adding ${syslibs}")
+        set(PYTHON_LIBRARIES "${syslibs} ${PYTHON_LIBRARIES}")
     endif()
+    #message(STATUS "--> Python libraries ${PYTHON_LIBRARIES}")
+    
     find_package(Numpy REQUIRED)
 endif()
 

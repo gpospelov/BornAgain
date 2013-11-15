@@ -19,7 +19,8 @@
 #include "WinDllMacros.h"
 #include "IAxis.h"
 
-class AxisBin;  // forward declaration needed for conversion constructor
+//class AxisBin;  // forward declaration needed for conversion constructor
+#include "AxisBin.h"
 
 //! The points of an axis
 
@@ -67,6 +68,9 @@ public:
 
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
+
+    //! returns vector containing the axis points
+    std::vector<double> getVector() const { return m_sample_vector; }
 
 protected:
     virtual bool equals(const IAxis& other) const;

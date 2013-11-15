@@ -1,0 +1,50 @@
+\section {How to get the right answer from fitting} 
+\SecLabel{FittingRightAnswers}
+
+%As it has already been mentioned in \SecRef{FittingGentleIntroducion}, 
+One of the main difficulties in fitting the data with the model 
+is the presence of multiple
+local minima in the objective function. Many problems can cause the
+fit to fail, for example:
+\begin{itemize}
+\item an unreliable physical model,
+\item an unappropriate choice of objective function
+\item multiple local minima,
+\item an unphysical behavior of the objective function, unphysical regions
+  in the parameters space,
+\item an unreliable parameter error calculation in the presence of
+  limits on the parameter value,
+\item an exponential behavior of the objective function and the
+  corresponding numerical inaccuracies, excessive numerical roundoff
+  in the calculation of its value and derivatives,
+\item large correlations between parameters,
+\item very different scales of parameters involved in the calculation,
+\item not positive definite error matrix even at minimum.
+\end{itemize}
+
+
+The given list, of course, is not only related to \BornAgain\
+fitting. It remains applicable to any fitting program and any kind of theoretical model.
+%To address all these difficulties some amount of manual tuning might be necessary.
+ Below we give some recommendations which might help the user to achieve reliable fit results.
+
+\subsection*{General recommendations}
+\begin{itemize}
+\item initially choose  a small number of free fitting parameters,
+\item eliminate redundant parameters,
+\item provide a good initial guess for the fit parameters,
+\item start from the default minimizer settings and perform some fine tuning after some experience has been acquired,
+\item repeat the fit using different starting values for the parameters or their limits,
+\item repeat the fit, fixing and varying different groups of parameters,
+%\item use \Code{Minuit2} minimizer with \Code{Migrad} algorithm
+%  (default) to get the most reliable parameter error estimation,
+%\item try \Code{GSLMultiFit} minimizer or \Code{Minuit2} minimizer with \Code{Fumili} %algorithm to get fewer iterations.
+
+
+%\subsection*{Interpretation of errors.}
+
+
+{\bf to be continued... }
+
+
+\end{itemize}

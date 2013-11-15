@@ -28,10 +28,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual ::ResolutionFunction2DSimple * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->ResolutionFunction2DSimple::clone(  );
-        }
     }
+    
     
     ::ResolutionFunction2DSimple * default_clone(  ) const  {
         return ResolutionFunction2DSimple::clone( );
@@ -40,10 +40,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual double evaluateCDF( double x, double y ) const  {
         if( bp::override func_evaluateCDF = this->get_override( "evaluateCDF" ) )
             return func_evaluateCDF( x, y );
-        else{
+        else
             return this->ResolutionFunction2DSimple::evaluateCDF( x, y );
-        }
     }
+    
     
     double default_evaluateCDF( double x, double y ) const  {
         return ResolutionFunction2DSimple::evaluateCDF( x, y );
@@ -52,10 +52,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -64,10 +64,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -76,10 +76,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -88,10 +88,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -116,13 +116,25 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
         }
     }
 
+    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
+            return func_setMatchedParametersValue( wildcards, value );
+        else
+            return this->IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+    
+    
+    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
+        return IParameterized::setMatchedParametersValue( wildcards, value );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -131,10 +143,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -225,6 +237,18 @@ void register_ResolutionFunction2DSimple_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ResolutionFunction2DSimple_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setMatchedParametersValue
+        
+            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            typedef int ( ResolutionFunction2DSimple_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
+            
+            ResolutionFunction2DSimple_exposer.def( 
+                "setMatchedParametersValue"
+                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
+                , default_setMatchedParametersValue_function_type(&ResolutionFunction2DSimple_wrapper::default_setMatchedParametersValue)
+                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

@@ -35,6 +35,19 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
+    //! Returns volume
+    virtual double getVolume() const {
+        return m_width*m_width*m_height;
+    }
+
+    //! Returns height
+    double getHeight() const { return m_height; }
+
+    //! Returns radius of Box
+    double getRadius() const { return m_width; }
+
+
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
@@ -42,6 +55,7 @@ protected:
 private:
     double m_height;
     double m_width;
+    double m_max_ql;
 };
 
 #endif /* FORMFACTORGAUSS_H_ */

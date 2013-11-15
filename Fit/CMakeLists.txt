@@ -19,10 +19,16 @@ file(GLOB include_files
 )
 
 if(BORNAGAIN_PYTHON)
-    file(GLOB pythonapi "PythonAPI/src/*.cpp")
-    list(APPEND source_files ${pythonapi})
+    file(GLOB source_pythonapi "PythonAPI/src/*.cpp")
+    list(APPEND source_files ${source_pythonapi})
+    file(GLOB include_pythonapi "PythonAPI/inc/*.h")
+    list(APPEND include_files ${include_pythonapi})
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
+    )
+    include_directories(
+        # some Core PythonAPI is required too
+        ${CMAKE_SOURCE_DIR}/Core/PythonAPI/inc
     )
 endif()
 
@@ -75,21 +81,16 @@ endif()
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-if(WIN32)
-    set(libdir "bin")
-else()
-    set(libdir "lib")
-endif()
-install (TARGETS ${library_name} DESTINATION ${libdir} COMPONENT Libraries)
+install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 
 if(WIN32 AND BORNAGAIN_PYTHON)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION lib COMPONENT Libraries)
-    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION bin COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
 endif()
 
 # list of headers to install
 file(GLOB include_files
     "Factory/inc/*.h"
 )
-install (FILES ${include_files} DESTINATION include  COMPONENT Headers)
+install (FILES ${include_files} DESTINATION ${destination_include}  COMPONENT Headers)
 

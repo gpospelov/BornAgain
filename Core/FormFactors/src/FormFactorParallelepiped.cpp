@@ -39,7 +39,8 @@ complex_t FormFactorParallelepiped::evaluate_for_q(const cvector_t& q) const
     complex_t qzHdiv2 = q.z()*m_height/2.0;
 
     complex_t phase_factor = std::exp(complex_t(0.0, 1.0)*qzHdiv2);
-    return getVolume()*phase_factor*
+    return 4.0*m_height*m_radius*m_radius
+            *phase_factor*
         MathFunctions::Sinc(qxR)*
         MathFunctions::Sinc(qyR)*
         MathFunctions::Sinc(qzHdiv2);

@@ -41,7 +41,7 @@ def RunSimulation1():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------
@@ -80,7 +80,7 @@ def RunSimulation2():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return GetOutputData(simulation)
+    return simulation.getIntensityData().getArray()
 
 
 # ----------------------------------

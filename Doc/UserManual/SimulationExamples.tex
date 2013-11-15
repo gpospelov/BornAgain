@@ -1,199 +1,101 @@
-\newpage
-\chapter{Simulation examples}  \SecLabel{Simulation}
+\mysection{Example 1: two types of islands on a substrate without interference}{Example 1: two types of islands on top of
+  substrate without interference} \SecLabel{Example1Python}
 
-\section{General methodology}
-A simulation of GISAXS using \BornAgain\ consists of following steps:
-\begin{itemize}
-\item define materials by specifying name and refractive index,
-\item define embedded particles by specifying shape, size,
-   constituting material, interference function,
-\item define layers by specifiying thickness, roughness, material
-\item include particles in layers, specifying density, position, orientation, 
-\item assemble a multilayered sample,
-\item specify input beam and detector characteristics,
-\item run the simulation,
-\item save the simulated detector image.
-\end{itemize}
+%\section{Example 1: two types of islands on top of
+%  substrate without interference.} \SecLabel{Example1Python}
 
-%\noindent The sample is built from object oriented building blocks and can be
-%instead of loading data files.
-\noindent
-User defines all these steps using \BornAgain\ API in Python script and then run 
-the simulation by executing the script in Python interpreter.
-More information about general software architecture and \BornAgain\ internal design
-are given in \SecRef{SoftwareArchitecture}.
-
-
-\section{Conventions}
-
-\subsection{Geometry of the sample}
-
-\noindent The geometry used to describe the sample is shown in \reffig{multil3d}. The $z$-axis is perpendicular to the sample's
-surface and pointing upwards. The $x$-axis  is perpendicular to the
-plane of the detector and the $y$-axis is along it. The input and the
-scattered output beams are each characterized by two angles
-$\alpha_i$, $\phi_i$ and $\alpha_f$, $\phi_f$ respectively. Our choice of orientation for the
-angles $\alpha_i$ and $\alpha_f$ is so that they are positive as shown in \reffig{multil3d}. \\
-
-\begin{figure}[h]
-  \centering
-    \includegraphics[clip=, width=120mm]{Figures/multilayer3d3.eps}
-  \caption[Representation of the scattering geometry.]{Representation of the scattering geometry. $n_j$ is
-    the refractive index of layer $j$ and $\alpha_i$ and $\phi_i$ are the incident
-    angle of the wave propagating. $\alpha_f$ is the exit angle with respect to the sample's surface and
-$\phi_f$ is the scattering angle with respect to the scattering
-plane. }
-  \label{fig:multil3d}
-\end{figure}
-
-
-\noindent The layers are defined by their thicknesses (parallel to the
-$z$-direction), their possible
-roughnesses (equal to 0 by default) and the
-material they are made of. We do not define any dimensions in the $x$, $y$
-directions. And, except for roughness, the layer's vertical boundaries are plane and
-perpendicular to the $z$-axis. There is also no limitation to the
-number of layers that could be defined in \BornAgain. Note that the
-thickness of the top and bottom layer are not defined. \\
-
-\ImportantPoint{Remark:}{- Order of the different steps for the simulation: \\
-When assembling the sample, the layers are defined from top to
-bottom. So in most cases the first layer will be the air layer.}\\
-
-\noindent The particles are characterized by their form factors (\textit{i.e.} the Fourier transform of the shape function - see the list of form factors implemented
-  in \BornAgain) and the composing material. The number of input parameters for the form
-  factor depends on the
-  particle symmetry; it ranges from one parameter for a sphere (its
-  radius) to three for an ellipsoid (its three main axis lengths).\\ By
-  placing the particles
-inside or on top of a layer, we impose their vertical positions, whose
-values corresponds to the bottoms of the particles. The in-plane distribution of particles is linked with the way the
-particles interfere with each other, which is therefore implemented
-when dealing with the interference function. \\
-
-%\ImportantPoint{Remark:}{Depth of particles\\
-%The vertical positions of particles in a layer are given in relative
-%coordinates. For the top layer, the bottom corresponds to
-%\texttt{depth}=0. But for all the other layers, it is the top of the
-%layer which corresponds to \texttt{depth}=0.}\\
-
-\noindent The complex refractive index associated with a layer or a particle is written as $n=1-\delta +i\beta$, with
-$\delta, \beta \in \mathbb{R}$. In our program, we input $\delta$ and
-$\beta$ directly.
-
-
-\noindent The input beam is assumed to be monochromatic without any
-spatial divergence.\\ %\textbf{polarization term?}
-
-\subsection{Units}
-By default the angles are expressed in radians and the lengths are given in
-nanometers.  But it is possible to use other units by
-specifying them right after the value of the corresponding
-parameter like, for example, \Code{20.0*micrometer}.
-
-
-\subsection{Programs}
-
-The examples presented in the next paragraphs are written in Python. For tutorials about this
-   programming language, the users are referred to \cite{Lut09}.
-
-%\noindent Note about the version of C++ and Python to run the examples.\\
-%\noindent Where can the following examples be found?\\
-%\noindent What is the command to run the examples?
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\mysection{Example 1}{Example 1: Two types of islands on top of
-  substrate. No interference function} \SecLabel{Example1Python}
 % \sectionmark{Example 1}
 
 In this example, we simulate the scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference
 between them. These particles are placed in air, on top
 of a substrate.\\ We are going to go through each step of the
-simulation. The Python script specific to each stage will be given at
+simulation. The \Python\ script specific to each stage will be given at
 the beginning of the description. But for the sake of completeness the full code is given
-at the end of this section (Listing~\ref{script_ex1}). \\
+in Appendix~\ref{PythonSimulationExampleScript}.
 
-\noindent We start by importing different functions from external
-modules (line~\ref{import_lib}), for example NumPy, which
-is a fundamental package for scientific computing with Python \cite{s:numpy}.  In particular, line~\ref{import_end}
-imports the features of \BornAgain\ software.\\
 
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Importing Python modules}
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-import sys, os, numpy @\label{import_lib}@
-
-from libBornAgainCore import * @\label{import_end}@
+import numpy @\label{import_lib_beg}@
+import matplotlib
+import pylab @\label{import_lib_end}@
+from libBornAgainCore import * @\label{import_ba}@
 \end{lstlisting}
+We start by importing different functions from external
+modules, for example \Code{NumPy} (lines~\ref{import_lib_beg}-\ref{import_lib_end}), which
+is a fundamental package for scientific computing with \Python\
+\cite{s:numpy}.  In particular, line~\ref{import_ba}
+imports the features of \BornAgain\ software.
 
 
- %%%%%%%%%%%%%  
-\myparagraph{\underline{First step:} Defining materials} 
- 
-
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Defining the materials} 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-def RunSimulation(): @\label{def_function}@
-    #  defining materials @\label{material1}@
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate",
-    6e-6, 2e-8) @\label{material3}@
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4,
-  2e-8 ) @\label{materialparticle}@
+def get_sample(): @\label{def_function}@
+    """
+    Build and return the sample representing cylinders and pyramids on top of
+    substrate without interference.
+   """
+    # defining materials @\label{material1}@
+    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8) @\label{material3}@
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@
+
 \end{lstlisting}
-
-\noindent Line~\ref{def_function} marks the beginning of the
-function to define and run the simulation. 
-
-\noindent Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
+Line~\ref{def_function} marks the beginning of the
+function to define our sample. Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
 materials using function \Code{getHomogeneousMaterial} from class
 \Code{MaterialManager}. The general syntax is the following 
-
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
 <material_name> = MaterialManager.getHomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
-
-\noindent where \Code{name} is the name of the
+where \Code{name} is the name of the
 material associated with its complex refractive index
 n=1-\Code{delta} +i \Code{beta}. \Code{<material\_name>} is later used when
 referring to this particular material. The three defined materials in this example are \Code{Air} with a refractive
-index of 1 (\Code{delta = beta =0}), a \Code{Substrate} associated with a complex refractive index
-equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, whose refractive index is \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\\\
+index of 1 (\Code{delta = beta = 0}), a \Code{Substrate} associated with a complex refractive index
+equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, whose refractive index is \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.
 
-%\noindent \underline{Remark:} there is no condition on the choice of \Code{name}. 
- %%%%%%%%%%%%% 
-\myparagraph{\underline{Second step:} Defining the particles} 
 
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Defining the particles}
 \begin{lstlisting}[language=python,style=eclipseboxed,name=ex1,nolol]
     # collection of particles @\label{particles1}@
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) @\label{particlescyl1}@
-    cylinder = Particle(mParticle, cylinder_ff) @\label{particlescyl2}@
+    cylinder = Particle(m_particle, cylinder_ff) @\label{particlescyl2}@
     prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer) @\label{particlesprism1}@
-    prism = Particle(mParticle, prism_ff) @\label{particlesprism2}@
+    prism = Particle(m_particle, prism_ff) @\label{particlesprism2}@
 \end{lstlisting}
+We implement two different shapes of particles: cylinders and
+prisms (\textit{i.e.} elongated particles with a constant equilateral triangular cross section).
+ 
+All particles implemented in \BornAgain\ are defined by their
+form factors, their sizes and the material
+they are made of. Here, for the
+cylindrical particle, we input its radius and height.  For the prism, 
+the possible inputs are the length of one side of its equilateral triangular
+base and its height.
 
- \noindent We implement two different shapes of particles: cylinders and
- prisms (\textit{i.e.} elongated particles with a constant equilateral triangular cross section).\\ All particles implemented in \BornAgain\ are defined by their
- form factors, their sizes and the material
-  they are made of. Here, for the
-  cylindrical particle, we input its radius and height.  For the prism, 
-  the possible inputs are the length of one side of its equilateral triangular
-  base and its height.\\
-
-%\noindent In line~\ref{complx_ref_index}, we define the complex refractive index
-%associated with both particle shapes: \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.\\
-  
-\noindent In order to define a particle, we proceed in two steps. For example for
+In order to define a particle, we proceed in two steps. For example for
 the cylindrical particle, we first specify the form factor of a cylinder with 
 its radius and height, both equal to 5 nanometers in this particular
 case (see line~\ref{particlescyl1}). Then we associate this shape with
-the constituting material as in line~\ref{particlescyl2}.\\
+the constituting material as in line~\ref{particlescyl2}.
+The same procedure has been applied for the prism in lines~\ref{particlesprism1} and \ref{particlesprism2}, respectively.
 
-\noindent The same procedure has been applied for the prism in lines~\ref{particlesprism1} and \ref{particlesprism2} respectively.
- %%%%%%%%%%%%% 
-\myparagraph{\underline{Third step:} Characterizing the layers and assembling the sample} 
 
-\noindent \textbf{Particle decoration} \\
-  
-
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Characterizing particles assembly} 
 \begin{lstlisting}[language=python, style=eclipseboxed, name=ex1,nolol]
     particle_decoration = ParticleDecoration()  @\label{particlesdecor1}@
     particle_decoration.addParticle(cylinder, 0.0, 0.5)  @\label{particlesdecor2}@
@@ -201,113 +103,120 @@ the constituting material as in line~\ref{particlescyl2}.\\
     interference = InterferenceFunctionNone()  @\label{particlesnointerf}@
     particle_decoration.addInterferenceFunction(interference)  @\label{particlesinterf}@
 \end{lstlisting}
-
-\noindent The object which holds the information about the positions and densities of particles
+The object which holds the information about the positions and densities of particles
 in our sample is called \Code{ParticleDecoration}
 (line~\ref{particlesdecor1}). We use the associated function \Code{addParticle}
-for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general
-syntax is 
+for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general syntax is 
 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
 addParticle(<particle_name>, depth, abundance) 
 \end{lstlisting}
-
-\noindent  where \Code{<particle\_name>} is the name used to define the particles
+where \Code{<particle\_name>} is the name used to define the particles
 (lines~\ref{particlescyl2} and \ref{particlesprism2}), \Code{depth}
 (default value =0)
 is the vertical position, expressed in nanometers, of the particles in a given layer (the
 association with a particular layer will be done during the next step) and
 \Code{abundance} is the proportion of this type of particles, 
 normalized to the total number of particles. Here we have 50\% of cylinders
-and 50\% of prisms. \\ 
+and 50\% of prisms.
 
 \ImportantPoint{Remark:}{Depth of particles\\
-The vertical positions of particles in a layer are given in relative
-coordinates. For the top layer, the bottom corresponds to
+The vertical positions of the particles in a layer are given in relative
+coordinates. For the top layer, the bottom of the layer corresponds to
 \Code{depth}=0 and negative values would correspond to particles
 floating above layer 1 since the vertical axis, shown in \reffig{multil3d} is pointing upwards. But for all the other layers, it is the top of the
 layer which corresponds to \Code{depth}=0.}\\
 
 
-\noindent Finally lines~\ref{particlesnointerf} and
+\noindent Finally, lines~\ref{particlesnointerf} and
 \ref{particlesinterf} specify that there is \textbf{no coherent interference} between
-the waves scattered by these particles. The intensity is calculated by
-the incoherent sum of the scattered waves: $\langle |F_n|^2\rangle$,
-where $F_n$ is the form factor associated with the particle of type $n$.  The way these waves
+the waves scattered by these particles. In this case, the intensity is calculated by
+the incoherent sum of the scattered waves: $\langle |F_j|^2\rangle$,
+where $F_j$ is the form factor associated with the particle of type $j$.  The way these waves
 interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
 particles distribution (\textbf{see Theory}). On the contrary, the vertical position is
-imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}. \\
+imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}.
 
-\noindent \textbf{Multilayer}\\
-  
+
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Multilayer}
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    # air layer with particles and substrate form multi layer  @\label{sampleassembling}@
-    air_layer = Layer(mAmbience)  @\label{airlayer}@
-    air_layer.setDecoration(particle_decoration)  @\label{airlayerdecorator}@
-    substrate_layer = Layer(mSubstrate, 0)  @\label{substratelayer}@
-    multi_layer = MultiLayer()  @\label{multilayercanvas}@
-    multi_layer.addLayer(air_layer)  @\label{layerairdecor}@
-    multi_layer.addLayer(substrate_layer)  @\label{layersubstrate}@
+# air layer with particles and substrate form multi layer  @\label{sampleassembling}@
+    air_layer = Layer(m_air) @\label{airlayer}@
+    air_layer.setDecoration(particle_decoration) @\label{airlayerdecorator}@
+    substrate_layer = Layer(m_substrate, 0)  @\label{substratelayer}@
+    multi_layer = MultiLayer() @\label{multilayercanvas}@
+    multi_layer.addLayer(air_layer) @\label{layerairdecor}@
+    multi_layer.addLayer(substrate_layer) @\label{layersubstrate}@
+    return multi_layer @\label{returnmlayer}@
 \end{lstlisting}
-
-\noindent We now have to configure our sample. For this first example,
+We now have to configure our sample. For this first example,
 the particles, \textit{i.e.} cylinders and prisms, are on top of a substrate in an
 air layer. \textbf{The order in which we define these layers is important: we
-start from the top layer down to the bottom one}.\\
+start from the top layer down to the bottom one}.
 
-\noindent Let us start with the air layer. It contains the particles. In
+Let us start with the air layer. It contains the particles. In
 line~\ref{airlayer}, we use the previously defined \Code{mAmbience}
-(="air" material) (line~\ref{material2}). The command written in line~\ref{airlayerdecorator} shows that this layer is decorated by adding the
-particles using the function \Code{particle\_decoration} defined in
-lines~\ref{particlesdecor1}-\ref{particlesinterf}. The substrate layer
-only contains the substrate material (line~\ref{substratelayer}).\\%Note that the
+(="air" material) (line~\ref{material2}). The command in line~\ref{airlayerdecorator} shows that this layer is decorated by adding the
+particles using particle decoration object defined earlier. The substrate layer
+only contains the substrate material (line~\ref{substratelayer}).
+%Note that the
 %\Code{depth} is referenced to the bottom of the top layer (negative
 %values would correspond to particles floating above layer 1 as
 %the vertical axis is pointing upwards). 
  
-\noindent There are different possible syntaxes to define a layer. As shown in
+There are different possible syntaxes to define a layer. As shown in
 lines~\ref{airlayer} and \ref{substratelayer}, we can use
 \Code{Layer(<material\_name>,thickness)} or
 \Code{Layer(<material\_name>)}. The second case corresponds
 to the default value of the \Code{thickness}, equal to 0. The \Code{thickness} is
-expressed in  nanometers. \\
+expressed in  nanometers.
 
-\noindent Our two layers are now fully characterized. The sample is assembled using
+Our two layers are now fully characterized. The sample is assembled using
 \Code{MultiLayer()} constructor (line~\ref{multilayercanvas}): we start with the air layer decorated
 with the particles (line~\ref{layerairdecor}), which is the layer at
 the top and end with the bottom layer, which is the
 substrate (line~\ref{layersubstrate}).
- %%%%%%%%%%%%% 
-\myparagraph{\underline{Fourth step:} Characterizing the input beam and
-output detector and running the simulation} 
 
+
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Characterizing the input beam and
+output detector}
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    # run simulation  @\label{run1}@
-    simulation = Simulation()  @\label{run2}@
-    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 
-                                100, 0.0*degree, 2.0*degree, True)  @\label{rundetector}@
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)  @\label{runbeam}@
-    simulation.setSample(multi_layer)  @\label{runsample}@
-    simulation.runSimulation()  @\label{runsimul}@
+def get_simulation():  @\label{run1}@
+    """
+    Create and return GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation() @\label{run2}@
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True) @\label{rundetector}@
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree) @\label{runbeam}@
+    return simulation @\label{returnsimul}@
+\end{lstlisting}
+The first stage is to create the \Code{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
+parameters (line~\ref{runbeam}). %, which are associated with the
+%sample previously defined (line~\ref{runsample}). Finally we run
+%the simulation (line~\ref{runsimul}). 
+Those functions are part of the Simulation
+class.  The different incident and exit angles are
+shown in \reffig{multil3d}.
+
+The detector parameters are set using ranges of angles via
+the function:
+
+\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style=false)},
 \end{lstlisting}
 
-
-\noindent The first stage is to define the \Code{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
-parameters (line~\ref{runbeam}), which are associated with the
-sample previously defined (line~\ref{runsample}). Finally we run
-the simulation (line~\ref{runsimul}). Those functions are part of the Simulation
-class.  The
-different incident and exit angles are
-shown in \reffig{multil3d}. \\
-
-\noindent The detector parameters are set using ranges of angles via
-the function:\\
-
-\noindent \Code{setDetectorParameters(n\_phi, phi\_f\_min,
-  phi\_f\_max,\\ \phantom{setDetectorParameters(}n\_alpha, alpha\_f\_min, alpha\_f\_max, isgisaxs\_style=false)}, \\
+%\Code{
+%setDetectorParameters(n\_phi, phi\_f\_min,
+%  phi\_f\_max,\\ \phantom{setDetectorParameters(}n\_alpha, alpha\_f\_min, %alpha\_f\_max, isgisaxs\_style=false)}, \\
 
 \noindent where \Code{n\_phi=100} is the number of iterations for $\phi_f$,\\ \Code{phi\_f\_min=-1.0*degree} and \Code{phi\_f\_max=1.0*degree}
 are the minimum and maximum values respectively of $\phi_f$, \\ \Code{n\_alpha=100} is
@@ -328,39 +237,59 @@ at constant values of these two angles.\\
 grazing angle on the surface of the sample,
 \Code{phi\_i=0.0*degree} is the in-plane
 direction of the incident beam (measured with respect to the
-$x$-axis).\\ 
+$x$-axis).
 
-\noindent \underline{Remark}: Note that, except for
-\Code{isgisaxs\_style}, there are no default values implemented for the
-parameters of the beam and detector.\\
+%\noindent \underline{Remark}: Note that, except for
+%\Code{isgisaxs\_style}, there are no default values implemented for the
+%parameters of the beam and detector.\\
 
-\noindent Line~\ref{runsimul} shows the command to run the simulation using the
-previously defined setup.
+%\noindent Line~\ref{runsimul} shows the command to run the simulation using the
+%previously defined setup.
 %%%%%%%%%%%%%
-\myparagraph{\underline{Fifth step:} Saving the data} 
 
+
+% -----------------------------------------------------------------------------
+%
+% -----------------------------------------------------------------------------
+\subsubsection{Running the simulation  and
+  plotting the results}
 
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    # retrieving intensity data
-    return GetOutputData(simulation) @\label{outputdata}@
+def run_simulation(): @\label{run_simulation}@
+    """
+   Run simulation and plot results
+    """
+    sample = get_sample() @\label{get_sample}@
+    simulation = get_simulation() @\label{get_simulation}@
+    simulation.setSample(sample) )  @\label{setsample}@
+    simulation.runSimulation()  @\label{runsimul}@
+    result = simulation.getIntensityData().getArray() + 1  # for log scale  @\label{outputdata}@
+    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0]) @\label{plot1}@
+    pylab.show() @\label{plot2}@
 \end{lstlisting}
+%In function \Code{run\_simulation()}, we associate the sample
+%characterised by function \Code{get\_sample()} with the input beam and
+%output detector, defined in function \Code{get\_simulation()} (line~\ref{runsample}).
+In function defined starting from the line~\ref{run_simulation} we bring all
+items together. We create the sample and the simulation objects at the lines 
+~\ref{get_sample} and \ref{get_simulation}, using calls to the previously defined functions. We assign the sample to the simulation at line ~\ref{setsample} and
+finally launch the simulation at line ~\ref{runsimul}.
 
-
-\noindent In line~\ref{outputdata} we obtain the simulated intensity
+In line~\ref{outputdata} we obtain the simulated intensity
 as a function of outgoing angles $\alpha_f$ and $\phi_f$ for further
-uses (plots, fits,\ldots) as a NumPy array containing
+uses (plots, fits,\ldots) as a \Code{NumPy} array containing
 \Code{n\_phi}$\times$\Code{n\_alpha}
-datapoints. Some options are provided by \BornAgain. For example, \reffig{output_ex1} shows the two-dimensional
+datapoints. Lines~\ref{plot1}-\ref{plot2} produces the two-dimensional
 contourplot of the intensity as a function of $\alpha_f$ and
-$\phi_f$. 
+$\phi_f$ shown in \reffig{output_ex1}. 
 
-\begin{figure}[h]
+\begin{figure}[htbp]
   \begin{center}
    \includegraphics[clip=true, width=120mm]{Figures/Manual_ex1.eps}
   \end{center}
   \caption[Example 1: Simulated grazing-incidence small-angle X-ray scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference, deposited on top
-of a substrate]{Figure of example 1: Simulated grazing-incidence small-angle X-ray scattering from a mixture of
+of a substrate]{Simulated grazing-incidence small-angle X-ray scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference, deposited on top
 of a substrate. The input beam is characterized by a wavelength
 $\lambda$ of 1~\AA\ and incident angles $\alpha_i=0.2^{\circ}$, $\phi_i=0^{\circ}$. The
@@ -373,38 +302,187 @@ is associated with the output intensity in arbitrary units. }
 \end{figure}
 
 
-% \newpage
-% \subsection{Hello, minted}
-% 
-% ￼￼\begin{minted}[linenos=true, frame=single]{python}
-% mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
-% mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
-% n_particle = complex(1.0-6e-4, 2e-8)
-% cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-% cylinder = Particle(n_particle, cylinder_ff)
-% prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
-% prism = Particle(n_particle, prism_ff)
-% particle_decoration = ParticleDecoration()
-% particle_decoration.addParticle(cylinder, 0.0, 0.5)
-% particle_decoration.addParticle(prism, 0.0, 0.5)
-% interference = InterferenceFunctionNone()
-% particle_decoration.addInterferenceFunction(interference)
-% # air layer with particles and substrate form multi layer
-% air_layer = Layer(mAmbience)
-% air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
-% substrate_layer = Layer(mSubstrate, 0)
-% multi_layer = MultiLayer()
-% multi_layer.addLayer(air_layer_decorator)
-% multi_layer.addLayer(substrate_layer)
-% 
-% # build and run experiment
-% simulation = Simulation()
-% simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-% simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
-% simulation.setSample(multi_layer)
-% simulation.runSimulation()
-% \end{minted}
 
-%\section{Example 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example 2: working with sample parameters} \SecLabel{WorkingWithSampleParameters}
 
-%\ldots forthcoming
+This section gives additional details about the manipulation of sample parameters
+during run time; that is after the sample has already been constructed. 
+For a single simulation this is normally not necessary. However it might be useful
+during interactive work when the user tries to find optimal sample parameters by
+running a series of simulations.
+A similar task also arises when the theoretical model, composed of the
+description of the sample and of the simulation, is used for fitting real data.
+In this case, the fitting kernel requires a list of the existing sample parameters
+and a mechanism for changing the values of these parameters in order to find 
+their optima.
+
+In \BornAgain\ this is done using the so-called sample parameter pool
+mechanism. We are going to briefly explain this approach using the example
+of \SecRef{Example1Python}.
+
+In \BornAgain\ a sample is described by a hierarchical tree of objects.
+For the multilayer created in the previous section this tree can be graphically
+represented as shown in Fig.~\ref{fig:sample_tree}. Similar trees can
+be printed in a \Python\
+session by running \Code{multi\_layer.printSampleTree()}
+
+\begin{figure}[p!]
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {MultiLayer}
+    child { node {Layer \#0}
+		child { node {ParticleDecoration } 
+			child { node {Particle Info 0} 
+				child {node {Particle }  
+					child { node {FormFactorCylinder} 
+						child { node [optional] { height:5.0} }					
+						child { node [optional] { radius:5.0} }					
+					}				
+				}
+    			child [missing] {}		
+    			child [missing] {}		
+			    child [missing] {}		
+				child {node [optional] { abundance:0.5} }			
+				child {node [optional] { depth:0.0} }			
+			}
+    		child [missing] {}		
+    		child [missing] {}		
+			child [missing] {}		
+    		child [missing] {}		
+    		child [missing] {}		
+			child [missing] {}		
+			child { node {Particle Info 1} 
+				child {node {Particle }  
+					child { node {FormFactorPrism3} 
+						child { node [optional] { half\_side:5.0} }					
+						child { node [optional] { height:5.0} }					
+					}				
+				}
+    			child [missing] {}		
+    			child [missing] {}		
+			    child [missing] {}		
+				child {node [optional] { abundance:0.5} }			
+				child {node [optional] { depth:0.0} }						
+			}					
+		}
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+	    child [missing] {}		
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+		child [missing] {}		
+   		child [missing] {}		
+	    child [missing] {}		
+	    child [missing] {}		
+		child {node [optional] { thickness:0.0} }				
+    }
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+	child { node {Layer interface \#0} 
+    	child {node { roughness} 
+    		child {node [optional] { corrlength:0.0} }				    	
+    		child {node [optional] { hurst:0.0} }				    	
+    		child {node [optional] { sigma:0.0} }				    	
+    	}					
+	}
+   	child [missing] {}		
+	child [missing] {}		
+	child [missing] {}		
+    child { node {Layer \#1}
+    	child {node [optional] { thickness:0.0} }				
+    }
+	child [missing] {}		
+    child { node [optional] {CrossCorrLength:0.0} };
+    
+\end{tikzpicture}
+\caption{Tree representation of the sample structure.}
+\label{fig:sample_tree}
+\end{figure}
+
+
+The top \Code{MultiLayer} object is composed of three children, namely
+\Code{Layer \#0, Layer Interface \#0} and \Code{Layer \#1}. The
+children objects might themselves also be decomposed into tree-like structures. For example,
+\Code{Layer \#0} contains a \Code{ParticleDecoration} object, which holds information
+related to the two types of particles populating the layer. All numerical values used
+during the sample construction (thickness of layers, size of particles, roughness parameters) are part of the same tree structure. 
+They are marked in the figure with shaded gray boxes.
+
+These values are registered in the sample parameter pool using the name
+composed of the corresponding nodes' names. And they can be accessed/changed
+during run time. For example, the \Code{height} of the cylinders
+populating the first layer can be changed from the
+current value of $5~\rm{nm}$ to $1~\rm{nm}$ by running the command
+
+\begin{lstlisting}[language=shell, style=commandline]
+multi_layer.setParameterValue('/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height', 1.0)
+\end{lstlisting}
+
+
+A list of the names and values of all registered sample's parameters
+can be displayed using the command 
+
+\begin{lstlisting}[language=shell, style=commandline]
+> multi_layer.printParameters()
+The sample contains following parameters ('name':value)
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/radius':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/abundance':0.5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/depth':0
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/half_side':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/height':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/abundance':0.5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/depth':0
+'/MultiLayer/Layer0/thickness':0
+'/MultiLayer/Layer1/thickness':0
+'/MultiLayer/LayerInterface/roughness/corrlength':0
+'/MultiLayer/LayerInterface/roughness/hurst':0
+'/MultiLayer/LayerInterface/roughness/sigma':0
+'/MultiLayer/crossCorrLength':0
+\end{lstlisting}
+
+Wildcards \Code{'*'} can be used to reduce typing or to work on a group
+of parameters. In the example below, the first command will change the
+height of all cylinders in the same way, as in the previous example. The second line will change simultaneously the height of {\it both} cylinders and prisms.
+\begin{lstlisting}[language=shell, style=commandline]
+multi_layer.setParameterValue('*FormFactorCylinder/height', 1.0)
+multi_layer.setParameterValue('*height', 1.0)
+\end{lstlisting}
+
+The complete example described in this section can be found at 
+\begin{lstlisting}[language=shell, style=commandline]
+./Examples/python/fitting/ex001_SampleParametersIntro/SampleParametersIntro.py
+\end{lstlisting}
+
+
+
+
+

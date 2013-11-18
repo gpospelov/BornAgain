@@ -33,6 +33,7 @@
 #include "MessageService.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
+#include "MaterialManager.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -55,9 +56,10 @@ void TestMiscellaneous::execute()
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
-    test_FormFactor1();
+    //test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
+    test_SampleGeometry();
 }
 
 
@@ -271,7 +273,7 @@ void TestMiscellaneous::test_FormFactor()
         int iz = (int)p_data->getIndexOfAxis("qz", it.getIndex());
 
         cvector_t q(x,y,z);
-        cvector_t q0(0,0,0);
+        cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
         Bin1D zero_bin = { 0.0, 0.0 };
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
@@ -384,7 +386,7 @@ void TestMiscellaneous::test_FormFactor1()
         double y = p_data->getValueOfAxis("qy", it.getIndex());
 
         cvector_t q(x,y,z);
-        cvector_t q0(0,0,0);
+        cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
         Bin1D zero_bin = { 0.0, 0.0 };
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
@@ -410,4 +412,37 @@ void TestMiscellaneous::test_FormFactor1()
                 gStyle->SetOptStat(0);
                 vh2_xy->Draw("cont4 z");
                 c1_xy->Print("test.eps");
+}
+
+void TestMiscellaneous::test_SampleGeometry()
+{
+    MultiLayer multi_layer;
+    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    ParticleDecoration particle_decoration
+        (new Particle(particle_material, new FormFactorFullSphere
+                      (5*Units::nanometer)));
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer.addLayer(air_layer);
+
+    Simulation simulation;
+    simulation.setDetectorParameters(100, -2.0*Units::degree, 2.0*Units::degree,
+            100, -2.0*Units::degree, 2.0*Units::degree);
+    simulation.setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
+
+    IsGISAXSTools::drawLogOutputData(*simulation.getIntensityData(),
+            "c1_geom", "Sample geometry", "CONT4 Z", "Sample geometry");
 }

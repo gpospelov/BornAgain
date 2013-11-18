@@ -55,6 +55,9 @@ public:
     //! testing print visitor
     void test_PrintVisitor();
 
+    //! testing specific sample geometries (for debugging purposes)
+    void test_SampleGeometry();
+
 };
 
 #endif // TESTMISCELLANEOUS_H

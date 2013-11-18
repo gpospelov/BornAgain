@@ -65,7 +65,7 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     }
     catch(std::exception& e) {
         // we get here if there is unrecognized options
-        msglog(MSG::ERROR) << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line.";
+        msglog(MSG::ERROR) << "ProgramOptions::parseCommandLine() -> Error. Unrecognized options in command line.";
         std::cerr << "error: " << e.what() << "\n";
         throw; // throwing it further to terminate program
     }

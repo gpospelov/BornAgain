@@ -437,8 +437,8 @@ void TestMiscellaneous::test_SampleGeometry()
     multi_layer.addLayer(air_layer);
 
     Simulation simulation;
-    simulation.setDetectorParameters(100, -0.2*Units::degree, 0.2*Units::degree,
-            100, -0.2*Units::degree, 0.2*Units::degree);
+    simulation.setDetectorParameters(100, -2.0*Units::degree, 2.0*Units::degree,
+            100, -2.0*Units::degree, 2.0*Units::degree);
     simulation.setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
     simulation.setSample(multi_layer);
     simulation.runSimulation();

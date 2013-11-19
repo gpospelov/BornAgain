@@ -30,6 +30,8 @@ GCC_DIAG_ON(missing-field-initializers);
 
 BOOST_PYTHON_MODULE(libBornAgainFit){
 
+    boost::python::docstring_options doc_options(true, true, false);
+
     register_AttFitting_class();
     register_AttLimits_class();
     register_IChiSquaredModule_class();

@@ -73,6 +73,9 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
     fout.write("\n")
     fout.write("BOOST_PYTHON_MODULE(libBornAgainCore){\n")
     fout.write("\n")
+    
+    fout.write("    boost::python::docstring_options doc_options(true, true, false);\n")
+    fout.write("\n")
 
     # copying register lines from automaticaly generated module file to our manually generated
     old_python_module_file = OutputTempDir+"/PythonInterface.main.cpp"

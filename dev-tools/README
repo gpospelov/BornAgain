@@ -5,4 +5,5 @@ profiling       - scripts to run code profiling using valgrind/gperftool
 python-bindings - collection of scripts for automatic generation of libBornAgainCore and libBornAgainFit boost-python bindings
 log             - results of performance tests
 git-utils       - number of lines of code
+user-api        - collection of tools to generate User API description
 

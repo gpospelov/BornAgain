@@ -6,7 +6,7 @@ import ROOT
 from libBornAgainCore import *
 
 # define a formfactor, I recommend a 10--20 nm diameter
-#ff = FormFactorFullSphere(5.0*nanometer)
+#ff = FormFactorFullSphere(10.0*nanometer)
 ff =  FormFactorSphere(10.0*nanometer, 10.0*nanometer)
 
 # number of bins for qx, qy, qz
@@ -37,7 +37,7 @@ stepqx = (qxmax - qxmin)/(nqx-1)
 ROOT.gROOT.SetStyle("Plain")
 ROOT.gStyle.SetOptStat(0);
 ROOT.gStyle.SetOptTitle(0);
-
+t = ROOT.TText()
 # create ROOT histograms 
 hist = ROOT.TH2D("hist","Sphere:H=R",nqy,qymin,qymax, nqz, qzmin, qzmax)
 hist2 = ROOT.TH2D("hist2","Sphere:H=R",nqx,qxmin,qxmax, nqy, qymin, qymax)
@@ -59,14 +59,16 @@ for i in range(nqy):
 
 
 # create a ROOT canvas and put all plots on it
-c = ROOT.TCanvas("Formfactor Sphere","Formfactor Sphere", 800,800)
-ROOT.gStyle.SetPadRightMargin(0.12)
+c = ROOT.TCanvas("Formfactor Sphere","Formfactor Sphere", 1000,800)
+ROOT.gStyle.SetPadRightMargin(0.19)
 
 c.Divide(2,2)
 hist.SetMinimum(1)
 hist2.SetMinimum(1)
 hist.SetContour(50)
 hist2.SetContour(50)
+hist.GetZaxis().SetTitle(" |F|^{2} ")
+hist2.GetZaxis().SetTitle(" |F|^{2} ")
 
 
 c.cd(1)
@@ -77,7 +79,11 @@ hist.GetXaxis().SetTitleOffset(1.1)
 hist.GetYaxis().SetTitle(" q_{y} [nm^{-1}] ")
 hist.GetYaxis().CenterTitle()
 hist.GetYaxis().SetTitleOffset(1.1)
+hist.GetZaxis().SetTitleOffset(1.3)
 hist.Draw("colz")
+t.SetNDC(1)
+t.SetTextSize(8.0e-2)
+t.DrawText(0.1, 0.01, "a")
 
 c.cd(2)
 ROOT.gPad.SetLogz()
@@ -88,15 +94,26 @@ hist2.GetXaxis().SetTitleOffset(1.1)
 hist2.GetYaxis().SetTitle(" q_{y} [nm^{-1}] ")
 hist2.GetYaxis().CenterTitle()
 hist2.GetYaxis().SetTitleOffset(1.1)
+hist2.GetZaxis().SetTitleOffset(1.3)
 hist2.Draw("colz")
+t.DrawText(0.1, 0.004, "b")
 
 c.cd(3)
 ROOT.gPad.SetLogy()
-hist.ProjectionX("py", fbin, lbin, 'o').Draw()
+py = hist.ProjectionX("py", fbin, lbin, 'o')
+py.GetYaxis().SetTitle(" |F|^{2} ")
+py.GetYaxis().SetTitleOffset(1.3)
+py.Draw()
+
+t.DrawText(0.1, 0.01, "c")
 
 c.cd(4)
 ROOT.gPad.SetLogy()
-hist2.ProjectionX("px", fbin, lbin, 'o').Draw()
+px = hist2.ProjectionX("px", fbin, lbin, 'o')
+px.GetYaxis().SetTitle(" |F|^{2} ")
+px.GetYaxis().SetTitleOffset(1.3)
+px.Draw()
+t.DrawText(0.1, 0.004, "d")
 
 c.Update()
 ROOT.gApplication.Run()

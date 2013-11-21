@@ -43,14 +43,22 @@ MesoCrystal::~MesoCrystal()
 
 MesoCrystal* MesoCrystal::clone() const
 {
-    return new MesoCrystal(mp_particle_structure->clone(),
+    MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->clone(),
             mp_meso_form_factor->clone());
+    if (mP_transform.get()) {
+        p_result->setTransform(mP_transform);
+    }
+    return p_result;
 }
 
 MesoCrystal* MesoCrystal::cloneInvertB() const
 {
-    return new MesoCrystal(mp_particle_structure->cloneInvertB(),
+    MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->cloneInvertB(),
             mp_meso_form_factor->clone());
+    if (mP_transform.get()) {
+        p_result->setTransform(mP_transform);
+    }
+    return p_result;
 }
 
 void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
@@ -62,9 +70,18 @@ void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
 IFormFactor* MesoCrystal::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
-    return mp_particle_structure->createTotalFormFactor(
+    IFormFactor *p_result;
+    IFormFactor *p_crystal_ff = mp_particle_structure->createTotalFormFactor(
             *mp_meso_form_factor, mp_ambient_material,
             wavevector_scattering_factor);
+    if(mP_transform.get()) {
+        p_result = new FormFactorDecoratorTransformation(
+                p_crystal_ff, mP_transform);
+    }
+    else {
+        p_result = p_crystal_ff;
+    }
+    return p_result;
 }
 
 void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)

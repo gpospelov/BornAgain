@@ -27,8 +27,8 @@ qxmax = 2.0
 
 # first and last bin for the projection slice
 # if number of bins=400, then fbin should be set to 200 and lbin to 201
-fbin=200
-lbin=201
+#fbin=50
+#lbin=51
 
 # step for qx, qy, qz
 stepqy = (qymax - qymin)/(nqy-1)
@@ -38,12 +38,22 @@ stepqx = (qxmax - qxmin)/(nqx-1)
 # define style of the diagram
 ROOT.gROOT.SetStyle("Plain")
 ROOT.gStyle.SetOptStat(0);
-ROOT.gStyle.SetOptTitle(0);
-t = ROOT.TText()
+ROOT.gStyle.SetOptTitle(1);
+ROOT.gStyle.SetLabelSize(0.05, "xyz");
+ROOT.gStyle.SetTitleSize(0.05, "xyz");
+ROOT.gStyle.SetTitleFontSize(0.1);
+ROOT.gStyle.SetPadRightMargin(0.19)
+ROOT.gStyle.SetPadLeftMargin(0.15)
+ROOT.gStyle.SetPadBottomMargin(0.15)
+ROOT.gStyle.SetTitleX(0.25);
+#ROOT.gStyle.SetTitleW(0.5);
+
+
+#t = ROOT.TText()
 # create ROOT histograms 
-h05 = ROOT.TH2D("h05nm","Sphere:H=5nm",nqy,qymin,qymax, nqz, qzmin, qzmax)
-h10 = ROOT.TH2D("h10nm","Sphere:H=10nm",nqy,qymin,qymax, nqz, qzmin, qzmax)
-h15 = ROOT.TH2D("h15nm","Sphere:H=15nm",nqy,qymin,qymax, nqz, qzmin, qzmax)
+h05 = ROOT.TH2D("h05nm","H = 5 nm",nqy,qymin,qymax, nqz, qzmin, qzmax)
+h10 = ROOT.TH2D("h10nm","H = 10 nm",nqy,qymin,qymax, nqz, qzmin, qzmax)
+h15 = ROOT.TH2D("h15nm","H = 15 nm",nqy,qymin,qymax, nqz, qzmin, qzmax)
 
 # and fill them with the values
 for i in range(nqy):
@@ -51,17 +61,16 @@ for i in range(nqy):
 	for j in range(nqz):
 		qz = qzmin + j*stepqz
 		k = cvector_t(0,qy,qz)
-		h05.Fill(qz,qy,abs(ff05.evaluate_for_q(k))**2 + 1)
-		h10.Fill(qz,qy,abs(ff10.evaluate_for_q(k))**2 + 1)
-		h15.Fill(qz,qy,abs(ff15.evaluate_for_q(k))**2 + 1)
+		h05.Fill(qy,qz,abs(ff05.evaluate_for_q(k))**2 + 1)
+		h10.Fill(qy,qz,abs(ff10.evaluate_for_q(k))**2 + 1)
+		h15.Fill(qy,qz,abs(ff15.evaluate_for_q(k))**2 + 1)
 
 
 
 # create a ROOT canvas and put all plots on it
-c = ROOT.TCanvas("FormfactorSphere","Formfactor Sphere", 1000,800)
-ROOT.gStyle.SetPadRightMargin(0.19)
+c = ROOT.TCanvas("FormfactorSphere","Formfactor Sphere", 1200,400)
 
-c.Divide(3,2)
+c.Divide(3,1)
 h05.SetMinimum(1)
 h10.SetMinimum(1)
 h15.SetMinimum(1)
@@ -75,70 +84,70 @@ h15.GetZaxis().SetTitle(" |F|^{2} ")
 
 c.cd(1)
 ROOT.gPad.SetLogz()
-h05.GetXaxis().SetTitle(" q_{z} [nm^{-1}] ")
+h05.GetXaxis().SetTitle(" q_{y} [nm^{-1}] ")
 h05.GetXaxis().CenterTitle()
 h05.GetXaxis().SetTitleOffset(1.1)
-h05.GetYaxis().SetTitle(" q_{y} [nm^{-1}] ")
+h05.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h05.GetYaxis().CenterTitle()
 h05.GetYaxis().SetTitleOffset(1.1)
 h05.GetZaxis().SetTitleOffset(1.3)
 h05.Draw("colz")
-t.SetNDC(1)
-t.SetTextSize(8.0e-2)
-t.DrawText(0.1, 0.01, "a")
+#t.SetNDC(1)
+#t.SetTextSize(8.0e-2)
+#t.DrawText(0.1, 0.01, "H = 5 nm")
 
 c.cd(2)
 ROOT.gPad.SetLogz()
-h10.GetXaxis().SetTitle(" q_{z} [nm^{-1}] ")
+h10.GetXaxis().SetTitle(" q_{y} [nm^{-1}] ")
 h10.GetXaxis().CenterTitle()
 h10.GetXaxis().SetTitleOffset(1.1)
-h10.GetYaxis().SetTitle(" q_{y} [nm^{-1}] ")
+h10.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h10.GetYaxis().CenterTitle()
 h10.GetYaxis().SetTitleOffset(1.1)
 h10.GetZaxis().SetTitleOffset(1.3)
 h10.Draw("colz")
-t.SetNDC(1)
-t.SetTextSize(8.0e-2)
-t.DrawText(0.1, 0.01, "b")
+#t.SetNDC(1)
+#t.SetTextSize(8.0e-2)
+#t.DrawText(0.1, 0.01, "H = 10 nm")
 
 c.cd(3)
 ROOT.gPad.SetLogz()
-h15.GetXaxis().SetTitle(" q_{z} [nm^{-1}] ")
+h15.GetXaxis().SetTitle(" q_{y} [nm^{-1}] ")
 h15.GetXaxis().CenterTitle()
 h15.GetXaxis().SetTitleOffset(1.1)
-h15.GetYaxis().SetTitle(" q_{y} [nm^{-1}] ")
+h15.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h15.GetYaxis().CenterTitle()
 h15.GetYaxis().SetTitleOffset(1.1)
 h15.GetZaxis().SetTitleOffset(1.3)
 h15.Draw("colz")
-t.SetNDC(1)
-t.SetTextSize(8.0e-2)
-t.DrawText(0.1, 0.01, "c")
+#t.SetNDC(1)
+#t.SetTextSize(8.0e-2)
+#t.DrawText(0.1, 0.01, "H = 15 nm")
 
+# draw projections
+#c.cd(4)
+#ROOT.gPad.SetLogy()
+#p05 = h05.ProjectionX("p05", fbin, lbin, 'o')
+#p05.GetYaxis().SetTitle(" |F|^{2} ")
+#p05.GetYaxis().SetTitleOffset(1.3)
+#p05.Draw()
+#t.DrawText(0.1, 0.01, "d")
 
-c.cd(4)
-ROOT.gPad.SetLogy()
-p05 = h05.ProjectionX("p05", fbin, lbin, 'o')
-p05.GetYaxis().SetTitle(" |F|^{2} ")
-p05.GetYaxis().SetTitleOffset(1.3)
-p05.Draw()
-t.DrawText(0.1, 0.01, "d")
+#c.cd(5)
+#ROOT.gPad.SetLogy()
+#p10 = h10.ProjectionX("p10", fbin, lbin, 'o')
+#p10.GetYaxis().SetTitle(" |F|^{2} ")
+#p10.GetYaxis().SetTitleOffset(1.3)
+#p10.Draw()
+#t.DrawText(0.1, 0.01, "e")
 
-c.cd(5)
-ROOT.gPad.SetLogy()
-p10 = h10.ProjectionX("p10", fbin, lbin, 'o')
-p10.GetYaxis().SetTitle(" |F|^{2} ")
-p10.GetYaxis().SetTitleOffset(1.3)
-p10.Draw()
-t.DrawText(0.1, 0.01, "e")
-
-c.cd(6)
-ROOT.gPad.SetLogy()
-p15 = h15.ProjectionX("p15", fbin, lbin, 'o')
-p15.GetYaxis().SetTitle(" |F|^{2} ")
-p15.GetYaxis().SetTitleOffset(1.3)
-p15.Draw()
-t.DrawText(0.1, 0.01, "f")
+#c.cd(6)
+#ROOT.gPad.SetLogy()
+#p15 = h15.ProjectionX("p15", fbin, lbin, 'o')
+#p15.GetYaxis().SetTitle(" |F|^{2} ")
+#p15.GetYaxis().SetTitleOffset(1.3)
+#p15.Draw()
+#t.DrawText(0.1, 0.01, "f")
 
 
 

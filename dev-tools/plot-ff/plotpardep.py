@@ -39,12 +39,12 @@ stepqx = (qxmax - qxmin)/(nqx-1)
 ROOT.gROOT.SetStyle("Plain")
 ROOT.gStyle.SetOptStat(0);
 ROOT.gStyle.SetOptTitle(1);
-ROOT.gStyle.SetLabelSize(0.05, "xyz");
-ROOT.gStyle.SetTitleSize(0.05, "xyz");
+ROOT.gStyle.SetLabelSize(0.06, "xyz");
+ROOT.gStyle.SetTitleSize(0.06, "xyz");
 ROOT.gStyle.SetTitleFontSize(0.1);
 ROOT.gStyle.SetPadRightMargin(0.19)
-ROOT.gStyle.SetPadLeftMargin(0.15)
-ROOT.gStyle.SetPadBottomMargin(0.15)
+ROOT.gStyle.SetPadLeftMargin(0.18)
+ROOT.gStyle.SetPadBottomMargin(0.18)
 ROOT.gStyle.SetTitleX(0.25);
 #ROOT.gStyle.SetTitleW(0.5);
 
@@ -77,9 +77,9 @@ h15.SetMinimum(1)
 h05.SetContour(50)
 h10.SetContour(50)
 h15.SetContour(50)
-h05.GetZaxis().SetTitle(" |F|^{2} ")
-h10.GetZaxis().SetTitle(" |F|^{2} ")
-h15.GetZaxis().SetTitle(" |F|^{2} ")
+#h05.GetZaxis().SetTitle(" |F|^{2} ")
+#h10.GetZaxis().SetTitle(" |F|^{2} ")
+#h15.GetZaxis().SetTitle(" |F|^{2} ")
 
 
 c.cd(1)
@@ -89,7 +89,7 @@ h05.GetXaxis().CenterTitle()
 h05.GetXaxis().SetTitleOffset(1.1)
 h05.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h05.GetYaxis().CenterTitle()
-h05.GetYaxis().SetTitleOffset(1.1)
+h05.GetYaxis().SetTitleOffset(1.4)
 h05.GetZaxis().SetTitleOffset(1.3)
 h05.Draw("colz")
 #t.SetNDC(1)
@@ -103,7 +103,7 @@ h10.GetXaxis().CenterTitle()
 h10.GetXaxis().SetTitleOffset(1.1)
 h10.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h10.GetYaxis().CenterTitle()
-h10.GetYaxis().SetTitleOffset(1.1)
+h10.GetYaxis().SetTitleOffset(1.4)
 h10.GetZaxis().SetTitleOffset(1.3)
 h10.Draw("colz")
 #t.SetNDC(1)
@@ -117,7 +117,7 @@ h15.GetXaxis().CenterTitle()
 h15.GetXaxis().SetTitleOffset(1.1)
 h15.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h15.GetYaxis().CenterTitle()
-h15.GetYaxis().SetTitleOffset(1.1)
+h15.GetYaxis().SetTitleOffset(1.4)
 h15.GetZaxis().SetTitleOffset(1.3)
 h15.Draw("colz")
 #t.SetNDC(1)

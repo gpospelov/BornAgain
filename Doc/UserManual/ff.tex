@@ -25,12 +25,26 @@
 \section{Formfactor Cut-off Sphere}\SecLabel{Sphere}
 \subsection{Real-space geometry}
 
-A sphere, with a planar cut-off. 
+A sphere, with a planar cut-off.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{Figures/sphere}
+%\caption{Sketch of the formfactor sphere. Left: front view, right: top view.}
+\end{center}
+\label{sphere}
+\end{figure} 
 \par
 \paragraph{Parameters:}
 \begin{itemize}
 \item radius $R$
 \item heigth $H$
+\end{itemize}
+\paragraph{Restrictions:}
+\begin{itemize}
+\item $H\leq 2R$
+\end{itemize}
+\paragraph{Properties:}
+\begin{itemize}
 \item volume $V=\pi R^3 \left[\dfrac{2}{3} + \dfrac{H-R}{R} - \dfrac{1}{3}\left(\dfrac{H-R}{R}\right)^3\right]$
 \item particle surface seen from above $S = \left\{\begin{array}{ll} \pi R^2, & H > R \\
          \pi\left(2RH-H^2\right), & H < R \end{array}\right. .$
@@ -38,21 +52,6 @@ A sphere, with a planar cut-off.
          \sqrt{2RH-H^2}, & H < R \end{array}\right. .$
 \end{itemize}
 
-\paragraph{Restrictions}
-\begin{itemize}
-\item $H\leq 2R$
-\end{itemize}
-
-
-\par
-%\paragraph{Sketch}
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\columnwidth]{Figures/sphere}
-\caption{Sketch of the formfactor sphere. Left: front view, right: top view.}
-\end{center}
-\label{sphere}
-\end{figure}
 
 \subsection{Computing the formfactor}
 The formfactor can be computed analytically upto a 1-dimensional quadrature:
@@ -67,35 +66,37 @@ R_z &=& \sqrt{R^2-z^2}
 \end{eqnarray}
 
 \subsection{Exemplary formfactor}
-Computed results for $R=10$~nm and $H=13$~nm.
+$|F|^2$, computed for $R=10$~nm and $H=13$~nm.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{Figures/figffsphere}
 \end{center}
-\caption{Computed results for $R=10$~nm and $H=13$~nm. {\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
+%\caption{Computed results for $R=10$~nm and $H=13$~nm. {\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
 \end{figure}
 
 \par
 
 \subsection{Parameter dependence}
-Computed results for $R=10$~nm and $H=5$, 10 and 15~nm.
+$|F|^2$, computed for $R=10$~nm and $H=5$, 10 and 15~nm.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{Figures/ffspherepardep}
 \end{center}
-\caption{Computed results for $R=10$~nm and different values of $H$.}
+%\caption{Computed results for $R=10$~nm and different values of $H$.}
 \end{figure}
 
 
 \subsection{Related particle shapes}
-\begin{itemize}
-\item Full sphere, \SecRef{FullSphere}
-\item Ellipsoid
-\item Full spheroid
-\item Hemi-ellipsoid
-\end{itemize} 
+Full sphere~(\SecRef{FullSphere}), Ellipsoid, Full spheroid, Hemi-ellipsoid.
+%\begin{itemize}
+%\item Full sphere, \SecRef{FullSphere}
+%\item Ellipsoid
+%\item Full spheroid
+%\item Hemi-ellipsoid
+%\end{itemize} 
 
 \subsection{References}
+Equation~(\ref{eq:ffsphere}) agrees with the \lq\lq sphere\rq\rq ~formfactor of \IsGISAXS~\cite{Laz02}.
 
 \newpage{\cleardoublepage}
 

@@ -9,10 +9,10 @@
 \item Tethraedron
 \item Prism6
 \item Cone6
-\item Sphere, \SecRef{Sphere} 
+\item Cut-off sphere, \SecRef{Sphere} 
 \item Cybooctaedron
 \item Facetted sphere  
-\item Full Sphere, \SecRef{FullSphere} 
+\item Full sphere, \SecRef{FullSphere} 
 \item Full spheroid 
 \item Box
 \item Anisotropic pyramid
@@ -22,45 +22,81 @@
 \end{itemize}
 
 \newpage
-\section{Formfactor Sphere}\SecLabel{Sphere}
-%\begin{lstlisting}[language=python, style=eclipseboxed,name=ffsphere,nolol]
-%from libBornAgainCore import * 
-%sphere_ff = FormFactorSphere(5*nanometer, 5*nanometer)
-%\end{lstlisting}
-%\par
-%~
-%\par
-Formfactor sphere is represented as a cut-off sphere with height $H$ and radius $R$. 
-\begin{figure}[ht]
+\section{Formfactor Cut-off Sphere}\SecLabel{Sphere}
+\subsection{Real-space geometry}
+
+A sphere, with a planar cut-off. 
+\par
+\paragraph{Parameters:}
+\begin{itemize}
+\item radius $R$
+\item heigth $H$
+\item volume $V=\pi R^3 \left[\dfrac{2}{3} + \dfrac{H-R}{R} - \dfrac{1}{3}\left(\dfrac{H-R}{R}\right)^3\right]$
+\item particle surface seen from above $S = \left\{\begin{array}{ll} \pi R^2, & H > R \\
+         \pi\left(2RH-H^2\right), & H < R \end{array}\right. .$
+\item gyration radius along $z$ axis $R_g = \left\{\begin{array}{ll}  R, & H > R \\
+         \sqrt{2RH-H^2}, & H < R \end{array}\right. .$
+\end{itemize}
+
+\paragraph{Restrictions}
+\begin{itemize}
+\item $H\leq 2R$
+\end{itemize}
+
+
+\par
+\paragraph{Sketch}
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.6\columnwidth]{Figures/sphere}
-\caption{Sketch of the formfactor sphere. Left: front view, right: top view.}
+%\caption{Sketch of the formfactor sphere. Left: front view, right: top view.}
 \end{center}
 \label{sphere}
 \end{figure}
 
-\begin{eqnarray}
-F(\mathbf q, R, H) &=& \exp\left[iq_z\left(H-R\right)\right]\int\limits_{R-H}^{R}{2\pi R_z^2\frac{J_1(q_{||}R_z)}{q_{||}R_z}\exp\left[iq_zz\right]dz} \\
-q_{||} &=& \sqrt{q_x^2+q_y^2} \\
-R_z &=& \sqrt{R^2-z^2} \\
-V &=& \pi R^3 \left[\frac{2}{3} + \frac{H-R}{R} - \frac{1}{3}\left(\frac{H-R}{R}\right)^3\right] 
+\subsection{Computing the formfactor}
+The formfactor can be computed analytically upto a 1-dimensional quadrature:
+\begin{equation}
+F(\mathbf q, R, H) = \exp\left[iq_z\left(H-R\right)\right]\int\limits_{R-H}^{R}{2\pi R_z^2\frac{J_1(q_{||}R_z)}{q_{||}R_z}\exp\left[iq_zz\right]dz} 
 \label{eq:ffsphere}
+\end{equation}
+with abbreviations
+\begin{eqnarray}
+q_{||} &=& \sqrt{q_x^2+q_y^2} \\
+R_z &=& \sqrt{R^2-z^2} 
 \end{eqnarray}
 
-
+\subsection{Exemplary formfactor}
+Computed results for $R=10$~nm and $H=13$~nm.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{Figures/figffsphere}
 \end{center}
-\caption{{\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
+\caption{Computed results for $R=10$~nm and $H=13$~nm. {\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
 \end{figure}
 
 \par
 
+\subsection{Parameter dependence}
+Computed results for $R=10$~nm and $H=5$, 10 and 15~nm.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/ffspherepardep}
+\end{center}
+\caption{Computed results for $R=10$~nm and {\bf a, d:} $H=5$~nm {\bf b, e:} $H=10$~nm (half-sphere), {\bf c, f:} $H=15$~nm.}
+\end{figure}
 
-%\null\newpage
 
-%\newpage{\pagestyle{empty}\cleardoublepage}
+\subsection{Related particle shapes}
+\begin{itemize}
+\item Full sphere, \SecRef{FullSphere}
+\item Ellipsoid
+\item Full spheroid
+\item Hemi-ellipsoid
+\end{itemize} 
+
+\subsection{References}
+
 \newpage{\cleardoublepage}
 
 

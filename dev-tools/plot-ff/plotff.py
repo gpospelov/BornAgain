@@ -7,7 +7,7 @@ from libBornAgainCore import *
 
 # define a formfactor, I recommend a 10--20 nm diameter
 #ff = FormFactorFullSphere(10.0*nanometer)
-ff =  FormFactorSphere(10.0*nanometer, 10.0*nanometer)
+ff =  FormFactorSphere(10.0*nanometer, 13.0*nanometer)
 
 # number of bins for qx, qy, qz
 # I recommend to put at least 400 for a better picture quality

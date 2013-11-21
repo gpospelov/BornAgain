@@ -20,11 +20,14 @@
 #include "Lattice2DIFParameters.h"
 #include "FTDistributions.h"
 
-//! ?
+//! Interference function of 2D lattice
 
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
+
+    //! @brief contructor
+    //! @param lattice_params Lattice parameters
     InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
     virtual ~InterferenceFunction2DLattice();
 

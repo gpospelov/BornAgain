@@ -49,6 +49,9 @@ BA_CORE_API_ double GenerateStandardNormalRandom();
 
 BA_CORE_API_ double GenerateUniformRandom();
 
+//! Bessel function of the first kind and order 0
+BA_CORE_API_ double Bessel_J0(double value);
+
 //! Bessel function of the first kind and order 1
 BA_CORE_API_ double Bessel_J1(double value);
 
@@ -136,6 +139,11 @@ inline double MathFunctions::GenerateUniformRandom()
 {
     int random_int = std::rand();
     return (double)random_int / RAND_MAX;
+}
+
+inline double MathFunctions::Bessel_J0(double value)
+{
+    return gsl_sf_bessel_J0(value);
 }
 
 inline double MathFunctions::Bessel_J1(double value)

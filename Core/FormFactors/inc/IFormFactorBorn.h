@@ -62,9 +62,6 @@ protected:
     bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
 private:
-    //! approximate intensity that does not contain rapid oscillations
-    double bigRadialIntegrand(double qR, void *params) const;
-
     //! calculates the integrated intensity along the z-direction
     double bigZPartIntegral(double qH2) const;
 };

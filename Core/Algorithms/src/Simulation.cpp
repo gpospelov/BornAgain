@@ -106,6 +106,9 @@ Simulation *Simulation::clone() const
 
 void Simulation::prepareSimulation()
 {
+    if(!m_instrument.getDetectorDimension()) {
+        throw LogicErrorException("Simulation::prepareSimulation() -> Error. The detector was not configured.");
+    }
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();

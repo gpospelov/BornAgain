@@ -161,7 +161,7 @@ def runTest():
     #running simulation
     simulation.runSimulation()
     simulation.normalize()
-    result = simulation.getIntensityData().getArray()
+    result = simulation.getIntensityData()
 
     diff = GetDifference(result, reference_data)
     print diff
@@ -177,7 +177,7 @@ def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
     filename = path+'../../ReferenceData/BornAgain/mesocrystal1b_reference.txt.gz'
-    return OutputDataIOFactory.getOutputData(filename)
+    return OutputDataIOFactory.readIntensityData(filename)
     return reference
 
 # --------------------------------------------------------------

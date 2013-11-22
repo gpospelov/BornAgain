@@ -59,6 +59,9 @@ public:
     //! Sets the sample builder
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
+    //! return sample builder
+    const ISampleBuilder *getSampleBuilder() const { return mp_sample_builder; }
+
     //! Returns detector intensity map for all scan parameters
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
 

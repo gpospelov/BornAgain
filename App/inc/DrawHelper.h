@@ -20,7 +20,9 @@
 #include <vector>
 #include <string>
 
-class TCanvas;
+#include "TCanvas.h"
+#include "TH2D.h"
+
 class MultiLayer;
 class TPad;
 

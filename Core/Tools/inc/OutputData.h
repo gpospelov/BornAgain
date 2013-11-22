@@ -39,7 +39,7 @@ class OutputData
 {
 public:
     OutputData();
-    ~OutputData() { clear(); }
+    ~OutputData();
     OutputData* clone() const;
 
     void copyFrom(const OutputData<T>& x);
@@ -237,6 +237,11 @@ OutputData<T>::OutputData()
 , mp_mask(0)
 {
     allocate();
+}
+
+template <class T> OutputData<T>::~OutputData() {
+    clear();
+    delete mp_ll_data;
 }
 
 template <class T>
@@ -565,10 +570,9 @@ template <class T>
 void OutputData<T>::clear()
 {
     m_value_axes.clear();
-    delete mp_ll_data;
-    mp_ll_data = 0;
     delete mp_mask;
     mp_mask = 0;
+    allocate();
 }
 
 template <class T>

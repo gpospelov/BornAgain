@@ -37,7 +37,7 @@ void TestMesoCrystal1::execute()
     // setting detector axis as in reference data
     simulation->setDetectorParameters(*reference);
 
-    simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
+    //simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
 
 
     simulation->runSimulation();

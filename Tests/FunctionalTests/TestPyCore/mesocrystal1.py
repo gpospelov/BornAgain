@@ -166,7 +166,7 @@ def runTest():
     diff = GetDifference(result, reference_data)
     print diff
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
     return "MesoCrystal1", "Mesocrystal simulation", status
 
 
@@ -176,9 +176,10 @@ def runTest():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    filename = path+'../../ReferenceData/BornAgain/mesocrystal1b_reference.txt.gz'
+    filename = path+'../../ReferenceData/BornAgain/mesocrystal1_reference_v2_nphi2.txt.gz'
     return OutputDataIOFactory.readIntensityData(filename)
     return reference
+
 
 # --------------------------------------------------------------
 # calculate numeric difference between result and reference data
@@ -203,7 +204,7 @@ def createSimulation():
     simulation = Simulation()
     simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
     simulation.setBeamIntensity(5.0090e+12)
-    simulation.setDetectorResolutionFunction(ResolutionFunction2DSimple(0.0002, 0.0002))
+    #simulation.setDetectorResolutionFunction(ResolutionFunction2DSimple(0.0002, 0.0002))
     return simulation
 
 

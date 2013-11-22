@@ -173,6 +173,13 @@ TEST_F(OutputDataTest, SetEllipticMask)
     }
 }
 
+TEST_F(OutputDataTest, SetCleared)
+{
+    db_data_3d.clear();
+    db_data_3d.setAllTo(1.0);
+    EXPECT_EQ( db_data_3d[0], 1.0);
+}
+
 
 
 #endif // OUTPUTDATATEST_H

@@ -15,6 +15,9 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
+
+#include <boost/scoped_ptr.hpp>
+
 #include "Utils.h"
 #include <iostream>
 
@@ -63,17 +66,15 @@ std::string IParameterized::addParametersToExternalPool(
 //! set parameter value, return true in the case of success
 bool IParameterized::setParameterValue(const std::string &name, double value)
 {
-    ParameterPool *p_pool = createParameterTree();
-    return p_pool->setParameterValue(name, value);
-    delete p_pool;
+    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
+    return P_pool->setParameterValue(name, value);
 }
 
 //! Sets parameter value, return number of changed parameters
 int IParameterized::setMatchedParametersValue(const std::string& wildcards, double value)
 {
-    ParameterPool *p_pool = createParameterTree();
-    return p_pool->setMatchedParametersValue(wildcards, value);
-    delete p_pool;
+    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
+    return P_pool->setMatchedParametersValue(wildcards, value);
 }
 
 

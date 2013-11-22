@@ -47,6 +47,9 @@ FormFactorCrystal* FormFactorCrystal::clone() const
             *mp_meso_form_factor, mp_ambient_material,
             m_wavevector_scattering_factor);
     result->setName(getName());
+    if (mP_transform.get()) {
+        result->setTransformation(mP_transform);
+    }
     return result;
 }
 
@@ -67,7 +70,16 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
     // construct a real reciprocal vector
-    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
+    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
+    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
+    Bin1DCVector q_bin;
+    if (mP_inverse_transform.get()) {
+        q_bin = Bin1DCVector(mP_inverse_transform->transformed(q_bin_lower),
+                mP_inverse_transform->transformed(q_bin_upper));
+    } else {
+        q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
+    }
+
     cvector_t q = q_bin.getMidPoint();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
@@ -134,6 +146,13 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
 double FormFactorCrystal::getVolume() const
 {
     return mp_meso_form_factor->getVolume();
+}
+
+void FormFactorCrystal::setTransformation(
+        const Geometry::PTransform3D& P_transform)
+{
+    mP_transform = P_transform;
+    mP_inverse_transform = mP_transform->inverse();
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

@@ -70,18 +70,9 @@ void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
 IFormFactor* MesoCrystal::createFormFactor(
         complex_t wavevector_scattering_factor) const
 {
-    IFormFactor *p_result;
-    IFormFactor *p_crystal_ff = mp_particle_structure->createTotalFormFactor(
+    return mp_particle_structure->createTotalFormFactor(
             *mp_meso_form_factor, mp_ambient_material,
-            wavevector_scattering_factor);
-    if(mP_transform.get()) {
-        p_result = new FormFactorDecoratorTransformation(
-                p_crystal_ff, mP_transform);
-    }
-    else {
-        p_result = p_crystal_ff;
-    }
-    return p_result;
+            wavevector_scattering_factor, mP_transform);
 }
 
 void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)

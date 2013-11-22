@@ -59,11 +59,13 @@ public:
     virtual IFormFactor *createTotalFormFactor(
            const IFormFactor& meso_crystal_form_factor,
            const IMaterial *p_ambient_material,
-           complex_t wavevector_scattering_factor) const
+           complex_t wavevector_scattering_factor,
+           const Geometry::PTransform3D& transform) const
     {
         (void)meso_crystal_form_factor;
         (void)p_ambient_material;
         (void)wavevector_scattering_factor;
+        (void)transform;
         throw NotImplementedException(
                 "IClusteredParticles::createTotalFormFactor() "
                 "-> NotImplementedException");

@@ -5,6 +5,7 @@
 #include "IsGISAXS04Builder.h"
 #include "IsGISAXS06Builder.h"
 #include "IsGISAXS09Builder.h"
+#include "MesoCrystal01Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -64,6 +65,10 @@ SampleBuilderFactory::SampleBuilderFactory()
         IFactoryCreateFunction<IsGISAXS09RotatedBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
+    registerItem(
+        "mesocrystal01",
+        IFactoryCreateFunction<MesoCrystal01Builder, ISampleBuilder>,
+        "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
 }
 

@@ -86,7 +86,7 @@ Simulation::Simulation(
 }
 
 Simulation::Simulation(
-    const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
+    ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
@@ -106,6 +106,9 @@ Simulation *Simulation::clone() const
 
 void Simulation::prepareSimulation()
 {
+    if(!m_instrument.getDetectorDimension()) {
+        throw LogicErrorException("Simulation::prepareSimulation() -> Error. The detector was not configured.");
+    }
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
@@ -249,7 +252,7 @@ void Simulation::setSample(const ISample& sample)
     mp_sample = sample.clone();
 }
 
-void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
+void Simulation::setSampleBuilder(ISampleBuilder *p_sample_builder)
 {
     if( !p_sample_builder )
         throw NullPointerException(

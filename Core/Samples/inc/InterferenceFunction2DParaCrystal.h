@@ -20,10 +20,18 @@
 #include "FTDistributions.h"
 #include <iostream>
 
+//! Interference function of 2D paracrystal.
 
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
+
+    //! @brief constructor
+    //! @param length_1 Lattice length 1.
+    //! @param length_2 Lattice length 2.
+    //! @param alpha_lattice Angle between lattice basis vectors.
+    //! @param xi Angle between first basis vector and the x-axis of incoming beam.
+    //! @param m_corr_length correlation length of paracrystal
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
 
@@ -36,6 +44,8 @@ public:
     static InterferenceFunction2DParaCrystal *createHexagonal(double peak_distance, double corr_length=0.0,
             double domain_size_1=0.0, double domain_size_2=0.0);
 
+    //! @brief Sets sizes of coherence domain
+    //! @param size_1
     void setDomainSizes(double size_1, double size_2) {
         m_domain_sizes[0] = size_1;
         m_domain_sizes[1] = size_2;
@@ -55,14 +65,14 @@ protected:
     virtual void init_parameters();
 
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double& q_pa_1, double& q_pa_2) const;
-    double m_lattice_lengths[2];
+    double m_lattice_lengths[2]; //!< the size of unit cell
     double m_alpha_lattice; //!< Angle between lattice basis vectors
     double m_xi; //!< Orientation of the lattice wrt beam axis x
     bool m_integrate_xi; //!< Integrate over the orientation xi
     IFTDistribution2D *m_pdfs[2];
     double m_corr_length;
     bool m_use_corr_length;
-    double m_domain_sizes[2];
+    double m_domain_sizes[2]; //!< Coherence domain sizes
 private:
 
     //! Returns interference function for fixed rotation xi

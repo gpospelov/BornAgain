@@ -1,27 +1,25 @@
-#ifndef MESOSAMPLEBUILDER_H
-#define MESOSAMPLEBUILDER_H
+#ifndef MESOCRYSTAL01BUILDER_H
+#define MESOCRYSTAL01BUILDER_H
 
 #include "ISampleBuilder.h"
 #include "Types.h"
-class MesoCrystal;
+
 class Lattice;
-class IFormFactor;
+class MesoCrystal;
 
-namespace FunctionalTests {
-
-//! Builds sample using set of input parameters.
-//! Mesocrystal of cylindrical shape composed by sperical nanoparticles
-//! at FCC lattice points
-class SampleBuilder : public ISampleBuilder
+//! The MesoCrystal01Builder class for mesocrystals of cylindrical shape composed
+//! by spherical nanoparticles.
+class MesoCrystal01Builder : public ISampleBuilder
 {
 public:
-    SampleBuilder();
+    MesoCrystal01Builder();
 
-    virtual ~SampleBuilder(){}
+    virtual ~MesoCrystal01Builder(){}
     virtual ISample *buildSample() const;
 
 protected:
     virtual void init_parameters();
+
 private:
     MesoCrystal *createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle, const IFormFactor *p_meso_form_factor) const;
     const Lattice *createLattice(double stacking_radius_a, double stacking_radius_c) const;
@@ -36,10 +34,9 @@ private:
     double m_sigma_lattice_length_a;
     double m_surface_filling_ratio;
     double m_roughness;
+    double m_nphi_rotations;
 };
 
-}
 
+#endif // MESOCRYSTAL01BUILDER_H
 
-
-#endif // SAMPLEBUILDER_H

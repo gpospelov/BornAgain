@@ -1,12 +1,11 @@
 #include "MesoCrystal1.h"
-#include "SampleBuilder.h"
-
 #include "Simulation.h"
 #include "ResolutionFunction2DSimple.h"
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 #include "Units.h"
 #include "Types.h"
+#include "SimulationRegistry.h"
 
 using namespace FunctionalTests;
 
@@ -22,42 +21,28 @@ MesoCrystal1::MesoCrystal1()
 
 void MesoCrystal1::MesoCrystal1::run(const std::string &path_to_data)
 {
-    // setting up sample and simulation
-    SampleBuilder *sample_builder = new SampleBuilder();
-    Simulation *simulation = createSimulation();
-    simulation->setSampleBuilder( sample_builder );
+    SimulationRegistry sim_registry;
+    Simulation *simulation = sim_registry.createSimulation("mesocrystal01");
+    simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
 
     // loading reference data
-    std::string filename = path_to_data + "mesocrystal1b_reference.txt.gz";
-    m_reference = OutputDataIOFactory::getOutputData(filename);
+    std::string filename = path_to_data + "mesocrystal1_reference_v2_nphi2.txt.gz";
+    m_reference = OutputDataIOFactory::readIntensityData(filename);
 
     // setting detector axis as in reference data
     simulation->setDetectorParameters(*m_reference);
 
-    //running simulation
     simulation->runSimulation();
     simulation->normalize();
-    m_result = simulation->getOutputDataClone();
-    //OutputDataIOFactory::writeOutputData(*m_result, "reference.txt");
-}
 
-
-// create simulation
-Simulation *MesoCrystal1::createSimulation()
-{
-    Simulation *simulation = new Simulation();
-    simulation->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree,
-            0.0*Units::degree);
-    simulation->setBeamIntensity(5.0090e+12);
-    simulation->setDetectorResolutionFunction(
-            new ResolutionFunction2DSimple(0.0002, 0.0002));
-    return simulation;
+    m_result = simulation->getIntensityData();
+    delete simulation;
 }
 
 
 int MesoCrystal1::analyseResults()
 {
-    const double threshold(2e-10);
+    const double threshold(1e-10);
 
     // calculating average relative difference
     *m_result -= *m_reference;

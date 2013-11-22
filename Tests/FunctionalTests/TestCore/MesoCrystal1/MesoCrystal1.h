@@ -26,8 +26,6 @@ public:
     int analyseResults();
 
 private:
-    Simulation *createSimulation();
-
     std::string m_name;
     std::string m_description;
     OutputData<double> *m_result;

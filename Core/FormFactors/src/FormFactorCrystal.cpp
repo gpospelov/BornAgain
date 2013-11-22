@@ -113,7 +113,16 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
     // construct a real reciprocal vector
-    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
+    cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
+    cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
+    Bin1DCVector q_bin;
+    if (mP_inverse_transform.get()) {
+        q_bin = Bin1DCVector(mP_inverse_transform->transformed(q_bin_lower),
+                mP_inverse_transform->transformed(q_bin_upper));
+    } else {
+        q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
+    }
+
     cvector_t q = q_bin.getMidPoint();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
@@ -131,6 +140,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
+        //TODO: transform the matrix amplitude back!
         Eigen::Matrix2cd basis_factor = mp_basis_form_factor->evaluatePol(
                 k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
         complex_t meso_factor = mp_meso_form_factor->evaluate(

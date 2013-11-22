@@ -163,7 +163,7 @@
 		<buildTargets>
 			<target name="CMake Release" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>cmake</buildCommand>
-				<buildArguments>-E chdir ../BornAgain_cmake_release/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release</buildArguments>
+				<buildArguments>-E chdir ../BornAgain_cmake_release/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release -DBORNAGAIN_APP=ON</buildArguments>
 				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -171,7 +171,7 @@
 			</target>
 			<target name="CMake Debug" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>cmake</buildCommand>
-				<buildArguments>-E chdir ../BornAgain_cmake_debug/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Debug</buildArguments>
+				<buildArguments>-E chdir ../BornAgain_cmake_debug/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Debug -DBORNAGAIN_APP=ON</buildArguments>
 				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>

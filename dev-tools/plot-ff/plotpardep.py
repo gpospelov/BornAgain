@@ -11,11 +11,19 @@ ff05 =  FormFactorSphere(10.0*nanometer, 5.0*nanometer)
 ff10 =  FormFactorSphere(10.0*nanometer, 10.0*nanometer)
 ff15 =  FormFactorSphere(10.0*nanometer, 15.0*nanometer)
 
+# zero q vector
+zero = cvector_t(0,0,0)
+# volume of particles
+V05 = abs(ff05.evaluate_for_q(zero))
+V10 = abs(ff10.evaluate_for_q(zero))
+V15 = abs(ff15.evaluate_for_q(zero))
+
+
 # number of bins for qx, qy, qz
 # I recommend to put at least 400 for a better picture quality
-nqy = 400
-nqz = 400
-nqx = 400
+nqy = 100
+nqz = 100
+nqx = 100
 
 # minimum and maximum values for qx, qy qz
 qymin = -2.0
@@ -42,10 +50,10 @@ ROOT.gStyle.SetOptTitle(1);
 ROOT.gStyle.SetLabelSize(0.06, "xyz");
 ROOT.gStyle.SetTitleSize(0.06, "xyz");
 ROOT.gStyle.SetTitleFontSize(0.1);
-ROOT.gStyle.SetPadRightMargin(0.19)
+#ROOT.gStyle.SetPadRightMargin(0.19)
 ROOT.gStyle.SetPadLeftMargin(0.18)
 ROOT.gStyle.SetPadBottomMargin(0.18)
-ROOT.gStyle.SetTitleX(0.25);
+ROOT.gStyle.SetTitleX(0.3);
 #ROOT.gStyle.SetTitleW(0.5);
 
 
@@ -61,9 +69,9 @@ for i in range(nqy):
 	for j in range(nqz):
 		qz = qzmin + j*stepqz
 		k = cvector_t(0,qy,qz)
-		h05.Fill(qy,qz,abs(ff05.evaluate_for_q(k))**2 + 1)
-		h10.Fill(qy,qz,abs(ff10.evaluate_for_q(k))**2 + 1)
-		h15.Fill(qy,qz,abs(ff15.evaluate_for_q(k))**2 + 1)
+		h05.Fill(qy,qz,(abs(ff05.evaluate_for_q(k))/V05)**2)
+		h10.Fill(qy,qz,(abs(ff10.evaluate_for_q(k))/V10)**2)
+		h15.Fill(qy,qz,(abs(ff15.evaluate_for_q(k))/V15)**2)
 
 
 
@@ -71,9 +79,15 @@ for i in range(nqy):
 c = ROOT.TCanvas("FormfactorSphere","Formfactor Sphere", 1200,400)
 
 c.Divide(3,1)
-h05.SetMinimum(1)
-h10.SetMinimum(1)
-h15.SetMinimum(1)
+h05.SetMinimum(5e-8)
+#h05.SetMaximum(V05**2)
+h05.SetMaximum(1)
+h10.SetMinimum(5e-8)
+#h10.SetMaximum(V10**2)
+h10.SetMaximum(1)
+h15.SetMinimum(5e-8)
+#h15.SetMaximum(V15**2)
+h15.SetMaximum(1)
 h05.SetContour(50)
 h10.SetContour(50)
 h15.SetContour(50)
@@ -91,7 +105,7 @@ h05.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h05.GetYaxis().CenterTitle()
 h05.GetYaxis().SetTitleOffset(1.4)
 h05.GetZaxis().SetTitleOffset(1.3)
-h05.Draw("colz")
+h05.Draw("col")
 #t.SetNDC(1)
 #t.SetTextSize(8.0e-2)
 #t.DrawText(0.1, 0.01, "H = 5 nm")
@@ -105,7 +119,7 @@ h10.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h10.GetYaxis().CenterTitle()
 h10.GetYaxis().SetTitleOffset(1.4)
 h10.GetZaxis().SetTitleOffset(1.3)
-h10.Draw("colz")
+h10.Draw("col")
 #t.SetNDC(1)
 #t.SetTextSize(8.0e-2)
 #t.DrawText(0.1, 0.01, "H = 10 nm")
@@ -119,7 +133,7 @@ h15.GetYaxis().SetTitle(" q_{z} [nm^{-1}] ")
 h15.GetYaxis().CenterTitle()
 h15.GetYaxis().SetTitleOffset(1.4)
 h15.GetZaxis().SetTitleOffset(1.3)
-h15.Draw("colz")
+h15.Draw("col")
 #t.SetNDC(1)
 #t.SetTextSize(8.0e-2)
 #t.DrawText(0.1, 0.01, "H = 15 nm")

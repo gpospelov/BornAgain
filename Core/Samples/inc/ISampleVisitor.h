@@ -38,6 +38,7 @@ class FormFactorCylinder;
 class FormFactorPrism3;
 class InterferenceFunction1DParaCrystal;
 class InterferenceFunction2DParaCrystal;
+class InterferenceFunction2DLattice;
 class LayerRoughness;
 
 
@@ -115,6 +116,10 @@ public:
                 "ISampleVisitor::visit(LayerRoughness *)");
     }
 
+    virtual void visit(const InterferenceFunction2DLattice  *) {
+        throw NotImplementedException(
+                "ISampleVisitor::visit(InterferenceFunction2DParaCrystal  *)");
+    }
 
     virtual bool goForward(){ return true; }
     virtual bool goBack(){ return true; }

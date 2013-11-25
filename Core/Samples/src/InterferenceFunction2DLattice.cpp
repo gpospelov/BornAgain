@@ -34,6 +34,13 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
     delete mp_pdf;
 }
 
+InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
+    InterferenceFunction2DLattice *p_clone = new InterferenceFunction2DLattice(m_lattice_params);
+    p_clone->setProbabilityDistribution(*mp_pdf);
+    return p_clone;
+}
+
+
 void InterferenceFunction2DLattice::setProbabilityDistribution(
         const IFTDistribution2D& pdf)
 {
@@ -92,10 +99,20 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
 
+
 void InterferenceFunction2DLattice::init_parameters()
 {
     clearParameterPool();
+    registerParameter("length_1", &m_lattice_params.m_length_1);
+    registerParameter("length_2", &m_lattice_params.m_length_2);
+    registerParameter("angle", &m_lattice_params.m_angle);
+    registerParameter("xi", &m_lattice_params.m_xi);
+    registerParameter("domain_size_1", &m_lattice_params.m_domain_size_1);
+    registerParameter("domain_size_2", &m_lattice_params.m_domain_size_2);
+    registerParameter("corr_length_1", &m_lattice_params.m_corr_length_1);
+    registerParameter("corr_length_2", &m_lattice_params.m_corr_length_2);
 }
+
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {

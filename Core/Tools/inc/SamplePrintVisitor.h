@@ -32,6 +32,7 @@ public:
     void visit(const IInterferenceFunction *sample);
     void visit(const InterferenceFunction1DParaCrystal  *);
     void visit(const InterferenceFunction2DParaCrystal  *);
+    void visit(const InterferenceFunction2DLattice  *);
 
     void visit(const LayerRoughness *sample);
 

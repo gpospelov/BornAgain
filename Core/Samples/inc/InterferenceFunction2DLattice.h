@@ -31,11 +31,9 @@ public:
     InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
     virtual ~InterferenceFunction2DLattice();
 
-    virtual InterferenceFunction2DLattice *clone() const {
-        InterferenceFunction2DLattice *p_clone = new InterferenceFunction2DLattice(m_lattice_params);
-        p_clone->setProbabilityDistribution(*mp_pdf);
-        return p_clone;
-    }
+    virtual InterferenceFunction2DLattice *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     void setProbabilityDistribution(const IFTDistribution2D& pdf);
 

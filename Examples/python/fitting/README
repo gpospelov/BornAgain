@@ -15,4 +15,10 @@ used for fitting.
     FitCylindersAndPrisms.py shows minimal fitting example
     FitCylindersAndPrisms_detailed.py is more detailed version + some graphical output
 
+--- ex003_FitSpheresInHexLattice ---
+    Two parameter fit of spheres in a hex lattice.
+    FitSpheresInHexLattice.py - demonstrate standard approach
+    FitSpheresInHexLattice_builder.py - shows advanced way using sample builder, which might be useful for complex
+    samples
+
 

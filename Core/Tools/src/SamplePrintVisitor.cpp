@@ -7,6 +7,7 @@
 #include "ParticleCoreShell.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
 #include "ParticleInfo.h"
 #include <iostream>
 #include "MesoCrystal.h"
@@ -258,6 +259,15 @@ void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     assert(sample);
     std::cout << get_indent() << "InterferenceFunction2DParaCrystal " << sample->getName()
+              << " " << (*sample->getParameterPool())
+              << std::endl;
+}
+
+
+void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *sample)
+{
+    assert(sample);
+    std::cout << get_indent() << "InterferenceFunction2DLattice " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }

@@ -32,7 +32,7 @@ ISample *MultilayerOffspecTestcase2a();
 ISample *MultilayerOffspecTestcase2b();
 ISample *MultilayerSpecularMagneticTestCase();
 ISample *PolarizedDWBATestCase();
-ISample *PolarizedDWBAZeroMagTestCase();
+//ISample *PolarizedDWBAZeroMagTestCase();
 
 ISample *IsGISAXS7_morphology();
 ISample *IsGISAXS8_2DDL_lattice();

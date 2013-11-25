@@ -11,6 +11,10 @@ SimulationRegistry::SimulationRegistry()
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
+	registerItem(
+        "PolarizedDWBAZeroMag", StandardSimulations::PolarizedDWBAZeroMag,
+        "cylinder DWBA form factor with matrix calculation");
+
 }
 
 

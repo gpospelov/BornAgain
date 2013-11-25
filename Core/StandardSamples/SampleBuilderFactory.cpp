@@ -6,6 +6,7 @@
 #include "IsGISAXS06Builder.h"
 #include "IsGISAXS09Builder.h"
 #include "MesoCrystal01Builder.h"
+#include "PolarizedDWBAZeroMagBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -69,6 +70,10 @@ SampleBuilderFactory::SampleBuilderFactory()
         "mesocrystal01",
         IFactoryCreateFunction<MesoCrystal01Builder, ISampleBuilder>,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
+	registerItem(
+        "PolarizedDWBAZeroMag",
+        IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,
+        "cylinder DWBA form factor with matrix calculation");
 
 }
 

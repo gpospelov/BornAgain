@@ -55,8 +55,8 @@ SampleFactory::SampleFactory()
             StandardSamples::PolarizedDWBATestCase);
 
     // cylinder DWBA form factor with matrix calculation
-    registerItem("PolarizedDWBAZeroMagTestCase",
-            StandardSamples::PolarizedDWBAZeroMagTestCase);
+ //   registerItem("PolarizedDWBAZeroMagTestCase",
+ //           StandardSamples::PolarizedDWBAZeroMagTestCase);
 
     // IsGISAXS7 example: particle mixture from morphology file
     registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);

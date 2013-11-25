@@ -140,9 +140,16 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
-        //TODO: transform the matrix amplitude back!
-        Eigen::Matrix2cd basis_factor = mp_basis_form_factor->evaluatePol(
-                k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
+
+        //transform the matrix amplitude back!
+        Eigen::Matrix2cd basis_factor;
+        Eigen::Matrix2cd basis_factor_rotated = mp_basis_form_factor->
+                evaluatePol(k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
+        if (mP_transform.get()) {
+            basis_factor = mP_transform->transformed(basis_factor_rotated);
+        } else {
+            basis_factor = basis_factor_rotated;
+        }
         complex_t meso_factor = mp_meso_form_factor->evaluate(
                 k_zero, q_i_min_q, alpha_f_bin);
         result += basis_factor*meso_factor;

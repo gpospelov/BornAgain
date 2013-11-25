@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IsGISAXSData.h"
+#include "BornAgainNamespace.h"
 #include <iostream>
 #include <fstream>
 
@@ -154,8 +155,8 @@ OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData >& isgi
             "TestIsGISAXS12::convert_isgi_scan() -> "
             "Error! Scan can't have both angle phif,alphaf fixed");
 
-    AxisDouble phi_axis("phi_f");
-    AxisDouble alpha_axis("alpha_f");
+    AxisDouble phi_axis(BA::PHI_AXIS_NAME);
+    AxisDouble alpha_axis(BA::ALPHA_AXIS_NAME);
     if( fixed_phif) {
         //m_isgi_fixed_phif = isgi_data.back().phif;
         phi_axis.push_back(isgi_data.back().phif);

@@ -6,6 +6,7 @@
 #include "Beam.h"
 #include "MultiLayer.h"
 #include "ISampleBuilder.h"
+#include "BornAgainNamespace.h"
 
 
 #include <cmath>
@@ -33,7 +34,7 @@ class SimulationTest : public ::testing::Test
 
 SimulationTest::SimulationTest()
 {
-    test_data.addAxis("phi_f", 10, 0., 10.);
+    test_data.addAxis(BA::PHI_AXIS_NAME, 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
     test_data.setAllTo(2.0);
 }

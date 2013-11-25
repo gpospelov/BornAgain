@@ -22,6 +22,7 @@
 #include "MessageService.h"
 #include "ScalarSpecularInfoMap.h"
 #include "MatrixSpecularInfoMap.h"
+#include "BornAgainNamespace.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -271,7 +272,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 std::set<double> MultiLayerDWBASimulation::getAlphaList() const
 {
     std::set<double> result;
-    const IAxis *p_alpha_axis = m_dwba_intensity.getAxis("alpha_f");
+    const IAxis *p_alpha_axis = m_dwba_intensity.getAxis(BA::ALPHA_AXIS_NAME);
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         Bin1D alpha_bin = p_alpha_axis->getBin(i);
         result.insert(alpha_bin.m_lower);
@@ -294,7 +295,7 @@ bool MultiLayerDWBASimulation::requiresMatrixRTCoefficients() const
 std::set<double> MultiLayerDWBASimulation::getPhiList() const
 {
     std::set<double> result;
-    const IAxis *p_phi_axis = m_dwba_intensity.getAxis("phi_f");
+    const IAxis *p_phi_axis = m_dwba_intensity.getAxis(BA::PHI_AXIS_NAME);
     for (size_t i=0; i<p_phi_axis->getSize(); ++i) {
         Bin1D phi_bin = p_phi_axis->getBin(i);
         result.insert(phi_bin.m_lower);

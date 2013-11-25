@@ -20,6 +20,7 @@
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
+#include "BornAgainNamespace.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -315,9 +316,9 @@ void Simulation::smearIntensityFromZAxisTilting()
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
         double old_phi = p_clone->getValueOfAxis(
-            "phi_f", it_clone.getIndex());
+            BA::PHI_AXIS_NAME, it_clone.getIndex());
         double old_alpha = p_clone->getValueOfAxis(
-            "alpha_f", it_clone.getIndex());
+            BA::ALPHA_AXIS_NAME, it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
             double newphi =
                 old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
@@ -450,8 +451,8 @@ void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
 
 void Simulation::addToIntensityMap(double alpha, double phi, double value)
 {
-    const IAxis *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
-    const IAxis *p_phi_axis = m_intensity_map.getAxis("phi_f");
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(BA::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(BA::PHI_AXIS_NAME);
     std::vector<int> coordinates;
     coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
     coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));

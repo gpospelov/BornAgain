@@ -16,6 +16,7 @@
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "MultiLayer.h"
 #include "DWBADiffuseReflection.h"
+#include "BornAgainNamespace.h"
 
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
@@ -41,9 +42,9 @@ void MultiLayerRoughnessDWBASimulation::run()
     while ( it_intensity != m_dwba_intensity.end() )
     {
         double phi_f = getDWBAIntensity().getValueOfAxis(
-            "phi_f", it_intensity.getIndex());
+            BA::PHI_AXIS_NAME, it_intensity.getIndex());
         double alpha_f = getDWBAIntensity().getValueOfAxis(
-            "alpha_f", it_intensity.getIndex());
+            BA::ALPHA_AXIS_NAME, it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);

@@ -17,6 +17,7 @@
 #include "Types.h"
 #include "Exceptions.h"
 #include "Utils.h"
+#include "BornAgainNamespace.h"
 
 #include <iostream>
 #include <fstream>
@@ -87,8 +88,8 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
     OutputData<double> *p_result = new OutputData<double>;
 //    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
 //    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
-    p_result->addAxis("phi_f", x_size, 0.0, double(x_size));
-    p_result->addAxis("alpha_f", y_size, 0.0, double(y_size));
+    p_result->addAxis(BA::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
+    p_result->addAxis(BA::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
     p_result->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_result->begin();
@@ -147,10 +148,10 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
 
     // creating output data
 //    AxisDouble xaxis(NDetector2d::PHI_AXIS_NAME);
-    AxisDouble xaxis("phi_f");
+    AxisDouble xaxis(BA::PHI_AXIS_NAME);
     for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis.push_back(buff_xaxis[i]);
 //    AxisDouble yaxis(NDetector2d::ALPHA_AXIS_NAME);
-    AxisDouble yaxis("alpha_f");
+    AxisDouble yaxis(BA::ALPHA_AXIS_NAME);
     for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis.push_back(buff_yaxis[i]);
 
     OutputData<double > *p_result = new OutputData<double>;

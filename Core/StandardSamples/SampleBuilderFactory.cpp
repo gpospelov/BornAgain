@@ -73,7 +73,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 	registerItem(
         "PolarizedDWBAZeroMag",
         IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,
-        "cylinder DWBA form factor with matrix calculation");
+        "polarized DWBA with zero magnetic field");
 
 }
 

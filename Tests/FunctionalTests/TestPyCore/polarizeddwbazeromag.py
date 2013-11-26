@@ -92,7 +92,7 @@ def runTest():
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "PolarizedDWBAZeroMag", "cylinder DWBA form factor with matrix calculation", status
+    return "PolarizedDWBAZeroMag", "functional test: polarized DWBA with zero magnetic field", status
 
 
 #-------------------------------------------------------------

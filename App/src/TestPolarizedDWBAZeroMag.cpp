@@ -20,6 +20,7 @@
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
+#include "SimulationRegistry.h"
 
 TestPolarizedDWBAZeroMag::TestPolarizedDWBAZeroMag()
 : IFunctionalTest("TestPolarizedDWBAZeroMag")
@@ -32,44 +33,52 @@ TestPolarizedDWBAZeroMag::TestPolarizedDWBAZeroMag()
 void TestPolarizedDWBAZeroMag::execute()
 {
     // building simulation
-    Simulation simulation(mp_options);
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree,
-                                     true);
-    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
+    //Simulation simulation(mp_options);
+    //simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+     //                                100, 0.0*Units::degree, 2.0*Units::degree,
+    //                                 true);
+    //simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+    //        0.0*Units::degree);
+
+    SimulationRegistry sim_registry;
+    Simulation *simulation = sim_registry.createSimulation("PolarizedDWBAZeroMag");
+
 
     // test1
-    ISample *sample = SampleFactory::createSample(
-            "PolarizedDWBAZeroMagTestCase");
-    simulation.setSample(*sample);
-    simulation.runSimulation();
-    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
-            "this_cylinder_DWBA_pol.ima");
-    delete sample;
+//    ISample *sample = SampleFactory::createSample(
+//            "PolarizedDWBAZeroMagTestCase");
+//    simulation.setSample(*sample);
+
+    simulation->runSimulation();
+    m_result = simulation->getIntensityData();
+
+//    OutputDataIOFactory::writeIntensityData(*m_result,
+//            "this_cylinder_DWBA_pol.ima");
+//    delete sample;
 
 }
 
 void TestPolarizedDWBAZeroMag::finalise()
 {
-    std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct(
-            getOutputPath()+"isgi_cylinder_DWBA.ima.gz",
-            "this_cylinder_DWBA_pol.ima",
-            "Cylinder DWBA Formfactor with matrix calculation") );
+//    std::vector< CompareStruct > tocompare;
+//    tocompare.push_back( CompareStruct(
+//            getOutputPath()+"isgi_cylinder_DWBA.ima.gz",
+//            "this_cylinder_DWBA_pol.ima",
+//            "Cylinder DWBA Formfactor with matrix calculation") );
 
-    for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(
-                tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(
-                tocompare[i].thisname);
+//    for(size_t i=0; i<tocompare.size(); ++i) {
+//        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(
+//                tocompare[i].isginame);
+//        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(
+//                tocompare[i].thisname);
 
-        IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,
-                tocompare[i].descr, tocompare[i].descr);
+        OutputData<double> *reference = OutputDataIOFactory::readIntensityData(
+                        getOutputPath()+"isgi_cylinder_DWBA.ima.gz");
 
-        delete isgi_data;
-        delete our_data;
-    }
+        IsGISAXSTools::drawOutputDataComparisonResults(*m_result, *reference,
+                                                       "zzz");
+
+        delete reference;
 }
 
 

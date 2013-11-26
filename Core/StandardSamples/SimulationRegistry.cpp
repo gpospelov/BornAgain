@@ -13,7 +13,7 @@ SimulationRegistry::SimulationRegistry()
 
 	registerItem(
         "PolarizedDWBAZeroMag", StandardSimulations::PolarizedDWBAZeroMag,
-        "cylinder DWBA form factor with matrix calculation");
+        "polarized DWBA with zero magnetic field");
 
 }
 

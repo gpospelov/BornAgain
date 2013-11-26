@@ -47,6 +47,8 @@ private:
     };
 
     std::string m_data_path;
+    OutputData<double> *m_result;
+
 };
 
 #endif /* TESTPOLARIZEDDWBAZEROMAG_H_ */

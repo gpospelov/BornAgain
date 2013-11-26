@@ -25,6 +25,7 @@
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
 
 #include <algorithm>
 
@@ -195,6 +196,12 @@ void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal*)
 {
     throw NotImplementedException("SampleMaterialVisitor::"
             "visit(InterferenceFunction2DParaCrystal *)");
+}
+
+void SampleMaterialVisitor::visit(const InterferenceFunction2DLattice*)
+{
+    throw NotImplementedException("SampleMaterialVisitor::"
+            "visit(InterferenceFunction2DLattice *)");
 }
 
 void SampleMaterialVisitor::visit(const LayerRoughness*)

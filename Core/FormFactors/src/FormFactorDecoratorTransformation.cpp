@@ -20,7 +20,7 @@
 FormFactorDecoratorTransformation *FormFactorDecoratorTransformation::clone() const
 {
     FormFactorDecoratorTransformation *result =  new FormFactorDecoratorTransformation(
-        mp_form_factor->clone(), mP_transform);
+                mp_form_factor->clone(), *mP_transform.get());
 
     result->setName(getName());
     return result;

@@ -46,7 +46,7 @@ MesoCrystal* MesoCrystal::clone() const
     MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->clone(),
             mp_meso_form_factor->clone());
     if (mP_transform.get()) {
-        p_result->setTransform(mP_transform);
+        p_result->setTransform(*mP_transform.get());
     }
     return p_result;
 }
@@ -56,7 +56,7 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
     MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->cloneInvertB(),
             mp_meso_form_factor->clone());
     if (mP_transform.get()) {
-        p_result->setTransform(mP_transform);
+        p_result->setTransform(*mP_transform.get());
     }
     return p_result;
 }
@@ -72,7 +72,7 @@ IFormFactor* MesoCrystal::createFormFactor(
 {
     return mp_particle_structure->createTotalFormFactor(
             *mp_meso_form_factor, mp_ambient_material,
-            wavevector_scattering_factor, mP_transform);
+                wavevector_scattering_factor, *mP_transform.get());
 }
 
 void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)

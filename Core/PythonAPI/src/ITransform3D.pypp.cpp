@@ -30,13 +30,25 @@ struct ITransform3D_wrapper : Geometry::ITransform3D, bp::wrapper< Geometry::ITr
         
     }
 
+    virtual ::Geometry::ITransform3D * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Geometry::ITransform3D::clone(  );
+        }
+    }
+    
+    ::Geometry::ITransform3D * default_clone(  ) const  {
+        return Geometry::ITransform3D::clone( );
+    }
+
     virtual void print( ::std::ostream & ostr ) const  {
         if( bp::override func_print = this->get_override( "print" ) )
             func_print( boost::ref(ostr) );
-        else
+        else{
             this->Geometry::ITransform3D::print( boost::ref(ostr) );
+        }
     }
-    
     
     void default_print( ::std::ostream & ostr ) const  {
         Geometry::ITransform3D::print( boost::ref(ostr) );
@@ -50,6 +62,18 @@ void register_ITransform3D_class(){
         typedef bp::class_< ITransform3D_wrapper > ITransform3D_exposer_t;
         ITransform3D_exposer_t ITransform3D_exposer = ITransform3D_exposer_t( "ITransform3D" );
         bp::scope ITransform3D_scope( ITransform3D_exposer );
+        { //::Geometry::ITransform3D::clone
+        
+            typedef ::Geometry::ITransform3D * ( ::Geometry::ITransform3D::*clone_function_type )(  ) const;
+            typedef ::Geometry::ITransform3D * ( ITransform3D_wrapper::*default_clone_function_type )(  ) const;
+            
+            ITransform3D_exposer.def( 
+                "clone"
+                , clone_function_type(&::Geometry::ITransform3D::clone)
+                , default_clone_function_type(&ITransform3D_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Geometry::ITransform3D::print
         
             typedef void ( ::Geometry::ITransform3D::*print_function_type )( ::std::ostream & ) const;
@@ -62,7 +86,6 @@ void register_ITransform3D_class(){
                 , ( bp::arg("ostr") ) );
         
         }
-        bp::register_ptr_to_python< boost::shared_ptr< Geometry::ITransform3D > >();
     }
 
 }

@@ -36,6 +36,8 @@ void TestMesoCrystal1::execute()
 
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
 
+    simulation->setProgramOptions(mp_options);
+
     // setting detector axis as in reference data
     simulation->setDetectorParameters(*reference);
 
@@ -45,8 +47,8 @@ void TestMesoCrystal1::execute()
     simulation->runSimulation();
     simulation->normalize();
 
+    /*
     OutputData<double> *data = simulation->getIntensityData();
-
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
             "mesocrystal", 1024, 768);
@@ -66,9 +68,10 @@ void TestMesoCrystal1::execute()
             *data, *reference, "found", "found params");
 
     OutputDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
-
     delete data;
-    delete simulation;
+    */
 
+    delete simulation;
+    delete reference;
 }
 

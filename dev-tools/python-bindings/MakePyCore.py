@@ -219,7 +219,7 @@ def ManualClassTunings(mb):
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
-	if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::PTransform3D const & )" in cls.decl_string:
+	if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::ITransform3D const & )" in cls.decl_string:
             cls.include()
 
     #

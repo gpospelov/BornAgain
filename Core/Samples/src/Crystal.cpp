@@ -53,14 +53,14 @@ IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial *p_ambient_material,
         complex_t wavevector_scattering_factor,
-        const Geometry::PTransform3D& P_transform) const
+        const Geometry::ITransform3D& P_transform) const
 {
     FormFactorCrystal *p_ff_crystal =
         new FormFactorCrystal(*this, meso_crystal_form_factor,
                 p_ambient_material, wavevector_scattering_factor);
-    if (P_transform.get()) {
-        p_ff_crystal->setTransformation(P_transform);
-    }
+//    if (P_transform.get()) {
+    p_ff_crystal->setTransformation(P_transform);
+//    }
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
     }

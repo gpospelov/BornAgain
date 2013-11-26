@@ -37,6 +37,9 @@ public:
                                 double refractive_index_beta,
                                 const kvector_t& magnetic_field);
 
+    //! Clone
+    virtual HomogeneousMagneticMaterial *clone() const;
+
     //! Get the magnetic field (in Tesla)
     kvector_t getMagneticField() const { return m_magnetic_field; }
 

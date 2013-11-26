@@ -35,6 +35,9 @@ public:
     //! Destructor.
     virtual ~IMaterial() {}
 
+    //! Clone
+    virtual IMaterial *clone() const;
+
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted
     //! equally
@@ -67,6 +70,12 @@ protected:
     { ostr << "IMat:" << getName() << "<" << this << ">"; }
 };
 
+inline IMaterial* IMaterial::clone() const
+{
+    throw Exceptions::NotImplementedException("IMaterial is an interface and "
+            "should not be cloned!");
+}
+
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(
         const kvector_t& k) const
@@ -84,8 +93,8 @@ inline const IMaterial* IMaterial::createTransformedMaterial(
         const Geometry::PTransform3D& transform) const
 {
     (void)transform;
-    throw Exceptions::NotImplementedException("IMaterial is abstract and "
-            "cannot be created!");
+    throw Exceptions::NotImplementedException("IMaterial is an interface and "
+            "should not be created!");
 }
 
 #endif // IMATERIAL_H

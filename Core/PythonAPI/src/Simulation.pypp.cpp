@@ -28,10 +28,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual ::Simulation * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->Simulation::clone(  );
+        }
     }
-    
     
     ::Simulation * default_clone(  ) const  {
         return Simulation::clone( );
@@ -40,10 +40,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -52,10 +52,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -64,10 +64,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -76,10 +76,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -107,10 +107,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
             return func_setMatchedParametersValue( wildcards, value );
-        else
+        else{
             return this->IParameterized::setMatchedParametersValue( wildcards, value );
+        }
     }
-    
     
     int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         return IParameterized::setMatchedParametersValue( wildcards, value );
@@ -119,10 +119,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -131,10 +131,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -201,6 +201,16 @@ void register_Simulation_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Simulation::getSampleBuilder
+        
+            typedef ::ISampleBuilder * ( ::Simulation::*getSampleBuilder_function_type )(  ) const;
+            
+            Simulation_exposer.def( 
+                "getSampleBuilder"
+                , getSampleBuilder_function_type( &::Simulation::getSampleBuilder )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::Simulation::getSimulationParameters
         
             typedef ::SimulationParameters ( ::Simulation::*getSimulationParameters_function_type )(  ) const;
@@ -239,7 +249,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::runSimulationElement
         
-            typedef void ( ::Simulation::*runSimulationElement_function_type )( ::std::size_t ) ;
+            typedef void ( ::Simulation::*runSimulationElement_function_type )( ::size_t ) ;
             
             Simulation_exposer.def( 
                 "runSimulationElement"
@@ -279,7 +289,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setDetectorParameters
         
-            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::size_t,double,double,::size_t,double,double,bool ) ;
             
             Simulation_exposer.def( 
                 "setDetectorParameters"
@@ -329,7 +339,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setSampleBuilder
         
-            typedef void ( ::Simulation::*setSampleBuilder_function_type )( ::ISampleBuilder const * ) ;
+            typedef void ( ::Simulation::*setSampleBuilder_function_type )( ::ISampleBuilder * ) ;
             
             Simulation_exposer.def( 
                 "setSampleBuilder"

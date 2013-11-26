@@ -79,6 +79,16 @@ public:
                 "IClusteredParticles::createDiffuseParticleInfo() "
                 "-> NotImplementedException");
     }
+
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::PTransform3D& transform)
+    {
+        (void)transform;
+        throw NotImplementedException(
+                "IClusteredParticles::setTransform() "
+                "-> NotImplementedException");
+    }
+
 };
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

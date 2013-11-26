@@ -36,6 +36,12 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
     initializePrivateMemebers();
 }
 
+HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::clone() const
+{
+    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
+            getMagneticField());
+}
+
 Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
         double k_mag2) const
 {

@@ -50,7 +50,7 @@ private:
     complex_t getRefractiveIndexFactor() const;
 
     complex_t m_wavevector_scattering_factor;
-    const IMaterial *mp_material;
+    std::auto_ptr<IMaterial> mP_material;
     const IMaterial *mp_ambient_material;
 };
 

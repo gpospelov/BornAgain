@@ -122,6 +122,9 @@
 		6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */; };
 		6223327617C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */; };
 		6223327717C641C5004CCDAE /* IMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223327517C641C5004CCDAE /* IMaterial.cpp */; };
+		622E86CA1844D7850009F27C /* MesoCrystal01Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622E86C41844D7850009F27C /* MesoCrystal01Builder.cpp */; };
+		622E86CB1844D7850009F27C /* SimulationRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622E86C61844D7850009F27C /* SimulationRegistry.cpp */; };
+		622E86CC1844D7850009F27C /* StandardSimulations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622E86C81844D7850009F27C /* StandardSimulations.cpp */; };
 		622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */; };
 		6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0816CE708600ECED4F /* Instrument.cpp */; };
 		6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0C16CE9EC600ECED4F /* Simulation.cpp */; };
@@ -1679,6 +1682,13 @@
 		6223327217C641B9004CCDAE /* HomogeneousMagneticMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomogeneousMagneticMaterial.h; sourceTree = "<group>"; };
 		6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HomogeneousMagneticMaterial.cpp; sourceTree = "<group>"; };
 		6223327517C641C5004CCDAE /* IMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMaterial.cpp; sourceTree = "<group>"; };
+		622E86B61844D5E60009F27C /* BornAgainNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BornAgainNamespace.h; sourceTree = "<group>"; };
+		622E86C41844D7850009F27C /* MesoCrystal01Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MesoCrystal01Builder.cpp; sourceTree = "<group>"; };
+		622E86C51844D7850009F27C /* MesoCrystal01Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MesoCrystal01Builder.h; sourceTree = "<group>"; };
+		622E86C61844D7850009F27C /* SimulationRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulationRegistry.cpp; sourceTree = "<group>"; };
+		622E86C71844D7850009F27C /* SimulationRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationRegistry.h; sourceTree = "<group>"; };
+		622E86C81844D7850009F27C /* StandardSimulations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StandardSimulations.cpp; sourceTree = "<group>"; };
+		622E86C91844D7850009F27C /* StandardSimulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardSimulations.h; sourceTree = "<group>"; };
 		622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorMaterial.h; sourceTree = "<group>"; };
 		622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorMaterial.cpp; sourceTree = "<group>"; };
 		6236DD0716CE707C00ECED4F /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
@@ -3624,55 +3634,56 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62027ECF16775A6B00A0D41C /* AxisBin.h */,
+				62D7A934166E3F81009A45CE /* AxisDouble.h */,
+				62027ED016775A6B00A0D41C /* Bin.h */,
+				622E86B61844D5E60009F27C /* BornAgainNamespace.h */,
+				622222F3160CB745008205AC /* Convolve.h */,
+				62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */,
 				624B526417F5A25B0040AB8C /* EigenCore.h */,
-				624B526517F5A25B0040AB8C /* w32pragma.h */,
-				6223325017C64096004CCDAE /* SampleMaterialVisitor.h */,
-				627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */,
-				627F5FFB1793EB17009E166F /* WinDllMacros.h */,
-				62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */,
-				62B316101712FE11004A9D02 /* MessageService.h */,
-				6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */,
-				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
-				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
-				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
+				622222F7160CB745008205AC /* Exceptions.h */,
 				621D0BD916A9855D00134391 /* FastVector.h */,
+				62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */,
+				62027ED116775A6B00A0D41C /* IAxis.h */,
 				621D0BDB16A9855D00134391 /* IChangeable.h */,
 				621D0BDC16A9855D00134391 /* ICloneable.h */,
-				621D0BDD16A9855D00134391 /* RealParameterWrapper.h */,
-				62027ECF16775A6B00A0D41C /* AxisBin.h */,
-				62027ED016775A6B00A0D41C /* Bin.h */,
-				62027ED116775A6B00A0D41C /* IAxis.h */,
-				62027ED216775A6B00A0D41C /* SafePointerVector.h */,
-				62D7A934166E3F81009A45CE /* AxisDouble.h */,
-				62CC0982166504D600A5B720 /* LLData.h */,
-				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
-				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
-				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
-				62EA736D1628421000656B41 /* IObserver.h */,
-				62EA736E1628421000656B41 /* IParameterized.h */,
-				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
-				62EA73701628421000656B41 /* OutputDataReader.h */,
-				62EA73711628421000656B41 /* OutputDataWriter.h */,
-				62EA73721628421000656B41 /* ParameterPool.h */,
-				62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */,
-				62FDC0621615F11F00D28B08 /* Macros.h */,
-				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
-				622222F3160CB745008205AC /* Convolve.h */,
-				622222F7160CB745008205AC /* Exceptions.h */,
 				622222FB160CB745008205AC /* IFactory.h */,
 				622222FC160CB745008205AC /* INamed.h */,
+				62EA736D1628421000656B41 /* IObserver.h */,
+				62EA736E1628421000656B41 /* IParameterized.h */,
 				622222FD160CB745008205AC /* ISingleton.h */,
 				622222FE160CB745008205AC /* IStochasticParameter.h */,
+				62CC0982166504D600A5B720 /* LLData.h */,
+				62FDC0621615F11F00D28B08 /* Macros.h */,
 				622222FF160CB745008205AC /* MathFunctions.h */,
+				6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */,
+				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
+				62B316101712FE11004A9D02 /* MessageService.h */,
 				62222301160CB745008205AC /* Numeric.h */,
 				62222302160CB745008205AC /* OutputData.h */,
+				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
+				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
+				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
+				62EA73701628421000656B41 /* OutputDataReader.h */,
+				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
+				62EA73711628421000656B41 /* OutputDataWriter.h */,
+				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
+				62EA73721628421000656B41 /* ParameterPool.h */,
+				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
+				621D0BDD16A9855D00134391 /* RealParameterWrapper.h */,
+				62027ED216775A6B00A0D41C /* SafePointerVector.h */,
+				6223325017C64096004CCDAE /* SampleMaterialVisitor.h */,
+				627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */,
 				62222303160CB745008205AC /* StochasticDiracDelta.h */,
+				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
 				62222304160CB745008205AC /* StochasticGaussian.h */,
 				62222305160CB745008205AC /* StochasticSampledParameter.h */,
 				62222306160CB745008205AC /* TRange.h */,
 				62222307160CB745008205AC /* Types.h */,
 				62222308160CB745008205AC /* Units.h */,
 				62222309160CB745008205AC /* Utils.h */,
+				624B526517F5A25B0040AB8C /* w32pragma.h */,
+				627F5FFB1793EB17009E166F /* WinDllMacros.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3680,29 +3691,29 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */,
-				627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */,
-				62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */,
-				62B316121712FE29004A9D02 /* MessageService.cpp */,
-				62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */,
-				62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */,
-				621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */,
 				62027ED416775A7700A0D41C /* AxisBin.cpp */,
 				62D7A935166E3F8D009A45CE /* AxisDouble.cpp */,
-				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
+				6222230B160CB745008205AC /* Convolve.cpp */,
+				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
+				6222230D160CB745008205AC /* Exceptions.cpp */,
+				62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */,
+				62222310160CB745008205AC /* IFactory.cpp */,
 				62EA73751628422200656B41 /* IObserver.cpp */,
 				62EA73761628422200656B41 /* IParameterized.cpp */,
+				62222313160CB745008205AC /* MathFunctions.cpp */,
+				62B316121712FE29004A9D02 /* MessageService.cpp */,
+				62222314160CB745008205AC /* OutputData.cpp */,
+				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
 				62EA73771628422200656B41 /* OutputDataIOFactory.cpp */,
 				62EA73781628422200656B41 /* OutputDataReader.cpp */,
+				62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */,
 				62EA73791628422200656B41 /* OutputDataWriter.cpp */,
+				62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */,
 				62EA737A1628422200656B41 /* ParameterPool.cpp */,
-				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
 				62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */,
-				6222230B160CB745008205AC /* Convolve.cpp */,
-				6222230D160CB745008205AC /* Exceptions.cpp */,
-				62222310160CB745008205AC /* IFactory.cpp */,
-				62222313160CB745008205AC /* MathFunctions.cpp */,
-				62222314160CB745008205AC /* OutputData.cpp */,
+				621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */,
+				6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */,
+				627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */,
 				62222315160CB745008205AC /* StochasticGaussian.cpp */,
 				62222316160CB745008205AC /* StochasticSampledParameter.cpp */,
 				62222317160CB745008205AC /* Types.cpp */,
@@ -70318,8 +70329,14 @@
 				627F6121179409CD009E166F /* IsGISAXS06Builder.h */,
 				627F6122179409CD009E166F /* IsGISAXS09Builder.cpp */,
 				627F6123179409CD009E166F /* IsGISAXS09Builder.h */,
+				622E86C41844D7850009F27C /* MesoCrystal01Builder.cpp */,
+				622E86C51844D7850009F27C /* MesoCrystal01Builder.h */,
 				627F6124179409CD009E166F /* SampleBuilderFactory.cpp */,
 				627F6125179409CD009E166F /* SampleBuilderFactory.h */,
+				622E86C61844D7850009F27C /* SimulationRegistry.cpp */,
+				622E86C71844D7850009F27C /* SimulationRegistry.h */,
+				622E86C81844D7850009F27C /* StandardSimulations.cpp */,
+				622E86C91844D7850009F27C /* StandardSimulations.h */,
 			);
 			path = StandardSamples;
 			sourceTree = "<group>";
@@ -72263,6 +72280,7 @@
 				624B527517F5A2CD0040AB8C /* IDetectorResolution.cpp in Sources */,
 				627F60E31793FB22009E166F /* InterferenceFunctionNone.pypp.cpp in Sources */,
 				627F60E41793FB22009E166F /* IParameterized.pypp.cpp in Sources */,
+				622E86CC1844D7850009F27C /* StandardSimulations.cpp in Sources */,
 				627F60E51793FB22009E166F /* IResolutionFunction2D.pypp.cpp in Sources */,
 				627F60E61793FB22009E166F /* ISample.pypp.cpp in Sources */,
 				62FF6A571831387200E62E45 /* IntensityData.pypp.cpp in Sources */,
@@ -72291,6 +72309,7 @@
 				627F61001793FB22009E166F /* PythonInterface_global_variables.pypp.cpp in Sources */,
 				627F61011793FB22009E166F /* PythonListConverter.cpp in Sources */,
 				627F61021793FB22009E166F /* PythonModule.cpp in Sources */,
+				622E86CA1844D7850009F27C /* MesoCrystal01Builder.cpp in Sources */,
 				627F61031793FB22009E166F /* PythonOutputData.cpp in Sources */,
 				627F61041793FB22009E166F /* RealParameterWrapper.pypp.cpp in Sources */,
 				627F61051793FB22009E166F /* ResolutionFunction2DSimple.pypp.cpp in Sources */,
@@ -72301,6 +72320,7 @@
 				627F610A1793FB22009E166F /* SimulationParameters.pypp.cpp in Sources */,
 				627F610B1793FB22009E166F /* StochasticDoubleGate.pypp.cpp in Sources */,
 				627F610C1793FB22009E166F /* StochasticDoubleGaussian.pypp.cpp in Sources */,
+				622E86CB1844D7850009F27C /* SimulationRegistry.cpp in Sources */,
 				627F610D1793FB22009E166F /* StochasticParameter_t.pypp.cpp in Sources */,
 				627F610E1793FB22009E166F /* StochasticSampledParameter.pypp.cpp in Sources */,
 				627F610F1793FB22009E166F /* vdouble1d_t.pypp.cpp in Sources */,

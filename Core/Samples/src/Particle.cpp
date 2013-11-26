@@ -110,7 +110,9 @@ IFormFactor* Particle::createFormFactor(
             new FormFactorDecoratorMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
     if (mP_transform.get()) {
-        p_ff->setMaterial(mp_material->createTransformedMaterial(mP_transform));
+        boost::scoped_ptr<const IMaterial> transformed_material(mp_material->
+                createTransformedMaterial(mP_transform));
+        p_ff->setMaterial(transformed_material.get());
     } else {
         p_ff->setMaterial(mp_material);
     }

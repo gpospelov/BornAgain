@@ -53,6 +53,9 @@ LatticeBasis* LatticeBasis::clone() const
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(this->mp_ambient_material);
+    if (mP_transform.get()) {
+        p_new->setTransform(mP_transform);
+    }
     return p_new;
 }
 
@@ -118,6 +121,16 @@ LatticeBasis::createDiffuseParticleInfos() const
         }
     }
     return result;
+}
+
+void LatticeBasis::setTransform(const Geometry::PTransform3D& transform)
+{
+    Particle::setTransform(transform);
+    for (std::vector<Particle *>::iterator it = m_particles.begin();
+            it != m_particles.end(); ++it)
+    {
+        (*it)->setTransform(transform);
+    }
 }
 
 void LatticeBasis::addParticlePointer(Particle* p_particle,

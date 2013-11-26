@@ -40,6 +40,8 @@ public:
 
     virtual ~HomogeneousMaterial() {}
 
+    virtual HomogeneousMaterial *clone() const;
+
     //! Return refractive index.
     virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
 
@@ -66,6 +68,11 @@ protected:
 
     complex_t m_refractive_index; //!< complex index of refraction
 };
+
+inline HomogeneousMaterial* HomogeneousMaterial::clone() const
+{
+    return new HomogeneousMaterial(getName(), getRefractiveIndex());
+}
 
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(

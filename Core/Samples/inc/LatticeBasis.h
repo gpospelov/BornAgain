@@ -64,6 +64,9 @@ public:
     //! particle with index i
     std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
 
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::PTransform3D& transform);
+
 private:
     //! Checks index
     inline size_t check_index(size_t index) const {

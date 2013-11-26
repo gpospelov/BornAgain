@@ -46,6 +46,9 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::PTransform3D& transform);
+
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
 
     virtual const IFormFactor *getSimpleFormFactor() const {

@@ -103,3 +103,8 @@ Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
     mp_lattice_basis = p_lattice_basis;
     registerChild(mp_lattice_basis);
 }
+
+void Crystal::setTransform(const Geometry::PTransform3D& transform)
+{
+    mp_lattice_basis->setTransform(transform);
+}

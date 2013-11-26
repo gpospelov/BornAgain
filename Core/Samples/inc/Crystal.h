@@ -56,6 +56,9 @@ public:
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
 
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::PTransform3D& transform);
+
 private:
     Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
 

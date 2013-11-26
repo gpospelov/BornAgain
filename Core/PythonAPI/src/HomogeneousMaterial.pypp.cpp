@@ -37,13 +37,37 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
     
     }
 
+    virtual ::HomogeneousMaterial * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->HomogeneousMaterial::clone(  );
+        }
+    }
+    
+    ::HomogeneousMaterial * default_clone(  ) const  {
+        return HomogeneousMaterial::clone( );
+    }
+
+    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::PTransform3D const & transform ) const  {
+        if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
+            return func_createTransformedMaterial( transform );
+        else{
+            return this->HomogeneousMaterial::createTransformedMaterial( transform );
+        }
+    }
+    
+    ::IMaterial const * default_createTransformedMaterial( ::Geometry::PTransform3D const & transform ) const  {
+        return HomogeneousMaterial::createTransformedMaterial( transform );
+    }
+
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->HomogeneousMaterial::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return HomogeneousMaterial::getRefractiveIndex( );
@@ -52,10 +76,10 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else
+        else{
             return this->IMaterial::isScalarMaterial(  );
+        }
     }
-    
     
     bool default_isScalarMaterial(  ) const  {
         return IMaterial::isScalarMaterial( );
@@ -70,6 +94,31 @@ void register_HomogeneousMaterial_class(){
         HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) );
         bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
         HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta") )) );
+        { //::HomogeneousMaterial::clone
+        
+            typedef ::HomogeneousMaterial * ( ::HomogeneousMaterial::*clone_function_type )(  ) const;
+            typedef ::HomogeneousMaterial * ( HomogeneousMaterial_wrapper::*default_clone_function_type )(  ) const;
+            
+            HomogeneousMaterial_exposer.def( 
+                "clone"
+                , clone_function_type(&::HomogeneousMaterial::clone)
+                , default_clone_function_type(&HomogeneousMaterial_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::HomogeneousMaterial::createTransformedMaterial
+        
+            typedef ::IMaterial const * ( ::HomogeneousMaterial::*createTransformedMaterial_function_type )( ::Geometry::PTransform3D const & ) const;
+            typedef ::IMaterial const * ( HomogeneousMaterial_wrapper::*default_createTransformedMaterial_function_type )( ::Geometry::PTransform3D const & ) const;
+            
+            HomogeneousMaterial_exposer.def( 
+                "createTransformedMaterial"
+                , createTransformedMaterial_function_type(&::HomogeneousMaterial::createTransformedMaterial)
+                , default_createTransformedMaterial_function_type(&HomogeneousMaterial_wrapper::default_createTransformedMaterial)
+                , ( bp::arg("transform") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::HomogeneousMaterial::getRefractiveIndex
         
             typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;

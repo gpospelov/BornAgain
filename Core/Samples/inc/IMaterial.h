@@ -55,13 +55,12 @@ public:
 
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
-    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const=0;
-
+    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one
     virtual const IMaterial *createTransformedMaterial(
-            const Geometry::PTransform3D& transform) const=0;
+            const Geometry::PTransform3D& transform) const;
 
 protected:
     virtual void print(std::ostream& ostr) const
@@ -78,7 +77,16 @@ inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(
     result = getScatteringMatrix(k_mag2) - xy_proj2*Eigen::Matrix2cd::Identity();
     return result;
 }
+
 #endif // GCCXML_SKIP_THIS
+
+inline const IMaterial* IMaterial::createTransformedMaterial(
+        const Geometry::PTransform3D& transform) const
+{
+    (void)transform;
+    throw Exceptions::NotImplementedException("IMaterial is abstract and "
+            "cannot be created!");
+}
 
 #endif // IMATERIAL_H
 

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GEOMETRY_ITRANSFROM3D_H
-#define GEOMETRY_ITRANSFROM3D_H
+#ifndef GEOMETRY_ITRANSFORM3D_H
+#define GEOMETRY_ITRANSFORM3D_H
 
 #include "Types.h"
 #include "BasicVector3D.h"
@@ -59,15 +59,16 @@ public:
 
 }// namespace Geometry
 
+#ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd Geometry::ITransform3D::transformed(
         const Eigen::Matrix2cd& m) const
 {
     Eigen::Matrix2cd result;
     complex_t im(0.0, 1.0);
-    double a = std::real(m(0,0) + m(1,1))/2.0;
-    double bx = std::real(m(1,0));
-    double by = std::imag(m(1,0));
-    double bz = std::real(m(0,0) - m(1,1))/2.0;
+    double a = std::real( (complex_t)(m(0,0) + m(1,1)) )/2.0;
+    double bx = std::real( (complex_t)m(1,0) );
+    double by = std::imag( (complex_t)m(1,0) );
+    double bz = std::real( (complex_t)(m(0,0) - m(1,1)) )/2.0;
     BasicVector3D<double> b_v(bx, by, bz);
     BasicVector3D<double> b_v_t = transformed(b_v);
     result(0,0) = a + b_v_t.z();
@@ -76,7 +77,8 @@ inline Eigen::Matrix2cd Geometry::ITransform3D::transformed(
     result(1,1) = a - b_v_t.z();
     return result;
 }
+#endif
 
-#endif /* GEOMETRY_ITRANSFROM3D_H */
+#endif /* GEOMETRY_ITRANSFORM3D_H */
 
 

@@ -78,6 +78,7 @@ inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
 inline const IMaterial* HomogeneousMaterial::createTransformedMaterial(
         const Geometry::PTransform3D& transform) const
 {
+    (void)transform;
     return new HomogeneousMaterial(getName(), getRefractiveIndex());
 }
 

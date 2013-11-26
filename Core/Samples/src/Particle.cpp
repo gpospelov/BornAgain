@@ -109,7 +109,11 @@ IFormFactor* Particle::createFormFactor(
     FormFactorDecoratorMaterial *p_ff =
             new FormFactorDecoratorMaterial(
                     p_transformed_ff, wavevector_scattering_factor);
-    p_ff->setMaterial(mp_material);
+    if (mP_transform.get()) {
+        p_ff->setMaterial(mp_material->createTransformedMaterial(mP_transform));
+    } else {
+        p_ff->setMaterial(mp_material);
+    }
     p_ff->setAmbientMaterial(mp_ambient_material);
     return p_ff;
 }

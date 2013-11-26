@@ -114,6 +114,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Beam_class();
     register_Bin1D_class();
     register_Bin1DCVector_class();
+    register_ITransform3D_class();
     register_ICloneable_class();
     register_ISample_class();
     register_ICompositeSample_class();
@@ -144,7 +145,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorSphereGaussianRadius_class();
     register_kvector_t_class();
     register_cvector_t_class();
-    register_ITransform3D_class();
     register_RotateY_3D_class();
     register_RotateZ_3D_class();
     register_IMaterial_class();

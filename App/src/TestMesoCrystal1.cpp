@@ -47,7 +47,6 @@ void TestMesoCrystal1::execute()
     simulation->runSimulation();
     simulation->normalize();
 
-    /*
     OutputData<double> *data = simulation->getIntensityData();
 
     TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
@@ -69,7 +68,6 @@ void TestMesoCrystal1::execute()
 
     OutputDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
     delete data;
-    */
 
     delete simulation;
     delete reference;

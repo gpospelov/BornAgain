@@ -44,7 +44,7 @@ public:
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial *p_ambient_material,
         complex_t wavevector_scattering_factor,
-        const Geometry::ITransform3D& transform) const;
+        const Geometry::ITransform3D *transform = 0) const;
 
     Lattice getLattice() const { return m_lattice; }
     LatticeBasis *createBasis() const { return mp_lattice_basis->clone(); }

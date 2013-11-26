@@ -60,7 +60,7 @@ public:
            const IFormFactor& meso_crystal_form_factor,
            const IMaterial *p_ambient_material,
            complex_t wavevector_scattering_factor,
-           const Geometry::ITransform3D& transform) const
+           const Geometry::ITransform3D *transform = 0) const
     {
         (void)meso_crystal_form_factor;
         (void)p_ambient_material;

@@ -23,6 +23,8 @@ FormFactorCrystal::FormFactorCrystal(
 , m_wavevector_scattering_factor(wavevector_scattering_factor)
 , mp_ambient_material(p_material)
 , m_max_rec_length(0.0)
+, mP_transform(0)
+, mP_inverse_transform(0)
 {
     setName("FormFactorCrystal");
     mp_lattice_basis = p_crystal.createBasis();

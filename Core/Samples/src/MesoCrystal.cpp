@@ -72,7 +72,7 @@ IFormFactor* MesoCrystal::createFormFactor(
 {
     return mp_particle_structure->createTotalFormFactor(
             *mp_meso_form_factor, mp_ambient_material,
-                wavevector_scattering_factor, *mP_transform.get());
+                wavevector_scattering_factor, mP_transform.get());
 }
 
 void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)

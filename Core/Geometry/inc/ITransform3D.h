@@ -61,6 +61,8 @@ public:
 
 }// namespace Geometry
 
+#ifndef GCCXML_SKIP_THIS
+
 inline Eigen::Matrix2cd Geometry::ITransform3D::transformed(
         const Eigen::Matrix2cd& m) const
 {
@@ -78,6 +80,8 @@ inline Eigen::Matrix2cd Geometry::ITransform3D::transformed(
     result(1,1) = a - b_v_t.z();
     return result;
 }
+
+#endif
 
 #endif /* GEOMETRY_ITRANSFROM3D_H */
 

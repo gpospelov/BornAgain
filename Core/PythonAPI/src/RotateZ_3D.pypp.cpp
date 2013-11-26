@@ -30,13 +30,25 @@ struct RotateZ_3D_wrapper : Geometry::RotateZ_3D, bp::wrapper< Geometry::RotateZ
     
     }
 
+    virtual ::Geometry::RotateZ_3D * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Geometry::RotateZ_3D::clone(  );
+        }
+    }
+    
+    ::Geometry::RotateZ_3D * default_clone(  ) const  {
+        return Geometry::RotateZ_3D::clone( );
+    }
+
     virtual void print( ::std::ostream & ostr ) const  {
         if( bp::override func_print = this->get_override( "print" ) )
             func_print( boost::ref(ostr) );
-        else
+        else{
             this->Geometry::RotateZ_3D::print( boost::ref(ostr) );
+        }
     }
-    
     
     void default_print( ::std::ostream & ostr ) const  {
         Geometry::RotateZ_3D::print( boost::ref(ostr) );
@@ -50,6 +62,18 @@ void register_RotateZ_3D_class(){
         typedef bp::class_< RotateZ_3D_wrapper, bp::bases< Geometry::ITransform3D > > RotateZ_3D_exposer_t;
         RotateZ_3D_exposer_t RotateZ_3D_exposer = RotateZ_3D_exposer_t( "RotateZ_3D", bp::init< double >(( bp::arg("a") )) );
         bp::scope RotateZ_3D_scope( RotateZ_3D_exposer );
+        { //::Geometry::RotateZ_3D::clone
+        
+            typedef ::Geometry::RotateZ_3D * ( ::Geometry::RotateZ_3D::*clone_function_type )(  ) const;
+            typedef ::Geometry::RotateZ_3D * ( RotateZ_3D_wrapper::*default_clone_function_type )(  ) const;
+            
+            RotateZ_3D_exposer.def( 
+                "clone"
+                , clone_function_type(&::Geometry::RotateZ_3D::clone)
+                , default_clone_function_type(&RotateZ_3D_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::Geometry::RotateZ_3D::print
         
             typedef void ( ::Geometry::RotateZ_3D::*print_function_type )( ::std::ostream & ) const;

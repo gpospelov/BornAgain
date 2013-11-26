@@ -30,7 +30,7 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     
     }
 
-    AxisDouble_wrapper(::std::string name, ::std::size_t size, double start, double end )
+    AxisDouble_wrapper(::std::string name, ::size_t size, double start, double end )
     : AxisDouble( name, size, start, end )
       , bp::wrapper< AxisDouble >(){
         // constructor
@@ -44,37 +44,37 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     
     }
 
-    virtual ::std::size_t findClosestIndex( double value ) const  {
+    virtual ::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else
+        else{
             return this->AxisDouble::findClosestIndex( value );
+        }
     }
     
-    
-    ::std::size_t default_findClosestIndex( double value ) const  {
+    ::size_t default_findClosestIndex( double value ) const  {
         return AxisDouble::findClosestIndex( value );
     }
 
-    virtual ::Bin1D getBin( ::std::size_t index ) const  {
+    virtual ::Bin1D getBin( ::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else
+        else{
             return this->AxisDouble::getBin( index );
+        }
     }
     
-    
-    ::Bin1D default_getBin( ::std::size_t index ) const  {
+    ::Bin1D default_getBin( ::size_t index ) const  {
         return AxisDouble::getBin( index );
     }
 
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else
+        else{
             return this->AxisDouble::getMax(  );
+        }
     }
-    
     
     double default_getMax(  ) const  {
         return AxisDouble::getMax( );
@@ -83,36 +83,36 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else
+        else{
             return this->AxisDouble::getMin(  );
+        }
     }
-    
     
     double default_getMin(  ) const  {
         return AxisDouble::getMin( );
     }
 
-    virtual ::std::size_t getSize(  ) const  {
+    virtual ::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else
+        else{
             return this->AxisDouble::getSize(  );
+        }
     }
     
-    
-    ::std::size_t default_getSize(  ) const  {
+    ::size_t default_getSize(  ) const  {
         return AxisDouble::getSize( );
     }
 
-    virtual double operator[]( ::std::size_t index ) const  {
+    virtual double operator[]( ::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
-        else
+        else{
             return this->AxisDouble::operator[]( index );
+        }
     }
     
-    
-    double default___getitem__( ::std::size_t index ) const  {
+    double default___getitem__( ::size_t index ) const  {
         return AxisDouble::operator[]( index );
     }
 
@@ -124,12 +124,12 @@ void register_AxisDouble_class(){
         typedef bp::class_< AxisDouble_wrapper, bp::bases< IAxis > > AxisDouble_exposer_t;
         AxisDouble_exposer_t AxisDouble_exposer = AxisDouble_exposer_t( "AxisDouble", bp::init< std::string >(( bp::arg("name") )) );
         bp::scope AxisDouble_scope( AxisDouble_exposer );
-        AxisDouble_exposer.def( bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("size"), bp::arg("start"), bp::arg("end") )) );
+        AxisDouble_exposer.def( bp::init< std::string, size_t, double, double >(( bp::arg("name"), bp::arg("size"), bp::arg("start"), bp::arg("end") )) );
         AxisDouble_exposer.def( bp::init< AxisBin const & >(( bp::arg("source") )) );
         { //::AxisDouble::findClosestIndex
         
-            typedef ::std::size_t ( ::AxisDouble::*findClosestIndex_function_type )( double ) const;
-            typedef ::std::size_t ( AxisDouble_wrapper::*default_findClosestIndex_function_type )( double ) const;
+            typedef ::size_t ( ::AxisDouble::*findClosestIndex_function_type )( double ) const;
+            typedef ::size_t ( AxisDouble_wrapper::*default_findClosestIndex_function_type )( double ) const;
             
             AxisDouble_exposer.def( 
                 "findClosestIndex"
@@ -140,8 +140,8 @@ void register_AxisDouble_class(){
         }
         { //::AxisDouble::getBin
         
-            typedef ::Bin1D ( ::AxisDouble::*getBin_function_type )( ::std::size_t ) const;
-            typedef ::Bin1D ( AxisDouble_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::AxisDouble::*getBin_function_type )( ::size_t ) const;
+            typedef ::Bin1D ( AxisDouble_wrapper::*default_getBin_function_type )( ::size_t ) const;
             
             AxisDouble_exposer.def( 
                 "getBin"
@@ -152,7 +152,7 @@ void register_AxisDouble_class(){
         }
         { //::AxisDouble::getLowerBoundIndex
         
-            typedef ::std::size_t ( ::AxisDouble::*getLowerBoundIndex_function_type )( double ) const;
+            typedef ::size_t ( ::AxisDouble::*getLowerBoundIndex_function_type )( double ) const;
             
             AxisDouble_exposer.def( 
                 "getLowerBoundIndex"
@@ -184,8 +184,8 @@ void register_AxisDouble_class(){
         }
         { //::AxisDouble::getSize
         
-            typedef ::std::size_t ( ::AxisDouble::*getSize_function_type )(  ) const;
-            typedef ::std::size_t ( AxisDouble_wrapper::*default_getSize_function_type )(  ) const;
+            typedef ::size_t ( ::AxisDouble::*getSize_function_type )(  ) const;
+            typedef ::size_t ( AxisDouble_wrapper::*default_getSize_function_type )(  ) const;
             
             AxisDouble_exposer.def( 
                 "getSize"
@@ -195,7 +195,7 @@ void register_AxisDouble_class(){
         }
         { //::AxisDouble::getUpperBoundIndex
         
-            typedef ::std::size_t ( ::AxisDouble::*getUpperBoundIndex_function_type )( double ) const;
+            typedef ::size_t ( ::AxisDouble::*getUpperBoundIndex_function_type )( double ) const;
             
             AxisDouble_exposer.def( 
                 "getUpperBoundIndex"
@@ -214,7 +214,7 @@ void register_AxisDouble_class(){
         }
         { //::AxisDouble::initElements
         
-            typedef void ( ::AxisDouble::*initElements_function_type )( ::std::size_t,double,double ) ;
+            typedef void ( ::AxisDouble::*initElements_function_type )( ::size_t,double,double ) ;
             
             AxisDouble_exposer.def( 
                 "initElements"
@@ -224,8 +224,8 @@ void register_AxisDouble_class(){
         }
         { //::AxisDouble::operator[]
         
-            typedef double ( ::AxisDouble::*__getitem___function_type )( ::std::size_t ) const;
-            typedef double ( AxisDouble_wrapper::*default___getitem___function_type )( ::std::size_t ) const;
+            typedef double ( ::AxisDouble::*__getitem___function_type )( ::size_t ) const;
+            typedef double ( AxisDouble_wrapper::*default___getitem___function_type )( ::size_t ) const;
             
             AxisDouble_exposer.def( 
                 "__getitem__"

@@ -64,11 +64,11 @@ public:
 
     //! Adds generic particle
     void addParticle(
-        Particle *p_particle, const Geometry::PTransform3D& transform,
+        Particle *p_particle, const Geometry::ITransform3D& transform,
         double depth=0, double abundance=1.0);
 
     void addParticle(
-        const Particle& p_particle, const Geometry::PTransform3D& transform,
+        const Particle& p_particle, const Geometry::ITransform3D& transform,
         double depth=0, double abundance=1.0);
 
     //! Adds particle without rotation

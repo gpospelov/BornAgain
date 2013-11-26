@@ -593,17 +593,15 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
 
     double phi_step = 2*M_PI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
-    Geometry::PTransform3D trafo;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            trafo = Geometry::PTransform3D(new
-               Geometry::RotateZ_3D(phi_start + i*phi_step));
+            Geometry::RotateZ_3D transform(phi_start + i*phi_step);
 //            Geometry::RotateY_3D transform2(alpha_start + j*alpha_step);
             particle_decoration.addParticle(
                 createMesoCrystal(
                     m_lattice_length_a, m_lattice_length_c,
                     n_particle_adapted, &ff_meso),
-                trafo, m_meso_height);
+                transform, m_meso_height);
         }
     }
 

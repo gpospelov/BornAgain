@@ -23,7 +23,7 @@
 
 namespace Geometry {
 
-typedef boost::shared_ptr<class ITransform3D> PTransform3D;
+//typedef boost::shared_ptr<class ITransform3D> PTransform3D;
 
 //! Interface to vector transforms in three dimensions.
 
@@ -33,8 +33,8 @@ public:
     virtual ~ITransform3D() {}
 
     //! Returns the inverse transformation.
-    virtual PTransform3D inverse() const
-    { return PTransform3D( new ITransform3D() ); }
+    virtual ITransform3D *inverse() const
+    { return new ITransform3D(); }
 
     //! Return transformed vector _v_.
     virtual BasicVector3D<double>
@@ -45,6 +45,8 @@ public:
     virtual BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const
     { return v; }
+
+    virtual ITransform3D *clone() const { return new ITransform3D(); }
 
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd transformed(const Eigen::Matrix2cd &m) const;

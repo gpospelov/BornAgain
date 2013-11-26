@@ -48,7 +48,7 @@ FormFactorCrystal* FormFactorCrystal::clone() const
             m_wavevector_scattering_factor);
     result->setName(getName());
     if (mP_transform.get()) {
-        result->setTransformation(mP_transform);
+        result->setTransformation(*mP_transform.get());
     }
     return result;
 }
@@ -166,10 +166,10 @@ double FormFactorCrystal::getVolume() const
 }
 
 void FormFactorCrystal::setTransformation(
-        const Geometry::PTransform3D& P_transform)
+        const Geometry::ITransform3D& P_transform)
 {
-    mP_transform = P_transform;
-    mP_inverse_transform = mP_transform->inverse();
+    mP_transform.reset(P_transform.clone());
+    mP_inverse_transform.reset(mP_transform->inverse());
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

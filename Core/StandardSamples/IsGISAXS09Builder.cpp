@@ -103,7 +103,7 @@ ISample *IsGISAXS09RotatedBuilder::buildSample() const
         new FormFactorPyramid(m_height, m_half_side, m_alpha)
                 );
 
-    Geometry::PTransform3D transform( new Geometry::RotateZ_3D(m_zangle) );
+    Geometry::RotateZ_3D transform(m_zangle);
 
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(pyramid, transform);

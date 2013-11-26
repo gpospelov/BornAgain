@@ -32,9 +32,11 @@ public:
 
     virtual ~RotateY_3D() {}
 
+    virtual RotateY_3D *clone() const { return new RotateY_3D(m_ca, m_sa); }
+
     //! Return inverse transform.
-    PTransform3D inverse() const
-    { return PTransform3D( new RotateY_3D( m_ca, -m_sa ) ); }
+    RotateY_3D *inverse() const
+    { return new RotateY_3D( m_ca, -m_sa ); }
 
     //! Return rotated vector _v_.
     BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
@@ -76,9 +78,11 @@ public:
 
     virtual ~RotateZ_3D() {}
 
+    virtual RotateZ_3D *clone() const { return new RotateZ_3D(m_ca, m_sa); }
+
     //! Return inverse transform.
-    virtual PTransform3D inverse() const
-    { return PTransform3D( new RotateZ_3D( m_ca, -m_sa )); }
+    virtual RotateZ_3D *inverse() const
+    { return new RotateZ_3D( m_ca, -m_sa ); }
 
     //! Return rotated vector _v_.
     virtual BasicVector3D<double> transformed(const BasicVector3D<double>& v) const

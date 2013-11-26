@@ -31,6 +31,7 @@ Particle::Particle(const IMaterial* p_material, IFormFactor *p_form_factor)
 : mp_material(p_material)
 , mp_ambient_material(0)
 , mp_form_factor(p_form_factor)
+, mP_transform(0)
 {
     setName("Particle");
     if(mp_form_factor) registerChild(mp_form_factor);
@@ -40,17 +41,18 @@ Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor)
 : mp_material(p_material)
 , mp_ambient_material(0)
 , mp_form_factor(form_factor.clone())
+, mP_transform(0)
 {
     setName("Particle");
     if(mp_form_factor) registerChild(mp_form_factor);
 }
 
 Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor,
-        const Geometry::PTransform3D &transform)
+        const Geometry::ITransform3D &transform)
 : mp_material(p_material)
 , mp_ambient_material(0)
 , mp_form_factor(form_factor.clone())
-, mP_transform(transform)
+, mP_transform(transform.clone())
 {
     setName("Particle");
     if(mp_form_factor) registerChild(mp_form_factor);
@@ -71,7 +73,7 @@ Particle* Particle::clone() const
     Particle *p_new = new Particle(mp_material, p_form_factor);
     p_new->setAmbientMaterial(mp_ambient_material);
 
-    p_new->setTransform(mP_transform);
+    if(mP_transform.get()) p_new->setTransform(*mP_transform.get());
 
     p_new->setName(getName());
     return p_new;
@@ -93,7 +95,7 @@ Particle* Particle::cloneInvertB() const
     Particle *p_new = new Particle(p_material, p_form_factor);
     p_new->setAmbientMaterial(p_ambient_material);
 
-    p_new->setTransform(mP_transform);
+    if(mP_transform.get()) p_new->setTransform(*mP_transform.get());
 
     p_new->setName(getName() + "_inv");
     return p_new;
@@ -168,7 +170,7 @@ IFormFactor* Particle::createTransformedFormFactor() const
     IFormFactor *p_result;
     if(mP_transform.get()) {
         p_result = new FormFactorDecoratorTransformation(
-                mp_form_factor->clone(), mP_transform);
+                    mp_form_factor->clone(), *mP_transform.get());
     }
     else {
         p_result = mp_form_factor->clone();

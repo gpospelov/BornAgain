@@ -47,30 +47,30 @@ void TestMesoCrystal1::execute()
     simulation->runSimulation();
     simulation->normalize();
 
-    OutputData<double> *data = simulation->getIntensityData();
+//    OutputData<double> *data = simulation->getIntensityData();
 
 
-    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
-            "mesocrystal", 1024, 768);
-    c1->cd(); gPad->SetLogz();
+//    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal",
+//            "mesocrystal", 1024, 768);
+//    c1->cd(); gPad->SetLogz();
 
-    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*data, "mesocrystal");
-    h2->SetTitle("");
-    h2->GetXaxis()->SetTitle("#phi_{f}");
-    h2->GetYaxis()->SetTitle("#alpha_{f}");
-    h2->GetXaxis()->SetTitleOffset(0.9);
-    h2->GetYaxis()->SetTitleOffset(1.0);
-    h2->SetMinimum(100.);
-    h2->SetMaximum(1e6);
-    h2->Draw("COLZ");
+//    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*data, "mesocrystal");
+//    h2->SetTitle("");
+//    h2->GetXaxis()->SetTitle("#phi_{f}");
+//    h2->GetYaxis()->SetTitle("#alpha_{f}");
+//    h2->GetXaxis()->SetTitleOffset(0.9);
+//    h2->GetYaxis()->SetTitleOffset(1.0);
+//    h2->SetMinimum(100.);
+//    h2->SetMaximum(1e6);
+//    h2->Draw("COLZ");
 
-    IsGISAXSTools::drawOutputDataComparisonResults(
-            *data, *reference, "found", "found params");
+//    IsGISAXSTools::drawOutputDataComparisonResults(
+//            *data, *reference, "found", "found params");
 
-    OutputDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
+//    OutputDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
 
-    delete data;
+    //delete data;
     delete simulation;
-
+    delete reference;
 }
 

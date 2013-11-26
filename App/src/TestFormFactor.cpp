@@ -20,6 +20,7 @@
 #include "TCanvas.h"
 #include "TH2.h"
 #include "TStyle.h"
+#include "BornAgainNamespace.h"
 
 #include <cmath>
 #include <iostream>

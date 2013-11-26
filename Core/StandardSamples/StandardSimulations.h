@@ -10,6 +10,7 @@ namespace StandardSimulations{
 
 
 Simulation *MesoCrystal01();
+Simulation *PolarizedDWBAZeroMag();
 
 
 }

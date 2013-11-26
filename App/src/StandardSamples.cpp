@@ -1184,37 +1184,37 @@ ISample *StandardSamples::PolarizedDWBATestCase()
     return mySample;
 }
 
-ISample *StandardSamples::PolarizedDWBAZeroMagTestCase()
-{
-    MultiLayer *multi_layer = new MultiLayer();
-
-    kvector_t magnetic_field(0.0, 0.0, 0.0);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMagneticMaterial(
-                    "Particle", 6e-4, 2e-8, magnetic_field);
-
-    ParticleDecoration particle_decoration(
-            new Particle(particle_material,
-                    new FormFactorCylinder(5*Units::nanometer,
-                                           5*Units::nanometer)));
-
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-
-    air_layer.setDecoration(particle_decoration);
-
-    multi_layer->addLayer(air_layer);
-    multi_layer->addLayer(substrate_layer);
-
-    return multi_layer;
-}
+//ISample *StandardSamples::PolarizedDWBAZeroMagTestCase()
+//{
+ //   MultiLayer *multi_layer = new MultiLayer();
+//
+//    kvector_t magnetic_field(0.0, 0.0, 0.0);
+ //   const IMaterial *p_air_material =
+//            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+ //   const IMaterial *p_substrate_material =
+//            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    const IMaterial *particle_material =
+//            MaterialManager::getHomogeneousMagneticMaterial(
+//                    "Particle", 6e-4, 2e-8, magnetic_field);
+//
+//    ParticleDecoration particle_decoration(
+//            new Particle(particle_material,
+ //                   new FormFactorCylinder(5*Units::nanometer,
+ //                                          5*Units::nanometer)));
+//
+//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+//
+//    air_layer.setDecoration(particle_decoration);
+//
+//    multi_layer->addLayer(air_layer);
+//    multi_layer->addLayer(substrate_layer);
+//
+//    return multi_layer;
+//}
 
 
 

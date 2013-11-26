@@ -18,6 +18,7 @@ import isgisaxs10
 import isgisaxs11
 import isgisaxs15
 import mesocrystal1
+import polarizeddwbazeromag
 
 Tests = {
   "IsGISAXS01": isgisaxs01.runTest,
@@ -31,7 +32,8 @@ Tests = {
   "IsGISAXS10": isgisaxs10.runTest,
   "IsGISAXS11": isgisaxs11.runTest,
   "IsGISAXS15": isgisaxs15.runTest,
-  "MesoCrystal1": mesocrystal1.runTest,
+#  "MesoCrystal1": mesocrystal1.runTest,
+  "PolarizedDWBAZeroMag": polarizeddwbazeromag.runTest,
 }
 
 test_info = []

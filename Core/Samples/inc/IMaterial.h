@@ -19,6 +19,7 @@
 #include "INamed.h"
 #include "Types.h"
 #include "EigenCore.h"
+#include "ITransform3D.h"
 #include <string>
 #include <iostream>
 
@@ -54,8 +55,13 @@ public:
 
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
-    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
+    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const=0;
+
 #endif
+
+    //! Create a new material that is transformed with respect to this one
+    virtual const IMaterial *createTransformedMaterial(
+            const Geometry::PTransform3D& transform) const=0;
 
 protected:
     virtual void print(std::ostream& ostr) const

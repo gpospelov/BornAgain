@@ -23,17 +23,14 @@ void PolarizedDWBAZeroMag::PolarizedDWBAZeroMag::run(const std::string &path_to_
 {
     SimulationRegistry sim_registry;
     Simulation *simulation = sim_registry.createSimulation("PolarizedDWBAZeroMag");
-    //simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
 
     // loading reference data
-    std::string filename = path_to_data + "mesocrystal1_reference_v2_nphi2.txt.gz";
+    std::string filename = path_to_data + "isgi_cylinder_DWBA.ima.gz";
     m_reference = OutputDataIOFactory::readIntensityData(filename);
 
-    // setting detector axis as in reference data
-    simulation->setDetectorParameters(*m_reference);
-
     simulation->runSimulation();
-    simulation->normalize();
+	//OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
+    //        "this_cylinder_DWBA_pol.ima");
 
     m_result = simulation->getIntensityData();
     delete simulation;
@@ -70,7 +67,8 @@ int PolarizedDWBAZeroMag::analyseResults()
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-    return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/", argv[0]);
+    //return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/", argv[0]);
+    return Utils::FileSystem::GetPathToData("../../../ReferenceData/IsGISAXS/ex-3/", argv[0]);
 }
 
 int main(int argc, char **argv)

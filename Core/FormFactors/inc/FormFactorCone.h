@@ -18,6 +18,7 @@
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
+#include "MemberComplexFunctionIntegrator.h"
 
 //! Form factor of a cone.
 
@@ -29,7 +30,8 @@ public:
     //! @param radius half of Cone's base
     //! @param angle in radians between base and facet
     FormFactorCone(double radius, double height,  double alpha);
-    ~FormFactorCone() {}
+    ~FormFactorCone() {delete m_integrator;}
+
     virtual FormFactorCone* clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
@@ -37,22 +39,29 @@ public:
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
+    virtual void setHeight(double height) { m_height = height; }
+
+    virtual double getRadius() const { return m_radius; }
+    virtual void setRadius(double radius) { m_radius = radius; }
+
+    virtual double getAlpha() const { return m_alpha; }
+    virtual void setAlpha(double alpha) { m_alpha = alpha; }
+
+    virtual complex_t evaluate_for_q (const cvector_t& q) const;
 
 protected:
-    virtual complex_t evaluate_for_q (const cvector_t& q) const;
     virtual void init_parameters();
 
 private:
-    //    double ConeIntegral(double Z, void* params) const;
-    double evaluate_for_q_real() const;
-    double evaluate_for_q_imag() const;
-    double ConeIntegralReal(double Z, void* params) const;
-    double ConeIntegralImaginary(double Z, void* params) const;
+
+    complex_t Integrand(double Z, void* params) const;
 
     double m_radius;
     double m_height;
     double m_alpha;
     mutable cvector_t m_q;
+
+    MemberComplexFunctionIntegrator<FormFactorCone> *m_integrator;
 };
 
 #endif // FORMFACTORCONE_H

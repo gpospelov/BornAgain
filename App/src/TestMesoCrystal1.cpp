@@ -36,9 +36,6 @@ void TestMesoCrystal1::execute()
 
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
 
-//    ThreadInfo tinfo;
-//    tinfo.n_threads=-1;
-//    simulation->setThreadInfo(tinfo);
     simulation->setProgramOptions(mp_options);
 
     // setting detector axis as in reference data

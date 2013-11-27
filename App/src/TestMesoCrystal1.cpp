@@ -30,8 +30,8 @@ void TestMesoCrystal1::execute()
     // loading reference data
     //std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1b_reference.txt.gz";
     //std::string filename = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    //std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1_reference_v2_nphi180.txt.gz";
-    std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1_reference_v2_nphi2.txt.gz";
+    std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1_reference_v2_nphi180.txt.gz";
+    //std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1_reference_v2_nphi2.txt.gz";
     //std::string filename = "mac_test_mesocrystal.txt";
 
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
@@ -41,7 +41,7 @@ void TestMesoCrystal1::execute()
     // setting detector axis as in reference data
     simulation->setDetectorParameters(*reference);
 
-    simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
+    //simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
 
 
     simulation->runSimulation();
@@ -64,7 +64,7 @@ void TestMesoCrystal1::execute()
     h2->Draw("COLZ");
 
     IsGISAXSTools::drawOutputDataComparisonResults(
-            *data, *reference, "found", "found params");
+            *data, *reference, "found", "found params", 100, 1e6);
 
     OutputDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
     delete data;

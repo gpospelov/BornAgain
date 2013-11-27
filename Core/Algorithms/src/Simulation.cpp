@@ -355,7 +355,6 @@ void Simulation::updateSample()
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             msglog(MSG::INFO) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
-            // p_new_sample belongs to python, don't delete it
             setSample(*p_new_sample);
         } else {
             delete mp_sample;

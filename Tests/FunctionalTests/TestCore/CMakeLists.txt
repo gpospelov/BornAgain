@@ -16,8 +16,8 @@ set(list_of_tests
     "IsGISAXS10"
     "IsGISAXS11"
     "IsGISAXS15"
-#    "MesoCrystal1"
-	"PolarizedDWBAZeroMag"
+    "MesoCrystal1"
+    "PolarizedDWBAZeroMag"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

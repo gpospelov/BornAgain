@@ -320,16 +320,6 @@ void register_FormFactorCrystal_class(){
                 , default_getVolume_function_type(&FormFactorCrystal_wrapper::default_getVolume) );
         
         }
-        { //::FormFactorCrystal::setTransformation
-        
-            typedef void ( ::FormFactorCrystal::*setTransformation_function_type )( ::Geometry::PTransform3D const & ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "setTransformation"
-                , setTransformation_function_type( &::FormFactorCrystal::setTransformation )
-                , ( bp::arg("P_transform") ) );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;

@@ -49,6 +49,18 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::cloneInvertB( );
     }
 
+    virtual ::Geometry::PTransform3D getTransform(  ) const  {
+        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
+            return func_getTransform(  );
+        else{
+            return this->IClusteredParticles::getTransform(  );
+        }
+    }
+    
+    ::Geometry::PTransform3D default_getTransform(  ) const  {
+        return IClusteredParticles::getTransform( );
+    }
+
     virtual void setAmbientMaterial( ::IMaterial const * p_ambient_material ){
         bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" );
         func_setAmbientMaterial( boost::python::ptr(p_ambient_material) );
@@ -211,6 +223,17 @@ void register_IClusteredParticles_class(){
                 , cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB)
                 , default_cloneInvertB_function_type(&IClusteredParticles_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IClusteredParticles::getTransform
+        
+            typedef ::Geometry::PTransform3D ( ::IClusteredParticles::*getTransform_function_type )(  ) const;
+            typedef ::Geometry::PTransform3D ( IClusteredParticles_wrapper::*default_getTransform_function_type )(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "getTransform"
+                , getTransform_function_type(&::IClusteredParticles::getTransform)
+                , default_getTransform_function_type(&IClusteredParticles_wrapper::default_getTransform) );
         
         }
         { //::IClusteredParticles::setAmbientMaterial

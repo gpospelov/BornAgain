@@ -32,6 +32,9 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual LatticeBasis *cloneInvertB() const;
 
+    //! Creates a transformed version of itself
+    LatticeBasis *createTransformed() const;
+
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const {
         p_visitor->visit(this);

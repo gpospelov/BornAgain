@@ -58,23 +58,23 @@ TEST_F(LLDataTest, GetRank)
 TEST_F(LLDataTest, SetAll)
 {
     db_data_3d->setAll(1.0);
-    EXPECT_EQ( (*db_data_3d)[0], 1.0);
+    EXPECT_DOUBLE_EQ( (*db_data_3d)[0], 1.0);
 }
 
 TEST_F(LLDataTest, ScaleAll)
 {
     db_data_3d->setAll(2.0);
     db_data_3d->scaleAll(2.5);
-    EXPECT_EQ( (*db_data_3d)[0], 5.0);
+    EXPECT_DOUBLE_EQ( (*db_data_3d)[0], 5.0);
 }
 
 TEST_F(LLDataTest, TotalSum)
 {
     fl_data_1d->setAll(2.0);
-    EXPECT_EQ( fl_data_1d->getTotalSum(), 20.0);
+    EXPECT_FLOAT_EQ( fl_data_1d->getTotalSum(), 20.0);
 
 	db_data_3d->setAll(0.5);
-    EXPECT_EQ( db_data_3d->getTotalSum(), 1500.0);
+    EXPECT_DOUBLE_EQ( db_data_3d->getTotalSum(), 1500.0);
 
 }
 
@@ -91,14 +91,14 @@ TEST_F(LLDataTest, DataCopyingConstructor) {
 	fl_data_1d->setAll(1.2);
 	LLData<float> *other_fl_data_1d  = new LLData<float>(*fl_data_1d);
 	EXPECT_TRUE(HaveSameDimensions(*fl_data_1d, *other_fl_data_1d));
-	EXPECT_EQ( (*other_fl_data_1d)[0], 1.2f);
-	EXPECT_EQ(fl_data_1d->getTotalSum(), other_fl_data_1d->getTotalSum());
+	EXPECT_FLOAT_EQ( (*other_fl_data_1d)[0], 1.2f);
+	EXPECT_FLOAT_EQ(fl_data_1d->getTotalSum(), other_fl_data_1d->getTotalSum());
 
 	db_data_3d->setAll(1.17);
 	LLData<double> *other_db_data_3d  = new LLData<double>(*db_data_3d);
 	EXPECT_TRUE(HaveSameDimensions(*db_data_3d, *other_db_data_3d));
-	EXPECT_EQ( (*other_db_data_3d)[10], 1.17);
-	EXPECT_EQ(db_data_3d->getTotalSum(), other_db_data_3d->getTotalSum());
+	EXPECT_DOUBLE_EQ( (*other_db_data_3d)[10], 1.17);
+	EXPECT_DOUBLE_EQ(db_data_3d->getTotalSum(), other_db_data_3d->getTotalSum());
 
 	delete other_int_data_0d;
 	delete other_fl_data_1d;
@@ -110,14 +110,14 @@ TEST_F(LLDataTest, DataAssignment) {
 	LLData<float> *other_fl_data_1d  = new LLData<float>(*fl_data_1d);
 	fl_data_1d->setAll(1.1f);
 	(*other_fl_data_1d) =  (*fl_data_1d);
-	EXPECT_EQ( (*other_fl_data_1d)[0], 1.1f);
-	EXPECT_EQ(fl_data_1d->getTotalSum(), other_fl_data_1d->getTotalSum());
+	EXPECT_FLOAT_EQ( (*other_fl_data_1d)[0], 1.1f);
+	EXPECT_FLOAT_EQ(fl_data_1d->getTotalSum(), other_fl_data_1d->getTotalSum());
 
 	LLData<double> *other_db_data_3d  = new LLData<double>(*db_data_3d);
 	db_data_3d->setAll(1.27);
 	(*other_db_data_3d) =  (*db_data_3d);
-	EXPECT_EQ( (*other_db_data_3d)[11], 1.27);
-	EXPECT_EQ(db_data_3d->getTotalSum(), other_db_data_3d->getTotalSum());
+	EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 1.27);
+	EXPECT_DOUBLE_EQ(db_data_3d->getTotalSum(), other_db_data_3d->getTotalSum());
 
 	delete other_fl_data_1d;
 	delete other_db_data_3d;
@@ -129,15 +129,15 @@ TEST_F(LLDataTest, Addition) {
 	fl_data_1d->setAll(1.1f);
 	other_fl_data_1d->setAll(2.9f);
 	(*other_fl_data_1d) +=  (*fl_data_1d);
-	EXPECT_EQ( (*other_fl_data_1d)[0], 4.0f);
-	EXPECT_EQ(other_fl_data_1d->getTotalSum(), 40.0f);
+	EXPECT_FLOAT_EQ( (*other_fl_data_1d)[0], 4.0f);
+	EXPECT_FLOAT_EQ(other_fl_data_1d->getTotalSum(), 40.0f);
 
 	LLData<double> *other_db_data_3d  = new LLData<double>(*db_data_3d);
 	db_data_3d->setAll(1.27);
 	other_db_data_3d->setAll(0.73);
 	(*other_db_data_3d) +=  (*db_data_3d);
-	EXPECT_EQ( (*other_db_data_3d)[11], 2.0);
-	EXPECT_EQ(other_db_data_3d->getTotalSum(), 6000.0);
+	EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 2.0);
+	EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 6000.0);
 
 	int *odim1 = new int[(size_t)1];
 	odim1[0] = 12;
@@ -159,15 +159,15 @@ TEST_F(LLDataTest, Substraction) {
 	fl_data_1d->setAll(1.15f);
 	other_fl_data_1d->setAll(5.15f);
 	(*other_fl_data_1d) -=  (*fl_data_1d);
-	EXPECT_EQ( (*other_fl_data_1d)[0], 4.0f);
-	EXPECT_EQ(other_fl_data_1d->getTotalSum(), 40.0f);
+	EXPECT_FLOAT_EQ( (*other_fl_data_1d)[0], 4.0f);
+	EXPECT_FLOAT_EQ(other_fl_data_1d->getTotalSum(), 40.0f);
 
 	LLData<double> *other_db_data_3d  = new LLData<double>(*db_data_3d);
 	db_data_3d->setAll(1.27);
 	other_db_data_3d->setAll(1.77);
 	(*other_db_data_3d) -=  (*db_data_3d);
-	EXPECT_EQ( (*other_db_data_3d)[11], 0.5);
-	EXPECT_EQ(other_db_data_3d->getTotalSum(), 1500.0);
+	EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 0.5);
+	EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 1500.0);
 
 	int *odim1 = new int[(size_t)1];
 	odim1[0] = 12;
@@ -219,15 +219,15 @@ TEST_F(LLDataTest, Division) {
 	fl_data_1d->setAll(1.15f);
 	other_fl_data_1d->setAll(2.3f);
 	(*other_fl_data_1d) /=  (*fl_data_1d);
-	EXPECT_EQ( (*other_fl_data_1d)[0], 2.0f);
-	EXPECT_EQ(other_fl_data_1d->getTotalSum(), 20.0f);
+	EXPECT_FLOAT_EQ( (*other_fl_data_1d)[0], 2.0f);
+	EXPECT_FLOAT_EQ(other_fl_data_1d->getTotalSum(), 20.0f);
 
 	LLData<double> *other_db_data_3d  = new LLData<double>(*db_data_3d);
 	db_data_3d->setAll(1.25);
 	other_db_data_3d->setAll(2.5);
 	(*other_db_data_3d) /=  (*db_data_3d);
-	EXPECT_EQ( (*other_db_data_3d)[11], 2.0);
-	EXPECT_EQ(other_db_data_3d->getTotalSum(), 6000.0);
+	EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 2.0);
+	EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 6000.0);
 
 	int *odim1 = new int[(size_t)1];
 	odim1[0] = 12;
@@ -278,25 +278,25 @@ TEST_F(LLDataTest, Accessors) {
 	for (size_t i=0; i < fl_data_1d->getTotalSize(); ++i) {
 		(*fl_data_1d)[i] = 0.5f*i;
 	}
-	EXPECT_EQ((*fl_data_1d)[2], 1.0f);
+	EXPECT_FLOAT_EQ((*fl_data_1d)[2], 1.0f);
 
 	int *coordinate = new int[(size_t)1];
 	coordinate[0] = 2;
-	EXPECT_EQ(fl_data_1d->atCoordinate(coordinate), 1.0f);
-	EXPECT_EQ(fl_data_1d->getTotalSum(), 22.5f);
+	EXPECT_FLOAT_EQ(fl_data_1d->atCoordinate(coordinate), 1.0f);
+	EXPECT_FLOAT_EQ(fl_data_1d->getTotalSum(), 22.5f);
 
 	for (size_t i=0; i < db_data_3d->getTotalSize(); ++i) {
 		(*db_data_3d)[i] = 0.2*i;
 	}
 
-	EXPECT_EQ((*db_data_3d)[2], 0.4);
+	EXPECT_DOUBLE_EQ((*db_data_3d)[2], 0.4);
 	int *coordinate3d = new int[(size_t)3];
 	coordinate3d[0] = 0;
 	coordinate3d[1] = 0;
 	coordinate3d[2] = 2;
 
-	EXPECT_EQ(db_data_3d->atCoordinate(coordinate3d), 0.4);
-	EXPECT_EQ(db_data_3d->getTotalSum(), 899700.0);
+	EXPECT_DOUBLE_EQ(db_data_3d->atCoordinate(coordinate3d), 0.4);
+	EXPECT_DOUBLE_EQ(db_data_3d->getTotalSum(), 899700.0);
 
 	delete coordinate;
 	delete coordinate3d;

@@ -135,6 +135,7 @@
 		625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173E16BAAE77004943DB /* FormFactorCone.cpp */; };
 		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
 		625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */; };
+		627200AF1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */; };
 		627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */; };
@@ -1713,6 +1714,8 @@
 		625A173E16BAAE77004943DB /* FormFactorCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCone.cpp; sourceTree = "<group>"; };
 		625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSpheroid.cpp; sourceTree = "<group>"; };
 		625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiSpheroid.cpp; sourceTree = "<group>"; };
+		627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolarizedDWBAZeroMagBuilder.cpp; sourceTree = "<group>"; };
+		627200AE1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolarizedDWBAZeroMagBuilder.h; sourceTree = "<group>"; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
 		627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePrintVisitor.h; sourceTree = "<group>"; };
 		627F5FFB1793EB17009E166F /* WinDllMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinDllMacros.h; sourceTree = "<group>"; };
@@ -70317,6 +70320,8 @@
 		627F6117179409CD009E166F /* StandardSamples */ = {
 			isa = PBXGroup;
 			children = (
+				627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */,
+				627200AE1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.h */,
 				627F6118179409CD009E166F /* IsGISAXS01Builder.cpp */,
 				627F6119179409CD009E166F /* IsGISAXS01Builder.h */,
 				627F611A179409CD009E166F /* IsGISAXS02Builder.cpp */,
@@ -72294,6 +72299,7 @@
 				627F60EE1793FB22009E166F /* Layer.pypp.cpp in Sources */,
 				627F60F01793FB22009E166F /* LayerInterface.pypp.cpp in Sources */,
 				627F60F11793FB22009E166F /* LayerRoughness.pypp.cpp in Sources */,
+				627200AF1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp in Sources */,
 				627F60F21793FB22009E166F /* MaterialManager.pypp.cpp in Sources */,
 				627F60F31793FB22009E166F /* MesoCrystal.pypp.cpp in Sources */,
 				627F60F41793FB22009E166F /* MultiLayer.pypp.cpp in Sources */,

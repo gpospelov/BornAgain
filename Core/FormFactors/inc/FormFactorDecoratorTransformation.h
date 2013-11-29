@@ -18,6 +18,7 @@
 
 #include "IFormFactorDecorator.h"
 #include "ITransform3D.h"
+#include <memory>
 
 //! Equip a Formfactor with a rotation.
 

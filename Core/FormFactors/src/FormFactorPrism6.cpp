@@ -18,11 +18,11 @@
 
 #include "MathFunctions.h"
 
-FormFactorPrism6::FormFactorPrism6(double height, double half_side)
+FormFactorPrism6::FormFactorPrism6(double radius, double height)
 {
     setName("FormFactorPrism6");
     m_height = height;
-    m_half_side = half_side;
+    m_radius = radius;
     m_root3 = std::sqrt(3.0);
     init_parameters();
 }
@@ -31,12 +31,12 @@ void FormFactorPrism6::init_parameters()
 {
     clearParameterPool();
     registerParameter("height", &m_height);
-    registerParameter("half_side", &m_half_side);
+    registerParameter("radius", &m_radius);
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const
 {
-      FormFactorPrism6 *result = new FormFactorPrism6(m_height, m_half_side);
+      FormFactorPrism6 *result = new FormFactorPrism6(m_radius, m_height);
       result->setName(getName());
       return result;
 }
@@ -44,7 +44,7 @@ FormFactorPrism6* FormFactorPrism6::clone() const
 complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 {
     complex_t qz = q.z();
-    double R = m_half_side;
+    double R = m_radius;
     double H = m_height;
 
     complex_t qzH_half = qz*H/2.0;
@@ -53,30 +53,27 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 
     complex_t xy_part = complex_t(0.0, 0.0);
     if (std::abs(q.x())==0.0 && std::abs(q.y())==0.0) {
-        xy_part = 2*m_root3*R*R;
+        xy_part = 3.*m_root3/2.*R*R;
     } else {
-      complex_t qxRdivr3 = (q.x()*R)/m_root3;
 
         if (std::abs(3.0*q.y()*q.y()-q.x()*q.x())==0.0) {
 
-            xy_part = 2.0*R*R/m_root3*MathFunctions::Sinc(q.y()*R)*(
-                        MathFunctions::Sinc(q.y()*R)
-                        + 2.0*std::cos(q.y()*R)
+            complex_t qyRr3_half = q.y()*R*m_root3/2.;
+            xy_part = R*R*m_root3/2.0*MathFunctions::Sinc(qyRr3_half)*(
+                        MathFunctions::Sinc(qyRr3_half)
+                        + 2.0*std::cos(qyRr3_half)
                         );
-
-                    /*m_root3 * (q.y()*R*q.y()*R*
-                                 MathFunctions::Sinc(qxRdivr3) *
-                                 MathFunctions::Sinc(q.y()*R) +
-                      std::cos(qxRdivr3) -
-                      std::cos(q.y()*R) * std::cos(qxRdivr3));*/
         } else {
 
-            xy_part = (4.0*m_root3*(q.y()*R*q.y()*R*
-                                    MathFunctions::Sinc(qxRdivr3) *
-                                    MathFunctions::Sinc(q.y()*R) +
-                       std::cos(2.0*qxRdivr3) -
-                       std::cos(q.y()*R) * std::cos(qxRdivr3)))/
-                                    (3.0*q.y()*q.y()-q.x()*q.x());
+            complex_t qxR_half = (q.x()*R)/2.0;
+            complex_t qyRr3_half = q.y()*R*m_root3/2.;
+
+            xy_part = (4.0*m_root3*(
+                      3.0/4.0*q.y()*R*q.y()*R*MathFunctions::Sinc(qxR_half) *
+                      MathFunctions::Sinc(qyRr3_half)
+                      + std::cos(2.0*qxR_half) -
+                       std::cos(qyRr3_half) * std::cos(qxR_half)
+                          ) )/(3.0*q.y()*q.y()-q.x()*q.x());
         }
     }
 

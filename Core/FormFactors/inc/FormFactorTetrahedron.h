@@ -19,19 +19,21 @@
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
+//#include "MemberComplexFunctionIntegrator.h"
+
 
 //! Form factor of tetrahedron.
 
 class BA_CORE_API_ FormFactorTetrahedron : public IFormFactorBorn
 {
 public:
-    //! @brief tetrahedron constructor
-    //! @param height of tetrahedron
-    //! @param half_side half of tetrahedron's base
+    //! @brief Tetrahedron constructor
+    //! @param height of Tetrahedron
+    //! @param half_side: half of Tetrahedron's base
     //! @param angle in radians between base and facet
-    FormFactorTetrahedron(double height, double half_side, double alpha);
-
+    FormFactorTetrahedron(double half_side, double height, double alpha);
     ~FormFactorTetrahedron() {}
+
     virtual FormFactorTetrahedron *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
@@ -53,10 +55,16 @@ protected:
     virtual void init_parameters();
 
 private:
+
+    //complex_t Integrand(double Z, void* params) const;
+
     double m_height;
     double m_half_side;
     double m_alpha;
     double m_root3; // Cached value of square root of 3
+   // mutable cvector_t m_q;
+
+   // MemberComplexFunctionIntegrator<FormFactorTetrahedron> *m_integrator;
 };
 
 #endif // FORMFACTORTETRAHEDRON_H

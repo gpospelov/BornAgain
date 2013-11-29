@@ -19,13 +19,13 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Formfactor of a ?
+//! Formfactor of a spheroid
 
 class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 {
 public:
     FormFactorFullSpheroid(double radius, double height);
-    double FullSpheroidIntegral(double Z, void* params) const;
+    //double FullSpheroidIntegral(double Z, void* params) const;
     ~FormFactorFullSpheroid() {}
     virtual FormFactorFullSpheroid *clone() const;
 
@@ -35,19 +35,24 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-protected:
+    virtual double getRadius() const { return m_radius; }
+
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
+
+protected:
+    //virtual complex_t evaluate_for_q(const cvector_t& q) const;
     virtual void init_parameters();
 
 private:
-    double evaluate_for_q_real() const;
+    /*double evaluate_for_q_real() const;
     complex_t evaluate_for_q_imag() const;
     double FullSpheroidIntegralReal(double Z, void* params) const;
-    double FullSpheroidIntegralImaginary(double Z, void* params) const;
+    double FullSpheroidIntegralImaginary(double Z, void* params) const;*/
 
     double m_radius;
     double m_height;
-    mutable cvector_t m_q;
+
+    //mutable cvector_t m_q;
 };
 
 #endif // FORMFACTORFULLSPHEROID_H

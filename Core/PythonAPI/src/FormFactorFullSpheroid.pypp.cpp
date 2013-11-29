@@ -37,6 +37,18 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return FormFactorFullSpheroid::clone( );
     }
 
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorFullSpheroid::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorFullSpheroid::evaluate_for_q( boost::ref(q) );
+    }
+
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -59,6 +71,18 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorFullSpheroid::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorFullSpheroid::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorFullSpheroid::getRadius( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -143,18 +167,6 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -280,6 +292,18 @@ void register_FormFactorFullSpheroid_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::FormFactorFullSpheroid::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorFullSpheroid::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorFullSpheroid_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorFullSpheroid_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorFullSpheroid::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorFullSpheroid_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
+        
+        }
         { //::FormFactorFullSpheroid::getHeight
         
             typedef double ( ::FormFactorFullSpheroid::*getHeight_function_type )(  ) const;
@@ -300,6 +324,17 @@ void register_FormFactorFullSpheroid_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorFullSpheroid::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorFullSpheroid_wrapper::default_getNumberOfStochasticParameters) );
+        
+        }
+        { //::FormFactorFullSpheroid::getRadius
+        
+            typedef double ( ::FormFactorFullSpheroid::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorFullSpheroid_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorFullSpheroid_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorFullSpheroid::getRadius)
+                , default_getRadius_function_type(&FormFactorFullSpheroid_wrapper::default_getRadius) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -383,17 +418,6 @@ void register_FormFactorFullSpheroid_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&FormFactorFullSpheroid_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactor::getRadius
-        
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorFullSpheroid_wrapper::*default_getRadius_function_type )(  ) const;
-            
-            FormFactorFullSpheroid_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorFullSpheroid_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume

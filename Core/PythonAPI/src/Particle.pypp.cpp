@@ -125,14 +125,14 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
 
     virtual void setTransform( ::Geometry::ITransform3D const & transform ) {
         if( bp::override func_setTransform = this->get_override( "setTransform" ) )
-            func_setTransform( boost::ref(transform) );
-        else{
-            this->Particle::setTransform( boost::ref(transform) );
-        }
+            func_setTransform( transform );
+        else
+            this->Particle::setTransform( transform );
     }
     
-    void default_setTransform( ::Geometry::ITransform3D const & transform ) {
-        Particle::setTransform( boost::ref(transform) );
+    
+    void default_setTransform( ::Geometry::PTransform3D const & transform ) {
+        Particle::setTransform( transform );
     }
 
     virtual bool areParametersChanged(  ) {

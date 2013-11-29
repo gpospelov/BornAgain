@@ -53,6 +53,9 @@ LatticeBasis* LatticeBasis::clone() const
     }
     p_new->setName(getName());
     p_new->setAmbientMaterial(this->mp_ambient_material);
+    if (mP_transform.get()) {
+        p_new->setTransform(*mP_transform);
+    }
     return p_new;
 }
 
@@ -67,6 +70,27 @@ LatticeBasis* LatticeBasis::cloneInvertB() const
     const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
             this->mp_ambient_material->getName());
     p_new->mp_ambient_material = p_ambient_material;
+    return p_new;
+}
+
+LatticeBasis* LatticeBasis::createTransformed() const
+{
+    if (!mP_transform.get()) {
+        return clone();
+    }
+    LatticeBasis *p_new = new LatticeBasis();
+    std::vector<kvector_t> new_positions;
+    for (size_t index=0; index<m_particles.size(); ++index) {
+        new_positions.clear();
+        for (std::vector<kvector_t>::const_iterator it =
+                m_positions_vector[index].begin();
+                it !=m_positions_vector[index].end(); ++it) {
+            new_positions.push_back(mP_transform->transformed(*it));
+        }
+        p_new->addParticle(*m_particles[index], new_positions);
+    }
+    p_new->setName(getName());
+    p_new->setAmbientMaterial(this->mp_ambient_material);
     return p_new;
 }
 
@@ -120,6 +144,16 @@ LatticeBasis::createDiffuseParticleInfos() const
     return result;
 }
 
+void LatticeBasis::setTransform(const Geometry::ITransform3D& transform)
+{
+    Particle::setTransform(transform);
+    for (std::vector<Particle *>::iterator it = m_particles.begin();
+            it != m_particles.end(); ++it)
+    {
+        (*it)->setTransform(transform);
+    }
+}
+
 void LatticeBasis::addParticlePointer(Particle* p_particle,
         std::vector<kvector_t> positions)
 {
@@ -127,3 +161,4 @@ void LatticeBasis::addParticlePointer(Particle* p_particle,
     m_particles.push_back(p_particle);
     m_positions_vector.push_back(positions);
 }
+

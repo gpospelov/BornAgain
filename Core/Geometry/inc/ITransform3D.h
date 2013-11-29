@@ -12,13 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef GEOMETRY_ITRANSFROM3D_H
-#define GEOMETRY_ITRANSFROM3D_H
+#ifndef GEOMETRY_ITRANSFORM3D_H
+#define GEOMETRY_ITRANSFORM3D_H
 
 #include "Types.h"
 #include "BasicVector3D.h"
 #include "EigenCore.h"
-#include <boost/shared_ptr.hpp>
 
 
 namespace Geometry {
@@ -48,10 +47,6 @@ public:
 
     virtual ITransform3D *clone() const { return new ITransform3D(); }
 
-#ifndef GCCXML_SKIP_THIS
-    Eigen::Matrix2cd transformed(const Eigen::Matrix2cd &m) const;
-#endif
-
     friend std::ostream& operator<<(std::ostream& ostr, const ITransform3D& m)
     { m.print(ostr); return ostr; }
 
@@ -61,28 +56,6 @@ public:
 
 }// namespace Geometry
 
-#ifndef GCCXML_SKIP_THIS
-
-inline Eigen::Matrix2cd Geometry::ITransform3D::transformed(
-        const Eigen::Matrix2cd& m) const
-{
-    Eigen::Matrix2cd result;
-    complex_t im(0.0, 1.0);
-    double a = std::real(m(0,0) + m(1,1))/2.0;
-    double bx = std::real(m(1,0));
-    double by = std::imag(m(1,0));
-    double bz = std::real(m(0,0) - m(1,1))/2.0;
-    BasicVector3D<double> b_v(bx, by, bz);
-    BasicVector3D<double> b_v_t = transformed(b_v);
-    result(0,0) = a + b_v_t.z();
-    result(0,1) = b_v_t.x() - im*b_v_t.y();
-    result(1,0) = b_v_t.x() + im*b_v_t.y();
-    result(1,1) = a - b_v_t.z();
-    return result;
-}
-
-#endif
-
-#endif /* GEOMETRY_ITRANSFROM3D_H */
+#endif /* GEOMETRY_ITRANSFORM3D_H */
 
 

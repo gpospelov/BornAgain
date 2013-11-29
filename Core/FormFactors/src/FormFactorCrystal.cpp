@@ -19,18 +19,22 @@ FormFactorCrystal::FormFactorCrystal(
         const Crystal& p_crystal,
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial *p_material, complex_t wavevector_scattering_factor)
-: m_lattice(p_crystal.getLattice())
+: m_lattice(p_crystal.getTransformedLattice())
 , m_wavevector_scattering_factor(wavevector_scattering_factor)
 , mp_ambient_material(p_material)
 , m_max_rec_length(0.0)
-, mP_transform(0)
-, mP_inverse_transform(0)
 {
     setName("FormFactorCrystal");
-    mp_lattice_basis = p_crystal.createBasis();
+    mp_lattice_basis = p_crystal.createTransformedBasis();
     mp_basis_form_factor = mp_lattice_basis->createFormFactor(
             m_wavevector_scattering_factor);
-    mp_meso_form_factor = meso_crystal_form_factor.clone();
+    if (p_crystal.getTransform()) {
+        mp_meso_form_factor = new FormFactorDecoratorTransformation(
+                meso_crystal_form_factor.clone(),
+                *p_crystal.getTransform() );
+    } else {
+        mp_meso_form_factor = meso_crystal_form_factor.clone();
+    }
     setAmbientMaterial(mp_ambient_material);
     calculateLargestReciprocalDistance();
 }
@@ -49,9 +53,6 @@ FormFactorCrystal* FormFactorCrystal::clone() const
             *mp_meso_form_factor, mp_ambient_material,
             m_wavevector_scattering_factor);
     result->setName(getName());
-    if (mP_transform.get()) {
-        result->setTransformation(*mP_transform.get());
-    }
     return result;
 }
 
@@ -74,13 +75,7 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
     // construct a real reciprocal vector
     cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
     cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
-    Bin1DCVector q_bin;
-    if (mP_inverse_transform.get()) {
-        q_bin = Bin1DCVector(mP_inverse_transform->transformed(q_bin_lower),
-                mP_inverse_transform->transformed(q_bin_upper));
-    } else {
-        q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-    }
+    Bin1DCVector q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
 
     cvector_t q = q_bin.getMidPoint();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
@@ -117,13 +112,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
     // construct a real reciprocal vector
     cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
     cvector_t q_bin_upper = k_i - k_f_bin.m_q_upper;
-    Bin1DCVector q_bin;
-    if (mP_inverse_transform.get()) {
-        q_bin = Bin1DCVector(mP_inverse_transform->transformed(q_bin_lower),
-                mP_inverse_transform->transformed(q_bin_upper));
-    } else {
-        q_bin = Bin1DCVector(q_bin_lower, q_bin_upper);
-    }
+    Bin1DCVector q_bin =  Bin1DCVector(q_bin_lower, q_bin_upper);
 
     cvector_t q = q_bin.getMidPoint();
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
@@ -142,16 +131,8 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
         cvector_t q_i((*it).x(), (*it).y(), (*it).z());
         Bin1DCVector min_q_i_zero_bin(-q_i, -q_i);
         Bin1DCVector q_i_min_q(q_i - q_bin.m_q_lower, q_i - q_bin.m_q_upper);
-
-        //transform the matrix amplitude back!
-        Eigen::Matrix2cd basis_factor;
-        Eigen::Matrix2cd basis_factor_rotated = mp_basis_form_factor->
+        Eigen::Matrix2cd basis_factor = mp_basis_form_factor->
                 evaluatePol(k_zero, min_q_i_zero_bin, alpha_f_bin, phi_f_bin);
-        if (mP_transform.get()) {
-            basis_factor = mP_transform->transformed(basis_factor_rotated);
-        } else {
-            basis_factor = basis_factor_rotated;
-        }
         complex_t meso_factor = mp_meso_form_factor->evaluate(
                 k_zero, q_i_min_q, alpha_f_bin);
         result += basis_factor*meso_factor;
@@ -165,13 +146,6 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
 double FormFactorCrystal::getVolume() const
 {
     return mp_meso_form_factor->getVolume();
-}
-
-void FormFactorCrystal::setTransformation(
-        const Geometry::ITransform3D& P_transform)
-{
-    mP_transform.reset(P_transform.clone());
-    mP_inverse_transform.reset(mP_transform->inverse());
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

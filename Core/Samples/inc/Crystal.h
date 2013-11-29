@@ -43,11 +43,10 @@ public:
     virtual IFormFactor *createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial *p_ambient_material,
-        complex_t wavevector_scattering_factor,
-        const Geometry::ITransform3D *transform = 0) const;
+        complex_t wavevector_scattering_factor) const;
 
-    Lattice getLattice() const { return m_lattice; }
-    LatticeBasis *createBasis() const { return mp_lattice_basis->clone(); }
+    Lattice getTransformedLattice() const;
+    LatticeBasis *createTransformedBasis() const;
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 
@@ -56,10 +55,20 @@ public:
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
 
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::ITransform3D& transform);
+
+    //! Gets transformation
+    virtual const Geometry::ITransform3D *getTransform() const {
+        return mP_transform.get();
+    }
+
+
 private:
     Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
+    std::auto_ptr<Geometry::ITransform3D> mP_transform;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;
 };

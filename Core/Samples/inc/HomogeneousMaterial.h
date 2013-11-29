@@ -40,6 +40,8 @@ public:
 
     virtual ~HomogeneousMaterial() {}
 
+    virtual HomogeneousMaterial *clone() const;
+
     //! Return refractive index.
     virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
 
@@ -52,6 +54,11 @@ public:
     //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
 #endif
+
+    //! Create a new material that is transformed with respect to this one
+    virtual const IMaterial *createTransformedMaterial(
+            const Geometry::ITransform3D& transform) const;
+
 protected:
     virtual void print(std::ostream& ostr) const
     {
@@ -62,6 +69,11 @@ protected:
     complex_t m_refractive_index; //!< complex index of refraction
 };
 
+inline HomogeneousMaterial* HomogeneousMaterial::clone() const
+{
+    return new HomogeneousMaterial(getName(), getRefractiveIndex());
+}
+
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
         double k_mag2) const
@@ -69,6 +81,14 @@ inline Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(
     (void)k_mag2;
     return m_refractive_index*m_refractive_index*Eigen::Matrix2cd::Identity();
 }
+
+inline const IMaterial* HomogeneousMaterial::createTransformedMaterial(
+        const Geometry::ITransform3D& transform) const
+{
+    (void)transform;
+    return new HomogeneousMaterial(getName(), getRefractiveIndex());
+}
+
 #endif
 
 #endif // HOMOGENEOUSMATERIAL_H

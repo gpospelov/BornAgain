@@ -52,19 +52,29 @@ Crystal* Crystal::cloneInvertB() const
 IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         const IMaterial *p_ambient_material,
-        complex_t wavevector_scattering_factor,
-        const Geometry::ITransform3D *P_transform) const
+        complex_t wavevector_scattering_factor) const
 {
     FormFactorCrystal *p_ff_crystal =
         new FormFactorCrystal(*this, meso_crystal_form_factor,
                 p_ambient_material, wavevector_scattering_factor);
-    if (P_transform) {
-        p_ff_crystal->setTransformation(*P_transform);
-    }
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
     }
     return p_ff_crystal;
+}
+
+Lattice Crystal::getTransformedLattice() const
+{
+    if (mP_transform.get()) {
+        return m_lattice.createTransformedLattice(*mP_transform);
+    } else {
+        return m_lattice;
+    }
+}
+
+LatticeBasis* Crystal::createTransformedBasis() const
+{
+    return mp_lattice_basis->createTransformed();
 }
 
 std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
@@ -95,6 +105,12 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     return p_result;
 }
 
+void Crystal::setTransform(const Geometry::ITransform3D& transform)
+{
+    mp_lattice_basis->setTransform(transform);
+    mP_transform.reset(transform.clone());
+}
+
 Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
 : m_lattice(lattice)
 , m_dw_factor(0.0)
@@ -103,3 +119,4 @@ Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
     mp_lattice_basis = p_lattice_basis;
     registerChild(mp_lattice_basis);
 }
+

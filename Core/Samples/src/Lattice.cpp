@@ -55,6 +55,15 @@ Lattice::~Lattice()
     delete mp_selection_rule;
 }
 
+Lattice Lattice::createTransformedLattice(
+        const Geometry::ITransform3D& transform) const
+{
+    kvector_t a1 = transform.transformed(m_a1);
+    kvector_t a2 = transform.transformed(m_a2);
+    kvector_t a3 = transform.transformed(m_a3);
+    return Lattice(a1, a2, a3);
+}
+
 void Lattice::initialize() const
 {
     computeReciprocalVectors();
@@ -233,5 +242,4 @@ void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,
     gsl_matrix_free(p_basisMatrix);
     gsl_matrix_free(p_inverseMatrix);
 }
-
 

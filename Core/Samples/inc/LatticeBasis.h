@@ -32,6 +32,9 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual LatticeBasis *cloneInvertB() const;
 
+    //! Creates a transformed version of itself
+    LatticeBasis *createTransformed() const;
+
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const {
         p_visitor->visit(this);
@@ -63,6 +66,9 @@ public:
     //! Creates vector of size/shape distributed particles corresponding to the
     //! particle with index i
     std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
+
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::ITransform3D& transform);
 
 private:
     //! Checks index

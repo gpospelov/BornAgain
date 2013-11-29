@@ -60,8 +60,8 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
     kvector_t ki_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
     kvector_t kf_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
     kvector_t q = kf_real - ki_real;
-    double autocorr(0);
-    complex_t crosscorr(0);
+    double autocorr(0.0);
+    complex_t crosscorr(0.0, 0.0);
 
     std::vector<complex_t > rterm;
     rterm.resize( mp_multi_layer->getNumberOfLayers() );

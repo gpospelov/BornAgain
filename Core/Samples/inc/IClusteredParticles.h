@@ -59,13 +59,11 @@ public:
     virtual IFormFactor *createTotalFormFactor(
            const IFormFactor& meso_crystal_form_factor,
            const IMaterial *p_ambient_material,
-           complex_t wavevector_scattering_factor,
-           const Geometry::ITransform3D *transform = 0) const
+           complex_t wavevector_scattering_factor) const
     {
         (void)meso_crystal_form_factor;
         (void)p_ambient_material;
         (void)wavevector_scattering_factor;
-        (void)transform;
         throw NotImplementedException(
                 "IClusteredParticles::createTotalFormFactor() "
                 "-> NotImplementedException");
@@ -79,6 +77,22 @@ public:
                 "IClusteredParticles::createDiffuseParticleInfo() "
                 "-> NotImplementedException");
     }
+
+    //! Sets transformation
+    virtual void setTransform(const Geometry::ITransform3D& transform)
+    {
+        (void)transform;
+        throw NotImplementedException(
+                "IClusteredParticles::setTransform() "
+                "-> NotImplementedException");
+    }
+
+    //! Gets transformation
+    virtual const Geometry::ITransform3D *getTransform() const
+    {
+        return 0;
+    }
+
 };
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

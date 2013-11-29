@@ -49,6 +49,30 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::cloneInvertB( );
     }
 
+    virtual ::Geometry::ITransform3D const * getTransform(  ) const  {
+        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
+            return func_getTransform(  );
+        else{
+            return this->Crystal::getTransform(  );
+        }
+    }
+    
+    ::Geometry::ITransform3D const * default_getTransform(  ) const  {
+        return Crystal::getTransform( );
+    }
+
+    virtual void setTransform( ::Geometry::ITransform3D const & transform ) {
+        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
+            func_setTransform( boost::ref(transform) );
+        else{
+            this->Crystal::setTransform( boost::ref(transform) );
+        }
+    }
+    
+    void default_setTransform( ::Geometry::ITransform3D const & transform ) {
+        Crystal::setTransform( boost::ref(transform) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -196,23 +220,14 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::createBasis
+        { //::Crystal::createTransformedBasis
         
-            typedef ::LatticeBasis * ( ::Crystal::*createBasis_function_type )(  ) const;
+            typedef ::LatticeBasis * ( ::Crystal::*createTransformedBasis_function_type )(  ) const;
             
             Crystal_exposer.def( 
-                "createBasis"
-                , createBasis_function_type( &::Crystal::createBasis )
+                "createTransformedBasis"
+                , createTransformedBasis_function_type( &::Crystal::createTransformedBasis )
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::Crystal::getLattice
-        
-            typedef ::Lattice ( ::Crystal::*getLattice_function_type )(  ) const;
-            
-            Crystal_exposer.def( 
-                "getLattice"
-                , getLattice_function_type( &::Crystal::getLattice ) );
         
         }
         { //::Crystal::getLatticeBasis
@@ -225,6 +240,27 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::Crystal::getTransform
+        
+            typedef ::Geometry::ITransform3D const * ( ::Crystal::*getTransform_function_type )(  ) const;
+            typedef ::Geometry::ITransform3D const * ( Crystal_wrapper::*default_getTransform_function_type )(  ) const;
+            
+            Crystal_exposer.def( 
+                "getTransform"
+                , getTransform_function_type(&::Crystal::getTransform)
+                , default_getTransform_function_type(&Crystal_wrapper::default_getTransform)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Crystal::getTransformedLattice
+        
+            typedef ::Lattice ( ::Crystal::*getTransformedLattice_function_type )(  ) const;
+            
+            Crystal_exposer.def( 
+                "getTransformedLattice"
+                , getTransformedLattice_function_type( &::Crystal::getTransformedLattice ) );
+        
+        }
         { //::Crystal::setDWFactor
         
             typedef void ( ::Crystal::*setDWFactor_function_type )( double ) ;
@@ -233,6 +269,18 @@ void register_Crystal_class(){
                 "setDWFactor"
                 , setDWFactor_function_type( &::Crystal::setDWFactor )
                 , ( bp::arg("dw_factor") ) );
+        
+        }
+        { //::Crystal::setTransform
+        
+            typedef void ( ::Crystal::*setTransform_function_type )( ::Geometry::ITransform3D const & ) ;
+            typedef void ( Crystal_wrapper::*default_setTransform_function_type )( ::Geometry::ITransform3D const & ) ;
+            
+            Crystal_exposer.def( 
+                "setTransform"
+                , setTransform_function_type(&::Crystal::setTransform)
+                , default_setTransform_function_type(&Crystal_wrapper::default_setTransform)
+                , ( bp::arg("transform") ) );
         
         }
         { //::IParameterized::areParametersChanged

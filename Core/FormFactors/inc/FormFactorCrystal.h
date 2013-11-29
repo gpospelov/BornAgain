@@ -48,8 +48,6 @@ public:
 
     virtual double getVolume() const;
 
-    void setTransformation(const Geometry::ITransform3D& P_transform);
-
 private:
     void calculateLargestReciprocalDistance();
 
@@ -60,8 +58,6 @@ private:
     IFormFactor *mp_meso_form_factor;
     const IMaterial *mp_ambient_material;
     double m_max_rec_length;
-    std::auto_ptr<Geometry::ITransform3D> mP_transform;
-    std::auto_ptr<Geometry::ITransform3D> mP_inverse_transform;
 };
 
 #endif /* FORMFACTORCRYSTAL_H_ */

@@ -30,6 +30,30 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     
     }
 
+    virtual ::IMaterial * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->IMaterial::clone(  );
+        }
+    }
+    
+    ::IMaterial * default_clone(  ) const  {
+        return IMaterial::clone( );
+    }
+
+    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::ITransform3D const & transform ) const  {
+        if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
+            return func_createTransformedMaterial( boost::ref(transform) );
+        else{
+            return this->IMaterial::createTransformedMaterial( boost::ref(transform) );
+        }
+    }
+    
+    ::IMaterial const * default_createTransformedMaterial( ::Geometry::ITransform3D const & transform ) const  {
+        return IMaterial::createTransformedMaterial( boost::ref(transform) );
+    }
+
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
@@ -62,6 +86,31 @@ void register_IMaterial_class(){
         typedef bp::class_< IMaterial_wrapper > IMaterial_exposer_t;
         IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IMaterial_scope( IMaterial_exposer );
+        { //::IMaterial::clone
+        
+            typedef ::IMaterial * ( ::IMaterial::*clone_function_type )(  ) const;
+            typedef ::IMaterial * ( IMaterial_wrapper::*default_clone_function_type )(  ) const;
+            
+            IMaterial_exposer.def( 
+                "clone"
+                , clone_function_type(&::IMaterial::clone)
+                , default_clone_function_type(&IMaterial_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IMaterial::createTransformedMaterial
+        
+            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type )( ::Geometry::ITransform3D const & ) const;
+            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type )( ::Geometry::ITransform3D const & ) const;
+            
+            IMaterial_exposer.def( 
+                "createTransformedMaterial"
+                , createTransformedMaterial_function_type(&::IMaterial::createTransformedMaterial)
+                , default_createTransformedMaterial_function_type(&IMaterial_wrapper::default_createTransformedMaterial)
+                , ( bp::arg("transform") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::IMaterial::getRefractiveIndex
         
             typedef ::complex_t ( ::IMaterial::*getRefractiveIndex_function_type )(  ) const;

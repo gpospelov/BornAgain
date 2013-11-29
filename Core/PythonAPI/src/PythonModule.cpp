@@ -10,8 +10,8 @@
 #include "Bin1D.pypp.h" 
 #include "Bin1DCVector.pypp.h" 
 #include "Crystal.pypp.h" 
-#include "cvector_t.pypp.h" 
 #include "Detector.pypp.h" 
+#include "FTDistribution2DCauchy.pypp.h" 
 #include "FormFactorBox.pypp.h" 
 #include "FormFactorCone.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
@@ -29,7 +29,6 @@
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphere.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
-#include "FTDistribution2DCauchy.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
 #include "IAxis.pypp.h" 
 #include "ICloneable.pypp.h" 
@@ -37,18 +36,12 @@
 #include "ICompositeSample.pypp.h" 
 #include "IDecoration.pypp.h" 
 #include "IDetectorResolution.pypp.h" 
+#include "IFTDistribution2D.pypp.h" 
 #include "IFormFactor.pypp.h" 
 #include "IFormFactorBorn.pypp.h" 
 #include "IFormFactorDecorator.pypp.h" 
-#include "IFTDistribution2D.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "IMaterial.pypp.h" 
-#include "Instrument.pypp.h" 
-#include "IntensityData.pypp.h" 
-#include "InterferenceFunction1DParaCrystal.pypp.h" 
-#include "InterferenceFunction2DLattice.pypp.h" 
-#include "InterferenceFunction2DParaCrystal.pypp.h" 
-#include "InterferenceFunctionNone.pypp.h" 
 #include "IObservable.pypp.h" 
 #include "IObserver.pypp.h" 
 #include "IParameterized.pypp.h" 
@@ -57,7 +50,12 @@
 #include "ISampleBuilder.pypp.h" 
 #include "ISelectionRule.pypp.h" 
 #include "ITransform3D.pypp.h" 
-#include "kvector_t.pypp.h" 
+#include "Instrument.pypp.h" 
+#include "IntensityData.pypp.h" 
+#include "InterferenceFunction1DParaCrystal.pypp.h" 
+#include "InterferenceFunction2DLattice.pypp.h" 
+#include "InterferenceFunction2DParaCrystal.pypp.h" 
+#include "InterferenceFunctionNone.pypp.h" 
 #include "Lattice.pypp.h" 
 #include "Lattice2DIFParameters.pypp.h" 
 #include "LatticeBasis.pypp.h" 
@@ -88,6 +86,8 @@
 #include "StochasticDoubleGaussian.pypp.h" 
 #include "StochasticParameter_t.pypp.h" 
 #include "StochasticSampledParameter.pypp.h" 
+#include "cvector_t.pypp.h" 
+#include "kvector_t.pypp.h" 
 #include "vdouble1d_t.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
 #include "vector_integer_t.pypp.h" 
@@ -114,7 +114,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Beam_class();
     register_Bin1D_class();
     register_Bin1DCVector_class();
-    register_ITransform3D_class();
     register_ICloneable_class();
     register_ISample_class();
     register_ICompositeSample_class();
@@ -145,6 +144,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorSphereGaussianRadius_class();
     register_kvector_t_class();
     register_cvector_t_class();
+    register_ITransform3D_class();
     register_RotateY_3D_class();
     register_RotateZ_3D_class();
     register_IMaterial_class();

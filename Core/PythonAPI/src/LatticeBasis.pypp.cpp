@@ -188,18 +188,6 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual void setTransform( ::Geometry::ITransform3D const & transform ) {
-        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
-            func_setTransform( boost::ref(transform) );
-        else{
-            this->Particle::setTransform( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransform( ::Geometry::ITransform3D const & transform ) {
-        Particle::setTransform( boost::ref(transform) );
-    }
-
 };
 
 void register_LatticeBasis_class(){
@@ -363,18 +351,6 @@ void register_LatticeBasis_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&LatticeBasis_wrapper::default_setParametersAreChanged) );
-        
-        }
-        { //::Particle::setTransform
-        
-            typedef void ( ::Particle::*setTransform_function_type )( ::Geometry::ITransform3D const & ) ;
-            typedef void ( LatticeBasis_wrapper::*default_setTransform_function_type )( ::Geometry::ITransform3D const & ) ;
-            
-            LatticeBasis_exposer.def( 
-                "setTransform"
-                , setTransform_function_type(&::Particle::setTransform)
-                , default_setTransform_function_type(&LatticeBasis_wrapper::default_setTransform)
-                , ( bp::arg("transform") ) );
         
         }
     }

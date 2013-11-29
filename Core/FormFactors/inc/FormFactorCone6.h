@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorCone.h
-//! @brief     Defines class FormFactorCone
+//! @file      FormFactors/inc/FormFactorCone6.h
+//! @brief     Defines class FormFactorCone6
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,26 +13,26 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCONE_H
-#define FORMFACTORCONE_H
+#ifndef FORMFACTORCONE6_H
+#define FORMFACTORCONE6_H
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of a cone.
+//! Form factor of a cone6.
 
-class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCone6 : public IFormFactorBorn
 {
 public:
-    //! @brief Cone constructor
-    //! @param height of Cone
-    //! @param radius half of Cone's base
+    //! @brief cone6 constructor
+    //! @param radius of hexagonal base (different from R in IsGisaxs)
+    //! @param height of cone6
     //! @param angle in radians between base and facet
-    FormFactorCone(double radius, double height,  double alpha);
-    ~FormFactorCone() {delete m_integrator;}
+    FormFactorCone6(double radius, double height,  double alpha);
+    ~FormFactorCone6() {delete m_integrator;}
 
-    virtual FormFactorCone* clone() const;
+    virtual FormFactorCone6* clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
@@ -47,9 +47,8 @@ public:
     virtual double getAlpha() const { return m_alpha; }
     virtual void setAlpha(double alpha) { m_alpha = alpha; }
 
-    virtual complex_t evaluate_for_q (const cvector_t& q) const;
-
 protected:
+    virtual complex_t evaluate_for_q (const cvector_t& q) const;
     virtual void init_parameters();
 
 private:
@@ -59,11 +58,12 @@ private:
     double m_radius;
     double m_height;
     double m_alpha;
+    double m_root3; // Cached value of square root of 3
     mutable cvector_t m_q;
 
-    MemberComplexFunctionIntegrator<FormFactorCone> *m_integrator;
+    MemberComplexFunctionIntegrator<FormFactorCone6> *m_integrator;
 };
 
-#endif // FORMFACTORCONE_H
+#endif // FORMFACTORCONE6_H
 
 

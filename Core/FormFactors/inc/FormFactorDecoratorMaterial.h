@@ -18,6 +18,7 @@
 
 #include "FormFactorDecoratorFactor.h"
 #include "HomogeneousMaterial.h"
+#include <memory>
 
 //! Decorates a scalar form factor with the correct factor for the material's
 //! refractive index and that of its surrounding material

@@ -1,0 +1,226 @@
+\chapter{Formfactors}
+
+\begin{itemize}
+\item Parallelepiped
+\item Pyramid, \SecRef{Pyramid} 
+\item Cylinder
+\item Cone
+\item Prism3
+\item Tethraedron
+\item Prism6
+\item Cone6
+\item Cut-off sphere, \SecRef{Sphere} 
+\item Cybooctaedron
+\item Facetted sphere  
+\item Full sphere, \SecRef{FullSphere} 
+\item Full spheroid 
+\item Box
+\item Anisotropic pyramid
+\item Ellipsoid
+\item Anisotropic hemi-spheroid
+\item Spheroid
+\end{itemize}
+
+\newpage
+\section{Formfactor Cut-off Sphere}\SecLabel{Sphere}
+\subsection{Real-space geometry}
+
+A sphere, with a planar cut-off.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{Figures/sphere}
+%\caption{Sketch of the formfactor sphere. Left: front view, right: top view.}
+\end{center}
+\label{sphere}
+\end{figure} 
+\par
+\paragraph{Parameters:}
+\begin{itemize}
+\item radius $R$
+\item heigth $H$
+\end{itemize}
+\paragraph{Restrictions:}
+\begin{itemize}
+\item $H\leq 2R$
+\end{itemize}
+\paragraph{Properties:}
+\begin{itemize}
+\item volume $V=\pi R^3 \left[\dfrac{2}{3} + \dfrac{H-R}{R} - \dfrac{1}{3}\left(\dfrac{H-R}{R}\right)^3\right]$
+\item particle surface seen from above $S = \left\{\begin{array}{ll} \pi R^2, & H > R \\
+         \pi\left(2RH-H^2\right), & H < R \end{array}\right. .$
+\item gyration radius along $z$ axis $R_g = \left\{\begin{array}{ll}  R, & H > R \\
+         \sqrt{2RH-H^2}, & H < R \end{array}\right. .$
+\end{itemize}
+
+
+\subsection{Computing the formfactor}
+The formfactor can be computed analytically upto a 1-dimensional quadrature:
+\begin{equation}
+F(\mathbf q, R, H) = \exp\left[iq_z\left(H-R\right)\right]\int\limits_{R-H}^{R}{2\pi R_z^2\frac{J_1(q_{||}R_z)}{q_{||}R_z}\exp\left[iq_zz\right]dz} 
+\label{eq:ffsphere}
+\end{equation}
+with abbreviations
+\begin{eqnarray}
+q_{||} &=& \sqrt{q_x^2+q_y^2} \\
+R_z &=& \sqrt{R^2-z^2} 
+\end{eqnarray}
+
+\subsection{Exemplary formfactor}
+$|F|^2/V^2$, computed for $R=10$~nm and $H=13$~nm:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/figffsphere}
+\end{center}
+%\caption{Computed results for $R=10$~nm and $H=13$~nm. {\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
+\end{figure}
+
+\par
+
+\subsection{Parameter dependence}
+$|F|^2/V^2$, computed for $R=10$~nm and $H=5$, 10 and 15~nm:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/ffspherepardep}
+\end{center}
+%\caption{Computed results for $R=10$~nm and different values of $H$.}
+\end{figure}
+
+
+\subsection{Related particle shapes}
+Full sphere~(\SecRef{FullSphere}), Ellipsoid, Full spheroid, Hemi-ellipsoid.
+%\begin{itemize}
+%\item Full sphere, \SecRef{FullSphere}
+%\item Ellipsoid
+%\item Full spheroid
+%\item Hemi-ellipsoid
+%\end{itemize} 
+
+\subsection{References}
+Equation~(\ref{eq:ffsphere}) agrees with the \lq\lq sphere\rq\rq ~formfactor of \IsGISAXS~\cite{Laz02}.
+
+\newpage{\cleardoublepage}
+\section{Formfactor Pyramid}\SecLabel{Pyramid}
+
+\subsection{Real-space geometry}
+
+A truncated square pyramid.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{Figures/pyramid}
+%\caption{Sketch of the formfactor sphere. Left: front view, right: top view.}
+\end{center}
+\label{pyramid}
+\end{figure} 
+\par
+\paragraph{Parameters:}
+\begin{itemize}
+\item size of the basemend side $2R$
+\item heigth $H$
+\item angle $\alpha$
+\end{itemize}
+\paragraph{Restrictions:}
+\begin{itemize}
+\item $\dfrac{H}{R} < \tan(\alpha)$
+\end{itemize}
+\paragraph{Properties:}
+\begin{itemize}
+\item volume $V=\dfrac{4}{3}\tan(\alpha)\left[R^3-\left(R-\dfrac{H}{\tan(\alpha)}\right)^3\right]$
+\item particle surface seen from above $S = 4R^2$
+\item gyration radius along $z$ axis $R_g = \sqrt{2}R$
+\end{itemize}
+
+
+\subsection{Computing the formfactor}
+The formfactor can be computed analytically upto a 1-dimensional quadrature:
+\begin{equation}
+F(\mathbf q, R, H,\alpha) = \int\limits_{0}^{H}{4R_z^2\sin_c(q_yR_z)\exp(iq_zz)dz} 
+\label{eq:ffpyramid}
+\end{equation}
+or
+\begin{equation}
+\begin{aligned}
+ & F(\mathbf q, R, H,\alpha) = \frac{H}{q_xq_y}\times \\  
+ & \left[ \cos[(q_x-q_y)R]K_1 + \sin[(q_x-q_y)]K_2 - \cos[(q_x+q_y)R]K_3 - \sin[(q_x+q_y)R]K_4 \right] 
+\end{aligned}
+\end{equation}
+with abbreviations
+\begin{eqnarray}
+R_z &=& R - \frac{z}{\tan(\alpha)} \\
+K_1 &=& \sin_c(q_1H)\exp(iq_1H) + \sin_c(q_2H)\exp(-iq_2H) \\ 
+K_2 &=& i\sin_c(q_1H)\exp(iq_1H) - i\sin_c(q_2H)\exp(-iq_2H) \\ 
+K_3 &=& \sin_c(q_3H)\exp(iq_3H) + \sin_c(q_4H)\exp(-iq_4H) \\ 
+K_4 &=& i\sin_c(q_3H)\exp(iq_3H) - i\sin_c(q_4H)\exp(-iq_4H) \\
+q_1 &=& \frac{1}{2}\left[\frac{q_x-q_y}{\tan(\alpha)} + q_z\right] \\ 
+q_2 &=& \frac{1}{2}\left[\frac{q_x-q_y}{\tan(\alpha)} - q_z\right] \\
+q_3 &=& \frac{1}{2}\left[\frac{q_x+q_y}{\tan(\alpha)} + q_z\right] \\
+q_4 &=& \frac{1}{2}\left[\frac{q_x+q_y}{\tan(\alpha)} - q_z\right] 
+\end{eqnarray}
+
+\subsection{Exemplary formfactor}
+$|F|^2/V^2$, computed for $R=10$~nm, $H=13$~nm and $\alpha=60^{\circ}$:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/figffpyramid}
+\end{center}
+%\caption{Computed results for $R=10$~nm and $H=13$~nm. {\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
+\end{figure}
+
+\par
+
+\subsection{Parameter dependence}
+$|F|^2/V^2$, computed for $R=5$~nm, $\alpha=60^{\circ}$ and $H=2.5$, 5 and 7.5~nm:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/ffpyramidpardeph}
+\end{center}
+%\caption{Computed results for $R=10$~nm and different values of $H$.}
+\end{figure}
+
+$|F|^2/V^2$, computed for $R=5$~nm, $H=5$~nm and $\alpha=50^{\circ}$, $65^{\circ}$ and $80^{\circ}$:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/ffpyramidpardepa}
+\end{center}
+%\caption{Computed results for $R=10$~nm and different values of $H$.}
+\end{figure}
+
+\subsection{Related particle shapes}
+Cubooctaedron, Anisotropic pyramid.
+
+\subsection{References}
+Equation~(\ref{eq:ffpyramid}) agrees with the \lq\lq pyramid\rq\rq ~formfactor of \IsGISAXS~\cite{Laz02}.
+
+
+\newpage{\cleardoublepage}
+
+
+\section{Formfactor Full Sphere}\SecLabel{FullSphere}
+%\begin{lstlisting}[language=python, style=eclipseboxed,name=fffullsphere,nolol]
+%from libBornAgainCore import * 
+%fullsphere_ff = FormFactorFullSphere(5*nanometer)
+%\end{lstlisting}
+%\par
+%~
+%\par
+Formfactor full sphere is represented as a sphere with radius $R$. 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{Figures/fullsphere}
+\caption{Sketch of the formfactor full sphere. Left: front view, right: top view.}
+\end{center}
+\label{fullsphere}
+\end{figure}
+
+\begin{equation}
+F(\mathbf q, R) = 4\pi R\times\frac{\sin(qR)-qR\cos(qR)}{(qR)^3}\times\exp\left(iq_zR\right)
+\end{equation}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/figfffullsphere}
+\end{center}
+\caption{{\bf a:} $|F|^2$ plotted against $q_z$ and $q_y$, {\bf b:} $|F|^2$ plotted against $q_x$ and $q_y$, {\bf c:} slice of the picture {\bf a} along the $q_z$ axis, {\bf d:} slice of the picture {\bf b} along the $q_x$ axis.}
+\end{figure}
+
+\par
+

@@ -16,7 +16,7 @@
 #include "FormFactorFullSpheroid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
+//#include "Numeric.h"
 #include "MemberFunctionIntegrator.h"
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
@@ -45,30 +45,43 @@ FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
 complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const
 {
     double H = m_height;
-    //double R = m_radius;
-    m_q = q;
+    double R = m_radius;
+    //m_q = q;
 
-    complex_t qz = m_q.z();
+    complex_t qz = q.z();
+    complex_t qx = q.x();
+    complex_t qy = q.y();
     complex_t qzH_half  = qz*H/2.0;
     complex_t iqzH_half = complex_t(0.0, 1.0)*qzH_half;
     complex_t a_part    =  std::exp(iqzH_half);
 
-    MemberFunctionIntegrator<FormFactorFullSpheroid>::mem_function p_mf =
+    /*MemberFunctionIntegrator<FormFactorFullSpheroid>::mem_function p_mf =
        & FormFactorFullSpheroid::FullSpheroidIntegral;
-    MemberFunctionIntegrator<FormFactorFullSpheroid> integrator(p_mf,this);
-    double radial = integrator.integrate(0.0, H/2.0, (void *)0);
-    return a_part * radial;
+    MemberFunctionIntegrator<FormFactorFullSpheroid> integrator(p_mf,this);*/
+
+    if (std::abs(qx) <= Numeric::double_epsilon
+            && std::abs(qy) <= Numeric::double_epsilon
+            && std::abs(qz) <= Numeric::double_epsilon)
+          {
+        return 2.*M_PI*R*R*H/3.;
+    }
+
+    else {
+        double radial = 0.;//integrator.integrate(0.0, H/2.0, (void *)0);
+        return a_part * radial;
+    }
 }
 
 //! Integrand.
 
-double FormFactorFullSpheroid::FullSpheroidIntegral(
+/*double FormFactorFullSpheroid::FullSpheroidIntegral(
     double Z, void* params) const
 {
     (void)params;
 
     double R = m_radius;
     double H = m_height;
+    m_q = q;
     complex_t qz = m_q.z();
     complex_t qx = m_q.x();
     complex_t qy = m_q.y();
@@ -79,7 +92,7 @@ double FormFactorFullSpheroid::FullSpheroidIntegral(
     double J1_qrRz_div_qrRz = std::abs(qrRz) > Numeric::double_epsilon ?
         MathFunctions::Bessel_J1(std::abs(qrRz))/qrRz :
         0.5;
-    return 4.0* M_PI *Rz*Rz* J1_qrRz_div_qrRz * std::cos(qz.real()*Z);
-}
+    return 4.0* M_PI *Rz*Rz* J1_qrRz_div_qrRz * std::cos(qz.real()*Z);*/
+//}
 
 

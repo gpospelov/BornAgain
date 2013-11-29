@@ -16,6 +16,7 @@ set(list_of_tests
     "IsGISAXS10"
     "IsGISAXS11"
     "IsGISAXS15"
+    "FormFactors"
 #    "MesoCrystal1"
 )
 

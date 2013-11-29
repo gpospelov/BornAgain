@@ -18,6 +18,7 @@
 
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
+#include "FormFactorCone6.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -42,7 +43,7 @@
 #include "FormFactorPyramid.h"
 #include "FormFactorSphere.h"
 #include "FormFactorSphereGaussianRadius.h"
-//#include "FormFactorTetrahedron.h"
+#include "FormFactorTetrahedron.h"
 #include "FormFactorWeighted.h"
 
 #endif /* FORMFACTORS_H_ */

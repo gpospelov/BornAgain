@@ -25,7 +25,14 @@ class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
 public:
     FormFactorBox( double length, double width, double height)
-        : m_length(length), m_width(width), m_height(height) {}
+        : m_length(length), m_width(width), m_height(height) {
+
+
+            setName("FormFactorBox");
+            init_parameters();
+        }
+
+
 
     virtual ~FormFactorBox() {}
 

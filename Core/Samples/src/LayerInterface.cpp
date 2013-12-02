@@ -31,6 +31,10 @@ LayerInterface::~LayerInterface()
     delete m_roughness;
 }
 
+LayerInterface *LayerInterface::clone() const
+{
+    throw NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
+}
 
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
 {

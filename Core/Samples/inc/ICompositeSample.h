@@ -24,10 +24,13 @@
 class BA_CORE_API_ ICompositeSample : public ISample
 {
 public:
+    typedef std::list<ISample*>::iterator iterator_t;
+    typedef std::list<ISample*>::const_iterator const_iterator_t;
+
     ICompositeSample() {}
     virtual ~ICompositeSample() {}
 
-    ICompositeSample *clone() const;
+    ICompositeSample *clone() const = 0;
 
     //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
@@ -40,20 +43,16 @@ public:
     virtual void deregisterChild(ISample *sample);
 
     //! Begins iteration over local registered children.
-    std::list<ISample*>::iterator begin_shallow()
-    { return m_samples.begin(); }
+    iterator_t begin_shallow() { return m_samples.begin(); }
 
     //! Ends iteration over local registered children.
-    std::list<ISample*>::iterator end_shallow()
-    { return m_samples.end(); }
+    iterator_t end_shallow() { return m_samples.end(); }
 
     //! Begins read-only iteration over local registered children.
-    std::list<ISample*>::const_iterator begin_shallow() const
-    { return m_samples.begin(); }
+    const_iterator_t begin_shallow() const { return m_samples.begin(); }
 
     //! Ends read-only iteration over local registered children.
-    std::list<ISample*>::const_iterator end_shallow() const
-    { return m_samples.end(); }
+    const_iterator_t end_shallow() const { return m_samples.end(); }
 
     //! Returns number of children.
     virtual size_t size() const { return m_samples.size(); }

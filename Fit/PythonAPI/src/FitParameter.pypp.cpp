@@ -40,10 +40,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual double getError(  ) const  {
         if( bp::override func_getError = this->get_override( "getError" ) )
             return func_getError(  );
-        else{
+        else
             return this->FitParameter::getError(  );
-        }
     }
+    
     
     double default_getError(  ) const  {
         return FitParameter::getError( );
@@ -52,10 +52,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual double getStep(  ) const  {
         if( bp::override func_getStep = this->get_override( "getStep" ) )
             return func_getStep(  );
-        else{
+        else
             return this->FitParameter::getStep(  );
-        }
     }
+    
     
     double default_getStep(  ) const  {
         return FitParameter::getStep( );
@@ -64,10 +64,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual double getValue(  ) const  {
         if( bp::override func_getValue = this->get_override( "getValue" ) )
             return func_getValue(  );
-        else{
+        else
             return this->FitParameter::getValue(  );
-        }
     }
+    
     
     double default_getValue(  ) const  {
         return FitParameter::getValue( );
@@ -76,10 +76,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setError( double value ) {
         if( bp::override func_setError = this->get_override( "setError" ) )
             func_setError( value );
-        else{
+        else
             this->FitParameter::setError( value );
-        }
     }
+    
     
     void default_setError( double value ) {
         FitParameter::setError( value );
@@ -88,10 +88,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setStep( double value ) {
         if( bp::override func_setStep = this->get_override( "setStep" ) )
             func_setStep( value );
-        else{
+        else
             this->FitParameter::setStep( value );
-        }
     }
+    
     
     void default_setStep( double value ) {
         FitParameter::setStep( value );
@@ -100,10 +100,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setValue( double value ) {
         if( bp::override func_setValue = this->get_override( "setValue" ) )
             func_setValue( value );
-        else{
+        else
             this->FitParameter::setValue( value );
-        }
     }
+    
     
     void default_setValue( double value ) {
         FitParameter::setValue( value );
@@ -112,10 +112,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual double getLowerLimit(  ) const  {
         if( bp::override func_getLowerLimit = this->get_override( "getLowerLimit" ) )
             return func_getLowerLimit(  );
-        else{
+        else
             return this->AttLimits::getLowerLimit(  );
-        }
     }
+    
     
     double default_getLowerLimit(  ) const  {
         return AttLimits::getLowerLimit( );
@@ -124,10 +124,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual double getUpperLimit(  ) const  {
         if( bp::override func_getUpperLimit = this->get_override( "getUpperLimit" ) )
             return func_getUpperLimit(  );
-        else{
+        else
             return this->AttLimits::getUpperLimit(  );
-        }
     }
+    
     
     double default_getUpperLimit(  ) const  {
         return AttLimits::getUpperLimit( );
@@ -136,10 +136,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual bool hasLowerAndUpperLimits(  ) const  {
         if( bp::override func_hasLowerAndUpperLimits = this->get_override( "hasLowerAndUpperLimits" ) )
             return func_hasLowerAndUpperLimits(  );
-        else{
+        else
             return this->AttLimits::hasLowerAndUpperLimits(  );
-        }
     }
+    
     
     bool default_hasLowerAndUpperLimits(  ) const  {
         return AttLimits::hasLowerAndUpperLimits( );
@@ -148,10 +148,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual bool hasLowerLimit(  ) const  {
         if( bp::override func_hasLowerLimit = this->get_override( "hasLowerLimit" ) )
             return func_hasLowerLimit(  );
-        else{
+        else
             return this->AttLimits::hasLowerLimit(  );
-        }
     }
+    
     
     bool default_hasLowerLimit(  ) const  {
         return AttLimits::hasLowerLimit( );
@@ -160,10 +160,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual bool hasUpperLimit(  ) const  {
         if( bp::override func_hasUpperLimit = this->get_override( "hasUpperLimit" ) )
             return func_hasUpperLimit(  );
-        else{
+        else
             return this->AttLimits::hasUpperLimit(  );
-        }
     }
+    
     
     bool default_hasUpperLimit(  ) const  {
         return AttLimits::hasUpperLimit( );
@@ -172,10 +172,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual bool isFixed(  ) const  {
         if( bp::override func_isFixed = this->get_override( "isFixed" ) )
             return func_isFixed(  );
-        else{
+        else
             return this->AttLimits::isFixed(  );
-        }
     }
+    
     
     bool default_isFixed(  ) const  {
         return AttLimits::isFixed( );
@@ -184,10 +184,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void removeLimits(  ) {
         if( bp::override func_removeLimits = this->get_override( "removeLimits" ) )
             func_removeLimits(  );
-        else{
+        else
             this->AttLimits::removeLimits(  );
-        }
     }
+    
     
     void default_removeLimits(  ) {
         AttLimits::removeLimits( );
@@ -196,10 +196,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void removeLowerLimit(  ) {
         if( bp::override func_removeLowerLimit = this->get_override( "removeLowerLimit" ) )
             func_removeLowerLimit(  );
-        else{
+        else
             this->AttLimits::removeLowerLimit(  );
-        }
     }
+    
     
     void default_removeLowerLimit(  ) {
         AttLimits::removeLowerLimit( );
@@ -208,10 +208,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void removeUpperLimit(  ) {
         if( bp::override func_removeUpperLimit = this->get_override( "removeUpperLimit" ) )
             func_removeUpperLimit(  );
-        else{
+        else
             this->AttLimits::removeUpperLimit(  );
-        }
     }
+    
     
     void default_removeUpperLimit(  ) {
         AttLimits::removeUpperLimit( );
@@ -220,10 +220,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setFixed( bool is_fixed ) {
         if( bp::override func_setFixed = this->get_override( "setFixed" ) )
             func_setFixed( is_fixed );
-        else{
+        else
             this->AttLimits::setFixed( is_fixed );
-        }
     }
+    
     
     void default_setFixed( bool is_fixed ) {
         AttLimits::setFixed( is_fixed );
@@ -232,10 +232,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setLimits( double xmin, double xmax ) {
         if( bp::override func_setLimits = this->get_override( "setLimits" ) )
             func_setLimits( xmin, xmax );
-        else{
+        else
             this->AttLimits::setLimits( xmin, xmax );
-        }
     }
+    
     
     void default_setLimits( double xmin, double xmax ) {
         AttLimits::setLimits( xmin, xmax );
@@ -244,10 +244,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setLowerLimit( double value ) {
         if( bp::override func_setLowerLimit = this->get_override( "setLowerLimit" ) )
             func_setLowerLimit( value );
-        else{
+        else
             this->AttLimits::setLowerLimit( value );
-        }
     }
+    
     
     void default_setLowerLimit( double value ) {
         AttLimits::setLowerLimit( value );
@@ -256,10 +256,10 @@ struct FitParameter_wrapper : FitParameter, bp::wrapper< FitParameter > {
     virtual void setUpperLimit( double value ) {
         if( bp::override func_setUpperLimit = this->get_override( "setUpperLimit" ) )
             func_setUpperLimit( value );
-        else{
+        else
             this->AttLimits::setUpperLimit( value );
-        }
     }
+    
     
     void default_setUpperLimit( double value ) {
         AttLimits::setUpperLimit( value );

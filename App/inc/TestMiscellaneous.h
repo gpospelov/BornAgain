@@ -58,6 +58,9 @@ public:
     //! testing specific sample geometries (for debugging purposes)
     void test_SampleGeometry();
 
+    //! testing hierarchical visitor
+    void test_HierarchicalVisitor();
+
 };
 
 #endif // TESTMISCELLANEOUS_H

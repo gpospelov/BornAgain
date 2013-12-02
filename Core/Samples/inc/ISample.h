@@ -19,6 +19,7 @@
 #include "IParameterized.h"
 #include "ICloneable.h"
 #include "ISampleVisitor.h"
+#include "ISampleHierarchicalVisitor.h"
 
 class ICompositeSample;
 class DWBASimulation;

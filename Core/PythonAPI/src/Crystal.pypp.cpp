@@ -28,10 +28,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::Crystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->Crystal::clone(  );
-        }
     }
+    
     
     ::Crystal * default_clone(  ) const  {
         return Crystal::clone( );
@@ -40,10 +40,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::Crystal * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else{
+        else
             return this->Crystal::cloneInvertB(  );
-        }
     }
+    
     
     ::Crystal * default_cloneInvertB(  ) const  {
         return Crystal::cloneInvertB( );
@@ -52,10 +52,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::Geometry::ITransform3D const * getTransform(  ) const  {
         if( bp::override func_getTransform = this->get_override( "getTransform" ) )
             return func_getTransform(  );
-        else{
+        else
             return this->Crystal::getTransform(  );
-        }
     }
+    
     
     ::Geometry::ITransform3D const * default_getTransform(  ) const  {
         return Crystal::getTransform( );
@@ -64,10 +64,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void setTransform( ::Geometry::ITransform3D const & transform ) {
         if( bp::override func_setTransform = this->get_override( "setTransform" ) )
             func_setTransform( boost::ref(transform) );
-        else{
+        else
             this->Crystal::setTransform( boost::ref(transform) );
-        }
     }
+    
     
     void default_setTransform( ::Geometry::ITransform3D const & transform ) {
         Crystal::setTransform( boost::ref(transform) );
@@ -76,10 +76,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -88,10 +88,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -100,22 +100,46 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -124,10 +148,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else{
+        else
             this->ISample::printSampleTree(  );
-        }
     }
+    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -155,10 +179,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
             return func_setMatchedParametersValue( wildcards, value );
-        else{
+        else
             return this->IParameterized::setMatchedParametersValue( wildcards, value );
-        }
     }
+    
     
     int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         return IParameterized::setMatchedParametersValue( wildcards, value );
@@ -167,10 +191,10 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -179,13 +203,25 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
+    }
+
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else
+            return this->ICompositeSample::size(  );
+    }
+    
+    
+    ::std::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
     }
 
 };
@@ -317,6 +353,30 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( Crystal_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            Crystal_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&Crystal_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( Crystal_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            
+            Crystal_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&Crystal_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
@@ -382,6 +442,17 @@ void register_Crystal_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&Crystal_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICompositeSample::size
+        
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( Crystal_wrapper::*default_size_function_type )(  ) const;
+            
+            Crystal_exposer.def( 
+                "size"
+                , size_function_type(&::ICompositeSample::size)
+                , default_size_function_type(&Crystal_wrapper::default_size) );
         
         }
     }

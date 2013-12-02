@@ -19,21 +19,16 @@
 #include <sstream>
 #include "Exceptions.h"
 
-ICompositeSample *ICompositeSample::clone() const
-{
-    throw NotImplementedException("ICompositeSample::clone() -> "
-                                  "Error: not implemented");
-}
 
 //! Registers child in the container
 
 void ICompositeSample::registerChild(ISample *sample)
 {
-    if(!sample) { // QUESTION: why not throw exception ???
-        msglog(MSG::ERROR) << "ICompositeSample::registerChild() -> "
-            "Attempt to register NULL child in this " << *this;
+    if(sample) {
+        m_samples.push_back(sample);
+    }else {
+        throw NullPointerException("ICompositeSample::registerChild -> Error. Null pointer.");
     }
-    m_samples.push_back(sample);
 }
 
 //! remove registere child from the container

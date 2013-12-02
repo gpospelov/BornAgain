@@ -13,6 +13,8 @@
 //
 // ************************************************************************** //
 
+#include "ISampleHierarchicalVisitor.h"
+
 #include "TestMiscellaneous.h"
 #include "SampleFactory.h"
 #include "OutputData.h"
@@ -51,6 +53,7 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
+    test_HierarchicalVisitor();
     //test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
@@ -60,12 +63,27 @@ void TestMiscellaneous::execute()
     //test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
-    test_SampleGeometry();
+    //test_SampleGeometry();
 }
 
 
 /* ************************************************************************* */
-// test of log system
+// test of hierarchical visitor
+/* ************************************************************************* */
+void TestMiscellaneous::test_HierarchicalVisitor()
+{
+    std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs04_2DDL");
+    //std::cout << (*sample) << std::endl;
+
+    SamplePrintVisitor visitor;
+    sample->accept(&visitor);
+}
+
+
+/* ************************************************************************* */
+// test of print visitor
 /* ************************************************************************* */
 void TestMiscellaneous::test_PrintVisitor()
 {

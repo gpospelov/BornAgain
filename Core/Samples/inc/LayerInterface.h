@@ -28,6 +28,8 @@ class LayerInterface : public ICompositeSample
 public:
     virtual ~LayerInterface();
 
+    LayerInterface *clone() const;
+
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 

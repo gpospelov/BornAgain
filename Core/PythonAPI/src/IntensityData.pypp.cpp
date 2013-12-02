@@ -34,7 +34,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::addAxis
         
             typedef OutputData< double > exported_class_t;
-            typedef void ( exported_class_t::*addAxis_function_type )( ::std::string const &,::size_t,double,double ) ;
+            typedef void ( exported_class_t::*addAxis_function_type )( ::std::string const &,::std::size_t,double,double ) ;
             
             IntensityData_exposer.def( 
                 "addAxis"
@@ -87,7 +87,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getAllocatedSize
         
             typedef OutputData< double > exported_class_t;
-            typedef ::size_t ( exported_class_t::*getAllocatedSize_function_type )(  ) const;
+            typedef ::std::size_t ( exported_class_t::*getAllocatedSize_function_type )(  ) const;
             
             IntensityData_exposer.def( 
                 "getAllocatedSize"
@@ -107,7 +107,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getAxis
         
             typedef OutputData< double > exported_class_t;
-            typedef ::IAxis const * ( exported_class_t::*getAxis_function_type )( ::size_t ) const;
+            typedef ::IAxis const * ( exported_class_t::*getAxis_function_type )( ::std::size_t ) const;
             
             IntensityData_exposer.def( 
                 "getAxis"
@@ -131,7 +131,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getAxisIndex
         
             typedef OutputData< double > exported_class_t;
-            typedef ::size_t ( exported_class_t::*getAxisIndex_function_type )( ::std::string const & ) const;
+            typedef ::std::size_t ( exported_class_t::*getAxisIndex_function_type )( ::std::string const & ) const;
             
             IntensityData_exposer.def( 
                 "getAxisIndex"
@@ -142,7 +142,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getIndexOfAxis
         
             typedef OutputData< double > exported_class_t;
-            typedef ::size_t ( exported_class_t::*getIndexOfAxis_function_type )( ::std::string const &,::size_t ) const;
+            typedef ::std::size_t ( exported_class_t::*getIndexOfAxis_function_type )( ::std::string const &,::std::size_t ) const;
             
             IntensityData_exposer.def( 
                 "getIndexOfAxis"
@@ -153,7 +153,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getRank
         
             typedef OutputData< double > exported_class_t;
-            typedef ::size_t ( exported_class_t::*getRank_function_type )(  ) const;
+            typedef ::std::size_t ( exported_class_t::*getRank_function_type )(  ) const;
             
             IntensityData_exposer.def( 
                 "getRank"
@@ -173,7 +173,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::getValueOfAxis
         
             typedef OutputData< double > exported_class_t;
-            typedef double ( exported_class_t::*getValueOfAxis_function_type )( ::std::string const &,::size_t ) const;
+            typedef double ( exported_class_t::*getValueOfAxis_function_type )( ::std::string const &,::std::size_t ) const;
             
             IntensityData_exposer.def( 
                 "getValueOfAxis"
@@ -210,7 +210,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::operator[]
         
             typedef OutputData< double > exported_class_t;
-            typedef double & ( exported_class_t::*__getitem___function_type )( ::size_t ) ;
+            typedef double & ( exported_class_t::*__getitem___function_type )( ::std::size_t ) ;
             
             IntensityData_exposer.def( 
                 "__getitem__"
@@ -222,7 +222,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::operator[]
         
             typedef OutputData< double > exported_class_t;
-            typedef double const & ( exported_class_t::*__getitem___function_type )( ::size_t ) const;
+            typedef double const & ( exported_class_t::*__getitem___function_type )( ::std::size_t ) const;
             
             IntensityData_exposer.def( 
                 "__getitem__"
@@ -277,7 +277,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::toCoordinate
         
             typedef OutputData< double > exported_class_t;
-            typedef int ( exported_class_t::*toCoordinate_function_type )( ::size_t,::size_t ) const;
+            typedef int ( exported_class_t::*toCoordinate_function_type )( ::std::size_t,::std::size_t ) const;
             
             IntensityData_exposer.def( 
                 "toCoordinate"
@@ -288,7 +288,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::toCoordinates
         
             typedef OutputData< double > exported_class_t;
-            typedef ::std::vector< int > ( exported_class_t::*toCoordinates_function_type )( ::size_t ) const;
+            typedef ::std::vector< int > ( exported_class_t::*toCoordinates_function_type )( ::std::size_t ) const;
             
             IntensityData_exposer.def( 
                 "toCoordinates"
@@ -299,7 +299,7 @@ void register_IntensityData_class(){
         { //::OutputData< double >::toIndex
         
             typedef OutputData< double > exported_class_t;
-            typedef ::size_t ( exported_class_t::*toIndex_function_type )( ::std::vector< int > ) const;
+            typedef ::std::size_t ( exported_class_t::*toIndex_function_type )( ::std::vector< int > ) const;
             
             IntensityData_exposer.def( 
                 "toIndex"

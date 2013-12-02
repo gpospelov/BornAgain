@@ -33,10 +33,10 @@ struct OutputDataNormalizer_wrapper : OutputDataNormalizer, bp::wrapper< OutputD
     virtual ::OutputDataNormalizer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->OutputDataNormalizer::clone(  );
-        }
     }
+    
     
     ::OutputDataNormalizer * default_clone(  ) const  {
         return OutputDataNormalizer::clone( );
@@ -45,10 +45,10 @@ struct OutputDataNormalizer_wrapper : OutputDataNormalizer, bp::wrapper< OutputD
     virtual ::OutputData< double > * createNormalizedData( ::OutputData< double > const & data ) const  {
         if( bp::override func_createNormalizedData = this->get_override( "createNormalizedData" ) )
             return func_createNormalizedData( boost::ref(data) );
-        else{
+        else
             return this->OutputDataNormalizer::createNormalizedData( boost::ref(data) );
-        }
     }
+    
     
     ::OutputData< double > * default_createNormalizedData( ::OutputData< double > const & data ) const  {
         return OutputDataNormalizer::createNormalizedData( boost::ref(data) );
@@ -57,10 +57,10 @@ struct OutputDataNormalizer_wrapper : OutputDataNormalizer, bp::wrapper< OutputD
     virtual void setMaximumIntensity( double max_intensity ) {
         if( bp::override func_setMaximumIntensity = this->get_override( "setMaximumIntensity" ) )
             func_setMaximumIntensity( max_intensity );
-        else{
+        else
             this->OutputDataNormalizer::setMaximumIntensity( max_intensity );
-        }
     }
+    
     
     void default_setMaximumIntensity( double max_intensity ) {
         OutputDataNormalizer::setMaximumIntensity( max_intensity );

@@ -137,7 +137,7 @@ def ManualClassTunings(mb):
     
     # ICompositeSample
     cl = mb.class_('ICompositeSample')
-    cl.member_functions().exclude()
+    #cl.member_functions().exclude()
     
     # BasicVector3D
     methods_to_exclude=[

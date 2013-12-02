@@ -7,7 +7,9 @@ set(CMAKE_CXX_FLAGS "-DSTANDALONE")
 set(list_of_tests
     "IsGISAXS01"
     "IsGISAXS02"
-    "IsGISAXS03"
+    "IsGISAXS03BA"
+    "IsGISAXS03DWBA"
+    "IsGISAXS03BAsize"
     "IsGISAXS04"
     "IsGISAXS06"
     "IsGISAXS07"

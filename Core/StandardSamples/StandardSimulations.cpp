@@ -39,6 +39,61 @@ Simulation *StandardSimulations::IsGISAXS02()
     return result;
 }
 
+Simulation *StandardSimulations::IsGISAXS03BA()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs03_ba");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                                         100, 0.0*Units::degree, 2.0*Units::degree,
+                                         true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::IsGISAXS03DWBA()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs03_dwba");
+
+    Simulation *result = new Simulation();
+
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                                      100, 0.0*Units::degree, 2.0*Units::degree,
+                                      true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+             0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::IsGISAXS03BAsize()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs03_basize");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                                        100, 0.0*Units::degree, 2.0*Units::degree,
+                                        true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+               0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
 Simulation *StandardSimulations::MesoCrystal01()
 {
     SampleBuilderFactory factory;

@@ -10,7 +10,9 @@ namespace StandardSimulations{
 
 Simulation *IsGISAXS01();
 Simulation *IsGISAXS02();
-//Simulation *IsGISAXS03();
+Simulation *IsGISAXS03BA();
+Simulation *IsGISAXS03DWBA();
+Simulation *IsGISAXS03BAsize();
 //Simulation *IsGISAXS04();
 //Simulation *IsGISAXS06();
 //Simulation *IsGISAXS07();

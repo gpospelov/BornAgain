@@ -8,7 +8,7 @@ class Simulation;
 
 namespace StandardSimulations{
 
-
+Simulation *IsGISAXS01();
 Simulation *MesoCrystal01();
 Simulation *PolarizedDWBAZeroMag();
 

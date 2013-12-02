@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Units.h"
 #include "MathFunctions.h"
+#include "SimulationRegistry.h"
 #include <iostream>
 #include <cmath>
 
@@ -13,44 +14,34 @@ FunctionalTests::IsGISAXS01::IsGISAXS01()
     : m_name("IsGISAXS01")
     , m_description("Mixture of cylinders and prisms without interference")
     , m_result(0)
+	, m_reference(0)
 { }
 
 
-void FunctionalTests::IsGISAXS01::run()
+void FunctionalTests::IsGISAXS01::run(const std::string &path_to_data)
 {
-    SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs01");
 
-    Simulation simulation;
-    simulation.setDetectorParameters(
-        100,-1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    SimulationRegistry sim_registry;
+    Simulation *simulation = sim_registry.createSimulation("isgisaxs01");
 
-    // Run simulation
-    simulation.setSample(*sample);
-    simulation.runSimulation();
+    // loading reference data
+    std::string filename = path_to_data + "isgisaxs01_reference.ima.gz";
+    m_reference = OutputDataIOFactory::readIntensityData(filename);
 
-    // Copy results
-    m_result = simulation.getIntensityData();
+    simulation->runSimulation();
 
-    delete sample;
+    m_result = simulation->getIntensityData();
+    delete simulation;
 }
 
 
-int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
+int FunctionalTests::IsGISAXS01::analyseResults()
 {
     const double threshold(2e-10);
 
-    // Retrieve reference data.
-    std::string filename = path_to_data + "isgisaxs01_reference.ima.gz";
-    OutputData<double > *reference =
-        OutputDataIOFactory::readIntensityData(filename);
-
     // Calculating average relative difference.
-    *m_result -= *reference;
-    *m_result /= *reference;
+    *m_result -= *m_reference;
+    *m_result /= *m_reference;
 
     double diff(0);
     for(OutputData<double>::const_iterator it =
@@ -60,15 +51,12 @@ int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
     diff /= m_result->getAllocatedSize();
 
     // Assess result.
-    bool status_ok(true);
-    if( diff > threshold || MathFunctions::isnan(diff) ) status_ok=false;
+	bool status_ok(true);
+    if( diff > threshold || std::isnan(diff)) status_ok=false;
 
-
+    std::cout << " diff " << diff << std::endl;
     std::cout << m_name << " " << m_description << " " <<
-        (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-
-    delete reference;
-
+            (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (status_ok ? 0 : 1);
 }
 
@@ -83,7 +71,7 @@ std::string GetPathToData(int argc, char **argv)
 int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS01 test;
-    test.run();
-    return test.analyseResults(GetPathToData(argc,argv));
+    test.run(GetPathToData(argc, argv));
+    return test.analyseResults();
 }
 #endif

@@ -6,6 +6,9 @@
 
 SimulationRegistry::SimulationRegistry()
 {
+    registerItem(
+                "isgisaxs01", StandardSimulations::IsGISAXS01,
+        "Mixture of cylinders and prisms without interference");
 
     registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,

@@ -8,7 +8,6 @@
 
 class ISample;
 class Simulation;
-#include "OutputData.h"
 
 
 namespace FunctionalTests {

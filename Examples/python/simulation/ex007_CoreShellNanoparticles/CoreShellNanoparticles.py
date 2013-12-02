@@ -16,7 +16,6 @@ def get_sample():
     m_shell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
     m_core = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
 
-
     # collection of particles
     parallelepiped1_ff = FormFactorParallelepiped(8*nanometer, 8*nanometer)
     parallelepiped2_ff = FormFactorParallelepiped(7*nanometer, 6*nanometer)
@@ -38,6 +37,7 @@ def get_sample():
 
     return multi_layer
 
+
 def get_simulation():
     """
     Create and return GISAXS simulation with beam and detector defined
@@ -47,6 +47,7 @@ def get_simulation():
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     return simulation
+
 
 def run_simulation():
     """

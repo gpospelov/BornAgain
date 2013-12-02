@@ -56,7 +56,7 @@ TEST_F(FormFactorTest, Box)
     EXPECT_EQ(7., box.getWidth());
     EXPECT_EQ(5., box.getHeight());
     EXPECT_EQ(3., box.getRadius());
-    EXPECT_EQ(volume, box.getVolume());
+    EXPECT_DOUBLE_EQ(volume, box.getVolume());
     EXPECT_EQ(3, box.getNumberOfStochasticParameters());
 
     FormFactorBox *boxclone = box.clone();
@@ -65,7 +65,7 @@ TEST_F(FormFactorTest, Box)
     EXPECT_EQ(7., boxclone->getWidth());
     EXPECT_EQ(5., boxclone->getHeight());
     EXPECT_EQ(3., boxclone->getRadius());
-    EXPECT_EQ(volume, boxclone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, boxclone->getVolume());
     EXPECT_EQ(3, boxclone->getNumberOfStochasticParameters());
 }
 
@@ -86,7 +86,7 @@ TEST_F(FormFactorTest, Cone)
     EXPECT_EQ(3., cone.getRadius());
     EXPECT_EQ(5., cone.getHeight());
     EXPECT_EQ(0.5, cone.getAlpha());
-    EXPECT_EQ(volume, cone.getVolume());
+    EXPECT_DOUBLE_EQ(volume, cone.getVolume());
     EXPECT_EQ((int)3, cone.getNumberOfStochasticParameters());
 
     FormFactorCone *coneclone = cone.clone();
@@ -95,7 +95,7 @@ TEST_F(FormFactorTest, Cone)
     EXPECT_EQ(3., coneclone->getRadius());
     EXPECT_EQ(5., coneclone->getHeight());
     EXPECT_EQ(0.5, coneclone->getAlpha());
-    EXPECT_EQ(volume, coneclone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, coneclone->getVolume());
     EXPECT_EQ((int)3, coneclone->getNumberOfStochasticParameters());
 }
 
@@ -116,7 +116,7 @@ TEST_F(FormFactorTest, Cone6)
     EXPECT_EQ(3., cone6.getRadius());
     EXPECT_EQ(5., cone6.getHeight());
     EXPECT_EQ(0.5, cone6.getAlpha());
-    EXPECT_EQ(volume, cone6.getVolume());
+    EXPECT_DOUBLE_EQ(volume, cone6.getVolume());
     EXPECT_EQ((int)3, cone6.getNumberOfStochasticParameters());
 
     FormFactorCone6 *cone6clone = cone6.clone();
@@ -125,7 +125,7 @@ TEST_F(FormFactorTest, Cone6)
     EXPECT_EQ(3., cone6clone->getRadius());
     EXPECT_EQ(5., cone6clone->getHeight());
     EXPECT_EQ(0.5, cone6clone->getAlpha());
-    EXPECT_EQ(volume, cone6clone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, cone6clone->getVolume());
     EXPECT_EQ((int)3, cone6clone->getNumberOfStochasticParameters());
 }
 
@@ -168,7 +168,7 @@ TEST_F(FormFactorTest, Cylinder)
     EXPECT_EQ("FormFactorCylinder",cylinder.getName());
     EXPECT_EQ(5., cylinder.getHeight());
     EXPECT_EQ(3., cylinder.getRadius());
-    EXPECT_EQ(volume, cylinder.getVolume());
+    EXPECT_DOUBLE_EQ(volume, cylinder.getVolume());
     EXPECT_EQ((int)2, cylinder.getNumberOfStochasticParameters());
 
     FormFactorCylinder *cylinderclone = cylinder.clone();
@@ -176,7 +176,7 @@ TEST_F(FormFactorTest, Cylinder)
     EXPECT_EQ("FormFactorCylinder",cylinderclone->getName());
     EXPECT_EQ(5., cylinderclone->getHeight());
     EXPECT_EQ(3., cylinderclone-> getRadius());
-    EXPECT_EQ(volume, cylinderclone-> getVolume());
+    EXPECT_DOUBLE_EQ(volume, cylinderclone-> getVolume());
     EXPECT_EQ((int)2, cylinderclone-> getNumberOfStochasticParameters());
 }
 
@@ -213,14 +213,14 @@ TEST_F(FormFactorTest, FullSphere)
     EXPECT_EQ("FormFactorFullSphere",fullsphere.getName());
     EXPECT_EQ(5., fullsphere.getRadius());
     EXPECT_EQ(2.*5., fullsphere.getHeight());
-    EXPECT_EQ(volume, fullsphere.getVolume());
+    EXPECT_DOUBLE_EQ(volume, fullsphere.getVolume());
     EXPECT_EQ((int)1, fullsphere.getNumberOfStochasticParameters());
 
     FormFactorFullSphere *fullsphereclone = fullsphere.clone();
     EXPECT_EQ("FormFactorFullSphere",fullsphereclone->getName());
     EXPECT_EQ(5., fullsphereclone->getRadius());
     EXPECT_EQ(2.*5., fullsphereclone->getHeight());
-    EXPECT_EQ(volume, fullsphereclone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, fullsphereclone->getVolume());
     EXPECT_EQ((int)1, fullsphereclone->getNumberOfStochasticParameters());
 }
 
@@ -259,14 +259,14 @@ TEST_F(FormFactorTest, Parallelepiped)
    EXPECT_EQ("FormFactorParallelepiped",parallelepiped.getName());
    EXPECT_EQ(10., parallelepiped.getHeight());
    EXPECT_EQ(11., parallelepiped.getRadius());
-   EXPECT_EQ(volume, parallelepiped.getVolume());
+   EXPECT_DOUBLE_EQ(volume, parallelepiped.getVolume());
    EXPECT_EQ((int)2, parallelepiped.getNumberOfStochasticParameters());
 
    FormFactorParallelepiped *parallelepipedclone = parallelepiped.clone();
    EXPECT_EQ("FormFactorParallelepiped",parallelepipedclone->getName());
    EXPECT_EQ(10., parallelepipedclone-> getHeight());
    EXPECT_EQ(11., parallelepipedclone-> getRadius());
-   EXPECT_EQ(volume, parallelepipedclone-> getVolume());
+   EXPECT_DOUBLE_EQ(volume, parallelepipedclone-> getVolume());
    EXPECT_EQ((int)2, parallelepipedclone-> getNumberOfStochasticParameters());
 }
 
@@ -282,7 +282,7 @@ TEST_F(FormFactorTest, Prism3)
     EXPECT_EQ("FormFactorPrism3",prism3.getName());
     EXPECT_EQ(4., prism3.getHeight());
     EXPECT_EQ(3., prism3.getHalfSide());
-    EXPECT_EQ(volume, prism3.getVolume());
+    EXPECT_DOUBLE_EQ(volume, prism3.getVolume());
     EXPECT_EQ((int)2, prism3.getNumberOfStochasticParameters());
 
     FormFactorPrism3 *prism3clone = prism3.clone();
@@ -290,7 +290,7 @@ TEST_F(FormFactorTest, Prism3)
     EXPECT_EQ("FormFactorPrism3",prism3clone->getName());
     EXPECT_EQ(double(4.), prism3clone->getHeight());
     EXPECT_EQ(3., prism3clone->getHalfSide());
-    EXPECT_EQ(volume, prism3clone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, prism3clone->getVolume());
     EXPECT_EQ((int)2, prism3clone->getNumberOfStochasticParameters());
 }
 
@@ -306,7 +306,7 @@ TEST_F(FormFactorTest, Prism6)
     EXPECT_EQ("FormFactorPrism6",prism6.getName());
     EXPECT_EQ(4., prism6.getHeight());
     EXPECT_EQ(3., prism6.getRadius());
-    EXPECT_EQ(volume, prism6.getVolume());
+    EXPECT_DOUBLE_EQ(volume, prism6.getVolume());
     EXPECT_EQ((int)2, prism6.getNumberOfStochasticParameters());
 
     FormFactorPrism6 *prism6clone = prism6.clone();
@@ -314,7 +314,7 @@ TEST_F(FormFactorTest, Prism6)
     EXPECT_EQ("FormFactorPrism6",prism6clone->getName());
     EXPECT_EQ(4., prism6clone->getHeight());
     EXPECT_EQ(3., prism6clone->getRadius());
-    EXPECT_EQ(volume, prism6clone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, prism6clone->getVolume());
     EXPECT_EQ((int)2, prism6clone->getNumberOfStochasticParameters());
 }
 
@@ -335,7 +335,7 @@ TEST_F(FormFactorTest, Pyramid)
     EXPECT_EQ(4., pyramid.getHeight());
     EXPECT_EQ(3., pyramid.getHalfSide());
     EXPECT_EQ(0.5, pyramid.getAlpha());
-    EXPECT_EQ(volume, pyramid.getVolume());
+    EXPECT_DOUBLE_EQ(volume, pyramid.getVolume());
     EXPECT_EQ((int)3, pyramid.getNumberOfStochasticParameters());
 
     FormFactorPyramid *pyramidclone = pyramid.clone();
@@ -343,7 +343,7 @@ TEST_F(FormFactorTest, Pyramid)
     EXPECT_EQ(4., pyramidclone->getHeight());
     EXPECT_EQ(3., pyramidclone->getHalfSide());
     EXPECT_EQ(0.5, pyramidclone->getAlpha());
-    EXPECT_EQ(volume, pyramidclone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, pyramidclone->getVolume());
     EXPECT_EQ((int)3, pyramidclone->getNumberOfStochasticParameters());
 }
 
@@ -360,7 +360,7 @@ TEST_F(FormFactorTest, Sphere)
 
     EXPECT_EQ("FormFactorSphere", sphere.getName());
     EXPECT_EQ(3., sphere.getHeight());
-    EXPECT_EQ(volume, sphere.getVolume());
+    EXPECT_DOUBLE_EQ(volume, sphere.getVolume());
     EXPECT_EQ((int)2, sphere.getNumberOfStochasticParameters());
 
     FormFactorSphere *sphereclone = sphere.clone();
@@ -386,7 +386,7 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_EQ(5., tetrahedron.getHeight());
     EXPECT_EQ(3., tetrahedron.getHalfSide());
     EXPECT_EQ(0.5, tetrahedron.getAlpha());
-    EXPECT_EQ(volume, tetrahedron.getVolume());
+    EXPECT_DOUBLE_EQ(volume, tetrahedron.getVolume());
     EXPECT_EQ((int)3, tetrahedron.getNumberOfStochasticParameters());
 
     FormFactorTetrahedron *tetrahedronclone = tetrahedron.clone();
@@ -395,7 +395,7 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_EQ(5., tetrahedronclone->getHeight());
     EXPECT_EQ(3., tetrahedronclone->getHalfSide());
     EXPECT_EQ(0.5, tetrahedronclone->getAlpha());
-    EXPECT_EQ(volume, tetrahedronclone->getVolume());
+    EXPECT_DOUBLE_EQ(volume, tetrahedronclone->getVolume());
     EXPECT_EQ((int)3, tetrahedronclone->getNumberOfStochasticParameters());
 }
 

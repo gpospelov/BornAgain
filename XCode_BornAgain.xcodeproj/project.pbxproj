@@ -136,6 +136,7 @@
 		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
 		625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */; };
 		627200AF1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */; };
+		627200BE1848E1B7001D55F3 /* FormFactorCone6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627200BD1848E1B7001D55F3 /* FormFactorCone6.cpp */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */; };
 		627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */; };
@@ -1716,6 +1717,8 @@
 		625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiSpheroid.cpp; sourceTree = "<group>"; };
 		627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolarizedDWBAZeroMagBuilder.cpp; sourceTree = "<group>"; };
 		627200AE1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolarizedDWBAZeroMagBuilder.h; sourceTree = "<group>"; };
+		627200BD1848E1B7001D55F3 /* FormFactorCone6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCone6.cpp; sourceTree = "<group>"; };
+		627200BF1848E1C6001D55F3 /* FormFactorCone6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCone6.h; sourceTree = "<group>"; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
 		627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePrintVisitor.h; sourceTree = "<group>"; };
 		627F5FFB1793EB17009E166F /* WinDllMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinDllMacros.h; sourceTree = "<group>"; };
@@ -3231,40 +3234,41 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				62FF6A40183134EF00E62E45 /* FormFactorTetrahedron.h */,
-				62FD5BEB17F057D9007C0397 /* FormFactorTools.h */,
-				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
-				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
-				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
-				625A173B16BAAE69004943DB /* FormFactorCone.h */,
-				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
-				625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */,
 				621D0BEA16A9882900134391 /* FormFactorBox.h */,
-				621D0BEB16A9882900134391 /* FormFactorEllipsoid.h */,
-				621D0BEC16A9882900134391 /* FormFactorPrism6.h */,
-				621D0BED16A9882900134391 /* FormFactorSphere.h */,
-				6254C2601666651F0098EE7E /* IFormFactorBorn.h */,
-				6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */,
-				6254C2621666651F0098EE7E /* IFormFactorDecorator.h */,
-				6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */,
+				625A173B16BAAE69004943DB /* FormFactorCone.h */,
+				627200BF1848E1C6001D55F3 /* FormFactorCone6.h */,
 				62222272160CB745008205AC /* FormFactorCrystal.h */,
 				62222273160CB745008205AC /* FormFactorCylinder.h */,
-				62222274160CB745008205AC /* FormFactorDWBA.h */,
-				62222275160CB745008205AC /* FormFactorDWBAConstZ.h */,
 				62222276160CB745008205AC /* FormFactorDecoratorDebyeWaller.h */,
 				62222277160CB745008205AC /* FormFactorDecoratorFactor.h */,
+				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
 				62222278160CB745008205AC /* FormFactorDecoratorMultiPositionFactor.h */,
 				62222279160CB745008205AC /* FormFactorDecoratorPositionFactor.h */,
 				6222227B160CB745008205AC /* FormFactorDecoratorTransformation.h */,
+				62222274160CB745008205AC /* FormFactorDWBA.h */,
+				62222275160CB745008205AC /* FormFactorDWBAConstZ.h */,
+				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
+				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
+				621D0BEB16A9882900134391 /* FormFactorEllipsoid.h */,
 				6222227C160CB745008205AC /* FormFactorFullSphere.h */,
+				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
 				6222227D160CB745008205AC /* FormFactorGauss.h */,
+				625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */,
 				6222227E160CB745008205AC /* FormFactorLorentz.h */,
+				6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */,
 				6222227F160CB745008205AC /* FormFactorPrism3.h */,
+				621D0BEC16A9882900134391 /* FormFactorPrism6.h */,
 				62222280160CB745008205AC /* FormFactorPyramid.h */,
-				62222281160CB745008205AC /* FormFactorSphereGaussianRadius.h */,
-				62222282160CB745008205AC /* FormFactorWeighted.h */,
 				62222283160CB745008205AC /* FormFactors.h */,
+				621D0BED16A9882900134391 /* FormFactorSphere.h */,
+				62222281160CB745008205AC /* FormFactorSphereGaussianRadius.h */,
+				62FF6A40183134EF00E62E45 /* FormFactorTetrahedron.h */,
+				62FD5BEB17F057D9007C0397 /* FormFactorTools.h */,
+				62222282160CB745008205AC /* FormFactorWeighted.h */,
 				62222284160CB745008205AC /* IFormFactor.h */,
+				6254C2601666651F0098EE7E /* IFormFactorBorn.h */,
+				6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */,
+				6254C2621666651F0098EE7E /* IFormFactorDecorator.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3272,33 +3276,34 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */,
-				62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */,
-				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
-				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
-				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
-				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
-				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
-				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
-				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
-				625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */,
 				621D0BEE16A9883500134391 /* FormFactorBox.cpp */,
-				621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */,
-				621D0BF016A9883500134391 /* FormFactorPrism6.cpp */,
-				621D0BF116A9883500134391 /* FormFactorSphere.cpp */,
-				6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */,
-				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
+				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
+				627200BD1848E1B7001D55F3 /* FormFactorCone6.cpp */,
 				62222286160CB745008205AC /* FormFactorCrystal.cpp */,
 				62222287160CB745008205AC /* FormFactorCylinder.cpp */,
+				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
+				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
+				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
+				6222228A160CB745008205AC /* FormFactorDecoratorTransformation.cpp */,
 				62222288160CB745008205AC /* FormFactorDWBA.cpp */,
 				62222289160CB745008205AC /* FormFactorDWBAConstZ.cpp */,
-				6222228A160CB745008205AC /* FormFactorDecoratorTransformation.cpp */,
+				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
+				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
+				621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */,
 				6222228B160CB745008205AC /* FormFactorFullSphere.cpp */,
+				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
 				6222228C160CB745008205AC /* FormFactorGauss.cpp */,
+				625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */,
 				6222228D160CB745008205AC /* FormFactorLorentz.cpp */,
+				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
 				6222228E160CB745008205AC /* FormFactorPrism3.cpp */,
+				621D0BF016A9883500134391 /* FormFactorPrism6.cpp */,
 				6222228F160CB745008205AC /* FormFactorPyramid.cpp */,
+				621D0BF116A9883500134391 /* FormFactorSphere.cpp */,
+				62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */,
+				62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */,
 				62222290160CB745008205AC /* FormFactorWeighted.cpp */,
+				6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -72311,6 +72316,7 @@
 				627F60FB1793FB22009E166F /* ParticleDecoration.pypp.cpp in Sources */,
 				627F60FC1793FB22009E166F /* ParticleInfo.pypp.cpp in Sources */,
 				627F60FD1793FB22009E166F /* PositionParticleInfo.pypp.cpp in Sources */,
+				627200BE1848E1B7001D55F3 /* FormFactorCone6.cpp in Sources */,
 				627F60FF1793FB22009E166F /* PythonInterface_free_functions.pypp.cpp in Sources */,
 				627F61001793FB22009E166F /* PythonInterface_global_variables.pypp.cpp in Sources */,
 				627F61011793FB22009E166F /* PythonListConverter.cpp in Sources */,

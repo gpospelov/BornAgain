@@ -35,6 +35,9 @@ public:
     //! Sets the material of the scatterer
     virtual void setMaterial(const IMaterial *p_material);
 
+    //! Sets the ambient material
+    virtual void setAmbientMaterial(const IMaterial *p_material);
+
     //! Retrieves the refractive index of the ambient material
     virtual complex_t getAmbientRefractiveIndex() const;
 
@@ -45,14 +48,12 @@ public:
             Bin1D phi_f_bin) const;
 #endif
 
-    //! Sets the ambient material
-    virtual void setAmbientMaterial(const IMaterial *p_material);
 private:
     complex_t getRefractiveIndexFactor() const;
 
     complex_t m_wavevector_scattering_factor;
     std::auto_ptr<IMaterial> mP_material;
-    const IMaterial *mp_ambient_material;
+    std::auto_ptr<IMaterial> mP_ambient_material;
 };
 
 #endif /* FORMFACTORDECORATORMATERIAL_H_ */

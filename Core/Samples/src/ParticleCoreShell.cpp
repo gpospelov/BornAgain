@@ -82,7 +82,7 @@ IFormFactor *ParticleCoreShell::createFormFactor(
                 getMaterial()->createTransformedMaterial(*mP_transform));
         ff_core.setMaterial(transformed_material_core.get());
     } else {
-        ff_core.setMaterial(mp_shell->getMaterial());
+        ff_core.setMaterial(mp_core->getMaterial());
     }
     ff_core.setAmbientMaterial(mp_shell->getMaterial());
     p_result->addFormFactor(ff_core, 1.0);

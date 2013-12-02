@@ -5,8 +5,6 @@
 #include <string>
 #include "OutputData.h"
 
-class ISample;
-class Simulation;
 
 namespace FunctionalTests {
 

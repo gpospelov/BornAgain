@@ -9,6 +9,16 @@ class Simulation;
 namespace StandardSimulations{
 
 Simulation *IsGISAXS01();
+Simulation *IsGISAXS02();
+//Simulation *IsGISAXS03();
+//Simulation *IsGISAXS04();
+//Simulation *IsGISAXS06();
+//Simulation *IsGISAXS07();
+//Simulation *IsGISAXS08();
+//Simulation *IsGISAXS09();
+//Simulation *IsGISAXS10();
+//Simulation *IsGISAXS11();
+//Simulation *IsGISAXS15();
 Simulation *MesoCrystal01();
 Simulation *PolarizedDWBAZeroMag();
 

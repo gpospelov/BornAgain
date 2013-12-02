@@ -11,6 +11,10 @@ SimulationRegistry::SimulationRegistry()
         "Mixture of cylinders and prisms without interference");
 
     registerItem(
+                "isgisaxs02", StandardSimulations::IsGISAXS02,
+        "Mixture cylinder particles with different size distribution");
+
+    registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 

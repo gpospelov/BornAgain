@@ -205,6 +205,18 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ISample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ISample::getCompositeSample( );
+    }
+
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -501,6 +513,18 @@ void register_FormFactorCone_class(){
                 , evaluate_function_type(&::IFormFactorBorn::evaluate)
                 , default_evaluate_function_type(&FormFactorCone_wrapper::default_evaluate)
                 , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+        
+        }
+        { //::ISample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            FormFactorCone_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ISample::getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorCone_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample

@@ -19,7 +19,6 @@
 #include "IParameterized.h"
 #include "ICloneable.h"
 #include "ISampleVisitor.h"
-#include "ISampleHierarchicalVisitor.h"
 
 class ICompositeSample;
 class DWBASimulation;
@@ -33,6 +32,7 @@ public:
     virtual ~ISample() {}
 
     //! Returns pointer to "this", if it is composite sample (to overload).
+    virtual ICompositeSample *getCompositeSample() { return 0; }
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
     virtual ISample *clone() const;

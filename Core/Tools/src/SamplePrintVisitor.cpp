@@ -13,13 +13,357 @@
 #include "MesoCrystal.h"
 
 
-void SamplePrintVisitor::visit(const ISample *sample)
+void SamplePrintVisitor::visit(const ISample *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const ISample *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const ICompositeSample *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const ICompositeSample *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IClusteredParticles *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IClusteredParticles *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const Crystal *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const Crystal *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IDecoration *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IDecoration *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const ParticleDecoration *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "PrintVisitor_ISample " << sample->getName()
+    std::cout << get_indent() << "ParticleDecoration " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
+
+
+void SamplePrintVisitor::visit(const Layer *sample)
+{
+    assert(sample);
+    std::cout << get_indent() << sample->getName()
+              << " " << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL")
+              << " " << sample->getRefractiveIndex()
+              << " " << (*sample->getParameterPool())
+              << std::endl;
+}
+
+
+void SamplePrintVisitor::visit(const LayerInterface *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const LayerInterface *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const MultiLayer *sample)
+{
+    assert(sample);
+    std::cout << "--------------------------------------------------------------------------------" << std::endl;
+    std::cout << get_indent() << sample->getName()
+              << " " << (*sample->getParameterPool())
+              << std::endl;
+}
+
+
+void SamplePrintVisitor::visit(const Particle *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const Particle *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const LatticeBasis *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const LatticeBasis *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const MesoCrystal *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const MesoCrystal *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const ParticleCoreShell *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const ParticleCoreShell *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const ParticleInfo *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const ParticleInfo *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const DiffuseParticleInfo *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const DiffuseParticleInfo *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const PositionParticleInfo *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const PositionParticleInfo *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IFormFactor *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactor *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDWBAPol *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDWBAPol *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDWBAPolConstZ *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDWBAPolConstZ *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorWeighted *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorWeighted *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IFormFactorBorn *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorBox *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorBox *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorCone *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorCone *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorCone6 *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorCone6 *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorCrystal *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorCrystal *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorCylinder *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorCylinder *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorEllipsoid *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorEllipsoid *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorFullSphere *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorFullSphere *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorFullSpheroid *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorFullSpheroid *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorGauss *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorGauss *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorHemiSpheroid *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorLorentz *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorLorentz *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorParallelepiped *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorPrism3 *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorPrism3 *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorPrism6 *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorPrism6 *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorPyramid *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorPyramid *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorSphere *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorSphere *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorTetrahedron *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IFormFactorBornSeparable *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorBornSeparable *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IFormFactorDecorator *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorDecorator *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDWBA *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDWBA *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDWBAConstZ *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDWBAConstZ *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDecoratorFactor *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorFactor *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDecoratorMaterial *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorMaterial *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorMultiPositionFactor *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const FormFactorDecoratorTransformation *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorTransformation *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IInterferenceFunction *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *){
+    throw NotImplementedException("SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const InterferenceFunction2DLattice *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const InterferenceFunctionNone *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const InterferenceFunctionNone *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const IRoughness *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const IRoughness *) -> Error. Not implemented.");
+}
+
+
+void SamplePrintVisitor::visit(const LayerRoughness *)
+{
+    throw NotImplementedException("SamplePrintVisitor::visit(const LayerRoughness *) -> Error. Not implemented.");
+}
+
+
+
+
+/*
+
 
 
 void SamplePrintVisitor::visit(const MultiLayer *sample)
@@ -43,19 +387,6 @@ void SamplePrintVisitor::visit(const MultiLayer *sample)
     std::cout << "----------------------------------------------" << std::endl;
 }
 
-
-void SamplePrintVisitor::visit(const Layer *sample)
-{
-    assert(sample);
-    std::cout << get_indent() << "Layer " << sample->getName()
-              << " " << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL")
-              << " " << sample->getRefractiveIndex()
-              << " " << (*sample->getParameterPool())
-              << std::endl;
-
-    const IDecoration *decoration = sample->getDecoration();
-    if(decoration) decoration->accept(this);
-}
 
 
 void SamplePrintVisitor::visit(const LayerInterface *sample)
@@ -280,5 +611,9 @@ void SamplePrintVisitor::visit(const LayerRoughness *sample)
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
+
+
+*/
+
 
 

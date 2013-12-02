@@ -13,8 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "ISampleHierarchicalVisitor.h"
-
 #include "TestMiscellaneous.h"
 #include "SampleFactory.h"
 #include "OutputData.h"
@@ -53,8 +51,8 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    test_HierarchicalVisitor();
-    //test_PrintVisitor();
+    //test_HierarchicalVisitor();
+    test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
@@ -72,13 +70,7 @@ void TestMiscellaneous::execute()
 /* ************************************************************************* */
 void TestMiscellaneous::test_HierarchicalVisitor()
 {
-    std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
-    SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs04_2DDL");
-    //std::cout << (*sample) << std::endl;
 
-    SamplePrintVisitor visitor;
-    sample->accept(&visitor);
 }
 
 
@@ -91,9 +83,10 @@ void TestMiscellaneous::test_PrintVisitor()
     SampleBuilderFactory factory;
     ISample *sample = factory.createSample("isgisaxs04_2DDL");
     //std::cout << (*sample) << std::endl;
+    sample->printSampleTree();
 
-    SamplePrintVisitor visitor;
-    sample->accept(&visitor);
+    //SamplePrintVisitor visitor;
+    //sample->accept(&visitor);
 }
 
 

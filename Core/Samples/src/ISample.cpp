@@ -75,7 +75,8 @@ std::string ISample::addParametersToExternalPool(
 void ISample::printSampleTree()
 {
     SamplePrintVisitor visitor;
-    this->accept(&visitor);
+    VisitSampleTree(*this, visitor);
+    //this->accept(&visitor);
 }
 
 bool ISample::containsMagneticMaterial() const

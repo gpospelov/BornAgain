@@ -5,6 +5,7 @@
 #include "IsGISAXS04Builder.h"
 #include "IsGISAXS06Builder.h"
 #include "IsGISAXS07Builder.h"
+#include "IsGISAXS08Builder.h"
 #include "IsGISAXS09Builder.h"
 #include "MesoCrystal01Builder.h"
 #include "PolarizedDWBAZeroMagBuilder.h"
@@ -66,6 +67,16 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs07",
         IFactoryCreateFunction<IsGISAXS07Builder, ISampleBuilder>,
         "Mixture of different particles");
+
+    registerItem(
+        "isgisaxs08_2DDL",
+        IFactoryCreateFunction<IsGISAXS08Para1DBuilder, ISampleBuilder>,
+        "IsGISAXS08 example, 2DDL lattice");
+
+    registerItem(
+        "isgisaxs08_2DDL2",
+        IFactoryCreateFunction<IsGISAXS08Para2DBuilder, ISampleBuilder>,
+        "IsGISAXS08 example, 2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
         "isgisaxs09",

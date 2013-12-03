@@ -51,6 +51,15 @@ SimulationRegistry::SimulationRegistry()
         "isgisaxs07", StandardSimulations::IsGISAXS07,
         "Mixture of different particles defined in morphology file");
 
+
+    registerItem(
+        "isgisaxs08_2DDL", StandardSimulations::IsGISAXS082DDL,
+        "IsGISAXS08 example, 2DDL lattice");
+
+    registerItem(
+        "isgisaxs08_2DDL2", StandardSimulations::IsGISAXS082DDL2,
+        "IsGISAXS08 example, 2DDL lattice with isotropic pdfs");
+
     registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");

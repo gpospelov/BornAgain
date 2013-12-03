@@ -67,6 +67,9 @@ public:
         return mp_shell;
     }
 
+    void addAndRegisterCore(const Particle &core);
+    void addAndRegisterShell(const Particle &shell);
+
 protected:
     ParticleCoreShell(kvector_t relative_core_position);
     Particle *mp_shell;

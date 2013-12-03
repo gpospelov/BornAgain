@@ -89,6 +89,9 @@ void TestMiscellaneous::test_PrintVisitor()
         delete sample;
     }
 
+//    ISample *sample = factory.createSample("isgisaxs06_lattice1");
+//    sample->printSampleTree();
+
 }
 
 

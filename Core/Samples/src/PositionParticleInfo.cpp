@@ -56,6 +56,7 @@ void PositionParticleInfo::init_parameters()
     registerParameter("x_position", &m_pos_x);
     registerParameter("y_position", &m_pos_y);
     registerParameter("z_position", &m_depth);
+    registerParameter("abundance", &m_abundance);
 }
 
 

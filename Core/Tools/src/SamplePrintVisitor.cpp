@@ -8,6 +8,7 @@
 #include "InterferenceFunctions.h"
 #include "ParticleInfo.h"
 #include "LayerInterface.h"
+#include "PositionParticleInfo.h"
 #include <iostream>
 #include "MesoCrystal.h"
 
@@ -30,9 +31,9 @@ void SamplePrintVisitor::visit(const IClusteredParticles *)
 }
 
 
-void SamplePrintVisitor::visit(const Crystal *)
+void SamplePrintVisitor::visit(const Crystal *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const Crystal *) -> Error. Not implemented.");
+    print_default(sample);
 }
 
 
@@ -67,7 +68,6 @@ void SamplePrintVisitor::visit(const LayerInterface *sample)
 
 void SamplePrintVisitor::visit(const MultiLayer *sample)
 {
-    assert(sample);
     std::cout << "--------------------------------------------------------------------------------" << std::endl;
     print_default(sample);
 }
@@ -83,15 +83,15 @@ void SamplePrintVisitor::visit(const Particle *sample)
 }
 
 
-void SamplePrintVisitor::visit(const LatticeBasis *)
+void SamplePrintVisitor::visit(const LatticeBasis *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const LatticeBasis *) -> Error. Not implemented.");
+    print_default(sample);
 }
 
 
-void SamplePrintVisitor::visit(const MesoCrystal *)
+void SamplePrintVisitor::visit(const MesoCrystal *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const MesoCrystal *) -> Error. Not implemented.");
+    print_default(sample);
 }
 
 
@@ -113,9 +113,9 @@ void SamplePrintVisitor::visit(const DiffuseParticleInfo *)
 }
 
 
-void SamplePrintVisitor::visit(const PositionParticleInfo *)
+void SamplePrintVisitor::visit(const PositionParticleInfo *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const PositionParticleInfo *) -> Error. Not implemented.");
+    print_default(sample);
 }
 
 
@@ -245,9 +245,9 @@ void SamplePrintVisitor::visit(const FormFactorSphere *sample)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *)
+void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
+    print_default(sample);
 }
 
 
@@ -281,9 +281,9 @@ void SamplePrintVisitor::visit(const FormFactorDWBAConstZ *)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *)
+void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
 {
-    throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *) -> Error. Not implemented.");
+    print_default(sample);
 }
 
 

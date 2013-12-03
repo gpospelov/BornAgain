@@ -84,8 +84,10 @@ void MesoCrystal::setTransform(const Geometry::ITransform3D& transform)
 void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)
 {
     if (p_form_factor != mp_meso_form_factor) {
+        deregisterChild(mp_meso_form_factor);
         delete mp_meso_form_factor;
         mp_meso_form_factor = p_form_factor;
+        registerChild(mp_meso_form_factor);
     }
 }
 

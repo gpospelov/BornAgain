@@ -77,6 +77,11 @@ SimulationRegistry::SimulationRegistry()
         "IsGISAXS11 example, Core shell nanoparticles");
 
     registerItem(
+        "isgisaxs15", StandardSimulations::IsGISAXS15,
+        "IsGISAXS15 example, Size spacing correlation approximation");
+
+
+    registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 

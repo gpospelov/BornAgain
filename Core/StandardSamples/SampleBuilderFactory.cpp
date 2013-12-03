@@ -9,6 +9,7 @@
 #include "IsGISAXS09Builder.h"
 #include "IsGISAXS10Builder.h"
 #include "IsGISAXS11Builder.h"
+#include "IsGISAXS15Builder.h"
 #include "MesoCrystal01Builder.h"
 #include "PolarizedDWBAZeroMagBuilder.h"
 
@@ -98,6 +99,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs11",
         IFactoryCreateFunction<IsGISAXS11Builder, ISampleBuilder>,
         "Core shell nanoparticles");
+
+    registerItem(
+        "isgisaxs15",
+        IFactoryCreateFunction<IsGISAXS15Builder, ISampleBuilder>,
+        "Size spacing correlation approximation");
 
     registerItem(
         "mesocrystal01",

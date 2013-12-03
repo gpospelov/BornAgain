@@ -32,9 +32,7 @@ public:
     virtual ParticleCoreShell *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const {
-        p_visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences
     //! its scattering power)

@@ -25,6 +25,11 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     
     }
 
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
+    }
+
     virtual ::IDecoration * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -65,11 +70,6 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const {
         bp::override func_getParticleInfo = this->get_override( "getParticleInfo" );
         return func_getParticleInfo( index );
-    }
-
-    virtual void accept( ::ISampleVisitor * p_visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(p_visitor) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -231,6 +231,16 @@ void register_IDecoration_class(){
         typedef bp::class_< IDecoration_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IDecoration_exposer_t;
         IDecoration_exposer_t IDecoration_exposer = IDecoration_exposer_t( "IDecoration", bp::init< >() );
         bp::scope IDecoration_scope( IDecoration_exposer );
+        { //::IDecoration::accept
+        
+            typedef void ( ::IDecoration::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            IDecoration_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::IDecoration::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
         { //::IDecoration::clone
         
             typedef ::IDecoration * ( ::IDecoration::*clone_function_type )(  ) const;
@@ -318,16 +328,6 @@ void register_IDecoration_class(){
                 "setTotalParticleSurfaceDensity"
                 , setTotalParticleSurfaceDensity_function_type( &::IDecoration::setTotalParticleSurfaceDensity )
                 , ( bp::arg("surface_density") ) );
-        
-        }
-        { //::ISample::accept
-        
-            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
-            
-            IDecoration_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
-                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

@@ -25,28 +25,19 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     }
 
-    virtual ::IClusteredParticles * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else
-            return this->IClusteredParticles::clone(  );
-    }
-    
-    
-    ::IClusteredParticles * default_clone(  ) const  {
-        return IClusteredParticles::clone( );
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
     }
 
-    virtual ::IClusteredParticles * cloneInvertB(  ) const  {
-        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
-            return func_cloneInvertB(  );
-        else
-            return this->IClusteredParticles::cloneInvertB(  );
+    virtual ::IClusteredParticles * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
     }
-    
-    
-    ::IClusteredParticles * default_cloneInvertB(  ) const  {
-        return IClusteredParticles::cloneInvertB( );
+
+    virtual ::IClusteredParticles * cloneInvertB(  ) const {
+        bp::override func_cloneInvertB = this->get_override( "cloneInvertB" );
+        return func_cloneInvertB(  );
     }
 
     virtual ::Geometry::ITransform3D const * getTransform(  ) const  {
@@ -76,11 +67,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     void default_setTransform( ::Geometry::ITransform3D const & transform ) {
         IClusteredParticles::setTransform( boost::ref(transform) );
-    }
-
-    virtual void accept( ::ISampleVisitor * p_visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(p_visitor) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -242,27 +228,33 @@ void register_IClusteredParticles_class(){
         typedef bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IClusteredParticles_exposer_t;
         IClusteredParticles_exposer_t IClusteredParticles_exposer = IClusteredParticles_exposer_t( "IClusteredParticles", bp::init< >() );
         bp::scope IClusteredParticles_scope( IClusteredParticles_exposer );
+        { //::IClusteredParticles::accept
+        
+            typedef void ( ::IClusteredParticles::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::IClusteredParticles::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
         { //::IClusteredParticles::clone
         
             typedef ::IClusteredParticles * ( ::IClusteredParticles::*clone_function_type )(  ) const;
-            typedef ::IClusteredParticles * ( IClusteredParticles_wrapper::*default_clone_function_type )(  ) const;
             
             IClusteredParticles_exposer.def( 
                 "clone"
-                , clone_function_type(&::IClusteredParticles::clone)
-                , default_clone_function_type(&IClusteredParticles_wrapper::default_clone)
+                , bp::pure_virtual( clone_function_type(&::IClusteredParticles::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IClusteredParticles::cloneInvertB
         
             typedef ::IClusteredParticles * ( ::IClusteredParticles::*cloneInvertB_function_type )(  ) const;
-            typedef ::IClusteredParticles * ( IClusteredParticles_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
             IClusteredParticles_exposer.def( 
                 "cloneInvertB"
-                , cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB)
-                , default_cloneInvertB_function_type(&IClusteredParticles_wrapper::default_cloneInvertB)
+                , bp::pure_virtual( cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -298,16 +290,6 @@ void register_IClusteredParticles_class(){
                 , setTransform_function_type(&::IClusteredParticles::setTransform)
                 , default_setTransform_function_type(&IClusteredParticles_wrapper::default_setTransform)
                 , ( bp::arg("transform") ) );
-        
-        }
-        { //::ISample::accept
-        
-            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
-            
-            IClusteredParticles_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
-                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

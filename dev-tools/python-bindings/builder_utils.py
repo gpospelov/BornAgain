@@ -50,10 +50,7 @@ def ExcludeMemberFunctionsArgPtr(mb):
             if has_pointers: 
                 #print "XXX",cl.name, fun.name
                 fun.exclude();
-        #query = declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
-        #fun = cl.member_functions( query, allow_empty=True )
-        #for x in fun:
-            #print "ZZZ",x.name
+
 
 
 #------------------------------------------------------------------------------
@@ -63,8 +60,10 @@ def IncludePureVirtualMethods(mb, include_classes):
     for cl in mb.classes():
         itsOurClass = False
         for name in include_classes:
-            if name == cl.name or name == cl.alias: itsOurClass=True
-        if not itsOurClass: continue
+            if name == cl.name or name == cl.alias:
+                itsOurClass=True
+        if not itsOurClass:
+            continue
         query = declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
         fun = cl.member_functions( query, allow_empty=True )
         for f in fun:

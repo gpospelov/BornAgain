@@ -32,6 +32,9 @@ public:
 
     ICompositeSample *clone() const = 0;
 
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
     virtual const ICompositeSample *getCompositeSample() const { return this; }

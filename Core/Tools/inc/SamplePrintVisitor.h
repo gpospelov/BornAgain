@@ -85,13 +85,8 @@ public:
     virtual void visit(const LayerRoughness *sample);
 
 private:
-    std::string get_indent()
-    {
-        std::string result;
-        result.resize(getLevel()*4, '.');
-        result += " ";
-        return result;
-    }
+    std::string get_indent();
+    void print_default(const ISample *sample);
 };
 
 

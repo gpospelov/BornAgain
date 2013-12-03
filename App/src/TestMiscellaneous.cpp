@@ -81,12 +81,14 @@ void TestMiscellaneous::test_PrintVisitor()
 {
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
     SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs04_2DDL");
-    //std::cout << (*sample) << std::endl;
-    sample->printSampleTree();
 
-    //SamplePrintVisitor visitor;
-    //sample->accept(&visitor);
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+        ISample *sample = factory.createSample((*it).first);
+        std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
+        sample->printSampleTree();
+        delete sample;
+    }
+
 }
 
 

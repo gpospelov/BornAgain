@@ -19,7 +19,7 @@ Simulation *IsGISAXS06L1();
 Simulation *IsGISAXS06L2();
 Simulation *IsGISAXS06L3();
 Simulation *IsGISAXS06L4();
-//Simulation *IsGISAXS07();
+Simulation *IsGISAXS07();
 //Simulation *IsGISAXS08();
 //Simulation *IsGISAXS09();
 //Simulation *IsGISAXS10();

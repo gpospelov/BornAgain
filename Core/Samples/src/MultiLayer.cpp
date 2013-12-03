@@ -46,14 +46,10 @@ void MultiLayer::init_parameters()
 /* ************************************************************************* */
 void MultiLayer::clear()
 {
-    for(size_t i=0; i<m_layers.size(); i++) {
-        if( m_layers[i] ) delete m_layers[i];
-    }
+    for(size_t i=0; i<m_layers.size(); i++) delete m_layers[i];
     m_layers.clear();
 
-    for(size_t i=0; i<m_interfaces.size(); i++) {
-        if( m_interfaces[i] ) delete m_interfaces[i];
-    }
+    for(size_t i=0; i<m_interfaces.size(); i++) delete m_interfaces[i];
     m_interfaces.clear();
 
     m_layers_z.clear();
@@ -70,13 +66,16 @@ MultiLayer *MultiLayer::clone() const
 
     newMultiLayer->m_layers_z = m_layers_z;
 
+    std::vector<Layer *> layer_buffer;
     for(size_t i=0; i<m_layers.size(); i++) {
-        newMultiLayer->addAndRegisterLayer( m_layers[i]->clone() );
+        layer_buffer.push_back(m_layers[i]->clone() );
     }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
-        const Layer *topLayer = newMultiLayer->m_layers[i];
-        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
+//        const Layer *topLayer = newMultiLayer->m_layers[i];
+//        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
+        const Layer *topLayer = layer_buffer[i];
+        const Layer *bottomLayer = layer_buffer[i+1];
 
         LayerInterface *newInterface(0);
         if(m_interfaces[i]->getRoughness()) {
@@ -86,8 +85,11 @@ MultiLayer *MultiLayer::clone() const
             newInterface = LayerInterface::createSmoothInterface(topLayer,
                     bottomLayer );
         }
+
+        newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
+    newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
@@ -103,13 +105,19 @@ MultiLayer* MultiLayer::cloneInvertB() const
 
     newMultiLayer->m_layers_z = m_layers_z;
 
+//    for(size_t i=0; i<m_layers.size(); i++) {
+//        newMultiLayer->addAndRegisterLayer( m_layers[i]->cloneInvertB() );
+//    }
+    std::vector<Layer *> layer_buffer;
     for(size_t i=0; i<m_layers.size(); i++) {
-        newMultiLayer->addAndRegisterLayer( m_layers[i]->cloneInvertB() );
+        layer_buffer.push_back(m_layers[i]->cloneInvertB() );
     }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
-        const Layer *topLayer = newMultiLayer->m_layers[i];
-        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
+//        const Layer *topLayer = newMultiLayer->m_layers[i];
+//        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
+        const Layer *topLayer = layer_buffer[i];
+        const Layer *bottomLayer = layer_buffer[i+1];
 
         LayerInterface *newInterface(0);
         if(m_interfaces[i]->getRoughness()) {
@@ -119,8 +127,10 @@ MultiLayer* MultiLayer::cloneInvertB() const
             newInterface = LayerInterface::createSmoothInterface(topLayer,
                     bottomLayer );
         }
+        newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
+    newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
@@ -155,8 +165,8 @@ void MultiLayer::addLayerWithTopRoughness(
         LayerInterface *interface =
             LayerInterface::createRoughInterface(
                 p_last_layer, p_new_layer, roughness);
-        addAndRegisterLayer(p_new_layer);
         addAndRegisterInterface(interface);
+        addAndRegisterLayer(p_new_layer);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
         return;
     }

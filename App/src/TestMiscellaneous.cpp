@@ -92,6 +92,13 @@ void TestMiscellaneous::test_PrintVisitor()
 //    ISample *sample = factory.createSample("isgisaxs06_lattice1");
 //    sample->printSampleTree();
 
+//    MultiLayer ml;
+//    ml.addLayer(Layer());
+//    ml.addLayer(Layer());
+//    ml.printSampleTree();
+//    MultiLayer *ml2 = ml.clone();
+//    ml2->printSampleTree();
+
 }
 
 

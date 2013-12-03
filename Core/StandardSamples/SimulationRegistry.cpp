@@ -35,6 +35,19 @@ SimulationRegistry::SimulationRegistry()
         "IsGISAXS04 example, 2DDL structure factor");
 
     registerItem(
+        "isgisaxs06_lattice1", StandardSimulations::IsGISAXS06L1,
+        "IsGISAXS06 example, 2D lattice with different disorders");
+    registerItem(
+        "isgisaxs06_lattice2", StandardSimulations::IsGISAXS06L2,
+        "IsGISAXS06 example, 2D lattice centered");
+    registerItem(
+        "isgisaxs06_lattice3", StandardSimulations::IsGISAXS06L3,
+        "IsGISAXS06 example, 2D lattice rotated");
+    registerItem(
+        "isgisaxs06_lattice4", StandardSimulations::IsGISAXS06L4,
+        "IsGISAXS06 example, 2D lattice variants");
+
+    registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 

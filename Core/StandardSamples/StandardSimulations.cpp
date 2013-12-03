@@ -129,6 +129,93 @@ Simulation *StandardSimulations::IsGISAXS042DDL()
     return result;
 }
 
+Simulation *StandardSimulations::IsGISAXS06L1()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice1");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    result->setSimulationParameters(sim_params);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::IsGISAXS06L2()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice2");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    result->setSimulationParameters(sim_params);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::IsGISAXS06L3()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice3");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    result->setSimulationParameters(sim_params);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::IsGISAXS06L4()
+{
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    result->setSimulationParameters(sim_params);
+
+    return result;
+}
+
 Simulation *StandardSimulations::MesoCrystal01()
 {
     SampleBuilderFactory factory;

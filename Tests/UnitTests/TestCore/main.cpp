@@ -21,6 +21,7 @@
 #include "RealParameterWrapperTest.h"
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"
+#include "LayerRoughnessTest.h"
 
 
 struct ErrorStreamRedirect {

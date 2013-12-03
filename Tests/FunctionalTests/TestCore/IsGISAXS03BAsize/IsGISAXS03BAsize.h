@@ -1,5 +1,5 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS03_H
-#define FUNCTIONALTESTS_ISGISAXS03_H
+#ifndef FUNCTIONALTESTS_ISGISAXS03BAsize_H
+#define FUNCTIONALTESTS_ISGISAXS03BAsize_H
 
 #include "ISampleBuilder.h"
 #include <string>

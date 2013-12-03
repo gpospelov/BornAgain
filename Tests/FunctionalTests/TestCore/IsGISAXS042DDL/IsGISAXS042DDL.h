@@ -1,18 +1,17 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS03DWBA_H
-#define FUNCTIONALTESTS_ISGISAXS03DWBA_H
+#ifndef FUNCTIONALTESTS_ISGISAXS042DDL_H
+#define FUNCTIONALTESTS_ISGISAXS042DDL_H
 
 #include "ISampleBuilder.h"
 #include <string>
 #include "OutputData.h"
 
-
 namespace FunctionalTests {
 
-class IsGISAXS03DWBA
+class IsGISAXS042DDL
 {
  public:
-    IsGISAXS03DWBA();
-    ~IsGISAXS03DWBA() { delete m_result; delete m_reference; }
+    IsGISAXS042DDL();
+    ~IsGISAXS042DDL() { delete m_result; delete m_reference; }
     void run(const std::string &path_to_data = std::string());
     int analyseResults();
 //    const OutputData<double> *getOutputData() { return m_result;}
@@ -24,4 +23,5 @@ class IsGISAXS03DWBA
 };
 
 }
+
 #endif

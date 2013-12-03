@@ -28,6 +28,7 @@ public:
             kvector_t position);
     virtual ~FormFactorDecoratorPositionFactor() {}
     virtual FormFactorDecoratorPositionFactor *clone() const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;

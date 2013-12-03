@@ -32,6 +32,8 @@ public:
 
     virtual FormFactorDecoratorMaterial *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     //! Sets the material of the scatterer
     virtual void setMaterial(const IMaterial *p_material);
 

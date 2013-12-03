@@ -25,12 +25,7 @@ class BA_CORE_API_ IRoughness : public ISample
 public:
     IRoughness() {}
     virtual ~IRoughness() {}
-//    virtual IRoughness *clone() const
-//    {
-//        throw NotImplementedException(
-//                "IRoughness::clone() -> Error! Not implemented.");
-//    }
-
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 };
 
 #endif // IROUGHNESS_H

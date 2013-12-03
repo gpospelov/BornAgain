@@ -29,6 +29,9 @@ public:
 
     virtual FormFactorDWBAPol *clone() const;
 
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     //! Throws exception
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f) const;

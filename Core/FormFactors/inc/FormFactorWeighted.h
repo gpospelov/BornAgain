@@ -28,6 +28,9 @@ public:
     virtual ~FormFactorWeighted();
     virtual FormFactorWeighted *clone() const;
 
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
     virtual void setAmbientMaterial(const IMaterial *p_material);

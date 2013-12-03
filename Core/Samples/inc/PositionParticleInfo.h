@@ -37,7 +37,7 @@ public:
     virtual PositionParticleInfo *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }

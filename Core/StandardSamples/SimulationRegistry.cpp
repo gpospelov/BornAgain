@@ -73,6 +73,10 @@ SimulationRegistry::SimulationRegistry()
         "IsGISAXS10 example, Cylinders on top of substrate with interference");
 
     registerItem(
+        "isgisaxs11", StandardSimulations::IsGISAXS11,
+        "IsGISAXS11 example, Core shell nanoparticles");
+
+    registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 

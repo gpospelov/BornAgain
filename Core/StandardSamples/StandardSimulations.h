@@ -25,7 +25,7 @@ Simulation *IsGISAXS082DDL2();
 Simulation *IsGISAXS09();
 Simulation *IsGISAXS09R();
 Simulation *IsGISAXS10();
-//Simulation *IsGISAXS11();
+Simulation *IsGISAXS11();
 //Simulation *IsGISAXS15();
 Simulation *MesoCrystal01();
 Simulation *PolarizedDWBAZeroMag();

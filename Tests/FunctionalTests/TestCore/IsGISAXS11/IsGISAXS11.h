@@ -1,7 +1,7 @@
 #ifndef FUNCTIONALTESTS_ISGISAXS11_H
 #define FUNCTIONALTESTS_ISGISAXS11_H
 
-
+#include "ISampleBuilder.h"
 #include <string>
 #include "OutputData.h"
 
@@ -12,16 +12,17 @@ class IsGISAXS11
 {
 public :
     IsGISAXS11();
-    ~IsGISAXS11() { delete m_result; }
+    ~IsGISAXS11() { delete m_result; delete m_reference; }
 
-    void run();
-    int analyseResults(const std::string &path_to_data = std::string());
+    void run(const std::string &path_to_data = std::string());
+    int analyseResults();
 
     const OutputData<double> *getOutputData() { return m_result; }
  private:
     std::string m_name;
     std::string m_description;
     OutputData<double> *m_result;
+    OutputData<double> *m_reference;
 };
 
 }

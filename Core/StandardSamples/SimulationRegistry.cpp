@@ -61,6 +61,14 @@ SimulationRegistry::SimulationRegistry()
         "IsGISAXS08 example, 2DDL lattice with isotropic pdfs");
 
     registerItem(
+        "isgisaxs09", StandardSimulations::IsGISAXS09,
+        "IsGISAXS09 example, Pyramids on top of substrate");
+
+    registerItem(
+        "isgisaxs09_rotated", StandardSimulations::IsGISAXS09R,
+        "IsGISAXS09 example, Rotated pyramids on top of substrate");
+
+    registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 

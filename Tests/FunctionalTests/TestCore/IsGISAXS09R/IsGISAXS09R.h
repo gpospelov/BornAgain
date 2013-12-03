@@ -1,5 +1,5 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS11_H
-#define FUNCTIONALTESTS_ISGISAXS11_H
+#ifndef FUNCTIONALTESTS_ISGISAXS09R_H
+#define FUNCTIONALTESTS_ISGISAXS09R_H
 
 #include "ISampleBuilder.h"
 #include <string>
@@ -8,16 +8,14 @@
 
 namespace FunctionalTests {
 
-class IsGISAXS11
+class IsGISAXS09R
 {
-public :
-    IsGISAXS11();
-    ~IsGISAXS11() { delete m_result; delete m_reference; }
-
+ public:
+    IsGISAXS09R();
+    ~IsGISAXS09R() { delete m_result; delete m_reference; }
     void run(const std::string &path_to_data = std::string());
     int analyseResults();
-
-    const OutputData<double> *getOutputData() { return m_result; }
+//    const OutputData<double> *getOutputData() { return m_result;}
  private:
     std::string m_name;
     std::string m_description;

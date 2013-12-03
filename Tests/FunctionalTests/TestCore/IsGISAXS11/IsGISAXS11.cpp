@@ -11,6 +11,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MathFunctions.h"
+#include "SimulationRegistry.h"
 #include <iostream>
 #include <cmath>
 
@@ -19,68 +20,35 @@ FunctionalTests::IsGISAXS11::IsGISAXS11()
     : m_name("IsGISAXS11")
     , m_description("Core shell nanoparticles")
     , m_result(0)
+    , m_reference(0)
 {
 
 }
 
 
-void FunctionalTests::IsGISAXS11::run()
+void FunctionalTests::IsGISAXS11::run(const std::string &path_to_data)
 {
-    // building sample
-    MultiLayer multi_layer;
+	SimulationRegistry sim_registry;
+    Simulation *simulation = sim_registry.createSimulation("isgisaxs11");
 
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    // loading reference data
+    std::string filename = path_to_data + "isgisaxs11_reference.ima.gz";
+    m_reference = OutputDataIOFactory::readIntensityData(filename);
 
-    complex_t n_particle_shell(1.0-1e-4, 2e-8);
-    complex_t n_particle_core(1.0-6e-5, 2e-8);
+    simulation->runSimulation();
 
-    const IMaterial *shell_material =
-            MaterialManager::getHomogeneousMaterial("Shell", n_particle_shell);
-    const IMaterial *core_material =
-            MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
-
-    Particle shell_particle(shell_material, new FormFactorParallelepiped(
-            8*Units::nanometer, 8*Units::nanometer));
-    Particle core_particle(core_material, new FormFactorParallelepiped(
-            7*Units::nanometer, 6*Units::nanometer));
-    kvector_t core_position(0.0, 0.0, 0.0);
-    ParticleCoreShell particle(shell_particle, core_particle, core_position);
-    ParticleDecoration particle_decoration(particle.clone());
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-
-    air_layer.setDecoration(particle_decoration);
-
-    multi_layer.addLayer(air_layer);
-
-    // building simulation
-    Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
-            0.0*Units::degree);
-    simulation.setSample(multi_layer);
-
-    // running simulation and copying data
-    simulation.runSimulation();
-    m_result = simulation.getIntensityData();
+    m_result = simulation->getIntensityData();
+    delete simulation;
 }
 
 
-int FunctionalTests::IsGISAXS11::analyseResults(const std::string &path_to_data)
+int FunctionalTests::IsGISAXS11::analyseResults()
 {
     const double threshold(2e-10);
 
-    // retrieving reference data
-    std::string filename = path_to_data + "isgisaxs11_reference.ima.gz";
-    OutputData<double > *reference = OutputDataIOFactory::readIntensityData(filename);
-
     // calculating average relative difference
-    *m_result -= *reference;
-    *m_result /= *reference;
-    delete reference;
+    *m_result -= *m_reference;
+    *m_result /= *m_reference;
 
     double diff(0);
     for(OutputData<double>::const_iterator it=m_result->begin();
@@ -108,9 +76,9 @@ std::string GetPathToData(int argc, char **argv)
 int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS11 test;
-    test.run();
+    test.run(GetPathToData(argc, argv));
 
-    return test.analyseResults(GetPathToData(argc, argv));
+    return test.analyseResults();
 }
 #endif
 

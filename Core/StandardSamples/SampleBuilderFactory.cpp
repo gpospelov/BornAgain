@@ -4,7 +4,12 @@
 #include "IsGISAXS03Builder.h"
 #include "IsGISAXS04Builder.h"
 #include "IsGISAXS06Builder.h"
+#include "IsGISAXS07Builder.h"
+#include "IsGISAXS08Builder.h"
 #include "IsGISAXS09Builder.h"
+#include "IsGISAXS10Builder.h"
+#include "IsGISAXS11Builder.h"
+#include "IsGISAXS15Builder.h"
 #include "MesoCrystal01Builder.h"
 #include "PolarizedDWBAZeroMagBuilder.h"
 
@@ -51,11 +56,30 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "isgisaxs06_lattice2",
         IFactoryCreateFunction<IsGISAXS06Lattice2Builder, ISampleBuilder>,
-        "2D lattice with different disorder");
+        "2D lattice centered");
     registerItem(
         "isgisaxs06_lattice3",
         IFactoryCreateFunction<IsGISAXS06Lattice3Builder, ISampleBuilder>,
-        "2D lattice with different disorder");
+        "2D lattice rotated");
+    registerItem(
+        "isgisaxs06_lattice4",
+        IFactoryCreateFunction<IsGISAXS06Lattice4Builder, ISampleBuilder>,
+        "2D lattice variants");
+
+    registerItem(
+        "isgisaxs07",
+        IFactoryCreateFunction<IsGISAXS07Builder, ISampleBuilder>,
+        "Mixture of different particles");
+
+    registerItem(
+        "isgisaxs08_2DDL",
+        IFactoryCreateFunction<IsGISAXS08Para1DBuilder, ISampleBuilder>,
+        "IsGISAXS08 example, 2DDL lattice");
+
+    registerItem(
+        "isgisaxs08_2DDL2",
+        IFactoryCreateFunction<IsGISAXS08Para2DBuilder, ISampleBuilder>,
+        "IsGISAXS08 example, 2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
         "isgisaxs09",
@@ -65,6 +89,21 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs09_rotated",
         IFactoryCreateFunction<IsGISAXS09RotatedBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
+
+    registerItem(
+        "isgisaxs10",
+        IFactoryCreateFunction<IsGISAXS10Builder, ISampleBuilder>,
+        "Cylinders on top of substrate with interference");
+
+    registerItem(
+        "isgisaxs11",
+        IFactoryCreateFunction<IsGISAXS11Builder, ISampleBuilder>,
+        "Core shell nanoparticles");
+
+    registerItem(
+        "isgisaxs15",
+        IFactoryCreateFunction<IsGISAXS15Builder, ISampleBuilder>,
+        "Size spacing correlation approximation");
 
     registerItem(
         "mesocrystal01",

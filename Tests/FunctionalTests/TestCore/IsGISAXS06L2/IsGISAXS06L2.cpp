@@ -1,31 +1,40 @@
-#include "IsGISAXS01.h"
-#include "OutputDataIOFactory.h"
-#include "SampleBuilderFactory.h"
+#include "IsGISAXS06L2.h"
+#include "MultiLayer.h"
+#include "ParticleDecoration.h"
+#include "FormFactorCylinder.h"
 #include "Simulation.h"
-#include "Utils.h"
 #include "Units.h"
+#include "MaterialManager.h"
+#include "InterferenceFunction2DLattice.h"
+#include "PositionParticleInfo.h"
+#include "OutputDataIOFactory.h"
+#include "StochasticSampledParameter.h"
+#include "StochasticDoubleGate.h"
+#include "Utils.h"
+#include "SampleBuilderFactory.h"
+#include "IsGISAXS06Builder.h"
 #include "MathFunctions.h"
 #include "SimulationRegistry.h"
+
 #include <iostream>
 #include <cmath>
 
-
-FunctionalTests::IsGISAXS01::IsGISAXS01()
-    : m_name("IsGISAXS01")
-    , m_description("Mixture of cylinders and prisms without interference")
+FunctionalTests::IsGISAXS06L2::IsGISAXS06L2()
+    : m_name("IsGISAXS06L2")
+    , m_description("2D lattice centered")
     , m_result(0)
 	, m_reference(0)
 { }
 
 
-void FunctionalTests::IsGISAXS01::run(const std::string &path_to_data)
+void FunctionalTests::IsGISAXS06L2::run(const std::string &path_to_data)
 {
 
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("isgisaxs01");
+    Simulation *simulation = sim_registry.createSimulation("isgisaxs06_lattice2");
 
     // loading reference data
-    std::string filename = path_to_data + "isgisaxs01_reference.ima.gz";
+    std::string filename = path_to_data + "isgisaxs06_reference_centered.ima.gz";
     m_reference = OutputDataIOFactory::readIntensityData(filename);
 
     simulation->runSimulation();
@@ -35,7 +44,7 @@ void FunctionalTests::IsGISAXS01::run(const std::string &path_to_data)
 }
 
 
-int FunctionalTests::IsGISAXS01::analyseResults()
+int FunctionalTests::IsGISAXS06L2::analyseResults()
 {
     const double threshold(2e-10);
 
@@ -70,8 +79,9 @@ std::string GetPathToData(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    FunctionalTests::IsGISAXS01 test;
+    FunctionalTests::IsGISAXS06L2 test;
     test.run(GetPathToData(argc, argv));
     return test.analyseResults();
 }
 #endif
+

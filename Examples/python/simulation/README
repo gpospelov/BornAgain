@@ -27,3 +27,7 @@ used for different simulation studies.
     Pyramids, rotated pyramids on top of substrate.
     Corresponds to IsGISAXS example #9.
 
+--- ex007_CoreShellNanoparticles ---
+    Core shell nanoparticles.
+    Corresponds to IsGISAXS example #11.
+

@@ -1,4 +1,4 @@
-#include "IsGISAXS01.h"
+#include "IsGISAXS09R.h"
 #include "OutputDataIOFactory.h"
 #include "SampleBuilderFactory.h"
 #include "Simulation.h"
@@ -10,22 +10,22 @@
 #include <cmath>
 
 
-FunctionalTests::IsGISAXS01::IsGISAXS01()
-    : m_name("IsGISAXS01")
-    , m_description("Mixture of cylinders and prisms without interference")
+FunctionalTests::IsGISAXS09R::IsGISAXS09R()
+    : m_name("IsGISAXS09R")
+    , m_description("Rotated pyramids on top of substrate")
     , m_result(0)
 	, m_reference(0)
 { }
 
 
-void FunctionalTests::IsGISAXS01::run(const std::string &path_to_data)
+void FunctionalTests::IsGISAXS09R::run(const std::string &path_to_data)
 {
 
     SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation("isgisaxs01");
+    Simulation *simulation = sim_registry.createSimulation("isgisaxs09_rotated");
 
     // loading reference data
-    std::string filename = path_to_data + "isgisaxs01_reference.ima.gz";
+    std::string filename = path_to_data + "isgisaxs09_reference_pyramid_Z45.ima.gz";
     m_reference = OutputDataIOFactory::readIntensityData(filename);
 
     simulation->runSimulation();
@@ -35,7 +35,7 @@ void FunctionalTests::IsGISAXS01::run(const std::string &path_to_data)
 }
 
 
-int FunctionalTests::IsGISAXS01::analyseResults()
+int FunctionalTests::IsGISAXS09R::analyseResults()
 {
     const double threshold(2e-10);
 
@@ -70,7 +70,7 @@ std::string GetPathToData(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    FunctionalTests::IsGISAXS01 test;
+    FunctionalTests::IsGISAXS09R test;
     test.run(GetPathToData(argc, argv));
     return test.analyseResults();
 }

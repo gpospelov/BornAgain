@@ -69,6 +69,10 @@ SimulationRegistry::SimulationRegistry()
         "IsGISAXS09 example, Rotated pyramids on top of substrate");
 
     registerItem(
+        "isgisaxs10", StandardSimulations::IsGISAXS10,
+        "IsGISAXS10 example, Cylinders on top of substrate with interference");
+
+    registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "mesocrystals of cylindrical shape composed by spherical nanoparticles");
 

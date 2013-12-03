@@ -306,6 +306,23 @@ Simulation *StandardSimulations::IsGISAXS09R()
     return result;
 }
 
+Simulation *StandardSimulations::IsGISAXS10()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs10");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
 Simulation *StandardSimulations::MesoCrystal01()
 {
     SampleBuilderFactory factory;

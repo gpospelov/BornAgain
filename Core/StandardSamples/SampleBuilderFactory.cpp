@@ -7,6 +7,7 @@
 #include "IsGISAXS07Builder.h"
 #include "IsGISAXS08Builder.h"
 #include "IsGISAXS09Builder.h"
+#include "IsGISAXS10Builder.h"
 #include "MesoCrystal01Builder.h"
 #include "PolarizedDWBAZeroMagBuilder.h"
 
@@ -86,6 +87,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs09_rotated",
         IFactoryCreateFunction<IsGISAXS09RotatedBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
+
+    registerItem(
+        "isgisaxs10",
+        IFactoryCreateFunction<IsGISAXS10Builder, ISampleBuilder>,
+        "Cylinders on top of substrate with interference");
 
     registerItem(
         "mesocrystal01",

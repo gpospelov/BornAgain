@@ -93,6 +93,10 @@ namespace OutputDataFunctions
     BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
         double xc, double yc, double rx, double ry);
+
+    // compare result with reference and return the difference
+    double GetDifference(const OutputData<double> &result,
+                         const OutputData<double> &reference);
 }
 
 #endif // OUTPUTDATAFUNCTIONS_H

@@ -12,6 +12,7 @@
 #include "Utils.h"
 #include "MathFunctions.h"
 #include "SimulationRegistry.h"
+#include "OutputDataFunctions.h"
 #include <iostream>
 #include <cmath>
 
@@ -47,18 +48,10 @@ int FunctionalTests::IsGISAXS11::analyseResults()
     const double threshold(2e-10);
 
     // calculating average relative difference
-    *m_result -= *m_reference;
-    *m_result /= *m_reference;
-
-    double diff(0);
-    for(OutputData<double>::const_iterator it=m_result->begin();
-            it!=m_result->end(); ++it) {
-        diff+= std::fabs(*it);
-    }
-    diff /= m_result->getAllocatedSize();
+    double diff = OutputDataFunctions::GetDifference(*m_result,*m_reference);
 
     bool status_ok(true);
-    if( diff > threshold || MathFunctions::isnan(diff)) status_ok=false;
+    if( diff > threshold ) status_ok=false;
 
     std::cout << m_name << " " << m_description << " " <<
             (status_ok ? "[OK]" : "[FAILED]") << std::endl;

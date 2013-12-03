@@ -482,3 +482,27 @@ Mask* OutputDataFunctions::CreateEllipticMask(
     return OutputDataFunctions::CreateEllipticMask(data, center, radii);
 }
 
+double OutputDataFunctions::GetDifference(const OutputData<double> &result,
+                     const OutputData<double> &reference)
+{
+    OutputData<double> *c_result = result.clone();
+    OutputData<double> *c_reference = reference.clone();
+
+    // Calculating average relative difference.
+    *c_result -= *c_reference;
+    *c_result /= *c_reference;
+
+    double diff(0);
+    for(OutputData<double>::const_iterator it =
+            c_result->begin(); it!=c_result->end(); ++it) {
+        diff+= std::fabs(*it);
+    }
+    diff /= c_result->getAllocatedSize();
+
+    if (std::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
+
+    delete c_result;
+    delete c_reference;
+
+    return diff;
+}

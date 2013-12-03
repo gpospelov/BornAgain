@@ -6,6 +6,7 @@
 #include "Units.h"
 #include "Types.h"
 #include "SimulationRegistry.h"
+#include "OutputDataFunctions.h"
 
 using namespace FunctionalTests;
 
@@ -42,18 +43,10 @@ int PolarizedDWBAZeroMag::analyseResults()
     const double threshold(1e-10);
 
     // calculating average relative difference
-    *m_result -= *m_reference;
-    *m_result /= *m_reference;
-
-    double diff(0);
-    for(OutputData<double>::const_iterator it=m_result->begin();
-            it!=m_result->end(); ++it) {
-        diff+= std::fabs(*it);
-    }
-    diff /= m_result->getAllocatedSize();
+    double diff = OutputDataFunctions::GetDifference(*m_result,*m_reference);
 
     bool status_ok(true);
-    if( diff > threshold || std::isnan(diff)) status_ok=false;
+    if( diff > threshold ) status_ok=false;
 
     std::cout << " diff " << diff << std::endl;
     std::cout << m_name << " " << m_description << " " <<

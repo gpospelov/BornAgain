@@ -50,6 +50,9 @@ public:
         mp_ambient_material = p_material;
     }
 
+    //! Returns particle's material.
+    virtual const IMaterial* getAmbientMaterial() const { return mp_ambient_material; }
+
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
     //! scattering factor
@@ -61,9 +64,8 @@ public:
         mp_material = p_material;
     }
 
-    //! Returns layer's material.
+    //! Returns particle's material.
     virtual const IMaterial* getMaterial() const { return mp_material; }
-
 
     //! Returns refractive index of the particle
     virtual complex_t getRefractiveIndex() const

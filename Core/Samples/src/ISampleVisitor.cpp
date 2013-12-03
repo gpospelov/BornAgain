@@ -4,10 +4,10 @@
 #include "ICompositeIterator.h"
 
 
-void VisitSampleTree(ISample &sample, ISampleVisitor &visitor)
+void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor)
 {
     sample.accept(&visitor);
-    ICompositeSample *composite = sample.getCompositeSample();
+    const ICompositeSample *composite = sample.getCompositeSample();
     if(composite) {
         ICompositeIterator it = composite->createIterator();
         it.first();

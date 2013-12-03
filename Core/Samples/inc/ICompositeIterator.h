@@ -28,9 +28,9 @@
 class MementoState
 {
 public:
-    typedef std::list<ISample*>::iterator iterator_t;
+    typedef std::list<ISample*>::const_iterator const_iterator_t;
 
-    MementoState(iterator_t itor, iterator_t end_itor)
+    MementoState(const_iterator_t itor, const_iterator_t end_itor)
         : m_itor( itor ), m_end_itor( end_itor ) {}
 
     MementoState& operator=(const MementoState& other)
@@ -44,7 +44,7 @@ public:
 
     virtual ~MementoState() {}
 
-    iterator_t& get_itor() { return m_itor; }
+    const_iterator_t& get_itor() { return m_itor; }
     bool is_end() const { return m_itor == m_end_itor; }
     void next() { m_itor++; }
 
@@ -52,8 +52,8 @@ public:
     { return  (o << "memento state " <<& m.m_itor << " " <<& m.m_end_itor); }
 
 protected:
-    iterator_t m_itor;
-    iterator_t m_end_itor;
+    const_iterator_t m_itor;
+    const_iterator_t m_end_itor;
 
 private:
     MementoState();
@@ -73,7 +73,7 @@ public:
     MementoState& get_state() { return m_state_stack.top(); }
     bool empty() const { return m_state_stack.empty(); }
     void reset() { while(!m_state_stack.empty()) m_state_stack.pop(); }
-    MementoState::iterator_t& get_current_itor()
+    MementoState::const_iterator_t& get_current_itor()
     { return m_state_stack.top().get_itor(); }
     void next() { m_state_stack.top().next(); }
     size_t size() { return m_state_stack.size(); }
@@ -95,7 +95,7 @@ protected:
 class ICompositeIterator
 {
 public:
-    ICompositeIterator(ICompositeSample *root) : m_root(root), m_done(false) {}
+    ICompositeIterator(const ICompositeSample *root) : m_root(root), m_done(false) {}
     virtual ~ICompositeIterator() {}
 
     void first();
@@ -105,7 +105,7 @@ public:
     size_t get_level() { return m_memento_itor.size(); }
 protected:
     MementoIterator m_memento_itor;
-    ICompositeSample* m_root;
+    const ICompositeSample* m_root;
     bool m_done;
 };
 

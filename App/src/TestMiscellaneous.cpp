@@ -82,12 +82,12 @@ void TestMiscellaneous::test_PrintVisitor()
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
     SampleBuilderFactory factory;
 
-    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
-        ISample *sample = factory.createSample((*it).first);
-        std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
-        sample->printSampleTree();
-        delete sample;
-    }
+//    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+//        ISample *sample = factory.createSample((*it).first);
+//        std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
+//        sample->printSampleTree();
+//        delete sample;
+//    }
 
 //    ISample *sample = factory.createSample("isgisaxs06_lattice1");
 //    sample->printSampleTree();
@@ -98,6 +98,15 @@ void TestMiscellaneous::test_PrintVisitor()
 //    ml.printSampleTree();
 //    MultiLayer *ml2 = ml.clone();
 //    ml2->printSampleTree();
+
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+        ISample *sample = factory.createSample((*it).first);
+        //std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
+        //sample->printSampleTree();
+        std::cout << "xxx " << (*it).first << " " << sample->containsMagneticMaterial() << std::endl;
+        delete sample;
+    }
+
 
 }
 

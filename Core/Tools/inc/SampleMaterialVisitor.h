@@ -107,6 +107,9 @@ public:
         return m_materials;
     }
 
+    //! return true if contains magnetic materials
+    bool containsMagneticMaterial() const;
+
 protected:
     void addMaterial(const IMaterial *p_material);
     std::vector<const IMaterial *> m_materials;

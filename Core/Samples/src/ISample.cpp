@@ -82,15 +82,18 @@ void ISample::printSampleTree()
 bool ISample::containsMagneticMaterial() const
 {
     SampleMaterialVisitor material_vis;
-    this->accept(&material_vis);
-    std::vector<const IMaterial *> materials = material_vis.getMaterials();
-    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
-            it != materials.end(); ++it) {
-        if (!(*it)->isScalarMaterial()) {
-            return true;
-        }
-    }
-    return false;
+//    this->accept(&material_vis);
+//    std::vector<const IMaterial *> materials = material_vis.getMaterials();
+//    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
+//            it != materials.end(); ++it) {
+//        if (!(*it)->isScalarMaterial()) {
+//            return true;
+//        }
+//    }
+//    return false;
+    VisitSampleTree(*this, material_vis);
+    return material_vis.containsMagneticMaterial();
+
 }
 
 void ISample::print(std::ostream& ostr) const

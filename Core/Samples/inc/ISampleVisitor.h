@@ -189,7 +189,7 @@ private:
     int m_level;
 };
 
-void VisitSampleTree(ISample &sample, ISampleVisitor &visitor);
+void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor);
 
 
 #endif // ISAMPLEVISITOR_H

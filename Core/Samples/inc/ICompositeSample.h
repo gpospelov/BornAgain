@@ -61,7 +61,7 @@ public:
     virtual size_t size() const { return m_samples.size(); }
 
     //! Creates general iterator to walk through tree of composite children.
-    class ICompositeIterator createIterator();
+    class ICompositeIterator createIterator() const;
 
 private:
     //! List of registered children.

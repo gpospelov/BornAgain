@@ -40,7 +40,7 @@ void ICompositeSample::deregisterChild(ISample *sample)
 
 //! Creates general iterator to walk through the tree of registered composite children
 
-ICompositeIterator ICompositeSample::createIterator()
+ICompositeIterator ICompositeSample::createIterator() const
 {
     return ICompositeIterator(this);
 }

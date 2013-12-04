@@ -19,10 +19,11 @@
 #include "LatticeBasis.h"
 
 
-SampleMaterialVisitor::~SampleMaterialVisitor()
+void SampleMaterialVisitor::clear()
 {
     m_materials.clear();
 }
+
 
 void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 {
@@ -36,12 +37,7 @@ void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 bool SampleMaterialVisitor::containsMagneticMaterial() const {
     for (std::vector<const IMaterial *>::const_iterator it = m_materials.begin();
             it != m_materials.end(); ++it) {
-        const IMaterial *material = (*it);
-        if(material) {
-            if (!(*it)->isScalarMaterial()) return true;
-        } else {
-            std::cout << "XXX SampleMaterialVisitor::containsMagneticMaterial() -> zero material." << std::endl;
-        }
+        if (!(*it)->isScalarMaterial()) return true;
     }
     return false;
 }
@@ -115,7 +111,7 @@ void SampleMaterialVisitor::visit(const Particle *sample)
 }
 
 
-void SampleMaterialVisitor::visit(const LatticeBasis *sample)
+void SampleMaterialVisitor::visit(const LatticeBasis *)
 {
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const LatticeBasis *) -> Error. Not implemented.");
 }

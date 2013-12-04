@@ -23,8 +23,8 @@
 class SampleMaterialVisitor : public ISampleVisitor
 {
 public:
-    SampleMaterialVisitor(){}
-    virtual ~SampleMaterialVisitor();
+    SampleMaterialVisitor() {}
+    virtual ~SampleMaterialVisitor() {}
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
@@ -109,6 +109,9 @@ public:
 
     //! return true if contains magnetic materials
     bool containsMagneticMaterial() const;
+
+    //! clear state of the visitor
+    void clear();
 
 protected:
     void addMaterial(const IMaterial *p_material);

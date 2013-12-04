@@ -57,7 +57,7 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
-    bool containsMagneticMaterial() const;
+    virtual bool containsMagneticMaterial() const;
 
 protected:
     virtual void print(std::ostream& ostr) const;

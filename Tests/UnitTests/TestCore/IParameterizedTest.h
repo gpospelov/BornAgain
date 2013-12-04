@@ -58,7 +58,6 @@ TEST_F(IParameterizedTest, DealingWithPool)
 
 TEST_F(IParameterizedTest, SetParameterValue)
 {
-
     m_parameterized.m_real_par1 = 1.0;
     m_parameterized.m_real_par2 = 2.0;
     m_parameterized.setParameterValue("par1", 3.0);
@@ -69,8 +68,6 @@ TEST_F(IParameterizedTest, SetParameterValue)
     m_parameterized.setParameterValue("*par*", 5.0);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par2);
-
-
 }
 
 

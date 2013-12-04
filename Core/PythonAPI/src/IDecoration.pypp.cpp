@@ -35,7 +35,7 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return func_cloneInvertB(  );
     }
 
-    virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const {
+    virtual double getAbundanceFractionOfParticle( ::size_t index ) const {
         bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" );
         return func_getAbundanceFractionOfParticle( index );
     }
@@ -45,24 +45,24 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return func_getInterferenceFunctions(  );
     }
 
-    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
+    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
-        else
+        else{
             return this->IDecoration::getNumberOfInterferenceFunctions(  );
+        }
     }
     
-    
-    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
         return IDecoration::getNumberOfInterferenceFunctions( );
     }
 
-    virtual ::std::size_t getNumberOfParticles(  ) const {
+    virtual ::size_t getNumberOfParticles(  ) const {
         bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" );
         return func_getNumberOfParticles(  );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const {
+    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const {
         bp::override func_getParticleInfo = this->get_override( "getParticleInfo" );
         return func_getParticleInfo( index );
     }
@@ -75,10 +75,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -87,10 +87,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -99,10 +99,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -111,10 +111,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -123,10 +123,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -135,10 +135,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -147,10 +147,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -178,10 +178,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
             return func_setMatchedParametersValue( wildcards, value );
-        else
+        else{
             return this->IParameterized::setMatchedParametersValue( wildcards, value );
+        }
     }
-    
     
     int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
         return IParameterized::setMatchedParametersValue( wildcards, value );
@@ -190,10 +190,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -202,24 +202,24 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::std::size_t size(  ) const  {
+    virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
     
-    
-    ::std::size_t default_size(  ) const  {
+    ::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -253,7 +253,7 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getAbundanceFractionOfParticle
         
-            typedef double ( ::IDecoration::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
+            typedef double ( ::IDecoration::*getAbundanceFractionOfParticle_function_type )( ::size_t ) const;
             
             IDecoration_exposer.def( 
                 "getAbundanceFractionOfParticle"
@@ -272,8 +272,8 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getNumberOfInterferenceFunctions
         
-            typedef ::std::size_t ( ::IDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
-            typedef ::std::size_t ( IDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::size_t ( ::IDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::size_t ( IDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
             
             IDecoration_exposer.def( 
                 "getNumberOfInterferenceFunctions"
@@ -283,7 +283,7 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getNumberOfParticles
         
-            typedef ::std::size_t ( ::IDecoration::*getNumberOfParticles_function_type )(  ) const;
+            typedef ::size_t ( ::IDecoration::*getNumberOfParticles_function_type )(  ) const;
             
             IDecoration_exposer.def( 
                 "getNumberOfParticles"
@@ -292,7 +292,7 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::IDecoration::*getParticleInfo_function_type )( ::std::size_t ) const;
+            typedef ::ParticleInfo const * ( ::IDecoration::*getParticleInfo_function_type )( ::size_t ) const;
             
             IDecoration_exposer.def( 
                 "getParticleInfo"
@@ -457,8 +457,8 @@ void register_IDecoration_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( IDecoration_wrapper::*default_size_function_type )(  ) const;
+            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::size_t ( IDecoration_wrapper::*default_size_function_type )(  ) const;
             
             IDecoration_exposer.def( 
                 "size"

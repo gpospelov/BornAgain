@@ -33,10 +33,10 @@ struct IObserver_wrapper : IObserver, bp::wrapper< IObserver > {
     virtual void update( ::IObservable * arg0 ) {
         if( bp::override func_update = this->get_override( "update" ) )
             func_update( boost::python::ptr(arg0) );
-        else
+        else{
             this->IObserver::update( boost::python::ptr(arg0) );
+        }
     }
-    
     
     void default_update( ::IObservable * arg0 ) {
         IObserver::update( boost::python::ptr(arg0) );

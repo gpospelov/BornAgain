@@ -33,7 +33,7 @@ protected:
     double m_omega;
 };
 
-
+//! Interface for 2 dimensional distributions in Fourier space
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
@@ -72,6 +72,8 @@ protected:
     double m_delta;
 };
 
+//! 2 dimensional Cauchy distribution in Fourier space
+//! corresponds to exp(-r) in real space
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
@@ -83,6 +85,8 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
+//! 2 dimensional Gauss distribution in Fourier space
+//! corresponds to exp(-r^2) in real space
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
@@ -92,6 +96,37 @@ public:
     virtual FTDistribution2DGauss *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+};
+
+//! 2 dimensional gate distribution in Fourier space
+//! corresponds to 1 if r<1 (and 0 otherwise) in real space
+class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
+{
+public:
+    FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DGate() {}
+
+    virtual FTDistribution2DGate *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+};
+
+//! 2 dimensional Voigt distribution in Fourier space
+//! Corresponds to eta*Gauss + (1-eta)*Cauchy
+class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
+{
+public:
+    FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
+            double eta);
+    virtual ~FTDistribution2DVoigt() {}
+
+    virtual FTDistribution2DVoigt *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+
+protected:
+    virtual void init_parameters();
+    double m_eta;
 };
 
 #endif /* FTDISTRIBUTIONS_H_ */

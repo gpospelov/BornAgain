@@ -1,20 +1,8 @@
 import numpy
 import matplotlib
 import pylab
-from math import degrees, pi, sin, cos, radians
+from math import degrees
 from libBornAgainCore import *
-
-
-wavelength = 1.0 # angstrom
-ai = 0.2 # degrees
-
-Nalpha = 200
-Nphi = 200
-
-astart = 0 # degrees
-aend = 1 # degrees
-pstart = -0.5
-pend = 0.5
 
 
 def plot_with_pylab(data):
@@ -65,24 +53,24 @@ def get_sample():
     return my_sample
 
 
-def set_parameters():
+def get_simulation():
     """
     characterizing the input beam and output detector
     """
     simulation = Simulation()
-    simulation.setDetectorParameters(Nphi, pstart*degree, pend*degree, Nalpha, astart*degree, aend*degree, True)
-    simulation.setBeamParameters(wavelength*angstrom, ai*degree, 0.0*degree)
+    simulation.setDetectorParameters(200, -0.5*degree, 0.5*degree, 200, 0.0*degree, 1.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
 
     return simulation
 
 
 def run_simulation():
     sample = get_sample()
-    simulation = set_parameters()
+    simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    data = simulation.getIntensityData()
-    return data
+    result = simulation.getIntensityData()
+    return result
 
 
 if __name__ == '__main__':

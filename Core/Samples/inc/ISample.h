@@ -35,7 +35,7 @@ public:
     virtual ICompositeSample *getCompositeSample() { return 0; }
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
-    virtual ISample *clone() const;
+    virtual ISample *clone() const =0;
 
     //! Returns a clone with inverted magnetic fields
     virtual ISample *cloneInvertB() const;

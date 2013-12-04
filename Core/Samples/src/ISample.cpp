@@ -20,20 +20,17 @@
 #include "Utils.h"
 #include "SamplePrintVisitor.h"
 
-ISample *ISample::clone() const
-{
-    throw NotImplementedException(
-        "ISample::clone() -> "
-        "Error! Method is not implemented");
-}
-
-//! Adds params from local to external pool and recurses over direct children.
+//ISample *ISample::clone() const
+//{
+//    throw NotImplementedException(
+//        "ISample::clone() -> "
+//        "Error! Method is not implemented");
+//}
 
 ISample* ISample::cloneInvertB() const
 {
     throw NotImplementedException(
-        "ISample::cloneInvertB() -> "
-        "Error! Method is not implemented");
+        "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
 std::string ISample::addParametersToExternalPool(
@@ -92,5 +89,7 @@ void ISample::print(std::ostream& ostr) const
         "params={ " << m_parameters << " }";
     ostr << " }";
 }
+
+
 
 

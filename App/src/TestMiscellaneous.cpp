@@ -80,41 +80,15 @@ void TestMiscellaneous::test_HierarchicalVisitor()
 void TestMiscellaneous::test_PrintVisitor()
 {
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
-//    SampleBuilderFactory factory;
-
-//    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
-//        ISample *sample = factory.createSample((*it).first);
-//        std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
-//        sample->printSampleTree();
-//        delete sample;
-//    }
-
-//    ISample *sample = factory.createSample("isgisaxs06_lattice1");
-//    sample->printSampleTree();
-
-//    MultiLayer ml;
-//    ml.addLayer(Layer());
-//    ml.addLayer(Layer());
-//    ml.printSampleTree();
-//    MultiLayer *ml2 = ml.clone();
-//    ml2->printSampleTree();
-
-//    ISample *sample2 = SampleFactory::createSample("PolarizedDWBATestCase");
-//    std::cout << "AAA 1.2 " << sample2->containsMagneticMaterial() << std::endl;
-
-
-//    ISample *sample1 = factory.createSample("isgisaxs06_lattice1");
-//    std::cout << "AAA 1.1 " << sample1->containsMagneticMaterial() << std::endl;
-
-//    SampleFactory factory;
-//    for(SampleFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
-//        ISample *sample = factory.createSample((*it).first);
-//        std::cout << "xxxxx " << (*it).first << " " << sample->containsMagneticMaterial() << std::endl;
-//        delete sample;
-
-//    }
-
     SampleBuilderFactory factory;
+
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+        ISample *sample = factory.createSample((*it).first);
+        std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
+        sample->printSampleTree();
+        delete sample;
+    }
+
     for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
         ISample *sample = factory.createSample((*it).first);
         std::cout << "xxxxx " << (*it).first << " " << sample->containsMagneticMaterial() << std::endl;

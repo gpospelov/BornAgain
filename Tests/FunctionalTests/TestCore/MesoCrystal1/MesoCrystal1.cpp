@@ -23,7 +23,7 @@ void MesoCrystal1::MesoCrystal1::run(const std::string &path_to_data)
 {
     SimulationRegistry sim_registry;
     Simulation *simulation = sim_registry.createSimulation("mesocrystal01");
-    simulation->getSampleBuilder()->setMatchedParametersValue("*/nphi_rotations", 2.);
+    simulation->getSampleBuilder()->setParameterValue("nphi_rotations", 2.);
 
     // loading reference data
     std::string filename = path_to_data + "mesocrystal1_reference_v2_nphi2.txt.gz";

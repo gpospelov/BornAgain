@@ -75,6 +75,18 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::createFormFactor( wavevector_scattering_factor );
     }
 
+    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
+        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
+            return func_getAmbientMaterial(  );
+        else
+            return this->Particle::getAmbientMaterial(  );
+    }
+    
+    
+    ::IMaterial const * default_getAmbientMaterial(  ) const  {
+        return Particle::getAmbientMaterial( );
+    }
+
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
@@ -159,6 +171,18 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -236,18 +260,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         else{
             inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
-    }
-
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -331,6 +343,18 @@ void register_Particle_class(){
                 , default_createFormFactor_function_type(&Particle_wrapper::default_createFormFactor)
                 , ( bp::arg("wavevector_scattering_factor") )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Particle::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( Particle_wrapper::*default_getAmbientMaterial_function_type )(  ) const;
+            
+            Particle_exposer.def( 
+                "getAmbientMaterial"
+                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
+                , default_getAmbientMaterial_function_type(&Particle_wrapper::default_getAmbientMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Particle::getMaterial
@@ -423,6 +447,17 @@ void register_Particle_class(){
                 , default_clearParameterPool_function_type(&Particle_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( Particle_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            Particle_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&Particle_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -489,18 +524,6 @@ void register_Particle_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Particle_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( Particle_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            Particle_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&Particle_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

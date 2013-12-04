@@ -61,7 +61,7 @@ public:
     virtual bool setParameterValue(const std::string &name, double value);
 
     //! Sets parameter value, return number of changed parameters
-    virtual int setMatchedParametersValue(const std::string& wildcards, double value);
+    //virtual int setMatchedParametersValue(const std::string& wildcards, double value);
 
     //! clear parameter pool
     virtual void clearParameterPool() { m_parameters.clear(); }

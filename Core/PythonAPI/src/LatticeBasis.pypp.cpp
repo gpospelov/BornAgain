@@ -49,6 +49,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -59,6 +71,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
+        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
+            return func_getAmbientMaterial(  );
+        else
+            return this->Particle::getAmbientMaterial(  );
+    }
+    
+    
+    ::IMaterial const * default_getAmbientMaterial(  ) const  {
+        return Particle::getAmbientMaterial( );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -176,18 +200,6 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -264,6 +276,17 @@ void register_LatticeBasis_class(){
                 , default_clearParameterPool_function_type(&LatticeBasis_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( LatticeBasis_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            LatticeBasis_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&LatticeBasis_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -274,6 +297,18 @@ void register_LatticeBasis_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&LatticeBasis_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Particle::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getAmbientMaterial_function_type )(  ) const;
+            
+            LatticeBasis_exposer.def( 
+                "getAmbientMaterial"
+                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
+                , default_getAmbientMaterial_function_type(&LatticeBasis_wrapper::default_getAmbientMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
@@ -376,18 +411,6 @@ void register_LatticeBasis_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &LatticeBasis_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( LatticeBasis_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            LatticeBasis_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&LatticeBasis_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

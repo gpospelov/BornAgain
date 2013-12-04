@@ -18,6 +18,11 @@ namespace bp = boost::python;
 
 struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
 
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
+    }
+
     virtual ::IFormFactorDecorator * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -93,6 +98,18 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
+    }
+
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
     }
 
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
@@ -215,18 +232,6 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -259,6 +264,16 @@ void register_IFormFactorDecorator_class(){
         typedef bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable > IFormFactorDecorator_exposer_t;
         IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", bp::no_init );
         bp::scope IFormFactorDecorator_scope( IFormFactorDecorator_exposer );
+        { //::IFormFactorDecorator::accept
+        
+            typedef void ( ::IFormFactorDecorator::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            IFormFactorDecorator_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::IFormFactorDecorator::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
         { //::IFormFactorDecorator::clone
         
             typedef ::IFormFactorDecorator * ( ::IFormFactorDecorator::*clone_function_type )(  ) const;
@@ -334,6 +349,17 @@ void register_IFormFactorDecorator_class(){
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
                 , default_cloneInvertB_function_type(&IFormFactorDecorator_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( IFormFactorDecorator_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            IFormFactorDecorator_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&IFormFactorDecorator_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
@@ -447,18 +473,6 @@ void register_IFormFactorDecorator_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IFormFactorDecorator_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( IFormFactorDecorator_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            IFormFactorDecorator_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&IFormFactorDecorator_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

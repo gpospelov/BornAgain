@@ -133,6 +133,18 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -210,18 +222,6 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
         else{
             inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
-    }
-
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -423,6 +423,17 @@ void register_ParticleDecoration_class(){
                 , default_clearParameterPool_function_type(&ParticleDecoration_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ParticleDecoration_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            ParticleDecoration_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&ParticleDecoration_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -489,18 +500,6 @@ void register_ParticleDecoration_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ParticleDecoration_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( ParticleDecoration_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            ParticleDecoration_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&ParticleDecoration_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

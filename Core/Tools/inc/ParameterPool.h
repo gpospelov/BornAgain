@@ -90,6 +90,9 @@ protected:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
 
+    //! prints error message
+    std::string get_error_message(const std::string &criteria) const;
+
     //! Map of parameters.
     parametermap_t m_map;
 };

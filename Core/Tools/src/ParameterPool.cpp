@@ -90,10 +90,11 @@ std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(cons
         }
     }
     if( selected_parameters.empty() ) {
-        msglog(MSG::FATAL) << "ParameterPool::getMatchedParameters() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found";
-        msglog(MSG::FATAL) << "Existing keys are:";
-        for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) std::cout << (*it).first << std::endl;
-        throw LogicErrorException("ParameterPool::getMatchedParameters() -> Error! No parameters with given wildcard.");
+//        msglog(MSG::FATAL) << "ParameterPool::getMatchedParameters() -> Error! No parameters satisfying  wildcards '" << wildcards << "' have been found";
+//        msglog(MSG::FATAL) << "Existing keys are:";
+//        for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) std::cout << (*it).first << std::endl;
+//        throw LogicErrorException("ParameterPool::getMatchedParameters() -> Error! No parameters with given wildcard '"+wildcards+"'.");
+        throw LogicErrorException("ParameterPool::getMatchedParameters() -> Error! " + get_error_message(wildcards));
     }
     return selected_parameters;
 }
@@ -104,9 +105,9 @@ bool ParameterPool::setParameterValue(const std::string& name, double value)
 {
     parameter_t x = getParameter(name);
     if( x.isNull() ) {
-        msglog(MSG::FATAL) << "ParameterPool::setParameterValue() -> Error. No parameter with name '" << name << "'";
-        throw LogicErrorException("ParameterPool::setParameterValue() -> Error. No such parameter");
-        return false;
+//        msglog(MSG::FATAL) << "ParameterPool::setParameterValue() -> Error. No parameter with name '" << name << "'";
+//        throw LogicErrorException("ParameterPool::setParameterValue() -> Error. No such parameter");
+        throw LogicErrorException("ParameterPool::getMatchedParameters() -> Error! " + get_error_message(name));
     }
     x.setValue(value);
     return true;
@@ -122,6 +123,9 @@ int ParameterPool::setMatchedParametersValue(const std::string& wildcards, doubl
             (*it).second.setValue(value);
             npars++;
         }
+    }
+    if(npars == 0) {
+        throw LogicErrorException("ParameterPool::setMatchedParameters() -> Error! " + get_error_message(wildcards));
     }
     return npars;
 }
@@ -171,3 +175,11 @@ void ParameterPool::print(std::ostream& ostr) const
 }
 
 
+std::string ParameterPool::get_error_message(const std::string &criteria) const
+{
+    std::ostringstream os;
+    os << "No parameters satisfying  criteria '" << criteria << "' have been found. Existing keys are:" << std::endl;
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
+        os << "'" << (*it).first << "'" << std::endl;
+    return os.str();
+}

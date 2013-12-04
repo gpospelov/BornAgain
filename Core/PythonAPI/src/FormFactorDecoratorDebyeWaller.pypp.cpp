@@ -97,6 +97,18 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return ISample::cloneInvertB( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -236,18 +248,6 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -347,6 +347,17 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
                 , default_cloneInvertB_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            FormFactorDecoratorDebyeWaller_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
@@ -472,18 +483,6 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorDecoratorDebyeWaller_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( FormFactorDecoratorDebyeWaller_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            FormFactorDecoratorDebyeWaller_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

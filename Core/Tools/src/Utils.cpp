@@ -71,7 +71,7 @@ std::string Utils::String::round_doubles(const std::string& str, int precision)
 bool Utils::String::MatchPattern(
     const std::string& text, std::string wildcardPattern)
 {
-    bool caseSensitive = false;
+    bool caseSensitive(true);
 
     // escape all regex special characters, except '?' and '*'
     boost::replace_all(wildcardPattern, "\\", "\\\\");

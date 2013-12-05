@@ -22,12 +22,11 @@ class Lattice2DIFParameters
 {
 public:
     Lattice2DIFParameters() : m_length_1(0), m_length_2(0), m_angle(0),
-        m_xi(0), m_corr_length_1(0), m_corr_length_2(0) { }
+        m_xi(0) { }
 
     double m_length_1, m_length_2;
     double m_angle;
     double m_xi;
-    double m_corr_length_1, m_corr_length_2;
 };
 
 #endif /* LATTICE2DIFPARAMETERS_H_ */

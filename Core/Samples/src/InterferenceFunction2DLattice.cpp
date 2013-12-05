@@ -109,8 +109,6 @@ void InterferenceFunction2DLattice::init_parameters()
     registerParameter("length_2", &m_lattice_params.m_length_2);
     registerParameter("angle", &m_lattice_params.m_angle);
     registerParameter("xi", &m_lattice_params.m_xi);
-    registerParameter("corr_length_1", &m_lattice_params.m_corr_length_1);
-    registerParameter("corr_length_2", &m_lattice_params.m_corr_length_2);
 }
 
 
@@ -136,13 +134,13 @@ void InterferenceFunction2DLattice::initialize_calc_factors(
         double coherence_length_x, double coherence_length_y)
 {
     // constant prefactor
-    //TODO: for non cauchy distributions: check if this still applies
+    //TODO: for non 2D distributions: check if this still applies
     m_prefactor = 2.0*M_PI*coherence_length_x*coherence_length_y;
 
     // number of reciprocal lattice points to use
     double qa_max, qb_max;
-    mp_pdf->transformToStarBasis(nmax/m_lattice_params.m_corr_length_1,
-            nmax/m_lattice_params.m_corr_length_2, m_lattice_params.m_angle,
+    mp_pdf->transformToStarBasis(nmax/coherence_length_x,
+            nmax/coherence_length_y, m_lattice_params.m_angle,
             m_lattice_params.m_length_1, m_lattice_params.m_length_2,
             qa_max, qb_max);
     m_na = (int)(std::abs(qa_max)+0.5);

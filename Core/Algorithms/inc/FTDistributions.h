@@ -135,6 +135,22 @@ protected:
     double m_eta;
 };
 
+//! 2 dimensional cone distribution in Fourier space
+//! Corresponds to 1-r if r<1 (and 0 otherwise) in real space
+class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
+{
+public:
+    FTDistribution2DCone(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DCone() {}
+
+    virtual FTDistribution2DCone *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+
+private:
+    double BesselJ0(double value) const;
+};
+
 #endif /* FTDISTRIBUTIONS_H_ */
 
 

@@ -132,3 +132,31 @@ void FTDistribution2DVoigt::init_parameters()
     registerParameter("eta", &m_eta);
 }
 
+FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
+        double coherence_length_y)
+: IFTDistribution2D(coherence_length_x, coherence_length_y)
+{
+    setName("2DDistributionCone");
+    init_parameters();
+}
+
+FTDistribution2DCone* FTDistribution2DCone::clone() const
+{
+    FTDistribution2DCone *p_clone = new FTDistribution2DCone(
+            m_coherence_length_x, m_coherence_length_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDistribution2DCone::evaluate(double qx, double qy) const
+{
+    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+
+    return 0.0;
+}
+
+double FTDistribution2DCone::BesselJ0(double value) const
+{
+    return MathFunctions::Bessel_J0(value);
+}

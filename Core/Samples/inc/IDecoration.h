@@ -34,6 +34,9 @@ public:
 
     virtual IDecoration *clone() const=0;
 
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const=0;
+
     //! Returns a clone with inverted magnetic fields
     virtual IDecoration *cloneInvertB() const=0;
 

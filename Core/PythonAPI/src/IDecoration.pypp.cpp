@@ -25,6 +25,11 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     
     }
 
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
+    }
+
     virtual ::IDecoration * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -35,7 +40,7 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return func_cloneInvertB(  );
     }
 
-    virtual double getAbundanceFractionOfParticle( ::size_t index ) const {
+    virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const {
         bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" );
         return func_getAbundanceFractionOfParticle( index );
     }
@@ -45,40 +50,35 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return func_getInterferenceFunctions(  );
     }
 
-    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
+    virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
-        else{
+        else
             return this->IDecoration::getNumberOfInterferenceFunctions(  );
-        }
     }
     
-    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+    
+    ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
         return IDecoration::getNumberOfInterferenceFunctions( );
     }
 
-    virtual ::size_t getNumberOfParticles(  ) const {
+    virtual ::std::size_t getNumberOfParticles(  ) const {
         bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" );
         return func_getNumberOfParticles(  );
     }
 
-    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const {
+    virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const {
         bp::override func_getParticleInfo = this->get_override( "getParticleInfo" );
         return func_getParticleInfo( index );
-    }
-
-    virtual void accept( ::ISampleVisitor * p_visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(p_visitor) );
     }
 
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -87,22 +87,34 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -111,10 +123,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ICompositeSample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -123,10 +135,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ICompositeSample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -135,10 +147,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -147,10 +159,10 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else{
+        else
             this->ISample::printSampleTree(  );
-        }
     }
+    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -175,25 +187,13 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else{
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-        }
-    }
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -202,24 +202,24 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else{
+        else
             return this->ICompositeSample::size(  );
-        }
     }
     
-    ::size_t default_size(  ) const  {
+    
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -231,6 +231,16 @@ void register_IDecoration_class(){
         typedef bp::class_< IDecoration_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IDecoration_exposer_t;
         IDecoration_exposer_t IDecoration_exposer = IDecoration_exposer_t( "IDecoration", bp::init< >() );
         bp::scope IDecoration_scope( IDecoration_exposer );
+        { //::IDecoration::accept
+        
+            typedef void ( ::IDecoration::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            IDecoration_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::IDecoration::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
         { //::IDecoration::clone
         
             typedef ::IDecoration * ( ::IDecoration::*clone_function_type )(  ) const;
@@ -253,7 +263,7 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getAbundanceFractionOfParticle
         
-            typedef double ( ::IDecoration::*getAbundanceFractionOfParticle_function_type )( ::size_t ) const;
+            typedef double ( ::IDecoration::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
             
             IDecoration_exposer.def( 
                 "getAbundanceFractionOfParticle"
@@ -272,8 +282,8 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getNumberOfInterferenceFunctions
         
-            typedef ::size_t ( ::IDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
-            typedef ::size_t ( IDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ::IDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( IDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
             
             IDecoration_exposer.def( 
                 "getNumberOfInterferenceFunctions"
@@ -283,7 +293,7 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getNumberOfParticles
         
-            typedef ::size_t ( ::IDecoration::*getNumberOfParticles_function_type )(  ) const;
+            typedef ::std::size_t ( ::IDecoration::*getNumberOfParticles_function_type )(  ) const;
             
             IDecoration_exposer.def( 
                 "getNumberOfParticles"
@@ -292,7 +302,7 @@ void register_IDecoration_class(){
         }
         { //::IDecoration::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::IDecoration::*getParticleInfo_function_type )( ::size_t ) const;
+            typedef ::ParticleInfo const * ( ::IDecoration::*getParticleInfo_function_type )( ::std::size_t ) const;
             
             IDecoration_exposer.def( 
                 "getParticleInfo"
@@ -320,16 +330,6 @@ void register_IDecoration_class(){
                 , ( bp::arg("surface_density") ) );
         
         }
-        { //::ISample::accept
-        
-            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
-            
-            IDecoration_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
-                , ( bp::arg("p_visitor") ) );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
@@ -350,6 +350,17 @@ void register_IDecoration_class(){
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
                 , default_clearParameterPool_function_type(&IDecoration_wrapper::default_clearParameterPool) );
+        
+        }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( IDecoration_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            IDecoration_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&IDecoration_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
@@ -420,18 +431,6 @@ void register_IDecoration_class(){
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( IDecoration_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            IDecoration_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&IDecoration_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
-        
-        }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
@@ -457,8 +456,8 @@ void register_IDecoration_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::size_t ( IDecoration_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( IDecoration_wrapper::*default_size_function_type )(  ) const;
             
             IDecoration_exposer.def( 
                 "size"

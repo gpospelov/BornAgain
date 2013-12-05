@@ -67,6 +67,9 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     if( mat ) {
         // check if user is trying to create material
         // with same name but different parameters
+        if(!mat->isScalarMaterial()) {
+            throw LogicErrorException("MaterialManager::this_getHomogeneousMaterial() -> Attempt to make existing magnetic material non-magnetic one. Material name '"+mat->getName()+"'.");
+        }
         const HomogeneousMaterial *old =
             dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {
@@ -110,19 +113,14 @@ const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
     if( mat ) {
         // check if user is trying to create material
         // with same name but different parameters
-        const HomogeneousMaterial *old =
-            dynamic_cast<const HomogeneousMaterial *>(mat);
-        if(old->getRefractiveIndex() != refractive_index) {
-            HomogeneousMaterial *non_const_mat =
-                const_cast<HomogeneousMaterial *>(old);
-            non_const_mat->setRefractiveIndex(refractive_index);
-            msglog(MSG::WARNING) <<
-                "MaterialManager::addHomogeneousMagneticMaterial()" <<
-                "-> Redefining refractive index for material '" << name << "'";
+        if(mat->isScalarMaterial()) {
+            throw LogicErrorException("MaterialManager::this_getHomogeneousMagneticMaterial() -> Attempt to make existing non-magnetic material magnetic one. Material name '"+mat->getName()+"'.");
         }
+
         const HomogeneousMagneticMaterial *mold =
             dynamic_cast<const HomogeneousMagneticMaterial *>(mat);
-        if(mold && mold->getMagneticField() != magnetic_field) {
+
+        if(mold->getMagneticField() != magnetic_field) {
             HomogeneousMagneticMaterial *non_const_mat =
                 const_cast<HomogeneousMagneticMaterial *>(mold);
             non_const_mat->setMagneticField(magnetic_field);
@@ -130,11 +128,15 @@ const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
                 "MaterialManager::addHomogeneousMagneticMaterial()" <<
                 "-> Redefining magnetic field for material '" << name << "'";
         }
-        if(!mold) {
-            throw ExistingClassRegistrationException(
-                    "Non-magnetic material with this name"
-                    " was already registered: " + name);
+        if(mold->getRefractiveIndex() != refractive_index) {
+            HomogeneousMagneticMaterial *non_const_mat =
+                const_cast<HomogeneousMagneticMaterial *>(mold);
+            non_const_mat->setRefractiveIndex(refractive_index);
+            msglog(MSG::WARNING) <<
+                "MaterialManager::addHomogeneousMagneticMaterial()" <<
+                "-> Redefining refractive index for material '" << name << "'";
         }
+
         return mat;
     } else {
         IMaterial *hmat = new HomogeneousMagneticMaterial(name,

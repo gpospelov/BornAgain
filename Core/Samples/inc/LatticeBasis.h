@@ -36,9 +36,7 @@ public:
     LatticeBasis *createTransformed() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const {
-        p_visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     void addParticle(const Particle& particle,
                      std::vector<kvector_t > positions);

@@ -19,7 +19,6 @@
 #include "IParameterized.h"
 #include "ICloneable.h"
 #include "ISampleVisitor.h"
-#include "ISampleHierarchicalVisitor.h"
 
 class ICompositeSample;
 class DWBASimulation;
@@ -33,9 +32,10 @@ public:
     virtual ~ISample() {}
 
     //! Returns pointer to "this", if it is composite sample (to overload).
+    virtual ICompositeSample *getCompositeSample() { return 0; }
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
-    virtual ISample *clone() const;
+    virtual ISample *clone() const =0;
 
     //! Returns a clone with inverted magnetic fields
     virtual ISample *cloneInvertB() const;
@@ -57,7 +57,7 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
-    bool containsMagneticMaterial() const;
+    virtual bool containsMagneticMaterial() const;
 
 protected:
     virtual void print(std::ostream& ostr) const;

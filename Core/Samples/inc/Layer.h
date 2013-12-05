@@ -43,7 +43,7 @@ public:
     virtual Layer *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);

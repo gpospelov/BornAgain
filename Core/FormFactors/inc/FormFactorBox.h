@@ -32,8 +32,6 @@ public:
             init_parameters();
         }
 
-
-
     virtual ~FormFactorBox() {}
 
     FormFactorBox *clone() const;

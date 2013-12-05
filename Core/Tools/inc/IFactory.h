@@ -101,6 +101,13 @@ public:
     //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
 
+    iterator begin() { return m_descriptions.begin(); }
+    const_iterator begin() const { return m_descriptions.begin(); }
+
+    iterator end() { return m_descriptions.end(); }
+    const_iterator end() const { return m_descriptions.end(); }
+
+
 protected:
     bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions

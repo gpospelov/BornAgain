@@ -19,111 +19,177 @@
 #include "Exceptions.h"
 
 class ISample;
-class MultiLayer;
-class Layer;
-class LayerInterface;
-class ParticleDecoration;
-class ParticleInfo;
-class Particle;
-class ParticleCoreShell;
-class MesoCrystal;
-class Crystal;
-class LatticeBasis;
+// - the order according to the hierarchy as reported by IDE
+class ICompositeSample;
+// -
 class IClusteredParticles;
+class Crystal;
+// -
+class IDecoration;
+class ParticleDecoration;
+// -
+class Layer;
+// -
+class LayerInterface;
+// -
+class MultiLayer;
+// -
+class Particle;
+class LatticeBasis;
+class MesoCrystal;
+class ParticleCoreShell;
+// -
+class ParticleInfo;
+class DiffuseParticleInfo;
+class PositionParticleInfo;
+// -
 class IFormFactor;
-class IInterferenceFunction;
-class FormFactorFullSphere;
-class FormFactorPyramid;
+// -
+class FormFactorDWBAPol;
+class FormFactorDWBAPolConstZ;
+// -
+class FormFactorWeighted;
+// -
+class IFormFactorBorn;
+// -
+class FormFactorBox;
+class FormFactorCone;
+class FormFactorCone6;
+class FormFactorCrystal;
 class FormFactorCylinder;
+class FormFactorEllipsoid;
+class FormFactorFullSphere;
+class FormFactorFullSpheroid;
+class FormFactorGauss;
+class FormFactorHemiSpheroid;
+class FormFactorLorentz;
+class FormFactorParallelepiped;
 class FormFactorPrism3;
+class FormFactorPrism6;
+class FormFactorPyramid;
+class FormFactorSphere;
+class FormFactorSphereGaussianRadius;
+class FormFactorTetrahedron;
+class IFormFactorBornSeparable;
+// -
+class IFormFactorDecorator;
+// -
+class FormFactorDWBA;
+class FormFactorDWBAConstZ;
+class FormFactorDecoratorDebyeWaller;
+class FormFactorDecoratorFactor;
+class FormFactorDecoratorMaterial;
+class FormFactorDecoratorMultiPositionFactor;
+class FormFactorDecoratorPositionFactor;
+class FormFactorDecoratorTransformation;
+// -
+class IInterferenceFunction;
 class InterferenceFunction1DParaCrystal;
-class InterferenceFunction2DParaCrystal;
 class InterferenceFunction2DLattice;
+class InterferenceFunction2DParaCrystal;
+class InterferenceFunctionNone;
+// -
+class IRoughness;
 class LayerRoughness;
 
-
-//! Interface to visit a sample tree and perform operations on its nodes
 
 class BA_CORE_API_ ISampleVisitor
 {
 public:
-    //! Destructor
-    virtual ~ISampleVisitor() {}
+    ISampleVisitor() : m_level(0) {}
+    virtual ~ISampleVisitor(){}
 
-    //! Performs specific action on the given sample
-    //! Needs to be overloaded for different ISample types
+    // visiting methods (the order according to the hierarchy as reported by IDE)
 
-    virtual void visit(const ISample *) { throw NotImplementedException(
-            "ISampleVisitor::visit(ISample *)"); }
-    virtual void visit(const MultiLayer *) { throw NotImplementedException(
-            "ISampleVisitor::visit(MultiLayer *)"); }
-    virtual void visit(const Layer *) { throw NotImplementedException(
-            "ISampleVisitor::visit(Layer *)"); }
-    virtual void visit(const LayerInterface *) { throw NotImplementedException(
-            "ISampleVisitor::visit(LayerInterface *)"); }
-    virtual void visit(const ParticleDecoration *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(ParticleDecoration *)");
-    }
-    virtual void visit(const ParticleInfo *) { throw NotImplementedException(
-            "ISampleVisitor::visit(ParticleInfo *)"); }
-    virtual void visit(const Particle *) { throw NotImplementedException(
-            "ISampleVisitor::visit(Particle *)"); }
-    virtual void visit(const ParticleCoreShell *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(ParticleCoreShell *)");
-    }
-    virtual void visit(const MesoCrystal *) { throw NotImplementedException(
-            "ISampleVisitor::visit(MesoCrystal *)"); }
-    virtual void visit(const Crystal *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(Crystal *)"); }
-    virtual void visit(const LatticeBasis *) { throw NotImplementedException(
-            "ISampleVisitor::visit(LatticeBasis *)"); }
-    virtual void visit(const IFormFactor *) { throw NotImplementedException(
-            "ISampleVisitor::visit(IFormFactor *)"); }
-    virtual void visit(const FormFactorFullSphere *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(FormFactorFullSphere *)");
-    }
-    virtual void visit(const FormFactorPyramid *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(FormFactorPyramid *)");
-    }
-    virtual void visit(const FormFactorCylinder *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(FormFactorCylinder *)");
-    }
-    virtual void visit(const FormFactorPrism3 *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(FormFactorPrism3 *)");
-    }
-    virtual void visit(const IInterferenceFunction *) {
-        throw NotImplementedException(
-            "ISampleVisitor::visit(IInterferenceFunction *)");
-    }
-    virtual void visit(const InterferenceFunction1DParaCrystal  *) {
-        throw NotImplementedException(
-                "ISampleVisitor::visit(InterferenceFunction1DParaCrystal  *)");
-    }
-    virtual void visit(const InterferenceFunction2DParaCrystal  *) {
-        throw NotImplementedException(
-                "ISampleVisitor::visit(InterferenceFunction2DParaCrystal  *)");
-    }
+    virtual void visit(const ISample *);
 
-    virtual void visit(const LayerRoughness  *) {
-        throw NotImplementedException(
-                "ISampleVisitor::visit(LayerRoughness *)");
-    }
+    virtual void visit(const ICompositeSample *);
 
-    virtual void visit(const InterferenceFunction2DLattice  *) {
-        throw NotImplementedException(
-                "ISampleVisitor::visit(InterferenceFunction2DParaCrystal  *)");
-    }
+    virtual void visit(const IClusteredParticles *);
+    virtual void visit(const Crystal *);
 
-    virtual bool goForward(){ return true; }
-    virtual bool goBack(){ return true; }
+    virtual void visit(const IDecoration *);
+    virtual void visit(const ParticleDecoration *);
+
+    virtual void visit(const Layer *);
+
+    virtual void visit(const LayerInterface *);
+
+    virtual void visit(const MultiLayer *);
+
+    virtual void visit(const Particle *);
+    virtual void visit(const LatticeBasis *);
+    virtual void visit(const MesoCrystal *);
+    virtual void visit(const ParticleCoreShell *);
+
+    virtual void visit(const ParticleInfo *);
+    virtual void visit(const DiffuseParticleInfo *);
+    virtual void visit(const PositionParticleInfo *);
+
+    virtual void visit(const IFormFactor *);
+
+    virtual void visit(const FormFactorDWBAPol *);
+    virtual void visit(const FormFactorDWBAPolConstZ *);
+
+    virtual void visit(const FormFactorWeighted *);
+
+    virtual void visit(const IFormFactorBorn *);
+
+    virtual void visit(const FormFactorBox *);
+    virtual void visit(const FormFactorCone *);
+    virtual void visit(const FormFactorCone6 *);
+    virtual void visit(const FormFactorCrystal *);
+    virtual void visit(const FormFactorCylinder *);
+    virtual void visit(const FormFactorEllipsoid *);
+    virtual void visit(const FormFactorFullSphere *);
+    virtual void visit(const FormFactorFullSpheroid *);
+    virtual void visit(const FormFactorGauss *);
+    virtual void visit(const FormFactorHemiSpheroid *);
+    virtual void visit(const FormFactorLorentz *);
+    virtual void visit(const FormFactorParallelepiped *);
+    virtual void visit(const FormFactorPrism3 *);
+    virtual void visit(const FormFactorPrism6 *);
+    virtual void visit(const FormFactorPyramid *);
+    virtual void visit(const FormFactorSphere *);
+    virtual void visit(const FormFactorSphereGaussianRadius *);
+    virtual void visit(const FormFactorTetrahedron *);
+    virtual void visit(const IFormFactorBornSeparable *);
+
+    virtual void visit(const IFormFactorDecorator *);
+
+    virtual void visit(const FormFactorDWBA *);
+    virtual void visit(const FormFactorDWBAConstZ *);
+    virtual void visit(const FormFactorDecoratorDebyeWaller *);
+    virtual void visit(const FormFactorDecoratorFactor *);
+    virtual void visit(const FormFactorDecoratorMaterial *);
+    virtual void visit(const FormFactorDecoratorMultiPositionFactor *);
+    virtual void visit(const FormFactorDecoratorPositionFactor *);
+    virtual void visit(const FormFactorDecoratorTransformation *);
+
+    virtual void visit(const IInterferenceFunction *);
+    virtual void visit(const InterferenceFunction1DParaCrystal *);
+    virtual void visit(const InterferenceFunction2DLattice *);
+    virtual void visit(const InterferenceFunction2DParaCrystal *);
+    virtual void visit(const InterferenceFunctionNone *);
+
+    virtual void visit(const IRoughness *);
+    virtual void visit(const LayerRoughness *);
+
+    // enter and leave methods
+    bool visitEnter(const ICompositeSample *);
+    bool visitLeave(const ICompositeSample *);
+
+    //! return current level of the visitor in the composite hierarchy
+    int getLevel() const { return m_level; }
+
+    //! set current level of the visitor in the composite hierarchy
+    void setLevel(int level) { m_level = level; }
+
+private:
+    int m_level;
 };
+
+void VisitSampleTree(const ISample &sample, ISampleVisitor &visitor);
 
 
 #endif // ISAMPLEVISITOR_H

@@ -105,17 +105,17 @@ void TestMesoCrystal2::draw_results()
 
 //    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
 
-    m_sample_builder->setMatchedParametersValue("*/lattice_length_a", 6.2091e+00);           // 6.2
-    m_sample_builder->setMatchedParametersValue("*/lattice_length_c", 6.5677e+00);           // 6.2
-    m_sample_builder->setMatchedParametersValue("*/nanoparticle_radius", 4.6976e+00);        // 5.7
-    m_sample_builder->setMatchedParametersValue("*/sigma_nanoparticle_radius", 3.6720e-01);  // 0.1
-    m_sample_builder->setMatchedParametersValue("*/meso_height", 1.1221e+02);  // 0.1
-    m_sample_builder->setMatchedParametersValue("*/meso_radius", 9.4567e+02);  // 0.1
-    m_sample_builder->setMatchedParametersValue("*/sigma_meso_height", 1.3310e+00);  // 0.1
-    m_sample_builder->setMatchedParametersValue("*/sigma_meso_radius", 1.3863e+00);  // 0.1
-    m_sample_builder->setMatchedParametersValue("*/sigma_lattice_length_a", 1.1601e+00);     // 1.5
-    m_sample_builder->setMatchedParametersValue("*/surface_filling_ratio", 1.7286e-01);      // 0.25
-    m_sample_builder->setMatchedParametersValue("*/roughness", 2.8746e+01);                      // 1.0
+    m_sample_builder->setParameterValue("lattice_length_c", 6.5677e+00);           // 6.2
+    m_sample_builder->setParameterValue("lattice_length_a", 6.2091e+00);           // 6.2
+    m_sample_builder->setParameterValue("nanoparticle_radius", 4.6976e+00);        // 5.7
+    m_sample_builder->setParameterValue("sigma_nanoparticle_radius", 3.6720e-01);  // 0.1
+    m_sample_builder->setParameterValue("meso_height", 1.1221e+02);  // 0.1
+    m_sample_builder->setParameterValue("meso_radius", 9.4567e+02);  // 0.1
+    m_sample_builder->setParameterValue("sigma_meso_height", 1.3310e+00);  // 0.1
+    m_sample_builder->setParameterValue("sigma_meso_radius", 1.3863e+00);  // 0.1
+    m_sample_builder->setParameterValue("sigma_lattice_length_a", 1.1601e+00);     // 1.5
+    m_sample_builder->setParameterValue("surface_filling_ratio", 1.7286e-01);      // 0.25
+    m_sample_builder->setParameterValue("roughness", 2.8746e+01);                      // 1.0
     m_simulation->setBeamIntensity(5.0090e+12);
     std::cout << *pool << std::endl;
     m_simulation->runSimulation();

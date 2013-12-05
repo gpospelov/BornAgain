@@ -32,6 +32,9 @@ public:
 
     ICompositeSample *clone() const = 0;
 
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
     virtual const ICompositeSample *getCompositeSample() const { return this; }
@@ -58,7 +61,7 @@ public:
     virtual size_t size() const { return m_samples.size(); }
 
     //! Creates general iterator to walk through tree of composite children.
-    class ICompositeIterator createIterator();
+    class ICompositeIterator createIterator() const;
 
 private:
     //! List of registered children.

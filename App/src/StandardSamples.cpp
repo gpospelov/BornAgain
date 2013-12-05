@@ -1151,6 +1151,9 @@ ISample *StandardSamples::PolarizedDWBATestCase()
     const IMaterial *mPart =
         MaterialManager::getHomogeneousMagneticMaterial
         ("particle", 5e-6, 0.0, magnetic_field);
+//    const IMaterial *mPart =
+//        MaterialManager::getHomogeneousMaterial
+//        ("particle", 5e-6, 0.0);
     const IMaterial *mSubstrate =
         MaterialManager::getHomogeneousMaterial
         ("substrate", 15e-6, 0.0 );

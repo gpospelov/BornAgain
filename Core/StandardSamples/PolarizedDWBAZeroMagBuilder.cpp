@@ -37,7 +37,7 @@ ISample *PolarizedDWBAZeroMagBuilder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMagneticMaterial(
-                    "Particle", 6e-4, 2e-8, magnetic_field);
+                    "MagParticle", 6e-4, 2e-8, magnetic_field);
 
     ParticleDecoration particle_decoration(
             new Particle(particle_material,

@@ -28,6 +28,7 @@ public:
         : mp_form_factor(p_form_factor) {}
     virtual ~IFormFactorDecorator();
     virtual IFormFactorDecorator *clone() const=0;
+    virtual void accept(ISampleVisitor *visitor) const = 0;
 
     virtual void setAmbientMaterial(const IMaterial *p_material);
 

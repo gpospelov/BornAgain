@@ -19,10 +19,12 @@
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell,
         const Particle& core, kvector_t relative_core_position)
-    : m_relative_core_position(relative_core_position)
+    : mp_shell(0)
+    , mp_core(0)
+    , m_relative_core_position(relative_core_position)
 {
-    mp_shell = shell.clone();
-    mp_core = core.clone();
+    addAndRegisterCore(core);
+    addAndRegisterShell(shell);
 }
 
 ParticleCoreShell::~ParticleCoreShell()
@@ -104,4 +106,25 @@ ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
 , mp_core(0)
 , m_relative_core_position(relative_core_position)
 {
+}
+
+void ParticleCoreShell::addAndRegisterCore(const Particle &core)
+{
+    if(mp_core) {
+        deregisterChild(mp_core);
+        delete mp_core;
+    }
+    mp_core = core.clone();
+    registerChild(mp_core);
+}
+
+
+void ParticleCoreShell::addAndRegisterShell(const Particle &shell)
+{
+    if(mp_shell) {
+        deregisterChild(mp_shell);
+        delete mp_shell;
+    }
+    mp_shell = shell.clone();
+    registerChild(mp_shell);
 }

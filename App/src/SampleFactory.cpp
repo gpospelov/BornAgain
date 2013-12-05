@@ -51,8 +51,8 @@ SampleFactory::SampleFactory()
             StandardSamples::MultilayerSpecularMagneticTestCase);
 
     // magnetic cylinders on substrate for polarized DWBA
-    registerItem("PolarizedDWBATestCase",
-            StandardSamples::PolarizedDWBATestCase);
+//    registerItem("PolarizedDWBATestCase",
+//            StandardSamples::PolarizedDWBATestCase);
 
     // cylinder DWBA form factor with matrix calculation
  //   registerItem("PolarizedDWBAZeroMagTestCase",

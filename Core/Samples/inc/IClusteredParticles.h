@@ -29,19 +29,17 @@ class BA_CORE_API_ IClusteredParticles : public ICompositeSample
 public:
     IClusteredParticles() {}
     virtual ~IClusteredParticles() {}
+
     //! clone method to allow for polymorphic copying
-    virtual IClusteredParticles *clone() const {
-        throw NotImplementedException("IClusteredParticles::clone() -> Error! "
-                "Not implemented exception");
-    }
+    virtual IClusteredParticles *clone() const  = 0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual IClusteredParticles *cloneInvertB() const {
-        throw NotImplementedException("IClusteredParticles::cloneInvertB() -> "
-                "Error! Not implemented exception");
-    }
+    virtual IClusteredParticles *cloneInvertB() const = 0;
 
-    virtual void setAmbientMaterial(const IMaterial *p_ambient_material)=0;
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const = 0;
+
+    virtual void setAmbientMaterial(const IMaterial *p_ambient_material) = 0;
 
     //! @brief create a total form factor for the mesocrystal with a specific
     //! shape and content

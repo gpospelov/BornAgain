@@ -66,16 +66,23 @@ std::string IParameterized::addParametersToExternalPool(
 //! set parameter value, return true in the case of success
 bool IParameterized::setParameterValue(const std::string &name, double value)
 {
-    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
-    return P_pool->setParameterValue(name, value);
+    if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
+        return m_parameters.setParameterValue(name, value);
+    }
+    boost::scoped_ptr<ParameterPool> pool(createParameterTree());
+    if(name.find('*') != std::string::npos) {
+        return pool->setMatchedParametersValue(name, value);
+    } else {
+        return pool->setParameterValue(name, value);
+    }
 }
 
 //! Sets parameter value, return number of changed parameters
-int IParameterized::setMatchedParametersValue(const std::string& wildcards, double value)
-{
-    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
-    return P_pool->setMatchedParametersValue(wildcards, value);
-}
+//int IParameterized::setMatchedParametersValue(const std::string& wildcards, double value)
+//{
+//    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
+//    return P_pool->setMatchedParametersValue(wildcards, value);
+//}
 
 
 void IParameterized::printParameters() const
@@ -85,9 +92,6 @@ void IParameterized::printParameters() const
     delete p_pool;
 }
 
-//! No pure virtual function here, have to throw here,
-//! due to problems in exporting abstract classes to python
-//!
 void IParameterized::init_parameters()
 {
     throw NotImplementedException("IParameterized::init_parameters() -> "

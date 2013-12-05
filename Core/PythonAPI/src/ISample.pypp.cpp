@@ -30,37 +30,54 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         func_accept( boost::python::ptr(p_visitor) );
     }
 
-    virtual ::ISample * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ISample::clone(  );
-        }
-    }
-    
-    ::ISample * default_clone(  ) const  {
-        return ISample::clone( );
+    virtual ::ISample * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
     }
 
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else{
+        else
             return this->ISample::cloneInvertB(  );
-        }
     }
+    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ISample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ISample::getCompositeSample( );
+    }
+
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ISample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -69,10 +86,10 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else{
+        else
             this->ISample::printSampleTree(  );
-        }
     }
+    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -81,10 +98,10 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -93,10 +110,10 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -105,10 +122,10 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -117,10 +134,10 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -145,25 +162,13 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else{
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-        }
-    }
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -172,10 +177,10 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -202,12 +207,10 @@ void register_ISample_class(){
         { //::ISample::clone
         
             typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;
-            typedef ::ISample * ( ISample_wrapper::*default_clone_function_type )(  ) const;
             
             ISample_exposer.def( 
                 "clone"
-                , clone_function_type(&::ISample::clone)
-                , default_clone_function_type(&ISample_wrapper::default_clone)
+                , bp::pure_virtual( clone_function_type(&::ISample::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -226,10 +229,24 @@ void register_ISample_class(){
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ISample_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
             ISample_exposer.def( 
                 "containsMagneticMaterial"
-                , containsMagneticMaterial_function_type( &::ISample::containsMagneticMaterial ) );
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&ISample_wrapper::default_containsMagneticMaterial) );
+        
+        }
+        { //::ISample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ISample_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            ISample_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ISample::getCompositeSample)
+                , default_getCompositeSample_function_type(&ISample_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
@@ -308,18 +325,6 @@ void register_ISample_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ISample_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( ISample_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            ISample_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&ISample_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

@@ -329,7 +329,7 @@ def MakePythonAPI(OutputTempDir):
     # default policies for what remained unchanged
     # -----------------
 
-    #builder_utils.IncludePureVirtualMethods(mb, include_classes)
+    builder_utils.IncludePureVirtualMethods(mb, include_classes)
 
     builder_utils.DefaultReturnPolicy(mb)
 

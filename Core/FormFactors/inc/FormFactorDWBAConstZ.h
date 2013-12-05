@@ -26,6 +26,7 @@ public:
     FormFactorDWBAConstZ(IFormFactor* p_form_factor, double depth=0.0);
     virtual ~FormFactorDWBAConstZ() {}
     virtual FormFactorDWBAConstZ *clone() const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;

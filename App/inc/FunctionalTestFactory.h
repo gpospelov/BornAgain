@@ -46,9 +46,6 @@ public:
     //! Prints benchmark summary
     void print_benchmarks();
 
-    iterator begin() { return m_descriptions.begin(); }
-    iterator end() { return m_descriptions.end(); }
-
 private:
     TBenchmark *m_benchmark;
 };

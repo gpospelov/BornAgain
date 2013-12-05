@@ -27,6 +27,7 @@ public:
     virtual ~InterferenceFunctionNone() {}
     virtual InterferenceFunctionNone *clone() const
     { return new InterferenceFunctionNone(); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual double evaluate(const cvector_t& q) const { (void)q; return 1.0; }
 };

@@ -23,8 +23,6 @@ void register_Lattice2DIFParameters_class(){
         Lattice2DIFParameters_exposer.def_readwrite( "m_angle", &Lattice2DIFParameters::m_angle );
         Lattice2DIFParameters_exposer.def_readwrite( "m_corr_length_1", &Lattice2DIFParameters::m_corr_length_1 );
         Lattice2DIFParameters_exposer.def_readwrite( "m_corr_length_2", &Lattice2DIFParameters::m_corr_length_2 );
-        Lattice2DIFParameters_exposer.def_readwrite( "m_domain_size_1", &Lattice2DIFParameters::m_domain_size_1 );
-        Lattice2DIFParameters_exposer.def_readwrite( "m_domain_size_2", &Lattice2DIFParameters::m_domain_size_2 );
         Lattice2DIFParameters_exposer.def_readwrite( "m_length_1", &Lattice2DIFParameters::m_length_1 );
         Lattice2DIFParameters_exposer.def_readwrite( "m_length_2", &Lattice2DIFParameters::m_length_2 );
         Lattice2DIFParameters_exposer.def_readwrite( "m_xi", &Lattice2DIFParameters::m_xi );

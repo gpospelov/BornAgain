@@ -36,9 +36,6 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
-    // domain sizes
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer;
-    lattice_params.m_domain_size_2 = 20000.0*Units::nanometer;
     // correlation lengths
     lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI;
     lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;
@@ -91,8 +88,6 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
-    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
     lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
     lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
 
@@ -148,9 +143,6 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = 30.0*Units::degree; // lattice orientation
-    // domain sizes:
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer;
-    lattice_params.m_domain_size_2 = 20000.0*Units::nanometer;
     // correlation lengths:
     lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI;
     lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;
@@ -215,8 +207,6 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = m_xi; // lattice orientation
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer;
-    lattice_params.m_domain_size_2 = 20000.0*Units::nanometer;
     lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI;
     lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;
 

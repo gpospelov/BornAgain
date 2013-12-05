@@ -62,7 +62,8 @@ private:
     void initialize_rec_vectors();
 
     //! Initializes factors needed in each calculation
-    void initialize_calc_factors();
+    void initialize_calc_factors(double coherence_length_x,
+            double coherence_length_y);
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*

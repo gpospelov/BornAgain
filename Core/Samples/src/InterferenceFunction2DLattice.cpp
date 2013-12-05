@@ -44,9 +44,11 @@ InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
 void InterferenceFunction2DLattice::setProbabilityDistribution(
         const IFTDistribution2D& pdf)
 {
-    if (mp_pdf !=& pdf) delete mp_pdf;
+    if (mp_pdf != &pdf) delete mp_pdf;
     mp_pdf = pdf.clone();
-    initialize_calc_factors();
+    double coherence_length_x = mp_pdf->getCoherenceLengthX();
+    double coherence_length_y = mp_pdf->getCoherenceLengthY();
+    initialize_calc_factors(coherence_length_x, coherence_length_y);
 }
 
 double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
@@ -107,8 +109,6 @@ void InterferenceFunction2DLattice::init_parameters()
     registerParameter("length_2", &m_lattice_params.m_length_2);
     registerParameter("angle", &m_lattice_params.m_angle);
     registerParameter("xi", &m_lattice_params.m_xi);
-    registerParameter("domain_size_1", &m_lattice_params.m_domain_size_1);
-    registerParameter("domain_size_2", &m_lattice_params.m_domain_size_2);
     registerParameter("corr_length_1", &m_lattice_params.m_corr_length_1);
     registerParameter("corr_length_2", &m_lattice_params.m_corr_length_2);
 }
@@ -132,12 +132,12 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
     m_bsy = binv*std::cos(xi);
 }
 
-void InterferenceFunction2DLattice::initialize_calc_factors()
+void InterferenceFunction2DLattice::initialize_calc_factors(
+        double coherence_length_x, double coherence_length_y)
 {
     // constant prefactor
     //TODO: for non cauchy distributions: check if this still applies
-    m_prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1
-                          *m_lattice_params.m_corr_length_2;
+    m_prefactor = 2.0*M_PI*coherence_length_x*coherence_length_y;
 
     // number of reciprocal lattice points to use
     double qa_max, qb_max;

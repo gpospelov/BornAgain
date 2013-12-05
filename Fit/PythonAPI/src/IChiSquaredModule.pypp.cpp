@@ -41,10 +41,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IFittingDataSelector const * getFittingDataSelector(  ) const  {
         if( bp::override func_getFittingDataSelector = this->get_override( "getFittingDataSelector" ) )
             return func_getFittingDataSelector(  );
-        else
+        else{
             return this->IChiSquaredModule::getFittingDataSelector(  );
+        }
     }
-    
     
     ::IFittingDataSelector const * default_getFittingDataSelector(  ) const  {
         return IChiSquaredModule::getFittingDataSelector( );
@@ -53,10 +53,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IIntensityFunction const * getIntensityFunction(  ) const  {
         if( bp::override func_getIntensityFunction = this->get_override( "getIntensityFunction" ) )
             return func_getIntensityFunction(  );
-        else
+        else{
             return this->IChiSquaredModule::getIntensityFunction(  );
+        }
     }
-    
     
     ::IIntensityFunction const * default_getIntensityFunction(  ) const  {
         return IChiSquaredModule::getIntensityFunction( );
@@ -65,10 +65,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IOutputDataNormalizer const * getOutputDataNormalizer(  ) const  {
         if( bp::override func_getOutputDataNormalizer = this->get_override( "getOutputDataNormalizer" ) )
             return func_getOutputDataNormalizer(  );
-        else
+        else{
             return this->IChiSquaredModule::getOutputDataNormalizer(  );
+        }
     }
-    
     
     ::IOutputDataNormalizer const * default_getOutputDataNormalizer(  ) const  {
         return IChiSquaredModule::getOutputDataNormalizer( );
@@ -77,34 +77,34 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IOutputDataNormalizer * getOutputDataNormalizer(  ) {
         if( bp::override func_getOutputDataNormalizer = this->get_override( "getOutputDataNormalizer" ) )
             return func_getOutputDataNormalizer(  );
-        else
+        else{
             return this->IChiSquaredModule::getOutputDataNormalizer(  );
+        }
     }
-    
     
     ::IOutputDataNormalizer * default_getOutputDataNormalizer(  ) {
         return IChiSquaredModule::getOutputDataNormalizer( );
     }
 
-    virtual double getResidualValue( ::std::size_t arg0 ) const  {
+    virtual double getResidualValue( ::size_t arg0 ) const  {
         if( bp::override func_getResidualValue = this->get_override( "getResidualValue" ) )
             return func_getResidualValue( arg0 );
-        else
+        else{
             return this->IChiSquaredModule::getResidualValue( arg0 );
+        }
     }
     
-    
-    double default_getResidualValue( ::std::size_t arg0 ) const  {
+    double default_getResidualValue( ::size_t arg0 ) const  {
         return IChiSquaredModule::getResidualValue( arg0 );
     }
 
     virtual void setFittingDataSelector( ::IFittingDataSelector const & selector ) {
         if( bp::override func_setFittingDataSelector = this->get_override( "setFittingDataSelector" ) )
             func_setFittingDataSelector( boost::ref(selector) );
-        else
+        else{
             this->IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
+        }
     }
-    
     
     void default_setFittingDataSelector( ::IFittingDataSelector const & selector ) {
         IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
@@ -113,10 +113,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual void setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
         if( bp::override func_setIntensityFunction = this->get_override( "setIntensityFunction" ) )
             func_setIntensityFunction( boost::ref(intensity_function) );
-        else
+        else{
             this->IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
+        }
     }
-    
     
     void default_setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
         IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
@@ -125,10 +125,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual void setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
         if( bp::override func_setOutputDataNormalizer = this->get_override( "setOutputDataNormalizer" ) )
             func_setOutputDataNormalizer( boost::ref(data_normalizer) );
-        else
+        else{
             this->IChiSquaredModule::setOutputDataNormalizer( boost::ref(data_normalizer) );
+        }
     }
-    
     
     void default_setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
         IChiSquaredModule::setOutputDataNormalizer( boost::ref(data_normalizer) );
@@ -231,8 +231,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getResidualValue
         
-            typedef double ( ::IChiSquaredModule::*getResidualValue_function_type )( ::std::size_t ) const;
-            typedef double ( IChiSquaredModule_wrapper::*default_getResidualValue_function_type )( ::std::size_t ) const;
+            typedef double ( ::IChiSquaredModule::*getResidualValue_function_type )( ::size_t ) const;
+            typedef double ( IChiSquaredModule_wrapper::*default_getResidualValue_function_type )( ::size_t ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getResidualValue"

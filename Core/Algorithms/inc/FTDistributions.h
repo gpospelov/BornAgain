@@ -55,6 +55,12 @@ public:
     // get angle between X- and Y-axis of distribution (in direct space)
     double getDelta() const { return m_delta; }
 
+    // get coherence length in X-direction
+    double getCoherenceLengthX() const { return m_coherence_length_x; }
+
+    // get coherence length in Y-direction
+    double getCoherenceLengthY() const { return m_coherence_length_y; }
+
     //! evaluate IF for q in X,Y coordinates
     //! A common factor of 2*pi*m_coherence_length_x*m_coherence_length_y is
     //! applied by the caller if needed

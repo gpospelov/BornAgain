@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistribution2D > {
 
-    IFTDistribution2D_wrapper(double omega_x, double omega_y )
-    : IFTDistribution2D( omega_x, omega_y )
+    IFTDistribution2D_wrapper(double coherence_length_x, double coherence_length_y )
+    : IFTDistribution2D( coherence_length_x, coherence_length_y )
       , bp::wrapper< IFTDistribution2D >(){
         // constructor
     
@@ -33,11 +33,6 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual double evaluate( double qx, double qy ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( qx, qy );
-    }
-
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const {
-        bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" );
-        func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -137,7 +132,7 @@ void register_IFTDistribution2D_class(){
 
     { //::IFTDistribution2D
         typedef bp::class_< IFTDistribution2D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IFTDistribution2D_exposer_t;
-        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("omega_x"), bp::arg("omega_y") )) );
+        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope IFTDistribution2D_scope( IFTDistribution2D_exposer );
         { //::IFTDistribution2D::clone
         
@@ -193,7 +188,7 @@ void register_IFTDistribution2D_class(){
             
             IFTDistribution2D_exposer.def( 
                 "transformToStarBasis"
-                , bp::pure_virtual( transformToStarBasis_function_type(&::IFTDistribution2D::transformToStarBasis) )
+                , transformToStarBasis_function_type( &::IFTDistribution2D::transformToStarBasis )
                 , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
         
         }

@@ -49,7 +49,7 @@ void FunctionalTests::IsGISAXS06L4::run(const std::string &path_to_data)
     for (size_t i=0; i<xi.getNbins(); ++i) {
         double xi_value = xi.getBinValue(i);
         double probability = xi.getNormalizedProbability(i);
-        builder.setMatchedParametersValue("*xi",xi_value);
+        builder.setParameterValue("xi",xi_value);
         MultiLayer *p_sample = dynamic_cast<MultiLayer *>(builder.buildSample());
         simulation->setSample(*p_sample);
         simulation->runSimulation();

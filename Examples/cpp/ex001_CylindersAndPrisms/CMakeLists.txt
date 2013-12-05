@@ -6,9 +6,6 @@ add_executable(CylindersAndPrisms CylindersAndPrisms.cpp)
 
 #set (CMAKE_CXX_FLAGS "-g")
 
-# BornAgain include dir
-#set(BornAgain_Include_Dir "/usr/include/BornAgain")
-
 # path to the cmake modules
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
 
@@ -18,9 +15,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
 find_package(Eigen3 3.1.0)
 
 # --- BOOST ---
-#set(Boost_USE_STATIC_LIBS OFF)
-#set(Boost_USE_MULTITHREADED ON)
-#set(Boost_USE_STATIC_RUNTIME OFF)
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
 #add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 
 set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)

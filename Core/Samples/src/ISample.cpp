@@ -20,13 +20,6 @@
 #include "Utils.h"
 #include "SamplePrintVisitor.h"
 
-//ISample *ISample::clone() const
-//{
-//    throw NotImplementedException(
-//        "ISample::clone() -> "
-//        "Error! Method is not implemented");
-//}
-
 ISample* ISample::cloneInvertB() const
 {
     throw NotImplementedException(

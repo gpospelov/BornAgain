@@ -68,6 +68,12 @@ TEST_F(IParameterizedTest, SetParameterValue)
     m_parameterized.setParameterValue("*par*", 5.0);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par2);
+    m_parameterized.setParameterValue("/Parameterized/par1", 7.0);
+    EXPECT_EQ( double(7.0), m_parameterized.m_real_par1);
+    EXPECT_EQ( double(5.0), m_parameterized.m_real_par2);
+    m_parameterized.clearParameterPool();
+    EXPECT_EQ( 0.0, m_parameterized.getParameterPool()->size());
+
 }
 
 

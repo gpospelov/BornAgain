@@ -11,8 +11,6 @@ class LayerRoughnessTest : public ::testing::Test
 
 };
 
-//double sigma, double hurstParameter, double latteralCorrLength
-
 
 TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
 {

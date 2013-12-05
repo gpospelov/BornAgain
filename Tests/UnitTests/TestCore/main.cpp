@@ -22,6 +22,7 @@
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"
 #include "LayerRoughnessTest.h"
+#include "ParticleInfoTest.h"
 
 
 struct ErrorStreamRedirect {

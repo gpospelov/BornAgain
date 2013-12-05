@@ -73,13 +73,21 @@ void CylindersAndPrismsExample::setSimulation()
 CylindersAndPrismsExample::CylindersAndPrismsExample() : m_result(0)
 {
 	setSample();
-	setSimulation();
+    setSimulation();
 }
 
 void CylindersAndPrismsExample::runSimulation() 
 {
 	m_simulation->runSimulation();
-	m_result = m_simulation->getIntensityData();
+    m_result = m_simulation->getIntensityData();
+
+//=====DEBUG============
+    std::cout << "Rank: " << m_result->getRank() << ", Size: " << m_result->getAllocatedSize() << std::endl;
+
+    for (size_t i=0; i<m_result->getAllocatedSize();++i){
+        std::cout << (*m_result)[i] << std::endl;
+    }
+//=========DEBUG==END===========
 }
 
 void CylindersAndPrismsExample::drawResult()
@@ -90,22 +98,22 @@ void CylindersAndPrismsExample::drawResult()
 	size_t nPhibins = axisPhi->getSize();
 	size_t nAlphabins = axisAlpha->getSize();
 
-    TH2D *hist = new TH2D("Layer Roughness", "Layer Roughness", 
-		(int)nPhibins, axisPhi->getMin()*Units::degree, axisPhi->getMax()*Units::degree, 
-		(int)nAlphabins, axisAlpha->getMin()*Units::degree, axisAlpha->getMax()*Units::degree);
+    TH2D *hist = new TH2D("Layer with Roughness", "Layer with Roughness",
+        (int)nPhibins, axisPhi->getMin()/Units::degree, axisPhi->getMax()/Units::degree,
+        (int)nAlphabins, axisAlpha->getMin()/Units::degree, axisAlpha->getMax()/Units::degree);
 
-	//hist->GetXaxis()->SetTitle( axisPhi->getName() );
-    //hist->GetYaxis()->SetTitle( axisAplha->getName() );
+    hist->GetXaxis()->SetTitle( axisPhi->getName().c_str() );
+    hist->GetYaxis()->SetTitle( axisAlpha->getName().c_str() );
 
-	OutputData<double>::const_iterator it = m_result->begin();
+    OutputData<double>::const_iterator it = m_result->begin();
     while (it != m_result->end())
     {
         double x = m_result->getValueOfAxis( axisPhi->getName(), it.getIndex() );
         double y = m_result->getValueOfAxis( axisAlpha->getName(), it.getIndex() );
         double value = *it++;
-        hist->Fill(x*Units::degree, y*Units::degree, value);
+        hist->Fill(x/Units::degree, y/Units::degree, value);
     }
-	
+
 	hist->SetContour(50);
     hist->SetStats(0);
     hist->GetYaxis()->SetTitleOffset(1.1);
@@ -113,25 +121,28 @@ void CylindersAndPrismsExample::drawResult()
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
 
-	TCanvas *c1 = new TCanvas("Layer Roughness", "Layer Roughness", 800, 800);
+    TCanvas *c1 = new TCanvas("Layer with Roughness", "Layer with Roughness", 800, 800);
 	c1->cd();
 	c1->SetLogz();
 	hist->SetMinimum(1.0);
 	hist->DrawCopy("colz");
 	c1->Update();
 	
-	delete axisPhi;
-	delete axisAlpha;
-	delete hist;
+    delete axisPhi;
+    delete axisAlpha;
+    delete hist;
 }
 
 
 int main(int argc, char **argv)
 {
 	CylindersAndPrismsExample* example = new CylindersAndPrismsExample();
-	example->runSimulation();
-	TApplication *theApp = new TApplication("theApp", &argc, argv);
-	example->drawResult();
-	theApp->Run();
+    example->runSimulation();
+
+ //   TApplication *theApp = new TApplication("theApp", &argc, argv);
+ //   example->drawResult();
+ //   theApp->Run();
+
+    delete example;
     return 0;
 }

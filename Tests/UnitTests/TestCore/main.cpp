@@ -21,8 +21,9 @@
 #include "RealParameterWrapperTest.h"
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"
+#include "LayerRoughnessTest.h"
+#include "ParticleInfoTest.h"
 #include "LLDataTest.h"
-
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

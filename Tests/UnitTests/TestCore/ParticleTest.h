@@ -36,6 +36,8 @@ TEST_F(ParticleTest, ParticleInitialState)
     ASSERT_THROW(particle2->createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle2->getName());
     delete particle2;
+
+    ASSERT_THROW(particle.cloneInvertB(), NullPointerException);
 }
 
 

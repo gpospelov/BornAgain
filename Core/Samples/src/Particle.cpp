@@ -84,6 +84,10 @@ Particle* Particle::cloneInvertB() const
     IFormFactor *p_form_factor(0);
     if(mp_form_factor) p_form_factor = mp_form_factor->clone();
 
+    if(!mp_material) {
+        throw NullPointerException("Particle::cloneInvertB() -> Error. No material defined");
+    }
+
     const IMaterial *p_material = MaterialManager::getInvertedMaterial(
             mp_material->getName());
     const IMaterial *p_ambient_material(0);

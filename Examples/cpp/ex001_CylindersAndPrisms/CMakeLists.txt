@@ -4,8 +4,6 @@ project(CylindersAndPrisms)
 
 add_executable(CylindersAndPrisms CylindersAndPrisms.cpp)
 
-#set (CMAKE_CXX_FLAGS "-g")
-
 # path to the cmake modules
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
 
@@ -15,37 +13,27 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
 find_package(Eigen3 3.1.0)
 
 # --- BOOST ---
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-#add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
-
 set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)
-
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
-
 message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
 message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
-#-------BornAgain----------------
-find_package(BornAgain)
+# --- BornAgain ---
+find_package(BornAgain REQUIRED)
 
 #-----ROOT------------
-find_package(ROOT)
-
+find_package(ROOT REQUIRED)
 
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${ROOT_INCLUDE_DIR}
-    ${BA_INCLUDE_DIR}
+    ${BORNAGAIN_INCLUDE_DIR}
 )
 
 target_link_libraries(CylindersAndPrisms
     ${Boost_LIBRARIES}
-    ${BA_LIBRARY}
+    ${BORNAGAIN_LIBRARIES}
     ${ROOT_LIBRARIES}
 )
-
-

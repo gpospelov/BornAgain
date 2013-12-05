@@ -1,17 +1,48 @@
-# - Finds BornAgain instalation
-# This module sets up BornAgain information 
+# Finds BornAgain instalation
 # It defines:
-# BA_INCLUDE_DIR    PATH to the include directory
-# BA_LIBRARY_DIR      PATH to the library directory
+# BORNAGAIN_INCLUDE_DIR  PATH to the include directory
+# BORNAGAIN_LIBRARIES    BornAgain libraries
 
-if(NOT BORNAGAINSYS)
-    set(BORNAGAINSYS /usr)
-endif(NOT BORNAGAINSYS)
+set(BORNAGAINSYS $ENV{BORNAGAINSYS})
 
-set(BA_LIBRARY_DIR ${BORNAGAINSYS}/lib)
-set(BA_INCLUDE_DIR ${BORNAGAINSYS}/include/BornAgain)
+if(BORNAGAINSYS)
+    set(BORNAGAIN_LIBRARY_DIR ${BORNAGAINSYS}/lib)
+    set(BORNAGAIN_INCLUDE_DIR ${BORNAGAINSYS}/include/BornAgain)
+endif()
 
-find_library (BA_LIBRARY
-        NAMES BornAgainCore BornAgainFit
-        PATHS ${BA_LIBRARY_DIR}
+find_library (BORNAGAIN_CORE BornAgainCore
+    PATHS ${BORNAGAIN_LIBRARY_DIR}
+    HINTS ${BORNAGAIN_LIBRARY_DIR}
 )
+
+find_library (BORNAGAIN_FIT BornAgainFit
+    PATHS ${BORNAGAIN_LIBRARY_DIR}
+    HINTS ${BORNAGAIN_LIBRARY_DIR}
+)
+set(BORNAGAIN_LIBRARIES ${BORNAGAIN_CORE} ${BORNAGAIN_FIT})
+
+find_path(BORNAGAIN_INCLUDE_DIR BAVersion.h
+    /usr/include/BornAgain
+    /usr/local/include/BornAgain
+    /opt/local/include/BornAgain
+    HINTS ${BORNAGAIN_INCLUDE_DIR}
+)
+
+# 32-bits systems require special Eigen options
+execute_process(COMMAND uname -m OUTPUT_VARIABLE SYSCTL_OUTPUT)
+if(NOT ${SYSCTL_OUTPUT} MATCHES x86_64)
+    add_definitions(-DEIGEN_DONT_ALIGN_STATICALLY=1)
+endif()
+
+message(STATUS "BORNAGAIN_LIBRARIES   ${BORNAGAIN_LIBRARIES}")
+message(STATUS "BORNAGAIN_INCLUDE_DIR ${BORNAGAIN_INCLUDE_DIR}")
+mark_as_advanced(BORNAGAIN_LIBRARIES BORNAGAIN_INCLUDE_DIR)
+
+if(NOT BORNAGAIN_LIBRARIES OR NOT BORNAGAIN_INCLUDE_DIR)
+   if(BornAgain_FIND_REQUIRED)
+       message( FATAL_ERROR "FindBornAgain: can't find BornAgain header or library" )
+   endif()
+endif()
+
+
+

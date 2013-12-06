@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONALTESTFACTORY_H
-#define FUNCTIONALTESTFACTORY_H
+#ifndef APPLICATIONTESTFACTORY_H
+#define APPLICATIONTESTFACTORY_H
 
 #include <string>
 #include <map>
@@ -25,11 +25,11 @@
 class TBenchmark;
 class ProgramOptions;
 
-class FunctionalTestFactory : public IFactory<std::string, IApplicationTest>
+class ApplicationTestFactory : public IFactory<std::string, IApplicationTest>
 {
 public:
-    FunctionalTestFactory();
-    virtual ~FunctionalTestFactory();
+    ApplicationTestFactory();
+    virtual ~ApplicationTestFactory();
 
     //! execute specified test
     void execute(std::string name, ProgramOptions *p_options);
@@ -50,8 +50,9 @@ private:
     TBenchmark *m_benchmark;
 };
 
-void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory);
+void RegisterApplicationTests(ApplicationTestFactory *p_test_factory);
 
-#endif // FUNCTIONALTESTFACTORY_H
+#endif // APPLICATIONTESTFACTORY_H
+
 
 

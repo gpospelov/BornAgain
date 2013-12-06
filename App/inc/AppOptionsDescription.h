@@ -17,10 +17,10 @@
 #define APPOPTIONSDESCRIPTION_H
 
 class ProgramOptions;
-class FunctionalTestFactory;
+class ApplicationTestFactory;
 
 //! Adds command line and config file options
-void AddApplicationOptions(ProgramOptions *p_options, FunctionalTestFactory *p_test_factory);
+void AddApplicationOptions(ProgramOptions *p_options, ApplicationTestFactory *p_test_factory);
 
 #endif // APPPROGRAMOPTIONS_H
 

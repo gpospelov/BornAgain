@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/FunctionalTestFactory.cpp
-//! @brief     Implements class FunctionalTestFactory.
+//! @file      App/src/ApplicationTestFactory.cpp
+//! @brief     Implements class ApplicationTestFactory.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestFactory.h"
+#include "ApplicationTestFactory.h"
 #include "TestBugs.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
@@ -61,21 +61,21 @@
 #include "TBenchmark.h"
 
 
-FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
+ApplicationTestFactory::ApplicationTestFactory() : m_benchmark(0)
 {
     setOwnObjects(true);
     m_benchmark = new TBenchmark();
 }
 
 
-FunctionalTestFactory::~FunctionalTestFactory()
+ApplicationTestFactory::~ApplicationTestFactory()
 {
     delete m_benchmark;
 }
 
 
 // print benchmark summary on the screen
-void FunctionalTestFactory::print_benchmarks()
+void ApplicationTestFactory::print_benchmarks()
 {
     std::cout << "--- TestFactory::print_benchmarks() ---" << std::endl;
     Float_t rp, cp;
@@ -84,7 +84,7 @@ void FunctionalTestFactory::print_benchmarks()
 
 
 // execute specific functional tests
-void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
+void ApplicationTestFactory::execute(std::string name, ProgramOptions *p_options)
 {
     IApplicationTest *test(0);
     try {
@@ -106,7 +106,7 @@ void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
 
 
 // run tests in profile mode
-void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
+void ApplicationTestFactory::profile(std::string name, ProgramOptions *p_options)
 {
     IApplicationTest *test(0);
     try {
@@ -125,7 +125,7 @@ void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
 
 
 // execute all registered functional tests
-void FunctionalTestFactory::execute_all(ProgramOptions *p_options)
+void ApplicationTestFactory::execute_all(ProgramOptions *p_options)
 {
     CallbackMap_t::const_iterator it;
     for(it=m_callbacks.begin(); it != m_callbacks.end(); ++it ) {
@@ -137,7 +137,7 @@ void FunctionalTestFactory::execute_all(ProgramOptions *p_options)
 
 
 // print on the screen names of registered tests
-void FunctionalTestFactory::print_testnames()
+void ApplicationTestFactory::print_testnames()
 {
     std::string help;
     help += "TestFactory::print_testnames() -> Info. \n";
@@ -151,7 +151,7 @@ void FunctionalTestFactory::print_testnames()
 }
 
 
-void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
+void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
 {
     p_test_factory->registerItem(
         "roughness",

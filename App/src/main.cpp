@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestFactory.h"
+#include "ApplicationTestFactory.h"
 #include "DrawHelper.h"
 #include "ProgramOptions.h"
 #include "AppOptionsDescription.h"
@@ -36,8 +36,8 @@ int main(int argc, char **argv)
     std::cout << AppVersion::g_app_name << " "
               << AppVersion::GetVersionNumber() << std::endl;
 
-    FunctionalTestFactory test_factory;
-    RegisterFunctionalTests(&test_factory);
+    ApplicationTestFactory test_factory;
+    RegisterApplicationTests(&test_factory);
 
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options, &test_factory);
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     } else {
         // loop over functional tests,
         // run test if its name is present in command line
-        FunctionalTestFactory::iterator it = test_factory.begin();
+        ApplicationTestFactory::iterator it = test_factory.begin();
         for(; it!= test_factory.end(); ++it) {
             if( command_line_options.find( (*it).first ) )
                 test_factory.execute(

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFUNCTIONALTEST_H
-#define IFUNCTIONALTEST_H
+#ifndef IAPPLICATIONTEST_H
+#define IAPPLICATIONTEST_H
 
 #include <string>
 #include "INamed.h"

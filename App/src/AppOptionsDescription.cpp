@@ -15,7 +15,7 @@
 
 #include "AppOptionsDescription.h"
 #include "ProgramOptions.h"
-#include "FunctionalTestFactory.h"
+#include "ApplicationTestFactory.h"
 
 #include <boost/program_options/options_description.hpp>
 
@@ -23,7 +23,7 @@ namespace bpo = boost::program_options;
 
 //! Adds command line and config file options.
 
-void AddApplicationOptions(ProgramOptions* p_options, FunctionalTestFactory *p_test_factory)
+void AddApplicationOptions(ProgramOptions* p_options, ApplicationTestFactory *p_test_factory)
 {
     // general options
     bpo::options_description general_options("General options");
@@ -48,7 +48,7 @@ void AddApplicationOptions(ProgramOptions* p_options, FunctionalTestFactory *p_t
 
     // functional tests options constructed from information carried by FunctionalTestFactory
     bpo::options_description functional_test_options("Functional tests");
-    FunctionalTestFactory::iterator it = p_test_factory->begin();
+    ApplicationTestFactory::iterator it = p_test_factory->begin();
     for(; it!= p_test_factory->end(); ++it) {
         // it.first - test name, it.second - test description
         if( (*it).first != "functest") {

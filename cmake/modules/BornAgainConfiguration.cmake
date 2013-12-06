@@ -36,7 +36,7 @@ endif()
 
 # --- configure a header file to pass CMake settings to the source code
 configure_file(
-  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h.in"
+  "${CMAKE_SOURCE_DIR}/cmake/scripts/BAVersion.h.in"
   "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
 )
 
@@ -48,8 +48,6 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${CMAKE_
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.csh" @ONLY)
 
 # --- configure project paths
-message("XXX ${CMAKE_INSTALL_PREFIX}")
-message("XXX ${CMAKE_SOURCE_DIR}")
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_SOURCE_DIR}/Core/Tools/inc/BAConfigure.h" @ONLY)
 
 

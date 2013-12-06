@@ -104,19 +104,6 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-//! 2 dimensional gate distribution in Fourier space
-//! corresponds to 1 if r<1 (and 0 otherwise) in real space
-class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
-{
-public:
-    FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
-    virtual ~FTDistribution2DGate() {}
-
-    virtual FTDistribution2DGate *clone() const;
-
-    virtual double evaluate(double qx, double qy) const;
-};
-
 //! 2 dimensional Voigt distribution in Fourier space
 //! Corresponds to eta*Gauss + (1-eta)*Cauchy
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
@@ -133,22 +120,6 @@ public:
 protected:
     virtual void init_parameters();
     double m_eta;
-};
-
-//! 2 dimensional cone distribution in Fourier space
-//! Corresponds to 1-r if r<1 (and 0 otherwise) in real space
-class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
-{
-public:
-    FTDistribution2DCone(double coherence_length_x, double coherence_length_y);
-    virtual ~FTDistribution2DCone() {}
-
-    virtual FTDistribution2DCone *clone() const;
-
-    virtual double evaluate(double qx, double qy) const;
-
-private:
-    double BesselJ0(double value, void *params) const;
 };
 
 #endif /* FTDISTRIBUTIONS_H_ */

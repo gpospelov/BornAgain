@@ -79,29 +79,6 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
     return std::exp(-sum_sq/4.0)/2.0;
 }
 
-FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
-        double coherence_length_y)
-: IFTDistribution2D(coherence_length_x, coherence_length_y)
-{
-    setName("2DDistributionGate");
-    init_parameters();
-}
-
-FTDistribution2DGate* FTDistribution2DGate::clone() const
-{
-    FTDistribution2DGate *p_clone = new FTDistribution2DGate(
-            m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
-double FTDistribution2DGate::evaluate(double qx, double qy) const
-{
-    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y);
-    return MathFunctions::Bessel_C1(scaled_q);
-}
-
 FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,
         double coherence_length_y, double eta)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
@@ -133,40 +110,3 @@ void FTDistribution2DVoigt::init_parameters()
     registerParameter("eta", &m_eta);
 }
 
-FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
-        double coherence_length_y)
-: IFTDistribution2D(coherence_length_x, coherence_length_y)
-{
-    setName("2DDistributionCone");
-    init_parameters();
-}
-
-FTDistribution2DCone* FTDistribution2DCone::clone() const
-{
-    FTDistribution2DCone *p_clone = new FTDistribution2DCone(
-            m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
-double FTDistribution2DCone::evaluate(double qx, double qy) const
-{
-    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y);
-    if (scaled_q<Numeric::double_epsilon) {
-        return 1.0/6.0 - scaled_q*scaled_q/80.0;
-    }
-    MemberFunctionIntegrator<FTDistribution2DCone>::mem_function
-        p_member_function = &FTDistribution2DCone::BesselJ0;
-    MemberFunctionIntegrator<FTDistribution2DCone>
-                integrator(p_member_function, this);
-    double integral = integrator.integrate(0.0, scaled_q, (void*)0);
-    return (integral/scaled_q - MathFunctions::Bessel_J0(scaled_q) )
-            /scaled_q/scaled_q;
-}
-
-double FTDistribution2DCone::BesselJ0(double value, void *params) const
-{
-    (void)params;
-    return MathFunctions::Bessel_J0(value);
-}

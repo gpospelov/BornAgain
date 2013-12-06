@@ -55,6 +55,12 @@ public:
     // get angle between X- and Y-axis of distribution (in direct space)
     double getDelta() const { return m_delta; }
 
+    // get coherence length in X-direction
+    double getCoherenceLengthX() const { return m_coherence_length_x; }
+
+    // get coherence length in Y-direction
+    double getCoherenceLengthY() const { return m_coherence_length_y; }
+
     //! evaluate IF for q in X,Y coordinates
     //! A common factor of 2*pi*m_coherence_length_x*m_coherence_length_y is
     //! applied by the caller if needed
@@ -94,19 +100,6 @@ public:
     virtual ~FTDistribution2DGauss() {}
 
     virtual FTDistribution2DGauss *clone() const;
-
-    virtual double evaluate(double qx, double qy) const;
-};
-
-//! 2 dimensional gate distribution in Fourier space
-//! corresponds to 1 if r<1 (and 0 otherwise) in real space
-class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
-{
-public:
-    FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
-    virtual ~FTDistribution2DGate() {}
-
-    virtual FTDistribution2DGate *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 };

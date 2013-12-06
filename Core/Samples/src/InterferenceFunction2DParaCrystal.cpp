@@ -20,7 +20,9 @@
 
 #include <functional>
 
-InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi, double corr_length)
+InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
+        double length_1, double length_2, double alpha_lattice, double xi,
+        double corr_length)
 : m_alpha_lattice(alpha_lattice)
 , m_xi(xi)
 , m_integrate_xi(false)
@@ -45,8 +47,11 @@ InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
     for (size_t i=0; i<2; ++i) delete m_pdfs[i];
 }
 
-InterferenceFunction2DParaCrystal *InterferenceFunction2DParaCrystal::clone() const {
-    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(m_lattice_lengths[0], m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
+InterferenceFunction2DParaCrystal
+*InterferenceFunction2DParaCrystal::clone() const {
+    InterferenceFunction2DParaCrystal *p_new =
+            new InterferenceFunction2DParaCrystal(m_lattice_lengths[0],
+                    m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
     p_new->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
     if(m_pdfs[0] && m_pdfs[1])
         p_new->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
@@ -69,8 +74,11 @@ double InterferenceFunction2DParaCrystal::evaluate(const cvector_t& q) const
     m_qy = q.y().real();
     double result;
     if (m_integrate_xi) {
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::mem_function p_member_function =& InterferenceFunction2DParaCrystal::interferenceForXi;
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal> integrator(p_member_function, this);
+        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::
+            mem_function p_member_function =
+                    &InterferenceFunction2DParaCrystal::interferenceForXi;
+        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>
+            integrator(p_member_function, this);
         result = integrator.integrate(0.0, M_PI, (void*)0)/M_PI;
    }
     else {
@@ -79,11 +87,13 @@ double InterferenceFunction2DParaCrystal::evaluate(const cvector_t& q) const
     return result;
 }
 
-std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::string path,
+std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
+        std::string path,
         ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string  new_path = IParameterized::addParametersToExternalPool(
+            path, external_pool, copy_number);
 
     // add parameters of the probability density functions
     if (m_pdfs[0]) {
@@ -95,26 +105,33 @@ std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::
     return new_path;
 }
 
-InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(
-        double peak_distance, double corr_length, double domain_size_1, double domain_size_2)
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
+    createSquare(double peak_distance, double corr_length, double domain_size_1,
+        double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, M_PI/2.0, 0.0, corr_length);
+    InterferenceFunction2DParaCrystal *p_new =
+            new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
+                    M_PI/2.0, 0.0, corr_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
 }
 
-InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(
-        double peak_distance, double corr_length, double domain_size_1, double domain_size_2)
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::
+    createHexagonal(double peak_distance, double corr_length,
+            double domain_size_1, double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, 2*M_PI/3.0, 0.0, corr_length);
+    InterferenceFunction2DParaCrystal *p_new =
+            new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
+                    2*M_PI/3.0, 0.0, corr_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
 }
 
 void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
-        double qy, double gamma, double delta, double& q_pa_1, double& q_pa_2) const
+        double qy, double gamma, double delta, double& q_pa_1,
+        double& q_pa_2) const
 {
     q_pa_1 = qx*std::cos(gamma) + qy*std::sin(gamma);
     q_pa_2 = qx*std::cos(gamma+delta) + qy*std::sin(gamma+delta);
@@ -132,20 +149,27 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     registerParameter("domain_size_2", &m_domain_sizes[1]);
 }
 
-double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *params) const
+double InterferenceFunction2DParaCrystal::interferenceForXi(double xi,
+        void *params) const
 {
     (void)params;
-    double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy, xi + m_alpha_lattice, 1);
+    double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy,
+            xi + m_alpha_lattice, 1);
     return result;
 }
 
-double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, double xi, size_t index) const
+double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy,
+        double xi, size_t index) const
 {
     if (index > 1) {
-        throw OutOfBoundsException("InterferenceFunction2DParaCrystal::interference1D() -> Error! Index of interference function probability must be < 2");
+        throw OutOfBoundsException("InterferenceFunction2DParaCrystal::"
+                "interference1D() -> Error! Index of interference function "
+                "probability must be < 2");
     }
     if (!m_pdfs[0] || !m_pdfs[1]) {
-        throw NullPointerException("InterferenceFunction2DParaCrystal::interference1D() -> Error! Probability distributions for interference funtion not properly initialized");
+        throw NullPointerException("InterferenceFunction2DParaCrystal::"
+                "interference1D() -> Error! Probability distributions for "
+                "interference funtion not properly initialized");
     }
     double result;
     int n = (int)std::abs(m_domain_sizes[index]/m_lattice_lengths[index]);
@@ -164,14 +188,16 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, d
             } else {
                 tmp = std::pow(fp,n-1);
             }
-            double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp) - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
+            double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp)
+                    - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
             result = 1.0 + 2.0*intermediate;
         }
     }
     return result;
 }
 
-complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double xi, size_t index) const
+complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy,
+        double xi, size_t index) const
 {
     double qa = qx*m_lattice_lengths[index]*std::cos(xi) +
         qy*m_lattice_lengths[index]*std::sin(xi);

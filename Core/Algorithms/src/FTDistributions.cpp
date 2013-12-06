@@ -15,6 +15,7 @@
 
 #include "FTDistributions.h"
 #include "MathFunctions.h"
+#include "MemberFunctionIntegrator.h"
 
 void IFTDistribution2D::transformToStarBasis(double qX, double qY,
         double alpha, double a, double b, double& qa, double& qb) const
@@ -76,29 +77,6 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
     return std::exp(-sum_sq/4.0)/2.0;
-}
-
-FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
-        double coherence_length_y)
-: IFTDistribution2D(coherence_length_x, coherence_length_y)
-{
-    setName("2DDistributionGate");
-    init_parameters();
-}
-
-FTDistribution2DGate* FTDistribution2DGate::clone() const
-{
-    FTDistribution2DGate *p_clone = new FTDistribution2DGate(
-            m_coherence_length_x, m_coherence_length_y);
-    p_clone->setGamma(m_gamma);
-    return p_clone;
-}
-
-double FTDistribution2DGate::evaluate(double qx, double qy) const
-{
-    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
-            + qy*qy*m_coherence_length_y*m_coherence_length_y);
-    return MathFunctions::Bessel_C1(scaled_q);
 }
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,

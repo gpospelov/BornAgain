@@ -35,10 +35,6 @@ def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     lattice_params.m_length_2 = lattice_constant
     lattice_params.m_angle = 2*numpy.pi/3.
     lattice_params.m_xi = 0.0*degree
-    lattice_params.m_domain_size_1 = 20.0*micrometer
-    lattice_params.m_domain_size_2 = 20.0*micrometer
-    lattice_params.m_corr_length_1 = 10
-    lattice_params.m_corr_length_2 = 10
 
     interference = InterferenceFunction2DLattice(lattice_params)
     pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)

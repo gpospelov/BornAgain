@@ -24,10 +24,6 @@ def get_sample(xi_value):
     lattice_params.m_length_2 = 10.0*nanometer
     lattice_params.m_angle = 90.0*degree
     lattice_params.m_xi = xi_value
-    lattice_params.m_domain_size_1 = 20000.0*nanometer
-    lattice_params.m_domain_size_2 = 20000.0*nanometer
-    lattice_params.m_corr_length_1 = 300.0*nanometer/2.0/M_PI
-    lattice_params.m_corr_length_2 = 100.0*nanometer/2.0/M_PI
     p_interference_function = InterferenceFunction2DLattice(lattice_params)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)

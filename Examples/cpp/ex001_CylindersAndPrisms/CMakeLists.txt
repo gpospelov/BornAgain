@@ -4,7 +4,7 @@ project(CylindersAndPrisms)
 
 add_executable(CylindersAndPrisms CylindersAndPrisms.cpp)
 
-#set (CMAKE_CXX_FLAGS "-g")
+set (CMAKE_CXX_FLAGS "-H -Wall")
 
 # path to the cmake modules
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
@@ -36,15 +36,15 @@ find_package(ROOT)
 
 
 include_directories(
-    ${Boost_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
-    ${ROOT_INCLUDE_DIR}
     ${BA_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
+    ${ROOT_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIR}
 )
 
 target_link_libraries(CylindersAndPrisms
-    ${Boost_LIBRARIES}
     ${BA_LIBRARY}
+    ${Boost_LIBRARIES}
     ${ROOT_LIBRARIES}
 )
 

@@ -6,9 +6,6 @@ cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
 
 project(BornAgain)
 
-set (CMAKE_CXX_FLAGS "-H -Wall")
-
-
 # --- The version number ---
 set(BornAgain_VERSION_MAJOR 0)
 set(BornAgain_VERSION_MINOR 9)

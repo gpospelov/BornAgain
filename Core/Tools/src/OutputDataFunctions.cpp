@@ -16,6 +16,7 @@
 #include "OutputDataFunctions.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+#include "MathFunctions.h"
 
 #include <cmath>
 #include <fftw3.h>
@@ -486,11 +487,10 @@ double OutputDataFunctions::GetDifference(const OutputData<double> &result,
                      const OutputData<double> &reference)
 {
     OutputData<double> *c_result = result.clone();
-    OutputData<double> *c_reference = reference.clone();
 
     // Calculating average relative difference.
-    *c_result -= *c_reference;
-    *c_result /= *c_reference;
+    *c_result -= reference;
+    *c_result /= reference;
 
     double diff(0);
     for(OutputData<double>::const_iterator it =
@@ -499,10 +499,9 @@ double OutputDataFunctions::GetDifference(const OutputData<double> &result,
     }
     diff /= c_result->getAllocatedSize();
 
-    if (std::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
+    if (MathFunctions::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
 
     delete c_result;
-    delete c_reference;
 
     return diff;
 }

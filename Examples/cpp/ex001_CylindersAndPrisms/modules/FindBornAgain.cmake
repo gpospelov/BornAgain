@@ -23,7 +23,7 @@ set(BORNAGAIN_LIBRARIES ${BORNAGAIN_CORE} ${BORNAGAIN_FIT})
 
 find_path(BORNAGAIN_INCLUDE_DIR BAVersion.h
     PATHS /usr/include /usr/local/include /opt/local/include ${BORNAGAIN_INCLUDE_DIR}
-	PATH_SUFFIXES BornAgain
+    PATH_SUFFIXES BornAgain
     HINTS ${BORNAGAIN_INCLUDE_DIR}
 )
 

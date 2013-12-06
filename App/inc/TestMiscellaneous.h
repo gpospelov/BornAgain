@@ -59,7 +59,7 @@ public:
     void test_SampleGeometry();
 
     //! testing hierarchical visitor
-    void test_HierarchicalVisitor();
+    void test_FunctionalTestRegistry();
 
 };
 

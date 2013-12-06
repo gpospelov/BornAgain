@@ -35,6 +35,7 @@
 #include "SamplePrintVisitor.h"
 #include "MaterialManager.h"
 #include "BornAgainNamespace.h"
+#include "FunctionalTestRegistry.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -51,8 +52,8 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    //test_HierarchicalVisitor();
-    test_PrintVisitor();
+    test_FunctionalTestRegistry();
+    //test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
@@ -68,8 +69,10 @@ void TestMiscellaneous::execute()
 /* ************************************************************************* */
 // test of hierarchical visitor
 /* ************************************************************************* */
-void TestMiscellaneous::test_HierarchicalVisitor()
+void TestMiscellaneous::test_FunctionalTestRegistry()
 {
+    FunctionalTestRegistry tests;
+    tests.printCatalogue();
 
 }
 

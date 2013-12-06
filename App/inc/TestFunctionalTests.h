@@ -12,13 +12,14 @@
 class TestFunctionalTests : public IApplicationTest
 {
 public:
-    TestFunctionalTests();
-    virtual ~TestFunctionalTests() { }
+    TestFunctionalTests() {}
+    virtual ~TestFunctionalTests() {}
 
     virtual void execute();
     virtual void finalise(){}
+
 private:
-    //! read names of functional tests from command line options and check if they are Ok
+    //! read names of functional tests from command line and check if they are Ok
     bool readTestNames();
 
     FunctionalTestRegistry m_testRegistry;

@@ -10,15 +10,6 @@
 FunctionalTestRegistry::Catalogue FunctionalTestRegistry::m_catalogue = FunctionalTestRegistry::Catalogue();
 
 
-void FunctionalTestRegistry::TestInfo::print()
-{
-    std::cout << std::setw(12) << std::left << m_name << " | "
-              << std::setw(24) << std::left << m_description << " | "
-              << std::setw(12) << std::left << m_reference << " | "
-              << std::setw(6) << std::left  << m_threshold << std::endl;
-}
-
-
 FunctionalTestRegistry::Catalogue::Catalogue()
 {
     add("isgisaxs01",
@@ -38,6 +29,15 @@ void FunctionalTestRegistry::Catalogue::add(const std::string &name,
 
     m_data[name] = TestInfo(name, description, reference, threshold);
 
+}
+
+
+void FunctionalTestRegistry::TestInfo::print()
+{
+    std::cout << std::setw(12) << std::left << m_name << " | "
+              << std::setw(24) << std::left << m_description << " | "
+              << std::setw(12) << std::left << m_reference << " | "
+              << std::setw(6) << std::left  << m_threshold << std::endl;
 }
 
 

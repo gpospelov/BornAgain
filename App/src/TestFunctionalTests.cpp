@@ -1,14 +1,10 @@
 #include "TestFunctionalTests.h"
 #include "ProgramOptions.h"
 #include "MessageService.h"
+#include "IsGISAXSTools.h"
 #include <iostream>
 #include <vector>
 #include <string>
-
-TestFunctionalTests::TestFunctionalTests()
-{
-
-}
 
 
 void TestFunctionalTests::execute()
@@ -19,8 +15,10 @@ void TestFunctionalTests::execute()
 
    for(size_t i=0; i<m_testNames.size(); ++i) {
        m_testRegistry.runTest(m_testNames[i]);
-   }
 
+       //IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS1_c1", "Two particles mean DWBA Formfactor");
+
+   }
 
 }
 

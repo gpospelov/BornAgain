@@ -15,6 +15,7 @@
 
 #include "FTDistributions.h"
 #include "MathFunctions.h"
+#include "MemberFunctionIntegrator.h"
 
 void IFTDistribution2D::transformToStarBasis(double qX, double qY,
         double alpha, double a, double b, double& qa, double& qb) const
@@ -152,11 +153,20 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
 {
     double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y);
-
-    return 0.0;
+    if (scaled_q<Numeric::double_epsilon) {
+        return 1.0/6.0 - scaled_q*scaled_q/80.0;
+    }
+    MemberFunctionIntegrator<FTDistribution2DCone>::mem_function
+        p_member_function = &FTDistribution2DCone::BesselJ0;
+    MemberFunctionIntegrator<FTDistribution2DCone>
+                integrator(p_member_function, this);
+    double integral = integrator.integrate(0.0, scaled_q, (void*)0);
+    return (integral/scaled_q - MathFunctions::Bessel_J0(scaled_q) )
+            /scaled_q/scaled_q;
 }
 
-double FTDistribution2DCone::BesselJ0(double value) const
+double FTDistribution2DCone::BesselJ0(double value, void *params) const
 {
+    (void)params;
     return MathFunctions::Bessel_J0(value);
 }

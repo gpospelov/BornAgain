@@ -148,7 +148,7 @@ public:
     virtual double evaluate(double qx, double qy) const;
 
 private:
-    double BesselJ0(double value) const;
+    double BesselJ0(double value, void *params) const;
 };
 
 #endif /* FTDISTRIBUTIONS_H_ */

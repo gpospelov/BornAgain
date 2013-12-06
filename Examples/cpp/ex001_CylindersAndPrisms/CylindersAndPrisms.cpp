@@ -59,48 +59,40 @@ void CylindersAndPrismsExample::setSample()
 
 void CylindersAndPrismsExample::setSimulation()  
 {
-	m_simulation = new Simulation();
+    m_simulation = new Simulation();
 
     m_simulation->setDetectorParameters(
-        100,-1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree, true);
+                400,-1.0*Units::degree, 1.0*Units::degree, 400,
+                0.0*Units::degree, 2.0*Units::degree, true);
     m_simulation->setBeamParameters(
-        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+                1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     m_simulation->setSample(*m_sample);
 }
 
 CylindersAndPrismsExample::CylindersAndPrismsExample() : m_result(0)
 {
-	setSample();
+    setSample();
     setSimulation();
 }
 
 void CylindersAndPrismsExample::runSimulation() 
 {
-	m_simulation->runSimulation();
+    m_simulation->runSimulation();
     m_result = m_simulation->getIntensityData();
-
-//=====DEBUG============
-    std::cout << "Rank: " << m_result->getRank() << ", Size: " << m_result->getAllocatedSize() << std::endl;
-
-    for (size_t i=0; i<m_result->getAllocatedSize();++i){
-        std::cout << (*m_result)[i] << std::endl;
-    }
-//=========DEBUG==END===========
 }
 
 void CylindersAndPrismsExample::drawResult()
 {
-	const IAxis *axisPhi = m_result->getAxis(0);
-	const IAxis *axisAlpha = m_result->getAxis(1);
+    const IAxis *axisPhi = m_result->getAxis(0);
+    const IAxis *axisAlpha = m_result->getAxis(1);
 
-	size_t nPhibins = axisPhi->getSize();
-	size_t nAlphabins = axisAlpha->getSize();
+    size_t nPhibins = axisPhi->getSize();
+    size_t nAlphabins = axisAlpha->getSize();
 
-    TH2D *hist = new TH2D("Layer with Roughness", "Layer with Roughness",
-        (int)nPhibins, axisPhi->getMin()/Units::degree, axisPhi->getMax()/Units::degree,
-        (int)nAlphabins, axisAlpha->getMin()/Units::degree, axisAlpha->getMax()/Units::degree);
+    TH2D *hist = new TH2D("Cylinders and prisms", "Cylinders and prisms",
+                          (int)nPhibins, axisPhi->getMin()/Units::degree, axisPhi->getMax()/Units::degree,
+                          (int)nAlphabins, axisAlpha->getMin()/Units::degree, axisAlpha->getMax()/Units::degree);
 
     hist->GetXaxis()->SetTitle( axisPhi->getName().c_str() );
     hist->GetYaxis()->SetTitle( axisAlpha->getName().c_str() );
@@ -114,20 +106,20 @@ void CylindersAndPrismsExample::drawResult()
         hist->Fill(x/Units::degree, y/Units::degree, value);
     }
 
-	hist->SetContour(50);
+    hist->SetContour(50);
     hist->SetStats(0);
     hist->GetYaxis()->SetTitleOffset(1.1);
 
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
 
-    TCanvas *c1 = new TCanvas("Layer with Roughness", "Layer with Roughness", 800, 800);
-	c1->cd();
-	c1->SetLogz();
-	hist->SetMinimum(1.0);
-	hist->DrawCopy("colz");
-	c1->Update();
-	
+    TCanvas *c1 = new TCanvas("Cylinders and prisms", "Cylinders and prisms", 980, 800);
+    c1->cd();
+    c1->SetLogz();
+    hist->SetMinimum(1.0);
+    hist->DrawCopy("colz");
+    c1->Update();
+
     delete axisPhi;
     delete axisAlpha;
     delete hist;
@@ -136,12 +128,12 @@ void CylindersAndPrismsExample::drawResult()
 
 int main(int argc, char **argv)
 {
-	CylindersAndPrismsExample* example = new CylindersAndPrismsExample();
+    CylindersAndPrismsExample* example = new CylindersAndPrismsExample();
     example->runSimulation();
 
- //   TApplication *theApp = new TApplication("theApp", &argc, argv);
- //   example->drawResult();
- //   theApp->Run();
+    TApplication *theApp = new TApplication("theApp", &argc, argv);
+    example->drawResult();
+    theApp->Run();
 
     delete example;
     return 0;

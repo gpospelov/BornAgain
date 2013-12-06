@@ -16,13 +16,13 @@ public:
     void drawResult();
 
 protected:
-	void setSample();
+    void setSample();
     void setSimulation();
 
 private:
-	OutputData<double> *m_result;
-	Simulation *m_simulation;
-	MultiLayer *m_sample;
+    OutputData<double> *m_result;
+    Simulation *m_simulation;
+    MultiLayer *m_sample;
 };
 
 #endif /* CYLINDERSANDPRISMS_H_ */

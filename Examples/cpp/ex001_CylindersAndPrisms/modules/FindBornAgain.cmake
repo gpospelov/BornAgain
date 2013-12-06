@@ -22,9 +22,8 @@ find_library (BORNAGAIN_FIT BornAgainFit
 set(BORNAGAIN_LIBRARIES ${BORNAGAIN_CORE} ${BORNAGAIN_FIT})
 
 find_path(BORNAGAIN_INCLUDE_DIR BAVersion.h
-    /usr/include/BornAgain
-    /usr/local/include/BornAgain
-    /opt/local/include/BornAgain
+    PATHS /usr/include /usr/local/include /opt/local/include ${BORNAGAIN_INCLUDE_DIR}
+	PATH_SUFFIXES BornAgain
     HINTS ${BORNAGAIN_INCLUDE_DIR}
 )
 

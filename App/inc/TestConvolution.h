@@ -16,14 +16,14 @@
 #ifndef TESTCONVOLUTION_H
 #define TESTCONVOLUTION_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "Convolve.h"
 #include <string>
 #include <vector>
 
 //! Test Convolve class for instrumental effects studies.
 
-class TestConvolution : public IFunctionalTest
+class TestConvolution : public IApplicationTest
 {
 public:
     TestConvolution();

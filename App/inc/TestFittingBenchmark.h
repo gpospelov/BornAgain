@@ -16,11 +16,11 @@
 #ifndef TESTFITTINGBENCHMARK_H
 #define TESTFITTINGBENCHMARK_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! Test of minimizers with hard-to-minimize test functions
 
-class TestFittingBenchmark : public IFunctionalTest
+class TestFittingBenchmark : public IApplicationTest
 {
 public:
     TestFittingBenchmark() {}

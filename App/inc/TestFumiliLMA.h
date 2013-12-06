@@ -17,7 +17,7 @@
 #define TESTFUMILILMA_H
 
 #include "MathFunctions.h"
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "Math/Minimizer.h"
 #include "Math/Factory.h"
 #include "Math/FitMethodFunction.h"
@@ -34,7 +34,7 @@ class TCanvas;
 
 //! Test of ROOT's LMA-based minimizers Fumili and GSLMultiFit
 
-class TestFumiliLMA : public IFunctionalTest
+class TestFumiliLMA : public IApplicationTest
 {
 public:
     friend class MyChi2Function;

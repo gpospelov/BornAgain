@@ -2,14 +2,14 @@
 #define TESTFUNCTIONALTESTS_H
 
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "FunctionalTestRegistry.h"
 #include <string>
 #include <vector>
 
 //! Plot results of given functional test
 
-class TestFunctionalTests : public IFunctionalTest
+class TestFunctionalTests : public IApplicationTest
 {
 public:
     TestFunctionalTests();

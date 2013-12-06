@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS8_H_
 #define TESTISGISAXS8_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#8: Cylinder with interference 2DDL_lattice.
 
-class TestIsGISAXS8 : public IFunctionalTest
+class TestIsGISAXS8 : public IApplicationTest
 {
 public:
     TestIsGISAXS8();

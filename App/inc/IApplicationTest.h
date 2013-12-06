@@ -25,16 +25,16 @@ class ProgramOptions;
 
 //! See also FunctionalTestFactory
 //!
-class IFunctionalTest : public INamed
+class IApplicationTest : public INamed
 {
 public:
-    IFunctionalTest() : mp_options(0) {}
-    IFunctionalTest(const std::string& name) : INamed(name), mp_options(0) {}
-    virtual ~IFunctionalTest(){}
+    IApplicationTest() : mp_options(0) {}
+    IApplicationTest(const std::string& name) : INamed(name), mp_options(0) {}
+    virtual ~IApplicationTest(){}
 
     virtual void initialise(ProgramOptions *p_options)
     { mp_options = p_options; }
-    virtual void execute();
+    virtual void execute() {}
     virtual void finalise() {}
     std::string getOutputPath() const { return m_output_path; }
     void setOutputPath(const std::string& output_path)

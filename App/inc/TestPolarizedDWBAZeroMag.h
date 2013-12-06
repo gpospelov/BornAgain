@@ -16,7 +16,7 @@
 #ifndef TESTPOLARIZEDDWBAZEROMAG_H_
 #define TESTPOLARIZEDDWBAZEROMAG_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 
 #include <string>
@@ -25,7 +25,7 @@
 //! polarized calculation (zero magnetic field should give same results as
 //! original test (TestIsGISAXS03)
 
-class TestPolarizedDWBAZeroMag : public IFunctionalTest
+class TestPolarizedDWBAZeroMag : public IApplicationTest
 {
 public:
     TestPolarizedDWBAZeroMag();

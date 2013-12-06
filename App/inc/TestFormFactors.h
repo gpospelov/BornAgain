@@ -16,7 +16,7 @@
 #ifndef TESTFORMFACTORS_H
 #define TESTFORMFACTORS_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
@@ -24,7 +24,7 @@ class Simulation;
 class IFormFactor;
 //! Comparison of form factor for different particle shapes
 
-class TestFormFactors : public IFunctionalTest
+class TestFormFactors : public IApplicationTest
 {
 public:
     TestFormFactors();

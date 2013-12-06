@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS10_H_
 #define TESTISGISAXS10_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#10: Cylinder with interference on top of substrate.
 
-class TestIsGISAXS10 : public IFunctionalTest
+class TestIsGISAXS10 : public IApplicationTest
 {
 public:
     TestIsGISAXS10();

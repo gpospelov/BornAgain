@@ -16,14 +16,14 @@
 #ifndef TESTISGISAXS3_H_
 #define TESTISGISAXS3_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 
 #include <string>
 
 //! IsGISAXS ex#3: Cylinder on top of substrate.
 
-class TestIsGISAXS3 : public IFunctionalTest
+class TestIsGISAXS3 : public IApplicationTest
 {
 public:
     TestIsGISAXS3();

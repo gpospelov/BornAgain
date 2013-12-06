@@ -16,11 +16,11 @@
 #ifndef TESTFORMFACTOR_H
 #define TESTFORMFACTOR_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "FormFactors.h"
 
-class TestFormFactor : public IFunctionalTest
+class TestFormFactor : public IApplicationTest
 {
 public:
     TestFormFactor();

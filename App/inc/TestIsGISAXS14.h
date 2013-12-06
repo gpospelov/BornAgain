@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS14_H
 #define TESTISGISAXS14_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#14: Multi layered sphere on graded interface.
 
-class TestIsGISAXS14 : public IFunctionalTest
+class TestIsGISAXS14 : public IApplicationTest
 {
 public:
     TestIsGISAXS14();

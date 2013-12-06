@@ -16,14 +16,14 @@
 #ifndef TESTROOTTREE_H
 #define TESTROOTTREE_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "ISample.h"
 #include "OutputData.h"
 #include "Simulation.h"
 
 //! Using ROOT trees to read/write data from/to disk.
 
-class TestRootTree : public IFunctionalTest
+class TestRootTree : public IApplicationTest
 {
 public:
     TestRootTree() : mp_sample(0), mp_simulation(0), mp_data(0) {}

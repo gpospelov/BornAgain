@@ -23,7 +23,7 @@
 #include "SimulationRegistry.h"
 
 TestPolarizedDWBAZeroMag::TestPolarizedDWBAZeroMag()
-: IFunctionalTest("TestPolarizedDWBAZeroMag")
+: IApplicationTest("TestPolarizedDWBAZeroMag")
 {
     setOutputPath(Utils::FileSystem::GetPathToData(
             "../Tests/ReferenceData/IsGISAXS/ex-3/" ));

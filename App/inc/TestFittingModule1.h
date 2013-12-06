@@ -16,7 +16,7 @@
 #ifndef TESTFITTINGMODULE1_H_
 #define TESTFITTINGMODULE1_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 #include "Simulation.h"
@@ -26,7 +26,7 @@ class FitSuite;
 
 //! Test of fitting module with simple samples.
 
-class TestFittingModule1 : public IFunctionalTest
+class TestFittingModule1 : public IApplicationTest
 {
 public:
     TestFittingModule1();

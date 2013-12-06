@@ -26,7 +26,7 @@
 #include <fstream>
 
 
-TestIsGISAXS14::TestIsGISAXS14() : IFunctionalTest("TestIsGISAXS14")
+TestIsGISAXS14::TestIsGISAXS14() : IApplicationTest("TestIsGISAXS14")
 {
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-14/" ));
 }

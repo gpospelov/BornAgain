@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS11_H_
 #define TESTISGISAXS11_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#11: ?.
 
-class TestIsGISAXS11 : public IFunctionalTest
+class TestIsGISAXS11 : public IApplicationTest
 {
 public:
     TestIsGISAXS11();

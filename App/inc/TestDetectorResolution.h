@@ -16,14 +16,14 @@
 #ifndef TESTDETECTORRESOLUTION_H_
 #define TESTDETECTORRESOLUTION_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "FormFactors.h"
 #include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 
-class TestDetectorResolution : public IFunctionalTest
+class TestDetectorResolution : public IApplicationTest
 {
 public:
     TestDetectorResolution() : mp_intensity_output(0), mp_sample(0) {}

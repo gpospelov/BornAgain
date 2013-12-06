@@ -22,7 +22,7 @@
 #include <fstream>
 
 
-TestIsGISAXS11::TestIsGISAXS11() : IFunctionalTest("TestIsGISAXS11")
+TestIsGISAXS11::TestIsGISAXS11() : IApplicationTest("TestIsGISAXS11")
 {
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-11/" ));
 }

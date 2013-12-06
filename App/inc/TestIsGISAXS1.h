@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS1_H_
 #define TESTISGISAXS1_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#1: Mean formfactor cylinder and prism.
 
-class TestIsGISAXS1 : public IFunctionalTest
+class TestIsGISAXS1 : public IApplicationTest
 {
 public:
     TestIsGISAXS1();

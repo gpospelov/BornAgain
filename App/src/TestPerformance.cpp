@@ -163,7 +163,7 @@ void TestPerformance::get_sysinfo()
 
 void PerfTest_SpecularMatrix::initialise(ProgramOptions *p_options)
 {
-    IFunctionalTest::initialise(p_options);
+    IApplicationTest::initialise(p_options);
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
 }
@@ -185,7 +185,7 @@ void PerfTest_SpecularMatrix::execute()
 
 void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
 {
-    IFunctionalTest::initialise(p_options);
+    IApplicationTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
     SampleBuilderFactory factory;
@@ -210,7 +210,7 @@ void PerfTest_Pyramid::execute()
 
 void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
 {
-    IFunctionalTest::initialise(p_options);
+    IApplicationTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
     SampleBuilderFactory factory;
@@ -235,7 +235,7 @@ void PerfTest_RotatedPyramid::execute()
 
 void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
 {
-    IFunctionalTest::initialise(p_options);
+    IApplicationTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));

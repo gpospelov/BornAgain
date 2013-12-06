@@ -54,7 +54,7 @@
 
 
 TestIsGISAXS13::TestIsGISAXS13()
-: IFunctionalTest("TestIsGISAXS13")
+: IApplicationTest("TestIsGISAXS13")
 , mp_simulation(0)
 , mp_sample_builder(0)
 , mp_fitSuite(0)

@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS4_H_
 #define TESTISGISAXS4_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#4: Cylinder with interference 1DDL or 2DDL.
 
-class TestIsGISAXS4 : public IFunctionalTest
+class TestIsGISAXS4 : public IApplicationTest
 {
 public:
     TestIsGISAXS4();

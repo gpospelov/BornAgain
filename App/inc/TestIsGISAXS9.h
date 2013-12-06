@@ -16,13 +16,13 @@
 #ifndef TESTISGISAXS9_H
 #define TESTISGISAXS9_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
 //! IsGISAXS ex#9: Pyramids on top of substrate.
 
-class TestIsGISAXS9 : public IFunctionalTest
+class TestIsGISAXS9 : public IApplicationTest
 {
 public:
     TestIsGISAXS9();

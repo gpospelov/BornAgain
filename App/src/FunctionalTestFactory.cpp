@@ -86,7 +86,7 @@ void FunctionalTestFactory::print_benchmarks()
 // execute specific functional tests
 void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
 {
-    IFunctionalTest *test(0);
+    IApplicationTest *test(0);
     try {
         test = createItem( name );
     } catch (std::runtime_error& e) {
@@ -108,7 +108,7 @@ void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
 // run tests in profile mode
 void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
 {
-    IFunctionalTest *test(0);
+    IApplicationTest *test(0);
     try {
         test = createItem( name );
     } catch (std::runtime_error& e) {
@@ -155,190 +155,190 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
 {
     p_test_factory->registerItem(
         "roughness",
-        IFactoryCreateFunction<TestRoughness, IFunctionalTest>,
+        IFactoryCreateFunction<TestRoughness, IApplicationTest>,
         "functional test: roughness parameters");
     p_test_factory->registerItem(
         "formfactor",
-        IFactoryCreateFunction<TestFormFactor, IFunctionalTest>,
+        IFactoryCreateFunction<TestFormFactor, IApplicationTest>,
         "functional test: some formfactor");
     p_test_factory->registerItem(
         "diffuse",
-        IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest>,
+        IFactoryCreateFunction<TestDiffuseReflection, IApplicationTest>,
         "functional test: diffuse scattering from multilayer with roughness "
         "(obsolete)");
     p_test_factory->registerItem(
         "isgisaxs01",
-        IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS1, IApplicationTest>,
         "functional test: isgisaxs ex-1 (2 types of particles without "
         "interference on top of substrate)");
     p_test_factory->registerItem(
         "isgisaxs02",
-        IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS2, IApplicationTest>,
         "functional test: isgisaxs ex-2 (mean form factors for particles with "
         "shape size distribution)");
     p_test_factory->registerItem(
         "isgisaxs03",
-        IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS3, IApplicationTest>,
         "functional test: isgisaxs ex-3 (cylinder FF)");
     p_test_factory->registerItem(
         "isgisaxs04",
-        IFactoryCreateFunction<TestIsGISAXS4, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS4, IApplicationTest>,
         "functional test: isgisaxs ex-4 (paracrystal 1d structure factors)");
     p_test_factory->registerItem(
         "isgisaxs05",
-        IFactoryCreateFunction<TestIsGISAXS5, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS5, IApplicationTest>,
         "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure "
         "factor)");
     p_test_factory->registerItem(
         "isgisaxs06",
-        IFactoryCreateFunction<TestIsGISAXS6, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS6, IApplicationTest>,
         "functional test: isgisaxs ex-6 (cylinders with lattice interference "
         "function)");
     p_test_factory->registerItem(
         "isgisaxs07",
-        IFactoryCreateFunction<TestIsGISAXS7, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS7, IApplicationTest>,
         "functional test: isgisaxs ex-7 (particle mixture from morphology "
         "file)");
     p_test_factory->registerItem(
         "isgisaxs08",
-        IFactoryCreateFunction<TestIsGISAXS8, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS8, IApplicationTest>,
         "functional test: isgisaxs ex-8 (paracrystal lattice structure "
         "factors)");
     p_test_factory->registerItem(
         "isgisaxs09",
-        IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS9, IApplicationTest>,
         "functional test: isgisaxs ex-9 (rotated pyramid FF)");
     p_test_factory->registerItem(
         "isgisaxs10",
-        IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS10, IApplicationTest>,
         "functional test: isgisaxs ex-10 (cylinders with interference on top "
         "of substrate)");
     p_test_factory->registerItem(
         "isgisaxs11",
-        IFactoryCreateFunction<TestIsGISAXS11, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS11, IApplicationTest>,
         "functional test: isgisaxs ex-11 (core shell parallelopiped islands "
         "on top of substrate)");
     p_test_factory->registerItem(
         "isgisaxs12",
-        IFactoryCreateFunction<TestIsGISAXS12, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS12, IApplicationTest>,
         "functional test: isgisaxs ex-12 (constrained fit example)");
     p_test_factory->registerItem(
         "isgisaxs13",
-        IFactoryCreateFunction<TestIsGISAXS13, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS13, IApplicationTest>,
         "functional test: isgisaxs ex-13 (simulated annealing fit)");
     p_test_factory->registerItem(
         "isgisaxs14",
-        IFactoryCreateFunction<TestIsGISAXS14, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS14, IApplicationTest>,
         "functional test: isgisaxs ex-14 (multilayered sphere on graded "
         "interface)");
     p_test_factory->registerItem(
         "isgisaxs15",
-        IFactoryCreateFunction<TestIsGISAXS15, IFunctionalTest>,
+        IFactoryCreateFunction<TestIsGISAXS15, IApplicationTest>,
         "functional test: isgisaxs ex-15 (size-spacing correlation "
         "approximation)");
     p_test_factory->registerItem(
         "convolution",
-        IFactoryCreateFunction<TestConvolution, IFunctionalTest>,
+        IFactoryCreateFunction<TestConvolution, IApplicationTest>,
         "functional test: test of convolution via fft");
     p_test_factory->registerItem(
         "detectorresolution",
-        IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest>,
+        IFactoryCreateFunction<TestDetectorResolution, IApplicationTest>,
         "functional test: detector resolution function");
     p_test_factory->registerItem(
         "mesocrystal1",
-        IFactoryCreateFunction<TestMesoCrystal1, IFunctionalTest>,
+        IFactoryCreateFunction<TestMesoCrystal1, IApplicationTest>,
         "functional test: mesocrystal");
     p_test_factory->registerItem(
         "mesocrystal2",
-        IFactoryCreateFunction<TestMesoCrystal2, IFunctionalTest>,
+        IFactoryCreateFunction<TestMesoCrystal2, IApplicationTest>,
         "functional test: mesocrystal fit");
     p_test_factory->registerItem(
         "roottree",
-        IFactoryCreateFunction<TestRootTree, IFunctionalTest>,
+        IFactoryCreateFunction<TestRootTree, IApplicationTest>,
         "functional test: using root trees to read/write data from/to disk");
     p_test_factory->registerItem(
         "fitting1",
-        IFactoryCreateFunction<TestFittingModule1, IFunctionalTest>,
+        IFactoryCreateFunction<TestFittingModule1, IApplicationTest>,
         "functional test: fit module 2 params");
     p_test_factory->registerItem(
         "fitting2",
-        IFactoryCreateFunction<TestFittingModule2, IFunctionalTest>,
+        IFactoryCreateFunction<TestFittingModule2, IApplicationTest>,
         "functional test: fit module 5 params");
     p_test_factory->registerItem(
         "fitting3",
-        IFactoryCreateFunction<TestFittingModule3, IFunctionalTest>,
+        IFactoryCreateFunction<TestFittingModule3, IApplicationTest>,
         "functional test: fit module 4 params, 1d scans");
     p_test_factory->registerItem(
         "performance",
-        IFactoryCreateFunction<TestPerformance, IFunctionalTest>,
+        IFactoryCreateFunction<TestPerformance, IApplicationTest>,
         "functional test: run performance test for several predefined tasks");
     p_test_factory->registerItem(
         "roughdwba",
-        IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest>,
+        IFactoryCreateFunction<TestMultiLayerRoughness, IApplicationTest>,
         "functional test: diffuse scattering from multi layer with roughness");
     p_test_factory->registerItem(
         "testmisc",
-        IFactoryCreateFunction<TestMiscellaneous, IFunctionalTest>,
+        IFactoryCreateFunction<TestMiscellaneous, IApplicationTest>,
         "functional test: test of different miscellaneous issues");
     p_test_factory->registerItem(
         "fitbench",
-        IFactoryCreateFunction<TestFittingBenchmark, IFunctionalTest>,
+        IFactoryCreateFunction<TestFittingBenchmark, IApplicationTest>,
         "functional test: test of minimizers with hard-to-minimize test "
         "functions");
     p_test_factory->registerItem(
         "Fourier",
-        IFactoryCreateFunction<TestFourier, IFunctionalTest>,
+        IFactoryCreateFunction<TestFourier, IApplicationTest>,
         "functional test: test of Fourier transformation of OutputData maps");
     p_test_factory->registerItem(
         "fumili",
-        IFactoryCreateFunction<TestFumiliLMA, IFunctionalTest>,
+        IFactoryCreateFunction<TestFumiliLMA, IApplicationTest>,
         "functional test: test of ROOT's LMA-based minimizers Fumili and "
         "GSLMultiFit");
     p_test_factory->registerItem(
         "toyexp",
-        IFactoryCreateFunction<TestToySimulation, IFunctionalTest>,
+        IFactoryCreateFunction<TestToySimulation, IApplicationTest>,
         "functional test: test fitting algorithms with toy simulation");
     p_test_factory->registerItem(
         "FormFactors",
-        IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
+        IFactoryCreateFunction<TestFormFactors, IApplicationTest>,
         "functional test: FormFactors");
     p_test_factory->registerItem(
         "specularmatrix",
-        IFactoryCreateFunction<TestSpecularMatrix, IFunctionalTest>,
+        IFactoryCreateFunction<TestSpecularMatrix, IApplicationTest>,
         "functional test: specular reflectivity with matrix formalism");
     p_test_factory->registerItem(
         "testbugs",
-        IFactoryCreateFunction<TestBugs , IFunctionalTest>,
+        IFactoryCreateFunction<TestBugs , IApplicationTest>,
         "functional test: test bugs reported in Redmine");
     p_test_factory->registerItem(
         "specularmagnetic",
-        IFactoryCreateFunction<TestSpecularMagnetic, IFunctionalTest>,
+        IFactoryCreateFunction<TestSpecularMagnetic, IApplicationTest>,
         "functional test: specular reflectivity with magnetic matrix formalism");
     p_test_factory->registerItem(
         "polarizedDWBA",
-        IFactoryCreateFunction<TestPolarizedDWBA, IFunctionalTest>,
+        IFactoryCreateFunction<TestPolarizedDWBA, IApplicationTest>,
         "functional test: polarized DWBA (magnetic cylinders on substrate)");
     p_test_factory->registerItem(
         "polarizedDWBAZeroMag",
-        IFactoryCreateFunction<TestPolarizedDWBAZeroMag, IFunctionalTest>,
+        IFactoryCreateFunction<TestPolarizedDWBAZeroMag, IApplicationTest>,
         "functional test: polarized DWBA with zero magnetic field");
     p_test_factory->registerItem(
          "polarizedDWBATerms",
-         IFactoryCreateFunction<TestPolarizedDWBATerms, IFunctionalTest>,
+         IFactoryCreateFunction<TestPolarizedDWBATerms, IApplicationTest>,
          "functional test: compare different terms in DWBA between"
          " scalar and matrix computation");
     p_test_factory->registerItem(
          "polarizedMeso",
-         IFactoryCreateFunction<TestPolarizedMeso, IFunctionalTest>,
+         IFactoryCreateFunction<TestPolarizedMeso, IApplicationTest>,
          "functional test: polarized mesocrystals");
     p_test_factory->registerItem(
         "toyfit",
-        IFactoryCreateFunction<TestToyFitting, IFunctionalTest>,
+        IFactoryCreateFunction<TestToyFitting, IApplicationTest>,
         "functional test: produces plots used in manual");
 
     p_test_factory->registerItem(
         "functest",
-        IFactoryCreateFunction<TestFunctionalTests, IFunctionalTest>,
+        IFactoryCreateFunction<TestFunctionalTests, IApplicationTest>,
         "Represents functional test results in graphics form");
 
 

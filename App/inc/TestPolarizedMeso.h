@@ -16,7 +16,7 @@
 #ifndef TESTPOLARIZEDMESO_H_
 #define TESTPOLARIZEDMESO_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "MultiLayer.h"
 
 class MesoCrystal;
@@ -24,7 +24,7 @@ class Lattice;
 
 //! Functional test for polarized DWBA with mesocrystal.
 
-class TestPolarizedMeso : public IFunctionalTest
+class TestPolarizedMeso : public IApplicationTest
 {
 public:
     TestPolarizedMeso();

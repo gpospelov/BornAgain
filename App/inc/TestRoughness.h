@@ -17,7 +17,7 @@
 #define TESTROUGHNESS_H
 
 #include <vector>
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "LayerRoughness.h"
 
 //! Draw profile of rough surface for different sets of roughness parameters.
@@ -25,10 +25,10 @@
 //! Two models are used for profile calculation:
 //! 1) matrix method 2) fast Fourier transform using moving average
 //!
-class TestRoughness : public IFunctionalTest
+class TestRoughness : public IApplicationTest
 {
 public:
-    TestRoughness() : IFunctionalTest("roughness"), m_roughness(0) {}
+    TestRoughness() : IApplicationTest("roughness"), m_roughness(0) {}
     virtual ~TestRoughness(){}
 
     virtual void execute();

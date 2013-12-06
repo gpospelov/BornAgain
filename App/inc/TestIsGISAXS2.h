@@ -16,7 +16,7 @@
 #ifndef TESTISGISAXS2_H
 #define TESTISGISAXS2_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
@@ -24,7 +24,7 @@
 
 //! IsGISAXS ex#2: Mean formfactors for particles with shape size distributions.
 
-class TestIsGISAXS2 : public IFunctionalTest
+class TestIsGISAXS2 : public IApplicationTest
 {
 public:
     TestIsGISAXS2();

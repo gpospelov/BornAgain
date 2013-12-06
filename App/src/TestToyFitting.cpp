@@ -8,7 +8,7 @@
 
 
 TestToyFitting::TestToyFitting()
-    : IFunctionalTest("TestToyFitting")
+    : IApplicationTest("TestToyFitting")
     , m_xmin(-10.0)
     , m_xmax(10.0)
     , m_ymin(-10.0)

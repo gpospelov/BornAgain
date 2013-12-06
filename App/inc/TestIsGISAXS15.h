@@ -16,11 +16,11 @@
 #ifndef TESTISGISAXS15_H_
 #define TESTISGISAXS15_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! IsGISAXS ex#15: Size-Spacing Correlation Approximation.
 
-class TestIsGISAXS15 : public IFunctionalTest
+class TestIsGISAXS15 : public IApplicationTest
 {
 public:
     TestIsGISAXS15();

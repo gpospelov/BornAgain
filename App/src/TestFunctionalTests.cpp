@@ -17,8 +17,13 @@ void TestFunctionalTests::execute()
 
    if(!readTestNames()) return;
 
+   for(size_t i=0; i<m_testNames.size(); ++i) {
+       m_testRegistry.runTest(m_testNames[i]);
+   }
+
 
 }
+
 
 
 bool TestFunctionalTests::readTestNames()
@@ -29,7 +34,7 @@ bool TestFunctionalTests::readTestNames()
 
     bool areCorrectNames(true);
     if(m_testNames.empty()) {
-        std::cout << "TestFunctionalTest::readTestNames() -> Info. No tests specified. Select one or more from list below." << std::endl;
+        std::cout << std::endl << "TestFunctionalTest::readTestNames() -> Info. No tests specified. Select one or more from list below." << std::endl;
         areCorrectNames = false;
     }
 

@@ -26,7 +26,7 @@
 #include "InterferenceFunctionNone.h"
 
 TestFormFactors::TestFormFactors()
-: IFunctionalTest("TestFormFactors")
+: IApplicationTest("TestFormFactors")
 , mp_form_factor(0)
 {
     setOutputPath(Utils::FileSystem::GetPathToData(

@@ -16,7 +16,7 @@
 #ifndef TESTISGISAXS7_H_
 #define TESTISGISAXS7_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
@@ -39,7 +39,7 @@
 //!
 //! The last three of these can be considered IsGISAXS bugs
 //!
-class TestIsGISAXS7 : public IFunctionalTest
+class TestIsGISAXS7 : public IApplicationTest
 {
 public:
     TestIsGISAXS7();

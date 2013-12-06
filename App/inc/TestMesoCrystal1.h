@@ -16,12 +16,12 @@
 #ifndef TESTMESOCRYSTAL1_H_
 #define TESTMESOCRYSTAL1_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! Simulation of 3D ordered particle assemblies.
 //! Test serve for visualization of MesoCrystal1 functional test
 
-class TestMesoCrystal1 : public IFunctionalTest
+class TestMesoCrystal1 : public IApplicationTest
 {
 public:
     TestMesoCrystal1(){}

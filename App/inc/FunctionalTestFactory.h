@@ -20,12 +20,12 @@
 #include <map>
 #include "ISingleton.h"
 #include "IFactory.h"
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 class TBenchmark;
 class ProgramOptions;
 
-class FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
+class FunctionalTestFactory : public IFactory<std::string, IApplicationTest>
 {
 public:
     FunctionalTestFactory();

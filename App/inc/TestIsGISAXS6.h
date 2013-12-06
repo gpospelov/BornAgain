@@ -16,12 +16,12 @@
 #ifndef TESTISGISAXS6_H_
 #define TESTISGISAXS6_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 //#include "ISampleBuilder.h"
 
 //! IsGISAXS ex#6: Cylinders with regular lattice interference functions.
 
-class TestIsGISAXS6 : public IFunctionalTest
+class TestIsGISAXS6 : public IApplicationTest
 {
 public:
     TestIsGISAXS6();

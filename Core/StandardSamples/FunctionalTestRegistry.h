@@ -38,11 +38,15 @@ public:
                  const std::string &reference, double threshold);
         void print();
         catalogue_t m_data;
+        TestInfo getInfo(const std::string &name);
     };
 
     void printCatalogue() { m_catalogue.print(); }
 
     int runTest(const std::string &name);
+
+    bool isRegisteredName(const std::string &name);
+
 
 private:
 

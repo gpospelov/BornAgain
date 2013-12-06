@@ -7,6 +7,7 @@
 #include "MathFunctions.h"
 #include "SimulationRegistry.h"
 #include "OutputDataFunctions.h"
+#include "FunctionalTestRegistry.h"
 #include <iostream>
 #include <cmath>
 
@@ -64,8 +65,9 @@ std::string GetPathToData(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    FunctionalTests::IsGISAXS01 test;
-    test.run(GetPathToData(argc, argv));
-    return test.analyseResults();
+//    FunctionalTests::IsGISAXS01 test;
+//    test.run(GetPathToData(argc, argv));
+//    return test.analyseResults();
+    return FUNCTIONAL_TEST("isgisaxs01");
 }
 #endif

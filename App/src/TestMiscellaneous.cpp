@@ -74,6 +74,9 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     FunctionalTestRegistry tests;
     tests.printCatalogue();
 
+    tests.runTest("isgisaxs01");
+    std::cout << Utils::FileSystem::GetReferenceDataDir() << std::endl;
+
 }
 
 

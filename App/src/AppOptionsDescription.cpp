@@ -39,6 +39,9 @@ void AddApplicationOptions(ProgramOptions* p_options, FunctionalTestFactory *p_t
          "used in TestMesocrystal2")
         ("fitpreserve", bpo::value<int>()->default_value(1),
          "used in TestMesocrystal2")
+//            ("functest,f", bpo::value< std::vector<std::string> > ()->default_value(std::vector<std::string>(), ""), "List of functional tests to show.")
+            ("functest,f", bpo::value< std::vector<std::string> > ()->multitoken()->zero_tokens(), "List of functional tests to show.")
+// see http://stackoverflow.com/questions/1804514/how-to-accept-empty-value-in-boostprogram-options
     ;
 
     // there is no positional options (without '--' or '-' signs) at the moment
@@ -48,8 +51,12 @@ void AddApplicationOptions(ProgramOptions* p_options, FunctionalTestFactory *p_t
     FunctionalTestFactory::iterator it = p_test_factory->begin();
     for(; it!= p_test_factory->end(); ++it) {
         // it.first - test name, it.second - test description
-        functional_test_options.add_options()((*it).first.c_str(), (*it).second.c_str());
+        if( (*it).first != "functest") {
+            functional_test_options.add_options()((*it).first.c_str(), (*it).second.c_str());
+        }
     }
+
+    //p_options->addPositional("functest",-1);
 
     // adding options to the main option holder
     p_options->add(general_options).add(functional_test_options);

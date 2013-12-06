@@ -56,6 +56,7 @@
 #include "TestSpecularMatrix.h"
 #include "TestToySimulation.h"
 #include "TestToyFitting.h"
+#include "TestFunctionalTests.h"
 
 #include "TBenchmark.h"
 
@@ -334,6 +335,11 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "toyfit",
         IFactoryCreateFunction<TestToyFitting, IFunctionalTest>,
         "functional test: produces plots used in manual");
+
+    p_test_factory->registerItem(
+        "functest",
+        IFactoryCreateFunction<TestFunctionalTests, IFunctionalTest>,
+        "Represents functional test results in graphics form");
 
 
 }

@@ -44,6 +44,7 @@ protected:
     std::string m_output_path;
 };
 
+
 #endif // IFUNCTIONALTEST_H
 
 

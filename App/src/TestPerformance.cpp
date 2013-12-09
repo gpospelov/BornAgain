@@ -23,6 +23,7 @@
 #include "SampleFactory.h"
 #include "SpecularMatrix.h"
 #include "SampleBuilderFactory.h"
+#include "SimulationRegistry.h"
 
 #include "TSystem.h"
 #include "TDatime.h"
@@ -39,7 +40,7 @@ TestPerformance::TestPerformance()
     // preparing performance tests to run
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_Pyramid(), 20) );
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_RotatedPyramid(), 20) );
-    m_tests.push_back( new PerformanceTestInfo(new PerfTest_MesoCrystal(), 2) );
+    m_tests.push_back( new PerformanceTestInfo(new PerfTest_MesoCrystal(), 1) );
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_SpecularMatrix(), 200000) );
 
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
@@ -59,9 +60,8 @@ void TestPerformance::execute()
     // getting system information
     get_sysinfo();
 
-    clock_t clock1 = clock();
+    //clock_t clock1 = clock();
     //clock_t gt_clock1 = clock_get_time();
-    std::cout << "1.1 " << clock1 << std::endl;
 
     // run tests
     TBenchmark mb;
@@ -92,9 +92,7 @@ void TestPerformance::execute()
 
     write_performance();
 
-    clock_t clock2 = clock();
-    std::cout << "1.2 " << clock2 << std::endl;
-    std::cout << "1.3 " << clock2-clock1 << std::endl;
+    //clock_t clock2 = clock();
 }
 
 //! Append results to log file.
@@ -186,17 +184,23 @@ void PerfTest_SpecularMatrix::execute()
 void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
 {
     IApplicationTest::initialise(p_options);
-    // sample
-    if(m_sample) delete m_sample;
-    SampleBuilderFactory factory;
-    m_sample = dynamic_cast<MultiLayer *>(factory.createSample("isgisaxs09"));
+//    // sample
+//    if(m_sample) delete m_sample;
+//    SampleBuilderFactory factory;
+//    m_sample = dynamic_cast<MultiLayer *>(factory.createSample("isgisaxs09"));
 
-    // simulation
-    if(m_simulation) delete m_simulation;
-    m_simulation = new Simulation(mp_options);
-    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-    m_simulation->setSample(*m_sample);
+//    // simulation
+//    if(m_simulation) delete m_simulation;
+//    m_simulation = new Simulation(mp_options);
+//    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+//    m_simulation->setSample(*m_sample);
+
+    SimulationRegistry registry;
+    m_simulation = registry.createSimulation("isgisaxs09a");
+    m_simulation->setProgramOptions(p_options);
+
+
 }
 
 //! Run PerfTest_Pyramid.
@@ -211,17 +215,24 @@ void PerfTest_Pyramid::execute()
 void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
 {
     IApplicationTest::initialise(p_options);
-    // sample
-    if(m_sample) delete m_sample;
-    SampleBuilderFactory factory;
-    m_sample = dynamic_cast<MultiLayer *>(factory.createSample("isgisaxs09_rotated"));
+//    // sample
+//    if(m_sample) delete m_sample;
+//    SampleBuilderFactory factory;
+//    m_sample = dynamic_cast<MultiLayer *>(factory.createSample("isgisaxs09_rotated"));
 
-    // simulation
-    if(m_simulation) delete m_simulation;
-    m_simulation = new Simulation(p_options);
-    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-    m_simulation->setSample(*m_sample);
+//    // simulation
+//    if(m_simulation) delete m_simulation;
+//    m_simulation = new Simulation(p_options);
+//    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    m_simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+//    m_simulation->setSample(*m_sample);
+
+    SimulationRegistry registry;
+    m_simulation = registry.createSimulation("isgisaxs09b");
+    m_simulation->setProgramOptions(p_options);
+
+
+
 }
 
 //! Run PerfTest_RotatedPyramid
@@ -236,15 +247,21 @@ void PerfTest_RotatedPyramid::execute()
 void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
 {
     IApplicationTest::initialise(p_options);
-    // sample
-    if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));
+//    // sample
+//    if(m_sample) delete m_sample;
+//    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));
 
-    // simulation
-    m_simulation = new Simulation(p_options);
-    m_simulation->setSample(*m_sample);
-    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_simulation->setBeamParameters(0.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
+//    // simulation
+//    m_simulation = new Simulation(p_options);
+//    m_simulation->setSample(*m_sample);
+//    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    m_simulation->setBeamParameters(0.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
+
+
+    SimulationRegistry registry;
+    m_simulation = registry.createSimulation("mesocrystal01");
+    m_simulation->setProgramOptions(p_options);
+
 
 }
 

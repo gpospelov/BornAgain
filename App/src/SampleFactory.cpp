@@ -54,7 +54,7 @@ SampleFactory::SampleFactory()
 //    registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);
 
     // mesocrystal's
-//    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
+    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
 //    registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
 
 //    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);

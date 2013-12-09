@@ -299,64 +299,64 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 
 ////! First mesocrystal test.
 
-//ISample *StandardSamples::MesoCrystal1()
-//{
-//    // create mesocrystal
-//    double nanoparticle_radius = 6.1*Units::nanometer;
-//    Lattice lat = Lattice::createTrigonalLattice(
-//        nanoparticle_radius*2.0, nanoparticle_radius*2.0*2.3);
-//    kvector_t bas_a = lat.getBasisVectorA();
-//    kvector_t bas_b = lat.getBasisVectorB();
-//    kvector_t bas_c = lat.getBasisVectorC();
-//    complex_t n_particle(1.0-1.5e-5, 1.3e-6);
-//    const IMaterial *particle_material =
-//            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+ISample *StandardSamples::MesoCrystal1()
+{
+    // create mesocrystal
+    double nanoparticle_radius = 6.1*Units::nanometer;
+    Lattice lat = Lattice::createTrigonalLattice(
+        nanoparticle_radius*2.0, nanoparticle_radius*2.0*2.3);
+    kvector_t bas_a = lat.getBasisVectorA();
+    kvector_t bas_b = lat.getBasisVectorB();
+    kvector_t bas_c = lat.getBasisVectorC();
+    complex_t n_particle(1.0-1.5e-5, 1.3e-6);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-//    Particle particle(particle_material,
-//                      new FormFactorFullSphere(nanoparticle_radius));
-//    kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
-//    kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
-//    kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
-//    std::vector<kvector_t> pos_vector;
-//    pos_vector.push_back(position_0);
-//    pos_vector.push_back(position_1);
-//    pos_vector.push_back(position_2);
-//    LatticeBasis basis(particle, pos_vector);
-//    Crystal npc(basis, lat);
+    Particle particle(particle_material,
+                      new FormFactorFullSphere(nanoparticle_radius));
+    kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
+    kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
+    kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
+    std::vector<kvector_t> pos_vector;
+    pos_vector.push_back(position_0);
+    pos_vector.push_back(position_1);
+    pos_vector.push_back(position_2);
+    LatticeBasis basis(particle, pos_vector);
+    Crystal npc(basis, lat);
 
-//    MesoCrystal meso(npc.clone(), new FormFactorCylinder
-//                     (0.2*Units::micrometer, 300*Units::nanometer));
-//    MesoCrystal meso2(npc.clone(), new FormFactorPyramid
-//                      (0.2*Units::micrometer,
-//                       300*Units::nanometer,
-//                       84*Units::degree));
-//    MultiLayer *p_multi_layer = new MultiLayer();
-//    complex_t n_air(1.0, 0.0);
-//    complex_t n_substrate(1.0-3.5e-6, 7.8e-8);
+    MesoCrystal meso(npc.clone(), new FormFactorCylinder
+                     (0.2*Units::micrometer, 300*Units::nanometer));
+    MesoCrystal meso2(npc.clone(), new FormFactorPyramid
+                      (0.2*Units::micrometer,
+                       300*Units::nanometer,
+                       84*Units::degree));
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-3.5e-6, 7.8e-8);
 
-//    const IMaterial *p_air_material =
-//        MaterialManager::getHomogeneousMaterial("Air2", n_air);
-//    const IMaterial *p_substrate_material =
-//        MaterialManager::getHomogeneousMaterial("Substrate2", n_substrate);
-//    Layer air_layer;
-//    air_layer.setMaterial(p_air_material);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(p_substrate_material);
-//    IInterferenceFunction *p_interference_function =
-//        new InterferenceFunction1DParaCrystal
-//        (800.0*Units::nanometer, 50*Units::nanometer, 1e7*Units::nanometer);
-//    ParticleDecoration particle_decoration;
-//    particle_decoration.addParticle(meso.clone(), 0.0, 0.5);
-//    particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
-//    particle_decoration.addInterferenceFunction(p_interference_function);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air2", n_air);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate2", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function =
+        new InterferenceFunction1DParaCrystal
+        (800.0*Units::nanometer, 50*Units::nanometer, 1e7*Units::nanometer);
+    ParticleDecoration particle_decoration;
+    particle_decoration.addParticle(meso.clone(), 0.0, 0.5);
+    particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
+    particle_decoration.addInterferenceFunction(p_interference_function);
 
-//    air_layer.setDecoration(particle_decoration);
+    air_layer.setDecoration(particle_decoration);
 
-//    p_multi_layer->addLayer(air_layer);
-//    p_multi_layer->addLayer(substrate_layer);
-//    return p_multi_layer;
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
 
-//}
+}
 
 ////! Second mesocrystal test: Mesocrystal from TestMesocrystal to play with.
 

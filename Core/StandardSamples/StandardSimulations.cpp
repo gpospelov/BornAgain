@@ -394,3 +394,21 @@ Simulation *StandardSimulations::PolarizedDWBAZeroMag()
 
     return result;
 }
+
+Simulation *StandardSimulations::LayerWithRoughness()
+{
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("LayerWithRoughness");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(
+        100,-0.5*Units::degree, 0.5*Units::degree, 100,
+        0.0*Units::degree, 1.0*Units::degree, true);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}

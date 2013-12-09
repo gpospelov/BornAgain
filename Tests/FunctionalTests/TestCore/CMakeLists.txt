@@ -27,6 +27,7 @@ set(list_of_tests
     "FormFactors"
     "MesoCrystal1"
     "PolarizedDWBAZeroMag"
+    "LayerRoughness"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

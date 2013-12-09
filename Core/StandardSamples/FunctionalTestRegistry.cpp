@@ -65,6 +65,9 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Rotated pyramids on top of substrate",
         "isgisaxs09_reference_pyramid_Z45.ima.gz", 2e-10);
 
+    add("isgisaxs10",
+        "Cylinders with interference on top of substrate",
+        "isgisaxs10_reference.ima.gz", 2e-10);
 
 }
 

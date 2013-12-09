@@ -66,7 +66,7 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem(
         "isgisaxs10", StandardSimulations::IsGISAXS10,
-        "IsGISAXS10 example, Cylinders on top of substrate with interference");
+        "Cylinders with interference on top of substrate");
 
     registerItem(
         "isgisaxs11", StandardSimulations::IsGISAXS11,

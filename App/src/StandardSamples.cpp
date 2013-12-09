@@ -255,38 +255,6 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 }
 
 
-ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-5e-6, 2e-8);
-    complex_t n_particle(1.0-5e-5, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air10", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate10", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_function =
-        new InterferenceFunction1DParaCrystal
-        (20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
-    ParticleDecoration particle_decoration
-        (new Particle(particle_material, new FormFactorCylinder
-                      (5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
-    //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
-
-    air_layer.setDecoration(particle_decoration);
-
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
-
 // IsGISAXS ex#11: Core-shell parallelepiped islands.
 
 ISample *StandardSamples::IsGISAXS11_CoreShellParticles()

@@ -9,7 +9,6 @@ set(executable_name App)
 # source files
 file(GLOB source_files
     "src/*.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS10/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS11/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15/*.cpp"
 )
@@ -20,14 +19,12 @@ list(REMOVE_ITEM source_files ${CMAKE_CURRENT_SOURCE_DIR}/src/AppDict.cpp)
 # include files
 file(GLOB include_files
     "inc/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS10/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS11/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15/*.h"
 )
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS10
     ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS11
     ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15
 )

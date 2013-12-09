@@ -18,7 +18,6 @@
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestDiffuseReflection.h"
-#include "TestFittingBenchmark.h"
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
 #include "TestFittingModule3.h"
@@ -26,7 +25,6 @@
 #include "TestFormFactors.h"
 #include "TestFourier.h"
 #include "TestFumiliLMA.h"
-#include "TestIsGISAXS10.h"
 #include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
 #include "TestIsGISAXS13.h"
@@ -164,11 +162,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure "
         "factor)");
     p_test_factory->registerItem(
-        "isgisaxs10",
-        IFactoryCreateFunction<TestIsGISAXS10, IApplicationTest>,
-        "functional test: isgisaxs ex-10 (cylinders with interference on top "
-        "of substrate)");
-    p_test_factory->registerItem(
         "isgisaxs11",
         IFactoryCreateFunction<TestIsGISAXS11, IApplicationTest>,
         "functional test: isgisaxs ex-11 (core shell parallelopiped islands "
@@ -235,11 +228,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "testmisc",
         IFactoryCreateFunction<TestMiscellaneous, IApplicationTest>,
         "functional test: test of different miscellaneous issues");
-    p_test_factory->registerItem(
-        "fitbench",
-        IFactoryCreateFunction<TestFittingBenchmark, IApplicationTest>,
-        "functional test: test of minimizers with hard-to-minimize test "
-        "functions");
     p_test_factory->registerItem(
         "Fourier",
         IFactoryCreateFunction<TestFourier, IApplicationTest>,

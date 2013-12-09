@@ -26,6 +26,13 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Cylinder formfactor in BA with size distribution",
         "isgisaxs03_reference_BA_size.ima.gz", 2e-10);
 
+    add("isgisaxs04_1DDL",
+        "1D paracrystal",
+        "isgisaxs04_reference_1DDL.ima.gz", 2e-10);
+    add("isgisaxs04_2DDL",
+        "2D paracrystal",
+        "isgisaxs04_reference_2DDLh.ima.gz", 2e-10);
+
 }
 
 

@@ -27,7 +27,6 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "isgisaxs04_1DDL", StandardSimulations::IsGISAXS041DDL,
         "IsGISAXS04 example, 1DDL structure factor");
-
     registerItem(
         "isgisaxs04_2DDL", StandardSimulations::IsGISAXS042DDL,
         "IsGISAXS04 example, 2DDL structure factor");

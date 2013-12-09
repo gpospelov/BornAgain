@@ -43,7 +43,6 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs04_1DDL",
         IFactoryCreateFunction<IsGISAXS04Para1DBuilder, ISampleBuilder>,
         "IsGISAXS04 example, 1DDL structure factor");
-
     registerItem(
         "isgisaxs04_2DDL",
         IFactoryCreateFunction<IsGISAXS04Para2DBuilder, ISampleBuilder>,

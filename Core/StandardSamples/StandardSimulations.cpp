@@ -200,6 +200,9 @@ Simulation *StandardSimulations::IsGISAXS06L3()
 
 Simulation *StandardSimulations::IsGISAXS06L4()
 {
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice4");
+
     Simulation *result = new Simulation();
 
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
@@ -212,6 +215,8 @@ Simulation *StandardSimulations::IsGISAXS06L4()
     sim_params.me_if_approx = SimulationParameters::LMA;
     sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
+
+    result->setSampleBuilder( builder );
 
     return result;
 }

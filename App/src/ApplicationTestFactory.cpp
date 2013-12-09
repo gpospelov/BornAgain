@@ -33,7 +33,6 @@
 #include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
 #include "TestIsGISAXS5.h"
-#include "TestIsGISAXS6.h"
 #include "TestIsGISAXS7.h"
 #include "TestIsGISAXS8.h"
 #include "TestIsGISAXS9.h"
@@ -167,11 +166,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         IFactoryCreateFunction<TestIsGISAXS5, IApplicationTest>,
         "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure "
         "factor)");
-    p_test_factory->registerItem(
-        "isgisaxs06",
-        IFactoryCreateFunction<TestIsGISAXS6, IApplicationTest>,
-        "functional test: isgisaxs ex-6 (cylinders with lattice interference "
-        "function)");
     p_test_factory->registerItem(
         "isgisaxs07",
         IFactoryCreateFunction<TestIsGISAXS7, IApplicationTest>,

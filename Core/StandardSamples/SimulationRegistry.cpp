@@ -33,16 +33,16 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem(
         "isgisaxs06_lattice1", StandardSimulations::IsGISAXS06L1,
-        "IsGISAXS06 example, 2D lattice with different disorders");
+        "2D lattice with disorders");
     registerItem(
         "isgisaxs06_lattice2", StandardSimulations::IsGISAXS06L2,
-        "IsGISAXS06 example, 2D lattice centered");
+        "2D lattice centered");
     registerItem(
         "isgisaxs06_lattice3", StandardSimulations::IsGISAXS06L3,
-        "IsGISAXS06 example, 2D lattice rotated");
+        "2D lattice rotated");
     registerItem(
         "isgisaxs06_lattice4", StandardSimulations::IsGISAXS06L4,
-        "IsGISAXS06 example, 2D lattice variants");
+        "2D lattice variants");
 
     registerItem(
         "isgisaxs07", StandardSimulations::IsGISAXS07,

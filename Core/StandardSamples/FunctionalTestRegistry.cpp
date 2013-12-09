@@ -33,6 +33,20 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "2D paracrystal",
         "isgisaxs04_reference_2DDLh.ima.gz", 2e-10);
 
+    add("isgisaxs06_lattice1",
+        "2D lattice with disorders",
+        "isgisaxs06_reference_lattice.ima.gz", 2e-10);
+    add("isgisaxs06_lattice2",
+        "2D lattice centered",
+        "isgisaxs06_reference_centered.ima.gz", 2e-10);
+    add("isgisaxs06_lattice3",
+        "2D lattice rotated",
+        "isgisaxs06_reference_rotated.ima.gz", 2e-10);
+// this test is complicated for given Registry, see Tests/FunctionalTest/TesCore/IsGISAXS06L4
+//    add("isgisaxs06_lattice4",
+//        "2D lattice variants",
+//        "isgisaxs06_reference_variants.ima.gz", 2e-10);
+
 }
 
 

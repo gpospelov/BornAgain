@@ -51,7 +51,7 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "isgisaxs06_lattice1",
         IFactoryCreateFunction<IsGISAXS06Lattice1Builder, ISampleBuilder>,
-        "2D lattice with different disorder");
+        "2D lattice with disorder");
     registerItem(
         "isgisaxs06_lattice2",
         IFactoryCreateFunction<IsGISAXS06Lattice2Builder, ISampleBuilder>,

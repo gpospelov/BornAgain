@@ -51,23 +51,23 @@ SampleFactory::SampleFactory()
             StandardSamples::MultilayerSpecularMagneticTestCase);
 
     // IsGISAXS15 example: Size-Spacing Correlation Approximation
-    registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);
+//    registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);
 
     // mesocrystal's
-    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
-    registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
+//    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
+//    registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
 
-    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);
-    registerItem("FormFactor_Cone", StandardSamples::FormFactor_Cone);
-    registerItem("FormFactor_Sphere", StandardSamples::FormFactor_Sphere);
-    registerItem("FormFactor_Ellipsoid", StandardSamples::FormFactor_Ellipsoid);
-    registerItem("FormFactor_FullSpheroid", StandardSamples::FormFactor_FullSpheroid);
-    registerItem("FormFactor_HemiSpheroid", StandardSamples::FormFactor_HemiSpheroid);
-    registerItem("FormFactor_Parallelepiped", StandardSamples::FormFactor_Parallelpiped);
-    registerItem("FormFactor_Cylinder", StandardSamples::FormFactor_Cylinder);
-    registerItem("FormFactor_Pyramid", StandardSamples::FormFactor_Pyramid);
-    registerItem("FormFactor_FullSphere", StandardSamples::FormFactor_FullSphere);
-    registerItem("FormFactor_Prism3", StandardSamples::FormFactor_Prism3);
+//    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);
+//    registerItem("FormFactor_Cone", StandardSamples::FormFactor_Cone);
+//    registerItem("FormFactor_Sphere", StandardSamples::FormFactor_Sphere);
+//    registerItem("FormFactor_Ellipsoid", StandardSamples::FormFactor_Ellipsoid);
+//    registerItem("FormFactor_FullSpheroid", StandardSamples::FormFactor_FullSpheroid);
+//    registerItem("FormFactor_HemiSpheroid", StandardSamples::FormFactor_HemiSpheroid);
+//    registerItem("FormFactor_Parallelepiped", StandardSamples::FormFactor_Parallelpiped);
+//    registerItem("FormFactor_Cylinder", StandardSamples::FormFactor_Cylinder);
+//    registerItem("FormFactor_Pyramid", StandardSamples::FormFactor_Pyramid);
+//    registerItem("FormFactor_FullSphere", StandardSamples::FormFactor_FullSphere);
+//    registerItem("FormFactor_Prism3", StandardSamples::FormFactor_Prism3);
 }
 
 

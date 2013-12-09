@@ -27,7 +27,6 @@
 #include "TestFumiliLMA.h"
 #include "TestIsGISAXS12.h"
 #include "TestIsGISAXS13.h"
-#include "TestIsGISAXS15.h"
 #include "TestIsGISAXS5.h"
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
@@ -167,11 +166,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "isgisaxs13",
         IFactoryCreateFunction<TestIsGISAXS13, IApplicationTest>,
         "functional test: isgisaxs ex-13 (simulated annealing fit)");
-    p_test_factory->registerItem(
-        "isgisaxs15",
-        IFactoryCreateFunction<TestIsGISAXS15, IApplicationTest>,
-        "functional test: isgisaxs ex-15 (size-spacing correlation "
-        "approximation)");
     p_test_factory->registerItem(
         "convolution",
         IFactoryCreateFunction<TestConvolution, IApplicationTest>,

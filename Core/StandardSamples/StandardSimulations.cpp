@@ -3,6 +3,8 @@
 #include "Simulation.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
+#include "FileSystem.h"
+#include "OutputDataIOFactory.h"
 
 Simulation *StandardSimulations::IsGISAXS01()
 {
@@ -373,6 +375,12 @@ Simulation *StandardSimulations::MesoCrystal01()
     Simulation *result = new Simulation();
     result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(5.0090e+12);
+
+    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi2.txt.gz";
+    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
+    result->setDetectorParameters(*reference);
+    delete reference;
+
 //    result->setDetectorResolutionFunction(
 //            new ResolutionFunction2DSimple(0.0002, 0.0002));
 

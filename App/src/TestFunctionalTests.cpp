@@ -11,7 +11,8 @@ void TestFunctionalTests::execute()
     if(!readTestNames()) return;
 
     for(size_t i=0; i<m_testNames.size(); ++i) {
-        FunctionalTest_t test = m_testRegistry.runTest(m_testNames[i]);
+        FunctionalTest_t test = m_testRegistry.getTest(m_testNames[i]);
+        test->runTest();
 
         IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
             *test->getReference(), test->getName(), test->getDescription());

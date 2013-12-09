@@ -73,6 +73,14 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Core shell nanoparticles",
         "isgisaxs11_reference.ima.gz", 2e-10);
 
+    add("isgisaxs15",
+        "Size spacing correlation approximation",
+        "isgisaxs15_reference.ima.gz", 2e-10);
+
+    add("mesocrystal01",
+        "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
+        "mesocrystal1_reference_v2_nphi2.txt.gz", 1e-10);
+
 }
 
 
@@ -128,18 +136,26 @@ bool FunctionalTestRegistry::isRegisteredName(const std::string &name)
 }
 
 
-FunctionalTest_t FunctionalTestRegistry::runTest(const std::string &name)
+FunctionalTest_t FunctionalTestRegistry::getTest(const std::string &name)
 {
     FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
-    test->runTest();
     return test;
 }
+
+
+//FunctionalTest_t FunctionalTestRegistry::runTest(const std::string &name)
+//{
+//    FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
+//    test->runTest();
+//    return test;
+//}
 
 
 int FUNCTIONAL_TEST(const std::string &name)
 {
     FunctionalTestRegistry registry;
-    FunctionalTest_t test = registry.runTest(name);
+    FunctionalTest_t test = registry.getTest(name);
+    test->runTest();
     return test->analyseResults();
 }
 

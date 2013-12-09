@@ -107,7 +107,8 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "mesocrystal01",
         IFactoryCreateFunction<MesoCrystal01Builder, ISampleBuilder>,
-        "mesocrystals of cylindrical shape composed by spherical nanoparticles");
+        "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
+
     registerItem(
         "PolarizedDWBAZeroMag",
         IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,

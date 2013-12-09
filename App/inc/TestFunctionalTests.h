@@ -16,7 +16,6 @@ public:
     virtual ~TestFunctionalTests() {}
 
     virtual void execute();
-    virtual void finalise(){}
 
 private:
     //! read names of functional tests from command line and check if they are Ok

@@ -1,9 +1,5 @@
 #include "FunctionalTestRegistry.h"
 #include "Exceptions.h"
-#include "SimulationRegistry.h"
-#include "FileSystem.h"
-#include "OutputDataIOFactory.h"
-#include "OutputDataFunctions.h"
 #include <iostream>
 #include <iomanip>
 
@@ -26,18 +22,7 @@ void FunctionalTestRegistry::Catalogue::add(const std::string &name,
         throw ExistingClassRegistrationException("FunctionalTestRegistry::Catalogue::add() -> "
                                                  "Error. Existing item " +name);
     }
-
-    m_data[name] = TestInfo(name, description, reference, threshold);
-
-}
-
-
-void FunctionalTestRegistry::TestInfo::print()
-{
-    std::cout << std::setw(12) << std::left << m_name << " | "
-              << std::setw(24) << std::left << m_description << " | "
-              << std::setw(12) << std::left << m_reference << " | "
-              << std::setw(6) << std::left  << m_threshold << std::endl;
+    m_data[name] = FunctionalTestInfo(name, description, reference, threshold);
 }
 
 
@@ -45,11 +30,16 @@ void FunctionalTestRegistry::Catalogue::print()
 {
     std::cout << "--- FunctionalTestRegistry::Catalogue::print() ---" << std::endl;
     for(catalogue_t::iterator it = m_data.begin(); it!= m_data.end(); ++it) {
-        (*it).second.print();
+        FunctionalTestInfo &info = (*it).second;
+        std::cout << std::setw(12) << std::left << info.m_name << " | "
+                  << std::setw(24) << std::left << info.m_description << " | "
+                  << std::setw(12) << std::left << info.m_reference_file << " | "
+                  << std::setw(6) << std::left  << info.m_threshold << std::endl;
     }
 }
 
-FunctionalTestRegistry::TestInfo FunctionalTestRegistry::Catalogue::getInfo(const std::string &name)
+
+FunctionalTestInfo FunctionalTestRegistry::Catalogue::getInfo(const std::string &name)
 {
     catalogue_t::iterator it = m_data.find(name);
     if( it == m_data.end() ) {
@@ -76,41 +66,19 @@ bool FunctionalTestRegistry::isRegisteredName(const std::string &name)
 }
 
 
-int FunctionalTestRegistry::runTest(const std::string &name)
+FunctionalTest_t FunctionalTestRegistry::runTest(const std::string &name)
 {
-    TestInfo test_info = m_catalogue.getInfo(name);
-
-    SimulationRegistry sim_registry;
-    Simulation *simulation = sim_registry.createSimulation(name);
-
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + test_info.m_reference;
-    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
-
-    simulation->runSimulation();
-
-    OutputData<double> *result = simulation->getIntensityData();
-
-    double diff = OutputDataFunctions::GetDifference(*result,*reference);
-    bool status_ok(true);
-    if( diff > test_info.m_threshold ) status_ok=false;
-
-
-    std::cout << test_info.m_name << " " << test_info.m_description
-              << " " << diff
-            << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-
-    delete reference;
-    delete result;
-    delete simulation;
-
-    return (status_ok ? 0 : 1);
+    FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
+    test->runTest();
+    return test;
 }
 
 
 int FUNCTIONAL_TEST(const std::string &name)
 {
-    FunctionalTestRegistry tests;
-    return tests.runTest(name);
+    FunctionalTestRegistry registry;
+    FunctionalTest_t test = registry.runTest(name);
+    return test->analyseResults();
 }
 
 

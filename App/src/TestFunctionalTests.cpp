@@ -1,6 +1,5 @@
 #include "TestFunctionalTests.h"
 #include "ProgramOptions.h"
-#include "MessageService.h"
 #include "IsGISAXSTools.h"
 #include <iostream>
 #include <vector>
@@ -9,19 +8,15 @@
 
 void TestFunctionalTests::execute()
 {
-    std::cout << "TestFunctionalTest::execute() -> Hello World." << std::endl;
+    if(!readTestNames()) return;
 
-   if(!readTestNames()) return;
+    for(size_t i=0; i<m_testNames.size(); ++i) {
+        FunctionalTest_t test = m_testRegistry.runTest(m_testNames[i]);
 
-   for(size_t i=0; i<m_testNames.size(); ++i) {
-       m_testRegistry.runTest(m_testNames[i]);
-
-       //IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, "TestIsGISAXS1_c1", "Two particles mean DWBA Formfactor");
-
+        IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
+            *test->getReference(), test->getName(), test->getDescription());
    }
-
 }
-
 
 
 bool TestFunctionalTests::readTestNames()

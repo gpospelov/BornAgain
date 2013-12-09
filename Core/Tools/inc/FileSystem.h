@@ -44,9 +44,11 @@ public:
 
     //! return path to the reference data
     static std::string GetReferenceDataDir();
+    static void SetReferenceDataDir(const std::string &path) {m_reference_data_dir = path; }
 
 private:
     static std::string m_argv0_path; //!< it's value of argv[0], i.e. the path from working directory to executable module including the name of executable module
+    static std::string m_reference_data_dir;
 };
 
 }

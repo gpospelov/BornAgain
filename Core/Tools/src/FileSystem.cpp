@@ -5,6 +5,7 @@
 
 
 std::string Utils::FileSystem::m_argv0_path = std::string();
+std::string Utils::FileSystem::m_reference_data_dir = std::string();
 
 void Utils::FileSystem::SetArgvPath(const std::string& argv0)
 {
@@ -100,7 +101,11 @@ std::string Utils::FileSystem::GetInstallDir()
 
 std::string Utils::FileSystem::GetReferenceDataDir()
 {
-    return GetSourceDir() + std::string("/Tests/ReferenceData/BornAgain/");
+    if(m_reference_data_dir.empty()) {
+        return GetSourceDir() + std::string("/Tests/ReferenceData/BornAgain/");
+    } else {
+        return m_reference_data_dir;
+    }
 }
 
 

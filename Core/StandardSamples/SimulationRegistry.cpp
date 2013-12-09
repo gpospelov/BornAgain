@@ -48,7 +48,6 @@ SimulationRegistry::SimulationRegistry()
         "isgisaxs07", StandardSimulations::IsGISAXS07,
         "Mixture of different particles a la IsGISAXS morphology file");
 
-
     registerItem(
         "isgisaxs08a", StandardSimulations::IsGISAXS08a,
         "2DDL paracrystal lattice");
@@ -59,7 +58,6 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "isgisaxs09a", StandardSimulations::IsGISAXS09a,
         "Pyramids on top of substrate");
-
     registerItem(
         "isgisaxs09b", StandardSimulations::IsGISAXS09b,
         "Rotated pyramids on top of substrate");
@@ -70,12 +68,11 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem(
         "isgisaxs11", StandardSimulations::IsGISAXS11,
-        "IsGISAXS11 example, Core shell nanoparticles");
+        "Core shell nanoparticles");
 
     registerItem(
         "isgisaxs15", StandardSimulations::IsGISAXS15,
         "IsGISAXS15 example, Size spacing correlation approximation");
-
 
     registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,

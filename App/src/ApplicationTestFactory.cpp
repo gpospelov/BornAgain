@@ -25,10 +25,8 @@
 #include "TestFormFactors.h"
 #include "TestFourier.h"
 #include "TestFumiliLMA.h"
-#include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
 #include "TestIsGISAXS13.h"
-#include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
 #include "TestIsGISAXS5.h"
 #include "TestMesoCrystal1.h"
@@ -162,11 +160,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure "
         "factor)");
     p_test_factory->registerItem(
-        "isgisaxs11",
-        IFactoryCreateFunction<TestIsGISAXS11, IApplicationTest>,
-        "functional test: isgisaxs ex-11 (core shell parallelopiped islands "
-        "on top of substrate)");
-    p_test_factory->registerItem(
         "isgisaxs12",
         IFactoryCreateFunction<TestIsGISAXS12, IApplicationTest>,
         "functional test: isgisaxs ex-12 (constrained fit example)");
@@ -174,11 +167,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "isgisaxs13",
         IFactoryCreateFunction<TestIsGISAXS13, IApplicationTest>,
         "functional test: isgisaxs ex-13 (simulated annealing fit)");
-    p_test_factory->registerItem(
-        "isgisaxs14",
-        IFactoryCreateFunction<TestIsGISAXS14, IApplicationTest>,
-        "functional test: isgisaxs ex-14 (multilayered sphere on graded "
-        "interface)");
     p_test_factory->registerItem(
         "isgisaxs15",
         IFactoryCreateFunction<TestIsGISAXS15, IApplicationTest>,

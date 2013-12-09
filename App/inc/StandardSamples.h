@@ -32,8 +32,6 @@ ISample *MultilayerOffspecTestcase2a();
 ISample *MultilayerOffspecTestcase2b();
 ISample *MultilayerSpecularMagneticTestCase();
 ISample *PolarizedDWBATestCase();
-ISample *IsGISAXS11_CoreShellParticles();
-ISample *IsGISAXS14_LayeredSpheresOnGradedInterface();
 ISample *IsGISAXS15_SSCA();
 ISample *MesoCrystal1();
 ISample *MesoCrystal2();

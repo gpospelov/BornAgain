@@ -69,6 +69,10 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Cylinders with interference on top of substrate",
         "isgisaxs10_reference.ima.gz", 2e-10);
 
+    add("isgisaxs11",
+        "Core shell nanoparticles",
+        "isgisaxs11_reference.ima.gz", 2e-10);
+
 }
 
 

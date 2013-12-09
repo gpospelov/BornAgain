@@ -27,23 +27,22 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mixture cylinder particles with different size distribution ");
 
     registerItem(
-        "isgisaxs03_dwba",
-        IFactoryCreateFunction<IsGISAXS03DWBABuilder, ISampleBuilder>,
-        "Cylinder formfactor in DWBA");
-    registerItem(
         "isgisaxs03_ba",
         IFactoryCreateFunction<IsGISAXS03BABuilder, ISampleBuilder>,
         "Cylinder formfactor in BA");
     registerItem(
+        "isgisaxs03_dwba",
+        IFactoryCreateFunction<IsGISAXS03DWBABuilder, ISampleBuilder>,
+        "Cylinder formfactor in DWBA");
+    registerItem(
         "isgisaxs03_basize",
         IFactoryCreateFunction<IsGISAXS03BASizeBuilder, ISampleBuilder>,
-        "Cylinder formfactor in BA");
+        "Cylinder formfactor in BA with size distribution");
 
     registerItem(
         "isgisaxs04_1DDL",
         IFactoryCreateFunction<IsGISAXS04Para1DBuilder, ISampleBuilder>,
         "IsGISAXS04 example, 1DDL structure factor");
-
     registerItem(
         "isgisaxs04_2DDL",
         IFactoryCreateFunction<IsGISAXS04Para2DBuilder, ISampleBuilder>,
@@ -52,7 +51,7 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "isgisaxs06_lattice1",
         IFactoryCreateFunction<IsGISAXS06Lattice1Builder, ISampleBuilder>,
-        "2D lattice with different disorder");
+        "2D lattice with disorder");
     registerItem(
         "isgisaxs06_lattice2",
         IFactoryCreateFunction<IsGISAXS06Lattice2Builder, ISampleBuilder>,
@@ -69,25 +68,25 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "isgisaxs07",
         IFactoryCreateFunction<IsGISAXS07Builder, ISampleBuilder>,
-        "Mixture of different particles");
+        "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
-        "isgisaxs08_2DDL",
-        IFactoryCreateFunction<IsGISAXS08Para1DBuilder, ISampleBuilder>,
-        "IsGISAXS08 example, 2DDL lattice");
+        "isgisaxs08a",
+        IFactoryCreateFunction<IsGISAXS08ABuilder, ISampleBuilder>,
+        "2DDL paracrystal lattice");
 
     registerItem(
-        "isgisaxs08_2DDL2",
-        IFactoryCreateFunction<IsGISAXS08Para2DBuilder, ISampleBuilder>,
-        "IsGISAXS08 example, 2D paracrystal lattice with isotropic pdfs");
+        "isgisaxs08b",
+        IFactoryCreateFunction<IsGISAXS08BBuilder, ISampleBuilder>,
+        "2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
-        "isgisaxs09",
-        IFactoryCreateFunction<IsGISAXS09Builder, ISampleBuilder>,
+        "isgisaxs09a",
+        IFactoryCreateFunction<IsGISAXS09ABuilder, ISampleBuilder>,
         "Pyramids on top of substrate");
     registerItem(
-        "isgisaxs09_rotated",
-        IFactoryCreateFunction<IsGISAXS09RotatedBuilder, ISampleBuilder>,
+        "isgisaxs09b",
+        IFactoryCreateFunction<IsGISAXS09BBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
     registerItem(
@@ -108,11 +107,12 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "mesocrystal01",
         IFactoryCreateFunction<MesoCrystal01Builder, ISampleBuilder>,
-        "mesocrystals of cylindrical shape composed by spherical nanoparticles");
+        "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
+
     registerItem(
         "PolarizedDWBAZeroMag",
         IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,
-        "polarized DWBA with zero magnetic field");
+        "Polarized DWBA with zero magnetic field");
 
 }
 

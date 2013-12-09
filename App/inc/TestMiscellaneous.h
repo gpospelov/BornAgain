@@ -16,11 +16,11 @@
 #ifndef TESTMISCELLANEOUS_H
 #define TESTMISCELLANEOUS_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 //! Collection of functional tests for miscellaneous issues.
 
-class TestMiscellaneous : public IFunctionalTest
+class TestMiscellaneous : public IApplicationTest
 {
 public:
     TestMiscellaneous();
@@ -59,7 +59,7 @@ public:
     void test_SampleGeometry();
 
     //! testing hierarchical visitor
-    void test_HierarchicalVisitor();
+    void test_FunctionalTestRegistry();
 
 };
 

@@ -16,7 +16,7 @@
 #ifndef TESTPOLARIZEDDWBATERMS_H_
 #define TESTPOLARIZEDDWBATERMS_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 
 class FormFactorDWBAPol;
@@ -27,7 +27,7 @@ class LayerSpecularInfo;
 //! calculation (without magnetic field) to the ones in a scalar DWBA
 //! calculation.
 
-class TestPolarizedDWBATerms : public IFunctionalTest
+class TestPolarizedDWBATerms : public IApplicationTest
 {
 public:
     TestPolarizedDWBATerms();

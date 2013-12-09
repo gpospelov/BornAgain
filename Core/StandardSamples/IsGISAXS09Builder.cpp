@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // Pyramids on top of substrate
 // ----------------------------------------------------------------------------
-IsGISAXS09Builder::IsGISAXS09Builder()
+IsGISAXS09ABuilder::IsGISAXS09ABuilder()
     : m_height(5*Units::nanometer)
     , m_half_side(5*Units::nanometer)
     , m_alpha(Units::deg2rad(54.73 ))
@@ -20,7 +20,7 @@ IsGISAXS09Builder::IsGISAXS09Builder()
 }
 
 
-void IsGISAXS09Builder::init_parameters()
+void IsGISAXS09ABuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("height", &m_height);
@@ -29,7 +29,7 @@ void IsGISAXS09Builder::init_parameters()
 }
 
 
-ISample *IsGISAXS09Builder::buildSample() const
+ISample *IsGISAXS09ABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -63,7 +63,7 @@ ISample *IsGISAXS09Builder::buildSample() const
 // ----------------------------------------------------------------------------
 // Rotated pyramids on top of substrate
 // ----------------------------------------------------------------------------
-IsGISAXS09RotatedBuilder::IsGISAXS09RotatedBuilder()
+IsGISAXS09BBuilder::IsGISAXS09BBuilder()
     : m_height(5*Units::nanometer)
     , m_half_side(5*Units::nanometer)
     , m_alpha(Units::deg2rad(54.73 ))
@@ -73,7 +73,7 @@ IsGISAXS09RotatedBuilder::IsGISAXS09RotatedBuilder()
 }
 
 
-void IsGISAXS09RotatedBuilder::init_parameters()
+void IsGISAXS09BBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("height", &m_height);
@@ -83,7 +83,7 @@ void IsGISAXS09RotatedBuilder::init_parameters()
 }
 
 
-ISample *IsGISAXS09RotatedBuilder::buildSample() const
+ISample *IsGISAXS09BBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

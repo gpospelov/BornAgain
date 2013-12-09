@@ -16,7 +16,7 @@
 #ifndef TESTSPECULARMAGNETIC_H_
 #define TESTSPECULARMAGNETIC_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "SpecularMagnetic.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
@@ -25,7 +25,7 @@
 //! the magnetic matrix formalism for a typical multilayer sample and produce
 //! validation plots
 
-class TestSpecularMagnetic : public IFunctionalTest
+class TestSpecularMagnetic : public IApplicationTest
 {
 public:
     TestSpecularMagnetic();

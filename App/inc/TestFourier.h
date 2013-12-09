@@ -16,11 +16,11 @@
 #ifndef TESTFOURIER_H_
 #define TESTFOURIER_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
-class TestFourier : public IFunctionalTest
+class TestFourier : public IApplicationTest
 {
 public:
     TestFourier();

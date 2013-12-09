@@ -57,7 +57,7 @@
 //
 /* ************************************************************************* */
 TestIsGISAXS12::TestIsGISAXS12()
-    : IFunctionalTest("TestIsGISAXS12")
+    : IApplicationTest("TestIsGISAXS12")
     , m_simulation(0)
     , m_sample_builder(0)
     , m_fitSuite(0)

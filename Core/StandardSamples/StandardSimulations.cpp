@@ -3,6 +3,8 @@
 #include "Simulation.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
+#include "FileSystem.h"
+#include "OutputDataIOFactory.h"
 
 Simulation *StandardSimulations::IsGISAXS01()
 {
@@ -200,6 +202,9 @@ Simulation *StandardSimulations::IsGISAXS06L3()
 
 Simulation *StandardSimulations::IsGISAXS06L4()
 {
+    SampleBuilderFactory factory;
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice4");
+
     Simulation *result = new Simulation();
 
     result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
@@ -212,6 +217,8 @@ Simulation *StandardSimulations::IsGISAXS06L4()
     sim_params.me_if_approx = SimulationParameters::LMA;
     sim_params.me_lattice_type = SimulationParameters::LATTICE;
     result->setSimulationParameters(sim_params);
+
+    result->setSampleBuilder( builder );
 
     return result;
 }
@@ -236,10 +243,10 @@ Simulation *StandardSimulations::IsGISAXS07()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS082DDL()
+Simulation *StandardSimulations::IsGISAXS08a()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs08_2DDL");
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs08a");
 
     Simulation *result = new Simulation();
 
@@ -253,10 +260,10 @@ Simulation *StandardSimulations::IsGISAXS082DDL()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS082DDL2()
+Simulation *StandardSimulations::IsGISAXS08b()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs08_2DDL2");
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs08b");
 
     Simulation *result = new Simulation();
 
@@ -270,10 +277,10 @@ Simulation *StandardSimulations::IsGISAXS082DDL2()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS09()
+Simulation *StandardSimulations::IsGISAXS09a()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs09");
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs09a");
 
     Simulation *result = new Simulation();
 
@@ -288,10 +295,10 @@ Simulation *StandardSimulations::IsGISAXS09()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS09R()
+Simulation *StandardSimulations::IsGISAXS09b()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs09_rotated");
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs09b");
 
     Simulation *result = new Simulation();
 
@@ -368,6 +375,12 @@ Simulation *StandardSimulations::MesoCrystal01()
     Simulation *result = new Simulation();
     result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(5.0090e+12);
+
+    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi2.txt.gz";
+    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
+    result->setDetectorParameters(*reference);
+    delete reference;
+
 //    result->setDetectorResolutionFunction(
 //            new ResolutionFunction2DSimple(0.0002, 0.0002));
 

@@ -36,7 +36,7 @@ endif()
 
 # --- configure a header file to pass CMake settings to the source code
 configure_file(
-  "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h.in"
+  "${CMAKE_SOURCE_DIR}/cmake/scripts/BAVersion.h.in"
   "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
 )
 
@@ -46,6 +46,10 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/release.sh.in" "${CMAKE_BINARY
 # --- configure user setup script
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.sh" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.csh" @ONLY)
+
+# --- configure project paths
+configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_SOURCE_DIR}/Core/Tools/inc/BAConfigure.h" @ONLY)
+
 
 # --- installation
 if(NOT WIN32)

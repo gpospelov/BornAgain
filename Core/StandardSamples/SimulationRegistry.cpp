@@ -17,11 +17,9 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "isgisaxs03_ba", StandardSimulations::IsGISAXS03BA,
         "Cylinder formfactor in BA");
-
     registerItem(
         "isgisaxs03_dwba", StandardSimulations::IsGISAXS03DWBA,
         "Cylinder formfactor in DWBA");
-
     registerItem(
         "isgisaxs03_basize", StandardSimulations::IsGISAXS03BAsize,
         "Cylinder formfactor in BA with size distribution");
@@ -29,65 +27,60 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "isgisaxs04_1DDL", StandardSimulations::IsGISAXS041DDL,
         "IsGISAXS04 example, 1DDL structure factor");
-
     registerItem(
         "isgisaxs04_2DDL", StandardSimulations::IsGISAXS042DDL,
         "IsGISAXS04 example, 2DDL structure factor");
 
     registerItem(
         "isgisaxs06_lattice1", StandardSimulations::IsGISAXS06L1,
-        "IsGISAXS06 example, 2D lattice with different disorders");
+        "2D lattice with disorders");
     registerItem(
         "isgisaxs06_lattice2", StandardSimulations::IsGISAXS06L2,
-        "IsGISAXS06 example, 2D lattice centered");
+        "2D lattice centered");
     registerItem(
         "isgisaxs06_lattice3", StandardSimulations::IsGISAXS06L3,
-        "IsGISAXS06 example, 2D lattice rotated");
+        "2D lattice rotated");
     registerItem(
         "isgisaxs06_lattice4", StandardSimulations::IsGISAXS06L4,
-        "IsGISAXS06 example, 2D lattice variants");
+        "2D lattice variants");
 
     registerItem(
         "isgisaxs07", StandardSimulations::IsGISAXS07,
-        "Mixture of different particles defined in morphology file");
-
-
-    registerItem(
-        "isgisaxs08_2DDL", StandardSimulations::IsGISAXS082DDL,
-        "IsGISAXS08 example, 2DDL lattice");
+        "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
-        "isgisaxs08_2DDL2", StandardSimulations::IsGISAXS082DDL2,
-        "IsGISAXS08 example, 2DDL lattice with isotropic pdfs");
+        "isgisaxs08a", StandardSimulations::IsGISAXS08a,
+        "2DDL paracrystal lattice");
+    registerItem(
+        "isgisaxs08b", StandardSimulations::IsGISAXS08b,
+        "2DDL paracrystal lattice with isotropic pdfs");
 
     registerItem(
-        "isgisaxs09", StandardSimulations::IsGISAXS09,
-        "IsGISAXS09 example, Pyramids on top of substrate");
-
+        "isgisaxs09a", StandardSimulations::IsGISAXS09a,
+        "Pyramids on top of substrate");
     registerItem(
-        "isgisaxs09_rotated", StandardSimulations::IsGISAXS09R,
-        "IsGISAXS09 example, Rotated pyramids on top of substrate");
+        "isgisaxs09b", StandardSimulations::IsGISAXS09b,
+        "Rotated pyramids on top of substrate");
 
     registerItem(
         "isgisaxs10", StandardSimulations::IsGISAXS10,
-        "IsGISAXS10 example, Cylinders on top of substrate with interference");
+        "Cylinders with interference on top of substrate");
 
     registerItem(
         "isgisaxs11", StandardSimulations::IsGISAXS11,
-        "IsGISAXS11 example, Core shell nanoparticles");
+        "Core shell nanoparticles");
 
     registerItem(
         "isgisaxs15", StandardSimulations::IsGISAXS15,
-        "IsGISAXS15 example, Size spacing correlation approximation");
-
+        "Size spacing correlation approximation");
 
     registerItem(
         "mesocrystal01", StandardSimulations::MesoCrystal01,
-        "mesocrystals of cylindrical shape composed by spherical nanoparticles");
+        "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
 	registerItem(
         "PolarizedDWBAZeroMag", StandardSimulations::PolarizedDWBAZeroMag,
-        "polarized DWBA with zero magnetic field");
+        "Polarized DWBA with zero magnetic field");
 
 }
 

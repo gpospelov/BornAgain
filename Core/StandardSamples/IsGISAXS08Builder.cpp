@@ -7,11 +7,11 @@
 #include "Units.h"
 #include "ParticleBuilder.h"
 
-IsGISAXS08Para1DBuilder::IsGISAXS08Para1DBuilder()
+IsGISAXS08ABuilder::IsGISAXS08ABuilder()
 {
 }
 
-ISample *IsGISAXS08Para1DBuilder::buildSample() const
+ISample *IsGISAXS08ABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -52,12 +52,12 @@ ISample *IsGISAXS08Para1DBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 //
 
-IsGISAXS08Para2DBuilder::IsGISAXS08Para2DBuilder()
+IsGISAXS08BBuilder::IsGISAXS08BBuilder()
 {
 }
 
 // IsGISAXS8 functional test: 2D paracrystal lattice with isotropic pdfs
-ISample *IsGISAXS08Para2DBuilder::buildSample() const
+ISample *IsGISAXS08BBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 

@@ -16,7 +16,7 @@
 #ifndef TESTFITTINGMODULE3_H
 #define TESTFITTINGMODULE3_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 #include "Simulation.h"
@@ -30,7 +30,7 @@ class FitSuite;
 
 //! Mixture of cylinders and prisms, 4 parameters.
 //!
-class TestFittingModule3 : public IFunctionalTest
+class TestFittingModule3 : public IApplicationTest
 {
 public:
     typedef SafePointerVector<OutputData<double> >  DataScan_t;

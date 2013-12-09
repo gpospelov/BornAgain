@@ -24,7 +24,7 @@ MesoCrystal01Builder::MesoCrystal01Builder()
     , m_sigma_lattice_length_a(1.1601e+00*Units::nanometer)
     , m_surface_filling_ratio(1.7286e-01)
     , m_roughness(2.8746e+01*Units::nanometer)
-    , m_nphi_rotations(180)
+    , m_nphi_rotations(2)
 {
     init_parameters();
 }

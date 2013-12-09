@@ -17,7 +17,7 @@
 #ifndef TESTPERFORMANCE_H
 #define TESTPERFORMANCE_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "ISample.h"
 #include "Simulation.h"
 
@@ -28,16 +28,16 @@
 
 //! Run standard tests to trace changes in the performance.
 
-class TestPerformance : public IFunctionalTest
+class TestPerformance : public IApplicationTest
 {
 public:
     //! class to hold performance information over functional test
     class PerformanceTestInfo {
     public:
-        PerformanceTestInfo(IFunctionalTest *test, int nrepetitions)
+        PerformanceTestInfo(IApplicationTest *test, int nrepetitions)
             : m_test(test), m_nrepetitions(nrepetitions), m_results(0){}
         virtual ~PerformanceTestInfo(){ delete m_test; }
-        IFunctionalTest *m_test;
+        IApplicationTest *m_test;
         double m_nrepetitions;
         double m_results;
     };
@@ -66,10 +66,10 @@ private:
 
 //! @class PerfTest_SpecularMatrix
 //! measurement of the performance in specular matrix calculation
-class PerfTest_SpecularMatrix : public IFunctionalTest
+class PerfTest_SpecularMatrix : public IApplicationTest
 {
 public:
-    PerfTest_SpecularMatrix() : IFunctionalTest("SpecularMatrix"), m_sample(0){}
+    PerfTest_SpecularMatrix() : IApplicationTest("SpecularMatrix"), m_sample(0){}
     virtual ~PerfTest_SpecularMatrix() { }
     void initialise(ProgramOptions *p_options);
     void execute();
@@ -78,11 +78,11 @@ public:
 
 //! @class PerfTest_Pyramid
 //! measurement of the performance in pyramid form factor calculations
-class PerfTest_Pyramid : public IFunctionalTest
+class PerfTest_Pyramid : public IApplicationTest
 {
 public:
     PerfTest_Pyramid()
-        : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
+        : IApplicationTest("Pyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_Pyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
@@ -92,11 +92,11 @@ public:
 
 //! @class PerfTest_RotatedPyramid
 //! measurement of the performance in pyramid formfactor and in rotation mechanism
-class PerfTest_RotatedPyramid : public IFunctionalTest
+class PerfTest_RotatedPyramid : public IApplicationTest
 {
 public:
     PerfTest_RotatedPyramid()
-        : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
+        : IApplicationTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_RotatedPyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
@@ -107,11 +107,11 @@ public:
 
 //! @class PerfTest_MesoCrystal
 //! measurement of the performance iof meso crystal
-class PerfTest_MesoCrystal : public IFunctionalTest
+class PerfTest_MesoCrystal : public IApplicationTest
 {
 public:
     PerfTest_MesoCrystal()
-        : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
+        : IApplicationTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_MesoCrystal() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();

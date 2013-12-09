@@ -16,7 +16,7 @@
 #ifndef TESTMULTILAYERROUGHNESS_H
 #define TESTMULTILAYERROUGHNESS_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
@@ -24,7 +24,7 @@
 
 //! This is replacement for TestDiffuseReflection test.
 //!
-class TestMultiLayerRoughness : public IFunctionalTest
+class TestMultiLayerRoughness : public IApplicationTest
 {
 public:
     TestMultiLayerRoughness() {}

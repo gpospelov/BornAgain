@@ -80,7 +80,7 @@ SimulationRegistry::SimulationRegistry()
 
 	registerItem(
         "PolarizedDWBAZeroMag", StandardSimulations::PolarizedDWBAZeroMag,
-        "polarized DWBA with zero magnetic field");
+        "Polarized DWBA with zero magnetic field");
 
 }
 

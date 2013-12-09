@@ -81,6 +81,10 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
         "mesocrystal1_reference_v2_nphi2.txt.gz", 1e-10);
 
+    add("PolarizedDWBAZeroMag",
+        "Polarized DWBA with zero magnetic field",
+        "isgi_cylinder_DWBA.ima.gz", 1e-10);
+
 }
 
 

@@ -35,7 +35,6 @@
 #include "TestPerformance.h"
 #include "TestPolarizedDWBA.h"
 #include "TestPolarizedDWBATerms.h"
-#include "TestPolarizedDWBAZeroMag.h"
 #include "TestPolarizedMeso.h"
 #include "TestRootTree.h"
 #include "TestRoughness.h"
@@ -243,10 +242,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "polarizedDWBA",
         IFactoryCreateFunction<TestPolarizedDWBA, IApplicationTest>,
         "functional test: polarized DWBA (magnetic cylinders on substrate)");
-    p_test_factory->registerItem(
-        "polarizedDWBAZeroMag",
-        IFactoryCreateFunction<TestPolarizedDWBAZeroMag, IApplicationTest>,
-        "functional test: polarized DWBA with zero magnetic field");
     p_test_factory->registerItem(
          "polarizedDWBATerms",
          IFactoryCreateFunction<TestPolarizedDWBATerms, IApplicationTest>,

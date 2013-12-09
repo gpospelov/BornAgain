@@ -112,7 +112,7 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "PolarizedDWBAZeroMag",
         IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,
-        "polarized DWBA with zero magnetic field");
+        "Polarized DWBA with zero magnetic field");
 
 }
 

@@ -17,11 +17,9 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "isgisaxs03_ba", StandardSimulations::IsGISAXS03BA,
         "Cylinder formfactor in BA");
-
     registerItem(
         "isgisaxs03_dwba", StandardSimulations::IsGISAXS03DWBA,
         "Cylinder formfactor in DWBA");
-
     registerItem(
         "isgisaxs03_basize", StandardSimulations::IsGISAXS03BAsize,
         "Cylinder formfactor in BA with size distribution");

@@ -11,6 +11,21 @@ FunctionalTestRegistry::Catalogue::Catalogue()
     add("isgisaxs01",
         "Mixture of cylinders and prisms without interference",
         "isgisaxs01_reference.ima.gz", 2e-10);
+
+    add("isgisaxs02",
+        "Mixture cylinder particles with different size distribution",
+        "isgisaxs02_reference.ima.gz", 2e-10);
+
+    add("isgisaxs03_ba",
+        "Cylinder formfactor in BA",
+        "isgisaxs03_reference_BA.ima.gz", 2e-10);
+    add("isgisaxs03_dwba",
+        "Cylinder formfactor in DWBA",
+        "isgisaxs03_reference_DWBA.ima.gz", 2e-10);
+    add("isgisaxs03_basize",
+        "Cylinder formfactor in BA with size distribution",
+        "isgisaxs03_reference_BA_size.ima.gz", 2e-10);
+
 }
 
 

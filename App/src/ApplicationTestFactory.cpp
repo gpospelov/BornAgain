@@ -32,8 +32,6 @@
 #include "TestIsGISAXS13.h"
 #include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
-#include "TestIsGISAXS2.h"
-#include "TestIsGISAXS3.h"
 #include "TestIsGISAXS4.h"
 #include "TestIsGISAXS5.h"
 #include "TestIsGISAXS6.h"
@@ -165,15 +163,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         IFactoryCreateFunction<TestDiffuseReflection, IApplicationTest>,
         "functional test: diffuse scattering from multilayer with roughness "
         "(obsolete)");
-    p_test_factory->registerItem(
-        "isgisaxs02",
-        IFactoryCreateFunction<TestIsGISAXS2, IApplicationTest>,
-        "functional test: isgisaxs ex-2 (mean form factors for particles with "
-        "shape size distribution)");
-    p_test_factory->registerItem(
-        "isgisaxs03",
-        IFactoryCreateFunction<TestIsGISAXS3, IApplicationTest>,
-        "functional test: isgisaxs ex-3 (cylinder FF)");
     p_test_factory->registerItem(
         "isgisaxs04",
         IFactoryCreateFunction<TestIsGISAXS4, IApplicationTest>,

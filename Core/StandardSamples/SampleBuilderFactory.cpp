@@ -81,12 +81,12 @@ SampleBuilderFactory::SampleBuilderFactory()
         "2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
-        "isgisaxs09",
-        IFactoryCreateFunction<IsGISAXS09Builder, ISampleBuilder>,
+        "isgisaxs09a",
+        IFactoryCreateFunction<IsGISAXS09ABuilder, ISampleBuilder>,
         "Pyramids on top of substrate");
     registerItem(
-        "isgisaxs09_rotated",
-        IFactoryCreateFunction<IsGISAXS09RotatedBuilder, ISampleBuilder>,
+        "isgisaxs09b",
+        IFactoryCreateFunction<IsGISAXS09BBuilder, ISampleBuilder>,
         "Rotated pyramids on top of substrate");
 
     registerItem(

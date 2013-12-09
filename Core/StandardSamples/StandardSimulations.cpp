@@ -275,10 +275,10 @@ Simulation *StandardSimulations::IsGISAXS08b()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS09()
+Simulation *StandardSimulations::IsGISAXS09a()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs09");
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs09a");
 
     Simulation *result = new Simulation();
 
@@ -293,10 +293,10 @@ Simulation *StandardSimulations::IsGISAXS09()
     return result;
 }
 
-Simulation *StandardSimulations::IsGISAXS09R()
+Simulation *StandardSimulations::IsGISAXS09b()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs09_rotated");
+    ISampleBuilder *builder = factory.createBuilder("isgisaxs09b");
 
     Simulation *result = new Simulation();
 

@@ -57,12 +57,12 @@ SimulationRegistry::SimulationRegistry()
         "2DDL paracrystal lattice with isotropic pdfs");
 
     registerItem(
-        "isgisaxs09", StandardSimulations::IsGISAXS09,
-        "IsGISAXS09 example, Pyramids on top of substrate");
+        "isgisaxs09a", StandardSimulations::IsGISAXS09a,
+        "Pyramids on top of substrate");
 
     registerItem(
-        "isgisaxs09_rotated", StandardSimulations::IsGISAXS09R,
-        "IsGISAXS09 example, Rotated pyramids on top of substrate");
+        "isgisaxs09b", StandardSimulations::IsGISAXS09b,
+        "Rotated pyramids on top of substrate");
 
     registerItem(
         "isgisaxs10", StandardSimulations::IsGISAXS10,

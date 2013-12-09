@@ -33,7 +33,6 @@
 #include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
 #include "TestIsGISAXS5.h"
-#include "TestIsGISAXS9.h"
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
 #include "TestMiscellaneous.h"
@@ -164,10 +163,6 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         IFactoryCreateFunction<TestIsGISAXS5, IApplicationTest>,
         "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure "
         "factor)");
-    p_test_factory->registerItem(
-        "isgisaxs09",
-        IFactoryCreateFunction<TestIsGISAXS9, IApplicationTest>,
-        "functional test: isgisaxs ex-9 (rotated pyramid FF)");
     p_test_factory->registerItem(
         "isgisaxs10",
         IFactoryCreateFunction<TestIsGISAXS10, IApplicationTest>,

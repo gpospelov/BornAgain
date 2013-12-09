@@ -58,6 +58,12 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "2D paracrystal lattice with isotropic pdfs",
         "isgisaxs08_reference_2DDL_lattice2.ima.gz", 2e-10);
 
+    add("isgisaxs09a",
+        "Pyramids on top of substrate",
+        "isgisaxs09_reference_pyramid_Z0.ima.gz", 2e-10);
+    add("isgisaxs09b",
+        "Rotated pyramids on top of substrate",
+        "isgisaxs09_reference_pyramid_Z45.ima.gz", 2e-10);
 
 
 }

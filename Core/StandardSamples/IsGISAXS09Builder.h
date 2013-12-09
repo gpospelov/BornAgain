@@ -5,10 +5,10 @@
 
 //! The IsGISAXS09Builder class to build sample: Pyramids, rotated pyramids on
 //! top of substrate (IsGISAXS example #9)
-class IsGISAXS09Builder : public ISampleBuilder
+class IsGISAXS09ABuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS09Builder();
+    IsGISAXS09ABuilder();
     ISample *buildSample() const;
 
 protected:
@@ -21,10 +21,10 @@ private:
 };
 
 
-class IsGISAXS09RotatedBuilder : public ISampleBuilder
+class IsGISAXS09BBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS09RotatedBuilder();
+    IsGISAXS09BBuilder();
     ISample *buildSample() const;
 
 protected:

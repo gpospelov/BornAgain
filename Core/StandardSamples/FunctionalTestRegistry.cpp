@@ -1,5 +1,6 @@
 #include "FunctionalTestRegistry.h"
 #include "Exceptions.h"
+#include "Utils.h"
 #include <iostream>
 #include <iomanip>
 
@@ -105,10 +106,18 @@ void FunctionalTestRegistry::Catalogue::print()
     std::cout << "--- FunctionalTestRegistry::Catalogue::print() ---" << std::endl;
     for(catalogue_t::iterator it = m_data.begin(); it!= m_data.end(); ++it) {
         FunctionalTestInfo &info = (*it).second;
-        std::cout << std::setw(12) << std::left << info.m_name << " | "
-                  << std::setw(24) << std::left << info.m_description << " | "
-                  << std::setw(12) << std::left << info.m_reference_file << " | "
+//        std::cout << std::setw(21) << std::left << info.m_name << " | "
+//                  << std::setw(34) << std::left << info.m_description << " | "
+//                  << std::setw(12) << std::left << info.m_reference_file << " | "
+//                  << std::setw(6) << std::left  << info.m_threshold << std::endl;
+        std::cout << Utils::AdjustStringLength(info.m_name, 20) << " | "
+                  << Utils::AdjustStringLength(info.m_description, 40) << " | "
+                  << Utils::AdjustStringLength(info.m_reference_file, 40) << " | "
                   << std::setw(6) << std::left  << info.m_threshold << std::endl;
+
+
+
+
     }
 }
 

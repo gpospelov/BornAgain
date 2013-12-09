@@ -71,14 +71,14 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
-        "isgisaxs08_2DDL",
-        IFactoryCreateFunction<IsGISAXS08Para1DBuilder, ISampleBuilder>,
-        "IsGISAXS08 example, 2DDL lattice");
+        "isgisaxs08a",
+        IFactoryCreateFunction<IsGISAXS08ABuilder, ISampleBuilder>,
+        "2DDL paracrystal lattice");
 
     registerItem(
-        "isgisaxs08_2DDL2",
-        IFactoryCreateFunction<IsGISAXS08Para2DBuilder, ISampleBuilder>,
-        "IsGISAXS08 example, 2D paracrystal lattice with isotropic pdfs");
+        "isgisaxs08b",
+        IFactoryCreateFunction<IsGISAXS08BBuilder, ISampleBuilder>,
+        "2D paracrystal lattice with isotropic pdfs");
 
     registerItem(
         "isgisaxs09",

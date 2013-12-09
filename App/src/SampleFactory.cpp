@@ -51,8 +51,8 @@ SampleFactory::SampleFactory()
             StandardSamples::MultilayerSpecularMagneticTestCase);
 
     // IsGISAXS8 example: cylinders on top of substrate with paracrystal lattice structure
-    registerItem("IsGISAXS8_2DDL_lattice", StandardSamples::IsGISAXS8_2DDL_lattice);
-    registerItem("IsGISAXS8_2DDL_lattice2", StandardSamples::IsGISAXS8_2DDL_lattice2);
+//    registerItem("IsGISAXS8_2DDL_lattice", StandardSamples::IsGISAXS8_2DDL_lattice);
+//    registerItem("IsGISAXS8_2DDL_lattice2", StandardSamples::IsGISAXS8_2DDL_lattice2);
 
 
     // IsGISAXS10 example: cylinders with interference

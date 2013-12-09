@@ -254,200 +254,83 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
     return mySample;
 }
 
-// IsGISAXS ex#7: Particle mixture from morphology file.
 
-//ISample *StandardSamples::IsGISAXS7_morphology()
+
+// IsGISAXS ex#8a: 2D paracrystal lattice.
+
+//ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
 //{
 //    MultiLayer *p_multi_layer = new MultiLayer();
-//    const IMaterial *particle_material =
-//            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
 //    const IMaterial *p_air_material =
-//        MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
+//        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *particle_material =
+//            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
-//    ParticleDecoration particle_decoration;
-
-//    // add particle number 1:
-//    FormFactorBox ff1(1.0*Units::nanometer,
-//                      1.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos1(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-//    PositionParticleInfo particle_info1
-//        (new Particle(particle_material, ff1), pos1, 0.5);
-//    particle_decoration.addParticleInfo(particle_info1);
-//    // add particle number 2:
-//    FormFactorBox ff2(1.0*Units::nanometer,
-//                      2.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos2(5.0*Units::nanometer,
-//                   5.0*Units::nanometer,
-//                   0.0);
-//    Geometry::RotateZ_3D m2(10*Units::degree);
-//    PositionParticleInfo particle_info2
-//        (new Particle(particle_material, ff2, m2), pos2, 0.5);
-//    particle_decoration.addParticleInfo(particle_info2);
-//    // add particle number 3:
-//    FormFactorBox ff3(1.0*Units::nanometer,
-//                      3.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos3(-5.0*Units::nanometer,
-//                   -5.0*Units::nanometer,
-//                   0.0);
-//    Geometry::RotateZ_3D m3(20*Units::degree);
-//    PositionParticleInfo particle_info3
-//        (new Particle(particle_material, ff3, m3), pos3, 0.5);
-//    particle_decoration.addParticleInfo(particle_info3);
-//    // add particle number 4:
-//    FormFactorBox ff4(1.0*Units::nanometer,
-//                      4.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos4(5.0*Units::nanometer,
-//                   -5.0*Units::nanometer,
-//                   0.0);
-//    Geometry::RotateZ_3D m4(30*Units::degree);
-//    PositionParticleInfo particle_info4
-//        (new Particle(particle_material, ff4, m4), pos4, 0.5);
-//    particle_decoration.addParticleInfo(particle_info4);
-//    // add particle number 5:
-//    FormFactorBox ff5(1.0*Units::nanometer,
-//                      5.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos5(-5.0*Units::nanometer,
-//                   5.0*Units::nanometer,
-//                   0.0);
-//    Geometry::RotateZ_3D m5(40*Units::degree);
-//    PositionParticleInfo particle_info5
-//        (new Particle(particle_material, ff5, m5), pos5, 0.5);
-//    particle_decoration.addParticleInfo(particle_info5);
-//    // add particle number 6:
-//    FormFactorBox ff6(1.0*Units::nanometer,
-//                      1.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos6(0.0*Units::nanometer,
-//                   0.0*Units::nanometer,
-//                   0.0);
-//    Geometry::RotateZ_3D m6(50*Units::degree);
-//    PositionParticleInfo particle_info6
-//        (new Particle(particle_material, ff6, m6), pos6, 0.5);
-//    particle_decoration.addParticleInfo(particle_info6);
-//    // add particle number 7:
-//    FormFactorBox ff7(1.0*Units::nanometer,
-//                      2.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-//    Geometry::RotateZ_3D m7(60*Units::degree);
-//    PositionParticleInfo particle_info7
-//        (new Particle(particle_material, ff7, m7), pos7, 0.5);
-//    particle_decoration.addParticleInfo(particle_info7);
-//    // add particle number 8:
-//    FormFactorBox ff8(1.0*Units::nanometer,
-//                      3.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-//    Geometry::RotateZ_3D m8(70*Units::degree);
-//    PositionParticleInfo particle_info8
-//        (new Particle(particle_material, ff8, m8), pos8, 0.5);
-//    particle_decoration.addParticleInfo(particle_info8);
-//    // add particle number 9:
-//    FormFactorBox ff9(1.0*Units::nanometer,
-//                      4.0*Units::nanometer,
-//                      1.0*Units::nanometer);
-//    kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-//    Geometry::RotateZ_3D m9(80*Units::degree);
-//    PositionParticleInfo particle_info9
-//        (new Particle(particle_material, ff9, m9), pos9, 0.5);
-//    particle_decoration.addParticleInfo(particle_info9);
-//    // add particle number 10:
-//    FormFactorBox ff10(1.0*Units::nanometer,
-//                       5.0*Units::nanometer,
-//                       1.0*Units::nanometer);
-//    kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-//    Geometry::RotateZ_3D m10(90*Units::degree);
-//    PositionParticleInfo particle_info10
-//        (new Particle(particle_material, ff10, m10), pos10, 0.5);
-//    particle_decoration.addParticleInfo(particle_info10);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    InterferenceFunction2DParaCrystal *p_interference_function =
+//        new InterferenceFunction2DParaCrystal
+//        (10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
+//    p_interference_function->setDomainSizes
+//        (20.0*Units::micrometer, 20.0*Units::micrometer);
+//    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
+//    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
+//    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
+//    ParticleDecoration particle_decoration
+//        (new Particle(particle_material, new FormFactorCylinder
+//                      (5*Units::nanometer, 5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction(p_interference_function);
 
 //    air_layer.setDecoration(particle_decoration);
 
 //    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(substrate_layer);
 //    return p_multi_layer;
 //}
 
-// IsGISAXS ex#8a: 2D paracrystal lattice.
+////! IsGISAXS ex#8b: 2D paracrystal lattice with isotropic pdfs.
 
-ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    InterferenceFunction2DParaCrystal *p_interference_function =
-        new InterferenceFunction2DParaCrystal
-        (10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
-    p_interference_function->setDomainSizes
-        (20.0*Units::micrometer, 20.0*Units::micrometer);
-    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
-    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
-    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleDecoration particle_decoration
-        (new Particle(particle_material, new FormFactorCylinder
-                      (5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
+//ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material =
+//        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *particle_material =
+//            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    InterferenceFunction2DParaCrystal *p_interference_function =
+//        new InterferenceFunction2DParaCrystal
+//        (10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
+//    p_interference_function->setDomainSizes
+//        (20.0*Units::micrometer, 20.0*Units::micrometer);
+//    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);
+//    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
+//    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
+//    ParticleDecoration particle_decoration
+//        (new Particle(particle_material, new FormFactorCylinder
+//                      (5*Units::nanometer, 5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+//    air_layer.setDecoration(particle_decoration);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
-
-//! IsGISAXS ex#8b: 2D paracrystal lattice with isotropic pdfs.
-
-ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    InterferenceFunction2DParaCrystal *p_interference_function =
-        new InterferenceFunction2DParaCrystal
-        (10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
-    p_interference_function->setDomainSizes
-        (20.0*Units::micrometer, 20.0*Units::micrometer);
-    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);
-    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
-    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleDecoration particle_decoration
-        (new Particle(particle_material, new FormFactorCylinder
-                      (5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
-
-    air_layer.setDecoration(particle_decoration);
-
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(substrate_layer);
+//    return p_multi_layer;
+//}
 
 ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
 {
@@ -1186,39 +1069,4 @@ ISample *StandardSamples::PolarizedDWBATestCase()
 
     return mySample;
 }
-
-//ISample *StandardSamples::PolarizedDWBAZeroMagTestCase()
-//{
- //   MultiLayer *multi_layer = new MultiLayer();
-//
-//    kvector_t magnetic_field(0.0, 0.0, 0.0);
- //   const IMaterial *p_air_material =
-//            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
- //   const IMaterial *p_substrate_material =
-//            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-//    Layer air_layer;
-//    air_layer.setMaterial(p_air_material);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(p_substrate_material);
-//    const IMaterial *particle_material =
-//            MaterialManager::getHomogeneousMagneticMaterial(
-//                    "Particle", 6e-4, 2e-8, magnetic_field);
-//
-//    ParticleDecoration particle_decoration(
-//            new Particle(particle_material,
- //                   new FormFactorCylinder(5*Units::nanometer,
- //                                          5*Units::nanometer)));
-//
-//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-//
-//    air_layer.setDecoration(particle_decoration);
-//
-//    multi_layer->addLayer(air_layer);
-//    multi_layer->addLayer(substrate_layer);
-//
-//    return multi_layer;
-//}
-
-
-
 

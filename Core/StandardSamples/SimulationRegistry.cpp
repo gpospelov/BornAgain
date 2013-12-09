@@ -50,12 +50,11 @@ SimulationRegistry::SimulationRegistry()
 
 
     registerItem(
-        "isgisaxs08_2DDL", StandardSimulations::IsGISAXS082DDL,
-        "IsGISAXS08 example, 2DDL lattice");
-
+        "isgisaxs08a", StandardSimulations::IsGISAXS08a,
+        "2DDL paracrystal lattice");
     registerItem(
-        "isgisaxs08_2DDL2", StandardSimulations::IsGISAXS082DDL2,
-        "IsGISAXS08 example, 2DDL lattice with isotropic pdfs");
+        "isgisaxs08b", StandardSimulations::IsGISAXS08b,
+        "2DDL paracrystal lattice with isotropic pdfs");
 
     registerItem(
         "isgisaxs09", StandardSimulations::IsGISAXS09,

@@ -50,24 +50,10 @@ SampleFactory::SampleFactory()
     registerItem("MultilayerSpecularMagneticTestCase",
             StandardSamples::MultilayerSpecularMagneticTestCase);
 
-    // magnetic cylinders on substrate for polarized DWBA
-//    registerItem("PolarizedDWBATestCase",
-//            StandardSamples::PolarizedDWBATestCase);
-
-    // cylinder DWBA form factor with matrix calculation
- //   registerItem("PolarizedDWBAZeroMagTestCase",
- //           StandardSamples::PolarizedDWBAZeroMagTestCase);
-
-    // IsGISAXS7 example: particle mixture from morphology file
-    registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);
-
     // IsGISAXS8 example: cylinders on top of substrate with paracrystal lattice structure
     registerItem("IsGISAXS8_2DDL_lattice", StandardSamples::IsGISAXS8_2DDL_lattice);
     registerItem("IsGISAXS8_2DDL_lattice2", StandardSamples::IsGISAXS8_2DDL_lattice2);
 
-    // IsGISAXS9 example: pyramid and rotated pyramid
-//    registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);
-//    registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);
 
     // IsGISAXS10 example: cylinders with interference
     registerItem("IsGISAXS10_CylindersParacrystal1D", StandardSamples::IsGISAXS10_CylindersParacrystal1D);

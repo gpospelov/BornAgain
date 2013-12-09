@@ -46,7 +46,7 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem(
         "isgisaxs07", StandardSimulations::IsGISAXS07,
-        "Mixture of different particles defined in morphology file");
+        "Mixture of different particles a la IsGISAXS morphology file");
 
 
     registerItem(

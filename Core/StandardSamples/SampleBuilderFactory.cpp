@@ -68,7 +68,7 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "isgisaxs07",
         IFactoryCreateFunction<IsGISAXS07Builder, ISampleBuilder>,
-        "Mixture of different particles");
+        "Mixture of different particles a la IsGISAXS morphology file");
 
     registerItem(
         "isgisaxs08_2DDL",

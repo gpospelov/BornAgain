@@ -47,6 +47,11 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 //        "2D lattice variants",
 //        "isgisaxs06_reference_variants.ima.gz", 2e-10);
 
+    add("isgisaxs07",
+        "Mixture of different particles a la IsGISAXS morphology file",
+        "isgisaxs07_reference.ima.gz", 2e-10);
+
+
 }
 
 

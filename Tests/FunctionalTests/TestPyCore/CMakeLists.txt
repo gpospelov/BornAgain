@@ -17,6 +17,7 @@ set(list_of_tests
     "isgisaxs15.py"
     "mesocrystal1.py"
     "polarizeddwbazeromag.py"
+    "layerwithroughness.py"
 )
 
 foreach(_test ${list_of_tests})

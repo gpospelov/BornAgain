@@ -26,7 +26,7 @@ void FunctionalTests::LayerWithRoughness::run(const std::string &path_to_data)
     Simulation *simulation = sim_registry.createSimulation("LayerWithRoughness");
 
     // loading reference data
-    std::string filename = path_to_data + "layer_with_roughness.ima";
+    std::string filename = path_to_data + "layer_with_roughness.ima.gz";
     m_reference = OutputDataIOFactory::readIntensityData(filename);
 
     simulation->runSimulation();

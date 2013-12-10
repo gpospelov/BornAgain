@@ -84,7 +84,7 @@ SimulationRegistry::SimulationRegistry()
 
     registerItem(
         "LayerWithRoughness", StandardSimulations::LayerWithRoughness,
-        "layer with correlated roughness");
+        "Layers with correlated roughness");
 
 }
 

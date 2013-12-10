@@ -422,6 +422,7 @@ Simulation *StandardSimulations::LayerWithRoughness()
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
     result->setSampleBuilder( builder );
+    //result->setBeamIntensity(1e+06);
 
     return result;
 }

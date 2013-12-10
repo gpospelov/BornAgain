@@ -706,8 +706,9 @@ void IsGISAXSTools::drawOutputDataComparisonResults(
     // our calculations
     c1->cd(1); gPad->SetLogz();
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::setMinimum(hmin);
-    if(hmax>0) IsGISAXSTools::setMaximum(hmax);
+    if(hasMinimum()) IsGISAXSTools::setMinimum(hmin);
+    //if(hmax>0) IsGISAXSTools::setMaximum(hmax);
+    if(hasMaximum()) IsGISAXSTools::setMaximum(hmax);
     IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
 
     // isgisaxs data

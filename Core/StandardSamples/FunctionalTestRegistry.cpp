@@ -86,6 +86,10 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Polarized DWBA with zero magnetic field",
         "isgi_cylinder_DWBA.ima.gz", 1e-10);
 
+    add("LayerWithRoughness",
+        "Layers with correlated roughness",
+        "layer_with_roughness.ima.gz", 2e-10);
+
 }
 
 

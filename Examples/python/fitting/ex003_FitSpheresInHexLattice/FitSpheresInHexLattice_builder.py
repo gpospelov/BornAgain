@@ -88,8 +88,8 @@ def create_real_data():
     This parameters we will try to find later during the fit
     """
     sample_builder = MySampleBuilder()
-    sample_builder.setMatchedParametersValue("*radius", 5.0*nanometer)
-    sample_builder.setMatchedParametersValue("*lattice_constant", 10.0*nanometer)
+    sample_builder.setParameterValue("radius", 5.0*nanometer)
+    sample_builder.setParameterValue("lattice_constant", 10.0*nanometer)
 
     simulation = get_simulation()
     simulation.setSampleBuilder(sample_builder)
@@ -107,16 +107,6 @@ def create_real_data():
             noisy_amplitude = 0.0
         real_data[i] = noisy_amplitude
     return real_data
-
-
-def get_simulation():
-    """
-    Create GISAXS simulation with beam and detector defined
-    """
-    simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    return simulation
 
 
 class DrawObserver(IObserver):

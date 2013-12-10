@@ -33,7 +33,7 @@ int TestFit02::run()
     double cylinder_ratio(0.2);
 
     // setting sample builder to initial values
-    SampleBuilder *sample_builder = new SampleBuilder();
+    SampleBuilder_t sample_builder(new SampleBuilder());
     sample_builder->setParameterValue("cylinder_height", cylinder_height);
     sample_builder->setParameterValue("cylinder_radius", cylinder_radius);
     sample_builder->setParameterValue("prism3_half_side", prism3_half_side);
@@ -74,7 +74,6 @@ int TestFit02::run()
     fitSuite->runFit();
 
     delete simulation;
-    delete sample_builder;
     delete real_data;
 
     // ---------------------------------------------------------------

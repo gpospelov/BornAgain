@@ -9,7 +9,7 @@
 Simulation *StandardSimulations::IsGISAXS01()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs01");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
 
     Simulation *result = new Simulation();
 
@@ -27,7 +27,7 @@ Simulation *StandardSimulations::IsGISAXS01()
 Simulation *StandardSimulations::IsGISAXS02()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs02");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs02");
 
     Simulation *result = new Simulation();
 
@@ -44,7 +44,7 @@ Simulation *StandardSimulations::IsGISAXS02()
 Simulation *StandardSimulations::IsGISAXS03BA()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs03_ba");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs03_ba");
 
     Simulation *result = new Simulation();
 
@@ -62,7 +62,7 @@ Simulation *StandardSimulations::IsGISAXS03BA()
 Simulation *StandardSimulations::IsGISAXS03DWBA()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs03_dwba");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs03_dwba");
 
     Simulation *result = new Simulation();
 
@@ -81,7 +81,7 @@ Simulation *StandardSimulations::IsGISAXS03DWBA()
 Simulation *StandardSimulations::IsGISAXS03BAsize()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs03_basize");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs03_basize");
 
     Simulation *result = new Simulation();
 
@@ -99,7 +99,7 @@ Simulation *StandardSimulations::IsGISAXS03BAsize()
 Simulation *StandardSimulations::IsGISAXS041DDL()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs04_1DDL");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
 
     Simulation *result = new Simulation();
 
@@ -117,7 +117,7 @@ Simulation *StandardSimulations::IsGISAXS041DDL()
 Simulation *StandardSimulations::IsGISAXS042DDL()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs04_2DDL");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
 
     Simulation *result = new Simulation();
 
@@ -134,7 +134,7 @@ Simulation *StandardSimulations::IsGISAXS042DDL()
 Simulation *StandardSimulations::IsGISAXS06L1()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice1");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice1");
 
     Simulation *result = new Simulation();
 
@@ -157,7 +157,7 @@ Simulation *StandardSimulations::IsGISAXS06L1()
 Simulation *StandardSimulations::IsGISAXS06L2()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice2");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice2");
 
     Simulation *result = new Simulation();
 
@@ -180,7 +180,7 @@ Simulation *StandardSimulations::IsGISAXS06L2()
 Simulation *StandardSimulations::IsGISAXS06L3()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice3");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice3");
 
     Simulation *result = new Simulation();
 
@@ -203,7 +203,7 @@ Simulation *StandardSimulations::IsGISAXS06L3()
 Simulation *StandardSimulations::IsGISAXS06L4()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs06_lattice4");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice4");
 
     Simulation *result = new Simulation();
 
@@ -226,7 +226,7 @@ Simulation *StandardSimulations::IsGISAXS06L4()
 Simulation *StandardSimulations::IsGISAXS07()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs07");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs07");
 
     Simulation *result = new Simulation();
 
@@ -246,7 +246,7 @@ Simulation *StandardSimulations::IsGISAXS07()
 Simulation *StandardSimulations::IsGISAXS08a()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs08a");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs08a");
 
     Simulation *result = new Simulation();
 
@@ -263,7 +263,7 @@ Simulation *StandardSimulations::IsGISAXS08a()
 Simulation *StandardSimulations::IsGISAXS08b()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs08b");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs08b");
 
     Simulation *result = new Simulation();
 
@@ -280,7 +280,7 @@ Simulation *StandardSimulations::IsGISAXS08b()
 Simulation *StandardSimulations::IsGISAXS09a()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs09a");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs09a");
 
     Simulation *result = new Simulation();
 
@@ -298,7 +298,7 @@ Simulation *StandardSimulations::IsGISAXS09a()
 Simulation *StandardSimulations::IsGISAXS09b()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs09b");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs09b");
 
     Simulation *result = new Simulation();
 
@@ -316,7 +316,7 @@ Simulation *StandardSimulations::IsGISAXS09b()
 Simulation *StandardSimulations::IsGISAXS10()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs10");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs10");
 
     Simulation *result = new Simulation();
 
@@ -333,7 +333,7 @@ Simulation *StandardSimulations::IsGISAXS10()
 Simulation *StandardSimulations::IsGISAXS11()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs11");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
 
     Simulation *result = new Simulation();
 
@@ -350,7 +350,7 @@ Simulation *StandardSimulations::IsGISAXS11()
 Simulation *StandardSimulations::IsGISAXS15()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("isgisaxs15");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs15");
 
     Simulation *result = new Simulation();
 
@@ -370,7 +370,7 @@ Simulation *StandardSimulations::IsGISAXS15()
 Simulation *StandardSimulations::MesoCrystal01()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("mesocrystal01");
+    SampleBuilder_t builder = factory.createBuilder("mesocrystal01");
 
     Simulation *result = new Simulation();
     result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
@@ -393,7 +393,7 @@ Simulation *StandardSimulations::MesoCrystal01()
 Simulation *StandardSimulations::PolarizedDWBAZeroMag()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("PolarizedDWBAZeroMag");
+    SampleBuilder_t builder = factory.createBuilder("PolarizedDWBAZeroMag");
 
     Simulation *result = new Simulation();
 
@@ -411,7 +411,7 @@ Simulation *StandardSimulations::PolarizedDWBAZeroMag()
 Simulation *StandardSimulations::LayerWithRoughness()
 {
     SampleBuilderFactory factory;
-    ISampleBuilder *builder = factory.createBuilder("LayerWithRoughness");
+    SampleBuilder_t builder = factory.createBuilder("LayerWithRoughness");
 
     Simulation *result = new Simulation();
 

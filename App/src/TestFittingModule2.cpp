@@ -48,11 +48,9 @@ TestFittingModule2::TestFittingModule2()
     : mp_real_data(0)
     , mp_simulated_data(0)
     , mp_simulation(0)
-    , mp_sample_builder(0)
+    , mp_sample_builder( new SampleBuilder())
     , m_fitSuite(0)
 {
-    mp_sample_builder = new SampleBuilder();
-
     // setting up fitSuite
     m_fitSuite = new FitSuite();
     m_fitSuite->setMinimizer(
@@ -71,7 +69,6 @@ TestFittingModule2::~TestFittingModule2()
     delete mp_real_data;
     delete mp_simulated_data;
     delete mp_simulation;
-    delete mp_sample_builder;
     delete m_fitSuite;
 }
 

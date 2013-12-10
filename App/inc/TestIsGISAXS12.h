@@ -84,7 +84,7 @@ private:
     void print_axes(IsGISAXSData::DataSet_t& data);
 
     Simulation *m_simulation;
-    ISampleBuilder *m_sample_builder;
+    SampleBuilder_t m_sample_builder;
     FitSuite *m_fitSuite;
 };
 

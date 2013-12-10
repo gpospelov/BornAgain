@@ -125,15 +125,14 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
-    ISampleBuilder *builder = createItem(name);
+    SampleBuilder_t builder(createItem(name));
     ISample *result = builder->buildSample();
-    delete builder;
     return result;
 }
 
 
-ISampleBuilder *SampleBuilderFactory::createBuilder(const std::string& name)
+SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
 {
-    ISampleBuilder *result = createItem(name);
+    SampleBuilder_t result(createItem(name));
     return result;
 }

@@ -17,6 +17,8 @@
 #define ISAMPLEBUILDER_H_
 
 #include "ISample.h"
+#include <boost/shared_ptr.hpp>
+
 
 class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
@@ -28,6 +30,8 @@ public:
         throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 protected:
 };
+
+typedef boost::shared_ptr<class ISampleBuilder > SampleBuilder_t;
 
 #endif /* ISAMPLEBUILDER_H_ */
 

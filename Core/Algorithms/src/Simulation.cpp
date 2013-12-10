@@ -31,7 +31,7 @@ GCC_DIAG_ON(strict-aliasing);
 Simulation::Simulation()
 : IParameterized("Simulation")
 , mp_sample(0)
-, mp_sample_builder(0)
+//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_polarization_output()
@@ -62,7 +62,7 @@ Simulation::Simulation(const Simulation& other)
 Simulation::Simulation(const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
-, mp_sample_builder(0)
+//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_polarization_output()
@@ -76,7 +76,7 @@ Simulation::Simulation(
     const ISample& p_sample, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(p_sample.clone())
-, mp_sample_builder(0)
+//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_polarization_output()
@@ -87,7 +87,7 @@ Simulation::Simulation(
 }
 
 Simulation::Simulation(
-    ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
+    SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
@@ -253,12 +253,13 @@ void Simulation::setSample(const ISample& sample)
     mp_sample = sample.clone();
 }
 
-void Simulation::setSampleBuilder(ISampleBuilder *p_sample_builder)
+void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
 {
-    if( !p_sample_builder )
+    if( !p_sample_builder.get() )
         throw NullPointerException(
             "Simulation::setSampleBuilder() -> "
             "Error! Attempt to set null sample builder.");
+
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
     mp_sample = 0;
@@ -291,7 +292,7 @@ std::string Simulation::addParametersToExternalPool(
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    if (mp_sample_builder) {
+    if (mp_sample_builder.get()) {
        // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(
             new_path, external_pool, -1);
@@ -349,7 +350,7 @@ void Simulation::updateIntensityMapAxes()
 
 void Simulation::updateSample()
 {
-    if (mp_sample_builder) {
+    if (mp_sample_builder.get()) {
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {

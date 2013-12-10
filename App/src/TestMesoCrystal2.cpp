@@ -53,18 +53,16 @@
 /* ************************************************************************* */
 TestMesoCrystal2::TestMesoCrystal2()
     : m_real_data(0)
-    , m_sample_builder(0)
+    , m_sample_builder(new SampleBuilder)
     , m_simulation(0)
     , m_fitSuite(0)
 {
-    m_sample_builder = new SampleBuilder;
 }
 
 
 TestMesoCrystal2::~TestMesoCrystal2()
 {
     delete m_real_data;
-    delete m_sample_builder;
     delete m_simulation;
     delete m_fitSuite;
 }

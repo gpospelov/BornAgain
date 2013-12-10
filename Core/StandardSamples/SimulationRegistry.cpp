@@ -82,6 +82,10 @@ SimulationRegistry::SimulationRegistry()
         "PolarizedDWBAZeroMag", StandardSimulations::PolarizedDWBAZeroMag,
         "Polarized DWBA with zero magnetic field");
 
+    registerItem(
+        "LayerWithRoughness", StandardSimulations::LayerWithRoughness,
+        "layer with correlated roughness");
+
 }
 
 

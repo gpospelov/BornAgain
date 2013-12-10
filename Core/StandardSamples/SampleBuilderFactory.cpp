@@ -12,6 +12,7 @@
 #include "IsGISAXS15Builder.h"
 #include "MesoCrystal01Builder.h"
 #include "PolarizedDWBAZeroMagBuilder.h"
+#include "LayerRoughnessBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -113,6 +114,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "PolarizedDWBAZeroMag",
         IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,
         "Polarized DWBA with zero magnetic field");
+
+    registerItem(
+        "LayerWithRoughness",
+        IFactoryCreateFunction<LayerRoughnessBuilder, ISampleBuilder>,
+        "Layer with correlated roughness");
 
 }
 

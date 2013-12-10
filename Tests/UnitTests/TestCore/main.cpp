@@ -24,6 +24,8 @@
 #include "LayerRoughnessTest.h"
 #include "ParticleInfoTest.h"
 #include "LLDataTest.h"
+#include "TRangeTest.h"
+#include "AxisBinTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

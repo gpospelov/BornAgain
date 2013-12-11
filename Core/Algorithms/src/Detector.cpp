@@ -62,8 +62,8 @@ void Detector::addAxis(const AxisParameters& axis_params)
     {
         p_new_axis = new AxisBin(axis_params.m_name,
                                  axis_params.m_range.getNSamples(),
-                                 axis_params.m_range.getMin(),
-                                 axis_params.m_range.getMax());
+                                 axis_params.m_range.getLowerBound(),
+                                 axis_params.m_range.getUpperBound());
         break;
     }
     case AxisParameters::E_ISGISAXS:
@@ -168,15 +168,15 @@ void Detector::initializeAnglesIsgisaxs(
     AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
 {
     if (axis_range.getNSamples()>1) {
-        double start_sin = std::sin(axis_range.getMin());
-        double end_sin = std::sin(axis_range.getMax());
+        double start_sin = std::sin(axis_range.getLowerBound());
+        double end_sin = std::sin(axis_range.getUpperBound());
         double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
         for(size_t i=0; i<axis_range.getNSamples(); ++i) {
             p_axis->push_back(std::asin(start_sin + step*i));
         }
     }
     else {
-        p_axis->push_back((axis_range.getMax()-axis_range.getMin())/2.0);
+        p_axis->push_back((axis_range.getUpperBound()-axis_range.getLowerBound())/2.0);
     }
 }
 

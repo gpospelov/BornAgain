@@ -133,7 +133,7 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
     if (size < (size_t)max_nbr_angles) {
         max_radius *= (double)size/max_nbr_angles;
     }
-    double radius = std::max(max_radius, z_range.getMax());
+    double radius = std::max(max_radius, z_range.getUpperBound());
 
     computeReciprocalLatticeVectorsWithinRadius(kvector_t(0.0, 0.0, 0.0), radius);
     const KVectorContainer& rec_vectors = getKVectorContainer();

@@ -42,18 +42,18 @@ TRangeTest::~TRangeTest()
     delete doubleSampledRange;
 }
 
-TEST_F(TRangeTest, TRangeTestMin)
+TEST_F(TRangeTest, TRangeTestLowerBound)
 {
-    EXPECT_EQ(1, intRange->getMin());
-    EXPECT_EQ(101.0f, floatRange->getMin());
-    EXPECT_EQ(201.0, doubleRange->getMin());
+    EXPECT_EQ(1, intRange->getLowerBound());
+    EXPECT_EQ(101.0f, floatRange->getLowerBound());
+    EXPECT_EQ(201.0, doubleRange->getLowerBound());
 }
 
-TEST_F(TRangeTest, TRangeTestMax)
+TEST_F(TRangeTest, TRangeTestUpperBound)
 {
-    EXPECT_EQ(100, intRange->getMax());
-    EXPECT_EQ(200.0f, floatRange->getMax());
-    EXPECT_EQ(300.0, doubleRange->getMax());
+    EXPECT_EQ(100, intRange->getUpperBound());
+    EXPECT_EQ(200.0f, floatRange->getUpperBound());
+    EXPECT_EQ(300.0, doubleRange->getUpperBound());
 
 }
 

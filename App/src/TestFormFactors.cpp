@@ -34,61 +34,93 @@ TestFormFactors::TestFormFactors()
 }
 
 void TestFormFactors::execute()
-{
+{  // no rotation of particles angle =54.73deg
+   // For Cone6 and prism6 radius = 2./sqrt(3.)R_{IsGiSaXs}
+   // Length unit : nanometers
    //Cylinder
    FormFactorCylinder ff_cyl(5.0, 5.0);
-   IFormFactor* p_form_factor0 =& ff_cyl;
-   run_isgisaxs_simulation(p_form_factor0->clone());
+   IFormFactor* p_ff_cyl =& ff_cyl;
+   run_isgisaxs_simulation(p_ff_cyl->clone());
 
    //Box
    FormFactorBox ff_box(10.0, 20.0, 5.0);
-   IFormFactor* p_form_factor1 =& ff_box;
-   run_isgisaxs_simulation(p_form_factor1->clone());
+   IFormFactor* p_ff_box =& ff_box;
+   run_isgisaxs_simulation(p_ff_box->clone());
 
    //Cone
    FormFactorCone ff_cone(5.0, 5.0, Units::deg2rad(54.73 ));
-   IFormFactor* p_form_factor2 =& ff_cone;
-   run_isgisaxs_simulation(p_form_factor2->clone());
+   IFormFactor* p_ff_cone =& ff_cone;
+   run_isgisaxs_simulation(p_ff_cone->clone());
 
    //Cone6
    FormFactorCone6 ff_cone6(2./sqrt(3.)*5.0, 5.0, Units::deg2rad(54.73));
-   IFormFactor* p_form_factor3 =& ff_cone6;
-   run_isgisaxs_simulation(p_form_factor3->clone());
+   IFormFactor* p_ff_cone6 =& ff_cone6;
+   run_isgisaxs_simulation(p_ff_cone6->clone());
 
    //FullSphere
    FormFactorFullSphere ff_fsph(5.0);
-   IFormFactor* p_form_factor4 =& ff_fsph;
-   run_isgisaxs_simulation(p_form_factor4->clone());
+   IFormFactor* p_ff_fsph =& ff_fsph;
+   run_isgisaxs_simulation(p_ff_fsph->clone());
 
    //Parallelepiped
    FormFactorParallelepiped ff_par(5.0, 5.0);
-   IFormFactor* p_form_factor5 =& ff_par;
-   run_isgisaxs_simulation(p_form_factor5->clone());
+   IFormFactor* p_ff_par =& ff_par;
+   run_isgisaxs_simulation(p_ff_par->clone());
 
    //Prism3
    FormFactorPrism3 ff_pr3(5.0, 5.0);
-   IFormFactor* p_form_factor6 =& ff_pr3;
-   run_isgisaxs_simulation(p_form_factor6->clone());
+   IFormFactor* p_ff_pr3 =& ff_pr3;
+   run_isgisaxs_simulation(p_ff_pr3->clone());
 
    //Prism6
    FormFactorPrism6 ff_pr6(2./sqrt(3.)*5.0, 5.0);
-   IFormFactor* p_form_factor7 =& ff_pr6;
-   run_isgisaxs_simulation(p_form_factor7->clone());
+   IFormFactor* p_ff_pr6 =& ff_pr6;
+   run_isgisaxs_simulation(p_ff_pr6->clone());
 
    //Pyramid
    FormFactorPyramid ff_pyr(5.0, 5.0, Units::deg2rad(54.73 ));
-   IFormFactor* p_form_factor8 =& ff_pyr;
-   run_isgisaxs_simulation(p_form_factor8->clone());
+   IFormFactor* p_ff_pyr =& ff_pyr;
+   run_isgisaxs_simulation(p_ff_pyr->clone());
 
    //Sphere
    FormFactorSphere ff_sph(5.0, 5.0);
-   IFormFactor* p_form_factor9 =& ff_sph;
-   run_isgisaxs_simulation(p_form_factor9->clone());
+   IFormFactor* p_ff_sph =& ff_sph;
+   run_isgisaxs_simulation(p_ff_sph->clone());
 
    // Tetrahedron
-   FormFactorTetrahedron ff_tetr(5.0, 5.0, Units::deg2rad(54.73 ));
-   IFormFactor* p_form_factor10 =& ff_tetr;
-   run_isgisaxs_simulation(p_form_factor10->clone());
+   FormFactorTetrahedron ff_tetr(5.0, 4.0, Units::deg2rad(54.73 ));
+   IFormFactor* p_ff_tetr =& ff_tetr;
+   run_isgisaxs_simulation(p_ff_tetr->clone());
+
+   // Cuboctahedron
+   FormFactorCuboctahedron ff_cuboc(5.0, 5.0, 1.0, Units::deg2rad(54.73 ));
+   IFormFactor* p_ff_cuboc =& ff_cuboc;
+   run_isgisaxs_simulation(p_ff_cuboc->clone());
+
+   // Anisotropic Pyramid
+   FormFactorAnisoPyramid ff_anipyr(10.0, 20.0, 5.0, Units::deg2rad(54.73 ));
+   IFormFactor* p_ff_anipyr =& ff_anipyr;
+   run_isgisaxs_simulation(p_ff_anipyr->clone());
+
+   // Ellipsoidal cylinder
+   FormFactorEllipsoidalCylinder ff_ellipscyl(5.0, 10.0, 5.0);
+   IFormFactor* p_ff_ellipscyl =& ff_ellipscyl;
+   run_isgisaxs_simulation(p_ff_ellipscyl->clone());
+
+   // Full Spheroid
+    FormFactorFullSpheroid ff_fspheroid(5.0, 5.0);
+    IFormFactor* p_ff_fspheroid =& ff_fspheroid;
+    run_isgisaxs_simulation(p_ff_fspheroid->clone());
+
+   // Spheroid
+   FormFactorSpheroid  ff_spheroid(5.0, 5.0, 1.0);
+   IFormFactor* p_ff_spheroid =& ff_spheroid;
+   run_isgisaxs_simulation(p_ff_spheroid->clone());
+
+   // Anisotropic HemiEllipsoid
+   FormFactorHemiEllipsoid  ff_hellipsoid(5.0, 10.0, 5.0);
+   IFormFactor* p_ff_hellipsoid=& ff_hellipsoid;
+   run_isgisaxs_simulation(p_ff_hellipsoid->clone());
 }
 
 
@@ -99,9 +131,7 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    // R=H=5nm W=2R, no rotation of particles angle =54.73deg
-    // For Cone6 and prism6 radius = 2./sqrt(3.)R_{IsGiSaXs}
-    // Length unit : nanometers
+
 
     //building sample
     MultiLayer multi_layer;
@@ -197,8 +227,8 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
 
 void TestFormFactors::finalise()
 {
-    std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_BA.ima",
+   std::vector< CompareStruct > tocompare;
+   tocompare.push_back( CompareStruct(getOutputPath()+"isgi_cylinder_BA.ima",
             "this_Cylinder_BA.ima",
             "Cylinder BA Formfactor"));
 
@@ -235,6 +265,28 @@ void TestFormFactors::finalise()
                                        "isgi_tetrahedron_BA.ima",
             "this_Tetrahedron_BA.ima","Tetrahedron BA Formfactor"));
 
+    tocompare.push_back( CompareStruct(getOutputPath()+
+                                        "isgi_cuboctahedron_BA.ima",
+         "this_Cuboctahedron_BA.ima","Cuboctahedron BA Formfactor"));
+
+    tocompare.push_back( CompareStruct(getOutputPath()+
+                                          "isgi_aniso_pyramid_BA.ima",
+          "this_AnisoPyramid_BA.ima", "AnisoPyramid BA Formfactor"));
+
+    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_ellipsoid_BA.ima",
+        "this_EllipsoidalCylinder_BA.ima","EllipsoidalCylinder BA Formfactor"));
+
+    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_full_spheroid_BA.ima",
+         "this_FullSpheroid_BA.ima", "FullSpheroid BA Formfactor"));
+
+    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_spheroid_BA.ima",
+         "this_Spheroid_BA.ima", "Spheroid BA Formfactor"));
+
+    tocompare.push_back( CompareStruct(getOutputPath()+
+                                       "isgi_hemi_ellipsoid_BA.ima","this_HemiEllipsoid_BA.ima",
+          "HemiEllipsoid BA Formfactor"));
+
+
     const double threshold(2e-10);
 
     for(size_t i=0; i<tocompare.size(); ++i) {
@@ -255,9 +307,10 @@ void TestFormFactors::finalise()
             diff+= std::fabs(*it);
         }
         diff /= our_data->getAllocatedSize();
+
         bool status_ok(true);
         if( diff > threshold || MathFunctions::isnan(diff) ) status_ok=false;
-        std::cout << m_name  << tocompare[i].descr<<" " <<
+        std::cout << m_name  << tocompare[i].descr<<" " << diff << " " <<
             (status_ok ? "[OK]" : "[FAILED]") << std::endl;
 
         delete isgi_data;

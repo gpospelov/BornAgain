@@ -10,18 +10,21 @@
 #include "Bin1D.pypp.h" 
 #include "Bin1DCVector.pypp.h" 
 #include "Crystal.pypp.h" 
+#include "cvector_t.pypp.h" 
 #include "Detector.pypp.h" 
-#include "FTDistribution2DCauchy.pypp.h" 
+#include "FormFactorAnisoPyramid.pypp.h" 
 #include "FormFactorBox.pypp.h" 
 #include "FormFactorCone.pypp.h" 
+#include "FormFactorCone6.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
+#include "FormFactorCuboctahedron.pypp.h" 
 #include "FormFactorCylinder.pypp.h" 
 #include "FormFactorDecoratorDebyeWaller.pypp.h" 
-#include "FormFactorEllipsoid.pypp.h" 
+#include "FormFactorEllipsoidalCylinder.pypp.h" 
 #include "FormFactorFullSphere.pypp.h" 
 #include "FormFactorFullSpheroid.pypp.h" 
 #include "FormFactorGauss.pypp.h" 
-#include "FormFactorHemiSpheroid.pypp.h" 
+#include "FormFactorHemiEllipsoid.pypp.h" 
 #include "FormFactorLorentz.pypp.h" 
 #include "FormFactorParallelepiped.pypp.h" 
 #include "FormFactorPrism3.pypp.h" 
@@ -29,6 +32,8 @@
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphere.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
+#include "FormFactorSpheroid.pypp.h" 
+#include "FTDistribution2DCauchy.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
 #include "IAxis.pypp.h" 
 #include "ICloneable.pypp.h" 
@@ -36,12 +41,18 @@
 #include "ICompositeSample.pypp.h" 
 #include "IDecoration.pypp.h" 
 #include "IDetectorResolution.pypp.h" 
-#include "IFTDistribution2D.pypp.h" 
 #include "IFormFactor.pypp.h" 
 #include "IFormFactorBorn.pypp.h" 
 #include "IFormFactorDecorator.pypp.h" 
+#include "IFTDistribution2D.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "IMaterial.pypp.h" 
+#include "Instrument.pypp.h" 
+#include "IntensityData.pypp.h" 
+#include "InterferenceFunction1DParaCrystal.pypp.h" 
+#include "InterferenceFunction2DLattice.pypp.h" 
+#include "InterferenceFunction2DParaCrystal.pypp.h" 
+#include "InterferenceFunctionNone.pypp.h" 
 #include "IObservable.pypp.h" 
 #include "IObserver.pypp.h" 
 #include "IParameterized.pypp.h" 
@@ -50,12 +61,7 @@
 #include "ISampleBuilder.pypp.h" 
 #include "ISelectionRule.pypp.h" 
 #include "ITransform3D.pypp.h" 
-#include "Instrument.pypp.h" 
-#include "IntensityData.pypp.h" 
-#include "InterferenceFunction1DParaCrystal.pypp.h" 
-#include "InterferenceFunction2DLattice.pypp.h" 
-#include "InterferenceFunction2DParaCrystal.pypp.h" 
-#include "InterferenceFunctionNone.pypp.h" 
+#include "kvector_t.pypp.h" 
 #include "Lattice.pypp.h" 
 #include "Lattice2DIFParameters.pypp.h" 
 #include "LatticeBasis.pypp.h" 
@@ -86,8 +92,6 @@
 #include "StochasticDoubleGaussian.pypp.h" 
 #include "StochasticParameter_t.pypp.h" 
 #include "StochasticSampledParameter.pypp.h" 
-#include "cvector_t.pypp.h" 
-#include "kvector_t.pypp.h" 
 #include "vdouble1d_t.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
 #include "vector_integer_t.pypp.h" 
@@ -124,17 +128,20 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FTDistribution2DCauchy_class();
     register_IFormFactor_class();
     register_IFormFactorBorn_class();
+    register_FormFactorAnisoPyramid_class();
     register_FormFactorBox_class();
     register_FormFactorCone_class();
+    register_FormFactorCone6_class();
     register_FormFactorCrystal_class();
+    register_FormFactorCuboctahedron_class();
     register_FormFactorCylinder_class();
     register_IFormFactorDecorator_class();
     register_FormFactorDecoratorDebyeWaller_class();
-    register_FormFactorEllipsoid_class();
+    register_FormFactorEllipsoidalCylinder_class();
     register_FormFactorFullSphere_class();
     register_FormFactorFullSpheroid_class();
     register_FormFactorGauss_class();
-    register_FormFactorHemiSpheroid_class();
+    register_FormFactorHemiEllipsoid_class();
     register_FormFactorLorentz_class();
     register_FormFactorParallelepiped_class();
     register_FormFactorPrism3_class();
@@ -142,6 +149,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPyramid_class();
     register_FormFactorSphere_class();
     register_FormFactorSphereGaussianRadius_class();
+    register_FormFactorSpheroid_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_ITransform3D_class();

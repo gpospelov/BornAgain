@@ -92,24 +92,53 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "Tetrahedron")
     m_results[kTest_Tetrahedron] = simulation.getIntensityData();
 
+    if (mp_form_factor->getName().substr(10) == "Cuboctahedron")
+    m_results[kTest_Cuboctahedron] = simulation.getIntensityData();
+
+    if (mp_form_factor->getName().substr(10) == "AnisoPyramid")
+     m_results[kTest_AnisoPyramid] = simulation.getIntensityData();
+
+    if (mp_form_factor->getName().substr(10) == "EllipsoidalCylinder")
+    m_results[kTest_Ellipscyl] = simulation.getIntensityData();
+
+   if (mp_form_factor->getName().substr(10) == "FullSpheroid")
+    m_results[kTest_FullSpheroid] = simulation.getIntensityData();
+
+   if (mp_form_factor->getName().substr(10) == "Spheroid")
+    m_results[kTest_Spheroid] = simulation.getIntensityData();
+
+   if (mp_form_factor->getName().substr(10) == "HemiEllipsoid")
+    m_results[kTest_HemiEllipsoid] = simulation.getIntensityData();
+
 }
 
-
 int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to_data)
-{
+{         
     const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] =
-    {"isgi_reference_cylinder_BA.ima.gz","isgi_reference_box_BA.ima.gz",
-     "isgi_reference_cone_BA.ima.gz","isgi_reference_cone6_BA.ima.gz",
-     "isgi_reference_full_sphere_BA.ima.gz","isgi_reference_parallelepiped_BA.ima.gz",
-     "isgi_reference_prism3_BA.ima.gz","isgi_reference_prism6_BA.ima.gz",
-     "isgi_reference_pyramid_BA.ima.gz","isgi_reference_sphere_BA.ima.gz",
-     "isgi_reference_tetrahedron_BA.ima.gz"};
+    {"isgi_reference_cylinder_BA.ima.gz",
+     "isgi_reference_box_BA.ima.gz",
+     "isgi_reference_cone_BA.ima.gz",
+     "isgi_reference_cone6_BA.ima.gz",
+     "isgi_reference_full_sphere_BA.ima.gz",
+     "isgi_reference_parallelepiped_BA.ima.gz",
+     "isgi_reference_prism3_BA.ima.gz",
+     "isgi_reference_prism6_BA.ima.gz",
+     "isgi_reference_pyramid_BA.ima.gz",
+     "isgi_reference_sphere_BA.ima.gz",
+     "isgi_reference_tetrahedron_BA.ima.gz",
+     "isgi_reference_cuboctahedron_BA.ima.gz",
+     "isgi_reference_anisopyramid_BA.ima.gz",
+     "isgi_reference_ellipscylinder_BA.ima.gz",
+     "isgi_reference_full_spheroid_BA.ima.gz",
+     "isgi_reference_spheroid_BA.ima.gz",
+     "isgi_reference_hemiellipsoid_BA.ima.gz"};
     bool status_ok(true);
 
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-       OutputData<double> *reference = OutputDataIOFactory::readIntensityData(path_to_data + reference_files[i_test]);
+       OutputData<double> *reference = OutputDataIOFactory::readIntensityData(
+                   path_to_data + reference_files[i_test]);
        OutputData<double> *result = m_results[i_test];
 
        // calculating average relative difference
@@ -118,7 +147,8 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
        delete reference;
 
        double diff(0);
-       for(OutputData<double>::const_iterator it=result->begin(); it!=result->end(); ++it) {
+       for(OutputData<double>::const_iterator it=result->begin();
+           it!=result->end(); ++it) {
             diff+= std::fabs(*it);
         }
      diff /= result->getAllocatedSize();
@@ -126,7 +156,8 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
 
     }
 
-    std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+   /* std::cout << m_name << " " << m_description << " "
+              << (status_ok ? "[OK]" : "[FAILED]") << std::endl;*/
     return (status_ok ? 0 : 1);
 }
 
@@ -135,7 +166,8 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-   return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/", argv[0]);
+   return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/",
+                                           argv[0]);
 }
 
 int main(int argc, char **argv)
@@ -143,58 +175,88 @@ int main(int argc, char **argv)
     FunctionalTests::FTestFormFactors test;
     //Cylinder
     FormFactorCylinder ff_cyl(5.0, 5.0);
-    IFormFactor* p_form_factor0 =& ff_cyl;
-    test.run(p_form_factor0->clone());
+    IFormFactor* p_ff_cyl =& ff_cyl;
+    test.run(p_ff_cyl->clone());
 
     //Box
     FormFactorBox ff_box(10.0, 20.0, 5.0);
-    IFormFactor* p_form_factor1 =& ff_box;
-    test.run(p_form_factor1->clone());
+    IFormFactor* p_ff_box =& ff_box;
+    test.run(p_ff_box->clone());
 
     //Cone
     FormFactorCone ff_cone(5.0, 5.0, Units::deg2rad(54.73 ));
-    IFormFactor* p_form_factor2 =& ff_cone;
-    test.run(p_form_factor2->clone());
+    IFormFactor* p_ff_cone =& ff_cone;
+    test.run(p_ff_cone->clone());
 
     //Cone6
     FormFactorCone6 ff_cone6(2./sqrt(3.)*5.0, 5.0, Units::deg2rad(54.73));
-    IFormFactor* p_form_factor3 =& ff_cone6;
-    test.run(p_form_factor3->clone());
+    IFormFactor* p_ff_cone6 =& ff_cone6;
+    test.run(p_ff_cone6->clone());
 
     //FullSphere
     FormFactorFullSphere ff_fsph(5.0);
-    IFormFactor* p_form_factor4 =& ff_fsph;
-    test.run(p_form_factor4->clone());
+    IFormFactor* p_ff_fsph =& ff_fsph;
+    test.run(p_ff_fsph->clone());
 
     //Parallelepiped
     FormFactorParallelepiped ff_par(5.0, 5.0);
-    IFormFactor* p_form_factor5 =& ff_par;
-    test.run(p_form_factor5->clone());
+    IFormFactor* p_ff_par =& ff_par;
+    test.run(p_ff_par->clone());
 
     //Prism3
     FormFactorPrism3 ff_pr3(5.0, 5.0);
-    IFormFactor* p_form_factor6 =& ff_pr3;
-    test.run(p_form_factor6->clone());
+    IFormFactor* p_ff_pr3 =& ff_pr3;
+    test.run(p_ff_pr3->clone());
 
     //Prism6
-    FormFactorPrism6 ff_pr6(2./sqrt(3.)*5.0, 5.0);
-    IFormFactor* p_form_factor7 =& ff_pr6;
-    test.run(p_form_factor7->clone());
+   FormFactorPrism6 ff_pr6(2./sqrt(3.)*5.0, 5.0);
+    IFormFactor* p_ff_pr6 =& ff_pr6;
+    test.run(p_ff_pr6->clone());
 
     //Pyramid
     FormFactorPyramid ff_pyr(5.0, 5.0, Units::deg2rad(54.73 ));
-    IFormFactor* p_form_factor8 =& ff_pyr;
-    test.run(p_form_factor8->clone());
+    IFormFactor* p_ff_pyr =& ff_pyr;
+    test.run(p_ff_pyr->clone());
 
     //Sphere
     FormFactorSphere ff_sph(5.0, 5.0);
-    IFormFactor* p_form_factor9 =& ff_sph;
-    test.run(p_form_factor9->clone());
+    IFormFactor* p_ff_sph =& ff_sph;
+    test.run(p_ff_sph->clone());
 
     // Tetrahedron
-    FormFactorTetrahedron ff_tetr(5.0, 5.0, Units::deg2rad(54.73 ));
-    IFormFactor* p_form_factor10 =& ff_tetr;
-    test.run(p_form_factor10->clone());
+    FormFactorTetrahedron ff_tetr(5.0, 4.0, Units::deg2rad(54.73 ));
+    IFormFactor* p_ff_tetr =& ff_tetr;
+    test.run(p_ff_tetr->clone());
+
+    // Cuboctahedron
+    FormFactorCuboctahedron ff_cuboc(5.0, 5.0, 1.0, Units::deg2rad(54.73 ));
+    IFormFactor* p_ff_cuboc =& ff_cuboc;
+    test.run(p_ff_cuboc->clone());
+
+    // Anisotropic Pyramid
+    FormFactorAnisoPyramid  ff_anipyr(10.0, 20.0, 5.0, Units::deg2rad(54.73 ));
+    IFormFactor* p_ff_anipyr =& ff_anipyr;
+    test.run(p_ff_anipyr->clone());
+
+    // Ellipsoidal Cylinder
+    FormFactorEllipsoidalCylinder ff_ellipscyl(5.0, 10.0, 5.0);
+    IFormFactor* p_ff_ellipscyl =& ff_ellipscyl;
+    test.run(p_ff_ellipscyl->clone());
+
+    // Full spheroid
+    FormFactorFullSpheroid ff_fspheroid(5.0, 5.0);
+    IFormFactor* p_ff_fspheroid =& ff_fspheroid;
+    test.run(p_ff_fspheroid ->clone());
+
+    // Spheroid
+    FormFactorSpheroid  ff_spheroid(5.0, 5.0, 1.0);
+    IFormFactor* p_ff_spheroid =& ff_spheroid;
+    test.run(p_ff_spheroid->clone());
+
+    // HemiEllipsoid
+    FormFactorHemiEllipsoid  ff_hemiellipsoid(5.0, 10.0, 5.0);
+    IFormFactor* p_ff_hemiellipsoid=& ff_hemiellipsoid;
+    test.run(p_ff_hemiellipsoid->clone());
 
     return test.analyseResults(GetPathToData(argc, argv));
 }

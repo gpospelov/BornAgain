@@ -47,8 +47,10 @@ public:
     virtual double getAlpha() const { return m_alpha; }
     virtual void setAlpha(double alpha) { m_alpha = alpha; }
 
-protected:
     virtual complex_t evaluate_for_q (const cvector_t& q) const;
+
+protected:
+
     virtual void init_parameters();
 
 private:

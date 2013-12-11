@@ -205,16 +205,16 @@ struct FormFactorPrism6_wrapper : FormFactorPrism6, bp::wrapper< FormFactorPrism
         return ISample::getCompositeSample( );
     }
 
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
         else{
-            return this->ISample::getCompositeSample(  );
+            return this->IFormFactor::getRadius(  );
         }
     }
     
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ISample::getCompositeSample( );
+    double default_getRadius(  ) const  {
+        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -491,16 +491,15 @@ void register_FormFactorPrism6_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ISample::getCompositeSample
+        { //::IFormFactor::getRadius
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorPrism6_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorPrism6_wrapper::*default_getRadius_function_type )(  ) const;
             
             FormFactorPrism6_exposer.def( 
-                "getCompositeSample"
-                , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorPrism6_wrapper::default_getCompositeSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                "getRadius"
+                , getRadius_function_type(&::IFormFactor::getRadius)
+                , default_getRadius_function_type(&FormFactorPrism6_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume

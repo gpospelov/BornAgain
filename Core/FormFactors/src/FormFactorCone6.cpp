@@ -29,6 +29,7 @@ FormFactorCone6::FormFactorCone6(double radius, double height, double alpha)
     m_height = height;
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
+    assert(m_height <= m_radius*std::tan(m_alpha));
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorCone6>::mem_function p_mf =
@@ -91,13 +92,15 @@ complex_t FormFactorCone6::evaluate_for_q(const cvector_t& q) const
         double H = m_height;
         double tga = std::tan(m_alpha);
         double HdivRtga = 2./m_root3*H/tga/R;
+
         return  3.0/4.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
 
-    }
-    else {
-    complex_t integral = m_integrator->integrate(0., m_height);
-    return 4.0*m_root3/(3.0*m_q.y()*m_q.y()-m_q.x()*m_q.x())*integral;
+    } else {
+
+        complex_t integral = m_integrator->integrate(0., m_height);
+
+        return 4.0*m_root3/(3.0*m_q.y()*m_q.y()-m_q.x()*m_q.x())*integral;
     }
 }
 

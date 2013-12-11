@@ -53,7 +53,9 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
 
     complex_t xy_part = complex_t(0.0, 0.0);
     if (std::abs(q.x())==0.0 && std::abs(q.y())==0.0) {
+
         xy_part = 3.*m_root3/2.*R*R;
+
     } else {
 
         if (std::abs(3.0*q.y()*q.y()-q.x()*q.x())==0.0) {
@@ -63,6 +65,7 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t& q) const
                         MathFunctions::Sinc(qyRr3_half)
                         + 2.0*std::cos(qyRr3_half)
                         );
+
         } else {
 
             complex_t qxR_half = (q.x()*R)/2.0;

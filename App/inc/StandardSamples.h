@@ -40,7 +40,7 @@ ISample *MesoCrystal1();
 //ISample *FormFactor_Sphere();
 //ISample *FormFactor_Ellipsoid();
 //ISample *FormFactor_FullSpheroid();
-//ISample *FormFactor_HemiSpheroid();
+//ISample *FormFactor_HemiEllipsoid();
 //ISample *FormFactor_Parallelpiped();
 //ISample *FormFactor_Cylinder();
 //ISample *FormFactor_Pyramid();

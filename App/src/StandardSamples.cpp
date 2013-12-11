@@ -534,29 +534,29 @@ ISample *StandardSamples::MesoCrystal1()
 
 // Functional test: Formfactor of an ellipsoidal cylinder.
 
-ISample *StandardSamples::FormFactor_EllipsoidalCylinder()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration
-        (new Particle(particle_material,
-                      new FormFactorEllipsoidalCylinder(5*Units::nanometer,
-                                              5*Units::nanometer,
-                                              5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction
-        (new InterferenceFunctionNone());
+//ISample *StandardSamples::FormFactor_EllipsoidalCylinder()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material =
+//        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *particle_material =
+//            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    ParticleDecoration particle_decoration
+//        (new Particle(particle_material,
+//                      new FormFactorEllipsoidalCylinder(5*Units::nanometer,
+//                                              5*Units::nanometer,
+//                                              5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction
+//        (new InterferenceFunctionNone());
 
 //    air_layer.setDecoration(particle_decoration);
 
@@ -599,30 +599,30 @@ ISample *StandardSamples::FormFactor_EllipsoidalCylinder()
 
 ////! Functional test: Formfactor of a hemi spheroid.
 
-ISample *StandardSamples::FormFactor_HemiEllipsoid()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-7, 2e-8);
-    complex_t n_particle(1.0-6e-5, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+//ISample *StandardSamples::FormFactor_HemiEllipsoid()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-7, 2e-8);
+//    complex_t n_particle(1.0-6e-5, 2e-8);
+//    const IMaterial *p_air_material =
+//        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *particle_material =
+//            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration
-        (new Particle(particle_material,
-                      new FormFactorHemiEllipsoid(5*Units::nanometer,
-                                                 4*Units::nanometer,
-                                                 2*Units::nanometer)));
-    particle_decoration.addInterferenceFunction
-        (new InterferenceFunctionNone());
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    ParticleDecoration particle_decoration
+//        (new Particle(particle_material,
+//                      new FormFactorHemiEllipsoid(5*Units::nanometer,
+//                                                 4*Units::nanometer,
+//                                                 2*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction
+//        (new InterferenceFunctionNone());
 
 //    air_layer.setDecoration(particle_decoration);
 

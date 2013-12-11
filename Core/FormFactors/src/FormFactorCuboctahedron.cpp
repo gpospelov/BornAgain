@@ -26,6 +26,7 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     m_half_side = half_side;
     m_height_ratio = height_ratio;
     m_alpha = alpha;
+    assert(m_height <= m_half_side*std::tan(m_alpha)*std::min(1.,1.0/m_height_ratio));
     init_parameters();
 }
 

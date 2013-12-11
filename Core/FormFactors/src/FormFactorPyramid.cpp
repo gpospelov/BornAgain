@@ -24,6 +24,7 @@ FormFactorPyramid::FormFactorPyramid(
     m_height = height;
     m_half_side = half_side;
     m_alpha = alpha;
+    assert(m_height <= m_half_side*std::tan(m_alpha));
     init_parameters();
 }
 

@@ -25,12 +25,9 @@ FormFactorTetrahedron::FormFactorTetrahedron(
     m_half_side = half_side;
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
+    assert(m_root3 * m_height <= m_half_side*std::tan(m_alpha) );
     init_parameters();
 
-  /*  MemberComplexFunctionIntegrator<FormFactorTetrahedron>::mem_function p_mf =
-       & FormFactorTetrahedron::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorTetrahedron>(p_mf, this);*/
 }
 
 void FormFactorTetrahedron::init_parameters()
@@ -48,41 +45,6 @@ FormFactorTetrahedron* FormFactorTetrahedron::clone() const
     result->setName(getName());
     return result;
 }
-
-
-//! Integrand for complex formfactor.
-/*complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
-{
-    (void)params;  // to avoid unused-variable warning
-    double Rz = m_half_side -Z*m_root3/std::tan(m_alpha);
-    complex_t r3qyR = m_root3*m_q.y()*Rz;
-    complex_t qxR = m_q.x()*Rz;
-
-    return (std::exp(complex_t(0.0, 1.0)*r3qyR) -
-            std::cos(qxR)-complex_t(0.0, 1.0)*r3qyR*
-            MathFunctions::Sinc(qxR))
-            *std::exp(complex_t(0.0, 1.0)*(m_q.z()*Z-m_q.y()*Rz/m_root3));
-
-}*/
-
-//! Complex formfactor.
-
-/*complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
-{   m_q = q;
-    double H = m_height;
-    double R = m_half_side;
-    double tga = std::tan(m_alpha);
-
-  if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
-      double sqrt3HdivRtga = m_root3*H/R/tga;
-       return tga/3.*R*R*R*(1. -
-          (1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga));
-    }
-    else {
-    complex_t integral = m_integrator->integrate(0., H);
-    return    2.0*m_root3/(q.x()*q.x()-3.0*q.y()*q.y())*integral;
-    }
-}*/
 
 
 complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
@@ -113,8 +75,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
                 double sqrt3HdivRtga = m_root3*H/R/tga;
                 F = tga/3.*R*R*R*(1. -
                    (1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga));
-            }
-            else {
+            } else {
                 //qx=qy=0 qz!=0
                 complex_t qzH_half = qz*H/2.0;
                 F = m_root3*H*std::exp(im*qzH_half)*(
@@ -131,8 +92,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
                     std::exp(-im*q2*L)*MathFunctions::Sinc(q2*H)
                   - std::exp(im*q3*L)*MathFunctions::Sinc(q3*H)) ;
         }
-    }
-    else {
+    } else {
         // qx!=0
          if (std::abs(qx*qx-3.0*qy*qy)==0.0) {
             // qx**2= 3qy**2
@@ -143,8 +103,7 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
                - 3.0*qy*std::exp(-im*2.0*q3*H)/(q3*tga)
                - std::exp(im*qa*H-im*2.0*m_root3*qy*R)*MathFunctions::Sinc(qa*H)
                  )/(2.0*qx*qx);
-        }
-        else {
+        } else {
         //Formula Isgisaxs
          /*    complex_t qc1      = 2./m_root3*qx;
              complex_t qc2      = qx/m_root3 + qy;

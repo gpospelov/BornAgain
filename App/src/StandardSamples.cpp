@@ -825,9 +825,9 @@ ISample *StandardSamples::FormFactor_Sphere()
     return p_multi_layer;
 }
 
-// Functional test: Formfactor of an ellipsoid.
+// Functional test: Formfactor of an ellipsoidal cylinder.
 
-ISample *StandardSamples::FormFactor_Ellipsoid()
+ISample *StandardSamples::FormFactor_EllipsoidalCylinder()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -845,10 +845,9 @@ ISample *StandardSamples::FormFactor_Ellipsoid()
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
         (new Particle(particle_material,
-                      new FormFactorEllipsoid(5*Units::nanometer,
+                      new FormFactorEllipsoidalCylinder(5*Units::nanometer,
                                               5*Units::nanometer,
-                                              5*Units::nanometer,
-                                              Units::deg2rad(54.73 ))));
+                                              5*Units::nanometer)));
     particle_decoration.addInterferenceFunction
         (new InterferenceFunctionNone());
 
@@ -893,7 +892,7 @@ ISample *StandardSamples::FormFactor_FullSpheroid()
 
 //! Functional test: Formfactor of a hemi spheroid.
 
-ISample *StandardSamples::FormFactor_HemiSpheroid()
+ISample *StandardSamples::FormFactor_HemiEllipsoid()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -912,7 +911,7 @@ ISample *StandardSamples::FormFactor_HemiSpheroid()
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration
         (new Particle(particle_material,
-                      new FormFactorHemiSpheroid(5*Units::nanometer,
+                      new FormFactorHemiEllipsoid(5*Units::nanometer,
                                                  4*Units::nanometer,
                                                  2*Units::nanometer)));
     particle_decoration.addInterferenceFunction

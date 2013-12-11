@@ -168,7 +168,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
     assert(&output);
     if (output.getRank() !=2)
         throw( "IsGISAXSTools::getOutputDataTH2D() -> "
-               "Warning! Expected number of dimensiobs is 2.");
+               "Warning! Expected number of dimensions is 2.");
 
     std::vector<AxisStructure > haxises;
     haxises.resize(output.getRank());

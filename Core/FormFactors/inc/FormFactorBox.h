@@ -27,12 +27,9 @@ public:
     FormFactorBox( double length, double width, double height)
         : m_length(length), m_width(width), m_height(height) {
 
-
             setName("FormFactorBox");
             init_parameters();
         }
-
-
 
     virtual ~FormFactorBox() {}
 
@@ -54,7 +51,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
-    void init_parameters();
+    virtual void init_parameters();
 
 private:
     double m_length;

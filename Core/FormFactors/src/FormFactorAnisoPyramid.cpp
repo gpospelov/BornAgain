@@ -25,6 +25,7 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     m_width = width;
     m_height = height;
     m_alpha = alpha;
+    assert(2.*m_height <= std::min(m_length, m_width)*std::tan(m_alpha));
     init_parameters();
 }
 
@@ -82,18 +83,20 @@ complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
     } else if(std::abs(qx) <= Numeric::double_epsilon
               && std::abs(qy) <= Numeric::double_epsilon) {
 
-        if (std::abs(qz) <= Numeric::double_epsilon)
+        if (std::abs(qz) <= Numeric::double_epsilon) {
         //Volume qx=qy=qz=0
         F = L*W*H - (L + W)*H*H/tga + 4.0/3.0*H*H*H/(tga*tga);
-        else
+        } else {
             //qx=0 qy=0 qz!=0
              F=im*(
                 - 8.0/std::pow(tga,2) - 2.0*im*qz*(L+W)/tga + std::pow(qz,2)*L*W
                 - std::exp(im*H*qz)*(L*W*qz*qz - 2.0*(L+W)*qz/tga*(H*qz+im)
                 + 4.0*(std::pow(qz*H,2)+2.0*im*qz*H-2.0)/std::pow(tga,2))
                    )/std::pow(qz,3);
+        }
 
     } else {
+
         complex_t qxy, q5, q6;
          double R0, Rxy;
         if(std::abs(qy) <= Numeric::double_epsilon
@@ -108,6 +111,7 @@ complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
             R0 = L/2.0;
             Rxy = W/2.0;
         }
+
         q5 = (qz - qxy/tga)/2.;
         q6 = (qz + qxy/tga)/2.;
 
@@ -120,8 +124,11 @@ complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
                     + im*( std::exp(im*q6*H)
                            - MathFunctions::Sinc(q6*H) )/(2.0*q6*tga))
                     );
+
         } else {
+
             if (std::abs(q6) <= Numeric::double_epsilon) {
+
                 //q5!= 0, q6=0
                 F=-2.0*H*im/qxy*(
                             std::exp(im*q5*H+im*qxy*Rxy)*
@@ -130,7 +137,10 @@ complex_t FormFactorAnisoPyramid::evaluate_for_q(const cvector_t& q) const
                                    - MathFunctions::Sinc(q5*H) )/(2.0*q5*tga))
                             +(H/(2.0*tga)-R0)*std::exp(-im*qxy*Rxy)
                             );
+
             } else {
+
+                //q5!= 0, q6!=0
                 F=-2.0*H*im/qxy*(
                             std::exp(im*q5*H+im*qxy*Rxy)*
                             (R0*MathFunctions::Sinc(q5*H)

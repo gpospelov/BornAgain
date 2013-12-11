@@ -179,7 +179,7 @@ void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorEllipsoid *sample)
+void SamplePrintVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
 {
     print_default(sample);
 }
@@ -203,7 +203,7 @@ void SamplePrintVisitor::visit(const FormFactorGauss *sample)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorHemiSpheroid *sample)
+void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
 {
     print_default(sample);
 }

@@ -12,125 +12,89 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "FormFactorCone.pypp.h"
+#include "FormFactorHemiEllipsoid.pypp.h"
 
 namespace bp = boost::python;
 
-struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
+struct FormFactorHemiEllipsoid_wrapper : FormFactorHemiEllipsoid, bp::wrapper< FormFactorHemiEllipsoid > {
 
-    FormFactorCone_wrapper(double radius, double height, double alpha )
-    : FormFactorCone( radius, height, alpha )
-      , bp::wrapper< FormFactorCone >(){
+    FormFactorHemiEllipsoid_wrapper(double radius_a, double radius_b, double height )
+    : FormFactorHemiEllipsoid( radius_a, radius_b, height )
+      , bp::wrapper< FormFactorHemiEllipsoid >(){
         // constructor
     
     }
 
-    virtual ::FormFactorCone * clone(  ) const  {
+    virtual ::FormFactorHemiEllipsoid * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->FormFactorCone::clone(  );
+            return this->FormFactorHemiEllipsoid::clone(  );
         }
     }
     
-    ::FormFactorCone * default_clone(  ) const  {
-        return FormFactorCone::clone( );
+    ::FormFactorHemiEllipsoid * default_clone(  ) const  {
+        return FormFactorHemiEllipsoid::clone( );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
         else{
-            return this->FormFactorCone::evaluate_for_q( boost::ref(q) );
+            return this->FormFactorHemiEllipsoid::evaluate_for_q( boost::ref(q) );
         }
     }
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
-        return FormFactorCone::evaluate_for_q( boost::ref(q) );
-    }
-
-    virtual double getAlpha(  ) const  {
-        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
-            return func_getAlpha(  );
-        else{
-            return this->FormFactorCone::getAlpha(  );
-        }
-    }
-    
-    double default_getAlpha(  ) const  {
-        return FormFactorCone::getAlpha( );
+        return FormFactorHemiEllipsoid::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
         else{
-            return this->FormFactorCone::getHeight(  );
+            return this->FormFactorHemiEllipsoid::getHeight(  );
         }
     }
     
     double default_getHeight(  ) const  {
-        return FormFactorCone::getHeight( );
+        return FormFactorHemiEllipsoid::getHeight( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
         else{
-            return this->FormFactorCone::getNumberOfStochasticParameters(  );
+            return this->FormFactorHemiEllipsoid::getNumberOfStochasticParameters(  );
         }
     }
     
     int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorCone::getNumberOfStochasticParameters( );
+        return FormFactorHemiEllipsoid::getNumberOfStochasticParameters( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
+    virtual double getRadiusA(  ) const  {
+        if( bp::override func_getRadiusA = this->get_override( "getRadiusA" ) )
+            return func_getRadiusA(  );
         else{
-            return this->FormFactorCone::getRadius(  );
+            return this->FormFactorHemiEllipsoid::getRadiusA(  );
         }
     }
     
-    double default_getRadius(  ) const  {
-        return FormFactorCone::getRadius( );
+    double default_getRadiusA(  ) const  {
+        return FormFactorHemiEllipsoid::getRadiusA( );
     }
 
-    virtual void setAlpha( double alpha ) {
-        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
-            func_setAlpha( alpha );
+    virtual double getRadiusB(  ) const  {
+        if( bp::override func_getRadiusB = this->get_override( "getRadiusB" ) )
+            return func_getRadiusB(  );
         else{
-            this->FormFactorCone::setAlpha( alpha );
+            return this->FormFactorHemiEllipsoid::getRadiusB(  );
         }
     }
     
-    void default_setAlpha( double alpha ) {
-        FormFactorCone::setAlpha( alpha );
-    }
-
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
-        else{
-            this->FormFactorCone::setHeight( height );
-        }
-    }
-    
-    void default_setHeight( double height ) {
-        FormFactorCone::setHeight( height );
-    }
-
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
-        else{
-            this->FormFactorCone::setRadius( radius );
-        }
-    }
-    
-    void default_setRadius( double radius ) {
-        FormFactorCone::setRadius( radius );
+    double default_getRadiusB(  ) const  {
+        return FormFactorHemiEllipsoid::getRadiusB( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -241,6 +205,18 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return ISample::getCompositeSample( );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->IFormFactor::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return IFormFactor::getRadius( );
+    }
+
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
@@ -300,7 +276,7 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< FormFactorCone_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< FormFactorHemiEllipsoid_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -334,170 +310,134 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
 
 };
 
-void register_FormFactorCone_class(){
+void register_FormFactorHemiEllipsoid_class(){
 
-    { //::FormFactorCone
-        typedef bp::class_< FormFactorCone_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCone_exposer_t;
-        FormFactorCone_exposer_t FormFactorCone_exposer = FormFactorCone_exposer_t( "FormFactorCone", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("height"), bp::arg("alpha") )) );
-        bp::scope FormFactorCone_scope( FormFactorCone_exposer );
-        { //::FormFactorCone::clone
+    { //::FormFactorHemiEllipsoid
+        typedef bp::class_< FormFactorHemiEllipsoid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorHemiEllipsoid_exposer_t;
+        FormFactorHemiEllipsoid_exposer_t FormFactorHemiEllipsoid_exposer = FormFactorHemiEllipsoid_exposer_t( "FormFactorHemiEllipsoid", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") )) );
+        bp::scope FormFactorHemiEllipsoid_scope( FormFactorHemiEllipsoid_exposer );
+        { //::FormFactorHemiEllipsoid::clone
         
-            typedef ::FormFactorCone * ( ::FormFactorCone::*clone_function_type )(  ) const;
-            typedef ::FormFactorCone * ( FormFactorCone_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorHemiEllipsoid * ( ::FormFactorHemiEllipsoid::*clone_function_type )(  ) const;
+            typedef ::FormFactorHemiEllipsoid * ( FormFactorHemiEllipsoid_wrapper::*default_clone_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "clone"
-                , clone_function_type(&::FormFactorCone::clone)
-                , default_clone_function_type(&FormFactorCone_wrapper::default_clone)
+                , clone_function_type(&::FormFactorHemiEllipsoid::clone)
+                , default_clone_function_type(&FormFactorHemiEllipsoid_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorCone::evaluate_for_q
+        { //::FormFactorHemiEllipsoid::evaluate_for_q
         
-            typedef ::complex_t ( ::FormFactorCone::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorCone_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorHemiEllipsoid::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorHemiEllipsoid_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "evaluate_for_q"
-                , evaluate_for_q_function_type(&::FormFactorCone::evaluate_for_q)
-                , default_evaluate_for_q_function_type(&FormFactorCone_wrapper::default_evaluate_for_q)
+                , evaluate_for_q_function_type(&::FormFactorHemiEllipsoid::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorHemiEllipsoid_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorCone::getAlpha
+        { //::FormFactorHemiEllipsoid::getHeight
         
-            typedef double ( ::FormFactorCone::*getAlpha_function_type )(  ) const;
-            typedef double ( FormFactorCone_wrapper::*default_getAlpha_function_type )(  ) const;
+            typedef double ( ::FormFactorHemiEllipsoid::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getHeight_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
-                "getAlpha"
-                , getAlpha_function_type(&::FormFactorCone::getAlpha)
-                , default_getAlpha_function_type(&FormFactorCone_wrapper::default_getAlpha) );
-        
-        }
-        { //::FormFactorCone::getHeight
-        
-            typedef double ( ::FormFactorCone::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorCone_wrapper::*default_getHeight_function_type )(  ) const;
-            
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorCone::getHeight)
-                , default_getHeight_function_type(&FormFactorCone_wrapper::default_getHeight) );
+                , getHeight_function_type(&::FormFactorHemiEllipsoid::getHeight)
+                , default_getHeight_function_type(&FormFactorHemiEllipsoid_wrapper::default_getHeight) );
         
         }
-        { //::FormFactorCone::getNumberOfStochasticParameters
+        { //::FormFactorHemiEllipsoid::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorCone::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorCone_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorHemiEllipsoid::*getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( FormFactorHemiEllipsoid_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorCone::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorCone_wrapper::default_getNumberOfStochasticParameters) );
+                , getNumberOfStochasticParameters_function_type(&::FormFactorHemiEllipsoid::getNumberOfStochasticParameters)
+                , default_getNumberOfStochasticParameters_function_type(&FormFactorHemiEllipsoid_wrapper::default_getNumberOfStochasticParameters) );
         
         }
-        { //::FormFactorCone::getRadius
+        { //::FormFactorHemiEllipsoid::getRadiusA
         
-            typedef double ( ::FormFactorCone::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorCone_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::FormFactorHemiEllipsoid::*getRadiusA_function_type )(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusA_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::FormFactorCone::getRadius)
-                , default_getRadius_function_type(&FormFactorCone_wrapper::default_getRadius) );
+            FormFactorHemiEllipsoid_exposer.def( 
+                "getRadiusA"
+                , getRadiusA_function_type(&::FormFactorHemiEllipsoid::getRadiusA)
+                , default_getRadiusA_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusA) );
         
         }
-        { //::FormFactorCone::setAlpha
+        { //::FormFactorHemiEllipsoid::getRadiusB
         
-            typedef void ( ::FormFactorCone::*setAlpha_function_type )( double ) ;
-            typedef void ( FormFactorCone_wrapper::*default_setAlpha_function_type )( double ) ;
+            typedef double ( ::FormFactorHemiEllipsoid::*getRadiusB_function_type )(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadiusB_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type(&::FormFactorCone::setAlpha)
-                , default_setAlpha_function_type(&FormFactorCone_wrapper::default_setAlpha)
-                , ( bp::arg("alpha") ) );
-        
-        }
-        { //::FormFactorCone::setHeight
-        
-            typedef void ( ::FormFactorCone::*setHeight_function_type )( double ) ;
-            typedef void ( FormFactorCone_wrapper::*default_setHeight_function_type )( double ) ;
-            
-            FormFactorCone_exposer.def( 
-                "setHeight"
-                , setHeight_function_type(&::FormFactorCone::setHeight)
-                , default_setHeight_function_type(&FormFactorCone_wrapper::default_setHeight)
-                , ( bp::arg("height") ) );
-        
-        }
-        { //::FormFactorCone::setRadius
-        
-            typedef void ( ::FormFactorCone::*setRadius_function_type )( double ) ;
-            typedef void ( FormFactorCone_wrapper::*default_setRadius_function_type )( double ) ;
-            
-            FormFactorCone_exposer.def( 
-                "setRadius"
-                , setRadius_function_type(&::FormFactorCone::setRadius)
-                , default_setRadius_function_type(&FormFactorCone_wrapper::default_setRadius)
-                , ( bp::arg("radius") ) );
+            FormFactorHemiEllipsoid_exposer.def( 
+                "getRadiusB"
+                , getRadiusB_function_type(&::FormFactorHemiEllipsoid::getRadiusB)
+                , default_getRadiusB_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadiusB) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorCone_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( FormFactorHemiEllipsoid_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorCone_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&FormFactorHemiEllipsoid_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorCone_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( FormFactorHemiEllipsoid_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorCone_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&FormFactorHemiEllipsoid_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorCone_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( FormFactorHemiEllipsoid_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&FormFactorCone_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorHemiEllipsoid_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorCone_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorHemiEllipsoid_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&FormFactorCone_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&FormFactorHemiEllipsoid_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
         
             typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
-            typedef void ( FormFactorCone_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( FormFactorHemiEllipsoid_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "createDistributedFormFactors"
                 , createDistributedFormFactors_function_type(&::IFormFactor::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorCone_wrapper::default_createDistributedFormFactors)
+                , default_createDistributedFormFactors_function_type(&FormFactorHemiEllipsoid_wrapper::default_createDistributedFormFactors)
                 , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
@@ -505,126 +445,137 @@ void register_FormFactorCone_class(){
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorCone_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( FormFactorHemiEllipsoid_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorCone_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&FormFactorHemiEllipsoid_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IFormFactorBorn::evaluate
         
             typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorCone_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( FormFactorHemiEllipsoid_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::IFormFactorBorn::evaluate)
-                , default_evaluate_function_type(&FormFactorCone_wrapper::default_evaluate)
+                , default_evaluate_function_type(&FormFactorHemiEllipsoid_wrapper::default_evaluate)
                 , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorHemiEllipsoid_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCone_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorHemiEllipsoid_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorHemiEllipsoid_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCone_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorHemiEllipsoid_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IFormFactor::getRadius
+        
+            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorHemiEllipsoid_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::IFormFactor::getRadius)
+                , default_getRadius_function_type(&FormFactorHemiEllipsoid_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume
         
             typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorCone_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( FormFactorHemiEllipsoid_wrapper::*default_getVolume_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "getVolume"
                 , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&FormFactorCone_wrapper::default_getVolume) );
+                , default_getVolume_function_type(&FormFactorHemiEllipsoid_wrapper::default_getVolume) );
         
         }
         { //::IFormFactor::isDistributedFormFactor
         
             typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorCone_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( FormFactorHemiEllipsoid_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "isDistributedFormFactor"
                 , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorCone_wrapper::default_isDistributedFormFactor) );
+                , default_isDistributedFormFactor_function_type(&FormFactorHemiEllipsoid_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorCone_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( FormFactorHemiEllipsoid_wrapper::*default_printParameters_function_type )(  ) const;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorCone_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&FormFactorHemiEllipsoid_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorCone_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( FormFactorHemiEllipsoid_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&FormFactorCone_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&FormFactorHemiEllipsoid_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &FormFactorCone_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &FormFactorHemiEllipsoid_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorCone_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( FormFactorHemiEllipsoid_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorCone_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&FormFactorHemiEllipsoid_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorCone_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( FormFactorHemiEllipsoid_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            FormFactorCone_exposer.def( 
+            FormFactorHemiEllipsoid_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorCone_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&FormFactorHemiEllipsoid_wrapper::default_setParametersAreChanged) );
         
         }
     }

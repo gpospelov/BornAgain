@@ -178,7 +178,7 @@ void ISampleVisitor::visit(const FormFactorCylinder *)
 }
 
 
-void ISampleVisitor::visit(const FormFactorEllipsoid *)
+void ISampleVisitor::visit(const FormFactorEllipsoidalCylinder *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorEllipsoid *) -> Error. Not implemented.");
 }
@@ -202,7 +202,7 @@ void ISampleVisitor::visit(const FormFactorGauss *)
 }
 
 
-void ISampleVisitor::visit(const FormFactorHemiSpheroid *)
+void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
 {
     throw NotImplementedException("ISampleVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
 }

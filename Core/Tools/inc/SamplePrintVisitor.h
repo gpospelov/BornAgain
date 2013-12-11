@@ -49,11 +49,11 @@ public:
     virtual void visit(const FormFactorCone6 *sample);
     virtual void visit(const FormFactorCrystal *sample);
     virtual void visit(const FormFactorCylinder *sample);
-    virtual void visit(const FormFactorEllipsoid *sample);
+    virtual void visit(const FormFactorEllipsoidalCylinder *sample);
     virtual void visit(const FormFactorFullSphere *sample);
     virtual void visit(const FormFactorFullSpheroid *sample);
     virtual void visit(const FormFactorGauss *sample);
-    virtual void visit(const FormFactorHemiSpheroid *sample);
+    virtual void visit(const FormFactorHemiEllipsoid *sample);
     virtual void visit(const FormFactorLorentz *sample);
     virtual void visit(const FormFactorParallelepiped *sample);
     virtual void visit(const FormFactorPrism3 *sample);

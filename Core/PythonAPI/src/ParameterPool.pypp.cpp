@@ -26,10 +26,10 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
     virtual ::ParameterPool * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->ParameterPool::clone(  );
-        }
     }
+    
     
     ::ParameterPool * default_clone(  ) const  {
         return ParameterPool::clone( );
@@ -127,7 +127,7 @@ void register_ParameterPool_class(){
         }
         { //::ParameterPool::size
         
-            typedef ::size_t ( ::ParameterPool::*size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ParameterPool::*size_function_type )(  ) const;
             
             ParameterPool_exposer.def( 
                 "size"

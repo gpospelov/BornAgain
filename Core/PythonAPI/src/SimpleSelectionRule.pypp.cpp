@@ -33,10 +33,10 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
     virtual ::SimpleSelectionRule * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->SimpleSelectionRule::clone(  );
-        }
     }
+    
     
     ::SimpleSelectionRule * default_clone(  ) const  {
         return SimpleSelectionRule::clone( );
@@ -45,10 +45,10 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
     virtual bool coordinateSelected( ::IndexVector3D const & coordinate ) const  {
         if( bp::override func_coordinateSelected = this->get_override( "coordinateSelected" ) )
             return func_coordinateSelected( boost::ref(coordinate) );
-        else{
+        else
             return this->SimpleSelectionRule::coordinateSelected( boost::ref(coordinate) );
-        }
     }
+    
     
     bool default_coordinateSelected( ::IndexVector3D const & coordinate ) const  {
         return SimpleSelectionRule::coordinateSelected( boost::ref(coordinate) );

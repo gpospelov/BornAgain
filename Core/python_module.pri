@@ -10,8 +10,8 @@ HEADERS +=  \
     PythonAPI/inc/Bin1D.pypp.h \
     PythonAPI/inc/Bin1DCVector.pypp.h \
     PythonAPI/inc/Crystal.pypp.h \
-    PythonAPI/inc/cvector_t.pypp.h \
     PythonAPI/inc/Detector.pypp.h \
+    PythonAPI/inc/FTDistribution2DCauchy.pypp.h \
     PythonAPI/inc/FormFactorAnisoPyramid.pypp.h \
     PythonAPI/inc/FormFactorBox.pypp.h \
     PythonAPI/inc/FormFactorCone.pypp.h \
@@ -34,7 +34,6 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
     PythonAPI/inc/FormFactorSphereUniformRadius.pypp.h \
     PythonAPI/inc/FormFactorSpheroid.pypp.h \
-    PythonAPI/inc/FTDistribution2DCauchy.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
     PythonAPI/inc/IAxis.pypp.h \
     PythonAPI/inc/ICloneable.pypp.h \
@@ -42,18 +41,12 @@ HEADERS +=  \
     PythonAPI/inc/ICompositeSample.pypp.h \
     PythonAPI/inc/IDecoration.pypp.h \
     PythonAPI/inc/IDetectorResolution.pypp.h \
+    PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
     PythonAPI/inc/IFormFactorBorn.pypp.h \
     PythonAPI/inc/IFormFactorDecorator.pypp.h \
-    PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
-    PythonAPI/inc/Instrument.pypp.h \
-    PythonAPI/inc/IntensityData.pypp.h \
-    PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
-    PythonAPI/inc/InterferenceFunction2DLattice.pypp.h \
-    PythonAPI/inc/InterferenceFunction2DParaCrystal.pypp.h \
-    PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/IObservable.pypp.h \
     PythonAPI/inc/IObserver.pypp.h \
     PythonAPI/inc/IParameterized.pypp.h \
@@ -62,7 +55,12 @@ HEADERS +=  \
     PythonAPI/inc/ISampleBuilder.pypp.h \
     PythonAPI/inc/ISelectionRule.pypp.h \
     PythonAPI/inc/ITransform3D.pypp.h \
-    PythonAPI/inc/kvector_t.pypp.h \
+    PythonAPI/inc/Instrument.pypp.h \
+    PythonAPI/inc/IntensityData.pypp.h \
+    PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
+    PythonAPI/inc/InterferenceFunction2DLattice.pypp.h \
+    PythonAPI/inc/InterferenceFunction2DParaCrystal.pypp.h \
+    PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/Lattice.pypp.h \
     PythonAPI/inc/Lattice2DIFParameters.pypp.h \
     PythonAPI/inc/LatticeBasis.pypp.h \
@@ -93,6 +91,8 @@ HEADERS +=  \
     PythonAPI/inc/StochasticDoubleGaussian.pypp.h \
     PythonAPI/inc/StochasticParameter_t.pypp.h \
     PythonAPI/inc/StochasticSampledParameter.pypp.h \
+    PythonAPI/inc/cvector_t.pypp.h \
+    PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
     PythonAPI/inc/vector_integer_t.pypp.h \
@@ -111,8 +111,8 @@ SOURCES +=  \
     PythonAPI/src/Bin1D.pypp.cpp \
     PythonAPI/src/Bin1DCVector.pypp.cpp \
     PythonAPI/src/Crystal.pypp.cpp \
-    PythonAPI/src/cvector_t.pypp.cpp \
     PythonAPI/src/Detector.pypp.cpp \
+    PythonAPI/src/FTDistribution2DCauchy.pypp.cpp \
     PythonAPI/src/FormFactorAnisoPyramid.pypp.cpp \
     PythonAPI/src/FormFactorBox.pypp.cpp \
     PythonAPI/src/FormFactorCone.pypp.cpp \
@@ -135,7 +135,6 @@ SOURCES +=  \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
     PythonAPI/src/FormFactorSphereUniformRadius.pypp.cpp \
     PythonAPI/src/FormFactorSpheroid.pypp.cpp \
-    PythonAPI/src/FTDistribution2DCauchy.pypp.cpp \
     PythonAPI/src/HomogeneousMaterial.pypp.cpp \
     PythonAPI/src/IAxis.pypp.cpp \
     PythonAPI/src/ICloneable.pypp.cpp \
@@ -143,18 +142,12 @@ SOURCES +=  \
     PythonAPI/src/ICompositeSample.pypp.cpp \
     PythonAPI/src/IDecoration.pypp.cpp \
     PythonAPI/src/IDetectorResolution.pypp.cpp \
+    PythonAPI/src/IFTDistribution2D.pypp.cpp \
     PythonAPI/src/IFormFactor.pypp.cpp \
     PythonAPI/src/IFormFactorBorn.pypp.cpp \
     PythonAPI/src/IFormFactorDecorator.pypp.cpp \
-    PythonAPI/src/IFTDistribution2D.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
-    PythonAPI/src/Instrument.pypp.cpp \
-    PythonAPI/src/IntensityData.pypp.cpp \
-    PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
-    PythonAPI/src/InterferenceFunction2DLattice.pypp.cpp \
-    PythonAPI/src/InterferenceFunction2DParaCrystal.pypp.cpp \
-    PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/IObservable.pypp.cpp \
     PythonAPI/src/IObserver.pypp.cpp \
     PythonAPI/src/IParameterized.pypp.cpp \
@@ -163,7 +156,12 @@ SOURCES +=  \
     PythonAPI/src/ISampleBuilder.pypp.cpp \
     PythonAPI/src/ISelectionRule.pypp.cpp \
     PythonAPI/src/ITransform3D.pypp.cpp \
-    PythonAPI/src/kvector_t.pypp.cpp \
+    PythonAPI/src/Instrument.pypp.cpp \
+    PythonAPI/src/IntensityData.pypp.cpp \
+    PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
+    PythonAPI/src/InterferenceFunction2DLattice.pypp.cpp \
+    PythonAPI/src/InterferenceFunction2DParaCrystal.pypp.cpp \
+    PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
     PythonAPI/src/Lattice2DIFParameters.pypp.cpp \
     PythonAPI/src/LatticeBasis.pypp.cpp \
@@ -194,6 +192,8 @@ SOURCES +=  \
     PythonAPI/src/StochasticDoubleGaussian.pypp.cpp \
     PythonAPI/src/StochasticParameter_t.pypp.cpp \
     PythonAPI/src/StochasticSampledParameter.pypp.cpp \
+    PythonAPI/src/cvector_t.pypp.cpp \
+    PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \
     PythonAPI/src/vector_integer_t.pypp.cpp \

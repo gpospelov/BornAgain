@@ -31,10 +31,10 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
 
 FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const
 {
-    FormFactorSphereUniformRadius *result = FormFactorSphereUniformRadius(
+    FormFactorSphereUniformRadius *p_result = new FormFactorSphereUniformRadius(
             m_mean, m_full_width);
-    result->setName(getName());
-    return result;
+    p_result->setName(getName());
+    return p_result;
 }
 
 FormFactorSphereUniformRadius::~FormFactorSphereUniformRadius()

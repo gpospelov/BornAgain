@@ -75,7 +75,7 @@ private:
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
     Simulation *mp_simulation;
-    ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     FitSuite *m_fitSuite;
 };
 

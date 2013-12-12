@@ -55,7 +55,7 @@
 TestIsGISAXS5::TestIsGISAXS5()
 : IApplicationTest("TestIsGISAXS5")
 , mp_simulation(0)
-, mp_sample_builder(0)
+, mp_sample_builder(new SampleBuilder())
 , mp_fitSuite(0)
 {
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-5/" ));
@@ -241,8 +241,6 @@ void TestIsGISAXS5::run_isgisaxs_fit()
 /* ************************************************************************* */
 void TestIsGISAXS5::initializeSimulation()
 {
-    delete mp_sample_builder;
-    mp_sample_builder = new SampleBuilder();
     delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);

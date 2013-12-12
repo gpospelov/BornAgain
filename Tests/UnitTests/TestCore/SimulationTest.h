@@ -25,14 +25,16 @@ class SimulationTest : public ::testing::Test
         virtual ISample *buildSample() const { return new Layer(); }
     };
 
+    SampleBuilder_t sample_builder;
+
     Simulation emptySimulation;
     Simulation constructedSimulation;
     OutputData<double> test_data;
-    SampleBuilder sample_builder;
 };
 
 
 SimulationTest::SimulationTest()
+    : sample_builder(new SampleBuilder)
 {
     test_data.addAxis(BA::PHI_AXIS_NAME, 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
@@ -50,6 +52,7 @@ TEST_F(SimulationTest, SimulationInitialState)
     EXPECT_EQ( size_t(1), emptySimulation.getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptySimulation.getOutputData()->getRank());
     EXPECT_TRUE(emptySimulation.getOutputData()->getRank() == emptySimulation.getInstrument().getDetectorDimension() );
+    EXPECT_EQ(NULL, emptySimulation.getSampleBuilder().get());
 }
 
 
@@ -68,8 +71,10 @@ TEST_F(SimulationTest, SimulationConstruction)
     ml.addLayer(layer);
     constructedSimulation.setSample(ml);
     EXPECT_EQ( size_t(1), dynamic_cast<MultiLayer *>(constructedSimulation.getSample())->getNumberOfLayers());
-    constructedSimulation.setSampleBuilder(&sample_builder);
+    constructedSimulation.setSampleBuilder(sample_builder);
     EXPECT_EQ( NULL, constructedSimulation.getSample());
+    EXPECT_EQ( sample_builder.get(), constructedSimulation.getSampleBuilder().get());
+
     constructedSimulation.prepareSimulation();
 
     EXPECT_FALSE( NULL == constructedSimulation.getSample());
@@ -94,7 +99,7 @@ TEST_F(SimulationTest, SimulationClone)
     Simulation *originalSimulation = new Simulation();
     originalSimulation->setBeamIntensity(10);
     originalSimulation->setDetectorParameters(test_data);
-    originalSimulation->setSampleBuilder(&sample_builder);
+    originalSimulation->setSampleBuilder(sample_builder);
     Simulation *clonedSimulation = originalSimulation->clone();
     delete originalSimulation;
 

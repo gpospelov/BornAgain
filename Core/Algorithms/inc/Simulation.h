@@ -32,7 +32,7 @@ public:
     Simulation();
     Simulation(const ProgramOptions *p_options);
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    Simulation(ISampleBuilder *p_sample_builder,
+    Simulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
     ~Simulation() { delete mp_sample; }
 
@@ -57,10 +57,10 @@ public:
     ISample *getSample() const { return mp_sample; }
 
     //! Sets the sample builder
-    void setSampleBuilder(ISampleBuilder *p_sample_builder);
+    void setSampleBuilder(SampleBuilder_t sample_builder);
 
     //! return sample builder
-    ISampleBuilder *getSampleBuilder() const { return mp_sample_builder; }
+    SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
     //! Returns detector intensity map for all scan parameters
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
@@ -149,7 +149,7 @@ protected:
 
     // components describing an experiment and its simulation:
     ISample *mp_sample;
-    ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     Instrument m_instrument;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;

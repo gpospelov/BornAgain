@@ -80,6 +80,7 @@ include_classes = [
     "IResolutionFunction2D",
     "ISample",
     "ISampleBuilder",
+    #"SampleBuilder_t",
     #"ISampleVisitor",
     "ISelectionRule",
     "ITransform3D",
@@ -118,6 +119,7 @@ include_classes = [
     "StochasticDoubleGaussian",
     "StochasticParameter<double>",
     "StochasticSampledParameter",
+    "ThreadInfo",
     "cvector_t",
     "kvector_t",
 ]
@@ -197,6 +199,7 @@ def ManualClassTunings(mb):
     cl.member_function("registerParameter").add_transformation( builder_utils.from_address_custom( 1 ) )
     #
     cl = mb.class_("ISampleBuilder")
+    #cl = mb.class_("SampleBuilder_t")
     cl.member_functions().exclude()
     cl.member_function("buildSample").include()
     cl.member_function("buildSample").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
@@ -310,6 +313,10 @@ def MakePythonAPI(OutputTempDir):
     # -----------------
     # general rules
     # -----------------
+
+    #for x in mb.classes():
+        #if "SampleBuilder" in x.name:
+            #print "XXX",x.name
 
     builder_utils.IncludeClasses(mb, include_classes)
 

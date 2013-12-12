@@ -83,16 +83,16 @@ def run_simulations():
 
     # simulation #3
     # all parameters which are matching criteria will be changed (height of the cylinder in this case)
-    sample.setMatchedParametersValue("*/FormFactorCylinder/height", 100*nanometer)
+    sample.setParameterValue("*/FormFactorCylinder/height", 100*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData().getArray())
 
     # simulation #4
     # all parameters which are matching criteria will be changed
-    sample.setMatchedParametersValue("*/FormFactorCylinder/height", 10*nanometer)
+    sample.setParameterValue("*/FormFactorCylinder/height", 10*nanometer)
     # both FormFactorPrism3/half_side and FormFactorPrism3/height will be set to 10 nanometer
-    sample.setMatchedParametersValue("*/FormFactorPrism3/*", 10*nanometer)
+    sample.setParameterValue("*/FormFactorPrism3/*", 10*nanometer)
     simulation.setSample(sample)
     simulation.runSimulation()
     results.append(simulation.getIntensityData().getArray())

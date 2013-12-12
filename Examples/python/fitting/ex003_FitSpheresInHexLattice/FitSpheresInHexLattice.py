@@ -63,6 +63,7 @@ def get_simulation():
     sim_params.me_if_approx = SimulationParameters.LMA
     sim_params.me_lattice_type = SimulationParameters.LATTICE
     simulation.setSimulationParameters(sim_params)
+    return simulation;
 
 
 def create_real_data():
@@ -91,16 +92,6 @@ def create_real_data():
     return real_data
 
 
-def get_simulation():
-    """
-    Create GISAXS simulation with beam and detector defined
-    """
-    simulation = Simulation()
-    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
-    return simulation
-
-
 class DrawObserver(IObserver):
     """
     class which draws fit progress every nth iteration.
@@ -108,7 +99,6 @@ class DrawObserver(IObserver):
     """
     def __init__(self, draw_every=10):
         IObserver.__init__(self)
-        print "MySampleBuilder ctor"
         self.draw_every_nth = draw_every
     def update(self, fit_suite):
         if fit_suite.getNCalls() % self.draw_every_nth == 0:
@@ -167,8 +157,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01)) # this fit parameter will change both length_1 and length_2 simultaneously
-    fit_suite.addFitParameter("*/FormFactorFullSphere/radius", 8.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.)) # this fit parameter will change both length_1 and length_2 simultaneously
+    fit_suite.addFitParameter("*/FormFactorFullSphere/radius", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

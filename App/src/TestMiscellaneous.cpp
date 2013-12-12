@@ -36,6 +36,12 @@
 #include "MaterialManager.h"
 #include "BornAgainNamespace.h"
 #include "FunctionalTestRegistry.h"
+#include "Lattice2DIFParameters.h"
+#include "InterferenceFunction2DLattice.h"
+#include "Units.h"
+#include "Types.h"
+#include "FitSuite.h"
+#include "AttLimits.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -71,11 +77,84 @@ void TestMiscellaneous::execute()
 /* ************************************************************************* */
 void TestMiscellaneous::test_FunctionalTestRegistry()
 {
-    FunctionalTestRegistry tests;
-    tests.printCatalogue();
+//    FunctionalTestRegistry tests;
+//    tests.printCatalogue();
 
-    tests.getTest("isgisaxs01");
-    std::cout << Utils::FileSystem::GetReferenceDataDir() << std::endl;
+//    tests.getTest("isgisaxs01");
+//    std::cout << Utils::FileSystem::GetReferenceDataDir() << std::endl;
+
+    MultiLayer *multi_layer = new MultiLayer();
+
+    const IMaterial *p_air_material =
+         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+
+    FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
+    Particle particle(particle_material, ff_cyl);
+
+    ParticleDecoration particle_decoration;
+    particle_decoration.addParticle(particle);
+
+    Lattice2DIFParameters lattice_params;
+    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
+    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
+    lattice_params.m_angle = 2.0*M_PI/3.; // lattice angle
+    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
+
+    InterferenceFunction2DLattice *p_interference_function =
+        new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
+    p_interference_function->setProbabilityDistribution(pdf);
+    particle_decoration.addInterferenceFunction(p_interference_function);
+
+
+    Layer air_layer(p_air_material);
+    air_layer.setDecoration(particle_decoration);
+
+    Layer substrate_layer(p_substrate_material, 0);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+
+    Simulation *simulation = new Simulation();
+    simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    simulation->setSimulationParameters(sim_params);
+
+    simulation->setSample(*multi_layer);
+
+    // ----
+    simulation->runSimulation();
+    OutputData<double> *real_data = simulation->getIntensityData();
+    double noise_factor(0.1);
+    for(size_t i=0; i<real_data->getAllocatedSize(); ++i) {
+        double amplitude = (*real_data)[i];
+        double sigma = noise_factor*std::sqrt(amplitude);
+        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude, sigma);
+        if(noisy_amplitude < 0) noisy_amplitude = 0.0;
+        (*real_data)[i] = noisy_amplitude;
+    }
+
+    FitSuite *fit_suite = new FitSuite();
+    fit_suite->addSimulationAndRealData(*simulation, *real_data);
+    fit_suite->initPrint(10);
+//    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+//    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->runFit();
+
+
+
+
 
 }
 

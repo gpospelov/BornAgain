@@ -64,7 +64,7 @@ private:
     void run_isgisaxs_fit();
 
     Simulation *mp_simulation;
-    ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     FitSuite *mp_fitSuite;
 };
 

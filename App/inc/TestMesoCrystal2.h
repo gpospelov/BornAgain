@@ -82,7 +82,7 @@ private:
     void initializeSimulation(const OutputData<double> *output_data=0);
 
     OutputData<double> *m_real_data;
-    ISampleBuilder *m_sample_builder;
+    SampleBuilder_t m_sample_builder;
     Simulation *m_simulation;
     FitSuite *m_fitSuite;
 };

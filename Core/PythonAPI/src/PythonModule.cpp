@@ -19,6 +19,7 @@
 #include "AxisDouble.pypp.h" 
 #include "IAxis.pypp.h" 
 #include "Layer.pypp.h" 
+#include "ThreadInfo.pypp.h" 
 #include "IFormFactor.pypp.h" 
 #include "IObservable.pypp.h" 
 #include "FormFactorParallelepiped.pypp.h" 
@@ -189,6 +190,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_StochasticDoubleGate_class();
     register_StochasticDoubleGaussian_class();
     register_StochasticSampledParameter_class();
+    register_ThreadInfo_class();
     register_global_variables();
     register_free_functions();
 

@@ -115,6 +115,7 @@ include_classes = [
     "StochasticDoubleGaussian",
     "StochasticParameter<double>",
     "StochasticSampledParameter",
+    "ThreadInfo",
     "cvector_t",
     "kvector_t",
 ]

@@ -19,6 +19,7 @@ HEADERS +=  \
     PythonAPI/inc/AxisDouble.pypp.h \
     PythonAPI/inc/IAxis.pypp.h \
     PythonAPI/inc/Layer.pypp.h \
+    PythonAPI/inc/ThreadInfo.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
     PythonAPI/inc/IObservable.pypp.h \
     PythonAPI/inc/FormFactorParallelepiped.pypp.h \
@@ -142,6 +143,7 @@ SOURCES +=  \
     PythonAPI/src/ParticleDecoration.pypp.cpp \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
     PythonAPI/src/IClusteredParticles.pypp.cpp \
+    PythonAPI/src/ThreadInfo.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
     PythonAPI/src/IObserver.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \

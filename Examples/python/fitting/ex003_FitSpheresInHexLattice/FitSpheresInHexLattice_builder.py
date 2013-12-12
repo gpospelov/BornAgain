@@ -79,6 +79,7 @@ def get_simulation():
     sim_params.me_if_approx = SimulationParameters.LMA
     sim_params.me_lattice_type = SimulationParameters.LATTICE
     simulation.setSimulationParameters(sim_params)
+    return simulation
 
 
 def create_real_data():
@@ -174,8 +175,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*radius", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*lattice_constant", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

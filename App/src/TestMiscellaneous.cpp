@@ -91,10 +91,11 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
          MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
+    Particle particle(particle_material, ff_cyl);
+
+    ParticleDecoration particle_decoration;
+    particle_decoration.addParticle(particle);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -106,15 +107,13 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
         new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
-
-    // particles
-    ParticleDecoration particle_decoration;
-    FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
-    Particle particle(particle_material, ff_cyl);
-    particle_decoration.addParticle(particle);
     particle_decoration.addInterferenceFunction(p_interference_function);
 
+
+    Layer air_layer(p_air_material);
     air_layer.setDecoration(particle_decoration);
+
+    Layer substrate_layer(p_substrate_material, 0);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -135,12 +134,22 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     // ----
     simulation->runSimulation();
     OutputData<double> *real_data = simulation->getIntensityData();
+    double noise_factor(0.1);
+    for(size_t i=0; i<real_data->getAllocatedSize(); ++i) {
+        double amplitude = (*real_data)[i];
+        double sigma = noise_factor*std::sqrt(amplitude);
+        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude, sigma);
+        if(noisy_amplitude < 0) noisy_amplitude = 0.0;
+        (*real_data)[i] = noisy_amplitude;
+    }
 
     FitSuite *fit_suite = new FitSuite();
     fit_suite->addSimulationAndRealData(*simulation, *real_data);
     fit_suite->initPrint(10);
-    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
-    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+//    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+//    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
     fit_suite->runFit();
 
 

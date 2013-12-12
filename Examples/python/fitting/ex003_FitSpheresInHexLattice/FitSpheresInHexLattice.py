@@ -153,12 +153,12 @@ def run_fitting():
     #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2","Scan"))
     #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("GSLSimAn"))
 
-    #draw_observer = DrawObserver()
-    #fit_suite.attachObserver(draw_observer)
+    draw_observer = DrawObserver()
+    fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01)) # this fit parameter will change both length_1 and length_2 simultaneously
-    fit_suite.addFitParameter("*/FormFactorFullSphere/radius", 8.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*2DLattice/length_*", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.)) # this fit parameter will change both length_1 and length_2 simultaneously
+    fit_suite.addFitParameter("*/FormFactorFullSphere/radius", 8.*nanometer, 0.01*nanometer, AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()

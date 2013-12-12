@@ -81,6 +81,7 @@
 #include "StochasticDoubleGate.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
+#include "ThreadInfo.h"
 #include "Types.h"
 #include "Units.h"
 #include "BAVersion.h"

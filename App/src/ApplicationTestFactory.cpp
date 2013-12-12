@@ -43,6 +43,7 @@
 #include "TestToySimulation.h"
 #include "TestToyFitting.h"
 #include "TestFunctionalTests.h"
+#include "TestRipple2.h"
 
 #include "TBenchmark.h"
 
@@ -260,6 +261,11 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "functest",
         IFactoryCreateFunction<TestFunctionalTests, IApplicationTest>,
         "Represents functional test results in graphics form");
+
+    p_test_factory->registerItem(
+        "ripple2",
+        IFactoryCreateFunction<TestRipple2, IApplicationTest>,
+        "test the new ripple2 formfactor");
 
 
 }

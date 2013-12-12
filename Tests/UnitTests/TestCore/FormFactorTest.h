@@ -32,6 +32,7 @@
 #include "FormFactorSphere.h"
 #include "FormFactorSpheroid.h"
 #include "FormFactorTetrahedron.h"
+#include "FormFactorRipple2.h"
 
 #include "gtest/gtest.h"
 
@@ -496,6 +497,27 @@ TEST_F(FormFactorTest, Tetrahedron)
     EXPECT_EQ((int)3, tetrahedronclone->getNumberOfStochasticParameters());
 }
 
+// Test form factor of a ripple2 (triangular)
+TEST_F(FormFactorTest, Ripple2)
+{
+    double width = 20.;
+    double height = 4.;
+    double length = 100.0;
+    double d = 0.3; // asymetry
+    double volume = 0.5*height*width*length;
+
+    FormFactorRipple2 ripple2(width, height, length, d);
+
+    EXPECT_EQ("FormFactorRipple2", ripple2.getName());
+    EXPECT_EQ(4., ripple2.getHeight());
+    EXPECT_DOUBLE_EQ(volume, ripple2.getVolume());
+    EXPECT_EQ((int)4, ripple2.getNumberOfStochasticParameters());
+
+    FormFactorRipple2 *ripple2clone = ripple2.clone();
+    EXPECT_EQ("FormFactorRipple2", ripple2clone->getName());
+    EXPECT_DOUBLE_EQ(4., ripple2clone->getHeight());
+    EXPECT_EQ((int)4, ripple2clone->getNumberOfStochasticParameters());
+}
 
 
 #endif // FORMFACTORTEST_H

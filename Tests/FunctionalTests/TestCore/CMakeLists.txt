@@ -28,6 +28,7 @@ set(list_of_tests
     "MesoCrystal1"
     "PolarizedDWBAZeroMag"
     "LayerRoughness"
+    "Ripple2"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

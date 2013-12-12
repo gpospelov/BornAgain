@@ -86,6 +86,10 @@ SimulationRegistry::SimulationRegistry()
         "LayerWithRoughness", StandardSimulations::LayerWithRoughness,
         "Layers with correlated roughness");
 
+    registerItem(
+        "ripple2", StandardSimulations::Ripple2,
+        "Triangular ripple within the 1D-paracrystal model");
+
 }
 
 

@@ -32,6 +32,7 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorPyramid.pypp.h \
     PythonAPI/inc/FormFactorSphere.pypp.h \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
+    PythonAPI/inc/FormFactorSphereUniformRadius.pypp.h \
     PythonAPI/inc/FormFactorSpheroid.pypp.h \
     PythonAPI/inc/FTDistribution2DCauchy.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
@@ -132,6 +133,7 @@ SOURCES +=  \
     PythonAPI/src/FormFactorPyramid.pypp.cpp \
     PythonAPI/src/FormFactorSphere.pypp.cpp \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
+    PythonAPI/src/FormFactorSphereUniformRadius.pypp.cpp \
     PythonAPI/src/FormFactorSpheroid.pypp.cpp \
     PythonAPI/src/FTDistribution2DCauchy.pypp.cpp \
     PythonAPI/src/HomogeneousMaterial.pypp.cpp \

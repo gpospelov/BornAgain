@@ -60,6 +60,7 @@ include_classes = [
     "FormFactorPyramid",
     "FormFactorSphere",
     "FormFactorSphereGaussianRadius",
+    "FormFactorSphereUniformRadius",
     "FormFactorSpheroid",
     "HomogeneousMaterial",
     "IAxis",

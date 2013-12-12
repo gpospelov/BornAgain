@@ -13,18 +13,18 @@
 
 
 MesoCrystal01Builder::MesoCrystal01Builder()
-    : m_lattice_length_a(6.2091e+00*Units::nanometer)
-    , m_lattice_length_c(6.5677e+00*Units::nanometer)
-    , m_nanoparticle_radius(4.6976e+00*Units::nanometer)
-    , m_sigma_nanoparticle_radius(3.6720e-01*Units::nanometer)
-    , m_meso_height(1.1221e+02*Units::nanometer)
-    , m_meso_radius(9.4567e+02*Units::nanometer)
-    , m_sigma_meso_height(1.3310e+00*Units::nanometer)
-    , m_sigma_meso_radius(1.3863e+00*Units::nanometer)
-    , m_sigma_lattice_length_a(1.1601e+00*Units::nanometer)
-    , m_surface_filling_ratio(1.7286e-01)
-    , m_roughness(2.8746e+01*Units::nanometer)
-    , m_nphi_rotations(2)
+: m_lattice_length_a(6.2091e+00*Units::nanometer)
+, m_lattice_length_c(6.5677e+00*Units::nanometer)
+, m_nanoparticle_radius(4.6976e+00*Units::nanometer)
+, m_sigma_nanoparticle_radius(3.6720e-01*Units::nanometer)
+, m_meso_height(1.1221e+02*Units::nanometer)
+, m_meso_radius(9.4567e+02*Units::nanometer)
+, m_sigma_meso_height(1.3310e+00*Units::nanometer)
+, m_sigma_meso_radius(1.3863e+00*Units::nanometer)
+, m_sigma_lattice_length_a(1.1601e+00*Units::nanometer)
+, m_surface_filling_ratio(1.7286e-01)
+, m_roughness(2.8746e+01*Units::nanometer)
+, m_nphi_rotations(2)
 {
     init_parameters();
 }

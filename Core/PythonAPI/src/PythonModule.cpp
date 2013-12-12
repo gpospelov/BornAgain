@@ -32,6 +32,7 @@
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphere.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
+#include "FormFactorSphereUniformRadius.pypp.h" 
 #include "FormFactorSpheroid.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
@@ -149,6 +150,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPyramid_class();
     register_FormFactorSphere_class();
     register_FormFactorSphereGaussianRadius_class();
+    register_FormFactorSphereUniformRadius_class();
     register_FormFactorSpheroid_class();
     register_kvector_t_class();
     register_cvector_t_class();

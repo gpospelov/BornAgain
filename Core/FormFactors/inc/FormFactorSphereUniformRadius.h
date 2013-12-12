@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorSphereGaussianRadius.h
-//! @brief     Defines and implements (WHY ??) class FormFactorSphereGaussianRadius.
+//! @file      FormFactorSphereUniformRadius.h
+//! @brief     Defines class .
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,22 +13,22 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H_
-#define FORMFACTORSPHEREGAUSSIANRADIUS_H_
+#ifndef FORMFACTORSPHEREUNIFORMRADIUS_H_
+#define FORMFACTORSPHEREUNIFORMRADIUS_H_
+
 #include "MathFunctions.h"
 
 #include "IFormFactor.h"
 #include "FormFactorFullSphere.h"
 #include <cassert>
 
-//! Form factor of ??
-
-class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
+//! Integrated full sphere form factor over a uniform distribution of radii
+class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
 {
 public:
-    FormFactorSphereGaussianRadius(double mean, double sigma);
-    virtual FormFactorSphereGaussianRadius *clone() const;
-    virtual ~FormFactorSphereGaussianRadius();
+    FormFactorSphereUniformRadius(double mean, double full_width);
+    virtual FormFactorSphereUniformRadius *clone() const;
+    virtual ~FormFactorSphereUniformRadius();
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
@@ -38,7 +38,7 @@ public:
         std::vector<IFormFactor*>& form_factors,
         std::vector<double>& probabilities, size_t nbr_samples) const;
 
-    virtual double getHeight() const { return p_ff_sphere->getHeight(); }
+    virtual double getHeight() const { return 2.0*m_mean; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -46,14 +46,9 @@ protected:
     virtual void init_parameters();
 
 private:
-    double calculateMeanR3() const;
-
+    bool checkParameters() const;
     double m_mean; //!< This is the mean radius
-    double m_sigma;
-    double m_mean_r3; //!< This is the radius that gives the mean volume
-    FormFactorFullSphere *p_ff_sphere;
+    double m_full_width; //!< This is the full width of the radius distribution
 };
 
-#endif /* FORMFACTORSPHEREGAUSSIANRADIUS_H_ */
-
-
+#endif /* FORMFACTORSPHEREUNIFORMRADIUS_H_ */

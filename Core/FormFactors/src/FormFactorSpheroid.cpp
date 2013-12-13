@@ -74,7 +74,7 @@ complex_t FormFactorSpheroid::evaluate_for_q(const cvector_t& q) const
 
     if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
 
-        return M_PI*R*H/fp*(1.-H/(3.*fp*R));
+        return M_PI*R*H*H/fp*(1.-H/(3.*fp*R));
 
     } else {
 

@@ -18,6 +18,8 @@ set(list_of_tests
     "mesocrystal1.py"
     "polarizeddwbazeromag.py"
     "layerwithroughness.py"
+    "ripple2.py"
+    "ripple2a.py"
 )
 
 foreach(_test ${list_of_tests})

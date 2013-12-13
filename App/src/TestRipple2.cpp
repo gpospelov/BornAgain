@@ -147,7 +147,7 @@ void TestRipple2::initializeSimulation()
 	delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
-    mp_simulation->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree, true);
     mp_simulation->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 }
 
@@ -158,7 +158,7 @@ TestRipple2::SampleBuilder::SampleBuilder()
     : m_w(20.0*Units::nanometer)
     , m_h(4.0*Units::nanometer)
     , m_l(100.0*Units::nanometer)
-    , m_d(3.0*Units::nanometer)
+    , m_d(0.0*Units::nanometer)
     , m_interf_distance(20.0*Units::nanometer)
     , m_interf_width(4.0*Units::nanometer)
 {

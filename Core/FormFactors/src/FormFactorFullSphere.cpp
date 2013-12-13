@@ -21,9 +21,9 @@
 //#include <cmath>
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
+: m_radius(radius)
 {
     setName("FormFactorFullSphere");
-    m_radius = radius;
     init_parameters();
 }
 

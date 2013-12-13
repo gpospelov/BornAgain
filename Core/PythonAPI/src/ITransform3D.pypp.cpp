@@ -33,10 +33,10 @@ struct ITransform3D_wrapper : Geometry::ITransform3D, bp::wrapper< Geometry::ITr
     virtual ::Geometry::ITransform3D * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->Geometry::ITransform3D::clone(  );
+        }
     }
-    
     
     ::Geometry::ITransform3D * default_clone(  ) const  {
         return Geometry::ITransform3D::clone( );
@@ -45,10 +45,10 @@ struct ITransform3D_wrapper : Geometry::ITransform3D, bp::wrapper< Geometry::ITr
     virtual void print( ::std::ostream & ostr ) const  {
         if( bp::override func_print = this->get_override( "print" ) )
             func_print( boost::ref(ostr) );
-        else
+        else{
             this->Geometry::ITransform3D::print( boost::ref(ostr) );
+        }
     }
-    
     
     void default_print( ::std::ostream & ostr ) const  {
         Geometry::ITransform3D::print( boost::ref(ostr) );

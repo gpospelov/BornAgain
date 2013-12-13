@@ -12,89 +12,89 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "FormFactorRipple2.pypp.h"
+#include "FormFactorSphereUniformRadius.pypp.h"
 
 namespace bp = boost::python;
 
-struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRipple2 > {
+struct FormFactorSphereUniformRadius_wrapper : FormFactorSphereUniformRadius, bp::wrapper< FormFactorSphereUniformRadius > {
 
-    FormFactorRipple2_wrapper(double width, double height, double length, double asymetry )
-    : FormFactorRipple2( width, height, length, asymetry )
-      , bp::wrapper< FormFactorRipple2 >(){
+    FormFactorSphereUniformRadius_wrapper(double mean, double full_width )
+    : FormFactorSphereUniformRadius( mean, full_width )
+      , bp::wrapper< FormFactorSphereUniformRadius >(){
         // constructor
     
     }
 
-    virtual ::FormFactorRipple2 * clone(  ) const  {
+    virtual ::FormFactorSphereUniformRadius * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->FormFactorRipple2::clone(  );
+            return this->FormFactorSphereUniformRadius::clone(  );
         }
     }
     
-    ::FormFactorRipple2 * default_clone(  ) const  {
-        return FormFactorRipple2::clone( );
+    ::FormFactorSphereUniformRadius * default_clone(  ) const  {
+        return FormFactorSphereUniformRadius::clone( );
     }
 
-    virtual double getAsymetry(  ) const  {
-        if( bp::override func_getAsymetry = this->get_override( "getAsymetry" ) )
-            return func_getAsymetry(  );
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
+            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
         else{
-            return this->FormFactorRipple2::getAsymetry(  );
+            this->FormFactorSphereUniformRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
         }
     }
     
-    double default_getAsymetry(  ) const  {
-        return FormFactorRipple2::getAsymetry( );
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        FormFactorSphereUniformRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    }
+
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorSphereUniformRadius::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorSphereUniformRadius::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
         else{
-            return this->FormFactorRipple2::getHeight(  );
+            return this->FormFactorSphereUniformRadius::getHeight(  );
         }
     }
     
     double default_getHeight(  ) const  {
-        return FormFactorRipple2::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else{
-            return this->FormFactorRipple2::getLength(  );
-        }
-    }
-    
-    double default_getLength(  ) const  {
-        return FormFactorRipple2::getLength( );
+        return FormFactorSphereUniformRadius::getHeight( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
         else{
-            return this->FormFactorRipple2::getNumberOfStochasticParameters(  );
+            return this->FormFactorSphereUniformRadius::getNumberOfStochasticParameters(  );
         }
     }
     
     int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorRipple2::getNumberOfStochasticParameters( );
+        return FormFactorSphereUniformRadius::getNumberOfStochasticParameters( );
     }
 
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
+    virtual bool isDistributedFormFactor(  ) const  {
+        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
+            return func_isDistributedFormFactor(  );
         else{
-            return this->FormFactorRipple2::getWidth(  );
+            return this->FormFactorSphereUniformRadius::isDistributedFormFactor(  );
         }
     }
     
-    double default_getWidth(  ) const  {
-        return FormFactorRipple2::getWidth( );
+    bool default_isDistributedFormFactor(  ) const  {
+        return FormFactorSphereUniformRadius::isDistributedFormFactor( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -143,18 +143,6 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
-    }
-
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -229,18 +217,6 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         return IFormFactorBorn::getVolume( );
     }
 
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else{
-            return this->IFormFactor::isDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return IFormFactor::isDistributedFormFactor( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -276,7 +252,7 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< FormFactorRipple2_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< FormFactorSphereUniformRadius_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -310,271 +286,250 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
 
 };
 
-void register_FormFactorRipple2_class(){
+void register_FormFactorSphereUniformRadius_class(){
 
-    { //::FormFactorRipple2
-        typedef bp::class_< FormFactorRipple2_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorRipple2_exposer_t;
-        FormFactorRipple2_exposer_t FormFactorRipple2_exposer = FormFactorRipple2_exposer_t( "FormFactorRipple2", bp::init< double, double, double, double >(( bp::arg("width"), bp::arg("height"), bp::arg("length"), bp::arg("asymetry") )) );
-        bp::scope FormFactorRipple2_scope( FormFactorRipple2_exposer );
-        { //::FormFactorRipple2::clone
+    { //::FormFactorSphereUniformRadius
+        typedef bp::class_< FormFactorSphereUniformRadius_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorSphereUniformRadius_exposer_t;
+        FormFactorSphereUniformRadius_exposer_t FormFactorSphereUniformRadius_exposer = FormFactorSphereUniformRadius_exposer_t( "FormFactorSphereUniformRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("full_width") )) );
+        bp::scope FormFactorSphereUniformRadius_scope( FormFactorSphereUniformRadius_exposer );
+        { //::FormFactorSphereUniformRadius::clone
         
-            typedef ::FormFactorRipple2 * ( ::FormFactorRipple2::*clone_function_type )(  ) const;
-            typedef ::FormFactorRipple2 * ( FormFactorRipple2_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorSphereUniformRadius * ( ::FormFactorSphereUniformRadius::*clone_function_type )(  ) const;
+            typedef ::FormFactorSphereUniformRadius * ( FormFactorSphereUniformRadius_wrapper::*default_clone_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "clone"
-                , clone_function_type(&::FormFactorRipple2::clone)
-                , default_clone_function_type(&FormFactorRipple2_wrapper::default_clone)
+                , clone_function_type(&::FormFactorSphereUniformRadius::clone)
+                , default_clone_function_type(&FormFactorSphereUniformRadius_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorRipple2::getAsymetry
+        { //::FormFactorSphereUniformRadius::createDistributedFormFactors
         
-            typedef double ( ::FormFactorRipple2::*getAsymetry_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getAsymetry_function_type )(  ) const;
+            typedef void ( ::FormFactorSphereUniformRadius::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
             
-            FormFactorRipple2_exposer.def( 
-                "getAsymetry"
-                , getAsymetry_function_type(&::FormFactorRipple2::getAsymetry)
-                , default_getAsymetry_function_type(&FormFactorRipple2_wrapper::default_getAsymetry) );
+            FormFactorSphereUniformRadius_exposer.def( 
+                "createDistributedFormFactors"
+                , createDistributedFormFactors_function_type(&::FormFactorSphereUniformRadius::createDistributedFormFactors)
+                , default_createDistributedFormFactors_function_type(&FormFactorSphereUniformRadius_wrapper::default_createDistributedFormFactors)
+                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorRipple2::getHeight
+        { //::FormFactorSphereUniformRadius::evaluate_for_q
         
-            typedef double ( ::FormFactorRipple2::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef ::complex_t ( ::FormFactorSphereUniformRadius::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorSphereUniformRadius_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorSphereUniformRadius::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorSphereUniformRadius_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
+        
+        }
+        { //::FormFactorSphereUniformRadius::getHeight
+        
+            typedef double ( ::FormFactorSphereUniformRadius::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getHeight_function_type )(  ) const;
+            
+            FormFactorSphereUniformRadius_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorRipple2::getHeight)
-                , default_getHeight_function_type(&FormFactorRipple2_wrapper::default_getHeight) );
+                , getHeight_function_type(&::FormFactorSphereUniformRadius::getHeight)
+                , default_getHeight_function_type(&FormFactorSphereUniformRadius_wrapper::default_getHeight) );
         
         }
-        { //::FormFactorRipple2::getLength
+        { //::FormFactorSphereUniformRadius::getNumberOfStochasticParameters
         
-            typedef double ( ::FormFactorRipple2::*getLength_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getLength_function_type )(  ) const;
+            typedef int ( ::FormFactorSphereUniformRadius::*getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( FormFactorSphereUniformRadius_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
-                "getLength"
-                , getLength_function_type(&::FormFactorRipple2::getLength)
-                , default_getLength_function_type(&FormFactorRipple2_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorRipple2::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorRipple2::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorRipple2_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
-            
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorRipple2::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorRipple2_wrapper::default_getNumberOfStochasticParameters) );
+                , getNumberOfStochasticParameters_function_type(&::FormFactorSphereUniformRadius::getNumberOfStochasticParameters)
+                , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereUniformRadius_wrapper::default_getNumberOfStochasticParameters) );
         
         }
-        { //::FormFactorRipple2::getWidth
+        { //::FormFactorSphereUniformRadius::isDistributedFormFactor
         
-            typedef double ( ::FormFactorRipple2::*getWidth_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getWidth_function_type )(  ) const;
+            typedef bool ( ::FormFactorSphereUniformRadius::*isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
-                "getWidth"
-                , getWidth_function_type(&::FormFactorRipple2::getWidth)
-                , default_getWidth_function_type(&FormFactorRipple2_wrapper::default_getWidth) );
+            FormFactorSphereUniformRadius_exposer.def( 
+                "isDistributedFormFactor"
+                , isDistributedFormFactor_function_type(&::FormFactorSphereUniformRadius::isDistributedFormFactor)
+                , default_isDistributedFormFactor_function_type(&FormFactorSphereUniformRadius_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorRipple2_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorRipple2_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&FormFactorSphereUniformRadius_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorRipple2_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorRipple2_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&FormFactorSphereUniformRadius_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorRipple2_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( FormFactorSphereUniformRadius_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&FormFactorRipple2_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorSphereUniformRadius_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorRipple2_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&FormFactorRipple2_wrapper::default_containsMagneticMaterial) );
-        
-        }
-        { //::IFormFactor::createDistributedFormFactors
-        
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
-            typedef void ( FormFactorRipple2_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
-            
-            FormFactorRipple2_exposer.def( 
-                "createDistributedFormFactors"
-                , createDistributedFormFactors_function_type(&::IFormFactor::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorRipple2_wrapper::default_createDistributedFormFactors)
-                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , default_containsMagneticMaterial_function_type(&FormFactorSphereUniformRadius_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorRipple2_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( FormFactorSphereUniformRadius_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorRipple2_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&FormFactorSphereUniformRadius_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IFormFactorBorn::evaluate
         
             typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorRipple2_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( FormFactorSphereUniformRadius_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::IFormFactorBorn::evaluate)
-                , default_evaluate_function_type(&FormFactorRipple2_wrapper::default_evaluate)
+                , default_evaluate_function_type(&FormFactorSphereUniformRadius_wrapper::default_evaluate)
                 , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorRipple2_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorSphereUniformRadius_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorRipple2_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorSphereUniformRadius_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorRipple2_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorSphereUniformRadius_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorRipple2_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorSphereUniformRadius_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IFormFactor::getRadius
         
             typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getRadius_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "getRadius"
                 , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorRipple2_wrapper::default_getRadius) );
+                , default_getRadius_function_type(&FormFactorSphereUniformRadius_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume
         
             typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( FormFactorSphereUniformRadius_wrapper::*default_getVolume_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "getVolume"
                 , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&FormFactorRipple2_wrapper::default_getVolume) );
-        
-        }
-        { //::IFormFactor::isDistributedFormFactor
-        
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorRipple2_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
-            
-            FormFactorRipple2_exposer.def( 
-                "isDistributedFormFactor"
-                , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorRipple2_wrapper::default_isDistributedFormFactor) );
+                , default_getVolume_function_type(&FormFactorSphereUniformRadius_wrapper::default_getVolume) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorRipple2_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_printParameters_function_type )(  ) const;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorRipple2_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&FormFactorSphereUniformRadius_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorRipple2_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&FormFactorRipple2_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&FormFactorSphereUniformRadius_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &FormFactorRipple2_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &FormFactorSphereUniformRadius_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorRipple2_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( FormFactorSphereUniformRadius_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorRipple2_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&FormFactorSphereUniformRadius_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorRipple2_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( FormFactorSphereUniformRadius_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            FormFactorRipple2_exposer.def( 
+            FormFactorSphereUniformRadius_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorRipple2_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&FormFactorSphereUniformRadius_wrapper::default_setParametersAreChanged) );
         
         }
     }

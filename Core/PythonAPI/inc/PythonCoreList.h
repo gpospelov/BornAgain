@@ -33,6 +33,7 @@
 #include "FormFactorRipple2.h"
 #include "FormFactorSphere.h"
 #include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorSphereUniformRadius.h"
 #include "FormFactorSpheroid.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"

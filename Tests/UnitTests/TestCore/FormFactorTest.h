@@ -448,7 +448,8 @@ TEST_F(FormFactorTest, Spheroid)
     double radius = 3.;
     double flattening = 1.5;
     double total_height =2.*flattening *radius;
-    double volume = M_PI*radius*height/flattening*(1.-height/(3.*flattening*radius));
+    double volume = M_PI*radius*height*height/flattening
+            *(1.-height/(3.*flattening*radius));
 
     FormFactorSpheroid spheroid(radius, height,flattening);
 

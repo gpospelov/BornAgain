@@ -55,7 +55,7 @@
 TestRipple2::TestRipple2()
 : IApplicationTest("TestRipple2")
 , mp_simulation(0)
-, mp_sample_builder(new SampleBuilder())
+, mp_sample_builder(new TestSampleBuilder())
 {
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/" ));
 }
@@ -153,18 +153,18 @@ void TestRipple2::initializeSimulation()
 /* ************************************************************************* */
 // sample builder
 /* ************************************************************************* */
-TestRipple2::SampleBuilder::SampleBuilder()
+TestRipple2::TestSampleBuilder::TestSampleBuilder()
     : m_w(20.0*Units::nanometer)
     , m_h(4.0*Units::nanometer)
     , m_l(100.0*Units::nanometer)
-    , m_d(0.0*Units::nanometer)
+    , m_d(3.0*Units::nanometer)
     , m_interf_distance(20.0*Units::nanometer)
     , m_interf_width(4.0*Units::nanometer)
 {
       init_parameters();
 }
 
-void TestRipple2::SampleBuilder::init_parameters()
+void TestRipple2::TestSampleBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("width", &m_w);
@@ -175,7 +175,7 @@ void TestRipple2::SampleBuilder::init_parameters()
     registerParameter("interf_width", &m_interf_width);
 }
 
-ISample *TestRipple2::SampleBuilder::buildSample() const
+ISample *TestRipple2::TestSampleBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
 

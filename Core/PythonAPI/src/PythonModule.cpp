@@ -7,6 +7,7 @@
 #include "RotateZ_3D.pypp.h" 
 #include "IFTDistribution2D.pypp.h" 
 #include "Detector.pypp.h" 
+#include "FormFactorRipple2.pypp.h" 
 #include "LatticeBasis.pypp.h" 
 #include "ParticleCoreShell.pypp.h" 
 #include "Beam.pypp.h" 
@@ -148,6 +149,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();
     register_FormFactorPyramid_class();
+    register_FormFactorRipple2_class();
     register_FormFactorSphere_class();
     register_FormFactorSphereGaussianRadius_class();
     register_FormFactorSpheroid_class();

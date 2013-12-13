@@ -7,6 +7,7 @@ HEADERS +=  \
     PythonAPI/inc/RotateZ_3D.pypp.h \
     PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/Detector.pypp.h \
+    PythonAPI/inc/FormFactorRipple2.pypp.h \
     PythonAPI/inc/LatticeBasis.pypp.h \
     PythonAPI/inc/ParticleCoreShell.pypp.h \
     PythonAPI/inc/Beam.pypp.h \
@@ -176,6 +177,7 @@ SOURCES +=  \
     PythonAPI/src/MaterialManager.pypp.cpp \
     PythonAPI/src/IObservable.pypp.cpp \
     PythonAPI/src/ParticleBuilder.pypp.cpp \
+    PythonAPI/src/FormFactorRipple2.pypp.cpp \
     PythonAPI/src/Instrument.pypp.cpp \
     PythonAPI/src/FormFactorGauss.pypp.cpp \
     PythonAPI/src/FormFactorPrism3.pypp.cpp \

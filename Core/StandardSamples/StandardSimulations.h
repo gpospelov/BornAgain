@@ -30,6 +30,7 @@ Simulation *IsGISAXS15();
 Simulation *MesoCrystal01();
 Simulation *PolarizedDWBAZeroMag();
 Simulation *LayerWithRoughness();
+Simulation *Ripple2();
 }
 
 

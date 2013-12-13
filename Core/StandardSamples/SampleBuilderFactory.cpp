@@ -13,6 +13,7 @@
 #include "MesoCrystal01Builder.h"
 #include "PolarizedDWBAZeroMagBuilder.h"
 #include "LayerRoughnessBuilder.h"
+#include "Ripple2Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -119,6 +120,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayerWithRoughness",
         IFactoryCreateFunction<LayerRoughnessBuilder, ISampleBuilder>,
         "Layer with correlated roughness");
+
+    registerItem(
+        "ripple2",
+        IFactoryCreateFunction<Ripple2Builder, ISampleBuilder>,
+        "triangular ripple within the 1D-paracrystal model");
 
 }
 

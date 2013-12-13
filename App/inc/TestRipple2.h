@@ -32,10 +32,10 @@ public:
 	void drawff ();
 
     //! Ripple2 sample builder (sample from PRB 85, 235415, 2012, fig.3)
-    class SampleBuilder : public ISampleBuilder
+    class TestSampleBuilder : public ISampleBuilder
     {
     public:
-        SampleBuilder();
+        TestSampleBuilder();
         virtual ISample *buildSample() const;
     protected:
         //! Registers some class members for later access via parameter pool

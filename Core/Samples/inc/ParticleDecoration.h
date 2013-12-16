@@ -26,33 +26,13 @@
 class BA_CORE_API_ ParticleDecoration : public IDecoration
 {
 public:
-    ParticleDecoration()
-        : m_total_abundance(0.0)
-    {
-        setName("ParticleDecoration");
-    }
-
+    ParticleDecoration();
     ParticleDecoration(
-        Particle* p_particle, double depth=0., double abundance=1.)
-        : m_total_abundance(0.0)
-    {
-        setName("ParticleDecoration");
-        addParticle(p_particle, depth, abundance);
-    }
-
+        Particle* p_particle, double depth=0., double abundance=1.);
     ParticleDecoration(
-        const Particle& p_particle, double depth=0., double abundance=1.)
-        : m_total_abundance(0.0)
-    {
-        setName("ParticleDecoration");
-        addParticle(p_particle.clone(), depth, abundance);
-    }
+        const Particle& p_particle, double depth=0., double abundance=1.);
 
-    ~ParticleDecoration()
-    {
-        for (size_t i=0; i<m_particles.size(); ++i)
-            delete m_particles[i];
-    }
+    virtual ~ParticleDecoration();
 
     virtual ParticleDecoration *clone() const;
 
@@ -114,10 +94,10 @@ private:
 
     void print(std::ostream& ostr) const;
 
-    //TODO: replace with SafePointerVector
-    std::vector<ParticleInfo*> m_particles;
-
     //! Vector of the types of particles
+    SafePointerVector<ParticleInfo> m_particles;
+
+    //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
 
     //! Currently only a scalar interference function (instead of matrix)

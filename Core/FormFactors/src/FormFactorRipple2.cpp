@@ -62,7 +62,7 @@ complex_t FormFactorRipple2::Integrand(double Z, void* params) const
 {
     (void)params;  // to avoid unused-variable warning
     complex_t p1 = (1.0-Z/m_height)*MathFunctions::Sinc(m_q.y()*m_width*0.5*(1.0-Z/m_height));
-    return p1*std::exp(-1.0*complex_t(0.0, 1.0)*(m_q.y()*m_d*(1-Z/m_height) + m_q.z()*Z));
+    return p1*std::exp(complex_t(0.0, 1.0)*(m_q.y()*m_d*(1-Z/m_height) + m_q.z()*Z));
 }
 
 //! Complex formfactor.

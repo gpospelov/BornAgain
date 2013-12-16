@@ -33,8 +33,6 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) con
         // no consistent options, the reason might be that no call to
         // parseConfigFile has been made (for example due to the absence of
         // main())
-        //parseConfigFile();
-        //throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
     }
     return m_variables_map[s.c_str()];
 }

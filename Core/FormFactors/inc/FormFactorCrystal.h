@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "Crystal.h"
 
-//! Form factor for mesocrystals with a bulk crystal structure of particles
+//! @class FormFactorCrystal
+//! @ingroup formfactors
+//! @brief The formfactor for mesocrystals with a bulk crystal structure of particles.
 
 class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 {

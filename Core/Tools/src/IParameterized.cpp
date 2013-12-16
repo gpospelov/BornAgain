@@ -31,10 +31,7 @@ IParameterized& IParameterized::operator=(const IParameterized& other)
     return *this;
 }
 
-//! Creates new parameter pool, with all local parameter and parameters of children
 
-//! User has to delete it.
-//!
 ParameterPool *IParameterized::createParameterTree() const
 {
     ParameterPool *newpool = new ParameterPool;
@@ -43,7 +40,6 @@ ParameterPool *IParameterized::createParameterTree() const
     return newpool;
 }
 
-//! Adds parameters from local pool to external pool and call recursion over direct children.
 
 std::string IParameterized::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
@@ -63,7 +59,6 @@ std::string IParameterized::addParametersToExternalPool(
 }
 
 
-//! set parameter value, return true in the case of success
 bool IParameterized::setParameterValue(const std::string &name, double value)
 {
     if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
@@ -77,13 +72,6 @@ bool IParameterized::setParameterValue(const std::string &name, double value)
     }
 }
 
-//! Sets parameter value, return number of changed parameters
-//int IParameterized::setMatchedParametersValue(const std::string& wildcards, double value)
-//{
-//    boost::scoped_ptr<ParameterPool> P_pool(createParameterTree());
-//    return P_pool->setMatchedParametersValue(wildcards, value);
-//}
-
 
 void IParameterized::printParameters() const
 {
@@ -91,6 +79,7 @@ void IParameterized::printParameters() const
     std::cout << *p_pool << std::endl;
     delete p_pool;
 }
+
 
 void IParameterized::init_parameters()
 {

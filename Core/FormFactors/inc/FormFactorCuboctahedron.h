@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of cuboctahedron.
+//! @class FormFactorCuboctahedron
+//! @ingroup formfactors
+//! @brief The formfactor of cuboctahedron.
 
 class BA_CORE_API_ FormFactorCuboctahedron : public IFormFactorBorn
 {

@@ -21,7 +21,9 @@
 #include "FormFactorFullSphere.h"
 #include <cassert>
 
-//! Form factor of ??
+//! @class FormFactorSphereGaussianRadius
+//! @ingroup formfactors
+//! @brief The formfactor of sphere with gaussian radius distribution.
 
 class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {

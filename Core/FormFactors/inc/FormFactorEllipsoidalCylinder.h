@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of an ellipsoidal cylinder.
+//! @class FormFactorEllipsoidalCylinder
+//! @ingroup formfactors
+//! @brief The formfactor of an ellipsoidal cylinder.
 
 class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn
 {

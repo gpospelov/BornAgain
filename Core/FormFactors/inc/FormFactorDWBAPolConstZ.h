@@ -18,7 +18,9 @@
 
 #include "FormFactorDWBAPol.h"
 
-//! Calculates a polarized DWBA form factor for particles at fixed depth
+//! @class FormFactorDWBAPolConstZ
+//! @ingroup ff_internals
+//! @brief Calculates a polarized DWBA formfactor for particles at fixed depth.
 
 class BA_CORE_API_ FormFactorDWBAPolConstZ : public FormFactorDWBAPol
 {

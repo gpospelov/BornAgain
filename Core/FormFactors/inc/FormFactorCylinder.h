@@ -18,7 +18,9 @@
 
 #include "IFormFactorBorn.h"
 
-//! Form factor of a cylinder.
+//! @class FormFactorCylinder
+//! @ingroup formfactors
+//! @brief The formfactor of a cylinder.
 
 class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {

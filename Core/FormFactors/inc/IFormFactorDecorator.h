@@ -18,7 +18,9 @@
 
 #include "IFormFactor.h"
 
-//! Encapsulates another formfactor and adds extra functionality
+//! @class IFormFactorDecorator
+//! @ingroup ff_decorations
+//! @brief Encapsulates another formfactor and adds extra functionality
 //! (a scalar factor, a Debye-Waller factor, ...).
 
 class BA_CORE_API_ IFormFactorDecorator : public IFormFactor

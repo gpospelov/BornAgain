@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! The form factor for a rectangular box
+//! @class FormFactorBox
+//! @ingroup formfactors
+//! @brief The formfactor for a rectangular box.
 
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {

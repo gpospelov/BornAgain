@@ -20,7 +20,9 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Formfactor of a spheroid
+//! @class FormFactorSpheroid
+//! @ingroup formfactors
+//! @brief The formfactor of a spheroid.
 
 class BA_CORE_API_ FormFactorSpheroid : public IFormFactorBorn
 {

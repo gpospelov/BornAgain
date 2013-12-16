@@ -20,7 +20,9 @@
 #include "ITransform3D.h"
 #include <memory>
 
-//! Equip a Formfactor with a rotation.
+//! @class FormFactorDecoratorTransformation
+//! @ingroup ff_decorations
+//! @brief Equip a formfactor with a rotation.
 
 class FormFactorDecoratorTransformation : public IFormFactorDecorator
 {

@@ -22,7 +22,9 @@
 #include "Bin.h"
 #include "EigenCore.h"
 
-//! The basic interface for form factors.
+//! @class IFormFactor
+//! @ingroup ff_internals
+//! @brief The basic interface for form factors.
 
 class BA_CORE_API_ IFormFactor : public ISample
 {
@@ -32,15 +34,14 @@ public:
 
     virtual IFormFactor *clone() const=0;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const {
-        p_visitor->visit(this);
-    }
+    //! @{ \internal
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this);}
+    //! @}
 
     //! Passes the refractive index of the ambient material in which this
     //! particle is embedded.
     virtual void setAmbientMaterial(const IMaterial *p_material) {
-        (void)p_material; // to prevent unused-variable warning
+        (void)p_material;
     }
 
     //! Returns scattering amplitude for complex wavevector bin

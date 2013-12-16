@@ -19,7 +19,9 @@
 #include "IFormFactor.h"
 #include "LayerSpecularInfo.h"
 
-//! Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized form factor
+//! @class FormFactorDWBAPol
+//! @ingroup ff_internals
+//! @brief Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized formfactor.
 
 class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
 {

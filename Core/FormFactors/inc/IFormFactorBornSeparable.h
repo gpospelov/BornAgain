@@ -18,7 +18,10 @@
 
 #include "IFormFactorBorn.h"
 
-//! Born formfactor (scattering amplitude only depends on q, and separates into a radial and a z-dependent part).
+//! @class IFormFactorBornSeparable
+//! @ingroup ff_internals
+//! @brief Separable Born formfactor interface. Scattering amplitude only
+//! depends on q, and separates into a radial and a z-dependent part.
 
 class IFormFactorBornSeparable : public IFormFactorBorn
 {

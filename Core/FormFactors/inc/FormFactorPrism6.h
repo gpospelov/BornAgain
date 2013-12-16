@@ -17,7 +17,9 @@
 #define FORMFACTORPRISM6_H
 #include "IFormFactorBorn.h"
 
-//! Formfactor of a prism based on a regular hexagonal.
+//! @class FormFactorPrism6
+//! @ingroup formfactors
+//! @brief The formfactor of a prism based on a regular hexagonal.
 
 class BA_CORE_API_ FormFactorPrism6 : public IFormFactorBorn
 {

@@ -18,7 +18,9 @@
 
 #include "FormFactorDWBA.h"
 
-//! Calculates a DWBA form factor for particles at fixed depth
+//! @class FormFactorDWBAConstZ
+//! @ingroup ff_decorations
+//! @brief Calculates a DWBA formfactor for particles at fixed depth.
 
 class BA_CORE_API_ FormFactorDWBAConstZ : public FormFactorDWBA
 {

@@ -141,8 +141,8 @@ void Detector::normalize(OutputData<double> *p_data,
     if (p_data->getRank()!=2) return;
 
     // if not a gisas detector, do nothing
-    const IAxis *p_alpha_axis = p_data->getAxis(BA::ALPHA_AXIS_NAME);
-    const IAxis *p_phi_axis = p_data->getAxis(BA::PHI_AXIS_NAME);
+    const IAxis *p_alpha_axis = p_data->getAxis(BornAgain::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = p_data->getAxis(BornAgain::PHI_AXIS_NAME);
     if (!p_alpha_axis || !p_phi_axis) return;
 
     // GISAS normalization
@@ -182,11 +182,11 @@ void Detector::initializeAnglesIsgisaxs(
 
 double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
 {
-    const IAxis *p_alpha_axis = p_data->getAxis(BA::ALPHA_AXIS_NAME);
-    const IAxis *p_phi_axis = p_data->getAxis(BA::PHI_AXIS_NAME);
-    size_t alpha_index = p_data->getIndexOfAxis(BA::ALPHA_AXIS_NAME, index);
+    const IAxis *p_alpha_axis = p_data->getAxis(BornAgain::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = p_data->getAxis(BornAgain::PHI_AXIS_NAME);
+    size_t alpha_index = p_data->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME, index);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = p_data->getIndexOfAxis(BA::PHI_AXIS_NAME, index);
+    size_t phi_index = p_data->getIndexOfAxis(BornAgain::PHI_AXIS_NAME, index);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 && phi_size<2)
         // Cannot determine detector cell size!
@@ -195,7 +195,7 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
             "Error! Can't determine size of detector cell.");
     double dalpha(0), dphi(0);
 
-    double alpha_f = p_data->getValueOfAxis(BA::ALPHA_AXIS_NAME, index);
+    double alpha_f = p_data->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, index);
     double cos_alpha_f = std::cos(alpha_f);
 
     if(alpha_size>1) {

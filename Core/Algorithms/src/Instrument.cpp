@@ -49,10 +49,10 @@ void Instrument::setDetectorParameters(
     bool isgisaxs_style)
 {
     AxisParameters phi_params;
-    phi_params.m_name = BA::PHI_AXIS_NAME;
+    phi_params.m_name = BornAgain::PHI_AXIS_NAME;
     phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
     AxisParameters alpha_params;
-    alpha_params.m_name = BA::ALPHA_AXIS_NAME;
+    alpha_params.m_name = BornAgain::ALPHA_AXIS_NAME;
     alpha_params.m_range =
         TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {

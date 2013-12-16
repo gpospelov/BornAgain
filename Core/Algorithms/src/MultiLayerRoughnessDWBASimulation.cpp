@@ -42,9 +42,9 @@ void MultiLayerRoughnessDWBASimulation::run()
     while ( it_intensity != m_dwba_intensity.end(m_thread_info) )
     {
         double phi_f = getDWBAIntensity().getValueOfAxis(
-            BA::PHI_AXIS_NAME, it_intensity.getIndex());
+            BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
         double alpha_f = getDWBAIntensity().getValueOfAxis(
-            BA::ALPHA_AXIS_NAME, it_intensity.getIndex());
+            BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);

@@ -597,16 +597,16 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double>& data)
 
     if(data.getRank() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Number of dimensions should be 2");
     double x1(0), x2(0), y1(0), y2(0);
-    if( data.getAxis(BA::ALPHA_AXIS_NAME) && data.getAxis(BA::ALPHA_AXIS_NAME)->getSize() == 1) {
+    if( data.getAxis(BornAgain::ALPHA_AXIS_NAME) && data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() == 1) {
         // horizontal line
-        x1 = data.getAxis(BA::PHI_AXIS_NAME)->getMin();
-        x2 = data.getAxis(BA::PHI_AXIS_NAME)->getMax();
-        y1 = y2 = data.getAxis(BA::ALPHA_AXIS_NAME)->getMin();
-    }else if( data.getAxis(BA::PHI_AXIS_NAME) && data.getAxis(BA::PHI_AXIS_NAME)->getSize() == 1 ) {
+        x1 = data.getAxis(BornAgain::PHI_AXIS_NAME)->getMin();
+        x2 = data.getAxis(BornAgain::PHI_AXIS_NAME)->getMax();
+        y1 = y2 = data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMin();
+    }else if( data.getAxis(BornAgain::PHI_AXIS_NAME) && data.getAxis(BornAgain::PHI_AXIS_NAME)->getSize() == 1 ) {
         // it's vertical line
-        x1 = x2 = data.getAxis(BA::PHI_AXIS_NAME)->getMin();
-        y1 = data.getAxis(BA::ALPHA_AXIS_NAME)->getMin();
-        y2 = data.getAxis(BA::ALPHA_AXIS_NAME)->getMax();
+        x1 = x2 = data.getAxis(BornAgain::PHI_AXIS_NAME)->getMin();
+        y1 = data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMin();
+        y2 = data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMax();
     } else {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Can't handle these axes.");
     }
@@ -628,7 +628,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double>& data, const
 
     if(data.getRank() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Number of dimensions should be 2");
     // one of axis should have dimension 1
-    if( (data.getAxis(BA::ALPHA_AXIS_NAME) && data.getAxis(BA::ALPHA_AXIS_NAME)->getSize() != 1) && (data.getAxis(BA::PHI_AXIS_NAME) && data.getAxis(BA::PHI_AXIS_NAME)->getSize() != 1))
+    if( (data.getAxis(BornAgain::ALPHA_AXIS_NAME) && data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() != 1) && (data.getAxis(BornAgain::PHI_AXIS_NAME) && data.getAxis(BornAgain::PHI_AXIS_NAME)->getSize() != 1))
     {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes");
         //std::cout << "IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes" << std::endl;
@@ -639,12 +639,12 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double>& data, const
 
     TH1D *hist1(0);
     std::ostringstream ostr_title;
-    if( data.getAxis(BA::ALPHA_AXIS_NAME) && data.getAxis(BA::ALPHA_AXIS_NAME)->getSize() == 1) {
+    if( data.getAxis(BornAgain::ALPHA_AXIS_NAME) && data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() == 1) {
         hist1 = hist2->ProjectionX();
-        ostr_title << hname << ", alpha_f=" << data.getAxis(BA::ALPHA_AXIS_NAME)->getMin();
-    }else if( data.getAxis(BA::PHI_AXIS_NAME) && data.getAxis(BA::PHI_AXIS_NAME)->getSize() == 1 ) {
+        ostr_title << hname << ", alpha_f=" << data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMin();
+    }else if( data.getAxis(BornAgain::PHI_AXIS_NAME) && data.getAxis(BornAgain::PHI_AXIS_NAME)->getSize() == 1 ) {
         hist1 = hist2->ProjectionY();
-        ostr_title << hname << ", phi_f=" << data.getAxis(BA::PHI_AXIS_NAME)->getMin();
+        ostr_title << hname << ", phi_f=" << data.getAxis(BornAgain::PHI_AXIS_NAME)->getMin();
     } else {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Unexpected place");
     }

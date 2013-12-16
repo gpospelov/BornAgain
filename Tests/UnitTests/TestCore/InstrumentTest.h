@@ -17,7 +17,7 @@ class InstrumentTest : public ::testing::Test
 
 InstrumentTest::InstrumentTest()
 {
-    m_data.addAxis(BA::PHI_AXIS_NAME, 10, 0., 10.);
+    m_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
     m_data.addAxis("theta_f", 20, 0., 20.);
 }
 

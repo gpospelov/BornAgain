@@ -109,14 +109,6 @@ double BasicVector3D<double>::cosTheta() const
     return std::abs(ma) == 0 ? 1 : z()/ma;
 }
 
-// //! @TODO eliminate this, it is plain wrong
-// template<>
-//complex_t BasicVector3D<complex_t>::cosTheta() const
-//{
-//   complex_t ma = mag();
-//   return std::abs(ma) == 0 ? 1 : z()/ma;
-//}
-
 // -----------------------------------------------------------------------------
 // Combine two vectors
 // -----------------------------------------------------------------------------
@@ -143,16 +135,6 @@ BasicVector3D<double> BasicVector3D<double>::cross(
                                  z()*v.x()-v.z()*x(),
                                  x()*v.y()-v.x()*y());
 }
-
-// //! @TODO check usage: unlikely to be correct
-// template<>
-// BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
-//    const BasicVector3D<complex_t>& v) const
-//{
-//    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
-//                                 z()*v.x()-v.z()*x(),
-//                                 x()*v.y()-v.x()*y());
-//}
 
 //! Returns square of transverse component with respect to given axis.
 template<>

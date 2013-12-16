@@ -32,8 +32,7 @@ public:
     AxisDouble(std::string name, size_t size, double start, double end);
 
     //! explicit conversion from BinAxis
-    //TODO: make explicit
-    AxisDouble(const AxisBin& source);
+    explicit AxisDouble(const AxisBin& source);
 
     virtual AxisDouble *clone() const;
 

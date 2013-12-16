@@ -354,15 +354,6 @@ void register_Simulation_class(){
                 , ( bp::arg("thread_info") ) );
         
         }
-        { //::Simulation::smearIntensityFromZAxisTilting
-        
-            typedef void ( ::Simulation::*smearIntensityFromZAxisTilting_function_type )(  ) ;
-            
-            Simulation_exposer.def( 
-                "smearIntensityFromZAxisTilting"
-                , smearIntensityFromZAxisTilting_function_type( &::Simulation::smearIntensityFromZAxisTilting ) );
-        
-        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;

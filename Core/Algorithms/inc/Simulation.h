@@ -129,9 +129,6 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    //! Apply smearing of intensity due to tilting of z-axis (DEPRECATED)
-    void smearIntensityFromZAxisTilting();
-
 protected:
     Simulation(const Simulation& other);
 
@@ -160,14 +157,6 @@ protected:
 #endif
    bool m_is_normalized;
     const ProgramOptions *mp_options;
-
-    //TODO: investigate usage:
-    double deltaAlpha(double alpha, double zeta) const;
-    double deltaPhi(double alpha, double phi, double zeta) const;
-    void createZetaAndProbVectors(std::vector<double>& zetas,
-                                  std::vector<double>& probs,
-                                  size_t nbr_zetas, double zeta_sigma) const;
-    void addToIntensityMap(double alpha, double phi, double value);
 };
 
 #endif /* SIMULATION_H_ */

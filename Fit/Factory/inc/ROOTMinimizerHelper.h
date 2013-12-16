@@ -22,28 +22,35 @@
 //! @class ROOTMinimizerHelper
 //! @brief Handles options and printing for ROOTMinimizer
 //- -------------------------------------------------------------------
-// TODO: replace ROOTMinimizersHelper completely with kind of PoolParameter/IConfigurable functionality
+// TODO: replace ROOTMinimizersHelper completely with kind of
+// PoolParameter/IConfigurable functionality
 class ROOTMinimizerHelper
 {
  public:
     ROOTMinimizerHelper() { }
 
-    //! translate text with options into appropriate calls of minimizer's set method
-    static void setOptions(ROOT::Math::Minimizer *minimizer, const std::string& options);
+    //! translate text with options into appropriate calls of minimizer's
+    //! set method
+    static void setOptions(ROOT::Math::Minimizer *minimizer,
+            const std::string& options);
 
     //! Prints results of minimization
-    static void printResults(ROOT::Math::Minimizer *minimizer, const std::string& minimizer_name, const std::string& algo_type);
+    static void printResults(ROOT::Math::Minimizer *minimizer,
+            const std::string& minimizer_name, const std::string& algo_type);
 
 
  private:
     //! process single command
-    static bool processCommand(ROOT::Math::Minimizer *minimizer, const std::string& command);
+    static bool processCommand(ROOT::Math::Minimizer *minimizer,
+            const std::string& command);
 
     //! process single command common for all minimizers
-    static bool processCommandAll(ROOT::Math::Minimizer *minimizer, const std::string& command);
+    static bool processCommandAll(ROOT::Math::Minimizer *minimizer,
+            const std::string& command);
 
     //! process single command specific for GSL simulated annealing minimizer
-    static bool processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *, const std::string& command);
+    static bool processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *minimizer,
+            const std::string& command);
 
     //! Prints minimizer options
     static void printOptions(ROOT::Math::Minimizer *minimizer);

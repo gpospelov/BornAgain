@@ -7,12 +7,15 @@
 #include <boost/assign/list_of.hpp>
 #include <iomanip>
 
-MinimizerFactory::Catalogue MinimizerFactory::m_catalogue = MinimizerFactory::Catalogue();
+MinimizerFactory::Catalogue MinimizerFactory::m_catalogue =
+        MinimizerFactory::Catalogue();
 
-// constructing map of minimizer names holding list of defined algorithms for every minimizer
+// constructing map of minimizer names holding list of defined algorithms
+// for every minimizer
 MinimizerFactory::Catalogue::Catalogue()
 {
-    // TODO FIXME As soon as we got rid from ROOT in our dependencies, we've lost Genetic minimizer and it is not easy to get it back
+    // TODO FIXME As soon as we got rid from ROOT in our dependencies, we've
+    // lost Genetic minimizer and it is not easy to get it back
 
     // our minimizers
     //m_data["Test"]        = boost::assign::list_of("");

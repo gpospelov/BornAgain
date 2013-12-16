@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TreeEventStructure.h
@@ -51,7 +51,7 @@ public:
     std::vector<std::vector<double > > valpha_f; // values of alpha_f for the frame
     std::vector<std::vector<double > > vphi_f; // values of phi_f for the frames
 
-    ClassDef(TreeEventOutputData,1)
+    ClassDefNV(TreeEventOutputData,1)
 };
 
 
@@ -76,7 +76,7 @@ public:
     std::vector<std::string> parnames; // names of parameters
     std::vector<bool> parfixed; // contains fixed flag for parameters
 
-    ClassDef(TreeEventFitData,1)
+    ClassDefNV(TreeEventFitData,1)
 };
 
 #endif // TREEEVENTSTRUCTURE_H

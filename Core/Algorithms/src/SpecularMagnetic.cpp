@@ -130,6 +130,8 @@ void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff) const
 
 complex_t SpecularMagnetic::getImExponential(complex_t exponent) const
 {
-    // TODO: add over- and underflow checks!
+    if (exponent.imag() > -std::log(std::numeric_limits<double>::min()) ) {
+        return 0.0;
+    }
     return std::exp(complex_t(0.0, 1.0)*exponent);
 }

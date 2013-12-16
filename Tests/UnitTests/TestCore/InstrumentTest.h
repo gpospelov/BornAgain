@@ -49,7 +49,12 @@ TEST_F(InstrumentTest, BeamManipulation)
     EXPECT_FALSE( m_instrument.getDetectorDimension()==2 );
     m_instrument.matchDetectorParameters(m_data);
     EXPECT_TRUE( m_instrument.getDetectorDimension()==2 );
-    //TODO: add axes check
+    const IAxis &axis0 = m_instrument.getDetectorAxis(0);
+    const IAxis &axis1 = m_instrument.getDetectorAxis(1);
+    EXPECT_EQ( axis0.getName(), BA::PHI_AXIS_NAME );
+    EXPECT_EQ( axis0.getSize(), 10);
+    EXPECT_STREQ( axis1.getName().c_str(), "theta_f" );
+    EXPECT_EQ( axis1.getSize(), 20);
 
     m_instrument.setBeamIntensity(10);
     EXPECT_EQ( double(10), m_instrument.getIntensity());

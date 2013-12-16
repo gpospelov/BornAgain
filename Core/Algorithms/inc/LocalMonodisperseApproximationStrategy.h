@@ -18,7 +18,6 @@
 
 #include "IInterferenceFunctionStrategy.h"
 
-//! ?
 
 class LocalMonodisperseApproximationStrategy :
                                       public IInterferenceFunctionStrategy

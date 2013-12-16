@@ -3,7 +3,9 @@
 
 bla-bla
 
-See class \ref formfactors
+\section Available formfactors
+
+See class \ref formfactors "XXX"
 
 
 See another #classes

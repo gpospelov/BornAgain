@@ -48,7 +48,6 @@ void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool,
     }
 }
 
-//! ?
 void FitParameterLinked::print(std::ostream& ostr) const
 {
     FitParameter::print(ostr);

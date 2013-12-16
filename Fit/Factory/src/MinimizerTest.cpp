@@ -33,7 +33,6 @@ std::vector<double > MinimizerTest::getValueOfVariablesAtMinimum() const
     return m_parameters.getValues();
 }
 
-//! ?
 void MinimizerTest::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
@@ -42,7 +41,6 @@ void MinimizerTest::setParameters(const FitSuiteParameters& parameters)
     }
 }
 
-//! ?
 void MinimizerTest::printResults() const
 {
     std::cout << "MinimizerTest::printResult() "  << m_min_value << std::endl;

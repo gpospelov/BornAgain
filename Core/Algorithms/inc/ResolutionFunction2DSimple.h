@@ -18,7 +18,6 @@
 
 #include "IResolutionFunction2D.h"
 
-//! ?
 
 class BA_CORE_API_ ResolutionFunction2DSimple : public IResolutionFunction2D
 {

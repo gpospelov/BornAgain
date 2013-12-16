@@ -41,7 +41,6 @@ public:
     }
 };
 
-//! ?
 
 class SquaredFunctionDefault : public ISquaredFunction
 {
@@ -67,7 +66,6 @@ public:
 
 };
 
-//! ?
 
 class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
@@ -90,7 +88,6 @@ public:
     }
 };
 
-//! ?
 
 class SquaredFunctionWithSystematicError : public ISquaredFunction
 {
@@ -114,7 +111,6 @@ private:
     double m_epsilon;
 };
 
-//! ?
 
 class SquaredFunctionWithGaussianError : public ISquaredFunction
 {

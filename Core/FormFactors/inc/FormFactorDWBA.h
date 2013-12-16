@@ -19,7 +19,9 @@
 #include "IFormFactorDecorator.h"
 #include "LayerSpecularInfo.h"
 
-//! Evaluates a coherent sum of the four DWBA terms in a scalar form factor
+//! @class FormFactorDWBA
+//! @ingroup ff_decorations
+//! @brief Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
 
 class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {

@@ -18,7 +18,6 @@
 
 #include "IInterferenceFunction.h"
 
-//! ?
 
 class InterferenceFunctionNone : public IInterferenceFunction
 {

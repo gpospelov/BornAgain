@@ -27,43 +27,53 @@ void register_free_functions(){
     
     }
 
-    { //::AppVersion::GetMajorVersionNumber
+    { //::BornAgain::GetMajorVersionNumber
     
         typedef int ( *GetMajorVersionNumber_function_type )(  );
         
         bp::def( 
             "GetMajorVersionNumber"
-            , GetMajorVersionNumber_function_type( &::AppVersion::GetMajorVersionNumber ) );
+            , GetMajorVersionNumber_function_type( &::BornAgain::GetMajorVersionNumber ) );
     
     }
 
-    { //::AppVersion::GetMinorVersionNumber
+    { //::BornAgain::GetMinorVersionNumber
     
         typedef int ( *GetMinorVersionNumber_function_type )(  );
         
         bp::def( 
             "GetMinorVersionNumber"
-            , GetMinorVersionNumber_function_type( &::AppVersion::GetMinorVersionNumber ) );
+            , GetMinorVersionNumber_function_type( &::BornAgain::GetMinorVersionNumber ) );
     
     }
 
-    { //::AppVersion::GetPatchVersionNumber
+    { //::BornAgain::GetName
+    
+        typedef ::std::string ( *GetName_function_type )(  );
+        
+        bp::def( 
+            "GetName"
+            , GetName_function_type( &::BornAgain::GetName ) );
+    
+    }
+
+    { //::BornAgain::GetPatchVersionNumber
     
         typedef int ( *GetPatchVersionNumber_function_type )(  );
         
         bp::def( 
             "GetPatchVersionNumber"
-            , GetPatchVersionNumber_function_type( &::AppVersion::GetPatchVersionNumber ) );
+            , GetPatchVersionNumber_function_type( &::BornAgain::GetPatchVersionNumber ) );
     
     }
 
-    { //::AppVersion::GetVersionNumber
+    { //::BornAgain::GetVersionNumber
     
         typedef ::std::string ( *GetVersionNumber_function_type )(  );
         
         bp::def( 
             "GetVersionNumber"
-            , GetVersionNumber_function_type( &::AppVersion::GetVersionNumber ) );
+            , GetVersionNumber_function_type( &::BornAgain::GetVersionNumber ) );
     
     }
 

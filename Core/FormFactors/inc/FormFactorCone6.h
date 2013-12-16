@@ -20,7 +20,9 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of a cone6.
+//! @class FormFactorCone6
+//! @ingroup formfactors
+//! @brief The formfactor of a cone6.
 
 class BA_CORE_API_ FormFactorCone6 : public IFormFactorBorn
 {

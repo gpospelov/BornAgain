@@ -19,7 +19,6 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-//! ?
 
 class SizeSpacingCorrelationApproximationStrategy
         : public IInterferenceFunctionStrategy

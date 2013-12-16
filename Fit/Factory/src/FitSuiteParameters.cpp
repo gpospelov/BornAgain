@@ -80,7 +80,6 @@ void FitSuiteParameters::setValues(const double *pars_values)
     }
 }
 
-//! ?
 void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
 {
     if(pars_values.size() != m_parameters.size() ) {
@@ -107,7 +106,6 @@ void FitSuiteParameters::setErrors(const std::vector<double>& pars_errors)
 }
 
 
-//! ?
 std::vector<double > FitSuiteParameters::getValues() const
 {
     std::vector<double > result;
@@ -117,7 +115,6 @@ std::vector<double > FitSuiteParameters::getValues() const
     return result;
 }
 
-//! ?
 std::vector<double > FitSuiteParameters::getErrors() const
 {
     std::vector<double > result;
@@ -128,7 +125,6 @@ std::vector<double > FitSuiteParameters::getErrors() const
     return result;
 }
 
-//! ?
 size_t FitSuiteParameters::getNfreeParameters() const
 {
     size_t result(0);
@@ -150,7 +146,6 @@ void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
     }
 }
 
-//! ?
 bool FitSuiteParameters::valuesAreDifferrent(const double *pars_values, double tolerance_factor) const
 {
     size_t index(0);
@@ -160,7 +155,6 @@ bool FitSuiteParameters::valuesAreDifferrent(const double *pars_values, double t
     return false;
 }
 
-//! ?
 void FitSuiteParameters::printParameters() const
 {
     int npar(0);

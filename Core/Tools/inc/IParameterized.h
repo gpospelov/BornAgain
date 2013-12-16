@@ -35,7 +35,6 @@ public:
     virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
-    //ParameterPool* getParameterPool() { return& m_parameters; }
     const ParameterPool* getParameterPool() const { return& m_parameters; }
 
     //! Creates new parameter pool, with all local parameter and parameters of children
@@ -60,15 +59,11 @@ public:
     //! set parameter value, return true in the case of success
     virtual bool setParameterValue(const std::string &name, double value);
 
-    //! Sets parameter value, return number of changed parameters
-    //virtual int setMatchedParametersValue(const std::string& wildcards, double value);
-
     //! clear parameter pool
     virtual void clearParameterPool() { m_parameters.clear(); }
 
-
 protected:
-    //! Throw non-implemented exception (needed for Python).
+    //! registers class parameters in the parameter pool
     virtual void init_parameters();
 
     ParameterPool m_parameters; //!< parameter pool

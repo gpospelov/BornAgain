@@ -19,8 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Formfactor of a sphere.
-
+//! @ingroup formfactors
+//! @class FormFactorFullSphere
+//! @brief The formfactor of a sphere.
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
 public:

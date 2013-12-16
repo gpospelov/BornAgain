@@ -16,13 +16,12 @@
 #ifndef FORMFACTORTETRAHEDRON_H
 #define FORMFACTORTETRAHEDRON_H
 
-
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
-//#include "MemberComplexFunctionIntegrator.h"
 
-
-//! Form factor of tetrahedron.
+//! @class FormFactorTetrahedron
+//! @ingroup formfactors
+//! @brief The formfactor of tetrahedron.
 
 class BA_CORE_API_ FormFactorTetrahedron : public IFormFactorBorn
 {

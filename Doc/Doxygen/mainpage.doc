@@ -1,0 +1,32 @@
+/*! 
+\mainpage 
+
+The BornAgain documentation consist of following sections
+
+<ul>
+<li> User API
+<li> Full C++ API \ref classes
+</ul>
+
+
+<B> Main homepage </B>
+<BR>
+http://apps.jcns.fz-juelich.de/BornAgain
+
+<B> License: </B> 
+<BR>
+GNU General Public License v3 or higher
+<BR>
+Copyright Forschungszentrum Jülich GmbH 2013
+
+
+<B> Authors:  </B> 
+<BR>
+Scientific Computing Group at MLZ Garching:
+<BR>
+C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+
+
+
+
+*/

@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! ?
+//! @class FormFactorLorentz
+//! @ingroup formfactors
+//! @brief The formfactor of a lorentzian.
 
 class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
 {

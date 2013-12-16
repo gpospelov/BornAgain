@@ -20,7 +20,9 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of an hemi ellipsoid
+//! @class FormFactorHemiEllipsoid
+//! @ingroup formfactors
+//! @brief The formfactor of an hemi ellipsoid.
 
 class BA_CORE_API_ FormFactorHemiEllipsoid : public IFormFactorBorn
 {

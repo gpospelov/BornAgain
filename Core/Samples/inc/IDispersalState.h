@@ -16,7 +16,6 @@
 #ifndef IDISPERSALSTATE_H_
 #define IDISPERSALSTATE_H_
 
-//! ?
 
 class IDispersalState
 {

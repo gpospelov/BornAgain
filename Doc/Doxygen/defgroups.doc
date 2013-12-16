@@ -1,0 +1,13 @@
+/*! 
+
+\defgroup formfactors     Available formfactors
+\defgroup ff_decorations  Formfactor decorations.
+\defgroup ff_internals    Formfactor internal classes.
+
+\defgroup simulation      Simulation API
+
+\defgroup interference
+\defgroup layers
+
+
+*/

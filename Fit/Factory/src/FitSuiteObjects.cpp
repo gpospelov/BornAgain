@@ -61,7 +61,6 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
     return result;
 }
 
-//! ?
 const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(
     size_t global_index, size_t& local_index)
 {
@@ -106,7 +105,6 @@ double FitSuiteObjects::calculateChiSquaredValue()
     return result;
 }
 
-//! ?
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
     size_t index(0);

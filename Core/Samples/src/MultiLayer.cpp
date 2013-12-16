@@ -218,7 +218,6 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
     }
 }
 
-//! ?
 
 MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
 {

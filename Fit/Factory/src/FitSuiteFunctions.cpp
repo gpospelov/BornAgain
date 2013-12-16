@@ -65,7 +65,6 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     return m_residuals[index];
 }
 
-//! ?
 void FitSuiteGradientFunction::verify_arrays()
 {
     if( m_npars != m_fit_suite->getFitParameters()->size() || m_ndatasize != m_fit_suite->getFitObjects()->getSizeOfDataSet() ) {
@@ -81,7 +80,6 @@ void FitSuiteGradientFunction::verify_arrays()
     }
 }
 
-//! ?
 void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_changed, int current_index)
 {
     int index_difference = current_index - m_prev_index;
@@ -100,7 +98,6 @@ void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_chang
     m_prev_index = current_index;
 }
 
-//! ?
 void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 {
     runSimulation(pars);
@@ -110,7 +107,6 @@ void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 
 }
 
-//! ?
 void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 {
     // FIXME get kEps from outside fit_suite->getMinimizer()->getPrecision();
@@ -140,7 +136,6 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 
 }
 
-//! ?
 void FitSuiteGradientFunction::runSimulation(const double *pars){
     assert(m_fit_suite);
     m_fit_suite->getFitParameters()->setValues(pars);

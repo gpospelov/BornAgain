@@ -81,7 +81,6 @@ void FitSuite::link_fit_parameters()
     delete pool;
 }
 
-//! ?
 bool FitSuite::check_prerequisites() const
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");

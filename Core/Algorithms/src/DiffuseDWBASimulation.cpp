@@ -40,9 +40,9 @@ void DiffuseDWBASimulation::run()
         while ( it_intensity != mp_polarization_output->end(m_thread_info) )
         {
             Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
-                BA::PHI_AXIS_NAME, it_intensity.getIndex());
+                BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
             Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
-                BA::ALPHA_AXIS_NAME, it_intensity.getIndex());
+                BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
             if (m_sim_params.me_framework==SimulationParameters::DWBA &&
                     alpha_f<0) {
@@ -81,9 +81,9 @@ void DiffuseDWBASimulation::run()
         while ( it_intensity != end() )
         {
             Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
-                BA::PHI_AXIS_NAME, it_intensity.getIndex());
+                BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
-                BA::ALPHA_AXIS_NAME, it_intensity.getIndex());
+                BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
             if (alpha_f<0) {
                 ++it_intensity;

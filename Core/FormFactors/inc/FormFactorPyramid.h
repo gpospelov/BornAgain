@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of pyramid.
+//! @class FormFactorPyramid
+//! @ingroup formfactors
+//! @brief The form factor of pyramid.
 
 class BA_CORE_API_ FormFactorPyramid : public IFormFactorBorn
 {

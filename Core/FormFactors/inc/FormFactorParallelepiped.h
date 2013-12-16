@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of a parallelepiped.
+//! @class FormFactorParallelepiped
+//! @ingroup formfactors
+//! @brief The form actor of a parallelepiped.
 
 class BA_CORE_API_ FormFactorParallelepiped : public IFormFactorBorn
 {

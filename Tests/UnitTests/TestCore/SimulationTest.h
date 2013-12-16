@@ -36,7 +36,7 @@ class SimulationTest : public ::testing::Test
 SimulationTest::SimulationTest()
     : sample_builder(new SampleBuilder)
 {
-    test_data.addAxis(BA::PHI_AXIS_NAME, 10, 0., 10.);
+    test_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
     test_data.setAllTo(2.0);
 }

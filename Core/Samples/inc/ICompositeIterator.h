@@ -60,8 +60,6 @@ private:
 };
 
 
-//! ?
-
 class MementoIterator
 {
 public:

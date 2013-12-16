@@ -37,11 +37,13 @@ public:
 
     virtual ISample *clone() const =0;
 
+    //! @{ @internal
     //! Returns a clone with inverted magnetic fields
     virtual ISample *cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
+    //! \internal Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const = 0;
+    //! @}
 
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }

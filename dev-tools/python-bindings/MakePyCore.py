@@ -268,11 +268,12 @@ def ManualClassTunings(mb):
     #
     mb.namespace("MathFunctions").free_function("GenerateNormalRandom").include()
     #
-    mb.namespace("AppVersion").free_function("GetMajorVersionNumber").include()
-    mb.namespace("AppVersion").free_function("GetMinorVersionNumber").include()
-    mb.namespace("AppVersion").free_function("GetPatchVersionNumber").include()
-    mb.namespace("AppVersion").free_function("GetVersionNumber").include()
-    
+    mb.namespace("BornAgain").free_function("GetMajorVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetMinorVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetPatchVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetName").include()
+
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):

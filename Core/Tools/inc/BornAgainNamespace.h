@@ -17,7 +17,7 @@
 #define BORNAGAINNAMESPACE_H
 
 
-namespace BA
+namespace BornAgain
 {
     static const std::string PHI_AXIS_NAME = "phi_f";
     static const std::string ALPHA_AXIS_NAME = "alpha_f";

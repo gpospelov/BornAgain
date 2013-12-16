@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Formfactor of a prism based on a regular triangle.
+//! @class FormFactorPrism3
+//! @ingroup formfactors
+//! @brief The formfactor of a prism based on a regular triangle.
 
 class BA_CORE_API_ FormFactorPrism3 : public IFormFactorBorn
 {

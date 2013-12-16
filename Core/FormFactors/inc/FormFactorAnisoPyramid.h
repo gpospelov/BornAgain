@@ -19,16 +19,18 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of an anisotropic pyramid.
+//! @class FormFactorAnisoPyramid
+//! @ingroup formfactors
+//! @brief The formfactor of an anisotropic pyramid.
 
 class BA_CORE_API_ FormFactorAnisoPyramid : public IFormFactorBorn
 {
 public:
     //! @brief anisotropic pyramid constructor
-    //! @param height of anisotropic pyramide
     //! @param length of anisotropic pyramid's base
     //! @param width of anisotropic pyramid's base
-    //! @param angle in radians between base and facet
+    //! @param height of anisotropic pyramide
+    //! @param alpha angle in radians between base and facet
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
     ~FormFactorAnisoPyramid() {}
@@ -61,5 +63,6 @@ private:
     double m_height;
     double m_alpha;
 };
+
 
 #endif // FORMFACTORANISOPYRAMID_H

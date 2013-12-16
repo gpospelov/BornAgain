@@ -33,8 +33,8 @@ int main(int argc, char **argv)
 {
     Utils::EnableFloatingPointExceptions();
 
-    std::cout << AppVersion::g_app_name << " "
-              << AppVersion::GetVersionNumber() << std::endl;
+    std::cout << BornAgain::GetName() << " "
+              << BornAgain::GetVersionNumber() << std::endl;
 
     ApplicationTestFactory test_factory;
     RegisterApplicationTests(&test_factory);

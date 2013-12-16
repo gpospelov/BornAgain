@@ -18,7 +18,6 @@
 
 #include "IChiSquaredModule.h"
 
-//! ?
 
 class ChiSquaredFrequency : public IChiSquaredModule
 {

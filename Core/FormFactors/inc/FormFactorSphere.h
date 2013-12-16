@@ -20,7 +20,9 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of a truncated sphere.
+//! @class FormFactorSphere
+//! @ingroup formfactors
+//! @brief The formfactor of a truncated sphere.
 
 class BA_CORE_API_ FormFactorSphere : public IFormFactorBorn
 {

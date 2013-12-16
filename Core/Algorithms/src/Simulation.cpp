@@ -305,33 +305,6 @@ std::string Simulation::addParametersToExternalPool(
     return new_path;
 }
 
-void Simulation::smearIntensityFromZAxisTilting()
-{
-    size_t nbr_zetas = 5;
-    double zeta_sigma = 45*Units::degree;
-    std::vector<double> zetas;
-    std::vector<double> probs;
-    createZetaAndProbVectors(zetas, probs, nbr_zetas, zeta_sigma);
-
-    OutputData<double> *p_clone = m_intensity_map.clone();
-    m_intensity_map.setAllTo(0.);
-    OutputData<double>::const_iterator it_clone = p_clone->begin();
-    while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis(
-            BA::PHI_AXIS_NAME, it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis(
-            BA::ALPHA_AXIS_NAME, it_clone.getIndex());
-        for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
-            double newphi =
-                old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
-            double newalpha =
-                old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
-            double prob = probs[zeta_index];
-            addToIntensityMap(newalpha, newphi, prob*(*it_clone++));
-        }
-    }
-}
-
 void Simulation::init_parameters()
 {
 }
@@ -405,59 +378,12 @@ void Simulation::setDetectorResolutionFunction(
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
 
-double Simulation::deltaAlpha(double alpha, double zeta) const
-{
-    return std::sin(alpha)*(1.0/std::cos(zeta)-1);
-}
-
-double Simulation::deltaPhi(double alpha, double phi, double zeta) const
-{
-    double qy2 = std::sin(phi)*std::sin(phi) -
-        std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
-    return std::sqrt(qy2) - std::sin(phi);
-}
-
-void Simulation::createZetaAndProbVectors(
-    std::vector<double>& zetas,
-    std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
-{
-    double zeta_step;
-    if (nbr_zetas<2) {
-        zeta_step = 0;
-    } else {
-        zeta_step = 2*zeta_sigma/(nbr_zetas-1);
-    }
-    double zeta_start = -zeta_sigma;
-    double prob_total = 0;
-    for (size_t i=0; i<nbr_zetas; ++i) {
-        double zeta = zeta_start + i*zeta_step;
-        double prob = MathFunctions::Gaussian(zeta, 0., zeta_sigma);
-        zetas.push_back(zeta);
-        probs.push_back(prob);
-        prob_total += prob;
-    }
-    assert(prob_total != 0);
-    for (size_t i=0; i<nbr_zetas; ++i) {
-        probs[i] /= prob_total;
-    }
-}
-
 void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
 {
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();
     if (p_dwba_simulation->hasPolarizedOutputData()) {
         m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
     }
-}
-
-void Simulation::addToIntensityMap(double alpha, double phi, double value)
-{
-    const IAxis *p_alpha_axis = m_intensity_map.getAxis(BA::ALPHA_AXIS_NAME);
-    const IAxis *p_phi_axis = m_intensity_map.getAxis(BA::PHI_AXIS_NAME);
-    std::vector<int> coordinates;
-    coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
-    coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
-    m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
 
 OutputData<double>* Simulation::getPolarizedIntensityData(int row, int column) const

@@ -65,7 +65,7 @@ void TestRipple2::execute()
     // initializing simulation and sample builder
     initializeSimulation();
 	mp_simulation->runSimulation();
-	//save_results();
+    //save_results();
 	plot_results();
 
     // plot the pure formfactor
@@ -79,7 +79,7 @@ void TestRipple2::save_results()
 {
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
-	std::string filename(getOutputPath()+"test_ripple2_asym.ima");
+    std::string filename(getOutputPath()+"test_ripple2_sym.ima");
     OutputDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
                                          filename);
 }
@@ -157,7 +157,7 @@ TestRipple2::TestSampleBuilder::TestSampleBuilder()
     : m_w(20.0*Units::nanometer)
     , m_h(4.0*Units::nanometer)
     , m_l(100.0*Units::nanometer)
-    , m_d(3.0*Units::nanometer)
+    , m_d(0.0*Units::nanometer)
     , m_interf_distance(20.0*Units::nanometer)
     , m_interf_width(4.0*Units::nanometer)
 {

@@ -20,8 +20,8 @@
 
 
 //! @class ICloneable
-//! @ingroup tools
-//! @brief Standard mix-in for objects that must not be copied, except by cloning.
+//! @ingroup tools_internal
+//! @brief Interface for objects that must not be copied, except by cloning.
 //!
 //! This virtual base class disables the copy constructor and the operator=
 //! in all its child classes.

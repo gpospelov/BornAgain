@@ -19,7 +19,10 @@
 #include "Numeric.h"
 #include "Types.h"
 
-//! The bounds of an one-dimensional bin
+
+//! @class Bin1D
+//! @ingroup tools_internal
+//! @brief One dimensional bin with left and right bounds.
 
 struct Bin1D
 {
@@ -28,7 +31,10 @@ struct Bin1D
     double getMidPoint() const { return (m_lower + m_upper)/2.0; }
 };
 
-//! An one-dimensional range of cvector_t's
+
+//! @class Bin1DCVector
+//! @ingroup tools_internal
+//! @brief An one-dimensional range of cvector_t's
 
 struct Bin1DCVector
 {
@@ -42,7 +48,6 @@ struct Bin1DCVector
     cvector_t m_q_upper;  //!< upper bound of the bin
 };
 
-//! equality operator for bins
 inline bool operator==(const Bin1D& left, const Bin1D& right)
 {
     if (std::abs(left.m_lower - right.m_lower) > Numeric::double_epsilon) return false;
@@ -50,7 +55,6 @@ inline bool operator==(const Bin1D& left, const Bin1D& right)
     return true;
 }
 
-//! inequality operator for bins
 inline bool operator!=(const Bin1D& left, const Bin1D& right) {
     return !(left==right);
 }

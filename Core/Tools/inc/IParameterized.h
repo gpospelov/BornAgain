@@ -21,7 +21,7 @@
 #include "ParameterPool.h"
 
 //! @class IParameterized
-//! @ingroup tools
+//! @ingroup tools_internal
 //! @brief Manage a "local" parameter pool, and a tree of children's pools.
 
 class BA_CORE_API_ IParameterized : public INamed

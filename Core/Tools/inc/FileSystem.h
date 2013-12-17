@@ -23,6 +23,10 @@
 
 namespace Utils {
 
+//! @class FileSystem
+//! @ingroup tools_internal
+//! @brief Class collecting utilities to work with file system.
+
 class BA_CORE_API_ FileSystem
 {
 public:

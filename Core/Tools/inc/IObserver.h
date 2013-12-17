@@ -23,11 +23,12 @@
 
 class IObservable;
 
-//! Observer interface from Observer pattern, for 1:n object dependencies.
+//! @class IObserver
+//! @ingroup tools_internal
+//! @brief Observer interface from %Observer pattern, for 1:n object dependencies.
 
 class BA_CORE_API_ IObserver {
 public:
-//    IObserver() : m_observed_subject(0) {}
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
@@ -35,13 +36,11 @@ public:
         throw NotImplementedException("IObserver::update() -> Not implemented");
     }
 
-//    //! Sets pointer to observed subject
-//    virtual void setObservedSubject(IObservable *subject);
-//private:
-//    IObservable *m_observed_subject;
 };
 
-//! Observable interface from Observer pattern, for 1:n object dependencies.
+//! @class IObservable
+//! @ingroup tools_internal
+//! @brief Observable interface from %Observer pattern, for 1:n object dependencies.
 
 class BA_CORE_API_ IObservable {
 public:

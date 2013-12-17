@@ -22,7 +22,10 @@
 //class AxisBin;  // forward declaration needed for conversion constructor
 #include "AxisBin.h"
 
-//! The points of an axis
+
+//! @class AxisDouble
+//! @ingroup tools
+//! @brief Axis with points.
 
 class BA_CORE_API_ AxisDouble : public IAxis
 {

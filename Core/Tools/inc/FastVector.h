@@ -19,7 +19,10 @@
 #include "Types.h"
 #include <iostream>
 
-//! A Vector of kvector_t's with optimized location/deallocation.
+
+//! @class KVectorContainer
+//! @ingroup tools_internal
+//! @brief A Vector of kvector_t's with optimized location/deallocation.
 
 class KVectorContainer {
 public:

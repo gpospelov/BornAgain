@@ -20,7 +20,7 @@
 #include <string>
 
 //! @class INamed
-//! @ingroup tools
+//! @ingroup tools_internal
 //! @brief Interface for named objects.
 
 class BA_CORE_API_ INamed

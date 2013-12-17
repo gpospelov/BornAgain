@@ -18,6 +18,8 @@
 
 #include "ICloneable.h"
 
+
+
 class BA_CORE_API_ IStochasticParameter : public ICloneable
 {
 public:

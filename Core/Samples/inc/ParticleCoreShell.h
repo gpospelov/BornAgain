@@ -41,15 +41,21 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    //! Sets the formfactor of the particle (not including scattering factor
+    //! Sets the form factor of the particle (not including scattering factor
     //! from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
 
-    //! Returns formfactor of the particle (not including scattering factor
+    //! Returns form factor of the particle (not including scattering factor
     //! from refractive index)
     virtual const IFormFactor *getSimpleFormFactor() const {
         return mp_form_factor;
     }
+
+    //! Sets transformation.
+    virtual void setTransform(const Geometry::Transform3D& transform);
+
+    //! Applies transformation by composing it with the existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform);
 
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
@@ -72,6 +78,8 @@ public:
 
 protected:
     ParticleCoreShell(kvector_t relative_core_position);
+    void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
     Particle *mp_shell;
     Particle *mp_core;
     kvector_t m_relative_core_position;

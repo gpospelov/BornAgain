@@ -82,6 +82,9 @@ public:
     virtual void setTransform(const Geometry::Transform3D& transform)
     { mP_transform.reset(transform.clone()); }
 
+    //! Applies transformation by composing it with the existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform);
+
     //! Returns form factor of the particle originating from its shape only
     virtual const IFormFactor *getSimpleFormFactor() const {
         return mp_form_factor;

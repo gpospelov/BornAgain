@@ -100,7 +100,8 @@ Geometry::Transform3D* Geometry::Transform3D::clone() const
     return new Geometry::Transform3D(m_matrix);
 }
 
-Geometry::Transform3D Geometry::Transform3D::operator*(const Transform3D& other)
+Geometry::Transform3D Geometry::Transform3D::operator*(
+        const Transform3D& other) const
 {
     Eigen::Matrix3d product_matrix = this->m_matrix * other.m_matrix;
     return Geometry::Transform3D(product_matrix);

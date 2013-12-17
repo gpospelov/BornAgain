@@ -66,9 +66,11 @@ IFormFactor *ParticleCoreShell::createFormFactor(
     FormFactorDecoratorMaterial ff_shell(mp_shell->
             getSimpleFormFactor()->clone(),
             wavevector_scattering_factor);
-    if (mP_transform.get()) {
+    const Geometry::Transform3D *p_shell_transform =
+            mp_shell->getPTransform3D();
+    if (p_shell_transform) {
         boost::scoped_ptr<const IMaterial> transformed_material_shell(mp_shell->
-                getMaterial()->createTransformedMaterial(*mP_transform));
+                getMaterial()->createTransformedMaterial(*p_shell_transform));
         ff_shell.setMaterial(transformed_material_shell.get());
     } else {
         ff_shell.setMaterial(mp_shell->getMaterial());
@@ -79,9 +81,11 @@ IFormFactor *ParticleCoreShell::createFormFactor(
             *mp_core->getSimpleFormFactor(), m_relative_core_position);
     FormFactorDecoratorMaterial ff_core(p_core_simple,
             wavevector_scattering_factor);
-    if (mP_transform.get()) {
+    const Geometry::Transform3D *p_core_transform =
+            mp_core->getPTransform3D();
+    if (p_core_transform) {
         boost::scoped_ptr<const IMaterial> transformed_material_core(mp_core->
-                getMaterial()->createTransformedMaterial(*mP_transform));
+                getMaterial()->createTransformedMaterial(*p_core_transform));
         ff_core.setMaterial(transformed_material_core.get());
     } else {
         ff_core.setMaterial(mp_core->getMaterial());
@@ -108,6 +112,27 @@ ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
 {
 }
 
+void ParticleCoreShell::setTransform(const Geometry::Transform3D& transform)
+{
+    if (!mP_transform.get()) {
+        Particle::setTransform(transform);
+        applyTransformationToSubParticles(transform);
+        return;
+    }
+    boost::scoped_ptr<Geometry::Transform3D> P_inverse(
+            mP_transform->createInverse());
+    applyTransformationToSubParticles(*P_inverse);
+    Particle::setTransform(transform);
+    applyTransformationToSubParticles(transform);
+}
+
+void ParticleCoreShell::applyTransformation(
+        const Geometry::Transform3D& transform)
+{
+    Particle::applyTransformation(transform);
+    applyTransformationToSubParticles(transform);
+}
+
 void ParticleCoreShell::addAndRegisterCore(const Particle &core)
 {
     if(mp_core) {
@@ -127,4 +152,15 @@ void ParticleCoreShell::addAndRegisterShell(const Particle &shell)
     }
     mp_shell = shell.clone();
     registerChild(mp_shell);
+}
+
+void ParticleCoreShell::applyTransformationToSubParticles(
+        const Geometry::Transform3D& transform)
+{
+    if (mp_core) {
+        mp_core->applyTransformation(transform);
+    }
+    if (mp_shell) {
+        mp_shell->applyTransformation(transform);
+    }
 }

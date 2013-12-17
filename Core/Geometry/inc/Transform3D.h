@@ -61,7 +61,7 @@ public:
         transformed(const BasicVector3D<complex_t>& v) const;
 
     //! Composes two transformations
-    Transform3D operator*(const Transform3D &other);
+    Transform3D operator*(const Transform3D &other) const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m)
     { m.print(ostr); return ostr; }

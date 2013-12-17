@@ -149,6 +149,18 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
     return result;
 }
 
+void Particle::applyTransformation(const Geometry::Transform3D& transform)
+{
+    Geometry::Transform3D total_transformation;
+    if (mP_transform.get()) {
+        total_transformation = transform * (*mP_transform);
+    }
+    else {
+        total_transformation = transform;
+    }
+    setTransform(total_transformation);
+}
+
 void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)
 {
     if (!p_form_factor) return;
@@ -187,3 +199,4 @@ IFormFactor* Particle::createTransformedFormFactor() const
     }
     return p_result;
 }
+

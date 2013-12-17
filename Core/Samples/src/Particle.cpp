@@ -48,7 +48,7 @@ Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor)
 }
 
 Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor,
-        const Geometry::ITransform3D &transform)
+        const Geometry::Transform3D &transform)
 : mp_material(p_material)
 , mp_ambient_material(0)
 , mp_form_factor(form_factor.clone())

@@ -144,7 +144,7 @@ LatticeBasis::createDiffuseParticleInfos() const
     return result;
 }
 
-void LatticeBasis::setTransform(const Geometry::ITransform3D& transform)
+void LatticeBasis::setTransform(const Geometry::Transform3D& transform)
 {
     Particle::setTransform(transform);
     for (std::vector<Particle *>::iterator it = m_particles.begin();

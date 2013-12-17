@@ -56,7 +56,7 @@ Lattice::~Lattice()
 }
 
 Lattice Lattice::createTransformedLattice(
-        const Geometry::ITransform3D& transform) const
+        const Geometry::Transform3D& transform) const
 {
     kvector_t a1 = transform.transformed(m_a1);
     kvector_t a2 = transform.transformed(m_a2);

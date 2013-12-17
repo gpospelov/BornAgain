@@ -72,7 +72,7 @@ public:
     }
 
     //! Sets transformation
-    virtual void setTransform(const Geometry::ITransform3D& transform)
+    virtual void setTransform(const Geometry::Transform3D& transform)
     {
         (void)transform;
         throw NotImplementedException(
@@ -81,7 +81,7 @@ public:
     }
 
     //! Gets transformation
-    virtual const Geometry::ITransform3D *getTransform() const
+    virtual const Geometry::Transform3D *getTransform() const
     {
         return 0;
     }

@@ -105,7 +105,7 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     return p_result;
 }
 
-void Crystal::setTransform(const Geometry::ITransform3D& transform)
+void Crystal::setTransform(const Geometry::Transform3D& transform)
 {
     mp_lattice_basis->setTransform(transform);
     mP_transform.reset(transform.clone());

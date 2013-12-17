@@ -75,7 +75,7 @@ IFormFactor* MesoCrystal::createFormFactor(
             wavevector_scattering_factor);
 }
 
-void MesoCrystal::setTransform(const Geometry::ITransform3D& transform)
+void MesoCrystal::setTransform(const Geometry::Transform3D& transform)
 {
     Particle::setTransform(transform);
     mp_particle_structure->setTransform(transform);

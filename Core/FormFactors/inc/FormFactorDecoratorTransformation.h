@@ -17,7 +17,7 @@
 #define FORMFACTORDECORATORTRANSFORMATION_H
 
 #include "IFormFactorDecorator.h"
-#include "ITransform3D.h"
+#include "Transform3D.h"
 #include <memory>
 
 //! @class FormFactorDecoratorTransformation
@@ -29,14 +29,14 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
 public:
     //! Constructor, setting form factor and rotation.
     FormFactorDecoratorTransformation(
-        IFormFactor *p_form_factor, const Geometry::ITransform3D& transform)
+        IFormFactor *p_form_factor, const Geometry::Transform3D& transform)
         : IFormFactorDecorator(p_form_factor)
         , mP_transform(0)
         , mP_inverse_transform(0)
     {
         setName("FormFactorDecoratorTransformation");
         mP_transform.reset(transform.clone());
-        mP_inverse_transform.reset(mP_transform->inverse());
+        mP_inverse_transform.reset(mP_transform->createInverse());
     }
 
     virtual ~FormFactorDecoratorTransformation() {}
@@ -51,8 +51,8 @@ public:
     { return mp_form_factor->getNumberOfStochasticParameters(); }
 
 protected:
-    std::auto_ptr<Geometry::ITransform3D> mP_transform;
-    std::auto_ptr<Geometry::ITransform3D> mP_inverse_transform;
+    std::auto_ptr<Geometry::Transform3D> mP_transform;
+    std::auto_ptr<Geometry::Transform3D> mP_inverse_transform;
 };
 
 

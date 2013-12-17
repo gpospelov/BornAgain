@@ -18,7 +18,6 @@
 #include "IsGISAXSTools.h"
 #include "MaterialManager.h"
 #include "InterferenceFunctionNone.h"
-#include "Rotate3D.h"
 #include "FormFactors.h"
 #include "MesoCrystal.h"
 
@@ -114,7 +113,8 @@ MultiLayer* TestPolarizedMeso::createSample() const
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_sizes; ++j) {
-            Geometry::RotateZ_3D transform(phi_start + i*phi_step);
+            Geometry::Transform3D transform =
+                Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
             double meso_size = m_meso_width + j*m_meso_size_steps;
             FormFactorBox ff_box(meso_size, meso_size, meso_size);
             particle_decoration.addParticle(

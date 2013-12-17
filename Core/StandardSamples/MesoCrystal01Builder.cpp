@@ -9,7 +9,6 @@
 #include "Units.h"
 #include "MaterialManager.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "Rotate3D.h"
 
 
 MesoCrystal01Builder::MesoCrystal01Builder()
@@ -94,7 +93,8 @@ ISample* MesoCrystal01Builder::buildSample() const
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            Geometry::RotateZ_3D transform(phi_start + i*phi_step);
+            Geometry::Transform3D transform =
+                    Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
 //            Geometry::RotateY_3D transform2(alpha_start + j*alpha_step);
             particle_decoration.addParticle(
                 createMesoCrystal(

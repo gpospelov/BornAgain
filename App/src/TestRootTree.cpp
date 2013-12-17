@@ -24,7 +24,6 @@
 #include "InterferenceFunctionNone.h"
 #include "SampleFactory.h"
 #include "IsGISAXSTools.h"
-#include "Rotate3D.h"
 
 #include "TFile.h"
 #include "TTree.h"
@@ -419,8 +418,10 @@ void TestRootTree::initializeMesoCrystal(
     ParticleDecoration particle_decoration;
 
     //double R = nanopart_radius;
-    Geometry::RotateZ_3D transform1(meso_phi);
-    Geometry::RotateY_3D transform2(meso_alpha);
+    Geometry::Transform3D transform1 =
+        Geometry::Transform3D::createRotateZ(meso_phi);
+    Geometry::Transform3D transform2 =
+        Geometry::Transform3D::createRotateY(meso_alpha);
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);

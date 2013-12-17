@@ -33,7 +33,7 @@ public:
     Particle(const IMaterial* p_material, IFormFactor* p_form_factor = 0);
     Particle(const IMaterial* p_material, const IFormFactor& form_factor);
     Particle(const IMaterial* p_material, const IFormFactor& form_factor,
-            const Geometry::ITransform3D &transform);
+            const Geometry::Transform3D &transform);
     virtual ~Particle();
     virtual Particle *clone() const;
 
@@ -75,11 +75,11 @@ public:
     }
 
     //! Returns transformation.
-    const Geometry::ITransform3D *getPTransform3D() const
+    const Geometry::Transform3D *getPTransform3D() const
     { return mP_transform.get(); }
 
     //! Sets transformation.
-    virtual void setTransform(const Geometry::ITransform3D& transform)
+    virtual void setTransform(const Geometry::Transform3D& transform)
     { mP_transform.reset(transform.clone()); }
 
     //! Returns form factor of the particle originating from its shape only
@@ -107,7 +107,7 @@ protected:
     const IMaterial* mp_material;
     const IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;
-    std::auto_ptr<Geometry::ITransform3D> mP_transform;
+    std::auto_ptr<Geometry::Transform3D> mP_transform;
     //!< pointer to the form factor
 };
 

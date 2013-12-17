@@ -66,7 +66,7 @@ public:
     std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
 
     //! Sets transformation.
-    virtual void setTransform(const Geometry::ITransform3D& transform);
+    virtual void setTransform(const Geometry::Transform3D& transform);
 
 private:
     //! Checks index

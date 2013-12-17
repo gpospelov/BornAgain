@@ -56,10 +56,10 @@ public:
             const ParticleInfo& parent_info) const;
 
     //! Sets transformation.
-    virtual void setTransform(const Geometry::ITransform3D& transform);
+    virtual void setTransform(const Geometry::Transform3D& transform);
 
     //! Gets transformation
-    virtual const Geometry::ITransform3D *getTransform() const {
+    virtual const Geometry::Transform3D *getTransform() const {
         return mP_transform.get();
     }
 
@@ -68,7 +68,7 @@ private:
     Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
-    std::auto_ptr<Geometry::ITransform3D> mP_transform;
+    std::auto_ptr<Geometry::Transform3D> mP_transform;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;
 };

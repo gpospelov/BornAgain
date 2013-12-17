@@ -87,7 +87,7 @@ ParticleDecoration* ParticleDecoration::cloneInvertB() const
 
 //! Adds generic particle, *-version.
 void ParticleDecoration::addParticle(
-    Particle* p_particle, const Geometry::ITransform3D& transform,
+    Particle* p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
     if(!abundance) {
@@ -101,7 +101,7 @@ void ParticleDecoration::addParticle(
 
 //! Adds generic particle, &-version.
 void ParticleDecoration::addParticle(
-    const Particle& p_particle, const Geometry::ITransform3D& transform,
+    const Particle& p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
     if(!abundance) {

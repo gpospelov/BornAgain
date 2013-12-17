@@ -33,34 +33,34 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::IMaterial * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IMaterial::clone(  );
+        }
     }
-    
     
     ::IMaterial * default_clone(  ) const  {
         return IMaterial::clone( );
     }
 
-    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::ITransform3D const & transform ) const  {
+    virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
             return func_createTransformedMaterial( boost::ref(transform) );
-        else
+        else{
             return this->IMaterial::createTransformedMaterial( boost::ref(transform) );
+        }
     }
     
-    
-    ::IMaterial const * default_createTransformedMaterial( ::Geometry::ITransform3D const & transform ) const  {
+    ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         return IMaterial::createTransformedMaterial( boost::ref(transform) );
     }
 
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->IMaterial::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return IMaterial::getRefractiveIndex( );
@@ -69,10 +69,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else
+        else{
             return this->IMaterial::isScalarMaterial(  );
+        }
     }
-    
     
     bool default_isScalarMaterial(  ) const  {
         return IMaterial::isScalarMaterial( );
@@ -100,8 +100,8 @@ void register_IMaterial_class(){
         }
         { //::IMaterial::createTransformedMaterial
         
-            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type )( ::Geometry::ITransform3D const & ) const;
-            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type )( ::Geometry::ITransform3D const & ) const;
+            typedef ::IMaterial const * ( ::IMaterial::*createTransformedMaterial_function_type )( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( IMaterial_wrapper::*default_createTransformedMaterial_function_type )( ::Geometry::Transform3D const & ) const;
             
             IMaterial_exposer.def( 
                 "createTransformedMaterial"

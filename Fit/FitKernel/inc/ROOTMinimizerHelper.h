@@ -1,0 +1,69 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FitKernel/inc/ROOTMinimizerHelper.h
+//! @brief     Defines class ROOTMinimizerHelper.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef ROOTMINIMIZERHELPER_H
+#define ROOTMINIMIZERHELPER_H
+
+#include "ROOTMinimizer.h"
+#include "ROOTGSLSimAnMinimizer.h"
+
+
+//- -------------------------------------------------------------------
+//! @class ROOTMinimizerHelper
+//! @brief Handles options and printing for ROOTMinimizer
+//- -------------------------------------------------------------------
+// TODO: replace ROOTMinimizersHelper completely with kind of
+// PoolParameter/IConfigurable functionality
+class ROOTMinimizerHelper
+{
+ public:
+    ROOTMinimizerHelper() { }
+
+    //! translate text with options into appropriate calls of minimizer's
+    //! set method
+    static void setOptions(ROOT::Math::Minimizer *minimizer,
+            const std::string& options);
+
+    //! Prints results of minimization
+    static void printResults(ROOT::Math::Minimizer *minimizer,
+            const std::string& minimizer_name, const std::string& algo_type);
+
+
+ private:
+    //! process single command
+    static bool processCommand(ROOT::Math::Minimizer *minimizer,
+            const std::string& command);
+
+    //! process single command common for all minimizers
+    static bool processCommandAll(ROOT::Math::Minimizer *minimizer,
+            const std::string& command);
+
+    //! process single command specific for GSL simulated annealing minimizer
+    static bool processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *minimizer,
+            const std::string& command);
+
+    //! Prints minimizer options
+    static void printOptions(ROOT::Math::Minimizer *minimizer);
+
+    //! Prints minimizer status
+    static void printStatus(ROOT::Math::Minimizer *minimizer);
+
+    //! Prints variables
+    static void printVariables(ROOT::Math::Minimizer *minimizer);
+
+};
+
+
+#endif // ROOTMINIMIZERHELPER_H

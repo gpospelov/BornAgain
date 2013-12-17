@@ -26,6 +26,7 @@
 #include "LLDataTest.h"
 #include "TRangeTest.h"
 #include "AxisBinTest.h"
+#include "FTDistributionsTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

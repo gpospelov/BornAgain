@@ -27,6 +27,11 @@ TEST_F(ParticleTest, ParticleInitialState)
     ASSERT_THROW(particle.createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle.getName());
 
+}
+
+TEST_F(ParticleTest, ParticleClone)
+{
+    Particle particle;
     Particle *particle2 = particle.clone();
     EXPECT_EQ(NULL, particle2->getMaterial());
     EXPECT_EQ(complex_t(0,0), particle2->getRefractiveIndex());
@@ -36,7 +41,10 @@ TEST_F(ParticleTest, ParticleInitialState)
     ASSERT_THROW(particle2->createDistributedParticles(0,0).size(), NullPointerException);
     EXPECT_EQ("Particle", particle2->getName());
     delete particle2;
-
+}
+TEST_F(ParticleTest, ParticleCloneInvertB)
+{
+    Particle particle;
     ASSERT_THROW(particle.cloneInvertB(), NullPointerException);
 }
 
@@ -52,6 +60,8 @@ TEST_F(ParticleTest, ParticleConstructors)
     EXPECT_FALSE(p1->hasDistributedFormFactor());
     EXPECT_EQ(NULL, p1->createFormFactor(1.0));
     ASSERT_THROW(p1->createDistributedParticles(0,0).size(), NullPointerException);
+    EXPECT_EQ( NULL, p1->getPTransform3D());
+
     delete p1;
 
     FormFactorFullSphere sphere(1.0);
@@ -76,6 +86,74 @@ TEST_F(ParticleTest, ParticleConstructors)
 
     delete p3;
     delete p4;
+}
+
+TEST_F(ParticleTest, ParticleTransform)
+{
+    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    FormFactorFullSphere sphere(1.0);
+    Geometry::RotateZ_3D transform(45.*Units::degree);
+    Particle *particle = new Particle(mat, sphere, transform);
+
+    EXPECT_EQ("Air", particle->getMaterial()->getName());
+
+    EXPECT_TRUE(NULL != particle->getPTransform3D());
+
+    const Geometry::RotateY_3D * rY3D  = dynamic_cast<const Geometry::RotateY_3D *>(particle->getPTransform3D());
+    EXPECT_TRUE( NULL == rY3D);
+
+    const Geometry::RotateZ_3D * rZ3D  = dynamic_cast<const Geometry::RotateZ_3D *>(particle->getPTransform3D());
+    EXPECT_TRUE( NULL != rZ3D);
+
+    const Geometry::RotateZ_3D * rZ3D2 = rZ3D->inverse();
+    EXPECT_TRUE(NULL!=rZ3D2);
+
+
+    delete particle;
+
+}
+
+TEST_F(ParticleTest, SetParam)
+{
+    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    FormFactorFullSphere *sphere = new FormFactorFullSphere(2.1);
+    Geometry::RotateY_3D transform(45.*Units::degree);
+
+    Particle particle;
+    EXPECT_EQ(NULL, particle.getMaterial());
+    EXPECT_EQ(NULL, particle.getSimpleFormFactor());
+    EXPECT_EQ(NULL, particle.getPTransform3D());
+
+    particle.setMaterial(mat);
+    EXPECT_EQ("Air", particle.getMaterial()->getName());
+    EXPECT_EQ(complex_t(1.0), particle.getRefractiveIndex());
+
+    particle.setSimpleFormFactor(sphere);
+    EXPECT_EQ("FormFactorFullSphere", particle.getSimpleFormFactor()->getName());
+    EXPECT_EQ(2.1, particle.getSimpleFormFactor()->getRadius());
+    EXPECT_FALSE(particle.hasDistributedFormFactor());
+
+    particle.setTransform(transform);
+    EXPECT_TRUE(NULL != particle.getPTransform3D());
+    const Geometry::RotateY_3D * rY3D  = dynamic_cast<const Geometry::RotateY_3D *>(particle.getPTransform3D());
+    EXPECT_TRUE( NULL != rY3D);
+    const Geometry::RotateY_3D * rY3D2 = rY3D->inverse();
+    EXPECT_TRUE(NULL!=rY3D2);
+
+
+
+    Particle *particle2 = particle.clone();
+    EXPECT_EQ("Particle", particle2->getName());
+    EXPECT_EQ("Air", particle2->getMaterial()->getName());
+    EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
+    EXPECT_TRUE(NULL != particle2->getSimpleFormFactor());
+    EXPECT_EQ(2.1, particle2->getSimpleFormFactor()->getRadius());
+    EXPECT_FALSE(particle2->hasDistributedFormFactor());
+    EXPECT_TRUE(NULL != particle2->getPTransform3D());
+
+    delete particle2;
+
+
 }
 
 

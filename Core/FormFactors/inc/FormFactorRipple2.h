@@ -20,7 +20,7 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! @class FormFactorBox
+//! @class FormFactorRipple2
 //! @ingroup formfactors
 //! @brief The formfactor for a triangular ripple.
 

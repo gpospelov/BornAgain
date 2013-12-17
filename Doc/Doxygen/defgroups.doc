@@ -2,9 +2,13 @@
 
 \defgroup formfactors     Available formfactors
 \defgroup ff_decorations  Formfactor decorations.
-\defgroup ff_internals    Formfactor internal classes.
+\defgroup ff_internals    Formfactor internals.
 
 \defgroup simulation      Simulation API
+\defgroup simulation_internals
+
+\defgroup sample           Samples
+\defgroup sample_internals Sample internals
 
 \defgroup interference
 \defgroup layers

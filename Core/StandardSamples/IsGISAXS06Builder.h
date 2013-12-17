@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS06Lattice1Builder class to build sample: 2D lattice with different
-//! disorder (IsGISAXS example #6)
+
+//! @class IsGISAXS06Lattice1Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
+
 class BA_CORE_API_ IsGISAXS06Lattice1Builder : public ISampleBuilder
 {
 public:
@@ -28,8 +31,10 @@ public:
 };
 
 
-//! The IsGISAXS06Lattice2Builder class to build sample: 2D lattice with different
-//! disorder (IsGISAXS example #6)
+//! @class IsGISAXS06Lattice2Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
+
 class BA_CORE_API_ IsGISAXS06Lattice2Builder : public ISampleBuilder
 {
 public:
@@ -37,9 +42,10 @@ public:
     ISample *buildSample() const;
 };
 
+//! @class IsGISAXS06Lattice3Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
-//! The IsGISAXS06Lattice3Builder class to build sample: 2D lattice with different
-//! disorder (IsGISAXS example #6)
 class BA_CORE_API_ IsGISAXS06Lattice3Builder : public ISampleBuilder
 {
 public:
@@ -47,9 +53,10 @@ public:
     ISample *buildSample() const;
 };
 
+//! @class IsGISAXS06Lattice4Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
-//! The IsGISAXS06Lattice4Builder class to build sample: 2D lattice with different
-//! disorder (IsGISAXS example #6)
 class BA_CORE_API_ IsGISAXS06Lattice4Builder : public ISampleBuilder
 {
 public:

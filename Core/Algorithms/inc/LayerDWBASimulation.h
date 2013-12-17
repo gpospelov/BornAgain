@@ -21,7 +21,7 @@
 
 //! @class LayerDWBASimulation
 //! @ingroup algorithms_internal
-//! @brief Base class for LayerDecoratorDWBASimulation, DiffuseDWBASimulation.
+//! @brief Base class for DWBA simulations in a layer.
 
 class LayerDWBASimulation : public DWBASimulation
 {

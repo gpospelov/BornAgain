@@ -19,8 +19,10 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS03DWBABuilder class to build sample: cylinder formfactor in DWBA
-//! (IsGISAXS example #3, part I)
+//! @class IsGISAXS03DWBABuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I)
+
 class IsGISAXS03DWBABuilder : public ISampleBuilder
 {
 public:
@@ -36,8 +38,10 @@ private:
 };
 
 
-//! The IsGISAXS03BABuilder class to build sample: cylinder formfactor in BA
-//! (IsGISAXS example #3, part II)
+//! @class IsGISAXS03BABuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
+
 class IsGISAXS03BABuilder : public ISampleBuilder
 {
 public:
@@ -53,8 +57,11 @@ private:
 };
 
 
-//! The IsGISAXS03BASizeBuilder class to build sample: cylinder formfactor in BA
-//! with size distribution (IsGISAXS example #3, part II)
+//! @class IsGISAXS03BASizeBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinder formfactor in BA with size distribution
+//! (IsGISAXS example #3, part II)
+
 class IsGISAXS03BASizeBuilder : public ISampleBuilder
 {
 public:

@@ -23,10 +23,8 @@
 
 
 //! @class FunctionalTestRegistry
-//! @ingroup samples
-//! @brief Enhances ParticleInfo by position in x and y.
-//!
-//! Note that position in z ("depth") is inherited from ParticleInfo.
+//! @ingroup standard_samples
+//! @brief The registry which holds information about available functional tests.
 
 class FunctionalTestRegistry
 {

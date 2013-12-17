@@ -19,7 +19,7 @@
 #include "IFormFactor.h"
 
 //! @class FormFactorWeighted
-//! @ingroup ff_internals
+//! @ingroup formfactors_internal
 //! @brief Coherent sum of different form factors with different weights.
 //! Acts on scalar form factors.
 

@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS10Builder class to build sample: cylinders on top of substrate
-//! with interference (IsGISAXS example #10)
+//! @class IsGISAXS10Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinders on top of substrate with interference
+//! (IsGISAXS example #10)
+
 class IsGISAXS10Builder : public ISampleBuilder
 {
 public:

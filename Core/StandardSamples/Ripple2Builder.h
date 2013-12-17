@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The Ripple2Builder class to build sample: triangular ripple
-//! within the 1D-paracrystal model (from PRB 85, 235415, 2012)
+//! @class Ripple2Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: triangular ripple within the 1D-paracrystal model
+//! (from PRB 85, 235415, 2012)
+
 class Ripple2Builder : public ISampleBuilder
 {
 public:

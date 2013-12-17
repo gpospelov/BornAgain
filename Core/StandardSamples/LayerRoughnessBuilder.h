@@ -18,8 +18,10 @@
 
 #include "ISampleBuilder.h"
 
-//! The LayerRoughnessBuilder class to build sample: 
-//! Layers with correlated roughness
+//! @class LayerRoughnessBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: layers with correlated roughness
+
 class LayerRoughnessBuilder : public ISampleBuilder
 {
 public:

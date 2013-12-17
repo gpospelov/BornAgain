@@ -22,7 +22,7 @@
 #include "EigenCore.h"
 
 //! @class IFormFactor
-//! @ingroup ff_internals
+//! @ingroup formfactors_internal
 //! @brief The basic interface for form factors.
 
 class BA_CORE_API_ IFormFactor : public ISample

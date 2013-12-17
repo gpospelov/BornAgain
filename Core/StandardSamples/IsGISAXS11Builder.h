@@ -18,8 +18,10 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS01Builder class to build sample: Core Shell Nanoparticles
-//! (IsGISAXS example #11)
+//! @class IsGISAXS11Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: Core Shell Nanoparticles (IsGISAXS example #11)
+
 class IsGISAXS11Builder : public ISampleBuilder
 {
 public:

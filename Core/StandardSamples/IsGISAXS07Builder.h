@@ -18,8 +18,10 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS07Builder class to build sample: Mixture of different particles
-//! (IsGISAXS example #7)
+//! @class IsGISAXS07Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: mixture of different particles (IsGISAXS example #7)
+
 class IsGISAXS07Builder : public ISampleBuilder
 {
 public:

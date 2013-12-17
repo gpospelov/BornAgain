@@ -27,15 +27,8 @@ Collection of objects to describe experimental sample.
 \defgroup standard_samples
 
 
-
-
-
-
-
-
-
-
-
 \defgroup tools
+\defgroup tools_internal
+
 
 */

@@ -18,8 +18,10 @@
 
 #include "ISampleBuilder.h"
 
-//! The PolarizedDWBAZeroMagBuilder class to build sample
-//! without interference 
+//! @class PolarizedDWBAZeroMagBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinders with magnetic material and zero magnetic field.
+
 class PolarizedDWBAZeroMagBuilder : public ISampleBuilder
 {
 public:

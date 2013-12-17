@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS09Builder class to build sample: Pyramids, rotated pyramids on
-//! top of substrate (IsGISAXS example #9)
+//! @class IsGISAXS09ABuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  Pyramids, pyramids on top of substrate
+//!(IsGISAXS example #9)
+
 class IsGISAXS09ABuilder : public ISampleBuilder
 {
 public:
@@ -35,6 +38,10 @@ private:
     double m_alpha;
 };
 
+//! @class IsGISAXS09BBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  Pyramids, rotated pyramids on top of substrate
+//!(IsGISAXS example #9)
 
 class IsGISAXS09BBuilder : public ISampleBuilder
 {

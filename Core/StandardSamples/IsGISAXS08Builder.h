@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS08Builder class to build sample: 2D paracrystal lattice
-//! (IsGISAXS example #8)
+
+//! @class IsGISAXS08ABuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  2D paracrystal lattice (IsGISAXS example #8)
+
 class IsGISAXS08ABuilder : public ISampleBuilder
 {
 public:
@@ -28,8 +31,10 @@ public:
 };
 
 
-//! The IsGISAXS08Builder class to build sample: 2D paracrystal lattice
-//! with isotropic pdfs (IsGISAXS example #8)
+//! @class IsGISAXS08BBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
+
 class IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:

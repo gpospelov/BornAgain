@@ -19,7 +19,10 @@
 #include "IFactory.h"
 #include "Simulation.h"
 
-//! Factory to create standard pre-defined simulations.
+
+//! @class SimulationRegistry
+//! @ingroup standard_samples
+//! @brief Registry to create standard pre-defined simulations.
 //! Used in functional tests, performance measurements, etc.
 
 class BA_CORE_API_ SimulationRegistry : public IFactory<std::string, Simulation>

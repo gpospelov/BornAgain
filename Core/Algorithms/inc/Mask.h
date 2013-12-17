@@ -52,7 +52,7 @@ private:
 
 //! @class MaskIndexModulus
 //! @ingroup simulation_internal
-//! @brief Mask based on the index modulo a given number.
+//! @brief %Mask based on the index modulo a given number.
 
 class BA_CORE_API_ MaskIndexModulus : public Mask
 {
@@ -73,7 +73,7 @@ private:
 
 //! @class MaskCoordinates
 //! @ingroup simulation_internal
-//! @brief Mask based on the coordinates.
+//! @brief %Mask based on the coordinates.
 
 class BA_CORE_API_ MaskCoordinates : public Mask
 {

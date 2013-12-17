@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS02Builder class to build sample: mixture cylinder particles with
-//! different size distribution (IsGISAXS example #2)
+//! @class IsGISAXS02Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: mixture cylinder particles with different size
+//! distribution (IsGISAXS example #2)
+
 class IsGISAXS02Builder : public ISampleBuilder
 {
 public:

@@ -19,7 +19,7 @@
 #include "IFormFactorDecorator.h"
 
 //! @class FormFactorDecoratorMultiPositionFactor
-//! @ingroup ff_decorations
+//! @ingroup formfactors_decorations
 //! @brief The formfactor for the same particle at different fixed positions.
 
 class FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator

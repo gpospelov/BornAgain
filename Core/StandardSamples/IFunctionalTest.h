@@ -22,6 +22,10 @@
 #include <string>
 
 
+//! @class IFunctionalTest
+//! @ingroup standard_samples
+//! @brief Interface to the functional tests
+
 class IFunctionalTest
 {
 public:
@@ -30,7 +34,10 @@ public:
 };
 
 
-//! functional test info and description
+//! @class FunctionalTestInfo
+//! @ingroup standard_samples
+//! @brief Functional test info and description
+
 class FunctionalTestInfo
 {
 public:
@@ -51,7 +58,10 @@ public:
 };
 
 
-//! basic functional test
+//! @class FunctionalTest
+//! @ingroup standard_samples
+//! @brief Basic functional test
+
 class FunctionalTest : public IFunctionalTest
 {
 public:

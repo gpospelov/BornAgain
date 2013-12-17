@@ -21,7 +21,7 @@
 #include <memory>
 
 //! @class FormFactorDecoratorMaterial
-//! @ingroup ff_decorations
+//! @ingroup formfactors_decorations
 //! @brief Decorates a scalar formfactor with the correct factor for the material's
 //! refractive index and that of its surrounding material.
 

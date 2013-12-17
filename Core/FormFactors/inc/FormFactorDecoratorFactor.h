@@ -19,7 +19,7 @@
 #include "IFormFactorDecorator.h"
 
 //! @class FormFactorDecoratorFactor
-//! @ingroup ff_decorations
+//! @ingroup formfactors_decorations
 //! @brief Decorates a formfactor with a constant factor.
 
 class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator

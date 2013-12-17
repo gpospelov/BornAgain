@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS01Builder class to build sample: mixture of cylinders and prisms
-//! without interference (IsGISAXS example #1)
+//! @class IsGISAXS01Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: mixture of cylinders and prisms without interference
+//! (IsGISAXS example #1)
+
 class IsGISAXS01Builder : public ISampleBuilder
 {
 public:

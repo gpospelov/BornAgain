@@ -22,8 +22,12 @@
 class Lattice;
 class MesoCrystal;
 
-//! The MesoCrystal01Builder class for mesocrystals of cylindrical shape composed
-//! by spherical nanoparticles.
+
+//! @class MesoCrystal01Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: mesocrystals of cylindrical shape composed by
+//! spherical nanoparticles.
+
 class MesoCrystal01Builder : public ISampleBuilder
 {
 public:

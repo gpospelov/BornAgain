@@ -18,8 +18,11 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS15Builder class to build sample: size spacing correlation approximation
+//! @class IsGISAXS15Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: size spacing correlation approximation
 //! (IsGISAXS example #15)
+
 class IsGISAXS15Builder : public ISampleBuilder
 {
 public:

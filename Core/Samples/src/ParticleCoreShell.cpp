@@ -105,13 +105,6 @@ void ParticleCoreShell::setSimpleFormFactor(IFormFactor* p_form_factor)
     }
 }
 
-ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
-: mp_shell(0)
-, mp_core(0)
-, m_relative_core_position(relative_core_position)
-{
-}
-
 void ParticleCoreShell::setTransform(const Geometry::Transform3D& transform)
 {
     if (!mP_transform.get()) {
@@ -154,6 +147,13 @@ void ParticleCoreShell::addAndRegisterShell(const Particle &shell)
     registerChild(mp_shell);
 }
 
+ParticleCoreShell::ParticleCoreShell(kvector_t relative_core_position)
+: mp_shell(0)
+, mp_core(0)
+, m_relative_core_position(relative_core_position)
+{
+}
+
 void ParticleCoreShell::applyTransformationToSubParticles(
         const Geometry::Transform3D& transform)
 {
@@ -163,4 +163,5 @@ void ParticleCoreShell::applyTransformationToSubParticles(
     if (mp_shell) {
         mp_shell->applyTransformation(transform);
     }
+    m_relative_core_position = transform.transformed(m_relative_core_position);
 }

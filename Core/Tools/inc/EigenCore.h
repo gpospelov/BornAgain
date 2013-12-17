@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/AxisBin.h
-//! @brief     Defines class AxisBin.
+//! @file      Tools/inc/EigenCore.h
+//! @brief     Include to deal with Eigen alignment centrally
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

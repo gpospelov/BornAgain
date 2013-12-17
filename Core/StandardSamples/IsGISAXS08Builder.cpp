@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IsGISAXS08Builder.cpp
+//! @brief     Implements classes IsGISAXS08ABuilder, IsGISAXS08BBuilder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "IsGISAXS08Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"

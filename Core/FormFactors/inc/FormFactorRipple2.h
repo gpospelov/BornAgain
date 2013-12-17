@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/inc/FormFactorSphere.h
-//! @brief     Defines class FormFactorSphere.
+//! @file      FormFactors/inc/FormFactorRipple2.h
+//! @brief     Defines class FormFactorRipple2.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,9 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of a truncated sphere.
+//! @class FormFactorBox
+//! @ingroup formfactors
+//! @brief The formfactor for a triangular ripple.
 
 class BA_CORE_API_ FormFactorRipple2 : public IFormFactorBorn
 {

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactorSphereUniformRadius.h
-//! @brief     Defines class .
+//! @file      FormFactors/inc/FormFactorSphereUniformRadius.h
+//! @brief     Defines class FormFactorSphereUniformRadius.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,7 +22,10 @@
 #include "FormFactorFullSphere.h"
 #include <cassert>
 
-//! Integrated full sphere form factor over a uniform distribution of radii
+//! @class FormFactorSphereUniformRadius
+//! @ingroup formfactors
+//! @brief Integrated full sphere form factor over a uniform distribution of radii.
+
 class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
 {
 public:

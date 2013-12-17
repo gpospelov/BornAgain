@@ -24,7 +24,9 @@
 
 class ProgramOptions;
 
-//! Run one simulation.
+//! @class Simulation
+//! @ingroup simulation
+//! @brief Main class to run the simulation.
 
 class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {

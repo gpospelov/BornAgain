@@ -20,7 +20,9 @@
 #include "IFormFactor.h"
 #include "Particle.h"
 
-//! A particle with an internal structure of smaller particles
+//! @class MesoCrystal
+//! @ingroup samples
+//! @brief A particle with an internal structure of smaller particles
 
 class BA_CORE_API_ MesoCrystal : public Particle
 {

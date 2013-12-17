@@ -24,7 +24,9 @@
 
 #include <vector>
 
-//! A Lattice with three basis vectors.
+//! @class Lattice
+//! @ingroup samples
+//! @brief A lattice with three basis vectors.
 
 class BA_CORE_API_ Lattice
 {

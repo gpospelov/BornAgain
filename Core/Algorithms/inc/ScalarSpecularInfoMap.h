@@ -20,7 +20,10 @@
 #include "ScalarRTCoefficients.h"
 #include "Utils.h"
 
-//! Implementation of ISpecularInfoMap for scalar valued reflection/
+
+//! @class ScalarSpecularInfoMap
+//! @ingroup algorithms_internal
+//! @brief Implementation of ISpecularInfoMap for scalar valued reflection/
 //! transmission coefficients (the map contains values only for alpha_f,
 //! because of rotation symmetry in the xy-plane
 

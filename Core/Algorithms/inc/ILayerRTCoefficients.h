@@ -19,6 +19,11 @@
 #include "Types.h"
 #include "EigenCore.h"
 
+
+//! @class ILayerRTCoefficients
+//! @ingroup algorithms_internal
+//! @brief Interface to access reflection/transmition coefficients
+
 class ILayerRTCoefficients
 {
 public:

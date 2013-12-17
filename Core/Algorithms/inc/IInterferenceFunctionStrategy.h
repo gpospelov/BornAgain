@@ -25,6 +25,11 @@
 
 #include <vector>
 
+
+//! @class IInterferenceFunctionStrategy
+//! @ingroup algorithms_internal
+//! @brief Algorithm to apply one of interference function strategies (LMA, SCCA etc)
+
 class IInterferenceFunctionStrategy
 {
 public:

@@ -18,6 +18,11 @@
 
 #include "OutputData.h"
 
+
+//! @class IFittingDataSelector
+//! @ingroup algorithms_internal
+//! @brief Interface for selecting data points and its weights
+
 class IFittingDataSelector
 {
 public:
@@ -28,6 +33,11 @@ public:
         const OutputData<double>& real_data,
         const OutputData<double>& simulated_data) const=0;
 };
+
+
+//! @class DefaultAllDataSelector
+//! @ingroup algorithms_internal
+//! @brief Default algorithm for selecting all data points and giving them equal weight of 1.
 
 class DefaultAllDataSelector : public IFittingDataSelector
 {

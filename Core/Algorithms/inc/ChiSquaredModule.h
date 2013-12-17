@@ -18,6 +18,10 @@
 
 #include "IChiSquaredModule.h"
 
+//! @class ChiSquaredModule
+//! @ingroup algorithms
+//! @brief Calculation of chi2 between two data sets
+
 class BA_CORE_API_ ChiSquaredModule : public IChiSquaredModule
 {
 public:

@@ -23,8 +23,9 @@
 #include <string>
 #include <iostream>
 
-
-//! Interface to a named material.
+//! @class IMaterial
+//! @ingroup materials_internal
+//! @brief Interface to a named material.
 
 class BA_CORE_API_ IMaterial : public INamed
 {

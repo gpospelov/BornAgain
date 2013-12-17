@@ -1,17 +1,41 @@
 /*! 
 
+\defgroup simulation Simulation description
+\defgroup simulation_internal Simulation internals
+
+\defgroup algorithms Algorithms
+\defgroup algorithms_internal Algorithm internals
+
+
 \defgroup formfactors     Available formfactors
-\defgroup ff_decorations  Formfactor decorations.
-\defgroup ff_internals    Formfactor internals.
+\defgroup formfactors_internal    Formfactor internals
+\defgroup formfactors_decorations  Formfactor decorations
 
-\defgroup simulation      Simulation API
-\defgroup simulation_internals
 
-\defgroup sample           Samples
-\defgroup sample_internals Sample internals
+\defgroup samples Samples
+Collection of objects to describe experimental sample.
 
-\defgroup interference
-\defgroup layers
+\defgroup samples_internal Sample internals
 
+\defgroup materials Materials
+\defgroup materials_internal Material internals
+
+\defgroup interference Interference functions
+
+\defgroup interference_internal Interference function internals
+
+\defgroup standard_samples
+
+
+
+
+
+
+
+
+
+
+
+\defgroup tools
 
 */

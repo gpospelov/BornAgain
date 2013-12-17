@@ -19,7 +19,9 @@
 #include "IMaterial.h"
 #include "Types.h"
 
-//! A homogeneous material with a refractive index.
+//! @class HomogeneousMaterial
+//! @ingroup materials
+//! @brief An homogeneous material with a refractive index.
 
 class BA_CORE_API_ HomogeneousMaterial : public IMaterial
 {

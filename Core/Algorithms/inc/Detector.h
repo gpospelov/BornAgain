@@ -22,7 +22,6 @@
 #include "EigenCore.h"
 
 
-
 //! @class Detector
 //! @ingroup simulation
 //! @brief The detector with axes and resolution function.

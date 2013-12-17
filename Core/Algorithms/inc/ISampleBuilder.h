@@ -20,6 +20,11 @@
 #include <boost/shared_ptr.hpp>
 
 
+//! @class ISampleBuilder
+//! @ingroup simulation_internal
+//! @brief Interface to the class capable to build samples to simulate
+
+
 class BA_CORE_API_ ISampleBuilder : public IParameterized
 {
 public:

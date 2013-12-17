@@ -18,8 +18,11 @@
 
 #include "Exceptions.h"
 
-//! Standard mix-in for objects that must not be copied, except by cloning.
 
+//! @class ICloneable
+//! @ingroup tools
+//! @brief Standard mix-in for objects that must not be copied, except by cloning.
+//!
 //! This virtual base class disables the copy constructor and the operator=
 //! in all its child classes.
 //! Child classes should provide clone().

@@ -19,7 +19,11 @@
 #include "ICompositeSample.h"
 #include "Particle.h"
 
-//! Holds additional information about particle (used in ParticleDecoration).
+//! @class ParticleInfo
+//! @ingroup samples
+//! @brief Holds additional information about particle.
+//!
+//! Used in ParticleDecoration
 
 class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {

@@ -21,7 +21,12 @@
 
 #include <iostream>
 
-//! Interface providing measures for deviation between two values.
+
+//! @class ISquaredFunction
+//! @ingroup algorithms_internal
+//! @brief Interface providing measures for deviation between two values.
+//!
+//! Used By ChiSquaredModule for chi2 calculations
 
 class ISquaredFunction
 {
@@ -41,6 +46,10 @@ public:
     }
 };
 
+
+//! @class SquaredFunctionDefault
+//! @ingroup algorithms_internal
+//! @brief Squared difference betwee two values
 
 class SquaredFunctionDefault : public ISquaredFunction
 {
@@ -67,6 +76,10 @@ public:
 };
 
 
+//! @class SquaredFunctionWhichOnlyWorks
+//! @ingroup algorithms_internal
+//! @brief Squared difference betwee two values
+
 class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
 public:
@@ -88,6 +101,10 @@ public:
     }
 };
 
+
+//! @class SquaredFunctionWithSystematicError
+//! @ingroup algorithms_internal
+//! @brief Squared difference between two values with systematic error
 
 class SquaredFunctionWithSystematicError : public ISquaredFunction
 {
@@ -111,6 +128,10 @@ private:
     double m_epsilon;
 };
 
+
+//! @class SquaredFunctionWithGaussianError
+//! @ingroup algorithms_internal
+//! @brief Squared difference between two values with gaussian error
 
 class SquaredFunctionWithGaussianError : public ISquaredFunction
 {

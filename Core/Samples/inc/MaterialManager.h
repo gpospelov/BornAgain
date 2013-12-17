@@ -23,11 +23,14 @@
 #include <string>
 #include <map>
 
-//! Manager of materials used in simulation.
-
-//! A singleton that maintains a database of materials, and
-//! provides a common and unique interface for material creation and access.
+//! @class MaterialManager
+//! @ingroup materials
+//! @brief Manager of materials used in simulation.
 //!
+//! Maintains a database of materials, and provides a common and unique
+//! interface for material creation and access.
+
+
 class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
 {
 public:

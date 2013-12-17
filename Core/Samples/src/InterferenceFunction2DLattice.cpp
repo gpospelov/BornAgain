@@ -35,9 +35,10 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
 }
 
 InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
-    InterferenceFunction2DLattice *p_clone = new InterferenceFunction2DLattice(m_lattice_params);
-    p_clone->setProbabilityDistribution(*mp_pdf);
-    return p_clone;
+    InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(m_lattice_params);
+    result->setProbabilityDistribution(*mp_pdf);
+    result->setName(getName());
+    return result;
 }
 
 

@@ -19,7 +19,9 @@
 #include "HomogeneousMaterial.h"
 #include "EigenCore.h"
 
-//! An homogeneous material with magnetization
+//! @class HomogeneousMagneticMaterial
+//! @ingroup materials
+//! @brief An homogeneous material with magnetization.
 
 class BA_CORE_API_ HomogeneousMagneticMaterial : public HomogeneousMaterial
 {

@@ -18,7 +18,9 @@
 
 #include "ParticleInfo.h"
 
-//! Holds additional information about diffuse particle
+//! @class DiffuseParticleInfo
+//! @ingroup samples_internal
+//! @brief Holds additional information about diffuse particle.
 
 class BA_CORE_API_ DiffuseParticleInfo : public ParticleInfo
 {

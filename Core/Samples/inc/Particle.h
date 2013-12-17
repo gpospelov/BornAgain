@@ -24,7 +24,9 @@
 class ParticleInfo;
 class DiffuseParticleInfo;
 
-//! A particle with a form factor and refractive index
+//! @class Particle
+//! @ingroup samples
+//! @brief A particle with a form factor and refractive index
 
 class BA_CORE_API_ Particle : public ICompositeSample
 {

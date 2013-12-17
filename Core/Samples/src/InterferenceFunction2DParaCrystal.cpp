@@ -49,14 +49,15 @@ InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
 
 InterferenceFunction2DParaCrystal
 *InterferenceFunction2DParaCrystal::clone() const {
-    InterferenceFunction2DParaCrystal *p_new =
+    InterferenceFunction2DParaCrystal *result =
             new InterferenceFunction2DParaCrystal(m_lattice_lengths[0],
                     m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
-    p_new->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
+    result->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
     if(m_pdfs[0] && m_pdfs[1])
-        p_new->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
-    p_new->setIntegrationOverXi(m_integrate_xi);
-    return p_new;
+        result->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
+    result->setIntegrationOverXi(m_integrate_xi);
+    result->setName(getName());
+    return result;
 }
 
 

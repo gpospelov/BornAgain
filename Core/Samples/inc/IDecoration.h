@@ -24,7 +24,9 @@
 class IInterferenceFunctionStrategy;
 class IInterferenceFunction;
 
-//! Interface to equip a sample component with various properties.
+//! @class IDecoration
+//! @ingroup samples_internal
+//! @brief Interface to equip a sample component with various properties.
 
 class BA_CORE_API_ IDecoration : public ICompositeSample
 {

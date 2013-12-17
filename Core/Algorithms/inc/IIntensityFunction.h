@@ -19,6 +19,11 @@
 
 #include <cmath>
 
+
+//! @class IIntensityFunction
+//! @ingroup algorithms_internal
+//! @brief Interface for applying arbitrary function to the measured intensity
+
 class IIntensityFunction
 {
 public:
@@ -27,6 +32,11 @@ public:
 
     virtual double evaluate(double value) const=0;
 };
+
+
+//! @class IntensityFunctionLog
+//! @ingroup algorithms_internal
+//! @brief Algorithm for applying log function to the measured intensity
 
 class IntensityFunctionLog : public IIntensityFunction
 {
@@ -37,6 +47,11 @@ public:
     virtual double evaluate(double value) const {
         return (value > 0 ? std::log(value) : 0); }
 };
+
+
+//! @class IntensityFunctionSqrt
+//! @ingroup algorithms_internal
+//! @brief Algorithm for applying sqrt function to the measured intensity
 
 class IntensityFunctionSqrt : public IIntensityFunction
 {

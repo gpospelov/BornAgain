@@ -21,10 +21,8 @@
 #include "ParticleDecoration.h"
 
 //! @class ParticleBuilder
+//! @ingroup samples_internal
 //! @brief To build set of particles with similar properties
-//!
-//! currently produces particles but probably can produce directly
-//! ParticleInfo, or even ISample
 
 class BA_CORE_API_ ParticleBuilder
 {

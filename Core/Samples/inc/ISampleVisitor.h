@@ -92,6 +92,11 @@ class InterferenceFunctionNone;
 class IRoughness;
 class LayerRoughness;
 
+//! @class ISampleVisitor
+//! @ingroup samples_internal
+//! @brief Visitor interface to visit ISample objects
+//!
+//! From visitor pattern to achieve double dispatch
 
 class BA_CORE_API_ ISampleVisitor
 {

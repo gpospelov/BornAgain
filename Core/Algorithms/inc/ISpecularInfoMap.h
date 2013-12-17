@@ -18,6 +18,11 @@
 
 #include "ILayerRTCoefficients.h"
 
+
+//! @class ISpecularInfoMap
+//! @ingroup algorithms_internal
+//! @brief Interface class providing access to the reflection and transmittion coefficients
+
 class ISpecularInfoMap
 {
 public:

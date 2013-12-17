@@ -20,7 +20,9 @@
 #include "Lattice2DIFParameters.h"
 #include "FTDistributions.h"
 
-//! Interference function of 2D lattice
+//! @class InterferenceFunction2DLattice
+//! @ingroup interference
+//! @brief Interference function of 2D lattice
 
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {

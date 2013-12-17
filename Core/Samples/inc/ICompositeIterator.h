@@ -23,7 +23,9 @@
 #include <stack>
 #include <list>
 
-//! Holds state of ICompositeSample iterator
+//! @class MementoState
+//! @ingroup samples_internal
+//! @brief Holds state of iterator (Memento pattern) for ICompositeIterator
 
 class MementoState
 {
@@ -59,6 +61,9 @@ private:
     MementoState();
 };
 
+//! @class MementoIterator
+//! @ingroup samples_internal
+//! @brief The iterator from Memento pattern, part of ICompositeSample iterator
 
 class MementoIterator
 {
@@ -80,8 +85,10 @@ protected:
 };
 
 
-//! Iterator through ISample tree of objects inside ICompositeSample object.
-
+//! @class ICompositeIterator
+//! @ingroup samples_internal
+//! @brief Iterator through ISample tree of objects inside ICompositeSample object.
+//!
 //! Usage example:
 //!    ICompositeIterator it = sample->createIterator();
 //!    it.first();

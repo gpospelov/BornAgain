@@ -19,7 +19,9 @@
 #include "ISample.h"
 #include <list>
 
-//! Interface to equip ISample with a tree structure.
+//! @class ICompositeSample
+//! @ingroup samples_internal
+//! @brief Interface to describe the tree-like composition of samples
 
 class BA_CORE_API_ ICompositeSample : public ISample
 {

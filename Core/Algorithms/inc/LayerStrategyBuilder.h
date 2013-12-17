@@ -31,7 +31,11 @@ class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
 
-//! Methods to generate a simulation strategy for decorated Layer SimulationParameters
+
+
+//! @class LayerStrategyBuilder
+//! @ingroup algorithms_internal
+//! @brief Methods to generate a simulation strategy for decorated Layer SimulationParameters
 
 class LayerStrategyBuilder
 {
@@ -75,6 +79,10 @@ private:
     SafePointerVector<IInterferenceFunction> m_ifs;
 };
 
+
+//! @class FormFactorInfo
+//! @ingroup formfactors_internal
+//! @brief The %FormFactorInfo holds information about particle position and abundance
 
 class FormFactorInfo : public ICloneable
 {

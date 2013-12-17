@@ -21,6 +21,13 @@
 #include <map>
 #include "IFunctionalTest.h"
 
+
+//! @class FunctionalTestRegistry
+//! @ingroup samples
+//! @brief Enhances ParticleInfo by position in x and y.
+//!
+//! Note that position in z ("depth") is inherited from ParticleInfo.
+
 class FunctionalTestRegistry
 {
 public:

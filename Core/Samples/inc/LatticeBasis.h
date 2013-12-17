@@ -20,6 +20,10 @@
 #include "Types.h"
 #include <vector>
 
+//! @class LatticeBasis
+//! @ingroup samples
+//! @brief Basis of the lattice represented by the composition of particles
+
 class BA_CORE_API_ LatticeBasis : public Particle
 {
 public:

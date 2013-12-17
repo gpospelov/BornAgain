@@ -22,6 +22,11 @@
 
 #include "Numeric.h"
 
+
+//! @class IFTDistribution1D
+//! @ingroup algorithms_internal
+//! @brief Interface for 1 dimensional distributions in Fourier space
+
 class IFTDistribution1D
 {
 public:
@@ -33,7 +38,10 @@ protected:
     double m_omega;
 };
 
-//! Interface for 2 dimensional distributions in Fourier space
+
+//! @class IFTDistribution2D
+//! @ingroup algorithms_internal
+//! @brief Interface for 2 dimensional distributions in Fourier space
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
@@ -78,8 +86,12 @@ protected:
     double m_delta;
 };
 
-//! 2 dimensional Cauchy distribution in Fourier space
+
+//! @class FTDistribution2DCauchy
+//! @ingroup algorithms
+//! @brief 2 dimensional Cauchy distribution in Fourier space
 //! corresponds to exp(-r) in real space
+
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
@@ -91,8 +103,12 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-//! 2 dimensional Gauss distribution in Fourier space
+
+//! @class FTDistribution2DGauss
+//! @ingroup algorithms
+//! @brief 2 dimensional Gauss distribution in Fourier space
 //! corresponds to exp(-r^2) in real space
+
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
@@ -104,8 +120,12 @@ public:
     virtual double evaluate(double qx, double qy) const;
 };
 
-//! 2 dimensional Voigt distribution in Fourier space
+
+//! @class FTDistribution2DVoigt
+//! @ingroup algorithms
+//! @brief 2 dimensional Voigt distribution in Fourier space
 //! Corresponds to eta*Gauss + (1-eta)*Cauchy
+
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:

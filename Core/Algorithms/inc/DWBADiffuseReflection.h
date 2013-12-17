@@ -21,7 +21,9 @@
 #include "MultiLayer.h"
 #include "SpecularMatrix.h"
 
-//! Calculation of diffuse (aka off-specular) reflection from multilayers.
+//! @class DWBADiffuseReflection
+//! @ingroup algorithms_internal
+//! @brief Calculation of diffuse (aka off-specular) reflection from multilayers.
 
 class BA_CORE_API_ DWBADiffuseReflection : public ISimulation
 {

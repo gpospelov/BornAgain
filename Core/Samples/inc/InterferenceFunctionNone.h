@@ -18,6 +18,9 @@
 
 #include "IInterferenceFunction.h"
 
+//! @class InterferenceFunctionNone
+//! @ingroup interference
+//! @brief Default interference function (i.e. absence of any interference)
 
 class InterferenceFunctionNone : public IInterferenceFunction
 {
@@ -25,7 +28,11 @@ public:
     InterferenceFunctionNone() { setName("InterferenceFunctionNone"); }
     virtual ~InterferenceFunctionNone() {}
     virtual InterferenceFunctionNone *clone() const
-    { return new InterferenceFunctionNone(); }
+    {
+        InterferenceFunctionNone *result = new InterferenceFunctionNone();
+        result->setName(getName());
+        return result;
+    }
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual double evaluate(const cvector_t& q) const { (void)q; return 1.0; }

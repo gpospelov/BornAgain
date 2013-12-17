@@ -38,11 +38,12 @@ void InterferenceFunction1DParaCrystal::init_parameters()
 
 
 InterferenceFunction1DParaCrystal *InterferenceFunction1DParaCrystal::clone() const {
-    InterferenceFunction1DParaCrystal *p_clone =
+    InterferenceFunction1DParaCrystal *result =
         new InterferenceFunction1DParaCrystal(
             m_peak_distance, m_width, m_corr_length);
-    p_clone->setKappa(m_kappa);
-    return p_clone;
+    result->setName(getName());
+    result->setKappa(m_kappa);
+    return result;
 }
 
 

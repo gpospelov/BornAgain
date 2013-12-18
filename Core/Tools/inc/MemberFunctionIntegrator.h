@@ -19,6 +19,10 @@
 #include "gsl/gsl_integration.h"
 #include <cassert>
 
+//! @class MemberComplexFunctionIntegrator
+//! @ingroup tools_internal
+//! @brief Template class to integrate class member functions in 1D space
+//!
 //! Wrap integrator from GNU Scientific Library.
 
 template <class C> class MemberFunctionIntegrator

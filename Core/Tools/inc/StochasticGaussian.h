@@ -19,6 +19,11 @@
 #include "IStochasticParameter.h"
 #include <cmath>
 
+
+//! @class StochasticDoubleGaussian
+//! @ingroup tools_internal
+//! @brief Stochastic gaussian parameter
+
 class BA_CORE_API_ StochasticDoubleGaussian : public StochasticParameter<double>
 {
 public:

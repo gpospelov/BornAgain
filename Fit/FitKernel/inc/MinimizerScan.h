@@ -20,7 +20,10 @@
 #include "FitSuiteParameters.h"
 #include "OutputData.h"
 
-//! Simple scan minimizer looks for minimum of chi2 function on the grid
+
+//! @class MinimizerScan
+//! @ingroup fitting_internal
+//! @brief Simple scan minimizer looks for minimum of chi2 function on the grid
 
 class BA_CORE_API_ MinimizerScan : public IMinimizer
 {

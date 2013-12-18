@@ -19,7 +19,10 @@
 #include "ISampleVisitor.h"
 #include <string>
 
-//! The SamplePrintVisitor
+//! @class SamplePrintVisitor
+//! @ingroup samples_internal
+//! @brief To help composite sample to print tree-like structure on the screen
+
 class BA_CORE_API_ SamplePrintVisitor : public ISampleVisitor
 {
 public:

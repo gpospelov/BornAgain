@@ -22,10 +22,10 @@
 #include <map>
 
 
-//- -------------------------------------------------------------------
 //! @class MinimizerFactory
+//! @ingroup fitting
 //! @brief Factory to create minimizers
-//- -------------------------------------------------------------------
+
 class BA_CORE_API_ MinimizerFactory
 {
  public:

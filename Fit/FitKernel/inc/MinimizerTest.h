@@ -20,7 +20,10 @@
 #include "FitSuiteParameters.h"
 #include <map>
 
-//! Minimizer which calls minimization function once to test whole chain
+
+//! @class MinimizerTest
+//! @ingroup fitting_internal
+//! @brief Minimizer which calls minimization function once to test whole chain
 
 class BA_CORE_API_ MinimizerTest : public IMinimizer
 {

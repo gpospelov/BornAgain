@@ -23,7 +23,9 @@
 #include <boost/shared_ptr.hpp>
 
 
-//! Reads OutputData from files in different format
+//! @class OutputDataIOFactory
+//! @ingroup tools
+//! @brief Reads OutputData from files in different format
 
 class BA_CORE_API_ OutputDataIOFactory
 {

@@ -21,7 +21,9 @@
 #include <string>
 #include <vector>
 
-//! Parameter with value, error and limits for fitting routines.
+//! @class FitParameter
+//! @ingroup fitting_internal
+//! @brief Parameter with value, error and limits for fitting routines.
 
 class BA_CORE_API_ FitParameter : public INamed, public AttLimits
 {

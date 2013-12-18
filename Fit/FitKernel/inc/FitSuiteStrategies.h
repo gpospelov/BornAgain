@@ -21,7 +21,9 @@
 
 class FitSuite;
 
-//! Collection of strategies to fit
+//! @class FitSuiteStrategies
+//! @ingroup fitting_internal
+//! @brief Collection of strategies to fit
 
 class BA_CORE_API_  FitSuiteStrategies
 {

@@ -33,7 +33,9 @@ typedef _object PyObject;
 #include <sstream>
 #include <cassert>
 
-//! Store data of any type in multi-dimensional space.
+//! @class OutputData
+//! @ingroup tools
+//! @brief Template class to store data of any type in multi-dimensional space.
 
 template <class T>
 class OutputData

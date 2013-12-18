@@ -19,7 +19,10 @@
 #include "IStochasticParameter.h"
 #include "Exceptions.h"
 
-//! To have stochastic parameter beeing sampled between xmin and xmax values.
+
+//! @class StochasticSampledParameter
+//! @ingroup tools_internal
+//! @brief To have stochastic parameter beeing sampled between xmin and xmax values.
 
 class BA_CORE_API_ StochasticSampledParameter : public StochasticParameter<double>
 {

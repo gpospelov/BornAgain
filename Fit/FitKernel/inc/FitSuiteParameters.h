@@ -23,7 +23,10 @@
 
 class ParameterPool;
 
-//! Holds vector of parameters for FitSuite
+
+//! @class FitSuiteParameters
+//! @ingroup fitting_internal
+//! @brief Holds vector of parameters for FitSuite
 
 class BA_CORE_API_ FitSuiteParameters
 {

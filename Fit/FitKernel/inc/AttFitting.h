@@ -20,7 +20,10 @@
 #include <iostream>
 #include <iomanip>
 
-//! General fitting attributes.
+
+//! @class AttFitting
+//! @ingroup fitting
+//! @brief General fitting attributes.
 
 class BA_CORE_API_ AttFitting
 {

@@ -17,7 +17,10 @@
 #define MINIMIZEROPTIONS_H
 #include "WinDllMacros.h"
 
-//! The MinimizerOptions class contains options for minimization algorithms
+
+//! @class MinimizerOptions
+//! @ingroup fitting
+//! @brief The %MinimizerOptions class contains options for minimization algorithms
 
 class BA_CORE_API_ MinimizerOptions
 {

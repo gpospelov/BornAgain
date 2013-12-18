@@ -1,7 +1,11 @@
-# This example shows how to create a sample with fixed parameters and then
-# change this parameters on the fly during runtime.
-# The example doesn't contain any fitting and serve as a gentle introduction
-# to other fitting examples.
+"""
+Mixture of cylinders and prisms without interference.
+
+This example shows how to create a sample with fixed parameters and then
+change this parameters on the fly during runtime.
+The example doesn't contain any fitting and serve as a gentle introduction
+to other fitting examples.
+"""
 
 import numpy
 import matplotlib

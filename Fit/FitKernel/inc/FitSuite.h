@@ -28,7 +28,10 @@
 class Simulation;
 class ParameterPool;
 
-//! Main class to perform fitting
+
+//! @class FitSuite
+//! @ingroup fitting
+//! @brief Main class to perform fitting
 
 class BA_CORE_API_ FitSuite : public IObservable
 {

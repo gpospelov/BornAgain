@@ -21,10 +21,11 @@
 #include "Math/FitMethodFunction.h"
 
 
-//- -------------------------------------------------------------------
+
 //! @class ROOTMinimizerChiSquaredFunction
+//! @ingroup fitting_internal
 //! @brief minimizer chi2 function
-//- -------------------------------------------------------------------
+
 class ROOTMinimizerChiSquaredFunction : public ROOT::Math::Functor
 {
  public:
@@ -34,11 +35,11 @@ class ROOTMinimizerChiSquaredFunction : public ROOT::Math::Functor
 };
 
 
-//- -------------------------------------------------------------------
 //! @class ROOTMinimizerGradientFunction
+//! @ingroup fitting_internal
 //! @brief Minimizer function with access to single data element residuals.
 //! Required by Fumili, Fumili2 and GSLMultiMin minimizers
-//- -------------------------------------------------------------------
+
 class ROOTMinimizerGradientFunction : public ROOT::Math::FitMethodFunction
 {
  public:

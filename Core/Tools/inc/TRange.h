@@ -16,7 +16,9 @@
 #ifndef TRANGE_H_
 #define TRANGE_H_
 
-//! An interval [lowerBound..upperBound[.
+//! @class TRange
+//! @ingroup tools_internal
+//! @brief An interval [lowerBound..upperBound[.
 
 template <class T> class TRange
 {

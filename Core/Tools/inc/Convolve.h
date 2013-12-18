@@ -24,7 +24,7 @@ namespace MathFunctions
 {
 
 //! @class Convolve
-//! @ingroup tools
+//! @ingroup tools_internal
 //! @brief Convolution of two real vectors (in 1D or 2D) using Fast Fourier Transform.
 //!
 //! Usage:

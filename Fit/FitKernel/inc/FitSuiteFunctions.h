@@ -24,7 +24,10 @@ using std::size_t;
 
 class FitSuite;
 
-//! Fitting functions interface to be used by Minimizer.
+
+//! @class IFitSuiteFunction
+//! @ingroup fitting_internal
+//! @brief Fitting functions interface to be used by Minimizer.
 
 class BA_CORE_API_ IFitSuiteFunction
 {
@@ -38,7 +41,10 @@ class BA_CORE_API_ IFitSuiteFunction
     size_t m_ncall;
 };
 
-//! Chi squared fitting function for minimizer
+
+//! @class FitSuiteChiSquaredFunction
+//! @ingroup fitting_internal
+//! @brief Chi squared fitting function for minimizer
 
 class BA_CORE_API_ FitSuiteChiSquaredFunction : public IFitSuiteFunction
 {
@@ -49,7 +55,10 @@ class BA_CORE_API_ FitSuiteChiSquaredFunction : public IFitSuiteFunction
     double evaluate(const double *pars);
 };
 
-//! Gradient fitting function for minimizer
+
+//! @class FitSuiteGradientFunction
+//! @ingroup fitting_internal
+//! @brief Gradient fitting function for minimizer
 
 class BA_CORE_API_ FitSuiteGradientFunction : public IFitSuiteFunction
 {

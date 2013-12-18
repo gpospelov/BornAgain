@@ -30,6 +30,9 @@ namespace MSG
 
 enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
+//! @class Logger
+//! @ingroup tools_internal
+//! @brief Provides message service
 
 class BA_CORE_API_ Logger
 {

@@ -18,6 +18,10 @@
 
 #include "IStochasticParameter.h"
 
+//! @class StochasticDiracDelta
+//! @ingroup tools_internal
+//! @brief Stochastic delta like parameter
+
 template <class T> class StochasticDiracDelta : public StochasticParameter<T>
 {
 public:
@@ -30,7 +34,6 @@ public:
     virtual double probabilityDensity(T /*value*/) const { return 0.0; }
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
     StochasticDiracDelta(const StochasticDiracDelta<T>& );
     StochasticDiracDelta<T>& operator=(const StochasticDiracDelta<T>& );
 };

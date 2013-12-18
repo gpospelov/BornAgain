@@ -21,7 +21,7 @@
 #include <memory>
 
 //! @class FormFactorDecoratorTransformation
-//! @ingroup formfactors_decorations
+//! @ingroup formfactors_internal
 //! @brief Equip a formfactor with a rotation.
 
 class FormFactorDecoratorTransformation : public IFormFactorDecorator

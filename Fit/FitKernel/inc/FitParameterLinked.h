@@ -23,7 +23,10 @@
 #include <vector>
 #include <iostream>
 
-//! Provide simultaneous access for several real parameters from parameter pool
+
+//! @class FitParameterLinked
+//! @ingroup fitting_internal
+//! @brief Provide simultaneous access for several real parameters from parameter pool
 
 class BA_CORE_API_ FitParameterLinked : public FitParameter
 {

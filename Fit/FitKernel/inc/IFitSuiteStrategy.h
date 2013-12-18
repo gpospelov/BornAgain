@@ -25,9 +25,13 @@ class FitSuite;
 #include <vector>
 #include <map>
 
-//! Interface to concrete fit strategy.
-//  Concrete implementation should manipulate with fit parameters/data
-//  and then call minimizer.
+
+//! @class IFitSuiteStrategy
+//! @ingroup fitting_internal
+//! @brief Interface to concrete fit strategy.
+//!
+//!  Concrete implementation should manipulate with fit parameters/data
+//!  and then call minimizer.
 
 class BA_CORE_API_ IFitSuiteStrategy : public INamed
 {
@@ -50,7 +54,10 @@ class BA_CORE_API_ IFitSuiteStrategy : public INamed
     FitSuite *m_fit_suite;
 };
 
-//! Default fit strategy just let FitSuite to run it's minimization round
+
+//! @class FitSuiteStrategyDefault
+//! @ingroup fitting_internal
+//! @brief Default fit strategy just let FitSuite to run it's minimization round
 
 class BA_CORE_API_ FitSuiteStrategyDefault : public IFitSuiteStrategy
 {
@@ -59,7 +66,10 @@ class BA_CORE_API_ FitSuiteStrategyDefault : public IFitSuiteStrategy
     virtual void execute();
 };
 
-//! Strategy modifies data before running minimization round
+
+//! @class FitSuiteStrategyAdjustData
+//! @ingroup fitting_internal
+//! @brief Strategy modifies data before running minimization round
 
 class BA_CORE_API_ FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 {
@@ -87,7 +97,10 @@ class BA_CORE_API_ FitSuiteStrategyAdjustData : public IFitSuiteStrategy
     bool m_call_minimize;
 };
 
-//! Strategy which fixes/releases fit parameters and call minimizer
+
+//! @class FitSuiteStrategyAdjustParameters
+//! @ingroup fitting_internal
+//! @brief Strategy which fixes/releases fit parameters and call minimizer
 
 class BA_CORE_API_ FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {
@@ -131,7 +144,10 @@ class BA_CORE_API_ FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
     bool m_preserve_original_values;
 };
 
-//! Helps minimizer get out of local minima by disturbing real data
+
+//! @class FitSuiteStrategyBootstrap
+//! @ingroup fitting_internal
+//! @brief Helps minimizer get out of local minima by disturbing real data
 
 class BA_CORE_API_ FitSuiteStrategyBootstrap : public IFitSuiteStrategy
 {

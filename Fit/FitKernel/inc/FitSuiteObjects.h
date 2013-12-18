@@ -24,7 +24,9 @@
 
 #include <vector>
 
-//! class containing vector FitObject's (simulation and real data) to fit
+//! @class FitSuiteObjects
+//! @ingroup fitting_internal
+//! @brief class containing vector FitObject's (simulation and real data) to fit
 
 class BA_CORE_API_  FitSuiteObjects : public IParameterized
 {

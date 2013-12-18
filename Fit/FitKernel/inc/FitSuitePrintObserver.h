@@ -19,7 +19,11 @@
 #include "IObserver.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-//! Print fit progress at the end of each FitSuite's iteration
+
+//! @class FitSuitePrintObserver
+//! @ingroup fitting_internal
+//! @brief Prints fit progress at the end of each FitSuite's iteration
+
 class BA_CORE_API_ FitSuitePrintObserver : public IObserver
 {
 public:

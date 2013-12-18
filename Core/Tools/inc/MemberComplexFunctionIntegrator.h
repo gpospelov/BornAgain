@@ -19,6 +19,11 @@
 #include "MemberFunctionIntegrator.h"
 #include "Types.h"
 
+
+//! @class MemberComplexFunctionIntegrator
+//! @ingroup tools_internal
+//! @brief Template class to integrate class member functions in 1D complex space
+
 template <class C> class MemberComplexFunctionIntegrator
 {
 public:

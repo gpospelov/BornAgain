@@ -21,6 +21,11 @@
 
 #include <cmath>
 
+
+//! @class StochasticDoubleGate
+//! @ingroup tools_internal
+//! @brief Stochastic uniform parameter
+
 class BA_CORE_API_ StochasticDoubleGate : public StochasticParameter<double>
 {
 public:

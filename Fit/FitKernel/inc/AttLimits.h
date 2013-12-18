@@ -20,7 +20,10 @@
 #include <iostream>
 #include <iomanip>
 
-//! Limits for fit parameters
+
+//! @class AttLimits
+//! @ingroup fitting
+//! @brief Limits for fit parameters
 
 class BA_CORE_API_ AttLimits
 {

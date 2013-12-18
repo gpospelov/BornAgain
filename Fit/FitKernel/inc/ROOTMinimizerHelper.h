@@ -20,12 +20,12 @@
 #include "ROOTGSLSimAnMinimizer.h"
 
 
-//- -------------------------------------------------------------------
+
 //! @class ROOTMinimizerHelper
+//! @ingroup fitting_internal
 //! @brief Handles options and printing for ROOTMinimizer
-//- -------------------------------------------------------------------
-// TODO: replace ROOTMinimizersHelper completely with kind of
-// PoolParameter/IConfigurable functionality
+//! Required by Fumili, Fumili2 and GSLMultiMin minimizers
+
 class ROOTMinimizerHelper
 {
  public:

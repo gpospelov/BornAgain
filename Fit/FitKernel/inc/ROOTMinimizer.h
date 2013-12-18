@@ -27,10 +27,10 @@
 #include "Math/Functor.h"
 
 
-//- -------------------------------------------------------------------
 //! @class ROOTMinimizer
+//! @ingroup fitting_internal
 //! @brief Wrapper for ROOT minimizers to interface with FitSuite
-//- -------------------------------------------------------------------
+
 class ROOTMinimizer : public IMinimizer
 {
  public:

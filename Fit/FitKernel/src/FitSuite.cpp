@@ -89,7 +89,6 @@ bool FitSuite::check_prerequisites() const
     return true;
 }
 
-//! run fit
 void FitSuite::runFit()
 {
     // check if all prerequisites are fullfilled before starting minimization

@@ -19,6 +19,9 @@
 #include "ICloneable.h"
 
 
+//! @class IStochasticParameter
+//! @ingroup tools_internal
+//! @brief Interface class to all parameters having a stochastic behaviour.
 
 class BA_CORE_API_ IStochasticParameter : public ICloneable
 {
@@ -27,6 +30,11 @@ public:
     virtual void setToRandom()=0;
     virtual void setToAverage()=0;
 };
+
+
+//! @class StochasticParameter
+//! @ingroup tools
+//! @brief Basic stochastic parameters
 
 template <class T> class BA_CORE_API_ StochasticParameter : public IStochasticParameter
 {

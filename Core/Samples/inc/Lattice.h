@@ -20,7 +20,7 @@
 #include "ISelectionRule.h"
 #include "TRange.h"
 #include "FastVector.h"
-#include "ITransform3D.h"
+#include "Transform3D.h"
 
 #include <vector>
 
@@ -36,7 +36,7 @@ public:
 
     //! Create transformed lattice
     Lattice createTransformedLattice(
-            const Geometry::ITransform3D& transform) const;
+            const Geometry::Transform3D& transform) const;
 
     //! Initializes cached data
     void initialize() const;

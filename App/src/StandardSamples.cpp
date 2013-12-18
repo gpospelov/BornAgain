@@ -27,7 +27,6 @@
 #include "MesoCrystal.h"
 #include "InterferenceFunctions.h"
 #include "StochasticGaussian.h"
-#include "Rotate3D.h"
 
 #include "Numeric.h"
 #include "MathFunctions.h"

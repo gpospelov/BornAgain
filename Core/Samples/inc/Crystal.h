@@ -46,7 +46,6 @@ public:
         complex_t wavevector_scattering_factor) const;
 
     Lattice getTransformedLattice() const;
-    LatticeBasis *createTransformedBasis() const;
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 
@@ -55,20 +54,25 @@ public:
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
 
-    //! Sets transformation.
-    virtual void setTransform(const Geometry::ITransform3D& transform);
+    //! Composes transformation with existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform);
 
     //! Gets transformation
-    virtual const Geometry::ITransform3D *getTransform() const {
+    virtual const Geometry::Transform3D *getTransform() const {
         return mP_transform.get();
     }
 
 
 private:
+    //! Private constructor
     Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
 
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
+
     Lattice m_lattice;
-    std::auto_ptr<Geometry::ITransform3D> mP_transform;
+    std::auto_ptr<Geometry::Transform3D> mP_transform;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;
 };

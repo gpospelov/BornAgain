@@ -85,7 +85,7 @@ include_classes = [
     #"SampleBuilder_t",
     #"ISampleVisitor",
     "ISelectionRule",
-    "ITransform3D",
+    "Transform3D",
     "Instrument",
     "InterferenceFunction1DParaCrystal",
     "InterferenceFunction2DLattice",
@@ -112,8 +112,6 @@ include_classes = [
     "PositionParticleInfo",
     "RealParameterWrapper",
     "ResolutionFunction2DSimple",
-    "RotateY_3D",
-    "RotateZ_3D",
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
@@ -228,7 +226,7 @@ def ManualClassTunings(mb):
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
-	if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::ITransform3D const & )" in cls.decl_string:
+        if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::Transform3D const & )" in cls.decl_string:
             cls.include()
 
     #
@@ -258,7 +256,15 @@ def ManualClassTunings(mb):
         call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
-
+    #
+    mb.class_("Transform3D").member_function("createIdentity").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateX").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateY").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateZ").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
     #
     cl = mb.class_("ParticleCoreShell")
     cl.member_functions().exclude()

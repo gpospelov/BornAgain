@@ -144,8 +144,7 @@ SOURCES += \
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
-    Geometry/inc/ITransform3D.h \
-    Geometry/inc/Rotate3D.h \
+    Geometry/inc/Transform3D.h \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \

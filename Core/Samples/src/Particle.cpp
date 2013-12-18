@@ -48,7 +48,7 @@ Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor)
 }
 
 Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor,
-        const Geometry::ITransform3D &transform)
+        const Geometry::Transform3D &transform)
 : mp_material(p_material)
 , mp_ambient_material(0)
 , mp_form_factor(form_factor.clone())
@@ -73,7 +73,7 @@ Particle* Particle::clone() const
     Particle *p_new = new Particle(mp_material, p_form_factor);
     p_new->setAmbientMaterial(mp_ambient_material);
 
-    if(mP_transform.get()) p_new->setTransform(*mP_transform.get());
+    if(mP_transform.get()) p_new->mP_transform.reset(mP_transform->clone());
 
     p_new->setName(getName());
     return p_new;
@@ -99,7 +99,7 @@ Particle* Particle::cloneInvertB() const
     Particle *p_new = new Particle(p_material, p_form_factor);
     p_new->setAmbientMaterial(p_ambient_material);
 
-    if(mP_transform.get()) p_new->setTransform(*mP_transform.get());
+    if(mP_transform.get()) p_new->mP_transform.reset(mP_transform->clone());
 
     p_new->setName(getName() + "_inv");
     return p_new;
@@ -149,6 +149,33 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
     return result;
 }
 
+void Particle::setTransformation(const Geometry::Transform3D& transform)
+{
+    if (!mP_transform.get()) {
+        mP_transform.reset(transform.clone());
+        applyTransformationToSubParticles(transform);
+        return;
+    }
+    boost::scoped_ptr<Geometry::Transform3D> P_inverse(
+            mP_transform->createInverse());
+    applyTransformationToSubParticles(*P_inverse);
+    mP_transform.reset(transform.clone());
+    applyTransformationToSubParticles(transform);
+}
+
+void Particle::applyTransformation(const Geometry::Transform3D& transform)
+{
+    Geometry::Transform3D total_transformation;
+    if (mP_transform.get()) {
+        total_transformation = transform * (*mP_transform);
+    }
+    else {
+        total_transformation = transform;
+    }
+    mP_transform.reset(total_transformation.clone());
+    applyTransformationToSubParticles(transform);
+}
+
 void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)
 {
     if (!p_form_factor) return;
@@ -186,4 +213,11 @@ IFormFactor* Particle::createTransformedFormFactor() const
         p_result = mp_form_factor->clone();
     }
     return p_result;
+}
+
+void Particle::applyTransformationToSubParticles(
+        const Geometry::Transform3D& transform)
+{
+    (void)transform;
+    return;
 }

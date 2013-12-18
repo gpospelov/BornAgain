@@ -3,9 +3,9 @@
 // BornAgain: simulate and fit scattering at grazing incidence 
 //! @brief automatically generated boost::python code for PythonCoreAPI  
 
-#ifndef RotateY_3D_hpp__pyplusplus_wrapper
-#define RotateY_3D_hpp__pyplusplus_wrapper
+#ifndef Transform3D_hpp__pyplusplus_wrapper
+#define Transform3D_hpp__pyplusplus_wrapper
 
-void register_RotateY_3D_class();
+void register_Transform3D_class();
 
-#endif//RotateY_3D_hpp__pyplusplus_wrapper
+#endif//Transform3D_hpp__pyplusplus_wrapper

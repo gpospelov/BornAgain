@@ -56,7 +56,7 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
 }
 
 const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
-        const Geometry::ITransform3D& transform) const
+        const Geometry::Transform3D& transform) const
 {
     kvector_t mag_field_transformed = transform.transformed(m_magnetic_field);
     return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),

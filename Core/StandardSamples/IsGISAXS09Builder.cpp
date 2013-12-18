@@ -4,7 +4,6 @@
 #include "MaterialManager.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
-#include "Rotate3D.h"
 #include "Units.h"
 
 
@@ -103,7 +102,8 @@ ISample *IsGISAXS09BBuilder::buildSample() const
         new FormFactorPyramid(m_height, m_half_side, m_alpha)
                 );
 
-    Geometry::RotateZ_3D transform(m_zangle);
+    Geometry::Transform3D transform =
+            Geometry::Transform3D::createRotateZ(m_zangle);
 
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(pyramid, transform);

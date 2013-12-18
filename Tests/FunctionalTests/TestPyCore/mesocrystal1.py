@@ -84,9 +84,7 @@ class MySampleBuilder(ISampleBuilder):
         for i in range(0, n_max_phi_rotation_steps):
             for j in range(0, n_alpha_rotation_steps):
 
-                #transform1 = RotateZ3D(phi_start + i*phi_step)
-                #transform2 = RotateY3D(alpha_start + j*alpha_step);
-                p_total_transform = RotateZ_3D(phi_start + i*phi_step)
+                p_total_transform = Transform3D.createRotateZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
                 particle_decoration.addParticle(meso, p_total_transform, self.meso_height.value)
 

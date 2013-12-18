@@ -2,7 +2,6 @@
 #define KVECTORTEST_H
 
 #include "Types.h"
-#include "Rotate3D.h"
 
 
 class KVectorTest : public ::testing::Test
@@ -119,19 +118,21 @@ TEST_F(KVectorTest, BasicTransformation)
 */
 
     a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
-    Geometry::RotateY_3D m2(M_PI/6.);
+    Geometry::Transform3D m2 =
+            Geometry::Transform3D::createRotateY(M_PI/6.);
     v = m2.transformed(a);
     ASSERT_NEAR(      v.x(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.y(), 2.0 );
     ASSERT_NEAR(      v.z(), 0.0, epsilon );
 
     a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
-    Geometry::RotateZ_3D m3(M_PI/6.);
+    Geometry::Transform3D m3 =
+            Geometry::Transform3D::createRotateZ(M_PI/6.);
     v = m3.transformed(a);
     ASSERT_NEAR(      v.x(), 0.0, epsilon );
     ASSERT_NEAR(      v.y(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.z(), 2.0 );
-    Geometry::ITransform3D *m4 = m3.inverse();
+    Geometry::Transform3D *m4 = m3.createInverse();
     v = m4->transformed(v);
     ASSERT_NEAR( v.x(), a.x(), epsilon );
     ASSERT_NEAR( v.y(), a.y(), epsilon );

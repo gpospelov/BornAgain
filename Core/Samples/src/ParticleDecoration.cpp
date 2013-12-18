@@ -87,21 +87,21 @@ ParticleDecoration* ParticleDecoration::cloneInvertB() const
 
 //! Adds generic particle, *-version.
 void ParticleDecoration::addParticle(
-    Particle* p_particle, const Geometry::ITransform3D& transform,
+    Particle* p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
     if(!abundance) {
         throw LogicErrorException("ParticleDecoration::addParticle() ->"
                 " Error! Abundance can't be equal to 0.0");
     }
-    p_particle->setTransform(transform);
+    p_particle->setTransformation(transform);
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle, depth, abundance));
 }
 
 //! Adds generic particle, &-version.
 void ParticleDecoration::addParticle(
-    const Particle& p_particle, const Geometry::ITransform3D& transform,
+    const Particle& p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
     if(!abundance) {
@@ -109,7 +109,7 @@ void ParticleDecoration::addParticle(
                 " Error! Abundance can't be equal to 0.0");
     }
     Particle *p_particle_clone = p_particle.clone();
-    p_particle_clone->setTransform(transform);
+    p_particle_clone->setTransformation(transform);
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle_clone, depth, abundance));
 }

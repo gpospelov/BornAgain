@@ -19,7 +19,7 @@
 #include "INamed.h"
 #include "Types.h"
 #include "EigenCore.h"
-#include "ITransform3D.h"
+#include "Transform3D.h"
 #include <string>
 #include <iostream>
 
@@ -63,7 +63,7 @@ public:
 
     //! Create a new material that is transformed with respect to this one
     virtual const IMaterial *createTransformedMaterial(
-            const Geometry::ITransform3D& transform) const;
+            const Geometry::Transform3D& transform) const;
 
 protected:
     virtual void print(std::ostream& ostr) const
@@ -90,7 +90,7 @@ inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(
 #endif // GCCXML_SKIP_THIS
 
 inline const IMaterial* IMaterial::createTransformedMaterial(
-        const Geometry::ITransform3D& transform) const
+        const Geometry::Transform3D& transform) const
 {
     (void)transform;
     throw Exceptions::NotImplementedException("IMaterial is an interface and "

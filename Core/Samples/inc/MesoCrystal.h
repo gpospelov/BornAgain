@@ -44,9 +44,6 @@ public:
     virtual IFormFactor* createFormFactor(
             complex_t wavevector_scattering_factor) const;
 
-    //! Sets transformation.
-    virtual void setTransform(const Geometry::ITransform3D& transform);
-
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor);
 
     virtual const IFormFactor *getSimpleFormFactor() const {
@@ -61,6 +58,11 @@ public:
 
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
+
+protected:
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
 
 private:
     IClusteredParticles *mp_particle_structure;

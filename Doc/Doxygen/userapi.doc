@@ -1,7 +1,7 @@
 /*! 
 \page userapi User API
 
-Here is a list of classes groupped in several categories to create the sample, describe scattering geometry, run the simulation and perform fitting.
+Here is a list of classes grouped in several categories to create the sample, describe scattering geometry, run the simulation and perform fitting.
 
 <ul>
 <li> \ref simulation "Simulation" <BR>

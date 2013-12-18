@@ -92,20 +92,18 @@ TEST_F(ParticleTest, ParticleTransform)
 {
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
     FormFactorFullSphere sphere(1.0);
-    Geometry::RotateZ_3D transform(45.*Units::degree);
+    Geometry::Transform3D transform =
+            Geometry::Transform3D::createRotateZ(45.*Units::degree);
     Particle *particle = new Particle(mat, sphere, transform);
 
     EXPECT_EQ("Air", particle->getMaterial()->getName());
 
     EXPECT_TRUE(NULL != particle->getPTransform3D());
 
-    const Geometry::RotateY_3D * rY3D  = dynamic_cast<const Geometry::RotateY_3D *>(particle->getPTransform3D());
-    EXPECT_TRUE( NULL == rY3D);
-
-    const Geometry::RotateZ_3D * rZ3D  = dynamic_cast<const Geometry::RotateZ_3D *>(particle->getPTransform3D());
+    const Geometry::Transform3D * rZ3D  = particle->getPTransform3D();
     EXPECT_TRUE( NULL != rZ3D);
 
-    const Geometry::RotateZ_3D * rZ3D2 = rZ3D->inverse();
+    const Geometry::Transform3D * rZ3D2 = rZ3D->createInverse();
     EXPECT_TRUE(NULL!=rZ3D2);
 
 
@@ -117,7 +115,8 @@ TEST_F(ParticleTest, SetParam)
 {
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
     FormFactorFullSphere *sphere = new FormFactorFullSphere(2.1);
-    Geometry::RotateY_3D transform(45.*Units::degree);
+    Geometry::Transform3D transform =
+            Geometry::Transform3D::createRotateY(45.*Units::degree);
 
     Particle particle;
     EXPECT_EQ(NULL, particle.getMaterial());
@@ -133,11 +132,11 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(2.1, particle.getSimpleFormFactor()->getRadius());
     EXPECT_FALSE(particle.hasDistributedFormFactor());
 
-    particle.setTransform(transform);
+    particle.setTransformation(transform);
     EXPECT_TRUE(NULL != particle.getPTransform3D());
-    const Geometry::RotateY_3D * rY3D  = dynamic_cast<const Geometry::RotateY_3D *>(particle.getPTransform3D());
+    const Geometry::Transform3D * rY3D  = particle.getPTransform3D();
     EXPECT_TRUE( NULL != rY3D);
-    const Geometry::RotateY_3D * rY3D2 = rY3D->inverse();
+    const Geometry::Transform3D * rY3D2 = rY3D->createInverse();
     EXPECT_TRUE(NULL!=rY3D2);
 
 

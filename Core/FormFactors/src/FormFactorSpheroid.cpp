@@ -78,7 +78,7 @@ complex_t FormFactorSpheroid::evaluate_for_q(const cvector_t& q) const
 
     } else {
 
-        complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*(H-fp*R));
+        complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
 
         return 2.0* M_PI * z_part *m_integrator->integrate(fp*R-H,fp*R );
     }

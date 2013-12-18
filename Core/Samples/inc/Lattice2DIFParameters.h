@@ -18,6 +18,10 @@
 
 #include "IParameterized.h"
 
+//! @class Lattice2DIFParameters
+//! @ingroup samples
+//! @brief Additional parameters for 2D lattice
+
 class Lattice2DIFParameters
 {
 public:

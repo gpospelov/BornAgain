@@ -21,7 +21,10 @@
 #include "IOutputDataNormalizer.h"
 #include "IIntensityFunction.h"
 
-//! Interface for ChiSquaredModule, ChiSquaredFrequency.
+
+//! @class IChiSquaredModule
+//! @ingroup algorithms_internal
+//! @brief Interface for ChiSquaredModule, ChiSquaredFrequency for chi2 calculations.
 
 class BA_CORE_API_ IChiSquaredModule : public ICloneable
 {

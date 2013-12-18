@@ -20,7 +20,7 @@
 #include "IFormFactorDecorator.h"
 
 //! @class FormFactorDecoratorPositionFactor
-//! @ingroup ff_decorations
+//! @ingroup formfactors_internal
 //! @brief Decorates a formfactor with a position dependent phase factor.
 
 class FormFactorDecoratorPositionFactor : public IFormFactorDecorator

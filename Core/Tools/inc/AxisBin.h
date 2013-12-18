@@ -18,7 +18,9 @@
 
 #include "IAxis.h"
 
-//! The bins of an axis
+//! @class AxisBin
+//! @ingroup tools
+//! @brief Binned axis.
 
 class AxisBin : public IAxis
 {

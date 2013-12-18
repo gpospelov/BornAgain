@@ -19,6 +19,10 @@
 #include "IInterferenceFunctionStrategy.h"
 
 
+//! @class LocalMonodisperseApproximationStrategy
+//! @ingroup algorithms_internal
+//! @brief Strategy which implements local monodisperse approximation.
+
 class LocalMonodisperseApproximationStrategy :
                                       public IInterferenceFunctionStrategy
 {

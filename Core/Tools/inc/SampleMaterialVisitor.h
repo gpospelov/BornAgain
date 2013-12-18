@@ -19,7 +19,10 @@
 #include "ISampleVisitor.h"
 #include "IMaterial.h"
 
-//! SampleMaterialVisitor retrieves a list of the used materials in a sample
+//! @class SampleMaterialVisitor
+//! @ingroup samples_internal
+//! @brief SampleMaterialVisitor retrieves a list of the used materials in a sample
+
 class SampleMaterialVisitor : public ISampleVisitor
 {
 public:

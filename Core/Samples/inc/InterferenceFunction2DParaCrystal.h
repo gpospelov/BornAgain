@@ -20,13 +20,15 @@
 #include "FTDistributions.h"
 #include <iostream>
 
-//! Interference function of 2D paracrystal.
+//! @class InterferenceFunction2DParaCrystal
+//! @ingroup interference
+//! @brief Interference function of 2D paracrystal.
 
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
 
-    //! @brief constructor
+    //! @brief constructor of 2D paracrystal interference function
     //! @param length_1 Lattice length 1.
     //! @param length_2 Lattice length 2.
     //! @param alpha_lattice Angle between lattice basis vectors.

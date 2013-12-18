@@ -23,8 +23,10 @@
 namespace MathFunctions
 {
 
-//! Convolution of two real vectors (in 1D or 2D) using Fast Fourier Transform.
-
+//! @class Convolve
+//! @ingroup tools_internal
+//! @brief Convolution of two real vectors (in 1D or 2D) using Fast Fourier Transform.
+//!
 //! Usage:
 //! std::vector<double> signal, kernel, result;
 //! Convolve cv;

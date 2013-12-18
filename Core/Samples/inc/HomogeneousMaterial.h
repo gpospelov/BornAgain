@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/HomogeneousMaterial.h
-//! @brief     Defines and fully implements class HomogeneousMaterial.
+//! @brief     Defines and implements class HomogeneousMaterial.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,9 @@
 #include "IMaterial.h"
 #include "Types.h"
 
-//! A homogeneous material with a refractive index.
+//! @class HomogeneousMaterial
+//! @ingroup materials
+//! @brief An homogeneous material with a refractive index.
 
 class BA_CORE_API_ HomogeneousMaterial : public IMaterial
 {

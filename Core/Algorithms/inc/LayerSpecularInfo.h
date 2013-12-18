@@ -23,7 +23,10 @@
 
 #include <boost/shared_ptr.hpp>
 
-//! LayerSpecularInfo holds the amplitude information of the neutron
+
+//! @class LayerSpecularInfo
+//! @ingroup algorithms_internal
+//! @brief Holds the amplitude information of the neutron
 //! wavefunction in a specific layer for different incoming (outgoing) angles of
 //! the neutron beam in the top layer (these amplitudes correspond to the
 //! specular part of the neutron wavefunction)

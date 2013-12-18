@@ -19,7 +19,7 @@
 #include "IFormFactor.h"
 
 //! @class IFormFactorDecorator
-//! @ingroup ff_decorations
+//! @ingroup formfactors_internal
 //! @brief Encapsulates another formfactor and adds extra functionality
 //! (a scalar factor, a Debye-Waller factor, ...).
 

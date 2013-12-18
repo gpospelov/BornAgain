@@ -21,7 +21,9 @@
 #include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
 
-//! Decorator class that adds particles to ISample objects
+//! @class ParticleDecoration
+//! @ingroup samples
+//! @brief Decorator class that adds particles to ISample objects
 
 class BA_CORE_API_ ParticleDecoration : public IDecoration
 {

@@ -16,7 +16,10 @@
 #ifndef SIMULATIONPARAMETERS_H_
 #define SIMULATIONPARAMETERS_H_
 
-//! Collect the different options for simulation
+
+//! @class Simulation
+//! @ingroup simulation
+//! @brief Collect the different options for simulation
 
 class SimulationParameters
 {

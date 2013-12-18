@@ -23,7 +23,9 @@
 #include "EigenCore.h"
 
 
-//! Implements the matrix formalism for the calculation of wave amplitudes of
+//! @class SpecularMagnetic
+//! @ingroup algorithms_internal
+//! @brief Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer with magnetization
 
 class BA_CORE_API_ SpecularMagnetic : public ISimulation

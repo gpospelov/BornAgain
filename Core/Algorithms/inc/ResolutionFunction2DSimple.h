@@ -18,6 +18,9 @@
 
 #include "IResolutionFunction2D.h"
 
+//! @class ResolutionFunction2DSimple
+//! @ingroup algorithms_internal
+//! @brief Simple gaussian two-dimensional resolution function.
 
 class BA_CORE_API_ ResolutionFunction2DSimple : public IResolutionFunction2D
 {
@@ -32,7 +35,6 @@ public:
 protected:
     virtual void init_parameters();
 private:
-    //! hiding copy constructor and disabling assignment operator
     ResolutionFunction2DSimple(const ResolutionFunction2DSimple& other);
     ResolutionFunction2DSimple& operator=(const ResolutionFunction2DSimple& );
 

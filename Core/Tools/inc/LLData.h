@@ -21,7 +21,10 @@
 
 #include <algorithm>
 
-//! Template class to store data of any type in multi-dimensional space (low-level)
+
+//! @class LLData
+//! @ingroup tools_internal
+//! @brief Template class to store data of any type in multi-dimensional space (low-level)
 
 template <class T> class LLData
 {

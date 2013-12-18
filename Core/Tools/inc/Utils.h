@@ -25,7 +25,10 @@
 
 namespace Utils {
 
-//! Collection of utilities for std::string.
+
+//! @class String
+//! @ingroup tools_internal
+//! @brief Collection of utilities for std::string.
 
 class BA_CORE_API_ String
 {
@@ -45,7 +48,10 @@ public:
                                           const std::string& delimeter);
 };
 
-//! Control how often a string is used.
+
+//! @class StringUsageMap
+//! @ingroup tools_internal
+//! @brief Control how often a string is used.
 
 class StringUsageMap
 {
@@ -84,8 +90,6 @@ private:
 };
 
 
-//! Adjust length of the string, padding with blanks.
-
 inline std::string AdjustStringLength(std::string name, int length)
 {
     std::string newstring = name;
@@ -93,7 +97,10 @@ inline std::string AdjustStringLength(std::string name, int length)
     return newstring;
 }
 
-// Unordered map (wrap boost::unordered_map).
+
+//! @class UnorderedMap
+//! @ingroup tools_internal
+//! @brief Unordered map (wrap boost::unordered_map).
 
 template<class Key, class Object >
 class UnorderedMap

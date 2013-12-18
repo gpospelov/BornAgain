@@ -19,6 +19,10 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
+//! @class DecouplingApproximationStrategy
+//! @ingroup algorithms_internal
+//! @brief Strategy for implementing decoupling approximation
+
 class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:

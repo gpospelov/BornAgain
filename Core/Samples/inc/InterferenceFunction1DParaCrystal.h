@@ -18,13 +18,15 @@
 
 #include "IInterferenceFunction.h"
 
-//! Interference function of 1D paracrystal.
+//! @class InterferenceFunction1DParaCrystal
+//! @ingroup interference
+//! @brief Interference function of 1D paracrystal.
 
 class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunction
 {
 public:
 
-    //! @brief constructor
+    //! @brief constructor of 1D paracrystal interference function
     //! @param peak_distance  The distance to the first neighbor peak.
     //! @param width Width parameter in the pair correlation function.
     //! @param m_corr_length Correlation length of paracrystal.

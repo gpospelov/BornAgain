@@ -1,10 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/SamplePrintVisitor.h
+//! @brief     Defines SamplePrintVisitor class.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef SAMPLEPRINTVISITOR_H
 #define SAMPLEPRINTVISITOR_H
 
 #include "ISampleVisitor.h"
 #include <string>
 
-//! The SamplePrintVisitor
+//! @class SamplePrintVisitor
+//! @ingroup samples_internal
+//! @brief To help composite sample to print tree-like structure on the screen
+
 class BA_CORE_API_ SamplePrintVisitor : public ISampleVisitor
 {
 public:

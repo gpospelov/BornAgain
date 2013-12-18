@@ -21,7 +21,9 @@
 #include <iostream>
 #include <vector>
 
-//! Base class for all factories.
+//! @class IFactory
+//! @ingroup tools_internal
+//! @brief Base class for all factories.
 
 template<class IdentifierType, class AbstractProduct >
 class IFactory

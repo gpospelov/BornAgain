@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/MessageService.h
+//! @brief     Defines MSG namespace and Logger class.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MESSAGESVC_H
 #define MESSAGESVC_H
 
@@ -15,6 +30,9 @@ namespace MSG
 
 enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
+//! @class Logger
+//! @ingroup tools_internal
+//! @brief Provides message service
 
 class BA_CORE_API_ Logger
 {

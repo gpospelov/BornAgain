@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/src/FormFactorDecoratorDebyeWaller.cpp
-//! @brief     Defines class FormFactorDecoratorDebyeWaller.
+//! @brief     Implements class FormFactorDecoratorDebyeWaller.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

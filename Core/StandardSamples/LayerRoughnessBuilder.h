@@ -1,10 +1,27 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/LayerRoughnessBuilder.h
+//! @brief     Defines class LayerRoughnessBuilder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef LAYERROUGHNESSBUILDER_H
 #define LAYERROUGHNESSBUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! The LayerRoughnessBuilder class to build sample: 
-//! Layers with correlated roughness
+//! @class LayerRoughnessBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: layers with correlated roughness
+
 class LayerRoughnessBuilder : public ISampleBuilder
 {
 public:

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IFunctionalTest.h
+//! @brief     Defines class IFunctionalTest.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef _IFUNCTIONALTEST_H
 #define _IFUNCTIONALTEST_H
 
@@ -7,6 +22,10 @@
 #include <string>
 
 
+//! @class IFunctionalTest
+//! @ingroup standard_samples
+//! @brief Interface to the functional tests
+
 class IFunctionalTest
 {
 public:
@@ -15,7 +34,10 @@ public:
 };
 
 
-//! functional test info and description
+//! @class FunctionalTestInfo
+//! @ingroup standard_samples
+//! @brief Functional test info and description
+
 class FunctionalTestInfo
 {
 public:
@@ -36,7 +58,10 @@ public:
 };
 
 
-//! basic functional test
+//! @class FunctionalTest
+//! @ingroup standard_samples
+//! @brief Basic functional test
+
 class FunctionalTest : public IFunctionalTest
 {
 public:

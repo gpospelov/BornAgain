@@ -19,7 +19,7 @@
 #include "IFormFactor.h"
 
 //! @class IFormFactorBorn
-//! @ingroup ff_internals
+//! @ingroup formfactors_internal
 //! @brief Pure virtual interface for Born form factors.
 //! Depends only on q=ki-kf.
 

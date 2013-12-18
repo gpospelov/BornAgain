@@ -18,7 +18,9 @@
 
 #include "ISample.h"
 
-//! Interface to equip a sample with a roughness.
+//! @class IRoughness
+//! @ingroup samples_internal
+//! @brief Interface to equip an interface with a roughness.
 
 class BA_CORE_API_ IRoughness : public ISample
 {

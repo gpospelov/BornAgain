@@ -19,7 +19,9 @@
 #include "Types.h"
 #include "ISample.h"
 
-//! Interface to interference functions.
+//! @class IInterferenceFunction
+//! @ingroup interference_internal
+//! @brief Interface to interference functions.
 
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {

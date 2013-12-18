@@ -18,7 +18,9 @@
 
 #include "Particle.h"
 
-//! A particle with a core/shell geometry
+//! @class ParticleCoreShell
+//! @ingroup samples
+//! @brief A particle with a core/shell geometry
 
 class BA_CORE_API_ ParticleCoreShell : public Particle
 {
@@ -58,19 +60,15 @@ public:
     }
 
     //! Returns the core particle
-    const Particle *getCoreParticle() const {
-        return mp_core;
-    }
+    const Particle *getCoreParticle() const { return mp_core; }
 
     //! Returns the shell particle
-    const Particle *getShellParticle() const {
-        return mp_shell;
-    }
+    const Particle *getShellParticle() const { return mp_shell; }
 
+protected:
     void addAndRegisterCore(const Particle &core);
     void addAndRegisterShell(const Particle &shell);
 
-protected:
     ParticleCoreShell(kvector_t relative_core_position);
     virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform);

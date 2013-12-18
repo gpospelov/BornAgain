@@ -16,7 +16,9 @@
 #ifndef ICHANGEABLE_H
 #define ICHANGEABLE_H
 
-//! Inherit from this to keep track whether object has been modified.
+//! @class IChangeable
+//! @ingroup tools_internal
+//! @brief The class to keep track whether object has been modified.
 
 class IChangeable
 {

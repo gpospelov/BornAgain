@@ -5,17 +5,17 @@ set(library_name BornAgainFit)
 
 # source and include files
 set(include_dirs 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Factory/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc
 )
 include_directories(${include_dirs})
 
 file(GLOB source_files
-    "Factory/src/*.cpp"
-    "Factory/src/*.cxx"
+    "FitKernel/src/*.cpp"
+    "FitKernel/src/*.cxx"
 )
 
 file(GLOB include_files
-    "Factory/inc/*.h"
+    "FitKernel/inc/*.h"
 )
 
 if(BORNAGAIN_PYTHON)

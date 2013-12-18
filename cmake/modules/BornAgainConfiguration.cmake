@@ -50,6 +50,8 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${CMAKE
 # --- configure project paths
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_SOURCE_DIR}/Core/Tools/inc/BAConfigure.h" @ONLY)
 
+# --- configure Doxyfile
+configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
 
 # --- installation
 if(NOT WIN32)

@@ -19,7 +19,9 @@
 #include "DWBASimulation.h"
 #include "LayerSpecularInfo.h"
 
-//! Base class for LayerDecoratorDWBASimulation, DiffuseDWBASimulation.
+//! @class LayerDWBASimulation
+//! @ingroup algorithms_internal
+//! @brief Base class for DWBA simulations in a layer.
 
 class LayerDWBASimulation : public DWBASimulation
 {

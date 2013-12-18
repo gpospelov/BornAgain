@@ -1,10 +1,27 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IsGISAXS04Builder.h
+//! @brief     Defines class IsGISAXS04Builder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISGISAXS04BUILDER_H
 #define ISGISAXS04BUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS04Builder class to build sample: cylinders with 1DDL structure
-//! factor (IsGISAXS example #4)
+//! @class IsGISAXS04Para1DBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4)
+
 class IsGISAXS04Para1DBuilder : public ISampleBuilder
 {
 public:
@@ -23,8 +40,10 @@ private:
 };
 
 
-//! The IsGISAXS04Builder class to build sample: cylinders with 2DDL structure
-//! factor (IsGISAXS example #4)
+//! @class IsGISAXS04Para2DBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4)
+
 class IsGISAXS04Para2DBuilder : public ISampleBuilder
 {
 public:

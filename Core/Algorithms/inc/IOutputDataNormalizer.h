@@ -20,7 +20,10 @@
 #include "IParameterized.h"
 #include "OutputData.h"
 
-//! Interface to OutputData normalizers.
+
+//! @class IOutputDataNormalizer
+//! @ingroup algorithms_internal
+//! @brief Interface to OutputData normalizers.
 
 class BA_CORE_API_ IOutputDataNormalizer : public IParameterized
 {
@@ -35,7 +38,10 @@ public:
     virtual void setMaximumIntensity(double ) = 0;
 };
 
-//! Standard OutputData normalizer, with configurable max_intensity.
+
+//! @class OutputDataNormalizer
+//! @ingroup algorithms_internal
+//! @brief Standard OutputData normalizer, with configurable max_intensity.
 
 class BA_CORE_API_ OutputDataNormalizer : public IOutputDataNormalizer
 {
@@ -65,7 +71,10 @@ protected:
     double m_max_intensity;
 };
 
-//! Simplified OutputData normalizer, with max_intensity=1.
+
+//! @class OutputDataSimpleNormalizer
+//! @ingroup algorithms_internal
+//! @brief Simplified OutputData normalizer, with max_intensity=1.
 
 class OutputDataSimpleNormalizer : public OutputDataNormalizer
 {

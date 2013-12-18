@@ -1,4 +1,11 @@
-/* @(#)build/win:$Id$ */
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/w32pragma.h
+//! @brief     Pragmas and defines for MSVC
+//
+// ************************************************************************** //
 
 /*************************************************************************
  * Copyright (C) 1995-2002, Rene Brun and Fons Rademakers.               *

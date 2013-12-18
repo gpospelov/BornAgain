@@ -20,8 +20,9 @@
 #include "IParameterized.h"
 #include "EigenCore.h"
 
-
-//! Ideal collimated Beam defined by wavelength, direction and intensity.
+//! @class Beam
+//! @ingroup simulation
+//! @brief Ideal collimated beam defined by wavelength, direction and intensity.
 
 class BA_CORE_API_ Beam : public IParameterized
 {

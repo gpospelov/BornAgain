@@ -24,7 +24,10 @@
 class MultiLayer;
 class MultiLayerRoughnessDWBASimulation;
 
-//! This is the class that will perform a DWBA calculation with the given
+
+//! @class MultiLayerDWBASimulation
+//! @ingroup algorithms_internal
+//! @brief This is the class that will perform a DWBA calculation with the given
 //! sample and simulation parameters
 
 class MultiLayerDWBASimulation : public DWBASimulation

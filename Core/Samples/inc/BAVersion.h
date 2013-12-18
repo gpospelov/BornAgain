@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/BAVersion.h
-//! @brief     Defines namespace AppVersion.
+//! @brief     Defines functions for access to the package version number.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)

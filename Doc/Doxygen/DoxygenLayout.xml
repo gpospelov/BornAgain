@@ -3,13 +3,15 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
-    <tab type="pages" visible="yes" title="" intro=""/>
-    <tab type="modules" visible="yes" title="" intro=""/>
+    <tab type="user" url="@ref userapi" title="User API"/>    
+    <tab type="user" url="@ref examples" title="Examples"/>    
+    <tab type="pages" visible="no" title="" intro=""/>
+    <tab type="modules" visible="no" title="" intro=""/>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>
       <tab type="namespacemembers" visible="no" title="" intro=""/>
     </tab>
-    <tab type="classes" visible="yes" title="C++ API">
+    <tab type="classes" visible="yes" title="Full C++ API">
       <tab type="classlist" visible="yes" title="" intro=""/>
       <tab type="classindex" visible="$ALPHABETICAL_INDEX" title=""/> 
       <tab type="hierarchy" visible="yes" title="" intro=""/>

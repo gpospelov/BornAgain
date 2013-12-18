@@ -21,7 +21,10 @@
 #include "Lattice.h"
 #include "LatticeBasis.h"
 
-//! A crystal structure with a form factor as a basis.
+
+//! @class Crystal
+//! @ingroup samples
+//! @brief A crystal structure with a form factor as a basis.
 
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {

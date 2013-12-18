@@ -18,11 +18,13 @@
 
 #include "ParticleInfo.h"
 
-//! Enhances ParticleInfo by position in x and y.
-
-//! Used in IsGISAXSMorphologyFileDecoration.
-//! Note that position in z ("depth") is inherited from ParticleInfo.
+//! @class PositionParticleInfo
+//! @ingroup samples
+//! @brief Enhances ParticleInfo by position in x and y.
 //!
+//! Note that position in z ("depth") is inherited from ParticleInfo.
+
+
 class BA_CORE_API_ PositionParticleInfo : public ParticleInfo
 {
 public:

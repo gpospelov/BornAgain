@@ -22,7 +22,9 @@
 #include "Exceptions.h"
 #include "DiffuseParticleInfo.h"
 
-//! An ordered assembly of particles
+//! @class IClusteredParticles
+//! @ingroup samples_internal
+//! @brief An ordered assembly of particles
 
 class BA_CORE_API_ IClusteredParticles : public ICompositeSample
 {

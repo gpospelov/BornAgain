@@ -21,7 +21,9 @@
 
 class Layer;
 
-//! Interface between two layers, possibly with roughness.
+//! @class LayerInterface
+//! @ingroup samples_internal
+//! @brief Interface between two layers, possibly with roughness.
 
 class LayerInterface : public ICompositeSample
 {

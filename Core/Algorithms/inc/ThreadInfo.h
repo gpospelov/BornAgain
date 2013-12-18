@@ -18,7 +18,10 @@
 
 #include "Exceptions.h"
 
-//! Information for threads
+
+//! @class ThreadInfo
+//! @ingroup simulation
+//! @brief Information to run simulation with dedicated number of threads
 
 struct ThreadInfo
 {

@@ -20,7 +20,9 @@
 
 typedef Geometry::BasicVector3D<int> IndexVector3D;
 
-//! Pure virtual base class for selection rules.
+//! @class ISelectionRule
+//! @ingroup samples_internal
+//! @brief Pure virtual base class for selection rules.
 
 class ISelectionRule
 {
@@ -32,7 +34,9 @@ public:
     virtual bool coordinateSelected(const IndexVector3D& coordinate) const=0;
 };
 
-//! Selection rule (v*q)%modulus!=0, defined by vector v(a,b,c) and modulus.
+//! @class SimpleSelectionRule
+//! @ingroup samples_internal
+//! @brief Selection rule (v*q)%modulus!=0, defined by vector v(a,b,c) and modulus.
 
 class SimpleSelectionRule : public ISelectionRule
 {

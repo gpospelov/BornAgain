@@ -28,8 +28,11 @@ GCC_DIAG_ON(unused-parameter);
 
 namespace bpo = boost::program_options;
 
-//! @brief Handles command line and config file program options
 
+//! @class ProgramOptions
+//! @ingroup tools_internal
+//! @brief Handles command line and config file program options
+//!
 //! The definition of program options are done separately from
 //! CoreOptionsDescription, AppOptionsDescription modules and then
 //! added to given class using add() method

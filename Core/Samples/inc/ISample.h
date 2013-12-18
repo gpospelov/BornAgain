@@ -23,7 +23,9 @@
 class ICompositeSample;
 class DWBASimulation;
 
-//! Interface for objects related to scattering
+//! @class ISample
+//! @ingroup samples_internal
+//! @brief Interface for objects related to scattering.
 
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {

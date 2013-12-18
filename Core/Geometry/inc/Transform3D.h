@@ -60,6 +60,14 @@ public:
     BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const;
 
+    //! Return transformed vector _v_.
+    BasicVector3D<double>
+        transformedInverse(const BasicVector3D<double>& v) const;
+
+    //! Return transformed vector _v_.
+    BasicVector3D<complex_t>
+        transformedInverse(const BasicVector3D<complex_t>& v) const;
+
     //! Composes two transformations
     Transform3D operator*(const Transform3D &other) const;
 
@@ -72,6 +80,7 @@ private:
 #ifndef GCCXML_SKIP_THIS
     Transform3D(const Eigen::Matrix3d &matrix);
     Eigen::Matrix3d m_matrix;
+    Eigen::Matrix3d m_inverse_matrix;
 #endif
 };
 

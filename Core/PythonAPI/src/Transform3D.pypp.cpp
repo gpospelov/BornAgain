@@ -95,6 +95,26 @@ void register_Transform3D_class(){
                 , ( bp::arg("ostr") ) );
         
         }
+        { //::Geometry::Transform3D::transformedInverse
+        
+            typedef ::Geometry::BasicVector3D< double > ( ::Geometry::Transform3D::*transformedInverse_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            
+            Transform3D_exposer.def( 
+                "transformedInverse"
+                , transformedInverse_function_type( &::Geometry::Transform3D::transformedInverse )
+                , ( bp::arg("v") ) );
+        
+        }
+        { //::Geometry::Transform3D::transformedInverse
+        
+            typedef ::Geometry::BasicVector3D< std::complex< double > > ( ::Geometry::Transform3D::*transformedInverse_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            
+            Transform3D_exposer.def( 
+                "transformedInverse"
+                , transformedInverse_function_type( &::Geometry::Transform3D::transformedInverse )
+                , ( bp::arg("v") ) );
+        
+        }
         Transform3D_exposer.staticmethod( "createIdentity" );
         Transform3D_exposer.staticmethod( "createRotateX" );
         Transform3D_exposer.staticmethod( "createRotateY" );

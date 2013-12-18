@@ -71,12 +71,12 @@ public:
                 "-> NotImplementedException");
     }
 
-    //! Sets transformation
-    virtual void setTransform(const Geometry::Transform3D& transform)
+    //! Composes transformation with existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform)
     {
         (void)transform;
         throw NotImplementedException(
-                "IClusteredParticles::setTransform() "
+                "IClusteredParticles::applyTransformation() "
                 "-> NotImplementedException");
     }
 

@@ -30,6 +30,18 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         func_accept( boost::python::ptr(visitor) );
     }
 
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
+        else{
+            this->IClusteredParticles::applyTransformation( boost::ref(transform) );
+        }
+    }
+    
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        IClusteredParticles::applyTransformation( boost::ref(transform) );
+    }
+
     virtual ::IClusteredParticles * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -55,18 +67,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     virtual void setAmbientMaterial( ::IMaterial const * p_ambient_material ){
         bp::override func_setAmbientMaterial = this->get_override( "setAmbientMaterial" );
         func_setAmbientMaterial( boost::python::ptr(p_ambient_material) );
-    }
-
-    virtual void setTransform( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
-            func_setTransform( boost::ref(transform) );
-        else{
-            this->IClusteredParticles::setTransform( boost::ref(transform) );
-        }
-    }
-    
-    void default_setTransform( ::Geometry::Transform3D const & transform ) {
-        IClusteredParticles::setTransform( boost::ref(transform) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -238,6 +238,18 @@ void register_IClusteredParticles_class(){
                 , ( bp::arg("visitor") ) );
         
         }
+        { //::IClusteredParticles::applyTransformation
+        
+            typedef void ( ::IClusteredParticles::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( IClusteredParticles_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            IClusteredParticles_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::IClusteredParticles::applyTransformation)
+                , default_applyTransformation_function_type(&IClusteredParticles_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::IClusteredParticles::clone
         
             typedef ::IClusteredParticles * ( ::IClusteredParticles::*clone_function_type )(  ) const;
@@ -278,18 +290,6 @@ void register_IClusteredParticles_class(){
                 "setAmbientMaterial"
                 , bp::pure_virtual( setAmbientMaterial_function_type(&::IClusteredParticles::setAmbientMaterial) )
                 , ( bp::arg("p_ambient_material") ) );
-        
-        }
-        { //::IClusteredParticles::setTransform
-        
-            typedef void ( ::IClusteredParticles::*setTransform_function_type )( ::Geometry::Transform3D const & ) ;
-            typedef void ( IClusteredParticles_wrapper::*default_setTransform_function_type )( ::Geometry::Transform3D const & ) ;
-            
-            IClusteredParticles_exposer.def( 
-                "setTransform"
-                , setTransform_function_type(&::IClusteredParticles::setTransform)
-                , default_setTransform_function_type(&IClusteredParticles_wrapper::default_setTransform)
-                , ( bp::arg("transform") ) );
         
         }
         { //::IParameterized::areParametersChanged

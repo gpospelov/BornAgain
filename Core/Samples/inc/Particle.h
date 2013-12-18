@@ -79,7 +79,7 @@ public:
     { return mP_transform.get(); }
 
     //! Sets transformation.
-    virtual void setTransform(const Geometry::Transform3D& transform);
+    virtual void setTransformation(const Geometry::Transform3D& transform);
 
     //! Applies transformation by composing it with the existing one
     virtual void applyTransformation(const Geometry::Transform3D& transform);

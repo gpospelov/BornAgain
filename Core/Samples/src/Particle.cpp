@@ -73,7 +73,7 @@ Particle* Particle::clone() const
     Particle *p_new = new Particle(mp_material, p_form_factor);
     p_new->setAmbientMaterial(mp_ambient_material);
 
-    if(mP_transform.get()) p_new->setTransform(*mP_transform.get());
+    if(mP_transform.get()) p_new->mP_transform.reset(mP_transform->clone());
 
     p_new->setName(getName());
     return p_new;
@@ -99,7 +99,7 @@ Particle* Particle::cloneInvertB() const
     Particle *p_new = new Particle(p_material, p_form_factor);
     p_new->setAmbientMaterial(p_ambient_material);
 
-    if(mP_transform.get()) p_new->setTransform(*mP_transform.get());
+    if(mP_transform.get()) p_new->mP_transform.reset(mP_transform->clone());
 
     p_new->setName(getName() + "_inv");
     return p_new;
@@ -149,7 +149,7 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
     return result;
 }
 
-void Particle::setTransform(const Geometry::Transform3D& transform)
+void Particle::setTransformation(const Geometry::Transform3D& transform)
 {
     if (!mP_transform.get()) {
         mP_transform.reset(transform.clone());
@@ -172,7 +172,7 @@ void Particle::applyTransformation(const Geometry::Transform3D& transform)
     else {
         total_transformation = transform;
     }
-    mP_transform.reset(transform.clone());
+    mP_transform.reset(total_transformation.clone());
     applyTransformationToSubParticles(transform);
 }
 

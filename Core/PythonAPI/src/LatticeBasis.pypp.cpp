@@ -236,16 +236,16 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual void setTransform( ::Geometry::Transform3D const & transform ) {
-        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
-            func_setTransform( boost::ref(transform) );
+    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
+            func_setTransformation( boost::ref(transform) );
         else{
-            this->Particle::setTransform( boost::ref(transform) );
+            this->Particle::setTransformation( boost::ref(transform) );
         }
     }
     
-    void default_setTransform( ::Geometry::Transform3D const & transform ) {
-        Particle::setTransform( boost::ref(transform) );
+    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::setTransformation( boost::ref(transform) );
     }
 
     virtual ::size_t size(  ) const  {
@@ -472,15 +472,15 @@ void register_LatticeBasis_class(){
                 , default_setParametersAreChanged_function_type(&LatticeBasis_wrapper::default_setParametersAreChanged) );
         
         }
-        { //::Particle::setTransform
+        { //::Particle::setTransformation
         
-            typedef void ( ::Particle::*setTransform_function_type )( ::Geometry::Transform3D const & ) ;
-            typedef void ( LatticeBasis_wrapper::*default_setTransform_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::Particle::*setTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( LatticeBasis_wrapper::*default_setTransformation_function_type )( ::Geometry::Transform3D const & ) ;
             
             LatticeBasis_exposer.def( 
-                "setTransform"
-                , setTransform_function_type(&::Particle::setTransform)
-                , default_setTransform_function_type(&LatticeBasis_wrapper::default_setTransform)
+                "setTransformation"
+                , setTransformation_function_type(&::Particle::setTransformation)
+                , default_setTransformation_function_type(&LatticeBasis_wrapper::default_setTransformation)
                 , ( bp::arg("transform") ) );
         
         }

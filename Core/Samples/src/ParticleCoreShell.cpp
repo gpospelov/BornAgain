@@ -52,6 +52,9 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
             this->mp_ambient_material->getName());
     p_new->setAmbientMaterial(p_ambient_material);
+    if (mP_transform.get()) {
+        p_new->mP_transform.reset(mP_transform->clone());
+    }
     return p_new;
 }
 

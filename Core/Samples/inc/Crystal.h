@@ -54,8 +54,8 @@ public:
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
 
-    //! Sets transformation.
-    virtual void setTransform(const Geometry::Transform3D& transform);
+    //! Composes transformation with existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform);
 
     //! Gets transformation
     virtual const Geometry::Transform3D *getTransform() const {
@@ -64,7 +64,12 @@ public:
 
 
 private:
+    //! Private constructor
     Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
+
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
 
     Lattice m_lattice;
     std::auto_ptr<Geometry::Transform3D> mP_transform;

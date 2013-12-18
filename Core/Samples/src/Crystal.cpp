@@ -19,6 +19,8 @@
 #include "MathFunctions.h"
 #include "DiffuseParticleInfo.h"
 
+#include <boost/scoped_ptr.hpp>
+
 Crystal::Crystal(const LatticeBasis& lattice_basis,
         const Lattice& lattice)
 : m_lattice(lattice)
@@ -38,6 +40,9 @@ Crystal* Crystal::clone() const
 {
     Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
+    if (mP_transform.get()) {
+        p_new->mP_transform.reset(mP_transform->clone());
+    }
     return p_new;
 }
 
@@ -100,10 +105,17 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     return p_result;
 }
 
-void Crystal::setTransform(const Geometry::Transform3D& transform)
+void Crystal::applyTransformation(const Geometry::Transform3D& transform)
 {
-    mp_lattice_basis->setTransform(transform);
-    mP_transform.reset(transform.clone());
+    Geometry::Transform3D total_transformation;
+    if (mP_transform.get()) {
+        total_transformation = transform * (*mP_transform);
+    }
+    else {
+        total_transformation = transform;
+    }
+    mP_transform.reset(total_transformation.clone());
+    applyTransformationToSubParticles(transform);
 }
 
 Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
@@ -115,3 +127,8 @@ Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
     registerChild(mp_lattice_basis);
 }
 
+void Crystal::applyTransformationToSubParticles(
+        const Geometry::Transform3D& transform)
+{
+    mp_lattice_basis->applyTransformation(transform);
+}

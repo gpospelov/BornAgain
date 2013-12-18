@@ -94,7 +94,7 @@ void ParticleDecoration::addParticle(
         throw LogicErrorException("ParticleDecoration::addParticle() ->"
                 " Error! Abundance can't be equal to 0.0");
     }
-    p_particle->setTransform(transform);
+    p_particle->setTransformation(transform);
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle, depth, abundance));
 }
@@ -109,7 +109,7 @@ void ParticleDecoration::addParticle(
                 " Error! Abundance can't be equal to 0.0");
     }
     Particle *p_particle_clone = p_particle.clone();
-    p_particle_clone->setTransform(transform);
+    p_particle_clone->setTransformation(transform);
     addAndRegisterParticleInfo(
         new ParticleInfo(p_particle_clone, depth, abundance));
 }

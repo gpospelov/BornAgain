@@ -25,6 +25,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     }
 
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
+        else{
+            this->Particle::applyTransformation( boost::ref(transform) );
+        }
+    }
+    
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::applyTransformation( boost::ref(transform) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -232,6 +244,18 @@ void register_MesoCrystal_class(){
         typedef bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable > MesoCrystal_exposer_t;
         MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) );
         bp::scope MesoCrystal_scope( MesoCrystal_exposer );
+        { //::Particle::applyTransformation
+        
+            typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( MesoCrystal_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            MesoCrystal_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::Particle::applyTransformation)
+                , default_applyTransformation_function_type(&MesoCrystal_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;

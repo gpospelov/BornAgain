@@ -256,16 +256,6 @@ void register_Crystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Crystal::createTransformedBasis
-        
-            typedef ::LatticeBasis * ( ::Crystal::*createTransformedBasis_function_type )(  ) const;
-            
-            Crystal_exposer.def( 
-                "createTransformedBasis"
-                , createTransformedBasis_function_type( &::Crystal::createTransformedBasis )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::Crystal::getLatticeBasis
         
             typedef ::LatticeBasis const * ( ::Crystal::*getLatticeBasis_function_type )(  ) const;

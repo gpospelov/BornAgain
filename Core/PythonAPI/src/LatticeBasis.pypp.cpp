@@ -25,6 +25,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     
     }
 
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
+        else{
+            this->Particle::applyTransformation( boost::ref(transform) );
+        }
+    }
+    
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::applyTransformation( boost::ref(transform) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -224,6 +236,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual void setTransform( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
+            func_setTransform( boost::ref(transform) );
+        else{
+            this->Particle::setTransform( boost::ref(transform) );
+        }
+    }
+    
+    void default_setTransform( ::Geometry::Transform3D const & transform ) {
+        Particle::setTransform( boost::ref(transform) );
+    }
+
     virtual ::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
@@ -252,6 +276,18 @@ void register_LatticeBasis_class(){
                 "addParticle"
                 , addParticle_function_type( &::LatticeBasis::addParticle )
                 , ( bp::arg("particle"), bp::arg("positions") ) );
+        
+        }
+        { //::Particle::applyTransformation
+        
+            typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( LatticeBasis_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            LatticeBasis_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::Particle::applyTransformation)
+                , default_applyTransformation_function_type(&LatticeBasis_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -434,6 +470,18 @@ void register_LatticeBasis_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&LatticeBasis_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::Particle::setTransform
+        
+            typedef void ( ::Particle::*setTransform_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( LatticeBasis_wrapper::*default_setTransform_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            LatticeBasis_exposer.def( 
+                "setTransform"
+                , setTransform_function_type(&::Particle::setTransform)
+                , default_setTransform_function_type(&LatticeBasis_wrapper::default_setTransform)
+                , ( bp::arg("transform") ) );
         
         }
         { //::ICompositeSample::size

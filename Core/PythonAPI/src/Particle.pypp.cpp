@@ -39,6 +39,18 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     }
 
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
+        else{
+            this->Particle::applyTransformation( boost::ref(transform) );
+        }
+    }
+    
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::applyTransformation( boost::ref(transform) );
+    }
+
     virtual ::Particle * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -308,6 +320,18 @@ void register_Particle_class(){
         bp::scope Particle_scope( Particle_exposer );
         Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
         Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const &, Geometry::Transform3D const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("transform") )) );
+        { //::Particle::applyTransformation
+        
+            typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( Particle_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            Particle_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::Particle::applyTransformation)
+                , default_applyTransformation_function_type(&Particle_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::Particle::clone
         
             typedef ::Particle * ( ::Particle::*clone_function_type )(  ) const;

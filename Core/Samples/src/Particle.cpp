@@ -149,6 +149,20 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
     return result;
 }
 
+void Particle::setTransform(const Geometry::Transform3D& transform)
+{
+    if (!mP_transform.get()) {
+        mP_transform.reset(transform.clone());
+        applyTransformationToSubParticles(transform);
+        return;
+    }
+    boost::scoped_ptr<Geometry::Transform3D> P_inverse(
+            mP_transform->createInverse());
+    applyTransformationToSubParticles(*P_inverse);
+    mP_transform.reset(transform.clone());
+    applyTransformationToSubParticles(transform);
+}
+
 void Particle::applyTransformation(const Geometry::Transform3D& transform)
 {
     Geometry::Transform3D total_transformation;
@@ -158,7 +172,8 @@ void Particle::applyTransformation(const Geometry::Transform3D& transform)
     else {
         total_transformation = transform;
     }
-    setTransform(total_transformation);
+    mP_transform.reset(transform.clone());
+    applyTransformationToSubParticles(transform);
 }
 
 void Particle::setSimpleFormFactor(IFormFactor* p_form_factor)
@@ -200,3 +215,9 @@ IFormFactor* Particle::createTransformedFormFactor() const
     return p_result;
 }
 
+void Particle::applyTransformationToSubParticles(
+        const Geometry::Transform3D& transform)
+{
+    (void)transform;
+    return;
+}

@@ -51,12 +51,6 @@ public:
         return mp_form_factor;
     }
 
-    //! Sets transformation.
-    virtual void setTransform(const Geometry::Transform3D& transform);
-
-    //! Applies transformation by composing it with the existing one
-    virtual void applyTransformation(const Geometry::Transform3D& transform);
-
     //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& /*parent_info*/) const {
@@ -78,7 +72,7 @@ public:
 
 protected:
     ParticleCoreShell(kvector_t relative_core_position);
-    void applyTransformationToSubParticles(
+    virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform);
     Particle *mp_shell;
     Particle *mp_core;

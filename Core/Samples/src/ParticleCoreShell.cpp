@@ -38,6 +38,9 @@ ParticleCoreShell *ParticleCoreShell::clone() const
     ParticleCoreShell *p_new = new ParticleCoreShell(*mp_shell, *mp_core,
             m_relative_core_position);
     p_new->setAmbientMaterial(mp_ambient_material);
+    if (mP_transform.get()) {
+        p_new->mP_transform.reset(mP_transform->clone());
+    }
     return p_new;
 }
 
@@ -103,27 +106,6 @@ void ParticleCoreShell::setSimpleFormFactor(IFormFactor* p_form_factor)
         mp_form_factor = p_form_factor;
         registerChild(mp_form_factor);
     }
-}
-
-void ParticleCoreShell::setTransform(const Geometry::Transform3D& transform)
-{
-    if (!mP_transform.get()) {
-        Particle::setTransform(transform);
-        applyTransformationToSubParticles(transform);
-        return;
-    }
-    boost::scoped_ptr<Geometry::Transform3D> P_inverse(
-            mP_transform->createInverse());
-    applyTransformationToSubParticles(*P_inverse);
-    Particle::setTransform(transform);
-    applyTransformationToSubParticles(transform);
-}
-
-void ParticleCoreShell::applyTransformation(
-        const Geometry::Transform3D& transform)
-{
-    Particle::applyTransformation(transform);
-    applyTransformationToSubParticles(transform);
 }
 
 void ParticleCoreShell::addAndRegisterCore(const Particle &core)

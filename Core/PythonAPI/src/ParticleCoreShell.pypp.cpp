@@ -25,6 +25,18 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     
     }
 
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
+        else{
+            this->Particle::applyTransformation( boost::ref(transform) );
+        }
+    }
+    
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::applyTransformation( boost::ref(transform) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -244,6 +256,18 @@ void register_ParticleCoreShell_class(){
         typedef bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, boost::noncopyable > ParticleCoreShell_exposer_t;
         ParticleCoreShell_exposer_t ParticleCoreShell_exposer = ParticleCoreShell_exposer_t( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) );
         bp::scope ParticleCoreShell_scope( ParticleCoreShell_exposer );
+        { //::Particle::applyTransformation
+        
+            typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( ParticleCoreShell_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            ParticleCoreShell_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::Particle::applyTransformation)
+                , default_applyTransformation_function_type(&ParticleCoreShell_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;

@@ -25,7 +25,7 @@ FormFactorCrystal::FormFactorCrystal(
 , m_max_rec_length(0.0)
 {
     setName("FormFactorCrystal");
-    mp_lattice_basis = p_crystal.createTransformedBasis();
+    mp_lattice_basis = p_crystal.getLatticeBasis()->clone();
     mp_basis_form_factor = mp_lattice_basis->createFormFactor(
             m_wavevector_scattering_factor);
     if (p_crystal.getTransform()) {

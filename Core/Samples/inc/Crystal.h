@@ -46,7 +46,6 @@ public:
         complex_t wavevector_scattering_factor) const;
 
     Lattice getTransformedLattice() const;
-    LatticeBasis *createTransformedBasis() const;
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 

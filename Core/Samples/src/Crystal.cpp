@@ -72,11 +72,6 @@ Lattice Crystal::getTransformedLattice() const
     }
 }
 
-LatticeBasis* Crystal::createTransformedBasis() const
-{
-    return mp_lattice_basis->createTransformed();
-}
-
 std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
         const ParticleInfo& parent_info) const
 {

@@ -79,8 +79,7 @@ public:
     { return mP_transform.get(); }
 
     //! Sets transformation.
-    virtual void setTransform(const Geometry::Transform3D& transform)
-    { mP_transform.reset(transform.clone()); }
+    virtual void setTransform(const Geometry::Transform3D& transform);
 
     //! Applies transformation by composing it with the existing one
     virtual void applyTransformation(const Geometry::Transform3D& transform);
@@ -107,6 +106,9 @@ public:
 
 protected:
     IFormFactor *createTransformedFormFactor() const;
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
     const IMaterial* mp_material;
     const IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;

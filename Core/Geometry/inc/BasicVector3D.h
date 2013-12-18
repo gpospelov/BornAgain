@@ -27,13 +27,15 @@
 
 namespace Geometry {
 
-//! Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
-
+//! @class BasicVector3D
+//! @ingroup tools_internal
+//! @brief Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
+//!
 //! It defines only common functionality for those classes and
 //! should not be used as separate class.
 //!
 //! @author Evgeni Chernyaev 1996-2003
-//!
+
 template<class T>
 class BasicVector3D {
 protected:

@@ -22,7 +22,10 @@
 
 namespace Geometry {
 
-//! Vector transformations in three dimensions.
+//! @class Transform3D
+//! @ingroup tools_internal
+//! @brief Vector transformations in three dimensions.
+
 class Transform3D {
 public:
     //! Constructs unit transformation

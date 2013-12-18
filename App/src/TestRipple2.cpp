@@ -79,7 +79,7 @@ void TestRipple2::save_results()
 {
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
-    std::string filename(getOutputPath()+"test_ripple2_sym.ima");
+    std::string filename(getOutputPath()+"test_ripple2_asym.ima");
     OutputDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
                                          filename);
 }
@@ -91,8 +91,8 @@ void TestRipple2::save_results()
 void TestRipple2::drawff()
 {
 	FormFactorRipple2 *ff = new FormFactorRipple2(20.0*Units::nanometer, 4.0*Units::nanometer, 100.0*Units::nanometer, 3.0*Units::nanometer);
-    size_t qybins = 200;
-    size_t qzbins = 200;
+    size_t qybins = 400;
+    size_t qzbins = 400;
 	
 	double qymin = -2.0;
 	double qymax = 2.0;
@@ -157,7 +157,7 @@ TestRipple2::TestSampleBuilder::TestSampleBuilder()
     : m_w(20.0*Units::nanometer)
     , m_h(4.0*Units::nanometer)
     , m_l(100.0*Units::nanometer)
-    , m_d(0.0*Units::nanometer)
+    , m_d(-3.0*Units::nanometer)
     , m_interf_distance(20.0*Units::nanometer)
     , m_interf_width(4.0*Units::nanometer)
 {

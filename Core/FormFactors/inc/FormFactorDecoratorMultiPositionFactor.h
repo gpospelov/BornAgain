@@ -22,7 +22,7 @@
 //! @ingroup formfactors_internal
 //! @brief The formfactor for the same particle at different fixed positions.
 
-class FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor,

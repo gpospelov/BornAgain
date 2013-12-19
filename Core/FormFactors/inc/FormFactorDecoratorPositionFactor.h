@@ -23,7 +23,7 @@
 //! @ingroup formfactors_internal
 //! @brief Decorates a formfactor with a position dependent phase factor.
 
-class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,

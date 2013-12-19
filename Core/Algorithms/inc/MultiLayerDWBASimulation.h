@@ -30,7 +30,7 @@ class MultiLayerRoughnessDWBASimulation;
 //! @brief This is the class that will perform a DWBA calculation with the given
 //! sample and simulation parameters
 
-class MultiLayerDWBASimulation : public DWBASimulation
+class BA_CORE_API_ MultiLayerDWBASimulation : public DWBASimulation
 {
 public:
     MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);

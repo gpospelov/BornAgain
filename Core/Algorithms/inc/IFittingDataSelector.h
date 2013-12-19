@@ -23,7 +23,7 @@
 //! @ingroup algorithms_internal
 //! @brief Interface for selecting data points and its weights
 
-class IFittingDataSelector
+class BA_CORE_API_ IFittingDataSelector
 {
 public:
     virtual ~IFittingDataSelector() {}
@@ -39,7 +39,7 @@ public:
 //! @ingroup algorithms_internal
 //! @brief Default algorithm for selecting all data points and giving them equal weight of 1.
 
-class DefaultAllDataSelector : public IFittingDataSelector
+class BA_CORE_API_ DefaultAllDataSelector : public IFittingDataSelector
 {
 public:
     DefaultAllDataSelector() {}

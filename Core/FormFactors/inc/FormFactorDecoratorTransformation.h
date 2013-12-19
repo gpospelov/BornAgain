@@ -24,7 +24,7 @@
 //! @ingroup formfactors_internal
 //! @brief Equip a formfactor with a rotation.
 
-class FormFactorDecoratorTransformation : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorTransformation : public IFormFactorDecorator
 {
 public:
     //! Constructor, setting form factor and rotation.

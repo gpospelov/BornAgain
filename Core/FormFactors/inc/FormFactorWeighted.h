@@ -23,7 +23,7 @@
 //! @brief Coherent sum of different form factors with different weights.
 //! Acts on scalar form factors.
 
-class FormFactorWeighted : public IFormFactor
+class BA_CORE_API_ FormFactorWeighted : public IFormFactor
 {
 public:
     FormFactorWeighted();

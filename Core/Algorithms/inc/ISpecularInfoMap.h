@@ -23,7 +23,7 @@
 //! @ingroup algorithms_internal
 //! @brief Interface class providing access to the reflection and transmittion coefficients
 
-class ISpecularInfoMap
+class BA_CORE_API_ ISpecularInfoMap
 {
 public:
     virtual ~ISpecularInfoMap() {}

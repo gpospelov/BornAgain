@@ -93,20 +93,20 @@ void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
 #ifndef GCCXML_SKIP_THIS
 //! computes the norm element-wise
-Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
 
 //! computes the absolute value element-wise
-Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
 
 //! computes the complex conjugate element-wise
-Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
 
 //! element-wise product
-Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
+BA_CORE_API_ Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
         const Eigen::Matrix2cd &right);
 
 //! take element-wise real value
-Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
 #endif
 
 BA_CORE_API_ inline bool isnan(double x)

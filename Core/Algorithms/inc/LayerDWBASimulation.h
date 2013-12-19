@@ -23,7 +23,7 @@
 //! @ingroup algorithms_internal
 //! @brief Base class for DWBA simulations in a layer.
 
-class LayerDWBASimulation : public DWBASimulation
+class BA_CORE_API_ LayerDWBASimulation : public DWBASimulation
 {
 public:
     LayerDWBASimulation();

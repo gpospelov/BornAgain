@@ -27,7 +27,7 @@
 //! @ingroup algorithms_internal
 //! @brief Interface for 1 dimensional distributions in Fourier space
 
-class IFTDistribution1D
+class BA_CORE_API_ IFTDistribution1D
 {
 public:
     IFTDistribution1D(double omega) : m_omega(omega) {}

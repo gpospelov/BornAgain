@@ -22,7 +22,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample: layers with correlated roughness
 
-class LayerRoughnessBuilder : public ISampleBuilder
+class BA_CORE_API_ LayerRoughnessBuilder : public ISampleBuilder
 {
 public:
     LayerRoughnessBuilder();

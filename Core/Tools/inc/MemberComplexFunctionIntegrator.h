@@ -24,7 +24,7 @@
 //! @ingroup tools_internal
 //! @brief Template class to integrate class member functions in 1D complex space
 
-template <class C> class MemberComplexFunctionIntegrator
+template <class C> class  MemberComplexFunctionIntegrator
 {
 public:
     //! member function type

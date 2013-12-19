@@ -23,7 +23,7 @@
 //! @brief Builds sample: triangular ripple within the 1D-paracrystal model
 //! (from PRB 85, 235415, 2012)
 
-class Ripple2Builder : public ISampleBuilder
+class BA_CORE_API_ Ripple2Builder : public ISampleBuilder
 {
 public:
     Ripple2Builder();

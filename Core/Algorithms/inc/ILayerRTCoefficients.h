@@ -24,7 +24,7 @@
 //! @ingroup algorithms_internal
 //! @brief Interface to access reflection/transmition coefficients
 
-class ILayerRTCoefficients
+class BA_CORE_API_ ILayerRTCoefficients
 {
 public:
     virtual ~ILayerRTCoefficients() {}

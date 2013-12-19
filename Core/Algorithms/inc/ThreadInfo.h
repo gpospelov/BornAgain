@@ -23,7 +23,7 @@
 //! @ingroup simulation
 //! @brief Information to run simulation with dedicated number of threads
 
-struct ThreadInfo
+struct BA_CORE_API_ ThreadInfo
 {
     ThreadInfo();
     int n_threads;

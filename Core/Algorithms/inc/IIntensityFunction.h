@@ -24,7 +24,7 @@
 //! @ingroup algorithms_internal
 //! @brief Interface for applying arbitrary function to the measured intensity
 
-class IIntensityFunction
+class BA_CORE_API_ IIntensityFunction
 {
 public:
     virtual ~IIntensityFunction() {}
@@ -38,7 +38,7 @@ public:
 //! @ingroup algorithms_internal
 //! @brief Algorithm for applying log function to the measured intensity
 
-class IntensityFunctionLog : public IIntensityFunction
+class BA_CORE_API_ IntensityFunctionLog : public IIntensityFunction
 {
 public:
     virtual ~IntensityFunctionLog() {}
@@ -53,7 +53,7 @@ public:
 //! @ingroup algorithms_internal
 //! @brief Algorithm for applying sqrt function to the measured intensity
 
-class IntensityFunctionSqrt : public IIntensityFunction
+class BA_CORE_API_ IntensityFunctionSqrt : public IIntensityFunction
 {
 public:
     virtual ~IntensityFunctionSqrt() {}

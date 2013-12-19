@@ -28,7 +28,7 @@ class MesoCrystal;
 //! @brief Builds sample: mesocrystals of cylindrical shape composed by
 //! spherical nanoparticles.
 
-class MesoCrystal01Builder : public ISampleBuilder
+class BA_CORE_API_  MesoCrystal01Builder : public ISampleBuilder
 {
 public:
     MesoCrystal01Builder();

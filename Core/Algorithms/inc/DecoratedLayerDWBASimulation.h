@@ -26,7 +26,7 @@ class Layer;
 //! @ingroup algorithms_internal
 //! @brief Calculates scattering cross sections in DWBA for a layer with particles in/on it
 
-class DecoratedLayerDWBASimulation : public LayerDWBASimulation
+class BA_CORE_API_ DecoratedLayerDWBASimulation : public LayerDWBASimulation
 {
 public:
     DecoratedLayerDWBASimulation(const Layer *p_layer);

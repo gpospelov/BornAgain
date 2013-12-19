@@ -43,7 +43,7 @@ private:
 //! @brief Builds sample:  Pyramids, rotated pyramids on top of substrate
 //!(IsGISAXS example #9)
 
-class IsGISAXS09BBuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS09BBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS09BBuilder();

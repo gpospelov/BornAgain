@@ -22,7 +22,7 @@
 //! @ingroup interference
 //! @brief Default interference function (i.e. absence of any interference)
 
-class InterferenceFunctionNone : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunctionNone : public IInterferenceFunction
 {
 public:
     InterferenceFunctionNone() { setName("InterferenceFunctionNone"); }

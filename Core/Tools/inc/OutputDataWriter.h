@@ -23,7 +23,7 @@
 //! @ingroup tools
 //! @brief Write OutputData to file using different witing strategies
 
-class OutputDataWriter
+class BA_CORE_API_ OutputDataWriter
 {
 public:
     OutputDataWriter() : m_write_strategy(0) {}

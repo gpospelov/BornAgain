@@ -25,7 +25,7 @@ class Layer;
 //! @ingroup samples_internal
 //! @brief Interface between two layers, possibly with roughness.
 
-class LayerInterface : public ICompositeSample
+class BA_CORE_API_ LayerInterface : public ICompositeSample
 {
 public:
     virtual ~LayerInterface();

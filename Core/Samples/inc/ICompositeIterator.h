@@ -27,7 +27,7 @@
 //! @ingroup samples_internal
 //! @brief Holds state of iterator (Memento pattern) for ICompositeIterator
 
-class MementoState
+class BA_CORE_API_ MementoState
 {
 public:
     typedef std::list<ISample*>::const_iterator const_iterator_t;
@@ -65,7 +65,7 @@ private:
 //! @ingroup samples_internal
 //! @brief The iterator from Memento pattern, part of ICompositeSample iterator
 
-class MementoIterator
+class BA_CORE_API_ MementoIterator
 {
 public:
     MementoIterator() {}
@@ -97,7 +97,7 @@ protected:
 //!        it.next();
 //!     }
 
-class ICompositeIterator
+class BA_CORE_API_ ICompositeIterator
 {
 public:
     ICompositeIterator(const ICompositeSample *root) : m_root(root), m_done(false) {}

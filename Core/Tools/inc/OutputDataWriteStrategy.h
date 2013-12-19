@@ -25,7 +25,7 @@
 //! @ingroup tools_internal
 //! @brief Strategy interface to write OututData in file
 
-class IOutputDataWriteStrategy
+class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
     IOutputDataWriteStrategy() : m_precision(10) {}

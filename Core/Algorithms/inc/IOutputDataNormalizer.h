@@ -76,7 +76,7 @@ protected:
 //! @ingroup algorithms_internal
 //! @brief Simplified OutputData normalizer, with max_intensity=1.
 
-class OutputDataSimpleNormalizer : public OutputDataNormalizer
+class BA_CORE_API_ OutputDataSimpleNormalizer : public OutputDataNormalizer
 {
 public:
     OutputDataSimpleNormalizer(double scale=1.0, double shift=0.0)

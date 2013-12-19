@@ -35,7 +35,7 @@ public:
 //! @ingroup standard_samples
 //! @brief Builds sample:  2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
 
-class IsGISAXS08BBuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS08BBuilder();

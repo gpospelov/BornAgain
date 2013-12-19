@@ -24,7 +24,7 @@
 //! @ingroup tools_internal
 //! @brief One dimensional bin with left and right bounds.
 
-struct Bin1D
+struct BA_CORE_API_ Bin1D
 {
     double m_lower;  //!< lower bound of the bin
     double m_upper;  //!< upper bound of the bin
@@ -36,7 +36,7 @@ struct Bin1D
 //! @ingroup tools_internal
 //! @brief An one-dimensional range of cvector_t's
 
-struct Bin1DCVector
+struct BA_CORE_API_ Bin1DCVector
 {
     Bin1DCVector() : m_q_lower(), m_q_upper() {}
     Bin1DCVector(const cvector_t& lower, const cvector_t& upper)

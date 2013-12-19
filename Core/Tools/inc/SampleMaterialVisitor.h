@@ -23,7 +23,7 @@
 //! @ingroup samples_internal
 //! @brief SampleMaterialVisitor retrieves a list of the used materials in a sample
 
-class SampleMaterialVisitor : public ISampleVisitor
+class BA_CORE_API_ SampleMaterialVisitor : public ISampleVisitor
 {
 public:
     SampleMaterialVisitor() {}

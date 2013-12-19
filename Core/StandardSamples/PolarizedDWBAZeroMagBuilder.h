@@ -22,7 +22,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and zero magnetic field.
 
-class PolarizedDWBAZeroMagBuilder : public ISampleBuilder
+class BA_CORE_API_ PolarizedDWBAZeroMagBuilder : public ISampleBuilder
 {
 public:
     PolarizedDWBAZeroMagBuilder();

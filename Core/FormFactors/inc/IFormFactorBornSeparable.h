@@ -23,7 +23,7 @@
 //! @brief Separable Born formfactor interface. Scattering amplitude only
 //! depends on q, and separates into a radial and a z-dependent part.
 
-class IFormFactorBornSeparable : public IFormFactorBorn
+class BA_CORE_API_ IFormFactorBornSeparable : public IFormFactorBorn
 {
 public:
     IFormFactorBornSeparable();

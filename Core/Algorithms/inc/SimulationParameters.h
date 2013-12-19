@@ -21,7 +21,7 @@
 //! @ingroup simulation
 //! @brief Collect the different options for simulation
 
-class SimulationParameters
+class BA_CORE_API_ SimulationParameters
 {
 public:
     SimulationParameters();

@@ -42,7 +42,7 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
 
-class IsGISAXS03BABuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS03BABuilder : public ISampleBuilder
 {
 public:
     IsGISAXS03BABuilder();

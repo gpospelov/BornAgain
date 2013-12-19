@@ -23,7 +23,7 @@
 //! @ingroup tools
 //! @brief Reads OutputData from file using different reading strategies.
 
-class OutputDataReader
+class BA_CORE_API_ OutputDataReader
 {
 public:
     OutputDataReader() : m_read_strategy(0) {}

@@ -44,7 +44,7 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4)
 
-class IsGISAXS04Para2DBuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS04Para2DBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS04Para2DBuilder();

@@ -23,7 +23,7 @@
 //! @ingroup algorithms_internal
 //! @brief Calculation of diffuse scattering in DWBA
 
-class DiffuseDWBASimulation: public LayerDWBASimulation
+class BA_CORE_API_ DiffuseDWBASimulation: public LayerDWBASimulation
 {
 public:
     DiffuseDWBASimulation()

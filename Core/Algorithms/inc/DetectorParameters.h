@@ -22,7 +22,7 @@
 //! @ingroup simulation_internal
 //! @brief Store parameters for specifying one axis
 
-struct AxisParameters
+struct BA_CORE_API_ AxisParameters
 {
     AxisParameters();
     std::string m_name;

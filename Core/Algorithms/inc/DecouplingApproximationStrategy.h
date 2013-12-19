@@ -23,7 +23,7 @@
 //! @ingroup algorithms_internal
 //! @brief Strategy for implementing decoupling approximation
 
-class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
+class BA_CORE_API_ DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
     DecouplingApproximationStrategy(SimulationParameters sim_params)

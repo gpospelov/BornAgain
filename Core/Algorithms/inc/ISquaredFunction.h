@@ -28,7 +28,7 @@
 //!
 //! Used By ChiSquaredModule for chi2 calculations
 
-class ISquaredFunction
+class BA_CORE_API_ ISquaredFunction
 {
 public:
     virtual ~ISquaredFunction() {}
@@ -51,7 +51,7 @@ public:
 //! @ingroup algorithms_internal
 //! @brief Squared difference betwee two values
 
-class SquaredFunctionDefault : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionDefault : public ISquaredFunction
 {
 public:
     SquaredFunctionDefault() {}
@@ -80,7 +80,7 @@ public:
 //! @ingroup algorithms_internal
 //! @brief Squared difference betwee two values
 
-class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
 public:
     SquaredFunctionWhichOnlyWorks() {}
@@ -106,7 +106,7 @@ public:
 //! @ingroup algorithms_internal
 //! @brief Squared difference between two values with systematic error
 
-class SquaredFunctionWithSystematicError : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionWithSystematicError : public ISquaredFunction
 {
 public:
     SquaredFunctionWithSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
@@ -133,7 +133,7 @@ private:
 //! @ingroup algorithms_internal
 //! @brief Squared difference between two values with gaussian error
 
-class SquaredFunctionWithGaussianError : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionWithGaussianError : public ISquaredFunction
 {
 public:
     SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}

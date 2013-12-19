@@ -30,7 +30,7 @@
 //! @ingroup algorithms_internal
 //! @brief Algorithm to apply one of interference function strategies (LMA, SCCA etc)
 
-class IInterferenceFunctionStrategy
+class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
     IInterferenceFunctionStrategy(SimulationParameters sim_params)

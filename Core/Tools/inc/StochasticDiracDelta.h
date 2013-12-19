@@ -22,7 +22,7 @@
 //! @ingroup tools_internal
 //! @brief Stochastic delta like parameter
 
-template <class T> class StochasticDiracDelta : public StochasticParameter<T>
+template <class T> class BA_CORE_API_ StochasticDiracDelta : public StochasticParameter<T>
 {
 public:
     StochasticDiracDelta(T average);

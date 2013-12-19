@@ -28,7 +28,7 @@ class MultiLayer;
 //! @ingroup algorithms_internal
 //! @brief Calculation of diffuse reflection from multilayer with rough interfaces
 
-class MultiLayerRoughnessDWBASimulation : public DWBASimulation
+class BA_CORE_API_ MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {
 public:
     MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer);

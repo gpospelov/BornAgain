@@ -24,7 +24,7 @@ typedef Geometry::BasicVector3D<int> IndexVector3D;
 //! @ingroup samples_internal
 //! @brief Pure virtual base class for selection rules.
 
-class ISelectionRule
+class BA_CORE_API_ ISelectionRule
 {
 public:
     virtual ~ISelectionRule() {}

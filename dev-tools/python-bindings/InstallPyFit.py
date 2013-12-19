@@ -104,8 +104,8 @@ def InstallCode(OutputTempDir, InstallDir):
     files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
     files = files_inc+files_src
 
-    python_pri_file = GenerateProjectFile(OutputTempDir, files_inc, files_src)
-    files.append(python_pri_file)
+#    python_pri_file = GenerateProjectFile(OutputTempDir, files_inc, files_src)
+#    files.append(python_pri_file)
 
     python_module_file = GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude)
     files.append(python_module_file)

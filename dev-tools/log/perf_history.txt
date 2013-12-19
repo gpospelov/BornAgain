@@ -295,3 +295,6 @@
 
 # switch mesocrystal test to the one from SimulationRegistry
 2013-12-09 17:51:20 | jcnsopc73  | macosx64, 2800 MHz      | 23.5294     | 23.2558     | 0.0356125   | 800000      |
+
+# PreRelease-0.9.3
+2013-12-19 16:11:26 | jcnsopc73  | macosx64, 2800 MHz      | 21.7391     | 21.2766     | 0.0319387   | 769231      |

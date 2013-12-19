@@ -19,7 +19,6 @@
 #include "WinDllMacros.h"
 #include "Types.h"
 #include "Exceptions.h"
-#include "FileSystem.h"
 #include <boost/unordered_map.hpp>
 #include <map>
 

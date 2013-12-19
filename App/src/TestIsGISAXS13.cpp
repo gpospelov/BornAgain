@@ -51,6 +51,7 @@
 #include "TLine.h"
 #include "TROOT.h"
 #include "TLegend.h"
+#include "FileSystem.h"
 
 
 TestIsGISAXS13::TestIsGISAXS13()
@@ -169,8 +170,10 @@ void TestIsGISAXS13::run_isgisaxs_fit()
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        if(i_set==0) {
+			leg1->AddEntry(hreal,"BornAgain data","lp");
+			leg1->AddEntry(hsimul,"BornAgain simul","lp");
+		}
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();

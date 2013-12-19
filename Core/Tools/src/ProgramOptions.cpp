@@ -15,6 +15,7 @@
 
 #include "ProgramOptions.h"
 #include "Utils.h"
+#include "FileSystem.h"
 #include "MessageService.h"
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>

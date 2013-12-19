@@ -26,7 +26,7 @@
 //! @brief Handles options and printing for ROOTMinimizer
 //! Required by Fumili, Fumili2 and GSLMultiMin minimizers
 
-class ROOTMinimizerHelper
+class BA_CORE_API_ ROOTMinimizerHelper
 {
  public:
     ROOTMinimizerHelper() { }

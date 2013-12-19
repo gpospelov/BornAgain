@@ -20,6 +20,7 @@
 #include "DrawHelper.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
+#include "FileSystem.h"
 
 void TestMesoCrystal1::execute()
 {

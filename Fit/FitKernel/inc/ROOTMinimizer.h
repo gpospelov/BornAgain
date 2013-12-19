@@ -31,7 +31,7 @@
 //! @ingroup fitting_internal
 //! @brief Wrapper for ROOT minimizers to interface with FitSuite
 
-class ROOTMinimizer : public IMinimizer
+class BA_CORE_API_ ROOTMinimizer : public IMinimizer
 {
  public:
     ROOTMinimizer(const std::string& minimizer_name, const std::string& algo_type=std::string());

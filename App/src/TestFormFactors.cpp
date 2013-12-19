@@ -24,6 +24,7 @@
 #include "MaterialManager.h"
 #include "FormFactors.h"
 #include "InterferenceFunctionNone.h"
+#include "FileSystem.h"
 
 TestFormFactors::TestFormFactors()
 : IApplicationTest("TestFormFactors")

@@ -151,5 +151,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL Intel)
   set(EXEEXT "")
   set(SOEXT "so")
 
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -include WinDllMacros.h")
+
 endif()
   

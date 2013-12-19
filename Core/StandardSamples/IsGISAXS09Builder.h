@@ -23,7 +23,7 @@
 //! @brief Builds sample:  Pyramids, pyramids on top of substrate
 //!(IsGISAXS example #9)
 
-class IsGISAXS09ABuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS09ABuilder : public ISampleBuilder
 {
 public:
     IsGISAXS09ABuilder();

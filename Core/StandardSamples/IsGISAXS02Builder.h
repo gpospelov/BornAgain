@@ -23,7 +23,7 @@
 //! @brief Builds sample: mixture cylinder particles with different size
 //! distribution (IsGISAXS example #2)
 
-class IsGISAXS02Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS02Builder : public ISampleBuilder
 {
 public:
     IsGISAXS02Builder();

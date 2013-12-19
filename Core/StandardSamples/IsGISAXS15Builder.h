@@ -23,7 +23,7 @@
 //! @brief Builds sample: size spacing correlation approximation
 //! (IsGISAXS example #15)
 
-class IsGISAXS15Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS15Builder : public ISampleBuilder
 {
 public:
     IsGISAXS15Builder();

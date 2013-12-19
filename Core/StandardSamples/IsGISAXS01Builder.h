@@ -23,7 +23,7 @@
 //! @brief Builds sample: mixture of cylinders and prisms without interference
 //! (IsGISAXS example #1)
 
-class IsGISAXS01Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS01Builder : public ISampleBuilder
 {
 public:
     IsGISAXS01Builder();

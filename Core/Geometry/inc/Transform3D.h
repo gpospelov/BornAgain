@@ -26,7 +26,7 @@ namespace Geometry {
 //! @ingroup tools_internal
 //! @brief Vector transformations in three dimensions.
 
-class Transform3D {
+class BA_CORE_API_ Transform3D {
 public:
     //! Constructs unit transformation
     Transform3D();

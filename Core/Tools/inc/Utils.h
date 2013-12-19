@@ -53,7 +53,7 @@ public:
 //! @ingroup tools_internal
 //! @brief Control how often a string is used.
 
-class StringUsageMap
+class BA_CORE_API_ StringUsageMap
 {
 public:
     typedef std::map<std::string, int> nstringmap_t;

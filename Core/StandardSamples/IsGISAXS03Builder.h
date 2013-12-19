@@ -23,7 +23,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I)
 
-class IsGISAXS03DWBABuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS03DWBABuilder : public ISampleBuilder
 {
 public:
     IsGISAXS03DWBABuilder();

@@ -22,7 +22,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4)
 
-class IsGISAXS04Para1DBuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS04Para1DBuilder : public ISampleBuilder
 {
 public:
     IsGISAXS04Para1DBuilder();

@@ -26,7 +26,7 @@
 //! @ingroup standard_samples
 //! @brief The registry which holds information about available functional tests.
 
-class FunctionalTestRegistry
+class BA_CORE_API_ FunctionalTestRegistry
 {
 public:
 
@@ -57,7 +57,7 @@ private:
 
 
 //! run functional tests with given name
-int FUNCTIONAL_TEST(const std::string &name);
+BA_CORE_API_ int FUNCTIONAL_TEST(const std::string &name);
 
 
 

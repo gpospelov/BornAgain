@@ -23,7 +23,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample:  2D paracrystal lattice (IsGISAXS example #8)
 
-class IsGISAXS08ABuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS08ABuilder : public ISampleBuilder
 {
 public:
     IsGISAXS08ABuilder();

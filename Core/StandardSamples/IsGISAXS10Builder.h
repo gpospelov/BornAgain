@@ -23,7 +23,7 @@
 //! @brief Builds sample: cylinders on top of substrate with interference
 //! (IsGISAXS example #10)
 
-class IsGISAXS10Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS10Builder : public ISampleBuilder
 {
 public:
     IsGISAXS10Builder();

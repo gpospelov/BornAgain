@@ -42,7 +42,6 @@ public:
     virtual double getLength() const { return m_length; }
     virtual double getAsymetry() const { return m_d; }
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 private:

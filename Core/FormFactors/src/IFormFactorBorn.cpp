@@ -78,7 +78,6 @@ complex_t IFormFactorBorn::bigZPart(const Bin1DCVector& q_bin) const
     double z_average_intensity =
         (bigZPartIntegral(qH2max) - bigZPartIntegral(qH2min)) /
         effective_bin_size_h2;
-    assert(z_average_intensity);
     double z_modulus = std::sqrt(z_average_intensity);
 
     return z_phase*z_modulus;

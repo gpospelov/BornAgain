@@ -18,7 +18,7 @@
 
 #include "Numeric.h"
 #include "Types.h"
-
+#include "WinDllMacros.h"
 
 //! @class Bin1D
 //! @ingroup tools_internal

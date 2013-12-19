@@ -95,7 +95,7 @@ namespace OutputDataFunctions
         double xc, double yc, double rx, double ry);
 
     // compare result with reference and return the difference
-    double GetDifference(const OutputData<double> &result,
+    BA_CORE_API_ double GetDifference(const OutputData<double> &result,
                          const OutputData<double> &reference);
 }
 

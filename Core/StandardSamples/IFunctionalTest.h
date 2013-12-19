@@ -26,7 +26,7 @@
 //! @ingroup standard_samples
 //! @brief Interface to the functional tests
 
-class IFunctionalTest
+class BA_CORE_API_ IFunctionalTest
 {
 public:
     virtual ~IFunctionalTest() {}
@@ -38,7 +38,7 @@ public:
 //! @ingroup standard_samples
 //! @brief Functional test info and description
 
-class FunctionalTestInfo
+class BA_CORE_API_ FunctionalTestInfo
 {
 public:
     FunctionalTestInfo()
@@ -62,7 +62,7 @@ public:
 //! @ingroup standard_samples
 //! @brief Basic functional test
 
-class FunctionalTest : public IFunctionalTest
+class BA_CORE_API_ FunctionalTest : public IFunctionalTest
 {
 public:
     enum TestResult { SUCCESS, FAILED};

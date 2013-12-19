@@ -22,7 +22,7 @@
 //! @ingroup tools
 //! @brief Binned axis.
 
-class AxisBin : public IAxis
+class BA_CORE_API_ AxisBin : public IAxis
 {
 public:
     //! constructors

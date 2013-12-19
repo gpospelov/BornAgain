@@ -22,7 +22,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample: Core Shell Nanoparticles (IsGISAXS example #11)
 
-class IsGISAXS11Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS11Builder : public ISampleBuilder
 {
 public:
     IsGISAXS11Builder();

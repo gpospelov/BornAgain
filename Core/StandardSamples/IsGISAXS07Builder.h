@@ -22,7 +22,7 @@
 //! @ingroup standard_samples
 //! @brief Builds sample: mixture of different particles (IsGISAXS example #7)
 
-class IsGISAXS07Builder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS07Builder : public ISampleBuilder
 {
 public:
     IsGISAXS07Builder();

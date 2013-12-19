@@ -61,6 +61,9 @@ target_link_libraries(
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
 )
+message("XXX ${BornAgainCore_LIBRARY}")
+
+
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS})
     target_link_libraries(${library_name} ${PYTHON_LIBRARIES})

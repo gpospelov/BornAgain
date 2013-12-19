@@ -19,7 +19,6 @@
 #include "FitSuiteObserverFactory.h"
 #include "IsGISAXSTools.h"
 #include "MinimizerFactory.h"
-#include "ROOTGSLSimAnMinimizer.h"
 #include "TestToySimulation.h"
 
 #include <iostream>

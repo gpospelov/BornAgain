@@ -36,6 +36,7 @@ set(XLIBS "${XPMLIBDIR} ${XPMLIB} ${X11LIBDIR} -lXext -lX11")
 set(CILIBS "-lm -ldl -rdynamic")
 set(CRYPTLIBS "-lcrypt")
 set(CMAKE_M_LIBS -lm)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -include WinDllMacros.h")
 
 if(CMAKE_COMPILER_IS_GNUCXX)
   execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -151,7 +152,6 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL Intel)
   set(EXEEXT "")
   set(SOEXT "so")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -include WinDllMacros.h")
 
 endif()
   

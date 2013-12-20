@@ -144,26 +144,6 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
-		<buildTargets>
-			<target name="CMake Release" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>cmake</buildCommand>
-				<buildArguments>-E chdir ../BornAgain_cmake_release/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release -DBORNAGAIN_APP=ON</buildArguments>
-				<buildTarget/>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>false</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="CMake Debug" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>cmake</buildCommand>
-				<buildArguments>-E chdir ../BornAgain_cmake_debug/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Debug -DBORNAGAIN_APP=ON</buildArguments>
-				<buildTarget/>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>false</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-		</buildTargets>
-	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
@@ -187,5 +167,24 @@
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.354676307;cdt.managedbuild.tool.gnu.c.compiler.input.804792853">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="CMake Release" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>cmake</buildCommand>
+				<buildArguments>-E chdir ../BornAgain_cmake_release/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Release -DBORNAGAIN_APP=ON</buildArguments>
+				<buildTarget/>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="CMake Debug" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>cmake</buildCommand>
+				<buildArguments>-E chdir ../BornAgain_cmake_debug/ cmake -G "Unix Makefiles" ../BornAgain/ -DCMAKE_BUILD_TYPE=Debug -DBORNAGAIN_APP=ON</buildArguments>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
 	</storageModule>
 </cproject>

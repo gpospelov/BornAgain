@@ -100,7 +100,7 @@ double IFormFactorBorn::bigZPartIntegral(double qH2) const
 {
     if (qH2<Numeric::double_epsilon) return qH2;
     double qH = 2.0*qH2;
-    return MathFunctions::Si(qH) - 2*std::sin(qH2)*std::sin(qH2)/qH;
+    return MathFunctions::Si(qH) - std::sin(qH2)*std::sin(qH2)/qH2;
 }
 
 

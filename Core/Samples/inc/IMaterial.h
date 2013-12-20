@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/IMaterial.h
-//! @brief     Defines and implements interface class IMaterial.
+//! @brief     Defines interface class IMaterial.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,11 +19,13 @@
 #include "INamed.h"
 #include "Types.h"
 #include "EigenCore.h"
+#include "Transform3D.h"
 #include <string>
 #include <iostream>
 
-
-//! Interface to a named material.
+//! @class IMaterial
+//! @ingroup materials_internal
+//! @brief Interface to a named material.
 
 class BA_CORE_API_ IMaterial : public INamed
 {
@@ -33,6 +35,9 @@ public:
 
     //! Destructor.
     virtual ~IMaterial() {}
+
+    //! Clone
+    virtual IMaterial *clone() const;
 
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted
@@ -57,10 +62,20 @@ public:
     virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
 #endif
 
+    //! Create a new material that is transformed with respect to this one
+    virtual const IMaterial *createTransformedMaterial(
+            const Geometry::Transform3D& transform) const;
+
 protected:
     virtual void print(std::ostream& ostr) const
     { ostr << "IMat:" << getName() << "<" << this << ">"; }
 };
+
+inline IMaterial* IMaterial::clone() const
+{
+    throw Exceptions::NotImplementedException("IMaterial is an interface and "
+            "should not be cloned!");
+}
 
 #ifndef GCCXML_SKIP_THIS
 inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(
@@ -72,7 +87,16 @@ inline Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(
     result = getScatteringMatrix(k_mag2) - xy_proj2*Eigen::Matrix2cd::Identity();
     return result;
 }
+
 #endif // GCCXML_SKIP_THIS
+
+inline const IMaterial* IMaterial::createTransformedMaterial(
+        const Geometry::Transform3D& transform) const
+{
+    (void)transform;
+    throw Exceptions::NotImplementedException("IMaterial is an interface and "
+            "should not be created!");
+}
 
 #endif // IMATERIAL_H
 

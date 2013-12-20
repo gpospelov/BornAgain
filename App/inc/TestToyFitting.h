@@ -17,7 +17,7 @@
 #define TESTTOYFITTING_H
 
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "MathFunctions.h"
 #include "TRandom.h"
 
@@ -29,7 +29,7 @@ class TF2;
 //! TestToyFitting class produces couple of plots used in User Manual's section
 //! "Gentle introduction to the data fitting"
 
-class TestToyFitting : public IFunctionalTest
+class TestToyFitting : public IApplicationTest
 {
 public:
     TestToyFitting();

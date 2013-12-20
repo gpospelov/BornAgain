@@ -40,23 +40,29 @@ include_classes = [
     "Crystal",
     "Detector",
     "FTDistribution2DCauchy",
+    "FormFactorAnisoPyramid",
     "FormFactorBox",
     "FormFactorCone",
+    "FormFactorCone6",
+    "FormFactorCuboctahedron",
     "FormFactorCylinder",
     "FormFactorCrystal",
     "FormFactorDecoratorDebyeWaller",
-    "FormFactorEllipsoid",
+    "FormFactorEllipsoidalCylinder",
     "FormFactorFullSphere",
     "FormFactorFullSpheroid",
     "FormFactorGauss",
-    "FormFactorHemiSpheroid",
+    "FormFactorHemiEllipsoid",
     "FormFactorLorentz",
     "FormFactorParallelepiped",
     "FormFactorPrism3",
     "FormFactorPrism6",
     "FormFactorPyramid",
+    "FormFactorRipple2",
     "FormFactorSphere",
     "FormFactorSphereGaussianRadius",
+    "FormFactorSphereUniformRadius",
+    "FormFactorSpheroid",
     "HomogeneousMaterial",
     "IAxis",
     "ICloneable",
@@ -76,9 +82,10 @@ include_classes = [
     "IResolutionFunction2D",
     "ISample",
     "ISampleBuilder",
+    #"SampleBuilder_t",
     #"ISampleVisitor",
     "ISelectionRule",
-    "ITransform3D",
+    "Transform3D",
     "Instrument",
     "InterferenceFunction1DParaCrystal",
     "InterferenceFunction2DLattice",
@@ -105,8 +112,6 @@ include_classes = [
     "PositionParticleInfo",
     "RealParameterWrapper",
     "ResolutionFunction2DSimple",
-    "RotateY_3D",
-    "RotateZ_3D",
     "Simulation",
     "SimulationParameters",
     "SimpleSelectionRule",
@@ -114,6 +119,7 @@ include_classes = [
     "StochasticDoubleGaussian",
     "StochasticParameter<double>",
     "StochasticSampledParameter",
+    "ThreadInfo",
     "cvector_t",
     "kvector_t",
 ]
@@ -137,7 +143,9 @@ def ManualClassTunings(mb):
     
     # ICompositeSample
     cl = mb.class_('ICompositeSample')
-    cl.member_functions().exclude()
+    for f in cl.member_functions():
+        if "shallow" in f.name:
+            f.exclude()
     
     # BasicVector3D
     methods_to_exclude=[
@@ -193,6 +201,7 @@ def ManualClassTunings(mb):
     cl.member_function("registerParameter").add_transformation( builder_utils.from_address_custom( 1 ) )
     #
     cl = mb.class_("ISampleBuilder")
+    #cl = mb.class_("SampleBuilder_t")
     cl.member_functions().exclude()
     cl.member_function("buildSample").include()
     cl.member_function("buildSample").call_policies = call_policies.return_value_policy(call_policies.manage_new_object)
@@ -219,7 +228,7 @@ def ManualClassTunings(mb):
     for cls in cl.constructors():
         if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const & )" in cls.decl_string:
             cls.include()
-	if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::PTransform3D const & )" in cls.decl_string:
+        if "( ::Particle::* )( ::IMaterial const *,::IFormFactor const &,::Geometry::Transform3D const & )" in cls.decl_string:
             cls.include()
 
     #
@@ -249,7 +258,15 @@ def ManualClassTunings(mb):
         call_policies.return_value_policy(call_policies.manage_new_object)
     cl.member_function("getPolarizedIntensityData").call_policies = \
         call_policies.return_value_policy(call_policies.manage_new_object)
-
+    #
+    mb.class_("Transform3D").member_function("createIdentity").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateX").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateY").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
+    mb.class_("Transform3D").member_function("createRotateZ").call_policies = \
+        call_policies.return_value_policy(call_policies.return_by_value)
     #
     cl = mb.class_("ParticleCoreShell")
     cl.member_functions().exclude()
@@ -259,11 +276,12 @@ def ManualClassTunings(mb):
     #
     mb.namespace("MathFunctions").free_function("GenerateNormalRandom").include()
     #
-    mb.namespace("AppVersion").free_function("GetMajorVersionNumber").include()
-    mb.namespace("AppVersion").free_function("GetMinorVersionNumber").include()
-    mb.namespace("AppVersion").free_function("GetPatchVersionNumber").include()
-    mb.namespace("AppVersion").free_function("GetVersionNumber").include()
-    
+    mb.namespace("BornAgain").free_function("GetMajorVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetMinorVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetPatchVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetVersionNumber").include()
+    mb.namespace("BornAgain").free_function("GetName").include()
+
 
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):
@@ -307,6 +325,10 @@ def MakePythonAPI(OutputTempDir):
     # general rules
     # -----------------
 
+    #for x in mb.classes():
+        #if "SampleBuilder" in x.name:
+            #print "XXX",x.name
+
     builder_utils.IncludeClasses(mb, include_classes)
 
     builder_utils.DefineGeneralRules(mb)
@@ -329,7 +351,7 @@ def MakePythonAPI(OutputTempDir):
     # default policies for what remained unchanged
     # -----------------
 
-    #builder_utils.IncludePureVirtualMethods(mb, include_classes)
+    builder_utils.IncludePureVirtualMethods(mb, include_classes)
 
     builder_utils.DefaultReturnPolicy(mb)
 

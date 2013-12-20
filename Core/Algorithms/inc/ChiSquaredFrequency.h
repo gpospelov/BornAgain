@@ -18,9 +18,11 @@
 
 #include "IChiSquaredModule.h"
 
-//! ?
+//! @class ChiSquaredFrequency
+//! @ingroup algorithms_internal
+//! @brief Calculation of chi2 in fourier transformed space
 
-class ChiSquaredFrequency : public IChiSquaredModule
+class BA_CORE_API_ ChiSquaredFrequency : public IChiSquaredModule
 {
 public:
     ChiSquaredFrequency()

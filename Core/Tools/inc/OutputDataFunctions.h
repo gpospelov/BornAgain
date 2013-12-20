@@ -63,7 +63,7 @@ namespace OutputDataFunctions
 
     //! Slice data, having one bin on selected axis fixed. Resulting output
     //! data will have one axis less (without axis 'fixed_axis_name')
-    OutputData<double> *sliceAccrossOneAxis(
+    BA_CORE_API_ OutputData<double> *sliceAccrossOneAxis(
         const OutputData<double>& data, const std::string& fixed_axis_name,
         double fixed_axis_value);
 
@@ -74,7 +74,7 @@ namespace OutputDataFunctions
         double axis_value1, double axis_value2);
 
     //! apply intensity function to values stored in output data
-    void applyFunction(
+    BA_CORE_API_ void applyFunction(
         OutputData<double>& data, const IIntensityFunction *func);
 
     //! Creates a rectangular mask based on the given OutputData object and
@@ -93,6 +93,10 @@ namespace OutputDataFunctions
     BA_CORE_API_ Mask *CreateEllipticMask(
         const OutputData<double>& data,
         double xc, double yc, double rx, double ry);
+
+    // compare result with reference and return the difference
+    BA_CORE_API_ double GetDifference(const OutputData<double> &result,
+                         const OutputData<double> &reference);
 }
 
 #endif // OUTPUTDATAFUNCTIONS_H

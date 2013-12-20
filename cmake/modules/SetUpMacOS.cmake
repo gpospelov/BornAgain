@@ -117,7 +117,8 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
   #---Set Linker flags----------------------------------------------------------------------
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,@loader_path/../lib")
 
-  
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_SOURCE_DIR}/Core/Tools/inc -include WinDllMacros.h")
+
 else (CMAKE_SYSTEM_NAME MATCHES Darwin)
   MESSAGE(FATAL_ERROR "There is no setup for this this Apple system up to now. Don't know waht to do. Stop cmake at this point.")
 endif (CMAKE_SYSTEM_NAME MATCHES Darwin)

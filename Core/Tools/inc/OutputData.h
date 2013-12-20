@@ -31,15 +31,18 @@ typedef _object PyObject;
 #include "SafePointerVector.h"
 #include "ThreadInfo.h"
 #include <sstream>
+#include <cassert>
 
-//! Store data of any type in multi-dimensional space.
+//! @class OutputData
+//! @ingroup tools
+//! @brief Template class to store data of any type in multi-dimensional space.
 
 template <class T>
 class OutputData
 {
 public:
     OutputData();
-    ~OutputData() { clear(); }
+    ~OutputData();
     OutputData* clone() const;
 
     void copyFrom(const OutputData<T>& x);
@@ -239,6 +242,11 @@ OutputData<T>::OutputData()
     allocate();
 }
 
+template <class T> OutputData<T>::~OutputData() {
+    clear();
+    delete mp_ll_data;
+}
+
 template <class T>
 OutputData<T>* OutputData<T>::clone() const
 {
@@ -337,6 +345,7 @@ size_t OutputData<T>::getAxisIndex(const std::string& label) const
 template<class T>
 inline std::vector<size_t> OutputData<T>::getAllSizes() const
 {
+    assert(mp_ll_data);
     std::vector<size_t> result;
     for (size_t i=0; i<getRank(); ++i) {
         int dim = mp_ll_data->getDimensions()[i];
@@ -348,6 +357,7 @@ inline std::vector<size_t> OutputData<T>::getAllSizes() const
 template <class T>
 inline std::vector<T> OutputData<T>::getRawDataVector() const
 {
+    assert(mp_ll_data);
     std::vector<T> result;
     for (size_t i=0; i<getAllocatedSize(); ++i)
         result.push_back((*mp_ll_data)[i]);
@@ -357,6 +367,7 @@ inline std::vector<T> OutputData<T>::getRawDataVector() const
 template <class T>
 void OutputData<T>::fillRawDataArray(T *destination) const
 {
+    assert(mp_ll_data);
     for (size_t i=0; i<getAllocatedSize(); ++i)
         destination[i] = (*mp_ll_data)[i];
     return;
@@ -465,6 +476,7 @@ void OutputData<T>::removeAllMasks()
 template<class T>
 std::vector<int> OutputData<T>::toCoordinates(size_t index) const
 {
+    assert(mp_ll_data);
     size_t remainder = index;
     std::vector<int> result;
     result.resize(mp_ll_data->getRank());
@@ -481,6 +493,7 @@ std::vector<int> OutputData<T>::toCoordinates(size_t index) const
 template<class T>
 int OutputData<T>::toCoordinate(size_t index, size_t i_selected_axis) const
 {
+    assert(mp_ll_data);
     size_t remainder(index);
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
@@ -496,6 +509,7 @@ int OutputData<T>::toCoordinate(size_t index, size_t i_selected_axis) const
 template <class T>
 size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
 {
+    assert(mp_ll_data);
     if (coordinates.size() != mp_ll_data->getRank())
         throw LogicErrorException(
                     "size_t OutputData<T>::toIndex() -> "
@@ -558,6 +572,7 @@ Bin1D OutputData<T>::getBinOfAxis(const std::string& axis_name, size_t index) co
 template<class T>
 inline T OutputData<T>::totalSum() const
 {
+    assert(mp_ll_data);
     return mp_ll_data->getTotalSum();
 }
 
@@ -565,21 +580,24 @@ template <class T>
 void OutputData<T>::clear()
 {
     m_value_axes.clear();
-    delete mp_ll_data;
-    mp_ll_data = 0;
     delete mp_mask;
     mp_mask = 0;
+    allocate();
 }
 
 template <class T>
 void OutputData<T>::setAllTo(const T& value)
 {
+    if(!mp_ll_data)
+        throw ClassInitializationException("OutputData::setAllTo() -> Error! Low-level data object was not yet initialized.");
     mp_ll_data->setAll(value);
 }
 
 template <class T>
 void OutputData<T>::scaleAll(const T& factor)
 {
+    if(!mp_ll_data)
+        throw ClassInitializationException("OutputData::scaleAll() -> Error! Low-level data object was not yet initialized.");
     mp_ll_data->scaleAll(factor);
 }
 
@@ -598,6 +616,7 @@ void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
 template<class T>
 const OutputData<T>& OutputData<T>::operator+=(const OutputData<T>& right)
 {
+    assert(mp_ll_data);
     *this->mp_ll_data += *right.mp_ll_data;
     return *this;
 }
@@ -605,6 +624,7 @@ const OutputData<T>& OutputData<T>::operator+=(const OutputData<T>& right)
 template<class T>
 const OutputData<T>& OutputData<T>::operator-=(const OutputData<T>& right)
 {
+    assert(mp_ll_data);
     *this->mp_ll_data -= *right.mp_ll_data;
     return *this;
 }
@@ -612,6 +632,7 @@ const OutputData<T>& OutputData<T>::operator-=(const OutputData<T>& right)
 template<class T>
 const OutputData<T>& OutputData<T>::operator*=(const OutputData<T>& right)
 {
+    assert(mp_ll_data);
     *this->mp_ll_data *= *right.mp_ll_data;
     return *this;
 }
@@ -619,6 +640,7 @@ const OutputData<T>& OutputData<T>::operator*=(const OutputData<T>& right)
 template<class T>
 const OutputData<T>& OutputData<T>::operator/=(const OutputData<T>& right)
 {
+    assert(mp_ll_data);
     *this->mp_ll_data /= *right.mp_ll_data;
     return *this;
 }

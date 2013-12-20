@@ -15,20 +15,25 @@
 
 #include "FormFactorCone.h"
 #include "StochasticDiracDelta.h"
-#include "MathFunctions.h"
 #include "Numeric.h"
-#include "Units.h"
-#include "Exceptions.h"
-#include <iostream>
+#include "MathFunctions.h"
+#include <cmath>
 #include "MemberFunctionIntegrator.h"
+#include "MemberComplexFunctionIntegrator.h"
 
-FormFactorCone::FormFactorCone(double radius,double height,double alpha)
+FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 {
     setName("FormFactorCone");
     m_radius = radius;
     m_height = height;
     m_alpha = alpha;
+    assert(m_height <= m_radius*std::tan(m_alpha));
     init_parameters();
+
+    MemberComplexFunctionIntegrator<FormFactorCone>::mem_function p_mf =
+       & FormFactorCone::Integrand;
+    m_integrator =
+        new MemberComplexFunctionIntegrator<FormFactorCone>(p_mf, this);
 }
 
 void FormFactorCone::init_parameters()
@@ -46,72 +51,39 @@ FormFactorCone* FormFactorCone::clone() const
    return result;
 }
 
-//! Real part of the integral.
 
-double FormFactorCone::evaluate_for_q_real() const
+//! Integrand for complex formfactor.
+complex_t FormFactorCone::Integrand(double Z, void* params) const
 {
-    double H = m_height;
-    MemberFunctionIntegrator<FormFactorCone>::mem_function p_mf =
-       & FormFactorCone::ConeIntegralReal;
-    MemberFunctionIntegrator<FormFactorCone> integrator(p_mf,this);
-    return integrator.integrate(0, H, (void *)0);
+    (void)params;  // to avoid unused-variable warning
+    double Rz = m_radius -Z/std::tan(m_alpha);
+    complex_t q_p = m_q.magxy(); // sqrt(x*x + y*y)
+
+    return Rz*Rz*MathFunctions::Bessel_C1(std::abs(q_p*Rz)) *
+            std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 
-//! Integrand for real part of the integral.
-
-double FormFactorCone::ConeIntegralReal(double Z, void* params) const
-{
-    (void)params;
-    complex_t qz = m_q.z();
-    complex_t qx = m_q.x();
-    complex_t qy = m_q.y();
-    double R = m_radius;
-    double tan_alpha = std::tan(m_alpha);
-    double Rz  = R-(Z/tan_alpha);
-    double qrRz = std::abs(std::sqrt((qx)*(qx) + (qy)*(qy))*Rz);
-    double J1_qrRz_div_qrRz = std::abs(qrRz) > Numeric::double_epsilon ?
-        MathFunctions::Bessel_J1(std::abs(qrRz))/qrRz :
-        0.5;
-    double exp_real = std::exp(complex_t(0.0, 1.0)*qz*Z).real();
-    return 2*M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_real;
-}
-
-//! Imaginary part of the integral.
-
-double FormFactorCone::evaluate_for_q_imag() const
-{
-    double H = m_height;
-    MemberFunctionIntegrator<FormFactorCone>::mem_function p_mf =
-       & FormFactorCone::ConeIntegralImaginary;
-    MemberFunctionIntegrator<FormFactorCone> integrator(p_mf,this);
-    return integrator.integrate(0, H, (void *)0);
-}
-
-//! Integrand for imaginary part of the integral.
-
-double FormFactorCone::ConeIntegralImaginary(double Z, void* params) const
-{
-    (void)params;
-    complex_t qz = m_q.z();
-    complex_t qx = m_q.x();
-    complex_t qy = m_q.y();
-    double R = m_radius;
-    double tan_alpha = std::tan(m_alpha);
-    double Rz  = R-(Z/tan_alpha);
-    double qrRz = std::abs(std::sqrt((qx)*(qx) + (qy)*(qy))*Rz);
-    double J1_qrRz_div_qrRz = std::abs(qrRz) > Numeric::double_epsilon ?
-        MathFunctions::Bessel_J1(std::abs(qrRz))/qrRz :
-        0.5;
-    double exp_imag = std::exp(complex_t(0.0, 1.0)*qz*Z).imag();
-    return 2*M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_imag;
-}
-
-//! Complex integral computed as sum of real and imaginary part.
+//! Complex formfactor.
 
 complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
-{
-     m_q = q;
-     return complex_t(evaluate_for_q_real(), evaluate_for_q_imag());
+{   m_q = q;
+
+  if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
+
+        double R = m_radius;
+        double H = m_height;
+        double tga = std::tan(m_alpha);
+        double HdivRtga = H/tga/R;
+
+        return  M_PI/3.0*tga*R*R*R*
+                (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
+
+    } else {
+
+        complex_t integral = m_integrator->integrate(0., m_height);
+
+        return 2.0*M_PI*integral;
+    }
 }
 
 

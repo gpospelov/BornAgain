@@ -17,7 +17,7 @@
 #define TESTISGISAXS5_H
 
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "ISampleBuilder.h"
 
 class Simulation;
@@ -25,7 +25,7 @@ class FitSuite;
 
 //! IsGISAXS ex#5: LMA fit of cylinders with size distribution and 1D paracrystal interference function.
 
-class TestIsGISAXS5 : public IFunctionalTest
+class TestIsGISAXS5 : public IApplicationTest
 {
 public:
     TestIsGISAXS5();
@@ -64,7 +64,7 @@ private:
     void run_isgisaxs_fit();
 
     Simulation *mp_simulation;
-    ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     FitSuite *mp_fitSuite;
 };
 

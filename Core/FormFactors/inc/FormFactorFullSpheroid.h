@@ -18,15 +18,23 @@
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
+#include "MemberComplexFunctionIntegrator.h"
 
-//! Formfactor of a ?
+//! @class FormFactorFullSpheroid
+//! @ingroup formfactors
+//! @brief The formfactor of a full spheroid.
 
 class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 {
 public:
+    //! @brief Full spheroid constructor
+    //! @param radius of spheroid
+    //! @param height of spheroid
+
     FormFactorFullSpheroid(double radius, double height);
-    double FullSpheroidIntegral(double Z, void* params) const;
-    ~FormFactorFullSpheroid() {}
+
+    ~FormFactorFullSpheroid() {delete m_integrator;}
+
     virtual FormFactorFullSpheroid *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
@@ -35,19 +43,22 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-protected:
+    virtual double getRadius() const { return m_radius; }
+
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
+
+protected:
     virtual void init_parameters();
 
 private:
-    double evaluate_for_q_real() const;
-    complex_t evaluate_for_q_imag() const;
-    double FullSpheroidIntegralReal(double Z, void* params) const;
-    double FullSpheroidIntegralImaginary(double Z, void* params) const;
+
+    complex_t Integrand(double Z, void* params) const;
 
     double m_radius;
     double m_height;
     mutable cvector_t m_q;
+
+    MemberComplexFunctionIntegrator<FormFactorFullSpheroid> *m_integrator;
 };
 
 #endif // FORMFACTORFULLSPHEROID_H

@@ -23,6 +23,7 @@
 #include "MaterialManager.h"
 #include "IStochasticParameter.h"
 #include "OutputData.h"
+#include "ISampleBuilder.h"
 
 //! this is special namespace to help Py++ generate correct names
 namespace pyplusplus {
@@ -40,6 +41,7 @@ namespace pyplusplus {
         typedef OutputData<double > IntensityData;
         typedef std::vector<int > vector_integer_t;
         typedef std::vector<unsigned long int > vector_longinteger_t;
+        //typedef boost::shared_ptr<class ISampleBuilder > SampleBuilder_t;
     }
 }
 
@@ -61,6 +63,7 @@ namespace pyplusplus {
     inline size_t pyplusplus_boost_vector_integer() { return sizeof(pyplusplus::aliases::vector_integer_t); }
     inline size_t pyplusplus_boost_vector_longinteger() { return sizeof(pyplusplus::aliases::vector_longinteger_t); }
     inline size_t pyplusplus_boost_intensity_data() { return sizeof(pyplusplus::aliases::IntensityData); }
+    //inline size_t pyplusplus_boost_sample_builder() { return sizeof(pyplusplus::aliases::SampleBuilder_t); }
 }
 
 #endif // PYTHONCOREEXPOSER_H

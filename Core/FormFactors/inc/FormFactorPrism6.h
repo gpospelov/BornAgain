@@ -17,12 +17,17 @@
 #define FORMFACTORPRISM6_H
 #include "IFormFactorBorn.h"
 
-//! Formfactor of a prism based on a regular hexagonal.
+//! @class FormFactorPrism6
+//! @ingroup formfactors
+//! @brief The formfactor of a prism based on a regular hexagonal.
 
 class BA_CORE_API_ FormFactorPrism6 : public IFormFactorBorn
 {
 public:
-    FormFactorPrism6(double height, double half_side);
+    //! @brief prism6 constructor
+    //! @param radius of hexagonal base (different from R in IsGisaxs)
+    //! @param height of prism6
+    FormFactorPrism6(double radius, double height);
     ~FormFactorPrism6() {}
     virtual FormFactorPrism6 *clone() const;
 
@@ -33,8 +38,8 @@ public:
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }
 
-    virtual double getHalfSide() const { return m_half_side; }
-    virtual void setHalfSide(double half_side) { m_half_side = half_side; }
+    virtual double getRadius() const { return m_radius; }
+    virtual void setRadius(double radius) { m_radius = radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -43,7 +48,7 @@ protected:
 
 private:
     double m_height;
-    double m_half_side;
+    double m_radius;
     double m_root3; // Cached value of square root of 3
 };
 

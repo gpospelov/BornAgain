@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/src/FormFactorDecoratorTransformation.cpp
-//! @brief     Just include FormFactorDecoratorTransformation.h
+//! @brief     Implements class FormFactorDecoratorTransformation
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,7 @@
 FormFactorDecoratorTransformation *FormFactorDecoratorTransformation::clone() const
 {
     FormFactorDecoratorTransformation *result =  new FormFactorDecoratorTransformation(
-        mp_form_factor->clone(), mP_transform);
+                mp_form_factor->clone(), *mP_transform.get());
 
     result->setName(getName());
     return result;

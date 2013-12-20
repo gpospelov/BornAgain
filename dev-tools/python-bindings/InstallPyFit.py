@@ -64,6 +64,9 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude):
     fout.write("BOOST_PYTHON_MODULE(libBornAgainFit){\n")
     fout.write("\n")
 
+    fout.write("    boost::python::docstring_options doc_options(true, true, false);\n")
+    fout.write("\n")
+
     # copying register lines from automaticaly generated module file to our manually generated
     old_python_module_file = OutputTempDir+"/PythonInterface.main.cpp"
     fin = open(old_python_module_file,'r')
@@ -101,8 +104,8 @@ def InstallCode(OutputTempDir, InstallDir):
     files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
     files = files_inc+files_src
 
-    python_pri_file = GenerateProjectFile(OutputTempDir, files_inc, files_src)
-    files.append(python_pri_file)
+#    python_pri_file = GenerateProjectFile(OutputTempDir, files_inc, files_src)
+#    files.append(python_pri_file)
 
     python_module_file = GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude)
     files.append(python_module_file)

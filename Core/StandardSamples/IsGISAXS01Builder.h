@@ -1,11 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IsGISAXS01Builder.h
+//! @brief     Defines class IsGISAXS01Builder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISGISAXS01BUILDER_H
 #define ISGISAXS01BUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS01Builder class to build sample: mixture of cylinders and prisms
-//! without interference (IsGISAXS example #1)
-class IsGISAXS01Builder : public ISampleBuilder
+//! @class IsGISAXS01Builder
+//! @ingroup standard_samples
+//! @brief Builds sample: mixture of cylinders and prisms without interference
+//! (IsGISAXS example #1)
+
+class BA_CORE_API_ IsGISAXS01Builder : public ISampleBuilder
 {
 public:
     IsGISAXS01Builder();

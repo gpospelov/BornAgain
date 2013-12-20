@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IsGISAXS04Builder.cpp
+//! @brief     Implements class IsGISAXS04Builder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "IsGISAXS04Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
@@ -33,8 +48,8 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     MultiLayer *multi_layer = new MultiLayer();
 
 //    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     const IMaterial *p_air_material =
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
@@ -44,8 +59,12 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_corr_peak_distance,m_corr_width, m_corr_length);
-    ParticleDecoration particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
+    IInterferenceFunction *p_interference_function =
+            new InterferenceFunction1DParaCrystal(
+                    m_corr_peak_distance,m_corr_width, m_corr_length);
+    ParticleDecoration particle_decoration( new Particle(
+            particle_material, new FormFactorCylinder(
+                    m_cylinder_height, m_cylinder_radius) ) );
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     air_layer.setDecoration(particle_decoration);
@@ -88,8 +107,8 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     MultiLayer *multi_layer = new MultiLayer();
 
 //    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     const IMaterial *p_air_material =
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *p_substrate_material =
@@ -99,11 +118,14 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    InterferenceFunction2DParaCrystal *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(m_peak_distance, m_corr_length,
-                                                                                                                    m_domain_size_1, m_domain_size_2);
+    InterferenceFunction2DParaCrystal *p_interference_function =
+            InterferenceFunction2DParaCrystal::createHexagonal(
+                    m_peak_distance, m_corr_length,
+                    m_domain_size_1, m_domain_size_2);
     FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf, pdf);
-    ParticleDecoration particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
+    ParticleDecoration particle_decoration( new Particle(particle_material,
+            new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     air_layer.setDecoration(particle_decoration);

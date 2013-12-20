@@ -19,7 +19,11 @@
 #include "LayerDWBASimulation.h"
 #include "DiffuseParticleInfo.h"
 
-class DiffuseDWBASimulation: public LayerDWBASimulation
+//! @class DiffuseDWBASimulation
+//! @ingroup algorithms_internal
+//! @brief Calculation of diffuse scattering in DWBA
+
+class BA_CORE_API_ DiffuseDWBASimulation: public LayerDWBASimulation
 {
 public:
     DiffuseDWBASimulation()

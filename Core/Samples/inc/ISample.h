@@ -23,7 +23,9 @@
 class ICompositeSample;
 class DWBASimulation;
 
-//! Interface for objects related to scattering
+//! @class ISample
+//! @ingroup samples_internal
+//! @brief Interface for objects related to scattering.
 
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
@@ -32,15 +34,18 @@ public:
     virtual ~ISample() {}
 
     //! Returns pointer to "this", if it is composite sample (to overload).
+    virtual ICompositeSample *getCompositeSample() { return 0; }
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
-    virtual ISample *clone() const;
+    virtual ISample *clone() const =0;
 
+    //! @{ @internal
     //! Returns a clone with inverted magnetic fields
     virtual ISample *cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
+    //! \internal Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) const = 0;
+    //! @}
 
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
@@ -56,7 +61,7 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
-    bool containsMagneticMaterial() const;
+    virtual bool containsMagneticMaterial() const;
 
 protected:
     virtual void print(std::ostream& ostr) const;

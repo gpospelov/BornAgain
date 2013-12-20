@@ -18,9 +18,12 @@
 
 #include "Exceptions.h"
 
-//! Information for threads
 
-struct ThreadInfo
+//! @class ThreadInfo
+//! @ingroup simulation
+//! @brief Information to run simulation with dedicated number of threads
+
+struct BA_CORE_API_ ThreadInfo
 {
     ThreadInfo();
     int n_threads;

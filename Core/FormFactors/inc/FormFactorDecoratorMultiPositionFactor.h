@@ -18,15 +18,19 @@
 
 #include "IFormFactorDecorator.h"
 
-//! Form factor for the same particle at different fixed positions
+//! @class FormFactorDecoratorMultiPositionFactor
+//! @ingroup formfactors_internal
+//! @brief The formfactor for the same particle at different fixed positions.
 
-class FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor,
             std::vector<kvector_t> positions);
     virtual ~FormFactorDecoratorMultiPositionFactor() {}
     virtual FormFactorDecoratorMultiPositionFactor *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;

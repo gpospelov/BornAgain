@@ -319,7 +319,6 @@ TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title
     return c1;
 }
 
-//! ?
 
 void DrawHelper::saveReport()
 {

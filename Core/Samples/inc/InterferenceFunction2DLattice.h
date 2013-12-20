@@ -20,19 +20,22 @@
 #include "Lattice2DIFParameters.h"
 #include "FTDistributions.h"
 
-//! ?
+//! @class InterferenceFunction2DLattice
+//! @ingroup interference
+//! @brief Interference function of 2D lattice
 
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
+
+    //! @brief contructor
+    //! @param lattice_params Lattice parameters
     InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
     virtual ~InterferenceFunction2DLattice();
 
-    virtual InterferenceFunction2DLattice *clone() const {
-        InterferenceFunction2DLattice *p_clone = new InterferenceFunction2DLattice(m_lattice_params);
-        p_clone->setProbabilityDistribution(*mp_pdf);
-        return p_clone;
-    }
+    virtual InterferenceFunction2DLattice *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     void setProbabilityDistribution(const IFTDistribution2D& pdf);
 
@@ -61,7 +64,8 @@ private:
     void initialize_rec_vectors();
 
     //! Initializes factors needed in each calculation
-    void initialize_calc_factors();
+    void initialize_calc_factors(double coherence_length_x,
+            double coherence_length_y);
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*

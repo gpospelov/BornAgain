@@ -54,6 +54,7 @@ void DWBASimulation::init(const Simulation& simulation)
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
     m_sim_params = simulation.getSimulationParameters();
+//    m_dwba_intensity.setAllTo(0.);
 
     // initialize polarization output if needed
     if (checkPolarizationPresent()) {
@@ -65,6 +66,7 @@ void DWBASimulation::init(const Simulation& simulation)
             mp_polarization_output->setMask(*simulation.getOutputData()->getMask());
         }
     }
+
 }
 
 const OutputData<double>& DWBASimulation::getDWBAIntensity() const

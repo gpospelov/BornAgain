@@ -97,6 +97,18 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         return ISample::cloneInvertB( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -107,6 +119,18 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ISample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ISample::getCompositeSample( );
     }
 
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
@@ -162,18 +186,6 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         else{
             inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
-    }
-
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -297,6 +309,17 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( InterferenceFunction1DParaCrystal_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -307,6 +330,18 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ISample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( InterferenceFunction1DParaCrystal_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ISample::getCompositeSample)
+                , default_getCompositeSample_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
@@ -351,18 +386,6 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &InterferenceFunction1DParaCrystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( InterferenceFunction1DParaCrystal_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            InterferenceFunction1DParaCrystal_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

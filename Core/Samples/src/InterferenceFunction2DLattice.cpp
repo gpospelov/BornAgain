@@ -34,12 +34,22 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
     delete mp_pdf;
 }
 
+InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
+    InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(m_lattice_params);
+    result->setProbabilityDistribution(*mp_pdf);
+    result->setName(getName());
+    return result;
+}
+
+
 void InterferenceFunction2DLattice::setProbabilityDistribution(
         const IFTDistribution2D& pdf)
 {
-    if (mp_pdf !=& pdf) delete mp_pdf;
+    if (mp_pdf != &pdf) delete mp_pdf;
     mp_pdf = pdf.clone();
-    initialize_calc_factors();
+    double coherence_length_x = mp_pdf->getCoherenceLengthX();
+    double coherence_length_y = mp_pdf->getCoherenceLengthY();
+    initialize_calc_factors(coherence_length_x, coherence_length_y);
 }
 
 double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
@@ -92,15 +102,23 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
 
+
 void InterferenceFunction2DLattice::init_parameters()
 {
     clearParameterPool();
+    registerParameter("length_1", &m_lattice_params.m_length_1);
+    registerParameter("length_2", &m_lattice_params.m_length_2);
+    registerParameter("angle", &m_lattice_params.m_angle);
+    registerParameter("xi", &m_lattice_params.m_xi);
 }
+
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
     if(m_lattice_params.m_length_1==0 || m_lattice_params.m_length_2 == 0) {
-        throw DivisionByZeroException("InterferenceFunction2DLattice::initialize_rec_vectors() -> Error! Zero parameters m_lattice_params.m_length1 or m_lattice_params.m_length_2");
+        throw DivisionByZeroException("InterferenceFunction2DLattice::"
+                "initialize_rec_vectors() -> Error! Zero parameters"
+                " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
     }
     double sinalpha = std::sin(m_lattice_params.m_angle);
     double ainv = 2*M_PI/m_lattice_params.m_length_1/sinalpha;
@@ -113,20 +131,19 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
     m_bsy = binv*std::cos(xi);
 }
 
-void InterferenceFunction2DLattice::initialize_calc_factors()
+void InterferenceFunction2DLattice::initialize_calc_factors(
+        double coherence_length_x, double coherence_length_y)
 {
     // constant prefactor
-    //TODO: for non cauchy distributions: check if this still applies
-    m_prefactor = 2*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
-    double denominator = m_lattice_params.m_length_1*m_lattice_params.m_length_2*std::sin(m_lattice_params.m_angle);
-    assert(denominator);
-    m_prefactor /= denominator;
+    //TODO: for non 2D distributions: check if this still applies
+    m_prefactor = 2.0*M_PI*coherence_length_x*coherence_length_y;
 
     // number of reciprocal lattice points to use
     double qa_max, qb_max;
-    mp_pdf->transformToStarBasis(nmax/m_lattice_params.m_corr_length_1,
-            nmax/m_lattice_params.m_corr_length_2, m_lattice_params.m_angle,
-            m_lattice_params.m_length_1, m_lattice_params.m_length_2, qa_max, qb_max);
+    mp_pdf->transformToStarBasis(nmax/coherence_length_x,
+            nmax/coherence_length_y, m_lattice_params.m_angle,
+            m_lattice_params.m_length_1, m_lattice_params.m_length_2,
+            qa_max, qb_max);
     m_na = (int)(std::abs(qa_max)+0.5);
     m_nb = (int)(std::abs(qb_max)+0.5);
 }

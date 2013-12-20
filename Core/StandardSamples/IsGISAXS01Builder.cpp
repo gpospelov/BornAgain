@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IsGISAXS01Builder.cpp
+//! @brief     Implements class IsGISAXS01Builder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "IsGISAXS01Builder.h"
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
@@ -42,7 +57,6 @@ ISample *IsGISAXS01Builder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
 
     ParticleDecoration particle_decoration;
-//    complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     particle_decoration.addParticle(
@@ -57,7 +71,6 @@ ISample *IsGISAXS01Builder::buildSample() const
                 0.0, 1.0-m_cylinder_weight);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    //LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     air_layer.setDecoration(particle_decoration);
 
     multi_layer->addLayer(air_layer);

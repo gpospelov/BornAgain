@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/BAVersion.h
-//! @brief     Defines namespace AppVersion.
+//! @file      Samples/inc/BAVersion.h
+//! @brief     Defines functions for access to the package version number.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -20,15 +20,15 @@
 #include <string>
 #include <sstream>
 
-namespace AppVersion {
-    const std::string g_app_name = "BornAgain";
+namespace BornAgain {
     const int major_version_number = 0;
     const int minor_version_number = 9;
-    const int patch_version_number = 2;
+    const int patch_version_number = 3;
 
     inline int GetMajorVersionNumber() { return major_version_number; }
     inline int GetMinorVersionNumber() { return minor_version_number; }
     inline int GetPatchVersionNumber() { return patch_version_number; }
+    inline std::string GetName() { return std::string("BornAgain"); }
 
     inline std::string GetVersionNumber()
     {

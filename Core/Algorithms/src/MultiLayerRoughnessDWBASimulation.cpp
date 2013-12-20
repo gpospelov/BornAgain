@@ -16,6 +16,7 @@
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "MultiLayer.h"
 #include "DWBADiffuseReflection.h"
+#include "BornAgainNamespace.h"
 
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
@@ -37,13 +38,13 @@ void MultiLayerRoughnessDWBASimulation::run()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2*M_PI/m_ki_real.mag();
 
-    DWBASimulation::iterator it_intensity = begin();
-    while ( it_intensity != m_dwba_intensity.end() )
+    DWBASimulation::iterator it_intensity = m_dwba_intensity.begin(m_thread_info);
+    while ( it_intensity != m_dwba_intensity.end(m_thread_info) )
     {
         double phi_f = getDWBAIntensity().getValueOfAxis(
-            "phi_f", it_intensity.getIndex());
+            BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
         double alpha_f = getDWBAIntensity().getValueOfAxis(
-            "alpha_f", it_intensity.getIndex());
+            BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
@@ -59,8 +60,8 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
     kvector_t ki_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
     kvector_t kf_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
     kvector_t q = kf_real - ki_real;
-    double autocorr(0);
-    complex_t crosscorr(0);
+    double autocorr(0.0);
+    complex_t crosscorr(0.0, 0.0);
 
     std::vector<complex_t > rterm;
     rterm.resize( mp_multi_layer->getNumberOfLayers() );

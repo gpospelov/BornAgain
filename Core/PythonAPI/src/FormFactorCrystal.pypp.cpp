@@ -102,6 +102,18 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return ISample::cloneInvertB( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -124,6 +136,18 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ISample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ISample::getCompositeSample( );
     }
 
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
@@ -227,18 +251,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         else{
             inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
-    }
-
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -354,6 +366,17 @@ void register_FormFactorCrystal_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorCrystal_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            FormFactorCrystal_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&FormFactorCrystal_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IFormFactor::createDistributedFormFactors
         
             typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
@@ -377,6 +400,18 @@ void register_FormFactorCrystal_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&FormFactorCrystal_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ISample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorCrystal_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            FormFactorCrystal_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ISample::getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorCrystal_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
@@ -465,18 +500,6 @@ void register_FormFactorCrystal_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCrystal_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( FormFactorCrystal_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            FormFactorCrystal_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&FormFactorCrystal_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

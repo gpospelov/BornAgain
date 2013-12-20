@@ -16,7 +16,7 @@
 #ifndef TESTDIFFUSEREFLECTION_H
 #define TESTDIFFUSEREFLECTION_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "TH2D.h"
 
@@ -24,7 +24,7 @@ class MultiLayer;
 
 //! Test diffuse (off-specular) reflection from multilayer.
 
-class TestDiffuseReflection : public IFunctionalTest
+class TestDiffuseReflection : public IApplicationTest
 {
 public:
     TestDiffuseReflection();

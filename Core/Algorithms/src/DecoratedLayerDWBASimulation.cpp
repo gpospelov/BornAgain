@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/LayerDecoratorDWBASimulation.cpp
-//! @brief     Implements class LayerDecoratorDWBASimulation.
+//! @file      Algorithms/src/DecoratedLayerDWBASimulation.cpp
+//! @brief     Implements class DecoratedLayerDWBASimulation.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,6 +17,7 @@
 #include "Layer.h"
 #include "FormFactors.h"
 #include "MessageService.h"
+#include "BornAgainNamespace.h"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -78,9 +79,9 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         while ( it != mp_polarization_output->end(m_thread_info) )
         {
             Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
-                "phi_f", it.getIndex());
+                BornAgain::PHI_AXIS_NAME, it.getIndex());
             Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
-                "alpha_f", it.getIndex());
+                BornAgain::ALPHA_AXIS_NAME, it.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
             if (m_sim_params.me_framework==SimulationParameters::DWBA &&
                     alpha_f<0) {
@@ -104,9 +105,9 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         while ( it_intensity != end() )
         {
             Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
-                "phi_f", it_intensity.getIndex());
+                BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
-                "alpha_f", it_intensity.getIndex());
+                BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
             if (std::abs(mp_specular_info->getOutCoefficients(alpha_f, 0.0)
                     ->getScalarR())!=0.0 && alpha_f<0) {

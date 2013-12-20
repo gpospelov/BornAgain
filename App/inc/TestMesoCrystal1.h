@@ -16,54 +16,18 @@
 #ifndef TESTMESOCRYSTAL1_H_
 #define TESTMESOCRYSTAL1_H_
 
-#include "IFunctionalTest.h"
-#include "OutputData.h"
-#include "FormFactors.h"
-#include "ISample.h"
-#include "ISampleBuilder.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "InterferenceFunctionNone.h"
-#include "MesoCrystal.h"
-#include "Lattice.h"
+#include "IApplicationTest.h"
 
 //! Simulation of 3D ordered particle assemblies.
+//! Test serve for visualization of MesoCrystal1 functional test
 
-class TestMesoCrystal1 : public IFunctionalTest
+class TestMesoCrystal1 : public IApplicationTest
 {
 public:
-    TestMesoCrystal1();
-    virtual ~TestMesoCrystal1();
+    TestMesoCrystal1(){}
+    virtual ~TestMesoCrystal1(){}
     virtual void execute();
 
-    class SampleBuilder : public ISampleBuilder
-    {
-    public:
-        SampleBuilder();
-        virtual ~SampleBuilder(){}
-
-        virtual ISample *buildSample() const;
-    protected:
-        //! Initializes pool parameters
-        virtual void init_parameters();
-    private:
-        MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle,
-                const IFormFactor *p_meso_form_factor) const;
-        const Lattice *createLattice(double stacking_radius) const;
-        double m_meso_radius;
-        double m_surface_filling_ratio;
-        double m_meso_height;
-        double m_sigma_meso_height;
-        double m_sigma_meso_radius;
-        double m_lattice_length_a;
-        double m_nanoparticle_radius;
-        double m_sigma_nanoparticle_radius;
-        double m_sigma_lattice_length_a;
-        double m_roughness;
-    };
-
-private:
-    OutputData<double> *mp_intensity_output;
-    ISampleBuilder *mp_sample_builder;
 };
 
 #endif /* TESTMESOCRYSTAL1_H_ */

@@ -20,6 +20,7 @@
 #include "DWBASimulation.h"
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
+#include "BornAgainNamespace.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -30,7 +31,7 @@ GCC_DIAG_ON(strict-aliasing);
 Simulation::Simulation()
 : IParameterized("Simulation")
 , mp_sample(0)
-, mp_sample_builder(0)
+//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_polarization_output()
@@ -46,6 +47,7 @@ Simulation::Simulation(const Simulation& other)
 , mp_sample_builder(other.mp_sample_builder)
 , m_instrument(other.m_instrument)
 , m_sim_params(other.m_sim_params)
+, m_thread_info(other.m_thread_info)
 , m_intensity_map()
 , m_polarization_output()
 , m_is_normalized(other.m_is_normalized)
@@ -61,7 +63,7 @@ Simulation::Simulation(const Simulation& other)
 Simulation::Simulation(const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
-, mp_sample_builder(0)
+//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_polarization_output()
@@ -75,7 +77,7 @@ Simulation::Simulation(
     const ISample& p_sample, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(p_sample.clone())
-, mp_sample_builder(0)
+//, mp_sample_builder(0)
 , m_instrument()
 , m_intensity_map()
 , m_polarization_output()
@@ -86,7 +88,7 @@ Simulation::Simulation(
 }
 
 Simulation::Simulation(
-    const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
+    SampleBuilder_t p_sample_builder, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
@@ -106,6 +108,9 @@ Simulation *Simulation::clone() const
 
 void Simulation::prepareSimulation()
 {
+    if(!m_instrument.getDetectorDimension()) {
+        throw LogicErrorException("Simulation::prepareSimulation() -> Error. The detector was not configured.");
+    }
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
@@ -249,12 +254,13 @@ void Simulation::setSample(const ISample& sample)
     mp_sample = sample.clone();
 }
 
-void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
+void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
 {
-    if( !p_sample_builder )
+    if( !p_sample_builder.get() )
         throw NullPointerException(
             "Simulation::setSampleBuilder() -> "
             "Error! Attempt to set null sample builder.");
+
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
     mp_sample = 0;
@@ -287,7 +293,7 @@ std::string Simulation::addParametersToExternalPool(
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    if (mp_sample_builder) {
+    if (mp_sample_builder.get()) {
        // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(
             new_path, external_pool, -1);
@@ -297,33 +303,6 @@ std::string Simulation::addParametersToExternalPool(
     }
 
     return new_path;
-}
-
-void Simulation::smearIntensityFromZAxisTilting()
-{
-    size_t nbr_zetas = 5;
-    double zeta_sigma = 45*Units::degree;
-    std::vector<double> zetas;
-    std::vector<double> probs;
-    createZetaAndProbVectors(zetas, probs, nbr_zetas, zeta_sigma);
-
-    OutputData<double> *p_clone = m_intensity_map.clone();
-    m_intensity_map.setAllTo(0.);
-    OutputData<double>::const_iterator it_clone = p_clone->begin();
-    while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis(
-            "phi_f", it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis(
-            "alpha_f", it_clone.getIndex());
-        for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
-            double newphi =
-                old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
-            double newalpha =
-                old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
-            double prob = probs[zeta_index];
-            addToIntensityMap(newalpha, newphi, prob*(*it_clone++));
-        }
-    }
 }
 
 void Simulation::init_parameters()
@@ -345,13 +324,12 @@ void Simulation::updateIntensityMapAxes()
 
 void Simulation::updateSample()
 {
-    if (mp_sample_builder) {
+    if (mp_sample_builder.get()) {
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             msglog(MSG::INFO) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
-            // p_new_sample belongs to python, don't delete it
             setSample(*p_new_sample);
         } else {
             delete mp_sample;
@@ -400,59 +378,12 @@ void Simulation::setDetectorResolutionFunction(
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
 
-double Simulation::deltaAlpha(double alpha, double zeta) const
-{
-    return std::sin(alpha)*(1.0/std::cos(zeta)-1);
-}
-
-double Simulation::deltaPhi(double alpha, double phi, double zeta) const
-{
-    double qy2 = std::sin(phi)*std::sin(phi) -
-        std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
-    return std::sqrt(qy2) - std::sin(phi);
-}
-
-void Simulation::createZetaAndProbVectors(
-    std::vector<double>& zetas,
-    std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
-{
-    double zeta_step;
-    if (nbr_zetas<2) {
-        zeta_step = 0;
-    } else {
-        zeta_step = 2*zeta_sigma/(nbr_zetas-1);
-    }
-    double zeta_start = -zeta_sigma;
-    double prob_total = 0;
-    for (size_t i=0; i<nbr_zetas; ++i) {
-        double zeta = zeta_start + i*zeta_step;
-        double prob = MathFunctions::Gaussian(zeta, 0., zeta_sigma);
-        zetas.push_back(zeta);
-        probs.push_back(prob);
-        prob_total += prob;
-    }
-    assert(prob_total != 0);
-    for (size_t i=0; i<nbr_zetas; ++i) {
-        probs[i] /= prob_total;
-    }
-}
-
 void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
 {
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();
     if (p_dwba_simulation->hasPolarizedOutputData()) {
         m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
     }
-}
-
-void Simulation::addToIntensityMap(double alpha, double phi, double value)
-{
-    const IAxis *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
-    const IAxis *p_phi_axis = m_intensity_map.getAxis("phi_f");
-    std::vector<int> coordinates;
-    coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
-    coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
-    m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
 
 OutputData<double>* Simulation::getPolarizedIntensityData(int row, int column) const

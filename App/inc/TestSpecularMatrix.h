@@ -16,7 +16,7 @@
 #ifndef TESTSPECULARMATRIX_H_
 #define TESTSPECULARMATRIX_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "SpecularMatrix.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
@@ -24,7 +24,7 @@
 //! Returns amplitudes for different wave components using the matrix formalism
 //! for several typical multilayer samples and produce validation plots
 
-class TestSpecularMatrix : public IFunctionalTest
+class TestSpecularMatrix : public IApplicationTest
 {
 public:
     TestSpecularMatrix();

@@ -19,15 +19,18 @@
 #include "Types.h"
 #include "IFormFactorDecorator.h"
 
-//! Decorates a form factor with a position dependent phase factor
+//! @class FormFactorDecoratorPositionFactor
+//! @ingroup formfactors_internal
+//! @brief Decorates a formfactor with a position dependent phase factor.
 
-class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
+class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,
             kvector_t position);
     virtual ~FormFactorDecoratorPositionFactor() {}
     virtual FormFactorDecoratorPositionFactor *clone() const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;

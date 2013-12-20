@@ -21,12 +21,16 @@
 
 class Layer;
 
-//! Interface between two layers, possibly with roughness.
+//! @class LayerInterface
+//! @ingroup samples_internal
+//! @brief Interface between two layers, possibly with roughness.
 
-class LayerInterface : public ICompositeSample
+class BA_CORE_API_ LayerInterface : public ICompositeSample
 {
 public:
     virtual ~LayerInterface();
+
+    LayerInterface *clone() const;
 
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }

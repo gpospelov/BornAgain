@@ -23,6 +23,7 @@
 #include "TestMesoCrystal1.h"
 #include "OutputDataFunctions.h"
 #include "OutputDataIOFactory.h"
+#include "FileSystem.h"
 
 TestFourier::TestFourier()
 : mp_intensity_output(0)

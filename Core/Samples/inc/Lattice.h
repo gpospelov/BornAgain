@@ -20,10 +20,13 @@
 #include "ISelectionRule.h"
 #include "TRange.h"
 #include "FastVector.h"
+#include "Transform3D.h"
 
 #include <vector>
 
-//! A Lattice with three basis vectors.
+//! @class Lattice
+//! @ingroup samples
+//! @brief A lattice with three basis vectors.
 
 class BA_CORE_API_ Lattice
 {
@@ -32,6 +35,10 @@ public:
     Lattice(const kvector_t& a1, const kvector_t& a2, const kvector_t& a3);
     Lattice(const Lattice& lattice);
     ~Lattice();
+
+    //! Create transformed lattice
+    Lattice createTransformedLattice(
+            const Geometry::Transform3D& transform) const;
 
     //! Initializes cached data
     void initialize() const;

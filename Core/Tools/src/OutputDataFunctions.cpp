@@ -16,6 +16,7 @@
 #include "OutputDataFunctions.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+#include "MathFunctions.h"
 
 #include <cmath>
 #include <fftw3.h>
@@ -108,7 +109,7 @@ void OutputDataFunctions::FourierTransform(
 }
 
 
-//! Fourier back transform ??
+//! Fourier back transform
 
 void OutputDataFunctions::FourierTransformR(
     const OutputData<complex_t>& source, OutputData<double> *p_destination)
@@ -159,8 +160,6 @@ void OutputDataFunctions::FourierTransformR(
     delete[] n_complex_dims;
 }
 
-//! ?
-
 OutputData<double>* OutputDataFunctions::getRealPart(
     const OutputData<complex_t>& source)
 {
@@ -177,7 +176,6 @@ OutputData<double>* OutputDataFunctions::getRealPart(
     return p_result;
 }
 
-//! ?
 
 OutputData<double>* OutputDataFunctions::getImagPart(
     const OutputData<complex_t>& source)
@@ -195,7 +193,6 @@ OutputData<double>* OutputDataFunctions::getImagPart(
     return p_result;
 }
 
-//! ?
 
 OutputData<double>* OutputDataFunctions::getModulusPart(
         const OutputData<complex_t>& source)
@@ -367,7 +364,6 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     return new_data;
 }
 
-//! ?
 
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
 {
@@ -377,7 +373,6 @@ void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
     }
 }
 
-//! ?
 
 void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
 {
@@ -400,7 +395,6 @@ void OutputDataFunctions::applyFunction(
     }
 }
 
-//! ?
 
 Mask* OutputDataFunctions::CreateRectangularMask(
     const OutputData<double>& data,
@@ -427,7 +421,6 @@ Mask* OutputDataFunctions::CreateRectangularMask(
     return p_result;
 }
 
-//! ?
 
 Mask* OutputDataFunctions::CreateRectangularMask(
     const OutputData<double>& data, double x1, double y1, double x2, double y2)
@@ -440,7 +433,6 @@ Mask* OutputDataFunctions::CreateRectangularMask(
     return OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
 }
 
-//! ?
 
 Mask* OutputDataFunctions::CreateEllipticMask(
     const OutputData<double>& data,
@@ -469,7 +461,6 @@ Mask* OutputDataFunctions::CreateEllipticMask(
     return p_result;
 }
 
-//! ?
 
 Mask* OutputDataFunctions::CreateEllipticMask(
     const OutputData<double>& data, double xc, double yc, double rx, double ry)
@@ -482,3 +473,25 @@ Mask* OutputDataFunctions::CreateEllipticMask(
     return OutputDataFunctions::CreateEllipticMask(data, center, radii);
 }
 
+double OutputDataFunctions::GetDifference(const OutputData<double> &result,
+                     const OutputData<double> &reference)
+{
+    OutputData<double> *c_result = result.clone();
+
+    // Calculating average relative difference.
+    *c_result -= reference;
+    *c_result /= reference;
+
+    double diff(0);
+    for(OutputData<double>::const_iterator it =
+            c_result->begin(); it!=c_result->end(); ++it) {
+        diff+= std::fabs(*it);
+    }
+    diff /= c_result->getAllocatedSize();
+
+    if (MathFunctions::isnan(diff)) throw RuntimeErrorException("diff=NaN!");
+
+    delete c_result;
+
+    return diff;
+}

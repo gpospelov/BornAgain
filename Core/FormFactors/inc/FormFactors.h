@@ -16,9 +16,12 @@
 #ifndef FORMFACTORS_H_
 #define FORMFACTORS_H_
 
+#include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
+#include "FormFactorCone6.h"
 #include "FormFactorCrystal.h"
+#include "FormFactorCuboctahedron.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorDecoratorFactor.h"
@@ -30,19 +33,20 @@
 #include "FormFactorDWBAConstZ.h"
 #include "FormFactorDWBAPol.h"
 #include "FormFactorDWBAPolConstZ.h"
-#include "FormFactorEllipsoid.h"
+#include "FormFactorEllipsoidalCylinder.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorGauss.h"
-#include "FormFactorHemiSpheroid.h"
+#include "FormFactorHemiEllipsoid.h"
 #include "FormFactorLorentz.h"
 #include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"
 #include "FormFactorPrism6.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphere.h"
+#include "FormFactorSpheroid.h"
 #include "FormFactorSphereGaussianRadius.h"
-//#include "FormFactorTetrahedron.h"
+#include "FormFactorTetrahedron.h"
 #include "FormFactorWeighted.h"
 
 #endif /* FORMFACTORS_H_ */

@@ -22,7 +22,10 @@
 //class AxisBin;  // forward declaration needed for conversion constructor
 #include "AxisBin.h"
 
-//! The points of an axis
+
+//! @class AxisDouble
+//! @ingroup tools
+//! @brief Axis with points.
 
 class BA_CORE_API_ AxisDouble : public IAxis
 {
@@ -32,8 +35,7 @@ public:
     AxisDouble(std::string name, size_t size, double start, double end);
 
     //! explicit conversion from BinAxis
-    //TODO: make explicit
-    AxisDouble(const AxisBin& source);
+    explicit AxisDouble(const AxisBin& source);
 
     virtual AxisDouble *clone() const;
 

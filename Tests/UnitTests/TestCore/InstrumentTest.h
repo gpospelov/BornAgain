@@ -2,6 +2,7 @@
 #define INSTRUMENTTEST_H_
 
 #include "Instrument.h"
+#include "BornAgainNamespace.h"
 
 class InstrumentTest : public ::testing::Test
 {
@@ -16,7 +17,7 @@ class InstrumentTest : public ::testing::Test
 
 InstrumentTest::InstrumentTest()
 {
-    m_data.addAxis("phi_f", 10, 0., 10.);
+    m_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
     m_data.addAxis("theta_f", 20, 0., 20.);
 }
 
@@ -48,7 +49,12 @@ TEST_F(InstrumentTest, BeamManipulation)
     EXPECT_FALSE( m_instrument.getDetectorDimension()==2 );
     m_instrument.matchDetectorParameters(m_data);
     EXPECT_TRUE( m_instrument.getDetectorDimension()==2 );
-    //TODO: add axes check
+    const IAxis &axis0 = m_instrument.getDetectorAxis(0);
+    const IAxis &axis1 = m_instrument.getDetectorAxis(1);
+    EXPECT_EQ( axis0.getName(), BornAgain::PHI_AXIS_NAME );
+    EXPECT_EQ( axis0.getSize(), (size_t)10);
+    EXPECT_STREQ( axis1.getName().c_str(), "theta_f" );
+    EXPECT_EQ( axis1.getSize(), (size_t)20);
 
     m_instrument.setBeamIntensity(10);
     EXPECT_EQ( double(10), m_instrument.getIntensity());

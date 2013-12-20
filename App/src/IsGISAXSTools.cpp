@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "IsGISAXSTools.h"
+#include "BornAgainNamespace.h"
 #include "Units.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -120,9 +121,11 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string& histogram_title)
 {
-    if( !&output) throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! Null output data");
+    if( !&output) throw NullPointerException(
+            "IsGISAXSTools::drawOutputDataInPad() -> Error! Null output data");
     if(!gPad) {
-        throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
+        throw NullPointerException(
+            "IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
 
     TH1 *hist(0);
@@ -167,20 +170,23 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
     assert(&output);
     if (output.getRank() !=2)
         throw( "IsGISAXSTools::getOutputDataTH2D() -> "
-               "Warning! Expected number of dimensiobs is 2.");
+               "Warning! Expected number of dimensions is 2.");
 
     std::vector<AxisStructure > haxises;
     haxises.resize(output.getRank());
 
-    // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
+    // we assume variable bin size and prepare [nbins+1] array of left edges
+    // of each bin plus right edge of the last bin
     for(size_t i_axis=0; i_axis<output.getRank(); ++i_axis) {
         const IAxis *axis = output.getAxis(i_axis);
-        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
+        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() ->"
+                " Error! Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
         haxises[i_axis].name = axis->getName();
         if( axis->getSize() == 0) {
-            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Axis with zero size.");
+            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D()"
+                    " -> Error! Axis with zero size.");
         }else if( axis->getSize() == 1 ) {
             // only one bin, let's invent fake bin size
             dx = 0.1*(*axis)[0];
@@ -195,28 +201,25 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
                 }
                 haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
             }
-        haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
+        // right bin edge of last bin, so for 100 bins size of vector will be 101
+        haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.);
         }
     }
 
-    // creation of 2D with variable bin size
-//    std::cout << "XXXYYY " << (int)haxises[0].nbins << " "  << (int)haxises[1].nbins;
-//    for(size_t i=0; i<haxises[0].xbins.size(); ++i) {
-//        std::cout << i << " axis0:" << haxises[0].xbins[i] << std::endl;
-//    }
-//    for(size_t i=0; i<haxises[1].xbins.size(); ++i) {
-//        std::cout << i << " axis1:" << haxises[1].xbins[i] << std::endl;
-//    }
-
-    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+    // creation of 2D histogram with variable bin size
+    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(),
+            (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins,
+            &haxises[1].xbins[0]);
     hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
     hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
 
     OutputData<double>::const_iterator it = output.begin();
     while (it != output.end())
     {
-        double x = output.getValueOfAxis( haxises[0].name.c_str(), it.getIndex() );
-        double y = output.getValueOfAxis( haxises[1].name.c_str(), it.getIndex() );
+        double x = output.getValueOfAxis( haxises[0].name.c_str(),
+                it.getIndex() );
+        double y = output.getValueOfAxis( haxises[1].name.c_str(),
+                it.getIndex() );
         double value = *it++;
         hist2->Fill(x, y, value);
     }
@@ -230,107 +233,41 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
 }
 
 
-
-
-/* ************************************************************************* */
-// create TH2D from OutputData
-/* ************************************************************************* */
-//TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
-//{
-//    assert(&output);
-//    if (output.getNdimensions() !=2) throw( "IsGISAXSTools::getOutputDataTH2D() -> Warning! Expected number of dimensiobs is 2.");
-
-//    std::vector<AxisStructure > haxises;
-//    haxises.resize(output.getNdimensions());
-
-//    // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
-//    for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
-//        const IAxis *axis = output.getAxis(i_axis);
-//        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
-//        double dx(0);
-//        haxises[i_axis].nbins = axis->getSize();
-//        haxises[i_axis].name = axis->getName();
-//        if( axis->getSize() == 0) {
-//            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Axis with zero size.");
-//        }else if( axis->getSize() == 1 ) {
-//            // only one bin, let's invent fake bin size
-//            dx = 0.1*(*axis)[0];
-//            haxises[i_axis].xbins.push_back((*axis)[0]-dx/2.);
-//            haxises[i_axis].xbins.push_back((*axis)[0]+dx/2.);
-//        }else {
-//            for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
-//                if(i_bin == 0) {
-//                    dx = (*axis)[1]-(*axis)[0];
-//                } else {
-//                    dx = (*axis)[i_bin] - (*axis)[i_bin-1];
-//                }
-//                haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
-//            }
-//        haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
-//        }
-//    }
-
-//    // creation of 2D with variable bin size
-//    std::cout << "XXXYYY " << (int)haxises[0].nbins << " "  << (int)haxises[1].nbins;
-//    for(size_t i=0; i<haxises[0].xbins.size(); ++i) {
-//        std::cout << i << " axis0:" << haxises[0].xbins[i] << std::endl;
-//    }
-//    for(size_t i=0; i<haxises[1].xbins.size(); ++i) {
-//        std::cout << i << " axis1:" << haxises[1].xbins[i] << std::endl;
-//    }
-
-//    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
-//    hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
-//    hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
-
-//    OutputData<double>::const_iterator it = output.begin();
-//    while (it != output.end())
-//    {
-//        double x = output.getValueOfAxis( haxises[0].name.c_str(), it.getIndex() );
-//        double y = output.getValueOfAxis( haxises[1].name.c_str(), it.getIndex() );
-//        double value = *it++;
-//        //std::cout << "OOO " << x << " " << y << std::endl;
-//        hist2->Fill(x, y, value);
-//    }
-//    hist2->SetContour(50);
-//    hist2->SetStats(0);
-//    hist2->GetYaxis()->SetTitleOffset(1.1);
-
-//    gStyle->SetPalette(1);
-//    gStyle->SetOptStat(0);
-//    return hist2;
-//}
-
-
 /* ************************************************************************* */
 // create TH1D, TH2D or TH3D from OutputData
 /* ************************************************************************* */
-TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const std::string& histo_name)
+TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output,
+        const std::string& histo_name)
 {
     assert(&output);
     if (output.getRank() >3) {
-        std::cout << "IsGISAXSTools::getOutputDataTH123D() -> Warning! Expected number of dimensions should be not more than 3" << std::endl;
+        std::cout << "IsGISAXSTools::getOutputDataTH123D() -> Warning!"
+                " Expected number of dimensions should be not more than 3"
+                << std::endl;
         return 0;
     }
 
     std::vector<AxisStructure > haxises;
     haxises.resize(output.getRank());
 
-    // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
+    // we assume variable bin size and prepare [nbins+1] array of left edges of
+    // each bin plus right edge of the last bin
     for(size_t i_axis=0; i_axis<output.getRank(); ++i_axis) {
         const IAxis *axis = output.getAxis(i_axis);
-        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
+        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error!"
+                " Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
         haxises[i_axis].name = axis->getName();
         if( axis->getSize() == 0) {
-            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Axis with zero size.");
-        }else if( axis->getSize() == 1 ) {
+            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D()"
+                    " -> Error! Axis with zero size.");
+        } else if( axis->getSize() == 1 ) {
             // only one bin, let's invent fake bin size
             dx = 0.1*(*axis)[0];
             haxises[i_axis].xbins.push_back((*axis)[0]-dx/2.);
             haxises[i_axis].xbins.push_back((*axis)[0]+dx/2.);
-        }else {
+        } else {
             for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
                 if(i_bin == 0) {
                     dx = (*axis)[1]-(*axis)[0];
@@ -339,7 +276,9 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
                 }
                 haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
             }
-        haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
+            // right bin edge of last bin, so for 100 bins size of vector
+            // will be 101
+            haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.);
         }
     }
 
@@ -357,22 +296,29 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     TH2D *hist2(0);
     TH3D *hist3(0);
     if(output.getRank() == 1) {
-        hist1 = new TH1D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0]);
+        hist1 = new TH1D(histo_name.c_str(), histo_name.c_str(),
+                (int)haxises[0].nbins, &haxises[0].xbins[0]);
         hist1->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist = hist1;
     } else if(output.getRank() == 2) {
-        hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+        hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(),
+                (int)haxises[0].nbins, &haxises[0].xbins[0],
+                (int)haxises[1].nbins, &haxises[1].xbins[0]);
         hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist = hist2;
     } else if(output.getRank() == 3) {
-        hist3 = new TH3D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+        hist3 = new TH3D(histo_name.c_str(), histo_name.c_str(),
+                (int)haxises[0].nbins, &haxises[0].xbins[0],
+                (int)haxises[1].nbins, &haxises[1].xbins[0],
+                (int)haxises[1].nbins, &haxises[1].xbins[0]);
         hist3->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist3->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist3->GetZaxis()->SetTitle( haxises[2].name.c_str() );
         hist = hist3;
     } else {
-        throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Wrong number of dimensions.");
+        throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D()"
+                " -> Error! Wrong number of dimensions.");
     }
 
     OutputData<double>::const_iterator it = output.begin();
@@ -380,7 +326,8 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     {
         std::vector<double > xyz;
         for(size_t i_axis=0; i_axis<haxises.size(); ++i_axis) {
-            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name.c_str(), it.getIndex() ) );
+            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name.c_str(),
+                    it.getIndex() ) );
         }
         double value = *it++;
         if(hist1) hist1->Fill(xyz[0], value);
@@ -402,10 +349,13 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
 // draw 1D distribution over values stored in OutputData
 // binning of histogram is calculated on the fly
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double>& output, const std::string& draw_options, const std::string& histogram_title)
+void IsGISAXSTools::drawOutputDataDistribution1D(
+        const OutputData<double>& output, const std::string& draw_options,
+        const std::string& histogram_title)
 {
     if(!gPad) {
-        throw NullPointerException("IsGISAXSTools::drawOutputDataDistribution1D() -> Error! No canvas exists.");
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDistribution1D()"
+                " -> Error! No canvas exists.");
     }
 
     std::string histo_name = histogram_title;
@@ -415,7 +365,8 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double>& outpu
 
     // creating histogram with automatic binning
     TH1::SetDefaultBufferSize(5000);
-    TH1D h1_spect("h1_spect", histo_name.c_str(), 200, 1.0, -1.0); // xmin > xmax as a sign of automatic binning
+    // xmin > xmax as a sign of automatic binning
+    TH1D h1_spect("h1_spect", histo_name.c_str(), 200, 1.0, -1.0);
 
     OutputData<double>::const_iterator it = output.begin();
     while (it != output.end())
@@ -430,12 +381,15 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double>& outpu
 /* ************************************************************************* */
 // draw 1D distribution over relative difference in two OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double>& left, const OutputData<double>& right, const std::string& draw_options, const std::string& histogram_title)
+void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double>& left,
+        const OutputData<double>& right, const std::string& draw_options,
+        const std::string& histogram_title)
 {
     assert(&left);
     assert(&right);
     if(!gPad) {
-        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference1D() -> Error! No canvas exists.");
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference1D()"
+                " -> Error! No canvas exists.");
     }
 
     OutputData<double> *left_clone = left.clone();
@@ -459,7 +413,8 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double>& left, c
         if(x!=0) {
             x = log10(fabs(x));
         } else {
-            // lets put the cases when the difference is exactly 0 to underflow bin
+            // allows to put the cases when the difference is exactly 0
+            // to underflow bin
             x = -21.;
         }
         h1_spect.Fill( x );
@@ -482,12 +437,15 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double>& left, c
 /* ************************************************************************* */
 // draw relative difference of two 2D OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double>& left, const OutputData<double>& right, const std::string& draw_options, const std::string& histogram_title)
+void IsGISAXSTools::drawOutputDataRelativeDifference2D(
+        const OutputData<double>& left, const OutputData<double>& right,
+        const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&left);
     assert(&right);
     if(!gPad) {
-        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D"
+                " -> Error! No canvas exists.");
     }
     OutputData<double> *left_clone = left.clone();
     OutputData<double> *right_clone = right.clone();
@@ -496,7 +454,8 @@ void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double>&
     *left_clone /= *right_clone;
     left_clone->scaleAll(100.0);
 
-    IsGISAXSTools::drawOutputDataInPad(*left_clone, draw_options, histogram_title);
+    IsGISAXSTools::drawOutputDataInPad(*left_clone, draw_options,
+            histogram_title);
 
     delete left_clone;
     delete right_clone;
@@ -506,12 +465,15 @@ void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double>&
 /* ************************************************************************* */
 // draw relative chi2 difference of two 2D OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double>& left, const OutputData<double>& right, const std::string& draw_options, const std::string& histogram_title)
+void IsGISAXSTools::drawOutputDataChi2Difference2D(
+        const OutputData<double>& left, const OutputData<double>& right,
+        const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&left);
     assert(&right);
     if(!gPad) {
-        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D"
+                " -> Error! No canvas exists.");
     }
     OutputData<double> *left_clone = left.clone();
     OutputData<double> *right_clone = right.clone();
@@ -522,7 +484,8 @@ void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double>& lef
     *left_clone *= *tmp;
     left_clone->scaleAll(1./left_clone->totalSum());
 
-    IsGISAXSTools::drawOutputDataInPad(*left_clone, draw_options, histogram_title);
+    IsGISAXSTools::drawOutputDataInPad(*left_clone, draw_options,
+            histogram_title);
 
     delete left_clone;
     delete right_clone;
@@ -530,10 +493,11 @@ void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double>& lef
 }
 
 
-void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double>& input_data
-                                        , std::vector<std::vector<double > >& v_data
-                                        , std::vector<std::vector<double > >& v_axis0
-                                        , std::vector<std::vector<double > >& v_axis1)
+void IsGISAXSTools::exportOutputDataInVectors2D(
+        const OutputData<double>& input_data,
+        std::vector<std::vector<double > >& v_data,
+        std::vector<std::vector<double > >& v_axis0,
+        std::vector<std::vector<double > >& v_axis1)
 {
     assert(&input_data);
     if (input_data.getRank() != 2) return;
@@ -594,20 +558,25 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double>& data)
 {
     assert(&data);
 
-    if(data.getRank() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Number of dimensions should be 2");
+    if(data.getRank() != 2) throw LogicErrorException(
+            "IsGISAXSTools::getOutputDataScanLine()"
+            " -> Error! Number of dimensions should be 2");
     double x1(0), x2(0), y1(0), y2(0);
-    if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
+    if( data.getAxis(BornAgain::ALPHA_AXIS_NAME) &&
+            data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() == 1) {
         // horizontal line
-        x1 = data.getAxis("phi_f")->getMin();
-        x2 = data.getAxis("phi_f")->getMax();
-        y1 = y2 = data.getAxis("alpha_f")->getMin();
-    }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
+        x1 = data.getAxis(BornAgain::PHI_AXIS_NAME)->getMin();
+        x2 = data.getAxis(BornAgain::PHI_AXIS_NAME)->getMax();
+        y1 = y2 = data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMin();
+    }else if( data.getAxis(BornAgain::PHI_AXIS_NAME) &&
+            data.getAxis(BornAgain::PHI_AXIS_NAME)->getSize() == 1 ) {
         // it's vertical line
-        x1 = x2 = data.getAxis("phi_f")->getMin();
-        y1 = data.getAxis("alpha_f")->getMin();
-        y2 = data.getAxis("alpha_f")->getMax();
+        x1 = x2 = data.getAxis(BornAgain::PHI_AXIS_NAME)->getMin();
+        y1 = data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMin();
+        y2 = data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMax();
     } else {
-        throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Can't handle these axes.");
+        throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine()"
+                " -> Error! Can't handle these axes.");
     }
     TLine *line = new TLine(x1,y1,x2,y2);
     line->SetLineColor(kRed);
@@ -621,37 +590,50 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double>& data)
 // Create TH1D for displaying of one-dimensional data scan
 // OutputData should be 2D, and one of two dimensions should have number of bins == 1
 /* ************************************************************************* */
-TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double>& data, const std::string& hname)
+TH1D *IsGISAXSTools::getOutputDataScanHist(
+        const OutputData<double>& data, const std::string& hname)
 {
     assert(&data);
 
-    if(data.getRank() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Number of dimensions should be 2");
+    if(data.getRank() != 2) throw LogicErrorException(
+            "IsGISAXSTools::getOutputDataScanHist()"
+            " -> Error! Number of dimensions should be 2");
     // one of axis should have dimension 1
-    if( (data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() != 1) && (data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() != 1))
+    if( data.getAxis(BornAgain::ALPHA_AXIS_NAME) &&
+        data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() != 1 &&
+        data.getAxis(BornAgain::PHI_AXIS_NAME) &&
+        data.getAxis(BornAgain::PHI_AXIS_NAME)->getSize() != 1 )
     {
-        throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes");
-        //std::cout << "IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes" << std::endl;
-        //return 0;
+        throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist()"
+                " -> Info. Can't create 1D histogram from these axes");
     }
 
     TH2D *hist2 = IsGISAXSTools::getOutputDataTH2D( data, hname);
 
     TH1D *hist1(0);
     std::ostringstream ostr_title;
-    if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
+    if( data.getAxis(BornAgain::ALPHA_AXIS_NAME) &&
+        data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getSize() == 1) {
         hist1 = hist2->ProjectionX();
-        ostr_title << hname << ", alpha_f=" << data.getAxis("alpha_f")->getMin();
-    }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
+        ostr_title << hname << ", alpha_f=" <<
+                data.getAxis(BornAgain::ALPHA_AXIS_NAME)->getMin();
+    }else if( data.getAxis(BornAgain::PHI_AXIS_NAME) &&
+              data.getAxis(BornAgain::PHI_AXIS_NAME)->getSize() == 1 ) {
         hist1 = hist2->ProjectionY();
-        ostr_title << hname << ", phi_f=" << data.getAxis("phi_f")->getMin();
+        ostr_title << hname << ", phi_f=" <<
+                data.getAxis(BornAgain::PHI_AXIS_NAME)->getMin();
     } else {
-        throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Unexpected place");
+        throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist()"
+                " -> Error! Unexpected place");
     }
     delete hist2;
-    if( !hist1 ) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Failed to make projection, existing name?");
+    if( !hist1 ) throw LogicErrorException(
+            "IsGISAXSTools::getOutputDataScanHist()"
+            " -> Error! Failed to make projection, existing name?");
 
     hist1->SetTitle(ostr_title.str().c_str());
-    // FIXME remove this trick to bypass weird bug with DrawCopy of TH1D projection of TH1D histograms
+    // FIXME remove this trick to bypass weird bug with DrawCopy of
+    // TH1D projection of TH1D histograms
     TH1D *h1 = dynamic_cast<TH1D*>(hist1->Clone());
     delete hist1;
     return h1;
@@ -661,7 +643,8 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double>& data, const
 /* ************************************************************************* */
 // add noise to data
 /* ************************************************************************* */
-OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double>& exact_data, double noise_factor)
+OutputData<double > *IsGISAXSTools::createNoisyData(
+        const OutputData<double>& exact_data, double noise_factor)
 {
     assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
@@ -678,7 +661,8 @@ OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double>& ex
 }
 
 
-OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double>& exact_data, double sigma)
+OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(
+        const OutputData<double>& exact_data, double sigma)
 {
     assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
@@ -705,8 +689,9 @@ void IsGISAXSTools::drawOutputDataComparisonResults(
     // our calculations
     c1->cd(1); gPad->SetLogz();
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::setMinimum(hmin);
-    if(hmax>0) IsGISAXSTools::setMaximum(hmax);
+    if(hasMinimum()) IsGISAXSTools::setMinimum(hmin);
+    //if(hmax>0) IsGISAXSTools::setMaximum(hmax);
+    if(hasMaximum()) IsGISAXSTools::setMaximum(hmax);
     IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
 
     // isgisaxs data

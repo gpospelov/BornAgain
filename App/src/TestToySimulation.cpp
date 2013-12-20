@@ -15,10 +15,10 @@
 
 #include "Exceptions.h"
 #include "FitSuite.h"
+#include "BornAgainNamespace.h"
 #include "FitSuiteObserverFactory.h"
 #include "IsGISAXSTools.h"
 #include "MinimizerFactory.h"
-#include "ROOTGSLSimAnMinimizer.h"
 #include "TestToySimulation.h"
 
 #include <iostream>
@@ -33,8 +33,8 @@ void ToySimulation::runSimulation()
         throw NullPointerException
             ("ToySimulation::runSimulation() -> "
              "Error! No function is defined.");
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
+    const std::string s_phi_f(BornAgain::PHI_AXIS_NAME);
+    const std::string s_alpha_f(BornAgain::ALPHA_AXIS_NAME);
 
     m_func->SetParameters(&pars[0]);
     m_intensity_map.setAllTo(0.0);
@@ -125,8 +125,8 @@ void TestToySimulation::initializeSimulationAndRealData()
     m_simulation = new ToySimulation(m_func);
 
     OutputData<double > tmp;
-    tmp.addAxis("phi_f", 100, m_func->GetXmin(), m_func->GetXmax());
-    tmp.addAxis("alpha_f", 100, m_func->GetYmin(), m_func->GetYmax());
+    tmp.addAxis(BornAgain::PHI_AXIS_NAME, 100, m_func->GetXmin(), m_func->GetXmax());
+    tmp.addAxis(BornAgain::ALPHA_AXIS_NAME, 100, m_func->GetYmin(), m_func->GetYmax());
     m_simulation->setDetectorParameters(tmp);
 
     // generating real data

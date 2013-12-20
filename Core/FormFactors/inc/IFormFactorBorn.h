@@ -18,7 +18,10 @@
 
 #include "IFormFactor.h"
 
-//! Pure virtual interface for Born form factors (only depending on q=ki-kf).
+//! @class IFormFactorBorn
+//! @ingroup formfactors_internal
+//! @brief Pure virtual interface for Born form factors.
+//! Depends only on q=ki-kf.
 
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
@@ -27,9 +30,7 @@ public:
     virtual ~IFormFactorBorn() {}
     virtual IFormFactorBorn *clone() const=0;
 
-    virtual void accept(ISampleVisitor *visitor) const {
-        visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
@@ -62,9 +63,6 @@ protected:
     bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
 private:
-    //! approximate intensity that does not contain rapid oscillations
-    double bigRadialIntegrand(double qR, void *params) const;
-
     //! calculates the integrated intensity along the z-direction
     double bigZPartIntegral(double qH2) const;
 };

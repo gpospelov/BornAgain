@@ -24,7 +24,10 @@
 
 namespace Utils {
 
-//! Collection of utilities for std::string.
+
+//! @class String
+//! @ingroup tools_internal
+//! @brief Collection of utilities for std::string.
 
 class BA_CORE_API_ String
 {
@@ -44,9 +47,12 @@ public:
                                           const std::string& delimeter);
 };
 
-//! Control how often a string is used.
 
-class StringUsageMap
+//! @class StringUsageMap
+//! @ingroup tools_internal
+//! @brief Control how often a string is used.
+
+class BA_CORE_API_ StringUsageMap
 {
 public:
     typedef std::map<std::string, int> nstringmap_t;
@@ -82,41 +88,6 @@ private:
     nstringmap_t m_nstringmap;
 };
 
-//! Utilities to deal with file system.
-
-class BA_CORE_API_ FileSystem
-{
-public:
-    //! Returns path to the current (working) directory
-    static std::string GetWorkingPath();
-
-    //! Returns path to BornAgain home directory
-    static std::string GetHomePath();
-
-    //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetArgvPath(const std::string& argv0);
-    static std::string GetArgvPath();
-
-    //! Returns file extension
-    static std::string GetFileExtension(const std::string& name);
-
-    //! Returns true if name contains *.gz extension
-    static bool isGZipped(const std::string& name);
-
-    //! Returns file extension after stripping '.gz' if any
-    static std::string GetFileMainExtension(const std::string& name);
-
-    //! returns path to executable
-    static std::string GetPathToExecutable(const std::string& argv0=GetArgvPath());
-
-    //! returns absolute path to data taking into acount location of executable
-    static std::string GetPathToData(const std::string& rel_data_path, const std::string& argv0=GetArgvPath());
-
-private:
-    static std::string m_argv0_path; //!< it's value of argv[0], i.e. the path from working directory to executable module including the name of executable module
-};
-
-//! Adjust length of the string, padding with blanks.
 
 inline std::string AdjustStringLength(std::string name, int length)
 {
@@ -125,7 +96,10 @@ inline std::string AdjustStringLength(std::string name, int length)
     return newstring;
 }
 
-// Unordered map (wrap boost::unordered_map).
+
+//! @class UnorderedMap
+//! @ingroup tools_internal
+//! @brief Unordered map (wrap boost::unordered_map).
 
 template<class Key, class Object >
 class UnorderedMap

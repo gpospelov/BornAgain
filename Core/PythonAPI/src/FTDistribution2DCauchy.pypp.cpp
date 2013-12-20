@@ -25,8 +25,8 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         
     }
 
-    FTDistribution2DCauchy_wrapper(double omega_x, double omega_y )
-    : FTDistribution2DCauchy( omega_x, omega_y )
+    FTDistribution2DCauchy_wrapper(double coherence_length_x, double coherence_length_y )
+    : FTDistribution2DCauchy( coherence_length_x, coherence_length_y )
       , bp::wrapper< FTDistribution2DCauchy >(){
         // constructor
     
@@ -54,18 +54,6 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
     
     double default_evaluate( double qx, double qy ) const  {
         return FTDistribution2DCauchy::evaluate( qx, qy );
-    }
-
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
-        if( bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" ) )
-            func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
-        else
-            this->FTDistribution2DCauchy::transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
-    }
-    
-    
-    void default_transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
-        FTDistribution2DCauchy::transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -135,18 +123,6 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -177,7 +153,7 @@ void register_FTDistribution2DCauchy_class(){
 
     { //::FTDistribution2DCauchy
         typedef bp::class_< FTDistribution2DCauchy_wrapper, bp::bases< IFTDistribution2D > > FTDistribution2DCauchy_exposer_t;
-        FTDistribution2DCauchy_exposer_t FTDistribution2DCauchy_exposer = FTDistribution2DCauchy_exposer_t( "FTDistribution2DCauchy", bp::init< double, double >(( bp::arg("omega_x"), bp::arg("omega_y") )) );
+        FTDistribution2DCauchy_exposer_t FTDistribution2DCauchy_exposer = FTDistribution2DCauchy_exposer_t( "FTDistribution2DCauchy", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope FTDistribution2DCauchy_scope( FTDistribution2DCauchy_exposer );
         { //::FTDistribution2DCauchy::clone
         
@@ -201,18 +177,6 @@ void register_FTDistribution2DCauchy_class(){
                 , evaluate_function_type(&::FTDistribution2DCauchy::evaluate)
                 , default_evaluate_function_type(&FTDistribution2DCauchy_wrapper::default_evaluate)
                 , ( bp::arg("qx"), bp::arg("qy") ) );
-        
-        }
-        { //::FTDistribution2DCauchy::transformToStarBasis
-        
-            typedef void ( ::FTDistribution2DCauchy::*transformToStarBasis_function_type )( double,double,double,double,double,double &,double & ) const;
-            typedef void ( FTDistribution2DCauchy_wrapper::*default_transformToStarBasis_function_type )( double,double,double,double,double,double &,double & ) const;
-            
-            FTDistribution2DCauchy_exposer.def( 
-                "transformToStarBasis"
-                , transformToStarBasis_function_type(&::FTDistribution2DCauchy::transformToStarBasis)
-                , default_transformToStarBasis_function_type(&FTDistribution2DCauchy_wrapper::default_transformToStarBasis)
-                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -268,18 +232,6 @@ void register_FTDistribution2DCauchy_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FTDistribution2DCauchy_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( FTDistribution2DCauchy_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            FTDistribution2DCauchy_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&FTDistribution2DCauchy_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

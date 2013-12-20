@@ -15,6 +15,9 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
+
+#include <boost/scoped_ptr.hpp>
+
 #include "Utils.h"
 #include <iostream>
 
@@ -28,10 +31,7 @@ IParameterized& IParameterized::operator=(const IParameterized& other)
     return *this;
 }
 
-//! Creates new parameter pool, with all local parameter and parameters of children
 
-//! User has to delete it.
-//!
 ParameterPool *IParameterized::createParameterTree() const
 {
     ParameterPool *newpool = new ParameterPool;
@@ -40,7 +40,6 @@ ParameterPool *IParameterized::createParameterTree() const
     return newpool;
 }
 
-//! Adds parameters from local pool to external pool and call recursion over direct children.
 
 std::string IParameterized::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
@@ -60,20 +59,17 @@ std::string IParameterized::addParametersToExternalPool(
 }
 
 
-//! set parameter value, return true in the case of success
 bool IParameterized::setParameterValue(const std::string &name, double value)
 {
-    ParameterPool *p_pool = createParameterTree();
-    return p_pool->setParameterValue(name, value);
-    delete p_pool;
-}
-
-//! Sets parameter value, return number of changed parameters
-int IParameterized::setMatchedParametersValue(const std::string& wildcards, double value)
-{
-    ParameterPool *p_pool = createParameterTree();
-    return p_pool->setMatchedParametersValue(wildcards, value);
-    delete p_pool;
+    if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
+        return m_parameters.setParameterValue(name, value);
+    }
+    boost::scoped_ptr<ParameterPool> pool(createParameterTree());
+    if(name.find('*') != std::string::npos) {
+        return pool->setMatchedParametersValue(name, value);
+    } else {
+        return pool->setParameterValue(name, value);
+    }
 }
 
 
@@ -84,9 +80,7 @@ void IParameterized::printParameters() const
     delete p_pool;
 }
 
-//! No pure virtual function here, have to throw here,
-//! due to problems in exporting abstract classes to python
-//!
+
 void IParameterized::init_parameters()
 {
     throw NotImplementedException("IParameterized::init_parameters() -> "

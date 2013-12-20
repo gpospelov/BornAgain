@@ -62,8 +62,12 @@ TEST_F(ParameterPoolTest, registerParameters)
 
 TEST_F(ParameterPoolTest, PoolClone)
 {
-    ParameterPool *pool = m_pool.clone();
-    EXPECT_EQ( size_t(3), pool->size() );
+    ParameterPool *clone = m_pool.clone();
+    EXPECT_EQ( size_t(3), clone->size() );
+    EXPECT_EQ( double(1.0), clone->getParameter("a_par1").getValue());
+    EXPECT_EQ( double(2.0), clone->getParameter("a_par2").getValue());
+    EXPECT_EQ( double(3.0), clone->getParameter("b_par3").getValue());
+    delete clone;
 }
 
 
@@ -83,6 +87,20 @@ TEST_F(ParameterPoolTest, CopyToExternalPool)
     EXPECT_EQ( double(4.0), external_pool.getParameter("par4").getValue());
 }
 
+
+TEST_F(ParameterPoolTest, SetMatchedParametersValue)
+{
+    double x(1.0), y(2.0), z(3.0);
+    ParameterPool pool;
+    pool.registerParameter("xx_x", &x);
+    pool.registerParameter("xx_y", &y);
+    pool.registerParameter("xx_z", &z);
+    ASSERT_THROW( pool.setMatchedParametersValue("zz*", 4.0), LogicErrorException );
+    pool.setMatchedParametersValue("xx*", 4.0);
+    EXPECT_EQ( double(4.0), pool.getParameter("xx_x").getValue());
+    EXPECT_EQ( double(4.0), pool.getParameter("xx_y").getValue());
+    EXPECT_EQ( double(4.0), pool.getParameter("xx_z").getValue());
+}
 
 
 #endif // PARAMETERPOOLTEST_H

@@ -19,13 +19,19 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! The form factor for a rectangular box
+//! @class FormFactorBox
+//! @ingroup formfactors
+//! @brief The formfactor for a rectangular box.
 
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
 public:
     FormFactorBox( double length, double width, double height)
-        : m_length(length), m_width(width), m_height(height) {}
+        : m_length(length), m_width(width), m_height(height) {
+
+            setName("FormFactorBox");
+            init_parameters();
+        }
 
     virtual ~FormFactorBox() {}
 
@@ -34,9 +40,6 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     int getNumberOfStochasticParameters() const { return 3; }
-
-    //! Returns volume of Box
-    //double getVolume() const { return 4*m_height*m_radius*m_width; }
 
     //! Returns height of Box
     double getHeight() const { return m_height; }
@@ -50,7 +53,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
 protected:
-    void init_parameters();
+    virtual void init_parameters();
 
 private:
     double m_length;

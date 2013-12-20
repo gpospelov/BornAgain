@@ -21,9 +21,14 @@
 
 #include <iostream>
 
-//! Interface providing measures for deviation between two values.
 
-class ISquaredFunction
+//! @class ISquaredFunction
+//! @ingroup algorithms_internal
+//! @brief Interface providing measures for deviation between two values.
+//!
+//! Used By ChiSquaredModule for chi2 calculations
+
+class BA_CORE_API_ ISquaredFunction
 {
 public:
     virtual ~ISquaredFunction() {}
@@ -41,9 +46,12 @@ public:
     }
 };
 
-//! ?
 
-class SquaredFunctionDefault : public ISquaredFunction
+//! @class SquaredFunctionDefault
+//! @ingroup algorithms_internal
+//! @brief Squared difference betwee two values
+
+class BA_CORE_API_ SquaredFunctionDefault : public ISquaredFunction
 {
 public:
     SquaredFunctionDefault() {}
@@ -67,9 +75,12 @@ public:
 
 };
 
-//! ?
 
-class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
+//! @class SquaredFunctionWhichOnlyWorks
+//! @ingroup algorithms_internal
+//! @brief Squared difference betwee two values
+
+class BA_CORE_API_ SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
 public:
     SquaredFunctionWhichOnlyWorks() {}
@@ -90,9 +101,12 @@ public:
     }
 };
 
-//! ?
 
-class SquaredFunctionWithSystematicError : public ISquaredFunction
+//! @class SquaredFunctionWithSystematicError
+//! @ingroup algorithms_internal
+//! @brief Squared difference between two values with systematic error
+
+class BA_CORE_API_ SquaredFunctionWithSystematicError : public ISquaredFunction
 {
 public:
     SquaredFunctionWithSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
@@ -114,9 +128,12 @@ private:
     double m_epsilon;
 };
 
-//! ?
 
-class SquaredFunctionWithGaussianError : public ISquaredFunction
+//! @class SquaredFunctionWithGaussianError
+//! @ingroup algorithms_internal
+//! @brief Squared difference between two values with gaussian error
+
+class BA_CORE_API_ SquaredFunctionWithGaussianError : public ISquaredFunction
 {
 public:
     SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}

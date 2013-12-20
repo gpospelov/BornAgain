@@ -20,9 +20,11 @@
 #include "Types.h"
 #include <string>
 
-//! Interface for reading strategy of OutputData from file
+//! @class IOutputDataReadStrategy
+//! @ingroup tools_internal
+//! @brief Interface for reading strategy of OutputData from file
 
-class IOutputDataReadStrategy
+class BA_CORE_API_ IOutputDataReadStrategy
 {
 public:
     IOutputDataReadStrategy(){}
@@ -35,9 +37,12 @@ public:
 private:
 };
 
-//! Interface for decoration of read strategies (e.g. gzip compression)
 
-class IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
+//! @class IOutputDataReadStrategyDecorator
+//! @ingroup tools_internal
+//! @brief Interface for decoration of read strategies (e.g. gzip compression)
+
+class BA_CORE_API_ IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
 {
 public:
     IOutputDataReadStrategyDecorator(IOutputDataReadStrategy *read_strategy) : m_read_strategy(read_strategy) {}
@@ -46,9 +51,12 @@ protected:
     IOutputDataReadStrategy *m_read_strategy;
 };
 
-//! Decorator to read outputdata from zipped files
 
-class OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
+//! @class OutputDataReadStreamGZip
+//! @ingroup tools_internal
+//! @brief Decorator to read outputdata from zipped files
+
+class BA_CORE_API_ OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
 {
 public:
     OutputDataReadStreamGZip(IOutputDataReadStrategy *read_strategy) : IOutputDataReadStrategyDecorator(read_strategy) { }
@@ -59,10 +67,13 @@ public:
     OutputData<double > *readOutputData(std::istream& file_stream);
 };
 
-//! Strategy to read OutputData from IsGISAXS *.ima files
+
+//! @class OutputDataReadStreamIMA
+//! @ingroup tools_internal
+//! @brief Strategy to read OutputData from IsGISAXS *.ima files
 //! which contains 2D array in the form of [nX] lines of [nY] size
 
-class OutputDataReadStreamIMA : public IOutputDataReadStrategy
+class BA_CORE_API_ OutputDataReadStreamIMA : public IOutputDataReadStrategy
 {
 public:
     OutputData<double > *readOutputData(std::istream& file_stream);

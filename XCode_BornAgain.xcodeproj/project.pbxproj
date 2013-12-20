@@ -16,7 +16,6 @@
 		621D0BE716A985D100134391 /* PositionParticleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BE516A985D100134391 /* PositionParticleInfo.cpp */; };
 		621D0BE916A986CB00134391 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
 		621D0BF216A9883500134391 /* FormFactorBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BEE16A9883500134391 /* FormFactorBox.cpp */; };
-		621D0BF316A9883500134391 /* FormFactorEllipsoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */; };
 		621D0BF416A9883500134391 /* FormFactorPrism6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BF016A9883500134391 /* FormFactorPrism6.cpp */; };
 		621D0BF516A9883500134391 /* FormFactorSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BF116A9883500134391 /* FormFactorSphere.cpp */; };
 		621D0BF616A9886C00134391 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
@@ -122,6 +121,9 @@
 		6223326E17C64116004CCDAE /* SpecularMagnetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223326B17C64116004CCDAE /* SpecularMagnetic.cpp */; };
 		6223327617C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */; };
 		6223327717C641C5004CCDAE /* IMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6223327517C641C5004CCDAE /* IMaterial.cpp */; };
+		622E86CA1844D7850009F27C /* MesoCrystal01Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622E86C41844D7850009F27C /* MesoCrystal01Builder.cpp */; };
+		622E86CB1844D7850009F27C /* SimulationRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622E86C61844D7850009F27C /* SimulationRegistry.cpp */; };
+		622E86CC1844D7850009F27C /* StandardSimulations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622E86C81844D7850009F27C /* StandardSimulations.cpp */; };
 		622F80DB17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */; };
 		6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0816CE708600ECED4F /* Instrument.cpp */; };
 		6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0C16CE9EC600ECED4F /* Simulation.cpp */; };
@@ -131,7 +133,8 @@
 		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
 		625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173E16BAAE77004943DB /* FormFactorCone.cpp */; };
 		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
-		625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */; };
+		627200AF1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */; };
+		627200BE1848E1B7001D55F3 /* FormFactorCone6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627200BD1848E1B7001D55F3 /* FormFactorCone6.cpp */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		627F5FFD1793EB26009E166F /* SamplePrintVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */; };
 		627F60001793EB68009E166F /* SpecularMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F5FFF1793EB68009E166F /* SpecularMatrix.cpp */; };
@@ -146,11 +149,9 @@
 		627F60C21793FB22009E166F /* FormFactorCrystal.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60681793FB22009E166F /* FormFactorCrystal.pypp.cpp */; };
 		627F60C31793FB22009E166F /* FormFactorCylinder.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60691793FB22009E166F /* FormFactorCylinder.pypp.cpp */; };
 		627F60C41793FB22009E166F /* FormFactorDecoratorDebyeWaller.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F606A1793FB22009E166F /* FormFactorDecoratorDebyeWaller.pypp.cpp */; };
-		627F60C51793FB22009E166F /* FormFactorEllipsoid.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F606B1793FB22009E166F /* FormFactorEllipsoid.pypp.cpp */; };
 		627F60C61793FB22009E166F /* FormFactorFullSphere.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F606C1793FB22009E166F /* FormFactorFullSphere.pypp.cpp */; };
 		627F60C71793FB22009E166F /* FormFactorFullSpheroid.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F606D1793FB22009E166F /* FormFactorFullSpheroid.pypp.cpp */; };
 		627F60C81793FB22009E166F /* FormFactorGauss.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F606E1793FB22009E166F /* FormFactorGauss.pypp.cpp */; };
-		627F60C91793FB22009E166F /* FormFactorHemiSpheroid.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F606F1793FB22009E166F /* FormFactorHemiSpheroid.pypp.cpp */; };
 		627F60CA1793FB22009E166F /* FormFactorLorentz.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60701793FB22009E166F /* FormFactorLorentz.pypp.cpp */; };
 		627F60CB1793FB22009E166F /* FormFactorParallelepiped.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60711793FB22009E166F /* FormFactorParallelepiped.pypp.cpp */; };
 		627F60CC1793FB22009E166F /* FormFactorPrism3.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F60721793FB22009E166F /* FormFactorPrism3.pypp.cpp */; };
@@ -321,6 +322,37 @@
 		627F657817944D37009E166F /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
 		628D3C1217E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */; };
 		628D3C1317E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */; };
+		629B55F4185B2D60003AE64D /* FormFactorAnisoPyramid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55EC185B2D60003AE64D /* FormFactorAnisoPyramid.cpp */; };
+		629B55F5185B2D60003AE64D /* FormFactorCuboctahedron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55ED185B2D60003AE64D /* FormFactorCuboctahedron.cpp */; };
+		629B55F6185B2D60003AE64D /* FormFactorEllipsoidalCylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55EE185B2D60003AE64D /* FormFactorEllipsoidalCylinder.cpp */; };
+		629B55F7185B2D60003AE64D /* FormFactorHemiEllipsoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55EF185B2D60003AE64D /* FormFactorHemiEllipsoid.cpp */; };
+		629B55F8185B2D60003AE64D /* FormFactorRipple2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55F0185B2D60003AE64D /* FormFactorRipple2.cpp */; };
+		629B55F9185B2D60003AE64D /* FormFactorSphereGaussianRadius.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55F1185B2D60003AE64D /* FormFactorSphereGaussianRadius.cpp */; };
+		629B55FA185B2D60003AE64D /* FormFactorSphereUniformRadius.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55F2185B2D60003AE64D /* FormFactorSphereUniformRadius.cpp */; };
+		629B55FB185B2D60003AE64D /* FormFactorSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B55F3185B2D60003AE64D /* FormFactorSpheroid.cpp */; };
+		629B5603185B2DB9003AE64D /* ApplicationTestFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5600185B2DB9003AE64D /* ApplicationTestFactory.cpp */; };
+		629B5604185B2DB9003AE64D /* TestFunctionalTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5601185B2DB9003AE64D /* TestFunctionalTests.cpp */; };
+		629B5605185B2DB9003AE64D /* TestRipple2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5602185B2DB9003AE64D /* TestRipple2.cpp */; };
+		629B5618185B2E50003AE64D /* FormFactorAnisoPyramid.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B560F185B2E50003AE64D /* FormFactorAnisoPyramid.pypp.cpp */; };
+		629B5619185B2E50003AE64D /* FormFactorCone6.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5610185B2E50003AE64D /* FormFactorCone6.pypp.cpp */; };
+		629B561A185B2E50003AE64D /* FormFactorCuboctahedron.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5611185B2E50003AE64D /* FormFactorCuboctahedron.pypp.cpp */; };
+		629B561B185B2E50003AE64D /* FormFactorEllipsoidalCylinder.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5612185B2E50003AE64D /* FormFactorEllipsoidalCylinder.pypp.cpp */; };
+		629B561C185B2E50003AE64D /* FormFactorHemiEllipsoid.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5613185B2E50003AE64D /* FormFactorHemiEllipsoid.pypp.cpp */; };
+		629B561D185B2E50003AE64D /* FormFactorRipple2.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5614185B2E50003AE64D /* FormFactorRipple2.pypp.cpp */; };
+		629B561E185B2E50003AE64D /* FormFactorSphereUniformRadius.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5615185B2E50003AE64D /* FormFactorSphereUniformRadius.pypp.cpp */; };
+		629B561F185B2E50003AE64D /* FormFactorSpheroid.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5616185B2E50003AE64D /* FormFactorSpheroid.pypp.cpp */; };
+		629B5620185B2E50003AE64D /* ThreadInfo.pypp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5617185B2E50003AE64D /* ThreadInfo.pypp.cpp */; };
+		629B5633185B2F05003AE64D /* FunctionalTestRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5621185B2F05003AE64D /* FunctionalTestRegistry.cpp */; };
+		629B5634185B2F05003AE64D /* IFunctionalTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5623185B2F05003AE64D /* IFunctionalTest.cpp */; };
+		629B5635185B2F05003AE64D /* IsGISAXS07Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5625185B2F05003AE64D /* IsGISAXS07Builder.cpp */; };
+		629B5636185B2F05003AE64D /* IsGISAXS08Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5627185B2F05003AE64D /* IsGISAXS08Builder.cpp */; };
+		629B5637185B2F05003AE64D /* IsGISAXS10Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5629185B2F05003AE64D /* IsGISAXS10Builder.cpp */; };
+		629B5638185B2F05003AE64D /* IsGISAXS11Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B562B185B2F05003AE64D /* IsGISAXS11Builder.cpp */; };
+		629B5639185B2F05003AE64D /* IsGISAXS15Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B562D185B2F05003AE64D /* IsGISAXS15Builder.cpp */; };
+		629B563A185B2F05003AE64D /* LayerRoughnessBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B562F185B2F05003AE64D /* LayerRoughnessBuilder.cpp */; };
+		629B563B185B2F05003AE64D /* Ripple2Builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5631185B2F05003AE64D /* Ripple2Builder.cpp */; };
+		629B563F185B2F3E003AE64D /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B563E185B2F3E003AE64D /* FileSystem.cpp */; };
+		629B5641185B3122003AE64D /* ISampleVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629B5640185B3122003AE64D /* ISampleVisitor.cpp */; };
 		62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */; };
 		62B316141712FE29004A9D02 /* MessageService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62B316121712FE29004A9D02 /* MessageService.cpp */; };
 		62B3161E1713030F004A9D02 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
@@ -358,13 +390,10 @@
 		62B3175217131DF9004A9D02 /* libMinuit2.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05F160C82CB008205AC /* libMinuit2.5.34.so */; };
 		62B3175317131DF9004A9D02 /* libThread.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D066160C82CB008205AC /* libThread.5.34.so */; };
 		62BADDDA17953229005BC59D /* libBornAgain.Core.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
-		62BADE40179535BC005BC59D /* AppDict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE0E179535BB005BC59D /* AppDict.cpp */; };
 		62BADE41179535BC005BC59D /* AppOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE10179535BB005BC59D /* AppOptionsDescription.cpp */; };
 		62BADE42179535BC005BC59D /* DrawHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE11179535BB005BC59D /* DrawHelper.cpp */; };
 		62BADE43179535BC005BC59D /* FitSuiteDrawObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE12179535BB005BC59D /* FitSuiteDrawObserver.cpp */; };
 		62BADE44179535BC005BC59D /* FitSuiteWriteTreeObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE13179535BB005BC59D /* FitSuiteWriteTreeObserver.cpp */; };
-		62BADE45179535BC005BC59D /* FunctionalTestFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE14179535BB005BC59D /* FunctionalTestFactory.cpp */; };
-		62BADE46179535BC005BC59D /* IFunctionalTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE15179535BC005BC59D /* IFunctionalTest.cpp */; };
 		62BADE47179535BC005BC59D /* IsGISAXSData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE16179535BC005BC59D /* IsGISAXSData.cpp */; };
 		62BADE48179535BC005BC59D /* IsGISAXSTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE17179535BC005BC59D /* IsGISAXSTools.cpp */; };
 		62BADE49179535BC005BC59D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE18179535BC005BC59D /* main.cpp */; };
@@ -373,7 +402,6 @@
 		62BADE4C179535BC005BC59D /* TestConvolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE1B179535BC005BC59D /* TestConvolution.cpp */; };
 		62BADE4D179535BC005BC59D /* TestDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE1C179535BC005BC59D /* TestDetectorResolution.cpp */; };
 		62BADE4E179535BC005BC59D /* TestDiffuseReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE1D179535BC005BC59D /* TestDiffuseReflection.cpp */; };
-		62BADE4F179535BC005BC59D /* TestFittingBenchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE1E179535BC005BC59D /* TestFittingBenchmark.cpp */; };
 		62BADE50179535BC005BC59D /* TestFittingModule1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE1F179535BC005BC59D /* TestFittingModule1.cpp */; };
 		62BADE51179535BC005BC59D /* TestFittingModule2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE20179535BC005BC59D /* TestFittingModule2.cpp */; };
 		62BADE52179535BC005BC59D /* TestFittingModule3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE21179535BC005BC59D /* TestFittingModule3.cpp */; };
@@ -381,21 +409,9 @@
 		62BADE54179535BC005BC59D /* TestFormFactors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE23179535BC005BC59D /* TestFormFactors.cpp */; };
 		62BADE55179535BC005BC59D /* TestFourier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE24179535BC005BC59D /* TestFourier.cpp */; };
 		62BADE57179535BC005BC59D /* TestFumiliLMA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE26179535BC005BC59D /* TestFumiliLMA.cpp */; };
-		62BADE58179535BC005BC59D /* TestIsGISAXS1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE27179535BC005BC59D /* TestIsGISAXS1.cpp */; };
-		62BADE59179535BC005BC59D /* TestIsGISAXS2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE28179535BC005BC59D /* TestIsGISAXS2.cpp */; };
-		62BADE5A179535BC005BC59D /* TestIsGISAXS3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE29179535BC005BC59D /* TestIsGISAXS3.cpp */; };
-		62BADE5B179535BC005BC59D /* TestIsGISAXS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE2A179535BC005BC59D /* TestIsGISAXS4.cpp */; };
 		62BADE5C179535BC005BC59D /* TestIsGISAXS5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE2B179535BC005BC59D /* TestIsGISAXS5.cpp */; };
-		62BADE5D179535BC005BC59D /* TestIsGISAXS6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE2C179535BC005BC59D /* TestIsGISAXS6.cpp */; };
-		62BADE5E179535BC005BC59D /* TestIsGISAXS7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE2D179535BC005BC59D /* TestIsGISAXS7.cpp */; };
-		62BADE5F179535BC005BC59D /* TestIsGISAXS8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE2E179535BC005BC59D /* TestIsGISAXS8.cpp */; };
-		62BADE60179535BC005BC59D /* TestIsGISAXS9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE2F179535BC005BC59D /* TestIsGISAXS9.cpp */; };
-		62BADE61179535BC005BC59D /* TestIsGISAXS10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE30179535BC005BC59D /* TestIsGISAXS10.cpp */; };
-		62BADE62179535BC005BC59D /* TestIsGISAXS11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE31179535BC005BC59D /* TestIsGISAXS11.cpp */; };
 		62BADE63179535BC005BC59D /* TestIsGISAXS12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE32179535BC005BC59D /* TestIsGISAXS12.cpp */; };
 		62BADE64179535BC005BC59D /* TestIsGISAXS13.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE33179535BC005BC59D /* TestIsGISAXS13.cpp */; };
-		62BADE65179535BC005BC59D /* TestIsGISAXS14.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE34179535BC005BC59D /* TestIsGISAXS14.cpp */; };
-		62BADE66179535BC005BC59D /* TestIsGISAXS15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE35179535BC005BC59D /* TestIsGISAXS15.cpp */; };
 		62BADE67179535BC005BC59D /* TestMesoCrystal1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE36179535BC005BC59D /* TestMesoCrystal1.cpp */; };
 		62BADE68179535BC005BC59D /* TestMesoCrystal2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE37179535BC005BC59D /* TestMesoCrystal2.cpp */; };
 		62BADE69179535BC005BC59D /* TestMiscellaneous.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE38179535BC005BC59D /* TestMiscellaneous.cpp */; };
@@ -408,12 +424,6 @@
 		62BADE70179535BC005BC59D /* TreeEventStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BADE3F179535BC005BC59D /* TreeEventStructure.cpp */; };
 		62BADE711795361A005BC59D /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650817942F41009E166F /* libBornAgain.Core.dylib */; };
 		62BADE721795361A005BC59D /* libBornAgain.Fit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627F650717942E64009E166F /* libBornAgain.Fit.dylib */; };
-		62BADE7417953749005BC59D /* IsGISAXS06.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61C417940B33009E166F /* IsGISAXS06.cpp */; };
-		62BADE7517953749005BC59D /* IsGISAXS07.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61C817940B33009E166F /* IsGISAXS07.cpp */; };
-		62BADE7617953749005BC59D /* IsGISAXS08.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61CC17940B33009E166F /* IsGISAXS08.cpp */; };
-		62BADE7717953749005BC59D /* IsGISAXS10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61D417940B33009E166F /* IsGISAXS10.cpp */; };
-		62BADE7817953749005BC59D /* IsGISAXS11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61D817940B33009E166F /* IsGISAXS11.cpp */; };
-		62BADE7917953749005BC59D /* IsGISAXS15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627F61DC17940B33009E166F /* IsGISAXS15.cpp */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
 		62CC09711665047E00A5B720 /* ChiSquaredFrequency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */; };
 		62CC09721665047E00A5B720 /* FTDistributions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096C1665047E00A5B720 /* FTDistributions.cpp */; };
@@ -436,7 +446,6 @@
 		62EA737F1628422200656B41 /* OutputDataReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73781628422200656B41 /* OutputDataReader.cpp */; };
 		62EA73801628422200656B41 /* OutputDataWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73791628422200656B41 /* OutputDataWriter.cpp */; };
 		62EA73811628422200656B41 /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA737A1628422200656B41 /* ParameterPool.cpp */; };
-		62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */; };
 		62F3A3B4162D9966007FEE73 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */; };
 		62FD5BFA17F057E1007C0397 /* FormFactorTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */; };
 		62FD5DC717F061E3007C0397 /* BinData.h in Headers */ = {isa = PBXBuildFile; fileRef = 62FD5C7117F061E3007C0397 /* BinData.h */; };
@@ -694,9 +703,7 @@
 		62FD5EC617F06C05007C0397 /* libBornAgain.RootMinimizers.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */; };
 		62FD5EC917F06C63007C0397 /* libBornAgain.RootMinimizers.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FD5C0D17F06186007C0397 /* libBornAgain.RootMinimizers.dylib */; };
 		62FD5ECC17F06D1C007C0397 /* App in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BADDC917952FC2005BC59D /* App */; };
-		62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
 		62FDC05D1615E3C500D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
-		62FDC05F1615F0DE00D28B08 /* CoreOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */; };
 		62FDC0601615F11000D28B08 /* CoreOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */; };
 		62FDC0641615F1CB00D28B08 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */; };
 		62FDC0681615F2B700D28B08 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */; };
@@ -944,11 +951,9 @@
 		621D0BE516A985D100134391 /* PositionParticleInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PositionParticleInfo.cpp; sourceTree = "<group>"; };
 		621D0BE816A986CB00134391 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = ../../../../../opt/local/lib/libboost_signals.dylib; sourceTree = "<group>"; };
 		621D0BEA16A9882900134391 /* FormFactorBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorBox.h; sourceTree = "<group>"; };
-		621D0BEB16A9882900134391 /* FormFactorEllipsoid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorEllipsoid.h; sourceTree = "<group>"; };
 		621D0BEC16A9882900134391 /* FormFactorPrism6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorPrism6.h; sourceTree = "<group>"; };
 		621D0BED16A9882900134391 /* FormFactorSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorSphere.h; sourceTree = "<group>"; };
 		621D0BEE16A9883500134391 /* FormFactorBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorBox.cpp; sourceTree = "<group>"; };
-		621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorEllipsoid.cpp; sourceTree = "<group>"; };
 		621D0BF016A9883500134391 /* FormFactorPrism6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPrism6.cpp; sourceTree = "<group>"; };
 		621D0BF116A9883500134391 /* FormFactorSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSphere.cpp; sourceTree = "<group>"; };
 		622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedDWBATerms.h; sourceTree = "<group>"; };
@@ -1679,6 +1684,13 @@
 		6223327217C641B9004CCDAE /* HomogeneousMagneticMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomogeneousMagneticMaterial.h; sourceTree = "<group>"; };
 		6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HomogeneousMagneticMaterial.cpp; sourceTree = "<group>"; };
 		6223327517C641C5004CCDAE /* IMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMaterial.cpp; sourceTree = "<group>"; };
+		622E86B61844D5E60009F27C /* BornAgainNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BornAgainNamespace.h; sourceTree = "<group>"; };
+		622E86C41844D7850009F27C /* MesoCrystal01Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MesoCrystal01Builder.cpp; sourceTree = "<group>"; };
+		622E86C51844D7850009F27C /* MesoCrystal01Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MesoCrystal01Builder.h; sourceTree = "<group>"; };
+		622E86C61844D7850009F27C /* SimulationRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulationRegistry.cpp; sourceTree = "<group>"; };
+		622E86C71844D7850009F27C /* SimulationRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationRegistry.h; sourceTree = "<group>"; };
+		622E86C81844D7850009F27C /* StandardSimulations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StandardSimulations.cpp; sourceTree = "<group>"; };
+		622E86C91844D7850009F27C /* StandardSimulations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardSimulations.h; sourceTree = "<group>"; };
 		622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorMaterial.h; sourceTree = "<group>"; };
 		622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorMaterial.cpp; sourceTree = "<group>"; };
 		6236DD0716CE707C00ECED4F /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
@@ -1699,10 +1711,12 @@
 		625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StochasticDoubleGate.h; sourceTree = "<group>"; };
 		625A173B16BAAE69004943DB /* FormFactorCone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCone.h; sourceTree = "<group>"; };
 		625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSpheroid.h; sourceTree = "<group>"; };
-		625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorHemiSpheroid.h; sourceTree = "<group>"; };
 		625A173E16BAAE77004943DB /* FormFactorCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCone.cpp; sourceTree = "<group>"; };
 		625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSpheroid.cpp; sourceTree = "<group>"; };
-		625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiSpheroid.cpp; sourceTree = "<group>"; };
+		627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolarizedDWBAZeroMagBuilder.cpp; sourceTree = "<group>"; };
+		627200AE1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolarizedDWBAZeroMagBuilder.h; sourceTree = "<group>"; };
+		627200BD1848E1B7001D55F3 /* FormFactorCone6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCone6.cpp; sourceTree = "<group>"; };
+		627200BF1848E1C6001D55F3 /* FormFactorCone6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCone6.h; sourceTree = "<group>"; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
 		627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePrintVisitor.h; sourceTree = "<group>"; };
 		627F5FFB1793EB17009E166F /* WinDllMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinDllMacros.h; sourceTree = "<group>"; };
@@ -1722,11 +1736,9 @@
 		627F60101793FB0F009E166F /* FormFactorCrystal.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCrystal.pypp.h; sourceTree = "<group>"; };
 		627F60111793FB0F009E166F /* FormFactorCylinder.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCylinder.pypp.h; sourceTree = "<group>"; };
 		627F60121793FB0F009E166F /* FormFactorDecoratorDebyeWaller.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorDebyeWaller.pypp.h; sourceTree = "<group>"; };
-		627F60131793FB0F009E166F /* FormFactorEllipsoid.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorEllipsoid.pypp.h; sourceTree = "<group>"; };
 		627F60141793FB0F009E166F /* FormFactorFullSphere.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSphere.pypp.h; sourceTree = "<group>"; };
 		627F60151793FB0F009E166F /* FormFactorFullSpheroid.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSpheroid.pypp.h; sourceTree = "<group>"; };
 		627F60161793FB0F009E166F /* FormFactorGauss.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorGauss.pypp.h; sourceTree = "<group>"; };
-		627F60171793FB0F009E166F /* FormFactorHemiSpheroid.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorHemiSpheroid.pypp.h; sourceTree = "<group>"; };
 		627F60181793FB0F009E166F /* FormFactorLorentz.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorLorentz.pypp.h; sourceTree = "<group>"; };
 		627F60191793FB0F009E166F /* FormFactorParallelepiped.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorParallelepiped.pypp.h; sourceTree = "<group>"; };
 		627F601A1793FB0F009E166F /* FormFactorPrism3.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorPrism3.pypp.h; sourceTree = "<group>"; };
@@ -1808,11 +1820,9 @@
 		627F60681793FB22009E166F /* FormFactorCrystal.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCrystal.pypp.cpp; sourceTree = "<group>"; };
 		627F60691793FB22009E166F /* FormFactorCylinder.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCylinder.pypp.cpp; sourceTree = "<group>"; };
 		627F606A1793FB22009E166F /* FormFactorDecoratorDebyeWaller.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorDebyeWaller.pypp.cpp; sourceTree = "<group>"; };
-		627F606B1793FB22009E166F /* FormFactorEllipsoid.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorEllipsoid.pypp.cpp; sourceTree = "<group>"; };
 		627F606C1793FB22009E166F /* FormFactorFullSphere.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSphere.pypp.cpp; sourceTree = "<group>"; };
 		627F606D1793FB22009E166F /* FormFactorFullSpheroid.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSpheroid.pypp.cpp; sourceTree = "<group>"; };
 		627F606E1793FB22009E166F /* FormFactorGauss.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorGauss.pypp.cpp; sourceTree = "<group>"; };
-		627F606F1793FB22009E166F /* FormFactorHemiSpheroid.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiSpheroid.pypp.cpp; sourceTree = "<group>"; };
 		627F60701793FB22009E166F /* FormFactorLorentz.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorLorentz.pypp.cpp; sourceTree = "<group>"; };
 		627F60711793FB22009E166F /* FormFactorParallelepiped.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorParallelepiped.pypp.cpp; sourceTree = "<group>"; };
 		627F60721793FB22009E166F /* FormFactorPrism3.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPrism3.pypp.cpp; sourceTree = "<group>"; };
@@ -2256,6 +2266,68 @@
 		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
 		628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorDebyeWaller.cpp; sourceTree = "<group>"; };
 		628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorMultiPositionFactor.cpp; sourceTree = "<group>"; };
+		629B55E5185B2D47003AE64D /* FormFactorAnisoPyramid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorAnisoPyramid.h; sourceTree = "<group>"; };
+		629B55E6185B2D47003AE64D /* FormFactorCuboctahedron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCuboctahedron.h; sourceTree = "<group>"; };
+		629B55E7185B2D47003AE64D /* FormFactorEllipsoidalCylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorEllipsoidalCylinder.h; sourceTree = "<group>"; };
+		629B55E8185B2D47003AE64D /* FormFactorHemiEllipsoid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorHemiEllipsoid.h; sourceTree = "<group>"; };
+		629B55E9185B2D47003AE64D /* FormFactorRipple2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorRipple2.h; sourceTree = "<group>"; };
+		629B55EA185B2D47003AE64D /* FormFactorSphereUniformRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorSphereUniformRadius.h; sourceTree = "<group>"; };
+		629B55EB185B2D47003AE64D /* FormFactorSpheroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorSpheroid.h; sourceTree = "<group>"; };
+		629B55EC185B2D60003AE64D /* FormFactorAnisoPyramid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorAnisoPyramid.cpp; sourceTree = "<group>"; };
+		629B55ED185B2D60003AE64D /* FormFactorCuboctahedron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCuboctahedron.cpp; sourceTree = "<group>"; };
+		629B55EE185B2D60003AE64D /* FormFactorEllipsoidalCylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorEllipsoidalCylinder.cpp; sourceTree = "<group>"; };
+		629B55EF185B2D60003AE64D /* FormFactorHemiEllipsoid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiEllipsoid.cpp; sourceTree = "<group>"; };
+		629B55F0185B2D60003AE64D /* FormFactorRipple2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorRipple2.cpp; sourceTree = "<group>"; };
+		629B55F1185B2D60003AE64D /* FormFactorSphereGaussianRadius.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSphereGaussianRadius.cpp; sourceTree = "<group>"; };
+		629B55F2185B2D60003AE64D /* FormFactorSphereUniformRadius.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSphereUniformRadius.cpp; sourceTree = "<group>"; };
+		629B55F3185B2D60003AE64D /* FormFactorSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSpheroid.cpp; sourceTree = "<group>"; };
+		629B55FC185B2D8D003AE64D /* ApplicationTestFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTestFactory.h; sourceTree = "<group>"; };
+		629B55FD185B2D8D003AE64D /* IApplicationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IApplicationTest.h; sourceTree = "<group>"; };
+		629B55FE185B2D8D003AE64D /* TestFunctionalTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFunctionalTests.h; sourceTree = "<group>"; };
+		629B55FF185B2D8D003AE64D /* TestRipple2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestRipple2.h; sourceTree = "<group>"; };
+		629B5600185B2DB9003AE64D /* ApplicationTestFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ApplicationTestFactory.cpp; sourceTree = "<group>"; };
+		629B5601185B2DB9003AE64D /* TestFunctionalTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFunctionalTests.cpp; sourceTree = "<group>"; };
+		629B5602185B2DB9003AE64D /* TestRipple2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestRipple2.cpp; sourceTree = "<group>"; };
+		629B5606185B2E2A003AE64D /* FormFactorAnisoPyramid.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorAnisoPyramid.pypp.h; sourceTree = "<group>"; };
+		629B5607185B2E2A003AE64D /* FormFactorCone6.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCone6.pypp.h; sourceTree = "<group>"; };
+		629B5608185B2E2A003AE64D /* FormFactorCuboctahedron.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCuboctahedron.pypp.h; sourceTree = "<group>"; };
+		629B5609185B2E2A003AE64D /* FormFactorEllipsoidalCylinder.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorEllipsoidalCylinder.pypp.h; sourceTree = "<group>"; };
+		629B560A185B2E2A003AE64D /* FormFactorHemiEllipsoid.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorHemiEllipsoid.pypp.h; sourceTree = "<group>"; };
+		629B560B185B2E2A003AE64D /* FormFactorRipple2.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorRipple2.pypp.h; sourceTree = "<group>"; };
+		629B560C185B2E2A003AE64D /* FormFactorSphereUniformRadius.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorSphereUniformRadius.pypp.h; sourceTree = "<group>"; };
+		629B560D185B2E2A003AE64D /* FormFactorSpheroid.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorSpheroid.pypp.h; sourceTree = "<group>"; };
+		629B560E185B2E2A003AE64D /* ThreadInfo.pypp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadInfo.pypp.h; sourceTree = "<group>"; };
+		629B560F185B2E50003AE64D /* FormFactorAnisoPyramid.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorAnisoPyramid.pypp.cpp; sourceTree = "<group>"; };
+		629B5610185B2E50003AE64D /* FormFactorCone6.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCone6.pypp.cpp; sourceTree = "<group>"; };
+		629B5611185B2E50003AE64D /* FormFactorCuboctahedron.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCuboctahedron.pypp.cpp; sourceTree = "<group>"; };
+		629B5612185B2E50003AE64D /* FormFactorEllipsoidalCylinder.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorEllipsoidalCylinder.pypp.cpp; sourceTree = "<group>"; };
+		629B5613185B2E50003AE64D /* FormFactorHemiEllipsoid.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiEllipsoid.pypp.cpp; sourceTree = "<group>"; };
+		629B5614185B2E50003AE64D /* FormFactorRipple2.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorRipple2.pypp.cpp; sourceTree = "<group>"; };
+		629B5615185B2E50003AE64D /* FormFactorSphereUniformRadius.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSphereUniformRadius.pypp.cpp; sourceTree = "<group>"; };
+		629B5616185B2E50003AE64D /* FormFactorSpheroid.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSpheroid.pypp.cpp; sourceTree = "<group>"; };
+		629B5617185B2E50003AE64D /* ThreadInfo.pypp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadInfo.pypp.cpp; sourceTree = "<group>"; };
+		629B5621185B2F05003AE64D /* FunctionalTestRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionalTestRegistry.cpp; sourceTree = "<group>"; };
+		629B5622185B2F05003AE64D /* FunctionalTestRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionalTestRegistry.h; sourceTree = "<group>"; };
+		629B5623185B2F05003AE64D /* IFunctionalTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFunctionalTest.cpp; sourceTree = "<group>"; };
+		629B5624185B2F05003AE64D /* IFunctionalTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFunctionalTest.h; sourceTree = "<group>"; };
+		629B5625185B2F05003AE64D /* IsGISAXS07Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXS07Builder.cpp; sourceTree = "<group>"; };
+		629B5626185B2F05003AE64D /* IsGISAXS07Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXS07Builder.h; sourceTree = "<group>"; };
+		629B5627185B2F05003AE64D /* IsGISAXS08Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXS08Builder.cpp; sourceTree = "<group>"; };
+		629B5628185B2F05003AE64D /* IsGISAXS08Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXS08Builder.h; sourceTree = "<group>"; };
+		629B5629185B2F05003AE64D /* IsGISAXS10Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXS10Builder.cpp; sourceTree = "<group>"; };
+		629B562A185B2F05003AE64D /* IsGISAXS10Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXS10Builder.h; sourceTree = "<group>"; };
+		629B562B185B2F05003AE64D /* IsGISAXS11Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXS11Builder.cpp; sourceTree = "<group>"; };
+		629B562C185B2F05003AE64D /* IsGISAXS11Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXS11Builder.h; sourceTree = "<group>"; };
+		629B562D185B2F05003AE64D /* IsGISAXS15Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXS15Builder.cpp; sourceTree = "<group>"; };
+		629B562E185B2F05003AE64D /* IsGISAXS15Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXS15Builder.h; sourceTree = "<group>"; };
+		629B562F185B2F05003AE64D /* LayerRoughnessBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerRoughnessBuilder.cpp; sourceTree = "<group>"; };
+		629B5630185B2F05003AE64D /* LayerRoughnessBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerRoughnessBuilder.h; sourceTree = "<group>"; };
+		629B5631185B2F05003AE64D /* Ripple2Builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ripple2Builder.cpp; sourceTree = "<group>"; };
+		629B5632185B2F05003AE64D /* Ripple2Builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ripple2Builder.h; sourceTree = "<group>"; };
+		629B563C185B2F2A003AE64D /* BAConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAConfigure.h; sourceTree = "<group>"; };
+		629B563D185B2F2A003AE64D /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
+		629B563E185B2F3E003AE64D /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
+		629B5640185B3122003AE64D /* ISampleVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISampleVisitor.cpp; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fp_exception_glibc_extension.h; sourceTree = "<group>"; };
 		62B316101712FE11004A9D02 /* MessageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageService.h; sourceTree = "<group>"; };
@@ -2319,8 +2391,6 @@
 		62BADDDF1795358E005BC59D /* FitSuiteDrawObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteDrawObserver.h; sourceTree = "<group>"; };
 		62BADDE01795358E005BC59D /* FitSuiteObserverFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteObserverFactory.h; sourceTree = "<group>"; };
 		62BADDE11795358E005BC59D /* FitSuiteWriteTreeObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteWriteTreeObserver.h; sourceTree = "<group>"; };
-		62BADDE21795358E005BC59D /* FunctionalTestFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionalTestFactory.h; sourceTree = "<group>"; };
-		62BADDE31795358E005BC59D /* IFunctionalTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFunctionalTest.h; sourceTree = "<group>"; };
 		62BADDE41795358E005BC59D /* IsGISAXSData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXSData.h; sourceTree = "<group>"; };
 		62BADDE51795358E005BC59D /* IsGISAXSTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXSTools.h; sourceTree = "<group>"; };
 		62BADDE61795358E005BC59D /* SampleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleFactory.h; sourceTree = "<group>"; };
@@ -2328,7 +2398,6 @@
 		62BADDE81795358E005BC59D /* TestConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConvolution.h; sourceTree = "<group>"; };
 		62BADDE91795358E005BC59D /* TestDetectorResolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDetectorResolution.h; sourceTree = "<group>"; };
 		62BADDEA1795358E005BC59D /* TestDiffuseReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDiffuseReflection.h; sourceTree = "<group>"; };
-		62BADDEB1795358E005BC59D /* TestFittingBenchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingBenchmark.h; sourceTree = "<group>"; };
 		62BADDEC1795358E005BC59D /* TestFittingModule1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule1.h; sourceTree = "<group>"; };
 		62BADDED1795358E005BC59D /* TestFittingModule2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule2.h; sourceTree = "<group>"; };
 		62BADDEE1795358E005BC59D /* TestFittingModule3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule3.h; sourceTree = "<group>"; };
@@ -2336,21 +2405,9 @@
 		62BADDF01795358E005BC59D /* TestFormFactors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFormFactors.h; sourceTree = "<group>"; };
 		62BADDF11795358E005BC59D /* TestFourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFourier.h; sourceTree = "<group>"; };
 		62BADDF31795358E005BC59D /* TestFumiliLMA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFumiliLMA.h; sourceTree = "<group>"; };
-		62BADDF41795358E005BC59D /* TestIsGISAXS1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS1.h; sourceTree = "<group>"; };
-		62BADDF51795358E005BC59D /* TestIsGISAXS2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS2.h; sourceTree = "<group>"; };
-		62BADDF61795358E005BC59D /* TestIsGISAXS3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS3.h; sourceTree = "<group>"; };
-		62BADDF71795358E005BC59D /* TestIsGISAXS4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS4.h; sourceTree = "<group>"; };
 		62BADDF81795358E005BC59D /* TestIsGISAXS5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS5.h; sourceTree = "<group>"; };
-		62BADDF91795358E005BC59D /* TestIsGISAXS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS6.h; sourceTree = "<group>"; };
-		62BADDFA1795358E005BC59D /* TestIsGISAXS7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS7.h; sourceTree = "<group>"; };
-		62BADDFB1795358E005BC59D /* TestIsGISAXS8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS8.h; sourceTree = "<group>"; };
-		62BADDFC1795358E005BC59D /* TestIsGISAXS9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS9.h; sourceTree = "<group>"; };
-		62BADDFD1795358E005BC59D /* TestIsGISAXS10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS10.h; sourceTree = "<group>"; };
-		62BADDFE1795358E005BC59D /* TestIsGISAXS11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS11.h; sourceTree = "<group>"; };
 		62BADDFF1795358E005BC59D /* TestIsGISAXS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS12.h; sourceTree = "<group>"; };
 		62BADE001795358E005BC59D /* TestIsGISAXS13.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS13.h; sourceTree = "<group>"; };
-		62BADE011795358E005BC59D /* TestIsGISAXS14.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS14.h; sourceTree = "<group>"; };
-		62BADE021795358E005BC59D /* TestIsGISAXS15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS15.h; sourceTree = "<group>"; };
 		62BADE031795358E005BC59D /* TestMesoCrystal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMesoCrystal1.h; sourceTree = "<group>"; };
 		62BADE041795358E005BC59D /* TestMesoCrystal2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMesoCrystal2.h; sourceTree = "<group>"; };
 		62BADE051795358E005BC59D /* TestMiscellaneous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMiscellaneous.h; sourceTree = "<group>"; };
@@ -2361,14 +2418,10 @@
 		62BADE0A1795358E005BC59D /* TestSpecularMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSpecularMatrix.h; sourceTree = "<group>"; };
 		62BADE0B1795358E005BC59D /* TestToySimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToySimulation.h; sourceTree = "<group>"; };
 		62BADE0C1795358E005BC59D /* TreeEventStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeEventStructure.h; sourceTree = "<group>"; };
-		62BADE0E179535BB005BC59D /* AppDict.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDict.cpp; sourceTree = "<group>"; };
-		62BADE0F179535BB005BC59D /* AppDict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDict.h; sourceTree = "<group>"; };
 		62BADE10179535BB005BC59D /* AppOptionsDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppOptionsDescription.cpp; sourceTree = "<group>"; };
 		62BADE11179535BB005BC59D /* DrawHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawHelper.cpp; sourceTree = "<group>"; };
 		62BADE12179535BB005BC59D /* FitSuiteDrawObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteDrawObserver.cpp; sourceTree = "<group>"; };
 		62BADE13179535BB005BC59D /* FitSuiteWriteTreeObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteWriteTreeObserver.cpp; sourceTree = "<group>"; };
-		62BADE14179535BB005BC59D /* FunctionalTestFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionalTestFactory.cpp; sourceTree = "<group>"; };
-		62BADE15179535BC005BC59D /* IFunctionalTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFunctionalTest.cpp; sourceTree = "<group>"; };
 		62BADE16179535BC005BC59D /* IsGISAXSData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSData.cpp; sourceTree = "<group>"; };
 		62BADE17179535BC005BC59D /* IsGISAXSTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSTools.cpp; sourceTree = "<group>"; };
 		62BADE18179535BC005BC59D /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -2377,7 +2430,6 @@
 		62BADE1B179535BC005BC59D /* TestConvolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestConvolution.cpp; sourceTree = "<group>"; };
 		62BADE1C179535BC005BC59D /* TestDetectorResolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestDetectorResolution.cpp; sourceTree = "<group>"; };
 		62BADE1D179535BC005BC59D /* TestDiffuseReflection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestDiffuseReflection.cpp; sourceTree = "<group>"; };
-		62BADE1E179535BC005BC59D /* TestFittingBenchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingBenchmark.cpp; sourceTree = "<group>"; };
 		62BADE1F179535BC005BC59D /* TestFittingModule1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule1.cpp; sourceTree = "<group>"; };
 		62BADE20179535BC005BC59D /* TestFittingModule2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule2.cpp; sourceTree = "<group>"; };
 		62BADE21179535BC005BC59D /* TestFittingModule3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule3.cpp; sourceTree = "<group>"; };
@@ -2385,21 +2437,9 @@
 		62BADE23179535BC005BC59D /* TestFormFactors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFormFactors.cpp; sourceTree = "<group>"; };
 		62BADE24179535BC005BC59D /* TestFourier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFourier.cpp; sourceTree = "<group>"; };
 		62BADE26179535BC005BC59D /* TestFumiliLMA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFumiliLMA.cpp; sourceTree = "<group>"; };
-		62BADE27179535BC005BC59D /* TestIsGISAXS1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS1.cpp; sourceTree = "<group>"; };
-		62BADE28179535BC005BC59D /* TestIsGISAXS2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS2.cpp; sourceTree = "<group>"; };
-		62BADE29179535BC005BC59D /* TestIsGISAXS3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS3.cpp; sourceTree = "<group>"; };
-		62BADE2A179535BC005BC59D /* TestIsGISAXS4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS4.cpp; sourceTree = "<group>"; };
 		62BADE2B179535BC005BC59D /* TestIsGISAXS5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS5.cpp; sourceTree = "<group>"; };
-		62BADE2C179535BC005BC59D /* TestIsGISAXS6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS6.cpp; sourceTree = "<group>"; };
-		62BADE2D179535BC005BC59D /* TestIsGISAXS7.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS7.cpp; sourceTree = "<group>"; };
-		62BADE2E179535BC005BC59D /* TestIsGISAXS8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS8.cpp; sourceTree = "<group>"; };
-		62BADE2F179535BC005BC59D /* TestIsGISAXS9.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS9.cpp; sourceTree = "<group>"; };
-		62BADE30179535BC005BC59D /* TestIsGISAXS10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS10.cpp; sourceTree = "<group>"; };
-		62BADE31179535BC005BC59D /* TestIsGISAXS11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS11.cpp; sourceTree = "<group>"; };
 		62BADE32179535BC005BC59D /* TestIsGISAXS12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS12.cpp; sourceTree = "<group>"; };
 		62BADE33179535BC005BC59D /* TestIsGISAXS13.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS13.cpp; sourceTree = "<group>"; };
-		62BADE34179535BC005BC59D /* TestIsGISAXS14.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS14.cpp; sourceTree = "<group>"; };
-		62BADE35179535BC005BC59D /* TestIsGISAXS15.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS15.cpp; sourceTree = "<group>"; };
 		62BADE36179535BC005BC59D /* TestMesoCrystal1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal1.cpp; sourceTree = "<group>"; };
 		62BADE37179535BC005BC59D /* TestMesoCrystal2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal2.cpp; sourceTree = "<group>"; };
 		62BADE38179535BC005BC59D /* TestMiscellaneous.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMiscellaneous.cpp; sourceTree = "<group>"; };
@@ -2467,8 +2507,6 @@
 		62EA73791628422200656B41 /* OutputDataWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataWriter.cpp; sourceTree = "<group>"; };
 		62EA737A1628422200656B41 /* ParameterPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.cpp; sourceTree = "<group>"; };
 		62EA73821628425600656B41 /* ISampleBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISampleBuilder.h; sourceTree = "<group>"; };
-		62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPolarizedDWBAZeroMag.h; sourceTree = "<group>"; };
-		62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPolarizedDWBAZeroMag.cpp; sourceTree = "<group>"; };
 		62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../../../../opt/local/lib/libboost_iostreams.dylib; sourceTree = "<group>"; };
 		62FD5BEB17F057D9007C0397 /* FormFactorTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorTools.h; sourceTree = "<group>"; };
 		62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorTools.cpp; sourceTree = "<group>"; };
@@ -2968,14 +3006,14 @@
 			isa = PBXGroup;
 			children = (
 				62BADDDB1795358E005BC59D /* App.h */,
+				629B55FC185B2D8D003AE64D /* ApplicationTestFactory.h */,
 				62BADDDC1795358E005BC59D /* AppLinkDef.h */,
 				62BADDDD1795358E005BC59D /* AppOptionsDescription.h */,
 				62BADDDE1795358E005BC59D /* DrawHelper.h */,
 				62BADDDF1795358E005BC59D /* FitSuiteDrawObserver.h */,
 				62BADDE01795358E005BC59D /* FitSuiteObserverFactory.h */,
 				62BADDE11795358E005BC59D /* FitSuiteWriteTreeObserver.h */,
-				62BADDE21795358E005BC59D /* FunctionalTestFactory.h */,
-				62BADDE31795358E005BC59D /* IFunctionalTest.h */,
+				629B55FD185B2D8D003AE64D /* IApplicationTest.h */,
 				62BADDE41795358E005BC59D /* IsGISAXSData.h */,
 				62BADDE51795358E005BC59D /* IsGISAXSTools.h */,
 				62BADDE61795358E005BC59D /* SampleFactory.h */,
@@ -2984,7 +3022,6 @@
 				62BADDE81795358E005BC59D /* TestConvolution.h */,
 				62BADDE91795358E005BC59D /* TestDetectorResolution.h */,
 				62BADDEA1795358E005BC59D /* TestDiffuseReflection.h */,
-				62BADDEB1795358E005BC59D /* TestFittingBenchmark.h */,
 				62BADDEC1795358E005BC59D /* TestFittingModule1.h */,
 				62BADDED1795358E005BC59D /* TestFittingModule2.h */,
 				62BADDEE1795358E005BC59D /* TestFittingModule3.h */,
@@ -2992,21 +3029,10 @@
 				62BADDF01795358E005BC59D /* TestFormFactors.h */,
 				62BADDF11795358E005BC59D /* TestFourier.h */,
 				62BADDF31795358E005BC59D /* TestFumiliLMA.h */,
-				62BADDF41795358E005BC59D /* TestIsGISAXS1.h */,
-				62BADDFD1795358E005BC59D /* TestIsGISAXS10.h */,
-				62BADDFE1795358E005BC59D /* TestIsGISAXS11.h */,
+				629B55FE185B2D8D003AE64D /* TestFunctionalTests.h */,
 				62BADDFF1795358E005BC59D /* TestIsGISAXS12.h */,
 				62BADE001795358E005BC59D /* TestIsGISAXS13.h */,
-				62BADE011795358E005BC59D /* TestIsGISAXS14.h */,
-				62BADE021795358E005BC59D /* TestIsGISAXS15.h */,
-				62BADDF51795358E005BC59D /* TestIsGISAXS2.h */,
-				62BADDF61795358E005BC59D /* TestIsGISAXS3.h */,
-				62BADDF71795358E005BC59D /* TestIsGISAXS4.h */,
 				62BADDF81795358E005BC59D /* TestIsGISAXS5.h */,
-				62BADDF91795358E005BC59D /* TestIsGISAXS6.h */,
-				62BADDFA1795358E005BC59D /* TestIsGISAXS7.h */,
-				62BADDFB1795358E005BC59D /* TestIsGISAXS8.h */,
-				62BADDFC1795358E005BC59D /* TestIsGISAXS9.h */,
 				62BADE031795358E005BC59D /* TestMesoCrystal1.h */,
 				62BADE041795358E005BC59D /* TestMesoCrystal2.h */,
 				62BADE051795358E005BC59D /* TestMiscellaneous.h */,
@@ -3014,8 +3040,8 @@
 				62BADE071795358E005BC59D /* TestPerformance.h */,
 				6221C37117D5CFDF00D43C2F /* TestPolarizedDWBA.h */,
 				622127AB17D9FEB400393360 /* TestPolarizedDWBATerms.h */,
-				62ED4B4817D8B20700C8BAA0 /* TestPolarizedDWBAZeroMag.h */,
 				6248BE1A17E1C4F40027D960 /* TestPolarizedMeso.h */,
+				629B55FF185B2D8D003AE64D /* TestRipple2.h */,
 				62BADE081795358E005BC59D /* TestRootTree.h */,
 				62BADE091795358E005BC59D /* TestRoughness.h */,
 				6221C37217D5CFDF00D43C2F /* TestSpecularMagnetic.h */,
@@ -3030,14 +3056,11 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				62BADE0E179535BB005BC59D /* AppDict.cpp */,
-				62BADE0F179535BB005BC59D /* AppDict.h */,
+				629B5600185B2DB9003AE64D /* ApplicationTestFactory.cpp */,
 				62BADE10179535BB005BC59D /* AppOptionsDescription.cpp */,
 				62BADE11179535BB005BC59D /* DrawHelper.cpp */,
 				62BADE12179535BB005BC59D /* FitSuiteDrawObserver.cpp */,
 				62BADE13179535BB005BC59D /* FitSuiteWriteTreeObserver.cpp */,
-				62BADE14179535BB005BC59D /* FunctionalTestFactory.cpp */,
-				62BADE15179535BC005BC59D /* IFunctionalTest.cpp */,
 				62BADE16179535BC005BC59D /* IsGISAXSData.cpp */,
 				62BADE17179535BC005BC59D /* IsGISAXSTools.cpp */,
 				62BADE18179535BC005BC59D /* main.cpp */,
@@ -3047,7 +3070,6 @@
 				62BADE1B179535BC005BC59D /* TestConvolution.cpp */,
 				62BADE1C179535BC005BC59D /* TestDetectorResolution.cpp */,
 				62BADE1D179535BC005BC59D /* TestDiffuseReflection.cpp */,
-				62BADE1E179535BC005BC59D /* TestFittingBenchmark.cpp */,
 				62BADE1F179535BC005BC59D /* TestFittingModule1.cpp */,
 				62BADE20179535BC005BC59D /* TestFittingModule2.cpp */,
 				62BADE21179535BC005BC59D /* TestFittingModule3.cpp */,
@@ -3055,21 +3077,10 @@
 				62BADE23179535BC005BC59D /* TestFormFactors.cpp */,
 				62BADE24179535BC005BC59D /* TestFourier.cpp */,
 				62BADE26179535BC005BC59D /* TestFumiliLMA.cpp */,
-				62BADE27179535BC005BC59D /* TestIsGISAXS1.cpp */,
-				62BADE30179535BC005BC59D /* TestIsGISAXS10.cpp */,
-				62BADE31179535BC005BC59D /* TestIsGISAXS11.cpp */,
+				629B5601185B2DB9003AE64D /* TestFunctionalTests.cpp */,
 				62BADE32179535BC005BC59D /* TestIsGISAXS12.cpp */,
 				62BADE33179535BC005BC59D /* TestIsGISAXS13.cpp */,
-				62BADE34179535BC005BC59D /* TestIsGISAXS14.cpp */,
-				62BADE35179535BC005BC59D /* TestIsGISAXS15.cpp */,
-				62BADE28179535BC005BC59D /* TestIsGISAXS2.cpp */,
-				62BADE29179535BC005BC59D /* TestIsGISAXS3.cpp */,
-				62BADE2A179535BC005BC59D /* TestIsGISAXS4.cpp */,
 				62BADE2B179535BC005BC59D /* TestIsGISAXS5.cpp */,
-				62BADE2C179535BC005BC59D /* TestIsGISAXS6.cpp */,
-				62BADE2D179535BC005BC59D /* TestIsGISAXS7.cpp */,
-				62BADE2E179535BC005BC59D /* TestIsGISAXS8.cpp */,
-				62BADE2F179535BC005BC59D /* TestIsGISAXS9.cpp */,
 				62BADE36179535BC005BC59D /* TestMesoCrystal1.cpp */,
 				62BADE37179535BC005BC59D /* TestMesoCrystal2.cpp */,
 				62BADE38179535BC005BC59D /* TestMiscellaneous.cpp */,
@@ -3077,8 +3088,8 @@
 				62BADE3A179535BC005BC59D /* TestPerformance.cpp */,
 				6221C37417D5CFF500D43C2F /* TestPolarizedDWBA.cpp */,
 				622127B917D9FEC200393360 /* TestPolarizedDWBATerms.cpp */,
-				62ED4B4917D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp */,
 				6248BE2817E1C5000027D960 /* TestPolarizedMeso.cpp */,
+				629B5602185B2DB9003AE64D /* TestRipple2.cpp */,
 				62BADE3B179535BC005BC59D /* TestRootTree.cpp */,
 				62BADE3C179535BC005BC59D /* TestRoughness.cpp */,
 				6221C37517D5CFF500D43C2F /* TestSpecularMagnetic.cpp */,
@@ -3218,40 +3229,46 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				62FF6A40183134EF00E62E45 /* FormFactorTetrahedron.h */,
-				62FD5BEB17F057D9007C0397 /* FormFactorTools.h */,
-				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
-				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
-				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
-				625A173B16BAAE69004943DB /* FormFactorCone.h */,
-				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
-				625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */,
+				629B55E5185B2D47003AE64D /* FormFactorAnisoPyramid.h */,
 				621D0BEA16A9882900134391 /* FormFactorBox.h */,
-				621D0BEB16A9882900134391 /* FormFactorEllipsoid.h */,
-				621D0BEC16A9882900134391 /* FormFactorPrism6.h */,
-				621D0BED16A9882900134391 /* FormFactorSphere.h */,
-				6254C2601666651F0098EE7E /* IFormFactorBorn.h */,
-				6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */,
-				6254C2621666651F0098EE7E /* IFormFactorDecorator.h */,
-				6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */,
+				625A173B16BAAE69004943DB /* FormFactorCone.h */,
+				627200BF1848E1C6001D55F3 /* FormFactorCone6.h */,
 				62222272160CB745008205AC /* FormFactorCrystal.h */,
+				629B55E6185B2D47003AE64D /* FormFactorCuboctahedron.h */,
 				62222273160CB745008205AC /* FormFactorCylinder.h */,
-				62222274160CB745008205AC /* FormFactorDWBA.h */,
-				62222275160CB745008205AC /* FormFactorDWBAConstZ.h */,
 				62222276160CB745008205AC /* FormFactorDecoratorDebyeWaller.h */,
 				62222277160CB745008205AC /* FormFactorDecoratorFactor.h */,
+				622F80CC17DE1EC50017FC52 /* FormFactorDecoratorMaterial.h */,
 				62222278160CB745008205AC /* FormFactorDecoratorMultiPositionFactor.h */,
 				62222279160CB745008205AC /* FormFactorDecoratorPositionFactor.h */,
 				6222227B160CB745008205AC /* FormFactorDecoratorTransformation.h */,
+				62222274160CB745008205AC /* FormFactorDWBA.h */,
+				62222275160CB745008205AC /* FormFactorDWBAConstZ.h */,
+				6223326017C640BC004CCDAE /* FormFactorDWBAPol.h */,
+				6223326117C640BC004CCDAE /* FormFactorDWBAPolConstZ.h */,
+				629B55E7185B2D47003AE64D /* FormFactorEllipsoidalCylinder.h */,
 				6222227C160CB745008205AC /* FormFactorFullSphere.h */,
+				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
 				6222227D160CB745008205AC /* FormFactorGauss.h */,
+				629B55E8185B2D47003AE64D /* FormFactorHemiEllipsoid.h */,
 				6222227E160CB745008205AC /* FormFactorLorentz.h */,
+				6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */,
 				6222227F160CB745008205AC /* FormFactorPrism3.h */,
+				621D0BEC16A9882900134391 /* FormFactorPrism6.h */,
 				62222280160CB745008205AC /* FormFactorPyramid.h */,
-				62222281160CB745008205AC /* FormFactorSphereGaussianRadius.h */,
-				62222282160CB745008205AC /* FormFactorWeighted.h */,
+				629B55E9185B2D47003AE64D /* FormFactorRipple2.h */,
 				62222283160CB745008205AC /* FormFactors.h */,
+				621D0BED16A9882900134391 /* FormFactorSphere.h */,
+				62222281160CB745008205AC /* FormFactorSphereGaussianRadius.h */,
+				629B55EA185B2D47003AE64D /* FormFactorSphereUniformRadius.h */,
+				629B55EB185B2D47003AE64D /* FormFactorSpheroid.h */,
+				62FF6A40183134EF00E62E45 /* FormFactorTetrahedron.h */,
+				62FD5BEB17F057D9007C0397 /* FormFactorTools.h */,
+				62222282160CB745008205AC /* FormFactorWeighted.h */,
 				62222284160CB745008205AC /* IFormFactor.h */,
+				6254C2601666651F0098EE7E /* IFormFactorBorn.h */,
+				6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */,
+				6254C2621666651F0098EE7E /* IFormFactorDecorator.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3259,33 +3276,40 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */,
-				62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */,
-				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
-				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
-				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
-				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
-				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
-				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
-				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
-				625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */,
+				629B55EC185B2D60003AE64D /* FormFactorAnisoPyramid.cpp */,
 				621D0BEE16A9883500134391 /* FormFactorBox.cpp */,
-				621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */,
-				621D0BF016A9883500134391 /* FormFactorPrism6.cpp */,
-				621D0BF116A9883500134391 /* FormFactorSphere.cpp */,
-				6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */,
-				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
+				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
+				627200BD1848E1B7001D55F3 /* FormFactorCone6.cpp */,
 				62222286160CB745008205AC /* FormFactorCrystal.cpp */,
+				629B55ED185B2D60003AE64D /* FormFactorCuboctahedron.cpp */,
 				62222287160CB745008205AC /* FormFactorCylinder.cpp */,
+				628D3C1017E0936400299D2E /* FormFactorDecoratorDebyeWaller.cpp */,
+				622F80DA17DE1ED20017FC52 /* FormFactorDecoratorMaterial.cpp */,
+				628D3C1117E0936400299D2E /* FormFactorDecoratorMultiPositionFactor.cpp */,
+				6222228A160CB745008205AC /* FormFactorDecoratorTransformation.cpp */,
 				62222288160CB745008205AC /* FormFactorDWBA.cpp */,
 				62222289160CB745008205AC /* FormFactorDWBAConstZ.cpp */,
-				6222228A160CB745008205AC /* FormFactorDecoratorTransformation.cpp */,
+				6223326317C640C7004CCDAE /* FormFactorDWBAPol.cpp */,
+				6223326417C640C7004CCDAE /* FormFactorDWBAPolConstZ.cpp */,
+				629B55EE185B2D60003AE64D /* FormFactorEllipsoidalCylinder.cpp */,
 				6222228B160CB745008205AC /* FormFactorFullSphere.cpp */,
+				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
 				6222228C160CB745008205AC /* FormFactorGauss.cpp */,
+				629B55EF185B2D60003AE64D /* FormFactorHemiEllipsoid.cpp */,
 				6222228D160CB745008205AC /* FormFactorLorentz.cpp */,
+				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
 				6222228E160CB745008205AC /* FormFactorPrism3.cpp */,
+				621D0BF016A9883500134391 /* FormFactorPrism6.cpp */,
 				6222228F160CB745008205AC /* FormFactorPyramid.cpp */,
+				629B55F0185B2D60003AE64D /* FormFactorRipple2.cpp */,
+				621D0BF116A9883500134391 /* FormFactorSphere.cpp */,
+				629B55F1185B2D60003AE64D /* FormFactorSphereGaussianRadius.cpp */,
+				629B55F2185B2D60003AE64D /* FormFactorSphereUniformRadius.cpp */,
+				629B55F3185B2D60003AE64D /* FormFactorSpheroid.cpp */,
+				62FF6A4E1831351300E62E45 /* FormFactorTetrahedron.cpp */,
+				62FD5BF917F057E1007C0397 /* FormFactorTools.cpp */,
 				62222290160CB745008205AC /* FormFactorWeighted.cpp */,
+				6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -3330,36 +3354,39 @@
 		622222A3160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				62FF6A5A1831388400E62E45 /* AxisBin.pypp.h */,
-				62FF6A5B1831388400E62E45 /* AxisDouble.pypp.h */,
-				62FF6A5C1831388400E62E45 /* IntensityData.pypp.h */,
-				62FF6A5D1831388400E62E45 /* IObservable.pypp.h */,
-				62FF6A5E1831388400E62E45 /* IObserver.pypp.h */,
 				627F60061793FB0F009E166F /* __call_policies.pypp.hpp */,
 				627F60071793FB0F009E166F /* __convenience.pypp.hpp */,
+				62FF6A5A1831388400E62E45 /* AxisBin.pypp.h */,
+				62FF6A5B1831388400E62E45 /* AxisDouble.pypp.h */,
 				627F60081793FB0F009E166F /* Beam.pypp.h */,
 				627F60091793FB0F009E166F /* Bin1D.pypp.h */,
 				627F600A1793FB0F009E166F /* Bin1DCVector.pypp.h */,
 				627F600B1793FB0F009E166F /* Crystal.pypp.h */,
 				627F600C1793FB0F009E166F /* cvector_t.pypp.h */,
 				627F600D1793FB0F009E166F /* Detector.pypp.h */,
+				629B5606185B2E2A003AE64D /* FormFactorAnisoPyramid.pypp.h */,
 				627F600E1793FB0F009E166F /* FormFactorBox.pypp.h */,
 				627F600F1793FB0F009E166F /* FormFactorCone.pypp.h */,
+				629B5607185B2E2A003AE64D /* FormFactorCone6.pypp.h */,
 				627F60101793FB0F009E166F /* FormFactorCrystal.pypp.h */,
+				629B5608185B2E2A003AE64D /* FormFactorCuboctahedron.pypp.h */,
 				627F60111793FB0F009E166F /* FormFactorCylinder.pypp.h */,
 				627F60121793FB0F009E166F /* FormFactorDecoratorDebyeWaller.pypp.h */,
-				627F60131793FB0F009E166F /* FormFactorEllipsoid.pypp.h */,
+				629B5609185B2E2A003AE64D /* FormFactorEllipsoidalCylinder.pypp.h */,
 				627F60141793FB0F009E166F /* FormFactorFullSphere.pypp.h */,
 				627F60151793FB0F009E166F /* FormFactorFullSpheroid.pypp.h */,
 				627F60161793FB0F009E166F /* FormFactorGauss.pypp.h */,
-				627F60171793FB0F009E166F /* FormFactorHemiSpheroid.pypp.h */,
+				629B560A185B2E2A003AE64D /* FormFactorHemiEllipsoid.pypp.h */,
 				627F60181793FB0F009E166F /* FormFactorLorentz.pypp.h */,
 				627F60191793FB0F009E166F /* FormFactorParallelepiped.pypp.h */,
 				627F601A1793FB0F009E166F /* FormFactorPrism3.pypp.h */,
 				627F601B1793FB0F009E166F /* FormFactorPrism6.pypp.h */,
 				627F601C1793FB0F009E166F /* FormFactorPyramid.pypp.h */,
+				629B560B185B2E2A003AE64D /* FormFactorRipple2.pypp.h */,
 				627F601D1793FB0F009E166F /* FormFactorSphere.pypp.h */,
 				627F601E1793FB0F009E166F /* FormFactorSphereGaussianRadius.pypp.h */,
+				629B560C185B2E2A003AE64D /* FormFactorSphereUniformRadius.pypp.h */,
+				629B560D185B2E2A003AE64D /* FormFactorSpheroid.pypp.h */,
 				627F601F1793FB0F009E166F /* FTDistribution2DCauchy.pypp.h */,
 				627F60201793FB0F009E166F /* HomogeneousMaterial.pypp.h */,
 				627F60211793FB0F009E166F /* IAxis.pypp.h */,
@@ -3375,10 +3402,13 @@
 				627F602B1793FB0F009E166F /* IInterferenceFunction.pypp.h */,
 				627F602C1793FB0F009E166F /* IMaterial.pypp.h */,
 				627F602D1793FB0F009E166F /* Instrument.pypp.h */,
+				62FF6A5C1831388400E62E45 /* IntensityData.pypp.h */,
 				627F602E1793FB0F009E166F /* InterferenceFunction1DParaCrystal.pypp.h */,
 				627F602F1793FB0F009E166F /* InterferenceFunction2DLattice.pypp.h */,
 				627F60301793FB0F009E166F /* InterferenceFunction2DParaCrystal.pypp.h */,
 				627F60311793FB0F009E166F /* InterferenceFunctionNone.pypp.h */,
+				62FF6A5D1831388400E62E45 /* IObservable.pypp.h */,
+				62FF6A5E1831388400E62E45 /* IObserver.pypp.h */,
 				627F60321793FB0F009E166F /* IParameterized.pypp.h */,
 				627F60331793FB0F009E166F /* IResolutionFunction2D.pypp.h */,
 				627F60341793FB0F009E166F /* ISample.pypp.h */,
@@ -3407,6 +3437,9 @@
 				627F604D1793FB0F009E166F /* PythonCoreList.h */,
 				627F604E1793FB0F009E166F /* PythonInterface_free_functions.pypp.h */,
 				627F604F1793FB0F009E166F /* PythonInterface_global_variables.pypp.h */,
+				622222A9160CB745008205AC /* PythonListConverter.h */,
+				622222AA160CB745008205AC /* PythonModule.h */,
+				622222AB160CB745008205AC /* PythonOutputData.h */,
 				627F60501793FB0F009E166F /* RealParameterWrapper.pypp.h */,
 				627F60511793FB0F009E166F /* ResolutionFunction2DSimple.pypp.h */,
 				627F60521793FB0F009E166F /* RotateY_3D.pypp.h */,
@@ -3418,14 +3451,12 @@
 				627F60581793FB0F009E166F /* StochasticDoubleGaussian.pypp.h */,
 				627F60591793FB0F009E166F /* StochasticParameter_t.pypp.h */,
 				627F605A1793FB0F009E166F /* StochasticSampledParameter.pypp.h */,
+				629B560E185B2E2A003AE64D /* ThreadInfo.pypp.h */,
 				627F605B1793FB0F009E166F /* vdouble1d_t.pypp.h */,
 				627F605C1793FB0F009E166F /* vector_IFormFactorPtr_t.pypp.h */,
 				627F605D1793FB0F009E166F /* vector_integer_t.pypp.h */,
 				627F605E1793FB0F009E166F /* vector_kvector_t.pypp.h */,
 				627F605F1793FB0F009E166F /* vector_longinteger_t.pypp.h */,
-				622222A9160CB745008205AC /* PythonListConverter.h */,
-				622222AA160CB745008205AC /* PythonModule.h */,
-				622222AB160CB745008205AC /* PythonOutputData.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3435,32 +3466,35 @@
 			children = (
 				62FF6A501831387200E62E45 /* AxisBin.pypp.cpp */,
 				62FF6A511831387200E62E45 /* AxisDouble.pypp.cpp */,
-				62FF6A521831387200E62E45 /* IntensityData.pypp.cpp */,
-				62FF6A531831387200E62E45 /* IObservable.pypp.cpp */,
-				62FF6A541831387200E62E45 /* IObserver.pypp.cpp */,
 				627F60601793FB22009E166F /* Beam.pypp.cpp */,
 				627F60611793FB22009E166F /* Bin1D.pypp.cpp */,
 				627F60621793FB22009E166F /* Bin1DCVector.pypp.cpp */,
 				627F60631793FB22009E166F /* Crystal.pypp.cpp */,
 				627F60641793FB22009E166F /* cvector_t.pypp.cpp */,
 				627F60651793FB22009E166F /* Detector.pypp.cpp */,
+				629B560F185B2E50003AE64D /* FormFactorAnisoPyramid.pypp.cpp */,
 				627F60661793FB22009E166F /* FormFactorBox.pypp.cpp */,
 				627F60671793FB22009E166F /* FormFactorCone.pypp.cpp */,
+				629B5610185B2E50003AE64D /* FormFactorCone6.pypp.cpp */,
 				627F60681793FB22009E166F /* FormFactorCrystal.pypp.cpp */,
+				629B5611185B2E50003AE64D /* FormFactorCuboctahedron.pypp.cpp */,
 				627F60691793FB22009E166F /* FormFactorCylinder.pypp.cpp */,
 				627F606A1793FB22009E166F /* FormFactorDecoratorDebyeWaller.pypp.cpp */,
-				627F606B1793FB22009E166F /* FormFactorEllipsoid.pypp.cpp */,
+				629B5612185B2E50003AE64D /* FormFactorEllipsoidalCylinder.pypp.cpp */,
 				627F606C1793FB22009E166F /* FormFactorFullSphere.pypp.cpp */,
 				627F606D1793FB22009E166F /* FormFactorFullSpheroid.pypp.cpp */,
 				627F606E1793FB22009E166F /* FormFactorGauss.pypp.cpp */,
-				627F606F1793FB22009E166F /* FormFactorHemiSpheroid.pypp.cpp */,
+				629B5613185B2E50003AE64D /* FormFactorHemiEllipsoid.pypp.cpp */,
 				627F60701793FB22009E166F /* FormFactorLorentz.pypp.cpp */,
 				627F60711793FB22009E166F /* FormFactorParallelepiped.pypp.cpp */,
 				627F60721793FB22009E166F /* FormFactorPrism3.pypp.cpp */,
 				627F60731793FB22009E166F /* FormFactorPrism6.pypp.cpp */,
 				627F60741793FB22009E166F /* FormFactorPyramid.pypp.cpp */,
+				629B5614185B2E50003AE64D /* FormFactorRipple2.pypp.cpp */,
 				627F60751793FB22009E166F /* FormFactorSphere.pypp.cpp */,
 				627F60761793FB22009E166F /* FormFactorSphereGaussianRadius.pypp.cpp */,
+				629B5615185B2E50003AE64D /* FormFactorSphereUniformRadius.pypp.cpp */,
+				629B5616185B2E50003AE64D /* FormFactorSpheroid.pypp.cpp */,
 				627F60771793FB22009E166F /* FTDistribution2DCauchy.pypp.cpp */,
 				627F60781793FB22009E166F /* HomogeneousMaterial.pypp.cpp */,
 				627F60791793FB22009E166F /* IAxis.pypp.cpp */,
@@ -3476,10 +3510,13 @@
 				627F60831793FB22009E166F /* IInterferenceFunction.pypp.cpp */,
 				627F60841793FB22009E166F /* IMaterial.pypp.cpp */,
 				627F60851793FB22009E166F /* Instrument.pypp.cpp */,
+				62FF6A521831387200E62E45 /* IntensityData.pypp.cpp */,
 				627F60861793FB22009E166F /* InterferenceFunction1DParaCrystal.pypp.cpp */,
 				627F60871793FB22009E166F /* InterferenceFunction2DLattice.pypp.cpp */,
 				627F60881793FB22009E166F /* InterferenceFunction2DParaCrystal.pypp.cpp */,
 				627F60891793FB22009E166F /* InterferenceFunctionNone.pypp.cpp */,
+				62FF6A531831387200E62E45 /* IObservable.pypp.cpp */,
+				62FF6A541831387200E62E45 /* IObserver.pypp.cpp */,
 				627F608A1793FB22009E166F /* IParameterized.pypp.cpp */,
 				627F608B1793FB22009E166F /* IResolutionFunction2D.pypp.cpp */,
 				627F608C1793FB22009E166F /* ISample.pypp.cpp */,
@@ -3520,6 +3557,7 @@
 				627F60B21793FB22009E166F /* StochasticDoubleGaussian.pypp.cpp */,
 				627F60B31793FB22009E166F /* StochasticParameter_t.pypp.cpp */,
 				627F60B41793FB22009E166F /* StochasticSampledParameter.pypp.cpp */,
+				629B5617185B2E50003AE64D /* ThreadInfo.pypp.cpp */,
 				627F60B51793FB22009E166F /* vdouble1d_t.pypp.cpp */,
 				627F60B61793FB22009E166F /* vector_IFormFactorPtr_t.pypp.cpp */,
 				627F60B71793FB22009E166F /* vector_integer_t.pypp.cpp */,
@@ -3542,16 +3580,9 @@
 			isa = PBXGroup;
 			children = (
 				6221C36F17D5CDCC00D43C2F /* BAVersion.h */,
-				627F61141793FB3B009E166F /* ISampleVisitor.h */,
-				627F61151793FB3B009E166F /* Samples.h */,
-				62EA20EA16B9298400184E9A /* InterferenceFunction2DLattice.h */,
-				62EA20EB16B9298400184E9A /* InterferenceFunctions.h */,
-				62EA20EC16B9298400184E9A /* Lattice2DIFParameters.h */,
-				621D0BE316A985BB00134391 /* PositionParticleInfo.h */,
-				62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */,
-				62AE01631619C72E00A83353 /* ParticleCoreShell.h */,
 				622222B9160CB745008205AC /* Crystal.h */,
 				622222BA160CB745008205AC /* DiffuseParticleInfo.h */,
+				6223327217C641B9004CCDAE /* HomogeneousMagneticMaterial.h */,
 				622222BB160CB745008205AC /* HomogeneousMaterial.h */,
 				622222BC160CB745008205AC /* IClusteredParticles.h */,
 				622222BD160CB745008205AC /* ICompositeIterator.h */,
@@ -3560,12 +3591,17 @@
 				622222C0160CB745008205AC /* IDispersalState.h */,
 				622222C2160CB745008205AC /* IInterferenceFunction.h */,
 				622222C3160CB745008205AC /* IMaterial.h */,
+				622222C8160CB745008205AC /* InterferenceFunction1DParaCrystal.h */,
+				62EA20EA16B9298400184E9A /* InterferenceFunction2DLattice.h */,
+				62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */,
+				622222C9160CB745008205AC /* InterferenceFunctionNone.h */,
+				62EA20EB16B9298400184E9A /* InterferenceFunctions.h */,
 				622222C4160CB745008205AC /* IRoughness.h */,
 				622222C5160CB745008205AC /* ISample.h */,
+				627F61141793FB3B009E166F /* ISampleVisitor.h */,
 				622222C7160CB745008205AC /* ISelectionRule.h */,
-				622222C8160CB745008205AC /* InterferenceFunction1DParaCrystal.h */,
-				622222C9160CB745008205AC /* InterferenceFunctionNone.h */,
 				622222CA160CB745008205AC /* Lattice.h */,
+				62EA20EC16B9298400184E9A /* Lattice2DIFParameters.h */,
 				622222CB160CB745008205AC /* LatticeBasis.h */,
 				622222CC160CB745008205AC /* Layer.h */,
 				622222CF160CB745008205AC /* LayerInterface.h */,
@@ -3575,9 +3611,11 @@
 				622222D3160CB745008205AC /* MultiLayer.h */,
 				622222D5160CB745008205AC /* Particle.h */,
 				622222D6160CB745008205AC /* ParticleBuilder.h */,
+				62AE01631619C72E00A83353 /* ParticleCoreShell.h */,
 				622222D7160CB745008205AC /* ParticleDecoration.h */,
 				622222D8160CB745008205AC /* ParticleInfo.h */,
-				6223327217C641B9004CCDAE /* HomogeneousMagneticMaterial.h */,
+				621D0BE316A985BB00134391 /* PositionParticleInfo.h */,
+				627F61151793FB3B009E166F /* Samples.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3585,17 +3623,16 @@
 		622222D9160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */,
-				6223327517C641C5004CCDAE /* IMaterial.cpp */,
-				62EA20ED16B9299100184E9A /* InterferenceFunction2DLattice.cpp */,
-				621D0BE516A985D100134391 /* PositionParticleInfo.cpp */,
-				62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */,
-				62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */,
 				622222DA160CB745008205AC /* Crystal.cpp */,
+				6223327417C641C5004CCDAE /* HomogeneousMagneticMaterial.cpp */,
 				622222DD160CB745008205AC /* ICompositeIterator.cpp */,
 				622222DE160CB745008205AC /* ICompositeSample.cpp */,
-				622222E1160CB745008205AC /* ISample.cpp */,
+				6223327517C641C5004CCDAE /* IMaterial.cpp */,
 				622222E2160CB745008205AC /* InterferenceFunction1DParaCrystal.cpp */,
+				62EA20ED16B9299100184E9A /* InterferenceFunction2DLattice.cpp */,
+				62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */,
+				622222E1160CB745008205AC /* ISample.cpp */,
+				629B5640185B3122003AE64D /* ISampleVisitor.cpp */,
 				622222E3160CB745008205AC /* Lattice.cpp */,
 				622222E4160CB745008205AC /* LatticeBasis.cpp */,
 				622222E5160CB745008205AC /* Layer.cpp */,
@@ -3606,8 +3643,10 @@
 				622222EB160CB745008205AC /* MultiLayer.cpp */,
 				622222ED160CB745008205AC /* Particle.cpp */,
 				622222EE160CB745008205AC /* ParticleBuilder.cpp */,
+				62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */,
 				622222EF160CB745008205AC /* ParticleDecoration.cpp */,
 				622222F0160CB745008205AC /* ParticleInfo.cpp */,
+				621D0BE516A985D100134391 /* PositionParticleInfo.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -3624,55 +3663,58 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62027ECF16775A6B00A0D41C /* AxisBin.h */,
+				62D7A934166E3F81009A45CE /* AxisDouble.h */,
+				629B563C185B2F2A003AE64D /* BAConfigure.h */,
+				62027ED016775A6B00A0D41C /* Bin.h */,
+				622E86B61844D5E60009F27C /* BornAgainNamespace.h */,
+				622222F3160CB745008205AC /* Convolve.h */,
+				62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */,
 				624B526417F5A25B0040AB8C /* EigenCore.h */,
-				624B526517F5A25B0040AB8C /* w32pragma.h */,
-				6223325017C64096004CCDAE /* SampleMaterialVisitor.h */,
-				627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */,
-				627F5FFB1793EB17009E166F /* WinDllMacros.h */,
-				62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */,
-				62B316101712FE11004A9D02 /* MessageService.h */,
-				6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */,
-				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
-				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
-				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
+				622222F7160CB745008205AC /* Exceptions.h */,
 				621D0BD916A9855D00134391 /* FastVector.h */,
+				629B563D185B2F2A003AE64D /* FileSystem.h */,
+				62B3160F1712FE11004A9D02 /* fp_exception_glibc_extension.h */,
+				62027ED116775A6B00A0D41C /* IAxis.h */,
 				621D0BDB16A9855D00134391 /* IChangeable.h */,
 				621D0BDC16A9855D00134391 /* ICloneable.h */,
-				621D0BDD16A9855D00134391 /* RealParameterWrapper.h */,
-				62027ECF16775A6B00A0D41C /* AxisBin.h */,
-				62027ED016775A6B00A0D41C /* Bin.h */,
-				62027ED116775A6B00A0D41C /* IAxis.h */,
-				62027ED216775A6B00A0D41C /* SafePointerVector.h */,
-				62D7A934166E3F81009A45CE /* AxisDouble.h */,
-				62CC0982166504D600A5B720 /* LLData.h */,
-				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
-				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
-				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
-				62EA736D1628421000656B41 /* IObserver.h */,
-				62EA736E1628421000656B41 /* IParameterized.h */,
-				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
-				62EA73701628421000656B41 /* OutputDataReader.h */,
-				62EA73711628421000656B41 /* OutputDataWriter.h */,
-				62EA73721628421000656B41 /* ParameterPool.h */,
-				62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */,
-				62FDC0621615F11F00D28B08 /* Macros.h */,
-				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
-				622222F3160CB745008205AC /* Convolve.h */,
-				622222F7160CB745008205AC /* Exceptions.h */,
 				622222FB160CB745008205AC /* IFactory.h */,
 				622222FC160CB745008205AC /* INamed.h */,
+				62EA736D1628421000656B41 /* IObserver.h */,
+				62EA736E1628421000656B41 /* IParameterized.h */,
 				622222FD160CB745008205AC /* ISingleton.h */,
 				622222FE160CB745008205AC /* IStochasticParameter.h */,
+				62CC0982166504D600A5B720 /* LLData.h */,
+				62FDC0621615F11F00D28B08 /* Macros.h */,
 				622222FF160CB745008205AC /* MathFunctions.h */,
+				6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */,
+				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
+				62B316101712FE11004A9D02 /* MessageService.h */,
 				62222301160CB745008205AC /* Numeric.h */,
 				62222302160CB745008205AC /* OutputData.h */,
+				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
+				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
+				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
+				62EA73701628421000656B41 /* OutputDataReader.h */,
+				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
+				62EA73711628421000656B41 /* OutputDataWriter.h */,
+				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
+				62EA73721628421000656B41 /* ParameterPool.h */,
+				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
+				621D0BDD16A9855D00134391 /* RealParameterWrapper.h */,
+				62027ED216775A6B00A0D41C /* SafePointerVector.h */,
+				6223325017C64096004CCDAE /* SampleMaterialVisitor.h */,
+				627F5FFA1793EB17009E166F /* SamplePrintVisitor.h */,
 				62222303160CB745008205AC /* StochasticDiracDelta.h */,
+				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
 				62222304160CB745008205AC /* StochasticGaussian.h */,
 				62222305160CB745008205AC /* StochasticSampledParameter.h */,
 				62222306160CB745008205AC /* TRange.h */,
 				62222307160CB745008205AC /* Types.h */,
 				62222308160CB745008205AC /* Units.h */,
 				62222309160CB745008205AC /* Utils.h */,
+				624B526517F5A25B0040AB8C /* w32pragma.h */,
+				627F5FFB1793EB17009E166F /* WinDllMacros.h */,
 			);
 			path = inc;
 			sourceTree = "<group>";
@@ -3680,29 +3722,30 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */,
-				627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */,
-				62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */,
-				62B316121712FE29004A9D02 /* MessageService.cpp */,
-				62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */,
-				62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */,
-				621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */,
 				62027ED416775A7700A0D41C /* AxisBin.cpp */,
 				62D7A935166E3F8D009A45CE /* AxisDouble.cpp */,
-				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
+				6222230B160CB745008205AC /* Convolve.cpp */,
+				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
+				6222230D160CB745008205AC /* Exceptions.cpp */,
+				629B563E185B2F3E003AE64D /* FileSystem.cpp */,
+				62B316111712FE29004A9D02 /* fp_exception_glibc_extension.c */,
+				62222310160CB745008205AC /* IFactory.cpp */,
 				62EA73751628422200656B41 /* IObserver.cpp */,
 				62EA73761628422200656B41 /* IParameterized.cpp */,
+				62222313160CB745008205AC /* MathFunctions.cpp */,
+				62B316121712FE29004A9D02 /* MessageService.cpp */,
+				62222314160CB745008205AC /* OutputData.cpp */,
+				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
 				62EA73771628422200656B41 /* OutputDataIOFactory.cpp */,
 				62EA73781628422200656B41 /* OutputDataReader.cpp */,
+				62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */,
 				62EA73791628422200656B41 /* OutputDataWriter.cpp */,
+				62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */,
 				62EA737A1628422200656B41 /* ParameterPool.cpp */,
-				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
 				62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */,
-				6222230B160CB745008205AC /* Convolve.cpp */,
-				6222230D160CB745008205AC /* Exceptions.cpp */,
-				62222310160CB745008205AC /* IFactory.cpp */,
-				62222313160CB745008205AC /* MathFunctions.cpp */,
-				62222314160CB745008205AC /* OutputData.cpp */,
+				621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */,
+				6223325E17C640A2004CCDAE /* SampleMaterialVisitor.cpp */,
+				627F5FFC1793EB26009E166F /* SamplePrintVisitor.cpp */,
 				62222315160CB745008205AC /* StochasticGaussian.cpp */,
 				62222316160CB745008205AC /* StochasticSampledParameter.cpp */,
 				62222317160CB745008205AC /* Types.cpp */,
@@ -70306,6 +70349,10 @@
 		627F6117179409CD009E166F /* StandardSamples */ = {
 			isa = PBXGroup;
 			children = (
+				629B5621185B2F05003AE64D /* FunctionalTestRegistry.cpp */,
+				629B5622185B2F05003AE64D /* FunctionalTestRegistry.h */,
+				629B5623185B2F05003AE64D /* IFunctionalTest.cpp */,
+				629B5624185B2F05003AE64D /* IFunctionalTest.h */,
 				627F6118179409CD009E166F /* IsGISAXS01Builder.cpp */,
 				627F6119179409CD009E166F /* IsGISAXS01Builder.h */,
 				627F611A179409CD009E166F /* IsGISAXS02Builder.cpp */,
@@ -70316,10 +70363,32 @@
 				627F611F179409CD009E166F /* IsGISAXS04Builder.h */,
 				627F6120179409CD009E166F /* IsGISAXS06Builder.cpp */,
 				627F6121179409CD009E166F /* IsGISAXS06Builder.h */,
+				629B5625185B2F05003AE64D /* IsGISAXS07Builder.cpp */,
+				629B5626185B2F05003AE64D /* IsGISAXS07Builder.h */,
+				629B5627185B2F05003AE64D /* IsGISAXS08Builder.cpp */,
+				629B5628185B2F05003AE64D /* IsGISAXS08Builder.h */,
 				627F6122179409CD009E166F /* IsGISAXS09Builder.cpp */,
 				627F6123179409CD009E166F /* IsGISAXS09Builder.h */,
+				629B5629185B2F05003AE64D /* IsGISAXS10Builder.cpp */,
+				629B562A185B2F05003AE64D /* IsGISAXS10Builder.h */,
+				629B562B185B2F05003AE64D /* IsGISAXS11Builder.cpp */,
+				629B562C185B2F05003AE64D /* IsGISAXS11Builder.h */,
+				629B562D185B2F05003AE64D /* IsGISAXS15Builder.cpp */,
+				629B562E185B2F05003AE64D /* IsGISAXS15Builder.h */,
+				629B562F185B2F05003AE64D /* LayerRoughnessBuilder.cpp */,
+				629B5630185B2F05003AE64D /* LayerRoughnessBuilder.h */,
+				622E86C41844D7850009F27C /* MesoCrystal01Builder.cpp */,
+				622E86C51844D7850009F27C /* MesoCrystal01Builder.h */,
+				627200AD1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp */,
+				627200AE1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.h */,
+				629B5631185B2F05003AE64D /* Ripple2Builder.cpp */,
+				629B5632185B2F05003AE64D /* Ripple2Builder.h */,
 				627F6124179409CD009E166F /* SampleBuilderFactory.cpp */,
 				627F6125179409CD009E166F /* SampleBuilderFactory.h */,
+				622E86C61844D7850009F27C /* SimulationRegistry.cpp */,
+				622E86C71844D7850009F27C /* SimulationRegistry.h */,
+				622E86C81844D7850009F27C /* StandardSimulations.cpp */,
+				622E86C91844D7850009F27C /* StandardSimulations.h */,
 			);
 			path = StandardSamples;
 			sourceTree = "<group>";
@@ -72051,21 +72120,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62BADE7417953749005BC59D /* IsGISAXS06.cpp in Sources */,
-				62BADE7517953749005BC59D /* IsGISAXS07.cpp in Sources */,
-				62BADE7617953749005BC59D /* IsGISAXS08.cpp in Sources */,
-				62BADE7717953749005BC59D /* IsGISAXS10.cpp in Sources */,
-				62BADE7817953749005BC59D /* IsGISAXS11.cpp in Sources */,
-				62BADE7917953749005BC59D /* IsGISAXS15.cpp in Sources */,
-				62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */,
-				62FDC05F1615F0DE00D28B08 /* CoreOptionsDescription.cpp in Sources */,
-				62BADE40179535BC005BC59D /* AppDict.cpp in Sources */,
 				62BADE41179535BC005BC59D /* AppOptionsDescription.cpp in Sources */,
 				62BADE42179535BC005BC59D /* DrawHelper.cpp in Sources */,
 				62BADE43179535BC005BC59D /* FitSuiteDrawObserver.cpp in Sources */,
 				62BADE44179535BC005BC59D /* FitSuiteWriteTreeObserver.cpp in Sources */,
-				62BADE45179535BC005BC59D /* FunctionalTestFactory.cpp in Sources */,
-				62BADE46179535BC005BC59D /* IFunctionalTest.cpp in Sources */,
+				629B5605185B2DB9003AE64D /* TestRipple2.cpp in Sources */,
 				62BADE47179535BC005BC59D /* IsGISAXSData.cpp in Sources */,
 				62BADE48179535BC005BC59D /* IsGISAXSTools.cpp in Sources */,
 				62BADE49179535BC005BC59D /* main.cpp in Sources */,
@@ -72074,7 +72133,6 @@
 				62BADE4C179535BC005BC59D /* TestConvolution.cpp in Sources */,
 				62BADE4D179535BC005BC59D /* TestDetectorResolution.cpp in Sources */,
 				62BADE4E179535BC005BC59D /* TestDiffuseReflection.cpp in Sources */,
-				62BADE4F179535BC005BC59D /* TestFittingBenchmark.cpp in Sources */,
 				62BADE50179535BC005BC59D /* TestFittingModule1.cpp in Sources */,
 				62BADE51179535BC005BC59D /* TestFittingModule2.cpp in Sources */,
 				62BADE52179535BC005BC59D /* TestFittingModule3.cpp in Sources */,
@@ -72083,21 +72141,9 @@
 				62FF6A7618313C2D00E62E45 /* TestToyFitting.cpp in Sources */,
 				62BADE55179535BC005BC59D /* TestFourier.cpp in Sources */,
 				62BADE57179535BC005BC59D /* TestFumiliLMA.cpp in Sources */,
-				62BADE58179535BC005BC59D /* TestIsGISAXS1.cpp in Sources */,
-				62BADE59179535BC005BC59D /* TestIsGISAXS2.cpp in Sources */,
-				62BADE5A179535BC005BC59D /* TestIsGISAXS3.cpp in Sources */,
-				62BADE5B179535BC005BC59D /* TestIsGISAXS4.cpp in Sources */,
 				62BADE5C179535BC005BC59D /* TestIsGISAXS5.cpp in Sources */,
-				62BADE5D179535BC005BC59D /* TestIsGISAXS6.cpp in Sources */,
-				62BADE5E179535BC005BC59D /* TestIsGISAXS7.cpp in Sources */,
-				62BADE5F179535BC005BC59D /* TestIsGISAXS8.cpp in Sources */,
-				62BADE60179535BC005BC59D /* TestIsGISAXS9.cpp in Sources */,
-				62BADE61179535BC005BC59D /* TestIsGISAXS10.cpp in Sources */,
-				62BADE62179535BC005BC59D /* TestIsGISAXS11.cpp in Sources */,
 				62BADE63179535BC005BC59D /* TestIsGISAXS12.cpp in Sources */,
 				62BADE64179535BC005BC59D /* TestIsGISAXS13.cpp in Sources */,
-				62BADE65179535BC005BC59D /* TestIsGISAXS14.cpp in Sources */,
-				62BADE66179535BC005BC59D /* TestIsGISAXS15.cpp in Sources */,
 				62BADE67179535BC005BC59D /* TestMesoCrystal1.cpp in Sources */,
 				62BADE68179535BC005BC59D /* TestMesoCrystal2.cpp in Sources */,
 				62BADE69179535BC005BC59D /* TestMiscellaneous.cpp in Sources */,
@@ -72107,12 +72153,13 @@
 				62BADE6D179535BC005BC59D /* TestRoughness.cpp in Sources */,
 				62BADE6E179535BC005BC59D /* TestSpecularMatrix.cpp in Sources */,
 				62BADE6F179535BC005BC59D /* TestToySimulation.cpp in Sources */,
+				629B5603185B2DB9003AE64D /* ApplicationTestFactory.cpp in Sources */,
 				62BADE70179535BC005BC59D /* TreeEventStructure.cpp in Sources */,
 				6221C37617D5CFF500D43C2F /* TestBugs.cpp in Sources */,
 				6221C37717D5CFF500D43C2F /* TestPolarizedDWBA.cpp in Sources */,
 				6221C37817D5CFF500D43C2F /* TestSpecularMagnetic.cpp in Sources */,
-				62ED4B4A17D8B21200C8BAA0 /* TestPolarizedDWBAZeroMag.cpp in Sources */,
 				622127BA17D9FEC200393360 /* TestPolarizedDWBATerms.cpp in Sources */,
+				629B5604185B2DB9003AE64D /* TestFunctionalTests.cpp in Sources */,
 				6248BE2917E1C5000027D960 /* TestPolarizedMeso.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72136,27 +72183,35 @@
 				622247E4160CB853008205AC /* LayerDWBASimulation.cpp in Sources */,
 				622247E6160CB853008205AC /* LocalMonodisperseApproximationStrategy.cpp in Sources */,
 				622247E7160CB853008205AC /* MultiLayerDWBASimulation.cpp in Sources */,
+				629B5633185B2F05003AE64D /* FunctionalTestRegistry.cpp in Sources */,
 				622247E8160CB853008205AC /* MultiLayerRoughnessDWBASimulation.cpp in Sources */,
 				622247FF160CB853008205AC /* FormFactorCrystal.cpp in Sources */,
 				62224800160CB853008205AC /* FormFactorCylinder.cpp in Sources */,
+				629B5618185B2E50003AE64D /* FormFactorAnisoPyramid.pypp.cpp in Sources */,
+				629B563A185B2F05003AE64D /* LayerRoughnessBuilder.cpp in Sources */,
 				62224801160CB853008205AC /* FormFactorDWBA.cpp in Sources */,
+				629B561A185B2E50003AE64D /* FormFactorCuboctahedron.pypp.cpp in Sources */,
 				62224802160CB853008205AC /* FormFactorDWBAConstZ.cpp in Sources */,
 				62224803160CB853008205AC /* FormFactorDecoratorTransformation.cpp in Sources */,
 				62224804160CB853008205AC /* FormFactorFullSphere.cpp in Sources */,
 				62224805160CB853008205AC /* FormFactorGauss.cpp in Sources */,
 				62224806160CB853008205AC /* FormFactorLorentz.cpp in Sources */,
 				62224807160CB853008205AC /* FormFactorPrism3.cpp in Sources */,
+				629B5635185B2F05003AE64D /* IsGISAXS07Builder.cpp in Sources */,
 				62224808160CB853008205AC /* FormFactorPyramid.cpp in Sources */,
 				62224809160CB853008205AC /* FormFactorWeighted.cpp in Sources */,
 				62224815160CB853008205AC /* Transform3D.cpp in Sources */,
 				6222484A160CB853008205AC /* Crystal.cpp in Sources */,
 				6222484D160CB853008205AC /* ICompositeIterator.cpp in Sources */,
+				629B563B185B2F05003AE64D /* Ripple2Builder.cpp in Sources */,
 				6222484E160CB853008205AC /* ICompositeSample.cpp in Sources */,
+				629B561F185B2E50003AE64D /* FormFactorSpheroid.pypp.cpp in Sources */,
 				62224851160CB853008205AC /* ISample.cpp in Sources */,
 				62224852160CB853008205AC /* InterferenceFunction1DParaCrystal.cpp in Sources */,
 				62224853160CB853008205AC /* Lattice.cpp in Sources */,
 				62224854160CB853008205AC /* LatticeBasis.cpp in Sources */,
 				62224855160CB853008205AC /* Layer.cpp in Sources */,
+				629B561E185B2E50003AE64D /* FormFactorSphereUniformRadius.pypp.cpp in Sources */,
 				62224857160CB853008205AC /* LayerInterface.cpp in Sources */,
 				62224858160CB853008205AC /* LayerRoughness.cpp in Sources */,
 				62224859160CB853008205AC /* MaterialManager.cpp in Sources */,
@@ -72171,6 +72226,7 @@
 				6222487A160CB853008205AC /* Exceptions.cpp in Sources */,
 				6222487D160CB853008205AC /* IFactory.cpp in Sources */,
 				62224880160CB853008205AC /* MathFunctions.cpp in Sources */,
+				629B5636185B2F05003AE64D /* IsGISAXS08Builder.cpp in Sources */,
 				62224881160CB853008205AC /* OutputData.cpp in Sources */,
 				62224882160CB853008205AC /* StochasticGaussian.cpp in Sources */,
 				62224883160CB853008205AC /* StochasticSampledParameter.cpp in Sources */,
@@ -72201,7 +72257,6 @@
 				621D0BE116A9857B00134391 /* RealParameterWrapper.cpp in Sources */,
 				621D0BE716A985D100134391 /* PositionParticleInfo.cpp in Sources */,
 				621D0BF216A9883500134391 /* FormFactorBox.cpp in Sources */,
-				621D0BF316A9883500134391 /* FormFactorEllipsoid.cpp in Sources */,
 				621D0BF416A9883500134391 /* FormFactorPrism6.cpp in Sources */,
 				621D0BF516A9883500134391 /* FormFactorSphere.cpp in Sources */,
 				62EA20EE16B9299100184E9A /* InterferenceFunction2DLattice.cpp in Sources */,
@@ -72209,7 +72264,6 @@
 				62EA20F416B929AD00184E9A /* OutputDataWriteStrategy.cpp in Sources */,
 				625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */,
 				625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */,
-				625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */,
 				6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */,
 				6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */,
 				62B316131712FE29004A9D02 /* fp_exception_glibc_extension.c in Sources */,
@@ -72228,13 +72282,14 @@
 				627F60C21793FB22009E166F /* FormFactorCrystal.pypp.cpp in Sources */,
 				627F60C31793FB22009E166F /* FormFactorCylinder.pypp.cpp in Sources */,
 				62FF6A4F1831351300E62E45 /* FormFactorTetrahedron.cpp in Sources */,
+				629B5634185B2F05003AE64D /* IFunctionalTest.cpp in Sources */,
 				627F60C41793FB22009E166F /* FormFactorDecoratorDebyeWaller.pypp.cpp in Sources */,
-				627F60C51793FB22009E166F /* FormFactorEllipsoid.pypp.cpp in Sources */,
 				627F60C61793FB22009E166F /* FormFactorFullSphere.pypp.cpp in Sources */,
 				627F60C71793FB22009E166F /* FormFactorFullSpheroid.pypp.cpp in Sources */,
 				627F60C81793FB22009E166F /* FormFactorGauss.pypp.cpp in Sources */,
-				627F60C91793FB22009E166F /* FormFactorHemiSpheroid.pypp.cpp in Sources */,
+				629B561D185B2E50003AE64D /* FormFactorRipple2.pypp.cpp in Sources */,
 				627F60CA1793FB22009E166F /* FormFactorLorentz.pypp.cpp in Sources */,
+				629B5620185B2E50003AE64D /* ThreadInfo.pypp.cpp in Sources */,
 				627F60CB1793FB22009E166F /* FormFactorParallelepiped.pypp.cpp in Sources */,
 				627F60CC1793FB22009E166F /* FormFactorPrism3.pypp.cpp in Sources */,
 				627F60CD1793FB22009E166F /* FormFactorPrism6.pypp.cpp in Sources */,
@@ -72249,11 +72304,14 @@
 				627F60D61793FB22009E166F /* ICompositeSample.pypp.cpp in Sources */,
 				62FF6A581831387200E62E45 /* IObservable.pypp.cpp in Sources */,
 				627F60D71793FB22009E166F /* IDecoration.pypp.cpp in Sources */,
+				629B563F185B2F3E003AE64D /* FileSystem.cpp in Sources */,
 				627F60D81793FB22009E166F /* IDetectorResolution.pypp.cpp in Sources */,
 				627F60D91793FB22009E166F /* IFormFactor.pypp.cpp in Sources */,
 				627F60DA1793FB22009E166F /* IFormFactorBorn.pypp.cpp in Sources */,
 				627F60DB1793FB22009E166F /* IFormFactorDecorator.pypp.cpp in Sources */,
 				627F60DC1793FB22009E166F /* IFTDistribution2D.pypp.cpp in Sources */,
+				629B55F8185B2D60003AE64D /* FormFactorRipple2.cpp in Sources */,
+				629B5641185B3122003AE64D /* ISampleVisitor.cpp in Sources */,
 				627F60DD1793FB22009E166F /* IInterferenceFunction.pypp.cpp in Sources */,
 				627F60DE1793FB22009E166F /* IMaterial.pypp.cpp in Sources */,
 				627F60DF1793FB22009E166F /* Instrument.pypp.cpp in Sources */,
@@ -72263,36 +72321,49 @@
 				624B527517F5A2CD0040AB8C /* IDetectorResolution.cpp in Sources */,
 				627F60E31793FB22009E166F /* InterferenceFunctionNone.pypp.cpp in Sources */,
 				627F60E41793FB22009E166F /* IParameterized.pypp.cpp in Sources */,
+				622E86CC1844D7850009F27C /* StandardSimulations.cpp in Sources */,
 				627F60E51793FB22009E166F /* IResolutionFunction2D.pypp.cpp in Sources */,
 				627F60E61793FB22009E166F /* ISample.pypp.cpp in Sources */,
+				629B55F5185B2D60003AE64D /* FormFactorCuboctahedron.cpp in Sources */,
 				62FF6A571831387200E62E45 /* IntensityData.pypp.cpp in Sources */,
 				627F60E71793FB22009E166F /* ISampleBuilder.pypp.cpp in Sources */,
 				627F60E81793FB22009E166F /* ISelectionRule.pypp.cpp in Sources */,
 				627F60E91793FB22009E166F /* ITransform3D.pypp.cpp in Sources */,
 				627F60EA1793FB22009E166F /* kvector_t.pypp.cpp in Sources */,
+				629B55F9185B2D60003AE64D /* FormFactorSphereGaussianRadius.cpp in Sources */,
 				627F60EB1793FB22009E166F /* Lattice.pypp.cpp in Sources */,
 				627F60EC1793FB22009E166F /* Lattice2DIFParameters.pypp.cpp in Sources */,
+				629B5619185B2E50003AE64D /* FormFactorCone6.pypp.cpp in Sources */,
 				627F60ED1793FB22009E166F /* LatticeBasis.pypp.cpp in Sources */,
 				627F60EE1793FB22009E166F /* Layer.pypp.cpp in Sources */,
 				627F60F01793FB22009E166F /* LayerInterface.pypp.cpp in Sources */,
 				627F60F11793FB22009E166F /* LayerRoughness.pypp.cpp in Sources */,
+				627200AF1848AA47001D55F3 /* PolarizedDWBAZeroMagBuilder.cpp in Sources */,
 				627F60F21793FB22009E166F /* MaterialManager.pypp.cpp in Sources */,
 				627F60F31793FB22009E166F /* MesoCrystal.pypp.cpp in Sources */,
+				629B55FA185B2D60003AE64D /* FormFactorSphereUniformRadius.cpp in Sources */,
 				627F60F41793FB22009E166F /* MultiLayer.pypp.cpp in Sources */,
 				627F60F61793FB22009E166F /* OutputDataIOFactory.pypp.cpp in Sources */,
 				627F60F71793FB22009E166F /* ParameterPool.pypp.cpp in Sources */,
+				629B55F4185B2D60003AE64D /* FormFactorAnisoPyramid.cpp in Sources */,
+				629B561C185B2E50003AE64D /* FormFactorHemiEllipsoid.pypp.cpp in Sources */,
+				629B55F7185B2D60003AE64D /* FormFactorHemiEllipsoid.cpp in Sources */,
 				627F60F81793FB22009E166F /* Particle.pypp.cpp in Sources */,
 				627F60F91793FB22009E166F /* ParticleBuilder.pypp.cpp in Sources */,
 				627F60FA1793FB22009E166F /* ParticleCoreShell.pypp.cpp in Sources */,
 				627F60FB1793FB22009E166F /* ParticleDecoration.pypp.cpp in Sources */,
 				627F60FC1793FB22009E166F /* ParticleInfo.pypp.cpp in Sources */,
 				627F60FD1793FB22009E166F /* PositionParticleInfo.pypp.cpp in Sources */,
+				627200BE1848E1B7001D55F3 /* FormFactorCone6.cpp in Sources */,
 				627F60FF1793FB22009E166F /* PythonInterface_free_functions.pypp.cpp in Sources */,
 				627F61001793FB22009E166F /* PythonInterface_global_variables.pypp.cpp in Sources */,
+				629B561B185B2E50003AE64D /* FormFactorEllipsoidalCylinder.pypp.cpp in Sources */,
 				627F61011793FB22009E166F /* PythonListConverter.cpp in Sources */,
 				627F61021793FB22009E166F /* PythonModule.cpp in Sources */,
+				622E86CA1844D7850009F27C /* MesoCrystal01Builder.cpp in Sources */,
 				627F61031793FB22009E166F /* PythonOutputData.cpp in Sources */,
 				627F61041793FB22009E166F /* RealParameterWrapper.pypp.cpp in Sources */,
+				629B5639185B2F05003AE64D /* IsGISAXS15Builder.cpp in Sources */,
 				627F61051793FB22009E166F /* ResolutionFunction2DSimple.pypp.cpp in Sources */,
 				627F61061793FB22009E166F /* RotateY_3D.pypp.cpp in Sources */,
 				627F61071793FB22009E166F /* RotateZ_3D.pypp.cpp in Sources */,
@@ -72301,8 +72372,11 @@
 				627F610A1793FB22009E166F /* SimulationParameters.pypp.cpp in Sources */,
 				627F610B1793FB22009E166F /* StochasticDoubleGate.pypp.cpp in Sources */,
 				627F610C1793FB22009E166F /* StochasticDoubleGaussian.pypp.cpp in Sources */,
+				622E86CB1844D7850009F27C /* SimulationRegistry.cpp in Sources */,
+				629B55FB185B2D60003AE64D /* FormFactorSpheroid.cpp in Sources */,
 				627F610D1793FB22009E166F /* StochasticParameter_t.pypp.cpp in Sources */,
 				627F610E1793FB22009E166F /* StochasticSampledParameter.pypp.cpp in Sources */,
+				629B55F6185B2D60003AE64D /* FormFactorEllipsoidalCylinder.cpp in Sources */,
 				627F610F1793FB22009E166F /* vdouble1d_t.pypp.cpp in Sources */,
 				627F61101793FB22009E166F /* vector_IFormFactorPtr_t.pypp.cpp in Sources */,
 				627F61111793FB22009E166F /* vector_integer_t.pypp.cpp in Sources */,
@@ -72313,7 +72387,9 @@
 				627F6128179409CD009E166F /* IsGISAXS03Builder.cpp in Sources */,
 				627F6129179409CD009E166F /* IsGISAXS04Builder.cpp in Sources */,
 				627F612A179409CD009E166F /* IsGISAXS06Builder.cpp in Sources */,
+				629B5638185B2F05003AE64D /* IsGISAXS11Builder.cpp in Sources */,
 				627F612B179409CD009E166F /* IsGISAXS09Builder.cpp in Sources */,
+				629B5637185B2F05003AE64D /* IsGISAXS10Builder.cpp in Sources */,
 				627F612C179409CD009E166F /* SampleBuilderFactory.cpp in Sources */,
 				6223325F17C640A2004CCDAE /* SampleMaterialVisitor.cpp in Sources */,
 				6223326617C640C7004CCDAE /* FormFactorDWBAPol.cpp in Sources */,

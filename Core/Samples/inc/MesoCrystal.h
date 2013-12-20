@@ -20,7 +20,9 @@
 #include "IFormFactor.h"
 #include "Particle.h"
 
-//! A particle with an internal structure of smaller particles
+//! @class MesoCrystal
+//! @ingroup samples
+//! @brief A particle with an internal structure of smaller particles
 
 class BA_CORE_API_ MesoCrystal : public Particle
 {
@@ -37,9 +39,7 @@ public:
     virtual MesoCrystal *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const {
-        p_visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual void setAmbientMaterial(const IMaterial *p_material);
 
@@ -60,6 +60,11 @@ public:
 
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
+
+protected:
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
 
 private:
     IClusteredParticles *mp_particle_structure;

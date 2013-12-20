@@ -25,6 +25,10 @@ GCC_DIAG_OFF(strict-aliasing);
 GCC_DIAG_ON(strict-aliasing);
 
 
+//! @class ISingleton
+//! @ingroup tools_internal
+//! @brief Singleton pattern.
+
 template <class T>
 class ISingleton
 {

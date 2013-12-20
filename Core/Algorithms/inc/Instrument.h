@@ -20,7 +20,9 @@
 #include "Detector.h"
 #include "IResolutionFunction2D.h"
 
-//! Assembles beam, detector and their relative positions wrt the sample.
+//! @class Instrument
+//! @ingroup simulation_internal
+//! @brief Assembles beam, detector and their relative positions wrt the sample.
 
 class BA_CORE_API_ Instrument : public IParameterized
 {

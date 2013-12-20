@@ -31,9 +31,13 @@ class ParticleInfo;
 class IFormFactor;
 class LayerSpecularInfo;
 
-//! Methods to generate a simulation strategy for decorated Layer SimulationParameters
 
-class LayerStrategyBuilder
+
+//! @class LayerStrategyBuilder
+//! @ingroup algorithms_internal
+//! @brief Methods to generate a simulation strategy for decorated Layer SimulationParameters
+
+class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
@@ -76,7 +80,11 @@ private:
 };
 
 
-class FormFactorInfo : public ICloneable
+//! @class FormFactorInfo
+//! @ingroup formfactors_internal
+//! @brief The %FormFactorInfo holds information about particle position and abundance
+
+class BA_CORE_API_ FormFactorInfo : public ICloneable
 {
 public:
     FormFactorInfo()

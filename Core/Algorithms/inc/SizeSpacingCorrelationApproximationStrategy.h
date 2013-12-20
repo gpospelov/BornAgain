@@ -19,7 +19,10 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-//! ?
+
+//! @class SizeSpacingCorrelationApproximationStrategy
+//! @ingroup algorithms_internal
+//! @brief Strategy which implements size spacing correlation approximation.
 
 class SizeSpacingCorrelationApproximationStrategy
         : public IInterferenceFunctionStrategy

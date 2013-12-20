@@ -19,9 +19,7 @@ def get_sample():
     pyramid = Particle(m_particle, pyramid_ff)
     interference = InterferenceFunctionNone()
     angle_around_z = 45.*degree
-    #rotatez3d = RotateZ3D(angle_around_z)
-    #transform = Transform3D(rotatez3d)
-    transform = RotateZ_3D(angle_around_z)
+    transform = Transform3D.createRotateZ(angle_around_z)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(pyramid, transform)
 

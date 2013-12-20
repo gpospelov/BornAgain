@@ -19,6 +19,8 @@
 #include "MathFunctions.h"
 #include "DiffuseParticleInfo.h"
 
+#include <boost/scoped_ptr.hpp>
+
 Crystal::Crystal(const LatticeBasis& lattice_basis,
         const Lattice& lattice)
 : m_lattice(lattice)
@@ -38,6 +40,9 @@ Crystal* Crystal::clone() const
 {
     Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
+    if (mP_transform.get()) {
+        p_new->mP_transform.reset(mP_transform->clone());
+    }
     return p_new;
 }
 
@@ -54,13 +59,22 @@ IFormFactor* Crystal::createTotalFormFactor(
         const IMaterial *p_ambient_material,
         complex_t wavevector_scattering_factor) const
 {
-    IFormFactor *p_ff_crystal =
+    FormFactorCrystal *p_ff_crystal =
         new FormFactorCrystal(*this, meso_crystal_form_factor,
                 p_ambient_material, wavevector_scattering_factor);
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
     }
     return p_ff_crystal;
+}
+
+Lattice Crystal::getTransformedLattice() const
+{
+    if (mP_transform.get()) {
+        return m_lattice.createTransformedLattice(*mP_transform);
+    } else {
+        return m_lattice;
+    }
 }
 
 std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
@@ -91,6 +105,19 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     return p_result;
 }
 
+void Crystal::applyTransformation(const Geometry::Transform3D& transform)
+{
+    Geometry::Transform3D total_transformation;
+    if (mP_transform.get()) {
+        total_transformation = transform * (*mP_transform);
+    }
+    else {
+        total_transformation = transform;
+    }
+    mP_transform.reset(total_transformation.clone());
+    applyTransformationToSubParticles(transform);
+}
+
 Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
 : m_lattice(lattice)
 , m_dw_factor(0.0)
@@ -98,4 +125,10 @@ Crystal::Crystal(LatticeBasis* p_lattice_basis, const Lattice& lattice)
     setName("Crystal");
     mp_lattice_basis = p_lattice_basis;
     registerChild(mp_lattice_basis);
+}
+
+void Crystal::applyTransformationToSubParticles(
+        const Geometry::Transform3D& transform)
+{
+    mp_lattice_basis->applyTransformation(transform);
 }

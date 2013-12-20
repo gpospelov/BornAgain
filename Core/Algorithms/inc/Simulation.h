@@ -24,7 +24,9 @@
 
 class ProgramOptions;
 
-//! Run one simulation.
+//! @class Simulation
+//! @ingroup simulation
+//! @brief Main class to run the simulation.
 
 class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 {
@@ -32,7 +34,7 @@ public:
     Simulation();
     Simulation(const ProgramOptions *p_options);
     Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    Simulation(const ISampleBuilder *p_sample_builder,
+    Simulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
     ~Simulation() { delete mp_sample; }
 
@@ -57,7 +59,10 @@ public:
     ISample *getSample() const { return mp_sample; }
 
     //! Sets the sample builder
-    void setSampleBuilder(const ISampleBuilder *p_sample_builder);
+    void setSampleBuilder(SampleBuilder_t sample_builder);
+
+    //! return sample builder
+    SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
 
     //! Returns detector intensity map for all scan parameters
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
@@ -126,9 +131,6 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    //! Apply smearing of intensity due to tilting of z-axis (DEPRECATED)
-    void smearIntensityFromZAxisTilting();
-
 protected:
     Simulation(const Simulation& other);
 
@@ -146,7 +148,7 @@ protected:
 
     // components describing an experiment and its simulation:
     ISample *mp_sample;
-    const ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     Instrument m_instrument;
     SimulationParameters m_sim_params;
     ThreadInfo m_thread_info;
@@ -157,14 +159,6 @@ protected:
 #endif
    bool m_is_normalized;
     const ProgramOptions *mp_options;
-
-    //TODO: investigate usage:
-    double deltaAlpha(double alpha, double zeta) const;
-    double deltaPhi(double alpha, double phi, double zeta) const;
-    void createZetaAndProbVectors(std::vector<double>& zetas,
-                                  std::vector<double>& probs,
-                                  size_t nbr_zetas, double zeta_sigma) const;
-    void addToIntensityMap(double alpha, double phi, double value);
 };
 
 #endif /* SIMULATION_H_ */

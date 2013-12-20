@@ -23,9 +23,12 @@
 #include "Types.h"
 #include "EigenCore.h"
 
-//! Base class for different simulations, using DWBA.
 
-class DWBASimulation : public ISimulation
+//! @class DWBASimulation
+//! @ingroup algorithms_internal
+//! @brief Base class for different simulations, using DWBA.
+
+class BA_CORE_API_ DWBASimulation : public ISimulation
 {
 public:
     DWBASimulation();

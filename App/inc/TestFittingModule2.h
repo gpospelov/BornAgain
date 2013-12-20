@@ -16,7 +16,7 @@
 #ifndef TESTFITTINGMODULE2_H
 #define TESTFITTINGMODULE2_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 #include "Simulation.h"
@@ -32,7 +32,7 @@ class FitSuite;
 //! (c) different fit strategies
 //! (d) mask on data
 //!
-class TestFittingModule2 : public IFunctionalTest
+class TestFittingModule2 : public IApplicationTest
 {
 public:
     TestFittingModule2();
@@ -75,7 +75,7 @@ private:
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
     Simulation *mp_simulation;
-    ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     FitSuite *m_fitSuite;
 };
 

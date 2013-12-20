@@ -16,22 +16,42 @@
 #ifndef TESTFORMFACTORS_H
 #define TESTFORMFACTORS_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
-//! Comparison with FormFactors ex-1: mean forfactor cylinder and prism
+class Simulation;
+class IFormFactor;
+//! Comparison of form factor for different particle shapes
 
-class TestFormFactors : public IFunctionalTest
+class TestFormFactors : public IApplicationTest
 {
 public:
-    TestFormFactors(){}
+    TestFormFactors();
+
     virtual ~TestFormFactors(){}
 
     virtual void execute();
     virtual void finalise();
 private:
-    std::string m_data_path;
+    // structure to hold info over several compare cases
+    struct CompareStruct
+    {
+        CompareStruct(std::string _isginame,
+                      std::string _thisname,
+                      std::string _descr)
+        : isginame(_isginame), thisname(_thisname), descr(_descr){}
+        std::string isginame;
+        std::string thisname;
+        std::string descr;
+    };
+
+    //! run isgisaxs simulation
+    void run_isgisaxs_simulation(IFormFactor* p_form_factor = 0);
+
+protected:
+ IFormFactor* mp_form_factor;
+
 };
 
 #endif // TESTFORMFACTORS_H

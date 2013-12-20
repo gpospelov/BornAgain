@@ -73,6 +73,18 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -83,6 +95,30 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
     }
 
     virtual void printParameters(  ) const  {
@@ -128,18 +164,6 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -162,6 +186,18 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
+    }
+
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else
+            return this->ICompositeSample::size(  );
+    }
+    
+    
+    ::std::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
     }
 
 };
@@ -368,6 +404,17 @@ void register_MultiLayer_class(){
                 , default_clearParameterPool_function_type(&MultiLayer_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( MultiLayer_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            MultiLayer_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&MultiLayer_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -378,6 +425,30 @@ void register_MultiLayer_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&MultiLayer_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( MultiLayer_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            MultiLayer_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&MultiLayer_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( MultiLayer_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            
+            MultiLayer_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&MultiLayer_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::printParameters
@@ -412,18 +483,6 @@ void register_MultiLayer_class(){
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( MultiLayer_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            MultiLayer_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&MultiLayer_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
-        
-        }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
@@ -445,6 +504,17 @@ void register_MultiLayer_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&MultiLayer_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICompositeSample::size
+        
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( MultiLayer_wrapper::*default_size_function_type )(  ) const;
+            
+            MultiLayer_exposer.def( 
+                "size"
+                , size_function_type(&::ICompositeSample::size)
+                , default_size_function_type(&MultiLayer_wrapper::default_size) );
         
         }
     }

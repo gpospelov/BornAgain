@@ -19,7 +19,9 @@
 #include "Types.h"
 #include "ISample.h"
 
-//! Interface to interference functions.
+//! @class IInterferenceFunction
+//! @ingroup interference_internal
+//! @brief Interface to interference functions.
 
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {
@@ -32,7 +34,7 @@ public:
     virtual IInterferenceFunction *clone() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Retrieves the size-distance coupling constant (default 0.0)
     virtual double getKappa() const { return 0.0; }

@@ -18,19 +18,23 @@
 
 #include "IInterferenceFunction.h"
 
+//! @class InterferenceFunction1DParaCrystal
+//! @ingroup interference
+//! @brief Interference function of 1D paracrystal.
+
 class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunction
 {
 public:
+
+    //! @brief constructor of 1D paracrystal interference function
+    //! @param peak_distance  The distance to the first neighbor peak.
+    //! @param width Width parameter in the pair correlation function.
+    //! @param m_corr_length Correlation length of paracrystal.
     InterferenceFunction1DParaCrystal(
         double peak_distance, double width, double corr_length=0.0);
+
     virtual ~InterferenceFunction1DParaCrystal() {}
-    virtual InterferenceFunction1DParaCrystal *clone() const {
-        InterferenceFunction1DParaCrystal *p_clone =
-            new InterferenceFunction1DParaCrystal(
-                m_peak_distance, m_width, m_corr_length);
-        p_clone->setKappa(m_kappa);
-        return p_clone;
-    }
+    virtual InterferenceFunction1DParaCrystal *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
@@ -41,9 +45,9 @@ public:
     complex_t FTGaussianCorrLength(double qpar) const;
 
 protected:
-    double m_peak_distance;
-    double m_width;
-    double m_corr_length;
+    double m_peak_distance; //!< the distance to the first neighbor peak
+    double m_width; //!< width parameter in the pair correlation function
+    double m_corr_length; //!< correlation length of paracrystal
     bool m_use_corr_length;
     double m_kappa;
 

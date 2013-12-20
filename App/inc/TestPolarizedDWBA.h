@@ -16,12 +16,12 @@
 #ifndef TESTPOLARIZEDDWBA_H_
 #define TESTPOLARIZEDDWBA_H_
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "MultiLayer.h"
 
 //! Functional test for polarized DWBA.
 
-class TestPolarizedDWBA : public IFunctionalTest
+class TestPolarizedDWBA : public IApplicationTest
 {
 public:
     TestPolarizedDWBA();

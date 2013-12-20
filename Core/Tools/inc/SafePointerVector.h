@@ -19,8 +19,11 @@
 #include <vector>
 using std::size_t;
 
-//! Safe handling of vectors of pointers that are owned by the vector
-//! Note: the objects pointed to must support the ICLoneable interface
+//! @class SafePointerVector
+//! @ingroup tools_internal
+//! @brief Safe handling of vectors of pointers that are owned by the vector
+//!
+//! The objects pointed to must support the ICLoneable interface.
 
 template <class T> class SafePointerVector
 {

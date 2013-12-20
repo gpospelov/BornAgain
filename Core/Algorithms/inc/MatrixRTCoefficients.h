@@ -19,9 +19,13 @@
 #include "ILayerRTCoefficients.h"
 #include "Types.h"
 
-//! Specular reflection and transmission coefficients in a layer in case
+
+//! @class MatrixRTCoefficients
+//! @ingroup algorithms_internal
+//! @brief Specular reflection and transmission coefficients in a layer in case
 //! of 2x2 matrix interactions between the layers and the scattered particle
-class MatrixRTCoefficients : public ILayerRTCoefficients
+
+class BA_CORE_API_ MatrixRTCoefficients : public ILayerRTCoefficients
 {
 public:
     MatrixRTCoefficients() : m_kt(0.0) {}

@@ -16,7 +16,7 @@
 #ifndef TESTTOYSIMULATION_H
 #define TESTTOYSIMULATION_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "Simulation.h"
 #include "OutputData.h"
 #include "TestFumiliLMA.h"
@@ -57,7 +57,7 @@ private:
 
 //! Test of fitting chain using toy simulation.
 
-class TestToySimulation : public IFunctionalTest
+class TestToySimulation : public IApplicationTest
 {
 public:
     TestToySimulation();

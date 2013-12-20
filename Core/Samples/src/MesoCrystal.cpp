@@ -43,14 +43,22 @@ MesoCrystal::~MesoCrystal()
 
 MesoCrystal* MesoCrystal::clone() const
 {
-    return new MesoCrystal(mp_particle_structure->clone(),
+    MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->clone(),
             mp_meso_form_factor->clone());
+    if (mP_transform.get()) {
+        p_result->mP_transform.reset(mP_transform->clone());
+    }
+    return p_result;
 }
 
 MesoCrystal* MesoCrystal::cloneInvertB() const
 {
-    return new MesoCrystal(mp_particle_structure->cloneInvertB(),
+    MesoCrystal *p_result = new MesoCrystal(mp_particle_structure->cloneInvertB(),
             mp_meso_form_factor->clone());
+    if (mP_transform.get()) {
+        p_result->mP_transform.reset(mP_transform->clone());
+    }
+    return p_result;
 }
 
 void MesoCrystal::setAmbientMaterial(const IMaterial* p_material)
@@ -70,8 +78,10 @@ IFormFactor* MesoCrystal::createFormFactor(
 void MesoCrystal::setSimpleFormFactor(IFormFactor* p_form_factor)
 {
     if (p_form_factor != mp_meso_form_factor) {
+        deregisterChild(mp_meso_form_factor);
         delete mp_meso_form_factor;
         mp_meso_form_factor = p_form_factor;
+        registerChild(mp_meso_form_factor);
     }
 }
 
@@ -81,4 +91,8 @@ std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(
     return mp_particle_structure->createDiffuseParticleInfo(parent_info);
 }
 
-
+void MesoCrystal::applyTransformationToSubParticles(
+        const Geometry::Transform3D& transform)
+{
+    mp_particle_structure->applyTransformation(transform);
+}

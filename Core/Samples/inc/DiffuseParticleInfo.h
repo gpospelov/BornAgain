@@ -18,7 +18,9 @@
 
 #include "ParticleInfo.h"
 
-//! Holds additional information about diffuse particle
+//! @class DiffuseParticleInfo
+//! @ingroup samples_internal
+//! @brief Holds additional information about diffuse particle.
 
 class BA_CORE_API_ DiffuseParticleInfo : public ParticleInfo
 {
@@ -33,7 +35,7 @@ public:
     virtual ~DiffuseParticleInfo() {}
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! scale abundance
     void scaleAbundance(double factor) { m_abundance *= factor; }

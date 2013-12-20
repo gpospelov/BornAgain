@@ -104,18 +104,6 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -199,6 +187,15 @@ void register_Simulation_class(){
                 "getSample"
                 , getSample_function_type( &::Simulation::getSample )
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Simulation::getSampleBuilder
+        
+            typedef ::SampleBuilder_t ( ::Simulation::*getSampleBuilder_function_type )(  ) const;
+            
+            Simulation_exposer.def( 
+                "getSampleBuilder"
+                , getSampleBuilder_function_type( &::Simulation::getSampleBuilder ) );
         
         }
         { //::Simulation::getSimulationParameters
@@ -329,12 +326,12 @@ void register_Simulation_class(){
         }
         { //::Simulation::setSampleBuilder
         
-            typedef void ( ::Simulation::*setSampleBuilder_function_type )( ::ISampleBuilder const * ) ;
+            typedef void ( ::Simulation::*setSampleBuilder_function_type )( ::SampleBuilder_t ) ;
             
             Simulation_exposer.def( 
                 "setSampleBuilder"
                 , setSampleBuilder_function_type( &::Simulation::setSampleBuilder )
-                , ( bp::arg("p_sample_builder") ) );
+                , ( bp::arg("sample_builder") ) );
         
         }
         { //::Simulation::setSimulationParameters
@@ -355,15 +352,6 @@ void register_Simulation_class(){
                 "setThreadInfo"
                 , setThreadInfo_function_type( &::Simulation::setThreadInfo )
                 , ( bp::arg("thread_info") ) );
-        
-        }
-        { //::Simulation::smearIntensityFromZAxisTilting
-        
-            typedef void ( ::Simulation::*smearIntensityFromZAxisTilting_function_type )(  ) ;
-            
-            Simulation_exposer.def( 
-                "smearIntensityFromZAxisTilting"
-                , smearIntensityFromZAxisTilting_function_type( &::Simulation::smearIntensityFromZAxisTilting ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -419,18 +407,6 @@ void register_Simulation_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &Simulation_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( Simulation_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            Simulation_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&Simulation_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

@@ -20,7 +20,10 @@
 #include <cstddef>
 #include "ICloneable.h"
 
-//! base class for all kind of OutputData's masks
+
+//! @class MaskCoordinateFunction
+//! @ingroup simulation_internal
+//! @brief Base class for all kind of OutputData's masks
 
 class BA_CORE_API_ MaskCoordinateFunction : public ICloneable
 {
@@ -37,7 +40,10 @@ protected:
     bool m_invert;  //!< if true, the complement is masked instead
 };
 
-//! rectangular mask for OutputData
+
+//! @class MaskCoordinateRectangleFunction
+//! @ingroup simulation_internal
+//! @brief Rectangular mask for OutputData
 
 class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
@@ -54,7 +60,9 @@ private:
     int *m_maxima;
 };
 
-//! ellipse shaped mask for OutputData
+//! @class MaskCoordinateEllipseFunction
+//! @ingroup simulation_internal
+//! @brief Ellipse shaped mask for OutputData
 
 class BA_CORE_API_ MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {

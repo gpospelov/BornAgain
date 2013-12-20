@@ -16,7 +16,7 @@
 #ifndef TESTMESOCRYSTAL2_H
 #define TESTMESOCRYSTAL2_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "Types.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
@@ -30,7 +30,7 @@ class FitSuite;
 
 //! Simulation and fit of 3D ordered particle assemblies.
 
-class TestMesoCrystal2 : public IFunctionalTest
+class TestMesoCrystal2 : public IApplicationTest
 {
 public:
     typedef std::vector<std::vector<std::string > > fixplan_t; // to hold sets of fit parameters to fix/release
@@ -82,7 +82,7 @@ private:
     void initializeSimulation(const OutputData<double> *output_data=0);
 
     OutputData<double> *m_real_data;
-    ISampleBuilder *m_sample_builder;
+    SampleBuilder_t m_sample_builder;
     Simulation *m_simulation;
     FitSuite *m_fitSuite;
 };

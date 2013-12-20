@@ -24,7 +24,9 @@
 class ParticleInfo;
 class DiffuseParticleInfo;
 
-//! A particle with a form factor and refractive index
+//! @class Particle
+//! @ingroup samples
+//! @brief A particle with a form factor and refractive index
 
 class BA_CORE_API_ Particle : public ICompositeSample
 {
@@ -33,7 +35,7 @@ public:
     Particle(const IMaterial* p_material, IFormFactor* p_form_factor = 0);
     Particle(const IMaterial* p_material, const IFormFactor& form_factor);
     Particle(const IMaterial* p_material, const IFormFactor& form_factor,
-            const Geometry::PTransform3D &transform);
+            const Geometry::Transform3D &transform);
     virtual ~Particle();
     virtual Particle *clone() const;
 
@@ -50,6 +52,9 @@ public:
         mp_ambient_material = p_material;
     }
 
+    //! Returns particle's material.
+    virtual const IMaterial* getAmbientMaterial() const { return mp_ambient_material; }
+
     //! Create a form factor which includes the particle's shape,
     //! material, ambient material, an optional transformation and an extra
     //! scattering factor
@@ -61,9 +66,8 @@ public:
         mp_material = p_material;
     }
 
-    //! Returns layer's material.
+    //! Returns particle's material.
     virtual const IMaterial* getMaterial() const { return mp_material; }
-
 
     //! Returns refractive index of the particle
     virtual complex_t getRefractiveIndex() const
@@ -73,12 +77,14 @@ public:
     }
 
     //! Returns transformation.
-    const Geometry::PTransform3D getPTransform3D() const
-    { return mP_transform; }
+    const Geometry::Transform3D *getPTransform3D() const
+    { return mP_transform.get(); }
 
     //! Sets transformation.
-    virtual void setTransform(const Geometry::PTransform3D& transform)
-    { mP_transform = transform; }
+    virtual void setTransformation(const Geometry::Transform3D& transform);
+
+    //! Applies transformation by composing it with the existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform);
 
     //! Returns form factor of the particle originating from its shape only
     virtual const IFormFactor *getSimpleFormFactor() const {
@@ -102,10 +108,13 @@ public:
 
 protected:
     IFormFactor *createTransformedFormFactor() const;
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
     const IMaterial* mp_material;
     const IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;
-    Geometry::PTransform3D mP_transform;
+    std::auto_ptr<Geometry::Transform3D> mP_transform;
     //!< pointer to the form factor
 };
 

@@ -19,9 +19,13 @@
 #include "ILayerRTCoefficients.h"
 #include "Types.h"
 
-//! Specular reflection and transmission coefficients in a layer in case
+
+//! @class ScalarRTCoefficients
+//! @ingroup algorithms_internal
+//! @brief Specular reflection and transmission coefficients in a layer in case
 //! of scalar interactions between the layers and the scattered particle
-class ScalarRTCoefficients : public ILayerRTCoefficients
+
+class BA_CORE_API_ ScalarRTCoefficients : public ILayerRTCoefficients
 {
 public:
     ScalarRTCoefficients();

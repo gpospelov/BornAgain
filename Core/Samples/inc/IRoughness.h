@@ -18,19 +18,16 @@
 
 #include "ISample.h"
 
-//! Interface to equip a sample with a roughness.
+//! @class IRoughness
+//! @ingroup samples_internal
+//! @brief Interface to equip an interface with a roughness.
 
 class BA_CORE_API_ IRoughness : public ISample
 {
 public:
     IRoughness() {}
     virtual ~IRoughness() {}
-//    virtual IRoughness *clone() const
-//    {
-//        throw NotImplementedException(
-//                "IRoughness::clone() -> Error! Not implemented.");
-//    }
-
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 };
 
 #endif // IROUGHNESS_H

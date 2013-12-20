@@ -22,8 +22,9 @@
 #include "EigenCore.h"
 
 
-
-//! Detector with axes and resolution function.
+//! @class Detector
+//! @ingroup simulation
+//! @brief The detector with axes and resolution function.
 
 class BA_CORE_API_ Detector : public IParameterized
 {

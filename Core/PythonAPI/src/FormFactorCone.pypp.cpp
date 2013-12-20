@@ -37,6 +37,30 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return FormFactorCone::clone( );
     }
 
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else
+            return this->FormFactorCone::evaluate_for_q( boost::ref(q) );
+    }
+    
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorCone::evaluate_for_q( boost::ref(q) );
+    }
+
+    virtual double getAlpha(  ) const  {
+        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
+            return func_getAlpha(  );
+        else
+            return this->FormFactorCone::getAlpha(  );
+    }
+    
+    
+    double default_getAlpha(  ) const  {
+        return FormFactorCone::getAlpha( );
+    }
+
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -59,6 +83,54 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorCone::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else
+            return this->FormFactorCone::getRadius(  );
+    }
+    
+    
+    double default_getRadius(  ) const  {
+        return FormFactorCone::getRadius( );
+    }
+
+    virtual void setAlpha( double alpha ) {
+        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
+            func_setAlpha( alpha );
+        else
+            this->FormFactorCone::setAlpha( alpha );
+    }
+    
+    
+    void default_setAlpha( double alpha ) {
+        FormFactorCone::setAlpha( alpha );
+    }
+
+    virtual void setHeight( double height ) {
+        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
+            func_setHeight( height );
+        else
+            this->FormFactorCone::setHeight( height );
+    }
+    
+    
+    void default_setHeight( double height ) {
+        FormFactorCone::setHeight( height );
+    }
+
+    virtual void setRadius( double radius ) {
+        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
+            func_setRadius( radius );
+        else
+            this->FormFactorCone::setRadius( radius );
+    }
+    
+    
+    void default_setRadius( double radius ) {
+        FormFactorCone::setRadius( radius );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -97,6 +169,18 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return ISample::cloneInvertB( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -133,6 +217,18 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ISample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ISample::getCompositeSample( );
+    }
+
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -143,18 +239,6 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else
-            return this->IFormFactor::getRadius(  );
-    }
-    
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -224,18 +308,6 @@ struct FormFactorCone_wrapper : FormFactorCone, bp::wrapper< FormFactorCone > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -280,6 +352,29 @@ void register_FormFactorCone_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::FormFactorCone::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorCone::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorCone_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorCone_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorCone::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorCone_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
+        
+        }
+        { //::FormFactorCone::getAlpha
+        
+            typedef double ( ::FormFactorCone::*getAlpha_function_type )(  ) const;
+            typedef double ( FormFactorCone_wrapper::*default_getAlpha_function_type )(  ) const;
+            
+            FormFactorCone_exposer.def( 
+                "getAlpha"
+                , getAlpha_function_type(&::FormFactorCone::getAlpha)
+                , default_getAlpha_function_type(&FormFactorCone_wrapper::default_getAlpha) );
+        
+        }
         { //::FormFactorCone::getHeight
         
             typedef double ( ::FormFactorCone::*getHeight_function_type )(  ) const;
@@ -300,6 +395,53 @@ void register_FormFactorCone_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorCone::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorCone_wrapper::default_getNumberOfStochasticParameters) );
+        
+        }
+        { //::FormFactorCone::getRadius
+        
+            typedef double ( ::FormFactorCone::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorCone_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorCone_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorCone::getRadius)
+                , default_getRadius_function_type(&FormFactorCone_wrapper::default_getRadius) );
+        
+        }
+        { //::FormFactorCone::setAlpha
+        
+            typedef void ( ::FormFactorCone::*setAlpha_function_type )( double ) ;
+            typedef void ( FormFactorCone_wrapper::*default_setAlpha_function_type )( double ) ;
+            
+            FormFactorCone_exposer.def( 
+                "setAlpha"
+                , setAlpha_function_type(&::FormFactorCone::setAlpha)
+                , default_setAlpha_function_type(&FormFactorCone_wrapper::default_setAlpha)
+                , ( bp::arg("alpha") ) );
+        
+        }
+        { //::FormFactorCone::setHeight
+        
+            typedef void ( ::FormFactorCone::*setHeight_function_type )( double ) ;
+            typedef void ( FormFactorCone_wrapper::*default_setHeight_function_type )( double ) ;
+            
+            FormFactorCone_exposer.def( 
+                "setHeight"
+                , setHeight_function_type(&::FormFactorCone::setHeight)
+                , default_setHeight_function_type(&FormFactorCone_wrapper::default_setHeight)
+                , ( bp::arg("height") ) );
+        
+        }
+        { //::FormFactorCone::setRadius
+        
+            typedef void ( ::FormFactorCone::*setRadius_function_type )( double ) ;
+            typedef void ( FormFactorCone_wrapper::*default_setRadius_function_type )( double ) ;
+            
+            FormFactorCone_exposer.def( 
+                "setRadius"
+                , setRadius_function_type(&::FormFactorCone::setRadius)
+                , default_setRadius_function_type(&FormFactorCone_wrapper::default_setRadius)
+                , ( bp::arg("radius") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -334,6 +476,17 @@ void register_FormFactorCone_class(){
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
                 , default_cloneInvertB_function_type(&FormFactorCone_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorCone_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            FormFactorCone_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&FormFactorCone_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
@@ -375,8 +528,8 @@ void register_FormFactorCone_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
             FormFactorCone_exposer.def( 
                 "getCompositeSample"
@@ -385,15 +538,16 @@ void register_FormFactorCone_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IFormFactor::getRadius
+        { //::ISample::getCompositeSample
         
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorCone_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorCone_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
             FormFactorCone_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorCone_wrapper::default_getRadius) );
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ISample::getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorCone_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IFormFactorBorn::getVolume
@@ -448,18 +602,6 @@ void register_FormFactorCone_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorCone_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( FormFactorCone_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            FormFactorCone_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&FormFactorCone_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

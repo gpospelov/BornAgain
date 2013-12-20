@@ -72,11 +72,13 @@ def dirCore(x):
     if "/Core/Algorithms" in x: return True
     if "/Core/FormFactors" in x: return True
     if "/Core/Samples" in x: return True
+    if "/Core/StandardSamples" in x: return True
     if "/Core/Tools" in x: return True
     if "/Core/Fitting" in x: return True
     if "/Core/inc" in x: return True
     if "/Core/src" in x: return True
     if "/Fit/Factory" in x: return True
+    if "/Fit/FitKernel" in x: return True
     if "/Core/Geometry" in x: return True
     return False
 

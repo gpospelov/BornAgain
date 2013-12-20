@@ -22,7 +22,9 @@
 #include "MultiLayerDWBASimulation.h"
 #include <vector>
 
+
 //! @class MultiLayer
+//! @ingroup samples
 //! @brief Stack of layers one below the other
 //!
 //! Example of system of 4 layers (3 interfaces):
@@ -34,6 +36,7 @@
 //!  Cr, 40A     layer #2        z=getLayerBottomZ(2)=-60.0
 //!  ---------   interface #2
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
+
 
 class BA_CORE_API_ MultiLayer : public ICompositeSample
 {

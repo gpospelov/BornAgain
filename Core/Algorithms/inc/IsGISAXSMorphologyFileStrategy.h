@@ -19,10 +19,13 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-//! Definition of interference function strategy that emulates the behaviour of
+
+//! @class ISampleBuilder
+//! @ingroup algorithms_internal
+//! @brief Definition of interference function strategy that emulates the behaviour of
 //! IsGISAXS for morphology files
 
-class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
+class BA_CORE_API_ IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
 public:
     IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params);

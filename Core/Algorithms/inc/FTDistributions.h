@@ -22,7 +22,12 @@
 
 #include "Numeric.h"
 
-class IFTDistribution1D
+
+//! @class IFTDistribution1D
+//! @ingroup algorithms_internal
+//! @brief Interface for 1 dimensional distributions in Fourier space
+
+class BA_CORE_API_ IFTDistribution1D
 {
 public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
@@ -33,12 +38,16 @@ protected:
     double m_omega;
 };
 
+
+//! @class IFTDistribution2D
+//! @ingroup algorithms_internal
+//! @brief Interface for 2 dimensional distributions in Fourier space
 class BA_CORE_API_ IFTDistribution2D : public IParameterized
 {
 public:
-    IFTDistribution2D(double omega_x, double omega_y)
-        : m_omega_x(omega_x)
-        , m_omega_y(omega_y)
+    IFTDistribution2D(double coherence_length_x, double coherence_length_y)
+        : m_coherence_length_x(coherence_length_x)
+        , m_coherence_length_y(coherence_length_y)
         , m_gamma(0.0)
         , m_delta(M_PI/2.0) {}
     virtual ~IFTDistribution2D() {}
@@ -54,33 +63,83 @@ public:
     // get angle between X- and Y-axis of distribution (in direct space)
     double getDelta() const { return m_delta; }
 
+    // get coherence length in X-direction
+    double getCoherenceLengthX() const { return m_coherence_length_x; }
+
+    // get coherence length in Y-direction
+    double getCoherenceLengthY() const { return m_coherence_length_y; }
+
     //! evaluate IF for q in X,Y coordinates
+    //! A common factor of 2*pi*m_coherence_length_x*m_coherence_length_y is
+    //! applied by the caller if needed
     virtual double evaluate(double qx, double qy) const=0;
 
     //! transform back to a*, b* basis:
-    virtual void transformToStarBasis(double qX, double qY,
-            double alpha, double a, double b, double& qa, double& qb) const=0;
+    void transformToStarBasis(double qX, double qY,
+            double alpha, double a, double b, double& qa, double& qb) const;
+
 protected:
-    double m_omega_x;
-    double m_omega_y;
+    virtual void init_parameters();
+    double m_coherence_length_x;
+    double m_coherence_length_y;
     double m_gamma;
     double m_delta;
 };
 
+
+//! @class FTDistribution2DCauchy
+//! @ingroup algorithms
+//! @brief 2 dimensional Cauchy distribution in Fourier space
+//! corresponds to exp(-r) in real space
+
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCauchy(double omega_x, double omega_y);
+    FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y);
     virtual ~FTDistribution2DCauchy() {}
 
     virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+};
 
-    virtual void transformToStarBasis(double qX, double qY,
-            double alpha, double a, double b, double& qa, double& qb) const;
+
+//! @class FTDistribution2DGauss
+//! @ingroup algorithms
+//! @brief 2 dimensional Gauss distribution in Fourier space
+//! corresponds to exp(-r^2) in real space
+
+class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
+{
+public:
+    FTDistribution2DGauss(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DGauss() {}
+
+    virtual FTDistribution2DGauss *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+};
+
+
+//! @class FTDistribution2DVoigt
+//! @ingroup algorithms
+//! @brief 2 dimensional Voigt distribution in Fourier space
+//! Corresponds to eta*Gauss + (1-eta)*Cauchy
+
+class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
+{
+public:
+    FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y,
+            double eta);
+    virtual ~FTDistribution2DVoigt() {}
+
+    virtual FTDistribution2DVoigt *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+
 protected:
     virtual void init_parameters();
+    double m_eta;
 };
 
 #endif /* FTDISTRIBUTIONS_H_ */

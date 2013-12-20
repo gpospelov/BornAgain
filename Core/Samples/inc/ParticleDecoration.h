@@ -21,38 +21,20 @@
 #include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
 
-//! Decorator class that adds particles to ISample objects
+//! @class ParticleDecoration
+//! @ingroup samples
+//! @brief Decorator class that adds particles to ISample objects
 
 class BA_CORE_API_ ParticleDecoration : public IDecoration
 {
 public:
-    ParticleDecoration()
-        : m_total_abundance(0.0)
-    {
-        setName("ParticleDecoration");
-    }
-
+    ParticleDecoration();
     ParticleDecoration(
-        Particle* p_particle, double depth=0., double abundance=1.)
-        : m_total_abundance(0.0)
-    {
-        setName("ParticleDecoration");
-        addParticle(p_particle, depth, abundance);
-    }
-
+        Particle* p_particle, double depth=0., double abundance=1.);
     ParticleDecoration(
-        const Particle& p_particle, double depth=0., double abundance=1.)
-        : m_total_abundance(0.0)
-    {
-        setName("ParticleDecoration");
-        addParticle(p_particle.clone(), depth, abundance);
-    }
+        const Particle& p_particle, double depth=0., double abundance=1.);
 
-    ~ParticleDecoration()
-    {
-        for (size_t i=0; i<m_particles.size(); ++i)
-            delete m_particles[i];
-    }
+    virtual ~ParticleDecoration();
 
     virtual ParticleDecoration *clone() const;
 
@@ -64,11 +46,11 @@ public:
 
     //! Adds generic particle
     void addParticle(
-        Particle *p_particle, const Geometry::PTransform3D& transform,
+        Particle *p_particle, const Geometry::Transform3D& transform,
         double depth=0, double abundance=1.0);
 
     void addParticle(
-        const Particle& p_particle, const Geometry::PTransform3D& transform,
+        const Particle& p_particle, const Geometry::Transform3D& transform,
         double depth=0, double abundance=1.0);
 
     //! Adds particle without rotation
@@ -114,10 +96,10 @@ private:
 
     void print(std::ostream& ostr) const;
 
-    //TODO: replace with SafePointerVector
-    std::vector<ParticleInfo*> m_particles;
-
     //! Vector of the types of particles
+    SafePointerVector<ParticleInfo> m_particles;
+
+    //! Vector of interference functions
     SafePointerVector<IInterferenceFunction> m_interference_functions;
 
     //! Currently only a scalar interference function (instead of matrix)

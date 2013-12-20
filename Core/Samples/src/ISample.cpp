@@ -20,20 +20,10 @@
 #include "Utils.h"
 #include "SamplePrintVisitor.h"
 
-ISample *ISample::clone() const
-{
-    throw NotImplementedException(
-        "ISample::clone() -> "
-        "Error! Method is not implemented");
-}
-
-//! Adds params from local to external pool and recurses over direct children.
-
 ISample* ISample::cloneInvertB() const
 {
     throw NotImplementedException(
-        "ISample::cloneInvertB() -> "
-        "Error! Method is not implemented");
+        "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
 std::string ISample::addParametersToExternalPool(
@@ -75,21 +65,15 @@ std::string ISample::addParametersToExternalPool(
 void ISample::printSampleTree()
 {
     SamplePrintVisitor visitor;
-    this->accept(&visitor);
+    VisitSampleTree(*this, visitor);
 }
 
 bool ISample::containsMagneticMaterial() const
 {
     SampleMaterialVisitor material_vis;
-    this->accept(&material_vis);
-    std::vector<const IMaterial *> materials = material_vis.getMaterials();
-    for (std::vector<const IMaterial *>::const_iterator it = materials.begin();
-            it != materials.end(); ++it) {
-        if (!(*it)->isScalarMaterial()) {
-            return true;
-        }
-    }
-    return false;
+    VisitSampleTree(*this, material_vis);
+    return material_vis.containsMagneticMaterial();
+
 }
 
 void ISample::print(std::ostream& ostr) const
@@ -98,5 +82,7 @@ void ISample::print(std::ostream& ostr) const
         "params={ " << m_parameters << " }";
     ostr << " }";
 }
+
+
 
 

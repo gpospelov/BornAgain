@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "TestFittingModule3.h"
+#include "BornAgainNamespace.h"
 #include "AttLimits.h"
 #include "DrawHelper.h"
 #include "Exceptions.h"
@@ -152,8 +153,8 @@ void TestFittingModule3::initializeRealData()
 
     // setting up 1d scans by making slices on real data
     m_data_scans.clear();
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "alpha_f", 0.012, 0.012) );
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, BornAgain::ALPHA_AXIS_NAME, 0.012, 0.012) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, BornAgain::PHI_AXIS_NAME, 0.011, 0.011) );
 
     // drawing data and scans
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);

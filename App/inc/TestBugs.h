@@ -1,10 +1,10 @@
 #ifndef TESTBUGS_H
 #define TESTBUGS_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 
 
-class TestBugs : public IFunctionalTest
+class TestBugs : public IApplicationTest
 {
 public:
     TestBugs();

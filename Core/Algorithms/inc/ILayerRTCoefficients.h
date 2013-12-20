@@ -19,7 +19,12 @@
 #include "Types.h"
 #include "EigenCore.h"
 
-class ILayerRTCoefficients
+
+//! @class ILayerRTCoefficients
+//! @ingroup algorithms_internal
+//! @brief Interface to access reflection/transmition coefficients
+
+class BA_CORE_API_ ILayerRTCoefficients
 {
 public:
     virtual ~ILayerRTCoefficients() {}

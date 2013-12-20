@@ -62,6 +62,7 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+
 # --- external dependencies ---
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
@@ -98,6 +99,7 @@ endif()
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "refdata*.txt" )
 install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
 # the line below copies the contains ${CMAKE_SOURCE_DIR}/bin to the bin folder of the final package
 # install (DIRECTORY ${CMAKE_SOURCE_DIR}/bin DESTINATION . COMPONENT Libraries)
 

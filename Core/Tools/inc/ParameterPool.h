@@ -22,7 +22,9 @@
 #include <map>
 #include <vector>
 
-//! Holds a map of pointers to parameters (which must have different names).
+//! @class ParameterPool
+//! @ingroup tools_internal
+//! @brief Holds a map of pointers to parameters (which must have different names).
 
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
@@ -89,6 +91,9 @@ public:
 protected:
     //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
+
+    //! prints error message
+    std::string get_error_message(const std::string &criteria) const;
 
     //! Map of parameters.
     parametermap_t m_map;

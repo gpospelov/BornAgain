@@ -25,28 +25,43 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     }
 
-    virtual ::IClusteredParticles * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else
-            return this->IClusteredParticles::clone(  );
-    }
-    
-    
-    ::IClusteredParticles * default_clone(  ) const  {
-        return IClusteredParticles::clone( );
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
     }
 
-    virtual ::IClusteredParticles * cloneInvertB(  ) const  {
-        if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
-            return func_cloneInvertB(  );
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
         else
-            return this->IClusteredParticles::cloneInvertB(  );
+            this->IClusteredParticles::applyTransformation( boost::ref(transform) );
     }
     
     
-    ::IClusteredParticles * default_cloneInvertB(  ) const  {
-        return IClusteredParticles::cloneInvertB( );
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        IClusteredParticles::applyTransformation( boost::ref(transform) );
+    }
+
+    virtual ::IClusteredParticles * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual ::IClusteredParticles * cloneInvertB(  ) const {
+        bp::override func_cloneInvertB = this->get_override( "cloneInvertB" );
+        return func_cloneInvertB(  );
+    }
+
+    virtual ::Geometry::Transform3D const * getTransform(  ) const  {
+        if( bp::override func_getTransform = this->get_override( "getTransform" ) )
+            return func_getTransform(  );
+        else
+            return this->IClusteredParticles::getTransform(  );
+    }
+    
+    
+    ::Geometry::Transform3D const * default_getTransform(  ) const  {
+        return IClusteredParticles::getTransform( );
     }
 
     virtual void setAmbientMaterial( ::IMaterial const * p_ambient_material ){
@@ -78,6 +93,18 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -88,6 +115,30 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
     }
 
     virtual void printParameters(  ) const  {
@@ -133,18 +184,6 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -169,6 +208,18 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else
+            return this->ICompositeSample::size(  );
+    }
+    
+    
+    ::std::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
+    }
+
 };
 
 void register_IClusteredParticles_class(){
@@ -177,27 +228,57 @@ void register_IClusteredParticles_class(){
         typedef bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IClusteredParticles_exposer_t;
         IClusteredParticles_exposer_t IClusteredParticles_exposer = IClusteredParticles_exposer_t( "IClusteredParticles", bp::init< >() );
         bp::scope IClusteredParticles_scope( IClusteredParticles_exposer );
+        { //::IClusteredParticles::accept
+        
+            typedef void ( ::IClusteredParticles::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::IClusteredParticles::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
+        { //::IClusteredParticles::applyTransformation
+        
+            typedef void ( ::IClusteredParticles::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( IClusteredParticles_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            IClusteredParticles_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::IClusteredParticles::applyTransformation)
+                , default_applyTransformation_function_type(&IClusteredParticles_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::IClusteredParticles::clone
         
             typedef ::IClusteredParticles * ( ::IClusteredParticles::*clone_function_type )(  ) const;
-            typedef ::IClusteredParticles * ( IClusteredParticles_wrapper::*default_clone_function_type )(  ) const;
             
             IClusteredParticles_exposer.def( 
                 "clone"
-                , clone_function_type(&::IClusteredParticles::clone)
-                , default_clone_function_type(&IClusteredParticles_wrapper::default_clone)
+                , bp::pure_virtual( clone_function_type(&::IClusteredParticles::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IClusteredParticles::cloneInvertB
         
             typedef ::IClusteredParticles * ( ::IClusteredParticles::*cloneInvertB_function_type )(  ) const;
-            typedef ::IClusteredParticles * ( IClusteredParticles_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
             IClusteredParticles_exposer.def( 
                 "cloneInvertB"
-                , cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB)
-                , default_cloneInvertB_function_type(&IClusteredParticles_wrapper::default_cloneInvertB)
+                , bp::pure_virtual( cloneInvertB_function_type(&::IClusteredParticles::cloneInvertB) )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IClusteredParticles::getTransform
+        
+            typedef ::Geometry::Transform3D const * ( ::IClusteredParticles::*getTransform_function_type )(  ) const;
+            typedef ::Geometry::Transform3D const * ( IClusteredParticles_wrapper::*default_getTransform_function_type )(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "getTransform"
+                , getTransform_function_type(&::IClusteredParticles::getTransform)
+                , default_getTransform_function_type(&IClusteredParticles_wrapper::default_getTransform)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -233,6 +314,17 @@ void register_IClusteredParticles_class(){
                 , default_clearParameterPool_function_type(&IClusteredParticles_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( IClusteredParticles_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&IClusteredParticles_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -243,6 +335,30 @@ void register_IClusteredParticles_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&IClusteredParticles_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( IClusteredParticles_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            IClusteredParticles_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&IClusteredParticles_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( IClusteredParticles_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&IClusteredParticles_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::printParameters
@@ -277,18 +393,6 @@ void register_IClusteredParticles_class(){
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( IClusteredParticles_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            IClusteredParticles_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&IClusteredParticles_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
-        
-        }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
@@ -310,6 +414,17 @@ void register_IClusteredParticles_class(){
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
                 , default_setParametersAreChanged_function_type(&IClusteredParticles_wrapper::default_setParametersAreChanged) );
+        
+        }
+        { //::ICompositeSample::size
+        
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( IClusteredParticles_wrapper::*default_size_function_type )(  ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "size"
+                , size_function_type(&::ICompositeSample::size)
+                , default_size_function_type(&IClusteredParticles_wrapper::default_size) );
         
         }
     }

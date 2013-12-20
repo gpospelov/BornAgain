@@ -18,7 +18,9 @@
 
 #include "FormFactorDWBA.h"
 
-//! Calculates a DWBA form factor for particles at fixed depth
+//! @class FormFactorDWBAConstZ
+//! @ingroup formfactors_internal
+//! @brief Calculates a DWBA formfactor for particles at fixed depth.
 
 class BA_CORE_API_ FormFactorDWBAConstZ : public FormFactorDWBA
 {
@@ -26,6 +28,7 @@ public:
     FormFactorDWBAConstZ(IFormFactor* p_form_factor, double depth=0.0);
     virtual ~FormFactorDWBAConstZ() {}
     virtual FormFactorDWBAConstZ *clone() const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;

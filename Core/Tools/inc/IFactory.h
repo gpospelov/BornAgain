@@ -21,7 +21,9 @@
 #include <iostream>
 #include <vector>
 
-//! Base class for all factories.
+//! @class IFactory
+//! @ingroup tools_internal
+//! @brief Base class for all factories.
 
 template<class IdentifierType, class AbstractProduct >
 class IFactory
@@ -100,6 +102,13 @@ public:
 
     //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
+
+    iterator begin() { return m_descriptions.begin(); }
+    const_iterator begin() const { return m_descriptions.begin(); }
+
+    iterator end() { return m_descriptions.end(); }
+    const_iterator end() const { return m_descriptions.end(); }
+
 
 protected:
     bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true

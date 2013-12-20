@@ -19,7 +19,9 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! ?
+//! @class FormFactorGauss
+//! @ingroup formfactors
+//! @brief The formfactor of a gaussian.
 
 class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 {
@@ -45,8 +47,6 @@ public:
 
     //! Returns radius of Box
     double getRadius() const { return m_width; }
-
-
 
 protected:
     //! Registers some class members for later access via parameter pool

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "TestMultiLayerRoughness.h"
+#include "BornAgainNamespace.h"
 #include "Simulation.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
@@ -59,8 +60,8 @@ void TestMultiLayerRoughness::execute()
         const OutputData<double> *output = simulation.getOutputData();
         OutputData<double>::const_iterator it_output = output->begin();
         while (it_output != output->end()) {
-            double phi_f = output->getValueOfAxis("phi_f", it_output.getIndex());
-            double alpha_f = output->getValueOfAxis("alpha_f", it_output.getIndex());
+            double phi_f = output->getValueOfAxis(BornAgain::PHI_AXIS_NAME, it_output.getIndex());
+            double alpha_f = output->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, it_output.getIndex());
             double intensity = *it_output++;
             if(phi_f == 0) {
                 h2->Fill(Units::rad2deg(alpha_i), Units::rad2deg(alpha_f), intensity);

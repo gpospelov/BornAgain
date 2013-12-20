@@ -36,6 +36,17 @@ void InterferenceFunction1DParaCrystal::init_parameters()
     registerParameter("corr_length", &m_corr_length);
 }
 
+
+InterferenceFunction1DParaCrystal *InterferenceFunction1DParaCrystal::clone() const {
+    InterferenceFunction1DParaCrystal *result =
+        new InterferenceFunction1DParaCrystal(
+            m_peak_distance, m_width, m_corr_length);
+    result->setName(getName());
+    result->setKappa(m_kappa);
+    return result;
+}
+
+
 double InterferenceFunction1DParaCrystal::evaluate(const cvector_t& q) const
 {
     double qxr = q.x().real();

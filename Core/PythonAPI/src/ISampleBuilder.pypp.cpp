@@ -111,18 +111,6 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -222,18 +210,6 @@ void register_ISampleBuilder_class(){
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( ISampleBuilder_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            ISampleBuilder_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&ISampleBuilder_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
-        
-        }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
@@ -257,6 +233,9 @@ void register_ISampleBuilder_class(){
                 , default_setParametersAreChanged_function_type(&ISampleBuilder_wrapper::default_setParametersAreChanged) );
         
         }
+        bp::register_ptr_to_python< boost::shared_ptr< ISampleBuilder > >();
+        bp::implicitly_convertible< boost::shared_ptr< ISampleBuilder >, boost::shared_ptr< IParameterized > >();
+        bp::implicitly_convertible< boost::shared_ptr< ISampleBuilder >, boost::shared_ptr< INamed > >();
     }
 
 }

@@ -19,7 +19,9 @@
 #include "IFormFactorDecorator.h"
 #include "LayerSpecularInfo.h"
 
-//! Evaluates a coherent sum of the four DWBA terms in a scalar form factor
+//! @class FormFactorDWBA
+//! @ingroup formfactors_internal
+//! @brief Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
 
 class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
 {
@@ -28,6 +30,8 @@ public:
     virtual ~FormFactorDWBA();
 
     virtual FormFactorDWBA *clone() const;
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     void setSpecularInfo(const LayerSpecularInfo& layer_specular_info);

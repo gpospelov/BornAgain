@@ -24,7 +24,9 @@
 class IInterferenceFunctionStrategy;
 class IInterferenceFunction;
 
-//! Interface to equip a sample component with various properties.
+//! @class IDecoration
+//! @ingroup samples_internal
+//! @brief Interface to equip a sample component with various properties.
 
 class BA_CORE_API_ IDecoration : public ICompositeSample
 {
@@ -33,6 +35,9 @@ public:
     virtual ~IDecoration() {}
 
     virtual IDecoration *clone() const=0;
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const=0;
 
     //! Returns a clone with inverted magnetic fields
     virtual IDecoration *cloneInvertB() const=0;

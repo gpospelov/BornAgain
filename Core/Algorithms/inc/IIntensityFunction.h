@@ -19,7 +19,12 @@
 
 #include <cmath>
 
-class IIntensityFunction
+
+//! @class IIntensityFunction
+//! @ingroup algorithms_internal
+//! @brief Interface for applying arbitrary function to the measured intensity
+
+class BA_CORE_API_ IIntensityFunction
 {
 public:
     virtual ~IIntensityFunction() {}
@@ -28,7 +33,12 @@ public:
     virtual double evaluate(double value) const=0;
 };
 
-class IntensityFunctionLog : public IIntensityFunction
+
+//! @class IntensityFunctionLog
+//! @ingroup algorithms_internal
+//! @brief Algorithm for applying log function to the measured intensity
+
+class BA_CORE_API_ IntensityFunctionLog : public IIntensityFunction
 {
 public:
     virtual ~IntensityFunctionLog() {}
@@ -38,7 +48,12 @@ public:
         return (value > 0 ? std::log(value) : 0); }
 };
 
-class IntensityFunctionSqrt : public IIntensityFunction
+
+//! @class IntensityFunctionSqrt
+//! @ingroup algorithms_internal
+//! @brief Algorithm for applying sqrt function to the measured intensity
+
+class BA_CORE_API_ IntensityFunctionSqrt : public IIntensityFunction
 {
 public:
     virtual ~IntensityFunctionSqrt() {}

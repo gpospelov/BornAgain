@@ -17,7 +17,7 @@
 #define TESTISGISAXS13_H
 
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "ISampleBuilder.h"
 
 class Simulation;
@@ -27,7 +27,7 @@ class FitSuite;
 
 //! Cylinders with size distribution and 1D paracrystal interference function.
 //!
-class TestIsGISAXS13 : public IFunctionalTest
+class TestIsGISAXS13 : public IApplicationTest
 {
 public:
     TestIsGISAXS13();
@@ -49,7 +49,7 @@ private:
     void run_isgisaxs_fit();
 
     Simulation *mp_simulation;
-    ISampleBuilder *mp_sample_builder;
+    SampleBuilder_t mp_sample_builder;
     FitSuite *mp_fitSuite;
 };
 

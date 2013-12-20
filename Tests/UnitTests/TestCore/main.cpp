@@ -8,7 +8,7 @@
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
 #include "DetectorTest.h"
-//#include "FormFactorTest.h"
+#include "FormFactorTest.h"
 #include "InstrumentTest.h"
 #include "IParameterizedTest.h"
 #include "KVectorTest.h"
@@ -21,7 +21,12 @@
 #include "RealParameterWrapperTest.h"
 #include "SimulationTest.h"
 #include "ThreadInfoTest.h"
-
+#include "LayerRoughnessTest.h"
+#include "ParticleInfoTest.h"
+#include "LLDataTest.h"
+#include "TRangeTest.h"
+#include "AxisBinTest.h"
+#include "FTDistributionsTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

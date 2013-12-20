@@ -18,7 +18,9 @@
 
 #include "ICloneable.h"
 
-//! Interface class, encapsulating different simulations.
+//! @class ISimulation
+//! @ingroup algorithms_internal
+//! @brief Interface class, encapsulating different simulations.
 
 class BA_CORE_API_  ISimulation : public ICloneable
 {

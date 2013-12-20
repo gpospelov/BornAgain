@@ -23,7 +23,9 @@
 #include "LayerDWBASimulation.h"
 #include "ParticleDecoration.h"
 
-//! A Layer with thickness and pointer to the material
+//! @class Layer
+//! @ingroup samples
+//! @brief A layer with thickness and material
 
 class BA_CORE_API_ Layer : public ICompositeSample
 {
@@ -43,7 +45,7 @@ public:
     virtual Layer *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets layer thickness in nanometers.
     virtual void setThickness(double thickness);

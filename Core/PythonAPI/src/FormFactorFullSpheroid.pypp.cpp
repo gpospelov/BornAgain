@@ -37,6 +37,18 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return FormFactorFullSpheroid::clone( );
     }
 
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else
+            return this->FormFactorFullSpheroid::evaluate_for_q( boost::ref(q) );
+    }
+    
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorFullSpheroid::evaluate_for_q( boost::ref(q) );
+    }
+
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -59,6 +71,18 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorFullSpheroid::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else
+            return this->FormFactorFullSpheroid::getRadius(  );
+    }
+    
+    
+    double default_getRadius(  ) const  {
+        return FormFactorFullSpheroid::getRadius( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -97,6 +121,18 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return ISample::cloneInvertB( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -133,6 +169,18 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ISample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ISample::getCompositeSample( );
+    }
+
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -143,18 +191,6 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else
-            return this->IFormFactor::getRadius(  );
-    }
-    
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -224,18 +260,6 @@ struct FormFactorFullSpheroid_wrapper : FormFactorFullSpheroid, bp::wrapper< For
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -280,6 +304,18 @@ void register_FormFactorFullSpheroid_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::FormFactorFullSpheroid::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorFullSpheroid::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorFullSpheroid_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorFullSpheroid_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorFullSpheroid::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorFullSpheroid_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
+        
+        }
         { //::FormFactorFullSpheroid::getHeight
         
             typedef double ( ::FormFactorFullSpheroid::*getHeight_function_type )(  ) const;
@@ -300,6 +336,17 @@ void register_FormFactorFullSpheroid_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorFullSpheroid::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorFullSpheroid_wrapper::default_getNumberOfStochasticParameters) );
+        
+        }
+        { //::FormFactorFullSpheroid::getRadius
+        
+            typedef double ( ::FormFactorFullSpheroid::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorFullSpheroid_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorFullSpheroid_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::FormFactorFullSpheroid::getRadius)
+                , default_getRadius_function_type(&FormFactorFullSpheroid_wrapper::default_getRadius) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -334,6 +381,17 @@ void register_FormFactorFullSpheroid_class(){
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
                 , default_cloneInvertB_function_type(&FormFactorFullSpheroid_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorFullSpheroid_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            FormFactorFullSpheroid_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&FormFactorFullSpheroid_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
@@ -375,8 +433,8 @@ void register_FormFactorFullSpheroid_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorFullSpheroid_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorFullSpheroid_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
             FormFactorFullSpheroid_exposer.def( 
                 "getCompositeSample"
@@ -385,15 +443,16 @@ void register_FormFactorFullSpheroid_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IFormFactor::getRadius
+        { //::ISample::getCompositeSample
         
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorFullSpheroid_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorFullSpheroid_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
             FormFactorFullSpheroid_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorFullSpheroid_wrapper::default_getRadius) );
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ISample::getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorFullSpheroid_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IFormFactorBorn::getVolume
@@ -448,18 +507,6 @@ void register_FormFactorFullSpheroid_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorFullSpheroid_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( FormFactorFullSpheroid_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            FormFactorFullSpheroid_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&FormFactorFullSpheroid_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

@@ -20,7 +20,9 @@
 
 #include <iterator>
 
-//! Iterator for underlying OutputData container
+//! @class OutputDataIterator
+//! @ingroup tools_internal
+//! @brief Iterator for underlying OutputData container
 
 template <class TValue, class TContainer> class OutputDataIterator
 {

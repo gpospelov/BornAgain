@@ -18,6 +18,7 @@
 #include "AxisBin.h"
 #include "AxisDouble.h"
 #include "MessageService.h"
+#include "BornAgainNamespace.h"
 
 #include <iostream>
 
@@ -61,8 +62,8 @@ void Detector::addAxis(const AxisParameters& axis_params)
     {
         p_new_axis = new AxisBin(axis_params.m_name,
                                  axis_params.m_range.getNSamples(),
-                                 axis_params.m_range.getMin(),
-                                 axis_params.m_range.getMax());
+                                 axis_params.m_range.getLowerBound(),
+                                 axis_params.m_range.getUpperBound());
         break;
     }
     case AxisParameters::E_ISGISAXS:
@@ -140,8 +141,8 @@ void Detector::normalize(OutputData<double> *p_data,
     if (p_data->getRank()!=2) return;
 
     // if not a gisas detector, do nothing
-    const IAxis *p_alpha_axis = p_data->getAxis("alpha_f");
-    const IAxis *p_phi_axis = p_data->getAxis("phi_f");
+    const IAxis *p_alpha_axis = p_data->getAxis(BornAgain::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = p_data->getAxis(BornAgain::PHI_AXIS_NAME);
     if (!p_alpha_axis || !p_phi_axis) return;
 
     // GISAS normalization
@@ -167,25 +168,25 @@ void Detector::initializeAnglesIsgisaxs(
     AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
 {
     if (axis_range.getNSamples()>1) {
-        double start_sin = std::sin(axis_range.getMin());
-        double end_sin = std::sin(axis_range.getMax());
+        double start_sin = std::sin(axis_range.getLowerBound());
+        double end_sin = std::sin(axis_range.getUpperBound());
         double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
         for(size_t i=0; i<axis_range.getNSamples(); ++i) {
             p_axis->push_back(std::asin(start_sin + step*i));
         }
     }
     else {
-        p_axis->push_back((axis_range.getMax()-axis_range.getMin())/2.0);
+        p_axis->push_back((axis_range.getUpperBound()-axis_range.getLowerBound())/2.0);
     }
 }
 
 double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
 {
-    const IAxis *p_alpha_axis = p_data->getAxis("alpha_f");
-    const IAxis *p_phi_axis = p_data->getAxis("phi_f");
-    size_t alpha_index = p_data->getIndexOfAxis("alpha_f", index);
+    const IAxis *p_alpha_axis = p_data->getAxis(BornAgain::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = p_data->getAxis(BornAgain::PHI_AXIS_NAME);
+    size_t alpha_index = p_data->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME, index);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = p_data->getIndexOfAxis("phi_f", index);
+    size_t phi_index = p_data->getIndexOfAxis(BornAgain::PHI_AXIS_NAME, index);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 && phi_size<2)
         // Cannot determine detector cell size!
@@ -194,7 +195,7 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
             "Error! Can't determine size of detector cell.");
     double dalpha(0), dphi(0);
 
-    double alpha_f = p_data->getValueOfAxis("alpha_f", index);
+    double alpha_f = p_data->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, index);
     double cos_alpha_f = std::cos(alpha_f);
 
     if(alpha_size>1) {

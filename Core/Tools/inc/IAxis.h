@@ -18,7 +18,9 @@
 
 #include "Bin.h"
 
-//! Interface for one-dimensional axes
+//! @class IAxis
+//! @ingroup tools_internal
+//! @brief Interface for one-dimensional axes
 
 class BA_CORE_API_ IAxis
 {
@@ -74,7 +76,6 @@ inline bool IAxis::equals(const IAxis& other) const
     return getName()==other.getName();
 }
 
-//! test for inequality
 inline bool operator!=(const IAxis& left, const IAxis& right) {
     return !(left == right);
 }

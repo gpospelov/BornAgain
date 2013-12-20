@@ -18,14 +18,17 @@
 
 #include "IFormFactorDecorator.h"
 
-//! Decorates a form factor with a constant factor
+//! @class FormFactorDecoratorFactor
+//! @ingroup formfactors_internal
+//! @brief Decorates a formfactor with a constant factor.
 
 class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t& factor);
-    virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
+    virtual FormFactorDecoratorFactor *clone() const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Evaluate the form factor for scalar calculations
     virtual complex_t evaluate(const cvector_t& k_i,

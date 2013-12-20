@@ -18,7 +18,12 @@
 
 #include "OutputData.h"
 
-class IFittingDataSelector
+
+//! @class IFittingDataSelector
+//! @ingroup algorithms_internal
+//! @brief Interface for selecting data points and its weights
+
+class BA_CORE_API_ IFittingDataSelector
 {
 public:
     virtual ~IFittingDataSelector() {}
@@ -29,7 +34,12 @@ public:
         const OutputData<double>& simulated_data) const=0;
 };
 
-class DefaultAllDataSelector : public IFittingDataSelector
+
+//! @class DefaultAllDataSelector
+//! @ingroup algorithms_internal
+//! @brief Default algorithm for selecting all data points and giving them equal weight of 1.
+
+class BA_CORE_API_ DefaultAllDataSelector : public IFittingDataSelector
 {
 public:
     DefaultAllDataSelector() {}

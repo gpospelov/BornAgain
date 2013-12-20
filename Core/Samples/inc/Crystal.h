@@ -21,7 +21,10 @@
 #include "Lattice.h"
 #include "LatticeBasis.h"
 
-//! A crystal structure with a form factor as a basis.
+
+//! @class Crystal
+//! @ingroup samples
+//! @brief A crystal structure with a form factor as a basis.
 
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {
@@ -35,7 +38,7 @@ public:
     virtual Crystal *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual void setAmbientMaterial(const IMaterial *p_ambient_material)
     { mp_lattice_basis->setAmbientMaterial(p_ambient_material); }
@@ -45,8 +48,7 @@ public:
         const IMaterial *p_ambient_material,
         complex_t wavevector_scattering_factor) const;
 
-    Lattice getLattice() const { return m_lattice; }
-    LatticeBasis *createBasis() const { return mp_lattice_basis->clone(); }
+    Lattice getTransformedLattice() const;
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 
@@ -55,10 +57,25 @@ public:
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo& parent_info) const;
 
+    //! Composes transformation with existing one
+    virtual void applyTransformation(const Geometry::Transform3D& transform);
+
+    //! Gets transformation
+    virtual const Geometry::Transform3D *getTransform() const {
+        return mP_transform.get();
+    }
+
+
 private:
+    //! Private constructor
     Crystal(LatticeBasis *p_lattice_basis, const Lattice& lattice);
 
+    //! Propagates a transformation to child particles
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
+
     Lattice m_lattice;
+    std::auto_ptr<Geometry::Transform3D> mP_transform;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;
 };

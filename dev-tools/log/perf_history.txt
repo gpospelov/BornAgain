@@ -276,6 +276,27 @@
 2013-08-28 17:56:35 | jcnsopc74  | macosx64, 2800 MHz      | 307692      | 23.2558     | 23.5294     | 6.06061     | 909091      | 
 
 # relese 0.9.1
-2013-09-27 13:43:28 | jcnsopc73  | macosx64, 2800 MHz      |             | 21.2766     | 21.7391     | 1.44928     | 833333 
-|# Release 0.9.2
+2013-09-27 13:43:28 | jcnsopc73  | macosx64, 2800 MHz      |             | 21.2766     | 21.7391     | 1.44928     | 833333 |
+
+# Release 0.9.2
 2013-11-15 12:57:20 | jcnsopc73  | macosx64, 2800 MHz      | 18.6916     | 18.6916     | 1.25        | 714286      | 
+
+# before removing "alpha_f", "phi_f"
+2013-11-25 15:17:52 | jcnsopc73  | macosx64, 2800 MHz      | 21.5054     | 21.2766     | 1.44928     | 800000      | 
+2013-11-25 15:18:11 | jcnsopc73  | macosx64, 2800 MHz      | 21.0526     | 21.2766     | 1.44928     | 800000      |
+
+# after removing "alpha_f", "phi_f"
+2013-11-25 15:42:38 | jcnsopc73  | macosx64, 2800 MHz      | 21.978      | 22.9885     | 1.47059     | 740741      | 
+2013-11-25 15:42:46 | jcnsopc73  | macosx64, 2800 MHz      | 22.2222     | 22.7273     | 1.41844     | 800000      | 
+
+# after getting rid of shared_ptr in ITransformation3D
+2013-11-26 17:20:01 | jcnsopc73  | macosx64, 2800 MHz      | 23.8095     | 23.8095     | 1.48148     | 800000      | 
+2013-11-26 17:20:51 | jcnsopc73  | macosx64, 2800 MHz      | 23.5294     | 23.5294     | 1.48148     | 769231      | 
+
+# switch mesocrystal test to the one from SimulationRegistry
+2013-12-09 17:51:20 | jcnsopc73  | macosx64, 2800 MHz      | 23.5294     | 23.2558     | 0.0356125   | 800000      |
+
+# PreRelease-0.9.3
+2013-12-19 16:11:26 | jcnsopc73  | macosx64, 2800 MHz      | 21.7391     | 21.2766     | 0.0319387   | 769231      |
+# Release 0.9.3
+2013-12-20 10:28:13 | jcnsopc73  | macosx64, 2800 MHz      | 21.0526     | 20.8333     | 0.0310078   | 666667      | 

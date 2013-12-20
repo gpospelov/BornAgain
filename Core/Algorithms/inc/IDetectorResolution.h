@@ -21,6 +21,11 @@
 #include "ICloneable.h"
 #include "EigenCore.h"
 
+
+//! @class IDetectorResolution
+//! @ingroup algorithms_internal
+//! @brief Interface for detector resolution algorithms
+
 class BA_CORE_API_ IDetectorResolution : public ICloneable, public IParameterized
 {
 public:

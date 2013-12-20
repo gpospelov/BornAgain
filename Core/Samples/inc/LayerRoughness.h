@@ -20,12 +20,12 @@
 #include "IRoughness.h"
 
 //! @class LayerRoughness
-//! @brief Roughness of interface between two layers.
+//! @ingroup samples
+//! @brief A Roughness of interface between two layers.
 //!
 //! Based on the article
 //! D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995
 //! "X-ray reflection and transmission by rough surfaces"
-//! See Appendix A2
 
 class BA_CORE_API_ LayerRoughness : public IRoughness
 {
@@ -36,7 +36,7 @@ public:
     LayerRoughness *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t& kvec) const;

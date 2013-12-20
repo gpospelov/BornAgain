@@ -25,7 +25,7 @@ include_dirs = [
     '../../Core/Algorithms/inc',
     '../../Core/Tools/inc',
     '../../Core/Geometry/inc',
-    '../../Fit/Factory/inc',
+    '../../Fit/FitKernel/inc',
     '../../Fit/PythonAPI/inc',
 ]
 

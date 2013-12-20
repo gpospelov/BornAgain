@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistribution2D > {
 
-    IFTDistribution2D_wrapper(double omega_x, double omega_y )
-    : IFTDistribution2D( omega_x, omega_y )
+    IFTDistribution2D_wrapper(double coherence_length_x, double coherence_length_y )
+    : IFTDistribution2D( coherence_length_x, coherence_length_y )
       , bp::wrapper< IFTDistribution2D >(){
         // constructor
     
@@ -33,11 +33,6 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual double evaluate( double qx, double qy ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( qx, qy );
-    }
-
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const {
-        bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" );
-        func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -107,18 +102,6 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -149,7 +132,7 @@ void register_IFTDistribution2D_class(){
 
     { //::IFTDistribution2D
         typedef bp::class_< IFTDistribution2D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IFTDistribution2D_exposer_t;
-        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("omega_x"), bp::arg("omega_y") )) );
+        IFTDistribution2D_exposer_t IFTDistribution2D_exposer = IFTDistribution2D_exposer_t( "IFTDistribution2D", bp::init< double, double >(( bp::arg("coherence_length_x"), bp::arg("coherence_length_y") )) );
         bp::scope IFTDistribution2D_scope( IFTDistribution2D_exposer );
         { //::IFTDistribution2D::clone
         
@@ -169,6 +152,24 @@ void register_IFTDistribution2D_class(){
                 "evaluate"
                 , bp::pure_virtual( evaluate_function_type(&::IFTDistribution2D::evaluate) )
                 , ( bp::arg("qx"), bp::arg("qy") ) );
+        
+        }
+        { //::IFTDistribution2D::getCoherenceLengthX
+        
+            typedef double ( ::IFTDistribution2D::*getCoherenceLengthX_function_type )(  ) const;
+            
+            IFTDistribution2D_exposer.def( 
+                "getCoherenceLengthX"
+                , getCoherenceLengthX_function_type( &::IFTDistribution2D::getCoherenceLengthX ) );
+        
+        }
+        { //::IFTDistribution2D::getCoherenceLengthY
+        
+            typedef double ( ::IFTDistribution2D::*getCoherenceLengthY_function_type )(  ) const;
+            
+            IFTDistribution2D_exposer.def( 
+                "getCoherenceLengthY"
+                , getCoherenceLengthY_function_type( &::IFTDistribution2D::getCoherenceLengthY ) );
         
         }
         { //::IFTDistribution2D::getDelta
@@ -205,7 +206,7 @@ void register_IFTDistribution2D_class(){
             
             IFTDistribution2D_exposer.def( 
                 "transformToStarBasis"
-                , bp::pure_virtual( transformToStarBasis_function_type(&::IFTDistribution2D::transformToStarBasis) )
+                , transformToStarBasis_function_type( &::IFTDistribution2D::transformToStarBasis )
                 , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
         
         }
@@ -262,18 +263,6 @@ void register_IFTDistribution2D_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &IFTDistribution2D_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( IFTDistribution2D_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            IFTDistribution2D_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&IFTDistribution2D_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

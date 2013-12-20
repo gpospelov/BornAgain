@@ -1,10 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/SampleBuilderFactory.h
+//! @brief     Defines class SampleBuilderFactory.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
 #include "IFactory.h"
 #include "ISampleBuilder.h"
 
-//! Factory to create standard pre-defined samples
+
+//! @class SampleBuilderFactory
+//! @ingroup standard_samples
+//! @brief Factory to create standard pre-defined samples
 
 class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
 {
@@ -12,7 +30,7 @@ public:
     SampleBuilderFactory();
 
     ISample *createSample(const std::string& name);
-    ISampleBuilder *createBuilder(const std::string& name);
+    SampleBuilder_t createBuilder(const std::string& name);
 };
 
 

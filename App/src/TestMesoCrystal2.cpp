@@ -38,7 +38,6 @@
 #include "ProgramOptions.h"
 #include "ResolutionFunction2DSimple.h"
 #include "SampleFactory.h"
-#include "Rotate3D.h"
 #include "TRange.h"
 #include "Units.h"
 #include "Utils.h"
@@ -53,18 +52,16 @@
 /* ************************************************************************* */
 TestMesoCrystal2::TestMesoCrystal2()
     : m_real_data(0)
-    , m_sample_builder(0)
+    , m_sample_builder(new SampleBuilder)
     , m_simulation(0)
     , m_fitSuite(0)
 {
-    m_sample_builder = new SampleBuilder;
 }
 
 
 TestMesoCrystal2::~TestMesoCrystal2()
 {
     delete m_real_data;
-    delete m_sample_builder;
     delete m_simulation;
     delete m_fitSuite;
 }
@@ -88,7 +85,6 @@ void TestMesoCrystal2::draw_results()
     initializeSimulation(m_real_data);
 
     ParameterPool *pool = m_sample_builder->createParameterTree();
-    std::cout << *pool << std::endl;
 //    pool->setMatchedParametersValue("*/lattice_length_a", 6.2e+00);           // 6.2
 //    pool->setMatchedParametersValue("*/lattice_length_c", 6.2e+00);           // 6.2
 //    pool->setMatchedParametersValue("*/nanoparticle_radius", 5.7e+00);        // 5.7
@@ -106,18 +102,19 @@ void TestMesoCrystal2::draw_results()
 
 //    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
 
-    pool->setMatchedParametersValue("*/lattice_length_a", 6.2091e+00);           // 6.2
-    pool->setMatchedParametersValue("*/lattice_length_c", 6.5677e+00);           // 6.2
-    pool->setMatchedParametersValue("*/nanoparticle_radius", 4.6976e+00);        // 5.7
-    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 3.6720e-01);  // 0.1
-    pool->setMatchedParametersValue("*/meso_height", 1.1221e+02);  // 0.1
-    pool->setMatchedParametersValue("*/meso_radius", 9.4567e+02);  // 0.1
-    pool->setMatchedParametersValue("*/sigma_meso_height", 1.3310e+00);  // 0.1
-    pool->setMatchedParametersValue("*/sigma_meso_radius", 1.3863e+00);  // 0.1
-    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.1601e+00);     // 1.5
-    pool->setMatchedParametersValue("*/surface_filling_ratio", 1.7286e-01);      // 0.25
-    pool->setMatchedParametersValue("*/roughness", 2.8746e+01);                      // 1.0
+    m_sample_builder->setParameterValue("lattice_length_c", 6.5677e+00);           // 6.2
+    m_sample_builder->setParameterValue("lattice_length_a", 6.2091e+00);           // 6.2
+    m_sample_builder->setParameterValue("nanoparticle_radius", 4.6976e+00);        // 5.7
+    m_sample_builder->setParameterValue("sigma_nanoparticle_radius", 3.6720e-01);  // 0.1
+    m_sample_builder->setParameterValue("meso_height", 1.1221e+02);  // 0.1
+    m_sample_builder->setParameterValue("meso_radius", 9.4567e+02);  // 0.1
+    m_sample_builder->setParameterValue("sigma_meso_height", 1.3310e+00);  // 0.1
+    m_sample_builder->setParameterValue("sigma_meso_radius", 1.3863e+00);  // 0.1
+    m_sample_builder->setParameterValue("sigma_lattice_length_a", 1.1601e+00);     // 1.5
+    m_sample_builder->setParameterValue("surface_filling_ratio", 1.7286e-01);      // 0.25
+    m_sample_builder->setParameterValue("roughness", 2.8746e+01);                      // 1.0
     m_simulation->setBeamIntensity(5.0090e+12);
+    std::cout << *pool << std::endl;
     m_simulation->runSimulation();
     m_simulation->normalize();
 
@@ -202,7 +199,7 @@ void TestMesoCrystal2::initializeRealData()
     delete m_real_data;
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    std::string file_name = Utils::FileSystem::GetHomePath()+"dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    std::string file_name = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
 
     m_real_data = OutputDataIOFactory::readIntensityData(file_name);
 
@@ -593,17 +590,17 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
 
     double phi_step = 2*M_PI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
-    Geometry::PTransform3D trafo;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            trafo = Geometry::PTransform3D(new
-               Geometry::RotateZ_3D(phi_start + i*phi_step));
-//            Geometry::RotateY_3D transform2(alpha_start + j*alpha_step);
+            Geometry::Transform3D transform =
+                    Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
+//            Geometry::Transform3D transform2 =
+//                Geometry::Transform3D::createRotateY(alpha_start + j*alpha_step);
             particle_decoration.addParticle(
                 createMesoCrystal(
                     m_lattice_length_a, m_lattice_length_c,
                     n_particle_adapted, &ff_meso),
-                trafo, m_meso_height);
+                transform, m_meso_height);
         }
     }
 

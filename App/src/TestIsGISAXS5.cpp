@@ -50,12 +50,13 @@
 #include "TLine.h"
 #include "TROOT.h"
 #include "TLegend.h"
+#include "FileSystem.h"
 
 
 TestIsGISAXS5::TestIsGISAXS5()
-: IFunctionalTest("TestIsGISAXS5")
+: IApplicationTest("TestIsGISAXS5")
 , mp_simulation(0)
-, mp_sample_builder(0)
+, mp_sample_builder(new SampleBuilder())
 , mp_fitSuite(0)
 {
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/IsGISAXS/ex-5/" ));
@@ -204,8 +205,10 @@ void TestIsGISAXS5::run_isgisaxs_fit()
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        if(i_set==0) {
+			leg1->AddEntry(hreal,"BornAgain data","lp");
+			leg1->AddEntry(hsimul,"BornAgain simul","lp");
+		}
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -241,8 +244,6 @@ void TestIsGISAXS5::run_isgisaxs_fit()
 /* ************************************************************************* */
 void TestIsGISAXS5::initializeSimulation()
 {
-    delete mp_sample_builder;
-    mp_sample_builder = new SampleBuilder();
     delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);

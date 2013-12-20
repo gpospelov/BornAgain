@@ -32,6 +32,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
     double mag_k = k.mag();
+    double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<coeff.size(); ++i) {
         coeff[i].m_scatt_matrix = sample.getLayer(i)->getMaterial()->
                 getSpecularScatteringMatrix(k);
@@ -43,7 +44,7 @@ void SpecularMagnetic::calculateEigenvalues(const MultiLayer& sample,
                 coeff[i].m_scatt_matrix(1,1) )/2.0;
         coeff[i].lambda(0) = std::sqrt(coeff[i].m_a - coeff[i].m_b_mag);
         coeff[i].lambda(1) = std::sqrt(coeff[i].m_a + coeff[i].m_b_mag);
-        coeff[i].kz = mag_k * coeff[i].lambda;
+        coeff[i].kz = mag_k * coeff[i].lambda * sign_kz;
     }
 }
 
@@ -129,6 +130,8 @@ void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff) const
 
 complex_t SpecularMagnetic::getImExponential(complex_t exponent) const
 {
-    // TODO: add over- and underflow checks!
+    if (exponent.imag() > -std::log(std::numeric_limits<double>::min()) ) {
+        return 0.0;
+    }
     return std::exp(complex_t(0.0, 1.0)*exponent);
 }

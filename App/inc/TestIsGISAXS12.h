@@ -16,7 +16,7 @@
 #ifndef TESTISGISAXS12_H
 #define TESTISGISAXS12_H
 
-#include "IFunctionalTest.h"
+#include "IApplicationTest.h"
 #include "OutputData.h"
 #include "IsGISAXSData.h"
 #include "ISample.h"
@@ -28,7 +28,7 @@ class FitSuite;
 
 //! IsGISAXS ex#12: Constrained fit.
 
-class TestIsGISAXS12 : public IFunctionalTest
+class TestIsGISAXS12 : public IApplicationTest
 {
 public:
     TestIsGISAXS12();
@@ -84,7 +84,7 @@ private:
     void print_axes(IsGISAXSData::DataSet_t& data);
 
     Simulation *m_simulation;
-    ISampleBuilder *m_sample_builder;
+    SampleBuilder_t m_sample_builder;
     FitSuite *m_fitSuite;
 };
 

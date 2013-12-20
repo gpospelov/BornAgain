@@ -19,7 +19,9 @@
 #include "HomogeneousMaterial.h"
 #include "EigenCore.h"
 
-//! An homogeneous material with magnetization
+//! @class HomogeneousMagneticMaterial
+//! @ingroup materials
+//! @brief An homogeneous material with magnetization.
 
 class BA_CORE_API_ HomogeneousMagneticMaterial : public HomogeneousMaterial
 {
@@ -36,6 +38,9 @@ public:
                                 double refractive_index_delta,
                                 double refractive_index_beta,
                                 const kvector_t& magnetic_field);
+
+    //! Clone
+    virtual HomogeneousMagneticMaterial *clone() const;
 
     //! Get the magnetic field (in Tesla)
     kvector_t getMagneticField() const { return m_magnetic_field; }
@@ -54,6 +59,11 @@ public:
     //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
 #endif
+
+    //! Create a new material that is transformed with respect to this one
+    virtual const IMaterial *createTransformedMaterial(
+            const Geometry::Transform3D& transform) const;
+
 protected:
     virtual void print(std::ostream& ostr) const
     {

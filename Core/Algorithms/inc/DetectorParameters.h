@@ -18,9 +18,11 @@
 
 #include "TRange.h"
 
-//! Store parameters for specifying one axis
+//! @class AxisParameters
+//! @ingroup simulation_internal
+//! @brief Store parameters for specifying one axis
 
-struct AxisParameters
+struct BA_CORE_API_ AxisParameters
 {
     AxisParameters();
     std::string m_name;
@@ -38,7 +40,9 @@ inline AxisParameters::AxisParameters()
 {
 }
 
-//! Store parameters for specifying a 2D detector.
+//! @class DetectorParameters
+//! @ingroup simulation_internal
+//! @brief Store parameters for specifying a 2D detector.
 
 struct DetectorParameters
 {

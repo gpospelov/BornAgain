@@ -20,9 +20,12 @@
 #include "Types.h"
 #include <string>
 
-//! Strategy interface to write OututData in file
 
-class IOutputDataWriteStrategy
+//! @class IOutputDataWriteStrategy
+//! @ingroup tools_internal
+//! @brief Strategy interface to write OututData in file
+
+class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
     IOutputDataWriteStrategy() : m_precision(10) {}
@@ -33,7 +36,10 @@ protected:
     int m_precision;
 };
 
-//! Strategy to write OutputData to IsGisaxs *.ima files
+
+//! @class OutputDataWriteStreamIMA
+//! @ingroup tools_internal
+//! @brief Strategy to write OutputData to IsGisaxs *.ima files
 
 class OutputDataWriteStreamIMA : public IOutputDataWriteStrategy
 {
@@ -42,7 +48,9 @@ public:
 };
 
 
-//! Strategy to write OutputData to ascii files
+//! @class OutputDataWriteStreamV1
+//! @ingroup tools_internal
+//! @brief Strategy to write OutputData to ascii files
 //! 1d array for x-axis, 1d array for y-axis, 2d array for data
 
 class OutputDataWriteStreamV1 : public IOutputDataWriteStrategy

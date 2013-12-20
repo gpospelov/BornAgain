@@ -25,9 +25,45 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     
     }
 
-    virtual void accept( ::ISampleVisitor * p_visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(p_visitor) );
+    virtual ::ICompositeSample * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else
+            return this->ICompositeSample::size(  );
+    }
+    
+    
+    ::std::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -64,6 +100,18 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
+    }
+
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -121,18 +169,6 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -165,14 +201,49 @@ void register_ICompositeSample_class(){
         typedef bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable > ICompositeSample_exposer_t;
         ICompositeSample_exposer_t ICompositeSample_exposer = ICompositeSample_exposer_t( "ICompositeSample", bp::init< >() );
         bp::scope ICompositeSample_scope( ICompositeSample_exposer );
-        { //::ISample::accept
+        { //::ICompositeSample::clone
         
-            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
+            typedef ::ICompositeSample * ( ::ICompositeSample::*clone_function_type )(  ) const;
             
             ICompositeSample_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
-                , ( bp::arg("p_visitor") ) );
+                "clone"
+                , bp::pure_virtual( clone_function_type(&::ICompositeSample::clone) )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            ICompositeSample_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&ICompositeSample_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ICompositeSample_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            
+            ICompositeSample_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&ICompositeSample_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::size
+        
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( ICompositeSample_wrapper::*default_size_function_type )(  ) const;
+            
+            ICompositeSample_exposer.def( 
+                "size"
+                , size_function_type(&::ICompositeSample::size)
+                , default_size_function_type(&ICompositeSample_wrapper::default_size) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -207,6 +278,17 @@ void register_ICompositeSample_class(){
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
                 , default_cloneInvertB_function_type(&ICompositeSample_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ICompositeSample_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            ICompositeSample_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&ICompositeSample_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
@@ -251,18 +333,6 @@ void register_ICompositeSample_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &ICompositeSample_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
-        
-        }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( ICompositeSample_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            ICompositeSample_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&ICompositeSample_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParameterValue

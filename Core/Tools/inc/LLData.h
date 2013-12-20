@@ -21,7 +21,10 @@
 
 #include <algorithm>
 
-//! Template class to store data of any type in multi-dimensional space (low-level)
+
+//! @class LLData
+//! @ingroup tools_internal
+//! @brief Template class to store data of any type in multi-dimensional space (low-level)
 
 template <class T> class LLData
 {
@@ -176,11 +179,11 @@ template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
         if( std::abs(m_data_array[i]) <= Numeric::double_epsilon && std::abs(right[i]) <= Numeric::double_epsilon) {
             ratio = 0.0;
         } else if (std::abs(right[i]) <= Numeric::double_epsilon) {
-            ratio = m_data_array[i]/Numeric::double_epsilon;
+            ratio = double(m_data_array[i])/Numeric::double_epsilon;
         } else {
-            ratio = m_data_array[i]/right[i];
+            ratio = double(m_data_array[i]/right[i]);
         }
-        m_data_array[i] = ratio;
+        m_data_array[i] = (T)ratio;
     }
     return *this;
 }

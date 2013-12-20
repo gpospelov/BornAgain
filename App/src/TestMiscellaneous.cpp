@@ -33,6 +33,15 @@
 #include "MessageService.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
+#include "MaterialManager.h"
+#include "BornAgainNamespace.h"
+#include "FunctionalTestRegistry.h"
+#include "Lattice2DIFParameters.h"
+#include "InterferenceFunction2DLattice.h"
+#include "Units.h"
+#include "Types.h"
+#include "FitSuite.h"
+#include "AttLimits.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -42,6 +51,8 @@
 #include "TRandom.h"
 #include "TBenchmark.h"
 #include "TStyle.h"
+#include "FileSystem.h"
+
 
 TestMiscellaneous::TestMiscellaneous()
 {
@@ -49,30 +60,129 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
+    test_FunctionalTestRegistry();
     //test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
-    test_FormFactor1();
+    //test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
+    //test_SampleGeometry();
 }
 
 
 /* ************************************************************************* */
-// test of log system
+// test of hierarchical visitor
+/* ************************************************************************* */
+void TestMiscellaneous::test_FunctionalTestRegistry()
+{
+//    FunctionalTestRegistry tests;
+//    tests.printCatalogue();
+
+//    tests.getTest("isgisaxs01");
+//    std::cout << Utils::FileSystem::GetReferenceDataDir() << std::endl;
+
+    MultiLayer *multi_layer = new MultiLayer();
+
+    const IMaterial *p_air_material =
+         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
+    const IMaterial *p_substrate_material =
+         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+
+    FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
+    Particle particle(particle_material, ff_cyl);
+
+    ParticleDecoration particle_decoration;
+    particle_decoration.addParticle(particle);
+
+    Lattice2DIFParameters lattice_params;
+    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
+    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
+    lattice_params.m_angle = 2.0*M_PI/3.; // lattice angle
+    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
+
+    InterferenceFunction2DLattice *p_interference_function =
+        new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
+    p_interference_function->setProbabilityDistribution(pdf);
+    particle_decoration.addInterferenceFunction(p_interference_function);
+
+
+    Layer air_layer(p_air_material);
+    air_layer.setDecoration(particle_decoration);
+
+    Layer substrate_layer(p_substrate_material, 0);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+
+    Simulation *simulation = new Simulation();
+    simulation->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    simulation->setSimulationParameters(sim_params);
+
+    simulation->setSample(*multi_layer);
+
+    // ----
+    simulation->runSimulation();
+    OutputData<double> *real_data = simulation->getIntensityData();
+    double noise_factor(0.1);
+    for(size_t i=0; i<real_data->getAllocatedSize(); ++i) {
+        double amplitude = (*real_data)[i];
+        double sigma = noise_factor*std::sqrt(amplitude);
+        double noisy_amplitude = MathFunctions::GenerateNormalRandom(amplitude, sigma);
+        if(noisy_amplitude < 0) noisy_amplitude = 0.0;
+        (*real_data)[i] = noisy_amplitude;
+    }
+
+    FitSuite *fit_suite = new FitSuite();
+    fit_suite->addSimulationAndRealData(*simulation, *real_data);
+    fit_suite->initPrint(10);
+//    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+//    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01));
+    fit_suite->addFitParameter("*2DLattice/length_*", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->addFitParameter("*/FormFactorFullSphere/radius", 8.0*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(4., 12.));
+    fit_suite->runFit();
+
+
+
+
+
+}
+
+
+/* ************************************************************************* */
+// test of print visitor
 /* ************************************************************************* */
 void TestMiscellaneous::test_PrintVisitor()
 {
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
     SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs04_2DDL");
-    //std::cout << (*sample) << std::endl;
 
-    SamplePrintVisitor visitor;
-    sample->accept(&visitor);
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+        ISample *sample = factory.createSample((*it).first);
+        std::cout << std::endl << ">>> " << (*it).first << " <<<" << std::endl;
+        sample->printSampleTree();
+        delete sample;
+    }
+
+    for(SampleBuilderFactory::iterator it = factory.begin(); it!= factory.end(); ++it) {
+        ISample *sample = factory.createSample((*it).first);
+        std::cout << "xxxxx " << (*it).first << " " << sample->containsMagneticMaterial() << std::endl;
+        delete sample;
+    }
+
+
 }
 
 
@@ -124,16 +234,16 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis("phi_f", axis0_size, 0.0, double(axis0_size));
-    p_output->addAxis("alpha_f", axis1_size, 0.0, double(axis1_size));
+    p_output->addAxis(BornAgain::PHI_AXIS_NAME, axis0_size, 0.0, double(axis0_size));
+    p_output->addAxis(BornAgain::ALPHA_AXIS_NAME, axis1_size, 0.0, double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis("phi_f", it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis("alpha_f", it.getIndex());
+        size_t index0 = p_output->getIndexOfAxis(BornAgain::PHI_AXIS_NAME, it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis(BornAgain::ALPHA_AXIS_NAME, it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
@@ -271,7 +381,7 @@ void TestMiscellaneous::test_FormFactor()
         int iz = (int)p_data->getIndexOfAxis("qz", it.getIndex());
 
         cvector_t q(x,y,z);
-        cvector_t q0(0,0,0);
+        cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
         Bin1D zero_bin = { 0.0, 0.0 };
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
@@ -384,7 +494,7 @@ void TestMiscellaneous::test_FormFactor1()
         double y = p_data->getValueOfAxis("qy", it.getIndex());
 
         cvector_t q(x,y,z);
-        cvector_t q0(0,0,0);
+        cvector_t q0(0.0,0.0,0.0);
         Bin1DCVector q0_bin(q0, q0);
         Bin1D zero_bin = { 0.0, 0.0 };
         double value = std::abs(ff.evaluate(q,q0_bin, zero_bin));
@@ -410,4 +520,37 @@ void TestMiscellaneous::test_FormFactor1()
                 gStyle->SetOptStat(0);
                 vh2_xy->Draw("cont4 z");
                 c1_xy->Print("test.eps");
+}
+
+void TestMiscellaneous::test_SampleGeometry()
+{
+    MultiLayer multi_layer;
+    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *particle_material =
+            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    ParticleDecoration particle_decoration
+        (new Particle(particle_material, new FormFactorFullSphere
+                      (5*Units::nanometer)));
+
+    air_layer.setDecoration(particle_decoration);
+
+    multi_layer.addLayer(air_layer);
+
+    Simulation simulation;
+    simulation.setDetectorParameters(100, -2.0*Units::degree, 2.0*Units::degree,
+            100, -2.0*Units::degree, 2.0*Units::degree);
+    simulation.setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
+
+    IsGISAXSTools::drawLogOutputData(*simulation.getIntensityData(),
+            "c1_geom", "Sample geometry", "CONT4 Z", "Sample geometry");
 }

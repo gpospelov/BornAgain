@@ -18,18 +18,19 @@
 
 #include "IParameterized.h"
 
-class Lattice2DIFParameters
+//! @class Lattice2DIFParameters
+//! @ingroup samples
+//! @brief Additional parameters for 2D lattice
+
+class BA_CORE_API_ Lattice2DIFParameters
 {
 public:
     Lattice2DIFParameters() : m_length_1(0), m_length_2(0), m_angle(0),
-        m_xi(0), m_domain_size_1(0), m_domain_size_2(0),
-        m_corr_length_1(0), m_corr_length_2(0) { }
+        m_xi(0) { }
 
     double m_length_1, m_length_2;
     double m_angle;
     double m_xi;
-    double m_domain_size_1, m_domain_size_2;
-    double m_corr_length_1, m_corr_length_2;
 };
 
 #endif /* LATTICE2DIFPARAMETERS_H_ */

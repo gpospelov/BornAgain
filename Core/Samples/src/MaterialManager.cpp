@@ -24,11 +24,9 @@ GCC_DIAG_OFF(strict-aliasing);
 GCC_DIAG_ON(strict-aliasing);
 
 //! Materials database type.
-
 typedef std::map<std::string, IMaterial*> materials_t;
 
 //! Clear database.
-
 void MaterialManager::clear() {
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
@@ -41,7 +39,6 @@ void MaterialManager::clear() {
 }
 
 //! Returns material.
-
 const IMaterial *MaterialManager::this_getMaterial(const std::string& name)
 {
     static boost::mutex single_mutex;
@@ -55,7 +52,6 @@ const IMaterial *MaterialManager::this_getMaterial(const std::string& name)
 }
 
 //! Creates material, and add into database using name of material as identifier.
-
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string& name, const complex_t& refractive_index)
 {
@@ -67,14 +63,22 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     if( mat ) {
         // check if user is trying to create material
         // with same name but different parameters
+        if(!mat->isScalarMaterial()) {
+            throw LogicErrorException(
+                    "MaterialManager::this_getHomogeneousMaterial()"
+                    " -> Attempt to make existing magnetic material"
+                    " non-magnetic one. Material name '"+mat->getName()+"'.");
+        }
         const HomogeneousMaterial *old =
             dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {
             HomogeneousMaterial *non_const_mat =
                 const_cast<HomogeneousMaterial *>(old);
             non_const_mat->setRefractiveIndex(refractive_index);
-            msglog(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial()" <<
-                "-> Redefining refractive index for material '" << name << "'";
+            msglog(MSG::WARNING) <<
+                    "MaterialManager::addHomogeneousMaterial()" <<
+                    "-> Redefining refractive index for material '" <<
+                    name << "'";
         }
         return mat;
     } else {
@@ -85,7 +89,6 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
 }
 
 //! Creates material, and add into database using name of material as identifier.
-
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string& name,
     double refractive_index_delta,
@@ -97,7 +100,6 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
 
 //! Creates magnetic material, and add into database using name of material
 //! as identifier.
-
 const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
         const std::string& name, const complex_t& refractive_index,
         const kvector_t& magnetic_field)
@@ -110,19 +112,17 @@ const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
     if( mat ) {
         // check if user is trying to create material
         // with same name but different parameters
-        const HomogeneousMaterial *old =
-            dynamic_cast<const HomogeneousMaterial *>(mat);
-        if(old->getRefractiveIndex() != refractive_index) {
-            HomogeneousMaterial *non_const_mat =
-                const_cast<HomogeneousMaterial *>(old);
-            non_const_mat->setRefractiveIndex(refractive_index);
-            msglog(MSG::WARNING) <<
-                "MaterialManager::addHomogeneousMagneticMaterial()" <<
-                "-> Redefining refractive index for material '" << name << "'";
+        if(mat->isScalarMaterial()) {
+            throw LogicErrorException(
+                    "MaterialManager::this_getHomogeneousMagneticMaterial()"
+                    " -> Attempt to make existing non-magnetic material"
+                    " magnetic one. Material name '"+mat->getName()+"'.");
         }
+
         const HomogeneousMagneticMaterial *mold =
             dynamic_cast<const HomogeneousMagneticMaterial *>(mat);
-        if(mold && mold->getMagneticField() != magnetic_field) {
+
+        if(mold->getMagneticField() != magnetic_field) {
             HomogeneousMagneticMaterial *non_const_mat =
                 const_cast<HomogeneousMagneticMaterial *>(mold);
             non_const_mat->setMagneticField(magnetic_field);
@@ -130,11 +130,15 @@ const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
                 "MaterialManager::addHomogeneousMagneticMaterial()" <<
                 "-> Redefining magnetic field for material '" << name << "'";
         }
-        if(!mold) {
-            throw ExistingClassRegistrationException(
-                    "Non-magnetic material with this name"
-                    " was already registered: " + name);
+        if(mold->getRefractiveIndex() != refractive_index) {
+            HomogeneousMagneticMaterial *non_const_mat =
+                const_cast<HomogeneousMagneticMaterial *>(mold);
+            non_const_mat->setRefractiveIndex(refractive_index);
+            msglog(MSG::WARNING) <<
+                "MaterialManager::addHomogeneousMagneticMaterial()" <<
+                "-> Redefining refractive index for material '" << name << "'";
         }
+
         return mat;
     } else {
         IMaterial *hmat = new HomogeneousMagneticMaterial(name,
@@ -146,7 +150,6 @@ const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
 
 //! Creates magnetic material, and add into database using name of material
 //! as identifier.
-
 const IMaterial* MaterialManager::this_getHomogeneousMagneticMaterial(
         const std::string& name, double refractive_index_delta,
         double refractive_index_beta, const kvector_t& magnetic_field)
@@ -183,14 +186,10 @@ void MaterialManager::print(std::ostream& ostr) const
 }
 
 //! Checks refractive index for consistency
-// FIXME what are allowed values for refractive index ?
 void MaterialManager::check_refractive_index(const complex_t &index)
 {
     bool isConsistent(true);
-    if( (index.imag() == 0.0) && (index.real() == 0.0) ) isConsistent = false;
-    if( (index.imag() < 0.0) || (index.real() < 0.0) ) isConsistent = false;
-    if( (index.imag() > 1.0) || (index.real() > 1.0) ) isConsistent = false;
-    if( (index.imag() == 1.0) ) isConsistent = false;
+    if( (index.imag() < 0.0) || (index.real() <= 0.0) ) isConsistent = false;
 
     if( !isConsistent ) {
         msglog(MSG::ERROR) << "MaterialManager::check_refractive_index() -> "
@@ -198,9 +197,9 @@ void MaterialManager::check_refractive_index(const complex_t &index)
     }
 }
 
-
 //! set new material name
-bool MaterialManager::setMaterialName(const std::string &old_name, const std::string &new_name)
+bool MaterialManager::setMaterialName(const std::string &old_name,
+        const std::string &new_name)
 {
     std::cout << "MaterialManager::setMaterialName() -> " << std::endl;
     if( !getMaterial(old_name) )  {
@@ -238,16 +237,19 @@ bool MaterialManager::deleteMaterial(const std::string &name)
 }
 
 
-bool MaterialManager::setMaterialRefractiveIndex(const std::string &name, const complex_t &index)
+bool MaterialManager::setMaterialRefractiveIndex(
+        const std::string &name, const complex_t &index)
 {
-    std::cout << "MaterialManager::setMaterialRefractiveIndex() -> " << std::endl;
+    std::cout << "MaterialManager::setMaterialRefractiveIndex() -> " <<
+            std::endl;
     if( !getMaterial(name) )  {
         msglog(MSG::ERROR) << "MaterialManager::setMaterialRefractiveIndex() -> "
                            << "No material with name " << name;
         return false;
     }
 
-    HomogeneousMaterial *mat = dynamic_cast<HomogeneousMaterial *>(m_materials[name]);
+    HomogeneousMaterial *mat = dynamic_cast<HomogeneousMaterial *>(
+            m_materials[name]);
     if( !mat ) {
         msglog(MSG::ERROR) << "MaterialManager::setMaterialRefractiveIndex() -> "
                            << "can't cast to HomogeneousMaterial' " << name;

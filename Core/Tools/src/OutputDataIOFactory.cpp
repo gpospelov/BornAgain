@@ -16,6 +16,7 @@
 #include "OutputDataIOFactory.h"
 #include "Exceptions.h"
 #include "Utils.h"
+#include "FileSystem.h"
 
 /* ************************************************************************* */
 // reading output data

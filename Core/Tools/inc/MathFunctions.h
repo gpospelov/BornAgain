@@ -49,6 +49,9 @@ BA_CORE_API_ double GenerateStandardNormalRandom();
 
 BA_CORE_API_ double GenerateUniformRandom();
 
+//! Bessel function of the first kind and order 0
+BA_CORE_API_ double Bessel_J0(double value);
+
 //! Bessel function of the first kind and order 1
 BA_CORE_API_ double Bessel_J1(double value);
 
@@ -90,20 +93,20 @@ void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
 #ifndef GCCXML_SKIP_THIS
 //! computes the norm element-wise
-Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2d Norm(const Eigen::Matrix2cd &M);
 
 //! computes the absolute value element-wise
-Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2d Abs(const Eigen::Matrix2cd &M);
 
 //! computes the complex conjugate element-wise
-Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2cd Conj(const Eigen::Matrix2cd &M);
 
 //! element-wise product
-Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
+BA_CORE_API_ Eigen::Matrix2cd ProductByElement(const Eigen::Matrix2cd &left,
         const Eigen::Matrix2cd &right);
 
 //! take element-wise real value
-Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
+BA_CORE_API_ Eigen::Matrix2d Real(const Eigen::Matrix2cd &M);
 #endif
 
 BA_CORE_API_ inline bool isnan(double x)
@@ -138,6 +141,11 @@ inline double MathFunctions::GenerateUniformRandom()
     return (double)random_int / RAND_MAX;
 }
 
+inline double MathFunctions::Bessel_J0(double value)
+{
+    return gsl_sf_bessel_J0(value);
+}
+
 inline double MathFunctions::Bessel_J1(double value)
 {
     return gsl_sf_bessel_J1(value);
@@ -158,7 +166,6 @@ inline double MathFunctions::Sinc(double value)  // Sin(x)/x
     return gsl_sf_sinc(value/M_PI);
 }
 
-// TODO: protection against complex number like (-246.977,-399.616)
 inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
     if(std::abs(value)<Numeric::double_epsilon)

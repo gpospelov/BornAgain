@@ -18,7 +18,9 @@
 
 #include "FormFactorDWBAPol.h"
 
-//! Calculates a polarized DWBA form factor for particles at fixed depth
+//! @class FormFactorDWBAPolConstZ
+//! @ingroup formfactors_internal
+//! @brief Calculates a polarized DWBA formfactor for particles at fixed depth.
 
 class BA_CORE_API_ FormFactorDWBAPolConstZ : public FormFactorDWBAPol
 {
@@ -27,6 +29,9 @@ public:
     virtual ~FormFactorDWBAPolConstZ();
 
     virtual FormFactorDWBAPolConstZ *clone() const;
+
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Calculates and returns a polarized form factor calculation in DWBA
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,

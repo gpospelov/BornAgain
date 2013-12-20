@@ -1,14 +1,32 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      StandardSamples/IsGISAXS09Builder.h
+//! @brief     Defines classes IsGISAXS09ABuilder and IsGISAXS09BBuilder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISGISAXS09BUILDER_H
 #define ISGISAXS09BUILDER_H
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS09Builder class to build sample: Pyramids, rotated pyramids on
-//! top of substrate (IsGISAXS example #9)
-class IsGISAXS09Builder : public ISampleBuilder
+//! @class IsGISAXS09ABuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  Pyramids, pyramids on top of substrate
+//!(IsGISAXS example #9)
+
+class BA_CORE_API_ IsGISAXS09ABuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS09Builder();
+    IsGISAXS09ABuilder();
     ISample *buildSample() const;
 
 protected:
@@ -20,11 +38,15 @@ private:
     double m_alpha;
 };
 
+//! @class IsGISAXS09BBuilder
+//! @ingroup standard_samples
+//! @brief Builds sample:  Pyramids, rotated pyramids on top of substrate
+//!(IsGISAXS example #9)
 
-class IsGISAXS09RotatedBuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS09BBuilder : public ISampleBuilder
 {
 public:
-    IsGISAXS09RotatedBuilder();
+    IsGISAXS09BBuilder();
     ISample *buildSample() const;
 
 protected:

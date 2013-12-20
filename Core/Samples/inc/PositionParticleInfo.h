@@ -18,11 +18,13 @@
 
 #include "ParticleInfo.h"
 
-//! Enhances ParticleInfo by position in x and y.
-
-//! Used in IsGISAXSMorphologyFileDecoration.
-//! Note that position in z ("depth") is inherited from ParticleInfo.
+//! @class PositionParticleInfo
+//! @ingroup samples
+//! @brief Enhances ParticleInfo by position in x and y.
 //!
+//! Note that position in z ("depth") is inherited from ParticleInfo.
+
+
 class BA_CORE_API_ PositionParticleInfo : public ParticleInfo
 {
 public:
@@ -37,7 +39,7 @@ public:
     virtual PositionParticleInfo *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }

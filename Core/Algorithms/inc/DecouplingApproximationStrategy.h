@@ -19,7 +19,11 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
+//! @class DecouplingApproximationStrategy
+//! @ingroup algorithms_internal
+//! @brief Strategy for implementing decoupling approximation
+
+class BA_CORE_API_ DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
     DecouplingApproximationStrategy(SimulationParameters sim_params)

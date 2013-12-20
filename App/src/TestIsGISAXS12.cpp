@@ -40,6 +40,7 @@
 #include "StochasticSampledParameter.h"
 #include "Units.h"
 #include "Utils.h"
+#include "FileSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -57,9 +58,9 @@
 //
 /* ************************************************************************* */
 TestIsGISAXS12::TestIsGISAXS12()
-    : IFunctionalTest("TestIsGISAXS12")
+    : IApplicationTest("TestIsGISAXS12")
     , m_simulation(0)
-    , m_sample_builder(0)
+    , m_sample_builder(new TestSampleBuilder())
     , m_fitSuite(0)
 {
     std::cout << "TestIsGISAXS12::TestIsGISAXS12() -> Info" << std::endl;
@@ -70,7 +71,6 @@ TestIsGISAXS12::TestIsGISAXS12()
 TestIsGISAXS12::~TestIsGISAXS12()
 {
     delete m_simulation;
-    delete m_sample_builder;
     delete m_fitSuite;
 }
 
@@ -259,8 +259,10 @@ void TestIsGISAXS12::run_isgisaxs_fit()
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
+        if(i_set==0) {
+			leg1->AddEntry(hreal,"BornAgain data","lp");
+			leg1->AddEntry(hsimul,"BornAgain simul","lp");
+		}
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -423,8 +425,6 @@ void TestIsGISAXS12::run_test_minimizer()
 /* ************************************************************************* */
 void TestIsGISAXS12::initializeSimulation()
 {
-    delete m_sample_builder;
-    m_sample_builder = new TestSampleBuilder();
     delete m_simulation;
     m_simulation = new Simulation(mp_options);
     m_simulation->setSampleBuilder(m_sample_builder);

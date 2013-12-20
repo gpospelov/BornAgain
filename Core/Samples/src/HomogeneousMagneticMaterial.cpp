@@ -36,6 +36,12 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
     initializePrivateMemebers();
 }
 
+HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::clone() const
+{
+    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
+            getMagneticField());
+}
+
 Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
         double k_mag2) const
 {
@@ -47,6 +53,14 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
             + factor*m_pauli_operator[1]*m_magnetic_field[1]
             + factor*m_pauli_operator[2]*m_magnetic_field[2];
     return result;
+}
+
+const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
+        const Geometry::Transform3D& transform) const
+{
+    kvector_t mag_field_transformed = transform.transformed(m_magnetic_field);
+    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
+            mag_field_transformed);
 }
 
 void HomogeneousMagneticMaterial::initializePrivateMemebers()

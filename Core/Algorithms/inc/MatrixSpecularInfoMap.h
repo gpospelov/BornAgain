@@ -20,11 +20,13 @@
 #include "Utils.h"
 
 
-//! Implementation of ISpecularInfoMap for matrix valued reflection/
+//! @class MatrixSpecularInfoMap
+//! @ingroup algorithms_internal
+//! @brief Implementation of ISpecularInfoMap for matrix valued reflection/
 //! transmission coefficients (the map contains values for both alpha_f and
 //! phi_f, because of broken rotation symmetry in the xy-plane
 
-class MatrixSpecularInfoMap : public ISpecularInfoMap
+class BA_CORE_API_ MatrixSpecularInfoMap : public ISpecularInfoMap
 {
 public:
     MatrixSpecularInfoMap() {}

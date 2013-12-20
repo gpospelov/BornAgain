@@ -20,6 +20,10 @@
 #include "Types.h"
 #include <vector>
 
+//! @class LatticeBasis
+//! @ingroup samples
+//! @brief Basis of the lattice represented by the composition of particles
+
 class BA_CORE_API_ LatticeBasis : public Particle
 {
 public:
@@ -33,9 +37,7 @@ public:
     virtual LatticeBasis *cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) const {
-        p_visitor->visit(this);
-    }
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     void addParticle(const Particle& particle,
                      std::vector<kvector_t > positions);
@@ -63,6 +65,10 @@ public:
     //! Creates vector of size/shape distributed particles corresponding to the
     //! particle with index i
     std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
+
+protected:
+    virtual void applyTransformationToSubParticles(
+            const Geometry::Transform3D& transform);
 
 private:
     //! Checks index

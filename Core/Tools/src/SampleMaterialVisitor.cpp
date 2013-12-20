@@ -12,196 +12,18 @@
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
-
 #include "SampleMaterialVisitor.h"
-
-#include "ISample.h"
-#include "FormFactors.h"
-#include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "IMaterial.h"
+#include "Layer.h"
 #include "Particle.h"
-#include "ParticleInfo.h"
-#include "ParticleCoreShell.h"
-#include "MesoCrystal.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "InterferenceFunction2DParaCrystal.h"
+#include "LatticeBasis.h"
 
-#include <algorithm>
 
-SampleMaterialVisitor::SampleMaterialVisitor()
+void SampleMaterialVisitor::clear()
 {
     m_materials.clear();
 }
 
-SampleMaterialVisitor::~SampleMaterialVisitor()
-{
-    m_materials.clear();
-}
-
-void SampleMaterialVisitor::visit(const ISample* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::visit(ISample *)");
-}
-
-void SampleMaterialVisitor::visit(const MultiLayer* sample)
-{
-    assert(sample);
-
-    for(size_t i_layer=0; i_layer < sample->getNumberOfLayers(); ++i_layer) {
-        const Layer *layer = sample->getLayer(i_layer);
-        layer->accept(this);
-    }
-}
-
-void SampleMaterialVisitor::visit(const Layer* sample)
-{
-    assert(sample);
-
-    const IMaterial *p_material = sample->getMaterial();
-    addMaterial(p_material);
-    const IDecoration *p_decoration = sample->getDecoration();
-    if (p_decoration) {
-        p_decoration->accept(this);
-    }
-}
-
-void SampleMaterialVisitor::visit(const LayerInterface* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::visit(LayerInterface *)");
-}
-
-void SampleMaterialVisitor::visit(const ParticleDecoration* sample)
-{
-    assert(sample);
-
-    for (size_t i=0; i<sample->getNumberOfParticles(); ++i) {
-        const ParticleInfo *p_particle_info = sample->getParticleInfo(i);
-        p_particle_info->accept(this);
-    }
-}
-
-void SampleMaterialVisitor::visit(const ParticleInfo* sample)
-{
-    assert(sample);
-
-    const Particle *p_particle = sample->getParticle();
-    if (p_particle) {
-        p_particle->accept(this);
-    }
-}
-
-void SampleMaterialVisitor::visit(const Particle* sample)
-{
-    assert(sample);
-
-    const IMaterial *p_material = sample->getMaterial();
-    addMaterial(p_material);
-}
-
-void SampleMaterialVisitor::visit(const ParticleCoreShell* sample)
-{
-    assert(sample);
-
-    const Particle *p_core = sample->getCoreParticle();
-    if (p_core) {
-        p_core->accept(this);
-    }
-    const Particle *p_shell = sample->getShellParticle();
-    if (p_shell) {
-        p_shell->accept(this);
-    }
-}
-
-void SampleMaterialVisitor::visit(const MesoCrystal* sample)
-{
-    assert(sample);
-
-    const IClusteredParticles *p_clustered_particles =
-            sample->getClusteredParticles();
-    p_clustered_particles->accept(this);
-}
-
-void SampleMaterialVisitor::visit(const Crystal* sample)
-{
-    assert(sample);
-
-    const LatticeBasis *p_lattice_basis = sample->getLatticeBasis();
-    p_lattice_basis->accept(this);
-}
-
-void SampleMaterialVisitor::visit(const LatticeBasis* sample)
-{
-    assert(sample);
-
-    size_t nbr_particles = sample->getNbrParticles();
-    for (size_t i=0; i<nbr_particles; ++i)
-    {
-        const Particle *p_particle = sample->getParticle(i);
-        p_particle->accept(this);
-    }
-}
-
-void SampleMaterialVisitor::visit(const IFormFactor* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(IFormFactor *)");
-}
-
-void SampleMaterialVisitor::visit(const FormFactorFullSphere* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(FormFactorFullSphere *)");
-}
-
-void SampleMaterialVisitor::visit(const FormFactorPyramid* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(FormFactorPyramid *)");
-}
-
-void SampleMaterialVisitor::visit(const FormFactorCylinder* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(FormFactorCylinder *)");
-}
-
-void SampleMaterialVisitor::visit(const FormFactorPrism3* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(FormFactorPrism3 *)");
-}
-
-void SampleMaterialVisitor::visit(const IInterferenceFunction* sample)
-{
-    (void)sample;
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(IInterferenceFunction *)");
-}
-
-void SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal*)
-{
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(IInterferenceFunction *)");
-}
-
-void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal*)
-{
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(InterferenceFunction2DParaCrystal *)");
-}
-
-void SampleMaterialVisitor::visit(const LayerRoughness*)
-{
-    throw NotImplementedException("SampleMaterialVisitor::"
-            "visit(LayerRoughness *)");
-}
 
 void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 {
@@ -210,3 +32,358 @@ void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
         m_materials.push_back(p_material);
     }
 }
+
+
+bool SampleMaterialVisitor::containsMagneticMaterial() const {
+    for (std::vector<const IMaterial *>::const_iterator it = m_materials.begin();
+            it != m_materials.end(); ++it) {
+        if (!(*it)->isScalarMaterial()) return true;
+    }
+    return false;
+}
+
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+void SampleMaterialVisitor::visit(const ISample *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ISample *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const ICompositeSample *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ICompositeSample *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IClusteredParticles *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IClusteredParticles *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const Crystal *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const Crystal *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IDecoration *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IDecoration *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const ParticleDecoration *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleDecoration *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const Layer *sample)
+{
+    assert(sample);
+    const IMaterial *material = sample->getMaterial();
+    addMaterial(material);
+}
+
+
+void SampleMaterialVisitor::visit(const LayerInterface *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const LayerInterface *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const MultiLayer *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const MultiLayer *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const Particle *sample)
+{
+    assert(sample);
+    addMaterial(sample->getMaterial());
+    addMaterial(sample->getAmbientMaterial());
+}
+
+
+void SampleMaterialVisitor::visit(const LatticeBasis *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const LatticeBasis *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const MesoCrystal *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const MesoCrystal *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const ParticleCoreShell *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleCoreShell *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const ParticleInfo *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleInfo *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const DiffuseParticleInfo *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const DiffuseParticleInfo *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const PositionParticleInfo *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const PositionParticleInfo *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IFormFactor *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IFormFactor *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDWBAPol *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDWBAPol *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDWBAPolConstZ *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDWBAPolConstZ *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorWeighted *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorWeighted *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IFormFactorBorn *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorBox *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorBox *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorCone *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorCone *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorCone6 *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorCone6 *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorCrystal *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorCrystal *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorCylinder *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorCylinder *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorEllipsoidalCylinder *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorEllipsoid *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorFullSphere *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorFullSphere *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorFullSpheroid *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorFullSpheroid *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorGauss *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorGauss *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorLorentz *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorLorentz *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorParallelepiped *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorPrism3 *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorPrism3 *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorPrism6 *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorPrism6 *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorPyramid *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorPyramid *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorSphere *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphere *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IFormFactorBornSeparable *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IFormFactorBornSeparable *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IFormFactorDecorator *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IFormFactorDecorator *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDWBA *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDWBA *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDWBAConstZ *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDWBAConstZ *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDecoratorFactor *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDecoratorFactor *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDecoratorMaterial *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDecoratorMaterial *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDecoratorMultiPositionFactor *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDecoratorPositionFactor *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDecoratorPositionFactor *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const FormFactorDecoratorTransformation *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorDecoratorTransformation *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IInterferenceFunction *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal *){
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const InterferenceFunction2DLattice *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const InterferenceFunction2DLattice *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const InterferenceFunctionNone *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const InterferenceFunctionNone *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const IRoughness *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const IRoughness *) -> Error. Not implemented.");
+}
+
+
+void SampleMaterialVisitor::visit(const LayerRoughness *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const LayerRoughness *) -> Error. Not implemented.");
+}
+
+
+

@@ -25,6 +25,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     }
 
+    virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
+            func_applyTransformation( boost::ref(transform) );
+        else
+            this->Particle::applyTransformation( boost::ref(transform) );
+    }
+    
+    
+    void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::applyTransformation( boost::ref(transform) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -49,6 +61,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         IParameterized::clearParameterPool( );
     }
 
+    virtual bool containsMagneticMaterial(  ) const  {
+        if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
+            return func_containsMagneticMaterial(  );
+        else
+            return this->ISample::containsMagneticMaterial(  );
+    }
+    
+    
+    bool default_containsMagneticMaterial(  ) const  {
+        return ISample::containsMagneticMaterial( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -59,6 +83,42 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::IMaterial const * getAmbientMaterial(  ) const  {
+        if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
+            return func_getAmbientMaterial(  );
+        else
+            return this->Particle::getAmbientMaterial(  );
+    }
+    
+    
+    ::IMaterial const * default_getAmbientMaterial(  ) const  {
+        return Particle::getAmbientMaterial( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else
+            return this->ICompositeSample::getCompositeSample(  );
+    }
+    
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
     }
 
     virtual ::IMaterial const * getMaterial(  ) const  {
@@ -140,18 +200,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         }
     }
 
-    virtual int setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        if( bp::override func_setMatchedParametersValue = this->get_override( "setMatchedParametersValue" ) )
-            return func_setMatchedParametersValue( wildcards, value );
-        else
-            return this->IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-    
-    
-    int default_setMatchedParametersValue( ::std::string const & wildcards, double value ) {
-        return IParameterized::setMatchedParametersValue( wildcards, value );
-    }
-
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -176,16 +224,28 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual void setTransform( ::Geometry::PTransform3D const & transform ) {
-        if( bp::override func_setTransform = this->get_override( "setTransform" ) )
-            func_setTransform( transform );
+    virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
+        if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
+            func_setTransformation( boost::ref(transform) );
         else
-            this->Particle::setTransform( transform );
+            this->Particle::setTransformation( boost::ref(transform) );
     }
     
     
-    void default_setTransform( ::Geometry::PTransform3D const & transform ) {
-        Particle::setTransform( transform );
+    void default_setTransformation( ::Geometry::Transform3D const & transform ) {
+        Particle::setTransformation( boost::ref(transform) );
+    }
+
+    virtual ::std::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else
+            return this->ICompositeSample::size(  );
+    }
+    
+    
+    ::std::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
     }
 
 };
@@ -196,6 +256,18 @@ void register_MesoCrystal_class(){
         typedef bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable > MesoCrystal_exposer_t;
         MesoCrystal_exposer_t MesoCrystal_exposer = MesoCrystal_exposer_t( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) );
         bp::scope MesoCrystal_scope( MesoCrystal_exposer );
+        { //::Particle::applyTransformation
+        
+            typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( MesoCrystal_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            MesoCrystal_exposer.def( 
+                "applyTransformation"
+                , applyTransformation_function_type(&::Particle::applyTransformation)
+                , default_applyTransformation_function_type(&MesoCrystal_wrapper::default_applyTransformation)
+                , ( bp::arg("transform") ) );
+        
+        }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
@@ -218,6 +290,17 @@ void register_MesoCrystal_class(){
                 , default_clearParameterPool_function_type(&MesoCrystal_wrapper::default_clearParameterPool) );
         
         }
+        { //::ISample::containsMagneticMaterial
+        
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( MesoCrystal_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            
+            MesoCrystal_exposer.def( 
+                "containsMagneticMaterial"
+                , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
+                , default_containsMagneticMaterial_function_type(&MesoCrystal_wrapper::default_containsMagneticMaterial) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -228,6 +311,42 @@ void register_MesoCrystal_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&MesoCrystal_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::Particle::getAmbientMaterial
+        
+            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( MesoCrystal_wrapper::*default_getAmbientMaterial_function_type )(  ) const;
+            
+            MesoCrystal_exposer.def( 
+                "getAmbientMaterial"
+                , getAmbientMaterial_function_type(&::Particle::getAmbientMaterial)
+                , default_getAmbientMaterial_function_type(&MesoCrystal_wrapper::default_getAmbientMaterial)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( MesoCrystal_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            
+            MesoCrystal_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&MesoCrystal_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ICompositeSample::getCompositeSample
+        
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( MesoCrystal_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            
+            MesoCrystal_exposer.def( 
+                "getCompositeSample"
+                , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
+                , default_getCompositeSample_function_type(&MesoCrystal_wrapper::default_getCompositeSample)
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Particle::getMaterial
@@ -296,18 +415,6 @@ void register_MesoCrystal_class(){
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
-        { //::IParameterized::setMatchedParametersValue
-        
-            typedef int ( ::IParameterized::*setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            typedef int ( MesoCrystal_wrapper::*default_setMatchedParametersValue_function_type )( ::std::string const &,double ) ;
-            
-            MesoCrystal_exposer.def( 
-                "setMatchedParametersValue"
-                , setMatchedParametersValue_function_type(&::IParameterized::setMatchedParametersValue)
-                , default_setMatchedParametersValue_function_type(&MesoCrystal_wrapper::default_setMatchedParametersValue)
-                , ( bp::arg("wildcards"), bp::arg("value") ) );
-        
-        }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
@@ -331,16 +438,27 @@ void register_MesoCrystal_class(){
                 , default_setParametersAreChanged_function_type(&MesoCrystal_wrapper::default_setParametersAreChanged) );
         
         }
-        { //::Particle::setTransform
+        { //::Particle::setTransformation
         
-            typedef void ( ::Particle::*setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
-            typedef void ( MesoCrystal_wrapper::*default_setTransform_function_type )( ::Geometry::PTransform3D const & ) ;
+            typedef void ( ::Particle::*setTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( MesoCrystal_wrapper::*default_setTransformation_function_type )( ::Geometry::Transform3D const & ) ;
             
             MesoCrystal_exposer.def( 
-                "setTransform"
-                , setTransform_function_type(&::Particle::setTransform)
-                , default_setTransform_function_type(&MesoCrystal_wrapper::default_setTransform)
+                "setTransformation"
+                , setTransformation_function_type(&::Particle::setTransformation)
+                , default_setTransformation_function_type(&MesoCrystal_wrapper::default_setTransformation)
                 , ( bp::arg("transform") ) );
+        
+        }
+        { //::ICompositeSample::size
+        
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( MesoCrystal_wrapper::*default_size_function_type )(  ) const;
+            
+            MesoCrystal_exposer.def( 
+                "size"
+                , size_function_type(&::ICompositeSample::size)
+                , default_size_function_type(&MesoCrystal_wrapper::default_size) );
         
         }
     }

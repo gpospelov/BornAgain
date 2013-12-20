@@ -35,7 +35,7 @@ namespace bp = boost::python;
 //! from http://code.activestate.com/lists/python-cplusplus-sig/16463/
 //!
 template<typename T>
-struct Vector_from_python_list
+struct BA_CORE_API_ Vector_from_python_list
 {
     //! convert Python list to std::vector
     Vector_from_python_list()

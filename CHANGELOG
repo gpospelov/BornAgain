@@ -1,3 +1,51 @@
+BornAgain-0.9.3, released 2013.12.20
+  > Summary: new form factors, user requests, refactoring
+  * Bug #469: Review form factor calculation for big particle dimensions
+  * Bug #499: Simulated formfactors sphere (for H=2R) and fullsphere are squeezed
+  * Bug #505: Investigate and possibly fix transformations for polarized mesocrystals
+  * Bug #508: Pacman assymetry in peaks of meso crystal simulation
+  * Bug #509: OutputData<T>.setAllTo(value) crashes (nullpointer) after clear()
+  * Bug #512: Particles' magnetic materials are not transformed
+  * Bug #516: Simulation of mesocrystal differs when doing 4 vs 8 threads
+  * Feature #288: Provide correct implementation of tilted cylinder (and cone) formfactor for complex wavenumbers
+  * Feature #410: Review and improve on mesocrystal form factors
+  * Feature #430: Examples: prepare example with core shell nanoparticles
+  * Feature #435: Request: provide JFM with the python script simulating the sample_jfm1
+  * Feature #454: Change behavior of setParameterValue
+  * Feature #477: Implement/review Cone formfactor
+  * Feature #478: Implement/review Tethraedron formfactor
+  * Feature #479: Implement/review Prism6 formfactor
+  * Feature #480: Implement/review Cone6 formfactor
+  * Feature #481: Implement/review Cybooctaedron formfactor
+  * Feature #483: Implement/review Anisotropic pyramid formfactor
+  * Feature #494: Implement all IsGISAXS distribution functions
+  * Feature #506: Refactor all tests to use new SimulationRegistry
+  * Feature #527: Implement the ripple 2 (triangular) formfactor
+  * Feature #540: Provide consistent propagation and composition of transformations
+  * Documentation #426: Examples: prepare C++ standalone example in Examples section
+  * Documentation #432: Examples: prepare example with correlated roughness interface
+  * Documentation #471: Write down formalism for polarized DWBA on embedded particles
+  * Documentation #475: Create prototype of latex (pdf) page representing form factor
+  * Documentation #489: Python docstrings
+  * Documentation #501: API reference for manual
+  * Refactoring #232: rename "min" and "max" in TRange, ...
+  * Refactoring #302: Return global static constants in the namespace back
+  * Refactoring #303: Drop shared_ptr usage for BasicVector3D
+  * Refactoring #416: CHeck and fix //TODO's and //FIXME's
+  * Refactoring #436: Refactor ISample, IParameterized and ParameterPool for better access to global ISample's parameter pool
+  * Refactoring #507: Wrap SampleBuilder in the shared pointer
+  * Refactoring #522: Clean up in App and FunctionalTests
+  * Testing #127: Add LLData Unit tests
+  * Testing #413: Repair MesoCrystal functional test
+  * Testing #414: Implement functional test: polarized DWBA with zero magnetic field
+  * Testing #421: Repair Performance test
+  * Testing #524: Produce a functional test for the layer with roughness
+  * Testing #529: Create TRange unit test
+  * Testing #530: Create AxisBin unit test
+  * Testing #535: Modify Particle unit test
+  * Testing #536: Create FTDistributions unit test
+  * Support #511: Provide example with 2 parameter fit of spheres in a hex lattice
+
 BornAgain-0.9.2, released 2013.10.14
   > Summary: build issues, fitting interface, user manual, conferences
   * Bug #447: Our minimum required cmake version 2.8.0 doesn't contain PARSE_MACRO

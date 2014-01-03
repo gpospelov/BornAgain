@@ -8,7 +8,7 @@ if(MSVC)
 endif()
 
 set(BUILD_SHARED_LIBS ON)
-add_subdirectory(gtest-1.6.0)
+add_subdirectory(gtest-1.7.0)
 
 
 

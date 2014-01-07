@@ -35,6 +35,7 @@ add_subdirectory(ThirdParty/gtest)
 add_subdirectory(Tests/UnitTests/TestCore)
 add_subdirectory(ThirdParty/RootMinimizers)
 add_subdirectory(Fit)
+add_subdirectory(Tests/UnitTests/TestFit)
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 if(ROOT_FOUND AND BORNAGAIN_APP)

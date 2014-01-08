@@ -30,6 +30,7 @@
 #include "FormFactorPrism3.h"
 #include "FormFactorPrism6.h"
 #include "FormFactorPyramid.h"
+#include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
 #include "FormFactorSphere.h"
 #include "FormFactorSphereGaussianRadius.h"

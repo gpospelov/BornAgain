@@ -72,6 +72,7 @@
 #include "LayerInterface.pypp.h" 
 #include "FormFactorFullSphere.pypp.h" 
 #include "Transform3D.pypp.h" 
+#include "FormFactorRipple1.pypp.h" 
 #include "PositionParticleInfo.pypp.h" 
 #include "LayerRoughness.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
@@ -148,6 +149,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();
     register_FormFactorPyramid_class();
+    register_FormFactorRipple1_class();
     register_FormFactorRipple2_class();
     register_FormFactorSphere_class();
     register_FormFactorSphereGaussianRadius_class();

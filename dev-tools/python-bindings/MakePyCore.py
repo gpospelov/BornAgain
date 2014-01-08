@@ -58,6 +58,7 @@ include_classes = [
     "FormFactorPrism3",
     "FormFactorPrism6",
     "FormFactorPyramid",
+    "FormFactorRipple1",
     "FormFactorRipple2",
     "FormFactorSphere",
     "FormFactorSphereGaussianRadius",

@@ -20,6 +20,7 @@ set(list_of_tests
     "layerwithroughness.py"
     "ripple2.py"
     "ripple2a.py"
+    "ripple1.py"
 )
 
 foreach(_test ${list_of_tests})

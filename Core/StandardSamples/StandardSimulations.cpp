@@ -456,3 +456,18 @@ Simulation *StandardSimulations::Ripple2()
 
     return result;
 }
+
+Simulation *StandardSimulations::Ripple1()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("ripple1");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}

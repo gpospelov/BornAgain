@@ -103,6 +103,10 @@ SimulationRegistry::SimulationRegistry()
         "ripple2", StandardSimulations::Ripple2,
         "Triangular ripple within the 1D-paracrystal model");
 
+    registerItem(
+        "ripple1", StandardSimulations::Ripple1,
+        "Cosine ripple within the 1D-paracrystal model");
+
 }
 
 

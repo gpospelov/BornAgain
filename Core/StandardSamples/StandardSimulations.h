@@ -46,6 +46,7 @@ Simulation *MesoCrystal01();
 Simulation *PolarizedDWBAZeroMag();
 Simulation *LayerWithRoughness();
 Simulation *Ripple2();
+Simulation *Ripple1();
 }
 
 

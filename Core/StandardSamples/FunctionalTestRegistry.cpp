@@ -109,6 +109,10 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Triangular ripple within the 1D-paracrystal model",
         "test_ripple2_sym.ima.gz", 2e-10);
 
+    add("ripple1",
+        "Cosine ripple within the 1D-paracrystal model",
+        "test_ripple1.ima.gz", 2e-10);
+
 }
 
 

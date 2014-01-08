@@ -29,6 +29,7 @@ set(list_of_tests
     "PolarizedDWBAZeroMag"
     "LayerRoughness"
     "Ripple2"
+    "Ripple1"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

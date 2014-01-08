@@ -29,6 +29,7 @@
 #include "PolarizedDWBAZeroMagBuilder.h"
 #include "LayerRoughnessBuilder.h"
 #include "Ripple2Builder.h"
+#include "Ripple1Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -140,6 +141,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ripple2",
         IFactoryCreateFunction<Ripple2Builder, ISampleBuilder>,
         "triangular ripple within the 1D-paracrystal model");
+
+    registerItem(
+        "ripple1",
+        IFactoryCreateFunction<Ripple1Builder, ISampleBuilder>,
+        "cosine ripple within the 1D-paracrystal model");
 
 }
 

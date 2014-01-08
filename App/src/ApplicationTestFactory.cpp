@@ -44,6 +44,8 @@
 #include "TestToyFitting.h"
 #include "TestFunctionalTests.h"
 #include "TestRipple2.h"
+#include "TestRipple1.h"
+
 
 #include "TBenchmark.h"
 
@@ -266,6 +268,11 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "ripple2",
         IFactoryCreateFunction<TestRipple2, IApplicationTest>,
         "test the new ripple2 formfactor");
+
+    p_test_factory->registerItem(
+        "ripple1",
+        IFactoryCreateFunction<TestRipple1, IApplicationTest>,
+        "test the new ripple1 formfactor");
 
 
 }

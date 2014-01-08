@@ -33,6 +33,7 @@
 #include "FormFactorSpheroid.h"
 #include "FormFactorTetrahedron.h"
 #include "FormFactorRipple2.h"
+#include "FormFactorRipple1.h"
 
 #include "gtest/gtest.h"
 
@@ -520,6 +521,31 @@ TEST_F(FormFactorTest, Ripple2)
     EXPECT_EQ((int)4, ripple2clone->getNumberOfStochasticParameters());
 }
 
+// Test form factor of a ripple1 (cosine)
+TEST_F(FormFactorTest, Ripple1)
+{
+    double width = 20.;
+    double height = 4.;
+    double length = 100.0;
+    double volume = 0.5*height*width*length;
+
+    FormFactorRipple1 ripple1(width, height, length);
+
+    EXPECT_EQ("FormFactorRipple1", ripple1.getName());
+    EXPECT_EQ(4., ripple1.getHeight());
+    EXPECT_EQ(20., ripple1.getWidth());
+    EXPECT_EQ(100., ripple1.getLength());
+    EXPECT_DOUBLE_EQ(volume, ripple1.getVolume());
+    EXPECT_EQ((int)3, ripple1.getNumberOfStochasticParameters());
+
+    FormFactorRipple1 *ripple1clone = ripple1.clone();
+    EXPECT_EQ("FormFactorRipple1", ripple1clone->getName());
+    EXPECT_DOUBLE_EQ(4., ripple1clone->getHeight());
+    EXPECT_EQ((int)3, ripple1clone->getNumberOfStochasticParameters());
+    EXPECT_EQ(20., ripple1clone->getWidth());
+    EXPECT_EQ(100., ripple1clone->getLength());
+    EXPECT_DOUBLE_EQ(volume, ripple1clone->getVolume());
+}
 
 #endif // FORMFACTORTEST_H
 

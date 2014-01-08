@@ -253,6 +253,15 @@ void SamplePrintVisitor::visit(const FormFactorPyramid *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorRipple1 *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorRipple2 *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const FormFactorSphere *sample)
 {

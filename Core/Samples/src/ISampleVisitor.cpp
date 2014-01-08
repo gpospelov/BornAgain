@@ -252,6 +252,15 @@ void ISampleVisitor::visit(const FormFactorPyramid *)
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorPyramid *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorRipple1 *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorRipple1 *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorRipple2 *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const FormFactorSphere *)
 {

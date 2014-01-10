@@ -37,6 +37,18 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         return FormFactorRipple2::clone( );
     }
 
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else
+            return this->FormFactorRipple2::evaluate_for_q( boost::ref(q) );
+    }
+    
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorRipple2::evaluate_for_q( boost::ref(q) );
+    }
+
     virtual double getAsymetry(  ) const  {
         if( bp::override func_getAsymetry = this->get_override( "getAsymetry" ) )
             return func_getAsymetry(  );
@@ -326,6 +338,18 @@ void register_FormFactorRipple2_class(){
                 , clone_function_type(&::FormFactorRipple2::clone)
                 , default_clone_function_type(&FormFactorRipple2_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::FormFactorRipple2::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorRipple2::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorRipple2_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorRipple2_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorRipple2::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorRipple2_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
         
         }
         { //::FormFactorRipple2::getAsymetry

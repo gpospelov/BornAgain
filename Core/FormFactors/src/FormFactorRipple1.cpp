@@ -74,9 +74,9 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t& q) const
     complex_t aaa2 = aaa*aaa;
 
     // analytical expressions for some particular cases
-    if (0.0==m_q.y() and 0.0==m_q.z())
+    if (0.0==m_q.y() && 0.0==m_q.z())
         return factor*M_PI_2*m_height;
-    else if (0.0==m_q.z() and 1.0 == aaa2)
+    else if (0.0==m_q.z() && 1.0 == aaa2)
         return factor*M_PI_4*m_height;
     else if (0.0==m_q.z())
         return factor*M_PI_2*m_height*MathFunctions::Sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);

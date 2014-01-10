@@ -16,6 +16,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR}
 )
 target_link_libraries(TestCore
     ${BornAgainCore_LIBRARY}

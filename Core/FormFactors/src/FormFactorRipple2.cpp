@@ -62,7 +62,7 @@ complex_t FormFactorRipple2::evaluate_for_q(const cvector_t& q) const
     complex_t iqyW = complex_t(0.0, 1.0)*m_q.y()*m_width;
     complex_t aaa = 2.0*(m_d*m_q.y() + m_height*m_q.z());
 
-    if (0.0==m_q.y() and 0.0==m_q.z())
+    if (0.0==m_q.y() && 0.0==m_q.z())
         result = m_height*0.5;
     else if (0.0==m_q.y())
         result = (1.0 - std::exp(iqzH) + iqzH)/(m_height*m_q.z()*m_q.z());

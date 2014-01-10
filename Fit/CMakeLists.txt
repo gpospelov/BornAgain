@@ -54,6 +54,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
+    ${GSL_INCLUDE_DIR}
 )
 target_link_libraries(
     ${library_name}

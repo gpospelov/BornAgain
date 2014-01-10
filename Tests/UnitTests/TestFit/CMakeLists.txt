@@ -17,6 +17,7 @@ include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR}
 )
 
 

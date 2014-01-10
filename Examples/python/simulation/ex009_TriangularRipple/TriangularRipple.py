@@ -1,3 +1,7 @@
+"""
+ Sample from the article D. Babonneau et. al., Phys. Rev. B 85, 235415, 2012 (Fig.3)
+"""
+
 import numpy
 import matplotlib
 import pylab
@@ -20,7 +24,7 @@ def plot_with_pylab(data):
 
 def get_sample():
     """
-    Build and return the sample representing the layers with correlated roughness.
+    Build and return the sample representing the triangular ripple in the framework of the 1D Paracrystal.
     """
     # defining materials
     m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )

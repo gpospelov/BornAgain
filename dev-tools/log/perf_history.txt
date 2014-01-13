@@ -300,3 +300,31 @@
 2013-12-19 16:11:26 | jcnsopc73  | macosx64, 2800 MHz      | 21.7391     | 21.2766     | 0.0319387   | 769231      |
 # Release 0.9.3
 2013-12-20 10:28:13 | jcnsopc73  | macosx64, 2800 MHz      | 21.0526     | 20.8333     | 0.0310078   | 666667      | 
+
+# ------------------------------------------------------------------------------------------------------------------
+# switching to another performance test
+# ------------------------------------------------------------------------------------------------------------------
+
+# repeating old performance measurements --performance1
+# Gennady's OpenSuse
+# nthreads=8
+2014-01-13 16:30:06 | jcnsopc126 | linuxx8664gcc, 3502 MHz | 8.03213     | 8.19672     | 0.0166389   | 1e+06       | 
+# Gennady's Maverick
+# nthreads=0
+2014-01-13 16:46:39 | jcnsopc73  | macosx64, 2800 MHz      | 7.7821      | 7.75194     | 0.0174368   | 740741      | 
+# nthreads=1
+2014-01-13 16:53:12 | jcnsopc73  | macosx64, 2800 MHz      | 14.1844     | 14.1844     | 0.0289268   | 740741      |
+
+
+# new performance --performance2
+
+# Gennady's OpenSuse
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:30:20 | jcnsopc126 | linuxx8664gcc | 0  | 30.329   | 2.295        | 1.813        | 1.116        | 0.675        | 5.810        | 8.452        | 0.509        | 7.759        | 1.900        |
+# Gennady's Maverick
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:47:59 | jcnsopc73  | macosx64      | 0  | 60.978   | 5.024        | 1.488        | 1.735        | 0.976        | 11.958       | 17.915       | 0.647        | 18.293       | 2.942        |
+| 2014-01-13 16:50:24 | jcnsopc73  | macosx64      | 1  | 103.614  | 11.405       | 3.240        | 3.539        | 1.832        | 26.159       | 33.044       | 0.681        | 17.896       | 5.817        |
+
+
+

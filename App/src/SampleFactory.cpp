@@ -57,6 +57,9 @@ SampleFactory::SampleFactory()
     registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
 //    registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
 
+//    registerItem("PolarizedDWBATestCase", StandardSamples::PolarizedDWBATestCase);
+
+
 //    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);
 //    registerItem("FormFactor_Cone", StandardSamples::FormFactor_Cone);
 //    registerItem("FormFactor_Sphere", StandardSamples::FormFactor_Sphere);

@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
 
     SimulationRegistry sim_registry;
-    Simulation* simulation = sim_registry.createSimulation("isgisaxs06_lattice4");
+    Simulation* simulation = sim_registry.createSimulation("isgisaxs06d");
 
     // loading reference data
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs06_reference_variants.ima.gz";

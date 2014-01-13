@@ -28,9 +28,6 @@ public:
     virtual ~TestPolarizedDWBA() { }
 
     virtual void execute();
-
-private:
-    MultiLayer *mp_sample; //!< pointer to multilayer sample
 };
 
 

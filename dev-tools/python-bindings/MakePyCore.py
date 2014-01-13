@@ -234,7 +234,7 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("ParticleDecoration")
-    cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
+    #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(builder_utils.from_address_custom(1))

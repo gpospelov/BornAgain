@@ -48,6 +48,12 @@ void Instrument::setDetectorParameters(
     size_t n_alpha, double alpha_f_min, double alpha_f_max,
     bool isgisaxs_style)
 {
+    if(phi_f_max <= phi_f_min) {
+        throw LogicErrorException("Instrument::setDetectorParameters() -> Error! phi_f_max <= phi_f_min");
+    }
+    if(alpha_f_max <= alpha_f_min) {
+        throw LogicErrorException("Instrument::setDetectorParameters() -> Error! alpha_f_max <= alpha_f_min");
+    }
     AxisParameters phi_params;
     phi_params.m_name = BornAgain::PHI_AXIS_NAME;
     phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);

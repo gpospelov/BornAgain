@@ -27,6 +27,7 @@ TestPerformance2::TestPerformance2()
     m_tests.push_back(new PerformanceTest("mesocrystal01",1));
     m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
     m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
+    m_tests.push_back(new PerformanceTest("magcyl2",50));
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
 
 }
@@ -80,7 +81,6 @@ void TestPerformance2::write_results()
 void TestPerformance2::write_header(std::ofstream &file)
 {
     file << std::endl;
-    //file << boost::format("| %-19s | %-10s | %-13s | %2s | %-16s |") %  "date " % "hostname" % "sysinfo" % "tr" % "total (real,cpu)";
     file << boost::format("| %-19s | %-10s | %-13s | %2s | %-8s |") %  "date " % "hostname" % "sysinfo" % "tr" % "total";
     for(size_t i=0; i<m_tests.size(); ++i) {
         file  << boost::format(" %-12s |") %  Utils::AdjustStringLength(m_tests[i]->getName(),12);
@@ -98,7 +98,6 @@ void TestPerformance2::write_performance(std::ofstream &file)
         sum_real += m_tests[i]->m_real_time;
         sum_cpu += m_tests[i]->m_cpu_time;
     }
-    //file  << boost::format(" %-7.3f, %-7.3f |") %  sum_real % sum_cpu;
     file  << boost::format(" %-8.3f |") %  sum_real;
 
     for(size_t i=0; i<m_tests.size(); ++i) {

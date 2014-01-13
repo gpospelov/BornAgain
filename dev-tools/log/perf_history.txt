@@ -310,3 +310,11 @@
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
 | 2014-01-13 16:30:54 | jcnsopc126 | linuxx8664gcc | 0  | 31.130   | 2.422        | 2.066        | 1.144        | 0.792        | 6.181        | 8.226        | 0.515        | 7.782        | 2.003        |
 
+2014-01-13 16:46:39 | jcnsopc73  | macosx64, 2800 MHz      | 7.7821      | 7.75194     | 0.0174368   | 740741      | 
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:47:59 | jcnsopc73  | macosx64      | 0  | 60.978   | 5.024        | 1.488        | 1.735        | 0.976        | 11.958       | 17.915       | 0.647        | 18.293       | 2.942        |
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:50:24 | jcnsopc73  | macosx64      | 1  | 103.614  | 11.405       | 3.240        | 3.539        | 1.832        | 26.159       | 33.044       | 0.681        | 17.896       | 5.817        |
+2014-01-13 16:53:12 | jcnsopc73  | macosx64, 2800 MHz      | 14.1844     | 14.1844     | 0.0289268   | 740741      |

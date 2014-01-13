@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/TestPerformance2.h
-//! @brief     Defines classe TestPerformance2
+//! @brief     Defines classe TestPerformance2 for logging performance changes
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -34,9 +34,12 @@ public:
     TestPerformance2();
     virtual ~TestPerformance2();
     virtual void execute();
-    std::vector<PerformanceTest *> m_tests;
 private:
-    void save_sysinfo(PerformanceTest *test);
+    void write_results();
+    void write_header(std::ofstream &file);
+    void write_performance(std::ofstream &file);
+    void set_sysinfo(PerformanceTest *test);
+    std::vector<PerformanceTest *> m_tests;
 };
 
 
@@ -52,7 +55,8 @@ public:
 
     virtual ~PerformanceTest(){}
 
-    virtual void execute(){}
+    virtual void execute();
+    virtual void runTests();
 
     double m_nrepetitions;
     int m_nthreads;
@@ -61,6 +65,25 @@ public:
     std::string m_datime;
     std::string m_hostname;
     std::string m_sysinfo;
+};
+
+
+//! custom test for specular matrix
+class SpecularMatrixPerformanceTest : public PerformanceTest
+{
+public:
+    SpecularMatrixPerformanceTest(const std::string &name, int nrepetitions)
+        : PerformanceTest(name, nrepetitions){}
+    virtual void runTests();
+};
+
+//! custom test for specular magnetic
+class SpecularMagneticPerformanceTest : public PerformanceTest
+{
+public:
+    SpecularMagneticPerformanceTest(const std::string &name, int nrepetitions)
+        : PerformanceTest(name, nrepetitions){}
+    virtual void runTests();
 };
 
 

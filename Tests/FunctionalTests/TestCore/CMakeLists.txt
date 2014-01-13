@@ -26,7 +26,8 @@ set(list_of_tests
     "IsGISAXS15"
     "FormFactors"
     "MesoCrystal1"
-    "PolarizedDWBAZeroMag"
+    "PolDWBAMagCylinders1"
+    "PolDWBAMagCylinders2"
     "LayerRoughness"
     "Ripple2"
 )

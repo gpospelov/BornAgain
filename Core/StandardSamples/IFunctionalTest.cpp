@@ -49,7 +49,6 @@ void FunctionalTest::runTest()
 int FunctionalTest::analyseResults()
 {
     assert(m_simulation);
-//    assert(m_result);
     assert(m_reference);
     double diff = OutputDataFunctions::GetDifference(*getResult(),*m_reference);
 

@@ -300,3 +300,13 @@
 2013-12-19 16:11:26 | jcnsopc73  | macosx64, 2800 MHz      | 21.7391     | 21.2766     | 0.0319387   | 769231      |
 # Release 0.9.3
 2013-12-20 10:28:13 | jcnsopc73  | macosx64, 2800 MHz      | 21.0526     | 20.8333     | 0.0310078   | 666667      | 
+
+
+2014-01-13 16:30:06 | jcnsopc126 | linuxx8664gcc, 3502 MHz | 8.03213     | 8.19672     | 0.0166389   | 1e+06       | 
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:30:20 | jcnsopc126 | linuxx8664gcc | 0  | 30.329   | 2.295        | 1.813        | 1.116        | 0.675        | 5.810        | 8.452        | 0.509        | 7.759        | 1.900        |
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:30:54 | jcnsopc126 | linuxx8664gcc | 0  | 31.130   | 2.422        | 2.066        | 1.144        | 0.792        | 6.181        | 8.226        | 0.515        | 7.782        | 2.003        |
+

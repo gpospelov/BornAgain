@@ -24,7 +24,6 @@
 
 
 TestPolarizedDWBA::TestPolarizedDWBA()
-: mp_sample(0)
 {
     std::cout << "TestPolarizedDWBA::TestPolarizedDWBA() -> Info."
             << std::endl;

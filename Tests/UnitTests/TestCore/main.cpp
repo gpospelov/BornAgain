@@ -29,6 +29,8 @@
 #include "FTDistributionsTest.h"
 #include "MultiLayerTest.h"
 #include "ParticleDecorationTest.h"
+#include "HomogeneousMaterialTest.h"
+#include "HomogeneousMagneticMaterialTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

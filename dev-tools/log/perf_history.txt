@@ -327,4 +327,10 @@
 | 2014-01-13 16:50:24 | jcnsopc73  | macosx64      | 1  | 103.614  | 11.405       | 3.240        | 3.539        | 1.832        | 26.159       | 33.044       | 0.681        | 17.896       | 5.817        |
 
 
+# before trying complex bessel
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-16 18:05:52 | jcnsopc126 | linuxx8664gcc | 0  | 29.667   | 2.267        | 1.768        | 1.117        | 0.689        | 5.780        | 8.095        | 0.528        | 7.710        | 1.713        |
+# after switching to complex bessel (real bessel uses complex bessel)
+| 2014-01-16 18:21:50 | jcnsopc126 | linuxx8664gcc | 0  | 34.609   | 3.554        | 2.106        | 1.166        | 0.731        | 8.322        | 8.105        | 0.514        | 8.109        | 2.003        |
+
 

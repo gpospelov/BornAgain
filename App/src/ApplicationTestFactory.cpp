@@ -46,6 +46,7 @@
 #include "TestFunctionalTests.h"
 #include "TestRipple2.h"
 #include "TestRipple1.h"
+#include "TestBessel.h"
 
 
 #include "TBenchmark.h"
@@ -278,6 +279,11 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "ripple1",
         IFactoryCreateFunction<TestRipple1, IApplicationTest>,
         "test the new ripple1 formfactor");
+
+    p_test_factory->registerItem(
+        "bessel",
+        IFactoryCreateFunction<TestBessel, IApplicationTest>,
+        "test complex bessel functions");
 
 
 }

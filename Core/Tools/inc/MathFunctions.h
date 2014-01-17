@@ -56,7 +56,16 @@ BA_CORE_API_ double Bessel_J0(double value);
 BA_CORE_API_ double Bessel_J1(double value);
 
 //! Bessel function  Bessel_J1(x)/x
-BA_CORE_API_ inline double Bessel_C1(double value);
+BA_CORE_API_ double Bessel_C1(double value);
+
+//! Complex Bessel function of the first kind and order 0
+BA_CORE_API_ complex_t Bessel_J0(const complex_t &value);
+
+//! Complex Bessel function of the first kind and order 1
+BA_CORE_API_ complex_t Bessel_J1(const complex_t &value);
+
+//! Complex Bessel function  Bessel_J1(x)/x
+BA_CORE_API_ complex_t Bessel_C1(const complex_t &value);
 
 //! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
 BA_CORE_API_ double Si(double value);
@@ -127,6 +136,12 @@ BA_CORE_API_ inline bool isinf(double x)
 #endif
 }
 
+//! complex bessel J0 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
+complex_t crbond_bessel_J0(const complex_t &value);
+
+//! complex bessel J1 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
+complex_t crbond_bessel_J1(const complex_t &value);
+
 
 } // Namespace MathFunctions
 
@@ -144,17 +159,36 @@ inline double MathFunctions::GenerateUniformRandom()
 inline double MathFunctions::Bessel_J0(double value)
 {
     return gsl_sf_bessel_J0(value);
+//    return std::real(MathFunctions::Bessel_J0(complex_t(value,0.0)));
 }
 
 inline double MathFunctions::Bessel_J1(double value)
 {
     return gsl_sf_bessel_J1(value);
+//    return std::real(MathFunctions::Bessel_J1(complex_t(value,0.0)));
 }
 
 inline double MathFunctions::Bessel_C1(double value)
 {
     return ( value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5);
+//    return ( value > Numeric::double_epsilon ? std::real(MathFunctions::Bessel_J1(complex_t(value,0.0)))/value : 0.5);
 }
+
+inline complex_t MathFunctions::Bessel_J0(const complex_t &value)
+{
+    return crbond_bessel_J0(value);
+}
+
+inline complex_t MathFunctions::Bessel_J1(const complex_t &value)
+{
+    return crbond_bessel_J1(value);
+}
+
+inline complex_t MathFunctions::Bessel_C1(const complex_t &value)
+{
+    return (std::abs(value) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(value)/value : 0.5);
+}
+
 
 inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
 {

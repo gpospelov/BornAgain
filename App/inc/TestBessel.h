@@ -25,10 +25,11 @@ public:
 
     class Data {
     public:
-        Data() : x(0), b1(0), b2(0) {}
+        Data() : x(0), b_gsl(0), b_root(0), b_boost(0) {}
         double x;
-        double b1;
-        double b2;
+        double b_gsl;
+        double b_root;
+        double b_boost;
     };
 
     TestBessel(){}

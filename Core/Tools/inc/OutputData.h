@@ -192,13 +192,15 @@ public:
     //! indexed accessor
     T& operator[](size_t index) {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data object was not yet initialized");
+        throw ClassInitializationException("Low-level data object was not"
+        		" yet initialized");
     }
 
     //! indexed accessor (const)
     const T& operator[](size_t index) const {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data object was not yet initialized");
+        throw ClassInitializationException("Low-level data object was not"
+        		" yet initialized");
     }
 
     // --------

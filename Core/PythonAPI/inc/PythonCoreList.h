@@ -69,6 +69,7 @@
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
+#include "OffSpecSimulation.h"
 #include "OutputData.h"
 #include "OutputDataIOFactory.h"
 #include "ParameterPool.h"

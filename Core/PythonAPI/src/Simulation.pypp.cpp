@@ -301,7 +301,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "setDetectorResolutionFunction"
                 , setDetectorResolutionFunction_function_type( &::Simulation::setDetectorResolutionFunction )
-                , ( bp::arg("p_resolution_function") ) );
+                , ( bp::arg("resolution_function") ) );
         
         }
         { //::Simulation::setInstrument

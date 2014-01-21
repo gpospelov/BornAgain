@@ -41,25 +41,6 @@ Simulation::Simulation()
     init_parameters();
 }
 
-Simulation::Simulation(const Simulation& other)
-: ICloneable(), IParameterized(other)
-, mp_sample(0)
-, mp_sample_builder(other.mp_sample_builder)
-, m_instrument(other.m_instrument)
-, m_sim_params(other.m_sim_params)
-, m_thread_info(other.m_thread_info)
-, m_intensity_map()
-, m_polarization_output()
-, m_is_normalized(other.m_is_normalized)
-, mp_options(other.mp_options)
-{
-    if(other.mp_sample) mp_sample = other.mp_sample->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    m_polarization_output.copyFrom(other.m_polarization_output);
-
-    init_parameters();
-}
-
 Simulation::Simulation(const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
@@ -109,7 +90,8 @@ Simulation *Simulation::clone() const
 void Simulation::prepareSimulation()
 {
     if(!m_instrument.getDetectorDimension()) {
-        throw LogicErrorException("Simulation::prepareSimulation() -> Error. The detector was not configured.");
+        throw LogicErrorException("Simulation::prepareSimulation() "
+        		"-> Error. The detector was not configured.");
     }
     gsl_set_error_handler_off();
     m_is_normalized = false;
@@ -266,6 +248,15 @@ void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
     mp_sample = 0;
 }
 
+OutputData<double>* Simulation::getPolarizedIntensityData(
+		int row, int column) const
+{
+    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
+    OutputData<double > *result =
+            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    return result;
+}
+
 void Simulation::setInstrument(const Instrument& instrument)
 {
     m_instrument = instrument;
@@ -303,6 +294,25 @@ std::string Simulation::addParametersToExternalPool(
     }
 
     return new_path;
+}
+
+Simulation::Simulation(const Simulation& other)
+: ICloneable(), IParameterized(other)
+, mp_sample(0)
+, mp_sample_builder(other.mp_sample_builder)
+, m_instrument(other.m_instrument)
+, m_sim_params(other.m_sim_params)
+, m_thread_info(other.m_thread_info)
+, m_intensity_map()
+, m_polarization_output()
+, m_is_normalized(other.m_is_normalized)
+, mp_options(other.mp_options)
+{
+    if(other.mp_sample) mp_sample = other.mp_sample->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    m_polarization_output.copyFrom(other.m_polarization_output);
+
+    init_parameters();
 }
 
 void Simulation::init_parameters()
@@ -384,14 +394,6 @@ void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
     if (p_dwba_simulation->hasPolarizedOutputData()) {
         m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
     }
-}
-
-OutputData<double>* Simulation::getPolarizedIntensityData(int row, int column) const
-{
-    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
-    OutputData<double > *result =
-            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
-    return result;
 }
 
 

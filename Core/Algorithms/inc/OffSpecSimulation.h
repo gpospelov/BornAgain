@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/Simulation.h
-//! @brief     Defines class Simulation.
+//! @file      Algorithms/inc/OffSpecSimulation.h
+//! @brief     Defines class OffSpecSimulation.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,32 +13,26 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATION_H_
-#define SIMULATION_H_
+#ifndef OFFSPECSIMULATION_H_
+#define OFFSPECSIMULATION_H_
 
-#include "ISampleBuilder.h"
-#include "Instrument.h"
-#include "SimulationParameters.h"
+#include "Simulation.h"
 
-#include "EigenCore.h"
-
-class ProgramOptions;
-
-//! @class Simulation
+//! @class OffSpecSimulation
 //! @ingroup simulation
-//! @brief Main class to run the simulation.
+//! @brief Main class to run an off-specular simulation.
 
-class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
+class BA_CORE_API_ OffSpecSimulation : public ICloneable, public IParameterized
 {
 public:
-    Simulation();
-    Simulation(const ProgramOptions *p_options);
-    Simulation(const ISample& p_sample, const ProgramOptions *p_options=0);
-    Simulation(SampleBuilder_t p_sample_builder,
+	OffSpecSimulation();
+	OffSpecSimulation(const ProgramOptions *p_options);
+	OffSpecSimulation(const ISample& p_sample, const ProgramOptions *p_options=0);
+	OffSpecSimulation(SampleBuilder_t p_sample_builder,
                const ProgramOptions *p_options=0);
-    ~Simulation() { delete mp_sample; }
+    ~OffSpecSimulation() {}
 
-    Simulation *clone() const;
+    OffSpecSimulation *clone() const;
 
     //! Put into a clean state for running a simulation
     void prepareSimulation();
@@ -46,23 +40,21 @@ public:
     //! Run a simulation with the current parameter settings
     void runSimulation();
 
-    //! Returns intensity for a single detector element
-    void runSimulationElement(size_t index);
-
-    //! Normalize the detector counts
-    void normalize();
-
     //! Sets the sample to be tested
-    void setSample(const ISample& sample);
+    void setSample(const ISample& sample)
+    { m_simulation.setSample(sample); }
 
     //! Returns the sample
-    ISample *getSample() const { return mp_sample; }
+    ISample *getSample() const
+    { return m_simulation.getSample(); }
 
     //! Sets the sample builder
-    void setSampleBuilder(SampleBuilder_t sample_builder);
+    void setSampleBuilder(SampleBuilder_t sample_builder)
+    { m_simulation.setSampleBuilder(sample_builder); }
 
     //! return sample builder
-    SampleBuilder_t getSampleBuilder() const { return mp_sample_builder; }
+    SampleBuilder_t getSampleBuilder() const
+    { return m_simulation.getSampleBuilder(); }
 
     //! Returns detector intensity map for all scan parameters
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
@@ -77,7 +69,7 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Returns polarized intensity map
     const OutputData<Eigen::Matrix2d>* getPolarizedOutputData() const {
-        return &m_polarization_output;
+        return &m_polarized_intensity;
     }
 #endif
 
@@ -85,13 +77,15 @@ public:
     void setInstrument(const Instrument& instrument);
 
     //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
+    const Instrument& getInstrument() const
+    { return m_simulation.getInstrument(); }
 
     //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+    void setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i);
 
     //! Sets beam intensity from here (forwarded to Instrument)
-    void setBeamIntensity(double intensity);
+    void setBeamIntensity(double intensity)
+    { m_simulation.setBeamIntensity(intensity); }
 
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double> &output_data);
@@ -103,27 +97,33 @@ public:
 
     //! Sets detector parameters using parameter object
     void setDetectorParameters(const DetectorParameters& params);
+
     //! Returns simulation parameters
     SimulationParameters getSimulationParameters() const
-    { return m_sim_params; }
+    { return m_simulation.getSimulationParameters(); }
 
     //! Define resolution function for detector
     void setDetectorResolutionFunction(
-        IResolutionFunction2D *p_resolution_function);
+        IResolutionFunction2D *p_resolution_function) {
+    	m_simulation.setDetectorResolutionFunction(p_resolution_function);
+    }
+
     void setDetectorResolutionFunction(
-        const IResolutionFunction2D &resolution_function);
+        const IResolutionFunction2D &resolution_function) {
+    	m_simulation.setDetectorResolutionFunction(resolution_function);
+    }
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
-    { m_sim_params = sim_params; }
+    { m_simulation.setSimulationParameters(sim_params); }
 
     //! Sets the batch and thread information to be used
     void setThreadInfo(const ThreadInfo &thread_info)
-    { m_thread_info = thread_info; }
+    { m_simulation.setThreadInfo(thread_info); }
 
     //! Sets the program options
     void setProgramOptions(ProgramOptions *p_options)
-    { mp_options = p_options; }
+    { m_simulation.setProgramOptions(p_options); }
 
     //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
@@ -131,11 +131,8 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
-    //! OffSpecSimulation needs protected copy constructor
-    friend class OffSpecSimulation;
-
 protected:
-    Simulation(const Simulation& other);
+    OffSpecSimulation(const OffSpecSimulation& other);
 
     //! Registers some class members for later access via parameter pool
     void init_parameters();
@@ -143,27 +140,20 @@ protected:
     //! Default implementation only adds the detector axes
     void updateIntensityMapAxes();
 
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
+    //! Adds the integrated intensity (over phi) and adds this to the
+    //! intensity map
+    void addIntegratedIntensity(size_t index);
 
-    //! Add the intensity maps from the DWBA simulation to the member maps
-    void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
-
-    // components describing an experiment and its simulation:
-    ISample *mp_sample;
-    SampleBuilder_t mp_sample_builder;
-    Instrument m_instrument;
-    SimulationParameters m_sim_params;
-    ThreadInfo m_thread_info;
+    // components describing an off-specular experiment and its simulation:
+    Simulation m_simulation;
+    IAxis *mp_alpha_i_axis;
+    double m_lambda;
+    double m_phi;
 
     OutputData<double> m_intensity_map;
 #ifndef GCCXML_SKIP_THIS
-    OutputData<Eigen::Matrix2d> m_polarization_output;
+    OutputData<Eigen::Matrix2d> m_polarized_intensity;
 #endif
-    bool m_is_normalized;
-    const ProgramOptions *mp_options;
 };
 
-#endif /* SIMULATION_H_ */
-
-
+#endif /* OFFSPECSIMULATION_H_ */

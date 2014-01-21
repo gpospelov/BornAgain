@@ -232,7 +232,7 @@ template<class TValue, class TContainer>
         mp_mask = mask.clone();
         mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
     }
-    m_current_index = mp_mask->getFirstValidIndex();
+    m_current_index = mp_mask->getFirstValidIndex(m_current_index);
 }
 
 template<class TValue, class TContainer>
@@ -247,7 +247,7 @@ template<class TValue, class TContainer>
     mp_mask = mask.clone();
     mp_mask->mp_submask = p_old_mask;
     mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
-    m_current_index = mp_mask->getFirstValidIndex();
+    m_current_index = mp_mask->getFirstValidIndex(m_current_index);
 }
 
 template<class TValue, class TContainer>

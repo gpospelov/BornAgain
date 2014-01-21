@@ -292,8 +292,8 @@ void TestMesoCrystal2::fitsuite_config4()
     }
 
 //    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
-//    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
-//    m_real_data->setMask(*mask1);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
+    m_real_data->setMask(*mask1);
 //    IntensityDataHelper::setRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
 
     ChiSquaredModule chiModule;

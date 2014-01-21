@@ -33,7 +33,7 @@ public:
     virtual ~Mask() { delete mp_submask; }
     virtual Mask *clone() const;
 
-    size_t getFirstValidIndex();
+    size_t getFirstValidIndex(size_t start_index);
     size_t getNextIndex(size_t total_index);
     void setMaxIndex(size_t max_index);
 

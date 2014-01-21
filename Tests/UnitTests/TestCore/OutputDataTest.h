@@ -4,6 +4,9 @@
 #include "OutputData.h"
 #include <algorithm>
 #include "OutputDataFunctions.h"
+#include "ThreadInfo.h"
+#include <boost/assign/list_of.hpp>
+
 
 #include "gtest/gtest.h"
 
@@ -181,5 +184,85 @@ TEST_F(OutputDataTest, SetCleared)
 }
 
 
+// y |
+// --------------------------------------------
+// 4 | 4   9   14  19  24  29  34  39  44  49 |
+// 3 | 3   8   13  18  23  28  33  38  43  48 |
+// 2 | 2   7   12  17  22  27  32  37  42  47 |
+// 1 | 1   6   11  16  21  26  31  36  41  46 |
+// 0 | 0   5   10  15  20  25  30  35  40  45 |
+// --------------------------------------------
+//   | 0   1   2   3   4   5   6   7   8   9  | x
+
+TEST_F(OutputDataTest, ThreadInfoIterator)
+{
+    OutputData<double > data;
+    data.addAxis("x", 10, 0., 9.);
+    data.addAxis("y", 5, 0., 4.);
+
+    int index(0);
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        (*it) = double(index++);
+    }
+
+    ThreadInfo thread_info;
+    thread_info.n_threads = 4;
+    int istart[] = {0, 13, 26, 39};
+    for(size_t i_thread=0; i_thread<4; i_thread++) {
+        index = istart[i_thread];
+        thread_info.current_thread = i_thread;
+        for(OutputData<double>::iterator it = data.begin(thread_info); it!=data.end(thread_info); ++it) {
+            EXPECT_EQ((*it), (double)index++);
+        }
+    }
+
+}
+
+
+// y |
+// --------------------------------------------
+// 4 | 4   9   14  19  24  29  34  39  44  49 |
+// 3 | 3   8   13  18  23  28  33  38  43  48 |
+// 2 | 2   7   12  17  22  27  32  37  42  47 |
+// 1 | 1   6   11  16  21  26  31  36  41  46 |
+// 0 | 0   5   10  15  20  25  30  35  40  45 |
+// --------------------------------------------
+//   | 0   1   2   3   4   5   6   7   8   9  | x
+
+TEST_F(OutputDataTest, ThreadInfoMaskedIterator)
+{
+    OutputData<double > data;
+    data.addAxis("x", 10, 0., 9.);
+    data.addAxis("y", 5, 0., 4.);
+
+    int index(0);
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        (*it) = double(index++);
+    }
+
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(data, 1.99, 0.99, 7.01, 3.01);
+    data.setMask(*mask1);
+
+    const int nthreads = 4;
+    ThreadInfo thread_info;
+    thread_info.n_threads = nthreads;
+
+    std::vector<std::vector<int> > values;
+    values.resize(nthreads);
+    values[0] = boost::assign::list_of(11)(12);
+    values[1] = boost::assign::list_of(13)(16)(17)(18)(21)(22)(23);
+    values[2] = boost::assign::list_of(26)(27)(28)(31)(32)(33)(36)(37)(38);
+
+    for(size_t i_thread=0; i_thread<4; i_thread++) {
+        int index = 0;
+        thread_info.current_thread = i_thread;
+        for(OutputData<double>::iterator it = data.begin(thread_info); it!=data.end(thread_info); ++it) {
+            double x = data.getValueOfAxis("x", it.getIndex());
+            double y = data.getValueOfAxis("y", it.getIndex());
+            EXPECT_EQ((*it), values[i_thread][index++]);
+        }
+    }
+
+}
 
 #endif // OUTPUTDATATEST_H

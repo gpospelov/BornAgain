@@ -89,7 +89,7 @@ MultiLayer *MultiLayer::clone() const
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
-    newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
+    if(layer_buffer.size()) newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
@@ -130,7 +130,7 @@ MultiLayer* MultiLayer::cloneInvertB() const
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
-    newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
+    if(layer_buffer.size()) newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 

@@ -257,8 +257,6 @@ TEST_F(OutputDataTest, ThreadInfoMaskedIterator)
         int index = 0;
         thread_info.current_thread = i_thread;
         for(OutputData<double>::iterator it = data.begin(thread_info); it!=data.end(thread_info); ++it) {
-            double x = data.getValueOfAxis("x", it.getIndex());
-            double y = data.getValueOfAxis("y", it.getIndex());
             EXPECT_EQ((*it), values[i_thread][index++]);
         }
     }

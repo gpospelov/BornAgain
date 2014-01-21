@@ -55,9 +55,12 @@ PyObject *OutputData<double>::getArray() const
     double *array_buffer = (double *)PyArray_DATA((PyArrayObject*)pyarray);
 
     // filling numpy array with output_data
-    OutputData<double>::const_iterator it = begin();
-    while(it != end() ) {
-        *array_buffer++ = *it++;
+//    OutputData<double>::const_iterator it = begin();
+//    while(it != end() ) {
+//        *array_buffer++ = *it++;
+//    }
+    for(size_t index=0; index<getAllocatedSize(); ++index) {
+        *array_buffer++ = (*this)[index];
     }
 
     return pyarray;

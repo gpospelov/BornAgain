@@ -50,9 +50,9 @@ include_classes = [
     "OutputDataNormalizer",
     "OutputDataSimpleNormalizer",
     "SquaredFunctionDefault",
-    "SquaredFunctionWhichOnlyWorks",
-    "SquaredFunctionWithGaussianError",
-    "SquaredFunctionWithSystematicError",
+    "SquaredFunctionMeanSquaredError",
+    "SquaredFunctionGaussianError",
+    "SquaredFunctionSystematicError",
 ]
 
 

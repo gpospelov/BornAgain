@@ -5,6 +5,7 @@
 // the order of 3 guys above is important
 
 #include "IFTDistribution2D.pypp.h" 
+#include "IntensityDataHelper.pypp.h" 
 #include "Detector.pypp.h" 
 #include "FormFactorRipple2.pypp.h" 
 #include "LatticeBasis.pypp.h" 
@@ -169,6 +170,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
     register_Instrument_class();
+    register_IntensityDataHelper_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunction2DLattice_class();
     register_InterferenceFunction2DParaCrystal_class();

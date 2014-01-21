@@ -24,6 +24,7 @@
 #include "Simulation.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
+#include "IntensityDataHelper.h"
 #include "IsGISAXSTools.h"
 #include "LatticeBasis.h"
 #include "MaterialManager.h"
@@ -70,8 +71,8 @@ TestMesoCrystal2::~TestMesoCrystal2()
 void TestMesoCrystal2::execute()
 {
 
-    //run_fit();
-    draw_results();
+    run_fit();
+    //draw_results();
 }
 
 
@@ -199,7 +200,8 @@ void TestMesoCrystal2::initializeRealData()
     delete m_real_data;
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    std::string file_name = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    //std::string file_name = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    std::string file_name = "../support/input/001_ElisabethJosten/2013.01.03/004_230_P144_im_full_phitheta.txt.gz";
 
     m_real_data = OutputDataIOFactory::readIntensityData(file_name);
 
@@ -290,13 +292,14 @@ void TestMesoCrystal2::fitsuite_config4()
     }
 
 //    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
-    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
-    m_real_data->setMask(*mask1);
+//    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
+//    m_real_data->setMask(*mask1);
+//    IntensityDataHelper::setRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
 
     ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() );
+    chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);
@@ -366,7 +369,7 @@ void TestMesoCrystal2::fitsuite_config3()
     ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);

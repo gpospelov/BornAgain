@@ -23,7 +23,7 @@
 
 
 //! @class ISquaredFunction
-//! @ingroup algorithms_internal
+//! @ingroup fitting_internal
 //! @brief Interface providing measures for deviation between two values.
 //!
 //! Used By ChiSquaredModule for chi2 calculations
@@ -48,8 +48,11 @@ public:
 
 
 //! @class SquaredFunctionDefault
-//! @ingroup algorithms_internal
-//! @brief Squared difference betwee two values
+//! @ingroup fitting
+//! @brief Squared difference between two values.
+//!
+//! value = (a-b)*(a-b)/norm, where
+//! norm = max(b, 1.0)
 
 class BA_CORE_API_ SquaredFunctionDefault : public ISquaredFunction
 {
@@ -76,16 +79,19 @@ public:
 };
 
 
-//! @class SquaredFunctionWhichOnlyWorks
-//! @ingroup algorithms_internal
-//! @brief Squared difference betwee two values
+//! @class SquaredFunctionMeanSquaredError
+//! @ingroup fitting
+//! @brief Squared difference between two values normalized by mean squared error
+//!
+//! value = (a-b)*(a-b)/norm, where
+//! norm = sqrt(sigma1*sigma1 + sigma2*sigma2), sigma1=max(a, 1.0), sigma2=max(b,1.0)
 
-class BA_CORE_API_ SquaredFunctionWhichOnlyWorks : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionMeanSquaredError : public ISquaredFunction
 {
 public:
-    SquaredFunctionWhichOnlyWorks() {}
-    virtual ~SquaredFunctionWhichOnlyWorks() {}
-    virtual SquaredFunctionWhichOnlyWorks *clone() const { return new SquaredFunctionWhichOnlyWorks(*this); }
+    SquaredFunctionMeanSquaredError() {}
+    virtual ~SquaredFunctionMeanSquaredError() {}
+    virtual SquaredFunctionMeanSquaredError *clone() const { return new SquaredFunctionMeanSquaredError(*this); }
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
@@ -102,16 +108,19 @@ public:
 };
 
 
-//! @class SquaredFunctionWithSystematicError
-//! @ingroup algorithms_internal
-//! @brief Squared difference between two values with systematic error
+//! @class SquaredFunctionSystematicError
+//! @ingroup fitting
+//! @brief Squared difference between two values normalized by systematic error
+//!
+//! value = (a-b)*(a-b)/norm, where
+//! norm = max(error, 1.0), error = b + (epsilon*b)**2
 
-class BA_CORE_API_ SquaredFunctionWithSystematicError : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionSystematicError : public ISquaredFunction
 {
 public:
-    SquaredFunctionWithSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
-    virtual ~SquaredFunctionWithSystematicError() {}
-    virtual SquaredFunctionWithSystematicError *clone() const { return new SquaredFunctionWithSystematicError(*this); }
+    SquaredFunctionSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
+    virtual ~SquaredFunctionSystematicError() {}
+    virtual SquaredFunctionSystematicError *clone() const { return new SquaredFunctionSystematicError(*this); }
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
@@ -129,16 +138,19 @@ private:
 };
 
 
-//! @class SquaredFunctionWithGaussianError
-//! @ingroup algorithms_internal
+//! @class SquaredFunctionGaussianError
+//! @ingroup fitting
 //! @brief Squared difference between two values with gaussian error
+//!
+//! value = (a-b)*(a-b)/norm, where
+//! norm = sigma*sigma, sigma - is set by user
 
-class BA_CORE_API_ SquaredFunctionWithGaussianError : public ISquaredFunction
+class BA_CORE_API_ SquaredFunctionGaussianError : public ISquaredFunction
 {
 public:
-    SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}
-    virtual ~SquaredFunctionWithGaussianError() {}
-    virtual SquaredFunctionWithGaussianError *clone() const { return new SquaredFunctionWithGaussianError(*this); }
+    SquaredFunctionGaussianError(double sigma = 0.01) : m_sigma(sigma){}
+    virtual ~SquaredFunctionGaussianError() {}
+    virtual SquaredFunctionGaussianError *clone() const { return new SquaredFunctionGaussianError(*this); }
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {

@@ -134,7 +134,7 @@ void FitSuite::minimize()
     // minimizing
     m_minimizer->minimize();
 
-    }
+}
 
 
 // get current number of minimization function calls

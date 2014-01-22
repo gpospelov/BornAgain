@@ -31,6 +31,11 @@
 #include "ParticleDecorationTest.h"
 #include "HomogeneousMaterialTest.h"
 #include "HomogeneousMagneticMaterialTest.h"
+#include "ScalarRTCoefficientsTest.h"
+#include "SpecularMatrixTest.h"
+#include "MatrixRTCoefficientsTest.h"
+#include "ScalarSpecularInfoMapTest.h"
+#include "MatrixSpecularInfoMapTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

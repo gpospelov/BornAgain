@@ -52,7 +52,7 @@ ISample *IsGISAXS08ABuilder::buildSample() const
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
     ParticleDecoration particle_decoration( new Particle(particle_material,
-            new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+            new FormFactorCylinder(5.0*Units::nanometer, 5.0*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     air_layer.setDecoration(particle_decoration);

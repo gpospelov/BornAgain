@@ -5,12 +5,12 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.base.355729760" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings/>
 				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -51,12 +51,12 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.base.355729760.42217696" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<externalSettings/>
 				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -64,7 +64,7 @@
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.base.355729760.42217696." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.base.102581941" name="cdt.managedbuild.toolchain.gnu.base" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.2085932534" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
-							<builder arguments="-C ../BornAgain_cmake_debug VERBOSE=1 -j8" buildPath="" command="make" id="cdt.managedbuild.target.gnu.builder.base.1667591657" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder arguments="-C ../BornAgain_cmake_debug VERBOSE=1" buildPath="" command="make" id="cdt.managedbuild.target.gnu.builder.base.1667591657" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1878300853" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1937046421" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.include.paths.1082181913" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">

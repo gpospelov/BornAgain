@@ -71,8 +71,8 @@ TestMesoCrystal2::~TestMesoCrystal2()
 void TestMesoCrystal2::execute()
 {
 
-    run_fit();
-    //draw_results();
+    //run_fit();
+    draw_results();
 }
 
 
@@ -119,36 +119,36 @@ void TestMesoCrystal2::draw_results()
     m_simulation->runSimulation();
     m_simulation->normalize();
 
-    IsGISAXSTools::drawOutputDataComparisonResults(
-            *m_simulation->getOutputData(), *m_real_data,
-            "found", "found params", 100, 1e6, 100);
+//    IsGISAXSTools::drawOutputDataComparisonResults(
+//            *m_simulation->getOutputData(), *m_real_data,
+//            "found", "found params", 100, 1e6, 100);
 
-    TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
-    c1->cd();
-    gPad->SetLogz();
-    gPad->SetRightMargin(0.12);
-    gPad->SetLeftMargin(0.125);
-    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(
-            *m_real_data, "real_data");
-    hist_real->SetMinimum(100);
-    hist_real->SetMaximum(1e6);
-    hist_real->GetYaxis()->SetTitleOffset(1.35);
-    hist_real->DrawCopy("CONT4 Z");
+//    TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
+//    c1->cd();
+//    gPad->SetLogz();
+//    gPad->SetRightMargin(0.12);
+//    gPad->SetLeftMargin(0.125);
+//    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(
+//            *m_real_data, "real_data");
+//    hist_real->SetMinimum(100);
+//    hist_real->SetMaximum(1e6);
+//    hist_real->GetYaxis()->SetTitleOffset(1.35);
+//    hist_real->DrawCopy("CONT4 Z");
 
-    TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
-    c2->cd();
-    gPad->SetLogz();
-    gPad->SetRightMargin(0.12);
-    gPad->SetLeftMargin(0.125);
-    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(
-            *m_simulation->getOutputData(), "simul_data");
-    hist_simu->SetMinimum(100);
-    hist_simu->SetMaximum(1e6);
-    hist_simu->GetYaxis()->SetTitleOffset(1.35);
-    hist_simu->DrawCopy("CONT4 Z");
+//    TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
+//    c2->cd();
+//    gPad->SetLogz();
+//    gPad->SetRightMargin(0.12);
+//    gPad->SetLeftMargin(0.125);
+//    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(
+//            *m_simulation->getOutputData(), "simul_data");
+//    hist_simu->SetMinimum(100);
+//    hist_simu->SetMaximum(1e6);
+//    hist_simu->GetYaxis()->SetTitleOffset(1.35);
+//    hist_simu->DrawCopy("CONT4 Z");
 
-    OutputDataIOFactory::writeIntensityData(
-            *m_simulation->getOutputData(), "meso_simul.txt");
+//    OutputDataIOFactory::writeIntensityData(
+//            *m_simulation->getOutputData(), "meso_simul.txt");
 }
 
 
@@ -204,6 +204,10 @@ void TestMesoCrystal2::initializeRealData()
     std::string file_name = "../support/input/001_ElisabethJosten/2013.01.03/004_230_P144_im_full_phitheta.txt.gz";
 
     m_real_data = OutputDataIOFactory::readIntensityData(file_name);
+    //Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.035, 0.015, 0.045, 0.020);
+    m_real_data->setMask(*mask1);
+
 
     //    OutputData<double > *real_data_half = doubleBinSize(*real_data);
     //    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);

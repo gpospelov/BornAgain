@@ -57,6 +57,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 
   # Select flags.
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+  #set(CMAKE_CXX_FLAGS_RELEASE        "-O2 -Weffc++")
   set(CMAKE_CXX_FLAGS_RELEASE        "-O2")
   set(CMAKE_CXX_FLAGS_DEBUG          "-g  -fno-reorder-blocks -fno-schedule-insns -fno-inline")
   set(CMAKE_CXX_FLAGS_DEBUGFULL      "-g3 -fno-inline")

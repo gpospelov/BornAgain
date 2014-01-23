@@ -32,6 +32,7 @@
 #include "MesoCrystal.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
+#include "FileSystem.h"
 #include "OutputDataIOFactory.h"
 #include "OutputDataReader.h"
 #include "OutputDataFunctions.h"
@@ -135,17 +136,17 @@ void TestMesoCrystal2::draw_results()
 //    hist_real->GetYaxis()->SetTitleOffset(1.35);
 //    hist_real->DrawCopy("CONT4 Z");
 
-//    TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
-//    c2->cd();
-//    gPad->SetLogz();
-//    gPad->SetRightMargin(0.12);
-//    gPad->SetLeftMargin(0.125);
-//    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(
-//            *m_simulation->getOutputData(), "simul_data");
+    TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
+    c2->cd();
+    gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    gPad->SetLeftMargin(0.125);
+    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(
+            *m_simulation->getOutputData(), "simul_data");
 //    hist_simu->SetMinimum(100);
 //    hist_simu->SetMaximum(1e6);
-//    hist_simu->GetYaxis()->SetTitleOffset(1.35);
-//    hist_simu->DrawCopy("CONT4 Z");
+    hist_simu->GetYaxis()->SetTitleOffset(1.35);
+    hist_simu->DrawCopy("CONT4 Z");
 
 //    OutputDataIOFactory::writeIntensityData(
 //            *m_simulation->getOutputData(), "meso_simul.txt");
@@ -201,11 +202,12 @@ void TestMesoCrystal2::initializeRealData()
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
     //std::string file_name = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    std::string file_name = "../support/input/001_ElisabethJosten/2013.01.03/004_230_P144_im_full_phitheta.txt.gz";
+    //std::string file_name = "../support/input/001_ElisabethJosten/2013.01.03/004_230_P144_im_full_phitheta.txt.gz";
+    std::string file_name = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi180.txt.gz";
 
     m_real_data = OutputDataIOFactory::readIntensityData(file_name);
     //Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
-    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.035, 0.015, 0.045, 0.020);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.0, 0.015, 0.09, 0.020);
     m_real_data->setMask(*mask1);
 
 
@@ -589,7 +591,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
-    size_t n_max_phi_rotation_steps = 180;
+    size_t n_max_phi_rotation_steps = 1;
     size_t n_alpha_rotation_steps = 1;
 
 //    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;

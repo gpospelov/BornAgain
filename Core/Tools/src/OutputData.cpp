@@ -22,7 +22,7 @@
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"
 
-
+#include <iostream>
 template<>
 PyObject *OutputData<double>::getArray() const
 {
@@ -42,8 +42,6 @@ PyObject *OutputData<double>::getArray() const
 
     // creating standalone numpy array
     PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
-    //std::vector<double> raw = getRawDataVector();
-    //PyObject *pyarray = PyArray_SimpleNewFromData(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE, &raw[0]);
     delete [] ndimsizes_numpy;
     if(pyarray == NULL ) {
         throw RuntimeErrorException(
@@ -54,11 +52,7 @@ PyObject *OutputData<double>::getArray() const
     // getting pointer to data buffer of numpy array
     double *array_buffer = (double *)PyArray_DATA((PyArrayObject*)pyarray);
 
-    // filling numpy array with output_data
-//    OutputData<double>::const_iterator it = begin();
-//    while(it != end() ) {
-//        *array_buffer++ = *it++;
-//    }
+    // filling numpy array with output_data (including masked areas)
     for(size_t index=0; index<getAllocatedSize(); ++index) {
         *array_buffer++ = (*this)[index];
     }

@@ -57,7 +57,7 @@ def runTest():
     fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
 
     chiModule = ChiSquaredModule()
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() )
+    chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() )
 
     fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
     fitSuite.runFit()

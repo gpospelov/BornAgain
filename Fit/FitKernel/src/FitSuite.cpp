@@ -66,10 +66,16 @@ void FitSuite::addFitParameter(const std::string& name, double value, const AttL
 }
 
 //! Adds fit strategy
-void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
+void FitSuite::addFitStrategy(IFitStrategy *strategy)
 {
     m_fit_strategies.addStrategy(strategy);
 }
+
+void FitSuite::addFitStrategy(const IFitStrategy &strategy)
+{
+    addFitStrategy(strategy.clone());
+}
+
 
 //! link FitMultiParameters with simulation parameters
 void FitSuite::link_fit_parameters()
@@ -102,15 +108,13 @@ void FitSuite::runFit()
     // running minimization using strategies
     m_fit_strategies.minimize();
 
-    // setting parameters to the optimum values found by the minimizer
+    // setting found values to the parameters (FIXME move to strategies)
     m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
+    m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
 
     // calling observers to let them to get results
     m_is_last_iteration = true;
     notifyObservers();
-
-    // setting the error
-    m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
 
 }
 

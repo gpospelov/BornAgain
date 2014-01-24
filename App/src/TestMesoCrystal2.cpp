@@ -17,6 +17,7 @@
 #include "AttLimits.h"
 #include "Crystal.h"
 #include "DrawHelper.h"
+#include "FitStrategyAdjustParameters.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -278,21 +279,21 @@ void TestMesoCrystal2::fitsuite_config4()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
             strategy->release(fixplan[i_plan][i_par]);
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -349,21 +350,21 @@ void TestMesoCrystal2::fitsuite_config3()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
             strategy->release(fixplan[i_plan][i_par]);
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -421,7 +422,7 @@ void TestMesoCrystal2::fitsuite_config2()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         strategy->setPreserveOriginalValues(true); // initial values of parameters will be restored after each fit
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
@@ -429,14 +430,14 @@ void TestMesoCrystal2::fitsuite_config2()
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -483,7 +484,7 @@ void TestMesoCrystal2::fitsuite_config1()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         strategy->setPreserveOriginalValues(true); // initial values of parameters will be restored after each fit
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
@@ -491,14 +492,14 @@ void TestMesoCrystal2::fitsuite_config1()
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }

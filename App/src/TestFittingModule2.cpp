@@ -19,7 +19,7 @@
 #include "Exceptions.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "IFitSuiteStrategy.h"
+#include "FitStrategyAdjustData.h"
 #include "FormFactors.h"
 #include "Simulation.h"
 #include "IIntensityFunction.h"
@@ -178,10 +178,10 @@ void TestFittingModule2::fit_example_strategies()
                                 AttLimits::fixed());
 
     // Applying fit strategy: resizing real data
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
+    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(3));
+    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(2));
+    m_fitSuite->addFitStrategy(new FitStrategyAdjustData(1));
+    m_fitSuite->addFitStrategy(new FitStrategyDefault());
 
     m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 

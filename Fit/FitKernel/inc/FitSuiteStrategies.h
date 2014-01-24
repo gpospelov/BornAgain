@@ -17,7 +17,7 @@
 #define FITSUITESTRATEGIES_H
 
 #include "SafePointerVector.h"
-#include "IFitSuiteStrategy.h"
+#include "IFitStrategy.h"
 
 class FitSuite;
 
@@ -28,7 +28,7 @@ class FitSuite;
 class BA_CORE_API_  FitSuiteStrategies
 {
  public:
-    typedef SafePointerVector<IFitSuiteStrategy > strategies_t;
+    typedef SafePointerVector<IFitStrategy > strategies_t;
     typedef strategies_t::iterator iterator;
 
     FitSuiteStrategies();
@@ -36,7 +36,7 @@ class BA_CORE_API_  FitSuiteStrategies
 
     void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
 
-    void addStrategy(IFitSuiteStrategy *strategy);
+    void addStrategy(IFitStrategy *strategy);
 
     void minimize();
 

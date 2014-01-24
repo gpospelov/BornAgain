@@ -33,7 +33,7 @@ void FitSuiteStrategies::clear()
     m_current_strategy_index = 0;
 }
 
-void FitSuiteStrategies::addStrategy(IFitSuiteStrategy *strategy)
+void FitSuiteStrategies::addStrategy(IFitStrategy *strategy)
 {
     assert(m_fit_suite);
     strategy->init(m_fit_suite);

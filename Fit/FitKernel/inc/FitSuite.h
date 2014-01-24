@@ -53,7 +53,8 @@ class BA_CORE_API_ FitSuite : public IObservable
     void addFitParameter(const std::string& name, double value, const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
 
     //! Adds fit strategy
-    void addFitStrategy(IFitSuiteStrategy *strategy);
+    void addFitStrategy(IFitStrategy *strategy);
+    void addFitStrategy(const IFitStrategy &strategy);
 
     //! Sets minimizer
     void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }

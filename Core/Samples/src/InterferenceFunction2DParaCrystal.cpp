@@ -179,20 +179,43 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy,
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     } else {
-        if (std::abs(1.0-fp) < Numeric::double_epsilon) {
+        if (std::abs(1.0-fp) < Numeric::double_epsilon ) {
             result = nd;
-        } else {
+        }
+        else if (std::abs(1.0-fp)*nd < 2e-4) {
+            double intermediate = geometricSum(fp, n).real()/nd;
+            result = 1.0 + 2.0*intermediate;
+        }
+        else {
             complex_t tmp;
             double double_min = std::numeric_limits<double>::min();
             if (std::log(std::abs(fp)+double_min)*nd < std::log(double_min)) {
                 tmp = complex_t(0.0, 0.0);
             } else {
-                tmp = std::pow(fp,n-1);
+            tmp = std::pow(fp,n-1);
             }
             double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp)
                     - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
             result = 1.0 + 2.0*intermediate;
         }
+    }
+    return result;
+}
+
+complex_t InterferenceFunction2DParaCrystal::geometricSum(complex_t z,
+        int exponent) const
+{
+    if (exponent<1) {
+        throw LogicErrorException(
+                "InterferenceFunction2DParaCrystal::geometricSeries:"
+                " exponent should be > 0");
+    }
+    complex_t result(0.0, 0.0);
+    double nd = (double)exponent;
+    --exponent;
+    while (exponent>0) {
+        result += std::pow(z, exponent)*(nd-exponent);
+        --exponent;
     }
     return result;
 }

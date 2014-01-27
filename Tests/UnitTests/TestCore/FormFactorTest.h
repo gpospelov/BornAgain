@@ -34,6 +34,7 @@
 #include "FormFactorTetrahedron.h"
 #include "FormFactorRipple2.h"
 #include "FormFactorRipple1.h"
+#include "FormFactorInfLongBox.h"
 
 #include "gtest/gtest.h"
 
@@ -546,6 +547,32 @@ TEST_F(FormFactorTest, Ripple1)
     EXPECT_EQ(100., ripple1clone->getLength());
     EXPECT_DOUBLE_EQ(volume, ripple1clone->getVolume());
 }
+
+// Test form factor of a infinite long box
+TEST_F(FormFactorTest, InfLongBox)
+{
+    double height = 15.;
+    double width = 100.0/M_PI;
+    double volume = 2*M_PI*height*width;
+
+    FormFactorInfLongBox ilbox(width, height);
+
+    EXPECT_EQ("FormFactorInfLongBox",ilbox.getName());
+    EXPECT_DOUBLE_EQ(100./M_PI, ilbox.getWidth());
+    EXPECT_EQ(15., ilbox.getHeight());
+    EXPECT_DOUBLE_EQ(50./M_PI, ilbox.getRadius());
+    EXPECT_DOUBLE_EQ(volume, ilbox.getVolume());
+    EXPECT_EQ(2, ilbox.getNumberOfStochasticParameters());
+
+    FormFactorInfLongBox *ilboxclone = ilbox.clone();
+    EXPECT_EQ("FormFactorInfLongBox",ilboxclone->getName());
+    EXPECT_DOUBLE_EQ(100./M_PI, ilboxclone->getWidth());
+    EXPECT_EQ(15., ilboxclone->getHeight());
+    EXPECT_DOUBLE_EQ(volume, ilboxclone->getVolume());
+    EXPECT_EQ(2, ilboxclone->getNumberOfStochasticParameters());
+    EXPECT_DOUBLE_EQ(50./M_PI, ilboxclone->getRadius());
+}
+
 
 #endif // FORMFACTORTEST_H
 

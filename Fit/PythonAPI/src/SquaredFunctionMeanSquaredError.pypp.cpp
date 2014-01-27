@@ -33,10 +33,10 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredDifference = this->get_override( "calculateSquaredDifference" ) )
             return func_calculateSquaredDifference( real_value, simulated_value );
-        else{
+        else
             return this->SquaredFunctionMeanSquaredError::calculateSquaredDifference( real_value, simulated_value );
-        }
     }
+    
     
     double default_calculateSquaredDifference( double real_value, double simulated_value ) const  {
         return SquaredFunctionMeanSquaredError::calculateSquaredDifference( real_value, simulated_value );
@@ -45,10 +45,10 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
     virtual ::SquaredFunctionMeanSquaredError * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->SquaredFunctionMeanSquaredError::clone(  );
-        }
     }
+    
     
     ::SquaredFunctionMeanSquaredError * default_clone(  ) const  {
         return SquaredFunctionMeanSquaredError::clone( );
@@ -57,10 +57,10 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
     virtual double calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( real_value, simulated_value );
-        else{
+        else
             return this->ISquaredFunction::calculateSquaredError( real_value, simulated_value );
-        }
     }
+    
     
     double default_calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
         return ISquaredFunction::calculateSquaredError( real_value, simulated_value );

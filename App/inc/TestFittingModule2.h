@@ -63,7 +63,8 @@ public:
     void fit_example_chimodule();
 
     //! fit example with strategies
-    void fit_example_strategies();
+    void fit_example_strategy_data();
+    void fit_example_strategy_parameters();
 
     //! fit example with data masking
     void fit_example_mask();

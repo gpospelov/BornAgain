@@ -91,7 +91,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSizeOfData
         
-            typedef ::size_t ( ::FitObject::*getSizeOfData_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitObject::*getSizeOfData_function_type )(  ) const;
             
             FitObject_exposer.def( 
                 "getSizeOfData"

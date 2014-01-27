@@ -71,4 +71,13 @@ protected:
 };
 
 
+//! @class FitStrategyFixParameters
+//! @ingroup fitting_internal
+//! @brief Strategy which fixes/releases fit parameters and call minimizer
+
+//class BA_CORE_API_ FitStrategyFixParameters : public IFitStrategy
+//{
+//public:
+
+
 #endif  // FITSTRATEGYADJUSTPARAMETERS_H

@@ -2,16 +2,6 @@
 #  CheckCompiler.cmake
 #---------------------------------------------------------------------------------------------------
 
-#---Enable FORTRAN (unfortunatelly is not nowt possible in all cases)-------------------------------
-#if(NOT WIN32 AND NOT CMAKE_GENERATOR STREQUAL Xcode AND NOT CMAKE_GENERATOR STREQUAL Ninja)
-#  #--Work-around for CMake issue 0009220
-#  if(DEFINED CMAKE_Fortran_COMPILER AND CMAKE_Fortran_COMPILER MATCHES "^$")
-#    set(CMAKE_Fortran_COMPILER CMAKE_Fortran_COMPILER-NOTFOUND)
-#  endif()
-#  enable_language(Fortran OPTIONAL)
-#endif()
-
-
 #----Test if clang setup works----------------------------------------------------------------------
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   exec_program(${CMAKE_C_COMPILER} ARGS "-v" OUTPUT_VARIABLE _clang_version_info)
@@ -83,4 +73,14 @@ endif()
 message(STATUS "BornAgain Platform: ${BORNAGAIN_PLATFORM}")
 message(STATUS "BornAgain Architecture: ${BORNAGAIN_ARCHITECTURE}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "Compiler Flags: ${CMAKE_CXX_FLAGS} ${ALL_CXX_FLAGS_${CMAKE_BUILD_TYPE}}")
+
+set(all_cxx_flags ${CMAKE_CXX_FLAGS})
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(all_cxx_flags "${all_cxx_flags} ${CMAKE_CXX_FLAGS_RELEASE}")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(all_cxx_flags "${all_cxx_flags} ${CMAKE_CXX_FLAGS_DEBUG}")
+elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(all_cxx_flags "${all_cxx_flags} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+endif()
+
+message(STATUS "Compiler Flags: ${all_cxx_flags}")

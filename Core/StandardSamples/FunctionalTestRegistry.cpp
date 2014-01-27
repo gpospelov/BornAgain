@@ -69,7 +69,7 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
     add("isgisaxs08a",
         "2DDL paracrystal lattice",
-        "isgisaxs08_reference_2DDL_lattice.ima.gz", 2e-10);
+        "isgisaxs08_reference_2DDL_lattice.ima.gz", 3e-10);
     add("isgisaxs08b",
         "2D paracrystal lattice with isotropic pdfs",
         "isgisaxs08_reference_2DDL_lattice2.ima.gz", 2e-10);

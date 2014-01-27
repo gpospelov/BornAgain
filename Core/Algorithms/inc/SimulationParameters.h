@@ -16,6 +16,7 @@
 #ifndef SIMULATIONPARAMETERS_H_
 #define SIMULATIONPARAMETERS_H_
 
+#include "WinDllMacros.h"
 
 //! @class Simulation
 //! @ingroup simulation

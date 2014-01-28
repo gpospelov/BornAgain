@@ -1183,18 +1183,21 @@ This shape is referred to as ``Anisotropic hemi ellipsoid'' in  \Code{ISGISAXS}.
 
 \paragraph{Parameters:}
 \begin{itemize}
-\item length 
-\item width 
-\item height 
+\item $L$ = length 
+\item $W$ = width 
+\item $H$ = height 
 \end{itemize}
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V = $,
-\item particle surface seen from above $S $.
+\item volume $V = 0.5 L W H $,
+\item particle surface seen from above $S = L W$.
 \end{itemize}
 
 \subsection{Expression of the form factor}
+\begin{align*}
+F_{\rm{ripple1}}(\mathbf{q}) &=L \cdot \frac{W}{\pi}\cdot \sinc\left[\frac{Lq_x}{2}\right]\times \\ &\int_0^H{dz \arccos\left[\frac{2z}{H}-1\right]\sinc\left[\frac{Wq_y}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left[iq_zz\right]}
+\end{align*}
 
 \paragraph{Syntax:} \Code{FormFactorRipple1(,,)}
 
@@ -1220,18 +1223,24 @@ This shape is referred to as ``Anisotropic hemi ellipsoid'' in  \Code{ISGISAXS}.
 
 \paragraph{Parameters:}
 \begin{itemize}
-\item length 
-\item width 
-\item height 
+\item $L$ = length 
+\item $W$ = width 
+\item $H$ = height
+\item $d$ = asymetry 
 \end{itemize}
+
+\paragraph{Restriction on the parameters:} $|d| < \frac{W}{2} $
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V = $,
-\item particle surface seen from above $S $.
+\item volume $V = 0.5 L W H$,
+\item particle surface seen from above $S = L W$.
 \end{itemize}
 
 \subsection{Expression of the form factor}
+\begin{align*}
+F_{\rm{ripple2}}(\mathbf{q}) &=L W \sinc\left[\frac{Lq_x}{2}\right]\times \\ &\int_0^H{dz \left(1-\frac{z}{H}\right)\sinc\left[\frac{Wq_y}{2}\left(1-\frac{z}{H}\right)\right]\exp\left[i\left(q_zz - q_yd\left(1-\frac{z}{H}\right)\right)\right]}
+\end{align*}
 
 \paragraph{Syntax:} \Code{FormFactorRipple2(,,)}
 

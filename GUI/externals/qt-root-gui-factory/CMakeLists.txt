@@ -35,8 +35,8 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 message("XXX ${GQt_LIBRARY}")
 message("XXX ${ROOT_LIBRARIES} ")
 include_directories(
-    ${ROOT_INCLUDE_DIR}
     ${GQt_INCLUDE_DIRS}
+    ${ROOT_INCLUDE_DIR}
 )
 
 target_link_libraries(

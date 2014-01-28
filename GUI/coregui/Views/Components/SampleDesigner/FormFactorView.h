@@ -88,7 +88,7 @@ class FormFactorPyramidView : public FormFactorView
     Q_PROPERTY(double weight READ getWeight WRITE setWeight )
     Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
     Q_PROPERTY(double height READ getHeight WRITE setHeight )
-    Q_PROPERTY(double half_side READ getHalfSide WRITE setHalfSide )
+    Q_PROPERTY(double length READ getLength WRITE setLength )
     Q_PROPERTY(double alpha READ getAlpha WRITE setAlpha )
 public:
     enum { Type = DesignerHelper::FormFactorPyramidType };
@@ -112,12 +112,12 @@ public:
     const FormFactorPyramid *getFormFactor() const { return m_ff; }
 
     double getHeight() const { return m_ff->getHeight(); }
-    double getHalfSide() const { return m_ff->getHalfSide(); }
+    double getLength() const { return m_ff->getLength(); }
     double getAlpha() const { return m_ff->getAlpha(); }
 
 public slots:
     void setHeight(double height) { m_ff->setHeight(height); }
-    void setHalfSide(double half_side) { m_ff->setHalfSide(half_side); }
+    void setLength(double half_side) { m_ff->setLength(half_side); }
     void setAlpha(double alpha) { m_ff->setAlpha(alpha); }
 
 private:
@@ -174,7 +174,7 @@ class FormFactorPrism3View : public FormFactorView
     Q_PROPERTY(double weight READ getWeight WRITE setWeight )
     Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
     Q_PROPERTY(double height READ getHeight WRITE setHeight )
-    Q_PROPERTY(double half_side READ getHalfSide WRITE setHalfSide )
+    Q_PROPERTY(double length READ getLength WRITE setLength )
 public:
     enum { Type = DesignerHelper::FormFactorPrism3Type };
 
@@ -195,11 +195,11 @@ public:
     const FormFactorPrism3 *getFormFactor() const { return m_ff; }
 
     double getHeight() const { return m_ff->getHeight(); }
-    double getHalfSide() const { return m_ff->getHalfSide(); }
+    double getLength() const { return m_ff->getLength(); }
 
 public slots:
     void setHeight(double height) { m_ff->setHeight(height); }
-    void setHalfSide(double half_side) { m_ff->setHalfSide(half_side); }
+    void setLength(double half_side) { m_ff->setLength(half_side); }
 
 private:
     FormFactorPrism3 *m_ff;

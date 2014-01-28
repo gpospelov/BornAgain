@@ -76,13 +76,13 @@ add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
 # --- dependencies ---
 include_directories(
+    ${GQt_INCLUDE_DIRS}
+    ${QtRoot_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
     ${ROOT_INCLUDE_DIR}
     ${ManhattanStyle_INCLUDE_DIRS}
-    ${GQt_INCLUDE_DIRS}
-    ${QtRoot_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
 )
@@ -91,16 +91,17 @@ target_link_libraries(${executable_name}
 
 #core gui script webkit webkitwidgets designer designercomponents
 
+message("XXX ${ROOT_LIBRARIES}")
 target_link_libraries(${executable_name} 
-    ${Qt5Widgets_LIBRARIES} 
+    ${GQt_LIBRARY}
+    ${QtRoot_LIBRARY}
+    ${Qt5Widgets_LIBRARIES}
     ${PYTHON_LIBRARY} 
     ${Boost_LIBRARIES}
     ${ROOT_LIBRARIES}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${ManhattanStyle_LIBRARY} 
-    ${GQt_LIBRARY}
-    ${QtRoot_LIBRARY}
 )
 
 #core gui script webkit webkitwidgets designer designercomponents

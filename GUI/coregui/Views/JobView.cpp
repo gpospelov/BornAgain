@@ -13,7 +13,7 @@
 JobView::JobView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
     , mp_simulation_data_model(p_simulation_data_model)
-    , mp_canvas(0)
+//    , mp_canvas(0)
     , m_joblist(0)
     , mp_cached_histo(0)
 {
@@ -21,13 +21,13 @@ JobView::JobView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     updateJobList();
 
     // initialize canvas
-    mp_canvas = new RootCanvas(this);
-    mp_canvas->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    mp_canvas = new RootCanvas(this);
+//    mp_canvas->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
      // layout
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_joblist);
-    mainLayout->addWidget(mp_canvas);
+//    mainLayout->addWidget(mp_canvas);
     setLayout(mainLayout);
 
     // signals and slots
@@ -58,21 +58,21 @@ void JobView::updateJobList()
 void JobView::updateGraphics()
 {
     static int ncalls=0;
-    if (mp_canvas) {
-        JobModel *p_current_job = getCurrentJobModel();
-        if (p_current_job==0) return;
-        mp_canvas->cd();
-        gPad->SetLogz();
-        mp_cached_histo = p_current_job->getHistogram();
-        mp_cached_histo->SetContour(99);
-        gStyle->SetPalette(1);
-        gStyle->SetOptStat(0);
-        mp_cached_histo->SetMinimum(1.);
-        //mp_cached_histo->Draw("CONTZ");
-        mp_cached_histo->Draw("COL Z");
-        mp_canvas->Update();
-        std::cout << "XXX update " << (ncalls++) << std::endl;
-    }
+//    if (mp_canvas) {
+//        JobModel *p_current_job = getCurrentJobModel();
+//        if (p_current_job==0) return;
+//        mp_canvas->cd();
+//        gPad->SetLogz();
+//        mp_cached_histo = p_current_job->getHistogram();
+//        mp_cached_histo->SetContour(99);
+//        gStyle->SetPalette(1);
+//        gStyle->SetOptStat(0);
+//        mp_cached_histo->SetMinimum(1.);
+//        //mp_cached_histo->Draw("CONTZ");
+//        mp_cached_histo->Draw("COL Z");
+//        mp_canvas->Update();
+//        std::cout << "XXX update " << (ncalls++) << std::endl;
+//    }
 }
 
 void JobView::onSelectionChanged()

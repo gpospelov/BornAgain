@@ -1,4 +1,4 @@
-// @(#)root/qt:$Id: GQtGUI.cxx 42699 2012-01-18 14:24:11Z rdm $
+// @(#)root/qt:$Id$
 // Author: Valeri Fine   23/01/2003
 
 /*************************************************************************
@@ -53,7 +53,9 @@
 #  include <QLine>
 #  include <QVector>
 #ifdef R__QTX11
-#  include <QX11Info>
+//#  include <QX11Info>
+#include "x11info.h"
+
 #endif
 #endif /* QT_VERSION */
 
@@ -576,7 +578,7 @@ public:
          }
          if (rootContext.HasValid(QtGContext::kClipOrigin)) {
             // fprintf(stderr," NO special painter  Qt implementation for ClipOrigin option yet\n");
-            // setClipRect ( fClipOrigin , int w, int h, CoordinateMode m = CoordDevice )
+            // setClipRect ( fClipOrigin , int_w, int_h, CoordinateMode_m = CoordDevice )
          }
          if (rootContext.HasValid(QtGContext::kClipMask)) {
             // fprintf(stderr," NO special painter  Qt implementation for ClipMask option yet\n");
@@ -796,8 +798,9 @@ void TGQt::GetWindowAttributes(Window_t id, WindowAttributes_t &attr)
    attr.fClass    = kInputOutput;
    attr.fRoot     = Window_t(thisWindow.topLevelWidget () );
 #ifdef R__QTX11
-   const QX11Info &info =  thisWindow.x11Info();
-   attr.fVisual   = info.visual(); // = gdk_window_get_visual((GdkWindow *) id);
+//   const QX11Info &info =  thisWindow.x11Info();
+//   attr.fVisual   = info.visual(); // = gdk_window_get_visual((GdkWindow *) id);
+   attr.fVisual   = 0; // = gdk_window_get_visual((GdkWindow *) id);
 #else
    attr.fVisual   = 0; // = gdk_window_get_visual((GdkWindow *) id);
 #endif
@@ -831,7 +834,7 @@ void TGQt::GetWindowAttributes(Window_t id, WindowAttributes_t &attr)
 Bool_t TGQt::ParseColor(Colormap_t /*cmap*/, const char *cname, ColorStruct_t &color)
 {
    // Parse string cname containing color name, like "green" or "#00FF00".
-   // It returns a filled in ColorStruct_t. Returns kFALSE in case parsing
+   // It returns a filled in ColorStruct_t. Returns kkFALSE in case parsing
    // failed, kTRUE in case of success. On success, the ColorStruct_t
    // fRed, fGreen and fBlue fields are all filled in and the mask is set
    // for all three colors, but fPixel is not set.
@@ -860,7 +863,7 @@ Bool_t TGQt::ParseColor(Colormap_t /*cmap*/, const char *cname, ColorStruct_t &c
 Bool_t TGQt::AllocColor(Colormap_t /*cmap*/, ColorStruct_t &color)
 {
    // Find and allocate a color cell according to the color values specified
-   // in the ColorStruct_t. If no cell could be allocated it returns kFALSE,
+   // in the ColorStruct_t. If no cell could be allocated it returns kkFALSE,
    // otherwise kTRUE.
 
    // Set pixel value. Let system think we could allocate color.
@@ -1029,7 +1032,7 @@ void         TGQt::MapRaised(Window_t id)
    MapWindow(id);
    do {
 ////      wg->show();
-      wg->setHidden (false);
+      wg->setHidden (kFALSE);
       wg = wg->parentWidget();
    }  while ( wg && (!wg->isVisible()) );
    if (updateUnable)
@@ -1042,7 +1045,7 @@ void         TGQt::MapRaised(Window_t id)
 #else
 #if 0
      QWidget *wg = winid(id);
-     wg->setHidden(false);
+     wg->setHidden(kFALSE);
      wg->raise();
      wg->show();
 #ifdef R__QTWIN32
@@ -1061,7 +1064,7 @@ void         TGQt::MapRaised(Window_t id)
    // fprintf(stderr, "  -2- TGQt::MapRaised id = %p vis=%d \n", id, wid(id)->isVisible());
    QWidget *wg = wid(id);
    if ( wg->isTopLevel() )  {
-      // wg->setHidden(false);
+      // wg->setHidden(kFALSE);
 #ifdef R__QTWIN32
       // raising the window under MS Windows needs some extra effort.
       HWND h = wg->winId();
@@ -1167,7 +1170,7 @@ Bool_t TGQt::NeedRedraw(ULong_t w, Bool_t force)
    return !force;
 #else
   if (w||force) {}
-   return kFALSE;   
+   return kFALSE;
 #endif     
 }
 //______________________________________________________________________________
@@ -1358,7 +1361,8 @@ Display_t  TGQt::GetDisplay() const
    // Using this method makes the rest of the ROOT X11 depended
 
 #ifdef R__QTX11
-   return (Display_t)QX11Info::display();
+//   return (Display_t)QX11Info::display();
+    return 0;
 #else
    // The dummy method to fit the X11-like interface
    return 0;
@@ -1375,7 +1379,8 @@ Visual_t   TGQt::GetVisual() const
    // Using this method makes the rest of the ROOT X11 depended
 
 #ifdef R__QTX11
-   return (Visual_t) QX11Info::appVisual();
+//   return (Visual_t) QX11Info::appVisual();
+    return 0;
 #else
    // The dummy method to fit the X11-like interface
    return 0;
@@ -1392,7 +1397,8 @@ Int_t      TGQt::GetScreen() const
    // Using this method makes the rest of the ROOT X11 depended
 
 #ifdef R__QTX11
-   return   QX11Info::appScreen();
+//   return   QX11Info::appScreen();
+    return 0;
 #else
    // The dummy method to fit the X11-like interface
    return 0;
@@ -1403,7 +1409,8 @@ Int_t      TGQt::GetDepth() const
 {
    // Returns depth of screen (number of bit planes).
 #ifdef R__QTX11
-   return  QX11Info::appDepth();
+   //return  QX11Info::appDepth();
+   return QPixmap::defaultDepth();
 #else
    return QPixmap::defaultDepth();
 #endif
@@ -1415,7 +1422,7 @@ Colormap_t TGQt::GetColormap() const { return 0; }
 Atom_t     TGQt::InternAtom(const char *atom_name, Bool_t /*only_if_exist*/)
 {
    // Return atom handle for atom_name. If it does not exist
-   // create it if only_if_exist is false. Atoms are used to communicate
+   // create it if only_if_exist is kFALSE. Atoms are used to communicate
    // between different programs (i.e. window manager) via the X server.
 
    const char *rootAtoms[] = {  "WM_DELETE_WINDOW"
@@ -1614,7 +1621,7 @@ Bool_t       TGQt::CreatePictureFromFile( Drawable_t /*id*/, const char *filenam
 {
    // Create a picture pixmap from data on file. The picture attributes
    // are used for input and output. Returns kTRUE in case of success,
-   // kFALSE otherwise. If mask does not exist it is set to kNone.
+   // kkFALSE otherwise. If mask does not exist it is set to kNone.
    QPixmap *pixmap = 0;
    if (pict  != kNone )
       pixmap = fQPixmapGuard.Pixmap(pict);
@@ -1645,7 +1652,7 @@ Bool_t       TGQt::CreatePictureFromData(Drawable_t /*id*/, char **data,
 {
    // Create a pixture pixmap from data. The picture attributes
    // are used for input and output. Returns kTRUE in case of success,
-   // kFALSE otherwise. If mask does not exist it is set to kNone.
+   // kkFALSE otherwise. If mask does not exist it is set to kNone.
    QPixmap *pixmap = fQPixmapGuard.Pixmap(pict);
    if (!pixmap) {
       pixmap = fQPixmapGuard.Create((const char **)data);
@@ -1667,7 +1674,7 @@ Bool_t       TGQt::CreatePictureFromData(Drawable_t /*id*/, char **data,
 Bool_t       TGQt::ReadPictureDataFromFile(const char *fileName, char ***data)
 {
    // Read picture data from file and store in ret_data. Returns kTRUE in
-   // case of success, kFALSE otherwise.
+   // case of success, kkFALSE otherwise.
    QPixmap *pictureBuffer = fQPixmapGuard.Create(QString(fileName));
    if (pictureBuffer->isNull()){
       fQPixmapGuard.Delete(pictureBuffer);
@@ -1934,9 +1941,9 @@ Bool_t       TGQt::CheckEvent(Window_t, EGEventType, Event_t &)
 {
    // Check if there is for window "id" an event of type "type". If there
    // is fill in the event structure and return true. If no such event
-   // return false.
+   // return kFALSE.
   
-    return kFALSE; 
+    return kFALSE;
 }
 //______________________________________________________________________________
 void         TGQt::SendEvent(Window_t id, Event_t *ev)
@@ -1983,7 +1990,7 @@ void         TGQt::SendEvent(Window_t id, Event_t *ev)
    // Establish passive grab on a certain key. That is, when a certain key
    // keycode is hit while certain modifier's (Shift, Control, Meta, Alt)
    // are active then the keyboard will be grabed for window id.
-   // When grab is false, ungrab the keyboard for this key and modifier.
+   // When grab is kFALSE, ungrab the keyboard for this key and modifier.
    // A modifiers argument of AnyModifier is equivalent to issuing the
    // request for all possible modifier combinations (including the combination of no modifiers).
 
@@ -2003,15 +2010,15 @@ void         TGQt::SendEvent(Window_t id, Event_t *ev)
    // Establish passive grab on a certain mouse button. That is, when a
    // certain mouse button is hit while certain modifier's (Shift, Control,
    // Meta, Alt) are active then the mouse will be grabed for window id.
-   // When grab is false, ungrab the mouse button for this button and modifier.
+   // When grab is kFALSE, ungrab the mouse button for this button and modifier.
 
     //X11: ButtonPress event is reported if all of the following conditions are true:
-    //   ·    The pointer is not grabbed, and the specified button is logically
+    //   *    The pointer is not grabbed, and the specified button is logically
     //        pressed when the specified modifier keys are logically down,
     //        and no other buttons or modifier keys are logically down.
-    //   ·    The grab_window contains the pointer.
-    //   ·    The confine_to window (if any) is viewable.
-    //   ·    A passive grab on the same button/key combination does not exist
+    //   *    The grab_window contains the pointer.
+    //   *    The confine_to window (if any) is viewable.
+    //   *    A passive grab on the same button/key combination does not exist
     //        on any ancestor of grab_window.
 
 //    fprintf(stderr,"TGQt::GrabButton \"0x%x\" id=%x QWidget = %p\n"
@@ -2037,10 +2044,10 @@ void         TGQt::SendEvent(Window_t id, Event_t *ev)
 
     // XGrabPointer(3X11):
        // The XGrabPointer function actively grabs control of the
-       // pointer and returns GrabSuccess if the grab was success­
+       // pointer and returns GrabSuccess if the grab was success-
        // ful.  Further pointer events are reported only to the
        // grabbing client.  XGrabPointer overrides any active
-       // pointer grab by this client.  If owner_events is False,
+       // pointer grab by this client.  If owner_events is kFALSE,
        // all generated pointer events are reported with respect to
        // grab_window and are reported only if selected by
        // event_mask.  If owner_events is True and if a generated
@@ -2242,7 +2249,7 @@ void  TGQt::DrawString(Drawable_t id, GContext_t gc, Int_t x, Int_t y,
 //______________________________________________________________________________
 Int_t TGQt::TextWidth(FontStruct_t font, const char *s, Int_t len)
 {
-   // Return lenght of string in pixels. Size depends on font.
+   // Return length of string in pixels. Size depends on font.
 
    Int_t textWidth = 0;
    if (len >0 && s && s[0] != 0 ) {
@@ -2467,22 +2474,22 @@ static inline Int_t MapKeySym(int key, bool toQt=true)
        //clients.  Multiple clients can select for the same events
        //on the same window with the following restrictions:
 
-       //·    Multiple clients can select events on the same window
+       //*    Multiple clients can select events on the same window
        //     because their event masks are disjoint.  When the X
        //     server generates an event, it reports it to all
        //     interested clients.
 
-       //·    Only one client at a time can select Circu­
+       //*    Only one client at a time can select Circu-
        //     lateRequest, ConfigureRequest, or MapRequest events,
-       //     which are associated with the event mask Substructur­
+       //     which are associated with the event mask Substructur-
        //     eRedirectMask.
 
-       //·    Only one client at a time can select a ResizeRequest
-       //     event, which is associated with the event mask Resiz­
+       //*    Only one client at a time can select a ResizeRequest
+       //     event, which is associated with the event mask Resiz-
        //     eRedirectMask.
 
-       //·    Only one client at a time can select a ButtonPress
-       //     event, which is associated with the event mask But­
+       //*    Only one client at a time can select a ButtonPress
+       //     event, which is associated with the event mask But-
        //     tonPressMask.
 
        //The server reports the event to all interested clients.
@@ -2704,11 +2711,11 @@ void         TGQt::Update(Int_t mode)
    // Flush flushes output buffer. Sync flushes buffer and waits till all
    // requests have been processed by X server.
    if (mode)
-#ifdef R__QTX11
-      QApplication::syncX (); else
-#else
-      {}
-#endif
+//#ifdef R__QTX11
+//      QApplication::syncX (); else
+//#else
+//      {}
+//#endif
       QApplication::flush ();
 }
 //------------------------------------------------------------------------------
@@ -2837,7 +2844,7 @@ Bool_t TGQt::PointInRegion(Int_t x, Int_t y, Region_t reg)
 {
    // Returns true if the point x,y is in the region.
 	if( !reg )
-		return false;
+        return kFALSE;
 
 	QRegion& r = *(QRegion*) reg;
 	return r.contains( QPoint(x, y) );
@@ -2848,7 +2855,7 @@ Bool_t TGQt::EqualRegion(Region_t rega, Region_t regb)
    // Returns true if two regions are equal.
 
    if( !rega || !regb )
-      return false;
+      return kFALSE;
 
    QRegion& a = *(QRegion*) rega;
    QRegion& b = *(QRegion*) regb;

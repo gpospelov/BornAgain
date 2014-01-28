@@ -174,7 +174,7 @@ void TestInfLongBox::initializeSimulation()
 TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
     : m_w(20.0*Units::nanometer)
     , m_h(4.0*Units::nanometer)
-    , m_interf_distance(20.0*Units::nanometer)
+    , m_interf_distance(40.0*Units::nanometer)
     , m_interf_width(4.0*Units::nanometer)
 {
       init_parameters();

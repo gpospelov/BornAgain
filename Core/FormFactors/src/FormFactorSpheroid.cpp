@@ -60,7 +60,7 @@ complex_t FormFactorSpheroid::Integrand(double Z, void* params) const
 
     double Rz  = std::sqrt(R*R-Z*Z/(fp*fp));
     complex_t qrRz = m_q.magxy()*Rz;
-    complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_C1(std::abs(qrRz));
+    complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_C1(qrRz);
 
     return Rz * Rz * J1_qrRz_div_qrRz * std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
 }

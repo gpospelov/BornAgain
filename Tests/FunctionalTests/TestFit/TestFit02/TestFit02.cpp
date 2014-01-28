@@ -67,7 +67,7 @@ int TestFit02::run()
             AttLimits::fixed());
 
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() );
+    chiModule.setChiSquaredFunction( new SquaredFunctionMeanSquaredError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
     fitSuite->addSimulationAndRealData(*simulation, *real_data, chiModule);
 

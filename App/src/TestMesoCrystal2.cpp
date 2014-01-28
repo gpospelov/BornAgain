@@ -306,7 +306,7 @@ void TestMesoCrystal2::fitsuite_config4()
     ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    chiModule.setChiSquaredFunction( SquaredFunctionMeanSquaredError() );
+    chiModule.setChiSquaredFunction( new  SquaredFunctionMeanSquaredError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);
@@ -376,7 +376,7 @@ void TestMesoCrystal2::fitsuite_config3()
     ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError() );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);

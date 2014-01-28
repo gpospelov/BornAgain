@@ -75,10 +75,15 @@ void IChiSquaredModule::setFittingDataSelector(const IFittingDataSelector& selec
     mp_data_selector = selector.clone();
 }
 
-void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction& squared_function)
+void IChiSquaredModule::setChiSquaredFunction(ISquaredFunction *squared_function)
 {
     delete mp_squared_function;
-    mp_squared_function = squared_function.clone();
+    mp_squared_function = squared_function;
+}
+
+void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction& squared_function)
+{
+    setChiSquaredFunction(squared_function.clone());
 }
 
 void IChiSquaredModule::setOutputDataNormalizer(const IOutputDataNormalizer& data_normalizer)

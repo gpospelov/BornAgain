@@ -59,6 +59,7 @@ public:
         return mp_squared_function; }
 
     //! Sets squared function
+    void setChiSquaredFunction(ISquaredFunction *squared_function);
     void setChiSquaredFunction(const ISquaredFunction& squared_function);
 
     //! Returns fitting data selector

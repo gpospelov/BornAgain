@@ -46,6 +46,7 @@
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
 #include "IInterferenceFunction.h"
+#include "IntensityDataHelper.h"
 #include "IMaterial.h"
 #include "IObserver.h"
 #include "IParameterized.h"

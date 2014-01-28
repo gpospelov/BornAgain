@@ -46,6 +46,7 @@ double ChiSquaredModule::calculateChiSquared()
     OutputData<double> *p_difference = createChi2DifferenceMap();
     OutputData<double>::const_iterator it_weights = mp_weights->begin();
     OutputData<double>::const_iterator it_diff = p_difference->begin();
+
     double sum = 0;
     while(it_diff != p_difference->end())
         sum += (*it_diff++)*(*it_weights++);
@@ -92,6 +93,9 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
     OutputData<double>::const_iterator it_real = mp_real_data->begin();
 
     while (it_diff != p_difference->end()) {
+        if( (it_sim.getIndex() != it_real.getIndex()) || (it_sim.getIndex() != it_diff.getIndex()) ) {
+            throw DomainErrorException("ChiSquaredModule::calculateChiSquared() -> Iterator inconsistency");
+        }
         double value_simu = *it_sim++;
         double value_real = *it_real++;
         double squared_difference =
@@ -103,5 +107,6 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 
     return p_difference;
 }
+
 
 

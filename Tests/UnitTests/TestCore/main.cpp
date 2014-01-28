@@ -8,6 +8,7 @@
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
 #include "DetectorTest.h"
+#include "DWBASimulationTest.h"
 #include "FormFactorTest.h"
 #include "InstrumentTest.h"
 #include "IParameterizedTest.h"

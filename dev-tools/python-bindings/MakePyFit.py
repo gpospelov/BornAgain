@@ -45,14 +45,20 @@ include_classes = [
     "IMinimizer",
     "IOutputDataNormalizer",
     "ISquaredFunction",
+    "IFitStrategy",
+    "FitStrategyDefault",
+    "FitStrategyAdjustParameters",
+    "FitStrategyFixParameters",
+    "FitStrategyReleaseParameters",
+    "FitStrategyAdjustMinimizer",
     "MinimizerFactory",
     "MinimizerOptions",
     "OutputDataNormalizer",
     "OutputDataSimpleNormalizer",
     "SquaredFunctionDefault",
-    "SquaredFunctionWhichOnlyWorks",
-    "SquaredFunctionWithGaussianError",
-    "SquaredFunctionWithSystematicError",
+    "SquaredFunctionMeanSquaredError",
+    "SquaredFunctionGaussianError",
+    "SquaredFunctionSystematicError",
 ]
 
 

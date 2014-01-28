@@ -17,6 +17,7 @@
 #include "AttLimits.h"
 #include "Crystal.h"
 #include "DrawHelper.h"
+#include "FitStrategyAdjustParameters.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -24,6 +25,7 @@
 #include "Simulation.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
+#include "IntensityDataHelper.h"
 #include "IsGISAXSTools.h"
 #include "LatticeBasis.h"
 #include "MaterialManager.h"
@@ -31,6 +33,7 @@
 #include "MesoCrystal.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
+#include "FileSystem.h"
 #include "OutputDataIOFactory.h"
 #include "OutputDataReader.h"
 #include "OutputDataFunctions.h"
@@ -118,21 +121,21 @@ void TestMesoCrystal2::draw_results()
     m_simulation->runSimulation();
     m_simulation->normalize();
 
-    IsGISAXSTools::drawOutputDataComparisonResults(
-            *m_simulation->getOutputData(), *m_real_data,
-            "found", "found params", 100, 1e6, 100);
+//    IsGISAXSTools::drawOutputDataComparisonResults(
+//            *m_simulation->getOutputData(), *m_real_data,
+//            "found", "found params", 100, 1e6, 100);
 
-    TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
-    c1->cd();
-    gPad->SetLogz();
-    gPad->SetRightMargin(0.12);
-    gPad->SetLeftMargin(0.125);
-    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(
-            *m_real_data, "real_data");
-    hist_real->SetMinimum(100);
-    hist_real->SetMaximum(1e6);
-    hist_real->GetYaxis()->SetTitleOffset(1.35);
-    hist_real->DrawCopy("CONT4 Z");
+//    TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
+//    c1->cd();
+//    gPad->SetLogz();
+//    gPad->SetRightMargin(0.12);
+//    gPad->SetLeftMargin(0.125);
+//    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(
+//            *m_real_data, "real_data");
+//    hist_real->SetMinimum(100);
+//    hist_real->SetMaximum(1e6);
+//    hist_real->GetYaxis()->SetTitleOffset(1.35);
+//    hist_real->DrawCopy("CONT4 Z");
 
     TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
     c2->cd();
@@ -141,13 +144,13 @@ void TestMesoCrystal2::draw_results()
     gPad->SetLeftMargin(0.125);
     TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(
             *m_simulation->getOutputData(), "simul_data");
-    hist_simu->SetMinimum(100);
-    hist_simu->SetMaximum(1e6);
+//    hist_simu->SetMinimum(100);
+//    hist_simu->SetMaximum(1e6);
     hist_simu->GetYaxis()->SetTitleOffset(1.35);
     hist_simu->DrawCopy("CONT4 Z");
 
-    OutputDataIOFactory::writeIntensityData(
-            *m_simulation->getOutputData(), "meso_simul.txt");
+//    OutputDataIOFactory::writeIntensityData(
+//            *m_simulation->getOutputData(), "meso_simul.txt");
 }
 
 
@@ -199,9 +202,15 @@ void TestMesoCrystal2::initializeRealData()
     delete m_real_data;
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    std::string file_name = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    //std::string file_name = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    //std::string file_name = "../support/input/001_ElisabethJosten/2013.01.03/004_230_P144_im_full_phitheta.txt.gz";
+    std::string file_name = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi180.txt.gz";
 
     m_real_data = OutputDataIOFactory::readIntensityData(file_name);
+    //Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.0, 0.015, 0.09, 0.020);
+    m_real_data->setMask(*mask1);
+
 
     //    OutputData<double > *real_data_half = doubleBinSize(*real_data);
     //    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
@@ -270,21 +279,21 @@ void TestMesoCrystal2::fitsuite_config4()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
             strategy->release(fixplan[i_plan][i_par]);
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -292,11 +301,12 @@ void TestMesoCrystal2::fitsuite_config4()
 //    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
     Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
     m_real_data->setMask(*mask1);
+//    IntensityDataHelper::setRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
 
     ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() );
+    chiModule.setChiSquaredFunction( new  SquaredFunctionMeanSquaredError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);
@@ -340,21 +350,21 @@ void TestMesoCrystal2::fitsuite_config3()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
             strategy->release(fixplan[i_plan][i_par]);
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -366,7 +376,7 @@ void TestMesoCrystal2::fitsuite_config3()
     ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);
@@ -412,7 +422,7 @@ void TestMesoCrystal2::fitsuite_config2()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         strategy->setPreserveOriginalValues(true); // initial values of parameters will be restored after each fit
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
@@ -420,14 +430,14 @@ void TestMesoCrystal2::fitsuite_config2()
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -474,7 +484,7 @@ void TestMesoCrystal2::fitsuite_config1()
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
         std::ostringstream ostr;
         ostr << "strategy" <<i_plan;
-        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        FitStrategyAdjustParameters *strategy = new FitStrategyAdjustParameters(ostr.str());
         strategy->fix_all();
         strategy->setPreserveOriginalValues(true); // initial values of parameters will be restored after each fit
         for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
@@ -482,14 +492,14 @@ void TestMesoCrystal2::fitsuite_config1()
         }
         m_fitSuite->addFitStrategy(strategy);
     }
-    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    FitStrategyAdjustParameters *strategy_all = new FitStrategyAdjustParameters("strategy_all");
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
     // fitpreserve=1 - preserve original values
     // fitpreserve=0 - return always to previous fit values
     for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        FitStrategyAdjustParameters *strategy = dynamic_cast<FitStrategyAdjustParameters *>( (*it) );
         assert(strategy);
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
@@ -582,7 +592,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
-    size_t n_max_phi_rotation_steps = 180;
+    size_t n_max_phi_rotation_steps = 1;
     size_t n_alpha_rotation_steps = 1;
 
 //    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;

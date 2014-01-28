@@ -82,6 +82,7 @@ include_classes = [
     "IObservable",
     "IParameterized",
     "IResolutionFunction2D",
+    "IntensityDataHelper",
     "ISample",
     "ISampleBuilder",
     #"SampleBuilder_t",

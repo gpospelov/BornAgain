@@ -173,7 +173,7 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
     for (size_t index_1=0; index_1<axis_size_1; ++index_1) {
         double value_1 = (*p_axis_1)[index_1]-mid_value_1;
         std::vector<double> row_vector;
-        row_vector.resize(axis_size_2);
+        row_vector.resize(axis_size_2, 0.0);
         for (size_t index_2=0; index_2<axis_size_2;++index_2) {
             double value_2 = (*p_axis_2)[index_2]-mid_value_2;
             double z_value = getIntegratedPDF2d(value_1, step_size_1, value_2, step_size_2);
@@ -193,7 +193,10 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
             result_vector.push_back(value);
         }
     }
-    p_intensity_map->setRawDataVector(result_vector);
+    for(OutputData<double>::iterator it=p_intensity_map->begin(); it!=p_intensity_map->end(); ++it) {
+        (*it) = result_vector[it.getIndex()];
+    }
+//    p_intensity_map->setRawDataVector(result_vector);
 }
 
 double ConvolutionDetectorResolution::getIntegratedPDF1d(double x,

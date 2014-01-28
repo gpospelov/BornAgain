@@ -27,8 +27,9 @@
 // ----------------------------------------------------------------------------
 
 PolarizedDWBAMagCylinders1Builder::PolarizedDWBAMagCylinders1Builder()
-    : m_cylinder_height(5*Units::nanometer)
-    , m_cylinder_radius(5*Units::nanometer)
+    :  m_cylinder_radius(5*Units::nanometer)
+    ,  m_cylinder_height(5*Units::nanometer)
+
 {
     init_parameters();
 }
@@ -37,8 +38,8 @@ PolarizedDWBAMagCylinders1Builder::PolarizedDWBAMagCylinders1Builder()
 void PolarizedDWBAMagCylinders1Builder::init_parameters()
 {
     clearParameterPool();
+    registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_raduis", &m_cylinder_radius);
 }
 
 
@@ -61,8 +62,8 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 
     ParticleDecoration particle_decoration(
             new Particle(particle_material,
-                    new FormFactorCylinder(m_cylinder_height,
-                                           m_cylinder_radius)));
+                    new FormFactorCylinder(m_cylinder_radius,
+                                           m_cylinder_height)));
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -77,8 +78,8 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 // Magnetic cylinders and non-zero magnetic field
 // ----------------------------------------------------------------------------
 PolarizedDWBAMagCylinders2Builder::PolarizedDWBAMagCylinders2Builder()
-    : m_cylinder_height(5*Units::nanometer)
-    , m_cylinder_radius(5*Units::nanometer)
+    :  m_cylinder_radius(5*Units::nanometer)
+    ,  m_cylinder_height(5*Units::nanometer)
 {
     init_parameters();
 }
@@ -87,8 +88,8 @@ PolarizedDWBAMagCylinders2Builder::PolarizedDWBAMagCylinders2Builder()
 void PolarizedDWBAMagCylinders2Builder::init_parameters()
 {
     clearParameterPool();
+    registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_raduis", &m_cylinder_radius);
 }
 
 
@@ -113,8 +114,8 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
 
     ParticleDecoration particle_decoration(
             new Particle(particle_material,
-                    new FormFactorCylinder(m_cylinder_height,
-                                           m_cylinder_radius)));
+                    new FormFactorCylinder(m_cylinder_radius,
+                                           m_cylinder_height)));
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 

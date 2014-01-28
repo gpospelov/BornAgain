@@ -101,8 +101,8 @@ void TestFittingModule2::fit_example_basics()
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
                                 6*Units::nanometer, 1*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
-                                5*Units::nanometer, 1*Units::nanometer,
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+                                10*Units::nanometer, 2*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
                                 6*Units::nanometer, 1*Units::nanometer,
@@ -129,8 +129,8 @@ void TestFittingModule2::fit_example_chimodule()
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
                                 6*Units::nanometer, 0.01*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
-                                4*Units::nanometer, 0.01*Units::nanometer,
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+                                8*Units::nanometer, 0.02*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
                                 6*Units::nanometer, 0.01*Units::nanometer,
@@ -167,8 +167,8 @@ void TestFittingModule2::fit_example_strategies()
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
                                 2*Units::nanometer, 1*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
-                                12*Units::nanometer, 1*Units::nanometer,
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+                                24*Units::nanometer, 2*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
                                 2*Units::nanometer, 1*Units::nanometer,
@@ -233,8 +233,8 @@ void TestFittingModule2::fit_example_mask()
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",
                                 4*Units::nanometer, 1*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",
-                                4*Units::nanometer, 1*Units::nanometer,
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_length",
+                                8*Units::nanometer, 2*Units::nanometer,
                                 AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",
                                 4*Units::nanometer, 1*Units::nanometer,
@@ -302,7 +302,7 @@ void TestFittingModule2::initializeRealData()
 TestFittingModule2::SampleBuilder::SampleBuilder()
     : m_cylinder_height(5.0*Units::nanometer)
     , m_cylinder_radius(5.0*Units::nanometer)
-    , m_prism3_half_side(5.0*Units::nanometer)
+    , m_prism3_length(10.0*Units::nanometer)
     , m_prism3_height(5.0*Units::nanometer)
     , m_cylinder_ratio(0.2)
 {
@@ -329,13 +329,14 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(
         new Particle(particle_material,
-                     new FormFactorCylinder(m_cylinder_height,
-                                            m_cylinder_radius)),
+                     new FormFactorCylinder(m_cylinder_radius,
+                                            m_cylinder_height)),
         0.0, m_cylinder_ratio);
     particle_decoration.addParticle(
         new Particle(particle_material,
-                     new FormFactorPrism3(m_prism3_height,
-                                          m_prism3_half_side)),
+                     new FormFactorPrism3(m_prism3_length,
+                                          m_prism3_height
+                                          )),
         0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -351,9 +352,9 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
 void TestFittingModule2::SampleBuilder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("m_cylinder_height", &m_cylinder_height);
     registerParameter("m_cylinder_radius", &m_cylinder_radius);
-    registerParameter("m_prism3_half_side", &m_prism3_half_side);
+    registerParameter("m_cylinder_height", &m_cylinder_height);
+    registerParameter("m_prism3_length", &m_prism3_length);
     registerParameter("m_prism3_height", &m_prism3_height);
     registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
 }

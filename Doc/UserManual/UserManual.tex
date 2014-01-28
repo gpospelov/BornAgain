@@ -90,6 +90,8 @@
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+\DeclareMathOperator{\sinc}{sinc}
 %-------------------------------------------------------------------------------
 %	CUSTON LISTING SETTINGS
 %-------------------------------------------------------------------------------
@@ -146,7 +148,7 @@ at grazing incidence\\
 }
 
 \author{ 
-{\LARGE C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke }\\[5mm]
+{\LARGE C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke }\\[5mm]
 \large
 Scientific Computing Group\\
 J\"ulich Centre for Neutron Science\\
@@ -177,14 +179,15 @@ Forschungszentrum J\"ulich GmbH
 \input{SoftwareArchitecture}
 \input{SoftwareDesignOverview}
 \appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+%\addtocontents{lof}{\protect\setcounter{tocdepth}{2}}
+
 \input{AppendixListings}
-%\input{ff}
-
-
-
+\input{ff}
 %\input{AppendixPhysics}
 
 \bibliographystyle{switch}
 \bibliography{jw7}
+
 
 \end{document}

@@ -27,7 +27,7 @@
 class BA_CORE_API_ FormFactorRipple2 : public IFormFactorBorn
 {
 public:
-    FormFactorRipple2(double width, double height, double length, double asymetry);
+    FormFactorRipple2(double length, double width, double height, double asymetry);
 
     ~FormFactorRipple2() { }
 

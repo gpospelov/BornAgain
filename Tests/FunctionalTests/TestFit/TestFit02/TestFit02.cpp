@@ -28,7 +28,7 @@ int TestFit02::run()
     // values we want to find
     double cylinder_height(5.0*Units::nanometer);
     double cylinder_radius(5.0*Units::nanometer);
-    double prism3_half_side(5.0*Units::nanometer);
+    double prism3_length(10.0*Units::nanometer);
     double prism3_height(5.0*Units::nanometer);
     double cylinder_ratio(0.2);
 
@@ -36,7 +36,7 @@ int TestFit02::run()
     SampleBuilder_t sample_builder(new SampleBuilder());
     sample_builder->setParameterValue("cylinder_height", cylinder_height);
     sample_builder->setParameterValue("cylinder_radius", cylinder_radius);
-    sample_builder->setParameterValue("prism3_half_side", prism3_half_side);
+    sample_builder->setParameterValue("prism3_length", prism3_length);
     sample_builder->setParameterValue("prism3_height", prism3_height);
     sample_builder->setParameterValue("cylinder_ratio", cylinder_ratio);
 
@@ -57,8 +57,8 @@ int TestFit02::run()
     fitSuite->addFitParameter("*SampleBuilder/cylinder_radius",
             6*Units::nanometer, 0.01*Units::nanometer,
             AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/prism3_half_side",
-            4*Units::nanometer, 0.01*Units::nanometer,
+    fitSuite->addFitParameter("*SampleBuilder/prism3_length",
+            8*Units::nanometer, 0.02*Units::nanometer,
             AttLimits::lowerLimited(0.01) );
     fitSuite->addFitParameter("*SampleBuilder/prism3_height",
             6*Units::nanometer, 0.01*Units::nanometer,
@@ -82,7 +82,7 @@ int TestFit02::run()
     std::vector<double > initialParameters;
     initialParameters.push_back(cylinder_height);
     initialParameters.push_back(cylinder_radius);
-    initialParameters.push_back(prism3_half_side);
+    initialParameters.push_back(prism3_length);
     initialParameters.push_back(prism3_height);
     initialParameters.push_back(cylinder_ratio);
     std::vector<double > results = fitSuite->getFitParameters()->getValues();

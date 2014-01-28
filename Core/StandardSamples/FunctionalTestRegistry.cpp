@@ -101,9 +101,9 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Polarized DWBA with zero magnetic field",
         "isgi_cylinder_DWBA.ima.gz", 1e-10);
     // this test is complicated for given Registry
-//    add("magcyl2",
-//        "Polarized DWBA with zero magnetic field",
-//        "isgi_cylinder_DWBA.ima.gz", 1e-10);
+  //  add("magcyl2",
+  //      "Polarized DWBA with zero magnetic field",
+  //      "isgi_cylinder_DWBA.ima.gz", 1e-10);
 
     add("LayerWithRoughness",
         "Layers with correlated roughness",

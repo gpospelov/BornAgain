@@ -8,7 +8,7 @@ from source and run the first simulation on Unix Platforms.
 Further details about the installation procedure are given in \SecRef{Installation}. \\
 
 \noindent
-{\bf Step I: $~$ install the third party software}
+{\bf Step I: $~$ installing the third party software}
 \begin{itemize}
 \item compilers: clang  versions $\geq 3.1$ or GCC versions $\geq 4.2$
 \item cmake ($\geq 2.8$)
@@ -23,7 +23,7 @@ Further details about the installation procedure are given in \SecRef{Installati
 
 
 \noindent
-{\bf Step II: $~$ get the source} \newline
+{\bf Step II: $~$ getting the source} \newline
 Download \BornAgain\ source tarball from \url{http://apps.jcns.fz-juelich.de/BornAgain}
 or use the following git repository
 \begin{lstlisting}[language=shell, style=commandline]
@@ -35,7 +35,7 @@ git clone git://apps.jcns.fz-juelich.de/BornAgain.git
 
 
 \noindent
-{\bf Step III: $~$ build the libraries and executable}
+{\bf Step III: $~$ building the libraries and executable}
 \begin{lstlisting}[language=shell, style=commandline]
 mkdir <build_dir>; cd <build_dir>;
 cmake -DCMAKE_INSTALL_PREFIX=<install_dir> <source_dir>
@@ -47,7 +47,7 @@ make install
 
 
 \noindent
-{\bf Step IV: $~$ run an example}
+{\bf Step IV: $~$ running an example}
 \begin{lstlisting}[language=shell, style=commandline]
 python <install_dir>/share/BornAgain/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py
 \end{lstlisting}
@@ -57,7 +57,7 @@ python <install_dir>/share/BornAgain/Examples/python/simulation/ex001_CylindersA
 \section{Quick start on Windows Platforms}
 
 \noindent
-{\bf Step I: $~$ install the third party software} \newline
+{\bf Step I: $~$ installing the third party software} \newline
 The current version of \BornAgain\ requires \Code{Python, numpy, matplotlib} 
 to be installed on the system. If you don't have them already installed,
 you can use \Code{PythonXY} installer available 
@@ -66,13 +66,13 @@ at \url{https://code.google.com/p/pythonxy} which, with default installation opt
 \vspace*{2mm}
 
 \noindent
-{\bf Step II: $~$ use BornAgain installation package } \newline
+{\bf Step II: $~$ using BornAgain installation package } \newline
 Windows installation package can be downloaded from \url{http://apps.jcns.fz-juelich.de/BornAgain}.
 Double-click on it to start the installation process. Then follow the instructions.
 \vspace*{2mm}
 
 \noindent
-{\bf Step III: $~$ run the example} \newline
+{\bf Step III: $~$ running the example} \newline
 Run an example located in \BornAgain\ installation directory:
 \begin{lstlisting}[language=shell, style=commandline]
 python C:/BornAgain-0.9.2/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py

@@ -28,7 +28,7 @@ def get_sample():
     m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     # collection of particles
-    ripple1_ff = FormFactorRipple1(20*nanometer, 4*nanometer, 100*nanometer)
+    ripple1_ff = FormFactorRipple1(100*nanometer, 20*nanometer, 4*nanometer)
     ripple = Particle(m_particle, ripple1_ff)
 
     particle_decoration = ParticleDecoration()

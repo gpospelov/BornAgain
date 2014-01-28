@@ -318,7 +318,7 @@ void TestMiscellaneous::test_FormFactor()
 {
 
     FormFactorFullSphere ff_sphere(5.*Units::nanometer);
-    FormFactorCylinder ff_cylinder(10.*Units::nanometer, 5.*Units::nanometer);
+    FormFactorCylinder ff_cylinder(5.*Units::nanometer, 10.*Units::nanometer);
 
 //    IFormFactor& ff = ff_cylinder;
     IFormFactor& ff = ff_sphere;
@@ -443,20 +443,20 @@ void TestMiscellaneous::test_FormFactor1()
 {
     FormFactorFullSphere ff_fullsphere(5.*Units::nanometer);
 
-    FormFactorCylinder ff_cylinder(10.*Units::nanometer,
-                                   5.*Units::nanometer);
+    FormFactorCylinder ff_cylinder(5.*Units::nanometer,
+                                   10.*Units::nanometer);
    //   IFormFactor& ff = ff_cylinder;
 
-    FormFactorParallelepiped ff_para(7.*Units::nanometer,
-                                     6.*Units::nanometer);
+    FormFactorParallelepiped ff_para(12.*Units::nanometer,
+                                     7.*Units::nanometer);
    //   IFormFactor& ff = ff_para;
 
-    FormFactorPyramid ff_pyramid(10.*Units::nanometer,
-                                 5.*Units::nanometer,
+    FormFactorPyramid ff_pyramid(10.*Units::nanometer, //5.*Units::nanometer,
+                                 10.*Units::nanometer,
                                  Units::deg2rad(54.73 ));
     IFormFactor& ff = ff_pyramid;
 
-    FormFactorPrism3 ff_prism3(5.*Units::nanometer,
+    FormFactorPrism3 ff_prism3(10.*Units::nanometer,
                               5.*Units::nanometer);
    //   IFormFactor& ff = ff_prism3;
 

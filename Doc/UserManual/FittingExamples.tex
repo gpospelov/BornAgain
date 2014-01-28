@@ -18,17 +18,18 @@ between the particles. We consider the following parameters to be unkown
 \begin{itemize}
 \item the radius of cylinders,
 \item the height of cylinders,
-\item the half side length of the prisms' triangular basis,
+\item the length of the prisms' triangular basis,
 \item the height of prisms.
 \end{itemize}
 
 Our reference data are a ``noisy'' two-dimensional intensity
 map obtained from the simulation of the same geometry with a fixed
-value of $5\,{\rm nm}$ for all four of these parameters. 
+value of $5\,{\rm nm}$ for the height and radius of cylinders and for the
+height of prisms which have a 10-nanometer-long side length. 
 Then we run our fitting using default minimizer settings
 starting with a cylinder's height
 of $4\,{\rm nm}$, a cylinder's radius of $6\,{\rm nm}$, 
-a prism's half side of $6\,{\rm nm}$ and a length equal to $4\,{\rm nm}$.
+a prism's half side of $6\,{\rm nm}$ and a height equal to $4\,{\rm nm}$.
 As a result, the fitting procedure is able to find the correct value of $5\,{\rm nm}$
 for all four parameters.
 
@@ -59,7 +60,7 @@ def get_sample(): @\label{script2::get_sample}@
     # collection of particles
     cylinder_ff = FormFactorCylinder(1.0*nanometer, 1.0*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    prism_ff = FormFactorPrism3(1.0*nanometer, 1.0*nanometer)
+    prism_ff = FormFactorPrism3(2.0*nanometer, 1.0*nanometer)
     prism = Particle(m_particle, prism_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 0.5)
@@ -139,13 +140,13 @@ the screen the information about fit progress once per 10 iterations.
     fit_suite.addFitParameter("*FormFactorCylinder/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01)) @\label{script2::fitpars1}@
     fit_suite.addFitParameter("*FormFactorCylinder/radius", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*FormFactorPrism3/height", 4.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/half_side", 6.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01)) @\label{script2::fitpars2}@
+    fit_suite.addFitParameter("*FormFactorPrism3/length", 12.*nanometer, 0.02*nanometer, AttLimits.lowerLimited(0.01)) @\label{script2::fitpars2}@
 \end{lstlisting}
 Lines ~\ref{script2::fitpars1}--~\ref{script2::fitpars2} enter the
 list of fitting parameters. Here we use the cylinders' height and
-radius and the prisms' height and half side length. 
+radius and the prisms' height and side length. 
 The cylinder's length and prism half side are initially equal to $4\,{\rm nm}$,
-whereas the cylinder's radius and the prism length are equal to $6\,{\rm nm}$ before the minimization. The
+whereas the cylinder's radius and the prism half side length are equal to $6\,{\rm nm}$ before the minimization. The
 iteration step is equal to $0.01\,{\rm nm}$ and only the lower
 boundary is imposed to be equal to $0.01\,{\rm nm}$.
 

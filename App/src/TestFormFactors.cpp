@@ -64,12 +64,12 @@ void TestFormFactors::execute()
    run_isgisaxs_simulation(p_ff_fsph->clone());
 
    //Parallelepiped
-   FormFactorParallelepiped ff_par(5.0, 5.0);
+   FormFactorParallelepiped ff_par(10.0, 5.0);
    IFormFactor* p_ff_par =& ff_par;
    run_isgisaxs_simulation(p_ff_par->clone());
 
    //Prism3
-   FormFactorPrism3 ff_pr3(5.0, 5.0);
+   FormFactorPrism3 ff_pr3(10.0, 5.0);
    IFormFactor* p_ff_pr3 =& ff_pr3;
    run_isgisaxs_simulation(p_ff_pr3->clone());
 
@@ -79,7 +79,8 @@ void TestFormFactors::execute()
    run_isgisaxs_simulation(p_ff_pr6->clone());
 
    //Pyramid
-   FormFactorPyramid ff_pyr(5.0, 5.0, Units::deg2rad(54.73 ));
+   //FormFactorPyramid ff_pyr(5.0, 5.0, Units::deg2rad(54.73 ));
+   FormFactorPyramid ff_pyr(10.0, 5.0, Units::deg2rad(54.73 ));
    IFormFactor* p_ff_pyr =& ff_pyr;
    run_isgisaxs_simulation(p_ff_pyr->clone());
 
@@ -89,12 +90,12 @@ void TestFormFactors::execute()
    run_isgisaxs_simulation(p_ff_sph->clone());
 
    // Tetrahedron
-   FormFactorTetrahedron ff_tetr(5.0, 4.0, Units::deg2rad(54.73 ));
+   FormFactorTetrahedron ff_tetr(10.0, 4.0, Units::deg2rad(54.73 ));
    IFormFactor* p_ff_tetr =& ff_tetr;
    run_isgisaxs_simulation(p_ff_tetr->clone());
 
    // Cuboctahedron
-   FormFactorCuboctahedron ff_cuboc(5.0, 5.0, 1.0, Units::deg2rad(54.73 ));
+   FormFactorCuboctahedron ff_cuboc(10.0, 5.0, 1.0, Units::deg2rad(54.73 ));
    IFormFactor* p_ff_cuboc =& ff_cuboc;
    run_isgisaxs_simulation(p_ff_cuboc->clone());
 
@@ -193,17 +194,17 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
    // double width = 2.*length;
    // double side_hex_base = 2./sqrt(3.)*radius;
 
-    //FormFactorCylinder ff(height, radius);
+    //FormFactorCylinder ff(radius, height);
     //FormFactorBox ff(length, width, height);
    // FormFactorCone ff(radius, height, angle);
     //FormFactorCone6 ff(side_hex_base, height, angle);
     //FormFactorFullSphere ff(radius);
-    //FormFactorParallelepiped ff(height, radius);
-    //FormFactorPrism3 ff(height, half_side);
+    //FormFactorParallelepiped ff(length, height);
+    //FormFactorPrism3 ff(length, height);
     //FormFactorPrism6 ff(side_hex_base, height);
-    //FormFactorPyramid ff(height, half_side, angle);
+    //FormFactorPyramid ff(length, height, angle);
     //FormFactorSphere ff(radius, height);
-    //FormFactorTetrahedron ff(5.*Units::nanometer,5.*Units::nanometer, angle);
+    //FormFactorTetrahedron ff(10.*Units::nanometer,5.*Units::nanometer, angle);
 
    // ParticleDecoration particle_decoration( new Particle(particle_material,ff));
    // particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());

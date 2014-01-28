@@ -27,7 +27,7 @@ class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
 {
 public:
     FormFactorLorentz(double volume);
-    FormFactorLorentz(double height, double width);
+    FormFactorLorentz(double width, double height);
     ~FormFactorLorentz() {}
     virtual FormFactorLorentz *clone() const;
 
@@ -42,8 +42,8 @@ protected:
     virtual void init_parameters();
 
 private:
-    double m_height;
     double m_width;
+    double m_height;
 };
 
 #endif /* FORMFACTORLORENTZ_H_ */

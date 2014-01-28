@@ -29,11 +29,11 @@ FormFactorGauss::FormFactorGauss(double volume)
                / 3.0);
 }
 
-FormFactorGauss::FormFactorGauss(double height, double width)
+FormFactorGauss::FormFactorGauss(double width, double height)
 {
     setName("FormFactorGauss");
-    m_height = height;
     m_width = width;
+    m_height = height;
     init_parameters();
     m_max_ql = std::sqrt(-4.0*M_PI*std::log(Numeric::double_epsilon)
                / 3.0);
@@ -44,13 +44,13 @@ FormFactorGauss::FormFactorGauss(double height, double width)
 void FormFactorGauss::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
     registerParameter("width", &m_width);
+    registerParameter("height", &m_height);
 }
 
 FormFactorGauss* FormFactorGauss::clone() const
 {
-    FormFactorGauss *result = new FormFactorGauss(m_height, m_width);
+    FormFactorGauss *result = new FormFactorGauss(m_width, m_height);
     result->setName(getName());
     return result;
 }

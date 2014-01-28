@@ -97,18 +97,18 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     m_results[kTest_Cuboctahedron] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "AnisoPyramid")
-     m_results[kTest_AnisoPyramid] = simulation.getIntensityData();
+    m_results[kTest_AnisoPyramid] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "EllipsoidalCylinder")
     m_results[kTest_Ellipscyl] = simulation.getIntensityData();
 
-   if (mp_form_factor->getName().substr(10) == "FullSpheroid")
+    if (mp_form_factor->getName().substr(10) == "FullSpheroid")
     m_results[kTest_FullSpheroid] = simulation.getIntensityData();
 
-   if (mp_form_factor->getName().substr(10) == "Spheroid")
+    if (mp_form_factor->getName().substr(10) == "Spheroid")
     m_results[kTest_Spheroid] = simulation.getIntensityData();
 
-   if (mp_form_factor->getName().substr(10) == "HemiEllipsoid")
+    if (mp_form_factor->getName().substr(10) == "HemiEllipsoid")
     m_results[kTest_HemiEllipsoid] = simulation.getIntensityData();
 
 }
@@ -200,22 +200,22 @@ int main(int argc, char **argv)
     test.run(p_ff_fsph->clone());
 
     //Parallelepiped
-    FormFactorParallelepiped ff_par(5.0, 5.0);
+    FormFactorParallelepiped ff_par(10.0, 5.0);
     IFormFactor* p_ff_par =& ff_par;
     test.run(p_ff_par->clone());
 
     //Prism3
-    FormFactorPrism3 ff_pr3(5.0, 5.0);
+    FormFactorPrism3 ff_pr3(10.0, 5.0);
     IFormFactor* p_ff_pr3 =& ff_pr3;
     test.run(p_ff_pr3->clone());
 
     //Prism6
-   FormFactorPrism6 ff_pr6(2./sqrt(3.)*5.0, 5.0);
+    FormFactorPrism6 ff_pr6(2./sqrt(3.)*5.0, 5.0);
     IFormFactor* p_ff_pr6 =& ff_pr6;
     test.run(p_ff_pr6->clone());
 
     //Pyramid
-    FormFactorPyramid ff_pyr(5.0, 5.0, Units::deg2rad(54.73 ));
+    FormFactorPyramid ff_pyr(10.0, 5.0, Units::deg2rad(54.73 ));//(5.0, 5.0, Units::deg2rad(54.73 ));
     IFormFactor* p_ff_pyr =& ff_pyr;
     test.run(p_ff_pyr->clone());
 
@@ -225,12 +225,12 @@ int main(int argc, char **argv)
     test.run(p_ff_sph->clone());
 
     // Tetrahedron
-    FormFactorTetrahedron ff_tetr(5.0, 4.0, Units::deg2rad(54.73 ));
+    FormFactorTetrahedron ff_tetr(10.0, 4.0, Units::deg2rad(54.73 ));
     IFormFactor* p_ff_tetr =& ff_tetr;
     test.run(p_ff_tetr->clone());
 
     // Cuboctahedron
-    FormFactorCuboctahedron ff_cuboc(5.0, 5.0, 1.0, Units::deg2rad(54.73 ));
+    FormFactorCuboctahedron ff_cuboc(10.0, 5.0, 1.0, Units::deg2rad(54.73 ));
     IFormFactor* p_ff_cuboc =& ff_cuboc;
     test.run(p_ff_cuboc->clone());
 

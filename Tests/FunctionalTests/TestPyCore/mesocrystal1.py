@@ -57,7 +57,7 @@ class MySampleBuilder(ISampleBuilder):
         avg_n_squared_meso = complex(0.7886*n_particle*n_particle + 0.2114)
         n_avg = complex(numpy.sqrt(self.surface_filling_ratio.value*avg_n_squared_meso + 1.0 - self.surface_filling_ratio.value))
         n_particle_adapted = complex(numpy.sqrt(n_avg*n_avg + n_particle*n_particle - 1.0))
-        ff_cyl = FormFactorCylinder(self.meso_height.value, self.meso_radius.value)
+        ff_cyl = FormFactorCylinder(self.meso_radius.value, self.meso_height.value)
         ff_meso = FormFactorDecoratorDebyeWaller(ff_cyl, self.sigma_meso_height.value*self.sigma_meso_height.value/2.0, self.sigma_meso_radius.value*self.sigma_meso_radius.value/2.0)
 
         # Create multilayer

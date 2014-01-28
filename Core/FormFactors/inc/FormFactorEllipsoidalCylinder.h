@@ -26,7 +26,7 @@
 class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn
 {
 public:
-    FormFactorEllipsoidalCylinder(double radius, double width,
+    FormFactorEllipsoidalCylinder(double radius_a, double radius_b,
                         double height);
     ~FormFactorEllipsoidalCylinder() {}
     virtual FormFactorEllipsoidalCylinder *clone() const;
@@ -35,11 +35,11 @@ public:
 
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
-    double getRadius() const { return m_radius; }
-    virtual void setRadius(double radius) { m_radius = radius; }
+    double getRadiusA() const { return m_radius_a; }
+    virtual void setRadiusA(double radius_a) { m_radius_a = radius_a; }
 
-    virtual double getWidth() const { return m_width; }
-    virtual void setWidth(double width) { m_width = width; }
+    virtual double getRadiusB() const { return m_radius_b; }
+    virtual void setRadiusB(double radius_b) { m_radius_b = radius_b; }
 
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }
@@ -52,8 +52,8 @@ protected:
     virtual void init_parameters();
 
 private:
-    double m_radius;
-    double m_width;
+    double m_radius_a;
+    double m_radius_b;
     double m_height;
 
 };

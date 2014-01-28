@@ -64,6 +64,9 @@ def run_test():
     diff += get_difference(simulation.getPolarizedIntensityData(0, 1).getArray(), get_reference_data('magcyl2_reference_01.txt.gz').getArray())
     diff += get_difference(simulation.getPolarizedIntensityData(1, 0).getArray(), get_reference_data('magcyl2_reference_10.txt.gz').getArray())
     diff += get_difference(simulation.getPolarizedIntensityData(1, 1).getArray(), get_reference_data('magcyl2_reference_11.txt.gz').getArray())
+
+
+
     diff /= 4.0
     status = "OK"
     if diff > 2e-10:

@@ -26,7 +26,7 @@
 class BA_CORE_API_ FormFactorPrism3 : public IFormFactorBorn
 {
 public:
-    FormFactorPrism3(double height, double half_side);
+    FormFactorPrism3(double length, double height);
     ~FormFactorPrism3() {}
     virtual FormFactorPrism3 *clone() const;
 
@@ -37,8 +37,8 @@ public:
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }
 
-    virtual double getHalfSide() const { return m_half_side; }
-    virtual void setHalfSide(double half_side) { m_half_side = half_side; }
+    virtual double getLength() const { return m_length; }
+    virtual void setLength(double length) { m_length = length; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
@@ -46,8 +46,8 @@ protected:
     virtual void init_parameters();
 
 private:
+    double m_length;
     double m_height;
-    double m_half_side;  
     double m_root3; // Cached value of square root of 3
 };
 

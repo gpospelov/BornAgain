@@ -557,7 +557,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorCylinder ff_cyl(m_meso_height, m_meso_radius);
+    FormFactorCylinder ff_cyl(m_meso_radius, m_meso_height);
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), m_sigma_meso_height*m_sigma_meso_height/2.0,
             m_sigma_meso_radius*m_sigma_meso_radius/2.0);
 

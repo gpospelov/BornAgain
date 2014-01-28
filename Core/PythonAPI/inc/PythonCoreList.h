@@ -36,6 +36,7 @@
 #include "FormFactorSphereGaussianRadius.h"
 #include "FormFactorSphereUniformRadius.h"
 #include "FormFactorSpheroid.h"
+#include "FormFactorTetrahedron.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"

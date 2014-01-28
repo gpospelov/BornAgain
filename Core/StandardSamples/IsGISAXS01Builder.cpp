@@ -26,7 +26,7 @@ IsGISAXS01Builder::IsGISAXS01Builder()
     : m_cylinder_height(5*Units::nanometer)
     , m_cylinder_radius(5*Units::nanometer)
     , m_prism_height(5*Units::nanometer)
-    , m_prism_half_side(5*Units::nanometer)
+    , m_prism_length(10*Units::nanometer)
     , m_cylinder_weight(0.5)
 {
     init_parameters();
@@ -37,9 +37,9 @@ void IsGISAXS01Builder::init_parameters()
 {
     clearParameterPool();
     registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_raduis", &m_cylinder_radius);
+    registerParameter("cylinder_radius", &m_cylinder_radius);
     registerParameter("prism_height", &m_prism_height);
-    registerParameter("prism_half_side", &m_prism_half_side);
+    registerParameter("prism_length", &m_prism_length);
     registerParameter("cylinder_weight", &m_cylinder_weight);
 }
 
@@ -61,13 +61,13 @@ ISample *IsGISAXS01Builder::buildSample() const
 
     particle_decoration.addParticle(
                 new Particle(particle_material,
-                             new FormFactorCylinder(m_cylinder_height,
-                                                    m_cylinder_radius)),
+                             new FormFactorCylinder(m_cylinder_radius,
+                                                    m_cylinder_height)),
                 0.0, m_cylinder_weight);
     particle_decoration.addParticle(
                 new Particle(particle_material,
-                             new FormFactorPrism3(m_prism_height,
-                                                  m_prism_half_side)),
+                             new FormFactorPrism3(m_prism_length,
+                                                  m_prism_height)),
                 0.0, 1.0-m_cylinder_weight);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 

@@ -27,10 +27,10 @@ class BA_CORE_API_ FormFactorPyramid : public IFormFactorBorn
 {
 public:
     //! @brief pyramid constructor
-    //! @param height of pyramide
-    //! @param half_side half of pyramid's base
+    //! @param length of pyramid's base
+    //! @param height of pyramid
     //! @param angle in radians between base and facet
-    FormFactorPyramid(double height, double half_side, double alpha);
+    FormFactorPyramid(double length, double height, double alpha);
 
     ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
@@ -42,8 +42,8 @@ public:
     virtual double getHeight() const { return m_height; }
     virtual void setHeight(double height) { m_height = height; }
 
-    virtual double getHalfSide() const { return m_half_side; }
-    virtual void setHalfSide(double half_side) { m_half_side = half_side; }
+    virtual double getLength() const { return m_length; }
+    virtual void setLength(double length) { m_length = length; }
 
     virtual double getAlpha() const { return m_alpha; }
     virtual void setAlpha(double alpha) { m_alpha = alpha; }
@@ -54,8 +54,8 @@ protected:
     virtual void init_parameters();
 
 private:
+    double m_length;
     double m_height;
-    double m_half_side;
     double m_alpha;
 };
 

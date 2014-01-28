@@ -22,6 +22,9 @@
 //! @ingroup formfactors
 //! @class FormFactorFullSphere
 //! @brief The formfactor of a sphere.
+// //! @image html sphere3d.png "Sphere"
+// //![Caption text](sphere3d.png "Image title")
+
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
 public:

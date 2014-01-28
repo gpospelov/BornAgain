@@ -91,7 +91,7 @@ void TestRipple2::save_results()
 /* ************************************************************************* */
 void TestRipple2::drawff()
 {
-	FormFactorRipple2 *ff = new FormFactorRipple2(20.0*Units::nanometer, 4.0*Units::nanometer, 100.0*Units::nanometer, 3.0*Units::nanometer);
+    FormFactorRipple2 *ff = new FormFactorRipple2(100.0*Units::nanometer, 20.0*Units::nanometer, 4.0*Units::nanometer, 3.0*Units::nanometer);
     size_t qybins = 400;
     size_t qzbins = 400;
 	
@@ -187,7 +187,7 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer(air_material);
-    FormFactorRipple2 *ff_ripple2 = new FormFactorRipple2(m_w, m_h, m_l, m_d);
+    FormFactorRipple2 *ff_ripple2 = new FormFactorRipple2(m_l, m_w, m_h, m_d);
     Particle ripple(particle_material, ff_ripple2 );
 
 

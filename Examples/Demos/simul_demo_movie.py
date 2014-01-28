@@ -22,7 +22,7 @@ def RunSimulation():
     mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = FormFactorCylinder(height, radius)
+    cylinder_ff = FormFactorCylinder(radius height)
     cylinder = Particle(mParticle, cylinder_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder)

@@ -324,9 +324,10 @@ ISample *StandardSamples::MesoCrystal1()
     Crystal npc(basis, lat);
 
     MesoCrystal meso(npc.clone(), new FormFactorCylinder
-                     (0.2*Units::micrometer, 300*Units::nanometer));
+                     (0.2*Units::nanometer,
+                      300*Units::micrometer));
     MesoCrystal meso2(npc.clone(), new FormFactorPyramid
-                      (0.2*Units::micrometer,
+                      (0.4*Units::micrometer,//0.2*Units::micrometer
                        300*Units::nanometer,
                        84*Units::degree));
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -375,7 +376,7 @@ ISample *StandardSamples::MesoCrystal1()
 //            MaterialManager::getHomogeneousMaterial("Particle", n_particle_adapted);
 
 
-//    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
+//    FormFactorCylinder ff_meso(meso_radius, 0.2*Units::micrometer);
 
 //    // Create multilayer
 //    MultiLayer *p_multi_layer = new MultiLayer();
@@ -649,11 +650,11 @@ ISample *StandardSamples::MesoCrystal1()
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
 //    Particle shell_particle(shell_material,
-//                            new FormFactorParallelepiped(8*Units::nanometer,
+//                            new FormFactorParallelepiped(16*Units::nanometer,
 //                                                         8*Units::nanometer));
 //    Particle core_particle(core_material,
-//                           new FormFactorParallelepiped(7*Units::nanometer,
-//                                                        6*Units::nanometer));
+//                           new FormFactorParallelepiped(16*Units::nanometer,
+//                                                        7*Units::nanometer));
 //    kvector_t core_position(0.0, 0.0, 0.0);
 //    ParticleCoreShell particle(shell_particle, core_particle, core_position);
 //    ParticleDecoration particle_decoration(particle.clone());
@@ -687,8 +688,8 @@ ISample *StandardSamples::MesoCrystal1()
 //                            new FormFactorCylinder(8*Units::nanometer,
 //                                                   8*Units::nanometer));
 //    Particle core_particle(core_material,
-//                           new FormFactorCylinder(7*Units::nanometer,
-//                                                  6*Units::nanometer));
+//                           new FormFactorCylinder(6*Units::nanometer,
+//                                                  7*Units::nanometer));
 //    kvector_t core_position(0.0, 0.0, 0.0);
 //    ParticleCoreShell particle(shell_particle, core_particle, core_position);
 //    ParticleDecoration particle_decoration(particle.clone());
@@ -723,7 +724,7 @@ ISample *StandardSamples::MesoCrystal1()
 //    substrate_layer.setMaterial(p_substrate_material);
 //    ParticleDecoration particle_decoration
 //        (new Particle(particle_material,
-//                      new FormFactorPyramid(5*Units::nanometer,
+//                      new FormFactorPyramid(10*Units::nanometer,
 //                                            5*Units::nanometer,
 //                                            Units::deg2rad(54.73 ) ) ) );
 //    particle_decoration.addInterferenceFunction
@@ -756,7 +757,7 @@ ISample *StandardSamples::MesoCrystal1()
 //    substrate_layer.setMaterial(p_substrate_material);
 //    ParticleDecoration particle_decoration
 //        (new Particle(particle_material,
-//                      new FormFactorPrism3(5*Units::nanometer,
+//                      new FormFactorPrism3(10.*Units::nanometer,
 //                                           5*Units::nanometer)));
 //    particle_decoration.addInterferenceFunction
 //        (new InterferenceFunctionNone());

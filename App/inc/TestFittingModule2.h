@@ -51,7 +51,7 @@ public:
     private:
         double m_cylinder_height;
         double m_cylinder_radius;
-        double m_prism3_half_side;
+        double m_prism3_length;
         double m_prism3_height;
         double m_cylinder_ratio;
     };

@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< FormFactorCuboctahedron > {
 
-    FormFactorCuboctahedron_wrapper(double half_side, double height, double height_ratio, double alpha )
-    : FormFactorCuboctahedron( half_side, height, height_ratio, alpha )
+    FormFactorCuboctahedron_wrapper(double length, double height, double height_ratio, double alpha )
+    : FormFactorCuboctahedron( length, height, height_ratio, alpha )
       , bp::wrapper< FormFactorCuboctahedron >(){
         // constructor
     
@@ -28,10 +28,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual ::FormFactorCuboctahedron * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorCuboctahedron::clone(  );
+        }
     }
-    
     
     ::FormFactorCuboctahedron * default_clone(  ) const  {
         return FormFactorCuboctahedron::clone( );
@@ -40,10 +40,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
-        else
+        else{
             return this->FormFactorCuboctahedron::evaluate_for_q( boost::ref(q) );
+        }
     }
-    
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorCuboctahedron::evaluate_for_q( boost::ref(q) );
@@ -52,34 +52,22 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual double getAlpha(  ) const  {
         if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
             return func_getAlpha(  );
-        else
+        else{
             return this->FormFactorCuboctahedron::getAlpha(  );
+        }
     }
-    
     
     double default_getAlpha(  ) const  {
         return FormFactorCuboctahedron::getAlpha( );
     }
 
-    virtual double getHalfSide(  ) const  {
-        if( bp::override func_getHalfSide = this->get_override( "getHalfSide" ) )
-            return func_getHalfSide(  );
-        else
-            return this->FormFactorCuboctahedron::getHalfSide(  );
-    }
-    
-    
-    double default_getHalfSide(  ) const  {
-        return FormFactorCuboctahedron::getHalfSide( );
-    }
-
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->FormFactorCuboctahedron::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return FormFactorCuboctahedron::getHeight( );
@@ -88,22 +76,34 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual double getHeightRatio(  ) const  {
         if( bp::override func_getHeightRatio = this->get_override( "getHeightRatio" ) )
             return func_getHeightRatio(  );
-        else
+        else{
             return this->FormFactorCuboctahedron::getHeightRatio(  );
+        }
     }
-    
     
     double default_getHeightRatio(  ) const  {
         return FormFactorCuboctahedron::getHeightRatio( );
     }
 
+    virtual double getLength(  ) const  {
+        if( bp::override func_getLength = this->get_override( "getLength" ) )
+            return func_getLength(  );
+        else{
+            return this->FormFactorCuboctahedron::getLength(  );
+        }
+    }
+    
+    double default_getLength(  ) const  {
+        return FormFactorCuboctahedron::getLength( );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorCuboctahedron::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorCuboctahedron::getNumberOfStochasticParameters( );
@@ -112,34 +112,22 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual void setAlpha( double alpha ) {
         if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
             func_setAlpha( alpha );
-        else
+        else{
             this->FormFactorCuboctahedron::setAlpha( alpha );
+        }
     }
-    
     
     void default_setAlpha( double alpha ) {
         FormFactorCuboctahedron::setAlpha( alpha );
     }
 
-    virtual void setHalfSide( double half_side ) {
-        if( bp::override func_setHalfSide = this->get_override( "setHalfSide" ) )
-            func_setHalfSide( half_side );
-        else
-            this->FormFactorCuboctahedron::setHalfSide( half_side );
-    }
-    
-    
-    void default_setHalfSide( double half_side ) {
-        FormFactorCuboctahedron::setHalfSide( half_side );
-    }
-
     virtual void setHeight( double height ) {
         if( bp::override func_setHeight = this->get_override( "setHeight" ) )
             func_setHeight( height );
-        else
+        else{
             this->FormFactorCuboctahedron::setHeight( height );
+        }
     }
-    
     
     void default_setHeight( double height ) {
         FormFactorCuboctahedron::setHeight( height );
@@ -148,22 +136,34 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual void setHeightRatio( double height_ratio ) {
         if( bp::override func_setHeightRatio = this->get_override( "setHeightRatio" ) )
             func_setHeightRatio( height_ratio );
-        else
+        else{
             this->FormFactorCuboctahedron::setHeightRatio( height_ratio );
+        }
     }
-    
     
     void default_setHeightRatio( double height_ratio ) {
         FormFactorCuboctahedron::setHeightRatio( height_ratio );
     }
 
+    virtual void setLength( double length ) {
+        if( bp::override func_setLength = this->get_override( "setLength" ) )
+            func_setLength( length );
+        else{
+            this->FormFactorCuboctahedron::setLength( length );
+        }
+    }
+    
+    void default_setLength( double length ) {
+        FormFactorCuboctahedron::setLength( length );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -172,10 +172,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -184,10 +184,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -196,34 +196,34 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
     
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -232,10 +232,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
-        else
+        else{
             return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
@@ -244,10 +244,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -256,10 +256,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -268,10 +268,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactor::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
@@ -280,10 +280,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactorBorn::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactorBorn::getVolume( );
@@ -292,10 +292,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -304,10 +304,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -316,10 +316,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -347,10 +347,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -359,10 +359,10 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -374,7 +374,7 @@ void register_FormFactorCuboctahedron_class(){
 
     { //::FormFactorCuboctahedron
         typedef bp::class_< FormFactorCuboctahedron_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCuboctahedron_exposer_t;
-        FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", bp::init< double, double, double, double >(( bp::arg("half_side"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") )) );
+        FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") )) );
         bp::scope FormFactorCuboctahedron_scope( FormFactorCuboctahedron_exposer );
         { //::FormFactorCuboctahedron::clone
         
@@ -411,17 +411,6 @@ void register_FormFactorCuboctahedron_class(){
                 , default_getAlpha_function_type(&FormFactorCuboctahedron_wrapper::default_getAlpha) );
         
         }
-        { //::FormFactorCuboctahedron::getHalfSide
-        
-            typedef double ( ::FormFactorCuboctahedron::*getHalfSide_function_type )(  ) const;
-            typedef double ( FormFactorCuboctahedron_wrapper::*default_getHalfSide_function_type )(  ) const;
-            
-            FormFactorCuboctahedron_exposer.def( 
-                "getHalfSide"
-                , getHalfSide_function_type(&::FormFactorCuboctahedron::getHalfSide)
-                , default_getHalfSide_function_type(&FormFactorCuboctahedron_wrapper::default_getHalfSide) );
-        
-        }
         { //::FormFactorCuboctahedron::getHeight
         
             typedef double ( ::FormFactorCuboctahedron::*getHeight_function_type )(  ) const;
@@ -442,6 +431,17 @@ void register_FormFactorCuboctahedron_class(){
                 "getHeightRatio"
                 , getHeightRatio_function_type(&::FormFactorCuboctahedron::getHeightRatio)
                 , default_getHeightRatio_function_type(&FormFactorCuboctahedron_wrapper::default_getHeightRatio) );
+        
+        }
+        { //::FormFactorCuboctahedron::getLength
+        
+            typedef double ( ::FormFactorCuboctahedron::*getLength_function_type )(  ) const;
+            typedef double ( FormFactorCuboctahedron_wrapper::*default_getLength_function_type )(  ) const;
+            
+            FormFactorCuboctahedron_exposer.def( 
+                "getLength"
+                , getLength_function_type(&::FormFactorCuboctahedron::getLength)
+                , default_getLength_function_type(&FormFactorCuboctahedron_wrapper::default_getLength) );
         
         }
         { //::FormFactorCuboctahedron::getNumberOfStochasticParameters
@@ -467,18 +467,6 @@ void register_FormFactorCuboctahedron_class(){
                 , ( bp::arg("alpha") ) );
         
         }
-        { //::FormFactorCuboctahedron::setHalfSide
-        
-            typedef void ( ::FormFactorCuboctahedron::*setHalfSide_function_type )( double ) ;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_setHalfSide_function_type )( double ) ;
-            
-            FormFactorCuboctahedron_exposer.def( 
-                "setHalfSide"
-                , setHalfSide_function_type(&::FormFactorCuboctahedron::setHalfSide)
-                , default_setHalfSide_function_type(&FormFactorCuboctahedron_wrapper::default_setHalfSide)
-                , ( bp::arg("half_side") ) );
-        
-        }
         { //::FormFactorCuboctahedron::setHeight
         
             typedef void ( ::FormFactorCuboctahedron::*setHeight_function_type )( double ) ;
@@ -501,6 +489,18 @@ void register_FormFactorCuboctahedron_class(){
                 , setHeightRatio_function_type(&::FormFactorCuboctahedron::setHeightRatio)
                 , default_setHeightRatio_function_type(&FormFactorCuboctahedron_wrapper::default_setHeightRatio)
                 , ( bp::arg("height_ratio") ) );
+        
+        }
+        { //::FormFactorCuboctahedron::setLength
+        
+            typedef void ( ::FormFactorCuboctahedron::*setLength_function_type )( double ) ;
+            typedef void ( FormFactorCuboctahedron_wrapper::*default_setLength_function_type )( double ) ;
+            
+            FormFactorCuboctahedron_exposer.def( 
+                "setLength"
+                , setLength_function_type(&::FormFactorCuboctahedron::setLength)
+                , default_setLength_function_type(&FormFactorCuboctahedron_wrapper::default_setLength)
+                , ( bp::arg("length") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -550,8 +550,8 @@ void register_FormFactorCuboctahedron_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( FormFactorCuboctahedron_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
             
             FormFactorCuboctahedron_exposer.def( 
                 "createDistributedFormFactors"

@@ -64,6 +64,7 @@ include_classes = [
     "FormFactorSphereGaussianRadius",
     "FormFactorSphereUniformRadius",
     "FormFactorSpheroid",
+    "FormFactorTetrahedron",
     "HomogeneousMaterial",
     "IAxis",
     "ICloneable",

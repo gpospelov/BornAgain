@@ -17,8 +17,8 @@ def get_sample():
     m_core = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    parallelepiped1_ff = FormFactorParallelepiped(8*nanometer, 8*nanometer)
-    parallelepiped2_ff = FormFactorParallelepiped(7*nanometer, 6*nanometer)
+    parallelepiped1_ff = FormFactorParallelepiped(16*nanometer, 8*nanometer)
+    parallelepiped2_ff = FormFactorParallelepiped(12*nanometer, 7*nanometer)
     shell_particle = Particle(m_shell, parallelepiped1_ff)
     core_particle = Particle(m_core, parallelepiped2_ff)
     core_position = kvector_t(0.0, 0.0, 0.0)

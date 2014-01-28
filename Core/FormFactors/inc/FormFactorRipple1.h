@@ -27,7 +27,7 @@
 class BA_CORE_API_ FormFactorRipple1 : public IFormFactorBorn
 {
 public:
-    FormFactorRipple1(double width, double height, double length);
+    FormFactorRipple1(double length, double width, double height);
 
     ~FormFactorRipple1() { delete m_integrator; }
 

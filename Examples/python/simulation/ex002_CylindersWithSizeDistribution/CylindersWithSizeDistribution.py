@@ -18,9 +18,9 @@ def get_sample():
     radius2 = 10.0*nanometer
     height1 = radius1
     height2 = radius2
-    cylinder_ff1 = FormFactorCylinder(height1, radius1)
+    cylinder_ff1 = FormFactorCylinder(radius1, height1)
     cylinder1 = Particle(m_particle, cylinder_ff1)
-    cylinder_ff2 = FormFactorCylinder(height2, radius2)
+    cylinder_ff2 = FormFactorCylinder(radius2, height2)
     cylinder2 = Particle(m_particle, cylinder_ff2)
     nbins = 150
     sigma1 = radius1*0.2

@@ -32,8 +32,8 @@ protected:
     void init_parameters();
 
 private:
-    double m_cylinder_height;
     double m_cylinder_radius;
+    double m_cylinder_height;
 };
 
 //! @class PolarizedDWBAMagCylinders2Builder
@@ -50,8 +50,8 @@ protected:
     void init_parameters();
 
 private:
-    double m_cylinder_height;
     double m_cylinder_radius;
+    double m_cylinder_height;
 };
 
 

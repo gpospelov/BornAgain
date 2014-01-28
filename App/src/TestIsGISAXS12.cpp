@@ -493,10 +493,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double radius2 = m_particle_radius2;
     double height1 = m_height_aspect_ratio1*radius1;
     double height2 = m_height_aspect_ratio2*radius2;
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(height1, radius1);
+    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(radius1, height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(height2, radius2);
+    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(radius2, height2);
     Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability

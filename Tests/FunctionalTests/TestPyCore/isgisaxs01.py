@@ -23,7 +23,7 @@ def RunSimulation():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
-    prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
+    prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer)
     prism = Particle(mParticle, prism_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 0.5)

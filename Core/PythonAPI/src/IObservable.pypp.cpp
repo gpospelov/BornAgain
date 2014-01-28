@@ -33,10 +33,10 @@ struct IObservable_wrapper : IObservable, bp::wrapper< IObservable > {
     virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
             func_attachObserver( obj );
-        else
+        else{
             this->IObservable::attachObserver( obj );
+        }
     }
-    
     
     void default_attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         IObservable::attachObserver( obj );
@@ -45,10 +45,10 @@ struct IObservable_wrapper : IObservable, bp::wrapper< IObservable > {
     virtual void notifyObservers(  ) {
         if( bp::override func_notifyObservers = this->get_override( "notifyObservers" ) )
             func_notifyObservers(  );
-        else
+        else{
             this->IObservable::notifyObservers(  );
+        }
     }
-    
     
     void default_notifyObservers(  ) {
         IObservable::notifyObservers( );

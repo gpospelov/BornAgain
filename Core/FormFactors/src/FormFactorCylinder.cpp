@@ -19,11 +19,11 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 
-FormFactorCylinder::FormFactorCylinder(double height, double radius)
+FormFactorCylinder::FormFactorCylinder(double radius, double height)
 {
     setName("FormFactorCylinder");
-    m_height = height;
     m_radius = radius;
+    m_height = height;
     init_parameters();
 }
 
@@ -32,13 +32,13 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
 void FormFactorCylinder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
     registerParameter("radius", &m_radius);
+    registerParameter("height", &m_height);
 }
 
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    FormFactorCylinder *result = new FormFactorCylinder(m_height, m_radius);
+    FormFactorCylinder *result = new FormFactorCylinder(m_radius, m_height);
     result->setName(getName());
     return result;
 }

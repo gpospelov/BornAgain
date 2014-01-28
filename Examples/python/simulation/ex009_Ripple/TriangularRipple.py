@@ -32,13 +32,13 @@ def get_sample():
     m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     # collection of particles
-    ripple2_ff = FormFactorRipple2(20*nanometer, 4*nanometer, 100*nanometer, -3.0*nanometer)
+    ripple2_ff = FormFactorRipple2(100*nanometer, 20*nanometer, 4*nanometer, -3.0*nanometer)
     ripple = Particle(m_particle, ripple2_ff)
 
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(ripple, 0.0, 1.0)
 
-    interference = InterferenceFunction1DParaCrystal (20*nanometer, 4*nanometer, 1e7*nanometer)
+    interference = InterferenceFunction1DParaCrystal (1e7*nanometer, 20*nanometer, 4*nanometer)
     particle_decoration.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer

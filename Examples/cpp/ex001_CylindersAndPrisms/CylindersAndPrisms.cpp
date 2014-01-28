@@ -45,7 +45,7 @@ void CylindersAndPrismsExample::setSample()
                 0.0, 0.5);
     particle_decoration.addParticle(
                 new Particle(particle_material,
-                             new FormFactorPrism3(5*Units::nanometer,
+                             new FormFactorPrism3(10*Units::nanometer,
                                                   5*Units::nanometer)),
                 0.0, 0.5);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());

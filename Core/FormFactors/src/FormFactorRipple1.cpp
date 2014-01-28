@@ -21,7 +21,7 @@
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-FormFactorRipple1::FormFactorRipple1(double width, double height, double length)
+FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_width(width)
     , m_height(height)
     , m_length(length)
@@ -48,7 +48,7 @@ void FormFactorRipple1::init_parameters()
 
 FormFactorRipple1 *FormFactorRipple1::clone() const
 {
-    FormFactorRipple1 *result = new FormFactorRipple1(m_width, m_height, m_length);
+    FormFactorRipple1 *result = new FormFactorRipple1(m_length, m_width, m_height);
     result->setName(getName());
     return result;
 }

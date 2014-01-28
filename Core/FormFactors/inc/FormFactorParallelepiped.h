@@ -26,7 +26,7 @@
 class BA_CORE_API_ FormFactorParallelepiped : public IFormFactorBorn
 {
 public:
-    FormFactorParallelepiped(double height, double radius);
+    FormFactorParallelepiped(double length, double height);
     ~FormFactorParallelepiped() {}
     virtual FormFactorParallelepiped *clone() const;
 
@@ -34,11 +34,11 @@ public:
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
-    //! Returns radius of parallelepiped
-    double getRadius() const { return m_radius; }
+    //! Returns side length of parallelepiped
+    double getLength() const { return m_length; }
 
    // virtual double getVolume() const
-   // { return 4.0*m_height*m_radius*m_radius; }
+   // { return m_height*m_length*m_length; }
 
     virtual double getHeight() const { return m_height; }
 
@@ -48,8 +48,8 @@ protected:
     virtual void init_parameters();
 
 private:
+    double m_length;
     double m_height;
-    double m_radius;
 };
 
 #endif /* FORMFACTORPARALLELEPIPED_H_ */

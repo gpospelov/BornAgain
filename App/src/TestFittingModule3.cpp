@@ -71,8 +71,8 @@ void TestFittingModule3::execute()
     // setting up fitSuite
     m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 8.0*Units::nanometer, 0.08*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 8.0*Units::nanometer, 0.08*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
     // putting scans
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
@@ -112,7 +112,7 @@ void TestFittingModule3::initializeSample()
     delete m_sample;
     double cylinder_height = 5.0*Units::nanometer;
     double cylinder_radius = 5.0*Units::nanometer;
-    double prism3_half_side = 5.0*Units::nanometer;
+    double prism3_length = 10.0*Units::nanometer;
     double prism3_height = 5.0*Units::nanometer;
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -127,8 +127,8 @@ void TestFittingModule3::initializeSample()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_radius, cylinder_height)),0.0, 0.2);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_length, prism3_height)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);

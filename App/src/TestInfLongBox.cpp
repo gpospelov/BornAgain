@@ -64,10 +64,10 @@ TestInfLongBox::TestInfLongBox()
 void TestInfLongBox::execute()
 {
     // initializing simulation and sample builder
-    //initializeSimulation();
-    //mp_simulation->runSimulation();
-    //save_results();
-    //plot_results();
+    initializeSimulation();
+    mp_simulation->runSimulation();
+    save_results();
+    plot_results();
 
     // plot the pure formfactor
     drawff();
@@ -172,10 +172,10 @@ void TestInfLongBox::initializeSimulation()
 // sample builder
 /* ************************************************************************* */
 TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
-    : m_w(20.0*Units::nanometer)
-    , m_h(4.0*Units::nanometer)
-    , m_interf_distance(40.0*Units::nanometer)
-    , m_interf_width(4.0*Units::nanometer)
+    : m_w(520.0*Units::nanometer)
+    , m_h(15.0*Units::nanometer)
+    , m_interf_distance(945.0*Units::nanometer)
+    , m_interf_width(5.0*Units::nanometer)
 {
       init_parameters();
 }

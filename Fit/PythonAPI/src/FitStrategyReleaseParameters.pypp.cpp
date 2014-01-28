@@ -30,6 +30,13 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     
     }
 
+    FitStrategyReleaseParameters_wrapper(::std::vector< std::string > const & pars )
+    : FitStrategyReleaseParameters( boost::ref(pars) )
+      , bp::wrapper< FitStrategyReleaseParameters >(){
+        // constructor
+    
+    }
+
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
@@ -98,6 +105,7 @@ void register_FitStrategyReleaseParameters_class(){
         typedef bp::class_< FitStrategyReleaseParameters_wrapper, bp::bases< FitStrategyAdjustParameters > > FitStrategyReleaseParameters_exposer_t;
         FitStrategyReleaseParameters_exposer_t FitStrategyReleaseParameters_exposer = FitStrategyReleaseParameters_exposer_t( "FitStrategyReleaseParameters", bp::init< >() );
         bp::scope FitStrategyReleaseParameters_scope( FitStrategyReleaseParameters_exposer );
+        FitStrategyReleaseParameters_exposer.def( bp::init< std::vector< std::string > const & >(( bp::arg("pars") )) );
         { //::FitStrategyReleaseParameters::clear
         
             typedef void ( ::FitStrategyReleaseParameters::*clear_function_type )(  ) ;

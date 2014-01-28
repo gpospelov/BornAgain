@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, bp::wrapper< SquaredFunctionSystematicError > {
 
-    SquaredFunctionSystematicError_wrapper(SquaredFunctionSystematicError const & arg )
-    : SquaredFunctionSystematicError( arg )
-      , bp::wrapper< SquaredFunctionSystematicError >(){
-        // copy constructor
-        
-    }
-
     SquaredFunctionSystematicError_wrapper(double epsilon=8.000000000000000166533453693773481063544750213623046875e-2 )
     : SquaredFunctionSystematicError( epsilon )
       , bp::wrapper< SquaredFunctionSystematicError >(){
@@ -42,7 +35,7 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
         return SquaredFunctionSystematicError::calculateSquaredDifference( real_value, simulated_value );
     }
 
-    virtual double calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
+    virtual double calculateSquaredError( double real_value, double simulated_value ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( real_value, simulated_value );
         else
@@ -50,7 +43,7 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
     }
     
     
-    double default_calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
+    double default_calculateSquaredError( double real_value, double simulated_value ) const  {
         return SquaredFunctionSystematicError::calculateSquaredError( real_value, simulated_value );
     }
 
@@ -71,7 +64,7 @@ struct SquaredFunctionSystematicError_wrapper : SquaredFunctionSystematicError, 
 void register_SquaredFunctionSystematicError_class(){
 
     { //::SquaredFunctionSystematicError
-        typedef bp::class_< SquaredFunctionSystematicError_wrapper, bp::bases< ISquaredFunction > > SquaredFunctionSystematicError_exposer_t;
+        typedef bp::class_< SquaredFunctionSystematicError_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionSystematicError_exposer_t;
         SquaredFunctionSystematicError_exposer_t SquaredFunctionSystematicError_exposer = SquaredFunctionSystematicError_exposer_t( "SquaredFunctionSystematicError", bp::init< bp::optional< double > >(( bp::arg("epsilon")=8.000000000000000166533453693773481063544750213623046875e-2 )) );
         bp::scope SquaredFunctionSystematicError_scope( SquaredFunctionSystematicError_exposer );
         { //::SquaredFunctionSystematicError::calculateSquaredDifference
@@ -95,7 +88,7 @@ void register_SquaredFunctionSystematicError_class(){
                 "calculateSquaredError"
                 , calculateSquaredError_function_type(&::SquaredFunctionSystematicError::calculateSquaredError)
                 , default_calculateSquaredError_function_type(&SquaredFunctionSystematicError_wrapper::default_calculateSquaredError)
-                , ( bp::arg("real_value"), bp::arg("simulated_value")=0.0 ) );
+                , ( bp::arg("real_value"), bp::arg("simulated_value") ) );
         
         }
         { //::SquaredFunctionSystematicError::clone

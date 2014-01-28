@@ -30,6 +30,13 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     
     }
 
+    FitStrategyFixParameters_wrapper(::std::vector< std::string > const & pars )
+    : FitStrategyFixParameters( boost::ref(pars) )
+      , bp::wrapper< FitStrategyFixParameters >(){
+        // constructor
+    
+    }
+
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
@@ -98,6 +105,7 @@ void register_FitStrategyFixParameters_class(){
         typedef bp::class_< FitStrategyFixParameters_wrapper, bp::bases< FitStrategyAdjustParameters > > FitStrategyFixParameters_exposer_t;
         FitStrategyFixParameters_exposer_t FitStrategyFixParameters_exposer = FitStrategyFixParameters_exposer_t( "FitStrategyFixParameters", bp::init< >() );
         bp::scope FitStrategyFixParameters_scope( FitStrategyFixParameters_exposer );
+        FitStrategyFixParameters_exposer.def( bp::init< std::vector< std::string > const & >(( bp::arg("pars") )) );
         { //::FitStrategyFixParameters::clear
         
             typedef void ( ::FitStrategyFixParameters::*clear_function_type )(  ) ;

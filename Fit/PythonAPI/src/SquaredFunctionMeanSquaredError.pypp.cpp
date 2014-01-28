@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError, bp::wrapper< SquaredFunctionMeanSquaredError > {
 
-    SquaredFunctionMeanSquaredError_wrapper(SquaredFunctionMeanSquaredError const & arg )
-    : SquaredFunctionMeanSquaredError( arg )
-      , bp::wrapper< SquaredFunctionMeanSquaredError >(){
-        // copy constructor
-        
-    }
-
     SquaredFunctionMeanSquaredError_wrapper( )
     : SquaredFunctionMeanSquaredError( )
       , bp::wrapper< SquaredFunctionMeanSquaredError >(){
@@ -42,6 +35,18 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
         return SquaredFunctionMeanSquaredError::calculateSquaredDifference( real_value, simulated_value );
     }
 
+    virtual double calculateSquaredError( double real_value, double simulated_value ) const  {
+        if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
+            return func_calculateSquaredError( real_value, simulated_value );
+        else
+            return this->SquaredFunctionMeanSquaredError::calculateSquaredError( real_value, simulated_value );
+    }
+    
+    
+    double default_calculateSquaredError( double real_value, double simulated_value ) const  {
+        return SquaredFunctionMeanSquaredError::calculateSquaredError( real_value, simulated_value );
+    }
+
     virtual ::SquaredFunctionMeanSquaredError * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -54,24 +59,12 @@ struct SquaredFunctionMeanSquaredError_wrapper : SquaredFunctionMeanSquaredError
         return SquaredFunctionMeanSquaredError::clone( );
     }
 
-    virtual double calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
-        if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
-            return func_calculateSquaredError( real_value, simulated_value );
-        else
-            return this->ISquaredFunction::calculateSquaredError( real_value, simulated_value );
-    }
-    
-    
-    double default_calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
-        return ISquaredFunction::calculateSquaredError( real_value, simulated_value );
-    }
-
 };
 
 void register_SquaredFunctionMeanSquaredError_class(){
 
     { //::SquaredFunctionMeanSquaredError
-        typedef bp::class_< SquaredFunctionMeanSquaredError_wrapper, bp::bases< ISquaredFunction > > SquaredFunctionMeanSquaredError_exposer_t;
+        typedef bp::class_< SquaredFunctionMeanSquaredError_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionMeanSquaredError_exposer_t;
         SquaredFunctionMeanSquaredError_exposer_t SquaredFunctionMeanSquaredError_exposer = SquaredFunctionMeanSquaredError_exposer_t( "SquaredFunctionMeanSquaredError", bp::init< >() );
         bp::scope SquaredFunctionMeanSquaredError_scope( SquaredFunctionMeanSquaredError_exposer );
         { //::SquaredFunctionMeanSquaredError::calculateSquaredDifference
@@ -86,6 +79,18 @@ void register_SquaredFunctionMeanSquaredError_class(){
                 , ( bp::arg("real_value"), bp::arg("simulated_value") ) );
         
         }
+        { //::SquaredFunctionMeanSquaredError::calculateSquaredError
+        
+            typedef double ( ::SquaredFunctionMeanSquaredError::*calculateSquaredError_function_type )( double,double ) const;
+            typedef double ( SquaredFunctionMeanSquaredError_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
+            
+            SquaredFunctionMeanSquaredError_exposer.def( 
+                "calculateSquaredError"
+                , calculateSquaredError_function_type(&::SquaredFunctionMeanSquaredError::calculateSquaredError)
+                , default_calculateSquaredError_function_type(&SquaredFunctionMeanSquaredError_wrapper::default_calculateSquaredError)
+                , ( bp::arg("real_value"), bp::arg("simulated_value") ) );
+        
+        }
         { //::SquaredFunctionMeanSquaredError::clone
         
             typedef ::SquaredFunctionMeanSquaredError * ( ::SquaredFunctionMeanSquaredError::*clone_function_type )(  ) const;
@@ -96,18 +101,6 @@ void register_SquaredFunctionMeanSquaredError_class(){
                 , clone_function_type(&::SquaredFunctionMeanSquaredError::clone)
                 , default_clone_function_type(&SquaredFunctionMeanSquaredError_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ISquaredFunction::calculateSquaredError
-        
-            typedef double ( ::ISquaredFunction::*calculateSquaredError_function_type )( double,double ) const;
-            typedef double ( SquaredFunctionMeanSquaredError_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
-            
-            SquaredFunctionMeanSquaredError_exposer.def( 
-                "calculateSquaredError"
-                , calculateSquaredError_function_type(&::ISquaredFunction::calculateSquaredError)
-                , default_calculateSquaredError_function_type(&SquaredFunctionMeanSquaredError_wrapper::default_calculateSquaredError)
-                , ( bp::arg("real_value"), bp::arg("simulated_value")=0.0 ) );
         
         }
     }

@@ -16,11 +16,11 @@ namespace bp = boost::python;
 
 struct ISquaredFunction_wrapper : ISquaredFunction, bp::wrapper< ISquaredFunction > {
 
-    ISquaredFunction_wrapper()
-    : ISquaredFunction()
+    ISquaredFunction_wrapper( )
+    : ISquaredFunction( )
       , bp::wrapper< ISquaredFunction >(){
         // null constructor
-        
+    
     }
 
     virtual double calculateSquaredDifference( double real_value, double simulated_value ) const {
@@ -28,16 +28,9 @@ struct ISquaredFunction_wrapper : ISquaredFunction, bp::wrapper< ISquaredFunctio
         return func_calculateSquaredDifference( real_value, simulated_value );
     }
 
-    virtual double calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
-        if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
-            return func_calculateSquaredError( real_value, simulated_value );
-        else
-            return this->ISquaredFunction::calculateSquaredError( real_value, simulated_value );
-    }
-    
-    
-    double default_calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
-        return ISquaredFunction::calculateSquaredError( real_value, simulated_value );
+    virtual double calculateSquaredError( double real_value, double simulated_value=0.0 ) const {
+        bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" );
+        return func_calculateSquaredError( real_value, simulated_value );
     }
 
     virtual ::ISquaredFunction * clone(  ) const {
@@ -51,7 +44,7 @@ void register_ISquaredFunction_class(){
 
     { //::ISquaredFunction
         typedef bp::class_< ISquaredFunction_wrapper, boost::noncopyable > ISquaredFunction_exposer_t;
-        ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction" );
+        ISquaredFunction_exposer_t ISquaredFunction_exposer = ISquaredFunction_exposer_t( "ISquaredFunction", bp::init< >() );
         bp::scope ISquaredFunction_scope( ISquaredFunction_exposer );
         { //::ISquaredFunction::calculateSquaredDifference
         
@@ -66,12 +59,10 @@ void register_ISquaredFunction_class(){
         { //::ISquaredFunction::calculateSquaredError
         
             typedef double ( ::ISquaredFunction::*calculateSquaredError_function_type )( double,double ) const;
-            typedef double ( ISquaredFunction_wrapper::*default_calculateSquaredError_function_type )( double,double ) const;
             
             ISquaredFunction_exposer.def( 
                 "calculateSquaredError"
-                , calculateSquaredError_function_type(&::ISquaredFunction::calculateSquaredError)
-                , default_calculateSquaredError_function_type(&ISquaredFunction_wrapper::default_calculateSquaredError)
+                , bp::pure_virtual( calculateSquaredError_function_type(&::ISquaredFunction::calculateSquaredError) )
                 , ( bp::arg("real_value"), bp::arg("simulated_value")=0.0 ) );
         
         }

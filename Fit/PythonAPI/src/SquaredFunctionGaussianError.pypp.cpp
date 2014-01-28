@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::wrapper< SquaredFunctionGaussianError > {
 
-    SquaredFunctionGaussianError_wrapper(SquaredFunctionGaussianError const & arg )
-    : SquaredFunctionGaussianError( arg )
-      , bp::wrapper< SquaredFunctionGaussianError >(){
-        // copy constructor
-        
-    }
-
     SquaredFunctionGaussianError_wrapper(double sigma=1.00000000000000002081668171172168513294309377670288085938e-2 )
     : SquaredFunctionGaussianError( sigma )
       , bp::wrapper< SquaredFunctionGaussianError >(){
@@ -71,7 +64,7 @@ struct SquaredFunctionGaussianError_wrapper : SquaredFunctionGaussianError, bp::
 void register_SquaredFunctionGaussianError_class(){
 
     { //::SquaredFunctionGaussianError
-        typedef bp::class_< SquaredFunctionGaussianError_wrapper, bp::bases< ISquaredFunction > > SquaredFunctionGaussianError_exposer_t;
+        typedef bp::class_< SquaredFunctionGaussianError_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionGaussianError_exposer_t;
         SquaredFunctionGaussianError_exposer_t SquaredFunctionGaussianError_exposer = SquaredFunctionGaussianError_exposer_t( "SquaredFunctionGaussianError", bp::init< bp::optional< double > >(( bp::arg("sigma")=1.00000000000000002081668171172168513294309377670288085938e-2 )) );
         bp::scope SquaredFunctionGaussianError_scope( SquaredFunctionGaussianError_exposer );
         { //::SquaredFunctionGaussianError::calculateSquaredDifference

@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< SquaredFunctionDefault > {
 
-    SquaredFunctionDefault_wrapper(SquaredFunctionDefault const & arg )
-    : SquaredFunctionDefault( arg )
-      , bp::wrapper< SquaredFunctionDefault >(){
-        // copy constructor
-        
-    }
-
     SquaredFunctionDefault_wrapper( )
     : SquaredFunctionDefault( )
       , bp::wrapper< SquaredFunctionDefault >(){
@@ -42,16 +35,16 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
         return SquaredFunctionDefault::calculateSquaredDifference( real_value, simulated_value );
     }
 
-    virtual double calculateSquaredError( double real_value, double arg1 ) const  {
+    virtual double calculateSquaredError( double real_value, double simulated_value=0 ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
-            return func_calculateSquaredError( real_value, arg1 );
+            return func_calculateSquaredError( real_value, simulated_value );
         else
-            return this->SquaredFunctionDefault::calculateSquaredError( real_value, arg1 );
+            return this->SquaredFunctionDefault::calculateSquaredError( real_value, simulated_value );
     }
     
     
-    double default_calculateSquaredError( double real_value, double arg1 ) const  {
-        return SquaredFunctionDefault::calculateSquaredError( real_value, arg1 );
+    double default_calculateSquaredError( double real_value, double simulated_value=0 ) const  {
+        return SquaredFunctionDefault::calculateSquaredError( real_value, simulated_value );
     }
 
     virtual ::SquaredFunctionDefault * clone(  ) const  {
@@ -71,7 +64,7 @@ struct SquaredFunctionDefault_wrapper : SquaredFunctionDefault, bp::wrapper< Squ
 void register_SquaredFunctionDefault_class(){
 
     { //::SquaredFunctionDefault
-        typedef bp::class_< SquaredFunctionDefault_wrapper, bp::bases< ISquaredFunction > > SquaredFunctionDefault_exposer_t;
+        typedef bp::class_< SquaredFunctionDefault_wrapper, bp::bases< ISquaredFunction >, boost::noncopyable > SquaredFunctionDefault_exposer_t;
         SquaredFunctionDefault_exposer_t SquaredFunctionDefault_exposer = SquaredFunctionDefault_exposer_t( "SquaredFunctionDefault", bp::init< >() );
         bp::scope SquaredFunctionDefault_scope( SquaredFunctionDefault_exposer );
         { //::SquaredFunctionDefault::calculateSquaredDifference
@@ -95,7 +88,7 @@ void register_SquaredFunctionDefault_class(){
                 "calculateSquaredError"
                 , calculateSquaredError_function_type(&::SquaredFunctionDefault::calculateSquaredError)
                 , default_calculateSquaredError_function_type(&SquaredFunctionDefault_wrapper::default_calculateSquaredError)
-                , ( bp::arg("real_value"), bp::arg("arg1") ) );
+                , ( bp::arg("real_value"), bp::arg("simulated_value")=0 ) );
         
         }
         { //::SquaredFunctionDefault::clone

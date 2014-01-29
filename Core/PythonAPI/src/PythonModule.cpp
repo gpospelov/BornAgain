@@ -20,6 +20,7 @@
 #include "vector_integer_t.pypp.h" 
 #include "AxisDouble.pypp.h" 
 #include "IAxis.pypp.h" 
+#include "FormFactorTetrahedron.pypp.h" 
 #include "Layer.pypp.h" 
 #include "ThreadInfo.pypp.h" 
 #include "IFormFactor.pypp.h" 
@@ -73,6 +74,7 @@
 #include "LayerInterface.pypp.h" 
 #include "FormFactorFullSphere.pypp.h" 
 #include "Transform3D.pypp.h" 
+#include "OffSpecSimulation.pypp.h" 
 #include "FormFactorRipple1.pypp.h" 
 #include "PositionParticleInfo.pypp.h" 
 #include "LayerRoughness.pypp.h" 
@@ -156,6 +158,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorSphereGaussianRadius_class();
     register_FormFactorSphereUniformRadius_class();
     register_FormFactorSpheroid_class();
+    register_FormFactorTetrahedron_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_Transform3D_class();
@@ -185,6 +188,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MaterialManager_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
+    register_OffSpecSimulation_class();
     register_IntensityData_class();
     register_OutputDataIOFactory_class();
     register_ParameterPool_class();

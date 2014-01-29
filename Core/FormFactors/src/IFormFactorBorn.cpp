@@ -22,9 +22,9 @@ complex_t IFormFactorBorn::evaluate(const cvector_t& k_i,
 {
     (void)alpha_f_bin;
     Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
-    if (useLargeBinApproximation(q_bin)) {
-        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
-    }
+//    if (useLargeBinApproximation(q_bin)) {
+//        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
+//    }
     return evaluate_for_q(q_bin.getMidPoint());
 }
 

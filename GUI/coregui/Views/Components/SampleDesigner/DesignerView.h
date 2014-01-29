@@ -10,6 +10,9 @@ class QWheelEvent;
 class QKeyEvent;
 
 //! The DesignerView class provides widget for displaying the contents of DesignerScene
+//!
+//! Belongs to SampleDesigner
+//! Currently contains logic for zooming, deleting objects
 class DesignerView : public QWidget
 {
     Q_OBJECT

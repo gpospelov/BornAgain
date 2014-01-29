@@ -53,8 +53,8 @@
 #  include <QLine>
 #  include <QVector>
 #ifdef R__QTX11
-//#  include <QX11Info>
-#include "x11info.h"
+#  include <QtX11Extras/QX11Info>
+#include <QtGui/qtransform.h>
 
 #endif
 #endif /* QT_VERSION */
@@ -1361,8 +1361,7 @@ Display_t  TGQt::GetDisplay() const
    // Using this method makes the rest of the ROOT X11 depended
 
 #ifdef R__QTX11
-//   return (Display_t)QX11Info::display();
-    return 0;
+   return (Display_t)QX11Info::display();
 #else
    // The dummy method to fit the X11-like interface
    return 0;
@@ -1379,8 +1378,8 @@ Visual_t   TGQt::GetVisual() const
    // Using this method makes the rest of the ROOT X11 depended
 
 #ifdef R__QTX11
-//   return (Visual_t) QX11Info::appVisual();
-    return 0;
+   //return (Visual_t) QX11Info::appVisual();
+   return 0;
 #else
    // The dummy method to fit the X11-like interface
    return 0;
@@ -1397,8 +1396,7 @@ Int_t      TGQt::GetScreen() const
    // Using this method makes the rest of the ROOT X11 depended
 
 #ifdef R__QTX11
-//   return   QX11Info::appScreen();
-    return 0;
+   return   QX11Info::appScreen();
 #else
    // The dummy method to fit the X11-like interface
    return 0;
@@ -1409,7 +1407,7 @@ Int_t      TGQt::GetDepth() const
 {
    // Returns depth of screen (number of bit planes).
 #ifdef R__QTX11
-   //return  QX11Info::appDepth();
+//   return  QX11Info::appDepth();
    return QPixmap::defaultDepth();
 #else
    return QPixmap::defaultDepth();

@@ -36,6 +36,7 @@
 #include "MatrixRTCoefficientsTest.h"
 #include "ScalarSpecularInfoMapTest.h"
 #include "MatrixSpecularInfoMapTest.h"
+#include "MathFunctionsTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

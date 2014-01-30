@@ -74,8 +74,11 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
 add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
+message("YYY ${qcustomplot_INCLUDE_DIRS}}")
+
 # --- dependencies ---
 include_directories(
+    ${qcustomplot_INCLUDE_DIRS}
     ${GQt_INCLUDE_DIRS}
     ${QtRoot_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
@@ -91,8 +94,8 @@ target_link_libraries(${executable_name}
 
 #core gui script webkit webkitwidgets designer designercomponents
 
-message("XXX ${ROOT_LIBRARIES}")
 target_link_libraries(${executable_name} 
+    ${qcustomplot_LIBRARY}
     ${GQt_LIBRARY}
     ${QtRoot_LIBRARY}
     ${Qt5Widgets_LIBRARIES}

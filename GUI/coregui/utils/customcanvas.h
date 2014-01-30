@@ -12,7 +12,7 @@ class ICanvas: public QWidget
 public:
     explicit ICanvas(QWidget *parent = 0) : QWidget(parent){}
     virtual ~ICanvas(){}
-    virtual void Draw(const OutputData<double> *data){}
+    virtual void Draw(const OutputData<double> *){}
 };
 
 

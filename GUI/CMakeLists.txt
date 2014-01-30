@@ -14,6 +14,7 @@ add_subdirectory(externals/qt-manhattan-style)
 add_subdirectory(externals/qcustomplot)
 add_subdirectory(externals/qt-root)
 add_subdirectory(externals/qt-root-gui-factory)
+add_subdirectory(externals/qtpropertybrowser)
 add_subdirectory(coregui)
 
 

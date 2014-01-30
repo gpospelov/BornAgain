@@ -18,10 +18,10 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/widgetbox
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/SampleDesigner
-    ${CMAKE_CURRENT_SOURCE_DIR}/qttools/qtpropertybrowser
+#    ${CMAKE_CURRENT_SOURCE_DIR}/qttools/qtpropertybrowser
 )
 include_directories(${include_dirs})
-include_directories(${CMAKE_CURRENT_BINARY_DIR}) # qtpropertybrowser needs some moc files
+#include_directories(${CMAKE_CURRENT_BINARY_DIR}) # qtpropertybrowser needs some moc files
 
 file(GLOB source_files
     "mainwindow/*.cpp"
@@ -30,7 +30,7 @@ file(GLOB source_files
     "Views/*.cpp"
 #    "Views/Components/widgetbox/*.cpp"
     "Views/Components/SampleDesigner/*.cpp"
-    "qttools/qtpropertybrowser/*.cpp"
+#    "qttools/qtpropertybrowser/*.cpp"
 )
 
 set(source_widgetbox
@@ -48,7 +48,7 @@ file(GLOB include_files
     "Views/*.h"
 #    "Views/Components/widgetbox/*.h"
     "Views/Components/SampleDesigner/*.h"
-    "qttools/qtpropertybrowser/*.h"
+#    "qttools/qtpropertybrowser/*.h"
 )
 
 set(include_widgetbox
@@ -63,7 +63,7 @@ list(APPEND include_files ${include_widgetbox})
 
 set(resource_files
     "coregui.qrc"
-    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
+#    "qttools/qtpropertybrowser/qtpropertybrowser.qrc"
     "Views/Components/SampleDesigner/SampleDesigner.qrc"
     "Views/Components/widgetbox/widgetbox.qrc"
 )
@@ -74,11 +74,10 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
 add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
-message("YYY ${qcustomplot_INCLUDE_DIRS}}")
-
 # --- dependencies ---
 include_directories(
     ${qcustomplot_INCLUDE_DIRS}
+    ${qtpropertybrowser_INCLUDE_DIRS}
     ${GQt_INCLUDE_DIRS}
     ${QtRoot_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
@@ -89,13 +88,12 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
 )
-target_link_libraries(${executable_name}
-)
 
 #core gui script webkit webkitwidgets designer designercomponents
 
 target_link_libraries(${executable_name} 
     ${qcustomplot_LIBRARY}
+    ${qtpropertybrowser_LIBRARY}
     ${GQt_LIBRARY}
     ${QtRoot_LIBRARY}
     ${Qt5Widgets_LIBRARIES}

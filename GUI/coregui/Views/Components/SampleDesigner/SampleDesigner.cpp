@@ -28,6 +28,7 @@ SampleDesigner::~SampleDesigner()
 }
 
 
+// XXX will be replaced
 void SampleDesigner::sceneToISample()
 {
     SamplePrintVisitor print_visitor;

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include "customcanvas.h"
 
 class JobModel;
 class SimulationDataModel;
@@ -28,7 +29,9 @@ private:
     JobModel *getCurrentJobModel() const;
     void setJobSelection();
     SimulationDataModel *mp_simulation_data_model;
-    RootCanvas *mp_canvas;
+//    RootCanvas *mp_canvas;
+    ICanvas *mp_canvas;
+
     QListWidget *m_joblist;
     QString m_current_job;
     TH2D *mp_cached_histo;

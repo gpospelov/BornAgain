@@ -23,7 +23,10 @@ public:
 };
 
 
-//! sample designer scene
+//! Sample designer scene. Main class to hold all graphics items (ISampleView objects).
+//! Handles drag and drop. Initialises NodeEditor.
+//!
+//! Belongs to SampleDesigner
 class DesignerScene : public DesignerSceneInterface
 {
     Q_OBJECT
@@ -49,6 +52,7 @@ protected:
 
 
 private:
+    // create some sample to start with non-empty scene
     void createSample();
 
 //    QGraphicsDropShadowEffect *m_shadow_effect;

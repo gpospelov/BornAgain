@@ -3,21 +3,13 @@
 
 #include <QWidget>
 
-//class FancyTabBar;
-//class FancyTabBar2;
-
-//namespace Manhattan {
-//class FancyTabBar;
-//}
-
-namespace BornAgain {
-class FancyTabBar;
-}
-
 class QStackedLayout;
 class QStatusBar;
 class QStackedWidget;
 class QIcon;
+namespace Manhattan {
+    class FancyTabBar;
+}
 
 
 class TaskSelectorWidget : public QWidget
@@ -43,9 +35,7 @@ private slots:
     void showWidget(int index);
 
 private:
-
-    BornAgain::FancyTabBar *m_tabBar;
-    // Manhattan::FancyTabBar *m_tabBar;
+    Manhattan::FancyTabBar *m_tabBar;
     QWidget *m_cornerWidgetContainer;
     QWidget *m_selectionWidget;
     QStatusBar *m_statusBar;

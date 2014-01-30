@@ -47,12 +47,13 @@
 #include <QtDesigner/QDesignerFormWindowManagerInterface>
 
 #include <qdesigner_utils_p.h>
-#include <filterwidget_p.h>
+//#include <filterwidget_p.h>
 
 #include <QtGui/QDropEvent>
 //#include <QtWidgets/QVBoxLayout>
 //#include <QtWidgets/QApplication>
 //#include <QtWidgets/QToolBar>
+#include <QLineEdit>
 #include <QVBoxLayout>
 #include <QApplication>
 #include <QToolBar>
@@ -69,23 +70,65 @@ QT_BEGIN_NAMESPACE
 
 namespace qdesigner_internal {
 
+class WidgetBoxFilterLineEdit : public QLineEdit {
+public:
+    explicit WidgetBoxFilterLineEdit(QWidget *parent = 0) : QLineEdit(parent), m_defaultFocusPolicy(focusPolicy())
+        { setFocusPolicy(Qt::NoFocus); }
+
+protected:
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void focusInEvent(QFocusEvent *e);
+
+private:
+    const Qt::FocusPolicy m_defaultFocusPolicy;
+};
+
+void WidgetBoxFilterLineEdit::mousePressEvent(QMouseEvent *e)
+{
+    if (!hasFocus()) // Explicitly focus on click.
+        setFocus(Qt::OtherFocusReason);
+    QLineEdit::mousePressEvent(e);
+}
+
+void WidgetBoxFilterLineEdit::focusInEvent(QFocusEvent *e)
+{
+    // Refuse the focus if the mouse it outside. In addition to the mouse
+    // press logic, this prevents a re-focussing which occurs once
+    // we actually had focus
+    const Qt::FocusReason reason = e->reason();
+    if (reason == Qt::ActiveWindowFocusReason || reason == Qt::PopupFocusReason) {
+        const QPoint mousePos = mapFromGlobal(QCursor::pos());
+        const bool refuse = !geometry().contains(mousePos);
+        if (refuse) {
+            e->ignore();
+            return;
+        }
+    }
+    QLineEdit::focusInEvent(e);
+}
+
+
+
+
+
+
+
 //WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
 WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowFlags flags)
     : QDesignerWidgetBox(parent, flags),
       m_core(core),
       m_view(new WidgetBoxTreeWidget(m_core))
 {
-
     QVBoxLayout *l = new QVBoxLayout(this);
     l->setMargin(0);
     l->setSpacing(0);
 
     // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
-    FilterWidget *filterWidget = new FilterWidget(0, FilterWidget::LayoutAlignNone);
-    filterWidget->setRefuseFocus(true);
-    connect(filterWidget, SIGNAL(filterChanged(QString)), m_view, SLOT(filter(QString)));
-
     QToolBar *toolBar = new QToolBar(this);
+    QLineEdit *filterWidget = new WidgetBoxFilterLineEdit(toolBar);
+    filterWidget->setPlaceholderText(tr("Filter"));
+    filterWidget->setClearButtonEnabled(true);
+    connect(filterWidget, SIGNAL(textChanged(QString)), m_view, SLOT(filter(QString)));
     toolBar->addWidget(filterWidget);
     l->addWidget(toolBar);
 
@@ -95,6 +138,27 @@ WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowF
     l->addWidget(m_view);
 
     setAcceptDrops (true);
+
+
+//    QVBoxLayout *l = new QVBoxLayout(this);
+//    l->setMargin(0);
+//    l->setSpacing(0);
+
+//    // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
+//    FilterWidget *filterWidget = new FilterWidget(0, FilterWidget::LayoutAlignNone);
+//    filterWidget->setRefuseFocus(true);
+//    connect(filterWidget, SIGNAL(filterChanged(QString)), m_view, SLOT(filter(QString)));
+
+//    QToolBar *toolBar = new QToolBar(this);
+//    toolBar->addWidget(filterWidget);
+//    l->addWidget(toolBar);
+
+//    // View
+//    connect(m_view, SIGNAL(pressed(QString,QString,QPoint)),
+//            this, SLOT(handleMousePress(QString,QString,QPoint)));
+//    l->addWidget(m_view);
+
+//    setAcceptDrops (true);
 }
 
 WidgetBox::~WidgetBox()

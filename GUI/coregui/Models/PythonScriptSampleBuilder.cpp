@@ -1,7 +1,5 @@
 #include "PythonScriptSampleBuilder.h"
 
-#include <Python.h>
-#include <boost/python.hpp>
 #include <cstring>
 #include <QByteArray>
 

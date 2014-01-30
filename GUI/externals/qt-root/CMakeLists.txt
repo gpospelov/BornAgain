@@ -47,7 +47,7 @@ include_directories(
 )
 
 target_link_libraries(${library_name} ${ROOT_LIBRARIES})
-qt5_use_modules(${library_name} Widgets)
+qt5_use_modules(${library_name} Widgets X11Extras)
 
 # --- installation ---
 #install (TARGETS ${library_name} DESTINATION bin COMPONENT Libraries)

@@ -48,8 +48,8 @@ public:
 #ifndef GCCXML_SKIP_THIS
     //! Returns scattering amplitude for matrix interactions
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-            Bin1D phi_f_bin) const;
+            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
+            const Bin1D &phi_f_bin) const;
 #endif
 
 private:

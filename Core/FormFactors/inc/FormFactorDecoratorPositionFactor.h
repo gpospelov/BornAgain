@@ -33,12 +33,12 @@ public:
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
 
 #ifndef GCCXML_SKIP_THIS
     virtual Eigen::Matrix2cd evaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-            Bin1D phi_f_bin) const;
+            const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
+            const Bin1D &phi_f_bin) const;
 #endif
 
     virtual int getNumberOfStochasticParameters() const {
@@ -47,7 +47,7 @@ public:
 protected:
     kvector_t m_position;
 private:
-    complex_t getPositionFactor(cvector_t q) const;
+    complex_t getPositionFactor(const cvector_t &q) const;
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
@@ -65,7 +65,7 @@ FormFactorDecoratorPositionFactor::clone() const
 }
 
 inline complex_t FormFactorDecoratorPositionFactor::evaluate(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     complex_t pos_factor = getPositionFactor(q);
@@ -73,8 +73,8 @@ inline complex_t FormFactorDecoratorPositionFactor::evaluate(
 }
 
 inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
-        const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
-        Bin1D phi_f_bin) const
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin,
+        const Bin1D &phi_f_bin) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     complex_t pos_factor = getPositionFactor(q);
@@ -83,7 +83,7 @@ inline Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
 }
 
 inline complex_t FormFactorDecoratorPositionFactor::getPositionFactor(
-        cvector_t q) const
+        const cvector_t &q) const
 {
     complex_t qr = q.x()*m_position.x() + q.y()*m_position.y()
             + q.z()*m_position.z();

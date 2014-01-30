@@ -38,7 +38,7 @@ FormFactorDWBA* FormFactorDWBA::clone() const
 }
 
 complex_t FormFactorDWBA::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     calculateTerms(k_i, k_f_bin, alpha_f_bin);
     return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
@@ -52,7 +52,7 @@ void FormFactorDWBA::setSpecularInfo(
 }
 
 void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     // Retrieve the two different incoming wavevectors in the layer
     const ILayerRTCoefficients *p_in_coeff =

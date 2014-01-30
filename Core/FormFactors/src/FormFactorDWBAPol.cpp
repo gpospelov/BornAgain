@@ -37,7 +37,7 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 }
 
 complex_t FormFactorDWBAPol::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f) const
 {
     (void)k_i;
     (void)k_f_bin;
@@ -47,7 +47,7 @@ complex_t FormFactorDWBAPol::evaluate(const cvector_t& k_i,
 }
 
 Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f, Bin1D phi_f) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f, const Bin1D &phi_f) const
 {
     calculateTerms(k_i, k_f_bin, alpha_f, phi_f);
     Eigen::Matrix2cd result =
@@ -66,7 +66,7 @@ void FormFactorDWBAPol::setSpecularInfo(
 }
 
 void FormFactorDWBAPol::calculateTerms(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
 {
     const ILayerRTCoefficients *p_in_coeff =
             mp_specular_info->getInCoefficients();

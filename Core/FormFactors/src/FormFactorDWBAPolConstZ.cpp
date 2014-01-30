@@ -37,7 +37,7 @@ FormFactorDWBAPolConstZ* FormFactorDWBAPolConstZ::clone() const
 }
 
 Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
 {
     // get all different z-components of wavevectors
     const ILayerRTCoefficients *in_coeff =

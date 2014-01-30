@@ -52,7 +52,7 @@ void FormFactorWeighted::setAmbientMaterial(const IMaterial *p_material)
 }
 
 complex_t FormFactorWeighted::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     complex_t result(0.0, 0.0);
     for (size_t index=0; index<m_form_factors.size(); ++index) {
@@ -64,7 +64,7 @@ complex_t FormFactorWeighted::evaluate(const cvector_t& k_i,
 }
 
 Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t index=0; index<m_form_factors.size(); ++index) {

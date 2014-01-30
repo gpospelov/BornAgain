@@ -22,12 +22,13 @@ JobView::JobView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
 
     // initialize canvas
 //    mp_canvas = new RootCanvas(this);
-//    mp_canvas->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mp_canvas = new CustomCanvas(this);
+    mp_canvas->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
      // layout
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_joblist);
-//    mainLayout->addWidget(mp_canvas);
+    mainLayout->addWidget(mp_canvas);
     setLayout(mainLayout);
 
     // signals and slots
@@ -73,6 +74,14 @@ void JobView::updateGraphics()
 //        mp_canvas->Update();
 //        std::cout << "XXX update " << (ncalls++) << std::endl;
 //    }
+    if(mp_canvas) {
+        JobModel *p_current_job = getCurrentJobModel();
+        if (p_current_job==0) return;
+        const OutputData<double> *data = p_current_job->getOutputData();
+        if(data == 0) return;
+        mp_canvas->Draw(data);
+
+    }
 }
 
 void JobView::onSelectionChanged()

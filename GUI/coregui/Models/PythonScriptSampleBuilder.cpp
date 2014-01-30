@@ -3,6 +3,9 @@
 #include <cstring>
 #include <QByteArray>
 
+#include <Python.h>
+#include <boost/python.hpp>
+
 namespace bp = boost::python;
 
 const char *PythonScriptSampleBuilder::m_class_name = "PythonSampleBuilder";

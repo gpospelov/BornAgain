@@ -1,8 +1,6 @@
 #ifndef PYTHONSCRIPTSAMPLEBUILDER_H
 #define PYTHONSCRIPTSAMPLEBUILDER_H
 
-#include <Python.h>
-#include <boost/python.hpp>
 
 #include "ISampleBuilder.h"
 

@@ -29,16 +29,12 @@ MinimizerFactory::Catalogue MinimizerFactory::m_catalogue =
 // for every minimizer
 MinimizerFactory::Catalogue::Catalogue()
 {
-    // TODO FIXME As soon as we got rid from ROOT in our dependencies, we've
-    // lost Genetic minimizer and it is not easy to get it back
-
     // our minimizers
     //m_data["Test"]        = boost::assign::list_of("");
     //m_data["Scan"]        = boost::assign::list_of("");
     // ROOT minimizers
     //m_data["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
     m_data["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
-    //m_data["Fumili"]      = boost::assign::list_of("");
     m_data["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
     m_data["GSLMultiFit"] = boost::assign::list_of("");
     m_data["GSLSimAn"]    = boost::assign::list_of("");

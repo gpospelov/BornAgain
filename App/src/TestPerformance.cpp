@@ -1,136 +1,120 @@
-// ************************************************************************** //
-//
-//  BornAgain: simulate and fit scattering at grazing incidence
-//
-//! @file      App/src/TestPerformance.cpp
-//! @brief     Implements class TestPerformance.
-//
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
-//
-// ************************************************************************** //
-
 #include "TestPerformance.h"
-#include "Types.h"
-#include "Units.h"
-#include "Utils.h"
-#include "Exceptions.h"
-#include "MultiLayer.h"
-#include "MaterialManager.h"
-#include "SampleFactory.h"
-#include "SpecularMatrix.h"
-#include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
+#include "Utils.h"
+#include "ProgramOptions.h"
+#include "Units.h"
+#include "SpecularMatrix.h"
+#include "SampleFactory.h"
+#include "SpecularMagnetic.h"
 
-#include "TSystem.h"
 #include "TDatime.h"
+#include "TSystem.h"
 #include "TBenchmark.h"
-#include <string>
-#include <iostream>
-#include <fstream>
 #include <sstream>
+#include <fstream>
 #include <iomanip>
-#include <time.h>
+#include <boost/format.hpp>
+
+
 
 TestPerformance::TestPerformance()
 {
-    // preparing performance tests to run
-    m_tests.push_back( new PerformanceTestInfo(new PerfTest_Pyramid(), 20) );
-    m_tests.push_back( new PerformanceTestInfo(new PerfTest_RotatedPyramid(), 20) );
-    m_tests.push_back( new PerformanceTestInfo(new PerfTest_MesoCrystal(), 1) );
-    m_tests.push_back( new PerformanceTestInfo(new PerfTest_SpecularMatrix(), 200000) );
-
+    m_tests.push_back(new PerformanceTest("isgisaxs02",2));
+    m_tests.push_back(new PerformanceTest("isgisaxs06a",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs09b",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs11",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs15",20));
+    m_tests.push_back(new PerformanceTest("mesocrystal01",1));
+    m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
+    m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
+    m_tests.push_back(new PerformanceTest("magcyl2",50));
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
+
 }
+
 
 TestPerformance::~TestPerformance()
 {
-    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
-        delete (*it);
-    }
+    for(size_t i=0; i<m_tests.size(); ++i) delete m_tests[i];
 }
 
-//! Run performance tests.
+
+
+
 
 void TestPerformance::execute()
 {
-    // getting system information
-    get_sysinfo();
+    for(size_t i=0; i<m_tests.size(); ++i) {
+        PerformanceTest *test = m_tests[i];
+        set_sysinfo(test);
 
-    //clock_t clock1 = clock();
-    //clock_t gt_clock1 = clock_get_time();
-
-    // run tests
-    TBenchmark mb;
-    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
-        PerformanceTestInfo *test_info = (*it);
-        std::string test_name = test_info->m_test->getName();
-
-        std::cout << "Running test: " << std::setw(20) << std::left << test_name << " ... ";
+        std::cout << "Running test: " << std::setw(20) << std::left << test->getName() << " ... ";
         std::cout.flush();
-        test_info->m_test->initialise(mp_options);
-        mb.Start( test_name.c_str() );
-        for(int i=0; i<test_info->m_nrepetitions; i++){
-            test_info->m_test->execute();
-        }
-        mb.Stop( test_name.c_str() );
-
-        // printing results
-        double result = mb.GetCpuTime( test_name.c_str() );
-        double fhz = double(test_info->m_nrepetitions)/result;
-        std::cout << std::setw(6) << std::left << result << " sec, "
-                  << std::setw(8) << std::left << fhz << " Hz ("
-                  << std::setw(4) << std::left << test_info->m_nrepetitions << " repetitions )"<< std::endl;
-        // saving results
-        std::ostringstream os;
-        os << std::setprecision(6)  << fhz;
-        m_performance_info[test_name] = os.str();
+        test->execute();
+        std::cout << boost::format("OK: %-6.3f (real sec), %-6.3f (cpu sec) ") % test->m_real_time % test->m_cpu_time << std::endl;
     }
 
-    write_performance();
-
-    //clock_t clock2 = clock();
+    write_results();
 }
 
-//! Append results to log file.
 
-void TestPerformance::write_performance()
+
+void TestPerformance::write_results()
 {
-    // appending performance information to the file
-//    std::string filename = Utils::FileSystem::GetHomePath() +
-//        "./dev-tools/log/perf_history.txt";
-    std::string filename = "perf_history.txt";
-
+    std::string filename("perf_history.txt");
     std::ofstream file;
     file.open(filename.c_str(), std::ios_base::app);
     if( !file.is_open() ) {
         throw FileNotIsOpenException("TestPerformance::execute() -> Error. Can't open file '"+filename+"' for writing.");
     }
 
-    file << m_performance_info["datime"] << get_delimeter();
-    file << std::left << Utils::AdjustStringLength(m_performance_info["hostname"],10) << get_delimeter();
-    file << std::left << Utils::AdjustStringLength(m_performance_info["sysinfo"],23) << get_delimeter();
-    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
-        std::string test_name = (*it)->m_test->getName();
-        file << std::left << Utils::AdjustStringLength(m_performance_info[test_name],11) << get_delimeter();
-    }
-    file<<std::endl;
+    write_header(file);
+    write_performance(file);
 
     file.close();
 
     std::cout << "TestPerformance::write_performance() -> Info. File '" << filename << "' is updated." << std::endl;
 }
 
-//! Fill system information.
 
-void TestPerformance::get_sysinfo()
+//! write header in file
+void TestPerformance::write_header(std::ofstream &file)
 {
+    file << std::endl;
+    file << boost::format("| %-19s | %-10s | %-13s | %2s | %-8s |") %  "date " % "hostname" % "sysinfo" % "tr" % "total";
+    for(size_t i=0; i<m_tests.size(); ++i) {
+        file  << boost::format(" %-12s |") %  Utils::AdjustStringLength(m_tests[i]->getName(),12);
+    }
+    file << std::endl;
+}
+
+//! write results of performance measurements
+void TestPerformance::write_performance(std::ofstream &file)
+{
+    PerformanceTest *test0 = m_tests[0];
+    file << boost::format("| %-19s | %-10s | %-13s | %-2d |") %  test0->m_datime % test0->m_hostname % test0->m_sysinfo % test0->m_nthreads;
+    double sum_real(0), sum_cpu(0);
+    for(size_t i=0; i<m_tests.size(); ++i) {
+        sum_real += m_tests[i]->m_real_time;
+        sum_cpu += m_tests[i]->m_cpu_time;
+    }
+    file  << boost::format(" %-8.3f |") %  sum_real;
+
+    for(size_t i=0; i<m_tests.size(); ++i) {
+        file  << boost::format(" %-12.3f |") %  m_tests[i]->m_real_time;
+    }
+    file << std::endl;
+}
+
+
+//! read sustem information and store it in the test
+void TestPerformance::set_sysinfo(PerformanceTest *test)
+{
+    test->initialise(mp_options);
+
     // saving date and time
     TDatime td;
-    m_performance_info["datime"] = std::string(td.AsSQLString());
+    test->m_datime = std::string(td.AsSQLString());
 
     // saving host name
     std::string hostname(gSystem->HostName());
@@ -139,95 +123,90 @@ void TestPerformance::get_sysinfo()
     if(pos != std::string::npos) {
         hostname.erase(pos,hostname.size()-pos);
     }
-    m_performance_info["hostname"] = hostname;
+    test->m_hostname = hostname;
 
     // saving hardware information
-    //std::string sysinfo;
     SysInfo_t sys_info;
     int status = gSystem->GetSysInfo(&sys_info);
     if( status == -1) {
-        std::cout << "TestPerformance::get_sysinfo() -> Warning! Can't get system info." << std::endl;
-        m_performance_info["sysinfo"] = std::string("failed");
+        test->m_sysinfo = std::string("Unknown hardware");
     }else{
         std::ostringstream os;
-        os << std::string(gSystem->GetBuildArch()) << ", "<< sys_info.fCpuSpeed << " MHz";
-
+        os << std::string(gSystem->GetBuildArch());
+        //os << std::string(gSystem->GetBuildArch()) << ", "<< sys_info.fCpuSpeed << " MHz";
         //os << ", " << 	sys_info.fL2Cache << " Kb";
-        m_performance_info["sysinfo"] = os.str();
+        test->m_sysinfo = os.str();
+    }
+
+    if (mp_options->find("threads")) {
+        test->m_nthreads = (*mp_options)["threads"].as<int>();
     }
 }
 
-//! Start PerfTest_SpecularMatrix.
 
-void PerfTest_SpecularMatrix::initialise(ProgramOptions *p_options)
+// -----------------------------------------------------------------------------
+// General PerformanceTest
+// -----------------------------------------------------------------------------
+
+//! run performance measurements
+void PerformanceTest::execute()
 {
-    IApplicationTest::initialise(p_options);
-    if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
+    TBenchmark mb;
+    mb.Start( getName().c_str() );
+
+    runTests();
+
+    mb.Stop( getName().c_str() );
+
+    m_cpu_time = mb.GetCpuTime(getName().c_str());
+    m_real_time = mb.GetRealTime(getName().c_str());
 }
 
-//! Run PerfTest_SpecularMatrix.
 
-void PerfTest_SpecularMatrix::execute()
+//! run standard simulation
+void PerformanceTest::runTests()
 {
-    static double alpha_i = -0.3;
-    kvector_t kvec;
-    kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
-    SpecularMatrix matrixCalculator;
-    MultiLayer *ml = dynamic_cast<MultiLayer *>(m_sample);
-    matrixCalculator.execute(*ml, kvec, coeffs);
-}
-
-//! Start PerfTest_Pyramid.
-
-void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
-{
-    IApplicationTest::initialise(p_options);
     SimulationRegistry registry;
-    m_simulation = registry.createSimulation("isgisaxs09a");
-    m_simulation->setProgramOptions(p_options);
+    Simulation *simulation = registry.createSimulation(getName());
+    simulation->setProgramOptions(mp_options);
+    for(int i=0; i<m_nrepetitions; i++){
+        simulation->runSimulation();
+    }
+    delete simulation;
 }
 
-//! Run PerfTest_Pyramid.
+// -----------------------------------------------------------------------------
+// custom PerformanceTest's
+// -----------------------------------------------------------------------------
 
-void PerfTest_Pyramid::execute()
+void SpecularMatrixPerformanceTest::runTests()
 {
-    m_simulation->runSimulation();
+    MultiLayer *ml = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
+
+    for(int i=0; i<m_nrepetitions; i++){
+        static double alpha_i = -0.3;
+        kvector_t kvec;
+        kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        SpecularMatrix::MultiLayerCoeff_t coeffs;
+        SpecularMatrix matrixCalculator;
+        matrixCalculator.execute(*ml, kvec, coeffs);
+    }
+    delete ml;
 }
 
-//! Start PerfTest_RotatedPyramid
-
-void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
+void SpecularMagneticPerformanceTest::runTests()
 {
-    IApplicationTest::initialise(p_options);
-    SimulationRegistry registry;
-    m_simulation = registry.createSimulation("isgisaxs09b");
-    m_simulation->setProgramOptions(p_options);
-}
+    MultiLayer *ml = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerSpecularMagneticTestCase"));
 
-//! Run PerfTest_RotatedPyramid
-
-void PerfTest_RotatedPyramid::execute()
-{
-    m_simulation->runSimulation();
-}
-
-//! Start PerfTest_MesoCrystal.
-
-void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
-{
-    IApplicationTest::initialise(p_options);
-    SimulationRegistry registry;
-    m_simulation = registry.createSimulation("mesocrystal01");
-    m_simulation->setProgramOptions(p_options);
-}
-
-//! Run PerfTest_MesoCrystal.
-
-void PerfTest_MesoCrystal::execute()
-{
-    m_simulation->runSimulation();
+    for(int i=0; i<m_nrepetitions; i++){
+        static double alpha_i = -0.3;
+        kvector_t kvec;
+        kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        SpecularMagnetic::MultiLayerCoeff_t coeffs;
+        SpecularMagnetic magneticCalculator;
+        magneticCalculator.execute(*ml, kvec, coeffs);
+    }
+    delete ml;
 }
 
 

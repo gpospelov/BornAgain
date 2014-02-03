@@ -65,7 +65,6 @@ target_link_libraries(
 )
 
 if(ROOT_FOUND)
-    message("XXX ${ROOT_LIBRARIES}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAS_GENETIC_MINIMIZER")
     include_directories(
         ${ROOT_INCLUDE_DIR}

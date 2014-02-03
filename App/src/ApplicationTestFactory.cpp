@@ -33,7 +33,6 @@
 #include "TestMiscellaneous.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestPerformance.h"
-#include "TestPerformance2.h"
 #include "TestPolarizedDWBA.h"
 #include "TestPolarizedDWBATerms.h"
 #include "TestPolarizedMeso.h"
@@ -203,12 +202,8 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         IFactoryCreateFunction<TestFittingModule3, IApplicationTest>,
         "functional test: fit module 4 params, 1d scans");
     p_test_factory->registerItem(
-        "performance1",
+        "performance",
         IFactoryCreateFunction<TestPerformance, IApplicationTest>,
-        "functional test: run performance test for several predefined tasks");
-    p_test_factory->registerItem(
-        "performance2",
-        IFactoryCreateFunction<TestPerformance2, IApplicationTest>,
         "functional test: run performance test for several predefined tasks");
     p_test_factory->registerItem(
         "roughdwba",

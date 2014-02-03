@@ -66,7 +66,7 @@ void TestInfLongBox::execute()
     // initializing simulation and sample builder
     initializeSimulation();
     mp_simulation->runSimulation();
-    save_results();
+//    save_results();
     plot_results();
 
     // plot the pure formfactor
@@ -172,8 +172,8 @@ void TestInfLongBox::initializeSimulation()
 // sample builder
 /* ************************************************************************* */
 TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
-    : m_w(520.0*Units::nanometer)
-    , m_h(15.0*Units::nanometer)
+    : m_w(100.0*Units::nanometer)
+    , m_h(50.0*Units::nanometer)
     , m_interf_distance(945.0*Units::nanometer)
     , m_interf_width(5.0*Units::nanometer)
 {
@@ -203,10 +203,13 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     FormFactorInfLongBox *ff = new FormFactorInfLongBox(m_w, m_h);
     Particle ibox(particle_material, ff );
 
+ //   Geometry::Transform3D transform =
+ //           Geometry::Transform3D::createRotateZ(90*Units::degree);
 
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(ibox,0.0,1.0);
-    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
+//    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
+    IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     // making layer holding all whose nano particles

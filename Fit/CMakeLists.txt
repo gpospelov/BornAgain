@@ -48,6 +48,7 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+
 # --- dependencies ---
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
@@ -62,6 +63,17 @@ target_link_libraries(
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
 )
+
+if(ROOT_FOUND)
+    message("XXX ${ROOT_LIBRARIES}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAS_GENETIC_MINIMIZER")
+    include_directories(
+        ${ROOT_INCLUDE_DIR}
+    )
+    target_link_libraries(${library_name}
+        ${ROOT_LIBRARIES} -lGenetic -lTMVA
+    )
+endif()
 
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS})

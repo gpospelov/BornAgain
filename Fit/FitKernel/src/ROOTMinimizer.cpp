@@ -27,6 +27,13 @@
 #include "ROOTMinimizerHelper.h"
 #include "MinimizerOptions.h"
 
+#include "Minuit2/Minuit2Minimizer.h"
+#include "Math/GSLMinimizer.h"
+
+#ifdef HAS_GENETIC_MINIMIZER
+#include "Math/GeneticMinimizer.h"
+#endif
+
 
 // ----------------------------------------------------------------------------
 // ROOTMinimizer c-tor
@@ -48,6 +55,18 @@ ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::strin
         m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
         // changing default options to more appropriate
         setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
+
+    }else if( m_minimizer_name == "Minuit2") {
+        m_root_minimizer = new ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
+
+    } else if( m_minimizer_name == "GSLMultiMin") {
+        m_root_minimizer = new ROOT::Math::GSLMinimizer(algo_type.c_str());
+
+#ifdef HAS_GENETIC_MINIMIZER
+   } else if (m_minimizer_name ==  "Genetic") {
+      m_root_minimizer = new ROOT::Math::GeneticMinimizer();
+#endif
+
     } else {
         m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
     }

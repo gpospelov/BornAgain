@@ -42,7 +42,9 @@ MinimizerFactory::Catalogue::Catalogue()
     m_data["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
     m_data["GSLMultiFit"] = boost::assign::list_of("");
     m_data["GSLSimAn"]    = boost::assign::list_of("");
-    //m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
+#ifdef HAS_GENETIC_MINIMIZER
+    m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
+#endif
 }
 
 

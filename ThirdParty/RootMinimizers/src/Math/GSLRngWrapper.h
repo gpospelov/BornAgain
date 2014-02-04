@@ -59,18 +59,32 @@ public:
     }
 
    /** 
-      Copy constructor - pass ownership (need not to be const)
-      Just copy the pointer and do not manage it 
+      Copy constructor - clone the GSL object and manage it
    */ 
    GSLRngWrapper(GSLRngWrapper & r) :
-      fOwn(r.fOwn),
-      fRng(r.fRng),
+      fOwn(1),
       fRngType(r.fRngType)
    { 
-      // in case an rng exists must release it
-      if (fRng && fOwn) r.fOwn = false;  
+      fRng = gsl_rng_clone(r.fRng);
    } 
 
+   /** 
+      Assignment operator
+   */ 
+   GSLRngWrapper & operator = (const GSLRngWrapper & rhs)  {
+      if (this == &rhs) return *this;  // time saving self-test
+      fRngType = rhs.fRngType;
+      int iret = 0; 
+      if (fRngType == rhs.fRngType) { 
+         iret = gsl_rng_memcpy(fRng, rhs.fRng); 
+         if (!iret) return *this;
+      }
+      // otherwise create a new copy
+      if (fOwn) Free(); 
+      fRng = gsl_rng_clone(rhs.fRng);
+      fOwn = true;
+      return *this;
+   }
 
    /**
       Destructor  (free the rng if not done before)
@@ -104,24 +118,14 @@ public:
       fRngType =  gsl_rng_default; 
     }
 
-
+   void PrintState() const { 
+      gsl_rng_print_state(fRng);
+   }
 
     inline gsl_rng * Rng()  { return fRng; } 
 
     inline const gsl_rng * Rng() const { return fRng; } 
 
-private:
-   // usually copying is non trivial, so we make this unaccessible
-
-
-   /** 
-      Assignment operator
-      Disable since if don't want to change an already created wrapper
-   */ 
-   GSLRngWrapper & operator = (const GSLRngWrapper & rhs)  {
-      if (this == &rhs) return *this;  // time saving self-test
-      return *this;
-   }
 
 
 private: 

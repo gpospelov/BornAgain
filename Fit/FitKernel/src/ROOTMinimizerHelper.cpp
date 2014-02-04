@@ -17,6 +17,7 @@
 #include "ROOTGSLSimAnMinimizer.h"
 #include "Utils.h"
 #include <boost/lexical_cast.hpp>
+#include "Math/GenAlgoOptions.h"
 
 // ----------------------------------------------------------------------------
 // translate text with options into appropriate calls of minimizer's set method
@@ -151,7 +152,11 @@ void ROOTMinimizerHelper::printOptions(ROOT::Math::Minimizer *minimizer)
     std::cout << std::setw(25) << std::left << "  MaxIterations"      << ": " << minimizer->MaxIterations() << std::endl;
     std::cout << std::setw(25) << std::left << "  Precision"          << ": " << minimizer->Precision() << std::endl;
     std::cout << std::setw(25) << std::left << "  ErrorDefinition"    << ": " << minimizer->ErrorDef() << " (1-chi2, 0.5 likelihood)" << std::endl;
-    std::cout << std::setw(25) << std::left << "  ExtraOptions"       << ": " << opt.ExtraOptions() << std::endl;
+    //std::cout << std::setw(25) << std::left << "  ExtraOptions"       << ": " << opt.ExtraOptions() << std::endl;
+    if(opt.ExtraOptions()) {
+        std::cout << "--- Extra Options --------------------------------------------------------------" << std::endl;
+        opt.ExtraOptions()->Print();
+    }
 }
 
 

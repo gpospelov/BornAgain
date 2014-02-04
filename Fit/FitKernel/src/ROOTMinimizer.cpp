@@ -67,8 +67,8 @@ ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::strin
       m_root_minimizer = new ROOT::Math::GeneticMinimizer();
 #endif
 
-    } else {
-        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+//    } else {
+//        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
     }
     if(!m_root_minimizer) {
         throw LogicErrorException("Can't create minimizer with name '"+minimizer_name+"', algo '" + algo_type+"'");

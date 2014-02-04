@@ -23,6 +23,9 @@
 #include "FormFactors.h"
 #include "MaterialManager.h"
 #include "IsGISAXSTools.h"
+#include "ROOTMinimizer.h"
+#include "Math/GeneticMinimizer.h"
+#include "Math/GenAlgoOptions.h"
 
 
 TestFittingModule4::TestFittingModule4()
@@ -61,6 +64,39 @@ void TestFittingModule4::execute()
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
+
+
+    ROOTMinimizer *root_minimizer = dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer());
+    ROOT::Math::Minimizer *minim = root_minimizer->getROOTMinimizer();
+
+    //minim->SetMaxFunctionCalls(100);
+    //minim->SetMaxIterations(100);
+
+    minim->SetPrintLevel(10);
+
+    ROOT::Math::MinimizerOptions options = minim->Options();
+    options.Print();
+    options.SetMaxIterations(5);
+    //minim->SetMaxFunctionCalls(100);
+
+    //ROOT::Math::GeneticMinimizer *genetic = dynamic_cast<ROOT::Math::GeneticMinimizer *>(minim);
+
+    ROOT::Math::IOptions *extra_options = options.ExtraOptions();
+    ROOT::Math::GenAlgoOptions *extra_genetic = dynamic_cast<ROOT::Math::GenAlgoOptions *>(extra_options);
+    if(extra_genetic) {
+        std::cout << "!!!" << std::endl;
+        extra_genetic->SetValue("Steps",20);
+//        std::ostream ostr = std::cout;
+//        extra_genetic->PrintAllDefault();
+//        extra_genetic->Print(std::cout);
+//        std::cout << extra_genetic->fConvCrit << std::endl;
+        options.Print();
+        std::cout << "---" << std::endl;
+    }
+
+    minim->SetOptions(options);
+    std::cout << "---" << std::endl;
+    minim->Options().Print();
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
     //m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );

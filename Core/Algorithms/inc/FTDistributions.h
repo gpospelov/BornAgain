@@ -37,6 +37,7 @@ public:
     virtual double evaluate(double q) const=0;
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
+
 protected:
     virtual void init_parameters();
     double m_omega;

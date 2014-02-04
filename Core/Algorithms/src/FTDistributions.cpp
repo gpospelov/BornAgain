@@ -26,6 +26,7 @@ void IFTDistribution1D::init_parameters()
     registerParameter("omega", &m_omega);
 }
 
+
 FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 : IFTDistribution1D(omega)
 {

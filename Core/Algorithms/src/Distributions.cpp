@@ -50,7 +50,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
 //! Interface
 void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 {
-	throw new ClassInitializationException(distribution_name +
+	throw ClassInitializationException(distribution_name +
 			": not correctly initialized");
 }
 

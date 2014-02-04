@@ -21,6 +21,7 @@
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
 #include "TestFittingModule3.h"
+#include "TestFittingModule4.h"
 #include "TestFormFactor.h"
 #include "TestFormFactors.h"
 #include "TestFourier.h"
@@ -192,15 +193,19 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "fitting1",
         IFactoryCreateFunction<TestFittingModule1, IApplicationTest>,
-        "functional test: fit module 2 params");
+        "functional test: basing fitting 2 params");
     p_test_factory->registerItem(
         "fitting2",
         IFactoryCreateFunction<TestFittingModule2, IApplicationTest>,
-        "functional test: fit module 5 params");
+        "functional test: fitting with strategies");
     p_test_factory->registerItem(
         "fitting3",
         IFactoryCreateFunction<TestFittingModule3, IApplicationTest>,
-        "functional test: fit module 4 params, 1d scans");
+        "functional test: fitting via 1D cuts");
+    p_test_factory->registerItem(
+        "fitting4",
+        IFactoryCreateFunction<TestFittingModule4, IApplicationTest>,
+        "functional test: testing genetic minimizer");
     p_test_factory->registerItem(
         "performance",
         IFactoryCreateFunction<TestPerformance, IApplicationTest>,

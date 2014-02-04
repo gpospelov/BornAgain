@@ -17,6 +17,7 @@
 #define PARAMETERDISTRIBUTION_H_
 
 #include "ParameterSample.h"
+#include "IParameterized.h"
 
 #include <memory>
 #include <string>
@@ -24,25 +25,32 @@
 
 class IDistribution1D;
 
-class ParameterDistribution
+class ParameterDistribution : public IParameterized
 {
 public:
 	ParameterDistribution(const std::string& name);
 	~ParameterDistribution();
 
+	//! set the distribution type, number of samples and
+	//! the range of sample values
 	void setDistribution(const IDistribution1D &distribution,
 			size_t nbr_samples, double sigma_factor=0.0);
 
+	//! get number of samples for this distribution
 	size_t getNbrSamples() const {
 		return m_nbr_samples;
 	}
 
+    //! generate list of sampled values with their weight
+    std::vector<ParameterSample> generateSamples() const;
+protected:
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
 private:
 	std::string m_name;
 	size_t m_nbr_samples;
 	double m_sigma_factor;
 	std::auto_ptr<IDistribution1D> mP_distribution;
-	std::vector<ParameterSample> m_samples;
 };
 
 

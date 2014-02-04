@@ -23,6 +23,8 @@ ParameterDistribution::ParameterDistribution(const std::string& name)
 , m_nbr_samples(0)
 , m_sigma_factor(0.0)
 {
+	setName("ParameterDistribution");
+	init_parameters();
 }
 
 ParameterDistribution::~ParameterDistribution()
@@ -40,5 +42,15 @@ void ParameterDistribution::setDistribution(const IDistribution1D& distribution,
 				"sigma factor cannot be negative");
 	}
 	m_sigma_factor = sigma_factor;
-	m_samples = mP_distribution->generateSamples(nbr_samples, sigma_factor);
+}
+
+std::vector<ParameterSample> ParameterDistribution::generateSamples() const
+{
+	return mP_distribution->generateSamples(m_nbr_samples, m_sigma_factor);
+}
+
+void ParameterDistribution::init_parameters()
+{
+    clearParameterPool();
+//    registerParameter("sigma_factor", &m_sigma_factor);
 }

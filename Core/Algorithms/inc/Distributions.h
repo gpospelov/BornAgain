@@ -39,6 +39,7 @@ public:
     //! get the mean of the distribution
     virtual double getMean() const=0;
 
+    //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples(size_t nbr_samples,
     		double sigma_factor=0.0) const;
 
@@ -76,6 +77,9 @@ protected:
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
+
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -108,6 +112,9 @@ protected:
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
+
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -140,6 +147,9 @@ protected:
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
+
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -170,6 +180,9 @@ protected:
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
+
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -202,6 +215,9 @@ protected:
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
+
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
 private:
     //! check initialization
     bool checkInitialization() const;

@@ -61,6 +61,7 @@ DistributionGate::DistributionGate(double mean, double hwhm)
 {
 	setName("DistributionGate");
 	checkInitialization();
+    init_parameters();
 }
 
 double DistributionGate::probabilityDensity(double x) const
@@ -88,6 +89,13 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 	return result;
 }
 
+void DistributionGate::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("mean", &m_mean);
+    registerParameter("hwhm", &m_hwhm);
+}
+
 bool DistributionGate::checkInitialization() const
 {
 	bool result = true;
@@ -103,6 +111,7 @@ DistributionLorentz::DistributionLorentz(double mean, double hwhm)
 {
 	setName("DistributionLorentz");
 	checkInitialization();
+    init_parameters();
 }
 
 double DistributionLorentz::probabilityDensity(double x) const
@@ -129,6 +138,13 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 	return result;
 }
 
+void DistributionLorentz::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("mean", &m_mean);
+    registerParameter("hwhm", &m_hwhm);
+}
+
 bool DistributionLorentz::checkInitialization() const
 {
 	bool result = true;
@@ -144,6 +160,7 @@ DistributionGaussian::DistributionGaussian(double mean, double std_dev)
 {
 	setName("DistributionGaussian");
 	checkInitialization();
+    init_parameters();
 }
 
 double DistributionGaussian::probabilityDensity(double x) const
@@ -172,6 +189,13 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 	return result;
 }
 
+void DistributionGaussian::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("mean", &m_mean);
+    registerParameter("std_dev", &m_std_dev);
+}
+
 bool DistributionGaussian::checkInitialization() const
 {
 	bool result = true;
@@ -187,6 +211,7 @@ DistributionLogNormal::DistributionLogNormal(double mean_log, double sigma)
 {
 	setName("DistributionLogNormal");
 	checkInitialization();
+    init_parameters();
 }
 
 double DistributionLogNormal::probabilityDensity(double x) const
@@ -220,6 +245,13 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 	return result;
 }
 
+void DistributionLogNormal::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("mean_log", &m_mean_log);
+    registerParameter("sigma", &m_sigma);
+}
+
 bool DistributionLogNormal::checkInitialization() const
 {
 	bool result = true;
@@ -235,6 +267,7 @@ DistributionCosine::DistributionCosine(double mean, double sigma)
 {
 	setName("DistributionCosine");
 	checkInitialization();
+    init_parameters();
 }
 
 double DistributionCosine::probabilityDensity(double x) const
@@ -259,6 +292,13 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 		}
 	}
 	return result;
+}
+
+void DistributionCosine::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("mean", &m_mean);
+    registerParameter("sigma", &m_sigma);
 }
 
 bool DistributionCosine::checkInitialization() const

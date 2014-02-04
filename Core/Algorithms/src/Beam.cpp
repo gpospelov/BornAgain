@@ -82,7 +82,7 @@ bool Beam::checkPolarization(const Eigen::Matrix2cd &polarization) const
     if (std::imag( (complex_t)polarization(0,0) ) != 0.0) return false;
     if (polarization(0,0)+polarization(1,1) != 1.0) return false;
     if (polarization(0,1) != std::conj( (complex_t)polarization(1,0))) return false;
-    if (std::abs( polarization.determinant() ) < 0.0) return false;
+    if (std::abs( (complex_t)polarization.determinant() ) < 0.0) return false;
 
     return true;
 }

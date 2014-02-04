@@ -48,8 +48,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
 }
 
 //! Interface
-void IDistribution1D::SignalBadInitialization(
-	std::string distribution_name) const
+void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 {
 	throw new ClassInitializationException(distribution_name +
 			": not correctly initialized");
@@ -60,6 +59,7 @@ DistributionGate::DistributionGate(double mean, double hwhm)
 : m_mean(mean)
 , m_hwhm(hwhm)
 {
+	setName("DistributionGate");
 	checkInitialization();
 }
 
@@ -72,6 +72,7 @@ double DistributionGate::probabilityDensity(double x) const
 std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 		double sigma_factor) const
 {
+	(void)sigma_factor;
 	std::vector<double> result;
 	if (nbr_samples < 2) {
 		result.push_back(m_mean);
@@ -80,7 +81,7 @@ std::vector<double> DistributionGate::generateValueList(size_t nbr_samples,
 		result.resize(nbr_samples);
 		double xmin = m_mean - m_hwhm;
 		double xmax = m_mean + m_hwhm;
-		for (int i=0; i<nbr_samples; ++i) {
+		for (size_t i=0; i<nbr_samples; ++i) {
 			result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
 		}
 	}
@@ -100,6 +101,7 @@ DistributionLorentz::DistributionLorentz(double mean, double hwhm)
 : m_mean(mean)
 , m_hwhm(hwhm)
 {
+	setName("DistributionLorentz");
 	checkInitialization();
 }
 
@@ -120,7 +122,7 @@ std::vector<double> DistributionLorentz::generateValueList(size_t nbr_samples,
 		result.resize(nbr_samples);
 		double xmin = m_mean - sigma_factor*m_hwhm;
 		double xmax = m_mean + sigma_factor*m_hwhm;
-		for (int i=0; i<nbr_samples; ++i) {
+		for (size_t i=0; i<nbr_samples; ++i) {
 			result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
 		}
 	}
@@ -140,6 +142,7 @@ DistributionGaussian::DistributionGaussian(double mean, double std_dev)
 : m_mean(mean)
 , m_std_dev(std_dev)
 {
+	setName("DistributionGaussian");
 	checkInitialization();
 }
 
@@ -162,7 +165,7 @@ std::vector<double> DistributionGaussian::generateValueList(size_t nbr_samples,
 		result.resize(nbr_samples);
 		double xmin = m_mean - sigma_factor*m_std_dev;
 		double xmax = m_mean + sigma_factor*m_std_dev;
-		for (int i=0; i<nbr_samples; ++i) {
+		for (size_t i=0; i<nbr_samples; ++i) {
 			result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
 		}
 	}
@@ -182,6 +185,7 @@ DistributionLogNormal::DistributionLogNormal(double mean_log, double sigma)
 : m_mean_log(mean_log)
 , m_sigma(sigma)
 {
+	setName("DistributionLogNormal");
 	checkInitialization();
 }
 
@@ -209,7 +213,7 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 		result.resize(nbr_samples);
 		double xmin = std::exp(m_mean_log - sigma_factor*m_sigma);
 		double xmax = std::exp(m_mean_log + sigma_factor*m_sigma);
-		for (int i=0; i<nbr_samples; ++i) {
+		for (size_t i=0; i<nbr_samples; ++i) {
 			result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
 		}
 	}
@@ -224,11 +228,12 @@ bool DistributionLogNormal::checkInitialization() const
 	return result;
 }
 
-//! DistributionLogNormal
+//! DistributionCosine
 DistributionCosine::DistributionCosine(double mean, double sigma)
 : m_mean(mean)
 , m_sigma(sigma)
 {
+	setName("DistributionCosine");
 	checkInitialization();
 }
 
@@ -249,7 +254,7 @@ std::vector<double> DistributionCosine::generateValueList(size_t nbr_samples,
 		result.resize(nbr_samples);
 		double xmin = m_mean - sigma_factor*m_sigma*M_PI/2.0;
 		double xmax = m_mean + sigma_factor*m_sigma*M_PI/2.0;
-		for (int i=0; i<nbr_samples; ++i) {
+		for (size_t i=0; i<nbr_samples; ++i) {
 			result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
 		}
 	}

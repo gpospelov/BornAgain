@@ -36,7 +36,7 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
 
 InterferenceFunction2DLattice *InterferenceFunction2DLattice::clone() const {
     InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(m_lattice_params);
-    result->setProbabilityDistribution(*mp_pdf);
+    if(mp_pdf) result->setProbabilityDistribution(*mp_pdf);
     result->setName(getName());
     return result;
 }
@@ -54,6 +54,10 @@ void InterferenceFunction2DLattice::setProbabilityDistribution(
 
 double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
 {
+    if(!mp_pdf) {
+        throw NullPointerException("InterferenceFunction2DLattice::evaluate"
+                " -> Error! No probability distribution function defined.");
+    }
     double result = 0.0;
     double qxr = q.x().real();
     double qyr = q.y().real();
@@ -75,6 +79,10 @@ double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(
         double qx, double qy) const
 {
+    if(!mp_pdf) {
+        throw NullPointerException("InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
+                " -> Error! No probability distribution function defined.");
+    }
     double qp1, qp2;
     double gamma = m_lattice_params.m_xi + mp_pdf->getGamma();
     double delta = mp_pdf->getDelta();
@@ -134,6 +142,11 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
 void InterferenceFunction2DLattice::initialize_calc_factors(
         double coherence_length_x, double coherence_length_y)
 {
+    if(!mp_pdf) {
+        throw NullPointerException("InterferenceFunction2DLattice::initialize_calc_factors"
+                " -> Error! No probability distribution function defined.");
+    }
+
     // constant prefactor
     //TODO: for non 2D distributions: check if this still applies
     m_prefactor = 2.0*M_PI*coherence_length_x*coherence_length_y;

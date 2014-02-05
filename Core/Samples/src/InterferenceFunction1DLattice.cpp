@@ -34,7 +34,7 @@ InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
 
 InterferenceFunction1DLattice *InterferenceFunction1DLattice::clone() const {
     InterferenceFunction1DLattice *result = new InterferenceFunction1DLattice(m_lattice_params);
-    result->setProbabilityDistribution(*mp_pdf);
+    if(mp_pdf) result->setProbabilityDistribution(*mp_pdf);
     result->setName(getName());
     return result;
 }
@@ -54,6 +54,10 @@ void InterferenceFunction1DLattice::setProbabilityDistribution(
 
 double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
 {
+    if(!mp_pdf) {
+        throw NullPointerException("InterferenceFunction1DLattice::evaluate"
+                " -> Error! No probability distribution function defined.");
+    }
     double result = 0.0;
     double qxr = q.x().real();
     double qyr = q.y().real();
@@ -61,7 +65,7 @@ double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
     double xi = m_lattice_params.m_xi;
     double a = m_lattice_params.m_length;
 
-    // rotate the q vector to -xi angle
+    // rotate the q vector to xi angle
     // so that qx_prime is along the a axis of lattice
     double qx_prime = qxr*std::cos(xi) + qyr*std::sin(xi);
 

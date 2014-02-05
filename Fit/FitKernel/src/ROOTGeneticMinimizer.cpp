@@ -33,6 +33,19 @@ ROOTGeneticMinimizer::ROOTGeneticMinimizer(const std::string& minimizer_name, co
 }
 
 
+void ROOTGeneticMinimizer::setParameter(size_t index, const FitParameter *par)
+{
+    if( !par->isFixed() && !par->hasLowerAndUpperLimits()) {
+        std::ostringstream ostr;
+        ostr << "ROOTGeneticMinimizer::setParameter() -> Error! ";
+        ostr << "Genetic minimizer requires either fixed or limited AttLimits::limited(left,right) parameter. ";
+        ostr << " Parameter name '" << par->getName() << "', isFixed():" << par->isFixed() << " hasLowerandUpperLimits:" << par->hasLowerAndUpperLimits();
+        throw LogicErrorException(ostr.str());
+    }
+    ROOTMinimizer::setParameter(index, par);
+}
+
+
 // this function serve as a bridge and propagates MinimizerOptions inside GeneticMinimizer
 // (which has own messy options)
 void ROOTGeneticMinimizer::propagateOptions()

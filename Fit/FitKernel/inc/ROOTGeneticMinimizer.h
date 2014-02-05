@@ -29,6 +29,8 @@ public:
     ROOTGeneticMinimizer(const std::string& minimizer_name, const std::string& algo_type);
     virtual ~ROOTGeneticMinimizer(){}
 
+    virtual void setParameter(size_t index, const FitParameter *par);
+
 protected:
    virtual void propagateOptions();
 

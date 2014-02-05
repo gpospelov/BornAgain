@@ -60,7 +60,7 @@ void TestFittingModule4::execute()
 
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );

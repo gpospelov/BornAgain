@@ -98,7 +98,7 @@ void TestToySimulation::execute()
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") );
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
     //m_fitSuite->getMinimizer()->setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");

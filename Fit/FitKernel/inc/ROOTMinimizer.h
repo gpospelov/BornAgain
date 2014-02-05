@@ -71,14 +71,11 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
-    //! set minimizer option string
-//    virtual void setOptions(const std::string& options);
-
     //! Returns created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
-    bool isGradientBasedAgorithm();    
+    virtual bool isGradientBasedAgorithm() { return false;}
 
  protected:
     virtual void propagateOptions();

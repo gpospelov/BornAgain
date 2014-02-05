@@ -29,6 +29,8 @@ public:
     ROOTMinuit2Minimizer(const std::string& minimizer_name, const std::string& algo_type);
     virtual ~ROOTMinuit2Minimizer(){}
 
+    virtual bool isGradientBasedAgorithm();
+
 protected:
    virtual void propagateOptions();
 

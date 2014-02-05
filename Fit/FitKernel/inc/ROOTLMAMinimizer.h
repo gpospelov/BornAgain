@@ -29,6 +29,8 @@ public:
     ROOTLMAMinimizer(const std::string& minimizer_name, const std::string& algo_type);
     virtual ~ROOTLMAMinimizer(){}
 
+    virtual bool isGradientBasedAgorithm() { return true; }
+
 protected:
    virtual void propagateOptions();
 

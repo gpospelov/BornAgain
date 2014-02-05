@@ -85,17 +85,6 @@ ROOTMinimizer::~ROOTMinimizer()
     delete m_gradient_func;
 }
 
-
-// check if algorithm needs gradient function (Levenberg-Marquardt, Fumili)
-bool ROOTMinimizer::isGradientBasedAgorithm()
-{
-    if (m_minimizer_name == "Fumili" ||
-        m_minimizer_name == "GSLMultiFit" ||
-        (m_minimizer_name == "Minuit2" && m_algo_type == "Fumili") ) return true;
-    return false;
-}
-
-
 void ROOTMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     size_t index(0);
@@ -125,22 +114,14 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
     } else if( !par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed() ) {
         success=m_root_minimizer->SetVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep());
     } else {
-        throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
-    }
-
-    if( m_minimizer_name == "Genetic" && (!par->isFixed() && !par->hasLowerAndUpperLimits()) ) {
-        std::ostringstream ostr;
-        ostr << "ROOTMinimizdr::setParameter() -> Error! ";
-        ostr << "Genetic minimizer requires either fixed or limited AttLimits::limited(left,right) parameter. ";
-        ostr << " Parameter name '" << par->getName() << "', isFixed():" << par->isFixed() << " hasLowerandUpperLimits:" << par->hasLowerAndUpperLimits();
-        throw LogicErrorException(ostr.str());
+        throw DomainErrorException("ROOTMinimizer::setVariable() -> Error!");
     }
 
     if( !success ) {
         std::ostringstream ostr;
         ostr << "ROOTMinimizer::setVariable() -> Error! Minimizer returned false while setting the variable." << std::endl;
-        ostr << "                                Probably given index has been already used for another variable name." << std::endl;
-        ostr << "                                Index:" << index << " name '" << par->getName() << "'" << std::endl;
+        ostr << "Probably given index has been already used for another variable name." << std::endl;
+        ostr << "Index:" << index << " name '" << par->getName() << "'" << std::endl;
         throw LogicErrorException(ostr.str());
     }
 }
@@ -202,14 +183,9 @@ size_t ROOTMinimizer::getNCalls() const
 
 MinimizerOptions &ROOTMinimizer::getOptions()
 {
-//    MinimizerOptions options;
-//    options.setTolerance(m_root_minimizer->Tolerance());
-//    options.setPrecision(m_root_minimizer->Precision());
-//    options.setMaxFunctionCalls(m_root_minimizer->MaxFunctionCalls());
-//    options.setMaxIterations(m_root_minimizer->MaxIterations());
-//    return options;
     return m_options;
 }
+
 
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
 {

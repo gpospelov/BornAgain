@@ -24,6 +24,13 @@ ROOTMinuit2Minimizer::ROOTMinuit2Minimizer(const std::string& minimizer_name, co
 }
 
 
+bool ROOTMinuit2Minimizer::isGradientBasedAgorithm()
+{
+    if(m_algo_type == "Fumili") return true;
+    return false;
+}
+
+
 // this function serve as a bridge and propagates MinimizerOptions inside Minuit2Minimizer
 void ROOTMinuit2Minimizer::propagateOptions()
 {

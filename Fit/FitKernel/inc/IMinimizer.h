@@ -82,7 +82,6 @@ class BA_CORE_API_ IMinimizer
     //! Prints fit results
     virtual void printResults() const;
 
-
     //! Returns number of calls of minimized function
     virtual size_t getNCalls() const;
 
@@ -94,6 +93,9 @@ class BA_CORE_API_ IMinimizer
 
     //! set minimizer option string
     virtual void setOptionString(const std::string& options);
+
+    //! Checks if type of algorithm is Levenberg-Marquardt or similar
+    virtual bool isGradientBasedAgorithm();
 
 };
 
@@ -175,6 +177,11 @@ inline void IMinimizer::setOptions(const MinimizerOptions &/*options*/)
 inline void IMinimizer::setOptionString(const std::string &/*options*/)
 {
     throw NotImplementedException("IMinimizer::setOptionString() -> Not implemented.");
+}
+
+inline bool IMinimizer::isGradientBasedAgorithm()
+{
+    throw NotImplementedException("IMinimizer::isGradientBasedAlgorithm() -> Not implemented.");
 }
 
 #endif // IMINIMIZER_H

@@ -167,7 +167,7 @@ def run_fitting():
     fit_suite.addSimulationAndRealData(simulation, real_data)
     fit_suite.initPrint(10)
     #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Fumili"))
-    #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("GSLMultiFit"))
+    #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("GSLLMA"))
     #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2","Scan"))
     #fit_suite.setMinimizer( MinimizerFactory.createMinimizer("GSLSimAn"))
 

@@ -226,7 +226,7 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "fumili",
         IFactoryCreateFunction<TestFumiliLMA, IApplicationTest>,
         "functional test: test of ROOT's LMA-based minimizers Fumili and "
-        "GSLMultiFit");
+        "GSLLMA");
     p_test_factory->registerItem(
         "toyexp",
         IFactoryCreateFunction<TestToySimulation, IApplicationTest>,

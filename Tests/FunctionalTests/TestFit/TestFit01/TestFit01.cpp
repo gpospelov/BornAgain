@@ -28,7 +28,7 @@ TestFit01::TestFit01()
     m_minimizers.push_back( Minimizer("Minuit2","Fumili") );
     m_minimizers.push_back( Minimizer("GSLMultiMin","BFGS") );
     m_minimizers.push_back( Minimizer("GSLMultiMin","SteepestDescent") );
-    m_minimizers.push_back( Minimizer("GSLMultiFit","") ); // this is Levenberg-Marquard
+    m_minimizers.push_back( Minimizer("GSLLMA","") ); // this is Levenberg-Marquard
 //    m_minimizers.push_back( Minimizer("GSLSimAn","") );
 //    m_minimizers.push_back( Minimizer("Genetic","") );
 }

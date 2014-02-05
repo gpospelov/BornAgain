@@ -25,17 +25,17 @@ MinimizerOptions::MinimizerOptions()
 
 }
 
-void MinimizerOptions::setRealValue(const std::string &name, double val)
-{
-    m_RealOpts[name] = val;
-}
+//void MinimizerOptions::setRealValue(const std::string &name, double val)
+//{
+//    m_RealOpts[name] = val;
+//}
 
-void MinimizerOptions::setIntValue(const std::string &name, int val)
-{
-    m_IntOpts[name] = val;
-}
+//void MinimizerOptions::setIntValue(const std::string &name, int val)
+//{
+//    m_IntOpts[name] = val;
+//}
 
-void MinimizerOptions::setNamedValue(const std::string &name, const std::string &val)
-{
-    m_NamOpts[name] = val;
-}
+//void MinimizerOptions::setNamedValue(const std::string &name, const std::string &val)
+//{
+//    m_NamOpts[name] = val;
+//}

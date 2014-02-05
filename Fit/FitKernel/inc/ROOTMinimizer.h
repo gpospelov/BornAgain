@@ -66,13 +66,13 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions getOptions() const;
+    virtual MinimizerOptions &getOptions();
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
     //! set minimizer option string
-    virtual void setOptions(const std::string& options);
+//    virtual void setOptions(const std::string& options);
 
     //! Returns created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
@@ -80,7 +80,9 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
     bool isGradientBasedAgorithm();    
 
- private:
+ protected:
+    virtual void propagateOptions();
+
     ROOTMinimizer(const ROOTMinimizer& );
     ROOTMinimizer& operator=(const ROOTMinimizer& );
 
@@ -91,6 +93,7 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     ROOT::Math::Minimizer *m_root_minimizer;
     ROOTMinimizerChiSquaredFunction *m_chi2_func;
     ROOTMinimizerGradientFunction *m_gradient_func;
+    MinimizerOptions m_options;
 };
 
 #endif // ROOTMINIMIZER_H

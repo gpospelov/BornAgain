@@ -22,13 +22,10 @@
 #include <sstream>
 #include <boost/assign/list_of.hpp>
 #include <boost/assign/list_of.hpp>
-#include "ROOTGSLNLSMinimizer.h"
 #include "ROOTGSLSimAnMinimizer.h"
 #include "ROOTMinimizerHelper.h"
 #include "MinimizerOptions.h"
 
-#include "Minuit2/Minuit2Minimizer.h"
-#include "Math/GSLMinimizer.h"
 
 #ifdef HAS_GENETIC_MINIMIZER
 #include "Math/GeneticMinimizer.h"
@@ -44,35 +41,40 @@
 ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::string& algo_type)
     : m_minimizer_name(minimizer_name)
     , m_algo_type(algo_type)
+    , m_root_minimizer(0)
     , m_chi2_func(0)
     , m_gradient_func(0)
 {
-    if( m_minimizer_name == "GSLMultiFit") {
-        // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
-        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
-    }else if( m_minimizer_name == "GSLSimAn") {
-        // hacked version of ROOT's GSL Simulated annealing minimizer
-        m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
-        // changing default options to more appropriate
-        setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
+//    if( m_minimizer_name == "GSLMultiFit") {
+//        // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
+//        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
+//    }else if( m_minimizer_name == "GSLSimAn") {
+//        // hacked version of ROOT's GSL Simulated annealing minimizer
+//        m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
+//        // changing default options to more appropriate
+//        setOptionString("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
 
-    }else if( m_minimizer_name == "Minuit2") {
-        m_root_minimizer = new ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
+//    }else if( m_minimizer_name == "Minuit2") {
+//        m_root_minimizer = new ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
 
-    } else if( m_minimizer_name == "GSLMultiMin") {
-        m_root_minimizer = new ROOT::Math::GSLMinimizer(algo_type.c_str());
+//    } else if( m_minimizer_name == "GSLMultiMin") {
+//        m_root_minimizer = new ROOT::Math::GSLMinimizer(algo_type.c_str());
 
-#ifdef HAS_GENETIC_MINIMIZER
-   } else if (m_minimizer_name ==  "Genetic") {
-      m_root_minimizer = new ROOT::Math::GeneticMinimizer();
-#endif
+//#ifdef HAS_GENETIC_MINIMIZER
+//   } else if (m_minimizer_name ==  "Genetic") {
+//      m_root_minimizer = new ROOT::Math::GeneticMinimizer();
+//#endif
 
-//    } else {
-//        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
-    }
-    if(!m_root_minimizer) {
-        throw LogicErrorException("Can't create minimizer with name '"+minimizer_name+"', algo '" + algo_type+"'");
-    }
+////    } else {
+////        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+//    }
+//    if(!m_root_minimizer) {
+//        throw LogicErrorException("Can't create minimizer with name '"+minimizer_name+"', algo '" + algo_type+"'");
+//    }
+
+
+
+
 }
 
 
@@ -146,6 +148,7 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
 
 void ROOTMinimizer::minimize()
 {
+    propagateOptions();
     m_root_minimizer->Minimize();
 }
 
@@ -197,29 +200,36 @@ size_t ROOTMinimizer::getNCalls() const
 }
 
 
-MinimizerOptions ROOTMinimizer::getOptions() const
+MinimizerOptions &ROOTMinimizer::getOptions()
 {
-    MinimizerOptions options;
-    options.setTolerance(m_root_minimizer->Tolerance());
-    options.setPrecision(m_root_minimizer->Precision());
-    options.setMaxFunctionCalls(m_root_minimizer->MaxFunctionCalls());
-    options.setMaxIterations(m_root_minimizer->MaxIterations());
-    return options;
+//    MinimizerOptions options;
+//    options.setTolerance(m_root_minimizer->Tolerance());
+//    options.setPrecision(m_root_minimizer->Precision());
+//    options.setMaxFunctionCalls(m_root_minimizer->MaxFunctionCalls());
+//    options.setMaxIterations(m_root_minimizer->MaxIterations());
+//    return options;
+    return m_options;
 }
 
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
 {
-    m_root_minimizer->SetTolerance(options.getTolerance());
-    m_root_minimizer->SetPrecision(options.getPrecision());
-    m_root_minimizer->SetMaxFunctionCalls(options.getMaxFunctionCalls());
-    m_root_minimizer->SetMaxIterations(options.getMaxIterations());
+    m_options = options;
+    propagateOptions();
 }
 
-void ROOTMinimizer::setOptions(const std::string& options)
+//void ROOTMinimizer::setOptions(const std::string& options)
+//{
+//    ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
+//}
+
+
+void ROOTMinimizer::propagateOptions()
 {
-    ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
+    m_root_minimizer->SetTolerance(m_options.getTolerance());
+    m_root_minimizer->SetPrecision(m_options.getPrecision());
+    m_root_minimizer->SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
+    m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
 }
-
 
 
 

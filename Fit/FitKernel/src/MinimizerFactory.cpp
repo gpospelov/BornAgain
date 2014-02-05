@@ -18,7 +18,13 @@
 #include "ROOTGSLSimAnMinimizer.h"
 #include "MinimizerTest.h"
 #include "MinimizerScan.h"
-#include "ROOTMinimizer.h"
+#include "ROOTMinuit2Minimizer.h"
+#include "ROOTMultiMinMinimizer.h"
+#include "ROOTSimAnMinimizer.h"
+#include "ROOTLMAMinimizer.h"
+#ifdef HAS_GENETIC_MINIMIZER
+#include "ROOTGeneticMinimizer.h"
+#endif
 #include <boost/assign/list_of.hpp>
 #include <iomanip>
 
@@ -36,7 +42,7 @@ MinimizerFactory::Catalogue::Catalogue()
     //m_data["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
     m_data["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
     m_data["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
-    m_data["GSLMultiFit"] = boost::assign::list_of("");
+    m_data["GSLLMA"] = boost::assign::list_of("");
     m_data["GSLSimAn"]    = boost::assign::list_of("");
 #ifdef HAS_GENETIC_MINIMIZER
     m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
@@ -86,14 +92,36 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     IMinimizer *result(0);
     if( minimizer == "Test" ) {
         result = new MinimizerTest();
+
     } else if( minimizer == "Scan" ) {
         result = new MinimizerScan();
-    } else {
-        result = new ROOTMinimizer(minimizer, algorithm);
+
+    } else if( minimizer == "Minuit2" ) {
+        result = new ROOTMinuit2Minimizer(minimizer, algorithm);
+
+    } else if( minimizer == "GSLMultiMin" ) {
+        result = new ROOTMultiMinMinimizer(minimizer, algorithm);
+
+    } else if( minimizer == "GSLLMA" ) {
+        result = new ROOTLMAMinimizer(minimizer, algorithm);
+
+    } else if( minimizer == "GSLSimAn" ) {
+        result = new ROOTSimAnMinimizer(minimizer, algorithm);
+
+#ifdef HAS_GENETIC_MINIMIZER
+    } else if( minimizer == "Genetic" ) {
+        result = new ROOTGeneticMinimizer(minimizer, algorithm);
+#endif
+
     }
+
+    if(!result) {
+        throw LogicErrorException("MinimizerFactory::createMinimizer() -> Error! Wrong minimizer name '"+minimizer+"'");
+    }
+
     if( !options.empty() ) {
         try {
-            result->setOptions(options);
+            result->setOptionString(options);
         } catch (NotImplementedException& e) {
             std::cout << "MinimizerFactory::createMinimizer() -> Warning! Minimizer doesn't have method implemented" << e.what() << std::endl;
         }

@@ -6,6 +6,8 @@
 #include "AttLimitsTest.h"
 #include "FitParameterTest.h"
 #include "FitParameterLinkedTest.h"
+#include "MinimizerOptionsTest.h"
+
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

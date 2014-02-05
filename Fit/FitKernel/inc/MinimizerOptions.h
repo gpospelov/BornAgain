@@ -16,48 +16,96 @@
 #ifndef MINIMIZEROPTIONS_H
 #define MINIMIZEROPTIONS_H
 #include "WinDllMacros.h"
+#include "Exceptions.h"
 #include <string>
 #include <map>
 
 //! @class MinimizerOptions
 //! @ingroup fitting
 //! @brief The %MinimizerOptions class contains options for minimization algorithms
+//!
+//! It allows to set values only if they have been already registered.
 
 class BA_CORE_API_ MinimizerOptions
 {
 public:
     MinimizerOptions();
-    virtual ~MinimizerOptions(){}
+    ~MinimizerOptions(){}
 
     //! return minimizer tolerance
-    virtual double getTolerance() const { return m_tolerance; }
+    double getTolerance() const { return m_tolerance; }
     //! set minimizer tolerance
-    virtual void setTolerance(double tolerance) { m_tolerance = tolerance; }
+    void setTolerance(double tolerance) { m_tolerance = tolerance; }
 
     //! return minimizer precision
-    virtual double getPrecision() const { return m_precision; }
+    double getPrecision() const { return m_precision; }
     //! set minimizer precision
-    virtual void setPrecision(double precision) { m_precision = precision; }
+    void setPrecision(double precision) { m_precision = precision; }
 
     //! return maximum number of allowed iterations
-    virtual int getMaxIterations() const { return m_max_iterations; }
+    int getMaxIterations() const { return m_max_iterations; }
     //! set maximum number of allowed iterations
-    virtual void setMaxIterations(int max_iterations) { m_max_iterations = max_iterations; }
+    void setMaxIterations(int max_iterations) { m_max_iterations = max_iterations; }
 
     //! return maximum number of allowed function calls
-    virtual int getMaxFunctionCalls() const { return m_max_function_calls; }
+    int getMaxFunctionCalls() const { return m_max_function_calls; }
     //! set maximum number of allowed function calls
-    virtual void setMaxFunctionCalls(int max_function_calls) { m_max_function_calls = max_function_calls; }
+    void setMaxFunctionCalls(int max_function_calls) { m_max_function_calls = max_function_calls; }
 
     //! set option value
-    virtual void setValue(const std::string &name, double val) { setRealValue(name,val);}
-    virtual void setValue(const std::string &name, int val) { setIntValue(name,val);}
-    virtual void setValue(const std::string &name, const std::string &val) { setNamedValue(name,val);}
+//    void setValue(const std::string &name, double val) { setRealValue(name, val);}
+//    void setValue(const std::string &name, int val) { setIntValue(name, val);}
+//    void setValue(const std::string &name, const std::string &val) { setNamedValue(name, val);}
+
+    void setValue(const std::string &name, double val) { setExistingValue(name, m_RealOpts, val); }
+    void setValue(const std::string &name, int val) { setExistingValue(name, m_IntOpts, val);}
+    void setValue(const std::string &name, const std::string &val) { setExistingValue(name, m_NamOpts, val);}
+
+    void addValue(const std::string &name, double val) { addNewValue(name, m_RealOpts, val); }
+    void addValue(const std::string &name, int val) { addNewValue(name, m_IntOpts, val);}
+    void addValue(const std::string &name, const std::string &val) { addNewValue(name, m_NamOpts, val);}
+
+    int getIntValue(const std::string &name) { return getValue(name, m_IntOpts); }
+    double getRealValue(const std::string &name) { return getValue(name, m_RealOpts); }
+    std::string getNamedValue(const std::string &name) { return getValue(name, m_NamOpts); }
 
 private:
-    virtual void setRealValue(const std::string &name, double val);
-    virtual void setIntValue(const std::string &name, int val);
-    virtual void setNamedValue(const std::string &name, const std::string &value);
+//    void setRealValue(const std::string &name, double val){ setExistingValue(name, m_RealOpts, val); }
+//    void setIntValue(const std::string &name, int val){ setExistingValue(name, m_IntOpts, val); }
+//    void setNamedValue(const std::string &name, const std::string &val){ setExistingValue(name, m_NamOpts, val); }
+
+    template<class M>
+    static void setExistingValue(const std::string &name, M & opts, const typename M::mapped_type & value) {
+       typename M::iterator pos;
+       pos = opts.find(name);
+       if (pos != opts.end()) {
+           pos->second = value;
+       } else {
+           throw LogicErrorException("MinimizerOptions::setValue() -> Error! Not existing name '"+name+"'");
+       }
+    }
+
+    template<class M>
+    static void addNewValue(const std::string &name, M & opts, const typename M::mapped_type & value) {
+       typename M::iterator pos;
+       pos = opts.find(name);
+       if (pos != opts.end()) {
+           throw LogicErrorException("MinimizerOptions::addValue() -> Error! Already existing name '"+name+"'");
+       } else {
+           opts.insert(typename M::value_type(name, value) );
+       }
+    }
+
+    template<class M>
+    static const typename M::mapped_type getValue(const std::string &  name, const M & opts) {
+       typename M::const_iterator pos;
+       pos = opts.find(name);
+       if (pos == opts.end()) {
+           throw LogicErrorException("MinimizerOptions::getValue() -> Error! Not existing name '"+name+"'");
+       }
+       return  (*pos).second;
+    }
+
 
     double m_tolerance; //!< Tolerance on the function value at the minimum.
     //!< the default tolerance value is 0.01 and the minimization will stop
@@ -75,7 +123,7 @@ private:
 
     int m_max_function_calls; //!< Max number of function calls.
 
-    std::map<std::string, double> m_RealOpts; //!< map of the real options
+    std::map<std::string, double> m_RealOpts; //!< additional map of the real options
     std::map<std::string, int> m_IntOpts; //!< map of the integer options
     std::map<std::string, std::string> m_NamOpts; //!< map of the named options
 };

@@ -87,13 +87,13 @@ class BA_CORE_API_ IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions getOptions() const;
+    virtual MinimizerOptions &getOptions();
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
     //! set minimizer option string
-    virtual void setOptions(const std::string& options);
+    virtual void setOptionString(const std::string& options);
 
 };
 
@@ -162,7 +162,7 @@ inline size_t IMinimizer::getNCalls() const
     throw NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
 }
 
-inline MinimizerOptions IMinimizer::getOptions() const
+inline MinimizerOptions &IMinimizer::getOptions()
 {
     throw NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
 }
@@ -172,9 +172,9 @@ inline void IMinimizer::setOptions(const MinimizerOptions &/*options*/)
     throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
 }
 
-inline void IMinimizer::setOptions(const std::string &/*options*/)
+inline void IMinimizer::setOptionString(const std::string &/*options*/)
 {
-    throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
+    throw NotImplementedException("IMinimizer::setOptionString() -> Not implemented.");
 }
 
 #endif // IMINIMIZER_H

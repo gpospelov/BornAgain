@@ -27,8 +27,29 @@ ParameterDistribution::ParameterDistribution(const std::string& name)
 	init_parameters();
 }
 
+ParameterDistribution::ParameterDistribution(
+		const ParameterDistribution& other)
+: m_name(other.m_name)
+, m_nbr_samples(other.m_nbr_samples)
+, m_sigma_factor(other.m_sigma_factor)
+{
+	mP_distribution.reset(other.mP_distribution->clone());
+}
+
 ParameterDistribution::~ParameterDistribution()
 {
+}
+
+ParameterDistribution& ParameterDistribution::operator=(
+		const ParameterDistribution& other)
+{
+	if (this != &other) {
+		m_name = other.m_name;
+		m_nbr_samples = other.m_nbr_samples;
+		m_sigma_factor = other.m_sigma_factor;
+		mP_distribution.reset(other.mP_distribution->clone());
+	}
+	return *this;
 }
 
 void ParameterDistribution::setDistribution(const IDistribution1D& distribution,

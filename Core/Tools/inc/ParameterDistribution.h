@@ -28,13 +28,22 @@ class IDistribution1D;
 class ParameterDistribution : public IParameterized
 {
 public:
-	ParameterDistribution(const std::string& name);
+	ParameterDistribution(const std::string &name);
+	ParameterDistribution(const ParameterDistribution &other);
 	~ParameterDistribution();
+
+	//! Overload assignment operator
+	ParameterDistribution& operator=(const ParameterDistribution &other);
 
 	//! set the distribution type, number of samples and
 	//! the range of sample values
 	void setDistribution(const IDistribution1D &distribution,
 			size_t nbr_samples, double sigma_factor=0.0);
+
+	//! get the parameter's name
+	std::string getParameterName() const {
+		return m_name;
+	}
 
 	//! get number of samples for this distribution
 	size_t getNbrSamples() const {

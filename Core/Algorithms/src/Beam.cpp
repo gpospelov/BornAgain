@@ -18,15 +18,20 @@
 #include <Eigen/LU>
 
 
-Beam::Beam() : m_central_k(), m_intensity(1.0)
+Beam::Beam()
+: m_lambda(1.0)
+, m_alpha(0.0)
+, m_phi(0.0)
+, m_intensity(1.0)
 {
     setName("Beam");
     init_parameters();
     initPolarization();
 }
 
-Beam::Beam(const Beam& other) : IParameterized(), m_central_k(other.m_central_k)
-  , m_intensity(other.m_intensity), m_polarization(other.m_polarization)
+Beam::Beam(const Beam& other) : IParameterized(), m_lambda(other.m_lambda),
+		m_alpha(other.m_alpha), m_phi(other.m_phi),
+		m_intensity(other.m_intensity), m_polarization(other.m_polarization)
 {
     setName(other.getName());
     init_parameters();
@@ -42,17 +47,19 @@ Beam& Beam::operator=(const Beam& other)
     return *this;
 }
 
-void Beam::setCentralK(const cvector_t& k_i)
+cvector_t Beam::getCentralK() const
 {
-    m_central_k = k_i;
+    cvector_t k;
+    k.setLambdaAlphaPhi(m_lambda, m_alpha, m_phi);
+    return k;
 }
 
 void Beam::setCentralK(double lambda, double alpha_i, double phi_i)
 {
-    cvector_t k_i;
     if (alpha_i >0) alpha_i = - alpha_i;
-    k_i.setLambdaAlphaPhi(lambda, alpha_i, phi_i);
-    m_central_k = k_i;
+    m_lambda = lambda;
+    m_alpha = alpha_i;
+    m_phi = phi_i;
 }
 
 void Beam::setPolarization(const Eigen::Matrix2cd &polarization)
@@ -91,11 +98,16 @@ void Beam::init_parameters()
 {
     clearParameterPool();
     registerParameter("intensity", &m_intensity);
+    registerParameter("wavelength", &m_lambda);
+    registerParameter("alpha", &m_alpha);
+    registerParameter("phi", &m_phi);
 }
 
 void Beam::swapContent(Beam& other)
 {
-    std::swap(this->m_central_k, other.m_central_k);
+    std::swap(this->m_lambda, other.m_lambda);
+    std::swap(this->m_alpha, other.m_alpha);
+    std::swap(this->m_phi, other.m_phi);
     std::swap(this->m_intensity, other.m_intensity);
     std::swap(this->m_polarization, other.m_polarization);
 }
@@ -106,3 +118,4 @@ void Beam::initPolarization()
     m_polarization(0,0) = 0.5;
     m_polarization(1,1) = 0.5;
 }
+

@@ -52,8 +52,8 @@ double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
 				"combinations");
 	}
 	size_t n_distr = m_distributions.size();
-	if (n_distr == 0) return 0.0;
 	double weight = 1.0;
+	if (n_distr == 0) return weight;
 	for (size_t param_index=n_distr-1; ; --param_index) {
 		size_t remainder = index % m_distributions[param_index].getNbrSamples();
 		index /= m_distributions[param_index].getNbrSamples();

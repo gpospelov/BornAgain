@@ -37,6 +37,7 @@
 #include "FormFactorSphereGaussianRadius.pypp.h" 
 #include "FormFactorSphereUniformRadius.pypp.h" 
 #include "FormFactorSpheroid.pypp.h" 
+#include "FTDistribution1DCauchy.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
 #include "IAxis.pypp.h" 
@@ -131,6 +132,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IClusteredParticles_class();
     register_Crystal_class();
     register_Detector_class();
+    register_IFTDistribution1D_class();
+    register_FTDistribution1DCauchy_class();
     register_IFTDistribution2D_class();
     register_FTDistribution2DCauchy_class();
     register_IFormFactor_class();
@@ -168,7 +171,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_HomogeneousMaterial_class();
     register_IDecoration_class();
     register_IDetectorResolution_class();
-    register_IFTDistribution1D_class();
     register_IInterferenceFunction_class();
     register_IObservable_class();
     register_IObserver_class();

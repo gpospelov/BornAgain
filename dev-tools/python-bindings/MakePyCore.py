@@ -39,6 +39,7 @@ include_classes = [
     "Bin1DCVector",
     "Crystal",
     "Detector",
+    "FTDistribution1DCauchy",
     "FTDistribution2DCauchy",
     "FormFactorAnisoPyramid",
     "FormFactorBox",

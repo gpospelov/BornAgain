@@ -32,7 +32,7 @@ public:
 	DistributionHandler();
 	~DistributionHandler();
 
-	//! add a samples parameter distribution
+	//! add a sampled parameter distribution
 	void addParameterDistribution(const std::string &param_name,
 			const IDistribution1D &distribution, size_t nbr_samples,
 			double sigma_factor=0.0);

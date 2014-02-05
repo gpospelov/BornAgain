@@ -307,6 +307,7 @@ Simulation::Simulation(const Simulation& other)
 , m_polarization_output()
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
+, m_distribution_handler(other.m_distribution_handler)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);

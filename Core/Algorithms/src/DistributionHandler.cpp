@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/src/DistributionWeighter.cpp
-//! @brief     Implements class DistributionWeighter.
+//! @file      Algorithms/src/DistributionHandler.cpp
+//! @brief     Implements class DistributionHandler.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,18 @@
 //
 // ************************************************************************** //
 
-#include "DistributionWeighter.h"
+#include "DistributionHandler.h"
 
-DistributionWeighter::DistributionWeighter()
+DistributionHandler::DistributionHandler()
 : m_nbr_combinations(1)
 {
 }
 
-DistributionWeighter::~DistributionWeighter()
+DistributionHandler::~DistributionHandler()
 {
 }
 
-void DistributionWeighter::addParameterDistribution(
+void DistributionHandler::addParameterDistribution(
 		const std::string &param_name, const IDistribution1D &distribution,
 		size_t nbr_samples, double sigma_factor)
 {
@@ -37,12 +37,12 @@ void DistributionWeighter::addParameterDistribution(
 	}
 }
 
-size_t DistributionWeighter::getTotalNumberOfSamples() const
+size_t DistributionHandler::getTotalNumberOfSamples() const
 {
 	return m_nbr_combinations;
 }
 
-double DistributionWeighter::setParameterValues(ParameterPool *p_parameter_pool,
+double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool,
 		size_t index)
 {
 	if (index >= m_nbr_combinations) {

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/inc/DistributionWeighter.h
-//! @brief     Defines class DistributionWeighter.
+//! @file      Algorithms/inc/DistributionHandler.h
+//! @brief     Defines class DistributionHandler.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONWEIGHTER_H_
-#define DISTRIBUTIONWEIGHTER_H_
+#ifndef DISTRIBUTIONHANDLER_H_
+#define DISTRIBUTIONHANDLER_H_
 
 #include "IParameterized.h"
 #include "ParameterDistribution.h"
@@ -22,15 +22,15 @@
 
 class IDistribution1D;
 
-//! @class DistributionWeighter
+//! @class DistributionHandler
 //! @ingroup algorithms_internal
 //! @brief Provides the functionality to average over parameter distributions
 //! with weights
-class DistributionWeighter : public IParameterized
+class DistributionHandler : public IParameterized
 {
 public:
-	DistributionWeighter();
-	~DistributionWeighter();
+	DistributionHandler();
+	~DistributionHandler();
 
 	//! add a samples parameter distribution
 	void addParameterDistribution(const std::string &param_name,
@@ -53,4 +53,4 @@ private:
 };
 
 
-#endif /* DISTRIBUTIONWEIGHTER_H_ */
+#endif /* DISTRIBUTIONHANDLER_H_ */

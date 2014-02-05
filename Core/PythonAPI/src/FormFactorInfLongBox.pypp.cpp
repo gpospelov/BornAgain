@@ -12,101 +12,101 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "FormFactorCylinder.pypp.h"
+#include "FormFactorInfLongBox.pypp.h"
 
 namespace bp = boost::python;
 
-struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorCylinder > {
+struct FormFactorInfLongBox_wrapper : FormFactorInfLongBox, bp::wrapper< FormFactorInfLongBox > {
 
-    FormFactorCylinder_wrapper(double height, double radius )
-    : FormFactorCylinder( height, radius )
-      , bp::wrapper< FormFactorCylinder >(){
+    FormFactorInfLongBox_wrapper(double width, double height )
+    : FormFactorInfLongBox( width, height )
+      , bp::wrapper< FormFactorInfLongBox >(){
         // constructor
     
     }
 
-    virtual ::FormFactorCylinder * clone(  ) const  {
+    virtual ::FormFactorInfLongBox * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->FormFactorCylinder::clone(  );
+            return this->FormFactorInfLongBox::clone(  );
         }
     }
     
-    ::FormFactorCylinder * default_clone(  ) const  {
-        return FormFactorCylinder::clone( );
+    ::FormFactorInfLongBox * default_clone(  ) const  {
+        return FormFactorInfLongBox::clone( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+        else{
+            return this->FormFactorInfLongBox::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+        return FormFactorInfLongBox::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
         else{
-            return this->FormFactorCylinder::evaluate_for_q( boost::ref(q) );
+            return this->FormFactorInfLongBox::evaluate_for_q( boost::ref(q) );
         }
     }
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
-        return FormFactorCylinder::evaluate_for_q( boost::ref(q) );
+        return FormFactorInfLongBox::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
         else{
-            return this->FormFactorCylinder::getHeight(  );
+            return this->FormFactorInfLongBox::getHeight(  );
         }
     }
     
     double default_getHeight(  ) const  {
-        return FormFactorCylinder::getHeight( );
+        return FormFactorInfLongBox::getHeight( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
         else{
-            return this->FormFactorCylinder::getNumberOfStochasticParameters(  );
+            return this->FormFactorInfLongBox::getNumberOfStochasticParameters(  );
         }
     }
     
     int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorCylinder::getNumberOfStochasticParameters( );
+        return FormFactorInfLongBox::getNumberOfStochasticParameters( );
     }
 
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
         else{
-            return this->FormFactorCylinder::getRadius(  );
+            return this->FormFactorInfLongBox::getRadius(  );
         }
     }
     
     double default_getRadius(  ) const  {
-        return FormFactorCylinder::getRadius( );
+        return FormFactorInfLongBox::getRadius( );
     }
 
-    virtual void setHeight( double height ) {
-        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
-            func_setHeight( height );
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
         else{
-            this->FormFactorCylinder::setHeight( height );
+            return this->FormFactorInfLongBox::getVolume(  );
         }
     }
     
-    void default_setHeight( double height ) {
-        FormFactorCylinder::setHeight( height );
-    }
-
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
-        else{
-            this->FormFactorCylinder::setRadius( radius );
-        }
-    }
-    
-    void default_setRadius( double radius ) {
-        FormFactorCylinder::setRadius( radius );
+    double default_getVolume(  ) const  {
+        return FormFactorInfLongBox::getVolume( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -181,18 +181,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
-        else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
-        }
-    }
-    
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
-    }
-
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -215,18 +203,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
-    }
-
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactorBorn::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactorBorn::getVolume( );
     }
 
     virtual bool isDistributedFormFactor(  ) const  {
@@ -276,7 +252,7 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< FormFactorCylinder_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< FormFactorInfLongBox_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -310,147 +286,155 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
 
 };
 
-void register_FormFactorCylinder_class(){
+void register_FormFactorInfLongBox_class(){
 
-    { //::FormFactorCylinder
-        typedef bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCylinder_exposer_t;
-        FormFactorCylinder_exposer_t FormFactorCylinder_exposer = FormFactorCylinder_exposer_t( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) );
-        bp::scope FormFactorCylinder_scope( FormFactorCylinder_exposer );
-        { //::FormFactorCylinder::clone
+    { //::FormFactorInfLongBox
+        typedef bp::class_< FormFactorInfLongBox_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorInfLongBox_exposer_t;
+        FormFactorInfLongBox_exposer_t FormFactorInfLongBox_exposer = FormFactorInfLongBox_exposer_t( "FormFactorInfLongBox", bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
+        bp::scope FormFactorInfLongBox_scope( FormFactorInfLongBox_exposer );
+        { //::FormFactorInfLongBox::clone
         
-            typedef ::FormFactorCylinder * ( ::FormFactorCylinder::*clone_function_type )(  ) const;
-            typedef ::FormFactorCylinder * ( FormFactorCylinder_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorInfLongBox * ( ::FormFactorInfLongBox::*clone_function_type )(  ) const;
+            typedef ::FormFactorInfLongBox * ( FormFactorInfLongBox_wrapper::*default_clone_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "clone"
-                , clone_function_type(&::FormFactorCylinder::clone)
-                , default_clone_function_type(&FormFactorCylinder_wrapper::default_clone)
+                , clone_function_type(&::FormFactorInfLongBox::clone)
+                , default_clone_function_type(&FormFactorInfLongBox_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorCylinder::evaluate_for_q
+        { //::FormFactorInfLongBox::evaluate
         
-            typedef ::complex_t ( ::FormFactorCylinder::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
+                "evaluate"
+                , evaluate_function_type(&::FormFactorInfLongBox::evaluate)
+                , default_evaluate_function_type(&FormFactorInfLongBox_wrapper::default_evaluate)
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
+        
+        }
+        { //::FormFactorInfLongBox::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorInfLongBox::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorInfLongBox_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorInfLongBox_exposer.def( 
                 "evaluate_for_q"
-                , evaluate_for_q_function_type(&::FormFactorCylinder::evaluate_for_q)
-                , default_evaluate_for_q_function_type(&FormFactorCylinder_wrapper::default_evaluate_for_q)
+                , evaluate_for_q_function_type(&::FormFactorInfLongBox::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorInfLongBox_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorCylinder::getHeight
+        { //::FormFactorInfLongBox::getHeight
         
-            typedef double ( ::FormFactorCylinder::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::FormFactorInfLongBox::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorInfLongBox_wrapper::*default_getHeight_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorCylinder::getHeight)
-                , default_getHeight_function_type(&FormFactorCylinder_wrapper::default_getHeight) );
+                , getHeight_function_type(&::FormFactorInfLongBox::getHeight)
+                , default_getHeight_function_type(&FormFactorInfLongBox_wrapper::default_getHeight) );
         
         }
-        { //::FormFactorCylinder::getNumberOfStochasticParameters
+        { //::FormFactorInfLongBox::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorCylinder::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorCylinder_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorInfLongBox::*getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( FormFactorInfLongBox_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorCylinder::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorCylinder_wrapper::default_getNumberOfStochasticParameters) );
+                , getNumberOfStochasticParameters_function_type(&::FormFactorInfLongBox::getNumberOfStochasticParameters)
+                , default_getNumberOfStochasticParameters_function_type(&FormFactorInfLongBox_wrapper::default_getNumberOfStochasticParameters) );
         
         }
-        { //::FormFactorCylinder::getRadius
+        { //::FormFactorInfLongBox::getRadius
         
-            typedef double ( ::FormFactorCylinder::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::FormFactorInfLongBox::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorInfLongBox_wrapper::*default_getRadius_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "getRadius"
-                , getRadius_function_type(&::FormFactorCylinder::getRadius)
-                , default_getRadius_function_type(&FormFactorCylinder_wrapper::default_getRadius) );
+                , getRadius_function_type(&::FormFactorInfLongBox::getRadius)
+                , default_getRadius_function_type(&FormFactorInfLongBox_wrapper::default_getRadius) );
         
         }
-        { //::FormFactorCylinder::setHeight
+        { //::FormFactorInfLongBox::getVolume
         
-            typedef void ( ::FormFactorCylinder::*setHeight_function_type )( double ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setHeight_function_type )( double ) ;
+            typedef double ( ::FormFactorInfLongBox::*getVolume_function_type )(  ) const;
+            typedef double ( FormFactorInfLongBox_wrapper::*default_getVolume_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
-                "setHeight"
-                , setHeight_function_type(&::FormFactorCylinder::setHeight)
-                , default_setHeight_function_type(&FormFactorCylinder_wrapper::default_setHeight)
-                , ( bp::arg("height") ) );
+            FormFactorInfLongBox_exposer.def( 
+                "getVolume"
+                , getVolume_function_type(&::FormFactorInfLongBox::getVolume)
+                , default_getVolume_function_type(&FormFactorInfLongBox_wrapper::default_getVolume) );
         
         }
-        { //::FormFactorCylinder::setRadius
+        { //::FormFactorInfLongBox::getWidth
         
-            typedef void ( ::FormFactorCylinder::*setRadius_function_type )( double ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setRadius_function_type )( double ) ;
+            typedef double ( ::FormFactorInfLongBox::*getWidth_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
-                "setRadius"
-                , setRadius_function_type(&::FormFactorCylinder::setRadius)
-                , default_setRadius_function_type(&FormFactorCylinder_wrapper::default_setRadius)
-                , ( bp::arg("radius") ) );
+            FormFactorInfLongBox_exposer.def( 
+                "getWidth"
+                , getWidth_function_type( &::FormFactorInfLongBox::getWidth ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorCylinder_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorCylinder_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&FormFactorInfLongBox_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorCylinder_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&FormFactorInfLongBox_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorCylinder_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( FormFactorInfLongBox_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&FormFactorCylinder_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorInfLongBox_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorCylinder_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&FormFactorCylinder_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&FormFactorInfLongBox_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
         
             typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
-            typedef void ( FormFactorCylinder_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "createDistributedFormFactors"
                 , createDistributedFormFactors_function_type(&::IFormFactor::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorCylinder_wrapper::default_createDistributedFormFactors)
+                , default_createDistributedFormFactors_function_type(&FormFactorInfLongBox_wrapper::default_createDistributedFormFactors)
                 , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
@@ -458,126 +442,103 @@ void register_FormFactorCylinder_class(){
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorCylinder_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( FormFactorInfLongBox_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorCylinder_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&FormFactorInfLongBox_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IFormFactorBorn::evaluate
-        
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            
-            FormFactorCylinder_exposer.def( 
-                "evaluate"
-                , evaluate_function_type(&::IFormFactorBorn::evaluate)
-                , default_evaluate_function_type(&FormFactorCylinder_wrapper::default_evaluate)
-                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorCylinder_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorInfLongBox_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCylinder_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorInfLongBox_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorCylinder_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorInfLongBox_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorCylinder_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorInfLongBox_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IFormFactorBorn::getVolume
-        
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getVolume_function_type )(  ) const;
-            
-            FormFactorCylinder_exposer.def( 
-                "getVolume"
-                , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&FormFactorCylinder_wrapper::default_getVolume) );
         
         }
         { //::IFormFactor::isDistributedFormFactor
         
             typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorCylinder_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "isDistributedFormFactor"
                 , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorCylinder_wrapper::default_isDistributedFormFactor) );
+                , default_isDistributedFormFactor_function_type(&FormFactorInfLongBox_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorCylinder_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_printParameters_function_type )(  ) const;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorCylinder_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&FormFactorInfLongBox_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&FormFactorCylinder_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&FormFactorInfLongBox_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &FormFactorCylinder_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &FormFactorInfLongBox_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorCylinder_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( FormFactorInfLongBox_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorCylinder_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&FormFactorInfLongBox_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( FormFactorInfLongBox_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            FormFactorCylinder_exposer.def( 
+            FormFactorInfLongBox_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorCylinder_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&FormFactorInfLongBox_wrapper::default_setParametersAreChanged) );
         
         }
     }

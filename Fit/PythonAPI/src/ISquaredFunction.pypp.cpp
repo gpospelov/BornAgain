@@ -31,10 +31,10 @@ struct ISquaredFunction_wrapper : ISquaredFunction, bp::wrapper< ISquaredFunctio
     virtual double calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
         if( bp::override func_calculateSquaredError = this->get_override( "calculateSquaredError" ) )
             return func_calculateSquaredError( real_value, simulated_value );
-        else
+        else{
             return this->ISquaredFunction::calculateSquaredError( real_value, simulated_value );
+        }
     }
-    
     
     double default_calculateSquaredError( double real_value, double simulated_value=0.0 ) const  {
         return ISquaredFunction::calculateSquaredError( real_value, simulated_value );

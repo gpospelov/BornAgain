@@ -12,24 +12,27 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "Detector.pypp.h"
+#include "IFTDistribution1D.pypp.h"
 
 namespace bp = boost::python;
 
-struct Detector_wrapper : Detector, bp::wrapper< Detector > {
+struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistribution1D > {
 
-    Detector_wrapper( )
-    : Detector( )
-      , bp::wrapper< Detector >(){
-        // null constructor
+    IFTDistribution1D_wrapper(double omega )
+    : IFTDistribution1D( omega )
+      , bp::wrapper< IFTDistribution1D >(){
+        // constructor
     
     }
 
-    Detector_wrapper(::Detector const & other )
-    : Detector( boost::ref(other) )
-      , bp::wrapper< Detector >(){
-        // copy constructor
-    
+    virtual ::IFTDistribution1D * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual double evaluate( double q ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( q );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -91,7 +94,7 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< Detector_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< IFTDistribution1D_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -125,139 +128,127 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
 
 };
 
-void register_Detector_class(){
+void register_IFTDistribution1D_class(){
 
-    { //::Detector
-        typedef bp::class_< Detector_wrapper, bp::bases< IParameterized > > Detector_exposer_t;
-        Detector_exposer_t Detector_exposer = Detector_exposer_t( "Detector", bp::init< >() );
-        bp::scope Detector_scope( Detector_exposer );
-        Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
-        { //::Detector::clear
+    { //::IFTDistribution1D
+        typedef bp::class_< IFTDistribution1D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IFTDistribution1D_exposer_t;
+        IFTDistribution1D_exposer_t IFTDistribution1D_exposer = IFTDistribution1D_exposer_t( "IFTDistribution1D", bp::init< double >(( bp::arg("omega") )) );
+        bp::scope IFTDistribution1D_scope( IFTDistribution1D_exposer );
+        { //::IFTDistribution1D::clone
         
-            typedef void ( ::Detector::*clear_function_type )(  ) ;
+            typedef ::IFTDistribution1D * ( ::IFTDistribution1D::*clone_function_type )(  ) const;
             
-            Detector_exposer.def( 
-                "clear"
-                , clear_function_type( &::Detector::clear ) );
+            IFTDistribution1D_exposer.def( 
+                "clone"
+                , bp::pure_virtual( clone_function_type(&::IFTDistribution1D::clone) )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Detector::getAxis
+        { //::IFTDistribution1D::evaluate
         
-            typedef ::IAxis const & ( ::Detector::*getAxis_function_type )( ::size_t ) const;
+            typedef double ( ::IFTDistribution1D::*evaluate_function_type )( double ) const;
             
-            Detector_exposer.def( 
-                "getAxis"
-                , getAxis_function_type( &::Detector::getAxis )
-                , ( bp::arg("index") )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+            IFTDistribution1D_exposer.def( 
+                "evaluate"
+                , bp::pure_virtual( evaluate_function_type(&::IFTDistribution1D::evaluate) )
+                , ( bp::arg("q") ) );
         
         }
-        { //::Detector::getDetectorResolutionFunction
+        { //::IFTDistribution1D::getOmega
         
-            typedef ::IDetectorResolution const * ( ::Detector::*getDetectorResolutionFunction_function_type )(  ) const;
+            typedef double ( ::IFTDistribution1D::*getOmega_function_type )(  ) const;
             
-            Detector_exposer.def( 
-                "getDetectorResolutionFunction"
-                , getDetectorResolutionFunction_function_type( &::Detector::getDetectorResolutionFunction )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+            IFTDistribution1D_exposer.def( 
+                "getOmega"
+                , getOmega_function_type( &::IFTDistribution1D::getOmega ) );
         
         }
-        { //::Detector::getDimension
+        { //::IFTDistribution1D::setOmega
         
-            typedef ::size_t ( ::Detector::*getDimension_function_type )(  ) const;
+            typedef void ( ::IFTDistribution1D::*setOmega_function_type )( double ) ;
             
-            Detector_exposer.def( 
-                "getDimension"
-                , getDimension_function_type( &::Detector::getDimension ) );
-        
-        }
-        { //::Detector::operator=
-        
-            typedef ::Detector & ( ::Detector::*assign_function_type )( ::Detector const & ) ;
-            
-            Detector_exposer.def( 
-                "assign"
-                , assign_function_type( &::Detector::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
+            IFTDistribution1D_exposer.def( 
+                "setOmega"
+                , setOmega_function_type( &::IFTDistribution1D::setOmega )
+                , ( bp::arg("omega") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Detector_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( IFTDistribution1D_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&Detector_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&IFTDistribution1D_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Detector_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( IFTDistribution1D_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&Detector_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&IFTDistribution1D_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Detector_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( IFTDistribution1D_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&Detector_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&IFTDistribution1D_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Detector_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( IFTDistribution1D_wrapper::*default_printParameters_function_type )(  ) const;
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&Detector_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&IFTDistribution1D_wrapper::default_printParameters) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &Detector_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &IFTDistribution1D_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Detector_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( IFTDistribution1D_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&Detector_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&IFTDistribution1D_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Detector_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( IFTDistribution1D_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            Detector_exposer.def( 
+            IFTDistribution1D_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&Detector_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&IFTDistribution1D_wrapper::default_setParametersAreChanged) );
         
         }
     }

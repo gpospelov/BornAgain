@@ -22,14 +22,15 @@
 //! @class FormFactorAnisoPyramid
 //! @ingroup formfactors
 //! @brief The formfactor of an anisotropic pyramid.
+// //! @image html AnistropicPyramid3d.png
 
 class BA_CORE_API_ FormFactorAnisoPyramid : public IFormFactorBorn
 {
 public:
-    //! @brief anisotropic pyramid constructor
-    //! @param length of anisotropic pyramid's base
-    //! @param width of anisotropic pyramid's base
-    //! @param height of anisotropic pyramide
+    //! @brief Anisotropic Pyramid constructor
+    //! @param length of Anisotropic Pyramid's base
+    //! @param width of Anisotropic Pyramid's base
+    //! @param height of Anisotropic Pyramid
     //! @param alpha angle in radians between base and facet
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 

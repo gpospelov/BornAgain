@@ -29,8 +29,8 @@ class BA_CORE_API_ FormFactorTetrahedron : public IFormFactorBorn
 {
 public:
     //! @brief Tetrahedron constructor
-    //! @param height of Tetrahedron
     //! @param length of a side of Tetrahedron's base
+    //! @param height of Tetrahedron
     //! @param angle in radians between base and facet
     FormFactorTetrahedron(double length, double height, double alpha);
     //~FormFactorTetrahedron() {}

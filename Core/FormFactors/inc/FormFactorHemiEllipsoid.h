@@ -27,10 +27,10 @@
 class BA_CORE_API_ FormFactorHemiEllipsoid : public IFormFactorBorn
 {
 public:
-    //! @brief Hemi ellipsoid constructor
-    //! @param height of hemi ellipsoid
-    //! @param radius_a: half length of one horizontal main axes
-    //! @param radius_b: half length of the other horizontal main axes
+    //! @brief Hemi Ellipsoid constructor
+    //! @param radius_a half length of one horizontal main axes
+    //! @param radius_b half length of the other horizontal main axes
+    //! @param height of Hemi Ellipsoid
 
     FormFactorHemiEllipsoid(double radius_a, double radius_b, double height);
 

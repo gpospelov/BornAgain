@@ -27,9 +27,9 @@
 class BA_CORE_API_ FormFactorCone6 : public IFormFactorBorn
 {
 public:
-    //! @brief cone6 constructor
+    //! @brief Cone6 constructor
     //! @param radius of hexagonal base (different from R in IsGisaxs)
-    //! @param height of cone6
+    //! @param height of Cone6
     //! @param angle in radians between base and facet
     FormFactorCone6(double radius, double height,  double alpha);
     ~FormFactorCone6() {delete m_integrator;}

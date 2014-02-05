@@ -22,7 +22,7 @@
 
 //! @class FormFactorDecoratorTransformation
 //! @ingroup formfactors_internal
-//! @brief Equip a formfactor with a rotation.
+//! @brief Equips a formfactor with a rotation.
 
 class BA_CORE_API_ FormFactorDecoratorTransformation : public IFormFactorDecorator
 {

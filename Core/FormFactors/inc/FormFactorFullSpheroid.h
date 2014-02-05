@@ -27,7 +27,7 @@
 class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 {
 public:
-    //! @brief Full spheroid constructor
+    //! @brief Full Spheroid constructor
     //! @param radius of spheroid
     //! @param height of spheroid
 

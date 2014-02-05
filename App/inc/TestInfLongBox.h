@@ -42,8 +42,8 @@ public:
         virtual void init_parameters();
         double m_w; //width
         double m_h; //heigth
-        double m_interf_distance;
-        double m_interf_width;
+        double m_lattice_length;
+        double m_xi;
     };
 
 private:

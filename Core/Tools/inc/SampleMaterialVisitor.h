@@ -75,6 +75,7 @@ public:
     virtual void visit(const FormFactorFullSpheroid *sample);
     virtual void visit(const FormFactorGauss *sample);
     virtual void visit(const FormFactorHemiEllipsoid *sample);
+    virtual void visit(const FormFactorInfLongBox *sample);
     virtual void visit(const FormFactorLorentz *sample);
     virtual void visit(const FormFactorParallelepiped *sample);
     virtual void visit(const FormFactorPrism3 *sample);
@@ -99,6 +100,7 @@ public:
     virtual void visit(const FormFactorDecoratorTransformation *sample);
 
     virtual void visit(const IInterferenceFunction *sample);
+    virtual void visit(const InterferenceFunction1DLattice *sample);
     virtual void visit(const InterferenceFunction1DParaCrystal *sample);
     virtual void visit(const InterferenceFunction2DLattice *sample);
     virtual void visit(const InterferenceFunction2DParaCrystal *sample);

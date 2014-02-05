@@ -16,7 +16,7 @@
 #include "TestInfLongBox.h"
 #include "DrawHelper.h"
 #include "Simulation.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
@@ -172,10 +172,10 @@ void TestInfLongBox::initializeSimulation()
 // sample builder
 /* ************************************************************************* */
 TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
-    : m_w(100.0*Units::nanometer)
-    , m_h(50.0*Units::nanometer)
-    , m_interf_distance(945.0*Units::nanometer)
-    , m_interf_width(5.0*Units::nanometer)
+    : m_w(520.0*Units::nanometer)
+    , m_h(15.0*Units::nanometer)
+    , m_lattice_length(945.0*Units::nanometer)
+    , m_xi(90.0*Units::degree)
 {
       init_parameters();
 }
@@ -185,8 +185,8 @@ void TestInfLongBox::TestSampleBuilder::init_parameters()
     clearParameterPool();
     registerParameter("width", &m_w);
     registerParameter("height", &m_h);
-    registerParameter("interf_distance", &m_interf_distance);
-    registerParameter("interf_width", &m_interf_width);
+    registerParameter("lattice_length", &m_lattice_length);
+    registerParameter("xi_angle", &m_xi);
 }
 
 ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
@@ -203,14 +203,21 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     FormFactorInfLongBox *ff = new FormFactorInfLongBox(m_w, m_h);
     Particle ibox(particle_material, ff );
 
- //   Geometry::Transform3D transform =
- //           Geometry::Transform3D::createRotateZ(90*Units::degree);
+    Geometry::Transform3D transform =
+            Geometry::Transform3D::createRotateZ(90*Units::degree);
 
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(ibox,0.0,1.0);
-//    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();
+    particle_decoration.addParticle(ibox,transform);
+    Lattice1DIFParameters lattice_params;
+    lattice_params.m_length=m_lattice_length;
+    lattice_params.m_xi = m_xi;
+    InterferenceFunction1DLattice *p_interference_function = new InterferenceFunction1DLattice(lattice_params);
+    FTDistribution1DCauchy pdf(3000.0*Units::nanometer);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    //IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();
     particle_decoration.addInterferenceFunction(p_interference_function);
+    //particle_decoration.printParameters();
 
     // making layer holding all whose nano particles
     air_layer.setDecoration(particle_decoration);

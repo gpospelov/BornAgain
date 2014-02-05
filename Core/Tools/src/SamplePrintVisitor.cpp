@@ -163,12 +163,10 @@ void SamplePrintVisitor::visit(const IFormFactorBorn *)
     throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
 }
 
-
 void SamplePrintVisitor::visit(const FormFactorBox *sample)
 {
     print_default(sample);
 }
-
 
 void SamplePrintVisitor::visit(const FormFactorCone *sample)
 {
@@ -223,6 +221,10 @@ void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorInfLongBox *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const FormFactorLorentz *)
 {
@@ -346,6 +348,10 @@ void SamplePrintVisitor::visit(const IInterferenceFunction *)
     throw NotImplementedException("SamplePrintVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
 }
 
+void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample){
     print_default(sample);

@@ -38,6 +38,7 @@
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorGauss.h"
 #include "FormFactorHemiEllipsoid.h"
+#include "FormFactorInfLongBox.h"
 #include "FormFactorLorentz.h"
 #include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"

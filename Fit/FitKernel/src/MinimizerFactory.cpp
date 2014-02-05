@@ -14,8 +14,6 @@
 // ************************************************************************** //
 
 #include "MinimizerFactory.h"
-#include "ROOTGSLNLSMinimizer.h"
-#include "ROOTGSLSimAnMinimizer.h"
 #include "MinimizerTest.h"
 #include "MinimizerScan.h"
 #include "ROOTMinuit2Minimizer.h"

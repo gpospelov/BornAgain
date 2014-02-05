@@ -7,7 +7,7 @@
 //!
 // ************************************************************************** //
 
-#include "ROOTGSLSimAnMinimizer.h"
+#include "PatchedGSLSimAnMinimizer.h"
 
 
 //#include "Math/GSLSimAnMinimizer.h"

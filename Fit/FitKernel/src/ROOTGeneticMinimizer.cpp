@@ -15,6 +15,7 @@
 
 #include "ROOTGeneticMinimizer.h"
 #include "Math/GenAlgoOptions.h"
+#include "MessageService.h"
 
 
 ROOTGeneticMinimizer::ROOTGeneticMinimizer(const std::string& minimizer_name, const std::string& algo_type)
@@ -50,10 +51,16 @@ void ROOTGeneticMinimizer::setParameter(size_t index, const FitParameter *par)
 // (which has own messy options)
 void ROOTGeneticMinimizer::propagateOptions()
 {
-//    m_root_minimizer->SetTolerance(m_options.getTolerance());
-//    m_root_minimizer->SetPrecision(m_options.getPrecision());
-//    m_root_minimizer->SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
-//    m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
+    m_root_minimizer->SetTolerance(m_options.getTolerance());
+    m_root_minimizer->SetPrecision(m_options.getPrecision());
+    m_root_minimizer->SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
+    m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
+
+    if( m_options.getMaxIterations() > 0 && m_options.getMaxIterations() < m_options.getIntValue("Steps")) {
+        msglog(MSG::WARNING) << "ROOTGeneticMinimizer::propagateOptions() -> Warning. Max iterations smaller than Steps";
+        msglog(MSG::WARNING) << "Setting equal to steps " << m_options.getIntValue("Steps");
+        m_options.setMaxIterations(m_options.getIntValue("Steps"));
+    }
 
     // accessing minimizer
     ROOT::Math::MinimizerOptions options = m_genetic_minimizer->Options();
@@ -69,12 +76,8 @@ void ROOTGeneticMinimizer::propagateOptions()
     geneticOpt->SetValue("SC_rate", m_options.getIntValue("SC_rate"));
     geneticOpt->SetValue("SC_steps", m_options.getIntValue("SC_steps"));
     geneticOpt->SetValue("Steps", m_options.getIntValue("Steps") );
-//    geneticOpt->SetValue("ConvCrit", m_options.getRealValue("ConvCrit"));
+    geneticOpt->SetValue("ConvCrit", 10.*m_options.getTolerance());
     geneticOpt->SetValue("SC_factor", m_options.getRealValue("SC_factor"));
 
-    std::cout << "XXX" << m_options.getTolerance() << std::endl;
-
-    m_genetic_minimizer->SetOptions(options);
-    m_genetic_minimizer->Options().Print();
 }
 

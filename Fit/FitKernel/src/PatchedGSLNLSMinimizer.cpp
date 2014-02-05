@@ -7,7 +7,7 @@
 //!
 // ************************************************************************** //
 
-#include "ROOTGSLNLSMinimizer.h"
+#include "PatchedGSLNLSMinimizer.h"
 
 //#include "Math/GSLNLSMinimizer.h"
 

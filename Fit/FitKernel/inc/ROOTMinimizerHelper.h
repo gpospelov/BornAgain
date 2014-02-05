@@ -17,8 +17,7 @@
 #define ROOTMINIMIZERHELPER_H
 
 #include "ROOTMinimizer.h"
-#include "ROOTGSLSimAnMinimizer.h"
-
+#include "PatchedGSLSimAnMinimizer.h"
 
 
 //! @class ROOTMinimizerHelper

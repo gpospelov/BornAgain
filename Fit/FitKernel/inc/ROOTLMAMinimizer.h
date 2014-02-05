@@ -17,7 +17,7 @@
 #define ROOTMULTIFITMINIMIZER_H
 
 #include "ROOTMinimizer.h"
-#include "ROOTGSLNLSMinimizer.h"
+#include "PatchedGSLNLSMinimizer.h"
 
 //! @class ROOTLMAMinimizer
 //! @ingroup fitting_internal

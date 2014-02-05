@@ -22,7 +22,6 @@
 #include <sstream>
 #include <boost/assign/list_of.hpp>
 #include <boost/assign/list_of.hpp>
-#include "ROOTGSLSimAnMinimizer.h"
 #include "ROOTMinimizerHelper.h"
 #include "MinimizerOptions.h"
 

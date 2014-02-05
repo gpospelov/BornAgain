@@ -98,8 +98,8 @@ void TestFittingModule4::execute()
 //    std::cout << "---" << std::endl;
 //    minim->Options().Print();
 
-    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
-    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
+//    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
+//    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
 //    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",1000);
     m_fitSuite->getMinimizer()->getOptions().setTolerance(0.1);
 

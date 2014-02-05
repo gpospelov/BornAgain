@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ROOTMinimizerHelper.h"
-#include "ROOTGSLSimAnMinimizer.h"
+#include "PatchedGSLSimAnMinimizer.h"
 #include "Utils.h"
 #include <boost/lexical_cast.hpp>
 #include "Math/GenAlgoOptions.h"

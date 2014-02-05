@@ -27,6 +27,9 @@
 class BA_CORE_API_ FormFactorSphere : public IFormFactorBorn
 {
 public:
+    //! @brief Sphere constructor
+    //! @param radius of Sphere
+    //! @param height of (truncated) Sphere
     FormFactorSphere(double radius, double height);
 
     ~FormFactorSphere() { delete m_integrator; }

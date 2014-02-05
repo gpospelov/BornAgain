@@ -65,12 +65,13 @@
 %\lhead[\helv \thepage]{\helv \rightmark}
 %\rhead[\helv \leftmark]{\helv \thepage}
 %\cfoot{}
+
 %-------------------------------------------------------------------------------
 %	OTHER PACKAGES and COMMANDS
 %-------------------------------------------------------------------------------
 \usepackage{graphicx}
 \usepackage{epstopdf}
-
+\usepackage{subfigure}
 
 \usepackage{float}
 \usepackage{tikz}
@@ -90,6 +91,39 @@
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+\usepackage{longtable,tabulary,tabularx}
+%-------------------------------------------------------------------------------
+%	TABULARY AND LONGTABLE http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
+%-------------------------------------------------------------------------------
+\makeatletter
+
+\def\ltabulary{%
+\def\endfirsthead{\\}%
+\def\endhead{\\}%
+\def\endfoot{\\}%
+\def\endlastfoot{\\}%
+\def\tabulary{%
+  \def\TY@final{%
+\def\endfirsthead{\LT@end@hd@ft\LT@firsthead}%
+\def\endhead{\LT@end@hd@ft\LT@head}%
+\def\endfoot{\LT@end@hd@ft\LT@foot}%
+\def\endlastfoot{\LT@end@hd@ft\LT@lastfoot}%
+\longtable}%
+  \let\endTY@final\endlongtable
+  \TY@tabular}%
+\dimen@\columnwidth
+\advance\dimen@-\LTleft
+\advance\dimen@-\LTright
+\tabulary\dimen@}
+
+\def\endltabulary{\endtabulary}
+
+\makeatother
+
+
+
+
 
 \DeclareMathOperator{\sinc}{sinc}
 %-------------------------------------------------------------------------------

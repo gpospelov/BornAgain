@@ -21,15 +21,15 @@
 
 //! @class FormFactorCuboctahedron
 //! @ingroup formfactors
-//! @brief The formfactor of cuboctahedron.
+//! @brief The formfactor of a cuboctahedron.
 
 class BA_CORE_API_ FormFactorCuboctahedron : public IFormFactorBorn
 {
 public:
-    //! @brief cuboctahedron constructor
-    //! @param height of bottom of cuboctahedron
-    //! @param height ratio : height top part/height bottom part
-    //! @param half_side half of cuboctahedron's base
+    //! @brief Cuboctahedron constructor
+    //! @param length of one side of Cuboctahedron's square base
+    //! @param height of bottom of Cuboctahedron
+    //! @param height_ratio : height top part/height bottom part
     //! @param angle in radians between base and facet
 
     FormFactorCuboctahedron(double length, double height,

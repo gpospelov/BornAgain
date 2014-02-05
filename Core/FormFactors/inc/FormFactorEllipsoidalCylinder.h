@@ -26,6 +26,10 @@
 class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn
 {
 public:
+    //! @brief Ellipsoidal Cylinder constructor
+    //! @param radius_a half length of one horizontal main axes
+    //! @param radius_b half length of the other horizontal main axes
+    //! @param height of Ellipsoidal Cylinder
     FormFactorEllipsoidalCylinder(double radius_a, double radius_b,
                         double height);
     ~FormFactorEllipsoidalCylinder() {}

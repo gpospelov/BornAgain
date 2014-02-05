@@ -26,6 +26,10 @@
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
 public:
+    //! @brief Box constructor
+    //! @param length of Box's base
+    //! @param width of Box's base
+    //! @param height of Box
     FormFactorBox( double length, double width, double height)
         : m_length(length), m_width(width), m_height(height) {
 

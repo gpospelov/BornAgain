@@ -26,9 +26,9 @@
 class BA_CORE_API_ FormFactorPyramid : public IFormFactorBorn
 {
 public:
-    //! @brief pyramid constructor
-    //! @param length of pyramid's base
-    //! @param height of pyramid
+    //! @brief Pyramid constructor
+    //! @param length of one side of Pyramid's square base
+    //! @param height of Pyramid
     //! @param angle in radians between base and facet
     FormFactorPyramid(double length, double height, double alpha);
 

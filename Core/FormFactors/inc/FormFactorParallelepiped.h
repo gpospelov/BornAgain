@@ -26,6 +26,9 @@
 class BA_CORE_API_ FormFactorParallelepiped : public IFormFactorBorn
 {
 public:
+    //! @brief Parallelepiped constructor
+    //! @param length of Parallelepiped's square base
+    //! @param height of Parallelepiped
     FormFactorParallelepiped(double length, double height);
     ~FormFactorParallelepiped() {}
     virtual FormFactorParallelepiped *clone() const;

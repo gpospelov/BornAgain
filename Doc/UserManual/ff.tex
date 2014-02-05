@@ -1,27 +1,105 @@
 \chapter{Form factors} \label{appendixff}
 
-The form factors of the following shapes have been implemented in \BornAgain\ :
-\begin{itemize}
-\item Parallelepiped, \SecRef{Parallelepiped}  
-\item Box, \SecRef{Box} 
-\item Prism3, \SecRef{Prism3}  
-\item Tetrahedron, \SecRef{Tetrahedron} 
-\item Prism6, \SecRef{Prism6}  
-\item Cone6, \SecRef{Cone6} 
-\item Pyramid, \SecRef{Pyramid} 
-\item Anisotropic pyramid, \SecRef{AnisoPyramid} 
-\item Cuboctahedron, \SecRef{Cuboctahedron}  
-\item Cylinder, \SecRef{Cylinder} 
-\item Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder} 
-\item Cone, \SecRef{Cone} 
-\item Full sphere, \SecRef{FullSphere} 
-\item Truncated sphere, \SecRef{Sphere} 
-\item Full spheroid, \SecRef{FullSpheroid}  
-\item Truncated spheroid. \SecRef{Spheroid} 
-\item Hemi-ellipsoid, \SecRef{HemiEllipsoid}  
-\item Ripple1, \SecRef{Ripple1}  
-\item Ripple2, \SecRef{Ripple2}  
-\end{itemize}
+Table~\ref{tab:formfactors} lists the particles shapes whose form
+factors have been implemented in \BornAgain.
+
+\begin{table}[H] 
+\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
+  \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
+\hline 
+Shape & &   Shape& &   Shape \\
+\hline 
+Parallelepiped, \SecRef{Parallelepiped}  &  & Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} \\
+ \includegraphics[width=1in]{Figures/Parallelepiped3d.eps} &
+ &  \includegraphics[width=1in]{Figures/Box3d.eps} &
+ & \includegraphics[width=1in]{Figures/Prism33d.eps} \\
+\hline 
+Tetrahedron, \SecRef{Tetrahedron}   & & Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  \\
+\includegraphics[width=1in]{Figures/Tetrahedron3d.eps} & & 
+\includegraphics[width=1in]{Figures/Prism63d.eps} & & 
+ \includegraphics[width=1in]{Figures/Cone63d.eps}  \\
+\hline
+  Pyramid, \SecRef{Pyramid}  &  & Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron, \SecRef{Cuboctahedron}   \\
+\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Pyramid3d.eps}}
+   &   & \parbox[c]{1em}{
+      \includegraphics[width=1in]{Figures/AnistropicPyramid3d.eps}} &
+    & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cuboctahedron3d.eps}}\\
+\hline
+\end{tabulary}
+\end{table}
+
+
+\begin{table}[H] 
+ \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
+\hline 
+Shape & &   Shape& &   Shape \\
+\hline
+ Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone, \SecRef{Cone} \\
+     \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cylinder3d.eps}} &
+& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d.eps}}
+& & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cone3d.eps}} \\
+\hline
+Full Sphere, \SecRef{FullSphere}   &  & Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} \\
+ \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSphere3d.eps}} & &  \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Sphere3d.eps}}
+ &  & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSpheroid3d.eps}}\\
+\hline 
+ Truncated Spheroid, \SecRef{Spheroid}   &  & Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & \\
+\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Spheroid3d.eps}}
+& &\parbox[c]{1em}{\includegraphics[width=1in]{Figures/HemiEllipsoid3d.eps}}
+& & \\
+\hline
+  Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   & &\\
+\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple13d.eps}} &
+& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d.eps}} & & \\
+\hline 
+\end{tabulary}
+\end{table}
+
+
+%\begin{table}[ht] 
+%\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
+%  \begin{tabularx}{0.95\textwidth}{Xc Xc X} 
+%\hline 
+%Shape & &   Shape& &   Shape \\
+%\hline 
+%Parallelepiped, \SecRef{Parallelepiped}  &  & Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} \\
+% \includegraphics[width=1in]{Figures/Parallelepiped3d.eps} &
+% &  \includegraphics[width=1in]{Figures/Box3d.eps} &
+% & \includegraphics[width=1in]{Figures/Prism33d.eps} \\
+%\hline 
+%Tetrahedron, \SecRef{Tetrahedron}   & & Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  \\
+%\includegraphics[width=1in]{Figures/Tetrahedron3d.eps} & & 
+%\includegraphics[width=1in]{Figures/Prism63d.eps} & & 
+% \includegraphics[width=1in]{Figures/Cone63d.eps}  \\
+%\hline
+ % Pyramid, \SecRef{Pyramid}  &  & Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron, \SecRef{Cuboctahedron}   \\
+%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Pyramid3d.eps}}
+ %  &   & \parbox[c]{1em}{
+  %    \includegraphics[width=1in]{Figures/AnistropicPyramid3d.eps}} &
+   % & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cuboctahedron3d.eps}}\\
+%\hline
+% Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone, \SecRef{Cone} \\
+ %    \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cylinder3d.eps}} &
+%& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d.eps}}
+%& & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cone3d.eps}} \\
+%\hline
+%Full Sphere, \SecRef{FullSphere}   &  & Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} \\
+% \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSphere3d.eps}} & &  \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Sphere3d.eps}}
+% &  & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSpheroid3d.eps}}\\
+%\hline
+% Truncated Spheroid, \SecRef{Spheroid}   &  & Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & \\
+%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Spheroid3d.eps}}
+%& &\parbox[c]{1em}{\includegraphics[width=1in]{Figures/HemiEllipsoid3d.eps}}
+%& & \\
+%\hline
+ % Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   & &\\
+%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple13d.eps}} &
+%& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d.eps}}
+%& & \\
+%\hline 
+%\end{tabularx}
+%\end{table}
+
 
 In \BornAgain\ the form factor is defined as
 \begin{equation*}
@@ -44,9 +122,9 @@ in order to take any material absorption into account.\\
 
 The particles can be rotated in a different direction by using one of
 the following tranformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where $\theta$ is the
-angle of rotation considered from... and capital X, Y, Z mark rotations
-around the associated axis. For example, in order to rotate a pyramid by $45^{\circ}$ around
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, in order to rotate a pyramid by $45^{\circ}$ around
 $z$-axis, the user could use the following \Code{Python}\ script:\\
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
@@ -63,15 +141,19 @@ $z$-axis, the user could use the following \Code{Python}\ script:\\
 \section{Parallelepiped} \SecLabel{Parallelepiped}  
 
 \subsection{Real-space geometry}
-It is a square cuboid (see fig.~\ref{parallelepiped}.
+This shape is a square cuboid (see fig.~\ref{parallelepiped}).
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Parallelepiped}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxy}}
+\hfill
 \caption{Sketch of a Parallelepiped.}
-\end{center}
 \label{parallelepiped}
 \end{figure}
+
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -88,58 +170,32 @@ It is a square cuboid (see fig.~\ref{parallelepiped}.
 
 \subsection{Expression of the form factor}
 \begin{equation*}
-F_{\rm{Parallelepiped}}(\mathbf{q},L, H) = L^2 H\exp(i q_z \frac{H}{2}) \sinc(q_x\frac{L}{2})
-\sinc(q_y\frac{L}{2})\sinc(q_z \frac{H}{2}).
+F_{\rm{Parallelepiped}}(\mathbf{q},L, H) = L^2 H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x\frac{L}{2}\right)
+\sinc\left(q_y\frac{L}{2}\right)\sinc\left(q_z \frac{H}{2}\right),
 \end{equation*}
+where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
 \paragraph{Syntax:} \Code{FormFactorParallelepiped(length, height)}
 
+\newpage%{\cleardoublepage}
 \subsection{Examples}
 Figure~\ref{figFFparallelEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=10$~nm and $H=13$~nm.
+$|F|^2/V^2$, computed with $L=7$~nm and \mbox{$H=15$~nm.}
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffparallel}
+\includegraphics[width=\textwidth]{Figures/figffparallel}
 \end{center}
 \caption{Normalized intensity for the form factor of a Parallelepiped
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=10$~nm and $H=13$~nm.}
+  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=7$~nm and $H=15$~nm.}
 \label{figFFparallelEx}
 \end{figure}
 
-%\subsection{Parameter dependence}
-%Figures~\ref{figFFParallelpardeph} and \ref{figFFParallelpardepr} show the normalized intensity
-%$|F|^2/V^2$, computed with [$L=8$~nm and $H=4$, 5 and 6~nm] and [$H=6$~nm and $L=4$,6, and 8~nm:], respectively.
-%\begin{figure}[h]
-%\begin{center}
-%\includegraphics[width=0.9\textwidth]{Figures/ffparallelpardeph}
-%\end{center}
-%\caption{Normalized intensity for the form factor of a Parallelepiped
-%  $|F|^2/V^2$, computed with $L=8$~nm and different values of $H$.}
-%\label{figFFParallelpardeph}
-%\end{figure}
+\FloatBarrier
 
-%\begin{figure}[h]
-%\begin{center}
-%\includegraphics[width=0.9\textwidth]{Figures/ffparallelpardepr}
-%\end{center}
-%\caption{Normalized intensity for the form factor of a Parallelepiped $|F|^2/V^2$, computed with $H=6$~nm and different values of $R$.}
-%\label{figFFParallelpardepr}
-%\end{figure}
-%\FloatBarrier
-
-
-%\subsection{Related particle shapes}
-%\begin{itemize}
-%\item Box~(\SecRef{Box}),
-%\item Prism3~(\SecRef{Prism3}), 
-%\item Prism6~(\SecRef{Prism6}),  
-%\item Pyramid~(\SecRef{Pyramid}).
-%\end{itemize}
-
-\subsection{References}
-The parameters characterizing a Parallelepiped are different from
-those used in \Code{IsGISAXS}. We use the full side length of the
-square base: $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
+%\subsection{References}
+%The parameters characterizing a Parallelepiped are different from
+%those used in \Code{IsGISAXS}. We use the full side length of the
+%square base: $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Box} \SecLabel{Box} 
@@ -148,13 +204,18 @@ square base: $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
 This shape is a rectangular cuboid or a right rectangular prism as
 shown in fig.~\ref{box}. 
 
+
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Drawing5}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Box2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Box2dxy}}
+\hfill
 \caption{Sketch of a Box.}
-\end{center}
 \label{box}
 \end{figure}
+
+\FloatBarrier
 
 
 \paragraph{Parameters:}
@@ -174,13 +235,15 @@ shown in fig.~\ref{box}.
 \subsection{Expression of the form factor}
 
 \begin{equation*}
-F_{\rm{Box}}(\mathbf{q},L,W,H)= L W H\exp(i q_z \frac{H}{2}) \sinc(q_x \frac{L}{2})
-\sinc(q_y \frac{W}{2}) \sinc(q_z \frac{H}{2})
+F_{\rm{Box}}(\mathbf{q},L,W,H)= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
+\sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right),
 \end{equation*}
     
 where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
 \paragraph{Syntax:} \Code{FormFactorBox(length, width, height)}
+
+\newpage
 
 \subsection{Examples}
 Figure~\ref{figFFBoxEx} shows the normalized intensity
@@ -189,7 +252,7 @@ $\alpha=60^{\circ}$:
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffbox}
+\includegraphics[width=\textwidth]{Figures/figffbox}
 \end{center}
 \caption{Normalized intensity for the form factor of a Box
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm.}
@@ -198,9 +261,9 @@ $\alpha=60^{\circ}$:
 
 \FloatBarrier
 
-\subsection{References}
-\BornAgain\ uses a different convention for the parameters in comparison with \Code{IsGISAXS}, where the half length
-values are used (see fig.~\ref{box}).
+%\subsection{References}
+%\BornAgain\ uses a different convention for the parameters in comparison with \Code{IsGISAXS}, where the half length
+%values are used (see fig.~\ref{box}).
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -211,12 +274,16 @@ This shape is a triangular prism, whose base is an equilateral
 triangle as shown in fig.~\ref{prism3}.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Prism3}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Prism32dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Prism32dxy}}
+\hfill
 \caption{Sketch of a Prism3.}
-\end{center}
 \label{prism3}
 \end{figure}
+
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -233,10 +300,9 @@ triangle as shown in fig.~\ref{prism3}.
 
 \subsection{Expression of the form factor}
 \begin{align*}
-F_{\rm{Prism3}}(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2} \exp(-i \frac{q_y
-      L}{2\sqrt{3}})\Big[\exp(i \sqrt{3} q_y L/2 )
-    -\cos(q_x L/2)-i \sqrt{3} q_y L/2 \sinc(q_x L/2) \Big] \\
-   &\times  H \sinc(q_z H/2 ) \exp(i q_z H/2),
+F_{\rm{Prism3}}(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}  \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)\left[\exp\left(i \sqrt{3} q_y \frac{L}{2} \right)-\cos\left(q_x \frac{L}{2}\right)-i \sqrt{3} q_y \frac{L}{2} \sinc\left(q_x \frac{L}{2}\right) \right] \\
+  &
+\times  H \sinc\left(q_z \frac{H}{2} \right) \exp\left(i q_z \frac{H}{2}\right),
 \end{align*}
 where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
@@ -245,10 +311,10 @@ where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
 \subsection{Examples}
 Figure~\ref{figFFprism3Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=10$~nm and $H=13$~nm.
+$|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffprism3}
+\includegraphics[width=\textwidth]{Figures/figffprism3}
 \end{center}
 \caption{Normalized intensity for the form factor of a Prism3
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and
@@ -256,10 +322,10 @@ $|F|^2/V^2$, computed with $L=10$~nm and $H=13$~nm.
 \label{figFFprism3Ex}
 \end{figure}
 
-\subsection{References}
-In the $x,y$ plane , we use the full side length of the triangular
-base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
-R_{\rm{\Code{IsGISAXS}}}$.
+%\subsection{References}
+%In the $x,y$ plane , we use the full side length of the triangular
+%base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
+%R_{\rm{\Code{IsGISAXS}}}$.
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -269,12 +335,19 @@ R_{\rm{\Code{IsGISAXS}}}$.
 This shape is a truncated tetrahedron as shown in fig.~\ref{tetrahedron}.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Tetrahedron}
-\caption{Sketch of a tetrahedron.}
-\end{center}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Tetrahedron2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Tetrahedron2dxy}}
+\hfill
+\caption{Sketch of a Tetrahedron. The implementation of this shape uses angle
+  $\alpha$, which is linked to $\beta$ via $\tan \alpha = 2 \tan 
+  \beta$. $\alpha$ is measured along one of the base lines and $\beta$
+  at one of the base vertices.}
 \label{tetrahedron}
 \end{figure}
+
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -298,10 +371,10 @@ This shape is a truncated tetrahedron as shown in fig.~\ref{tetrahedron}.
 
 \begin{align*}
 &F_{\rm{Tetrahedron}} (\mathbf{q}, L, H, \alpha)=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
-\exp(iq_z \frac{L}{2\tan (\alpha)\sqrt{3}})\\
+\exp\left(iq_z \frac{L}{2\tan (\alpha)\sqrt{3}}\right) \times \\
 &\Big\{2q_x \exp(iq_3 D)\sinc(q_3 H) - (q_x +\sqrt{3}q_y)
 \exp(iq_1 D)\sinc(q_1 D) -(q_x-\sqrt{3}q_y)\exp(-iq_2
-D)\sinc(q_2 H) \Big\} 
+D)\sinc(q_2 H) \Big\}, 
 \end{align*}
 with $\sinc(x)=\sin(x)/x$,
 \begin{equation*}
@@ -315,27 +388,28 @@ q_3 = \frac{q_y}{\tan \alpha} -\frac{q_z}{2}, \quad D = \frac{L \tan \alpha}{\sq
 
 \subsection{Examples}
 Figure~\ref{figFFtetrahEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60 ^{\circ}$.
+$|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
+^{\circ}$.
+
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figfftetrahedron}
+\includegraphics[width=\textwidth]{Figures/figfftetrahedron}
 \end{center}
 \caption{Normalized intensity for the form factor of a Tetrahedron
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and
   computed with $L=15$~nm, $H=6$~nm and $\alpha=60^{\circ}$.}
-%Computed results for $R=10$~nm, $H=9$~nm and $\alpha=60^{\circ}$. 
 \label{figFFtetrahEx}
 \end{figure}
 
 \FloatBarrier
 
-\subsection{References}
+%\subsection{References}
 %In \Code{IsGISAXS}, factor 1/sqrt(3) instead of sqrt(3) in the
 %expression of the form factor. When running the software, there is
 %also a problem with this form factor.
-In the $x,y$ plane , we use the full side length of the triangular
-base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
-R_{\rm{\Code{IsGISAXS}}}$.
+%In the $x,y$ plane , we use the full side length of the triangular
+%base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
+%R_{\rm{\Code{IsGISAXS}}}$.
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -345,13 +419,16 @@ R_{\rm{\Code{IsGISAXS}}}$.
 This shape is an hexagonal prism (see fig.~\ref{prism6}).
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Prism6}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Prism62dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Prism62dxy}}
+\hfill
 \caption{Sketch of a Prism6.}
-\end{center}
 \label{prism6}
 \end{figure}
 
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -369,35 +446,35 @@ This shape is an hexagonal prism (see fig.~\ref{prism6}).
 \subsection{Expression of the form factor}
 \begin{align*}
 F_{\rm{Prism6}}(\mathbf{q}, R, H) &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
-\sinc(\frac{q_z H}{2}) \exp\left(\frac{-i q_z H}{2}\right)\times\\
+\sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right)\times\\
 &\left\{\frac{3q_y^2R^2}{4} \sinc\left(\frac{q_x
   R}{2}\right)\sinc\left(\frac{\sqrt{3}q_yR }{2}\right)+ \cos(q_x R)-\cos\left(q_y
-\frac{\sqrt{3}R}{2}\right) \cos\left(\frac{q_x R}{2}\right)\right\}
+\frac{\sqrt{3}R}{2}\right) \cos\left(\frac{q_x R}{2}\right)\right\},
 \end{align*}
+with $\sinc(x)=\sin(x)/x$.
 
 \paragraph{Syntax:} \Code{FormFactorPrism6(radius, height)} 
 
 \subsection{Examples}
 Figure~\ref{figFFprism6Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=5$~nm and $H=13$~nm.
+$|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffprism6}
+\includegraphics[width=\textwidth]{Figures/figffprism6}
 \end{center}
 \caption{Normalized intensity for the form factor of a Prism6
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and computed with $R=5$~nm and $H=13$~nm.}
+  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and computed with $R=5$~nm and $H=11$~nm.}
 \label{figFFprism6Ex}
 \end{figure}
 
 \FloatBarrier
 
-\subsection{References}
-The hexagonal base is parametrized in the different way compared with
-\Code{IsGISXAXS}. In \BornAgain\, we use $R = 2/\sqrt{3}R_{\text{\Code{IsGiSaXs}}}$.
+%\subsection{References}
+%The hexagonal base is parametrized in the different way compared with
+%\Code{IsGISXAXS}. In \BornAgain\, we use $R = 2/\sqrt{3}R_{\text{\Code{IsGiSaXs}}}$.
 %A factor $H$ is missing in the expression of the form factor given in
 %\Code{IsGISAXS}'s manual. 
-
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -407,12 +484,20 @@ The hexagonal base is parametrized in the different way compared with
 It is a truncated hexagonal pyramid (see fig.~\ref{cone6}). 
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Cone6}
-\caption{Sketch of a Cone6.}
-\end{center}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cone62dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cone62dxy}}
+\hfill
+\caption{Sketch of a Cone6.  The implementation of this shape uses angle
+  $\alpha$, which is linked to $\beta$ via $\tan \alpha = \dfrac{2}{\sqrt{3}} \tan 
+  \beta$. $\alpha$ is measured along one of the base lines and $\beta$
+  at one of the base vertices.}
 \label{cone6}
 \end{figure}
+
+\FloatBarrier
+
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -439,13 +524,12 @@ calculation can be derived from ``Prism6'' (\SecRef{Prism6}) by
 considering a side length varying with the vertical position:
 
 \begin{align*}
-&F_{\rm{Cone6}}(\mathbf{q}, R, H, \alpha) =\int_0^H
-F_{\rm{Prism6}}(R_z)dz\\
-&= \frac{4\sqrt{3}}{3q_y ^2 - q_x^2}\int_0 ^H \exp(iq_z z)
-\Big[\frac{3}{4}R_z^2q_y^2 \sinc(\frac{q_xR_z}{2})\sinc(\frac{\sqrt{3}}{2}q_y
-R_z)+\cos(q_xR_z)-\cos(\frac{\sqrt{3}}{2}q_y R_z)\cos(q_x \frac{R_z}{2}) \Big]dz
+F_{\rm{Cone6}}(\mathbf{q}, R, H, \alpha) &= \frac{4\sqrt{3}}{3q_y ^2 - q_x^2}\int_0 ^H \exp(iq_z z)
+\Big[\frac{3}{4}R_z^2q_y^2 \sinc\left(\frac{q_xR_z}{2}\right)\sinc\left(\frac{\sqrt{3}q_y
+R_z}{2}\right)\\
+&+\cos(q_xR_z)-\cos\left(\frac{\sqrt{3}q_y R_z}{2}\right)\cos\left(\frac{q_xR_z}{2}\right) \Big]dz
 \end{align*}
-with $R_z=R-\dfrac{2z}{\sqrt{3}\tan(\alpha)}$.
+with $R_z=R-\dfrac{2z}{\sqrt{3}\tan(\alpha)}$ and $\sinc(x)=\sin(x)/x$.
 
 \paragraph{Syntax:} \Code{FormFactorCone6(radius,height, alpha)} 
 
@@ -456,17 +540,19 @@ $\alpha=60^{\circ}$.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffcone6}
+\includegraphics[width=\textwidth]{Figures/figffcone6}
 \end{center}
 \caption{Normalized intensity for the form factor of a Cone6 $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and  computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.}
 \label{figFFCone6Ex}
 \end{figure}
+
+
 \FloatBarrier
 
-\subsection{References}
-The convention of the base length is different
-from the one implemented in \Code{IsGISAXS}: $R =
-2/\sqrt{3}R_{\text{\Code{IsGiSAXS}}}$.
+%\subsection{References}
+%The convention of the base length is different
+%from the one implemented in \Code{IsGISAXS}: $R =
+%2/\sqrt{3}R_{\text{\Code{IsGiSAXS}}}$.
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -474,16 +560,20 @@ from the one implemented in \Code{IsGISAXS}: $R =
 
 \subsection{Real-space geometry}
 This shape is a  truncated pyramid with a square base as shown in fig.~\ref{pyramid}.
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\columnwidth]{Figures/pyramid}
-\caption{Sketch of a Pyramid.}
-\end{center}
+
+\begin{figure}[ht]
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Pyramid2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Pyramid2dxy}}
+\hfill
+\caption{Sketch of a Pyramid}
 \label{pyramid}
-\end{figure} 
+\end{figure}
 
-\par
+\FloatBarrier
 
+%\par
 \paragraph{Parameters:}
 \begin{itemize}
 \item length of one side of the square base $L$,  
@@ -503,13 +593,12 @@ This shape is a  truncated pyramid with a square base as shown in fig.~\ref{pyra
 \end{itemize}
 
 \subsection{Expression of the form factor}
-\begin{align}
-F_{\rm{Pyramid}}(\mathbf{q},L, H, \alpha) &=
-\frac{H}{q_x q_y} \times \nonumber \\ &\Big\{ K_1 \cos[
-  (q_x-q_y)L/2 ] + K_2 \sin[ (q_x-q_y)L/2 ]
-- K_3 \cos[ (q_x+q_y) L/2 ] - K_4 \sin[ (q_x+q_y) L/2 ]\Big\},
-\label{eq:ffpyramid}
-\end{align}
+\begin{align*}
+&F_{\rm{Pyramid}}(\mathbf{q},L, H, \alpha) =
+\frac{H}{q_x q_y} \times \nonumber \\ &\left\{ K_1 \cos\left[
+  (q_x-q_y)\frac{L}{2} \right] + K_2 \sin\left[ (q_x-q_y)\frac{L}{2} \right]
+- K_3 \cos\left[ (q_x+q_y) \frac{L}{2} \right] - K_4 \sin\left[ (q_x+q_y)\frac{L}{2} \right]\right\},
+\end{align*}
 with $\sinc(x)=\sin(x)/x$,
 \begin{align*}
        q_1 &=\frac{1}{2}\Big[\frac{q_x-q_y}{\tan(\alpha)} + q_z\Big],\quad       q_2 =\frac{1}{2}\Big[\frac{q_x-q_y}{\tan(\alpha)} - q_z\Big]\\
@@ -524,29 +613,28 @@ with $\sinc(x)=\sin(x)/x$,
 
 \subsection{Examples}
 Figure~\ref{figFFPyramidEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=20$~nm, $H=13$~nm and
+$|F|^2/V^2$, computed with $L=18$~nm, $H=13$~nm and
 $\alpha=60^{\circ}$.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffpyramid}
+\includegraphics[width=\textwidth]{Figures/figffpyramid}
 \end{center}
 \caption{Normalized intensity for the form factor of a
   pyramid $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  
-  ($q_x$, $q_y$) and computed with $L=20$~nm and $H=13$~nm, and $\alpha=60^{\circ}$.}
+  ($q_x$, $q_y$) and computed with $L=18$~nm and $H=13$~nm, and $\alpha=60^{\circ}$.}
 \label{figFFPyramidEx}
 \end{figure}
 
 \FloatBarrier
 
-\subsection{References}
-The output of equation~(\ref{eq:ffpyramid}) agrees with the \lq\lq
-pyramid\rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
+%\subsection{References}
+%The output of equation~(\ref{eq:ffpyramid}) agrees with the \lq\lq
+%pyramid\rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
 
-In \BornAgain\, the base of the pyramid is characterized by the full
-length of one of its side and not by half this value: $L=2R_{\rm{\Code{IsGISXAXS}}}$. 
+%In \BornAgain\, the base of the pyramid is characterized by the full
+%length of one of its side and not by half this value: $L=2R_{\rm{\Code{IsGISXAXS}}}$. 
 %Pyramid: problem with signs of K2 and K4
-
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -557,12 +645,16 @@ This shape is a truncated right pyramid with a rectangular base as
 shown in fig.~\ref{anisopyramid}.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Anistropic_pyramid}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/AnisoPyramid2dxz.eps}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/AnisoPyramid2dxy.eps}}
+\hfill
 \caption{Sketch of an Anisotropic Pyramid. }
-\end{center}
 \label{anisopyramid}
 \end{figure}
+
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -591,7 +683,7 @@ shown in fig.~\ref{anisopyramid}.
 K_1\cos\Big(q_x \frac{L}{2} -q_y \frac{W}{2}\Big)+  K_2 \sin \Big (q_x
 \frac{L}{2}- q_y \frac{W}{2}\Big) - K_3 \cos \Big (q_x \frac{L}{2} +q_y \frac{W}{2}\Big)-
 K_4 \sin \Big (q_x \frac{L}{2} + q_y \frac{W}{2}\Big)
-\Big\}
+\Big\},
 \end{align*}
 with $\sinc(x)=\sin(x)/x$,
 \begin{align*}
@@ -612,7 +704,7 @@ $\alpha=60^{\circ}$.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffanisopyramid}
+\includegraphics[width=\textwidth]{Figures/figffanisopyramid}
 \end{center}
 \caption{Normalized intensity for the form factor of an anisotropic
   pyramid $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=20$~nm, $W=16$~nm, $H=13$~nm,
@@ -622,11 +714,11 @@ $\alpha=60^{\circ}$.
 
 \FloatBarrier
 
-\subsection{References}
-Like in \Code{IsGISAXS}, the base angle $\alpha$ is the same for both unequal
-side. This means that a full anisotropic pyramid is not a limit case. \\
-But \BornAgain\ uses a different convention of the parameters relative
-to the base. We input the full length and width instead of half values.
+%\subsection{References}
+%Like in \Code{IsGISAXS}, the base angle $\alpha$ is the same for both unequal
+%side. This means that a full anisotropic pyramid is not a limit case. \\
+%But \BornAgain\ uses a different convention of the parameters relative
+%to the base. We input the full length and width instead of half values.
 %Condition on the parameters: 
 %Should not it be: H/R < tan(alpha) and  H/W < tan(alpha) instead of H/R < tan(alpha) and  W/R < tan(alpha) where H is the height and R, W the side-lengths of the rectangular base?
 
@@ -635,25 +727,30 @@ to the base. We input the full length and width instead of half values.
 \section{Cuboctahedron} \SecLabel{Cuboctahedron} 
 
 \subsection{Real-space geometry}
-It is a combination of two pyramids with squared bases, as shown in fig.~\ref{cuboctahedron}: the bottom one
+It is a combination of two pyramids with square bases, as shown in fig.~\ref{cuboctahedron}: the bottom one
 is upside down with an height $H$ and the top one has the opposite
 orientation (the standard one) and an height $r_H H$.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Cubooctaedron}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cuboctahedron2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cuboctahedron2dxy}}
+\hfill
 \caption{Sketch of a Cuboctahedron.}
-\end{center}
 \label{cuboctahedron}
 \end{figure}
 
+\FloatBarrier
+
 \paragraph{Parameters:}
 \begin{itemize}
-\item length of the shared squared base $L$,
+\item length of the shared square base $L$,
 \item height $H$,
 \item height\_ratio $r_H$,
 \item $\alpha$ is the angle between the base and the
-  side faces, taken in the middle of the base lines.
+  side faces, taken in the middle of the base lines (see
+  fig.~\ref{pyramid} in \SecLabel{Pyramid}).
 \end{itemize}
 
 \paragraph{Restrictions on the parameters:} $\dfrac{2H}{L}< \tan(\alpha)$ and $\dfrac{2r_HH}{L}< \tan(\alpha)$.
@@ -682,7 +779,7 @@ H)\Big[F_{\rm{Pyramid}}(q_x,q_y, q_z, L, r_H H,
 Figure~\ref{figFFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, computed with $L=20$~nm, $H=13$~nm, $r_H=0.7$, and $\alpha=60^{\circ}$.
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffcuboctah}
+\includegraphics[width=\textwidth]{Figures/figffcuboctah}
 \end{center}
 \caption{Normalized intensity for the form factor of a cuboctahedron $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=20$~nm, $H=13$~nm,
   $r_H=0.7$, and $\alpha=60^{\circ}$.}
@@ -691,9 +788,11 @@ Figure~\ref{figFFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, compute
 
 \FloatBarrier
 
-\subsection{References}
-In comparison with \Code{IsGISAXS}, as for the  form factor of a  Pyramid,
-we use the full length of a side of the squared base: $L=2R_{\rm{\Code{IsGISAXS}}}$. 
+%\subsection{References}
+%In comparison with \Code{IsGISAXS}, as for the  form factor of a  Pyramid,
+%we use the full length of a side of the square base:
+%$L=2R_{\rm{\Code{IsGISAXS}}}$. 
+
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 \section{Cylinder} \SecLabel{Cylinder}
@@ -702,10 +801,12 @@ we use the full length of a side of the squared base: $L=2R_{\rm{\Code{IsGISAXS}
 This shape is a right circular cylinder (see fig.~\ref{cylinder}).
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Cylinder}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cylinder2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cylinder2dxy}}
+\hfill
 \caption{Sketch of a Cylinder.}
-\end{center}
 \label{cylinder}
 \end{figure}
 
@@ -723,21 +824,23 @@ This shape is a right circular cylinder (see fig.~\ref{cylinder}).
 \end{itemize}
 
 \subsection{Expression of the form factor}
-  \begin{equation}
+  \begin{equation*}
 F_{\rm{Cylinder}}(\mathbf{q},R, H)=  2\pi
- R^2 H  \sinc(q_ z \frac{H}{2}) \exp(i q_ z \frac{H}{2}) \frac{J_1(q_{\parallel} R )}{q_{\parallel} R }
- \end{equation}
+ R^2 H  \sinc\left(q_ z \frac{H}{2}\right) \exp\left(i q_ z \frac{H}{2}\right) \frac{J_1(q_{\parallel} R )}{q_{\parallel} R },
+ \end{equation*}
 with $q_{\parallel}=\sqrt{q_x^2+q_y^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
 \paragraph{Syntax:} \Code{FormFactorCylinder(radius, height)}
 
+\newpage
+
 \subsection{Examples}
 Figure~\ref{figFFcylinderEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=8$~nm and $H=16$~nm.
+$|F|^2/V^2$, computed with $R=8$~nm and \mbox{$H=16$~nm.}
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffcylinder}
+\includegraphics[width=\textwidth]{Figures/figffcylinder}
 \end{center}
 \caption{Normalized intensity for the form factor of a cylinder
 $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$.) It
@@ -746,7 +849,7 @@ has been  computed with $R=8$~nm and $H=16$~nm.}
 \end{figure}
 \FloatBarrier
 
-\subsection{References}
+%\subsection{References}
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,10 +859,12 @@ has been  computed with $R=8$~nm and $H=16$~nm.}
 This is a cylinder whose cross section is an ellipse.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Anisotropic_pyramid2}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/EllipsoidalCylinder2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/EllipsoidalCylinder2dxy}}
+\hfill
 \caption{Sketch of an Ellipsoidal Cylinder.}
-\end{center}
 \label{ellipscylinder}
 \end{figure}
 
@@ -786,14 +891,17 @@ F_{\rm{EllipsoidalCylinder}}(\mathbf{q},R,W,H) = 2\pi r_a r_b H \exp\left(i\frac
 with $\gamma=\sqrt{(q_x r_a)^2+(q_y r_b)^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
-\paragraph{Syntax:} \Code{FormFactorEllipsoidalCylinder($r_a$, $r_b$, height)}.
+\paragraph{Syntax:} \Code{FormFactorEllipsoidalCylinder($r_a$, $r_b$, height)}
+
+\newpage
+
 
 \subsection{Examples}
 Figure~\ref{figFFellipscylinderEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffellipscylinder}
+\includegraphics[width=\textwidth]{Figures/figffellipscylinder}
 \end{center}
 \caption{Normalized intensity for the form factor of an ellipsoidal
   cylinder $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$,
@@ -802,8 +910,8 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \end{figure}
 
 
-\subsection{References}
-This form factor is referred to as "Ellipsoid'' in \Code{ISGISAXS}. 
+%\subsection{References}
+%This form factor is referred to as "Ellipsoid'' in \Code{ISGISAXS}. 
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -814,10 +922,12 @@ This shape is a truncated cone as shown in fig.~\ref{cone}. %Its base is circula
                                 %$R$, its height is equal to $H$. 
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Cone}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Cone2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Cone2dxy}}
+\hfill
 \caption{Sketch of a Cone.}
-\end{center}
 \label{cone}
 \end{figure}
 
@@ -853,7 +963,7 @@ Figure~\ref{figFFConeEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffcone}
+\includegraphics[width=\textwidth]{Figures/figffcone}
 \end{center}
 \caption{Normalized intensity for the form factor of a Cone
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$.) It
@@ -863,7 +973,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \end{figure}
 
 
-\subsection{References}
+%\subsection{References}
 
 
 \newpage{\cleardoublepage}
@@ -872,11 +982,15 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 
 \subsection{Real-space geometry}
 The full sphere is parametrized by its radius $R$. 
+
+
 \begin{figure}[ht]
-\begin{center}
-\includegraphics[width=0.6\columnwidth]{Figures/fullsphere}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/FullSphere2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/FullSphere2dxy}}
+\hfill
 \caption{Sketch of a Full Sphere.}
-\end{center}
 \label{fullsphere}
 \end{figure}
 
@@ -899,12 +1013,13 @@ where $q=\sqrt{q_x^2 + q_y^2 + q_z^2}$.
 
 \paragraph{Syntax:} \Code{FormFactorFullSphere(radius)}
 
+\newpage
 
 \subsection{Examples}
 Figure~\ref{figFFFSphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=8$~nm.
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figfffsphere}
+\includegraphics[width=\textwidth]{Figures/figfffsphere}
 \end{center}
 \caption{Normalized intensity for the
   form factor of a Full Sphere
@@ -913,24 +1028,25 @@ Figure~\ref{figFFFSphereEx} shows the normalized intensity $|F|^2/V^2$, computed
 \end{figure}
 
 \FloatBarrier
-
-\subsection{References}
-
+%\subsection{References}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\cleardoublepage}
+
 \section{Truncated Sphere}\SecLabel{Sphere}
   
 \subsection{Real-space geometry}
 This shape is a spherical dome, \textit{i.e.} a portion of a sphere cut off by a plane (perpendicular
 to $z$-axis) as shown in fig.~\ref{sphere}.
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\columnwidth]{Figures/sphere}
-\caption{Sketch of a (truncated) Sphere.}
-\end{center}
-\label{sphere}
-\end{figure} 
 
+\begin{figure}[ht]
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Sphere2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Sphere2dxy}}
+\hfill
+\caption{Sketch of a (truncated) Sphere.}
+\label{sphere}
+\end{figure}
 \FloatBarrier
 
 \paragraph{Parameters:}
@@ -951,10 +1067,9 @@ to $z$-axis) as shown in fig.~\ref{sphere}.
 \end{itemize}
 
 \subsection{Expression of the form factor}
-\begin{equation}  
-F_{\text{sphere}}(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz
-\label{eq:ffsphere}
-\end{equation}
+\begin{equation*}  
+F_{\text{sphere}}(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
+\end{equation*}
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
 \sqrt{q_x^2+q_y^2}$, and $R_z = \sqrt{R^2-z^2}$
@@ -965,7 +1080,7 @@ Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
 Figure~\ref{figSphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=5$~nm and $H=7$~nm:
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffsphere}
+\includegraphics[width=\textwidth]{Figures/figffsphere}
 \end{center}
 \caption{Normalized intensity for the form factor of a truncated Sphere
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
@@ -975,10 +1090,10 @@ Figure~\ref{figSphereEx} shows the normalized intensity $|F|^2/V^2$, computed wi
 
 \FloatBarrier
 
+%\subsection{References}
+%Equation~(\ref{eq:ffsphere}) agrees with the \lq\lq Sphere\rq\rq ~form
+%factor of \IsGISAXS~\cite{Laz02}.
 
-\subsection{References}
-Equation~(\ref{eq:ffsphere}) agrees with the \lq\lq Sphere\rq\rq ~form
-factor of \IsGISAXS~\cite{Laz02}.
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Full spheroid} \SecLabel{FullSpheroid}  
@@ -988,13 +1103,16 @@ A full spheroid is generated by rotating an ellipse around the vertical
 axis (see fig.~\ref{fullspheroid}).
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Full_Spheroid}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/FullSpheroid2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/FullSpheroid2dxy}}
+\hfill
 \caption{Sketch of a Full Spheroid. }
-\end{center}
 \label{fullspheroid}
 \end{figure}
 
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -1027,7 +1145,7 @@ Figure~\ref{figFFfspheroidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figfffspheroid}
+\includegraphics[width=\textwidth]{Figures/figfffspheroid}
 \end{center}
 \caption{Normalized intensity for the form factor of a full spheroid
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
@@ -1035,8 +1153,9 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \label{figFFfspheroidEx}
 \end{figure}
 
+\FloatBarrier
 
-\subsection{References}
+%\subsection{References}
 %The expression is identical to \Code{IsGISAXS} manual. In the code,
 %the integration is over $[-H/2, H/2]$ with $\exp(iq_z z)$ instead of
 %the cosine.
@@ -1053,10 +1172,12 @@ This shape is a spheroidal dome: a portion of a full spheroid cut off
 by a plane perpendicular to the $z$-axis.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Spheroid}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Spheroid2dxz.eps}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Spheroid2dxy.eps}}
+\hfill
 \caption{Sketch of a truncated Spheroid.}
-\end{center}
 \label{spheroid}
 \end{figure}
 
@@ -1089,21 +1210,21 @@ Bessel function of the first kind \cite{AbSt64}, $q_{\parallel}=\sqrt{q_x^2+q_y^
 
 \subsection{Examples}
 Figure~\ref{figFFspheroidEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $R=7$~nm, $H=9$~nm and $f_p=1.2$.
+$|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffspheroid}
+\includegraphics[width=\textwidth]{Figures/figffspheroid}
 \end{center}
 \caption{Normalized intensity for the form factor of a truncated Spheroid
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
-  computed with $R=7$~nm, $H=9$~nm, and $f_p=1.2$.}
+  computed with $R=7.5$~nm, $H=9$~nm, and $f_p=1.2$.}
 \label{figFFspheroidEx}
 \end{figure}
+
 \FloatBarrier
 
-
-\subsection{References}
+%\subsection{References}
 %In \Code{IsGISAXS}'s manual there is an extra factor 2 in the
 %expression of the volume.
 
@@ -1115,10 +1236,12 @@ $|F|^2/V^2$, computed with $R=7$~nm, $H=9$~nm and $f_p=1.2$.
 This shape is a truncated ellipsoid as shown in fig.~\ref{hemiellipsoid}.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/Hemi-ellipsoid}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/HemiEllipsoid2dxz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/HemiEllipsoid2dxy}}
+\hfill
 \caption{Sketch of an Hemi-ellipsoid.}
-\end{center}
 \label{hemiellipsoid}
 \end{figure}
 
@@ -1142,10 +1265,12 @@ F_{\rm{hemi-ellipsoid}}(\mathbf{q},r_a,r_b,H) = 2\pi \int_0 ^{H} r_{a,z} r_{b,z}
 \frac{J_1(\gamma_z)}{\gamma_z}\exp(iq_z z)dz,
 \end{equation*}
 with $J_1(x)$ the first order
-Bessel function of the first kind \cite{AbSt64}, $r_{a,z} = r_a \sqrt{1-\left(\dfrac{z}{H} \right)^2}$, $r_{b,z} = r_b
-\sqrt{1-\left(\dfrac{z}{H} \right)^2}$ and $\gamma_z =\sqrt{(q_x r_{a,z})^2+(q_y r_{b,z})^2}$.
+Bessel function of the first kind \cite{AbSt64}, $r_{a,z} = r_a \sqrt{1-\left(\dfrac{z}{H} \right)^2}$, ${r_{b,z} = r_b
+\sqrt{1-\left(\dfrac{z}{H} \right)^2}}$ and $\gamma_z =\sqrt{(q_x r_{a,z})^2+(q_y r_{b,z})^2}$.
 
 \paragraph{Syntax:} \Code{FormFactorHemiEllipsoid($r_a$, $r_b$, height)}
+
+\newpage
 
 \subsection{Examples}
 Figure~\ref{figFFhemiellipsEx} shows the normalized intensity
@@ -1153,7 +1278,7 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Figures/figffhemiellips}
+\includegraphics[width=\textwidth]{Figures/figffhemiellips}
 \end{center}
 \caption{Normalized intensity for the form factor of an Hemi-Ellipsoid
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$)
@@ -1162,49 +1287,67 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 \end{figure}
 \FloatBarrier
 
-\subsection{References}
-This shape is referred to as ``Anisotropic hemi ellipsoid'' in  \Code{ISGISAXS}.
+%\subsection{References}
+%This shape is referred to as ``Anisotropic hemi ellipsoid'' in  \Code{ISGISAXS}.
 %Problem when running  \Code{ISGISAXS}.
 %In \Code{IsGISAXS} manual, where does the minus sign in exp(-iq\_z z)
 %come from?
+
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ripple1} \SecLabel{Ripple1}  
 
 \subsection{Real-space geometry}
-
+This shape has a sinusoidal profile (see fig.~\ref{ripple1}).
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/}
-\caption{Sketch}
-\end{center}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Ripple12dyz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Ripple12dxy}}
+\hfill
+\caption{Sketch of a Ripple1.}
+\label{ripple1}
 \end{figure}
 
 \paragraph{Parameters:}
 \begin{itemize}
-\item $L$ = length 
-\item $W$ = width 
-\item $H$ = height 
+\item length $L$, 
+\item width $W$, 
+\item height $H$. 
 \end{itemize}
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V = 0.5 L W H $,
+\item volume $V = \dfrac{L W H}{2} $,
 \item particle surface seen from above $S = L W$.
 \end{itemize}
 
 \subsection{Expression of the form factor}
 \begin{align*}
-F_{\rm{ripple1}}(\mathbf{q}) &=L \cdot \frac{W}{\pi}\cdot \sinc\left[\frac{Lq_x}{2}\right]\times \\ &\int_0^H{dz \arccos\left[\frac{2z}{H}-1\right]\sinc\left[\frac{Wq_y}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left[iq_zz\right]}
+F_{\rm{ripple1}}(\mathbf{q},L,W,H) &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\ &\int_0^H{dz \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right)},
 \end{align*}
+where $\arccos$ is the  arc cosine (\textit{i.e.} the inverse
+operation of cosine).
 
-\paragraph{Syntax:} \Code{FormFactorRipple1(,,)}
+\paragraph{Syntax:} \Code{FormFactorRipple1(length, width, height)}
 
 \subsection{Examples}
+Figure~\ref{figFFripple1Ex} shows the normalized intensity
+$|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\textwidth]{Figures/figffripple1}
+\end{center}
+\caption{Normalized intensity for the form factor of a ripple1
+  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$)
+  computed with $L=27$~nm, $W=20$~nm, and $H=14$~nm.}
+\label{figFFripple1Ex}
+\end{figure}
+\FloatBarrier
 
-\subsection{References}
+%\subsection{References}
 
 
 \newpage{\cleardoublepage}
@@ -1212,41 +1355,66 @@ F_{\rm{ripple1}}(\mathbf{q}) &=L \cdot \frac{W}{\pi}\cdot \sinc\left[\frac{Lq_x}
 \section{Ripple2} \SecLabel{Ripple2}  
 
 \subsection{Real-space geometry}
-
+This shape has an asymmetric sawtooh profile.
 
 \begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.6\columnwidth]{Figures/}
-\caption{Sketch}
-\end{center}
+\hfill
+\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Ripple22dyz}}
+\hfill
+\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Ripple22dxy}}
+\hfill
+\caption{Sketch of a Ripple2.}
+\label{ripple2}
 \end{figure}
+
+\FloatBarrier
 
 \paragraph{Parameters:}
 \begin{itemize}
-\item $L$ = length 
-\item $W$ = width 
-\item $H$ = height
-\item $d$ = asymetry 
+\item length $L$, 
+\item width $W$, 
+\item height $H$,
+\item asymmetry $d$. 
 \end{itemize}
 
-\paragraph{Restriction on the parameters:} $|d| < \frac{W}{2} $
+\paragraph{Restriction on the parameters:} $|d| < \frac{W}{2} $.
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V = 0.5 L W H$,
+\item volume $V = \dfrac{L W H}{2}$,
 \item particle surface seen from above $S = L W$.
 \end{itemize}
 
 \subsection{Expression of the form factor}
 \begin{align*}
-F_{\rm{ripple2}}(\mathbf{q}) &=L W \sinc\left[\frac{Lq_x}{2}\right]\times \\ &\int_0^H{dz \left(1-\frac{z}{H}\right)\sinc\left[\frac{Wq_y}{2}\left(1-\frac{z}{H}\right)\right]\exp\left[i\left(q_zz - q_yd\left(1-\frac{z}{H}\right)\right)\right]}
+F_{\rm{ripple2}}(\mathbf{q},L,W,H,d) &=L W
+\sinc\left(\frac{q_xL}{2}\right)\times \\ &
+\int_0^H 
+\left(1-\frac{z}{H}\right)
+ \sinc\left[\frac{q_y
+    W}{2}\left(1-\frac{z}{H}\right)\right] 
+\exp\left\{ i\left[q_zz -
+    q_yd\left(1-\frac{z}{H}\right)\right]\right\} 
+dz
 \end{align*}
 
-\paragraph{Syntax:} \Code{FormFactorRipple2(,,)}
+\paragraph{Syntax:} \Code{FormFactorRipple2(length, width, height, asymmetry)}
 
 \subsection{Examples}
+Figure~\ref{figFFripple2Ex} shows the normalized intensity
+$|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~mm.
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\textwidth]{Figures/figffripple2}
+\end{center}
+\caption{Normalized intensity for the form factor of a ripple2
+  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$)
+  computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~mm.}
+\label{figFFripple2Ex}
+\end{figure}
 
+\FloatBarrier
 
-\subsection{References}
+%\subsection{References}
 

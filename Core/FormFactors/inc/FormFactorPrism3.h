@@ -26,6 +26,9 @@
 class BA_CORE_API_ FormFactorPrism3 : public IFormFactorBorn
 {
 public:
+    //! @brief Prism3 constructor
+    //! @param length of a side of Prism3's base
+    //! @param height of Prism3
     FormFactorPrism3(double length, double height);
     ~FormFactorPrism3() {}
     virtual FormFactorPrism3 *clone() const;

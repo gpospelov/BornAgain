@@ -59,6 +59,7 @@ include_classes = [
     "SquaredFunctionMeanSquaredError",
     "SquaredFunctionGaussianError",
     "SquaredFunctionSystematicError",
+    "SquaredFunctionSimError",
 ]
 
 

@@ -12,7 +12,7 @@ set(BornAgain_VERSION_MINOR 9)
 set(BornAgain_VERSION_PATCH 3)
 
 # --- General project settings ---
-option(BORNAGAIN_PYTHON "Build with python support" OFF)
+option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_APP "Build test application" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 option(BORNAGAIN_MAN "Build a user manual" OFF)

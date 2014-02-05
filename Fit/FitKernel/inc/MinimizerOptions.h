@@ -80,7 +80,7 @@ public:
     void print() const {
         print_common(std::cout);
         if(m_IntOpts.size() || m_RealOpts.size() || m_NamOpts.size())
-            std::cout << std::setw(25) << std::left << "Extra options " << " : " << std::endl;
+            std::cout << std::setw(24) << std::left << "Extra options " << " : " << std::endl;
         print_extra(m_IntOpts, std::cout);
         print_extra(m_RealOpts, std::cout);
         print_extra(m_NamOpts, std::cout);

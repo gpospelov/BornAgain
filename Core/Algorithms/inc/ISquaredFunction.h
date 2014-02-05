@@ -51,6 +51,7 @@ private:
 //!
 //! value = (a-b)*(a-b)/norm, where
 //! norm = max(b, 1.0)
+//! a - simulated values, b - real_values
 
 class BA_CORE_API_ SquaredFunctionDefault : public ISquaredFunction
 {
@@ -73,6 +74,37 @@ public:
         return std::max(real_value,1.0);
     }
 
+};
+
+
+//! @class SquaredFunctionSimError
+//! @ingroup fitting
+//! @brief Squared difference between two values.
+//!
+//! value = (a-b)*(a-b)/norm, where
+//! norm = max(a, 1.0)
+//! a - simulated values, b - real_values
+
+class BA_CORE_API_ SquaredFunctionSimError : public ISquaredFunction
+{
+public:
+    SquaredFunctionSimError() {}
+    virtual ~SquaredFunctionSimError() {}
+    virtual SquaredFunctionSimError *clone() const { return new SquaredFunctionSimError(); }
+
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const
+    {
+        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
+        if (diff_squared < Numeric::double_epsilon) return 0.0;
+        double normalization = calculateSquaredError(real_value, simulated_value);
+        return diff_squared/normalization;
+    }
+
+    virtual double calculateSquaredError(double real_value, double simulated_value) const
+    {
+        (void) real_value;
+        return std::max(simulated_value,1.0);
+    }
 };
 
 

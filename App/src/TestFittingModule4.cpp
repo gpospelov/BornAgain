@@ -66,13 +66,15 @@ void TestFittingModule4::execute()
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
 
-    ROOTMinimizer *root_minimizer = dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer());
-    ROOT::Math::Minimizer *minim = root_minimizer->getROOTMinimizer();
+    m_fitSuite->getMinimizer()->getOptions().setPrintLevel(10);
 
+
+//    ROOTMinimizer *root_minimizer = dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer());
+//    ROOT::Math::Minimizer *minim = root_minimizer->getROOTMinimizer();
     //minim->SetMaxFunctionCalls(100);
     //minim->SetMaxIterations(100);
+//    minim->SetPrintLevel(10);
 
-    minim->SetPrintLevel(10);
 
 //    ROOT::Math::MinimizerOptions options = minim->Options();
 //    options.Print();
@@ -98,10 +100,17 @@ void TestFittingModule4::execute()
 //    std::cout << "---" << std::endl;
 //    minim->Options().Print();
 
+    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
+    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
+//    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",100);
+//    m_fitSuite->getMinimizer()->getOptions().setTolerance(100);
+
+//    m_fitSuite->getMinimizer()->getOptions().setValue("ntries",50);
+//    m_fitSuite->getMinimizer()->getOptions().setValue("niters_fixed_t",5);
 //    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("Steps",5);
-//    m_fitSuite->getMinimizer()->getOptions().setValue("PopSize",1000);
-    m_fitSuite->getMinimizer()->getOptions().setTolerance(0.1);
+
+
+    m_fitSuite->getMinimizer()->getOptions().print();
 
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
@@ -162,6 +171,8 @@ void TestFittingModule4::initializeSample()
 
     m_fitSuite->addFitParameter("*height", 2.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
     m_fitSuite->addFitParameter("*radius", 20.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
+//    m_fitSuite->addFitParameter("*height", 6.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
+//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
 }
 
 

@@ -14,13 +14,14 @@
 // ************************************************************************** //
 
 #include "MinimizerOptions.h"
-
+#include <iomanip>
 
 MinimizerOptions::MinimizerOptions()
     : m_tolerance(0.01)
     , m_precision(-1)
     , m_max_iterations(0)
     , m_max_function_calls(0)
+    , m_print_level(0)
 {
 
 }
@@ -39,3 +40,14 @@ MinimizerOptions::MinimizerOptions()
 //{
 //    m_NamOpts[name] = val;
 //}
+
+
+void MinimizerOptions::print_common(std::ostream & os) const
+{
+    os << std::setw(24) << std::left << "Tolerance " << " : " << std::setw(15) << m_tolerance << std::endl;
+    os << std::setw(24) << std::left << "Precision " << " : " << std::setw(15) << m_precision << std::endl;
+    os << std::setw(24) << std::left << "MaxIterations " << " : " << std::setw(15) << m_max_iterations << std::endl;
+    os << std::setw(24) << std::left << "MaxFunctionCalls " << " : " << std::setw(15) << m_max_function_calls << std::endl;
+    os << std::setw(24) << std::left << "PrintLevel " << " : " << std::setw(15) << m_print_level << std::endl;
+
+}

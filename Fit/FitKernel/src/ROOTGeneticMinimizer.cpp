@@ -51,14 +51,11 @@ void ROOTGeneticMinimizer::setParameter(size_t index, const FitParameter *par)
 // (which has own messy options)
 void ROOTGeneticMinimizer::propagateOptions()
 {
-    m_root_minimizer->SetTolerance(m_options.getTolerance());
-    m_root_minimizer->SetPrecision(m_options.getPrecision());
-    m_root_minimizer->SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
-    m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
+    ROOTMinimizer::propagateOptions();
 
     if( m_options.getMaxIterations() > 0 && m_options.getMaxIterations() < m_options.getIntValue("Steps")) {
-        msglog(MSG::WARNING) << "ROOTGeneticMinimizer::propagateOptions() -> Warning. Max iterations smaller than Steps";
-        msglog(MSG::WARNING) << "Setting equal to steps " << m_options.getIntValue("Steps");
+        msglog(MSG::WARNING) << "ROOTGeneticMinimizer::propagateOptions() -> Max iterations smaller than Steps. ";
+        msglog(MSG::WARNING) << "Setting equal to steps " << m_options.getIntValue("Steps") << ".";
         m_options.setMaxIterations(m_options.getIntValue("Steps"));
     }
 
@@ -78,6 +75,8 @@ void ROOTGeneticMinimizer::propagateOptions()
     geneticOpt->SetValue("Steps", m_options.getIntValue("Steps") );
     geneticOpt->SetValue("ConvCrit", 10.*m_options.getTolerance());
     geneticOpt->SetValue("SC_factor", m_options.getRealValue("SC_factor"));
+
+    m_genetic_minimizer->SetOptions(options);
 
 }
 

@@ -23,7 +23,6 @@
 #include "FitSuiteParameters.h"
 #include <string>
 #include "Math/Minimizer.h"
-#include "Math/Factory.h"
 #include "Math/Functor.h"
 
 
@@ -66,16 +65,24 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions &getOptions();
+    virtual MinimizerOptions &getOptions() { return m_options; }
+    virtual const MinimizerOptions &getOptions() const { return m_options; }
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
     //! Returns created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
+    const ROOT::Math::Minimizer *getROOTMinimizer() const { return m_root_minimizer; }
 
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
     virtual bool isGradientBasedAgorithm() { return false;}
+
+    //! return name of the minimizer
+    virtual std::string getMinimizerName() const { return m_minimizer_name; }
+
+    //! return name of the minimization algorithm
+    virtual std::string getAlgorithmName() const { return m_algo_type; }
 
  protected:
     virtual void propagateOptions();

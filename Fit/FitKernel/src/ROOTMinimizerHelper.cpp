@@ -126,23 +126,24 @@ bool ROOTMinimizerHelper::processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer 
     return success;
 }
 
-
 // Printing minimizer results on the screen
-void ROOTMinimizerHelper::printResults(ROOT::Math::Minimizer *minimizer, const std::string& minimizer_name, const std::string& algo_type)
+void ROOTMinimizerHelper::printResults(const ROOTMinimizer *minimizer)
 {
     std::cout << "--------------------------------------------------------------------------------" << std::endl;
-    std::cout << std::setw(25) << std::left << "  MinimizerType"      << ": " << minimizer_name << std::endl;
-    std::cout << std::setw(25) << std::left << "  MinimizerAlgorithm" << ": " << algo_type << std::endl;
-    printOptions(minimizer);
-    printStatus(minimizer);
-    printVariables(minimizer);
+    std::cout << std::setw(25) << std::left << "  MinimizerType"      << ": " << minimizer->getMinimizerName() << std::endl;
+    std::cout << std::setw(25) << std::left << "  MinimizerAlgorithm" << ": " << minimizer->getAlgorithmName() << std::endl;
+    //printOptions(minimizer->getROOTMinimizer());
+    std::cout << "--- Options --------------------------------------------------------------------" << std::endl;
+    minimizer->getOptions().print();
+    printStatus(minimizer->getROOTMinimizer());
+    printVariables(minimizer->getROOTMinimizer());
     // own print method of the minimizer
     //m_root_minimizer->PrintResults();
 }
 
 
 // print minimizer description
-void ROOTMinimizerHelper::printOptions(ROOT::Math::Minimizer *minimizer)
+void ROOTMinimizerHelper::printOptions(const ROOT::Math::Minimizer *minimizer)
 {
     std::cout << "--- Options --------------------------------------------------------------------" << std::endl;
     ROOT::Math::MinimizerOptions opt = minimizer->Options();
@@ -157,10 +158,11 @@ void ROOTMinimizerHelper::printOptions(ROOT::Math::Minimizer *minimizer)
         std::cout << "--- Extra Options --------------------------------------------------------------" << std::endl;
         opt.ExtraOptions()->Print();
     }
+
 }
 
 
-void ROOTMinimizerHelper::printStatus(ROOT::Math::Minimizer *minimizer)
+void ROOTMinimizerHelper::printStatus(const ROOT::Math::Minimizer *minimizer)
 {
     std::cout << "--- Status --------------------------------------------------------------------- " << std::endl;
     std::map<int, std::string> minimizerStatus;
@@ -199,7 +201,7 @@ void ROOTMinimizerHelper::printStatus(ROOT::Math::Minimizer *minimizer)
 }
 
 
-void ROOTMinimizerHelper::printVariables(ROOT::Math::Minimizer *minimizer)
+void ROOTMinimizerHelper::printVariables(const ROOT::Math::Minimizer *minimizer)
 {
     std::cout << "--- Variables ------------------------------------------------------------------" << std::endl;
     std::cout << std::setw(25) << std::left << "  NumberOfVariables"      << ": "

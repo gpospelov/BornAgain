@@ -21,6 +21,10 @@ ROOTMinuit2Minimizer::ROOTMinuit2Minimizer(const std::string& minimizer_name, co
 {
     m_minuit2_minimizer = new ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
     m_root_minimizer = m_minuit2_minimizer;
+
+    m_options.addValue("Strategy", 1);
+    m_options.addValue("ErrorDef", 1);
+
 }
 
 
@@ -35,6 +39,8 @@ bool ROOTMinuit2Minimizer::isGradientBasedAgorithm()
 void ROOTMinuit2Minimizer::propagateOptions()
 {
     ROOTMinimizer::propagateOptions();
+    m_minuit2_minimizer->SetStrategy(m_options.getIntValue("Strategy"));
+    m_minuit2_minimizer->SetErrorDef(m_options.getIntValue("ErrorDef"));
 }
 
 

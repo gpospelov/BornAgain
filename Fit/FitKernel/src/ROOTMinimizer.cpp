@@ -170,7 +170,7 @@ std::vector<double > ROOTMinimizer::getErrorOfVariables() const
 
 void ROOTMinimizer::printResults() const
 {
-    ROOTMinimizerHelper::printResults(m_root_minimizer, m_minimizer_name, m_algo_type);
+    ROOTMinimizerHelper::printResults(this);
 }
 
 
@@ -180,10 +180,10 @@ size_t ROOTMinimizer::getNCalls() const
 }
 
 
-MinimizerOptions &ROOTMinimizer::getOptions()
-{
-    return m_options;
-}
+//MinimizerOptions &ROOTMinimizer::getOptions()
+//{
+//    return m_options;
+//}
 
 
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
@@ -204,6 +204,7 @@ void ROOTMinimizer::propagateOptions()
     m_root_minimizer->SetPrecision(m_options.getPrecision());
     m_root_minimizer->SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
     m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
+    m_root_minimizer->SetPrintLevel(m_options.getPrintLevel());
 }
 
 

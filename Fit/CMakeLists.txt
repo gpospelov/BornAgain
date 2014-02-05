@@ -18,11 +18,18 @@ file(GLOB include_files
     "FitKernel/inc/*.h"
 )
 
+# genetic minimizer only available if ROOT present
+if(NOT ROOT_FOUND)
+    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/ROOTGeneticMinimizer.cpp")
+    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/ROOTGeneticMinimizer.h")
+endif()
+
 if(BORNAGAIN_PYTHON)
     file(GLOB source_pythonapi "PythonAPI/src/*.cpp")
     list(APPEND source_files ${source_pythonapi})
     file(GLOB include_pythonapi "PythonAPI/inc/*.h")
     list(APPEND include_files ${include_pythonapi})
+
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
     )

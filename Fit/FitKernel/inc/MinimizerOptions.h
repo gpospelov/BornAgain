@@ -19,6 +19,8 @@
 #include "Exceptions.h"
 #include <string>
 #include <map>
+#include <iostream>
+#include <iomanip>
 
 //! @class MinimizerOptions
 //! @ingroup fitting
@@ -52,14 +54,20 @@ public:
     //! set maximum number of allowed function calls
     void setMaxFunctionCalls(int max_function_calls) { m_max_function_calls = max_function_calls; }
 
+    //! return internal print level of the minimizer
+    int getPrintLevel() const { return m_print_level; }
+    //! set internal print level of the minimizer
+    void setPrintLevel(int print_level){ m_print_level = print_level; }
+
     //! set option value
-//    void setValue(const std::string &name, double val) { setRealValue(name, val);}
-//    void setValue(const std::string &name, int val) { setIntValue(name, val);}
-//    void setValue(const std::string &name, const std::string &val) { setNamedValue(name, val);}
 
     void setValue(const std::string &name, double val) { setExistingValue(name, m_RealOpts, val); }
     void setValue(const std::string &name, int val) { setExistingValue(name, m_IntOpts, val);}
     void setValue(const std::string &name, const std::string &val) { setExistingValue(name, m_NamOpts, val);}
+
+    void getValue(const std::string &name, int &val) { val = getIntValue(name); }
+    void getValue(const std::string &name, double &val) { val = getRealValue(name); }
+    void getValue(const std::string &name, std::string &val) { val = getNamedValue(name); }
 
     void addValue(const std::string &name, double val) { addNewValue(name, m_RealOpts, val); }
     void addValue(const std::string &name, int val) { addNewValue(name, m_IntOpts, val);}
@@ -69,11 +77,16 @@ public:
     double getRealValue(const std::string &name) { return getValue(name, m_RealOpts); }
     std::string getNamedValue(const std::string &name) { return getValue(name, m_NamOpts); }
 
-private:
-//    void setRealValue(const std::string &name, double val){ setExistingValue(name, m_RealOpts, val); }
-//    void setIntValue(const std::string &name, int val){ setExistingValue(name, m_IntOpts, val); }
-//    void setNamedValue(const std::string &name, const std::string &val){ setExistingValue(name, m_NamOpts, val); }
+    void print() const {
+        print_common(std::cout);
+        if(m_IntOpts.size() || m_RealOpts.size() || m_NamOpts.size())
+            std::cout << std::setw(25) << std::left << "Extra options " << " : " << std::endl;
+        print_extra(m_IntOpts, std::cout);
+        print_extra(m_RealOpts, std::cout);
+        print_extra(m_NamOpts, std::cout);
+    }
 
+private:
     template<class M>
     static void setExistingValue(const std::string &name, M & opts, const typename M::mapped_type & value) {
        typename M::iterator pos;
@@ -106,6 +119,13 @@ private:
        return  (*pos).second;
     }
 
+    template<class M>
+    static void print_extra( const M & opts, std::ostream & os) {
+       for (typename M::const_iterator pos = opts.begin(); pos != opts.end(); ++pos)
+          os << std::setw(24) << pos->first << " : " << std::setw(15) << pos->second << std::endl;
+    }
+
+    void print_common(std::ostream & os) const;
 
     double m_tolerance; //!< Tolerance on the function value at the minimum.
     //!< the default tolerance value is 0.01 and the minimization will stop
@@ -122,6 +142,8 @@ private:
     int m_max_iterations; //!< Max number of iterations.
 
     int m_max_function_calls; //!< Max number of function calls.
+
+    int m_print_level; //!< internal print level of the minimizer, 0- silent
 
     std::map<std::string, double> m_RealOpts; //!< additional map of the real options
     std::map<std::string, int> m_IntOpts; //!< map of the integer options

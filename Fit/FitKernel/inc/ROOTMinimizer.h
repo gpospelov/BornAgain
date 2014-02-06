@@ -23,7 +23,6 @@
 #include "FitSuiteParameters.h"
 #include <string>
 #include "Math/Minimizer.h"
-#include "Math/Factory.h"
 #include "Math/Functor.h"
 
 
@@ -66,21 +65,28 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     virtual size_t getNCalls() const;
 
     //! return minimizer options
-    virtual MinimizerOptions getOptions() const;
+    virtual MinimizerOptions &getOptions() { return m_options; }
+    virtual const MinimizerOptions &getOptions() const { return m_options; }
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
 
-    //! set minimizer option string
-    virtual void setOptions(const std::string& options);
-
     //! Returns created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
+    const ROOT::Math::Minimizer *getROOTMinimizer() const { return m_root_minimizer; }
 
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
-    bool isGradientBasedAgorithm();    
+    virtual bool isGradientBasedAgorithm() { return false;}
 
- private:
+    //! return name of the minimizer
+    virtual std::string getMinimizerName() const { return m_minimizer_name; }
+
+    //! return name of the minimization algorithm
+    virtual std::string getAlgorithmName() const { return m_algo_type; }
+
+ protected:
+    virtual void propagateOptions();
+
     ROOTMinimizer(const ROOTMinimizer& );
     ROOTMinimizer& operator=(const ROOTMinimizer& );
 
@@ -91,6 +97,7 @@ class BA_CORE_API_ ROOTMinimizer : public IMinimizer
     ROOT::Math::Minimizer *m_root_minimizer;
     ROOTMinimizerChiSquaredFunction *m_chi2_func;
     ROOTMinimizerGradientFunction *m_gradient_func;
+    MinimizerOptions m_options;
 };
 
 #endif // ROOTMINIMIZER_H

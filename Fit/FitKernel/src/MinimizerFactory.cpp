@@ -14,11 +14,15 @@
 // ************************************************************************** //
 
 #include "MinimizerFactory.h"
-#include "ROOTGSLNLSMinimizer.h"
-#include "ROOTGSLSimAnMinimizer.h"
 #include "MinimizerTest.h"
 #include "MinimizerScan.h"
-#include "ROOTMinimizer.h"
+#include "ROOTMinuit2Minimizer.h"
+#include "ROOTMultiMinMinimizer.h"
+#include "ROOTSimAnMinimizer.h"
+#include "ROOTLMAMinimizer.h"
+#ifdef HAS_GENETIC_MINIMIZER
+#include "ROOTGeneticMinimizer.h"
+#endif
 #include <boost/assign/list_of.hpp>
 #include <iomanip>
 
@@ -29,20 +33,18 @@ MinimizerFactory::Catalogue MinimizerFactory::m_catalogue =
 // for every minimizer
 MinimizerFactory::Catalogue::Catalogue()
 {
-    // TODO FIXME As soon as we got rid from ROOT in our dependencies, we've
-    // lost Genetic minimizer and it is not easy to get it back
-
     // our minimizers
     //m_data["Test"]        = boost::assign::list_of("");
     //m_data["Scan"]        = boost::assign::list_of("");
     // ROOT minimizers
     //m_data["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
     m_data["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
-    //m_data["Fumili"]      = boost::assign::list_of("");
     m_data["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
-    m_data["GSLMultiFit"] = boost::assign::list_of("");
+    m_data["GSLLMA"] = boost::assign::list_of("");
     m_data["GSLSimAn"]    = boost::assign::list_of("");
-    //m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
+#ifdef HAS_GENETIC_MINIMIZER
+    m_data["Genetic"]     = boost::assign::list_of(""); // available only with ROOT libraries
+#endif
 }
 
 
@@ -80,7 +82,8 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 {
     if( !m_catalogue.isValid(minimizer, algorithm) ) {
         std::ostringstream ostr;
-        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name. Possible names are:" << std::endl;
+        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name '" << minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
+        ostr << "Possible names are:" << std::endl;
         ostr << m_catalogue;
         throw LogicErrorException(ostr.str());
     }
@@ -88,14 +91,36 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
     IMinimizer *result(0);
     if( minimizer == "Test" ) {
         result = new MinimizerTest();
+
     } else if( minimizer == "Scan" ) {
         result = new MinimizerScan();
-    } else {
-        result = new ROOTMinimizer(minimizer, algorithm);
+
+    } else if( minimizer == "Minuit2" ) {
+        result = new ROOTMinuit2Minimizer(minimizer, algorithm);
+
+    } else if( minimizer == "GSLMultiMin" ) {
+        result = new ROOTMultiMinMinimizer(minimizer, algorithm);
+
+    } else if( minimizer == "GSLLMA" ) {
+        result = new ROOTLMAMinimizer(minimizer, algorithm);
+
+    } else if( minimizer == "GSLSimAn" ) {
+        result = new ROOTSimAnMinimizer(minimizer, algorithm);
+
+#ifdef HAS_GENETIC_MINIMIZER
+    } else if( minimizer == "Genetic" ) {
+        result = new ROOTGeneticMinimizer(minimizer, algorithm);
+#endif
+
     }
+
+    if(!result) {
+        throw LogicErrorException("MinimizerFactory::createMinimizer() -> Error! Wrong minimizer name '"+minimizer+"'");
+    }
+
     if( !options.empty() ) {
         try {
-            result->setOptions(options);
+            result->setOptionString(options);
         } catch (NotImplementedException& e) {
             std::cout << "MinimizerFactory::createMinimizer() -> Warning! Minimizer doesn't have method implemented" << e.what() << std::endl;
         }
@@ -103,5 +128,21 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 
     return result;
 }
+
+
+
+//! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
+//! This method serves as a kind of 'shallow' clone for minimizer.
+//! The reason why the minimizer doesn't have own clone method is because of complicate structure of
+//! ROOT minimizer internals.
+IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *minimizer)
+{
+    IMinimizer *result = createMinimizer(minimizer->getMinimizerName(), minimizer->getAlgorithmName());
+    result->setOptions(minimizer->getOptions());
+    return result;
+}
+
+
+
 
 

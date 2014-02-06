@@ -86,7 +86,7 @@ class BA_CORE_API_ FitSuite : public IObservable
     size_t getNCalls() const;
 
     //! Returns the number of current strategy
-    size_t getNStrategy() const { return m_fit_strategies.getNStrategy(); }
+    size_t getNStrategy() const { return m_fit_strategies.getCurrentStrategyIndex(); }
 
     //! Prints results of the screen
     void printResults() const;

@@ -21,6 +21,7 @@
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
 #include "TestFittingModule3.h"
+#include "TestFittingModule4.h"
 #include "TestFormFactor.h"
 #include "TestFormFactors.h"
 #include "TestFourier.h"
@@ -33,7 +34,6 @@
 #include "TestMiscellaneous.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestPerformance.h"
-#include "TestPerformance2.h"
 #include "TestPolarizedDWBA.h"
 #include "TestPolarizedDWBATerms.h"
 #include "TestPolarizedMeso.h"
@@ -193,22 +193,22 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "fitting1",
         IFactoryCreateFunction<TestFittingModule1, IApplicationTest>,
-        "functional test: fit module 2 params");
+        "functional test: basing fitting 2 params");
     p_test_factory->registerItem(
         "fitting2",
         IFactoryCreateFunction<TestFittingModule2, IApplicationTest>,
-        "functional test: fit module 5 params");
+        "functional test: fitting with strategies");
     p_test_factory->registerItem(
         "fitting3",
         IFactoryCreateFunction<TestFittingModule3, IApplicationTest>,
-        "functional test: fit module 4 params, 1d scans");
+        "functional test: fitting via 1D cuts");
     p_test_factory->registerItem(
-        "performance1",
+        "fitting4",
+        IFactoryCreateFunction<TestFittingModule4, IApplicationTest>,
+        "functional test: testing genetic minimizer");
+    p_test_factory->registerItem(
+        "performance",
         IFactoryCreateFunction<TestPerformance, IApplicationTest>,
-        "functional test: run performance test for several predefined tasks");
-    p_test_factory->registerItem(
-        "performance2",
-        IFactoryCreateFunction<TestPerformance2, IApplicationTest>,
         "functional test: run performance test for several predefined tasks");
     p_test_factory->registerItem(
         "roughdwba",
@@ -226,7 +226,7 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         "fumili",
         IFactoryCreateFunction<TestFumiliLMA, IApplicationTest>,
         "functional test: test of ROOT's LMA-based minimizers Fumili and "
-        "GSLMultiFit");
+        "GSLLMA");
     p_test_factory->registerItem(
         "toyexp",
         IFactoryCreateFunction<TestToySimulation, IApplicationTest>,

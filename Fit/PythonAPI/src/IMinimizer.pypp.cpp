@@ -35,6 +35,18 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::clear( );
     }
 
+    virtual ::std::string getAlgorithmName(  ) const  {
+        if( bp::override func_getAlgorithmName = this->get_override( "getAlgorithmName" ) )
+            return func_getAlgorithmName(  );
+        else
+            return this->IMinimizer::getAlgorithmName(  );
+    }
+    
+    
+    ::std::string default_getAlgorithmName(  ) const  {
+        return IMinimizer::getAlgorithmName( );
+    }
+
     virtual double getErrorOfVariable( ::std::size_t arg0 ) const  {
         if( bp::override func_getErrorOfVariable = this->get_override( "getErrorOfVariable" ) )
             return func_getErrorOfVariable( arg0 );
@@ -71,6 +83,18 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         return IMinimizer::getMinValue( );
     }
 
+    virtual ::std::string getMinimizerName(  ) const  {
+        if( bp::override func_getMinimizerName = this->get_override( "getMinimizerName" ) )
+            return func_getMinimizerName(  );
+        else
+            return this->IMinimizer::getMinimizerName(  );
+    }
+    
+    
+    ::std::string default_getMinimizerName(  ) const  {
+        return IMinimizer::getMinimizerName( );
+    }
+
     virtual ::std::size_t getNCalls(  ) const  {
         if( bp::override func_getNCalls = this->get_override( "getNCalls" ) )
             return func_getNCalls(  );
@@ -93,18 +117,6 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     
     ::std::size_t default_getNumberOfVariables(  ) const  {
         return IMinimizer::getNumberOfVariables( );
-    }
-
-    virtual ::MinimizerOptions getOptions(  ) const  {
-        if( bp::override func_getOptions = this->get_override( "getOptions" ) )
-            return func_getOptions(  );
-        else
-            return this->IMinimizer::getOptions(  );
-    }
-    
-    
-    ::MinimizerOptions default_getOptions(  ) const  {
-        return IMinimizer::getOptions( );
     }
 
     virtual double getValueOfVariableAtMinimum( ::std::size_t arg0 ) const  {
@@ -131,6 +143,18 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         return IMinimizer::getValueOfVariablesAtMinimum( );
     }
 
+    virtual bool isGradientBasedAgorithm(  ) {
+        if( bp::override func_isGradientBasedAgorithm = this->get_override( "isGradientBasedAgorithm" ) )
+            return func_isGradientBasedAgorithm(  );
+        else
+            return this->IMinimizer::isGradientBasedAgorithm(  );
+    }
+    
+    
+    bool default_isGradientBasedAgorithm(  ) {
+        return IMinimizer::isGradientBasedAgorithm( );
+    }
+
     virtual void minimize(  ){
         bp::override func_minimize = this->get_override( "minimize" );
         func_minimize(  );
@@ -148,6 +172,18 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::printResults( );
     }
 
+    virtual void setOptionString( ::std::string const & arg0 ) {
+        if( bp::override func_setOptionString = this->get_override( "setOptionString" ) )
+            func_setOptionString( arg0 );
+        else
+            this->IMinimizer::setOptionString( arg0 );
+    }
+    
+    
+    void default_setOptionString( ::std::string const & arg0 ) {
+        IMinimizer::setOptionString( arg0 );
+    }
+
     virtual void setOptions( ::MinimizerOptions const & arg0 ) {
         if( bp::override func_setOptions = this->get_override( "setOptions" ) )
             func_setOptions( boost::ref(arg0) );
@@ -158,18 +194,6 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     
     void default_setOptions( ::MinimizerOptions const & arg0 ) {
         IMinimizer::setOptions( boost::ref(arg0) );
-    }
-
-    virtual void setOptions( ::std::string const & arg0 ) {
-        if( bp::override func_setOptions = this->get_override( "setOptions" ) )
-            func_setOptions( arg0 );
-        else
-            this->IMinimizer::setOptions( arg0 );
-    }
-    
-    
-    void default_setOptions( ::std::string const & arg0 ) {
-        IMinimizer::setOptions( arg0 );
     }
 
     virtual void setParameters( ::FitSuiteParameters const & arg0 ) {
@@ -201,6 +225,17 @@ void register_IMinimizer_class(){
                 "clear"
                 , clear_function_type(&::IMinimizer::clear)
                 , default_clear_function_type(&IMinimizer_wrapper::default_clear) );
+        
+        }
+        { //::IMinimizer::getAlgorithmName
+        
+            typedef ::std::string ( ::IMinimizer::*getAlgorithmName_function_type )(  ) const;
+            typedef ::std::string ( IMinimizer_wrapper::*default_getAlgorithmName_function_type )(  ) const;
+            
+            IMinimizer_exposer.def( 
+                "getAlgorithmName"
+                , getAlgorithmName_function_type(&::IMinimizer::getAlgorithmName)
+                , default_getAlgorithmName_function_type(&IMinimizer_wrapper::default_getAlgorithmName) );
         
         }
         { //::IMinimizer::getErrorOfVariable
@@ -237,6 +272,17 @@ void register_IMinimizer_class(){
                 , default_getMinValue_function_type(&IMinimizer_wrapper::default_getMinValue) );
         
         }
+        { //::IMinimizer::getMinimizerName
+        
+            typedef ::std::string ( ::IMinimizer::*getMinimizerName_function_type )(  ) const;
+            typedef ::std::string ( IMinimizer_wrapper::*default_getMinimizerName_function_type )(  ) const;
+            
+            IMinimizer_exposer.def( 
+                "getMinimizerName"
+                , getMinimizerName_function_type(&::IMinimizer::getMinimizerName)
+                , default_getMinimizerName_function_type(&IMinimizer_wrapper::default_getMinimizerName) );
+        
+        }
         { //::IMinimizer::getNCalls
         
             typedef ::std::size_t ( ::IMinimizer::*getNCalls_function_type )(  ) const;
@@ -261,13 +307,12 @@ void register_IMinimizer_class(){
         }
         { //::IMinimizer::getOptions
         
-            typedef ::MinimizerOptions ( ::IMinimizer::*getOptions_function_type )(  ) const;
-            typedef ::MinimizerOptions ( IMinimizer_wrapper::*default_getOptions_function_type )(  ) const;
+            typedef ::MinimizerOptions & ( ::IMinimizer::*getOptions_function_type )(  ) ;
             
             IMinimizer_exposer.def( 
                 "getOptions"
                 , getOptions_function_type(&::IMinimizer::getOptions)
-                , default_getOptions_function_type(&IMinimizer_wrapper::default_getOptions) );
+                , bp::return_internal_reference< >() );
         
         }
         { //::IMinimizer::getValueOfVariableAtMinimum
@@ -293,6 +338,17 @@ void register_IMinimizer_class(){
                 , default_getValueOfVariablesAtMinimum_function_type(&IMinimizer_wrapper::default_getValueOfVariablesAtMinimum) );
         
         }
+        { //::IMinimizer::isGradientBasedAgorithm
+        
+            typedef bool ( ::IMinimizer::*isGradientBasedAgorithm_function_type )(  ) ;
+            typedef bool ( IMinimizer_wrapper::*default_isGradientBasedAgorithm_function_type )(  ) ;
+            
+            IMinimizer_exposer.def( 
+                "isGradientBasedAgorithm"
+                , isGradientBasedAgorithm_function_type(&::IMinimizer::isGradientBasedAgorithm)
+                , default_isGradientBasedAgorithm_function_type(&IMinimizer_wrapper::default_isGradientBasedAgorithm) );
+        
+        }
         { //::IMinimizer::minimize
         
             typedef void ( ::IMinimizer::*minimize_function_type )(  ) ;
@@ -313,22 +369,22 @@ void register_IMinimizer_class(){
                 , default_printResults_function_type(&IMinimizer_wrapper::default_printResults) );
         
         }
-        { //::IMinimizer::setOptions
+        { //::IMinimizer::setOptionString
         
-            typedef void ( ::IMinimizer::*setOptions_function_type )( ::MinimizerOptions const & ) ;
-            typedef void ( IMinimizer_wrapper::*default_setOptions_function_type )( ::MinimizerOptions const & ) ;
+            typedef void ( ::IMinimizer::*setOptionString_function_type )( ::std::string const & ) ;
+            typedef void ( IMinimizer_wrapper::*default_setOptionString_function_type )( ::std::string const & ) ;
             
             IMinimizer_exposer.def( 
-                "setOptions"
-                , setOptions_function_type(&::IMinimizer::setOptions)
-                , default_setOptions_function_type(&IMinimizer_wrapper::default_setOptions)
+                "setOptionString"
+                , setOptionString_function_type(&::IMinimizer::setOptionString)
+                , default_setOptionString_function_type(&IMinimizer_wrapper::default_setOptionString)
                 , ( bp::arg("arg0") ) );
         
         }
         { //::IMinimizer::setOptions
         
-            typedef void ( ::IMinimizer::*setOptions_function_type )( ::std::string const & ) ;
-            typedef void ( IMinimizer_wrapper::*default_setOptions_function_type )( ::std::string const & ) ;
+            typedef void ( ::IMinimizer::*setOptions_function_type )( ::MinimizerOptions const & ) ;
+            typedef void ( IMinimizer_wrapper::*default_setOptions_function_type )( ::MinimizerOptions const & ) ;
             
             IMinimizer_exposer.def( 
                 "setOptions"

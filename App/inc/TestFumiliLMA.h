@@ -32,7 +32,7 @@ class IFunctionObject;
 class IChiSquaredModule;
 class TCanvas;
 
-//! Test of ROOT's LMA-based minimizers Fumili and GSLMultiFit
+//! Test of ROOT's LMA-based minimizers Fumili and GSLLMA(GSLMultiFit)
 
 class TestFumiliLMA : public IApplicationTest
 {

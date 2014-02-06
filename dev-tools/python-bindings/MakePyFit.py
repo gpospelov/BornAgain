@@ -93,7 +93,11 @@ def ManualClassTunings(mb):
             #fun.exclude()
     #
     cl = mb.class_("MinimizerFactory")
-    cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+    #cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+    for fun in cl.member_functions():
+        if "createMinimizer" in fun.decl_string:
+            fun.call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+
 
     cl = mb.class_("IObserver")
     cl.member_function("update").include()

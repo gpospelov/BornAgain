@@ -51,6 +51,7 @@ void FitSuiteStrategies::minimize()
             (*it)->execute();
             ++m_current_strategy_index;
         }
+        --m_current_strategy_index;
     }
 }
 

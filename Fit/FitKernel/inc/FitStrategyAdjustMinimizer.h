@@ -17,6 +17,7 @@
 #define FITSTRATEGYADJUSTMINIMIZER_H
 
 #include "IFitStrategy.h"
+#include "IMinimizer.h"
 
 //! @class FitStrategyAdjustMinimizer
 //! @ingroup fitting
@@ -25,6 +26,18 @@
 class BA_CORE_API_ FitStrategyAdjustMinimizer : public IFitStrategy
 {
 public:
+    FitStrategyAdjustMinimizer() : m_minimizer(0) {}
+    virtual ~FitStrategyAdjustMinimizer(){ delete m_minimizer; }
+
+    virtual FitStrategyAdjustMinimizer *clone() const;
+
+    IMinimizer *getMinimizer() { return m_minimizer; }
+    void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }
+
+    virtual void execute();
+
+private:
+    IMinimizer *m_minimizer;
 };
 
 #endif // FITSTRATEGYADJUSTMINIMIZER_H

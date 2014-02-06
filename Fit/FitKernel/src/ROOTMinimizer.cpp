@@ -140,6 +140,7 @@ void ROOTMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t npara
     if( !isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_chi2_func);
 }
 
+
 void ROOTMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 {
     delete m_gradient_func;
@@ -180,22 +181,11 @@ size_t ROOTMinimizer::getNCalls() const
 }
 
 
-//MinimizerOptions &ROOTMinimizer::getOptions()
-//{
-//    return m_options;
-//}
-
-
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
 {
     m_options = options;
     propagateOptions();
 }
-
-//void ROOTMinimizer::setOptions(const std::string& options)
-//{
-//    ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
-//}
 
 
 void ROOTMinimizer::propagateOptions()

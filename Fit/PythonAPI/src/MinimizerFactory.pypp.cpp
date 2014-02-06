@@ -28,7 +28,7 @@ void register_MinimizerFactory_class(){
                 "createMinimizer"
                 , createMinimizer_function_type( &::MinimizerFactory::createMinimizer )
                 , ( bp::arg("minimizer"), bp::arg("algorithm")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::MinimizerFactory::printCatalogue

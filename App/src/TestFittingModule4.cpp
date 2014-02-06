@@ -26,7 +26,7 @@
 #include "ROOTMinimizer.h"
 #include "Math/GeneticMinimizer.h"
 #include "Math/GenAlgoOptions.h"
-
+#include "FitStrategyAdjustMinimizer.h"
 
 TestFittingModule4::TestFittingModule4()
     : mp_real_data(0)
@@ -84,13 +84,23 @@ void TestFittingModule4::execute()
 //    m_fitSuite->getMinimizer()->getOptions().setValue("niters_fixed_t",5);
 //    m_fitSuite->getMinimizer()->getOptions().setMaxIterations(5);
 
-    m_fitSuite->getMinimizer()->getOptions().setValue("Strategy",2);
+//    m_fitSuite->getMinimizer()->getOptions().setValue("Strategy",2);
 
-    m_fitSuite->getMinimizer()->getOptions().print();
+    //m_fitSuite->getMinimizer()->getOptions().print();
 
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(100) );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+
+    FitStrategyAdjustMinimizer *strategy1 = new FitStrategyAdjustMinimizer();
+    strategy1->setMinimizer(MinimizerFactory::createMinimizer("Genetic"));
+    strategy1->getMinimizer()->getOptions().setMaxIterations(5);
+    strategy1->getMinimizer()->getOptions().setValue("Steps",5);
+    m_fitSuite->addFitStrategy(strategy1);
+
+    FitStrategyAdjustMinimizer *strategy2 = new FitStrategyAdjustMinimizer();
+    strategy2->setMinimizer(MinimizerFactory::createMinimizer("Minuit2","Migrad"));
+    m_fitSuite->addFitStrategy(strategy2);
 
     m_fitSuite->runFit();
 }
@@ -145,8 +155,8 @@ void TestFittingModule4::initializeSample()
         throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
     }
 
-    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
-    m_fitSuite->addFitParameter("*radius", 8.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
+    m_fitSuite->addFitParameter("*height", 1.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
+    m_fitSuite->addFitParameter("*radius", 20.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
 //    m_fitSuite->addFitParameter("*height", 6.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 30.) );
 //    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 30.) );
 }

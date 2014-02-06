@@ -87,6 +87,7 @@ class BA_CORE_API_ IMinimizer
 
     //! return minimizer options
     virtual MinimizerOptions &getOptions();
+    virtual const MinimizerOptions &getOptions() const;
 
     //! set minimizer options
     virtual void setOptions(const MinimizerOptions &options);
@@ -96,6 +97,12 @@ class BA_CORE_API_ IMinimizer
 
     //! Checks if type of algorithm is Levenberg-Marquardt or similar
     virtual bool isGradientBasedAgorithm();
+
+    //! return name of the minimizer
+    virtual std::string getMinimizerName() const;
+
+    //! return name of the minimization algorithm
+    virtual std::string getAlgorithmName() const;
 
 };
 
@@ -169,6 +176,12 @@ inline MinimizerOptions &IMinimizer::getOptions()
     throw NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
 }
 
+
+inline const MinimizerOptions &IMinimizer::getOptions() const
+{
+    throw NotImplementedException("IMinimizer::getOptions() -> Not implemented.");
+}
+
 inline void IMinimizer::setOptions(const MinimizerOptions &/*options*/)
 {
     throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
@@ -183,6 +196,18 @@ inline bool IMinimizer::isGradientBasedAgorithm()
 {
     throw NotImplementedException("IMinimizer::isGradientBasedAlgorithm() -> Not implemented.");
 }
+
+inline std::string IMinimizer::getMinimizerName() const
+{
+    throw NotImplementedException("IMinimizer::getMinimizerName() -> Not implemented.");
+}
+
+inline std::string IMinimizer::getAlgorithmName() const
+{
+    throw NotImplementedException("IMinimizer::getAlgorithmName() -> Not implemented.");
+}
+
+
 
 #endif // IMINIMIZER_H
 

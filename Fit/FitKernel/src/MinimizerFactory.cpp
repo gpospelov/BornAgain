@@ -82,7 +82,8 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 {
     if( !m_catalogue.isValid(minimizer, algorithm) ) {
         std::ostringstream ostr;
-        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name. Possible names are:" << std::endl;
+        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name '" << minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
+        ostr << "Possible names are:" << std::endl;
         ostr << m_catalogue;
         throw LogicErrorException(ostr.str());
     }
@@ -127,5 +128,21 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, cons
 
     return result;
 }
+
+
+
+//! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
+//! This method serves as a kind of 'shallow' clone for minimizer.
+//! The reason why the minimizer doesn't have own clone method is because of complicate structure of
+//! ROOT minimizer internals.
+IMinimizer *MinimizerFactory::createMinimizer(const IMinimizer *minimizer)
+{
+    IMinimizer *result = createMinimizer(minimizer->getMinimizerName(), minimizer->getAlgorithmName());
+    result->setOptions(minimizer->getOptions());
+    return result;
+}
+
+
+
 
 

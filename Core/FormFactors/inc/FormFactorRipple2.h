@@ -34,7 +34,7 @@ public:
     //! @param asymmetry length of triangular cross section
     FormFactorRipple2(double length, double width, double height, double asymetry);
 
-    ~FormFactorRipple2() { }
+    virtual ~FormFactorRipple2() { }
 
     virtual FormFactorRipple2 *clone() const;
 
@@ -49,10 +49,10 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-private:
-
+protected:
     virtual void init_parameters();
 
+private:
     double m_width;
     double m_height;
     double m_length;

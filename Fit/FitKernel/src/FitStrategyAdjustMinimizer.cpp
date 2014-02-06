@@ -19,6 +19,6 @@ void FitStrategyAdjustMinimizer::execute()
 
     m_fit_suite->minimize();
 
-    m_fit_suite->printResults();
+    //m_fit_suite->printResults();
 
 }

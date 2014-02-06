@@ -26,7 +26,7 @@
 class BA_CORE_API_ FitStrategyAdjustMinimizer : public IFitStrategy
 {
 public:
-    FitStrategyAdjustMinimizer() : m_minimizer(0) {}
+    FitStrategyAdjustMinimizer() : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(0) {}
     virtual ~FitStrategyAdjustMinimizer(){ delete m_minimizer; }
 
     virtual FitStrategyAdjustMinimizer *clone() const;

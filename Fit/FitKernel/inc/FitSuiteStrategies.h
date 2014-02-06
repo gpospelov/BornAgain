@@ -40,16 +40,19 @@ class BA_CORE_API_  FitSuiteStrategies
 
     void minimize();
 
-    size_t getNStrategy() const { return m_current_strategy_index; }
+    size_t getCurrentStrategyIndex() const { return m_current_strategy_index; }
+    std::string getCurrentStrategyName() const { return m_current_strategy_name; }
 
     iterator begin() { return m_strategies.begin(); }
     iterator end() { return m_strategies.end(); }
+    size_t size() const { return m_strategies.size(); }
 
     void clear();
  private:
     strategies_t m_strategies;
     FitSuite *m_fit_suite;
     size_t m_current_strategy_index;
+    std::string m_current_strategy_name;
 };
 
 #endif // FITSUITESTRATEGIES_H

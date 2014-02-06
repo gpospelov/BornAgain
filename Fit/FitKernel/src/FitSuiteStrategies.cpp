@@ -47,7 +47,8 @@ void FitSuiteStrategies::minimize()
          m_fit_suite->minimize();
     } else {
         for(strategies_t::iterator it=m_strategies.begin(); it!=m_strategies.end(); ++it) {
-            msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";
+            //msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";
+            m_current_strategy_name = (*it)->getName();
             (*it)->execute();
             ++m_current_strategy_index;
         }

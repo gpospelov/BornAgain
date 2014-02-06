@@ -32,6 +32,18 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
     
     }
 
+    virtual ::DistributionCosine * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else
+            return this->DistributionCosine::clone(  );
+    }
+    
+    
+    ::DistributionCosine * default_clone(  ) const  {
+        return DistributionCosine::clone( );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -158,10 +170,12 @@ void register_DistributionCosine_class(){
         { //::DistributionCosine::clone
         
             typedef ::DistributionCosine * ( ::DistributionCosine::*clone_function_type )(  ) const;
+            typedef ::DistributionCosine * ( DistributionCosine_wrapper::*default_clone_function_type )(  ) const;
             
             DistributionCosine_exposer.def( 
                 "clone"
-                , clone_function_type( &::DistributionCosine::clone )
+                , clone_function_type(&::DistributionCosine::clone)
+                , default_clone_function_type(&DistributionCosine_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

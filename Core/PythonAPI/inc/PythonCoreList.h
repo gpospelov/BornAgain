@@ -76,6 +76,7 @@
 #include "OutputData.h"
 #include "OutputDataIOFactory.h"
 #include "ParameterPool.h"
+#include "ParameterSample.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"

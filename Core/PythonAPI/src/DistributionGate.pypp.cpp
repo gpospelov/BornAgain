@@ -32,6 +32,18 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     
     }
 
+    virtual ::DistributionGate * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else
+            return this->DistributionGate::clone(  );
+    }
+    
+    
+    ::DistributionGate * default_clone(  ) const  {
+        return DistributionGate::clone( );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -158,10 +170,12 @@ void register_DistributionGate_class(){
         { //::DistributionGate::clone
         
             typedef ::DistributionGate * ( ::DistributionGate::*clone_function_type )(  ) const;
+            typedef ::DistributionGate * ( DistributionGate_wrapper::*default_clone_function_type )(  ) const;
             
             DistributionGate_exposer.def( 
                 "clone"
-                , clone_function_type( &::DistributionGate::clone )
+                , clone_function_type(&::DistributionGate::clone)
+                , default_clone_function_type(&DistributionGate_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

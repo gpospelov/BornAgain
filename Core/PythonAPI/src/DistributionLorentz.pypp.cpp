@@ -32,6 +32,18 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
     
     }
 
+    virtual ::DistributionLorentz * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else
+            return this->DistributionLorentz::clone(  );
+    }
+    
+    
+    ::DistributionLorentz * default_clone(  ) const  {
+        return DistributionLorentz::clone( );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -158,10 +170,12 @@ void register_DistributionLorentz_class(){
         { //::DistributionLorentz::clone
         
             typedef ::DistributionLorentz * ( ::DistributionLorentz::*clone_function_type )(  ) const;
+            typedef ::DistributionLorentz * ( DistributionLorentz_wrapper::*default_clone_function_type )(  ) const;
             
             DistributionLorentz_exposer.def( 
                 "clone"
-                , clone_function_type( &::DistributionLorentz::clone )
+                , clone_function_type(&::DistributionLorentz::clone)
+                , default_clone_function_type(&DistributionLorentz_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

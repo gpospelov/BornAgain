@@ -25,6 +25,18 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     
     }
 
+    virtual ::IDistribution1D * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else
+            return this->IDistribution1D::clone(  );
+    }
+    
+    
+    ::IDistribution1D * default_clone(  ) const  {
+        return IDistribution1D::clone( );
+    }
+
     virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const {
         bp::override func_generateValueList = this->get_override( "generateValueList" );
         return func_generateValueList( nbr_samples, sigma_factor );
@@ -142,21 +154,13 @@ void register_IDistribution1D_class(){
         { //::IDistribution1D::clone
         
             typedef ::IDistribution1D * ( ::IDistribution1D::*clone_function_type )(  ) const;
+            typedef ::IDistribution1D * ( IDistribution1D_wrapper::*default_clone_function_type )(  ) const;
             
             IDistribution1D_exposer.def( 
                 "clone"
-                , clone_function_type( &::IDistribution1D::clone )
+                , clone_function_type(&::IDistribution1D::clone)
+                , default_clone_function_type(&IDistribution1D_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IDistribution1D::generateSamples
-        
-            typedef ::std::vector< ParameterSample > ( ::IDistribution1D::*generateSamples_function_type )( ::std::size_t,double ) const;
-            
-            IDistribution1D_exposer.def( 
-                "generateSamples"
-                , generateSamples_function_type( &::IDistribution1D::generateSamples )
-                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 ) );
         
         }
         { //::IDistribution1D::generateValueList

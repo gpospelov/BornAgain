@@ -32,6 +32,18 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     
     }
 
+    virtual ::DistributionGaussian * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else
+            return this->DistributionGaussian::clone(  );
+    }
+    
+    
+    ::DistributionGaussian * default_clone(  ) const  {
+        return DistributionGaussian::clone( );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -158,10 +170,12 @@ void register_DistributionGaussian_class(){
         { //::DistributionGaussian::clone
         
             typedef ::DistributionGaussian * ( ::DistributionGaussian::*clone_function_type )(  ) const;
+            typedef ::DistributionGaussian * ( DistributionGaussian_wrapper::*default_clone_function_type )(  ) const;
             
             DistributionGaussian_exposer.def( 
                 "clone"
-                , clone_function_type( &::DistributionGaussian::clone )
+                , clone_function_type(&::DistributionGaussian::clone)
+                , default_clone_function_type(&DistributionGaussian_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

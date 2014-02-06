@@ -29,7 +29,7 @@ public:
     virtual ~IDistribution1D() {}
 
     //! clone method
-    IDistribution1D *clone() const {
+    virtual IDistribution1D *clone() const {
     	throw NotImplementedException("IDistribution1D cannot be cloned");
     }
 
@@ -62,7 +62,7 @@ public:
 	virtual ~DistributionGate() {}
 
     //! clone method
-	DistributionGate *clone() const {
+	virtual DistributionGate *clone() const {
 		return new DistributionGate(m_mean, m_hwhm);
 	}
 
@@ -97,7 +97,7 @@ public:
 	virtual ~DistributionLorentz() {}
 
     //! clone method
-	DistributionLorentz *clone() const {
+	virtual DistributionLorentz *clone() const {
 		return new DistributionLorentz(m_mean, m_hwhm);
 	}
 
@@ -132,7 +132,7 @@ public:
 	virtual ~DistributionGaussian() {}
 
     //! clone method
-	DistributionGaussian *clone() const {
+	virtual DistributionGaussian *clone() const {
 		return new DistributionGaussian(m_mean, m_std_dev);
 	}
 
@@ -167,7 +167,7 @@ public:
 	virtual ~DistributionLogNormal() {}
 
     //! clone method
-	DistributionLogNormal *clone() const {
+	virtual DistributionLogNormal *clone() const {
 		return new DistributionLogNormal(m_mean_log, m_sigma);
 	}
 
@@ -200,7 +200,7 @@ public:
 	virtual ~DistributionCosine() {}
 
     //! clone method
-	DistributionCosine *clone() const {
+	virtual DistributionCosine *clone() const {
 		return new DistributionCosine(m_mean, m_sigma);
 	}
 

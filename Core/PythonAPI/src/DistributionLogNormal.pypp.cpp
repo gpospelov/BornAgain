@@ -32,6 +32,18 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
     
     }
 
+    virtual ::DistributionLogNormal * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else
+            return this->DistributionLogNormal::clone(  );
+    }
+    
+    
+    ::DistributionLogNormal * default_clone(  ) const  {
+        return DistributionLogNormal::clone( );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -158,10 +170,12 @@ void register_DistributionLogNormal_class(){
         { //::DistributionLogNormal::clone
         
             typedef ::DistributionLogNormal * ( ::DistributionLogNormal::*clone_function_type )(  ) const;
+            typedef ::DistributionLogNormal * ( DistributionLogNormal_wrapper::*default_clone_function_type )(  ) const;
             
             DistributionLogNormal_exposer.def( 
                 "clone"
-                , clone_function_type( &::DistributionLogNormal::clone )
+                , clone_function_type(&::DistributionLogNormal::clone)
+                , default_clone_function_type(&DistributionLogNormal_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

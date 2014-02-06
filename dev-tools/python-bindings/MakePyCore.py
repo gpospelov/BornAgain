@@ -219,6 +219,9 @@ def ManualClassTunings(mb):
     cl = mb.class_("IClusteredParticles")
     cl.member_function("setAmbientMaterial").include()
     #
+    cl = mb.class_("IDistribution1D")
+    cl.member_function("generateSamples").exclude()
+    #
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
 

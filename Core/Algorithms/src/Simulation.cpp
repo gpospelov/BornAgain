@@ -98,23 +98,34 @@ void Simulation::prepareSimulation()
     updateSample();
 }
 
-void Simulation::run00Simulation()
+//! Run simulation with possible averaging over parameter distributions
+void Simulation::runSimulation()
 {
     prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
-    OutputData<double> total_intensity;
-    OutputData<Eigen::Matrix2d> total_polarized_intensity;
-    total_intensity.setAllTo(0.);
-    total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
 
 	size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
+
+	// no averaging needed:
+	if (param_combinations == 1) {
+		runSingleSimulation();
+		return;
+	}
+
+	// average over parameter distributions:
+    OutputData<double> total_intensity;
+    OutputData<Eigen::Matrix2d> total_polarized_intensity;
+    total_intensity.copyShapeFrom(m_intensity_map);
+    total_polarized_intensity.copyShapeFrom(m_polarization_output);
+    total_intensity.setAllTo(0.);
+    total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
 	ParameterPool *p_param_pool = createParameterTree();
 	for (size_t index=0; index < param_combinations; ++index) {
 		double weight = m_distribution_handler.setParameterValues(
 				p_param_pool, index);
-		runSimulation();
+		runSingleSimulation();
 		m_intensity_map.scaleAll(weight);
 		m_polarization_output.scaleAll(
 				(Eigen::Matrix2d)(Eigen::Matrix2d::Identity()*weight) );
@@ -123,103 +134,6 @@ void Simulation::run00Simulation()
 	}
 	m_intensity_map.copyFrom(total_intensity);
 	m_polarization_output.copyFrom(total_polarized_intensity);
-}
-
-//! Run simulation. Manage threads.
-
-void Simulation::runSimulation()
-{
-    m_intensity_map.setAllTo(0.);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-    // retrieve batch and threading information
-    if (mp_options) {
-        if (mp_options->find("nbatches")) {
-            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
-        }
-        if (mp_options->find("currentbatch")) {
-            m_thread_info.current_batch =
-                    (*mp_options)["currentbatch"].as<int>();
-        }
-        if (mp_options->find("threads")) {
-            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
-        }
-    }
-
-    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
-//    std::cout << "Simulation::runSimulation(): n_batches = " <<
-            m_thread_info.n_batches <<
-            ", current batch = " << m_thread_info.current_batch <<
-            ", n_threads = " << m_thread_info.n_threads <<
-            ", sample: " << *mp_sample;
-
-    if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
-    if(m_thread_info.n_threads==1) {
-        // Single thread.
-        DWBASimulation *p_dwba_simulation =
-                mp_sample->createDWBASimulation();
-        if (!p_dwba_simulation)
-            throw NullPointerException(
-                "Simulation::runSimulation() -> No dwba simulation");
-        p_dwba_simulation->init(*this);
-        p_dwba_simulation->setThreadInfo(m_thread_info);
-        p_dwba_simulation->run();  // the work is done here
-        addToIntensityMaps(p_dwba_simulation);
-        delete p_dwba_simulation;
-    } else {
-        // Multithreading.
-        if(m_thread_info.n_threads == 0 )  {
-            // Take optimal number of threads from the hardware.
-            m_thread_info.n_threads =
-                    (int)boost::thread::hardware_concurrency();
-            msglog(MSG::INFO) <<
-                "Simulation::runSimulation() -> Info. Number of threads " <<
-                m_thread_info.n_threads << " (taken from hardware concurrency)";
-        } else {
-            msglog(MSG::INFO) <<
-                "Simulation::runSimulation() -> Info. Number of threads " <<
-                m_thread_info.n_threads;
-        }
-        std::vector<boost::thread*> threads;
-        std::vector<DWBASimulation*> simulations;
-
-        // Initialize n simulations.
-        for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
-            DWBASimulation *p_dwba_simulation =
-                mp_sample->createDWBASimulation();
-            if (!p_dwba_simulation) throw NullPointerException(
-                "Simulation::runSimulation() -> No dwba simulation");
-            p_dwba_simulation->init(*this);
-            m_thread_info.current_thread = i_thread;
-            p_dwba_simulation->setThreadInfo(m_thread_info);
-            simulations.push_back(p_dwba_simulation);
-        }
-
-        // Run simulations in n threads.
-        for (std::vector<DWBASimulation*>::iterator it=
-                 simulations.begin(); it!=simulations.end(); ++it) {
-            threads.push_back
-                (new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
-        }
-
-        // Wait for threads to complete.
-        for(size_t i=0; i<threads.size(); ++i) {
-            threads[i]->join();
-        }
-
-        // Merge simulated data.
-        for(size_t i=0; i<simulations.size(); ++i) {
-            addToIntensityMaps(simulations[i]);
-            delete simulations[i];
-            delete threads[i];
-        }
-    }
-    if( mp_sample->containsMagneticMaterial() ) {
-        m_instrument.applyDetectorResolution(&m_intensity_map,
-                &m_polarization_output);
-    }
-    else {
-        m_instrument.applyDetectorResolution(&m_intensity_map);
-    }
 }
 
 void Simulation::runSimulationElement(size_t index)
@@ -419,4 +333,100 @@ void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
     }
 }
 
+//! Run single simulation with fixed parameter values.
+//! Also manage threads.
+void Simulation::runSingleSimulation()
+{
+    m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
+    // retrieve batch and threading information
+    if (mp_options) {
+        if (mp_options->find("nbatches")) {
+            m_thread_info.n_batches = (*mp_options)["nbatches"].as<int>();
+        }
+        if (mp_options->find("currentbatch")) {
+            m_thread_info.current_batch =
+                    (*mp_options)["currentbatch"].as<int>();
+        }
+        if (mp_options->find("threads")) {
+            m_thread_info.n_threads = (*mp_options)["threads"].as<int>();
+        }
+    }
+
+    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
+//    std::cout << "Simulation::runSimulation(): n_batches = " <<
+            m_thread_info.n_batches <<
+            ", current batch = " << m_thread_info.current_batch <<
+            ", n_threads = " << m_thread_info.n_threads <<
+            ", sample: " << *mp_sample;
+
+    if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
+    if(m_thread_info.n_threads==1) {
+        // Single thread.
+        DWBASimulation *p_dwba_simulation =
+                mp_sample->createDWBASimulation();
+        if (!p_dwba_simulation)
+            throw NullPointerException(
+                "Simulation::runSimulation() -> No dwba simulation");
+        p_dwba_simulation->init(*this);
+        p_dwba_simulation->setThreadInfo(m_thread_info);
+        p_dwba_simulation->run();  // the work is done here
+        addToIntensityMaps(p_dwba_simulation);
+        delete p_dwba_simulation;
+    } else {
+        // Multithreading.
+        if(m_thread_info.n_threads == 0 )  {
+            // Take optimal number of threads from the hardware.
+            m_thread_info.n_threads =
+                    (int)boost::thread::hardware_concurrency();
+            msglog(MSG::INFO) <<
+                "Simulation::runSimulation() -> Info. Number of threads " <<
+                m_thread_info.n_threads << " (taken from hardware concurrency)";
+        } else {
+            msglog(MSG::INFO) <<
+                "Simulation::runSimulation() -> Info. Number of threads " <<
+                m_thread_info.n_threads;
+        }
+        std::vector<boost::thread*> threads;
+        std::vector<DWBASimulation*> simulations;
+
+        // Initialize n simulations.
+        for(int i_thread=0; i_thread<m_thread_info.n_threads; ++i_thread){
+            DWBASimulation *p_dwba_simulation =
+                mp_sample->createDWBASimulation();
+            if (!p_dwba_simulation) throw NullPointerException(
+                "Simulation::runSimulation() -> No dwba simulation");
+            p_dwba_simulation->init(*this);
+            m_thread_info.current_thread = i_thread;
+            p_dwba_simulation->setThreadInfo(m_thread_info);
+            simulations.push_back(p_dwba_simulation);
+        }
+
+        // Run simulations in n threads.
+        for (std::vector<DWBASimulation*>::iterator it=
+                 simulations.begin(); it!=simulations.end(); ++it) {
+            threads.push_back
+                (new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
+        }
+
+        // Wait for threads to complete.
+        for(size_t i=0; i<threads.size(); ++i) {
+            threads[i]->join();
+        }
+
+        // Merge simulated data.
+        for(size_t i=0; i<simulations.size(); ++i) {
+            addToIntensityMaps(simulations[i]);
+            delete simulations[i];
+            delete threads[i];
+        }
+    }
+    if( mp_sample->containsMagneticMaterial() ) {
+        m_instrument.applyDetectorResolution(&m_intensity_map,
+                &m_polarization_output);
+    }
+    else {
+        m_instrument.applyDetectorResolution(&m_intensity_map);
+    }
+}
 

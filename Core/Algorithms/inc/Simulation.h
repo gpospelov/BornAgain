@@ -44,10 +44,7 @@ public:
     //! Put into a clean state for running a simulation
     void prepareSimulation();
 
-    //! Run a simulation with the current parameter settings
-    void run00Simulation();
-
-    //! Run a simulation with the current parameter settings
+    //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
     //! Returns intensity for a single detector element
@@ -160,6 +157,9 @@ protected:
 
     //! Add the intensity maps from the DWBA simulation to the member maps
     void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
+
+    //! Run a single simulation with the current parameter settings
+    void runSingleSimulation();
 
     // components describing an experiment and its simulation:
     ISample *mp_sample;

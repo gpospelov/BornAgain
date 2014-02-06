@@ -235,7 +235,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
@@ -309,7 +309,7 @@ void TestIsGISAXS12::run_test_chimodule()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
 
     OutputDataNormalizer normalizer(1.31159E+05, -8.10009E-02);
 
@@ -371,7 +371,7 @@ void TestIsGISAXS12::run_test_minimizer()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
         m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);

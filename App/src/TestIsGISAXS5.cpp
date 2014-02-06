@@ -180,7 +180,7 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setChiSquaredFunction(SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
+    chiModule.setChiSquaredFunction(new SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     chiModule.setIntensityFunction( IntensityFunctionSqrt() );
 

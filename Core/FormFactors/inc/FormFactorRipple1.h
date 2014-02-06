@@ -33,7 +33,7 @@ public:
     //! @param height of cosine cross section
     FormFactorRipple1(double length, double width, double height);
 
-    ~FormFactorRipple1() { delete m_integrator; }
+    virtual ~FormFactorRipple1() { delete m_integrator; }
 
     virtual FormFactorRipple1 *clone() const;
 
@@ -47,10 +47,11 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
+protected:
+    virtual void init_parameters();
+
 private:
     complex_t Integrand(double Z, void* params) const;
-
-    virtual void init_parameters();
 
     double m_width;
     double m_height;

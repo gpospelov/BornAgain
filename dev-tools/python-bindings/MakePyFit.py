@@ -70,6 +70,13 @@ def ManualClassTunings(mb):
     cl = mb.class_("IMinimizer")
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
+    for fun in cl.member_functions():
+        if "getOptions" in fun.name:
+            if "::MinimizerOptions const & ( ::IMinimizer::* )(  ) const" in fun.decl_string:
+                fun.exclude()
+            else:
+                fun.call_policies = call_policies.return_internal_reference()
+
     #
     cl = mb.class_("FitSuite")
     #cl.member_functions().exclude()
@@ -77,6 +84,7 @@ def ManualClassTunings(mb):
       #if "addFitParameter" in fun.name:
           #fun.include()
     cl.member_function("getMinimizer").include()
+    cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
     cl.member_function("setMinimizer").include()
     #cl.member_function("addSimulationAndRealData").include()
     #cl.member_function("runFit").include()
@@ -95,16 +103,18 @@ def ManualClassTunings(mb):
     cl = mb.class_("MinimizerFactory")
     #cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
     for fun in cl.member_functions():
-        if "createMinimizer" in fun.decl_string:
+        if "createMinimizer" in fun.name:
             fun.call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
 
+    cl = mb.class_("FitStrategyAdjustMinimizer")
+    cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+    cl.member_function( "setMinimizer" ).include()
 
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
 
     cl = mb.class_("FitSuiteParameters")
     for fun in cl.member_functions():
-        print fun.decl_string
         if "__gnu_cxx::__normal_iterator" in fun.decl_string:
             fun.exclude()
 

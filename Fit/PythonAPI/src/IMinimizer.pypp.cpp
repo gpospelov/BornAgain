@@ -312,17 +312,7 @@ void register_IMinimizer_class(){
             IMinimizer_exposer.def( 
                 "getOptions"
                 , getOptions_function_type(&::IMinimizer::getOptions)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::IMinimizer::getOptions
-        
-            typedef ::MinimizerOptions const & ( ::IMinimizer::*getOptions_function_type )(  ) const;
-            
-            IMinimizer_exposer.def( 
-                "getOptions"
-                , getOptions_function_type(&::IMinimizer::getOptions)
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_internal_reference< >() );
         
         }
         { //::IMinimizer::getValueOfVariableAtMinimum

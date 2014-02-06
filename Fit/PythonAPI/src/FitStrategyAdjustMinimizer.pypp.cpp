@@ -95,6 +95,16 @@ void register_FitStrategyAdjustMinimizer_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::FitStrategyAdjustMinimizer::setMinimizer
+        
+            typedef void ( ::FitStrategyAdjustMinimizer::*setMinimizer_function_type )( ::IMinimizer * ) ;
+            
+            FitStrategyAdjustMinimizer_exposer.def( 
+                "setMinimizer"
+                , setMinimizer_function_type( &::FitStrategyAdjustMinimizer::setMinimizer )
+                , ( bp::arg("minimizer") ) );
+        
+        }
     }
 
 }

@@ -12,24 +12,48 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "Beam.pypp.h"
+#include "DistributionLorentz.pypp.h"
 
 namespace bp = boost::python;
 
-struct Beam_wrapper : Beam, bp::wrapper< Beam > {
+struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< DistributionLorentz > {
 
-    Beam_wrapper( )
-    : Beam( )
-      , bp::wrapper< Beam >(){
-        // null constructor
+    DistributionLorentz_wrapper(DistributionLorentz const & arg )
+    : DistributionLorentz( arg )
+      , bp::wrapper< DistributionLorentz >(){
+        // copy constructor
+        
+    }
+
+    DistributionLorentz_wrapper(double mean, double hwhm )
+    : DistributionLorentz( mean, hwhm )
+      , bp::wrapper< DistributionLorentz >(){
+        // constructor
     
     }
 
-    Beam_wrapper(::Beam const & other )
-    : Beam( boost::ref(other) )
-      , bp::wrapper< Beam >(){
-        // copy constructor
+    virtual double getMean(  ) const  {
+        if( bp::override func_getMean = this->get_override( "getMean" ) )
+            return func_getMean(  );
+        else
+            return this->DistributionLorentz::getMean(  );
+    }
     
+    
+    double default_getMean(  ) const  {
+        return DistributionLorentz::getMean( );
+    }
+
+    virtual double probabilityDensity( double x ) const  {
+        if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
+            return func_probabilityDensity( x );
+        else
+            return this->DistributionLorentz::probabilityDensity( x );
+    }
+    
+    
+    double default_probabilityDensity( double x ) const  {
+        return DistributionLorentz::probabilityDensity( x );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -91,7 +115,7 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< Beam_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< DistributionLorentz_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -125,148 +149,121 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
 
 };
 
-void register_Beam_class(){
+void register_DistributionLorentz_class(){
 
-    { //::Beam
-        typedef bp::class_< Beam_wrapper, bp::bases< IParameterized > > Beam_exposer_t;
-        Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", bp::init< >() );
-        bp::scope Beam_scope( Beam_exposer );
-        Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
-        { //::Beam::SetSpinUpFraction
+    { //::DistributionLorentz
+        typedef bp::class_< DistributionLorentz_wrapper > DistributionLorentz_exposer_t;
+        DistributionLorentz_exposer_t DistributionLorentz_exposer = DistributionLorentz_exposer_t( "DistributionLorentz", bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
+        bp::scope DistributionLorentz_scope( DistributionLorentz_exposer );
+        { //::DistributionLorentz::clone
         
-            typedef void ( ::Beam::*SetSpinUpFraction_function_type )( double ) ;
+            typedef ::DistributionLorentz * ( ::DistributionLorentz::*clone_function_type )(  ) const;
             
-            Beam_exposer.def( 
-                "SetSpinUpFraction"
-                , SetSpinUpFraction_function_type( &::Beam::SetSpinUpFraction )
-                , ( bp::arg("up_fraction") ) );
+            DistributionLorentz_exposer.def( 
+                "clone"
+                , clone_function_type( &::DistributionLorentz::clone )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Beam::getCentralK
+        { //::DistributionLorentz::getMean
         
-            typedef ::cvector_t ( ::Beam::*getCentralK_function_type )(  ) const;
+            typedef double ( ::DistributionLorentz::*getMean_function_type )(  ) const;
+            typedef double ( DistributionLorentz_wrapper::*default_getMean_function_type )(  ) const;
             
-            Beam_exposer.def( 
-                "getCentralK"
-                , getCentralK_function_type( &::Beam::getCentralK ) );
+            DistributionLorentz_exposer.def( 
+                "getMean"
+                , getMean_function_type(&::DistributionLorentz::getMean)
+                , default_getMean_function_type(&DistributionLorentz_wrapper::default_getMean) );
         
         }
-        { //::Beam::getIntensity
+        { //::DistributionLorentz::probabilityDensity
         
-            typedef double ( ::Beam::*getIntensity_function_type )(  ) const;
+            typedef double ( ::DistributionLorentz::*probabilityDensity_function_type )( double ) const;
+            typedef double ( DistributionLorentz_wrapper::*default_probabilityDensity_function_type )( double ) const;
             
-            Beam_exposer.def( 
-                "getIntensity"
-                , getIntensity_function_type( &::Beam::getIntensity ) );
-        
-        }
-        { //::Beam::operator=
-        
-            typedef ::Beam & ( ::Beam::*assign_function_type )( ::Beam const & ) ;
-            
-            Beam_exposer.def( 
-                "assign"
-                , assign_function_type( &::Beam::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        { //::Beam::setCentralK
-        
-            typedef void ( ::Beam::*setCentralK_function_type )( double,double,double ) ;
-            
-            Beam_exposer.def( 
-                "setCentralK"
-                , setCentralK_function_type( &::Beam::setCentralK )
-                , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
-        
-        }
-        { //::Beam::setIntensity
-        
-            typedef void ( ::Beam::*setIntensity_function_type )( double ) ;
-            
-            Beam_exposer.def( 
-                "setIntensity"
-                , setIntensity_function_type( &::Beam::setIntensity )
-                , ( bp::arg("intensity") ) );
+            DistributionLorentz_exposer.def( 
+                "probabilityDensity"
+                , probabilityDensity_function_type(&::DistributionLorentz::probabilityDensity)
+                , default_probabilityDensity_function_type(&DistributionLorentz_wrapper::default_probabilityDensity)
+                , ( bp::arg("x") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Beam_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( DistributionLorentz_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&Beam_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&DistributionLorentz_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Beam_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( DistributionLorentz_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&Beam_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&DistributionLorentz_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Beam_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( DistributionLorentz_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&Beam_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&DistributionLorentz_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Beam_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( DistributionLorentz_wrapper::*default_printParameters_function_type )(  ) const;
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&Beam_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&DistributionLorentz_wrapper::default_printParameters) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &Beam_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &DistributionLorentz_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Beam_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( DistributionLorentz_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&Beam_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&DistributionLorentz_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Beam_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( DistributionLorentz_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            Beam_exposer.def( 
+            DistributionLorentz_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&Beam_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&DistributionLorentz_wrapper::default_setParametersAreChanged) );
         
         }
     }

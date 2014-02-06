@@ -11,6 +11,7 @@
 #include "Bin.h"
 #include "Crystal.h"
 #include "DiffuseParticleInfo.h"
+#include "Distributions.h"
 #include "FTDistributions.h"
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"

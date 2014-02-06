@@ -12,24 +12,48 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "Beam.pypp.h"
+#include "DistributionGaussian.pypp.h"
 
 namespace bp = boost::python;
 
-struct Beam_wrapper : Beam, bp::wrapper< Beam > {
+struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< DistributionGaussian > {
 
-    Beam_wrapper( )
-    : Beam( )
-      , bp::wrapper< Beam >(){
-        // null constructor
+    DistributionGaussian_wrapper(DistributionGaussian const & arg )
+    : DistributionGaussian( arg )
+      , bp::wrapper< DistributionGaussian >(){
+        // copy constructor
+        
+    }
+
+    DistributionGaussian_wrapper(double mean, double std_dev )
+    : DistributionGaussian( mean, std_dev )
+      , bp::wrapper< DistributionGaussian >(){
+        // constructor
     
     }
 
-    Beam_wrapper(::Beam const & other )
-    : Beam( boost::ref(other) )
-      , bp::wrapper< Beam >(){
-        // copy constructor
+    virtual double getMean(  ) const  {
+        if( bp::override func_getMean = this->get_override( "getMean" ) )
+            return func_getMean(  );
+        else
+            return this->DistributionGaussian::getMean(  );
+    }
     
+    
+    double default_getMean(  ) const  {
+        return DistributionGaussian::getMean( );
+    }
+
+    virtual double probabilityDensity( double x ) const  {
+        if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
+            return func_probabilityDensity( x );
+        else
+            return this->DistributionGaussian::probabilityDensity( x );
+    }
+    
+    
+    double default_probabilityDensity( double x ) const  {
+        return DistributionGaussian::probabilityDensity( x );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -91,7 +115,7 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< Beam_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< DistributionGaussian_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -125,148 +149,121 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
 
 };
 
-void register_Beam_class(){
+void register_DistributionGaussian_class(){
 
-    { //::Beam
-        typedef bp::class_< Beam_wrapper, bp::bases< IParameterized > > Beam_exposer_t;
-        Beam_exposer_t Beam_exposer = Beam_exposer_t( "Beam", bp::init< >() );
-        bp::scope Beam_scope( Beam_exposer );
-        Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
-        { //::Beam::SetSpinUpFraction
+    { //::DistributionGaussian
+        typedef bp::class_< DistributionGaussian_wrapper > DistributionGaussian_exposer_t;
+        DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") )) );
+        bp::scope DistributionGaussian_scope( DistributionGaussian_exposer );
+        { //::DistributionGaussian::clone
         
-            typedef void ( ::Beam::*SetSpinUpFraction_function_type )( double ) ;
+            typedef ::DistributionGaussian * ( ::DistributionGaussian::*clone_function_type )(  ) const;
             
-            Beam_exposer.def( 
-                "SetSpinUpFraction"
-                , SetSpinUpFraction_function_type( &::Beam::SetSpinUpFraction )
-                , ( bp::arg("up_fraction") ) );
+            DistributionGaussian_exposer.def( 
+                "clone"
+                , clone_function_type( &::DistributionGaussian::clone )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::Beam::getCentralK
+        { //::DistributionGaussian::getMean
         
-            typedef ::cvector_t ( ::Beam::*getCentralK_function_type )(  ) const;
+            typedef double ( ::DistributionGaussian::*getMean_function_type )(  ) const;
+            typedef double ( DistributionGaussian_wrapper::*default_getMean_function_type )(  ) const;
             
-            Beam_exposer.def( 
-                "getCentralK"
-                , getCentralK_function_type( &::Beam::getCentralK ) );
+            DistributionGaussian_exposer.def( 
+                "getMean"
+                , getMean_function_type(&::DistributionGaussian::getMean)
+                , default_getMean_function_type(&DistributionGaussian_wrapper::default_getMean) );
         
         }
-        { //::Beam::getIntensity
+        { //::DistributionGaussian::probabilityDensity
         
-            typedef double ( ::Beam::*getIntensity_function_type )(  ) const;
+            typedef double ( ::DistributionGaussian::*probabilityDensity_function_type )( double ) const;
+            typedef double ( DistributionGaussian_wrapper::*default_probabilityDensity_function_type )( double ) const;
             
-            Beam_exposer.def( 
-                "getIntensity"
-                , getIntensity_function_type( &::Beam::getIntensity ) );
-        
-        }
-        { //::Beam::operator=
-        
-            typedef ::Beam & ( ::Beam::*assign_function_type )( ::Beam const & ) ;
-            
-            Beam_exposer.def( 
-                "assign"
-                , assign_function_type( &::Beam::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        { //::Beam::setCentralK
-        
-            typedef void ( ::Beam::*setCentralK_function_type )( double,double,double ) ;
-            
-            Beam_exposer.def( 
-                "setCentralK"
-                , setCentralK_function_type( &::Beam::setCentralK )
-                , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
-        
-        }
-        { //::Beam::setIntensity
-        
-            typedef void ( ::Beam::*setIntensity_function_type )( double ) ;
-            
-            Beam_exposer.def( 
-                "setIntensity"
-                , setIntensity_function_type( &::Beam::setIntensity )
-                , ( bp::arg("intensity") ) );
+            DistributionGaussian_exposer.def( 
+                "probabilityDensity"
+                , probabilityDensity_function_type(&::DistributionGaussian::probabilityDensity)
+                , default_probabilityDensity_function_type(&DistributionGaussian_wrapper::default_probabilityDensity)
+                , ( bp::arg("x") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Beam_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( DistributionGaussian_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&Beam_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&DistributionGaussian_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Beam_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( DistributionGaussian_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&Beam_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&DistributionGaussian_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Beam_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( DistributionGaussian_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&Beam_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&DistributionGaussian_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Beam_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( DistributionGaussian_wrapper::*default_printParameters_function_type )(  ) const;
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&Beam_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&DistributionGaussian_wrapper::default_printParameters) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &Beam_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &DistributionGaussian_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Beam_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( DistributionGaussian_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&Beam_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&DistributionGaussian_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Beam_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( DistributionGaussian_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            Beam_exposer.def( 
+            DistributionGaussian_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&Beam_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&DistributionGaussian_wrapper::default_setParametersAreChanged) );
         
         }
     }

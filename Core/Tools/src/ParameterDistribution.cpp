@@ -19,21 +19,23 @@
 #include "Distributions.h"
 
 ParameterDistribution::ParameterDistribution(const std::string& name)
-: m_name(name)
+: IParameterized("ParameterDistribution")
+, m_name(name)
 , m_nbr_samples(0)
 , m_sigma_factor(0.0)
 {
-	setName("ParameterDistribution");
 	init_parameters();
 }
 
 ParameterDistribution::ParameterDistribution(
 		const ParameterDistribution& other)
-: m_name(other.m_name)
+: IParameterized("ParameterDistribution")
+, m_name(other.m_name)
 , m_nbr_samples(other.m_nbr_samples)
 , m_sigma_factor(other.m_sigma_factor)
 {
 	mP_distribution.reset(other.mP_distribution->clone());
+	init_parameters();
 }
 
 ParameterDistribution::~ParameterDistribution()
@@ -48,6 +50,7 @@ ParameterDistribution& ParameterDistribution::operator=(
 		m_nbr_samples = other.m_nbr_samples;
 		m_sigma_factor = other.m_sigma_factor;
 		mP_distribution.reset(other.mP_distribution->clone());
+		init_parameters();
 	}
 	return *this;
 }

@@ -19,6 +19,7 @@
 #include "ISampleBuilder.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
+#include "DistributionHandler.h"
 
 #include "EigenCore.h"
 
@@ -42,6 +43,9 @@ public:
 
     //! Put into a clean state for running a simulation
     void prepareSimulation();
+
+    //! Run a simulation with the current parameter settings
+    void run00Simulation();
 
     //! Run a simulation with the current parameter settings
     void runSimulation();

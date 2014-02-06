@@ -98,17 +98,39 @@ void Simulation::prepareSimulation()
     updateSample();
 }
 
-//! Run simulation. Manage threads.
-
-void Simulation::runSimulation()
+void Simulation::run00Simulation()
 {
     prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
+    OutputData<double> total_intensity;
+    OutputData<Eigen::Matrix2d> total_polarized_intensity;
+    total_intensity.setAllTo(0.);
+    total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
+
+	size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
+	ParameterPool *p_param_pool = createParameterTree();
+	for (size_t index=0; index < param_combinations; ++index) {
+		double weight = m_distribution_handler.setParameterValues(
+				p_param_pool, index);
+		runSimulation();
+		m_intensity_map.scaleAll(weight);
+		m_polarization_output.scaleAll(
+				(Eigen::Matrix2d)(Eigen::Matrix2d::Identity()*weight) );
+		total_intensity += m_intensity_map;
+		total_polarized_intensity += m_polarization_output;
+	}
+	m_intensity_map.copyFrom(total_intensity);
+	m_polarization_output.copyFrom(total_polarized_intensity);
+}
+
+//! Run simulation. Manage threads.
+
+void Simulation::runSimulation()
+{
     m_intensity_map.setAllTo(0.);
     m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-
     // retrieve batch and threading information
     if (mp_options) {
         if (mp_options->find("nbatches")) {

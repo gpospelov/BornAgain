@@ -33,10 +33,10 @@ struct FitStrategyDefault_wrapper : FitStrategyDefault, bp::wrapper< FitStrategy
     virtual ::IFitStrategy * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->FitStrategyDefault::clone(  );
-        }
     }
+    
     
     ::IFitStrategy * default_clone(  ) const  {
         return FitStrategyDefault::clone( );
@@ -45,10 +45,10 @@ struct FitStrategyDefault_wrapper : FitStrategyDefault, bp::wrapper< FitStrategy
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else{
+        else
             this->FitStrategyDefault::execute(  );
-        }
     }
+    
     
     void default_execute(  ) {
         FitStrategyDefault::execute( );

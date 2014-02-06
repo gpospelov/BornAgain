@@ -39,6 +39,11 @@ include_classes = [
     "Bin1DCVector",
     "Crystal",
     "Detector",
+    "DistributionGate",
+    "DistributionLorentz",
+    "DistributionGaussian",
+    "DistributionLogNormal",
+    "DistributionCosine",
     "FTDistribution2DCauchy",
     "FormFactorAnisoPyramid",
     "FormFactorBox",
@@ -72,6 +77,7 @@ include_classes = [
     "ICompositeSample",
     "IDecoration",
     "IDetectorResolution",
+    "IDistribution1D",
     "IFTDistribution2D",
     "IFormFactor",
     "IFormFactorBorn",
@@ -212,6 +218,9 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("IClusteredParticles")
     cl.member_function("setAmbientMaterial").include()
+    #
+    cl = mb.class_("IDistribution1D")
+    cl.member_function("generateSamples").exclude()
     #
     cl = mb.class_("IObserver")
     cl.member_function("update").include()

@@ -39,10 +39,12 @@ public:
     //! Returns pointer to the parameter pool.
     const ParameterPool* getParameterPool() const { return& m_parameters; }
 
-    //! Creates new parameter pool, with all local parameter and parameters of children
+    //! Creates new parameter pool, with all local parameters
+    //! and parameters of children
     virtual ParameterPool* createParameterTree() const;
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children.
+    //! Adds parameters from local pool to external pool and
+    //! call recursion over direct children.
     virtual std::string addParametersToExternalPool(
         std::string path,
         ParameterPool* external_pool,

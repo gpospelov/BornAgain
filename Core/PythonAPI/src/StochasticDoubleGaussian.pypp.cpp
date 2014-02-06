@@ -26,10 +26,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual ::StochasticDoubleGaussian * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->StochasticDoubleGaussian::clone(  );
-        }
     }
+    
     
     ::StochasticDoubleGaussian * default_clone(  ) const  {
         return StochasticDoubleGaussian::clone( );
@@ -38,10 +38,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else{
+        else
             return this->StochasticDoubleGaussian::getFWHM(  );
-        }
     }
+    
     
     double default_getFWHM(  ) const  {
         return StochasticDoubleGaussian::getFWHM( );
@@ -50,10 +50,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual double probabilityDensity( double value ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( value );
-        else{
+        else
             return this->StochasticDoubleGaussian::probabilityDensity( value );
-        }
     }
+    
     
     double default_probabilityDensity( double value ) const  {
         return StochasticDoubleGaussian::probabilityDensity( value );
@@ -62,10 +62,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual void setToRandom(  ) {
         if( bp::override func_setToRandom = this->get_override( "setToRandom" ) )
             func_setToRandom(  );
-        else{
+        else
             this->StochasticDoubleGaussian::setToRandom(  );
-        }
     }
+    
     
     void default_setToRandom(  ) {
         StochasticDoubleGaussian::setToRandom( );
@@ -74,10 +74,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else{
+        else
             return this->StochasticParameter< double >::getRandom(  );
-        }
     }
+    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -86,10 +86,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else{
+        else
             this->StochasticParameter< double >::setToAverage(  );
-        }
     }
+    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );

@@ -152,7 +152,7 @@ struct DistributionLogNormal_wrapper : DistributionLogNormal, bp::wrapper< Distr
 void register_DistributionLogNormal_class(){
 
     { //::DistributionLogNormal
-        typedef bp::class_< DistributionLogNormal_wrapper > DistributionLogNormal_exposer_t;
+        typedef bp::class_< DistributionLogNormal_wrapper, bp::bases< IDistribution1D > > DistributionLogNormal_exposer_t;
         DistributionLogNormal_exposer_t DistributionLogNormal_exposer = DistributionLogNormal_exposer_t( "DistributionLogNormal", bp::init< double, double >(( bp::arg("mean_log"), bp::arg("sigma") )) );
         bp::scope DistributionLogNormal_scope( DistributionLogNormal_exposer );
         { //::DistributionLogNormal::clone

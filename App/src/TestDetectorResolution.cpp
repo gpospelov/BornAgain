@@ -39,6 +39,7 @@ void TestDetectorResolution::execute()
     simulation.setDetectorResolutionFunction(p_resolution_function);
     simulation.setBeamParameters
         (1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    std::cout << *simulation.createParameterTree() << std::endl;
     simulation.runSimulation();
     mp_intensity_output = simulation.getIntensityData();
     IsGISAXSTools::drawLogOutputData

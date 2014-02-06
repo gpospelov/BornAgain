@@ -77,6 +77,7 @@ include_classes = [
     "ICompositeSample",
     "IDecoration",
     "IDetectorResolution",
+    "IDistribution1D",
     "IFTDistribution2D",
     "IFormFactor",
     "IFormFactorBorn",

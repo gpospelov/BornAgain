@@ -12,48 +12,32 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "DistributionCosine.pypp.h"
+#include "IDistribution1D.pypp.h"
 
 namespace bp = boost::python;
 
-struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< DistributionCosine > {
+struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D > {
 
-    DistributionCosine_wrapper(DistributionCosine const & arg )
-    : DistributionCosine( arg )
-      , bp::wrapper< DistributionCosine >(){
-        // copy constructor
-        
-    }
-
-    DistributionCosine_wrapper(double mean, double sigma )
-    : DistributionCosine( mean, sigma )
-      , bp::wrapper< DistributionCosine >(){
-        // constructor
+    IDistribution1D_wrapper( )
+    : IDistribution1D( )
+      , bp::wrapper< IDistribution1D >(){
+        // null constructor
     
     }
 
-    virtual double getMean(  ) const  {
-        if( bp::override func_getMean = this->get_override( "getMean" ) )
-            return func_getMean(  );
-        else
-            return this->DistributionCosine::getMean(  );
-    }
-    
-    
-    double default_getMean(  ) const  {
-        return DistributionCosine::getMean( );
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const {
+        bp::override func_generateValueList = this->get_override( "generateValueList" );
+        return func_generateValueList( nbr_samples, sigma_factor );
     }
 
-    virtual double probabilityDensity( double x ) const  {
-        if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
-            return func_probabilityDensity( x );
-        else
-            return this->DistributionCosine::probabilityDensity( x );
+    virtual double getMean(  ) const {
+        bp::override func_getMean = this->get_override( "getMean" );
+        return func_getMean(  );
     }
-    
-    
-    double default_probabilityDensity( double x ) const  {
-        return DistributionCosine::probabilityDensity( x );
+
+    virtual double probabilityDensity( double x ) const {
+        bp::override func_probabilityDensity = this->get_override( "probabilityDensity" );
+        return func_probabilityDensity( x );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -115,7 +99,7 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< DistributionCosine_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< IDistribution1D_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -149,121 +133,137 @@ struct DistributionCosine_wrapper : DistributionCosine, bp::wrapper< Distributio
 
 };
 
-void register_DistributionCosine_class(){
+void register_IDistribution1D_class(){
 
-    { //::DistributionCosine
-        typedef bp::class_< DistributionCosine_wrapper, bp::bases< IDistribution1D > > DistributionCosine_exposer_t;
-        DistributionCosine_exposer_t DistributionCosine_exposer = DistributionCosine_exposer_t( "DistributionCosine", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) );
-        bp::scope DistributionCosine_scope( DistributionCosine_exposer );
-        { //::DistributionCosine::clone
+    { //::IDistribution1D
+        typedef bp::class_< IDistribution1D_wrapper, bp::bases< IParameterized >, boost::noncopyable > IDistribution1D_exposer_t;
+        IDistribution1D_exposer_t IDistribution1D_exposer = IDistribution1D_exposer_t( "IDistribution1D", bp::init< >() );
+        bp::scope IDistribution1D_scope( IDistribution1D_exposer );
+        { //::IDistribution1D::clone
         
-            typedef ::DistributionCosine * ( ::DistributionCosine::*clone_function_type )(  ) const;
+            typedef ::IDistribution1D * ( ::IDistribution1D::*clone_function_type )(  ) const;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "clone"
-                , clone_function_type( &::DistributionCosine::clone )
+                , clone_function_type( &::IDistribution1D::clone )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::DistributionCosine::getMean
+        { //::IDistribution1D::generateSamples
         
-            typedef double ( ::DistributionCosine::*getMean_function_type )(  ) const;
-            typedef double ( DistributionCosine_wrapper::*default_getMean_function_type )(  ) const;
+            typedef ::std::vector< ParameterSample > ( ::IDistribution1D::*generateSamples_function_type )( ::std::size_t,double ) const;
             
-            DistributionCosine_exposer.def( 
-                "getMean"
-                , getMean_function_type(&::DistributionCosine::getMean)
-                , default_getMean_function_type(&DistributionCosine_wrapper::default_getMean) );
+            IDistribution1D_exposer.def( 
+                "generateSamples"
+                , generateSamples_function_type( &::IDistribution1D::generateSamples )
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 ) );
         
         }
-        { //::DistributionCosine::probabilityDensity
+        { //::IDistribution1D::generateValueList
         
-            typedef double ( ::DistributionCosine::*probabilityDensity_function_type )( double ) const;
-            typedef double ( DistributionCosine_wrapper::*default_probabilityDensity_function_type )( double ) const;
+            typedef ::std::vector< double > ( IDistribution1D_wrapper::*generateValueList_function_type )( ::std::size_t,double ) const;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
+                "generateValueList"
+                , generateValueList_function_type( &IDistribution1D_wrapper::generateValueList )
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
+        
+        }
+        { //::IDistribution1D::getMean
+        
+            typedef double ( ::IDistribution1D::*getMean_function_type )(  ) const;
+            
+            IDistribution1D_exposer.def( 
+                "getMean"
+                , bp::pure_virtual( getMean_function_type(&::IDistribution1D::getMean) ) );
+        
+        }
+        { //::IDistribution1D::probabilityDensity
+        
+            typedef double ( ::IDistribution1D::*probabilityDensity_function_type )( double ) const;
+            
+            IDistribution1D_exposer.def( 
                 "probabilityDensity"
-                , probabilityDensity_function_type(&::DistributionCosine::probabilityDensity)
-                , default_probabilityDensity_function_type(&DistributionCosine_wrapper::default_probabilityDensity)
+                , bp::pure_virtual( probabilityDensity_function_type(&::IDistribution1D::probabilityDensity) )
                 , ( bp::arg("x") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( DistributionCosine_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( IDistribution1D_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&DistributionCosine_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&IDistribution1D_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( DistributionCosine_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( IDistribution1D_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&DistributionCosine_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&IDistribution1D_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( DistributionCosine_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( IDistribution1D_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&DistributionCosine_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&IDistribution1D_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( DistributionCosine_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( IDistribution1D_wrapper::*default_printParameters_function_type )(  ) const;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&DistributionCosine_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&IDistribution1D_wrapper::default_printParameters) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &DistributionCosine_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &IDistribution1D_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( DistributionCosine_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( IDistribution1D_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&DistributionCosine_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&IDistribution1D_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( DistributionCosine_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( IDistribution1D_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            DistributionCosine_exposer.def( 
+            IDistribution1D_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&DistributionCosine_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&IDistribution1D_wrapper::default_setParametersAreChanged) );
         
         }
     }

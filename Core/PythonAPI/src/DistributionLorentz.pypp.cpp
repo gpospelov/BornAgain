@@ -152,7 +152,7 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
 void register_DistributionLorentz_class(){
 
     { //::DistributionLorentz
-        typedef bp::class_< DistributionLorentz_wrapper > DistributionLorentz_exposer_t;
+        typedef bp::class_< DistributionLorentz_wrapper, bp::bases< IDistribution1D > > DistributionLorentz_exposer_t;
         DistributionLorentz_exposer_t DistributionLorentz_exposer = DistributionLorentz_exposer_t( "DistributionLorentz", bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
         bp::scope DistributionLorentz_scope( DistributionLorentz_exposer );
         { //::DistributionLorentz::clone

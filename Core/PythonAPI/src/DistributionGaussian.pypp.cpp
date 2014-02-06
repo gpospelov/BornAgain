@@ -152,7 +152,7 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
 void register_DistributionGaussian_class(){
 
     { //::DistributionGaussian
-        typedef bp::class_< DistributionGaussian_wrapper > DistributionGaussian_exposer_t;
+        typedef bp::class_< DistributionGaussian_wrapper, bp::bases< IDistribution1D > > DistributionGaussian_exposer_t;
         DistributionGaussian_exposer_t DistributionGaussian_exposer = DistributionGaussian_exposer_t( "DistributionGaussian", bp::init< double, double >(( bp::arg("mean"), bp::arg("std_dev") )) );
         bp::scope DistributionGaussian_scope( DistributionGaussian_exposer );
         { //::DistributionGaussian::clone

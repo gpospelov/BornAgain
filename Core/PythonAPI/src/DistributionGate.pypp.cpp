@@ -152,7 +152,7 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
 void register_DistributionGate_class(){
 
     { //::DistributionGate
-        typedef bp::class_< DistributionGate_wrapper > DistributionGate_exposer_t;
+        typedef bp::class_< DistributionGate_wrapper, bp::bases< IDistribution1D > > DistributionGate_exposer_t;
         DistributionGate_exposer_t DistributionGate_exposer = DistributionGate_exposer_t( "DistributionGate", bp::init< double, double >(( bp::arg("mean"), bp::arg("hwhm") )) );
         bp::scope DistributionGate_scope( DistributionGate_exposer );
         { //::DistributionGate::clone

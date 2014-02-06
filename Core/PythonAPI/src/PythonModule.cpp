@@ -24,6 +24,7 @@
 #include "IFormFactorBorn.pypp.h" 
 #include "FormFactorEllipsoidalCylinder.pypp.h" 
 #include "InterferenceFunctionNone.pypp.h" 
+#include "vector_less__ParameterSample__greater_.pypp.h" 
 #include "vector_kvector_t.pypp.h" 
 #include "Particle.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
@@ -66,6 +67,7 @@
 #include "FormFactorPyramid.pypp.h" 
 #include "StochasticSampledParameter.pypp.h" 
 #include "DistributionLorentz.pypp.h" 
+#include "IDistribution1D.pypp.h" 
 #include "PositionParticleInfo.pypp.h" 
 #include "FormFactorCuboctahedron.pypp.h" 
 #include "cvector_t.pypp.h" 
@@ -119,6 +121,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_longinteger_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
+    register_vector_less__ParameterSample__greater__class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
     register_IAxis_class();
@@ -134,6 +137,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IClusteredParticles_class();
     register_Crystal_class();
     register_Detector_class();
+    register_IDistribution1D_class();
     register_DistributionCosine_class();
     register_DistributionGate_class();
     register_DistributionGaussian_class();

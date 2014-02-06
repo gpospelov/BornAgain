@@ -163,12 +163,12 @@ private:
 class BA_CORE_API_ DistributionLogNormal: public IDistribution1D
 {
 public:
-	DistributionLogNormal(double mean_log, double sigma);
+	DistributionLogNormal(double median, double scale_param);
 	virtual ~DistributionLogNormal() {}
 
     //! clone method
 	virtual DistributionLogNormal *clone() const {
-		return new DistributionLogNormal(m_mean_log, m_sigma);
+		return new DistributionLogNormal(m_median, m_scale_param);
 	}
 
     //! get the probability density for value x
@@ -186,8 +186,8 @@ protected:
 private:
     //! check initialization
     bool checkInitialization() const;
-    double m_mean_log;
-    double m_sigma;
+    double m_median;
+    double m_scale_param;
 };
 
 //! @class DistributionCosine

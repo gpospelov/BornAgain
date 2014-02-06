@@ -205,9 +205,9 @@ bool DistributionGaussian::checkInitialization() const
 }
 
 //! DistributionLogNormal
-DistributionLogNormal::DistributionLogNormal(double mean_log, double sigma)
-: m_mean_log(mean_log)
-, m_sigma(sigma)
+DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
+: m_median(median)
+, m_scale_param(scale_param)
 {
 	setName("DistributionLogNormal");
 	checkInitialization();
@@ -216,14 +216,14 @@ DistributionLogNormal::DistributionLogNormal(double mean_log, double sigma)
 
 double DistributionLogNormal::probabilityDensity(double x) const
 {
-	double t = (std::log(x) - m_mean_log)/m_sigma;
-	return std::exp(-t*t/2.0)/(x*m_sigma*std::sqrt(2.0*M_PI));
+	double t = std::log(x/m_median)/m_scale_param;
+	return std::exp(-t*t/2.0)/(x*m_scale_param*std::sqrt(2.0*M_PI));
 }
 
 double DistributionLogNormal::getMean() const
 {
-	double exponent = m_mean_log + m_sigma*m_sigma/2.0;
-	return std::exp(exponent);
+	double exponent = m_scale_param*m_scale_param/2.0;
+	return m_median*std::exp(exponent);
 }
 
 std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
@@ -231,13 +231,13 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 {
 	std::vector<double> result;
 	if (nbr_samples < 2) {
-		result.push_back(std::exp(m_mean_log));
+		result.push_back(m_median);
 	}
 	else {
 		if (sigma_factor <= 0.0) sigma_factor = 2.0;
 		result.resize(nbr_samples);
-		double xmin = std::exp(m_mean_log - sigma_factor*m_sigma);
-		double xmax = std::exp(m_mean_log + sigma_factor*m_sigma);
+		double xmin = m_median*std::exp(-sigma_factor*m_scale_param);
+		double xmax = m_median*std::exp(sigma_factor*m_scale_param);
 		for (size_t i=0; i<nbr_samples; ++i) {
 			result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
 		}
@@ -248,14 +248,15 @@ std::vector<double> DistributionLogNormal::generateValueList(size_t nbr_samples,
 void DistributionLogNormal::init_parameters()
 {
     clearParameterPool();
-    registerParameter("mean_log", &m_mean_log);
-    registerParameter("sigma", &m_sigma);
+    registerParameter("median", &m_median);
+    registerParameter("scale_parameter", &m_scale_param);
 }
 
 bool DistributionLogNormal::checkInitialization() const
 {
 	bool result = true;
-	if (m_sigma <= 0.0) result = false;
+	if (m_scale_param <= 0.0) result = false;
+	if (m_median <= 0.0) result = false;
 	if (!result) SignalBadInitialization("DistributionLogNormal");
 	return result;
 }

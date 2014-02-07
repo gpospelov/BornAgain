@@ -561,14 +561,14 @@ TEST_F(FormFactorTest, InfLongBox)
     EXPECT_DOUBLE_EQ(100./M_PI, ilbox.getWidth());
     EXPECT_EQ(15., ilbox.getHeight());
     EXPECT_DOUBLE_EQ(50./M_PI, ilbox.getRadius());
-    EXPECT_DOUBLE_EQ(volume, ilbox.getVolume());
+    EXPECT_THROW(ilbox.getVolume(), NotImplementedException);
     EXPECT_EQ(2, ilbox.getNumberOfStochasticParameters());
 
     FormFactorInfLongBox *ilboxclone = ilbox.clone();
     EXPECT_EQ("FormFactorInfLongBox",ilboxclone->getName());
     EXPECT_DOUBLE_EQ(100./M_PI, ilboxclone->getWidth());
     EXPECT_EQ(15., ilboxclone->getHeight());
-    EXPECT_DOUBLE_EQ(volume, ilboxclone->getVolume());
+    EXPECT_THROW(ilboxclone->getVolume(),NotImplementedException);
     EXPECT_EQ(2, ilboxclone->getNumberOfStochasticParameters());
     EXPECT_DOUBLE_EQ(50./M_PI, ilboxclone->getRadius());
 }

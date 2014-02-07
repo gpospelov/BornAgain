@@ -65,6 +65,8 @@ complex_t FormFactorInfLongBox::evaluate_for_q(const cvector_t& q) const
 }
 
 double FormFactorInfLongBox::getVolume() const {
-    return 2*M_PI*m_height*m_width;
-
+    // return 2*M_PI*m_height*m_width;
+    // volume of the infinite object is infinite
+    throw NotImplementedException(
+        "FormFactorInfLongBox::getVolume() -> Error: not implemented exception. Volume of the infinite object is infinite.");
 }

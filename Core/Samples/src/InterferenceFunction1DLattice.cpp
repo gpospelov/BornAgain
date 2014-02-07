@@ -49,7 +49,7 @@ void InterferenceFunction1DLattice::setProbabilityDistribution(
 //     initialize_calc_factors(omega):
     m_prefactor = 2.0*M_PI*omega;
     double qa_max = (m_lattice_params.m_length/(2*M_PI))*nmax/omega;
-    m_na = (int) std::abs(qa_max) + 0.5;
+    m_na = (int) (std::abs(qa_max) + 0.5);
 }
 
 double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
@@ -64,18 +64,19 @@ double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
     double qx_frac;
     double xi = m_lattice_params.m_xi;
     double a = m_lattice_params.m_length;
+    double a_rec = 2*M_PI/a;
 
     // rotate the q vector to xi angle
     // so that qx_prime is along the a axis of lattice
     double qx_prime = qxr*std::cos(xi) + qyr*std::sin(xi);
 
     // calculate reciprocal vector fraction
-    int qa_int = (int) a*qx_prime/(2*M_PI);
-    qx_frac = qx_prime - qa_int*m_asx;
+    int qa_int = (int) qx_prime/a_rec;
+    qx_frac = qx_prime - qa_int*a_rec;
 
     for (int i=-m_na-1; i<m_na+2; ++i)
     {        
-        double qx = qx_frac + i*m_asx;
+        double qx = qx_frac + i*a_rec;
         result += mp_pdf->evaluate(qx);
     }
     return m_prefactor*result;

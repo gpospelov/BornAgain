@@ -212,7 +212,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     lattice_params.m_length=m_lattice_length;
     lattice_params.m_xi = m_xi;
     InterferenceFunction1DLattice *p_interference_function = new InterferenceFunction1DLattice(lattice_params);
-    FTDistribution1DCauchy pdf(3000.0*Units::nanometer);
+    FTDistribution1DCauchy pdf(10e6*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
 
     //IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();

@@ -49,7 +49,7 @@ private:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    double m_asx; //!< x coordinates of a*
+//    double m_asx; //!< x coordinates of a*
     double m_prefactor; //!< fixed prefactor for normalization
     int m_na; //!< determines the number of reciprocal lattice points to use
 };

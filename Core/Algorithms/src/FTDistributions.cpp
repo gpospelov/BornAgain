@@ -62,7 +62,7 @@ FTDistribution1DGauss* FTDistribution1DGauss::clone() const
 double FTDistribution1DGauss::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return std::exp(-sum_sq/4.0)/2.0;
+    return std::exp(-sum_sq/4.0);
 }
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)

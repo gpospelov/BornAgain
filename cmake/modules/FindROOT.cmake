@@ -54,6 +54,12 @@ else()
     endif()
 endif()
 
+# check if ROOT installation is complete
+if(NOT EXISTS "${ROOT_INCLUDE_DIR}/Math/GeneticMinimizer.h")
+    message("--> ROOT installation is not complete. Can't find file ${ROOT_INCLUDE_DIR}/include/Math/GeneticMinimizer.h")
+    message("--> Switching ROOT OFF")
+    set(ROOT_FOUND FALSE)
+endif()
 
 #include(CMakeMacroParseArguments)
 find_program(ROOTCINT_EXECUTABLE rootcint PATHS $ENV{ROOTSYS}/bin)

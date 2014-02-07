@@ -26,11 +26,6 @@
 #include "MinimizerOptions.h"
 
 
-#ifdef HAS_GENETIC_MINIMIZER
-#include "Math/GeneticMinimizer.h"
-#endif
-
-
 // ----------------------------------------------------------------------------
 // ROOTMinimizer c-tor
 //
@@ -44,35 +39,6 @@ ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::strin
     , m_chi2_func(0)
     , m_gradient_func(0)
 {
-//    if( m_minimizer_name == "GSLMultiFit") {
-//        // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
-//        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
-//    }else if( m_minimizer_name == "GSLSimAn") {
-//        // hacked version of ROOT's GSL Simulated annealing minimizer
-//        m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
-//        // changing default options to more appropriate
-//        setOptionString("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
-
-//    }else if( m_minimizer_name == "Minuit2") {
-//        m_root_minimizer = new ROOT::Minuit2::Minuit2Minimizer(algo_type.c_str());
-
-//    } else if( m_minimizer_name == "GSLMultiMin") {
-//        m_root_minimizer = new ROOT::Math::GSLMinimizer(algo_type.c_str());
-
-//#ifdef HAS_GENETIC_MINIMIZER
-//   } else if (m_minimizer_name ==  "Genetic") {
-//      m_root_minimizer = new ROOT::Math::GeneticMinimizer();
-//#endif
-
-////    } else {
-////        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
-//    }
-//    if(!m_root_minimizer) {
-//        throw LogicErrorException("Can't create minimizer with name '"+minimizer_name+"', algo '" + algo_type+"'");
-//    }
-
-
-
 
 }
 

@@ -29,13 +29,13 @@ public:
 
     //! Sets rectangular mask to IntensityData to exclude all points outside the
     //! mask from analysis
-    BA_CORE_API_ static void setRectangularMask(OutputData<double>& data,
+    static void setRectangularMask(OutputData<double>& data,
         double x1, double y1, double x2, double y2);
 
 
     //! Sets elliptic mask to IntensityData to exclude all points outside the
     //! mask from analysis
-    BA_CORE_API_ static void setEllipticMask(OutputData<double>& data,
+    static void setEllipticMask(OutputData<double>& data,
         double xc, double yc, double rx, double ry);
 
 };

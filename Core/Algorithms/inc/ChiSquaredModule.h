@@ -41,6 +41,7 @@ public:
 
     //! Returns residual between data and simulation for single element.
     virtual double getResidualValue(size_t index ) const;
+
 };
 
 #endif /* CHISQUAREDMODULE_H_ */

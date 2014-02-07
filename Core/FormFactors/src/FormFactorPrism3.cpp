@@ -18,11 +18,11 @@
 
 #include "MathFunctions.h"
 
-FormFactorPrism3::FormFactorPrism3(double height, double half_side)
+FormFactorPrism3::FormFactorPrism3(double length, double height)
 {
     setName("FormFactorPrism3");
+    m_length = length;
     m_height = height;
-    m_half_side = half_side;
     m_root3 = std::sqrt(3.0);
     init_parameters();
 }
@@ -30,13 +30,13 @@ FormFactorPrism3::FormFactorPrism3(double height, double half_side)
 void FormFactorPrism3::init_parameters()
 {
     clearParameterPool();
+    registerParameter("length", &m_length);
     registerParameter("height", &m_height);
-    registerParameter("half_side", &m_half_side);
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
-    FormFactorPrism3 *result = new FormFactorPrism3(m_height, m_half_side );
+    FormFactorPrism3 *result = new FormFactorPrism3(m_length, m_height);
     result->setName(getName());
     return result;
 }
@@ -44,7 +44,7 @@ FormFactorPrism3* FormFactorPrism3::clone() const
 complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
 {
     complex_t qz = q.z();
-    double R = m_half_side;
+    double R = m_length/2.0;
     double H = m_height;
 
     complex_t qzH_half = qz*H/2.0;

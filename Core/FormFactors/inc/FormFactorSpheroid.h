@@ -28,8 +28,8 @@ class BA_CORE_API_ FormFactorSpheroid : public IFormFactorBorn
 {
 public:
     //! @brief Spheroid constructor
-    //! @param radius of spheroid
-    //! @param height of spheroid
+    //! @param radius of Spheroid
+    //! @param height of Spheroid
     //! @param flattening parameter in vertical direction (full height: 2 x flattening x radius)
 
     FormFactorSpheroid(double radius, double height, double height_flattening);

@@ -9,16 +9,16 @@ air layer, deposited on a substrate layer, with no interference.
 There are 4 fitting parameters:
 1) radius of cylinders
 2) height of cylinders
-3) side length of prisms
+3) length of prisms
 4) height of prisms
 
 Our reference data is 2D intensity map obtained from the simulation of
 the same geometry with fixed values cylinder_height = prism3_height
- = cylinder_radius = prism3_half_side = 1nm.
+ = cylinder_radius = prism3_length/2 = 1nm.
 
 Then we run our minimization consequently using default
-minimization engine, with starting values cylinder_height = prism3_length = 4nm,
-cylinder_radius = prism3_half_side = 6nm as initial fit parameter values.
+minimization engine, with starting values cylinder_height = prism3_height = 4nm,
+cylinder_radius = prism3_length/2 = 6nm as initial fit parameter values.
 """
 
 
@@ -36,7 +36,7 @@ fig = pylab.figure(1)
 
 def get_sample(cylinder_height=1.0*nanometer,
                cylinder_radius=1.0*nanometer,
-               prism_half_side=1.0*nanometer,
+               prism_length=2.0*nanometer,
                prism_height=1.0*nanometer):
     """
     Build the sample representing cylinders and pyramids on top of
@@ -48,9 +48,9 @@ def get_sample(cylinder_height=1.0*nanometer,
     m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = FormFactorCylinder(cylinder_height, cylinder_radius)
+    cylinder_ff = FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = Particle(m_particle, cylinder_ff)
-    prism_ff = FormFactorPrism3(prism_half_side, prism_height)
+    prism_ff = FormFactorPrism3(prism_length, prism_height)
     prism = Particle(m_particle, prism_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 0.5)
@@ -173,7 +173,7 @@ def run_fitting():
     fit_suite.addFitParameter("*FormFactorCylinder/height", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*FormFactorCylinder/radius", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
     fit_suite.addFitParameter("*FormFactorPrism3/height", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*FormFactorPrism3/half_side", 2.*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*FormFactorPrism3/length", 4.*nanometer, 0.02*nanometer, AttLimits.lowerLimited(0.01))
 
     # running fit
     fit_suite.runFit()

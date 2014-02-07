@@ -9,7 +9,7 @@ project(BornAgain)
 # --- The version number ---
 set(BornAgain_VERSION_MAJOR 0)
 set(BornAgain_VERSION_MINOR 9)
-set(BornAgain_VERSION_PATCH 3)
+set(BornAgain_VERSION_PATCH 4)
 
 # --- General project settings ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
@@ -35,6 +35,7 @@ add_subdirectory(ThirdParty/gtest)
 add_subdirectory(Tests/UnitTests/TestCore)
 add_subdirectory(ThirdParty/RootMinimizers)
 add_subdirectory(Fit)
+add_subdirectory(Tests/UnitTests/TestFit)
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 if(ROOT_FOUND AND BORNAGAIN_APP)

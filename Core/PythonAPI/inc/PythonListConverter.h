@@ -26,6 +26,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 
+#include "WinDllMacros.h"
+
 #include <vector>
 
 namespace bp = boost::python;

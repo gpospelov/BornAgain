@@ -300,3 +300,47 @@
 2013-12-19 16:11:26 | jcnsopc73  | macosx64, 2800 MHz      | 21.7391     | 21.2766     | 0.0319387   | 769231      |
 # Release 0.9.3
 2013-12-20 10:28:13 | jcnsopc73  | macosx64, 2800 MHz      | 21.0526     | 20.8333     | 0.0310078   | 666667      | 
+
+# ------------------------------------------------------------------------------------------------------------------
+# switching to another performance test
+# ------------------------------------------------------------------------------------------------------------------
+
+# repeating old performance measurements --performance1
+# Gennady's OpenSuse
+# nthreads=8
+2014-01-13 16:30:06 | jcnsopc126 | linuxx8664gcc, 3502 MHz | 8.03213     | 8.19672     | 0.0166389   | 1e+06       | 
+# Gennady's Maverick
+# nthreads=0
+2014-01-13 16:46:39 | jcnsopc73  | macosx64, 2800 MHz      | 7.7821      | 7.75194     | 0.0174368   | 740741      | 
+# nthreads=1
+2014-01-13 16:53:12 | jcnsopc73  | macosx64, 2800 MHz      | 14.1844     | 14.1844     | 0.0289268   | 740741      |
+
+
+# new performance --performance2
+
+# Gennady's OpenSuse
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:30:20 | jcnsopc126 | linuxx8664gcc | 0  | 30.329   | 2.295        | 1.813        | 1.116        | 0.675        | 5.810        | 8.452        | 0.509        | 7.759        | 1.900        |
+# Gennady's Maverick
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-13 16:47:59 | jcnsopc73  | macosx64      | 0  | 60.978   | 5.024        | 1.488        | 1.735        | 0.976        | 11.958       | 17.915       | 0.647        | 18.293       | 2.942        |
+| 2014-01-13 16:50:24 | jcnsopc73  | macosx64      | 1  | 103.614  | 11.405       | 3.240        | 3.539        | 1.832        | 26.159       | 33.044       | 0.681        | 17.896       | 5.817        |
+
+
+# before trying complex bessel
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-16 18:05:52 | jcnsopc126 | linuxx8664gcc | 0  | 29.667   | 2.267        | 1.768        | 1.117        | 0.689        | 5.780        | 8.095        | 0.528        | 7.710        | 1.713        |
+# after switching to complex bessel (real bessel uses complex bessel)
+| 2014-01-16 18:21:50 | jcnsopc126 | linuxx8664gcc | 0  | 34.609   | 3.554        | 2.106        | 1.166        | 0.731        | 8.322        | 8.105        | 0.514        | 8.109        | 2.003        |
+
+
+2014-01-17 15:05:30 | herck-mint | linuxx8664gcc, 2500 MHz | 7.0922      | 7.32601     | 0.0148832   | 800000      | 
+2014-01-17 15:14:07 | herck-mint | linuxx8664gcc, 800 MHz  | 10.3093     | 10.4167     | 0.0243724   | 571429      | 
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-01-17 15:08:42 | herck-mint | linuxx8664gcc | 0  | 37.103   | 3.028        | 2.904        | 1.750        | 1.205        | 7.853        | 8.709        | 0.640        | 9.046        | 1.966        |
+| 2014-01-17 15:15:13 | herck-mint | linuxx8664gcc | 1  | 130.688  | 14.257       | 12.513       | 4.837        | 2.590        | 35.392       | 41.255       | 0.866        | 11.968       | 7.009        |
+# Release 0.9.4
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-02-07 14:11:35 | jcnsopc126 | linuxx8664gcc | 0  | 27.734   | 2.114        | 1.774        | 1.126        | 0.637        | 5.403        | 6.819        | 0.568        | 7.749        | 1.545        |

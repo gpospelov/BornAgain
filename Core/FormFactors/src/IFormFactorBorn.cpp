@@ -18,18 +18,18 @@
 #include "MathFunctions.h"
 
 complex_t IFormFactorBorn::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     (void)alpha_f_bin;
     Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
-    if (useLargeBinApproximation(q_bin)) {
-        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
-    }
+//    if (useLargeBinApproximation(q_bin)) {
+//        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
+//    }
     return evaluate_for_q(q_bin.getMidPoint());
 }
 
 Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
 {
     (void)phi_f_bin;
     Eigen::Matrix2cd unit_matrix = Eigen::Matrix2cd::Identity();
@@ -100,7 +100,7 @@ double IFormFactorBorn::bigZPartIntegral(double qH2) const
 {
     if (qH2<Numeric::double_epsilon) return qH2;
     double qH = 2.0*qH2;
-    return MathFunctions::Si(qH) - 2*std::sin(qH2)*std::sin(qH2)/qH;
+    return MathFunctions::Si(qH) - std::sin(qH2)*std::sin(qH2)/qH2;
 }
 
 

@@ -16,20 +16,17 @@
 #ifndef BORNAGAIN_EIGENCORE_H
 #define BORNAGAIN_EIGENCORE_H
 
-//! This include file is introduced to deal with Eigen alignment
-
-//! See general desciption of the alignment problem
-//! http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
-
-//! See also issue with POSIX_ADVISORY_INFO at http://eigen.tuxfamily.org/bz/show_bug.cgi?id=554
+// This include file is introduced to deal with Eigen alignment
+// see http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
 
 #ifndef GCCXML_SKIP_THIS
-#ifdef _WIN32
+//#ifdef _WIN32
+// Currently all keys from here are handled by SetUpWindows.cmake
 //#define EIGEN_DONT_ALIGN_STATICALLY 1
-#define EIGEN_DONT_ALIGN 1
+//#define EIGEN_DONT_ALIGN 1
 //#define EIGEN_DONT_VECTORIZE 1
 //#define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT 1
-#endif
+//#endif
 #ifndef _WIN32
 #include <unistd.h>
 #endif

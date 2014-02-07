@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< FormFactorCuboctahedron > {
 
-    FormFactorCuboctahedron_wrapper(double half_side, double height, double height_ratio, double alpha )
-    : FormFactorCuboctahedron( half_side, height, height_ratio, alpha )
+    FormFactorCuboctahedron_wrapper(double length, double height, double height_ratio, double alpha )
+    : FormFactorCuboctahedron( length, height, height_ratio, alpha )
       , bp::wrapper< FormFactorCuboctahedron >(){
         // constructor
     
@@ -61,18 +61,6 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
         return FormFactorCuboctahedron::getAlpha( );
     }
 
-    virtual double getHalfSide(  ) const  {
-        if( bp::override func_getHalfSide = this->get_override( "getHalfSide" ) )
-            return func_getHalfSide(  );
-        else
-            return this->FormFactorCuboctahedron::getHalfSide(  );
-    }
-    
-    
-    double default_getHalfSide(  ) const  {
-        return FormFactorCuboctahedron::getHalfSide( );
-    }
-
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -95,6 +83,18 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     
     double default_getHeightRatio(  ) const  {
         return FormFactorCuboctahedron::getHeightRatio( );
+    }
+
+    virtual double getLength(  ) const  {
+        if( bp::override func_getLength = this->get_override( "getLength" ) )
+            return func_getLength(  );
+        else
+            return this->FormFactorCuboctahedron::getLength(  );
+    }
+    
+    
+    double default_getLength(  ) const  {
+        return FormFactorCuboctahedron::getLength( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -121,18 +121,6 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
         FormFactorCuboctahedron::setAlpha( alpha );
     }
 
-    virtual void setHalfSide( double half_side ) {
-        if( bp::override func_setHalfSide = this->get_override( "setHalfSide" ) )
-            func_setHalfSide( half_side );
-        else
-            this->FormFactorCuboctahedron::setHalfSide( half_side );
-    }
-    
-    
-    void default_setHalfSide( double half_side ) {
-        FormFactorCuboctahedron::setHalfSide( half_side );
-    }
-
     virtual void setHeight( double height ) {
         if( bp::override func_setHeight = this->get_override( "setHeight" ) )
             func_setHeight( height );
@@ -155,6 +143,18 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
     
     void default_setHeightRatio( double height_ratio ) {
         FormFactorCuboctahedron::setHeightRatio( height_ratio );
+    }
+
+    virtual void setLength( double length ) {
+        if( bp::override func_setLength = this->get_override( "setLength" ) )
+            func_setLength( length );
+        else
+            this->FormFactorCuboctahedron::setLength( length );
+    }
+    
+    
+    void default_setLength( double length ) {
+        FormFactorCuboctahedron::setLength( length );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -229,16 +229,16 @@ struct FormFactorCuboctahedron_wrapper : FormFactorCuboctahedron, bp::wrapper< F
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -374,7 +374,7 @@ void register_FormFactorCuboctahedron_class(){
 
     { //::FormFactorCuboctahedron
         typedef bp::class_< FormFactorCuboctahedron_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCuboctahedron_exposer_t;
-        FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", bp::init< double, double, double, double >(( bp::arg("half_side"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") )) );
+        FormFactorCuboctahedron_exposer_t FormFactorCuboctahedron_exposer = FormFactorCuboctahedron_exposer_t( "FormFactorCuboctahedron", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("height_ratio"), bp::arg("alpha") )) );
         bp::scope FormFactorCuboctahedron_scope( FormFactorCuboctahedron_exposer );
         { //::FormFactorCuboctahedron::clone
         
@@ -411,17 +411,6 @@ void register_FormFactorCuboctahedron_class(){
                 , default_getAlpha_function_type(&FormFactorCuboctahedron_wrapper::default_getAlpha) );
         
         }
-        { //::FormFactorCuboctahedron::getHalfSide
-        
-            typedef double ( ::FormFactorCuboctahedron::*getHalfSide_function_type )(  ) const;
-            typedef double ( FormFactorCuboctahedron_wrapper::*default_getHalfSide_function_type )(  ) const;
-            
-            FormFactorCuboctahedron_exposer.def( 
-                "getHalfSide"
-                , getHalfSide_function_type(&::FormFactorCuboctahedron::getHalfSide)
-                , default_getHalfSide_function_type(&FormFactorCuboctahedron_wrapper::default_getHalfSide) );
-        
-        }
         { //::FormFactorCuboctahedron::getHeight
         
             typedef double ( ::FormFactorCuboctahedron::*getHeight_function_type )(  ) const;
@@ -442,6 +431,17 @@ void register_FormFactorCuboctahedron_class(){
                 "getHeightRatio"
                 , getHeightRatio_function_type(&::FormFactorCuboctahedron::getHeightRatio)
                 , default_getHeightRatio_function_type(&FormFactorCuboctahedron_wrapper::default_getHeightRatio) );
+        
+        }
+        { //::FormFactorCuboctahedron::getLength
+        
+            typedef double ( ::FormFactorCuboctahedron::*getLength_function_type )(  ) const;
+            typedef double ( FormFactorCuboctahedron_wrapper::*default_getLength_function_type )(  ) const;
+            
+            FormFactorCuboctahedron_exposer.def( 
+                "getLength"
+                , getLength_function_type(&::FormFactorCuboctahedron::getLength)
+                , default_getLength_function_type(&FormFactorCuboctahedron_wrapper::default_getLength) );
         
         }
         { //::FormFactorCuboctahedron::getNumberOfStochasticParameters
@@ -467,18 +467,6 @@ void register_FormFactorCuboctahedron_class(){
                 , ( bp::arg("alpha") ) );
         
         }
-        { //::FormFactorCuboctahedron::setHalfSide
-        
-            typedef void ( ::FormFactorCuboctahedron::*setHalfSide_function_type )( double ) ;
-            typedef void ( FormFactorCuboctahedron_wrapper::*default_setHalfSide_function_type )( double ) ;
-            
-            FormFactorCuboctahedron_exposer.def( 
-                "setHalfSide"
-                , setHalfSide_function_type(&::FormFactorCuboctahedron::setHalfSide)
-                , default_setHalfSide_function_type(&FormFactorCuboctahedron_wrapper::default_setHalfSide)
-                , ( bp::arg("half_side") ) );
-        
-        }
         { //::FormFactorCuboctahedron::setHeight
         
             typedef void ( ::FormFactorCuboctahedron::*setHeight_function_type )( double ) ;
@@ -501,6 +489,18 @@ void register_FormFactorCuboctahedron_class(){
                 , setHeightRatio_function_type(&::FormFactorCuboctahedron::setHeightRatio)
                 , default_setHeightRatio_function_type(&FormFactorCuboctahedron_wrapper::default_setHeightRatio)
                 , ( bp::arg("height_ratio") ) );
+        
+        }
+        { //::FormFactorCuboctahedron::setLength
+        
+            typedef void ( ::FormFactorCuboctahedron::*setLength_function_type )( double ) ;
+            typedef void ( FormFactorCuboctahedron_wrapper::*default_setLength_function_type )( double ) ;
+            
+            FormFactorCuboctahedron_exposer.def( 
+                "setLength"
+                , setLength_function_type(&::FormFactorCuboctahedron::setLength)
+                , default_setLength_function_type(&FormFactorCuboctahedron_wrapper::default_setLength)
+                , ( bp::arg("length") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -575,8 +575,8 @@ void register_FormFactorCuboctahedron_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorCuboctahedron_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorCuboctahedron_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorCuboctahedron_exposer.def( 
                 "evaluate"

@@ -66,7 +66,7 @@ complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
 {
     (void)phi_f_bin;
     // the conjugated linear part of time reversal operator T

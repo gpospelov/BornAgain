@@ -112,6 +112,16 @@ void register_FitSuite_class(){
                 , ( bp::arg("name"), bp::arg("value"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 ) );
         
         }
+        { //::FitSuite::addFitStrategy
+        
+            typedef void ( ::FitSuite::*addFitStrategy_function_type )( ::IFitStrategy const & ) ;
+            
+            FitSuite_exposer.def( 
+                "addFitStrategy"
+                , addFitStrategy_function_type( &::FitSuite::addFitStrategy )
+                , ( bp::arg("strategy") ) );
+        
+        }
         { //::FitSuite::addSimulationAndRealData
         
             typedef void ( ::FitSuite::*addSimulationAndRealData_function_type )( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) ;

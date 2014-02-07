@@ -26,9 +26,10 @@
 #include "IsGISAXS11Builder.h"
 #include "IsGISAXS15Builder.h"
 #include "MesoCrystal01Builder.h"
-#include "PolarizedDWBAZeroMagBuilder.h"
+#include "PolarizedDWBAMagCylindersBuilder.h"
 #include "LayerRoughnessBuilder.h"
 #include "Ripple2Builder.h"
+#include "Ripple1Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -66,19 +67,19 @@ SampleBuilderFactory::SampleBuilderFactory()
         "IsGISAXS04 example, 2DDL structure factor");
 
     registerItem(
-        "isgisaxs06_lattice1",
+        "isgisaxs06a",
         IFactoryCreateFunction<IsGISAXS06Lattice1Builder, ISampleBuilder>,
         "2D lattice with disorder");
     registerItem(
-        "isgisaxs06_lattice2",
+        "isgisaxs06b",
         IFactoryCreateFunction<IsGISAXS06Lattice2Builder, ISampleBuilder>,
         "2D lattice centered");
     registerItem(
-        "isgisaxs06_lattice3",
+        "isgisaxs06c",
         IFactoryCreateFunction<IsGISAXS06Lattice3Builder, ISampleBuilder>,
         "2D lattice rotated");
     registerItem(
-        "isgisaxs06_lattice4",
+        "isgisaxs06d",
         IFactoryCreateFunction<IsGISAXS06Lattice4Builder, ISampleBuilder>,
         "2D lattice variants");
 
@@ -127,9 +128,13 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
     registerItem(
-        "PolarizedDWBAZeroMag",
-        IFactoryCreateFunction<PolarizedDWBAZeroMagBuilder, ISampleBuilder>,
+        "magcyl1",
+        IFactoryCreateFunction<PolarizedDWBAMagCylinders1Builder, ISampleBuilder>,
         "Polarized DWBA with zero magnetic field");
+    registerItem(
+        "magcyl2",
+        IFactoryCreateFunction<PolarizedDWBAMagCylinders2Builder, ISampleBuilder>,
+        "Polarized DWBA with non-zero magnetic field");
 
     registerItem(
         "LayerWithRoughness",
@@ -140,6 +145,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ripple2",
         IFactoryCreateFunction<Ripple2Builder, ISampleBuilder>,
         "triangular ripple within the 1D-paracrystal model");
+
+    registerItem(
+        "ripple1",
+        IFactoryCreateFunction<Ripple1Builder, ISampleBuilder>,
+        "cosine ripple within the 1D-paracrystal model");
 
 }
 

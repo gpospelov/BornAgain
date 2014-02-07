@@ -28,24 +28,24 @@ FormFactorLorentz::FormFactorLorentz(double volume)
     init_parameters();
 }
 
-FormFactorLorentz::FormFactorLorentz(double height, double width)
+FormFactorLorentz::FormFactorLorentz(double width, double height)
 {
     setName("FormFactorLorentz");
-    m_height = height;
     m_width = width;
+    m_height = height;
     init_parameters();
 }
 
 void FormFactorLorentz::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
     registerParameter("width", &m_width);
+      registerParameter("height", &m_height);
 }
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
-    FormFactorLorentz *result = new FormFactorLorentz(m_height, m_width);
+    FormFactorLorentz *result = new FormFactorLorentz(m_width, m_height);
     result->setName(getName());
     return result;
 }

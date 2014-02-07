@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorParallelepiped_wrapper : FormFactorParallelepiped, bp::wrapper< FormFactorParallelepiped > {
 
-    FormFactorParallelepiped_wrapper(double height, double radius )
-    : FormFactorParallelepiped( height, radius )
+    FormFactorParallelepiped_wrapper(double length, double height )
+    : FormFactorParallelepiped( length, height )
       , bp::wrapper< FormFactorParallelepiped >(){
         // constructor
     
@@ -71,18 +71,6 @@ struct FormFactorParallelepiped_wrapper : FormFactorParallelepiped, bp::wrapper<
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorParallelepiped::getNumberOfStochasticParameters( );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else
-            return this->FormFactorParallelepiped::getRadius(  );
-    }
-    
-    
-    double default_getRadius(  ) const  {
-        return FormFactorParallelepiped::getRadius( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -157,16 +145,16 @@ struct FormFactorParallelepiped_wrapper : FormFactorParallelepiped, bp::wrapper<
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -191,6 +179,18 @@ struct FormFactorParallelepiped_wrapper : FormFactorParallelepiped, bp::wrapper<
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else
+            return this->IFormFactor::getRadius(  );
+    }
+    
+    
+    double default_getRadius(  ) const  {
+        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -290,7 +290,7 @@ void register_FormFactorParallelepiped_class(){
 
     { //::FormFactorParallelepiped
         typedef bp::class_< FormFactorParallelepiped_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorParallelepiped_exposer_t;
-        FormFactorParallelepiped_exposer_t FormFactorParallelepiped_exposer = FormFactorParallelepiped_exposer_t( "FormFactorParallelepiped", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) );
+        FormFactorParallelepiped_exposer_t FormFactorParallelepiped_exposer = FormFactorParallelepiped_exposer_t( "FormFactorParallelepiped", bp::init< double, double >(( bp::arg("length"), bp::arg("height") )) );
         bp::scope FormFactorParallelepiped_scope( FormFactorParallelepiped_exposer );
         { //::FormFactorParallelepiped::clone
         
@@ -327,6 +327,15 @@ void register_FormFactorParallelepiped_class(){
                 , default_getHeight_function_type(&FormFactorParallelepiped_wrapper::default_getHeight) );
         
         }
+        { //::FormFactorParallelepiped::getLength
+        
+            typedef double ( ::FormFactorParallelepiped::*getLength_function_type )(  ) const;
+            
+            FormFactorParallelepiped_exposer.def( 
+                "getLength"
+                , getLength_function_type( &::FormFactorParallelepiped::getLength ) );
+        
+        }
         { //::FormFactorParallelepiped::getNumberOfStochasticParameters
         
             typedef int ( ::FormFactorParallelepiped::*getNumberOfStochasticParameters_function_type )(  ) const;
@@ -336,17 +345,6 @@ void register_FormFactorParallelepiped_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorParallelepiped::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorParallelepiped_wrapper::default_getNumberOfStochasticParameters) );
-        
-        }
-        { //::FormFactorParallelepiped::getRadius
-        
-            typedef double ( ::FormFactorParallelepiped::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorParallelepiped_wrapper::*default_getRadius_function_type )(  ) const;
-            
-            FormFactorParallelepiped_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::FormFactorParallelepiped::getRadius)
-                , default_getRadius_function_type(&FormFactorParallelepiped_wrapper::default_getRadius) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -421,8 +419,8 @@ void register_FormFactorParallelepiped_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorParallelepiped_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorParallelepiped_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorParallelepiped_exposer.def( 
                 "evaluate"
@@ -453,6 +451,17 @@ void register_FormFactorParallelepiped_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&FormFactorParallelepiped_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IFormFactor::getRadius
+        
+            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorParallelepiped_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorParallelepiped_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::IFormFactor::getRadius)
+                , default_getRadius_function_type(&FormFactorParallelepiped_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume

@@ -20,7 +20,7 @@ def RunSimulation1():
     mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     
     # collection of particles
-    pyramid_ff = FormFactorPyramid(5*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
     pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
     particle_decoration = ParticleDecoration()
@@ -55,7 +55,7 @@ def RunSimulation2():
     mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
     
     # collection of particles
-    pyramid_ff = FormFactorPyramid(5*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
     pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
     angle_around_z = 45.*degree

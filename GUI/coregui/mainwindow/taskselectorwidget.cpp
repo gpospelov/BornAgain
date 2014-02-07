@@ -1,8 +1,7 @@
 #include "taskselectorwidget.h"
 #include "fancytabwidget.h"
-
-#include "ba_fancytabbar.h"
-#include "ba_stylehelper.h"
+#include "fancytabwidget.h"
+#include "stylehelper.h"
 
 #include <QColorDialog>
 #include <QHBoxLayout>
@@ -12,17 +11,15 @@
 #include <QStatusBar>
 #include <QPainter>
 #include <QStackedWidget>
+#include <QStyle>
 
 
-using namespace BornAgain;
 
 TaskSelectorWidget::TaskSelectorWidget(QWidget *parent)
     : QWidget(parent)
     , m_tabBar(0)
 {
-
-    m_tabBar = new BornAgain::FancyTabBar(this);
-//    m_tabBar = new FancyTabBar2(this);
+    m_tabBar = new Manhattan::FancyTabBar(this);
 
     m_selectionWidget = new QWidget(this);
     QVBoxLayout *selectionLayout = new QVBoxLayout;
@@ -63,7 +60,6 @@ TaskSelectorWidget::TaskSelectorWidget(QWidget *parent)
     vlayout->setSpacing(0);
 //    vlayout->addLayout(m_modesStack);
 //    vlayout->addWidget(m_statusBar);
-
 
     m_stackedWidgets = new QStackedWidget;
 //    m_stackedWidgets->addWidget(new ConfigurationPage);
@@ -112,11 +108,11 @@ void TaskSelectorWidget::paintEvent(QPaintEvent *event)
 
     QRect rect = m_selectionWidget->rect().adjusted(0, 0, 1, 0);
     rect = style()->visualRect(layoutDirection(), geometry(), rect);
-    Utils::StyleHelper::verticalGradient(&painter, rect, rect);
-    painter.setPen(Utils::StyleHelper::borderColor());
+    Manhattan::Utils::StyleHelper::verticalGradient(&painter, rect, rect);
+    painter.setPen(Manhattan::Utils::StyleHelper::borderColor());
     painter.drawLine(rect.topRight(), rect.bottomRight());
 
-    QColor light = Utils::StyleHelper::sidebarHighlight();
+    QColor light = Manhattan::Utils::StyleHelper::sidebarHighlight();
     painter.setPen(light);
     painter.drawLine(rect.bottomLeft(), rect.bottomRight());
 }

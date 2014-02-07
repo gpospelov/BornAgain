@@ -39,6 +39,11 @@ include_classes = [
     "Bin1DCVector",
     "Crystal",
     "Detector",
+    "DistributionGate",
+    "DistributionLorentz",
+    "DistributionGaussian",
+    "DistributionLogNormal",
+    "DistributionCosine",
     "FTDistribution2DCauchy",
     "FormFactorAnisoPyramid",
     "FormFactorBox",
@@ -58,11 +63,13 @@ include_classes = [
     "FormFactorPrism3",
     "FormFactorPrism6",
     "FormFactorPyramid",
+    "FormFactorRipple1",
     "FormFactorRipple2",
     "FormFactorSphere",
     "FormFactorSphereGaussianRadius",
     "FormFactorSphereUniformRadius",
     "FormFactorSpheroid",
+    "FormFactorTetrahedron",
     "HomogeneousMaterial",
     "IAxis",
     "ICloneable",
@@ -70,6 +77,7 @@ include_classes = [
     "ICompositeSample",
     "IDecoration",
     "IDetectorResolution",
+    "IDistribution1D",
     "IFTDistribution2D",
     "IFormFactor",
     "IFormFactorBorn",
@@ -80,6 +88,7 @@ include_classes = [
     "IObservable",
     "IParameterized",
     "IResolutionFunction2D",
+    "IntensityDataHelper",
     "ISample",
     "ISampleBuilder",
     #"SampleBuilder_t",
@@ -101,6 +110,7 @@ include_classes = [
     "MaterialManager",
     "MesoCrystal",
     "MultiLayer",
+    "OffSpecSimulation",
     "OutputData<double>",
     "OutputDataIOFactory",
     "ParameterPool",
@@ -209,6 +219,9 @@ def ManualClassTunings(mb):
     cl = mb.class_("IClusteredParticles")
     cl.member_function("setAmbientMaterial").include()
     #
+    cl = mb.class_("IDistribution1D")
+    cl.member_function("generateSamples").exclude()
+    #
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
 
@@ -233,7 +246,7 @@ def ManualClassTunings(mb):
 
     #
     cl = mb.class_("ParticleDecoration")
-    cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
+    #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")
     cl.member_function("registerParameter").add_transformation(builder_utils.from_address_custom(1))
@@ -252,6 +265,14 @@ def ManualClassTunings(mb):
     cl.constructors().include()  # including back constructors with pointers
     #
     cl = mb.class_("Simulation")
+    cl.member_function("setSampleBuilder").include()
+    cl.member_function("getOutputData").exclude()
+    cl.member_function("getIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    cl.member_function("getPolarizedIntensityData").call_policies = \
+        call_policies.return_value_policy(call_policies.manage_new_object)
+    #
+    cl = mb.class_("OffSpecSimulation")
     cl.member_function("setSampleBuilder").include()
     cl.member_function("getOutputData").exclude()
     cl.member_function("getIntensityData").call_policies = \

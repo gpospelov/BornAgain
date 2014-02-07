@@ -49,13 +49,13 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "2D paracrystal",
         "isgisaxs04_reference_2DDLh.ima.gz", 2e-10);
 
-    add("isgisaxs06_lattice1",
+    add("isgisaxs06a",
         "2D lattice with disorders",
         "isgisaxs06_reference_lattice.ima.gz", 2e-10);
-    add("isgisaxs06_lattice2",
+    add("isgisaxs06b",
         "2D lattice centered",
         "isgisaxs06_reference_centered.ima.gz", 2e-10);
-    add("isgisaxs06_lattice3",
+    add("isgisaxs06c",
         "2D lattice rotated",
         "isgisaxs06_reference_rotated.ima.gz", 2e-10);
 // this test is complicated for given Registry, see Tests/FunctionalTest/TesCore/IsGISAXS06L4
@@ -69,7 +69,7 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
     add("isgisaxs08a",
         "2DDL paracrystal lattice",
-        "isgisaxs08_reference_2DDL_lattice.ima.gz", 2e-10);
+        "isgisaxs08_reference_2DDL_lattice.ima.gz", 3e-10);
     add("isgisaxs08b",
         "2D paracrystal lattice with isotropic pdfs",
         "isgisaxs08_reference_2DDL_lattice2.ima.gz", 2e-10);
@@ -97,9 +97,13 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
         "mesocrystal1_reference_v2_nphi2.txt.gz", 1e-10);
 
-    add("PolarizedDWBAZeroMag",
+    add("magcyl1",
         "Polarized DWBA with zero magnetic field",
         "isgi_cylinder_DWBA.ima.gz", 1e-10);
+    // this test is complicated for given Registry
+  //  add("magcyl2",
+  //      "Polarized DWBA with zero magnetic field",
+  //      "isgi_cylinder_DWBA.ima.gz", 1e-10);
 
     add("LayerWithRoughness",
         "Layers with correlated roughness",
@@ -108,6 +112,10 @@ FunctionalTestRegistry::Catalogue::Catalogue()
     add("ripple2",
         "Triangular ripple within the 1D-paracrystal model",
         "test_ripple2_sym.ima.gz", 2e-10);
+
+    add("ripple1",
+        "Cosine ripple within the 1D-paracrystal model",
+        "test_ripple1.ima.gz", 2e-10);
 
 }
 

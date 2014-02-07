@@ -40,7 +40,7 @@ void IsGISAXS04Para1DBuilder::init_parameters()
     registerParameter("corr_width", &m_corr_width);
     registerParameter("corr_length", &m_corr_length);
     registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_raduis", &m_cylinder_radius);
+    registerParameter("cylinder_radius", &m_cylinder_radius);
 }
 
 ISample *IsGISAXS04Para1DBuilder::buildSample() const
@@ -64,7 +64,7 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
                     m_corr_peak_distance,m_corr_width, m_corr_length);
     ParticleDecoration particle_decoration( new Particle(
             particle_material, new FormFactorCylinder(
-                    m_cylinder_height, m_cylinder_radius) ) );
+                    m_cylinder_radius, m_cylinder_height) ) );
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     air_layer.setDecoration(particle_decoration);
@@ -98,7 +98,7 @@ void IsGISAXS04Para2DBuilder::init_parameters()
     registerParameter("m_domain_size_1", &m_domain_size_1);
     registerParameter("m_domain_size_2", &m_domain_size_2);
     registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_raduis", &m_cylinder_radius);
+    registerParameter("cylinder_radius", &m_cylinder_radius);
 }
 
 
@@ -125,7 +125,7 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf, pdf);
     ParticleDecoration particle_decoration( new Particle(particle_material,
-            new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
+            new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     air_layer.setDecoration(particle_decoration);

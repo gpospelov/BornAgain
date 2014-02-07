@@ -51,7 +51,7 @@ public:
     private:
         double m_cylinder_height;
         double m_cylinder_radius;
-        double m_prism3_half_side;
+        double m_prism3_length;
         double m_prism3_height;
         double m_cylinder_ratio;
     };
@@ -63,7 +63,8 @@ public:
     void fit_example_chimodule();
 
     //! fit example with strategies
-    void fit_example_strategies();
+    void fit_example_strategy_data();
+    void fit_example_strategy_parameters();
 
     //! fit example with data masking
     void fit_example_mask();

@@ -17,16 +17,27 @@
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 
+// Integration
+#include "MemberFunctionIntegrator.h"
+#include "MemberComplexFunctionIntegrator.h"
+
 FormFactorTetrahedron::FormFactorTetrahedron(
-   double half_side, double height, double alpha)
+   double length, double height, double alpha)
 {
     setName("FormFactorTetrahedron");
     m_height = height;
-    m_half_side = half_side;
+    m_length = length;
     m_alpha = alpha;
     m_root3 = std::sqrt(3.0);
-    assert(m_root3 * m_height <= m_half_side*std::tan(m_alpha) );
+    assert(2.*m_root3 * m_height <= m_length*std::tan(m_alpha) );
     init_parameters();
+
+    // addition integration
+
+    MemberComplexFunctionIntegrator<FormFactorTetrahedron>::mem_function p_mf =
+       & FormFactorTetrahedron::Integrand;
+    m_integrator =
+        new MemberComplexFunctionIntegrator<FormFactorTetrahedron>(p_mf, this);
 
 }
 
@@ -34,23 +45,74 @@ void FormFactorTetrahedron::init_parameters()
 {
     clearParameterPool();
     registerParameter("height", &m_height);
-    registerParameter("half_side", &m_half_side);
+    registerParameter("length", &m_length);
     registerParameter("alpha", &m_alpha);
 }
 
 FormFactorTetrahedron* FormFactorTetrahedron::clone() const
 {
     FormFactorTetrahedron *result =
-        new FormFactorTetrahedron(m_half_side, m_height, m_alpha);
+        new FormFactorTetrahedron(m_length, m_height, m_alpha);
     result->setName(getName());
     return result;
 }
 
+// addition integration
+complex_t FormFactorTetrahedron::Integrand(double Z, void* params) const
+{
+    (void)params;
+    double Rz = m_length/2. -m_root3*Z/std::tan(m_alpha);
 
+    complex_t xy_part = complex_t(0.0, 0.0);
+    if (std::abs(m_q.x())==0.0 && std::abs(m_q.y())==0.0) {
+        xy_part = m_root3*Rz*Rz;
+    }
+    else {
+        complex_t r3qyRz = m_root3*m_q.y()*Rz;
+        complex_t expminiqyRdivr3 =
+            std::exp(-complex_t(0.0, 1.0)*m_q.y()*Rz/m_root3);
+        if (std::abs(m_q.x()*m_q.x()-3.0*m_q.y()*m_q.y())==0.0) {
+            xy_part = complex_t(0.0, 1.0)*m_root3*expminiqyRdivr3*
+                   (std::sin(r3qyRz)-r3qyRz*std::exp(complex_t(0.0, 1.0)*r3qyRz))/
+                m_q.x()/m_q.x();
+        } else {
+            complex_t qxRz = m_q.x()*Rz;
+            xy_part = 2.0*m_root3*expminiqyRdivr3/
+                    (m_q.x()*m_q.x()-3.0*m_q.y()*m_q.y())*(std::exp(complex_t(0.0, 1.0)*r3qyRz) -
+                std::cos(qxRz)-complex_t(0.0, 1.0)*r3qyRz*
+                MathFunctions::Sinc(qxRz));
+
+        }
+    }
+
+    return xy_part *std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
+}
+
+/*complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
+{   m_q = q;
+
+  if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
+
+        double R = m_length/2.;
+        double H = m_height;
+        double tga = std::tan(m_alpha);
+        double sqrt3HdivRtga = m_root3*H/R/tga;
+        return tga/3.*R*R*R*(1. -
+                    (1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga));
+
+    } else {
+
+        complex_t integral = m_integrator->integrate(0., m_height);
+
+        return integral;
+    }
+}*/
+
+///////////////////
 complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
 {
-    double H = m_height;
-    double R = m_half_side;
+   double H = m_height;
+    double R = m_length/2.0;
     double tga = std::tan(m_alpha);
     double L = 2.*tga*R/m_root3-H;
 
@@ -64,68 +126,69 @@ complex_t FormFactorTetrahedron::evaluate_for_q(const cvector_t& q) const
     q3 = (qy/tga - qz/2.);
 
     complex_t F;
-    const complex_t im(0,1);
+    const complex_t im(0.0,1.0);
 
-    if (std::abs(qx) <= Numeric::double_epsilon) {
 
-        if (std::abs(qy) <= Numeric::double_epsilon) {
-
+    if (std::abs(qx*qx-3.0*qy*qy) <= Numeric::double_epsilon) {
+        if (std::abs(qx) <= Numeric::double_epsilon) {
             if (std::abs(qz) <= Numeric::double_epsilon) {
-                // qx=qy=qz=0
-                double sqrt3HdivRtga = m_root3*H/R/tga;
+    //            //volume
+               double sqrt3HdivRtga = m_root3*H/R/tga;
                 F = tga/3.*R*R*R*(1. -
                    (1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga)*(1.-sqrt3HdivRtga));
             } else {
-                //qx=qy=0 qz!=0
+             // qx=qy=0 qz!=0
                 complex_t qzH_half = qz*H/2.0;
                 F = m_root3*H*std::exp(im*qzH_half)*(
                             MathFunctions::Sinc(qzH_half)*
-                            (R*R-im*2.*m_root3*R/(qz*tga)-6./(qz*qz*tga*tga))
-                            + m_root3*std::exp(im*qzH_half)/(qz*tga)*(
+                           (R*R-im*2.*m_root3*R/(qz*tga)-6./(qz*qz*tga*tga))
+                           + m_root3*std::exp(im*qzH_half)/(qz*tga)*(
                             2.*im*R - im*m_root3*H/tga + 2.*m_root3/(qz*tga)));
             }
-        }
-        else {
-            // qx=0 qy!=0
-            F = 2.*H/(m_root3*qy*qy)*
-                    std::exp(im*R*qz*tga/m_root3 + im*q3*L)*(
-                    std::exp(-im*q2*L)*MathFunctions::Sinc(q2*H)
-                  - std::exp(im*q3*L)*MathFunctions::Sinc(q3*H)) ;
+
+        } else {
+            // qx**2-3qy**2
+            complex_t qa = 2.0*qy/tga + qz/2.0;
+            F = H*m_root3*std::exp(im*2.0*qy*R/m_root3)*(
+                MathFunctions::Sinc(q3*H)
+                  *(1.0 +m_root3*qy*(-im*2.0*R + m_root3/(q3*tga)))
+              - 3.0*qy*std::exp(-im*2.0*q3*H)/(q3*tga)
+              - std::exp(im*qa*H-im*2.0*m_root3*qy*R)*MathFunctions::Sinc(qa*H)
+                )/(2.0*qx*qx);
+
         }
     } else {
-        // qx!=0
-         if (std::abs(qx*qx-3.0*qy*qy)==0.0) {
-            // qx**2= 3qy**2
-             complex_t qa = 2.0*qy/tga + qz/2.0;
-             F = H*m_root3*std::exp(im*2.0*qy*R/m_root3)*(
-                 MathFunctions::Sinc(q3*H)
-                   *(1.0 +m_root3*qy*(-im*2.0*R + m_root3/(q3*tga)))
-               - 3.0*qy*std::exp(-im*2.0*q3*H)/(q3*tga)
-               - std::exp(im*qa*H-im*2.0*m_root3*qy*R)*MathFunctions::Sinc(qa*H)
-                 )/(2.0*qx*qx);
+        if (std::abs(qx) <= Numeric::double_epsilon) {
+            //qx=0 qy!=0 case with pb
+           //F =  m_integrator->integrate(0., m_height);
+
+            complex_t q2x0  =(1./2.)*(qy/tga + qz);
+
+            if (std::abs(q2x0) >= Numeric::double_epsilon)
+               F=  2.*H/(m_root3)*std::exp(im*qz*(L+H)/2.)*(
+                               std::exp(-im*q2x0*L)*(
+                                   MathFunctions::Sinc(q2x0*H)
+                               *(1./qy/qy+im*m_root3*R/qy+3./(qy*q2x0*tga))-
+                                   3./(qy*q2x0*tga)*std::exp(im*q2x0*H)
+                                   )
+                         -std::exp(im*q3*L)*MathFunctions::Sinc(q3*H)/qy/qy
+                         );
+
+             else {
+               // q2==0
+                F = 2.*H/(m_root3*qy*qy)*(
+                            -std::exp(im*2.*qy*R/m_root3)*MathFunctions::Sinc(qz*3.*H/2.)
+                            +std::exp(-im*qy*R/m_root3)*(1.0+im*3.*qy*L/(2.*tga))
+                            );
+}
         } else {
-        //Formula Isgisaxs
-         /*    complex_t qc1      = 2./m_root3*qx;
-             complex_t qc2      = qx/m_root3 + qy;
-
-             complex_t qq1  = 2.*qc1 -  qc2 - tga*qz;
-             complex_t qq2  = qc1 +  qc2 + tga*qz;
-             complex_t qq3  =-qc1 +2.*qc2 - tga*qz;
-             complex_t Rt  =  R/m_root3;
-             complex_t Ht  =  H/(2.*tga);
-
-             F = -qc2*MathFunctions::Sinc(qq1*Ht)*std::exp(im*(Rt-Ht)*qq1) +
-        (qc2-qc1)*MathFunctions::Sinc(qq2*Ht)*std::exp(-im*(Rt-Ht)*qq2) +
-                qc1*MathFunctions::Sinc(qq3*Ht)*std::exp(im*(Rt-Ht)*qq3);
-             F = F*2.*H/m_root3/qc1/qc2/(qc1-qc2)*std::exp(im*Rt*tga*qz);*/
-
-             F =-(1.+m_root3*qy/qx)*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
-                -(1.-m_root3*qy/qx)*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L)
-                +2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L);
-
-             F = H*m_root3*std::exp(im*qz*R*tga/m_root3)/(qx*qx-3.*qy*qy)*F;
-}
-}
+            //general case
+            F =-(1.+m_root3*qy/qx)*MathFunctions::Sinc(q1*H)*std::exp(im*q1*L)
+               -(1.-m_root3*qy/qx)*MathFunctions::Sinc(q2*H)*std::exp(-im*q2*L)
+               +2.*MathFunctions::Sinc(q3*H)*std::exp(im*q3*L);
+            F = H*m_root3*std::exp(im*qz*R*tga/m_root3)/(qx*qx-3.*qy*qy)*F;
+        }
+    }
     return F;
 }
 

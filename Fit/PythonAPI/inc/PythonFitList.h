@@ -18,6 +18,9 @@
 #include "MinimizerOptions.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
+#include "IFitStrategy.h"
+#include "FitStrategyAdjustParameters.h"
+#include "FitStrategyAdjustMinimizer.h"
 
 //! file containig additional exposers
 #include "PythonFitExposer.h"

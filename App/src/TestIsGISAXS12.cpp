@@ -235,7 +235,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
@@ -309,7 +309,7 @@ void TestIsGISAXS12::run_test_chimodule()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
 
     OutputDataNormalizer normalizer(1.31159E+05, -8.10009E-02);
 
@@ -371,7 +371,7 @@ void TestIsGISAXS12::run_test_minimizer()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
         m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
@@ -493,10 +493,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double radius2 = m_particle_radius2;
     double height1 = m_height_aspect_ratio1*radius1;
     double height2 = m_height_aspect_ratio2*radius2;
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(height1, radius1);
+    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(radius1, height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(height2, radius2);
+    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(radius2, height2);
     Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability

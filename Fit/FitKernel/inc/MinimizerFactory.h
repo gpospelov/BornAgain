@@ -32,6 +32,9 @@ class BA_CORE_API_ MinimizerFactory
     static IMinimizer *createMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string() );
     static void printCatalogue();
 
+    //! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
+    static IMinimizer *createMinimizer(const IMinimizer *minimizer);
+
  private:
 
     //! @class map of minimizer names holding list of defined algorithms for every minimizer

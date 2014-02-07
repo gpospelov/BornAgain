@@ -33,7 +33,7 @@ void IsGISAXS10Builder::init_parameters()
 {
     clearParameterPool();
     registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_raduis", &m_cylinder_radius);
+    registerParameter("cylinder_radius", &m_cylinder_radius);
 }
 
 
@@ -56,7 +56,7 @@ ISample *IsGISAXS10Builder::buildSample() const
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
 
     ParticleDecoration particle_decoration(new Particle(particle_material,
-            new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)));
+            new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     air_layer.setDecoration(particle_decoration);

@@ -32,11 +32,10 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---
-message("XXX ${GQt_LIBRARY}")
-message("XXX ${ROOT_LIBRARIES} ")
+
 include_directories(
-    ${ROOT_INCLUDE_DIR}
     ${GQt_INCLUDE_DIRS}
+    ${ROOT_INCLUDE_DIR}
 )
 
 target_link_libraries(

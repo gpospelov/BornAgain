@@ -71,14 +71,14 @@ equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, 
     # collection of particles @\label{particles1}@
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) @\label{particlescyl1}@
     cylinder = Particle(m_particle, cylinder_ff) @\label{particlescyl2}@
-    prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer) @\label{particlesprism1}@
+    prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer) @\label{particlesprism1}@
     prism = Particle(m_particle, prism_ff) @\label{particlesprism2}@
 \end{lstlisting}
 We implement two different shapes of particles: cylinders and
 prisms (\textit{i.e.} elongated particles with a constant equilateral triangular cross section).
  
 All particles implemented in \BornAgain\ are defined by their
-form factors, their sizes and the material
+form factors (see Appendix~\ref{appendixff}), their sizes and the material
 they are made of. Here, for the
 cylindrical particle, we input its radius and height.  For the prism, 
 the possible inputs are the length of one side of its equilateral triangular
@@ -239,6 +239,11 @@ grazing angle on the surface of the sample,
 direction of the incident beam (measured with respect to the
 $x$-axis).
 
+\ImportantPoint{Remark:}{Scattering vector\\
+In \BornAgain\, the wave vector $\mathbf{q}$ is defined as
+$\mathbf{k}_i -\mathbf{k}_f$, where $\mathbf{k}_i$ is the incident
+wave vector and $\mathbf{k}_f$ the scattered one.}
+
 %\noindent \underline{Remark}: Note that, except for
 %\Code{isgisaxs\_style}, there are no default values implemented for the
 %parameters of the beam and detector.\\
@@ -261,7 +266,7 @@ def run_simulation(): @\label{run_simulation}@
     """
     sample = get_sample() @\label{get_sample}@
     simulation = get_simulation() @\label{get_simulation}@
-    simulation.setSample(sample) )  @\label{setsample}@
+    simulation.setSample(sample)  @\label{setsample}@
     simulation.runSimulation()  @\label{runsimul}@
     result = simulation.getIntensityData().getArray() + 1  # for log scale  @\label{outputdata}@
     pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0]) @\label{plot1}@
@@ -270,8 +275,8 @@ def run_simulation(): @\label{run_simulation}@
 %In function \Code{run\_simulation()}, we associate the sample
 %characterised by function \Code{get\_sample()} with the input beam and
 %output detector, defined in function \Code{get\_simulation()} (line~\ref{runsample}).
-In function defined starting from the line~\ref{run_simulation} we bring all
-items together. We create the sample and the simulation objects at the lines 
+The function, whose definition starts from line~\ref{run_simulation}, gathers all
+items. We create the sample and the simulation objects at the lines 
 ~\ref{get_sample} and \ref{get_simulation}, using calls to the previously defined functions. We assign the sample to the simulation at line ~\ref{setsample} and
 finally launch the simulation at line ~\ref{runsimul}.
 
@@ -294,7 +299,7 @@ cylindrical and prismatic nanoparticles without any interference, deposited on t
 of a substrate. The input beam is characterized by a wavelength
 $\lambda$ of 1~\AA\ and incident angles $\alpha_i=0.2^{\circ}$, $\phi_i=0^{\circ}$. The
 cylinders have a radius and a height both equal to 5~nm, the prisms
-are characterized by a side length equal to 5~nm and they are also 5~nm high. The
+are characterized by a side length equal to 10~nm and they are 5~nm high. The
 material of the particles has a refractive index of $1-6\times 10^{-4}+i2\times 10^{-8}$. For the substrate
 it is equal to $1-6\times 10^{-6} +i2\times 10^{-8} $. The colorscale
 is associated with the output intensity in arbitrary units. }
@@ -344,8 +349,8 @@ session by running \Code{multi\_layer.printSampleTree()}
 			child { node {Particle Info 0} 
 				child {node {Particle }  
 					child { node {FormFactorCylinder} 
-						child { node [optional] { height:5.0} }					
 						child { node [optional] { radius:5.0} }					
+						child { node [optional] { height:5.0} }					
 					}				
 				}
     			child [missing] {}		
@@ -363,7 +368,7 @@ session by running \Code{multi\_layer.printSampleTree()}
 			child { node {Particle Info 1} 
 				child {node {Particle }  
 					child { node {FormFactorPrism3} 
-						child { node [optional] { half\_side:5.0} }					
+						child { node [optional] { length:10.0} }					
 						child { node [optional] { height:5.0} }					
 					}				
 				}
@@ -457,7 +462,7 @@ The sample contains following parameters ('name':value)
 '/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/radius':5
 '/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/abundance':0.5
 '/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/depth':0
-'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/half_side':5
+'/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/length':5
 '/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/Particle/FormFactorPrism3/height':5
 '/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/abundance':0.5
 '/MultiLayer/Layer0/ParticleDecoration/ParticleInfo1/depth':0

@@ -18,11 +18,18 @@ file(GLOB include_files
     "FitKernel/inc/*.h"
 )
 
+# genetic minimizer only available if ROOT present
+if(NOT ROOT_FOUND)
+    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/ROOTGeneticMinimizer.cpp")
+    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/ROOTGeneticMinimizer.h")
+endif()
+
 if(BORNAGAIN_PYTHON)
     file(GLOB source_pythonapi "PythonAPI/src/*.cpp")
     list(APPEND source_files ${source_pythonapi})
     file(GLOB include_pythonapi "PythonAPI/inc/*.h")
     list(APPEND include_files ${include_pythonapi})
+
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
     )
@@ -48,12 +55,14 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+
 # --- dependencies ---
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
+    ${GSL_INCLUDE_DIR}
 )
 target_link_libraries(
     ${library_name}
@@ -61,6 +70,16 @@ target_link_libraries(
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
 )
+
+if(ROOT_FOUND)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAS_GENETIC_MINIMIZER")
+    include_directories(
+        ${ROOT_INCLUDE_DIR}
+    )
+    target_link_libraries(${library_name}
+        ${ROOT_LIBRARIES} -lGenetic -lTMVA
+    )
+endif()
 
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS})

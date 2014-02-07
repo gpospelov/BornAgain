@@ -173,16 +173,6 @@ void register_Beam_class(){
         }
         { //::Beam::setCentralK
         
-            typedef void ( ::Beam::*setCentralK_function_type )( ::cvector_t const & ) ;
-            
-            Beam_exposer.def( 
-                "setCentralK"
-                , setCentralK_function_type( &::Beam::setCentralK )
-                , ( bp::arg("k_i") ) );
-        
-        }
-        { //::Beam::setCentralK
-        
             typedef void ( ::Beam::*setCentralK_function_type )( double,double,double ) ;
             
             Beam_exposer.def( 

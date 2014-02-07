@@ -89,7 +89,7 @@ MultiLayer *MultiLayer::clone() const
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
-    newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
+    if(layer_buffer.size()) newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
@@ -130,7 +130,7 @@ MultiLayer* MultiLayer::cloneInvertB() const
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
-    newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
+    if(layer_buffer.size()) newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
@@ -207,6 +207,9 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size
 
 void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
 {
+    if (thickness < 0.)
+        throw DomainErrorException("Layer thickness cannot be negative");
+
     m_layers[ check_layer_index(i_layer) ]->setThickness(thickness);
     // recalculating z-coordinates of layers
     m_layers_z.clear();

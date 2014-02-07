@@ -77,6 +77,8 @@ public:
     virtual void visit(const FormFactorPrism3 *sample);
     virtual void visit(const FormFactorPrism6 *sample);
     virtual void visit(const FormFactorPyramid *sample);
+    virtual void visit(const FormFactorRipple1 *sample);
+    virtual void visit(const FormFactorRipple2 *sample);
     virtual void visit(const FormFactorSphere *sample);
     virtual void visit(const FormFactorSphereGaussianRadius *sample);
     virtual void visit(const FormFactorTetrahedron *sample);

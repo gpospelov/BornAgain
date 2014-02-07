@@ -19,6 +19,7 @@
 #include "ISampleBuilder.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
+#include "DistributionHandler.h"
 
 #include "EigenCore.h"
 
@@ -43,7 +44,7 @@ public:
     //! Put into a clean state for running a simulation
     void prepareSimulation();
 
-    //! Run a simulation with the current parameter settings
+    //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
     //! Returns intensity for a single detector element
@@ -111,7 +112,7 @@ public:
     void setDetectorResolutionFunction(
         IResolutionFunction2D *p_resolution_function);
     void setDetectorResolutionFunction(
-        const IResolutionFunction2D &p_resolution_function);
+        const IResolutionFunction2D &resolution_function);
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
@@ -131,6 +132,17 @@ public:
         ParameterPool *external_pool,
         int copy_number=-1) const;
 
+	//! add a sampled parameter distribution
+	void addParameterDistribution(const std::string &param_name,
+			const IDistribution1D &distribution, size_t nbr_samples,
+			double sigma_factor=0.0) {
+		m_distribution_handler.addParameterDistribution(param_name,
+				distribution, nbr_samples, sigma_factor);
+	}
+
+    //! OffSpecSimulation needs protected copy constructor
+    friend class OffSpecSimulation;
+
 protected:
     Simulation(const Simulation& other);
 
@@ -146,6 +158,9 @@ protected:
     //! Add the intensity maps from the DWBA simulation to the member maps
     void addToIntensityMaps(DWBASimulation *p_dwba_simulation);
 
+    //! Run a single simulation with the current parameter settings
+    void runSingleSimulation();
+
     // components describing an experiment and its simulation:
     ISample *mp_sample;
     SampleBuilder_t mp_sample_builder;
@@ -157,8 +172,10 @@ protected:
 #ifndef GCCXML_SKIP_THIS
     OutputData<Eigen::Matrix2d> m_polarization_output;
 #endif
-   bool m_is_normalized;
+    bool m_is_normalized;
     const ProgramOptions *mp_options;
+
+    DistributionHandler m_distribution_handler;
 };
 
 #endif /* SIMULATION_H_ */

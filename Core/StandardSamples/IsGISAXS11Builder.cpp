@@ -45,9 +45,9 @@ ISample *IsGISAXS11Builder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
 
     Particle shell_particle(shell_material, new FormFactorParallelepiped(
-            8*Units::nanometer, 8*Units::nanometer));
+            16*Units::nanometer, 8*Units::nanometer));
     Particle core_particle(core_material, new FormFactorParallelepiped(
-            7*Units::nanometer, 6*Units::nanometer));
+            12*Units::nanometer, 7*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
     ParticleDecoration particle_decoration(particle.clone());

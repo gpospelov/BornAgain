@@ -5,8 +5,10 @@
 // the order of 3 guys above is important
 
 #include "IFTDistribution2D.pypp.h" 
+#include "IntensityDataHelper.pypp.h" 
 #include "Detector.pypp.h" 
 #include "FormFactorRipple2.pypp.h" 
+#include "DistributionGaussian.pypp.h" 
 #include "LatticeBasis.pypp.h" 
 #include "ParticleCoreShell.pypp.h" 
 #include "Beam.pypp.h" 
@@ -19,6 +21,7 @@
 #include "vector_integer_t.pypp.h" 
 #include "AxisDouble.pypp.h" 
 #include "IAxis.pypp.h" 
+#include "FormFactorTetrahedron.pypp.h" 
 #include "Layer.pypp.h" 
 #include "ThreadInfo.pypp.h" 
 #include "IFormFactor.pypp.h" 
@@ -42,9 +45,11 @@
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorBox.pypp.h" 
 #include "FormFactorSpheroid.pypp.h" 
+#include "DistributionCosine.pypp.h" 
 #include "IResolutionFunction2D.pypp.h" 
 #include "IFormFactorBorn.pypp.h" 
 #include "MultiLayer.pypp.h" 
+#include "DistributionLorentz.pypp.h" 
 #include "ParticleDecoration.pypp.h" 
 #include "IDecoration.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
@@ -65,19 +70,24 @@
 #include "Instrument.pypp.h" 
 #include "IDetectorResolution.pypp.h" 
 #include "FormFactorHemiEllipsoid.pypp.h" 
+#include "IDistribution1D.pypp.h" 
 #include "ISelectionRule.pypp.h" 
 #include "Bin1D.pypp.h" 
 #include "ParticleInfo.pypp.h" 
 #include "vector_longinteger_t.pypp.h" 
+#include "DistributionLogNormal.pypp.h" 
 #include "LayerInterface.pypp.h" 
 #include "FormFactorFullSphere.pypp.h" 
 #include "Transform3D.pypp.h" 
+#include "OffSpecSimulation.pypp.h" 
+#include "FormFactorRipple1.pypp.h" 
 #include "PositionParticleInfo.pypp.h" 
 #include "LayerRoughness.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
 #include "IntensityData.pypp.h" 
 #include "IParameterized.pypp.h" 
 #include "Bin1DCVector.pypp.h" 
+#include "DistributionGate.pypp.h" 
 #include "StochasticDoubleGate.pypp.h" 
 #include "IClusteredParticles.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
@@ -125,6 +135,12 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IClusteredParticles_class();
     register_Crystal_class();
     register_Detector_class();
+    register_IDistribution1D_class();
+    register_DistributionCosine_class();
+    register_DistributionGate_class();
+    register_DistributionGaussian_class();
+    register_DistributionLogNormal_class();
+    register_DistributionLorentz_class();
     register_IFTDistribution2D_class();
     register_FTDistribution2DCauchy_class();
     register_IFormFactor_class();
@@ -148,11 +164,13 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();
     register_FormFactorPyramid_class();
+    register_FormFactorRipple1_class();
     register_FormFactorRipple2_class();
     register_FormFactorSphere_class();
     register_FormFactorSphereGaussianRadius_class();
     register_FormFactorSphereUniformRadius_class();
     register_FormFactorSpheroid_class();
+    register_FormFactorTetrahedron_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_Transform3D_class();
@@ -167,6 +185,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
     register_Instrument_class();
+    register_IntensityDataHelper_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunction2DLattice_class();
     register_InterferenceFunction2DParaCrystal_class();
@@ -181,6 +200,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MaterialManager_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
+    register_OffSpecSimulation_class();
     register_IntensityData_class();
     register_OutputDataIOFactory_class();
     register_ParameterPool_class();

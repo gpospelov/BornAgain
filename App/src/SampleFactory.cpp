@@ -23,7 +23,8 @@
 
 SampleFactory::SampleFactory()
 {
-    setOwnObjects(true); //factory will take care about samples
+    //setOwnObjects(true); //factory will take care about samples
+    setOwnObjects(false);
 
     // samples used for reflection/transmission coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);
@@ -54,8 +55,11 @@ SampleFactory::SampleFactory()
 //    registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);
 
     // mesocrystal's
-    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
+//    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
 //    registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
+
+//    registerItem("PolarizedDWBATestCase", StandardSamples::PolarizedDWBATestCase);
+
 
 //    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);
 //    registerItem("FormFactor_Cone", StandardSamples::FormFactor_Cone);

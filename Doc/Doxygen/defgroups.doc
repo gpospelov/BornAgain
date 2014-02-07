@@ -10,7 +10,8 @@
 @brief Classes to describe magnetic and non-magnetic materials.
 
 \defgroup formfactors Available formfactors
-@brief Available form factors.
+@brief Available form factors. 
+@image html Table_3Dshapes1.png "Schematic views of available form factors" 
 
 \defgroup interference Interference functions
 @brief Available interference functions.
@@ -20,7 +21,6 @@
 
 \defgroup fitting Fitting
 @brief Classes to fit the data.
-
 
 
 \defgroup simulation_internal Simulation internals

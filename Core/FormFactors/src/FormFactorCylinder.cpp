@@ -19,11 +19,11 @@
 #include "MathFunctions.h"
 #include "Numeric.h"
 
-FormFactorCylinder::FormFactorCylinder(double height, double radius)
+FormFactorCylinder::FormFactorCylinder(double radius, double height)
 {
     setName("FormFactorCylinder");
-    m_height = height;
     m_radius = radius;
+    m_height = height;
     init_parameters();
 }
 
@@ -32,13 +32,13 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
 void FormFactorCylinder::init_parameters()
 {
     clearParameterPool();
-    registerParameter("height", &m_height);
     registerParameter("radius", &m_radius);
+    registerParameter("height", &m_height);
 }
 
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    FormFactorCylinder *result = new FormFactorCylinder(m_height, m_radius);
+    FormFactorCylinder *result = new FormFactorCylinder(m_radius, m_height);
     result->setName(getName());
     return result;
 }
@@ -54,7 +54,7 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const
 
     complex_t qrR = q.magxy()*R;
     complex_t J1_qrR_div_qrR = std::abs(qrR) > Numeric::double_epsilon ?
-        MathFunctions::Bessel_J1(std::abs(qrR))/(std::abs(qrR)) :
+        MathFunctions::Bessel_C1(qrR) :
         0.5;
     complex_t radial_part = 2*M_PI*R*R*J1_qrR_div_qrR;
 

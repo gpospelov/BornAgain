@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRipple2 > {
 
-    FormFactorRipple2_wrapper(double width, double height, double length, double asymetry )
-    : FormFactorRipple2( width, height, length, asymetry )
+    FormFactorRipple2_wrapper(double length, double width, double height, double asymetry )
+    : FormFactorRipple2( length, width, height, asymetry )
       , bp::wrapper< FormFactorRipple2 >(){
         // constructor
     
@@ -35,6 +35,18 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
     
     ::FormFactorRipple2 * default_clone(  ) const  {
         return FormFactorRipple2::clone( );
+    }
+
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else
+            return this->FormFactorRipple2::evaluate_for_q( boost::ref(q) );
+    }
+    
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorRipple2::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getAsymetry(  ) const  {
@@ -169,16 +181,16 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -314,7 +326,7 @@ void register_FormFactorRipple2_class(){
 
     { //::FormFactorRipple2
         typedef bp::class_< FormFactorRipple2_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorRipple2_exposer_t;
-        FormFactorRipple2_exposer_t FormFactorRipple2_exposer = FormFactorRipple2_exposer_t( "FormFactorRipple2", bp::init< double, double, double, double >(( bp::arg("width"), bp::arg("height"), bp::arg("length"), bp::arg("asymetry") )) );
+        FormFactorRipple2_exposer_t FormFactorRipple2_exposer = FormFactorRipple2_exposer_t( "FormFactorRipple2", bp::init< double, double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height"), bp::arg("asymetry") )) );
         bp::scope FormFactorRipple2_scope( FormFactorRipple2_exposer );
         { //::FormFactorRipple2::clone
         
@@ -326,6 +338,18 @@ void register_FormFactorRipple2_class(){
                 , clone_function_type(&::FormFactorRipple2::clone)
                 , default_clone_function_type(&FormFactorRipple2_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::FormFactorRipple2::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorRipple2::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorRipple2_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorRipple2_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorRipple2::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorRipple2_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
         
         }
         { //::FormFactorRipple2::getAsymetry
@@ -455,8 +479,8 @@ void register_FormFactorRipple2_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorRipple2_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorRipple2_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorRipple2_exposer.def( 
                 "evaluate"

@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyramid > {
 
-    FormFactorPyramid_wrapper(double height, double half_side, double alpha )
-    : FormFactorPyramid( height, half_side, alpha )
+    FormFactorPyramid_wrapper(double length, double height, double alpha )
+    : FormFactorPyramid( length, height, alpha )
       , bp::wrapper< FormFactorPyramid >(){
         // constructor
     
@@ -61,18 +61,6 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return FormFactorPyramid::getAlpha( );
     }
 
-    virtual double getHalfSide(  ) const  {
-        if( bp::override func_getHalfSide = this->get_override( "getHalfSide" ) )
-            return func_getHalfSide(  );
-        else
-            return this->FormFactorPyramid::getHalfSide(  );
-    }
-    
-    
-    double default_getHalfSide(  ) const  {
-        return FormFactorPyramid::getHalfSide( );
-    }
-
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -83,6 +71,18 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
     
     double default_getHeight(  ) const  {
         return FormFactorPyramid::getHeight( );
+    }
+
+    virtual double getLength(  ) const  {
+        if( bp::override func_getLength = this->get_override( "getLength" ) )
+            return func_getLength(  );
+        else
+            return this->FormFactorPyramid::getLength(  );
+    }
+    
+    
+    double default_getLength(  ) const  {
+        return FormFactorPyramid::getLength( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -109,18 +109,6 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         FormFactorPyramid::setAlpha( alpha );
     }
 
-    virtual void setHalfSide( double half_side ) {
-        if( bp::override func_setHalfSide = this->get_override( "setHalfSide" ) )
-            func_setHalfSide( half_side );
-        else
-            this->FormFactorPyramid::setHalfSide( half_side );
-    }
-    
-    
-    void default_setHalfSide( double half_side ) {
-        FormFactorPyramid::setHalfSide( half_side );
-    }
-
     virtual void setHeight( double height ) {
         if( bp::override func_setHeight = this->get_override( "setHeight" ) )
             func_setHeight( height );
@@ -131,6 +119,18 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
     
     void default_setHeight( double height ) {
         FormFactorPyramid::setHeight( height );
+    }
+
+    virtual void setLength( double length ) {
+        if( bp::override func_setLength = this->get_override( "setLength" ) )
+            func_setLength( length );
+        else
+            this->FormFactorPyramid::setLength( length );
+    }
+    
+    
+    void default_setLength( double length ) {
+        FormFactorPyramid::setLength( length );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -205,16 +205,16 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -350,7 +350,7 @@ void register_FormFactorPyramid_class(){
 
     { //::FormFactorPyramid
         typedef bp::class_< FormFactorPyramid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorPyramid_exposer_t;
-        FormFactorPyramid_exposer_t FormFactorPyramid_exposer = FormFactorPyramid_exposer_t( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) );
+        FormFactorPyramid_exposer_t FormFactorPyramid_exposer = FormFactorPyramid_exposer_t( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("length"), bp::arg("height"), bp::arg("alpha") )) );
         bp::scope FormFactorPyramid_scope( FormFactorPyramid_exposer );
         { //::FormFactorPyramid::clone
         
@@ -387,17 +387,6 @@ void register_FormFactorPyramid_class(){
                 , default_getAlpha_function_type(&FormFactorPyramid_wrapper::default_getAlpha) );
         
         }
-        { //::FormFactorPyramid::getHalfSide
-        
-            typedef double ( ::FormFactorPyramid::*getHalfSide_function_type )(  ) const;
-            typedef double ( FormFactorPyramid_wrapper::*default_getHalfSide_function_type )(  ) const;
-            
-            FormFactorPyramid_exposer.def( 
-                "getHalfSide"
-                , getHalfSide_function_type(&::FormFactorPyramid::getHalfSide)
-                , default_getHalfSide_function_type(&FormFactorPyramid_wrapper::default_getHalfSide) );
-        
-        }
         { //::FormFactorPyramid::getHeight
         
             typedef double ( ::FormFactorPyramid::*getHeight_function_type )(  ) const;
@@ -407,6 +396,17 @@ void register_FormFactorPyramid_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorPyramid::getHeight)
                 , default_getHeight_function_type(&FormFactorPyramid_wrapper::default_getHeight) );
+        
+        }
+        { //::FormFactorPyramid::getLength
+        
+            typedef double ( ::FormFactorPyramid::*getLength_function_type )(  ) const;
+            typedef double ( FormFactorPyramid_wrapper::*default_getLength_function_type )(  ) const;
+            
+            FormFactorPyramid_exposer.def( 
+                "getLength"
+                , getLength_function_type(&::FormFactorPyramid::getLength)
+                , default_getLength_function_type(&FormFactorPyramid_wrapper::default_getLength) );
         
         }
         { //::FormFactorPyramid::getNumberOfStochasticParameters
@@ -432,18 +432,6 @@ void register_FormFactorPyramid_class(){
                 , ( bp::arg("alpha") ) );
         
         }
-        { //::FormFactorPyramid::setHalfSide
-        
-            typedef void ( ::FormFactorPyramid::*setHalfSide_function_type )( double ) ;
-            typedef void ( FormFactorPyramid_wrapper::*default_setHalfSide_function_type )( double ) ;
-            
-            FormFactorPyramid_exposer.def( 
-                "setHalfSide"
-                , setHalfSide_function_type(&::FormFactorPyramid::setHalfSide)
-                , default_setHalfSide_function_type(&FormFactorPyramid_wrapper::default_setHalfSide)
-                , ( bp::arg("half_side") ) );
-        
-        }
         { //::FormFactorPyramid::setHeight
         
             typedef void ( ::FormFactorPyramid::*setHeight_function_type )( double ) ;
@@ -454,6 +442,18 @@ void register_FormFactorPyramid_class(){
                 , setHeight_function_type(&::FormFactorPyramid::setHeight)
                 , default_setHeight_function_type(&FormFactorPyramid_wrapper::default_setHeight)
                 , ( bp::arg("height") ) );
+        
+        }
+        { //::FormFactorPyramid::setLength
+        
+            typedef void ( ::FormFactorPyramid::*setLength_function_type )( double ) ;
+            typedef void ( FormFactorPyramid_wrapper::*default_setLength_function_type )( double ) ;
+            
+            FormFactorPyramid_exposer.def( 
+                "setLength"
+                , setLength_function_type(&::FormFactorPyramid::setLength)
+                , default_setLength_function_type(&FormFactorPyramid_wrapper::default_setLength)
+                , ( bp::arg("length") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -528,8 +528,8 @@ void register_FormFactorPyramid_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorPyramid_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorPyramid_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorPyramid_exposer.def( 
                 "evaluate"

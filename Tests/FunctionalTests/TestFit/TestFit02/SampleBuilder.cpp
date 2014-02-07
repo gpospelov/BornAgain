@@ -19,7 +19,7 @@ using namespace FunctionalTests;
 SampleBuilder::SampleBuilder()
     : m_cylinder_height(5.0*Units::nanometer)
     , m_cylinder_radius(5.0*Units::nanometer)
-    , m_prism3_half_side(5.0*Units::nanometer)
+    , m_prism3_length(10.0*Units::nanometer)
     , m_prism3_height(5.0*Units::nanometer)
     , m_cylinder_ratio(0.2)
 {
@@ -32,7 +32,7 @@ void SampleBuilder::init_parameters()
     clearParameterPool();
     registerParameter("cylinder_height", &m_cylinder_height);
     registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("prism3_half_side", &m_prism3_half_side);
+    registerParameter("prism3_length", &m_prism3_length);
     registerParameter("prism3_height", &m_prism3_height);
     registerParameter("cylinder_ratio", &m_cylinder_ratio);
 }
@@ -54,8 +54,8 @@ ISample *SampleBuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
 
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)),0.0, m_cylinder_ratio);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_length, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);

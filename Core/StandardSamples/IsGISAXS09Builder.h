@@ -33,8 +33,8 @@ protected:
     void init_parameters();
 
 private:
+    double m_length;
     double m_height;
-    double m_half_side;
     double m_alpha;
 };
 
@@ -53,8 +53,8 @@ protected:
     void init_parameters();
 
 private:
+    double m_length;
     double m_height;
-    double m_half_side;
     double m_alpha;
     double m_zangle;
 };

@@ -1,6 +1,7 @@
 #ifndef PYTHONSCRIPTSAMPLEBUILDER_H
 #define PYTHONSCRIPTSAMPLEBUILDER_H
 
+
 #include "ISampleBuilder.h"
 
 #include <QFileInfo>

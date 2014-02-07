@@ -26,8 +26,8 @@
 // Pyramids on top of substrate
 // ----------------------------------------------------------------------------
 IsGISAXS09ABuilder::IsGISAXS09ABuilder()
-    : m_height(5*Units::nanometer)
-    , m_half_side(5*Units::nanometer)
+    : m_length(10*Units::nanometer)
+    , m_height(5*Units::nanometer)
     , m_alpha(Units::deg2rad(54.73 ))
 {
     init_parameters();
@@ -37,8 +37,8 @@ IsGISAXS09ABuilder::IsGISAXS09ABuilder()
 void IsGISAXS09ABuilder::init_parameters()
 {
     clearParameterPool();
+    registerParameter("length", &m_length);
     registerParameter("height", &m_height);
-    registerParameter("half_side", &m_half_side);
     registerParameter("alpha", &m_alpha);
 }
 
@@ -61,7 +61,7 @@ ISample *IsGISAXS09ABuilder::buildSample() const
 //    complex_t n_particle(1.0-6e-4, 2e-8);
     ParticleDecoration particle_decoration(
         new Particle(particle_material,
-                     new FormFactorPyramid(m_height, m_half_side, m_alpha) ) );
+                     new FormFactorPyramid(m_length, m_height, m_alpha) ) );
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -78,8 +78,8 @@ ISample *IsGISAXS09ABuilder::buildSample() const
 // Rotated pyramids on top of substrate
 // ----------------------------------------------------------------------------
 IsGISAXS09BBuilder::IsGISAXS09BBuilder()
-    : m_height(5*Units::nanometer)
-    , m_half_side(5*Units::nanometer)
+    : m_length(10*Units::nanometer)
+    , m_height(5*Units::nanometer)
     , m_alpha(Units::deg2rad(54.73 ))
     , m_zangle(45.*Units::degree)
 {
@@ -90,8 +90,8 @@ IsGISAXS09BBuilder::IsGISAXS09BBuilder()
 void IsGISAXS09BBuilder::init_parameters()
 {
     clearParameterPool();
+    registerParameter("length", &m_length);
     registerParameter("height", &m_height);
-    registerParameter("half_side", &m_half_side);
     registerParameter("alpha", &m_alpha);
     registerParameter("zangle", &m_zangle);
 }
@@ -114,7 +114,7 @@ ISample *IsGISAXS09BBuilder::buildSample() const
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     Particle *pyramid = new Particle(
         particle_material,
-        new FormFactorPyramid(m_height, m_half_side, m_alpha)
+        new FormFactorPyramid(m_length, m_height, m_alpha)
                 );
 
     Geometry::Transform3D transform =

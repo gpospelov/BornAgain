@@ -1,6 +1,7 @@
 #include "TestFunctionalTests.h"
 #include "ProgramOptions.h"
 #include "IsGISAXSTools.h"
+#include "OutputDataFunctions.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -13,6 +14,17 @@ void TestFunctionalTests::execute()
     for(size_t i=0; i<m_testNames.size(); ++i) {
         FunctionalTest_t test = m_testRegistry.getTest(m_testNames[i]);
         test->runTest();
+        test->analyseResults();
+
+//        double diff = OutputDataFunctions::GetDifference(*test->getResult(), *test->getReference());
+//        std::cout << "XXX " << diff << std::endl;
+
+//        for(size_t j=0; j<test->getResult()->getAllocatedSize(); ++j) {
+//            std::cout << "AAA " << j << " " << (*test->getResult())[j]
+//                         << " " << (*test->getReference())[j]
+//                         << " diff:" << ((*test->getResult())[j] - (*test->getReference())[j])/(*test->getReference())[j]
+//                            << std::endl;
+//        }
 
         IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
             *test->getReference(), test->getName(), test->getDescription());

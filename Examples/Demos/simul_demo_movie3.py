@@ -21,9 +21,9 @@ def RunSimulation():
     mLayer = MaterialManager.getHomogeneousMaterial("Layer", 2e-5, 2e-8)
 
     # collection of particles
-    cylinder_ff1 = FormFactorCylinder(5 * nanometer, 2 * nanometer)
-    cylinder_ff2 = FormFactorCylinder(6 * nanometer, 3 * nanometer)
-    cylinder_ff3 = FormFactorCylinder(7 * nanometer, 4 * nanometer)
+    cylinder_ff1 = FormFactorCylinder(2 * nanometer, 5 * nanometer)
+    cylinder_ff2 = FormFactorCylinder(3 * nanometer, 6 * nanometer)
+    cylinder_ff3 = FormFactorCylinder(4 * nanometer, 7 * nanometer)
     cylinder1 = Particle(mParticle, cylinder_ff1)
     cylinder2 = Particle(mParticle, cylinder_ff2)
     cylinder3 = Particle(mParticle, cylinder_ff3)

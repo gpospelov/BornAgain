@@ -25,7 +25,10 @@
 class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {
 public:
-    FormFactorCylinder(double height, double radius);
+    //! @brief Cylinder constructor
+    //! @param radius of Cylinder's base
+    //! @param height of Cylinder
+    FormFactorCylinder(double radius, double height);
     ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
 
@@ -45,8 +48,8 @@ protected:
     virtual void init_parameters();
 
 private:
-    double m_height;
     double m_radius;
+    double m_height;
 };
 
 #endif // FORMFACTORCYLINDER_H

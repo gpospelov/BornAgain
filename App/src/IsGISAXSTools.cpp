@@ -692,12 +692,12 @@ void IsGISAXSTools::drawOutputDataComparisonResults(
     if(hasMinimum()) IsGISAXSTools::setMinimum(hmin);
     //if(hmax>0) IsGISAXSTools::setMaximum(hmax);
     if(hasMaximum()) IsGISAXSTools::setMaximum(hmax);
-    IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
+    IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "data");
 
     // isgisaxs data
     c1->cd(2); gPad->SetLogz();
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataInPad(reference, "CONT4 Z", "isgi");
+    IsGISAXSTools::drawOutputDataInPad(reference, "CONT4 Z", "reference");
 
     // difference
     c1->cd(3);

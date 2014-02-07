@@ -18,7 +18,7 @@
 
 #include "IObserver.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
-
+class FitSuite;
 
 //! @class FitSuitePrintObserver
 //! @ingroup fitting_internal
@@ -33,9 +33,15 @@ public:
     void update(IObservable *subject);
 
 private:
+    bool skipIteration();
+    void checkStrategy();
+
+    FitSuite *m_fitSuite;
     int m_print_every_nth;
+    int m_previous_strategy_index;
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_last_call_time;
+    bool m_strategy_is_changed;
 };
 
 #endif // FITSUITEPRINTOBSERVER_H

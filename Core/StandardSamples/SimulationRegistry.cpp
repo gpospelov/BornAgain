@@ -45,16 +45,16 @@ SimulationRegistry::SimulationRegistry()
         "IsGISAXS04 example, 2DDL structure factor");
 
     registerItem(
-        "isgisaxs06_lattice1", StandardSimulations::IsGISAXS06L1,
+        "isgisaxs06a", StandardSimulations::IsGISAXS06L1,
         "2D lattice with disorders");
     registerItem(
-        "isgisaxs06_lattice2", StandardSimulations::IsGISAXS06L2,
+        "isgisaxs06b", StandardSimulations::IsGISAXS06L2,
         "2D lattice centered");
     registerItem(
-        "isgisaxs06_lattice3", StandardSimulations::IsGISAXS06L3,
+        "isgisaxs06c", StandardSimulations::IsGISAXS06L3,
         "2D lattice rotated");
     registerItem(
-        "isgisaxs06_lattice4", StandardSimulations::IsGISAXS06L4,
+        "isgisaxs06d", StandardSimulations::IsGISAXS06L4,
         "2D lattice variants");
 
     registerItem(
@@ -91,9 +91,12 @@ SimulationRegistry::SimulationRegistry()
         "mesocrystal01", StandardSimulations::MesoCrystal01,
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
-	registerItem(
-        "PolarizedDWBAZeroMag", StandardSimulations::PolarizedDWBAZeroMag,
+    registerItem(
+        "magcyl1", StandardSimulations::PolarizedDWBAMagCylinders1,
         "Polarized DWBA with zero magnetic field");
+    registerItem(
+        "magcyl2", StandardSimulations::PolarizedDWBAMagCylinders2,
+        "Polarized DWBA with non-zero magnetic field");
 
     registerItem(
         "LayerWithRoughness", StandardSimulations::LayerWithRoughness,
@@ -102,6 +105,10 @@ SimulationRegistry::SimulationRegistry()
     registerItem(
         "ripple2", StandardSimulations::Ripple2,
         "Triangular ripple within the 1D-paracrystal model");
+
+    registerItem(
+        "ripple1", StandardSimulations::Ripple1,
+        "Cosine ripple within the 1D-paracrystal model");
 
 }
 

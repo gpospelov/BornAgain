@@ -8,6 +8,7 @@
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
 #include "DetectorTest.h"
+#include "DWBASimulationTest.h"
 #include "FormFactorTest.h"
 #include "InstrumentTest.h"
 #include "IParameterizedTest.h"
@@ -27,6 +28,16 @@
 #include "TRangeTest.h"
 #include "AxisBinTest.h"
 #include "FTDistributionsTest.h"
+#include "MultiLayerTest.h"
+#include "ParticleDecorationTest.h"
+#include "HomogeneousMaterialTest.h"
+#include "HomogeneousMagneticMaterialTest.h"
+#include "ScalarRTCoefficientsTest.h"
+#include "SpecularMatrixTest.h"
+#include "MatrixRTCoefficientsTest.h"
+#include "ScalarSpecularInfoMapTest.h"
+#include "MatrixSpecularInfoMapTest.h"
+#include "MathFunctionsTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

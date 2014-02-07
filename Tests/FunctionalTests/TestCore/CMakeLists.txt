@@ -26,9 +26,11 @@ set(list_of_tests
     "IsGISAXS15"
     "FormFactors"
     "MesoCrystal1"
-    "PolarizedDWBAZeroMag"
+    "PolDWBAMagCylinders1"
+    "PolDWBAMagCylinders2"
     "LayerRoughness"
     "Ripple2"
+    "Ripple1"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
@@ -41,6 +43,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR}
 )
 
 foreach(_test ${list_of_tests})

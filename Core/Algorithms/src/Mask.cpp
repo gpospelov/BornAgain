@@ -34,11 +34,11 @@ Mask* Mask::clone() const
     return p_new;
 }
 
-size_t Mask::getFirstValidIndex()
+size_t Mask::getFirstValidIndex(size_t start_index)
 {
     m_own_index = 0;
-    size_t result = 0;
-    if (mp_submask) result = mp_submask->getFirstValidIndex();
+    size_t result = start_index;
+    if (mp_submask) result = mp_submask->getFirstValidIndex(start_index);
     while (isMasked(result)) {
         result = nextSubIndex(result);
         if (result >= m_max_index) {

@@ -39,10 +39,7 @@ public:
     virtual ~Beam() {}
 
     //! Get the value of the wavevector
-    cvector_t getCentralK() const { return m_central_k; }
-
-    //! Sets the value of the incoming wavevector
-    void setCentralK(const cvector_t& k_i);
+    cvector_t getCentralK() const;
 
     //! Sets the value of the incoming wavevector in terms of wavelength
     //! and incoming angles
@@ -84,7 +81,7 @@ private:
     //! Initialize polarization (for constructors)
     void initPolarization();
 
-    cvector_t m_central_k;  //!< incoming wavevector
+    double m_lambda, m_alpha, m_phi; //!< wavelength and angles of beam
     double m_intensity;     //!< beam intensity (neutrons/sec)
 #ifndef GCCXML_SKIP_THIS
     Eigen::Matrix2cd m_polarization; //!< polarization density matrix

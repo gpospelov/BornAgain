@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QString>
 #include <QFutureWatcher>
+#include "OutputData.h"
 
 class Simulation;
 class TH2D;
@@ -23,6 +24,8 @@ public:
     void run();
 
     TH2D *getHistogram();
+
+    const OutputData<double> *getOutputData();
 
 public slots:
     void onJobFinished();

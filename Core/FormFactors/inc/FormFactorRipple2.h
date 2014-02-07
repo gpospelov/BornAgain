@@ -27,9 +27,14 @@
 class BA_CORE_API_ FormFactorRipple2 : public IFormFactorBorn
 {
 public:
-    FormFactorRipple2(double width, double height, double length, double asymetry);
+    //! @brief Ripple2 constructor
+    //! @param length of Ripple2
+    //! @param width of triangular cross section
+    //! @param height of triangular cross section
+    //! @param asymmetry length of triangular cross section
+    FormFactorRipple2(double length, double width, double height, double asymetry);
 
-    ~FormFactorRipple2() { delete m_integrator; }
+    virtual ~FormFactorRipple2() { }
 
     virtual FormFactorRipple2 *clone() const;
 
@@ -44,20 +49,17 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-private:
-    complex_t Integrand(double Z, void* params) const;
-
+protected:
     virtual void init_parameters();
 
+private:
     double m_width;
     double m_height;
     double m_length;
     double m_d;
     mutable cvector_t m_q;
-
-    MemberComplexFunctionIntegrator<FormFactorRipple2> *m_integrator;
 };
 
-#endif // FORMFACTORSPHERE_H
+#endif // FORMFACTORRIPPLE2_H
 
 

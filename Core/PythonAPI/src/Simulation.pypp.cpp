@@ -136,6 +136,16 @@ void register_Simulation_class(){
         typedef bp::class_< Simulation_wrapper, bp::bases< ICloneable, IParameterized >, boost::noncopyable > Simulation_exposer_t;
         Simulation_exposer_t Simulation_exposer = Simulation_exposer_t( "Simulation", bp::init< >() );
         bp::scope Simulation_scope( Simulation_exposer );
+        { //::Simulation::addParameterDistribution
+        
+            typedef void ( ::Simulation::*addParameterDistribution_function_type )( ::std::string const &,::IDistribution1D const &,::std::size_t,double ) ;
+            
+            Simulation_exposer.def( 
+                "addParameterDistribution"
+                , addParameterDistribution_function_type( &::Simulation::addParameterDistribution )
+                , ( bp::arg("param_name"), bp::arg("distribution"), bp::arg("nbr_samples"), bp::arg("sigma_factor")=0.0 ) );
+        
+        }
         { //::Simulation::clone
         
             typedef ::Simulation * ( ::Simulation::*clone_function_type )(  ) const;
@@ -301,7 +311,7 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "setDetectorResolutionFunction"
                 , setDetectorResolutionFunction_function_type( &::Simulation::setDetectorResolutionFunction )
-                , ( bp::arg("p_resolution_function") ) );
+                , ( bp::arg("resolution_function") ) );
         
         }
         { //::Simulation::setInstrument

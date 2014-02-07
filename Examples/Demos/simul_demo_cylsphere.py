@@ -16,7 +16,7 @@ def RunSimulation():
     mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = FormFactorCylinder(5 * nanometer, 2 * nanometer)
+    cylinder_ff = FormFactorCylinder(2 * nanometer, 5 * nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     sphere_ff = FormFactorFullSphere(4 * nanometer)
     sphere = Particle(mParticle, sphere_ff)

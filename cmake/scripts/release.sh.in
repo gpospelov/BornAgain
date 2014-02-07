@@ -6,11 +6,16 @@
 set -e
 
 # set the variables
+# cmake options to compile the downloaded source package, redefine or remove it if needed
+MY_CMAKE_OPTIONS="CMAKE_PREFIX_PATH=/opt/local"
 # version of the BornAgain. Will be set autimatically by CMake
 BA_VERSION_MAJOR=@BornAgain_VERSION_MAJOR@
 BA_VERSION_MINOR=@BornAgain_VERSION_MINOR@
 BA_VERSION_PATCH=@BornAgain_VERSION_PATCH@
 BA_VERSION=$BA_VERSION_MAJOR.$BA_VERSION_MINOR.$BA_VERSION_PATCH
+
+# version of the Users Manual
+MAN_VERSION="0.2.2"
 
 # Where is your git source tree? 
 # Set the path here or CMake will set it for you.
@@ -45,6 +50,7 @@ Please select what you want to do:
 1. Prepare a release
 2. Upload release to the apps server
 3. Finalize git
+4. Check uploaded BornAgain source package
 H. Display a help message
 Q. Quit
 "
@@ -90,11 +96,10 @@ case $REPLY in
     cmake -D BORNAGAIN_APP=ON -D BORNAGAIN_MAN=ON --build $CMAKE_BUILD_DIR $CMAKE_SOURCE_DIR && make -j 4
 
     # Update picture number of lines of code
-    # [TODO:] change qqq.png to lines_of_code.png after testing
     python $CMAKE_SOURCE_DIR/dev-tools/git-utils/cl_lines_of_code.py -i $GIT_SOURCE_TREE -o $CMAKE_SOURCE_DIR/dev-tools/git-utils/lines_of_code.png
 
     # Measure the performance
-    $CMAKE_BUILD_DIR/bin/App --performance --batch --threads=-1
+    $CMAKE_BUILD_DIR/bin/App --performance --batch
 
     # Modify file dev-tools/log/perf_history.txt
     # the commented code exits in the case of no input with bash -e option
@@ -114,7 +119,7 @@ case $REPLY in
     # remove old manual
     rm -f $RELEASE_DIR/UserManual*.pdf
     # copy the new manual to the release_dir
-    cp $CMAKE_BUILD_DIR/Doc/UserManual/UserManual.pdf $RELEASE_DIR/UserManual-$BA_VERSION.pdf
+    cp $CMAKE_BUILD_DIR/Doc/UserManual/UserManual.pdf $RELEASE_DIR/UserManual-$MAN_VERSION.pdf
 
     # 2. Prepare package source tarball
     cd $CMAKE_BUILD_DIR
@@ -173,7 +178,8 @@ case $REPLY in
         $GIT_COMMAND tag -a $BA_VERSION -m "Release $BA_VERSION"
 
         #echo "--> $GIT_COMMAND push"
-        $GIT_COMMAND push
+	# I've added --tags option, it should push also the tags
+        $GIT_COMMAND push --tags
 
         # finalize develop
         echo "finalize develop"
@@ -181,7 +187,7 @@ case $REPLY in
         $GIT_COMMAND checkout develop
 
         echo "--> $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m \"Merge $BA_VERSION\""
-        $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_BERSION"
+        $GIT_COMMAND merge --no-ff $RELEASE_BRANCH_NAME -m "Merge $BA_VERSION"
 
         #echo "--> $GIT_COMMAND push"
         $GIT_COMMAND push
@@ -197,6 +203,27 @@ case $REPLY in
         else
         echo "Please answer y for yes or n for no."
     fi
+    exit
+    ;;
+  4) echo "Downloading the BornAgain-$BA_VERSION.tar.gz"
+    cd $CMAKE_BUILD_DIR
+    if [[ -f BornAgain-$BA_VERSION.tar.gz ]]; then
+      rm -f BornAgain-$BA_VERSION.tar.gz
+    fi
+    wget http://apps.jcns.fz-juelich.de/src/BornAgain/BornAgain-$BA_VERSION.tar.gz
+    echo "Unpacking"
+    tar zxf BornAgain-$BA_VERSION.tar.gz
+    echo "Compile and check the unpacked file"
+    if [[ -d tmpbuild ]]; then
+        echo "tmpbuild already exists. The contents will be removed."
+        # or clean it if  exists
+        rm -rf tmpbuild/*
+    else
+        mkdir tmpbuild
+    fi
+    cd tmpbuild
+    cmake -D $MY_CMAKE_OPTIONS --build  ../BornAgain-$BA_VERSION && make -j 4 && make check
+    echo "[OK] The uploaded file was compiled and checked successfully."
     exit
     ;;
   *) echo "Invalid entry"

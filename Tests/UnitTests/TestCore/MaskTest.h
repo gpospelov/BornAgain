@@ -50,7 +50,7 @@ MaskTest::~MaskTest()
 
 TEST_F(MaskTest, DefaultFirstIndex)
 {
-    EXPECT_EQ((size_t)0, p_default_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_default_mask->getFirstValidIndex(0));
 }
 
 TEST_F(MaskTest, DefaultNextUninitialized)
@@ -80,7 +80,7 @@ TEST_F(MaskTest, DefaultClone)
 {
     Mask *p_mask  = new Mask();
     p_mask->setMaxIndex(10);
-    EXPECT_EQ((size_t)0, p_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)1, p_mask->getNextIndex(0));
     Mask *p_clone = p_mask->clone();
     EXPECT_EQ((size_t)2, p_clone->getNextIndex(1));
@@ -94,7 +94,7 @@ TEST_F(MaskTest, DefaultClone)
 
 TEST_F(MaskTest, ModuloFirstIndex)
 {
-    EXPECT_EQ((size_t)1, p_modulo_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)1, p_modulo_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)10, p_modulo_mask->getMaxIndex());
 }
 
@@ -131,7 +131,7 @@ TEST_F(MaskTest, ModuloClone)
 {
     Mask *p_mask  = new MaskIndexModulus(3,1);
     p_mask->setMaxIndex(10);
-    EXPECT_EQ((size_t)1, p_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)1, p_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)4, p_mask->getNextIndex(1));
     Mask *p_clone = p_mask->clone();
     EXPECT_EQ((size_t)7, p_clone->getNextIndex(4));
@@ -145,7 +145,7 @@ TEST_F(MaskTest, ModuloClone)
 
 TEST_F(MaskTest, RectangularFirstIndex)
 {
-    EXPECT_EQ((size_t)0, p_rectangular_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_rectangular_mask->getFirstValidIndex(0));
 }
 
 TEST_F(MaskTest, RectangularNextUninitialized)
@@ -187,7 +187,7 @@ TEST_F(MaskTest, RectangularNextEnd)
 TEST_F(MaskTest, RectangularClone)
 {
     Mask *p_mask  = p_rectangular_mask->clone();
-    EXPECT_EQ((size_t)0, p_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)1, p_mask->getNextIndex(0));
     Mask *p_clone = p_mask->clone();
     EXPECT_EQ((size_t)2, p_clone->getNextIndex(1));
@@ -201,7 +201,7 @@ TEST_F(MaskTest, RectangularClone)
 
 TEST_F(MaskTest, EllipseFirstIndex)
 {
-    EXPECT_EQ((size_t)0, p_ellipse_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_ellipse_mask->getFirstValidIndex(0));
 }
 
 TEST_F(MaskTest, EllipseNextUninitialized)
@@ -244,7 +244,7 @@ TEST_F(MaskTest, EllipseClone)
 {
     Mask *p_mask  = p_ellipse_mask->clone();
     p_mask->setMaxIndex(10);
-    EXPECT_EQ((size_t)0, p_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)1, p_mask->getNextIndex(0));
     Mask *p_clone = p_mask->clone();
     EXPECT_EQ((size_t)2, p_clone->getNextIndex(1));
@@ -260,7 +260,7 @@ TEST_F(MaskTest, CompoundMask)
 {
     Mask *p_compound_mask = new MaskIndexModulus(3, 0, p_default_mask->clone());
     p_compound_mask->setMaxIndex(10);
-    EXPECT_EQ((size_t)0, p_compound_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)0, p_compound_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)3, p_compound_mask->getNextIndex(0));
     EXPECT_EQ((size_t)6, p_compound_mask->getNextIndex(3));
     EXPECT_EQ((size_t)9, p_compound_mask->getNextIndex(6));
@@ -274,14 +274,14 @@ TEST_F(MaskTest, CompoundMaskClone)
 {
     Mask *p_compound_mask = new MaskIndexModulus(3, 1, p_default_mask->clone());
     p_compound_mask->setMaxIndex(20);
-    EXPECT_EQ((size_t)1, p_compound_mask->getFirstValidIndex());
+    EXPECT_EQ((size_t)1, p_compound_mask->getFirstValidIndex(0));
     EXPECT_EQ((size_t)4, p_compound_mask->getNextIndex(1));
     EXPECT_EQ((size_t)7, p_compound_mask->getNextIndex(4));
     EXPECT_EQ((size_t)7, p_compound_mask->getOwnIndex());
     EXPECT_EQ((size_t)20, p_compound_mask->getMaxIndex());
     Mask *p_compound_clone = p_compound_mask->clone();
     delete p_compound_mask;
-    EXPECT_EQ((size_t)1, p_compound_clone->getFirstValidIndex());
+    EXPECT_EQ((size_t)1, p_compound_clone->getFirstValidIndex(0));
     EXPECT_EQ((size_t)4, p_compound_clone->getNextIndex(1));
     EXPECT_EQ((size_t)7, p_compound_clone->getNextIndex(4));
     EXPECT_EQ((size_t)7, p_compound_clone->getOwnIndex());

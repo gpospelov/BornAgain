@@ -101,6 +101,16 @@ TH2D *JobModel::getHistogram()
     return mp_cached_histogram;
 }
 
+
+const OutputData<double> *JobModel::getOutputData()
+{
+    if (!m_is_finished) {
+        return 0;
+    }
+    return mp_simulation->getOutputData();
+}
+
+
 void JobModel::onJobFinished()
 {
     m_is_finished = true;

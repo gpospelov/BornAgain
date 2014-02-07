@@ -57,7 +57,7 @@ TestFumiliLMA::TestFumiliLMA()
 
     // chi module
     m_chi_module = new ChiSquaredModule();
-    m_chi_module->setChiSquaredFunction(SquaredFunctionWithGaussianError(m_sigma) );
+    m_chi_module->setChiSquaredFunction(new SquaredFunctionGaussianError(m_sigma) );
 
     // "real" data
     OutputData<double> data;
@@ -90,7 +90,7 @@ void TestFumiliLMA::execute()
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili2"); // same as ("Minuit2", "Fumili" )
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili2" ); // same as ("Minuit2", "Migrad" ), i.e. Fumili2 is wrong key
     m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili"); //
-    //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit");
+    //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("GSLLMA");
     m_root_minimizer->SetVariable(0, "p0", 1.0, 0.01);
     m_root_minimizer->SetVariable(1, "p1", 0.0, 0.01);
     m_root_minimizer->SetVariable(2, "p2", 0.0, 0.01);

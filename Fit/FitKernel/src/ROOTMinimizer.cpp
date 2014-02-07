@@ -22,8 +22,6 @@
 #include <sstream>
 #include <boost/assign/list_of.hpp>
 #include <boost/assign/list_of.hpp>
-#include "ROOTGSLNLSMinimizer.h"
-#include "ROOTGSLSimAnMinimizer.h"
 #include "ROOTMinimizerHelper.h"
 #include "MinimizerOptions.h"
 
@@ -37,23 +35,11 @@
 ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::string& algo_type)
     : m_minimizer_name(minimizer_name)
     , m_algo_type(algo_type)
+    , m_root_minimizer(0)
     , m_chi2_func(0)
     , m_gradient_func(0)
 {
-    if( m_minimizer_name == "GSLMultiFit") {
-        // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
-        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
-    }else if( m_minimizer_name == "GSLSimAn") {
-        // hacked version of ROOT's GSL Simulated annealing minimizer
-        m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
-        // changing default options to more appropriate
-        setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
-    } else {
-        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
-    }
-    if(!m_root_minimizer) {
-        throw LogicErrorException("Can't create minimizer with name '"+minimizer_name+"', algo '" + algo_type+"'");
-    }
+
 }
 
 
@@ -63,17 +49,6 @@ ROOTMinimizer::~ROOTMinimizer()
     delete m_chi2_func;
     delete m_gradient_func;
 }
-
-
-// check if algorithm needs gradient function (Levenberg-Marquardt, Fumili)
-bool ROOTMinimizer::isGradientBasedAgorithm()
-{
-    if (m_minimizer_name == "Fumili" ||
-        m_minimizer_name == "GSLMultiFit" ||
-        (m_minimizer_name == "Minuit2" && m_algo_type == "Fumili") ) return true;
-    return false;
-}
-
 
 void ROOTMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
@@ -104,22 +79,14 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
     } else if( !par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed() ) {
         success=m_root_minimizer->SetVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep());
     } else {
-        throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
-    }
-
-    if( m_minimizer_name == "Genetic" && (!par->isFixed() && !par->hasLowerAndUpperLimits()) ) {
-        std::ostringstream ostr;
-        ostr << "ROOTMinimizdr::setParameter() -> Error! ";
-        ostr << "Genetic minimizer requires either fixed or limited AttLimits::limited(left,right) parameter. ";
-        ostr << " Parameter name '" << par->getName() << "', isFixed():" << par->isFixed() << " hasLowerandUpperLimits:" << par->hasLowerAndUpperLimits();
-        throw LogicErrorException(ostr.str());
+        throw DomainErrorException("ROOTMinimizer::setVariable() -> Error!");
     }
 
     if( !success ) {
         std::ostringstream ostr;
         ostr << "ROOTMinimizer::setVariable() -> Error! Minimizer returned false while setting the variable." << std::endl;
-        ostr << "                                Probably given index has been already used for another variable name." << std::endl;
-        ostr << "                                Index:" << index << " name '" << par->getName() << "'" << std::endl;
+        ostr << "Probably given index has been already used for another variable name." << std::endl;
+        ostr << "Index:" << index << " name '" << par->getName() << "'" << std::endl;
         throw LogicErrorException(ostr.str());
     }
 }
@@ -127,6 +94,7 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
 
 void ROOTMinimizer::minimize()
 {
+    propagateOptions();
     m_root_minimizer->Minimize();
 }
 
@@ -137,6 +105,7 @@ void ROOTMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t npara
     m_chi2_func = new ROOTMinimizerChiSquaredFunction(fun_chi2, (int)nparameters);
     if( !isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_chi2_func);
 }
+
 
 void ROOTMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 {
@@ -168,7 +137,7 @@ std::vector<double > ROOTMinimizer::getErrorOfVariables() const
 
 void ROOTMinimizer::printResults() const
 {
-    ROOTMinimizerHelper::printResults(m_root_minimizer, m_minimizer_name, m_algo_type);
+    ROOTMinimizerHelper::printResults(this);
 }
 
 
@@ -178,29 +147,21 @@ size_t ROOTMinimizer::getNCalls() const
 }
 
 
-MinimizerOptions ROOTMinimizer::getOptions() const
-{
-    MinimizerOptions options;
-    options.setTolerance(m_root_minimizer->Tolerance());
-    options.setPrecision(m_root_minimizer->Precision());
-    options.setMaxFunctionCalls(m_root_minimizer->MaxFunctionCalls());
-    options.setMaxIterations(m_root_minimizer->MaxIterations());
-    return options;
-}
-
 void ROOTMinimizer::setOptions(const MinimizerOptions &options)
 {
-    m_root_minimizer->SetTolerance(options.getTolerance());
-    m_root_minimizer->SetPrecision(options.getPrecision());
-    m_root_minimizer->SetMaxFunctionCalls(options.getMaxFunctionCalls());
-    m_root_minimizer->SetMaxIterations(options.getMaxIterations());
+    m_options = options;
+    propagateOptions();
 }
 
-void ROOTMinimizer::setOptions(const std::string& options)
+
+void ROOTMinimizer::propagateOptions()
 {
-    ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
+    m_root_minimizer->SetTolerance(m_options.getTolerance());
+    m_root_minimizer->SetPrecision(m_options.getPrecision());
+    m_root_minimizer->SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
+    m_root_minimizer->SetMaxIterations(m_options.getMaxIterations());
+    m_root_minimizer->SetPrintLevel(m_options.getPrintLevel());
 }
-
 
 
 

@@ -87,7 +87,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
-    // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
+    // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
@@ -123,7 +123,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 
     // chi squared module
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin();

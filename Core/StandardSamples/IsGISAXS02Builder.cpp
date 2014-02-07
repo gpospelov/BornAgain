@@ -18,7 +18,7 @@
 #include "ParticleDecoration.h"
 #include "MaterialManager.h"
 #include "FormFactorCylinder.h"
-#include "FormFactorPrism3.h"
+//#include "FormFactorPrism3.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
 #include "StochasticSampledParameter.h"
@@ -64,10 +64,10 @@ ISample *IsGISAXS02Builder::buildSample() const
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // preparing nano particles prototypes for seeding layer's particle_decoration
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(m_height1, m_radius1);
+    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(m_radius1, m_height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(m_height2, m_radius2);
+    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(m_radius2, m_height2);
     Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability

@@ -21,7 +21,7 @@
 #include "MemberFunctionIntegrator.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-FormFactorRipple2::FormFactorRipple2(double width, double height, double length, double asymetry)
+FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
     : m_width(width)
     , m_height(height)
     , m_length(length)
@@ -32,11 +32,6 @@ FormFactorRipple2::FormFactorRipple2(double width, double height, double length,
     assert(m_width >= 2.*m_d);
     assert(m_height > 0);
     init_parameters();
-
-    MemberComplexFunctionIntegrator<FormFactorRipple2>::mem_function p_mf =
-       & FormFactorRipple2::Integrand;
-    m_integrator =
-        new MemberComplexFunctionIntegrator<FormFactorRipple2>(p_mf, this);
 }
 
 void FormFactorRipple2::init_parameters()
@@ -50,20 +45,11 @@ void FormFactorRipple2::init_parameters()
 
 FormFactorRipple2 *FormFactorRipple2::clone() const
 {
-    FormFactorRipple2 *result = new FormFactorRipple2(m_width, m_height, m_length, m_d);
+    FormFactorRipple2 *result = new FormFactorRipple2(m_length, m_width, m_height, m_d);
     result->setName(getName());
     return result;
 }
 
-
-//! Integrand for complex formfactor.
-
-complex_t FormFactorRipple2::Integrand(double Z, void* params) const
-{
-    (void)params;  // to avoid unused-variable warning
-    complex_t p1 = (1.0-Z/m_height)*MathFunctions::Sinc(m_q.y()*m_width*0.5*(1.0-Z/m_height));
-    return p1*std::exp(complex_t(0.0, 1.0)*(-1.0*m_q.y()*m_d*(1-Z/m_height) + m_q.z()*Z));
-}
 
 //! Complex formfactor.
 
@@ -71,8 +57,27 @@ complex_t FormFactorRipple2::evaluate_for_q(const cvector_t& q) const
 {   
 	m_q = q;
     complex_t factor = m_length*MathFunctions::Sinc(m_q.x()*m_length*0.5)*m_width;
-    complex_t integral = m_integrator->integrate(0, m_height);
-    return factor*integral;
+    complex_t result = 0;
+    complex_t iqzH = complex_t(0.0, 1.0)*m_q.z()*m_height;
+    complex_t iqyW = complex_t(0.0, 1.0)*m_q.y()*m_width;
+    complex_t aaa = 2.0*(m_d*m_q.y() + m_height*m_q.z());
+
+    if (0.0==m_q.y() && 0.0==m_q.z())
+        result = m_height*0.5;
+    else if (0.0==m_q.y())
+        result = (1.0 - std::exp(iqzH) + iqzH)/(m_height*m_q.z()*m_q.z());
+    else if (1.0 == aaa/(m_q.y()*m_width))
+        result = m_height*std::exp(iqzH)*(1.0 - std::exp(-1.0*iqyW) - iqyW)/(m_q.y()*m_q.y()*m_width*m_width);
+    else if (-1.0 == aaa/(m_q.y()*m_width))
+        result = m_height*std::exp(iqzH)*(1.0 - std::exp(-1.0*iqyW) + iqyW)/(m_q.y()*m_q.y()*m_width*m_width);
+    else {
+        complex_t iHqzdqy = complex_t(0.0, 1.0)*(m_q.z()*m_height + m_q.y()*m_d);
+        complex_t Hqzdqy = m_q.z()*m_height + m_q.y()*m_d;
+        result = std::cos(m_q.y()*m_width*0.5) + 2.0*iHqzdqy*std::sin(m_q.y()*m_width*0.5)/(m_width*m_q.y());
+        result = result*std::exp(-1.0*iHqzdqy) - 1.0;
+        result = result*4.0*m_height*std::exp(iqzH)/(4.0*Hqzdqy*Hqzdqy - m_q.y()*m_q.y()*m_width*m_width);
+    }
+    return factor*result;
 }
 
 

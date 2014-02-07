@@ -87,6 +87,21 @@ class IntensityDataTest(unittest.TestCase):
     #    for i in range(0, data.getAllocatedSize()):
     #        print i, "axis0", data.getIndexOfAxis("axis0",i), data.getValueOfAxis("axis0",i), "axis1", data.getIndexOfAxis("axis1",i), data.getValueOfAxis("axis1",i)
 
+    def test_getarray_masked(self):
+        data = IntensityData()
+        data.addAxis("x", 10, 0., 9.)
+        data.addAxis("y", 5, 0., 4.)
+        for i in range(0, data.getAllocatedSize()):
+            data[i] = i
+        IntensityDataHelper.setRectangularMask(data, 1.99, 0.99, 7.01, 3.01)
+
+        nparr = data.getArray()
+        value=0
+        for ix in range(0, 10):
+            for iy in range(0, 5):
+                self.assertEqual(value, nparr[ix][iy])
+                value = value+1
+
 
 
 if __name__ == '__main__':

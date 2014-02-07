@@ -24,9 +24,9 @@
 class BA_CORE_API_ FormFactorPrism6 : public IFormFactorBorn
 {
 public:
-    //! @brief prism6 constructor
+    //! @brief Prism6 constructor
     //! @param radius of hexagonal base (different from R in IsGisaxs)
-    //! @param height of prism6
+    //! @param height of Prism6
     FormFactorPrism6(double radius, double height);
     ~FormFactorPrism6() {}
     virtual FormFactorPrism6 *clone() const;

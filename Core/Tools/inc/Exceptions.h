@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <stdexcept>
+#include <string>
 
 #ifdef _WIN32
 #ifdef _MSC_VER

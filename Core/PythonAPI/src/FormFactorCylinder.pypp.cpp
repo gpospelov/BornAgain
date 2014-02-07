@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorCylinder > {
 
-    FormFactorCylinder_wrapper(double height, double radius )
-    : FormFactorCylinder( height, radius )
+    FormFactorCylinder_wrapper(double radius, double height )
+    : FormFactorCylinder( radius, height )
       , bp::wrapper< FormFactorCylinder >(){
         // constructor
     
@@ -181,16 +181,16 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -314,7 +314,7 @@ void register_FormFactorCylinder_class(){
 
     { //::FormFactorCylinder
         typedef bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCylinder_exposer_t;
-        FormFactorCylinder_exposer_t FormFactorCylinder_exposer = FormFactorCylinder_exposer_t( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) );
+        FormFactorCylinder_exposer_t FormFactorCylinder_exposer = FormFactorCylinder_exposer_t( "FormFactorCylinder", bp::init< double, double >(( bp::arg("radius"), bp::arg("height") )) );
         bp::scope FormFactorCylinder_scope( FormFactorCylinder_exposer );
         { //::FormFactorCylinder::clone
         
@@ -469,8 +469,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorCylinder_exposer.def( 
                 "evaluate"

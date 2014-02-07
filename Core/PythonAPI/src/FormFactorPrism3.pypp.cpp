@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism3 > {
 
-    FormFactorPrism3_wrapper(double height, double half_side )
-    : FormFactorPrism3( height, half_side )
+    FormFactorPrism3_wrapper(double length, double height )
+    : FormFactorPrism3( length, height )
       , bp::wrapper< FormFactorPrism3 >(){
         // constructor
     
@@ -49,18 +49,6 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return FormFactorPrism3::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getHalfSide(  ) const  {
-        if( bp::override func_getHalfSide = this->get_override( "getHalfSide" ) )
-            return func_getHalfSide(  );
-        else
-            return this->FormFactorPrism3::getHalfSide(  );
-    }
-    
-    
-    double default_getHalfSide(  ) const  {
-        return FormFactorPrism3::getHalfSide( );
-    }
-
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -71,6 +59,18 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
     
     double default_getHeight(  ) const  {
         return FormFactorPrism3::getHeight( );
+    }
+
+    virtual double getLength(  ) const  {
+        if( bp::override func_getLength = this->get_override( "getLength" ) )
+            return func_getLength(  );
+        else
+            return this->FormFactorPrism3::getLength(  );
+    }
+    
+    
+    double default_getLength(  ) const  {
+        return FormFactorPrism3::getLength( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -85,18 +85,6 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return FormFactorPrism3::getNumberOfStochasticParameters( );
     }
 
-    virtual void setHalfSide( double half_side ) {
-        if( bp::override func_setHalfSide = this->get_override( "setHalfSide" ) )
-            func_setHalfSide( half_side );
-        else
-            this->FormFactorPrism3::setHalfSide( half_side );
-    }
-    
-    
-    void default_setHalfSide( double half_side ) {
-        FormFactorPrism3::setHalfSide( half_side );
-    }
-
     virtual void setHeight( double height ) {
         if( bp::override func_setHeight = this->get_override( "setHeight" ) )
             func_setHeight( height );
@@ -107,6 +95,18 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
     
     void default_setHeight( double height ) {
         FormFactorPrism3::setHeight( height );
+    }
+
+    virtual void setLength( double length ) {
+        if( bp::override func_setLength = this->get_override( "setLength" ) )
+            func_setLength( length );
+        else
+            this->FormFactorPrism3::setLength( length );
+    }
+    
+    
+    void default_setLength( double length ) {
+        FormFactorPrism3::setLength( length );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -181,16 +181,16 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -326,7 +326,7 @@ void register_FormFactorPrism3_class(){
 
     { //::FormFactorPrism3
         typedef bp::class_< FormFactorPrism3_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorPrism3_exposer_t;
-        FormFactorPrism3_exposer_t FormFactorPrism3_exposer = FormFactorPrism3_exposer_t( "FormFactorPrism3", bp::init< double, double >(( bp::arg("height"), bp::arg("half_side") )) );
+        FormFactorPrism3_exposer_t FormFactorPrism3_exposer = FormFactorPrism3_exposer_t( "FormFactorPrism3", bp::init< double, double >(( bp::arg("length"), bp::arg("height") )) );
         bp::scope FormFactorPrism3_scope( FormFactorPrism3_exposer );
         { //::FormFactorPrism3::clone
         
@@ -352,17 +352,6 @@ void register_FormFactorPrism3_class(){
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorPrism3::getHalfSide
-        
-            typedef double ( ::FormFactorPrism3::*getHalfSide_function_type )(  ) const;
-            typedef double ( FormFactorPrism3_wrapper::*default_getHalfSide_function_type )(  ) const;
-            
-            FormFactorPrism3_exposer.def( 
-                "getHalfSide"
-                , getHalfSide_function_type(&::FormFactorPrism3::getHalfSide)
-                , default_getHalfSide_function_type(&FormFactorPrism3_wrapper::default_getHalfSide) );
-        
-        }
         { //::FormFactorPrism3::getHeight
         
             typedef double ( ::FormFactorPrism3::*getHeight_function_type )(  ) const;
@@ -372,6 +361,17 @@ void register_FormFactorPrism3_class(){
                 "getHeight"
                 , getHeight_function_type(&::FormFactorPrism3::getHeight)
                 , default_getHeight_function_type(&FormFactorPrism3_wrapper::default_getHeight) );
+        
+        }
+        { //::FormFactorPrism3::getLength
+        
+            typedef double ( ::FormFactorPrism3::*getLength_function_type )(  ) const;
+            typedef double ( FormFactorPrism3_wrapper::*default_getLength_function_type )(  ) const;
+            
+            FormFactorPrism3_exposer.def( 
+                "getLength"
+                , getLength_function_type(&::FormFactorPrism3::getLength)
+                , default_getLength_function_type(&FormFactorPrism3_wrapper::default_getLength) );
         
         }
         { //::FormFactorPrism3::getNumberOfStochasticParameters
@@ -385,18 +385,6 @@ void register_FormFactorPrism3_class(){
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorPrism3_wrapper::default_getNumberOfStochasticParameters) );
         
         }
-        { //::FormFactorPrism3::setHalfSide
-        
-            typedef void ( ::FormFactorPrism3::*setHalfSide_function_type )( double ) ;
-            typedef void ( FormFactorPrism3_wrapper::*default_setHalfSide_function_type )( double ) ;
-            
-            FormFactorPrism3_exposer.def( 
-                "setHalfSide"
-                , setHalfSide_function_type(&::FormFactorPrism3::setHalfSide)
-                , default_setHalfSide_function_type(&FormFactorPrism3_wrapper::default_setHalfSide)
-                , ( bp::arg("half_side") ) );
-        
-        }
         { //::FormFactorPrism3::setHeight
         
             typedef void ( ::FormFactorPrism3::*setHeight_function_type )( double ) ;
@@ -407,6 +395,18 @@ void register_FormFactorPrism3_class(){
                 , setHeight_function_type(&::FormFactorPrism3::setHeight)
                 , default_setHeight_function_type(&FormFactorPrism3_wrapper::default_setHeight)
                 , ( bp::arg("height") ) );
+        
+        }
+        { //::FormFactorPrism3::setLength
+        
+            typedef void ( ::FormFactorPrism3::*setLength_function_type )( double ) ;
+            typedef void ( FormFactorPrism3_wrapper::*default_setLength_function_type )( double ) ;
+            
+            FormFactorPrism3_exposer.def( 
+                "setLength"
+                , setLength_function_type(&::FormFactorPrism3::setLength)
+                , default_setLength_function_type(&FormFactorPrism3_wrapper::default_setLength)
+                , ( bp::arg("length") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -481,8 +481,8 @@ void register_FormFactorPrism3_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorPrism3_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorPrism3_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorPrism3_exposer.def( 
                 "evaluate"

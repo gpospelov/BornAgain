@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp::wrapper< FormFactorEllipsoidalCylinder > {
 
-    FormFactorEllipsoidalCylinder_wrapper(double radius, double width, double height )
-    : FormFactorEllipsoidalCylinder( radius, width, height )
+    FormFactorEllipsoidalCylinder_wrapper(double radius_a, double radius_b, double height )
+    : FormFactorEllipsoidalCylinder( radius_a, radius_b, height )
       , bp::wrapper< FormFactorEllipsoidalCylinder >(){
         // constructor
     
@@ -73,28 +73,16 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
         return FormFactorEllipsoidalCylinder::getNumberOfStochasticParameters( );
     }
 
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
+    virtual double getRadiusB(  ) const  {
+        if( bp::override func_getRadiusB = this->get_override( "getRadiusB" ) )
+            return func_getRadiusB(  );
         else
-            return this->FormFactorEllipsoidalCylinder::getRadius(  );
+            return this->FormFactorEllipsoidalCylinder::getRadiusB(  );
     }
     
     
-    double default_getRadius(  ) const  {
-        return FormFactorEllipsoidalCylinder::getRadius( );
-    }
-
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
-        else
-            return this->FormFactorEllipsoidalCylinder::getWidth(  );
-    }
-    
-    
-    double default_getWidth(  ) const  {
-        return FormFactorEllipsoidalCylinder::getWidth( );
+    double default_getRadiusB(  ) const  {
+        return FormFactorEllipsoidalCylinder::getRadiusB( );
     }
 
     virtual void setHeight( double height ) {
@@ -109,28 +97,28 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
         FormFactorEllipsoidalCylinder::setHeight( height );
     }
 
-    virtual void setRadius( double radius ) {
-        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
-            func_setRadius( radius );
+    virtual void setRadiusA( double radius_a ) {
+        if( bp::override func_setRadiusA = this->get_override( "setRadiusA" ) )
+            func_setRadiusA( radius_a );
         else
-            this->FormFactorEllipsoidalCylinder::setRadius( radius );
+            this->FormFactorEllipsoidalCylinder::setRadiusA( radius_a );
     }
     
     
-    void default_setRadius( double radius ) {
-        FormFactorEllipsoidalCylinder::setRadius( radius );
+    void default_setRadiusA( double radius_a ) {
+        FormFactorEllipsoidalCylinder::setRadiusA( radius_a );
     }
 
-    virtual void setWidth( double width ) {
-        if( bp::override func_setWidth = this->get_override( "setWidth" ) )
-            func_setWidth( width );
+    virtual void setRadiusB( double radius_b ) {
+        if( bp::override func_setRadiusB = this->get_override( "setRadiusB" ) )
+            func_setRadiusB( radius_b );
         else
-            this->FormFactorEllipsoidalCylinder::setWidth( width );
+            this->FormFactorEllipsoidalCylinder::setRadiusB( radius_b );
     }
     
     
-    void default_setWidth( double width ) {
-        FormFactorEllipsoidalCylinder::setWidth( width );
+    void default_setRadiusB( double radius_b ) {
+        FormFactorEllipsoidalCylinder::setRadiusB( radius_b );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -205,16 +193,16 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -239,6 +227,18 @@ struct FormFactorEllipsoidalCylinder_wrapper : FormFactorEllipsoidalCylinder, bp
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else
+            return this->IFormFactor::getRadius(  );
+    }
+    
+    
+    double default_getRadius(  ) const  {
+        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -338,7 +338,7 @@ void register_FormFactorEllipsoidalCylinder_class(){
 
     { //::FormFactorEllipsoidalCylinder
         typedef bp::class_< FormFactorEllipsoidalCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorEllipsoidalCylinder_exposer_t;
-        FormFactorEllipsoidalCylinder_exposer_t FormFactorEllipsoidalCylinder_exposer = FormFactorEllipsoidalCylinder_exposer_t( "FormFactorEllipsoidalCylinder", bp::init< double, double, double >(( bp::arg("radius"), bp::arg("width"), bp::arg("height") )) );
+        FormFactorEllipsoidalCylinder_exposer_t FormFactorEllipsoidalCylinder_exposer = FormFactorEllipsoidalCylinder_exposer_t( "FormFactorEllipsoidalCylinder", bp::init< double, double, double >(( bp::arg("radius_a"), bp::arg("radius_b"), bp::arg("height") )) );
         bp::scope FormFactorEllipsoidalCylinder_scope( FormFactorEllipsoidalCylinder_exposer );
         { //::FormFactorEllipsoidalCylinder::clone
         
@@ -386,26 +386,24 @@ void register_FormFactorEllipsoidalCylinder_class(){
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getNumberOfStochasticParameters) );
         
         }
-        { //::FormFactorEllipsoidalCylinder::getRadius
+        { //::FormFactorEllipsoidalCylinder::getRadiusA
         
-            typedef double ( ::FormFactorEllipsoidalCylinder::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorEllipsoidalCylinder_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::FormFactorEllipsoidalCylinder::*getRadiusA_function_type )(  ) const;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
-                "getRadius"
-                , getRadius_function_type(&::FormFactorEllipsoidalCylinder::getRadius)
-                , default_getRadius_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getRadius) );
+                "getRadiusA"
+                , getRadiusA_function_type( &::FormFactorEllipsoidalCylinder::getRadiusA ) );
         
         }
-        { //::FormFactorEllipsoidalCylinder::getWidth
+        { //::FormFactorEllipsoidalCylinder::getRadiusB
         
-            typedef double ( ::FormFactorEllipsoidalCylinder::*getWidth_function_type )(  ) const;
-            typedef double ( FormFactorEllipsoidalCylinder_wrapper::*default_getWidth_function_type )(  ) const;
+            typedef double ( ::FormFactorEllipsoidalCylinder::*getRadiusB_function_type )(  ) const;
+            typedef double ( FormFactorEllipsoidalCylinder_wrapper::*default_getRadiusB_function_type )(  ) const;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
-                "getWidth"
-                , getWidth_function_type(&::FormFactorEllipsoidalCylinder::getWidth)
-                , default_getWidth_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getWidth) );
+                "getRadiusB"
+                , getRadiusB_function_type(&::FormFactorEllipsoidalCylinder::getRadiusB)
+                , default_getRadiusB_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getRadiusB) );
         
         }
         { //::FormFactorEllipsoidalCylinder::setHeight
@@ -420,28 +418,28 @@ void register_FormFactorEllipsoidalCylinder_class(){
                 , ( bp::arg("height") ) );
         
         }
-        { //::FormFactorEllipsoidalCylinder::setRadius
+        { //::FormFactorEllipsoidalCylinder::setRadiusA
         
-            typedef void ( ::FormFactorEllipsoidalCylinder::*setRadius_function_type )( double ) ;
-            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setRadius_function_type )( double ) ;
+            typedef void ( ::FormFactorEllipsoidalCylinder::*setRadiusA_function_type )( double ) ;
+            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setRadiusA_function_type )( double ) ;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
-                "setRadius"
-                , setRadius_function_type(&::FormFactorEllipsoidalCylinder::setRadius)
-                , default_setRadius_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setRadius)
-                , ( bp::arg("radius") ) );
+                "setRadiusA"
+                , setRadiusA_function_type(&::FormFactorEllipsoidalCylinder::setRadiusA)
+                , default_setRadiusA_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setRadiusA)
+                , ( bp::arg("radius_a") ) );
         
         }
-        { //::FormFactorEllipsoidalCylinder::setWidth
+        { //::FormFactorEllipsoidalCylinder::setRadiusB
         
-            typedef void ( ::FormFactorEllipsoidalCylinder::*setWidth_function_type )( double ) ;
-            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setWidth_function_type )( double ) ;
+            typedef void ( ::FormFactorEllipsoidalCylinder::*setRadiusB_function_type )( double ) ;
+            typedef void ( FormFactorEllipsoidalCylinder_wrapper::*default_setRadiusB_function_type )( double ) ;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
-                "setWidth"
-                , setWidth_function_type(&::FormFactorEllipsoidalCylinder::setWidth)
-                , default_setWidth_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setWidth)
-                , ( bp::arg("width") ) );
+                "setRadiusB"
+                , setRadiusB_function_type(&::FormFactorEllipsoidalCylinder::setRadiusB)
+                , default_setRadiusB_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_setRadiusB)
+                , ( bp::arg("radius_b") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -516,8 +514,8 @@ void register_FormFactorEllipsoidalCylinder_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorEllipsoidalCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorEllipsoidalCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorEllipsoidalCylinder_exposer.def( 
                 "evaluate"
@@ -548,6 +546,17 @@ void register_FormFactorEllipsoidalCylinder_class(){
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
                 , default_getCompositeSample_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IFormFactor::getRadius
+        
+            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorEllipsoidalCylinder_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorEllipsoidalCylinder_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::IFormFactor::getRadius)
+                , default_getRadius_function_type(&FormFactorEllipsoidalCylinder_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume

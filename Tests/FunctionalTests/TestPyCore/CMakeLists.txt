@@ -16,10 +16,12 @@ set(list_of_tests
     "isgisaxs11.py"
     "isgisaxs15.py"
     "mesocrystal1.py"
-    "polarizeddwbazeromag.py"
+    "polmagcylinders1.py"
+    "polmagcylinders2.py"
     "layerwithroughness.py"
     "ripple2.py"
     "ripple2a.py"
+    "ripple1.py"
 )
 
 foreach(_test ${list_of_tests})

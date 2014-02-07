@@ -58,13 +58,12 @@ QList<MultiLayerView *> DesignerScene::getMultiLayerViewList()
 }
 
 
+
+// create some sample to start with non-empty scene
 void DesignerScene::createSample()
 {
     SampleBuilderFactory factory;
     ISample *sample = factory.createSample("isgisaxs01");
-
-    SamplePrintVisitor print_visitor;
-    sample->accept(&print_visitor);
 
     ISampleToIView visitor;
     sample->accept(&visitor);
@@ -135,6 +134,10 @@ void DesignerScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
 
 
 
+// Main method to handle drop of mime objects beeng dragged from  SampleWidgetBox
+//
+// It creates single ISampleView object, or bunch of such object from mime name
+
 void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     const DesignerMimeData *mimeData = checkDragEvent(event);
@@ -146,6 +149,9 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 //            addItems( DesignerWidgetFactory::createViews(mimeData->getClassName()) );
 
             // TODO - refactor this together with DesignerWidgetFactory: how to create single View or Whole bunch of views
+
+
+            // creating single ISampleView with the help of WidgetFactory
             QList<QGraphicsItem *> items = DesignerWidgetFactory::createViews(mimeData->getClassName());
             if(items.size()) {
                 foreach(QGraphicsItem *view, items) {
@@ -153,6 +159,9 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     addItem(view);
                     view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
                 }
+
+            // if widget factory was not able to create ISampleView from given name, then the name should correspond to one of standard
+            // IsGISAXS samples
             } else {
                 if(items.empty()) {
                     SampleBuilderFactory factory;
@@ -161,6 +170,9 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                         sample = factory.createSample(mimeData->getClassName().toStdString());
                     } catch (std::runtime_error& e) {}
                     if(sample) {
+
+                        // it's time to invoke ISampleToIView which will generate all ISampleView's
+
                         ISampleToIView visitor;
                         sample->accept(&visitor);
                         visitor.getItems();
@@ -179,11 +191,6 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 }
 
             }
-
-
-
-
-
 
         }
 

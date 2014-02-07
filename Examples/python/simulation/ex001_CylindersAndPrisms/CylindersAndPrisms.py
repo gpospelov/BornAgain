@@ -18,7 +18,7 @@ def get_sample():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
+    prism_ff = FormFactorPrism3(10*nanometer, 5*nanometer)
     prism = Particle(m_particle, prism_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(cylinder, 0.0, 0.5)

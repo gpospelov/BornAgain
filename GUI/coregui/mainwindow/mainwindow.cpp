@@ -10,20 +10,17 @@
 #include "JobView.h"
 #include "FitView.h"
 #include "stylehelper.h"
-#include "ba_stylehelper.h"
 #include "SimulationDataModel.h"
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
 #include "InterferenceFunctions.h"
 #include "FormFactors.h"
-
 #include <QApplication>
 #include <iostream>
 #include <QStatusBar>
 
 MainWindow::MainWindow(QWidget *parent)
-//    : QMainWindow(parent)
     : Manhattan::FancyMainWindow(parent)
     , m_tabWidget(0)
     , m_welcomeView(0)
@@ -38,11 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
-
-//    Manhattan::Utils::StyleHelper::setBaseColor(QColor(Manhattan::Utils::StyleHelper::DEFAULT_BASE_COLOR));
-//    Manhattan::Utils::StyleHelper::setBaseColor(QColor(0xCC6600));
     Manhattan::Utils::StyleHelper::setBaseColor(QColor(0x086FA1));
-
 
     setDockNestingEnabled(true);
 

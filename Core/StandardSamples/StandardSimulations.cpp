@@ -149,7 +149,7 @@ Simulation *StandardSimulations::IsGISAXS042DDL()
 Simulation *StandardSimulations::IsGISAXS06L1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice1");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
 
     Simulation *result = new Simulation();
 
@@ -172,7 +172,7 @@ Simulation *StandardSimulations::IsGISAXS06L1()
 Simulation *StandardSimulations::IsGISAXS06L2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice2");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06b");
 
     Simulation *result = new Simulation();
 
@@ -195,7 +195,7 @@ Simulation *StandardSimulations::IsGISAXS06L2()
 Simulation *StandardSimulations::IsGISAXS06L3()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice3");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06c");
 
     Simulation *result = new Simulation();
 
@@ -218,7 +218,7 @@ Simulation *StandardSimulations::IsGISAXS06L3()
 Simulation *StandardSimulations::IsGISAXS06L4()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs06_lattice4");
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06d");
 
     Simulation *result = new Simulation();
 
@@ -405,10 +405,10 @@ Simulation *StandardSimulations::MesoCrystal01()
 }
 
 
-Simulation *StandardSimulations::PolarizedDWBAZeroMag()
+Simulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("PolarizedDWBAZeroMag");
+    SampleBuilder_t builder = factory.createBuilder("magcyl1");
 
     Simulation *result = new Simulation();
 
@@ -422,6 +422,28 @@ Simulation *StandardSimulations::PolarizedDWBAZeroMag()
 
     return result;
 }
+
+
+Simulation *StandardSimulations::PolarizedDWBAMagCylinders2()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("magcyl2");
+
+    Simulation *result = new Simulation();
+
+
+    result->setDetectorParameters(
+        100, -1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    result->setBeamIntensity(1e7);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
 
 Simulation *StandardSimulations::LayerWithRoughness()
 {
@@ -446,6 +468,21 @@ Simulation *StandardSimulations::Ripple2()
 {
     SampleBuilderFactory factory;
     SampleBuilder_t builder = factory.createBuilder("ripple2");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::Ripple1()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("ripple1");
 
     Simulation *result = new Simulation();
 

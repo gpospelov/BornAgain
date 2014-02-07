@@ -180,7 +180,7 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setChiSquaredFunction(SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
+    chiModule.setChiSquaredFunction(new SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     chiModule.setIntensityFunction( IntensityFunctionSqrt() );
 
@@ -286,7 +286,7 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
 
     Layer air_layer(air_material);
     double height = m_height_aspect_ratio*m_particle_radius;
-    FormFactorCylinder *ff_cylinder = new FormFactorCylinder(height, m_particle_radius);
+    FormFactorCylinder *ff_cylinder = new FormFactorCylinder(m_particle_radius, height);
     Particle cylinder(particle_material, ff_cylinder );
 
     // radius of nanoparticles will be sampled with gaussian probability

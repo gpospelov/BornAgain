@@ -43,9 +43,11 @@ Simulation *IsGISAXS10();
 Simulation *IsGISAXS11();
 Simulation *IsGISAXS15();
 Simulation *MesoCrystal01();
-Simulation *PolarizedDWBAZeroMag();
+Simulation *PolarizedDWBAMagCylinders1();
+Simulation *PolarizedDWBAMagCylinders2();
 Simulation *LayerWithRoughness();
 Simulation *Ripple2();
+Simulation *Ripple1();
 }
 
 

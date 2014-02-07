@@ -78,7 +78,7 @@ void TestFittingModule1::execute()
 
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLLMA") ); // LMA
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
@@ -141,10 +141,10 @@ void TestFittingModule1::initializeSample1()
         throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
     }
 
-    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 10.) );
-//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 10.) );
+    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 10.) );
 }
 
 
@@ -157,7 +157,7 @@ void TestFittingModule1::initializeSample2()
 
     double cylinder_height = 5.0*Units::nanometer;
     double cylinder_radius = 5.0*Units::nanometer;
-    double prism3_half_side = 5.0*Units::nanometer;
+    double prism3_length = 10.0*Units::nanometer;
     double prism3_height = 5.0*Units::nanometer;
 
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -173,8 +173,8 @@ void TestFittingModule1::initializeSample2()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_radius, cylinder_height)),0.0, 0.2);
+    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_length, prism3_height)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);
@@ -190,7 +190,7 @@ void TestFittingModule1::initializeSample2()
 
     m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/length", 24*Units::nanometer, 2*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
 

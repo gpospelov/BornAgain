@@ -70,7 +70,7 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const
 }
 
 complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     // construct a real reciprocal vector
     cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;
@@ -107,7 +107,7 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
 }
 
 Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+        const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin, const Bin1D &phi_f_bin) const
 {
     // construct a real reciprocal vector
     cvector_t q_bin_lower = k_i - k_f_bin.m_q_lower;

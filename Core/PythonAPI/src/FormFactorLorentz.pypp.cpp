@@ -25,8 +25,8 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
     
     }
 
-    FormFactorLorentz_wrapper(double height, double width )
-    : FormFactorLorentz( height, width )
+    FormFactorLorentz_wrapper(double width, double height )
+    : FormFactorLorentz( width, height )
       , bp::wrapper< FormFactorLorentz >(){
         // constructor
     
@@ -140,16 +140,16 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -299,7 +299,7 @@ void register_FormFactorLorentz_class(){
         typedef bp::class_< FormFactorLorentz_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorLorentz_exposer_t;
         FormFactorLorentz_exposer_t FormFactorLorentz_exposer = FormFactorLorentz_exposer_t( "FormFactorLorentz", bp::init< double >(( bp::arg("volume") )) );
         bp::scope FormFactorLorentz_scope( FormFactorLorentz_exposer );
-        FormFactorLorentz_exposer.def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) );
+        FormFactorLorentz_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
         { //::FormFactorLorentz::clone
         
             typedef ::FormFactorLorentz * ( ::FormFactorLorentz::*clone_function_type )(  ) const;
@@ -407,8 +407,8 @@ void register_FormFactorLorentz_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorLorentz_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorLorentz_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorLorentz_exposer.def( 
                 "evaluate"

@@ -18,28 +18,28 @@
 #include "MathFunctions.h"
 
 FormFactorPyramid::FormFactorPyramid(
-    double height, double half_side, double alpha)
+    double length, double height, double alpha)
 {
     setName("FormFactorPyramid");
+    m_length = length;
     m_height = height;
-    m_half_side = half_side;
     m_alpha = alpha;
-    assert(m_height <= m_half_side*std::tan(m_alpha));
+    assert(2.*m_height <= m_length*std::tan(m_alpha));
     init_parameters();
 }
 
 void FormFactorPyramid::init_parameters()
 {
     clearParameterPool();
+    registerParameter("length", &m_length);
     registerParameter("height", &m_height);
-    registerParameter("half_side", &m_half_side);
     registerParameter("alpha", &m_alpha);
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
     FormFactorPyramid *result =
-        new FormFactorPyramid(m_height, m_half_side, m_alpha);
+        new FormFactorPyramid(m_length, m_height, m_alpha);
     result->setName(getName());
     return result;
 }
@@ -48,7 +48,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
 {
 
     double H = m_height;
-    double R = m_half_side;
+    double R = m_length/2.;
     double tga = std::tan(m_alpha);
 
     complex_t qx = q.x();

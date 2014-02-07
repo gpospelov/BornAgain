@@ -24,7 +24,7 @@ FormFactorDWBAConstZ::FormFactorDWBAConstZ(
 }
 
 complex_t FormFactorDWBAConstZ::evaluate(
-    const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     calculateTerms(k_i, k_f_bin, alpha_f_bin);
     const ILayerRTCoefficients *p_in_coeff =

@@ -31,9 +31,12 @@ Layer::Layer()
 }
 
 Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoration)
-    : m_thickness(thickness)
+    : m_thickness(0)
     , mp_decoration(0)
 {
+    if (thickness < 0.)
+        throw DomainErrorException("Layer thickness cannot be negative");
+    m_thickness = thickness;
     setName("Layer");
     setDecorationPtr(decoration);
     setMaterial(material);

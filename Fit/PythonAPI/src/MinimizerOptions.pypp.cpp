@@ -20,6 +20,46 @@ void register_MinimizerOptions_class(){
         typedef bp::class_< MinimizerOptions > MinimizerOptions_exposer_t;
         MinimizerOptions_exposer_t MinimizerOptions_exposer = MinimizerOptions_exposer_t( "MinimizerOptions", bp::init< >() );
         bp::scope MinimizerOptions_scope( MinimizerOptions_exposer );
+        { //::MinimizerOptions::addValue
+        
+            typedef void ( ::MinimizerOptions::*addValue_function_type )( ::std::string const &,double ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "addValue"
+                , addValue_function_type( &::MinimizerOptions::addValue )
+                , ( bp::arg("name"), bp::arg("val") ) );
+        
+        }
+        { //::MinimizerOptions::addValue
+        
+            typedef void ( ::MinimizerOptions::*addValue_function_type )( ::std::string const &,int ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "addValue"
+                , addValue_function_type( &::MinimizerOptions::addValue )
+                , ( bp::arg("name"), bp::arg("val") ) );
+        
+        }
+        { //::MinimizerOptions::addValue
+        
+            typedef void ( ::MinimizerOptions::*addValue_function_type )( ::std::string const &,::std::string const & ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "addValue"
+                , addValue_function_type( &::MinimizerOptions::addValue )
+                , ( bp::arg("name"), bp::arg("val") ) );
+        
+        }
+        { //::MinimizerOptions::getIntValue
+        
+            typedef int ( ::MinimizerOptions::*getIntValue_function_type )( ::std::string const & ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "getIntValue"
+                , getIntValue_function_type( &::MinimizerOptions::getIntValue )
+                , ( bp::arg("name") ) );
+        
+        }
         { //::MinimizerOptions::getMaxFunctionCalls
         
             typedef int ( ::MinimizerOptions::*getMaxFunctionCalls_function_type )(  ) const;
@@ -38,6 +78,16 @@ void register_MinimizerOptions_class(){
                 , getMaxIterations_function_type( &::MinimizerOptions::getMaxIterations ) );
         
         }
+        { //::MinimizerOptions::getNamedValue
+        
+            typedef ::std::string ( ::MinimizerOptions::*getNamedValue_function_type )( ::std::string const & ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "getNamedValue"
+                , getNamedValue_function_type( &::MinimizerOptions::getNamedValue )
+                , ( bp::arg("name") ) );
+        
+        }
         { //::MinimizerOptions::getPrecision
         
             typedef double ( ::MinimizerOptions::*getPrecision_function_type )(  ) const;
@@ -47,6 +97,25 @@ void register_MinimizerOptions_class(){
                 , getPrecision_function_type( &::MinimizerOptions::getPrecision ) );
         
         }
+        { //::MinimizerOptions::getPrintLevel
+        
+            typedef int ( ::MinimizerOptions::*getPrintLevel_function_type )(  ) const;
+            
+            MinimizerOptions_exposer.def( 
+                "getPrintLevel"
+                , getPrintLevel_function_type( &::MinimizerOptions::getPrintLevel ) );
+        
+        }
+        { //::MinimizerOptions::getRealValue
+        
+            typedef double ( ::MinimizerOptions::*getRealValue_function_type )( ::std::string const & ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "getRealValue"
+                , getRealValue_function_type( &::MinimizerOptions::getRealValue )
+                , ( bp::arg("name") ) );
+        
+        }
         { //::MinimizerOptions::getTolerance
         
             typedef double ( ::MinimizerOptions::*getTolerance_function_type )(  ) const;
@@ -54,6 +123,15 @@ void register_MinimizerOptions_class(){
             MinimizerOptions_exposer.def( 
                 "getTolerance"
                 , getTolerance_function_type( &::MinimizerOptions::getTolerance ) );
+        
+        }
+        { //::MinimizerOptions::print
+        
+            typedef void ( ::MinimizerOptions::*print_function_type )(  ) const;
+            
+            MinimizerOptions_exposer.def( 
+                "print"
+                , print_function_type( &::MinimizerOptions::print ) );
         
         }
         { //::MinimizerOptions::setMaxFunctionCalls
@@ -86,6 +164,16 @@ void register_MinimizerOptions_class(){
                 , ( bp::arg("precision") ) );
         
         }
+        { //::MinimizerOptions::setPrintLevel
+        
+            typedef void ( ::MinimizerOptions::*setPrintLevel_function_type )( int ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "setPrintLevel"
+                , setPrintLevel_function_type( &::MinimizerOptions::setPrintLevel )
+                , ( bp::arg("print_level") ) );
+        
+        }
         { //::MinimizerOptions::setTolerance
         
             typedef void ( ::MinimizerOptions::*setTolerance_function_type )( double ) ;
@@ -94,6 +182,36 @@ void register_MinimizerOptions_class(){
                 "setTolerance"
                 , setTolerance_function_type( &::MinimizerOptions::setTolerance )
                 , ( bp::arg("tolerance") ) );
+        
+        }
+        { //::MinimizerOptions::setValue
+        
+            typedef void ( ::MinimizerOptions::*setValue_function_type )( ::std::string const &,double ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "setValue"
+                , setValue_function_type( &::MinimizerOptions::setValue )
+                , ( bp::arg("name"), bp::arg("val") ) );
+        
+        }
+        { //::MinimizerOptions::setValue
+        
+            typedef void ( ::MinimizerOptions::*setValue_function_type )( ::std::string const &,int ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "setValue"
+                , setValue_function_type( &::MinimizerOptions::setValue )
+                , ( bp::arg("name"), bp::arg("val") ) );
+        
+        }
+        { //::MinimizerOptions::setValue
+        
+            typedef void ( ::MinimizerOptions::*setValue_function_type )( ::std::string const &,::std::string const & ) ;
+            
+            MinimizerOptions_exposer.def( 
+                "setValue"
+                , setValue_function_type( &::MinimizerOptions::setValue )
+                , ( bp::arg("name"), bp::arg("val") ) );
         
         }
     }

@@ -67,6 +67,8 @@ class FormFactorParallelepiped;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
+class FormFactorRipple1;
+class FormFactorRipple2;
 class FormFactorSphere;
 class FormFactorSphereGaussianRadius;
 class FormFactorTetrahedron;
@@ -155,6 +157,8 @@ public:
     virtual void visit(const FormFactorPrism3 *);
     virtual void visit(const FormFactorPrism6 *);
     virtual void visit(const FormFactorPyramid *);
+    virtual void visit(const FormFactorRipple1 *);
+    virtual void visit(const FormFactorRipple2 *);
     virtual void visit(const FormFactorSphere *);
     virtual void visit(const FormFactorSphereGaussianRadius *);
     virtual void visit(const FormFactorTetrahedron *);

@@ -25,6 +25,13 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     
     }
 
+    ParticleDecoration_wrapper(::Particle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
+    : ParticleDecoration( boost::ref(p_particle), depth, abundance )
+      , bp::wrapper< ParticleDecoration >(){
+        // constructor
+    
+    }
+
     virtual ::ParticleDecoration * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -268,6 +275,7 @@ void register_ParticleDecoration_class(){
         typedef bp::class_< ParticleDecoration_wrapper, bp::bases< IDecoration >, boost::noncopyable > ParticleDecoration_exposer_t;
         ParticleDecoration_exposer_t ParticleDecoration_exposer = ParticleDecoration_exposer_t( "ParticleDecoration", bp::init< >() );
         bp::scope ParticleDecoration_scope( ParticleDecoration_exposer );
+        ParticleDecoration_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleDecoration::addInterferenceFunction
         
             typedef void ( ::ParticleDecoration::*addInterferenceFunction_function_type )( ::IInterferenceFunction const & ) ;

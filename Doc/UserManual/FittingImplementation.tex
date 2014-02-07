@@ -16,7 +16,7 @@ The features include
 \item the possibility to fit simultaneously an arbitrary number of data sets.
 \end{itemize}
 
-Figure ~\ref{fig:minimization_workflow} shows general work flow of a typical fitting procedure.
+Figure ~\ref{fig:minimization_workflow} shows the general work flow of a typical fitting procedure.
 \begin{figure}[htbp]
 \centering
   \resizebox{0.99\textwidth}{!}{%
@@ -156,15 +156,15 @@ fit_suite.addSimulationAndRealData(<simulation>, <reference>, <chi2_module>)
 Here \Code{<simulation>} corresponds to a \BornAgain\ simulation object
 with the  sample, beam and detector fully defined, \Code{<reference>}
 corresponds to the experimental data object obtained from the ASCII file and \Code{<chi2\_module>} is an optional parameter for advanced 
-control of $\chi2$ calculations.
+control of $\chi^2$ calculations.
 
 It is possible to call this given method more than once to submit more than one pair of
 \Code{<simulation>, <reference>} to the fitting procedure.
 In this way, simultaneous fits of
 some combined data sets are performed.
 
-By using the third \Code{<chi2\_module>} parameter, different normalizations and weights
-can be applied to give user full control of the way $\chi2$ is calculated.
+By using the third parameter, \Code{<chi2\_module>}, different normalizations and weights
+can be applied to give user full control of the way $\chi^2$ is calculated.
 This feature will be explained in \SecRef{FittingAdvanced}.
 
 
@@ -240,7 +240,7 @@ can also be obtained using \Code{MinimizerFactory.printCatalogue()} command.
 \hline
 & \Code{SteepestDescent} & follows the downhill gradient of the function at each step\\
 \hline
-\Code{GSLMultiFit} \cite{GSLMultiFitURL} & & Levenberg-Marquardt
+\Code{GSLLMA} \cite{GSLMultiFitURL} & & Levenberg-Marquardt
 Algorithm\\
 \hline
 \Code{GSLSimAn} \cite{GSLSimAnURL}& & Simulated Annealing Algorithm\\ 
@@ -254,9 +254,7 @@ Algorithm\\
 There are several options common to every minimization algorithm, which can be changed
 before starting the minimization. They are handled by \Code{MinimizerOptions} class:
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
-options = MinimizerOptions()
-options.setMaxFunctionCalls(10)
-fit_suite.getMinimizer().setOptions(options)
+fit_suite.getMinimizer().getOptions().setMaxFunctionCalls(10)
 \end{lstlisting}
 In the above code snippet, a number of ``maximum function calls'',
 namely the maximum number of times the minimizer is allowed to call the simulation, is limited to 10. %The minimizer will take that number into consideration and will try to limit number of iterations by that value.

@@ -25,8 +25,8 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
     
     }
 
-    FormFactorGauss_wrapper(double height, double width )
-    : FormFactorGauss( height, width )
+    FormFactorGauss_wrapper(double width, double height )
+    : FormFactorGauss( width, height )
       , bp::wrapper< FormFactorGauss >(){
         // constructor
     
@@ -176,16 +176,16 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D alpha_f_bin ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_f_bin );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual ::ICompositeSample * getCompositeSample(  ) {
@@ -299,7 +299,7 @@ void register_FormFactorGauss_class(){
         typedef bp::class_< FormFactorGauss_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorGauss_exposer_t;
         FormFactorGauss_exposer_t FormFactorGauss_exposer = FormFactorGauss_exposer_t( "FormFactorGauss", bp::init< double >(( bp::arg("volume") )) );
         bp::scope FormFactorGauss_scope( FormFactorGauss_exposer );
-        FormFactorGauss_exposer.def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) );
+        FormFactorGauss_exposer.def( bp::init< double, double >(( bp::arg("width"), bp::arg("height") )) );
         { //::FormFactorGauss::clone
         
             typedef ::FormFactorGauss * ( ::FormFactorGauss::*clone_function_type )(  ) const;
@@ -440,8 +440,8 @@ void register_FormFactorGauss_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
-            typedef ::complex_t ( FormFactorGauss_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorGauss_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorGauss_exposer.def( 
                 "evaluate"

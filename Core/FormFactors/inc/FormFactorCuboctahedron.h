@@ -21,18 +21,18 @@
 
 //! @class FormFactorCuboctahedron
 //! @ingroup formfactors
-//! @brief The formfactor of cuboctahedron.
+//! @brief The formfactor of a cuboctahedron.
 
 class BA_CORE_API_ FormFactorCuboctahedron : public IFormFactorBorn
 {
 public:
-    //! @brief cuboctahedron constructor
-    //! @param height of bottom of cuboctahedron
-    //! @param height ratio : height top part/height bottom part
-    //! @param half_side half of cuboctahedron's base
+    //! @brief Cuboctahedron constructor
+    //! @param length of one side of Cuboctahedron's square base
+    //! @param height of bottom of Cuboctahedron
+    //! @param height_ratio : height top part/height bottom part
     //! @param angle in radians between base and facet
 
-    FormFactorCuboctahedron(double half_side, double height,
+    FormFactorCuboctahedron(double length, double height,
                             double height_ratio, double alpha);
 
     ~FormFactorCuboctahedron() {}
@@ -49,8 +49,8 @@ public:
     virtual void setHeightRatio(double height_ratio) { m_height_ratio
                                                      = height_ratio; }
 
-    virtual double getHalfSide() const { return m_half_side; }
-    virtual void setHalfSide(double half_side) { m_half_side = half_side; }
+    virtual double getLength() const { return m_length; }
+    virtual void setLength(double length) { m_length = length; }
 
     virtual double getAlpha() const { return m_alpha; }
     virtual void setAlpha(double alpha) { m_alpha = alpha; }
@@ -62,7 +62,7 @@ protected:
 
 private:
     double m_height;
-    double m_half_side;
+    double m_length;
     double m_height_ratio;
     double m_alpha;
 };

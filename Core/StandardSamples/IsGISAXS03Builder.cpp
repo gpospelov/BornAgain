@@ -18,7 +18,7 @@
 #include "ParticleDecoration.h"
 #include "MaterialManager.h"
 #include "FormFactorCylinder.h"
-#include "FormFactorPrism3.h"
+//#include "FormFactorPrism3.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
 #include "StochasticSampledParameter.h"
@@ -61,7 +61,7 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     ParticleDecoration particle_decoration( new Particle(particle_material,
-            new FormFactorCylinder(m_height, m_radius)));
+            new FormFactorCylinder(m_radius, m_height)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);
@@ -110,7 +110,7 @@ ISample *IsGISAXS03BABuilder::buildSample() const
 
     ParticleDecoration particle_decoration(
             new Particle(particle_material,
-                    new FormFactorCylinder(m_height, m_radius)));
+                    new FormFactorCylinder(m_radius, m_height)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setDecoration(particle_decoration);
@@ -156,7 +156,7 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     ParticleDecoration particle_decoration;
     // preparing prototype of nano particle
     double sigma = 0.2*m_radius;
-    FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( m_height, m_radius);
+    FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( m_radius, m_height);
     Particle nano_particle(particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins(100), nfwhm(2);

@@ -41,25 +41,6 @@ Simulation::Simulation()
     init_parameters();
 }
 
-Simulation::Simulation(const Simulation& other)
-: ICloneable(), IParameterized(other)
-, mp_sample(0)
-, mp_sample_builder(other.mp_sample_builder)
-, m_instrument(other.m_instrument)
-, m_sim_params(other.m_sim_params)
-, m_thread_info(other.m_thread_info)
-, m_intensity_map()
-, m_polarization_output()
-, m_is_normalized(other.m_is_normalized)
-, mp_options(other.mp_options)
-{
-    if(other.mp_sample) mp_sample = other.mp_sample->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    m_polarization_output.copyFrom(other.m_polarization_output);
-
-    init_parameters();
-}
-
 Simulation::Simulation(const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
@@ -109,24 +90,255 @@ Simulation *Simulation::clone() const
 void Simulation::prepareSimulation()
 {
     if(!m_instrument.getDetectorDimension()) {
-        throw LogicErrorException("Simulation::prepareSimulation() -> Error. The detector was not configured.");
+        throw LogicErrorException("Simulation::prepareSimulation() "
+        		"-> Error. The detector was not configured.");
     }
     gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
 }
 
-//! Run simulation. Manage threads.
-
+//! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
     prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
-    m_intensity_map.setAllTo(0.);
+
+	size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
+
+	// no averaging needed:
+	if (param_combinations == 1) {
+		runSingleSimulation();
+		return;
+	}
+
+	// average over parameter distributions:
+    OutputData<double> total_intensity;
+    OutputData<Eigen::Matrix2d> total_polarized_intensity;
+    total_intensity.copyShapeFrom(m_intensity_map);
+    total_polarized_intensity.copyShapeFrom(m_polarization_output);
+    total_intensity.setAllTo(0.);
+    total_polarized_intensity.setAllTo(Eigen::Matrix2d::Zero());
+	ParameterPool *p_param_pool = createParameterTree();
+	for (size_t index=0; index < param_combinations; ++index) {
+		double weight = m_distribution_handler.setParameterValues(
+				p_param_pool, index);
+		runSingleSimulation();
+		m_intensity_map.scaleAll(weight);
+		m_polarization_output.scaleAll(
+				(Eigen::Matrix2d)(Eigen::Matrix2d::Identity()*weight) );
+		total_intensity += m_intensity_map;
+		total_polarized_intensity += m_polarization_output;
+	}
+	m_intensity_map.copyFrom(total_intensity);
+	m_polarization_output.copyFrom(total_polarized_intensity);
+}
+
+void Simulation::runSimulationElement(size_t index)
+{
+    (void)index;  // to suppress unused-variable warning
+
+    prepareSimulation();
+    if( !mp_sample)
+        throw NullPointerException(
+            "Simulation::runSimulation() -> Error! No sample set.");
+    m_intensity_map.setAllTo(0);
     m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
 
+    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+    if (!p_dwba_simulation)
+        throw NullPointerException("Simulation::runSimulation() -> "
+                                   "No dwba simulation");
+    p_dwba_simulation->init(*this);
+    p_dwba_simulation->run();
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    delete p_dwba_simulation;
+}
+
+void Simulation::normalize()
+{
+    if (!m_is_normalized) {
+        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
+        m_is_normalized = true;
+    }
+}
+
+//! The ISample object will not be owned by the Simulation object
+void Simulation::setSample(const ISample& sample)
+{
+    delete mp_sample;
+    mp_sample = sample.clone();
+}
+
+void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
+{
+    if( !p_sample_builder.get() )
+        throw NullPointerException(
+            "Simulation::setSampleBuilder() -> "
+            "Error! Attempt to set null sample builder.");
+
+    mp_sample_builder = p_sample_builder;
+    delete mp_sample;
+    mp_sample = 0;
+}
+
+OutputData<double>* Simulation::getPolarizedIntensityData(
+		int row, int column) const
+{
+    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
+    OutputData<double > *result =
+            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
+    return result;
+}
+
+void Simulation::setInstrument(const Instrument& instrument)
+{
+    m_instrument = instrument;
+    updateIntensityMapAxes();
+}
+
+void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
+{
+    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
+}
+
+void Simulation::setBeamIntensity(double intensity)
+{
+    m_instrument.setBeamIntensity(intensity);
+}
+
+std::string Simulation::addParametersToExternalPool(
+    std::string path, ParameterPool* external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path =
+        IParameterized::addParametersToExternalPool(
+            path, external_pool, copy_number);
+
+    // add parameters of the instrument
+    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
+
+    if (mp_sample_builder.get()) {
+       // add parameters of the sample builder
+        mp_sample_builder->addParametersToExternalPool(
+            new_path, external_pool, -1);
+    } else if (mp_sample) {
+        // add parameters of directly the sample
+        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
+    }
+
+    return new_path;
+}
+
+Simulation::Simulation(const Simulation& other)
+: ICloneable(), IParameterized(other)
+, mp_sample(0)
+, mp_sample_builder(other.mp_sample_builder)
+, m_instrument(other.m_instrument)
+, m_sim_params(other.m_sim_params)
+, m_thread_info(other.m_thread_info)
+, m_intensity_map()
+, m_polarization_output()
+, m_is_normalized(other.m_is_normalized)
+, mp_options(other.mp_options)
+, m_distribution_handler(other.m_distribution_handler)
+{
+    if(other.mp_sample) mp_sample = other.mp_sample->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    m_polarization_output.copyFrom(other.m_polarization_output);
+
+    init_parameters();
+}
+
+void Simulation::init_parameters()
+{
+}
+
+void Simulation::updateIntensityMapAxes()
+{
+    m_intensity_map.clear();
+    m_polarization_output.clear();
+    size_t detector_dimension = m_instrument.getDetectorDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
+        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
+        m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
+    }
+    m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
+}
+
+void Simulation::updateSample()
+{
+    if (mp_sample_builder.get()) {
+        ISample *p_new_sample = mp_sample_builder->buildSample();
+        std::string builder_type = typeid(*mp_sample_builder).name();
+        if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
+            msglog(MSG::INFO) << "Simulation::updateSample() -> "
+                "OMG, some body has called me from python, what an idea... ";
+            setSample(*p_new_sample);
+        } else {
+            delete mp_sample;
+            mp_sample = p_new_sample;
+        }
+    }
+}
+
+void Simulation::setDetectorParameters(const OutputData<double >& output_data)
+{
+    m_instrument.matchDetectorParameters(output_data);
+
+    m_intensity_map.clear();
+    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
+    m_intensity_map.setAllTo(0.);
+
+    m_polarization_output.clear();
+    m_polarization_output.copyShapeFrom(output_data);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
+}
+
+void Simulation::setDetectorParameters(
+    size_t n_phi, double phi_f_min, double phi_f_max,
+    size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
+{
+    m_instrument.setDetectorParameters(
+        n_phi, phi_f_min, phi_f_max,
+        n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
+    updateIntensityMapAxes();
+}
+
+void Simulation::setDetectorParameters(const DetectorParameters& params)
+{
+    m_instrument.setDetectorParameters(params);
+    updateIntensityMapAxes();
+}
+
+void Simulation::setDetectorResolutionFunction(
+    IResolutionFunction2D *p_resolution_function)
+{
+    m_instrument.setDetectorResolutionFunction(p_resolution_function);
+}
+void Simulation::setDetectorResolutionFunction(
+    const IResolutionFunction2D &p_resolution_function)
+{
+    m_instrument.setDetectorResolutionFunction(p_resolution_function);
+}
+
+void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
+{
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    if (p_dwba_simulation->hasPolarizedOutputData()) {
+        m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
+    }
+}
+
+//! Run single simulation with fixed parameter values.
+//! Also manage threads.
+void Simulation::runSingleSimulation()
+{
+    m_intensity_map.setAllTo(0.);
+    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
     // retrieve batch and threading information
     if (mp_options) {
         if (mp_options->find("nbatches")) {
@@ -217,181 +429,4 @@ void Simulation::runSimulation()
         m_instrument.applyDetectorResolution(&m_intensity_map);
     }
 }
-
-void Simulation::runSimulationElement(size_t index)
-{
-    (void)index;  // to suppress unused-variable warning
-
-    prepareSimulation();
-    if( !mp_sample)
-        throw NullPointerException(
-            "Simulation::runSimulation() -> Error! No sample set.");
-    m_intensity_map.setAllTo(0);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-
-    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (!p_dwba_simulation)
-        throw NullPointerException("Simulation::runSimulation() -> "
-                                   "No dwba simulation");
-    p_dwba_simulation->init(*this);
-    p_dwba_simulation->run();
-    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
-    delete p_dwba_simulation;
-}
-
-void Simulation::normalize()
-{
-    if (!m_is_normalized) {
-        m_instrument.normalize(&m_intensity_map, &m_polarization_output);
-        m_is_normalized = true;
-    }
-}
-
-//! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample& sample)
-{
-    delete mp_sample;
-    mp_sample = sample.clone();
-}
-
-void Simulation::setSampleBuilder(SampleBuilder_t p_sample_builder)
-{
-    if( !p_sample_builder.get() )
-        throw NullPointerException(
-            "Simulation::setSampleBuilder() -> "
-            "Error! Attempt to set null sample builder.");
-
-    mp_sample_builder = p_sample_builder;
-    delete mp_sample;
-    mp_sample = 0;
-}
-
-void Simulation::setInstrument(const Instrument& instrument)
-{
-    m_instrument = instrument;
-    updateIntensityMapAxes();
-}
-
-void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
-{
-    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
-}
-
-void Simulation::setBeamIntensity(double intensity)
-{
-    m_instrument.setBeamIntensity(intensity);
-}
-
-std::string Simulation::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string  new_path =
-        IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the instrument
-    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
-
-    if (mp_sample_builder.get()) {
-       // add parameters of the sample builder
-        mp_sample_builder->addParametersToExternalPool(
-            new_path, external_pool, -1);
-    } else if (mp_sample) {
-        // add parameters of directly the sample
-        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
-    }
-
-    return new_path;
-}
-
-void Simulation::init_parameters()
-{
-}
-
-void Simulation::updateIntensityMapAxes()
-{
-    m_intensity_map.clear();
-    m_polarization_output.clear();
-    size_t detector_dimension = m_instrument.getDetectorDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
-        m_polarization_output.addAxis(m_instrument.getDetectorAxis(dim));
-    }
-    m_intensity_map.setAllTo(0.);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-}
-
-void Simulation::updateSample()
-{
-    if (mp_sample_builder.get()) {
-        ISample *p_new_sample = mp_sample_builder->buildSample();
-        std::string builder_type = typeid(*mp_sample_builder).name();
-        if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            msglog(MSG::INFO) << "Simulation::updateSample() -> "
-                "OMG, some body has called me from python, what an idea... ";
-            setSample(*p_new_sample);
-        } else {
-            delete mp_sample;
-            mp_sample = p_new_sample;
-        }
-    }
-}
-
-void Simulation::setDetectorParameters(const OutputData<double >& output_data)
-{
-    m_instrument.matchDetectorParameters(output_data);
-
-    m_intensity_map.clear();
-    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
-    m_intensity_map.setAllTo(0.);
-
-    m_polarization_output.clear();
-    m_polarization_output.copyShapeFrom(output_data);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-}
-
-void Simulation::setDetectorParameters(
-    size_t n_phi, double phi_f_min, double phi_f_max,
-    size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
-{
-    m_instrument.setDetectorParameters(
-        n_phi, phi_f_min, phi_f_max,
-        n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
-    updateIntensityMapAxes();
-}
-
-void Simulation::setDetectorParameters(const DetectorParameters& params)
-{
-    m_instrument.setDetectorParameters(params);
-    updateIntensityMapAxes();
-}
-
-void Simulation::setDetectorResolutionFunction(
-    IResolutionFunction2D *p_resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-}
-void Simulation::setDetectorResolutionFunction(
-    const IResolutionFunction2D &p_resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(p_resolution_function);
-}
-
-void Simulation::addToIntensityMaps(DWBASimulation* p_dwba_simulation)
-{
-    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
-    if (p_dwba_simulation->hasPolarizedOutputData()) {
-        m_polarization_output += p_dwba_simulation->getPolarizedDWBAIntensity();
-    }
-}
-
-OutputData<double>* Simulation::getPolarizedIntensityData(int row, int column) const
-{
-    const OutputData<Eigen::Matrix2d > *p_data_pol = getPolarizedOutputData();
-    OutputData<double > *result =
-            OutputDataFunctions::getComponentData(*p_data_pol, row, column);
-    return result;
-}
-
 

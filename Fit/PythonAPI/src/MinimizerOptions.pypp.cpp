@@ -125,36 +125,6 @@ void register_MinimizerOptions_class(){
                 , getTolerance_function_type( &::MinimizerOptions::getTolerance ) );
         
         }
-        { //::MinimizerOptions::getValue
-        
-            typedef void ( ::MinimizerOptions::*getValue_function_type )( ::std::string const &,int & ) ;
-            
-            MinimizerOptions_exposer.def( 
-                "getValue"
-                , getValue_function_type( &::MinimizerOptions::getValue )
-                , ( bp::arg("name"), bp::arg("val") ) );
-        
-        }
-        { //::MinimizerOptions::getValue
-        
-            typedef void ( ::MinimizerOptions::*getValue_function_type )( ::std::string const &,double & ) ;
-            
-            MinimizerOptions_exposer.def( 
-                "getValue"
-                , getValue_function_type( &::MinimizerOptions::getValue )
-                , ( bp::arg("name"), bp::arg("val") ) );
-        
-        }
-        { //::MinimizerOptions::getValue
-        
-            typedef void ( ::MinimizerOptions::*getValue_function_type )( ::std::string const &,::std::string & ) ;
-            
-            MinimizerOptions_exposer.def( 
-                "getValue"
-                , getValue_function_type( &::MinimizerOptions::getValue )
-                , ( bp::arg("name"), bp::arg("val") ) );
-        
-        }
         { //::MinimizerOptions::print
         
             typedef void ( ::MinimizerOptions::*print_function_type )(  ) const;

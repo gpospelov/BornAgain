@@ -145,7 +145,7 @@ void TestFittingModule2::fit_example_chimodule()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError() );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
     chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
     m_fitSuite->addSimulationAndRealData(
         *mp_simulation, *mp_real_data, chiModule);

@@ -137,10 +137,10 @@ BA_CORE_API_ inline bool isinf(double x)
 }
 
 //! complex bessel J0 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
-complex_t crbond_bessel_J0(const complex_t &value);
+BA_CORE_API_ complex_t crbond_bessel_J0(const complex_t &value);
 
 //! complex bessel J1 function (modified version of C. Bond, see explanations in MathFunctions.cpp)
-complex_t crbond_bessel_J1(const complex_t &value);
+BA_CORE_API_ complex_t crbond_bessel_J1(const complex_t &value);
 
 
 } // Namespace MathFunctions

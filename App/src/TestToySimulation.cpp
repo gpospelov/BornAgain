@@ -114,7 +114,7 @@ void TestToySimulation::execute()
     m_fitSuite->addFitParameter("*/par2",  0.0, 0.01, AttLimits::lowerLimited(0.0));
 
     ChiSquaredModule chi_module;
-    chi_module.setChiSquaredFunction(SquaredFunctionGaussianError(m_sigma_noise) );
+    chi_module.setChiSquaredFunction(new SquaredFunctionGaussianError(m_sigma_noise) );
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chi_module);
     m_fitSuite->runFit();
 }

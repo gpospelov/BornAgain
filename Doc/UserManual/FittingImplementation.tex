@@ -240,7 +240,7 @@ can also be obtained using \Code{MinimizerFactory.printCatalogue()} command.
 \hline
 & \Code{SteepestDescent} & follows the downhill gradient of the function at each step\\
 \hline
-\Code{GSLMultiFit} \cite{GSLMultiFitURL} & & Levenberg-Marquardt
+\Code{GSLLMA} \cite{GSLMultiFitURL} & & Levenberg-Marquardt
 Algorithm\\
 \hline
 \Code{GSLSimAn} \cite{GSLSimAnURL}& & Simulated Annealing Algorithm\\ 
@@ -254,9 +254,7 @@ Algorithm\\
 There are several options common to every minimization algorithm, which can be changed
 before starting the minimization. They are handled by \Code{MinimizerOptions} class:
 \begin{lstlisting}[language=python, style=eclipseboxed, numbers = none]
-options = MinimizerOptions()
-options.setMaxFunctionCalls(10)
-fit_suite.getMinimizer().setOptions(options)
+fit_suite.getMinimizer().getOptions().setMaxFunctionCalls(10)
 \end{lstlisting}
 In the above code snippet, a number of ``maximum function calls'',
 namely the maximum number of times the minimizer is allowed to call the simulation, is limited to 10. %The minimizer will take that number into consideration and will try to limit number of iterations by that value.

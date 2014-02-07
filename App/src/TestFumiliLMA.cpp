@@ -57,7 +57,7 @@ TestFumiliLMA::TestFumiliLMA()
 
     // chi module
     m_chi_module = new ChiSquaredModule();
-    m_chi_module->setChiSquaredFunction(SquaredFunctionGaussianError(m_sigma) );
+    m_chi_module->setChiSquaredFunction(new SquaredFunctionGaussianError(m_sigma) );
 
     // "real" data
     OutputData<double> data;

@@ -123,7 +123,7 @@ install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Hea
 # system libraries
 if(WIN32)
     if(MSVC)
-        set(boost_suffix "-vc110-mt-1_54.dll")
+        set(boost_suffix "-vc110-mt-1_55.dll")
         install(FILES 
         ${CMAKE_LIBRARY_PATH}/boost_date_time${boost_suffix}
         ${CMAKE_LIBRARY_PATH}/boost_chrono${boost_suffix}

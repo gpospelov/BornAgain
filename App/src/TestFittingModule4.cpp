@@ -57,7 +57,7 @@ void TestFittingModule4::execute()
 
     ChiSquaredModule chiModule;
     //chiModule.setChiSquaredFunction( SquaredFunctionSimError() );
-    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
+    chiModule.setChiSquaredFunction( new SquaredFunctionDefault() );
 
     m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data, chiModule);
 

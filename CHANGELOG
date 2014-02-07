@@ -1,3 +1,44 @@
+BornAgain-0.9.4, released 2014.02.07
+  > Summary: Off specular simulation, beam divergence, support for MacOS Maverick, new form factors
+  * Bug #220: Gui: provide GUI compilation under Qt5/linux
+  * Bug #461: Provide compilation on latest MacOS Maverick
+  * Bug #545: PolarizedDWBAZeroMag functional test fails under windows
+  * Bug #567: Restore PythonAPI generation under Maverick
+  * Bug #576: Fix functional tests under Maverick
+  * Bug #582: Silent sigmentation fault in InterferenceFunction2DLattice
+  * Feature #304: Provide compilation of HipGISAXS and run test simulation on GPU
+  * Feature #318: Implement beam divergence and wavelength distribution
+  * Feature #400: Move QtVariantManager into directory "externals" as static library
+  * Feature #446: Repair broken Genetic minimizer after we get rid from ROOT dependency
+  * Feature #482: Implement/review Full spheroid formfactor
+  * Feature #484: Implement/review Ellipsoid formfactor
+  * Feature #485: Implement/review Anisotropic hemi-spheroid formfactor
+  * Feature #486: Implement/review Spheroid formfactor
+  * Feature #491: Provide https access to git repository
+  * Feature #521: Implement polarized DWBA with cylindrical particles functional test
+  * Feature #526: Implement the ripple 1 (gaussian) formfactor
+  * Feature #543: Review release script
+  * Feature #553: Provide interface to perform off-specular scattering simulations
+  * Feature #569: Provide complex Bessel functions in C++ by wrapping existing fortran code
+  * Feature #571: Replace real Bessel with complex one where needed
+  * Documentation #546: Complete Appendix with all form factors listed
+  * Documentation #549: Doxygen API: review form factors description
+  * Documentation #565: Provide simulation and fit examples for spheres with size distribution
+  * Documentation #566: Provide ripple2 example
+  * Testing #445: Implement BornAgainFit unit test infrastructure
+  * Testing #537: Create MultiLayer unit test
+  * Testing #551: Implement tests for AttLimits, FitParameter, FitParameterLinked
+  * Testing #554: Implement ParticleDecoration unit test
+  * Testing #556: Implement HomogeneousMaterial and HomogeneousMagneticMaterials unit tests
+  * Testing #557: Implement OutputData<Eigen::Matrix2d> unit test
+  * Testing #559: Implement SpecularMatrix unit test
+  * Testing #560: Implement ScalarRTCoefficients unit test
+  * Testing #561: Implement MathFunctions unit test
+  * Testing #562: Implement MatrixRTCoefficients unit test
+  * Testing #563: Revise Beam unit test
+  * Testing #564: Implement ScalarSpecularInfoMap and MatrixSpecularInfoMap test
+  * Testing #573: Implement DWBASimulation unit test
+
 BornAgain-0.9.3, released 2013.12.20
   > Summary: new form factors, user requests, refactoring
   * Bug #469: Review form factor calculation for big particle dimensions

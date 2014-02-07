@@ -26,7 +26,7 @@ class IDistribution1D;
 //! @ingroup algorithms_internal
 //! @brief Provides the functionality to average over parameter distributions
 //! with weights
-class DistributionHandler : public IParameterized
+class BA_CORE_API_ DistributionHandler : public IParameterized
 {
 public:
 	DistributionHandler();

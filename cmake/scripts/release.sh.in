@@ -15,7 +15,7 @@ BA_VERSION_PATCH=@BornAgain_VERSION_PATCH@
 BA_VERSION=$BA_VERSION_MAJOR.$BA_VERSION_MINOR.$BA_VERSION_PATCH
 
 # version of the Users Manual
-MAN_VERSION="0.2.1"
+MAN_VERSION="0.2.2"
 
 # Where is your git source tree? 
 # Set the path here or CMake will set it for you.

@@ -21,6 +21,7 @@ include_directories(
 target_link_libraries(TestCore
     ${BornAgainCore_LIBRARY}
     ${Boost_LIBRARIES}
+    ${GSL_LIBRARIES}
 )
 
 # to build executable right in lib directory to not to have problems with finding libBornAgainCore.dll under Windows

@@ -70,6 +70,8 @@ def ManualClassTunings(mb):
     cl = mb.class_("IMinimizer")
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
+    cl.member_function("getAlgorithmName").exclude() # temporarily due to compilation problems under MSVC
+    cl.member_function("getMinimizerName").exclude() # temporarily due to compilation problems under MSVC
     for fun in cl.member_functions():
         if "getOptions" in fun.name:
             if "::MinimizerOptions const & ( ::IMinimizer::* )(  ) const" in fun.decl_string:
@@ -109,6 +111,11 @@ def ManualClassTunings(mb):
     cl = mb.class_("FitStrategyAdjustMinimizer")
     cl.member_function( "getMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
     cl.member_function( "setMinimizer" ).include()
+
+    cl = mb.class_("MinimizerOptions") # alternatively transformation can be used
+    for fun in cl.member_functions():
+        if "getValue" in fun.name:
+            fun.exclude()
 
     cl = mb.class_("IObserver")
     cl.member_function("update").include()

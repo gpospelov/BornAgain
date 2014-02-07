@@ -123,7 +123,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 
     // chi squared module
     ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionSystematicError(0.08) );
+    chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin();

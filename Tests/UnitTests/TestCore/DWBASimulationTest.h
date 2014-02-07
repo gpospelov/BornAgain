@@ -36,7 +36,7 @@ TEST_F(DWBASimulationTest, InitialState)
 {
     DWBASimulation dwbasim;
     EXPECT_FALSE(dwbasim.hasPolarizedOutputData());
-    EXPECT_EQ(1, dwbasim.getDWBAIntensity().getAllocatedSize());
+    EXPECT_EQ( size_t(1), dwbasim.getDWBAIntensity().getAllocatedSize());
 }
 
 

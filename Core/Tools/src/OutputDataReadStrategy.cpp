@@ -67,8 +67,9 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
 
     while( std::getline(input_stream, sline))
     {
-        std::string str = Utils::String::round_doubles(sline, 10);
-        vdouble1d_t buff = Utils::String::parse_doubles(str);
+        //std::string str = Utils::String::round_doubles(sline, 10);
+        //vdouble1d_t buff = Utils::String::parse_doubles(str);
+        vdouble1d_t buff = Utils::String::parse_doubles(sline);
 
         buff_2d.push_back(buff);
     }
@@ -123,8 +124,8 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     while( std::getline(input_stream, sline) )
     {
         if(sline[0] == '#') continue;
-        std::string str = Utils::String::round_doubles(sline, 10);
-        vdouble1d_t buff = Utils::String::parse_doubles(str);
+        //std::string str = Utils::String::round_doubles(sline, 10);
+        vdouble1d_t buff = Utils::String::parse_doubles(sline);
 
         if( buff_xaxis.empty() ) {
             buff_xaxis = buff;

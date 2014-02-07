@@ -99,7 +99,7 @@ case $REPLY in
     python $CMAKE_SOURCE_DIR/dev-tools/git-utils/cl_lines_of_code.py -i $GIT_SOURCE_TREE -o $CMAKE_SOURCE_DIR/dev-tools/git-utils/lines_of_code.png
 
     # Measure the performance
-    $CMAKE_BUILD_DIR/bin/App --performance --batch --threads=-1
+    $CMAKE_BUILD_DIR/bin/App --performance --batch
 
     # Modify file dev-tools/log/perf_history.txt
     # the commented code exits in the case of no input with bash -e option

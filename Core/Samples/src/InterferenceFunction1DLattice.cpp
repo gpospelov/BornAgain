@@ -47,7 +47,7 @@ void InterferenceFunction1DLattice::setProbabilityDistribution(
     mp_pdf = pdf.clone();
     double omega = mp_pdf->getOmega();
 //     initialize_calc_factors(omega):
-    m_prefactor = 2.0*M_PI*omega;
+    m_prefactor = M_PI*omega;
     double qa_max = (m_lattice_params.m_length/(2*M_PI))*nmax/omega;
     m_na = (int) (std::abs(qa_max) + 0.5);
 }

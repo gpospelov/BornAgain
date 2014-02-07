@@ -553,7 +553,6 @@ TEST_F(FormFactorTest, InfLongBox)
 {
     double height = 15.;
     double width = 100.0/M_PI;
-    double volume = 2*M_PI*height*width;
 
     FormFactorInfLongBox ilbox(width, height);
 

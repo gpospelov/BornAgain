@@ -41,6 +41,7 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
     if( buff_1d.empty() ) {
         std::cout << "OutputDataReadFileASCII::parse_doubles() -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;
+        std::cout << "Line '" << str << "'" << std::endl;
     }
     return buff_1d;
 }

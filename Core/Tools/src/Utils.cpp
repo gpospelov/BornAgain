@@ -20,6 +20,7 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string.hpp>
+#include <string>
 
 #ifdef DEBUG_FPE
 #include <fenv.h>
@@ -36,8 +37,10 @@ vdouble1d_t Utils::String::parse_doubles(const std::string& str)
 {
     vdouble1d_t buff_1d;
     std::istringstream iss(str);
-    double value;
-    while(iss >> value) buff_1d.push_back(value);
+    std::string svalue;
+    while(iss >> svalue) {
+        buff_1d.push_back(std::strtod(svalue.c_str(), NULL));
+    }
 //    std::copy(std::istream_iterator<double>(iss),
 //              std::istream_iterator<double>(), back_inserter(buff_1d));
     if( buff_1d.empty() ) {

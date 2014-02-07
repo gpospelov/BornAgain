@@ -23,7 +23,8 @@
 
 SampleFactory::SampleFactory()
 {
-    setOwnObjects(true); //factory will take care about samples
+    //setOwnObjects(true); //factory will take care about samples
+    setOwnObjects(false);
 
     // samples used for reflection/transmission coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);

@@ -27,15 +27,73 @@
 //! @ingroup algorithms_internal
 //! @brief Interface for 1 dimensional distributions in Fourier space
 
-class BA_CORE_API_ IFTDistribution1D
+class BA_CORE_API_ IFTDistribution1D : public IParameterized
 {
 public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
     virtual ~IFTDistribution1D() {}
 
+    virtual IFTDistribution1D *clone() const=0;
     virtual double evaluate(double q) const=0;
+    void setOmega(double omega) { m_omega = omega; }
+    double getOmega() const { return m_omega; }
+
 protected:
+    virtual void init_parameters();
     double m_omega;
+};
+
+//! @class FTDistribution1DCauchy
+//! @ingroup algorithms
+//! @brief 1 dimensional Cauchy distribution in Fourier space
+//! corresponds to exp(-r) in real space
+
+class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
+{
+public:
+    FTDistribution1DCauchy(double omega);
+    virtual ~FTDistribution1DCauchy() {}
+
+    virtual FTDistribution1DCauchy *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+//! @class FTDistribution1DGauss
+//! @ingroup algorithms
+//! @brief 1 dimensional Gauss distribution in Fourier space
+//! corresponds to exp(-r^2) in real space
+
+class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
+{
+public:
+    FTDistribution1DGauss(double omega);
+    virtual ~FTDistribution1DGauss() {}
+
+    virtual FTDistribution1DGauss *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
+//! @class FTDistribution1DVoigt
+//! @ingroup algorithms
+//! @brief 1 dimensional Voigt distribution in Fourier space
+//! Corresponds to eta*Gauss + (1-eta)*Cauchy
+
+class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
+{
+public:
+    FTDistribution1DVoigt(double omega, double eta);
+    virtual ~FTDistribution1DVoigt() {}
+
+    virtual FTDistribution1DVoigt *clone() const;
+
+    virtual double evaluate(double q) const;
+
+protected:
+    virtual void init_parameters();
+    double m_eta;
 };
 
 

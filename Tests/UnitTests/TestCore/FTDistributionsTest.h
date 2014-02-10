@@ -11,7 +11,90 @@ protected:
 };
 
 
+// test 1D
+TEST_F(FTDistributionsTest, FTDistribution1DCauchyConstructor)
+{
+    IFTDistribution1D * iftd1D = new FTDistribution1DCauchy(1.0);
+    EXPECT_EQ(1.0, iftd1D->getOmega());
+    EXPECT_EQ("1DDistributionCauchy", iftd1D->getName());
+    EXPECT_NEAR(0.942866, iftd1D->evaluate(0.2),0.000001);
 
+    iftd1D->setOmega(3.0);
+    EXPECT_EQ(3.0, iftd1D->getOmega());
+
+    iftd1D->setParameterValue("omega", -7.0);
+    EXPECT_EQ(-7.0, iftd1D->getOmega());
+
+    delete iftd1D;
+}
+
+TEST_F(FTDistributionsTest, FTDistribution1DCauchyClone)
+{
+    IFTDistribution1D * iftd1D = new FTDistribution1DCauchy(-5.0);
+    IFTDistribution1D * iftd1DClone = iftd1D->clone();
+
+    EXPECT_EQ(-5.0, iftd1DClone->getOmega());
+    EXPECT_EQ("1DDistributionCauchy", iftd1DClone->getName());
+    EXPECT_NEAR(0.353553, iftd1DClone->evaluate(0.2),0.000001);
+
+    delete iftd1D;
+    delete iftd1DClone;
+}
+
+TEST_F(FTDistributionsTest, FTDistribution1DGaussConstructor)
+{
+    IFTDistribution1D * iftd1D = new FTDistribution1DGauss(1.0);
+    EXPECT_EQ(1.0, iftd1D->getOmega());
+    EXPECT_EQ("1DDistributionGauss", iftd1D->getName());
+    EXPECT_NEAR(0.4950249, iftd1D->evaluate(0.2),0.000001);
+
+    iftd1D->setOmega(3.0);
+    EXPECT_EQ(3.0, iftd1D->getOmega());
+
+    delete iftd1D;
+}
+
+TEST_F(FTDistributionsTest, FTDistribution1DGaussClone)
+{
+    IFTDistribution1D * iftd1D = new FTDistribution1DGauss(-5.0);
+    IFTDistribution1D * iftd1DClone = iftd1D->clone();
+
+    EXPECT_EQ(-5.0, iftd1DClone->getOmega());
+    EXPECT_EQ("1DDistributionGauss", iftd1DClone->getName());
+    EXPECT_NEAR(0.389400, iftd1DClone->evaluate(0.2),0.000001);
+
+    delete iftd1D;
+    delete iftd1DClone;
+}
+
+TEST_F(FTDistributionsTest, FTDistribution1DVoigtConstructor)
+{
+    IFTDistribution1D * iftd1D = new FTDistribution1DVoigt(1.0,1.7);
+    EXPECT_EQ(1.0, iftd1D->getOmega());
+    EXPECT_EQ("1DDistributionVoigt", iftd1D->getName());
+    EXPECT_NEAR(0.181536, iftd1D->evaluate(0.2),0.000001);
+
+    iftd1D->setOmega(3.0);
+    EXPECT_EQ(3.0, iftd1D->getOmega());
+
+    delete iftd1D;
+}
+
+TEST_F(FTDistributionsTest, FTDistribution1DVoigtClone)
+{
+    IFTDistribution1D * iftd1D = new FTDistribution1DVoigt(-5.0,-5.6);
+    IFTDistribution1D * iftd1DClone = iftd1D->clone();
+
+    EXPECT_EQ(-5.0, iftd1DClone->getOmega());
+    EXPECT_EQ("1DDistributionVoigt", iftd1DClone->getName());
+    EXPECT_NEAR(0.152810, iftd1DClone->evaluate(0.2),0.000001);
+
+    delete iftd1D;
+    delete iftd1DClone;
+}
+
+
+// test 2D
 
 TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
 {

@@ -222,6 +222,10 @@ void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
     throw NotImplementedException("ISampleVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorInfLongBox *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongBox *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const FormFactorLorentz *)
 {
@@ -345,6 +349,10 @@ void ISampleVisitor::visit(const IInterferenceFunction *)
     throw NotImplementedException("ISampleVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const InterferenceFunction1DLattice *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *){
     throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");

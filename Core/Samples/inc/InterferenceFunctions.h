@@ -18,6 +18,7 @@
 
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 

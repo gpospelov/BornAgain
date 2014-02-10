@@ -62,6 +62,7 @@ class FormFactorFullSphere;
 class FormFactorFullSpheroid;
 class FormFactorGauss;
 class FormFactorHemiEllipsoid;
+class FormFactorInfLongBox;
 class FormFactorLorentz;
 class FormFactorParallelepiped;
 class FormFactorPrism3;
@@ -86,6 +87,7 @@ class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorTransformation;
 // -
 class IInterferenceFunction;
+class InterferenceFunction1DLattice;
 class InterferenceFunction1DParaCrystal;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
@@ -152,6 +154,7 @@ public:
     virtual void visit(const FormFactorFullSpheroid *);
     virtual void visit(const FormFactorGauss *);
     virtual void visit(const FormFactorHemiEllipsoid *);
+    virtual void visit(const FormFactorInfLongBox *);
     virtual void visit(const FormFactorLorentz *);
     virtual void visit(const FormFactorParallelepiped *);
     virtual void visit(const FormFactorPrism3 *);
@@ -176,6 +179,7 @@ public:
     virtual void visit(const FormFactorDecoratorTransformation *);
 
     virtual void visit(const IInterferenceFunction *);
+    virtual void visit(const InterferenceFunction1DLattice *);
     virtual void visit(const InterferenceFunction1DParaCrystal *);
     virtual void visit(const InterferenceFunction2DLattice *);
     virtual void visit(const InterferenceFunction2DParaCrystal *);

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "fancytabwidget.h"
 #include "manhattanstyle.h"
-#include "taskselectorwidget.h"
+#include "actionmanager.h"
 #include "WelcomeView.h"
 #include "SampleView.h"
 #include "PyScriptView.h"
@@ -16,6 +16,9 @@
 #include "Samples.h"
 #include "InterferenceFunctions.h"
 #include "FormFactors.h"
+#include "mainwindow_constants.h"
+#include "hostosinfo.h"
+
 #include <QApplication>
 #include <iostream>
 #include <QStatusBar>
@@ -26,8 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     , m_welcomeView(0)
     , m_instrumentView(0)
     , m_sampleView(0)
+    , m_scriptView(0)
     , m_simulationView(0)
+    , m_jobView(0)
     , m_fitView(0)
+    , m_actionManager(0)
     , mp_sim_data_model(0)
 {
     // initialize simulation data model first:
@@ -42,7 +48,6 @@ MainWindow::MainWindow(QWidget *parent)
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 
-    //m_tabWidget = new TaskSelectorWidget(this);
     m_tabWidget = new Manhattan::FancyTabWidget();
     m_welcomeView = new WelcomeView();
     m_instrumentView = new InstrumentView(mp_sim_data_model);
@@ -63,7 +68,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->setCurrentIndex(2);
     setCentralWidget(m_tabWidget);
 
-//    m_tabWidget->statusBar()->setProperty("p_styled", true);
+    m_actionManager = new ActionManager(this);
+
     setAcceptDrops(true);
 
     // signals/slots
@@ -72,7 +78,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+//    delete m_actionManager;
 }
+
+
+
+void MainWindow::newProject()
+{
+    std::cout << "XXX newProject() "    << std::endl;
+}
+
+void MainWindow::openProject()
+{
+    std::cout << "XXX openProject() "    << std::endl;
+}
+
 
 void MainWindow::onChangeTabWidget(int index)
 {

@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QDockWidget>
+#include <QTreeView>
 
 
 class SampleDesignerInterface;
@@ -22,7 +23,7 @@ public:
     enum SubWindows
     {
         WidgetBoxSubWindow,
-        SampleInspectorSubWindow,
+        SampleTreeView,
         PropertyEditorSubWindow,
         InfoSubWindow,
         NumberOfSubWindows

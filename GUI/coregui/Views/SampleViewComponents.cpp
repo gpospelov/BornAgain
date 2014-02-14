@@ -39,10 +39,12 @@ SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerI
 //    result->setObjectName(QLatin1String("PropertyEditor"));
     return new SamplePropertyEditor(core, parent);
 }
-
-SampleTreeInspector *SampleViewComponents::createTreeInspector(QWidget *parent)
+QTreeView *SampleViewComponents::createTreeView(SessionModel *session_model, QWidget *parent)
 {
-    return new SampleTreeInspector(parent);
+    QTreeView *tree_view = new QTreeView(parent);
+    tree_view->setModel(session_model);
+    tree_view->setAllColumnsShowFocus(true);
+    return tree_view;
 }
 
 SampleInfoStreamInterface *SampleViewComponents::createInfoStream(QWidget *parent)

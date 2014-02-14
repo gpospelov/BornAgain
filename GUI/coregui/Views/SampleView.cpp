@@ -3,6 +3,7 @@
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
 #include "MaterialBrowser.h"
+#include "SessionModel.h"
 
 
 #include <QDockWidget>
@@ -75,7 +76,13 @@ void SampleView::initSubWindows()
 
     m_subWindows[WidgetBoxSubWindow] = SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    m_subWindows[SampleInspectorSubWindow] = SampleViewComponents::createTreeInspector(this);
+    SessionModel *session_model = new SessionModel();
+    // Temporary for testing
+    QStandardItem *multilayer = session_model->insertNewItem(BA_MODEL_ID::MultiLayer, QModelIndex());
+    QStandardItem *layer = session_model->insertNewItem(BA_MODEL_ID::Layer, QModelIndex());
+    session_model->insertNewItem(BA_MODEL_ID::Layer, multilayer->index());
+    // END temporary
+    m_subWindows[SampleTreeView] = SampleViewComponents::createTreeView(session_model, this);
 
     m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(m_sampleDesigner, this);
 
@@ -110,7 +117,7 @@ void SampleView::resetToDefaultLayout()
     }
 
     addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[WidgetBoxSubWindow]);
-    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleInspectorSubWindow]);
+    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleTreeView]);
     addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
     addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[InfoSubWindow]);
 

@@ -48,7 +48,7 @@ private:
     SimulationView *m_simulationView;
     JobView *m_jobView;
     FitView * m_fitView;
-    ActionManager *m_actionManager;
+    ActionManager *m_actionManager; //!< responsible for menus and actions
 
     SimulationDataModel *mp_sim_data_model;
     // dummy simulation model initializer for test purposes

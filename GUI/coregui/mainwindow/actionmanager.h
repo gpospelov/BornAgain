@@ -24,6 +24,7 @@ private:
 
     QAction *m_newAction;
     QAction *m_openAction;
+    QAction *m_exitAction;
 
     QMenuBar *m_menuBar;
     QMenu *m_fileMenu;

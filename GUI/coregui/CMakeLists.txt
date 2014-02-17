@@ -78,12 +78,12 @@ add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 include_directories(
     ${qcustomplot_INCLUDE_DIRS}
     ${qtpropertybrowser_INCLUDE_DIRS}
-    ${GQt_INCLUDE_DIRS}
-    ${QtRoot_INCLUDE_DIRS}
+#    ${GQt_INCLUDE_DIRS}
+#    ${QtRoot_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
-    ${ROOT_INCLUDE_DIR}
+#    ${ROOT_INCLUDE_DIR}
     ${ManhattanStyle_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
@@ -94,19 +94,20 @@ include_directories(
 target_link_libraries(${executable_name} 
     ${qcustomplot_LIBRARY}
     ${qtpropertybrowser_LIBRARY}
-    ${GQt_LIBRARY}
-    ${QtRoot_LIBRARY}
+#    ${GQt_LIBRARY}
+#    ${QtRoot_LIBRARY}
     ${Qt5Widgets_LIBRARIES}
     ${PYTHON_LIBRARY} 
     ${Boost_LIBRARIES}
-    ${ROOT_LIBRARIES}
+#    ${ROOT_LIBRARIES}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${ManhattanStyle_LIBRARY} 
 )
 
 #core gui script webkit webkitwidgets designer designercomponents
-qt5_use_modules(${executable_name} Widgets Core Gui Script WebKit WebKitWidgets Designer)
+#qt5_use_modules(${executable_name} Widgets Core Gui Script WebKit WebKitWidgets Designer)
+qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
 
 # --- Installation ---
 

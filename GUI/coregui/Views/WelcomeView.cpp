@@ -4,15 +4,15 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QVBoxLayout>
-#include <QtWebKit>
+//#include <QtWebKit>
 #include <QDesktopServices>
 
 WelcomeView::WelcomeView(QWidget *parent)
-    : QWebView(parent)
+    : QWidget(parent)
 {
-    load(QUrl("http://apps.jcns.fz-juelich.de/doku/sc/bornagain::start"));
-    connect(this, SIGNAL(linkClicked(const QUrl &)), this, SLOT(onWebLinkClicked(const QUrl &)));
-    page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
+//    load(QUrl("http://apps.jcns.fz-juelich.de/doku/sc/bornagain::start"));
+//    connect(this, SIGNAL(linkClicked(const QUrl &)), this, SLOT(onWebLinkClicked(const QUrl &)));
+//    page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 //    QGroupBox *configGroup = new QGroupBox(tr("Server configuration"));
 
 //    QLabel *serverLabel = new QLabel(tr("Server:"));
@@ -37,7 +37,7 @@ WelcomeView::WelcomeView(QWidget *parent)
 //    setLayout(mainLayout);
 }
 
-void WelcomeView::onWebLinkClicked(const QUrl &url)
-{
-    QDesktopServices::openUrl(url);
-}
+//void WelcomeView::onWebLinkClicked(const QUrl &url)
+//{
+//    QDesktopServices::openUrl(url);
+//}

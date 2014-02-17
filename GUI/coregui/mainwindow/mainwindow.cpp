@@ -18,6 +18,7 @@
 #include "FormFactors.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
+#include "newprojectdialog.h"
 
 #include <QApplication>
 #include <iostream>
@@ -86,11 +87,18 @@ MainWindow::~MainWindow()
 void MainWindow::newProject()
 {
     std::cout << "XXX newProject() "    << std::endl;
+    NewProjectDialog *dialog = new NewProjectDialog(this);
+    dialog->exec();
 }
 
 void MainWindow::openProject()
 {
-    std::cout << "XXX openProject() "    << std::endl;
+    QString fileName = QFileDialog::getOpenFileName(this);
+//    std::cout << "XXX openProject() "    << std::endl;
+//    QString directory = QFileDialog::getExistingDirectory(this,
+//                                "AAA",
+//                               "/home/pospelov",);
+
 }
 
 

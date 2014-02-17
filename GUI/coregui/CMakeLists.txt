@@ -89,25 +89,20 @@ include_directories(
     ${PYTHON_INCLUDE_DIRS}
 )
 
-#core gui script webkit webkitwidgets designer designercomponents
+qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
 
 target_link_libraries(${executable_name} 
+    ${ManhattanStyle_LIBRARY}
     ${qcustomplot_LIBRARY}
     ${qtpropertybrowser_LIBRARY}
 #    ${GQt_LIBRARY}
 #    ${QtRoot_LIBRARY}
-    ${Qt5Widgets_LIBRARIES}
     ${PYTHON_LIBRARY} 
     ${Boost_LIBRARIES}
 #    ${ROOT_LIBRARIES}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
-    ${ManhattanStyle_LIBRARY} 
 )
-
-#core gui script webkit webkitwidgets designer designercomponents
-#qt5_use_modules(${executable_name} Widgets Core Gui Script WebKit WebKitWidgets Designer)
-qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
 
 # --- Installation ---
 

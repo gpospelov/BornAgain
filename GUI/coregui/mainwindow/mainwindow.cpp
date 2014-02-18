@@ -18,7 +18,7 @@
 #include "FormFactors.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
-#include "newprojectdialog.h"
+#include "projectmanager.h"
 
 #include <QApplication>
 #include <iostream>
@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_jobView(0)
     , m_fitView(0)
     , m_actionManager(0)
+    , m_projectManager(0)
     , mp_sim_data_model(0)
 {
     // initialize simulation data model first:
@@ -70,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(m_tabWidget);
 
     m_actionManager = new ActionManager(this);
+    m_projectManager = new ProjectManager(this);
 
     setAcceptDrops(true);
 
@@ -86,9 +88,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::newProject()
 {
-    std::cout << "XXX newProject() "    << std::endl;
-    NewProjectDialog *dialog = new NewProjectDialog(this);
-    dialog->exec();
+    m_projectManager->newProject();
 }
 
 void MainWindow::openProject()

@@ -20,6 +20,7 @@ class SimulationDataModel;
 class Instrument;
 class ISample;
 class ActionManager;
+class ProjectManager;
 
 
 //class MainWindow : public QMainWindow
@@ -48,7 +49,9 @@ private:
     SimulationView *m_simulationView;
     JobView *m_jobView;
     FitView * m_fitView;
+
     ActionManager *m_actionManager; //!< responsible for menus and actions
+    ProjectManager *m_projectManager; //! responsible for opening and saving projects
 
     SimulationDataModel *mp_sim_data_model;
     // dummy simulation model initializer for test purposes

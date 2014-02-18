@@ -18,30 +18,33 @@ class NewProjectDialog : public QDialog
 public:
     NewProjectDialog(QWidget *parent = 0);
 
-private slots:
-    void setDirectory();
-    void checkIfParentDirIsValid(const QString &dirname);
-    void checkIfProjectNameIsValid(const QString &projectName);
+
+    void setProjectName(const QString &text) { return m_projectNameEdit->setText(text); }
+    void setProjectPath(const QString &text) { return m_projectPathEdit->setText(text); }
 
     QString getProjectName() { return m_projectNameEdit->text(); }
-    QString getParentDirName() { return m_parentDirEdit->text(); }
+    QString getProjectPath() { return m_projectPathEdit->text(); }
+
+private slots:
+    void setDirectory();
+    void checkIfProjectPathIsValid(const QString &dirname);
+    void checkIfProjectNameIsValid(const QString &projectName);
+    void createProjectDir();
 
 private:
     void setValidProjectName(bool status);
-    void setValidParentDir(bool status);
+    void setValidProjectPath(bool status);
     void updateWarningStatus();
 
-//    QLabel *m_nameLabel;
     QLineEdit *m_projectNameEdit;
-//    QLabel *m_parentDirLabel;
-    QLineEdit *m_parentDirEdit;
+    QLineEdit *m_projectPathEdit;
     QPushButton *m_browseButton;
     QLabel *m_warningLabel;
     QPushButton *m_cancelButton;
     QPushButton *m_createButton;
 
     bool m_valid_projectName;
-    bool m_valid_parentDir;
+    bool m_valid_projectPath;
 
 };
 

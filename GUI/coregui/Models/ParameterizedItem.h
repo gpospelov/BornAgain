@@ -17,29 +17,36 @@
 #define PARAMETERIZEDITEM_H_
 
 #include <QStandardItem>
+#include <QList>
 #include <QMap>
-
-namespace BA_MODEL_ID {
-enum Model_ID {
-    MultiLayer,
-    Layer,
-};
-}
 
 class ParameterizedItem : public QStandardItem
 {
 public:
-    explicit ParameterizedItem(BA_MODEL_ID::Model_ID model_type, const QString &name);
+    explicit ParameterizedItem(const QString &name);
     ~ParameterizedItem();
 
+    //! retrieves the parameter's value
+    double getParameterValue(QString name);
+
+    //! sets the parameter's value, if it exists
     void setParameter(QString name, double value);
+
+    //! retrieves the whole list of paramaters
     QMap<QString, double> &getParameters() {
         return m_parameters;
     }
-private:
-    void populateWithParameters();
-    BA_MODEL_ID::Model_ID m_model_type;
+
+    //! indicates if the passed item can be set as
+    //! a child item
+    bool acceptsAsChild(ParameterizedItem *child);
+protected:
+    QList<QString> m_valid_parents;
     QMap<QString, double> m_parameters;
+private:
+    //! indicates if the item name, passed as argument
+    //! can be the current item's parent
+    bool isValidParent(QString parentName);
 };
 
 

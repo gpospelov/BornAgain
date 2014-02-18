@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SessionModel.h"
+#include "ItemFactory.h"
 
 
 SessionModel::SessionModel(QObject *parent)
@@ -27,7 +28,7 @@ SessionModel::~SessionModel()
 
 }
 
-QStandardItem *SessionModel::insertNewItem(BA_MODEL_ID::Model_ID model_type, const QModelIndex &index)
+QStandardItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &index)
 {
     QStandardItem *parent;
     if (index.isValid()) {
@@ -44,14 +45,11 @@ QStandardItem *SessionModel::insertNewItem(BA_MODEL_ID::Model_ID model_type, con
 
 void SessionModel::initialize()
 {
-    m_default_names[BA_MODEL_ID::MultiLayer] = QString("MultiLayer");
-    m_default_names[BA_MODEL_ID::Layer] = QString("Layer");
 }
 
-QStandardItem *SessionModel::createNewItem(QStandardItem *parent, BA_MODEL_ID::Model_ID model_type)
+QStandardItem *SessionModel::createNewItem(QStandardItem *parent, QString model_type)
 {
-    QString name = m_default_names[model_type];
-    ParameterizedItem *new_item = new ParameterizedItem(model_type, name);
+    ParameterizedItem *new_item = ItemFactory::createItem(model_type);
     parent->appendRow(new_item);
     return new_item;
 }

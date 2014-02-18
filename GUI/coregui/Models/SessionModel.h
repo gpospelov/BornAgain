@@ -30,7 +30,7 @@ public:
     void setFilename(const QString &filename) {
         m_filename = filename;
     }
-    QStandardItem *insertNewItem(BA_MODEL_ID::Model_ID model_type,
+    QStandardItem *insertNewItem(QString model_type,
                                  const QModelIndex &index);
 
 //    void load(const QString &filename=QString());
@@ -39,9 +39,8 @@ public:
 private:
     void initialize();
     QStandardItem *createNewItem(QStandardItem *parent,
-                                 BA_MODEL_ID::Model_ID model_type);
+                                 QString model_type);
     QString m_filename;
-    QMap<BA_MODEL_ID::Model_ID, QString> m_default_names;
 };
 
 #endif // SESSIONMODEL_H

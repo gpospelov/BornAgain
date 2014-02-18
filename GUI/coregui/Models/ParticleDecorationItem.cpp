@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/ItemFactory.cpp
-//! @brief     Implements class ItemFactory.
+//! @file      Models/ParticleDecorationItem.cpp
+//! @brief     Implements class ParticleDecorationItem.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,22 +13,18 @@
 //
 // ************************************************************************** //
 
-#include "ItemFactory.h"
-#include "MultiLayerItem.h"
-#include "LayerItem.h"
 #include "ParticleDecorationItem.h"
 
-
-ParameterizedItem *ItemFactory::createItem(const QString &model_name)
+ParticleDecorationItem::ParticleDecorationItem()
+    : ParameterizedItem(QString("ParticleDecoration"))
 {
-    if (model_name==QString("MultiLayer")) {
-        return new MultiLayerItem();
-    }
-    if (model_name==QString("Layer")) {
-        return new LayerItem();
-    }
-    if (model_name==QString("ParticleDecoration")) {
-        return new ParticleDecorationItem();
-    }
-    return 0;
+    m_valid_parents.append(QString("Layer"));
 }
+
+
+ParticleDecorationItem::~ParticleDecorationItem()
+{
+}
+
+
+

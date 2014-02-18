@@ -79,8 +79,9 @@ void SampleView::initSubWindows()
     SessionModel *session_model = new SessionModel();
     // Temporary for testing
     QStandardItem *multilayer = session_model->insertNewItem("MultiLayer", QModelIndex());
-    QStandardItem *layer = session_model->insertNewItem("Layer", QModelIndex());
-    session_model->insertNewItem("Layer", multilayer->index());
+    QStandardItem *layer = session_model->insertNewItem("Layer", multilayer->index());
+    session_model->insertNewItem("ParticleDecoration", layer->index());
+    session_model->insertNewItem("Layer", QModelIndex());
     // END temporary
     m_subWindows[SampleTreeView] = SampleViewComponents::createTreeView(session_model, this);
 

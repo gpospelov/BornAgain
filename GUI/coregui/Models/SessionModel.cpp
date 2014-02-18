@@ -25,7 +25,6 @@ SessionModel::SessionModel(QObject *parent)
 
 SessionModel::~SessionModel()
 {
-
 }
 
 QStandardItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &index)
@@ -50,6 +49,20 @@ void SessionModel::initialize()
 QStandardItem *SessionModel::createNewItem(QStandardItem *parent, QString model_type)
 {
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+    if (!new_item) {
+        return 0;
+    }
+
+    // Check if child is allowed to be added to parent
+    if (parent!=invisibleRootItem())
+    {
+        ParameterizedItem *p_par_parent = dynamic_cast<ParameterizedItem *>(parent);
+        if (!p_par_parent || !p_par_parent->acceptsAsChild(new_item)) {
+            delete new_item;
+            return 0;
+        }
+    }
+
     parent->appendRow(new_item);
     return new_item;
 }

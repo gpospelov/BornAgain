@@ -5,28 +5,31 @@
 #include <QObject>
 #include <QString>
 class MainWindow;
+class ProjectDocument;
 
-//! class responsible for opening and saving projects
+//! handles activity related to opening/save projects
 class ProjectManager : public QObject
 {
     Q_OBJECT
 public:
     ProjectManager(MainWindow *parent);
+    ~ProjectManager();
 
-    QString getProjectPath() const { return m_project_path; }
-    QString getProjectName() const { return m_project_name; }
-
-    //! call dialog window to define project path and name
-    void newProject();
+    void createNewProject();
+    void openExistingProject();
+    void closeProject();
 
 private:
 
     QString getUntitledProjectName();
+    QString getDefaultProjectPath();
 
     MainWindow *m_mainWindow;
 
-    QString m_project_path;
-    QString m_project_name;
+
+    ProjectDocument *m_project_document;
+
+
 };
 
 

@@ -88,12 +88,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::newProject()
 {
-    m_projectManager->newProject();
+    m_projectManager->createNewProject();
 }
+
 
 void MainWindow::openProject()
 {
-
+    m_projectManager->openExistingProject();
 }
 
 

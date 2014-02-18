@@ -158,7 +158,11 @@ void NewProjectDialog::updateWarningStatus()
         m_warningLabel->setText("<font color='darkRed'> The path '"+getProjectPath()+"' does not exist. </font>");
     } else if(!m_valid_projectName ) {
         m_createButton->setEnabled(false);
-        m_warningLabel->setText("<font color='darkRed'> The directory '"+getProjectName()+"' already exists. </font>");
+        if(getProjectName().isEmpty()) {
+            m_warningLabel->setText("<font color='darkRed'> Please specify project name. </font>");
+        } else {
+            m_warningLabel->setText("<font color='darkRed'> The directory '"+getProjectName()+"' already exists. </font>");
+        }
     }
 }
 
@@ -167,7 +171,7 @@ void NewProjectDialog::createProjectDir()
 {
     QDir parentDir = getProjectPath();
     if( !parentDir.mkdir(getProjectName()) ) {
-        m_warningLabel->setText("<font color='darkRed'> Can't make subdirectory' '"+getProjectName()+"' in '."+getProjectPath()+"' </font>");
+        m_warningLabel->setText("<font color='darkRed'> Can't make subdirectory' '"+getProjectName()+"' in '"+getProjectPath()+"' </font>");
     } else {
         close();
     }

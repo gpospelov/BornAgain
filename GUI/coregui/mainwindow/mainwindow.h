@@ -51,7 +51,7 @@ private:
     FitView * m_fitView;
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
-    ProjectManager *m_projectManager; //! responsible for opening and saving projects
+    ProjectManager *m_projectManager; //! handles activity related to opening/saving projects
 
     SimulationDataModel *mp_sim_data_model;
     // dummy simulation model initializer for test purposes

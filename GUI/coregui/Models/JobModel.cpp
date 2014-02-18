@@ -11,7 +11,7 @@ JobModel::JobModel(Simulation *p_simulation)
     , mp_simulation(p_simulation)
     , mp_job_watcher(0)
     , m_is_finished(false)
-    , mp_cached_histogram(0)
+//    , mp_cached_histogram(0)
 {
     m_name = getJobTimeStamp();
     mp_job_watcher = new QFutureWatcher<void>;
@@ -22,7 +22,7 @@ JobModel::~JobModel()
 {
     delete mp_simulation;
     delete mp_job_watcher;
-    delete mp_cached_histogram;
+//    delete mp_cached_histogram;
 }
 
 void JobModel::run()

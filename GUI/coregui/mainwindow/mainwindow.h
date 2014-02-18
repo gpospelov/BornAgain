@@ -19,6 +19,9 @@ class FitView;
 class SimulationDataModel;
 class Instrument;
 class ISample;
+class ActionManager;
+class ProjectManager;
+
 
 //class MainWindow : public QMainWindow
 class MainWindow : public Manhattan::FancyMainWindow
@@ -33,9 +36,11 @@ public:
 
 public slots:
     void onChangeTabWidget(int index);
+    void newProject();
+    void openProject();
+
 
 private:
-    //TaskSelectorWidget *m_tabWidget;
     Manhattan::FancyTabWidget  *m_tabWidget;
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
@@ -45,12 +50,17 @@ private:
     JobView *m_jobView;
     FitView * m_fitView;
 
+    ActionManager *m_actionManager; //!< responsible for menus and actions
+    ProjectManager *m_projectManager; //! handles activity related to opening/saving projects
+
     SimulationDataModel *mp_sim_data_model;
     // dummy simulation model initializer for test purposes
     void initSimModel();
     // dummy instrument creator
     Instrument *createDefaultInstrument();
     ISample *createDefaultSample();
+
 };
 
 #endif // MAINWINDOW_H
+

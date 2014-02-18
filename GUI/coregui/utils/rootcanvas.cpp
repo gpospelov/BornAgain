@@ -1,5 +1,7 @@
 #include "rootcanvas.h"
 
+/*
+
 #include "TQtWidget.h"
 #include "TObject.h"
 #include "TCanvas.h"
@@ -148,3 +150,6 @@ void RootCanvas::CanvasEvent(TObject *object,unsigned int event,TCanvas *canvas)
 //        return QWidget::eventFilter(obj, event);
 //    }
 //}
+
+
+*/

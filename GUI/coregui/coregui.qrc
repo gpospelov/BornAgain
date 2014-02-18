@@ -7,5 +7,7 @@
         <file>images/mode_welcome.png</file>
         <file>images/mode_job.png</file>
         <file>images/mode_script.png</file>
+        <file>images/filenew.png</file>
+        <file>images/fileopen.png</file>
     </qresource>
 </RCC>

@@ -23,7 +23,7 @@ public:
 
     void run();
 
-    TH2D *getHistogram();
+//    TH2D *getHistogram();
 
     const OutputData<double> *getOutputData();
 

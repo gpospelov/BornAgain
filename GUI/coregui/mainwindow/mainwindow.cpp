@@ -93,11 +93,6 @@ void MainWindow::newProject()
 
 void MainWindow::openProject()
 {
-    QString fileName = QFileDialog::getOpenFileName(this);
-//    std::cout << "XXX openProject() "    << std::endl;
-//    QString directory = QFileDialog::getExistingDirectory(this,
-//                                "AAA",
-//                               "/home/pospelov",);
 
 }
 

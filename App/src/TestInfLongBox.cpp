@@ -70,7 +70,7 @@ void TestInfLongBox::execute()
     plot_results();
 
     // plot the pure formfactor
-    drawff();
+    //drawff();
 }
 
 /* ************************************************************************* */
@@ -164,8 +164,8 @@ void TestInfLongBox::initializeSimulation()
 	delete mp_simulation;
     mp_simulation = new Simulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
-    mp_simulation->setDetectorParameters(400, -1.5*Units::degree, 1.5*Units::degree, 400, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_simulation->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+    mp_simulation->setDetectorParameters(400, -1.0*Units::degree, 1.0*Units::degree, 400, 0.0*Units::degree, 5.2*Units::degree, true);
+    mp_simulation->setBeamParameters(12.0*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 }
 
 /* ************************************************************************* */
@@ -193,15 +193,17 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
+   // defining materials
     const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("GaAs", 7.04e-5, 1.0233e-8);
+    const IMaterial *silver_material = MaterialManager::getHomogeneousMaterial("Ag", 7.948e-5, 2.36e-7);
+    const IMaterial *iron_material = MaterialManager::getHomogeneousMaterial("Fe", 1.839e-4, 1.38e-8);
+    const IMaterial *cr_material = MaterialManager.getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
+
 
     Layer air_layer(air_material);
     FormFactorInfLongBox *ff = new FormFactorInfLongBox(m_w, m_h);
-    Particle ibox(particle_material, ff );
+    Particle ibox(iron_material, ff );
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(90*Units::degree);
@@ -223,9 +225,18 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     air_layer.setDecoration(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
+    Layer iron_layer = Layer(iron_material, 15.0*nanometer);
+    Layer cr_layer = Layer(cr_material, 1.1*nanometer);
+    Layer silver_layer = Layer(silver_material, 150.0*nanometer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);
+    for (int i=0; i<10; i++) {
+        p_multi_layer->addLayer(cr_layer);
+        p_multi_layer->addLayer(iron_layer);
+    }
+
+    p_multi_layer->addLayer(silver_layer);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;

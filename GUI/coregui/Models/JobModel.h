@@ -7,7 +7,7 @@
 #include "OutputData.h"
 
 class Simulation;
-class TH2D;
+//class TH2D;
 
 class JobModel : public QObject
 {
@@ -23,7 +23,7 @@ public:
 
     void run();
 
-    TH2D *getHistogram();
+//    TH2D *getHistogram();
 
     const OutputData<double> *getOutputData();
 
@@ -36,7 +36,7 @@ protected:
     Simulation *mp_simulation;
     QFutureWatcher<void> *mp_job_watcher;
     bool m_is_finished;
-    TH2D *mp_cached_histogram;
+//    TH2D *mp_cached_histogram;
 };
 
 #endif // JOBMODEL_H

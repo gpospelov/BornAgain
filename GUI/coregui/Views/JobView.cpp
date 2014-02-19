@@ -2,10 +2,10 @@
 
 #include "SimulationDataModel.h"
 #include "rootcanvas.h"
-#include "TCanvas.h"
-#include "TStyle.h"
-#include "TH2D.h"
-#include "TRandom.h"
+//#include "TCanvas.h"
+//#include "TStyle.h"
+//#include "TH2D.h"
+//#include "TRandom.h"
 
 #include <QHBoxLayout>
 #include <QListWidget>

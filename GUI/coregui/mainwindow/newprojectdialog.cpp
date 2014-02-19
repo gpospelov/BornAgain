@@ -47,7 +47,7 @@ NewProjectDialog::NewProjectDialog(QWidget *parent)
     m_createButton = new QPushButton(tr("Create"));
     connect(m_createButton, SIGNAL(clicked()), this, SLOT(createProjectDir()));
     m_cancelButton = new QPushButton(tr("Cancel"));
-    connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     QGroupBox *projectGroup = new QGroupBox(tr("Project name and location"));
 
@@ -85,6 +85,7 @@ void NewProjectDialog::setDirectory()
 
     if (!dirname.isEmpty()) {
         checkIfProjectPathIsValid(dirname);
+        checkIfProjectNameIsValid(getProjectName());
     }
 
 }
@@ -173,7 +174,7 @@ void NewProjectDialog::createProjectDir()
     if( !parentDir.mkdir(getProjectName()) ) {
         m_warningLabel->setText("<font color='darkRed'> Can't make subdirectory' '"+getProjectName()+"' in '"+getProjectPath()+"' </font>");
     } else {
-        close();
+        accept();
     }
 }
 

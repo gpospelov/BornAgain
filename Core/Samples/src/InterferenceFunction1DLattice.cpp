@@ -64,14 +64,14 @@ double InterferenceFunction1DLattice::evaluate(const cvector_t& q) const
     double qx_frac;
     double xi = m_lattice_params.m_xi;
     double a = m_lattice_params.m_length;
-    double a_rec = 2*M_PI/a;
+    double a_rec = 2.0*M_PI/a;
 
     // rotate the q vector to xi angle
     // so that qx_prime is along the a axis of lattice
     double qx_prime = qxr*std::cos(xi) + qyr*std::sin(xi);
 
     // calculate reciprocal vector fraction
-    int qa_int = (int) qx_prime/a_rec;
+    int qa_int = (int) (qx_prime/a_rec);
     qx_frac = qx_prime - qa_int*a_rec;
 
     for (int i=-m_na-1; i<m_na+2; ++i)

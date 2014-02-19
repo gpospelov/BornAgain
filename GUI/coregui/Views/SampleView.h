@@ -7,6 +7,7 @@
 #include <QDockWidget>
 #include <QTreeView>
 #include <QAction>
+#include <QSignalMapper>
 
 #include "SessionModel.h"
 
@@ -35,10 +36,9 @@ public:
     SampleView(QWidget *parent = 0);
     virtual ~SampleView();
 
-
 public slots:
     void resetToDefaultLayout();
-    void addItem();
+    void addItem(const QString &item_name);
     void deleteItem();
 //    void materialEditorCall();
 
@@ -51,6 +51,7 @@ private:
     void initSubWindows();
     void createActions();
     void connectSignals();
+    void clearSignalMapper();
 
     SessionModel *getSessionModel();
     QTreeView *getTreeView();
@@ -61,8 +62,9 @@ private:
     QWidget *m_subWindows[NumberOfSubWindows];
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
 
-    QAction *addAct;
-    QAction *delAct;
+    QSignalMapper *m_add_item_mapper;
+    QMap<QString, QAction *> m_add_action_map;
+    QAction *m_delete_item_action;
 
     SessionModel *m_session;
     QTreeView *m_tree_view;

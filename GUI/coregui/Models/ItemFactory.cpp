@@ -18,9 +18,16 @@
 #include "LayerItem.h"
 #include "ParticleDecorationItem.h"
 
+QList<QString> ItemFactory::m_all_item_names = QList<QString>()
+        << QString("MultiLayer")
+        << QString("Layer")
+        << QString("ParticleDecoration");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name)
 {
+    if (!m_all_item_names.contains(model_name)) {
+        return 0;
+    }
     if (model_name==QString("MultiLayer")) {
         return new MultiLayerItem();
     }

@@ -22,7 +22,12 @@ class ItemFactory
 {
 public:
     static ParameterizedItem *createItem(const QString &model_name);
+    static QList<QString> getAllItemNames() {
+        return m_all_item_names;
+    }
+
 private:
+    static QList<QString> m_all_item_names;
     ItemFactory() {}
     ~ItemFactory() {}
 };

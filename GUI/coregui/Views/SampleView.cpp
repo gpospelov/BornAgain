@@ -4,12 +4,11 @@
 #include "SampleToolBar.h"
 #include "MaterialBrowser.h"
 #include "GUIHelpers.h"
+#include <ItemFactory.h>
 
 
 #include <QDockWidget>
 #include <QAbstractItemView>
-//#include "widgetbox.h"
-//#include "QToolBar"
 #include <QToolBar>
 #include <QAction>
 #include <QToolButton>
@@ -101,13 +100,13 @@ void SampleView::initSubWindows()
 
 void SampleView::createActions()
 {
-    addAct = new QAction(tr("Add"), this);
-    addAct->setStatusTip(tr("Add a new object"));
-    connect(addAct, SIGNAL(triggered()), this, SLOT(addItem()));
+    m_add_item_mapper = new QSignalMapper(this);
+    connect(m_add_item_mapper, SIGNAL(mapped(const QString &)),
+            this, SLOT(addItem(const QString &)));
 
-    delAct = new QAction(tr("Delete"), this);
-    delAct->setStatusTip(tr("Delete current object"));
-    connect(delAct, SIGNAL(triggered()), this, SLOT(deleteItem()));
+    m_delete_item_action = new QAction(tr("Delete"), this);
+    m_delete_item_action->setStatusTip(tr("Delete current object"));
+    connect(m_delete_item_action, SIGNAL(triggered()), this, SLOT(deleteItem()));
 }
 
 void SampleView::resetToDefaultLayout()
@@ -133,9 +132,14 @@ void SampleView::resetToDefaultLayout()
     setTrackingEnabled(true);
 }
 
-void SampleView::addItem()
+void SampleView::addItem(const QString &item_name)
 {
+    QModelIndex currentIndex = getTreeView()->currentIndex();
+    getSessionModel()->insertNewItem(item_name, currentIndex);
+    setDirty();
+    updateUi();
 }
+
 
 void SampleView::deleteItem()
 {
@@ -162,12 +166,40 @@ void SampleView::deleteItem()
 
 void SampleView::showContextMenu(const QPoint &pnt)
 {
-    QList<QAction *> actions;
-    if (getTreeView()->indexAt(pnt).isValid()) {
-        actions.append(delAct);
+    QMenu menu;
+    QMenu add_menu(QString("Add"));
+    QList<QString> addItemNames;
+    QModelIndex parent_index = getTreeView()->indexAt(pnt);
+    getTreeView()->setCurrentIndex(parent_index);
+    if (!parent_index.isValid()) {
+        addItemNames = ItemFactory::getAllItemNames();
+    } else {
+        QStandardItem *parent = getSessionModel()->itemFromIndex(parent_index);
+        ParameterizedItem *parent_par = static_cast<ParameterizedItem *>(parent);
+        addItemNames = parent_par->getAcceptableChildren();
     }
-    if (actions.count() > 0) {
-        QMenu::exec(actions, getTreeView()->mapToGlobal(pnt));
+    if (addItemNames.size() > 0) {
+        foreach (QString item_name, addItemNames) {
+            QAction *add_action = 0;
+            if (m_add_action_map.contains(item_name)) {
+                add_action = m_add_action_map[item_name];
+            }
+            else {
+                add_action = new QAction(item_name, this);
+                m_add_action_map[item_name] = add_action;
+                connect(add_action, SIGNAL(triggered()),
+                        m_add_item_mapper, SLOT(map()));
+                m_add_item_mapper->setMapping(add_action, item_name);
+            }
+            add_menu.addAction(add_action);
+        }
+        menu.addMenu(&add_menu);
+    }
+    if (parent_index.isValid()) {
+        menu.addAction(m_delete_item_action);
+    }
+    if (!menu.isEmpty()) {
+        menu.exec(getTreeView()->mapToGlobal(pnt));
     }
 }
 

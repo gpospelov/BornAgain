@@ -14,32 +14,44 @@
 // ************************************************************************** //
 
 #include "ParameterizedItem.h"
+#include "Exceptions.h"
 
 
 
-ParameterizedItem::ParameterizedItem(BA_MODEL_ID::Model_ID model_type,
-                                     const QString &name)
+ParameterizedItem::ParameterizedItem(const QString &name)
     : QStandardItem(name)
-    , m_model_type(model_type)
 {
-    populateWithParameters();
 }
 
 ParameterizedItem::~ParameterizedItem()
 {
+}
 
+double ParameterizedItem::getParameterValue(QString name)
+{
+    if (!m_parameters.contains(name)) {
+        throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
+                                                "parameter does not exist");
+    }
+    return m_parameters[name];
 }
 
 void ParameterizedItem::setParameter(QString name, double value)
 {
-    if (m_parameters.contains(name)) {
-        m_parameters[name] = value;
+    if (!m_parameters.contains(name)) {
+        throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
+                                                "parameter does not exist");
     }
+    m_parameters[name] = value;
 }
 
-void ParameterizedItem::populateWithParameters()
+bool ParameterizedItem::acceptsAsChild(ParameterizedItem *child)
 {
-    m_parameters[QString("firstparam")] = 5.0;
-    m_parameters[QString("anotherparam")] = 6.0;
-    m_parameters[QString("lastparam")] = 7.0;
+    return child->isValidParent(this->text());
 }
+
+bool ParameterizedItem::isValidParent(QString parentName)
+{
+    return m_valid_parents.contains(parentName);
+}
+

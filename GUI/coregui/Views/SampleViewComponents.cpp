@@ -29,7 +29,6 @@ SampleWidgetBox *SampleViewComponents::createWidgetBox(SampleDesignerInterface *
     return new SampleWidgetBox(core, parent);
 }
 
-
 //SamplePropertyEditorInterface *SampleViewComponents::createPropertyEditor(QWidget *parent)
 SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerInterface *core, QWidget *parent)
 {
@@ -39,11 +38,14 @@ SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerI
 //    result->setObjectName(QLatin1String("PropertyEditor"));
     return new SamplePropertyEditor(core, parent);
 }
+
 QTreeView *SampleViewComponents::createTreeView(SessionModel *session_model, QWidget *parent)
 {
     QTreeView *tree_view = new QTreeView(parent);
     tree_view->setModel(session_model);
     tree_view->setAllColumnsShowFocus(true);
+    tree_view->setWindowTitle(QString("Object Tree View"));
+    tree_view->setObjectName(QString("ObjectTree"));
     return tree_view;
 }
 

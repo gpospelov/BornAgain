@@ -46,6 +46,7 @@ QTreeView *SampleViewComponents::createTreeView(SessionModel *session_model, QWi
     tree_view->setAllColumnsShowFocus(true);
     tree_view->setWindowTitle(QString("Object Tree View"));
     tree_view->setObjectName(QString("ObjectTree"));
+    tree_view->setContextMenuPolicy(Qt::CustomContextMenu);
     return tree_view;
 }
 

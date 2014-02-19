@@ -18,7 +18,7 @@
 ParticleDecorationItem::ParticleDecorationItem()
     : ParameterizedItem(QString("ParticleDecoration"))
 {
-    m_valid_parents.append(QString("Layer"));
+//    m_valid_children.append(QString(""));
 }
 
 

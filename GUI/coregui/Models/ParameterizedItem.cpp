@@ -27,7 +27,7 @@ ParameterizedItem::~ParameterizedItem()
 {
 }
 
-double ParameterizedItem::getParameterValue(QString name)
+double ParameterizedItem::getParameterValue(const QString &name) const
 {
     if (!m_parameters.contains(name)) {
         throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
@@ -36,7 +36,7 @@ double ParameterizedItem::getParameterValue(QString name)
     return m_parameters[name];
 }
 
-void ParameterizedItem::setParameter(QString name, double value)
+void ParameterizedItem::setParameter(const QString &name, double value)
 {
     if (!m_parameters.contains(name)) {
         throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
@@ -45,13 +45,8 @@ void ParameterizedItem::setParameter(QString name, double value)
     m_parameters[name] = value;
 }
 
-bool ParameterizedItem::acceptsAsChild(ParameterizedItem *child)
+bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 {
-    return child->isValidParent(this->text());
-}
-
-bool ParameterizedItem::isValidParent(QString parentName)
-{
-    return m_valid_parents.contains(parentName);
+    return m_valid_children.contains(child_name);
 }
 

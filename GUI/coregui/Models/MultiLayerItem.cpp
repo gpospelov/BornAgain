@@ -20,6 +20,7 @@ MultiLayerItem::MultiLayerItem()
     : ParameterizedItem(QString("MultiLayer"))
 {
     m_parameters[QString("Cross Correlation Length")] = 0.0;
+    m_valid_children.append(QString("Layer"));
 }
 
 MultiLayerItem::~MultiLayerItem()

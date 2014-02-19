@@ -19,7 +19,7 @@ LayerItem::LayerItem()
     : ParameterizedItem(QString("Layer"))
 {
     m_parameters[QString("Thickness")] = 0.0;
-    m_valid_parents.append(QString("MultiLayer"));
+    m_valid_children.append(QString("ParticleDecoration"));
 }
 
 LayerItem::~LayerItem()

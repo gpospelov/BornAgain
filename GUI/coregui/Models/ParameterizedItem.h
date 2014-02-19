@@ -27,10 +27,10 @@ public:
     ~ParameterizedItem();
 
     //! retrieves the parameter's value
-    double getParameterValue(QString name);
+    double getParameterValue(const QString &name) const;
 
     //! sets the parameter's value, if it exists
-    void setParameter(QString name, double value);
+    void setParameter(const QString &name, double value);
 
     //! retrieves the whole list of paramaters
     QMap<QString, double> &getParameters() {
@@ -39,14 +39,16 @@ public:
 
     //! indicates if the passed item can be set as
     //! a child item
-    bool acceptsAsChild(ParameterizedItem *child);
+    bool acceptsAsChild(const QString &child_name) const;
+
+    //! get list of acceptable child object names
+    QList<QString> getAcceptableChildren() const {
+        return m_valid_children;
+    }
 protected:
-    QList<QString> m_valid_parents;
+    QList<QString> m_valid_children;
     QMap<QString, double> m_parameters;
 private:
-    //! indicates if the item name, passed as argument
-    //! can be the current item's parent
-    bool isValidParent(QString parentName);
 };
 
 

@@ -3,7 +3,7 @@
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
 #include "MaterialBrowser.h"
-#include "SessionModel.h"
+#include "GUIHelpers.h"
 
 
 #include <QDockWidget>
@@ -13,6 +13,7 @@
 #include <QToolBar>
 #include <QAction>
 #include <QToolButton>
+#include <QMenu>
 
 
 #include <iostream>
@@ -28,7 +29,7 @@ SampleView::SampleView(QWidget *parent)
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
 {
-    setObjectName(QLatin1String("SampleView"));
+    setObjectName(tr("SampleView"));
 
     setCentralWidget(m_sampleDesigner->getCentralWidget());
 
@@ -53,7 +54,11 @@ SampleView::SampleView(QWidget *parent)
     }
     resetToDefaultLayout();
 
-    initActions();
+    createActions();
+
+
+
+    connectSignals();
 
 }
 
@@ -76,37 +81,34 @@ void SampleView::initSubWindows()
 
     m_subWindows[WidgetBoxSubWindow] = SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    SessionModel *session_model = new SessionModel();
+    m_session = new SessionModel();
     // Temporary for testing
-    QStandardItem *multilayer = session_model->insertNewItem("MultiLayer", QModelIndex());
-    QStandardItem *layer = session_model->insertNewItem("Layer", multilayer->index());
-    session_model->insertNewItem("ParticleDecoration", layer->index());
-    session_model->insertNewItem("Layer", QModelIndex());
+    QStandardItem *multilayer = m_session->insertNewItem("MultiLayer", QModelIndex());
+    QStandardItem *layer = m_session->insertNewItem("Layer", multilayer->index());
+    m_session->insertNewItem("ParticleDecoration", layer->index());
+    m_session->insertNewItem("Layer", QModelIndex());
     // END temporary
-    m_subWindows[SampleTreeView] = SampleViewComponents::createTreeView(session_model, this);
+    m_tree_view = SampleViewComponents::createTreeView(m_session, this);
+    m_subWindows[SampleTreeView] = m_tree_view;
 
     m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(m_sampleDesigner, this);
 
     SampleInfoStreamInterface *ae = SampleViewComponents::createInfoStream(this);
     ae->setWindowTitle(tr("Info Stream"));
-    ae->setObjectName(QLatin1String("InfoStream"));
+    ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
 }
 
-
-void SampleView::initActions()
+void SampleView::createActions()
 {
-    // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(this);
-    connect(m_toolBar, SIGNAL(zoomOut()), m_sampleDesigner->getView(), SLOT(zoomOut()));
-    connect(m_toolBar, SIGNAL(zoomIn()), m_sampleDesigner->getView(), SLOT(zoomIn()));
-    connect(m_toolBar, SIGNAL(zoomFit()), m_sampleDesigner->getView(), SLOT(zoomFit()));
-    connect(m_toolBar, SIGNAL(clearAll()), m_sampleDesigner->getView(), SLOT(clearAll()));
-    connect(m_toolBar, SIGNAL(sceneToISample()), m_sampleDesigner, SLOT(sceneToISample()));
+    addAct = new QAction(tr("Add"), this);
+    addAct->setStatusTip(tr("Add a new object"));
+    connect(addAct, SIGNAL(triggered()), this, SLOT(addItem()));
 
-    addToolBar(m_toolBar);
+    delAct = new QAction(tr("Delete"), this);
+    delAct->setStatusTip(tr("Delete current object"));
+    connect(delAct, SIGNAL(triggered()), this, SLOT(deleteItem()));
 }
-
 
 void SampleView::resetToDefaultLayout()
 {
@@ -130,4 +132,76 @@ void SampleView::resetToDefaultLayout()
 
     setTrackingEnabled(true);
 }
+
+void SampleView::addItem()
+{
+}
+
+void SampleView::deleteItem()
+{
+    QModelIndex currentIndex = getTreeView()->currentIndex();
+    if (currentIndex.isValid()) {
+        QStandardItem *item = getSessionModel()->itemFromIndex(currentIndex);
+        QString name = item->text();
+        int rows = item->rowCount();
+        QString message;
+        if (rows == 0)
+            message = tr("<p>Delete '%1'").arg(name);
+        else if (rows == 1)
+            message = tr("<p>Delete '%1' and its child (and "
+                         "grandchildren etc.)").arg(name);
+        else if (rows > 1)
+            message = tr("<p>Delete '%1' and its %2 children (and "
+                         "grandchildren etc.)").arg(name).arg(rows);
+        if (!GUIHelpers::okToDelete(this, tr("Delete"), message)) return;
+        getSessionModel()->removeRow(currentIndex.row(), currentIndex.parent());
+        setDirty();
+        updateUi();
+    }
+}
+
+void SampleView::showContextMenu(const QPoint &pnt)
+{
+    QList<QAction *> actions;
+    if (getTreeView()->indexAt(pnt).isValid()) {
+        actions.append(delAct);
+    }
+    if (actions.count() > 0) {
+        QMenu::exec(actions, getTreeView()->mapToGlobal(pnt));
+    }
+}
+
+void SampleView::updateUi()
+{
+}
+
+
+void SampleView::connectSignals()
+{
+    // toolBar should be initialized after MaterialBrowser
+    m_toolBar = new SampleToolBar(this);
+    connect(m_toolBar, SIGNAL(zoomOut()), m_sampleDesigner->getView(), SLOT(zoomOut()));
+    connect(m_toolBar, SIGNAL(zoomIn()), m_sampleDesigner->getView(), SLOT(zoomIn()));
+    connect(m_toolBar, SIGNAL(zoomFit()), m_sampleDesigner->getView(), SLOT(zoomFit()));
+    connect(m_toolBar, SIGNAL(clearAll()), m_sampleDesigner->getView(), SLOT(clearAll()));
+    connect(m_toolBar, SIGNAL(sceneToISample()), m_sampleDesigner, SLOT(sceneToISample()));
+
+    // connect context menu for tree view
+    QTreeView *tree_view = static_cast<QTreeView *>(m_subWindows[SampleTreeView]);
+    connect(tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(showContextMenu(const QPoint &)));
+
+    addToolBar(m_toolBar);
+}
+
+SessionModel *SampleView::getSessionModel()
+{
+    return m_session;
+}
+
+QTreeView *SampleView::getTreeView()
+{
+    return m_tree_view;
+}
+
 

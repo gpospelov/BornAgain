@@ -3,6 +3,7 @@
 
 
 #include <QObject>
+#include <QList>
 
 
 class QMenu;
@@ -19,15 +20,20 @@ class ActionManager : public QObject
 public:
     ActionManager(MainWindow *parent);
 
+public slots:
+    void aboutToShowRecentProjects();
+
 private:
     MainWindow *m_mainWindow;
 
     QAction *m_newAction;
     QAction *m_openAction;
     QAction *m_exitAction;
+    QList<QAction *> m_recentProjectActions;
 
     QMenuBar *m_menuBar;
     QMenu *m_fileMenu;
+    QMenu *m_recentProjectsMenu;
     QMenu *m_helpMenu;
 
     void createActions();

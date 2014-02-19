@@ -19,6 +19,7 @@ public:
 
     void setProjectPath(const QString &text) { m_project_path = text; }
     void setProjectName(const QString &text) { m_project_name = text; }
+    QString getProjectFileName();
 
     static ProjectDocument *openExistingDocument(const QString &filename);
 
@@ -26,7 +27,6 @@ private:
     bool write(QIODevice *device);
     bool read(QIODevice *device);
     void generate_clean_document();
-    QString getProjectFileName();
 
     QString m_project_path;
     QString m_project_name;

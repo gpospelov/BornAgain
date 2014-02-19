@@ -36,14 +36,20 @@ MainWindow::MainWindow(QWidget *parent)
     , m_fitView(0)
     , m_actionManager(0)
     , m_projectManager(0)
+    , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , mp_sim_data_model(0)
 {
+//    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
+//    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
+//    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
+
     // initialize simulation data model first:
     initSimModel();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
     Manhattan::Utils::StyleHelper::setBaseColor(QColor(0x086FA1));
+
 
     setDockNestingEnabled(true);
 
@@ -71,20 +77,55 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(m_tabWidget);
 
     m_actionManager = new ActionManager(this);
-    m_projectManager = new ProjectManager(this);
+    m_projectManager = new ProjectManager(this);    
 
     setAcceptDrops(true);
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
+
+    readSettings();
+
 }
 
 MainWindow::~MainWindow()
 {
 //    delete m_actionManager;
+//    delete m_settings;
+//    m_settings = 0;
 }
 
 
+void MainWindow::readSettings()
+{
+    if(m_settings->childGroups().contains("MainWindow")) {
+        m_settings->beginGroup("MainWindow");
+        resize(m_settings->value("size", QSize(400, 400)).toSize());
+        move(m_settings->value("pos", QPoint(200, 200)).toPoint());
+        m_settings->endGroup();
+    }
+    assert(m_projectManager);
+    m_projectManager->readSettings(m_settings);
+}
+
+
+void MainWindow::writeSettings()
+{
+    m_settings->beginGroup("MainWindow");
+    m_settings->setValue("size", size());
+    m_settings->setValue("pos", pos());
+    m_settings->endGroup();
+
+    m_projectManager->writeSettings(m_settings);
+
+    m_settings->sync();
+}
+
+
+QSettings *MainWindow::getSettings() const
+{
+    return m_settings;
+}
 
 void MainWindow::newProject()
 {
@@ -94,8 +135,19 @@ void MainWindow::newProject()
 
 void MainWindow::openProject()
 {
-    m_projectManager->openExistingProject();
+    m_projectManager->openProject();
 }
+
+
+void MainWindow::openRecentProject()
+{
+    if (const QAction *action = qobject_cast<const QAction*>(sender())) {
+        QString file = action->data().value<QString>();
+        qDebug() << "MainWindow::openRecentProject() -> " << file;
+        m_projectManager->openProject(file);
+    }
+}
+
 
 
 void MainWindow::onChangeTabWidget(int index)
@@ -107,6 +159,14 @@ void MainWindow::onChangeTabWidget(int index)
         m_jobView->updateJobsAndGraphics();
     }
 }
+
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    writeSettings();
+    event->accept();
+}
+
 
 void MainWindow::initSimModel()
 {

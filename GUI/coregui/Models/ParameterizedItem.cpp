@@ -18,40 +18,50 @@
 
 
 
-ParameterizedItem::ParameterizedItem(const QString &name)
-    : QStandardItem(name)
+ParameterizedItem::ParameterizedItem(const QString &model_type,
+                                     ParameterizedItem *parent)
+    : m_model_type(model_type)
+    , m_parent(parent)
 {
+    if (m_parent) {
+        m_parent->addChildItem(this);
+    }
 }
 
 ParameterizedItem::~ParameterizedItem()
 {
+    qDeleteAll(m_children);
 }
 
-double ParameterizedItem::getParameterValue(QString name)
+ParameterizedItem *ParameterizedItem::takeChildItem(int row)
+{
+    ParameterizedItem *item = m_children.takeAt(row);
+    item->m_parent = 0;
+    return item;
+}
+
+double ParameterizedItem::getParameterValue(const QString &name) const
 {
     if (!m_parameters.contains(name)) {
-        throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
-                                                "parameter does not exist");
+        throw Exceptions::RuntimeErrorException(
+                    "ParameterizedItem::getParameterValue: "
+                    "parameter does not exist");
     }
     return m_parameters[name];
 }
 
-void ParameterizedItem::setParameter(QString name, double value)
+void ParameterizedItem::setParameter(const QString &name, double value)
 {
     if (!m_parameters.contains(name)) {
-        throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
-                                                "parameter does not exist");
+        throw Exceptions::RuntimeErrorException(
+                    "ParameterizedItem::getParameterValue: "
+                    "parameter does not exist");
     }
     m_parameters[name] = value;
 }
 
-bool ParameterizedItem::acceptsAsChild(ParameterizedItem *child)
+bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 {
-    return child->isValidParent(this->text());
-}
-
-bool ParameterizedItem::isValidParent(QString parentName)
-{
-    return m_valid_parents.contains(parentName);
+    return m_valid_children.contains(child_name);
 }
 

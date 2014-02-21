@@ -15,8 +15,8 @@
 
 #include "ParticleDecorationItem.h"
 
-ParticleDecorationItem::ParticleDecorationItem()
-    : ParameterizedItem(QString("ParticleDecoration"))
+ParticleDecorationItem::ParticleDecorationItem(ParameterizedItem *parent)
+    : ParameterizedItem(QString("ParticleDecoration"), parent)
 {
 //    m_valid_children.append(QString(""));
 }

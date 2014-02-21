@@ -23,19 +23,20 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("Layer")
         << QString("ParticleDecoration");
 
-ParameterizedItem *ItemFactory::createItem(const QString &model_name)
+ParameterizedItem *ItemFactory::createItem(const QString &model_name,
+                                           ParameterizedItem *parent)
 {
     if (!m_all_item_names.contains(model_name)) {
         return 0;
     }
     if (model_name==QString("MultiLayer")) {
-        return new MultiLayerItem();
+        return new MultiLayerItem(parent);
     }
     if (model_name==QString("Layer")) {
-        return new LayerItem();
+        return new LayerItem(parent);
     }
     if (model_name==QString("ParticleDecoration")) {
-        return new ParticleDecorationItem();
+        return new ParticleDecorationItem(parent);
     }
     return 0;
 }

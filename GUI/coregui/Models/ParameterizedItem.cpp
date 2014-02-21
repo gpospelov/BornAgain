@@ -18,20 +18,34 @@
 
 
 
-ParameterizedItem::ParameterizedItem(const QString &name)
-    : QStandardItem(name)
+ParameterizedItem::ParameterizedItem(const QString &model_type,
+                                     ParameterizedItem *parent)
+    : m_model_type(model_type)
+    , m_parent(parent)
 {
+    if (m_parent) {
+        m_parent->addChildItem(this);
+    }
 }
 
 ParameterizedItem::~ParameterizedItem()
 {
+    qDeleteAll(m_children);
+}
+
+ParameterizedItem *ParameterizedItem::takeChildItem(int row)
+{
+    ParameterizedItem *item = m_children.takeAt(row);
+    item->m_parent = 0;
+    return item;
 }
 
 double ParameterizedItem::getParameterValue(const QString &name) const
 {
     if (!m_parameters.contains(name)) {
-        throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
-                                                "parameter does not exist");
+        throw Exceptions::RuntimeErrorException(
+                    "ParameterizedItem::getParameterValue: "
+                    "parameter does not exist");
     }
     return m_parameters[name];
 }
@@ -39,8 +53,9 @@ double ParameterizedItem::getParameterValue(const QString &name) const
 void ParameterizedItem::setParameter(const QString &name, double value)
 {
     if (!m_parameters.contains(name)) {
-        throw Exceptions::RuntimeErrorException("ParameterizedItem::getParameterValue: "
-                                                "parameter does not exist");
+        throw Exceptions::RuntimeErrorException(
+                    "ParameterizedItem::getParameterValue: "
+                    "parameter does not exist");
     }
     m_parameters[name] = value;
 }

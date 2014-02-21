@@ -21,7 +21,7 @@
 class MultiLayerItem : public ParameterizedItem
 {
 public:
-    explicit MultiLayerItem();
+    explicit MultiLayerItem(ParameterizedItem *parent=0);
     ~MultiLayerItem();
 };
 

@@ -21,7 +21,7 @@
 class ParticleDecorationItem : public ParameterizedItem
 {
 public:
-    ParticleDecorationItem();
+    explicit ParticleDecorationItem(ParameterizedItem *parent=0);
     ~ParticleDecorationItem();
 };
 

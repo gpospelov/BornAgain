@@ -82,10 +82,12 @@ void SampleView::initSubWindows()
 
     m_session = new SessionModel();
     // Temporary for testing
-    QStandardItem *multilayer = m_session->insertNewItem("MultiLayer", QModelIndex());
-    QStandardItem *layer = m_session->insertNewItem("Layer", multilayer->index());
-    m_session->insertNewItem("ParticleDecoration", layer->index());
-    m_session->insertNewItem("Layer", QModelIndex());
+    ParameterizedItem *multilayer = m_session->insertNewItem("MultiLayer");
+    ParameterizedItem *layer = m_session->insertNewItem("Layer",
+                   m_session->indexOfItem(multilayer));
+    m_session->insertNewItem("ParticleDecoration",
+                   m_session->indexOfItem(layer));
+    m_session->insertNewItem("Layer");
     // END temporary
     m_tree_view = SampleViewComponents::createTreeView(m_session, this);
     m_subWindows[SampleTreeView] = m_tree_view;
@@ -135,30 +137,21 @@ void SampleView::resetToDefaultLayout()
 void SampleView::addItem(const QString &item_name)
 {
     QModelIndex currentIndex = getTreeView()->currentIndex();
-    getSessionModel()->insertNewItem(item_name, currentIndex);
+    ParameterizedItem * new_item = getSessionModel()->insertNewItem(
+                item_name, currentIndex);
+    if (new_item) setCurrentIndex(getSessionModel()->indexOfItem(new_item));
     setDirty();
     updateUi();
 }
 
-
 void SampleView::deleteItem()
 {
     QModelIndex currentIndex = getTreeView()->currentIndex();
+    if (!currentIndex.isValid()) return;
+    QModelIndex parent_index = getSessionModel()->parent(currentIndex);
+    int row = currentIndex.row();
     if (currentIndex.isValid()) {
-        QStandardItem *item = getSessionModel()->itemFromIndex(currentIndex);
-        QString name = item->text();
-        int rows = item->rowCount();
-        QString message;
-        if (rows == 0)
-            message = tr("<p>Delete '%1'").arg(name);
-        else if (rows == 1)
-            message = tr("<p>Delete '%1' and its child (and "
-                         "grandchildren etc.)").arg(name);
-        else if (rows > 1)
-            message = tr("<p>Delete '%1' and its %2 children (and "
-                         "grandchildren etc.)").arg(name).arg(rows);
-        if (!GUIHelpers::okToDelete(this, tr("Delete"), message)) return;
-        getSessionModel()->removeRow(currentIndex.row(), currentIndex.parent());
+        getSessionModel()->removeRows(row, 1, parent_index);
         setDirty();
         updateUi();
     }
@@ -174,9 +167,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     if (!parent_index.isValid()) {
         addItemNames = ItemFactory::getAllItemNames();
     } else {
-        QStandardItem *parent = getSessionModel()->itemFromIndex(parent_index);
-        ParameterizedItem *parent_par = static_cast<ParameterizedItem *>(parent);
-        addItemNames = parent_par->getAcceptableChildren();
+        addItemNames = getSessionModel()->getAcceptableChildItems(parent_index);
     }
     if (addItemNames.size() > 0) {
         foreach (QString item_name, addItemNames) {
@@ -219,11 +210,18 @@ void SampleView::connectSignals()
     connect(m_toolBar, SIGNAL(sceneToISample()), m_sampleDesigner, SLOT(sceneToISample()));
 
     // connect context menu for tree view
-    QTreeView *tree_view = static_cast<QTreeView *>(m_subWindows[SampleTreeView]);
-    connect(tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),
+    connect(m_tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(showContextMenu(const QPoint &)));
 
     addToolBar(m_toolBar);
+}
+
+void SampleView::setCurrentIndex(const QModelIndex &index)
+{
+    if (index.isValid()) {
+        m_tree_view->scrollTo(index);
+        m_tree_view->setCurrentIndex(index);
+    }
 }
 
 SessionModel *SampleView::getSessionModel()

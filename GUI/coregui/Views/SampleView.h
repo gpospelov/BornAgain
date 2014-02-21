@@ -52,6 +52,7 @@ private:
     void createActions();
     void connectSignals();
     void clearSignalMapper();
+    void setCurrentIndex(const QModelIndex &index);
 
     SessionModel *getSessionModel();
     QTreeView *getTreeView();

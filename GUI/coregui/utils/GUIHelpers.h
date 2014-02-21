@@ -19,8 +19,23 @@
 #include <QWidget>
 #include <QString>
 
+#include <exception>
+
 namespace GUIHelpers
 {
+class Error : public std::exception
+{
+public:
+    explicit Error(const QString &message) throw()
+        : message(message.toUtf8()) {}
+    ~Error() throw() {}
+
+    const char *what() const throw() { return message; }
+
+private:
+    const char *message;
+};
+
 void information(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
 void warning(QWidget *parent, const QString &title,

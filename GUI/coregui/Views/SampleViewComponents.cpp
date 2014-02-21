@@ -47,6 +47,7 @@ QTreeView *SampleViewComponents::createTreeView(SessionModel *session_model, QWi
     tree_view->setWindowTitle(QString("Object Tree View"));
     tree_view->setObjectName(QString("ObjectTree"));
     tree_view->setContextMenuPolicy(Qt::CustomContextMenu);
+    tree_view->setDragDropMode(QAbstractItemView::InternalMove);
     return tree_view;
 }
 

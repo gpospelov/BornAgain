@@ -20,11 +20,52 @@
 #include <QList>
 #include <QMap>
 
-class ParameterizedItem : public QStandardItem
+class ParameterizedItem
 {
 public:
-    explicit ParameterizedItem(const QString &name);
+    explicit ParameterizedItem(const QString &model_type=QString(),
+                               ParameterizedItem *parent=0);
     ~ParameterizedItem();
+
+    //! retrieves the model type
+    QString modelType() const { return m_model_type; }
+
+    //! retrieve parent item
+    ParameterizedItem *getParent() const { return m_parent; }
+
+    //! retrieve child item in given row
+    ParameterizedItem *getChildAt(int row) const {
+        return m_children.value(row);
+    }
+
+    //! get row number of child
+    int rowOfChild(ParameterizedItem *child) const {
+        return m_children.indexOf(child);
+    }
+
+    //! get number of child items
+    int childItemCount() const { return m_children.count(); }
+
+    //! indicates if item has child items
+    bool hasChildItems() const { return !m_children.isEmpty(); }
+
+    //! returns the a list of child items
+    QList<ParameterizedItem *> childItems() const { return m_children; }
+
+    //! inserts a child item at specified row
+    void insertChildItem(int row, ParameterizedItem *item)
+        { item->m_parent = this; m_children.insert(row, item); }
+
+    //! append child item
+    void addChildItem(ParameterizedItem *item)
+        { item->m_parent = this; m_children << item; }
+
+    //! swap two child items
+    void swapChildItems(int row_1, int row_2)
+        { m_children.swap(row_1, row_2); }
+
+    //! take child item (this removes it from the current item)
+    ParameterizedItem *takeChildItem(int row);
 
     //! retrieves the parameter's value
     double getParameterValue(const QString &name) const;
@@ -33,22 +74,23 @@ public:
     void setParameter(const QString &name, double value);
 
     //! retrieves the whole list of paramaters
-    QMap<QString, double> &getParameters() {
-        return m_parameters;
-    }
+    QMap<QString, double> &getParameters() { return m_parameters; }
 
     //! indicates if the passed item can be set as
     //! a child item
     bool acceptsAsChild(const QString &child_name) const;
 
     //! get list of acceptable child object names
-    QList<QString> getAcceptableChildren() const {
-        return m_valid_children;
-    }
+    QList<QString> getAcceptableChildren() const { return m_valid_children; }
+
 protected:
     QList<QString> m_valid_children;
     QMap<QString, double> m_parameters;
+
 private:
+    QString m_model_type;
+    ParameterizedItem *m_parent;
+    QList<ParameterizedItem *> m_children;
 };
 
 

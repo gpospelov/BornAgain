@@ -21,7 +21,7 @@
 class LayerItem : public ParameterizedItem
 {
 public:
-    explicit LayerItem();
+    explicit LayerItem(ParameterizedItem *parent=0);
     ~LayerItem();
 };
 

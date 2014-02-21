@@ -16,8 +16,8 @@
 #include "MultiLayerItem.h"
 
 
-MultiLayerItem::MultiLayerItem()
-    : ParameterizedItem(QString("MultiLayer"))
+MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
+    : ParameterizedItem(QString("MultiLayer"), parent)
 {
     m_parameters[QString("Cross Correlation Length")] = 0.0;
     m_valid_children.append(QString("Layer"));

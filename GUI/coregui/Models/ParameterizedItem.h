@@ -30,6 +30,12 @@ public:
     //! retrieves the model type
     QString modelType() const { return m_model_type; }
 
+    //! retrieves the item's name
+    QString getItemName() const { return m_item_name; }
+
+    //! sets the item's name
+    void setItemName(const QString &item_name) { m_item_name = item_name; }
+
     //! retrieve parent item
     ParameterizedItem *getParent() const { return m_parent; }
 
@@ -89,6 +95,7 @@ protected:
 
 private:
     QString m_model_type;
+    QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
 };

@@ -26,6 +26,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     if (m_parent) {
         m_parent->addChildItem(this);
     }
+    setItemName(m_model_type);
 }
 
 ParameterizedItem::~ParameterizedItem()

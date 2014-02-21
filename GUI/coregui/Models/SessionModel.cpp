@@ -23,6 +23,7 @@
 namespace {
 const int MaxCompression = 9;
 enum Column {
+    ItemName,
     ModelType,
     MaxColumns
 };
@@ -60,6 +61,7 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             switch (index.column()) {
+            case ItemName: return item->getItemName();
             case ModelType: return item->modelType();
             default: return QVariant();
             }
@@ -72,6 +74,7 @@ QVariant SessionModel::headerData(int section, Qt::Orientation orientation, int 
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
+        case ItemName: return tr("Name");
         case ModelType: return tr("Model Type");
         }
     }

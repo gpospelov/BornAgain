@@ -43,81 +43,86 @@ set(UM_IMAGES
     Figures/basic_architecture.eps
     Figures/AnisoPyramid2dxy.eps
     Figures/AnisoPyramid2dxz.eps
-    Figures/AnistropicPyramid3d.eps
+    Figures/AnistropicPyramid3d.png
     Figures/Box2dxy.eps
     Figures/Box2dxz.eps
-    Figures/Box3d.eps
+    Figures/Box3d.png
     Figures/Cone2dxy.eps		
     Figures/Cone2dxz.eps		
-    Figures/Cone3d.eps
+    Figures/Cone3d.png
     Figures/Sphere2dxy.eps
     Figures/Sphere2dxz.eps
-    Figures/Sphere3d.eps
+    Figures/Sphere3d.png
     Figures/Spheroid2dxy.eps
     Figures/Spheroid2dxz.eps
-    Figures/Spheroid3d.eps		
+    Figures/Spheroid3d.png		
     Figures/Cone62dxy.eps
     Figures/Cone62dxz.eps
-    Figures/Cone63d.eps
+    Figures/Cone63d.png
     Figures/Cuboctahedron2dxy.eps
     Figures/Cuboctahedron2dxz.eps
-    Figures/Cuboctahedron3d.eps
+    Figures/Cuboctahedron3d.png
     Figures/Cylinder2dxy.eps
     Figures/Cylinder2dxz.eps
-    Figures/Cylinder3d.eps			
+    Figures/Cylinder3d.png			
     Figures/EllipsoidalCylinder2dxy.eps	
     Figures/EllipsoidalCylinder2dxz.eps	
-    Figures/EllipsoidalCylinder3d.eps
+    Figures/EllipsoidalCylinder3d.png
     Figures/FullSphere2dxy.eps		    
-    Figures/FullSphere2dxz.eps		
-    Figures/figffparallel.eps
-    Figures/FullSphere3d.eps		
-    Figures/figffprism3.eps
+    Figures/FullSphere2dxz.eps
+    Figures/FullSphere3d.png	
     Figures/FullSpheroid2dxy.eps
     Figures/FullSpheroid2dxz.eps		
-    Figures/figffpyramid.eps
-    Figures/FullSpheroid3d.eps		
-    Figures/figffripple1.eps
+    Figures/FullSpheroid3d.png		
     Figures/HemiEllipsoid2dxy.eps		
-    Figures/figffripple2.eps
     Figures/HemiEllipsoid2dxz.eps		
-    Figures/figffsphere.eps
-    Figures/HemiEllipsoid3d.eps				            
+    Figures/HemiEllipsoid3d.png				            
     Figures/Parallelepiped2dxy.eps	
     Figures/Parallelepiped2dxz.eps	
-    Figures/Parallelepiped3d.eps	
+    Figures/Parallelepiped3d.png	
     Figures/Prism32dxy.eps		
     Figures/Prism32dxz.eps		
-    Figures/Prism33d.eps		
+    Figures/Prism33d.png		
     Figures/Prism62dxy.eps	
     Figures/Prism62dxz.eps
-    Figures/Prism63d.eps
+    Figures/Prism63d.png
     Figures/Pyramid2dxy.eps
     Figures/Pyramid2dxz.eps
-    Figures/Pyramid3d.eps		
+    Figures/Pyramid3d.png		
     Figures/Ripple12dxy.eps
     Figures/Ripple12dyz.eps	
-    Figures/Ripple13d.eps
+    Figures/Ripple13d.png
     Figures/Ripple22dxy.eps
     Figures/Ripple22dyz.eps
-    Figures/Ripple23d.eps
-    Figures/figffcone6.eps
+    Figures/Ripple23d.png
     Figures/Tetrahedron2dxz.eps
     Figures/Tetrahedron2dxy.eps
-    Figures/Tetrahedron3d.eps
-    Figures/figffanisopyramid.eps
-    Figures/figffbox.eps
-    Figures/figffhemiellips.eps
-    Figures/figfftetrahedron.eps
-    Figures/figffcone.eps
-    Figures/figffcuboctah.eps
-    Figures/figffcylinder.eps
-    Figures/figffellipscylinder.eps
-    Figures/figfffsphere.eps
-    Figures/figfffspheroid.eps
-    Figures/figfffullsphere.eps
-    Figures/figffspheroid.eps
-    Figures/figffprism6.eps
+    Figures/Tetrahedron3d.png
+    Figures/figffanisopyramid.pdf
+    Figures/figffbox.pdf
+    Figures/figffcone.pdf
+    Figures/figffcone6.pdf
+    Figures/figffcylinder.pdf
+    Figures/figffcuboctah.pdf
+    Figures/figffellipscylinder.pdf
+    Figures/figffhemiellips.pdf
+    Figures/figfffsphere.pdf
+    Figures/figfffspheroid.pdf
+    Figures/figffparallel.pdf
+    Figures/figffpyramid.pdf
+    Figures/figffprism3.pdf
+    Figures/figffprism6.pdf
+    Figures/figffripple1.pdf
+    Figures/figffripple2.pdf
+    Figures/figffsphere.pdf
+    Figures/figffspheroid.pdf
+    Figures/figfftetrahedron.pdf
+    Figures/drawingDWBA.eps
+    Figures/ffspheroidBA.pdf
+    Figures/ffspheroidDWBA.pdf
+    Figures/CoreShellParallPyr.pdf
+    Figures/CoreShellParallPyrxy.eps
+    Figures/CoreShellParallPyrxz.eps
 )
 
 

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "fancymainwindow.h"
+#include "mainwindow_constants.h"
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -21,6 +22,8 @@ class Instrument;
 class ISample;
 class ActionManager;
 class ProjectManager;
+class QCloseEvent;
+class QSettings;
 
 
 //class MainWindow : public QMainWindow
@@ -38,7 +41,15 @@ public slots:
     void onChangeTabWidget(int index);
     void newProject();
     void openProject();
+    void openRecentProject();
+    void readSettings();
+    void writeSettings();
+    QSettings *getSettings() const;
+    ActionManager *getActionManager() { return m_actionManager; }
+    ProjectManager *getProjectManager() { return m_projectManager; }
 
+protected:
+    virtual void closeEvent(QCloseEvent *event);
 
 private:
     Manhattan::FancyTabWidget  *m_tabWidget;
@@ -51,7 +62,8 @@ private:
     FitView * m_fitView;
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
-    ProjectManager *m_projectManager; //! handles activity related to opening/saving projects
+    ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects
+    QSettings *m_settings; //!< application wide settings
 
     SimulationDataModel *mp_sim_data_model;
     // dummy simulation model initializer for test purposes

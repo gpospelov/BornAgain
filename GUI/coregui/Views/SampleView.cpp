@@ -46,7 +46,8 @@ SampleView::SampleView(QWidget *parent)
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
-        QList<QAbstractItemView*> frames = subWindow->findChildren<QAbstractItemView*>();
+        QList<QAbstractItemView*> frames =
+                subWindow->findChildren<QAbstractItemView*>();
         for (int i = 0 ; i< frames.count(); ++i)
             frames[i]->setFrameStyle(QFrame::NoFrame);
 
@@ -76,9 +77,11 @@ SampleView::~SampleView()
 
 void SampleView::initSubWindows()
 {
-    qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
+    qFill(m_subWindows, m_subWindows + NumberOfSubWindows,
+          static_cast<QWidget*>(0));
 
-    m_subWindows[WidgetBoxSubWindow] = SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
+    m_subWindows[WidgetBoxSubWindow] =
+            SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
     m_session = new SessionModel();
     // Temporary for testing
@@ -92,9 +95,11 @@ void SampleView::initSubWindows()
     m_tree_view = SampleViewComponents::createTreeView(m_session, this);
     m_subWindows[SampleTreeView] = m_tree_view;
 
-    m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(m_sampleDesigner, this);
+    m_subWindows[PropertyEditorSubWindow] =
+            SampleViewComponents::createPropertyEditor(m_sampleDesigner, this);
 
-    SampleInfoStreamInterface *ae = SampleViewComponents::createInfoStream(this);
+    SampleInfoStreamInterface *ae =
+            SampleViewComponents::createInfoStream(this);
     ae->setWindowTitle(tr("Info Stream"));
     ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
@@ -108,7 +113,8 @@ void SampleView::createActions()
 
     m_delete_item_action = new QAction(tr("Delete"), this);
     m_delete_item_action->setStatusTip(tr("Delete current object"));
-    connect(m_delete_item_action, SIGNAL(triggered()), this, SLOT(deleteItem()));
+    connect(m_delete_item_action, SIGNAL(triggered()),
+            this, SLOT(deleteItem()));
 }
 
 void SampleView::resetToDefaultLayout()
@@ -120,10 +126,14 @@ void SampleView::resetToDefaultLayout()
         removeDockWidget(dockWidget);
     }
 
-    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[WidgetBoxSubWindow]);
-    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleTreeView]);
-    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
-    addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[InfoSubWindow]);
+    addDockWidget(Qt::LeftDockWidgetArea,
+                  m_dockWidgets[WidgetBoxSubWindow]);
+    addDockWidget(Qt::RightDockWidgetArea,
+                  m_dockWidgets[SampleTreeView]);
+    addDockWidget(Qt::RightDockWidgetArea,
+                  m_dockWidgets[PropertyEditorSubWindow]);
+    addDockWidget(Qt::BottomDockWidgetArea,
+                  m_dockWidgets[InfoSubWindow]);
 
 //    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
 //                     m_dockWidgets[PropertyEditorSubWindow]);
@@ -203,11 +213,16 @@ void SampleView::connectSignals()
 {
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(this);
-    connect(m_toolBar, SIGNAL(zoomOut()), m_sampleDesigner->getView(), SLOT(zoomOut()));
-    connect(m_toolBar, SIGNAL(zoomIn()), m_sampleDesigner->getView(), SLOT(zoomIn()));
-    connect(m_toolBar, SIGNAL(zoomFit()), m_sampleDesigner->getView(), SLOT(zoomFit()));
-    connect(m_toolBar, SIGNAL(clearAll()), m_sampleDesigner->getView(), SLOT(clearAll()));
-    connect(m_toolBar, SIGNAL(sceneToISample()), m_sampleDesigner, SLOT(sceneToISample()));
+    connect(m_toolBar, SIGNAL(zoomOut()),
+            m_sampleDesigner->getView(), SLOT(zoomOut()));
+    connect(m_toolBar, SIGNAL(zoomIn()),
+            m_sampleDesigner->getView(), SLOT(zoomIn()));
+    connect(m_toolBar, SIGNAL(zoomFit()),
+            m_sampleDesigner->getView(), SLOT(zoomFit()));
+    connect(m_toolBar, SIGNAL(clearAll()),
+            m_sampleDesigner->getView(), SLOT(clearAll()));
+    connect(m_toolBar, SIGNAL(sceneToISample()),
+            m_sampleDesigner, SLOT(sceneToISample()));
 
     // connect context menu for tree view
     connect(m_tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),

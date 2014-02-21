@@ -70,7 +70,8 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant SessionModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant SessionModel::headerData(int section, Qt::Orientation orientation,
+                                  int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
@@ -94,7 +95,8 @@ int SessionModel::columnCount(const QModelIndex &parent) const
     return MaxColumns;
 }
 
-QModelIndex SessionModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex SessionModel::index(int row, int column,
+                                const QModelIndex &parent) const
 {
     if (!m_root_item || row < 0 || column < 0 || column >= MaxColumns
             || (parent.isValid() && parent.column() != 0))
@@ -112,7 +114,8 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
     if (ParameterizedItem *child_item = itemForIndex(child)) {
         if (ParameterizedItem *parent_item = child_item->getParent()) {
             if (parent_item == m_root_item) return QModelIndex();
-            if (ParameterizedItem *grandparent_item = parent_item->getParent()) {
+            if (ParameterizedItem *grandparent_item = parent_item->getParent())
+            {
                 int row = grandparent_item->rowOfChild(parent_item);
                 return createIndex(row, 0, parent_item);
             }
@@ -345,11 +348,13 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
     }
 }
 
-void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer, ParameterizedItem *item) const
+void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
+                                          ParameterizedItem *item) const
 {
     if (item != m_root_item) {
         writer->writeStartElement(SessionXML::ItemTag);
-        writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
+        writer->writeAttribute(SessionXML::ModelTypeAttribute,
+                               item->modelType());
         QMapIterator<QString, double> it(item->getParameters());
         while (it.hasNext()) {
             it.next();

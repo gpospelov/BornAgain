@@ -65,7 +65,7 @@ private:
     double m_root3; // Cached value of square root of 3
 
     // addition integration
-     mutable cvector_t m_q;
+    mutable cvector_t m_q;
     complex_t Integrand(double Z, void* params) const;
     MemberComplexFunctionIntegrator<FormFactorTetrahedron> *m_integrator;
 

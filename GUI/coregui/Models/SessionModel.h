@@ -25,9 +25,10 @@
 namespace SessionXML {
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
+const QString ItemNameAttribute("ItemName");
 const QString ParameterTag("Parameter");
-const QString ParameterNameAttribute("Name");
-const QString ParameterValueAttribute("Value");
+const QString ParameterNameAttribute("ParName");
+const QString ParameterValueAttribute("ParValue");
 }
 
 class SessionModel : public QAbstractItemModel

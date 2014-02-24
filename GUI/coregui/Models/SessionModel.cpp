@@ -127,9 +127,15 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
 bool SessionModel::setData(const QModelIndex &index,
                            const QVariant &value, int role)
 {
-    (void)index;
-    (void)value;
-    (void)role;
+    if (!index.isValid() || index.column()!=ItemName) return false;
+    if (ParameterizedItem *item = itemForIndex(index)) {
+        if (role==Qt::EditRole) {
+            item->setItemName(value.toString());
+        }
+        else return false;
+        emit dataChanged(index, index);
+        return true;
+    }
     return false;
 }
 
@@ -153,7 +159,7 @@ QStringList SessionModel::mimeTypes() const
 
 QMimeData *SessionModel::mimeData(const QModelIndexList &indices) const
 {
-    if (indices.count() != 1) return 0;
+    if (indices.count() != 2) return 0;
     if (ParameterizedItem *item = itemForIndex(indices.at(0))) {
         QMimeData *mime_data = new QMimeData;
         QByteArray xml_data;
@@ -328,6 +334,9 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                 const QString model_type = reader->attributes()
                         .value(SessionXML::ModelTypeAttribute).toString();
                 item = insertNewItem(model_type, item, row);
+                const QString item_name = reader->attributes()
+                        .value(SessionXML::ItemNameAttribute).toString();
+                item->setItemName(item_name);
                 row = -1; // all but the first item should be appended
             }
             else if (reader->name() == SessionXML::ParameterTag) {
@@ -355,6 +364,8 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
         writer->writeStartElement(SessionXML::ItemTag);
         writer->writeAttribute(SessionXML::ModelTypeAttribute,
                                item->modelType());
+        writer->writeAttribute(SessionXML::ItemNameAttribute,
+                               item->getItemName());
         QMapIterator<QString, double> it(item->getParameters());
         while (it.hasNext()) {
             it.next();

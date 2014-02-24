@@ -75,33 +75,153 @@
     
     
     <category name="Form factors">
-        
-        <categoryentry name="Full sphere" icon="images/sample_spacer.png">
-            <widget class="FormFactorFullSphere">
+
+        <categoryentry name="Anysotropic pyramid" icon="images/ff_anisopyramid_32.png">
+            <widget class="FormFactorAnisoPyramid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-        
-        <categoryentry name="Pyramid" icon="images/sample_vspacer.png">
-            <widget class="FormFactorPyramid">
+    
+        <categoryentry name="Box" icon="images/ff_box_32.png">
+            <widget class="FormFactorBox">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-        
-        <categoryentry name="Cylinder" icon="images/sample_vspacer.png">
+    
+        <categoryentry name="Cone" icon="images/ff_cone_32.png">
+            <widget class="FormFactorCone">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Cone6" icon="images/ff_cone6_32.png">
+            <widget class="FormFactorCone6">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Cuboctahedron" icon="images/ff_cubeoct_32.png">
+            <widget class="FormFactorCuboctahedron">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Cylinder" icon="images/ff_cylinder_32.png">
             <widget class="FormFactorCylinder">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-        
-        <categoryentry name="Prism3" icon="images/sample_vspacer.png">
+    
+        <categoryentry name="Ellipsoidal cylinder" icon="images/ff_ellipscylinder_32.png">
+            <widget class="FormFactorEllipsoidalCylinder">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Full sphere" icon="images/ff_fullsphere_32.png">
+            <widget class="FormFactorFullSphere">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Full spheroid" icon="images/ff_fullspheroid_32.png">
+            <widget class="FormFactorFullSpheroid">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Hemi ellipsoid" icon="images/ff_hemiellipsoid_32.png">
+            <widget class="FormFactorHemiEllipsoid">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Parallelepiped" icon="images/ff_parallelepiped_32.png">
+            <widget class="FormFactorParallelepiped">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Prism3" icon="images/ff_prism3_32.png">
             <widget class="FormFactorPrism3">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Prism6" icon="images/ff_prism6_32.png">
+            <widget class="FormFactorPrism6">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Pyramid" icon="images/ff_pyramid_32.png">
+            <widget class="FormFactorPyramid">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Ripple1" icon="images/ff_ripple1_32.png">
+            <widget class="FormFactorRipple1">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Ripple2" icon="images/ff_ripple2_32.png">
+            <widget class="FormFactorRipple2">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Tetrahedron" icon="images/ff_tetrahedron_32.png">
+            <widget class="FormFactorTetrahedron">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+        
+        <categoryentry name="Truncated sphere" icon="images/ff_truncsphere_32.png">
+            <widget class="FormFactorSphere">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="Truncated spheroid" icon="images/ff_truncspheroid_32.png">
+            <widget class="FormFactorSpheroid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

@@ -8,6 +8,7 @@
 #include <QTreeView>
 #include <QAction>
 #include <QSignalMapper>
+#include <QItemSelectionModel>
 
 #include "SessionModel.h"
 
@@ -49,6 +50,7 @@ protected slots:
 
 private:
     void initSubWindows();
+    void initSelectionModel();
     void createActions();
     void connectSignals();
     void clearSignalMapper();
@@ -69,6 +71,8 @@ private:
 
     SessionModel *m_session;
     QTreeView *m_tree_view;
+
+    QItemSelectionModel *m_selection_model;
 };
 
 

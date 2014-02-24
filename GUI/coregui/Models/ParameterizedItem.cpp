@@ -41,7 +41,7 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
     return item;
 }
 
-double ParameterizedItem::getParameterValue(const QString &name) const
+double ParameterizedItem::parameterValue(const QString &name) const
 {
     if (!m_parameters.contains(name)) {
         throw Exceptions::RuntimeErrorException(

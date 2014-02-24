@@ -38,6 +38,7 @@ SampleView::SampleView(QWidget *parent)
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     initSubWindows();
+    initSelectionModel();
 
     for (int i = 0; i < NumberOfSubWindows; i++) {
         QWidget *subWindow = m_subWindows[i];
@@ -56,10 +57,7 @@ SampleView::SampleView(QWidget *parent)
 
     createActions();
 
-
-
     connectSignals();
-
 }
 
 
@@ -103,6 +101,11 @@ void SampleView::initSubWindows()
     ae->setWindowTitle(tr("Info Stream"));
     ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
+}
+
+void SampleView::initSelectionModel()
+{
+    m_selection_model = m_tree_view->selectionModel();
 }
 
 void SampleView::createActions()

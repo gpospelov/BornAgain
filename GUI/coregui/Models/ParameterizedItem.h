@@ -31,16 +31,16 @@ public:
     QString modelType() const { return m_model_type; }
 
     //! retrieves the item's name
-    QString getItemName() const { return m_item_name; }
+    QString itemName() const { return m_item_name; }
 
     //! sets the item's name
     void setItemName(const QString &item_name) { m_item_name = item_name; }
 
     //! retrieve parent item
-    ParameterizedItem *getParent() const { return m_parent; }
+    ParameterizedItem *parent() const { return m_parent; }
 
     //! retrieve child item in given row
-    ParameterizedItem *getChildAt(int row) const {
+    ParameterizedItem *childAt(int row) const {
         return m_children.value(row);
     }
 
@@ -74,20 +74,20 @@ public:
     ParameterizedItem *takeChildItem(int row);
 
     //! retrieves the parameter's value
-    double getParameterValue(const QString &name) const;
+    double parameterValue(const QString &name) const;
 
     //! sets the parameter's value, if it exists
     void setParameter(const QString &name, double value);
 
     //! retrieves the whole list of paramaters
-    QMap<QString, double> &getParameters() { return m_parameters; }
+    QMap<QString, double> &parameters() { return m_parameters; }
 
     //! indicates if the passed item can be set as
     //! a child item
     bool acceptsAsChild(const QString &child_name) const;
 
     //! get list of acceptable child object names
-    QList<QString> getAcceptableChildren() const { return m_valid_children; }
+    QList<QString> acceptableChildItems() const { return m_valid_children; }
 
 protected:
     QList<QString> m_valid_children;

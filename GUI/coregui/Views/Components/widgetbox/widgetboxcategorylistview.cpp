@@ -405,7 +405,8 @@ WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface *co
 {
     setFocusPolicy(Qt::NoFocus);
     setFrameShape(QFrame::NoFrame);
-    setIconSize(QSize(22, 22));
+    //setIconSize(QSize(22, 22));
+    setIconSize(QSize(32, 32));
     setSpacing(1);
     setTextElideMode(Qt::ElideMiddle);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

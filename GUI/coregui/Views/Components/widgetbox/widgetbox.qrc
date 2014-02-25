@@ -16,7 +16,6 @@
         <file>images/ff_fullsphere_32.png</file>
         <file>images/ff_fullspheroid_32.png</file>
         <file>images/ff_hemiellipsoid_32.png</file>
-        <file>images/ff_parallelepiped_32.png</file>
         <file>images/ff_prism3_32.png</file>
         <file>images/ff_prism6_32.png</file>
         <file>images/ff_pyramid_32.png</file>
@@ -25,6 +24,5 @@
         <file>images/ff_tetrahedron_32.png</file>
         <file>images/ff_truncsphere_32.png</file>
         <file>images/ff_truncspheroid_32.png</file>
-        <file>images/</file>
     </qresource>
 </RCC>

@@ -156,14 +156,6 @@
             </widget>
         </categoryentry>
     
-        <categoryentry name="Parallelepiped" icon="images/ff_parallelepiped_32.png">
-            <widget class="FormFactorParallelepiped">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-    
         <categoryentry name="Prism3" icon="images/ff_prism3_32.png">
             <widget class="FormFactorPrism3">
                 <property name="objectName">
@@ -213,7 +205,7 @@
         </categoryentry>
         
         <categoryentry name="Truncated sphere" icon="images/ff_truncsphere_32.png">
-            <widget class="FormFactorSphere">
+            <widget class="FormFactorTruncatedSphere">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
@@ -221,7 +213,7 @@
         </categoryentry>
     
         <categoryentry name="Truncated spheroid" icon="images/ff_truncspheroid_32.png">
-            <widget class="FormFactorSpheroid">
+            <widget class="FormFactorTruncatedSpheroid">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

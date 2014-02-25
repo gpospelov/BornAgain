@@ -273,6 +273,11 @@ void ISampleToIView::visit(const FormFactorHemiEllipsoid *)
     throw NotImplementedException("ISampleToIView::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
 }
 
+void ISampleToIView::visit(const FormFactorInfLongBox *)
+{
+    throw NotImplementedException("ISampleToIView::visit const FormFactorInfLongBox *) -> Error. Not implemented.");
+}
+
 
 void ISampleToIView::visit(const FormFactorLorentz *)
 {
@@ -290,6 +295,10 @@ void ISampleToIView::visit(const FormFactorPrism3 *sample)
 
 void ISampleToIView::visit(const FormFactorPrism6 *)
 {
+//    std::cout << "ISampleToIView::visit(const FormFactorPrism6 *) -> Error. Not implemented." << std::endl;
+//    FormFactorPyramidView *view = new FormFactorPyramidView();
+//    view->setFormFactor(sample->clone());
+//    m_sample_to_view[sample] = view;
     throw NotImplementedException("ISampleToIView::visit(const FormFactorPrism6 *) -> Error. Not implemented.");
 }
 
@@ -312,6 +321,11 @@ void ISampleToIView::visit(const FormFactorRipple2 *)
 }
 
 void ISampleToIView::visit(const FormFactorTruncatedSphere *)
+{
+    throw NotImplementedException("ISampleToIView::visit(const FormFactorSphere *) -> Error. Not implemented.");
+}
+
+void ISampleToIView::visit(const FormFactorTruncatedSpheroid *)
 {
     throw NotImplementedException("ISampleToIView::visit(const FormFactorSphere *) -> Error. Not implemented.");
 }
@@ -398,6 +412,12 @@ void ISampleToIView::visit(const IInterferenceFunction *)
 void ISampleToIView::visit(const InterferenceFunction1DParaCrystal *sample){
     InterferenceFunction1DParaCrystalView *view = new InterferenceFunction1DParaCrystalView();
     m_sample_to_view[sample] = view;
+}
+
+
+void ISampleToIView::visit(const InterferenceFunction1DLattice *)
+{
+    throw NotImplementedException("ISampleToIView::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
 }
 
 

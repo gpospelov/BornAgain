@@ -57,7 +57,8 @@ public:
     virtual void setMaterial(const IMaterial* material);
 
     //! Sets _material_ and _thickness_.
-    virtual void setMaterial(const IMaterial* material, double thickness);
+    virtual void setMaterialAndThickness(const IMaterial* material,
+                                         double thickness);
 
     //! Returns layer's material.
     virtual const IMaterial* getMaterial() const { return mp_material; }

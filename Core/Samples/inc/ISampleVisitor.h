@@ -157,7 +157,6 @@ public:
     virtual void visit(const FormFactorHemiEllipsoid *);
     virtual void visit(const FormFactorInfLongBox *);
     virtual void visit(const FormFactorLorentz *);
-    //virtual void visit(const FormFactorParallelepiped *);
     virtual void visit(const FormFactorPrism3 *);
     virtual void visit(const FormFactorPrism6 *);
     virtual void visit(const FormFactorPyramid *);

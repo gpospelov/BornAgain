@@ -58,22 +58,6 @@ void JobView::updateJobList()
 #include <iostream>
 void JobView::updateGraphics()
 {
-    static int ncalls=0;
-//    if (mp_canvas) {
-//        JobModel *p_current_job = getCurrentJobModel();
-//        if (p_current_job==0) return;
-//        mp_canvas->cd();
-//        gPad->SetLogz();
-//        mp_cached_histo = p_current_job->getHistogram();
-//        mp_cached_histo->SetContour(99);
-//        gStyle->SetPalette(1);
-//        gStyle->SetOptStat(0);
-//        mp_cached_histo->SetMinimum(1.);
-//        //mp_cached_histo->Draw("CONTZ");
-//        mp_cached_histo->Draw("COL Z");
-//        mp_canvas->Update();
-//        std::cout << "XXX update " << (ncalls++) << std::endl;
-//    }
     if(mp_canvas) {
         JobModel *p_current_job = getCurrentJobModel();
         if (p_current_job==0) return;

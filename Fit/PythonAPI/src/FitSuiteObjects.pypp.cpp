@@ -59,40 +59,40 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::getObject
         
-            typedef ::FitObject const * ( ::FitSuiteObjects::*getObject_function_type )( ::size_t ) const;
+            typedef ::FitObject const * ( ::FitSuiteObjects::*getObject_function_type )( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getObject"
                 , getObject_function_type( &::FitSuiteObjects::getObject )
-                , ( bp::arg("i_item")=(::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuiteObjects::getObject
         
-            typedef ::FitObject * ( ::FitSuiteObjects::*getObject_function_type )( ::size_t ) ;
+            typedef ::FitObject * ( ::FitSuiteObjects::*getObject_function_type )( ::std::size_t ) ;
             
             FitSuiteObjects_exposer.def( 
                 "getObject"
                 , getObject_function_type( &::FitSuiteObjects::getObject )
-                , ( bp::arg("i_item")=(::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuiteObjects::getRealData
         
-            typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getRealData_function_type )( ::size_t ) const;
+            typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getRealData_function_type )( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getRealData"
                 , getRealData_function_type( &::FitSuiteObjects::getRealData )
-                , ( bp::arg("i_item")=(::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuiteObjects::getResidualValue
         
-            typedef double ( ::FitSuiteObjects::*getResidualValue_function_type )( ::size_t ) ;
+            typedef double ( ::FitSuiteObjects::*getResidualValue_function_type )( ::std::size_t ) ;
             
             FitSuiteObjects_exposer.def( 
                 "getResidualValue"
@@ -102,40 +102,40 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::getSimulation
         
-            typedef ::Simulation const * ( ::FitSuiteObjects::*getSimulation_function_type )( ::size_t ) const;
+            typedef ::Simulation const * ( ::FitSuiteObjects::*getSimulation_function_type )( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getSimulation"
                 , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
-                , ( bp::arg("i_item")=(::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuiteObjects::getSimulation
         
-            typedef ::Simulation * ( ::FitSuiteObjects::*getSimulation_function_type )( ::size_t ) ;
+            typedef ::Simulation * ( ::FitSuiteObjects::*getSimulation_function_type )( ::std::size_t ) ;
             
             FitSuiteObjects_exposer.def( 
                 "getSimulation"
                 , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
-                , ( bp::arg("i_item")=(::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuiteObjects::getSimulationData
         
-            typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getSimulationData_function_type )( ::size_t ) const;
+            typedef ::OutputData< double > const * ( ::FitSuiteObjects::*getSimulationData_function_type )( ::std::size_t ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getSimulationData"
                 , getSimulationData_function_type( &::FitSuiteObjects::getSimulationData )
-                , ( bp::arg("i_item")=(::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::FitSuiteObjects::getSizeOfDataSet
         
-            typedef ::size_t ( ::FitSuiteObjects::*getSizeOfDataSet_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitSuiteObjects::*getSizeOfDataSet_function_type )(  ) const;
             
             FitSuiteObjects_exposer.def( 
                 "getSizeOfDataSet"
@@ -163,12 +163,12 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::setRealData
         
-            typedef void ( ::FitSuiteObjects::*setRealData_function_type )( ::OutputData< double > const &,::size_t ) ;
+            typedef void ( ::FitSuiteObjects::*setRealData_function_type )( ::OutputData< double > const &,::std::size_t ) ;
             
             FitSuiteObjects_exposer.def( 
                 "setRealData"
                 , setRealData_function_type( &::FitSuiteObjects::setRealData )
-                , ( bp::arg("real_data"), bp::arg("i_item")=(::size_t)(0) ) );
+                , ( bp::arg("real_data"), bp::arg("i_item")=(long unsigned int)(0) ) );
         
         }
         { //::FitSuiteObjects::setSimulationNormalize
@@ -183,7 +183,7 @@ void register_FitSuiteObjects_class(){
         }
         { //::FitSuiteObjects::size
         
-            typedef ::size_t ( ::FitSuiteObjects::*size_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitSuiteObjects::*size_function_type )(  ) const;
             
             FitSuiteObjects_exposer.def( 
                 "size"

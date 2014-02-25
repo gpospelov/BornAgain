@@ -107,7 +107,7 @@ void Layer::setMaterial(const IMaterial* material)
     mp_material = material;
 }
 
-void Layer::setMaterial(const IMaterial* material, double thickness)
+void Layer::setMaterialAndThickness(const IMaterial* material, double thickness)
 {
     setMaterial(material);
     setThickness(thickness);

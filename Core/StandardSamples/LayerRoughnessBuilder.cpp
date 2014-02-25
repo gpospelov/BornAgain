@@ -58,13 +58,13 @@ ISample *LayerRoughnessBuilder::buildSample() const
 
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material, 0);
+    air_layer.setMaterialAndThickness(p_air_material, 0);
 	Layer partA_layer;
-	partA_layer.setMaterial(p_part_a_material, m_thicknessA);
+    partA_layer.setMaterialAndThickness(p_part_a_material, m_thicknessA);
 	Layer partB_layer;
-    partB_layer.setMaterial(p_part_b_material, m_thicknessB);
+    partB_layer.setMaterialAndThickness(p_part_b_material, m_thicknessB);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material, 0);
+    substrate_layer.setMaterialAndThickness(p_substrate_material, 0);
 
     LayerRoughness *roughness = new LayerRoughness();
     roughness->setSigma(m_sigma);

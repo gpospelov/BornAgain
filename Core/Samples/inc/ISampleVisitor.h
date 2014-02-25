@@ -64,15 +64,16 @@ class FormFactorGauss;
 class FormFactorHemiEllipsoid;
 class FormFactorInfLongBox;
 class FormFactorLorentz;
-class FormFactorParallelepiped;
+//class FormFactorParallelepiped;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
 class FormFactorRipple1;
 class FormFactorRipple2;
-class FormFactorSphere;
 class FormFactorSphereGaussianRadius;
 class FormFactorTetrahedron;
+class FormFactorTruncatedSphere;
+class FormFactorTruncatedSpheroid;
 class IFormFactorBornSeparable;
 // -
 class IFormFactorDecorator;
@@ -156,15 +157,16 @@ public:
     virtual void visit(const FormFactorHemiEllipsoid *);
     virtual void visit(const FormFactorInfLongBox *);
     virtual void visit(const FormFactorLorentz *);
-    virtual void visit(const FormFactorParallelepiped *);
+    //virtual void visit(const FormFactorParallelepiped *);
     virtual void visit(const FormFactorPrism3 *);
     virtual void visit(const FormFactorPrism6 *);
     virtual void visit(const FormFactorPyramid *);
     virtual void visit(const FormFactorRipple1 *);
     virtual void visit(const FormFactorRipple2 *);
-    virtual void visit(const FormFactorSphere *);
     virtual void visit(const FormFactorSphereGaussianRadius *);
     virtual void visit(const FormFactorTetrahedron *);
+    virtual void visit(const FormFactorTruncatedSphere *);
+    virtual void visit(const FormFactorTruncatedSpheroid *);
     virtual void visit(const IFormFactorBornSeparable *);
 
     virtual void visit(const IFormFactorDecorator *);

@@ -233,7 +233,7 @@ void SampleMaterialVisitor::visit(const FormFactorGauss *)
 
 void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
 {
-//    throw NotImplementedException("SampleMaterialVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
+//    throw NotImplementedException("SampleMaterialVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
 }
 
 void SampleMaterialVisitor::visit(const FormFactorInfLongBox *)
@@ -247,10 +247,10 @@ void SampleMaterialVisitor::visit(const FormFactorLorentz *)
 }
 
 
-void SampleMaterialVisitor::visit(const FormFactorParallelepiped *)
-{
+//void SampleMaterialVisitor::visit(const FormFactorParallelepiped *)
+//{
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
-}
+//}
 
 
 void SampleMaterialVisitor::visit(const FormFactorPrism3 *)
@@ -280,12 +280,6 @@ void SampleMaterialVisitor::visit(const FormFactorRipple2 *)
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-void SampleMaterialVisitor::visit(const FormFactorSphere *)
-{
-//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphere *) -> Error. Not implemented.");
-}
-
-
 void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *)
 {
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
@@ -297,6 +291,15 @@ void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
 }
 
+void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *) -> Error. Not implemented.");
+}
+
+void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *) -> Error. Not implemented.");
+}
 
 void SampleMaterialVisitor::visit(const IFormFactorBornSeparable *)
 {

@@ -118,6 +118,7 @@ set(UM_IMAGES
     Figures/figffspheroid.pdf
     Figures/figfftetrahedron.pdf
     Figures/drawingDWBA.eps
+    Figures/drawingDWBAburied.eps
     Figures/ffspheroidBA.pdf
     Figures/ffspheroidDWBA.pdf
     Figures/CoreShellParallPyr.pdf

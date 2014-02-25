@@ -63,7 +63,7 @@ SampleFactory::SampleFactory()
 
 //    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);
 //    registerItem("FormFactor_Cone", StandardSamples::FormFactor_Cone);
-//    registerItem("FormFactor_Sphere", StandardSamples::FormFactor_Sphere);
+//    registerItem("FormFactor_TruncatedSphere", StandardSamples::FormFactor_TruncatedSphere);
 //    registerItem("FormFactor_EllipsoidalCylinder", StandardSamples::FormFactor_EllipsoidalCylinder);
 //    registerItem("FormFactor_FullSpheroid", StandardSamples::FormFactor_FullSpheroid);
 //    registerItem("FormFactor_HemiEllipsoid", StandardSamples::FormFactor_HemiEllipsoid;

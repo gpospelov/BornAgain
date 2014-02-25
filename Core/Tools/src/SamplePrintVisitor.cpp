@@ -232,10 +232,10 @@ void SamplePrintVisitor::visit(const FormFactorLorentz *)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorParallelepiped *sample)
-{
-    print_default(sample);
-}
+//void SamplePrintVisitor::visit(const FormFactorParallelepiped *sample)
+//{
+//    print_default(sample);
+//}
 
 
 void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)
@@ -265,23 +265,26 @@ void SamplePrintVisitor::visit(const FormFactorRipple2 *sample)
     print_default(sample);
 }
 
-void SamplePrintVisitor::visit(const FormFactorSphere *sample)
-{
-    print_default(sample);
-}
-
 
 void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *sample)
 {
     print_default(sample);
 }
 
-
 void SamplePrintVisitor::visit(const FormFactorTetrahedron *sample)
 {
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const IFormFactorBornSeparable *)
 {

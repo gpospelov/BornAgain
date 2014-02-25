@@ -32,17 +32,16 @@
 #include "FormFactorHemiEllipsoid.pypp.h" 
 #include "FormFactorInfLongBox.pypp.h" 
 #include "FormFactorLorentz.pypp.h" 
-#include "FormFactorParallelepiped.pypp.h" 
 #include "FormFactorPrism3.pypp.h" 
 #include "FormFactorPrism6.pypp.h" 
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorRipple1.pypp.h" 
 #include "FormFactorRipple2.pypp.h" 
-#include "FormFactorSphere.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
 #include "FormFactorSphereUniformRadius.pypp.h" 
-#include "FormFactorSpheroid.pypp.h" 
 #include "FormFactorTetrahedron.pypp.h" 
+#include "FormFactorTruncatedSphere.pypp.h" 
+#include "FormFactorTruncatedSpheroid.pypp.h" 
 #include "FTDistribution1DCauchy.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
@@ -168,17 +167,16 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorHemiEllipsoid_class();
     register_FormFactorInfLongBox_class();
     register_FormFactorLorentz_class();
-    register_FormFactorParallelepiped_class();
     register_FormFactorPrism3_class();
     register_FormFactorPrism6_class();
     register_FormFactorPyramid_class();
     register_FormFactorRipple1_class();
     register_FormFactorRipple2_class();
-    register_FormFactorSphere_class();
     register_FormFactorSphereGaussianRadius_class();
     register_FormFactorSphereUniformRadius_class();
-    register_FormFactorSpheroid_class();
     register_FormFactorTetrahedron_class();
+    register_FormFactorTruncatedSphere_class();
+    register_FormFactorTruncatedSpheroid_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_Transform3D_class();

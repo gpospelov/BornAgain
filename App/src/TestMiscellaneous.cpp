@@ -447,8 +447,8 @@ void TestMiscellaneous::test_FormFactor1()
                                    10.*Units::nanometer);
    //   IFormFactor& ff = ff_cylinder;
 
-    FormFactorParallelepiped ff_para(12.*Units::nanometer,
-                                     7.*Units::nanometer);
+    //FormFactorParallelepiped ff_para(12.*Units::nanometer,
+    //                                 7.*Units::nanometer);
    //   IFormFactor& ff = ff_para;
 
     FormFactorPyramid ff_pyramid(10.*Units::nanometer, //5.*Units::nanometer,
@@ -460,7 +460,7 @@ void TestMiscellaneous::test_FormFactor1()
                               5.*Units::nanometer);
    //   IFormFactor& ff = ff_prism3;
 
-    FormFactorSphere ff_sphere(5.*Units::nanometer,
+    FormFactorTruncatedSphere ff_sphere(5.*Units::nanometer,
                                5.*Units::nanometer);
    //   IFormFactor& ff = ff_sphere;
 

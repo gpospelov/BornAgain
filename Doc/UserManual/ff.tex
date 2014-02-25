@@ -9,21 +9,23 @@ factors have been implemented in \BornAgain.
 \hline 
 Shape & &   Shape& &   Shape \\
 \hline 
-Parallelepiped, \SecRef{Parallelepiped}  &  & Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} \\
- \includegraphics[width=1in]{Figures/Parallelepiped3d} &
-&  \includegraphics[width=1in]{Figures/Box3d} &
- & \includegraphics[width=1in]{Figures/Prism33d} \\
+Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} & & Tetrahedron, \SecRef{Tetrahedron}  \\
+\includegraphics[width=1in]{Figures/Box3d} &
+ & \includegraphics[width=1in]{Figures/Prism33d} & & 
+\includegraphics[width=1in]{Figures/Tetrahedron3d}
+\\
 \hline 
-Tetrahedron, \SecRef{Tetrahedron}   & & Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  \\
-\includegraphics[width=1in]{Figures/Tetrahedron3d} & & 
+Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  & &  Pyramid, \SecRef{Pyramid} \\
 \includegraphics[width=1in]{Figures/Prism63d} & & 
- \includegraphics[width=1in]{Figures/Cone63d}  \\
+ \includegraphics[width=1in]{Figures/Cone63d}  & & 
+\includegraphics[width=1in]{Figures/Pyramid3d}
+\\
 \hline
-  Pyramid, \SecRef{Pyramid}  &  & Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron, \SecRef{Cuboctahedron}   \\
-\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Pyramid3d}}
-   &   & \parbox[c]{1em}{
-      \includegraphics[width=1in]{Figures/AnistropicPyramid3d}} &
-    & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cuboctahedron3d}}\\
+ Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron,
+ \SecRef{Cuboctahedron} & &   Cylinder, \SecRef{Cylinder} \\
+\includegraphics[width=1in]{Figures/AnistropicPyramid3d} &
+    & \includegraphics[width=1in]{Figures/Cuboctahedron3d} & & 
+\includegraphics[width=1in]{Figures/Cylinder3d}\\
 \hline
 \end{tabulary}
 \end{table}
@@ -32,28 +34,82 @@ Tetrahedron, \SecRef{Tetrahedron}   & & Prism6, \SecRef{Prism6}    & & Cone6, \S
 \begin{table}[H] 
  \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
 \hline 
-Shape & &   Shape& &   Shape \\
+Shape & &   Shape & &   Shape \\
 \hline
- Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone, \SecRef{Cone} \\
-     \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cylinder3d}} &
-& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d}}
-& & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cone3d}} \\
+Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone,
+\SecRef{Cone} & & Full Sphere, \SecRef{FullSphere}  \\
+\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d} &
+& \includegraphics[width=1in]{Figures/Cone3d}
+& & \includegraphics[width=1in]{Figures/FullSphere3d} \\
 \hline
-Full Sphere, \SecRef{FullSphere}   &  & Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} \\
- \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSphere3d}} & &  \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Sphere3d}}
- &  & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSpheroid3d}}\\
+Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid,
+\SecRef{FullSpheroid} & & Truncated Spheroid, \SecRef{Spheroid} \\
+\includegraphics[width=1in]{Figures/Sphere3d} & &
+\includegraphics[width=1in]{Figures/FullSpheroid3d} & & 
+\includegraphics[width=1in]{Figures/Spheroid3d} \\
 \hline 
- Truncated Spheroid, \SecRef{Spheroid}   &  & Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & \\
-\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Spheroid3d}}
-& &\parbox[c]{1em}{\includegraphics[width=1in]{Figures/HemiEllipsoid3d}}
-& & \\
-\hline
-  Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   & &\\
+ Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   \\
+\includegraphics[width=1in]{Figures/HemiEllipsoid3d} & &
 \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple13d}} &
-& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d}} & & \\
+& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d}}  \\
 \hline 
 \end{tabulary}
 \end{table}
+
+
+
+
+%\begin{table}[H] 
+%\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
+%  \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
+%\hline 
+%Shape & &   Shape& &   Shape \\
+%\hline 
+%Parallelepiped, \SecRef{Parallelepiped}  &  & Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} \\
+% \includegraphics[width=1in]{Figures/Parallelepiped3d} &
+%&  \includegraphics[width=1in]{Figures/Box3d} &
+% & \includegraphics[width=1in]{Figures/Prism33d} \\
+%\hline 
+%Tetrahedron, \SecRef{Tetrahedron}   & & Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  \\
+%\includegraphics[width=1in]{Figures/Tetrahedron3d} & & 
+%\includegraphics[width=1in]{Figures/Prism63d} & & 
+% \includegraphics[width=1in]{Figures/Cone63d}  \\
+%\hline
+ % Pyramid, \SecRef{Pyramid}  &  & Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron, \SecRef{Cuboctahedron}   \\
+%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Pyramid3d}}
+%   &   & \parbox[c]{1em}{
+%      \includegraphics[width=1in]{Figures/AnistropicPyramid3d}} &
+%    & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cuboctahedron3d}}\\
+%\hline
+%\end{tabulary}
+%\end{table}
+
+
+%\begin{table}[H] 
+% \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
+%\hline 
+%Shape & &   Shape& &   Shape \\
+%\hline
+% Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone, \SecRef{Cone} \\
+%     \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cylinder3d}} &
+%& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d}}
+%& & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cone3d}} \\
+%\hline
+%Full Sphere, \SecRef{FullSphere}   &  & Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} \\
+% \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSphere3d}} & &  \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Sphere3d}}
+% &  & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSpheroid3d}}\\
+%\hline 
+% Truncated Spheroid, \SecRef{Spheroid}   &  & Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & \\
+%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Spheroid3d}}
+%& &\parbox[c]{1em}{\includegraphics[width=1in]{Figures/HemiEllipsoid3d}}
+%& & \\
+%\hline
+ % Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   & &\\
+%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple13d}} &
+%& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d}} & & \\
+%\hline 
+%\end{tabulary}
+%\end{table}
 
 
 In \BornAgain\ the form factor is defined as
@@ -94,73 +150,68 @@ $z$-axis, the user could use the following \Code{Python}\ script:\\
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Parallelepiped} \SecLabel{Parallelepiped}  
+%\section{Parallelepiped} \SecLabel{Parallelepiped}  
 
-\subsection{Real-space geometry}
-This shape is a square cuboid (see fig.~\ref{fig:parallelepiped}).
+%\subsection{Real-space geometry}
+%This shape is a square cuboid (see fig.~\ref{fig:parallelepiped}).
 
-\begin{figure}[ht]
-\hfill
-\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxz}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxy}}
-\hfill
-\caption{Sketch of a Parallelepiped.}
-\label{fig:parallelepiped}
-\end{figure}
+%\begin{figure}[ht]
+%\hfill
+%\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxz}}
+%\hfill
+%\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxy}}
+%\hfill
+%\caption{Sketch of a Parallelepiped.}
+%\label{fig:parallelepiped}
+%\end{figure}
 
-\FloatBarrier
+%\FloatBarrier
 
-\paragraph{Parameters:}
-\begin{itemize}
-\item length of one side of the square base $L$,
-\item height $H$.
-\end{itemize}
+%\paragraph{Parameters:}
+%\begin{itemize}
+%\item length of one side of the square base $L$,
+%\item height $H$.
+%\end{itemize}
 
-\paragraph{Properties:}
-\begin{itemize}
-\item volume $V= L^2 H$,
-\item particle surface seen from above $S =L^2$.
-%\item radius of gyration. 
-\end{itemize}
+%\paragraph{Properties:}
+%\begin{itemize}
+%\item volume $V= L^2 H$,
+%\item particle surface seen from above $S =L^2$.
+%\end{itemize}
 
-\subsection{Expression of the form factor}
-\begin{equation*}
-F_{\rm{Parallelepiped}}(\mathbf{q},L, H) = L^2 H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x\frac{L}{2}\right)
-\sinc\left(q_y\frac{L}{2}\right)\sinc\left(q_z \frac{H}{2}\right),
-\end{equation*}
-where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
+%\subsection{Expression of the form factor}
+%\begin{equation*}
+%F_{\rm{Parallelepiped}}(\mathbf{q},L, H) = L^2 H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x\frac{L}{2}\right)
+%\sinc\left(q_y\frac{L}{2}\right)\sinc\left(q_z \frac{H}{2}\right),
+%\end{equation*}
+%where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
-\paragraph{Syntax:} \Code{FormFactorParallelepiped(length, height)}
+%\paragraph{Syntax:} \Code{FormFactorParallelepiped(length, height)}
 
-\newpage
+%\newpage
 
-\subsection{Examples}
+%\subsection{Examples}
 
-Figure~\ref{fig:FFparallelEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=7$~nm and \mbox{$H=15$~nm.}
+%Figure~\ref{fig:FFparallelEx} shows the normalized intensity
+%$|F|^2/V^2$, computed with $L=7$~nm and \mbox{$H=15$~nm.}
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=\textwidth]{Figures/figffparallel}
-\end{center}
-\caption{Normalized intensity for the form factor of a Parallelepiped
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=7$~nm and $H=15$~nm.}
-\label{fig:FFparallelEx}
-\end{figure}
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=\textwidth]{Figures/figffparallel}
+%\end{center}
+%\caption{Normalized intensity for the form factor of a Parallelepiped
+%  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=7$~nm and $H=15$~nm.}
+%\label{fig:FFparallelEx}
+%\end{figure}
 
-\FloatBarrier
+%\FloatBarrier
 
-%\subsection{References}
-%The parameters characterizing a Parallelepiped are different from
-%those used in \Code{IsGISAXS}. We use the full side length of the
-%square base: $L= 2 R_{\rm{\Code{IsGISAXS}}}$.
-\newpage{\cleardoublepage}
+%\newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Box} \SecLabel{Box} 
 
 \subsection{Real-space geometry}
-This shape is a rectangular cuboid or a right rectangular prism as
+This shape is a rectangular cuboid as
 shown in fig.~\ref{fig:box}. 
 
 
@@ -936,7 +987,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Full sphere} \SecLabel{FullSphere}
+\section{Full Sphere} \SecLabel{FullSphere}
 
 \subsection{Real-space geometry}
 The full sphere is parametrized by its radius $R$. 
@@ -987,9 +1038,8 @@ Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, compute
 
 \FloatBarrier
 %\subsection{References}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\cleardoublepage}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Truncated Sphere}\SecLabel{Sphere}
   
 \subsection{Real-space geometry}
@@ -1002,7 +1052,7 @@ to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 \hfill
 \subfigure[Top view]{\includegraphics[width=5cm]{Figures/Sphere2dxy}}
 \hfill
-\caption{Sketch of a (truncated) Sphere.}
+\caption{Sketch of a Truncated Sphere.}
 \label{fig:sphere}
 \end{figure}
 \FloatBarrier
@@ -1026,13 +1076,13 @@ to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 
 \subsection{Expression of the form factor}
 \begin{equation*}  
-F_{\text{sphere}}(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
+F_{\text{TruncatedSphere}}(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
 \end{equation*}
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
 \sqrt{q_x^2+q_y^2}$, and $R_z = \sqrt{R^2-z^2}$
 
-\paragraph{Syntax:} \Code{FormFactorSphere(radius, height)}
+\paragraph{Syntax:} \Code{FormFactorTruncatedSphere(radius, height)}
 
 \subsection{Examples}
 Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=5$~nm and $H=7$~nm:
@@ -1040,7 +1090,7 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffsphere}
 \end{center}
-\caption{Normalized intensity for the form factor of a truncated Sphere
+\caption{Normalized intensity for the form factor of a Truncated Sphere
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
   computed with $R=5$~nm and $H=7$~nm.}
 \label{fig:SphereEx}
@@ -1054,7 +1104,7 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Full spheroid} \SecLabel{FullSpheroid}  
+\section{Full Spheroid} \SecLabel{FullSpheroid}  
 
 \subsection{Real-space geometry}
 A full spheroid is generated by rotating an ellipse around the vertical
@@ -1123,7 +1173,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \newpage{\cleardoublepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Truncated spheroid} \SecLabel{Spheroid}
+\section{Truncated Spheroid} \SecLabel{Spheroid}
 
 \subsection{Real-space geometry}
 This shape is a spheroidal dome: a portion of a full spheroid cut off
@@ -1135,7 +1185,7 @@ by a plane perpendicular to the $z$-axis.
 \hfill
 \subfigure[Top view]{\includegraphics[width=5cm]{Figures/Spheroid2dxy.eps}}
 \hfill
-\caption{Sketch of a truncated Spheroid.}
+\caption{Sketch of a Truncated Spheroid.}
 \label{fig:spheroid}
 \end{figure}
 
@@ -1158,13 +1208,13 @@ by a plane perpendicular to the $z$-axis.
 
 \subsection{Expression of the form factor}
 \begin{equation*} 
-F_{\rm{spheroid}}(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
+F_{\rm{TruncatedSpheroid}}(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
         ^2\frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \exp(i q_z z) dz
 \end{equation*}
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel}=\sqrt{q_x^2+q_y^2} $ and $R_z=\sqrt{R^2-z^2/f_p^2}$.
 
-\paragraph{Syntax:} \Code{FormFactorSpheroid(radius, height, height\_flattening)}
+\paragraph{Syntax:} \Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
 
 \subsection{Examples}
 Figure~\ref{fig:FFspheroidEx} shows the normalized intensity
@@ -1174,7 +1224,7 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffspheroid}
 \end{center}
-\caption{Normalized intensity for the form factor of a truncated Spheroid
+\caption{Normalized intensity for the form factor of a Truncated Spheroid
   $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
   computed with $R=7.5$~nm, $H=9$~nm, and $f_p=1.2$.}
 \label{fig:FFspheroidEx}
@@ -1375,136 +1425,17 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~mm.
 \FloatBarrier
 
 
-%\newpage{\cleardoublepage}
+\newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Distorted Wave Born Approximation}
-
-%The previous sections of this appendix on form factors have dealt with the Born approximation. In this case the form factor is given by a single integral over the particle shape (see equation~\ref{ffformulaBA}). But this approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of a substrate or the closeness of $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order.  In the followings, the expression of the form factor in the DWBA is going to be given for different layouts of particles: particles deposited on a substrate and buried particles.
-
-%\paragraph{Particles deposited on a substrate}
-%In this configuration, the particles are sitting on top of a substrate layer, in the air. In the DWBA the expression of a form factor becomes 
-%\begin{align*}
-%F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\parallel}, -k_{f,z}-k_{i,z})+ R(\alpha_i) F_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z}) \\
-%&+ R(\alpha_f) F_{\rm{BA}}(q_{\parallel}, -k_{i,z}+k_{f,z}) + R(\alpha_i) R(\alpha_f) F_{\rm{BA}}(q_{\parallel},k_{i,z}+k_{f,z}), 
-%\end{align*}
-%where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface, $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. Let's remember that the $z$ axis is pointing upwards. $R(\alpha_i)$, $R(\alpha_f)$ are the reflection coefficients in incidence and reflection. They are defined as $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\parallel}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\parallel}|^2}}$, where $n_s$ is the subsrate refractive index, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$). % (see \cite{Yok07} for details). In the DWBA, the form factor depends on 
-
-%Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term corresponds to the Born approximation. Each term is weighted by a Fresnel coefficient. 
-
-%\begin{figure}[h]
-%\begin{center}
-%\includegraphics[width=\textwidth]{Figures/drawingDWBA}
-%\end{center}
-%\caption{Schematic views of the different terms appearing in the expression of the form factor under DWBA.}
-%\label{fig:SchemDWBA}
-%\end{figure}
-
-%%The four terms involved are associated to different scattering events, which involve or not a reflection of either the incident beam or the final beam collected on the detector. These waves interfere coherently, giving rise to the effective form factor (FDWBA), in which the classical form factor comes into play but with respect to the specific wavevector transfers. Each term is weighted by the corresponding Fresnel reflection coefficient R, either in incidence or in reflection. The reduced reflectivity of the substrate by an uncorrelated roughness can be calculated in a classical way with a mean standard deviation. The scattered cross section is proportional to the scattered intensity and thus to the modulus square of the Fourier transform of the electron density. 
-%From Lazzari 2002, DWBA= application of first order perturbation induced by island's roughness to the correct unperturbed wave: incident - reflected - refracted waves at the substrate surface.
+\section{Distorted Wave Born Approximation}
 
 
-%Script~\ref{lst:badwba} illustrates the difference between BA and DWBA for the simple case of:
-%\begin{itemize}
-%\item one kind of particles' shape,
-%\item no interference between the particles,
-%\item in the DWBA, a sample made of a layer of substrate on which are deposited the particles,
-%\item in the BA, the sample is composed of the particles in air.
-%\end{itemize} 
-
-%Figure~\ref{fig:spheroidbadwba} shows the intensity contourplot
-%generated using this script with spheroids.
-
-%\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate figures~\ref{fig:spheroidbadwba}. The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
-%import numpy
-%import matplotlib
-%import pylab
-%from libBornAgainCore import *
-
-%def get_sample():
-%    """
-%    Build and return the sample to calculate formfactor in Born or Distorted Wave Born Approximation.
-%    """
-%    # defining materials
-%    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-%    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-%    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
-
-%    # collection of particles
-%    ff= FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)
-%    particleshape = Particle(m_particle, ff)
-%    particle_decoration = ParticleDecoration()
-%    particle_decoration.addParticle(particleshape, 0.0, 1.0)
-%    interference = InterferenceFunctionNone()
-%    particle_decoration.addInterferenceFunction(interference)
-%    air_layer = Layer(m_ambience)
-%    air_layer.setDecoration(particle_decoration)
-%    substrate_layer = Layer(m_substrate, 0)
-
-%    multi_layer = MultiLayer()
-%    multi_layer.addLayer(air_layer)
-%    # Add substrate layer for DWBA 
-%    # Comment the following line out for BA
-%    multi_layer.addLayer(substrate_layer)
-%    return multi_layer
-
-%def get_simulation():
-%    """
-%    Create and return GISAXS simulation with beam and detector defined
- %   """
-%    simulation = Simulation()
-%    simulation.setDetectorParameters(200, 0.0*degree, 2.0*degree, 200, 0.0*degree, 2.0*degree, True)
- %   simulation.setBeamParameters(1.0*angstrom, 0.5*degree, 0.0*degree)
- %   return simulation
-
-%def run_simulation():
- %   """
- %   Run simulation and plot results
-%    """
-%    sample = get_sample()
-%    simulation = get_simulation()
-%    simulation.setSample(sample)
-%    simulation.runSimulation()
-%    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
-%    pylab.show()
- 
-
-%if __name__ == '__main__': 
-%    run_simulation()
-%\end{lstlisting}
-
-
-%\begin{figure}[ht]
-%\hfill
-%\subfigure[Born Approximation]{\includegraphics[width=5cm]{Figures/ffspheroidBA}}
-%\hfill
-%\subfigure[DWB Approximation]{\includegraphics[width=5cm]{Figures/ffspheroidDWBA}}
-%\hfill
-%\caption{Intensity map of Spheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} and  %\Code{FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)}.}
-%\label{fig:spheroidbadwba}
-%\end{figure}
-
-%\begin{figure}[ht]
-%\hfill
-%\subfigure[Born Approximation]{\includegraphics[width=5cm]{Figures/ffcubocBA}}
-%\hfill
-%\subfigure[DWB Approximation]{\includegraphics[width=5cm]{Figures/ffcubocDWBA}}
-%\hfill
-%\caption{Intensity map of Cuboctahedron form factor in BA and DWBA computing using script~\ref{lst:badwba} and  \Code{FormFactorCuboctahedron(20.0*nanometer, 13.0*nanometer, 0.7, 60*degree)}.}
-%\label{fig:cuboctbadwba}
-%\end{figure}
-
-%\FloatBarrier 
-
-%\ImportantPoint{Remark:}{ An example of listings for BA and DBWA using cylindrical particles can be found in the Examples folder of \BornAgain\ source code : \Code{CylinderFormFactorDWBA.py}, \Code{CylinderFormFactorBA.py}.}
-
-%\paragraph{Buried particles} 
-%to be completed
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Core-shell particles}
  \BornAgain\ also offers the possibility to simulate more complicated shapes of particles by combining those listed in the previous sections. To generate a core-shell particle, the combination is performed using the following command:\\
 \Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
-where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the centre of gravity of the inner shape with respect to the outer one. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a parallelepiped for the outer part and of a shifted pyramidal shape for the inner one.\\
+where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the centre of gravity of the inner shape with respect to the outer one. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
 
 Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the sample, and the incident angles $\alpha_i= 0.2^{\circ}$ and $\phi_i=0^{\circ}$. 
 
@@ -1514,11 +1445,13 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 \hfill
 \subfigure[Top view]{\includegraphics[width=5cm]{Figures/CoreShellParallPyrxy}}
 \hfill
-\caption{Example of a core-shell particle composed of a parallelepiped with a pyramidal  inset. The relative core shell position is marked by the position of its center of gravity (blue point $\color{blue}\bullet$) with respect to the center of gravity of the parallelepiped (red point $\color{red}\bullet$). }
+\caption{Example of a core-shell particle composed of a box with a pyramidal  inset. The relative core shell position is marked by the position of its center of gravity (blue point $\color{blue}\bullet$) with respect to the center of gravity of the box (red point $\color{red}\bullet$). }
 \label{fig:coreshell}
 \end{figure}
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to create a core-shell particle made of a parallelepiped with a pyramidal shifted inset.},label={lst:cshellsample}]
+\begin{lstlisting}[language=python,
+  style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script
+    to create a core-shell particle made of a box with a pyramidal shifted inset.},label={lst:cshellsample}]
 def get_sample():
     """
     Build and return the sample to calculate core-shell formfactor 
@@ -1530,7 +1463,7 @@ def get_sample():
     m_core = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8)
 
     # collection of particles
-    outer_ff = FormFactorParallelepiped(16.0*nanometer, 8.0*nanometer) 
+    outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 
     inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
     shell_particle = Particle(m_shell, outer_ff)
     core_particle = Particle(m_core, inner_ff)
@@ -1555,7 +1488,7 @@ def get_sample():
 \begin{center}
 \includegraphics[width=0.6\textwidth]{Figures/CoreShellParallPyr}
 \end{center}
-\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorParallelepiped(16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate this figure is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
+\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate this figure is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
 \label{fig:FFCoreShellBA}
 \end{figure}
 

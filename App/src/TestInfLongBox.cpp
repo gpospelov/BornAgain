@@ -207,6 +207,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("GaAs", 7.04e-5, 1.0233e-8);
     const IMaterial *silver_material = MaterialManager::getHomogeneousMaterial("Ag", 7.948e-5, 2.36e-7);
     const IMaterial *iron_material = MaterialManager::getHomogeneousMaterial("Fe", 1.839e-4, 1.38e-8);
+    //const IMaterial *cr_material = MaterialManager.getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
     const IMaterial *cr_material = MaterialManager::getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
 
 
@@ -235,11 +236,14 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 
     p_multi_layer->addLayer(air_layer);
     Layer iron_layer;
-    iron_layer.setMaterial(iron_material, 15.0*Units::nanometer);
+    iron_layer.setMaterialAndThickness(iron_material, 15.0*Units::nanometer);
     Layer cr_layer;
-    cr_layer.setMaterial(cr_material, 1.1*Units::nanometer) ;
+    cr_layer.setMaterialAndThickness(cr_material, 1.1*Units::nanometer) ;
     Layer silver_layer;
-    silver_layer.setMaterial(silver_material, 150.0*Units::nanometer);
+    silver_layer.setMaterialAndThickness(silver_material, 150.0*Units::nanometer);
+    //Layer iron_layer = Layer(iron_material, 15.0*nanometer);
+    //Layer cr_layer = Layer(cr_material, 1.1*nanometer);
+    //Layer silver_layer = Layer(silver_material, 150.0*nanometer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);

@@ -64,9 +64,9 @@ void TestFormFactors::execute()
    run_isgisaxs_simulation(p_ff_fsph->clone());
 
    //Parallelepiped
-   FormFactorParallelepiped ff_par(10.0, 5.0);
-   IFormFactor* p_ff_par =& ff_par;
-   run_isgisaxs_simulation(p_ff_par->clone());
+   //FormFactorParallelepiped ff_par(10.0, 5.0);
+   //IFormFactor* p_ff_par =& ff_par;
+   //run_isgisaxs_simulation(p_ff_par->clone());
 
    //Prism3
    FormFactorPrism3 ff_pr3(10.0, 5.0);
@@ -79,13 +79,12 @@ void TestFormFactors::execute()
    run_isgisaxs_simulation(p_ff_pr6->clone());
 
    //Pyramid
-   //FormFactorPyramid ff_pyr(5.0, 5.0, Units::deg2rad(54.73 ));
    FormFactorPyramid ff_pyr(10.0, 5.0, Units::deg2rad(54.73 ));
    IFormFactor* p_ff_pyr =& ff_pyr;
    run_isgisaxs_simulation(p_ff_pyr->clone());
 
-   //Sphere
-   FormFactorSphere ff_sph(5.0, 5.0);
+   //TruncatedSphere
+   FormFactorTruncatedSphere ff_sph(5.0, 5.0);
    IFormFactor* p_ff_sph =& ff_sph;
    run_isgisaxs_simulation(p_ff_sph->clone());
 
@@ -114,8 +113,8 @@ void TestFormFactors::execute()
     IFormFactor* p_ff_fspheroid =& ff_fspheroid;
     run_isgisaxs_simulation(p_ff_fspheroid->clone());
 
-   // Spheroid
-   FormFactorSpheroid  ff_spheroid(5.0, 5.0, 1.0);
+   // Truncated Spheroid
+   FormFactorTruncatedSpheroid  ff_spheroid(5.0, 5.0, 1.0);
    IFormFactor* p_ff_spheroid =& ff_spheroid;
    run_isgisaxs_simulation(p_ff_spheroid->clone());
 
@@ -203,7 +202,7 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     //FormFactorPrism3 ff(length, height);
     //FormFactorPrism6 ff(side_hex_base, height);
     //FormFactorPyramid ff(length, height, angle);
-    //FormFactorSphere ff(radius, height);
+    //FormFactorTruncatedSphere ff(radius, height);
     //FormFactorTetrahedron ff(10.*Units::nanometer,5.*Units::nanometer, angle);
 
    // ParticleDecoration particle_decoration( new Particle(particle_material,ff));

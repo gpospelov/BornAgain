@@ -37,7 +37,7 @@ ISample *MultilayerSpecularMagneticTestCase();
 //ISample *MesoCrystal2();
 //ISample *FormFactor_Box();
 //ISample *FormFactor_Cone();
-//ISample *FormFactor_Sphere();
+//ISample *FormFactor_TruncatedSphere();
 //ISample *FormFactor_Ellipsoid();
 //ISample *FormFactor_FullSpheroid();
 //ISample *FormFactor_HemiEllipsoid();

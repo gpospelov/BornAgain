@@ -21,7 +21,7 @@ def RunSimulation():
     mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    semisphere_ff = FormFactorSphere(radius, radius)
+    semisphere_ff = FormFactorTruncatedSphere(radius, radius)
     semisphere = Particle(mParticle, semisphere_ff)
     particle_decoration = ParticleDecoration()
     particle_decoration.addParticle(semisphere)

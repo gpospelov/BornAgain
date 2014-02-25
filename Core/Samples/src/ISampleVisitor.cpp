@@ -219,7 +219,7 @@ void ISampleVisitor::visit(const FormFactorGauss *)
 
 void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
 {
-    throw NotImplementedException("ISampleVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
+    throw NotImplementedException("ISampleVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const FormFactorInfLongBox *)
@@ -233,10 +233,10 @@ void ISampleVisitor::visit(const FormFactorLorentz *)
 }
 
 
-void ISampleVisitor::visit(const FormFactorParallelepiped *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
-}
+//void ISampleVisitor::visit(const FormFactorParallelepiped *)
+//{
+//    throw NotImplementedException("ISampleVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
+//}
 
 
 void ISampleVisitor::visit(const FormFactorPrism3 *)
@@ -266,11 +266,6 @@ void ISampleVisitor::visit(const FormFactorRipple2 *)
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const FormFactorSphere *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorSphere *) -> Error. Not implemented.");
-}
-
 
 void ISampleVisitor::visit(const FormFactorSphereGaussianRadius *)
 {
@@ -281,6 +276,18 @@ void ISampleVisitor::visit(const FormFactorSphereGaussianRadius *)
 void ISampleVisitor::visit(const FormFactorTetrahedron *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
+}
+
+
+void ISampleVisitor::visit(const FormFactorTruncatedSphere *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorTruncatedSphere *) -> Error. Not implemented.");
+}
+
+
+void ISampleVisitor::visit(const FormFactorTruncatedSpheroid *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorTruncatedSpheroid *) -> Error. Not implemented.");
 }
 
 

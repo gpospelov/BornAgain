@@ -75,8 +75,8 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "FullSphere")
     m_results[kTest_FullSphere] = simulation.getIntensityData();
 
-    if (mp_form_factor->getName().substr(10) == "Parallelepiped")
-    m_results[kTest_Parallelepiped] = simulation.getIntensityData();
+    //if (mp_form_factor->getName().substr(10) == "Parallelepiped")
+   // m_results[kTest_Parallelepiped] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "Prism3")
     m_results[kTest_Prism3] = simulation.getIntensityData();
@@ -87,8 +87,8 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "Pyramid")
     m_results[kTest_Pyramid] = simulation.getIntensityData();
 
-    if (mp_form_factor->getName().substr(10) == "Sphere")
-    m_results[kTest_Sphere] = simulation.getIntensityData();
+    if (mp_form_factor->getName().substr(10) == "TruncatedSphere")
+    m_results[kTest_TruncatedSphere] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "Tetrahedron")
     m_results[kTest_Tetrahedron] = simulation.getIntensityData();
@@ -105,7 +105,7 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "FullSpheroid")
     m_results[kTest_FullSpheroid] = simulation.getIntensityData();
 
-    if (mp_form_factor->getName().substr(10) == "Spheroid")
+    if (mp_form_factor->getName().substr(10) == "TruncatedSpheroid")
     m_results[kTest_Spheroid] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "HemiEllipsoid")
@@ -122,7 +122,7 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
      "isgi_reference_cone_BA.ima.gz",
      "isgi_reference_cone6_BA.ima.gz",
      "isgi_reference_full_sphere_BA.ima.gz",
-     "isgi_reference_parallelepiped_BA.ima.gz",
+     //"isgi_reference_parallelepiped_BA.ima.gz",
      "isgi_reference_prism3_BA.ima.gz",
      "isgi_reference_prism6_BA.ima.gz",
      "isgi_reference_pyramid_BA.ima.gz",
@@ -167,7 +167,7 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-   return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/",
+   return Utils::FileSystem::GetPathToData("../../ReferenceData/BornAgain/",
                                            argv[0]);
 }
 
@@ -200,9 +200,9 @@ int main(int argc, char **argv)
     test.run(p_ff_fsph->clone());
 
     //Parallelepiped
-    FormFactorParallelepiped ff_par(10.0, 5.0);
-    IFormFactor* p_ff_par =& ff_par;
-    test.run(p_ff_par->clone());
+   // FormFactorParallelepiped ff_par(10.0, 5.0);
+   // IFormFactor* p_ff_par =& ff_par;
+   // test.run(p_ff_par->clone());
 
     //Prism3
     FormFactorPrism3 ff_pr3(10.0, 5.0);
@@ -219,8 +219,8 @@ int main(int argc, char **argv)
     IFormFactor* p_ff_pyr =& ff_pyr;
     test.run(p_ff_pyr->clone());
 
-    //Sphere
-    FormFactorSphere ff_sph(5.0, 5.0);
+    //Truncated Sphere
+    FormFactorTruncatedSphere ff_sph(5.0, 5.0);
     IFormFactor* p_ff_sph =& ff_sph;
     test.run(p_ff_sph->clone());
 
@@ -249,8 +249,8 @@ int main(int argc, char **argv)
     IFormFactor* p_ff_fspheroid =& ff_fspheroid;
     test.run(p_ff_fspheroid ->clone());
 
-    // Spheroid
-    FormFactorSpheroid  ff_spheroid(5.0, 5.0, 1.0);
+    // Truncated Spheroid
+    FormFactorTruncatedSpheroid  ff_spheroid(5.0, 5.0, 1.0);
     IFormFactor* p_ff_spheroid =& ff_spheroid;
     test.run(p_ff_spheroid->clone());
 

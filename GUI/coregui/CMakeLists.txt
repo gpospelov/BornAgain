@@ -74,6 +74,8 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
 add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
+qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
+
 # --- dependencies ---
 include_directories(
     ${qcustomplot_INCLUDE_DIRS}
@@ -89,7 +91,6 @@ include_directories(
     ${PYTHON_INCLUDE_DIRS}
 )
 
-qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
 
 target_link_libraries(${executable_name} 
     ${ManhattanStyle_LIBRARY}

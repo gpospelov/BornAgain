@@ -20,7 +20,7 @@
 #include "IApplicationTest.h"
 #include "ISampleBuilder.h"
 
-class Simulation;
+class OffSpecSimulation;
 
 class TestInfLongBox : public IApplicationTest
 {
@@ -57,7 +57,7 @@ private:
     void plot_results();
 
 
-    Simulation *mp_simulation;
+    OffSpecSimulation *mp_simulation;
     SampleBuilder_t mp_sample_builder;
 };
 

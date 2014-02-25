@@ -35,6 +35,7 @@
 #include "StochasticSampledParameter.h"
 #include "Units.h"
 #include "Utils.h"
+#include "OffSpecSimulation.h"
 
 #define protected public // needed to access the protected evaluate_for_q method
 #include "FormFactorInfLongBox.h"
@@ -162,10 +163,18 @@ void TestInfLongBox::initializeSimulation()
   //  mp_sample_builder = new SampleBuilder();
     
 	delete mp_simulation;
-    mp_simulation = new Simulation(mp_options);
+//    mp_simulation = new Simulation(mp_options);
+//    mp_simulation->setSampleBuilder(mp_sample_builder);
+//    mp_simulation->setDetectorParameters(400, -1.0*Units::degree, 1.0*Units::degree, 400, 0.0*Units::degree, 5.2*Units::degree, true);
+//    mp_simulation->setBeamParameters(12.0*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+
+    mp_simulation = new OffSpecSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
-    mp_simulation->setDetectorParameters(400, -1.0*Units::degree, 1.0*Units::degree, 400, 0.0*Units::degree, 5.2*Units::degree, true);
-    mp_simulation->setBeamParameters(12.0*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
+    mp_simulation->setDetectorParameters(20, -1.0*Units::degree, 1.0*Units::degree, 200, 0.0*Units::degree, 5.2*Units::degree);
+    AxisDouble *alpha_i_axis = new AxisDouble("alpha_i", 200, 0.0*Units::degree, 5.2*Units::degree);
+    mp_simulation->setBeamParameters(12.0*Units::angstrom, *alpha_i_axis, 0.0*Units::degree);
+    mp_simulation->setBeamIntensity(1e9);
+
 }
 
 /* ************************************************************************* */
@@ -175,7 +184,7 @@ TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
     : m_w(520.0*Units::nanometer)
     , m_h(15.0*Units::nanometer)
     , m_lattice_length(945.0*Units::nanometer)
-    , m_xi(90.0*Units::degree)
+    , m_xi(0.0*Units::degree)
 {
       init_parameters();
 }
@@ -198,7 +207,6 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("GaAs", 7.04e-5, 1.0233e-8);
     const IMaterial *silver_material = MaterialManager::getHomogeneousMaterial("Ag", 7.948e-5, 2.36e-7);
     const IMaterial *iron_material = MaterialManager::getHomogeneousMaterial("Fe", 1.839e-4, 1.38e-8);
-    //const IMaterial *cr_material = MaterialManager.getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
     const IMaterial *cr_material = MaterialManager::getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
 
 
@@ -232,9 +240,6 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     cr_layer.setMaterial(cr_material, 1.1*Units::nanometer) ;
     Layer silver_layer;
     silver_layer.setMaterial(silver_material, 150.0*Units::nanometer);
-    //Layer iron_layer = Layer(iron_material, 15.0*nanometer);
-    //Layer cr_layer = Layer(cr_material, 1.1*nanometer);
-    //Layer silver_layer = Layer(silver_material, 150.0*nanometer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);

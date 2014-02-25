@@ -365,7 +365,7 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
         writer->writeAttribute(SessionXML::ModelTypeAttribute,
                                item->modelType());
         writer->writeAttribute(SessionXML::ItemNameAttribute,
-                               item->getItemName());
+                               item->itemName());
         QMapIterator<QString, double> it(item->parameters());
         while (it.hasNext()) {
             it.next();

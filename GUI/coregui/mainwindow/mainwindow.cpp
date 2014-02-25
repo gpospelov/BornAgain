@@ -9,6 +9,7 @@
 #include "SimulationView.h"
 #include "JobView.h"
 #include "FitView.h"
+#include "JobQueueView.h"
 #include "stylehelper.h"
 #include "SimulationDataModel.h"
 #include "Instrument.h"
@@ -34,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_simulationView(0)
     , m_jobView(0)
     , m_fitView(0)
+    , m_jobQueueView(0)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
@@ -72,6 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(4, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
     m_tabWidget->insertTab(5, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
     m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
+    m_tabWidget->insertTab(7, m_jobQueueView, QIcon(":/images/mode_fit.png"), "Queue");
 
     m_tabWidget->setCurrentIndex(2);
     setCentralWidget(m_tabWidget);

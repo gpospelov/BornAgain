@@ -17,6 +17,7 @@ class PyScriptView;
 class SimulationView;
 class JobView;
 class FitView;
+class JobQueueView;
 class SimulationDataModel;
 class Instrument;
 class ISample;
@@ -60,6 +61,7 @@ private:
     SimulationView *m_simulationView;
     JobView *m_jobView;
     FitView * m_fitView;
+    JobQueueView * m_jobQueueView;
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects

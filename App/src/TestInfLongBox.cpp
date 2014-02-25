@@ -227,11 +227,11 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 
     p_multi_layer->addLayer(air_layer);
     Layer iron_layer;
-    iron_layer.setMaterial(iron_material, 15.0*Units::nanometer);
+    iron_layer.setMaterialAndThickness(iron_material, 15.0*Units::nanometer);
     Layer cr_layer;
-    cr_layer.setMaterial(cr_material, 1.1*Units::nanometer) ;
+    cr_layer.setMaterialAndThickness(cr_material, 1.1*Units::nanometer) ;
     Layer silver_layer;
-    silver_layer.setMaterial(silver_material, 150.0*Units::nanometer);
+    silver_layer.setMaterialAndThickness(silver_material, 150.0*Units::nanometer);
     //Layer iron_layer = Layer(iron_material, 15.0*nanometer);
     //Layer cr_layer = Layer(cr_material, 1.1*nanometer);
     //Layer silver_layer = Layer(silver_material, 150.0*nanometer);

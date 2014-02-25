@@ -51,15 +51,15 @@ ISample *StandardSamples::AirOnSubstrate()
     MultiLayer *mySample = new MultiLayer;
 
     Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
+    lAmbience.setMaterialAndThickness(mAmbience, 0);
     mySample->addLayer(lAmbience);
 
     Layer lAir;
-    lAir.setMaterial(mAmbience, 10*Units::nanometer);
+    lAir.setMaterialAndThickness(mAmbience, 10*Units::nanometer);
     mySample->addLayer(lAir);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate,0);
+    lSubstrate.setMaterialAndThickness(mSubstrate,0);
     mySample->addLayer(lSubstrate);
 
     return mySample;
@@ -79,15 +79,15 @@ ISample *StandardSamples::SubstrateOnSubstrate()
     MultiLayer *mySample = new MultiLayer;
 
     Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
+    lAmbience.setMaterialAndThickness(mAmbience, 0);
     mySample->addLayer(lAmbience);
 
     Layer likeSubstrate;
-    likeSubstrate.setMaterial(mSubstrate, 10*Units::nanometer);
+    likeSubstrate.setMaterialAndThickness(mSubstrate, 10*Units::nanometer);
     mySample->addLayer(likeSubstrate);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate,0);
+    lSubstrate.setMaterialAndThickness(mSubstrate,0);
     mySample->addLayer(lSubstrate);
 
     return mySample;
@@ -111,16 +111,16 @@ ISample *StandardSamples::SimpleMultilayer()
                                                 complex_t(1.0-15e-6, 0.0) );
 
     Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
+    lAmbience.setMaterialAndThickness(mAmbience, 0);
 
     Layer lAg1;
-    lAg1.setMaterial(mAg1, 150.0*Units::nanometer);
+    lAg1.setMaterialAndThickness(mAg1, 150.0*Units::nanometer);
 
     Layer lCr1;
-    lCr1.setMaterial(mCr1, 120.0*Units::nanometer);
+    lCr1.setMaterialAndThickness(mCr1, 120.0*Units::nanometer);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate, 0);
+    lSubstrate.setMaterialAndThickness(mSubstrate, 0);
 
     MultiLayer *mySample = new MultiLayer;
 
@@ -159,16 +159,16 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
         ("substrate", complex_t(1.0-15e-6, 0.0) );
 
     Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
+    lAmbience.setMaterialAndThickness(mAmbience, 0);
 
     Layer lPartA;
-    lPartA.setMaterial(mPartA, 5.0*Units::nanometer);
+    lPartA.setMaterialAndThickness(mPartA, 5.0*Units::nanometer);
 
     Layer lPartB;
-    lPartB.setMaterial(mPartB, 10.0*Units::nanometer);
+    lPartB.setMaterialAndThickness(mPartB, 10.0*Units::nanometer);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate, 0);
+    lSubstrate.setMaterialAndThickness(mSubstrate, 0);
 
     LayerRoughness roughness;
     roughness.setSigma(1.0*Units::nanometer);
@@ -220,7 +220,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase2a()
     MultiLayer *mySample = new MultiLayer;
 
     Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
+    lAmbience.setMaterialAndThickness(mAmbience, 0);
     mySample->addLayer(lAmbience);
 
     LayerRoughness roughness;
@@ -229,11 +229,11 @@ ISample *StandardSamples::MultilayerOffspecTestcase2a()
     roughness.setLatteralCorrLength(500.*Units::nanometer);
 
     Layer lAir;
-    lAir.setMaterial(mAmbience, 10*Units::nanometer);
+    lAir.setMaterialAndThickness(mAmbience, 10*Units::nanometer);
     mySample->addLayerWithTopRoughness(lAir, roughness);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate,0);
+    lSubstrate.setMaterialAndThickness(mSubstrate,0);
     mySample->addLayerWithTopRoughness(lSubstrate, roughness);
 
     return mySample;
@@ -819,16 +819,16 @@ ISample *StandardSamples::MultilayerSpecularMagneticTestCase()
         ("substrate", 15e-6, 0.0 );
 
     Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
+    lAmbience.setMaterialAndThickness(mAmbience, 0);
 
     Layer lPartA;
-    lPartA.setMaterial(mPartA, 5.0*Units::nanometer);
+    lPartA.setMaterialAndThickness(mPartA, 5.0*Units::nanometer);
 
     Layer lPartB;
-    lPartB.setMaterial(mPartB, 5.0*Units::nanometer);
+    lPartB.setMaterialAndThickness(mPartB, 5.0*Units::nanometer);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate, 0);
+    lSubstrate.setMaterialAndThickness(mSubstrate, 0);
 
     MultiLayer *mySample = new MultiLayer;
 

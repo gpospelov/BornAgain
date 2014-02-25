@@ -94,4 +94,4 @@ endif()
 
 
 # --- ROOT ---
-#find_package(ROOT)
+find_package(ROOT)

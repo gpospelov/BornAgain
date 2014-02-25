@@ -280,12 +280,6 @@ void ISampleToIView::visit(const FormFactorLorentz *)
 }
 
 
-void ISampleToIView::visit(const FormFactorParallelepiped *)
-{
-    throw NotImplementedException("ISampleToIView::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
-}
-
-
 void ISampleToIView::visit(const FormFactorPrism3 *sample)
 {
     FormFactorPrism3View *view = new FormFactorPrism3View();
@@ -317,7 +311,7 @@ void ISampleToIView::visit(const FormFactorRipple2 *)
     throw NotImplementedException("ISampleToIView::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-void ISampleToIView::visit(const FormFactorSphere *)
+void ISampleToIView::visit(const FormFactorTruncatedSphere *)
 {
     throw NotImplementedException("ISampleToIView::visit(const FormFactorSphere *) -> Error. Not implemented.");
 }

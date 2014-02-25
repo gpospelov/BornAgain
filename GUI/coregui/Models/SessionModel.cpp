@@ -61,7 +61,7 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             switch (index.column()) {
-            case ItemName: return item->getItemName();
+            case ItemName: return item->itemName();
             case ModelType: return item->modelType();
             default: return QVariant();
             }
@@ -102,7 +102,7 @@ QModelIndex SessionModel::index(int row, int column,
             || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
     ParameterizedItem *parent_item = itemForIndex(parent);
-    if (ParameterizedItem *item = parent_item->getChildAt(row)) {
+    if (ParameterizedItem *item = parent_item->childAt(row)) {
         return createIndex(row, column, item);
     }
     return QModelIndex();
@@ -112,9 +112,9 @@ QModelIndex SessionModel::parent(const QModelIndex &child) const
 {
     if (!child.isValid()) return QModelIndex();
     if (ParameterizedItem *child_item = itemForIndex(child)) {
-        if (ParameterizedItem *parent_item = child_item->getParent()) {
+        if (ParameterizedItem *parent_item = child_item->parent()) {
             if (parent_item == m_root_item) return QModelIndex();
-            if (ParameterizedItem *grandparent_item = parent_item->getParent())
+            if (ParameterizedItem *grandparent_item = parent_item->parent())
             {
                 int row = grandparent_item->rowOfChild(parent_item);
                 return createIndex(row, 0, parent_item);
@@ -218,7 +218,7 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 {
     if (!item || item == m_root_item) return QModelIndex();
-    ParameterizedItem *parent_item = item->getParent();
+    ParameterizedItem *parent_item = item->parent();
     int row = parent_item->rowOfChild(item);
     return createIndex(row, 0, item);
 }
@@ -243,7 +243,7 @@ QList<QString> SessionModel::getAcceptableChildItems(
 {
     QList<QString> result;
     if (ParameterizedItem *parent_item = itemForIndex(parent)) {
-        result = parent_item->getAcceptableChildren();
+        result = parent_item->acceptableChildItems();
     }
     return result;
 }
@@ -351,7 +351,7 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
         }
         else if (reader->isEndElement()) {
             if (reader->name() == SessionXML::ItemTag) {
-                item = item->getParent();
+                item = item->parent();
             }
         }
     }
@@ -365,8 +365,8 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
         writer->writeAttribute(SessionXML::ModelTypeAttribute,
                                item->modelType());
         writer->writeAttribute(SessionXML::ItemNameAttribute,
-                               item->getItemName());
-        QMapIterator<QString, double> it(item->getParameters());
+                               item->itemName());
+        QMapIterator<QString, double> it(item->parameters());
         while (it.hasNext()) {
             it.next();
             writer->writeStartElement(SessionXML::ParameterTag);

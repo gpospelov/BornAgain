@@ -10,6 +10,9 @@
 
 
 
+class QStandardItemModel;
+
+
 JobQueueView::JobQueueView(QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(new JobQueueModel())
@@ -21,37 +24,67 @@ JobQueueView::JobQueueView(QWidget *parent)
     , m_tableView(new QTableView())
 {
 
-    QStandardItem *rootNode = m_jobQueueModel->invisibleRootItem();
-    QStandardItem *job0 = new QStandardItem("job0");
-    QStandardItem *job1 = new QStandardItem("job1");
+//    QStandardItem *rootNode = m_jobQueueModel->invisibleRootItem();
+//    QStandardItem *job0 = new QStandardItem("job0");
+//    QStandardItem *job1 = new QStandardItem("job1");
+//    QStandardItem *job2 = new QStandardItem("job2");
 
-    rootNode->appendRow(job0);
-    job0->appendRow(new QStandardItem("hash"));
-    job0->appendRow(new QStandardItem("name"));
-    job0->appendRow(new QStandardItem("status"));
-    job0->appendRow(new QStandardItem("time1"));
-    job0->appendRow(new QStandardItem("time2"));
-    job0->appendRow(new QStandardItem("comments"));
+//    rootNode->appendRow(job0);
+//    job0->appendRow(new QStandardItem("hash"));
+//    job0->appendRow(new QStandardItem("name"));
+//    job0->appendRow(new QStandardItem("status"));
+//    job0->appendRow(new QStandardItem("time1"));
+//    job0->appendRow(new QStandardItem("time2"));
+//    job0->appendRow(new QStandardItem("comments"));
 
-    QStandardItem *data0 = new QStandardItem("data0");
-    data0->appendRow(new QStandardItem("xmin"));
-    data0->appendRow(new QStandardItem("xmax"));
-    data0->appendRow(new QStandardItem("logz"));
-    job0->appendRow(data0);
+//    QStandardItem *data0 = new QStandardItem("data0");
+//    data0->appendRow(new QStandardItem("xmin"));
+//    data0->appendRow(new QStandardItem("xmax"));
+//    data0->appendRow(new QStandardItem("logz"));
+//    job0->appendRow(data0);
 
-    rootNode->appendRow(job1);
-    job1->appendRow(new QStandardItem("hash"));
-    job1->appendRow(new QStandardItem("name"));
-    job1->appendRow(new QStandardItem("status"));
-    job1->appendRow(new QStandardItem("time1"));
-    job1->appendRow(new QStandardItem("time2"));
-    job1->appendRow(new QStandardItem("comments"));
+//    rootNode->appendRow(job1);
+//    job1->appendRow(new QStandardItem("hash"));
+//    job1->appendRow(new QStandardItem("name"));
+//    job1->appendRow(new QStandardItem("status"));
+//    job1->appendRow(new QStandardItem("time1"));
+//    job1->appendRow(new QStandardItem("time2"));
+//    job1->appendRow(new QStandardItem("comments"));
 
-    QStandardItem *data1 = new QStandardItem("data1");
-    data1->appendRow(new QStandardItem("xmin"));
-    data1->appendRow(new QStandardItem("xmax"));
-    data1->appendRow(new QStandardItem("logz"));
-    job1->appendRow(data1);
+//    QStandardItem *data1 = new QStandardItem("data1");
+//    data1->appendRow(new QStandardItem("xmin"));
+//    data1->appendRow(new QStandardItem("xmax"));
+//    data1->appendRow(new QStandardItem("logz"));
+//    job1->appendRow(data1);
+
+//    rootNode->appendRow(job2);
+//    job2->appendRow(new QStandardItem("hash"));
+//    job2->appendRow(new QStandardItem("name"));
+//    job2->appendRow(new QStandardItem("status"));
+//    job2->appendRow(new QStandardItem("time1"));
+//    job2->appendRow(new QStandardItem("time2"));
+//    job2->appendRow(new QStandardItem("comments"));
+
+//    QStandardItem *data2 = new QStandardItem("data2");
+//    data2->appendRow(new QStandardItem("xmin"));
+//    data2->appendRow(new QStandardItem("xmax"));
+//    data2->appendRow(new QStandardItem("logz"));
+//    job2->appendRow(data2);
+
+
+
+    JobQueueItem *root = m_jobQueueModel->getRootItem();
+
+    JobQueueItem *job0 = new JobQueueItem("job0");
+    job0->addChildItem(new JobQueueItem("data0"));
+    JobQueueItem *job1 = new JobQueueItem("job1");
+    job1->addChildItem(new JobQueueItem("data1"));
+    JobQueueItem *job2 = new JobQueueItem("job2");
+    job2->addChildItem(new JobQueueItem("data2"));
+    root->addChildItem(job0);
+    root->addChildItem(job1);
+    root->addChildItem(job2);
+
 
     //
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
@@ -75,6 +108,20 @@ JobQueueView::JobQueueView(QWidget *parent)
     m_tableView->setModel(m_jobQueueModel);
     m_listView1->setModel(m_jobQueueModel);
     m_listView2->setModel(m_jobQueueModel);
+
+
+//    viewport()->setAcceptDrops(true);
+//    setAcceptDrops(true);
+//    setDragEnabled(true);
+//    setDropIndicatorShown(true);
+//    setDragDropMode(QListView::DragDrop);
+
+    m_listView1->setDragEnabled(true);
+    m_listView1->setAcceptDrops(true);
+    m_listView1->setDragDropMode(QAbstractItemView::InternalMove);
+    m_listView1->setDropIndicatorShown(true);
+    m_listView1->setMovement(QListView::Snap);
+
 }
 
 

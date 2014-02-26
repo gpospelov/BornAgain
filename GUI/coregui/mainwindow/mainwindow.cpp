@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_jobView = new JobView(mp_sim_data_model);
     m_fitView = new FitView();
+    m_jobQueueView = new JobQueueView();
 
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
@@ -76,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(7, m_jobQueueView, QIcon(":/images/mode_fit.png"), "Queue");
 
-    m_tabWidget->setCurrentIndex(2);
+    m_tabWidget->setCurrentIndex(7);
     setCentralWidget(m_tabWidget);
 
     m_actionManager = new ActionManager(this);

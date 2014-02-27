@@ -50,67 +50,11 @@ Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid,
 \hline 
  Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   \\
 \includegraphics[width=1in]{Figures/HemiEllipsoid3d} & &
-\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple13d}} &
-& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d}}  \\
+\includegraphics[width=1in]{Figures/Ripple13d} &
+& \includegraphics[width=1in]{Figures/Ripple23d}  \\
 \hline 
 \end{tabulary}
 \end{table}
-
-
-
-
-%\begin{table}[H] 
-%\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
-%  \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
-%\hline 
-%Shape & &   Shape& &   Shape \\
-%\hline 
-%Parallelepiped, \SecRef{Parallelepiped}  &  & Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} \\
-% \includegraphics[width=1in]{Figures/Parallelepiped3d} &
-%&  \includegraphics[width=1in]{Figures/Box3d} &
-% & \includegraphics[width=1in]{Figures/Prism33d} \\
-%\hline 
-%Tetrahedron, \SecRef{Tetrahedron}   & & Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  \\
-%\includegraphics[width=1in]{Figures/Tetrahedron3d} & & 
-%\includegraphics[width=1in]{Figures/Prism63d} & & 
-% \includegraphics[width=1in]{Figures/Cone63d}  \\
-%\hline
- % Pyramid, \SecRef{Pyramid}  &  & Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron, \SecRef{Cuboctahedron}   \\
-%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Pyramid3d}}
-%   &   & \parbox[c]{1em}{
-%      \includegraphics[width=1in]{Figures/AnistropicPyramid3d}} &
-%    & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cuboctahedron3d}}\\
-%\hline
-%\end{tabulary}
-%\end{table}
-
-
-%\begin{table}[H] 
-% \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
-%\hline 
-%Shape & &   Shape& &   Shape \\
-%\hline
-% Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone, \SecRef{Cone} \\
-%     \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cylinder3d}} &
-%& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d}}
-%& & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Cone3d}} \\
-%\hline
-%Full Sphere, \SecRef{FullSphere}   &  & Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} \\
-% \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSphere3d}} & &  \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Sphere3d}}
-% &  & \parbox[c]{1em}{\includegraphics[width=1in]{Figures/FullSpheroid3d}}\\
-%\hline 
-% Truncated Spheroid, \SecRef{Spheroid}   &  & Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & \\
-%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Spheroid3d}}
-%& &\parbox[c]{1em}{\includegraphics[width=1in]{Figures/HemiEllipsoid3d}}
-%& & \\
-%\hline
- % Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   & &\\
-%\parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple13d}} &
-%& \parbox[c]{1em}{\includegraphics[width=1in]{Figures/Ripple23d}} & & \\
-%\hline 
-%\end{tabulary}
-%\end{table}
-
 
 In \BornAgain\ the form factor is defined as
 \begin{equation}
@@ -1429,6 +1373,262 @@ $|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~mm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Distorted Wave Born Approximation}
 
+The previous sections of this appendix on form factors have dealt with the Born approximation. In this case the form factor is given by a single integral over the particle shape (see equation~\ref{ffformulaBA}). But this approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
+The collective effects between the particles are not considered in this section. They will be dealt with in...  We also do not take any polarization effects into account.\\
+
+ In the DWBA, the form factor of a particle in a multilayer system is given by
+
+\begin{align}
+F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\vect{k}_f) e^{i (k_{i,z}-k_{f,z}) r_z} + R_i T_f F_{\rm{BA}}(\vect{\widetilde{k}}_i-\vect{k}_f) e^{i(-k_{i,z}-k_{f,z})r_z}
+ \nonumber \\
+  &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z} \; , \label{eq:dwbageneral}
+\end{align}
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position, $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
+$T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Parr54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
+
+
+\ImportantPoint{Remark:}{The particles cannot sit in between layers. At most they can be sitting on any inner interfaces.}
+
+\vspace{18pt}
+
+In the followings, the DWBA will be illustrated for two different layouts of particles: 
+\begin{itemize}
+\item particles deposited on a substrate,
+\item particles buried in a layer on a substrate.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Particles deposited on a substrate}
+
+In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in fig.~\ref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes 
+\begin{align}
+F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\parallel}, -k_{i,z}-k_{f,z}) \nonumber \\
+&+ R_f F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z}), \label{eq:dwbaair}
+\end{align}
+where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface ($\vect{q}=\vect{k}_i-\vect{k}_f$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\parallel}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\parallel}|^2}}$, where $n_s=1-\delta_s -i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\parallel}$ are the $z$-component and the in-plane component of $\vect{k}_i$ or $\vect{k}_f$. \\
+
+\ImportantPoint{Remark:}{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Parr54,BoWo99}.}
+
+\vspace{18pt}
+
+Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eq.~\ref{eq:dwbaair}  corresponds to the Born approximation. Each term is weighted by a Fresnel coefficient. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\textwidth]{Figures/drawingDWBA}
+\end{center}
+\caption{Schematic views of the different terms appearing in the expression of the form factor under DWBA for particles sitting on a substrate layer.}
+\label{fig:SchemDWBA}
+\end{figure}
+
+
+Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornAgain and figure~\ref{fig:spheroidbadwba} shows the intensity contourplot generated using this script with (full) spheroids as particles. This script considers the simple case of:
+\begin{itemize}
+\item one kind of particles' shape,
+\item no interference between the particles,
+\item in the DWBA, a sample made of a layer of substrate on which are deposited the particles,
+\item in the BA, a sample composed of the particles in air.
+\end{itemize} 
+
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate figure~\ref{fig:spheroidbadwba}. The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
+import numpy
+import matplotlib
+import pylab
+from libBornAgainCore import *
+
+def get_sample():
+    """
+    Build and return the sample to calculate formfactor in Born or Distorted Wave Born Approximation.
+    """
+    # defining materials
+    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+
+    # collection of particles
+    ff= FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)
+    particleshape = Particle(m_particle, ff)
+    particle_decoration = ParticleDecoration()
+    particle_decoration.addParticle(particleshape, 0.0, 1.0)
+    interference = InterferenceFunctionNone()
+    particle_decoration.addInterferenceFunction(interference)
+    air_layer = Layer(m_ambience)
+    air_layer.setDecoration(particle_decoration)
+    substrate_layer = Layer(m_substrate, 0)
+
+    # Sample = particles in air for BA or particles in air and sitting on a substrate for DWBA
+    multi_layer = MultiLayer()
+    multi_layer.addLayer(air_layer)
+    # Add substrate layer for DWBA 
+    # Comment the following line out for BA
+    multi_layer.addLayer(substrate_layer)
+    return multi_layer
+
+def get_simulation():
+    """
+    Create and return GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation()
+    simulation.setDetectorParameters(200, 0.0*degree, 2.0*degree, 200, 0.0*degree, 2.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, 0.5*degree, 0.0*degree)
+    return simulation
+
+def run_simulation():
+    """
+    Run simulation and plot results
+    """
+    sample = get_sample()
+    simulation = get_simulation()
+    simulation.setSample(sample)
+    simulation.runSimulation()
+    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
+    pylab.show()
+ 
+
+if __name__ == '__main__': 
+    run_simulation()
+\end{lstlisting}
+
+
+\begin{figure}[ht]
+\hfill
+\subfigure[Born Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidBA}}
+\hfill
+\subfigure[DWB Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidDWBA}}
+\hfill
+\caption{Intensity map of Spheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} and  \Code{FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)}.}
+\label{fig:spheroidbadwba}
+\end{figure}
+
+%\begin{figure}[ht]
+%\hfill
+%\subfigure[Born Approximation]{\includegraphics[width=5cm]{Figures/ffcubocBA}}
+%\hfill
+%\subfigure[DWB Approximation]{\includegraphics[width=5cm]{Figures/ffcubocDWBA}}
+%\hfill
+%\caption{Intensity map of Cuboctahedron form factor in BA and DWBA computing using script~\ref{lst:badwba} and  \Code{FormFactorCuboctahedron(20.0*nanometer, 13.0*nanometer, 0.7, 60*degree)}.}
+%\label{fig:cuboctbadwba}
+%\end{figure}
+
+\FloatBarrier 
+
+
+\ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more than the air layer.}
+
+\subsection{Buried particles} 
+
+The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see fig.~\ref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by
+
+\begin{align}
+F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z}) &= T_i T_f F_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z})e^{i(k_{i,z}-k_{f,z})d}+ R_i T_f F_{\rm{BA}}(q_{\parallel}, -k_{i,z}-k_{f,z})e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
+&+ R_f T_i F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) e^{i(k_{i,z}+k_{f,z})d}+ R_f R_iF_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z})e^{i(-k_{i,z}+k_{f,z})d}, \label{eq:dwbaburied}
+\end{align}
+
+\begin{equation*}
+R_j =\frac{t^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z})t}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, \quad T_j=\frac{t^{j}_{0,1}}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, j=i,f 
+\end{equation*}
+where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface, $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beams, respectively.  $d$ is the depth at which the particles are sitting in the layer. Note that this value is given relative to the top of this layer and it is not the coordinate in the absolute referential (linked with the full sample) and it is measured up to the bottom of the particle. $t$ is the thickness of the intermediate layer containing the particles. $R_{i,f}$ and $T_{i,f}$  are the reflection  and transmission coefficients in incidence and reflection (they can be calculated using Parratt or matrix formalism). $r^j_{0,1}$, $r^j_{1,2}$ $t^j_{0,1}$ are the reflection and transmission coefficients between layers; the indices are related to different boundaries with 0: air, 1: intermediate layer and 2: substrate layer and the superscript $j$ is associated with the incident or scattered beams:
+\begin{equation*}
+r^j_{n,n+1}=\frac{k_{j,z,n}-k_{j,z,n+1}}{k_{j,z,n}-k_{j,z,n+1}}, \qquad t^j_{n,n+1}= \frac{2k_{j,z,n}}{k_{j,z,n}-k_{j,z,n+1}}, \quad n=0,1, \quad j=i,f,
+\end{equation*}
+where $n$ is related to the layers, $z$ to the vertical component, and $j$ to the beams.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\textwidth]{Figures/drawingDWBAburied}
+\end{center}
+\caption{Schematic views of the different terms appearing in the expression of the form factor under the DWBA for buried particles.}
+\label{fig:SchemDWBAburied}
+\end{figure}
+
+%For example, for a three layer system (particles embbedded in the middle layer of thickness $t$), 
+%\begin{align*}
+%F=A_1T_i T_fF_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z})+ R_i T_f F_{\rm{BA}}(q_{\parallel}, -k_{i,z}-k_{f,z}) \\
+%&+ R_f T_i F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) + R_f R_iF_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z})
+%\end{align*} 
+
+Figure~\ref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied}.
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate fig.\ref{fig:dwbaburied}. Spherical particles are embedded in the middle of a layer on a substrate.},label={lst:dwbaburied}]
+import numpy
+import matplotlib
+import pylab
+from libBornAgainCore import *
+
+
+def get_sample():
+    """
+    Build and return the sample in Distorted Wave Born Approximation.
+    """
+    # defining materials
+    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
+    m_interm_layer = MaterialManager.getHomogeneousMaterial("IntermLayer",3.45e-6, 5.24e-9)
+    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
+    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 0.0, 0.0)
+
+    # collection of particles 
+    ff = FormFactorFullSphere(10.2*nanometer)
+    particleshape = Particle(m_particle, ff)
+    particle_decoration = ParticleDecoration()
+    particle_decoration.addParticle(particleshape,20.1,1.0)
+    interference = InterferenceFunctionNone()
+    particle_decoration.addInterferenceFunction(interference)
+    air_layer = Layer(m_ambience)
+    intermediate_layer = Layer(m_interm_layer, 30.*nanometer)
+    intermediate_layer.setDecoration(particle_decoration)
+    substrate_layer = Layer(m_substrate, 0)
+   
+    multi_layer = MultiLayer()
+    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(intermediate_layer)
+    multi_layer.addLayer(substrate_layer)
+    return multi_layer
+
+
+def get_simulation():
+    """
+    Create and return GISAXS simulation with beam and detector defined
+    """
+    simulation = Simulation()
+    simulation.setDetectorParameters(400, 0., 1.*degree, 400, 0., 1.*degree, True)
+    simulation.setBeamParameters(1.5*angstrom, 0.15*degree, 0.)
+    return simulation
+
+def run_simulation():
+    """
+    Run simulation and plot results
+    """
+    sample = get_sample()
+    simulation = get_simulation()
+    simulation.setSample(sample)
+    simulation.runSimulation()
+    result = simulation.getIntensityData().getArray() + 1  # for log scale
+
+    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 1.0, 0, 1.0])
+    pylab.show()
+
+   
+if __name__ == '__main__':
+    run_simulation()
+\end{lstlisting}
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/figIntBuriedPart}
+\caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details).}
+\label{fig:dwbaburied}
+\end{figure}
+
+\ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\textit{i.e.} the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\textwidth]{Figures/drawingDepthParticle}
+\caption{Illustration of the convention about \Code{depth} used in \BornAgain\ to encapsulate particles in layers.}
+\label{fig:depthpartBA}
+\end{figure}
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1454,8 +1654,7 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
     to create a core-shell particle made of a box with a pyramidal shifted inset.},label={lst:cshellsample}]
 def get_sample():
     """
-    Build and return the sample to calculate core-shell formfactor 
-    in Born Approximation.
+    Build and return the sample to calculate core-shell formfactor in Born Approximation.
     """
     # defining materials 
     m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)

@@ -121,6 +121,8 @@ set(UM_IMAGES
     Figures/drawingDWBAburied.eps
     Figures/ffspheroidBA.pdf
     Figures/ffspheroidDWBA.pdf
+    Figures/drawingDepthParticle.eps
+    Figures/figIntBuriedPart.pdf
     Figures/CoreShellParallPyr.pdf
     Figures/CoreShellParallPyrxy.eps
     Figures/CoreShellParallPyrxz.eps

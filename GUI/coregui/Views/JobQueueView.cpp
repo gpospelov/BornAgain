@@ -73,17 +73,28 @@ JobQueueView::JobQueueView(QWidget *parent)
 
 
 
-    JobQueueItem *root = m_jobQueueModel->getRootItem();
+//    JobQueueItem *root = m_jobQueueModel->getRootItem();
+
+//    JobQueueItem *job0 = new JobQueueItem("job0");
+//    job0->addChildItem(new JobQueueItem("data0"));
+//    JobQueueItem *job1 = new JobQueueItem("job1");
+//    job1->addChildItem(new JobQueueItem("data1"));
+//    JobQueueItem *job2 = new JobQueueItem("job2");
+//    job2->addChildItem(new JobQueueItem("data2"));
+//    root->addChildItem(job0);
+//    root->addChildItem(job1);
+//    root->addChildItem(job2);
 
     JobQueueItem *job0 = new JobQueueItem("job0");
-    job0->addChildItem(new JobQueueItem("data0"));
     JobQueueItem *job1 = new JobQueueItem("job1");
-    job1->addChildItem(new JobQueueItem("data1"));
     JobQueueItem *job2 = new JobQueueItem("job2");
-    job2->addChildItem(new JobQueueItem("data2"));
-    root->addChildItem(job0);
-    root->addChildItem(job1);
-    root->addChildItem(job2);
+    m_jobQueueModel->insertNewItem(job0);
+    m_jobQueueModel->insertNewItem(job1);
+    m_jobQueueModel->insertNewItem(job2);
+//    m_jobQueueModel->insertNewItem(new JobQueueItem("data0"), m_jobQueueModel->indexOfItem(job0));
+//    m_jobQueueModel->insertNewItem(new JobQueueItem("data1"), m_jobQueueModel->indexOfItem(job1));
+//    m_jobQueueModel->insertNewItem(new JobQueueItem("data2"), m_jobQueueModel->indexOfItem(job2));
+
 
 
     //
@@ -121,6 +132,19 @@ JobQueueView::JobQueueView(QWidget *parent)
     m_listView1->setDragDropMode(QAbstractItemView::InternalMove);
     m_listView1->setDropIndicatorShown(true);
     m_listView1->setMovement(QListView::Snap);
+
+    m_treeView->setDragEnabled(true);
+    m_treeView->setAcceptDrops(true);
+    m_treeView->setDragDropMode(QAbstractItemView::InternalMove);
+    m_treeView->setDropIndicatorShown(true);
+//    m_treeView->setMovement(QListView::Snap);
+
+//    tree_view->setAllColumnsShowFocus(true);
+//    tree_view->setWindowTitle(QString("Object Tree View"));
+//    tree_view->setObjectName(QString("ObjectTree"));
+//    tree_view->setContextMenuPolicy(Qt::CustomContextMenu);
+//    tree_view->setDragDropMode(QAbstractItemView::InternalMove);
+
 
 }
 

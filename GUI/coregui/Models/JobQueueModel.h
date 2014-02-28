@@ -32,7 +32,7 @@ class JobQueueModel : public QAbstractItemModel
 public:
     enum Column {
         ItemName,
-        ModelType,
+//        ModelType,
         MaxColumns
     };
 
@@ -58,10 +58,12 @@ public:
                       int row, int column, const QModelIndex &parent);
 
 
+    QModelIndex indexOfItem(JobQueueItem *item) const;
 
-//    JobQueueItem *insertNewItem(QString model_type,
-//                                     const QModelIndex &parent=QModelIndex(),
-//                                     int row=-1);
+
+    void insertNewItem(JobQueueItem *itemToInsert,
+                                     const QModelIndex &parent=QModelIndex(),
+                                     int row=-1);
 
     JobQueueItem *getRootItem() {return m_root_item; }
 

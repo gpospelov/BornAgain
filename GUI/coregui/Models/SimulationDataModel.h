@@ -14,7 +14,6 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Feb 19, 2013
 
-#include "SelectionListModel.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
 #include "Instrument.h"

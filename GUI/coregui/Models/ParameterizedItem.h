@@ -22,6 +22,7 @@
 
 class ParameterizedItem : public QObject
 {
+    Q_OBJECT
 public:
     ~ParameterizedItem();
 

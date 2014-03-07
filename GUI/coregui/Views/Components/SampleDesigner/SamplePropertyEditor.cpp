@@ -26,6 +26,8 @@
 #include <QVariant>
 #include <iostream>
 
+#include <QItemSelectionModel>
+
 #include <QMetaObject>
 #include <QMetaProperty>
 #include <QVBoxLayout>
@@ -39,37 +41,17 @@
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
 
-#include <QGraphicsItem>
+//#include <QGraphicsItem>
+#include "ParameterizedItem.h"
 
-
-SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_designer, QWidget *parent)
-//    : SamplePropertyEditorInterface(parent)
+SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
+                                           QWidget *parent)
     : QWidget(parent)
-    , m_sample_designer(sample_designer)
-//    , m_variantManager(0)
-//    , m_propertyEditor(0)
+    , m_selection_model(selection_model)
     , m_object(0)
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("PropertyEditor"));
-
-//    m_variantManager = new QtVariantPropertyManager(this);
-//    connect(m_variantManager, SIGNAL(valueChanged(QtProperty*, QVariant)), SLOT(valueChanged(QtProperty*,QVariant)));
-
-//    QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
-
-//    m_propertyEditor = new QtTreePropertyBrowser(this);
-//    m_propertyEditor->setFactoryForManager(m_variantManager, variantFactory);
-
-//    QVBoxLayout *layout = new QVBoxLayout;
-//    layout->addWidget(m_propertyEditor);
-//    setLayout(layout);
-
-//    QtVariantProperty *property = m_variantManager->addProperty(QVariant::Double, tr("pos X"));
-//    property->setValue(3.3);
-//    QtBrowserItem *item = m_propertyEditor->addProperty(property);
-
-
 
     QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
     browser->setRootIsDecorated(false);
@@ -78,27 +60,21 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
     layout->setMargin(0);
     layout->addWidget(m_browser);
 
-    //m_readOnlyManager = new QtVariantPropertyManager(this);
-    //m_readOnlyManager = new VariantManager(this);
     m_readOnlyManager = new PropertyVariantManager(this);
 
-    //m_manager = new QtVariantPropertyManager(this);
-    //m_manager = new VariantManager(this);
     m_manager = new PropertyVariantManager(this);
 
-
-//    QtVariantEditorFactory *factory = new QtVariantEditorFactory(this);
-//    m_browser->setFactoryForManager(m_manager, factory);
     QtVariantEditorFactory *factory = new PropertyVariantFactory();
     m_browser->setFactoryForManager(m_manager, factory);
-
 
     connect(m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
 
-
-    if(m_sample_designer)
-        connect(m_sample_designer->getScene(), SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
+    if(m_selection_model)
+        connect(m_selection_model,
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this,
+                SLOT(selectionChanged(QItemSelection,QItemSelection)) );
 }
 
 
@@ -205,46 +181,17 @@ bool SamplePropertyEditor::isSubValue(int value, int subValue) const
 //}
 
 
-void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, bool recursive)
-{
-    if (!metaObject)
-        return;
-
-    std::cout << "AAA SamplePropertyEditor::updateClassProperties " << recursive << std::endl;
-    if (recursive)
-        updateClassProperties(metaObject->superClass(), recursive);
-
-    QtProperty *classProperty = m_classToProperty.value(metaObject);
-    if (!classProperty)
-        return;
-
-    for (int idx = metaObject->propertyOffset(); idx < metaObject->propertyCount(); idx++) {
-        QMetaProperty metaProperty = metaObject->property(idx);
-        if (metaProperty.isReadable()) {
-            if (m_classToIndexToProperty.contains(metaObject) && m_classToIndexToProperty[metaObject].contains(idx)) {
-                QtVariantProperty *subProperty = m_classToIndexToProperty[metaObject][idx];
-//                if (metaProperty.isEnumType()) {
-//                    if (metaProperty.isFlagType())
-//                        subProperty->setValue(flagToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
-//                    else
-//                        subProperty->setValue(enumToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
-//                } else {
-                    subProperty->setValue(metaProperty.read(m_object));
-//                }
-            }
-        }
-    }
-}
-
-
-
 // show property of currently selected object (triggered by the graphics scene)
 // if more than one object is selected, show only last selected
-void SamplePropertyEditor::selectionChanged()
+void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
+                                            const QItemSelection & deselected)
 {
-    QList<QGraphicsItem *> items = m_sample_designer->getScene()->selectedItems();
+    (void)deselected;
+    QModelIndexList indices = selected.indexes();
     QObject *object(0);
-    if( items.size() ) object = items.back()->toGraphicsObject();
+    ParameterizedItem *item = static_cast<ParameterizedItem *>(
+                indices.back().internalPointer());
+    if( item ) object = item;
     setObject(object);
 }
 
@@ -274,9 +221,8 @@ void SamplePropertyEditor::setObject(QObject *object)
     addClassProperties(m_object->metaObject());
     std::cout << "SamplePropertyEditor::setObject() -> 2.5" << std::endl;
 
-//    restoreExpandedState();
+    //    restoreExpandedState();
 }
-
 
 void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
 {
@@ -378,6 +324,108 @@ void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
     m_topLevelProperties.append(classProperty);
     m_browser->addProperty(classProperty);
 }
+
+void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
+{
+    QtProperty *classProperty = m_itemToProperty.value(metaObject);
+    if (!classProperty) {
+        std::cout << "SamplePropertyEditor::addClassProperties() -> 3.2" << std::endl;
+        QString className = QLatin1String(metaObject->className());
+        classProperty = m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), className);
+        m_classToProperty[metaObject] = classProperty;
+        m_propertyToClass[classProperty] = metaObject;
+
+        for (int idx = metaObject->propertyOffset(); idx < metaObject->propertyCount(); idx++) {
+            QMetaProperty metaProperty = metaObject->property(idx);
+            int type = metaProperty.userType();
+            std::cout << "XXX metaProperty.name():" << metaProperty.name()
+                      << " metaProperty.type():" << metaProperty.type()
+                      << " metaProperty.typeName():" << metaProperty.typeName()
+                      << " metaProperty.userType():" << metaProperty.userType()
+                      << std::endl;
+            QtVariantProperty *subProperty = 0;
+            if (!metaProperty.isReadable()) {
+                subProperty = m_readOnlyManager->addProperty(QVariant::String, QLatin1String(metaProperty.name()));
+                subProperty->setValue(QLatin1String("< Non Readable >"));
+            } else if (m_manager->isPropertyTypeSupported(type)) {
+                std::cout << "XXXXX adding property " << type << std::endl;
+                if (!metaProperty.isWritable())
+                    subProperty = m_readOnlyManager->addProperty(type, QLatin1String(metaProperty.name()) + QLatin1String(" (Non Writable)"));
+                if (!metaProperty.isDesignable())
+                    subProperty = m_readOnlyManager->addProperty(type, QLatin1String(metaProperty.name()) + QLatin1String(" (Non Designable)"));
+                else
+                    subProperty = m_manager->addProperty(type, QLatin1String(metaProperty.name()));
+                subProperty->setValue(metaProperty.read(m_object));
+            } else {
+                subProperty = m_readOnlyManager->addProperty(QVariant::String, QLatin1String(metaProperty.name()));
+                subProperty->setValue(QLatin1String("< Unknown Type >"));
+                subProperty->setEnabled(false);
+            }
+            classProperty->addSubProperty(subProperty);
+            m_propertyToIndex[subProperty] = idx;
+            m_classToIndexToProperty[metaObject][idx] = subProperty;
+        }
+    } else {
+        updateItemProperties(item, false);
+    }
+
+    m_topLevelProperties.append(classProperty);
+    m_browser->addProperty(classProperty);
+}
+
+void SamplePropertyEditor::updateItemProperties(const ParameterizedItem *item)
+{
+    if (!item)
+        return;
+
+    std::cout << "SamplePropertyEditor::updateItemProperties " << recursive << std::endl;
+
+    QtProperty *item_property = m_itemToProperty.value(item);
+    if (!item_property)
+        return;
+
+    QListIterator<QByteArray> it(item->dynamicPropertyNames());
+    while (it.hasNext()) {
+        const char *name = it.next().constData();
+        QVariant variant = item->property(name);
+        QtVariantProperty *subProperty =
+                m_itemToStringToProperty[item][QString(name)];
+        subProperty->setValue(variant);
+    }
+}
+
+//void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, bool recursive)
+//{
+//    if (!metaObject)
+//        return;
+
+//    std::cout << "AAA SamplePropertyEditor::updateClassProperties " << recursive << std::endl;
+//    if (recursive)
+//        updateClassProperties(metaObject->superClass(), recursive);
+
+//    QtProperty *classProperty = m_classToProperty.value(metaObject);
+//    if (!classProperty)
+//        return;
+
+//    for (int idx = metaObject->propertyOffset(); idx < metaObject->propertyCount(); idx++) {
+//        QMetaProperty metaProperty = metaObject->property(idx);
+//        if (metaProperty.isReadable()) {
+//            if (m_classToIndexToProperty.contains(metaObject) && m_classToIndexToProperty[metaObject].contains(idx)) {
+//                QtVariantProperty *subProperty = m_classToIndexToProperty[metaObject][idx];
+////                if (metaProperty.isEnumType()) {
+////                    if (metaProperty.isFlagType())
+////                        subProperty->setValue(flagToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
+////                    else
+////                        subProperty->setValue(enumToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
+////                } else {
+//                    subProperty->setValue(metaProperty.read(m_object));
+////                }
+//            }
+//        }
+//    }
+//}
+
+
 
 
 //void SamplePropertyEditor::saveExpandedState()

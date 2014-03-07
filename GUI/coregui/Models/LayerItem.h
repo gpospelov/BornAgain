@@ -20,6 +20,7 @@
 
 class LayerItem : public ParameterizedItem
 {
+    Q_OBJECT
 public:
     explicit LayerItem(ParameterizedItem *parent=0);
     ~LayerItem();

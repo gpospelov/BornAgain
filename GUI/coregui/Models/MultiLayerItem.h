@@ -20,6 +20,7 @@
 
 class MultiLayerItem : public ParameterizedItem
 {
+    Q_OBJECT
 public:
     explicit MultiLayerItem(ParameterizedItem *parent=0);
     ~MultiLayerItem();

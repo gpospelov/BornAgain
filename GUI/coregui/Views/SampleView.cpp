@@ -94,7 +94,8 @@ void SampleView::initSubWindows()
     m_subWindows[SampleTreeView] = m_tree_view;
 
     m_subWindows[PropertyEditorSubWindow] =
-            SampleViewComponents::createPropertyEditor(m_sampleDesigner, this);
+            SampleViewComponents::createPropertyEditor(
+                m_tree_view->selectionModel(), this);
 
     SampleInfoStreamInterface *ae =
             SampleViewComponents::createInfoStream(this);

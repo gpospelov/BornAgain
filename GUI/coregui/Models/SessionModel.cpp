@@ -228,7 +228,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                int row)
 {
     if (!m_root_item) {
-        m_root_item = new ParameterizedItem;
+        m_root_item = ItemFactory::createEmptyItem();
     }
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row==-1) row = parent_item->childItemCount();
@@ -267,7 +267,7 @@ void SessionModel::load(const QString &filename)
     if (!file.open(QIODevice::ReadOnly))
         throw GUIHelpers::Error(file.errorString());
     clear();
-    m_root_item = new ParameterizedItem;
+    m_root_item = ItemFactory::createEmptyItem();
     QXmlStreamReader reader(&file);
     readItems(&reader, m_root_item);
     if (reader.hasError())
@@ -300,7 +300,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                int row)
 {
     if (!m_root_item) {
-        m_root_item = new ParameterizedItem;
+        m_root_item = ItemFactory::createEmptyItem();
     }
     if (!parent) parent = m_root_item;
     if (row == -1) row = parent->childItemCount();
@@ -340,13 +340,7 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                 row = -1; // all but the first item should be appended
             }
             else if (reader->name() == SessionXML::ParameterTag) {
-                const QString parameter_name = reader->attributes()
-                        .value(SessionXML::ParameterNameAttribute)
-                        .toString();
-                double parameter_value = reader->attributes()
-                        .value(SessionXML::ParameterValueAttribute)
-                        .toDouble();
-                item->setParameter(parameter_name, parameter_value);
+                readProperty(reader, item);
             }
         }
         else if (reader->isEndElement()) {
@@ -354,6 +348,27 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                 item = item->parent();
             }
         }
+    }
+}
+
+void SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
+{
+    const QString parameter_name = reader->attributes()
+            .value(SessionXML::ParameterNameAttribute)
+            .toString();
+    const QString parameter_type = reader->attributes()
+            .value(SessionXML::ParameterTypeAttribute)
+            .toString();
+    if (parameter_type == "double") {
+        double parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toDouble();
+        item->setProperty(parameter_name.toUtf8().constData(),
+                          parameter_value);
+    }
+    else {
+        throw GUIHelpers::Error(tr("SessionModel::readProperty: "
+                                   "Parameter type not supported"));
     }
 }
 
@@ -366,15 +381,10 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
                                item->modelType());
         writer->writeAttribute(SessionXML::ItemNameAttribute,
                                item->itemName());
-        QMapIterator<QString, double> it(item->parameters());
+        QListIterator<QByteArray> it(item->dynamicPropertyNames());
         while (it.hasNext()) {
-            it.next();
-            writer->writeStartElement(SessionXML::ParameterTag);
-            writer->writeAttribute(SessionXML::ParameterNameAttribute,
-                                   it.key());
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   QString::number(it.value(), 'g', 12) );
-            writer->writeEndElement(); // ParameterTag
+            const char *name = it.next().constData();
+            writeProperty(writer, item, name);
         }
     }
     foreach (ParameterizedItem *child_item, item->childItems()) {
@@ -382,5 +392,29 @@ void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
     }
     if (item != m_root_item) {
         writer->writeEndElement(); // ItemTag
+    }
+}
+
+void SessionModel::writeProperty(QXmlStreamWriter *writer,
+                                 ParameterizedItem *item,
+                                 const char *property_name) const
+{
+    QVariant variant = item->property(property_name);
+    if (variant.isValid()) {
+        writer->writeStartElement(SessionXML::ParameterTag);
+        writer->writeAttribute(SessionXML::ParameterNameAttribute,
+                               QString(property_name));
+        writer->writeAttribute(SessionXML::ParameterTypeAttribute,
+                               QString(variant.typeName()) );
+        switch (variant.type()) {
+        case QMetaType::Double:
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                QString::number(variant.toDouble(), 'e', 12));
+            break;
+        default:
+            throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
+                                       "Parameter type not supported"));
+        }
+        writer->writeEndElement(); // end ParameterTag
     }
 }

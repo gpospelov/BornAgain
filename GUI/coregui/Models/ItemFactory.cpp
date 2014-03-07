@@ -26,6 +26,9 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
+    if (model_name.isEmpty()) {
+        return createEmptyItem();
+    }
     if (!m_all_item_names.contains(model_name)) {
         return 0;
     }
@@ -39,4 +42,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
         return new ParticleDecorationItem(parent);
     }
     return 0;
+}
+
+ParameterizedItem *ItemFactory::createEmptyItem()
+{
+    return new ParameterizedItem();
 }

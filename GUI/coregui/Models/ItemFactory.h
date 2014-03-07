@@ -21,8 +21,14 @@
 class ItemFactory
 {
 public:
+    //! create ParameterizedItem of specific type and parent
     static ParameterizedItem *createItem(const QString &model_name,
                                          ParameterizedItem *parent=0);
+
+    //! create empty ParameterizedItem that serves as a root item
+    static ParameterizedItem *createEmptyItem();
+
+    //! retrieve list of all possible item names
     static QList<QString> getAllItemNames() {
         return m_all_item_names;
     }

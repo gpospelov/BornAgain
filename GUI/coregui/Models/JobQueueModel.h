@@ -4,15 +4,33 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QModelIndex>
-#include <QtCore/QXmlStreamReader>
-#include <QtCore/QXmlStreamWriter>
-
-#include "JobQueueItem.h"
 
 
-namespace JobQueueXML {
-const QString ItemTag("Job");
-const QString ItemNameAttribute("JobName");
+class JobQueueItem;
+class QXmlStreamWriter;
+class QXmlStreamReader;
+
+
+namespace JobQueueXML
+{
+    const QString ModelTag("JobQueueModel");
+    const QString ModelNameAttribute("Name");
+    const QString JobTag("Job");
+    const QString JobNameAttribute("Name");
+    const QString JobBeginTimeAttribute("BeginTime");
+    const QString JobEndTimeAttribute("EndTime");
+    const QString JobCommentsAttribute("Comments");
+    const QString JobStatusAttribute("Status");
+    const QString OutputDataTag("OutputData");
+    const QString OutputDataNameAttribute("Name");
+    const QString OutputDataXminAttribute("Xmin");
+    const QString OutputDataXmaxAttribute("Xmax");
+    const QString OutputDataYminAttribute("Ymin");
+    const QString OutputDataYmaxAttribute("Ymax");
+    const QString OutputDataZminAttribute("Zmin");
+    const QString OutputDataZmaxAttribute("Zmax");
+    const QString OutputDataLogzAttribute("Logz");
+    const QString OutputDataInterpolatedAttribute("Interpolated");
 }
 
 
@@ -48,7 +66,20 @@ public:
         m_jobs.append(item);
     }
 
+    void clear();
+
+    void save(const QString &filename=QString());
+    void writeTo(QXmlStreamWriter *writer);
+
+    void load(const QString &filename=QString());
+    void readFrom(QXmlStreamReader *reader);
+
+
+    QString getName() const { return m_name; }
+    void setName(QString name) { m_name = name; }
+
 private:
+    QString m_name;
     QList <JobQueueItem *> m_jobs;
 };
 

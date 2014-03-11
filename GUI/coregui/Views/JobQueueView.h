@@ -19,11 +19,16 @@ public:
 
 public slots:
 
+private slots:
+    void save();
+
 private:
 
     JobQueueModel *m_jobQueueModel;
     QPushButton *m_button1;
     QPushButton *m_button2;
+    QPushButton *m_saveButton;
+
     QListView *m_listView;
 };
 

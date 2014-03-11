@@ -1,17 +1,22 @@
 #include "JobQueueModel.h"
+#include "JobQueueItem.h"
 #include "mainwindow_constants.h"
 #include "Exceptions.h"
+#include "GUIHelpers.h"
 #include <QMimeData>
 #include <iostream>
 #include <QDebug>
 #include <QtGlobal>
+#include <QFile>
+#include <QtCore/QXmlStreamReader>
+#include <QtCore/QXmlStreamWriter>
 
 
-JobQueueModel::JobQueueModel(QObject *parent) :
-    QAbstractListModel(parent)
+JobQueueModel::JobQueueModel(QObject *parent)
+    : QAbstractListModel(parent)
+    , m_name("DefaultName")
+
 {
-
-
 
 }
 
@@ -113,10 +118,10 @@ QMimeData *JobQueueModel::mimeData(const QModelIndexList &indices) const
 
     jobItem->writeTo(&writer);
 
-    QString buff;
-    QXmlStreamWriter writer2(&buff);
-    jobItem->writeTo(&writer2);
-    qDebug() << buff;
+//    QString buff;
+//    QXmlStreamWriter writer2(&buff);
+//    jobItem->writeTo(&writer2);
+//    qDebug() << buff;
 
     const int MaxCompression = 9;
     mimeData->setData(Constants::MIME_JOBQUEUE, qCompress(encodedData, MaxCompression));
@@ -154,14 +159,11 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     while (!reader.atEnd()) {
         reader.readNext();
         if (reader.isStartElement()) {
-            if (reader.name() == JobQueueXML::ItemTag) {
-                const QString item_name = reader.attributes()
-                        .value(JobQueueXML::ItemNameAttribute).toString();
-                qDebug() << "JobQueueModel::dropMimeData() 1.2 item_name" << item_name;
-
+            if (reader.name() == JobQueueXML::JobTag) {
                 beginInsertRows(QModelIndex(), beginRow, beginRow);
 
-                JobQueueItem *item = new JobQueueItem(item_name);
+                JobQueueItem *item = new JobQueueItem("");
+                item->readFrom(&reader);
                 m_jobs.insert(beginRow, item);
                 endInsertRows();
 
@@ -171,3 +173,98 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
     return true;
 }
+
+
+void JobQueueModel::clear()
+{
+    beginResetModel();
+    qDeleteAll(m_jobs);
+    m_jobs.clear();
+    endResetModel();
+}
+
+
+void JobQueueModel::save(const QString &filename)
+{
+    if (filename.isEmpty())
+        throw GUIHelpers::Error(tr("no filename specified"));
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
+        throw GUIHelpers::Error(file.errorString());
+
+    QXmlStreamWriter writer(&file);
+    writer.setAutoFormatting(true);
+    writer.writeStartDocument();
+    writer.writeStartElement("BornAgain");
+    writer.writeAttribute("Version", "1.9");
+
+    writeTo(&writer);
+
+    writer.writeEndElement(); // BornAgain
+    writer.writeEndDocument();
+}
+
+
+void JobQueueModel::writeTo(QXmlStreamWriter *writer)
+{
+    Q_ASSERT(writer);
+
+    writer->writeStartElement(JobQueueXML::ModelTag);
+    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
+
+    foreach(JobQueueItem *item, m_jobs) {
+        item->writeTo(writer);
+    }
+
+    writer->writeEndElement(); // ModelTag
+}
+
+
+void JobQueueModel::load(const QString &filename)
+{
+    if (filename.isEmpty())
+        throw GUIHelpers::Error(tr("no filename specified"));
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly))
+        throw GUIHelpers::Error(file.errorString());
+
+
+    QXmlStreamReader reader(&file);
+    readFrom(&reader);
+
+    if (reader.hasError())
+        throw GUIHelpers::Error(reader.errorString());
+
+}
+
+
+void JobQueueModel::readFrom(QXmlStreamReader *reader)
+{
+    Q_ASSERT(reader);
+
+    clear();
+    while (!reader->atEnd()) {
+        reader->readNext();
+        if (reader->isStartElement()) {
+
+            if (reader->name() == JobQueueXML::ModelTag) {
+                beginResetModel();
+                const QString name = reader->attributes()
+                        .value(JobQueueXML::ModelNameAttribute).toString();
+                qDebug() << "JobQueueModel::readFrom " << name;
+                setName(name);
+            } else if(reader->name() == JobQueueXML::JobTag) {
+                JobQueueItem *job = new JobQueueItem("");
+                job->readFrom(reader);
+                addJob(job);
+            }
+        } else if (reader->isEndElement()) {
+            if (reader->name() == JobQueueXML::ModelTag) {
+                endResetModel();
+            }
+        }
+    }
+
+}
+

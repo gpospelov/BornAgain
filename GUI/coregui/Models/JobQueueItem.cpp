@@ -1,60 +1,89 @@
 #include "JobQueueItem.h"
 #include "JobQueueModel.h"
+#include "OutputDataItem.h"
+#include "GUIHelpers.h"
+#include <QXmlStreamWriter>
+#include <QDebug>
+
+JobQueueItem::JobQueueItem(QString name)
+    : m_name(name)
+{
+    m_data_items.append(new OutputDataItem());
+}
+
+
+JobQueueItem::~JobQueueItem()
+{
+    clear();
+}
+
+
+void JobQueueItem::clear()
+{
+    qDeleteAll(m_data_items);
+    m_data_items.clear();
+}
 
 
 void JobQueueItem::writeTo(QXmlStreamWriter *writer)
 {
-    writer->writeStartElement(JobQueueXML::ItemTag);
-    writer->writeAttribute(JobQueueXML::ItemNameAttribute, getName());
-    writer->writeEndElement(); // ItemTag
+    Q_ASSERT(writer);
+    writer->writeStartElement(JobQueueXML::JobTag);
+    writer->writeAttribute(JobQueueXML::JobNameAttribute, getName());
+    writer->writeAttribute(JobQueueXML::JobStatusAttribute, getStatus());
+    writer->writeAttribute(JobQueueXML::JobBeginTimeAttribute, getBeginTime());
+    writer->writeAttribute(JobQueueXML::JobEndTimeAttribute, getEndTime());
+    writer->writeAttribute(JobQueueXML::JobCommentsAttribute, getComments());
+    foreach(OutputDataItem *item, m_data_items) {
+        item->writeTo(writer);
+    }
+    writer->writeEndElement(); // JobTag
 }
 
 
-//JobQueueItem::JobQueueItem(const QString &model_type,
-//                                     JobQueueItem *parent)
-//    : m_model_type(model_type)
-//    , m_parent(parent)
-//{
-//    if (m_parent) {
-//        m_parent->addChildItem(this);
-//    }
-//    setItemName(m_model_type);
-//}
+void JobQueueItem::readFrom(QXmlStreamReader *reader)
+{
+    Q_ASSERT(reader);
+    clear();
 
-//JobQueueItem::~JobQueueItem()
-//{
-//    qDeleteAll(m_children);
-//}
+    qDebug() << "JobQueueItem::readFrom() -> " << reader->name();
+    if(reader->name() != JobQueueXML::JobTag) {
+        throw GUIHelpers::Error("JobQueueItem::readFrom() -> Format error in p1");
+    }
 
-//JobQueueItem *JobQueueItem::takeChildItem(int row)
-//{
-//    JobQueueItem *item = m_children.takeAt(row);
-//    item->m_parent = 0;
-//    return item;
-//}
+    setName(reader->attributes()
+            .value(JobQueueXML::JobNameAttribute).toString());
 
-////double JobQueueItem::parameterValue(const QString &name) const
-////{
-////    if (!m_parameters.contains(name)) {
-////        throw Exceptions::RuntimeErrorException(
-////                    "ParameterizedItem::getParameterValue: "
-////                    "parameter does not exist");
-////    }
-////    return m_parameters[name];
-////}
+    setBeginTime(reader->attributes()
+            .value(JobQueueXML::JobBeginTimeAttribute).toString());
 
-////void JobQueueItem::setParameter(const QString &name, double value)
-////{
-////    if (!m_parameters.contains(name)) {
-////        throw Exceptions::RuntimeErrorException(
-////                    "ParameterizedItem::getParameterValue: "
-////                    "parameter does not exist");
-////    }
-////    m_parameters[name] = value;
-////}
+    setEndTime(reader->attributes()
+            .value(JobQueueXML::JobEndTimeAttribute).toString());
 
-////bool JobQueueItem::acceptsAsChild(const QString &child_name) const
-////{
-////    return m_valid_children.contains(child_name);
-////}
+    setComments(reader->attributes()
+            .value(JobQueueXML::JobCommentsAttribute).toString());
+
+    setStatus(reader->attributes()
+            .value(JobQueueXML::JobStatusAttribute).toString());
+
+
+    while (!reader->atEnd()) {
+        reader->readNext();
+        if (reader->isStartElement()) {
+
+            if (reader->name() == JobQueueXML::OutputDataTag) {
+                qDebug() << "XXX output data";
+                OutputDataItem *item = new OutputDataItem();
+                item->readFrom(reader);
+                m_data_items.append(item);
+            }
+        } else if (reader->isEndElement()) {
+            if (reader->name() == JobQueueXML::JobTag) {
+                break; // end of xml of current Job
+            }
+        }
+    }
+
+}
+
 

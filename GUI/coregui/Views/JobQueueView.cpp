@@ -1,11 +1,10 @@
 #include "JobQueueView.h"
 #include "JobQueueModel.h"
 #include "JobQueueItem.h"
-#include "JobQueueWidgets.h"
+#include "JobSelectorWidget.h"
+#include "JobOutputDataWidget.h"
 
-#include "doubletabwidget.h"
-#include "fancylineedit.h"
-#include "fancyactionbar.h"
+#include "minisplitter.h"
 
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -16,6 +15,7 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QDockWidget>
+#include <QSplitter>
 
 
 
@@ -23,8 +23,11 @@ class QStandardItemModel;
 
 
 JobQueueView::JobQueueView(QWidget *parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
     , m_jobQueueModel(new JobQueueModel())
+    , m_splitter(new Manhattan::MiniSplitter(this))
+    , m_jobSelector(new JobSelectorWidget(m_jobQueueModel, this))
+    , m_jobOutputData(new JobOutputDataWidget(this))
 //    , m_button1(new QPushButton("Run"))
 //    , m_button2(new QPushButton("Submit"))
 //    , m_saveButton(new QPushButton("Save"))
@@ -34,9 +37,9 @@ JobQueueView::JobQueueView(QWidget *parent)
     setObjectName("JobQueueView");
 
 
-//    m_jobQueueModel->addJob(new JobQueueItem("job1"));
-//    m_jobQueueModel->addJob(new JobQueueItem("job2"));
-//    m_jobQueueModel->addJob(new JobQueueItem("job3"));
+    m_jobQueueModel->addJob(new JobQueueItem("job1"));
+    m_jobQueueModel->addJob(new JobQueueItem("job2"));
+    m_jobQueueModel->addJob(new JobQueueItem("job3"));
 
 
 //    //
@@ -72,53 +75,81 @@ JobQueueView::JobQueueView(QWidget *parent)
 //    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
 
 
-    initSubWindows();
+//    m_splitter = new QSplitter(this);
 
 
-}
+//    m_jobSelector = new JobSelectorWidget(this);
+//    m_jobOutputData = new JobOutputDataWidget(this);
+    m_splitter->addWidget(m_jobSelector);
+    m_splitter->addWidget(m_jobOutputData);
+
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+    mainLayout->addWidget(m_splitter);
+    setLayout(mainLayout);
+
+
+//    initSubWindows();
+
+//    QList<QAbstractItemView*> frames =
+//                    m_jobSelector->findChildren<QAbstractItemView*>();
+//            for (int i = 0 ; i< frames.count(); ++i)
+//                frames[i]->setFrameStyle(QFrame::NoFrame);
 
 
 
-void JobQueueView::initSubWindows()
-{
-    m_subWindows.resize(NumberOfSubWindows);
-    m_dockWidgets.resize(NumberOfSubWindows);
-
-    m_subWindows[JobSelectorWindow] = JobQueueWidgets::createJobSelectorWidget(this);
-    m_subWindows[JobPropertiesWindow] = JobQueueWidgets::createJobPropertiesWidget(this);
-    m_subWindows[JobOutputDataWindow] = JobQueueWidgets::createJobOutputDataWidget(this);
-
-    for (int i = 0; i < NumberOfSubWindows; i++) {
-        QWidget *subWindow = m_subWindows[i];
-        m_dockWidgets[i] = addDockForWidget(subWindow);
-
-        QList<QAbstractItemView*> frames =
-                subWindow->findChildren<QAbstractItemView*>();
-        for (int i = 0 ; i< frames.count(); ++i)
-            frames[i]->setFrameStyle(QFrame::NoFrame);
-
-
-    }
-
-    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[JobSelectorWindow]);
-    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[JobPropertiesWindow]);
-    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[JobOutputDataWindow]);
-
-    foreach (QDockWidget *dockWidget, m_dockWidgets)
-        dockWidget->show();
 
 }
 
 
+//void JobQueueView::initSubWindows()
+//{
 
-QDockWidget *JobQueueView::addDockForWidget(QWidget *widget)
-{
-    QDockWidget *result = new QDockWidget(widget->windowTitle(), this);
-    result->setWidget(widget);
-//    dockWidget->setObjectName(widget->objectName() + QLatin1String("DockWidget"));
-    result->setFeatures(QDockWidget::DockWidgetMovable);
-    return result;
-}
+//}
+
+
+//void JobQueueView::initSubWindows()
+//{
+//    m_subWindows.resize(NumberOfSubWindows);
+//    m_dockWidgets.resize(NumberOfSubWindows);
+
+//    m_subWindows[JobSelectorWindow] = JobQueueWidgets::createJobSelectorWidget(this);
+//    m_subWindows[JobPropertiesWindow] = JobQueueWidgets::createJobPropertiesWidget(this);
+//    m_subWindows[JobOutputDataWindow] = JobQueueWidgets::createJobOutputDataWidget(this);
+
+//    for (int i = 0; i < NumberOfSubWindows; i++) {
+//        QWidget *subWindow = m_subWindows[i];
+//        m_dockWidgets[i] = addDockForWidget(subWindow);
+
+//        QList<QAbstractItemView*> frames =
+//                subWindow->findChildren<QAbstractItemView*>();
+//        for (int i = 0 ; i< frames.count(); ++i)
+//            frames[i]->setFrameStyle(QFrame::NoFrame);
+
+
+//    }
+
+//    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[JobSelectorWindow]);
+//    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[JobPropertiesWindow]);
+//    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[JobOutputDataWindow]);
+
+//    foreach (QDockWidget *dockWidget, m_dockWidgets)
+//        dockWidget->show();
+
+//}
+
+
+
+//QDockWidget *JobQueueView::addDockForWidget(QWidget *widget)
+//{
+//    QDockWidget *result = new QDockWidget(widget->windowTitle(), this);
+//    result->setWidget(widget);
+////    dockWidget->setObjectName(widget->objectName() + QLatin1String("DockWidget"));
+//    result->setFeatures(QDockWidget::DockWidgetMovable);
+//    return result;
+//}
 
 
 

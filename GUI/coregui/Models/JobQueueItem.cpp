@@ -1,14 +1,23 @@
 #include "JobQueueItem.h"
 #include "JobQueueModel.h"
+#include "JobItem.h"
 #include "OutputDataItem.h"
 #include "GUIHelpers.h"
 #include <QXmlStreamWriter>
 #include <QDebug>
+#include <QTimer>
+#include <QThread>
 
 JobQueueItem::JobQueueItem(QString name)
     : m_name(name)
 {
     m_data_items.append(new OutputDataItem());
+
+//    mp_job_watcher = new QFutureWatcher<void>;
+//    connect(mp_job_watcher, SIGNAL(finished()), this, SLOT(onJobFinished()));
+
+//    m_jobItem = new JobItem();
+
 }
 
 
@@ -16,6 +25,54 @@ JobQueueItem::~JobQueueItem()
 {
     clear();
 }
+
+
+
+void JobQueueItem::run()
+{
+    qDebug() << "JobQueueItem::run(): preparing to run a thread";
+    JobItem *jobItem = new JobItem();
+    QThread *thread = new QThread();
+    jobItem->moveToThread(thread);
+
+    // thread will start jobItem::run
+    connect(thread, SIGNAL(started()), jobItem, SLOT(run()));
+
+    // thread will quit after JobItem is done
+    connect(jobItem, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(jobItem, SIGNAL(finished()), this, SLOT(onJobFinished()));
+
+    // objects will be deleted after JobItem is done
+    connect(jobItem, SIGNAL(finished()), jobItem, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+    qDebug() << "JobQueueItem::run(): starting thread";
+    thread->start();
+    qDebug() << "JobQueueItem::run(): thread is started";
+
+
+
+}
+
+void JobQueueItem::onJobFinished()
+{
+    qDebug() << "JobQueueItem::onJobFinished()";
+}
+
+
+//void JobQueueItem::loopFunctionWithDelay()
+//{
+//    qDebug() << "JobQueueItem::loopFunctionWithDelay()" << m_counterForDelayedLoop;
+//    if(m_counterForDelayedLoop < 100) {
+//        m_counterForDelayedLoop++;
+//        qDebug() << "XXX1";
+//        QTimer::singleShot(5000, this, SLOT(loopFunctionWithDelay()));
+//        qDebug() << "XXX2";
+//    }
+
+//}
+
+// --------------------
 
 
 void JobQueueItem::clear()

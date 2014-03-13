@@ -13,8 +13,8 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
     , m_currentItem(0)
 {
-    setMinimumSize(128, 128);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    setMinimumSize(128, 128);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Job Properties"));
     setObjectName(QLatin1String("Job Properties"));
 //    setStyleSheet("background-color:white;");

@@ -84,6 +84,16 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //}
 
 
+void JobQueueModel::addJob(JobQueueItem *item)
+{
+    int position = m_jobs.size();
+    beginInsertRows(QModelIndex(), position, position);
+    m_jobs.append(item);
+    endInsertRows();
+}
+
+
+
 bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* parent */)
 {
     qDebug() << "JobQueueModel::removeRows";
@@ -284,20 +294,33 @@ void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QI
 }
 
 
+//! returns model index of given JobQueueItem
 QModelIndex JobQueueModel::indexOfItem(JobQueueItem *item) const
 {
     if(m_jobs.contains(item)) {
         return index(m_jobs.indexOf(item), 0);
     }
-    throw GUIHelpers::Error("Can't find index for item");
+    throw GUIHelpers::Error("JobQueueModel::indexOfItem() -> Can't find index for item");
 }
 
 
+//! Method should be called to inform given model about changes in JobQueueItem
 void JobQueueModel::jobQueueItemIsChanged(JobQueueItem *changed_item)
 {
     QModelIndex item_index = indexOfItem(changed_item);
     qDebug() << "JobQueueModel::jobQueueItemIsChanged" << item_index;
     dataChanged(item_index, item_index);
+}
+
+
+//! returns JobQueueItem for given index
+JobQueueItem *JobQueueModel::getJobQueueItemForIndex(const QModelIndex &index)
+{
+    if(!index.isValid())
+        throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index");
+    if(index.row() >=0 && index.row() < rowCount())
+        return m_jobs.at(index.row());
+    throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index p2");
 }
 
 

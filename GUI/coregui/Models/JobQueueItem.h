@@ -4,13 +4,16 @@
 #include <QList>
 #include <QVariant>
 #include <QString>
+#include <QFutureWatcher>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class OutputDataItem;
 
-class JobQueueItem
+class JobQueueItem : public QObject
 {
+    Q_OBJECT
+
 public:
     JobQueueItem(QString name);
     virtual ~JobQueueItem();
@@ -35,6 +38,14 @@ public:
 
     void clear();
 
+    void run();
+
+//    QFutureWatcher<void> *getJobWatcher() { return mp_job_watcher; }
+
+public slots:
+    void onJobFinished();
+//    void loopFunctionWithDelay();
+
 private:
     QString m_name;
     QString m_begin_time;
@@ -42,6 +53,10 @@ private:
     QString m_comments;
     QString m_status;
     QList<OutputDataItem *> m_data_items;
+
+//    int m_counterForDelayedLoop ;
+//    QFutureWatcher<void> *mp_job_watcher;
+
 };
 
 

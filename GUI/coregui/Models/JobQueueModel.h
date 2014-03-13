@@ -61,10 +61,7 @@ public:
                       int row, int column, const QModelIndex &parent);
 
 
-    void addJob(JobQueueItem *item)
-    {
-        m_jobs.append(item);
-    }
+    void addJob(JobQueueItem *item);
 
     void clear();
 
@@ -78,13 +75,13 @@ public:
     void setName(QString name) { m_name = name; }
 
     void jobQueueItemIsChanged(JobQueueItem *item);
+    JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index);
 
 public slots:
     void onSelectionChanged( const QItemSelection&, const QItemSelection& );
 
 signals:
     void selectionChanged(JobQueueItem *item);
-//    void selectionChanged(const QModelIndex &index);
 
 private:
     QModelIndex indexOfItem(JobQueueItem *item) const;

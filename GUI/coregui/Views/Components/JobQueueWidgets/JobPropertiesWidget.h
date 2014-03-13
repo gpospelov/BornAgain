@@ -20,6 +20,9 @@ public:
 
     void setModel(JobQueueModel *model);
 
+    QSize sizeHint() const { return QSize(64, 64); }
+    QSize minimumSizeHint() const { return QSize(64, 64); }
+
 public slots:
     void itemClicked(JobQueueItem *item);
 

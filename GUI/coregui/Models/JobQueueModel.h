@@ -9,7 +9,7 @@
 class JobQueueItem;
 class QXmlStreamWriter;
 class QXmlStreamReader;
-
+class QItemSelection;
 
 namespace JobQueueXML
 {
@@ -74,11 +74,22 @@ public:
     void load(const QString &filename=QString());
     void readFrom(QXmlStreamReader *reader);
 
-
     QString getName() const { return m_name; }
     void setName(QString name) { m_name = name; }
 
+    void jobQueueItemIsChanged(JobQueueItem *item);
+
+public slots:
+    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
+
+signals:
+    void selectionChanged(JobQueueItem *item);
+//    void selectionChanged(const QModelIndex &index);
+
 private:
+    QModelIndex indexOfItem(JobQueueItem *item) const;
+
+
     QString m_name;
     QList <JobQueueItem *> m_jobs;
 };

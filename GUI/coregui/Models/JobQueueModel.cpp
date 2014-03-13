@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QXmlStreamWriter>
+#include <QItemSelection>
 
 
 JobQueueModel::JobQueueModel(QObject *parent)
@@ -267,4 +268,36 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
     }
 
 }
+
+void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
+{
+    qDebug() << "JobQueueModel::onSelectionChanged" << selected;
+    if(!selected.empty() and !selected.first().indexes().empty()) {
+        int row = selected.first().indexes().at(0).row();
+        JobQueueItem *item = m_jobs.at(row);
+        emit selectionChanged(item);
+    }
+
+//    if(!selected.empty() ) {
+//        emit selectionChanged(selected.first());
+//    }
+}
+
+
+QModelIndex JobQueueModel::indexOfItem(JobQueueItem *item) const
+{
+    if(m_jobs.contains(item)) {
+        return index(m_jobs.indexOf(item), 0);
+    }
+    throw GUIHelpers::Error("Can't find index for item");
+}
+
+
+void JobQueueModel::jobQueueItemIsChanged(JobQueueItem *changed_item)
+{
+    QModelIndex item_index = indexOfItem(changed_item);
+    qDebug() << "JobQueueModel::jobQueueItemIsChanged" << item_index;
+    dataChanged(item_index, item_index);
+}
+
 

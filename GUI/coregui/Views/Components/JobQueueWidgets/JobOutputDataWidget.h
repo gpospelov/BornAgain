@@ -10,6 +10,7 @@ class QToolBar;
 
 class JobOutputDataWidget : public QWidget
 {
+    Q_OBJECT
 public:
     explicit JobOutputDataWidget(QWidget *parent = 0);
 

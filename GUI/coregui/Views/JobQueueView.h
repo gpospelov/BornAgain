@@ -32,8 +32,8 @@ public:
 
 public slots:
 
-private slots:
-    void save();
+//private slots:
+//    void save();
 
 private:
 //    void initSubWindows();

@@ -2,8 +2,10 @@
 #define JOBLISTWIDGET_H
 
 #include <QWidget>
+#include <QModelIndex>
 
 class JobQueueModel;
+class JobListViewDelegate;
 class QListView;
 class QPushButton;
 
@@ -20,7 +22,11 @@ public:
     void setModel(JobQueueModel *model);
 //    QSize sizeHint() const { return QSize(128, 128); }
 
+signals:
+    void cancelJob(const QModelIndex &);
+
 public slots:
+    void onCancelJob(const QModelIndex &);
 
 private slots:
     void save();
@@ -29,6 +35,7 @@ private slots:
 
 private:
     JobQueueModel *m_jobQueueModel;
+    JobListViewDelegate *m_listViewDelegate;
     QListView *m_listView;
     QPushButton *m_submitButton;
     QPushButton *m_runButton;

@@ -347,7 +347,7 @@ void JobQueueModel::runInThread(JobQueueItem *job)
 
     // thread will quit after JobItem is done
     connect(jobItem, SIGNAL(finished()), thread, SLOT(quit()));
-    //connect(jobItem, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    ////connect(jobItem, SIGNAL(finished()), this, SLOT(onJobFinished()));
     connect(jobItem, SIGNAL(progressUpdate(int)), job, SLOT(setProgress(int)));
     connect(job, SIGNAL(modified(JobQueueItem*)), this, SLOT(jobQueueItemIsChanged(JobQueueItem*)));
 
@@ -355,10 +355,27 @@ void JobQueueModel::runInThread(JobQueueItem *job)
     connect(jobItem, SIGNAL(finished()), jobItem, SLOT(deleteLater()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
+    m_JobQueueItemToThread[job] = thread;
+    m_ThreadToJobQueueItem[thread] = job;
+
     qDebug() << "JobQueueItem::run(): starting thread";
     thread->start();
     qDebug() << "JobQueueItem::run(): thread is started";
 
+}
+
+
+void JobQueueModel::onCancelJob(const QModelIndex &index)
+{
+    qDebug() <<  "JobQueueModel::onCancelJob" << index;
+    JobQueueItem *job = getJobQueueItemForIndex(index);
+    qDebug() <<  "JobQueueModel::onCancelJob" << job;
+    QThread *thread = m_JobQueueItemToThread[job];
+    qDebug() << "AAA" << thread->isRunning();
+    if(thread) {
+        thread->quit();
+        //thread->wait();
+    }
 }
 
 

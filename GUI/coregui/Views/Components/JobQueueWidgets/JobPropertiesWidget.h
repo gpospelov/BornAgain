@@ -29,7 +29,6 @@ public slots:
 private slots:
     void valueChanged(QtProperty *property, const QVariant &value);
 
-
 private:
     void updateExpandState();
     void addProperty(QtVariantProperty *property, const QString &id);

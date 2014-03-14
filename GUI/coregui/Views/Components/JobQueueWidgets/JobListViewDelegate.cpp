@@ -85,6 +85,7 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
         event->type() == QEvent::MouseButtonRelease ) {
     } else {
          m_buttonState = QStyle::State_Raised;
+         return QItemDelegate::editorEvent(event, model, option, index);
         return true;
     }
 

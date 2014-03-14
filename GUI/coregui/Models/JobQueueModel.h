@@ -4,12 +4,14 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QModelIndex>
+#include <QMap>
 
 
 class JobQueueItem;
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class QItemSelection;
+class QThread;
 
 namespace JobQueueXML
 {
@@ -84,6 +86,8 @@ public slots:
     void jobQueueItemIsChanged(JobQueueItem *item);
     void onSelectionChanged( const QItemSelection&, const QItemSelection& );
 
+    void onCancelJob(const QModelIndex &index);
+
 signals:
     void selectionChanged(JobQueueItem *item);
 
@@ -92,6 +96,9 @@ private:
 
     QString m_name;
     QList <JobQueueItem *> m_jobs;
+
+    QMap<JobQueueItem *, QThread *> m_JobQueueItemToThread;
+    QMap<QThread *, JobQueueItem *> m_ThreadToJobQueueItem;
 };
 
 

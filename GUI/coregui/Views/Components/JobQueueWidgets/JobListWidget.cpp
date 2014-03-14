@@ -13,6 +13,7 @@
 JobListWidget::JobListWidget(QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(0)
+    , m_listViewDelegate(new JobListViewDelegate(this))
     , m_listView(new QListView(this))
     , m_submitButton(new QPushButton("Submit"))
     , m_runButton(new QPushButton("Run"))
@@ -24,8 +25,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     m_listView->setDragEnabled(true);
     m_listView->setAcceptDrops(true);
     m_listView->setDefaultDropAction(Qt::MoveAction);
-    m_listView->setItemDelegate(new JobListViewDelegate(this));
-
+    m_listView->setItemDelegate(m_listViewDelegate);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -56,14 +56,26 @@ JobListWidget::JobListWidget(QWidget *parent)
     //mainLayout->addWidget(m_listView);
     mainLayout->addLayout(vlayout);
 
+    setLayout(mainLayout);
 
     connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
     connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
     connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
 
-    setLayout(mainLayout);
+    //connecting delegate's signal to this class's slot
+//    connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
+//    this, SLOT(onCancelJob(QModelIndex)));
+
+
 
 }
+
+
+void JobListWidget::onCancelJob(const QModelIndex &index)
+{
+    emit cancelJob(index);
+}
+
 
 
 void JobListWidget::setModel(JobQueueModel *model)
@@ -77,6 +89,10 @@ void JobListWidget::setModel(JobQueueModel *model)
             m_jobQueueModel,
             SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
             );
+        connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
+        m_jobQueueModel, SLOT(onCancelJob(QModelIndex)));
+
+
     }
 }
 

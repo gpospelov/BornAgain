@@ -13,6 +13,7 @@ public:
 
 public slots:
     void run();
+    void terminate();
 
 private slots:
     void loopFunctionWithDelay();

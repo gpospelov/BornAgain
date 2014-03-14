@@ -41,3 +41,8 @@ void JobItem::loopFunctionWithDelay()
 }
 
 
+
+void JobItem::terminate()
+{
+    m_progress = 1000;
+}

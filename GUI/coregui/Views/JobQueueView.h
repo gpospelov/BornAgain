@@ -14,6 +14,11 @@ class JobQueueModel;
 class QDockWidget;
 class QSplitter;
 
+namespace Manhattan {
+    class ProgressBar;
+}
+
+
 class JobQueueView : public QWidget
 {
     Q_OBJECT
@@ -30,33 +35,14 @@ public:
     JobQueueView(QWidget *parent = 0);
     virtual ~JobQueueView() {}
 
-public slots:
-
-//private slots:
-//    void save();
+    void setProgressBar(Manhattan::ProgressBar *progressBar);
 
 private:
-//    void initSubWindows();
-//    QDockWidget *addDockForWidget(QWidget *widget);
-
     JobQueueModel *m_jobQueueModel;
-//    QPushButton *m_button1;
-//    QPushButton *m_button2;
-//    QPushButton *m_saveButton;
-//    QListView *m_listView;
-
-
-//    QVector<QWidget *> m_subWindows;
-//    QVector<QDockWidget *> m_dockWidgets;
-
-//    QWidget *m_subWindows[NumberOfSubWindows];
-//    QDockWidget *m_dockWidgets[NumberOfSubWindows];
-
     QSplitter *m_splitter;
     JobSelectorWidget *m_jobSelector;
     JobOutputDataWidget *m_jobOutputData;
-
-
+    Manhattan::ProgressBar *m_progressBar; //!< general progress bar
 };
 
 #endif // JOBQUEUEVIEW_H

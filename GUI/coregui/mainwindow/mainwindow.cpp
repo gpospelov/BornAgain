@@ -20,6 +20,7 @@
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"
+#include "progressbar.h"
 
 #include <QApplication>
 #include <iostream>
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_jobView(0)
     , m_fitView(0)
     , m_jobQueueView(0)
+    , m_progressBar(0)
     , m_actionManager(0)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
@@ -78,6 +80,12 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(7, m_jobQueueView, QIcon(":/images/mode_fit.png"), "Queue");
 
     m_tabWidget->setCurrentIndex(7);
+
+    m_progressBar = new Manhattan::ProgressBar(this);
+    m_tabWidget->addBottomCornerWidget(m_progressBar);
+    m_progressBar->hide();
+    m_jobQueueView->setProgressBar(m_progressBar);
+
     setCentralWidget(m_tabWidget);
 
     m_actionManager = new ActionManager(this);

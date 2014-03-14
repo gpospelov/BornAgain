@@ -3,23 +3,10 @@
 #include "JobQueueItem.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
-
 #include "minisplitter.h"
-
-#include <QGridLayout>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QListView>
-#include <QTreeView>
-#include <QTableView>
-#include <QPushButton>
 #include <QDebug>
-#include <QDockWidget>
 #include <QSplitter>
-
-
-
-class QStandardItemModel;
 
 
 JobQueueView::JobQueueView(QWidget *parent)
@@ -44,13 +31,12 @@ JobQueueView::JobQueueView(QWidget *parent)
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 
-
-//    connect(
-//        m_jobQueueModel->selectionModel(),
-
-//    );
-
 }
 
+
+void JobQueueView::setProgressBar(Manhattan::ProgressBar *progressBar)
+{
+    m_progressBar = progressBar;
+}
 
 

@@ -18,19 +18,19 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/widgetbox
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/SampleDesigner
-#    ${CMAKE_CURRENT_SOURCE_DIR}/qttools/qtpropertybrowser
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/JobQueueWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/OutputDataWidgets
 )
 include_directories(${include_dirs})
-#include_directories(${CMAKE_CURRENT_BINARY_DIR}) # qtpropertybrowser needs some moc files
 
 file(GLOB source_files
     "mainwindow/*.cpp"
     "utils/*.cpp"
     "Models/*.cpp"
     "Views/*.cpp"
-#    "Views/Components/widgetbox/*.cpp"
     "Views/Components/SampleDesigner/*.cpp"
-#    "qttools/qtpropertybrowser/*.cpp"
+    "Views/Components/JobQueueWidgets/*.cpp"
+    "Views/Components/OutputDataWidgets/*.cpp"
 )
 
 set(source_widgetbox
@@ -46,9 +46,9 @@ file(GLOB include_files
     "utils/*.h"
     "Models/*.h"
     "Views/*.h"
-#    "Views/Components/widgetbox/*.h"
     "Views/Components/SampleDesigner/*.h"
-#    "qttools/qtpropertybrowser/*.h"
+    "Views/Components/JobQueueWidgets/*.h"
+    "Views/Components/OutputDataWidgets/*.h"
 )
 
 set(include_widgetbox

@@ -74,10 +74,14 @@ public:
     QString getName() const { return m_name; }
     void setName(QString name) { m_name = name; }
 
-    void jobQueueItemIsChanged(JobQueueItem *item);
     JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index);
+    const JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index) const;
+
+
+    void runInThread(JobQueueItem *job);
 
 public slots:
+    void jobQueueItemIsChanged(JobQueueItem *item);
     void onSelectionChanged( const QItemSelection&, const QItemSelection& );
 
 signals:
@@ -85,7 +89,6 @@ signals:
 
 private:
     QModelIndex indexOfItem(JobQueueItem *item) const;
-
 
     QString m_name;
     QList <JobQueueItem *> m_jobs;

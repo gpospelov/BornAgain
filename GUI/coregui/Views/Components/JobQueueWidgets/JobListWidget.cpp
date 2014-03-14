@@ -111,6 +111,7 @@ void JobListWidget::run()
     if(!indexList.empty()) {
         JobQueueItem *job = m_jobQueueModel->getJobQueueItemForIndex(indexList.front());
         qDebug() << "JobListWidget::run()" << job->getName();
-        job->run();
+//        job->run();
+        m_jobQueueModel->runInThread(job);
     }
 }

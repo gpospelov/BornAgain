@@ -4,7 +4,7 @@
 
 
 JobItem::JobItem()
-    : m_counterForDelayedLoop(0)
+    : m_progress(0)
 {
 
 }
@@ -27,15 +27,17 @@ void JobItem::run()
 
 void JobItem::loopFunctionWithDelay()
 {
-    qDebug() << "JobItem::loopFunctionWithDelay()" << m_counterForDelayedLoop;
-    if(m_counterForDelayedLoop < 100) {
-        m_counterForDelayedLoop++;
-        qDebug() << "XXX1";
+    qDebug() << "JobItem::loopFunctionWithDelay()" << m_progress;
+    if(m_progress < 100) {
+        m_progress++;
+        emit progressUpdate(m_progress);
         QTimer::singleShot(500, this, SLOT(loopFunctionWithDelay()));
-        qDebug() << "XXX2";
     }
 
-    if(m_counterForDelayedLoop == 100) emit finished();
+    if(m_progress == 100) {
+        emit progressUpdate(m_progress);
+        emit finished();
+    }
 }
 
 

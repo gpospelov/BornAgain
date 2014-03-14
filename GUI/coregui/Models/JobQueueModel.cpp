@@ -1,11 +1,13 @@
 #include "JobQueueModel.h"
 #include "JobQueueItem.h"
+#include "JobItem.h"
 #include "mainwindow_constants.h"
 #include "Exceptions.h"
 #include "GUIHelpers.h"
 #include <QMimeData>
 #include <iostream>
 #include <QDebug>
+#include <QThread>
 #include <QtGlobal>
 #include <QFile>
 #include <QtCore/QXmlStreamReader>
@@ -321,6 +323,42 @@ JobQueueItem *JobQueueModel::getJobQueueItemForIndex(const QModelIndex &index)
     if(index.row() >=0 && index.row() < rowCount())
         return m_jobs.at(index.row());
     throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index p2");
+}
+
+const JobQueueItem *JobQueueModel::getJobQueueItemForIndex(const QModelIndex &index) const
+{
+    if(!index.isValid())
+        throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index");
+    if(index.row() >=0 && index.row() < rowCount())
+        return m_jobs.at(index.row());
+    throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index p2");
+}
+
+
+void JobQueueModel::runInThread(JobQueueItem *job)
+{
+    qDebug() << "JobQueueItem::run(): preparing to run a thread" << job->getName();
+    JobItem *jobItem = new JobItem();
+    QThread *thread = new QThread();
+    jobItem->moveToThread(thread);
+
+    // thread will start jobItem::run
+    connect(thread, SIGNAL(started()), jobItem, SLOT(run()));
+
+    // thread will quit after JobItem is done
+    connect(jobItem, SIGNAL(finished()), thread, SLOT(quit()));
+    //connect(jobItem, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    connect(jobItem, SIGNAL(progressUpdate(int)), job, SLOT(setProgress(int)));
+    connect(job, SIGNAL(modified(JobQueueItem*)), this, SLOT(jobQueueItemIsChanged(JobQueueItem*)));
+
+    // objects will be deleted after JobItem is done
+    connect(jobItem, SIGNAL(finished()), jobItem, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+    qDebug() << "JobQueueItem::run(): starting thread";
+    thread->start();
+    qDebug() << "JobQueueItem::run(): thread is started";
+
 }
 
 

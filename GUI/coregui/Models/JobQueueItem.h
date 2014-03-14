@@ -33,18 +33,25 @@ public:
     QString getStatus() const { return m_status; }
     void setStatus(QString status) { m_status = status; }
 
+    int getProgress() const { return m_progress; }
+
     void writeTo(QXmlStreamWriter *writer);
     void readFrom(QXmlStreamReader *reader);
 
     void clear();
 
-    void run();
+//    void run();
 
 //    QFutureWatcher<void> *getJobWatcher() { return mp_job_watcher; }
 
 public slots:
     void onJobFinished();
+    void setProgress(int progress) { m_progress = progress; emit modified(this); }
+
 //    void loopFunctionWithDelay();
+
+signals:
+    void modified(JobQueueItem *item);
 
 private:
     QString m_name;
@@ -52,6 +59,8 @@ private:
     QString m_end_time;
     QString m_comments;
     QString m_status;
+    int m_progress;
+
     QList<OutputDataItem *> m_data_items;
 
 //    int m_counterForDelayedLoop ;

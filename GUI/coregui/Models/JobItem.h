@@ -19,10 +19,11 @@ private slots:
 
 signals:
     void finished();
+    void progressUpdate(int);
 
 private:
 
-    int m_counterForDelayedLoop;
+    int m_progress;
 
 };
 

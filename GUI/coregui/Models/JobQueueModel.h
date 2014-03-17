@@ -1,13 +1,16 @@
 #ifndef JOBQUEUEMODEL_H
 #define JOBQUEUEMODEL_H
 
+#include "JobQueueData.h"
 #include <QAbstractListModel>
 #include <QList>
 #include <QModelIndex>
 #include <QMap>
 
 
+class JobItem;
 class JobQueueItem;
+class Simulation;
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class QItemSelection;
@@ -36,6 +39,8 @@ namespace JobQueueXML
 }
 
 
+//! The model for all jobs in a queue. Contains JobQueueItem in a list.
+//! Provides interface to access real JobItem objects.
 class JobQueueModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -63,7 +68,7 @@ public:
                       int row, int column, const QModelIndex &parent);
 
 
-    void addJob(JobQueueItem *item);
+    void addJob(Simulation *simulation);
 
     void clear();
 
@@ -76,29 +81,31 @@ public:
     QString getName() const { return m_name; }
     void setName(QString name) { m_name = name; }
 
-    JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index);
-    const JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index) const;
+    const JobItem *getJobItemForIndex(const QModelIndex &index) const;
+    JobItem *getJobItemForIndex(const QModelIndex &index);
 
 
-    void runInThread(JobQueueItem *job);
+    void runInThread(JobItem *job);
 
 public slots:
-    void jobQueueItemIsChanged(JobQueueItem *item);
-    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
+//    void jobQueueItemIsChanged(JobItem *item);
+//    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
 
     void onCancelJob(const QModelIndex &index);
 
 signals:
-    void selectionChanged(JobQueueItem *item);
+    void selectionChanged(JobItem *item);
 
 private:
-    QModelIndex indexOfItem(JobQueueItem *item) const;
+    QModelIndex indexOfItem(JobItem *item) const;
 
     QString m_name;
     QList <JobQueueItem *> m_jobs;
+    JobQueueData m_queue_data;
 
-    QMap<JobQueueItem *, QThread *> m_JobQueueItemToThread;
-    QMap<QThread *, JobQueueItem *> m_ThreadToJobQueueItem;
+    QMap<JobItem *, QThread *> m_JobQueueItemToThread;
+    QMap<QThread *, JobItem *> m_ThreadToJobQueueItem;
+
 };
 
 

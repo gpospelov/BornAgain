@@ -1,6 +1,7 @@
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
 #include "JobItem.h"
+#include "JobQueueItem.h"
+#include "JobRunner.h"
 #include "mainwindow_constants.h"
 #include "Exceptions.h"
 #include "GUIHelpers.h"
@@ -13,6 +14,7 @@
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QXmlStreamWriter>
 #include <QItemSelection>
+#include <QUuid>
 
 
 JobQueueModel::JobQueueModel(QObject *parent)
@@ -20,7 +22,7 @@ JobQueueModel::JobQueueModel(QObject *parent)
     , m_name("DefaultName")
 
 {
-
+    qDebug() << "XXX " << QUuid::createUuid().toString();
 }
 
 
@@ -86,10 +88,13 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //}
 
 
-void JobQueueModel::addJob(JobQueueItem *item)
+void JobQueueModel::addJob(Simulation *simulation)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
+
+    JobQueueItem *item = m_queue_data.createJobQueueItem(simulation);
+
     m_jobs.append(item);
     endInsertRows();
 }
@@ -122,22 +127,25 @@ QMimeData *JobQueueModel::mimeData(const QModelIndexList &indices) const
     qDebug() << "JobQueueModel::mimeData()" << indices.count() << indices;
     if (indices.count() != 1) return 0;
 
-    JobQueueItem *jobItem = m_jobs.at(indices.at(0).row());
-    Q_ASSERT(jobItem);
+    JobQueueItem *item = m_jobs.at(indices.at(0).row());
+    Q_ASSERT(item);
 
     QMimeData *mimeData = new QMimeData();
     QByteArray encodedData;
-    QXmlStreamWriter writer(&encodedData);
+    QDataStream dataStream(&encodedData, QIODevice::WriteOnly);
+    dataStream << item->getName() << item->getIdentifier();
 
-    jobItem->writeTo(&writer);
+//    QXmlStreamWriter writer(&encodedData);
+//    jobItem->writeTo(&writer);
 
 //    QString buff;
 //    QXmlStreamWriter writer2(&buff);
 //    jobItem->writeTo(&writer2);
 //    qDebug() << buff;
 
-    const int MaxCompression = 9;
-    mimeData->setData(Constants::MIME_JOBQUEUE, qCompress(encodedData, MaxCompression));
+    //const int MaxCompression = 9;
+    //mimeData->setData(Constants::MIME_JOBQUEUE, qCompress(encodedData, MaxCompression));
+    mimeData->setData(Constants::MIME_JOBQUEUE, encodedData);
 
     return mimeData;
 }
@@ -164,25 +172,36 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     else
         beginRow = rowCount(QModelIndex());
 
-    qDebug() << "JobQueueModel::dropMimeData() 1.2 beginRow" << beginRow;
 
-    QByteArray encodedData = qUncompress(data->data(Constants::MIME_JOBQUEUE));
-    QXmlStreamReader reader(encodedData);
+//    QByteArray encodedData = qUncompress(data->data(Constants::MIME_JOBQUEUE));
+    QByteArray encodedData = data->data(Constants::MIME_JOBQUEUE);
+    QDataStream dataStream(&encodedData, QIODevice::ReadOnly);
 
-    while (!reader.atEnd()) {
-        reader.readNext();
-        if (reader.isStartElement()) {
-            if (reader.name() == JobQueueXML::JobTag) {
-                beginInsertRows(QModelIndex(), beginRow, beginRow);
+    QString name, identifier;
+    dataStream >> name >> identifier;
 
-                JobQueueItem *item = new JobQueueItem("");
-                item->readFrom(&reader);
-                m_jobs.insert(beginRow, item);
-                endInsertRows();
+    qDebug() << "JobQueueModel::dropMimeData() 1.2 beginRow" << beginRow << name << identifier;
+    JobQueueItem *item = new JobQueueItem(name, identifier);
+    beginInsertRows(QModelIndex(), beginRow, beginRow);
+    m_jobs.insert(beginRow, item);
+    endInsertRows();
 
-            }
-        }
-    }
+//    QXmlStreamReader reader(encodedData);
+
+//    while (!reader.atEnd()) {
+//        reader.readNext();
+//        if (reader.isStartElement()) {
+//            if (reader.name() == JobQueueXML::JobTag) {
+//                beginInsertRows(QModelIndex(), beginRow, beginRow);
+
+//                JobItem *item = new JobItem("");
+//                item->readFrom(&reader);
+//                m_jobs.insert(beginRow, item);
+//                endInsertRows();
+
+//            }
+//        }
+//    }
 
     return true;
 }
@@ -222,14 +241,14 @@ void JobQueueModel::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);
 
-    writer->writeStartElement(JobQueueXML::ModelTag);
-    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
+//    writer->writeStartElement(JobQueueXML::ModelTag);
+//    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
 
-    foreach(JobQueueItem *item, m_jobs) {
-        item->writeTo(writer);
-    }
+//    foreach(JobItem *item, m_jobs) {
+//        item->writeTo(writer);
+//    }
 
-    writer->writeEndElement(); // ModelTag
+//    writer->writeEndElement(); // ModelTag
 }
 
 
@@ -256,89 +275,93 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-    clear();
-    while (!reader->atEnd()) {
-        reader->readNext();
-        if (reader->isStartElement()) {
+//    clear();
+//    while (!reader->atEnd()) {
+//        reader->readNext();
+//        if (reader->isStartElement()) {
 
-            if (reader->name() == JobQueueXML::ModelTag) {
-                beginResetModel();
-                const QString name = reader->attributes()
-                        .value(JobQueueXML::ModelNameAttribute).toString();
-                qDebug() << "JobQueueModel::readFrom " << name;
-                setName(name);
-            } else if(reader->name() == JobQueueXML::JobTag) {
-                JobQueueItem *job = new JobQueueItem("");
-                job->readFrom(reader);
-                addJob(job);
-            }
-        } else if (reader->isEndElement()) {
-            if (reader->name() == JobQueueXML::ModelTag) {
-                endResetModel();
-            }
-        }
-    }
-
-}
-
-void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
-{
-    qDebug() << "JobQueueModel::onSelectionChanged" << selected;
-    if(!selected.empty() and !selected.first().indexes().empty()) {
-        int row = selected.first().indexes().at(0).row();
-        JobQueueItem *item = m_jobs.at(row);
-        emit selectionChanged(item);
-    }
-
-//    if(!selected.empty() ) {
-//        emit selectionChanged(selected.first());
+//            if (reader->name() == JobQueueXML::ModelTag) {
+//                beginResetModel();
+//                const QString name = reader->attributes()
+//                        .value(JobQueueXML::ModelNameAttribute).toString();
+//                qDebug() << "JobQueueModel::readFrom " << name;
+//                setName(name);
+//            } else if(reader->name() == JobQueueXML::JobTag) {
+//                JobItem *job = new JobItem("");
+//                job->readFrom(reader);
+//                addJob(job);
+//            }
+//        } else if (reader->isEndElement()) {
+//            if (reader->name() == JobQueueXML::ModelTag) {
+//                endResetModel();
+//            }
+//        }
 //    }
+
 }
 
+//void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
+//{
+//    qDebug() << "JobQueueModel::onSelectionChanged" << selected;
+//    if(!selected.empty() and !selected.first().indexes().empty()) {
+//        int row = selected.first().indexes().at(0).row();
+//        JobItem *item = m_jobs.at(row);
+//        emit selectionChanged(item);
+//    }
 
-//! returns model index of given JobQueueItem
-QModelIndex JobQueueModel::indexOfItem(JobQueueItem *item) const
-{
-    if(m_jobs.contains(item)) {
-        return index(m_jobs.indexOf(item), 0);
-    }
-    throw GUIHelpers::Error("JobQueueModel::indexOfItem() -> Can't find index for item");
-}
+////    if(!selected.empty() ) {
+////        emit selectionChanged(selected.first());
+////    }
+//}
 
 
-//! Method should be called to inform given model about changes in JobQueueItem
-void JobQueueModel::jobQueueItemIsChanged(JobQueueItem *changed_item)
-{
-    QModelIndex item_index = indexOfItem(changed_item);
-    qDebug() << "JobQueueModel::jobQueueItemIsChanged" << item_index;
-    dataChanged(item_index, item_index);
-}
+////! returns model index of given JobQueueItem
+//QModelIndex JobQueueModel::indexOfItem(JobItem *item) const
+//{
+//    if(m_jobs.contains(item)) {
+//        return index(m_jobs.indexOf(item), 0);
+//    }
+//    throw GUIHelpers::Error("JobQueueModel::indexOfItem() -> Can't find index for item");
+//}
+
+
+////! Method should be called to inform given model about changes in JobQueueItem
+//void JobQueueModel::jobQueueItemIsChanged(JobItem *changed_item)
+//{
+//    QModelIndex item_index = indexOfItem(changed_item);
+//    qDebug() << "JobQueueModel::jobQueueItemIsChanged" << item_index;
+//    dataChanged(item_index, item_index);
+//}
 
 
 //! returns JobQueueItem for given index
-JobQueueItem *JobQueueModel::getJobQueueItemForIndex(const QModelIndex &index)
+const JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index) const
 {
     if(!index.isValid())
         throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index");
-    if(index.row() >=0 && index.row() < rowCount())
-        return m_jobs.at(index.row());
-    throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index p2");
-}
-
-const JobQueueItem *JobQueueModel::getJobQueueItemForIndex(const QModelIndex &index) const
-{
-    if(!index.isValid())
-        throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index");
-    if(index.row() >=0 && index.row() < rowCount())
-        return m_jobs.at(index.row());
+    if(index.row() >=0 && index.row() < rowCount()) {
+        const JobQueueItem *queue_item = m_jobs.at(index.row());
+        qDebug() << "JobQueueModel::getJobItemForIndex " << queue_item->getName() << queue_item->getIdentifier();
+        const JobItem *item = m_queue_data.getJobItem(queue_item->getIdentifier());
+        qDebug() << item;
+        return m_queue_data.getJobItem(queue_item->getIdentifier());
+    }
     throw GUIHelpers::Error("JobQueueModel::getJobQueueItemForIndex() -> Can't find item for index p2");
 }
 
 
-void JobQueueModel::runInThread(JobQueueItem *job)
+JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
+{
+    return const_cast<JobItem *>(static_cast<const JobQueueModel &>(*this).getJobItemForIndex(index));
+}
+
+
+
+
+void JobQueueModel::runInThread(JobItem *job)
 {
     qDebug() << "JobQueueItem::run(): preparing to run a thread" << job->getName();
-    JobItem *jobItem = new JobItem();
+    JobRunner *jobItem = new JobRunner(0);
     QThread *thread = new QThread();
     jobItem->moveToThread(thread);
 
@@ -349,7 +372,7 @@ void JobQueueModel::runInThread(JobQueueItem *job)
     connect(jobItem, SIGNAL(finished()), thread, SLOT(quit()));
     ////connect(jobItem, SIGNAL(finished()), this, SLOT(onJobFinished()));
     connect(jobItem, SIGNAL(progressUpdate(int)), job, SLOT(setProgress(int)));
-    connect(job, SIGNAL(modified(JobQueueItem*)), this, SLOT(jobQueueItemIsChanged(JobQueueItem*)));
+    connect(job, SIGNAL(modified(JobItem*)), this, SLOT(jobQueueItemIsChanged(JobItem*)));
 
     // objects will be deleted after JobItem is done
     connect(jobItem, SIGNAL(finished()), jobItem, SLOT(deleteLater()));
@@ -368,14 +391,14 @@ void JobQueueModel::runInThread(JobQueueItem *job)
 void JobQueueModel::onCancelJob(const QModelIndex &index)
 {
     qDebug() <<  "JobQueueModel::onCancelJob" << index;
-    JobQueueItem *job = getJobQueueItemForIndex(index);
-    qDebug() <<  "JobQueueModel::onCancelJob" << job;
-    QThread *thread = m_JobQueueItemToThread[job];
-    qDebug() << "AAA" << thread->isRunning();
-    if(thread) {
-        thread->quit();
-        //thread->wait();
-    }
+//    JobItem *job = getJobQueueItemForIndex(index);
+//    qDebug() <<  "JobQueueModel::onCancelJob" << job;
+//    QThread *thread = m_JobQueueItemToThread[job];
+//    qDebug() << "AAA" << thread->isRunning();
+//    if(thread) {
+//        thread->quit();
+//        //thread->wait();
+//    }
 }
 
 

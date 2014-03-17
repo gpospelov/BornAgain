@@ -1,6 +1,6 @@
 #include "JobQueueView.h"
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
+#include "JobItem.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
 #include "minisplitter.h"
@@ -18,9 +18,9 @@ JobQueueView::JobQueueView(QWidget *parent)
 {
     setObjectName("JobQueueView");
 
-    m_jobQueueModel->addJob(new JobQueueItem("job1"));
-    m_jobQueueModel->addJob(new JobQueueItem("job2"));
-    m_jobQueueModel->addJob(new JobQueueItem("job3"));
+    m_jobQueueModel->addJob(0);
+    m_jobQueueModel->addJob(0);
+    m_jobQueueModel->addJob(0);
 
     m_splitter->addWidget(m_jobSelector);
     m_splitter->addWidget(m_jobOutputData);

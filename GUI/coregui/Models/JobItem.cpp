@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QThread>
 
+
 JobItem::JobItem(QString name)
     : m_name(name)
     , m_status(Idle)
@@ -35,16 +36,6 @@ QString JobItem::getStatusString() const
 {
     return m_status_list.at(int(m_status));
 }
-
-
-//void JobItem::prepareToRun()
-//{
-//    m_begin_time.clear();
-//    m_end_time.clear();
-//    m_status = Idle;
-//    m_progress = 0;
-//    emit modified(this);
-//}
 
 
 void JobItem::writeTo(QXmlStreamWriter *writer)

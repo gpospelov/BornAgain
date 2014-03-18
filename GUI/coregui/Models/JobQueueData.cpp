@@ -11,8 +11,6 @@
 
 int JobQueueData::m_job_index = 0;
 
-
-
 //! Creates JobQueueItem and corresponding JobItem.
 //! Created JobItem will be registered using unique identifier
 JobQueueItem *JobQueueData::createJobQueueItem(Simulation *simulation)
@@ -63,7 +61,7 @@ JobRunner *JobQueueData::getRunner(QString identifier)
     return 0;
 }
 
-
+//! returns identifier for given JobIteM
 QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
 {
     for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
@@ -73,10 +71,9 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
 }
 
 
-void JobQueueData::onSubmitJob(QString identifier)
+//! submit job and run it in a thread
+void JobQueueData::runJob(QString identifier)
 {
-    //JobItem *jobItem = getJobItem(identifier);
-
     if(getThread(identifier)) {
         qDebug() << "JobQueueData::runInThread() -> Thread is already running";
         return;
@@ -107,11 +104,11 @@ void JobQueueData::onSubmitJob(QString identifier)
 
     qDebug() << "JobQueueData::runInThread() starting thread";
     thread->start();
-
 }
 
 
-void JobQueueData::onCancelJob(QString identifier)
+//! cancels running job
+void JobQueueData::cancelJob(QString identifier)
 {
     qDebug() << "JobQueueData::cancelJob()";
     if(QThread *thread = getThread(identifier)) {
@@ -127,6 +124,21 @@ void JobQueueData::onCancelJob(QString identifier)
         return;
     }
     qDebug() << "JobQueueData::cancelJob() -> No thread is running";
+}
+
+
+//! remove job from list
+void JobQueueData::removeJob(QString identifier)
+{
+    qDebug() << "JobQueueData::removeJob";
+    cancelJob(identifier);
+    for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
+        if(it.key() == identifier) {
+            delete it.value();
+            m_job_items.erase(it);
+            return;
+        }
+    }
 }
 
 
@@ -204,7 +216,7 @@ void JobQueueData::onCancelAllJobs()
 {
     QStringList keys = m_threads.keys();
     foreach(QString key, keys) {
-        onCancelJob(key);
+        cancelJob(key);
     }
 }
 
@@ -237,11 +249,13 @@ void JobQueueData::assignForDeletion(JobRunner *runner)
     throw GUIHelpers::Error("JobQueueData::assignForDeletion() -> Error! Can't find the runner.");
 }
 
+
 //! generates job name
 QString JobQueueData::generateJobName()
 {
     return QString("job")+QString::number(++m_job_index);
 }
+
 
 //! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()

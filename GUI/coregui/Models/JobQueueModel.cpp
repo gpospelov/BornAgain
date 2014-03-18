@@ -109,6 +109,10 @@ bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* par
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
     for (int row = 0; row < rows; ++row) {
+        QModelIndex item_index = index(position+row,0);
+        qDebug() << "removing" << item_index;
+        //emit selectionChanged(0);
+         m_queue_data->removeJob(getIdentifier(item_index));
         m_jobs.removeAt(position);
     }
     endRemoveRows();
@@ -270,24 +274,10 @@ void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QI
 {
     qDebug() << "JobQueueModel::onSelectionChanged" << selected;
     if(!selected.empty() and !selected.first().indexes().empty()) {
-//        int row = selected.first().indexes().at(0).row();
-//        JobQueueItem *queueItem = m_jobs.at(row);
-//        JobItem *item = m_queue_data.getJobItem(queueItem->getIdentifier());
-//        emit selectionChanged(item);
         QModelIndex index = selected.first().indexes().at(0);
         emit selectionChanged(getJobItemForIndex(index));
     }
 }
-
-
-////! returns model index of given JobQueueItem
-//QModelIndex JobQueueModel::indexOfItem(JobItem *item) const
-//{
-//    if(m_jobs.contains(item)) {
-//        return index(m_jobs.indexOf(item), 0);
-//    }
-//    throw GUIHelpers::Error("JobQueueModel::indexOfItem() -> Can't find index for item");
-//}
 
 
 //! Method should be called to inform given model about changes in JobItem
@@ -328,16 +318,16 @@ JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
 
 
 //! runs corresponding job in a thread
-void JobQueueModel::runInThread(const QModelIndex &index)
+void JobQueueModel::runJob(const QModelIndex &index)
 {
-    m_queue_data->onSubmitJob(getIdentifier(index));
+    m_queue_data->runJob(getIdentifier(index));
 
 }
 
 //! cancel corresponding job if it is running
-void JobQueueModel::onCancelJob(const QModelIndex &index)
+void JobQueueModel::cancelJob(const QModelIndex &index)
 {
-    m_queue_data->onCancelJob(getIdentifier(index));
+    m_queue_data->cancelJob(getIdentifier(index));
 }
 
 

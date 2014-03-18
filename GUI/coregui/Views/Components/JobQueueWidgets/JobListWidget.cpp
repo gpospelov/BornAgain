@@ -7,6 +7,7 @@
 #include <QListView>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QAction>
 
 
 JobListWidget::JobListWidget(QWidget *parent)
@@ -25,6 +26,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     m_listView->setAcceptDrops(true);
     m_listView->setDefaultDropAction(Qt::MoveAction);
     m_listView->setItemDelegate(m_listViewDelegate);
+    m_listView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -53,6 +55,8 @@ JobListWidget::JobListWidget(QWidget *parent)
     connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
     connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
     connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
+
+    setupContextMenu();
 }
 
 
@@ -87,28 +91,36 @@ void JobListWidget::save()
 
 void JobListWidget::submit()
 {
-    Q_ASSERT(m_jobQueueModel);
-    qDebug() << "JobListWidget::submit() -> ";
-//    m_jobQueueModel->addJob(new JobItem(QString("job")+QString::number(i++)));
-
     m_jobQueueModel->addJob(0);
-
 }
 
 
 void JobListWidget::run()
 {
-    Q_ASSERT(m_jobQueueModel);
-    qDebug() << "JobListWidget::run()";
-
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
-    qDebug() <<indexList;
-
     if(!indexList.empty()) {
-        m_jobQueueModel->runInThread(indexList.front());
-//        JobItem *job = m_jobQueueModel->getJobQueueItemForIndex(indexList.front());
-//        qDebug() << "JobListWidget::run()" << job->getName();
-////        job->run();
-//        m_jobQueueModel->runInThread(job);
+        m_jobQueueModel->runJob(indexList.front());
     }
 }
+
+
+//! setup context menu for listView
+void JobListWidget::setupContextMenu()
+{
+    QAction *removeJobAction = new QAction(tr("Remove Job"), this);
+    connect(removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
+    m_listView->addAction(removeJobAction);
+
+}
+
+
+//! remove job from the list
+void JobListWidget::removeJob()
+{
+    qDebug() << "JobListWidget::removeJob() ";
+    QModelIndex index = m_listView->selectionModel()->currentIndex();
+    m_jobQueueModel->removeRows(index.row(), 1, QModelIndex());
+}
+
+
+

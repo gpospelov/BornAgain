@@ -7,7 +7,6 @@
 #include <QModelIndex>
 #include <QMap>
 
-
 class JobItem;
 class JobQueueItem;
 class Simulation;
@@ -15,6 +14,7 @@ class QXmlStreamWriter;
 class QXmlStreamReader;
 class QItemSelection;
 class QThread;
+
 
 namespace JobQueueXML
 {
@@ -51,7 +51,6 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
-
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
 //    bool insertRows(int position, int rows, const QModelIndex &parent);
@@ -59,14 +58,10 @@ public:
 
     Qt::DropActions supportedDragActions() const { return Qt::MoveAction; }
     Qt::DropActions supportedDropActions() const { return Qt::MoveAction; }
-
     QStringList mimeTypes() const;
-
     QMimeData *mimeData(const QModelIndexList &indexes) const;
-
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
-
 
     void addJob(Simulation *simulation);
 
@@ -86,27 +81,21 @@ public:
     const JobItem *getJobItemForIndex(const QModelIndex &index) const;
     JobItem *getJobItemForIndex(const QModelIndex &index);
 
-    void runInThread(const QModelIndex &index);
-
-
     JobQueueData *getJobQueueData() { return m_queue_data; }
-public slots:
-    void onJobItemIsModified(JobItem *);
-    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
-    void onCancelJob(const QModelIndex &index);
 
 signals:
     void selectionChanged(JobItem *item);
 
+public slots:
+    void onJobItemIsModified(JobItem *);
+    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
+    void runJob(const QModelIndex &index);
+    void cancelJob(const QModelIndex &index);
+
 private:
     JobQueueData *m_queue_data;
-
     QString m_name;
     QList <JobQueueItem *> m_jobs;
-
-    QMap<JobItem *, QThread *> m_JobQueueItemToThread;
-    QMap<QThread *, JobItem *> m_ThreadToJobQueueItem;
-
 };
 
 

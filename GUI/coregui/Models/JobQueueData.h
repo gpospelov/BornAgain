@@ -9,8 +9,8 @@ class JobItem;
 class JobQueueItem;
 class Simulation;
 class JobRunner;
-
 class QThread;
+
 
 //! Holds correspondance of job identifiers and JobItem's, QThread's, JobRunner's
 //! Contains all submit/cancel logic
@@ -34,13 +34,15 @@ signals:
     void globalProgress(int);
 
 public slots:
-    void onSubmitJob(QString identifier);
-    void onCancelJob(QString identifier);
     void onStartedJob();
     void onProgressUpdate();
     void onFinishedJob();
     void onFinishedThread();
     void onCancelAllJobs();
+
+    void runJob(QString identifier);
+    void cancelJob(QString identifier);
+    void removeJob(QString identifier);
 
 private:
     void assignForDeletion(QThread *thread);

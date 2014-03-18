@@ -94,6 +94,8 @@ public:
 
 protected:
 
+   using QDesignerFormBuilder::createWidget;
+   using QDesignerFormBuilder::create;
     virtual QWidget *create(DomWidget *ui_widget, QWidget *parents);
     virtual QWidget *createWidget(const QString &widgetName, QWidget *parentWidget, const QString &name);
     virtual void createCustomWidgets(DomCustomWidgets *);

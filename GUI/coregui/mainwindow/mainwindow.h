@@ -27,6 +27,7 @@ class ActionManager;
 class ProjectManager;
 class QCloseEvent;
 class QSettings;
+class JobQueueModel;
 
 
 //class MainWindow : public QMainWindow
@@ -74,6 +75,8 @@ private:
     QSettings *m_settings; //!< application wide settings
 
     SimulationDataModel *mp_sim_data_model;
+    JobQueueModel *m_jobQueueModel; //!< model for all jobs
+
     // dummy simulation model initializer for test purposes
     void initSimModel();
     // dummy instrument creator

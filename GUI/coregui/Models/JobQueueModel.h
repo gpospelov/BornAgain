@@ -63,7 +63,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-    void addJob(Simulation *simulation);
+    QString addJob(Simulation *simulation);
 
     void clear();
 

@@ -93,7 +93,10 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //}
 
 
-void JobQueueModel::addJob(Simulation *simulation)
+//! Creates and adds JobQueueItem in the list of jobs.
+//! Corresponding JobItem will be created too.
+//! Returns unique identifier of created job.
+QString JobQueueModel::addJob(Simulation *simulation)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
@@ -103,6 +106,8 @@ void JobQueueModel::addJob(Simulation *simulation)
 
     JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+
+    return queue_item->getIdentifier();
 }
 
 
@@ -212,14 +217,14 @@ void JobQueueModel::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);
 
-//    writer->writeStartElement(JobQueueXML::ModelTag);
-//    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
+    writer->writeStartElement(JobQueueXML::ModelTag);
+    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
 
-//    foreach(JobItem *item, m_jobs) {
-//        item->writeTo(writer);
-//    }
-
-//    writer->writeEndElement(); // ModelTag
+    foreach(JobQueueItem *queueItem, m_jobs) {
+        JobItem *jobItem = m_queue_data->getJobItem(queueItem->getIdentifier());
+        jobItem->writeTo(writer);
+    }
+    writer->writeEndElement(); // ModelTag
 }
 
 
@@ -246,28 +251,32 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-//    clear();
-//    while (!reader->atEnd()) {
-//        reader->readNext();
-//        if (reader->isStartElement()) {
+    clear();
+    while (!reader->atEnd()) {
+        reader->readNext();
+        if (reader->isStartElement()) {
 
-//            if (reader->name() == JobQueueXML::ModelTag) {
-//                beginResetModel();
-//                const QString name = reader->attributes()
-//                        .value(JobQueueXML::ModelNameAttribute).toString();
-//                qDebug() << "JobQueueModel::readFrom " << name;
-//                setName(name);
-//            } else if(reader->name() == JobQueueXML::JobTag) {
+            if (reader->name() == JobQueueXML::ModelTag) {
+                beginResetModel();
+                const QString name = reader->attributes()
+                        .value(JobQueueXML::ModelNameAttribute).toString();
+                qDebug() << "JobQueueModel::readFrom " << name;
+                setName(name);
+            } else if(reader->name() == JobQueueXML::JobTag) {
+                QString identifier = addJob(0);
+                m_queue_data->getJobItem(identifier)->readFrom(reader);
 //                JobItem *job = new JobItem("");
-//                job->readFrom(reader);
+//                JobQueueItem *queue_item = m_queue_data->createJobQueueItem(0);
+
+                //job->readFrom(reader);
 //                addJob(job);
-//            }
-//        } else if (reader->isEndElement()) {
-//            if (reader->name() == JobQueueXML::ModelTag) {
-//                endResetModel();
-//            }
-//        }
-//    }
+            }
+        } else if (reader->isEndElement()) {
+            if (reader->name() == JobQueueXML::ModelTag) {
+                endResetModel();
+            }
+        }
+    }
 
 }
 

@@ -32,7 +32,7 @@ public:
         NumberOfSubWindows
     };
 
-    JobQueueView(QWidget *parent = 0);
+    JobQueueView(JobQueueModel *model, QWidget *parent = 0);
     virtual ~JobQueueView() {}
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);

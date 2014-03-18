@@ -10,18 +10,18 @@
 #include <QSplitter>
 
 
-JobQueueView::JobQueueView(QWidget *parent)
+JobQueueView::JobQueueView(JobQueueModel *model, QWidget *parent)
     : QWidget(parent)
-    , m_jobQueueModel(new JobQueueModel())
+    , m_jobQueueModel(model)
     , m_splitter(new Manhattan::MiniSplitter(this))
     , m_jobSelector(new JobSelectorWidget(m_jobQueueModel, this))
     , m_jobOutputData(new JobOutputDataWidget(this))
 {
     setObjectName("JobQueueView");
 
-    m_jobQueueModel->addJob(0);
-    m_jobQueueModel->addJob(0);
-    m_jobQueueModel->addJob(0);
+//    m_jobQueueModel->addJob(0);
+//    m_jobQueueModel->addJob(0);
+//    m_jobQueueModel->addJob(0);
 
     m_splitter->addWidget(m_jobSelector);
     m_splitter->addWidget(m_jobOutputData);
@@ -49,7 +49,6 @@ void JobQueueView::setProgressBar(Manhattan::ProgressBar *progressBar)
 void JobQueueView::updateGlobalProgressBar(int progress)
 {
     if(progress<0 || progress >= 100) {
-        //m_progressBar->hide();
         m_progressBar->setFinished(true);
         m_progressBar->hide();
     } else {

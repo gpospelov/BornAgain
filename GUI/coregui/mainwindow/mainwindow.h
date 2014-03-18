@@ -5,8 +5,10 @@
 #include "fancymainwindow.h"
 #include "mainwindow_constants.h"
 
+
 namespace Manhattan {
     class FancyTabWidget;
+    class ProgressBar;
 }
 
 class TaskSelectorWidget;
@@ -38,6 +40,9 @@ public:
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
 
+    Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
+
+
 public slots:
     void onChangeTabWidget(int index);
     void newProject();
@@ -62,6 +67,7 @@ private:
     JobView *m_jobView;
     FitView * m_fitView;
     JobQueueView * m_jobQueueView;
+    Manhattan::ProgressBar *m_progressBar;
 
     ActionManager *m_actionManager; //!< responsible for menus and actions
     ProjectManager *m_projectManager; //!< handles activity related to opening/saving projects

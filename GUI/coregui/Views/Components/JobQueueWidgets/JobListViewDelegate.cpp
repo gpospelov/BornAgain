@@ -1,6 +1,6 @@
 #include "JobListViewDelegate.h"
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
+#include "JobItem.h"
 #include "progressbar.h"
 #include <QDebug>
 #include <QPainter>
@@ -20,21 +20,13 @@ JobListViewDelegate::JobListViewDelegate(QWidget *parent)
 void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                   const QModelIndex &index ) const
 {
-
-    qDebug() << "JobListViewDelegate::paint() " << index;
-//    QItemDelegate::paint(painter, option, index);
-
-    // Set up a QStyleOptionProgressBar to precisely mimic the
-    // environment of a progress bar.
-
-
     if (option.state & QStyle::State_Selected)
         painter->fillRect(option.rect, option.palette.highlight());
 
     const JobQueueModel* model = static_cast<const JobQueueModel*>(index.model());
     Q_ASSERT(model);
 
-    const JobQueueItem *item = model->getJobQueueItemForIndex(index);
+    const JobItem *item = model->getJobItemForIndex(index);
     Q_ASSERT(item);
 
     painter->save();
@@ -45,8 +37,6 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QRect textRect = getTextRect(option.rect);
     textRect.setHeight( 30);
     painter->drawText(textRect,text);
-
-    QRect barRect(option.rect);
 
     QStyleOptionProgressBar progressBarOption;
     progressBarOption.state = QStyle::State_Enabled;
@@ -61,16 +51,17 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     // Set the progress and text values of the style option.
     int progress = item->getProgress();
     progressBarOption.progress = progress < 0 ? 0 : progress;
-//    progressBarOption.text = QString().sprintf("%d%%", progressBarOption.progress);
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
 
-    QStyleOptionButton button;
-    button.rect = getButtonRect(option.rect);
-    button.state = m_buttonState | QStyle::State_Enabled;
-    button.icon = QIcon(":/images/darkclosebutton.png");
-    button.iconSize = QSize(12,12);
+    if(item->isRunning()) {
+        QStyleOptionButton button;
+        button.rect = getButtonRect(option.rect);
+        button.state = m_buttonState | QStyle::State_Enabled;
+        button.icon = QIcon(":/images/darkclosebutton.png");
+        button.iconSize = QSize(12,12);
 
-    QApplication::style()->drawControl (QStyle::CE_PushButton, &button, painter);
+        QApplication::style()->drawControl (QStyle::CE_PushButton, &button, painter);
+    }
 
     painter->restore();
 }
@@ -84,10 +75,19 @@ bool JobListViewDelegate::editorEvent(QEvent *event,
     if( event->type() == QEvent::MouseButtonPress ||
         event->type() == QEvent::MouseButtonRelease ) {
     } else {
-         m_buttonState = QStyle::State_Raised;
-         return QItemDelegate::editorEvent(event, model, option, index);
+        m_buttonState = QStyle::State_Raised;
+        return QItemDelegate::editorEvent(event, model, option, index);
         return true;
     }
+
+
+    const JobQueueModel* jqmodel = static_cast<const JobQueueModel*>(index.model());
+    Q_ASSERT(model);
+
+    const JobItem *item = jqmodel->getJobItemForIndex(index);
+    Q_ASSERT(item);
+
+    if(!item->isRunning()) return false;
 
     QRect buttonRect = getButtonRect(option.rect);
 

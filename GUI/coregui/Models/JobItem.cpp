@@ -1,48 +1,103 @@
 #include "JobItem.h"
-#include <QTimer>
+#include "JobQueueModel.h"
+#include "JobRunner.h"
+#include "OutputDataItem.h"
+#include "GUIHelpers.h"
+#include <QXmlStreamWriter>
 #include <QDebug>
+#include <QTimer>
+#include <QThread>
 
 
-JobItem::JobItem()
-    : m_progress(0)
+JobItem::JobItem(QString name)
+    : m_name(name)
+    , m_status(Idle)
+    , m_progress(0)
 {
-
+    m_data_items.append(new OutputDataItem());
+    m_status_list << "" << "running" << "completed" << "canceled";
 }
 
 
 JobItem::~JobItem()
 {
-    qDebug() << "JobItem::~JobItem()";
+    clear();
 }
 
 
-void JobItem::run()
+void JobItem::clear()
 {
-    qDebug() << "JobItem::run() 1.1";
-    loopFunctionWithDelay();
-    qDebug() << "JobItem::run() 1.2 emiting finished";
+    qDeleteAll(m_data_items);
+    m_data_items.clear();
 }
 
 
-
-void JobItem::loopFunctionWithDelay()
+QString JobItem::getStatusString() const
 {
-    qDebug() << "JobItem::loopFunctionWithDelay()" << m_progress;
-    if(m_progress < 100) {
-        m_progress++;
-        emit progressUpdate(m_progress);
-        QTimer::singleShot(500, this, SLOT(loopFunctionWithDelay()));
+    return m_status_list.at(int(m_status));
+}
+
+
+void JobItem::writeTo(QXmlStreamWriter *writer)
+{
+    Q_ASSERT(writer);
+    writer->writeStartElement(JobQueueXML::JobTag);
+    writer->writeAttribute(JobQueueXML::JobNameAttribute, getName());
+    writer->writeAttribute(JobQueueXML::JobStatusAttribute, QString::number((int)getStatus()));
+    writer->writeAttribute(JobQueueXML::JobBeginTimeAttribute, getBeginTime());
+    writer->writeAttribute(JobQueueXML::JobEndTimeAttribute, getEndTime());
+    writer->writeAttribute(JobQueueXML::JobCommentsAttribute, getComments());
+    foreach(OutputDataItem *item, m_data_items) {
+        item->writeTo(writer);
+    }
+    writer->writeEndElement(); // JobTag
+}
+
+
+void JobItem::readFrom(QXmlStreamReader *reader)
+{
+    Q_ASSERT(reader);
+    clear();
+
+    qDebug() << "JobQueueItem::readFrom() -> " << reader->name();
+    if(reader->name() != JobQueueXML::JobTag) {
+        throw GUIHelpers::Error("JobQueueItem::readFrom() -> Format error in p1");
     }
 
-    if(m_progress == 100) {
-        emit progressUpdate(m_progress);
-        emit finished();
+    setName(reader->attributes()
+            .value(JobQueueXML::JobNameAttribute).toString());
+
+    setBeginTime(reader->attributes()
+            .value(JobQueueXML::JobBeginTimeAttribute).toString());
+
+    setEndTime(reader->attributes()
+            .value(JobQueueXML::JobEndTimeAttribute).toString());
+
+    setComments(reader->attributes()
+            .value(JobQueueXML::JobCommentsAttribute).toString());
+
+    JobStatus status = (JobStatus) (reader->attributes()
+            .value(JobQueueXML::JobStatusAttribute).toInt());
+    setStatus(status);
+
+
+    while (!reader->atEnd()) {
+        reader->readNext();
+        if (reader->isStartElement()) {
+
+            if (reader->name() == JobQueueXML::OutputDataTag) {
+                qDebug() << "XXX output data";
+                OutputDataItem *item = new OutputDataItem();
+                item->readFrom(reader);
+                m_data_items.append(item);
+            }
+        } else if (reader->isEndElement()) {
+            if (reader->name() == JobQueueXML::JobTag) {
+                break; // end of xml of current Job
+            }
+        }
     }
+
 }
 
 
-
-void JobItem::terminate()
-{
-    m_progress = 1000;
-}

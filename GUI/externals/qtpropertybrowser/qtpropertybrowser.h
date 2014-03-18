@@ -168,6 +168,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
 {
 public:
     explicit QtAbstractEditorFactory(QObject *parent) : QtAbstractEditorFactoryBase(parent) {}
+    using QtAbstractEditorFactoryBase::createEditor;
     QWidget *createEditor(QtProperty *property, QWidget *parent)
     {
         QSetIterator<PropertyManager *> it(m_managers);

@@ -1,17 +1,20 @@
 #ifndef JOBQUEUEMODEL_H
 #define JOBQUEUEMODEL_H
 
+#include "JobQueueData.h"
 #include <QAbstractListModel>
 #include <QList>
 #include <QModelIndex>
 #include <QMap>
 
-
+class JobItem;
 class JobQueueItem;
+class Simulation;
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class QItemSelection;
 class QThread;
+
 
 namespace JobQueueXML
 {
@@ -36,6 +39,8 @@ namespace JobQueueXML
 }
 
 
+//! The model for all jobs in a queue. Contains JobQueueItem in a list.
+//! Provides interface to access real JobItem objects.
 class JobQueueModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -46,7 +51,6 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
-
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
 //    bool insertRows(int position, int rows, const QModelIndex &parent);
@@ -54,16 +58,12 @@ public:
 
     Qt::DropActions supportedDragActions() const { return Qt::MoveAction; }
     Qt::DropActions supportedDropActions() const { return Qt::MoveAction; }
-
     QStringList mimeTypes() const;
-
     QMimeData *mimeData(const QModelIndexList &indexes) const;
-
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-
-    void addJob(JobQueueItem *item);
+    void addJob(Simulation *simulation);
 
     void clear();
 
@@ -76,29 +76,26 @@ public:
     QString getName() const { return m_name; }
     void setName(QString name) { m_name = name; }
 
-    JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index);
-    const JobQueueItem *getJobQueueItemForIndex(const QModelIndex &index) const;
+    QString getIdentifier(const QModelIndex &index) const;
 
+    const JobItem *getJobItemForIndex(const QModelIndex &index) const;
+    JobItem *getJobItemForIndex(const QModelIndex &index);
 
-    void runInThread(JobQueueItem *job);
-
-public slots:
-    void jobQueueItemIsChanged(JobQueueItem *item);
-    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
-
-    void onCancelJob(const QModelIndex &index);
+    JobQueueData *getJobQueueData() { return m_queue_data; }
 
 signals:
-    void selectionChanged(JobQueueItem *item);
+    void selectionChanged(JobItem *item);
+
+public slots:
+    void onJobItemIsModified(JobItem *);
+    void onSelectionChanged( const QItemSelection&, const QItemSelection& );
+    void runJob(const QModelIndex &index);
+    void cancelJob(const QModelIndex &index);
 
 private:
-    QModelIndex indexOfItem(JobQueueItem *item) const;
-
+    JobQueueData *m_queue_data;
     QString m_name;
     QList <JobQueueItem *> m_jobs;
-
-    QMap<JobQueueItem *, QThread *> m_JobQueueItemToThread;
-    QMap<QThread *, JobQueueItem *> m_ThreadToJobQueueItem;
 };
 
 

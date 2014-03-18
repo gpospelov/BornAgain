@@ -1,25 +1,13 @@
 #include "JobQueueView.h"
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
+#include "JobItem.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
-
 #include "minisplitter.h"
-
-#include <QGridLayout>
-#include <QHBoxLayout>
+#include "progressbar.h"
 #include <QVBoxLayout>
-#include <QListView>
-#include <QTreeView>
-#include <QTableView>
-#include <QPushButton>
 #include <QDebug>
-#include <QDockWidget>
 #include <QSplitter>
-
-
-
-class QStandardItemModel;
 
 
 JobQueueView::JobQueueView(QWidget *parent)
@@ -31,9 +19,9 @@ JobQueueView::JobQueueView(QWidget *parent)
 {
     setObjectName("JobQueueView");
 
-    m_jobQueueModel->addJob(new JobQueueItem("job1"));
-    m_jobQueueModel->addJob(new JobQueueItem("job2"));
-    m_jobQueueModel->addJob(new JobQueueItem("job3"));
+    m_jobQueueModel->addJob(0);
+    m_jobQueueModel->addJob(0);
+    m_jobQueueModel->addJob(0);
 
     m_splitter->addWidget(m_jobSelector);
     m_splitter->addWidget(m_jobOutputData);
@@ -44,13 +32,31 @@ JobQueueView::JobQueueView(QWidget *parent)
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 
-
-//    connect(
-//        m_jobQueueModel->selectionModel(),
-
-//    );
-
+    connect(m_jobQueueModel->getJobQueueData(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
 }
 
+
+void JobQueueView::setProgressBar(Manhattan::ProgressBar *progressBar)
+{
+    if(m_progressBar != progressBar) {
+        m_progressBar = progressBar;
+        m_progressBar->hide();
+        connect(m_progressBar, SIGNAL(clicked()), m_jobQueueModel->getJobQueueData(), SLOT(onCancelAllJobs()));
+    }
+}
+
+
+void JobQueueView::updateGlobalProgressBar(int progress)
+{
+    if(progress<0 || progress >= 100) {
+        //m_progressBar->hide();
+        m_progressBar->setFinished(true);
+        m_progressBar->hide();
+    } else {
+        m_progressBar->show();
+        m_progressBar->setFinished(false);
+        m_progressBar->setValue(progress);
+    }
+}
 
 

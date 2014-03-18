@@ -7,11 +7,10 @@
 class QtProperty;
 class QtVariantProperty;
 class JobQueueModel;
-class JobQueueItem;
+class JobItem;
 
-//! Widget to show and change properties of currently selected JobQueueItem
+//! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobQueueView
-
 class JobPropertiesWidget : public QWidget
 {
     Q_OBJECT
@@ -24,7 +23,8 @@ public:
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
 public slots:
-    void itemClicked(JobQueueItem *item);
+    void itemClicked(JobItem *item);
+    void dataChanged(const QModelIndex &, const QModelIndex &);
 
 private slots:
     void valueChanged(QtProperty *property, const QVariant &value);
@@ -40,7 +40,7 @@ private:
     QMap<QString, QtVariantProperty *> idToProperty;
     QMap<QString, bool> idToExpanded;
 
-    JobQueueItem *m_currentItem;
+    JobItem *m_currentItem;
 };
 
 

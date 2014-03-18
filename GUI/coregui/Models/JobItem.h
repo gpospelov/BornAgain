@@ -4,7 +4,7 @@
 #include <QList>
 #include <QVariant>
 #include <QString>
-#include <QFutureWatcher>
+#include <QStringList>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
@@ -20,6 +20,14 @@ class JobItem : public QObject
     Q_OBJECT
 
 public:
+    enum JobStatus
+    {
+        Idle,
+        Running,
+        Completed,
+        Canceled
+    };
+
     JobItem(QString name);
     virtual ~JobItem();
 
@@ -31,46 +39,40 @@ public:
 
     QString getComments() const { return m_comments; }
 
-    QString getStatus() const { return m_status; }
+    JobStatus getStatus() const { return m_status; }
+
+    QString getStatusString() const;
 
     int getProgress() const { return m_progress; }
 
     void writeTo(QXmlStreamWriter *writer);
     void readFrom(QXmlStreamReader *reader);
 
-    void clear();
+    bool isRunning() const { return m_status == Running; }
 
-//    void run();
-
-//    QFutureWatcher<void> *getJobWatcher() { return mp_job_watcher; }
+signals:
+    void modified(JobItem *);
 
 public slots:
-    void onJobFinished();
     void setName(QString name) { m_name = name; emit modified(this); }
     void setBeginTime(QString begin_time) { m_begin_time = begin_time; emit modified(this);}
     void setEndTime(QString end_time) { m_end_time = end_time; emit modified(this);}
     void setComments(QString comments) { m_comments = comments; emit modified(this);}
-    void setStatus(QString status) { m_status = status; emit modified(this);}
+    void setStatus(JobStatus status) { m_status = status; emit modified(this);}
     void setProgress(int progress) { m_progress = progress; emit modified(this); }
 
-//    void loopFunctionWithDelay();
-
-signals:
-    void modified(JobItem *item);
-
 private:
+    void clear();
+
     QString m_name;
     QString m_begin_time;
     QString m_end_time;
     QString m_comments;
-    QString m_status;
+    JobStatus m_status;
     int m_progress;
 
     QList<OutputDataItem *> m_data_items;
-
-//    int m_counterForDelayedLoop ;
-//    QFutureWatcher<void> *mp_job_watcher;
-
+    QStringList m_status_list;
 };
 
 

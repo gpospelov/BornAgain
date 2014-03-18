@@ -13,6 +13,7 @@ class JobRunner;
 class QThread;
 
 //! Holds correspondance of job identifiers and JobItem's, QThread's etc
+//! Contains all submit/cancel logic
 class JobQueueData : public QObject
 {
     Q_OBJECT
@@ -29,33 +30,26 @@ public:
 
     QString getIdentifierForJobItem(const JobItem *);
 
-    void runInThread(QString identifier);
-
-    void cancelJob(QString identifier);
-
 public slots:
-//    void onFinishedThread();
+    void onSubmitJob(QString identifier);
+    void onCancelJob(QString identifier);
     void onStartedJob();
-    void onFinishedJob();
     void onProgressUpdate();
-
-    void onDestroyedThread();
-    void onDestroyedRunner();
+    void onFinishedJob();
+    void onFinishedThread();
 
 private:
+    void assignForDeletion(QThread *thread);
+    void assignForDeletion(JobRunner *runner);
+
     QString generateJobName();
     QString generateJobIdentifier();
 
-//    void deleteThread(QThread *thread);
-//    void deleteRunner(JobRunner *runner);
+    QMap<QString, JobItem *> m_job_items; //!< correspondance of JobIdentifier and JobItem's
+    QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
+    QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
 
     static int m_job_index;
-
-    QMap<QString, JobItem *> m_job_items; //!< correspondance of JobIdentifier and JobItem's
-
-    QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
-
-    QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and jobRunner
 };
 
 

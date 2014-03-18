@@ -10,15 +10,11 @@
 
 JobItem::JobItem(QString name)
     : m_name(name)
+    , m_status(Idle)
     , m_progress(0)
 {
     m_data_items.append(new OutputDataItem());
-
-//    mp_job_watcher = new QFutureWatcher<void>;
-//    connect(mp_job_watcher, SIGNAL(finished()), this, SLOT(onJobFinished()));
-
-//    m_jobItem = new JobItem();
-
+    m_status_list << "" << "running" << "completed" << "canceled";
 }
 
 
@@ -28,53 +24,6 @@ JobItem::~JobItem()
 }
 
 
-
-//void JobQueueItem::run()
-//{
-//    qDebug() << "JobQueueItem::run(): preparing to run a thread";
-//    JobItem *jobItem = new JobItem();
-//    QThread *thread = new QThread();
-//    jobItem->moveToThread(thread);
-
-//    // thread will start jobItem::run
-//    connect(thread, SIGNAL(started()), jobItem, SLOT(run()));
-
-//    // thread will quit after JobItem is done
-//    connect(jobItem, SIGNAL(finished()), thread, SLOT(quit()));
-//    connect(jobItem, SIGNAL(finished()), this, SLOT(onJobFinished()));
-
-//    // objects will be deleted after JobItem is done
-//    connect(jobItem, SIGNAL(finished()), jobItem, SLOT(deleteLater()));
-//    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-//    qDebug() << "JobQueueItem::run(): starting thread";
-//    thread->start();
-//    qDebug() << "JobQueueItem::run(): thread is started";
-
-//}
-
-
-void JobItem::onJobFinished()
-{
-    qDebug() << "JobQueueItem::onJobFinished()";
-}
-
-
-//void JobQueueItem::loopFunctionWithDelay()
-//{
-//    qDebug() << "JobQueueItem::loopFunctionWithDelay()" << m_counterForDelayedLoop;
-//    if(m_counterForDelayedLoop < 100) {
-//        m_counterForDelayedLoop++;
-//        qDebug() << "XXX1";
-//        QTimer::singleShot(5000, this, SLOT(loopFunctionWithDelay()));
-//        qDebug() << "XXX2";
-//    }
-
-//}
-
-// --------------------
-
-
 void JobItem::clear()
 {
     qDeleteAll(m_data_items);
@@ -82,12 +31,28 @@ void JobItem::clear()
 }
 
 
+QString JobItem::getStatusString() const
+{
+    return m_status_list.at(int(m_status));
+}
+
+
+//void JobItem::prepareToRun()
+//{
+//    m_begin_time.clear();
+//    m_end_time.clear();
+//    m_status = Idle;
+//    m_progress = 0;
+//    emit modified(this);
+//}
+
+
 void JobItem::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);
     writer->writeStartElement(JobQueueXML::JobTag);
     writer->writeAttribute(JobQueueXML::JobNameAttribute, getName());
-    writer->writeAttribute(JobQueueXML::JobStatusAttribute, getStatus());
+    writer->writeAttribute(JobQueueXML::JobStatusAttribute, QString::number((int)getStatus()));
     writer->writeAttribute(JobQueueXML::JobBeginTimeAttribute, getBeginTime());
     writer->writeAttribute(JobQueueXML::JobEndTimeAttribute, getEndTime());
     writer->writeAttribute(JobQueueXML::JobCommentsAttribute, getComments());
@@ -120,8 +85,9 @@ void JobItem::readFrom(QXmlStreamReader *reader)
     setComments(reader->attributes()
             .value(JobQueueXML::JobCommentsAttribute).toString());
 
-    setStatus(reader->attributes()
-            .value(JobQueueXML::JobStatusAttribute).toString());
+    JobStatus status = (JobStatus) (reader->attributes()
+            .value(JobQueueXML::JobStatusAttribute).toInt());
+    setStatus(status);
 
 
     while (!reader->atEnd()) {

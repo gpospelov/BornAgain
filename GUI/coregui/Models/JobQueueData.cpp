@@ -6,6 +6,7 @@
 #include <QUuid>
 #include <QThread>
 #include <QDateTime>
+#include <QDebug>
 
 
 int JobQueueData::m_job_index = 0;
@@ -72,7 +73,7 @@ QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
 }
 
 
-void JobQueueData::runInThread(QString identifier)
+void JobQueueData::onSubmitJob(QString identifier)
 {
     //JobItem *jobItem = getJobItem(identifier);
 
@@ -92,22 +93,17 @@ void JobQueueData::runInThread(QString identifier)
     connect(thread, SIGNAL(started()), runner, SLOT(start()));
 
     // after runner is finished it will tell to the thread to quit
-    connect(runner, SIGNAL(finished()), thread, SLOT(quit()));
+    //connect(runner, SIGNAL(finished()), thread, SLOT(quit()));
 
-    // finished thread will remove itself from the list
-    //connect(thread, SIGNAL(finished()), this, SLOT(onFinishedThread()));
+    // finished thread will be removed from the list
+    connect(thread, SIGNAL(finished()), this, SLOT(onFinishedThread()));
 
-    // runner will delete itself after it is done
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), runner, SLOT(deleteLater()));
-    connect(thread, SIGNAL(destroyed()), this, SLOT(onDestroyedThread()));
-    connect(runner, SIGNAL(destroyed()), this, SLOT(onDestroyedRunner()));
-
-    // connecting the runner to started/finished/progress slots
+    // connecting the runner to started/progress slots
     connect(runner, SIGNAL(started()), this, SLOT(onStartedJob()));
-    connect(runner, SIGNAL(finished()), this, SLOT(onFinishedJob()));
     connect(runner, SIGNAL(progressUpdate()), this, SLOT(onProgressUpdate()));
 
+    // finished job will do all cleanup
+    connect(runner, SIGNAL(finished()), this, SLOT(onFinishedJob()));
 
     qDebug() << "JobQueueData::runInThread() starting thread";
     thread->start();
@@ -115,37 +111,22 @@ void JobQueueData::runInThread(QString identifier)
 }
 
 
-void JobQueueData::cancelJob(QString identifier)
+void JobQueueData::onCancelJob(QString identifier)
 {
     qDebug() << "JobQueueData::cancelJob()";
     if(QThread *thread = getThread(identifier)) {
         thread->quit();
-        getJobItem(identifier)->setStatus("canceled");
-        //deleteThread(thread);
-        //deleteRunner(getRunner(identifier));
+        JobItem *jobItem = getJobItem(identifier);
+        jobItem->setStatus(JobItem::Canceled);
+        jobItem->setEndTime(QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
+        jobItem->setProgress(0);
+        JobRunner *runner = getRunner(identifier);
+        runner->disconnect();
+        assignForDeletion(runner);
         return;
     }
     qDebug() << "JobQueueData::cancelJob() -> No thread is running";
 }
-
-
-//void JobQueueData::onFinishedThread()
-//{
-//    qDebug() << "JobQueueData::onFinishedThread()";
-//    QThread *thread = qobject_cast<QThread *>(sender());
-//    Q_ASSERT(thread);
-
-    //deleteThread(thread);
-//    for(QMap<QString, QThread *>::iterator it=m_threads.begin(); it!=m_threads.end(); ++it) {
-//        if(it.value() == thread) {
-//            delete thread;
-//            m_threads.erase(it);
-//            qDebug() << "JobQueueData::onFinishedThread() 1.2" << m_threads.size();
-//            return;
-//        }
-//    }
-//    throw GUIHelpers::Error("JobQueueData::onFinishedThread() -> Error! Can't find thread.");
-//}
 
 
 void JobQueueData::onStartedJob()
@@ -154,11 +135,11 @@ void JobQueueData::onStartedJob()
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
-    jobItem->setStatus("started");
+    jobItem->setProgress(0);
+    jobItem->setStatus(JobItem::Running);
     QString begin_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setBeginTime(begin_time);
-    qDebug() << "JobQueueData::onStartedJob() 1.2" << jobItem->getBeginTime();
-
+    jobItem->setEndTime("");
 }
 
 
@@ -168,11 +149,24 @@ void JobQueueData::onFinishedJob()
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
-    jobItem->setStatus("completed");
+    jobItem->setStatus(JobItem::Completed);
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
-//    deleteRunner(runner);
+
+    // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
+    getThread(runner->getIdentifier())->quit();
+
+    assignForDeletion(runner);
 }
+
+
+void JobQueueData::onFinishedThread()
+{
+    qDebug() << "JobQueueData::onFinishedThread()";
+    QThread *thread = qobject_cast<QThread *>(sender());
+    assignForDeletion(thread);
+}
+
 
 void JobQueueData::onProgressUpdate()
 {
@@ -184,43 +178,44 @@ void JobQueueData::onProgressUpdate()
 }
 
 
+//! Removes QThread from the map of known threads, assigns it for deletion.
+void JobQueueData::assignForDeletion(QThread *thread)
+{
+    Q_ASSERT(thread);
+    for(QMap<QString, QThread *>::iterator it=m_threads.begin(); it!=m_threads.end(); ++it) {
+        if(it.value() == thread) {
+            thread->deleteLater();
+            m_threads.erase(it);
+            return;
+        }
+    }
+    throw GUIHelpers::Error("JobQueueData::assignForDeletion() -> Error! Can't find thread.");
+}
+
+
+//! Removes JobRunner from the map of known runners, assigns it for deletion.
+void JobQueueData::assignForDeletion(JobRunner *runner)
+{
+    Q_ASSERT(runner);
+    for(QMap<QString, JobRunner *>::iterator it=m_runners.begin(); it!=m_runners.end(); ++it) {
+        if(it.value() == runner) {
+            runner->deleteLater();
+            m_runners.erase(it);
+            return;
+        }
+    }
+    throw GUIHelpers::Error("JobQueueData::assignForDeletion() -> Error! Can't find the runner.");
+}
+
+//! generates job name
 QString JobQueueData::generateJobName()
 {
     return QString("job")+QString::number(++m_job_index);
 }
 
-
+//! generate unique job identifier
 QString JobQueueData::generateJobIdentifier()
 {
     return QUuid::createUuid().toString();
 }
 
-
-void JobQueueData::onDestroyedThread()
-{
-    qDebug() << "JobQueueData::onDestroyedThread()";
-    QThread *thread = qobject_cast<QThread *>(sender());
-    Q_ASSERT(thread);
-
-    for(QMap<QString, QThread *>::iterator it=m_threads.begin(); it!=m_threads.end(); ++it) {
-        if(it.value() == thread) {
-            m_threads.erase(it);
-        }
-    }
-}
-
-
-void JobQueueData::onDestroyedRunner()
-{
-    qDebug() << "JobQueueData::onDestroyedRunner()";
-    QObject *runner = qobject_cast<QObject *>(sender());
-    Q_ASSERT(runner);
-    runner->disconnect();
-    for(QMap<QString, JobRunner *>::iterator it=m_runners.begin(); it!=m_runners.end(); ++it) {
-        if(it.value() == runner) {
-            m_runners.erase(it);
-            return;
-        }
-    }
-    throw GUIHelpers::Error("JobQueueData::onDestroyedRunner() -> Error! Can't find item.");
-}

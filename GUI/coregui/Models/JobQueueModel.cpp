@@ -332,16 +332,14 @@ JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
 //! runs corresponding job in a thread
 void JobQueueModel::runInThread(const QModelIndex &index)
 {
-    m_queue_data.runInThread(getIdentifier(index));
+    m_queue_data.onSubmitJob(getIdentifier(index));
 
 }
 
 //! cancel corresponding job if it is running
 void JobQueueModel::onCancelJob(const QModelIndex &index)
 {
-    qDebug() <<  "JobQueueModel::onCancelJob" << index;
-    m_queue_data.cancelJob(getIdentifier(index));
-
+    m_queue_data.onCancelJob(getIdentifier(index));
 }
 
 

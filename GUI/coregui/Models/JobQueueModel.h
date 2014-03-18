@@ -81,12 +81,10 @@ public:
     QString getName() const { return m_name; }
     void setName(QString name) { m_name = name; }
 
-
     QString getIdentifier(const QModelIndex &index) const;
 
     const JobItem *getJobItemForIndex(const QModelIndex &index) const;
     JobItem *getJobItemForIndex(const QModelIndex &index);
-
 
     void runInThread(const QModelIndex &index);
 

@@ -20,6 +20,7 @@ public:
     virtual ~PropertyVariantFactory();
 protected:
     virtual void connectPropertyManager(QtVariantPropertyManager *manager);
+    using QtVariantEditorFactory::createEditor;
     virtual QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
     virtual void disconnectPropertyManager(QtVariantPropertyManager *manager);

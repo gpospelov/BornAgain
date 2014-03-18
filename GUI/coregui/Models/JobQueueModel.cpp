@@ -19,6 +19,7 @@
 
 JobQueueModel::JobQueueModel(QObject *parent)
     : QAbstractListModel(parent)
+    , m_queue_data(new JobQueueData)
     , m_name("DefaultName")
 
 {
@@ -29,6 +30,7 @@ JobQueueModel::JobQueueModel(QObject *parent)
 JobQueueModel::~JobQueueModel()
 {
     qDeleteAll(m_jobs);
+    delete m_queue_data;
 }
 
 
@@ -94,11 +96,11 @@ void JobQueueModel::addJob(Simulation *simulation)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
-    JobQueueItem *queue_item = m_queue_data.createJobQueueItem(simulation);
+    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(simulation);
     m_jobs.append(queue_item);
     endInsertRows();
 
-    JobItem *item = m_queue_data.getJobItem(queue_item->getIdentifier());
+    JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
 }
 
@@ -291,17 +293,13 @@ void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QI
 //! Method should be called to inform given model about changes in JobItem
 void JobQueueModel::onJobItemIsModified(JobItem *modified_item)
 {
-    QString identifier = m_queue_data.getIdentifierForJobItem(modified_item);
+    QString identifier = m_queue_data->getIdentifierForJobItem(modified_item);
     foreach(JobQueueItem *queue_item, m_jobs) {
         if(queue_item->getIdentifier() == identifier) {
             QModelIndex item_index = index(m_jobs.indexOf(queue_item), 0);
             dataChanged(item_index, item_index);
         }
     }
-
-//    QModelIndex item_index = indexOfItem(modified_item);
-//    qDebug() << "JobQueueModel::jobQueueItemIsChanged" << item_index;
-//    dataChanged(item_index, item_index);
 }
 
 
@@ -318,7 +316,7 @@ QString JobQueueModel::getIdentifier(const QModelIndex &index) const
 //! returns JobItem for given index (const version)
 const JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index) const
 {
-    return m_queue_data.getJobItem(getIdentifier(index));
+    return m_queue_data->getJobItem(getIdentifier(index));
 }
 
 
@@ -332,14 +330,14 @@ JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
 //! runs corresponding job in a thread
 void JobQueueModel::runInThread(const QModelIndex &index)
 {
-    m_queue_data.onSubmitJob(getIdentifier(index));
+    m_queue_data->onSubmitJob(getIdentifier(index));
 
 }
 
 //! cancel corresponding job if it is running
 void JobQueueModel::onCancelJob(const QModelIndex &index)
 {
-    m_queue_data.onCancelJob(getIdentifier(index));
+    m_queue_data->onCancelJob(getIdentifier(index));
 }
 
 

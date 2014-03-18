@@ -37,6 +37,9 @@ public:
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);
 
+public slots:
+    void updateGlobalProgressBar(int);
+
 private:
     JobQueueModel *m_jobQueueModel;
     QSplitter *m_splitter;

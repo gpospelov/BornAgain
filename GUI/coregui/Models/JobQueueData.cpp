@@ -123,6 +123,7 @@ void JobQueueData::onCancelJob(QString identifier)
         JobRunner *runner = getRunner(identifier);
         runner->disconnect();
         assignForDeletion(runner);
+        updateGlobalProgress();
         return;
     }
     qDebug() << "JobQueueData::cancelJob() -> No thread is running";
@@ -175,8 +176,37 @@ void JobQueueData::onProgressUpdate()
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
     jobItem->setProgress(runner->getProgress());
+    updateGlobalProgress();
 }
 
+
+void JobQueueData::updateGlobalProgress()
+{
+    int global_progress(0);
+    int nRunningJobs(0);
+    for(QMap<QString, JobItem *>::iterator it = m_job_items.begin(); it!= m_job_items.end(); ++it) {
+        JobItem *jobItem = it.value();
+        if(jobItem->isRunning()) {
+            global_progress += jobItem->getProgress();
+            nRunningJobs++;
+        }
+    }
+    if(nRunningJobs) {
+        global_progress /= nRunningJobs;
+    } else {
+        global_progress=-1;
+    }
+    emit globalProgress(global_progress);
+}
+
+
+void JobQueueData::onCancelAllJobs()
+{
+    QStringList keys = m_threads.keys();
+    foreach(QString key, keys) {
+        onCancelJob(key);
+    }
+}
 
 //! Removes QThread from the map of known threads, assigns it for deletion.
 void JobQueueData::assignForDeletion(QThread *thread)

@@ -89,6 +89,7 @@ public:
     void runInThread(const QModelIndex &index);
 
 
+    JobQueueData *getJobQueueData() { return m_queue_data; }
 public slots:
     void onJobItemIsModified(JobItem *);
     void onSelectionChanged( const QItemSelection&, const QItemSelection& );
@@ -98,11 +99,10 @@ signals:
     void selectionChanged(JobItem *item);
 
 private:
-//    QModelIndex indexOfItem(JobItem *item) const;
+    JobQueueData *m_queue_data;
 
     QString m_name;
     QList <JobQueueItem *> m_jobs;
-    JobQueueData m_queue_data;
 
     QMap<JobItem *, QThread *> m_JobQueueItemToThread;
     QMap<QThread *, JobItem *> m_ThreadToJobQueueItem;

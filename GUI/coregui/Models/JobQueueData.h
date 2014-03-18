@@ -12,7 +12,7 @@ class JobRunner;
 
 class QThread;
 
-//! Holds correspondance of job identifiers and JobItem's, QThread's etc
+//! Holds correspondance of job identifiers and JobItem's, QThread's, JobRunner's
 //! Contains all submit/cancel logic
 class JobQueueData : public QObject
 {
@@ -30,6 +30,9 @@ public:
 
     QString getIdentifierForJobItem(const JobItem *);
 
+signals:
+    void globalProgress(int);
+
 public slots:
     void onSubmitJob(QString identifier);
     void onCancelJob(QString identifier);
@@ -37,10 +40,12 @@ public slots:
     void onProgressUpdate();
     void onFinishedJob();
     void onFinishedThread();
+    void onCancelAllJobs();
 
 private:
     void assignForDeletion(QThread *thread);
     void assignForDeletion(JobRunner *runner);
+    void updateGlobalProgress();
 
     QString generateJobName();
     QString generateJobIdentifier();

@@ -22,11 +22,11 @@ public:
     void setModel(JobQueueModel *model);
 //    QSize sizeHint() const { return QSize(128, 128); }
 
-signals:
-    void cancelJob(const QModelIndex &);
+//signals:
+//    void cancelJob(const QModelIndex &);
 
-public slots:
-    void onCancelJob(const QModelIndex &);
+//public slots:
+//    void onCancelJob(const QModelIndex &);
 
 private slots:
     void save();

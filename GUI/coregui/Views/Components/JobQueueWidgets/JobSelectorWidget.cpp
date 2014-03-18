@@ -1,6 +1,6 @@
 #include "JobSelectorWidget.h"
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
+#include "JobItem.h"
 #include "JobPropertiesWidget.h"
 #include "JobListWidget.h"
 #include "styledbar.h"

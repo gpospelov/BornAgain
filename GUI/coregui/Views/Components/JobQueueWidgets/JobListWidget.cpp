@@ -1,8 +1,7 @@
 #include "JobListWidget.h"
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
+#include "JobItem.h"
 #include "JobListViewDelegate.h"
-#include "progressbar.h"
 #include "styledbar.h"
 #include <QPushButton>
 #include <QListView>
@@ -47,13 +46,6 @@ JobListWidget::JobListWidget(QWidget *parent)
     vlayout->addLayout(buttonsLayout);
     vlayout->addWidget(m_listView);
 
-    Manhattan::ProgressBar *progressBar = new Manhattan::ProgressBar(this);
-    progressBar->setRange(0,100);
-    progressBar->setValue(50);
-    vlayout->addWidget(progressBar);
-
-
-    //mainLayout->addWidget(m_listView);
     mainLayout->addLayout(vlayout);
 
     setLayout(mainLayout);
@@ -61,21 +53,7 @@ JobListWidget::JobListWidget(QWidget *parent)
     connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
     connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
     connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
-
-    //connecting delegate's signal to this class's slot
-//    connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
-//    this, SLOT(onCancelJob(QModelIndex)));
-
-
-
 }
-
-
-void JobListWidget::onCancelJob(const QModelIndex &index)
-{
-    emit cancelJob(index);
-}
-
 
 
 void JobListWidget::setModel(JobQueueModel *model)
@@ -84,14 +62,15 @@ void JobListWidget::setModel(JobQueueModel *model)
     if(model != m_jobQueueModel) {
         m_jobQueueModel = model;
         m_listView->setModel(model);
+
         connect(m_listView->selectionModel(),
             SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
             m_jobQueueModel,
             SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
             );
+
         connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
         m_jobQueueModel, SLOT(onCancelJob(QModelIndex)));
-
 
     }
 }
@@ -110,8 +89,9 @@ void JobListWidget::submit()
 {
     Q_ASSERT(m_jobQueueModel);
     qDebug() << "JobListWidget::submit() -> ";
-    static int i=4;
-    m_jobQueueModel->addJob(new JobQueueItem(QString("job")+QString::number(i++)));
+//    m_jobQueueModel->addJob(new JobItem(QString("job")+QString::number(i++)));
+
+    m_jobQueueModel->addJob(0);
 
 }
 
@@ -125,9 +105,10 @@ void JobListWidget::run()
     qDebug() <<indexList;
 
     if(!indexList.empty()) {
-        JobQueueItem *job = m_jobQueueModel->getJobQueueItemForIndex(indexList.front());
-        qDebug() << "JobListWidget::run()" << job->getName();
-//        job->run();
-        m_jobQueueModel->runInThread(job);
+        m_jobQueueModel->runInThread(indexList.front());
+//        JobItem *job = m_jobQueueModel->getJobQueueItemForIndex(indexList.front());
+//        qDebug() << "JobListWidget::run()" << job->getName();
+////        job->run();
+//        m_jobQueueModel->runInThread(job);
     }
 }

@@ -20,7 +20,7 @@ public:
 
     void setModel(JobQueueModel *model);
 
-    QSize sizeHint() const { return QSize(128, 600); }
+    QSize sizeHint() const { return QSize(158, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
 
 private:

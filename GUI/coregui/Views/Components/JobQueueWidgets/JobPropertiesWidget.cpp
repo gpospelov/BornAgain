@@ -1,6 +1,6 @@
 #include "JobPropertiesWidget.h"
 #include "JobQueueModel.h"
-#include "JobQueueItem.h"
+#include "JobItem.h"
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 #include <QVBoxLayout>
@@ -47,12 +47,16 @@ void JobPropertiesWidget::setModel(JobQueueModel *model)
 //            SLOT( itemClicked(JobQueueItem *) )
 //            );
         connect(m_jobQueueModel,
-            SIGNAL( selectionChanged(JobQueueItem *) ),
+            SIGNAL( selectionChanged(JobItem *) ),
             this,
-            SLOT( itemClicked(JobQueueItem *) )
+            SLOT( itemClicked(JobItem *) )
             );
+
+        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
+                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
     }
 }
+
 
 
 void JobPropertiesWidget::updateExpandState()
@@ -67,7 +71,7 @@ void JobPropertiesWidget::updateExpandState()
 }
 
 
-void JobPropertiesWidget::itemClicked(JobQueueItem *jobItem)
+void JobPropertiesWidget::itemClicked(JobItem *jobItem)
 {
     qDebug() << "JobPropertiesWidget::itemClicked" << jobItem->getName();
 
@@ -96,7 +100,7 @@ void JobPropertiesWidget::itemClicked(JobQueueItem *jobItem)
     addProperty(property, JobQueueXML::JobNameAttribute);
 
     property = m_variantManager->addProperty(QVariant::String, tr("Status"));
-    property->setValue(jobItem->getStatus());
+    property->setValue(jobItem->getStatusString());
     addProperty(property, JobQueueXML::JobStatusAttribute);
 
     property = m_variantManager->addProperty(QVariant::String, tr("Begin Time"));
@@ -135,7 +139,21 @@ void JobPropertiesWidget::valueChanged(QtProperty *property, const QVariant &val
         m_currentItem->setName(value.value<QString>());
     }
 
-    m_jobQueueModel->jobQueueItemIsChanged(m_currentItem);
+    //m_jobQueueModel->jobQueueItemIsChanged(m_currentItem);
 
 }
 
+
+void JobPropertiesWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
+{
+    qDebug() << "JobPropertiesWidget::dataChanged()";
+    JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
+
+    if(jobItem == m_currentItem) {
+        idToProperty[JobQueueXML::JobNameAttribute]->setValue(jobItem->getName());
+        idToProperty[JobQueueXML::JobStatusAttribute]->setValue(jobItem->getStatusString());
+        idToProperty[JobQueueXML::JobBeginTimeAttribute]->setValue(jobItem->getBeginTime());
+        idToProperty[JobQueueXML::JobEndTimeAttribute]->setValue(jobItem->getEndTime());
+    }
+
+}

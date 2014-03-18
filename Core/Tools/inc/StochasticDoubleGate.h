@@ -56,7 +56,7 @@ inline void StochasticDoubleGate::setToRandom()
 }
 
 inline StochasticDoubleGate::StochasticDoubleGate(double min, double max)
-: StochasticParameter<double>((m_min+m_max)/2.0)
+: StochasticParameter<double>((min+max)/2.0)
 , m_min(min)
 , m_max(max)
 {

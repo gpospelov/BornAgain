@@ -52,8 +52,8 @@ MainWindow::MainWindow(QWidget *parent)
     // initialize simulation data model first:
     initSimModel();
 
-    //m_jobQueueModel->addJob(0);
-    m_jobQueueModel->load("tmp2.xml");
+    m_jobQueueModel->addJob(0);
+    //m_jobQueueModel->load("tmp2.xml");
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));

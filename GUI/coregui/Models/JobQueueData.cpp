@@ -29,7 +29,10 @@ const JobItem *JobQueueData::getJobItem(QString identifier) const
     if(it != m_job_items.end()) {
         return it.value();
     }
-    throw GUIHelpers::Error("JobQueueData::getJobItem() -> Error! Can't find item.");
+    for(QMap<QString, JobItem *>::const_iterator it = m_job_items.begin(); it!=m_job_items.end(); ++it) {
+        qDebug() << it.key() << it.value() << it.value()->getName();
+    }
+    throw GUIHelpers::Error("JobQueueData::getJobItem() -> Error! Can't find item."+identifier);
     return 0;
 }
 

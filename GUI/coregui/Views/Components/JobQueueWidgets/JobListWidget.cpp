@@ -119,7 +119,7 @@ void JobListWidget::removeJob()
 {
     qDebug() << "JobListWidget::removeJob() ";
     QModelIndex index = m_listView->selectionModel()->currentIndex();
-    m_jobQueueModel->removeRows(index.row(), 1, QModelIndex());
+    m_jobQueueModel->removeJob(index);
 }
 
 

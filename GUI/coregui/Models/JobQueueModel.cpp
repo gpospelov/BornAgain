@@ -49,6 +49,7 @@ QVariant JobQueueModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if (role == Qt::DisplayRole) {
+        qDebug() << "JobQueueModel::data" <<index;
         return getJobItemForIndex(index)->getName();
         //return m_jobs.at(index.row())->getName();
     }
@@ -118,7 +119,6 @@ bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* par
         QModelIndex item_index = index(position+row,0);
         qDebug() << "removing" << item_index;
         //emit selectionChanged(0);
-         m_queue_data->removeJob(getIdentifier(item_index));
         m_jobs.removeAt(position);
     }
     endRemoveRows();
@@ -338,6 +338,15 @@ void JobQueueModel::runJob(const QModelIndex &index)
 void JobQueueModel::cancelJob(const QModelIndex &index)
 {
     m_queue_data->cancelJob(getIdentifier(index));
+}
+
+
+//! remove job completely from list and underlying m_queue_data
+void JobQueueModel::removeJob(const QModelIndex &index)
+{
+    QString identifier = getIdentifier(index);
+    removeRows(index.row(), 1, QModelIndex());
+    m_queue_data->removeJob(identifier);
 }
 
 

@@ -61,7 +61,8 @@ Qt::ItemFlags JobQueueModel::flags(const QModelIndex &index) const
 //    qDebug() << "JobQueueModel::flags" << index;
     Qt::ItemFlags defaultFlags = QAbstractListModel::flags(index);
     if(index.isValid())
-        return Qt::ItemIsDragEnabled | Qt::ItemIsEditable | defaultFlags;
+        return Qt::ItemIsDragEnabled   | defaultFlags;
+        //return Qt::ItemIsDragEnabled  | Qt::ItemIsEditable | defaultFlags;
     else
         return Qt::ItemIsDropEnabled | defaultFlags;
 }

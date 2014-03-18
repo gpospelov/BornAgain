@@ -9,9 +9,8 @@ class QtVariantProperty;
 class JobQueueModel;
 class JobItem;
 
-//! Widget to show and change properties of currently selected JobQueueItem
+//! Widget to show and change properties of currently selected JobItem
 //! Left buttom corner of JobQueueView
-
 class JobPropertiesWidget : public QWidget
 {
     Q_OBJECT

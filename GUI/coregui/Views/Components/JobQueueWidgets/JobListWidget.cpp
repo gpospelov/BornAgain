@@ -74,7 +74,7 @@ void JobListWidget::setModel(JobQueueModel *model)
             );
 
         connect(m_listViewDelegate, SIGNAL(cancelButtonClicked(QModelIndex)),
-        m_jobQueueModel, SLOT(onCancelJob(QModelIndex)));
+        m_jobQueueModel, SLOT(cancelJob(QModelIndex)));
 
     }
 }

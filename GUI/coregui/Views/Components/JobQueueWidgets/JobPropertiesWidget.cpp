@@ -101,14 +101,17 @@ void JobPropertiesWidget::itemClicked(JobItem *jobItem)
 
     property = m_variantManager->addProperty(QVariant::String, tr("Status"));
     property->setValue(jobItem->getStatusString());
+    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobStatusAttribute);
 
     property = m_variantManager->addProperty(QVariant::String, tr("Begin Time"));
     property->setValue(jobItem->getBeginTime());
+    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobBeginTimeAttribute);
 
     property = m_variantManager->addProperty(QVariant::String, tr("End Time"));
     property->setValue(jobItem->getEndTime());
+    property->setAttribute(QLatin1String("readOnly"), true);
     addProperty(property, JobQueueXML::JobEndTimeAttribute);
 
 }
@@ -126,8 +129,6 @@ void JobPropertiesWidget::addProperty(QtVariantProperty *property, const QString
 
 void JobPropertiesWidget::valueChanged(QtProperty *property, const QVariant &value)
 {
-    qDebug() << "JobPropertiesWidget::valueChanged()";
-
     if (!propertyToId.contains(property))
         return;
 
@@ -138,22 +139,18 @@ void JobPropertiesWidget::valueChanged(QtProperty *property, const QVariant &val
     if (id == JobQueueXML::JobNameAttribute) {
         m_currentItem->setName(value.value<QString>());
     }
-
-    //m_jobQueueModel->jobQueueItemIsChanged(m_currentItem);
-
 }
 
 
+//! to update properties of currently selected item if they were changed from outside
 void JobPropertiesWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
 {
     qDebug() << "JobPropertiesWidget::dataChanged()";
     JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
-
     if(jobItem == m_currentItem) {
         idToProperty[JobQueueXML::JobNameAttribute]->setValue(jobItem->getName());
         idToProperty[JobQueueXML::JobStatusAttribute]->setValue(jobItem->getStatusString());
         idToProperty[JobQueueXML::JobBeginTimeAttribute]->setValue(jobItem->getBeginTime());
         idToProperty[JobQueueXML::JobEndTimeAttribute]->setValue(jobItem->getEndTime());
     }
-
 }

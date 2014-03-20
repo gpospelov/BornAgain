@@ -13,10 +13,11 @@ int JobQueueData::m_job_index = 0;
 
 //! Creates JobQueueItem and corresponding JobItem.
 //! Created JobItem will be registered using unique identifier.
-JobQueueItem *JobQueueData::createJobQueueItem(Simulation *simulation)
+JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation)
 {
     JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
-    m_job_items[result->getIdentifier()] = new JobItem(generateJobName());
+    if(jobName.isEmpty()) jobName = generateJobName();
+    m_job_items[result->getIdentifier()] = new JobItem(jobName);
     if(simulation) m_simulations[result->getIdentifier()] = simulation;
     return result;
 }

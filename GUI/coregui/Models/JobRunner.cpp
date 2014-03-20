@@ -30,10 +30,11 @@ void JobRunner::start()
     if(m_simulation) {
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
         m_simulation->setProgressCallback(callback);
-//        ThreadInfo info;
-//        info.n_threads = 2;
-//        m_simulation->setThreadInfo(info);
+        ThreadInfo info;
+        info.n_threads = 1;
+        m_simulation->setThreadInfo(info);
         m_simulation->runSimulation();
+        m_progress=100;
         emit finished();
     } else {
         runFakeSimulation();

@@ -19,7 +19,7 @@ class JobQueueData : public QObject
     Q_OBJECT
 public:
 
-    JobQueueItem *createJobQueueItem(Simulation *simulation = 0);
+    JobQueueItem *createJobQueueItem(QString jobName = QString(), Simulation *simulation = 0);
 
     const JobItem *getJobItem(QString identifier) const;
     JobItem *getJobItem(QString identifier);

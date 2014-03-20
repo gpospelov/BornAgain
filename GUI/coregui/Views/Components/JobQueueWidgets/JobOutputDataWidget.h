@@ -4,17 +4,16 @@
 #include <QWidget>
 
 class OutputDataWidget;
-
-class QToolBar;
-
+class JobQueueModel;
 
 class JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobOutputDataWidget(QWidget *parent = 0);
+    explicit JobOutputDataWidget(JobQueueModel *model, QWidget *parent = 0);
 
 private:
+    JobQueueModel *m_jobQueueModel;
     OutputDataWidget *m_outputDataWidget;
 };
 

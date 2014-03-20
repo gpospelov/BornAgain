@@ -23,6 +23,14 @@ JobRunner::~JobRunner()
 }
 
 
+int JobRunner::getProgress() const
+{
+    // sometimes simulation underestimate the number of iterations required
+    // and progress can be greater than 100
+    return m_progress < 100 ? m_progress : 100;
+}
+
+
 void JobRunner::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
@@ -32,11 +40,12 @@ void JobRunner::start()
     if(m_simulation) {
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
         m_simulation->setProgressCallback(callback);
-        ThreadInfo info;
-        info.n_threads = 1;
-        m_simulation->setThreadInfo(info);
+//        ThreadInfo info;
+//        info.n_threads = 1;
+//        m_simulation->setThreadInfo(info);
         m_simulation->runSimulation();
         m_progress=100;
+        emit progressUpdate();
         emit finished();
     } else {
         runFakeSimulation();

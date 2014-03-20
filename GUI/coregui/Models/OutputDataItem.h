@@ -44,8 +44,12 @@ public:
     void writeTo(QXmlStreamWriter *writer);
     void readFrom(QXmlStreamReader *reader);
 
+    OutputData<double> *getOutputData() { return m_data; }
+
+    void setOutputData(OutputData<double> *data);
+
 private:
-    const OutputData<double> *m_data; //!< simulation results
+    OutputData<double> *m_data; //!< simulation results
     QString m_name;
     double m_xaxis_min;     //!< left bound of xaxis in a view
     double m_xaxis_max;     //!< right bounf of xaxis in a view

@@ -50,6 +50,8 @@ public:
 
     bool isRunning() const { return m_status == Running; }
 
+    OutputDataItem *getOutputDataItem(int n_item = 0);
+
 signals:
     void modified(JobItem *);
 

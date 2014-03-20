@@ -38,6 +38,14 @@ QString JobItem::getStatusString() const
 }
 
 
+OutputDataItem *JobItem::getOutputDataItem(int n_item)
+{
+    if(m_data_items.empty() || n_item < 0 || n_item >= m_data_items.size())
+        return 0;
+    return m_data_items.at(n_item);
+}
+
+
 void JobItem::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);

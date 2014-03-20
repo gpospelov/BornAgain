@@ -1,12 +1,14 @@
 #include "JobOutputDataWidget.h"
+#include "JobQueueModel.h"
 #include "OutputDataWidget.h"
 #include <QVBoxLayout>
 #include <QPushButton>
 #include "styledbar.h"
 
-JobOutputDataWidget::JobOutputDataWidget(QWidget *parent)
+JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *model,QWidget *parent)
     : QWidget(parent)
-    , m_outputDataWidget(new OutputDataWidget(this))
+    , m_jobQueueModel(model)
+    , m_outputDataWidget(new OutputDataWidget(model, this))
 {
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -22,10 +24,6 @@ JobOutputDataWidget::JobOutputDataWidget(QWidget *parent)
     mainLayout->setSpacing(0);
 
     Manhattan::StyledBar *bar = new Manhattan::StyledBar;
-//    QVBoxLayout *layout = new QHBoxLayout(bar);
-//    layout->setMargin(0);
-//    layout->setSpacing(0);
-
     mainLayout->addWidget(bar);
     mainLayout->addWidget(m_outputDataWidget);
 

@@ -1,5 +1,7 @@
 #include "JobQueueData.h"
 #include "JobQueueItem.h"
+#include "OutputDataItem.h"
+#include "Simulation.h"
 #include "JobItem.h"
 #include "JobRunner.h"
 #include "GUIHelpers.h"
@@ -180,6 +182,12 @@ void JobQueueData::onFinishedJob()
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
 
+    // propagating simulation results
+    Simulation *simulation = getSimulation(runner->getIdentifier());
+    if(simulation) {
+        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
+    }
+
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
@@ -206,6 +214,7 @@ void JobQueueData::onProgressUpdate()
 }
 
 
+// estimates global progress from the progress of multiple running jobs
 void JobQueueData::updateGlobalProgress()
 {
     int global_progress(0);

@@ -18,7 +18,7 @@ public:
     QString getIdentifier() const { return m_identifier; }
     void setIdentifier(QString identifier) { m_identifier = identifier; }
 
-    int getProgress() const { return m_progress; }
+    int getProgress() const;
 
     bool similationProgressCallback(int);
 

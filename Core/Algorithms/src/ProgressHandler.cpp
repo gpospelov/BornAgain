@@ -6,11 +6,20 @@
 
 ProgressHandler::ProgressHandler()
     : m_nitems(0)
-    , m_nitems_max(10000)
+    , m_nitems_max(0)
     , m_current_progress(0)
 {
 
 }
+
+void ProgressHandler::reset()
+{
+    m_nitems = 0;
+    m_nitems_max = 0;
+    m_current_progress = 0;
+    m_callback = NULL;
+}
+
 
 //! Collects number of items processed by different DWBASimulation's.
 //! Calculates general progress and inform GUI if progress has changed.

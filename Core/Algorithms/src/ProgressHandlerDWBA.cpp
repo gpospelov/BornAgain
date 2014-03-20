@@ -16,10 +16,8 @@ bool ProgressHandlerDWBA::update()
 {
     bool continue_calculations(true);
     if(!m_callback) {
-        std::cout << "DWBAProgressHandler::update() -> No callback" << std::endl;
         return continue_calculations;
     }
-
 
     m_nitems_total++;
     m_nitems++;

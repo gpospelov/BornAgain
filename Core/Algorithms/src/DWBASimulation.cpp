@@ -69,7 +69,7 @@ void DWBASimulation::init(const Simulation& simulation)
     }
 
     // making call backs
-    m_progress.setCallback(mp_simulation->createDWBAProgressCallback());
+    if(mp_simulation->getProgressHandler()) m_progress.setCallback(mp_simulation->createDWBAProgressCallback());
 }
 
 const OutputData<double>& DWBASimulation::getDWBAIntensity() const

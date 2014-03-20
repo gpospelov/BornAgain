@@ -149,10 +149,13 @@ public:
 #ifndef GCCXML_SKIP_THIS
 
     //! set callback to GUI's for progress update
-    static void setProgressCallback(ProgressHandler::Callback_t callback);
+    //void setProgressCallback(ProgressHandler::Callback_t callback);
 
+    void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
+
+    ProgressHandler_t getProgressHandler() const { return m_progress;}
     //! creates callback for DWBASimulation to report its progress
-    static ProgressHandler::Callback_t createDWBAProgressCallback();
+    ProgressHandler::Callback_t createDWBAProgressCallback();
 #endif
 
 protected:
@@ -188,7 +191,7 @@ protected:
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;
-    static ProgressHandler m_progress;
+    ProgressHandler_t m_progress;
 };
 
 #endif /* SIMULATION_H_ */

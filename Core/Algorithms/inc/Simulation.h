@@ -146,11 +146,14 @@ public:
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
 
+#ifndef GCCXML_SKIP_THIS
+
     //! set callback to GUI's for progress update
     static void setProgressCallback(ProgressHandler::Callback_t callback);
 
     //! creates callback for DWBASimulation to report its progress
     static ProgressHandler::Callback_t createDWBAProgressCallback();
+#endif
 
 protected:
     Simulation(const Simulation& other);

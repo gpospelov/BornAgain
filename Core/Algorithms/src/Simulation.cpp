@@ -142,7 +142,7 @@ void Simulation::runSimulation()
 	// no averaging needed:
 	if (param_combinations == 1) {
 		runSingleSimulation();
-        std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
+        //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
         return;
 	}
 

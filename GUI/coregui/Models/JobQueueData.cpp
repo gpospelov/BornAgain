@@ -12,12 +12,13 @@
 int JobQueueData::m_job_index = 0;
 
 //! Creates JobQueueItem and corresponding JobItem.
-//! Created JobItem will be registered using unique identifier
-JobQueueItem *JobQueueData::createJobQueueItem(Simulation *simulation)
+//! Created JobItem will be registered using unique identifier.
+JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation)
 {
-    (void)simulation;
     JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
-    m_job_items[result->getIdentifier()] = new JobItem(generateJobName());
+    if(jobName.isEmpty()) jobName = generateJobName();
+    m_job_items[result->getIdentifier()] = new JobItem(jobName);
+    if(simulation) m_simulations[result->getIdentifier()] = simulation;
     return result;
 }
 
@@ -29,7 +30,7 @@ const JobItem *JobQueueData::getJobItem(QString identifier) const
     if(it != m_job_items.end()) {
         return it.value();
     }
-    throw GUIHelpers::Error("JobQueueData::getJobItem() -> Error! Can't find item.");
+    throw GUIHelpers::Error("JobQueueData::getJobItem() -> Error! Can't find item."+identifier);
     return 0;
 }
 
@@ -61,6 +62,18 @@ JobRunner *JobQueueData::getRunner(QString identifier)
     return 0;
 }
 
+
+//! returns the simulation (if exists) for given identifier
+Simulation *JobQueueData::getSimulation(QString identifier)
+{
+    QMap<QString, Simulation *>::const_iterator it = m_simulations.find(identifier);
+    if(it != m_simulations.end()) {
+        return it.value();
+    }
+    return 0;
+}
+
+
 //! returns identifier for given JobIteM
 QString JobQueueData::getIdentifierForJobItem(const JobItem *item)
 {
@@ -79,7 +92,7 @@ void JobQueueData::runJob(QString identifier)
         return;
     }
 
-    JobRunner *runner = new JobRunner(identifier);
+    JobRunner *runner = new JobRunner(identifier, getSimulation(identifier));
     m_runners[identifier] = runner;
 
     QThread *thread = new QThread();
@@ -89,7 +102,7 @@ void JobQueueData::runJob(QString identifier)
     // thread will start the runner
     connect(thread, SIGNAL(started()), runner, SLOT(start()));
 
-    // after runner is finished it will tell to the thread to quit
+    // after runner is finished it will tell to the thread to quit (weared behaviour)
     //connect(runner, SIGNAL(finished()), thread, SLOT(quit()));
 
     // finished thread will be removed from the list
@@ -117,8 +130,9 @@ void JobQueueData::cancelJob(QString identifier)
         jobItem->setStatus(JobItem::Canceled);
         jobItem->setEndTime(QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
         jobItem->setProgress(0);
+
         JobRunner *runner = getRunner(identifier);
-        runner->disconnect();
+        runner->terminate();
         assignForDeletion(runner);
         updateGlobalProgress();
         return;
@@ -127,7 +141,7 @@ void JobQueueData::cancelJob(QString identifier)
 }
 
 
-//! remove job from list
+//! remove job from list completely
 void JobQueueData::removeJob(QString identifier)
 {
     qDebug() << "JobQueueData::removeJob";
@@ -239,6 +253,7 @@ void JobQueueData::assignForDeletion(QThread *thread)
 void JobQueueData::assignForDeletion(JobRunner *runner)
 {
     Q_ASSERT(runner);
+    runner->disconnect();
     for(QMap<QString, JobRunner *>::iterator it=m_runners.begin(); it!=m_runners.end(); ++it) {
         if(it.value() == runner) {
             runner->deleteLater();

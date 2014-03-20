@@ -12,6 +12,7 @@
 #include "JobQueueView.h"
 #include "stylehelper.h"
 #include "SimulationDataModel.h"
+#include "JobQueueModel.h"
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
@@ -21,6 +22,7 @@
 #include "hostosinfo.h"
 #include "projectmanager.h"
 #include "progressbar.h"
+#include "SimulationRegistry.h"
 
 #include <QApplication>
 #include <iostream>
@@ -42,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , mp_sim_data_model(0)
+    , m_jobQueueModel(new JobQueueModel(this))
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -50,10 +53,11 @@ MainWindow::MainWindow(QWidget *parent)
     // initialize simulation data model first:
     initSimModel();
 
+    initJobQueueModel();
+
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
     Manhattan::Utils::StyleHelper::setBaseColor(QColor(0x086FA1));
-
 
     setDockNestingEnabled(true);
 
@@ -68,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_jobView = new JobView(mp_sim_data_model);
     m_fitView = new FitView();
-    m_jobQueueView = new JobQueueView();
+    m_jobQueueView = new JobQueueView(m_jobQueueModel);
 
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
@@ -215,4 +219,15 @@ ISample *MainWindow::createDefaultSample()
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
+}
+
+
+void MainWindow::initJobQueueModel()
+{
+    SimulationRegistry registry;
+    m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
+    m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
+
+    //m_jobQueueModel->load("tmp2.xml");
+
 }

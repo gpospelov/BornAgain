@@ -58,7 +58,6 @@ QVariant JobQueueModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags JobQueueModel::flags(const QModelIndex &index) const
 {
-//    qDebug() << "JobQueueModel::flags" << index;
     Qt::ItemFlags defaultFlags = QAbstractListModel::flags(index);
     if(index.isValid())
         return Qt::ItemIsDragEnabled   | defaultFlags;
@@ -93,16 +92,21 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //}
 
 
-void JobQueueModel::addJob(Simulation *simulation)
+//! Creates and adds JobQueueItem in the list of jobs.
+//! Corresponding JobItem will be created too.
+//! Returns unique identifier of created job.
+QString JobQueueModel::addJob(QString jobName, Simulation *simulation)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
-    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(simulation);
+    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation);
     m_jobs.append(queue_item);
     endInsertRows();
 
     JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+
+    return queue_item->getIdentifier();
 }
 
 
@@ -110,10 +114,6 @@ bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* par
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
     for (int row = 0; row < rows; ++row) {
-        QModelIndex item_index = index(position+row,0);
-        qDebug() << "removing" << item_index;
-        //emit selectionChanged(0);
-         m_queue_data->removeJob(getIdentifier(item_index));
         m_jobs.removeAt(position);
     }
     endRemoveRows();
@@ -149,10 +149,7 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     if (action == Qt::IgnoreAction)
         return true;
 
-    if(!data->hasFormat(Constants::MIME_JOBQUEUE))
-        return false;
-
-    if(column > 0)
+    if(!data->hasFormat(Constants::MIME_JOBQUEUE) || column>0)
         return false;
 
     int beginRow;
@@ -165,7 +162,6 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
     QByteArray encodedData = data->data(Constants::MIME_JOBQUEUE);
     QDataStream dataStream(&encodedData, QIODevice::ReadOnly);
-
     QString identifier;
     dataStream >> identifier;
     JobQueueItem *item = new JobQueueItem(identifier);
@@ -212,14 +208,14 @@ void JobQueueModel::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);
 
-//    writer->writeStartElement(JobQueueXML::ModelTag);
-//    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
+    writer->writeStartElement(JobQueueXML::ModelTag);
+    writer->writeAttribute(JobQueueXML::ModelNameAttribute, getName());
 
-//    foreach(JobItem *item, m_jobs) {
-//        item->writeTo(writer);
-//    }
-
-//    writer->writeEndElement(); // ModelTag
+    foreach(JobQueueItem *queueItem, m_jobs) {
+        JobItem *jobItem = m_queue_data->getJobItem(queueItem->getIdentifier());
+        jobItem->writeTo(writer);
+    }
+    writer->writeEndElement(); // ModelTag
 }
 
 
@@ -246,30 +242,29 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-//    clear();
-//    while (!reader->atEnd()) {
-//        reader->readNext();
-//        if (reader->isStartElement()) {
+    clear();
+    while (!reader->atEnd()) {
+        reader->readNext();
+        if (reader->isStartElement()) {
 
-//            if (reader->name() == JobQueueXML::ModelTag) {
-//                beginResetModel();
-//                const QString name = reader->attributes()
-//                        .value(JobQueueXML::ModelNameAttribute).toString();
-//                qDebug() << "JobQueueModel::readFrom " << name;
-//                setName(name);
-//            } else if(reader->name() == JobQueueXML::JobTag) {
-//                JobItem *job = new JobItem("");
-//                job->readFrom(reader);
-//                addJob(job);
-//            }
-//        } else if (reader->isEndElement()) {
-//            if (reader->name() == JobQueueXML::ModelTag) {
-//                endResetModel();
-//            }
-//        }
-//    }
-
+            if (reader->name() == JobQueueXML::ModelTag) {
+                beginResetModel();
+                const QString name = reader->attributes()
+                        .value(JobQueueXML::ModelNameAttribute).toString();
+                qDebug() << "JobQueueModel::readFrom " << name;
+                setName(name);
+            } else if(reader->name() == JobQueueXML::JobTag) {
+                QString identifier = addJob(0);
+                m_queue_data->getJobItem(identifier)->readFrom(reader);
+            }
+        } else if (reader->isEndElement()) {
+            if (reader->name() == JobQueueXML::ModelTag) {
+                endResetModel();
+            }
+        }
+    }
 }
+
 
 void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
 {
@@ -329,6 +324,15 @@ void JobQueueModel::runJob(const QModelIndex &index)
 void JobQueueModel::cancelJob(const QModelIndex &index)
 {
     m_queue_data->cancelJob(getIdentifier(index));
+}
+
+
+//! remove job completely from list and underlying m_queue_data
+void JobQueueModel::removeJob(const QModelIndex &index)
+{
+    QString identifier = getIdentifier(index);
+    removeRows(index.row(), 1, QModelIndex());
+    m_queue_data->removeJob(identifier);
 }
 
 

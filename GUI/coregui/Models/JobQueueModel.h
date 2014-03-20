@@ -63,7 +63,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-    void addJob(Simulation *simulation);
+    QString addJob(QString jobName=QString(), Simulation *simulation=0);
 
     void clear();
 
@@ -91,6 +91,7 @@ public slots:
     void onSelectionChanged( const QItemSelection&, const QItemSelection& );
     void runJob(const QModelIndex &index);
     void cancelJob(const QModelIndex &index);
+    void removeJob(const QModelIndex &index);
 
 private:
     JobQueueData *m_queue_data;

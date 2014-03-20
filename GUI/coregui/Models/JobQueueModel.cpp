@@ -49,7 +49,6 @@ QVariant JobQueueModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if (role == Qt::DisplayRole) {
-        qDebug() << "JobQueueModel::data" <<index;
         return getJobItemForIndex(index)->getName();
         //return m_jobs.at(index.row())->getName();
     }
@@ -59,7 +58,6 @@ QVariant JobQueueModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags JobQueueModel::flags(const QModelIndex &index) const
 {
-//    qDebug() << "JobQueueModel::flags" << index;
     Qt::ItemFlags defaultFlags = QAbstractListModel::flags(index);
     if(index.isValid())
         return Qt::ItemIsDragEnabled   | defaultFlags;
@@ -116,9 +114,6 @@ bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* par
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
     for (int row = 0; row < rows; ++row) {
-        QModelIndex item_index = index(position+row,0);
-        qDebug() << "removing" << item_index;
-        //emit selectionChanged(0);
         m_jobs.removeAt(position);
     }
     endRemoveRows();
@@ -154,10 +149,7 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     if (action == Qt::IgnoreAction)
         return true;
 
-    if(!data->hasFormat(Constants::MIME_JOBQUEUE))
-        return false;
-
-    if(column > 0)
+    if(!data->hasFormat(Constants::MIME_JOBQUEUE) || column>0)
         return false;
 
     int beginRow;
@@ -170,7 +162,6 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
     QByteArray encodedData = data->data(Constants::MIME_JOBQUEUE);
     QDataStream dataStream(&encodedData, QIODevice::ReadOnly);
-
     QString identifier;
     dataStream >> identifier;
     JobQueueItem *item = new JobQueueItem(identifier);
@@ -265,11 +256,6 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
             } else if(reader->name() == JobQueueXML::JobTag) {
                 QString identifier = addJob(0);
                 m_queue_data->getJobItem(identifier)->readFrom(reader);
-//                JobItem *job = new JobItem("");
-//                JobQueueItem *queue_item = m_queue_data->createJobQueueItem(0);
-
-                //job->readFrom(reader);
-//                addJob(job);
             }
         } else if (reader->isEndElement()) {
             if (reader->name() == JobQueueXML::ModelTag) {
@@ -277,8 +263,8 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
             }
         }
     }
-
 }
+
 
 void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
 {

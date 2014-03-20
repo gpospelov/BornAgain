@@ -22,6 +22,7 @@
 #include "hostosinfo.h"
 #include "projectmanager.h"
 #include "progressbar.h"
+#include "SimulationRegistry.h"
 
 #include <QApplication>
 #include <iostream>
@@ -52,8 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
     // initialize simulation data model first:
     initSimModel();
 
-    m_jobQueueModel->addJob(0);
-    //m_jobQueueModel->load("tmp2.xml");
+    initJobQueueModel();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -219,4 +219,14 @@ ISample *MainWindow::createDefaultSample()
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
+}
+
+
+void MainWindow::initJobQueueModel()
+{
+    SimulationRegistry registry;
+    Simulation *simulation = registry.createItem("isgisaxs01");
+    m_jobQueueModel->addJob(simulation);
+    //m_jobQueueModel->load("tmp2.xml");
+
 }

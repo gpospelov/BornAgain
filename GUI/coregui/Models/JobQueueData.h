@@ -12,8 +12,8 @@ class JobRunner;
 class QThread;
 
 
-//! Holds correspondance of job identifiers and JobItem's, QThread's, JobRunner's
-//! Contains all submit/cancel logic
+//! Holds correspondance of job identifiers and JobItem, QThread, JobRunner
+//! and Simulation objects. Contains all run/cancel/progress logic for job.
 class JobQueueData : public QObject
 {
     Q_OBJECT
@@ -25,8 +25,8 @@ public:
     JobItem *getJobItem(QString identifier);
 
     QThread *getThread(QString identifier);
-
     JobRunner *getRunner(QString identifier);
+    Simulation *getSimulation(QString identifier);
 
     QString getIdentifierForJobItem(const JobItem *);
 
@@ -55,6 +55,7 @@ private:
     QMap<QString, JobItem *> m_job_items; //!< correspondance of JobIdentifier and JobItem's
     QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
     QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
+    QMap<QString, Simulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
     static int m_job_index;
 };

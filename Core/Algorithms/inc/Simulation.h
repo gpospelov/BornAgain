@@ -20,8 +20,11 @@
 #include "Instrument.h"
 #include "SimulationParameters.h"
 #include "DistributionHandler.h"
+#include "ProgressHandler.h"
 
 #include "EigenCore.h"
+
+#include <boost/function.hpp>
 
 class ProgramOptions;
 
@@ -143,6 +146,12 @@ public:
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
 
+    //! set callback to GUI's for progress update
+    static void setProgressCallback(ProgressHandler::Callback_t callback);
+
+    //! creates callback for DWBASimulation to report its progress
+    static ProgressHandler::Callback_t createDWBAProgressCallback();
+
 protected:
     Simulation(const Simulation& other);
 
@@ -176,6 +185,7 @@ protected:
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;
+    static ProgressHandler m_progress;
 };
 
 #endif /* SIMULATION_H_ */

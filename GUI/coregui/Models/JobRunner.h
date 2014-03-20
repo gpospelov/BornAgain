@@ -4,19 +4,23 @@
 #include <QObject>
 #include <QString>
 
+class Simulation;
+
 //! Class for running the simulation in a thread
 class JobRunner : public QObject
 {
     Q_OBJECT
 public:
 
-    JobRunner(QString identifier);
+    JobRunner(QString identifier, Simulation *simulation = 0);
     virtual ~JobRunner();
 
     QString getIdentifier() const { return m_identifier; }
     void setIdentifier(QString identifier) { m_identifier = identifier; }
 
     int getProgress() const { return m_progress; }
+
+    void similationProgressCallback(int);
 
 signals:
     void started();
@@ -28,12 +32,12 @@ public slots:
     void terminate();
 
 private slots:
-    void loopFunctionWithDelay();
+    void runFakeSimulation();
 
 private:
     QString m_identifier;
+    Simulation *m_simulation;
     int m_progress;
-
 };
 
 

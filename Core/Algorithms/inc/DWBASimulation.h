@@ -22,7 +22,7 @@
 #include "ThreadInfo.h"
 #include "Types.h"
 #include "EigenCore.h"
-
+#include "ProgressHandlerDWBA.h"
 
 //! @class DWBASimulation
 //! @ingroup algorithms_internal
@@ -112,6 +112,8 @@ protected:
     ThreadInfo m_thread_info;
     SimulationParameters m_sim_params;
     Simulation *mp_simulation;
+
+    ProgressHandlerDWBA m_progress;
 };
 
 #endif /* DWBASIMULATION_H_ */

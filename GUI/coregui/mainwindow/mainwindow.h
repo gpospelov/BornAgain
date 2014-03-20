@@ -79,6 +79,7 @@ private:
 
     // dummy simulation model initializer for test purposes
     void initSimModel();
+    void initJobQueueModel();
     // dummy instrument creator
     Instrument *createDefaultInstrument();
     ISample *createDefaultSample();

@@ -78,7 +78,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
                 mp_polarization_output->begin(m_thread_info);
         while ( it != mp_polarization_output->end(m_thread_info) )
         {
-            m_progress.update();
+            if( !m_progress.update()) break;
 
             Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
                 BornAgain::PHI_AXIS_NAME, it.getIndex());
@@ -106,7 +106,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         DWBASimulation::iterator it_intensity = begin();
         while ( it_intensity != end() )
         {
-            m_progress.update();
+            if( !m_progress.update()) break;
 
             Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
                 BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());

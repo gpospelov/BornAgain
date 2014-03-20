@@ -20,7 +20,7 @@ public:
 
     int getProgress() const { return m_progress; }
 
-    void similationProgressCallback(int);
+    bool similationProgressCallback(int);
 
 signals:
     void started();
@@ -38,6 +38,7 @@ private:
     QString m_identifier;
     Simulation *m_simulation;
     int m_progress;
+    int m_run_flag;
 };
 
 

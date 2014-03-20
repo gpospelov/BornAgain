@@ -32,7 +32,6 @@ DWBASimulation::~DWBASimulation()
 
 void DWBASimulation::init(const Simulation& simulation)
 {
-    std::cout << "DWBASimulation::init()" << std::endl;
     if (mp_simulation !=& simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();

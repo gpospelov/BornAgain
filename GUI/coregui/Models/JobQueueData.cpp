@@ -130,8 +130,9 @@ void JobQueueData::cancelJob(QString identifier)
         jobItem->setStatus(JobItem::Canceled);
         jobItem->setEndTime(QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
         jobItem->setProgress(0);
+
         JobRunner *runner = getRunner(identifier);
-        runner->disconnect();
+        runner->terminate();
         assignForDeletion(runner);
         updateGlobalProgress();
         return;
@@ -252,6 +253,7 @@ void JobQueueData::assignForDeletion(QThread *thread)
 void JobQueueData::assignForDeletion(JobRunner *runner)
 {
     Q_ASSERT(runner);
+    runner->disconnect();
     for(QMap<QString, JobRunner *>::iterator it=m_runners.begin(); it!=m_runners.end(); ++it) {
         if(it.value() == runner) {
             runner->deleteLater();

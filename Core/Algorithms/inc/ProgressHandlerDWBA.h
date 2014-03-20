@@ -28,8 +28,8 @@ public:
     ProgressHandlerDWBA();
     void setCallback(ProgressHandler::Callback_t callback) { m_callback = callback; }
     ProgressHandler::Callback_t getCallback() const { return m_callback; }
-    void update();
-    void finished();
+    bool update();
+    bool finished();
 private:
     ProgressHandler::Callback_t m_callback;
     long m_nitems;

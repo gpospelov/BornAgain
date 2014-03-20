@@ -11,6 +11,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
+    , m_run_flag(true)
 {
 
 }
@@ -25,6 +26,7 @@ JobRunner::~JobRunner()
 void JobRunner::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
+    m_run_flag = true;
     emit started();
 
     if(m_simulation) {
@@ -51,7 +53,7 @@ void JobRunner::runFakeSimulation()
         emit progressUpdate();
         QTimer::singleShot(500, this, SLOT(runFakeSimulation()));
     }
-    if(m_progress >=100) {
+    if(m_progress >=100 || !m_run_flag) {
         emit progressUpdate();
         emit finished();
     }
@@ -59,15 +61,17 @@ void JobRunner::runFakeSimulation()
 
 
 //! function which is called by the Simulation to report its progress
-void JobRunner::similationProgressCallback(int progress)
+bool JobRunner::similationProgressCallback(int progress)
 {
     m_progress = progress;
     qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
     emit progressUpdate();
+    return m_run_flag;
 }
 
 
 void JobRunner::terminate()
 {
-    m_progress = 1000;
+    qDebug() << "JobRunner::terminate()";
+    m_run_flag = false;
 }

@@ -30,13 +30,13 @@ class Simulation;
 class ProgressHandler
 {
 public:
-    typedef boost::function<void (int)> Callback_t;
+    typedef boost::function<bool (int)> Callback_t;
 
     ProgressHandler();
 
     void setCallback(ProgressHandler::Callback_t callback) { m_callback = callback; }
 
-    void update(int n);
+    bool update(int n);
 
     void setNmaxItems(long max) { m_nitems_max = max; }
 

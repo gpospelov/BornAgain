@@ -9,28 +9,35 @@ ProgressHandlerDWBA::ProgressHandlerDWBA()
 }
 
 
-void ProgressHandlerDWBA::update()
+//! Method increments number of items processed.
+//! Every n'th processed item the Simulation is informed via thread safe callback.
+//! Return flag false is used to inform DWBSimulation to interrupt calculations.
+bool ProgressHandlerDWBA::update()
 {
+    bool continue_calculations(true);
     if(!m_callback) {
         std::cout << "DWBAProgressHandler::update() -> No callback" << std::endl;
-        return;
+        return continue_calculations;
     }
+
 
     m_nitems_total++;
     m_nitems++;
     if(m_nitems == m_report_every_nth) {
-        m_callback(m_nitems); // report to the Simulation
+        continue_calculations = m_callback(m_nitems); // report to the Simulation
         m_nitems=0;
     }
+    return continue_calculations;
 }
 
 
-void ProgressHandlerDWBA::finished()
+bool ProgressHandlerDWBA::finished()
 {
     if(m_callback) {
         m_callback(m_nitems); // report to the Simulation
         m_nitems = 0;
     }
+    return true;
 }
 
 

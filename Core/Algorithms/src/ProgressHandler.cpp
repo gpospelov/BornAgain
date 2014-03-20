@@ -12,11 +12,17 @@ ProgressHandler::ProgressHandler()
 
 }
 
-
-void ProgressHandler::update(int n)
+//! Collects number of items processed by different DWBASimulation's.
+//! Calculates general progress and inform GUI if progress has changed.
+//! Return flag is obtained from GUI and transferred to DWBASimulation to ask
+//! them to stop calculations.
+bool ProgressHandler::update(int n)
 {
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
+
+    // this flag is to inform Simulation that GUI wants it to be terminated
+    bool continue_calculations(true);
 
     m_nitems += n;
 
@@ -24,9 +30,13 @@ void ProgressHandler::update(int n)
     int progress = int(double(100*m_nitems)/double(m_nitems_max)); // in percents
     if(progress != m_current_progress) {
         m_current_progress = progress;
-        if(m_callback) m_callback(m_current_progress); // report to gui
+        if(m_callback) {
+            continue_calculations = m_callback(m_current_progress); // report to gui
+        }
     }
+    return continue_calculations;
 }
+
 
 //! Initialize ProgressHandler, estimates number of items to be calculated
 //! by DWBASimulation's.

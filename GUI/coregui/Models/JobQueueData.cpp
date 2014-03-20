@@ -186,6 +186,7 @@ void JobQueueData::onFinishedJob()
     Simulation *simulation = getSimulation(runner->getIdentifier());
     if(simulation) {
         jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
+
     }
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)

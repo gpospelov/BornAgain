@@ -6,6 +6,7 @@
 #include "qcustomplot.h"
 
 #include <QVBoxLayout>
+#include <QModelIndex>
 
 
 OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
@@ -24,7 +25,7 @@ OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
 //    setStyleSheet("background-color:white;");
 
     m_customPlot = new QCustomPlot(this);
-    m_customPlot->setObjectName(QString::fromUtf8("customPlot"));
+    m_customPlot->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
     m_customPlot->hide();
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -47,6 +48,10 @@ void OutputDataWidget::setModel(JobQueueModel *model)
             SLOT( itemClicked(JobItem *) )
             );
 
+        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
+                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
+
+
     }
 }
 
@@ -59,14 +64,24 @@ void OutputDataWidget::itemClicked(JobItem *jobItem)
         m_currentJobItem = jobItem;
 
     OutputDataItem *dataItem = jobItem->getOutputDataItem();
-    if(!dataItem) return;
 
-    OutputData<double> *data = dataItem->getOutputData();
-
-    if(!data) return;
+    if(!dataItem || !dataItem->getOutputData()) {
+        m_customPlot->hide();
+        return;
+    }
 
     m_customPlot->show();
-    Draw(data);
+    Draw(dataItem->getOutputData());
+}
+
+
+void OutputDataWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
+{
+    qDebug() << "OutputDataWidget::dataChanged()";
+    JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
+    if(jobItem == m_currentJobItem) {
+        itemClicked(jobItem);
+    }
 }
 
 
@@ -79,8 +94,14 @@ void OutputDataWidget::Draw(const OutputData<double> *data)
         throw NullPointerException("CustomCanvas::Draw() -> Error. Zero pointer to the data to draw");
     }
 
-    if(data == m_data) return;
+    if(data == m_data)
+        return;
+
     m_data = data;
+
+    qDebug() << "OutputDataWidget::Draw() ->";
+    m_customPlot->clearPlottables();
+
 
     m_customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
     m_customPlot->axisRect()->setupFullAxesBox(true);
@@ -97,8 +118,7 @@ void OutputDataWidget::Draw(const OutputData<double> *data)
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
     colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
-    colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax())); // and span the coordinate range -4..4 in both key (x) and value (y) dimensions
-
+    colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
@@ -135,5 +155,7 @@ void OutputDataWidget::Draw(const OutputData<double> *data)
 
     // rescale the key (x) and value (y) axes so the whole color map is visible:
     m_customPlot->rescaleAxes();
+
+    m_customPlot->replot();
 }
 

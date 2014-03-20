@@ -18,6 +18,7 @@ public:
 
 public slots:
     void itemClicked(JobItem *item);
+    void dataChanged(const QModelIndex &, const QModelIndex &);
 
 private:
     void Draw(const OutputData<double> *data);

@@ -14,7 +14,9 @@ JobItem::JobItem(QString name)
     , m_status(Idle)
     , m_progress(0)
 {
-    m_data_items.append(new OutputDataItem());
+    OutputDataItem *dataItem = new OutputDataItem();
+    m_data_items.append(dataItem);
+    connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
     m_status_list << "" << "running" << "completed" << "canceled";
 }
 

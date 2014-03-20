@@ -1,6 +1,7 @@
 #ifndef OUTPUTADTAITEM_H
 #define OUTPUTADTAITEM_H
 
+#include <QObject>
 #include <QString>
 #include "OutputData.h"
 
@@ -8,38 +9,30 @@ class QXmlStreamWriter;
 class QXmlStreamReader;
 
 //! Holds graphical settings for the representation of OutputData in a view
-class OutputDataItem
+class OutputDataItem : public QObject
 {
+    Q_OBJECT
 public:
     OutputDataItem();
     virtual ~OutputDataItem(){}
 
     QString getName() const { return m_name;}
-    void setName(QString name) { m_name = name; }
 
     double getXaxisMin() const { return m_xaxis_min; }
-    void setXaxisMin(double xmin) { m_xaxis_min = xmin; }
 
     double getXaxisMax() const { return m_xaxis_max; }
-    void setXaxisMax(double xmax) { m_xaxis_max = xmax; }
 
     double getYaxisMin() const { return m_yaxis_min; }
-    void setYaxisMin(double ymin) { m_yaxis_min = ymin; }
 
     double getYaxisMax() const { return m_yaxis_max; }
-    void setYaxisMax(double ymax) { m_yaxis_max = ymax; }
 
     double getZaxisMin() const { return m_zaxis_min; }
-    void setZaxisMin(double zmin) { m_zaxis_min = zmin; }
 
     double getZaxisMax() const { return m_zaxis_max; }
-    void setZaxisMax(double zmax) { m_zaxis_max = zmax; }
 
     bool isLogz() const { return m_is_logz; }
-    void setLogz(bool logz) { m_is_logz = logz; }
 
     bool isInterpolated() const { return m_is_interpolated; }
-    void setInterpolated(bool interp) { m_is_interpolated = interp; }
 
     void writeTo(QXmlStreamWriter *writer);
     void readFrom(QXmlStreamReader *reader);
@@ -47,6 +40,20 @@ public:
     OutputData<double> *getOutputData() { return m_data; }
 
     void setOutputData(OutputData<double> *data);
+
+signals:
+    void modified();
+
+public slots:
+    void setName(QString name) { m_name = name; emit modified();}
+    void setXaxisMin(double xmin) { m_xaxis_min = xmin; emit modified();}
+    void setXaxisMax(double xmax) { m_xaxis_max = xmax; emit modified();}
+    void setYaxisMin(double ymin) { m_yaxis_min = ymin; emit modified();}
+    void setYaxisMax(double ymax) { m_yaxis_max = ymax; emit modified();}
+    void setZaxisMin(double zmin) { m_zaxis_min = zmin; emit modified();}
+    void setZaxisMax(double zmax) { m_zaxis_max = zmax; emit modified();}
+    void setLogz(bool logz) { m_is_logz = logz; emit modified();}
+    void setInterpolated(bool interp) { m_is_interpolated = interp; emit modified();}
 
 private:
     OutputData<double> *m_data; //!< simulation results

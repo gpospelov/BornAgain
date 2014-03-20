@@ -63,6 +63,8 @@ public slots:
     void setStatus(JobStatus status) { m_status = status; emit modified(this);}
     void setProgress(int progress) { m_progress = progress; emit modified(this); }
 
+    void onDataItemModified() { emit modified(this); }
+
 private:
     void clear();
 

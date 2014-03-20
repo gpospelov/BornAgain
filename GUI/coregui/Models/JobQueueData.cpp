@@ -127,16 +127,18 @@ void JobQueueData::cancelJob(QString identifier)
 {
     qDebug() << "JobQueueData::cancelJob()";
     if(QThread *thread = getThread(identifier)) {
-        thread->quit();
-        JobItem *jobItem = getJobItem(identifier);
-        jobItem->setStatus(JobItem::Canceled);
-        jobItem->setEndTime(QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
-        jobItem->setProgress(0);
+//        thread->quit();
+//        JobItem *jobItem = getJobItem(identifier);
+//        jobItem->setStatus(JobItem::Canceled);
+//        jobItem->setEndTime(QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
+//        jobItem->setProgress(0);
 
+//        JobRunner *runner = getRunner(identifier);
+//        runner->terminate();
+//        assignForDeletion(runner);
+//        updateGlobalProgress();
         JobRunner *runner = getRunner(identifier);
         runner->terminate();
-        assignForDeletion(runner);
-        updateGlobalProgress();
         return;
     }
     qDebug() << "JobQueueData::cancelJob() -> No thread is running";

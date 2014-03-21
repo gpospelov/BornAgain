@@ -1,54 +1,19 @@
 #include "SamplePropertyEditor.h"
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
-
-#include "qtvariantproperty.h"
-#include "qttreepropertybrowser.h"
-
-#include <QtBoolPropertyManager>
-#include <QtIntPropertyManager>
-#include <QtStringPropertyManager>
-#include <QtSizePropertyManager>
-#include <QtRectPropertyManager>
-#include <QtSizePolicyPropertyManager>
-#include <QtEnumPropertyManager>
-#include <QtGroupPropertyManager>
-
-#include <QtCheckBoxFactory>
-#include <QtSpinBoxFactory>
-#include <QtSliderFactory>
-#include <QtScrollBarFactory>
-#include <QtLineEditFactory>
-#include <QtEnumEditorFactory>
-#include <QtProperty>
-
-#include <QVBoxLayout>
-#include <QVariant>
-#include <iostream>
-
-#include <QItemSelectionModel>
-
-#include <QMetaObject>
-#include <QMetaProperty>
-#include <QVBoxLayout>
-#include <QScrollArea>
-#include "qtvariantproperty.h"
-#include "qtgroupboxpropertybrowser.h"
-#include "qttreepropertybrowser.h"
-#include "qtpropertybrowser.h"
-
-#include "SampleDesigner.h"
-#include "DesignerScene.h"
-#include "DesignerHelper.h"
-
-//#include <QGraphicsItem>
 #include "ParameterizedItem.h"
+
+#include "qttreepropertybrowser.h"
+
+#include <QtProperty>
+#include <QItemSelectionModel>
+#include <QVBoxLayout>
 
 SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
                                            QWidget *parent)
     : QWidget(parent)
-    , m_selection_model(selection_model)
     , m_item(0)
+    , m_selection_model(selection_model)
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("PropertyEditor"));

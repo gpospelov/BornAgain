@@ -11,7 +11,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
     , m_progress(0)
-    , m_run_flag(true)
+    , m_terminate_flag(false)
 {
 
 }
@@ -23,20 +23,31 @@ JobRunner::~JobRunner()
 }
 
 
+int JobRunner::getProgress() const
+{
+    // sometimes simulation underestimate the number of iterations required
+    // and progress can be greater than 100
+    return m_progress < 100 ? m_progress : 100;
+}
+
+
 void JobRunner::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
-    m_run_flag = true;
+    m_terminate_flag = false;
     emit started();
 
     if(m_simulation) {
+        ProgressHandler_t progressHandler(new ProgressHandler());
         ProgressHandler::Callback_t callback = boost::bind(&JobRunner::similationProgressCallback, this, _1);
-        m_simulation->setProgressCallback(callback);
-        ThreadInfo info;
-        info.n_threads = 1;
-        m_simulation->setThreadInfo(info);
+        progressHandler->setCallback(callback);
+        m_simulation->setProgressHandler(progressHandler);
+        //ThreadInfo info;
+        //info.n_threads = 8;
+        //m_simulation->setThreadInfo(info);
         m_simulation->runSimulation();
-        m_progress=100;
+        if(m_terminate_flag) m_progress=-1;
+        emit progressUpdate();
         emit finished();
     } else {
         runFakeSimulation();
@@ -49,11 +60,11 @@ void JobRunner::runFakeSimulation()
 {
     qDebug() << "JobItem::runFakeSimulation()" << m_progress;
     if(m_progress < 100) {
-        m_progress = m_progress+4;
+        m_progress++;
         emit progressUpdate();
-        QTimer::singleShot(500, this, SLOT(runFakeSimulation()));
+        QTimer::singleShot(100, this, SLOT(runFakeSimulation()));
     }
-    if(m_progress >=100 || !m_run_flag) {
+    if(m_progress >=100 || m_terminate_flag) {
         emit progressUpdate();
         emit finished();
     }
@@ -66,12 +77,12 @@ bool JobRunner::similationProgressCallback(int progress)
     m_progress = progress;
     qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
     emit progressUpdate();
-    return m_run_flag;
+    return !m_terminate_flag;
 }
 
 
 void JobRunner::terminate()
 {
     qDebug() << "JobRunner::terminate()";
-    m_run_flag = false;
+    m_terminate_flag = true;
 }

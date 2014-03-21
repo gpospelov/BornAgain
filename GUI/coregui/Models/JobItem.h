@@ -50,6 +50,8 @@ public:
 
     bool isRunning() const { return m_status == Running; }
 
+    OutputDataItem *getOutputDataItem(int n_item = 0);
+
 signals:
     void modified(JobItem *);
 
@@ -60,6 +62,8 @@ public slots:
     void setComments(QString comments) { m_comments = comments; emit modified(this);}
     void setStatus(JobStatus status) { m_status = status; emit modified(this);}
     void setProgress(int progress) { m_progress = progress; emit modified(this); }
+
+    void onDataItemModified() { emit modified(this); }
 
 private:
     void clear();

@@ -18,6 +18,7 @@
 
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
+#include <boost/shared_ptr.hpp>
 
 class Simulation;
 
@@ -44,6 +45,8 @@ public:
     long getNitems() const { return m_nitems; }
 
     void init(Simulation *simulation, int param_combinations = 1);
+
+    void reset();
 private:
     ProgressHandler(const ProgressHandler& );
     ProgressHandler& operator=(const ProgressHandler& );
@@ -53,6 +56,8 @@ private:
     long m_nitems_max;
     long m_current_progress;
 };
+
+typedef boost::shared_ptr<class ProgressHandler > ProgressHandler_t;
 
 
 #endif

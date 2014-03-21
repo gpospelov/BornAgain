@@ -226,6 +226,7 @@ void MainWindow::initJobQueueModel()
 {
     SimulationRegistry registry;
     m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
+    m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
     m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 
     //m_jobQueueModel->load("tmp2.xml");

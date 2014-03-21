@@ -19,8 +19,8 @@
 ****************************************************************************
 **           Author: Emanuel Eichhammer                                   **
 **  Website/Contact: http://www.qcustomplot.com/                          **
-**             Date: 28.01.14                                             **
-**          Version: 1.2.0-beta                                           **
+**             Date: 14.03.14                                             **
+**          Version: 1.2.0                                                **
 ****************************************************************************/
 
 #ifndef QCUSTOMPLOT_H
@@ -316,10 +316,10 @@ public:
     Defines special modes the painter can operate in. They disable or enable certain subsets of features/fixes/workarounds,
     depending on whether they are wanted on the respective output device.
   */
-  enum PainterMode {pmDefault       = 0x00   ///< <tt>0x00</tt> Default mode for painting on screen devices
-                    ,pmVectorized   = 0x01   ///< <tt>0x01</tt> Mode for vectorized painting (e.g. PDF export). For example, this prevents some antialiasing fixes.
-                    ,pmNoCaching    = 0x02   ///< <tt>0x02</tt> Mode for all sorts of exports (e.g. PNG, PDF,...). For example, this prevents using cached pixmap labels
-                    ,pmNonCosmetic  = 0x04   ///< <tt>0x04</tt> Turns pen widths 0 to 1, i.e. disables cosmetic pens. (A cosmetic pen is always drawn with width 1 pixel in the vector image/pdf viewer, independent of zoom.)
+  enum PainterMode { pmDefault       = 0x00   ///< <tt>0x00</tt> Default mode for painting on screen devices
+                     ,pmVectorized   = 0x01   ///< <tt>0x01</tt> Mode for vectorized painting (e.g. PDF export). For example, this prevents some antialiasing fixes.
+                     ,pmNoCaching    = 0x02   ///< <tt>0x02</tt> Mode for all sorts of exports (e.g. PNG, PDF,...). For example, this prevents using cached pixmap labels
+                     ,pmNonCosmetic  = 0x04   ///< <tt>0x04</tt> Turns pen widths 0 to 1, i.e. disables cosmetic pens. (A cosmetic pen is always drawn with width 1 pixel in the vector image/pdf viewer, independent of zoom.)
                    };
   Q_FLAGS(PainterMode PainterModes)
   Q_DECLARE_FLAGS(PainterModes, PainterMode)
@@ -826,8 +826,8 @@ public:
   /*!
     Defines how the placement and sizing is handled for a certain element in a QCPLayoutInset.
   */
-  enum InsetPlacement {ipFree            ///< The element may be positioned/sized arbitrarily, see \ref setInsetRect
-                       ,ipBorderAligned  ///< The element is aligned to one of the layout sides, see \ref setInsetAlignment
+  enum InsetPlacement { ipFree            ///< The element may be positioned/sized arbitrarily, see \ref setInsetRect
+                        ,ipBorderAligned  ///< The element is aligned to one of the layout sides, see \ref setInsetAlignment
                       };
   
   explicit QCPLayoutInset();
@@ -881,7 +881,7 @@ public:
     and \ref setLength. Some decorations like \ref esDisc, \ref esSquare, \ref esDiamond and \ref esBar only
     support a width, the length property is ignored.
     
-    \see QCPItemLine::setHead, QCPItemLine::setTail, QCPItemCurve::setHead, QCPItemCurve::setTail
+    \see QCPItemLine::setHead, QCPItemLine::setTail, QCPItemCurve::setHead, QCPItemCurve::setTail, QCPAxis::setLowerEnding, QCPAxis::setUpperEnding
   */
   Q_ENUMS(EndingStyle)
   enum EndingStyle { esNone          ///< No ending decoration
@@ -892,7 +892,7 @@ public:
                      ,esSquare       ///< A filled square
                      ,esDiamond      ///< A filled diamond (45° rotated square)
                      ,esBar          ///< A bar perpendicular to the line
-                     ,esHalfBar      ///< A bar perpendicular to the line sticking out to one side
+                     ,esHalfBar      ///< A bar perpendicular to the line, pointing out to only one side (to which side can be changed with \ref setInverted)
                      ,esSkewedBar    ///< A bar that is skewed (skew controllable via \ref setLength)
                    };
   
@@ -1275,7 +1275,7 @@ protected:
   
   // reimplemented virtual methods:
   virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
-  virtual void draw(QCPPainter *painter); 
+  virtual void draw(QCPPainter *painter);
   virtual QCP::Interaction selectionCategory() const;
   // events:
   virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
@@ -1683,9 +1683,9 @@ public:
 
     \see replot
   */
-  enum RefreshPriority { rpImmediate     ///< The QCustomPlot surface is immediately refreshed, by calling QWidget::repaint() after the replot
-                         ,rpQueued       ///< Queues the refresh such that it is performed at a slightly delayed point in time after the replot, by calling QWidget::update() after the replot
-                         ,rpHint ///< Whether to use immediate repaint or queued update depends on whether the plotting hint \ref QCP::phForceRepaint is set, see \ref setPlottingHints.
+  enum RefreshPriority { rpImmediate ///< The QCustomPlot surface is immediately refreshed, by calling QWidget::repaint() after the replot
+                         ,rpQueued   ///< Queues the refresh such that it is performed at a slightly delayed point in time after the replot, by calling QWidget::update() after the replot
+                         ,rpHint     ///< Whether to use immediate repaint or queued update depends on whether the plotting hint \ref QCP::phForceRepaint is set, see \ref setPlottingHints.
                        };
   
   explicit QCustomPlot(QWidget *parent = 0);
@@ -1842,7 +1842,7 @@ protected:
   // non-property members:
   QPixmap mPaintBuffer;
   QPoint mMousePressPos;
-  QCPLayoutElement *mMouseEventElement;
+  QPointer<QCPLayoutElement> mMouseEventElement;
   bool mReplotting;
   
   // reimplemented virtual methods:
@@ -1882,8 +1882,8 @@ public:
     
     \see setColorInterpolation
   */
-  enum ColorInterpolation {ciRGB,
-                           ciHSV
+  enum ColorInterpolation { ciRGB  ///< Color channels red, green and blue are linearly interpolated
+                            ,ciHSV ///< Color channels hue, saturation and value are linearly interpolated (The hue is interpolated over the shortest angle distance)
                           };
   Q_ENUMS(ColorInterpolation)
   
@@ -1891,18 +1891,18 @@ public:
     Defines the available presets that can be loaded with \ref loadPreset. See the documentation
     there for an image of the presets.
   */
-  enum GradientPreset {gpGrayscale,
-                       gpHot,
-                       gpCold,
-                       gpNight,
-                       gpCandy,
-                       gpGeography,
-                       gpIon,
-                       gpThermal,
-                       gpPolar,
-                       gpSpectrum,
-                       gpJet,
-                       gpHues,
+  enum GradientPreset { gpGrayscale  ///< Continuous lightness from black to white (suited for non-biased data representation)
+                        ,gpHot       ///< Continuous lightness from black over firey colors to white (suited for non-biased data representation)
+                        ,gpCold      ///< Continuous lightness from black over icey colors to white (suited for non-biased data representation)
+                        ,gpNight     ///< Continuous lightness from black over weak blueish colors to white (suited for non-biased data representation)
+                        ,gpCandy     ///< Blue over pink to white
+                        ,gpGeography ///< Colors suitable to represent different elevations on geographical maps
+                        ,gpIon       ///< Half hue spectrum from black over purple to blue and finally green (creates banding illusion but allows more precise magnitude estimates)
+                        ,gpThermal   ///< Colors suitable for thermal imaging, ranging from dark blue over purple to orange, yellow and white
+                        ,gpPolar     ///< Colors suitable to emphasize polarity around the center, with blue for negative, black in the middle and red for positive values
+                        ,gpSpectrum  ///< An approximation of the visible light spectrum (creates banding illusion but allows more precise magnitude estimates)
+                        ,gpJet       ///< Hue variation similar to a spectrum, often used in numerical visualization (creates banding illusion but allows more precise magnitude estimates)
+                        ,gpHues      ///< Full hue cycle, with highest and lowest color red (suitable for periodic data, such as angles and phases, see \ref setPeriodic)
                       };
   Q_ENUMS(GradientPreset)
   
@@ -2168,8 +2168,8 @@ public:
     \see setSelectedParts, setSelectableParts
   */
   enum SelectablePart { spNone       = 0x000  ///< <tt>0x000</tt> None
-                       ,spLegendBox  = 0x001  ///< <tt>0x001</tt> The legend box (frame)
-                       ,spItems      = 0x002  ///< <tt>0x002</tt> Legend items individually (see \ref selectedItems)
+                        ,spLegendBox  = 0x001 ///< <tt>0x001</tt> The legend box (frame)
+                        ,spItems      = 0x002 ///< <tt>0x002</tt> Legend items individually (see \ref selectedItems)
                       };
   Q_FLAGS(SelectablePart SelectableParts)
   Q_DECLARE_FLAGS(SelectableParts, SelectablePart)
@@ -2398,6 +2398,8 @@ public:
   void setRangeZoom(bool enabled);
   
   // non-property methods:
+  QList<QCPColorMap*> colorMaps() const;
+  void rescaleDataRange(bool onlyVisibleMaps);
   
   // reimplemented virtual methods:
   virtual void update(UpdatePhase phase);
@@ -2482,20 +2484,20 @@ public:
   */
   enum LineStyle { lsNone        ///< data points are not connected with any lines (e.g. data only represented
                                  ///< with symbols according to the scatter style, see \ref setScatterStyle)
-                  ,lsLine        ///< data points are connected by a straight line
-                  ,lsStepLeft    ///< line is drawn as steps where the step height is the value of the left data point
-                  ,lsStepRight   ///< line is drawn as steps where the step height is the value of the right data point
-                  ,lsStepCenter  ///< line is drawn as steps where the step is in between two data points
-                  ,lsImpulse     ///< each data point is represented by a line parallel to the value axis, which reaches from the data point to the zero-value-line
+                   ,lsLine       ///< data points are connected by a straight line
+                   ,lsStepLeft   ///< line is drawn as steps where the step height is the value of the left data point
+                   ,lsStepRight  ///< line is drawn as steps where the step height is the value of the right data point
+                   ,lsStepCenter ///< line is drawn as steps where the step is in between two data points
+                   ,lsImpulse    ///< each data point is represented by a line parallel to the value axis, which reaches from the data point to the zero-value-line
                  };
   Q_ENUMS(LineStyle)
   /*!
     Defines what kind of error bars are drawn for each data point
   */
   enum ErrorType { etNone   ///< No error bars are shown
-                  ,etKey    ///< Error bars for the key dimension of the data point are shown
-                  ,etValue  ///< Error bars for the value dimension of the data point are shown
-                  ,etBoth   ///< Error bars for both key and value dimensions of the data point are shown
+                   ,etKey   ///< Error bars for the key dimension of the data point are shown
+                   ,etValue ///< Error bars for the value dimension of the data point are shown
+                   ,etBoth  ///< Error bars for both key and value dimensions of the data point are shown
                  };
   Q_ENUMS(ErrorType)
   
@@ -2503,7 +2505,7 @@ public:
   virtual ~QCPGraph();
   
   // getters:
-  const QCPDataMap *data() const { return mData; }
+  QCPDataMap *data() const { return mData; }
   LineStyle lineStyle() const { return mLineStyle; }
   QCPScatterStyle scatterStyle() const { return mScatterStyle; }
   ErrorType errorType() const { return mErrorType; }
@@ -2644,8 +2646,8 @@ public:
     current pen of the curve (\ref setPen).
     \see setLineStyle
   */
-  enum LineStyle { lsNone, ///< No line is drawn between data points (e.g. only scatters)
-                   lsLine  ///< Data points are connected with a straight line
+  enum LineStyle { lsNone  ///< No line is drawn between data points (e.g. only scatters)
+                   ,lsLine ///< Data points are connected with a straight line
                  };
   explicit QCPCurve(QCPAxis *keyAxis, QCPAxis *valueAxis);
   virtual ~QCPCurve();

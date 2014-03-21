@@ -1,5 +1,7 @@
 #include "JobQueueData.h"
 #include "JobQueueItem.h"
+#include "OutputDataItem.h"
+#include "Simulation.h"
 #include "JobItem.h"
 #include "JobRunner.h"
 #include "GUIHelpers.h"
@@ -124,17 +126,9 @@ void JobQueueData::runJob(QString identifier)
 void JobQueueData::cancelJob(QString identifier)
 {
     qDebug() << "JobQueueData::cancelJob()";
-    if(QThread *thread = getThread(identifier)) {
-        thread->quit();
-        JobItem *jobItem = getJobItem(identifier);
-        jobItem->setStatus(JobItem::Canceled);
-        jobItem->setEndTime(QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
-        jobItem->setProgress(0);
-
+    if(getThread(identifier)) {
         JobRunner *runner = getRunner(identifier);
         runner->terminate();
-        assignForDeletion(runner);
-        updateGlobalProgress();
         return;
     }
     qDebug() << "JobQueueData::cancelJob() -> No thread is running";
@@ -146,11 +140,20 @@ void JobQueueData::removeJob(QString identifier)
 {
     qDebug() << "JobQueueData::removeJob";
     cancelJob(identifier);
+    // removing jobs
     for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
         if(it.key() == identifier) {
             delete it.value();
             m_job_items.erase(it);
-            return;
+            break;
+        }
+    }
+    // removing simulations
+    for(QMap<QString, Simulation *>::iterator it=m_simulations.begin(); it!=m_simulations.end(); ++it) {
+        if(it.key() == identifier) {
+            delete it.value();
+            m_simulations.erase(it);
+            break;
         }
     }
 }
@@ -176,9 +179,19 @@ void JobQueueData::onFinishedJob()
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
-    jobItem->setStatus(JobItem::Completed);
+    if(runner->isTerminated()) {
+        jobItem->setStatus(JobItem::Canceled);
+    } else {
+        jobItem->setStatus(JobItem::Completed);
+    }
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
+
+    // propagating simulation results
+    Simulation *simulation = getSimulation(runner->getIdentifier());
+    if(simulation) {
+        jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
+    }
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
@@ -206,6 +219,7 @@ void JobQueueData::onProgressUpdate()
 }
 
 
+// estimates global progress from the progress of multiple running jobs
 void JobQueueData::updateGlobalProgress()
 {
     int global_progress(0);

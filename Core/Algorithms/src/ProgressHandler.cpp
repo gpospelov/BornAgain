@@ -6,11 +6,20 @@
 
 ProgressHandler::ProgressHandler()
     : m_nitems(0)
-    , m_nitems_max(10000)
+    , m_nitems_max(0)
     , m_current_progress(0)
 {
 
 }
+
+void ProgressHandler::reset()
+{
+    m_nitems = 0;
+    m_nitems_max = 0;
+    m_current_progress = 0;
+    m_callback = NULL;
+}
+
 
 //! Collects number of items processed by different DWBASimulation's.
 //! Calculates general progress and inform GUI if progress has changed.
@@ -52,7 +61,7 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
     // Simplified estimation of total number of items in DWBA simulation
     m_nitems_max = param_combinations*simulation->getOutputData()->getAllocatedSize();
 
-    m_nitems_max *= 2; //diffuse and non diffuse case
+    //m_nitems_max *= 2; //diffuse and non diffuse case
 
     std::cout << "ProgressHandler::init() -> m_nitems_max" << m_nitems_max << std::endl;
 }

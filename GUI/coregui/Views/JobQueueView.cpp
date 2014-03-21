@@ -15,13 +15,9 @@ JobQueueView::JobQueueView(JobQueueModel *model, QWidget *parent)
     , m_jobQueueModel(model)
     , m_splitter(new Manhattan::MiniSplitter(this))
     , m_jobSelector(new JobSelectorWidget(m_jobQueueModel, this))
-    , m_jobOutputData(new JobOutputDataWidget(this))
+    , m_jobOutputData(new JobOutputDataWidget(m_jobQueueModel, this))
 {
     setObjectName("JobQueueView");
-
-//    m_jobQueueModel->addJob(0);
-//    m_jobQueueModel->addJob(0);
-//    m_jobQueueModel->addJob(0);
 
     m_splitter->addWidget(m_jobSelector);
     m_splitter->addWidget(m_jobOutputData);

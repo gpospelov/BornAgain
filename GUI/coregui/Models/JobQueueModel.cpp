@@ -71,7 +71,6 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 {
     if (index.isValid() && role == Qt::EditRole) {
         getJobItemForIndex(index)->setName(value.toString());
-        //m_jobs.at(index.row())->setName(value.toString());
         return true;
     }
     return false;

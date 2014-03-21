@@ -21,6 +21,17 @@ OutputDataItem::OutputDataItem()
 }
 
 
+void OutputDataItem::setOutputData(OutputData<double> *data)
+{
+    if(data != m_data) {
+        qDebug() << "OutputDataItem::setOutputData(OutputData<double> *data)";
+        delete m_data;
+        m_data = data;
+        emit modified();
+    }
+}
+
+
 void OutputDataItem::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);

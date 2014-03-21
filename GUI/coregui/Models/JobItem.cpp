@@ -14,7 +14,9 @@ JobItem::JobItem(QString name)
     , m_status(Idle)
     , m_progress(0)
 {
-    m_data_items.append(new OutputDataItem());
+    OutputDataItem *dataItem = new OutputDataItem();
+    m_data_items.append(dataItem);
+    connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
     m_status_list << "" << "running" << "completed" << "canceled";
 }
 
@@ -35,6 +37,14 @@ void JobItem::clear()
 QString JobItem::getStatusString() const
 {
     return m_status_list.at(int(m_status));
+}
+
+
+OutputDataItem *JobItem::getOutputDataItem(int n_item)
+{
+    if(m_data_items.empty() || n_item < 0 || n_item >= m_data_items.size())
+        return 0;
+    return m_data_items.at(n_item);
 }
 
 

@@ -21,6 +21,7 @@
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
+#include "ProgressHandlerDWBA.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -28,9 +29,6 @@ GCC_DIAG_OFF(strict-aliasing);
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
 
-
-ProgressHandler Simulation::m_progress;
-//ProgressHandler Simulation::m_progress = ProgressHandler();
 
 Simulation::Simulation()
 : IParameterized("Simulation")
@@ -98,6 +96,7 @@ Simulation::Simulation(const Simulation& other)
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
 , m_distribution_handler(other.m_distribution_handler)
+, m_progress(other.m_progress)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
@@ -137,7 +136,7 @@ void Simulation::runSimulation()
 
 	size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    m_progress.init(this, param_combinations);
+    if(m_progress) m_progress->init(this, param_combinations);
 
 	// no averaging needed:
 	if (param_combinations == 1) {
@@ -441,16 +440,16 @@ void Simulation::runSingleSimulation()
 
 }
 
-//! method used by GUI to pass to the simulation progress callback function
-void Simulation::setProgressCallback(ProgressHandler::Callback_t callback)
-{
-    m_progress.setCallback(callback);
-}
 
-
-//! create callback for DWBASimulation to report its progress
-ProgressHandler::Callback_t Simulation::createDWBAProgressCallback()
+//! initializes DWBA progress handler
+void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
 {
-    return boost::bind(&ProgressHandler::update, &m_progress, _1);
+    // if we have external ProgressHandler (which is normally coming from GUI),
+    // then we will create special callbacks for every DWBASimulation.
+    // These callback will be used to report DWBASimulation progress to the Simulation.
+    if(m_progress) {
+        ProgressHandler::Callback_t callback = boost::bind(&ProgressHandler::update, m_progress.get(), _1);
+        dwba_progress->setCallback(callback);
+    }
 }
 

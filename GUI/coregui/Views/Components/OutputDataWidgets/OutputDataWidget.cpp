@@ -101,6 +101,7 @@ void OutputDataWidget::Draw(const OutputData<double> *data)
 
     qDebug() << "OutputDataWidget::Draw() ->";
     m_customPlot->clearPlottables();
+    //m_customPlot->clearItems();
 
 
     m_customPlot->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
@@ -138,7 +139,6 @@ void OutputDataWidget::Draw(const OutputData<double> *data)
 
     colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
     colorMap->setColorScale(colorScale); // associate the color map with the color scale
-    colorScale->axis()->setLabel("Magnetic Field Strength");
 
     // set the color gradient of the color map to one of the presets:
     colorMap->setGradient(QCPColorGradient::gpPolar);

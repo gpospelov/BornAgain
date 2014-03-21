@@ -22,6 +22,7 @@ public:
 
     bool similationProgressCallback(int);
 
+    bool isTerminated() { return m_terminate_flag; }
 signals:
     void started();
     void finished();
@@ -38,7 +39,7 @@ private:
     QString m_identifier;
     Simulation *m_simulation;
     int m_progress;
-    int m_run_flag;
+    int m_terminate_flag;
 };
 
 

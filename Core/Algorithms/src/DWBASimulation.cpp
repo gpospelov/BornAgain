@@ -68,8 +68,8 @@ void DWBASimulation::init(const Simulation& simulation)
 		mp_polarization_output->setAllTo(Eigen::Matrix2d::Zero());
     }
 
-    // making call backs
-    if(mp_simulation->getProgressHandler()) m_progress.setCallback(mp_simulation->createDWBAProgressCallback());
+    // initialising call backs
+    mp_simulation->initProgressHandlerDWBA(&m_progress);
 }
 
 const OutputData<double>& DWBASimulation::getDWBAIntensity() const

@@ -21,6 +21,7 @@
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
+#include "ProgressHandlerDWBA.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -28,9 +29,6 @@ GCC_DIAG_OFF(strict-aliasing);
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
 
-
-//ProgressHandler Simulation::m_progress;
-//ProgressHandler Simulation::m_progress = ProgressHandler();
 
 Simulation::Simulation()
 : IParameterized("Simulation")
@@ -442,21 +440,16 @@ void Simulation::runSingleSimulation()
 
 }
 
-//! method used by GUI to pass to the simulation progress callback function
-//void Simulation::setProgressCallback(ProgressHandler::Callback_t callback)
-//{
-//    m_progress = boost::make_shared<ProgressHandler>();
-//    m_progress->setCallback(callback);
-//}
 
-
-//! create callback for DWBASimulation to report its progress
-ProgressHandler::Callback_t Simulation::createDWBAProgressCallback()
+//! initializes DWBA progress handler
+void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
 {
-    //return boost::bind(&ProgressHandler::update, m_progress, _1);
-    if(!m_progress) {
-        throw LogicErrorException("Simulation::createDWBAProgressCallback() -> Can't create callback");
+    // if we have external ProgressHandler (which is normally coming from GUI),
+    // then we will create special callbacks for every DWBASimulation.
+    // These callback will be used to report DWBASimulation progress to the Simulation.
+    if(m_progress) {
+        ProgressHandler::Callback_t callback = boost::bind(&ProgressHandler::update, m_progress.get(), _1);
+        dwba_progress->setCallback(callback);
     }
-    return boost::bind(&ProgressHandler::update, m_progress.get(), _1);
 }
 

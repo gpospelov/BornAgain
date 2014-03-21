@@ -27,6 +27,7 @@
 #include <boost/function.hpp>
 
 class ProgramOptions;
+class ProgressHandlerDWBA;
 
 //! @class Simulation
 //! @ingroup simulation
@@ -147,15 +148,11 @@ public:
     friend class OffSpecSimulation;
 
 #ifndef GCCXML_SKIP_THIS
-
-    //! set callback to GUI's for progress update
-    //void setProgressCallback(ProgressHandler::Callback_t callback);
-
+    //! sets progress handler (used by GUI)
     void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
 
-    ProgressHandler_t getProgressHandler() const { return m_progress;}
-    //! creates callback for DWBASimulation to report its progress
-    ProgressHandler::Callback_t createDWBAProgressCallback();
+    //! initializes DWBA progress handler
+    void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
 #endif
 
 protected:

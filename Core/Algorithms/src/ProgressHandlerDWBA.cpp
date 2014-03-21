@@ -29,6 +29,7 @@ bool ProgressHandlerDWBA::update()
 }
 
 
+//! finalize report to the simulation
 bool ProgressHandlerDWBA::finished()
 {
     if(m_callback) {

@@ -61,7 +61,7 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
     // Simplified estimation of total number of items in DWBA simulation
     m_nitems_max = param_combinations*simulation->getOutputData()->getAllocatedSize();
 
-    m_nitems_max *= 2; //diffuse and non diffuse case
+    //m_nitems_max *= 2; //diffuse and non diffuse case
 
     std::cout << "ProgressHandler::init() -> m_nitems_max" << m_nitems_max << std::endl;
 }

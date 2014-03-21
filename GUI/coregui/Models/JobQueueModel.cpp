@@ -262,6 +262,14 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
             }
         }
     }
+
+
+//    if(reader->name() != JobQueueXML::ModelTag) {
+//        throw GUIHelpers::Error("JobQueueModel::readFrom() -> Format error in p1");
+//    }
+
+
+
 }
 
 

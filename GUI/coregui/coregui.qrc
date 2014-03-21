@@ -13,5 +13,6 @@
         <file>images/closebutton.png</file>
         <file>images/reset.png</file>
         <file>images/darkclosebutton.png</file>
+        <file>images/filesave.png</file>
     </qresource>
 </RCC>

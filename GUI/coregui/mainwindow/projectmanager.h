@@ -18,7 +18,6 @@ public:
     ~ProjectManager();
 
     void createNewProject();
-    void openProject(QString fileName = QString());
     void closeCurrentProject();
 
     void readSettings(QSettings *settings);
@@ -28,6 +27,9 @@ public:
 
 public slots:
     void clearRecentProjects();
+    void onDocumentModified();
+    void saveProject();
+    void openProject(QString fileName = QString());
 
 private:
 

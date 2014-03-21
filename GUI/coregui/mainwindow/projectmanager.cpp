@@ -46,25 +46,66 @@ void ProjectManager::closeCurrentProject()
 //! call dialog window to define project path and name
 void ProjectManager::createNewProject()
 {
-    NewProjectDialog dialog(m_mainWindow);
-    // give projectDialog something to start with
-    dialog.setProjectPath(getDefaultProjectPath());
-    dialog.setProjectName(getUntitledProjectName());
+//    NewProjectDialog dialog(m_mainWindow);
+//    // give projectDialog something to start with
+//    dialog.setProjectPath(getDefaultProjectPath());
+//    dialog.setProjectName(getUntitledProjectName());
 
-    if (dialog.exec() == QDialog::Accepted) {
-        closeCurrentProject();
-        m_defaultProjectPath = dialog.getProjectPath();
-        m_project_document = new ProjectDocument(dialog.getProjectPath(), dialog.getProjectName());
-        m_project_document->save();
+//    if (dialog.exec() == QDialog::Accepted) {
+//        closeCurrentProject();
+//        m_defaultProjectPath = dialog.getProjectPath();
+//        m_project_document = new ProjectDocument(dialog.getProjectPath(), dialog.getProjectName());
+//        m_project_document->save();
+//        m_mainWindow->setWindowTitle(m_project_document->getProjectName());
+//    }
+
+
+    m_project_document = new ProjectDocument();
+    connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
+    m_project_document->setProjectName("Untitled");
+    m_project_document->setModel(m_mainWindow->getJobQueueModel());
+}
+
+
+void ProjectManager::onDocumentModified()
+{
+    Q_ASSERT(m_project_document);
+    if(m_project_document->isModified()) {
+        m_mainWindow->setWindowTitle("*"+m_project_document->getProjectName());
+    } else {
         m_mainWindow->setWindowTitle(m_project_document->getProjectName());
     }
-
 }
+
+
+void ProjectManager::saveProject()
+{
+    Q_ASSERT(m_project_document);
+    qDebug() << "ProjectManager::saveProject()";
+
+    if(m_project_document->hasValidNameAndPath()) {
+        m_project_document->save();
+    } else {
+        NewProjectDialog dialog(m_mainWindow);
+        // give projectDialog something to start with
+        dialog.setProjectPath(getDefaultProjectPath());
+        dialog.setProjectName(getUntitledProjectName());
+
+        if (dialog.exec() == QDialog::Accepted) {
+            m_defaultProjectPath = dialog.getProjectPath();
+            m_project_document->setProjectName(dialog.getProjectName());
+            m_project_document->setProjectPath(dialog.getProjectPath());
+            m_project_document->save();
+        }
+    }
+}
+
 
 
 //! Opens existing project. If fileName is empty, will popup file selection dialog
 void ProjectManager::openProject(QString fileName)
 {
+    closeCurrentProject();
 
     if(fileName.isEmpty()) {
         fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),

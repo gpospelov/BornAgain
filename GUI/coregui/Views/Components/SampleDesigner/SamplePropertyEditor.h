@@ -39,45 +39,31 @@ private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
 
 private:
-    //! assigns objects to the property editor
-    void setObject(QObject *object);
+    //! assigns item to the property editor
+    void setItem(ParameterizedItem *item);
 
-    QObject *m_object; //! object to modify
+    ParameterizedItem *m_item; //! object to modify
 
     QItemSelectionModel *m_selection_model;
 
-//    QMap<const QMetaObject *, QtProperty *> m_classToProperty;
-//    QMap<QtProperty *, const QMetaObject *> m_propertyToClass;
+    QMap<const ParameterizedItem *, QtProperty *> m_item_to_property;
+    QMap<QtProperty *, const ParameterizedItem *> m_property_to_item;
 
-    QMap<const ParameterizedItem *, QtProperty *> m_itemToProperty;
-    QMap<QtProperty *, const ParameterizedItem *> m_propertyToItem;
-    QMap<const ParameterizedItem *, QMap<QString, QtVariantProperty *> >
-            m_itemToStringToProperty;
+    QMap<QtProperty *, int>     m_property_to_index;
+    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
+        m_item_to_index_to_property;
 
-    QMap<QtProperty *, int>     m_propertyToIndex;
-//    QMap<const QMetaObject *, QMap<int, QtVariantProperty *> > m_classToIndexToProperty;
+    QMap<QtProperty *, bool>    m_property_to_expanded;
 
-    QMap<QtProperty *, bool>    m_propertyToExpanded;
-
-    QList<QtProperty *>         m_topLevelProperties;
+    QList<QtProperty *>         m_top_level_properties;
 
     QtAbstractPropertyBrowser    *m_browser;
     QtVariantPropertyManager *m_manager;
-    QtVariantPropertyManager *m_readOnlyManager;
+    QtVariantPropertyManager *m_read_only_manager;
 
-//    void addClassProperties(const QMetaObject *metaObject);
     void addItemProperties(const ParameterizedItem *item);
-//    void updateClassProperties(const QMetaObject *metaObject, bool recursive);
     void updateItemProperties(const ParameterizedItem *item);
-//    void saveExpandedState();
-//    void restoreExpandedState();
-//    int enumToInt(const QMetaEnum &metaEnum, int enumValue) const;
-//    int intToEnum(const QMetaEnum &metaEnum, int intValue) const;
-//    int flagToInt(const QMetaEnum &metaEnum, int flagValue) const;
-//    int intToFlag(const QMetaEnum &metaEnum, int intValue) const;
     bool isSubValue(int value, int subValue) const;
-//    bool isPowerOf2(int value) const;
-
 };
 
 

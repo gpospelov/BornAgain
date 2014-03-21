@@ -41,9 +41,12 @@ public:
 class SampleViewComponents
 {
 public:
-    static SampleWidgetBox *createWidgetBox(SampleDesignerInterface *core, QWidget *parent);
-    static SamplePropertyEditor *createPropertyEditor(SampleDesignerInterface *core,QWidget *parent);
-    static QTreeView *createTreeView(SessionModel *session_model, QWidget *parent);
+    static SampleWidgetBox *createWidgetBox(
+            SampleDesignerInterface *core, QWidget *parent);
+    static SamplePropertyEditor *createPropertyEditor(
+            QItemSelectionModel *selection_model, QWidget *parent);
+    static QTreeView *createTreeView(
+            SessionModel *session_model, QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);
 };
 

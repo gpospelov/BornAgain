@@ -20,11 +20,10 @@
 #include <QList>
 #include <QMap>
 
-class ParameterizedItem
+class ParameterizedItem : public QObject
 {
+    Q_OBJECT
 public:
-    explicit ParameterizedItem(const QString &model_type=QString(),
-                               ParameterizedItem *parent=0);
     ~ParameterizedItem();
 
     //! retrieves the model type
@@ -73,15 +72,6 @@ public:
     //! take child item (this removes it from the current item)
     ParameterizedItem *takeChildItem(int row);
 
-    //! retrieves the parameter's value
-    double parameterValue(const QString &name) const;
-
-    //! sets the parameter's value, if it exists
-    void setParameter(const QString &name, double value);
-
-    //! retrieves the whole list of paramaters
-    QMap<QString, double> &parameters() { return m_parameters; }
-
     //! indicates if the passed item can be set as
     //! a child item
     bool acceptsAsChild(const QString &child_name) const;
@@ -89,9 +79,12 @@ public:
     //! get list of acceptable child object names
     QList<QString> acceptableChildItems() const { return m_valid_children; }
 
+    friend class ItemFactory;
+
 protected:
+    explicit ParameterizedItem(const QString &model_type=QString(),
+                               ParameterizedItem *parent=0);
     QList<QString> m_valid_children;
-    QMap<QString, double> m_parameters;
 
 private:
     QString m_model_type;

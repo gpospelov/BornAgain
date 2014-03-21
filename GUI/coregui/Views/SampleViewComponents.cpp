@@ -24,22 +24,25 @@
 //    return result;
 //}
 
-SampleWidgetBox *SampleViewComponents::createWidgetBox(SampleDesignerInterface *core, QWidget *parent)
+SampleWidgetBox *SampleViewComponents::createWidgetBox(
+        SampleDesignerInterface *core, QWidget *parent)
 {
     return new SampleWidgetBox(core, parent);
 }
 
 //SamplePropertyEditorInterface *SampleViewComponents::createPropertyEditor(QWidget *parent)
-SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerInterface *core, QWidget *parent)
+SamplePropertyEditor *SampleViewComponents::createPropertyEditor(
+        QItemSelectionModel *selection_model, QWidget *parent)
 {
     //SamplePropertyEditorInterface *result = new SamplePropertyEditorInterface(parent);
 //    SamplePropertyEditor *result = new SamplePropertyEditor(core, parent);
 //    result->setWindowTitle(QLatin1String("Property Editor"));
 //    result->setObjectName(QLatin1String("PropertyEditor"));
-    return new SamplePropertyEditor(core, parent);
+    return new SamplePropertyEditor(selection_model, parent);
 }
 
-QTreeView *SampleViewComponents::createTreeView(SessionModel *session_model, QWidget *parent)
+QTreeView *SampleViewComponents::createTreeView(
+        SessionModel *session_model, QWidget *parent)
 {
     QTreeView *tree_view = new QTreeView(parent);
     tree_view->setModel(session_model);
@@ -51,7 +54,8 @@ QTreeView *SampleViewComponents::createTreeView(SessionModel *session_model, QWi
     return tree_view;
 }
 
-SampleInfoStreamInterface *SampleViewComponents::createInfoStream(QWidget *parent)
+SampleInfoStreamInterface *SampleViewComponents::createInfoStream(
+        QWidget *parent)
 {
     return new SampleInfoStreamInterface(parent);
 }

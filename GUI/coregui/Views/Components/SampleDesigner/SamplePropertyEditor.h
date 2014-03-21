@@ -6,12 +6,15 @@
 #include <QMap>
 
 class SampleDesignerInterface;
+class QItemSelectionModel;
+class QItemSelection;
 class QtVariantPropertyManager;
 class QtTreePropertyBrowser;
 class QtProperty;
 class QtVariantProperty;
 class QVariant;
 class QtAbstractPropertyBrowser;
+class ParameterizedItem;
 
 
 //! property editor to modify property of the objectcurrently selected on the graphics scene
@@ -21,50 +24,46 @@ class SamplePropertyEditor : public QWidget
     Q_OBJECT
 
 public:
-    SamplePropertyEditor(SampleDesignerInterface *sample_designer, QWidget *parent = 0);
+    SamplePropertyEditor(QItemSelectionModel *selection_model,
+                         QWidget *parent = 0);
     virtual ~SamplePropertyEditor(){}
 
     QObject *getObject() const;
 
 public slots:
     //! show property of currently selected object (triggered by graphics scene)
-    void selectionChanged();
+    void selectionChanged(const QItemSelection & selected,
+                          const QItemSelection & deselected);
 
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
 
 private:
-    //! assigns objects to the property editor
-    void setObject(QObject *object);
+    //! assigns item to the property editor
+    void setItem(ParameterizedItem *item);
 
-    SampleDesignerInterface *m_sample_designer;
+    ParameterizedItem *m_item; //! object to modify
 
-    QObject *m_object; //! object to modify
+    QItemSelectionModel *m_selection_model;
 
-    QMap<const QMetaObject *, QtProperty *> m_classToProperty;
-    QMap<QtProperty *, const QMetaObject *> m_propertyToClass;
-    QMap<QtProperty *, int>     m_propertyToIndex;
-    QMap<const QMetaObject *, QMap<int, QtVariantProperty *> > m_classToIndexToProperty;
+    QMap<const ParameterizedItem *, QtProperty *> m_item_to_property;
+    QMap<QtProperty *, const ParameterizedItem *> m_property_to_item;
 
-    QMap<QtProperty *, bool>    m_propertyToExpanded;
+    QMap<QtProperty *, int>     m_property_to_index;
+    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
+        m_item_to_index_to_property;
 
-    QList<QtProperty *>         m_topLevelProperties;
+    QMap<QtProperty *, bool>    m_property_to_expanded;
+
+    QList<QtProperty *>         m_top_level_properties;
 
     QtAbstractPropertyBrowser    *m_browser;
     QtVariantPropertyManager *m_manager;
-    QtVariantPropertyManager *m_readOnlyManager;
+    QtVariantPropertyManager *m_read_only_manager;
 
-    void addClassProperties(const QMetaObject *metaObject);
-    void updateClassProperties(const QMetaObject *metaObject, bool recursive);
-//    void saveExpandedState();
-//    void restoreExpandedState();
-//    int enumToInt(const QMetaEnum &metaEnum, int enumValue) const;
-//    int intToEnum(const QMetaEnum &metaEnum, int intValue) const;
-//    int flagToInt(const QMetaEnum &metaEnum, int flagValue) const;
-//    int intToFlag(const QMetaEnum &metaEnum, int intValue) const;
+    void addItemProperties(const ParameterizedItem *item);
+    void updateItemProperties(const ParameterizedItem *item);
     bool isSubValue(int value, int subValue) const;
-//    bool isPowerOf2(int value) const;
-
 };
 
 

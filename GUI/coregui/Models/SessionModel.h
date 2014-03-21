@@ -28,6 +28,7 @@ const QString ModelTypeAttribute("ModelType");
 const QString ItemNameAttribute("ItemName");
 const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
+const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
 }
 
@@ -88,8 +89,11 @@ private:
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
+    void readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
     void writeItemAndChildItems(QXmlStreamWriter *writer,
                                 ParameterizedItem *item) const;
+    void writeProperty(QXmlStreamWriter *writer, ParameterizedItem *item,
+                       const char *property_name) const;
     QString m_filename;
     ParameterizedItem *m_root_item;
 };

@@ -41,26 +41,6 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
     return item;
 }
 
-double ParameterizedItem::parameterValue(const QString &name) const
-{
-    if (!m_parameters.contains(name)) {
-        throw Exceptions::RuntimeErrorException(
-                    "ParameterizedItem::getParameterValue: "
-                    "parameter does not exist");
-    }
-    return m_parameters[name];
-}
-
-void ParameterizedItem::setParameter(const QString &name, double value)
-{
-    if (!m_parameters.contains(name)) {
-        throw Exceptions::RuntimeErrorException(
-                    "ParameterizedItem::getParameterValue: "
-                    "parameter does not exist");
-    }
-    m_parameters[name] = value;
-}
-
 bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 {
     return m_valid_children.contains(child_name);

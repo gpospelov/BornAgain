@@ -20,6 +20,7 @@
 
 class ParticleDecorationItem : public ParameterizedItem
 {
+    Q_OBJECT
 public:
     explicit ParticleDecorationItem(ParameterizedItem *parent=0);
     ~ParticleDecorationItem();

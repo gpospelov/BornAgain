@@ -96,7 +96,7 @@ void JobItem::readFrom(QXmlStreamReader *reader)
         if (reader->isStartElement()) {
 
             if (reader->name() == JobQueueXML::OutputDataTag) {
-                qDebug() << "XXX output data";
+                qDebug() << "JobItem::readFrom() -> output data";
                 OutputDataItem *item = new OutputDataItem();
                 item->readFrom(reader);
                 m_data_items.append(item);

@@ -229,7 +229,17 @@ void JobQueueModel::load(const QString &filename)
 
 
     QXmlStreamReader reader(&file);
-    readFrom(&reader);
+
+//    readFrom(&reader);
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if (reader.isStartElement()) {
+            if (reader.name() == JobQueueXML::ModelTag) {
+                this->readFrom(&reader);
+                break;
+            }
+        }
+    }
 
     if (reader.hasError())
         throw GUIHelpers::Error(reader.errorString());
@@ -241,34 +251,55 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
+//    clear();
+//    while (!reader->atEnd()) {
+//        reader->readNext();
+//        if (reader->isStartElement()) {
+
+//            if (reader->name() == JobQueueXML::ModelTag) {
+//                beginResetModel();
+//                const QString name = reader->attributes()
+//                        .value(JobQueueXML::ModelNameAttribute).toString();
+//                qDebug() << "JobQueueModel::readFrom " << name;
+//                setName(name);
+//            } else if(reader->name() == JobQueueXML::JobTag) {
+//                QString identifier = addJob(0);
+//                m_queue_data->getJobItem(identifier)->readFrom(reader);
+//            }
+//        } else if (reader->isEndElement()) {
+//            if (reader->name() == JobQueueXML::ModelTag) {
+//                endResetModel();
+//            }
+//        }
+//    }
+
+    if(reader->name() != JobQueueXML::ModelTag) {
+        throw GUIHelpers::Error("JJobQueueModel::readFrom() -> Format error in p1");
+    }
+
     clear();
+    beginResetModel();
+    const QString name = reader->attributes()
+            .value(JobQueueXML::ModelNameAttribute).toString();
+    qDebug() << "JobQueueModel::readFrom " << name;
+    setName(name);
+
     while (!reader->atEnd()) {
         reader->readNext();
         if (reader->isStartElement()) {
-
-            if (reader->name() == JobQueueXML::ModelTag) {
-                beginResetModel();
-                const QString name = reader->attributes()
-                        .value(JobQueueXML::ModelNameAttribute).toString();
-                qDebug() << "JobQueueModel::readFrom " << name;
-                setName(name);
-            } else if(reader->name() == JobQueueXML::JobTag) {
+            if (reader->name() == JobQueueXML::JobTag) {
                 QString identifier = addJob(0);
                 m_queue_data->getJobItem(identifier)->readFrom(reader);
+            } else {
+                throw GUIHelpers::Error("JJobQueueModel::readFrom() -> Format error in p2");
             }
         } else if (reader->isEndElement()) {
             if (reader->name() == JobQueueXML::ModelTag) {
                 endResetModel();
+                break; // end of xml of current Job
             }
         }
     }
-
-
-//    if(reader->name() != JobQueueXML::ModelTag) {
-//        throw GUIHelpers::Error("JobQueueModel::readFrom() -> Format error in p1");
-//    }
-
-
 
 }
 

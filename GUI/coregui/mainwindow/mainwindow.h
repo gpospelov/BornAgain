@@ -47,7 +47,7 @@ public:
 
 public slots:
     void onChangeTabWidget(int index);
-    void newProject();
+    //void newProject();
     //void openProject();
     void openRecentProject();
     void readSettings();

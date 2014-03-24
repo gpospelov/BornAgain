@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QModelIndex>
+#include "GUIHelpers.h"
 //#include <iostream>
 //#include <QDomDocument>
 #include <QXmlStreamWriter>
@@ -19,6 +20,27 @@ ProjectDocument::ProjectDocument()
 {
 
 }
+
+ProjectDocument::ProjectDocument(const QString &projectFileName)
+    : m_jobQueueModel(0)
+    , m_modified(false)
+{
+    setProjectFileName(projectFileName);
+    qDebug() << "ProjectDocument::ProjectDocument(const QString &projectFileName)"
+             << projectFileName << getProjectPath() << getProjectName() << getProjectFileName();
+}
+
+
+void ProjectDocument::setProjectFileName(const QString &projectFileName)
+{
+    QFileInfo info(projectFileName);
+    setProjectName(info.baseName());
+
+    QFileInfo info_dir(info.path());
+    setProjectPath(info_dir.path());
+}
+
+
 
 ProjectDocument::ProjectDocument(const QString &path, const QString &name)
     : m_project_path(path)
@@ -65,7 +87,7 @@ bool ProjectDocument::save()
         qDebug() << "ProjectDocument::save() -> Error! Can't save file";
         return false;
     }
-    write(&file);
+    writeTo(&file);
     file.close();
 
     m_modified = false;
@@ -75,87 +97,58 @@ bool ProjectDocument::save()
 }
 
 
-ProjectDocument *ProjectDocument::openExistingDocument(const QString &filename)
+bool ProjectDocument::load()
 {
-    qDebug() << "ProjectDocument::openExistingDocument -> " << filename;
-    QFileInfo info(filename);
-    qDebug()  << info.baseName() << " " << info.path();
+    qDebug() << "ProjectDocument::load() -> " << getProjectFileName();
+    //QFileInfo info(filename);
+    //qDebug()  << info.baseName() << " " << info.path();
 
-    QFile file(filename);
+    QFile file(getProjectFileName());
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << "ProjectDocument::openExistingDocument -> Error. Can't open file";
+        qDebug() << "ProjectDocument::openExistingDocument -> Error. Can't open file" << getProjectFileName();
         return 0;
     }
 
-    ProjectDocument *result = new ProjectDocument(info.path(), info.baseName());
+    //ProjectDocument *result = new ProjectDocument(info.path(), info.baseName());
 
-    bool success_read = result->read(&file);
+    bool success_read = readFrom(&file);
     file.close();
 
-    if(success_read) {
-        return result;
-    } else {
-        delete result;
-        return 0;
-    }
+    return success_read;
 }
 
-bool ProjectDocument::read(QIODevice *device)
+
+bool ProjectDocument::readFrom(QIODevice *device)
 {
-//    QString errorStr;
-//    int errorLine;
-//    int errorColumn;
 
-//    QDomDocument domDocument;
+    Q_ASSERT(m_jobQueueModel);
+    disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
-//    if (!domDocument.setContent(device, true, &errorStr, &errorLine,
-//                                &errorColumn)) {
-//        std::cout << "ProjectDocument::read() -> parse error!" << std::endl;
-////        QMessageBox::information(0, tr("DOM Bookmarks"),
-////                                 tr("Parse error at line %1, column %2:\n%3")
-////                                 .arg(errorLine)
-////                                 .arg(errorColumn)
-////                                 .arg(errorStr));
-//        return false;
-//    }
+    QXmlStreamReader reader(device);
 
-//    QDomElement root = domDocument.documentElement();
-//    if (root.tagName() != "BornAgain") {
-//        std::cout << "ProjectDocument::read() -> This is not BornAgain file" << std::endl;
-//        return false;
-//    }
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if (reader.isStartElement()) {
 
-//    QDomElement child = root.firstChildElement("project");
-//    QString name = child.attribute("name");
-//    std::cout << "ProjectDocument::read() " << name.toStdString() << std::endl;
+            if (reader.name() == ProjectDocumentXML::InfoTag) {
+                //
+            } else if(reader.name() == JobQueueXML::ModelTag) {
+                m_jobQueueModel->readFrom(&reader);
+            }
+        }
+    }
 
+    if (reader.hasError())
+        throw GUIHelpers::Error(reader.errorString());
 
-
-//    QXmlStreamReader reader(device);
-
-//    while (!reader->atEnd()) {
-//        reader->readNext();
-//        if (reader->isStartElement()) {
-
-//            if (reader->name() == ProjectDocumentXML::InfoTag) {
-//                //
-//            } else if(reader->name() == JobQueueXML::ModelTag) {
-//                m_jobQueueModel->readFrom(&reader);
-//            }
-//        }
-//    }
-
-//    if (reader.hasError())
-//        throw GUIHelpers::Error(reader.errorString());
-
-
+    connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
     return true;
 
 }
 
 
-bool ProjectDocument::write(QIODevice *device)
+bool ProjectDocument::writeTo(QIODevice *device)
 {
     QXmlStreamWriter writer(device);
     writer.setAutoFormatting(true);
@@ -191,12 +184,20 @@ bool ProjectDocument::write(QIODevice *device)
 }
 
 
-//! constructs project file name from ProjectPath and ProjectName
+//! returns project file name
+//!
 //! if ProjectPath=/home/username and ProjectName=MultiLayer then project file
 //! will be /home/username/MultiLayer/MultiLayer.pro
 QString ProjectDocument::getProjectFileName()
 {
     QString result = getProjectPath() + "/" + getProjectName() + "/"+getProjectName()+".pro";
+    return result;
+}
+
+//! returns project directory
+QString ProjectDocument::getProjectDir()
+{
+    QString result = getProjectPath() + "/" + getProjectName();
     return result;
 }
 

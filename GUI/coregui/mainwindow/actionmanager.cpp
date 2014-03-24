@@ -38,7 +38,7 @@ void ActionManager::createActions()
     m_newAction = new QAction(icon, tr("&New Project"), m_mainWindow);
     m_newAction->setShortcuts(QKeySequence::New);
     m_newAction->setStatusTip(tr("Create a new project"));
-    connect(m_newAction, SIGNAL(triggered()), m_mainWindow, SLOT(newProject()) );
+    connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()) );
 
     // open project action
     icon = QIcon::fromTheme(QLatin1String("document-open"), QIcon(QLatin1String(Constants::ICON_OPENFILE)));

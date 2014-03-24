@@ -102,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     readSettings();
 
-    newProject();
+    m_projectManager->createNewProject();
 }
 
 MainWindow::~MainWindow()
@@ -144,10 +144,10 @@ QSettings *MainWindow::getSettings() const
     return m_settings;
 }
 
-void MainWindow::newProject()
-{
-    m_projectManager->createNewProject();
-}
+//void MainWindow::newProject()
+//{
+//    m_projectManager->createNewProject();
+//}
 
 
 //void MainWindow::openProject()
@@ -231,6 +231,6 @@ void MainWindow::initJobQueueModel()
     m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
     m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 
-    //m_jobQueueModel->load("tmp2.xml");
+//    m_jobQueueModel->load("tmp2.xml");
 
 }

@@ -18,6 +18,7 @@ const char G_HELP[]                = "BornAgain.Group.Help";
 
 const char ICON_NEWFILE[]          = ":/core/images/filenew.png";
 const char ICON_OPENFILE[]         = ":/core/images/fileopen.png";
+const char ICON_SAVEFILE[]         = ":/core/images/filesave.png";
 
 // settings groups
 const char S_PROJECTMANAGER[]      = "ProjectManager";

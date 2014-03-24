@@ -85,6 +85,7 @@ public:
 
 signals:
     void selectionChanged(JobItem *item);
+    void aboutToDeleteJobItem(JobItem *item);
 
 public slots:
     void onJobItemIsModified(JobItem *);

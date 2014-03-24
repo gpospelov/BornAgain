@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_projectManager(0)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , mp_sim_data_model(0)
-    , m_jobQueueModel(new JobQueueModel(this))
+    , m_jobQueueModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -92,8 +92,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(m_tabWidget);
 
+    m_projectManager = new ProjectManager(this);
     m_actionManager = new ActionManager(this);
-    m_projectManager = new ProjectManager(this);    
 
     setAcceptDrops(true);
 
@@ -102,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     readSettings();
 
+    m_projectManager->createNewProject();
 }
 
 MainWindow::~MainWindow()
@@ -143,16 +144,16 @@ QSettings *MainWindow::getSettings() const
     return m_settings;
 }
 
-void MainWindow::newProject()
-{
-    m_projectManager->createNewProject();
-}
+//void MainWindow::newProject()
+//{
+//    m_projectManager->createNewProject();
+//}
 
 
-void MainWindow::openProject()
-{
-    m_projectManager->openProject();
-}
+//void MainWindow::openProject()
+//{
+//    m_projectManager->openProject();
+//}
 
 
 void MainWindow::openRecentProject()
@@ -224,11 +225,12 @@ ISample *MainWindow::createDefaultSample()
 
 void MainWindow::initJobQueueModel()
 {
+    m_jobQueueModel = new JobQueueModel(this);
     SimulationRegistry registry;
     m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
     m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
     m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 
-    //m_jobQueueModel->load("tmp2.xml");
+//    m_jobQueueModel->load("tmp2.xml");
 
 }

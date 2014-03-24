@@ -12,13 +12,17 @@ class OutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OutputDataWidget(JobQueueModel *model, QWidget *parent = 0);
+    //explicit OutputDataWidget(JobQueueModel *model, QWidget *parent = 0);
+    explicit OutputDataWidget(QWidget *parent = 0);
 
-    void setModel(JobQueueModel *model);
+//    void setModel(JobQueueModel *model);
+
+    void setCurrentItem(JobItem *item);
 
 public slots:
-    void itemClicked(JobItem *item);
-    void dataChanged(const QModelIndex &, const QModelIndex &);
+    void onModifiedItem(JobItem *item);
+//    void itemClicked(JobItem *item);
+//    void dataChanged(const QModelIndex &, const QModelIndex &);
 
 private:
     void Draw(const OutputData<double> *data);

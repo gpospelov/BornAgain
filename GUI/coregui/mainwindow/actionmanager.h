@@ -28,6 +28,7 @@ private:
 
     QAction *m_newAction;
     QAction *m_openAction;
+    QAction *m_saveAction;
     QAction *m_exitAction;
     QList<QAction *> m_recentProjectActions;
 

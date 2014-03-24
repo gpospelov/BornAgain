@@ -40,14 +40,15 @@ public:
     ~MainWindow();
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
+    JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
 
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
 
 
 public slots:
     void onChangeTabWidget(int index);
-    void newProject();
-    void openProject();
+    //void newProject();
+    //void openProject();
     void openRecentProject();
     void readSettings();
     void writeSettings();

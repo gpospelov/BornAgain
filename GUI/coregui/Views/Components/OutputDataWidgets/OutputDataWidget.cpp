@@ -9,14 +9,15 @@
 #include <QModelIndex>
 
 
-OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
+//OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
+OutputDataWidget::OutputDataWidget(QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(0)
     , m_customPlot(0)
     , m_currentJobItem(0)
     , m_data(0)
 {
-    setModel(model);
+//    setModel(model);
 
     setMinimumSize(600, 600);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -29,39 +30,19 @@ OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
     m_customPlot->hide();
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    //mainLayout->addWidget(canvas);
     mainLayout->addWidget(m_customPlot);
     setLayout(mainLayout);
 
 }
 
 
-void OutputDataWidget::setModel(JobQueueModel *model)
+void OutputDataWidget::setCurrentItem(JobItem *jobItem)
 {
-    Q_ASSERT(model);
-    if(model != m_jobQueueModel) {
-        m_jobQueueModel = model;
-
-        connect(m_jobQueueModel,
-            SIGNAL( selectionChanged(JobItem *) ),
-            this,
-            SLOT( itemClicked(JobItem *) )
-            );
-
-        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
-                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
-
-
-    }
-}
-
-
-void OutputDataWidget::itemClicked(JobItem *jobItem)
-{
-    qDebug() << "OutputDataWidget::itemClicked" << jobItem->getName();
-
-    if(m_currentJobItem != jobItem)
+    if(m_currentJobItem != jobItem) {
         m_currentJobItem = jobItem;
+        disconnect();
+        connect(m_currentJobItem, SIGNAL(modified(JobItem*)), this, SLOT(onModifiedItem(JobItem *)));
+    }
 
     OutputDataItem *dataItem = jobItem->getOutputDataItem();
 
@@ -75,14 +56,61 @@ void OutputDataWidget::itemClicked(JobItem *jobItem)
 }
 
 
-void OutputDataWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
+void OutputDataWidget::onModifiedItem(JobItem *jobItem)
 {
-    qDebug() << "OutputDataWidget::dataChanged()";
-    JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
-    if(jobItem == m_currentJobItem) {
-        itemClicked(jobItem);
-    }
+
+    Q_ASSERT(m_currentJobItem == jobItem);
+    setCurrentItem(jobItem);
 }
+
+
+//void OutputDataWidget::setModel(JobQueueModel *model)
+//{
+//    Q_ASSERT(model);
+//    if(model != m_jobQueueModel) {
+//        m_jobQueueModel = model;
+
+//        connect(m_jobQueueModel,
+//            SIGNAL( selectionChanged(JobItem *) ),
+//            this,
+//            SLOT( itemClicked(JobItem *) )
+//            );
+
+//        connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex))
+//                , this, SLOT(dataChanged(QModelIndex, QModelIndex)));
+
+
+//    }
+//}
+
+
+//void OutputDataWidget::itemClicked(JobItem *jobItem)
+//{
+//    qDebug() << "OutputDataWidget::itemClicked" << jobItem->getName();
+
+//    if(m_currentJobItem != jobItem)
+//        m_currentJobItem = jobItem;
+
+//    OutputDataItem *dataItem = jobItem->getOutputDataItem();
+
+//    if(!dataItem || !dataItem->getOutputData()) {
+//        m_customPlot->hide();
+//        return;
+//    }
+
+//    m_customPlot->show();
+//    Draw(dataItem->getOutputData());
+//}
+
+
+//void OutputDataWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
+//{
+//    qDebug() << "OutputDataWidget::dataChanged()";
+//    JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
+//    if(jobItem == m_currentJobItem) {
+//        itemClicked(jobItem);
+//    }
+//}
 
 
 

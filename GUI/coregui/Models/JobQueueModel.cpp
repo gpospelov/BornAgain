@@ -368,6 +368,7 @@ void JobQueueModel::cancelJob(const QModelIndex &index)
 //! remove job completely from list and underlying m_queue_data
 void JobQueueModel::removeJob(const QModelIndex &index)
 {
+    emit aboutToDeleteJobItem(getJobItemForIndex(index));
     QString identifier = getIdentifier(index);
     removeRows(index.row(), 1, QModelIndex());
     m_queue_data->removeJob(identifier);

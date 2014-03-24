@@ -231,6 +231,8 @@ void ProjectDocument::saveOutputData()
 //! load OutputData from project directory
 void ProjectDocument::loadOutputData()
 {
+    Q_ASSERT(m_jobQueueModel);
+
     for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
         JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
         OutputDataItem *dataItem = jobItem->getOutputDataItem();

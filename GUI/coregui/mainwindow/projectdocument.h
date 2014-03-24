@@ -66,8 +66,6 @@ private:
 
     void saveOutputData();
     void loadOutputData();
-    //QString getOutputDataFileName(JobItem *item);
-
 
     QString m_project_path;
     QString m_project_name;

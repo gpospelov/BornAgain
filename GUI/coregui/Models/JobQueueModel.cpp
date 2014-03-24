@@ -373,4 +373,3 @@ void JobQueueModel::removeJob(const QModelIndex &index)
     m_queue_data->removeJob(identifier);
 }
 
-

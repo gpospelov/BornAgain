@@ -7,6 +7,7 @@
 class JobQueueModel;
 class QIODevice;
 class QModelIndex;
+class JobItem;
 
 
 namespace ProjectDocumentXML
@@ -62,6 +63,11 @@ public slots:
 private:
     bool writeTo(QIODevice *device);
     bool readFrom(QIODevice *device);
+
+    void saveOutputData();
+    void loadOutputData();
+    //QString getOutputDataFileName(JobItem *item);
+
 
     QString m_project_path;
     QString m_project_name;

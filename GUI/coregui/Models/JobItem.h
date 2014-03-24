@@ -56,7 +56,7 @@ signals:
     void modified(JobItem *);
 
 public slots:
-    void setName(QString name) { m_name = name; emit modified(this); }
+    void setName(QString name);
     void setBeginTime(QString begin_time) { m_begin_time = begin_time; emit modified(this);}
     void setEndTime(QString end_time) { m_end_time = end_time; emit modified(this);}
     void setComments(QString comments) { m_comments = comments; emit modified(this);}

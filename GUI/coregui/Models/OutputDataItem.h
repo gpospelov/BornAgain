@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include "OutputData.h"
+#include "OutputDataIOFactory.h"
 
 class QXmlStreamWriter;
 class QXmlStreamReader;

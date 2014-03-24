@@ -1,5 +1,7 @@
 #include "projectdocument.h"
 #include "JobQueueModel.h"
+#include "JobItem.h"
+#include "OutputDataItem.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -90,6 +92,8 @@ bool ProjectDocument::save()
     writeTo(&file);
     file.close();
 
+    saveOutputData();
+
     m_modified = false;
     emit modified();
 
@@ -113,6 +117,8 @@ bool ProjectDocument::load()
 
     bool success_read = readFrom(&file);
     file.close();
+
+    loadOutputData();
 
     return success_read;
 }
@@ -200,4 +206,43 @@ QString ProjectDocument::getProjectDir()
     QString result = getProjectPath() + "/" + getProjectName();
     return result;
 }
+
+
+//! saves OutputData into project directory
+void ProjectDocument::saveOutputData()
+{
+    Q_ASSERT(m_jobQueueModel);
+
+    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
+        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
+        OutputDataItem *dataItem = jobItem->getOutputDataItem();
+        if(dataItem) {
+            QString filename = getProjectDir() + "/" + dataItem->getName();
+            const OutputData<double> *data = dataItem->getOutputData();
+            if(data) {
+                OutputDataIOFactory::writeIntensityData(*data, filename.toStdString());
+            }
+        }
+
+    }
+}
+
+
+//! load OutputData from project directory
+void ProjectDocument::loadOutputData()
+{
+    for(int i=0; i<m_jobQueueModel->rowCount(); ++i) {
+        JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(m_jobQueueModel->index(i,0));
+        OutputDataItem *dataItem = jobItem->getOutputDataItem();
+        if(dataItem) {
+            QString filename = getProjectDir() + "/" + dataItem->getName();
+            QFileInfo info(filename);
+            if(info.exists()) {
+                jobItem->getOutputDataItem()->setOutputData(OutputDataIOFactory::readIntensityData(filename.toStdString()));
+            }
+        }
+    }
+}
+
+
 

@@ -10,12 +10,14 @@
 
 
 JobItem::JobItem(QString name)
-    : m_name(name)
-    , m_status(Idle)
+    : m_status(Idle)
     , m_progress(0)
 {
     OutputDataItem *dataItem = new OutputDataItem();
     m_data_items.append(dataItem);
+
+    setName(name);
+
     connect(dataItem, SIGNAL(modified()), this, SLOT(onDataItemModified()));
     m_status_list << "" << "running" << "completed" << "canceled";
 }
@@ -31,6 +33,21 @@ void JobItem::clear()
 {
     qDeleteAll(m_data_items);
     m_data_items.clear();
+}
+
+
+void JobItem::setName(QString name)
+{
+    m_name = name;
+    // setting names for OutputDataItem's
+    int n_data(0);
+    foreach(OutputDataItem *dataItem, m_data_items) {
+        QString dataFileName = QString("data_%1_%2.txt").arg(m_name, QString::number(n_data));
+        dataItem->setName(dataFileName);
+        ++n_data;
+    }
+
+    emit modified(this);
 }
 
 

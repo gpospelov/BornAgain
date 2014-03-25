@@ -226,6 +226,17 @@ void SamplePrintVisitor::visit(const FormFactorInfLongBox *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorInfLongRipple1 *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorInfLongRipple2 *sample)
+{
+    print_default(sample);
+}
+
+
 void SamplePrintVisitor::visit(const FormFactorLorentz *)
 {
     throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorLorentz *) -> Error. Not implemented.");

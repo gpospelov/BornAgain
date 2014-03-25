@@ -63,6 +63,8 @@ class FormFactorFullSpheroid;
 class FormFactorGauss;
 class FormFactorHemiEllipsoid;
 class FormFactorInfLongBox;
+class FormFactorInfLongRipple1;
+class FormFactorInfLongRipple2;
 class FormFactorLorentz;
 //class FormFactorParallelepiped;
 class FormFactorPrism3;
@@ -156,6 +158,8 @@ public:
     virtual void visit(const FormFactorGauss *);
     virtual void visit(const FormFactorHemiEllipsoid *);
     virtual void visit(const FormFactorInfLongBox *);
+    virtual void visit(const FormFactorInfLongRipple1 *);
+    virtual void visit(const FormFactorInfLongRipple2 *);
     virtual void visit(const FormFactorLorentz *);
     virtual void visit(const FormFactorPrism3 *);
     virtual void visit(const FormFactorPrism6 *);

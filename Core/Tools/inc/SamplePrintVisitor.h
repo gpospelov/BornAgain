@@ -73,6 +73,8 @@ public:
     virtual void visit(const FormFactorGauss *sample);
     virtual void visit(const FormFactorHemiEllipsoid *sample);
     virtual void visit(const FormFactorInfLongBox *sample);
+    virtual void visit(const FormFactorInfLongRipple1 *sample);
+    virtual void visit(const FormFactorInfLongRipple2 *sample);
     virtual void visit(const FormFactorLorentz *sample);
    // virtual void visit(const FormFactorParallelepiped *sample);
     virtual void visit(const FormFactorPrism3 *sample);

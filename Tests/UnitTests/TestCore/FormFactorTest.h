@@ -36,6 +36,8 @@
 #include "FormFactorRipple2.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorInfLongBox.h"
+#include "FormFactorInfLongRipple2.h"
+#include "FormFactorInfLongRipple1.h"
 
 #include "gtest/gtest.h"
 
@@ -572,6 +574,54 @@ TEST_F(FormFactorTest, InfLongBox)
     EXPECT_DOUBLE_EQ(50./M_PI, ilboxclone->getRadius());
 }
 
+// Test form factor of a infinite long ripple1
+TEST_F(FormFactorTest, InfLongRipple1)
+{
+    double height = 15.;
+    double width = 100.0/M_PI;
+
+    FormFactorInfLongRipple1 ilripple1(width, height);
+
+    EXPECT_EQ("FormFactorInfLongRipple1",ilripple1.getName());
+    EXPECT_DOUBLE_EQ(100./M_PI, ilripple1.getWidth());
+    EXPECT_EQ(15., ilripple1.getHeight());
+    EXPECT_DOUBLE_EQ(50./M_PI, ilripple1.getRadius());
+    //EXPECT_THROW(ilripple1.getVolume(), NotImplementedException);
+    EXPECT_EQ(2, ilripple1.getNumberOfStochasticParameters());
+
+    FormFactorInfLongRipple1 *ilripple1clone = ilripple1.clone();
+    EXPECT_EQ("FormFactorInfLongRipple1",ilripple1clone->getName());
+    EXPECT_DOUBLE_EQ(100./M_PI, ilripple1clone->getWidth());
+    EXPECT_EQ(15., ilripple1clone->getHeight());
+    EXPECT_THROW(ilripple1clone->getVolume(), NotImplementedException);
+    EXPECT_EQ(2, ilripple1clone->getNumberOfStochasticParameters());
+    EXPECT_DOUBLE_EQ(50./M_PI, ilripple1clone->getRadius());
+}
+
+// Test form factor of a infinite long ripple2
+TEST_F(FormFactorTest, InfLongRipple2)
+{
+    double height = 15.;
+    double width = 100.0/M_PI;
+    double d = 0.3; // asymetry
+
+    FormFactorInfLongRipple2 ilripple2(width, height, d);
+
+    EXPECT_EQ("FormFactorInfLongRipple2",ilripple2.getName());
+    EXPECT_DOUBLE_EQ(100./M_PI, ilripple2.getWidth());
+    EXPECT_EQ(15., ilripple2.getHeight());
+    EXPECT_DOUBLE_EQ(50./M_PI, ilripple2.getRadius());
+    EXPECT_THROW(ilripple2.getVolume(), NotImplementedException);
+    EXPECT_EQ(3, ilripple2.getNumberOfStochasticParameters());
+
+    FormFactorInfLongRipple2 *ilripple2clone = ilripple2.clone();
+    EXPECT_EQ("FormFactorInfLongRipple2",ilripple2clone->getName());
+    EXPECT_DOUBLE_EQ(100./M_PI, ilripple2clone->getWidth());
+    EXPECT_EQ(15., ilripple2clone->getHeight());
+    EXPECT_THROW(ilripple2clone->getVolume(), NotImplementedException);
+    EXPECT_EQ(3, ilripple2clone->getNumberOfStochasticParameters());
+    EXPECT_DOUBLE_EQ(50./M_PI, ilripple2clone->getRadius());
+}
 
 #endif // FORMFACTORTEST_H
 

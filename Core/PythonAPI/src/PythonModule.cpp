@@ -12,6 +12,7 @@
 #include "LatticeBasis.pypp.h" 
 #include "ParticleCoreShell.pypp.h" 
 #include "Beam.pypp.h" 
+#include "ParticleLayout.pypp.h" 
 #include "Lattice.pypp.h" 
 #include "FormFactorCylinder.pypp.h" 
 #include "ICloneable.pypp.h" 
@@ -51,8 +52,6 @@
 #include "IFormFactorBorn.pypp.h" 
 #include "MultiLayer.pypp.h" 
 #include "DistributionLorentz.pypp.h" 
-#include "ParticleDecoration.pypp.h" 
-#include "IDecoration.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
 #include "ICompositeSample.pypp.h" 
 #include "cvector_t.pypp.h" 
@@ -66,6 +65,7 @@
 #include "MesoCrystal.pypp.h" 
 #include "FormFactorDecoratorDebyeWaller.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
+#include "ILayout.pypp.h" 
 #include "IMaterial.pypp.h" 
 #include "IFormFactorDecorator.pypp.h" 
 #include "Instrument.pypp.h" 
@@ -182,9 +182,9 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Transform3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
-    register_IDecoration_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
+    register_ILayout_class();
     register_IObservable_class();
     register_IObserver_class();
     register_IResolutionFunction2D_class();
@@ -214,8 +214,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ParameterPool_class();
     register_ParticleBuilder_class();
     register_ParticleCoreShell_class();
-    register_ParticleDecoration_class();
     register_ParticleInfo_class();
+    register_ParticleLayout_class();
     register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DSimple_class();

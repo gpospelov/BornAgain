@@ -86,7 +86,7 @@ void SampleView::initSubWindows()
     ParameterizedItem *multilayer = m_session->insertNewItem("MultiLayer");
     ParameterizedItem *layer = m_session->insertNewItem("Layer",
                    m_session->indexOfItem(multilayer));
-    m_session->insertNewItem("ParticleDecoration",
+    m_session->insertNewItem("ParticleLayout",
                    m_session->indexOfItem(layer));
     m_session->insertNewItem("Layer");
     // END temporary

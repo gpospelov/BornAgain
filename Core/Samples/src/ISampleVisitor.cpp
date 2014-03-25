@@ -61,15 +61,15 @@ void ISampleVisitor::visit(const Crystal *)
 }
 
 
-void ISampleVisitor::visit(const IDecoration *)
+void ISampleVisitor::visit(const ILayout *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const IDecoration *) -> Error. Not implemented.");
 }
 
 
-void ISampleVisitor::visit(const ParticleDecoration *)
+void ISampleVisitor::visit(const ParticleLayout *)
 {
-    throw NotImplementedException("ISampleVisitor::visit(const ParticleDecoration *) -> Error. Not implemented.");
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleLayout *) -> Error. Not implemented.");
 }
 
 

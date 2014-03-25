@@ -88,8 +88,8 @@ $z$-axis, the user could use the following \Code{Python}\ script:\\
     pyramid = Particle(m_particle, pyramid_ff)
     angle_around_z = 45.*degree
     transform = Transform3D.createRotateZ(angle_around_z)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(pyramid, transform) 
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform) 
 \end{lstlisting}
 
 \newpage
@@ -1448,12 +1448,12 @@ def get_sample():
     # collection of particles
     ff= FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)
     particleshape = Particle(m_particle, ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(particleshape, 0.0, 1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(particleshape, 0.0, 1.0)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
 
     # Sample = particles in air for BA or particles in air and sitting on a substrate for DWBA
@@ -1569,13 +1569,13 @@ def get_sample():
     # collection of particles 
     ff = FormFactorFullSphere(10.2*nanometer)
     particleshape = Particle(m_particle, ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(particleshape,20.1,1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(particleshape,20.1,1.0)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     air_layer = Layer(m_ambience)
     intermediate_layer = Layer(m_interm_layer, 30.*nanometer)
-    intermediate_layer.setDecoration(particle_decoration)
+    intermediate_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
    
     multi_layer = MultiLayer()
@@ -1669,13 +1669,13 @@ def get_sample():
     core_position = kvector_t(1.5, 0.0, 0.0)
 
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_decoration= ParticleDecoration()
-    particle_decoration.addParticle(particle)
+    particle_layout= ParticleLayout()
+    particle_layout.addParticle(particle)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_air)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

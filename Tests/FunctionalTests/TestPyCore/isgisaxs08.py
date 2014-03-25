@@ -27,12 +27,12 @@ def RunSimulation1():
     pdf1 = FTDistribution2DCauchy(0.5*nanometer, 2.0*nanometer)
     pdf2 = FTDistribution2DCauchy(0.5*nanometer, 2.0*nanometer)
     interference.setProbabilityDistributions(pdf1, pdf2)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
@@ -66,12 +66,12 @@ def RunSimulation2():
     pdf1 = FTDistribution2DCauchy(0.5*nanometer, 0.5*nanometer)
     pdf2 = FTDistribution2DCauchy(0.5*nanometer, 0.5*nanometer)
     interference.setProbabilityDistributions(pdf1, pdf2)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()

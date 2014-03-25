@@ -16,12 +16,12 @@
 #include "ItemFactory.h"
 #include "MultiLayerItem.h"
 #include "LayerItem.h"
-#include "ParticleDecorationItem.h"
+#include "ParticleLayoutItem.h"
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("MultiLayer")
         << QString("Layer")
-        << QString("ParticleDecoration");
+        << QString("ParticleLayout");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
@@ -38,8 +38,8 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     if (model_name==QString("Layer")) {
         return new LayerItem(parent);
     }
-    if (model_name==QString("ParticleDecoration")) {
-        return new ParticleDecorationItem(parent);
+    if (model_name==QString("ParticleLayout")) {
+        return new ParticleLayoutItem(parent);
     }
     return 0;
 }

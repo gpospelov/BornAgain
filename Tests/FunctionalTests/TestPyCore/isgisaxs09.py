@@ -23,12 +23,12 @@ def RunSimulation1():
     pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
     pyramid = Particle(mParticle, pyramid_ff)
     interference = InterferenceFunctionNone()
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(pyramid, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     
     substrate_layer = Layer(mSubstrate, 0)
     
@@ -60,13 +60,13 @@ def RunSimulation2():
     interference = InterferenceFunctionNone()
     angle_around_z = 45.*degree
     transform = Transform3D.createRotateZ(angle_around_z)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(pyramid, transform)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform)
     
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     substrate_layer = Layer(mSubstrate, 0)
     

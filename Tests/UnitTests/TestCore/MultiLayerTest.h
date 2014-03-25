@@ -6,7 +6,7 @@
 #include "HomogeneousMaterial.h"
 #include "MaterialManager.h"
 #include "Units.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 
 class MultiLayerTest : public ::testing::Test
 {

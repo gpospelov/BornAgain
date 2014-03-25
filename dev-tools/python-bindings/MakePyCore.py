@@ -76,7 +76,7 @@ include_classes = [
     "ICloneable",
     "IClusteredParticles",
     "ICompositeSample",
-    "IDecoration",
+    "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
     "IFTDistribution1D",
@@ -121,7 +121,7 @@ include_classes = [
     "Particle",
     "ParticleCoreShell",
     "ParticleBuilder",
-    "ParticleDecoration",
+    "ParticleLayout",
     "ParticleInfo",
     "PositionParticleInfo",
     "RealParameterWrapper",
@@ -249,7 +249,7 @@ def ManualClassTunings(mb):
             cls.include()
 
     #
-    cl = mb.class_("ParticleDecoration")
+    cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")
@@ -264,7 +264,7 @@ def ManualClassTunings(mb):
         if fun.name == "setMaterial":
             fun.include()
     for fun in cl.member_functions():
-        if "void ( ::Layer::* )( ::IDecoration * )" in fun.decl_string:
+        if "void ( ::Layer::* )( ::ILayout * )" in fun.decl_string:
             fun.exclude()
     cl.constructors().include()  # including back constructors with pointers
     #

@@ -22,7 +22,7 @@ void register_ParticleBuilder_class(){
         bp::scope ParticleBuilder_scope( ParticleBuilder_exposer );
         { //::ParticleBuilder::plantParticles
         
-            typedef void ( ::ParticleBuilder::*plantParticles_function_type )( ::ParticleDecoration & ) ;
+            typedef void ( ::ParticleBuilder::*plantParticles_function_type )( ::ParticleLayout & ) ;
             
             ParticleBuilder_exposer.def( 
                 "plantParticles"

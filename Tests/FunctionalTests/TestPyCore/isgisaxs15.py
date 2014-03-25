@@ -22,21 +22,21 @@ def RunSimulation():
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     interference = InterferenceFunction1DParaCrystal(15.0*nanometer,5*nanometer, 1e3*nanometer)
     interference.setKappa(4.02698)
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
     particle_prototype = Particle(mParticle, cylinder_ff)
     stochastic_radius = StochasticSampledParameter(StochasticDoubleGaussian(5.0*nanometer, 1.25*nanometer), 30, 2)
     
     particle_builder = ParticleBuilder()
     particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius", stochastic_radius)
-    particle_builder.plantParticles(particle_decoration)
+    particle_builder.plantParticles(particle_layout)
     #Set height of each particle to its radius (H/R fixed)
-    p_parameters = particle_decoration.createParameterTree()
+    p_parameters = particle_layout.createParameterTree()
     nbr_replacements = p_parameters.fixRatioBetweenParameters("height", "radius", 1.0)
     #print "Number of replacements: ", nbr_replacements
-    particle_decoration.addInterferenceFunction(interference)    
+    particle_layout.addInterferenceFunction(interference)    
     
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
    

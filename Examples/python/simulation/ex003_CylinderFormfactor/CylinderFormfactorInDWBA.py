@@ -17,12 +17,12 @@ def get_sample():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
 
     multi_layer = MultiLayer()

@@ -18,7 +18,7 @@
 #include "InterferenceFunctionNone.h"
 #include "MaterialManager.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "Units.h"
 
 
@@ -59,13 +59,13 @@ ISample *IsGISAXS09ABuilder::buildSample() const
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
 //    complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration(
+    ParticleLayout particle_layout(
         new Particle(particle_material,
                      new FormFactorPyramid(m_length, m_height, m_alpha) ) );
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -120,11 +120,11 @@ ISample *IsGISAXS09BBuilder::buildSample() const
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(m_zangle);
 
-    ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(pyramid, transform);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(pyramid, transform);
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

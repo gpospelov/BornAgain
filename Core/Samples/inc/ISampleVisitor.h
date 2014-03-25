@@ -25,8 +25,8 @@ class ICompositeSample;
 class IClusteredParticles;
 class Crystal;
 // -
-class IDecoration;
-class ParticleDecoration;
+class ILayout;
+class ParticleLayout;
 // -
 class Layer;
 // -
@@ -118,8 +118,8 @@ public:
     virtual void visit(const IClusteredParticles *);
     virtual void visit(const Crystal *);
 
-    virtual void visit(const IDecoration *);
-    virtual void visit(const ParticleDecoration *);
+    virtual void visit(const ILayout *);
+    virtual void visit(const ParticleLayout *);
 
     virtual void visit(const Layer *);
 

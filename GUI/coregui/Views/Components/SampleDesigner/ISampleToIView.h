@@ -25,8 +25,8 @@ public:
     virtual void visit(const IClusteredParticles *sample);
     virtual void visit(const Crystal *sample);
 
-    virtual void visit(const IDecoration *sample);
-    virtual void visit(const ParticleDecoration *sample);
+    virtual void visit(const ILayout *sample);
+    virtual void visit(const ParticleLayout *sample);
 
     virtual void visit(const Layer *sample);
 

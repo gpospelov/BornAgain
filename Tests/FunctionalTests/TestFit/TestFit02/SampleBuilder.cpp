@@ -1,6 +1,6 @@
 #include "SampleBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunctions.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
@@ -48,17 +48,17 @@ ISample *SampleBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_layout;
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
 
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)),0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_length, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)),0.0, m_cylinder_ratio);
+    particle_layout.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_length, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

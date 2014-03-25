@@ -35,19 +35,19 @@ def get_sample():
     par2 = StochasticSampledParameter(stochastic_gaussian2, nbins, nfwhm)
 
     #Building nano particles
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
 
     builder = ParticleBuilder()
     builder.setPrototype(cylinder1, "/Particle/FormFactorCylinder/radius", par1, 0.95)
-    builder.plantParticles(particle_decoration)
+    builder.plantParticles(particle_layout)
     builder.setPrototype(cylinder2, "/Particle/FormFactorCylinder/radius", par2, 0.05)
-    builder.plantParticles(particle_decoration)
+    builder.plantParticles(particle_layout)
 
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_air)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

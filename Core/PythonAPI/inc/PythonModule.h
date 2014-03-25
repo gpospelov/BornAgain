@@ -53,7 +53,7 @@
 //#include "MultiLayer.h"
 //#include "Particle.h"
 //#include "Crystal.h"
-//#include "ParticleDecoration.h"
+//#include "ParticleLayout.h"
 //#include "ParameterPool.h"
 //#include "ParticleInfo.h"
 //#include "DiffuseParticleInfo.h"

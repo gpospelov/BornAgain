@@ -14,7 +14,7 @@ class FormFactorCylinderView;
 class FormFactorPrism3View;
 class InterferenceFunctionView;
 class InterferenceFunction1DParaCrystalView;
-class ParticleDecorationView;
+class ParticleLayoutView;
 
 //! Interface to visit a sample view tree and perform operations on its nodes
 
@@ -26,7 +26,7 @@ public:
     virtual void visit(ConnectableView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleRectView *)"); }
     virtual void visit(MultiLayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(MultiLayerView *)"); }
     virtual void visit(LayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(LayerView *)"); }
-    virtual void visit(ParticleDecorationView *) { throw NotImplementedException("ISampleViewVisitor::visit(ParticleDecorationView *)"); }
+    virtual void visit(ParticleLayoutView *) { throw NotImplementedException("ISampleViewVisitor::visit(ParticleLayoutView *)"); }
     virtual void visit(FormFactorView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorView *)"); }
     virtual void visit(FormFactorFullSphereView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorFullSphereView *)"); }
     virtual void visit(FormFactorPyramidView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorPyramidView *)"); }

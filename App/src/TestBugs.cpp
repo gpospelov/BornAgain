@@ -4,7 +4,7 @@
 #include "Units.h"
 #include "FormFactorTruncatedSphere.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunction2DParaCrystal.h"
 
 #include <iostream>
@@ -45,7 +45,7 @@ void TestBugs::test_item339()
                                                               0.0,20.0*Units::micrometer, 20.0*Units::micrometer);
 
 
-    ParticleDecoration *decoration = new ParticleDecoration();
+    ParticleLayout *decoration = new ParticleLayout();
 
     decoration->addParticle(particle,0., 1.0);
 
@@ -69,15 +69,15 @@ interference = ba.InterferenceFunction2DParaCrystal.createHexagonal(20.0*ba.nano
 #pdf = ba.FTDistribution2DCauchy(1.0*ba.nanometer, 1.0*ba.nanometer)
 #interference.setProbabilityDistributions(pdf, pdf)
 
-particle_decoration = ba.ParticleDecoration()
-particle_decoration.addParticle(sphere, 0., 1.)
+particle_layout = ba.ParticleLayout()
+particle_layout.addParticle(sphere, 0., 1.)
 print 'before addInterferenceFunction'
-particle_decoration.addInterferenceFunction(interference)
+particle_layout.addInterferenceFunction(interference)
 print 'after addInterferenceFunction'
 
 # air layer with particles and substrate form multi layer
 air_layer = ba.Layer(mAmbience)
-air_layer.setDecoration(particle_decoration)
+air_layer.setDecoration(particle_layout)
 substrate_layer = ba.Layer(mSubstrate, 0)
 
 multi_layer = ba.MultiLayer()

@@ -21,7 +21,7 @@
 #include "ICompositeSample.h"
 #include "IMaterial.h"
 #include "LayerDWBASimulation.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 
 //! @class Layer
 //! @ingroup samples
@@ -34,8 +34,8 @@ public:
     Layer();
 
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
-    Layer(const IMaterial* material, double thickness=0, IDecoration *decoration=0);
-    Layer(const IMaterial* material, double thickness, const IDecoration &decoration);
+    Layer(const IMaterial* material, double thickness=0, ILayout *decoration=0);
+    Layer(const IMaterial* material, double thickness, const ILayout &decoration);
 
     virtual ~Layer();
 
@@ -67,10 +67,10 @@ public:
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle decoration
-    virtual void setDecoration(const IDecoration &decoration);
+    virtual void setLayout(const ILayout &decoration);
 
     //! returns particle decoration
-    virtual const IDecoration* getDecoration() const { return mp_decoration; }
+    virtual const ILayout* getLayout() const { return mp_decoration; }
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const {
@@ -92,11 +92,11 @@ protected:
     void print(std::ostream& ostr) const;
 
     //! sets particle decoration (separate pointer version due to python-bindings)
-    virtual void setDecorationPtr(IDecoration *decoration);
+    virtual void setDecorationPtr(ILayout *decoration);
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers
-    IDecoration *mp_decoration;      //!< particle decoration
+    ILayout *mp_decoration;      //!< particle decoration
 };
 
 

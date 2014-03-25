@@ -27,15 +27,15 @@ def get_sample():
     cylinder = Particle(m_particle, cylinder_ff)
     prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
     prism = Particle(m_particle, prism_ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 0.5)
-    particle_decoration.addParticle(prism, 0.0, 0.5)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 0.5)
+    particle_layout.addParticle(prism, 0.0, 0.5)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(m_air)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -79,7 +79,7 @@ def run_simulations():
     # simulation #2
     # one sample parameter (height of the cylinder) is changed using exact parameter name
     sample.setParameterValue(
-        "/MultiLayer/Layer0/ParticleDecoration/ParticleInfo0/Particle/FormFactorCylinder/height", 10*nanometer)
+        "/MultiLayer/Layer0/ParticleLayout/ParticleInfo0/Particle/FormFactorCylinder/height", 10*nanometer)
 
     simulation.setSample(sample)
     simulation.runSimulation()

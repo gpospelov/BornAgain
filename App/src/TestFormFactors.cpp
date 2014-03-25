@@ -20,7 +20,7 @@
 #include "Utils.h"
 #include "Simulation.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "FormFactors.h"
 #include "InterferenceFunctionNone.h"
@@ -140,10 +140,10 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     air_layer.setMaterial(p_air_material);
 
     mp_form_factor=p_form_factor;
-    ParticleDecoration particle_decoration( new Particle(particle_material,
+    ParticleLayout particle_layout( new Particle(particle_material,
                                                          mp_form_factor));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    air_layer.setDecoration(particle_decoration);
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+    air_layer.setLayout(particle_layout);
     multi_layer.addLayer(air_layer);
 
     // building simulation
@@ -205,9 +205,9 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     //FormFactorTruncatedSphere ff(radius, height);
     //FormFactorTetrahedron ff(10.*Units::nanometer,5.*Units::nanometer, angle);
 
-   // ParticleDecoration particle_decoration( new Particle(particle_material,ff));
-   // particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-  //  air_layer.setDecoration(particle_decoration);
+   // ParticleLayout particle_layout( new Particle(particle_material,ff));
+   // particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+  //  air_layer.setDecoration(particle_layout);
   //  multi_layer.addLayer(air_layer);
   //  // building simulation
   //  simulation.setSample(multi_layer);

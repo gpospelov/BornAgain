@@ -72,7 +72,7 @@ class MySampleBuilder(ISampleBuilder):
         avg_layer = Layer(p_average_layer_material, self.meso_height.value)
         substrate_layer = Layer(p_substrate_material)
         p_interference_funtion = InterferenceFunctionNone()
-        particle_decoration = ParticleDecoration()
+        particle_layout = ParticleLayout()
 
         n_max_phi_rotation_steps = 2
         n_alpha_rotation_steps = 1
@@ -86,12 +86,12 @@ class MySampleBuilder(ISampleBuilder):
 
                 p_total_transform = Transform3D.createRotateZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
-                particle_decoration.addParticle(meso, p_total_transform, self.meso_height.value)
+                particle_layout.addParticle(meso, p_total_transform, self.meso_height.value)
 
-        particle_decoration.setTotalParticleSurfaceDensity(surface_density)
-        particle_decoration.addInterferenceFunction(p_interference_funtion)
+        particle_layout.setTotalParticleSurfaceDensity(surface_density)
+        particle_layout.addInterferenceFunction(p_interference_funtion)
         
-        avg_layer.setDecoration(particle_decoration)
+        avg_layer.setLayout(particle_layout)
 
         roughness = LayerRoughness(self.roughness.value, 0.3, 500.0*nanometer)
 

@@ -24,7 +24,7 @@ public:
     void visit(FormFactorCylinderView *view);
     void visit(InterferenceFunctionView *view);
     void visit(InterferenceFunction1DParaCrystalView *view);
-    void visit(ParticleDecorationView *view);
+    void visit(ParticleLayoutView *view);
 
     bool goForward();
     bool goBack();

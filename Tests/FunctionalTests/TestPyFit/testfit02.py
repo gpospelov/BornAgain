@@ -134,12 +134,12 @@ class MySampleBuilder(ISampleBuilder):
         prism = Particle(mParticle, prism_ff)
         interference = InterferenceFunctionNone()
 
-        particle_decoration = ParticleDecoration()
-        particle_decoration.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
-        particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
-        particle_decoration.addInterferenceFunction(interference)
+        particle_layout = ParticleLayout()
+        particle_layout.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
+        particle_layout.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
+        particle_layout.addInterferenceFunction(interference)
 
-        air_layer.setDecoration(particle_decoration)
+        air_layer.setLayout(particle_layout)
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
         self.sample = multi_layer

@@ -15,7 +15,7 @@
 
 #include "IsGISAXS11Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "Units.h"
 //#include "FormFactorParallelepiped.h"
@@ -55,10 +55,10 @@ ISample *IsGISAXS11Builder::buildSample() const
              12*Units::nanometer, 12*Units::nanometer, 7*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
-    ParticleDecoration particle_decoration(particle.clone());
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    ParticleLayout particle_layout(particle.clone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     return multi_layer;

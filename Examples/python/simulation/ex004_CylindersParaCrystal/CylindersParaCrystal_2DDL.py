@@ -22,12 +22,12 @@ def get_sample():
     pdf = FTDistribution2DCauchy(1.0*nanometer, 1.0*nanometer)
     interference.setProbabilityDistributions(pdf, pdf)
 
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
 

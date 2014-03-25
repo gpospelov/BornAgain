@@ -18,12 +18,12 @@ def get_sample():
     pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73))
     pyramid = Particle(m_particle, pyramid_ff)
     interference = InterferenceFunctionNone()
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(pyramid, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
 

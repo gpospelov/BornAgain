@@ -25,14 +25,14 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::IMaterial const * material, double thickness=0, ::IDecoration * decoration=0 )
+    Layer_wrapper(::IMaterial const * material, double thickness=0, ::ILayout * decoration=0 )
     : Layer( boost::python::ptr(material), thickness, boost::python::ptr(decoration) )
       , bp::wrapper< Layer >(){
         // constructor
     
     }
 
-    Layer_wrapper(::IMaterial const * material, double thickness, ::IDecoration const & decoration )
+    Layer_wrapper(::IMaterial const * material, double thickness, ::ILayout const & decoration )
     : Layer( boost::python::ptr(material), thickness, boost::ref(decoration) )
       , bp::wrapper< Layer >(){
         // constructor
@@ -70,7 +70,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::cloneInvertB( );
     }
 
-    virtual ::IDecoration const * getLayout(  ) const  {
+    virtual ::ILayout const * getLayout(  ) const  {
         if( bp::override func_getLayout = this->get_override( "getLayout" ) )
             return func_getLayout(  );
         else
@@ -78,7 +78,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     }
     
     
-    ::IDecoration const * default_getLayout(  ) const  {
+    ::ILayout const * default_getLayout(  ) const  {
         return Layer::getLayout( );
     }
 
@@ -130,7 +130,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::getTotalParticleSurfaceDensity( );
     }
 
-    virtual void setLayout( ::IDecoration const & decoration ) {
+    virtual void setLayout( ::ILayout const & decoration ) {
         if( bp::override func_setLayout = this->get_override( "setLayout" ) )
             func_setLayout( boost::ref(decoration) );
         else
@@ -138,7 +138,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     }
     
     
-    void default_setLayout( ::IDecoration const & decoration ) {
+    void default_setLayout( ::ILayout const & decoration ) {
         Layer::setLayout( boost::ref(decoration) );
     }
 
@@ -325,8 +325,8 @@ void register_Layer_class(){
         typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Layer_exposer_t;
         Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
         bp::scope Layer_scope( Layer_exposer );
-        Layer_exposer.def( bp::init< IMaterial const *, bp::optional< double, IDecoration * > >(( bp::arg("material"), bp::arg("thickness")=0, bp::arg("decoration")=bp::object() )) );
-        Layer_exposer.def( bp::init< IMaterial const *, double, IDecoration const & >(( bp::arg("material"), bp::arg("thickness"), bp::arg("decoration") )) );
+        Layer_exposer.def( bp::init< IMaterial const *, bp::optional< double, ILayout * > >(( bp::arg("material"), bp::arg("thickness")=0, bp::arg("decoration")=bp::object() )) );
+        Layer_exposer.def( bp::init< IMaterial const *, double, ILayout const & >(( bp::arg("material"), bp::arg("thickness"), bp::arg("decoration") )) );
         Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
         { //::Layer::clone
         
@@ -354,8 +354,8 @@ void register_Layer_class(){
         }
         { //::Layer::getLayout
         
-            typedef ::IDecoration const * ( ::Layer::*getLayout_function_type )(  ) const;
-            typedef ::IDecoration const * ( Layer_wrapper::*default_getLayout_function_type )(  ) const;
+            typedef ::ILayout const * ( ::Layer::*getLayout_function_type )(  ) const;
+            typedef ::ILayout const * ( Layer_wrapper::*default_getLayout_function_type )(  ) const;
             
             Layer_exposer.def( 
                 "getLayout"
@@ -411,8 +411,8 @@ void register_Layer_class(){
         }
         { //::Layer::setLayout
         
-            typedef void ( ::Layer::*setLayout_function_type )( ::IDecoration const & ) ;
-            typedef void ( Layer_wrapper::*default_setLayout_function_type )( ::IDecoration const & ) ;
+            typedef void ( ::Layer::*setLayout_function_type )( ::ILayout const & ) ;
+            typedef void ( Layer_wrapper::*default_setLayout_function_type )( ::ILayout const & ) ;
             
             Layer_exposer.def( 
                 "setLayout"

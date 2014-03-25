@@ -57,7 +57,7 @@ void ISampleToIView::visit(const Crystal *)
 }
 
 
-void ISampleToIView::visit(const IDecoration *)
+void ISampleToIView::visit(const ILayout *)
 {
     throw NotImplementedException("ISampleToIView::visit(const IDecoration *) -> Error. Not implemented.");
 }
@@ -93,7 +93,7 @@ void ISampleToIView::visit(const Layer *sample)
     m_multiLayer->addBottomLayer(layerView);
     m_sample_to_view[sample] = layerView;
 
-    const IDecoration *decoration = sample->getLayout();
+    const ILayout *decoration = sample->getLayout();
     if(decoration) {
         decoration->accept(this);
 

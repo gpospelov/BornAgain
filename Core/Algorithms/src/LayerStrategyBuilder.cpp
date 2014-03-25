@@ -106,7 +106,7 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 {
     assert(mp_layer->getLayout());
     m_ff_infos.clear();
-    const IDecoration *p_decoration = mp_layer->getLayout();
+    const ILayout *p_decoration = mp_layer->getLayout();
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;

@@ -12,15 +12,15 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "IDecoration.pypp.h"
+#include "ILayout.pypp.h"
 
 namespace bp = boost::python;
 
-struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
+struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
 
-    IDecoration_wrapper( )
-    : IDecoration( )
-      , bp::wrapper< IDecoration >(){
+    ILayout_wrapper( )
+    : ILayout( )
+      , bp::wrapper< ILayout >(){
         // null constructor
     
     }
@@ -30,12 +30,12 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         func_accept( boost::python::ptr(visitor) );
     }
 
-    virtual ::IDecoration * clone(  ) const {
+    virtual ::ILayout * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
     }
 
-    virtual ::IDecoration * cloneInvertB(  ) const {
+    virtual ::ILayout * cloneInvertB(  ) const {
         bp::override func_cloneInvertB = this->get_override( "cloneInvertB" );
         return func_cloneInvertB(  );
     }
@@ -54,12 +54,12 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
         else
-            return this->IDecoration::getNumberOfInterferenceFunctions(  );
+            return this->ILayout::getNumberOfInterferenceFunctions(  );
     }
     
     
     ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return IDecoration::getNumberOfInterferenceFunctions( );
+        return ILayout::getNumberOfInterferenceFunctions( );
     }
 
     virtual ::std::size_t getNumberOfParticles(  ) const {
@@ -179,7 +179,7 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< IDecoration_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< ILayout_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -225,244 +225,244 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
 
 };
 
-void register_IDecoration_class(){
+void register_ILayout_class(){
 
-    { //::IDecoration
-        typedef bp::class_< IDecoration_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IDecoration_exposer_t;
-        IDecoration_exposer_t IDecoration_exposer = IDecoration_exposer_t( "IDecoration", bp::init< >() );
-        bp::scope IDecoration_scope( IDecoration_exposer );
-        { //::IDecoration::accept
+    { //::ILayout
+        typedef bp::class_< ILayout_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > ILayout_exposer_t;
+        ILayout_exposer_t ILayout_exposer = ILayout_exposer_t( "ILayout", bp::init< >() );
+        bp::scope ILayout_scope( ILayout_exposer );
+        { //::ILayout::accept
         
-            typedef void ( ::IDecoration::*accept_function_type )( ::ISampleVisitor * ) const;
+            typedef void ( ::ILayout::*accept_function_type )( ::ISampleVisitor * ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "accept"
-                , bp::pure_virtual( accept_function_type(&::IDecoration::accept) )
+                , bp::pure_virtual( accept_function_type(&::ILayout::accept) )
                 , ( bp::arg("visitor") ) );
         
         }
-        { //::IDecoration::clone
+        { //::ILayout::clone
         
-            typedef ::IDecoration * ( ::IDecoration::*clone_function_type )(  ) const;
+            typedef ::ILayout * ( ::ILayout::*clone_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "clone"
-                , bp::pure_virtual( clone_function_type(&::IDecoration::clone) )
+                , bp::pure_virtual( clone_function_type(&::ILayout::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IDecoration::cloneInvertB
+        { //::ILayout::cloneInvertB
         
-            typedef ::IDecoration * ( ::IDecoration::*cloneInvertB_function_type )(  ) const;
+            typedef ::ILayout * ( ::ILayout::*cloneInvertB_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "cloneInvertB"
-                , bp::pure_virtual( cloneInvertB_function_type(&::IDecoration::cloneInvertB) )
+                , bp::pure_virtual( cloneInvertB_function_type(&::ILayout::cloneInvertB) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IDecoration::getAbundanceFractionOfParticle
+        { //::ILayout::getAbundanceFractionOfParticle
         
-            typedef double ( ::IDecoration::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
+            typedef double ( ::ILayout::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getAbundanceFractionOfParticle"
-                , bp::pure_virtual( getAbundanceFractionOfParticle_function_type(&::IDecoration::getAbundanceFractionOfParticle) )
+                , bp::pure_virtual( getAbundanceFractionOfParticle_function_type(&::ILayout::getAbundanceFractionOfParticle) )
                 , ( bp::arg("index") ) );
         
         }
-        { //::IDecoration::getInterferenceFunctions
+        { //::ILayout::getInterferenceFunctions
         
-            typedef ::SafePointerVector<IInterferenceFunction> ( ::IDecoration::*getInterferenceFunctions_function_type )(  ) const;
+            typedef ::SafePointerVector<IInterferenceFunction> ( ::ILayout::*getInterferenceFunctions_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getInterferenceFunctions"
-                , bp::pure_virtual( getInterferenceFunctions_function_type(&::IDecoration::getInterferenceFunctions) ) );
+                , bp::pure_virtual( getInterferenceFunctions_function_type(&::ILayout::getInterferenceFunctions) ) );
         
         }
-        { //::IDecoration::getNumberOfInterferenceFunctions
+        { //::ILayout::getNumberOfInterferenceFunctions
         
-            typedef ::std::size_t ( ::IDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
-            typedef ::std::size_t ( IDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ::ILayout::*getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ILayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::IDecoration::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&IDecoration_wrapper::default_getNumberOfInterferenceFunctions) );
+                , getNumberOfInterferenceFunctions_function_type(&::ILayout::getNumberOfInterferenceFunctions)
+                , default_getNumberOfInterferenceFunctions_function_type(&ILayout_wrapper::default_getNumberOfInterferenceFunctions) );
         
         }
-        { //::IDecoration::getNumberOfParticles
+        { //::ILayout::getNumberOfParticles
         
-            typedef ::std::size_t ( ::IDecoration::*getNumberOfParticles_function_type )(  ) const;
+            typedef ::std::size_t ( ::ILayout::*getNumberOfParticles_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getNumberOfParticles"
-                , bp::pure_virtual( getNumberOfParticles_function_type(&::IDecoration::getNumberOfParticles) ) );
+                , bp::pure_virtual( getNumberOfParticles_function_type(&::ILayout::getNumberOfParticles) ) );
         
         }
-        { //::IDecoration::getParticleInfo
+        { //::ILayout::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::IDecoration::*getParticleInfo_function_type )( ::std::size_t ) const;
+            typedef ::ParticleInfo const * ( ::ILayout::*getParticleInfo_function_type )( ::std::size_t ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getParticleInfo"
-                , bp::pure_virtual( getParticleInfo_function_type(&::IDecoration::getParticleInfo) )
+                , bp::pure_virtual( getParticleInfo_function_type(&::ILayout::getParticleInfo) )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IDecoration::getTotalParticleSurfaceDensity
+        { //::ILayout::getTotalParticleSurfaceDensity
         
-            typedef double ( ::IDecoration::*getTotalParticleSurfaceDensity_function_type )(  ) const;
+            typedef double ( ::ILayout::*getTotalParticleSurfaceDensity_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getTotalParticleSurfaceDensity"
-                , getTotalParticleSurfaceDensity_function_type( &::IDecoration::getTotalParticleSurfaceDensity ) );
+                , getTotalParticleSurfaceDensity_function_type( &::ILayout::getTotalParticleSurfaceDensity ) );
         
         }
-        { //::IDecoration::setTotalParticleSurfaceDensity
+        { //::ILayout::setTotalParticleSurfaceDensity
         
-            typedef void ( ::IDecoration::*setTotalParticleSurfaceDensity_function_type )( double ) ;
+            typedef void ( ::ILayout::*setTotalParticleSurfaceDensity_function_type )( double ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "setTotalParticleSurfaceDensity"
-                , setTotalParticleSurfaceDensity_function_type( &::IDecoration::setTotalParticleSurfaceDensity )
+                , setTotalParticleSurfaceDensity_function_type( &::ILayout::setTotalParticleSurfaceDensity )
                 , ( bp::arg("surface_density") ) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IDecoration_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ILayout_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&IDecoration_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&ILayout_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IDecoration_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ILayout_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&IDecoration_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&ILayout_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( IDecoration_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ILayout_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&IDecoration_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&ILayout_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IDecoration_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ILayout_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&IDecoration_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&ILayout_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( IDecoration_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ILayout_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&IDecoration_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ILayout_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( IDecoration_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ILayout_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&IDecoration_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ILayout_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IDecoration_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ILayout_wrapper::*default_printParameters_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&IDecoration_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&ILayout_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( IDecoration_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ILayout_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&IDecoration_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&ILayout_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &IDecoration_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &ILayout_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IDecoration_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ILayout_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&IDecoration_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&ILayout_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IDecoration_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ILayout_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&IDecoration_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&ILayout_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size
         
             typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( IDecoration_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ILayout_wrapper::*default_size_function_type )(  ) const;
             
-            IDecoration_exposer.def( 
+            ILayout_exposer.def( 
                 "size"
                 , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&IDecoration_wrapper::default_size) );
+                , default_size_function_type(&ILayout_wrapper::default_size) );
         
         }
     }

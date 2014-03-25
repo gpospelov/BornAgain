@@ -76,7 +76,7 @@ include_classes = [
     "ICloneable",
     "IClusteredParticles",
     "ICompositeSample",
-    "IDecoration",
+    "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
     "IFTDistribution1D",
@@ -264,7 +264,7 @@ def ManualClassTunings(mb):
         if fun.name == "setMaterial":
             fun.include()
     for fun in cl.member_functions():
-        if "void ( ::Layer::* )( ::IDecoration * )" in fun.decl_string:
+        if "void ( ::Layer::* )( ::ILayout * )" in fun.decl_string:
             fun.exclude()
     cl.constructors().include()  # including back constructors with pointers
     #

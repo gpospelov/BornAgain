@@ -61,7 +61,7 @@ void ISampleVisitor::visit(const Crystal *)
 }
 
 
-void ISampleVisitor::visit(const IDecoration *)
+void ISampleVisitor::visit(const ILayout *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const IDecoration *) -> Error. Not implemented.");
 }

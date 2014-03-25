@@ -43,7 +43,7 @@
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
-#include "IDecoration.h"
+#include "ILayout.h"
 #include "IFormFactor.h"
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"

@@ -52,7 +52,7 @@ void SamplePrintVisitor::visit(const Crystal *sample)
 }
 
 
-void SamplePrintVisitor::visit(const IDecoration *)
+void SamplePrintVisitor::visit(const ILayout *)
 {
     throw NotImplementedException("SamplePrintVisitor::visit(const IDecoration *) -> Error. Not implemented.");
 }

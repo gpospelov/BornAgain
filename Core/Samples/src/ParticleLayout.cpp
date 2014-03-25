@@ -196,7 +196,7 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
 
 void ParticleLayout::print(std::ostream& ostr) const
 {
-    IDecoration::print(ostr);
+    ILayout::print(ostr);
     ostr << "-->ParticleDecoration<" << this << ">{\n";
     for( size_t i=0; i<m_particles.size(); ++i )
         ostr << "      - particle " << std::left << std::setw(2) << i << " { "

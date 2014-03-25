@@ -30,7 +30,7 @@ Layer::Layer()
     init_parameters();
 }
 
-Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoration)
+Layer::Layer(const IMaterial* material, double thickness, ILayout *decoration)
     : m_thickness(0)
     , mp_decoration(0)
 {
@@ -43,7 +43,7 @@ Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoratio
     init_parameters();
 }
 
-Layer::Layer(const IMaterial* material, double thickness, const IDecoration &decoration)
+Layer::Layer(const IMaterial* material, double thickness, const ILayout &decoration)
     : m_thickness(thickness)
     , mp_decoration(0)
 {
@@ -113,7 +113,7 @@ void Layer::setMaterialAndThickness(const IMaterial* material, double thickness)
     setThickness(thickness);
 }
 
-void Layer::setDecorationPtr(IDecoration *decoration)
+void Layer::setDecorationPtr(ILayout *decoration)
 {
     if( !decoration ) return;
 
@@ -125,7 +125,7 @@ void Layer::setDecorationPtr(IDecoration *decoration)
     registerChild(mp_decoration);
 }
 
-void Layer::setLayout(const IDecoration &decoration)
+void Layer::setLayout(const ILayout &decoration)
 {
     setDecorationPtr(decoration.clone());
 }

@@ -272,7 +272,7 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
 void register_ParticleLayout_class(){
 
     { //::ParticleLayout
-        typedef bp::class_< ParticleLayout_wrapper, bp::bases< IDecoration >, boost::noncopyable > ParticleLayout_exposer_t;
+        typedef bp::class_< ParticleLayout_wrapper, bp::bases< ILayout >, boost::noncopyable > ParticleLayout_exposer_t;
         ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", bp::init< >() );
         bp::scope ParticleLayout_scope( ParticleLayout_exposer );
         ParticleLayout_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );

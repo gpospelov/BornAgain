@@ -88,7 +88,7 @@ QPixmap DesignerHelper::getPixmapMultiLayer() {
 }
 
 
-QPixmap DesignerHelper::getPixmapParticleDecoration()
+QPixmap DesignerHelper::getPixmapParticleLayout()
 {
     QRect rect(0,0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight());
     QPixmap pixmap(rect.width()+1, rect.height()+1);

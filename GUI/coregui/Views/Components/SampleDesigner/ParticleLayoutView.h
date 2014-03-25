@@ -1,17 +1,17 @@
-#ifndef PARTICLEDECORATIONVIEW_H
-#define PARTICLEDECORATIONVIEW_H
+#ifndef PARTICLELAYOUTVIEW_H
+#define PARTICLELAYOUTVIEW_H
 
 #include "ConnectableView.h"
 
-class ParticleDecorationView : public ConnectableView
+class ParticleLayoutView : public ConnectableView
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )
 
 public:
-    enum { Type = DesignerHelper::ParticleDecorationType };
+    enum { Type = DesignerHelper::ParticleLayoutType };
 
-    ParticleDecorationView(QGraphicsItem *parent = 0);
+    ParticleLayoutView(QGraphicsItem *parent = 0);
 
     //! сalls the ISampleViewVisitor's visit method
     virtual void accept(IViewVisitor *visitor) { visitor->visit(this); }
@@ -21,4 +21,5 @@ public:
 };
 
 
-#endif // PARTICLEDECORATIONVIEW_H
+#endif // PARTICLELAYOUTVIEW_H
+

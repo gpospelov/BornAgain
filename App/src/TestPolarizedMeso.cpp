@@ -105,7 +105,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     size_t n_max_phi_rotation_steps = 1;
     size_t n_sizes = 2;
 
@@ -117,17 +117,17 @@ MultiLayer* TestPolarizedMeso::createSample() const
                 Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
             double meso_size = m_meso_width + j*m_meso_size_steps;
             FormFactorBox ff_box(meso_size, meso_size, meso_size);
-            particle_decoration.addParticle(
+            particle_layout.addParticle(
                 createMeso(m_lattice_length_a, m_lattice_length_c,
                         p_particle_material, m_nanoparticle_size, &ff_box),
                 transform);
         }
     }
 
-    particle_decoration.setTotalParticleSurfaceDensity(surface_density);
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_layout.setTotalParticleSurfaceDensity(surface_density);
+    particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

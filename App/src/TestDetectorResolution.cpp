@@ -70,13 +70,13 @@ void TestDetectorResolution::initializeSample()
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
             7*Units::nanometer, 1e7*Units::nanometer);
-    ParticleLayout particle_decoration(
+    ParticleLayout particle_layout(
         new Particle(particle_material,
                      new FormFactorCylinder(5*Units::nanometer,
                                             5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

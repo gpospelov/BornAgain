@@ -296,17 +296,17 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     StochasticDoubleGaussian sg(m_particle_radius, sigma);
     StochasticSampledParameter stochastic_parameter(sg, nbins, nfwhm);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder,"/Particle/FormFactorCylinder/radius", stochastic_parameter);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
     // making layer holding all whose nano particles
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

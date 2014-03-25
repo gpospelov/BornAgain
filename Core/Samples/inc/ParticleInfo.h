@@ -23,7 +23,7 @@
 //! @ingroup samples
 //! @brief Holds additional information about particle.
 //!
-//! Used in ParticleDecoration
+//! Used in ParticleLayout
 
 class BA_CORE_API_ ParticleInfo : public ICompositeSample
 {

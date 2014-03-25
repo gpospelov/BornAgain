@@ -218,8 +218,8 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(90*Units::degree);
 
-    ParticleLayout particle_decoration;
-    particle_decoration.addParticle(ibox,transform);
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(ibox,transform);
     Lattice1DIFParameters lattice_params;
     lattice_params.m_length=m_lattice_length;
     lattice_params.m_xi = m_xi;
@@ -228,11 +228,11 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     p_interference_function->setProbabilityDistribution(pdf);
 
     //IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();
-    particle_decoration.addInterferenceFunction(p_interference_function);
-    //particle_decoration.printParameters();
+    particle_layout.addInterferenceFunction(p_interference_function);
+    //particle_layout.printParameters();
 
     // making layer holding all whose nano particles
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     Layer iron_layer;

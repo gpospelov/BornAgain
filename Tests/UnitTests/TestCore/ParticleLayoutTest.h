@@ -1,34 +1,34 @@
-#ifndef PARTICLEDECORATIONTEST_H
-#define PARTICLEDECORATIONTEST_H
+#ifndef PARTICLELAYOUTTEST_H
+#define PARTICLELAYOUTTEST_H
 
 #include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 
-class ParticleDecorationTest : public :: testing :: Test {
+class ParticleLayoutTest : public :: testing :: Test {
 
 protected:
-    ParticleDecorationTest(){}
-    virtual ~ParticleDecorationTest(){}
+    ParticleLayoutTest(){}
+    virtual ~ParticleLayoutTest(){}
 
 };
 
-TEST_F(ParticleDecorationTest, ParticleDecorationInitial)
+TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
 {
     ParticleLayout particleDecoration;
 
-    EXPECT_EQ("ParticleDecoration", particleDecoration.getName());
+    EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfParticles());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
 }
 
-TEST_F(ParticleDecorationTest, ParticleDecorationInitByValue)
+TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 {
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle(mat);
 
     ParticleLayout particleDecoration(particle, 1.0, 2.0);
 
-    EXPECT_EQ("ParticleDecoration", particleDecoration.getName());
+    EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
 
@@ -43,14 +43,14 @@ TEST_F(ParticleDecorationTest, ParticleDecorationInitByValue)
 
 }
 
-TEST_F(ParticleDecorationTest, ParticleDecorationInitByRef)
+TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 {
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Stone",0,0);
     Particle * particle = new Particle(mat);
 
     ParticleLayout particleDecoration(particle, 3.0, -2.0);
 
-    EXPECT_EQ("ParticleDecoration", particleDecoration.getName());
+    EXPECT_EQ("ParticleLayout", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfInterferenceFunctions());
 
@@ -63,7 +63,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationInitByRef)
 }
 
 
-TEST_F(ParticleDecorationTest, ParticleDecorationAddParticleInfo)
+TEST_F(ParticleLayoutTest, ParticleLayoutAddParticleInfo)
 {
     ParticleLayout particleDecoration;
 
@@ -94,7 +94,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationAddParticleInfo)
     EXPECT_EQ(0.1, pInfo2->getAbundance());
 }
 
-TEST_F(ParticleDecorationTest, ParticleDecorationAddParticle)
+TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
 {
     ParticleLayout particleDecoration;
 
@@ -157,7 +157,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationAddParticle)
 }
 
 
-TEST_F(ParticleDecorationTest, ParticleDecorationAbundanceFraction)
+TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
 {
     ParticleLayout particleDecoration;
 
@@ -201,7 +201,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationAbundanceFraction)
 }
 
 
-TEST_F(ParticleDecorationTest, ParticleDecorationClone)
+TEST_F(ParticleLayoutTest, ParticleLayoutClone)
 {
     ParticleLayout particleDecoration;
 
@@ -243,7 +243,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationClone)
 
     ParticleLayout * clone = particleDecoration.clone();
 
-    EXPECT_EQ("ParticleDecoration", clone->getName());
+    EXPECT_EQ("ParticleLayout", clone->getName());
 
     const ParticleInfo * pInfo1 = clone->getParticleInfo(size_t(0));
     EXPECT_TRUE(NULL!=pInfo1);
@@ -296,7 +296,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationClone)
 }
 
 
-TEST_F(ParticleDecorationTest, ParticleDecorationCloneInvertB)
+TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
 {
     ParticleLayout particleDecoration;
 
@@ -337,7 +337,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationCloneInvertB)
 
     ParticleLayout * clone = particleDecoration.cloneInvertB();
 
-    EXPECT_EQ("ParticleDecoration_inv", clone->getName());
+    EXPECT_EQ("ParticleLayout_inv", clone->getName());
 
     const ParticleInfo * pInfo1 = clone->getParticleInfo(size_t(0));
     EXPECT_TRUE(NULL!=pInfo1);
@@ -393,7 +393,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationCloneInvertB)
 
 
 
-TEST_F(ParticleDecorationTest, ParticleDecorationInterferenceFunction)
+TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
 {
     ParticleLayout particleDecoration;
 
@@ -411,4 +411,4 @@ TEST_F(ParticleDecorationTest, ParticleDecorationInterferenceFunction)
 
 
 
-#endif //PARTICLEDECORATIONTEST_H
+#endif // PARTICLELAYOUTTEST_H

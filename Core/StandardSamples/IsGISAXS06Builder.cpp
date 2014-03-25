@@ -59,16 +59,16 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     p_interference_function->setProbabilityDistribution(pdf);
 
     // particles
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
         new Particle(particle_material, ff_cyl.clone()), position, 1.0);
-    particle_decoration.addParticleInfo(particle_info);
+    particle_layout.addParticleInfo(particle_info);
 
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -107,21 +107,21 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
                                100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
         new Particle(particle_material, ff_cyl.clone()), position, 1.0);
-    particle_decoration.addParticleInfo(particle_info);
+    particle_layout.addParticleInfo(particle_info);
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     particle_info.setPosition(position_2);
-    particle_decoration.addParticleInfo(particle_info);
+    particle_layout.addParticleInfo(particle_info);
 
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -161,16 +161,16 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     pdf.setGamma(30.0*Units::degree);
     p_interference_function->setProbabilityDistribution(pdf);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
         new Particle(particle_material, ff_cyl.clone()), position, 1.0);
-    particle_decoration.addParticleInfo(particle_info);
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addParticleInfo(particle_info);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -221,17 +221,17 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
                                100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
         new Particle(particle_material, ff_cyl.clone()), position, 1.0);
-    particle_decoration.addParticleInfo(particle_info);
+    particle_layout.addParticleInfo(particle_info);
 
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

@@ -92,7 +92,7 @@ TEST_F(LayerTest, LayerAndDecoration)
     EXPECT_EQ(decoration1, layer.getLayout());
     EXPECT_TRUE(layer.hasDWBASimulation());
 
-//    ParticleDecoration decoration2;
+//    ParticleLayout decoration2;
 //    layer.setDecoration(decoration2);
 //    EXPECT_EQ(decoration2, layer.getDecoration());
 

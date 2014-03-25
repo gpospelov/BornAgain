@@ -4,7 +4,7 @@
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
 #include "InterferenceFunctionView.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include <iostream>
 
 
@@ -170,10 +170,10 @@ void ISampleViewAligner::visit(InterferenceFunction1DParaCrystalView *view)
 }
 
 
-void ISampleViewAligner::visit(ParticleDecorationView *view)
+void ISampleViewAligner::visit(ParticleLayoutView *view)
 {
     Q_ASSERT(view);
-    //std::cout << get_indent() << "ViewAligner(ParticleDecorationView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(ParticleLayoutView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 
     m_views.insertMulti(m_level, view);
 

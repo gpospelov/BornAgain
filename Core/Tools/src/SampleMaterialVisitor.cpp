@@ -79,7 +79,7 @@ void SampleMaterialVisitor::visit(const ILayout *)
 
 void SampleMaterialVisitor::visit(const ParticleLayout *)
 {
-//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleDecoration *) -> Error. Not implemented.");
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleLayout *) -> Error. Not implemented.");
 }
 
 

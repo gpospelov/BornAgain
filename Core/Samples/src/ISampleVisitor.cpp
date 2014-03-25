@@ -69,7 +69,7 @@ void ISampleVisitor::visit(const ILayout *)
 
 void ISampleVisitor::visit(const ParticleLayout *)
 {
-    throw NotImplementedException("ISampleVisitor::visit(const ParticleDecoration *) -> Error. Not implemented.");
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleLayout *) -> Error. Not implemented.");
 }
 
 

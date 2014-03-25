@@ -591,7 +591,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     size_t n_max_phi_rotation_steps = 1;
     size_t n_alpha_rotation_steps = 1;
 
@@ -606,7 +606,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
                     Geometry::Transform3D::createRotateZ(phi_start + i*phi_step);
 //            Geometry::Transform3D transform2 =
 //                Geometry::Transform3D::createRotateY(alpha_start + j*alpha_step);
-            particle_decoration.addParticle(
+            particle_layout.addParticle(
                 createMesoCrystal(
                     m_lattice_length_a, m_lattice_length_c,
                     n_particle_adapted, &ff_meso),
@@ -614,10 +614,10 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
         }
     }
 
-    particle_decoration.setTotalParticleSurfaceDensity(surface_density);
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_layout.setTotalParticleSurfaceDensity(surface_density);
+    particle_layout.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.setLayout(particle_decoration);
+    avg_layer.setLayout(particle_layout);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

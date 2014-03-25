@@ -29,7 +29,7 @@
 #include "AxisBinTest.h"
 #include "FTDistributionsTest.h"
 #include "MultiLayerTest.h"
-#include "ParticleDecorationTest.h"
+#include "ParticleLayoutTest.h"
 #include "HomogeneousMaterialTest.h"
 #include "HomogeneousMagneticMaterialTest.h"
 #include "ScalarRTCoefficientsTest.h"

@@ -380,21 +380,21 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    ParticleLayout particle_decoration;
-    particle_decoration.addParticle(
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(
         new Particle(particle_material,
                      new FormFactorCylinder(m_cylinder_radius,
                                             m_cylinder_height)),
         0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(
+    particle_layout.addParticle(
         new Particle(particle_material,
                      new FormFactorPrism3(m_prism3_length,
                                           m_prism3_height
                                           )),
         0.0, 1.0 - m_cylinder_ratio);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

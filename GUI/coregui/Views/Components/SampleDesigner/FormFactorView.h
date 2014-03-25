@@ -38,7 +38,7 @@ public slots:
     }
 
 private:
-    double m_weight; //! weight of formfactor to be used with ParticleDecoration
+    double m_weight; //! weight of formfactor to be used with ParticleLayout
     MaterialProperty m_materialProperty;
 };
 

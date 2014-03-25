@@ -484,7 +484,7 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
 
     Layer air_layer(air_material);
 
-    // preparing nano particles prototypes for seeding layer's particle_decoration
+    // preparing nano particles prototypes for seeding layer's particle_layout
     double particle_probability1 = m_particle_probability1;
 //    double particle_probability2 = 1. - m_particle_probability1;
     double particle_probability2 = m_particle_probability2;
@@ -509,18 +509,18 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     StochasticSampledParameter par1(sg1, nbins, nfwhm);
     StochasticSampledParameter par2(sg2, nbins, nfwhm);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, particle_probability1);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

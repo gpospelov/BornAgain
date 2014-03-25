@@ -56,22 +56,22 @@ ISample *IsGISAXS01Builder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    particle_decoration.addParticle(
+    particle_layout.addParticle(
                 new Particle(particle_material,
                              new FormFactorCylinder(m_cylinder_radius,
                                                     m_cylinder_height)),
                 0.0, m_cylinder_weight);
-    particle_decoration.addParticle(
+    particle_layout.addParticle(
                 new Particle(particle_material,
                              new FormFactorPrism3(m_prism_length,
                                                   m_prism_height)),
                 0.0, 1.0-m_cylinder_weight);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

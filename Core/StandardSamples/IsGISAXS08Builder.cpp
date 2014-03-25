@@ -51,11 +51,11 @@ ISample *IsGISAXS08ABuilder::buildSample() const
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleLayout particle_decoration( new Particle(particle_material,
+    ParticleLayout particle_layout( new Particle(particle_material,
             new FormFactorCylinder(5.0*Units::nanometer, 5.0*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -97,11 +97,11 @@ ISample *IsGISAXS08BBuilder::buildSample() const
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleLayout particle_decoration( new Particle(particle_material,
+    ParticleLayout particle_layout( new Particle(particle_material,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

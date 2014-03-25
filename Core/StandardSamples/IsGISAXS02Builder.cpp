@@ -58,12 +58,12 @@ ISample *IsGISAXS02Builder::buildSample() const
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
 
-    ParticleLayout particle_decoration;
+    ParticleLayout particle_layout;
 //    complex_t n_particle(1.0-6e-4, 2e-8);
 
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    // preparing nano particles prototypes for seeding layer's particle_decoration
+    // preparing nano particles prototypes for seeding layer's particle_layout
     FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(m_radius1, m_height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
@@ -83,14 +83,14 @@ ISample *IsGISAXS02Builder::buildSample() const
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, 0.05);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
 

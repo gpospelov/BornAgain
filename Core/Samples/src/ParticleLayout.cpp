@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/src/ParticleDecoration.cpp
-//! @brief     Implements class ParticleDecoration.
+//! @file      Samples/src/ParticleLayout.cpp
+//! @brief     Implements class ParticleLayout.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,14 +26,14 @@
 ParticleLayout::ParticleLayout()
 : m_total_abundance(0.0)
 {
-    setName("ParticleDecoration");
+    setName("ParticleLayout");
 }
 
 ParticleLayout::ParticleLayout(
         Particle* p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
-    setName("ParticleDecoration");
+    setName("ParticleLayout");
     addParticle(p_particle, depth, abundance);
 }
 
@@ -41,7 +41,7 @@ ParticleLayout::ParticleLayout(
         const Particle& p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
-    setName("ParticleDecoration");
+    setName("ParticleLayout");
     addParticle(p_particle.clone(), depth, abundance);
 }
 
@@ -91,7 +91,7 @@ void ParticleLayout::addParticle(
     double depth, double abundance)
 {
     if(!abundance) {
-        throw LogicErrorException("ParticleDecoration::addParticle() ->"
+        throw LogicErrorException("ParticleLayout::addParticle() ->"
                 " Error! Abundance can't be equal to 0.0");
     }
     p_particle->setTransformation(transform);
@@ -105,7 +105,7 @@ void ParticleLayout::addParticle(
     double depth, double abundance)
 {
     if(!abundance) {
-        throw LogicErrorException("ParticleDecoration::addParticle() ->"
+        throw LogicErrorException("ParticleLayout::addParticle() ->"
                 " Error! Abundance can't be equal to 0.0");
     }
     Particle *p_particle_clone = p_particle.clone();
@@ -145,7 +145,7 @@ const ParticleInfo* ParticleLayout::getParticleInfo(size_t index) const
     if (index<m_particles.size())
         return m_particles[index];
     throw OutOfBoundsException(
-        "ParticleDecoration::getParticleInfo() -> "
+        "ParticleLayout::getParticleInfo() -> "
         "Error! Not so many particles in this decoration.");
 }
 
@@ -173,7 +173,7 @@ const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
     if (index<m_interference_functions.size())
         return m_interference_functions[index];
     throw OutOfBoundsException(
-        "ParticleDecoration::getInterferenceFunction() ->"
+        "ParticleLayout::getInterferenceFunction() ->"
         "Not so many interference functions in this decoration.");
 }
 
@@ -197,7 +197,7 @@ void ParticleLayout::addAndRegisterInterferenceFunction(
 void ParticleLayout::print(std::ostream& ostr) const
 {
     ILayout::print(ostr);
-    ostr << "-->ParticleDecoration<" << this << ">{\n";
+    ostr << "-->ParticleLayout<" << this << ">{\n";
     for( size_t i=0; i<m_particles.size(); ++i )
         ostr << "      - particle " << std::left << std::setw(2) << i << " { "
              << *(m_particles[i]) << "}\n";

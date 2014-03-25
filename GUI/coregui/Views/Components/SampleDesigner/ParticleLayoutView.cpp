@@ -1,11 +1,11 @@
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include "DesignerHelper.h"
 
 
-ParticleDecorationView::ParticleDecorationView(QGraphicsItem *parent)
+ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
-    setName("ParticleDecoration");
+    setName("ParticleLayout");
     setLabel("Particle \ndecoration");
     setColor(QColor(135, 206, 50));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight()) );

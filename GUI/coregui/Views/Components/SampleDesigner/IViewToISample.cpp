@@ -5,7 +5,7 @@
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
 #include "InterferenceFunctionView.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include <iostream>
 
 #include "MultiLayer.h"
@@ -84,7 +84,7 @@ void IViewToISample::visit(LayerView *view)
 //        foreach(ConnectableView *item, connections) {
 //            item->accept(this);
 //            Q_ASSERT(m_view_to_sample[item]);
-//            ParticleDecoration *particles = dynamic_cast<ParticleDecoration *>(m_view_to_sample[item]);
+//            ParticleLayout *particles = dynamic_cast<ParticleLayout *>(m_view_to_sample[item]);
 //            Q_ASSERT(particles);
 //            LayerDecorator *decorator = new LayerDecorator(*view->getLayer(), *particles);
 //            m_view_to_sample[view] = decorator;
@@ -97,10 +97,10 @@ void IViewToISample::visit(LayerView *view)
 }
 
 
-void IViewToISample::visit(ParticleDecorationView *view)
+void IViewToISample::visit(ParticleLayoutView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(ParticleDecorationView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    std::cout << get_indent() << "ViewVisitor(ParticleLayoutView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 
     ParticleLayout *decoration = new ParticleLayout();
 

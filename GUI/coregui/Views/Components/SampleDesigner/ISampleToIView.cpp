@@ -4,7 +4,7 @@
 #include "ISample.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include "FormFactorView.h"
 #include "Particle.h"
 #include "InterferenceFunction1DParaCrystal.h"
@@ -65,7 +65,7 @@ void ISampleToIView::visit(const ILayout *)
 
 void ISampleToIView::visit(const ParticleLayout *sample)
 {
-    ParticleDecorationView *decorationView = new ParticleDecorationView();
+    ParticleLayoutView *decorationView = new ParticleLayoutView();
     m_sample_to_view[sample] = decorationView;
 
     for(size_t i_info=0; i_info < sample->getNumberOfParticles(); ++i_info) {
@@ -499,17 +499,17 @@ void ISampleToIView::visit(const LayerRoughness *)
 //}
 
 
-////! creates view of ParticleDecoration and connect it with form factors and
+////! creates view of ParticleLayout and connect it with form factors and
 ////! interference functions views
-//void ISampleToIView::visit(const ParticleDecoration *sample)
+//void ISampleToIView::visit(const ParticleLayout *sample)
 //{
 //    Q_ASSERT(sample);
-//    std::cout << get_indent() << "ISampleToIView_ParticleDecoration " << sample->getName()
+//    std::cout << get_indent() << "ISampleToIView_ParticleLayout " << sample->getName()
 //              << " " << sample
 //              << " " << (*sample->getParameterPool())
 //              << std::endl;
 
-//    ParticleDecorationView *decorationView = new ParticleDecorationView();
+//    ParticleLayoutView *decorationView = new ParticleLayoutView();
 //    m_sample_to_view[sample] = decorationView;
 
 //    goForward();

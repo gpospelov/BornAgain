@@ -60,14 +60,14 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
             MaterialManager::getHomogeneousMagneticMaterial(
                     "MagParticle", 6e-4, 2e-8, magnetic_field);
 
-    ParticleLayout particle_decoration(
+    ParticleLayout particle_layout(
             new Particle(particle_material,
                     new FormFactorCylinder(m_cylinder_radius,
                                            m_cylinder_height)));
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -112,14 +112,14 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    ParticleLayout particle_decoration(
+    ParticleLayout particle_layout(
             new Particle(particle_material,
                     new FormFactorCylinder(m_cylinder_radius,
                                            m_cylinder_height)));
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

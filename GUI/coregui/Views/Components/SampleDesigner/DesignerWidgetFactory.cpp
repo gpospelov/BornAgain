@@ -2,7 +2,7 @@
 #include "LayerView.h"
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include "InterferenceFunctionView.h"
 #include "MaterialView.h"
 #include "SampleBuilderFactory.h"
@@ -45,8 +45,8 @@ DesignerWidgetFactory::DesignerWidgetFactory()
     );
 
    registerItem(
-        "ParticleDecoration",
-        IFactoryCreateFunction<ParticleDecorationView, IView>
+        "ParticleLayout",
+        IFactoryCreateFunction<ParticleLayoutView, IView>
     );
 
    registerItem(

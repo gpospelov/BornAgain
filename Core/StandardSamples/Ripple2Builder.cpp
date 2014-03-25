@@ -59,12 +59,12 @@ ISample *Ripple2Builder::buildSample() const
     FormFactorRipple2 *ff_ripple2 = new FormFactorRipple2(m_l, m_w, m_h, m_d);
     Particle ripple(particle_material, ff_ripple2 );
 
-    ParticleLayout particle_decoration;
-	particle_decoration.addParticle(ripple,0.0,1.0);
+    ParticleLayout particle_layout;
+	particle_layout.addParticle(ripple,0.0,1.0);
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

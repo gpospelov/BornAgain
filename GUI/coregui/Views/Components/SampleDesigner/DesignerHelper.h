@@ -18,7 +18,7 @@ public:
         NodeEditorConnectionType,
         MultiLayerType,
         LayerType,
-        ParticleDecorationType,
+        ParticleLayoutType,
         InterferenceFunctionType,
         InterferenceFunction1DParaType,
         FormFactorType,
@@ -56,7 +56,7 @@ public:
     static QPixmap getSceneBackground();
     static QPixmap getPixmapLayer();
     static QPixmap getPixmapMultiLayer();
-    static QPixmap getPixmapParticleDecoration();
+    static QPixmap getPixmapParticleLayout();
     static QPixmap getPixmapInterferenceFunction();
     static QPixmap getPixmapFormFactor();
     static QPixmap getPixmapDefault();

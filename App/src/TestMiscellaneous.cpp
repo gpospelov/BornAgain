@@ -96,8 +96,8 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
     Particle particle(particle_material, ff_cyl);
 
-    ParticleLayout particle_decoration;
-    particle_decoration.addParticle(particle);
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(particle);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -109,11 +109,11 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
         new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(10.0*Units::nanometer, 10.0*Units::nanometer);
     p_interference_function->setProbabilityDistribution(pdf);
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
 
     Layer air_layer(p_air_material);
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     Layer substrate_layer(p_substrate_material, 0);
 
@@ -536,11 +536,11 @@ void TestMiscellaneous::test_SampleGeometry()
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    ParticleLayout particle_decoration
+    ParticleLayout particle_layout
         (new Particle(particle_material, new FormFactorFullSphere
                       (5*Units::nanometer)));
 
-    air_layer.setLayout(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer.addLayer(air_layer);
 

@@ -39,6 +39,7 @@
 #include "FormFactorTetrahedron.h"
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"
+#include "FormFactorWeighted.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"

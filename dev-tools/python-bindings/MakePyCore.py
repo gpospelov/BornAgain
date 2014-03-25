@@ -71,6 +71,7 @@ include_classes = [
     "FormFactorTetrahedron",
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
+    "FormFactorWeighted",
     "HomogeneousMaterial",
     "IAxis",
     "ICloneable",

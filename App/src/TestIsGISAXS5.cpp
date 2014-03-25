@@ -284,7 +284,7 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    Layer air_layer(air_material);
+    Layer air_layer(*air_material);
     double height = m_height_aspect_ratio*m_particle_radius;
     FormFactorCylinder *ff_cylinder = new FormFactorCylinder(m_particle_radius, height);
     Particle cylinder(particle_material, ff_cylinder );
@@ -311,7 +311,7 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
+    substrate_layer.setMaterial(*substrate_material);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;

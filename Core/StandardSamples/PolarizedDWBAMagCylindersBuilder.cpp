@@ -53,9 +53,9 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMagneticMaterial(
                     "MagParticle", 6e-4, 2e-8, magnetic_field);
@@ -108,9 +108,9 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
 
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     ParticleLayout particle_layout(
             new Particle(particle_material,

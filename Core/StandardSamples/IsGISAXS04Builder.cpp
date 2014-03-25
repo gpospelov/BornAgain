@@ -55,9 +55,9 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     IInterferenceFunction *p_interference_function =
             new InterferenceFunction1DParaCrystal(
@@ -114,9 +114,9 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
             InterferenceFunction2DParaCrystal::createHexagonal(

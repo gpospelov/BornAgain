@@ -40,7 +40,7 @@ ISample *IsGISAXS15Builder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     InterferenceFunction1DParaCrystal *p_interference_function =
             new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,
                     5*Units::nanometer, 1e3*Units::nanometer);

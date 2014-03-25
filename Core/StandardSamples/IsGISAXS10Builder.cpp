@@ -46,9 +46,9 @@ ISample *IsGISAXS10Builder::buildSample() const
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate10", 5e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     IInterferenceFunction *p_interference_function =
             new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,

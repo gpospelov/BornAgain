@@ -16,10 +16,9 @@
 #ifndef LAYER_H
 #define LAYER_H
 
+#include "Materials.h"
 #include "DiffuseDWBASimulation.h"
-#include "HomogeneousMaterial.h"
 #include "ICompositeSample.h"
-#include "IMaterial.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleLayout.h"
 
@@ -35,7 +34,7 @@ public:
 
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
 //    Layer(const IMaterial* material, double thickness=0, ILayout *decoration=0);
-    Layer(const IMaterial &material, double thickness, const ILayout &decoration);
+    Layer(const IMaterial &material, double thickness = 0);
 
     virtual ~Layer();
 

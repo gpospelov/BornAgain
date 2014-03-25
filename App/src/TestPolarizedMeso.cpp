@@ -100,9 +100,9 @@ MultiLayer* TestPolarizedMeso::createSample() const
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", 7.57e-6, 1.73e-7);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleLayout particle_layout;

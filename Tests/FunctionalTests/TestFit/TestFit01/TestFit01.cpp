@@ -112,7 +112,7 @@ ISample *TestFit01::buildSample()
 {
     MultiLayer *multi_layer = new MultiLayer();
     const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    Layer air_layer(air_material);
+    Layer air_layer(*air_material);
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);

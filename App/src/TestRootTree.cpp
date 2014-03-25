@@ -407,12 +407,12 @@ void TestRootTree::initializeMesoCrystal(
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer avg_layer;
-    avg_layer.setMaterial(p_average_layer_material);
+    avg_layer.setMaterial(*p_average_layer_material);
     avg_layer.setThickness(0.2*Units::micrometer);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleLayout particle_layout;

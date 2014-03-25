@@ -29,7 +29,7 @@ TEST_F(SpecularMatrixTest, initial)
 
 
     const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    Layer layer0(air, 0*Units::nanometer);
+    Layer layer0(*air, 0*Units::nanometer);
     mLayer.addLayer(layer0);
 
     matrix.execute(mLayer, v, coeff);

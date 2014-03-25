@@ -53,7 +53,7 @@ ISample *Ripple1Builder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    Layer air_layer(air_material);
+    Layer air_layer(*air_material);
     FormFactorRipple1 *ff_ripple1 = new FormFactorRipple1(m_l, m_w, m_h);
     Particle ripple(particle_material, ff_ripple1);
 
@@ -67,7 +67,7 @@ ISample *Ripple1Builder::buildSample() const
     p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
+    substrate_layer.setMaterial(*substrate_material);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;

@@ -64,9 +64,9 @@ void TestDetectorResolution::initializeSample()
             MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
             7*Units::nanometer, 1e7*Units::nanometer);

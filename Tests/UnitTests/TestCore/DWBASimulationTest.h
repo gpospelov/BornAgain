@@ -122,7 +122,7 @@ TEST_F(DWBASimulationTest, PolarizedIntensity)
 
     kvector_t magnetic_field(0.0, 0.0, 0.0);
     const IMaterial *magMaterial0 = MaterialManager::getHomogeneousMagneticMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
-    Layer layer(magMaterial0, 20*Units::nanometer);
+    Layer layer(*magMaterial0, 20*Units::nanometer);
     ml.addLayer(layer);
     m_sim.setSample(ml);
 

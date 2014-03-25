@@ -211,7 +211,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     const IMaterial *cr_material = MaterialManager::getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
 
 
-    Layer air_layer(air_material);
+    Layer air_layer(*air_material);
     FormFactorInfLongBox *ff = new FormFactorInfLongBox(m_w, m_h);
     Particle ibox(iron_material, ff );
 
@@ -236,17 +236,17 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 
     p_multi_layer->addLayer(air_layer);
     Layer iron_layer;
-    iron_layer.setMaterialAndThickness(iron_material, 15.0*Units::nanometer);
+    iron_layer.setMaterialAndThickness(*iron_material, 15.0*Units::nanometer);
     Layer cr_layer;
-    cr_layer.setMaterialAndThickness(cr_material, 1.1*Units::nanometer) ;
+    cr_layer.setMaterialAndThickness(*cr_material, 1.1*Units::nanometer) ;
     Layer silver_layer;
-    silver_layer.setMaterialAndThickness(silver_material, 150.0*Units::nanometer);
+    silver_layer.setMaterialAndThickness(*silver_material, 150.0*Units::nanometer);
     //Layer iron_layer = Layer(iron_material, 15.0*nanometer);
     //Layer cr_layer = Layer(cr_material, 1.1*nanometer);
     //Layer silver_layer = Layer(silver_material, 150.0*nanometer);
 
     Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
+    substrate_layer.setMaterial(*substrate_material);
     for (int i=0; i<10; i++) {
         p_multi_layer->addLayer(cr_layer);
         p_multi_layer->addLayer(iron_layer);

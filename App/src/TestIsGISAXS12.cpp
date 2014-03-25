@@ -482,7 +482,7 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    Layer air_layer(air_material);
+    Layer air_layer(*air_material);
 
     // preparing nano particles prototypes for seeding layer's particle_layout
     double particle_probability1 = m_particle_probability1;
@@ -525,7 +525,7 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
-    substrate_layer.setMaterial(substrate_material);
+    substrate_layer.setMaterial(*substrate_material);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;

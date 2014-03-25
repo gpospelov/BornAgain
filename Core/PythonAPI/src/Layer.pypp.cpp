@@ -25,15 +25,8 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::IMaterial const * material, double thickness=0, ::ILayout * decoration=0 )
-    : Layer( boost::python::ptr(material), thickness, boost::python::ptr(decoration) )
-      , bp::wrapper< Layer >(){
-        // constructor
-    
-    }
-
-    Layer_wrapper(::IMaterial const * material, double thickness, ::ILayout const & decoration )
-    : Layer( boost::python::ptr(material), thickness, boost::ref(decoration) )
+    Layer_wrapper(::IMaterial const & material, double thickness=0 )
+    : Layer( boost::ref(material), thickness )
       , bp::wrapper< Layer >(){
         // constructor
     
@@ -142,16 +135,28 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         Layer::setLayout( boost::ref(decoration) );
     }
 
-    virtual void setMaterial( ::IMaterial const * material ) {
+    virtual void setMaterial( ::IMaterial const & material ) {
         if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
-            func_setMaterial( boost::python::ptr(material) );
+            func_setMaterial( boost::ref(material) );
         else
-            this->Layer::setMaterial( boost::python::ptr(material) );
+            this->Layer::setMaterial( boost::ref(material) );
     }
     
     
-    void default_setMaterial( ::IMaterial const * material ) {
-        Layer::setMaterial( boost::python::ptr(material) );
+    void default_setMaterial( ::IMaterial const & material ) {
+        Layer::setMaterial( boost::ref(material) );
+    }
+
+    virtual void setMaterialAndThickness( ::IMaterial const & material, double thickness ) {
+        if( bp::override func_setMaterialAndThickness = this->get_override( "setMaterialAndThickness" ) )
+            func_setMaterialAndThickness( boost::ref(material), thickness );
+        else
+            this->Layer::setMaterialAndThickness( boost::ref(material), thickness );
+    }
+    
+    
+    void default_setMaterialAndThickness( ::IMaterial const & material, double thickness ) {
+        Layer::setMaterialAndThickness( boost::ref(material), thickness );
     }
 
     virtual void setThickness( double thickness ) {
@@ -325,8 +330,7 @@ void register_Layer_class(){
         typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Layer_exposer_t;
         Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
         bp::scope Layer_scope( Layer_exposer );
-        Layer_exposer.def( bp::init< IMaterial const *, bp::optional< double, ILayout * > >(( bp::arg("material"), bp::arg("thickness")=0, bp::arg("decoration")=bp::object() )) );
-        Layer_exposer.def( bp::init< IMaterial const *, double, ILayout const & >(( bp::arg("material"), bp::arg("thickness"), bp::arg("decoration") )) );
+        Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) );
         Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
         { //::Layer::clone
         
@@ -423,14 +427,26 @@ void register_Layer_class(){
         }
         { //::Layer::setMaterial
         
-            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const * ) ;
-            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const * ) ;
+            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const & ) ;
+            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const & ) ;
             
             Layer_exposer.def( 
                 "setMaterial"
                 , setMaterial_function_type(&::Layer::setMaterial)
                 , default_setMaterial_function_type(&Layer_wrapper::default_setMaterial)
                 , ( bp::arg("material") ) );
+        
+        }
+        { //::Layer::setMaterialAndThickness
+        
+            typedef void ( ::Layer::*setMaterialAndThickness_function_type )( ::IMaterial const &,double ) ;
+            typedef void ( Layer_wrapper::*default_setMaterialAndThickness_function_type )( ::IMaterial const &,double ) ;
+            
+            Layer_exposer.def( 
+                "setMaterialAndThickness"
+                , setMaterialAndThickness_function_type(&::Layer::setMaterialAndThickness)
+                , default_setMaterialAndThickness_function_type(&Layer_wrapper::default_setMaterialAndThickness)
+                , ( bp::arg("material"), bp::arg("thickness") ) );
         
         }
         { //::Layer::setThickness

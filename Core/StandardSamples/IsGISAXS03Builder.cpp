@@ -54,9 +54,9 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -101,7 +101,7 @@ ISample *IsGISAXS03BABuilder::buildSample() const
     //const IMaterial *p_substrate_material =
     //        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     //Layer substrate_layer;
     //substrate_layer.setMaterial(p_substrate_material);
 
@@ -148,9 +148,9 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     const IMaterial *p_substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     ParticleLayout particle_layout;

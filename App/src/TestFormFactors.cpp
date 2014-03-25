@@ -137,7 +137,7 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     //building sample
     MultiLayer multi_layer;
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
 
     mp_form_factor=p_form_factor;
     ParticleLayout particle_layout( new Particle(particle_material,

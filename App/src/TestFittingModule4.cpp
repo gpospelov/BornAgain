@@ -141,7 +141,7 @@ void TestFittingModule4::initializeSample()
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     ParticleLayout particle_layout( new Particle(particle_material,
             new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
 

@@ -583,12 +583,12 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer avg_layer;
-    avg_layer.setMaterial(p_average_layer_material);
+    avg_layer.setMaterial(*p_average_layer_material);
     avg_layer.setThickness(m_meso_height);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleLayout particle_layout;

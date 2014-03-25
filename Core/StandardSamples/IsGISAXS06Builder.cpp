@@ -42,9 +42,9 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     const IMaterial *p_substrate_material =
          MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -91,9 +91,9 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     const IMaterial *p_substrate_material =
          MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -144,9 +144,9 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     const IMaterial *p_substrate_material =
         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -206,9 +206,9 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     const IMaterial *p_substrate_material =
          MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2

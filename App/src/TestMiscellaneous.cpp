@@ -112,10 +112,10 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     particle_layout.addInterferenceFunction(p_interference_function);
 
 
-    Layer air_layer(p_air_material);
+    Layer air_layer(*p_air_material);
     air_layer.setLayout(particle_layout);
 
-    Layer substrate_layer(p_substrate_material, 0);
+    Layer substrate_layer(*p_substrate_material, 0);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -535,7 +535,7 @@ void TestMiscellaneous::test_SampleGeometry()
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     ParticleLayout particle_layout
         (new Particle(particle_material, new FormFactorFullSphere
                       (5*Units::nanometer)));

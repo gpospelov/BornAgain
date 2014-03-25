@@ -16,7 +16,6 @@
 #include "Layer.h"
 #include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
-#include "MaterialManager.h"
 
 #include <iomanip>
 
@@ -43,20 +42,20 @@ Layer::Layer()
 //    init_parameters();
 //}
 
-Layer::Layer(const IMaterial &material, double thickness, const ILayout &decoration)
+Layer::Layer(const IMaterial &material, double thickness)
     : m_thickness(thickness)
     , mp_material(0)
     , mp_layout(0)
 {
     setName("Layer");
-    setLayout(decoration);
     setMaterial(material);
     init_parameters();
 }
 
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
-    mp_material = other.mp_material;
+    mp_material = 0;
+    if(other.mp_material) mp_material = other.mp_material->clone();
     mp_layout = 0;
     if(other.getLayout()) {
         setLayoutPtr(other.getLayout()->clone());
@@ -75,7 +74,7 @@ Layer::~Layer()
 Layer* Layer::cloneInvertB() const
 {
     Layer *p_clone = new Layer();
-    p_clone->mp_material = MaterialManager::getInvertedMaterial(this->mp_material->getName());
+    p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
     p_clone->mp_layout = 0;
     if(this->getLayout()) {
         p_clone->setLayoutPtr(this->getLayout()->cloneInvertB());

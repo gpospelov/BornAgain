@@ -377,9 +377,9 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
     ParticleLayout particle_layout;
     particle_layout.addParticle(
         new Particle(particle_material,

@@ -43,7 +43,7 @@ ISample *IsGISAXS07Builder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
 
 
     ParticleLayout particle_layout;

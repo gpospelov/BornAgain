@@ -45,8 +45,8 @@ ISample *SampleBuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
     const IMaterial *substrate_material =
             MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer(air_material);
-    Layer substrate_layer(substrate_material);
+    Layer air_layer(*air_material);
+    Layer substrate_layer(*substrate_material);
 
     ParticleLayout particle_layout;
     complex_t n_particle(1.0-6e-4, 2e-8);

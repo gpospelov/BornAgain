@@ -21,7 +21,7 @@
 #include "ICompositeSample.h"
 #include "IMaterial.h"
 #include "LayerDWBASimulation.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 
 //! @class Layer
 //! @ingroup samples
@@ -67,10 +67,10 @@ public:
     virtual complex_t getRefractiveIndex() const;
 
     //! sets particle decoration
-    virtual void setDecoration(const IDecoration &decoration);
+    virtual void setLayout(const IDecoration &decoration);
 
     //! returns particle decoration
-    virtual const IDecoration* getDecoration() const { return mp_decoration; }
+    virtual const IDecoration* getLayout() const { return mp_decoration; }
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const {

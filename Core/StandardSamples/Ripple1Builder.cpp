@@ -15,7 +15,7 @@
 
 #include "Ripple1Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "FormFactorRipple1.h"
 #include "Units.h"
@@ -57,12 +57,12 @@ ISample *Ripple1Builder::buildSample() const
     FormFactorRipple1 *ff_ripple1 = new FormFactorRipple1(m_l, m_w, m_h);
     Particle ripple(particle_material, ff_ripple1);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
 	particle_decoration.addParticle(ripple,0.0,1.0);
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
 

@@ -15,7 +15,7 @@
 
 #include "IsGISAXS15Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "Units.h"
 #include "InterferenceFunction1DParaCrystal.h"
@@ -45,7 +45,7 @@ ISample *IsGISAXS15Builder::buildSample() const
             new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,
                     5*Units::nanometer, 1e3*Units::nanometer);
     p_interference_function->setKappa(4.02698);
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     Particle particle_prototype(particle_material, new FormFactorCylinder(
             5.0*Units::nanometer, 5.0*Units::nanometer));
     StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
@@ -61,7 +61,7 @@ ISample *IsGISAXS15Builder::buildSample() const
 
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
     return multi_layer;

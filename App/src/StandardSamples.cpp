@@ -19,7 +19,7 @@
 #include "Units.h"
 #include "Particle.h"
 #include "FormFactors.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"

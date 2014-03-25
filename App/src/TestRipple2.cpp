@@ -29,7 +29,7 @@
 #include "OutputDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
@@ -191,13 +191,13 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
     Particle ripple(particle_material, ff_ripple2 );
 
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
 	particle_decoration.addParticle(ripple,0.0,1.0);
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
     particle_decoration.addInterferenceFunction(p_interference_function);
 
     // making layer holding all whose nano particles
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
 

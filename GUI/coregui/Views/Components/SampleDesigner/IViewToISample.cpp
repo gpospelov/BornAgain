@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ParticleInfo.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "Particle.h"
@@ -102,7 +102,7 @@ void IViewToISample::visit(ParticleDecorationView *view)
     Q_ASSERT(view);
     std::cout << get_indent() << "ViewVisitor(ParticleDecorationView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 
-    ParticleDecoration *decoration = new ParticleDecoration();
+    ParticleLayout *decoration = new ParticleLayout();
 
 //    m_views.insertMulti(m_level, view);
 

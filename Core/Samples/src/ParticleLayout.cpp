@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
 #include "LocalMonodisperseApproximationStrategy.h"
@@ -23,13 +23,13 @@
 #include <iomanip>
 
 
-ParticleDecoration::ParticleDecoration()
+ParticleLayout::ParticleLayout()
 : m_total_abundance(0.0)
 {
     setName("ParticleDecoration");
 }
 
-ParticleDecoration::ParticleDecoration(
+ParticleLayout::ParticleLayout(
         Particle* p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
@@ -37,7 +37,7 @@ ParticleDecoration::ParticleDecoration(
     addParticle(p_particle, depth, abundance);
 }
 
-ParticleDecoration::ParticleDecoration(
+ParticleLayout::ParticleLayout(
         const Particle& p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
@@ -45,13 +45,13 @@ ParticleDecoration::ParticleDecoration(
     addParticle(p_particle.clone(), depth, abundance);
 }
 
-ParticleDecoration::~ParticleDecoration()
+ParticleLayout::~ParticleLayout()
 {
 }
 
-ParticleDecoration* ParticleDecoration::clone() const
+ParticleLayout* ParticleLayout::clone() const
 {
-    ParticleDecoration *p_new = new ParticleDecoration();
+    ParticleLayout *p_new = new ParticleLayout();
     p_new->setName(getName());
 
     for (size_t i=0; i<m_particles.size(); ++i)
@@ -67,9 +67,9 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
-ParticleDecoration* ParticleDecoration::cloneInvertB() const
+ParticleLayout* ParticleLayout::cloneInvertB() const
 {
-    ParticleDecoration *p_new = new ParticleDecoration();
+    ParticleLayout *p_new = new ParticleLayout();
     p_new->setName(getName() + "_inv");
 
     for (size_t i=0; i<m_particles.size(); ++i)
@@ -86,7 +86,7 @@ ParticleDecoration* ParticleDecoration::cloneInvertB() const
 }
 
 //! Adds generic particle, *-version.
-void ParticleDecoration::addParticle(
+void ParticleLayout::addParticle(
     Particle* p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
@@ -100,7 +100,7 @@ void ParticleDecoration::addParticle(
 }
 
 //! Adds generic particle, &-version.
-void ParticleDecoration::addParticle(
+void ParticleLayout::addParticle(
     const Particle& p_particle, const Geometry::Transform3D& transform,
     double depth, double abundance)
 {
@@ -115,7 +115,7 @@ void ParticleDecoration::addParticle(
 }
 
 //! Adds particle without rotation, *-version.
-void ParticleDecoration::addParticle(
+void ParticleLayout::addParticle(
     Particle* p_particle,
     double depth, double abundance)
 {
@@ -124,7 +124,7 @@ void ParticleDecoration::addParticle(
 }
 
 //! Adds particle without rotation, &-version.
-void ParticleDecoration::addParticle(
+void ParticleLayout::addParticle(
     const Particle& p_particle,
     double depth, double abundance)
 {
@@ -134,13 +134,13 @@ void ParticleDecoration::addParticle(
 }
 
 //! Adds particle info.
-void ParticleDecoration::addParticleInfo(const ParticleInfo& info)
+void ParticleLayout::addParticleInfo(const ParticleInfo& info)
 {
     addAndRegisterParticleInfo( info.clone() );
 }
 
 //! Returns particle info
-const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
+const ParticleInfo* ParticleLayout::getParticleInfo(size_t index) const
 {
     if (index<m_particles.size())
         return m_particles[index];
@@ -149,25 +149,25 @@ const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
         "Error! Not so many particles in this decoration.");
 }
 
-double ParticleDecoration::getAbundanceFractionOfParticle(size_t index) const
+double ParticleLayout::getAbundanceFractionOfParticle(size_t index) const
 {
     return getParticleInfo(index)->getAbundance()/m_total_abundance;
 }
 
 //! Adds interference functions
-void ParticleDecoration::addInterferenceFunction(
+void ParticleLayout::addInterferenceFunction(
     IInterferenceFunction* p_interference_function)
 {
     addAndRegisterInterferenceFunction(p_interference_function);
 }
 
-void ParticleDecoration::addInterferenceFunction(
+void ParticleLayout::addInterferenceFunction(
     const IInterferenceFunction& interference_function)
 {
     addAndRegisterInterferenceFunction(interference_function.clone());
 }
 
-const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(
+const IInterferenceFunction* ParticleLayout::getInterferenceFunction(
     size_t index) const
 {
     if (index<m_interference_functions.size())
@@ -178,7 +178,7 @@ const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(
 }
 
 //! Adds particle information with simultaneous registration in parent class.
-void ParticleDecoration::addAndRegisterParticleInfo(
+void ParticleLayout::addAndRegisterParticleInfo(
     ParticleInfo *child)
 {
     m_total_abundance += child->getAbundance();
@@ -187,14 +187,14 @@ void ParticleDecoration::addAndRegisterParticleInfo(
 }
 
 //! Adds interference function with simultaneous registration in parent class.
-void ParticleDecoration::addAndRegisterInterferenceFunction(
+void ParticleLayout::addAndRegisterInterferenceFunction(
     IInterferenceFunction *child)
 {
     m_interference_functions.push_back(child);
     registerChild(child);
 }
 
-void ParticleDecoration::print(std::ostream& ostr) const
+void ParticleLayout::print(std::ostream& ostr) const
 {
     IDecoration::print(ostr);
     ostr << "-->ParticleDecoration<" << this << ">{\n";

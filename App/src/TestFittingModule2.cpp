@@ -34,7 +34,7 @@
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 
@@ -380,7 +380,7 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     particle_decoration.addParticle(
         new Particle(particle_material,
                      new FormFactorCylinder(m_cylinder_radius,
@@ -394,7 +394,7 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
         0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

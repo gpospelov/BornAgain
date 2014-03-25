@@ -15,7 +15,7 @@
 
 #include "IsGISAXS06Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
 #include "Units.h"
@@ -59,7 +59,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     p_interference_function->setProbabilityDistribution(pdf);
 
     // particles
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
@@ -68,7 +68,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
 
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -107,7 +107,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
                                100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
@@ -121,7 +121,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
 
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -161,7 +161,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     pdf.setGamma(30.0*Units::degree);
     p_interference_function->setProbabilityDistribution(pdf);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
@@ -170,7 +170,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     particle_decoration.addParticleInfo(particle_info);
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -221,7 +221,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
                                100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
@@ -231,7 +231,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
 
     particle_decoration.addInterferenceFunction(p_interference_function);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

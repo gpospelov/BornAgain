@@ -2,7 +2,7 @@
 #include "MaterialManager.h"
 #include "MessageService.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunctions.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
@@ -117,10 +117,10 @@ ISample *TestFit01::buildSample()
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    ParticleDecoration particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+    ParticleLayout particle_decoration( new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
     return multi_layer;

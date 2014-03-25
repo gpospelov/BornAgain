@@ -96,7 +96,7 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
     Particle particle(particle_material, ff_cyl);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     particle_decoration.addParticle(particle);
 
     Lattice2DIFParameters lattice_params;
@@ -113,7 +113,7 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
 
 
     Layer air_layer(p_air_material);
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     Layer substrate_layer(p_substrate_material, 0);
 
@@ -536,11 +536,11 @@ void TestMiscellaneous::test_SampleGeometry()
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    ParticleDecoration particle_decoration
+    ParticleLayout particle_decoration
         (new Particle(particle_material, new FormFactorFullSphere
                       (5*Units::nanometer)));
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer.addLayer(air_layer);
 

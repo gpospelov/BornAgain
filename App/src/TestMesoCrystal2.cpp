@@ -37,7 +37,7 @@
 #include "OutputDataIOFactory.h"
 #include "OutputDataReader.h"
 #include "OutputDataFunctions.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ProgramOptions.h"
 #include "ResolutionFunction2DSimple.h"
 #include "SampleFactory.h"
@@ -591,7 +591,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     size_t n_max_phi_rotation_steps = 1;
     size_t n_alpha_rotation_steps = 1;
 
@@ -617,7 +617,7 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.setDecoration(particle_decoration);
+    avg_layer.setLayout(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

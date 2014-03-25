@@ -16,7 +16,7 @@
 #include "TestRootTree.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "Particle.h"
 #include "Simulation.h"
 #include "FormFactors.h"
@@ -415,7 +415,7 @@ void TestRootTree::initializeMesoCrystal(
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
 
     //double R = nanopart_radius;
     Geometry::Transform3D transform1 =
@@ -426,7 +426,7 @@ void TestRootTree::initializeMesoCrystal(
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.setDecoration(particle_decoration);
+    avg_layer.setLayout(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(avg_layer);

@@ -121,7 +121,7 @@ include_classes = [
     "Particle",
     "ParticleCoreShell",
     "ParticleBuilder",
-    "ParticleDecoration",
+    "ParticleLayout",
     "ParticleInfo",
     "PositionParticleInfo",
     "RealParameterWrapper",
@@ -249,7 +249,7 @@ def ManualClassTunings(mb):
             cls.include()
 
     #
-    cl = mb.class_("ParticleDecoration")
+    cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")

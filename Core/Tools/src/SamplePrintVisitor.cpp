@@ -17,7 +17,7 @@
 #include "ISample.h"
 #include "FormFactors.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunctions.h"
@@ -58,7 +58,7 @@ void SamplePrintVisitor::visit(const IDecoration *)
 }
 
 
-void SamplePrintVisitor::visit(const ParticleDecoration *sample)
+void SamplePrintVisitor::visit(const ParticleLayout *sample)
 {
     print_default(sample);
 }

@@ -70,16 +70,16 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::cloneInvertB( );
     }
 
-    virtual ::IDecoration const * getDecoration(  ) const  {
-        if( bp::override func_getDecoration = this->get_override( "getDecoration" ) )
-            return func_getDecoration(  );
+    virtual ::IDecoration const * getLayout(  ) const  {
+        if( bp::override func_getLayout = this->get_override( "getLayout" ) )
+            return func_getLayout(  );
         else
-            return this->Layer::getDecoration(  );
+            return this->Layer::getLayout(  );
     }
     
     
-    ::IDecoration const * default_getDecoration(  ) const  {
-        return Layer::getDecoration( );
+    ::IDecoration const * default_getLayout(  ) const  {
+        return Layer::getLayout( );
     }
 
     virtual ::IMaterial const * getMaterial(  ) const  {
@@ -130,16 +130,16 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::getTotalParticleSurfaceDensity( );
     }
 
-    virtual void setDecoration( ::IDecoration const & decoration ) {
-        if( bp::override func_setDecoration = this->get_override( "setDecoration" ) )
-            func_setDecoration( boost::ref(decoration) );
+    virtual void setLayout( ::IDecoration const & decoration ) {
+        if( bp::override func_setLayout = this->get_override( "setLayout" ) )
+            func_setLayout( boost::ref(decoration) );
         else
-            this->Layer::setDecoration( boost::ref(decoration) );
+            this->Layer::setLayout( boost::ref(decoration) );
     }
     
     
-    void default_setDecoration( ::IDecoration const & decoration ) {
-        Layer::setDecoration( boost::ref(decoration) );
+    void default_setLayout( ::IDecoration const & decoration ) {
+        Layer::setLayout( boost::ref(decoration) );
     }
 
     virtual void setMaterial( ::IMaterial const * material ) {
@@ -352,15 +352,15 @@ void register_Layer_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::Layer::getDecoration
+        { //::Layer::getLayout
         
-            typedef ::IDecoration const * ( ::Layer::*getDecoration_function_type )(  ) const;
-            typedef ::IDecoration const * ( Layer_wrapper::*default_getDecoration_function_type )(  ) const;
+            typedef ::IDecoration const * ( ::Layer::*getLayout_function_type )(  ) const;
+            typedef ::IDecoration const * ( Layer_wrapper::*default_getLayout_function_type )(  ) const;
             
             Layer_exposer.def( 
-                "getDecoration"
-                , getDecoration_function_type(&::Layer::getDecoration)
-                , default_getDecoration_function_type(&Layer_wrapper::default_getDecoration)
+                "getLayout"
+                , getLayout_function_type(&::Layer::getLayout)
+                , default_getLayout_function_type(&Layer_wrapper::default_getLayout)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -409,15 +409,15 @@ void register_Layer_class(){
                 , default_getTotalParticleSurfaceDensity_function_type(&Layer_wrapper::default_getTotalParticleSurfaceDensity) );
         
         }
-        { //::Layer::setDecoration
+        { //::Layer::setLayout
         
-            typedef void ( ::Layer::*setDecoration_function_type )( ::IDecoration const & ) ;
-            typedef void ( Layer_wrapper::*default_setDecoration_function_type )( ::IDecoration const & ) ;
+            typedef void ( ::Layer::*setLayout_function_type )( ::IDecoration const & ) ;
+            typedef void ( Layer_wrapper::*default_setLayout_function_type )( ::IDecoration const & ) ;
             
             Layer_exposer.def( 
-                "setDecoration"
-                , setDecoration_function_type(&::Layer::setDecoration)
-                , default_setDecoration_function_type(&Layer_wrapper::default_setDecoration)
+                "setLayout"
+                , setLayout_function_type(&::Layer::setLayout)
+                , default_setLayout_function_type(&Layer_wrapper::default_setLayout)
                 , ( bp::arg("decoration") ) );
         
         }

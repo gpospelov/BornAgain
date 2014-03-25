@@ -82,7 +82,7 @@
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"

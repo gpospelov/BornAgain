@@ -15,7 +15,7 @@
 
 #include "IsGISAXS07Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "FormFactorBox.h"
 #include "Simulation.h"
@@ -46,7 +46,7 @@ ISample *IsGISAXS07Builder::buildSample() const
     air_layer.setMaterial(p_air_material);
 
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
 
     // add particle number 1:
     FormFactorBox ff1(2.0*Units::nanometer, 2.0*Units::nanometer,
@@ -137,7 +137,7 @@ ISample *IsGISAXS07Builder::buildSample() const
             new Particle(particle_material, ff10, m10), pos10, 0.5);
     particle_decoration.addParticleInfo(particle_info10);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
     multi_layer->addLayer(air_layer);
 
     return multi_layer;

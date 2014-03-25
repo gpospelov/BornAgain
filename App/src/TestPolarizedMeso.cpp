@@ -105,7 +105,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     size_t n_max_phi_rotation_steps = 1;
     size_t n_sizes = 2;
 
@@ -127,7 +127,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

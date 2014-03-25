@@ -28,13 +28,13 @@ def RunSimulation():
     core_position = kvector_t(0.0, 0.0, 0.0)
     ##########################################
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_decoration= ParticleDecoration()
-    particle_decoration.addParticle(particle)
+    particle_layout= ParticleLayout()
+    particle_layout.addParticle(particle)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
      
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

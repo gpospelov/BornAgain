@@ -52,7 +52,7 @@ ISample *SampleBuilder::buildSample() const
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
-
+    
 
     particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)),0.0, m_cylinder_ratio);
     particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_length, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);

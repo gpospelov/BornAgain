@@ -12,108 +12,108 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "ParticleDecoration.pypp.h"
+#include "ParticleLayout.pypp.h"
 
 namespace bp = boost::python;
 
-struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDecoration > {
+struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
 
-    ParticleDecoration_wrapper( )
-    : ParticleDecoration( )
-      , bp::wrapper< ParticleDecoration >(){
+    ParticleLayout_wrapper( )
+    : ParticleLayout( )
+      , bp::wrapper< ParticleLayout >(){
         // null constructor
     
     }
 
-    ParticleDecoration_wrapper(::Particle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
-    : ParticleDecoration( boost::ref(p_particle), depth, abundance )
-      , bp::wrapper< ParticleDecoration >(){
+    ParticleLayout_wrapper(::Particle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
+    : ParticleLayout( boost::ref(p_particle), depth, abundance )
+      , bp::wrapper< ParticleLayout >(){
         // constructor
     
     }
 
-    virtual ::ParticleDecoration * clone(  ) const  {
+    virtual ::ParticleLayout * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else
-            return this->ParticleDecoration::clone(  );
+            return this->ParticleLayout::clone(  );
     }
     
     
-    ::ParticleDecoration * default_clone(  ) const  {
-        return ParticleDecoration::clone( );
+    ::ParticleLayout * default_clone(  ) const  {
+        return ParticleLayout::clone( );
     }
 
-    virtual ::ParticleDecoration * cloneInvertB(  ) const  {
+    virtual ::ParticleLayout * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
         else
-            return this->ParticleDecoration::cloneInvertB(  );
+            return this->ParticleLayout::cloneInvertB(  );
     }
     
     
-    ::ParticleDecoration * default_cloneInvertB(  ) const  {
-        return ParticleDecoration::cloneInvertB( );
+    ::ParticleLayout * default_cloneInvertB(  ) const  {
+        return ParticleLayout::cloneInvertB( );
     }
 
     virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const  {
         if( bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" ) )
             return func_getAbundanceFractionOfParticle( index );
         else
-            return this->ParticleDecoration::getAbundanceFractionOfParticle( index );
+            return this->ParticleLayout::getAbundanceFractionOfParticle( index );
     }
     
     
     double default_getAbundanceFractionOfParticle( ::std::size_t index ) const  {
-        return ParticleDecoration::getAbundanceFractionOfParticle( index );
+        return ParticleLayout::getAbundanceFractionOfParticle( index );
     }
 
     virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
         if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
             return func_getInterferenceFunctions(  );
         else
-            return this->ParticleDecoration::getInterferenceFunctions(  );
+            return this->ParticleLayout::getInterferenceFunctions(  );
     }
     
     
     ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
-        return ParticleDecoration::getInterferenceFunctions( );
+        return ParticleLayout::getInterferenceFunctions( );
     }
 
     virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
         else
-            return this->ParticleDecoration::getNumberOfInterferenceFunctions(  );
+            return this->ParticleLayout::getNumberOfInterferenceFunctions(  );
     }
     
     
     ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return ParticleDecoration::getNumberOfInterferenceFunctions( );
+        return ParticleLayout::getNumberOfInterferenceFunctions( );
     }
 
     virtual ::std::size_t getNumberOfParticles(  ) const  {
         if( bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" ) )
             return func_getNumberOfParticles(  );
         else
-            return this->ParticleDecoration::getNumberOfParticles(  );
+            return this->ParticleLayout::getNumberOfParticles(  );
     }
     
     
     ::std::size_t default_getNumberOfParticles(  ) const  {
-        return ParticleDecoration::getNumberOfParticles( );
+        return ParticleLayout::getNumberOfParticles( );
     }
 
     virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const  {
         if( bp::override func_getParticleInfo = this->get_override( "getParticleInfo" ) )
             return func_getParticleInfo( index );
         else
-            return this->ParticleDecoration::getParticleInfo( index );
+            return this->ParticleLayout::getParticleInfo( index );
     }
     
     
     ::ParticleInfo const * default_getParticleInfo( ::std::size_t index ) const  {
-        return ParticleDecoration::getParticleInfo( index );
+        return ParticleLayout::getParticleInfo( index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -223,7 +223,7 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< ParticleDecoration_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< ParticleLayout_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -269,142 +269,142 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
 
 };
 
-void register_ParticleDecoration_class(){
+void register_ParticleLayout_class(){
 
-    { //::ParticleDecoration
-        typedef bp::class_< ParticleDecoration_wrapper, bp::bases< IDecoration >, boost::noncopyable > ParticleDecoration_exposer_t;
-        ParticleDecoration_exposer_t ParticleDecoration_exposer = ParticleDecoration_exposer_t( "ParticleDecoration", bp::init< >() );
-        bp::scope ParticleDecoration_scope( ParticleDecoration_exposer );
-        ParticleDecoration_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
-        { //::ParticleDecoration::addInterferenceFunction
+    { //::ParticleLayout
+        typedef bp::class_< ParticleLayout_wrapper, bp::bases< IDecoration >, boost::noncopyable > ParticleLayout_exposer_t;
+        ParticleLayout_exposer_t ParticleLayout_exposer = ParticleLayout_exposer_t( "ParticleLayout", bp::init< >() );
+        bp::scope ParticleLayout_scope( ParticleLayout_exposer );
+        ParticleLayout_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
+        { //::ParticleLayout::addInterferenceFunction
         
-            typedef void ( ::ParticleDecoration::*addInterferenceFunction_function_type )( ::IInterferenceFunction const & ) ;
+            typedef void ( ::ParticleLayout::*addInterferenceFunction_function_type )( ::IInterferenceFunction const & ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "addInterferenceFunction"
-                , addInterferenceFunction_function_type( &::ParticleDecoration::addInterferenceFunction )
+                , addInterferenceFunction_function_type( &::ParticleLayout::addInterferenceFunction )
                 , ( bp::arg("interference_function") ) );
         
         }
-        { //::ParticleDecoration::addParticle
+        { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleDecoration::*addParticle_function_type )( ::Particle const &,::Geometry::Transform3D const &,double,double ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type )( ::Particle const &,::Geometry::Transform3D const &,double,double ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "addParticle"
-                , addParticle_function_type( &::ParticleDecoration::addParticle )
+                , addParticle_function_type( &::ParticleLayout::addParticle )
                 , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) );
         
         }
-        { //::ParticleDecoration::addParticle
+        { //::ParticleLayout::addParticle
         
-            typedef void ( ::ParticleDecoration::*addParticle_function_type )( ::Particle const &,double,double ) ;
+            typedef void ( ::ParticleLayout::*addParticle_function_type )( ::Particle const &,double,double ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "addParticle"
-                , addParticle_function_type( &::ParticleDecoration::addParticle )
+                , addParticle_function_type( &::ParticleLayout::addParticle )
                 , ( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) );
         
         }
-        { //::ParticleDecoration::addParticleInfo
+        { //::ParticleLayout::addParticleInfo
         
-            typedef void ( ::ParticleDecoration::*addParticleInfo_function_type )( ::ParticleInfo const & ) ;
+            typedef void ( ::ParticleLayout::*addParticleInfo_function_type )( ::ParticleInfo const & ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "addParticleInfo"
-                , addParticleInfo_function_type( &::ParticleDecoration::addParticleInfo )
+                , addParticleInfo_function_type( &::ParticleLayout::addParticleInfo )
                 , ( bp::arg("info") ) );
         
         }
-        { //::ParticleDecoration::clone
+        { //::ParticleLayout::clone
         
-            typedef ::ParticleDecoration * ( ::ParticleDecoration::*clone_function_type )(  ) const;
-            typedef ::ParticleDecoration * ( ParticleDecoration_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::ParticleLayout * ( ::ParticleLayout::*clone_function_type )(  ) const;
+            typedef ::ParticleLayout * ( ParticleLayout_wrapper::*default_clone_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "clone"
-                , clone_function_type(&::ParticleDecoration::clone)
-                , default_clone_function_type(&ParticleDecoration_wrapper::default_clone)
+                , clone_function_type(&::ParticleLayout::clone)
+                , default_clone_function_type(&ParticleLayout_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::ParticleDecoration::cloneInvertB
+        { //::ParticleLayout::cloneInvertB
         
-            typedef ::ParticleDecoration * ( ::ParticleDecoration::*cloneInvertB_function_type )(  ) const;
-            typedef ::ParticleDecoration * ( ParticleDecoration_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ParticleLayout * ( ::ParticleLayout::*cloneInvertB_function_type )(  ) const;
+            typedef ::ParticleLayout * ( ParticleLayout_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "cloneInvertB"
-                , cloneInvertB_function_type(&::ParticleDecoration::cloneInvertB)
-                , default_cloneInvertB_function_type(&ParticleDecoration_wrapper::default_cloneInvertB)
+                , cloneInvertB_function_type(&::ParticleLayout::cloneInvertB)
+                , default_cloneInvertB_function_type(&ParticleLayout_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleDecoration::getAbundanceFractionOfParticle
+        { //::ParticleLayout::getAbundanceFractionOfParticle
         
-            typedef double ( ::ParticleDecoration::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
-            typedef double ( ParticleDecoration_wrapper::*default_getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
+            typedef double ( ::ParticleLayout::*getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
+            typedef double ( ParticleLayout_wrapper::*default_getAbundanceFractionOfParticle_function_type )( ::std::size_t ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getAbundanceFractionOfParticle"
-                , getAbundanceFractionOfParticle_function_type(&::ParticleDecoration::getAbundanceFractionOfParticle)
-                , default_getAbundanceFractionOfParticle_function_type(&ParticleDecoration_wrapper::default_getAbundanceFractionOfParticle)
+                , getAbundanceFractionOfParticle_function_type(&::ParticleLayout::getAbundanceFractionOfParticle)
+                , default_getAbundanceFractionOfParticle_function_type(&ParticleLayout_wrapper::default_getAbundanceFractionOfParticle)
                 , ( bp::arg("index") ) );
         
         }
-        { //::ParticleDecoration::getInterferenceFunction
+        { //::ParticleLayout::getInterferenceFunction
         
-            typedef ::IInterferenceFunction const * ( ::ParticleDecoration::*getInterferenceFunction_function_type )( ::std::size_t ) const;
+            typedef ::IInterferenceFunction const * ( ::ParticleLayout::*getInterferenceFunction_function_type )( ::std::size_t ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getInterferenceFunction"
-                , getInterferenceFunction_function_type( &::ParticleDecoration::getInterferenceFunction )
+                , getInterferenceFunction_function_type( &::ParticleLayout::getInterferenceFunction )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::ParticleDecoration::getInterferenceFunctions
+        { //::ParticleLayout::getInterferenceFunctions
         
-            typedef ::SafePointerVector< IInterferenceFunction > ( ::ParticleDecoration::*getInterferenceFunctions_function_type )(  ) const;
-            typedef ::SafePointerVector< IInterferenceFunction > ( ParticleDecoration_wrapper::*default_getInterferenceFunctions_function_type )(  ) const;
+            typedef ::SafePointerVector< IInterferenceFunction > ( ::ParticleLayout::*getInterferenceFunctions_function_type )(  ) const;
+            typedef ::SafePointerVector< IInterferenceFunction > ( ParticleLayout_wrapper::*default_getInterferenceFunctions_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getInterferenceFunctions"
-                , getInterferenceFunctions_function_type(&::ParticleDecoration::getInterferenceFunctions)
-                , default_getInterferenceFunctions_function_type(&ParticleDecoration_wrapper::default_getInterferenceFunctions) );
+                , getInterferenceFunctions_function_type(&::ParticleLayout::getInterferenceFunctions)
+                , default_getInterferenceFunctions_function_type(&ParticleLayout_wrapper::default_getInterferenceFunctions) );
         
         }
-        { //::ParticleDecoration::getNumberOfInterferenceFunctions
+        { //::ParticleLayout::getNumberOfInterferenceFunctions
         
-            typedef ::std::size_t ( ::ParticleDecoration::*getNumberOfInterferenceFunctions_function_type )(  ) const;
-            typedef ::std::size_t ( ParticleDecoration_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ::ParticleLayout::*getNumberOfInterferenceFunctions_function_type )(  ) const;
+            typedef ::std::size_t ( ParticleLayout_wrapper::*default_getNumberOfInterferenceFunctions_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getNumberOfInterferenceFunctions"
-                , getNumberOfInterferenceFunctions_function_type(&::ParticleDecoration::getNumberOfInterferenceFunctions)
-                , default_getNumberOfInterferenceFunctions_function_type(&ParticleDecoration_wrapper::default_getNumberOfInterferenceFunctions) );
+                , getNumberOfInterferenceFunctions_function_type(&::ParticleLayout::getNumberOfInterferenceFunctions)
+                , default_getNumberOfInterferenceFunctions_function_type(&ParticleLayout_wrapper::default_getNumberOfInterferenceFunctions) );
         
         }
-        { //::ParticleDecoration::getNumberOfParticles
+        { //::ParticleLayout::getNumberOfParticles
         
-            typedef ::std::size_t ( ::ParticleDecoration::*getNumberOfParticles_function_type )(  ) const;
-            typedef ::std::size_t ( ParticleDecoration_wrapper::*default_getNumberOfParticles_function_type )(  ) const;
+            typedef ::std::size_t ( ::ParticleLayout::*getNumberOfParticles_function_type )(  ) const;
+            typedef ::std::size_t ( ParticleLayout_wrapper::*default_getNumberOfParticles_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getNumberOfParticles"
-                , getNumberOfParticles_function_type(&::ParticleDecoration::getNumberOfParticles)
-                , default_getNumberOfParticles_function_type(&ParticleDecoration_wrapper::default_getNumberOfParticles) );
+                , getNumberOfParticles_function_type(&::ParticleLayout::getNumberOfParticles)
+                , default_getNumberOfParticles_function_type(&ParticleLayout_wrapper::default_getNumberOfParticles) );
         
         }
-        { //::ParticleDecoration::getParticleInfo
+        { //::ParticleLayout::getParticleInfo
         
-            typedef ::ParticleInfo const * ( ::ParticleDecoration::*getParticleInfo_function_type )( ::std::size_t ) const;
-            typedef ::ParticleInfo const * ( ParticleDecoration_wrapper::*default_getParticleInfo_function_type )( ::std::size_t ) const;
+            typedef ::ParticleInfo const * ( ::ParticleLayout::*getParticleInfo_function_type )( ::std::size_t ) const;
+            typedef ::ParticleInfo const * ( ParticleLayout_wrapper::*default_getParticleInfo_function_type )( ::std::size_t ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getParticleInfo"
-                , getParticleInfo_function_type(&::ParticleDecoration::getParticleInfo)
-                , default_getParticleInfo_function_type(&ParticleDecoration_wrapper::default_getParticleInfo)
+                , getParticleInfo_function_type(&::ParticleLayout::getParticleInfo)
+                , default_getParticleInfo_function_type(&ParticleLayout_wrapper::default_getParticleInfo)
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
@@ -412,136 +412,136 @@ void register_ParticleDecoration_class(){
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( ParticleDecoration_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ParticleLayout_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&ParticleDecoration_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&ParticleLayout_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( ParticleDecoration_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ParticleLayout_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&ParticleDecoration_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&ParticleLayout_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( ParticleDecoration_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ParticleLayout_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&ParticleDecoration_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&ParticleLayout_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ParticleDecoration_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ParticleLayout_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&ParticleDecoration_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&ParticleLayout_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( ParticleDecoration_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ParticleLayout_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ParticleDecoration_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ParticleLayout_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ICompositeSample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( ParticleDecoration_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ParticleLayout_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ICompositeSample::getCompositeSample)
-                , default_getCompositeSample_function_type(&ParticleDecoration_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&ParticleLayout_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( ParticleDecoration_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ParticleLayout_wrapper::*default_printParameters_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&ParticleDecoration_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&ParticleLayout_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( ParticleDecoration_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ParticleLayout_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&ParticleDecoration_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&ParticleLayout_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &ParticleDecoration_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &ParticleLayout_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( ParticleDecoration_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ParticleLayout_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&ParticleDecoration_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&ParticleLayout_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( ParticleDecoration_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ParticleLayout_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&ParticleDecoration_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&ParticleLayout_wrapper::default_setParametersAreChanged) );
         
         }
         { //::ICompositeSample::size
         
             typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( ParticleDecoration_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ParticleLayout_wrapper::*default_size_function_type )(  ) const;
             
-            ParticleDecoration_exposer.def( 
+            ParticleLayout_exposer.def( 
                 "size"
                 , size_function_type(&::ICompositeSample::size)
-                , default_size_function_type(&ParticleDecoration_wrapper::default_size) );
+                , default_size_function_type(&ParticleLayout_wrapper::default_size) );
         
         }
     }

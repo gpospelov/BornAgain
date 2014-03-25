@@ -22,13 +22,13 @@ def RunSimulationDWBA():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     
     multi_layer = MultiLayer()
@@ -57,13 +57,13 @@ def RunSimulationBA():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
@@ -90,7 +90,7 @@ def RunSimulationBA_Size():
     multi_layer = MultiLayer()
 
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
     # preparing prototype of nano particle
     radius = 5*nanometer
     sigma = 0.2*radius
@@ -103,12 +103,12 @@ def RunSimulationBA_Size():
 
     builder = ParticleBuilder()
     builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par)
-    builder.plantParticles(particle_decoration)
+    builder.plantParticles(particle_layout)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)    
+    particle_layout.addInterferenceFunction(interference)    
 
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     
     multi_layer.addLayer(air_layer)
 

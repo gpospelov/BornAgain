@@ -15,7 +15,7 @@
 
 #include "LayerRoughnessBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "Units.h"
 #include "IRoughness.h"

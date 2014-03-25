@@ -15,7 +15,7 @@
 
 #include "IsGISAXS03Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "FormFactorCylinder.h"
 //#include "FormFactorPrism3.h"
@@ -60,11 +60,11 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration( new Particle(particle_material,
+    ParticleLayout particle_decoration( new Particle(particle_material,
             new FormFactorCylinder(m_radius, m_height)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -108,12 +108,12 @@ ISample *IsGISAXS03BABuilder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration(
+    ParticleLayout particle_decoration(
             new Particle(particle_material,
                     new FormFactorCylinder(m_radius, m_height)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
     multi_layer->addLayer(air_layer);
 
     return multi_layer;
@@ -153,7 +153,7 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     // preparing prototype of nano particle
     double sigma = 0.2*m_radius;
     FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( m_radius, m_height);
@@ -167,7 +167,7 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     builder.plantParticles(particle_decoration);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     multi_layer->addLayer(air_layer);
 

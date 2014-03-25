@@ -34,7 +34,7 @@
 #include "OutputDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
@@ -509,7 +509,7 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     StochasticSampledParameter par1(sg1, nbins, nfwhm);
     StochasticSampledParameter par2(sg2, nbins, nfwhm);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
     particle_decoration.addInterferenceFunction(p_interference_function);
 
@@ -520,7 +520,7 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
     builder.plantParticles(particle_decoration);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
 
     p_multi_layer->addLayer(air_layer);
 

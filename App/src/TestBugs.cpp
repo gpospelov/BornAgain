@@ -4,7 +4,7 @@
 #include "Units.h"
 #include "FormFactorTruncatedSphere.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunction2DParaCrystal.h"
 
 #include <iostream>
@@ -45,7 +45,7 @@ void TestBugs::test_item339()
                                                               0.0,20.0*Units::micrometer, 20.0*Units::micrometer);
 
 
-    ParticleDecoration *decoration = new ParticleDecoration();
+    ParticleLayout *decoration = new ParticleLayout();
 
     decoration->addParticle(particle,0., 1.0);
 

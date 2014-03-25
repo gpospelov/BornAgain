@@ -1,7 +1,7 @@
 #ifndef PARTICLEDECORATIONTEST_H
 #define PARTICLEDECORATIONTEST_H
 
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 
 class ParticleDecorationTest : public :: testing :: Test {
@@ -14,7 +14,7 @@ protected:
 
 TEST_F(ParticleDecorationTest, ParticleDecorationInitial)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     EXPECT_EQ("ParticleDecoration", particleDecoration.getName());
     EXPECT_EQ(size_t(0), particleDecoration.getNumberOfParticles());
@@ -26,7 +26,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationInitByValue)
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle(mat);
 
-    ParticleDecoration particleDecoration(particle, 1.0, 2.0);
+    ParticleLayout particleDecoration(particle, 1.0, 2.0);
 
     EXPECT_EQ("ParticleDecoration", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
@@ -48,7 +48,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationInitByRef)
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Stone",0,0);
     Particle * particle = new Particle(mat);
 
-    ParticleDecoration particleDecoration(particle, 3.0, -2.0);
+    ParticleLayout particleDecoration(particle, 3.0, -2.0);
 
     EXPECT_EQ("ParticleDecoration", particleDecoration.getName());
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
@@ -65,7 +65,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationInitByRef)
 
 TEST_F(ParticleDecorationTest, ParticleDecorationAddParticleInfo)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle(mat);
@@ -96,7 +96,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationAddParticleInfo)
 
 TEST_F(ParticleDecorationTest, ParticleDecorationAddParticle)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle1(mat1);
@@ -159,7 +159,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationAddParticle)
 
 TEST_F(ParticleDecorationTest, ParticleDecorationAbundanceFraction)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle1(mat1);
@@ -203,7 +203,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationAbundanceFraction)
 
 TEST_F(ParticleDecorationTest, ParticleDecorationClone)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle1(mat1);
@@ -241,7 +241,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationClone)
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
 
 
-    ParticleDecoration * clone = particleDecoration.clone();
+    ParticleLayout * clone = particleDecoration.clone();
 
     EXPECT_EQ("ParticleDecoration", clone->getName());
 
@@ -298,7 +298,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationClone)
 
 TEST_F(ParticleDecorationTest, ParticleDecorationCloneInvertB)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
     Particle particle1(mat1);
@@ -335,7 +335,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationCloneInvertB)
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
 
 
-    ParticleDecoration * clone = particleDecoration.cloneInvertB();
+    ParticleLayout * clone = particleDecoration.cloneInvertB();
 
     EXPECT_EQ("ParticleDecoration_inv", clone->getName());
 
@@ -395,7 +395,7 @@ TEST_F(ParticleDecorationTest, ParticleDecorationCloneInvertB)
 
 TEST_F(ParticleDecorationTest, ParticleDecorationInterferenceFunction)
 {
-    ParticleDecoration particleDecoration;
+    ParticleLayout particleDecoration;
 
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());
     particleDecoration.addInterferenceFunction(new InterferenceFunctionNone());

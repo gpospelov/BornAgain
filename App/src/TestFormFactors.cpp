@@ -20,7 +20,7 @@
 #include "Utils.h"
 #include "Simulation.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "MaterialManager.h"
 #include "FormFactors.h"
 #include "InterferenceFunctionNone.h"
@@ -140,10 +140,10 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     air_layer.setMaterial(p_air_material);
 
     mp_form_factor=p_form_factor;
-    ParticleDecoration particle_decoration( new Particle(particle_material,
+    ParticleLayout particle_decoration( new Particle(particle_material,
                                                          mp_form_factor));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_decoration);
     multi_layer.addLayer(air_layer);
 
     // building simulation

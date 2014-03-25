@@ -3,8 +3,7 @@
 #include "ISampleToIView.h"
 #include "ISample.h"
 #include "MultiLayer.h"
-//#include "LayerDecorator.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ParticleDecorationView.h"
 #include "FormFactorView.h"
 #include "Particle.h"
@@ -64,7 +63,7 @@ void ISampleToIView::visit(const IDecoration *)
 }
 
 
-void ISampleToIView::visit(const ParticleDecoration *sample)
+void ISampleToIView::visit(const ParticleLayout *sample)
 {
     ParticleDecorationView *decorationView = new ParticleDecorationView();
     m_sample_to_view[sample] = decorationView;
@@ -94,7 +93,7 @@ void ISampleToIView::visit(const Layer *sample)
     m_multiLayer->addBottomLayer(layerView);
     m_sample_to_view[sample] = layerView;
 
-    const IDecoration *decoration = sample->getDecoration();
+    const IDecoration *decoration = sample->getLayout();
     if(decoration) {
         decoration->accept(this);
 

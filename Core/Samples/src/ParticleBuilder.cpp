@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "Numeric.h"
 #include "StochasticSampledParameter.h"
 
@@ -46,7 +46,7 @@ void ParticleBuilder::setPrototype(const Particle& particle, std::string name, c
 
 //! plant particles in given decoration
 
-void ParticleBuilder::plantParticles(ParticleDecoration& decor)
+void ParticleBuilder::plantParticles(ParticleLayout& decor)
 {
     if( !m_prototype ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No prototype is defined");
 

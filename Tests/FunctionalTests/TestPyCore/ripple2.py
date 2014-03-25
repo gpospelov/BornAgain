@@ -25,15 +25,15 @@ def RunSimulation():
     ripple2_ff = FormFactorRipple2(100*nanometer, 20*nanometer, 4*nanometer, 0*nanometer)
     ripple = Particle(mParticle, ripple2_ff)
 
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(ripple, 0.0, 1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(ripple, 0.0, 1.0)
 
     interference = InterferenceFunction1DParaCrystal (20*nanometer, 4*nanometer, 1e7*nanometer)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     
 	# air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

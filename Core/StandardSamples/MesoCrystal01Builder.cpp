@@ -20,7 +20,7 @@
 #include "InterferenceFunctions.h"
 #include "Crystal.h"
 #include "MesoCrystal.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "FormFactorSphereGaussianRadius.h"
@@ -97,7 +97,7 @@ ISample* MesoCrystal01Builder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_decoration;
     size_t n_max_phi_rotation_steps = int(m_nphi_rotations);
     size_t n_alpha_rotation_steps = 1;
 
@@ -123,7 +123,7 @@ ISample* MesoCrystal01Builder::buildSample() const
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
 
-    avg_layer.setDecoration(particle_decoration);
+    avg_layer.setLayout(particle_decoration);
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 

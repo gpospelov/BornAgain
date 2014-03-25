@@ -352,4 +352,7 @@
 # after implementing quick and dirty calback with mutex lock
 | 2014-03-19 17:21:59 | jcnsopc126 | linuxx8664gcc | 0  | 27.394   | 2.038        | 1.776        | 1.128        | 0.668        | 5.205        | 6.787        | 0.501        | 7.711        | 1.581        |
 
+# before removing MaterialManager
+| 2014-03-25 15:08:26 | jcnsopc126 | linuxx8664gcc | 0  | 27.546   | 2.061        | 1.786        | 1.117        | 0.661        | 5.217        | 6.858        | 0.553        | 7.722        | 1.572        |
+
 

@@ -39,9 +39,9 @@ ISample *IsGISAXS08ABuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
             new InterferenceFunction2DParaCrystal(10.0*Units::nanometer,
@@ -85,9 +85,9 @@ ISample *IsGISAXS08BBuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(*p_air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(*p_substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
             new InterferenceFunction2DParaCrystal(10.0*Units::nanometer,

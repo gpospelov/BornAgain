@@ -227,6 +227,16 @@ void ISampleVisitor::visit(const FormFactorInfLongBox *)
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongBox *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorInfLongRipple1 *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongRipple1 *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorInfLongRipple2 *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongRipple2 *) -> Error. Not implemented.");
+}
+
 void ISampleVisitor::visit(const FormFactorLorentz *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorLorentz *) -> Error. Not implemented.");

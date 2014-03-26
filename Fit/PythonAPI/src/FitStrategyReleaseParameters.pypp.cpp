@@ -40,10 +40,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
-        else
+        else{
             this->FitStrategyReleaseParameters::clear(  );
+        }
     }
-    
     
     void default_clear(  ) {
         FitStrategyReleaseParameters::clear( );
@@ -52,10 +52,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual ::FitStrategyReleaseParameters * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FitStrategyReleaseParameters::clone(  );
+        }
     }
-    
     
     ::FitStrategyReleaseParameters * default_clone(  ) const  {
         return FitStrategyReleaseParameters::clone( );
@@ -64,10 +64,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void setReleased( ::std::vector< std::string > const & pars ) {
         if( bp::override func_setReleased = this->get_override( "setReleased" ) )
             func_setReleased( boost::ref(pars) );
-        else
+        else{
             this->FitStrategyReleaseParameters::setReleased( boost::ref(pars) );
+        }
     }
-    
     
     void default_setReleased( ::std::vector< std::string > const & pars ) {
         FitStrategyReleaseParameters::setReleased( boost::ref(pars) );
@@ -76,10 +76,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else
+        else{
             this->FitStrategyAdjustParameters::execute(  );
+        }
     }
-    
     
     void default_execute(  ) {
         FitStrategyAdjustParameters::execute( );
@@ -88,10 +88,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void setPreserveOriginalValues( bool preserve_values ) {
         if( bp::override func_setPreserveOriginalValues = this->get_override( "setPreserveOriginalValues" ) )
             func_setPreserveOriginalValues( preserve_values );
-        else
+        else{
             this->FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
+        }
     }
-    
     
     void default_setPreserveOriginalValues( bool preserve_values ) {
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestRipple2.h
-//! @brief     Defines class TestRipple2.
+//! @file      App/inc/TestInfLongBox.h
+//! @brief     Defines class TestInfLongBox.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)

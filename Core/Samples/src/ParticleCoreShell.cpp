@@ -60,7 +60,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
 
 void ParticleCoreShell::setAmbientMaterial(const IMaterial* p_material)
 {
-    mp_ambient_material = p_material;
+    if(p_material) mp_ambient_material = p_material->clone();
     mp_shell->setAmbientMaterial(p_material);
     mp_core->setAmbientMaterial(p_material);
 }

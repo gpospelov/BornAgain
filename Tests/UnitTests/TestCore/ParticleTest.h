@@ -53,7 +53,7 @@ TEST_F(ParticleTest, ParticleConstructors)
 {
     const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
 
-    Particle *p1 = new Particle(mat);
+    Particle *p1 = new Particle(*mat);
     EXPECT_EQ("Air", p1->getMaterial()->getName());
     EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
     EXPECT_EQ(NULL, p1->getSimpleFormFactor());
@@ -65,7 +65,7 @@ TEST_F(ParticleTest, ParticleConstructors)
     delete p1;
 
     FormFactorFullSphere sphere(1.0);
-    Particle *p2 = new Particle(mat, sphere);
+    Particle *p2 = new Particle(*mat, sphere);
     EXPECT_EQ("FormFactorFullSphere", p2->getSimpleFormFactor()->getName());
     EXPECT_EQ(1, p2->getSimpleFormFactor()->getRadius());
     EXPECT_FALSE(p2->hasDistributedFormFactor());
@@ -76,10 +76,11 @@ TEST_F(ParticleTest, ParticleConstructors)
                       p2->createFormFactor(1.0))->getAmbientRefractiveIndex());
     delete p2;
 
-    FormFactorFullSphere *sphere3 = new FormFactorFullSphere(1.0);
-    sphere3->setName("sphere3");
-    Particle *p3 = new Particle(mat, sphere3);
-    EXPECT_EQ(sphere3, p3->getSimpleFormFactor());
+    FormFactorFullSphere sphere3(1.0);
+    sphere3.setName("sphere3");
+    Particle *p3 = new Particle(*mat, sphere3);
+    EXPECT_EQ(sphere3.getName(), p3->getSimpleFormFactor()->getName());
+    EXPECT_EQ(sphere3.getRadius(), p3->getSimpleFormFactor()->getRadius());
 
     Particle *p4 = p3->clone();
     EXPECT_EQ("sphere3", p4->getSimpleFormFactor()->getName());
@@ -94,7 +95,7 @@ TEST_F(ParticleTest, ParticleTransform)
     FormFactorFullSphere sphere(1.0);
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(45.*Units::degree);
-    Particle *particle = new Particle(mat, sphere, transform);
+    Particle *particle = new Particle(*mat, sphere, transform);
 
     EXPECT_EQ("Air", particle->getMaterial()->getName());
 

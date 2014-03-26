@@ -119,6 +119,7 @@ void DiffuseDWBASimulation::run()
 
 void DiffuseDWBASimulation::setMaterial(const IMaterial* p_material)
 {
+    if(!p_material) return;
     SafePointerVector<DiffuseParticleInfo>::iterator it =
             m_np_infos.begin();
     while (it != m_np_infos.end()) {

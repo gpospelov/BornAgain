@@ -60,13 +60,13 @@ ISample *IsGISAXS01Builder::buildSample() const
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     particle_layout.addParticle(
-                new Particle(particle_material,
-                             new FormFactorCylinder(m_cylinder_radius,
+                new Particle(*particle_material,
+                             FormFactorCylinder(m_cylinder_radius,
                                                     m_cylinder_height)),
                 0.0, m_cylinder_weight);
     particle_layout.addParticle(
-                new Particle(particle_material,
-                             new FormFactorPrism3(m_prism_length,
+                new Particle(*particle_material,
+                             FormFactorPrism3(m_prism_length,
                                                   m_prism_height)),
                 0.0, 1.0-m_cylinder_weight);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());

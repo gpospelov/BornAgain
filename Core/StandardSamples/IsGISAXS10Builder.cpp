@@ -55,8 +55,8 @@ ISample *IsGISAXS10Builder::buildSample() const
                     7*Units::nanometer, 1e7*Units::nanometer);
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
 
-    ParticleLayout particle_layout(new Particle(particle_material,
-            new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+    ParticleLayout particle_layout(new Particle(*particle_material,
+            FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

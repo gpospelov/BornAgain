@@ -63,7 +63,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
+        new Particle(*particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);
@@ -112,7 +112,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
+        new Particle(*particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
@@ -166,7 +166,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
+        new Particle(*particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
     particle_layout.addInterferenceFunction(p_interference_function);
 
@@ -226,7 +226,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(particle_material, ff_cyl.clone()), position, 1.0);
+        new Particle(*particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);

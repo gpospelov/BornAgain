@@ -117,7 +117,7 @@ ISample *TestFit01::buildSample()
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    ParticleLayout particle_layout( new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+    ParticleLayout particle_layout( new Particle(*particle_material, FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);

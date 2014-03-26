@@ -94,7 +94,7 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
-    Particle particle(particle_material, ff_cyl);
+    Particle particle(*particle_material, ff_cyl);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(particle);
@@ -537,7 +537,7 @@ void TestMiscellaneous::test_SampleGeometry()
     Layer air_layer;
     air_layer.setMaterial(*p_air_material);
     ParticleLayout particle_layout
-        (new Particle(particle_material, new FormFactorFullSphere
+        (new Particle(*particle_material, FormFactorFullSphere
                       (5*Units::nanometer)));
 
     air_layer.setLayout(particle_layout);

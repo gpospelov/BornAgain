@@ -56,8 +56,8 @@ ISample *Ripple2Builder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
     Layer air_layer(*air_material);
-    FormFactorRipple2 *ff_ripple2 = new FormFactorRipple2(m_l, m_w, m_h, m_d);
-    Particle ripple(particle_material, ff_ripple2 );
+    FormFactorRipple2 ff_ripple2(m_l, m_w, m_h, m_d);
+    Particle ripple(*particle_material, ff_ripple2 );
 
     ParticleLayout particle_layout;
 	particle_layout.addParticle(ripple,0.0,1.0);

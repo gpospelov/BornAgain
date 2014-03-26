@@ -60,8 +60,8 @@ ISample *IsGISAXS09ABuilder::buildSample() const
 
 //    complex_t n_particle(1.0-6e-4, 2e-8);
     ParticleLayout particle_layout(
-        new Particle(particle_material,
-                     new FormFactorPyramid(m_length, m_height, m_alpha) ) );
+        new Particle(*particle_material,
+                     FormFactorPyramid(m_length, m_height, m_alpha) ) );
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -113,9 +113,8 @@ ISample *IsGISAXS09BBuilder::buildSample() const
 //    complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     Particle *pyramid = new Particle(
-        particle_material,
-        new FormFactorPyramid(m_length, m_height, m_alpha)
-                );
+        *particle_material,
+        FormFactorPyramid(m_length, m_height, m_alpha));
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(m_zangle);

@@ -64,11 +64,11 @@ ISample *IsGISAXS02Builder::buildSample() const
     const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // preparing nano particles prototypes for seeding layer's particle_layout
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(m_radius1, m_height1);
-    Particle cylinder1(particle_material, p_ff_cylinder1 );
+    FormFactorCylinder p_ff_cylinder1(m_radius1, m_height1);
+    Particle cylinder1(*particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(m_radius2, m_height2);
-    Particle cylinder2(particle_material, p_ff_cylinder2 );
+    FormFactorCylinder p_ff_cylinder2(m_radius2, m_height2);
+    Particle cylinder2(*particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins=150;

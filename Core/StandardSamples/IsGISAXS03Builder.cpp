@@ -60,8 +60,8 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
     const IMaterial *particle_material =
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    ParticleLayout particle_layout( new Particle(particle_material,
-            new FormFactorCylinder(m_radius, m_height)));
+    ParticleLayout particle_layout( new Particle(*particle_material,
+            FormFactorCylinder(m_radius, m_height)));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);
@@ -109,8 +109,8 @@ ISample *IsGISAXS03BABuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     ParticleLayout particle_layout(
-            new Particle(particle_material,
-                    new FormFactorCylinder(m_radius, m_height)));
+            new Particle(*particle_material,
+                    FormFactorCylinder(m_radius, m_height)));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);
@@ -156,8 +156,8 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     ParticleLayout particle_layout;
     // preparing prototype of nano particle
     double sigma = 0.2*m_radius;
-    FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( m_radius, m_height);
-    Particle nano_particle(particle_material, p_ff_cylinder);
+    FormFactorCylinder p_ff_cylinder( m_radius, m_height);
+    Particle nano_particle(*particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins(100), nfwhm(2);
     StochasticDoubleGaussian double_gaussian(m_radius, sigma);

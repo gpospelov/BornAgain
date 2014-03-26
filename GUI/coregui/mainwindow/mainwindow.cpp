@@ -213,7 +213,7 @@ ISample *MainWindow::createDefaultSample()
     air_layer.setMaterial(*mAir);
     Layer substrate_layer;
     substrate_layer.setMaterial(*mSubstrate);
-    ParticleLayout particle_layout( new Particle(mParticle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleLayout particle_layout( new Particle(*mParticle, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
     air_layer.setLayout(particle_layout);
 

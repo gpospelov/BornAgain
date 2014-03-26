@@ -54,8 +54,8 @@ ISample *SampleBuilder::buildSample() const
             MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
 
-    particle_layout.addParticle(new Particle(particle_material, new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)),0.0, m_cylinder_ratio);
-    particle_layout.addParticle(new Particle(particle_material, new FormFactorPrism3(m_prism3_length, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);
+    particle_layout.addParticle(new Particle(*particle_material, FormFactorCylinder(m_cylinder_radius, m_cylinder_height)),0.0, m_cylinder_ratio);
+    particle_layout.addParticle(new Particle(*particle_material, FormFactorPrism3(m_prism3_length, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);

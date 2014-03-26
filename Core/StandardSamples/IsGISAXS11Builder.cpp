@@ -49,9 +49,9 @@ ISample *IsGISAXS11Builder::buildSample() const
    //         16*Units::nanometer, 8*Units::nanometer));
    // Particle core_particle(core_material, new FormFactorParallelepiped(
    //         12*Units::nanometer, 7*Units::nanometer));
-     Particle shell_particle(shell_material, new FormFactorBox(
+     Particle shell_particle(*shell_material, FormFactorBox(
              16*Units::nanometer, 16*Units::nanometer, 8*Units::nanometer));
-     Particle core_particle(core_material, new FormFactorBox(
+     Particle core_particle(*core_material, FormFactorBox(
              12*Units::nanometer, 12*Units::nanometer, 7*Units::nanometer));
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);

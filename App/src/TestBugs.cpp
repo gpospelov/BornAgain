@@ -36,9 +36,9 @@ void TestBugs::test_item339()
             MaterialManager::getHomogeneousMaterial("Particle", n_particle );
 
 
-    FormFactorTruncatedSphere *sphere_ff = new FormFactorTruncatedSphere(8.0*Units::nanometer, 8.0*Units::nanometer);
+    FormFactorTruncatedSphere sphere_ff(8.0*Units::nanometer, 8.0*Units::nanometer);
 
-    Particle *particle = new Particle(mParticle, sphere_ff);
+    Particle *particle = new Particle(*mParticle, sphere_ff);
 
     InterferenceFunction2DParaCrystal *interf =
             InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,

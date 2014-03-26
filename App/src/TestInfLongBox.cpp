@@ -212,8 +212,8 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 
 
     Layer air_layer(*air_material);
-    FormFactorInfLongBox *ff = new FormFactorInfLongBox(m_w, m_h);
-    Particle ibox(iron_material, ff );
+    FormFactorInfLongBox ff(m_w, m_h);
+    Particle ibox(*iron_material, ff );
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(90*Units::degree);

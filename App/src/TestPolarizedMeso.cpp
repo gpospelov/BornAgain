@@ -147,7 +147,7 @@ MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
     kvector_t bas_c = p_lat->getBasisVectorC();
 
 
-    Particle particle(p_material, new FormFactorSphereGaussianRadius(
+    Particle particle(*p_material, FormFactorSphereGaussianRadius(
             size/2.0, m_sigma_nanoparticle_size) );
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/2.0*(bas_a + bas_b + bas_c);

@@ -61,8 +61,8 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
                     "MagParticle", 6e-4, 2e-8, magnetic_field);
 
     ParticleLayout particle_layout(
-            new Particle(particle_material,
-                    new FormFactorCylinder(m_cylinder_radius,
+            new Particle(*particle_material,
+                    FormFactorCylinder(m_cylinder_radius,
                                            m_cylinder_height)));
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
@@ -113,8 +113,8 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
     substrate_layer.setMaterial(*p_substrate_material);
 
     ParticleLayout particle_layout(
-            new Particle(particle_material,
-                    new FormFactorCylinder(m_cylinder_radius,
+            new Particle(*particle_material,
+                    FormFactorCylinder(m_cylinder_radius,
                                            m_cylinder_height)));
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());

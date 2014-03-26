@@ -57,9 +57,11 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     IInterferenceFunction *p_interference_function =
             new InterferenceFunction1DParaCrystal(
                     m_corr_peak_distance,m_corr_width, m_corr_length);
+
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+
     ParticleLayout particle_layout( new Particle(
-            particle_material, FormFactorCylinder(
-                    m_cylinder_radius, m_cylinder_height) ) );
+            particle_material, ff_cylinder ) );
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

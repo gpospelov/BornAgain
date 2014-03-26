@@ -355,7 +355,6 @@
 # before removing MaterialManager
 | 2014-03-25 15:08:26 | jcnsopc126 | linuxx8664gcc | 0  | 27.546   | 2.061        | 1.786        | 1.117        | 0.661        | 5.217        | 6.858        | 0.553        | 7.722        | 1.572        |
 
-# after changing Layer, Particle to own materials
-| 2014-03-26 11:10:46 | jcnsopc126 | linuxx8664gcc | 0  | 28.126   | 2.075        | 1.792        | 1.190        | 0.760        | 5.407        | 7.068        | 0.497        | 7.793        | 1.544        |
-
+# after changing Layer, Particle to own materials and removing MaterialManager
+| 2014-03-26 15:09:45 | jcnsopc126 | linuxx8664gcc | 0  | 27.577   | 2.091        | 1.761        | 1.120        | 0.629        | 5.203        | 6.902        | 0.506        | 7.813        | 1.553        |
 

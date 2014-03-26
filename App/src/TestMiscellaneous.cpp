@@ -33,7 +33,7 @@
 #include "MessageService.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "BornAgainNamespace.h"
 #include "FunctionalTestRegistry.h"
 #include "Lattice2DIFParameters.h"
@@ -87,14 +87,12 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
 
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     FormFactorFullSphere ff_cyl(5.0*Units::nanometer);
-    Particle particle(*particle_material, ff_cyl);
+    Particle particle(particle_material, ff_cyl);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(particle);
@@ -112,10 +110,10 @@ void TestMiscellaneous::test_FunctionalTestRegistry()
     particle_layout.addInterferenceFunction(p_interference_function);
 
 
-    Layer air_layer(*p_air_material);
+    Layer air_layer(air_material);
     air_layer.setLayout(particle_layout);
 
-    Layer substrate_layer(*p_substrate_material, 0);
+    Layer substrate_layer(substrate_material, 0);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -528,16 +526,12 @@ void TestMiscellaneous::test_SampleGeometry()
     complex_t n_air(1.0, 0.0);
 //    complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material =
-//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
-    Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial particle_material("Particle", n_particle);
+
+    Layer air_layer(air_material);
     ParticleLayout particle_layout
-        (new Particle(*particle_material, FormFactorFullSphere
+        (new Particle(particle_material, FormFactorFullSphere
                       (5*Units::nanometer)));
 
     air_layer.setLayout(particle_layout);

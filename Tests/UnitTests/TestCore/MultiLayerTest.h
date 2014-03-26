@@ -4,7 +4,7 @@
 #include "MultiLayer.h"
 #include "Layer.h"
 #include "HomogeneousMaterial.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "Units.h"
 #include "ParticleLayout.h"
 
@@ -28,14 +28,14 @@ TEST_F(MultiLayerTest, BasicProperty)
     EXPECT_EQ(-2.54,mLayer.getCrossCorrLength());
 
     // adding layers
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *chromium = MaterialManager::getHomogeneousMaterial("chromium",0,3.68);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
-    Layer airLayer(*air, 0*Units::nanometer);
-    Layer ironLayer(*iron, 20*Units::nanometer);
-    Layer chromiumLayer(*chromium, 40*Units::nanometer);
-    Layer stoneLayer(*stone, 0*Units::nanometer);
+    HomogeneousMaterial air ("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial chromium("chromium",0,3.68);
+    HomogeneousMaterial stone("stone",0,1.6);
+    Layer airLayer(air, 0*Units::nanometer);
+    Layer ironLayer(iron, 20*Units::nanometer);
+    Layer chromiumLayer(chromium, 40*Units::nanometer);
+    Layer stoneLayer(stone, 0*Units::nanometer);
     mLayer.addLayer(airLayer);
     EXPECT_EQ(size_t(1), mLayer.getNumberOfLayers());
     EXPECT_EQ(size_t(0), mLayer.getNumberOfInterfaces());
@@ -52,15 +52,15 @@ TEST_F(MultiLayerTest, LayerThicknesses)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *chromium = MaterialManager::getHomogeneousMaterial("chromium",0,3.68);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial chromium("chromium",0,3.68);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer airLayer(*air, 0*Units::nanometer);
-    Layer ironLayer(*iron, 20*Units::nanometer);
-    Layer chromiumLayer(*chromium, 40*Units::nanometer);
-    Layer stoneLayer(*stone, 0*Units::nanometer);
+    Layer airLayer(air, 0*Units::nanometer);
+    Layer ironLayer(iron, 20*Units::nanometer);
+    Layer chromiumLayer(chromium, 40*Units::nanometer);
+    Layer stoneLayer(stone, 0*Units::nanometer);
 
     mLayer.addLayer(airLayer);
     mLayer.addLayer(ironLayer);
@@ -94,15 +94,15 @@ TEST_F(MultiLayerTest, CheckAllLayers)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *chromium = MaterialManager::getHomogeneousMaterial("chromium",0,3.68);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial chromium("chromium",0,3.68);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer airLayer(*air, 0*Units::nanometer);
-    Layer ironLayer(*iron, 20*Units::nanometer);
-    Layer chromiumLayer(*chromium, 40*Units::nanometer);
-    Layer stoneLayer(*stone, 0*Units::nanometer);
+    Layer airLayer(air, 0*Units::nanometer);
+    Layer ironLayer(iron, 20*Units::nanometer);
+    Layer chromiumLayer(chromium, 40*Units::nanometer);
+    Layer stoneLayer(stone, 0*Units::nanometer);
 
     mLayer.addLayer(airLayer);
     mLayer.addLayer(ironLayer);
@@ -136,15 +136,15 @@ TEST_F(MultiLayerTest, LayerInterfaces)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *chromium = MaterialManager::getHomogeneousMaterial("chromium",0,3.68);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial chromium("chromium",0,3.68);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*chromium, 40*Units::nanometer);
-    Layer layer3(*stone, 0*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(chromium, 40*Units::nanometer);
+    Layer layer3(stone, 0*Units::nanometer);
 
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);
@@ -202,15 +202,15 @@ TEST_F(MultiLayerTest, Clone)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *chromium = MaterialManager::getHomogeneousMaterial("chromium",0,3.68);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial chromium ("chromium",0,3.68);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*chromium, 40*Units::nanometer);
-    Layer layer3(*stone, 0*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(chromium, 40*Units::nanometer);
+    Layer layer3(stone, 0*Units::nanometer);
 
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);
@@ -311,15 +311,15 @@ TEST_F(MultiLayerTest, CloneInvertB)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *chromium = MaterialManager::getHomogeneousMaterial("chromium",0,3.68);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial chromium("chromium",0,3.68);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*chromium, 40*Units::nanometer);
-    Layer layer3(*stone, 0*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(chromium, 40*Units::nanometer);
+    Layer layer3(stone, 0*Units::nanometer);
 
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);
@@ -419,13 +419,13 @@ TEST_F(MultiLayerTest, WithRoughness)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*stone, 0*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(stone, 0*Units::nanometer);
 
     //LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
     LayerRoughness lr(1.1, -7.3, 0.1);
@@ -452,13 +452,13 @@ TEST_F(MultiLayerTest, CloneWithRoughness)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*stone, 0*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(stone, 0*Units::nanometer);
 
     //LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
     LayerRoughness lr0(-2.1, 7.3, -12.1);
@@ -491,13 +491,13 @@ TEST_F(MultiLayerTest, CloneInvertBWithRoughness)
 {
     MultiLayer mLayer;
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*stone, 5*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(stone, 5*Units::nanometer);
 
     //LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
     LayerRoughness lr0(-2.1, 7.3, -12.1);
@@ -530,18 +530,18 @@ TEST_F(MultiLayerTest, WithMagneticMaterial)
     MultiLayer mLayer;
 
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    const IMaterial *magMaterial0 = MaterialManager::getHomogeneousMagneticMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
-    const IMaterial *magMaterial1 = MaterialManager::getHomogeneousMagneticMaterial("MagMat1", -5.6, 10, magnetic_field);
+    HomogeneousMagneticMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMagneticMaterial magMaterial1("MagMat1", -5.6, 10, magnetic_field);
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*stone, 30*Units::nanometer);
-    Layer layer3(*magMaterial0, 20*Units::nanometer);
-    Layer layer4(*magMaterial1, 0*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(stone, 30*Units::nanometer);
+    Layer layer3(magMaterial0, 20*Units::nanometer);
+    Layer layer4(magMaterial1, 0*Units::nanometer);
 
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);
@@ -559,14 +559,13 @@ TEST_F(MultiLayerTest, CloneWithMagneticMaterial)
     MultiLayer mLayer;
 
     kvector_t magnetic_field(1.1, 2.1, -5.1);
-    const IMaterial *magMaterial0 = MaterialManager::getHomogeneousMagneticMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMagneticMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*magMaterial0, 20*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(magMaterial0, 20*Units::nanometer);
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);
     mLayer.addLayer(layer2);
@@ -582,14 +581,13 @@ TEST_F(MultiLayerTest, CloneInvertBMagneticMaterial)
     MultiLayer mLayer;
 
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    const IMaterial *magMaterial0 = MaterialManager::getHomogeneousMagneticMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMagneticMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 20*Units::nanometer);
-    Layer layer2(*magMaterial0, 20*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 20*Units::nanometer);
+    Layer layer2(magMaterial0, 20*Units::nanometer);
 
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);
@@ -606,18 +604,18 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     MultiLayer mLayer;
 
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    const IMaterial *magMaterial0 = MaterialManager::getHomogeneousMagneticMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
-    const IMaterial *magMaterial1 = MaterialManager::getHomogeneousMagneticMaterial("MagMat1", -5.6, 10, magnetic_field);
+    HomogeneousMagneticMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMagneticMaterial magMaterial1("MagMat1", -5.6, 10, magnetic_field);
 
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,1.0);
-    const IMaterial *iron = MaterialManager::getHomogeneousMaterial("iron",0,1.51);
-    const IMaterial *stone = MaterialManager::getHomogeneousMaterial("stone",0,1.6);
+    HomogeneousMaterial air("air",0,1.0);
+    HomogeneousMaterial iron("iron",0,1.51);
+    HomogeneousMaterial stone("stone",0,1.6);
 
-    Layer layer0(*air, 0*Units::nanometer);
-    Layer layer1(*iron, 10*Units::nanometer);
-    Layer layer2(*magMaterial0, 20*Units::nanometer);
-    Layer layer3(*magMaterial1, 30*Units::nanometer);
-    Layer layer4(*stone, 40*Units::nanometer);
+    Layer layer0(air, 0*Units::nanometer);
+    Layer layer1(iron, 10*Units::nanometer);
+    Layer layer2(magMaterial0, 20*Units::nanometer);
+    Layer layer3(magMaterial1, 30*Units::nanometer);
+    Layer layer4(stone, 40*Units::nanometer);
 
     mLayer.addLayer(layer0);
     mLayer.addLayer(layer1);

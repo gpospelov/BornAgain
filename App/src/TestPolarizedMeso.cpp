@@ -16,7 +16,7 @@
 #include "TestPolarizedMeso.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "InterferenceFunctionNone.h"
 #include "FormFactors.h"
 #include "MesoCrystal.h"
@@ -81,9 +81,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
     double surface_density =
         m_surface_filling_ratio/m_meso_width/m_meso_width;
     kvector_t magnetic_field(3.4, 3.4, 3.4);
-    const IMaterial *p_particle_material =
-            MaterialManager::getHomogeneousMagneticMaterial("nanoparticle",
-                    2.84e-5, 4.7e-7, magnetic_field);
+    HomogeneousMagneticMaterial particle_material("nanoparticle",2.84e-5, 4.7e-7, magnetic_field);
 //    const IMaterial *p_particle_material =
 //            MaterialManager::getHomogeneousMaterial("nanoparticle",
 //                    2.84e-5, 4.7e-7);
@@ -95,14 +93,12 @@ MultiLayer* TestPolarizedMeso::createSample() const
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 7.57e-6, 1.73e-7);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 7.57e-6, 1.73e-7);
     Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
+    air_layer.setMaterial(air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(*p_substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleLayout particle_layout;
@@ -119,7 +115,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
             FormFactorBox ff_box(meso_size, meso_size, meso_size);
             particle_layout.addParticle(
                 createMeso(m_lattice_length_a, m_lattice_length_c,
-                        p_particle_material, m_nanoparticle_size, &ff_box),
+                        particle_material, m_nanoparticle_size, &ff_box),
                 transform);
         }
     }
@@ -138,7 +134,7 @@ MultiLayer* TestPolarizedMeso::createSample() const
 }
 
 MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
-        const IMaterial *p_material, double size,
+        const IMaterial &p_material, double size,
         const IFormFactor* p_meso_form_factor) const
 {
     const Lattice *p_lat = createLattice(a, c);
@@ -147,7 +143,7 @@ MesoCrystal* TestPolarizedMeso::createMeso(double a, double c,
     kvector_t bas_c = p_lat->getBasisVectorC();
 
 
-    Particle particle(*p_material, FormFactorSphereGaussianRadius(
+    Particle particle(p_material, FormFactorSphereGaussianRadius(
             size/2.0, m_sigma_nanoparticle_size) );
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/2.0*(bas_a + bas_b + bas_c);

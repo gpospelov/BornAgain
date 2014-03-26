@@ -3,7 +3,7 @@
 
 #include "Layer.h"
 #include "HomogeneousMaterial.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "Units.h"
 #include "ParticleLayout.h"
 
@@ -47,11 +47,11 @@ TEST_F(LayerTest, LayerInitialState)
 
 TEST_F(LayerTest, LayerGetAndSet)
 {
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,0);
-    const IMaterial *something = MaterialManager::getHomogeneousMaterial("something",0,0.5);
+    HomogeneousMaterial air("air",0,0);
+    HomogeneousMaterial something("something",0,0.5);
 
-    Layer layer(*air, 10*Units::nanometer);
-    EXPECT_EQ(air->getName(), layer.getMaterial()->getName());
+    Layer layer(air, 10*Units::nanometer);
+    EXPECT_EQ(air.getName(), layer.getMaterial()->getName());
     EXPECT_EQ(NULL, layer.getLayout());
     EXPECT_EQ(10, layer.getThickness());
     EXPECT_FALSE(layer.hasDWBASimulation());
@@ -63,14 +63,14 @@ TEST_F(LayerTest, LayerGetAndSet)
 
     layer.setThickness(20.0);
     EXPECT_EQ(20, layer.getThickness());
-    layer.setMaterial(*something);
-    EXPECT_EQ(something->getName(), layer.getMaterial()->getName());
+    layer.setMaterial(something);
+    EXPECT_EQ(something.getName(), layer.getMaterial()->getName());
     layer.setName("NONAME");
     EXPECT_EQ("NONAME", layer.getName());
     EXPECT_EQ(complex_t(1,0.5), layer.getRefractiveIndex());
 
     Layer *new_layer = layer.clone();
-    EXPECT_EQ(something->getName(), new_layer->getMaterial()->getName());
+    EXPECT_EQ(something.getName(), new_layer->getMaterial()->getName());
     EXPECT_EQ(NULL, new_layer->getLayout());
     EXPECT_EQ(20, new_layer->getThickness());
     EXPECT_FALSE(new_layer->hasDWBASimulation());
@@ -85,10 +85,10 @@ TEST_F(LayerTest, LayerGetAndSet)
 
 TEST_F(LayerTest, LayerAndDecoration)
 {
-    const IMaterial *air = MaterialManager::getHomogeneousMaterial("air",0,0);
+    HomogeneousMaterial air("air",0,0);
     ParticleLayout *decoration1 = new ParticleLayout();
 
-    Layer layer(*air, 10*Units::nanometer);
+    Layer layer(air, 10*Units::nanometer);
     layer.setLayout(*decoration1);
     //EXPECT_EQ(decoration1, layer.getLayout());
     EXPECT_TRUE(layer.hasDWBASimulation());

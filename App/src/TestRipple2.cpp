@@ -21,7 +21,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
@@ -181,14 +181,13 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
-    Layer air_layer(*air_material);
+    Layer air_layer(air_material);
     FormFactorRipple2 ff_ripple2(m_l, m_w, m_h, m_d);
-    Particle ripple(*particle_material, ff_ripple2 );
+    Particle ripple(particle_material, ff_ripple2 );
 
 
     ParticleLayout particle_layout;
@@ -202,7 +201,7 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
     p_multi_layer->addLayer(air_layer);
 
     Layer substrate_layer;
-    substrate_layer.setMaterial(*substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;

@@ -21,7 +21,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
@@ -203,17 +203,15 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
    // defining materials
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("GaAs", 7.04e-5, 1.0233e-8);
-    const IMaterial *silver_material = MaterialManager::getHomogeneousMaterial("Ag", 7.948e-5, 2.36e-7);
-    const IMaterial *iron_material = MaterialManager::getHomogeneousMaterial("Fe", 1.839e-4, 1.38e-8);
-    //const IMaterial *cr_material = MaterialManager.getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
-    const IMaterial *cr_material = MaterialManager::getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("GaAs", 7.04e-5, 1.0233e-8);
+    HomogeneousMaterial silver_material("Ag", 7.948e-5, 2.36e-7);
+    HomogeneousMaterial iron_material("Fe", 1.839e-4, 1.38e-8);
+    HomogeneousMaterial cr_material("Cr", 6.94e-5, 1.62e-8);
 
-
-    Layer air_layer(*air_material);
+    Layer air_layer(air_material);
     FormFactorInfLongBox ff(m_w, m_h);
-    Particle ibox(*iron_material, ff );
+    Particle ibox(iron_material, ff );
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(90*Units::degree);
@@ -236,17 +234,17 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
 
     p_multi_layer->addLayer(air_layer);
     Layer iron_layer;
-    iron_layer.setMaterialAndThickness(*iron_material, 15.0*Units::nanometer);
+    iron_layer.setMaterialAndThickness(iron_material, 15.0*Units::nanometer);
     Layer cr_layer;
-    cr_layer.setMaterialAndThickness(*cr_material, 1.1*Units::nanometer) ;
+    cr_layer.setMaterialAndThickness(cr_material, 1.1*Units::nanometer) ;
     Layer silver_layer;
-    silver_layer.setMaterialAndThickness(*silver_material, 150.0*Units::nanometer);
+    silver_layer.setMaterialAndThickness(silver_material, 150.0*Units::nanometer);
     //Layer iron_layer = Layer(iron_material, 15.0*nanometer);
     //Layer cr_layer = Layer(cr_material, 1.1*nanometer);
     //Layer silver_layer = Layer(silver_material, 150.0*nanometer);
 
     Layer substrate_layer;
-    substrate_layer.setMaterial(*substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     for (int i=0; i<10; i++) {
         p_multi_layer->addLayer(cr_layer);
         p_multi_layer->addLayer(iron_layer);

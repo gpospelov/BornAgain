@@ -6,7 +6,6 @@
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "gtest/gtest.h"
-#include "MaterialManager.h"
 #include <boost/assign/list_of.hpp>
 
 
@@ -121,8 +120,8 @@ TEST_F(DWBASimulationTest, PolarizedIntensity)
     MultiLayer ml;
 
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    const IMaterial *magMaterial0 = MaterialManager::getHomogeneousMagneticMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
-    Layer layer(*magMaterial0, 20*Units::nanometer);
+    HomogeneousMagneticMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    Layer layer(magMaterial0, 20*Units::nanometer);
     ml.addLayer(layer);
     m_sim.setSample(ml);
 

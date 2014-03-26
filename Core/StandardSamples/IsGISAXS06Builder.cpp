@@ -19,7 +19,7 @@
 #include "FormFactorCylinder.h"
 #include "Simulation.h"
 #include "Units.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
 #include "OutputDataIOFactory.h"
@@ -35,16 +35,12 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
 
-    const IMaterial *p_air_material =
-         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(*p_substrate_material);
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -63,7 +59,7 @@ ISample *IsGISAXS06Lattice1Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(*particle_material, ff_cyl), position, 1.0);
+        new Particle(particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);
@@ -84,16 +80,12 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
 
-    const IMaterial *p_air_material =
-         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(*p_substrate_material);
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -112,7 +104,7 @@ ISample *IsGISAXS06Lattice2Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(*particle_material, ff_cyl), position, 1.0);
+        new Particle(particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
@@ -137,16 +129,12 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
 
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(*p_substrate_material);
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
@@ -166,7 +154,7 @@ ISample *IsGISAXS06Lattice3Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(*particle_material, ff_cyl), position, 1.0);
+        new Particle(particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
     particle_layout.addInterferenceFunction(p_interference_function);
 
@@ -199,16 +187,13 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
 
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-    const IMaterial *p_air_material =
-         MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-         MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(*p_substrate_material);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
     Lattice2DIFParameters lattice_params;
     lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
@@ -226,7 +211,7 @@ ISample *IsGISAXS06Lattice4Builder::buildSample() const
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info(
-        new Particle(*particle_material, ff_cyl), position, 1.0);
+        new Particle(particle_material, ff_cyl), position, 1.0);
     particle_layout.addParticleInfo(particle_info);
 
     particle_layout.addInterferenceFunction(p_interference_function);

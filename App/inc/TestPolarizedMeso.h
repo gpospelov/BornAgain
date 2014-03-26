@@ -34,7 +34,7 @@ public:
 
 private:
     MultiLayer *createSample() const;
-    MesoCrystal* createMeso(double a, double c, const IMaterial *p_material,
+    MesoCrystal* createMeso(double a, double c, const IMaterial &p_material,
             double cube_size, const IFormFactor* p_meso_form_factor) const;
     const Lattice *createLattice(double a, double c) const;
     MultiLayer *mp_sample; //!< pointer to multilayer sample

@@ -21,7 +21,7 @@
 #include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 #include "FormFactors.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "IsGISAXSTools.h"
 #include "ROOTMinimizer.h"
 #include "Math/GeneticMinimizer.h"
@@ -135,14 +135,12 @@ void TestFittingModule4::initializeSample()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
-    ParticleLayout particle_layout( new Particle(*particle_material,
+    air_layer.setMaterial(air_material);
+    ParticleLayout particle_layout( new Particle(particle_material,
             FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
 
     air_layer.setLayout(particle_layout);

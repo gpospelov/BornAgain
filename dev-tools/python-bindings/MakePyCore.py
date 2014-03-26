@@ -111,7 +111,7 @@ include_classes = [
     #"LayerDecorator",
     "LayerInterface",
     "LayerRoughness",
-    "MaterialManager",
+    #"MaterialManager",
     "MesoCrystal",
     "MultiLayer",
     "OffSpecSimulation",
@@ -229,8 +229,8 @@ def ManualClassTunings(mb):
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
 
-    cl = mb.class_("MaterialManager")
-    cl.constructors().exclude()
+    #cl = mb.class_("MaterialManager")
+    #cl.constructors().exclude()
     #
     cl = mb.class_("OutputData<double>")
     cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')  # [] operator for OutputData

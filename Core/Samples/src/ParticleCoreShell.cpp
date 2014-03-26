@@ -15,7 +15,9 @@
 
 #include "ParticleCoreShell.h"
 #include "FormFactors.h"
-#include "MaterialManager.h"
+#include "Materials.h"
+#include <boost/scoped_ptr.hpp>
+
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell,
         const Particle& core, kvector_t relative_core_position)
@@ -49,9 +51,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     ParticleCoreShell *p_new = new ParticleCoreShell(m_relative_core_position);
     p_new->mp_shell = this->mp_shell->cloneInvertB();
     p_new->mp_core = this->mp_core->cloneInvertB();
-    const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
-            this->mp_ambient_material->getName());
-    p_new->setAmbientMaterial(p_ambient_material);
+    p_new->mp_ambient_material = Materials::createInvertedMaterial(this->mp_ambient_material);
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }

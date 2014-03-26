@@ -31,7 +31,6 @@
 #include "IObservable.pypp.h" 
 #include "RealParameterWrapper.pypp.h" 
 #include "FormFactorInfLongBox.pypp.h" 
-#include "MaterialManager.pypp.h" 
 #include "ResolutionFunction2DSimple.pypp.h" 
 #include "SimulationParameters.pypp.h" 
 #include "FormFactorSphereUniformRadius.pypp.h" 
@@ -205,7 +204,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Layer_class();
     register_LayerInterface_class();
     register_LayerRoughness_class();
-    register_MaterialManager_class();
     register_MesoCrystal_class();
     register_MultiLayer_class();
     register_OffSpecSimulation_class();

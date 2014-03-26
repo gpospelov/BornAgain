@@ -98,8 +98,8 @@ TEST_F(ParticleInfoTest , ParticleInfoInvertClone)
     ParticleInfo particle_info(particle, 1.0,2.0);
     ASSERT_THROW(particle_info.cloneInvertB(), NullPointerException);
 
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
-    Particle particle2(*mat);
+    HomogeneousMaterial mat("Air",0,0);
+    Particle particle2(mat);
     ParticleInfo particle_info2(particle2, 1.0,2.0);
     ParticleInfo *clone = particle_info2.cloneInvertB();
     EXPECT_EQ(clone->getDepth(), particle_info2.getDepth());

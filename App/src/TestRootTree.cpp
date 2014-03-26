@@ -15,7 +15,7 @@
 
 #include "TestRootTree.h"
 #include "MultiLayer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "ParticleLayout.h"
 #include "Particle.h"
 #include "Simulation.h"
@@ -400,19 +400,16 @@ void TestRootTree::initializeMesoCrystal(
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material =
-        MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial average_layer_material("Averagelayer", n_avg);
+    HomogeneousMaterial substrate_material("Substrate", n_substrate);
     Layer air_layer;
-    air_layer.setMaterial(*p_air_material);
+    air_layer.setMaterial(air_material);
     Layer avg_layer;
-    avg_layer.setMaterial(*p_average_layer_material);
+    avg_layer.setMaterial(average_layer_material);
     avg_layer.setThickness(0.2*Units::micrometer);
     Layer substrate_layer;
-    substrate_layer.setMaterial(*p_substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleLayout particle_layout;

@@ -1,6 +1,6 @@
 #include "TestBugs.h"
 #include "MultiLayer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "Units.h"
 #include "FormFactorTruncatedSphere.h"
 #include "Particle.h"
@@ -25,20 +25,13 @@ void TestBugs::test_item339()
 {
     std::cout << "TestBugs::test_item339() -> " << std::endl;
 
-//    const IMaterial *mAmbience =
-//            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0 );
-
-//    const IMaterial *mSubstrate =
-//            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8 );
-
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *mParticle =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle );
+    HomogeneousMaterial mParticle("Particle", n_particle );
 
 
     FormFactorTruncatedSphere sphere_ff(8.0*Units::nanometer, 8.0*Units::nanometer);
 
-    Particle *particle = new Particle(*mParticle, sphere_ff);
+    Particle *particle = new Particle(mParticle, sphere_ff);
 
     InterferenceFunction2DParaCrystal *interf =
             InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,

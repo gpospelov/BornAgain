@@ -27,6 +27,8 @@
 #include "FormFactorGauss.h"
 #include "FormFactorHemiEllipsoid.h"
 #include "FormFactorInfLongBox.h"
+#include "FormFactorInfLongRipple1.h"
+#include "FormFactorInfLongRipple2.h"
 #include "FormFactorLorentz.h"
 //#include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"

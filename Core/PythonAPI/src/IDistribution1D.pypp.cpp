@@ -165,11 +165,11 @@ void register_IDistribution1D_class(){
         }
         { //::IDistribution1D::generateValueList
         
-            typedef ::std::vector< double > ( IDistribution1D_wrapper::*generateValueList_function_type )( ::std::size_t,double ) const;
+            typedef ::std::vector<double, std::allocator<double> > ( ::IDistribution1D::*generateValueList_function_type )( ::std::size_t,double ) const;
             
             IDistribution1D_exposer.def( 
                 "generateValueList"
-                , generateValueList_function_type( &IDistribution1D_wrapper::generateValueList )
+                , bp::pure_virtual( generateValueList_function_type(&::IDistribution1D::generateValueList) )
                 , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
         
         }

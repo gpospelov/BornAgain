@@ -44,6 +44,18 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
         return DistributionGate::clone( );
     }
 
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+        if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
+            return func_generateValueList( nbr_samples, sigma_factor );
+        else
+            return this->DistributionGate::generateValueList( nbr_samples, sigma_factor );
+    }
+    
+    
+    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+        return DistributionGate::generateValueList( nbr_samples, sigma_factor );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -177,6 +189,18 @@ void register_DistributionGate_class(){
                 , clone_function_type(&::DistributionGate::clone)
                 , default_clone_function_type(&DistributionGate_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::DistributionGate::generateValueList
+        
+            typedef ::std::vector< double > ( ::DistributionGate::*generateValueList_function_type )( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( DistributionGate_wrapper::*default_generateValueList_function_type )( ::std::size_t,double ) const;
+            
+            DistributionGate_exposer.def( 
+                "generateValueList"
+                , generateValueList_function_type(&::DistributionGate::generateValueList)
+                , default_generateValueList_function_type(&DistributionGate_wrapper::default_generateValueList)
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
         
         }
         { //::DistributionGate::getMean

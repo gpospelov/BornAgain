@@ -335,6 +335,10 @@ void ISampleToIView::visit(const FormFactorSphereGaussianRadius *)
     throw NotImplementedException("ISampleToIView::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
 }
 
+void ISampleToIView::visit(const FormFactorSphereLogNormalRadius *)
+{
+    throw NotImplementedException("ISampleToIView::visit(const FormFactorSphereLogNormalRadius *) -> Error. Not implemented.");
+}
 
 void ISampleToIView::visit(const FormFactorTetrahedron *)
 {

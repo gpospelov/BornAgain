@@ -74,6 +74,7 @@
 #include "cvector_t.pypp.h" 
 #include "OutputDataIOFactory.pypp.h" 
 #include "PythonInterface_free_functions.pypp.h" 
+#include "FormFactorSphereLogNormalRadius.pypp.h" 
 #include "IResolutionFunction2D.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
 #include "FormFactorFullSphere.pypp.h" 
@@ -174,6 +175,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorRipple1_class();
     register_FormFactorRipple2_class();
     register_FormFactorSphereGaussianRadius_class();
+    register_FormFactorSphereLogNormalRadius_class();
     register_FormFactorSphereUniformRadius_class();
     register_FormFactorTetrahedron_class();
     register_FormFactorTruncatedSphere_class();

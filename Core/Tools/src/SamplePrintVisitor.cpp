@@ -271,6 +271,11 @@ void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorSphereLogNormalRadius *sample)
+{
+    print_default(sample);
+}
+
 void SamplePrintVisitor::visit(const FormFactorTetrahedron *sample)
 {
     print_default(sample);

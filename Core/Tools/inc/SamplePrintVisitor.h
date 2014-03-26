@@ -81,6 +81,7 @@ public:
     virtual void visit(const FormFactorRipple1 *sample);
     virtual void visit(const FormFactorRipple2 *sample);
     virtual void visit(const FormFactorSphereGaussianRadius *sample);
+    virtual void visit(const FormFactorSphereLogNormalRadius *sample);
     virtual void visit(const FormFactorTetrahedron *sample);
     virtual void visit(const FormFactorTruncatedSphere *sample);
     virtual void visit(const FormFactorTruncatedSpheroid *sample);

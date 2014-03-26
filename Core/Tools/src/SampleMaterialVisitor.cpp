@@ -285,6 +285,10 @@ void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *)
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
 }
 
+void SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *) -> Error. Not implemented.");
+}
 
 void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
 {

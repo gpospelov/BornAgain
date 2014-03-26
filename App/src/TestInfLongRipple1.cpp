@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/TestInfLongBox.cpp
-//! @brief     Implements class TestInfLongBox.
+//! @file      App/src/TestInfLongRipple1.cpp
+//! @brief     Implements class TestInfLongRipple1.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "TestInfLongBox.h"
+#include "TestInfLongRipple1.h"
 #include "DrawHelper.h"
 #include "Simulation.h"
 #include "InterferenceFunction1DLattice.h"
@@ -38,7 +38,7 @@
 #include "OffSpecSimulation.h"
 
 #define protected public // needed to access the protected evaluate_for_q method
-#include "FormFactorInfLongBox.h"
+#include "FormFactorInfLongRipple1.h"
 #undef protected
 #include <iostream>
 #include <fstream>
@@ -54,15 +54,15 @@
 #include "FileSystem.h"
 
 
-TestInfLongBox::TestInfLongBox()
-: IApplicationTest("TestInfLongBox")
+TestInfLongRipple1::TestInfLongRipple1()
+: IApplicationTest("TestInfLongRipple1")
 , mp_simulation(0)
 , mp_sample_builder(new TestSampleBuilder())
 {
     setOutputPath(Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/" ));
 }
 
-void TestInfLongBox::execute()
+void TestInfLongRipple1::execute()
 {
     // initializing simulation and sample builder
     initializeSimulation();
@@ -71,17 +71,17 @@ void TestInfLongBox::execute()
     plot_results();
 
     // plot the pure formfactor
-    //drawff();
+//    drawff();
 }
 
 /* ************************************************************************* */
 // save results of simulation to file
 /* ************************************************************************* */
-void TestInfLongBox::save_results()
+void TestInfLongRipple1::save_results()
 {
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
-    std::string filename(getOutputPath()+"test_inflongbox.ima");
+    std::string filename(getOutputPath()+"test_inflongripple1.ima");
     OutputDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
                                          filename);
 }
@@ -89,9 +89,9 @@ void TestInfLongBox::save_results()
 /* ************************************************************************* */
 // plot the pure formfactor
 /* ************************************************************************* */
-void TestInfLongBox::drawff()
+void TestInfLongRipple1::drawff()
 {
-    FormFactorInfLongBox *ff = new FormFactorInfLongBox(100.0*Units::nanometer, 50.0*Units::nanometer);
+    FormFactorInfLongRipple1 *ff = new FormFactorInfLongRipple1(100.0*Units::nanometer, 50.0*Units::nanometer);
     size_t pfbins = 400;
     size_t afbins = 400;
 	
@@ -107,7 +107,7 @@ void TestInfLongBox::drawff()
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
 
-    TH2D *hist = new TH2D("InfLongBox", "InfLongBox",
+    TH2D *hist = new TH2D("InfLongRipple1", "InfLongRipple1",
                           (int)pfbins, -2.0, 2.0,
                           (int)afbins, -2.0, 2.0);
 
@@ -146,7 +146,7 @@ void TestInfLongBox::drawff()
     gStyle->SetPalette(1);
     gStyle->SetOptStat(111111);
 
-    TCanvas *c1 = new TCanvas("InfLongBox", "InfLongBox", 980, 800);
+    TCanvas *c1 = new TCanvas("InfLongRipple1", "InfLongRipple1", 980, 800);
     c1->cd();
     c1->SetLogz();
     hist->SetMinimum(1.0);
@@ -158,7 +158,7 @@ void TestInfLongBox::drawff()
 /* ************************************************************************* */
 // initialize simulation
 /* ************************************************************************* */
-void TestInfLongBox::initializeSimulation()
+void TestInfLongRipple1::initializeSimulation()
 {
   //  mp_sample_builder = new SampleBuilder();
     
@@ -180,7 +180,7 @@ void TestInfLongBox::initializeSimulation()
 /* ************************************************************************* */
 // sample builder
 /* ************************************************************************* */
-TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
+TestInfLongRipple1::TestSampleBuilder::TestSampleBuilder()
     : m_w(520.0*Units::nanometer)
     , m_h(15.0*Units::nanometer)
     , m_lattice_length(945.0*Units::nanometer)
@@ -189,7 +189,7 @@ TestInfLongBox::TestSampleBuilder::TestSampleBuilder()
       init_parameters();
 }
 
-void TestInfLongBox::TestSampleBuilder::init_parameters()
+void TestInfLongRipple1::TestSampleBuilder::init_parameters()
 {
     clearParameterPool();
     registerParameter("width", &m_w);
@@ -198,7 +198,7 @@ void TestInfLongBox::TestSampleBuilder::init_parameters()
     registerParameter("xi_angle", &m_xi);
 }
 
-ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
+ISample *TestInfLongRipple1::TestSampleBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
 
@@ -207,12 +207,11 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("GaAs", 7.04e-5, 1.0233e-8);
     const IMaterial *silver_material = MaterialManager::getHomogeneousMaterial("Ag", 7.948e-5, 2.36e-7);
     const IMaterial *iron_material = MaterialManager::getHomogeneousMaterial("Fe", 1.839e-4, 1.38e-8);
-    //const IMaterial *cr_material = MaterialManager.getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
     const IMaterial *cr_material = MaterialManager::getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
 
 
     Layer air_layer(air_material);
-    FormFactorInfLongBox *ff = new FormFactorInfLongBox(m_w, m_h);
+    FormFactorInfLongRipple1 *ff = new FormFactorInfLongRipple1(m_w, m_h);
     Particle ibox(iron_material, ff );
 
     Geometry::Transform3D transform =
@@ -241,9 +240,6 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     cr_layer.setMaterialAndThickness(cr_material, 1.1*Units::nanometer) ;
     Layer silver_layer;
     silver_layer.setMaterialAndThickness(silver_material, 150.0*Units::nanometer);
-    //Layer iron_layer = Layer(iron_material, 15.0*nanometer);
-    //Layer cr_layer = Layer(cr_material, 1.1*nanometer);
-    //Layer silver_layer = Layer(silver_material, 150.0*nanometer);
 
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);
@@ -258,7 +254,7 @@ ISample *TestInfLongBox::TestSampleBuilder::buildSample() const
     return p_multi_layer;
 }
 
-void TestInfLongBox::plot_results()
+void TestInfLongRipple1::plot_results()
 {
 	OutputData<double> *m_result = mp_simulation->getIntensityData();
     const IAxis *axisPhi = m_result->getAxis(0);
@@ -267,7 +263,7 @@ void TestInfLongBox::plot_results()
     size_t nPhibins = axisPhi->getSize();
     size_t nAlphabins = axisAlpha->getSize();
 
-    TH2D *hist = new TH2D("Ibox", "Ibox",
+    TH2D *hist = new TH2D("IRipple1", "IRipple1",
                           (int)nPhibins, axisPhi->getMin()/Units::degree, axisPhi->getMax()/Units::degree,
                           (int)nAlphabins, axisAlpha->getMin()/Units::degree, axisAlpha->getMax()/Units::degree);
 
@@ -290,7 +286,7 @@ void TestInfLongBox::plot_results()
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
 
-    TCanvas *c1 = new TCanvas("Ibox", "Ibox", 980, 800);
+    TCanvas *c1 = new TCanvas("IRipple1", "IRipple1", 980, 800);
     c1->cd();
     c1->SetLogz();
     hist->SetMinimum(1.0);

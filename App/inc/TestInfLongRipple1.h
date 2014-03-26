@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestInfLongBox.h
-//! @brief     Defines class TestInfLongBox.
+//! @file      App/inc/TestInfLongRipple1.h
+//! @brief     Defines class TestInfLongRipple1.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTINFLONGBOX_H
-#define TESTINFLONGBOX_H
+#ifndef TESTINFLONGRIPPLE1_H
+#define TESTINFLONGRIPPLE1_H
 
 
 #include "IApplicationTest.h"
@@ -22,11 +22,11 @@
 
 class OffSpecSimulation;
 
-class TestInfLongBox : public IApplicationTest
+class TestInfLongRipple1 : public IApplicationTest
 {
 public:
-    TestInfLongBox();
-    virtual ~TestInfLongBox() { }
+    TestInfLongRipple1();
+    virtual ~TestInfLongRipple1() { }
 
     virtual void execute();
 	void drawff ();

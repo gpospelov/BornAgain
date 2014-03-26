@@ -52,8 +52,9 @@ ISample *IsGISAXS10Builder::buildSample() const
             new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
                     7*Units::nanometer, 1e7*Units::nanometer);
 
-    ParticleLayout particle_layout(new Particle(particle_material,
-            FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+
+    ParticleLayout particle_layout(new Particle(particle_material, ff_cylinder));
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

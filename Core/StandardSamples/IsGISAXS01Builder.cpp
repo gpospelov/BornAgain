@@ -57,16 +57,15 @@ ISample *IsGISAXS01Builder::buildSample() const
 
     ParticleLayout particle_layout;
 
-    particle_layout.addParticle(
-                new Particle(particle_material,
-                             FormFactorCylinder(m_cylinder_radius,
-                                                    m_cylinder_height)),
-                0.0, m_cylinder_weight);
-    particle_layout.addParticle(
-                new Particle(particle_material,
-                             FormFactorPrism3(m_prism_length,
-                                                  m_prism_height)),
-                0.0, 1.0-m_cylinder_weight);
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+    Particle cylinder(particle_material, ff_cylinder);
+
+    FormFactorPrism3 ff_prism3(m_prism_length, m_prism_height);
+    Particle prism3(particle_material, ff_prism3);
+
+    particle_layout.addParticle(cylinder, 0.0, m_cylinder_weight);
+    particle_layout.addParticle(prism3, 0.0, 1.0-m_cylinder_weight);
+
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);

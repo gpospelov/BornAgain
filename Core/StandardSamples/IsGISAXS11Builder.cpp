@@ -41,10 +41,12 @@ ISample *IsGISAXS11Builder::buildSample() const
 
     Layer air_layer(air_material);
 
-     Particle shell_particle(shell_material, FormFactorBox(
-             16*Units::nanometer, 16*Units::nanometer, 8*Units::nanometer));
-     Particle core_particle(core_material, FormFactorBox(
-             12*Units::nanometer, 12*Units::nanometer, 7*Units::nanometer));
+    FormFactorBox ff_box1(16*Units::nanometer, 16*Units::nanometer, 8*Units::nanometer);
+    Particle shell_particle(shell_material, ff_box1);
+
+    FormFactorBox ff_box2(12*Units::nanometer, 12*Units::nanometer, 7*Units::nanometer);
+    Particle core_particle(core_material, ff_box2);
+
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
     ParticleLayout particle_layout(particle.clone());

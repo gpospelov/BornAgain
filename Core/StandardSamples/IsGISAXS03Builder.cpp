@@ -96,9 +96,10 @@ ISample *IsGISAXS03BABuilder::buildSample() const
 
     Layer air_layer(air_material);
 
-    ParticleLayout particle_layout(
-            new Particle(particle_material,
-                    FormFactorCylinder(m_radius, m_height)));
+    FormFactorCylinder ff_cylinder(m_radius, m_height);
+    Particle cylinder(particle_material,ff_cylinder);
+
+    ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);

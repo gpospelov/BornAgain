@@ -103,9 +103,9 @@ ISample *IsGISAXS09BBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    Particle *pyramid = new Particle(
-        particle_material,
-        FormFactorPyramid(m_length, m_height, m_alpha));
+    FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
+
+    Particle *pyramid = new Particle(particle_material, ff_pyramid);
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(m_zangle);

@@ -43,8 +43,10 @@ ISample *IsGISAXS15Builder::buildSample() const
                     5*Units::nanometer, 1e3*Units::nanometer);
     p_interference_function->setKappa(4.02698);
     ParticleLayout particle_layout;
-    Particle particle_prototype(particle_material, FormFactorCylinder(
-            5.0*Units::nanometer, 5.0*Units::nanometer));
+
+    FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
+    Particle particle_prototype(particle_material, ff_cylinder);
+
     StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
     StochasticSampledParameter stochastic_radius(sg,30, 2);
     ParticleBuilder particle_builder;

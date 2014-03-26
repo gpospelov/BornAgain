@@ -114,8 +114,11 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
                     m_domain_size_1, m_domain_size_2);
     FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf, pdf);
-    ParticleLayout particle_layout( new Particle(particle_material,
-            FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+    Particle cylinder(particle_material,ff_cylinder);
+
+    ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

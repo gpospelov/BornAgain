@@ -45,8 +45,10 @@ ISample *IsGISAXS08ABuilder::buildSample() const
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleLayout particle_layout( new Particle(particle_material,
-            FormFactorCylinder(5.0*Units::nanometer, 5.0*Units::nanometer)));
+
+    FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
+
+    ParticleLayout particle_layout( new Particle(particle_material, ff_cylinder));
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);
@@ -85,8 +87,10 @@ ISample *IsGISAXS08BBuilder::buildSample() const
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);
     FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
-    ParticleLayout particle_layout( new Particle(particle_material,
-            FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+
+    FormFactorCylinder ff_cylinder(5*Units::nanometer, 5*Units::nanometer);
+
+    ParticleLayout particle_layout( new Particle(particle_material,ff_cylinder));
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

@@ -116,7 +116,9 @@ ISample *TestFit01::buildSample()
     complex_t n_particle(1.0-6e-4, 2e-8);
     HomogeneousMaterial particle_material("Particle", n_particle);
 
-    ParticleLayout particle_layout( new Particle(particle_material, FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+
+    ParticleLayout particle_layout( new Particle(particle_material, ff_cylinder));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
     air_layer.setLayout(particle_layout);

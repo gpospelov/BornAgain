@@ -586,7 +586,7 @@ TEST_F(FormFactorTest, InfLongRipple1)
     EXPECT_DOUBLE_EQ(100./M_PI, ilripple1.getWidth());
     EXPECT_EQ(15., ilripple1.getHeight());
     EXPECT_DOUBLE_EQ(50./M_PI, ilripple1.getRadius());
-    //EXPECT_THROW(ilripple1.getVolume(), NotImplementedException);
+    EXPECT_THROW(ilripple1.getVolume(), NotImplementedException);
     EXPECT_EQ(2, ilripple1.getNumberOfStochasticParameters());
 
     FormFactorInfLongRipple1 *ilripple1clone = ilripple1.clone();

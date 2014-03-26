@@ -42,13 +42,15 @@ public:
 
     virtual double getWidth() const { return m_width; }
 
-    //! Returns radius of Ripple
+    virtual double getHeight() const { return m_height; }
+
     virtual double getRadius() const { return 0.5*m_width; }
 
     virtual complex_t evaluate(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const;
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
+
     double getVolume() const;
 
 protected:

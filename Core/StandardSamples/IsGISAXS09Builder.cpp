@@ -54,9 +54,9 @@ ISample *IsGISAXS09ABuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    ParticleLayout particle_layout(
-        new Particle(particle_material,
-                     FormFactorPyramid(m_length, m_height, m_alpha) ) );
+    FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
+
+    ParticleLayout particle_layout(new Particle(particle_material, ff_pyramid ));
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 

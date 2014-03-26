@@ -72,6 +72,7 @@
 #include "FormFactorHemiEllipsoid.pypp.h" 
 #include "IDistribution1D.pypp.h" 
 #include "ISelectionRule.pypp.h" 
+#include "HomogeneousMagneticMaterial.pypp.h" 
 #include "Bin1D.pypp.h" 
 #include "ParticleInfo.pypp.h" 
 #include "vector_longinteger_t.pypp.h" 
@@ -181,6 +182,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Transform3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
+    register_HomogeneousMagneticMaterial_class();
     register_IDetectorResolution_class();
     register_IInterferenceFunction_class();
     register_ILayout_class();

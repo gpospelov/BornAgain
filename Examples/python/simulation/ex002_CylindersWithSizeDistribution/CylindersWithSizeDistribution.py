@@ -10,8 +10,8 @@ def get_sample():
     Build and return the sample representing cylinder particles with different size distribution.
     """
     # defining materials
-    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     radius1 = 5.0*nanometer

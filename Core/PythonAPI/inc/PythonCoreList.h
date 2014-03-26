@@ -40,6 +40,7 @@
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"
 #include "HomogeneousMaterial.h"
+#include "HomogeneousMagneticMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"

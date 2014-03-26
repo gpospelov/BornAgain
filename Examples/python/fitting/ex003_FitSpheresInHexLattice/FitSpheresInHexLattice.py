@@ -2,7 +2,6 @@
 Two parameter fit of spheres in a hex lattice.
 """
 
-
 import numpy
 import matplotlib
 import pylab
@@ -21,9 +20,9 @@ def get_sample(radius=5*nanometer, lattice_constant=10*nanometer):
     Build the sample representing cylinders and pyramids on top of
     substrate without interference.
     """
-    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     sphere_ff = FormFactorFullSphere(radius)
     sphere = Particle(m_particle, sphere_ff)

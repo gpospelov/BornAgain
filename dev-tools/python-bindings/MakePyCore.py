@@ -72,6 +72,7 @@ include_classes = [
     "FormFactorTruncatedSphere",
     "FormFactorTruncatedSpheroid",
     "HomogeneousMaterial",
+    "HomogeneousMagneticMaterial",
     "IAxis",
     "ICloneable",
     "IClusteredParticles",

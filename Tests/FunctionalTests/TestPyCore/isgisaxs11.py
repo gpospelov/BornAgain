@@ -16,9 +16,9 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mShell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
-    mCore = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mShell = HomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    mCore = HomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
     box1_ff = FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)

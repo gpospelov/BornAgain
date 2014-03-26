@@ -10,9 +10,9 @@ def get_sample():
     Build and return the sample representing 1D paracrystal
     """
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)

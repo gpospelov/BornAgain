@@ -49,6 +49,7 @@
 #include "FormFactorInfLongRipple1.h"
 #include "FormFactorInfLongRipple2.h"
 #include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorSphereLogNormalRadius.h"
 #include "FormFactorTetrahedron.h"
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"

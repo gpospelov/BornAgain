@@ -43,13 +43,14 @@ public:
     std::vector<ParameterSample> generateSamples(size_t nbr_samples,
     		double sigma_factor=0.0) const;
 
+    //! generate list of sample values
+    virtual std::vector<double> generateValueList(size_t nbr_samples,
+            double sigma_factor) const=0;
+
 protected:
     //! this function is called during bad initialization of a subclass
     static void SignalBadInitialization(std::string distribution_name);
 
-    //! generate list of sample values
-    virtual std::vector<double> generateValueList(size_t nbr_samples,
-    		double sigma_factor) const=0;
 };
 
 //! @class DistributionGate
@@ -73,13 +74,15 @@ public:
     virtual double getMean() const {
     	return m_mean;
     }
-protected:
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
 
+protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
+
 private:
     //! check initialization
     bool checkInitialization() const;
@@ -108,11 +111,12 @@ public:
     virtual double getMean() const {
     	return m_mean;
     }
-protected:
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
 
+protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 private:
@@ -143,11 +147,12 @@ public:
     virtual double getMean() const {
     	return m_mean;
     }
-protected:
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
 
+protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 private:
@@ -176,11 +181,12 @@ public:
 
     //! get the mean of the distribution
     virtual double getMean() const;
-protected:
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
 
+protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 private:
@@ -211,11 +217,12 @@ public:
     virtual double getMean() const {
     	return m_mean;
     }
-protected:
+
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
     		double sigma_factor) const;
 
+protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
 private:

@@ -276,18 +276,20 @@ void ISampleVisitor::visit(const FormFactorRipple2 *)
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-
 void ISampleVisitor::visit(const FormFactorSphereGaussianRadius *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorSphereLogNormalRadius *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorSphereLogNormalRadius *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const FormFactorTetrahedron *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
 }
-
 
 void ISampleVisitor::visit(const FormFactorTruncatedSphere *)
 {

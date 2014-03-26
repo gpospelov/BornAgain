@@ -30,7 +30,7 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     
     }
 
-    AxisBin_wrapper(::std::string name, ::size_t nbr_bins, double start, double end )
+    AxisBin_wrapper(::std::string name, ::std::size_t nbr_bins, double start, double end )
     : AxisBin( name, nbr_bins, start, end )
       , bp::wrapper< AxisBin >(){
         // constructor
@@ -40,10 +40,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::AxisBin * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->AxisBin::clone(  );
-        }
     }
+    
     
     ::AxisBin * default_clone(  ) const  {
         return AxisBin::clone( );
@@ -52,46 +52,46 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::AxisBin * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
-        else{
+        else
             return this->AxisBin::createDoubleBinSize(  );
-        }
     }
+    
     
     ::AxisBin * default_createDoubleBinSize(  ) const  {
         return AxisBin::createDoubleBinSize( );
     }
 
-    virtual ::size_t findClosestIndex( double value ) const  {
+    virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else{
+        else
             return this->AxisBin::findClosestIndex( value );
-        }
     }
     
-    ::size_t default_findClosestIndex( double value ) const  {
+    
+    ::std::size_t default_findClosestIndex( double value ) const  {
         return AxisBin::findClosestIndex( value );
     }
 
-    virtual ::Bin1D getBin( ::size_t index ) const  {
+    virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else{
+        else
             return this->AxisBin::getBin( index );
-        }
     }
     
-    ::Bin1D default_getBin( ::size_t index ) const  {
+    
+    ::Bin1D default_getBin( ::std::size_t index ) const  {
         return AxisBin::getBin( index );
     }
 
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else{
+        else
             return this->AxisBin::getMax(  );
-        }
     }
+    
     
     double default_getMax(  ) const  {
         return AxisBin::getMax( );
@@ -100,36 +100,36 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else{
+        else
             return this->AxisBin::getMin(  );
-        }
     }
+    
     
     double default_getMin(  ) const  {
         return AxisBin::getMin( );
     }
 
-    virtual ::size_t getSize(  ) const  {
+    virtual ::std::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else{
+        else
             return this->AxisBin::getSize(  );
-        }
     }
     
-    ::size_t default_getSize(  ) const  {
+    
+    ::std::size_t default_getSize(  ) const  {
         return AxisBin::getSize( );
     }
 
-    virtual double operator[]( ::size_t index ) const  {
+    virtual double operator[]( ::std::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
-        else{
+        else
             return this->AxisBin::operator[]( index );
-        }
     }
     
-    double default___getitem__( ::size_t index ) const  {
+    
+    double default___getitem__( ::std::size_t index ) const  {
         return AxisBin::operator[]( index );
     }
 
@@ -141,7 +141,7 @@ void register_AxisBin_class(){
         typedef bp::class_< AxisBin_wrapper, bp::bases< IAxis > > AxisBin_exposer_t;
         AxisBin_exposer_t AxisBin_exposer = AxisBin_exposer_t( "AxisBin", bp::init< std::string >(( bp::arg("name") )) );
         bp::scope AxisBin_scope( AxisBin_exposer );
-        AxisBin_exposer.def( bp::init< std::string, size_t, double, double >(( bp::arg("name"), bp::arg("nbr_bins"), bp::arg("start"), bp::arg("end") )) );
+        AxisBin_exposer.def( bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbr_bins"), bp::arg("start"), bp::arg("end") )) );
         { //::AxisBin::clone
         
             typedef ::AxisBin * ( ::AxisBin::*clone_function_type )(  ) const;
@@ -168,8 +168,8 @@ void register_AxisBin_class(){
         }
         { //::AxisBin::findClosestIndex
         
-            typedef ::size_t ( ::AxisBin::*findClosestIndex_function_type )( double ) const;
-            typedef ::size_t ( AxisBin_wrapper::*default_findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( ::AxisBin::*findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( AxisBin_wrapper::*default_findClosestIndex_function_type )( double ) const;
             
             AxisBin_exposer.def( 
                 "findClosestIndex"
@@ -180,8 +180,8 @@ void register_AxisBin_class(){
         }
         { //::AxisBin::getBin
         
-            typedef ::Bin1D ( ::AxisBin::*getBin_function_type )( ::size_t ) const;
-            typedef ::Bin1D ( AxisBin_wrapper::*default_getBin_function_type )( ::size_t ) const;
+            typedef ::Bin1D ( ::AxisBin::*getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( AxisBin_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
             
             AxisBin_exposer.def( 
                 "getBin"
@@ -214,8 +214,8 @@ void register_AxisBin_class(){
         }
         { //::AxisBin::getSize
         
-            typedef ::size_t ( ::AxisBin::*getSize_function_type )(  ) const;
-            typedef ::size_t ( AxisBin_wrapper::*default_getSize_function_type )(  ) const;
+            typedef ::std::size_t ( ::AxisBin::*getSize_function_type )(  ) const;
+            typedef ::std::size_t ( AxisBin_wrapper::*default_getSize_function_type )(  ) const;
             
             AxisBin_exposer.def( 
                 "getSize"
@@ -234,7 +234,7 @@ void register_AxisBin_class(){
         }
         { //::AxisBin::initBins
         
-            typedef void ( ::AxisBin::*initBins_function_type )( ::size_t,double,double ) ;
+            typedef void ( ::AxisBin::*initBins_function_type )( ::std::size_t,double,double ) ;
             
             AxisBin_exposer.def( 
                 "initBins"
@@ -244,8 +244,8 @@ void register_AxisBin_class(){
         }
         { //::AxisBin::operator[]
         
-            typedef double ( ::AxisBin::*__getitem___function_type )( ::size_t ) const;
-            typedef double ( AxisBin_wrapper::*default___getitem___function_type )( ::size_t ) const;
+            typedef double ( ::AxisBin::*__getitem___function_type )( ::std::size_t ) const;
+            typedef double ( AxisBin_wrapper::*default___getitem___function_type )( ::std::size_t ) const;
             
             AxisBin_exposer.def( 
                 "__getitem__"

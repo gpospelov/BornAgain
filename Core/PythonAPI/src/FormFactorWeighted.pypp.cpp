@@ -12,53 +12,53 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "FormFactorDecoratorDebyeWaller.pypp.h"
+#include "FormFactorWeighted.pypp.h"
 
 namespace bp = boost::python;
 
-struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, bp::wrapper< FormFactorDecoratorDebyeWaller > {
+struct FormFactorWeighted_wrapper : FormFactorWeighted, bp::wrapper< FormFactorWeighted > {
 
-    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & p_form_factor, double dw_h_factor, double dw_r_factor )
-    : FormFactorDecoratorDebyeWaller( boost::ref(p_form_factor), dw_h_factor, dw_r_factor )
-      , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
-        // constructor
+    FormFactorWeighted_wrapper( )
+    : FormFactorWeighted( )
+      , bp::wrapper< FormFactorWeighted >(){
+        // null constructor
     
     }
 
-    virtual ::FormFactorDecoratorDebyeWaller * clone(  ) const  {
+    virtual ::FormFactorWeighted * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else
-            return this->FormFactorDecoratorDebyeWaller::clone(  );
+            return this->FormFactorWeighted::clone(  );
     }
     
     
-    ::FormFactorDecoratorDebyeWaller * default_clone(  ) const  {
-        return FormFactorDecoratorDebyeWaller::clone( );
+    ::FormFactorWeighted * default_clone(  ) const  {
+        return FormFactorWeighted::clone( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
         else
-            return this->FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+            return this->FormFactorWeighted::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
     
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
-        return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        return FormFactorWeighted::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
         else
-            return this->FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters(  );
+            return this->FormFactorWeighted::getNumberOfStochasticParameters(  );
     }
     
     
     int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters( );
+        return FormFactorWeighted::getNumberOfStochasticParameters( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -161,36 +161,36 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
         else
-            return this->IFormFactorDecorator::getHeight(  );
+            return this->IFormFactor::getHeight(  );
     }
     
     
     double default_getHeight(  ) const  {
-        return IFormFactorDecorator::getHeight( );
+        return IFormFactor::getHeight( );
     }
 
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
         else
-            return this->IFormFactorDecorator::getRadius(  );
+            return this->IFormFactor::getRadius(  );
     }
     
     
     double default_getRadius(  ) const  {
-        return IFormFactorDecorator::getRadius( );
+        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else
-            return this->IFormFactorDecorator::getVolume(  );
+            return this->IFormFactor::getVolume(  );
     }
     
     
     double default_getVolume(  ) const  {
-        return IFormFactorDecorator::getVolume( );
+        return IFormFactor::getVolume( );
     }
 
     virtual bool isDistributedFormFactor(  ) const  {
@@ -240,7 +240,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< FormFactorDecoratorDebyeWaller_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< FormFactorWeighted_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -274,101 +274,111 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
 
 };
 
-void register_FormFactorDecoratorDebyeWaller_class(){
+void register_FormFactorWeighted_class(){
 
-    { //::FormFactorDecoratorDebyeWaller
-        typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
-        FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) );
-        bp::scope FormFactorDecoratorDebyeWaller_scope( FormFactorDecoratorDebyeWaller_exposer );
-        { //::FormFactorDecoratorDebyeWaller::clone
+    { //::FormFactorWeighted
+        typedef bp::class_< FormFactorWeighted_wrapper, bp::bases< IFormFactor >, boost::noncopyable > FormFactorWeighted_exposer_t;
+        FormFactorWeighted_exposer_t FormFactorWeighted_exposer = FormFactorWeighted_exposer_t( "FormFactorWeighted", bp::init< >() );
+        bp::scope FormFactorWeighted_scope( FormFactorWeighted_exposer );
+        { //::FormFactorWeighted::addFormFactor
         
-            typedef ::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::*clone_function_type )(  ) const;
-            typedef ::FormFactorDecoratorDebyeWaller * ( FormFactorDecoratorDebyeWaller_wrapper::*default_clone_function_type )(  ) const;
+            typedef void ( ::FormFactorWeighted::*addFormFactor_function_type )( ::IFormFactor const &,double ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
+                "addFormFactor"
+                , addFormFactor_function_type( &::FormFactorWeighted::addFormFactor )
+                , ( bp::arg("form_factor"), bp::arg("weight")=1.0e+0 ) );
+        
+        }
+        { //::FormFactorWeighted::clone
+        
+            typedef ::FormFactorWeighted * ( ::FormFactorWeighted::*clone_function_type )(  ) const;
+            typedef ::FormFactorWeighted * ( FormFactorWeighted_wrapper::*default_clone_function_type )(  ) const;
+            
+            FormFactorWeighted_exposer.def( 
                 "clone"
-                , clone_function_type(&::FormFactorDecoratorDebyeWaller::clone)
-                , default_clone_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_clone)
+                , clone_function_type(&::FormFactorWeighted::clone)
+                , default_clone_function_type(&FormFactorWeighted_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorDecoratorDebyeWaller::evaluate
+        { //::FormFactorWeighted::evaluate
         
-            typedef ::complex_t ( ::FormFactorDecoratorDebyeWaller::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorWeighted::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorWeighted_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "evaluate"
-                , evaluate_function_type(&::FormFactorDecoratorDebyeWaller::evaluate)
-                , default_evaluate_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
+                , evaluate_function_type(&::FormFactorWeighted::evaluate)
+                , default_evaluate_function_type(&FormFactorWeighted_wrapper::default_evaluate)
                 , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
-        { //::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters
+        { //::FormFactorWeighted::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorDecoratorDebyeWaller::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorDecoratorDebyeWaller_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorWeighted::*getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( FormFactorWeighted_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getNumberOfStochasticParameters) );
+                , getNumberOfStochasticParameters_function_type(&::FormFactorWeighted::getNumberOfStochasticParameters)
+                , default_getNumberOfStochasticParameters_function_type(&FormFactorWeighted_wrapper::default_getNumberOfStochasticParameters) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( FormFactorWeighted_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&FormFactorWeighted_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&FormFactorWeighted_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorDecoratorDebyeWaller_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( FormFactorWeighted_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorWeighted_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorWeighted_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_containsMagneticMaterial) );
+                , default_containsMagneticMaterial_function_type(&FormFactorWeighted_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IFormFactor::createDistributedFormFactors
         
             typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorWeighted_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "createDistributedFormFactors"
                 , createDistributedFormFactors_function_type(&::IFormFactor::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_createDistributedFormFactors)
+                , default_createDistributedFormFactors_function_type(&FormFactorWeighted_wrapper::default_createDistributedFormFactors)
                 , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
@@ -376,136 +386,136 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorDecoratorDebyeWaller_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( FormFactorWeighted_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&FormFactorWeighted_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorDecoratorDebyeWaller_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorWeighted_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorWeighted_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorDecoratorDebyeWaller_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorWeighted_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorWeighted_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IFormFactorDecorator::getHeight
+        { //::IFormFactor::getHeight
         
-            typedef double ( ::IFormFactorDecorator::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getHeight_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::IFormFactorDecorator::getHeight)
-                , default_getHeight_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getHeight) );
+                , getHeight_function_type(&::IFormFactor::getHeight)
+                , default_getHeight_function_type(&FormFactorWeighted_wrapper::default_getHeight) );
         
         }
-        { //::IFormFactorDecorator::getRadius
+        { //::IFormFactor::getRadius
         
-            typedef double ( ::IFormFactorDecorator::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getRadius_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "getRadius"
-                , getRadius_function_type(&::IFormFactorDecorator::getRadius)
-                , default_getRadius_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getRadius) );
+                , getRadius_function_type(&::IFormFactor::getRadius)
+                , default_getRadius_function_type(&FormFactorWeighted_wrapper::default_getRadius) );
         
         }
-        { //::IFormFactorDecorator::getVolume
+        { //::IFormFactor::getVolume
         
-            typedef double ( ::IFormFactorDecorator::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getVolume_function_type )(  ) const;
+            typedef double ( FormFactorWeighted_wrapper::*default_getVolume_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "getVolume"
-                , getVolume_function_type(&::IFormFactorDecorator::getVolume)
-                , default_getVolume_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getVolume) );
+                , getVolume_function_type(&::IFormFactor::getVolume)
+                , default_getVolume_function_type(&FormFactorWeighted_wrapper::default_getVolume) );
         
         }
         { //::IFormFactor::isDistributedFormFactor
         
             typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( FormFactorWeighted_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "isDistributedFormFactor"
                 , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_isDistributedFormFactor) );
+                , default_isDistributedFormFactor_function_type(&FormFactorWeighted_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( FormFactorWeighted_wrapper::*default_printParameters_function_type )(  ) const;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&FormFactorWeighted_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&FormFactorWeighted_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &FormFactorDecoratorDebyeWaller_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &FormFactorWeighted_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( FormFactorWeighted_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&FormFactorWeighted_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( FormFactorWeighted_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            FormFactorDecoratorDebyeWaller_exposer.def( 
+            FormFactorWeighted_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&FormFactorWeighted_wrapper::default_setParametersAreChanged) );
         
         }
     }

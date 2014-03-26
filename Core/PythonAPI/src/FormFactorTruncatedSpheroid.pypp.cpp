@@ -28,10 +28,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual ::FormFactorTruncatedSpheroid * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->FormFactorTruncatedSpheroid::clone(  );
-        }
     }
+    
     
     ::FormFactorTruncatedSpheroid * default_clone(  ) const  {
         return FormFactorTruncatedSpheroid::clone( );
@@ -40,10 +40,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
-        else{
+        else
             return this->FormFactorTruncatedSpheroid::evaluate_for_q( boost::ref(q) );
-        }
     }
+    
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorTruncatedSpheroid::evaluate_for_q( boost::ref(q) );
@@ -52,10 +52,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else{
+        else
             return this->FormFactorTruncatedSpheroid::getHeight(  );
-        }
     }
+    
     
     double default_getHeight(  ) const  {
         return FormFactorTruncatedSpheroid::getHeight( );
@@ -64,10 +64,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual double getHeightFullSpheroid(  ) const  {
         if( bp::override func_getHeightFullSpheroid = this->get_override( "getHeightFullSpheroid" ) )
             return func_getHeightFullSpheroid(  );
-        else{
+        else
             return this->FormFactorTruncatedSpheroid::getHeightFullSpheroid(  );
-        }
     }
+    
     
     double default_getHeightFullSpheroid(  ) const  {
         return FormFactorTruncatedSpheroid::getHeightFullSpheroid( );
@@ -76,10 +76,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else{
+        else
             return this->FormFactorTruncatedSpheroid::getNumberOfStochasticParameters(  );
-        }
     }
+    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorTruncatedSpheroid::getNumberOfStochasticParameters( );
@@ -88,10 +88,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else{
+        else
             return this->FormFactorTruncatedSpheroid::getRadius(  );
-        }
     }
+    
     
     double default_getRadius(  ) const  {
         return FormFactorTruncatedSpheroid::getRadius( );
@@ -100,10 +100,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -112,10 +112,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -124,10 +124,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else{
+        else
             return this->ISample::cloneInvertB(  );
-        }
     }
+    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -136,34 +136,34 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else{
+        else
             return this->ISample::containsMagneticMaterial(  );
-        }
     }
+    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
+        else
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
     }
     
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+    
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -172,10 +172,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else{
+        else
             return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        }
     }
+    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -184,10 +184,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ISample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -196,10 +196,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ISample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -208,10 +208,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else{
+        else
             return this->IFormFactorBorn::getVolume(  );
-        }
     }
+    
     
     double default_getVolume(  ) const  {
         return IFormFactorBorn::getVolume( );
@@ -220,10 +220,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else{
+        else
             return this->IFormFactor::isDistributedFormFactor(  );
-        }
     }
+    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -232,10 +232,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -244,10 +244,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else{
+        else
             this->ISample::printSampleTree(  );
-        }
     }
+    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -275,10 +275,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -287,10 +287,10 @@ struct FormFactorTruncatedSpheroid_wrapper : FormFactorTruncatedSpheroid, bp::wr
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -419,8 +419,8 @@ void register_FormFactorTruncatedSpheroid_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
-            typedef void ( FormFactorTruncatedSpheroid_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorTruncatedSpheroid_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorTruncatedSpheroid_exposer.def( 
                 "createDistributedFormFactors"

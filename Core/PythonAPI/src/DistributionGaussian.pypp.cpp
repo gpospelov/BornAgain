@@ -35,22 +35,34 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual ::DistributionGaussian * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->DistributionGaussian::clone(  );
-        }
     }
+    
     
     ::DistributionGaussian * default_clone(  ) const  {
         return DistributionGaussian::clone( );
     }
 
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+        if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
+            return func_generateValueList( nbr_samples, sigma_factor );
+        else
+            return this->DistributionGaussian::generateValueList( nbr_samples, sigma_factor );
+    }
+    
+    
+    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+        return DistributionGaussian::generateValueList( nbr_samples, sigma_factor );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
-        else{
+        else
             return this->DistributionGaussian::getMean(  );
-        }
     }
+    
     
     double default_getMean(  ) const  {
         return DistributionGaussian::getMean( );
@@ -59,10 +71,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual double probabilityDensity( double x ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( x );
-        else{
+        else
             return this->DistributionGaussian::probabilityDensity( x );
-        }
     }
+    
     
     double default_probabilityDensity( double x ) const  {
         return DistributionGaussian::probabilityDensity( x );
@@ -71,10 +83,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -83,10 +95,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -95,10 +107,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -107,10 +119,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -138,10 +150,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -150,10 +162,10 @@ struct DistributionGaussian_wrapper : DistributionGaussian, bp::wrapper< Distrib
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -177,6 +189,18 @@ void register_DistributionGaussian_class(){
                 , clone_function_type(&::DistributionGaussian::clone)
                 , default_clone_function_type(&DistributionGaussian_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::DistributionGaussian::generateValueList
+        
+            typedef ::std::vector< double > ( ::DistributionGaussian::*generateValueList_function_type )( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( DistributionGaussian_wrapper::*default_generateValueList_function_type )( ::std::size_t,double ) const;
+            
+            DistributionGaussian_exposer.def( 
+                "generateValueList"
+                , generateValueList_function_type(&::DistributionGaussian::generateValueList)
+                , default_generateValueList_function_type(&DistributionGaussian_wrapper::default_generateValueList)
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
         
         }
         { //::DistributionGaussian::getMean

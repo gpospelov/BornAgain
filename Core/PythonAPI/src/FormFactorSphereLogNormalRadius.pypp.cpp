@@ -12,89 +12,89 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
-#include "FormFactorRipple1.pypp.h"
+#include "FormFactorSphereLogNormalRadius.pypp.h"
 
 namespace bp = boost::python;
 
-struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRipple1 > {
+struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius, bp::wrapper< FormFactorSphereLogNormalRadius > {
 
-    FormFactorRipple1_wrapper(double length, double width, double height )
-    : FormFactorRipple1( length, width, height )
-      , bp::wrapper< FormFactorRipple1 >(){
+    FormFactorSphereLogNormalRadius_wrapper(double mean, double scale_param, ::std::size_t n_samples )
+    : FormFactorSphereLogNormalRadius( mean, scale_param, n_samples )
+      , bp::wrapper< FormFactorSphereLogNormalRadius >(){
         // constructor
     
     }
 
-    virtual ::FormFactorRipple1 * clone(  ) const  {
+    virtual ::FormFactorSphereLogNormalRadius * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else
-            return this->FormFactorRipple1::clone(  );
+            return this->FormFactorSphereLogNormalRadius::clone(  );
     }
     
     
-    ::FormFactorRipple1 * default_clone(  ) const  {
-        return FormFactorRipple1::clone( );
+    ::FormFactorSphereLogNormalRadius * default_clone(  ) const  {
+        return FormFactorSphereLogNormalRadius::clone( );
+    }
+
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
+            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        else
+            this->FormFactorSphereLogNormalRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    }
+    
+    
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
+        FormFactorSphereLogNormalRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
         else
-            return this->FormFactorRipple1::evaluate_for_q( boost::ref(q) );
+            return this->FormFactorSphereLogNormalRadius::evaluate_for_q( boost::ref(q) );
     }
     
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
-        return FormFactorRipple1::evaluate_for_q( boost::ref(q) );
+        return FormFactorSphereLogNormalRadius::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
         else
-            return this->FormFactorRipple1::getHeight(  );
+            return this->FormFactorSphereLogNormalRadius::getHeight(  );
     }
     
     
     double default_getHeight(  ) const  {
-        return FormFactorRipple1::getHeight( );
-    }
-
-    virtual double getLength(  ) const  {
-        if( bp::override func_getLength = this->get_override( "getLength" ) )
-            return func_getLength(  );
-        else
-            return this->FormFactorRipple1::getLength(  );
-    }
-    
-    
-    double default_getLength(  ) const  {
-        return FormFactorRipple1::getLength( );
+        return FormFactorSphereLogNormalRadius::getHeight( );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
         else
-            return this->FormFactorRipple1::getNumberOfStochasticParameters(  );
+            return this->FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters(  );
     }
     
     
     int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorRipple1::getNumberOfStochasticParameters( );
+        return FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters( );
     }
 
-    virtual double getWidth(  ) const  {
-        if( bp::override func_getWidth = this->get_override( "getWidth" ) )
-            return func_getWidth(  );
+    virtual bool isDistributedFormFactor(  ) const  {
+        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
+            return func_isDistributedFormFactor(  );
         else
-            return this->FormFactorRipple1::getWidth(  );
+            return this->FormFactorSphereLogNormalRadius::isDistributedFormFactor(  );
     }
     
     
-    double default_getWidth(  ) const  {
-        return FormFactorRipple1::getWidth( );
+    bool default_isDistributedFormFactor(  ) const  {
+        return FormFactorSphereLogNormalRadius::isDistributedFormFactor( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -143,18 +143,6 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
-    }
-
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-    
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
-        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -229,18 +217,6 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
         return IFormFactorBorn::getVolume( );
     }
 
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else
-            return this->IFormFactor::isDistributedFormFactor(  );
-    }
-    
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return IFormFactor::isDistributedFormFactor( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -276,7 +252,7 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< FormFactorRipple1_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< FormFactorSphereLogNormalRadius_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -310,272 +286,250 @@ struct FormFactorRipple1_wrapper : FormFactorRipple1, bp::wrapper< FormFactorRip
 
 };
 
-void register_FormFactorRipple1_class(){
+void register_FormFactorSphereLogNormalRadius_class(){
 
-    { //::FormFactorRipple1
-        typedef bp::class_< FormFactorRipple1_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorRipple1_exposer_t;
-        FormFactorRipple1_exposer_t FormFactorRipple1_exposer = FormFactorRipple1_exposer_t( "FormFactorRipple1", bp::init< double, double, double >(( bp::arg("length"), bp::arg("width"), bp::arg("height") )) );
-        bp::scope FormFactorRipple1_scope( FormFactorRipple1_exposer );
-        { //::FormFactorRipple1::clone
+    { //::FormFactorSphereLogNormalRadius
+        typedef bp::class_< FormFactorSphereLogNormalRadius_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorSphereLogNormalRadius_exposer_t;
+        FormFactorSphereLogNormalRadius_exposer_t FormFactorSphereLogNormalRadius_exposer = FormFactorSphereLogNormalRadius_exposer_t( "FormFactorSphereLogNormalRadius", bp::init< double, double, std::size_t >(( bp::arg("mean"), bp::arg("scale_param"), bp::arg("n_samples") )) );
+        bp::scope FormFactorSphereLogNormalRadius_scope( FormFactorSphereLogNormalRadius_exposer );
+        { //::FormFactorSphereLogNormalRadius::clone
         
-            typedef ::FormFactorRipple1 * ( ::FormFactorRipple1::*clone_function_type )(  ) const;
-            typedef ::FormFactorRipple1 * ( FormFactorRipple1_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorSphereLogNormalRadius * ( ::FormFactorSphereLogNormalRadius::*clone_function_type )(  ) const;
+            typedef ::FormFactorSphereLogNormalRadius * ( FormFactorSphereLogNormalRadius_wrapper::*default_clone_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "clone"
-                , clone_function_type(&::FormFactorRipple1::clone)
-                , default_clone_function_type(&FormFactorRipple1_wrapper::default_clone)
+                , clone_function_type(&::FormFactorSphereLogNormalRadius::clone)
+                , default_clone_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::FormFactorRipple1::evaluate_for_q
+        { //::FormFactorSphereLogNormalRadius::createDistributedFormFactors
         
-            typedef ::complex_t ( ::FormFactorRipple1::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorRipple1_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef void ( ::FormFactorSphereLogNormalRadius::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
+                "createDistributedFormFactors"
+                , createDistributedFormFactors_function_type(&::FormFactorSphereLogNormalRadius::createDistributedFormFactors)
+                , default_createDistributedFormFactors_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_createDistributedFormFactors)
+                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::FormFactorSphereLogNormalRadius::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorSphereLogNormalRadius::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorSphereLogNormalRadius_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "evaluate_for_q"
-                , evaluate_for_q_function_type(&::FormFactorRipple1::evaluate_for_q)
-                , default_evaluate_for_q_function_type(&FormFactorRipple1_wrapper::default_evaluate_for_q)
+                , evaluate_for_q_function_type(&::FormFactorSphereLogNormalRadius::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_evaluate_for_q)
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorRipple1::getHeight
+        { //::FormFactorSphereLogNormalRadius::getHeight
         
-            typedef double ( ::FormFactorRipple1::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::FormFactorSphereLogNormalRadius::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getHeight_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "getHeight"
-                , getHeight_function_type(&::FormFactorRipple1::getHeight)
-                , default_getHeight_function_type(&FormFactorRipple1_wrapper::default_getHeight) );
+                , getHeight_function_type(&::FormFactorSphereLogNormalRadius::getHeight)
+                , default_getHeight_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getHeight) );
         
         }
-        { //::FormFactorRipple1::getLength
+        { //::FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters
         
-            typedef double ( ::FormFactorRipple1::*getLength_function_type )(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getLength_function_type )(  ) const;
+            typedef int ( ::FormFactorSphereLogNormalRadius::*getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( FormFactorSphereLogNormalRadius_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
-                "getLength"
-                , getLength_function_type(&::FormFactorRipple1::getLength)
-                , default_getLength_function_type(&FormFactorRipple1_wrapper::default_getLength) );
-        
-        }
-        { //::FormFactorRipple1::getNumberOfStochasticParameters
-        
-            typedef int ( ::FormFactorRipple1::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorRipple1_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
-            
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "getNumberOfStochasticParameters"
-                , getNumberOfStochasticParameters_function_type(&::FormFactorRipple1::getNumberOfStochasticParameters)
-                , default_getNumberOfStochasticParameters_function_type(&FormFactorRipple1_wrapper::default_getNumberOfStochasticParameters) );
+                , getNumberOfStochasticParameters_function_type(&::FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters)
+                , default_getNumberOfStochasticParameters_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getNumberOfStochasticParameters) );
         
         }
-        { //::FormFactorRipple1::getWidth
+        { //::FormFactorSphereLogNormalRadius::isDistributedFormFactor
         
-            typedef double ( ::FormFactorRipple1::*getWidth_function_type )(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getWidth_function_type )(  ) const;
+            typedef bool ( ::FormFactorSphereLogNormalRadius::*isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
-                "getWidth"
-                , getWidth_function_type(&::FormFactorRipple1::getWidth)
-                , default_getWidth_function_type(&FormFactorRipple1_wrapper::default_getWidth) );
+            FormFactorSphereLogNormalRadius_exposer.def( 
+                "isDistributedFormFactor"
+                , isDistributedFormFactor_function_type(&::FormFactorSphereLogNormalRadius::isDistributedFormFactor)
+                , default_isDistributedFormFactor_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_isDistributedFormFactor) );
         
         }
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorRipple1_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_areParametersChanged_function_type )(  ) ;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&FormFactorRipple1_wrapper::default_areParametersChanged) );
+                , default_areParametersChanged_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_areParametersChanged) );
         
         }
         { //::IParameterized::clearParameterPool
         
             typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorRipple1_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_clearParameterPool_function_type )(  ) ;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "clearParameterPool"
                 , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
-                , default_clearParameterPool_function_type(&FormFactorRipple1_wrapper::default_clearParameterPool) );
+                , default_clearParameterPool_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_clearParameterPool) );
         
         }
         { //::ISample::cloneInvertB
         
             typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorRipple1_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( FormFactorSphereLogNormalRadius_wrapper::*default_cloneInvertB_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "cloneInvertB"
                 , cloneInvertB_function_type(&::ISample::cloneInvertB)
-                , default_cloneInvertB_function_type(&FormFactorRipple1_wrapper::default_cloneInvertB)
+                , default_cloneInvertB_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::containsMagneticMaterial
         
             typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorRipple1_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "containsMagneticMaterial"
                 , containsMagneticMaterial_function_type(&::ISample::containsMagneticMaterial)
-                , default_containsMagneticMaterial_function_type(&FormFactorRipple1_wrapper::default_containsMagneticMaterial) );
-        
-        }
-        { //::IFormFactor::createDistributedFormFactors
-        
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorRipple1_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            
-            FormFactorRipple1_exposer.def( 
-                "createDistributedFormFactors"
-                , createDistributedFormFactors_function_type(&::IFormFactor::createDistributedFormFactors)
-                , default_createDistributedFormFactors_function_type(&FormFactorRipple1_wrapper::default_createDistributedFormFactors)
-                , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , default_containsMagneticMaterial_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_containsMagneticMaterial) );
         
         }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorRipple1_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( FormFactorSphereLogNormalRadius_wrapper::*default_createParameterTree_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "createParameterTree"
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&FormFactorRipple1_wrapper::default_createParameterTree)
+                , default_createParameterTree_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IFormFactorBorn::evaluate
         
             typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorRipple1_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorSphereLogNormalRadius_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "evaluate"
                 , evaluate_function_type(&::IFormFactorBorn::evaluate)
-                , default_evaluate_function_type(&FormFactorRipple1_wrapper::default_evaluate)
+                , default_evaluate_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_evaluate)
                 , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_f_bin") ) );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorRipple1_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( FormFactorSphereLogNormalRadius_wrapper::*default_getCompositeSample_function_type )(  ) ;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorRipple1_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorRipple1_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorSphereLogNormalRadius_wrapper::*default_getCompositeSample_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "getCompositeSample"
                 , getCompositeSample_function_type(&::ISample::getCompositeSample)
-                , default_getCompositeSample_function_type(&FormFactorRipple1_wrapper::default_getCompositeSample)
+                , default_getCompositeSample_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getCompositeSample)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IFormFactor::getRadius
         
             typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getRadius_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "getRadius"
                 , getRadius_function_type(&::IFormFactor::getRadius)
-                , default_getRadius_function_type(&FormFactorRipple1_wrapper::default_getRadius) );
+                , default_getRadius_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getRadius) );
         
         }
         { //::IFormFactorBorn::getVolume
         
             typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorRipple1_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getVolume_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "getVolume"
                 , getVolume_function_type(&::IFormFactorBorn::getVolume)
-                , default_getVolume_function_type(&FormFactorRipple1_wrapper::default_getVolume) );
-        
-        }
-        { //::IFormFactor::isDistributedFormFactor
-        
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorRipple1_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
-            
-            FormFactorRipple1_exposer.def( 
-                "isDistributedFormFactor"
-                , isDistributedFormFactor_function_type(&::IFormFactor::isDistributedFormFactor)
-                , default_isDistributedFormFactor_function_type(&FormFactorRipple1_wrapper::default_isDistributedFormFactor) );
+                , default_getVolume_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_getVolume) );
         
         }
         { //::IParameterized::printParameters
         
             typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorRipple1_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_printParameters_function_type )(  ) const;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&FormFactorRipple1_wrapper::default_printParameters) );
+                , default_printParameters_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_printParameters) );
         
         }
         { //::ISample::printSampleTree
         
             typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorRipple1_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_printSampleTree_function_type )(  ) ;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "printSampleTree"
                 , printSampleTree_function_type(&::ISample::printSampleTree)
-                , default_printSampleTree_function_type(&FormFactorRipple1_wrapper::default_printSampleTree) );
+                , default_printSampleTree_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_printSampleTree) );
         
         }
         { //::IParameterized::registerParameter
         
             typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "registerParameter"
-                , default_registerParameter_function_type( &FormFactorRipple1_wrapper::default_registerParameter )
+                , default_registerParameter_function_type( &FormFactorSphereLogNormalRadius_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue
         
             typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorRipple1_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "setParameterValue"
                 , setParameterValue_function_type(&::IParameterized::setParameterValue)
-                , default_setParameterValue_function_type(&FormFactorRipple1_wrapper::default_setParameterValue)
+                , default_setParameterValue_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_setParameterValue)
                 , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged
         
             typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorRipple1_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
             
-            FormFactorRipple1_exposer.def( 
+            FormFactorSphereLogNormalRadius_exposer.def( 
                 "setParametersAreChanged"
                 , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&FormFactorRipple1_wrapper::default_setParametersAreChanged) );
+                , default_setParametersAreChanged_function_type(&FormFactorSphereLogNormalRadius_wrapper::default_setParametersAreChanged) );
         
         }
     }

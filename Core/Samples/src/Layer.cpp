@@ -103,6 +103,7 @@ void Layer::setThickness(double thickness)
 //! Sets _material_ of the layer.
 void Layer::setMaterial(const IMaterial &material)
 {
+    delete mp_material;
     mp_material = material.clone();
 }
 

@@ -49,7 +49,10 @@ public:
     //! scattering power)
     virtual void setAmbientMaterial(const IMaterial* p_material)
     {
-        if(p_material) mp_ambient_material = p_material->clone();
+        if(p_material) {
+            delete mp_ambient_material;
+            mp_ambient_material = p_material->clone();
+        }
     }
 
     //! Returns particle's material.
@@ -63,7 +66,10 @@ public:
 
     //! Sets _material_ and _thickness_.
     virtual void setMaterial(const IMaterial* p_material) {
-        if(p_material) mp_material = p_material->clone();
+        if(p_material) {
+            delete mp_material;
+            mp_material = p_material->clone();
+        }
     }
 
     //! Returns particle's material.

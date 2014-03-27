@@ -23,7 +23,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 {
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat("Air",0,0);
     Particle particle(mat);
 
     ParticleLayout particleDecoration(particle, 1.0, 2.0);
@@ -45,7 +45,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByRef)
 {
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Stone",0,0);
+    HomogeneousMaterial mat("Stone",0,0);
     Particle * particle = new Particle(mat);
 
     ParticleLayout particleDecoration(particle, 3.0, -2.0);
@@ -67,14 +67,14 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticleInfo)
 {
     ParticleLayout particleDecoration;
 
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat("Air",0,0);
     Particle particle(mat);
     ParticleInfo particleInfo(particle, 0.1,-2.0);
     particleDecoration.addParticleInfo(particleInfo);
 
     EXPECT_EQ(size_t(1), particleDecoration.getNumberOfParticles());
 
-    const IMaterial *mat2 = MaterialManager::getHomogeneousMaterial("Stone",0,0);
+    HomogeneousMaterial mat2 ("Stone",0,0);
     Particle particle2(mat2);
     ParticleInfo particleInfo2(particle2, 5.0,0.1);
     particleDecoration.addParticleInfo(particleInfo2);
@@ -98,16 +98,16 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
 {
     ParticleLayout particleDecoration;
 
-    const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat1("Air",0,0);
     Particle particle1(mat1);
 
-    const IMaterial *mat2 = MaterialManager::getHomogeneousMaterial("Stone",0,0);
+    HomogeneousMaterial mat2("Stone",0,0);
     Particle * particle2 = new Particle(mat2);
 
-    const IMaterial *mat3 = MaterialManager::getHomogeneousMaterial("wood",0,0);
+    HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
-    const IMaterial *mat4 = MaterialManager::getHomogeneousMaterial("silica",0,0);
+    HomogeneousMaterial mat4("silica",0,0);
     Particle * particle4 = new Particle(mat4);
 
     Geometry::Transform3D transform3 =
@@ -161,16 +161,16 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
 {
     ParticleLayout particleDecoration;
 
-    const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat1("Air",0,0);
     Particle particle1(mat1);
 
-    const IMaterial *mat2 = MaterialManager::getHomogeneousMaterial("Stone",0,0);
+    HomogeneousMaterial mat2("Stone",0,0);
     Particle * particle2 = new Particle(mat2);
 
-    const IMaterial *mat3 = MaterialManager::getHomogeneousMaterial("wood",0,0);
+    HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
-    const IMaterial *mat4 = MaterialManager::getHomogeneousMaterial("silica",0,0);
+    HomogeneousMaterial mat4("silica",0,0);
     Particle * particle4 = new Particle(mat4);
 
     Geometry::Transform3D transform3 =
@@ -205,16 +205,16 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
 {
     ParticleLayout particleDecoration;
 
-    const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat1("Air",0,0);
     Particle particle1(mat1);
 
-    const IMaterial *mat2 = MaterialManager::getHomogeneousMaterial("Stone",0,0);
+    HomogeneousMaterial mat2 ("Stone",0,0);
     Particle * particle2 = new Particle(mat2);
 
-    const IMaterial *mat3 = MaterialManager::getHomogeneousMaterial("wood",0,0);
+    HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
-    const IMaterial *mat4 = MaterialManager::getHomogeneousMaterial("silica",0,0);
+    HomogeneousMaterial mat4("silica",0,0);
     Particle * particle4 = new Particle(mat4);
 
     Geometry::Transform3D transform3 =
@@ -230,7 +230,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
 
 
-    const IMaterial *mat5 = MaterialManager::getHomogeneousMaterial("core",0,0);
+    HomogeneousMaterial mat5("core",0,0);
     Particle particle5(mat5);
     ParticleInfo particleInfo5(particle5, 0.0,0.0);
     particleDecoration.addParticleInfo(particleInfo5);
@@ -300,16 +300,16 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
 {
     ParticleLayout particleDecoration;
 
-    const IMaterial *mat1 = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat1("Air",0,0);
     Particle particle1(mat1);
 
-    const IMaterial *mat2 = MaterialManager::getHomogeneousMaterial("Stone",0,0);
+    HomogeneousMaterial mat2("Stone",0,0);
     Particle * particle2 = new Particle(mat2);
 
-    const IMaterial *mat3 = MaterialManager::getHomogeneousMaterial("wood",0,0);
+    HomogeneousMaterial mat3("wood",0,0);
     Particle particle3(mat3);
 
-    const IMaterial *mat4 = MaterialManager::getHomogeneousMaterial("silica",0,0);
+    HomogeneousMaterial mat4("silica",0,0);
     Particle * particle4 = new Particle(mat4);
 
     Geometry::Transform3D transform3 =
@@ -325,7 +325,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutCloneInvertB)
     particleDecoration.addParticle(particle4, transform4, 4.1, 4.0);
 
 
-    const IMaterial *mat5 = MaterialManager::getHomogeneousMaterial("core",0,0);
+    HomogeneousMaterial mat5("core",0,0);
     Particle particle5(mat5);
     ParticleInfo particleInfo5(particle5, 0.0,0.0);
     particleDecoration.addParticleInfo(particleInfo5);

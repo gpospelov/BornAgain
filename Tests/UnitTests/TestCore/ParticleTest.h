@@ -51,7 +51,7 @@ TEST_F(ParticleTest, ParticleCloneInvertB)
 
 TEST_F(ParticleTest, ParticleConstructors)
 {
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat("Air",0,0);
 
     Particle *p1 = new Particle(mat);
     EXPECT_EQ("Air", p1->getMaterial()->getName());
@@ -76,10 +76,11 @@ TEST_F(ParticleTest, ParticleConstructors)
                       p2->createFormFactor(1.0))->getAmbientRefractiveIndex());
     delete p2;
 
-    FormFactorFullSphere *sphere3 = new FormFactorFullSphere(1.0);
-    sphere3->setName("sphere3");
+    FormFactorFullSphere sphere3(1.0);
+    sphere3.setName("sphere3");
     Particle *p3 = new Particle(mat, sphere3);
-    EXPECT_EQ(sphere3, p3->getSimpleFormFactor());
+    EXPECT_EQ(sphere3.getName(), p3->getSimpleFormFactor()->getName());
+    EXPECT_EQ(sphere3.getRadius(), p3->getSimpleFormFactor()->getRadius());
 
     Particle *p4 = p3->clone();
     EXPECT_EQ("sphere3", p4->getSimpleFormFactor()->getName());
@@ -90,7 +91,7 @@ TEST_F(ParticleTest, ParticleConstructors)
 
 TEST_F(ParticleTest, ParticleTransform)
 {
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat("Air",0,0);
     FormFactorFullSphere sphere(1.0);
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(45.*Units::degree);
@@ -113,7 +114,7 @@ TEST_F(ParticleTest, ParticleTransform)
 
 TEST_F(ParticleTest, SetParam)
 {
-    const IMaterial *mat = MaterialManager::getHomogeneousMaterial("Air",0,0);
+    HomogeneousMaterial mat("Air",0,0);
     FormFactorFullSphere *sphere = new FormFactorFullSphere(2.1);
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateY(45.*Units::degree);
@@ -123,7 +124,7 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ(NULL, particle.getSimpleFormFactor());
     EXPECT_EQ(NULL, particle.getPTransform3D());
 
-    particle.setMaterial(mat);
+    particle.setMaterial(&mat);
     EXPECT_EQ("Air", particle.getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle.getRefractiveIndex());
 

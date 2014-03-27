@@ -20,7 +20,7 @@
 #include "Units.h"
 #include "Simulation.h"
 #include "MultiLayer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "ResolutionFunction2DSimple.h"
 
@@ -55,24 +55,20 @@ void TestDetectorResolution::initializeSample()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-5e-6, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+    HomogeneousMaterial particle_material("Particle", 5e-5, 2e-8);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
             7*Units::nanometer, 1e7*Units::nanometer);
     ParticleLayout particle_layout(
         new Particle(particle_material,
-                     new FormFactorCylinder(5*Units::nanometer,
+                     FormFactorCylinder(5*Units::nanometer,
                                             5*Units::nanometer)));
     particle_layout.addInterferenceFunction(p_interference_funtion);
 

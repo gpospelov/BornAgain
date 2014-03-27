@@ -25,15 +25,22 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     }
 
-    Particle_wrapper(::IMaterial const * p_material, ::IFormFactor const & form_factor )
-    : Particle( boost::python::ptr(p_material), boost::ref(form_factor) )
+    Particle_wrapper(::IMaterial const & p_material )
+    : Particle( boost::ref(p_material) )
       , bp::wrapper< Particle >(){
         // constructor
     
     }
 
-    Particle_wrapper(::IMaterial const * p_material, ::IFormFactor const & form_factor, ::Geometry::Transform3D const & transform )
-    : Particle( boost::python::ptr(p_material), boost::ref(form_factor), boost::ref(transform) )
+    Particle_wrapper(::IMaterial const & p_material, ::IFormFactor const & form_factor )
+    : Particle( boost::ref(p_material), boost::ref(form_factor) )
+      , bp::wrapper< Particle >(){
+        // constructor
+    
+    }
+
+    Particle_wrapper(::IMaterial const & p_material, ::IFormFactor const & form_factor, ::Geometry::Transform3D const & transform )
+    : Particle( boost::ref(p_material), boost::ref(form_factor), boost::ref(transform) )
       , bp::wrapper< Particle >(){
         // constructor
     
@@ -318,8 +325,9 @@ void register_Particle_class(){
         typedef bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Particle_exposer_t;
         Particle_exposer_t Particle_exposer = Particle_exposer_t( "Particle", bp::init< >() );
         bp::scope Particle_scope( Particle_exposer );
-        Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
-        Particle_exposer.def( bp::init< IMaterial const *, IFormFactor const &, Geometry::Transform3D const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("transform") )) );
+        Particle_exposer.def( bp::init< IMaterial const & >(( bp::arg("p_material") )) );
+        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const & >(( bp::arg("p_material"), bp::arg("form_factor") )) );
+        Particle_exposer.def( bp::init< IMaterial const &, IFormFactor const &, Geometry::Transform3D const & >(( bp::arg("p_material"), bp::arg("form_factor"), bp::arg("transform") )) );
         { //::Particle::applyTransformation
         
             typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;

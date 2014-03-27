@@ -36,9 +36,9 @@ class MySampleBuilder(ISampleBuilder):
 
     # constructs the sample for current values of parameters
     def buildSample(self):
-        m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-        m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-        m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+        m_air = HomogeneousMaterial("Air", 0.0, 0.0)
+        m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
         sphere_ff = FormFactorFullSphere(self.radius.value)
         sphere = Particle(m_particle, sphere_ff)

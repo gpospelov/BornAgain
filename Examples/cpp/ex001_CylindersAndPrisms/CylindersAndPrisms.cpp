@@ -2,8 +2,8 @@
 #include "Simulation.h"
 #include "ISample.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "Units.h"
@@ -25,32 +25,28 @@ void CylindersAndPrismsExample::setSample()
 {
     m_sample = new MultiLayer();
 
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial air_material("Air", 0., 0.);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
-    ParticleDecoration particle_decoration;
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    ParticleLayout particle_layout;
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    particle_decoration.addParticle(
+    particle_layout.addParticle(
                 new Particle(particle_material,
-                             new FormFactorCylinder(5*Units::nanometer,
+                             FormFactorCylinder(5*Units::nanometer,
                                                     5*Units::nanometer)),
                 0.0, 0.5);
-    particle_decoration.addParticle(
+    particle_layout.addParticle(
                 new Particle(particle_material,
-                             new FormFactorPrism3(10*Units::nanometer,
+                             FormFactorPrism3(10*Units::nanometer,
                                                   5*Units::nanometer)),
                 0.0, 0.5);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     m_sample->addLayer(air_layer);
     m_sample->addLayer(substrate_layer);

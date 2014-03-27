@@ -19,7 +19,7 @@
 #include "ICompositeSample.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorTransformation.h"
-#include "HomogeneousMaterial.h"
+#include "IMaterial.h"
 
 class ParticleInfo;
 class DiffuseParticleInfo;
@@ -32,10 +32,13 @@ class BA_CORE_API_ Particle : public ICompositeSample
 {
 public:
     Particle();
-    Particle(const IMaterial* p_material, IFormFactor* p_form_factor = 0);
-    Particle(const IMaterial* p_material, const IFormFactor& form_factor);
-    Particle(const IMaterial* p_material, const IFormFactor& form_factor,
+    Particle(const IMaterial &p_material);
+    Particle(const IMaterial &p_material, const IFormFactor &form_factor);
+    Particle(const IMaterial &p_material, const IFormFactor &form_factor,
             const Geometry::Transform3D &transform);
+    Particle(IMaterial *p_material, IFormFactor *form_factor=0,
+            Geometry::Transform3D *transform = 0);
+
     virtual ~Particle();
     virtual Particle *clone() const;
 
@@ -49,7 +52,10 @@ public:
     //! scattering power)
     virtual void setAmbientMaterial(const IMaterial* p_material)
     {
-        mp_ambient_material = p_material;
+        if(p_material) {
+            delete mp_ambient_material;
+            mp_ambient_material = p_material->clone();
+        }
     }
 
     //! Returns particle's material.
@@ -63,7 +69,10 @@ public:
 
     //! Sets _material_ and _thickness_.
     virtual void setMaterial(const IMaterial* p_material) {
-        mp_material = p_material;
+        if(p_material) {
+            delete mp_material;
+            mp_material = p_material->clone();
+        }
     }
 
     //! Returns particle's material.
@@ -111,8 +120,8 @@ protected:
     //! Propagates a transformation to child particles
     virtual void applyTransformationToSubParticles(
             const Geometry::Transform3D& transform);
-    const IMaterial* mp_material;
-    const IMaterial* mp_ambient_material;
+    IMaterial* mp_material;
+    IMaterial* mp_ambient_material;
     IFormFactor* mp_form_factor;
     std::auto_ptr<Geometry::Transform3D> mP_transform;
     //!< pointer to the form factor

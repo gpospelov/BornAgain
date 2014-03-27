@@ -16,7 +16,7 @@
 #include "IsGISAXS15Builder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "Units.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
@@ -33,21 +33,20 @@ ISample *IsGISAXS15Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    Layer air_layer(air_material);
+
     InterferenceFunction1DParaCrystal *p_interference_function =
             new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,
                     5*Units::nanometer, 1e3*Units::nanometer);
     p_interference_function->setKappa(4.02698);
     ParticleLayout particle_layout;
-    Particle particle_prototype(particle_material, new FormFactorCylinder(
-            5.0*Units::nanometer, 5.0*Units::nanometer));
+
+    FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
+    Particle particle_prototype(particle_material, ff_cylinder);
+
     StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
     StochasticSampledParameter stochastic_radius(sg,30, 2);
     ParticleBuilder particle_builder;

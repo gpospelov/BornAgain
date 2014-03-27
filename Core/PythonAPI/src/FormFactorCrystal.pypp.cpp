@@ -18,6 +18,13 @@ namespace bp = boost::python;
 
 struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCrystal > {
 
+    FormFactorCrystal_wrapper(::Crystal const & p_crystal, ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_material, ::complex_t wavevector_scattering_factor )
+    : FormFactorCrystal( boost::ref(p_crystal), boost::ref(meso_crystal_form_factor), boost::ref(p_material), wavevector_scattering_factor )
+      , bp::wrapper< FormFactorCrystal >(){
+        // constructor
+    
+    }
+
     virtual ::FormFactorCrystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -283,7 +290,7 @@ void register_FormFactorCrystal_class(){
 
     { //::FormFactorCrystal
         typedef bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable > FormFactorCrystal_exposer_t;
-        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", bp::no_init );
+        FormFactorCrystal_exposer_t FormFactorCrystal_exposer = FormFactorCrystal_exposer_t( "FormFactorCrystal", bp::init< Crystal const &, IFormFactor const &, IMaterial const &, complex_t >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("p_material"), bp::arg("wavevector_scattering_factor") )) );
         bp::scope FormFactorCrystal_scope( FormFactorCrystal_exposer );
         { //::FormFactorCrystal::clone
         

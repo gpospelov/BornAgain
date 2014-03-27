@@ -16,7 +16,8 @@
 #include "LatticeBasis.h"
 #include "FormFactors.h"
 #include "DiffuseParticleInfo.h"
-#include "MaterialManager.h"
+#include "Materials.h"
+#include <boost/scoped_ptr.hpp>
 
 LatticeBasis::LatticeBasis()
 {
@@ -67,12 +68,13 @@ LatticeBasis* LatticeBasis::cloneInvertB() const
                 m_positions_vector[index]);
     }
     p_new->setName(getName() + "_inv");
-    const IMaterial *p_ambient_material = MaterialManager::getInvertedMaterial(
-            this->mp_ambient_material->getName());
-    p_new->mp_ambient_material = p_ambient_material;
-    if (mP_transform.get()) {
+
+    if(mp_ambient_material)
+        p_new->mp_ambient_material = Materials::createInvertedMaterial(mp_ambient_material);
+
+    if (mP_transform.get())
         p_new->mP_transform.reset(mP_transform->clone());
-    }
+
     return p_new;
 }
 
@@ -87,6 +89,7 @@ void LatticeBasis::addParticle(const Particle& particle,
 
 void LatticeBasis::setAmbientMaterial(const IMaterial *p_material)
 {
+    if(!p_material) return;
     Particle::setAmbientMaterial(p_material);
     for (size_t index=0; index<m_particles.size(); ++index) {
         m_particles[index]->setAmbientMaterial(p_material);

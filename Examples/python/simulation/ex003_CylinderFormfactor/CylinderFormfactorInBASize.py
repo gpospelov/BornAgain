@@ -10,8 +10,8 @@ def get_sample():
     Build and return the sample to calculate cylinder formfactor in Born approximation.
     Cylinders have size distribution.
     """
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     multi_layer = MultiLayer()
 

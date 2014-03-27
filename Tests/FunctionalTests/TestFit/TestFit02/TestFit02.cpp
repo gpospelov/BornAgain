@@ -1,7 +1,7 @@
 #include "TestFit02.h"
 #include "SampleBuilder.h"
 
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MessageService.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"

@@ -28,7 +28,7 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 public:
     FormFactorCrystal(
         const Crystal& p_crystal, const IFormFactor& meso_crystal_form_factor,
-        const IMaterial *p_material, complex_t wavevector_scattering_factor);
+        const IMaterial &p_material, complex_t wavevector_scattering_factor);
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;
@@ -58,7 +58,7 @@ private:
     LatticeBasis *mp_lattice_basis;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
-    const IMaterial *mp_ambient_material;
+    IMaterial *mp_ambient_material;
     double m_max_rec_length;
 };
 

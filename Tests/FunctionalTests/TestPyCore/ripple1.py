@@ -17,9 +17,9 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     
 	# collection of particles
     ripple1_ff = FormFactorRipple1(100*nanometer,20*nanometer, 4*nanometer)

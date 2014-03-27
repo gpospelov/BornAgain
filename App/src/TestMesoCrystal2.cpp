@@ -28,7 +28,7 @@
 #include "IntensityDataHelper.h"
 #include "IsGISAXSTools.h"
 #include "LatticeBasis.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
 #include "MinimizerFactory.h"
@@ -576,19 +576,16 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material =
-        MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial average_layer_material("Averagelayer", n_avg);
+    HomogeneousMaterial substrate_material("Substrate", n_substrate);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
     Layer avg_layer;
-    avg_layer.setMaterial(p_average_layer_material);
+    avg_layer.setMaterial(average_layer_material);
     avg_layer.setThickness(m_meso_height);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     IInterferenceFunction *p_interference_funtion =
         new InterferenceFunctionNone();
     ParticleLayout particle_layout;
@@ -687,11 +684,9 @@ MesoCrystal* TestMesoCrystal2::SampleBuilder::createMesoCrystal(double stacking_
     kvector_t bas_b = p_lat->getBasisVectorB();
     kvector_t bas_c = p_lat->getBasisVectorC();
 
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
-
-    Particle particle(particle_material, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
+    Particle particle(particle_material, FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);

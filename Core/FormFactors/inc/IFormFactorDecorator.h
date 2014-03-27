@@ -52,7 +52,7 @@ inline IFormFactorDecorator::~IFormFactorDecorator()
 inline void IFormFactorDecorator::setAmbientMaterial(
         const IMaterial *p_material)
 {
-    if (mp_form_factor)
+    if (mp_form_factor && p_material)
         mp_form_factor->setAmbientMaterial(p_material);
 }
 

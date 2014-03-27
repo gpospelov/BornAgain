@@ -24,7 +24,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MinimizerTest.h"
@@ -475,12 +475,9 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
 
@@ -493,10 +490,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double radius2 = m_particle_radius2;
     double height1 = m_height_aspect_ratio1*radius1;
     double height2 = m_height_aspect_ratio2*radius2;
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(radius1, height1);
+    FormFactorCylinder p_ff_cylinder1(radius1, height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(radius2, height2);
+    FormFactorCylinder p_ff_cylinder2(radius2, height2);
     Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability

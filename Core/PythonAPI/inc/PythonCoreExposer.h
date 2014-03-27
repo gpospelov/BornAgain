@@ -20,7 +20,6 @@
 #include "BasicVector3D.h"
 #include "DiffuseParticleInfo.h"
 #include "IFormFactor.h"
-#include "MaterialManager.h"
 #include "IStochasticParameter.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
@@ -36,7 +35,7 @@ namespace pyplusplus {
         typedef std::vector<cvector_t > vector_cvector_t;
         typedef std::vector<DiffuseParticleInfo *> vector_DiffuseParticleInfoPtr_t;
         typedef std::vector<IFormFactor *> vector_IFormFactorPtr_t;
-        typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
+        //typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
         typedef StochasticParameter<double> StochasticParameter_t;
         typedef OutputData<double > IntensityData;
         typedef std::vector<int > vector_integer_t;

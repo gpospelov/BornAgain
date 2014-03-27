@@ -16,7 +16,7 @@
 #include "IsGISAXS09Builder.h"
 #include "FormFactorPyramid.h"
 #include "InterferenceFunctionNone.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Units.h"
@@ -47,21 +47,16 @@ ISample *IsGISAXS09ABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleLayout particle_layout(
-        new Particle(particle_material,
-                     new FormFactorPyramid(m_length, m_height, m_alpha) ) );
+    FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
+
+    ParticleLayout particle_layout(new Particle(particle_material, ff_pyramid ));
 
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -101,21 +96,16 @@ ISample *IsGISAXS09BBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Particle *pyramid = new Particle(
-        particle_material,
-        new FormFactorPyramid(m_length, m_height, m_alpha)
-                );
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
+
+    Particle *pyramid = new Particle(particle_material, ff_pyramid);
 
     Geometry::Transform3D transform =
             Geometry::Transform3D::createRotateZ(m_zangle);

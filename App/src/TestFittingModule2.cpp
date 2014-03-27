@@ -28,7 +28,7 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
@@ -370,25 +370,22 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+    HomogeneousMaterial particle_material("Particle", n_particle);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    substrate_layer.setMaterial(substrate_material);
     ParticleLayout particle_layout;
     particle_layout.addParticle(
         new Particle(particle_material,
-                     new FormFactorCylinder(m_cylinder_radius,
+                     FormFactorCylinder(m_cylinder_radius,
                                             m_cylinder_height)),
         0.0, m_cylinder_ratio);
     particle_layout.addParticle(
         new Particle(particle_material,
-                     new FormFactorPrism3(m_prism3_length,
+                     FormFactorPrism3(m_prism3_length,
                                           m_prism3_height
                                           )),
         0.0, 1.0 - m_cylinder_ratio);

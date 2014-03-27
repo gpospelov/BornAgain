@@ -16,7 +16,7 @@
 #include "IsGISAXS04Builder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
@@ -47,24 +47,21 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
     IInterferenceFunction *p_interference_function =
             new InterferenceFunction1DParaCrystal(
                     m_corr_peak_distance,m_corr_width, m_corr_length);
+
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+
     ParticleLayout particle_layout( new Particle(
-            particle_material, new FormFactorCylinder(
-                    m_cylinder_radius, m_cylinder_height) ) );
+            particle_material, ff_cylinder ) );
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);
@@ -106,17 +103,12 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DParaCrystal *p_interference_function =
             InterferenceFunction2DParaCrystal::createHexagonal(
@@ -124,8 +116,11 @@ ISample *IsGISAXS04Para2DBuilder::buildSample() const
                     m_domain_size_1, m_domain_size_2);
     FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf, pdf);
-    ParticleLayout particle_layout( new Particle(particle_material,
-            new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+    Particle cylinder(particle_material,ff_cylinder);
+
+    ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

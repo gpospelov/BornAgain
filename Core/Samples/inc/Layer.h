@@ -16,10 +16,9 @@
 #ifndef LAYER_H
 #define LAYER_H
 
+#include "Materials.h"
 #include "DiffuseDWBASimulation.h"
-#include "HomogeneousMaterial.h"
 #include "ICompositeSample.h"
-#include "IMaterial.h"
 #include "LayerDWBASimulation.h"
 #include "ParticleLayout.h"
 
@@ -34,8 +33,8 @@ public:
     Layer();
 
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
-    Layer(const IMaterial* material, double thickness=0, ILayout *decoration=0);
-    Layer(const IMaterial* material, double thickness, const ILayout &decoration);
+//    Layer(const IMaterial* material, double thickness=0, ILayout *decoration=0);
+    Layer(const IMaterial &material, double thickness = 0);
 
     virtual ~Layer();
 
@@ -54,10 +53,10 @@ public:
     virtual double getThickness() const { return m_thickness; }
 
     //! Sets _material_ of the layer.
-    virtual void setMaterial(const IMaterial* material);
+    virtual void setMaterial(const IMaterial &material);
 
     //! Sets _material_ and _thickness_.
-    virtual void setMaterialAndThickness(const IMaterial* material,
+    virtual void setMaterialAndThickness(const IMaterial &material,
                                          double thickness);
 
     //! Returns layer's material.
@@ -66,15 +65,15 @@ public:
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const;
 
-    //! sets particle decoration
+    //! sets particle layout
     virtual void setLayout(const ILayout &decoration);
 
     //! returns particle decoration
-    virtual const ILayout* getLayout() const { return mp_decoration; }
+    virtual const ILayout* getLayout() const { return mp_layout; }
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const {
-        return (mp_decoration ? true : false);
+        return (mp_layout ? true : false);
     }
 
     //! creates and return LayerDWBASimulation in the case of present decoration
@@ -91,12 +90,12 @@ protected:
 
     void print(std::ostream& ostr) const;
 
-    //! sets particle decoration (separate pointer version due to python-bindings)
-    virtual void setDecorationPtr(ILayout *decoration);
+    //! sets particle layout (separate pointer version due to python-bindings)
+    virtual void setLayoutPtr(ILayout *layout);
 
-    const IMaterial* mp_material;    //!< pointer to the material
-    double m_thickness;              //!< layer thickness in nanometers
-    ILayout *mp_decoration;      //!< particle decoration
+    double m_thickness;       //!< layer thickness in nanometers
+    IMaterial* mp_material;   //!< pointer to the material
+    ILayout *mp_layout;       //!< particle layout
 };
 
 
@@ -108,8 +107,8 @@ inline complex_t Layer::getRefractiveIndex() const
 
 inline double Layer::getTotalParticleSurfaceDensity() const
 {
-    if (mp_decoration) {
-        return mp_decoration->getTotalParticleSurfaceDensity();
+    if (mp_layout) {
+        return mp_layout->getTotalParticleSurfaceDensity();
     }
     return 0.0;
 }

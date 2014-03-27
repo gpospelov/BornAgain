@@ -12,9 +12,9 @@ def get_sample():
     substrate without interference.
     """
     # defining materials
-    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    m_shell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
-    m_core = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
+    m_air = HomogeneousMaterial("Air", 0.0, 0.0 )
+    m_shell = HomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    m_core = HomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
     parallelepiped1_ff = FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)

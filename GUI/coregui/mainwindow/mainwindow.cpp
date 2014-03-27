@@ -210,10 +210,10 @@ ISample *MainWindow::createDefaultSample()
     const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
     const IMaterial *mParticle = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
     Layer air_layer;
-    air_layer.setMaterial(mAir);
+    air_layer.setMaterial(*mAir);
     Layer substrate_layer;
-    substrate_layer.setMaterial(mSubstrate);
-    ParticleLayout particle_layout( new Particle(mParticle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    substrate_layer.setMaterial(*mSubstrate);
+    ParticleLayout particle_layout( new Particle(*mParticle, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
     air_layer.setLayout(particle_layout);
 

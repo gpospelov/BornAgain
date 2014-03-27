@@ -16,7 +16,7 @@
 #include "IsGISAXS10Builder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "Units.h"
@@ -41,22 +41,20 @@ ISample *IsGISAXS10Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-	const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air10", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate10", 5e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    HomogeneousMaterial air_material("Air10", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate10", 5e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 5e-5, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
     IInterferenceFunction *p_interference_function =
             new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
                     7*Units::nanometer, 1e7*Units::nanometer);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 5e-5, 2e-8);
 
-    ParticleLayout particle_layout(new Particle(particle_material,
-            new FormFactorCylinder(m_cylinder_radius, m_cylinder_height)));
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+
+    ParticleLayout particle_layout(new Particle(particle_material, ff_cylinder));
     particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);

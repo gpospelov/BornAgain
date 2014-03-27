@@ -25,15 +25,8 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::IMaterial const * material, double thickness=0, ::ILayout * decoration=0 )
-    : Layer( boost::python::ptr(material), thickness, boost::python::ptr(decoration) )
-      , bp::wrapper< Layer >(){
-        // constructor
-    
-    }
-
-    Layer_wrapper(::IMaterial const * material, double thickness, ::ILayout const & decoration )
-    : Layer( boost::python::ptr(material), thickness, boost::ref(decoration) )
+    Layer_wrapper(::IMaterial const & material, double thickness=0 )
+    : Layer( boost::ref(material), thickness )
       , bp::wrapper< Layer >(){
         // constructor
     
@@ -49,10 +42,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::Layer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->Layer::clone(  );
-        }
     }
+    
     
     ::Layer * default_clone(  ) const  {
         return Layer::clone( );
@@ -61,20 +54,20 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::Layer * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else{
+        else
             return this->Layer::cloneInvertB(  );
-        }
     }
+    
     
     ::Layer * default_cloneInvertB(  ) const  {
         return Layer::cloneInvertB( );
     }
 
-    virtual ::IDecoration const * getDecoration(  ) const  {
-        if( bp::override func_getDecoration = this->get_override( "getDecoration" ) )
-            return func_getDecoration(  );
+    virtual ::ILayout const * getLayout(  ) const  {
+        if( bp::override func_getLayout = this->get_override( "getLayout" ) )
+            return func_getLayout(  );
         else
-            return this->Layer::getDecoration(  );
+            return this->Layer::getLayout(  );
     }
     
     
@@ -85,10 +78,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
-        else{
+        else
             return this->Layer::getMaterial(  );
-        }
     }
+    
     
     ::IMaterial const * default_getMaterial(  ) const  {
         return Layer::getMaterial( );
@@ -97,10 +90,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else{
+        else
             return this->Layer::getRefractiveIndex(  );
-        }
     }
+    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return Layer::getRefractiveIndex( );
@@ -109,10 +102,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual double getThickness(  ) const  {
         if( bp::override func_getThickness = this->get_override( "getThickness" ) )
             return func_getThickness(  );
-        else{
+        else
             return this->Layer::getThickness(  );
-        }
     }
+    
     
     double default_getThickness(  ) const  {
         return Layer::getThickness( );
@@ -121,20 +114,20 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual double getTotalParticleSurfaceDensity(  ) const  {
         if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
             return func_getTotalParticleSurfaceDensity(  );
-        else{
+        else
             return this->Layer::getTotalParticleSurfaceDensity(  );
-        }
     }
+    
     
     double default_getTotalParticleSurfaceDensity(  ) const  {
         return Layer::getTotalParticleSurfaceDensity( );
     }
 
-    virtual void setDecoration( ::IDecoration const & decoration ) {
-        if( bp::override func_setDecoration = this->get_override( "setDecoration" ) )
-            func_setDecoration( boost::ref(decoration) );
+    virtual void setLayout( ::ILayout const & decoration ) {
+        if( bp::override func_setLayout = this->get_override( "setLayout" ) )
+            func_setLayout( boost::ref(decoration) );
         else
-            this->Layer::setDecoration( boost::ref(decoration) );
+            this->Layer::setLayout( boost::ref(decoration) );
     }
     
     
@@ -142,25 +135,37 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         Layer::setLayout( boost::ref(decoration) );
     }
 
-    virtual void setMaterial( ::IMaterial const * material ) {
+    virtual void setMaterial( ::IMaterial const & material ) {
         if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
-            func_setMaterial( boost::python::ptr(material) );
-        else{
-            this->Layer::setMaterial( boost::python::ptr(material) );
-        }
+            func_setMaterial( boost::ref(material) );
+        else
+            this->Layer::setMaterial( boost::ref(material) );
     }
     
-    void default_setMaterial( ::IMaterial const * material ) {
-        Layer::setMaterial( boost::python::ptr(material) );
+    
+    void default_setMaterial( ::IMaterial const & material ) {
+        Layer::setMaterial( boost::ref(material) );
+    }
+
+    virtual void setMaterialAndThickness( ::IMaterial const & material, double thickness ) {
+        if( bp::override func_setMaterialAndThickness = this->get_override( "setMaterialAndThickness" ) )
+            func_setMaterialAndThickness( boost::ref(material), thickness );
+        else
+            this->Layer::setMaterialAndThickness( boost::ref(material), thickness );
+    }
+    
+    
+    void default_setMaterialAndThickness( ::IMaterial const & material, double thickness ) {
+        Layer::setMaterialAndThickness( boost::ref(material), thickness );
     }
 
     virtual void setThickness( double thickness ) {
         if( bp::override func_setThickness = this->get_override( "setThickness" ) )
             func_setThickness( thickness );
-        else{
+        else
             this->Layer::setThickness( thickness );
-        }
     }
+    
     
     void default_setThickness( double thickness ) {
         Layer::setThickness( thickness );
@@ -169,10 +174,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -181,10 +186,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -193,10 +198,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else{
+        else
             return this->ISample::containsMagneticMaterial(  );
-        }
     }
+    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -205,10 +210,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -217,10 +222,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ICompositeSample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -229,10 +234,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else{
+        else
             return this->ICompositeSample::getCompositeSample(  );
-        }
     }
+    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -241,10 +246,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -253,10 +258,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else{
+        else
             this->ISample::printSampleTree(  );
-        }
     }
+    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -284,10 +289,10 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -296,24 +301,24 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
+    virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else{
+        else
             return this->ICompositeSample::size(  );
-        }
     }
     
-    ::size_t default_size(  ) const  {
+    
+    ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
     }
 
@@ -325,8 +330,7 @@ void register_Layer_class(){
         typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Layer_exposer_t;
         Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
         bp::scope Layer_scope( Layer_exposer );
-        Layer_exposer.def( bp::init< IMaterial const *, bp::optional< double, ILayout * > >(( bp::arg("material"), bp::arg("thickness")=0, bp::arg("decoration")=bp::object() )) );
-        Layer_exposer.def( bp::init< IMaterial const *, double, ILayout const & >(( bp::arg("material"), bp::arg("thickness"), bp::arg("decoration") )) );
+        Layer_exposer.def( bp::init< IMaterial const &, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) );
         Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
         { //::Layer::clone
         
@@ -423,14 +427,26 @@ void register_Layer_class(){
         }
         { //::Layer::setMaterial
         
-            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const * ) ;
-            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const * ) ;
+            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const & ) ;
+            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const & ) ;
             
             Layer_exposer.def( 
                 "setMaterial"
                 , setMaterial_function_type(&::Layer::setMaterial)
                 , default_setMaterial_function_type(&Layer_wrapper::default_setMaterial)
                 , ( bp::arg("material") ) );
+        
+        }
+        { //::Layer::setMaterialAndThickness
+        
+            typedef void ( ::Layer::*setMaterialAndThickness_function_type )( ::IMaterial const &,double ) ;
+            typedef void ( Layer_wrapper::*default_setMaterialAndThickness_function_type )( ::IMaterial const &,double ) ;
+            
+            Layer_exposer.def( 
+                "setMaterialAndThickness"
+                , setMaterialAndThickness_function_type(&::Layer::setMaterialAndThickness)
+                , default_setMaterialAndThickness_function_type(&Layer_wrapper::default_setMaterialAndThickness)
+                , ( bp::arg("material"), bp::arg("thickness") ) );
         
         }
         { //::Layer::setThickness
@@ -571,8 +587,8 @@ void register_Layer_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::size_t ( Layer_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
+            typedef ::std::size_t ( Layer_wrapper::*default_size_function_type )(  ) const;
             
             Layer_exposer.def( 
                 "size"

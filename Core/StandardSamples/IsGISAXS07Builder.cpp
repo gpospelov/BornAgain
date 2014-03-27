@@ -16,7 +16,7 @@
 #include "IsGISAXS07Builder.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "FormFactorBox.h"
 #include "Simulation.h"
 #include "OutputDataIOFactory.h"
@@ -34,17 +34,12 @@ IsGISAXS07Builder::IsGISAXS07Builder()
 
 ISample *IsGISAXS07Builder::buildSample() const
 {
-
-    // building sample
     MultiLayer* multi_layer = new MultiLayer();
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
+    Layer air_layer(air_material);
 
     ParticleLayout particle_layout;
 

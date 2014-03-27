@@ -24,7 +24,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
@@ -279,14 +279,13 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
     double height = m_height_aspect_ratio*m_particle_radius;
-    FormFactorCylinder *ff_cylinder = new FormFactorCylinder(m_particle_radius, height);
+    FormFactorCylinder ff_cylinder(m_particle_radius, height);
     Particle cylinder(particle_material, ff_cylinder );
 
     // radius of nanoparticles will be sampled with gaussian probability

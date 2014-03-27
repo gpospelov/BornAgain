@@ -10,7 +10,7 @@
 #include "OutputDataIOFactory.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "FormFactors.h"
 #include "InterferenceFunctionNone.h"
 
@@ -31,19 +31,17 @@ FunctionalTests::FTestFormFactors::~FTestFormFactors()
 // (different shapes but only one at a time)
 void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
 {
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     //building sample
     MultiLayer multi_layer;
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
 
     mp_form_factor=p_form_factor;
     ParticleLayout particle_layout( new Particle(particle_material,
-                                                         mp_form_factor));
+                                                         *mp_form_factor));
     particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
     air_layer.setLayout(particle_layout);
     multi_layer.addLayer(air_layer);

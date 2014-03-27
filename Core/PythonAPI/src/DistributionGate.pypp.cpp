@@ -35,10 +35,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual ::DistributionGate * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->DistributionGate::clone(  );
+        }
     }
-    
     
     ::DistributionGate * default_clone(  ) const  {
         return DistributionGate::clone( );
@@ -47,10 +47,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
-        else
+        else{
             return this->DistributionGate::getMean(  );
+        }
     }
-    
     
     double default_getMean(  ) const  {
         return DistributionGate::getMean( );
@@ -59,10 +59,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual double probabilityDensity( double x ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( x );
-        else
+        else{
             return this->DistributionGate::probabilityDensity( x );
+        }
     }
-    
     
     double default_probabilityDensity( double x ) const  {
         return DistributionGate::probabilityDensity( x );
@@ -71,10 +71,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -83,10 +83,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -95,10 +95,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -107,10 +107,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -138,10 +138,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -150,10 +150,10 @@ struct DistributionGate_wrapper : DistributionGate, bp::wrapper< DistributionGat
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );

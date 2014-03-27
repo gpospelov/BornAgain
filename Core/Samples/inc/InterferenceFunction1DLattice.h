@@ -28,7 +28,7 @@ class BA_CORE_API_ InterferenceFunction1DLattice : public IInterferenceFunction
 {
 public:
 
-    //! @brief contructor
+    //! @brief constructor
     //! @param lattice_params Lattice parameters
     InterferenceFunction1DLattice(const Lattice1DIFParameters& lattice_params);
     virtual ~InterferenceFunction1DLattice();

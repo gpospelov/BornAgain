@@ -40,10 +40,10 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
-        else
+        else{
             this->FitStrategyFixParameters::clear(  );
+        }
     }
-    
     
     void default_clear(  ) {
         FitStrategyFixParameters::clear( );
@@ -52,10 +52,10 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     virtual ::FitStrategyFixParameters * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FitStrategyFixParameters::clone(  );
+        }
     }
-    
     
     ::FitStrategyFixParameters * default_clone(  ) const  {
         return FitStrategyFixParameters::clone( );
@@ -64,10 +64,10 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     virtual void setFixed( ::std::vector< std::string > const & pars ) {
         if( bp::override func_setFixed = this->get_override( "setFixed" ) )
             func_setFixed( boost::ref(pars) );
-        else
+        else{
             this->FitStrategyFixParameters::setFixed( boost::ref(pars) );
+        }
     }
-    
     
     void default_setFixed( ::std::vector< std::string > const & pars ) {
         FitStrategyFixParameters::setFixed( boost::ref(pars) );
@@ -76,10 +76,10 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else
+        else{
             this->FitStrategyAdjustParameters::execute(  );
+        }
     }
-    
     
     void default_execute(  ) {
         FitStrategyAdjustParameters::execute( );
@@ -88,10 +88,10 @@ struct FitStrategyFixParameters_wrapper : FitStrategyFixParameters, bp::wrapper<
     virtual void setPreserveOriginalValues( bool preserve_values ) {
         if( bp::override func_setPreserveOriginalValues = this->get_override( "setPreserveOriginalValues" ) )
             func_setPreserveOriginalValues( preserve_values );
-        else
+        else{
             this->FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
+        }
     }
-    
     
     void default_setPreserveOriginalValues( bool preserve_values ) {
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );

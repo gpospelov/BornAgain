@@ -77,9 +77,6 @@ set(UM_IMAGES
     Figures/HemiEllipsoid2dxy.eps		
     Figures/HemiEllipsoid2dxz.eps		
     Figures/HemiEllipsoid3d.png				            
-    Figures/Parallelepiped2dxy.eps	
-    Figures/Parallelepiped2dxz.eps	
-    Figures/Parallelepiped3d.png	
     Figures/Prism32dxy.eps		
     Figures/Prism32dxz.eps		
     Figures/Prism33d.png		
@@ -108,7 +105,6 @@ set(UM_IMAGES
     Figures/figffhemiellips.pdf
     Figures/figfffsphere.pdf
     Figures/figfffspheroid.pdf
-    Figures/figffparallel.pdf
     Figures/figffpyramid.pdf
     Figures/figffprism3.pdf
     Figures/figffprism6.pdf
@@ -126,6 +122,13 @@ set(UM_IMAGES
     Figures/CoreShellParallPyr.pdf
     Figures/CoreShellParallPyrxy.eps
     Figures/CoreShellParallPyrxz.eps
+    Figures/HSphere_NoInterf.pdf
+    Figures/HSphere_1DDL.pdf
+    Figures/1DGrating.eps
+    Figures/2Dlattice.eps
+    Figures/1Dparacrystal.eps
+    Figures/HSphere_2Dlattice.pdf
+    Figures/HSphere_2DDL.pdf
 )
 
 

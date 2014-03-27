@@ -95,6 +95,7 @@
 \newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
 
 \usepackage{longtable,tabulary,tabularx}
+\usepackage{pdflscape}
 %-------------------------------------------------------------------------------
 %	TABULARY AND LONGTABLE http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
 %-------------------------------------------------------------------------------
@@ -131,6 +132,7 @@
 %-------------------------------------------------------------------------------
 %	CUSTON LISTING SETTINGS
 %-------------------------------------------------------------------------------
+
 \usepackage{listings}
 \usepackage{lstcustom}
 \usepackage{enumerate}
@@ -167,6 +169,10 @@
     \chapter*{#2}
     \addcontentsline{toc}{chapter}{#2}
 }
+
+\renewcommand\Im{\operatorname{Im}}
+\renewcommand\Re{\operatorname{Re}}
+
 
 %-------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -220,6 +226,7 @@ Forschungszentrum J\"ulich GmbH
 
 \input{AppendixListings}
 \input{ff}
+\input{interferences}
 %\input{AppendixPhysics}
 
 \bibliographystyle{switch}

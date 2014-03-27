@@ -1441,9 +1441,9 @@ def get_sample():
     Build and return the sample to calculate formfactor in Born or Distorted Wave Born Approximation.
     """
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     ff= FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)
@@ -1561,10 +1561,10 @@ def get_sample():
     Build and return the sample in Distorted Wave Born Approximation.
     """
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_interm_layer = MaterialManager.getHomogeneousMaterial("IntermLayer",3.45e-6, 5.24e-9)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 0.0, 0.0)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_interm_layer = HomogeneousMaterial("IntermLayer",3.45e-6, 5.24e-9)
+    m_substrate = HomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
+    m_particle = HomogeneousMaterial("Particle", 0.0, 0.0)
 
     # collection of particles 
     ff = FormFactorFullSphere(10.2*nanometer)
@@ -1657,9 +1657,9 @@ def get_sample():
     Build and return the sample to calculate core-shell formfactor in Born Approximation.
     """
     # defining materials 
-    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_shell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8)
-    m_core = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8)
+    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_shell = HomogeneousMaterial("Shell", 1e-4, 2e-8)
+    m_core = HomogeneousMaterial("Core", 6e-5, 2e-8)
 
     # collection of particles
     outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 

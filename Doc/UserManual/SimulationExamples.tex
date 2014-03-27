@@ -43,17 +43,16 @@ def get_sample(): @\label{def_function}@
     substrate without interference.
    """
     # defining materials @\label{material1}@
-    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8) @\label{material3}@
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@
+    m_air = HomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8) @\label{material3}@
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8) @\label{materialparticle}@
 
 \end{lstlisting}
 Line~\ref{def_function} marks the beginning of the
 function to define our sample. Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
-materials using function \Code{getHomogeneousMaterial} from class
-\Code{MaterialManager}. The general syntax is the following 
+materials using class \Code{HomogeneousMaterial}. The general syntax is the following 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-<material_name> = MaterialManager.getHomogeneousMaterial("name", delta, beta)
+<material_name> =HomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
 where \Code{name} is the name of the
 material associated with its complex refractive index

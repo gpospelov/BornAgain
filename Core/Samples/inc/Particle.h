@@ -36,6 +36,9 @@ public:
     Particle(const IMaterial &p_material, const IFormFactor &form_factor);
     Particle(const IMaterial &p_material, const IFormFactor &form_factor,
             const Geometry::Transform3D &transform);
+    Particle(IMaterial *p_material, IFormFactor *form_factor=0,
+            Geometry::Transform3D *transform = 0);
+
     virtual ~Particle();
     virtual Particle *clone() const;
 

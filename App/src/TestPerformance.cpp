@@ -19,16 +19,15 @@
 
 TestPerformance::TestPerformance()
 {
-    m_tests.push_back(new PerformanceTest("isgisaxs01",100));
-//    m_tests.push_back(new PerformanceTest("isgisaxs02",2));
-//    m_tests.push_back(new PerformanceTest("isgisaxs06a",50));
-//    m_tests.push_back(new PerformanceTest("isgisaxs09b",50));
-//    m_tests.push_back(new PerformanceTest("isgisaxs11",50));
-//    m_tests.push_back(new PerformanceTest("isgisaxs15",20));
-//    m_tests.push_back(new PerformanceTest("mesocrystal01",1));
-//    m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
-//    m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
-//    m_tests.push_back(new PerformanceTest("magcyl2",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs02",1));
+    m_tests.push_back(new PerformanceTest("isgisaxs06a",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs09b",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs11",50));
+    m_tests.push_back(new PerformanceTest("isgisaxs15",20));
+    m_tests.push_back(new PerformanceTest("mesocrystal01",1));
+    m_tests.push_back(new SpecularMatrixPerformanceTest("specmatrix", 500000));
+    m_tests.push_back(new SpecularMagneticPerformanceTest("specmagnetic", 500000));
+    m_tests.push_back(new PerformanceTest("magcyl2",50));
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
 }
 

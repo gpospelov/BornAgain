@@ -52,7 +52,7 @@ private:
     std::vector<double> m_vx;
     //! z coordinates of surface (heights) randomly generated with gaus
     std::vector<double> m_vzuncorr;
-    //! actial z coordinates of surface, correlated according correlation function of surface [??]
+    //! actual z coordinates of surface, correlated according correlation function of surface [??]
     std::vector<double> m_vzcorr;
 
     typedef void (TestRoughness::*TestMethod)();

@@ -21,7 +21,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
@@ -205,16 +205,16 @@ ISample *TestInfLongRipple2::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
    // defining materials
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("GaAs", 7.04e-5, 1.0233e-8);
-    const IMaterial *silver_material = MaterialManager::getHomogeneousMaterial("Ag", 7.948e-5, 2.36e-7);
-    const IMaterial *iron_material = MaterialManager::getHomogeneousMaterial("Fe", 1.839e-4, 1.38e-8);
-    //const IMaterial *cr_material = MaterialManager.getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
-    const IMaterial *cr_material = MaterialManager::getHomogeneousMaterial("Cr", 6.94e-5, 1.62e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("GaAs", 7.04e-5, 1.0233e-8);
+    HomogeneousMaterial silver_material("Ag", 7.948e-5, 2.36e-7);
+    HomogeneousMaterial iron_material("Fe", 1.839e-4, 1.38e-8);
+    //HomogeneousMaterial cr_material("Cr", 6.94e-5, 1.62e-8);
+    HomogeneousMaterial cr_material("Cr", 6.94e-5, 1.62e-8);
 
 
     Layer air_layer(air_material);
-    FormFactorInfLongRipple2 *ff = new FormFactorInfLongRipple2(m_w, m_h, m_d);
+    FormFactorInfLongRipple2 ff(m_w, m_h, m_d);
     Particle ibox(iron_material, ff );
 
     Geometry::Transform3D transform =

@@ -73,7 +73,7 @@ struct make_addressof_holder{
             return bpl::detail::none();
         }
         else{
-            size_t addressof_p = size_t( p );
+            boost::uint32_t addressof_p = reinterpret_cast< boost::uint32_t >( p );
             bpl::object p_address( addressof_p );
             return bpl::incref( p_address.ptr() );
         }
@@ -152,11 +152,6 @@ struct as_tuple_impl{
         MemoryManager::deallocate_array( arr );
         return bpl::incref( bpl::tuple( list_ ).ptr() );
     }
-
-    static PyTypeObject const *get_pytype(){
-        return &PyTuple_Type;
-    }
-
 };
 
 }

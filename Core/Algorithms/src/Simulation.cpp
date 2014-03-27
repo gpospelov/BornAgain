@@ -140,6 +140,8 @@ void Simulation::runSimulation()
 
 	// no averaging needed:
 	if (param_combinations == 1) {
+        ParameterPool *p_param_pool = createParameterTree();
+        m_distribution_handler.setParameterValues(p_param_pool, 0);
 		runSingleSimulation();
         //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
         return;

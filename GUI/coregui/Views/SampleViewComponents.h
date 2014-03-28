@@ -6,7 +6,6 @@
 #include "widgetbox.h"
 
 #include "SamplePropertyEditor.h"
-#include "SampleTreeInspector.h"
 #include "SampleWidgetBox.h"
 #include "SessionModel.h"
 

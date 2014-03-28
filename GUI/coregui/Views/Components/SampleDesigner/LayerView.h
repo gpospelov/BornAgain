@@ -5,6 +5,29 @@
 #include "MaterialBrowser.h"
 #include "Layer.h"
 
+
+
+
+class LayerView2 : public ConnectableView
+{
+    Q_OBJECT
+public:
+    enum { Type = DesignerHelper::LayerType };
+
+    LayerView2(QGraphicsItem *parent = 0);
+    ~LayerView2() { }
+
+    int type() const { return Type; }
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+
+};
+
+
+
+
+
 //! graphics representation of Layer
 class LayerView : public ConnectableView
 {

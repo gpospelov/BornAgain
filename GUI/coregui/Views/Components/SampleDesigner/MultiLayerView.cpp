@@ -17,6 +17,45 @@
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
 
+
+
+
+
+
+
+MultiLayerView2::MultiLayerView2(QGraphicsItem *parent)
+    : ConnectableView(parent)
+{
+    setColor(QColor(Qt::blue));
+    setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
+    setToolTip(QString("MultiLayer"));
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    setAcceptDrops(true);
+}
+
+void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(widget);
+    painter->setPen(m_color);
+    if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
+        painter->setPen(Qt::DashLine);
+    }
+    painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
+    painter->drawRect(getRectangle());
+}
+
+
+
+
+
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     : ConnectableView(parent)
     , m_fixed_xpos(0)

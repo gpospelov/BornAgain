@@ -82,11 +82,11 @@ public:
     void load(const QString &filename=QString());
     void save(const QString &filename=QString());
 
+    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
                                      int row=-1);
-    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
     void readProperty(QXmlStreamReader *reader, ParameterizedItem *item);

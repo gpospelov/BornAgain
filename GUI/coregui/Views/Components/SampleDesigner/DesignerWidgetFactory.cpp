@@ -44,10 +44,10 @@ DesignerWidgetFactory::DesignerWidgetFactory()
 //        IFactoryCreateFunction<FormFactorPrism3View, IView>
 //    );
 
-   registerItem(
-        "ParticleLayout",
-        IFactoryCreateFunction<ParticleLayoutView, IView>
-    );
+//   registerItem(
+//        "ParticleLayout",
+//        IFactoryCreateFunction<ParticleLayoutView, IView>
+//    );
 
 //   registerItem(
 //        "InterferenceFunction1DParaCrystal",

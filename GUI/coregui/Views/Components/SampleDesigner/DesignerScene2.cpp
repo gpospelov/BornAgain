@@ -1,9 +1,10 @@
 #include "DesignerScene2.h"
 #include "DesignerHelper.h"
 #include "SessionModel.h"
-#include "DesignerWidgetFactory.h"
+#include "SampleViewFactory.h"
 #include "IView.h"
 #include "ConnectableView.h"
+#include "ParameterizedGraphicsItem.h"
 #include <QItemSelection>
 #include <QDebug>
 
@@ -67,7 +68,7 @@ void DesignerScene2::onSessionSelectionChanged(const QItemSelection &selected, c
 
     QModelIndexList indices = selected.indexes();
     if(indices.size()) {
-        ParameterizedItem *item = static_cast<ParameterizedItem *>(
+        ParameterizedGraphicsItem *item = static_cast<ParameterizedGraphicsItem *>(
                 indices.back().internalPointer());
         Q_ASSERT(item);
         IView *view = m_ItemToView[item];
@@ -92,7 +93,7 @@ void DesignerScene2::onSceneSelectionChanged()
     for(int i=0; i<selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
         if(view) {
-            ParameterizedItem *sessionItem = view->getSessionItem();
+            ParameterizedGraphicsItem *sessionItem = view->getSessionItem();
             QModelIndex itemIndex = m_sessionModel->indexOfItem(sessionItem);
             m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
             break; // selection of only one item will be propagated to the model
@@ -114,25 +115,18 @@ void DesignerScene2::update(const QModelIndex & parentIndex)
     }
 
     for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex ); ++i_row) {
-//        int i_col = 0;
-         for( int i_col = 0; i_col < m_sessionModel->columnCount( parentIndex ); ++i_col ) {
-             //if(i_col != 0) continue;
-             QModelIndex itemIndex = m_sessionModel->index( i_row, i_col, parentIndex );
-             qDebug() << i_row << " " << i_col << " " << itemIndex.data( Qt::DisplayRole ).toString();
+         QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
 
-             if (ParameterizedItem *item = static_cast<ParameterizedItem *>(
-                         itemIndex.internalPointer())){
-                // qDebug() << item->itemName();
+         if (ParameterizedItem *item = static_cast<ParameterizedItem *>(
+                     itemIndex.internalPointer())){
 
-                 addViewForItem(item);
+                addViewForItem(item);
 
-             } else {
-                 qDebug() << "not a parameterized item";
-             }
-
-             update( itemIndex);
-             break;
+         } else {
+             qDebug() << "not a parameterized graphics item";
          }
+
+         update( itemIndex);
      }
 
 
@@ -143,14 +137,20 @@ void DesignerScene2::addViewForItem(ParameterizedItem *item)
 {
     qDebug() << "DesignerScene2::addViewForItem() ->";
     Q_ASSERT(item);
-    IView *view = m_ItemToView[item];
+
+    if( !SampleViewFactory::isValidName(item->modelType()) ) return;
+
+    ParameterizedGraphicsItem *graphicsItem = static_cast<ParameterizedGraphicsItem *>(item);
+
+    IView *view = m_ItemToView[graphicsItem];
     if(!view) {
-        qDebug() << "Creating view for item" << item->itemName();
-        view = DesignerWidgetFactory::createView(item->modelType());
-        Q_ASSERT(view);
-        m_ItemToView[item] = view;
-        view->setSessionItem(item);
-        addItem(view);
+        qDebug() << "Creating view for item" << graphicsItem->itemName();
+        view = SampleViewFactory::createSampleView(graphicsItem->modelType());
+        if(view) {
+            m_ItemToView[graphicsItem] = view;
+            view->setSessionItem(static_cast<ParameterizedGraphicsItem *>(graphicsItem));
+            addItem(view);
+        }
     } else {
         qDebug() << "View for item exists." << item->itemName();
 

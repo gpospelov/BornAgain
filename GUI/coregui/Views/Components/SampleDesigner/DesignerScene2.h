@@ -8,9 +8,11 @@
 
 class SessionModel;
 class ParameterizedItem;
+class ParameterizedGraphicsItem;
 class QItemSelectionModel;
 class IView;
 class QItemSelection;
+
 
 class DesignerScene2 : public DesignerSceneInterface
 {
@@ -36,7 +38,7 @@ private:
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 
-    QMap<ParameterizedItem *, IView *> m_ItemToView;
+    QMap<ParameterizedGraphicsItem *, IView *> m_ItemToView;
 };
 
 

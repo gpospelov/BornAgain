@@ -16,9 +16,9 @@
 #ifndef LAYERITEM_H
 #define LAYERITEM_H
 
-#include "ParameterizedItem.h"
+#include "ParameterizedGraphicsItem.h"
 
-class LayerItem : public ParameterizedItem
+class LayerItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:

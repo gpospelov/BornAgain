@@ -5,7 +5,7 @@
 
 #include "DesignerHelper.h"
 #include "IViewVisitor.h"
-class ParameterizedItem;
+class ParameterizedGraphicsItem;
 
 //! parent class for graphic representation of all ISample's
 class IView : public QGraphicsObject
@@ -21,12 +21,12 @@ public:
 
     int type() const { return Type; }
 
-    void setSessionItem(ParameterizedItem *item) { m_item = item; }
+    void setSessionItem(ParameterizedGraphicsItem *item) { m_item = item; }
 
-    ParameterizedItem *getSessionItem() { return m_item; }
+    ParameterizedGraphicsItem *getSessionItem() { return m_item; }
 
-private:
-    ParameterizedItem *m_item;
+protected:
+    ParameterizedGraphicsItem *m_item;
 
 };
 

@@ -66,9 +66,13 @@ void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
 {
     (void)deselected;
     QModelIndexList indices = selected.indexes();
-    ParameterizedItem *item = static_cast<ParameterizedItem *>(
+    if(indices.size()) {
+        ParameterizedItem *item = static_cast<ParameterizedItem *>(
                 indices.back().internalPointer());
-    setItem(item);
+        setItem(item);
+    } else {
+        setItem(0);
+    }
 }
 
 void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)

@@ -25,9 +25,9 @@ SampleDesigner::~SampleDesigner()
 }
 
 
-void SampleDesigner::setModel(SessionModel *model)
+void SampleDesigner::setSessionModel(SessionModel *model)
 {
-    if(model) m_designerScene->setModel(model);
+    if(model) m_designerScene->setSessionModel(model);
 }
 
 

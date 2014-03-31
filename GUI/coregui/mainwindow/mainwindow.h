@@ -28,6 +28,7 @@ class ProjectManager;
 class QCloseEvent;
 class QSettings;
 class JobQueueModel;
+class SessionModel;
 
 
 //class MainWindow : public QMainWindow
@@ -40,15 +41,13 @@ public:
     ~MainWindow();
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
+    SessionModel *getSessionModel() { return m_sessionModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
 
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
 
-
 public slots:
     void onChangeTabWidget(int index);
-    //void newProject();
-    //void openProject();
     void openRecentProject();
     void readSettings();
     void writeSettings();
@@ -77,10 +76,12 @@ private:
 
     SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
+    SessionModel *m_sessionModel; //!< model for all samples
 
     // dummy simulation model initializer for test purposes
     void initSimModel();
     void initJobQueueModel();
+    void initSessionModel();
     // dummy instrument creator
     Instrument *createDefaultInstrument();
     ISample *createDefaultSample();

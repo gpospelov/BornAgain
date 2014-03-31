@@ -7,17 +7,17 @@
 
 class ParameterizedGraphicsItem : public ParameterizedItem
 {
+    Q_OBJECT
 public:
 
 protected:
     explicit ParameterizedGraphicsItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0)
-        : ParameterizedItem(model_type, parent) , m_xpos(0), m_ypos (0) {}
-
-
-private:
-    int m_xpos;
-    int m_ypos;
+        : ParameterizedItem(model_type, parent)
+    {
+        setProperty("xpos", qreal(0.0));
+        setProperty("ypos", qreal(0.0));
+    }
 };
 
 #endif

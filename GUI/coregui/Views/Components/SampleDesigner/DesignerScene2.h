@@ -22,7 +22,7 @@ public:
     explicit DesignerScene2(QObject *parent = 0);
     virtual ~DesignerScene2(){}
 
-    void setModel(SessionModel *model);
+    void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
     void update(const QModelIndex &parentIndex = QModelIndex());
@@ -38,7 +38,7 @@ private:
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 
-    QMap<ParameterizedGraphicsItem *, IView *> m_ItemToView;
+    QMap<ParameterizedItem *, IView *> m_ItemToView;
 };
 
 

@@ -1,4 +1,5 @@
 #include "projectdocument.h"
+#include "SessionModel.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "OutputDataItem.h"
@@ -8,23 +9,22 @@
 #include <QDir>
 #include <QModelIndex>
 #include "GUIHelpers.h"
-//#include <iostream>
-//#include <QDomDocument>
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 #include <QDebug>
 
 
-
 ProjectDocument::ProjectDocument()
-    : m_jobQueueModel(0)
+    : m_sessionModel(0)
+    , m_jobQueueModel(0)
     , m_modified(false)
 {
 
 }
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
-    : m_jobQueueModel(0)
+    : m_sessionModel(0)
+    , m_jobQueueModel(0)
     , m_modified(false)
 {
     setProjectFileName(projectFileName);
@@ -47,6 +47,7 @@ void ProjectDocument::setProjectFileName(const QString &projectFileName)
 ProjectDocument::ProjectDocument(const QString &path, const QString &name)
     : m_project_path(path)
     , m_project_name(name)
+    , m_sessionModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
 {
@@ -62,9 +63,20 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 }
 
 
-void ProjectDocument::setModel(JobQueueModel *model)
+void ProjectDocument::setSessionModel(SessionModel *model)
+{
+    if(model != m_sessionModel) {
+        if(m_sessionModel) disconnect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        m_sessionModel = model;
+        connect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    }
+}
+
+
+void ProjectDocument::setJobQueueModel(JobQueueModel *model)
 {
     if(model != m_jobQueueModel) {
+        if(m_jobQueueModel) disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
         m_jobQueueModel = model;
         connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }
@@ -92,6 +104,7 @@ bool ProjectDocument::save()
     writeTo(&file);
     file.close();
 
+    // saving of non-xml data
     saveOutputData();
 
     m_modified = false;
@@ -118,6 +131,7 @@ bool ProjectDocument::load()
     bool success_read = readFrom(&file);
     file.close();
 
+    // loading non-xml data
     loadOutputData();
 
     return success_read;
@@ -126,6 +140,8 @@ bool ProjectDocument::load()
 
 bool ProjectDocument::readFrom(QIODevice *device)
 {
+    Q_ASSERT(m_sessionModel);
+    disconnect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
     Q_ASSERT(m_jobQueueModel);
     disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
@@ -138,6 +154,9 @@ bool ProjectDocument::readFrom(QIODevice *device)
 
             if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
+            } else if(reader.name() == SessionXML::ModelTag) {
+                m_sessionModel->readFrom(&reader);
+
             } else if(reader.name() == JobQueueXML::ModelTag) {
                 m_jobQueueModel->readFrom(&reader);
             }
@@ -147,6 +166,7 @@ bool ProjectDocument::readFrom(QIODevice *device)
     if (reader.hasError())
         throw GUIHelpers::Error(reader.errorString());
 
+    connect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
     return true;
@@ -166,25 +186,14 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
+    Q_ASSERT(m_sessionModel);
+    m_sessionModel->writeTo(&writer);
+
     Q_ASSERT(m_jobQueueModel);
     m_jobQueueModel->writeTo(&writer);
 
     writer.writeEndElement(); // BornAgain
     writer.writeEndDocument();
-
-//    const int IndentSize = 4;
-//    QTextStream out(device);
-//    QDomDocument dom_document("BornAgain");
-
-//    QDomProcessingInstruction xmlHeaderPI = dom_document.createProcessingInstruction("xml", "version=\"1.0\" " );
-//    dom_document.appendChild(xmlHeaderPI);
-//    QDomElement root = dom_document.createElement("BornAgain");
-//    dom_document.appendChild(root);
-//    QDomElement childElement = dom_document.createElement("project");
-//    childElement.setAttribute(QString("name"), getProjectName());
-//    root.appendChild(childElement);
-
-//    dom_document.save(out, IndentSize);
 
     return true;
 }

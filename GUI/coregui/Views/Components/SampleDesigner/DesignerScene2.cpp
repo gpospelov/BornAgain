@@ -25,40 +25,40 @@ DesignerScene2::DesignerScene2(QObject *parent)
 
 
 
-void DesignerScene2::setModel(SessionModel *model)
+void DesignerScene2::setSessionModel(SessionModel *model)
 {
-    Q_ASSERT(model);
+//    Q_ASSERT(model);
 
-    if(model != m_sessionModel) {
+//    if(model != m_sessionModel) {
 
-        m_sessionModel = model;
+//        m_sessionModel = model;
 
-        clear();
-        update();
-    }
+//        clear();
+//        update();
+//    }
 }
 
 
 void DesignerScene2::setSelectionModel(QItemSelectionModel *model)
 {
-    Q_ASSERT(model);
+//    Q_ASSERT(model);
 
-    if(model != m_selectionModel) {
+//    if(model != m_selectionModel) {
 
-        if(m_selectionModel) {
-            disconnect(m_selectionModel,
-                    SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-                    this,
-                    SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
-        }
+//        if(m_selectionModel) {
+//            disconnect(m_selectionModel,
+//                    SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+//                    this,
+//                    SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
+//        }
 
-        m_selectionModel = model;
+//        m_selectionModel = model;
 
-        connect(m_selectionModel,
-                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-                this,
-                SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
-    }
+//        connect(m_selectionModel,
+//                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+//                this,
+//                SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
+//    }
 }
 
 
@@ -72,11 +72,15 @@ void DesignerScene2::onSessionSelectionChanged(const QItemSelection &selected, c
                 indices.back().internalPointer());
         Q_ASSERT(item);
         IView *view = m_ItemToView[item];
-        Q_ASSERT(view);
-        m_block_selection = true;
-        clearSelection();
-        view->setSelected(true);
-        m_block_selection = false;
+        //Q_ASSERT(view);
+        if(view) {
+            m_block_selection = true;
+            clearSelection();
+            view->setSelected(true);
+            m_block_selection = false;
+        } else {
+            qDebug() << "DesignerScene2::onSessionSelectionChanged() -> Error! No such view";
+        }
     }
 
 }
@@ -93,7 +97,7 @@ void DesignerScene2::onSceneSelectionChanged()
     for(int i=0; i<selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
         if(view) {
-            ParameterizedGraphicsItem *sessionItem = view->getSessionItem();
+            ParameterizedItem *sessionItem = view->getSessionItem();
             QModelIndex itemIndex = m_sessionModel->indexOfItem(sessionItem);
             m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
             break; // selection of only one item will be propagated to the model
@@ -138,17 +142,13 @@ void DesignerScene2::addViewForItem(ParameterizedItem *item)
     qDebug() << "DesignerScene2::addViewForItem() ->";
     Q_ASSERT(item);
 
-    if( !SampleViewFactory::isValidName(item->modelType()) ) return;
-
-    ParameterizedGraphicsItem *graphicsItem = static_cast<ParameterizedGraphicsItem *>(item);
-
-    IView *view = m_ItemToView[graphicsItem];
+    IView *view = m_ItemToView[item];
     if(!view) {
-        qDebug() << "Creating view for item" << graphicsItem->itemName();
-        view = SampleViewFactory::createSampleView(graphicsItem->modelType());
+        qDebug() << "Creating view for item" << item->itemName();
+        view = SampleViewFactory::createSampleView(item->modelType());
         if(view) {
-            m_ItemToView[graphicsItem] = view;
-            view->setSessionItem(static_cast<ParameterizedGraphicsItem *>(graphicsItem));
+            m_ItemToView[item] = view;
+            view->setSessionItem(static_cast<ParameterizedItem *>(item));
             addItem(view);
         }
     } else {

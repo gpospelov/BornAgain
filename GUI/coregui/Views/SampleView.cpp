@@ -22,11 +22,12 @@
 #endif
 
 
-SampleView::SampleView(QWidget *parent)
+SampleView::SampleView(SessionModel *model, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
     , m_materialBrowser(new MaterialBrowser(this))
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
+    , m_session(model)
 {
     setObjectName(tr("SampleView"));
 
@@ -81,15 +82,6 @@ void SampleView::initSubWindows()
     m_subWindows[WidgetBoxSubWindow] =
             SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    m_session = new SessionModel();
-    // Temporary for testing
-    ParameterizedItem *multilayer = m_session->insertNewItem("MultiLayer");
-    ParameterizedItem *layer = m_session->insertNewItem("Layer",
-                   m_session->indexOfItem(multilayer));
-    m_session->insertNewItem("ParticleLayout",
-                   m_session->indexOfItem(layer));
-    m_session->insertNewItem("Layer");
-    // END temporary
     m_tree_view = SampleViewComponents::createTreeView(m_session, this);
     m_subWindows[SampleTreeView] = m_tree_view;
 
@@ -103,7 +95,7 @@ void SampleView::initSubWindows()
     ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
 
-    m_sampleDesigner->setModel(m_session);
+    m_sampleDesigner->setSessionModel(m_session);
     m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel());
 }
 

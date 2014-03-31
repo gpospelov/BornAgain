@@ -5,15 +5,16 @@
 
 #include "DesignerHelper.h"
 #include "IViewVisitor.h"
-class ParameterizedGraphicsItem;
+class ParameterizedItem;
 
 //! parent class for graphic representation of all ISample's
 class IView : public QGraphicsObject
 {
+    Q_OBJECT
 public:
     enum { Type = DesignerHelper::IViewType };
 
-    IView(QGraphicsItem *parent = 0) : QGraphicsObject(parent), m_item(0) {}
+    IView(QGraphicsItem *parent = 0);
     virtual ~IView(){}
 
     //! сalls the ISampleViewVisitor's visit method
@@ -21,12 +22,16 @@ public:
 
     int type() const { return Type; }
 
-    void setSessionItem(ParameterizedGraphicsItem *item) { m_item = item; }
+    void setSessionItem(ParameterizedItem *item);
 
-    ParameterizedGraphicsItem *getSessionItem() { return m_item; }
+    ParameterizedItem *getSessionItem() { return m_item; }
+
+public slots:
+    void onChangedX();
+    void onChangedY();
 
 protected:
-    ParameterizedGraphicsItem *m_item;
+    ParameterizedItem *m_item;
 
 };
 

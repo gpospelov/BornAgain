@@ -23,6 +23,8 @@
 #include "ParameterizedItem.h"
 
 namespace SessionXML {
+const QString ModelTag("SessionModel");
+const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
 const QString ItemNameAttribute("ItemName");
@@ -83,6 +85,10 @@ public:
     void save(const QString &filename=QString());
 
     ParameterizedItem *itemForIndex(const QModelIndex &index) const;
+
+    void readFrom(QXmlStreamReader *reader);
+    void writeTo(QXmlStreamWriter *writer);
+
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
@@ -96,6 +102,7 @@ private:
                        const char *property_name) const;
     QString m_filename;
     ParameterizedItem *m_root_item;
+    QString m_name; //!< model name
 };
 
 #endif // SESSIONMODEL_H

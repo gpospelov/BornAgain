@@ -14,23 +14,23 @@
 //
 // ************************************************************************** //
 
-#ifndef IOUTPUTDATANORMALIZER_H
-#define IOUTPUTDATANORMALIZER_H
+#ifndef IINTENSITYNORMALIZER_H
+#define IINTENSITYNORMALIZER_H
 
 #include "IParameterized.h"
 #include "OutputData.h"
 
 
-//! @class IOutputDataNormalizer
+//! @class IIntensityNormalizer
 //! @ingroup algorithms_internal
 //! @brief Interface to OutputData normalizers.
 
-class BA_CORE_API_ IOutputDataNormalizer : public IParameterized
+class BA_CORE_API_ IIntensityNormalizer : public IParameterized
 {
 public:
-    virtual ~IOutputDataNormalizer() {}
+    virtual ~IIntensityNormalizer() {}
 
-    virtual IOutputDataNormalizer*clone() const=0;
+    virtual IIntensityNormalizer*clone() const=0;
 
     virtual OutputData<double> *createNormalizedData(
             const OutputData<double>& data) const=0;
@@ -39,23 +39,23 @@ public:
 };
 
 
-//! @class OutputDataNormalizer
+//! @class IntensityNormalizer
 //! @ingroup algorithms_internal
 //! @brief Standard OutputData normalizer, with configurable max_intensity.
 
-class BA_CORE_API_ OutputDataNormalizer : public IOutputDataNormalizer
+class BA_CORE_API_ IntensityNormalizer : public IIntensityNormalizer
 {
 public:
-    OutputDataNormalizer(double scale=1.0, double shift=0.0)
+    IntensityNormalizer(double scale=1.0, double shift=0.0)
         : m_scale(scale), m_shift(shift), m_max_intensity(0.0)
     {
         setName("Normalizer");
         init_parameters();
     }
 
-    virtual ~OutputDataNormalizer() {}
+    virtual ~IntensityNormalizer() {}
 
-    virtual OutputDataNormalizer *clone() const;
+    virtual IntensityNormalizer *clone() const;
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double >& data) const;
 
@@ -72,25 +72,25 @@ protected:
 };
 
 
-//! @class OutputDataSimpleNormalizer
+//! @class IntensityScaleAndShiftNormalizer
 //! @ingroup algorithms_internal
 //! @brief Simplified OutputData normalizer, with max_intensity=1.
 
-class BA_CORE_API_ OutputDataSimpleNormalizer : public OutputDataNormalizer
+class BA_CORE_API_ IntensityScaleAndShiftNormalizer : public IntensityNormalizer
 {
 public:
-    OutputDataSimpleNormalizer(double scale=1.0, double shift=0.0)
-    : OutputDataNormalizer(scale, shift) { m_max_intensity = 1.0; }
+    IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
+    : IntensityNormalizer(scale, shift) { m_max_intensity = 1.0; }
 
-    virtual ~OutputDataSimpleNormalizer() {}
+    virtual ~IntensityScaleAndShiftNormalizer() {}
 
     virtual void setMaximumIntensity(double max_intensity)
     { (void)max_intensity; }
 
-    virtual OutputDataSimpleNormalizer *clone() const
-    { return new OutputDataSimpleNormalizer(m_scale, m_shift); }
+    virtual IntensityScaleAndShiftNormalizer *clone() const
+    { return new IntensityScaleAndShiftNormalizer(m_scale, m_shift); }
 };
 
-#endif // IOUTPUTDATANORMALIZER_H
+#endif // IINTENSITYNORMALIZER_H
 
 

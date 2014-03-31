@@ -85,8 +85,8 @@ std::string FitObject::addParametersToExternalPool(
         m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
 
     if(m_chi2_module) {
-        const IOutputDataNormalizer* data_normalizer =
-            m_chi2_module->getOutputDataNormalizer();
+        const IIntensityNormalizer* data_normalizer =
+            m_chi2_module->getIntensityNormalizer();
         if(data_normalizer)
             data_normalizer->addParametersToExternalPool(
                 new_path, external_pool, -1);

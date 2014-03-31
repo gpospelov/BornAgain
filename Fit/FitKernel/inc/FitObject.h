@@ -51,8 +51,11 @@ class BA_CORE_API_ FitObject : public IParameterized
     void setRealData(const OutputData<double >& real_data);
 
     //! Returns simulated data
+//    const OutputData<double> *getSimulationData() const {
+//        return m_simulation->getOutputData(); }
     const OutputData<double> *getSimulationData() const {
-        return m_simulation->getOutputData(); }
+        return m_chi2_module->getSimulationData(); }
+
 
     //! Returns chi2 module
     const IChiSquaredModule *getChiSquaredModule() const {

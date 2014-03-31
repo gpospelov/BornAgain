@@ -47,7 +47,7 @@ TEST_F(ChiSquaredModuleTest, InitialState)
     EXPECT_EQ( NULL, m_chi_empty.getSimulationData());
     EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault*>(m_chi_empty.getSquaredFunction()));
     EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector*>(m_chi_empty.getFittingDataSelector()));
-    EXPECT_EQ( NULL, m_chi_empty.getOutputDataNormalizer());
+    EXPECT_EQ( NULL, m_chi_empty.getIntensityNormalizer());
     EXPECT_EQ( NULL, m_chi_empty.getIntensityFunction());
     ASSERT_THROW(m_chi_empty.calculateChiSquared(), NullPointerException);
     ASSERT_THROW(m_chi_empty.createChi2DifferenceMap(), NullPointerException);
@@ -60,7 +60,7 @@ TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
     EXPECT_EQ( NULL, clone_of_empty->getSimulationData());
     EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault*>(clone_of_empty->getSquaredFunction()));
     EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector*>(clone_of_empty->getFittingDataSelector()));
-    EXPECT_EQ( NULL, clone_of_empty->getOutputDataNormalizer());
+    EXPECT_EQ( NULL, clone_of_empty->getIntensityNormalizer());
     EXPECT_EQ( NULL, clone_of_empty->getIntensityFunction());
     ASSERT_THROW(clone_of_empty->calculateChiSquared(), NullPointerException);
     ASSERT_THROW(clone_of_empty->createChi2DifferenceMap(), NullPointerException);
@@ -100,8 +100,8 @@ TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
         ++index; ++it_real; ++it_simul;
     }
     chi_isgisaxs.setRealAndSimulatedData(real_data, simul_data);
-    OutputDataNormalizer normalizer(100., 0.0);
-    chi_isgisaxs.setOutputDataNormalizer( normalizer );
+    IntensityNormalizer normalizer(100., 0.0);
+    chi_isgisaxs.setIntensityNormalizer( normalizer );
     EXPECT_FLOAT_EQ( 0.0, (float)chi_isgisaxs.calculateChiSquared());
 
 //    m_chi_isgisaxs.setChiSquaredFunction( SquaredFunctionWithSystematicError(1.0) );

@@ -17,7 +17,7 @@
 #include "MathFunctions.h"
 #include "MinimizerOptions.h"
 #include "ISquaredFunction.h"
-#include "IOutputDataNormalizer.h"
+#include "IIntensityNormalizer.h"
 #include "IFitStrategy.h"
 #include "FitStrategyAdjustParameters.h"
 #include "FitStrategyAdjustMinimizer.h"

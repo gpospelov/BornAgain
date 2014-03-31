@@ -82,11 +82,11 @@ void TestFittingModule2::execute()
     //fit_example_basics();
 
     // fit example with normalizer
-    //fit_example_chimodule();
+    fit_example_chimodule();
 
     // fit example with strategies
     //fit_example_strategy_data();
-    fit_example_strategy_parameters();
+    //fit_example_strategy_parameters();
 
     // fit example with data masking
     //fit_example_mask();
@@ -146,9 +146,17 @@ void TestFittingModule2::fit_example_chimodule()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
-    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
+    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer() );
     m_fitSuite->addSimulationAndRealData(
         *mp_simulation, *mp_real_data, chiModule);
+
+
+//    ParameterPool *pool = m_fitSuite->getFitObjects()->createParameterTree();
+//    std::cout << *pool;
+
+    m_fitSuite->getFitParameters()->printParameters();
+    m_fitSuite->getFitObjects()->printParameters();
+
 
     for(FitSuiteParameters::iterator it =
             m_fitSuite->getFitParameters()->begin();
@@ -298,7 +306,7 @@ void TestFittingModule2::fit_example_mask()
                                 AttLimits::fixed());
 
     ChiSquaredModule chiModule;
-    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
+    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer(1.0,0) );
     m_fitSuite->addSimulationAndRealData(
         *mp_simulation, *mp_real_data, chiModule);
 

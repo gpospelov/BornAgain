@@ -35,12 +35,12 @@ double ChiSquaredModule::calculateChiSquared()
         mp_simulation_data = normalized_simulation;
     }
 
-    if( mp_intensity_function ) {
-        OutputDataFunctions::applyFunction(
-            *mp_simulation_data, mp_intensity_function);
-        OutputDataFunctions::applyFunction(
-            *mp_real_data, mp_intensity_function);
-    }
+//    if( mp_intensity_function ) {
+//        OutputDataFunctions::applyFunction(
+//            *mp_simulation_data, mp_intensity_function);
+//        OutputDataFunctions::applyFunction(
+//            *mp_real_data, mp_intensity_function);
+//    }
 
     initWeights();
     OutputData<double> *p_difference = createChi2DifferenceMap();
@@ -98,12 +98,18 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
         }
         double value_simu = *it_sim++;
         double value_real = *it_real++;
+
+        if(mp_intensity_function) {
+            value_simu = mp_intensity_function->evaluate(value_simu);
+            value_real = mp_intensity_function->evaluate(value_real);
+        }
+
         double squared_difference =
             mp_squared_function->calculateSquaredDifference(
                 value_real, value_simu);
         *it_diff = squared_difference;
         ++it_diff;
-    }
+    }    
 
     return p_difference;
 }

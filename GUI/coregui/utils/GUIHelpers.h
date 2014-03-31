@@ -46,7 +46,7 @@ bool question(QWidget *parent, const QString &title,
         const QString &noText=QObject::tr("&No"));
 bool okToDelete(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
-};
+}
 
 #endif // GUIHELPERS_H
 

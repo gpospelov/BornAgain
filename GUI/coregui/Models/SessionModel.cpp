@@ -27,7 +27,6 @@ enum Column {
     ModelType,
     MaxColumns
 };
-const QString MimeType = "application/org.bornagainproject.xml.item.z";
 }
 
 SessionModel::SessionModel(QObject *parent)
@@ -46,8 +45,14 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
     Qt::ItemFlags result_flags = QAbstractItemModel::flags(index);
     if (index.isValid()) {
         result_flags |= Qt::ItemIsSelectable|Qt::ItemIsEnabled
-                     |Qt::ItemIsEditable|Qt::ItemIsDragEnabled
-                     |Qt::ItemIsDropEnabled;
+                     |Qt::ItemIsEditable|Qt::ItemIsDragEnabled;
+        QList<QString> acceptable_child_items = getAcceptableChildItems(index);
+        if (acceptable_child_items.contains(m_dragged_item_type)) {
+            result_flags |= Qt::ItemIsDropEnabled;
+        }
+    }
+    else {
+        result_flags |= Qt::ItemIsDropEnabled;
     }
     return result_flags;
 }
@@ -154,7 +159,7 @@ bool SessionModel::removeRows(int row, int count, const QModelIndex &parent)
 
 QStringList SessionModel::mimeTypes() const
 {
-    return QStringList() << MimeType;
+    return QStringList() << SessionXML::MimeType;
 }
 
 QMimeData *SessionModel::mimeData(const QModelIndexList &indices) const
@@ -165,7 +170,8 @@ QMimeData *SessionModel::mimeData(const QModelIndexList &indices) const
         QByteArray xml_data;
         QXmlStreamWriter writer(&xml_data);
         writeItemAndChildItems(&writer, item);
-        mime_data->setData(MimeType, qCompress(xml_data, MaxCompression));
+        mime_data->setData(SessionXML::MimeType,
+                           qCompress(xml_data, MaxCompression));
         return mime_data;
     }
     return 0;
@@ -178,10 +184,10 @@ bool SessionModel::canDropMimeData(const QMimeData *data, Qt::DropAction action,
     (void)row;
     if (action == Qt::IgnoreAction) return true;
     if (action != Qt::MoveAction || column > 0 || !data
-            || !data->hasFormat(MimeType)) return false;
+            || !data->hasFormat(SessionXML::MimeType)) return false;
     if (!parent.isValid()) return true;
     QList<QString> acceptable_child_items = getAcceptableChildItems(parent);
-    QByteArray xml_data = qUncompress(data->data(MimeType));
+    QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
         reader.readNext();
@@ -201,10 +207,10 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 {
     if (action == Qt::IgnoreAction) return true;
     if (action != Qt::MoveAction || column > 0 || !data
-            || !data->hasFormat(MimeType)) return false;
+            || !data->hasFormat(SessionXML::MimeType)) return false;
     if (!canDropMimeData(data, action, row, column, parent)) return false;
     if (ParameterizedItem *item = itemForIndex(parent)) {
-        QByteArray xml_data = qUncompress(data->data(MimeType));
+        QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
         QXmlStreamReader reader(xml_data);
         if (row == -1) row = item->childItemCount();
         beginInsertRows(parent, row, row);

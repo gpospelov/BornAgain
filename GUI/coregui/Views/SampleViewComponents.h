@@ -2,7 +2,7 @@
 #define SAMPLEVIEWCOMPONENTS_H
 
 #include <QWidget>
-#include <QTreeView>
+#include "ItemTreeView.h"
 #include "widgetbox.h"
 
 #include "SamplePropertyEditor.h"
@@ -45,7 +45,7 @@ public:
             SampleDesignerInterface *core, QWidget *parent);
     static SamplePropertyEditor *createPropertyEditor(
             QItemSelectionModel *selection_model, QWidget *parent);
-    static QTreeView *createTreeView(
+    static ItemTreeView *createTreeView(
             SessionModel *session_model, QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);
 };

@@ -41,10 +41,10 @@ SamplePropertyEditor *SampleViewComponents::createPropertyEditor(
     return new SamplePropertyEditor(selection_model, parent);
 }
 
-QTreeView *SampleViewComponents::createTreeView(
+ItemTreeView *SampleViewComponents::createTreeView(
         SessionModel *session_model, QWidget *parent)
 {
-    QTreeView *tree_view = new QTreeView(parent);
+    ItemTreeView *tree_view = new ItemTreeView(parent);
     tree_view->setModel(session_model);
     tree_view->setAllColumnsShowFocus(true);
     tree_view->setWindowTitle(QString("Object Tree View"));

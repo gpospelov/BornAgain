@@ -23,6 +23,8 @@
 #include "ParameterizedItem.h"
 
 namespace SessionXML {
+const QString MimeType = "application/org.bornagainproject.xml.item.z";
+
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
 const QString ItemNameAttribute("ItemName");
@@ -82,6 +84,11 @@ public:
     void load(const QString &filename=QString());
     void save(const QString &filename=QString());
 
+    // Sets mimedata pointer of item being dragged
+    void setDraggedItemType(const QString& type) {
+        m_dragged_item_type = type;
+    }
+
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
@@ -96,6 +103,7 @@ private:
                        const char *property_name) const;
     QString m_filename;
     ParameterizedItem *m_root_item;
+    QString m_dragged_item_type;
 };
 
 #endif // SESSIONMODEL_H

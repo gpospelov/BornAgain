@@ -19,6 +19,7 @@
 #include "ISquaredFunction.h"
 #include "IIntensityNormalizer.h"
 #include "IFitStrategy.h"
+#include "IIntensityFunction.h"
 #include "FitStrategyAdjustParameters.h"
 #include "FitStrategyAdjustMinimizer.h"
 

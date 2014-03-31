@@ -66,6 +66,12 @@ double ChiSquaredModule::getResidualValue(size_t index ) const
     assert(index < mp_real_data->getAllocatedSize() );
     double value_real = (*mp_real_data)[index];
     double value_simu  = (*mp_simulation_data)[index];
+
+    if(mp_intensity_function) {
+        value_simu = mp_intensity_function->evaluate(value_simu);
+        value_real = mp_intensity_function->evaluate(value_real);
+    }
+
     double weight = (*mp_weights)[index];
     double squared_error = getSquaredFunction()->calculateSquaredError(
         value_real, value_simu);

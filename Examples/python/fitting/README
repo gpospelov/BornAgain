@@ -21,4 +21,13 @@ used for fitting.
     FitSpheresInHexLattice_builder.py - shows advanced way using sample builder, which might be useful for complex
     samples
 
+--- ex004_FitScaleAndShift ---
+    FitScaleAndShift.py - in this example we are trying to fit the data representing cylinders without interference
+    on top of substrate. Real data contains some "unknown" background and scale factors.
+    In four parameters fit we are looking for cylinder's height and radius and for background and scale factors.
+
+--- ex005_FitWithMasks ---
+    FitWithMasks.py - two parameter fit of cylinders without interference.
+    Real data contains rectangular mask to simulate and fit only the area inside the mask.
+
 

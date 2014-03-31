@@ -16,6 +16,40 @@
 #include <iostream>
 
 
+
+
+LayerView2::LayerView2(QGraphicsItem *parent)
+    : ConnectableView(parent)
+{
+    setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
+    setName(QString("Layer"));
+    setToolTip(QString("%1\n%2").arg("LayerView").arg("Homogeneous layer"));
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    setAcceptDrops(false);
+
+    addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleFactory);
+}
+
+
+void LayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(widget);
+    painter->setPen(Qt::black);
+    if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
+        painter->setPen(Qt::DashLine);
+    }
+    painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
+    painter->drawRect(getRectangle());
+}
+
+
+
+
+// ----------------------------------------------------------------------------
+
+
 LayerView::LayerView(QGraphicsItem *parent)
     : ConnectableView(parent)
     , m_fixed_xpos(0)

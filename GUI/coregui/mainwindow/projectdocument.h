@@ -8,6 +8,7 @@ class JobQueueModel;
 class QIODevice;
 class QModelIndex;
 class JobItem;
+class SessionModel;
 
 
 namespace ProjectDocumentXML
@@ -47,10 +48,9 @@ public:
     QString getProjectFileName();
     QString getProjectDir();
 
-    //static ProjectDocument *openExistingDocument(const QString &filename);
-
     bool isModified() { return m_modified; }
-    void setModel(JobQueueModel *model);
+    void setSessionModel(SessionModel *model);
+    void setJobQueueModel(JobQueueModel *model);
 
     bool hasValidNameAndPath();
 
@@ -69,6 +69,7 @@ private:
 
     QString m_project_path;
     QString m_project_name;
+    SessionModel *m_sessionModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;
 };

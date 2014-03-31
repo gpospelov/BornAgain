@@ -13,12 +13,9 @@ SampleDesigner::SampleDesigner(QWidget *parent)
     , m_widgetFactory(new DesignerWidgetFactory())
     , m_designerScene(0)
     , m_designerView(0)
-//    , m_editorStack(0)
 {
-    m_designerScene = new DesignerScene(parent);
+    m_designerScene = new DesignerScene2(parent);
     m_designerView = new DesignerView(parent, m_designerScene);
-//    m_editorStack = new QStackedWidget(parent);
-//    m_editorStack->addWidget(m_designerView);
 }
 
 
@@ -28,21 +25,33 @@ SampleDesigner::~SampleDesigner()
 }
 
 
-// XXX will be replaced
+void SampleDesigner::setSessionModel(SessionModel *model)
+{
+    if(model) m_designerScene->setSessionModel(model);
+}
+
+
+void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
+{
+    if(model) m_designerScene->setSelectionModel(model);
+}
+
+
+
 void SampleDesigner::sceneToISample()
 {
-    SamplePrintVisitor print_visitor;
+//    SamplePrintVisitor print_visitor;
 
-    MultiLayerView *view = getScene()->getMultiLayerView();
-    std::cout << "SampleDesigner::sceneToISample() -> " << view<< std::endl;
+//    MultiLayerView *view = getScene()->getMultiLayerView();
+//    std::cout << "SampleDesigner::sceneToISample() -> " << view<< std::endl;
 
-    std::cout << "XXX --------" << std::endl;
-    IViewToISample maker;
-    ISample *isample = maker.makeISample(view);
-    std::cout << "isample " << isample << std::endl;
-//    view->accept(&visitor);
-    if(isample) {
-        std::cout << "___________>>>" << std::endl;
-        isample->accept(&print_visitor);
-    }
+//    std::cout << "XXX --------" << std::endl;
+//    IViewToISample maker;
+//    ISample *isample = maker.makeISample(view);
+//    std::cout << "isample " << isample << std::endl;
+////    view->accept(&visitor);
+//    if(isample) {
+//        std::cout << "___________>>>" << std::endl;
+//        isample->accept(&print_visitor);
+//    }
 }

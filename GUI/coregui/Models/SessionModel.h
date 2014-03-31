@@ -24,7 +24,8 @@
 
 namespace SessionXML {
 const QString MimeType = "application/org.bornagainproject.xml.item.z";
-
+const QString ModelTag("SessionModel");
+const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 const QString ModelTypeAttribute("ModelType");
 const QString ItemNameAttribute("ItemName");
@@ -88,12 +89,16 @@ public:
     void setDraggedItemType(const QString& type) {
         m_dragged_item_type = type;
     }
+    
+    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
+
+    void readFrom(QXmlStreamReader *reader);
+    void writeTo(QXmlStreamWriter *writer);
 
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
                                      int row=-1);
-    ParameterizedItem *itemForIndex(const QModelIndex &index) const;
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
     void readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
@@ -104,6 +109,7 @@ private:
     QString m_filename;
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
+    QString m_name; //!< model name
 };
 
 #endif // SESSIONMODEL_H

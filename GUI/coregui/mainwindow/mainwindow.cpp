@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , mp_sim_data_model(0)
     , m_jobQueueModel(0)
+    , m_sessionModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -54,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
     initSimModel();
 
     initJobQueueModel();
+
+    initSessionModel();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -67,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget = new Manhattan::FancyTabWidget();
     m_welcomeView = new WelcomeView();
     m_instrumentView = new InstrumentView(mp_sim_data_model);
-    m_sampleView = new SampleView();
+    m_sampleView = new SampleView(m_sessionModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_jobView = new JobView(mp_sim_data_model);
@@ -83,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(7, m_jobQueueView, QIcon(":/images/mode_fit.png"), "Queue");
 
-    m_tabWidget->setCurrentIndex(7);
+    m_tabWidget->setCurrentIndex(2);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -225,12 +228,27 @@ ISample *MainWindow::createDefaultSample()
 
 void MainWindow::initJobQueueModel()
 {
+    delete m_jobQueueModel;
     m_jobQueueModel = new JobQueueModel(this);
     SimulationRegistry registry;
     m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
     m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
     m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
-
 //    m_jobQueueModel->load("tmp2.xml");
-
 }
+
+
+void MainWindow::initSessionModel()
+{
+    delete m_sessionModel;
+    m_sessionModel = new SessionModel();
+    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
+    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer",
+                   m_sessionModel->indexOfItem(multilayer));
+    m_sessionModel->insertNewItem("ParticleLayout",
+                   m_sessionModel->indexOfItem(layer));
+    m_sessionModel->insertNewItem("Layer");
+
+    //m_sessionModel->save("session.xml");
+}
+

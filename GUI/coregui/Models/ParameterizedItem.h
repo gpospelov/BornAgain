@@ -24,7 +24,7 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
-    ~ParameterizedItem();
+    virtual ~ParameterizedItem();
 
     //! retrieves the model type
     QString modelType() const { return m_model_type; }

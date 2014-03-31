@@ -16,9 +16,9 @@
 #ifndef MULTILAYERITEM_H
 #define MULTILAYERITEM_H
 
-#include "ParameterizedItem.h"
+#include "ParameterizedGraphicsItem.h"
 
-class MultiLayerItem : public ParameterizedItem
+class MultiLayerItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:

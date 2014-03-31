@@ -19,9 +19,11 @@ public:
     static DesignerWidgetFactory *instance();
 
     static QList<QGraphicsItem *> createViews(const QString &name);
+    static IView * createView(const QString &name);
 
 private:
-     QList<QGraphicsItem *> this_createViews(const QString &name);
+    QList<QGraphicsItem *> this_createViews(const QString &name);
+    IView  *this_createView(const QString &name);
 
     static DesignerWidgetFactory *m_instance;
 };

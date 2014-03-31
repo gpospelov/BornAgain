@@ -16,8 +16,9 @@
 #include "LayerItem.h"
 
 LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString("Layer"), parent)
+    : ParameterizedGraphicsItem(QString("Layer"), parent)
 {
+    setItemName("LayerName");
     setProperty("Thickness", 0.0);
     m_valid_children.append(QString("ParticleLayout"));
 }

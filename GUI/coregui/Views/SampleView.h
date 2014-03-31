@@ -34,7 +34,7 @@ public:
         NumberOfSubWindows
     };
 
-    SampleView(QWidget *parent = 0);
+    SampleView(SessionModel *model, QWidget *parent = 0);
     virtual ~SampleView();
 
 public slots:

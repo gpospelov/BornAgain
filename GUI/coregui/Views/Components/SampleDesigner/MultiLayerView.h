@@ -14,10 +14,30 @@
 class LayerView;
 class DesignerMimeData;
 
+
+
+class MultiLayerView2 : public ConnectableView
+{
+    Q_OBJECT
+
+public:
+    enum { Type = DesignerHelper::MultiLayerType };
+
+    MultiLayerView2(QGraphicsItem *parent = 0);
+
+    int type() const { return Type; }
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+};
+
+
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
 #include "LayerView.h"
 
-//class MultiLayerView : public ISampleView
-//class MultiLayerView : public LayerView
 class MultiLayerView : public ConnectableView
 {
     Q_OBJECT

@@ -32,6 +32,7 @@ enum Column {
 SessionModel::SessionModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_root_item(0)
+    , m_name("DefaultName")
 {
 }
 
@@ -281,6 +282,31 @@ void SessionModel::load(const QString &filename)
     endResetModel();
 }
 
+
+void SessionModel::readFrom(QXmlStreamReader *reader)
+{
+    Q_ASSERT(reader);
+
+    if(reader->name() != SessionXML::ModelTag) {
+        throw GUIHelpers::Error("SessioneModel::readFrom() -> Format error in p1");
+    }
+
+    beginResetModel();
+    clear();
+
+    m_name = reader->attributes()
+            .value(SessionXML::ModelNameAttribute).toString();
+
+    m_root_item = ItemFactory::createEmptyItem();
+
+    readItems(reader, m_root_item);
+    if (reader->hasError())
+        throw GUIHelpers::Error(reader->errorString());
+    endResetModel();
+
+}
+
+
 void SessionModel::save(const QString &filename)
 {
     if (!filename.isEmpty())
@@ -300,6 +326,18 @@ void SessionModel::save(const QString &filename)
     writer.writeEndElement(); // BornAgain
     writer.writeEndDocument();
 }
+
+
+void SessionModel::writeTo(QXmlStreamWriter *writer)
+{
+    writer->writeStartElement(SessionXML::ModelTag);
+    writer->writeAttribute(SessionXML::ModelNameAttribute, m_name);
+
+    writeItemAndChildItems(writer, m_root_item);
+
+    writer->writeEndElement(); // ModelTag
+}
+
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
@@ -353,9 +391,13 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
             if (reader->name() == SessionXML::ItemTag) {
                 item = item->parent();
             }
+            if (reader->name() == SessionXML::ModelTag) {
+                break;
+            }
         }
     }
 }
+
 
 void SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
 {

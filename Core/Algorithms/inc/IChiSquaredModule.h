@@ -18,7 +18,7 @@
 
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
-#include "IOutputDataNormalizer.h"
+#include "IIntensityNormalizer.h"
 #include "IIntensityFunction.h"
 
 
@@ -70,16 +70,16 @@ public:
     virtual void setFittingDataSelector(const IFittingDataSelector& selector);
 
     //! Returns data normalizer.
-    virtual const IOutputDataNormalizer* getOutputDataNormalizer() const {
+    virtual const IIntensityNormalizer* getIntensityNormalizer() const {
         return mp_data_normalizer; }
 
     //! Returns data normalizer, non-const version needed to set internals.
-    virtual IOutputDataNormalizer* getOutputDataNormalizer() {
+    virtual IIntensityNormalizer* getIntensityNormalizer() {
         return mp_data_normalizer; }
 
     //! Sets data normalizer
-    virtual void setOutputDataNormalizer(
-        const IOutputDataNormalizer& data_normalizer);
+    virtual void setIntensityNormalizer(
+        const IIntensityNormalizer& data_normalizer);
 
     //! Returns data rescaler.
     virtual const IIntensityFunction* getIntensityFunction() const {
@@ -108,7 +108,7 @@ protected:
     OutputData<double>* mp_weights;
     ISquaredFunction* mp_squared_function;
     IFittingDataSelector* mp_data_selector;
-    IOutputDataNormalizer* mp_data_normalizer;
+    IIntensityNormalizer* mp_data_normalizer;
     IIntensityFunction * mp_intensity_function;
     int m_ndegree_of_freedom;
 };

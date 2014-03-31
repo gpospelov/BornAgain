@@ -102,28 +102,28 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         return IChiSquaredModule::getIntensityFunction( );
     }
 
-    virtual ::IOutputDataNormalizer const * getOutputDataNormalizer(  ) const  {
-        if( bp::override func_getOutputDataNormalizer = this->get_override( "getOutputDataNormalizer" ) )
-            return func_getOutputDataNormalizer(  );
+    virtual ::IIntensityNormalizer const * getIntensityNormalizer(  ) const  {
+        if( bp::override func_getIntensityNormalizer = this->get_override( "getIntensityNormalizer" ) )
+            return func_getIntensityNormalizer(  );
         else
-            return this->IChiSquaredModule::getOutputDataNormalizer(  );
+            return this->IChiSquaredModule::getIntensityNormalizer(  );
     }
     
     
-    ::IOutputDataNormalizer const * default_getOutputDataNormalizer(  ) const  {
-        return IChiSquaredModule::getOutputDataNormalizer( );
+    ::IIntensityNormalizer const * default_getIntensityNormalizer(  ) const  {
+        return IChiSquaredModule::getIntensityNormalizer( );
     }
 
-    virtual ::IOutputDataNormalizer * getOutputDataNormalizer(  ) {
-        if( bp::override func_getOutputDataNormalizer = this->get_override( "getOutputDataNormalizer" ) )
-            return func_getOutputDataNormalizer(  );
+    virtual ::IIntensityNormalizer * getIntensityNormalizer(  ) {
+        if( bp::override func_getIntensityNormalizer = this->get_override( "getIntensityNormalizer" ) )
+            return func_getIntensityNormalizer(  );
         else
-            return this->IChiSquaredModule::getOutputDataNormalizer(  );
+            return this->IChiSquaredModule::getIntensityNormalizer(  );
     }
     
     
-    ::IOutputDataNormalizer * default_getOutputDataNormalizer(  ) {
-        return IChiSquaredModule::getOutputDataNormalizer( );
+    ::IIntensityNormalizer * default_getIntensityNormalizer(  ) {
+        return IChiSquaredModule::getIntensityNormalizer( );
     }
 
     virtual void setFittingDataSelector( ::IFittingDataSelector const & selector ) {
@@ -150,16 +150,16 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
     }
 
-    virtual void setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
-        if( bp::override func_setOutputDataNormalizer = this->get_override( "setOutputDataNormalizer" ) )
-            func_setOutputDataNormalizer( boost::ref(data_normalizer) );
+    virtual void setIntensityNormalizer( ::IIntensityNormalizer const & data_normalizer ) {
+        if( bp::override func_setIntensityNormalizer = this->get_override( "setIntensityNormalizer" ) )
+            func_setIntensityNormalizer( boost::ref(data_normalizer) );
         else
-            this->IChiSquaredModule::setOutputDataNormalizer( boost::ref(data_normalizer) );
+            this->IChiSquaredModule::setIntensityNormalizer( boost::ref(data_normalizer) );
     }
     
     
-    void default_setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
-        IChiSquaredModule::setOutputDataNormalizer( boost::ref(data_normalizer) );
+    void default_setIntensityNormalizer( ::IIntensityNormalizer const & data_normalizer ) {
+        IChiSquaredModule::setIntensityNormalizer( boost::ref(data_normalizer) );
     }
 
 };
@@ -242,27 +242,27 @@ void register_ChiSquaredModule_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IChiSquaredModule::getOutputDataNormalizer
+        { //::IChiSquaredModule::getIntensityNormalizer
         
-            typedef ::IOutputDataNormalizer const * ( ::IChiSquaredModule::*getOutputDataNormalizer_function_type )(  ) const;
-            typedef ::IOutputDataNormalizer const * ( ChiSquaredModule_wrapper::*default_getOutputDataNormalizer_function_type )(  ) const;
+            typedef ::IIntensityNormalizer const * ( ::IChiSquaredModule::*getIntensityNormalizer_function_type )(  ) const;
+            typedef ::IIntensityNormalizer const * ( ChiSquaredModule_wrapper::*default_getIntensityNormalizer_function_type )(  ) const;
             
             ChiSquaredModule_exposer.def( 
-                "getOutputDataNormalizer"
-                , getOutputDataNormalizer_function_type(&::IChiSquaredModule::getOutputDataNormalizer)
-                , default_getOutputDataNormalizer_function_type(&ChiSquaredModule_wrapper::default_getOutputDataNormalizer)
+                "getIntensityNormalizer"
+                , getIntensityNormalizer_function_type(&::IChiSquaredModule::getIntensityNormalizer)
+                , default_getIntensityNormalizer_function_type(&ChiSquaredModule_wrapper::default_getIntensityNormalizer)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::IChiSquaredModule::getOutputDataNormalizer
+        { //::IChiSquaredModule::getIntensityNormalizer
         
-            typedef ::IOutputDataNormalizer * ( ::IChiSquaredModule::*getOutputDataNormalizer_function_type )(  ) ;
-            typedef ::IOutputDataNormalizer * ( ChiSquaredModule_wrapper::*default_getOutputDataNormalizer_function_type )(  ) ;
+            typedef ::IIntensityNormalizer * ( ::IChiSquaredModule::*getIntensityNormalizer_function_type )(  ) ;
+            typedef ::IIntensityNormalizer * ( ChiSquaredModule_wrapper::*default_getIntensityNormalizer_function_type )(  ) ;
             
             ChiSquaredModule_exposer.def( 
-                "getOutputDataNormalizer"
-                , getOutputDataNormalizer_function_type(&::IChiSquaredModule::getOutputDataNormalizer)
-                , default_getOutputDataNormalizer_function_type(&ChiSquaredModule_wrapper::default_getOutputDataNormalizer)
+                "getIntensityNormalizer"
+                , getIntensityNormalizer_function_type(&::IChiSquaredModule::getIntensityNormalizer)
+                , default_getIntensityNormalizer_function_type(&ChiSquaredModule_wrapper::default_getIntensityNormalizer)
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -290,15 +290,15 @@ void register_ChiSquaredModule_class(){
                 , ( bp::arg("intensity_function") ) );
         
         }
-        { //::IChiSquaredModule::setOutputDataNormalizer
+        { //::IChiSquaredModule::setIntensityNormalizer
         
-            typedef void ( ::IChiSquaredModule::*setOutputDataNormalizer_function_type )( ::IOutputDataNormalizer const & ) ;
-            typedef void ( ChiSquaredModule_wrapper::*default_setOutputDataNormalizer_function_type )( ::IOutputDataNormalizer const & ) ;
+            typedef void ( ::IChiSquaredModule::*setIntensityNormalizer_function_type )( ::IIntensityNormalizer const & ) ;
+            typedef void ( ChiSquaredModule_wrapper::*default_setIntensityNormalizer_function_type )( ::IIntensityNormalizer const & ) ;
             
             ChiSquaredModule_exposer.def( 
-                "setOutputDataNormalizer"
-                , setOutputDataNormalizer_function_type(&::IChiSquaredModule::setOutputDataNormalizer)
-                , default_setOutputDataNormalizer_function_type(&ChiSquaredModule_wrapper::default_setOutputDataNormalizer)
+                "setIntensityNormalizer"
+                , setIntensityNormalizer_function_type(&::IChiSquaredModule::setIntensityNormalizer)
+                , default_setIntensityNormalizer_function_type(&ChiSquaredModule_wrapper::default_setIntensityNormalizer)
                 , ( bp::arg("data_normalizer") ) );
         
         }

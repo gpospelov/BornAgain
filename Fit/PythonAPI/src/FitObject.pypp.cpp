@@ -14,10 +14,93 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
+struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
+
+    FitObject_wrapper(::Simulation const & simulation, ::OutputData< double > const & real_data, ::IChiSquaredModule const & chi2_module=ChiSquaredModule(), double weight=1 )
+    : FitObject( boost::ref(simulation), boost::ref(real_data), boost::ref(chi2_module), weight )
+      , bp::wrapper< FitObject >(){
+        // constructor
+    
+    }
+
+    virtual bool areParametersChanged(  ) {
+        if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
+            return func_areParametersChanged(  );
+        else
+            return this->IParameterized::areParametersChanged(  );
+    }
+    
+    
+    bool default_areParametersChanged(  ) {
+        return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else
+            this->IParameterized::clearParameterPool(  );
+    }
+    
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else
+            return this->IParameterized::createParameterTree(  );
+    }
+    
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
+    }
+
+    virtual void printParameters(  ) const  {
+        if( bp::override func_printParameters = this->get_override( "printParameters" ) )
+            func_printParameters(  );
+        else
+            this->IParameterized::printParameters(  );
+    }
+    
+    
+    void default_printParameters(  ) const  {
+        IParameterized::printParameters( );
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else
+            return this->IParameterized::setParameterValue( name, value );
+    }
+    
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
+    virtual void setParametersAreChanged(  ) {
+        if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
+            func_setParametersAreChanged(  );
+        else
+            this->IParameterized::setParametersAreChanged(  );
+    }
+    
+    
+    void default_setParametersAreChanged(  ) {
+        IParameterized::setParametersAreChanged( );
+    }
+
+};
+
 void register_FitObject_class(){
 
     { //::FitObject
-        typedef bp::class_< FitObject, boost::noncopyable > FitObject_exposer_t;
+        typedef bp::class_< FitObject_wrapper, bp::bases< IParameterized >, boost::noncopyable > FitObject_exposer_t;
         FitObject_exposer_t FitObject_exposer = FitObject_exposer_t( "FitObject", bp::init< Simulation const &, OutputData< double > const &, bp::optional< IChiSquaredModule const &, double > >(( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule(), bp::arg("weight")=1 )) );
         bp::scope FitObject_scope( FitObject_exposer );
         { //::FitObject::calculateChiSquared
@@ -135,6 +218,74 @@ void register_FitObject_class(){
                 "setSimulation"
                 , setSimulation_function_type( &::FitObject::setSimulation )
                 , ( bp::arg("simulation") ) );
+        
+        }
+        { //::IParameterized::areParametersChanged
+        
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
+            typedef bool ( FitObject_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            
+            FitObject_exposer.def( 
+                "areParametersChanged"
+                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
+                , default_areParametersChanged_function_type(&FitObject_wrapper::default_areParametersChanged) );
+        
+        }
+        { //::IParameterized::clearParameterPool
+        
+            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
+            typedef void ( FitObject_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            
+            FitObject_exposer.def( 
+                "clearParameterPool"
+                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
+                , default_clearParameterPool_function_type(&FitObject_wrapper::default_clearParameterPool) );
+        
+        }
+        { //::IParameterized::createParameterTree
+        
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( FitObject_wrapper::*default_createParameterTree_function_type )(  ) const;
+            
+            FitObject_exposer.def( 
+                "createParameterTree"
+                , createParameterTree_function_type(&::IParameterized::createParameterTree)
+                , default_createParameterTree_function_type(&FitObject_wrapper::default_createParameterTree)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IParameterized::printParameters
+        
+            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
+            typedef void ( FitObject_wrapper::*default_printParameters_function_type )(  ) const;
+            
+            FitObject_exposer.def( 
+                "printParameters"
+                , printParameters_function_type(&::IParameterized::printParameters)
+                , default_printParameters_function_type(&FitObject_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::setParameterValue
+        
+            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( FitObject_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            
+            FitObject_exposer.def( 
+                "setParameterValue"
+                , setParameterValue_function_type(&::IParameterized::setParameterValue)
+                , default_setParameterValue_function_type(&FitObject_wrapper::default_setParameterValue)
+                , ( bp::arg("name"), bp::arg("value") ) );
+        
+        }
+        { //::IParameterized::setParametersAreChanged
+        
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
+            typedef void ( FitObject_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            
+            FitObject_exposer.def( 
+                "setParametersAreChanged"
+                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
+                , default_setParametersAreChanged_function_type(&FitObject_wrapper::default_setParametersAreChanged) );
         
         }
     }

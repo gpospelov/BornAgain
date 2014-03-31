@@ -86,7 +86,7 @@ void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction& squared_fu
     setChiSquaredFunction(squared_function.clone());
 }
 
-void IChiSquaredModule::setOutputDataNormalizer(const IOutputDataNormalizer& data_normalizer)
+void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer& data_normalizer)
 {
     delete mp_data_normalizer;
     mp_data_normalizer = data_normalizer.clone();

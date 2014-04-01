@@ -1,4 +1,5 @@
 #include "MultiLayerView.h"
+#include "ParameterizedItem.h"
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -12,6 +13,7 @@
 #include <iostream>
 #include <QDropEvent>
 #include <QStyleOptionGraphicsItem>
+#include <QDebug>
 
 #include "LayerView.h"
 #include "DesignerHelper.h"
@@ -33,6 +35,9 @@ MultiLayerView2::MultiLayerView2(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptDrops(true);
+
+    connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
+    updateHeight();
 }
 
 void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -47,7 +52,54 @@ void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 }
 
 
+void MultiLayerView2::addView(IView *childView)
+{
+    qDebug() << "MultiLayerView2::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
+    LayerView2 *layer = dynamic_cast<LayerView2 *>(childView);
+    Q_ASSERT(layer);
 
+    if(!childItems().contains(layer)) {
+        addLayer(layer, getRectangle().bottomLeft());
+        qDebug() << "adding layer";
+    } else {
+        qDebug() << "layer exists";
+
+    }
+}
+
+
+void MultiLayerView2::addLayer(LayerView2 *layer, QPointF pos)
+{
+    m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
+
+    int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
+    layer->setPos(xpos, pos.y());
+    //connect(layer, SIGNAL(LayerMoved()), this, SLOT(updateHeight()) );
+    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
+    layer->setParentItem(this);
+}
+
+
+void MultiLayerView2::updateHeight()
+{
+    qDebug() << "MultiLayerView2::updateHeight()";
+    QList<QGraphicsItem *> list = childItems();
+    qSort(list.begin(), list.end(), DesignerHelper::sort_layers);
+
+    int total_height = 0;
+    if( childItems().size() > 0) {
+        foreach(QGraphicsItem *item, list) {
+            item->setY(total_height);
+            total_height += item->boundingRect().height();
+        }
+    } else {
+        total_height = DesignerHelper::getDefaultMultiLayerHeight();
+    }
+
+    m_rect.setHeight(total_height);
+    update();
+    emit heightChanged();
+}
 
 
 

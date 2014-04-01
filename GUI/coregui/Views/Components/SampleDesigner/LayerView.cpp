@@ -1,5 +1,7 @@
 #include "LayerView.h"
 #include "Units.h"
+#include "ParticleLayoutView.h"
+#include "ParameterizedItem.h"
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -11,6 +13,7 @@
 #include <QWidget>
 #include <QGradient>
 #include <QStyleOptionGraphicsItem>
+#include <QDebug>
 
 #include "DesignerHelper.h"
 #include <iostream>
@@ -21,9 +24,10 @@
 LayerView2::LayerView2(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
+    setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
     setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
     setName(QString("Layer"));
-    setToolTip(QString("%1\n%2").arg("LayerView").arg("Homogeneous layer"));
+    setToolTip(QString("%1\n%2").arg("Layer").arg("A layer with thickness and material.\nCan be connected with ParticleLayout."));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
@@ -45,6 +49,26 @@ void LayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 }
 
 
+void LayerView2::addView(IView *childView)
+{
+    qDebug() << "LayerView2::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
+    ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
+    Q_ASSERT(layout);
+    connectInputPort(layout);
+}
+
+
+void LayerView2::onPropertyChange(QString propertyName)
+{
+    Q_ASSERT(m_item);
+    if(propertyName == "Thickness") {
+        m_rect.setHeight(DesignerHelper::nanometerToScreen(m_item->property("Thickness").toDouble()));
+        setPortCoordinates();
+        update();
+        emit heightChanged();
+    }
+    IView::onPropertyChange(propertyName);
+}
 
 
 // ----------------------------------------------------------------------------

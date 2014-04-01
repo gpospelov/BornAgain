@@ -19,6 +19,7 @@
 
 #include <QFile>
 #include <QMimeData>
+#include <QDebug>
 
 namespace {
 const int MaxCompression = 9;

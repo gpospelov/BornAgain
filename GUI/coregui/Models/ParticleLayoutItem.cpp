@@ -16,7 +16,7 @@
 #include "ParticleLayoutItem.h"
 
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString("ParticleLayout"), parent)
+    : ParameterizedGraphicsItem(QString("ParticleLayout"), parent)
 {
 //    m_valid_children.append(QString(""));
 }

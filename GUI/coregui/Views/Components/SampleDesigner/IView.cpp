@@ -1,5 +1,6 @@
 #include "IView.h"
 #include "ParameterizedGraphicsItem.h"
+#include <QString>
 #include <QDebug>
 
 
@@ -17,7 +18,18 @@ void IView::setSessionItem(ParameterizedItem *item)
 {
     if(item) {
         m_item = item;
+        Q_ASSERT(m_item->property("xpos").isValid());
+        Q_ASSERT(m_item->property("ypos").isValid());
+        setX(m_item->property("xpos").toReal());
+        setY(m_item->property("ypos").toReal());
+        connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChange(QString)));
     }
+}
+
+
+void IView::addView(IView *childView)
+{
+    qDebug() << "IView::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
 }
 
 
@@ -35,3 +47,15 @@ void IView::onChangedY()
     Q_ASSERT(m_item->property("ypos").isValid());
     m_item->setProperty("ypos", y());
 }
+
+
+void IView::onPropertyChange(QString propertyName)
+{
+    if(propertyName == QStringLiteral("xpos")) {
+        setX(m_item->property("xpos").toReal());
+    } else if(propertyName == QStringLiteral("ypos")) {
+        setY(m_item->property("ypos").toReal());
+    }
+}
+
+

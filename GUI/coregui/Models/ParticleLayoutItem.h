@@ -16,9 +16,9 @@
 #ifndef PARTICLELAYOUTITEM_H
 #define PARTICLELAYOUTITEM_H
 
-#include "ParameterizedItem.h"
+#include "ParameterizedGraphicsItem.h"
 
-class ParticleLayoutItem : public ParameterizedItem
+class ParticleLayoutItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:

@@ -12,6 +12,7 @@
 
 
 class LayerView;
+class LayerView2;
 class DesignerMimeData;
 
 
@@ -28,6 +29,14 @@ public:
     int type() const { return Type; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void addView(IView *childView);
+
+    virtual void addLayer(LayerView2 *layer, QPointF pos=QPointF());
+
+public slots:
+    void updateHeight();
+
 };
 
 

@@ -58,6 +58,8 @@ public:
 
     bool isConnected(NodeEditorPort*);
 
+    bool isConnected() { return m_connections.size(); }
+
     PortType getPortType() const { return m_port_type; }
 
     static QColor getPortTypeColor(NodeEditorPort::PortType port_type);

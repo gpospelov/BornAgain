@@ -15,6 +15,9 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
+#include <QEvent>
+#include <QDynamicPropertyChangeEvent>
+#include <QDebug>
 
 
 
@@ -44,5 +47,17 @@ ParameterizedItem *ParameterizedItem::takeChildItem(int row)
 bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 {
     return m_valid_children.contains(child_name);
+}
+
+// emmits signal on property change
+bool ParameterizedItem::event(QEvent * e )
+{
+    if(e->type() == QEvent::DynamicPropertyChange) {
+        QDynamicPropertyChangeEvent *propertyEvent = dynamic_cast<QDynamicPropertyChangeEvent *>(e);
+        Q_ASSERT(e);
+        QString name(propertyEvent->propertyName());
+        emit propertyChanged(name);
+    }
+    return QObject::event(e);
 }
 

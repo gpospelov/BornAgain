@@ -25,20 +25,27 @@ public:
     void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
-    void update(const QModelIndex &parentIndex = QModelIndex());
-
 public slots:
     void onSceneSelectionChanged();
     void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
+    void resetScene();
+    void updateScene();
+    void updateScene(const QModelIndex &parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
 
 private:
-    void addViewForItem(ParameterizedItem *item);
+    IView *addViewForItem(ParameterizedItem *item);
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
+    void deleteViews(const QModelIndex & parentIndex);
+    void alignViews();
+    void removeItemFromScene(ParameterizedItem *item);
 
     SessionModel *m_sessionModel;
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 
     QMap<ParameterizedItem *, IView *> m_ItemToView;
+    QList<IView *> m_orderedViews;
 };
 
 

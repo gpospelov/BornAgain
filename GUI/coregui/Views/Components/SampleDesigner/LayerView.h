@@ -21,6 +21,10 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    void addView(IView *childView);
+
+public slots:
+    void onPropertyChange(QString propertyName);
 
 };
 

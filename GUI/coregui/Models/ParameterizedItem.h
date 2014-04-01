@@ -20,6 +20,8 @@
 #include <QList>
 #include <QMap>
 
+class QEvent;
+
 class ParameterizedItem : public QObject
 {
     Q_OBJECT
@@ -80,6 +82,11 @@ public:
     QList<QString> acceptableChildItems() const { return m_valid_children; }
 
     friend class ItemFactory;
+
+    bool event(QEvent * e );
+
+signals:
+    void propertyChanged(QString propertyName);
 
 protected:
     explicit ParameterizedItem(const QString &model_type=QString(),

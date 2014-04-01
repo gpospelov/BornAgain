@@ -10,7 +10,6 @@
 #include "ISampleToIView.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
-#include "ISampleViewAligner.h"
 
 
 #include <QGraphicsSceneDragDropEvent>
@@ -73,8 +72,8 @@ void DesignerScene::createSample()
         addItem(item);
     }
 
-    ISampleViewAligner layout;
-    layout.makeAlign(visitor.getMultiLayerView());
+//    ISampleViewAligner layout;
+//    layout.makeAlign(visitor.getMultiLayerView());
 }
 
 
@@ -183,8 +182,8 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                             addItem(view);
                         }
 
-                        ISampleViewAligner layout;
-                        layout.makeAlign(visitor.getMultiLayerView());
+//                        ISampleViewAligner layout;
+//                        layout.makeAlign(visitor.getMultiLayerView());
 
 
                     }

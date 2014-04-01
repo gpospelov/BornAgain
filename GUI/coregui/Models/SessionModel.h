@@ -95,6 +95,7 @@ public:
     void readFrom(QXmlStreamReader *reader);
     void writeTo(QXmlStreamWriter *writer);
 
+
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,

@@ -36,6 +36,7 @@ public slots:
 private:
     IView *addViewForItem(ParameterizedItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
+    void deleteViews(const QModelIndex & parentIndex);
     void alignViews();
     void removeItemFromScene(ParameterizedItem *item);
 

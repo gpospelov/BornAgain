@@ -115,8 +115,10 @@ void DesignerScene2::onRowsAboutToBeRemoved(const QModelIndex &parent, int first
     qDebug() << "DesignerScene2::onRowsAboutToBeRemoved()" << parent << first << last;
     for(int irow = first; irow<=last; ++irow ) {
         QModelIndex itemIndex = m_sessionModel->index(irow, 0, parent);
-        ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex);
-        removeItemFromScene(item);
+        deleteViews(itemIndex);
+        removeItemFromScene(m_sessionModel->itemForIndex(itemIndex));
+//        ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex);
+//        removeItemFromScene(item);
     }
     m_block_selection = false;
 }
@@ -183,8 +185,7 @@ void DesignerScene2::updateViews(const QModelIndex & parentIndex, IView *parentV
     for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
 
-         if (ParameterizedItem *item = static_cast<ParameterizedItem *>(
-                     itemIndex.internalPointer())){
+         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
 
                 childView = addViewForItem(item);
                 m_orderedViews.push_back(childView);
@@ -232,10 +233,29 @@ void DesignerScene2::alignViews()
 }
 
 
+void DesignerScene2::deleteViews(const QModelIndex & parentIndex)
+{
+    qDebug() << "DesignerScene2::deleteViews()" << parentIndex;
+
+    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
+
+             removeItemFromScene(item);
+
+         } else {
+             qDebug() << "not a parameterized graphics item";
+         }
+         deleteViews( itemIndex);
+     }
+}
+
+
+
 void DesignerScene2::removeItemFromScene(ParameterizedItem *item)
 {
     qDebug() << "DesignerScene2::removeItemFromScene()" << item->modelType();
-    // removing jobs
     for(QMap<ParameterizedItem *, IView *>::iterator it=m_ItemToView.begin(); it!=m_ItemToView.end(); ++it) {
         if(it.key() == item) {
             IView *view = it.value();

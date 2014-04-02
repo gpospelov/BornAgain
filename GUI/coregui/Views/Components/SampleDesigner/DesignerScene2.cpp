@@ -182,16 +182,20 @@ void DesignerScene2::updateViews(const QModelIndex & parentIndex, IView *parentV
     }
 
     IView *childView(0);
-    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex ); ++i_row) {
+    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex );
+         ++i_row) {
          QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
 
-         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
-
+         if (ParameterizedItem *item =
+                 m_sessionModel->itemForIndex(itemIndex))
+         {
                 childView = addViewForItem(item);
-                m_orderedViews.push_back(childView);
-                if(parentView) parentView->addView(childView);
-
-         } else {
+                if (childView) {
+                    m_orderedViews.push_back(childView);
+                    if(parentView) parentView->addView(childView);
+                }
+         } else
+         {
              qDebug() << "not a parameterized graphics item";
          }
 
@@ -206,7 +210,10 @@ IView *DesignerScene2::addViewForItem(ParameterizedItem *item)
     qDebug() << "DesignerScene2::addViewForItem() ->";
     Q_ASSERT(item);
 
-    IView *view = m_ItemToView[item];
+    IView *view(0);
+    if (m_ItemToView.contains(item)) {
+        view = m_ItemToView[item];
+    }
     if(!view) {
         qDebug() << "Creating view for item" << item->itemName();
         view = SampleViewFactory::createSampleView(item->modelType());

@@ -40,25 +40,30 @@ void SampleViewAligner::align(QList<IView *> views, QPointF reference)
 
     for(int i_level = 0; i_level <= getMaximumAreaNumber(); ++i_level) {
         QList<IView *> items = areaToView.values(i_level);
-        qDebug() << "SampleViewAligner::align() i_level" << i_level << "size" << items.size();
+        qDebug() << "SampleViewAligner::align() i_level"
+                 << i_level << "size" << items.size();
         reference = placeItems(items, reference);
     }
 }
 
 
-QPointF SampleViewAligner::placeItems(const QList<IView *> &items, QPointF reference)
+QPointF SampleViewAligner::placeItems(const QList<IView *> &items,
+                                      QPointF reference)
 {
     const double size_factor = 1.5;
     const double vertical_gap(25);
     qreal dy = getTotalVerticalSpace(items) + (items.size()-1)*vertical_gap;
     qreal dx = size_factor*getMaximumHorizontalSpace(items);
     reference.setX(reference.x() - dx );
-    qDebug() << "SampleViewAligner::placeItems() dy:" << dy << " dx:" << dx << " reference:" << reference;
+    qDebug() << "SampleViewAligner::placeItems() dy:" << dy
+             << " dx:" << dx << " reference:" << reference;
     for(int i=0; i<items.size(); ++i) {
         IView *view = items[i];
-        qDebug() << "SampleViewAligner::placeItems()" << view->getSessionItem()->modelType() << view->parentObject();
+        qDebug() << "SampleViewAligner::placeItems()"
+                 << view->getSessionItem()->modelType() << view->parentObject();
         QPointF pos = reference;
-        qDebug() << "xxx " << view->x() << view->y() << (pos.y() - i*dy/items.size());
+        qDebug() << "xxx " << view->x() << view->y()
+                 << (pos.y() - i*dy/items.size());
         pos.setY(pos.y() - i*dy/items.size());
         view->setPos(pos);
     }

@@ -16,6 +16,7 @@
 #include "SessionModel.h"
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
+#include "MaterialBrowser.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -415,6 +416,22 @@ void SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *ite
         item->setProperty(parameter_name.toUtf8().constData(),
                           parameter_value);
     }
+    else if (parameter_type == "QString") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+        item->setProperty(parameter_name.toUtf8().constData(),
+                          parameter_value);
+    }
+    else if (parameter_type == "MaterialProperty") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+        QVariant mat_variant;
+        mat_variant.setValue(MaterialBrowser::getMaterialProperty());
+        item->setProperty(parameter_name.toUtf8().constData(),
+                          mat_variant);
+    }
     else {
         throw GUIHelpers::Error(tr("SessionModel::readProperty: "
                                    "Parameter type not supported"));
@@ -453,14 +470,23 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
         writer->writeStartElement(SessionXML::ParameterTag);
         writer->writeAttribute(SessionXML::ParameterNameAttribute,
                                QString(property_name));
+        QString type_name = variant.typeName();
         writer->writeAttribute(SessionXML::ParameterTypeAttribute,
-                               QString(variant.typeName()) );
-        switch (variant.type()) {
-        case QMetaType::Double:
+                               type_name );
+        if (type_name == QString("double")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 QString::number(variant.toDouble(), 'e', 12));
-            break;
-        default:
+        }
+        else if (type_name == QString("QString")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                variant.toString());
+        }
+        else if (type_name == QString("MaterialProperty")) {
+            QString material_name = variant.value<MaterialProperty>().getName();
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                material_name);
+        }
+        else {
             throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
                                        "Parameter type not supported"));
         }

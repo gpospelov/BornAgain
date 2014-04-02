@@ -24,12 +24,14 @@
 
 SampleView::SampleView(SessionModel *model, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_materialBrowser(new MaterialBrowser(this))
+    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
     , m_session(model)
 {
     setObjectName(tr("SampleView"));
+
+    m_materialBrowser->setParent(this);
 
     setCentralWidget(m_sampleDesigner->getCentralWidget());
 

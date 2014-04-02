@@ -89,11 +89,20 @@ void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
         for (int i = 0; i < property_names.length(); ++i) {
             QString prop_name = QString(property_names[i]);
             QVariant prop_value = item->property(prop_name.toUtf8().data());
-            QVariant::Type type = prop_value.type();
+            int type = prop_value.type();
+            if (type == QVariant::UserType) {
+                type = prop_value.userType();
+            }
             QtVariantProperty *subProperty = 0;
             if (m_manager->isPropertyTypeSupported(type)) {
                 subProperty = m_manager->addProperty(type, prop_name);
                 subProperty->setValue(prop_value);
+                if (prop_name == QString("Form Factor")) {
+                    QtVariantProperty *ff_property =
+                        m_manager->addProperty(QVariant::Double,
+                                               QString("Radius"));
+                    subProperty->addSubProperty(ff_property);
+                }
             } else {
                 subProperty = m_read_only_manager->addProperty(QVariant::String,
                                                              prop_name);

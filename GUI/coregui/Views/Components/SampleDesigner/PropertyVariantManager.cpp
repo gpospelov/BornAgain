@@ -13,7 +13,8 @@ PropertyVariantManager::PropertyVariantManager(QObject *parent)
 
 int PropertyVariantManager::materialTypeId()
 {
-    return qMetaTypeId<MaterialProperty>();
+    int result = qMetaTypeId<MaterialProperty>();
+    return result;
 }
 
 

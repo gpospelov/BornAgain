@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/ParticleLayoutItem.cpp
-//! @brief     Implements class ParticleLayoutItem.
+//! @file      Models/ParticleItem.h
+//! @brief     Defines class ParticleItem.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,18 @@
 //
 // ************************************************************************** //
 
-#include "ParticleLayoutItem.h"
+#ifndef PARTICLEITEM_H
+#define PARTICLEITEM_H
 
-ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("ParticleLayout"), parent)
+#include "ParameterizedGraphicsItem.h"
+
+class ParticleItem : public ParameterizedGraphicsItem
 {
-    m_valid_children.append(QString("Particle"));
-}
+    Q_OBJECT
+public:
+    explicit ParticleItem(ParameterizedItem *parent=0);
+    ~ParticleItem();
+};
 
-
-ParticleLayoutItem::~ParticleLayoutItem()
-{
-}
-
-
+#endif // PARTICLEITEM_H
 

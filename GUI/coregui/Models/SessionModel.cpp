@@ -467,3 +467,29 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
         writer->writeEndElement(); // end ParameterTag
     }
 }
+
+
+
+void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent, int row)
+{
+    qDebug() << "SessionModel::moveParameterizedItem()";
+
+    if(!new_parent) new_parent = m_root_item;
+
+    QByteArray xml_data;
+    QXmlStreamWriter writer(&xml_data);
+    writeItemAndChildItems(&writer, item);
+
+    QXmlStreamReader reader(xml_data);
+    if (row == -1) row = new_parent->childItemCount();
+
+    qDebug() << "    >>> Beginning to insert";
+    beginInsertRows(indexOfItem(new_parent), row, row);
+    readItems(&reader, new_parent, row);
+    endInsertRows();
+
+    qDebug() << "    >>> No deleting";
+
+    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
+
+}

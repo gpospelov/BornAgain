@@ -30,13 +30,29 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void addView(IView *childView);
+    void addView(IView *childView, int row = 0);
 
     virtual void addLayer(LayerView2 *layer, QPointF pos=QPointF());
+    virtual void addNewLayer(LayerView2 *layer, int row);
+    virtual void removeLayer(LayerView2 *layer);
 
 public slots:
     void updateHeight();
+    void onLayerAboutToBeDeleted();
 
+protected:
+    void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+
+private:
+    QList<LayerView2 *> m_layers;
 };
 
 

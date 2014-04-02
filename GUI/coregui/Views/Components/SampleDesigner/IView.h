@@ -26,7 +26,10 @@ public:
 
     virtual ParameterizedItem *getSessionItem() { return m_item; }
 
-    virtual void addView(IView *childView);
+    virtual void addView(IView *childView, int row = 0);
+
+signals:
+    void aboutToBeDeleted();
 
 public slots:
     virtual void onChangedX();

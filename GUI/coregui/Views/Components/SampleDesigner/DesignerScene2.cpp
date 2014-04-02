@@ -36,19 +36,20 @@ void DesignerScene2::setSessionModel(SessionModel *model)
     if(model != m_sessionModel) {
 
         if(m_sessionModel) {
-            disconnect(m_sessionModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-            disconnect(m_sessionModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(updateScene(QModelIndex, int,int)));
-            disconnect(m_sessionModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(updateScene(QModelIndex, int,int)));
-            disconnect(m_sessionModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+            // TODO disconnect all
         }
 
         m_sessionModel = model;
 
         connect(m_sessionModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-        connect(m_sessionModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(updateScene(QModelIndex, int,int)));
-        connect(m_sessionModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(updateScene(QModelIndex, int,int)));
-        connect(m_sessionModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+
+        connect(m_sessionModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
         connect(m_sessionModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
+        connect(m_sessionModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
+
+
+        connect(m_sessionModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+
 
         resetScene();
         updateScene();
@@ -88,17 +89,6 @@ void DesignerScene2::resetScene()
 }
 
 
-void DesignerScene2::updateScene(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-
-    qDebug() << "DesignerScene2::updateScene(const QModelIndex &parent, int first, int lastB)";
-    updateScene();
-}
-
-
 void DesignerScene2::updateScene()
 {
     qDebug() << "DesignerScene2::updateScene()";
@@ -109,16 +99,34 @@ void DesignerScene2::updateScene()
 }
 
 
+void DesignerScene2::onRowsInserted(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    qDebug() << "DesignerScene2::onRowsInserted()" << parent;
+    updateScene();
+}
+
+
+void DesignerScene2::onRowsRemoved(const QModelIndex &parent, int first, int last)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
+    qDebug() << "DesignerScene2::onRowsRemoved()" << parent;
+    updateScene();
+}
+
+
 void DesignerScene2::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
 {
     m_block_selection = true;
     qDebug() << "DesignerScene2::onRowsAboutToBeRemoved()" << parent << first << last;
     for(int irow = first; irow<=last; ++irow ) {
         QModelIndex itemIndex = m_sessionModel->index(irow, 0, parent);
-        deleteViews(itemIndex);
-        removeItemFromScene(m_sessionModel->itemForIndex(itemIndex));
-//        ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex);
-//        removeItemFromScene(item);
+        deleteViews(itemIndex); // deleting all child items
+        removeItemFromScene(m_sessionModel->itemForIndex(itemIndex)); // deleting parent item
     }
     m_block_selection = false;
 }
@@ -126,7 +134,7 @@ void DesignerScene2::onRowsAboutToBeRemoved(const QModelIndex &parent, int first
 
 void DesignerScene2::onSessionSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
 {
-    qDebug() << "DesignerScene2::onSessionSelectionChanged()";
+    //qDebug() << "DesignerScene2::onSessionSelectionChanged()";
 
     QModelIndexList indices = selected.indexes();
     if(indices.size()) {
@@ -147,11 +155,11 @@ void DesignerScene2::onSessionSelectionChanged(const QItemSelection &selected, c
 
 }
 
+
 void DesignerScene2::onSceneSelectionChanged()
 {
-    qDebug() << "DesignerScene2::onSceneSelectionChanged() 1.1";
+    //qDebug() << "DesignerScene2::onSceneSelectionChanged() 1.1";
     if(m_block_selection) return;
-    qDebug() << "DesignerScene2::onSceneSelectionChanged() 1.2";
 
     m_selectionModel->clearSelection();
 
@@ -167,8 +175,6 @@ void DesignerScene2::onSceneSelectionChanged()
         }
     }
 }
-
-
 
 
 void DesignerScene2::updateViews(const QModelIndex & parentIndex, IView *parentView)
@@ -189,7 +195,7 @@ void DesignerScene2::updateViews(const QModelIndex & parentIndex, IView *parentV
 
                 childView = addViewForItem(item);
                 m_orderedViews.push_back(childView);
-                if(parentView) parentView->addView(childView);
+                if(parentView) parentView->addView(childView, i_row);
 
          } else {
              qDebug() << "not a parameterized graphics item";
@@ -197,7 +203,6 @@ void DesignerScene2::updateViews(const QModelIndex & parentIndex, IView *parentV
 
          updateViews( itemIndex, childView);
      }
-
 }
 
 
@@ -261,11 +266,21 @@ void DesignerScene2::removeItemFromScene(ParameterizedItem *item)
             IView *view = it.value();
             view->setSelected(false);
             m_ItemToView.erase(it);
+            emit view->aboutToBeDeleted();
             delete view;
             update();
             break;
         }
     }
+}
+
+
+
+void DesignerScene2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+//    qDebug() << "DesignerScene2::mouseMoveEvent()";
+
+    QGraphicsScene::mouseMoveEvent(event);
 }
 
 

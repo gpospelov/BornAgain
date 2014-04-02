@@ -96,6 +96,8 @@ public:
     void writeTo(QXmlStreamWriter *writer);
 
 
+    void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
+
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,

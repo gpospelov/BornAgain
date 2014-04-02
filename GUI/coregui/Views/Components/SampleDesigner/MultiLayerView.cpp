@@ -34,11 +34,13 @@ MultiLayerView2::MultiLayerView2(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    setAcceptHoverEvents(true);
     setAcceptDrops(true);
 
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
     updateHeight();
 }
+
 
 void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
@@ -52,19 +54,32 @@ void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 }
 
 
-void MultiLayerView2::addView(IView *childView)
+void MultiLayerView2::addView(IView *childView, int row)
 {
-    qDebug() << "MultiLayerView2::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
+    qDebug() << "MultiLayerView2::addView() " << m_item->itemName() << childView->getSessionItem()->itemName() << "row" << row;
     LayerView2 *layer = dynamic_cast<LayerView2 *>(childView);
     Q_ASSERT(layer);
 
     if(!childItems().contains(layer)) {
-        addLayer(layer, getRectangle().bottomLeft());
-        qDebug() << "adding layer";
+        addNewLayer(layer, row);
     } else {
-        qDebug() << "layer exists";
-
+        int previous_row = m_layers.indexOf(layer);
+        m_layers.swap(previous_row, row);
+        qDebug() << "layer exists, swapping" << previous_row << row;
     }
+    updateHeight();
+}
+
+
+void MultiLayerView2::addNewLayer(LayerView2 *layer, int row)
+{
+    qDebug() << "MultiLayerView2::addNewLayer(), row" << row;
+    m_layers.insert(row, layer);
+    int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
+    layer->setX(xpos);
+    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
+    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
+    layer->setParentItem(this);
 }
 
 
@@ -74,10 +89,52 @@ void MultiLayerView2::addLayer(LayerView2 *layer, QPointF pos)
 
     int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
     layer->setPos(xpos, pos.y());
+    layer->setParentItem(this);
     //connect(layer, SIGNAL(LayerMoved()), this, SLOT(updateHeight()) );
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
-    layer->setParentItem(this);
 }
+
+
+void MultiLayerView2::onLayerAboutToBeDeleted()
+{
+    qDebug() << "MultiLayerView2::onLayerAboutToBeDeleted()";
+    LayerView2 *layer = qobject_cast<LayerView2 *>(sender());
+    Q_ASSERT(layer);
+    removeLayer(layer);
+}
+
+
+void MultiLayerView2::removeLayer(LayerView2 *layer)
+{
+    qDebug() << "MultiLayerView2::removeLayer()";
+    Q_ASSERT(m_layers.contains(layer));
+    disconnect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
+    m_layers.removeOne(layer);
+    updateHeight();
+}
+
+
+
+//void MultiLayerView2::updateHeight()
+//{
+//    qDebug() << "MultiLayerView2::updateHeight()";
+//    QList<QGraphicsItem *> list = childItems();
+//    qSort(list.begin(), list.end(), DesignerHelper::sort_layers);
+
+//    int total_height = 0;
+//    if( childItems().size() > 0) {
+//        foreach(QGraphicsItem *item, list) {
+//            item->setY(total_height);
+//            total_height += item->boundingRect().height();
+//        }
+//    } else {
+//        total_height = DesignerHelper::getDefaultMultiLayerHeight();
+//    }
+
+//    m_rect.setHeight(total_height);
+//    update();
+//    emit heightChanged();
+//}
 
 
 void MultiLayerView2::updateHeight()
@@ -87,18 +144,69 @@ void MultiLayerView2::updateHeight()
     qSort(list.begin(), list.end(), DesignerHelper::sort_layers);
 
     int total_height = 0;
-    if( childItems().size() > 0) {
-        foreach(QGraphicsItem *item, list) {
-            item->setY(total_height);
-            total_height += item->boundingRect().height();
-        }
-    } else {
-        total_height = DesignerHelper::getDefaultMultiLayerHeight();
+    foreach(LayerView2 *layer, m_layers) {
+        layer->setY(total_height);
+        layer->update();
+        total_height += layer->boundingRect().height();
     }
+    if(total_height == 0) total_height = DesignerHelper::getDefaultMultiLayerHeight();
 
     m_rect.setHeight(total_height);
     update();
     emit heightChanged();
+}
+
+
+void MultiLayerView2::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "MultiLayerView2::dragEnterEvent()";
+    QGraphicsItem::dragEnterEvent(event);
+}
+
+void MultiLayerView2::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "MultiLayerView2::dragLeaveEvent()";
+    QGraphicsItem::dragLeaveEvent(event);
+}
+
+void MultiLayerView2::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "MultiLayerView2::dropEvent()";
+    QGraphicsItem::dropEvent(event);
+}
+
+void MultiLayerView2::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "MultiLayerView2::dragMoveEvent()";
+    QGraphicsItem::dragMoveEvent(event);
+}
+
+
+void MultiLayerView2::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << "MultiLayerView2::hoverEnterEvent()";
+    QGraphicsItem::hoverEnterEvent(event);
+}
+
+
+void MultiLayerView2::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << "MultiLayerView2::hoverMoveEvent()";
+    QGraphicsItem::hoverMoveEvent(event);
+}
+
+
+void MultiLayerView2::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug() << "MultiLayerView2::hoverLeaveEvent()";
+    QGraphicsItem::hoverLeaveEvent(event);
+}
+
+
+void MultiLayerView2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "MultiLayerView2::mouseMoveEvent()";
+    QGraphicsItem::mouseMoveEvent(event);
 }
 
 

@@ -30,8 +30,13 @@ public slots:
     void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
     void resetScene();
     void updateScene();
-    void updateScene(const QModelIndex &parent, int first, int last);
+
+    void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsRemoved(const QModelIndex &parent, int first, int last);
+
+protected:
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     IView *addViewForItem(ParameterizedItem *item);

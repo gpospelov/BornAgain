@@ -49,8 +49,9 @@ void LayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 }
 
 
-void LayerView2::addView(IView *childView)
+void LayerView2::addView(IView *childView, int row)
 {
+    Q_UNUSED(row);
     qDebug() << "LayerView2::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
     ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
     Q_ASSERT(layout);

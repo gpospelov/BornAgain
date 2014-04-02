@@ -21,7 +21,7 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void addView(IView *childView);
+    void addView(IView *childView, int row = 0); // to add ParticleLayout
 
 public slots:
     void onPropertyChange(QString propertyName);

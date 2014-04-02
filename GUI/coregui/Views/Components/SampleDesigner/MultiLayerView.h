@@ -36,6 +36,10 @@ public:
     virtual void addNewLayer(LayerView2 *layer, int row);
     virtual void removeLayer(LayerView2 *layer);
 
+
+    bool isInDropArea(QPointF pos);
+    int getDropArea(QPointF pos);
+
 public slots:
     void updateHeight();
     void onLayerAboutToBeDeleted();
@@ -53,6 +57,8 @@ protected:
 
 private:
     QList<LayerView2 *> m_layers;
+    QList<QRectF> m_drop_areas;
+
 };
 
 

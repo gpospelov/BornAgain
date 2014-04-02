@@ -25,6 +25,8 @@ public:
     void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
+    SessionModel *getSessionModel() { return m_sessionModel; }
+
 public slots:
     void onSceneSelectionChanged();
     void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);

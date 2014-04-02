@@ -472,7 +472,9 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
 
 void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent, int row)
 {
-    qDebug() << "SessionModel::moveParameterizedItem()";
+    qDebug() << "";
+    qDebug() << "";
+    qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
 
     if(!new_parent) new_parent = m_root_item;
 
@@ -483,12 +485,12 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     QXmlStreamReader reader(xml_data);
     if (row == -1) row = new_parent->childItemCount();
 
-    qDebug() << "    >>> Beginning to insert";
+    qDebug() << "    >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
     beginInsertRows(indexOfItem(new_parent), row, row);
     readItems(&reader, new_parent, row);
     endInsertRows();
 
-    qDebug() << "    >>> No deleting";
+    qDebug() << "    >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
 
     removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
 

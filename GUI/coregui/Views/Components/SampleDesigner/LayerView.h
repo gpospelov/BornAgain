@@ -7,6 +7,7 @@
 
 
 
+class MultiLayerView2;
 
 class LayerView2 : public ConnectableView
 {
@@ -23,9 +24,17 @@ public:
 
     void addView(IView *childView, int row = 0); // to add ParticleLayout
 
+protected:
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+
 public slots:
     void onPropertyChange(QString propertyName);
 
+private:
+    MultiLayerView2 * m_requested_parent;
+    int m_requested_raw;
 };
 
 

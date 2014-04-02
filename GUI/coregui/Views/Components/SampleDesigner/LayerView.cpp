@@ -2,6 +2,10 @@
 #include "Units.h"
 #include "ParticleLayoutView.h"
 #include "ParameterizedItem.h"
+#include "MultiLayerView.h"
+#include "DesignerScene2.h"
+#include "SessionModel.h"
+
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -14,6 +18,7 @@
 #include <QGradient>
 #include <QStyleOptionGraphicsItem>
 #include <QDebug>
+#include <QGraphicsScene>
 
 #include "DesignerHelper.h"
 #include <iostream>
@@ -70,6 +75,52 @@ void LayerView2::onPropertyChange(QString propertyName)
     }
     IView::onPropertyChange(propertyName);
 }
+
+
+QVariant LayerView2::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+
+     if (change == ItemPositionChange && scene()) {
+
+         m_requested_parent = 0;
+         m_requested_raw = -1;
+         QRectF newRect = mapRectToScene(boundingRect());
+         foreach(QGraphicsItem *item, scene()->items()) {
+            if(item != parentItem() && item->type() == DesignerHelper::MultiLayerType) {
+                MultiLayerView2 *multilayer = qgraphicsitem_cast<MultiLayerView2 *>(item);
+                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(newRect)) {
+                    qDebug() << "   XXX " << multilayer->getDropArea(multilayer->mapFromScene(newRect.center()));
+
+                    qDebug() << "xxx" << newRect << multilayer->mapRectToScene(multilayer->boundingRect());
+                    m_requested_parent = multilayer;
+                    m_requested_raw = multilayer->getDropArea(multilayer->mapFromScene(newRect.center()));
+                }
+                break;
+            }
+        }
+
+     }
+     return QGraphicsItem::itemChange(change, value);
+ }
+
+
+void LayerView2::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "LayerView2::mouseReleaseEvent()";
+
+    DesignerScene2 *sc = dynamic_cast<DesignerScene2 *>(scene());
+    Q_ASSERT(sc);
+
+    qDebug() << "releasing" << m_requested_parent << m_requested_raw;
+    if(m_requested_parent && m_requested_raw != -1) {
+        SessionModel *model = sc->getSessionModel();
+        model->moveParameterizedItem(this->getSessionItem(), m_requested_parent->getSessionItem(), m_requested_raw);
+
+    }
+
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
 
 
 // ----------------------------------------------------------------------------

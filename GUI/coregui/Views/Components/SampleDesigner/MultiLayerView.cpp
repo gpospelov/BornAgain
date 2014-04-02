@@ -51,6 +51,8 @@ void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     }
     painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
     painter->drawRect(getRectangle());
+
+    painter->drawLine(0, 10, 100, 10);
 }
 
 
@@ -140,21 +142,55 @@ void MultiLayerView2::removeLayer(LayerView2 *layer)
 void MultiLayerView2::updateHeight()
 {
     qDebug() << "MultiLayerView2::updateHeight()";
-    QList<QGraphicsItem *> list = childItems();
-    qSort(list.begin(), list.end(), DesignerHelper::sort_layers);
+
+    // drop areas are rectangles covering the area of layer interfaces
+    m_drop_areas.clear();
 
     int total_height = 0;
-    foreach(LayerView2 *layer, m_layers) {
-        layer->setY(total_height);
-        layer->update();
-        total_height += layer->boundingRect().height();
+    if(m_layers.size()) {
+        foreach(LayerView2 *layer, m_layers) {
+            layer->setY(total_height);
+            layer->update();
+            total_height += layer->boundingRect().height();
+            m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/4., boundingRect().width(), layer->boundingRect().height()/2.));
+        }
+        m_drop_areas.append(QRectF(0, m_layers.back()->y() +m_layers.back()->boundingRect().height() - m_layers.back()->boundingRect().height()/4., boundingRect().width(), m_layers.back()->boundingRect().height()/2.));
+    } else {
+        total_height = DesignerHelper::getDefaultMultiLayerHeight();
+        m_drop_areas.append(boundingRect());
     }
-    if(total_height == 0) total_height = DesignerHelper::getDefaultMultiLayerHeight();
 
     m_rect.setHeight(total_height);
     update();
     emit heightChanged();
 }
+
+
+
+int MultiLayerView2::getDropArea(QPointF pos)
+{
+    qDebug() << "MultiLayerView2::getDropArea(QPointF pos)" << pos;
+
+    int area(-1);
+    for(int i=0; i<m_drop_areas.size(); ++i) {
+        if( m_drop_areas.at(i).contains(pos) ) {
+            area = i;
+            break;
+        }
+    }
+    return area;
+}
+
+
+bool MultiLayerView2::isInDropArea(QPointF pos)
+{
+    foreach(QRectF rect, m_drop_areas) {
+        //std::cout << " drop areas " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << " point" << pos.x() << " " << pos.y() << std::endl;
+        if (rect.contains(pos)) return true;
+    }
+    return false;
+}
+
 
 
 void MultiLayerView2::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -191,21 +227,21 @@ void MultiLayerView2::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 
 void MultiLayerView2::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
-    qDebug() << "MultiLayerView2::hoverMoveEvent()";
+//    qDebug() << "MultiLayerView2::hoverMoveEvent()";
     QGraphicsItem::hoverMoveEvent(event);
 }
 
 
 void MultiLayerView2::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-    qDebug() << "MultiLayerView2::hoverLeaveEvent()";
+//    qDebug() << "MultiLayerView2::hoverLeaveEvent()";
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
 
 void MultiLayerView2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "MultiLayerView2::mouseMoveEvent()";
+//    qDebug() << "MultiLayerView2::mouseMoveEvent()";
     QGraphicsItem::mouseMoveEvent(event);
 }
 

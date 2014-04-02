@@ -9,6 +9,7 @@
 #include "NodeEditor.h"
 #include <QItemSelection>
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 
 
 DesignerScene2::DesignerScene2(QObject *parent)
@@ -181,7 +182,7 @@ void DesignerScene2::updateViews(const QModelIndex & parentIndex, IView *parentV
 {
     Q_ASSERT(m_sessionModel);
 
-    qDebug() << "DesignerScene2::update()";
+    qDebug() << "DesignerScene2::updateVIews()";
 
     if(!parentIndex.isValid()) {
         qDebug() << "Dumping model";
@@ -278,7 +279,11 @@ void DesignerScene2::removeItemFromScene(ParameterizedItem *item)
 
 void DesignerScene2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-//    qDebug() << "DesignerScene2::mouseMoveEvent()";
+
+//    if(event->button()==Qt::LeftButton) {
+//        qDebug() << "DesignerScene2::mouseMoveEvent()";
+
+//    }
 
     QGraphicsScene::mouseMoveEvent(event);
 }

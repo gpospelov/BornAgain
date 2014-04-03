@@ -75,6 +75,38 @@ void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
     }
 }
 
+void SamplePropertyEditor::addSubProperties(QtProperty *item_property, const ParameterizedItem *item)
+{
+    QList<QByteArray> property_names = item->dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString prop_name = QString(property_names[i]);
+        QVariant prop_value = item->property(prop_name.toUtf8().data());
+        int type = prop_value.type();
+        if (type == QVariant::UserType) {
+            type = prop_value.userType();
+        }
+        QtVariantProperty *subProperty = 0;
+        if (m_manager->isPropertyTypeSupported(type)) {
+            subProperty = m_manager->addProperty(type, prop_name);
+            subProperty->setValue(prop_value);
+            if (item->getSubItems().contains(prop_name)) {
+                ParameterizedItem *subitem = item->getSubItems()[prop_name];
+                if (subitem) {
+                    addSubProperties(subProperty, subitem);
+                }
+            }
+        } else {
+            subProperty = m_read_only_manager->addProperty(QVariant::String,
+                                                         prop_name);
+            subProperty->setValue(QLatin1String("< Unknown Type >"));
+            subProperty->setEnabled(false);
+        }
+        item_property->addSubProperty(subProperty);
+        m_property_to_index[subProperty] = i;
+        m_item_to_index_to_property[item][i] = subProperty;
+    }
+}
+
 void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
 {
     QtProperty *item_property = m_item_to_property.value(item);
@@ -85,34 +117,7 @@ void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
         m_item_to_property[item] = item_property;
         m_property_to_item[item_property] = item;
 
-        QList<QByteArray> property_names = item->dynamicPropertyNames();
-        for (int i = 0; i < property_names.length(); ++i) {
-            QString prop_name = QString(property_names[i]);
-            QVariant prop_value = item->property(prop_name.toUtf8().data());
-            int type = prop_value.type();
-            if (type == QVariant::UserType) {
-                type = prop_value.userType();
-            }
-            QtVariantProperty *subProperty = 0;
-            if (m_manager->isPropertyTypeSupported(type)) {
-                subProperty = m_manager->addProperty(type, prop_name);
-                subProperty->setValue(prop_value);
-                if (prop_name == QString("Form Factor")) {
-                    QtVariantProperty *ff_property =
-                        m_manager->addProperty(QVariant::Double,
-                                               QString("Radius"));
-                    subProperty->addSubProperty(ff_property);
-                }
-            } else {
-                subProperty = m_read_only_manager->addProperty(QVariant::String,
-                                                             prop_name);
-                subProperty->setValue(QLatin1String("< Unknown Type >"));
-                subProperty->setEnabled(false);
-            }
-            item_property->addSubProperty(subProperty);
-            m_property_to_index[subProperty] = i;
-            m_item_to_index_to_property[item][i] = subProperty;
-        }
+        addSubProperties(item_property, item);
     } else {
         updateItemProperties(item);
     }

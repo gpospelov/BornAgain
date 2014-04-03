@@ -13,24 +13,16 @@
 //
 // ************************************************************************** //
 
-#include "ParticleItem.h"
-#include "FormFactorItems.h"
-#include "MaterialBrowser.h"
+#include "CylinderItem.h"
 
-ParticleItem::ParticleItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("Particle"), parent)
+CylinderItem::CylinderItem(ParameterizedItem *parent)
+    : ParameterizedItem(QString("Cylinder"), parent)
 {
-    setItemName("ParticleName");
-    ParameterizedItem *p_ff = new CylinderItem();
-    addSubItem("Form Factor", p_ff);
-    MaterialProperty material = MaterialBrowser::getDefaultMaterialProperty();
-    QVariant mat_var;
-    mat_var.setValue(material);
-    setProperty("Material", mat_var);
-    setProperty("Depth", 0.0);
-    setProperty("Abundance", 1.0);
+    setItemName("CylinderName");
+    setProperty("Radius", 1.0);
+    setProperty("Height", 1.0);
 }
 
-ParticleItem::~ParticleItem()
+CylinderItem::~CylinderItem()
 {
 }

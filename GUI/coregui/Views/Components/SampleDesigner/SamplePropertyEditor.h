@@ -42,6 +42,9 @@ private:
     //! assigns item to the property editor
     void setItem(ParameterizedItem *item);
 
+    void addSubProperties(QtProperty *item_property,
+                          const ParameterizedItem *item);
+
     ParameterizedItem *m_item; //! object to modify
 
     QItemSelectionModel *m_selection_model;

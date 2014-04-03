@@ -21,17 +21,6 @@
 
 
 
-ParameterizedItem::ParameterizedItem(const QString &model_type,
-                                     ParameterizedItem *parent)
-    : m_model_type(model_type)
-    , m_parent(parent)
-{
-    if (m_parent) {
-        m_parent->addChildItem(this);
-    }
-    setItemName(m_model_type);
-}
-
 ParameterizedItem::~ParameterizedItem()
 {
     qDeleteAll(m_children);
@@ -61,3 +50,24 @@ bool ParameterizedItem::event(QEvent * e )
     return QObject::event(e);
 }
 
+void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
+{
+    if (!item) return;
+    const char *name_str = name.toUtf8().constData();
+    setProperty(name_str, item->modelType());
+    if (m_sub_items.contains(name)) {
+        delete m_sub_items[name];
+    }
+    m_sub_items[name] = item;
+}
+
+ParameterizedItem::ParameterizedItem(const QString &model_type,
+                                     ParameterizedItem *parent)
+    : m_model_type(model_type)
+    , m_parent(parent)
+{
+    if (m_parent) {
+        m_parent->addChildItem(this);
+    }
+    setItemName(m_model_type);
+}

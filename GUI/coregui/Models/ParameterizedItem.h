@@ -85,6 +85,12 @@ public:
 
     bool event(QEvent * e );
 
+    QMap<QString, ParameterizedItem *> getSubItems() const {
+        return m_sub_items;
+    }
+
+    void addSubItem(QString name, ParameterizedItem *item);
+
 signals:
     void propertyChanged(QString propertyName);
 
@@ -98,6 +104,7 @@ private:
     QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
+    QMap<QString, ParameterizedItem *> m_sub_items;
 };
 
 

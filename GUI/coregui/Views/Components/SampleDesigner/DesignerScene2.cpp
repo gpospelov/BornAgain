@@ -8,6 +8,7 @@
 #include "ConnectableView.h"
 #include "ParameterizedGraphicsItem.h"
 #include "NodeEditor.h"
+#include "NodeEditorConnection.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -25,6 +26,7 @@ DesignerScene2::DesignerScene2(QObject *parent)
 
     NodeEditor *nodeEditor = new NodeEditor(parent);
     nodeEditor->install(this);
+    connect(nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this, SLOT(onEstablishedConnection(NodeEditorConnection*)));
 
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 
@@ -141,8 +143,7 @@ void DesignerScene2::onSessionSelectionChanged(const QItemSelection &selected, c
 
     QModelIndexList indices = selected.indexes();
     if(indices.size()) {
-        ParameterizedGraphicsItem *item = static_cast<ParameterizedGraphicsItem *>(
-                indices.back().internalPointer());
+        ParameterizedItem *item = m_sessionModel->itemForIndex(indices.back());
         Q_ASSERT(item);
         IView *view = m_ItemToView[item];
         //Q_ASSERT(view);
@@ -278,6 +279,27 @@ void DesignerScene2::removeItemFromScene(ParameterizedItem *item)
 }
 
 
+void DesignerScene2::deleteSelectedItems()
+{
+    qDebug() << "DesignerScene::deleteSelectedItems()" << selectedItems().size();
+    foreach(QGraphicsItem *graphicsItem, selectedItems()) {
+        IView *view = dynamic_cast<IView *>(graphicsItem);
+        if(view) {
+            qDebug() << "xxx";
+            ParameterizedItem *item = view->getParameterizedItem();
+            Q_ASSERT(item);
+            m_sessionModel->removeRows(m_sessionModel->indexOfItem(item).row(), 1, m_sessionModel->indexOfItem(item->parent()));
+        }
+
+
+        NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem);
+        if(connection) removeConnection(connection);
+    }
+
+
+}
+
+
 
 void DesignerScene2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -320,3 +342,24 @@ void DesignerScene2::drawForeground(QPainter* painter, const QRectF& rect)
 
 
 }
+
+
+
+void DesignerScene2::onEstablishedConnection(NodeEditorConnection *connection)
+{
+    qDebug() << "DesignerScene2::onEstablishedConnection()";
+    IView *parentView = dynamic_cast<IView *>(connection->getInputPort()->parentItem());
+    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
+    Q_ASSERT(parentView);
+    Q_ASSERT(childView);
+    delete connection;
+    m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), parentView->getParameterizedItem());
+}
+
+
+void DesignerScene2::removeConnection(NodeEditorConnection *connection)
+{
+    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
+    m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), 0);
+}
+

@@ -85,6 +85,20 @@ NodeEditorPort* NodeEditorConnection::port2() const
 }
 
 
+NodeEditorPort *NodeEditorConnection::getInputPort()
+{
+    Q_ASSERT(m_port1 && m_port2);
+    return (m_port1->isInput() ? m_port1 : m_port2);
+}
+
+
+NodeEditorPort *NodeEditorConnection::getOutputPort()
+{
+    Q_ASSERT(m_port1 && m_port2);
+    return (m_port1->isOutput() ? m_port1 : m_port2);
+}
+
+
 void NodeEditorConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option)

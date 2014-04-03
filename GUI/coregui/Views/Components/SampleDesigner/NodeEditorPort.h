@@ -64,6 +64,8 @@ public:
 
     static QColor getPortTypeColor(NodeEditorPort::PortType port_type);
 
+    void deleteAllConnections();
+
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 

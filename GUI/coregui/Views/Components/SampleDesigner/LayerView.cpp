@@ -48,7 +48,7 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 void LayerView::addView(IView *childView, int row)
 {
     Q_UNUSED(row);
-    //qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
+    qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName();
     ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
     Q_ASSERT(layout);
     connectInputPort(layout);

@@ -12,6 +12,7 @@ class ParameterizedGraphicsItem;
 class QItemSelectionModel;
 class IView;
 class QItemSelection;
+class NodeEditorConnection;
 
 
 class DesignerScene2 : public DesignerSceneInterface
@@ -38,6 +39,12 @@ public slots:
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
 
     void setLayerDropArea(const QRectF &rect) { m_layer_drop_area = rect; }
+
+    void deleteSelectedItems();
+
+    void onEstablishedConnection(NodeEditorConnection *); // to process signals from NodeEditor
+    void removeConnection(NodeEditorConnection *);
+
 
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

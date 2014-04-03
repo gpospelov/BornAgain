@@ -26,8 +26,9 @@ public slots:
     void zoomIn();
     void zoomOut();
     void zoomFit();
-    void deleteItem();
+    void deleteSelectedItems();
     void clearAll();
+
 
 protected:
 //    void wheelEvent(QWheelEvent *event);

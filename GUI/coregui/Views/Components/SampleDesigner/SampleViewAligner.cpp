@@ -32,7 +32,7 @@ void SampleViewAligner::align(QList<IView *> views, QPointF reference)
     //qDebug() << "SampleViewAligner::align()" << reference;
     QMap<int, IView *> areaToView;
     foreach(IView *view, views) {
-        int area = m_typeToArea[view->getSessionItem()->modelType()];
+        int area = m_typeToArea[view->getParameterizedItem()->modelType()];
         //qDebug() << "area" << area << view->getSessionItem()->modelType();
         if(!view->parentObject())
             areaToView.insertMulti(area, view);

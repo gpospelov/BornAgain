@@ -170,7 +170,7 @@ void DesignerScene2::onSceneSelectionChanged()
     for(int i=0; i<selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
         if(view) {
-            ParameterizedItem *sessionItem = view->getSessionItem();
+            ParameterizedItem *sessionItem = view->getParameterizedItem();
             QModelIndex itemIndex = m_sessionModel->indexOfItem(sessionItem);
             Q_ASSERT(itemIndex.isValid());
             m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
@@ -220,7 +220,7 @@ IView *DesignerScene2::addViewForItem(ParameterizedItem *item)
         view = SampleViewFactory::createSampleView(item->modelType());
         if(view) {
             m_ItemToView[item] = view;
-            view->setSessionItem(item);
+            view->setParameterizedItem(item);
             addItem(view);
             return view;
         }
@@ -303,19 +303,13 @@ void DesignerScene2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsScene::mouseMoveEvent(event);
 }
 
-//void DesignerScene2::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    qDebug() << "DesignerScene2::dragMoveEvent()";
-//}
-
-
 
 void DesignerScene2::drawForeground(QPainter* painter, const QRectF& rect)
 {
     Q_UNUSED(rect);
     //    QRectF SceneRect = this->sceneRect();
 
-    LayerView2 *layer = qgraphicsitem_cast<LayerView2 *>(mouseGrabberItem());
+    LayerView *layer = qgraphicsitem_cast<LayerView *>(mouseGrabberItem());
     if(!m_layer_drop_area.isNull() && layer) {
         //qDebug() << "DesignerScene2::drawForeground" << m_layer_drop_area;
         painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));

@@ -41,7 +41,6 @@ public slots:
 
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-//    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void drawForeground(QPainter* painter, const QRectF& rect);
 
 

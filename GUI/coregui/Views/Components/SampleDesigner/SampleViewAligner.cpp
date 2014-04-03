@@ -60,7 +60,8 @@ QPointF SampleViewAligner::placeItems(const QList<IView *> &items, QPointF refer
         QPointF pos = reference;
         //qDebug() << "xxx " << view->x() << view->y() << (pos.y() - i*dy/items.size());
         pos.setY(pos.y() - i*dy/items.size());
-        view->setPos(pos);
+        if(view->pos().isNull())
+            view->setPos(pos);
     }
     return reference;
 }

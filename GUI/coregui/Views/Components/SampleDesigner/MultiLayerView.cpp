@@ -167,9 +167,10 @@ void MultiLayerView2::updateHeight()
 
 
 
+//! returns index of drop area for given coordinate
 int MultiLayerView2::getDropArea(QPointF pos)
 {
-    qDebug() << "MultiLayerView2::getDropArea(QPointF pos)" << pos;
+//    qDebug() << "MultiLayerView2::getDropArea(QPointF pos)" << pos;
 
     int area(-1);
     for(int i=0; i<m_drop_areas.size(); ++i) {

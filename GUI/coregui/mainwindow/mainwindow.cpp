@@ -250,6 +250,8 @@ void MainWindow::initSessionModel()
                    m_sessionModel->indexOfItem(layer));
     m_sessionModel->insertNewItem("Layer");
 
+    m_sessionModel->insertNewItem("MultiLayer");
+
     //ParameterizedItem *layer2 = m_sessionModel->insertNewItem("Layer");
     //m_sessionModel->moveParameterizedItem(layer2, multilayer);
     //m_sessionModel->moveParameterizedItem(layer, 0);

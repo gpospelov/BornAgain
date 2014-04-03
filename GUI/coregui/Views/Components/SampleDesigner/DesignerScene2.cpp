@@ -268,7 +268,7 @@ void DesignerScene2::removeItemFromScene(ParameterizedItem *item)
             view->setSelected(false);
             m_ItemToView.erase(it);
             emit view->aboutToBeDeleted();
-            delete view;
+            view->deleteLater();
             update();
             break;
         }

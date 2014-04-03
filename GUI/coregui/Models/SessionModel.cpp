@@ -478,6 +478,11 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
     if(!new_parent) new_parent = m_root_item;
 
+    if(item->parent() == new_parent && indexOfItem(item).row() == row) {
+        qDebug() << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
+        return;
+    }
+
     QByteArray xml_data;
     QXmlStreamWriter writer(&xml_data);
     writeItemAndChildItems(&writer, item);

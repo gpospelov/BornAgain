@@ -5,6 +5,7 @@
 #include "MultiLayerView.h"
 #include "DesignerScene2.h"
 #include "SessionModel.h"
+#include "GUIHelpers.h"
 
 
 #include <QPainter>
@@ -28,6 +29,9 @@
 
 LayerView2::LayerView2(QGraphicsItem *parent)
     : ConnectableView(parent)
+    , m_requested_parent(0)
+      , m_requested_raw(-1)
+
 {
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
     setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
@@ -86,12 +90,10 @@ QVariant LayerView2::itemChange(GraphicsItemChange change, const QVariant &value
          m_requested_raw = -1;
          QRectF newRect = mapRectToScene(boundingRect());
          foreach(QGraphicsItem *item, scene()->items()) {
-            if(item != parentItem() && item->type() == DesignerHelper::MultiLayerType) {
+            if(item->type() == DesignerHelper::MultiLayerType) {
                 MultiLayerView2 *multilayer = qgraphicsitem_cast<MultiLayerView2 *>(item);
                 if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(newRect)) {
                     qDebug() << "   XXX " << multilayer->getDropArea(multilayer->mapFromScene(newRect.center()));
-
-                    qDebug() << "xxx" << newRect << multilayer->mapRectToScene(multilayer->boundingRect());
                     m_requested_parent = multilayer;
                     m_requested_raw = multilayer->getDropArea(multilayer->mapFromScene(newRect.center()));
                 }
@@ -104,21 +106,63 @@ QVariant LayerView2::itemChange(GraphicsItemChange change, const QVariant &value
  }
 
 
+void LayerView2::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton) {
+        m_drag_start_position = pos();
+    }
+    QGraphicsItem::mousePressEvent(event);
+}
+
+
+
+void LayerView2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mouseMoveEvent(event);
+}
+
+
 void LayerView2::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "LayerView2::mouseReleaseEvent()";
+    qDebug() << "LayerView2::mouseReleaseEvent()" << event->buttonDownScenePos(Qt::LeftButton);
 
-    DesignerScene2 *sc = dynamic_cast<DesignerScene2 *>(scene());
-    Q_ASSERT(sc);
-
-    qDebug() << "releasing" << m_requested_parent << m_requested_raw;
-    if(m_requested_parent && m_requested_raw != -1) {
-        SessionModel *model = sc->getSessionModel();
-        model->moveParameterizedItem(this->getSessionItem(), m_requested_parent->getSessionItem(), m_requested_raw);
-
+    // Simple move of lonely layer across the scene: let it be.
+    if(m_requested_parent == 0 && parentItem() == 0) {
+        QGraphicsItem::mouseReleaseEvent(event);
+        return;
     }
 
-    QGraphicsItem::mouseReleaseEvent(event);
+    // Layer was moved on top of MultiLayer but not in the right drop area:
+    // returning layer back to starting position.
+    if(m_requested_parent && m_requested_raw == -1) {
+        setPos(m_drag_start_position);
+        QGraphicsItem::mouseReleaseEvent(event);
+        return;
+    }
+
+    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+    Q_ASSERT(designerScene);
+    SessionModel *model = designerScene->getSessionModel();
+
+    // Layer was moved from MultiLayer he belong's to, to the empty place of
+    // the scene: changing ownership.
+    if(parentItem() && !m_requested_parent) {
+        model->moveParameterizedItem(this->getSessionItem(), 0);
+        QGraphicsItem::mouseReleaseEvent(event);
+        return;
+    }
+
+    // Layer was moved either from one MultiLayer to another, or is moved inside
+    // one multilayer: changing ownership.
+    if(m_requested_parent) {
+        model->moveParameterizedItem(this->getSessionItem(), m_requested_parent->getSessionItem(), m_requested_raw);
+        QGraphicsItem::mouseReleaseEvent(event);
+        return;
+    }
+
+    // should not be here
+    qDebug() << " logic error " << parentItem() << m_requested_parent << m_requested_raw;
+    throw GUIHelpers::Error(tr("LayerView2::mouseReleaseEvent() -> Loggic error."));
 }
 
 

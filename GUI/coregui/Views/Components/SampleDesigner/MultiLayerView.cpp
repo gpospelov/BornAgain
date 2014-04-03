@@ -85,12 +85,10 @@ void MultiLayerView2::addNewLayer(LayerView2 *layer, int row)
 }
 
 
-void MultiLayerView2::addLayer(LayerView2 *layer, QPointF pos)
+void MultiLayerView2::addLayer(LayerView2 *layer, QPointF /* pos */)
 {
     m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
 
-    int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
-    layer->setPos(xpos, pos.y());
     layer->setParentItem(this);
     //connect(layer, SIGNAL(LayerMoved()), this, SLOT(updateHeight()) );
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
@@ -146,10 +144,12 @@ void MultiLayerView2::updateHeight()
     // drop areas are rectangles covering the area of layer interfaces
     m_drop_areas.clear();
 
+
     int total_height = 0;
     if(m_layers.size()) {
         foreach(LayerView2 *layer, m_layers) {
-            layer->setY(total_height);
+            int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
+            layer->setPos(xpos, total_height);
             layer->update();
             total_height += layer->boundingRect().height();
             m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/4., boundingRect().width(), layer->boundingRect().height()/2.));

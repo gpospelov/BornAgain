@@ -84,30 +84,41 @@ void LayerView2::onPropertyChange(QString propertyName)
 QVariant LayerView2::itemChange(GraphicsItemChange change, const QVariant &value)
 {
 
+    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
     if (change == ItemPositionChange && scene()) {
 
         m_requested_parent = 0;
         m_requested_row = -1;
-        QRectF newRect = mapRectToScene(boundingRect());
+        QRectF layerRect = mapRectToScene(boundingRect());
         foreach(QGraphicsItem *item, scene()->items()) {
             if(item->type() == DesignerHelper::MultiLayerType) {
                 MultiLayerView2 *multilayer = qgraphicsitem_cast<MultiLayerView2 *>(item);
-                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(newRect)) {
-                    qDebug() << "   XXX " << multilayer->getDropArea(multilayer->mapFromScene(newRect.center()));
+                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {
+                    qDebug() << "   XXX " << multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
                     m_requested_parent = multilayer;
-                    m_requested_row = multilayer->getDropArea(multilayer->mapFromScene(newRect.center()));
+                    m_requested_row = multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
                     break;
                 }
             }
         }
 
+        if(m_requested_parent && scene()->mouseGrabberItem() == this) {
+            DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+            QRectF rect = m_requested_parent->getDropArea(m_requested_row);
+            designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
+        }
 //        if(m_requested_parent) {
-//             QPointF newPos = value.toPointF();
-//             newPos.setY(m_requested_parent->boundingRect().center().y());
-//             return newPos;
+//            QPointF newPos = value.toPointF();
+//            if(m_requested_parent == parentItem()) {
+//                newPos.setX(m_requested_parent->boundingRect().center().x());
+//                return newPos;
+//            }
 //        }
 
      }
+//        if(designerScene) designerScene->setLayerDropArea(QRectF());
+
+//    }
      return QGraphicsItem::itemChange(change, value);
  }
 
@@ -133,13 +144,15 @@ void LayerView2::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "LayerView2::mouseReleaseEvent()" << parentItem() << m_requested_parent << m_requested_row;
 
+    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+    designerScene->setLayerDropArea(QRectF());
+
     // Simple move of lonely layer across the scene: let it be.
     if(m_requested_parent == 0 && parentItem() == 0) {
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
 
-    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
     Q_ASSERT(designerScene);
     SessionModel *model = designerScene->getSessionModel();
 

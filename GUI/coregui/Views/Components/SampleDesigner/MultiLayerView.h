@@ -40,6 +40,8 @@ public:
     bool isInDropArea(QPointF pos);
     int getDropArea(QPointF pos);
 
+    QRectF getDropArea(int row);
+
 public slots:
     void updateHeight();
     void onLayerAboutToBeDeleted();

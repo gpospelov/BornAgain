@@ -4,12 +4,14 @@
 #include "SampleViewFactory.h"
 #include "SampleViewAligner.h"
 #include "IView.h"
+#include "LayerView.h"
 #include "ConnectableView.h"
 #include "ParameterizedGraphicsItem.h"
 #include "NodeEditor.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 
 
 DesignerScene2::DesignerScene2(QObject *parent)
@@ -285,8 +287,42 @@ void DesignerScene2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 //    }
 
+//    LayerView2 *layer = qgraphicsitem_cast<LayerView2 *>(mouseGrabberItem());
+//    if(layer) {
+//        qDebug() << "DesignerScene2::mouseMoveEvent()";
+//        foreach(QGraphicsItem *item, items()) {
+//            if(item->type() == DesignerHelper::MultiLayerType) {
+//                MultiLayerView2 *multilayer = qgraphicsitem_cast<MultiLayerView2 *>(item);
+//                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {
+
+
+
+//    }
+
+
     QGraphicsScene::mouseMoveEvent(event);
 }
 
+//void DesignerScene2::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+//{
+//    qDebug() << "DesignerScene2::dragMoveEvent()";
+//}
 
 
+
+void DesignerScene2::drawForeground(QPainter* painter, const QRectF& rect)
+{
+    Q_UNUSED(rect);
+    //    QRectF SceneRect = this->sceneRect();
+
+    LayerView2 *layer = qgraphicsitem_cast<LayerView2 *>(mouseGrabberItem());
+    if(!m_layer_drop_area.isNull() && layer) {
+        //qDebug() << "DesignerScene2::drawForeground" << m_layer_drop_area;
+        painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
+        painter->drawLine(m_layer_drop_area.left()-10, m_layer_drop_area.center().y(), m_layer_drop_area.right()+10, m_layer_drop_area.center().y());
+        //painter->drawRect(m_layer_drop_area);
+        invalidate();
+    }
+
+
+}

@@ -51,8 +51,6 @@ void MultiLayerView2::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     }
     painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
     painter->drawRect(getRectangle());
-
-    painter->drawLine(0, 10, 100, 10);
 }
 
 
@@ -244,6 +242,16 @@ void MultiLayerView2::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
 //    qDebug() << "MultiLayerView2::mouseMoveEvent()";
     QGraphicsItem::mouseMoveEvent(event);
+}
+
+
+QRectF MultiLayerView2::getDropArea(int row)
+{
+    if(row>=0 && row < m_drop_areas.size()) {
+        return m_drop_areas[row];
+    } else {
+        return QRectF();
+    }
 }
 
 

@@ -37,8 +37,13 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
 
+    void setLayerDropArea(const QRectF &rect) { m_layer_drop_area = rect; }
+
 protected:
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+//    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+    void drawForeground(QPainter* painter, const QRectF& rect);
+
 
 private:
     IView *addViewForItem(ParameterizedItem *item);
@@ -53,6 +58,8 @@ private:
 
     QMap<ParameterizedItem *, IView *> m_ItemToView;
     QList<IView *> m_orderedViews;
+
+    QRectF m_layer_drop_area;
 };
 
 

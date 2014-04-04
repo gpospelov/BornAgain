@@ -11,7 +11,8 @@
 #include <QStringList>
 
 
-class LayerView;
+#include "LayerView.h"
+//class LayerView;
 class DesignerMimeData;
 
 

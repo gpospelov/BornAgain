@@ -14,7 +14,7 @@ SampleDesigner::SampleDesigner(QWidget *parent)
     , m_designerScene(0)
     , m_designerView(0)
 {
-    m_designerScene = new DesignerScene2(parent);
+    m_designerScene = new DesignerScene(parent);
     m_designerView = new DesignerView(parent, m_designerScene);
 }
 

@@ -1,6 +1,6 @@
 #include "DesignerView.h"
 #include "DesignerMimeData.h"
-#include "DesignerScene2.h"
+#include "DesignerScene.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -87,7 +87,7 @@ void DesignerView::clearAll()
 
 void DesignerView::deleteSelectedItems()
 {
-    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(m_graphicsView->scene());
+    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(m_graphicsView->scene());
     Q_ASSERT(designerScene);
     designerScene->deleteSelectedItems();
 }

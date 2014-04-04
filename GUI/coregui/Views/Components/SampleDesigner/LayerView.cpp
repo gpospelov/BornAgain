@@ -3,7 +3,7 @@
 #include "ParticleLayoutView.h"
 #include "ParameterizedItem.h"
 #include "MultiLayerView.h"
-#include "DesignerScene2.h"
+#include "DesignerScene.h"
 #include "SessionModel.h"
 #include "GUIHelpers.h"
 #include "DesignerHelper.h"
@@ -88,7 +88,7 @@ QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
         }
 
         if(m_requested_parent) {
-            DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+            DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
             QRectF rect = m_requested_parent->getDropAreaRectangle(m_requested_row);
             designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
         }
@@ -110,7 +110,7 @@ void LayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     //qDebug() << "LayerView::mouseReleaseEvent()" << parentItem() << m_requested_parent << m_requested_row;
 
-    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     designerScene->setLayerDropArea(QRectF());
 
     // Simple move of lonely layer across the scene: let it be.

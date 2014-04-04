@@ -1,6 +1,6 @@
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
-#include "DesignerScene2.h"
+#include "DesignerScene.h"
 #include "SessionModel.h"
 
 #include <QPainter>
@@ -194,7 +194,7 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if (mimeData) {
 
-        DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+        DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
         if(designerScene) {
             SessionModel *sessionModel = designerScene->getSessionModel();
 

@@ -38,11 +38,17 @@ public:
     bool isInDropArea(QPointF pos);
     int getDropArea(QPointF pos);
 
-    QRectF getDropArea(int row);
+    QRectF getDropAreaRectangle(int row);
 
 public slots:
     void updateHeight();
     void onLayerAboutToBeDeleted();
+
+protected:
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
+    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+
 
 private:
     QList<LayerView *> m_layers;

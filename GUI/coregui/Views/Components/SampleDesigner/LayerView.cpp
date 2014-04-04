@@ -89,7 +89,7 @@ QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
 
         if(m_requested_parent) {
             DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
-            QRectF rect = m_requested_parent->getDropArea(m_requested_row);
+            QRectF rect = m_requested_parent->getDropAreaRectangle(m_requested_row);
             designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
         }
      }

@@ -386,25 +386,31 @@ void DesignerScene2::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     }
 }
 
-void DesignerScene2::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
-{
-    qDebug() << "DesignerScene2::dragLeaveEvent()";
-    return QGraphicsScene::dragLeaveEvent(event);
-}
+//void DesignerScene2::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
+//{
+//    qDebug() << "DesignerScene2::dragLeaveEvent()";
+//    return QGraphicsScene::dragLeaveEvent(event);
+//}
 
 void DesignerScene2::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     const DesignerMimeData *mimeData = checkDragEvent(event);
     qDebug() << "DesignerScene2::dropEvent()" << mimeData;
     if (mimeData) {
-        qDebug() << "DesignerScene2::dropEvent() -> about to drop";
-        if(SampleViewFactory::isValidName(mimeData->getClassName())) {
-            ParameterizedItem *new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
+        // layer can be dropped on MultiLayer only
+        if(mimeData->getClassName() == "Layer") {
+            qDebug() << "DesignerScene2::dropEvent() dont want to drop" << mimeData;
+            QGraphicsScene::dropEvent(event);
+        } else {
+            qDebug() << "DesignerScene2::dropEvent() -> about to drop";
+            if(SampleViewFactory::isValidName(mimeData->getClassName())) {
+                ParameterizedItem *new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
 
-            // propagating drop coordinates to ParameterizedItem
-            QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
-            new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-            new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+                // propagating drop coordinates to ParameterizedItem
+                QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
+                new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+                new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+            }
         }
 
     }
@@ -416,7 +422,7 @@ void DesignerScene2::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 const DesignerMimeData *DesignerScene2::checkDragEvent(QGraphicsSceneDragDropEvent * event)
 {
-    qDebug() << "DesignerScene2::checkDragEvent -> ";
+    //qDebug() << "DesignerScene2::checkDragEvent -> ";
     const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();
@@ -424,7 +430,7 @@ const DesignerMimeData *DesignerScene2::checkDragEvent(QGraphicsSceneDragDropEve
     }
 
     if(mimeData->hasFormat("bornagain/widget") ) {
-        qDebug() << "DesignerScene::checkDragEvent -> yes";
+        //qDebug() << "DesignerScene::checkDragEvent -> yes";
         event->setAccepted(true);
     } else {
         event->setAccepted(false);

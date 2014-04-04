@@ -1,5 +1,7 @@
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
+#include "DesignerScene2.h"
+#include "SessionModel.h"
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -165,7 +167,7 @@ bool MultiLayerView::isInDropArea(QPointF pos)
 }
 
 
-QRectF MultiLayerView::getDropArea(int row)
+QRectF MultiLayerView::getDropAreaRectangle(int row)
 {
     if(row>=0 && row < m_drop_areas.size()) {
         return m_drop_areas[row];
@@ -173,6 +175,67 @@ QRectF MultiLayerView::getDropArea(int row)
         return QRectF();
     }
 }
+
+
+void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    const DesignerMimeData *mimeData = checkDragEvent(event);
+    if (!mimeData) {
+        QGraphicsItem::dragMoveEvent(event);
+    }
+}
+
+
+
+void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    std::cout << "MultiLayerView::dropEvent() -> " << std::endl;
+
+    const DesignerMimeData *mimeData = checkDragEvent(event);
+    if (mimeData) {
+
+        DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
+        if(designerScene) {
+            std::cout << "MultiLayerView::dropEvent() -> dropping" << std::endl;
+            SessionModel *sessionModel = designerScene->getSessionModel();
+
+            qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
+            ParameterizedItem *new_item = sessionModel->insertNewItem(
+                        mimeData->getClassName(),
+                        sessionModel->indexOfItem(this->getParameterizedItem()),
+                        getDropArea(event->pos())
+                        );
+
+            // propagating drop coordinates to ParameterizedItem
+            //QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
+            //new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+            //new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+        }
+    }
+}
+
+
+
+const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
+{
+    std::cout << "MultiLayerView::checkDragEvent -> "  << std::endl;
+    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
+    if (!mimeData) {
+        event->ignore();
+        return 0;
+    }
+
+    if(mimeData->hasFormat("bornagain/widget")
+            && getParameterizedItem()->acceptsAsChild(mimeData->getClassName())
+            && isInDropArea(event->pos()) ) {
+        std::cout << "MultiLayerView::checkDragEvent -> yes"  << std::endl;
+        event->setAccepted(true);
+    } else {
+        event->setAccepted(false);
+    }
+    return mimeData;
+}
+
 
 
 

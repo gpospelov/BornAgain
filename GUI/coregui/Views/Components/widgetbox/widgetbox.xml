@@ -20,22 +20,13 @@
             </widget>
         </categoryentry>
         
-        <categoryentry  name="Layer repeater" icon="images/sample_vspacer.png">
-            <widget class="LayerRepeater">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-
-        
     </category>
     
     
-    <category name="Particle factories">
+    <category name="Particle layouts">
         
-        <categoryentry name="Particle Decoration" icon="images/sample_spacer.png">
-            <widget class="ParticleDecoration">
+        <categoryentry name="Basic particle layout" icon="images/sample_spacer.png">
+            <widget class="ParticleLayout">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

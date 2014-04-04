@@ -33,6 +33,9 @@ public:
         return m_all_item_names;
     }
 
+    //! returns true if item with given name can be created
+    static bool isValidName(const QString &name);
+
 private:
     static QList<QString> m_all_item_names;
     ItemFactory() {}

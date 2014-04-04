@@ -30,7 +30,7 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    setAcceptHoverEvents(true);
+    setAcceptHoverEvents(false);
     setAcceptDrops(true);
 
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));

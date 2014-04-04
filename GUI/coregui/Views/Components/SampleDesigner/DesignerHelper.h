@@ -72,7 +72,10 @@ public:
     //! to have reasonable graphics representation of layer in the form of QRect
     static int nanometerToScreen(double nanometer);
 
-    private:
+    //! returns default bounding rectangle for given SampleView name
+    static QRectF getDefaultBoundingRect(const QString &name);
+
+private:
     static int m_default_layer_height;
     static int m_default_layer_width;
 };

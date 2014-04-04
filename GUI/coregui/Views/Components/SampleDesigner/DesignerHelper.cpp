@@ -142,3 +142,21 @@ int DesignerHelper::nanometerToScreen(double nanometer)
     return result;
 }
 
+
+QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
+{
+    if (name==QString("MultiLayer")) {
+        return QRect(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
+
+    } else  if (name==QString("Layer")) {
+        return QRect(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
+
+    } else  if (name==QString("ParticleLayout")) {
+        return QRect(0, 0, getDefaultDecorationWidth(), getDefaultDecorationHeight());
+
+    } else {
+        return QRect();
+    }
+
+}
+

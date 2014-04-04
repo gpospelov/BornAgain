@@ -355,6 +355,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
             return 0;
     }
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+    Q_ASSERT(new_item);
     parent->insertChildItem(row, new_item);
     return new_item;
 }

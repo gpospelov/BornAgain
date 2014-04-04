@@ -13,6 +13,7 @@ class QItemSelectionModel;
 class IView;
 class QItemSelection;
 class NodeEditorConnection;
+class DesignerMimeData;
 
 
 class DesignerScene2 : public DesignerSceneInterface
@@ -45,10 +46,15 @@ public slots:
     void onEstablishedConnection(NodeEditorConnection *); // to process signals from NodeEditor
     void removeConnection(NodeEditorConnection *);
 
+    void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
 
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void drawForeground(QPainter* painter, const QRectF& rect);
+    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
 
 private:

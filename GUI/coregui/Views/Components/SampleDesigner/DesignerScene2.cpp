@@ -6,9 +6,11 @@
 #include "IView.h"
 #include "LayerView.h"
 #include "ConnectableView.h"
+#include "ItemFactory.h"
 #include "ParameterizedGraphicsItem.h"
 #include "NodeEditor.h"
 #include "NodeEditorConnection.h"
+#include "DesignerMimeData.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -282,6 +284,7 @@ void DesignerScene2::removeItemFromScene(ParameterizedItem *item)
 void DesignerScene2::deleteSelectedItems()
 {
     qDebug() << "DesignerScene::deleteSelectedItems()" << selectedItems().size();
+    // FIXME handle multiple selection
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
         IView *view = dynamic_cast<IView *>(graphicsItem);
         if(view) {
@@ -352,7 +355,7 @@ void DesignerScene2::onEstablishedConnection(NodeEditorConnection *connection)
     IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
     Q_ASSERT(parentView);
     Q_ASSERT(childView);
-    delete connection;
+    delete connection; // deleting just created connection because it will be recreated from the model
     m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), parentView->getParameterizedItem());
 }
 
@@ -361,5 +364,71 @@ void DesignerScene2::removeConnection(NodeEditorConnection *connection)
 {
     IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
     m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), 0);
+}
+
+
+
+void DesignerScene2::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "DesignerScene2::dragEnterEvent()";
+    return QGraphicsScene::dragEnterEvent(event);
+}
+
+void DesignerScene2::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "DesignerScene2::dragMoveEvent()";
+    const DesignerMimeData *mimeData = checkDragEvent(event);
+    if(mimeData) {
+        // Layer can be droped only on MultiLayer
+        if(mimeData->getClassName() == QString("Layer")) {
+            QGraphicsScene::dragMoveEvent(event);
+        }
+    }
+}
+
+void DesignerScene2::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug() << "DesignerScene2::dragLeaveEvent()";
+    return QGraphicsScene::dragLeaveEvent(event);
+}
+
+void DesignerScene2::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    const DesignerMimeData *mimeData = checkDragEvent(event);
+    qDebug() << "DesignerScene2::dropEvent()" << mimeData;
+    if (mimeData) {
+        qDebug() << "DesignerScene2::dropEvent() -> about to drop";
+        if(SampleViewFactory::isValidName(mimeData->getClassName())) {
+            ParameterizedItem *new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
+
+            // propagating drop coordinates to ParameterizedItem
+            QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
+            new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+            new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+        }
+
+    }
+
+//    return QGraphicsScene::dropEvent(event);
+}
+
+
+
+const DesignerMimeData *DesignerScene2::checkDragEvent(QGraphicsSceneDragDropEvent * event)
+{
+    qDebug() << "DesignerScene2::checkDragEvent -> ";
+    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
+    if (!mimeData) {
+        event->ignore();
+        return 0;
+    }
+
+    if(mimeData->hasFormat("bornagain/widget") ) {
+        qDebug() << "DesignerScene::checkDragEvent -> yes";
+        event->setAccepted(true);
+    } else {
+        event->setAccepted(false);
+    }
+    return mimeData;
 }
 

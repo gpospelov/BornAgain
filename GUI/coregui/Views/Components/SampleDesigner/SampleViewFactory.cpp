@@ -20,11 +20,11 @@ bool SampleViewFactory::isValidName(const QString &name)
 IView *SampleViewFactory::createSampleView(const QString &name)
 {
     if (name==QString("MultiLayer")) {
-        return new MultiLayerView2();
+        return new MultiLayerView();
     }
 
     if (name==QString("Layer")) {
-        return new LayerView2();
+        return new LayerView();
     }
 
     if (name==QString("ParticleLayout")) {

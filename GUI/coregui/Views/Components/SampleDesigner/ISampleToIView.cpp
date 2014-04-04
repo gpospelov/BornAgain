@@ -85,22 +85,22 @@ void ISampleToIView::visit(const ParticleLayout *sample)
 }
 
 
-void ISampleToIView::visit(const Layer *sample)
+void ISampleToIView::visit(const Layer *)
 {
-    LayerView *layerView = new LayerView();
-    layerView->setThickness(sample->getThickness());
-    layerView->setName(sample->getName().c_str());
-    m_multiLayer->addBottomLayer(layerView);
-    m_sample_to_view[sample] = layerView;
+//    LayerView *layerView = new LayerView();
+//    layerView->setThickness(sample->getThickness());
+//    layerView->setName(sample->getName().c_str());
+//    m_multiLayer->addBottomLayer(layerView);
+//    m_sample_to_view[sample] = layerView;
 
-    const ILayout *decoration = sample->getLayout();
-    if(decoration) {
-        decoration->accept(this);
+//    const ILayout *decoration = sample->getLayout();
+//    if(decoration) {
+//        decoration->accept(this);
 
-        Q_ASSERT(m_sample_to_view[sample]);
-        Q_ASSERT(m_sample_to_view[decoration]);
-        m_connections += m_sample_to_view[sample]->connectInputPort(m_sample_to_view[decoration]);
-    }
+//        Q_ASSERT(m_sample_to_view[sample]);
+//        Q_ASSERT(m_sample_to_view[decoration]);
+//        m_connections += m_sample_to_view[sample]->connectInputPort(m_sample_to_view[decoration]);
+//    }
 
 }
 
@@ -111,24 +111,24 @@ void ISampleToIView::visit(const LayerInterface *)
 }
 
 
-void ISampleToIView::visit(const MultiLayer *sample)
+void ISampleToIView::visit(const MultiLayer *)
 {
-    Q_ASSERT(sample);
+//    Q_ASSERT(sample);
 
-    m_multiLayer = MultiLayerView::createTopMultiLayer();
+//    m_multiLayer = MultiLayerView::createTopMultiLayer();
 
-    //    goForward();
-    for(size_t i_layer=0; i_layer < sample->getNumberOfLayers(); ++i_layer) {
-        const Layer *layer = sample->getLayer(i_layer);
-        layer->accept(this);
-        if(i_layer < sample->getNumberOfInterfaces()) {
-            const LayerInterface *interface = sample->getLayerInterface(i_layer);
-            interface->accept(this);
-        }
-    }
-    //    goBack();
+//    //    goForward();
+//    for(size_t i_layer=0; i_layer < sample->getNumberOfLayers(); ++i_layer) {
+//        const Layer *layer = sample->getLayer(i_layer);
+//        layer->accept(this);
+//        if(i_layer < sample->getNumberOfInterfaces()) {
+//            const LayerInterface *interface = sample->getLayerInterface(i_layer);
+//            interface->accept(this);
+//        }
+//    }
+//    //    goBack();
 
-    m_sample_to_view[sample] = m_multiLayer;
+//    m_sample_to_view[sample] = m_multiLayer;
 
 }
 

@@ -4,8 +4,6 @@
 #include <QDebug>
 
 
-
-
 IView::IView(QGraphicsItem *parent)
     : QGraphicsObject(parent), m_item(0)
 {
@@ -14,7 +12,7 @@ IView::IView(QGraphicsItem *parent)
 }
 
 
-void IView::setSessionItem(ParameterizedItem *item)
+void IView::setParameterizedItem(ParameterizedItem *item)
 {
     if(item) {
         m_item = item;
@@ -27,9 +25,9 @@ void IView::setSessionItem(ParameterizedItem *item)
 }
 
 
-void IView::addView(IView *childView)
+void IView::addView(IView *childView, int row)
 {
-    qDebug() << "IView::addView() " << m_item->itemName() << childView->getSessionItem()->itemName();
+    qDebug() << "IView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName() << " row:" << row;
 }
 
 

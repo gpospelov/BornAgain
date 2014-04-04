@@ -88,6 +88,7 @@ bool NodeEditor::eventFilter(QObject *o, QEvent *e)
                     conn->setPos2(port2->scenePos());
                     conn->setPort2(port2);
                     conn->updatePath();
+                    emit connectionIsEstablished(conn);
                     conn = 0;
                     return true;
                 }

@@ -355,6 +355,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
             return 0;
     }
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+    Q_ASSERT(new_item);
     parent->insertChildItem(row, new_item);
     return new_item;
 }
@@ -466,4 +467,37 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
         }
         writer->writeEndElement(); // end ParameterTag
     }
+}
+
+
+
+void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent, int row)
+{
+    qDebug() << "";
+    qDebug() << "";
+    qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
+
+    if(!new_parent) new_parent = m_root_item;
+
+    if(item->parent() == new_parent && indexOfItem(item).row() == row) {
+        qDebug() << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
+        return;
+    }
+
+    QByteArray xml_data;
+    QXmlStreamWriter writer(&xml_data);
+    writeItemAndChildItems(&writer, item);
+
+    QXmlStreamReader reader(xml_data);
+    if (row == -1) row = new_parent->childItemCount();
+
+    qDebug() << "    >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
+    beginInsertRows(indexOfItem(new_parent), row, row);
+    readItems(&reader, new_parent, row);
+    endInsertRows();
+
+    qDebug() << "    >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
+
+    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
+
 }

@@ -65,21 +65,21 @@ void IViewToISample::visit(MultiLayerView *view)
 }
 
 
-void IViewToISample::visit(LayerView *view)
+void IViewToISample::visit(LayerView *)
 {
-    Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(LayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
-    //m_views.insertMulti(m_level, view);
+//    Q_ASSERT(view);
+//    std::cout << get_indent() << "ViewVisitor(LayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+//    //m_views.insertMulti(m_level, view);
 
 
-    QList<ConnectableView *> connections = view->getConnectedInputItems();
+//    QList<ConnectableView *> connections = view->getConnectedInputItems();
 
-    // in the absence of connections it is simple Layer
-    if(connections.empty()) {
-        m_view_to_sample[view] = view->getLayer()->clone();
+//    // in the absence of connections it is simple Layer
+//    if(connections.empty()) {
+//        m_view_to_sample[view] = view->getLayer()->clone();
 
-    // with connections it is LayerDecorator
-    } else {
+//    // with connections it is LayerDecorator
+//    } else {
 //        goForward();
 //        foreach(ConnectableView *item, connections) {
 //            item->accept(this);
@@ -92,7 +92,7 @@ void IViewToISample::visit(LayerView *view)
 //        }
 //        goBack();
 
-    }
+//    }
 
 }
 

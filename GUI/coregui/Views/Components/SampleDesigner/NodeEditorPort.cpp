@@ -58,6 +58,14 @@ NodeEditorPort::~NodeEditorPort()
 }
 
 
+void NodeEditorPort::deleteAllConnections()
+{
+    foreach(NodeEditorConnection *conn, m_connections)
+        delete conn;
+    m_connections.clear();
+}
+
+
 bool NodeEditorPort::isOutput()
 {
     return (m_direction == Output ? true : false);

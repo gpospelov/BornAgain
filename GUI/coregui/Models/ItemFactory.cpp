@@ -48,3 +48,9 @@ ParameterizedItem *ItemFactory::createEmptyItem()
 {
     return new ParameterizedItem();
 }
+
+
+bool ItemFactory::isValidName(const QString &name)
+{
+    return m_all_item_names.contains(name);
+}

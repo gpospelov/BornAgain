@@ -29,6 +29,9 @@ public:
 	NodeEditorPort* port1() const;
 	NodeEditorPort* port2() const;
 
+    NodeEditorPort *getInputPort();
+    NodeEditorPort *getOutputPort();
+
 	int type() const { return Type; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

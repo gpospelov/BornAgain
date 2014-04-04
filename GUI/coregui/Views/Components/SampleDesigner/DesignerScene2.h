@@ -12,6 +12,8 @@ class ParameterizedGraphicsItem;
 class QItemSelectionModel;
 class IView;
 class QItemSelection;
+class NodeEditorConnection;
+class DesignerMimeData;
 
 
 class DesignerScene2 : public DesignerSceneInterface
@@ -25,13 +27,35 @@ public:
     void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
+    SessionModel *getSessionModel() { return m_sessionModel; }
+
 public slots:
     void onSceneSelectionChanged();
     void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
     void resetScene();
     void updateScene();
-    void updateScene(const QModelIndex &parent, int first, int last);
+
+    void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsRemoved(const QModelIndex &parent, int first, int last);
+
+    void setLayerDropArea(const QRectF &rect) { m_layer_drop_area = rect; }
+
+    void deleteSelectedItems();
+
+    void onEstablishedConnection(NodeEditorConnection *); // to process signals from NodeEditor
+    void removeConnection(NodeEditorConnection *);
+
+    void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+    //void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
+
+protected:
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void drawForeground(QPainter* painter, const QRectF& rect);
+    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
+
 
 private:
     IView *addViewForItem(ParameterizedItem *item);
@@ -46,6 +70,8 @@ private:
 
     QMap<ParameterizedItem *, IView *> m_ItemToView;
     QList<IView *> m_orderedViews;
+
+    QRectF m_layer_drop_area;
 };
 
 

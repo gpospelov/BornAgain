@@ -1,5 +1,6 @@
 #include "DesignerView.h"
 #include "DesignerMimeData.h"
+#include "DesignerScene2.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -84,14 +85,11 @@ void DesignerView::clearAll()
 }
 
 
-void DesignerView::deleteItem()
+void DesignerView::deleteSelectedItems()
 {
-    QList<QGraphicsItem*> selected = m_graphicsView->scene()->selectedItems();
-    for(int i=0; i<selected.size(); ++i) {
-        m_graphicsView->scene()->removeItem(selected[i]);
-        delete selected[i];
-    }
-    m_graphicsView->scene()->update();
+    DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(m_graphicsView->scene());
+    Q_ASSERT(designerScene);
+    designerScene->deleteSelectedItems();
 }
 
 
@@ -103,10 +101,10 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Space:
         break;
     case Qt::Key_Delete:
-        deleteItem();
+        deleteSelectedItems();
         break;
     case Qt::Key_Backspace:
-        deleteItem();
+        deleteSelectedItems();
         break;
     default:
         QWidget::keyPressEvent(event);

@@ -22,11 +22,14 @@ public:
 
     int type() const { return Type; }
 
-    virtual void setSessionItem(ParameterizedItem *item);
+    virtual void setParameterizedItem(ParameterizedItem *item);
 
-    virtual ParameterizedItem *getSessionItem() { return m_item; }
+    virtual ParameterizedItem *getParameterizedItem() { return m_item; }
 
-    virtual void addView(IView *childView);
+    virtual void addView(IView *childView, int row = 0);
+
+signals:
+    void aboutToBeDeleted();
 
 public slots:
     virtual void onChangedX();
@@ -35,7 +38,6 @@ public slots:
 
 protected:
     ParameterizedItem *m_item;
-
 };
 
 

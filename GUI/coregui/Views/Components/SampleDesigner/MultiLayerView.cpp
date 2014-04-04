@@ -196,20 +196,14 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 
         DesignerScene2 *designerScene = dynamic_cast<DesignerScene2 *>(scene());
         if(designerScene) {
-            std::cout << "MultiLayerView::dropEvent() -> dropping" << std::endl;
             SessionModel *sessionModel = designerScene->getSessionModel();
 
             qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
-            ParameterizedItem *new_item = sessionModel->insertNewItem(
+            sessionModel->insertNewItem(
                         mimeData->getClassName(),
                         sessionModel->indexOfItem(this->getParameterizedItem()),
                         getDropArea(event->pos())
                         );
-
-            // propagating drop coordinates to ParameterizedItem
-            //QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
-            //new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-            //new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
         }
     }
 }

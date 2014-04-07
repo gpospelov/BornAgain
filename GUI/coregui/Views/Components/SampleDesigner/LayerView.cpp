@@ -15,9 +15,9 @@
 
 
 LayerView::LayerView(QGraphicsItem *parent)
-    : ConnectableView(parent)
-    , m_requested_parent(0)
-      , m_requested_row(-1)
+    : ILayerView(parent)
+//    , m_requested_parent(0)
+//    , m_requested_row(-1)
 
 {
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
@@ -55,112 +55,112 @@ void LayerView::addView(IView *childView, int row)
 }
 
 
-void LayerView::onPropertyChange(QString propertyName)
-{
-    Q_ASSERT(m_item);
-    if(propertyName == "Thickness") {
-        m_rect.setHeight(DesignerHelper::nanometerToScreen(m_item->property("Thickness").toDouble()));
-        setPortCoordinates();
-        update();
-        emit heightChanged();
-    }
-    IView::onPropertyChange(propertyName);
-}
+//void LayerView::onPropertyChange(QString propertyName)
+//{
+//    Q_ASSERT(m_item);
+//    if(propertyName == "Thickness") {
+//        m_rect.setHeight(DesignerHelper::nanometerToScreen(m_item->property("Thickness").toDouble()));
+//        setPortCoordinates();
+//        update();
+//        emit heightChanged();
+//    }
+//    IView::onPropertyChange(propertyName);
+//}
 
 
-QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
-{
-    if (change == ItemPositionChange && scene()) {
+//QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
+//{
+//    if (change == ItemPositionChange && scene()) {
 
-        m_requested_parent = 0;
-        m_requested_row = -1;
-        QRectF layerRect = mapRectToScene(boundingRect());
-        foreach(QGraphicsItem *item, scene()->items()) {
-            if(item->type() == DesignerHelper::MultiLayerType) {
-                MultiLayerView *multilayer = qgraphicsitem_cast<MultiLayerView *>(item);
-                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {
-                    //qDebug() << "   XXX " << multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
-                    m_requested_parent = multilayer;
-                    m_requested_row = multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
-                    break;
-                }
-            }
-        }
+//        m_requested_parent = 0;
+//        m_requested_row = -1;
+//        QRectF layerRect = mapRectToScene(boundingRect());
+//        foreach(QGraphicsItem *item, scene()->items()) {
+//            if(item->type() == DesignerHelper::MultiLayerType) {
+//                MultiLayerView *multilayer = qgraphicsitem_cast<MultiLayerView *>(item);
+//                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {
+//                    //qDebug() << "   XXX " << multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
+//                    m_requested_parent = multilayer;
+//                    m_requested_row = multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
+//                    break;
+//                }
+//            }
+//        }
 
-        if(m_requested_parent) {
-            DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
-            QRectF rect = m_requested_parent->getDropAreaRectangle(m_requested_row);
-            designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
-        }
-     }
-     return QGraphicsItem::itemChange(change, value);
- }
-
-
-void LayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton) {
-        m_drag_start_position = pos();
-    }
-    QGraphicsItem::mousePressEvent(event);
-}
+//        if(m_requested_parent) {
+//            DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
+//            QRectF rect = m_requested_parent->getDropAreaRectangle(m_requested_row);
+//            designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
+//        }
+//     }
+//     return QGraphicsItem::itemChange(change, value);
+// }
 
 
-void LayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    //qDebug() << "LayerView::mouseReleaseEvent()" << parentItem() << m_requested_parent << m_requested_row;
+//void LayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    if(event->button() == Qt::LeftButton) {
+//        m_drag_start_position = pos();
+//    }
+//    QGraphicsItem::mousePressEvent(event);
+//}
 
-    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
-    designerScene->setLayerDropArea(QRectF());
 
-    // Simple move of lonely layer across the scene: let it be.
-    if(m_requested_parent == 0 && parentItem() == 0) {
-        QGraphicsItem::mouseReleaseEvent(event);
-        return;
-    }
+//void LayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    //qDebug() << "LayerView::mouseReleaseEvent()" << parentItem() << m_requested_parent << m_requested_row;
 
-    Q_ASSERT(designerScene);
-    SessionModel *model = designerScene->getSessionModel();
+//    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
+//    designerScene->setLayerDropArea(QRectF());
 
-    // Layer was moved on top of MultiLayer but not in the right drop area:
-    // returning layer back to starting position.
-    if(m_requested_parent && m_requested_row == -1) {
-        //qDebug() << "1.1 Layer->MultiLayer, wrong drop area.";
-        setPos(m_drag_start_position);
-        QGraphicsItem::mouseReleaseEvent(event);
-        return;
-    }
+//    // Simple move of lonely layer across the scene: let it be.
+//    if(m_requested_parent == 0 && parentItem() == 0) {
+//        QGraphicsItem::mouseReleaseEvent(event);
+//        return;
+//    }
 
-    // Layer was moved to the wrong row of his own MultiLayer: returning back.
-    if(m_requested_parent == parentItem() && m_requested_row == model->indexOfItem(getParameterizedItem()).row()) {
-        //Debug() << "1.2 Layer->MultiLayer (same), same drop area";
-        setPos(m_drag_start_position);
-        QGraphicsItem::mouseReleaseEvent(event);
-        return;
-    }
+//    Q_ASSERT(designerScene);
+//    SessionModel *model = designerScene->getSessionModel();
 
-    // Layer was moved from MultiLayer he belong's to, to the empty place of
-    // the scene: changing ownership.
-    if(parentItem() && !m_requested_parent) {
-        //qDebug() << "1.3 Layer->Scene";
-        setPos( mapToScene(event->pos()) - event->pos());
-        model->moveParameterizedItem(this->getParameterizedItem(), 0);
-        QGraphicsItem::mouseReleaseEvent(event);
-        return;
-    }
+//    // Layer was moved on top of MultiLayer but not in the right drop area:
+//    // returning layer back to starting position.
+//    if(m_requested_parent && m_requested_row == -1) {
+//        //qDebug() << "1.1 Layer->MultiLayer, wrong drop area.";
+//        setPos(m_drag_start_position);
+//        QGraphicsItem::mouseReleaseEvent(event);
+//        return;
+//    }
 
-    // Layer was moved either from one MultiLayer to another, or is moved inside
-    // one multilayer: changing ownership.
-    if(m_requested_parent) {
-        //qDebug() << "1.4 MultiLayer->MultiLayer";
-        model->moveParameterizedItem(this->getParameterizedItem(), m_requested_parent->getParameterizedItem(), m_requested_row);
-        QGraphicsItem::mouseReleaseEvent(event);
-        return;
-    }
+//    // Layer was moved to the wrong row of his own MultiLayer: returning back.
+//    if(m_requested_parent == parentItem() && m_requested_row == model->indexOfItem(getParameterizedItem()).row()) {
+//        //Debug() << "1.2 Layer->MultiLayer (same), same drop area";
+//        setPos(m_drag_start_position);
+//        QGraphicsItem::mouseReleaseEvent(event);
+//        return;
+//    }
 
-    // should not be here
-    throw GUIHelpers::Error(tr("LayerView::mouseReleaseEvent() -> Loggic error."));
-}
+//    // Layer was moved from MultiLayer he belong's to, to the empty place of
+//    // the scene: changing ownership.
+//    if(parentItem() && !m_requested_parent) {
+//        //qDebug() << "1.3 Layer->Scene";
+//        setPos( mapToScene(event->pos()) - event->pos());
+//        model->moveParameterizedItem(this->getParameterizedItem(), 0);
+//        QGraphicsItem::mouseReleaseEvent(event);
+//        return;
+//    }
+
+//    // Layer was moved either from one MultiLayer to another, or is moved inside
+//    // one multilayer: changing ownership.
+//    if(m_requested_parent) {
+//        //qDebug() << "1.4 MultiLayer->MultiLayer";
+//        model->moveParameterizedItem(this->getParameterizedItem(), m_requested_parent->getParameterizedItem(), m_requested_row);
+//        QGraphicsItem::mouseReleaseEvent(event);
+//        return;
+//    }
+
+//    // should not be here
+//    throw GUIHelpers::Error(tr("LayerView::mouseReleaseEvent() -> Loggic error."));
+//}
 
 
 

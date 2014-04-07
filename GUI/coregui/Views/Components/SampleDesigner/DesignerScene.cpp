@@ -362,6 +362,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 
 void DesignerScene::removeConnection(NodeEditorConnection *connection)
 {
+    qDebug() << "DesignerScene::removeConnection()";
     IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
     m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), 0);
 }

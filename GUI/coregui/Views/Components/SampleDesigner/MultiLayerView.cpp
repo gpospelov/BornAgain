@@ -24,7 +24,7 @@
 
 
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
-    : ConnectableView(parent)
+    : ILayerView(parent)
 {
     setColor(QColor(Qt::blue));
     setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
@@ -37,6 +37,7 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
 
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
     updateHeight();
+
 }
 
 
@@ -55,7 +56,7 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 void MultiLayerView::addView(IView *childView, int row)
 {
     qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName() << "row" << row;
-    LayerView *layer = dynamic_cast<LayerView *>(childView);
+    ILayerView *layer = dynamic_cast<ILayerView *>(childView);
     Q_ASSERT(layer);
 
     if(!childItems().contains(layer)) {
@@ -66,10 +67,12 @@ void MultiLayerView::addView(IView *childView, int row)
         qDebug() << "layer exists, swapping" << previous_row << row;
     }
     updateHeight();
+    updateWidth();
+
 }
 
 
-void MultiLayerView::addNewLayer(LayerView *layer, int row)
+void MultiLayerView::addNewLayer(ILayerView *layer, int row)
 {
     qDebug() << "MultiLayerView::addNewLayer(), row" << row;
     m_layers.insert(row, layer);
@@ -81,7 +84,7 @@ void MultiLayerView::addNewLayer(LayerView *layer, int row)
 }
 
 
-void MultiLayerView::addLayer(LayerView *layer, QPointF /* pos */)
+void MultiLayerView::addLayer(ILayerView *layer, QPointF /* pos */)
 {
     m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
 
@@ -94,13 +97,13 @@ void MultiLayerView::addLayer(LayerView *layer, QPointF /* pos */)
 void MultiLayerView::onLayerAboutToBeDeleted()
 {
     qDebug() << "MultiLayerView::onLayerAboutToBeDeleted()";
-    LayerView *layer = qobject_cast<LayerView *>(sender());
+    ILayerView *layer = qobject_cast<ILayerView *>(sender());
     Q_ASSERT(layer);
     removeLayer(layer);
 }
 
 
-void MultiLayerView::removeLayer(LayerView *layer)
+void MultiLayerView::removeLayer(ILayerView *layer)
 {
     qDebug() << "MultiLayerView::removeLayer()";
     Q_ASSERT(m_layers.contains(layer));
@@ -121,7 +124,7 @@ void MultiLayerView::updateHeight()
 
     int total_height = 0;
     if(m_layers.size()) {
-        foreach(LayerView *layer, m_layers) {
+        foreach(ILayerView *layer, m_layers) {
             int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
             layer->setPos(xpos, total_height);
             layer->update();
@@ -137,6 +140,27 @@ void MultiLayerView::updateHeight()
     m_rect.setHeight(total_height);
     update();
     emit heightChanged();
+}
+
+
+
+//! Updates MultiLayerView width.
+//! If list of children contains another MultiLayer, then width of given MultiLayer
+//! will be increased
+void MultiLayerView::updateWidth()
+{
+    bool contains_multilayer(false);
+    foreach(ILayerView *layer, m_layers) {
+        if(layer->type() == DesignerHelper::MultiLayerType) {
+            contains_multilayer = true;
+            break;
+        }
+    }
+    qDebug() << "MultiLayerView::updateWidth()" << contains_multilayer;
+    if(contains_multilayer) {
+        m_rect.setWidth(DesignerHelper::getDefaultMultiLayerWidth()*1.1);
+    }
+
 }
 
 

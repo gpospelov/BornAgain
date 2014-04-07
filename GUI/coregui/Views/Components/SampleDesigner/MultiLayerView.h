@@ -11,13 +11,14 @@
 #include <QStringList>
 
 
-#include "LayerView.h"
+#include "ILayerView.h"
 //class LayerView;
+
 class DesignerMimeData;
 
 
 
-class MultiLayerView : public ConnectableView
+class MultiLayerView : public ILayerView
 {
     Q_OBJECT
 
@@ -32,9 +33,9 @@ public:
 
     void addView(IView *childView, int row = 0);
 
-    virtual void addLayer(LayerView *layer, QPointF pos=QPointF());
-    virtual void addNewLayer(LayerView *layer, int row);
-    virtual void removeLayer(LayerView *layer);
+    virtual void addLayer(ILayerView *layer, QPointF pos=QPointF());
+    virtual void addNewLayer(ILayerView *layer, int row);
+    virtual void removeLayer(ILayerView *layer);
 
     bool isInDropArea(QPointF pos);
     int getDropArea(QPointF pos);
@@ -43,6 +44,7 @@ public:
 
 public slots:
     void updateHeight();
+    void updateWidth();
     void onLayerAboutToBeDeleted();
 
 protected:
@@ -52,7 +54,7 @@ protected:
 
 
 private:
-    QList<LayerView *> m_layers;
+    QList<ILayerView *> m_layers;
     QList<QRectF> m_drop_areas;
 
 };

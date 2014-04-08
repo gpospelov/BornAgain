@@ -63,6 +63,7 @@ private:
     void deleteViews(const QModelIndex & parentIndex);
     void alignViews();
     void removeItemFromScene(ParameterizedItem *item);
+    bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
 
     SessionModel *m_sessionModel;
     QItemSelectionModel *m_selectionModel;

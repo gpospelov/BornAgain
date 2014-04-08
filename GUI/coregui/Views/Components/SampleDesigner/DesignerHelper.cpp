@@ -160,3 +160,11 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 
 }
 
+
+QRectF DesignerHelper::getDefaultMultiLayerRect()
+{
+   return QRectF(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight());
+}
+
+
+

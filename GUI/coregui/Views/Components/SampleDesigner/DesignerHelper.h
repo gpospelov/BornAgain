@@ -34,6 +34,7 @@ public:
 
     static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.20; }
     static int getDefaultMultiLayerHeight() { return m_default_layer_height; }
+    static QRectF getDefaultMultiLayerRect();
 
     static int getDefaultDecorationWidth() { return m_default_layer_height*3; }
     static int getDefaultDecorationHeight() { return m_default_layer_height*4; }

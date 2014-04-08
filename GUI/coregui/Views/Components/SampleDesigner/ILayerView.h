@@ -3,17 +3,15 @@
 
 #include "ConnectableView.h"
 
-
 class MultiLayerView;
-class MultiLayerCandidate;
 
 //! Base class for LayerView and MultiLayerView
 //! Provides functionality for moving view on top of MultiLayer.
 class ILayerView : public ConnectableView
 {
     Q_OBJECT
-public:
 
+public:
     ILayerView(QGraphicsItem *parent = 0);
 
     enum { Type = DesignerHelper::LayerType };
@@ -31,8 +29,13 @@ public slots:
 private:
     void findMultiLayerCandidate();
 
-    MultiLayerView * m_requested_parent; //! Possible parent (MultiLayer) encountered during  the movement of the Layer across the scene.
-    int m_requested_row; //! possible row to drop the layer in  encountered MultiLayer
+    MultiLayerView * m_requested_parent;
+    //!< Possible parent (MultiLayer) encountered during  the movement of the
+    //!< Layer across the scene.
+
+    int m_requested_row;
+    //! requested row to drop the layer in  encountered MultiLayer
+
     QPointF m_drag_start_position;
 };
 

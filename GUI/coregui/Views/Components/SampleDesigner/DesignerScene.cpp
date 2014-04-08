@@ -329,21 +329,19 @@ void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
+//! show drop area for ILayerView
 void DesignerScene::drawForeground(QPainter* painter, const QRectF& rect)
 {
     Q_UNUSED(rect);
-    //    QRectF SceneRect = this->sceneRect();
 
-    LayerView *layer = qgraphicsitem_cast<LayerView *>(mouseGrabberItem());
-    if(!m_layer_drop_area.isNull() && layer) {
-        //qDebug() << "DesignerScene::drawForeground" << m_layer_drop_area;
+    ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
+    qDebug() << "DesignerScene::drawForeground" << layer << m_layer_drop_area;
+    if(layer && !m_layer_drop_area.isNull()) {
         painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
         painter->drawLine(m_layer_drop_area.left()-10, m_layer_drop_area.center().y(), m_layer_drop_area.right()+10, m_layer_drop_area.center().y());
         //painter->drawRect(m_layer_drop_area);
         invalidate();
     }
-
-
 }
 
 
@@ -375,6 +373,7 @@ void DesignerScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
     return QGraphicsScene::dragEnterEvent(event);
 }
 
+
 void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
     qDebug() << "DesignerScene::dragMoveEvent()";
@@ -382,6 +381,12 @@ void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     if(mimeData) {
         // Layer can be droped only on MultiLayer
         if(mimeData->getClassName() == QString("Layer")) {
+            QGraphicsScene::dragMoveEvent(event);
+        }
+
+        // MultiLayer can be droped on another MultiLayer if there is one nearby
+        if(mimeData->getClassName() == QString("MultiLayer")
+                && isMultiLayerNearby(event)) {
             QGraphicsScene::dragMoveEvent(event);
         }
     }
@@ -393,15 +398,23 @@ void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 //    return QGraphicsScene::dragLeaveEvent(event);
 //}
 
+
 void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     const DesignerMimeData *mimeData = checkDragEvent(event);
     qDebug() << "DesignerScene::dropEvent()" << mimeData;
     if (mimeData) {
+
         // layer can be dropped on MultiLayer only
         if(mimeData->getClassName() == "Layer") {
             qDebug() << "DesignerScene::dropEvent() dont want to drop" << mimeData;
             QGraphicsScene::dropEvent(event);
+
+        // MultiLayer can be droped on another MultiLayer if there is one nearby
+        } else if(mimeData->getClassName() == "MultiLayer" && isMultiLayerNearby(event)) {
+            QGraphicsScene::dropEvent(event);
+
+        // other views can be droped on canvas anywhere
         } else {
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
             if(SampleViewFactory::isValidName(mimeData->getClassName())) {
@@ -415,8 +428,6 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         }
 
     }
-
-//    return QGraphicsScene::dropEvent(event);
 }
 
 
@@ -437,5 +448,17 @@ const DesignerMimeData *DesignerScene::checkDragEvent(QGraphicsSceneDragDropEven
         event->setAccepted(false);
     }
     return mimeData;
+}
+
+
+//! Returns true if there is MultiLayerView nearby during drag event.
+bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
+{
+    QRectF rect = DesignerHelper::getDefaultMultiLayerRect();
+    rect.moveCenter(event->scenePos());
+    foreach(QGraphicsItem *item, items(rect)) {
+        if(item->type() == DesignerHelper::MultiLayerType) return true;
+    }
+    return false;
 }
 

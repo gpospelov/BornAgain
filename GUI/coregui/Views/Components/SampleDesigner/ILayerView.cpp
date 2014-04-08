@@ -9,24 +9,21 @@
 #include <QDebug>
 
 
-//! Class to hold MultiLayer candidate for dropping LayerView.
-class MultiLayerCandidate
+
+QRectF MultiLayerCandidate::getSceneDropArea()
 {
-public:
-    MultiLayerCandidate() : multilayer(0), row(-1), distance(0){}
-    MultiLayerView *multilayer; //!< pointer to the candidate
-    int row; //!< requested row number to drop in
-    int distance; //!< distance from given ILayerView and drop area
-    bool operator< (const MultiLayerCandidate& cmp) const { return cmp.distance <  distance; }
-};
+    return multilayer->mapRectToScene(multilayer->getDropAreaRectangle(row));
+}
 
 
 ILayerView::ILayerView(QGraphicsItem *parent)
     : ConnectableView(parent)
-    , m_requested_parent(0)
-    , m_requested_row(-1)
+//    , m_requested_parent(0)
+//    , m_requested_row(-1)
 {
-
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 }
 
 
@@ -50,11 +47,15 @@ QVariant ILayerView::itemChange(GraphicsItemChange change, const QVariant &value
 {
     if (change == ItemPositionChange && scene()) {
 
-        findMultiLayerCandidate();
-        if(m_requested_parent) {
+        MultiLayerCandidate multilayerCandidate = getMultiLayerCandidate();
+//        if(m_requested_parent) {
+//            DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
+//            QRectF rect = m_requested_parent->getDropAreaRectangle(m_requested_row);
+//            designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
+//        }
+        if(multilayerCandidate) {
             DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
-            QRectF rect = m_requested_parent->getDropAreaRectangle(m_requested_row);
-            designerScene->setLayerDropArea(m_requested_parent->mapRectToScene(rect));
+            designerScene->setLayerDropArea(multilayerCandidate.getSceneDropArea());
         }
 
     }
@@ -86,11 +87,14 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    findMultiLayerCandidate();
-    qDebug() << "ILayerView::mouseReleaseEvent()  requested_parent:" << m_requested_parent << " requested_row:" << m_requested_row;
+    MultiLayerCandidate candidate = getMultiLayerCandidate();
+    MultiLayerView *requested_parent = candidate.multilayer;
+    int requested_row = candidate.row;
+
+    qDebug() << "ILayerView::mouseReleaseEvent()  requested_parent:" << requested_parent << " requested_row:" << requested_row;
 
     // Simple move of lonely layer across the scene: let it be.
-    if(m_requested_parent == 0 && parentItem() == 0) {
+    if(requested_parent == 0 && parentItem() == 0) {
         qDebug() << "ILayerView::mouseReleaseEvent() simple move of lonely layer";
         QGraphicsItem::mouseReleaseEvent(event);
         return;
@@ -98,7 +102,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // Layer was moved on top of MultiLayer but not in the right drop area:
     // returning layer back to starting position.
-    if(m_requested_parent && m_requested_row == -1) {
+    if(requested_parent && requested_row == -1) {
         qDebug() << "1.1 Layer->MultiLayer, wrong drop area.";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);
@@ -108,7 +112,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     SessionModel *model = designerScene->getSessionModel();
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
-    if(m_requested_parent == parentItem() && m_requested_row == model->indexOfItem(getParameterizedItem()).row()) {
+    if(requested_parent == parentItem() && requested_row == model->indexOfItem(getParameterizedItem()).row()) {
         qDebug() << "1.2 Layer->MultiLayer (same), same drop area";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);
@@ -117,7 +121,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // Layer was moved from MultiLayer he belong's to, to the empty place of
     // the scene: changing ownership.
-    if(parentItem() && !m_requested_parent) {
+    if(parentItem() && !requested_parent) {
         qDebug() << "1.3 Layer->Scene";
         setPos( mapToScene(event->pos()) - event->pos());
         model->moveParameterizedItem(this->getParameterizedItem(), 0);
@@ -127,9 +131,9 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // Layer was moved either from one MultiLayer to another, or is moved inside
     // one multilayer: changing ownership or row within same ownership.
-    if(m_requested_parent) {
+    if(requested_parent) {
         qDebug() << "1.4 ILayerView->MultiLayer";
-        model->moveParameterizedItem(this->getParameterizedItem(), m_requested_parent->getParameterizedItem(), m_requested_row);
+        model->moveParameterizedItem(this->getParameterizedItem(), requested_parent->getParameterizedItem(), requested_row);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -145,10 +149,10 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 //! ILayerView should intersects and ILayerView center should be near appropriate
 //! drop area. If more than one candidate is found, they will be sorted according
 //! to the distance between drop area and ILayerVIew center
-void ILayerView::findMultiLayerCandidate()
+MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 {
-    m_requested_parent = 0;
-    m_requested_row = -1;
+//    m_requested_parent = 0;
+//    m_requested_row = -1;
     qDebug() << "ILayerView::getMultiLayerCandidate()";
 
     QVector<MultiLayerCandidate > candidates;
@@ -180,11 +184,11 @@ void ILayerView::findMultiLayerCandidate()
     // sorting MultiLayerView candidates to find one whose drop area is closer
     if(candidates.size()) {
         qSort(candidates.begin(), candidates.end());
-        m_requested_parent = candidates.back().multilayer;
-        m_requested_row = candidates.back().row;
+        return candidates.back();
     }
-    foreach(MultiLayerCandidate candidate, candidates) {
-        qDebug() << "ILayerView::getMultiLayerCandidate() -> " << candidate.multilayer << candidate.distance << candidate.row;
-    }
+//    foreach(MultiLayerCandidate candidate, candidates) {
+//        qDebug() << "ILayerView::getMultiLayerCandidate() -> " << candidate.multilayer << candidate.distance << candidate.row;
+//    }
+    return MultiLayerCandidate();
 }
 

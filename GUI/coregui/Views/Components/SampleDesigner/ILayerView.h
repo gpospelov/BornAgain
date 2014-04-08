@@ -4,6 +4,7 @@
 #include "ConnectableView.h"
 
 class MultiLayerView;
+class MultiLayerCandidate;
 
 //! Base class for LayerView and MultiLayerView
 //! Provides functionality for moving view on top of MultiLayer.
@@ -27,16 +28,30 @@ public slots:
     void onPropertyChange(QString propertyName);
 
 private:
-    void findMultiLayerCandidate();
+    MultiLayerCandidate getMultiLayerCandidate();
 
-    MultiLayerView * m_requested_parent;
-    //!< Possible parent (MultiLayer) encountered during  the movement of the
-    //!< Layer across the scene.
+//    MultiLayerView * m_requested_parent;
+//    //!< Possible parent (MultiLayer) encountered during  the movement of the
+//    //!< Layer across the scene.
 
-    int m_requested_row;
-    //! requested row to drop the layer in  encountered MultiLayer
+//    int m_requested_row;
+//    //! requested row to drop the layer in  encountered MultiLayer
 
     QPointF m_drag_start_position;
+};
+
+
+//! Class to hold MultiLayer candidate for dropping LayerView.
+class MultiLayerCandidate
+{
+public:
+    MultiLayerCandidate() : multilayer(0), row(-1), distance(0){}
+    MultiLayerView *multilayer; //!< pointer to the candidate
+    int row; //!< requested row number to drop in
+    int distance; //!< distance from given ILayerView and drop area
+    QRectF getSceneDropArea();
+    bool operator< (const MultiLayerCandidate& cmp) const { return cmp.distance <  distance; }
+    operator bool() const { return bool(multilayer); }
 };
 
 

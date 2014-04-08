@@ -7,15 +7,6 @@
 #include "DesignerMimeData.h"
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
-#include <QDrag>
-#include <QCursor>
-#include <QApplication>
-#include <QMimeData>
-#include <QBitmap>
-#include <QWidget>
-#include <QGradient>
-#include <iostream>
-#include <QDropEvent>
 #include <QStyleOptionGraphicsItem>
 #include <QDebug>
 
@@ -27,12 +18,8 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     setColor(QColor(Qt::blue));
     setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
     setToolTip(QString("MultiLayer"));
-    setFlag(QGraphicsItem::ItemIsMovable, true);
-    setFlag(QGraphicsItem::ItemIsSelectable, true);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(false);
     setAcceptDrops(true);
-
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
     updateGeometry();
 }
@@ -60,8 +47,7 @@ void MultiLayerView::addView(IView *childView, int row)
         addNewLayer(layer, row);
     } else {
         int previous_row = m_layers.indexOf(layer);
-        m_layers.swap(previous_row, row);
-        qDebug() << "layer exists, swapping" << previous_row << row;
+        if(previous_row != row) m_layers.swap(previous_row, row);
     }
     updateGeometry();
 }
@@ -71,8 +57,6 @@ void MultiLayerView::addNewLayer(ILayerView *layer, int row)
 {
     qDebug() << "MultiLayerView::addNewLayer(), row" << row;
     m_layers.insert(row, layer);
-    int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
-    layer->setX(xpos);
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
     connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
     layer->setParentItem(this);
@@ -93,21 +77,21 @@ void MultiLayerView::removeLayer(ILayerView *layer)
     qDebug() << "MultiLayerView::removeLayer()";
     Q_ASSERT(m_layers.contains(layer));
     disconnect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
+    disconnect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
     m_layers.removeOne(layer);
     updateGeometry();
 }
 
 
-//! Updates geometry of MultiLayerView from current childs geometries
+//! Updates geometry of MultiLayerView from current childs geometries.
 void MultiLayerView::updateGeometry()
 {
     updateHeight();
     updateWidth();
-    update();
 }
 
 
-
+//! Updates MultiLayer height, sets y-positions of children, defines new drop areas.
 void MultiLayerView::updateHeight()
 {
     qDebug() << "MultiLayerView::updateHeight()";
@@ -132,25 +116,29 @@ void MultiLayerView::updateHeight()
     }
 
     m_rect.setHeight(total_height);
+    update();
     emit heightChanged();
 }
 
 
-//! Updates MultiLayerView width.
+//! Updates MultiLayerView width, sets x-positions of children.
 //! If list of children contains another MultiLayer, then width of given MultiLayer
-//! will be increased
+//! will be increased by 12%
 void MultiLayerView::updateWidth()
 {
+    const double wider_than_children(1.15);
     double max_width(0);
     foreach(ILayerView *layer, m_layers) {
         if(layer->boundingRect().width() > max_width)
             max_width = layer->boundingRect().width();
     }
+    max_width *= wider_than_children;
     if(max_width == 0) {
         max_width = DesignerHelper::getDefaultMultiLayerWidth();
-    } else {
-        m_rect.setWidth(max_width*1.1);
     }
+
+    m_rect.setWidth(max_width);
+    update();
 
     foreach(ILayerView *layer, m_layers) {
         int xpos = ((boundingRect().width() - layer->boundingRect().width()))/2.;
@@ -206,8 +194,6 @@ void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 
 void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
-    std::cout << "MultiLayerView::dropEvent() -> " << std::endl;
-
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if (mimeData) {
 
@@ -228,7 +214,6 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
 {
-    std::cout << "MultiLayerView::checkDragEvent -> "  << std::endl;
     const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();

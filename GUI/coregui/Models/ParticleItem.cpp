@@ -15,7 +15,6 @@
 
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
-#include "MaterialBrowser.h"
 
 ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Particle"), parent)
@@ -23,10 +22,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     setItemName("ParticleName");
     ParameterizedItem *p_ff = new CylinderItem();
     addSubItem("Form Factor", p_ff);
-    MaterialProperty material = MaterialBrowser::getDefaultMaterialProperty();
-    QVariant mat_var;
-    mat_var.setValue(material);
-    setProperty("Material", mat_var);
+    setMaterialProperty();
     setProperty("Depth", 0.0);
     setProperty("Abundance", 1.0);
 }

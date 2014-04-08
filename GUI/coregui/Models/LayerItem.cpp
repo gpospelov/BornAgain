@@ -21,10 +21,7 @@ LayerItem::LayerItem(ParameterizedItem *parent)
 {
     setItemName("LayerName");
     setProperty("Thickness", 0.0);
-    MaterialProperty material = MaterialBrowser::getDefaultMaterialProperty();
-    QVariant mat_var;
-    mat_var.setValue(material);
-    setProperty("Material", mat_var);
+    setMaterialProperty();
     m_valid_children.append(QString("ParticleLayout"));
 }
 

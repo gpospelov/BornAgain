@@ -97,6 +97,7 @@ signals:
 protected:
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
+    void setMaterialProperty();
     QList<QString> m_valid_children;
 
 private:

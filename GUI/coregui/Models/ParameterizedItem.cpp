@@ -15,6 +15,8 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
+#include "MaterialBrowser.h"
+
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -70,4 +72,12 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
         m_parent->addChildItem(this);
     }
     setItemName(m_model_type);
+}
+
+void ParameterizedItem::setMaterialProperty()
+{
+    MaterialProperty material = MaterialBrowser::getDefaultMaterialProperty();
+    QVariant mat_var;
+    mat_var.setValue(material);
+    setProperty("Material", mat_var);
 }

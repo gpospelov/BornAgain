@@ -30,6 +30,7 @@ public:
     bool isInDropArea(QPointF pos);
     int getDropArea(QPointF pos);
     QRectF getDropAreaRectangle(int row);
+    QLineF getInterfaceLine(int row);
 
 public slots:
     void updateGeometry();
@@ -45,6 +46,7 @@ protected:
 private:
     QList<ILayerView *> m_layers;
     QList<QRectF> m_drop_areas;
+    QList<QLineF> m_interfaces;
 };
 
 

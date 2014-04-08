@@ -304,42 +304,18 @@ void DesignerScene::deleteSelectedItems()
 
 
 
-void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-
-//    if(event->button()==Qt::LeftButton) {
-//        qDebug() << "DesignerScene::mouseMoveEvent()";
-
-//    }
-
-//    LayerView2 *layer = qgraphicsitem_cast<LayerView2 *>(mouseGrabberItem());
-//    if(layer) {
-//        qDebug() << "DesignerScene::mouseMoveEvent()";
-//        foreach(QGraphicsItem *item, items()) {
-//            if(item->type() == DesignerHelper::MultiLayerType) {
-//                MultiLayerView2 *multilayer = qgraphicsitem_cast<MultiLayerView2 *>(item);
-//                if(multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {
-
-
-
-//    }
-
-
-    QGraphicsScene::mouseMoveEvent(event);
-}
-
-
 //! show drop area for ILayerView
 void DesignerScene::drawForeground(QPainter* painter, const QRectF& rect)
 {
     Q_UNUSED(rect);
 
     ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
-    qDebug() << "DesignerScene::drawForeground" << layer << m_layer_drop_area;
-    if(layer && !m_layer_drop_area.isNull()) {
+    //qDebug() << "DesignerScene::drawForeground" << layer << m_layer_interface_area;
+    if(layer && !m_layer_interface_area.isNull()) {
         painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
-        painter->drawLine(m_layer_drop_area.left()-10, m_layer_drop_area.center().y(), m_layer_drop_area.right()+10, m_layer_drop_area.center().y());
+        //painter->drawLine(m_layer_drop_area.left()-10, m_layer_drop_area.center().y(), m_layer_drop_area.right()+10, m_layer_drop_area.center().y());
         //painter->drawRect(m_layer_drop_area);
+        painter->drawLine(m_layer_interface_area);
         invalidate();
     }
 }

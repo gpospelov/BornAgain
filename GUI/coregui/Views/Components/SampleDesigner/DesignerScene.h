@@ -39,7 +39,8 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
 
-    void setLayerDropArea(const QRectF &rect) { m_layer_drop_area = rect; }
+    //void setLayerDropArea(const QRectF &rect) { m_layer_drop_area = rect; }
+    void setLayerDropArea(const QLineF &line=QLineF()) { m_layer_interface_area = line; }
 
     void deleteSelectedItems();
 
@@ -48,11 +49,9 @@ public slots:
 
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-    //void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
     void dropEvent(QGraphicsSceneDragDropEvent *event);
 
 protected:
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void drawForeground(QPainter* painter, const QRectF& rect);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
@@ -72,7 +71,8 @@ private:
     QMap<ParameterizedItem *, IView *> m_ItemToView;
     QList<IView *> m_orderedViews;
 
-    QRectF m_layer_drop_area;
+//    QRectF m_layer_drop_area;
+    QLineF m_layer_interface_area;
 };
 
 

@@ -242,13 +242,18 @@ void MainWindow::initSessionModel()
 {
     delete m_sessionModel;
     m_sessionModel = new SessionModel();
+
     ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
     multilayer->setItemName("MultiLayer1");
 
-    ParameterizedItem *ml2 = m_sessionModel->insertNewItem("MultiLayer");
-    ml2->setItemName("MultiLayer2");
+    m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
 
-    m_sessionModel->insertNewItem("Layer");
+
+    ParameterizedItem *ml2 = m_sessionModel->insertNewItem("MultiLayer", m_sessionModel->indexOfItem(multilayer));
+    ml2->setItemName("MultiLayer2");
+    m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(ml2));
+
+    m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
 
 
 //    m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));

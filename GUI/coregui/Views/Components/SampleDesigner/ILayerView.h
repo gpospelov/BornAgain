@@ -49,8 +49,9 @@ public:
     MultiLayerView *multilayer; //!< pointer to the candidate
     int row; //!< requested row number to drop in
     int distance; //!< distance from given ILayerView and drop area
-    QRectF getSceneDropArea();
-    bool operator< (const MultiLayerCandidate& cmp) const { return cmp.distance <  distance; }
+    //QRectF getSceneDropArea();
+    QLineF getInterfaceToScene();
+    bool operator< (const MultiLayerCandidate& cmp) const;
     operator bool() const { return bool(multilayer); }
 };
 

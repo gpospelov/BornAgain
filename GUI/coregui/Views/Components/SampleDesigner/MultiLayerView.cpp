@@ -98,6 +98,7 @@ void MultiLayerView::updateHeight()
 
     // drop areas are rectangles covering the area of layer interfaces
     m_drop_areas.clear();
+    m_interfaces.clear();
 
     int total_height = 0;
     if(m_layers.size()) {
@@ -106,10 +107,18 @@ void MultiLayerView::updateHeight()
             //layer->setPos(xpos, total_height);
             layer->setY(total_height);
             layer->update();
+
+            if(total_height==0) {
+                m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/5., boundingRect().width(), layer->boundingRect().height()/2.));
+            } else {
+                m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/4., boundingRect().width(), layer->boundingRect().height()/2.));
+            }
+
+            m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
             total_height += layer->boundingRect().height();
-            m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/4., boundingRect().width(), layer->boundingRect().height()/2.));
         }
-        m_drop_areas.append(QRectF(0, m_layers.back()->y() +m_layers.back()->boundingRect().height() - m_layers.back()->boundingRect().height()/4., boundingRect().width(), m_layers.back()->boundingRect().height()/2.));
+        m_drop_areas.append(QRectF(0, m_layers.back()->y() +m_layers.back()->boundingRect().height() - m_layers.back()->boundingRect().height()/4., boundingRect().width(), m_layers.back()->boundingRect().height()/1.8));
+        m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
     } else {
         total_height = DesignerHelper::getDefaultMultiLayerHeight();
         m_drop_areas.append(boundingRect());
@@ -183,6 +192,34 @@ QRectF MultiLayerView::getDropAreaRectangle(int row)
         return QRectF();
     }
 }
+
+
+//! Returns line representing interface
+QLineF MultiLayerView::getInterfaceLine(int row)
+{
+    if(row>=0 && row < m_interfaces.size()) {
+        return m_interfaces[row];
+    } else {
+        return QLineF();
+    }
+}
+
+//QLineF MultiLayerView::getDropAreaLine(int row)
+//{
+//    qDebug() << "xxx " << row ;
+//    if(row>=0 && row < m_layers.size()+1) {
+//        if(m_layers.isEmpty())
+//            return QLineF(m_rect.left(), m_rect.center().y(), m_rect.right(), m_rect.center().y());
+
+//        if(row < m_layers.size())
+//            return QLineF(m_rect.left(), m_layers.at(row)->boundingRect().top(), m_rect.right(), m_layers.at(row)->boundingRect().top());
+
+//        if(row == m_layers.size())
+//            return QLineF(m_rect.left(), m_rect.bottom(), m_rect.right(), m_rect.bottom());
+
+//    }
+//    return QLineF();
+//}
 
 
 void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)

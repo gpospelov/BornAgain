@@ -16,23 +16,23 @@ Ngrowframes = 30
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAir = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    mAir = HomogeneousMaterial("Air", 0.0, 0.0)
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     semisphere_ff = FormFactorTruncatedSphere(radius, radius)
     semisphere = Particle(mParticle, semisphere_ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(semisphere)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(semisphere)
 
     # interference function
     interference = InterferenceFunction1DParaCrystal(6 * nanometer, 1 * nanometer)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     film_layer = Layer(mParticle, layer_thickness)
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()

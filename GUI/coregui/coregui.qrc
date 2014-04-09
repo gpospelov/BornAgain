@@ -14,5 +14,11 @@
         <file>images/reset.png</file>
         <file>images/darkclosebutton.png</file>
         <file>images/filesave.png</file>
+        <file>images/Play.ico</file>
+        <file>images/main_simulation.png</file>
+        <file>images/main_instrument.png</file>
+        <file>images/main_sample.png</file>
+        <file>images/main_jobqueue.png</file>
+        <file>images/main_home.png</file>
     </qresource>
 </RCC>

@@ -77,14 +77,14 @@ MainWindow::MainWindow(QWidget *parent)
     m_fitView = new FitView();
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
 
-    m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
-    m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
-    m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/mode_sample.png"), "Sample");
-    m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
-    m_tabWidget->insertTab(4, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
-    m_tabWidget->insertTab(5, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
-    m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
-    m_tabWidget->insertTab(7, m_jobQueueView, QIcon(":/images/mode_fit.png"), "Queue");
+    m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
+    m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
+    m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
+    //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
+    m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
+    //m_tabWidget->insertTab(4, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
+    m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
     m_tabWidget->setCurrentIndex(2);
 

@@ -16,6 +16,7 @@ class NodeEditorConnection;
 class DesignerMimeData;
 
 
+//! Main class which represents SessionModel on graphics scene
 class DesignerScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -39,15 +40,13 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
 
-    //void setLayerDropArea(const QRectF &rect) { m_layer_drop_area = rect; }
-    void setLayerDropArea(const QLineF &line=QLineF()) { m_layer_interface_area = line; }
+    void setLayerInterfaceLine(const QLineF &line=QLineF()) { m_layer_interface_line = line; }
 
     void deleteSelectedItems();
 
     void onEstablishedConnection(NodeEditorConnection *); // to process signals from NodeEditor
     void removeConnection(NodeEditorConnection *);
 
-    void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void dropEvent(QGraphicsSceneDragDropEvent *event);
 
@@ -55,13 +54,12 @@ protected:
     void drawForeground(QPainter* painter, const QRectF& rect);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
-
 private:
     IView *addViewForItem(ParameterizedItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
     void deleteViews(const QModelIndex & parentIndex);
     void alignViews();
-    void removeItemFromScene(ParameterizedItem *item);
+    void removeItemViewFromScene(ParameterizedItem *item);
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
 
     SessionModel *m_sessionModel;
@@ -69,10 +67,14 @@ private:
     bool m_block_selection;
 
     QMap<ParameterizedItem *, IView *> m_ItemToView;
-    QList<IView *> m_orderedViews;
+    //!< COrrespondance of model's item and scene's view
 
-//    QRectF m_layer_drop_area;
-    QLineF m_layer_interface_area;
+    QList<IView *> m_orderedViews;
+    //!< helper list of views in the order corresponding items appearing in
+    //!< the model for alignment purposes
+
+    QLineF m_layer_interface_line;
+    //!< foreground line representing appropriate interface during lauer's movement
 };
 
 

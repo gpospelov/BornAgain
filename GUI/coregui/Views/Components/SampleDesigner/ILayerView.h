@@ -29,14 +29,6 @@ public slots:
 
 private:
     MultiLayerCandidate getMultiLayerCandidate();
-
-//    MultiLayerView * m_requested_parent;
-//    //!< Possible parent (MultiLayer) encountered during  the movement of the
-//    //!< Layer across the scene.
-
-//    int m_requested_row;
-//    //! requested row to drop the layer in  encountered MultiLayer
-
     QPointF m_drag_start_position;
 };
 
@@ -49,10 +41,10 @@ public:
     MultiLayerView *multilayer; //!< pointer to the candidate
     int row; //!< requested row number to drop in
     int distance; //!< distance from given ILayerView and drop area
-    //QRectF getSceneDropArea();
-    QLineF getInterfaceToScene();
     bool operator< (const MultiLayerCandidate& cmp) const;
     operator bool() const { return bool(multilayer); }
+    //! returns line representing interface of multilayer in scene coordinates
+    QLineF getInterfaceToScene();
 };
 
 

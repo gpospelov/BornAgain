@@ -9,32 +9,18 @@
 #include <QDebug>
 
 
-
-//QRectF MultiLayerCandidate::getSceneDropArea()
-//{
-//    return multilayer->mapRectToScene(multilayer->getDropAreaRectangle(row));
-//}
-
 QLineF MultiLayerCandidate::getInterfaceToScene()
 {
     Q_ASSERT(multilayer);
     QLineF line = multilayer->getInterfaceLine(row);
-//    QPointF p1 = multilayer->mapToScene(line.p1());
-//    QPointF p2 = multilayer->mapToScene(line.p2());
     return QLineF(multilayer->mapToScene(line.p1()), multilayer->mapToScene(line.p2()));
 }
 
 
-
 bool MultiLayerCandidate::operator< (const MultiLayerCandidate& cmp) const
 {
-    qDebug() << "xxxxxxx" << multilayer->parentItem() << cmp.multilayer->parentItem();
-//    if(cmp.distance == distance) {
-//        if(multilayer->parentItem() == cmp.multilayer) return true;
-//    }
     return cmp.distance <  distance;
 }
-
 
 
 ILayerView::ILayerView(QGraphicsItem *parent)
@@ -69,7 +55,7 @@ QVariant ILayerView::itemChange(GraphicsItemChange change, const QVariant &value
         MultiLayerCandidate multilayerCandidate = getMultiLayerCandidate();
         if(multilayerCandidate) {
             DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
-            designerScene->setLayerDropArea(multilayerCandidate.getInterfaceToScene());
+            designerScene->setLayerInterfaceLine(multilayerCandidate.getInterfaceToScene());
         }
 
     }
@@ -94,7 +80,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     Q_ASSERT(designerScene);
-    designerScene->setLayerDropArea(); // removing drop area hint from the scene
+    designerScene->setLayerInterfaceLine(); // removing drop area hint from the scene
 
     if(QLineF(m_drag_start_position, pos()).length() == 0) {
         QGraphicsItem::mouseReleaseEvent(event);
@@ -165,10 +151,9 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 //! to the distance between drop area and ILayerVIew center
 MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 {
-    qDebug() << "ILayerView::getMultiLayerCandidate()";
+    //qDebug() << "ILayerView::getMultiLayerCandidate()";
 
     QVector<MultiLayerCandidate > candidates;
-
 
     QRectF layerRect = mapRectToScene(boundingRect());
     foreach(QGraphicsItem *item, scene()->items()) {
@@ -185,8 +170,6 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
                 int row = multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
                 QRectF droparea = multilayer->mapRectToScene(multilayer->getDropAreaRectangle(row));
                 int distance = std::abs(droparea.center().y() - layerRect.center().y());
-//                QRectF ml_rect = multilayer->mapRectToScene(multilayer->boundingRect());
-//                if(ml_rect.contains(layerRect.center())) distance = -distance;
 
                 candidate.multilayer = multilayer;
                 candidate.row = row;
@@ -199,9 +182,9 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
     // sorting MultiLayerView candidates to find one whose drop area is closer
     if(candidates.size()) {
         qSort(candidates.begin(), candidates.end());
-        foreach(MultiLayerCandidate candidate, candidates) {
-            qDebug() << "ILayerView::getMultiLayerCandidate() -> " << candidate.multilayer << candidate.distance << candidate.row;
-        }
+        //foreach(MultiLayerCandidate candidate, candidates) {
+        //    qDebug() << "ILayerView::getMultiLayerCandidate() -> " << candidate.multilayer << candidate.distance << candidate.row;
+        //}
 
         return candidates.back();
     }

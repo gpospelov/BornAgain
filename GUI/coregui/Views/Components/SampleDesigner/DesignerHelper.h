@@ -32,7 +32,7 @@ public:
     static int getDefaultLayerHeight() { return m_default_layer_height; }
     static QColor getDefaultLayerColor() { return QColor(Qt::lightGray); }
 
-    static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.20; }
+    static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.15; }
     static int getDefaultMultiLayerHeight() { return m_default_layer_height; }
     static QRectF getDefaultMultiLayerRect();
 

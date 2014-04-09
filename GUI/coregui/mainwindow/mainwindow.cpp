@@ -242,7 +242,10 @@ void MainWindow::initSessionModel()
 {
     delete m_sessionModel;
     m_sessionModel = new SessionModel();
+
     ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
+    multilayer->setItemName("MultiLayer1");
+
     m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
     ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer",
                    m_sessionModel->indexOfItem(multilayer));
@@ -251,14 +254,5 @@ void MainWindow::initSessionModel()
     m_sessionModel->insertNewItem("Layer");
     m_sessionModel->insertNewItem("Layer");
 
-    m_sessionModel->insertNewItem("MultiLayer");
-
-    m_sessionModel->insertNewItem("ParticleLayout");
-
-    //ParameterizedItem *layer2 = m_sessionModel->insertNewItem("Layer");
-    //m_sessionModel->moveParameterizedItem(layer2, multilayer);
-    //m_sessionModel->moveParameterizedItem(layer, 0);
-
-    //m_sessionModel->save("session.xml");
 }
 

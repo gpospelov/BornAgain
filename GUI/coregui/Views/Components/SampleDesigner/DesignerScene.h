@@ -1,33 +1,23 @@
 #ifndef DESIGNERSCENE_H
 #define DESIGNERSCENE_H
 
+
 #include <QGraphicsScene>
+#include <QModelIndex>
+#include <QMap>
 
-
-class QGraphicsSceneDragDropEvent;
+class SessionModel;
+class ParameterizedItem;
+class ParameterizedGraphicsItem;
+class QItemSelectionModel;
+class IView;
+class QItemSelection;
+class NodeEditorConnection;
 class DesignerMimeData;
-class DesignerWidgetFactory;
-class QGraphicsDropShadowEffect;
-class MultiLayerView;
-
-//! base class for sample designer scene
-class DesignerSceneInterface : public QGraphicsScene
-{
-    Q_OBJECT
-
-public:
-    explicit DesignerSceneInterface(QObject *parent = 0) : QGraphicsScene(parent){}
-    virtual ~DesignerSceneInterface(){}
 
 
-};
-
-
-//! Sample designer scene. Main class to hold all graphics items (ISampleView objects).
-//! Handles drag and drop. Initialises NodeEditor.
-//!
-//! Belongs to SampleDesigner
-class DesignerScene : public DesignerSceneInterface
+//! Main class which represents SessionModel on graphics scene
+class DesignerScene : public QGraphicsScene
 {
     Q_OBJECT
 
@@ -35,27 +25,58 @@ public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene(){}
 
-//    MultiLayerView *getTopMultiLayer() { return m_dock; }
-    MultiLayerView *getMultiLayerView();
-    QList<MultiLayerView *> getMultiLayerViewList();
+    void setSessionModel(SessionModel *model);
+    void setSelectionModel(QItemSelectionModel *model);
+
+    SessionModel *getSessionModel() { return m_sessionModel; }
+
+public slots:
+    void onSceneSelectionChanged();
+    void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
+    void resetScene();
+    void updateScene();
+
+    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsRemoved(const QModelIndex &parent, int first, int last);
+
+    void setLayerInterfaceLine(const QLineF &line=QLineF()) { m_layer_interface_line = line; }
+
+    void deleteSelectedItems();
+
+    void onEstablishedConnection(NodeEditorConnection *); // to process signals from NodeEditor
+    void removeConnection(NodeEditorConnection *);
+
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
 
 protected:
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-
+    void drawForeground(QPainter* painter, const QRectF& rect);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
-    void addItems(const QList<QGraphicsItem *> &items);
-
-
 private:
-    // create some sample to start with non-empty scene
-    void createSample();
+    IView *addViewForItem(ParameterizedItem *item);
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
+    void deleteViews(const QModelIndex & parentIndex);
+    void alignViews();
+    void removeItemViewFromScene(ParameterizedItem *item);
+    bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
 
-//    QGraphicsDropShadowEffect *m_shadow_effect;
+    SessionModel *m_sessionModel;
+    QItemSelectionModel *m_selectionModel;
+    bool m_block_selection;
+
+    QMap<ParameterizedItem *, IView *> m_ItemToView;
+    //!< COrrespondance of model's item and scene's view
+
+    QList<IView *> m_orderedViews;
+    //!< helper list of views in the order corresponding items appearing in
+    //!< the model for alignment purposes
+
+    QLineF m_layer_interface_line;
+    //!< foreground line representing appropriate interface during lauer's movement
 };
 
-#endif // DESIGNERSCENE_H
+
+#endif
+

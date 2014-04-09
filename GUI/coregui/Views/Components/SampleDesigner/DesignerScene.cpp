@@ -1,233 +1,412 @@
 #include "DesignerScene.h"
-#include "LayerView.h"
-#include "LayerView.h"
-#include "InterfaceView.h"
-#include "DesignerWidgetFactory.h"
-#include "MultiLayerView.h"
-#include "DesignerMimeData.h"
 #include "DesignerHelper.h"
+#include "SessionModel.h"
+#include "SampleViewFactory.h"
+#include "SampleViewAligner.h"
+#include "IView.h"
+#include "LayerView.h"
+#include "ConnectableView.h"
+#include "ItemFactory.h"
+#include "ParameterizedGraphicsItem.h"
 #include "NodeEditor.h"
-#include "ISampleToIView.h"
-#include "SampleBuilderFactory.h"
-#include "SamplePrintVisitor.h"
+#include "NodeEditorConnection.h"
+#include "DesignerMimeData.h"
+#include <QItemSelection>
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 
-
-#include <QGraphicsSceneDragDropEvent>
-#include <QGraphicsDropShadowEffect>
 
 DesignerScene::DesignerScene(QObject *parent)
-    : DesignerSceneInterface(parent)
+    : QGraphicsScene(parent)
+    , m_sessionModel(0)
+    , m_selectionModel(0)
+    , m_block_selection(false)
 {
-
-    setSceneRect(QRectF(-500, -200, 800, 800));
+    setSceneRect(QRectF(-400, 0, 800, 800));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
-    //setAcceptDrops(true);
-
-    //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-//    m_dock = MultiLayerView::createTopMultiLayer();
-//    addItem(m_dock);
 
     NodeEditor *nodeEditor = new NodeEditor(parent);
     nodeEditor->install(this);
+    connect(nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this, SLOT(onEstablishedConnection(NodeEditorConnection*)));
 
-
-    createSample();
-
+    connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
 
-MultiLayerView *DesignerScene::getMultiLayerView()
+
+void DesignerScene::setSessionModel(SessionModel *model)
 {
-    QList<MultiLayerView *> multiLayers = getMultiLayerViewList();
-    return (multiLayers.size() ? multiLayers.at(0) : 0);
+    Q_ASSERT(model);
+
+    if(model != m_sessionModel) {
+
+        if(m_sessionModel) {
+            disconnect(m_sessionModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
+            disconnect(m_sessionModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
+            disconnect(m_sessionModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
+            disconnect(m_sessionModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
+            disconnect(m_sessionModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+        }
+
+        m_sessionModel = model;
+
+        connect(m_sessionModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
+        connect(m_sessionModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
+        connect(m_sessionModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
+        connect(m_sessionModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
+        connect(m_sessionModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+
+        resetScene();
+        updateScene();
+    }
 }
 
 
-QList<MultiLayerView *> DesignerScene::getMultiLayerViewList()
+void DesignerScene::setSelectionModel(QItemSelectionModel *model)
 {
-    QList<MultiLayerView *> result;
-    foreach(QGraphicsItem *item, items()) {
-        if(item->type() == MultiLayerView::Type) {
-            MultiLayerView *view = dynamic_cast<MultiLayerView *>(item);
-            Q_ASSERT(view);
-            result.append(view);
+    Q_ASSERT(model);
+
+    if(model != m_selectionModel) {
+
+        if(m_selectionModel) {
+            disconnect(m_selectionModel,
+                    SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                    this,
+                    SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
+        }
+
+        m_selectionModel = model;
+
+        connect(m_selectionModel,
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                this,
+                SLOT(onSessionSelectionChanged(QItemSelection,QItemSelection)) );
+    }
+}
+
+
+void DesignerScene::resetScene()
+{
+    qDebug() << "DesignerScene::resetScene()";
+    clear();
+    m_orderedViews.clear();
+    m_ItemToView.clear();
+    m_layer_interface_line = QLineF();
+}
+
+
+void DesignerScene::updateScene()
+{
+    qDebug() << "DesignerScene::updateScene()";
+    m_orderedViews.clear();
+    updateViews();
+    alignViews();
+}
+
+
+void DesignerScene::onRowsInserted(const QModelIndex &/* parent */, int /* first */, int /* last */ )
+{
+    //qDebug() << "DesignerScene::onRowsInserted()" << parent;
+    updateScene();
+}
+
+
+void DesignerScene::onRowsRemoved(const QModelIndex &/* parent */, int /* first */, int /* last */)
+{
+    //qDebug() << "DesignerScene::onRowsRemoved()" << parent;
+    updateScene();
+}
+
+
+void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
+{
+    m_block_selection = true;
+    qDebug() << "DesignerScene::onRowsAboutToBeRemoved()" << parent << first << last;
+    for(int irow = first; irow<=last; ++irow ) {
+        QModelIndex itemIndex = m_sessionModel->index(irow, 0, parent);
+        deleteViews(itemIndex); // deleting all child items
+        //removeItemFromScene(m_sessionModel->itemForIndex(itemIndex)); // deleting parent item
+    }
+    m_block_selection = false;
+}
+
+//! propagate selection from model to scene
+void DesignerScene::onSessionSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
+{
+    //qDebug() << "DesignerScene::onSessionSelectionChanged()";
+
+    QModelIndexList indices = selected.indexes();
+    if(indices.size()) {
+        ParameterizedItem *item = m_sessionModel->itemForIndex(indices.back());
+        Q_ASSERT(item);
+        IView *view = m_ItemToView[item];
+        //Q_ASSERT(view);
+        if(view) {
+            m_block_selection = true;
+            clearSelection();
+            view->setSelected(true);
+            m_block_selection = false;
+        } else {
+            qDebug() << "DesignerScene::onSessionSelectionChanged() -> Error! No such view";
         }
     }
-    return result;
+
 }
 
 
-
-// create some sample to start with non-empty scene
-void DesignerScene::createSample()
+//! propagate selection from scene to model
+void DesignerScene::onSceneSelectionChanged()
 {
-    SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs01");
+    //qDebug() << "DesignerScene::onSceneSelectionChanged() 1.1";
+    if(m_block_selection) return;
 
-    ISampleToIView visitor;
-    sample->accept(&visitor);
-    QList<QGraphicsItem *> items = visitor.getItems();
+    m_selectionModel->clearSelection();
 
-    foreach(QGraphicsItem *item, items) {
-        addItem(item);
+    QList<QGraphicsItem*> selected = selectedItems();
+    for(int i=0; i<selected.size(); ++i) {
+        IView *view = dynamic_cast<IView *>(selected[i]);
+        if(view) {
+            ParameterizedItem *sessionItem = view->getParameterizedItem();
+            QModelIndex itemIndex = m_sessionModel->indexOfItem(sessionItem);
+            Q_ASSERT(itemIndex.isValid());
+            m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
+            break; // selection of only one item will be propagated to the model
+        }
+    }
+}
+
+
+//! runs through all items recursively and updates corresponding views
+void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentView)
+{
+    Q_ASSERT(m_sessionModel);
+
+    qDebug() << "DesignerScene::updateVIews()";
+
+    if(!parentIndex.isValid()) {
+        qDebug() << "Dumping model";
     }
 
-//    ISampleViewAligner layout;
-//    layout.makeAlign(visitor.getMultiLayerView());
+    IView *childView(0);
+    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
+
+                childView = addViewForItem(item);
+                m_orderedViews.push_back(childView);
+                if(parentView) parentView->addView(childView, i_row);
+
+         } else {
+             qDebug() << "not a parameterized graphics item";
+         }
+
+         updateViews( itemIndex, childView);
+     }
 }
 
 
-void DesignerScene::addItems(const QList<QGraphicsItem *> &items)
+//! adds view for item, if it dosn't exists
+IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 {
-    foreach(QGraphicsItem *item, items) {
-                std::cout << "item "  << " " << item->type() << std::endl;
-                addItem(item);
+    qDebug() << "DesignerScene::addViewForItem() ->";
+    Q_ASSERT(item);
+
+    IView *view = m_ItemToView[item];
+    if(!view) {
+        qDebug() << "Creating view for item" << item->itemName();
+        view = SampleViewFactory::createSampleView(item->modelType());
+        if(view) {
+            m_ItemToView[item] = view;
+            view->setParameterizedItem(item);
+            addItem(view);
+            return view;
+        }
+    } else {
+        qDebug() << "View for item exists." << item->itemName();
+
     }
-    //            QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect;
-    //            shadow_effect->setBlurRadius(8);
-    //            shadow_effect->setOffset(2,2);
-    //            view->setGraphicsEffect(shadow_effect);
-
-
-//    view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
-
+    return view;
 }
 
 
-void DesignerScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+
+//! aligns SampleView's on graphical canvas
+void DesignerScene::alignViews()
 {
-    std::cout << "DesignerScene::dragEnterEvent() ->" << std::endl;
-//    event->acceptProposedAction();
-//    event->accept();
-    QGraphicsScene::dragEnterEvent(event);
+    SampleViewAligner::align(m_orderedViews, QPointF(400,400));
 }
 
 
+//! runs recursively through model's item and schedules view removal
+void DesignerScene::deleteViews(const QModelIndex & parentIndex)
+{
+    qDebug() << "DesignerScene::deleteViews()" << parentIndex;
+
+    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
+
+             removeItemViewFromScene(item);
+
+         } else {
+             qDebug() << "not a parameterized graphics item";
+         }
+         deleteViews( itemIndex);
+     }
+    removeItemViewFromScene(m_sessionModel->itemForIndex(parentIndex)); // deleting parent item
+}
+
+
+//! removes view from scene corresponding to given item
+void DesignerScene::removeItemViewFromScene(ParameterizedItem *item)
+{
+    qDebug() << "DesignerScene::removeItemFromScene()" << item->modelType();
+    for(QMap<ParameterizedItem *, IView *>::iterator it=m_ItemToView.begin(); it!=m_ItemToView.end(); ++it) {
+        if(it.key() == item) {
+            IView *view = it.value();
+            view->setSelected(false);
+            m_ItemToView.erase(it);
+            emit view->aboutToBeDeleted();
+            view->deleteLater();
+            update();
+            break;
+        }
+    }
+}
+
+
+//! propagates deletion of views on the scene to the model
+void DesignerScene::deleteSelectedItems()
+{
+    qDebug() << "DesignerScene::deleteSelectedItems()" << selectedItems().size();
+    // FIXME handle multiple selection
+    foreach(QGraphicsItem *graphicsItem, selectedItems()) {
+        if(IView *view = dynamic_cast<IView *>(graphicsItem)) {
+            qDebug() << "xxx";
+            ParameterizedItem *item = view->getParameterizedItem();
+            Q_ASSERT(item);
+            m_sessionModel->removeRows(m_sessionModel->indexOfItem(item).row(), 1, m_sessionModel->indexOfItem(item->parent()));
+        } else if(NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
+            removeConnection(connection);
+        }
+    }
+}
+
+
+//! shows appropriate layer interface to drop while moving ILayerView
+void DesignerScene::drawForeground(QPainter* painter, const QRectF& /* rect */)
+{
+    ILayerView *layer = dynamic_cast<ILayerView *>(mouseGrabberItem());
+    if(layer && !m_layer_interface_line.isNull()) {
+        painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
+        painter->drawLine(m_layer_interface_line);
+        invalidate();
+    }
+}
+
+
+//! propagates connection established by NodeEditor to the model
+void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
+{
+    qDebug() << "DesignerScene::onEstablishedConnection()";
+    IView *parentView = dynamic_cast<IView *>(connection->getInputPort()->parentItem());
+    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
+    Q_ASSERT(parentView);
+    Q_ASSERT(childView);
+    delete connection; // deleting just created connection because it will be recreated from the model
+    m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), parentView->getParameterizedItem());
+}
+
+
+//! propagates break of connection between views on scene to the model
+void DesignerScene::removeConnection(NodeEditorConnection *connection)
+{
+    qDebug() << "DesignerScene::removeConnection()";
+    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
+    m_sessionModel->moveParameterizedItem(childView->getParameterizedItem(), 0);
+}
+
+
+//! handles drag event
+//! LayerView can be dragged only over MultiLayerView
+//! MultiLayerView can be dragged both, over the scene and over another MultiLayerView
 void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
-    std::cout << "DesignerScene::dragMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
+    qDebug() << "DesignerScene::dragMoveEvent()";
     const DesignerMimeData *mimeData = checkDragEvent(event);
-//    if (mimeData) {
-//        std::cout << "DesignerScene::dragMoveEvent() ->  yes" << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
-//    } else {
-//        std::cout << "DesignerScene::dragMoveEvent() ->  no" << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
-//        event->acceptProposedAction();
-//        QGraphicsScene::dragMoveEvent(event);
-//    }
     if(mimeData) {
-        if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
+        // Layer can be droped only on MultiLayer
+        if(mimeData->getClassName() == QString("Layer")) {
+            QGraphicsScene::dragMoveEvent(event);
+        }
+
+        // MultiLayer can be droped on another MultiLayer if there is one nearby
+        if(mimeData->getClassName() == QString("MultiLayer")
+                && isMultiLayerNearby(event)) {
             QGraphicsScene::dragMoveEvent(event);
         }
     }
-
 }
 
 
-void DesignerScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
-{
-    std::cout << "DesignerScene::dragLeaveEvent() ->" << std::endl;
-        QGraphicsScene::dragLeaveEvent(event);
-//        event->acceptProposedAction();
-}
-
-
-
-
-// Main method to handle drop of mime objects beeng dragged from  SampleWidgetBox
-//
-// It creates single ISampleView object, or bunch of such object from mime name
-
+//! Hadles drop event
+//! LayerView can be dropped on MultiLayerView only
+//! MultiLayerView can be droped on the scene or another MultiLayerView
 void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     const DesignerMimeData *mimeData = checkDragEvent(event);
+    qDebug() << "DesignerScene::dropEvent()" << mimeData;
     if (mimeData) {
-        if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
+
+        // layer can be dropped on MultiLayer only
+        if(mimeData->getClassName() == "Layer") {
+            qDebug() << "DesignerScene::dropEvent() dont want to drop" << mimeData;
             QGraphicsScene::dropEvent(event);
+
+        // MultiLayer can be droped on another MultiLayer if there is one nearby
+        } else if(mimeData->getClassName() == "MultiLayer" && isMultiLayerNearby(event)) {
+            QGraphicsScene::dropEvent(event);
+
+        // other views can be droped on canvas anywhere
         } else {
-            //ISampleView *view = DesignerWidgetFactory::createViews( mimeData->getClassName() );
-//            addItems( DesignerWidgetFactory::createViews(mimeData->getClassName()) );
+            qDebug() << "DesignerScene::dropEvent() -> about to drop";
+            if(SampleViewFactory::isValidName(mimeData->getClassName())) {
+                ParameterizedItem *new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
 
-            // TODO - refactor this together with DesignerWidgetFactory: how to create single View or Whole bunch of views
-
-
-            // creating single ISampleView with the help of WidgetFactory
-            QList<QGraphicsItem *> items = DesignerWidgetFactory::createViews(mimeData->getClassName());
-            if(items.size()) {
-                foreach(QGraphicsItem *view, items) {
-                    std::cout << "item "  << " " << view->type() << std::endl;
-                    addItem(view);
-                    view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
-                }
-
-            // if widget factory was not able to create ISampleView from given name, then the name should correspond to one of standard
-            // IsGISAXS samples
-            } else {
-                if(items.empty()) {
-                    SampleBuilderFactory factory;
-                    ISample *sample(0);
-                    try {
-                        sample = factory.createSample(mimeData->getClassName().toStdString());
-                    } catch (std::runtime_error& e) {}
-                    if(sample) {
-
-                        // it's time to invoke ISampleToIView which will generate all ISampleView's
-
-                        ISampleToIView visitor;
-                        sample->accept(&visitor);
-                        visitor.getItems();
-                        QGraphicsItem *view = visitor.getMultiLayerView();
-                        view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
-
-                        foreach(QGraphicsItem *view, visitor.getItems()) {
-                            addItem(view);
-                        }
-
-//                        ISampleViewAligner layout;
-//                        layout.makeAlign(visitor.getMultiLayerView());
-
-
-                    }
-                }
-
+                // propagating drop coordinates to ParameterizedItem
+                QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
+                new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+                new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
             }
-
         }
-
-        std::cout << "SampleEditorScene::dropEvent() -> yes " << mimeData->getClassName().toStdString() << std::endl;
-
     }
-    //QGraphicsScene::dropEvent(event);
 }
 
 
-void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-//    std::cout << "DesignerScene::mouseMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
-    QGraphicsScene::mouseMoveEvent(event);
-}
-
-
-
+//! returns proper MimeData if the object can be hadled by graphics scene
 const DesignerMimeData *DesignerScene::checkDragEvent(QGraphicsSceneDragDropEvent * event)
 {
-    std::cout << "DesignerScene::checkDragEvent -> "  << std::endl;
     const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();
         return 0;
     }
-
-    if(mimeData->hasFormat("bornagain/widget") ) {
-//            && (mimeData->getClassName() != QString("Layer") )
-//         && (mimeData->getClassName() != QString("MultiLayer") ) ) {
-
-        std::cout << "DesignerScene::checkDragEvent -> yes"  << std::endl;
-        event->setAccepted(true);
-    } else {
-        event->setAccepted(false);
-    }
+    event->setAccepted(true);
     return mimeData;
 }
 
 
+//! Returns true if there is MultiLayerView nearby during drag event.
+bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
+{
+    QRectF rect = DesignerHelper::getDefaultMultiLayerRect();
+    rect.moveCenter(event->scenePos());
+    foreach(QGraphicsItem *item, items(rect)) {
+        if(item->type() == DesignerHelper::MultiLayerType) return true;
+    }
+    return false;
+}
 

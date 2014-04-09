@@ -18,6 +18,7 @@ public:
     virtual int valueType(int propertyType) const;
     virtual bool isPropertyTypeSupported(int propertyType) const;
     static int materialTypeId();
+    static int formFactorEnumTypeId();
 
 public slots:
     virtual void setValue(QtProperty *property, const QVariant &val);

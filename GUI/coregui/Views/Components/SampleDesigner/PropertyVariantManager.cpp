@@ -1,6 +1,7 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "MaterialBrowser.h"
+#include "ParameterizedItem.h"
 #include <iostream>
 
 
@@ -14,6 +15,12 @@ PropertyVariantManager::PropertyVariantManager(QObject *parent)
 int PropertyVariantManager::materialTypeId()
 {
     int result = qMetaTypeId<MaterialProperty>();
+    return result;
+}
+
+int PropertyVariantManager::formFactorEnumTypeId()
+{
+    int result = qMetaTypeId<ParameterizedItem::FormFactorEnum>();
     return result;
 }
 

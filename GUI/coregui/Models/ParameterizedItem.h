@@ -25,6 +25,7 @@ class QEvent;
 class ParameterizedItem : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(FormFactorEnum)
 public:
     virtual ~ParameterizedItem();
 
@@ -91,6 +92,16 @@ public:
 
     void addSubItem(QString name, ParameterizedItem *item);
 
+    //! enum for form factor properties
+    enum FormFactorEnum {
+        Cylinder,
+        FullSphere,
+    };
+
+    QStringList getEnumNames(const QString &enum_name) const {
+        return m_enum_names_map[enum_name];
+    }
+
 signals:
     void propertyChanged(QString propertyName);
 
@@ -98,6 +109,7 @@ protected:
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
     void setMaterialProperty();
+    void addFormFactorProperty(const char *name, QString value);
     QList<QString> m_valid_children;
 
 private:
@@ -106,7 +118,10 @@ private:
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
+    QMap<QString, QStringList> m_enum_names_map;
 };
+
+Q_DECLARE_METATYPE(ParameterizedItem::FormFactorEnum)
 
 
 #endif /* PARAMETERIZEDITEM_H_ */

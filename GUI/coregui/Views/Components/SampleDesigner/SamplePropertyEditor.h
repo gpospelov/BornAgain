@@ -42,9 +42,6 @@ private:
     //! assigns item to the property editor
     void setItem(ParameterizedItem *item);
 
-    void addSubProperties(QtProperty *item_property,
-                          const ParameterizedItem *item);
-
     ParameterizedItem *m_item; //! object to modify
 
     QItemSelectionModel *m_selection_model;
@@ -64,9 +61,17 @@ private:
     QtVariantPropertyManager *m_manager;
     QtVariantPropertyManager *m_read_only_manager;
 
-    void addItemProperties(const ParameterizedItem *item);
     void updateItemProperties(const ParameterizedItem *item);
+    void addItemProperties(const ParameterizedItem *item);
+    void addSubProperties(QtProperty *item_property,
+                          const ParameterizedItem *item);
+
     bool isSubValue(int value, int subValue) const;
+    int enumToInt(const QMetaEnum &metaEnum, int enumValue) const;
+    int intToEnum(const QMetaEnum &metaEnum, int intValue) const;
+    int flagToInt(const QMetaEnum &metaEnum, int flagValue) const;
+    int intToFlag(const QMetaEnum &metaEnum, int intValue) const;
+    bool isPowerOf2(int value) const;
 };
 
 

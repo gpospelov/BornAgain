@@ -8,6 +8,7 @@
 #include <QtProperty>
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
+#include <QMetaProperty>
 
 SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
                                            QWidget *parent)
@@ -43,22 +44,6 @@ SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
 }
 
 
-bool SamplePropertyEditor::isSubValue(int value, int subValue) const
-{
-    if (value == subValue)
-        return true;
-    int i = 0;
-    while (subValue) {
-        if (!(value & (1 << i))) {
-            if (subValue & 1)
-                return false;
-        }
-        i++;
-        subValue = subValue >> 1;
-    }
-    return true;
-}
-
 // show property of currently selected object (triggered by the graphics scene)
 // if more than one object is selected, show only last selected
 void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
@@ -72,76 +57,6 @@ void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
         setItem(item);
     } else {
         setItem(0);
-    }
-}
-
-void SamplePropertyEditor::addSubProperties(QtProperty *item_property, const ParameterizedItem *item)
-{
-    QList<QByteArray> property_names = item->dynamicPropertyNames();
-    for (int i = 0; i < property_names.length(); ++i) {
-        QString prop_name = QString(property_names[i]);
-        QVariant prop_value = item->property(prop_name.toUtf8().data());
-        int type = prop_value.type();
-        if (type == QVariant::UserType) {
-            type = prop_value.userType();
-        }
-        QtVariantProperty *subProperty = 0;
-        if (m_manager->isPropertyTypeSupported(type)) {
-            subProperty = m_manager->addProperty(type, prop_name);
-            subProperty->setValue(prop_value);
-            if (item->getSubItems().contains(prop_name)) {
-                ParameterizedItem *subitem = item->getSubItems()[prop_name];
-                if (subitem) {
-                    addSubProperties(subProperty, subitem);
-                }
-            }
-        } else {
-            subProperty = m_read_only_manager->addProperty(QVariant::String,
-                                                         prop_name);
-            subProperty->setValue(QLatin1String("< Unknown Type >"));
-            subProperty->setEnabled(false);
-        }
-        item_property->addSubProperty(subProperty);
-        m_property_to_index[subProperty] = i;
-        m_item_to_index_to_property[item][i] = subProperty;
-    }
-}
-
-void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
-{
-    QtProperty *item_property = m_item_to_property.value(item);
-    if (!item_property) {
-        QString item_type = item->modelType();
-        item_property = m_manager->addProperty(
-                    QtVariantPropertyManager::groupTypeId(), item_type);
-        m_item_to_property[item] = item_property;
-        m_property_to_item[item_property] = item;
-
-        addSubProperties(item_property, item);
-    } else {
-        updateItemProperties(item);
-    }
-
-    m_top_level_properties.append(item_property);
-    m_browser->addProperty(item_property);
-}
-
-void SamplePropertyEditor::updateItemProperties(const ParameterizedItem *item)
-{
-    if (!item)
-        return;
-
-    QtProperty *item_property = m_item_to_property.value(item);
-    if (!item_property)
-        return;
-
-    QList<QByteArray> prop_list = item->dynamicPropertyNames();
-    for (int i=0; i<prop_list.length(); ++i) {
-        const char *name = prop_list[i].constData();
-        QVariant variant = item->property(name);
-        QtVariantProperty *subProperty =
-                m_item_to_index_to_property[item][i];
-        subProperty->setValue(variant);
     }
 }
 
@@ -179,3 +94,191 @@ void SamplePropertyEditor::setItem(ParameterizedItem *item)
 
     addItemProperties(m_item);
 }
+
+void SamplePropertyEditor::updateItemProperties(const ParameterizedItem *item)
+{
+    if (!item)
+        return;
+
+    QtProperty *item_property = m_item_to_property.value(item);
+    if (!item_property)
+        return;
+
+    QList<QByteArray> prop_list = item->dynamicPropertyNames();
+    for (int i=0; i<prop_list.length(); ++i) {
+        const char *name = prop_list[i].constData();
+        QVariant variant = item->property(name);
+        QtVariantProperty *subProperty =
+                m_item_to_index_to_property[item][i];
+        subProperty->setValue(variant);
+    }
+}
+
+void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
+{
+    QtProperty *item_property = m_item_to_property.value(item);
+    if (!item_property) {
+        QString item_type = item->modelType();
+        item_property = m_manager->addProperty(
+                    QtVariantPropertyManager::groupTypeId(), item_type);
+        m_item_to_property[item] = item_property;
+        m_property_to_item[item_property] = item;
+
+        addSubProperties(item_property, item);
+    } else {
+        updateItemProperties(item);
+    }
+
+    m_top_level_properties.append(item_property);
+    m_browser->addProperty(item_property);
+}
+
+void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
+                                            const ParameterizedItem *item)
+{
+    QList<QByteArray> property_names = item->dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString prop_name = QString(property_names[i]);
+        QVariant prop_value = item->property(prop_name.toUtf8().data());
+        int type = prop_value.type();
+        if (type == QVariant::UserType) {
+            type = prop_value.userType();
+        }
+        QtVariantProperty *subProperty = 0;
+        if (type == PropertyVariantManager::formFactorEnumTypeId()) {
+            subProperty = m_manager->addProperty(
+                        QtVariantPropertyManager::enumTypeId(), prop_name);
+            QStringList enumNames = item->getEnumNames(prop_name);
+            subProperty->setAttribute(QLatin1String("enumNames"),
+                                      enumNames);
+//            subProperty->setValue(enumToInt(metaEnum,
+//                             metaProperty.read(item).toInt()));
+            if (item->getSubItems().contains(prop_name)) {
+                ParameterizedItem *subitem = item->getSubItems()[prop_name];
+                if (subitem) {
+                    addSubProperties(subProperty, subitem);
+                }
+            }
+        }
+        else if (m_manager->isPropertyTypeSupported(type)) {
+            subProperty = m_manager->addProperty(type, prop_name);
+            subProperty->setValue(prop_value);
+            if (item->getSubItems().contains(prop_name)) {
+                ParameterizedItem *subitem = item->getSubItems()[prop_name];
+                if (subitem) {
+                    addSubProperties(subProperty, subitem);
+                }
+            }
+        } else {
+            subProperty = m_read_only_manager->addProperty(QVariant::String,
+                                                         prop_name);
+            subProperty->setValue(QLatin1String("< Unknown Type >"));
+            subProperty->setEnabled(false);
+        }
+        item_property->addSubProperty(subProperty);
+        m_property_to_index[subProperty] = i;
+        m_item_to_index_to_property[item][i] = subProperty;
+    }
+}
+
+bool SamplePropertyEditor::isSubValue(int value, int subValue) const
+{
+    if (value == subValue)
+        return true;
+    int i = 0;
+    while (subValue) {
+        if (!(value & (1 << i))) {
+            if (subValue & 1)
+                return false;
+        }
+        i++;
+        subValue = subValue >> 1;
+    }
+    return true;
+}
+
+int SamplePropertyEditor::enumToInt(const QMetaEnum &metaEnum, int enumValue) const
+{
+    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
+    int pos = 0;
+    for (int i = 0; i < metaEnum.keyCount(); i++) {
+        int value = metaEnum.value(i);
+        if (!valueMap.contains(value)) {
+            if (value == enumValue)
+                return pos;
+            valueMap[value] = pos++;
+        }
+    }
+    return -1;
+}
+
+int SamplePropertyEditor::intToEnum(const QMetaEnum &metaEnum, int intValue) const
+{
+    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
+    QList<int> values;
+    for (int i = 0; i < metaEnum.keyCount(); i++) {
+        int value = metaEnum.value(i);
+        if (!valueMap.contains(value)) {
+            valueMap[value] = true;
+            values.append(value);
+        }
+    }
+    if (intValue >= values.count())
+        return -1;
+    return values.at(intValue);
+}
+
+int SamplePropertyEditor::flagToInt(const QMetaEnum &metaEnum, int flagValue) const
+{
+    if (!flagValue)
+        return 0;
+    int intValue = 0;
+    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
+    int pos = 0;
+    for (int i = 0; i < metaEnum.keyCount(); i++) {
+        int value = metaEnum.value(i);
+        if (!valueMap.contains(value) && isPowerOf2(value)) {
+            if (isSubValue(flagValue, value))
+                intValue |= (1 << pos);
+            valueMap[value] = pos++;
+        }
+    }
+    return intValue;
+}
+
+int SamplePropertyEditor::intToFlag(const QMetaEnum &metaEnum, int intValue) const
+{
+    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
+    QList<int> values;
+    for (int i = 0; i < metaEnum.keyCount(); i++) {
+        int value = metaEnum.value(i);
+        if (!valueMap.contains(value) && isPowerOf2(value)) {
+            valueMap[value] = true;
+            values.append(value);
+        }
+    }
+    int flagValue = 0;
+    int temp = intValue;
+    int i = 0;
+    while (temp) {
+        if (i >= values.count())
+            return -1;
+        if (temp & 1)
+            flagValue |= values.at(i);
+        i++;
+        temp = temp >> 1;
+    }
+    return flagValue;
+}
+
+bool SamplePropertyEditor::isPowerOf2(int value) const
+{
+    while (value) {
+        if (value & 1) {
+            return value == 1;
+        }
+        value = value >> 1;
+    }
+    return false;
+}
+

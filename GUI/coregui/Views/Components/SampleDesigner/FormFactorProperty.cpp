@@ -1,10 +1,13 @@
 #include "FormFactorProperty.h"
+#include "FormFactorItems.h"
+
+QMap<QString, ParameterizedItem *> FormFactorProperty::m_ff_map =
+        initializeFormFactorMap();
 
 FormFactorProperty::FormFactorProperty(QString ff_name)
     : m_ff_name("Undefined")
 {
-    initializeFormFactorList();
-    if (m_ff_names.contains(ff_name)) {
+    if (m_ff_map.contains(ff_name)) {
         m_ff_name = ff_name;
     }
 }
@@ -16,8 +19,9 @@ int FormFactorProperty::index() const
 
 int FormFactorProperty::toIndex(const QString value) const
 {
-    for (int i = 0; i < m_ff_names.size(); ++i) {
-        if (value == m_ff_names[i]) {
+    QStringList name_list = getFormFactorNames();
+    for (int i = 0; i < name_list.size(); ++i) {
+        if (value == name_list[i]) {
             return i;
         }
     }
@@ -26,14 +30,17 @@ int FormFactorProperty::toIndex(const QString value) const
 
 QString FormFactorProperty::toString(const int index) const
 {
-    if (index<0 || index>=m_ff_names.size()) {
+    QStringList name_list = getFormFactorNames();
+    if (index<0 || index>=name_list.size()) {
         return QString();
     }
-    return m_ff_names[index];
+    return name_list[index];
 }
 
-void FormFactorProperty::initializeFormFactorList()
+QMap<QString, ParameterizedItem *> FormFactorProperty::initializeFormFactorMap()
 {
-    m_ff_names.clear();
-    m_ff_names << "Cylinder" << "FullSphere";
+    QMap<QString, ParameterizedItem *> result;
+    result[QString("Cylinder")] = new CylinderItem();
+    result[QString("FullSphere")] = new FullSphereItem();
+    return result;
 }

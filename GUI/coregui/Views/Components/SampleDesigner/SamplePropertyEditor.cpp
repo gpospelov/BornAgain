@@ -164,12 +164,6 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         else if (m_manager->isPropertyTypeSupported(type)) {
             subProperty = m_manager->addProperty(type, prop_name);
             subProperty->setValue(prop_value);
-            if (item->getSubItems().contains(prop_name)) {
-                ParameterizedItem *subitem = item->getSubItems()[prop_name];
-                if (subitem) {
-                    addSubProperties(subProperty, subitem);
-                }
-            }
         } else {
             subProperty = m_read_only_manager->addProperty(QVariant::String,
                                                          prop_name);

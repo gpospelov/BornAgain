@@ -4,6 +4,7 @@
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include <QtVariantPropertyManager>
+#include "FormFactorProperty.h"
 #include "MaterialBrowser.h"
 class QObject;
 
@@ -29,7 +30,8 @@ protected:
     virtual void initializeProperty(QtProperty *property);
     virtual void uninitializeProperty(QtProperty *property);
 private:
-    QMap<const QtProperty *, MaterialProperty> theValues;
+    QMap<const QtProperty *, MaterialProperty> theMaterialValues;
+    QMap<const QtProperty *, FormFactorProperty> theFormFactorValues;
 };
 
 #endif // OBJECTVARIANTMANAGER_H

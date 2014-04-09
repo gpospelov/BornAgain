@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "CylinderItem.h"
+#include "FormFactorItems.h"
 
 CylinderItem::CylinderItem(ParameterizedItem *parent)
     : ParameterizedItem(QString("Cylinder"), parent)
@@ -24,5 +24,17 @@ CylinderItem::CylinderItem(ParameterizedItem *parent)
 }
 
 CylinderItem::~CylinderItem()
+{
+}
+
+
+FullSphereItem::FullSphereItem(ParameterizedItem *parent)
+    : ParameterizedItem(QString("FullSphere"), parent)
+{
+    setItemName("FullSphereName");
+    setProperty("Radius", 1.0);
+}
+
+FullSphereItem::~FullSphereItem()
 {
 }

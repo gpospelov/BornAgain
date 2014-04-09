@@ -1,8 +1,11 @@
 #ifndef FORMFACTORPROPERTY_H
 #define FORMFACTORPROPERTY_H
 
+#include "ParameterizedItem.h"
+
 #include <QString>
 #include <QStringList>
+#include <QMap>
 #include <QMetaType>
 
 
@@ -22,16 +25,17 @@ public:
     bool isDefined() { return m_ff_name != QStringLiteral("Undefined"); }
 
     QStringList getFormFactorNames() const {
-        return m_ff_names;
+        return m_ff_map.keys();
     }
 
     int index() const;
     int toIndex(const QString value) const;
     QString toString(const int index) const;
 
+    static QMap<QString, ParameterizedItem *> initializeFormFactorMap();
+
 private:
-    void initializeFormFactorList();
-    QStringList m_ff_names;
+    static QMap<QString, ParameterizedItem *> m_ff_map;
     QString m_ff_name;
 };
 

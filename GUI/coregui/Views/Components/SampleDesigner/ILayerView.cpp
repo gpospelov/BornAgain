@@ -30,7 +30,7 @@ bool MultiLayerCandidate::operator< (const MultiLayerCandidate& cmp) const
 {
     qDebug() << "xxxxxxx" << multilayer->parentItem() << cmp.multilayer->parentItem();
 //    if(cmp.distance == distance) {
-//        if(multilayer->parentItem() == cmp.multilayer) return false;
+//        if(multilayer->parentItem() == cmp.multilayer) return true;
 //    }
     return cmp.distance <  distance;
 }
@@ -168,6 +168,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
     qDebug() << "ILayerView::getMultiLayerCandidate()";
 
     QVector<MultiLayerCandidate > candidates;
+
 
     QRectF layerRect = mapRectToScene(boundingRect());
     foreach(QGraphicsItem *item, scene()->items()) {

@@ -100,28 +100,39 @@ void MultiLayerView::updateHeight()
     m_drop_areas.clear();
     m_interfaces.clear();
 
+    bool is_nested_multilayer(false);
+    if( dynamic_cast<MultiLayerView *>(parentItem())) is_nested_multilayer = true;
+
     int total_height = 0;
     if(m_layers.size()) {
         foreach(ILayerView *layer, m_layers) {
-            //int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
-            //layer->setPos(xpos, total_height);
             layer->setY(total_height);
             layer->update();
 
-            if(total_height==0) {
-                m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/5., boundingRect().width(), layer->boundingRect().height()/2.));
-            } else {
-                m_drop_areas.append(QRectF(0, layer->y() - layer->boundingRect().height()/4., boundingRect().width(), layer->boundingRect().height()/2.));
+            qreal drop_area_height = layer->boundingRect().height()*0.5;
+            qreal drop_area_ypos = total_height - drop_area_height/2.;
+            if(total_height==0 && is_nested_multilayer) {
+                drop_area_height = drop_area_height/2.;
+                drop_area_ypos = total_height + drop_area_height/2.;
             }
 
+            m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
             m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
             total_height += layer->boundingRect().height();
         }
-        m_drop_areas.append(QRectF(0, m_layers.back()->y() +m_layers.back()->boundingRect().height() - m_layers.back()->boundingRect().height()/4., boundingRect().width(), m_layers.back()->boundingRect().height()/1.8));
+        qreal drop_area_height = m_layers.back()->boundingRect().height()*0.5;
+        qreal drop_area_ypos = total_height - drop_area_height/2.;
+        if(is_nested_multilayer) {
+            drop_area_height = drop_area_height/2.;
+            drop_area_ypos = total_height - drop_area_height;
+        }
+
+        m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
         m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
     } else {
         total_height = DesignerHelper::getDefaultMultiLayerHeight();
         m_drop_areas.append(boundingRect());
+        m_interfaces.append(QLineF(m_rect.left(), m_rect.center().y(), m_rect.right(), m_rect.center().y()));
     }
 
     m_rect.setHeight(total_height);
@@ -203,24 +214,6 @@ QLineF MultiLayerView::getInterfaceLine(int row)
         return QLineF();
     }
 }
-
-//QLineF MultiLayerView::getDropAreaLine(int row)
-//{
-//    qDebug() << "xxx " << row ;
-//    if(row>=0 && row < m_layers.size()+1) {
-//        if(m_layers.isEmpty())
-//            return QLineF(m_rect.left(), m_rect.center().y(), m_rect.right(), m_rect.center().y());
-
-//        if(row < m_layers.size())
-//            return QLineF(m_rect.left(), m_layers.at(row)->boundingRect().top(), m_rect.right(), m_layers.at(row)->boundingRect().top());
-
-//        if(row == m_layers.size())
-//            return QLineF(m_rect.left(), m_rect.bottom(), m_rect.right(), m_rect.bottom());
-
-//    }
-//    return QLineF();
-//}
-
 
 void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {

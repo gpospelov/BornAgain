@@ -21,22 +21,9 @@
 class ParticleItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
-    Q_PROPERTY(ParameterizedItem::FormFactorEnum formfactor READ formFactor
-               WRITE setFormFactor)
 public:
     explicit ParticleItem(ParameterizedItem *parent=0);
     ~ParticleItem();
-
-    ParameterizedItem::FormFactorEnum formFactor() const {
-        return m_form_factor;
-    }
-    void setFormFactor(const ParameterizedItem::FormFactorEnum& form_factor)
-    {
-        m_form_factor = form_factor;
-    }
-
-private:
-    ParameterizedItem::FormFactorEnum m_form_factor;
 };
 
 #endif // PARTICLEITEM_H

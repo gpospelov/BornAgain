@@ -2,6 +2,7 @@
 #include "DesignerHelper.h"
 #include "MaterialBrowser.h"
 #include "ParameterizedItem.h"
+#include "FormFactorProperty.h"
 #include <iostream>
 
 
@@ -18,9 +19,9 @@ int PropertyVariantManager::materialTypeId()
     return result;
 }
 
-int PropertyVariantManager::formFactorEnumTypeId()
+int PropertyVariantManager::formFactorTypeId()
 {
-    int result = qMetaTypeId<ParameterizedItem::FormFactorEnum>();
+    int result = qMetaTypeId<FormFactorProperty>();
     return result;
 }
 

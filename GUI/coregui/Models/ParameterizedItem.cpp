@@ -16,6 +16,7 @@
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
 #include "MaterialBrowser.h"
+#include "FormFactorProperty.h"
 
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
@@ -85,24 +86,10 @@ void ParameterizedItem::setMaterialProperty()
 
 void ParameterizedItem::addFormFactorProperty(const char *name, QString value)
 {
-    QStringList enum_names;
-    const QMetaObject *meta_object = this->metaObject();
-    FormFactorEnum enum_value;
-    QMetaEnum enumType = meta_object->enumerator(
-                meta_object->indexOfEnumerator("FormFactorEnum"));
-    bool found = false;
-    for(int i=0; i < enumType.keyCount(); ++i) {
-        QString item = QString::fromAscii(enumType.key(i));
-        enum_names << item;
-        if (item == value) {
-            enum_value = (FormFactorEnum)enumType.value(i);
-            found = true;
-        }
-    }
-    if (found) {
-        QVariant enum_var;
-        enum_var.setValue(enum_value);
-        setProperty(name, enum_var);
-        m_enum_names_map[QString(name)] = enum_names;
+    FormFactorProperty ff_prop(value);
+    if (ff_prop.isDefined()) {
+        QVariant ff_var;
+        ff_var.setValue(ff_prop);
+        setProperty(name, ff_var);
     }
 }

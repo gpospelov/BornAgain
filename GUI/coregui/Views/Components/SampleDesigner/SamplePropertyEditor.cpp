@@ -3,6 +3,7 @@
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
 
+#include "FormFactorProperty.h"
 #include "qttreepropertybrowser.h"
 
 #include <QtProperty>
@@ -145,14 +146,14 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             type = prop_value.userType();
         }
         QtVariantProperty *subProperty = 0;
-        if (type == PropertyVariantManager::formFactorEnumTypeId()) {
+        if (type == PropertyVariantManager::formFactorTypeId()) {
             subProperty = m_manager->addProperty(
                         QtVariantPropertyManager::enumTypeId(), prop_name);
-            QStringList enumNames = item->getEnumNames(prop_name);
+            FormFactorProperty ff_prop = prop_value.value<FormFactorProperty>();
+            QStringList enumNames = ff_prop.getFormFactorNames();
             subProperty->setAttribute(QLatin1String("enumNames"),
                                       enumNames);
-//            subProperty->setValue(enumToInt(metaEnum,
-//                             metaProperty.read(item).toInt()));
+            subProperty->setValue(ff_prop.index());
             if (item->getSubItems().contains(prop_name)) {
                 ParameterizedItem *subitem = item->getSubItems()[prop_name];
                 if (subitem) {
@@ -179,106 +180,5 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         m_property_to_index[subProperty] = i;
         m_item_to_index_to_property[item][i] = subProperty;
     }
-}
-
-bool SamplePropertyEditor::isSubValue(int value, int subValue) const
-{
-    if (value == subValue)
-        return true;
-    int i = 0;
-    while (subValue) {
-        if (!(value & (1 << i))) {
-            if (subValue & 1)
-                return false;
-        }
-        i++;
-        subValue = subValue >> 1;
-    }
-    return true;
-}
-
-int SamplePropertyEditor::enumToInt(const QMetaEnum &metaEnum, int enumValue) const
-{
-    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
-    int pos = 0;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value)) {
-            if (value == enumValue)
-                return pos;
-            valueMap[value] = pos++;
-        }
-    }
-    return -1;
-}
-
-int SamplePropertyEditor::intToEnum(const QMetaEnum &metaEnum, int intValue) const
-{
-    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
-    QList<int> values;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value)) {
-            valueMap[value] = true;
-            values.append(value);
-        }
-    }
-    if (intValue >= values.count())
-        return -1;
-    return values.at(intValue);
-}
-
-int SamplePropertyEditor::flagToInt(const QMetaEnum &metaEnum, int flagValue) const
-{
-    if (!flagValue)
-        return 0;
-    int intValue = 0;
-    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
-    int pos = 0;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value) && isPowerOf2(value)) {
-            if (isSubValue(flagValue, value))
-                intValue |= (1 << pos);
-            valueMap[value] = pos++;
-        }
-    }
-    return intValue;
-}
-
-int SamplePropertyEditor::intToFlag(const QMetaEnum &metaEnum, int intValue) const
-{
-    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
-    QList<int> values;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value) && isPowerOf2(value)) {
-            valueMap[value] = true;
-            values.append(value);
-        }
-    }
-    int flagValue = 0;
-    int temp = intValue;
-    int i = 0;
-    while (temp) {
-        if (i >= values.count())
-            return -1;
-        if (temp & 1)
-            flagValue |= values.at(i);
-        i++;
-        temp = temp >> 1;
-    }
-    return flagValue;
-}
-
-bool SamplePropertyEditor::isPowerOf2(int value) const
-{
-    while (value) {
-        if (value & 1) {
-            return value == 1;
-        }
-        value = value >> 1;
-    }
-    return false;
 }
 

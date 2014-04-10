@@ -97,7 +97,7 @@ void SampleView::initSubWindows()
     ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
 
-    m_sampleDesigner->setSessionModel(m_session);
+//    m_sampleDesigner->setSessionModel(m_session);
     m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel());
 }
 

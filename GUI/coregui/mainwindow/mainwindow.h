@@ -65,7 +65,6 @@ private:
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
-    JobView *m_jobView;
     FitView * m_fitView;
     JobQueueView * m_jobQueueView;
     Manhattan::ProgressBar *m_progressBar;

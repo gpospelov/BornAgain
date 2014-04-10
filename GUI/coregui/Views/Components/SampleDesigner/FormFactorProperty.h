@@ -24,7 +24,7 @@ public:
     }
     bool isDefined() { return m_ff_name != QStringLiteral("Undefined"); }
 
-    QStringList getFormFactorNames() const {
+    static QStringList getFormFactorNames() {
         return m_ff_map.keys();
     }
 

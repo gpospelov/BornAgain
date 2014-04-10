@@ -30,6 +30,8 @@ bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return true;
+    if (propertyType == formFactorTypeId())
+        return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
 
@@ -38,6 +40,8 @@ int PropertyVariantManager::valueType(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return materialTypeId();
+    if (propertyType == formFactorTypeId())
+        return formFactorTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 

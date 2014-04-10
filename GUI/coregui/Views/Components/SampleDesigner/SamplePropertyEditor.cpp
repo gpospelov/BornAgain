@@ -148,7 +148,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         QtVariantProperty *subProperty = 0;
         if (type == PropertyVariantManager::formFactorTypeId()) {
             subProperty = m_manager->addProperty(
-                        QtVariantPropertyManager::enumTypeId(), prop_name);
+                        type, prop_name);
             FormFactorProperty ff_prop = prop_value.value<FormFactorProperty>();
             QStringList enumNames = ff_prop.getFormFactorNames();
             subProperty->setAttribute(QLatin1String("enumNames"),

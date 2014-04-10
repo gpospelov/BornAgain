@@ -8,7 +8,8 @@
 #include "MaterialBrowser.h"
 class QObject;
 
-//! The ObjectVariantManager class provides and manages user defined QVariant based properties.
+//! The ObjectVariantManager class provides and manages user defined
+//! QVariant based properties.
 class PropertyVariantManager : public QtVariantPropertyManager
 {
     Q_OBJECT

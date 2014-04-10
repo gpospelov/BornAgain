@@ -53,20 +53,14 @@ private:
 
     QItemSelectionModel *m_selection_model;
 
-    QMap<const ParameterizedItem *, QtProperty *> m_item_to_property;
-    QMap<QtProperty *, const ParameterizedItem *> m_property_to_item;
-
     QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
     QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
         m_item_to_index_to_property;
-
-    QList<QtProperty *>         m_top_level_properties;
 
     QtAbstractPropertyBrowser    *m_browser;
     QtVariantPropertyManager *m_manager;
     QtVariantPropertyManager *m_read_only_manager;
 
-    void updateItemProperties(const ParameterizedItem *item);
     void addItemProperties(const ParameterizedItem *item);
     void addSubProperties(QtProperty *item_property,
                           const ParameterizedItem *item);

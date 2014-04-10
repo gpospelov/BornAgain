@@ -28,7 +28,9 @@ public:
     }
     void setName(const QString &name) { m_name = name; }
     void setColor(const QColor &color) { m_color = color; }
-    bool operator!=(const MaterialProperty &other) { return getName() != other.getName();}
+    bool operator!=(const MaterialProperty &other) {
+        return getName() != other.getName();
+    }
     bool isDefined() { return m_name != QStringLiteral("Undefined"); }
 private:
     QString m_name;

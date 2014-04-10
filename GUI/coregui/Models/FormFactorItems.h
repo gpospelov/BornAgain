@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/LayerItem.cpp
-//! @brief     Implements class LayerItem.
+//! @file      Models/FormFactorItems.h
+//! @brief     Defines FormFactorItem classes.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,26 @@
 //
 // ************************************************************************** //
 
-#include "LayerItem.h"
-#include "MaterialBrowser.h"
+#ifndef FORMFACTORITEMS_H
+#define FORMFACTORITEMS_H
 
-LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("Layer"), parent)
-{
-    setItemName("LayerName");
-    setProperty("Thickness", 0.0);
-    setMaterialProperty();
-    m_valid_children.append(QString("ParticleLayout"));
-}
+#include "ParameterizedItem.h"
 
-LayerItem::~LayerItem()
+class CylinderItem : public ParameterizedItem
 {
-}
+    Q_OBJECT
+public:
+    explicit CylinderItem(ParameterizedItem *parent=0);
+    ~CylinderItem();
+};
+
+class FullSphereItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    explicit FullSphereItem(ParameterizedItem *parent=0);
+    ~FullSphereItem();
+};
+
+#endif // FORMFACTORITEMS_H
+

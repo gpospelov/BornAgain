@@ -29,6 +29,12 @@ public:
     virtual ~SamplePropertyEditor(){}
 
     QObject *getObject() const;
+    struct ItemIndexPair {
+        ItemIndexPair(ParameterizedItem *item=0, int index=0)
+            : m_item(item), m_index(index) {}
+        ParameterizedItem *m_item;
+        int m_index;
+    };
 
 public slots:
     //! show property of currently selected object (triggered by graphics scene)
@@ -37,6 +43,7 @@ public slots:
 
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
+    void updateSubItems(QString name);
 
 private:
     //! assigns item to the property editor
@@ -46,24 +53,17 @@ private:
 
     QItemSelectionModel *m_selection_model;
 
-    QMap<const ParameterizedItem *, QtProperty *> m_item_to_property;
-    QMap<QtProperty *, const ParameterizedItem *> m_property_to_item;
-
-    QMap<QtProperty *, int>     m_property_to_index;
+    QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
     QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
         m_item_to_index_to_property;
-
-    QMap<QtProperty *, bool>    m_property_to_expanded;
-
-    QList<QtProperty *>         m_top_level_properties;
 
     QtAbstractPropertyBrowser    *m_browser;
     QtVariantPropertyManager *m_manager;
     QtVariantPropertyManager *m_read_only_manager;
 
     void addItemProperties(const ParameterizedItem *item);
-    void updateItemProperties(const ParameterizedItem *item);
-    bool isSubValue(int value, int subValue) const;
+    void addSubProperties(QtProperty *item_property,
+                          const ParameterizedItem *item);
 };
 
 

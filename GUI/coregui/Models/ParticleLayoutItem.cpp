@@ -18,7 +18,7 @@
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("ParticleLayout"), parent)
 {
-//    m_valid_children.append(QString(""));
+    m_valid_children.append(QString("Particle"));
 }
 
 

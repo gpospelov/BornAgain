@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Models/LayerItem.cpp
-//! @brief     Implements class LayerItem.
+//! @file      Models/ParticleItem.cpp
+//! @brief     Implements class ParticleItem.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,21 @@
 //
 // ************************************************************************** //
 
-#include "LayerItem.h"
-#include "MaterialBrowser.h"
+#include "ParticleItem.h"
+#include "FormFactorItems.h"
 
-LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("Layer"), parent)
+ParticleItem::ParticleItem(ParameterizedItem *parent)
+    : ParameterizedGraphicsItem(QString("Particle"), parent)
 {
-    setItemName("LayerName");
-    setProperty("Thickness", 0.0);
+    setItemName("ParticleName");
+//    ParameterizedItem *p_ff = new CylinderItem();
+//    addSubItem("Form Factor", p_ff);
+    addFormFactorProperty("Form Factor", "Cylinder");
     setMaterialProperty();
-    m_valid_children.append(QString("ParticleLayout"));
+    setProperty("Depth", 0.0);
+    setProperty("Abundance", 1.0);
 }
 
-LayerItem::~LayerItem()
+ParticleItem::~ParticleItem()
 {
 }

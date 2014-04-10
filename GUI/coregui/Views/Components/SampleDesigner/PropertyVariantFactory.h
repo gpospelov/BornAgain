@@ -7,8 +7,11 @@
 
 class MaterialPropertyEdit;
 class MaterialProperty;
+class FormFactorPropertyEdit;
+class FormFactorProperty;
 
-//! The PropertyVariabtFactory class provides and manages user defined QVariant based properties.
+//! The PropertyVariantFactory class provides and manages user defined
+//! QVariant based properties.
 class PropertyVariantFactory : public QtVariantEditorFactory
 {
     Q_OBJECT
@@ -21,16 +24,23 @@ public:
 protected:
     virtual void connectPropertyManager(QtVariantPropertyManager *manager);
     using QtVariantEditorFactory::createEditor;
-    virtual QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
-                QWidget *parent);
+    virtual QWidget *createEditor(QtVariantPropertyManager *manager,
+                                  QtProperty *property, QWidget *parent);
     virtual void disconnectPropertyManager(QtVariantPropertyManager *manager);
 private slots:
     void slotPropertyChanged(QtProperty *property, const QVariant &value);
     void slotSetValue(const MaterialProperty &value);
+    void slotSetValue(const FormFactorProperty &value);
     void slotEditorDestroyed(QObject *object);
 private:
-    QMap<QtProperty *, QList<MaterialPropertyEdit *> > theCreatedEditors;
-    QMap<MaterialPropertyEdit *, QtProperty *> theEditorToProperty;
+    QMap<QtProperty *, QList<MaterialPropertyEdit *> >
+        m_property_to_material_editors;
+    QMap<MaterialPropertyEdit *, QtProperty *>
+        m_material_editor_to_property;
+    QMap<QtProperty *, QList<FormFactorPropertyEdit *> >
+        m_property_to_form_factor_editors;
+    QMap<FormFactorPropertyEdit *, QtProperty *>
+        m_form_factor_editor_to_property;
 };
 
 #endif // OBJECTVARIANTFACTORY_H

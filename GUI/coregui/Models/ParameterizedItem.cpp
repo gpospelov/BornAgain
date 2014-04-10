@@ -15,22 +15,16 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
+#include "MaterialBrowser.h"
+#include "FormFactorProperty.h"
+
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
+#include <QMetaEnum>
+#include <PropertyVariantManager.h>
 
 
-
-ParameterizedItem::ParameterizedItem(const QString &model_type,
-                                     ParameterizedItem *parent)
-    : m_model_type(model_type)
-    , m_parent(parent)
-{
-    if (m_parent) {
-        m_parent->addChildItem(this);
-    }
-    setItemName(m_model_type);
-}
 
 ParameterizedItem::~ParameterizedItem()
 {
@@ -53,11 +47,78 @@ bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 bool ParameterizedItem::event(QEvent * e )
 {
     if(e->type() == QEvent::DynamicPropertyChange) {
-        QDynamicPropertyChangeEvent *propertyEvent = dynamic_cast<QDynamicPropertyChangeEvent *>(e);
+        QDynamicPropertyChangeEvent *propertyEvent =
+                dynamic_cast<QDynamicPropertyChangeEvent *>(e);
         Q_ASSERT(e);
-        QString name(propertyEvent->propertyName());
+        QByteArray byte_array = propertyEvent->propertyName();
+        QString name(byte_array.constData());
+        if (m_sub_items.contains(name)) {
+            updateSubItem(name);
+        }
         emit propertyChanged(name);
     }
     return QObject::event(e);
 }
 
+void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
+{
+    if (!item) return;
+    if (m_sub_items.contains(name)) {
+        delete m_sub_items[name];
+        m_sub_items.remove(name);
+    }
+    m_sub_items[name] = item;
+}
+
+ParameterizedItem *ParameterizedItem::createSubItem(QString name)
+{
+    ParameterizedItem *result = 0;
+    qDebug() << "CreateSubItem: " << name;
+    QByteArray name_byte_array = name.toUtf8();
+    QVariant val = property(name_byte_array.constData());
+    if (val.userType() == PropertyVariantManager::formFactorTypeId()) {
+        FormFactorProperty ff_prop = val.value<FormFactorProperty>();
+        result = FormFactorProperty::createFormFactorItem(
+                    ff_prop.getFormFactorName());
+    }
+    return result;
+}
+
+void ParameterizedItem::updateSubItem(QString name)
+{
+    if (!m_sub_items.contains(name)) return;
+    ParameterizedItem *item = createSubItem(name);
+    addSubItem(name, item);
+    emit subItemChanged(name);
+}
+
+ParameterizedItem::ParameterizedItem(const QString &model_type,
+                                     ParameterizedItem *parent)
+    : m_model_type(model_type)
+    , m_parent(parent)
+{
+    if (m_parent) {
+        m_parent->addChildItem(this);
+    }
+    setItemName(m_model_type);
+}
+
+void ParameterizedItem::setMaterialProperty()
+{
+    MaterialProperty material = MaterialBrowser::getDefaultMaterialProperty();
+    QVariant mat_var;
+    mat_var.setValue(material);
+    setProperty("Material", mat_var);
+}
+
+void ParameterizedItem::addFormFactorProperty(const char *name, QString value)
+{
+    FormFactorProperty ff_prop(value);
+    if (ff_prop.isDefined()) {
+        QVariant ff_var;
+        ff_var.setValue(ff_prop);
+        setProperty(name, ff_var);
+    }
+    ParameterizedItem *item = createSubItem(name);
+    addSubItem(name, item);
+}

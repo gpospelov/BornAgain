@@ -21,7 +21,8 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
 
     QToolButton *button = new QToolButton(this);
-    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
+    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
+                                      QSizePolicy::Preferred));
     button->setText(QLatin1String("..."));
     layout->addWidget(m_pixmapLabel, Qt::AlignLeft);
     layout->addWidget(m_textLabel, Qt::AlignLeft);
@@ -44,9 +45,38 @@ void MaterialPropertyEdit::buttonClicked()
 }
 
 
-void MaterialPropertyEdit::setMaterialProperty(const MaterialProperty &materialProperty)
+void MaterialPropertyEdit::setMaterialProperty(
+        const MaterialProperty &materialProperty)
 {
     m_materialProperty = materialProperty;
     m_textLabel->setText(m_materialProperty.getName());
     m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
+}
+
+
+FormFactorPropertyEdit::FormFactorPropertyEdit(QWidget *parent)
+    : QWidget(parent)
+{
+    m_box = new QComboBox(this);
+    m_box->insertItems(0, FormFactorProperty::getFormFactorNames());
+    m_box->setCurrentText(m_formFactorProperty.getFormFactorName());
+
+    connect(m_box, SIGNAL(currentTextChanged(QString)),
+            this, SLOT(textChanged(QString)));
+}
+
+void FormFactorPropertyEdit::setFormFactorProperty(
+        const FormFactorProperty &formFactorProperty)
+{
+    m_formFactorProperty = formFactorProperty;
+    m_box->setCurrentText(m_formFactorProperty.getFormFactorName());
+}
+
+void FormFactorPropertyEdit::textChanged(QString text)
+{
+    FormFactorProperty ff(text);
+    if (ff != m_formFactorProperty && ff.isDefined()) {
+        setFormFactorProperty(ff);
+        emit formFactorPropertyChanged(m_formFactorProperty);
+    }
 }

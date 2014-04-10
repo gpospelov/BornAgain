@@ -46,7 +46,8 @@ void SampleViewAligner::align(QList<IView *> views, QPointF reference)
 }
 
 
-QPointF SampleViewAligner::placeItems(const QList<IView *> &items, QPointF reference)
+QPointF SampleViewAligner::placeItems(const QList<IView *> &items,
+                                      QPointF reference)
 {
     const double size_factor = 1.5;
     const double vertical_gap(50);

@@ -22,6 +22,7 @@
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
 #include <QMetaEnum>
+#include <PropertyVariantManager.h>
 
 
 
@@ -46,9 +47,14 @@ bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 bool ParameterizedItem::event(QEvent * e )
 {
     if(e->type() == QEvent::DynamicPropertyChange) {
-        QDynamicPropertyChangeEvent *propertyEvent = dynamic_cast<QDynamicPropertyChangeEvent *>(e);
+        QDynamicPropertyChangeEvent *propertyEvent =
+                dynamic_cast<QDynamicPropertyChangeEvent *>(e);
         Q_ASSERT(e);
-        QString name(propertyEvent->propertyName());
+        QByteArray byte_array = propertyEvent->propertyName();
+        QString name(byte_array.constData());
+        if (m_sub_items.contains(name)) {
+            updateSubItem(name);
+        }
         emit propertyChanged(name);
     }
     return QObject::event(e);
@@ -57,12 +63,33 @@ bool ParameterizedItem::event(QEvent * e )
 void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
 {
     if (!item) return;
-    const char *name_str = name.toUtf8().constData();
-    setProperty(name_str, item->modelType());
     if (m_sub_items.contains(name)) {
         delete m_sub_items[name];
+        m_sub_items.remove(name);
     }
     m_sub_items[name] = item;
+}
+
+ParameterizedItem *ParameterizedItem::createSubItem(QString name)
+{
+    ParameterizedItem *result = 0;
+    qDebug() << "CreateSubItem: " << name;
+    QByteArray name_byte_array = name.toUtf8();
+    QVariant val = property(name_byte_array.constData());
+    if (val.userType() == PropertyVariantManager::formFactorTypeId()) {
+        FormFactorProperty ff_prop = val.value<FormFactorProperty>();
+        result = FormFactorProperty::createFormFactorItem(
+                    ff_prop.getFormFactorName());
+    }
+    return result;
+}
+
+void ParameterizedItem::updateSubItem(QString name)
+{
+    if (!m_sub_items.contains(name)) return;
+    ParameterizedItem *item = createSubItem(name);
+    addSubItem(name, item);
+    emit subItemChanged(name);
 }
 
 ParameterizedItem::ParameterizedItem(const QString &model_type,
@@ -92,4 +119,6 @@ void ParameterizedItem::addFormFactorProperty(const char *name, QString value)
         ff_var.setValue(ff_prop);
         setProperty(name, ff_var);
     }
+    ParameterizedItem *item = createSubItem(name);
+    addSubItem(name, item);
 }

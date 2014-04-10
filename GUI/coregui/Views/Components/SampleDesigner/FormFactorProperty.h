@@ -32,10 +32,10 @@ public:
     int toIndex(const QString value) const;
     QString toString(const int index) const;
 
-    static QMap<QString, ParameterizedItem *> initializeFormFactorMap();
+    static ParameterizedItem *createFormFactorItem(QString name);
 
 private:
-    static QMap<QString, ParameterizedItem *> m_ff_map;
+    static QMap<QString, ParameterizedItem *(*)()> m_ff_map;
     QString m_ff_name;
 };
 

@@ -1,7 +1,19 @@
 #include "FormFactorProperty.h"
 #include "FormFactorItems.h"
 
-QMap<QString, ParameterizedItem *> FormFactorProperty::m_ff_map =
+namespace {
+template<typename T> ParameterizedItem *createInstance() { return new T; }
+
+QMap<QString, ParameterizedItem *(*)()> initializeFormFactorMap() {
+    QMap<QString, ParameterizedItem *(*)()> result;
+    result[QString("Cylinder")] = &createInstance<CylinderItem>;
+    result[QString("FullSphere")] = &createInstance<FullSphereItem>;
+    return result;
+}
+}
+
+
+QMap<QString, ParameterizedItem *(*)()> FormFactorProperty::m_ff_map =
         initializeFormFactorMap();
 
 FormFactorProperty::FormFactorProperty(QString ff_name)
@@ -37,10 +49,8 @@ QString FormFactorProperty::toString(const int index) const
     return name_list[index];
 }
 
-QMap<QString, ParameterizedItem *> FormFactorProperty::initializeFormFactorMap()
+ParameterizedItem *FormFactorProperty::createFormFactorItem(QString name)
 {
-    QMap<QString, ParameterizedItem *> result;
-    result[QString("Cylinder")] = new CylinderItem();
-    result[QString("FullSphere")] = new FullSphereItem();
-    return result;
+    if (!m_ff_map.contains(name)) return 0;
+    return m_ff_map[name]();
 }

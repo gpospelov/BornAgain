@@ -333,8 +333,14 @@ JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
 void JobQueueModel::runJob(const QModelIndex &index)
 {
     m_queue_data->runJob(getIdentifier(index));
-
 }
+
+//! runs corresponding job in a thread
+void JobQueueModel::runJob(const QString &identifier)
+{
+    m_queue_data->runJob(identifier);
+}
+
 
 //! cancel corresponding job if it is running
 void JobQueueModel::cancelJob(const QModelIndex &index)

@@ -91,6 +91,7 @@ public slots:
     void onJobItemIsModified(JobItem *);
     void onSelectionChanged( const QItemSelection&, const QItemSelection& );
     void runJob(const QModelIndex &index);
+    void runJob(const QString &identifier);
     void cancelJob(const QModelIndex &index);
     void removeJob(const QModelIndex &index);
 

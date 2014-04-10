@@ -7,7 +7,6 @@
 #include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "JobView.h"
 #include "FitView.h"
 #include "JobQueueView.h"
 #include "stylehelper.h"
@@ -36,7 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_scriptView(0)
     , m_simulationView(0)
-    , m_jobView(0)
     , m_fitView(0)
     , m_jobQueueView(0)
     , m_progressBar(0)
@@ -73,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_sampleView = new SampleView(m_sessionModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
-    m_jobView = new JobView(mp_sim_data_model);
+    m_simulationView->setJobQueueModel(m_jobQueueModel);
     m_fitView = new FitView();
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
 
@@ -82,7 +80,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    //m_tabWidget->insertTab(4, m_jobView, QIcon(":/images/main_jobqueue.png"), "Jobs");
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
@@ -175,9 +172,6 @@ void MainWindow::onChangeTabWidget(int index)
     // update views which depend on others
     (void)index;
     m_simulationView->updateViewElements();
-    if (index==5) {
-        m_jobView->updateJobsAndGraphics();
-    }
 }
 
 

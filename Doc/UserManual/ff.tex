@@ -1,60 +1,7 @@
+%\newpage
+%\chapter{Form factors} \SecLabel{appendixff}
 \chapter{Form factors} \label{appendixff}
 
-Table~\ref{tab:formfactors} lists the particles shapes whose form
-factors have been implemented in \BornAgain.
-
-\begin{table}[H] 
-\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
-  \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
-\hline 
-Shape & &   Shape& &   Shape \\
-\hline 
-Box,\SecRef{Box} & & Prism3, \SecRef{Prism3} & & Tetrahedron, \SecRef{Tetrahedron}  \\
-\includegraphics[width=1in]{Figures/Box3d} &
- & \includegraphics[width=1in]{Figures/Prism33d} & & 
-\includegraphics[width=1in]{Figures/Tetrahedron3d}
-\\
-\hline 
-Prism6, \SecRef{Prism6}    & & Cone6, \SecRef{Cone6}  & &  Pyramid, \SecRef{Pyramid} \\
-\includegraphics[width=1in]{Figures/Prism63d} & & 
- \includegraphics[width=1in]{Figures/Cone63d}  & & 
-\includegraphics[width=1in]{Figures/Pyramid3d}
-\\
-\hline
- Anisotropic pyramid, \SecRef{AnisoPyramid} & &  Cuboctahedron,
- \SecRef{Cuboctahedron} & &   Cylinder, \SecRef{Cylinder} \\
-\includegraphics[width=1in]{Figures/AnistropicPyramid3d} &
-    & \includegraphics[width=1in]{Figures/Cuboctahedron3d} & & 
-\includegraphics[width=1in]{Figures/Cylinder3d}\\
-\hline
-\end{tabulary}
-\end{table}
-
-
-\begin{table}[H] 
- \begin{tabulary} {0.95\textwidth}{Lc Lc L} 
-\hline 
-Shape & &   Shape & &   Shape \\
-\hline
-Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder}  & &  Cone,
-\SecRef{Cone} & & Full Sphere, \SecRef{FullSphere}  \\
-\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d} &
-& \includegraphics[width=1in]{Figures/Cone3d}
-& & \includegraphics[width=1in]{Figures/FullSphere3d} \\
-\hline
-Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid,
-\SecRef{FullSpheroid} & & Truncated Spheroid, \SecRef{Spheroid} \\
-\includegraphics[width=1in]{Figures/Sphere3d} & &
-\includegraphics[width=1in]{Figures/FullSpheroid3d} & & 
-\includegraphics[width=1in]{Figures/Spheroid3d} \\
-\hline 
- Hemi Ellipsoid, \SecRef{HemiEllipsoid}   & & Ripple1, \SecRef{Ripple1}   &  & Ripple2, \SecRef{Ripple2}   \\
-\includegraphics[width=1in]{Figures/HemiEllipsoid3d} & &
-\includegraphics[width=1in]{Figures/Ripple13d} &
-& \includegraphics[width=1in]{Figures/Ripple23d}  \\
-\hline 
-\end{tabulary}
-\end{table}
 
 In \BornAgain\ the form factor is defined as
 \begin{equation}
@@ -80,8 +27,8 @@ The particles can be rotated in a different direction by using one of
 the following transformations: \Code{CreateRotateX($\theta$),
   CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
 around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, in order to rotate a pyramid by $45^{\circ}$ around
-$z$-axis, the user could use the following \Code{Python}\ script:\\
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
     pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
@@ -92,72 +39,55 @@ $z$-axis, the user could use the following \Code{Python}\ script:\\
     particle_layout.addParticle(pyramid, transform) 
 \end{lstlisting}
 
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Parallelepiped} \SecLabel{Parallelepiped}  
+Table~\ref{tab:formfactors} lists the particles shapes whose form
+factors have been implemented in \BornAgain.
 
-%\subsection{Real-space geometry}
-%This shape is a square cuboid (see fig.~\ref{fig:parallelepiped}).
+\begin{table}[H] 
+\caption{Table of form factors implemented in \BornAgain.} \label{tab:formfactors}
+  \begin{tabulary} {\textwidth}{Lc Lc L c L} 
+%\hline 
+%Shape & &   Shape& &   Shape \\
+\hline 
+Box,\phantom{-} \SecRef{Box} & & Prism3,  \SecRef{Prism3} & & Tetrahedron, \SecRef{Tetrahedron} & & Prism6,  \SecRef{Prism6}\\
+\includegraphics[width=1in]{Figures/Box3d} & & 
+\includegraphics[width=1in]{Figures/Prism33d} & & 
+\includegraphics[width=1in]{Figures/Tetrahedron3d} & & 
+\includegraphics[width=1in]{Figures/Prism63d} 
+\\
+\hline 
+Cone6,  \SecRef{Cone6} & &  Pyramid, \SecRef{Pyramid} & & Anisotropic pyramid,  \SecRef{AnisoPyramid} & &  {Cuboctahedron}, \SecRef{Cuboctahedron}\\
+\includegraphics[width=1in]{Figures/Cone63d}  & & 
+\includegraphics[width=1in]{Figures/Pyramid3d} & &
+\includegraphics[width=1in]{Figures/AnistropicPyramid3d} & & 
+\includegraphics[width=1in]{Figures/Cuboctahedron3d}
+\\
+\hline
+Cylinder, \SecRef{Cylinder}  & & Ellipsoidal cylinder, \SecRef{EllipsoidalCylinder} & &  Cone,\phantom{--} \SecRef{Cone} & & Full Sphere, \SecRef{FullSphere} \\
+\includegraphics[width=1in]{Figures/Cylinder3d} & & 
+\includegraphics[width=1in]{Figures/EllipsoidalCylinder3d} & & 
+\includegraphics[width=1in]{Figures/Cone3d} & & 
+\includegraphics[width=1in]{Figures/FullSphere3d} \\
+\hline
+Truncated Sphere, \SecRef{Sphere}  & & Full Spheroid, \SecRef{FullSpheroid} & & Truncated Spheroid,  \SecRef{Spheroid} & & Hemi Ellipsoid, \SecRef{HemiEllipsoid}\\
+\includegraphics[width=1in]{Figures/Sphere3d}  & & 
+\includegraphics[width=1in]{Figures/FullSpheroid3d} & & 
+\includegraphics[width=1in]{Figures/Spheroid3d} & & 
+\includegraphics[width=1in]{Figures/HemiEllipsoid3d}\\
+\hline
+Ripple1, \SecRef{Ripple1} &  & Ripple2, \SecRef{Ripple2}& &   & &  \\
+\includegraphics[width=1in]{Figures/Ripple13d} & & 
+\includegraphics[width=1in]{Figures/Ripple23d} & &  & & \\
+\hline 
+\end{tabulary}
+\end{table}
 
-%\begin{figure}[ht]
-%\hfill
-%\subfigure[Side view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxz}}
-%\hfill
-%\subfigure[Top view]{\includegraphics[width=5cm]{Figures/Parallelepiped2dxy}}
-%\hfill
-%\caption{Sketch of a Parallelepiped.}
-%\label{fig:parallelepiped}
-%\end{figure}
-
-%\FloatBarrier
-
-%\paragraph{Parameters:}
-%\begin{itemize}
-%\item length of one side of the square base $L$,
-%\item height $H$.
-%\end{itemize}
-
-%\paragraph{Properties:}
-%\begin{itemize}
-%\item volume $V= L^2 H$,
-%\item particle surface seen from above $S =L^2$.
-%\end{itemize}
-
-%\subsection{Expression of the form factor}
-%\begin{equation*}
-%F_{\rm{Parallelepiped}}(\mathbf{q},L, H) = L^2 H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x\frac{L}{2}\right)
-%\sinc\left(q_y\frac{L}{2}\right)\sinc\left(q_z \frac{H}{2}\right),
-%\end{equation*}
-%where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
-
-%\paragraph{Syntax:} \Code{FormFactorParallelepiped(length, height)}
-
-%\newpage
-
-%\subsection{Examples}
-
-%Figure~\ref{fig:FFparallelEx} shows the normalized intensity
-%$|F|^2/V^2$, computed with $L=7$~nm and \mbox{$H=15$~nm.}
-
-%\begin{figure}[h]
-%\begin{center}
-%\includegraphics[width=\textwidth]{Figures/figffparallel}
-%\end{center}
-%\caption{Normalized intensity for the form factor of a Parallelepiped
-%  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=7$~nm and $H=15$~nm.}
-%\label{fig:FFparallelEx}
-%\end{figure}
-
-%\FloatBarrier
-
-%\newpage{\cleardoublepage}
+\newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Box} \SecLabel{Box} 
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a rectangular cuboid as
 shown in fig.~\ref{fig:box}. 
-
 
 \begin{figure}[ht]
 \hfill
@@ -170,7 +100,6 @@ shown in fig.~\ref{fig:box}.
 \end{figure}
 
 \FloatBarrier
-
 
 \paragraph{Parameters:}
 \begin{itemize}
@@ -186,44 +115,39 @@ shown in fig.~\ref{fig:box}.
 %\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
-
+\paragraph{Expression of the form factor}
 \begin{equation*}
-F_{\rm{Box}}(\mathbf{q},L,W,H)= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
+F(\mathbf{q},L,W,H)= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 \sinc\left(q_y \frac{W}{2}\right) \sinc\left(q_z \frac{H}{2}\right),
 \end{equation*}
-    
+   
 where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
 \paragraph{Syntax:} \Code{FormFactorBox(length, width, height)}
 
 \newpage
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFBoxEx} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, $H=13$~nm, and
-$\alpha=60^{\circ}$:
+$|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm:
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffbox}
 \end{center}
-\caption{Normalized intensity for the form factor of a Box
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=20$~nm, $W=16$~nm, and $H=13$~nm.}
+\caption{Normalized intensity for the form factor of a Box plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorBox(20.*nanometer, 16.*nanometer, 13.*nanometer)}.}
 \label{fig:FFBoxEx}
 \end{figure}
 
 \FloatBarrier
-
 %\subsection{References}
 %\BornAgain\ uses a different convention for the parameters in comparison with \Code{IsGISAXS}, where the half length
 %values are used (see fig.~\ref{box}).
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prism3} \SecLabel{Prism3}
- 
-\subsection{Real-space geometry}
+
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a triangular prism, whose base is an equilateral
 triangle as shown in fig.~\ref{fig:prism3}.
 
@@ -249,21 +173,20 @@ triangle as shown in fig.~\ref{fig:prism3}.
 \begin{itemize}
 \item volume $V= \dfrac{\sqrt{3}}{4} H L^2$,
 \item particle surface seen from above $S =\dfrac{\sqrt{3}}{4}L^2$.
-%\item radius of gyration.
+
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{align*}
-F_{\rm{Prism3}}(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}  \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)\left[\exp\left(i \sqrt{3} q_y \frac{L}{2} \right)-\cos\left(q_x \frac{L}{2}\right)-i \sqrt{3} q_y \frac{L}{2} \sinc\left(q_x \frac{L}{2}\right) \right] \\
+F(\mathbf{q},L, H) &= \frac{2 \sqrt{3}}{q_x^2-3q_y^2}  \exp\left(-i q_y\frac{L}{2\sqrt{3}}\right)\left[\exp\left(i \sqrt{3} q_y \frac{L}{2} \right)-\cos\left(q_x \frac{L}{2}\right)-i \sqrt{3} q_y \frac{L}{2} \sinc\left(q_x \frac{L}{2}\right) \right] \\
   &
 \times  H \sinc\left(q_z \frac{H}{2} \right) \exp\left(i q_z \frac{H}{2}\right),
 \end{align*}
 where $\sinc(x)=\sin(x)/x$ is the cardinal sine.
 
+\paragraph{Syntax:} \Code{FormFactorPrism3(length, height)}
 
-\paragraph{Syntax:}  \Code{FormFactorPrism3(length, height)}
-
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFprism3Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \begin{figure}[h]
@@ -271,8 +194,8 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 \includegraphics[width=\textwidth]{Figures/figffprism3}
 \end{center}
 \caption{Normalized intensity for the form factor of a Prism3
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and
-  computed with $L=10$~nm and $H=13$~nm.}
+ plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and
+  computed with \Code{FormFactorPrism3(10.*nanometer, 13.*nanometer)}.}
 \label{fig:FFprism3Ex}
 \end{figure}
 
@@ -280,12 +203,11 @@ $|F|^2/V^2$, computed with $L=10$~nm and \mbox{$H=13$~nm.}
 %In the $x,y$ plane , we use the full side length of the triangular
 %base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
 %R_{\rm{\Code{IsGISAXS}}}$.
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tetrahedron}  \SecLabel{Tetrahedron} 
  
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
 
 \begin{figure}[ht]
@@ -311,21 +233,21 @@ This shape is a truncated tetrahedron as shown in fig.~\ref{fig:tetrahedron}.
   side faces, taken in the middle of the base lines.
 \end{itemize}
 
-\paragraph{Restrictions on the parameters:} $\dfrac{H}{L}< \dfrac{\tan{\alpha}}{2\sqrt{3}}$.
+\paragraph{Restrictions on the parameters:} 
+$\dfrac{H}{L}< \dfrac{\tan{\alpha}}{2\sqrt{3}}$.
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V= \dfrac{\tan(\alpha)}{24} L^3\Big[1- (1 -
-  \sqrt{3}\dfrac{2H}{L \tan(\alpha)} )^3\Big]$,
+\item volume $V= \dfrac{\tan(\alpha) L^3}{24} \left[1- \left(1 -
+  \dfrac{2\sqrt{3} H}{L \tan(\alpha)} \right)^3\right]$,
 \item particle surface seen from above $S =\dfrac{\sqrt{3}}{4}L^2$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 
 \begin{align*}
-&F_{\rm{Tetrahedron}} (\mathbf{q}, L, H, \alpha)=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
-\exp\left(iq_z \frac{L}{2\tan (\alpha)\sqrt{3}}\right) \times \\
+&F(\mathbf{q}, L, H, \alpha)=\frac{\sqrt{3}H}{q_x (q_x^2-3q_y^2)}
+\exp\left(i\frac{q_z L}{2\tan (\alpha)\sqrt{3}}\right) \times \\
 &\Big\{2q_x \exp(iq_3 D)\sinc(q_3 H) - (q_x +\sqrt{3}q_y)
 \exp(iq_1 D)\sinc(q_1 D) -(q_x-\sqrt{3}q_y)\exp(-iq_2
 D)\sinc(q_2 H) \Big\}, 
@@ -340,7 +262,7 @@ q_3 = \frac{q_y}{\tan \alpha} -\frac{q_z}{2}, \quad D = \frac{L \tan \alpha}{\sq
 
 \paragraph{Syntax:} \Code{FormFactorTetrahedron(length, height, alpha)}
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFtetrahEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 ^{\circ}$.
@@ -350,26 +272,17 @@ $|F|^2/V^2$, computed with $L=15$~nm, $H=6$~nm and $\alpha =60
 \includegraphics[width=\textwidth]{Figures/figfftetrahedron}
 \end{center}
 \caption{Normalized intensity for the form factor of a Tetrahedron
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and
-  computed with $L=15$~nm, $H=6$~nm and $\alpha=60^{\circ}$.}
+  plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and
+  computed with \Code{FormFactorTetrahedron(15.*nanometer, 6.*nanometer, 60.*degree)}.}
 \label{fig:FFtetrahEx}
 \end{figure}
 
 \FloatBarrier
-
-%\subsection{References}
-%In \Code{IsGISAXS}, factor 1/sqrt(3) instead of sqrt(3) in the
-%expression of the form factor. When running the software, there is
-%also a problem with this form factor.
-%In the $x,y$ plane , we use the full side length of the triangular
-%base instead of  half as implemented in \Code{IsGISAXS}: $L= 2
-%R_{\rm{\Code{IsGISAXS}}}$.
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prism6} \SecLabel{Prism6}
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is an hexagonal prism (see fig.~\ref{fig:prism6}).
 
 \begin{figure}[ht]
@@ -394,12 +307,11 @@ This shape is an hexagonal prism (see fig.~\ref{fig:prism6}).
 \begin{itemize}
 \item volume $V = \dfrac{3\sqrt{3}}{2}H R^2$,
 \item particle surface seen from above $S =\dfrac{3\sqrt{3}R^2}{2}$.
-%\item radius of gyration.
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{align*}
-F_{\rm{Prism6}}(\mathbf{q}, R, H) &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
+F(\mathbf{q}, R, H) &= \frac{4H\sqrt{3}}{3q_y^2 - q_x^2}
 \sinc\left(q_z\frac{H}{2}\right) \exp\left(-i q_z\frac{ H}{2}\right)\times\\
 &\left\{\frac{3q_y^2R^2}{4} \sinc\left(\frac{q_x
   R}{2}\right)\sinc\left(\frac{\sqrt{3}q_yR }{2}\right)+ \cos(q_x R)-\cos\left(q_y
@@ -409,7 +321,9 @@ with $\sinc(x)=\sin(x)/x$.
 
 \paragraph{Syntax:} \Code{FormFactorPrism6(radius, height)} 
 
-\subsection{Examples}
+\newpage
+
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFprism6Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 
@@ -417,8 +331,7 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffprism6}
 \end{center}
-\caption{Normalized intensity for the form factor of a Prism6
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and computed with $R=5$~nm and $H=11$~nm.}
+\caption{Normalized intensity for the form factor of a Prism6 plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorPrism6(5.*nanometer, 11.*nanometer)}.}
 \label{fig:FFprism6Ex}
 \end{figure}
 
@@ -429,12 +342,11 @@ $|F|^2/V^2$, computed with $R=5$~nm and \mbox{$H=11$~nm.}
 %\Code{IsGISXAXS}. In \BornAgain\, we use $R = 2/\sqrt{3}R_{\text{\Code{IsGiSaXs}}}$.
 %A factor $H$ is missing in the expression of the form factor given in
 %\Code{IsGISAXS}'s manual. 
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cone6} \SecLabel{Cone6} 
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 It is a truncated hexagonal pyramid (see fig.~\ref{fig:cone6}). 
 
 \begin{figure}[ht]
@@ -452,7 +364,6 @@ It is a truncated hexagonal pyramid (see fig.~\ref{fig:cone6}).
 
 \FloatBarrier
 
-
 \paragraph{Parameters:}
 \begin{itemize}
 \item radius of the regular hexagonal base $R$,
@@ -461,24 +372,24 @@ It is a truncated hexagonal pyramid (see fig.~\ref{fig:cone6}).
   the middle of a base length. 
 \end{itemize}
 
-\paragraph{Restrictions on the parameters:} $\dfrac{2H}{\sqrt{3}R}< \tan{\alpha}$.
+\paragraph{Restrictions on the parameters:} 
+$\dfrac{2H}{\sqrt{3}R}< \tan{\alpha}$.
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V = \dfrac{3}{4} \tan(\alpha) R^3 \Big[
-            1 - \big(1- \dfrac{2H}{ \tan(\alpha) R\sqrt{3}}\big)^3
-            \Big]$,
+\item volume $V = \dfrac{3}{4} \tan(\alpha) R^3 \left[
+            1 - \left(1- \dfrac{2H}{ \tan(\alpha) R\sqrt{3}}\right)^3
+            \right]$,
 \item  particle surface seen from above $S =\dfrac{3\sqrt{3}R^2}{2}$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}\mbox{}\\
 The
 calculation can be derived from ``Prism6'' (\SecRef{Prism6}) by
 considering a side length varying with the vertical position:
 
 \begin{align*}
-F_{\rm{Cone6}}(\mathbf{q}, R, H, \alpha) &= \frac{4\sqrt{3}}{3q_y ^2 - q_x^2}\int_0 ^H \exp(iq_z z)
+F(\mathbf{q}, R, H, \alpha) = \frac{4\sqrt{3}}{3q_y ^2 - q_x^2}\int_0 ^H &\exp(iq_z z)
 \Big[\frac{3}{4}R_z^2q_y^2 \sinc\left(\frac{q_xR_z}{2}\right)\sinc\left(\frac{\sqrt{3}q_y
 R_z}{2}\right)\\
 &+\cos(q_xR_z)-\cos\left(\frac{\sqrt{3}q_y R_z}{2}\right)\cos\left(\frac{q_xR_z}{2}\right) \Big]dz
@@ -487,7 +398,7 @@ with $R_z=R-\dfrac{2z}{\sqrt{3}\tan(\alpha)}$ and $\sinc(x)=\sin(x)/x$.
 
 \paragraph{Syntax:} \Code{FormFactorCone6(radius,height, alpha)} 
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFCone6Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and
 $\alpha=60^{\circ}$.
@@ -496,23 +407,17 @@ $\alpha=60^{\circ}$.
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffcone6}
 \end{center}
-\caption{Normalized intensity for the form factor of a Cone6 $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and  computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.}
+\caption{Normalized intensity for the form factor of a Cone6 plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorCone6(10.*nanometer,13.*nanometer, 60.*degree)}.}
 \label{fig:FFCone6Ex}
 \end{figure}
 
-
 \FloatBarrier
-
-%\subsection{References}
-%The convention of the base length is different
-%from the one implemented in \Code{IsGISAXS}: $R =
-%2/\sqrt{3}R_{\text{\Code{IsGiSAXS}}}$.
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pyramid}\SecLabel{Pyramid}
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a  truncated pyramid with a square base as shown in fig.~\ref{fig:pyramid}.
 
 \begin{figure}[ht]
@@ -527,7 +432,6 @@ This shape is a  truncated pyramid with a square base as shown in fig.~\ref{fig:
 
 \FloatBarrier
 
-%\par
 \paragraph{Parameters:}
 \begin{itemize}
 \item length of one side of the square base $L$,  
@@ -536,19 +440,18 @@ This shape is a  truncated pyramid with a square base as shown in fig.~\ref{fig:
   side faces, taken in the middle of the base lines.
 \end{itemize}
 
-\paragraph{Restrictions on the parameters:} $\dfrac{2H}{L} < \tan(\alpha)$.
+\paragraph{Restrictions on the parameters:}  $\dfrac{2H}{L} < \tan(\alpha)$.
 
 \paragraph{Properties:}
 \begin{itemize}
-\item  volume $V = \dfrac{1}{6} \tan(\alpha) L^3\Big[ 1
-             - \big(1 - \dfrac{2H}{\tan(\alpha)L}\big)^3 \Big],$
+\item  volume $V = \dfrac{1}{6} \tan(\alpha) L^3\left[ 1
+             - \left(1 - \dfrac{2H}{\tan(\alpha)L}\right)^3 \right],$
 \item particle surface seen from above $S = L^2$.
-%\item gyration radius along $z$ axis $R_g = \sqrt{2}R$
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{align*}
-&F_{\rm{Pyramid}}(\mathbf{q},L, H, \alpha) =
+&F(\mathbf{q},L, H, \alpha) =
 \frac{H}{q_x q_y} \times \nonumber \\ &\left\{ K_1 \cos\left[
   (q_x-q_y)\frac{L}{2} \right] + K_2 \sin\left[ (q_x-q_y)\frac{L}{2} \right]
 - K_3 \cos\left[ (q_x+q_y) \frac{L}{2} \right] - K_4 \sin\left[ (q_x+q_y)\frac{L}{2} \right]\right\},
@@ -565,7 +468,7 @@ with $\sinc(x)=\sin(x)/x$,
 
 \paragraph{Syntax:}  \Code{FormFactorPyramid(length, height, alpha)}
 
-\subsection{Examples}
+\paragraph{Examples}
 Figure~\ref{fig:FFPyramidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=18$~nm, $H=13$~nm and
 $\alpha=60^{\circ}$.
@@ -575,26 +478,23 @@ $\alpha=60^{\circ}$.
 \includegraphics[width=\textwidth]{Figures/figffpyramid}
 \end{center}
 \caption{Normalized intensity for the form factor of a
-  pyramid $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  
-  ($q_x$, $q_y$) and computed with $L=18$~nm and $H=13$~nm, and $\alpha=60^{\circ}$.}
+  pyramid plotted against ($q_y$, $q_z$) and  
+  ($q_x$, $q_y$) and computed with  \Code{FormFactorPyramid(18.*nanometer, 13.*nanometer, 60.*degree)}.}
 \label{fig:FFPyramidEx}
 \end{figure}
 
 \FloatBarrier
-
 %\subsection{References}
 %The output of equation~(\ref{eq:ffpyramid}) agrees with the \lq\lq
 %pyramid\rq\rq ~form factor of \IsGISAXS~\cite{Laz02}.
-
 %In \BornAgain\, the base of the pyramid is characterized by the full
 %length of one of its side and not by half this value: $L=2R_{\rm{\Code{IsGISXAXS}}}$. 
 %Pyramid: problem with signs of K2 and K4
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Anisotropic pyramid} \SecLabel{AnisoPyramid} 
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a truncated right pyramid with a rectangular base as
 shown in fig.~\ref{fig:anisopyramid}.
 
@@ -604,7 +504,7 @@ shown in fig.~\ref{fig:anisopyramid}.
 \hfill
 \subfigure[Top view]{\includegraphics[width=5cm]{Figures/AnisoPyramid2dxy.eps}}
 \hfill
-\caption{Sketch of an Anisotropic Pyramid. }
+\caption{Sketch of an Anisotropic Pyramid.}
 \label{fig:anisopyramid}
 \end{figure}
 
@@ -626,12 +526,11 @@ shown in fig.~\ref{fig:anisopyramid}.
 \item volume $V= H \Big[LW - \dfrac{(L + W)H}{\tan(\alpha)}
    + \dfrac{4}{3} \dfrac{H^2}{\tan^2(\alpha)}\Big]$,
 \item particle surface seen from above $S = LW$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{align*}
-&F_{\rm{AnisoPyramid}}(\mathbf{q}, L, W, H, \alpha)=
+&F(\mathbf{q}, L, W, H, \alpha)=
 \frac{H}{q_xq_y} \times \\
 &\Big\{
 K_1\cos\Big(q_x \frac{L}{2} -q_y \frac{W}{2}\Big)+  K_2 \sin \Big (q_x
@@ -651,7 +550,7 @@ q_3 &= \frac{1}{2}\left[\frac{q_x +q_y}{\tan \alpha} +q_z \right] , \quad q_4 = 
 
 \paragraph{Syntax:} \Code{FormFactorAnisoPyramid(length, width, height, alpha)}
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFAnisoPyramidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=20$~nm, $W=16$~nm, $H=13$~nm, and
 $\alpha=60^{\circ}$.
@@ -661,8 +560,7 @@ $\alpha=60^{\circ}$.
 \includegraphics[width=\textwidth]{Figures/figffanisopyramid}
 \end{center}
 \caption{Normalized intensity for the form factor of an anisotropic
-  pyramid $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=20$~nm, $W=16$~nm, $H=13$~nm,
-  and $\alpha=60^{\circ}$.}
+  pyramid $|F|^2/V^2$, plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorAnisoPyramid(20.*nanometer, 16.*nanometer, 60.*degree)}.}
 \label{fig:FFAnisoPyramidEx}
 \end{figure}
 
@@ -674,16 +572,17 @@ $\alpha=60^{\circ}$.
 %But \BornAgain\ uses a different convention of the parameters relative
 %to the base. We input the full length and width instead of half values.
 %Condition on the parameters: 
-%Should not it be: H/R < tan(alpha) and  H/W < tan(alpha) instead of H/R < tan(alpha) and  W/R < tan(alpha) where H is the height and R, W the side-lengths of the rectangular base?
+%Should not it be: H/R < tan(alpha) and  H/W < tan(alpha) instead of H/R < tan(alpha) and  
+%W/R < tan(alpha) where H is the height and R, W the side-lengths of the rectangular base?
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cuboctahedron} \SecLabel{Cuboctahedron} 
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 It is a combination of two pyramids with square bases, as shown in fig.~\ref{fig:cuboctahedron}: the bottom one
 is upside down with an height $H$ and the top one has the opposite
-orientation (the standard one) and an height $r_H H$.
+orientation (the standard one) and an height $r_H \times H$.
 
 \begin{figure}[ht]
 \hfill
@@ -716,12 +615,11 @@ orientation (the standard one) and an height $r_H H$.
            - \Big(1 - \dfrac{2 r_H
              H}{L\tan(\alpha) }\Big)^3\Big]$,
 \item particle surface seen from above $S =L^2$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{equation*}
-F_{\rm{Cuboctahedron}}(\mathbf{q}, L, H, r_H, \alpha)=\exp(iq_z
+F(\mathbf{q}, L, H, r_H, \alpha)=\exp(iq_z
 H)\Big[F_{\rm{Pyramid}}(q_x,q_y, q_z, L, r_H H,
 \alpha)+F_{\rm{Pyramid}}(q_x, q_y, -q_z, L, H, \alpha))\Big]
 \end{equation*}
@@ -729,14 +627,13 @@ H)\Big[F_{\rm{Pyramid}}(q_x,q_y, q_z, L, r_H H,
 \paragraph{Syntax:} \Code{FormFactorCuboctahedron(length, height, height\_ratio,
   alpha)}
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, computed with $L=20$~nm, $H=13$~nm, $r_H=0.7$, and $\alpha=60^{\circ}$.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffcuboctah}
 \end{center}
-\caption{Normalized intensity for the form factor of a cuboctahedron $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$) and computed with $L=20$~nm, $H=13$~nm,
-  $r_H=0.7$, and $\alpha=60^{\circ}$.}
+\caption{Normalized intensity for the form factor of a cuboctahedron plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$) and computed with \Code{FormFactorCuboctahedron(20.*nanometer, 13.*nanometer, 0.7, 60.*degree)}.}
 \label{fig:FFcuboctahEx}
 \end{figure}
 
@@ -751,7 +648,7 @@ Figure~\ref{fig:FFcuboctahEx} shows the normalized intensity $|F|^2/V^2$, comput
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 \section{Cylinder} \SecLabel{Cylinder}
  
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a right circular cylinder (see fig.~\ref{fig:cylinder}).
 
 \begin{figure}[ht]
@@ -766,7 +663,7 @@ This shape is a right circular cylinder (see fig.~\ref{fig:cylinder}).
 
 \paragraph{Parameters:}
 \begin{itemize}
-\item radius of the circular base $R$. 
+\item radius of the circular base $R$, 
 \item height $H$.
 \end{itemize}
 
@@ -774,12 +671,12 @@ This shape is a right circular cylinder (see fig.~\ref{fig:cylinder}).
 \begin{itemize}
 \item volume $V = \pi R^2 H$,
 \item particle surface seen from above $S=\pi R^2$.
-%\item radius of gyration
+
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
   \begin{equation*}
-F_{\rm{Cylinder}}(\mathbf{q},R, H)=  2\pi
+F(\mathbf{q},R, H)=  2\pi
  R^2 H  \sinc\left(q_ z \frac{H}{2}\right) \exp\left(i q_ z \frac{H}{2}\right) \frac{J_1(q_{\parallel} R )}{q_{\parallel} R },
  \end{equation*}
 with $q_{\parallel}=\sqrt{q_x^2+q_y^2}$ and $J_1(x)$ is the first order
@@ -789,27 +686,25 @@ Bessel function of the first kind \cite{AbSt64}.
 
 \newpage
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFcylinderEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=8$~nm and \mbox{$H=16$~nm.}
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffcylinder}
 \end{center}
-\caption{Normalized intensity for the form factor of a cylinder
-$|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$.) It
-has been  computed with $R=8$~nm and $H=16$~nm.}
+\caption{Normalized intensity for the form factor of a cylinder plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$.) It
+has been  computed with \Code{FormFactorCylinder(8.*nanometer, 16.*nanometer)}.}
 \label{fig:FFcylinderEx}
 \end{figure}
 \FloatBarrier
 
-%\subsection{References}
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ellipsoidal cylinder} \SecLabel{EllipsoidalCylinder} 
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This is a cylinder whose cross section is an ellipse.
 
 \begin{figure}[ht]
@@ -833,13 +728,12 @@ This is a cylinder whose cross section is an ellipse.
 \begin{itemize}
 \item volume $V = \pi r_a r_bH$,
 \item particle surface seen from above $S = r_a r_b$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 The total form factor is given by 
 \begin{equation*}
-F_{\rm{EllipsoidalCylinder}}(\mathbf{q},R,W,H) = 2\pi r_a r_b H \exp\left(i\frac{q_z
+F(\mathbf{q},R,W,H) = 2\pi r_a r_b H \exp\left(i\frac{q_z
   H}{2}\right)\sinc\left(\frac{q_z H}{2}\right) \frac{J_1(\gamma)}{\gamma},
 \end{equation*}
 with $\gamma=\sqrt{(q_x r_a)^2+(q_y r_b)^2}$ and $J_1(x)$ is the first order
@@ -850,7 +744,7 @@ Bessel function of the first kind \cite{AbSt64}.
 \newpage
 
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFellipscylinderEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \begin{figure}[h]
@@ -858,11 +752,10 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 \includegraphics[width=\textwidth]{Figures/figffellipscylinder}
 \end{center}
 \caption{Normalized intensity for the form factor of an ellipsoidal
-  cylinder $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$,
-  $q_y$) and computed with $r_a=8$~nm, $r_b=13$~nm, and $H=16$~nm.}
+  cylinder plotted against ($q_y$, $q_z$) and ($q_x$,
+  $q_y$) and computed with \Code{FormFactorEllipsoidalCylinder(8.*nanometer, 13.*nanometer, 16*nanometer)}.}
 \label{fig:FFellipscylinderEx}
 \end{figure}
-
 
 %\subsection{References}
 %This form factor is referred to as "Ellipsoid'' in \Code{ISGISAXS}. 
@@ -871,7 +764,7 @@ $|F|^2/V^2$, computed with $r_a=13$~nm, $r_b=8$~nm, and $H=16$~nm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cone} \SecLabel{Cone} 
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}
 This shape is a truncated cone as shown in fig.~\ref{fig:cone}. 
 
 \begin{figure}[ht]
@@ -895,45 +788,39 @@ This shape is a truncated cone as shown in fig.~\ref{fig:cone}.
 
 \paragraph{Properties:}
 \begin{itemize}
-\item volume $V = \dfrac{\pi}{3} \tan(\alpha) R^3 \Big[ 
-            1 - (1- \dfrac{H}{\tan(\alpha)R})^3\Big]$,
+\item volume $V = \dfrac{\pi}{3} \tan(\alpha) R^3 \left[ 
+            1 - \left(1- \dfrac{H}{\tan(\alpha)R}\right)^3\right]$,
 \item  particle surface seen from above $S=\pi R^2$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{equation*}
-F_{\rm{Cone}}(\mathbf{q}, R, H, \alpha) = \int_0 ^H 2\pi R_z^2
+F(\mathbf{q}, R, H, \alpha) = \int_0 ^H 2\pi R_z^2
 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel} R_z}\exp(iq_z z)dz,
 \end{equation*}
-with $R_z =R-\frac{z}{\tan \alpha}$, $\mathbf{q}_{\parallel}=\sqrt{q_x^2+ q_y^2}$ and $J_1(x)$ is the first order
+with $R_z =R-\dfrac{z}{\tan \alpha}$, $\mathbf{q}_{\parallel}=\sqrt{q_x^2+ q_y^2}$ and $J_1(x)$ is the first order
 Bessel function of the first kind \cite{AbSt64}.
 
 \paragraph{Syntax:}  \Code{FormFactorCone(radius, height, alpha)}. 
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFConeEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, $H=13$~nm, and $\alpha=60^{\circ}$.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffcone}
 \end{center}
-\caption{Normalized intensity for the form factor of a Cone
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$.) It
-  has been  computed with $R=10$~nm, $H=13$~nm,
-  and $\alpha=60^{\circ}$.}
+\caption{Normalized intensity for the form factor of a Cone plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$.) It
+  has been  computed with \Code{FormFactorCone(10.*nanometer,13.*nanometer, 60.*degree)}.}
 \label{fig:FFConeEx}
 \end{figure}
 
-
 %\subsection{References}
-
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Full Sphere} \SecLabel{FullSphere}
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 The full sphere is parametrized by its radius $R$. 
 
 
@@ -958,35 +845,34 @@ The full sphere is parametrized by its radius $R$.
 %\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
-\begin{equation}
-F_{\rm{FullSphere}}(\mathbf{q},R) = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
-\end{equation}
+\paragraph{Expression of the form factor}
+\begin{equation*}
+F(\mathbf{q},R) = 4\pi R^3 \exp(iq_z R)\frac{\sin(q R) - q R \cos(q R)}{(qR)^3},
+\end{equation*}
 where $q=\sqrt{q_x^2 + q_y^2 + q_z^2}$.
 
 \paragraph{Syntax:} \Code{FormFactorFullSphere(radius)}
 
 \newpage
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFfSphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=8$~nm.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figfffsphere}
 \end{center}
 \caption{Normalized intensity for the
-  form factor of a Full Sphere
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and computed with $R=8$~nm.}
+  form factor of a Full Sphere plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and computed with \Code{FormFactorFullSphere(8.*nanometer)}.}
 \label{fig:FFfSphereEx}
 \end{figure}
 
 \FloatBarrier
-%\subsection{References}
+
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Truncated Sphere}\SecLabel{Sphere}
   
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a spherical dome, \textit{i.e.} a portion of a sphere cut off by a plane (perpendicular
 to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 
@@ -1018,9 +904,9 @@ to $z$-axis) as shown in fig.~\ref{fig:sphere}.
 %R, & H > R \\ \sqrt{2RH-H^2}, & H < R \end{array}\right. .$
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{equation*}  
-F_{\text{TruncatedSphere}}(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
+F(\mathbf{q},R, H)= 2\pi \exp[i q_z (H-R)]\int_{R-H} ^{R} R_z^2 \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
 \end{equation*}
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
@@ -1028,15 +914,14 @@ Bessel function of the first kind \cite{AbSt64}, $q_{\parallel} =
 
 \paragraph{Syntax:} \Code{FormFactorTruncatedSphere(radius, height)}
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed with $R=5$~nm and $H=7$~nm:
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffsphere}
 \end{center}
-\caption{Normalized intensity for the form factor of a Truncated Sphere
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
-  computed with $R=5$~nm and $H=7$~nm.}
+\caption{Normalized intensity for the form factor of a Truncated Sphere plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and
+  computed with \Code{FormFactorTruncatedSphere(5.*nanometer, 7.*nanometer)}.}
 \label{fig:SphereEx}
 \end{figure}
 
@@ -1050,7 +935,7 @@ Figure~\ref{fig:SphereEx} shows the normalized intensity $|F|^2/V^2$, computed w
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Full Spheroid} \SecLabel{FullSpheroid}  
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 A full spheroid is generated by rotating an ellipse around the vertical
 axis (see fig.~\ref{fig:fullspheroid}).
 
@@ -1076,14 +961,12 @@ axis (see fig.~\ref{fig:fullspheroid}).
 \begin{itemize}
 \item volume $V =\dfrac{2}{3}R^2H$,
 \item particle surface seen from above $S =\pi R^2$. 
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{equation*}
-F_{\rm{FullSpheroid}}(\mathbf{q}, R, H) = 4\pi \exp(i q_z H/2) \int_0 ^{H/2}R_z ^2
+F(\mathbf{q}, R, H) = 4\pi \exp(i q_z H/2) \int_0 ^{H/2}R_z ^2
 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \cos(q_z z) dz,
-with 
 \end{equation*}
 with $J_1(x)$ the first order
 Bessel function of the first kind \cite{AbSt64},
@@ -1091,17 +974,17 @@ $R_z = R\sqrt{1-\frac{4z^2}{H^2}}$, $\gamma_z = \sqrt{(q_x R_z)^2+(q_y R_z)^2}$.
 
 
 \paragraph{Syntax:} \Code{FormFactorFullSpheroid(radius,height)}
+\newpage
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFfspheroidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figfffspheroid}
 \end{center}
-\caption{Normalized intensity for the form factor of a full spheroid
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
-  computed with $R=10$~nm and $H=13$~nm.}
+\caption{Normalized intensity for the form factor of a full spheroid plotted against ($q_y$, $q_z$) and ($q_x$, $q_y$) and
+  computed with \Code{FormFactorFullSpheroid(10.*nanometer, 13.*nanometer)}.}
 \label{fig:FFfspheroidEx}
 \end{figure}
 
@@ -1119,7 +1002,7 @@ $|F|^2/V^2$, computed with $R=10$~nm, and $H=13$~nm.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Truncated Spheroid} \SecLabel{Spheroid}
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a spheroidal dome: a portion of a full spheroid cut off
 by a plane perpendicular to the $z$-axis.
 
@@ -1147,12 +1030,11 @@ by a plane perpendicular to the $z$-axis.
 \item volume $V = \dfrac{\pi R H^2}{f_p}  \Big(1-\dfrac{H}{3f_p R}\Big)$,
 \item particle surface seen from above $S = \left\{\begin{array}{ll} \pi R^2, & H \geq f_pR \\
          \pi\left(\dfrac{2RH}{f_p}-\dfrac{H^2}{f_p^2}\right), & H < R \end{array}\right.$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{equation*} 
-F_{\rm{TruncatedSpheroid}}(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
+F(\mathbf{q},R, H,f_p) =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H} ^{f_p R} R_z
         ^2\frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \exp(i q_z z) dz
 \end{equation*}
 with $J_1(x)$ the first order
@@ -1160,7 +1042,7 @@ Bessel function of the first kind \cite{AbSt64}, $q_{\parallel}=\sqrt{q_x^2+q_y^
 
 \paragraph{Syntax:} \Code{FormFactorTruncatedSpheroid(radius, height, height\_flattening)}
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFspheroidEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 
@@ -1168,9 +1050,8 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffspheroid}
 \end{center}
-\caption{Normalized intensity for the form factor of a Truncated Spheroid
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
-  computed with $R=7.5$~nm, $H=9$~nm, and $f_p=1.2$.}
+\caption{Normalized intensity for the form factor of a Truncated Spheroid plotted against ($q_z$, $q_y$) and ($q_x$, $q_y$) and
+  computed with \Code{FormFactorTruncatedSpheroid(7.5*nanometer, 9.*nanometer, 1.2)}.}
 \label{fig:FFspheroidEx}
 \end{figure}
 
@@ -1184,7 +1065,7 @@ $|F|^2/V^2$, computed with $R=7.5$~nm, $H=9$~nm and $f_p=1.2$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Hemi ellipsoid} \SecLabel{HemiEllipsoid}  
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape is a truncated ellipsoid as shown in fig.~\ref{fig:hemiellipsoid}.
 
 \begin{figure}[ht]
@@ -1208,12 +1089,11 @@ This shape is a truncated ellipsoid as shown in fig.~\ref{fig:hemiellipsoid}.
 \begin{itemize}
 \item volume $V = \dfrac{2}{3}\pi r_a r_bH$,
 \item particle surface seen from above $S =\pi r_a r_b$.
-%\item radius of gyration
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{equation*}
-F_{\rm{hemi-ellipsoid}}(\mathbf{q},r_a,r_b,H) = 2\pi \int_0 ^{H} r_{a,z} r_{b,z}
+F(\mathbf{q},r_a,r_b,H) = 2\pi \int_0 ^{H} r_{a,z} r_{b,z}
 \frac{J_1(\gamma_z)}{\gamma_z}\exp(iq_z z)dz,
 \end{equation*}
 with $J_1(x)$ the first order
@@ -1224,7 +1104,7 @@ Bessel function of the first kind \cite{AbSt64}, $r_{a,z} = r_a \sqrt{1-\left(\d
 
 \newpage
 
-\subsection{Examples}
+\paragraph{Example} \mbox{}\\
 Figure~\ref{fig:FFhemiellipsEx} shows the normalized intensity
 $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 
@@ -1232,9 +1112,8 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffhemiellips}
 \end{center}
-\caption{Normalized intensity for the form factor of an Hemi-Ellipsoid
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$)
-  computed with $r_a=10$~nm, $r_b=6$~nm, and $H=8$~nm.}
+\caption{Normalized intensity for the form factor of an Hemi-Ellipsoid plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
+  computed with \Code{FormFactorHemiEllipsoid(10.*nanometer, 6.*nanometer, 8.*nanometer)}.}
 \label{fig:FFhemiellipsEx}
 \end{figure}
 \FloatBarrier
@@ -1244,12 +1123,11 @@ $|F|^2/V^2$, computed with $r_a=10$~nm, $r_b=6$~nm and $H=8$~nm.
 %Problem when running  \Code{ISGISAXS}.
 %In \Code{IsGISAXS} manual, where does the minus sign in exp(-iq\_z z)
 %come from?
-
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ripple1} \SecLabel{Ripple1}  
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape has a sinusoidal profile (see fig.~\ref{fig:ripple1}).
 
 \begin{figure}[ht]
@@ -1275,16 +1153,16 @@ This shape has a sinusoidal profile (see fig.~\ref{fig:ripple1}).
 \item particle surface seen from above $S = L W$.
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{align*}
-F_{\rm{ripple1}}(\mathbf{q},L,W,H) &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\ &\int_0^H{dz \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right)},
+F(\mathbf{q},L,W,H) &=L \cdot \frac{W}{\pi}\cdot \sinc\left(\frac{q_xL}{2}\right)\times \\ &\int_0^H{dz \arccos\left(\frac{2z}{H}-1\right)\sinc\left[\frac{q_yW}{2\pi}\arccos\left(\frac{2z}{H} - 1\right)\right]\exp\left(iq_zz\right)},
 \end{align*}
 where $\arccos$ is the  arc cosine (\textit{i.e.} the inverse
 operation of cosine).
 
 \paragraph{Syntax:} \Code{FormFactorRipple1(length, width, height)}
 
-\subsection{Examples}
+\paragraph{Example}\mbox{}\\
 Figure~\ref{fig:FFripple1Ex} shows the normalized intensity
 $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 
@@ -1293,20 +1171,17 @@ $|F|^2/V^2$, computed with $L=27$~nm, $W=20$~nm and $H=14$~nm.
 \includegraphics[width=\textwidth]{Figures/figffripple1}
 \end{center}
 \caption{Normalized intensity for the form factor of a ripple1
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$)
-  computed with $L=27$~nm, $W=20$~nm, and $H=14$~nm.}
+  $|F|^2/V^2$, plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
+  computed with \Code{FormFactorRipple1(27.*nanometer, 20.*nanometer, 14.*nanometer)}.}
 \label{fig:FFripple1Ex}
 \end{figure}
 \FloatBarrier
-
-%\subsection{References}
-
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ripple2} \SecLabel{Ripple2}  
 
-\subsection{Real-space geometry}
+\paragraph{Real-space geometry}\mbox{}\\
 This shape has an asymmetric sawtooth profile.
 
 \begin{figure}[ht]
@@ -1337,9 +1212,9 @@ This shape has an asymmetric sawtooth profile.
 \item particle surface seen from above $S = L W$.
 \end{itemize}
 
-\subsection{Expression of the form factor}
+\paragraph{Expression of the form factor}
 \begin{align*}
-F_{\rm{ripple2}}(\mathbf{q},L,W,H,d) &=L W
+F(\mathbf{q},L,W,H,d) &=L W
 \sinc\left(\frac{q_xL}{2}\right)\times \\ &
 \int_0^H 
 \left(1-\frac{z}{H}\right)
@@ -1352,29 +1227,27 @@ dz
 
 \paragraph{Syntax:} \Code{FormFactorRipple2(length, width, height, asymmetry)}
 
-\subsection{Examples}
+\paragraph{Examples}
 Figure~\ref{fig:FFripple2Ex} shows the normalized intensity
-$|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~mm.
+$|F|^2/V^2$, computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~nm.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{Figures/figffripple2}
 \end{center}
-\caption{Normalized intensity for the form factor of a ripple2
-  $|F|^2/V^2$, plotted against ($q_z$, $q_y$) and  ($q_x$, $q_y$)
-  computed with $L=36$~nm, $W=25$~nm, $H=14$~nm, and $d=3$~mm.}
+\caption{Normalized intensity for the form factor of a ripple2 plotted against ($q_y$, $q_z$) and  ($q_x$, $q_y$)
+  computed with \Code{FormFactorRipple2(36.*nanometer, 25.*nanometer, 14.*nanometer, 3.*nanometer)}.}
 \label{fig:FFripple2Ex}
 \end{figure}
 
 \FloatBarrier
-
 
 \newpage{\cleardoublepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Distorted Wave Born Approximation}
 
 The previous sections of this appendix on form factors have dealt with the Born approximation. In this case the form factor is given by a single integral over the particle shape (see equation~\ref{ffformulaBA}). But this approximation fails when multiple reflections and refractions have to be taken into account at interfaces because of the presence of underlying layers of materials and the closeness of  the incident angle $\alpha_i$ to the critical angle of total external reflection $\alpha_c$. The first order correction to the scattering theory is the Distorted Wave Born Approximation (DWBA), whereas the Born approximation is the zeroth order. \\
-The collective effects between the particles are not considered in this section. They will be dealt with in...  We also do not take any polarization effects into account.\\
+The collective effects between the particles are not considered in this section. They will be dealt with in Section~\ref{appendixinterf}.  We also do not take any polarization effects into account. They will be described in...\\
 
  In the DWBA, the form factor of a particle in a multilayer system is given by
 
@@ -1383,7 +1256,7 @@ F_{\rm{DWBA}} (\vect{k}_i,\vect{k}_f, r_z) & = T_i T_f F_{\rm{BA}} (\vect{k}_i-\
  \nonumber \\
   &+ T_i R_f F_{\rm{BA}}(\vect{k}_i-\vect{\widetilde{k}}_f)e^{i(k_{i,z}+k_{f,z})r_z} + R_iR_fF_{\rm{BA}} (\vect{\widetilde{k}}_i-\vect{\widetilde{k}}_f)e^{i(-k_{i,z}+k_{f,z})r_z} \; , \label{eq:dwbageneral}
 \end{align}
-where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position, $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
+where $F_{\rm{BA}}$ is the expression of the form factor in the Born approximation, $r_z$ is the $z$-coordinate of the particle's position (measured from the bottom of the particle), $\vect{k}_i=(k_{i,x}, k_{i,y}, k_{i,z})$ $\vect{k}_f=(k_{f,x}, k_{f,y}, k_{f,z})$ are the incident and scattered wave vectors in air, respectively \cite{Raus95}. With a tilde (\~{}), these wavevectors components are evaluated in the multilayer system (the refractive indices of the different constituting materials have to be taken into account). 
 $T_i$, $T_f$, $R_i$, $R_f$ are the transmission and reflection coefficients for the incident wave (index $i$) or the scattered one (index $f$). These coefficients can be calculated using the Parratt formalism \cite{Parr54} or the matrix method \cite{BoWo99}. $\vect{k}_i-\vect{k}_f$ is equal to the scattering vector $\vect{q}$ and the $z$-axis is pointing upwards.\\
 
 
@@ -1396,6 +1269,9 @@ In the followings, the DWBA will be illustrated for two different layouts of par
 \item particles deposited on a substrate,
 \item particles buried in a layer on a substrate.
 \end{itemize}
+
+\ImportantPoint{Remark:}{In \BornAgain\ There is no limitation to the number of layers composing the sample.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particles deposited on a substrate}
 %Substrate modified Born approximation
@@ -1404,13 +1280,13 @@ In this configuration, the particles are sitting on top of a substrate layer, in
 F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\parallel}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\parallel}, -k_{i,z}-k_{f,z}) \nonumber \\
 &+ R_f F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z}), \label{eq:dwbaair}
 \end{align}
-where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface ($\vect{q}=\vect{k}_i-\vect{k}_f$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\parallel}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\parallel}|^2}}$, where $n_s=1-\delta_s -i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\parallel}$ are the $z$-component and the in-plane component of $\vect{k}_i$ or $\vect{k}_f$. \\
+where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface ($\vect{q}=\vect{k}_i-\vect{k}_f$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\parallel}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\parallel}|^2}}$, where $n_s=1-\delta_s -i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\parallel}$ are the $z$-component and the in-plane component of $\vect{k}_i$ or $\vect{k}_f$. \\
 
 \ImportantPoint{Remark:}{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Parr54,BoWo99}.}
 
 \vspace{18pt}
 
-Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eq.~\ref{eq:dwbaair}  corresponds to the Born approximation. Each term is weighted by a Fresnel coefficient. 
+Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eq.~\ref{eq:dwbaair}  corresponds to the Born approximation. Each term of $F_{\rm{DWBA}}$ is weighted by a Fresnel coefficient. 
 
 \begin{figure}[h]
 \begin{center}
@@ -1421,7 +1297,7 @@ Figure~\ref{fig:SchemDWBA} illustrates the four scattering processes for a suppo
 \end{figure}
 
 
-Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornAgain and figure~\ref{fig:spheroidbadwba} shows the intensity contourplot generated using this script with (full) spheroids as particles. This script considers the simple case of:
+Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornAgain\ when generating the sample.  We consider the simple case of:
 \begin{itemize}
 \item one kind of particles' shape,
 \item no interference between the particles,
@@ -1429,16 +1305,16 @@ Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornA
 \item in the BA, a sample composed of the particles in air.
 \end{itemize} 
 
+Figure~\ref{fig:spheroidbadwba} shows the intensity contourplot generated using this script with truncated spheroids as particles. Note that the full \Python\ script UMFormFactorBA\_DWBA.py is available in folder Examples/Python/UserManual/.
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate figure~\ref{fig:spheroidbadwba}. The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
-import numpy
-import matplotlib
-import pylab
-from libBornAgainCore import *
+\newpage
 
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born or Distorted Wave Born Approximation. The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
 def get_sample():
     """
-    Build and return the sample to calculate formfactor in Born or Distorted Wave Born Approximation.
+    Build and return the sample to calculate form factor of 
+    truncated spheroid in Born or Distorted Wave Born Approximation.
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -1446,47 +1322,25 @@ def get_sample():
     m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ff= FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)
+    ff= FormFactorTruncatedSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)
     particleshape = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(particleshape, 0.0, 1.0)
+
+    # interferences
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
+
+    # assembling the sample
     air_layer = Layer(m_ambience)
     air_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
 
-    # Sample = particles in air for BA or particles in air and sitting on a substrate for DWBA
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
-    # Add substrate layer for DWBA 
-    # Comment the following line out for BA
+    # Comment the following line out for Born Approximation
     multi_layer.addLayer(substrate_layer)
     return multi_layer
-
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = Simulation()
-    simulation.setDetectorParameters(200, 0.0*degree, 2.0*degree, 200, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.5*degree, 0.0*degree)
-    return simulation
-
-def run_simulation():
-    """
-    Run simulation and plot results
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 2.0, 0, 2.0])
-    pylab.show()
- 
-
-if __name__ == '__main__': 
-    run_simulation()
 \end{lstlisting}
 
 
@@ -1496,24 +1350,14 @@ if __name__ == '__main__':
 \hfill
 \subfigure[DWB Approximation]{\includegraphics[width=6cm]{Figures/ffspheroidDWBA}}
 \hfill
-\caption{Intensity map of Spheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} and  \Code{FormFactorSpheroid(7.5*nanometer, 9.0*nanometer, 1.2)}.}
+\caption{Intensity map of TruncatedSpheroid form factor in BA and DWBA computing using script~\ref{lst:badwba} for the sample.}
 \label{fig:spheroidbadwba}
 \end{figure}
 
-%\begin{figure}[ht]
-%\hfill
-%\subfigure[Born Approximation]{\includegraphics[width=5cm]{Figures/ffcubocBA}}
-%\hfill
-%\subfigure[DWB Approximation]{\includegraphics[width=5cm]{Figures/ffcubocDWBA}}
-%\hfill
-%\caption{Intensity map of Cuboctahedron form factor in BA and DWBA computing using script~\ref{lst:badwba} and  \Code{FormFactorCuboctahedron(20.0*nanometer, 13.0*nanometer, 0.7, 60*degree)}.}
-%\label{fig:cuboctbadwba}
-%\end{figure}
-
 \FloatBarrier 
 
-
 \ImportantPoint{Remark:}{In \BornAgain, the DWBA is implemented automatically when assembling the sample with more than the air layer.}
+
 
 \subsection{Buried particles} 
 
@@ -1525,13 +1369,13 @@ F_{\rm{DWBA}}(q_{\parallel}, k_{i,z}, k_{f,z}) &= T_i T_f F_{\rm{BA}}(q_{\parall
 \end{align}
 
 \begin{equation*}
-R_j =\frac{t^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z})t}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, \quad T_j=\frac{t^{j}_{0,1}}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, j=i,f 
+R_j =\frac{t^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, \quad T_j=\frac{t^{j}_{0,1}}{1+r^{j}_{0,1}r^{j}_{1,2}\exp(2ik_{j,z}t)}, j=i,f 
 \end{equation*}
 where $q_{\parallel}$ is the component of the scattering beam in the plane of the interface, $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beams, respectively.  $d$ is the depth at which the particles are sitting in the layer. Note that this value is given relative to the top of this layer and it is not the coordinate in the absolute referential (linked with the full sample) and it is measured up to the bottom of the particle. $t$ is the thickness of the intermediate layer containing the particles. $R_{i,f}$ and $T_{i,f}$  are the reflection  and transmission coefficients in incidence and reflection (they can be calculated using Parratt or matrix formalism). $r^j_{0,1}$, $r^j_{1,2}$ $t^j_{0,1}$ are the reflection and transmission coefficients between layers; the indices are related to different boundaries with 0: air, 1: intermediate layer and 2: substrate layer and the superscript $j$ is associated with the incident or scattered beams:
 \begin{equation*}
 r^j_{n,n+1}=\frac{k_{j,z,n}-k_{j,z,n+1}}{k_{j,z,n}-k_{j,z,n+1}}, \qquad t^j_{n,n+1}= \frac{2k_{j,z,n}}{k_{j,z,n}-k_{j,z,n+1}}, \quad n=0,1, \quad j=i,f,
 \end{equation*}
-where $n$ is related to the layers, $z$ to the vertical component, and $j$ to the beams.
+where index $n$ is related to the layers, $z$ to the vertical component, and $j$ to the beams (incident and outgoing).
 
 \begin{figure}[h]
 \begin{center}
@@ -1547,18 +1391,12 @@ where $n$ is related to the layers, $z$ to the vertical component, and $j$ to th
 %&+ R_f T_i F_{\rm{BA}}(q_{\parallel}, k_{i,z}+k_{f,z}) + R_f R_iF_{\rm{BA}}(q_{\parallel},-k_{i,z}+k_{f,z})
 %\end{align*} 
 
-Figure~\ref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied}.
+Figure~\ref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied} (The full script UMFormFactor\_Buried\_DWBA.py can be found in /Examples/Python/UserManual.
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate fig.\ref{fig:dwbaburied}. Spherical particles are embedded in the middle of a layer on a substrate.},label={lst:dwbaburied}]
-import numpy
-import matplotlib
-import pylab
-from libBornAgainCore import *
-
-
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample where spherical particles are embedded in the middle of a layer on a substrate.},label={lst:dwbaburied}]
 def get_sample():
     """
-    Build and return the sample in Distorted Wave Born Approximation.
+    Build and return the sample with buried spheres in DWBA.
     """
     # defining materials
     m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
@@ -1571,8 +1409,12 @@ def get_sample():
     particleshape = Particle(m_particle, ff)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(particleshape,20.1,1.0)
+
+    # interferences 
     interference = InterferenceFunctionNone()
     particle_layout.addInterferenceFunction(interference)
+
+    # assembling the sample 
     air_layer = Layer(m_ambience)
     intermediate_layer = Layer(m_interm_layer, 30.*nanometer)
     intermediate_layer.setLayout(particle_layout)
@@ -1583,42 +1425,17 @@ def get_sample():
     multi_layer.addLayer(intermediate_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
-
-
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = Simulation()
-    simulation.setDetectorParameters(400, 0., 1.*degree, 400, 0., 1.*degree, True)
-    simulation.setBeamParameters(1.5*angstrom, 0.15*degree, 0.)
-    return simulation
-
-def run_simulation():
-    """
-    Run simulation and plot results
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    result = simulation.getIntensityData().getArray() + 1  # for log scale
-
-    pylab.imshow(numpy.rot90(result, 1), norm=matplotlib.colors.LogNorm(), extent=[0.0, 1.0, 0, 1.0])
-    pylab.show()
-
-   
-if __name__ == '__main__':
-    run_simulation()
 \end{lstlisting}
 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.6\textwidth]{Figures/figIntBuriedPart}
-\caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details).}
+\caption{Map of intensity scattered from a sample made of spherical particles embedded in the middle of a 30~nm-thick layer on a substrate (see Script~\ref{lst:dwbaburied} for details about the sample).}
 \label{fig:dwbaburied}
 \end{figure}
+
+\newpage
 
 \ImportantPoint{Remark:}{For layers different from the air layer, the top interface is considered as the reference level to position the encapsulated particles. For example, spheres positioned at depth $d$ (positive) are located at a distance $d$ from the top of the layer up to the bottom of these particles. This convention is different for the top air layer, where particles sitting at the interface with an underlying layer (\textit{i.e.} the bottom of the air layer) are located at depth 0 (see fig.~\ref{fig:depthpartBA}).}
 
@@ -1630,14 +1447,15 @@ if __name__ == '__main__':
 \label{fig:depthpartBA}
 \end{figure}
 
-\newpage{\cleardoublepage}
+\newpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Core-shell particles}
  \BornAgain\ also offers the possibility to simulate more complicated shapes of particles by combining those listed in the previous sections. To generate a core-shell particle, the combination is performed using the following command:\\
 \Code{ParticleCoreShell(shell\_particle, core\_particle, relative\_core\_position)},\\
 where \Code{shell\_particle} and \Code{core\_particle} are the outer and inner parts of the core-shell particle, respectively. They refer to one of the form factors defined previously and to an associated material. For example, for the outer part,\\ \Code{shell\_particle=Particle(material\_shell, outer\_form\_factor)},\\ where \Code{material\_shell} is the material of the shell and \Code{outer\_form\_factor} is the shape of the outer part (cf. listing~\ref{lst:cshellsample}). \\ \Code{relative\_core\_position} defines the position of the centre of gravity of the inner shape with respect to the outer one. An example in fig.~\ref{fig:coreshell} shows a core shell particle made of a box for the outer part and of a shifted pyramidal shape for the inner one.\\
 
-Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the sample, and the incident angles $\alpha_i= 0.2^{\circ}$ and $\phi_i=0^{\circ}$. 
+Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Born Approximation using the code listed in~\ref{lst:cshellsample} to generate the core-shell particle. The full script can be found at /Examples/python/UserManual/UMFormFactor\_CoreShell.py. 
 
 \begin{figure}[ht]
 \hfill
@@ -1652,16 +1470,6 @@ Figure~\ref{fig:FFCoreShellBA} displays the output intensity scattered in the Bo
 \begin{lstlisting}[language=python,
   style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script
     to create a core-shell particle made of a box with a pyramidal shifted inset.},label={lst:cshellsample}]
-def get_sample():
-    """
-    Build and return the sample to calculate core-shell formfactor in Born Approximation.
-    """
-    # defining materials 
-    m_air = HomogeneousMaterial("Air", 0.0, 0.0)
-    m_shell = HomogeneousMaterial("Shell", 1e-4, 2e-8)
-    m_core = HomogeneousMaterial("Core", 6e-5, 2e-8)
-
-    # collection of particles
     outer_ff = FormFactorBox(16.0*nanometer, 16.0*nanometer, 8.0*nanometer) 
     inner_ff = FormFactorPyramid(12.0*nanometer, 7.0*nanometer, 60.0*degree)
     shell_particle = Particle(m_shell, outer_ff)
@@ -1669,25 +1477,13 @@ def get_sample():
     core_position = kvector_t(1.5, 0.0, 0.0)
 
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_layout= ParticleLayout()
-    particle_layout.addParticle(particle)
-    interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
-
-    air_layer = Layer(m_air)
-    air_layer.setLayout(particle_layout)
-
-    multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer)
-
-    return multi_layer
 \end{lstlisting}
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{Figures/CoreShellParallPyr}
 \end{center}
-\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate this figure is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
+\caption{Intensity map of a core-shell form factor in Born Approximation using  \Code{FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)} and \Code{FormFactorPyramid(12*nanometer, 7*nanometer, 60*degree)} for the outer and inner shells, respectively. The core particle is shifted by 1.5~nm in the $x$-direction with respect to the centre of the outer shell. The sample used to generate the particle is listed in~\ref{lst:cshellsample}.  There is no substrate and no interference between the particles.}
 \label{fig:FFCoreShellBA}
 \end{figure}
 

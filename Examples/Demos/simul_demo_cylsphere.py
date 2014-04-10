@@ -11,24 +11,24 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAir = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    mAir = HomogeneousMaterial("Air", 0.0, 0.0)
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     cylinder_ff = FormFactorCylinder(2 * nanometer, 5 * nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     sphere_ff = FormFactorFullSphere(4 * nanometer)
     sphere = Particle(mParticle, sphere_ff)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder)
-    particle_decoration.addParticle(sphere)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder)
+    particle_layout.addParticle(sphere)
     interference = InterferenceFunction1DParaCrystal(20 * nanometer, 2 * nanometer)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

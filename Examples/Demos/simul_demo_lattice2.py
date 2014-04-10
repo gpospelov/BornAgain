@@ -13,21 +13,21 @@ M_PI = numpy.pi
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     # particle 1
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     position = kvector_t(0.0, 0.0, 0.0)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticleInfo(particle_info)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticleInfo(particle_info)
     # particle 2
     position_2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
     particle_info.setPosition(position_2)
-    particle_decoration.addParticleInfo(particle_info)
+    particle_layout.addParticleInfo(particle_info)
 
     # set lattice parameters
     lattice_params = Lattice2DIFParameters()
@@ -40,11 +40,11 @@ def RunSimulation():
     interference = InterferenceFunction2DLattice(lattice_params)
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     # top air layer
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     # substrate layer
     substrate_layer = Layer(mSubstrate, 0)

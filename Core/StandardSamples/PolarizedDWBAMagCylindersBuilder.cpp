@@ -15,8 +15,8 @@
 
 #include "PolarizedDWBAMagCylindersBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "FormFactorCylinder.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
@@ -47,27 +47,23 @@ ISample *PolarizedDWBAMagCylinders1Builder::buildSample() const
 {
 	MultiLayer *multi_layer = new MultiLayer();
 
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMagneticMaterial(
-                    "MagParticle", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMagneticMaterial particle_material("MagParticle", 6e-4, 2e-8, magnetic_field);
 
-    ParticleDecoration particle_decoration(
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+
+    ParticleLayout particle_layout(
             new Particle(particle_material,
-                    new FormFactorCylinder(m_cylinder_radius,
-                                           m_cylinder_height)));
+                    ff_cylinder));
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -97,29 +93,22 @@ ISample *PolarizedDWBAMagCylinders2Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
     kvector_t magnetic_field(0.0, 1.0, 0.0);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 15e-6, 0.0);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMagneticMaterial(
-                    "MagParticle2", 5e-6, 0.0, magnetic_field);
+    HomogeneousMagneticMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetic_field);
 
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
-    ParticleDecoration particle_decoration(
-            new Particle(particle_material,
-                    new FormFactorCylinder(m_cylinder_radius,
-                                           m_cylinder_height)));
+    ParticleLayout particle_layout(
+            new Particle(particle_material,ff_cylinder));
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

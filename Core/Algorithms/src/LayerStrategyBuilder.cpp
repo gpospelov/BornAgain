@@ -34,7 +34,7 @@ LayerStrategyBuilder::LayerStrategyBuilder(
 , m_sim_params(sim_params)
 , mp_specular_info(0)
 {
-    assert(mp_layer->getDecoration());
+    assert(mp_layer->getLayout());
 }
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -104,9 +104,9 @@ bool LayerStrategyBuilder::requiresMatrixFFs() const
 
 void LayerStrategyBuilder::collectFormFactorInfos()
 {
-    assert(mp_layer->getDecoration());
+    assert(mp_layer->getLayout());
     m_ff_infos.clear();
-    const IDecoration *p_decoration = mp_layer->getDecoration();
+    const ILayout *p_decoration = mp_layer->getLayout();
     const IMaterial *p_layer_material = mp_layer->getMaterial();
     double wavelength = getWavelength();
     complex_t wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -127,10 +127,10 @@ void LayerStrategyBuilder::collectFormFactorInfos()
 
 void LayerStrategyBuilder::collectInterferenceFunctions()
 {
-    assert(mp_layer->getDecoration());
+    assert(mp_layer->getLayout());
     m_ifs.clear();
-    if (mp_layer->getDecoration()->getNumberOfInterferenceFunctions()) {
-        m_ifs = mp_layer->getDecoration()->getInterferenceFunctions();
+    if (mp_layer->getLayout()->getNumberOfInterferenceFunctions()) {
+        m_ifs = mp_layer->getLayout()->getInterferenceFunctions();
     }
     else m_ifs.push_back(new InterferenceFunctionNone);
 }

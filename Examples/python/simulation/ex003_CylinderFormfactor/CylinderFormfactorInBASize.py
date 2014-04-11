@@ -10,13 +10,13 @@ def get_sample():
     Build and return the sample to calculate cylinder formfactor in Born approximation.
     Cylinders have size distribution.
     """
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     multi_layer = MultiLayer()
 
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
     # preparing prototype of nano particle
     radius = 5*nanometer
     sigma = 0.2*radius
@@ -29,12 +29,12 @@ def get_sample():
 
     builder = ParticleBuilder()
     builder.setPrototype(nano_particle, "/Particle/FormFactorCylinder/radius", par)
-    builder.plantParticles(particle_decoration)
+    builder.plantParticles(particle_layout)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     multi_layer.addLayer(air_layer)
     return multi_layer
 

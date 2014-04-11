@@ -23,23 +23,23 @@ def get_sample():
     Build and return the sample representing the cosine ripple in the framework of the 1D Paracrystal.
     """
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     # collection of particles
     ripple1_ff = FormFactorRipple1(100*nanometer, 20*nanometer, 4*nanometer)
     ripple = Particle(m_particle, ripple1_ff)
 
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(ripple, 0.0, 1.0)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(ripple, 0.0, 1.0)
 
     interference = InterferenceFunction1DParaCrystal (20*nanometer, 4*nanometer, 1e7*nanometer)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

@@ -15,94 +15,102 @@
 
 #include "Particle.h"
 #include "ParticleInfo.h"
-
-#include "MaterialManager.h"
+#include "Materials.h"
+#include <boost/scoped_ptr.hpp>
 
 
 Particle::Particle()
-: mp_material(0)
-, mp_ambient_material(0)
-, mp_form_factor(0)
+    : mp_material(0)
+    , mp_ambient_material(0)
+    , mp_form_factor(0)
 {
     setName("Particle");
 }
 
-Particle::Particle(const IMaterial* p_material, IFormFactor *p_form_factor)
-: mp_material(p_material)
-, mp_ambient_material(0)
-, mp_form_factor(p_form_factor)
-, mP_transform(0)
+
+Particle::Particle(const IMaterial &p_material)
+    : mp_material(p_material.clone())
+    , mp_ambient_material(0)
+    , mp_form_factor(0)
+    , mP_transform(0)
 {
     setName("Particle");
-    if(mp_form_factor) registerChild(mp_form_factor);
 }
 
-Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor)
-: mp_material(p_material)
-, mp_ambient_material(0)
-, mp_form_factor(form_factor.clone())
-, mP_transform(0)
+
+Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
+    : mp_material(p_material.clone())
+    , mp_ambient_material(0)
+    , mp_form_factor(form_factor.clone())
+    , mP_transform(0)
 {
     setName("Particle");
-    if(mp_form_factor) registerChild(mp_form_factor);
+    registerChild(mp_form_factor);
 }
 
-Particle::Particle(const IMaterial* p_material, const IFormFactor& form_factor,
+
+Particle::Particle(const IMaterial &p_material, const IFormFactor& form_factor,
         const Geometry::Transform3D &transform)
-: mp_material(p_material)
-, mp_ambient_material(0)
-, mp_form_factor(form_factor.clone())
-, mP_transform(transform.clone())
+    : mp_material(p_material.clone())
+    , mp_ambient_material(0)
+    , mp_form_factor(form_factor.clone())
+    , mP_transform(transform.clone())
 {
     setName("Particle");
-    if(mp_form_factor) registerChild(mp_form_factor);
+    registerChild(mp_form_factor);
+}
+
+
+Particle::Particle(IMaterial *p_material, IFormFactor *form_factor,
+        Geometry::Transform3D *transform)
+    : mp_material(p_material)
+    , mp_ambient_material(0)
+    , mp_form_factor(form_factor)
+    , mP_transform(transform)
+{
+    setName("Particle");
+    registerChild(mp_form_factor);
 }
 
 
 Particle::~Particle()
 {
+    delete mp_material;
+    delete mp_ambient_material;
     delete mp_form_factor;
 }
 
 
 Particle* Particle::clone() const
 {
-    IFormFactor *p_form_factor(0);
-    if(mp_form_factor) p_form_factor = mp_form_factor->clone();
+    Particle *result = new Particle();
 
-    Particle *p_new = new Particle(mp_material, p_form_factor);
-    p_new->setAmbientMaterial(mp_ambient_material);
+    if(mp_form_factor) result->setSimpleFormFactor(mp_form_factor->clone());
+    result->setMaterial(mp_material);
+    result->setAmbientMaterial(mp_ambient_material);
+    if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
+    result->setName(getName());
 
-    if(mP_transform.get()) p_new->mP_transform.reset(mP_transform->clone());
-
-    p_new->setName(getName());
-    return p_new;
+    return result;
 }
+
 
 Particle* Particle::cloneInvertB() const
 {
-    IFormFactor *p_form_factor(0);
-    if(mp_form_factor) p_form_factor = mp_form_factor->clone();
-
-    if(!mp_material) {
+    if(!mp_material)
         throw NullPointerException("Particle::cloneInvertB() -> Error. No material defined");
-    }
 
-    const IMaterial *p_material = MaterialManager::getInvertedMaterial(
-            mp_material->getName());
-    const IMaterial *p_ambient_material(0);
-    if (mp_ambient_material) {
-        p_ambient_material = MaterialManager::getInvertedMaterial(
-            mp_ambient_material->getName());
-    }
+    Particle *result = new Particle();
+    if(mp_form_factor) result->setSimpleFormFactor(mp_form_factor->clone());
 
-    Particle *p_new = new Particle(p_material, p_form_factor);
-    p_new->setAmbientMaterial(p_ambient_material);
+    if(mp_material) result->mp_material = Materials::createInvertedMaterial(mp_material);
+    if(mp_ambient_material)
+        result->mp_ambient_material = Materials::createInvertedMaterial(mp_ambient_material);
 
-    if(mP_transform.get()) p_new->mP_transform.reset(mP_transform->clone());
+    if(mP_transform.get()) result->mP_transform.reset(mP_transform->clone());
 
-    p_new->setName(getName() + "_inv");
-    return p_new;
+    result->setName(getName() + "_inv");
+    return result;
 }
 
 IFormFactor* Particle::createFormFactor(

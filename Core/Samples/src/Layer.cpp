@@ -16,49 +16,49 @@
 #include "Layer.h"
 #include "Exceptions.h"
 #include "DecoratedLayerDWBASimulation.h"
-#include "MaterialManager.h"
 
 #include <iomanip>
 
 
 Layer::Layer()
-    : mp_material(0)
-    , m_thickness(0)
-    , mp_decoration(0)
-{
-    setName("Layer");
-    init_parameters();
-}
-
-Layer::Layer(const IMaterial* material, double thickness, IDecoration *decoration)
     : m_thickness(0)
-    , mp_decoration(0)
+    , mp_material(0)
+    , mp_layout(0)
 {
-    if (thickness < 0.)
-        throw DomainErrorException("Layer thickness cannot be negative");
-    m_thickness = thickness;
     setName("Layer");
-    setDecorationPtr(decoration);
-    setMaterial(material);
     init_parameters();
 }
 
-Layer::Layer(const IMaterial* material, double thickness, const IDecoration &decoration)
+//Layer::Layer(const IMaterial* material, double thickness, ILayout *decoration)
+//    : m_thickness(0)
+//    , mp_decoration(0)
+//{
+//    if (thickness < 0.)
+//        throw DomainErrorException("Layer thickness cannot be negative");
+//    m_thickness = thickness;
+//    setName("Layer");
+//    setDecorationPtr(decoration);
+//    setMaterial(material);
+//    init_parameters();
+//}
+
+Layer::Layer(const IMaterial &material, double thickness)
     : m_thickness(thickness)
-    , mp_decoration(0)
+    , mp_material(0)
+    , mp_layout(0)
 {
     setName("Layer");
-    setDecoration(decoration);
     setMaterial(material);
     init_parameters();
 }
 
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
-    mp_material = other.mp_material;
-    mp_decoration = 0;
-    if(other.getDecoration()) {
-        setDecorationPtr(other.getDecoration()->clone());
+    mp_material = 0;
+    if(other.mp_material) mp_material = other.mp_material->clone();
+    mp_layout = 0;
+    if(other.getLayout()) {
+        setLayoutPtr(other.getLayout()->clone());
     }
     m_thickness = other.m_thickness;
     setName(other.getName());
@@ -67,16 +67,17 @@ Layer::Layer(const Layer& other) : ICompositeSample()
 
 Layer::~Layer()
 {
-    delete mp_decoration;
+    delete mp_material;
+    delete mp_layout;
 }
 
 Layer* Layer::cloneInvertB() const
 {
     Layer *p_clone = new Layer();
-    p_clone->mp_material = MaterialManager::getInvertedMaterial(this->mp_material->getName());
-    p_clone->mp_decoration = 0;
-    if(this->getDecoration()) {
-        p_clone->setDecorationPtr(this->getDecoration()->cloneInvertB());
+    p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
+    p_clone->mp_layout = 0;
+    if(this->getLayout()) {
+        p_clone->setLayoutPtr(this->getLayout()->cloneInvertB());
     }
     p_clone->m_thickness = this->m_thickness;
     std::string clone_name = this->getName() + "_inv";
@@ -100,34 +101,33 @@ void Layer::setThickness(double thickness)
 }
 
 //! Sets _material_ of the layer.
-void Layer::setMaterial(const IMaterial* material)
+void Layer::setMaterial(const IMaterial &material)
 {
-    if ( !material )
-        throw NullPointerException("The material doesn't exist");
-    mp_material = material;
+    delete mp_material;
+    mp_material = material.clone();
 }
 
-void Layer::setMaterial(const IMaterial* material, double thickness)
+void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
 {
     setMaterial(material);
     setThickness(thickness);
 }
 
-void Layer::setDecorationPtr(IDecoration *decoration)
+void Layer::setLayoutPtr(ILayout *layout)
 {
-    if( !decoration ) return;
+    if( !layout ) return;
 
-    if(mp_decoration) {
-        deregisterChild(mp_decoration);
-        delete mp_decoration;
+    if(mp_layout) {
+        deregisterChild(mp_layout);
+        delete mp_layout;
     }
-    mp_decoration = decoration;
-    registerChild(mp_decoration);
+    mp_layout = layout;
+    registerChild(mp_layout);
 }
 
-void Layer::setDecoration(const IDecoration &decoration)
+void Layer::setLayout(const ILayout &decoration)
 {
-    setDecorationPtr(decoration.clone());
+    setLayoutPtr(decoration.clone());
 }
 
 //! Prints description.
@@ -139,7 +139,7 @@ void Layer::print(std::ostream& ostr) const
 
 LayerDWBASimulation *Layer::createDWBASimulation() const
 {
-    if(mp_decoration) {
+    if(mp_layout) {
         return new DecoratedLayerDWBASimulation(this);
     }
     return 0;
@@ -147,14 +147,14 @@ LayerDWBASimulation *Layer::createDWBASimulation() const
 
 DiffuseDWBASimulation* Layer::createDiffuseDWBASimulation() const
 {
-    if(!mp_decoration) return 0;
+    if(!mp_layout) return 0;
 
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;
-    size_t nbr_particles = mp_decoration->getNumberOfParticles();
-    double particle_density = mp_decoration->getTotalParticleSurfaceDensity();
+    size_t nbr_particles = mp_layout->getNumberOfParticles();
+    double particle_density = mp_layout->getTotalParticleSurfaceDensity();
     const IMaterial *p_layer_material = getMaterial();
     for (size_t i=0; i<nbr_particles; ++i) {
-        const ParticleInfo *p_info = mp_decoration->getParticleInfo(i);
+        const ParticleInfo *p_info = mp_layout->getParticleInfo(i);
         std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
                 p_info->getParticle()->createDiffuseParticleInfo(*p_info);
         if (p_diffuse_nps) {

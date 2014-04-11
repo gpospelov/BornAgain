@@ -16,25 +16,25 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mShell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
-    mCore = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mShell = HomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    mCore = HomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    parallelepiped1_ff = FormFactorParallelepiped(16*nanometer, 8*nanometer)
-    parallelepiped2_ff = FormFactorParallelepiped(12*nanometer, 7*nanometer)
-    shell_particle = Particle(mShell, parallelepiped1_ff)
-    core_particle = Particle(mCore, parallelepiped2_ff)
+    box1_ff = FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)
+    box2_ff = FormFactorBox(12*nanometer, 12*nanometer, 7*nanometer)
+    shell_particle = Particle(mShell, box1_ff)
+    core_particle = Particle(mCore, box2_ff)
     core_position = kvector_t(0.0, 0.0, 0.0)
     ##########################################
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_decoration= ParticleDecoration()
-    particle_decoration.addParticle(particle)
+    particle_layout= ParticleLayout()
+    particle_layout.addParticle(particle)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
      
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

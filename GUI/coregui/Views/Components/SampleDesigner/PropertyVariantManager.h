@@ -4,10 +4,12 @@
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include <QtVariantPropertyManager>
+#include "FormFactorProperty.h"
 #include "MaterialBrowser.h"
 class QObject;
 
-//! The ObjectVariantManager class provides and manages user defined QVariant based properties.
+//! The ObjectVariantManager class provides and manages user defined
+//! QVariant based properties.
 class PropertyVariantManager : public QtVariantPropertyManager
 {
     Q_OBJECT
@@ -18,6 +20,7 @@ public:
     virtual int valueType(int propertyType) const;
     virtual bool isPropertyTypeSupported(int propertyType) const;
     static int materialTypeId();
+    static int formFactorTypeId();
 
 public slots:
     virtual void setValue(QtProperty *property, const QVariant &val);
@@ -28,7 +31,8 @@ protected:
     virtual void initializeProperty(QtProperty *property);
     virtual void uninitializeProperty(QtProperty *property);
 private:
-    QMap<const QtProperty *, MaterialProperty> theValues;
+    QMap<const QtProperty *, MaterialProperty> theMaterialValues;
+    QMap<const QtProperty *, FormFactorProperty> theFormFactorValues;
 };
 
 #endif // OBJECTVARIANTMANAGER_H

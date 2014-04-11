@@ -135,10 +135,17 @@ QList<QGraphicsItem *> ConnectableView::connectInputPort(ConnectableView *other)
     QList<QGraphicsItem *> result;
     foreach(QGraphicsItem *item, childItems()) {
         NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-        if (port && port->isInput()) {
+        if (port && port->isInput() && !port->isConnected()) {
+//        if (port && port->isInput()) {
+
+
             foreach(QGraphicsItem *other_item, other->childItems()) {
                 NodeEditorPort *other_port= dynamic_cast<NodeEditorPort *>(other_item);
                 if(other_port && port->getPortType() == other_port->getPortType()) {
+
+//                    // deleting old connection
+//                    if(port->isConnected()) port->deleteAllConnections();
+
                     NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
                     conn->setPort2(port);
                     conn->setPort1(other_port);

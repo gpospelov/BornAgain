@@ -7,5 +7,17 @@
         <file>images/mode_welcome.png</file>
         <file>images/mode_job.png</file>
         <file>images/mode_script.png</file>
+        <file>images/filenew.png</file>
+        <file>images/fileopen.png</file>
+        <file>images/clear.png</file>
+        <file>images/closebutton.png</file>
+        <file>images/reset.png</file>
+        <file>images/darkclosebutton.png</file>
+        <file>images/filesave.png</file>
+        <file>images/main_simulation.png</file>
+        <file>images/main_instrument.png</file>
+        <file>images/main_sample.png</file>
+        <file>images/main_jobqueue.png</file>
+        <file>images/main_home.png</file>
     </qresource>
 </RCC>

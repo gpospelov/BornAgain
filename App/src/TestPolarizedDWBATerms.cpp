@@ -22,7 +22,7 @@
 #include "LayerSpecularInfo.h"
 #include "ScalarSpecularInfoMap.h"
 #include "ScalarRTCoefficients.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 
 TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 : mp_matrix_ff(0)
@@ -32,16 +32,13 @@ TestPolarizedDWBATerms::TestPolarizedDWBATerms()
 , m_alpha_f(0.1)
 {
     initWavevectors();
-    const IMaterial *p_particle_material =
-            MaterialManager::getHomogeneousMaterial(
-            "particle", complex_t(1.0, 0.0));
-    const IMaterial *p_ambient_material =
-            MaterialManager::getHomogeneousMaterial(
-            "ambient", complex_t(0.0, 0.0));
+    HomogeneousMaterial particle_material("particle", complex_t(1.0, 0.0));
+    HomogeneousMaterial ambient_material("ambient", complex_t(0.0, 0.0));
+
     FormFactorDecoratorMaterial *p_material_ff =
             new FormFactorDecoratorMaterial(new FormFactorCylinder(1.0, 1.0));
-    p_material_ff->setMaterial(p_particle_material);
-    p_material_ff->setAmbientMaterial(p_ambient_material);
+    p_material_ff->setMaterial(&particle_material);
+    p_material_ff->setAmbientMaterial(&ambient_material);
     mp_matrix_ff = new FormFactorDWBAPol(p_material_ff);
     mp_scalar_ff = new FormFactorDWBA(p_material_ff->clone());
     mp_specular_info = new LayerSpecularInfo();

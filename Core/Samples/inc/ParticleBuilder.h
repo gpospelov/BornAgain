@@ -18,7 +18,7 @@
 
 #include "Particle.h"
 #include "IStochasticParameter.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 
 //! @class ParticleBuilder
 //! @ingroup samples_internal
@@ -38,7 +38,7 @@ public:
     void setPrototype(const Particle& particle, std::string name, const StochasticParameter<double>& param, double scale=1.0);
 
     //! plant particles in given decoration
-    void plantParticles(ParticleDecoration& decor);
+    void plantParticles(ParticleLayout& decor);
 
 private:
     Particle *m_prototype; //!< prototype of the particle, all particles will be cloned from it

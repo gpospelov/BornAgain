@@ -44,7 +44,12 @@ include_classes = [
     "DistributionGaussian",
     "DistributionLogNormal",
     "DistributionCosine",
+    "FTDistribution1DCauchy",
     "FTDistribution2DCauchy",
+    "FTDistribution1DGauss",
+    "FTDistribution2DGauss",
+    "FTDistribution1DVoigt",
+    "FTDistribution2DVoigt",
     "FormFactorAnisoPyramid",
     "FormFactorBox",
     "FormFactorCone",
@@ -58,26 +63,32 @@ include_classes = [
     "FormFactorFullSpheroid",
     "FormFactorGauss",
     "FormFactorHemiEllipsoid",
+    "FormFactorInfLongBox",
+    "FormFactorInfLongRipple1",
+    "FormFactorInfLongRipple2",
     "FormFactorLorentz",
-    "FormFactorParallelepiped",
     "FormFactorPrism3",
     "FormFactorPrism6",
     "FormFactorPyramid",
     "FormFactorRipple1",
     "FormFactorRipple2",
-    "FormFactorSphere",
     "FormFactorSphereGaussianRadius",
+    "FormFactorSphereLogNormalRadius",
     "FormFactorSphereUniformRadius",
-    "FormFactorSpheroid",
     "FormFactorTetrahedron",
+    "FormFactorTruncatedSphere",
+    "FormFactorTruncatedSpheroid",
+    "FormFactorWeighted",
     "HomogeneousMaterial",
+    "HomogeneousMagneticMaterial",
     "IAxis",
     "ICloneable",
     "IClusteredParticles",
     "ICompositeSample",
-    "IDecoration",
+    "ILayout",
     "IDetectorResolution",
     "IDistribution1D",
+    "IFTDistribution1D",
     "IFTDistribution2D",
     "IFormFactor",
     "IFormFactorBorn",
@@ -96,18 +107,20 @@ include_classes = [
     "ISelectionRule",
     "Transform3D",
     "Instrument",
+    "InterferenceFunction1DLattice",
     "InterferenceFunction1DParaCrystal",
     "InterferenceFunction2DLattice",
     "InterferenceFunction2DParaCrystal",
     "InterferenceFunctionNone",
     "Lattice",
+    "Lattice1DIFParameters",
     "Lattice2DIFParameters",
     "LatticeBasis",
     "Layer",
     #"LayerDecorator",
     "LayerInterface",
     "LayerRoughness",
-    "MaterialManager",
+    #"MaterialManager",
     "MesoCrystal",
     "MultiLayer",
     "OffSpecSimulation",
@@ -117,7 +130,7 @@ include_classes = [
     "Particle",
     "ParticleCoreShell",
     "ParticleBuilder",
-    "ParticleDecoration",
+    "ParticleLayout",
     "ParticleInfo",
     "PositionParticleInfo",
     "RealParameterWrapper",
@@ -225,8 +238,8 @@ def ManualClassTunings(mb):
     cl = mb.class_("IObserver")
     cl.member_function("update").include()
 
-    cl = mb.class_("MaterialManager")
-    cl.constructors().exclude()
+    #cl = mb.class_("MaterialManager")
+    #cl.constructors().exclude()
     #
     cl = mb.class_("OutputData<double>")
     cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')  # [] operator for OutputData
@@ -245,7 +258,7 @@ def ManualClassTunings(mb):
             cls.include()
 
     #
-    cl = mb.class_("ParticleDecoration")
+    cl = mb.class_("ParticleLayout")
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")
@@ -260,7 +273,7 @@ def ManualClassTunings(mb):
         if fun.name == "setMaterial":
             fun.include()
     for fun in cl.member_functions():
-        if "void ( ::Layer::* )( ::IDecoration * )" in fun.decl_string:
+        if "void ( ::Layer::* )( ::ILayout * )" in fun.decl_string:
             fun.exclude()
     cl.constructors().include()  # including back constructors with pointers
     #

@@ -17,8 +17,8 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     radius1 = 5.0*nanometer
     radius2 = 10.0*nanometer
@@ -41,19 +41,19 @@ def RunSimulation():
     par2 = StochasticSampledParameter(stochastic_gaussian2, nbins, nfwhm)
 
     #Building nano particles
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
 
     builder = ParticleBuilder()
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, 0.95)
-    builder.plantParticles(particle_decoration)
+    builder.plantParticles(particle_layout)
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, 0.05)
-    builder.plantParticles(particle_decoration)
+    builder.plantParticles(particle_layout)
 
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
     #making layer holding all whose nano particles
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)
     

@@ -61,15 +61,15 @@ void ISampleVisitor::visit(const Crystal *)
 }
 
 
-void ISampleVisitor::visit(const IDecoration *)
+void ISampleVisitor::visit(const ILayout *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const IDecoration *) -> Error. Not implemented.");
 }
 
 
-void ISampleVisitor::visit(const ParticleDecoration *)
+void ISampleVisitor::visit(const ParticleLayout *)
 {
-    throw NotImplementedException("ISampleVisitor::visit(const ParticleDecoration *) -> Error. Not implemented.");
+    throw NotImplementedException("ISampleVisitor::visit(const ParticleLayout *) -> Error. Not implemented.");
 }
 
 
@@ -219,9 +219,23 @@ void ISampleVisitor::visit(const FormFactorGauss *)
 
 void ISampleVisitor::visit(const FormFactorHemiEllipsoid *)
 {
-    throw NotImplementedException("ISampleVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
+    throw NotImplementedException("ISampleVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorInfLongBox *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongBox *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorInfLongRipple1 *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongRipple1 *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorInfLongRipple2 *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorInfLongRipple2 *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const FormFactorLorentz *)
 {
@@ -229,10 +243,10 @@ void ISampleVisitor::visit(const FormFactorLorentz *)
 }
 
 
-void ISampleVisitor::visit(const FormFactorParallelepiped *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
-}
+//void ISampleVisitor::visit(const FormFactorParallelepiped *)
+//{
+//    throw NotImplementedException("ISampleVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
+//}
 
 
 void ISampleVisitor::visit(const FormFactorPrism3 *)
@@ -262,21 +276,30 @@ void ISampleVisitor::visit(const FormFactorRipple2 *)
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const FormFactorSphere *)
-{
-    throw NotImplementedException("ISampleVisitor::visit(const FormFactorSphere *) -> Error. Not implemented.");
-}
-
-
 void ISampleVisitor::visit(const FormFactorSphereGaussianRadius *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FormFactorSphereLogNormalRadius *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorSphereLogNormalRadius *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const FormFactorTetrahedron *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FormFactorTruncatedSphere *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorTruncatedSphere *) -> Error. Not implemented.");
+}
+
+
+void ISampleVisitor::visit(const FormFactorTruncatedSpheroid *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorTruncatedSpheroid *) -> Error. Not implemented.");
 }
 
 
@@ -345,6 +368,10 @@ void ISampleVisitor::visit(const IInterferenceFunction *)
     throw NotImplementedException("ISampleVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const InterferenceFunction1DLattice *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
+}
 
 void ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *){
     throw NotImplementedException("ISampleVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");

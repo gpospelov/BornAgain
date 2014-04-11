@@ -25,12 +25,12 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 #include "ROOTMinimizer.h"
@@ -120,18 +120,16 @@ void TestFittingModule1::initializeSample1()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    ParticleDecoration particle_decoration( new Particle(particle_material,
-            new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    air_layer.setMaterial(air_material);
+    ParticleLayout particle_layout( new Particle(particle_material,
+            FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     mp_sample = p_multi_layer;
@@ -164,20 +162,19 @@ void TestFittingModule1::initializeSample2()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+    HomogeneousMaterial particle_material("Particle", n_particle);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorCylinder(cylinder_radius, cylinder_height)),0.0, 0.2);
-    particle_decoration.addParticle(new Particle(particle_material, new FormFactorPrism3(prism3_length, prism3_height)), 0.0, 0.8);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    substrate_layer.setMaterial(substrate_material);
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(new Particle(particle_material, FormFactorCylinder(cylinder_radius, cylinder_height)),0.0, 0.2);
+    particle_layout.addParticle(new Particle(particle_material, FormFactorPrism3(prism3_length, prism3_height)), 0.0, 0.8);
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

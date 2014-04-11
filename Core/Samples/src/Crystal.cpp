@@ -56,7 +56,7 @@ Crystal* Crystal::cloneInvertB() const
 
 IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        const IMaterial *p_ambient_material,
+        const IMaterial &p_ambient_material,
         complex_t wavevector_scattering_factor) const
 {
     FormFactorCrystal *p_ff_crystal =

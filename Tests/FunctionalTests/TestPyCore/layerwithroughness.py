@@ -17,10 +17,10 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("ambience", 0.0, 0.0)
-    m_part_a = MaterialManager.getHomogeneousMaterial("PartA", 5e-6, 0.0)
-    m_part_b = MaterialManager.getHomogeneousMaterial("PartB", 10e-6, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("substrate", 15e-6, 0.0)
+    m_ambience = HomogeneousMaterial("ambience", 0.0, 0.0)
+    m_part_a = HomogeneousMaterial("PartA", 5e-6, 0.0)
+    m_part_b = HomogeneousMaterial("PartB", 10e-6, 0.0)
+    m_substrate = HomogeneousMaterial("substrate", 15e-6, 0.0)
 
     l_ambience = Layer(m_ambience, 0)
     l_part_a = Layer(m_part_a, 2.5*nanometer)

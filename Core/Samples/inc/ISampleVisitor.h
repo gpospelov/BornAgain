@@ -25,8 +25,8 @@ class ICompositeSample;
 class IClusteredParticles;
 class Crystal;
 // -
-class IDecoration;
-class ParticleDecoration;
+class ILayout;
+class ParticleLayout;
 // -
 class Layer;
 // -
@@ -62,16 +62,21 @@ class FormFactorFullSphere;
 class FormFactorFullSpheroid;
 class FormFactorGauss;
 class FormFactorHemiEllipsoid;
+class FormFactorInfLongBox;
+class FormFactorInfLongRipple1;
+class FormFactorInfLongRipple2;
 class FormFactorLorentz;
-class FormFactorParallelepiped;
+//class FormFactorParallelepiped;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
 class FormFactorRipple1;
 class FormFactorRipple2;
-class FormFactorSphere;
 class FormFactorSphereGaussianRadius;
+class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
+class FormFactorTruncatedSphere;
+class FormFactorTruncatedSpheroid;
 class IFormFactorBornSeparable;
 // -
 class IFormFactorDecorator;
@@ -86,6 +91,7 @@ class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorTransformation;
 // -
 class IInterferenceFunction;
+class InterferenceFunction1DLattice;
 class InterferenceFunction1DParaCrystal;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
@@ -115,8 +121,8 @@ public:
     virtual void visit(const IClusteredParticles *);
     virtual void visit(const Crystal *);
 
-    virtual void visit(const IDecoration *);
-    virtual void visit(const ParticleDecoration *);
+    virtual void visit(const ILayout *);
+    virtual void visit(const ParticleLayout *);
 
     virtual void visit(const Layer *);
 
@@ -152,16 +158,20 @@ public:
     virtual void visit(const FormFactorFullSpheroid *);
     virtual void visit(const FormFactorGauss *);
     virtual void visit(const FormFactorHemiEllipsoid *);
+    virtual void visit(const FormFactorInfLongBox *);
+    virtual void visit(const FormFactorInfLongRipple1 *);
+    virtual void visit(const FormFactorInfLongRipple2 *);
     virtual void visit(const FormFactorLorentz *);
-    virtual void visit(const FormFactorParallelepiped *);
     virtual void visit(const FormFactorPrism3 *);
     virtual void visit(const FormFactorPrism6 *);
     virtual void visit(const FormFactorPyramid *);
     virtual void visit(const FormFactorRipple1 *);
     virtual void visit(const FormFactorRipple2 *);
-    virtual void visit(const FormFactorSphere *);
     virtual void visit(const FormFactorSphereGaussianRadius *);
+    virtual void visit(const FormFactorSphereLogNormalRadius *);
     virtual void visit(const FormFactorTetrahedron *);
+    virtual void visit(const FormFactorTruncatedSphere *);
+    virtual void visit(const FormFactorTruncatedSpheroid *);
     virtual void visit(const IFormFactorBornSeparable *);
 
     virtual void visit(const IFormFactorDecorator *);
@@ -176,6 +186,7 @@ public:
     virtual void visit(const FormFactorDecoratorTransformation *);
 
     virtual void visit(const IInterferenceFunction *);
+    virtual void visit(const InterferenceFunction1DLattice *);
     virtual void visit(const InterferenceFunction1DParaCrystal *);
     virtual void visit(const InterferenceFunction2DLattice *);
     virtual void visit(const InterferenceFunction2DParaCrystal *);

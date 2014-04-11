@@ -24,28 +24,38 @@
 //    return result;
 //}
 
-SampleWidgetBox *SampleViewComponents::createWidgetBox(SampleDesignerInterface *core, QWidget *parent)
+SampleWidgetBox *SampleViewComponents::createWidgetBox(
+        SampleDesignerInterface *core, QWidget *parent)
 {
     return new SampleWidgetBox(core, parent);
 }
 
-
 //SamplePropertyEditorInterface *SampleViewComponents::createPropertyEditor(QWidget *parent)
-SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerInterface *core, QWidget *parent)
+SamplePropertyEditor *SampleViewComponents::createPropertyEditor(
+        QItemSelectionModel *selection_model, QWidget *parent)
 {
     //SamplePropertyEditorInterface *result = new SamplePropertyEditorInterface(parent);
 //    SamplePropertyEditor *result = new SamplePropertyEditor(core, parent);
 //    result->setWindowTitle(QLatin1String("Property Editor"));
 //    result->setObjectName(QLatin1String("PropertyEditor"));
-    return new SamplePropertyEditor(core, parent);
+    return new SamplePropertyEditor(selection_model, parent);
 }
 
-SampleTreeInspector *SampleViewComponents::createTreeInspector(QWidget *parent)
+ItemTreeView *SampleViewComponents::createTreeView(
+        SessionModel *session_model, QWidget *parent)
 {
-    return new SampleTreeInspector(parent);
+    ItemTreeView *tree_view = new ItemTreeView(parent);
+    tree_view->setModel(session_model);
+    tree_view->setAllColumnsShowFocus(true);
+    tree_view->setWindowTitle(QString("Object Tree View"));
+    tree_view->setObjectName(QString("ObjectTree"));
+    tree_view->setContextMenuPolicy(Qt::CustomContextMenu);
+    tree_view->setDragDropMode(QAbstractItemView::InternalMove);
+    return tree_view;
 }
 
-SampleInfoStreamInterface *SampleViewComponents::createInfoStream(QWidget *parent)
+SampleInfoStreamInterface *SampleViewComponents::createInfoStream(
+        QWidget *parent)
 {
     return new SampleInfoStreamInterface(parent);
 }

@@ -1,10 +1,10 @@
 #include "FitView.h"
 #include "rootcanvas.h"
 
-#include "TCanvas.h"
-#include "TH2D.h"
+//#include "TCanvas.h"
+//#include "TH2D.h"
+//#include "TRandom.h"
 #include "QVBoxLayout"
-#include "TRandom.h"
 
 FitView::FitView(QWidget *parent)
     : QWidget(parent)

@@ -5,11 +5,11 @@
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
 #include "InterferenceFunctionView.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include <iostream>
 
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ParticleInfo.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "Particle.h"
@@ -65,26 +65,26 @@ void IViewToISample::visit(MultiLayerView *view)
 }
 
 
-void IViewToISample::visit(LayerView *view)
+void IViewToISample::visit(LayerView *)
 {
-    Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(LayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
-    //m_views.insertMulti(m_level, view);
+//    Q_ASSERT(view);
+//    std::cout << get_indent() << "ViewVisitor(LayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+//    //m_views.insertMulti(m_level, view);
 
 
-    QList<ConnectableView *> connections = view->getConnectedInputItems();
+//    QList<ConnectableView *> connections = view->getConnectedInputItems();
 
-    // in the absence of connections it is simple Layer
-    if(connections.empty()) {
-        m_view_to_sample[view] = view->getLayer()->clone();
+//    // in the absence of connections it is simple Layer
+//    if(connections.empty()) {
+//        m_view_to_sample[view] = view->getLayer()->clone();
 
-    // with connections it is LayerDecorator
-    } else {
+//    // with connections it is LayerDecorator
+//    } else {
 //        goForward();
 //        foreach(ConnectableView *item, connections) {
 //            item->accept(this);
 //            Q_ASSERT(m_view_to_sample[item]);
-//            ParticleDecoration *particles = dynamic_cast<ParticleDecoration *>(m_view_to_sample[item]);
+//            ParticleLayout *particles = dynamic_cast<ParticleLayout *>(m_view_to_sample[item]);
 //            Q_ASSERT(particles);
 //            LayerDecorator *decorator = new LayerDecorator(*view->getLayer(), *particles);
 //            m_view_to_sample[view] = decorator;
@@ -92,17 +92,17 @@ void IViewToISample::visit(LayerView *view)
 //        }
 //        goBack();
 
-    }
+//    }
 
 }
 
 
-void IViewToISample::visit(ParticleDecorationView *view)
+void IViewToISample::visit(ParticleLayoutView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(ParticleDecorationView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    std::cout << get_indent() << "ViewVisitor(ParticleLayoutView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 
-    ParticleDecoration *decoration = new ParticleDecoration();
+    ParticleLayout *decoration = new ParticleLayout();
 
 //    m_views.insertMulti(m_level, view);
 

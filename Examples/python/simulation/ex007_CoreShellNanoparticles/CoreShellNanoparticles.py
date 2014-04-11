@@ -12,25 +12,25 @@ def get_sample():
     substrate without interference.
     """
     # defining materials
-    m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    m_shell = MaterialManager.getHomogeneousMaterial("Shell", 1e-4, 2e-8 )
-    m_core = MaterialManager.getHomogeneousMaterial("Core", 6e-5, 2e-8 )
+    m_air = HomogeneousMaterial("Air", 0.0, 0.0 )
+    m_shell = HomogeneousMaterial("Shell", 1e-4, 2e-8 )
+    m_core = HomogeneousMaterial("Core", 6e-5, 2e-8 )
 
     # collection of particles
-    parallelepiped1_ff = FormFactorParallelepiped(16*nanometer, 8*nanometer)
-    parallelepiped2_ff = FormFactorParallelepiped(12*nanometer, 7*nanometer)
+    parallelepiped1_ff = FormFactorBox(16*nanometer, 16*nanometer, 8*nanometer)
+    parallelepiped2_ff = FormFactorBox(12*nanometer, 12*nanometer, 7*nanometer)
     shell_particle = Particle(m_shell, parallelepiped1_ff)
     core_particle = Particle(m_core, parallelepiped2_ff)
     core_position = kvector_t(0.0, 0.0, 0.0)
 
     particle = ParticleCoreShell(shell_particle, core_particle, core_position)
-    particle_decoration= ParticleDecoration()
-    particle_decoration.addParticle(particle)
+    particle_layout= ParticleLayout()
+    particle_layout.addParticle(particle)
     interference = InterferenceFunctionNone()
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_air)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

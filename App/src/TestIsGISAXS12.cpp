@@ -24,7 +24,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MinimizerTest.h"
@@ -34,7 +34,7 @@
 #include "OutputDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
@@ -236,7 +236,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
+    chiModule.setIntensityNormalizer( IntensityNormalizer() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
         m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
@@ -311,7 +311,7 @@ void TestIsGISAXS12::run_test_chimodule()
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
 
-    OutputDataNormalizer normalizer(1.31159E+05, -8.10009E-02);
+    IntensityNormalizer normalizer(1.31159E+05, -8.10009E-02);
 
     double max_intensity(0);
     for(int i=0; i<(int)isgi_results.size(); ++i) {
@@ -372,7 +372,7 @@ void TestIsGISAXS12::run_test_minimizer()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
+    chiModule.setIntensityNormalizer( IntensityNormalizer() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
         m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
     }
@@ -475,16 +475,13 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
 
-    // preparing nano particles prototypes for seeding layer's particle_decoration
+    // preparing nano particles prototypes for seeding layer's particle_layout
     double particle_probability1 = m_particle_probability1;
 //    double particle_probability2 = 1. - m_particle_probability1;
     double particle_probability2 = m_particle_probability2;
@@ -493,10 +490,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double radius2 = m_particle_radius2;
     double height1 = m_height_aspect_ratio1*radius1;
     double height2 = m_height_aspect_ratio2*radius2;
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(radius1, height1);
+    FormFactorCylinder p_ff_cylinder1(radius1, height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(radius2, height2);
+    FormFactorCylinder p_ff_cylinder2(radius2, height2);
     Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability
@@ -509,18 +506,18 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     StochasticSampledParameter par1(sg1, nbins, nfwhm);
     StochasticSampledParameter par2(sg2, nbins, nfwhm);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_layout;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, particle_probability1);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, particle_probability2);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

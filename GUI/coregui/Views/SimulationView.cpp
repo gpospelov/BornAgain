@@ -2,9 +2,9 @@
 
 #include "SimulationDataModel.h"
 #include "Simulation.h"
-#include "JobModel.h"
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
+#include "JobQueueModel.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -20,14 +20,10 @@
 #include <QFutureWatcher>
 #include <QtCore>
 
-#if QT_VERSION >= 0x050000
-#include <QtConcurrent/QtConcurrentRun>
-#endif
-
-
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
     , mp_simulation_data_model(p_simulation_data_model)
+    , m_jobQueueModel(0)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
@@ -96,6 +92,16 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
     connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
 }
 
+
+void SimulationView::setJobQueueModel(JobQueueModel *model)
+{
+    Q_ASSERT(model);
+    if(model != m_jobQueueModel) {
+        m_jobQueueModel = model;
+    }
+}
+
+
 void SimulationView::updateViewElements()
 {
     instrumentSelectionBox->clear();
@@ -106,6 +112,7 @@ void SimulationView::updateViewElements()
 
 void SimulationView::onRunSimulation()
 {
+    qDebug() << "SimulationView::onRunSimulation()";
     Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
                 instrumentSelectionBox->currentText(), 0);
     if (!p_instrument) {
@@ -123,10 +130,9 @@ void SimulationView::onRunSimulation()
     Simulation *p_sim = new Simulation;
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
-    JobModel *p_new_job = new JobModel(p_sim);
-    mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
-    QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
-    p_new_job->getJobWatcher()->setFuture(job_future);
+
+    QString identifier = m_jobQueueModel->addJob("SimulationView", p_sim);
+    m_jobQueueModel->runJob(identifier);
 }
 
 void SimulationView::onPythonJobLaunched()
@@ -149,10 +155,9 @@ void SimulationView::onPythonJobLaunched()
     Simulation *p_sim = new Simulation;
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
-    JobModel *p_new_job = new JobModel(p_sim);
-    mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
-    QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
-    p_new_job->getJobWatcher()->setFuture(job_future);
+
+    QString identifier = m_jobQueueModel->addJob("PythonScript", p_sim);
+    m_jobQueueModel->runJob(identifier);
 }
 
 void SimulationView::onJobFinished()

@@ -15,10 +15,10 @@
 
 #include "IsGISAXS11Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "Units.h"
-#include "FormFactorParallelepiped.h"
+#include "FormFactorBox.h"
 #include "InterferenceFunctionNone.h"
 #include "ParticleCoreShell.h"
 
@@ -31,29 +31,28 @@ ISample *IsGISAXS11Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-	const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
 
     complex_t n_particle_shell(1.0-1e-4, 2e-8);
     complex_t n_particle_core(1.0-6e-5, 2e-8);
 
-    const IMaterial *shell_material =
-            MaterialManager::getHomogeneousMaterial("Shell", n_particle_shell);
-    const IMaterial *core_material =
-            MaterialManager::getHomogeneousMaterial("Core", n_particle_core);
+    HomogeneousMaterial shell_material("Shell", n_particle_shell);
+    HomogeneousMaterial core_material("Core", n_particle_core);
 
-    Particle shell_particle(shell_material, new FormFactorParallelepiped(
-            16*Units::nanometer, 8*Units::nanometer));
-    Particle core_particle(core_material, new FormFactorParallelepiped(
-            12*Units::nanometer, 7*Units::nanometer));
+    Layer air_layer(air_material);
+
+    FormFactorBox ff_box1(16*Units::nanometer, 16*Units::nanometer, 8*Units::nanometer);
+    Particle shell_particle(shell_material, ff_box1);
+
+    FormFactorBox ff_box2(12*Units::nanometer, 12*Units::nanometer, 7*Units::nanometer);
+    Particle core_particle(core_material, ff_box2);
+
     kvector_t core_position(0.0, 0.0, 0.0);
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
-    ParticleDecoration particle_decoration(particle.clone());
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    ParticleLayout particle_layout(particle.clone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     return multi_layer;

@@ -1,6 +1,9 @@
 #ifndef ROOTCANVAS_H
 #define ROOTCANVAS_H
 
+
+/*
+
 #include <QWidget>
 
 class QObject;
@@ -64,6 +67,6 @@ private:
 };
 
 
-
+*/
 
 #endif // ROOTCANVAS_H

@@ -22,7 +22,7 @@
 #include "LayerInterface.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 
 #endif // SAMPLES_H
 

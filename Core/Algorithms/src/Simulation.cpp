@@ -21,12 +21,14 @@
 #include "MessageService.h"
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
+#include "ProgressHandlerDWBA.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
 #include <boost/thread.hpp>
 GCC_DIAG_ON(strict-aliasing);
 #include <gsl/gsl_errno.h>
+
 
 Simulation::Simulation()
 : IParameterized("Simulation")
@@ -82,6 +84,31 @@ Simulation::Simulation(
     init_parameters();
 }
 
+Simulation::Simulation(const Simulation& other)
+: ICloneable(), IParameterized(other)
+, mp_sample(0)
+, mp_sample_builder(other.mp_sample_builder)
+, m_instrument(other.m_instrument)
+, m_sim_params(other.m_sim_params)
+, m_thread_info(other.m_thread_info)
+, m_intensity_map()
+, m_polarization_output()
+, m_is_normalized(other.m_is_normalized)
+, mp_options(other.mp_options)
+, m_distribution_handler(other.m_distribution_handler)
+, m_progress(other.m_progress)
+{
+    if(other.mp_sample) mp_sample = other.mp_sample->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    m_polarization_output.copyFrom(other.m_polarization_output);
+
+    init_parameters();
+}
+
+void Simulation::init_parameters()
+{
+}
+
 Simulation *Simulation::clone() const
 {
     return new Simulation(*this);
@@ -101,6 +128,7 @@ void Simulation::prepareSimulation()
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
+
     prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
@@ -108,10 +136,15 @@ void Simulation::runSimulation()
 
 	size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
+    if(m_progress) m_progress->init(this, param_combinations);
+
 	// no averaging needed:
 	if (param_combinations == 1) {
+        ParameterPool *p_param_pool = createParameterTree();
+        m_distribution_handler.setParameterValues(p_param_pool, 0);
 		runSingleSimulation();
-		return;
+        //std::cout << "Simulation::runSimulation() -> about to exit " << m_progress.getProgress() << " " << m_progress.getNitems() << std::endl;
+        return;
 	}
 
 	// average over parameter distributions:
@@ -134,6 +167,7 @@ void Simulation::runSimulation()
 	}
 	m_intensity_map.copyFrom(total_intensity);
 	m_polarization_output.copyFrom(total_polarized_intensity);
+
 }
 
 void Simulation::runSimulationElement(size_t index)
@@ -232,29 +266,6 @@ std::string Simulation::addParametersToExternalPool(
     return new_path;
 }
 
-Simulation::Simulation(const Simulation& other)
-: ICloneable(), IParameterized(other)
-, mp_sample(0)
-, mp_sample_builder(other.mp_sample_builder)
-, m_instrument(other.m_instrument)
-, m_sim_params(other.m_sim_params)
-, m_thread_info(other.m_thread_info)
-, m_intensity_map()
-, m_polarization_output()
-, m_is_normalized(other.m_is_normalized)
-, mp_options(other.mp_options)
-, m_distribution_handler(other.m_distribution_handler)
-{
-    if(other.mp_sample) mp_sample = other.mp_sample->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    m_polarization_output.copyFrom(other.m_polarization_output);
-
-    init_parameters();
-}
-
-void Simulation::init_parameters()
-{
-}
 
 void Simulation::updateIntensityMapAxes()
 {
@@ -427,6 +438,20 @@ void Simulation::runSingleSimulation()
     }
     else {
         m_instrument.applyDetectorResolution(&m_intensity_map);
+    }
+
+}
+
+
+//! initializes DWBA progress handler
+void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
+{
+    // if we have external ProgressHandler (which is normally coming from GUI),
+    // then we will create special callbacks for every DWBASimulation.
+    // These callback will be used to report DWBASimulation progress to the Simulation.
+    if(m_progress) {
+        ProgressHandler::Callback_t callback = boost::bind(&ProgressHandler::update, m_progress.get(), _1);
+        dwba_progress->setCallback(callback);
     }
 }
 

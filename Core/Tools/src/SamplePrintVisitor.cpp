@@ -17,7 +17,7 @@
 #include "ISample.h"
 #include "FormFactors.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "InterferenceFunctions.h"
@@ -52,13 +52,13 @@ void SamplePrintVisitor::visit(const Crystal *sample)
 }
 
 
-void SamplePrintVisitor::visit(const IDecoration *)
+void SamplePrintVisitor::visit(const ILayout *)
 {
     throw NotImplementedException("SamplePrintVisitor::visit(const IDecoration *) -> Error. Not implemented.");
 }
 
 
-void SamplePrintVisitor::visit(const ParticleDecoration *sample)
+void SamplePrintVisitor::visit(const ParticleLayout *sample)
 {
     print_default(sample);
 }
@@ -163,12 +163,10 @@ void SamplePrintVisitor::visit(const IFormFactorBorn *)
     throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
 }
 
-
 void SamplePrintVisitor::visit(const FormFactorBox *sample)
 {
     print_default(sample);
 }
-
 
 void SamplePrintVisitor::visit(const FormFactorCone *sample)
 {
@@ -223,6 +221,21 @@ void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorInfLongBox *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorInfLongRipple1 *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorInfLongRipple2 *sample)
+{
+    print_default(sample);
+}
+
 
 void SamplePrintVisitor::visit(const FormFactorLorentz *)
 {
@@ -230,10 +243,10 @@ void SamplePrintVisitor::visit(const FormFactorLorentz *)
 }
 
 
-void SamplePrintVisitor::visit(const FormFactorParallelepiped *sample)
-{
-    print_default(sample);
-}
+//void SamplePrintVisitor::visit(const FormFactorParallelepiped *sample)
+//{
+//    print_default(sample);
+//}
 
 
 void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)
@@ -263,23 +276,31 @@ void SamplePrintVisitor::visit(const FormFactorRipple2 *sample)
     print_default(sample);
 }
 
-void SamplePrintVisitor::visit(const FormFactorSphere *sample)
-{
-    print_default(sample);
-}
-
 
 void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *sample)
 {
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorSphereLogNormalRadius *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const FormFactorTetrahedron *sample)
 {
     print_default(sample);
 }
 
+void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *sample)
+{
+    print_default(sample);
+}
+
+void SamplePrintVisitor::visit(const FormFactorTruncatedSpheroid *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const IFormFactorBornSeparable *)
 {
@@ -346,6 +367,10 @@ void SamplePrintVisitor::visit(const IInterferenceFunction *)
     throw NotImplementedException("SamplePrintVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
 }
 
+void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample){
     print_default(sample);

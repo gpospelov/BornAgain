@@ -65,14 +65,14 @@ class MySampleBuilder(ISampleBuilder):
         n_air = complex(1.0, 0.0)
         n_substrate = complex(1.0-7.57e-6, 1.73e-7)
 
-        p_air_material = MaterialManager.getHomogeneousMaterial("Air", n_air)
-        p_average_layer_material = MaterialManager.getHomogeneousMaterial("Averagelayer", n_avg)
-        p_substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", n_substrate)
+        p_air_material = HomogeneousMaterial("Air", n_air)
+        p_average_layer_material = HomogeneousMaterial("Averagelayer", n_avg)
+        p_substrate_material = HomogeneousMaterial("Substrate", n_substrate)
         air_layer = Layer(p_air_material)
         avg_layer = Layer(p_average_layer_material, self.meso_height.value)
         substrate_layer = Layer(p_substrate_material)
         p_interference_funtion = InterferenceFunctionNone()
-        particle_decoration = ParticleDecoration()
+        particle_layout = ParticleLayout()
 
         n_max_phi_rotation_steps = 2
         n_alpha_rotation_steps = 1
@@ -86,12 +86,12 @@ class MySampleBuilder(ISampleBuilder):
 
                 p_total_transform = Transform3D.createRotateZ(phi_start + i*phi_step)
                 meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
-                particle_decoration.addParticle(meso, p_total_transform, self.meso_height.value)
+                particle_layout.addParticle(meso, p_total_transform, self.meso_height.value)
 
-        particle_decoration.setTotalParticleSurfaceDensity(surface_density)
-        particle_decoration.addInterferenceFunction(p_interference_funtion)
+        particle_layout.setTotalParticleSurfaceDensity(surface_density)
+        particle_layout.addInterferenceFunction(p_interference_funtion)
         
-        avg_layer.setDecoration(particle_decoration)
+        avg_layer.setLayout(particle_layout)
 
         roughness = LayerRoughness(self.roughness.value, 0.3, 500.0*nanometer)
 
@@ -107,7 +107,7 @@ class MySampleBuilder(ISampleBuilder):
     # -------------------------------------------------------------------------
     def createMesoCrystal(self,stacking_radius_a, stacking_radius_c, n_particle, p_meso_form_factor):
         
-        mParticle = MaterialManager.getHomogeneousMaterial("Particle", n_particle )
+        mParticle = HomogeneousMaterial("Particle", n_particle )
         
         p_lat = self.createLattice(stacking_radius_a, stacking_radius_c)
         bas_a = p_lat.getBasisVectorA()

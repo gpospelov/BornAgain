@@ -122,9 +122,9 @@ class MySampleBuilder(ISampleBuilder):
     # constructs the sample for current values of parameters
     def buildSample(self):
         multi_layer = MultiLayer()
-        air_material = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-        substrate_material = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-        mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+        air_material = HomogeneousMaterial("Air", 0.0, 0.0)
+        substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
         air_layer = Layer(air_material)
         substrate_layer = Layer(substrate_material)
 
@@ -134,12 +134,12 @@ class MySampleBuilder(ISampleBuilder):
         prism = Particle(mParticle, prism_ff)
         interference = InterferenceFunctionNone()
 
-        particle_decoration = ParticleDecoration()
-        particle_decoration.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
-        particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
-        particle_decoration.addInterferenceFunction(interference)
+        particle_layout = ParticleLayout()
+        particle_layout.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
+        particle_layout.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
+        particle_layout.addInterferenceFunction(interference)
 
-        air_layer.setDecoration(particle_decoration)
+        air_layer.setLayout(particle_layout)
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
         self.sample = multi_layer

@@ -44,6 +44,18 @@ struct DistributionLorentz_wrapper : DistributionLorentz, bp::wrapper< Distribut
         return DistributionLorentz::clone( );
     }
 
+    virtual ::std::vector< double > generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+        if( bp::override func_generateValueList = this->get_override( "generateValueList" ) )
+            return func_generateValueList( nbr_samples, sigma_factor );
+        else
+            return this->DistributionLorentz::generateValueList( nbr_samples, sigma_factor );
+    }
+    
+    
+    ::std::vector< double > default_generateValueList( ::std::size_t nbr_samples, double sigma_factor ) const  {
+        return DistributionLorentz::generateValueList( nbr_samples, sigma_factor );
+    }
+
     virtual double getMean(  ) const  {
         if( bp::override func_getMean = this->get_override( "getMean" ) )
             return func_getMean(  );
@@ -177,6 +189,18 @@ void register_DistributionLorentz_class(){
                 , clone_function_type(&::DistributionLorentz::clone)
                 , default_clone_function_type(&DistributionLorentz_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::DistributionLorentz::generateValueList
+        
+            typedef ::std::vector< double > ( ::DistributionLorentz::*generateValueList_function_type )( ::std::size_t,double ) const;
+            typedef ::std::vector< double > ( DistributionLorentz_wrapper::*default_generateValueList_function_type )( ::std::size_t,double ) const;
+            
+            DistributionLorentz_exposer.def( 
+                "generateValueList"
+                , generateValueList_function_type(&::DistributionLorentz::generateValueList)
+                , default_generateValueList_function_type(&DistributionLorentz_wrapper::default_generateValueList)
+                , ( bp::arg("nbr_samples"), bp::arg("sigma_factor") ) );
         
         }
         { //::DistributionLorentz::getMean

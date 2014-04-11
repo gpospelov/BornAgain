@@ -15,8 +15,8 @@
 
 #include "LayerRoughnessBuilder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "Units.h"
 #include "IRoughness.h"
 
@@ -47,24 +47,19 @@ void LayerRoughnessBuilder::init_parameters()
 ISample *LayerRoughnessBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 15e-6, 0.0);
-    const IMaterial *p_part_a_material =
-            MaterialManager::getHomogeneousMaterial("PartA", 5e-6, 0.0);
-   const IMaterial *p_part_b_material =
-            MaterialManager::getHomogeneousMaterial("PartB", 10e-6, 0.0);
-
+    HomogeneousMaterial air_material("Air", 0., 0.);
+    HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
+    HomogeneousMaterial part_a_material("PartA", 5e-6, 0.0);
+    HomogeneousMaterial part_b_material("PartB", 10e-6, 0.0);
 
     Layer air_layer;
-    air_layer.setMaterial(p_air_material, 0);
+    air_layer.setMaterialAndThickness(air_material, 0);
 	Layer partA_layer;
-	partA_layer.setMaterial(p_part_a_material, m_thicknessA);
+    partA_layer.setMaterialAndThickness(part_a_material, m_thicknessA);
 	Layer partB_layer;
-    partB_layer.setMaterial(p_part_b_material, m_thicknessB);
+    partB_layer.setMaterialAndThickness(part_b_material, m_thicknessB);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material, 0);
+    substrate_layer.setMaterialAndThickness(substrate_material, 0);
 
     LayerRoughness *roughness = new LayerRoughness();
     roughness->setSigma(m_sigma);

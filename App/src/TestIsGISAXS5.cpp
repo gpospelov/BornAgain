@@ -24,7 +24,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
@@ -33,7 +33,7 @@
 #include "OutputDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
@@ -181,7 +181,7 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     ChiSquaredModule chiModule;
     //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
     chiModule.setChiSquaredFunction(new SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
-    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
+    chiModule.setIntensityNormalizer( IntensityNormalizer() );
     chiModule.setIntensityFunction( IntensityFunctionSqrt() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
@@ -279,14 +279,13 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
     double height = m_height_aspect_ratio*m_particle_radius;
-    FormFactorCylinder *ff_cylinder = new FormFactorCylinder(m_particle_radius, height);
+    FormFactorCylinder ff_cylinder(m_particle_radius, height);
     Particle cylinder(particle_material, ff_cylinder );
 
     // radius of nanoparticles will be sampled with gaussian probability
@@ -296,17 +295,17 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     StochasticDoubleGaussian sg(m_particle_radius, sigma);
     StochasticSampledParameter stochastic_parameter(sg, nbins, nfwhm);
 
-    ParticleDecoration particle_decoration;
+    ParticleLayout particle_layout;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder,"/Particle/FormFactorCylinder/radius", stochastic_parameter);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
     // making layer holding all whose nano particles
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

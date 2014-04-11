@@ -36,14 +36,14 @@ class MySampleBuilder(ISampleBuilder):
 
     # constructs the sample for current values of parameters
     def buildSample(self):
-        m_air = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-        m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-        m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+        m_air = HomogeneousMaterial("Air", 0.0, 0.0)
+        m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+        m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
         sphere_ff = FormFactorFullSphere(self.radius.value)
         sphere = Particle(m_particle, sphere_ff)
-        particle_decoration = ParticleDecoration()
-        particle_decoration.addParticle(sphere)
+        particle_layout = ParticleLayout()
+        particle_layout.addParticle(sphere)
 
         lattice_params = Lattice2DIFParameters()
         lattice_params.m_length_1 = self.lattice_constant.value
@@ -55,9 +55,9 @@ class MySampleBuilder(ISampleBuilder):
         pdf = FTDistribution2DCauchy(10*nanometer, 10*nanometer)
         interference.setProbabilityDistribution(pdf)
 
-        particle_decoration.addInterferenceFunction(interference)
+        particle_layout.addInterferenceFunction(interference)
         air_layer = Layer(m_air)
-        air_layer.setDecoration(particle_decoration)
+        air_layer.setLayout(particle_layout)
         substrate_layer = Layer(m_substrate, 0)
         multi_layer = MultiLayer()
         multi_layer.addLayer(air_layer)

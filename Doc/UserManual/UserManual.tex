@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{report}
+\documentclass[a4paper,11pt,twoside]{report}
 \usepackage{booktabs}
 \renewcommand{\arraystretch}{1.3}
 %-------------------------------------------------------------------------------
@@ -13,6 +13,7 @@
 %	PAGE LAYOUT
 %-------------------------------------------------------------------------------
 \usepackage[toc,page]{appendix}
+\usepackage{titlesec}
 
 \textwidth = 410pt
 
@@ -20,37 +21,46 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-%\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+%%Old version
+%\lhead{\bfseries \nouppercase{\leftmark}}
+%\rhead{\bfseries \nouppercase{\rightmark}}
+%\lfoot{}
+%\rfoot{\bfseries Page \thepage}
 
-%\nouppercase{\rightmark}
-
-\lhead{\bfseries \nouppercase{\leftmark}}
-\rhead{\bfseries \nouppercase{\rightmark}}
-\lfoot{}
-\rfoot{\bfseries Page \thepage}
+\fancyhead[LO,RE]{Page \thepage}
+\fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+%%\fancyfoot[L,O]{}
+%%\lhead{Page \thepage} %\nouppercase{\leftmark}}
+%%\rhead{\nouppercase{\rightmark}}
+%%\lfoot{}
+%%\rfoot{}
 
 \headwidth=1.1\textwidth
-\renewcommand{\headrulewidth}{1.5pt}
-\renewcommand{\footrulewidth}{1.5pt}
+\renewcommand{\headrulewidth}{1pt}%{1.5pt}
+\renewcommand{\footrulewidth}{0pt}%{1.5pt}
 \fancyhfoffset[L]{24pt}
 \fancyhfoffset[R]{24pt}
 
 \fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
 \headwidth=1.1\textwidth
-\renewcommand{\headrulewidth}{1.5pt}
-\renewcommand{\footrulewidth}{1.5pt}
-\lhead{\bfseries \nouppercase{\leftmark}}
-\rhead{\bfseries \nouppercase{\rightmark}}
-%\lhead{\leftmark}
-%\rhead{\rightmark}
-\lfoot{}
-\rfoot{\bfseries Page \thepage}
-%\rfoot{Page \thepage}
-\headwidth=1.1\textwidth
+\renewcommand{\headrulewidth}{1pt}%{1.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[LO,RE]{Page \thepage}
+\fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+%%\lhead{\bfseries \nouppercase{\leftmark}}
+%%\lhead{}%\nouppercase{\leftmark}}
+%%\rhead{}%\nouppercase{\rightmark}}
+%%\lfoot{}
+%%\rfoot{}%Page \thepage}
+%%\headwidth=1.1\textwidth
 \fancyhfoffset[L]{24pt}
 \fancyhfoffset[R]{24pt}
 }
+
 
 \newcommand{\mysection}[2]{%
                          \sectionmark{#1}%
@@ -67,7 +77,7 @@
 %\cfoot{}
 
 %-------------------------------------------------------------------------------
-%	OTHER PACKAGES and COMMANDS
+%	OTHER PACKAGES 
 %-------------------------------------------------------------------------------
 \usepackage{graphicx}
 \usepackage{epstopdf}
@@ -88,11 +98,8 @@
 
 \usepackage{verbatim}
 
-\newcommand{\reffig}[1]{figure \ref{fig:#1}}
-
-\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
-
 \usepackage{longtable,tabulary,tabularx}
+\usepackage{pdflscape}
 %-------------------------------------------------------------------------------
 %	TABULARY AND LONGTABLE http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
 %-------------------------------------------------------------------------------
@@ -121,18 +128,15 @@
 
 \makeatother
 
-
-
-
-
-\DeclareMathOperator{\sinc}{sinc}
 %-------------------------------------------------------------------------------
 %	CUSTON LISTING SETTINGS
 %-------------------------------------------------------------------------------
+
 \usepackage{listings}
 \usepackage{lstcustom}
 \usepackage{enumerate}
 \renewcommand{\lstfontfamily}{\ttfamily}
+
 %-------------------------------------------------------------------------------
 %	COLORS
 %-------------------------------------------------------------------------------
@@ -140,10 +144,14 @@
 \definecolor{Lightgray}{gray}{.80}
 \definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 
-
 %-------------------------------------------------------------------------------
 %       Commands
 %-------------------------------------------------------------------------------
+
+\newcommand{\reffig}[1]{figure \ref{fig:#1}}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
 \newcommand{\Python}{\Code{Python}}%
@@ -165,6 +173,11 @@
     \chapter*{#2}
     \addcontentsline{toc}{chapter}{#2}
 }
+
+\renewcommand\Im{\operatorname{Im}}
+\renewcommand\Re{\operatorname{Re}}
+
+\DeclareMathOperator{\sinc}{sinc}
 
 %-------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -205,10 +218,12 @@ Forschungszentrum J\"ulich GmbH
 %\lstlistoflistings
 %\listoffigures
 %\listoftables
+
 \input{Introduction}
 \input{QuickStart}
 \input{Installation}
 \input{Simulation}
+%\input{ff}
 \input{Fitting}
 \input{SoftwareArchitecture}
 \input{SoftwareDesignOverview}
@@ -218,10 +233,9 @@ Forschungszentrum J\"ulich GmbH
 
 \input{AppendixListings}
 \input{ff}
+\input{interferences}
 %\input{AppendixPhysics}
 
 \bibliographystyle{switch}
 \bibliography{jw7}
-
-
 \end{document}

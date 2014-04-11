@@ -13,9 +13,9 @@ def get_sample():
     centered lattice
     """
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
     lattice_params = Lattice2DIFParameters()
@@ -27,21 +27,21 @@ def get_sample():
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     interference.setProbabilityDistribution(pdf)
 
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
     position = kvector_t(0.0, 0.0, 0.0)
     # particle 1
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
-    particle_decoration.addParticleInfo(particle_info)
+    particle_layout.addParticleInfo(particle_info)
     # particle 2
     position_2 = kvector_t(5.0*nanometer, 5.0*nanometer, 0.0)
     particle_info.setPosition(position_2)
-    particle_decoration.addParticleInfo(particle_info)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addParticleInfo(particle_info)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
     multi_layer = MultiLayer()

@@ -9,8 +9,8 @@
 
 #include "OutputDataIOFactory.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "FormFactors.h"
 #include "InterferenceFunctionNone.h"
 
@@ -31,21 +31,19 @@ FunctionalTests::FTestFormFactors::~FTestFormFactors()
 // (different shapes but only one at a time)
 void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
 {
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     //building sample
     MultiLayer multi_layer;
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
 
     mp_form_factor=p_form_factor;
-    ParticleDecoration particle_decoration( new Particle(particle_material,
-                                                         mp_form_factor));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    air_layer.setDecoration(particle_decoration);
+    ParticleLayout particle_layout( new Particle(particle_material,
+                                                         *mp_form_factor));
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+    air_layer.setLayout(particle_layout);
     multi_layer.addLayer(air_layer);
 
     // building simulation
@@ -75,8 +73,8 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "FullSphere")
     m_results[kTest_FullSphere] = simulation.getIntensityData();
 
-    if (mp_form_factor->getName().substr(10) == "Parallelepiped")
-    m_results[kTest_Parallelepiped] = simulation.getIntensityData();
+    //if (mp_form_factor->getName().substr(10) == "Parallelepiped")
+   // m_results[kTest_Parallelepiped] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "Prism3")
     m_results[kTest_Prism3] = simulation.getIntensityData();
@@ -87,8 +85,8 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "Pyramid")
     m_results[kTest_Pyramid] = simulation.getIntensityData();
 
-    if (mp_form_factor->getName().substr(10) == "Sphere")
-    m_results[kTest_Sphere] = simulation.getIntensityData();
+    if (mp_form_factor->getName().substr(10) == "TruncatedSphere")
+    m_results[kTest_TruncatedSphere] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "Tetrahedron")
     m_results[kTest_Tetrahedron] = simulation.getIntensityData();
@@ -105,7 +103,7 @@ void FunctionalTests::FTestFormFactors::run(IFormFactor *p_form_factor)
     if (mp_form_factor->getName().substr(10) == "FullSpheroid")
     m_results[kTest_FullSpheroid] = simulation.getIntensityData();
 
-    if (mp_form_factor->getName().substr(10) == "Spheroid")
+    if (mp_form_factor->getName().substr(10) == "TruncatedSpheroid")
     m_results[kTest_Spheroid] = simulation.getIntensityData();
 
     if (mp_form_factor->getName().substr(10) == "HemiEllipsoid")
@@ -122,7 +120,7 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
      "isgi_reference_cone_BA.ima.gz",
      "isgi_reference_cone6_BA.ima.gz",
      "isgi_reference_full_sphere_BA.ima.gz",
-     "isgi_reference_parallelepiped_BA.ima.gz",
+     //"isgi_reference_parallelepiped_BA.ima.gz",
      "isgi_reference_prism3_BA.ima.gz",
      "isgi_reference_prism6_BA.ima.gz",
      "isgi_reference_pyramid_BA.ima.gz",
@@ -167,7 +165,7 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
 std::string GetPathToData(int argc, char **argv)
 {
     if(argc == 2) return argv[1];
-   return Utils::FileSystem::GetPathToData("../../../ReferenceData/BornAgain/",
+   return Utils::FileSystem::GetPathToData("../../ReferenceData/BornAgain/",
                                            argv[0]);
 }
 
@@ -200,9 +198,9 @@ int main(int argc, char **argv)
     test.run(p_ff_fsph->clone());
 
     //Parallelepiped
-    FormFactorParallelepiped ff_par(10.0, 5.0);
-    IFormFactor* p_ff_par =& ff_par;
-    test.run(p_ff_par->clone());
+   // FormFactorParallelepiped ff_par(10.0, 5.0);
+   // IFormFactor* p_ff_par =& ff_par;
+   // test.run(p_ff_par->clone());
 
     //Prism3
     FormFactorPrism3 ff_pr3(10.0, 5.0);
@@ -219,8 +217,8 @@ int main(int argc, char **argv)
     IFormFactor* p_ff_pyr =& ff_pyr;
     test.run(p_ff_pyr->clone());
 
-    //Sphere
-    FormFactorSphere ff_sph(5.0, 5.0);
+    //Truncated Sphere
+    FormFactorTruncatedSphere ff_sph(5.0, 5.0);
     IFormFactor* p_ff_sph =& ff_sph;
     test.run(p_ff_sph->clone());
 
@@ -249,8 +247,8 @@ int main(int argc, char **argv)
     IFormFactor* p_ff_fspheroid =& ff_fspheroid;
     test.run(p_ff_fspheroid ->clone());
 
-    // Spheroid
-    FormFactorSpheroid  ff_spheroid(5.0, 5.0, 1.0);
+    // Truncated Spheroid
+    FormFactorTruncatedSpheroid  ff_spheroid(5.0, 5.0, 1.0);
     IFormFactor* p_ff_spheroid =& ff_spheroid;
     test.run(p_ff_spheroid->clone());
 

@@ -61,6 +61,18 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::cloneInvertB( );
     }
 
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
+        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
+            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
+        else
+            return this->Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
+    }
+    
+    
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::IMaterial const & p_ambient_material, ::complex_t wavevector_scattering_factor ) const  {
+        return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), boost::ref(p_ambient_material), wavevector_scattering_factor );
+    }
+
     virtual ::Geometry::Transform3D const * getTransform(  ) const  {
         if( bp::override func_getTransform = this->get_override( "getTransform" ) )
             return func_getTransform(  );
@@ -266,6 +278,19 @@ void register_Crystal_class(){
                 , cloneInvertB_function_type(&::Crystal::cloneInvertB)
                 , default_cloneInvertB_function_type(&Crystal_wrapper::default_cloneInvertB)
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::Crystal::createTotalFormFactor
+        
+            typedef ::IFormFactor * ( ::Crystal::*createTotalFormFactor_function_type )( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
+            typedef ::IFormFactor * ( Crystal_wrapper::*default_createTotalFormFactor_function_type )( ::IFormFactor const &,::IMaterial const &,::complex_t ) const;
+            
+            Crystal_exposer.def( 
+                "createTotalFormFactor"
+                , createTotalFormFactor_function_type(&::Crystal::createTotalFormFactor)
+                , default_createTotalFormFactor_function_type(&Crystal_wrapper::default_createTotalFormFactor)
+                , ( bp::arg("meso_crystal_form_factor"), bp::arg("p_ambient_material"), bp::arg("wavevector_scattering_factor") )
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::Crystal::getLatticeBasis

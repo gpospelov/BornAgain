@@ -18,10 +18,10 @@
 FormFactorCrystal::FormFactorCrystal(
         const Crystal& p_crystal,
         const IFormFactor& meso_crystal_form_factor,
-        const IMaterial *p_material, complex_t wavevector_scattering_factor)
+        const IMaterial &p_material, complex_t wavevector_scattering_factor)
 : m_lattice(p_crystal.getTransformedLattice())
 , m_wavevector_scattering_factor(wavevector_scattering_factor)
-, mp_ambient_material(p_material)
+, mp_ambient_material(p_material.clone())
 , m_max_rec_length(0.0)
 {
     setName("FormFactorCrystal");
@@ -44,13 +44,14 @@ FormFactorCrystal::~FormFactorCrystal()
     delete mp_lattice_basis;
     delete mp_basis_form_factor;
     delete mp_meso_form_factor;
+    delete mp_ambient_material;
 }
 
 FormFactorCrystal* FormFactorCrystal::clone() const
 {
     Crystal np_crystal(*mp_lattice_basis, m_lattice);
     FormFactorCrystal *result = new FormFactorCrystal(np_crystal,
-            *mp_meso_form_factor, mp_ambient_material,
+            *mp_meso_form_factor, *mp_ambient_material,
             m_wavevector_scattering_factor);
     result->setName(getName());
     return result;
@@ -58,8 +59,10 @@ FormFactorCrystal* FormFactorCrystal::clone() const
 
 void FormFactorCrystal::setAmbientMaterial(const IMaterial *p_material)
 {
-    mp_lattice_basis->setAmbientMaterial(p_material);
-    mp_basis_form_factor->setAmbientMaterial(p_material);
+    if(p_material) {
+        mp_lattice_basis->setAmbientMaterial(p_material);
+        mp_basis_form_factor->setAmbientMaterial(p_material);
+    }
 }
 
 complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const

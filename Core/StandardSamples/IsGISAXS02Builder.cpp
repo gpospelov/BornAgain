@@ -15,8 +15,8 @@
 
 #include "IsGISAXS02Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "FormFactorCylinder.h"
 //#include "FormFactorPrism3.h"
 #include "Units.h"
@@ -54,20 +54,18 @@ ISample *IsGISAXS02Builder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material ("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration;
-//    complex_t n_particle(1.0-6e-4, 2e-8);
+    Layer air_layer(air_material);
 
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    ParticleLayout particle_layout;
 
-    // preparing nano particles prototypes for seeding layer's particle_decoration
-    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(m_radius1, m_height1);
+    // preparing nano particles prototypes for seeding layer's particle_layout
+    FormFactorCylinder p_ff_cylinder1(m_radius1, m_height1);
     Particle cylinder1(particle_material, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(m_radius2, m_height2);
+    FormFactorCylinder p_ff_cylinder2(m_radius2, m_height2);
     Particle cylinder2(particle_material, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability
@@ -83,14 +81,14 @@ ISample *IsGISAXS02Builder::buildSample() const
     // building nano particles
     ParticleBuilder builder;
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, 0.05);
-    builder.plantParticles(particle_decoration);
+    builder.plantParticles(particle_layout);
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
 

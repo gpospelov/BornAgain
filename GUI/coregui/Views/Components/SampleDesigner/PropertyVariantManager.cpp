@@ -1,6 +1,8 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "MaterialBrowser.h"
+#include "ParameterizedItem.h"
+#include "FormFactorProperty.h"
 #include <iostream>
 
 
@@ -13,13 +15,22 @@ PropertyVariantManager::PropertyVariantManager(QObject *parent)
 
 int PropertyVariantManager::materialTypeId()
 {
-    return qMetaTypeId<MaterialProperty>();
+    int result = qMetaTypeId<MaterialProperty>();
+    return result;
+}
+
+int PropertyVariantManager::formFactorTypeId()
+{
+    int result = qMetaTypeId<FormFactorProperty>();
+    return result;
 }
 
 
 bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
+        return true;
+    if (propertyType == formFactorTypeId())
         return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
@@ -29,15 +40,22 @@ int PropertyVariantManager::valueType(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return materialTypeId();
+    if (propertyType == formFactorTypeId())
+        return formFactorTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 
 
 QVariant PropertyVariantManager::value(const QtProperty *property) const
 {
-    if (theValues.contains(property)) {
+    if (theMaterialValues.contains(property)) {
         QVariant v;
-        v.setValue(theValues[property]);
+        v.setValue(theMaterialValues[property]);
+        return v;
+    }
+    if (theFormFactorValues.contains(property)) {
+        QVariant v;
+        v.setValue(theFormFactorValues[property]);
         return v;
     }
     return QtVariantPropertyManager::value(property);
@@ -46,8 +64,11 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
 
 QString PropertyVariantManager::valueText(const QtProperty *property) const
 {
-    if (theValues.contains(property)) {
-        return theValues[property].getName();
+    if (theMaterialValues.contains(property)) {
+        return theMaterialValues[property].getName();
+    }
+    if (theFormFactorValues.contains(property)) {
+        return theFormFactorValues[property].getFormFactorName();
     }
     return QtVariantPropertyManager::valueText(property);
 }
@@ -55,8 +76,8 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
 
 QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 {
-    if (theValues.contains(property)) {
-        return QIcon(theValues[property].getPixmap());
+    if (theMaterialValues.contains(property)) {
+        return QIcon(theMaterialValues[property].getPixmap());
     }
     return QtVariantPropertyManager::valueIcon(property);
 }
@@ -64,12 +85,22 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 
 void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
-    if (theValues.contains(property)) {
+    if (theMaterialValues.contains(property)) {
         if( val.userType() != materialTypeId() ) return;
         MaterialProperty mat = val.value<MaterialProperty>();
-        theValues[property] = mat;
+        theMaterialValues[property] = mat;
         QVariant v2;
         v2.setValue(mat);
+        emit propertyChanged(property);
+        emit valueChanged(property, v2);
+        return;
+    }
+    if (theFormFactorValues.contains(property)) {
+        if( val.userType() != formFactorTypeId() ) return;
+        FormFactorProperty ff_prop = val.value<FormFactorProperty>();
+        theFormFactorValues[property] = ff_prop;
+        QVariant v2;
+        v2.setValue(ff_prop);
         emit propertyChanged(property);
         emit valueChanged(property, v2);
         return;
@@ -82,7 +113,11 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 {
     if (propertyType(property) == materialTypeId()) {
         MaterialProperty m;
-        theValues[property] = m;
+        theMaterialValues[property] = m;
+    }
+    if (propertyType(property) == formFactorTypeId()) {
+        FormFactorProperty m;
+        theFormFactorValues[property] = m;
     }
     QtVariantPropertyManager::initializeProperty(property);
 }
@@ -90,7 +125,8 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 
 void PropertyVariantManager::uninitializeProperty(QtProperty *property)
 {
-    theValues.remove(property);
+    theMaterialValues.remove(property);
+    theFormFactorValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 

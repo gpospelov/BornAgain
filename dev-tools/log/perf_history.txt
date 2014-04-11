@@ -344,3 +344,21 @@
 
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
 | 2014-02-07 14:11:35 | jcnsopc126 | linuxx8664gcc | 0  | 27.734   | 2.114        | 1.774        | 1.126        | 0.637        | 5.403        | 6.819        | 0.568        | 7.749        | 1.545        |
+
+# before implementing progress callback
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-03-19 10:28:21 | jcnsopc126 | linuxx8664gcc | 0  | 27.606   | 2.042        | 1.772        | 1.129        | 0.683        | 5.311        | 6.840        | 0.518        | 7.757        | 1.554        |
+
+# after implementing quick and dirty calback with mutex lock
+| 2014-03-19 17:21:59 | jcnsopc126 | linuxx8664gcc | 0  | 27.394   | 2.038        | 1.776        | 1.128        | 0.668        | 5.205        | 6.787        | 0.501        | 7.711        | 1.581        |
+
+# before removing MaterialManager
+| 2014-03-25 15:08:26 | jcnsopc126 | linuxx8664gcc | 0  | 27.546   | 2.061        | 1.786        | 1.117        | 0.661        | 5.217        | 6.858        | 0.553        | 7.722        | 1.572        |
+
+# after changing Layer, Particle to own materials and removing MaterialManager
+| 2014-03-26 15:09:45 | jcnsopc126 | linuxx8664gcc | 0  | 27.577   | 2.091        | 1.761        | 1.120        | 0.629        | 5.203        | 6.902        | 0.506        | 7.813        | 1.553        |
+
+# Release 0.9.5
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-04-11 13:27:09 | jcnsopc126 | linuxx8664gcc | 0  | 27.248   | 1.053        | 1.865        | 1.100        | 0.634        | 5.280        | 7.113        | 0.512        | 8.194        | 1.496        |

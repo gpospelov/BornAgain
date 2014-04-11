@@ -37,6 +37,7 @@ void SampleMaterialVisitor::addMaterial(const IMaterial* p_material)
 bool SampleMaterialVisitor::containsMagneticMaterial() const {
     for (std::vector<const IMaterial *>::const_iterator it = m_materials.begin();
             it != m_materials.end(); ++it) {
+        if(!(*it)) throw DomainErrorException("SampleMaterialVisitor::containsMagneticMaterial() -> Error.");
         if (!(*it)->isScalarMaterial()) return true;
     }
     return false;
@@ -71,15 +72,15 @@ void SampleMaterialVisitor::visit(const Crystal *)
 }
 
 
-void SampleMaterialVisitor::visit(const IDecoration *)
+void SampleMaterialVisitor::visit(const ILayout *)
 {
-//    throw NotImplementedException("SampleMaterialVisitor::visit(const IDecoration *) -> Error. Not implemented.");
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ILayout *) -> Error. Not implemented.");
 }
 
 
-void SampleMaterialVisitor::visit(const ParticleDecoration *)
+void SampleMaterialVisitor::visit(const ParticleLayout *)
 {
-//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleDecoration *) -> Error. Not implemented.");
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const ParticleLayout *) -> Error. Not implemented.");
 }
 
 
@@ -233,7 +234,22 @@ void SampleMaterialVisitor::visit(const FormFactorGauss *)
 
 void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *)
 {
-//    throw NotImplementedException("SampleMaterialVisitor::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
+//    throw NotImplementedException("SampleMaterialVisitor::visit const FormFactorHemiEllipsoid *) -> Error. Not implemented.");
+}
+
+void SampleMaterialVisitor::visit(const FormFactorInfLongBox *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorInfLongBox *) -> Error. Not implemented.");
+}
+
+void SampleMaterialVisitor::visit(const FormFactorInfLongRipple1 *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorInfLongRipple1 *) -> Error. Not implemented.");
+}
+
+void SampleMaterialVisitor::visit(const FormFactorInfLongRipple2 *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorInfLongRipple2 *) -> Error. Not implemented.");
 }
 
 
@@ -243,10 +259,10 @@ void SampleMaterialVisitor::visit(const FormFactorLorentz *)
 }
 
 
-void SampleMaterialVisitor::visit(const FormFactorParallelepiped *)
-{
+//void SampleMaterialVisitor::visit(const FormFactorParallelepiped *)
+//{
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
-}
+//}
 
 
 void SampleMaterialVisitor::visit(const FormFactorPrism3 *)
@@ -276,23 +292,30 @@ void SampleMaterialVisitor::visit(const FormFactorRipple2 *)
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-void SampleMaterialVisitor::visit(const FormFactorSphere *)
-{
-//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphere *) -> Error. Not implemented.");
-}
-
-
 void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *)
 {
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
 }
 
+void SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *) -> Error. Not implemented.");
+}
 
 void SampleMaterialVisitor::visit(const FormFactorTetrahedron *)
 {
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTetrahedron *) -> Error. Not implemented.");
 }
 
+void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *) -> Error. Not implemented.");
+}
+
+void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *) -> Error. Not implemented.");
+}
 
 void SampleMaterialVisitor::visit(const IFormFactorBornSeparable *)
 {
@@ -359,6 +382,11 @@ void SampleMaterialVisitor::visit(const IInterferenceFunction *)
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const IInterferenceFunction *) -> Error. Not implemented.");
 }
 
+
+void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
+}
 
 void SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal *){
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const InterferenceFunction1DParaCrystal *) -> Error. Not implemented.");

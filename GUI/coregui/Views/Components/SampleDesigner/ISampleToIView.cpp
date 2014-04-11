@@ -3,9 +3,8 @@
 #include "ISampleToIView.h"
 #include "ISample.h"
 #include "MultiLayer.h"
-//#include "LayerDecorator.h"
-#include "ParticleDecoration.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayout.h"
+#include "ParticleLayoutView.h"
 #include "FormFactorView.h"
 #include "Particle.h"
 #include "InterferenceFunction1DParaCrystal.h"
@@ -58,15 +57,15 @@ void ISampleToIView::visit(const Crystal *)
 }
 
 
-void ISampleToIView::visit(const IDecoration *)
+void ISampleToIView::visit(const ILayout *)
 {
     throw NotImplementedException("ISampleToIView::visit(const IDecoration *) -> Error. Not implemented.");
 }
 
 
-void ISampleToIView::visit(const ParticleDecoration *sample)
+void ISampleToIView::visit(const ParticleLayout *sample)
 {
-    ParticleDecorationView *decorationView = new ParticleDecorationView();
+    ParticleLayoutView *decorationView = new ParticleLayoutView();
     m_sample_to_view[sample] = decorationView;
 
     for(size_t i_info=0; i_info < sample->getNumberOfParticles(); ++i_info) {
@@ -86,22 +85,22 @@ void ISampleToIView::visit(const ParticleDecoration *sample)
 }
 
 
-void ISampleToIView::visit(const Layer *sample)
+void ISampleToIView::visit(const Layer *)
 {
-    LayerView *layerView = new LayerView();
-    layerView->setThickness(sample->getThickness());
-    layerView->setName(sample->getName().c_str());
-    m_multiLayer->addBottomLayer(layerView);
-    m_sample_to_view[sample] = layerView;
+//    LayerView *layerView = new LayerView();
+//    layerView->setThickness(sample->getThickness());
+//    layerView->setName(sample->getName().c_str());
+//    m_multiLayer->addBottomLayer(layerView);
+//    m_sample_to_view[sample] = layerView;
 
-    const IDecoration *decoration = sample->getDecoration();
-    if(decoration) {
-        decoration->accept(this);
+//    const ILayout *decoration = sample->getLayout();
+//    if(decoration) {
+//        decoration->accept(this);
 
-        Q_ASSERT(m_sample_to_view[sample]);
-        Q_ASSERT(m_sample_to_view[decoration]);
-        m_connections += m_sample_to_view[sample]->connectInputPort(m_sample_to_view[decoration]);
-    }
+//        Q_ASSERT(m_sample_to_view[sample]);
+//        Q_ASSERT(m_sample_to_view[decoration]);
+//        m_connections += m_sample_to_view[sample]->connectInputPort(m_sample_to_view[decoration]);
+//    }
 
 }
 
@@ -112,24 +111,24 @@ void ISampleToIView::visit(const LayerInterface *)
 }
 
 
-void ISampleToIView::visit(const MultiLayer *sample)
+void ISampleToIView::visit(const MultiLayer *)
 {
-    Q_ASSERT(sample);
+//    Q_ASSERT(sample);
 
-    m_multiLayer = MultiLayerView::createTopMultiLayer();
+//    m_multiLayer = MultiLayerView::createTopMultiLayer();
 
-    //    goForward();
-    for(size_t i_layer=0; i_layer < sample->getNumberOfLayers(); ++i_layer) {
-        const Layer *layer = sample->getLayer(i_layer);
-        layer->accept(this);
-        if(i_layer < sample->getNumberOfInterfaces()) {
-            const LayerInterface *interface = sample->getLayerInterface(i_layer);
-            interface->accept(this);
-        }
-    }
-    //    goBack();
+//    //    goForward();
+//    for(size_t i_layer=0; i_layer < sample->getNumberOfLayers(); ++i_layer) {
+//        const Layer *layer = sample->getLayer(i_layer);
+//        layer->accept(this);
+//        if(i_layer < sample->getNumberOfInterfaces()) {
+//            const LayerInterface *interface = sample->getLayerInterface(i_layer);
+//            interface->accept(this);
+//        }
+//    }
+//    //    goBack();
 
-    m_sample_to_view[sample] = m_multiLayer;
+//    m_sample_to_view[sample] = m_multiLayer;
 
 }
 
@@ -273,16 +272,15 @@ void ISampleToIView::visit(const FormFactorHemiEllipsoid *)
     throw NotImplementedException("ISampleToIView::visit const FormFactorHemiSpheroid *) -> Error. Not implemented.");
 }
 
+void ISampleToIView::visit(const FormFactorInfLongBox *)
+{
+    throw NotImplementedException("ISampleToIView::visit const FormFactorInfLongBox *) -> Error. Not implemented.");
+}
+
 
 void ISampleToIView::visit(const FormFactorLorentz *)
 {
     throw NotImplementedException("ISampleToIView::visit(const FormFactorLorentz *) -> Error. Not implemented.");
-}
-
-
-void ISampleToIView::visit(const FormFactorParallelepiped *)
-{
-    throw NotImplementedException("ISampleToIView::visit(const FormFactorParallelepiped *) -> Error. Not implemented.");
 }
 
 
@@ -296,6 +294,10 @@ void ISampleToIView::visit(const FormFactorPrism3 *sample)
 
 void ISampleToIView::visit(const FormFactorPrism6 *)
 {
+//    std::cout << "ISampleToIView::visit(const FormFactorPrism6 *) -> Error. Not implemented." << std::endl;
+//    FormFactorPyramidView *view = new FormFactorPyramidView();
+//    view->setFormFactor(sample->clone());
+//    m_sample_to_view[sample] = view;
     throw NotImplementedException("ISampleToIView::visit(const FormFactorPrism6 *) -> Error. Not implemented.");
 }
 
@@ -317,7 +319,12 @@ void ISampleToIView::visit(const FormFactorRipple2 *)
     throw NotImplementedException("ISampleToIView::visit(const FormFactorRipple2 *) -> Error. Not implemented.");
 }
 
-void ISampleToIView::visit(const FormFactorSphere *)
+void ISampleToIView::visit(const FormFactorTruncatedSphere *)
+{
+    throw NotImplementedException("ISampleToIView::visit(const FormFactorSphere *) -> Error. Not implemented.");
+}
+
+void ISampleToIView::visit(const FormFactorTruncatedSpheroid *)
 {
     throw NotImplementedException("ISampleToIView::visit(const FormFactorSphere *) -> Error. Not implemented.");
 }
@@ -328,6 +335,10 @@ void ISampleToIView::visit(const FormFactorSphereGaussianRadius *)
     throw NotImplementedException("ISampleToIView::visit(const FormFactorSphereGaussianRadius *) -> Error. Not implemented.");
 }
 
+void ISampleToIView::visit(const FormFactorSphereLogNormalRadius *)
+{
+    throw NotImplementedException("ISampleToIView::visit(const FormFactorSphereLogNormalRadius *) -> Error. Not implemented.");
+}
 
 void ISampleToIView::visit(const FormFactorTetrahedron *)
 {
@@ -404,6 +415,12 @@ void ISampleToIView::visit(const IInterferenceFunction *)
 void ISampleToIView::visit(const InterferenceFunction1DParaCrystal *sample){
     InterferenceFunction1DParaCrystalView *view = new InterferenceFunction1DParaCrystalView();
     m_sample_to_view[sample] = view;
+}
+
+
+void ISampleToIView::visit(const InterferenceFunction1DLattice *)
+{
+    throw NotImplementedException("ISampleToIView::visit(const InterferenceFunction1DLattice *) -> Error. Not implemented.");
 }
 
 
@@ -486,17 +503,17 @@ void ISampleToIView::visit(const LayerRoughness *)
 //}
 
 
-////! creates view of ParticleDecoration and connect it with form factors and
+////! creates view of ParticleLayout and connect it with form factors and
 ////! interference functions views
-//void ISampleToIView::visit(const ParticleDecoration *sample)
+//void ISampleToIView::visit(const ParticleLayout *sample)
 //{
 //    Q_ASSERT(sample);
-//    std::cout << get_indent() << "ISampleToIView_ParticleDecoration " << sample->getName()
+//    std::cout << get_indent() << "ISampleToIView_ParticleLayout " << sample->getName()
 //              << " " << sample
 //              << " " << (*sample->getParameterPool())
 //              << std::endl;
 
-//    ParticleDecorationView *decorationView = new ParticleDecorationView();
+//    ParticleLayoutView *decorationView = new ParticleLayoutView();
 //    m_sample_to_view[sample] = decorationView;
 
 //    goForward();

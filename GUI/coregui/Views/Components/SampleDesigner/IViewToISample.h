@@ -16,7 +16,7 @@ public:
     void visit(ConnectableView *view);
     void visit(MultiLayerView *view);
     void visit(LayerView *view);
-    void visit(ParticleDecorationView *view);
+    void visit(ParticleLayoutView *view);
     void visit(FormFactorView *view);
     void visit(FormFactorFullSphereView *view);
     void visit(FormFactorPyramidView *view);

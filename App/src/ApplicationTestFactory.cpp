@@ -47,6 +47,9 @@
 #include "TestRipple2.h"
 #include "TestRipple1.h"
 #include "TestBessel.h"
+#include "TestInfLongBox.h"
+#include "TestInfLongRipple1.h"
+#include "TestInfLongRipple2.h"
 
 
 #include "TBenchmark.h"
@@ -285,6 +288,19 @@ void RegisterApplicationTests(ApplicationTestFactory *p_test_factory)
         IFactoryCreateFunction<TestBessel, IApplicationTest>,
         "test complex bessel functions");
 
+    p_test_factory->registerItem(
+        "ibox",
+        IFactoryCreateFunction<TestInfLongBox, IApplicationTest>,
+        "test the new infinite box formfactor");
 
+    p_test_factory->registerItem(
+        "iripple1",
+        IFactoryCreateFunction<TestInfLongRipple1, IApplicationTest>,
+        "test the new infinite ripple1 formfactor");
+
+    p_test_factory->registerItem(
+        "iripple2",
+        IFactoryCreateFunction<TestInfLongRipple2, IApplicationTest>,
+        "test the new infinite ripple2 formfactor");
 }
 

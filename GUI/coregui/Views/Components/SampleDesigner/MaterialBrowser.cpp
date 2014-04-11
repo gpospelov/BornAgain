@@ -32,7 +32,8 @@ MaterialBrowser::~MaterialBrowser()
 
 MaterialBrowser *MaterialBrowser::instance()
 {
-    return m_instance;
+    if (m_instance) return m_instance;
+    else return m_instance = new MaterialBrowser();
 }
 
 

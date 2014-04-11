@@ -20,10 +20,14 @@
 #include "Instrument.h"
 #include "SimulationParameters.h"
 #include "DistributionHandler.h"
+#include "ProgressHandler.h"
 
 #include "EigenCore.h"
 
+#include <boost/function.hpp>
+
 class ProgramOptions;
+class ProgressHandlerDWBA;
 
 //! @class Simulation
 //! @ingroup simulation
@@ -143,6 +147,14 @@ public:
     //! OffSpecSimulation needs protected copy constructor
     friend class OffSpecSimulation;
 
+#ifndef GCCXML_SKIP_THIS
+    //! sets progress handler (used by GUI)
+    void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
+
+    //! initializes DWBA progress handler
+    void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
+#endif
+
 protected:
     Simulation(const Simulation& other);
 
@@ -176,6 +188,7 @@ protected:
     const ProgramOptions *mp_options;
 
     DistributionHandler m_distribution_handler;
+    ProgressHandler_t m_progress;
 };
 
 #endif /* SIMULATION_H_ */

@@ -15,10 +15,9 @@
 
 #include "IsGISAXS03Builder.h"
 #include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
+#include "ParticleLayout.h"
+#include "Materials.h"
 #include "FormFactorCylinder.h"
-//#include "FormFactorPrism3.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
 #include "StochasticSampledParameter.h"
@@ -49,22 +48,19 @@ ISample *IsGISAXS03DWBABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration( new Particle(particle_material,
-            new FormFactorCylinder(m_radius, m_height)));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
 
-    air_layer.setDecoration(particle_decoration);
+    FormFactorCylinder ff_cylinder(m_radius, m_height);
+
+    ParticleLayout particle_layout( new Particle(particle_material,ff_cylinder));
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
@@ -96,24 +92,18 @@ ISample *IsGISAXS03BABuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    //const IMaterial *p_substrate_material =
-    //        MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    //Layer substrate_layer;
-    //substrate_layer.setMaterial(p_substrate_material);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    Layer air_layer(air_material);
 
-    ParticleDecoration particle_decoration(
-            new Particle(particle_material,
-                    new FormFactorCylinder(m_radius, m_height)));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    FormFactorCylinder ff_cylinder(m_radius, m_height);
+    Particle cylinder(particle_material,ff_cylinder);
 
-    air_layer.setDecoration(particle_decoration);
+    ParticleLayout particle_layout(cylinder);
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+
+    air_layer.setLayout(particle_layout);
     multi_layer->addLayer(air_layer);
 
     return multi_layer;
@@ -143,20 +133,15 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    const IMaterial *p_air_material =
-            MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *p_substrate_material =
-            MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    const IMaterial *particle_material = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    ParticleDecoration particle_decoration;
+    Layer air_layer(air_material);
+
+    ParticleLayout particle_layout;
     // preparing prototype of nano particle
     double sigma = 0.2*m_radius;
-    FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( m_radius, m_height);
+    FormFactorCylinder p_ff_cylinder( m_radius, m_height);
     Particle nano_particle(particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins(100), nfwhm(2);
@@ -164,10 +149,10 @@ ISample *IsGISAXS03BASizeBuilder::buildSample() const
     StochasticSampledParameter par(double_gaussian, nbins, nfwhm);
     ParticleBuilder builder;
     builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
-    builder.plantParticles(particle_decoration);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    builder.plantParticles(particle_layout);
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
 

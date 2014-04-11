@@ -39,6 +39,8 @@ void DiffuseDWBASimulation::run()
                 mp_polarization_output->begin(m_thread_info);
         while ( it_intensity != mp_polarization_output->end(m_thread_info) )
         {
+            if( !m_progress.update()) break;
+
             Bin1D phi_bin = mp_polarization_output->getBinOfAxis(
                 BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
             Bin1D alpha_bin = mp_polarization_output->getBinOfAxis(
@@ -80,6 +82,8 @@ void DiffuseDWBASimulation::run()
         DWBASimulation::iterator it_intensity = begin();
         while ( it_intensity != end() )
         {
+            if( !m_progress.update()) break;
+
             Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
                 BornAgain::PHI_AXIS_NAME, it_intensity.getIndex());
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
@@ -110,10 +114,12 @@ void DiffuseDWBASimulation::run()
             ++it_intensity;
         }
     }
+    m_progress.finished();
 }
 
 void DiffuseDWBASimulation::setMaterial(const IMaterial* p_material)
 {
+    if(!p_material) return;
     SafePointerVector<DiffuseParticleInfo>::iterator it =
             m_np_infos.begin();
     while (it != m_np_infos.end()) {

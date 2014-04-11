@@ -2,7 +2,7 @@
 #include "LayerView.h"
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
-#include "ParticleDecorationView.h"
+#include "ParticleLayoutView.h"
 #include "InterferenceFunctionView.h"
 #include "MaterialView.h"
 #include "SampleBuilderFactory.h"
@@ -27,37 +27,37 @@ DesignerWidgetFactory::DesignerWidgetFactory()
         IFactoryCreateFunction<MultiLayerView, IView>
     );
 
-   registerItem(
-        "FormFactorFullSphere",
-        IFactoryCreateFunction<FormFactorFullSphereView, IView>
-    );
-   registerItem(
-        "FormFactorPyramid",
-        IFactoryCreateFunction<FormFactorPyramidView, IView>
-    );
-   registerItem(
-        "FormFactorCylinder",
-        IFactoryCreateFunction<FormFactorCylinderView, IView>
-    );
-   registerItem(
-        "FormFactorPrism3",
-        IFactoryCreateFunction<FormFactorPrism3View, IView>
-    );
+//   registerItem(
+//        "FormFactorFullSphere",
+//        IFactoryCreateFunction<FormFactorFullSphereView, IView>
+//    );
+//   registerItem(
+//        "FormFactorPyramid",
+//        IFactoryCreateFunction<FormFactorPyramidView, IView>
+//    );
+//   registerItem(
+//        "FormFactorCylinder",
+//        IFactoryCreateFunction<FormFactorCylinderView, IView>
+//    );
+//   registerItem(
+//        "FormFactorPrism3",
+//        IFactoryCreateFunction<FormFactorPrism3View, IView>
+//    );
 
-   registerItem(
-        "ParticleDecoration",
-        IFactoryCreateFunction<ParticleDecorationView, IView>
-    );
+//   registerItem(
+//        "ParticleLayout",
+//        IFactoryCreateFunction<ParticleLayoutView, IView>
+//    );
 
-   registerItem(
-        "InterferenceFunction1DParaCrystal",
-        IFactoryCreateFunction<InterferenceFunction1DParaCrystalView, IView>
-    );
+//   registerItem(
+//        "InterferenceFunction1DParaCrystal",
+//        IFactoryCreateFunction<InterferenceFunction1DParaCrystalView, IView>
+//    );
 
-   registerItem(
-        "HomogeneousMaterial",
-        IFactoryCreateFunction<MaterialView, IView>
-    );
+//   registerItem(
+//        "HomogeneousMaterial",
+//        IFactoryCreateFunction<MaterialView, IView>
+//    );
 
 }
 
@@ -80,8 +80,13 @@ QList<QGraphicsItem *> DesignerWidgetFactory::createViews(const QString &name)
     return instance()->this_createViews(name);
 }
 
+IView * DesignerWidgetFactory::createView(const QString &name)
+{
+    Q_ASSERT(instance());
+    return instance()->this_createView(name);
+}
 
-// TODO Here we use factory from inside another factory. Isn't that full of beauty?
+
 QList<QGraphicsItem *> DesignerWidgetFactory::this_createViews(const QString &name)
 {
     QList<QGraphicsItem *> result;
@@ -90,28 +95,17 @@ QList<QGraphicsItem *> DesignerWidgetFactory::this_createViews(const QString &na
     try {
         result.append(createItem(name.toStdString()));
     } catch (std::runtime_error& e) { }
-
-    // try to create the whole sample from item name
-//    if(result.empty()) {
-//        SampleBuilderFactory factory;
-//        ISample *sample(0);
-//        try {
-//            sample = factory.createSample(name.toStdString());
-//        } catch (std::runtime_error& e) {}
-//        if(sample) {
-//            ISampleToScene visitor;
-//            sample->accept(&visitor);
-//            result = visitor.getItems();
-//        }
-//    }
-
-//    if( result.empty() ) {
-//        std::cout << "DesignerWidgetFactory::create() -> Warning. No widget with name '"
-//                  << name.toStdString() << "' is defined." << std::endl;
-//        result.append(new ISampleDefaultView());
-//    }
-
     return result;
 }
+
+
+IView *DesignerWidgetFactory::this_createView(const QString &name)
+{
+    try {
+        return createItem(name.toStdString());
+    } catch (std::runtime_error& e) { }
+    return 0;
+}
+
 
 

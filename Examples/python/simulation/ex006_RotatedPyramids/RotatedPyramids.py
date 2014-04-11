@@ -10,23 +10,23 @@ def get_sample():
     Build and return the sample representing rotated pyramids on top of substrate
     """
     # defining materials
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73))
     pyramid = Particle(m_particle, pyramid_ff)
     interference = InterferenceFunctionNone()
     angle_around_z = 45.*degree
     transform = Transform3D.createRotateZ(angle_around_z)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(pyramid, transform)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform)
 
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(m_ambience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     substrate_layer = Layer(m_substrate, 0)
 

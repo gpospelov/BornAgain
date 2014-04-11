@@ -15,19 +15,19 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation1():
     # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
     interference = InterferenceFunction1DParaCrystal(20.0*nanometer,7*nanometer, 1e3*nanometer)
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
 
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     substrate_layer = Layer(mSubstrate, 0)
     
@@ -49,9 +49,9 @@ def RunSimulation1():
 # ----------------------------------
 def RunSimulation2():
 #    # defining materials
-    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
 
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -61,12 +61,12 @@ def RunSimulation2():
     pdf = FTDistribution2DCauchy(1.0*nanometer, 1.0*nanometer)
     interference.setProbabilityDistributions(pdf, pdf)
 
-    particle_decoration = ParticleDecoration()
-    particle_decoration.addParticle(cylinder, 0.0, 1.0)
-    particle_decoration.addInterferenceFunction(interference)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(cylinder, 0.0, 1.0)
+    particle_layout.addInterferenceFunction(interference)
     
     air_layer = Layer(mAmbience)
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
     
     substrate_layer = Layer(mSubstrate, 0)
     

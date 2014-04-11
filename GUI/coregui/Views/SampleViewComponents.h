@@ -2,11 +2,12 @@
 #define SAMPLEVIEWCOMPONENTS_H
 
 #include <QWidget>
+#include "ItemTreeView.h"
 #include "widgetbox.h"
 
 #include "SamplePropertyEditor.h"
-#include "SampleTreeInspector.h"
 #include "SampleWidgetBox.h"
+#include "SessionModel.h"
 
 //class SampleWidgetBoxInterface : public QWidget
 //{
@@ -39,9 +40,12 @@ public:
 class SampleViewComponents
 {
 public:
-    static SampleWidgetBox *createWidgetBox(SampleDesignerInterface *core, QWidget *parent);
-    static SamplePropertyEditor *createPropertyEditor(SampleDesignerInterface *core,QWidget *parent);
-    static SampleTreeInspector *createTreeInspector(QWidget *parent);
+    static SampleWidgetBox *createWidgetBox(
+            SampleDesignerInterface *core, QWidget *parent);
+    static SamplePropertyEditor *createPropertyEditor(
+            QItemSelectionModel *selection_model, QWidget *parent);
+    static ItemTreeView *createTreeView(
+            SessionModel *session_model, QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);
 };
 

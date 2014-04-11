@@ -28,6 +28,9 @@ public:
 
 	bool eventFilter(QObject *, QEvent *);
 
+signals:
+    void connectionIsEstablished(NodeEditorConnection *);
+
 private:
 	QGraphicsItem *itemAt(const QPointF&);
 

@@ -21,7 +21,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
@@ -29,7 +29,7 @@
 #include "OutputDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
@@ -179,23 +179,22 @@ ISample *TestRipple1::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 0.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", n_particle);
 
     Layer air_layer(air_material);
-    FormFactorRipple1 *ff_ripple1 = new FormFactorRipple1(m_l, m_w, m_h);
+    FormFactorRipple1 ff_ripple1(m_l, m_w, m_h);
     Particle ripple(particle_material, ff_ripple1);
 
 
-    ParticleDecoration particle_decoration;
-	particle_decoration.addParticle(ripple,0.0,1.0);
+    ParticleLayout particle_layout;
+	particle_layout.addParticle(ripple,0.0,1.0);
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
     // making layer holding all whose nano particles
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
 

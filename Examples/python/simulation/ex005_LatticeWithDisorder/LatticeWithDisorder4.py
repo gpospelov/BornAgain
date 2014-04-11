@@ -12,9 +12,9 @@ def get_sample(xi_value):
     Build and return the sample representing 2D lattice with different disorder
     rotated lattice
     """
-    m_ambience = MaterialManager.getHomogeneousMaterial("Air", 0.0, 0.0)
-    m_substrate = MaterialManager.getHomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = MaterialManager.getHomogeneousMaterial("Particle", 6e-4, 2e-8)
+    m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+    m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     air_layer = Layer(m_ambience)
     substrate_layer = Layer(m_substrate)
@@ -28,16 +28,16 @@ def get_sample(xi_value):
     pdf = FTDistribution2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI)
     p_interference_function.setProbabilityDistribution(pdf)
 
-    particle_decoration = ParticleDecoration()
+    particle_layout = ParticleLayout()
     # particle
     ff_cyl = FormFactorCylinder(5.0*nanometer, 5.0*nanometer)
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder = Particle(m_particle, ff_cyl.clone())
     particle_info = PositionParticleInfo(cylinder, position, 1.0)
-    particle_decoration.addParticleInfo(particle_info)
-    particle_decoration.addInterferenceFunction(p_interference_function)
+    particle_layout.addParticleInfo(particle_info)
+    particle_layout.addInterferenceFunction(p_interference_function)
 
-    air_layer.setDecoration(particle_decoration)
+    air_layer.setLayout(particle_layout)
 
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer)

@@ -23,7 +23,7 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MinimizerScan.h"
@@ -33,7 +33,7 @@
 #include "OutputDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
@@ -124,7 +124,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     // chi squared module
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
+    chiModule.setIntensityNormalizer( IntensityNormalizer() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin();
             it!= isgi_scans.end(); ++it) {

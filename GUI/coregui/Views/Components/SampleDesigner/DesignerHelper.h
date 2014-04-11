@@ -18,7 +18,7 @@ public:
         NodeEditorConnectionType,
         MultiLayerType,
         LayerType,
-        ParticleDecorationType,
+        ParticleLayoutType,
         InterferenceFunctionType,
         InterferenceFunction1DParaType,
         FormFactorType,
@@ -32,8 +32,9 @@ public:
     static int getDefaultLayerHeight() { return m_default_layer_height; }
     static QColor getDefaultLayerColor() { return QColor(Qt::lightGray); }
 
-    static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.20; }
+    static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.15; }
     static int getDefaultMultiLayerHeight() { return m_default_layer_height; }
+    static QRectF getDefaultMultiLayerRect();
 
     static int getDefaultDecorationWidth() { return m_default_layer_height*3; }
     static int getDefaultDecorationHeight() { return m_default_layer_height*4; }
@@ -56,7 +57,7 @@ public:
     static QPixmap getSceneBackground();
     static QPixmap getPixmapLayer();
     static QPixmap getPixmapMultiLayer();
-    static QPixmap getPixmapParticleDecoration();
+    static QPixmap getPixmapParticleLayout();
     static QPixmap getPixmapInterferenceFunction();
     static QPixmap getPixmapFormFactor();
     static QPixmap getPixmapDefault();
@@ -72,7 +73,10 @@ public:
     //! to have reasonable graphics representation of layer in the form of QRect
     static int nanometerToScreen(double nanometer);
 
-    private:
+    //! returns default bounding rectangle for given SampleView name
+    static QRectF getDefaultBoundingRect(const QString &name);
+
+private:
     static int m_default_layer_height;
     static int m_default_layer_width;
 };

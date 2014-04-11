@@ -28,13 +28,13 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
-#include "MaterialManager.h"
+#include "Materials.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
+#include "ParticleLayout.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 
@@ -82,11 +82,11 @@ void TestFittingModule2::execute()
     //fit_example_basics();
 
     // fit example with normalizer
-    //fit_example_chimodule();
+    fit_example_chimodule();
 
     // fit example with strategies
     //fit_example_strategy_data();
-    fit_example_strategy_parameters();
+    //fit_example_strategy_parameters();
 
     // fit example with data masking
     //fit_example_mask();
@@ -146,9 +146,17 @@ void TestFittingModule2::fit_example_chimodule()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( new SquaredFunctionSystematicError() );
-    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
+    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer() );
     m_fitSuite->addSimulationAndRealData(
         *mp_simulation, *mp_real_data, chiModule);
+
+
+//    ParameterPool *pool = m_fitSuite->getFitObjects()->createParameterTree();
+//    std::cout << *pool;
+
+    m_fitSuite->getFitParameters()->printParameters();
+    m_fitSuite->getFitObjects()->printParameters();
+
 
     for(FitSuiteParameters::iterator it =
             m_fitSuite->getFitParameters()->begin();
@@ -298,7 +306,7 @@ void TestFittingModule2::fit_example_mask()
                                 AttLimits::fixed());
 
     ChiSquaredModule chiModule;
-    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
+    chiModule.setIntensityNormalizer( IntensityScaleAndShiftNormalizer(1.0,0) );
     m_fitSuite->addSimulationAndRealData(
         *mp_simulation, *mp_real_data, chiModule);
 
@@ -370,31 +378,28 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    const IMaterial *particle_material =
-            MaterialManager::getHomogeneousMaterial("Particle", n_particle);
+    HomogeneousMaterial air_material("Air", n_air);
+    HomogeneousMaterial substrate_material("Substrate", n_substrate);
+    HomogeneousMaterial particle_material("Particle", n_particle);
     Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+    air_layer.setMaterial(air_material);
     Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(
+    substrate_layer.setMaterial(substrate_material);
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(
         new Particle(particle_material,
-                     new FormFactorCylinder(m_cylinder_radius,
+                     FormFactorCylinder(m_cylinder_radius,
                                             m_cylinder_height)),
         0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(
+    particle_layout.addParticle(
         new Particle(particle_material,
-                     new FormFactorPrism3(m_prism3_length,
+                     FormFactorPrism3(m_prism3_length,
                                           m_prism3_height
                                           )),
         0.0, 1.0 - m_cylinder_ratio);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
 
-    air_layer.setDecoration(particle_decoration);
+    air_layer.setLayout(particle_layout);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(substrate_layer);

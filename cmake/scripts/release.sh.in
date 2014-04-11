@@ -96,7 +96,7 @@ case $REPLY in
     cmake -D BORNAGAIN_APP=ON -D BORNAGAIN_MAN=ON --build $CMAKE_BUILD_DIR $CMAKE_SOURCE_DIR && make -j 4
 
     # Update picture number of lines of code
-    python $CMAKE_SOURCE_DIR/dev-tools/git-utils/cl_lines_of_code.py -i $GIT_SOURCE_TREE -o $CMAKE_SOURCE_DIR/dev-tools/git-utils/lines_of_code.png
+    #python $CMAKE_SOURCE_DIR/dev-tools/git-utils/cl_lines_of_code.py -i $GIT_SOURCE_TREE -o $CMAKE_SOURCE_DIR/dev-tools/git-utils/lines_of_code.png
 
     # Measure the performance
     $CMAKE_BUILD_DIR/bin/App --performance --batch

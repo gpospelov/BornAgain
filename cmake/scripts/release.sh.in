@@ -15,7 +15,7 @@ BA_VERSION_PATCH=@BornAgain_VERSION_PATCH@
 BA_VERSION=$BA_VERSION_MAJOR.$BA_VERSION_MINOR.$BA_VERSION_PATCH
 
 # version of the Users Manual
-MAN_VERSION="0.2.2"
+MAN_VERSION="0.2.3"
 
 # Where is your git source tree? 
 # Set the path here or CMake will set it for you.
@@ -66,7 +66,7 @@ case $REPLY in
 
   1. cd to some empty directory
   2. git clone git://apps.jcns.fz-juelich.de/BornAgain.git
-  3. git checkout develop
+  3. git checkout PreRelease
   4. change the release number in BornAgain/CMakeLists.txt (also in BornAgain/Doc/UserManual/CMakeLists.txt if a new version of the manual is needed)
   5. create the build directory somewhere outside the source tree
   6. cd path-to-build-directory
@@ -89,7 +89,7 @@ case $REPLY in
     rsync -avzhe ssh apps@apps.jcns.fz-juelich.de:/www/apps/src/BornAgain/ $RELEASE_DIR
 
     # make a release branch
-    $GIT_COMMAND checkout -b $RELEASE_BRANCH_NAME origin/develop
+    $GIT_COMMAND checkout -b $RELEASE_BRANCH_NAME origin/PreRelease
 
     # build BornAgain with App and UserManual
     cd $CMAKE_BUILD_DIR

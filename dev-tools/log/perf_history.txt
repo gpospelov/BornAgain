@@ -358,3 +358,7 @@
 # after changing Layer, Particle to own materials and removing MaterialManager
 | 2014-03-26 15:09:45 | jcnsopc126 | linuxx8664gcc | 0  | 27.577   | 2.091        | 1.761        | 1.120        | 0.629        | 5.203        | 6.902        | 0.506        | 7.813        | 1.553        |
 
+# Release 0.9.5
+
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-04-11 13:27:09 | jcnsopc126 | linuxx8664gcc | 0  | 27.248   | 1.053        | 1.865        | 1.100        | 0.634        | 5.280        | 7.113        | 0.512        | 8.194        | 1.496        |

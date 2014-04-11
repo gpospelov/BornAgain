@@ -18,6 +18,8 @@ public:
 
     int type() const { return Type; }
 
+    void addView(IView *childView, int row = 0); // to add Particle
+
 };
 
 

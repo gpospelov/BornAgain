@@ -243,8 +243,9 @@ void MainWindow::initSessionModel()
     m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
     ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer",
                    m_sessionModel->indexOfItem(multilayer));
-    m_sessionModel->insertNewItem("ParticleLayout",
+    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
                    m_sessionModel->indexOfItem(layer));
+    m_sessionModel->insertNewItem("Particle",m_sessionModel->indexOfItem(layout));
     m_sessionModel->insertNewItem("Layer");
     m_sessionModel->insertNewItem("Layer");
 

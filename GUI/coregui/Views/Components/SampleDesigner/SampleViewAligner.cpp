@@ -17,7 +17,7 @@ QMap<QString, int>  initTypeToAreaMap()
     result["MultiLayer"] = 0;
     result["Layer"] = 0;
     result["ParticleLayout"] = 1;
-    result["FormFactorSphere"] = 2;
+    result["Particle"] = 2;
     return result;
 }
 

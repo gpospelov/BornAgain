@@ -195,8 +195,10 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
          if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
 
                 childView = addViewForItem(item);
-                m_orderedViews.push_back(childView);
-                if(parentView) parentView->addView(childView, i_row);
+                if(childView) {
+                    m_orderedViews.push_back(childView);
+                    if(parentView) parentView->addView(childView, i_row);
+                }
 
          } else {
              qDebug() << "not a parameterized graphics item";

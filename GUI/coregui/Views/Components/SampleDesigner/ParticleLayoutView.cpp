@@ -1,5 +1,8 @@
 #include "ParticleLayoutView.h"
+#include "ParticleView.h"
 #include "DesignerHelper.h"
+#include "ParameterizedItem.h"
+#include <QDebug>
 
 
 ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
@@ -13,4 +16,14 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
     addPort("form factors", NodeEditorPort::Input, NodeEditorPort::FormFactor);
     m_roundpar = 3;
+}
+
+
+void ParticleLayoutView::addView(IView *childView, int /* row */)
+{
+    qDebug() << "ParticleLayoutView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName();
+    ParticleView *particle = dynamic_cast<ParticleView *>(childView);
+    Q_ASSERT(particle);
+    connectInputPort(particle);
+
 }

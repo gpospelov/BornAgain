@@ -1,3 +1,30 @@
+BornAgain-0.9.5, released 2014.04.11
+  > Summary: Refactoring in user API, working on GUI toward first beta.
+  * Bug #605: Fitting examples under Windows doesn't update graphics in realtime
+  * Feature #595: Implement saving of general GUI settings
+  * Feature #596: Investigate serialization of QStandardItemModel
+  * Feature #608: Basic QStandardItemModel structure
+  * Feature #609: Generate domain objects from GUI model objects
+  * Feature #611: Attach drag&drop view to the underlying QStandardItemModel
+  * Feature #612: Attach Property Editor View to the underlying QStandardItemModel
+  * Feature #615: Implement add/remove/move in TreeView
+  * Feature #616: Implement new FormFactor pictograms in widgetbox
+  * Feature #623: Implement basics of JobQueueItem and JobQueueModel
+  * Feature #624: Implement JobQueueView with tree representation of queue's properties and corresponding OutputData widget
+  * Feature #625: Implement basic logic for add/remove/cancel/unddo for JobQueueView
+  * Feature #626: Implement ProgressBar in Coregui and JobQueueModel
+  * Feature #627: Implement serialization of JobQueueModel
+  * Feature #628: Implement call back from Simulation to the ProgressBar of JobQueueView
+  * Feature #641: Drag items to root in treeview
+  * Feature #642: Implement normalization of IntensityData in Python
+  * Feature #645: Implement formfactory property as combobox in property editor
+  * Documentation #584: Write small explanation about core shell form factor in FormFactor's Appendix
+  * Documentation #589: Reduce size in Mb of user manual
+  * Documentation #590: Write Appendix section about interference functions available
+  * Documentation #591: Write Doxygen section about interference functions available
+  * Refactoring #266: Refactor MaterialManager
+  * Refactoring #594: Revise ParticleDecoration appearance/naming in UserAPI
+
 BornAgain-0.9.4, released 2014.02.07
   > Summary: Off specular simulation, beam divergence, support for MacOS Maverick, new form factors
   * Bug #220: Gui: provide GUI compilation under Qt5/linux

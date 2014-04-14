@@ -89,18 +89,18 @@ public:
         return m_sub_items;
     }
 
-    void addSubItem(QString name, ParameterizedItem *item);
+    void addPropertyItem(QString name, ParameterizedItem *item);
 
-    ParameterizedItem *createSubItem(QString name);
+    ParameterizedItem *createPropertyItem(QString name);
 
 signals:
     void propertyChanged(QString propertyName);
-    void subItemChanged(QString propertyName);
+    void propertyItemChanged(QString propertyName);
 
 protected:
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
-    void updateSubItem(QString name);
+    void updatePropertyItem(QString name);
     void setMaterialProperty();
     void addFormFactorProperty(const char *name, QString value);
     QList<QString> m_valid_children;

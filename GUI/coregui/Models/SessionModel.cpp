@@ -418,8 +418,8 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                         .value(SessionXML::ItemNameAttribute).toString();
                 if (inside_parameter_tag) {
                     ParameterizedItem *parent = item;
-                    item = parent->createSubItem(parent_parameter_name);
-                    parent->addSubItem(model_type, item);
+                    item = parent->createPropertyItem(parent_parameter_name);
+                    parent->addPropertyItem(model_type, item);
                 }
                 else {
                     item = insertNewItem(model_type, item, row);

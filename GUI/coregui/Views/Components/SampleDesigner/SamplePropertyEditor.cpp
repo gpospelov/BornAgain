@@ -91,10 +91,10 @@ void SamplePropertyEditor::updateSubItems(QString name)
         m_browser->removeProperty(it.next());
     }
 
-    disconnect(m_item, SIGNAL(subItemChanged(QString)),
+    disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                this, SLOT(updateSubItems(QString)));
     addItemProperties(m_item);
-    connect(m_item, SIGNAL(subItemChanged(QString)),
+    connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
 }
 
@@ -108,7 +108,7 @@ void SamplePropertyEditor::setItem(ParameterizedItem *item)
         while (it.hasNext()) {
             m_browser->removeProperty(it.next());
         }
-        disconnect(m_item, SIGNAL(subItemChanged(QString)),
+        disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                 this, SLOT(updateSubItems(QString)));
     }
 
@@ -117,7 +117,7 @@ void SamplePropertyEditor::setItem(ParameterizedItem *item)
     if (!m_item) return;
 
     addItemProperties(m_item);
-    connect(m_item, SIGNAL(subItemChanged(QString)),
+    connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
 }
 

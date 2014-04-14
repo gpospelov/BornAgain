@@ -53,14 +53,14 @@ bool ParameterizedItem::event(QEvent * e )
         QByteArray byte_array = propertyEvent->propertyName();
         QString name(byte_array.constData());
         if (m_sub_items.contains(name)) {
-            updateSubItem(name);
+            updatePropertyItem(name);
         }
         emit propertyChanged(name);
     }
     return QObject::event(e);
 }
 
-void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
+void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
 {
     if (!item) return;
     if (m_sub_items.contains(name)) {
@@ -71,7 +71,7 @@ void ParameterizedItem::addSubItem(QString name, ParameterizedItem *item)
     item->m_parent = this;
 }
 
-ParameterizedItem *ParameterizedItem::createSubItem(QString name)
+ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
 {
     ParameterizedItem *result = 0;
     qDebug() << "CreateSubItem: " << name;
@@ -96,12 +96,12 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     setItemName(m_model_type);
 }
 
-void ParameterizedItem::updateSubItem(QString name)
+void ParameterizedItem::updatePropertyItem(QString name)
 {
     if (!m_sub_items.contains(name)) return;
-    ParameterizedItem *item = createSubItem(name);
-    addSubItem(name, item);
-    emit subItemChanged(name);
+    ParameterizedItem *item = createPropertyItem(name);
+    addPropertyItem(name, item);
+    emit propertyItemChanged(name);
 }
 
 void ParameterizedItem::setMaterialProperty()
@@ -120,6 +120,6 @@ void ParameterizedItem::addFormFactorProperty(const char *name, QString value)
         ff_var.setValue(ff_prop);
         setProperty(name, ff_var);
     }
-    ParameterizedItem *item = createSubItem(name);
-    addSubItem(name, item);
+    ParameterizedItem *item = createPropertyItem(name);
+    addPropertyItem(name, item);
 }

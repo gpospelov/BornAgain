@@ -27,6 +27,7 @@ const QString MimeType = "application/org.bornagainproject.xml.item.z";
 const QString ModelTag("SessionModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
+//const QString PropertyItemTag("PropertyItem");
 const QString ModelTypeAttribute("ModelType");
 const QString ItemNameAttribute("ItemName");
 const QString ParameterTag("Parameter");
@@ -104,11 +105,13 @@ private:
                                      int row=-1);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
-    void readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
+    QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
     void writeItemAndChildItems(QXmlStreamWriter *writer,
                                 ParameterizedItem *item) const;
     void writeProperty(QXmlStreamWriter *writer, ParameterizedItem *item,
                        const char *property_name) const;
+    void writePropertyItem(QXmlStreamWriter *writer,
+                           ParameterizedItem *item) const;
     QString m_filename;
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;

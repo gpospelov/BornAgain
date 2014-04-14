@@ -29,6 +29,7 @@ class QCloseEvent;
 class QSettings;
 class JobQueueModel;
 class SessionModel;
+class MaterialModel;
 
 
 //class MainWindow : public QMainWindow
@@ -76,11 +77,14 @@ private:
     SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
     SessionModel *m_sessionModel; //!< model for all samples
+    MaterialModel *m_materialModel; //!< model for all materials
 
     // dummy simulation model initializer for test purposes
     void initSimModel();
     void initJobQueueModel();
     void initSessionModel();
+    void initMaterialModel();
+
     // dummy instrument creator
     Instrument *createDefaultInstrument();
     ISample *createDefaultSample();

@@ -9,9 +9,12 @@
 #include "SimulationView.h"
 #include "FitView.h"
 #include "JobQueueView.h"
+#include "TestView.h"
+#include "MaterialEditorView.h"
 #include "stylehelper.h"
 #include "SimulationDataModel.h"
 #include "JobQueueModel.h"
+#include "MaterialModel.h"
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
@@ -44,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     , mp_sim_data_model(0)
     , m_jobQueueModel(0)
     , m_sessionModel(0)
+    , m_materialModel(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -55,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
     initJobQueueModel();
 
     initSessionModel();
+
+    initMaterialModel();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -83,7 +89,10 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    m_tabWidget->setCurrentIndex(2);
+    MaterialEditorView *materialView = new MaterialEditorView(m_materialModel, this);
+    m_tabWidget->insertTab(5, materialView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+
+    m_tabWidget->setCurrentIndex(5);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -248,6 +257,15 @@ void MainWindow::initSessionModel()
     m_sessionModel->insertNewItem("Particle",m_sessionModel->indexOfItem(layout));
     m_sessionModel->insertNewItem("Layer");
     m_sessionModel->insertNewItem("Layer");
+
+}
+
+
+void MainWindow::initMaterialModel()
+{
+    delete m_materialModel;
+    m_materialModel = new MaterialModel(this);
+    m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
 
 }
 

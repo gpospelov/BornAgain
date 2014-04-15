@@ -21,6 +21,7 @@ MaterialEditorView::MaterialEditorView(MaterialModel *model, QWidget *parent)
 //    setLayout(layout);
 
     m_splitter->addWidget(m_tableView);
+    m_splitter->addWidget(new QWidget(this));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

@@ -29,6 +29,8 @@ public:
 
     void addMaterial(const QString &name, MaterialItem::MaterialType type);
 
+    QList<MaterialItem *> materials() const { return m_materials; }
+
 private:
     QList<MaterialItem *> m_materials;
     QString m_name;

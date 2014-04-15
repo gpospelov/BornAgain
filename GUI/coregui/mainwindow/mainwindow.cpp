@@ -10,7 +10,7 @@
 #include "FitView.h"
 #include "JobQueueView.h"
 #include "TestView.h"
-#include "MaterialEditorView.h"
+#include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 #include "SimulationDataModel.h"
 #include "JobQueueModel.h"
@@ -89,8 +89,8 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    MaterialEditorView *materialView = new MaterialEditorView(m_materialModel, this);
-    m_tabWidget->insertTab(5, materialView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    MaterialEditorWidget *materialWidget = new MaterialEditorWidget(m_materialModel, this);
+    m_tabWidget->insertTab(5, materialWidget, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
     m_tabWidget->setCurrentIndex(5);
 
@@ -266,6 +266,7 @@ void MainWindow::initMaterialModel()
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-
+    m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
+    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
 }
 

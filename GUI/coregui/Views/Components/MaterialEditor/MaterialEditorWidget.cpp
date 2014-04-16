@@ -4,6 +4,7 @@
 #include "qttreepropertybrowser.h"
 #include <QtVariantPropertyManager>
 #include <QtProperty>
+#include <QtVariantProperty>
 
 #include <QVBoxLayout>
 #include <QDebug>
@@ -60,62 +61,114 @@ void MaterialEditorWidget::setModel(MaterialModel *model)
 }
 
 
-void SamplePropertyEditor::slotValueChanged(QtProperty *property,
+void MaterialEditorWidget::slotValueChanged(QtProperty *property,
                                             const QVariant &value)
 {
-    if (!m_property_to_item_index_pair.contains(property))
+    qDebug() << "MaterialEditorWidget::slotValueChanged" << property << value;
+//    if (!m_property_to_item_index_pair.contains(property))
+//        return;
+
+//    ItemIndexPair item_index_pair =
+//            m_property_to_item_index_pair.value(property);
+
+//    if (item_index_pair.m_item) {
+//        QList<QByteArray> prop_list =
+//                item_index_pair.m_item->dynamicPropertyNames();
+//        if (item_index_pair.m_index > prop_list.length()) {
+//            return;
+//        }
+//        item_index_pair.m_item->setProperty(
+//            prop_list[item_index_pair.m_index].constData(), value);
+//    }
+//    if(m_top_property_to_material.contains(property)) {
+//        qDebug() << "XXX contains" << value.toInt();
+//        m_top_property_to_material[property]->setType(MaterialItem::MaterialType(value.toInt()));
+//        updateMaterialProperties(m_top_property_to_material[property]);
+//    } else {
+//        if(m_property_to_subitem.contains(property)) {
+//            qDebug() << "XXX subproperty" << property->propertyName() << value;
+//            MaterialItem *material = m_property_to_subitem[property].m_parent;
+//            material->setMaterialProperty(property->propertyName(), value);
+//            updateMaterialProperties(material);
+//        }
+
+//    }
+    if (!m_property_to_subitem.contains(property))
         return;
 
-    ItemIndexPair item_index_pair =
-            m_property_to_item_index_pair.value(property);
+    MaterialItem *material = m_property_to_subitem[property].m_parent;
+    QString subName = m_property_to_subitem[property].m_name;
 
-    if (item_index_pair.m_item) {
-        QList<QByteArray> prop_list =
-                item_index_pair.m_item->dynamicPropertyNames();
-        if (item_index_pair.m_index > prop_list.length()) {
-            return;
-        }
-        item_index_pair.m_item->setProperty(
-            prop_list[item_index_pair.m_index].constData(), value);
+    if(subName.isEmpty()) {
+        material->setType(MaterialItem::MaterialType(value.toInt()));
+        removeSubProperties(property);
+        addSubProperties(property, material);
+
+    } else {
+        qDebug() << "XXX subproperty" << property->propertyName() << value;
+        material->setMaterialProperty(property->propertyName(), value);
     }
+
+    updateMaterialProperties(material);
+
 }
 
 
 
 void MaterialEditorWidget::updateBrowser()
 {
-    foreach(const MaterialItem *material, m_materialModel->materials()) {
+    foreach(MaterialItem *material, m_materialModel->materials()) {
         addMaterialProperties(material);
     }
 
 }
 
 
-void MaterialEditorWidget::addMaterialProperties(const MaterialItem *material)
+void MaterialEditorWidget::updateMaterialProperties(MaterialItem *material)
+{
+    qDebug() << "MaterialEditorWidget::updateMaterialProperties ";
+    QtVariantProperty *property = m_top_material_to_property[material];
+    property->setPropertyName(material->property("Name").toString());
+    property->setValue(int(material->getType()));
+
+}
+
+
+
+void MaterialEditorWidget::addMaterialProperties(MaterialItem *material)
 {
     qDebug() << "MaterialEditorWidget::addMaterialProperties() " << material->getName();
     QtVariantProperty *item_property = m_variantManager->addProperty(
                 QtVariantPropertyManager::enumTypeId(), material->getName());
 
+    qDebug() << "XXX " << item_property->valueText() << item_property->displayText();
+
     qDebug() << "MaterialEditorWidget::addMaterialProperties() " << material->getTypeNames();
     item_property->setAttribute(QLatin1String("enumNames"), material->getTypeNames());
-    item_property->setValue(0);
+    item_property->setValue(int(material->getType()));
 
 
-    QtVariantProperty *subProperty = m_variantManager->addProperty(QVariant::String, "Name");
-    subProperty->setValue(material->getName());
-    item_property->addSubProperty(subProperty);
+//    QtVariantProperty *subProperty = m_variantManager->addProperty(QVariant::String, "Name");
+//    subProperty->setValue(material->getName());
+//    item_property->addSubProperty(subProperty);
 
-    subProperty = m_variantManager->addProperty(QVariant::Color, "Color");
-    subProperty->setValue(material->getColor());
-    item_property->addSubProperty(subProperty);
+//    subProperty = m_variantManager->addProperty(QVariant::Color, "Color");
+//    subProperty->setValue(material->getColor());
+//    item_property->addSubProperty(subProperty);
 
 
-    Q_ASSERT(item_property);
+//    Q_ASSERT(item_property);
 
     addSubProperties(item_property, material);
-    QtBrowserItem *browserItem = m_browser->addProperty(item_property);
-    m_browser->setExpanded(browserItem, false);
+    m_browser->addProperty(item_property);
+
+    m_top_property_to_material[item_property] = material;
+    m_top_material_to_property[material] = item_property;
+    m_property_to_subitem[item_property] = SubProperty(material, "");
+
+
+//    QtBrowserItem *browserItem = m_browser->addProperty(item_property);
+//    m_browser->setExpanded(browserItem, false);
 
 //    QtProperty *property = m_variantManager->addProperty(QVariant::String, tr("Name"));
 //    property->setValue(material->getName());
@@ -124,7 +177,28 @@ void MaterialEditorWidget::addMaterialProperties(const MaterialItem *material)
 }
 
 
-void MaterialEditorWidget::addSubProperties(QtProperty *material_property, const MaterialItem *material)
+
+void MaterialEditorWidget::removeSubProperties(QtProperty *property)
+{
+    qDebug() << "MaterialEditorWidget::updateMaterialProperties" << property->propertyName();
+    QList<QtProperty *> properties = property->subProperties();
+    foreach(QtProperty *child, properties) {
+        m_browser->removeProperty(child);
+        delete child;
+
+        QMap<QtProperty *, SubProperty>::iterator it = m_property_to_subitem.find(child);
+        m_property_to_subitem.erase(it);
+
+    }
+
+
+
+
+
+}
+
+
+void MaterialEditorWidget::addSubProperties(QtProperty *material_property, MaterialItem *material)
 {
     Q_ASSERT(material_property);
     Q_ASSERT(material);
@@ -162,6 +236,7 @@ void MaterialEditorWidget::addSubProperties(QtProperty *material_property, const
 //        ItemIndexPair item_index_pair(non_const_item, i);
 //        m_property_to_item_index_pair[subProperty] = item_index_pair;
 //        m_item_to_index_to_property[item][i] = subProperty;
+        m_property_to_subitem[subProperty] = SubProperty(material,prop_name);
     }
 
 

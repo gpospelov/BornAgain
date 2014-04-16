@@ -2,6 +2,7 @@
 #include "RefractiveIndexProperty.h"
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
+#include "GUIHelpers.h"
 
 QStringList MaterialItem::m_type_names = QStringList()
         << QString("Homogeneous Material")
@@ -18,6 +19,32 @@ MaterialItem::MaterialItem(const QString &name, MaterialType type)
 //    rindex_var.setValue(rindex);
 //    setProperty("Refractive index", rindex_var);
 
+    updateProperties();
+    setProperty("Name", name);
+//    setProperty("Color", m_color);
+    connect(this, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+}
+
+
+bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
+{
+    //Q_ASSERT(dynamicPropertyNames().contains(name));
+    QList<QByteArray> property_names = dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        qDebug() << "zzzz " << QString(property_names[i]);
+        if(name == QString(property_names[i])) {
+            setProperty(name.toAscii().data(), value);
+            return true;
+        }
+    }
+    throw GUIHelpers::Error("MaterialItem::setMaterialProperty() -> No property "+name);
+}
+
+
+void MaterialItem::setType(MaterialType type)
+{
+    qDebug() << "MaterialItem::setType";
+    m_type = type;
     updateProperties();
 }
 
@@ -44,8 +71,18 @@ bool MaterialItem::event(QEvent * e )
 
 void MaterialItem::updateProperties()
 {
-    if(m_type == HomogeneousMaterial || m_type == HomogeneousMagneticMaterial) {
-        addRefractiveIndexProperty();
+//    if(m_type == HomogeneousMaterial || m_type == HomogeneousMagneticMaterial) {
+//        addRefractiveIndexProperty();
+//    }
+
+    setProperty("aaa", QVariant(QVariant::Invalid));
+    setProperty("bbb", QVariant(QVariant::Invalid));
+
+    if(m_type == HomogeneousMaterial ) {
+        setProperty("aaa",1.0);
+    }
+    if(m_type == HomogeneousMagneticMaterial ) {
+        setProperty("bbb",2.0);
     }
 
 }
@@ -63,7 +100,8 @@ void MaterialItem::addRefractiveIndexProperty()
 
 void MaterialItem::onPropertyItemChanged(QString propertyName)
 {
-    qDebug() << "MaterialItem::onPropertyItemChanged() ";
+//    qDebug() << "MaterialItem::onPropertyItemChanged() ";
+//    if(propertyName == "Name")
 }
 
 

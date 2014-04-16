@@ -29,7 +29,7 @@ public:
     ~MaterialItem(){}
     void setName(const QString &name) { m_name = name;}
     QString getName() const { return m_name; }
-    void setType(MaterialType type) { m_type = type; }
+    void setType(MaterialType type);
     MaterialType getType() const { return m_type; }
     QString getTypeName() const { return m_type_names.at(int(m_type)); }
     QStringList getTypeNames() const { return m_type_names; }
@@ -47,6 +47,9 @@ public:
 
     void addRefractiveIndexProperty();
     void removeRefractiveIndexProperty();
+
+
+    bool setMaterialProperty(QString name, const QVariant &value);
 
 signals:
     void propertyChanged(QString propertyName);

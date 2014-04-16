@@ -44,7 +44,7 @@ PyFitInstallDir = '../../Fit/PythonAPI'
 def main():
     if len(sys.argv)!=2:
         help_short()
-        sys.exit()
+        exit()
 
     if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
     if not os.path.exists(PyFitTempDir): os.makedirs(PyFitTempDir)
@@ -67,4 +67,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

@@ -8,10 +8,9 @@ import subprocess
 
 import install_utils
 
-#-------------------------------------------------------------
-# generating python_module.pri for qt-creator
-#-------------------------------------------------------------
+
 def GenerateProjectFile(OutputTempDir, files_inc, files_src):
+    '''Generates python_module.pri for qt-creator.'''
     python_pri_file = OutputTempDir+"/python_module.pri"
     fout = open(python_pri_file, 'w')
     fout.write("HEADERS +=  \\ \n")
@@ -51,10 +50,8 @@ def GenerateProjectFile(OutputTempDir, files_inc, files_src):
     return python_pri_file
 
 
-#-------------------------------------------------------------
-# generating python module main cpp file
-#-------------------------------------------------------------
 def GenerateModuleFile(OutputTempDir, files_inc, files_src):
+    '''Generates Python module main cpp file.'''
     # generating own PythonModule.cpp
     python_module_file = OutputTempDir+"/PythonModule.cpp"
     fout = open(python_module_file, 'w')
@@ -102,10 +99,9 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
     fout.close()
     return python_module_file
 
-#------------------------------------------------------------------------------
-# InstallCode()
-#------------------------------------------------------------------------------
+
 def InstallCode(OutputTempDir, InstallDir):
+    '''Installs the code.'''
     print "Installing generated PythonFitAPI into ", InstallDir
     if not os.path.exists(OutputTempDir): exit("No output directory '" + OutputTempDir+"'")
     if not os.path.exists(InstallDir): exit("No install directory '" + InstallDir+"'")
@@ -130,9 +126,6 @@ def InstallCode(OutputTempDir, InstallDir):
     print "Done"
 
 
-#------------------------------------------------------------------------------
-# main()
-#------------------------------------------------------------------------------
 if __name__ == '__main__':
     InstallCode("output/PyCore","../../Core/PythonAPI")
 

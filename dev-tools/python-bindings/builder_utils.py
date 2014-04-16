@@ -10,7 +10,6 @@ from pyplusplus import file_writers
 from pygccxml.declarations.matchers import access_type_matcher_t
 from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
-from pyplusplus import function_transformers as FT
 from pygccxml import parser
 from pyplusplus.function_transformers import transformers
 from pyplusplus.file_writers.balanced_files import balanced_files_t
@@ -194,3 +193,89 @@ def get_gccxml_path():
     if not path.endswith("/gccxml"):
         exit("No gccxml!")
     return path[:-7]
+
+
+def MakePythonAPI(mp, OutputTempDir, IncludeList, CacheFile,
+                  specialFlags="", withPureVirtual=True):
+    '''Produces boost-python code.'''
+
+    print( "Generating PythonAPI from %s." % ( IncludeList ) )
+
+    # getting paths
+    mp.include_dirs.append( get_python_path() )
+    mp.include_dirs.append( get_gcc_path() )
+    mygccxml = get_gccxml_path()
+
+    #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
+    print "NOTE: If you update the source library code, run 'python codegenerator.py clean'"
+
+    xml_cached_fc = parser.create_cached_source_fc(
+        IncludeList, CacheFile)
+    mb = module_builder.module_builder_t(
+        [xml_cached_fc], include_paths=mp.include_dirs, gccxml_path=mygccxml,
+         cflags="-m64 -DGCCXML_SKIP_THIS "+specialFlags)
+
+    # -----------------
+    # general rules
+    # -----------------
+
+    IncludeClasses(mb, mp.include_classes)
+
+    DefineGeneralRules(mb)
+
+    ExcludeConstructorsArgPtr(mb)
+
+    ExcludeMemberFunctionsArgPtr(mb)
+
+    ManageNewReturnPolicy(mb)
+
+    # -----------------
+    # manual tuning
+    # -----------------
+
+    mp.ManualExcludeMemberFunctions(mb)
+
+    mp.ManualClassTunings(mb) 
+
+    # -----------------
+    # default policies for what remained unchanged
+    # -----------------
+
+    if withPureVirtual:
+        IncludePureVirtualMethods(mb, mp.include_classes)
+
+    DefaultReturnPolicy(mb)
+
+    # disabling some warnings
+    messages.disable(
+        messages.W1020,  # Warnings 1020 - 1031 are all about why Py++ generates wrapper for class X
+        messages.W1021,
+        messages.W1022,
+        messages.W1023,
+        messages.W1024,
+        messages.W1025,
+        messages.W1026,
+        messages.W1027,
+        messages.W1028,
+        messages.W1029,
+        messages.W1030,
+        messages.W1031,
+        #messages.W1035,
+        #messages.W1040,
+        #messages.W1038,
+        #messages.W1041,
+        messages.W1036,  # pointer to Python immutable member
+        #messages.W1033, # unnamed variables
+        #messages.W1018, # expose unnamed classes
+        #messages.W1049, # returns reference to local variable
+        #messages.W1014, # unsupported '=' operator
+    )
+
+    # ---------------------------------------------------------
+    # generating output
+    # ---------------------------------------------------------
+    mb.build_code_creator( module_name=ModuleName)
+    mb.code_creator.license = license
+    
+    mb.code_creator.user_defined_directories.append(os.path.abspath('./'))
+    mb.split_module(OutputTempDir)

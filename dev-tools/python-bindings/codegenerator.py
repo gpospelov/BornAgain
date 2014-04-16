@@ -28,6 +28,7 @@ import os
 import sys
 import glob
 
+import builder_utils
 import MakePyCore
 import MakePyFit
 import InstallPyCore
@@ -50,8 +51,12 @@ def main():
     if not os.path.exists(PyFitTempDir): os.makedirs(PyFitTempDir)
     
     if sys.argv[1] == 'make':
-        MakePyCore.MakePythonAPI(PyCoreTempDir)
-        MakePyFit.MakePythonAPI(PyFitTempDir)
+        builder_utils.MakePythonAPI(
+            MakePyCore, PyCoreTempDir, "PythonCoreList.h", "cache_core.xml",
+            specialFlags="-DBORNAGAIN_PYTHON" )
+        builder_utils.MakePythonAPI(
+            MakePyFit, PyFitTempDir, "PythonFitList.h", "cache_fit.xml",
+            withPureVirtual=False)
     elif sys.argv[1] == 'install':
         InstallPyCore.InstallCode(PyCoreTempDir, PyCoreInstallDir)
         InstallPyFit.InstallCode(PyFitTempDir, PyFitInstallDir)

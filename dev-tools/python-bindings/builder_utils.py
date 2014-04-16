@@ -32,30 +32,24 @@ def ExcludeConstructorsArgPtr(mb):
     for cl in mb.classes():
         for ctor in cl.constructors(allow_empty=True):
             for arg in ctor.arguments:
-                if declarations.type_traits.is_pointer(arg.type): ctor.exclude()
+                if declarations.type_traits.is_pointer(arg.type):
+                    ctor.exclude()
 
 
 def ExcludeMemberFunctionsArgPtr(mb):
     '''Excludes member functions if they have pointers in argument list.'''
     for cl in mb.classes():
         for fun in cl.member_functions(allow_empty=True):
-            has_pointers = False
-            for arg in fun.arguments:
-                if declarations.type_traits.is_pointer(arg.type):
-                    has_pointers = True
-            if has_pointers: 
-                #print "XXX",cl.name, fun.name
+            if any(declarations.type_traits.is_pointer(arg.type)
+                   for arg in fun.arguments):
                 fun.exclude();
 
 
 def IncludePureVirtualMethods(mb, include_classes):
     '''Includes pure virtual methods.'''
     for cl in mb.classes():
-        itsOurClass = False
-        for name in include_classes:
-            if name == cl.name or name == cl.alias:
-                itsOurClass=True
-        if not itsOurClass:
+        if not any( name == cl.name or name == cl.alias
+                    for name in include_classes ):
             continue
         query = declarations.virtuality_type_matcher_t(
             declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
@@ -69,35 +63,22 @@ def IncludeClasses(mb, include_classes):
     # check if classes defined in list are presented in module builder
     not_found_classes=[]
     for name in include_classes:
-        isFound = False
-        for cl in mb.classes():
-            if name == cl.name or name == cl.alias: isFound = True
-        if not isFound: not_found_classes.append(name)
+        if not any( name == cl.name or name == cl.alias
+                    for cl in mb.classes() ):
+            not_found_classes.append(name)
     if len(not_found_classes): 
-        print "Error! Can't find classes with requested names ", not_found_classes
+        print( "Error! Can't find classes with requested names " %
+               (not_found_classes) )
         exit()
     mb.classes( lambda cls: cls.name in include_classes ).include()
 
 
 def ExcludeMemberFunctionsForClasses(mb, method_names, class_names):
     '''If class name in 'class_names' then exclude 'method_names'.'''
-    # if class decl_string is present in class_names
-    def ClassInList(cl):
-        for name in class_names:
-            if name in cl.decl_string: return True
-        return False
-    # method name is present in method_names
-    def MethodInList(method):
-        for name in method_names:
-            if method.name == name: return True
-        return False
-    #
     for cl in mb.classes():
-        if ClassInList(cl):
-            #print "class in list",cl.decl_string, class_names
+        if any(name in cl.decl_string for name in class_names):
             for fun in cl.member_functions(allow_empty=True):
-                if MethodInList(fun):
-                    #print "method in list",fun.name, method_names
+                if any(fun.name == name for name in method_names):
                     fun.exclude()
 
 

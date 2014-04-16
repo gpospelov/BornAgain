@@ -1,6 +1,6 @@
 # see codegenerator.py
 
-import glob
+import glob, os
 import builder_utils
 import install_utils
 

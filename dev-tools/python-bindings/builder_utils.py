@@ -3,7 +3,6 @@ import os
 import sys
 import glob
 import subprocess
-import install_utils
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -15,9 +14,6 @@ from pygccxml import parser
 from pyplusplus.function_transformers import transformers
 from pyplusplus.file_writers.balanced_files import balanced_files_t
 from pyplusplus.file_writers.multiple_files import multiple_files_t
-
-
-ModuleName = 'PythonInterface'
 
 balanced_files_t.HEADER_EXT = '.h'
 balanced_files_t.SOURCE_EXT = '.cpp'
@@ -174,14 +170,13 @@ def get_gccxml_path():
     return path[:-7]
 
 
-def MakePythonAPI(prj, IncludeList, CacheFile,
-                  specialFlags="", withPureVirtual=True):
+def MakePythonAPI(prj):
     '''Produces boost-python code.'''
 
     if not os.path.exists(prj.temp_dir):
         os.makedirs(prj.temp_dir)
 
-    print( "Generating PythonAPI from %s." % ( IncludeList ) )
+    print( "Generating PythonAPI from %s." % ( prj.master_include ) )
 
     # getting paths
     prj.include_dirs.append( get_python_path() )
@@ -192,10 +187,10 @@ def MakePythonAPI(prj, IncludeList, CacheFile,
     print "NOTE: If you update the source library code, run 'python codegenerator.py clean'"
 
     xml_cached_fc = parser.create_cached_source_fc(
-        IncludeList, CacheFile)
+        prj.master_include, prj.cache_filename)
     mb = module_builder.module_builder_t(
         [xml_cached_fc], include_paths=prj.include_dirs, gccxml_path=mygccxml,
-         cflags="-m64 -DGCCXML_SKIP_THIS "+specialFlags)
+         cflags="-m64 -DGCCXML_SKIP_THIS "+prj.special_flags)
 
     # -----------------
     # general rules
@@ -223,7 +218,7 @@ def MakePythonAPI(prj, IncludeList, CacheFile,
     # default policies for what remained unchanged
     # -----------------
 
-    if withPureVirtual:
+    if prj.with_pure_virtual:
         IncludePureVirtualMethods(mb, prj.include_classes)
 
     DefaultReturnPolicy(mb)
@@ -256,93 +251,8 @@ def MakePythonAPI(prj, IncludeList, CacheFile,
     # ---------------------------------------------------------
     # generating output
     # ---------------------------------------------------------
-    mb.build_code_creator( module_name=ModuleName)
+    mb.build_code_creator( module_name="PythonInterface" )
     mb.code_creator.license = prj.license
     
     mb.code_creator.user_defined_directories.append(os.path.abspath('./'))
     mb.split_module(prj.temp_dir)
-
-
-def GenerateModuleFile(prj, files_inc, files_src):
-    '''Generates Python module main cpp file.'''
-    # generating own PythonModule.cpp
-    python_module_file = prj.temp_dir+"/PythonModule.cpp"
-    fout = open(python_module_file, 'w')
-    fout.write('#include "Python.h"\n')
-    fout.write('#include "boost/python.hpp"\n')
-
-    if prj.with_Numpy:
-        fout.write('''
-// Numpy (the order of the following three lines is important):
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-#include "numpy/arrayobject.h"
-''')
-
-    for ff in files_inc:
-        ff = ff.replace(prj.temp_dir+"/", "")
-        fout.write('#include "%s"\n' % (ff) )
-    fout.write('\n')
-
-    if prj.with_converter:
-        fout.write('#include "PythonListConverter.h"\n\n')
-
-    fout.write('BOOST_PYTHON_MODULE(%s){\n' % (prj.lib_name) )
-
-    fout.write('    boost::python::docstring_options doc_options(true, true, false);\n\n')
-
-    # copying register lines from automaticaly generated module file to our manually generated
-    old_python_module_file = prj.temp_dir+"/PythonInterface.main.cpp"
-    fin = open(old_python_module_file,'r')
-    for line in fin:
-        if any( pattern in line for pattern in prj.exclude_patterns ):
-            continue
-        if "register_" in line:
-            fout.write(line)
-    fin.close()
-
-    if prj.with_converter:
-        fout.write("\n")
-        fout.write("    register_python2cpp_converters();\n\n")
-
-    if prj.with_Numpy:
-        fout.write("    import_array();\n")
-        fout.write("    /* IMPORTANT\n")
-        fout.write("    this is initialisation function from C-API of python-numpy package. It has to be called once in the\n")
-        fout.write("    initialisation section of the module (i.e. here), when module is going to use any of python numpy C-API.\n")
-        fout.write("    Additional rule: when initialisation of the module, and functions that use python-numpy C-API are located in\n")
-        fout.write("    different files (different compilation units) - and this is exactly our case - additional defines has\n")
-        fout.write("    to be inserted before #include \"numpy/arrayobject.h\". See explanations\n")
-        fout.write("    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array\n")
-        fout.write("    */\n")
-
-    fout.write("}\n")
-    fout.close()
-    return python_module_file
-
-
-def InstallCode(prj ):
-    '''Installs the code.'''
-    print( "Installing generated Python API into %s" % (prj.install_dir) )
-
-    for pattern in prj.exclude_patterns:
-      files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
-      for ff in files2remove:
-          print "...removing dublicated ",ff
-          os.remove(ff)
-
-    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h");
-    files_inc+= glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp");
-    files_inc+= glob.glob(prj.temp_dir+"/__convenience.pypp.hpp"); # needed for Core only
-    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp");
-    files = files_inc+files_src
-
-    python_module_file = GenerateModuleFile(prj, files_inc, files_src)
-    files.append(python_module_file)
-
-    install_utils.PatchFiles(files)
-
-    install_utils.CopyFiles(files, prj.install_dir)
-
-    install_utils.ClearPythonAPI(files, prj.install_dir)
-    print "Done"

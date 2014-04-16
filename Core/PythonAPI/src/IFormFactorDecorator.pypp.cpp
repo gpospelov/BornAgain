@@ -18,11 +18,6 @@ namespace bp = boost::python;
 
 struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
 
-    virtual void accept( ::ISampleVisitor * visitor ) const {
-        bp::override func_accept = this->get_override( "accept" );
-        func_accept( boost::python::ptr(visitor) );
-    }
-
     virtual ::IFormFactorDecorator * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -264,16 +259,6 @@ void register_IFormFactorDecorator_class(){
         typedef bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable > IFormFactorDecorator_exposer_t;
         IFormFactorDecorator_exposer_t IFormFactorDecorator_exposer = IFormFactorDecorator_exposer_t( "IFormFactorDecorator", bp::no_init );
         bp::scope IFormFactorDecorator_scope( IFormFactorDecorator_exposer );
-        { //::IFormFactorDecorator::accept
-        
-            typedef void ( ::IFormFactorDecorator::*accept_function_type )( ::ISampleVisitor * ) const;
-            
-            IFormFactorDecorator_exposer.def( 
-                "accept"
-                , bp::pure_virtual( accept_function_type(&::IFormFactorDecorator::accept) )
-                , ( bp::arg("visitor") ) );
-        
-        }
         { //::IFormFactorDecorator::clone
         
             typedef ::IFormFactorDecorator * ( ::IFormFactorDecorator::*clone_function_type )(  ) const;

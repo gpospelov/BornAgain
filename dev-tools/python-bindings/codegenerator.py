@@ -28,8 +28,12 @@ import sys
 import os
 
 import builder_utils
+import install_utils
+
 import MakePyCore
 import MakePyFit
+
+libs = [ MakePyCore, MakePyFit ]
 
 def main():
     if len(sys.argv)!=2:
@@ -37,15 +41,11 @@ def main():
         exit()
 
     if sys.argv[1] == 'make':
-        builder_utils.MakePythonAPI(
-            MakePyCore, "PythonCoreList.h", "cache_core.xml",
-            specialFlags="-DBORNAGAIN_PYTHON" )
-        builder_utils.MakePythonAPI(
-            MakePyFit, "PythonFitList.h", "cache_fit.xml",
-            withPureVirtual=False)
+        for lib in libs:
+            builder_utils.MakePythonAPI(lib)
     elif sys.argv[1] == 'install':
-        builder_utils.InstallCode(MakePyCore)
-        builder_utils.InstallCode(MakePyFit)
+        for lib in libs:
+            install_utils.InstallCode(lib)
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]

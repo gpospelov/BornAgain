@@ -1,12 +1,6 @@
 # BornAgain Core library
 # settings for Python API generation by codegenerator.py
 
-import os
-import sys
-import glob
-import subprocess
-import time
-
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -26,9 +20,14 @@ license = '''\
 
 lib_name = 'libBornAgainCore'
 
-temp_dir    ='output/PyCore'
+temp_dir    = 'output/PyCore'
 install_dir = '../../Core/PythonAPI'
 
+master_include = "PythonCoreList.h"
+cache_filename = "cache_core.xml"
+special_flags = "-DBORNAGAIN_PYTHON"
+
+with_pure_virtual = False
 with_Numpy = True
 with_converter = True
 

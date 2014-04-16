@@ -126,3 +126,88 @@ def ClearPythonAPI(files, InstallDir):
     for x in list_to_erase:
         os.system("rm "+x)
 
+
+def GenerateModuleFile(prj, files_inc, files_src):
+    '''Generates Python module main cpp file.'''
+    # generating own PythonModule.cpp
+    python_module_file = prj.temp_dir+"/PythonModule.cpp"
+    fout = open(python_module_file, 'w')
+    fout.write('#include "Python.h"\n')
+    fout.write('#include "boost/python.hpp"\n')
+
+    if prj.with_Numpy:
+        fout.write('''
+// Numpy (the order of the following three lines is important):
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
+#include "numpy/arrayobject.h"
+''')
+
+    for ff in files_inc:
+        ff = ff.replace(prj.temp_dir+"/", "")
+        fout.write('#include "%s"\n' % (ff) )
+    fout.write('\n')
+
+    if prj.with_converter:
+        fout.write('#include "PythonListConverter.h"\n\n')
+
+    fout.write('BOOST_PYTHON_MODULE(%s){\n' % (prj.lib_name) )
+
+    fout.write('    boost::python::docstring_options doc_options(true, true, false);\n\n')
+
+    # copying register lines from automaticaly generated module file to our manually generated
+    old_python_module_file = prj.temp_dir+"/PythonInterface.main.cpp"
+    fin = open(old_python_module_file,'r')
+    for line in fin:
+        if any( pattern in line for pattern in prj.exclude_patterns ):
+            continue
+        if "register_" in line:
+            fout.write(line)
+    fin.close()
+
+    if prj.with_converter:
+        fout.write("\n")
+        fout.write("    register_python2cpp_converters();\n\n")
+
+    if prj.with_Numpy:
+        fout.write("    import_array();\n")
+        fout.write("    /* IMPORTANT\n")
+        fout.write("    this is initialisation function from C-API of python-numpy package. It has to be called once in the\n")
+        fout.write("    initialisation section of the module (i.e. here), when module is going to use any of python numpy C-API.\n")
+        fout.write("    Additional rule: when initialisation of the module, and functions that use python-numpy C-API are located in\n")
+        fout.write("    different files (different compilation units) - and this is exactly our case - additional defines has\n")
+        fout.write("    to be inserted before #include \"numpy/arrayobject.h\". See explanations\n")
+        fout.write("    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array\n")
+        fout.write("    */\n")
+
+    fout.write("}\n")
+    fout.close()
+    return python_module_file
+
+
+def InstallCode(prj ):
+    '''Installs the code.'''
+    print( "Installing generated Python API into %s" % (prj.install_dir) )
+
+    for pattern in prj.exclude_patterns:
+      files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
+      for ff in files2remove:
+          print "...removing dublicated ",ff
+          os.remove(ff)
+
+    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h");
+    files_inc+= glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp");
+    files_inc+= glob.glob(prj.temp_dir+"/__convenience.pypp.hpp"); # needed for Core only
+    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp");
+    files = files_inc+files_src
+
+    python_module_file = GenerateModuleFile(prj, files_inc, files_src)
+    files.append(python_module_file)
+
+    PatchFiles(files)
+
+    CopyFiles(files, prj.install_dir)
+
+    ClearPythonAPI(files, prj.install_dir)
+
+    print "Done"

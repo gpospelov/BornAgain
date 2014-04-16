@@ -9,6 +9,7 @@ class QtAbstractPropertyBrowser;
 class QtVariantPropertyManager;
 class QtVariantEditorFactory;
 class QtProperty;
+class MaterialVariantManager;
 
 class MaterialEditorWidget : public QWidget
 {
@@ -20,6 +21,9 @@ public:
 
     void setModel(MaterialModel *model);
 
+private slots:
+    void slotValueChanged(QtProperty *property, const QVariant &value);
+
 private:
     void updateBrowser();
     void addMaterialProperties(const MaterialItem *material);
@@ -28,6 +32,7 @@ private:
     MaterialModel *m_materialModel;
     QtTreePropertyBrowser *m_browser;
     QtVariantPropertyManager *m_variantManager;
+    QtVariantPropertyManager *m_readOnlyManager;
     QtVariantEditorFactory *m_variantFactory;
 };
 

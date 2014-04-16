@@ -95,7 +95,6 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
     fout.write("    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array\n")
     fout.write("    */\n")
     fout.write("}\n")
-
     fout.close()
     return python_module_file
 
@@ -124,9 +123,4 @@ def InstallCode(OutputTempDir, InstallDir):
 
     install_utils.ClearPythonAPI(files, InstallDir)
     print "Done"
-
-
-if __name__ == '__main__':
-    InstallCode("output/PyCore","../../Core/PythonAPI")
-
 

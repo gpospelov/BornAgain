@@ -295,12 +295,7 @@ def GenerateModuleFile(mp, OutputTempDir, libName,files_inc, files_src,
     old_python_module_file = OutputTempDir+"/PythonInterface.main.cpp"
     fin = open(old_python_module_file,'r')
     for line in fin:
-        skip_this = False
-        for pattern in PatternsToExclude:
-            if pattern in line: 
-                skip_this = True
-                break
-        if skip_this:
+        if any( pattern in line for pattern in PatternsToExclude ):
             continue
         if "register_" in line:
             fout.write(line)

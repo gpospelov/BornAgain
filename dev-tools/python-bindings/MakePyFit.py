@@ -23,10 +23,10 @@ license = '''\
 //! @brief Automatically generated boost::python code for PythonFitAPI
 '''
 
+lib_name = 'libBornAgainFit'
 
 temp_dir    ='output/PyFit'
 install_dir = '../../Fit/PythonAPI'
-
 
 with_Numpy = False
 with_converter = False

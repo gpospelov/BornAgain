@@ -3,6 +3,7 @@ import os
 import sys
 import glob
 import subprocess
+import install_utils
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -262,7 +263,7 @@ def MakePythonAPI(prj, IncludeList, CacheFile,
     mb.split_module(prj.temp_dir)
 
 
-def GenerateModuleFile(prj, libName, files_inc, files_src):
+def GenerateModuleFile(prj, files_inc, files_src):
     '''Generates Python module main cpp file.'''
     # generating own PythonModule.cpp
     python_module_file = prj.temp_dir+"/PythonModule.cpp"
@@ -286,7 +287,7 @@ def GenerateModuleFile(prj, libName, files_inc, files_src):
     if prj.with_converter:
         fout.write('#include "PythonListConverter.h"\n\n')
 
-    fout.write('BOOST_PYTHON_MODULE(%s){\n' % (libName) )
+    fout.write('BOOST_PYTHON_MODULE(%s){\n' % (prj.lib_name) )
 
     fout.write('    boost::python::docstring_options doc_options(true, true, false);\n\n')
 
@@ -318,3 +319,30 @@ def GenerateModuleFile(prj, libName, files_inc, files_src):
     fout.write("}\n")
     fout.close()
     return python_module_file
+
+
+def InstallCode(prj ):
+    '''Installs the code.'''
+    print( "Installing generated Python API into %s" % (prj.install_dir) )
+
+    for pattern in prj.exclude_patterns:
+      files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
+      for ff in files2remove:
+          print "...removing dublicated ",ff
+          os.remove(ff)
+
+    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h");
+    files_inc+= glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp");
+    files_inc+= glob.glob(prj.temp_dir+"/__convenience.pypp.hpp"); # needed for Core only
+    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp");
+    files = files_inc+files_src
+
+    python_module_file = GenerateModuleFile(prj, files_inc, files_src)
+    files.append(python_module_file)
+
+    install_utils.PatchFiles(files)
+
+    install_utils.CopyFiles(files, prj.install_dir)
+
+    install_utils.ClearPythonAPI(files, prj.install_dir)
+    print "Done"

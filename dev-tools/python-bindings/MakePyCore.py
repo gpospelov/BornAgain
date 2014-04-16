@@ -24,10 +24,10 @@ license = '''\
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 '''
 
+lib_name = 'libBornAgainCore'
 
 temp_dir    ='output/PyCore'
 install_dir = '../../Core/PythonAPI'
-
 
 with_Numpy = True
 with_converter = True

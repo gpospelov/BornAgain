@@ -30,9 +30,6 @@ import os
 import builder_utils
 import MakePyCore
 import MakePyFit
-import InstallPyCore
-import InstallPyFit
-
 
 def main():
     if len(sys.argv)!=2:
@@ -47,8 +44,8 @@ def main():
             MakePyFit, "PythonFitList.h", "cache_fit.xml",
             withPureVirtual=False)
     elif sys.argv[1] == 'install':
-        InstallPyCore.InstallCode(MakePyCore)
-        InstallPyFit.InstallCode (MakePyFit)
+        builder_utils.InstallCode(MakePyCore)
+        builder_utils.InstallCode(MakePyFit)
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]

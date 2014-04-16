@@ -1,5 +1,5 @@
-# generate python API wrappers for Fit library
-# used by codegenerator.py
+# BornAgain Fit library
+# settings for Python API generation by codegenerator.py
 
 import os
 import sys
@@ -15,8 +15,21 @@ from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 from pygccxml import parser
 
-
 import builder_utils
+
+
+license = '''\
+// BornAgain: simulate and fit scattering at grazing incidence
+//! @brief Automatically generated boost::python code for PythonFitAPI
+'''
+
+
+temp_dir    ='output/PyFit'
+install_dir = '../../Fit/PythonAPI'
+
+
+with_Numpy = False
+with_converter = False
 
 
 include_dirs = [
@@ -64,6 +77,15 @@ include_classes = [
     "SquaredFunctionSystematicError",
     "SquaredFunctionSimError",
 ]
+
+
+exclude_patterns = [
+    # already contained in Core API:
+    "vdouble1d_t",
+    "vcomplex1d_t",
+    "IObservable",
+    "IObserver",
+    "IParameterized" ]
 
 
 # -----------------------------------------------------------------------------
@@ -132,15 +154,3 @@ def ManualClassTunings(mb):
 # excluding specific member functions
 def ManualExcludeMemberFunctions(mb):
     pass
-
-
-if __name__ == '__main__':
-    tempDir='output/PyFit'
-    if not os.path.exists(tempDir): os.makedirs(tempDir)
-    start_time = time.clock()
-    builder_utils.MakePythonAPI(
-        tempDir, "PythonFitList.h", "cache_fit.xml",
-        withPureVirtual=False)
-    print '\nPythonFitAPI source code was generated ( %f seconds ).' % (  ( time.clock() - start_time ) )
-    print 'Run InstallPyFit.py to install generated code into BornAgain source tree'
-    print 'Done'

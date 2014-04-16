@@ -16,9 +16,6 @@ from pyplusplus.file_writers.balanced_files import balanced_files_t
 from pyplusplus.file_writers.multiple_files import multiple_files_t
 
 
-license = "// BornAgain: simulate and fit scattering at grazing incidence \n" \
-           "//! @brief automatically generated boost::python code for PythonCoreAPI  \n"
-
 ModuleName = 'PythonInterface'
 
 balanced_files_t.HEADER_EXT = '.h'
@@ -176,15 +173,18 @@ def get_gccxml_path():
     return path[:-7]
 
 
-def MakePythonAPI(mp, OutputTempDir, IncludeList, CacheFile,
+def MakePythonAPI(prj, IncludeList, CacheFile,
                   specialFlags="", withPureVirtual=True):
     '''Produces boost-python code.'''
+
+    if not os.path.exists(prj.temp_dir):
+        os.makedirs(prj.temp_dir)
 
     print( "Generating PythonAPI from %s." % ( IncludeList ) )
 
     # getting paths
-    mp.include_dirs.append( get_python_path() )
-    mp.include_dirs.append( get_gcc_path() )
+    prj.include_dirs.append( get_python_path() )
+    prj.include_dirs.append( get_gcc_path() )
     mygccxml = get_gccxml_path()
 
     #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
@@ -193,14 +193,14 @@ def MakePythonAPI(mp, OutputTempDir, IncludeList, CacheFile,
     xml_cached_fc = parser.create_cached_source_fc(
         IncludeList, CacheFile)
     mb = module_builder.module_builder_t(
-        [xml_cached_fc], include_paths=mp.include_dirs, gccxml_path=mygccxml,
+        [xml_cached_fc], include_paths=prj.include_dirs, gccxml_path=mygccxml,
          cflags="-m64 -DGCCXML_SKIP_THIS "+specialFlags)
 
     # -----------------
     # general rules
     # -----------------
 
-    IncludeClasses(mb, mp.include_classes)
+    IncludeClasses(mb, prj.include_classes)
 
     DefineGeneralRules(mb)
 
@@ -214,16 +214,16 @@ def MakePythonAPI(mp, OutputTempDir, IncludeList, CacheFile,
     # manual tuning
     # -----------------
 
-    mp.ManualExcludeMemberFunctions(mb)
+    prj.ManualExcludeMemberFunctions(mb)
 
-    mp.ManualClassTunings(mb) 
+    prj.ManualClassTunings(mb) 
 
     # -----------------
     # default policies for what remained unchanged
     # -----------------
 
     if withPureVirtual:
-        IncludePureVirtualMethods(mb, mp.include_classes)
+        IncludePureVirtualMethods(mb, prj.include_classes)
 
     DefaultReturnPolicy(mb)
 
@@ -256,22 +256,21 @@ def MakePythonAPI(mp, OutputTempDir, IncludeList, CacheFile,
     # generating output
     # ---------------------------------------------------------
     mb.build_code_creator( module_name=ModuleName)
-    mb.code_creator.license = license
+    mb.code_creator.license = prj.license
     
     mb.code_creator.user_defined_directories.append(os.path.abspath('./'))
-    mb.split_module(OutputTempDir)
+    mb.split_module(prj.temp_dir)
 
 
-def GenerateModuleFile(mp, OutputTempDir, libName,files_inc, files_src,
-                       PatternsToExclude, withNumpy, withConverter):
+def GenerateModuleFile(prj, libName, files_inc, files_src):
     '''Generates Python module main cpp file.'''
     # generating own PythonModule.cpp
-    python_module_file = OutputTempDir+"/PythonModule.cpp"
+    python_module_file = prj.temp_dir+"/PythonModule.cpp"
     fout = open(python_module_file, 'w')
     fout.write('#include "Python.h"\n')
     fout.write('#include "boost/python.hpp"\n')
 
-    if withNumpy:
+    if prj.with_Numpy:
         fout.write('''
 // Numpy (the order of the following three lines is important):
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
@@ -280,11 +279,11 @@ def GenerateModuleFile(mp, OutputTempDir, libName,files_inc, files_src,
 ''')
 
     for ff in files_inc:
-        ff = ff.replace(OutputTempDir+"/", "")
+        ff = ff.replace(prj.temp_dir+"/", "")
         fout.write('#include "%s"\n' % (ff) )
     fout.write('\n')
 
-    if withConverter:
+    if prj.with_converter:
         fout.write('#include "PythonListConverter.h"\n\n')
 
     fout.write('BOOST_PYTHON_MODULE(%s){\n' % (libName) )
@@ -292,20 +291,20 @@ def GenerateModuleFile(mp, OutputTempDir, libName,files_inc, files_src,
     fout.write('    boost::python::docstring_options doc_options(true, true, false);\n\n')
 
     # copying register lines from automaticaly generated module file to our manually generated
-    old_python_module_file = OutputTempDir+"/PythonInterface.main.cpp"
+    old_python_module_file = prj.temp_dir+"/PythonInterface.main.cpp"
     fin = open(old_python_module_file,'r')
     for line in fin:
-        if any( pattern in line for pattern in PatternsToExclude ):
+        if any( pattern in line for pattern in prj.exclude_patterns ):
             continue
         if "register_" in line:
             fout.write(line)
     fin.close()
 
-    if withConverter:
+    if prj.with_converter:
         fout.write("\n")
         fout.write("    register_python2cpp_converters();\n\n")
 
-    if withNumpy:
+    if prj.with_Numpy:
         fout.write("    import_array();\n")
         fout.write("    /* IMPORTANT\n")
         fout.write("    this is initialisation function from C-API of python-numpy package. It has to be called once in the\n")

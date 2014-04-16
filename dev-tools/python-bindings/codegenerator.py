@@ -24,9 +24,8 @@ Dependencies:
 ''')
 
 
-import os
 import sys
-import glob
+import os
 
 import builder_utils
 import MakePyCore
@@ -35,31 +34,21 @@ import InstallPyCore
 import InstallPyFit
 
 
-PyCoreTempDir='output/PyCore'
-PyCoreInstallDir = '../../Core/PythonAPI'
-
-PyFitTempDir='output/PyFit'
-PyFitInstallDir = '../../Fit/PythonAPI'
-
-
 def main():
     if len(sys.argv)!=2:
         help_short()
         exit()
 
-    if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
-    if not os.path.exists(PyFitTempDir): os.makedirs(PyFitTempDir)
-    
     if sys.argv[1] == 'make':
         builder_utils.MakePythonAPI(
-            MakePyCore, PyCoreTempDir, "PythonCoreList.h", "cache_core.xml",
+            MakePyCore, "PythonCoreList.h", "cache_core.xml",
             specialFlags="-DBORNAGAIN_PYTHON" )
         builder_utils.MakePythonAPI(
-            MakePyFit, PyFitTempDir, "PythonFitList.h", "cache_fit.xml",
+            MakePyFit, "PythonFitList.h", "cache_fit.xml",
             withPureVirtual=False)
     elif sys.argv[1] == 'install':
-        InstallPyCore.InstallCode(MakePyCore, PyCoreTempDir, PyCoreInstallDir)
-        InstallPyFit.InstallCode (MakePyFit,  PyFitTempDir, PyFitInstallDir)
+        InstallPyCore.InstallCode(MakePyCore)
+        InstallPyFit.InstallCode (MakePyFit)
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]

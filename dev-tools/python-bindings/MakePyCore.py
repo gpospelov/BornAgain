@@ -1,5 +1,5 @@
-# generate python API wrappers for Core library
-# used by codegenerator.py
+# BornAgain Core library
+# settings for Python API generation by codegenerator.py
 
 import os
 import sys
@@ -17,6 +17,20 @@ from pygccxml import declarations
 from pygccxml import parser
 
 import builder_utils
+
+
+license = '''\
+// BornAgain: simulate and fit scattering at grazing incidence
+//! @brief Automatically generated boost::python code for PythonCoreAPI
+'''
+
+
+temp_dir    ='output/PyCore'
+install_dir = '../../Core/PythonAPI'
+
+
+with_Numpy = True
+with_converter = True
 
 
 include_dirs = [
@@ -145,6 +159,9 @@ include_classes = [
     "cvector_t",
     "kvector_t",
 ]
+
+
+exclude_patterns = []
 
 
 # -----------------------------------------------------------------------------
@@ -330,17 +347,3 @@ def ManualExcludeMemberFunctions(mb):
             if x in f.name: f.exclude()
         for x in to_exclude_exact:
             if x == f.name: f.exclude()
-    pass
-
-
-if __name__ == '__main__':
-    tempDir = 'output/PyCore'
-    if not os.path.exists(tempDir): os.makedirs(tempDir)
-    start_time = time.clock()
-    builder_utils.MakePythonAPI(
-        tempDir, "PythonCoreList.h", "cache_core.xml",
-        specialFlags="-DBORNAGAIN_PYTHON" )
-    print '\nPythonCoreAPI source code was generated ( %f seconds ).' % ((time.clock() - start_time))
-    print 'Run InstallPyCore.py to install generated code into BornAgain source tree'
-    print 'Done'
-

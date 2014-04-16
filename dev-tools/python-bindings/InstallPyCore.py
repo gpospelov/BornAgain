@@ -5,33 +5,30 @@ import builder_utils
 import install_utils
 
 
-def InstallCode(mp, OutputTempDir, InstallDir):
+def InstallCode(prj ):
     '''Installs the code.'''
-    print( "Installing generated Python API into %s" % (InstallDir) )
+    print( "Installing generated Python API into %s" % (prj.install_dir) )
 
-    PatternsToExclude = []
-
-    for pattern in PatternsToExclude:
-      files2remove = glob.glob(OutputTempDir+"/"+pattern+".*")
+    for pattern in prj.exclude_patterns:
+      files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
       for ff in files2remove:
           print "...removing dublicated ",ff
           os.remove(ff)
 
-    files_inc =glob.glob(OutputTempDir+"/*.pypp.h");
-    files_inc+= glob.glob(OutputTempDir+"/__call_policies.pypp.hpp");
-    files_inc+= glob.glob(OutputTempDir+"/__convenience.pypp.hpp");
-    files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
+    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h");
+    files_inc+= glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp");
+    files_inc+= glob.glob(prj.temp_dir+"/__convenience.pypp.hpp"); # needed for Core only
+    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp");
     files = files_inc+files_src
 
     python_module_file = builder_utils.GenerateModuleFile(
-        mp, OutputTempDir, 'libBornAgainCore', files_inc, files_src,
-        PatternsToExclude, True, True)
+        prj, 'libBornAgainCore', files_inc, files_src)
     files.append(python_module_file)
 
     install_utils.PatchFiles(files)
 
-    install_utils.CopyFiles(files, InstallDir)
+    install_utils.CopyFiles(files, prj.install_dir)
 
-    install_utils.ClearPythonAPI(files, InstallDir)
+    install_utils.ClearPythonAPI(files, prj.install_dir)
     print "Done"
 

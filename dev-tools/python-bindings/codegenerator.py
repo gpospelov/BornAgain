@@ -58,8 +58,8 @@ def main():
             MakePyFit, PyFitTempDir, "PythonFitList.h", "cache_fit.xml",
             withPureVirtual=False)
     elif sys.argv[1] == 'install':
-        InstallPyCore.InstallCode(PyCoreTempDir, PyCoreInstallDir)
-        InstallPyFit.InstallCode(PyFitTempDir, PyFitInstallDir)
+        InstallPyCore.InstallCode(MakePyCore, PyCoreTempDir, PyCoreInstallDir)
+        InstallPyFit.InstallCode (MakePyFit,  PyFitTempDir, PyFitInstallDir)
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]

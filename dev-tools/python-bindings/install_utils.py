@@ -17,20 +17,6 @@ def FilesAreDifferent(file1, file2):
     return False
 
 
-def FileContainsLine(file_name, myline):
-    '''Does file contain given line?'''
-
-    lines = open(file_name, 'r').readlines()
-    return myline in lines
-
-
-def FileContainsString(file_name, mystr):
-    '''Does file contain given string?'''
-
-    lines = open(file_name, 'r').readlines()
-    return any(mystr in line for line in lines)
-
-
 def PatchFiles(files):
     '''Patches generated files to get rid from boost compilation warnings.'''
 

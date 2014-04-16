@@ -1,71 +1,36 @@
 # see codegenerator.py
 
-import os
-import sys
 import glob
-import difflib
-import subprocess
 
 import install_utils
 
-#-------------------------------------------------------------
-# generating python_module.pri for qt-creator
-#-------------------------------------------------------------
-def GenerateProjectFile(OutputTempDir, files_inc, files_src):
-    python_pri_file = OutputTempDir+"/python_module.pri"
-    fout = open(python_pri_file, 'w')
-    fout.write("HEADERS +=  \\ \n")
-    # existing files (written by human being)
-    fout.write("    PythonAPI/inc/PythonFitExposer.h \\ \n")
-    fout.write("    PythonAPI/inc/PythonFitList.h \\ \n")
-    # automatically generated files
-    for i_file in range(0,len(files_inc)):
-        delim = " \\"
-        if i_file == len(files_inc)-1:
-            delim = " "
-        ff = files_inc[i_file]
-        ff = ff.replace(OutputTempDir,"PythonAPI/inc")
-        fout.write("    "+ff+delim+"\n")
-    fout.write("\n")
-    fout.write("SOURCES +=  \\ \n")
-    # existing files (written by human being)
-    fout.write("    PythonAPI/src/PythonModule.cpp \\ \n")
-    # automatically generated files
-    for i_file in range(0,len(files_src)):
-        delim = " \\"
-        if i_file == len(files_src)-1:
-            delim = " "
-        ff = files_src[i_file]
-        ff = ff.replace(OutputTempDir,"PythonAPI/src")
-        fout.write("    "+ff+delim+"\n")
-    fout.write("\n")
 
-    fout.write("INCLUDEPATH += ./PythonAPI/inc \n")
-    fout.write("DEPENDPATH  += ./PythonAPI/inc \n")
-    fout.close()
-    return python_pri_file
-
-
-#-------------------------------------------------------------
-# generating python module main cpp file
-#-------------------------------------------------------------
-def GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude):
+def GenerateModuleFile(OutputTempDir, libName,files_inc, files_src, PatternsToExclude,
+                       withNumpy, withConverter):
+    '''Generates Python module main cpp file.'''
     # generating own PythonModule.cpp
     python_module_file = OutputTempDir+"/PythonModule.cpp"
     fout = open(python_module_file, 'w')
-    fout.write("#include \"Python.h\"\n")
-    fout.write("#include \"boost/python.hpp\"\n")
-    fout.write("\n")
-    #fout.write("#include \"PythonModule.h\"\n")
+    fout.write('#include "Python.h"\n')
+    fout.write('#include "boost/python.hpp"\n')
+    if withNumpy:
+        fout.write('''
+// Numpy [the order of the following three lines is important):
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
+#include "numpy/arrayobject.h"
+''')
     for ff in files_inc:
-        ff = ff.replace(OutputTempDir+"/","")
-        fout.write("#include \""+ff+"\" \n")
-    fout.write("\n")
-    fout.write("BOOST_PYTHON_MODULE(libBornAgainFit){\n")
-    fout.write("\n")
+        ff = ff.replace(OutputTempDir+"/", "")
+        fout.write('#include "%s"\n' % (ff) )
+    fout.write('\n')
 
-    fout.write("    boost::python::docstring_options doc_options(true, true, false);\n")
-    fout.write("\n")
+    if withConverter:
+        fout.write('#include "PythonListConverter.h"\n\n')
+
+    fout.write('BOOST_PYTHON_MODULE(%s){\n' % (libName) )
+
+    fout.write('    boost::python::docstring_options doc_options(true, true, false);\n\n')
 
     # copying register lines from automaticaly generated module file to our manually generated
     old_python_module_file = OutputTempDir+"/PythonInterface.main.cpp"
@@ -73,26 +38,40 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude):
     for line in fin:
         skip_this = False
         for pattern in PatternsToExclude:
-          if pattern in line: 
-            skip_this = True
-            break
-        if skip_this: continue
-        if "register_" in line: fout.write(line)
+            if pattern in line: 
+                skip_this = True
+                break
+        if skip_this:
+            continue
+        if "register_" in line:
+            fout.write(line)
     fin.close()
+
+    if withConverter:
+        fout.write("\n")
+        fout.write("    register_python2cpp_converters();\n\n")
+    if withNumpy:
+        fout.write("    import_array();\n")
+        fout.write("    /* IMPORTANT\n")
+        fout.write("    this is initialisation function from C-API of python-numpy package. It has to be called once in the\n")
+        fout.write("    initialisation section of the module (i.e. here), when module is going to use any of python numpy C-API.\n")
+        fout.write("    Additional rule: when initialisation of the module, and functions that use python-numpy C-API are located in\n")
+        fout.write("    different files (different compilation units) - and this is exactly our case - additional defines has\n")
+        fout.write("    to be inserted before #include \"numpy/arrayobject.h\". See explanations\n")
+        fout.write("    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array\n")
+        fout.write("    */\n")
     fout.write("}\n")
     fout.close()
     return python_module_file
 
-#------------------------------------------------------------------------------
-# InstallCode()
-#------------------------------------------------------------------------------
-def InstallCode(OutputTempDir, InstallDir):
-    print "Installing generated PythonCoreAPI into ", InstallDir
-    if not os.path.exists(OutputTempDir): exit("No output directory '" + OutputTempDir+"'")
-    if not os.path.exists(InstallDir): exit("No install directory '" + InstallDir+"'")
 
-    # skipping files which are already included into Core library
-    PatternsToExclude = ["vdouble1d_t", "vcomplex1d_t", "IObservable", "IObserver", "IParameterized"]
+def InstallCode(OutputTempDir, InstallDir):
+    '''Installs the code.'''
+    print( "Installing generated Python API into %s" % (InstallDir) )
+
+    PatternsToExclude = ["vdouble1d_t", "vcomplex1d_t", "IObservable",
+                         "IObserver", "IParameterized"]
+
     for pattern in PatternsToExclude:
       files2remove = glob.glob(OutputTempDir+"/"+pattern+".*")
       for ff in files2remove:
@@ -104,10 +83,8 @@ def InstallCode(OutputTempDir, InstallDir):
     files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
     files = files_inc+files_src
 
-#    python_pri_file = GenerateProjectFile(OutputTempDir, files_inc, files_src)
-#    files.append(python_pri_file)
-
-    python_module_file = GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude)
+    python_module_file = GenerateModuleFile(
+        OutputTempDir, 'libBornAgainFit', files_inc, files_src, PatternsToExclude, False, False)
     files.append(python_module_file)
 
     install_utils.PatchFiles(files)
@@ -116,12 +93,4 @@ def InstallCode(OutputTempDir, InstallDir):
 
     install_utils.ClearPythonAPI(files, InstallDir)
     print "Done"
-
-
-#------------------------------------------------------------------------------
-# main()
-#------------------------------------------------------------------------------
-if __name__ == '__main__':
-    InstallCode("output/PyFit","../../Fit/PythonAPI")
-
 

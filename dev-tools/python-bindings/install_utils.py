@@ -3,6 +3,7 @@
 import os
 import glob
 import subprocess
+import shutil
 
 def FilesAreDifferent(file1, file2):
     '''Returns True if files are different or absent.'''
@@ -39,13 +40,23 @@ def PatchFiles(files):
 
         for line in fin:
             if "boost/python.hpp" in line:
-                fout.write("#include \"Macros.h\"\n")
-                fout.write("GCC_DIAG_OFF(unused-parameter);\n")
-                fout.write("GCC_DIAG_OFF(missing-field-initializers);\n")
-                fout.write("#include \"boost/python.hpp\"\n")
-                if has_boost_suite_hpp: fout.write("#include \"boost/python/suite/indexing/vector_indexing_suite.hpp\"\n")
-                fout.write("GCC_DIAG_ON(unused-parameter);\n")
-                fout.write("GCC_DIAG_ON(missing-field-initializers);\n")
+
+                fout.write('''\
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
+#include "boost/python.hpp"
+''')
+
+                if has_boost_suite_hpp:
+                    fout.write('''\
+#include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+''')
+
+                fout.write('''\
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
+''')
             elif "vector_indexing_suite.hpp" in line:
                 continue
             else:
@@ -74,10 +85,9 @@ def CopyFiles(files, InstallDir):
             outputName=InstallDir+"/../"+fileName
 
         if FilesAreDifferent(outputName,f):
-            command = "cp " + f + " " + outputName
+            shutil.copy( f, outputName )
             #print command
             n_copied_files += 1
-            os.system(command)
 
     print "CopyFiles()      :",n_copied_files,"files out of",len(files),"have been replaced in ",InstallDir
 

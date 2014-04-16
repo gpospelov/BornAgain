@@ -1,19 +1,8 @@
 # BornAgain Fit library
 # settings for Python API generation by codegenerator.py
 
-import os
-import sys
-import glob
-import subprocess
-import time
-from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
-from pyplusplus import file_writers
-from pygccxml.declarations.matchers import access_type_matcher_t
-from pygccxml.declarations.matchers import virtuality_type_matcher_t
-from pygccxml import declarations
-from pygccxml import parser
 
 import builder_utils
 
@@ -32,7 +21,7 @@ master_include = "PythonFitList.h"
 cache_filename = "cache_fit.xml"
 special_flags = ""
 
-with_pure_virtual = True
+with_pure_virtual = False
 with_Numpy = False
 with_converter = False
 

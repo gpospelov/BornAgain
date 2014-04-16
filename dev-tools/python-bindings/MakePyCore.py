@@ -1,14 +1,8 @@
 # BornAgain Core library
 # settings for Python API generation by codegenerator.py
 
-from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
-from pyplusplus import file_writers
-from pygccxml.declarations.matchers import access_type_matcher_t
-from pygccxml.declarations.matchers import virtuality_type_matcher_t
-from pygccxml import declarations
-from pygccxml import parser
 
 import builder_utils
 
@@ -27,7 +21,7 @@ master_include = "PythonCoreList.h"
 cache_filename = "cache_core.xml"
 special_flags = "-DBORNAGAIN_PYTHON"
 
-with_pure_virtual = False
+with_pure_virtual = True
 with_Numpy = True
 with_converter = True
 

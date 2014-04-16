@@ -13,7 +13,6 @@ from pygccxml import parser
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
-from pyplusplus import file_writers
 from pyplusplus.function_transformers import transformers
 from pyplusplus.file_writers.balanced_files import balanced_files_t
 from pyplusplus.file_writers.multiple_files import multiple_files_t
@@ -89,11 +88,13 @@ def DefineGeneralRules(mb):
     # Exclude protected and private that are not pure virtual
     # (we still have to expose pure virtual functions to have them
     #  overriden in the wrapper)
-    query = declarations.access_type_matcher_t( 'private' ) & ~declarations.virtuality_type_matcher_t(
-        declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
+    query = declarations.access_type_matcher_t( 'private' ) & \
+            ~declarations.virtuality_type_matcher_t(
+                declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
     mb.global_ns.calldefs( query, allow_empty=True ).exclude()
-    query = declarations.access_type_matcher_t( 'protected' ) & ~declarations.virtuality_type_matcher_t(
-        declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
+    query = declarations.access_type_matcher_t( 'protected' ) & \
+            ~declarations.virtuality_type_matcher_t(
+                declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
     mb.global_ns.calldefs( query, allow_empty=True ).exclude()
     # excluding generation of methods for implicit conversion
     mb.constructors().allow_implicit_conversion = False
@@ -187,23 +188,18 @@ def MakePythonAPI(prj):
 
     print( "Generating PythonAPI from %s." % ( prj.master_include ) )
 
-    # getting paths
-    prj.include_dirs.append( get_python_path() )
-    prj.include_dirs.append( get_gcc_path() )
-    mygccxml = get_gccxml_path()
-
     #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
     print "NOTE: If you update the source library code, run 'python codegenerator.py clean'"
 
     xml_cached_fc = parser.create_cached_source_fc(
         prj.master_include, prj.cache_filename)
     mb = module_builder.module_builder_t(
-        [xml_cached_fc], include_paths=prj.include_dirs, gccxml_path=mygccxml,
-         cflags="-m64 -DGCCXML_SKIP_THIS "+prj.special_flags)
+        [xml_cached_fc],
+        include_paths = prj.include_dirs + [get_python_path(), get_gcc_path()],
+        gccxml_path = get_gccxml_path(),
+        cflags = "-m64 -DGCCXML_SKIP_THIS "+prj.special_flags)
 
-    # -----------------
     # general rules
-    # -----------------
 
     IncludeClasses(mb, prj.include_classes)
 
@@ -215,24 +211,21 @@ def MakePythonAPI(prj):
 
     ManageNewReturnPolicy(mb)
 
-    # -----------------
-    # manual tuning
-    # -----------------
+    # execute project-specific rules
 
     prj.ManualExcludeMemberFunctions(mb)
 
     prj.ManualClassTunings(mb) 
 
-    # -----------------
     # default policies for what remained unchanged
-    # -----------------
 
     if prj.with_pure_virtual:
         IncludePureVirtualMethods(mb, prj.include_classes)
 
     DefaultReturnPolicy(mb)
 
-    # disabling some warnings
+    # disable some warnings
+
     messages.disable(
         messages.W1020,  # Warnings 1020 - 1031 are all about why Py++ generates wrapper for class X
         messages.W1021,
@@ -257,9 +250,8 @@ def MakePythonAPI(prj):
         #messages.W1014, # unsupported '=' operator
     )
 
-    # ---------------------------------------------------------
-    # generating output
-    # ---------------------------------------------------------
+    # generate output
+
     mb.build_code_creator( module_name="PythonInterface" )
     mb.code_creator.license = prj.license
     

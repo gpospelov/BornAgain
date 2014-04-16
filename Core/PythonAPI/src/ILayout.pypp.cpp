@@ -25,6 +25,11 @@ struct ILayout_wrapper : ILayout, bp::wrapper< ILayout > {
     
     }
 
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
+    }
+
     virtual ::ILayout * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
@@ -226,6 +231,16 @@ void register_ILayout_class(){
         typedef bp::class_< ILayout_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > ILayout_exposer_t;
         ILayout_exposer_t ILayout_exposer = ILayout_exposer_t( "ILayout", bp::init< >() );
         bp::scope ILayout_scope( ILayout_exposer );
+        { //::ILayout::accept
+        
+            typedef void ( ::ILayout::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            ILayout_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ILayout::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
         { //::ILayout::clone
         
             typedef ::ILayout * ( ::ILayout::*clone_function_type )(  ) const;

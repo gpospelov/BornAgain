@@ -35,35 +35,32 @@ def PatchFiles(files):
             continue
 
         # patch is required
-        fin = file(ff,"r")
-        fout = file("tmp.tmp","w")
+        with file(ff,"r") as fin:
+            with file("tmp.tmp","w") as fout:
+                for line in fin:
+                    if "boost/python.hpp" in line:
 
-        for line in fin:
-            if "boost/python.hpp" in line:
-
-                fout.write('''\
+                        fout.write('''\
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 ''')
 
-                if has_boost_suite_hpp:
-                    fout.write('''\
+                        if has_boost_suite_hpp:
+                            fout.write('''\
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 ''')
-
-                fout.write('''\
+                            
+                        fout.write('''\
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 ''')
-            elif "vector_indexing_suite.hpp" in line:
-                continue
-            else:
-                fout.write(line)
-        fout.close()
-        fin.close()
-        os.system("mv tmp.tmp "+ff)
+                    elif "vector_indexing_suite.hpp" in line:
+                        continue
+                    else:
+                        fout.write(line)
+        shutil.move("tmp.tmp", ff)
         n_patched_files += 1
     print "PatchFiles()     :",n_patched_files, "files have been patched to get rid from compilation warnings"
 
@@ -81,12 +78,9 @@ def CopyFiles(files, InstallDir):
             outputName=InstallDir+"/src/"+fileName
         elif '.h' in fileName:
             outputName=InstallDir+"/inc/"+fileName
-        elif '.pri' in fileName:
-            outputName=InstallDir+"/../"+fileName
 
         if FilesAreDifferent(outputName,f):
             shutil.copy( f, outputName )
-            #print command
             n_copied_files += 1
 
     print "CopyFiles()      :",n_copied_files,"files out of",len(files),"have been replaced in ",InstallDir

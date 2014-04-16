@@ -25,6 +25,11 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     }
 
+    virtual void accept( ::ISampleVisitor * visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(visitor) );
+    }
+
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
@@ -235,6 +240,16 @@ void register_IClusteredParticles_class(){
         typedef bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > IClusteredParticles_exposer_t;
         IClusteredParticles_exposer_t IClusteredParticles_exposer = IClusteredParticles_exposer_t( "IClusteredParticles", bp::init< >() );
         bp::scope IClusteredParticles_scope( IClusteredParticles_exposer );
+        { //::IClusteredParticles::accept
+        
+            typedef void ( ::IClusteredParticles::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            IClusteredParticles_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::IClusteredParticles::accept) )
+                , ( bp::arg("visitor") ) );
+        
+        }
         { //::IClusteredParticles::applyTransformation
         
             typedef void ( ::IClusteredParticles::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;

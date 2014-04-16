@@ -34,6 +34,8 @@ public:
     QString getTypeName() const { return m_type_names.at(int(m_type)); }
     QStringList getTypeNames() const { return m_type_names; }
 
+    virtual QString getTitleString() { return QString(); }
+
     void setColor(const QColor color) { m_color = color; }
     QColor getColor() const { return m_color;}
 
@@ -74,11 +76,17 @@ class RefractiveIndexItem : public MaterialItem
     Q_OBJECT
 
 public:
-    RefractiveIndexItem() : MaterialItem("", MaterialItem::NonExisting)
+    RefractiveIndexItem() : MaterialItem("Refractive index", MaterialItem::NonExisting)
     //RefractiveIndexItem()
     {
         setProperty("delta", QString("1e-3"));
         setProperty("gamma", QString("1e-5"));
+    }
+
+    QString getTitleString()
+    {
+
+        return QString("(%1, %2)").arg(property("delta").toString(), property("gamma").toString());
     }
 
 };

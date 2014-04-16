@@ -22,7 +22,7 @@ MaterialItem::MaterialItem(const QString &name, MaterialType type)
     updateProperties();
     setProperty("Name", name);
 //    setProperty("Color", m_color);
-    connect(this, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+//    connect(this, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
 }
 
 
@@ -72,7 +72,7 @@ bool MaterialItem::event(QEvent * e )
 void MaterialItem::updateProperties()
 {
 //    if(m_type == HomogeneousMaterial || m_type == HomogeneousMagneticMaterial) {
-//        addRefractiveIndexProperty();
+//
 //    }
 
     setProperty("aaa", QVariant(QVariant::Invalid));
@@ -85,14 +85,17 @@ void MaterialItem::updateProperties()
         setProperty("bbb",2.0);
     }
 
+    if(m_type == HomogeneousMaterial || m_type == HomogeneousMagneticMaterial) {
+        addRefractiveIndexProperty();
+    }
 }
 
 
 void MaterialItem::addRefractiveIndexProperty()
 {
-    setProperty("Refractive Rindex", QString("xxx"));
     RefractiveIndexItem *item = new RefractiveIndexItem();
-    m_sub_items["Refractive Rindex"] = item;
+    setProperty("Refractive index", item->getTitleString());
+    m_sub_items["Refractive index"] = item;
 
     connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
 
@@ -100,8 +103,16 @@ void MaterialItem::addRefractiveIndexProperty()
 
 void MaterialItem::onPropertyItemChanged(QString propertyName)
 {
-//    qDebug() << "MaterialItem::onPropertyItemChanged() ";
+    qDebug() << "MaterialItem::onPropertyItemChanged() " << propertyName;
 //    if(propertyName == "Name")
+    MaterialItem *property = qobject_cast<MaterialItem *>(sender());
+    if(property) {
+        QString subItemName = property->getName();
+        qDebug() << " xx setting title string" << property->getTitleString();
+        setMaterialProperty(subItemName, property->getTitleString());
+    }
+
+
 }
 
 

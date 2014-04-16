@@ -41,6 +41,7 @@ private:
     void updateMaterialProperties(MaterialItem *material);
     void addSubProperties(QtProperty *property, MaterialItem *material);
     void removeSubProperties(QtProperty *property);
+    void updateSubProperties(MaterialItem *material);
 
     MaterialModel *m_materialModel;
     QtTreePropertyBrowser *m_browser;
@@ -56,7 +57,7 @@ private:
 //        m_item_to_index_to_property;
 
     QMap<QtProperty *, SubProperty> m_property_to_subitem;
-    //QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
+    QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 };
 
 

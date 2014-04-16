@@ -127,10 +127,13 @@ void MaterialEditorWidget::updateBrowser()
 void MaterialEditorWidget::updateMaterialProperties(MaterialItem *material)
 {
     qDebug() << "MaterialEditorWidget::updateMaterialProperties ";
-    QtVariantProperty *property = m_top_material_to_property[material];
-    property->setPropertyName(material->property("Name").toString());
-    property->setValue(int(material->getType()));
+    //QtVariantProperty *property = m_top_material_to_property[material];
+    if(m_top_material_to_property.contains(material)) {
+        m_top_material_to_property[material]->setPropertyName(material->property("Name").toString());
+    }
+    //property->setValue(int(material->getType()));
 
+    updateSubProperties(material);
 }
 
 
@@ -237,9 +240,42 @@ void MaterialEditorWidget::addSubProperties(QtProperty *material_property, Mater
 //        m_property_to_item_index_pair[subProperty] = item_index_pair;
 //        m_item_to_index_to_property[item][i] = subProperty;
         m_property_to_subitem[subProperty] = SubProperty(material,prop_name);
+        m_material_to_property[material][prop_name] = subProperty;
     }
 
 
 
+}
+
+
+void MaterialEditorWidget::updateSubProperties(MaterialItem *material)
+{
+    qDebug() << "MaterialEditorWidget::updateSubProperties" << material->getName();
+    if(m_material_to_property.contains(material)) {
+
+        QMap<QString, QtVariantProperty *> mmm = m_material_to_property[material];
+//        for(QMap<QString, QtVariantProperty *> ::iterator it=mmm.begin(); it!=mmm.end(); ++it) {
+//            qDebug() << "ooo " << it.key() << it.value();
+//        }
+
+        QList<QByteArray> property_names = material->dynamicPropertyNames();
+        for (int i = 0; i < property_names.length(); ++i) {
+            QString prop_name = QString(property_names[i]);
+            QVariant prop_value = material->property(prop_name.toUtf8().data());
+            qDebug() << "oooo2" << prop_name << prop_value;
+
+            if(mmm.contains(prop_name)) {
+                QtVariantProperty *vproperty = mmm[prop_name];
+                if (material->getSubItems().contains(prop_name)) {
+                    vproperty->setValue(prop_value);
+                }
+            }
+
+
+        }
+
+
+
+    }
 }
 

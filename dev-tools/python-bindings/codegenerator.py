@@ -33,7 +33,7 @@ import install_utils
 import MakePyCore
 import MakePyFit
 
-libs = [ MakePyCore, MakePyFit ]
+projects = [ MakePyCore, MakePyFit ]
 
 def main():
     if len(sys.argv)!=2:
@@ -41,11 +41,11 @@ def main():
         exit()
 
     if sys.argv[1] == 'make':
-        for lib in libs:
-            builder_utils.MakePythonAPI(lib)
+        for prj in projects:
+            builder_utils.MakePythonAPI(prj)
     elif sys.argv[1] == 'install':
-        for lib in libs:
-            install_utils.InstallCode(lib)
+        for prj in projects:
+            install_utils.InstallCode(prj)
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]

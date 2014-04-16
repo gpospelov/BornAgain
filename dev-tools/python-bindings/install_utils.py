@@ -1,57 +1,50 @@
 # common rules and utilities for PythonAPI installatin
 
 import os
-import sys
 import glob
-import difflib
 import subprocess
 
-# returns True if files are different or absent
 def FilesAreDifferent(file1, file2):
+    '''Returns True if files are different or absent.'''
+
     if not os.path.exists(file1) or not os.path.exists(file2):
         return True
-    proc = subprocess.Popen(["diff "+file1+" "+file2], stdout=subprocess.PIPE, shell=True)
+    proc = subprocess.Popen(["diff "+file1+" "+file2],
+                            stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     if len(out) or err!=None:
         return True
     return False
 
 
-# return True if file contains given line
 def FileContainsLine(file_name, myline):
+    '''Does file contain given line?'''
+
     lines = open(file_name, 'r').readlines()
-    for line in lines:
-        if line == myline:
-            return True
-    return False
+    return myline in lines
 
 
-# return True if file contains given string
 def FileContainsString(file_name, mystr):
+    '''Does file contain given string?'''
+
     lines = open(file_name, 'r').readlines()
-    for line in lines:
-        if mystr in line:
-            return True
-    return False
+    return any(mystr in line for line in lines)
 
 
-#------------------------------------------------------------------------------
-# patching generated files to get rid from boost compilation warnings
-#------------------------------------------------------------------------------
 def PatchFiles(files):
+    '''Patches generated files to get rid from boost compilation warnings.'''
+
     n_patched_files = 0
     for ff in files:
-        # check if file needs to be patched
-        if FileContainsLine(ff, "#include \"Macros.h\"\n" ):
-            # file was already patched
-            continue
 
-        has_boost_hpp = False
-        has_boost_suite_hpp = False
+        with open(ff, 'r') as fh:
+            txt = fh.read()
 
-        if FileContainsString(ff, "boost/python.hpp"): has_boost_hpp = True
-        if FileContainsString(ff, "vector_indexing_suite.hpp"): has_boost_suite_hpp = True
-        if not (has_boost_hpp or has_boost_suite_hpp): 
+        if '#include "Macros.h"' in txt:
+            continue # file was already patched
+
+        has_boost_suite_hpp = "vector_indexing_suite.hpp" in txt
+        if not ( has_boost_suite_hpp or "boost/python.hpp" in txt ):
             continue
 
         # patch is required
@@ -78,12 +71,9 @@ def PatchFiles(files):
     print "PatchFiles()     :",n_patched_files, "files have been patched to get rid from compilation warnings"
 
 
-#------------------------------------------------------------------------------
-# copying modified files to the project directory
-#------------------------------------------------------------------------------
 def CopyFiles(files, InstallDir):
-    copycommand='cp '
-    # copying files
+    '''Copies modified files to the project directory.'''
+
     n_copied_files = 0
     for f in files:
         fileName = os.path.basename(f)
@@ -97,9 +87,8 @@ def CopyFiles(files, InstallDir):
         elif '.pri' in fileName:
             outputName=InstallDir+"/../"+fileName
 
-        filesAreDifferentOrAbsent = FilesAreDifferent(outputName,f)
-        if filesAreDifferentOrAbsent:
-            command = copycommand + f + " " + outputName
+        if FilesAreDifferent(outputName,f):
+            command = "cp " + f + " " + outputName
             #print command
             n_copied_files += 1
             os.system(command)
@@ -107,31 +96,25 @@ def CopyFiles(files, InstallDir):
     print "CopyFiles()      :",n_copied_files,"files out of",len(files),"have been replaced in ",InstallDir
 
 
-#------------------------------------------------------------------------------
-# clear PythonCoreAPI from files remained from previous installation
-#------------------------------------------------------------------------------
 def ClearPythonAPI(files, InstallDir):
-    old_files = glob.glob(InstallDir+"/inc/*.pypp.h")
-    old_files += glob.glob(InstallDir+"/src/*.pypp.cpp")
+    '''Clears API from files that remain from previous installation.'''
+
+    old_files = glob.glob(InstallDir+"/inc/*.pypp.h") + \
+                glob.glob(InstallDir+"/src/*.pypp.cpp")
     list_to_erase = []
     for oldf in old_files:
-        old_base = os.path.basename(oldf)
-        oldIsObsolete = True
-        for newf in files:
-            new_base = os.path.basename(newf)
-            if old_base == new_base: oldIsObsolete = False
-        if oldIsObsolete:
+        if not any( os.path.basename(newf)==os.path.basename(oldf)
+                    for newf in files ):
             list_to_erase.append(oldf)
     print "ClearPythonAPI() : erasing obsolete files in BornAgain source tree ", list_to_erase
     for x in list_to_erase:
         os.system("rm "+x)
 
 
-def GenerateModuleFile(prj, files_inc, files_src):
+def GenerateModuleFile(prj, files_inc, files_src, file_mod):
     '''Generates Python module main cpp file.'''
-    # generating own PythonModule.cpp
-    python_module_file = prj.temp_dir+"/PythonModule.cpp"
-    fout = open(python_module_file, 'w')
+
+    fout = open(file_mod, 'w')
     fout.write('#include "Python.h"\n')
     fout.write('#include "boost/python.hpp"\n')
 
@@ -170,39 +153,42 @@ def GenerateModuleFile(prj, files_inc, files_src):
         fout.write("    register_python2cpp_converters();\n\n")
 
     if prj.with_Numpy:
-        fout.write("    import_array();\n")
-        fout.write("    /* IMPORTANT\n")
-        fout.write("    this is initialisation function from C-API of python-numpy package. It has to be called once in the\n")
-        fout.write("    initialisation section of the module (i.e. here), when module is going to use any of python numpy C-API.\n")
-        fout.write("    Additional rule: when initialisation of the module, and functions that use python-numpy C-API are located in\n")
-        fout.write("    different files (different compilation units) - and this is exactly our case - additional defines has\n")
-        fout.write("    to be inserted before #include \"numpy/arrayobject.h\". See explanations\n")
-        fout.write("    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array\n")
-        fout.write("    */\n")
+        fout.write('''\
+    import_array();
+    /* IMPORTANT
+    this is initialisation function from C-API of python-numpy package. It has to be called once in the
+    initialisation section of the module (i.e. here), when module is going to use any of python numpy C-API.
+    Additional rule: when initialisation of the module, and functions that use python-numpy C-API are located in
+    different files (different compilation units) - and this is exactly our case - additional defines has
+    to be inserted before #include "numpy/arrayobject.h". See explanations
+    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array
+    */
+''')
 
     fout.write("}\n")
     fout.close()
-    return python_module_file
 
 
 def InstallCode(prj ):
     '''Installs the code.'''
+
     print( "Installing generated Python API into %s" % (prj.install_dir) )
 
     for pattern in prj.exclude_patterns:
-      files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
-      for ff in files2remove:
-          print "...removing dublicated ",ff
-          os.remove(ff)
+        files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
+        for ff in files2remove:
+            print "...removing duplicated ",ff
+            os.remove(ff)
 
-    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h");
-    files_inc+= glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp");
-    files_inc+= glob.glob(prj.temp_dir+"/__convenience.pypp.hpp"); # needed for Core only
-    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp");
-    files = files_inc+files_src
+    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h") + \
+                glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp") +\
+                glob.glob(prj.temp_dir+"/__convenience.pypp.hpp")
+    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp")
+    file_mod  =           prj.temp_dir+"/PythonModule.cpp"
 
-    python_module_file = GenerateModuleFile(prj, files_inc, files_src)
-    files.append(python_module_file)
+    GenerateModuleFile(prj, files_inc, files_src, file_mod)
+
+    files = files_inc + files_src + [file_mod]
 
     PatchFiles(files)
 

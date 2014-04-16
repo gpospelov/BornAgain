@@ -1,16 +1,19 @@
 # common rules and utilities for boost python code generation
+
 import os
 import sys
 import glob
 import subprocess
-from pyplusplus import module_builder
-from pyplusplus.module_builder import call_policies
-from pyplusplus import messages
-from pyplusplus import file_writers
+
 from pygccxml.declarations.matchers import access_type_matcher_t
 from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 from pygccxml import parser
+
+from pyplusplus import module_builder
+from pyplusplus.module_builder import call_policies
+from pyplusplus import messages
+from pyplusplus import file_writers
 from pyplusplus.function_transformers import transformers
 from pyplusplus.file_writers.balanced_files import balanced_files_t
 from pyplusplus.file_writers.multiple_files import multiple_files_t
@@ -34,8 +37,8 @@ def ExcludeMemberFunctionsArgPtr(mb):
     '''Excludes member functions if they have pointers in argument list.'''
     for cl in mb.classes():
         for fun in cl.member_functions(allow_empty=True):
-            if any(declarations.type_traits.is_pointer(arg.type)
-                   for arg in fun.arguments):
+            if any( declarations.type_traits.is_pointer(arg.type)
+                    for arg in fun.arguments ):
                 fun.exclude();
 
 
@@ -70,9 +73,9 @@ def IncludeClasses(mb, include_classes):
 def ExcludeMemberFunctionsForClasses(mb, method_names, class_names):
     '''If class name in 'class_names' then exclude 'method_names'.'''
     for cl in mb.classes():
-        if any(name in cl.decl_string for name in class_names):
+        if any( name in cl.decl_string for name in class_names ):
             for fun in cl.member_functions(allow_empty=True):
-                if any(fun.name == name for name in method_names):
+                if any( fun.name == name for name in method_names ):
                     fun.exclude()
 
 
@@ -99,9 +102,15 @@ def DefineGeneralRules(mb):
 def ManageNewReturnPolicy(mb):
     '''Returns policy for singletons, clone and create methods.'''
     for cl in mb.classes():
-        cl.member_functions('instance', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-        cl.member_functions('clone', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
-        cl.member_functions( lambda x: x.name.startswith('create'), allow_empty=True ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+        cl.member_functions('instance',
+                            allow_empty=True).call_policies = \
+            call_policies.return_value_policy( call_policies.reference_existing_object )
+        cl.member_functions('clone',
+                            allow_empty=True).call_policies = \
+            call_policies.return_value_policy( call_policies.manage_new_object )
+        cl.member_functions( lambda x: x.name.startswith('create'),
+                             allow_empty=True ).call_policies = \
+            call_policies.return_value_policy( call_policies.manage_new_object )
 
 
 def DefaultReturnPolicy(mb):

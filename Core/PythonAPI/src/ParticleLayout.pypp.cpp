@@ -35,10 +35,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::ParticleLayout * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->ParticleLayout::clone(  );
+        }
     }
-    
     
     ::ParticleLayout * default_clone(  ) const  {
         return ParticleLayout::clone( );
@@ -47,10 +47,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::ParticleLayout * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ParticleLayout::cloneInvertB(  );
+        }
     }
-    
     
     ::ParticleLayout * default_cloneInvertB(  ) const  {
         return ParticleLayout::cloneInvertB( );
@@ -59,10 +59,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual double getAbundanceFractionOfParticle( ::std::size_t index ) const  {
         if( bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" ) )
             return func_getAbundanceFractionOfParticle( index );
-        else
+        else{
             return this->ParticleLayout::getAbundanceFractionOfParticle( index );
+        }
     }
-    
     
     double default_getAbundanceFractionOfParticle( ::std::size_t index ) const  {
         return ParticleLayout::getAbundanceFractionOfParticle( index );
@@ -71,10 +71,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
         if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
             return func_getInterferenceFunctions(  );
-        else
+        else{
             return this->ParticleLayout::getInterferenceFunctions(  );
+        }
     }
-    
     
     ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
         return ParticleLayout::getInterferenceFunctions( );
@@ -83,10 +83,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::std::size_t getNumberOfInterferenceFunctions(  ) const  {
         if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
             return func_getNumberOfInterferenceFunctions(  );
-        else
+        else{
             return this->ParticleLayout::getNumberOfInterferenceFunctions(  );
+        }
     }
-    
     
     ::std::size_t default_getNumberOfInterferenceFunctions(  ) const  {
         return ParticleLayout::getNumberOfInterferenceFunctions( );
@@ -95,10 +95,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::std::size_t getNumberOfParticles(  ) const  {
         if( bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" ) )
             return func_getNumberOfParticles(  );
-        else
+        else{
             return this->ParticleLayout::getNumberOfParticles(  );
+        }
     }
-    
     
     ::std::size_t default_getNumberOfParticles(  ) const  {
         return ParticleLayout::getNumberOfParticles( );
@@ -107,10 +107,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::ParticleInfo const * getParticleInfo( ::std::size_t index ) const  {
         if( bp::override func_getParticleInfo = this->get_override( "getParticleInfo" ) )
             return func_getParticleInfo( index );
-        else
+        else{
             return this->ParticleLayout::getParticleInfo( index );
+        }
     }
-    
     
     ::ParticleInfo const * default_getParticleInfo( ::std::size_t index ) const  {
         return ParticleLayout::getParticleInfo( index );
@@ -119,10 +119,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -131,10 +131,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -143,10 +143,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -155,10 +155,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -167,10 +167,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -179,10 +179,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -191,10 +191,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -203,10 +203,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -234,10 +234,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -246,10 +246,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -258,10 +258,10 @@ struct ParticleLayout_wrapper : ParticleLayout, bp::wrapper< ParticleLayout > {
     virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
-    
     
     ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );

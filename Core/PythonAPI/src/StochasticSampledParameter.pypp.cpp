@@ -33,10 +33,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual ::StochasticSampledParameter * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->StochasticSampledParameter::clone(  );
+        }
     }
-    
     
     ::StochasticSampledParameter * default_clone(  ) const  {
         return StochasticSampledParameter::clone( );
@@ -45,10 +45,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual double probabilityDensity( double value ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( value );
-        else
+        else{
             return this->StochasticSampledParameter::probabilityDensity( value );
+        }
     }
-    
     
     double default_probabilityDensity( double value ) const  {
         return StochasticSampledParameter::probabilityDensity( value );
@@ -57,10 +57,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual void setToRandom(  ) {
         if( bp::override func_setToRandom = this->get_override( "setToRandom" ) )
             func_setToRandom(  );
-        else
+        else{
             this->StochasticSampledParameter::setToRandom(  );
+        }
     }
-    
     
     void default_setToRandom(  ) {
         StochasticSampledParameter::setToRandom( );
@@ -69,10 +69,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else
+        else{
             return this->StochasticParameter< double >::getFWHM(  );
+        }
     }
-    
     
     double default_getFWHM(  ) const  {
         return StochasticParameter< double >::getFWHM( );
@@ -81,10 +81,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else
+        else{
             return this->StochasticParameter< double >::getRandom(  );
+        }
     }
-    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -93,10 +93,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else
+        else{
             this->StochasticParameter< double >::setToAverage(  );
+        }
     }
-    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );

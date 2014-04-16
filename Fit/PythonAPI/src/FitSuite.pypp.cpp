@@ -26,10 +26,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void link_fit_parameters(  ) {
         if( bp::override func_link_fit_parameters = this->get_override( "link_fit_parameters" ) )
             func_link_fit_parameters(  );
-        else
+        else{
             this->FitSuite::link_fit_parameters(  );
+        }
     }
-    
     
     void default_link_fit_parameters(  ) {
         FitSuite::link_fit_parameters( );
@@ -38,10 +38,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void minimize(  ) {
         if( bp::override func_minimize = this->get_override( "minimize" ) )
             func_minimize(  );
-        else
+        else{
             this->FitSuite::minimize(  );
+        }
     }
-    
     
     void default_minimize(  ) {
         FitSuite::minimize( );
@@ -50,10 +50,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void runFit(  ) {
         if( bp::override func_runFit = this->get_override( "runFit" ) )
             func_runFit(  );
-        else
+        else{
             this->FitSuite::runFit(  );
+        }
     }
-    
     
     void default_runFit(  ) {
         FitSuite::runFit( );
@@ -62,10 +62,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
             func_attachObserver( obj );
-        else
+        else{
             this->IObservable::attachObserver( obj );
+        }
     }
-    
     
     void default_attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         IObservable::attachObserver( obj );
@@ -74,10 +74,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void notifyObservers(  ) {
         if( bp::override func_notifyObservers = this->get_override( "notifyObservers" ) )
             func_notifyObservers(  );
-        else
+        else{
             this->IObservable::notifyObservers(  );
+        }
     }
-    
     
     void default_notifyObservers(  ) {
         IObservable::notifyObservers( );

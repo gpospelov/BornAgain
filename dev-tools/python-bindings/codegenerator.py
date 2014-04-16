@@ -19,8 +19,8 @@ Dependencies:
    - boost-python
    - Python2.7
    - gccxml (deb: libgccxml-dev; rpm: gccxml-devel)
-   - pygccxml (deb: python-pygccxml; rpm: pygccxmlpy-pygccxml-devel)
-   - Py++ (deb: python-py++; rpm: py27-pyplusplus-devel)
+   - pygccxml (https://bitbucket.org/ompl/pygccxml)
+   - Py++ (https://bitbucket.org/ompl/pyplusplus)
 ''')
 
 

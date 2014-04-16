@@ -40,10 +40,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::AxisBin * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->AxisBin::clone(  );
+        }
     }
-    
     
     ::AxisBin * default_clone(  ) const  {
         return AxisBin::clone( );
@@ -52,10 +52,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::AxisBin * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
-        else
+        else{
             return this->AxisBin::createDoubleBinSize(  );
+        }
     }
-    
     
     ::AxisBin * default_createDoubleBinSize(  ) const  {
         return AxisBin::createDoubleBinSize( );
@@ -64,10 +64,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else
+        else{
             return this->AxisBin::findClosestIndex( value );
+        }
     }
-    
     
     ::std::size_t default_findClosestIndex( double value ) const  {
         return AxisBin::findClosestIndex( value );
@@ -76,10 +76,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else
+        else{
             return this->AxisBin::getBin( index );
+        }
     }
-    
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
         return AxisBin::getBin( index );
@@ -88,10 +88,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else
+        else{
             return this->AxisBin::getMax(  );
+        }
     }
-    
     
     double default_getMax(  ) const  {
         return AxisBin::getMax( );
@@ -100,10 +100,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else
+        else{
             return this->AxisBin::getMin(  );
+        }
     }
-    
     
     double default_getMin(  ) const  {
         return AxisBin::getMin( );
@@ -112,10 +112,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual ::std::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else
+        else{
             return this->AxisBin::getSize(  );
+        }
     }
-    
     
     ::std::size_t default_getSize(  ) const  {
         return AxisBin::getSize( );
@@ -124,10 +124,10 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
     virtual double operator[]( ::std::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
-        else
+        else{
             return this->AxisBin::operator[]( index );
+        }
     }
-    
     
     double default___getitem__( ::std::size_t index ) const  {
         return AxisBin::operator[]( index );

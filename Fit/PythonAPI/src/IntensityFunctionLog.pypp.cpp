@@ -33,10 +33,10 @@ struct IntensityFunctionLog_wrapper : IntensityFunctionLog, bp::wrapper< Intensi
     virtual ::IntensityFunctionLog * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IntensityFunctionLog::clone(  );
+        }
     }
-    
     
     ::IntensityFunctionLog * default_clone(  ) const  {
         return IntensityFunctionLog::clone( );
@@ -45,10 +45,10 @@ struct IntensityFunctionLog_wrapper : IntensityFunctionLog, bp::wrapper< Intensi
     virtual double evaluate( double value ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( value );
-        else
+        else{
             return this->IntensityFunctionLog::evaluate( value );
+        }
     }
-    
     
     double default_evaluate( double value ) const  {
         return IntensityFunctionLog::evaluate( value );

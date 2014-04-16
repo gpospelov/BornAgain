@@ -26,10 +26,10 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
     virtual ::ParameterPool * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->ParameterPool::clone(  );
+        }
     }
-    
     
     ::ParameterPool * default_clone(  ) const  {
         return ParameterPool::clone( );

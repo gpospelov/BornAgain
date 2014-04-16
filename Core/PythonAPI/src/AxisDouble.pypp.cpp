@@ -47,10 +47,10 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else
+        else{
             return this->AxisDouble::findClosestIndex( value );
+        }
     }
-    
     
     ::std::size_t default_findClosestIndex( double value ) const  {
         return AxisDouble::findClosestIndex( value );
@@ -59,10 +59,10 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else
+        else{
             return this->AxisDouble::getBin( index );
+        }
     }
-    
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
         return AxisDouble::getBin( index );
@@ -71,10 +71,10 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else
+        else{
             return this->AxisDouble::getMax(  );
+        }
     }
-    
     
     double default_getMax(  ) const  {
         return AxisDouble::getMax( );
@@ -83,10 +83,10 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else
+        else{
             return this->AxisDouble::getMin(  );
+        }
     }
-    
     
     double default_getMin(  ) const  {
         return AxisDouble::getMin( );
@@ -95,10 +95,10 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual ::std::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else
+        else{
             return this->AxisDouble::getSize(  );
+        }
     }
-    
     
     ::std::size_t default_getSize(  ) const  {
         return AxisDouble::getSize( );
@@ -107,10 +107,10 @@ struct AxisDouble_wrapper : AxisDouble, bp::wrapper< AxisDouble > {
     virtual double operator[]( ::std::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
-        else
+        else{
             return this->AxisDouble::operator[]( index );
+        }
     }
-    
     
     double default___getitem__( ::std::size_t index ) const  {
         return AxisDouble::operator[]( index );

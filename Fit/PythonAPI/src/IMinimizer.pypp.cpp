@@ -26,10 +26,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
-        else
+        else{
             this->IMinimizer::clear(  );
+        }
     }
-    
     
     void default_clear(  ) {
         IMinimizer::clear( );
@@ -38,10 +38,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual double getErrorOfVariable( ::std::size_t arg0 ) const  {
         if( bp::override func_getErrorOfVariable = this->get_override( "getErrorOfVariable" ) )
             return func_getErrorOfVariable( arg0 );
-        else
+        else{
             return this->IMinimizer::getErrorOfVariable( arg0 );
+        }
     }
-    
     
     double default_getErrorOfVariable( ::std::size_t arg0 ) const  {
         return IMinimizer::getErrorOfVariable( arg0 );
@@ -50,10 +50,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual ::std::vector< double > getErrorOfVariables(  ) const  {
         if( bp::override func_getErrorOfVariables = this->get_override( "getErrorOfVariables" ) )
             return func_getErrorOfVariables(  );
-        else
+        else{
             return this->IMinimizer::getErrorOfVariables(  );
+        }
     }
-    
     
     ::std::vector< double > default_getErrorOfVariables(  ) const  {
         return IMinimizer::getErrorOfVariables( );
@@ -62,10 +62,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual double getMinValue(  ) const  {
         if( bp::override func_getMinValue = this->get_override( "getMinValue" ) )
             return func_getMinValue(  );
-        else
+        else{
             return this->IMinimizer::getMinValue(  );
+        }
     }
-    
     
     double default_getMinValue(  ) const  {
         return IMinimizer::getMinValue( );
@@ -74,10 +74,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual ::std::size_t getNCalls(  ) const  {
         if( bp::override func_getNCalls = this->get_override( "getNCalls" ) )
             return func_getNCalls(  );
-        else
+        else{
             return this->IMinimizer::getNCalls(  );
+        }
     }
-    
     
     ::std::size_t default_getNCalls(  ) const  {
         return IMinimizer::getNCalls( );
@@ -86,10 +86,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual ::std::size_t getNumberOfVariables(  ) const  {
         if( bp::override func_getNumberOfVariables = this->get_override( "getNumberOfVariables" ) )
             return func_getNumberOfVariables(  );
-        else
+        else{
             return this->IMinimizer::getNumberOfVariables(  );
+        }
     }
-    
     
     ::std::size_t default_getNumberOfVariables(  ) const  {
         return IMinimizer::getNumberOfVariables( );
@@ -98,10 +98,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual double getValueOfVariableAtMinimum( ::std::size_t arg0 ) const  {
         if( bp::override func_getValueOfVariableAtMinimum = this->get_override( "getValueOfVariableAtMinimum" ) )
             return func_getValueOfVariableAtMinimum( arg0 );
-        else
+        else{
             return this->IMinimizer::getValueOfVariableAtMinimum( arg0 );
+        }
     }
-    
     
     double default_getValueOfVariableAtMinimum( ::std::size_t arg0 ) const  {
         return IMinimizer::getValueOfVariableAtMinimum( arg0 );
@@ -110,10 +110,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual ::std::vector< double > getValueOfVariablesAtMinimum(  ) const  {
         if( bp::override func_getValueOfVariablesAtMinimum = this->get_override( "getValueOfVariablesAtMinimum" ) )
             return func_getValueOfVariablesAtMinimum(  );
-        else
+        else{
             return this->IMinimizer::getValueOfVariablesAtMinimum(  );
+        }
     }
-    
     
     ::std::vector< double > default_getValueOfVariablesAtMinimum(  ) const  {
         return IMinimizer::getValueOfVariablesAtMinimum( );
@@ -122,10 +122,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual bool isGradientBasedAgorithm(  ) {
         if( bp::override func_isGradientBasedAgorithm = this->get_override( "isGradientBasedAgorithm" ) )
             return func_isGradientBasedAgorithm(  );
-        else
+        else{
             return this->IMinimizer::isGradientBasedAgorithm(  );
+        }
     }
-    
     
     bool default_isGradientBasedAgorithm(  ) {
         return IMinimizer::isGradientBasedAgorithm( );
@@ -139,10 +139,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void printResults(  ) const  {
         if( bp::override func_printResults = this->get_override( "printResults" ) )
             func_printResults(  );
-        else
+        else{
             this->IMinimizer::printResults(  );
+        }
     }
-    
     
     void default_printResults(  ) const  {
         IMinimizer::printResults( );
@@ -151,10 +151,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void setOptionString( ::std::string const & arg0 ) {
         if( bp::override func_setOptionString = this->get_override( "setOptionString" ) )
             func_setOptionString( arg0 );
-        else
+        else{
             this->IMinimizer::setOptionString( arg0 );
+        }
     }
-    
     
     void default_setOptionString( ::std::string const & arg0 ) {
         IMinimizer::setOptionString( arg0 );
@@ -163,10 +163,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void setOptions( ::MinimizerOptions const & arg0 ) {
         if( bp::override func_setOptions = this->get_override( "setOptions" ) )
             func_setOptions( boost::ref(arg0) );
-        else
+        else{
             this->IMinimizer::setOptions( boost::ref(arg0) );
+        }
     }
-    
     
     void default_setOptions( ::MinimizerOptions const & arg0 ) {
         IMinimizer::setOptions( boost::ref(arg0) );
@@ -175,10 +175,10 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     virtual void setParameters( ::FitSuiteParameters const & arg0 ) {
         if( bp::override func_setParameters = this->get_override( "setParameters" ) )
             func_setParameters( boost::ref(arg0) );
-        else
+        else{
             this->IMinimizer::setParameters( boost::ref(arg0) );
+        }
     }
-    
     
     void default_setParameters( ::FitSuiteParameters const & arg0 ) {
         IMinimizer::setParameters( boost::ref(arg0) );

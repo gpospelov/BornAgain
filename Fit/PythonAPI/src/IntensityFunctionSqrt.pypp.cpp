@@ -33,10 +33,10 @@ struct IntensityFunctionSqrt_wrapper : IntensityFunctionSqrt, bp::wrapper< Inten
     virtual ::IntensityFunctionSqrt * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IntensityFunctionSqrt::clone(  );
+        }
     }
-    
     
     ::IntensityFunctionSqrt * default_clone(  ) const  {
         return IntensityFunctionSqrt::clone( );
@@ -45,10 +45,10 @@ struct IntensityFunctionSqrt_wrapper : IntensityFunctionSqrt, bp::wrapper< Inten
     virtual double evaluate( double value ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( value );
-        else
+        else{
             return this->IntensityFunctionSqrt::evaluate( value );
+        }
     }
-    
     
     double default_evaluate( double value ) const  {
         return IntensityFunctionSqrt::evaluate( value );

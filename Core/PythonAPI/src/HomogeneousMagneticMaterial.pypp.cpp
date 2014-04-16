@@ -40,10 +40,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual ::HomogeneousMagneticMaterial * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->HomogeneousMagneticMaterial::clone(  );
+        }
     }
-    
     
     ::HomogeneousMagneticMaterial * default_clone(  ) const  {
         return HomogeneousMagneticMaterial::clone( );
@@ -52,10 +52,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
             return func_createTransformedMaterial( boost::ref(transform) );
-        else
+        else{
             return this->HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(transform) );
+        }
     }
-    
     
     ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         return HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(transform) );
@@ -64,10 +64,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else
+        else{
             return this->HomogeneousMagneticMaterial::isScalarMaterial(  );
+        }
     }
-    
     
     bool default_isScalarMaterial(  ) const  {
         return HomogeneousMagneticMaterial::isScalarMaterial( );
@@ -76,10 +76,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->HomogeneousMaterial::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return HomogeneousMaterial::getRefractiveIndex( );

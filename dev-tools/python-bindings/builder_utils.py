@@ -112,12 +112,10 @@ def DefineGeneralRules(mb):
     # Exclude protected and private that are not pure virtual
     # (we still have to expose pure virtual functions to have them
     #  overriden in the wrapper)
-    query = declarations.access_type_matcher_t( 'private' ) &
-    ~declarations.virtuality_type_matcher_t(
+    query = declarations.access_type_matcher_t( 'private' ) & ~declarations.virtuality_type_matcher_t(
         declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
     mb.global_ns.calldefs( query, allow_empty=True ).exclude()
-    query = declarations.access_type_matcher_t( 'protected' ) &
-    ~declarations.virtuality_type_matcher_t(
+    query = declarations.access_type_matcher_t( 'protected' ) & ~declarations.virtuality_type_matcher_t(
         declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
     mb.global_ns.calldefs( query, allow_empty=True ).exclude()
     # excluding generation of methods for implicit conversion
@@ -139,9 +137,9 @@ def DefaultReturnPolicy(mb):
     for mem_fun in mem_funs:
         if mem_fun.call_policies:
             continue
-        if not mem_fun.call_policies and
-        (declarations.is_reference(mem_fun.return_type) or
-         declarations.is_pointer(mem_fun.return_type) ):
+        if ( not mem_fun.call_policies and
+             (declarations.is_reference(mem_fun.return_type) or
+              declarations.is_pointer(mem_fun.return_type) ) ):
             mem_fun.call_policies = call_policies.return_value_policy(
                 call_policies.reference_existing_object )
 

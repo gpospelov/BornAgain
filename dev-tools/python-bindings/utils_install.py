@@ -1,9 +1,6 @@
 # common rules and utilities for PythonAPI installatin
 
-import os
-import glob
-import subprocess
-import shutil
+import os, glob, re, shutil, subprocess
 
 def FilesAreDifferent(file1, file2):
     '''Returns True if files are different or absent.'''
@@ -64,7 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
     print "PatchFiles()     :",n_patched_files, "files have been patched to get rid from compilation warnings"
 
 
-def CopyFiles(files, InstallDir):
+def CopyFiles(prj, files):
     '''Copies modified files to the project directory.'''
 
     n_copied_files = 0
@@ -73,27 +70,28 @@ def CopyFiles(files, InstallDir):
 
         # different output directory for source and headers
         outputName=''
-        if '.cpp' in fileName:
-            outputName=InstallDir+"/src/"+fileName
-        elif '.h' in fileName:
-            outputName=InstallDir+"/inc/"+fileName
+        if   re.search( r'\.c(pp)?$', fileName ):
+            outputName = prj.install_src + "/" + fileName
+        elif re.search( r'\.h(pp)?$', fileName ):
+            outputName = prj.install_inc + "/" + fileName
 
         if FilesAreDifferent(outputName,f):
             shutil.copy( f, outputName )
             n_copied_files += 1
 
-    print "CopyFiles()      :",n_copied_files,"files out of",len(files),"have been replaced in ",InstallDir
+    print( "CopyFiles()      : %i files out of %i have been replaced." % ( n_copied_files, len(files) ) )
 
 
-def ClearPythonAPI(files, InstallDir):
+def ClearPythonAPI(prj, files):
     '''Clears API from files that remain from previous installation.'''
 
-    old_files = glob.glob(InstallDir+"/inc/*.pypp.h") + \
-                glob.glob(InstallDir+"/src/*.pypp.cpp")
+    old_files = glob.glob(prj.install_inc + "/*.pypp.h")   + \
+                glob.glob(prj.install_inc + "/*.pypp.hpp") + \
+                glob.glob(prj.install_src + "/*.pypp.c")   + \
+                glob.glob(prj.install_src + "/*.pypp.cpp")
     list_to_erase = []
     for oldf in old_files:
-        if not any( os.path.basename(newf)==os.path.basename(oldf)
-                    for newf in files ):
+        if not any( os.path.basename(newf)==os.path.basename(oldf) for newf in files ):
             list_to_erase.append(oldf)
     print "ClearPythonAPI() : erasing obsolete files in BornAgain source tree ", list_to_erase
     for x in list_to_erase:
@@ -161,7 +159,7 @@ def GenerateModuleFile(prj, files_inc, files_src, file_mod):
 def InstallCode(prj ):
     '''Installs the code.'''
 
-    print( "Installing generated Python API into %s" % (prj.install_dir) )
+    print( "Installing generated Python API." )
 
     for pattern in prj.exclude_patterns:
         files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
@@ -169,10 +167,12 @@ def InstallCode(prj ):
             print "...removing duplicated ",ff
             os.remove(ff)
 
-    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h") + \
+    files_inc = glob.glob(prj.temp_dir+"/*.pypp.h")   + \
+                glob.glob(prj.temp_dir+"/*.pypp.hpp") + \
                 glob.glob(prj.temp_dir+"/__call_policies.pypp.hpp") +\
                 glob.glob(prj.temp_dir+"/__convenience.pypp.hpp")
-    files_src = glob.glob(prj.temp_dir+"/*.pypp.cpp")
+    files_src = glob.glob(prj.temp_dir+"/*.pypp.c")   + \
+                glob.glob(prj.temp_dir+"/*.pypp.cpp")
     file_mod  =           prj.temp_dir+"/PythonModule.cpp"
 
     GenerateModuleFile(prj, files_inc, files_src, file_mod)
@@ -181,8 +181,8 @@ def InstallCode(prj ):
 
     PatchFiles(files)
 
-    CopyFiles(files, prj.install_dir)
+    CopyFiles(prj, files)
 
-    ClearPythonAPI(files, prj.install_dir)
+    ClearPythonAPI(prj, files)
 
     print "Done"

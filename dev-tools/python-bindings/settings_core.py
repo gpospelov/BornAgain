@@ -15,7 +15,8 @@ license = '''\
 lib_name = 'libBornAgainCore'
 
 temp_dir    = 'output/PyCore'
-install_dir = '../../Core/PythonAPI'
+install_inc = '../../Core/PythonAPI/inc'
+install_src = '../../Core/PythonAPI/src'
 
 master_include = "PythonCoreList.h"
 cache_filename = "cache_core.xml"

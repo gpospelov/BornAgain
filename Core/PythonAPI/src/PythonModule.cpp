@@ -126,6 +126,8 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorCylinder.pypp.h"
 #include "Particle.pypp.h"
 #include "FormFactorCone6.pypp.h"
+#include "__convenience.pypp.hpp"
+#include "__call_policies.pypp.hpp"
 #include "__call_policies.pypp.hpp"
 #include "__convenience.pypp.hpp"
 

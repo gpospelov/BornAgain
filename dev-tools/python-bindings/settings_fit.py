@@ -15,7 +15,8 @@ license = '''\
 lib_name = 'libBornAgainFit'
 
 temp_dir    = 'output/PyFit'
-install_dir = '../../Fit/PythonAPI'
+install_inc = '../../Fit/PythonAPI/inc'
+install_src = '../../Fit/PythonAPI/src'
 
 master_include = "PythonFitList.h"
 cache_filename = "cache_fit.xml"

@@ -49,7 +49,8 @@ def main():
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]
-        for x in clean: os.system("rm -rf "+x)
+        for x in clean:
+            os.system("rm -rf "+x)
     elif sys.argv[1] == 'help':
         help_long()
     else:

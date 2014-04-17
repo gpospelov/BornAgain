@@ -187,7 +187,7 @@ def MakePythonAPI(prj):
     print( "Generating PythonAPI from %s." % ( prj.master_include ) )
 
     #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
-    print "NOTE: If you update the source library code, run 'python codegenerator.py clean'"
+    print "NOTE: If you update the source library code, run 'codegenerator.py clean'"
 
     xml_cached_fc = parser.create_cached_source_fc( prj.master_include, prj.cache_filename)
     arch_flag = ""

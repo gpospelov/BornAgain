@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QAction>
 #include <QDebug>
+#include <QtTreePropertyBrowser>
 
 
 int MaterialEditorWidget::m_IndexOfUnnamed = 0;
@@ -54,6 +55,7 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent
     setLayout(layout);
 
     setupActions();
+    //m_propertyBrowser->getPropertyBrowser()->setCurrentItem(0);
 }
 
 

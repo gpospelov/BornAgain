@@ -8,6 +8,8 @@
 #include <QVariant>
 #include <QMetaType>
 
+class QXmlStreamWriter;
+
 
 class MaterialPropertyItem : public QObject
 {
@@ -53,6 +55,11 @@ public:
 
     bool setMaterialProperty(QString name, const QVariant &value);
 
+    virtual void writeTo(QXmlStreamWriter *writer);
+
+    virtual void writeProperty(QXmlStreamWriter *writer, const char *property_name);
+
+
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);
@@ -88,6 +95,8 @@ public:
 
         return QString("(%1, %2)").arg(property("delta").toString(), property("gamma").toString());
     }
+
+    void writeTo(QXmlStreamWriter *writer);
 
 };
 

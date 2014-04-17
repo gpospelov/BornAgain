@@ -1,7 +1,9 @@
 #include "MaterialItem.h"
+#include "MaterialModel.h"
 #include "RefractiveIndexProperty.h"
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
+#include <QXmlStreamWriter>
 #include "GUIHelpers.h"
 
 QStringList MaterialItem::m_type_names = QStringList()
@@ -122,6 +124,50 @@ void MaterialItem::removeRefractiveIndexProperty()
 
 }
 
+
+
+void MaterialItem::writeTo(QXmlStreamWriter *writer)
+{
+    writer->writeStartElement(MaterialXML::MaterialTag);
+    writer->writeAttribute(MaterialXML::MaterialNameAttribute, property("Name").toString());
+    writer->writeAttribute(MaterialXML::MaterialTypeAttribute, getTypeName());
+
+//    QMap<QString, MaterialItem *>::iterator it = m_sub_items.begin();
+//    while(it!=m_sub_items.end()) {
+//        it.value()->writeTo(writer);
+//        ++it;
+//    }
+
+    QListIterator<QByteArray> it(dynamicPropertyNames());
+    while (it.hasNext()) {
+        const char *name = it.next().constData();
+        writeProperty(writer,  name);
+    }
+
+
+
+    writer->writeEndElement(); // MaterialTag
+
+}
+
+
+void MaterialItem::writeProperty(QXmlStreamWriter *writer, const char *property_name)
+{
+    qDebug() << "MaterialItem::writeProperty() " << property_name;
+}
+
+
+
+
+void RefractiveIndexItem::writeTo(QXmlStreamWriter *writer)
+{
+    writer->writeStartElement(MaterialXML::PropertyTag);
+    writer->writeAttribute(MaterialXML::PropertyNameAttribute, getName());
+
+
+    writer->writeEndElement(); // MaterialTag
+
+}
 
 
 

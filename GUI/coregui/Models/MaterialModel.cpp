@@ -1,4 +1,7 @@
 #include "MaterialModel.h"
+#include "GUIHelpers.h"
+#include <QFile>
+#include <QXmlStreamWriter>
 
 
 MaterialModel::MaterialModel(QObject *parent)
@@ -93,6 +96,7 @@ bool MaterialModel::removeMaterial(MaterialItem *material)
         int row = m_materials.indexOf(material);
         beginRemoveRows(QModelIndex(), row, row);
         m_materials.removeOne(material);
+        delete material;
         endRemoveRows();
         return true;
     }
@@ -100,6 +104,53 @@ bool MaterialModel::removeMaterial(MaterialItem *material)
     return false;
 }
 
+
+void MaterialModel::save(const QString &filename)
+{
+    if (filename.isEmpty())
+        throw GUIHelpers::Error(tr("no filename specified"));
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
+        throw GUIHelpers::Error(file.errorString());
+
+    QXmlStreamWriter writer(&file);
+    writer.setAutoFormatting(true);
+    writer.writeStartDocument();
+    writer.writeStartElement("BornAgain");
+    writer.writeAttribute("Version", "1.9");
+
+    writeTo(&writer);
+
+    writer.writeEndElement(); // BornAgain
+    writer.writeEndDocument();
+
+}
+
+
+void MaterialModel::writeTo(QXmlStreamWriter *writer)
+{
+    Q_ASSERT(writer);
+
+    writer->writeStartElement(MaterialXML::ModelTag);
+    writer->writeAttribute(MaterialXML::ModelNameAttribute, getName());
+
+    foreach(MaterialItem *material, m_materials) {
+        material->writeTo(writer);
+    }
+    writer->writeEndElement(); // ModelTag
+}
+
+
+//void MaterialModel::load(const QString &filename=QString())
+//{
+
+//}
+
+
+//void MaterialModel::readFrom(QXmlStreamReader *reader)
+//{
+
+//}
 
 
 

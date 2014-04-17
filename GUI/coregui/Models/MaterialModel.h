@@ -4,6 +4,20 @@
 #include "MaterialItem.h"
 #include <QAbstractTableModel>
 #include <QList>
+#include <QString>
+class QXmlStreamWriter;
+
+
+namespace MaterialXML
+{
+    const QString ModelTag("MaterialModel");
+    const QString ModelNameAttribute("Name");
+    const QString MaterialTag("Material");
+    const QString MaterialNameAttribute("Name");
+    const QString MaterialTypeAttribute("Type");
+    const QString PropertyTag("Property");
+    const QString PropertyNameAttribute("Name");
+}
 
 
 class MaterialModel :public QAbstractTableModel
@@ -29,6 +43,13 @@ public:
 
     MaterialItem *addMaterial(const QString &name, MaterialItem::MaterialType type);
     bool removeMaterial(MaterialItem *);
+
+    void save(const QString &filename=QString());
+    void writeTo(QXmlStreamWriter *writer);
+
+//    void load(const QString &filename=QString());
+//    void readFrom(QXmlStreamReader *reader);
+
 
     QList<MaterialItem *> materials() const { return m_materials; }
 

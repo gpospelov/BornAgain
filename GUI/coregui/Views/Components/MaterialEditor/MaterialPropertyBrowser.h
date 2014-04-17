@@ -46,6 +46,8 @@ public:
 
     MaterialItem *getSelectedMaterial();
 
+    QtTreePropertyBrowser *getPropertyBrowser() { return m_browser; }
+
 private slots:
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
@@ -64,8 +66,6 @@ private:
 
     enum ExpandAction { SaveExpandState, RestoreExpandState};
     void updateExpandState(ExpandAction action);
-
-    //void restoreExpandState();
 
     MaterialModel *m_materialModel;
     QtTreePropertyBrowser *m_browser;

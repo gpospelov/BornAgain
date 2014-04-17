@@ -107,8 +107,8 @@ void MaterialPropertyBrowser::updateBrowser()
     foreach(MaterialItem *material, m_materialModel->materials()) {
         addMaterialProperties(material);
     }
-    m_browser->setCurrentItem(0);
     updateExpandState(RestoreExpandState);
+    //m_browser->setCurrentItem(0);
 }
 
 
@@ -285,20 +285,6 @@ void MaterialPropertyBrowser::updateSubProperties(MaterialItem *material)
 }
 
 
-//void MaterialPropertyBrowser::updateExpandState()
-//{
-//    QList<QtBrowserItem *> list = m_browser->topLevelItems();
-//    qDebug() << "MaterialPropertyBrowser::updateExpandState()" << list.size();
-//    QListIterator<QtBrowserItem *> it(list);
-//    while (it.hasNext()) {
-//        QtBrowserItem *item = it.next();
-//        QtProperty *prop = item->property();
-//        m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
-
-//    }
-//}
-
-
 void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
 {
     QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
@@ -311,7 +297,7 @@ void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
             QtProperty *prop = item->property();
             if(action == SaveExpandState) {
                 m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
-            } else {
+            } else if (action == RestoreExpandState) {
                 m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
             }
         }
@@ -321,45 +307,14 @@ void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
 }
 
 
-//void MaterialPropertyBrowser::restoreExpandState()
-//{
-//    qDebug() << "MaterialPropertyBrowser::restoreExpandState()";
-//    QList<QtBrowserItem *> list = m_browser->topLevelItems();
-//    QListIterator<QtBrowserItem *> it(list);
-//    while (it.hasNext()) {
-//        QtBrowserItem *item = it.next();
-//        QtProperty *prop = item->property();
-//        if(m_property_to_subitem.contains(prop)) {
-//            m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
-//        }
-
-//    }
-//}
-
-
-//void MaterialPropertyBrowser::restoreExpandState()
-//{
-//    QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
-//    while(it_prop!=m_property_to_subitem.end()) {
-//        QList<QtBrowserItem *> list = m_browser->items(it_prop.key());
-
-//        QListIterator<QtBrowserItem *> it_browser(list);
-//        while (it_browser.hasNext()) {
-//            QtBrowserItem *item = it_browser.next();
-//            QtProperty *prop = item->property();
-//            m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
-//        }
-//        ++it_prop;
-//    }
-
-//}
-
-
 void MaterialPropertyBrowser::onCurrentBrowserItemChanged(QtBrowserItem *item)
 {
-    qDebug() << "MaterialPropertyBrowser::onCurrentBrowserItemChanged" << item;
-    if(item && item->property()) {
-        qDebug() << item->property()->propertyName();
+    // nasty hack due to the absence of "selection" singnal in QtPropertyBrowser
+    static bool first_call = true;
+    if(first_call) {
+        first_call = false;
+        m_browser->setCurrentItem(0);
+
     }
 }
 
@@ -368,15 +323,13 @@ MaterialItem *MaterialPropertyBrowser::getSelectedMaterial()
 {
     qDebug() << "MaterialPropertyBrowser::getSelectedMaterial";
 
-    //m_browser->setCurrentItem(m_browser->topLevelItems().at(0));
-
-//    if(m_browser->currentItem()) {
-//        QtProperty *selected_property = m_browser->currentItem()->property();
-//        if(selected_property) {
-//            if(m_top_property_to_material.contains(selected_property))
-//                return m_top_property_to_material[selected_property];
-//        }
-//    }
+    if(m_browser->currentItem()) {
+        QtProperty *selected_property = m_browser->currentItem()->property();
+        if(selected_property) {
+            if(m_top_property_to_material.contains(selected_property))
+                return m_top_property_to_material[selected_property];
+        }
+    }
 
     return 0;
 }

@@ -4,6 +4,7 @@ import os
 import sys
 import glob
 import subprocess
+import platform
 
 from pygccxml.declarations.matchers import access_type_matcher_t
 from pygccxml.declarations.matchers import virtuality_type_matcher_t
@@ -63,8 +64,7 @@ def IncludeClasses(mb, include_classes):
                     for cl in mb.classes() ):
             not_found_classes.append(name)
     if len(not_found_classes): 
-        print( "Error! Can't find classes with requested names " %
-               (not_found_classes) )
+        print( "Error! Can't find classes with requested names " % (not_found_classes) )
         exit()
     mb.classes( lambda cls: cls.name in include_classes ).include()
 
@@ -124,8 +124,7 @@ def DefaultReturnPolicy(mb):
         if ( not mem_fun.call_policies and
              (declarations.is_reference(mem_fun.return_type) or
               declarations.is_pointer(mem_fun.return_type) ) ):
-            mem_fun.call_policies = call_policies.return_value_policy(
-                call_policies.reference_existing_object )
+            mem_fun.call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
 
 
 class from_address_custom_t(transformers.type_modifier_t):
@@ -171,8 +170,7 @@ def get_gcc_path():
 
 def get_gccxml_path():
     '''Returns gccxml path.'''
-    proc = subprocess.Popen(["which gccxml"],
-                            stdout=subprocess.PIPE, shell=True)
+    proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     path = out.strip()
     if not path.endswith("/gccxml"):
@@ -191,13 +189,21 @@ def MakePythonAPI(prj):
     #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
     print "NOTE: If you update the source library code, run 'python codegenerator.py clean'"
 
-    xml_cached_fc = parser.create_cached_source_fc(
-        prj.master_include, prj.cache_filename)
+    xml_cached_fc = parser.create_cached_source_fc( prj.master_include, prj.cache_filename)
+    arch_flag = ""
+    arch = platform.architecture()[0]
+    if   arch == '64bit':
+        arch_flag = "-m64 "
+    elif arch == '32bit':
+        pass
+    else:
+        exit( "Unknown architecture" )
+
     mb = module_builder.module_builder_t(
         [xml_cached_fc],
         include_paths = prj.include_dirs + [get_python_path(), get_gcc_path()],
         gccxml_path = get_gccxml_path(),
-        cflags = "-m64 -DGCCXML_SKIP_THIS "+prj.special_flags)
+        cflags = arch_flag + "-DGCCXML_SKIP_THIS " + prj.special_flags)
 
     # general rules
 

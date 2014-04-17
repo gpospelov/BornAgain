@@ -10,8 +10,7 @@ def FilesAreDifferent(file1, file2):
 
     if not os.path.exists(file1) or not os.path.exists(file2):
         return True
-    proc = subprocess.Popen(["diff "+file1+" "+file2],
-                            stdout=subprocess.PIPE, shell=True)
+    proc = subprocess.Popen(["diff "+file1+" "+file2], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     if len(out) or err!=None:
         return True

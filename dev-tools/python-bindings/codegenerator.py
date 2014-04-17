@@ -27,13 +27,13 @@ Dependencies:
 import sys
 import os
 
-import builder_utils
-import install_utils
+import utils_build
+import utils_install
 
-import MakePyCore
-import MakePyFit
+import settings_core
+import settings_fit
 
-projects = [ MakePyCore, MakePyFit ]
+projects = [ settings_core, settings_fit ]
 
 def main():
     if len(sys.argv)!=2:
@@ -42,10 +42,10 @@ def main():
 
     if sys.argv[1] == 'make':
         for prj in projects:
-            builder_utils.MakePythonAPI(prj)
+            utils_build.MakePythonAPI(prj)
     elif sys.argv[1] == 'install':
         for prj in projects:
-            install_utils.InstallCode(prj)
+            utils_install.InstallCode(prj)
     elif sys.argv[1] == 'clean':
         clean = ["output", "cache_*.xml", "*~", "named_tuple.py", "*.pyc",
                  "exposed_decl.pypp.txt", "tmp.pypp.cpp"]

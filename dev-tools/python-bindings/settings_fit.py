@@ -4,7 +4,7 @@
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
 
-import builder_utils
+import utils_build
 
 
 license = '''\

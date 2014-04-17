@@ -4,7 +4,7 @@
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
 
-import builder_utils
+import utils_build
 
 
 license = '''\
@@ -186,7 +186,7 @@ def ManualClassTunings(mb):
         "rotated", "rotatedX", "rotatedY", "rotatedZ", "cross", "dot"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >", "BasicVector3D<double>", "BasicVector3D<int>"]
-    builder_utils.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
+    utils_build.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
     # Pure virtual should always be included
     mb.class_("IDetectorResolution").member_function("applyDetectorResolution").include()
     #
@@ -230,7 +230,7 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("IParameterized")
     cl.member_function("registerParameter").include()
-    cl.member_function("registerParameter").add_transformation( builder_utils.from_address_custom( 1 ) )
+    cl.member_function("registerParameter").add_transformation( utils_build.from_address_custom( 1 ) )
     #
     cl = mb.class_("ISampleBuilder")
     #cl = mb.class_("SampleBuilder_t")
@@ -271,7 +271,7 @@ def ManualClassTunings(mb):
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")
-    cl.member_function("registerParameter").add_transformation(builder_utils.from_address_custom(1))
+    cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
     cl.member_function("getMatchedParameters").exclude()
     #
     mb.namespace("Units").include()

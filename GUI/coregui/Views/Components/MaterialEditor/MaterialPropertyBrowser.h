@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMap>
 #include <QString>
+
 class MaterialModel;
 class MaterialItem;
 class QtTreePropertyBrowser;
@@ -15,6 +16,7 @@ class MaterialVariantManager;
 class QtVariantProperty;
 class QModelIndex;
 class QtBrowserItem;
+
 
 //! Class which holds QtProperty tree browser to adjust material properties.
 //! Belongs to MaterialEditorWidget
@@ -33,12 +35,14 @@ public:
             : m_owner(owner), m_name(name) {}
         MaterialItem *m_owner;
         QString m_name;
-//        bool operator <(const SubItem& other) {
-//            if(m_owner == other.m_owner)
-//                return m_name < other.m_name;
-//            return m_owner<other.m_owner;
-//        }
+        friend bool operator <(const SubItem& left, const SubItem& right)
+        {
+            if(left.m_owner == right.m_owner)
+                return left.m_name < right.m_name;
+            return left.m_owner < right.m_owner;
+        }
     };
+
 
     MaterialItem *getSelectedMaterial();
 
@@ -57,7 +61,11 @@ private:
     void addSubProperties(QtProperty *property, MaterialItem *material);
     void removeSubProperties(QtProperty *property);
     void updateSubProperties(MaterialItem *material);
-    void updateExpandState();
+
+    enum ExpandAction { SaveExpandState, RestoreExpandState};
+    void updateExpandState(ExpandAction action);
+
+    //void restoreExpandState();
 
     MaterialModel *m_materialModel;
     QtTreePropertyBrowser *m_browser;
@@ -72,10 +80,10 @@ private:
 //    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
 //        m_item_to_index_to_property;
 
-    QMap<QtProperty *, SubItem *> m_property_to_subitem;
+    QMap<QtProperty *, SubItem> m_property_to_subitem;
     QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
-//    QMap<SubItem, bool> m_subItemToExpanded;
+    QMap<SubItem, bool> m_subItemToExpanded;
 };
 
 

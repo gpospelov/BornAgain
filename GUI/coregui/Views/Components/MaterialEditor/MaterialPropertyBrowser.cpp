@@ -82,8 +82,8 @@ void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
     if (!m_property_to_subitem.contains(property))
         return;
 
-    MaterialItem *material = m_property_to_subitem[property]->m_owner;
-    QString subName = m_property_to_subitem[property]->m_name;
+    MaterialItem *material = m_property_to_subitem[property].m_owner;
+    QString subName = m_property_to_subitem[property].m_name;
 
     if(subName.isEmpty()) {
         material->setType(MaterialItem::MaterialType(value.toInt()));
@@ -108,16 +108,17 @@ void MaterialPropertyBrowser::updateBrowser()
         addMaterialProperties(material);
     }
     m_browser->setCurrentItem(0);
+    updateExpandState(RestoreExpandState);
 }
 
 
 void MaterialPropertyBrowser::clearBrowser()
 {
-    updateExpandState();
-    QMap<QtProperty *, SubItem *>::iterator it = m_property_to_subitem.begin();
+    updateExpandState(SaveExpandState);
+    QMap<QtProperty *, SubItem>::iterator it = m_property_to_subitem.begin();
     while(it!=m_property_to_subitem.end()) {
         delete it.key();
-        delete it.value();
+        //delete it.value();
         it++;
     }
     m_top_property_to_material.clear();
@@ -172,7 +173,7 @@ void MaterialPropertyBrowser::addMaterialProperties(MaterialItem *material)
 
     m_top_property_to_material[item_property] = material;
     m_top_material_to_property[material] = item_property;
-    m_property_to_subitem[item_property] = new SubItem(material, "");
+    m_property_to_subitem[item_property] = SubItem(material, "");
 
 
 //    QtBrowserItem *browserItem = m_browser->addProperty(item_property);
@@ -194,8 +195,8 @@ void MaterialPropertyBrowser::removeSubProperties(QtProperty *property)
         m_browser->removeProperty(child);
         delete child;
 
-        QMap<QtProperty *, SubItem *>::iterator it = m_property_to_subitem.find(child);
-        delete it.value();
+        QMap<QtProperty *, SubItem >::iterator it = m_property_to_subitem.find(child);
+        //delete it.value();
         m_property_to_subitem.erase(it);
 
     }
@@ -245,7 +246,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Ma
 //        ItemIndexPair item_index_pair(non_const_item, i);
 //        m_property_to_item_index_pair[subProperty] = item_index_pair;
 //        m_item_to_index_to_property[item][i] = subProperty;
-        m_property_to_subitem[subProperty] = new SubItem(material,prop_name);
+        m_property_to_subitem[subProperty] = SubItem(material,prop_name);
         m_material_to_property[material][prop_name] = subProperty;
     }
 
@@ -284,19 +285,74 @@ void MaterialPropertyBrowser::updateSubProperties(MaterialItem *material)
 }
 
 
-void MaterialPropertyBrowser::updateExpandState()
-{
-//    qDebug() << "MaterialPropertyBrowser::updateExpandState()";
+//void MaterialPropertyBrowser::updateExpandState()
+//{
 //    QList<QtBrowserItem *> list = m_browser->topLevelItems();
+//    qDebug() << "MaterialPropertyBrowser::updateExpandState()" << list.size();
 //    QListIterator<QtBrowserItem *> it(list);
 //    while (it.hasNext()) {
 //        QtBrowserItem *item = it.next();
 //        QtProperty *prop = item->property();
 //        m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
-//    }
 
+//    }
+//}
+
+
+void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
+{
+    QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
+    while(it_prop!=m_property_to_subitem.end()) {
+        QList<QtBrowserItem *> list = m_browser->items(it_prop.key());
+
+        QListIterator<QtBrowserItem *> it_browser(list);
+        while (it_browser.hasNext()) {
+            QtBrowserItem *item = it_browser.next();
+            QtProperty *prop = item->property();
+            if(action == SaveExpandState) {
+                m_subItemToExpanded[m_property_to_subitem[prop]] = m_browser->isExpanded(item);
+            } else {
+                m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
+            }
+        }
+
+        ++it_prop;
+    }
 }
 
+
+//void MaterialPropertyBrowser::restoreExpandState()
+//{
+//    qDebug() << "MaterialPropertyBrowser::restoreExpandState()";
+//    QList<QtBrowserItem *> list = m_browser->topLevelItems();
+//    QListIterator<QtBrowserItem *> it(list);
+//    while (it.hasNext()) {
+//        QtBrowserItem *item = it.next();
+//        QtProperty *prop = item->property();
+//        if(m_property_to_subitem.contains(prop)) {
+//            m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
+//        }
+
+//    }
+//}
+
+
+//void MaterialPropertyBrowser::restoreExpandState()
+//{
+//    QMap<QtProperty *, SubItem>::iterator it_prop = m_property_to_subitem.begin();
+//    while(it_prop!=m_property_to_subitem.end()) {
+//        QList<QtBrowserItem *> list = m_browser->items(it_prop.key());
+
+//        QListIterator<QtBrowserItem *> it_browser(list);
+//        while (it_browser.hasNext()) {
+//            QtBrowserItem *item = it_browser.next();
+//            QtProperty *prop = item->property();
+//            m_browser->setExpanded(item, m_subItemToExpanded[m_property_to_subitem[prop]]);
+//        }
+//        ++it_prop;
+//    }
+
+//}
 
 
 void MaterialPropertyBrowser::onCurrentBrowserItemChanged(QtBrowserItem *item)

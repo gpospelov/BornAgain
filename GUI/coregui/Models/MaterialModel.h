@@ -27,7 +27,8 @@ public:
     QString getName() const { return m_name; }
     void setName(QString name) { m_name = name; }
 
-    void addMaterial(const QString &name, MaterialItem::MaterialType type);
+    MaterialItem *addMaterial(const QString &name, MaterialItem::MaterialType type);
+    bool removeMaterial(MaterialItem *);
 
     QList<MaterialItem *> materials() const { return m_materials; }
 

@@ -74,18 +74,31 @@ QVariant MaterialModel::headerData(int section, Qt::Orientation orientation, int
 }
 
 
-void MaterialModel::addMaterial(const QString &name, MaterialItem::MaterialType type)
+
+MaterialItem *MaterialModel::addMaterial(const QString &name, MaterialItem::MaterialType type)
 {
     int position = m_materials.size();
     beginInsertRows(QModelIndex(), position, position);
-    MaterialItem *material = new MaterialItem(name, type);
-    m_materials.append(material);
+    MaterialItem *result = new MaterialItem(name, type);
+    m_materials.append(result);
     endInsertRows();
-
     //connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+    return result;
 }
 
 
+bool MaterialModel::removeMaterial(MaterialItem *material)
+{
+    if(m_materials.contains(material)) {
+        int row = m_materials.indexOf(material);
+        beginRemoveRows(QModelIndex(), row, row);
+        m_materials.removeOne(material);
+        endRemoveRows();
+        return true;
+    }
+    Q_ASSERT(0);
+    return false;
+}
 
 
 

@@ -94,7 +94,7 @@ def ClearPythonAPI(prj, files):
     for oldf in old_files:
         if not any( os.path.basename(newf)==os.path.basename(oldf) for newf in files ):
             list_to_erase.append(oldf)
-    print("ClearPythonAPI() : erasing obsolete files in BornAgain source tree " % (list_to_erase))
+    print("ClearPythonAPI() : erasing obsolete files in source tree: %s " % (list_to_erase))
     for x in list_to_erase:
         os.system("rm "+x)
 

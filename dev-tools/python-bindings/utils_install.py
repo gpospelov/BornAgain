@@ -38,8 +38,8 @@ def PatchFiles(files):
 
                         fout.write('''\
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
 ''')
 
@@ -49,8 +49,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 ''')
                             
                         fout.write('''\
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 ''')
                     elif "vector_indexing_suite.hpp" in line:
                         continue

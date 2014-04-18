@@ -31,8 +31,8 @@ def PatchFiles(files):
             continue
 
         # patch is required
-        with file(ff,"r") as fin:
-            with file("tmp.tmp","w") as fout:
+        with open(ff,"r") as fin:
+            with open("tmp.tmp","w") as fout:
                 for line in fin:
                     if "boost/python.hpp" in line:
 
@@ -58,7 +58,8 @@ GCC_DIAG_ON(missing-field-initializers);
                         fout.write(line)
         shutil.move("tmp.tmp", ff)
         n_patched_files += 1
-    print "PatchFiles()     :",n_patched_files, "files have been patched to get rid from compilation warnings"
+    print("PatchFiles()     : %i files have been patched to get rid from compilation warnings" %
+              (n_patched_files))
 
 
 def CopyFiles(prj, files):
@@ -93,7 +94,7 @@ def ClearPythonAPI(prj, files):
     for oldf in old_files:
         if not any( os.path.basename(newf)==os.path.basename(oldf) for newf in files ):
             list_to_erase.append(oldf)
-    print "ClearPythonAPI() : erasing obsolete files in BornAgain source tree ", list_to_erase
+    print("ClearPythonAPI() : erasing obsolete files in BornAgain source tree " % (list_to_erase))
     for x in list_to_erase:
         os.system("rm "+x)
 
@@ -163,8 +164,8 @@ def InstallCode(prj ):
 
     for pattern in prj.exclude_patterns:
         files2remove = glob.glob(prj.temp_dir+"/"+pattern+".*")
+        print("...removing duplicated files %s" % " ".join(files2remove) )
         for ff in files2remove:
-            print "...removing duplicated ",ff
             os.remove(ff)
 
     files_inc = glob.glob(prj.temp_dir+"/*.pypp.h")   + \
@@ -185,4 +186,4 @@ def InstallCode(prj ):
 
     ClearPythonAPI(prj, files)
 
-    print "Done"
+    print("Done")

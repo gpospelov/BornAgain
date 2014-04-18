@@ -2,10 +2,7 @@
 # settings for Python API generation by codegenerator.py
 
 from pyplusplus.module_builder import call_policies
-from pyplusplus import messages
-
-import utils_build
-
+#from pyplusplus import messages
 
 license = '''\
 // BornAgain: simulate and fit scattering at grazing incidence

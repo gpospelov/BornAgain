@@ -1,23 +1,30 @@
-# generate python API wrappers for Core library
-# used by codegenerator.py
+# BornAgain Core library
+# settings for Python API generation by codegenerator.py
 
-import os
-import sys
-import glob
-import subprocess
-import time
-from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
-from pyplusplus import file_writers
-from pygccxml.declarations.matchers import access_type_matcher_t
-from pygccxml.declarations.matchers import virtuality_type_matcher_t
-from pygccxml import declarations
-from pyplusplus import function_transformers as FT
-from pygccxml import parser
+
+import utils_build
 
 
-import builder_utils
+license = '''\
+// BornAgain: simulate and fit scattering at grazing incidence
+//! @brief Automatically generated boost::python code for PythonCoreAPI
+'''
+
+lib_name = 'libBornAgainCore'
+
+temp_dir    = 'output/PyCore'
+install_inc = '../../Core/PythonAPI/inc'
+install_src = '../../Core/PythonAPI/src'
+
+master_include = "PythonCoreList.h"
+cache_filename = "cache_core.xml"
+special_flags = "-DBORNAGAIN_PYTHON"
+
+with_pure_virtual = True
+with_Numpy = True
+with_converter = True
 
 
 include_dirs = [
@@ -148,6 +155,9 @@ include_classes = [
 ]
 
 
+exclude_patterns = []
+
+
 # -----------------------------------------------------------------------------
 # AdditionalRules
 # -----------------------------------------------------------------------------
@@ -177,7 +187,7 @@ def ManualClassTunings(mb):
         "rotated", "rotatedX", "rotatedY", "rotatedZ", "cross", "dot"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >", "BasicVector3D<double>", "BasicVector3D<int>"]
-    builder_utils.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
+    utils_build.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
     # Pure virtual should always be included
     mb.class_("IDetectorResolution").member_function("applyDetectorResolution").include()
     #
@@ -221,7 +231,7 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_("IParameterized")
     cl.member_function("registerParameter").include()
-    cl.member_function("registerParameter").add_transformation( builder_utils.from_address_custom( 1 ) )
+    cl.member_function("registerParameter").add_transformation( utils_build.from_address_custom( 1 ) )
     #
     cl = mb.class_("ISampleBuilder")
     #cl = mb.class_("SampleBuilder_t")
@@ -262,7 +272,7 @@ def ManualClassTunings(mb):
     #cl.constructors(lambda decl: bool(decl.arguments)).exclude()  # exclude non-default constructors
     #
     cl = mb.class_("ParameterPool")
-    cl.member_function("registerParameter").add_transformation(builder_utils.from_address_custom(1))
+    cl.member_function("registerParameter").add_transformation(utils_build.from_address_custom(1))
     cl.member_function("getMatchedParameters").exclude()
     #
     mb.namespace("Units").include()
@@ -331,105 +341,3 @@ def ManualExcludeMemberFunctions(mb):
             if x in f.name: f.exclude()
         for x in to_exclude_exact:
             if x == f.name: f.exclude()
-    pass
-
-
-#------------------------------------------------------------------------------
-# produces boost python code
-#------------------------------------------------------------------------------
-def MakePythonAPI(OutputTempDir):
-    print "Generating PythonAPI for libBornAgainCore."
-    # getting paths
-    include_dirs.append( builder_utils.get_python_path() )
-    include_dirs.append( builder_utils.get_gcc_path() )
-    mygccxml = builder_utils.get_gccxml_path()
-
-    #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
-    print """
-        NOTE: If you update the source library code you need to manually delete the cache_core.xml file,
-        or run 'python codegenerator.py clean'
-        """
-    xml_cached_fc = parser.create_cached_source_fc("PythonCoreList.h", "cache_core.xml")
-    #xml_cached_fc = parser.create_cached_source_fc( ["PythonCoreList.h","PythonCoreExposer.h"], "cache_core.xml" )
-    #mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64 -msse -msse2 -fno-strict-aliasing -msse3")
-    mb = module_builder.module_builder_t([xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml,
-                                         cflags="-m64 -DGCCXML_SKIP_THIS -DBORNAGAIN_PYTHON")
-
-    # -----------------
-    # general rules
-    # -----------------
-
-    #for x in mb.classes():
-        #if "SampleBuilder" in x.name:
-            #print "XXX",x.name
-
-    builder_utils.IncludeClasses(mb, include_classes)
-
-    builder_utils.DefineGeneralRules(mb)
-
-    builder_utils.ExcludeConstructorsArgPtr(mb)
-
-    builder_utils.ExcludeMemberFunctionsArgPtr(mb)
-
-    builder_utils.ManageNewReturnPolicy(mb)
-
-    # -----------------
-    # manual tuning
-    # -----------------
-
-    ManualExcludeMemberFunctions(mb)
-
-    ManualClassTunings(mb) 
-
-    # -----------------
-    # default policies for what remained unchanged
-    # -----------------
-
-    builder_utils.IncludePureVirtualMethods(mb, include_classes)
-
-    builder_utils.DefaultReturnPolicy(mb)
-
-    # disabling some warnings
-    messages.disable(
-        messages.W1020,  # Warnings 1020 - 1031 are all about why Py++ generates wrapper for class X
-        messages.W1021,
-        messages.W1022,
-        messages.W1023,
-        messages.W1024,
-        messages.W1025,
-        messages.W1026,
-        messages.W1027,
-        messages.W1028,
-        messages.W1029,
-        messages.W1030,
-        messages.W1031,
-        #messages.W1035,
-        #messages.W1040,
-        #messages.W1038,
-        #messages.W1041,
-        messages.W1036,  # pointer to Python immutable member
-        #messages.W1033,  # unnamed variables
-        #messages.W1018,  # expose unnamed classes
-        #messages.W1049,  # returns reference to local variable
-        #messages.W1014,  # unsupported '=' operator
-    )
-
-    # ---------------------------------------------------------
-    # generating output
-    # ---------------------------------------------------------
-    mb.build_code_creator( module_name=builder_utils.ModuleName)
-    mb.code_creator.license = builder_utils.license
-    
-    mb.code_creator.user_defined_directories.append(os.path.abspath('./'))
-    mb.split_module(OutputTempDir)
-
-
-if __name__ == '__main__':
-    tempDir = 'output/PyCore'
-    if not os.path.exists(tempDir): os.makedirs(tempDir)
-    start_time = time.clock()
-    MakePythonAPI(tempDir)
-    print '\nPythonCoreAPI source code was generated ( %f seconds ).' % ((time.clock() - start_time))
-    print 'Run InstallPyCore.py to install generated code into BornAgain source tree'
-    print 'Done'
-

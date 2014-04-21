@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QVariant>
 #include <QMetaType>
+#include <QPixmap>
 
 class QXmlStreamWriter;
 
@@ -137,6 +138,11 @@ class MaterialColorProperty
 public:
     MaterialColorProperty() : m_color(Qt::red) {}
     MaterialColorProperty(QColor color) : m_color(color) {}
+    QPixmap getPixmap() const {
+        QPixmap pixmap(10,10);
+        pixmap.fill(m_color);
+        return pixmap;
+    }
 private:
     QColor m_color;
 };

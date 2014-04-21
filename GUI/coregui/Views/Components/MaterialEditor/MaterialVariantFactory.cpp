@@ -1,19 +1,17 @@
 #include "MaterialVariantFactory.h"
+#include "MaterialVariantManager.h"
+#include "MaterialColorPropertyEdit.h"
 
 
 MaterialVariantFactory::~MaterialVariantFactory()
 {
-//    QList<MaterialPropertyEdit *> mat_editors =
-//            m_material_editor_to_property.keys();
-//    QListIterator<MaterialPropertyEdit *> mat_it(mat_editors);
-//    while (mat_it.hasNext())
-//        delete mat_it.next();
-//    QList<FormFactorPropertyEdit *> ff_editors =
-//            m_form_factor_editor_to_property.keys();
-//    QListIterator<FormFactorPropertyEdit *> ff_it(ff_editors);
-//    while (ff_it.hasNext())
-//        delete ff_it.next();
+    QList<MaterialColorPropertyEdit *> mat_editors =
+            m_material_editor_to_property.keys();
+    QListIterator<MaterialColorPropertyEdit *> mat_it(mat_editors);
+    while (mat_it.hasNext())
+        delete mat_it.next();
 }
+
 
 void MaterialVariantFactory::connectPropertyManager(
         QtVariantPropertyManager *manager)
@@ -32,39 +30,22 @@ void MaterialVariantFactory::connectPropertyManager(
 QWidget *MaterialVariantFactory::createEditor(QtVariantPropertyManager *manager,
         QtProperty *property, QWidget *parent)
 {
-//    if (manager->propertyType(property) ==
-//            PropertyVariantManager::materialTypeId()) {
-//        MaterialPropertyEdit *editor = new MaterialPropertyEdit(parent);
-//        QVariant var = manager->value(property);
-//        MaterialProperty mat = var.value<MaterialProperty>();
-//        editor->setMaterialProperty(mat);
+    if (manager->propertyType(property) ==
+            MaterialVariantManager::materialColorPropertyTypeId()) {
+        MaterialColorPropertyEdit *editor = new MaterialColorPropertyEdit(parent);
+        QVariant var = manager->value(property);
+        MaterialColorProperty mat = var.value<MaterialColorProperty>();
+        editor->setMaterialColorProperty(mat);
 
-//        m_property_to_material_editors[property].append(editor);
-//        m_material_editor_to_property[editor] = property;
+        m_property_to_material_editors[property].append(editor);
+        m_material_editor_to_property[editor] = property;
 
-//        connect(editor, SIGNAL(materialPropertyChanged(const MaterialProperty &)),
-//                this, SLOT(slotSetValue(const MaterialProperty &)));
-//        connect(editor, SIGNAL(destroyed(QObject *)),
-//                this, SLOT(slotEditorDestroyed(QObject *)));
-//        return editor;
-//    }
-//    if (manager->propertyType(property) ==
-//            PropertyVariantManager::formFactorTypeId()) {
-//        FormFactorPropertyEdit *editor = new FormFactorPropertyEdit(parent);
-//        QVariant var = manager->value(property);
-//        FormFactorProperty ff = var.value<FormFactorProperty>();
-//        editor->setFormFactorProperty(ff);
-
-//        m_property_to_form_factor_editors[property].append(editor);
-//        m_form_factor_editor_to_property[editor] = property;
-
-//        connect(editor,
-//                SIGNAL(formFactorPropertyChanged(const FormFactorProperty &)),
-//                this, SLOT(slotSetValue(const FormFactorProperty &)));
-//        connect(editor, SIGNAL(destroyed(QObject *)),
-//                this, SLOT(slotEditorDestroyed(QObject *)));
-//        return editor;
-//    }
+        connect(editor, SIGNAL(materialPropertyChanged(const MaterialProperty &)),
+                this, SLOT(slotSetValue(const MaterialProperty &)));
+        connect(editor, SIGNAL(destroyed(QObject *)),
+                this, SLOT(slotEditorDestroyed(QObject *)));
+        return editor;
+    }
     return QtVariantEditorFactory::createEditor(manager, property, parent);
 }
 
@@ -107,43 +88,24 @@ void MaterialVariantFactory::slotPropertyChanged(QtProperty *property,
 }
 
 
-//void MaterialVariantFactory::slotSetValue(const MaterialProperty &value)
-//{
-//    QObject *object = sender();
-//    QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =
-//                m_material_editor_to_property.constBegin();
-//    while (itEditor != m_material_editor_to_property.constEnd()) {
-//        if (itEditor.key() == object) {
-//            QtProperty *property = itEditor.value();
-//            QtVariantPropertyManager *manager = propertyManager(property);
-//            if (!manager) return;
-//            QVariant var;
-//            var.setValue(value);
-//            manager->setValue(property, var);
-//            return;
-//        }
-//        itEditor++;
-//    }
-//}
-
-//void MaterialVariantFactory::slotSetValue(const FormFactorProperty &value)
-//{
-//    QObject *object = sender();
-//    QMap<FormFactorPropertyEdit *, QtProperty *>::ConstIterator itEditor =
-//                m_form_factor_editor_to_property.constBegin();
-//    while (itEditor != m_form_factor_editor_to_property.constEnd()) {
-//        if (itEditor.key() == object) {
-//            QtProperty *property = itEditor.value();
-//            QtVariantPropertyManager *manager = propertyManager(property);
-//            if (!manager) return;
-//            QVariant var;
-//            var.setValue(value);
-//            manager->setValue(property, var);
-//            return;
-//        }
-//        itEditor++;
-//    }
-//}
+void MaterialVariantFactory::slotSetValue(const MaterialColorProperty &value)
+{
+    QObject *object = sender();
+    QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+                m_material_editor_to_property.constBegin();
+    while (itEditor != m_material_editor_to_property.constEnd()) {
+        if (itEditor.key() == object) {
+            QtProperty *property = itEditor.value();
+            QtVariantPropertyManager *manager = propertyManager(property);
+            if (!manager) return;
+            QVariant var;
+            var.setValue(value);
+            manager->setValue(property, var);
+            return;
+        }
+        itEditor++;
+    }
+}
 
 
 void MaterialVariantFactory::slotEditorDestroyed(QObject *object)

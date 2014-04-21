@@ -132,9 +132,16 @@ public:
 };
 
 
+class MaterialColorProperty
+{
+public:
+    MaterialColorProperty() : m_color(Qt::red) {}
+    MaterialColorProperty(QColor color) : m_color(color) {}
+private:
+    QColor m_color;
+};
 
-
-//Q_DECLARE_METATYPE(RefractiveIndexItem)
+Q_DECLARE_METATYPE(MaterialColorProperty)
 
 
 

@@ -1,11 +1,5 @@
 #include "MaterialVariantManager.h"
 
-//#include "DesignerHelper.h"
-//#include "MaterialBrowser.h"
-//#include "ParameterizedItem.h"
-//#include "FormFactorProperty.h"
-//#include <iostream>
-
 
 MaterialVariantManager::MaterialVariantManager(QObject *parent)
     : QtVariantPropertyManager(parent)
@@ -14,9 +8,9 @@ MaterialVariantManager::MaterialVariantManager(QObject *parent)
 }
 
 
-int MaterialVariantManager::refractiveIndexTypeId()
+int MaterialVariantManager::materialColorPropertyTypeId()
 {
-    int result = qMetaTypeId<RefractiveIndexProperty>();
+    int result = qMetaTypeId<MaterialColorProperty>();
     return result;
 }
 
@@ -24,57 +18,36 @@ int MaterialVariantManager::refractiveIndexTypeId()
 
 bool MaterialVariantManager::isPropertyTypeSupported(int propertyType) const
 {
-    if (propertyType == refractiveIndexTypeId())
+    if (propertyType == materialColorPropertyTypeId())
         return true;
-//    if (propertyType == formFactorTypeId())
-//        return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
 
 
 int MaterialVariantManager::valueType(int propertyType) const
 {
-    if (propertyType == refractiveIndexTypeId())
-        return refractiveIndexTypeId();
-//    if (propertyType == formFactorTypeId())
-//        return formFactorTypeId();
+    if (propertyType == materialColorPropertyTypeId())
+        return materialColorPropertyTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 
 
 QVariant MaterialVariantManager::value(const QtProperty *property) const
 {
-    if(m_RefractiveIndexValues.contains(property)) {
+    if(m_MaterialColorValues.contains(property)) {
         QVariant v;
-        v.setValue(m_RefractiveIndexValues[property]);
+        v.setValue(m_MaterialColorValues[property]);
         return v;
     }
-
-//    if (theMaterialValues.contains(property)) {
-//        QVariant v;
-//        v.setValue(theMaterialValues[property]);
-//        return v;
-//    }
-//    if (theFormFactorValues.contains(property)) {
-//        QVariant v;
-//        v.setValue(theFormFactorValues[property]);
-//        return v;
-//    }
     return QtVariantPropertyManager::value(property);
 }
 
 
 QString MaterialVariantManager::valueText(const QtProperty *property) const
 {
-    if (m_RefractiveIndexValues.contains(property)) {
-        //return m_RefractiveIndexValues[property].getName();
-        return QString("xxx");
-    }
-//    if (theMaterialValues.contains(property)) {
-//        return theMaterialValues[property].getName();
-//    }
-//    if (theFormFactorValues.contains(property)) {
-//        return theFormFactorValues[property].getFormFactorName();
+//    if (m_MaterialColorValues.contains(property)) {
+//        //return m_MaterialColorValues[property].getName();
+//        return QString("xxx");
 //    }
     return QtVariantPropertyManager::valueText(property);
 }
@@ -91,10 +64,10 @@ QIcon MaterialVariantManager::valueIcon(const QtProperty *property) const
 
 void MaterialVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
-    if (m_RefractiveIndexValues.contains(property)) {
-        if( val.userType() != refractiveIndexTypeId() ) return;
-        RefractiveIndexProperty mat = val.value<RefractiveIndexProperty>();
-        m_RefractiveIndexValues[property] = mat;
+    if (m_MaterialColorValues.contains(property)) {
+        if( val.userType() != materialColorPropertyTypeId() ) return;
+        MaterialColorProperty mat = val.value<MaterialColorProperty>();
+        m_MaterialColorValues[property] = mat;
         QVariant v2;
         v2.setValue(mat);
         emit propertyChanged(property);
@@ -129,9 +102,9 @@ void MaterialVariantManager::setValue(QtProperty *property, const QVariant &val)
 
 void MaterialVariantManager::initializeProperty(QtProperty *property)
 {
-    if (propertyType(property) == refractiveIndexTypeId()) {
-        RefractiveIndexProperty m;
-        m_RefractiveIndexValues[property] = m;
+    if (propertyType(property) == materialColorPropertyTypeId()) {
+        MaterialColorProperty m;
+        m_MaterialColorValues[property] = m;
     }
 
 //    if (propertyType(property) == materialTypeId()) {
@@ -148,7 +121,7 @@ void MaterialVariantManager::initializeProperty(QtProperty *property)
 
 void MaterialVariantManager::uninitializeProperty(QtProperty *property)
 {
-    m_RefractiveIndexValues.remove(property);
+    m_MaterialColorValues.remove(property);
 //    theFormFactorValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }

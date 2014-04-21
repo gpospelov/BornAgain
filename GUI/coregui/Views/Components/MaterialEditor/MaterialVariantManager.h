@@ -2,8 +2,7 @@
 #define MATERIALVARIANTMANAGER_H
 
 #include <QtVariantPropertyManager>
-#include "RefractiveIndexProperty.h"
-
+#include "MaterialItem.h"
 
 class MaterialVariantManager : public QtVariantPropertyManager
 {
@@ -15,8 +14,7 @@ public:
     virtual int valueType(int propertyType) const;
     virtual bool isPropertyTypeSupported(int propertyType) const;
 
-    static int refractiveIndexTypeId();
-//    static int formFactorTypeId();
+    static int materialColorPropertyTypeId();
 
 public slots:
     virtual void setValue(QtProperty *property, const QVariant &val);
@@ -28,9 +26,7 @@ protected:
     virtual void initializeProperty(QtProperty *property);
     virtual void uninitializeProperty(QtProperty *property);
 private:
-//    QMap<const QtProperty *, MaterialProperty> theMaterialValues;
-//    QMap<const QtProperty *, FormFactorProperty> theFormFactorValues;
-    QMap<const QtProperty *, RefractiveIndexProperty> m_RefractiveIndexValues;
+    QMap<const QtProperty *, MaterialColorProperty> m_MaterialColorValues;
 };
 
 

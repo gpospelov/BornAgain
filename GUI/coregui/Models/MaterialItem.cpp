@@ -1,6 +1,5 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "RefractiveIndexProperty.h"
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
 #include <QXmlStreamWriter>
@@ -17,10 +16,10 @@ MaterialItem::MaterialItem(const QString &name, MaterialType type)
     , m_color(Qt::red)
 {
 
-//    RefractiveIndexProperty rindex;
-//    QVariant rindex_var;
-//    rindex_var.setValue(rindex);
-//    setProperty("Refractive index", rindex_var);
+    MaterialColorProperty mat_color;
+    QVariant mat_color_var;
+    mat_color_var.setValue(mat_color);
+    setProperty("Color", mat_color_var);
 
     updateProperties();
 //    setProperty("Name", name);
@@ -104,6 +103,8 @@ void MaterialItem::updateProperties()
 
 void MaterialItem::addSubProperty(QString name)
 {
+    if(m_sub_items.contains(name)) return;
+
     MaterialItem *item(0);
     if(name == MaterialProperties::RefractiveIndex) {
         item = new RefractiveIndexItem();
@@ -204,8 +205,9 @@ void MaterialItem::writeProperty(QXmlStreamWriter *writer, MaterialItem *item, c
 //                                ff_name);
 //        }
         else {
-            throw GUIHelpers::Error(tr("MaterialItem::writeProperty: "
-                                       "Parameter type not supported"));
+            qDebug() << "MaterialItem::writeProperty not supported" << property_name;
+//            throw GUIHelpers::Error(tr("MaterialItem::writeProperty: "
+//                                       "Parameter type not supported"));
         }
 //        if (sub_items.contains(QString(property_name))) {
 //            writePropertyItem(writer, sub_items[QString(property_name)]);

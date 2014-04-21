@@ -8,7 +8,8 @@
 
 QStringList MaterialItem::m_type_names = QStringList()
         << QString("Homogeneous Material")
-        << QString("Homogeneous Magnetic Material");
+        << QString("Homogeneous Magnetic Material")
+        << QString("Material Property");
 
 MaterialItem::MaterialItem(const QString &name, MaterialType type)
     : m_name(name)
@@ -22,9 +23,23 @@ MaterialItem::MaterialItem(const QString &name, MaterialType type)
 //    setProperty("Refractive index", rindex_var);
 
     updateProperties();
-    setProperty("Name", name);
+//    setProperty("Name", name);
 //    setProperty("Color", m_color);
 //    connect(this, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+}
+
+
+MaterialItem::~MaterialItem()
+{
+    qDeleteAll(m_sub_items);
+}
+
+
+QStringList MaterialItem::getMaterialTypes() const
+{
+    QStringList result = m_type_names;
+    result.removeLast();
+    return result;
 }
 
 
@@ -73,35 +88,46 @@ bool MaterialItem::event(QEvent * e )
 
 void MaterialItem::updateProperties()
 {
-//    if(m_type == HomogeneousMaterial || m_type == HomogeneousMagneticMaterial) {
-//
-//    }
-
-    setProperty("aaa", QVariant(QVariant::Invalid));
-    setProperty("bbb", QVariant(QVariant::Invalid));
-
-    if(m_type == HomogeneousMaterial ) {
-        setProperty("aaa",1.0);
-    }
-    if(m_type == HomogeneousMagneticMaterial ) {
-        setProperty("bbb",2.0);
+    if(m_type == HomogeneousMaterial) {
+        setProperty("Name", m_name);
+        addSubProperty(MaterialProperties::RefractiveIndex);
+        removeSubProperty(MaterialProperties::MagneticField);
     }
 
-    if(m_type == HomogeneousMaterial || m_type == HomogeneousMagneticMaterial) {
-        addRefractiveIndexProperty();
+    if(m_type == HomogeneousMagneticMaterial) {
+        setProperty("Name", m_name);
+        addSubProperty(MaterialProperties::RefractiveIndex);
+        addSubProperty(MaterialProperties::MagneticField);
     }
 }
 
 
-void MaterialItem::addRefractiveIndexProperty()
+void MaterialItem::addSubProperty(QString name)
 {
-    RefractiveIndexItem *item = new RefractiveIndexItem();
-    setProperty("Refractive index", item->getTitleString());
-    m_sub_items["Refractive index"] = item;
-
-    connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
-
+    MaterialItem *item(0);
+    if(name == MaterialProperties::RefractiveIndex) {
+        item = new RefractiveIndexItem();
+    } else if(name == MaterialProperties::MagneticField) {
+        item = new MagneticFieldProperty();
+    }
+    if(item) {
+        setProperty(item->getName().toUtf8().data(), item->getTitleString());
+        m_sub_items[item->getName()] = item;
+        connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+    }
 }
+
+
+void MaterialItem::removeSubProperty(QString name)
+{
+    QMap<QString, MaterialItem *>::iterator it=m_sub_items.find(name);
+    if(it!=m_sub_items.end()) {
+        delete it.value();
+        m_sub_items.erase(it);
+        setProperty(name.toUtf8().data(), QVariant(QVariant::Invalid));
+    }
+}
+
 
 void MaterialItem::onPropertyItemChanged(QString propertyName)
 {
@@ -110,7 +136,7 @@ void MaterialItem::onPropertyItemChanged(QString propertyName)
     MaterialItem *property = qobject_cast<MaterialItem *>(sender());
     if(property) {
         QString subItemName = property->getName();
-        qDebug() << " xx setting title string" << property->getTitleString();
+        qDebug() << " xx setting title string" << subItemName << property->getTitleString();
         setMaterialProperty(subItemName, property->getTitleString());
     }
 
@@ -118,19 +144,13 @@ void MaterialItem::onPropertyItemChanged(QString propertyName)
 }
 
 
-void MaterialItem::removeRefractiveIndexProperty()
-{
-
-
-}
-
 
 
 void MaterialItem::writeTo(QXmlStreamWriter *writer)
 {
     writer->writeStartElement(MaterialXML::MaterialTag);
-    writer->writeAttribute(MaterialXML::MaterialNameAttribute, property("Name").toString());
     writer->writeAttribute(MaterialXML::MaterialTypeAttribute, getTypeName());
+    writer->writeAttribute(MaterialXML::MaterialNameAttribute, property("Name").toString());
 
 //    QMap<QString, MaterialItem *>::iterator it = m_sub_items.begin();
 //    while(it!=m_sub_items.end()) {
@@ -141,7 +161,7 @@ void MaterialItem::writeTo(QXmlStreamWriter *writer)
     QListIterator<QByteArray> it(dynamicPropertyNames());
     while (it.hasNext()) {
         const char *name = it.next().constData();
-        writeProperty(writer,  name);
+        writeProperty(writer, this, name);
     }
 
 
@@ -151,9 +171,50 @@ void MaterialItem::writeTo(QXmlStreamWriter *writer)
 }
 
 
-void MaterialItem::writeProperty(QXmlStreamWriter *writer, const char *property_name)
+void MaterialItem::writeProperty(QXmlStreamWriter *writer, MaterialItem *item, const char *property_name)
 {
     qDebug() << "MaterialItem::writeProperty() " << property_name;
+//    QMap<QString, ParameterizedItem *> sub_items = item->getSubItems();
+    QVariant variant = item->property(property_name);
+    qDebug() << "XXX " << variant.typeName();
+    if (variant.isValid()) {        
+        writer->writeStartElement(MaterialXML::ParameterTag);
+        writer->writeAttribute(MaterialXML::ParameterNameAttribute,
+                               QString(property_name));
+        QString type_name = variant.typeName();
+        writer->writeAttribute(MaterialXML::ParameterTypeAttribute,
+                               type_name );
+        if (type_name == QString("double")) {
+            writer->writeAttribute(MaterialXML::ParameterValueAttribute,
+                                QString::number(variant.toDouble(), 'e', 12));
+        }
+        else if (type_name == QString("QString")) {
+            writer->writeAttribute(MaterialXML::ParameterValueAttribute,
+                                variant.toString());
+        }
+//        else if (type_name == QString("MaterialProperty")) {
+//            QString material_name = variant.value<MaterialProperty>().getName();
+//            writer->writeAttribute(MaterialXML::ParameterValueAttribute,
+//                                material_name);
+//        }
+//        else if (type_name == QString("FormFactorProperty")) {
+//            QString ff_name =
+//                    variant.value<FormFactorProperty>().getFormFactorName();
+//            writer->writeAttribute(MaterialXML::ParameterValueAttribute,
+//                                ff_name);
+//        }
+        else {
+            throw GUIHelpers::Error(tr("MaterialItem::writeProperty: "
+                                       "Parameter type not supported"));
+        }
+//        if (sub_items.contains(QString(property_name))) {
+//            writePropertyItem(writer, sub_items[QString(property_name)]);
+//        }
+        writer->writeEndElement(); // end ParameterTag
+    }
+
+
+
 }
 
 
@@ -161,13 +222,24 @@ void MaterialItem::writeProperty(QXmlStreamWriter *writer, const char *property_
 
 void RefractiveIndexItem::writeTo(QXmlStreamWriter *writer)
 {
-    writer->writeStartElement(MaterialXML::PropertyTag);
-    writer->writeAttribute(MaterialXML::PropertyNameAttribute, getName());
+//    writer->writeStartElement(MaterialXML::PropertyTag);
+//    writer->writeAttribute(MaterialXML::PropertyNameAttribute, getName());
 
 
-    writer->writeEndElement(); // MaterialTag
+//    writer->writeEndElement(); // MaterialTag
 
 }
+
+void MagneticFieldProperty::writeTo(QXmlStreamWriter *writer)
+{
+//    writer->writeStartElement(MaterialXML::PropertyTag);
+//    writer->writeAttribute(MaterialXML::PropertyNameAttribute, getName());
+
+
+//    writer->writeEndElement(); // MaterialTag
+
+}
+
 
 
 

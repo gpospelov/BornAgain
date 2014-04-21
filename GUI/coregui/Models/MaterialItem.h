@@ -16,6 +16,13 @@ class MaterialPropertyItem : public QObject
     Q_OBJECT
 };
 
+
+namespace MaterialProperties {
+const QString RefractiveIndex("Refractive index");
+const QString MagneticField("Magnetic field");
+}
+
+
 class MaterialItem : public QObject
 {
     Q_OBJECT
@@ -24,17 +31,18 @@ public:
     enum MaterialType {
         HomogeneousMaterial,
         HomogeneousMagneticMaterial,
-        NonExisting
+        MaterialProperty
     };
 
     MaterialItem(const QString &name, MaterialType type);
-    ~MaterialItem(){}
+    ~MaterialItem();
     void setName(const QString &name) { m_name = name;}
     QString getName() const { return m_name; }
     void setType(MaterialType type);
     MaterialType getType() const { return m_type; }
     QString getTypeName() const { return m_type_names.at(int(m_type)); }
-    QStringList getTypeNames() const { return m_type_names; }
+
+    QStringList getMaterialTypes() const;
 
     virtual QString getTitleString() { return QString(); }
 
@@ -49,15 +57,13 @@ public:
 
     void updateProperties();
 
-    void addRefractiveIndexProperty();
-    void removeRefractiveIndexProperty();
 
 
     bool setMaterialProperty(QString name, const QVariant &value);
 
     virtual void writeTo(QXmlStreamWriter *writer);
 
-    virtual void writeProperty(QXmlStreamWriter *writer, const char *property_name);
+    virtual void writeProperty(QXmlStreamWriter *writer, MaterialItem *item, const char *property_name);
 
 
 signals:
@@ -68,6 +74,9 @@ public slots:
     void onPropertyItemChanged(QString propertyName);
 
 private:
+    void addSubProperty(QString name);
+    void removeSubProperty(QString name);
+
     QString m_name;
     MaterialType m_type;
     QColor m_color;
@@ -83,8 +92,7 @@ class RefractiveIndexItem : public MaterialItem
     Q_OBJECT
 
 public:
-    RefractiveIndexItem() : MaterialItem("Refractive index", MaterialItem::NonExisting)
-    //RefractiveIndexItem()
+    RefractiveIndexItem() : MaterialItem(MaterialProperties::RefractiveIndex, MaterialItem::MaterialProperty)
     {
         setProperty("delta", QString("1e-3"));
         setProperty("gamma", QString("1e-5"));
@@ -99,6 +107,32 @@ public:
     void writeTo(QXmlStreamWriter *writer);
 
 };
+
+
+class MagneticFieldProperty : public MaterialItem
+{
+    Q_OBJECT
+
+public:
+    MagneticFieldProperty() : MaterialItem(MaterialProperties::MagneticField, MaterialItem::MaterialProperty)
+    {
+        setProperty("Bx", 0.0);
+        setProperty("By", 0.0);
+        setProperty("Bz", 0.0);
+    }
+
+    QString getTitleString()
+    {
+
+        return QString("(%1, %2, %3)").arg(property("Bx").toString(), property("By").toString(), property("Bz").toString());
+    }
+
+    void writeTo(QXmlStreamWriter *writer);
+
+};
+
+
+
 
 //Q_DECLARE_METATYPE(RefractiveIndexItem)
 

@@ -81,6 +81,8 @@ private:
 //        m_item_to_index_to_property;
 
     QMap<QtProperty *, SubItem> m_property_to_subitem;
+    QMap<SubItem, QtProperty *> m_subitem_to_property;
+
     QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
     QMap<SubItem, bool> m_subItemToExpanded;

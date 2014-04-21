@@ -15,8 +15,14 @@ namespace MaterialXML
     const QString MaterialTag("Material");
     const QString MaterialNameAttribute("Name");
     const QString MaterialTypeAttribute("Type");
-    const QString PropertyTag("Property");
-    const QString PropertyNameAttribute("Name");
+//    const QString PropertyTag("Property");
+//    const QString PropertyNameAttribute("Name");
+
+    const QString ParameterTag("Parameter");
+    const QString ParameterNameAttribute("ParName");
+    const QString ParameterTypeAttribute("ParType");
+    const QString ParameterValueAttribute("ParValue");
+
 }
 
 

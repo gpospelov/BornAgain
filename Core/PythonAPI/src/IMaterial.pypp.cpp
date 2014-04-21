@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
 #include "IMaterial.pypp.h"
 
@@ -33,10 +33,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::IMaterial * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->IMaterial::clone(  );
-        }
     }
+    
     
     ::IMaterial * default_clone(  ) const  {
         return IMaterial::clone( );
@@ -45,10 +45,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
             return func_createTransformedMaterial( boost::ref(transform) );
-        else{
+        else
             return this->IMaterial::createTransformedMaterial( boost::ref(transform) );
-        }
     }
+    
     
     ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         return IMaterial::createTransformedMaterial( boost::ref(transform) );
@@ -57,10 +57,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else{
+        else
             return this->IMaterial::getRefractiveIndex(  );
-        }
     }
+    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return IMaterial::getRefractiveIndex( );
@@ -69,10 +69,10 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else{
+        else
             return this->IMaterial::isScalarMaterial(  );
-        }
     }
+    
     
     bool default_isScalarMaterial(  ) const  {
         return IMaterial::isScalarMaterial( );

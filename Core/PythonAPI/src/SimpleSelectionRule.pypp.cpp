@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
 #include "SimpleSelectionRule.pypp.h"
 
@@ -33,10 +33,10 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
     virtual ::SimpleSelectionRule * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->SimpleSelectionRule::clone(  );
-        }
     }
+    
     
     ::SimpleSelectionRule * default_clone(  ) const  {
         return SimpleSelectionRule::clone( );
@@ -45,10 +45,10 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
     virtual bool coordinateSelected( ::IndexVector3D const & coordinate ) const  {
         if( bp::override func_coordinateSelected = this->get_override( "coordinateSelected" ) )
             return func_coordinateSelected( boost::ref(coordinate) );
-        else{
+        else
             return this->SimpleSelectionRule::coordinateSelected( boost::ref(coordinate) );
-        }
     }
+    
     
     bool default_coordinateSelected( ::IndexVector3D const & coordinate ) const  {
         return SimpleSelectionRule::coordinateSelected( boost::ref(coordinate) );

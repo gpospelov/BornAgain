@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
 #include "ParameterPool.pypp.h"
 
@@ -26,10 +26,10 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
     virtual ::ParameterPool * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->ParameterPool::clone(  );
-        }
     }
+    
     
     ::ParameterPool * default_clone(  ) const  {
         return ParameterPool::clone( );

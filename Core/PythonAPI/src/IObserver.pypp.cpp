@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
 #include "IObserver.pypp.h"
 
@@ -33,10 +33,10 @@ struct IObserver_wrapper : IObserver, bp::wrapper< IObserver > {
     virtual void update( ::IObservable * arg0 ) {
         if( bp::override func_update = this->get_override( "update" ) )
             func_update( boost::python::ptr(arg0) );
-        else{
+        else
             this->IObserver::update( boost::python::ptr(arg0) );
-        }
     }
+    
     
     void default_update( ::IObservable * arg0 ) {
         IObserver::update( boost::python::ptr(arg0) );

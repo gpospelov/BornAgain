@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonFitAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonFitList.h"
 #include "FitSuiteObjects.pypp.h"
 
@@ -26,10 +26,10 @@ struct FitSuiteObjects_wrapper : FitSuiteObjects, bp::wrapper< FitSuiteObjects >
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else{
+        else
             return this->IParameterized::areParametersChanged(  );
-        }
     }
+    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -38,10 +38,10 @@ struct FitSuiteObjects_wrapper : FitSuiteObjects, bp::wrapper< FitSuiteObjects >
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else{
+        else
             this->IParameterized::clearParameterPool(  );
-        }
     }
+    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -50,10 +50,10 @@ struct FitSuiteObjects_wrapper : FitSuiteObjects, bp::wrapper< FitSuiteObjects >
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else{
+        else
             return this->IParameterized::createParameterTree(  );
-        }
     }
+    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -62,10 +62,10 @@ struct FitSuiteObjects_wrapper : FitSuiteObjects, bp::wrapper< FitSuiteObjects >
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else{
+        else
             this->IParameterized::printParameters(  );
-        }
     }
+    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -74,10 +74,10 @@ struct FitSuiteObjects_wrapper : FitSuiteObjects, bp::wrapper< FitSuiteObjects >
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else{
+        else
             return this->IParameterized::setParameterValue( name, value );
-        }
     }
+    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -86,10 +86,10 @@ struct FitSuiteObjects_wrapper : FitSuiteObjects, bp::wrapper< FitSuiteObjects >
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else{
+        else
             this->IParameterized::setParametersAreChanged(  );
-        }
     }
+    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -147,7 +147,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getObject"
                 , getObject_function_type( &::FitSuiteObjects::getObject )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -158,7 +158,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getObject"
                 , getObject_function_type( &::FitSuiteObjects::getObject )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -169,7 +169,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getRealData"
                 , getRealData_function_type( &::FitSuiteObjects::getRealData )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -190,7 +190,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getSimulation"
                 , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -201,7 +201,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getSimulation"
                 , getSimulation_function_type( &::FitSuiteObjects::getSimulation )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -212,7 +212,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "getSimulationData"
                 , getSimulationData_function_type( &::FitSuiteObjects::getSimulationData )
-                , ( bp::arg("i_item")=(::std::size_t)(0) )
+                , ( bp::arg("i_item")=(long unsigned int)(0) )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -251,7 +251,7 @@ void register_FitSuiteObjects_class(){
             FitSuiteObjects_exposer.def( 
                 "setRealData"
                 , setRealData_function_type( &::FitSuiteObjects::setRealData )
-                , ( bp::arg("real_data"), bp::arg("i_item")=(::std::size_t)(0) ) );
+                , ( bp::arg("real_data"), bp::arg("i_item")=(long unsigned int)(0) ) );
         
         }
         { //::FitSuiteObjects::setSimulationNormalize

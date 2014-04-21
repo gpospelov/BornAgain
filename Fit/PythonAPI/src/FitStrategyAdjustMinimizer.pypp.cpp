@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonFitAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonFitList.h"
 #include "FitStrategyAdjustMinimizer.pypp.h"
 
@@ -33,10 +33,10 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
     virtual ::FitStrategyAdjustMinimizer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else{
+        else
             return this->FitStrategyAdjustMinimizer::clone(  );
-        }
     }
+    
     
     ::FitStrategyAdjustMinimizer * default_clone(  ) const  {
         return FitStrategyAdjustMinimizer::clone( );
@@ -45,10 +45,10 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else{
+        else
             this->FitStrategyAdjustMinimizer::execute(  );
-        }
     }
+    
     
     void default_execute(  ) {
         FitStrategyAdjustMinimizer::execute( );

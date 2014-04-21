@@ -4,11 +4,11 @@
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
+GCC_DIAG_OFF(unused-parameter)
+GCC_DIAG_OFF(missing-field-initializers)
 #include "boost/python.hpp"
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
+GCC_DIAG_ON(unused-parameter)
+GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
 #include "IObservable.pypp.h"
 
@@ -33,10 +33,10 @@ struct IObservable_wrapper : IObservable, bp::wrapper< IObservable > {
     virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
             func_attachObserver( obj );
-        else{
+        else
             this->IObservable::attachObserver( obj );
-        }
     }
+    
     
     void default_attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         IObservable::attachObserver( obj );
@@ -45,10 +45,10 @@ struct IObservable_wrapper : IObservable, bp::wrapper< IObservable > {
     virtual void notifyObservers(  ) {
         if( bp::override func_notifyObservers = this->get_override( "notifyObservers" ) )
             func_notifyObservers(  );
-        else{
+        else
             this->IObservable::notifyObservers(  );
-        }
     }
+    
     
     void default_notifyObservers(  ) {
         IObservable::notifyObservers( );

@@ -15,6 +15,9 @@ public:
 
     void setMaterialColorProperty(const MaterialColorProperty &colorProperty);
     MaterialColorProperty getMaterialColorProperty() const {return m_colorProperty; }
+
+    QString colorValueText(const QColor &c);
+
 signals:
     void materialColorPropertyChanged(const MaterialColorProperty &material_color);
 

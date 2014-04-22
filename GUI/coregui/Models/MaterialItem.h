@@ -143,6 +143,13 @@ public:
         pixmap.fill(m_color);
         return pixmap;
     }
+    QColor getColor() const { return m_color; }
+    void setColor(QColor color) { m_color = color; }
+    QString getText() const {
+        return QString("[%1, %2, %3] (%4)")
+               .arg(m_color.red()).arg(m_color.green()).arg(m_color.blue()).arg(m_color.alpha());
+    }
+
 private:
     QColor m_color;
 };

@@ -45,19 +45,18 @@ QVariant MaterialVariantManager::value(const QtProperty *property) const
 
 QString MaterialVariantManager::valueText(const QtProperty *property) const
 {
-//    if (m_MaterialColorValues.contains(property)) {
-//        //return m_MaterialColorValues[property].getName();
-//        return QString("xxx");
-//    }
+    if (m_MaterialColorValues.contains(property)) {
+        return m_MaterialColorValues[property].getText();
+    }
     return QtVariantPropertyManager::valueText(property);
 }
 
 
 QIcon MaterialVariantManager::valueIcon(const QtProperty *property) const
 {
-//    if (theMaterialValues.contains(property)) {
-//        return QIcon(theMaterialValues[property].getPixmap());
-//    }
+    if (m_MaterialColorValues.contains(property)) {
+        return QIcon(m_MaterialColorValues[property].getPixmap());
+    }
     return QtVariantPropertyManager::valueIcon(property);
 }
 

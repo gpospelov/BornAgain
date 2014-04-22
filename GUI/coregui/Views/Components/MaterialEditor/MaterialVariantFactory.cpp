@@ -40,8 +40,8 @@ QWidget *MaterialVariantFactory::createEditor(QtVariantPropertyManager *manager,
         m_property_to_material_editors[property].append(editor);
         m_material_editor_to_property[editor] = property;
 
-        connect(editor, SIGNAL(materialPropertyChanged(const MaterialProperty &)),
-                this, SLOT(slotSetValue(const MaterialProperty &)));
+        connect(editor, SIGNAL(materialColorPropertyChanged(const MaterialColorProperty &)),
+                this, SLOT(slotSetValue(const MaterialColorProperty &)));
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
@@ -66,15 +66,15 @@ void MaterialVariantFactory::disconnectPropertyManager(
 void MaterialVariantFactory::slotPropertyChanged(QtProperty *property,
                 const QVariant &value)
 {
-//    if (m_property_to_material_editors.contains(property)) {
-//        QList<MaterialPropertyEdit *> editors =
-//                m_property_to_material_editors[property];
-//        QListIterator<MaterialPropertyEdit *> itEditor(editors);
-//        while (itEditor.hasNext()) {
-//            MaterialProperty mat = value.value<MaterialProperty>();
-//            itEditor.next()->setMaterialProperty(mat);
-//        }
-//    }
+    if (m_property_to_material_editors.contains(property)) {
+        QList<MaterialColorPropertyEdit *> editors =
+                m_property_to_material_editors[property];
+        QListIterator<MaterialColorPropertyEdit *> itEditor(editors);
+        while (itEditor.hasNext()) {
+            MaterialColorProperty mat = value.value<MaterialColorProperty>();
+            itEditor.next()->setMaterialColorProperty(mat);
+        }
+    }
 //    else if (m_property_to_form_factor_editors.contains(property)) {
 //        QList<FormFactorPropertyEdit *> editors =
 //                m_property_to_form_factor_editors[property];
@@ -91,7 +91,7 @@ void MaterialVariantFactory::slotPropertyChanged(QtProperty *property,
 void MaterialVariantFactory::slotSetValue(const MaterialColorProperty &value)
 {
     QObject *object = sender();
-    QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<MaterialColorPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_material_editor_to_property.constBegin();
     while (itEditor != m_material_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -110,33 +110,19 @@ void MaterialVariantFactory::slotSetValue(const MaterialColorProperty &value)
 
 void MaterialVariantFactory::slotEditorDestroyed(QObject *object)
 {
-//    QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
-//                m_material_editor_to_property.constBegin();
-//    while (mat_it_editor != m_material_editor_to_property.constEnd()) {
-//        if (mat_it_editor.key() == object) {
-//            MaterialPropertyEdit *editor = mat_it_editor.key();
-//            QtProperty *property = mat_it_editor.value();
-//            m_material_editor_to_property.remove(editor);
-//            m_property_to_material_editors[property].removeAll(editor);
-//            if (m_property_to_material_editors[property].isEmpty())
-//                m_property_to_material_editors.remove(property);
-//            return;
-//        }
-//        mat_it_editor++;
-//    }
-//    QMap<FormFactorPropertyEdit *, QtProperty *>::ConstIterator ff_it_editor =
-//                m_form_factor_editor_to_property.constBegin();
-//    while (ff_it_editor != m_form_factor_editor_to_property.constEnd()) {
-//        if (ff_it_editor.key() == object) {
-//            FormFactorPropertyEdit *editor = ff_it_editor.key();
-//            QtProperty *property = ff_it_editor.value();
-//            m_form_factor_editor_to_property.remove(editor);
-//            m_property_to_form_factor_editors[property].removeAll(editor);
-//            if (m_property_to_form_factor_editors[property].isEmpty())
-//                m_property_to_form_factor_editors.remove(property);
-//            return;
-//        }
-//        ff_it_editor++;
-//    }
+    QMap<MaterialColorPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
+                m_material_editor_to_property.constBegin();
+    while (mat_it_editor != m_material_editor_to_property.constEnd()) {
+        if (mat_it_editor.key() == object) {
+            MaterialColorPropertyEdit *editor = mat_it_editor.key();
+            QtProperty *property = mat_it_editor.value();
+            m_material_editor_to_property.remove(editor);
+            m_property_to_material_editors[property].removeAll(editor);
+            if (m_property_to_material_editors[property].isEmpty())
+                m_property_to_material_editors.remove(property);
+            return;
+        }
+        mat_it_editor++;
+    }
 }
 

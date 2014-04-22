@@ -15,8 +15,9 @@ namespace MaterialXML
     const QString MaterialTag("Material");
     const QString MaterialNameAttribute("Name");
     const QString MaterialTypeAttribute("Type");
-//    const QString PropertyTag("Property");
-//    const QString PropertyNameAttribute("Name");
+
+    const QString PropertyTag("Property");
+    const QString PropertyNameAttribute("Name");
 
     const QString ParameterTag("Parameter");
     const QString ParameterNameAttribute("ParName");
@@ -58,9 +59,10 @@ public:
     void save(const QString &filename=QString());
     void writeTo(QXmlStreamWriter *writer);
 
-//    void load(const QString &filename=QString());
-//    void readFrom(QXmlStreamReader *reader);
+    void load(const QString &filename=QString());
+    void readFrom(QXmlStreamReader *reader);
 
+    void clear();
 
     QList<MaterialItem *> materials() const { return m_materials; }
 

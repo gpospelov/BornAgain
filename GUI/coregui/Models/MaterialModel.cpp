@@ -2,6 +2,7 @@
 #include "GUIHelpers.h"
 #include <QFile>
 #include <QXmlStreamWriter>
+#include <QDebug>
 
 
 MaterialModel::MaterialModel(QObject *parent)
@@ -85,7 +86,6 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, MaterialItem::Mate
     MaterialItem *result = new MaterialItem(name, type);
     m_materials.append(result);
     endInsertRows();
-    //connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
     return result;
 }
 
@@ -141,16 +141,79 @@ void MaterialModel::writeTo(QXmlStreamWriter *writer)
 }
 
 
-//void MaterialModel::load(const QString &filename=QString())
-//{
+void MaterialModel::clear()
+{
+    beginResetModel();
+    qDeleteAll(m_materials);
+    m_materials.clear();
+    endResetModel();
+}
 
-//}
+
+void MaterialModel::load(const QString &filename)
+{
+    if (filename.isEmpty())
+        throw GUIHelpers::Error(tr("no filename specified"));
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly))
+        throw GUIHelpers::Error(file.errorString());
 
 
-//void MaterialModel::readFrom(QXmlStreamReader *reader)
-//{
+    QXmlStreamReader reader(&file);
 
-//}
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if (reader.isStartElement()) {
+            if (reader.name() == MaterialXML::ModelTag) {
+                this->readFrom(&reader);
+                break;
+            }
+        }
+    }
+
+    if (reader.hasError())
+        throw GUIHelpers::Error(reader.errorString());
+
+}
+
+
+void MaterialModel::readFrom(QXmlStreamReader *reader)
+{
+    if(reader->name() != MaterialXML::ModelTag) {
+        throw GUIHelpers::Error("MaterialModel::readFrom() -> Format error in p1");
+    }
+
+    clear();
+    beginResetModel();
+    const QString name = reader->attributes()
+            .value(MaterialXML::ModelNameAttribute).toString();
+    qDebug() << "JobQueueModel::readFrom " << name;
+    setName(name);
+
+    while (!reader->atEnd()) {
+        reader->readNext();
+        if (reader->isStartElement()) {
+            if (reader->name() == MaterialXML::MaterialTag) {
+
+                MaterialItem *material = addMaterial("Default", MaterialItem::HomogeneousMaterial);
+                material->readFrom(reader);
+
+            } else {
+                qDebug() << "qqq   " << reader->name();
+                throw GUIHelpers::Error("MaterialModel::readFrom() -> Format error in p2");
+            }
+        } else if (reader->isEndElement()) {
+            if (reader->name() == MaterialXML::ModelTag) {
+                endResetModel();
+                break; // end of xml of current Job
+            }
+        }
+    }
+
+
+
+}
 
 
 

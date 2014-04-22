@@ -183,7 +183,7 @@ void MaterialPropertyBrowser::updateMaterialProperties(MaterialItem *material)
 
 void MaterialPropertyBrowser::addMaterialProperties(MaterialItem *material)
 {
-    qDebug() << "MaterialEditorWidget::addMaterialProperties() " << material->getName();
+    qDebug() << "MaterialEditorWidget::addMaterialProperties() " << material->property("Name").toString();
     QtVariantProperty *item_property = m_variantManager->addProperty(
                 QtVariantPropertyManager::enumTypeId(), material->getName());
 

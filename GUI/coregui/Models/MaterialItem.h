@@ -10,6 +10,7 @@
 #include <QPixmap>
 
 class QXmlStreamWriter;
+class QXmlStreamReader;
 
 
 class MaterialPropertyItem : public QObject
@@ -37,20 +38,18 @@ public:
         MaterialProperty
     };
 
-    MaterialItem(const QString &name, MaterialType type);
+    MaterialItem(const QString &name=QString(), MaterialType type = HomogeneousMaterial);
     ~MaterialItem();
-    void setName(const QString &name) { m_name = name;}
     QString getName() const { return m_name; }
+    void setName(const QString &name);
     void setType(MaterialType type);
+    void setType(QString typeName);
     MaterialType getType() const { return m_type; }
     QString getTypeName() const { return m_type_names.at(int(m_type)); }
 
     QStringList getMaterialTypes() const;
 
     virtual QString getTitleString() { return QString(); }
-
-    void setColor(const QColor color) { m_color = color; }
-    QColor getColor() const { return m_color;}
 
     QMap<QString, MaterialItem *> getSubItems() const {
         return m_sub_items;
@@ -68,6 +67,9 @@ public:
 
     void writeSubProperty(QXmlStreamWriter *writer, MaterialItem *item) const;
 
+    void readFrom(QXmlStreamReader *reader);
+    QString readProperty(QXmlStreamReader *reader, MaterialItem *item);
+
 
 signals:
     void propertyChanged(QString propertyName);
@@ -83,7 +85,6 @@ private:
 
     QString m_name;
     MaterialType m_type;
-    QColor m_color;
 
     static QStringList m_type_names;
 

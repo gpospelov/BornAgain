@@ -23,6 +23,11 @@ namespace MaterialXML
     const QString ParameterTypeAttribute("ParType");
     const QString ParameterValueAttribute("ParValue");
 
+    const QString MaterialColorRedAttribute("Red");
+    const QString MaterialColorGreenAttribute("Green");
+    const QString MaterialColorBlueAttribute("Blue");
+    const QString MaterialColorAlphaAttribute("Alpha");
+
 }
 
 

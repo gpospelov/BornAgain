@@ -267,7 +267,7 @@ void MainWindow::initMaterialModel()
     m_materialModel = new MaterialModel(this);
     m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
     m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
+    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMagneticMaterial);
 
     m_materialModel->save("material.xml");
 }

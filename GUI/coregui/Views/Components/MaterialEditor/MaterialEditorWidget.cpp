@@ -85,10 +85,10 @@ void MaterialEditorWidget::showMessage(const QString &message)
 
 void MaterialEditorWidget::onSelectButton()
 {
-    if(!m_propertyBrowser->getSelectedMaterial()) {
-        showMessage("Please select material");
-    } else {
+    if(m_propertyBrowser->getSelectedMaterial()) {
         accept();
+    } else {
+        showMessage("Please select material");
     }
 }
 
@@ -125,8 +125,11 @@ void MaterialEditorWidget::removeMaterial()
 {
     qDebug() << "MaterialEditorWidget::removeMaterial() -> ";
     MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
-    if(material)
+    if(material) {
         m_materialModel->removeMaterial(material);
+    } else {
+        showMessage("Select material to remove");
+    }
 }
 
 

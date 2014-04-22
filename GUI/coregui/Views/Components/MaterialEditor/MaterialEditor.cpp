@@ -30,5 +30,5 @@ MaterialProperty MaterialEditor::this_getMaterialProperty()
     qDebug() << "MaterialEditor::this_getMaterialProperty()";
     MaterialEditorWidget widget(m_materialModel);
     widget.exec();
-    return MaterialProperty();
+    return widget.getSelectedMaterialProperty();
 }

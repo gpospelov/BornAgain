@@ -371,12 +371,15 @@ MaterialItem *MaterialPropertyBrowser::getSelectedMaterial()
     qDebug() << "MaterialPropertyBrowser::getSelectedMaterial";
 
     if(m_browser->currentItem()) {
+        qDebug() << "MaterialPropertyBrowser::getSelectedMaterial 1.1";
         QtProperty *selected_property = m_browser->currentItem()->property();
         if(selected_property) {
+            qDebug() << "MaterialPropertyBrowser::getSelectedMaterial 1.2";
             if(m_top_property_to_material.contains(selected_property))
                 return m_top_property_to_material[selected_property];
         }
     }
+    qDebug() << "MaterialPropertyBrowser::getSelectedMaterial 1.3";
 
     return 0;
 }

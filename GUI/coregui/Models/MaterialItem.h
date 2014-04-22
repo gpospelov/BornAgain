@@ -1,6 +1,7 @@
 #ifndef MATERIALITEM_H
 #define MATERIALITEM_H
 
+
 #include <QString>
 #include <QStringList>
 #include <QColor>
@@ -12,12 +13,7 @@
 class QXmlStreamWriter;
 class QXmlStreamReader;
 
-
-class MaterialPropertyItem : public QObject
-{
-    Q_OBJECT
-};
-
+#include "MaterialProperty.h"
 
 namespace MaterialProperties {
 const QString RefractiveIndex("Refractive index");
@@ -25,6 +21,7 @@ const QString MagneticField("Magnetic field");
 const QString Color("Color");
 const QString Name("Name");
 }
+
 
 
 class MaterialItem : public QObject
@@ -35,7 +32,7 @@ public:
     enum MaterialType {
         HomogeneousMaterial,
         HomogeneousMagneticMaterial,
-        MaterialProperty
+        SubItem
     };
 
     MaterialItem(const QString &name=QString(), MaterialType type = HomogeneousMaterial);
@@ -70,6 +67,7 @@ public:
     void readFrom(QXmlStreamReader *reader);
     QString readProperty(QXmlStreamReader *reader, MaterialItem *item);
 
+    MaterialProperty getMaterialProperty();
 
 signals:
     void propertyChanged(QString propertyName);
@@ -97,7 +95,7 @@ class RefractiveIndexItem : public MaterialItem
     Q_OBJECT
 
 public:
-    RefractiveIndexItem() : MaterialItem(MaterialProperties::RefractiveIndex, MaterialItem::MaterialProperty)
+    RefractiveIndexItem() : MaterialItem(MaterialProperties::RefractiveIndex, MaterialItem::SubItem)
     {
         setProperty("delta", QString("1e-3"));
         setProperty("gamma", QString("1e-5"));
@@ -108,9 +106,6 @@ public:
 
         return QString("(1.0 - %1, %2)").arg(property("delta").toString(), property("gamma").toString());
     }
-
-//    void writeTo(QXmlStreamWriter *writer);
-
 };
 
 
@@ -119,7 +114,7 @@ class MagneticFieldProperty : public MaterialItem
     Q_OBJECT
 
 public:
-    MagneticFieldProperty() : MaterialItem(MaterialProperties::MagneticField, MaterialItem::MaterialProperty)
+    MagneticFieldProperty() : MaterialItem(MaterialProperties::MagneticField, MaterialItem::SubItem)
     {
         setProperty("Bx", 0.0);
         setProperty("By", 0.0);
@@ -131,9 +126,6 @@ public:
 
         return QString("(%1, %2, %3)").arg(property("Bx").toString(), property("By").toString(), property("Bz").toString());
     }
-
-//    void writeTo(QXmlStreamWriter *writer);
-
 };
 
 

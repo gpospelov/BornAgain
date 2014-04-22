@@ -14,7 +14,7 @@
 int MaterialEditorWidget::m_IndexOfUnnamed = 0;
 
 MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , m_materialModel(model)
     , m_propertyBrowser(new MaterialPropertyBrowser(model, this))
     , m_statusBar(0)
@@ -22,7 +22,7 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent
 {
     setWindowTitle("Material Editor");
     setMinimumSize(128, 128);
-    resize(512, 256);
+    resize(512, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_toolBar = new QToolBar;
@@ -41,16 +41,23 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent
     layout->addWidget(m_toolBar);
     layout->addWidget(m_propertyBrowser);
 
-    //QPushButton *closeButton = new QPushButton(tr("Close"));
-    //connect(closeButton, SIGNAL(clicked()), this, SLOT(closeButtonClicked()));
-    //QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    //buttonsLayout->addStretch(1);
-    //buttonsLayout->addWidget(closeButton);
-    //buttonsLayout->setMargin(0);
-    //buttonsLayout->setSpacing(0);
-    //layout->addLayout(buttonsLayout);
+    QPushButton *selectButton = new QPushButton(tr("Select"));
+    connect(selectButton, SIGNAL(clicked()), this, SLOT(onSelectButton()));
+    QPushButton *cancelButton = new QPushButton(tr("Cancel"));
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(onCancelButton()));
 
+    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setMargin(10);
+    buttonsLayout->setSpacing(5);
+
+    buttonsLayout->addStretch(1);
+    buttonsLayout->addWidget(selectButton);
+    buttonsLayout->addWidget(cancelButton);
+
+//    layout->insertSpacing(-1,20);
+    layout->addLayout(buttonsLayout);
     layout->addWidget(m_statusBar);
+
 
     setLayout(layout);
 
@@ -74,6 +81,23 @@ void MaterialEditorWidget::showMessage(const QString &message)
 {
     m_statusBar->showMessage(message, 4000);
 }
+
+
+void MaterialEditorWidget::onSelectButton()
+{
+    if(!m_propertyBrowser->getSelectedMaterial()) {
+        showMessage("Please select material");
+    } else {
+        accept();
+    }
+}
+
+
+void MaterialEditorWidget::onCancelButton()
+{
+    accept();
+}
+
 
 
 void MaterialEditorWidget::setupActions()
@@ -104,3 +128,14 @@ void MaterialEditorWidget::removeMaterial()
     if(material)
         m_materialModel->removeMaterial(material);
 }
+
+
+MaterialProperty MaterialEditorWidget::getSelectedMaterialProperty()
+{
+    MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
+    if(material) {
+        return material->getMaterialProperty();
+    }
+    return MaterialProperty();
+}
+

@@ -59,7 +59,7 @@ private:
     SessionModel *getSessionModel();
     QTreeView *getTreeView();
 
-    MaterialBrowser *m_materialBrowser;  // material editor
+   // MaterialBrowser *m_materialBrowser;  // material editor
     SampleDesigner *m_sampleDesigner;    // main sample view
     SampleToolBar *m_toolBar;            // toolbar
     QWidget *m_subWindows[NumberOfSubWindows];

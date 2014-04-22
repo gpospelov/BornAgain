@@ -1,5 +1,6 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
+#include "MaterialProperty.h"
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
 #include <QXmlStreamWriter>
@@ -25,6 +26,14 @@ MaterialItem::~MaterialItem()
 }
 
 
+MaterialProperty MaterialItem::getMaterialProperty()
+{
+    QVariant v = property(MaterialProperties::Color.toAscii().data());
+    MaterialColorProperty colorProperty = v.value<MaterialColorProperty>();
+    return MaterialProperty(getName(), colorProperty.getColor());
+}
+
+
 void MaterialItem::setName(const QString &name)
 {
     m_name = name;
@@ -43,7 +52,6 @@ QStringList MaterialItem::getMaterialTypes() const
 
 bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
 {
-    //Q_ASSERT(dynamicPropertyNames().contains(name));
     QList<QByteArray> property_names = dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         if(name == QString(property_names[i])) {

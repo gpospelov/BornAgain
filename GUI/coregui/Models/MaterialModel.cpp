@@ -1,4 +1,5 @@
 #include "MaterialModel.h"
+#include "MaterialItem.h"
 #include "GUIHelpers.h"
 #include <QFile>
 #include <QXmlStreamWriter>

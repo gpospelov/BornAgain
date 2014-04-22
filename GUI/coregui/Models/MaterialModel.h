@@ -6,7 +6,7 @@
 #include <QList>
 #include <QString>
 class QXmlStreamWriter;
-
+class MaterialItem;
 
 namespace MaterialXML
 {

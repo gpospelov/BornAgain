@@ -1,14 +1,15 @@
 #ifndef MATERIALEDITORWIDGET_H
 #define MATERIALEDITORWIDGET_H
 
-#include <QWidget>
+#include <QDialog>
+#include "MaterialProperty.h"
 class MaterialModel;
 class MaterialPropertyBrowser;
 class QStatusBar;
 class QToolBar;
 
 //! Main widget of MaterialEditor
-class MaterialEditorWidget : public QWidget
+class MaterialEditorWidget : public QDialog
 {
     Q_OBJECT
 
@@ -19,10 +20,14 @@ public:
 
     void setModel(MaterialModel *model);
 
+    MaterialProperty getSelectedMaterialProperty();
+
 public slots:
     void addMaterial();
     void removeMaterial();
     void showMessage(const QString &message);
+    void onSelectButton();
+    void onCancelButton();
 
 private:
     void setupActions();

@@ -9,6 +9,7 @@ class QIODevice;
 class QModelIndex;
 class JobItem;
 class SessionModel;
+class MaterialModel;
 
 
 namespace ProjectDocumentXML
@@ -49,6 +50,7 @@ public:
     QString getProjectDir();
 
     bool isModified() { return m_modified; }
+    void setMaterialModel(MaterialModel *model);
     void setSessionModel(SessionModel *model);
     void setJobQueueModel(JobQueueModel *model);
 
@@ -69,6 +71,7 @@ private:
 
     QString m_project_path;
     QString m_project_name;
+    MaterialModel *m_materialModel;
     SessionModel *m_sessionModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;

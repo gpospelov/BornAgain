@@ -1,4 +1,5 @@
 #include "projectdocument.h"
+#include "MaterialModel.h"
 #include "SessionModel.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
@@ -15,7 +16,8 @@
 
 
 ProjectDocument::ProjectDocument()
-    : m_sessionModel(0)
+    : m_materialModel(0)
+    , m_sessionModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
 {
@@ -47,6 +49,7 @@ void ProjectDocument::setProjectFileName(const QString &projectFileName)
 ProjectDocument::ProjectDocument(const QString &path, const QString &name)
     : m_project_path(path)
     , m_project_name(name)
+    , m_materialModel(0)
     , m_sessionModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
@@ -60,6 +63,16 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
     qDebug() << "ProjectDocument::onDataChanged()";
     m_modified = true;
     emit modified();
+}
+
+
+void ProjectDocument::setMaterialModel(MaterialModel *model)
+{
+    if(model != m_materialModel) {
+        if(m_materialModel) disconnect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        m_materialModel = model;
+        connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    }
 }
 
 
@@ -140,6 +153,9 @@ bool ProjectDocument::load()
 
 bool ProjectDocument::readFrom(QIODevice *device)
 {
+    Q_ASSERT(m_materialModel);
+    disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+
     Q_ASSERT(m_sessionModel);
     disconnect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
@@ -154,6 +170,10 @@ bool ProjectDocument::readFrom(QIODevice *device)
 
             if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
+
+            } else if(reader.name() == MaterialXML::ModelTag) {
+                m_materialModel->readFrom(&reader);
+
             } else if(reader.name() == SessionXML::ModelTag) {
                 m_sessionModel->readFrom(&reader);
 
@@ -166,6 +186,7 @@ bool ProjectDocument::readFrom(QIODevice *device)
     if (reader.hasError())
         throw GUIHelpers::Error(reader.errorString());
 
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
@@ -185,6 +206,9 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.writeStartElement(ProjectDocumentXML::InfoTag);
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
+
+    Q_ASSERT(m_materialModel);
+    m_materialModel->writeTo(&writer);
 
     Q_ASSERT(m_sessionModel);
     m_sessionModel->writeTo(&writer);

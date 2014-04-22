@@ -87,6 +87,9 @@ bool MaterialItem::event(QEvent * e )
 //        if (m_sub_items.contains(name)) {
 //            //updatePropertyItem(name);
 //        }
+        if(name == MaterialProperties::Name) {
+            m_name = property(MaterialProperties::Name.toUtf8().data()).toString();
+        }
         qDebug() << "MaterialItem::event(QEvent * e ) property changed" << name;
         emit propertyChanged(name);
     }

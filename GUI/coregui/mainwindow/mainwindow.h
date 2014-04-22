@@ -42,6 +42,7 @@ public:
     ~MainWindow();
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
+    MaterialModel *getMaterialModel() { return m_materialModel; }
     SessionModel *getSessionModel() { return m_sessionModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
 

@@ -30,6 +30,7 @@ class QSettings;
 class JobQueueModel;
 class SessionModel;
 class MaterialModel;
+class MaterialEditor;
 
 
 //class MainWindow : public QMainWindow
@@ -42,6 +43,7 @@ public:
     ~MainWindow();
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
+    MaterialModel *getMaterialModel() { return m_materialModel; }
     SessionModel *getSessionModel() { return m_sessionModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
 
@@ -78,6 +80,7 @@ private:
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
     SessionModel *m_sessionModel; //!< model for all samples
     MaterialModel *m_materialModel; //!< model for all materials
+    MaterialEditor *m_materialEditor;
 
     // dummy simulation model initializer for test purposes
     void initSimModel();

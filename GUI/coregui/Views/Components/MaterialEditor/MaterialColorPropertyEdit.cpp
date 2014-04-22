@@ -22,9 +22,9 @@ MaterialColorPropertyEdit::MaterialColorPropertyEdit(QWidget *parent)
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
                                       QSizePolicy::Preferred));
     button->setText(QLatin1String("..."));
-    layout->insertSpacing(-1,3);
+    layout->insertSpacing(-1,1);
     layout->addWidget(m_pixmapLabel);
-    layout->insertSpacing(-1,8);
+    layout->insertSpacing(-1,6);
     layout->addWidget(m_textLabel);
     layout->addStretch(1);
     layout->addWidget(button);

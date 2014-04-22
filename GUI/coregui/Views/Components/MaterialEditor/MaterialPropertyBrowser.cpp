@@ -96,11 +96,34 @@ void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
         qDebug() << "XXX subproperty" << property->propertyName() << value;
         material->setMaterialProperty(property->propertyName(), value);
 
+//        if(property->propertyName() == "gamma") {
+//            bool status;
+//            evaluateDoubleValue(value, status);
+//        }
+
     }
 
     updateMaterialProperties(material);
 
 }
+
+
+
+//double MaterialPropertyBrowser::evaluateDoubleValue(const QVariant &variant, bool &status)
+//{
+//    QString formula = variant.toString();
+//    if( !formula.size() ) {
+//        status = false;
+//        return 0.0;
+//    }
+//    QScriptEngine myEngine;
+//    QScriptValue x = myEngine.evaluate(formula);
+//    if( !x.isNumber()) {
+//        status = false;
+//        return 0.0;
+//    }
+//    return x.toNumber();
+//}
 
 
 
@@ -160,7 +183,7 @@ void MaterialPropertyBrowser::updateMaterialProperties(MaterialItem *material)
 
 void MaterialPropertyBrowser::addMaterialProperties(MaterialItem *material)
 {
-    qDebug() << "MaterialEditorWidget::addMaterialProperties() " << material->getName();
+    qDebug() << "MaterialEditorWidget::addMaterialProperties() " << material->property("Name").toString();
     QtVariantProperty *item_property = m_variantManager->addProperty(
                 QtVariantPropertyManager::enumTypeId(), material->getName());
 
@@ -243,6 +266,11 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Ma
         if (m_variantManager->isPropertyTypeSupported(type)) {
             subProperty = m_variantManager->addProperty(type, prop_name);
             subProperty->setValue(prop_value);
+            if(type == QVariant::Double) {
+                subProperty->setAttribute(QLatin1String("singleStep"), 0.1);
+                subProperty->setAttribute(QLatin1String("decimals"), 5);
+            }
+
             if (material->getSubItems().contains(prop_name)) {
                 subProperty->setAttribute(QLatin1String("readOnly"), true);
                 MaterialItem *subitem = material->getSubItems()[prop_name];

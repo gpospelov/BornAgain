@@ -15,6 +15,7 @@
 #include "SimulationDataModel.h"
 #include "JobQueueModel.h"
 #include "MaterialModel.h"
+#include "MaterialEditor.h"
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_jobQueueModel(0)
     , m_sessionModel(0)
     , m_materialModel(0)
+    , m_materialEditor(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -89,10 +91,10 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    MaterialEditorWidget *materialWidget = new MaterialEditorWidget(m_materialModel, this);
-    m_tabWidget->insertTab(5, materialWidget, QIcon(":/images/main_jobqueue.png"), "Jobs");
+//    MaterialEditorWidget *materialWidget = new MaterialEditorWidget(m_materialModel, this);
+//    m_tabWidget->insertTab(5, materialWidget, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    m_tabWidget->setCurrentIndex(5);
+    m_tabWidget->setCurrentIndex(2);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -119,6 +121,7 @@ MainWindow::~MainWindow()
 //    delete m_actionManager;
 //    delete m_settings;
 //    m_settings = 0;
+    delete m_materialEditor;
 }
 
 
@@ -267,8 +270,11 @@ void MainWindow::initMaterialModel()
     m_materialModel = new MaterialModel(this);
     m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
     m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
-
+    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMagneticMaterial);
     m_materialModel->save("material.xml");
+
+//    m_materialModel->load("material.xml");
+
+    m_materialEditor = new MaterialEditor(m_materialModel);
 }
 

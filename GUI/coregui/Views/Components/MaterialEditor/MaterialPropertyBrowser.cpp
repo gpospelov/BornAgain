@@ -164,7 +164,7 @@ void MaterialPropertyBrowser::addMaterialProperties(MaterialItem *material)
     QtVariantProperty *item_property = m_variantManager->addProperty(
                 QtVariantPropertyManager::enumTypeId(), material->getName());
 
-    qDebug() << "XXX " << item_property->valueText() << item_property->displayText();
+    //qDebug() << "XXX " << item_property->valueText() << item_property->displayText();
 
     item_property->setAttribute(QLatin1String("enumNames"), material->getMaterialTypes());
     item_property->setValue(int(material->getType()));

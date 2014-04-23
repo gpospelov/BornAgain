@@ -9,6 +9,9 @@
 #include <QtTreePropertyBrowser>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QEvent>
+#include <QApplication>
+#include <QTreeWidget>
 #include <qtpropertybrowser.h>
 
 
@@ -17,6 +20,7 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
     , m_materialModel(0)
     , m_browser(0)
     , m_variantManager(0)
+    , m_selection_changed(false)
 
 {
     m_browser = new QtTreePropertyBrowser(this);
@@ -45,6 +49,23 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
     setLayout(layout);
 
     setModel(model);
+
+    // accessing selection model of hidden QTreeView
+    QItemSelectionModel *selectionModel(0);
+    const QObjectList list = m_browser->children();
+    foreach(QObject *obj, list) {
+        QTreeView *view = dynamic_cast<QTreeView *>(obj);
+        if(view) selectionModel = view->selectionModel();
+    }
+    if(selectionModel) {
+        connect(selectionModel,
+            SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
+            this,
+            SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
+            );
+    }
+
+
 }
 
 
@@ -354,15 +375,9 @@ void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
 }
 
 
-void MaterialPropertyBrowser::onCurrentBrowserItemChanged(QtBrowserItem * /*item*/)
+void MaterialPropertyBrowser::onCurrentBrowserItemChanged(QtBrowserItem * item)
 {
-    // nasty hack due to the absence of "selection" singnal in QtPropertyBrowser
-    static bool first_call = true;
-    if(first_call) {
-        first_call = false;
-        m_browser->setCurrentItem(0);
 
-    }
 }
 
 
@@ -370,11 +385,11 @@ MaterialItem *MaterialPropertyBrowser::getSelectedMaterial()
 {
     qDebug() << "MaterialPropertyBrowser::getSelectedMaterial";
 
-    if(m_browser->currentItem()) {
+    if(m_browser->currentItem() && m_selection_changed) {
         qDebug() << "MaterialPropertyBrowser::getSelectedMaterial 1.1";
         QtProperty *selected_property = m_browser->currentItem()->property();
         if(selected_property) {
-            qDebug() << "MaterialPropertyBrowser::getSelectedMaterial 1.2";
+            qDebug() << "MaterialPropertyBrowser::getSelectedMaterial 1.2" << selected_property->propertyName();
             if(m_top_property_to_material.contains(selected_property))
                 return m_top_property_to_material[selected_property];
         }
@@ -384,3 +399,25 @@ MaterialItem *MaterialPropertyBrowser::getSelectedMaterial()
     return 0;
 }
 
+
+//bool MaterialPropertyBrowser::event(QEvent *e)
+//{
+//    if(e->type() == QEvent::MouseButtonPress){
+//        qDebug() << "MaterialPropertyBrowser::event";
+//    }
+//    return QWidget::event(e);
+//}
+
+
+//bool MaterialPropertyBrowser::eventFilter(QObject *object, QEvent *event)
+//{
+//    qDebug() << "MaterialPropertyBrowser::eventFilter";
+//    return true;
+//}
+
+
+
+void MaterialPropertyBrowser::onSelectionChanged(const QItemSelection&, const QItemSelection&)
+{
+    m_selection_changed = true;
+}

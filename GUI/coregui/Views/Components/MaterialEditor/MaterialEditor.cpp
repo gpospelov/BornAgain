@@ -29,6 +29,9 @@ MaterialProperty MaterialEditor::this_getMaterialProperty()
 {
     qDebug() << "MaterialEditor::this_getMaterialProperty()";
     MaterialEditorWidget widget(m_materialModel);
-    widget.exec();
-    return widget.getSelectedMaterialProperty();
+    if(widget.exec() == QDialog::Accepted) {
+        return widget.getSelectedMaterialProperty();
+    }
+
+    return MaterialProperty();
 }

@@ -18,8 +18,8 @@ class QXmlStreamReader;
 namespace MaterialProperties {
 const QString RefractiveIndex("Refractive index");
 const QString MagneticField("Magnetic field");
-const QString Color("Color");
-const QString Name("Name");
+const char Color[] = "Color";
+const char Name[]  = "Name";
 }
 
 
@@ -66,8 +66,6 @@ public:
 
     void readFrom(QXmlStreamReader *reader);
     QString readProperty(QXmlStreamReader *reader, MaterialItem *item);
-
-    MaterialProperty getMaterialProperty();
 
 signals:
     void propertyChanged(QString propertyName);

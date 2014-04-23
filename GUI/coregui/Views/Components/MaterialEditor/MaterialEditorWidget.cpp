@@ -1,6 +1,7 @@
 #include "MaterialEditorWidget.h"
 #include "MaterialPropertyBrowser.h"
 #include "MaterialModel.h"
+#include "MaterialUtils.h"
 #include <QStyle>
 #include <QStatusBar>
 #include <QToolBar>
@@ -95,7 +96,7 @@ void MaterialEditorWidget::onSelectButton()
 
 void MaterialEditorWidget::onCancelButton()
 {
-    accept();
+    reject();
 }
 
 
@@ -136,9 +137,9 @@ void MaterialEditorWidget::removeMaterial()
 MaterialProperty MaterialEditorWidget::getSelectedMaterialProperty()
 {
     MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
-    if(material) {
-        return material->getMaterialProperty();
-    }
+    if(material)
+        return MaterialUtils::getMaterialProperty(material);
+
     return MaterialProperty();
 }
 

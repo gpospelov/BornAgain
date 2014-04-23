@@ -16,6 +16,7 @@ class MaterialVariantManager;
 class QtVariantProperty;
 class QModelIndex;
 class QtBrowserItem;
+class QItemSelection;
 
 
 //! Class which holds QtProperty tree browser to adjust material properties.
@@ -47,6 +48,12 @@ public:
     MaterialItem *getSelectedMaterial();
 
     QtTreePropertyBrowser *getPropertyBrowser() { return m_browser; }
+
+//    bool event(QEvent *e);
+//    bool eventFilter(QObject *object, QEvent *event);
+
+public slots:
+    void onSelectionChanged(const QItemSelection&, const QItemSelection&);
 
 private slots:
     void onRowsInserted(const QModelIndex &parent, int first, int last);
@@ -86,6 +93,8 @@ private:
     QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
     QMap<SubItem, bool> m_subItemToExpanded;
+
+    bool m_selection_changed;
 };
 
 

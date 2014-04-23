@@ -1,6 +1,7 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 #include "MaterialProperty.h"
+#include "MaterialUtils.h"
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
 #include <QXmlStreamWriter>
@@ -23,14 +24,6 @@ MaterialItem::MaterialItem(const QString &name, MaterialType type)
 MaterialItem::~MaterialItem()
 {
     qDeleteAll(m_sub_items);
-}
-
-
-MaterialProperty MaterialItem::getMaterialProperty()
-{
-    QVariant v = property(MaterialProperties::Color.toAscii().data());
-    MaterialColorProperty colorProperty = v.value<MaterialColorProperty>();
-    return MaterialProperty(getName(), colorProperty.getColor());
 }
 
 
@@ -96,7 +89,7 @@ bool MaterialItem::event(QEvent * e )
 //            //updatePropertyItem(name);
 //        }
         if(name == MaterialProperties::Name) {
-            m_name = property(MaterialProperties::Name.toUtf8().data()).toString();
+            m_name = property(MaterialProperties::Name).toString();
         }
         qDebug() << "MaterialItem::event(QEvent * e ) property changed" << name;
         emit propertyChanged(name);
@@ -155,10 +148,12 @@ void MaterialItem::removeSubProperty(QString name)
 
 void MaterialItem::addColorProperty()
 {
-    MaterialColorProperty mat_color;
-    QVariant mat_color_var;
-    mat_color_var.setValue(mat_color);
-    setProperty(MaterialProperties::Color.toUtf8().data(), mat_color_var);
+    if(!property(MaterialProperties::Color).isValid()) {
+        MaterialColorProperty mat_color = MaterialUtils::suggestMaterialColorProperty(getName());
+        QVariant mat_color_var;
+        mat_color_var.setValue(mat_color);
+        setProperty(MaterialProperties::Color, mat_color_var);
+    }
 }
 
 

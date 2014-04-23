@@ -1,5 +1,4 @@
 #include "SampleToolBar.h"
-#include "MaterialBrowser.h"
 #include "MaterialEditor.h"
 #include "MaterialProperty.h"
 #include <QIcon>
@@ -64,7 +63,7 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 void SampleToolBar::materialBrowserCall()
 {
     //MaterialBrowser::BrowserViewCall();
-    MaterialProperty mp = MaterialEditor::getMaterialProperty();
+    MaterialProperty mp = MaterialEditor::selectMaterialProperty();
     qDebug() << "SampleToolBar::materialBrowserCall()" << mp.getName() << mp.getColor();
 
 }

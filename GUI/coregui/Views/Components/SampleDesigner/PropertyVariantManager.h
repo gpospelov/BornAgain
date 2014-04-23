@@ -5,7 +5,7 @@
 
 #include <QtVariantPropertyManager>
 #include "FormFactorProperty.h"
-#include "MaterialBrowser.h"
+#include "MaterialProperty.h"
 class QObject;
 
 //! The ObjectVariantManager class provides and manages user defined

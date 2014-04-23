@@ -2,7 +2,6 @@
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
-#include "MaterialBrowser.h"
 #include "GUIHelpers.h"
 #include <ItemFactory.h>
 

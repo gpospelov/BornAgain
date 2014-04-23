@@ -15,8 +15,8 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
-#include "MaterialBrowser.h"
 #include "FormFactorProperty.h"
+#include "MaterialEditor.h"
 
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
@@ -106,7 +106,7 @@ void ParameterizedItem::updatePropertyItem(QString name)
 
 void ParameterizedItem::setMaterialProperty()
 {
-    MaterialProperty material = MaterialBrowser::getDefaultMaterialProperty();
+    MaterialProperty material = MaterialEditor::getDefaultMaterialProperty();
     QVariant mat_var;
     mat_var.setValue(material);
     setProperty("Material", mat_var);

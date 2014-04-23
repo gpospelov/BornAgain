@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "LayerItem.h"
-#include "MaterialBrowser.h"
 
 LayerItem::LayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Layer"), parent)

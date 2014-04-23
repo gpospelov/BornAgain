@@ -4,7 +4,6 @@
 #include "FormFactorView.h"
 #include "ParticleLayoutView.h"
 #include "InterferenceFunctionView.h"
-#include "MaterialView.h"
 #include "SampleBuilderFactory.h"
 #include "ISampleToIView.h"
 

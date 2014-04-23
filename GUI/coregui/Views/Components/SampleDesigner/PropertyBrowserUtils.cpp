@@ -1,4 +1,5 @@
 #include "PropertyBrowserUtils.h"
+#include "MaterialEditor.h"
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QFileDialog>
@@ -37,7 +38,7 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 void MaterialPropertyEdit::buttonClicked()
 {
     std::cout << "MaterialPropertyEdit::buttonClicked() " << std::endl;
-    MaterialProperty mat = MaterialBrowser::getMaterialProperty();
+    MaterialProperty mat = MaterialEditor::selectMaterialProperty();
     if(mat != m_materialProperty && mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);

@@ -1,5 +1,6 @@
 #include "FormFactorView.h"
 #include "DesignerHelper.h"
+#include "MaterialEditor.h"
 
 
 FormFactorView::FormFactorView(QGraphicsItem *parent)
@@ -12,5 +13,5 @@ FormFactorView::FormFactorView(QGraphicsItem *parent)
     addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
     addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
     m_roundpar = 5;
-    setMaterialProperty(MaterialBrowser::getDefaultMaterialProperty());
+    setMaterialProperty(MaterialEditor::getDefaultMaterialProperty());
 }

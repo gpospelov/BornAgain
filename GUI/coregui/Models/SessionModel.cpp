@@ -16,7 +16,7 @@
 #include "SessionModel.h"
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
-#include "MaterialBrowser.h"
+#include "MaterialEditor.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -474,7 +474,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .value(SessionXML::ParameterValueAttribute)
                 .toString();
         QVariant mat_variant;
-        mat_variant.setValue(MaterialBrowser::getMaterialProperty());
+        mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
         item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
     }
     else if (parameter_type == "FormFactorProperty") {

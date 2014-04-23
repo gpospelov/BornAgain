@@ -56,6 +56,8 @@ public:
     MaterialItem *addMaterial(const QString &name, MaterialItem::MaterialType type);
     bool removeMaterial(MaterialItem *);
 
+    MaterialItem *getMaterial(const QString &name);
+
     void save(const QString &filename=QString());
     void writeTo(QXmlStreamWriter *writer);
 

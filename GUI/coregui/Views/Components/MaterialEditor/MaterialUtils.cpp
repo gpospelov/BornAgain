@@ -19,6 +19,7 @@ QColor MaterialUtils::suggestMaterialColor(const QString &name)
 
 MaterialProperty MaterialUtils::getMaterialProperty(MaterialItem *material)
 {
+    Q_ASSERT(material);
     if(material->getType() == MaterialItem::SubItem)
         throw GUIHelpers::Error("MaterialUtils::getMaterialProperty() -> Error! It's a SubItem, not material.");
 

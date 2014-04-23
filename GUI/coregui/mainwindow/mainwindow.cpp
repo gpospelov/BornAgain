@@ -55,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
+    // initialize material model first
+    initMaterialModel();
+
     // initialize simulation data model first:
     initSimModel();
 
@@ -62,7 +65,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     initSessionModel();
 
-    initMaterialModel();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));

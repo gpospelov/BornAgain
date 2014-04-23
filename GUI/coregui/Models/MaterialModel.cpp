@@ -215,3 +215,13 @@ void MaterialModel::readFrom(QXmlStreamReader *reader)
 }
 
 
+MaterialItem *MaterialModel::getMaterial(const QString &name)
+{
+    foreach(MaterialItem *item, m_materials) {
+        if(item->getName() == name) return item;
+    }
+    return 0;
+}
+
+
+

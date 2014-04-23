@@ -4,7 +4,7 @@
 #include <QColor>
 #include <QString>
 #include "MaterialItem.h"
-#include "MaterialProperty.h"
+#include "MaterialProperties.h"
 
 namespace MaterialUtils
 {

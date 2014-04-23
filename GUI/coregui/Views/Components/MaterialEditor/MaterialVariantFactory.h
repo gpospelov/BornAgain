@@ -7,8 +7,8 @@
 class MaterialColorPropertyEdit;
 class MaterialColorProperty;
 
-//! The PropertyVariantFactory class provides and manages user defined
-//! QVariant based properties.
+//! The MaterialVariantFactory class provides and manages user defined
+//! QVariant based properties for MaterialPropertyBrowser.
 class MaterialVariantFactory : public QtVariantEditorFactory
 {
     Q_OBJECT

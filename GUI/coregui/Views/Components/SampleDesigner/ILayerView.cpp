@@ -5,6 +5,7 @@
 #include "ParameterizedItem.h"
 #include "SessionModel.h"
 #include "GUIHelpers.h"
+#include "MaterialProperty.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
@@ -41,9 +42,28 @@ void ILayerView::onPropertyChange(QString propertyName)
         setPortCoordinates();
         update();
         emit heightChanged();
+    }else if(propertyName == "Material") {
+        qDebug() << " ------------- > ILayerView::onPropertyChange Material";
+        MaterialProperty mp = getParameterizedItem()->property("Material").value<MaterialProperty>();
+        setColor(mp.getColor());
+        update();
+    } else {
+        IView::onPropertyChange(propertyName);
     }
-    IView::onPropertyChange(propertyName);
 }
+
+
+void ILayerView::setParameterizedItem(ParameterizedItem *item)
+{
+    QVariant v = item->property("Material");
+    if(v.isValid()) {
+        MaterialProperty mp = v.value<MaterialProperty>();
+        setColor(mp.getColor());
+    }
+    ConnectableView::setParameterizedItem(item);
+}
+
+
 
 
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene

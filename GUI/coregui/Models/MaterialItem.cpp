@@ -1,6 +1,5 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialProperty.h"
 #include "MaterialUtils.h"
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -8,10 +7,12 @@
 #include <QXmlStreamReader>
 #include "GUIHelpers.h"
 
+
 QStringList MaterialItem::m_type_names = QStringList()
         << QString("Homogeneous Material")
         << QString("Homogeneous Magnetic Material")
         << QString("Material Property");
+
 
 MaterialItem::MaterialItem(const QString &name, MaterialType type)
     : m_name(name)
@@ -32,7 +33,6 @@ void MaterialItem::setName(const QString &name)
     m_name = name;
     setMaterialProperty(MaterialProperties::Name, name);
 }
-
 
 
 QStringList MaterialItem::getMaterialTypes() const
@@ -58,7 +58,6 @@ bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
 
 void MaterialItem::setType(MaterialType type)
 {
-    qDebug() << "MaterialItem::setType";
     m_type = type;
     updateProperties();
 }
@@ -66,13 +65,11 @@ void MaterialItem::setType(MaterialType type)
 
 void MaterialItem::setType(QString typeName)
 {
-    qDebug() << "MaterialItem::setType" << typeName;
     int index = m_type_names.indexOf(typeName);
     if(index == -1)
         throw GUIHelpers::Error("MaterialItem::setType() -> Error. Wrong typeName"+typeName);
 
-    m_type = MaterialType(index);
-    updateProperties();
+    setType(MaterialType(index));
 }
 
 
@@ -85,9 +82,6 @@ bool MaterialItem::event(QEvent * e )
         Q_ASSERT(e);
         QByteArray byte_array = propertyEvent->propertyName();
         QString name(byte_array.constData());
-//        if (m_sub_items.contains(name)) {
-//            //updatePropertyItem(name);
-//        }
         if(name == MaterialProperties::Name) {
             m_name = property(MaterialProperties::Name).toString();
         }
@@ -96,7 +90,6 @@ bool MaterialItem::event(QEvent * e )
     }
     return QObject::event(e);
 }
-
 
 
 void MaterialItem::updateProperties()
@@ -157,18 +150,16 @@ void MaterialItem::addColorProperty()
 }
 
 
+// to handle changes in RefractiveIndexItem and MagneticFieldItem
 void MaterialItem::onPropertyItemChanged(QString propertyName)
 {
     qDebug() << "MaterialItem::onPropertyItemChanged() " << propertyName;
     MaterialItem *property = qobject_cast<MaterialItem *>(sender());
-    if(property) {
+    if(property && property != this) {
         QString subItemName = property->getName();
-        qDebug() << " xx setting title string" << subItemName << property->getTitleString();
         setMaterialProperty(subItemName, property->getTitleString());
     }
 }
-
-
 
 
 void MaterialItem::writeTo(QXmlStreamWriter *writer)
@@ -189,7 +180,6 @@ void MaterialItem::writeTo(QXmlStreamWriter *writer)
     }
 
     writer->writeEndElement(); // MaterialTag
-
 }
 
 
@@ -198,7 +188,6 @@ void MaterialItem::writeProperty(QXmlStreamWriter *writer, MaterialItem *item, c
     qDebug() << "MaterialItem::writeProperty() " << property_name;
     QMap<QString, MaterialItem *> sub_items = item->getSubItems();
     QVariant variant = item->property(property_name);
-    qDebug() << "XXX " << variant.typeName();
     if (variant.isValid()) {        
         writer->writeStartElement(MaterialXML::ParameterTag);
         writer->writeAttribute(MaterialXML::ParameterNameAttribute,
@@ -224,18 +213,11 @@ void MaterialItem::writeProperty(QXmlStreamWriter *writer, MaterialItem *item, c
             writer->writeAttribute(MaterialXML::MaterialColorAlphaAttribute, QString::number(a));
         }
         else {
-            qDebug() << "MaterialItem::writeProperty() -> Error! Property not supported" << property_name;
-//            throw GUIHelpers::Error(tr("MaterialItem::writeProperty: "
-//                                       "Parameter type not supported"));
+            throw GUIHelpers::Error(tr("MaterialItem::writeProperty: "
+                                       "Parameter type not supported"));
         }
-//        if (sub_items.contains(QString(property_name))) {
-//            writeSubProperty(writer, sub_items[QString(property_name)]);
-//        }
         writer->writeEndElement(); // end ParameterTag
     }
-
-
-
 }
 
 
@@ -245,8 +227,6 @@ void MaterialItem::writeSubProperty(QXmlStreamWriter *writer,
     writer->writeStartElement(MaterialXML::PropertyTag);
     writer->writeAttribute(MaterialXML::PropertyNameAttribute,
                            item->getName());
-//    writer->writeAttribute(MaterialXML::MaterialNameAttribute,
-//                           item->getName());
     QListIterator<QByteArray> it(item->dynamicPropertyNames());
     while (it.hasNext()) {
         const char *name = it.next().constData();
@@ -256,12 +236,10 @@ void MaterialItem::writeSubProperty(QXmlStreamWriter *writer,
 }
 
 
-
 void MaterialItem::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-    qDebug() << "MaterialItem::readFrom() -> " << reader->name();
     if(reader->name() != MaterialXML::MaterialTag) {
         throw GUIHelpers::Error("JobQueueItem::readFrom() -> Format error in p1");
     }
@@ -271,9 +249,6 @@ void MaterialItem::readFrom(QXmlStreamReader *reader)
 
     QString name = reader->attributes().value(MaterialXML::MaterialNameAttribute).toString();
     setName(name);
-    //setMaterialProperty(MaterialProperties::Name, name);
-    qDebug() << "     name:" << name;
-
 
     MaterialItem *material = this;
 
@@ -281,13 +256,6 @@ void MaterialItem::readFrom(QXmlStreamReader *reader)
         reader->readNext();
         if (reader->isStartElement()) {
 
-//            if (reader->name() == JobQueueXML::OutputDataTag) {
-//                qDebug() << "JobItem::readFrom() -> output data";
-//                OutputDataItem *item = new OutputDataItem();
-//                item->readFrom(reader);
-//                m_data_items.append(item);
-//            }
-            qDebug() << "       reader->name():" << reader->name();
             if (reader->name() == MaterialXML::ParameterTag) {
                 readProperty(reader, material);
 
@@ -295,25 +263,20 @@ void MaterialItem::readFrom(QXmlStreamReader *reader)
                 const QString property_name = reader->attributes()
                                 .value(MaterialXML::PropertyNameAttribute)
                                 .toString();
-                qDebug() << "property_name " << property_name;
                 if(!m_sub_items.contains(property_name)) {
                     throw GUIHelpers::Error("MaterialItem::readFrom -> format error at p1");
                 }
                 material = m_sub_items[property_name];
-                //readProperty(reader, material);
-
             }
-
 
         } else if (reader->isEndElement()) {
             if (reader->name() == MaterialXML::MaterialTag) {
                 break; // end of xml of current Material
             } else if(reader->name() == MaterialXML::MaterialTag) {
-                material = this;
+                material = this; // end of SubItem
             }
         }
     }
-
 }
 
 
@@ -325,13 +288,13 @@ QString MaterialItem::readProperty(QXmlStreamReader *reader, MaterialItem *item)
     const QString parameter_type = reader->attributes()
             .value(MaterialXML::ParameterTypeAttribute)
             .toString();
-    qDebug() << "MaterialItem::readProperty " << parameter_name << parameter_type;
+
+    qDebug() << "       " << parameter_name << parameter_type;
+
     if (parameter_type == "double") {
         double parameter_value = reader->attributes()
                 .value(MaterialXML::ParameterValueAttribute)
                 .toDouble();
-//        item->setProperty(parameter_name.toUtf8().constData(),
-//                          parameter_value);
         item->setMaterialProperty(parameter_name, parameter_value);
 
     }
@@ -339,17 +302,17 @@ QString MaterialItem::readProperty(QXmlStreamReader *reader, MaterialItem *item)
         QString parameter_value = reader->attributes()
                 .value(MaterialXML::ParameterValueAttribute)
                 .toString();
-//        item->setProperty(parameter_name.toUtf8().constData(),
-//                          parameter_value);
         item->setMaterialProperty(parameter_name, parameter_value);
     }
     else if (parameter_type == "MaterialColorProperty") {
-        QString parameter_value = reader->attributes()
-                .value(MaterialXML::ParameterValueAttribute)
-                .toString();
-//        QVariant mat_variant;
-//        mat_variant.setValue(MaterialBrowser::getMaterialProperty());
-//        item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
+        int r = reader->attributes().value(MaterialXML::MaterialColorRedAttribute).toInt();
+        int g = reader->attributes().value(MaterialXML::MaterialColorGreenAttribute).toInt();
+        int b = reader->attributes().value(MaterialXML::MaterialColorBlueAttribute).toInt();
+        int a = reader->attributes().value(MaterialXML::MaterialColorAlphaAttribute).toInt();
+        MaterialColorProperty color(QColor(r, g, b, a));
+        QVariant color_variant;
+        color_variant.setValue(color);
+        item->setProperty(MaterialProperties::Color, color_variant);
     }
     else {
         throw GUIHelpers::Error(tr("MaterialItem::readProperty: "

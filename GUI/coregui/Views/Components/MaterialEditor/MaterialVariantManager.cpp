@@ -15,7 +15,6 @@ int MaterialVariantManager::materialColorPropertyTypeId()
 }
 
 
-
 bool MaterialVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialColorPropertyTypeId())
@@ -73,28 +72,6 @@ void MaterialVariantManager::setValue(QtProperty *property, const QVariant &val)
         emit valueChanged(property, v2);
         return;
     }
-
-
-//    if (theMaterialValues.contains(property)) {
-//        if( val.userType() != materialTypeId() ) return;
-//        MaterialProperty mat = val.value<MaterialProperty>();
-//        theMaterialValues[property] = mat;
-//        QVariant v2;
-//        v2.setValue(mat);
-//        emit propertyChanged(property);
-//        emit valueChanged(property, v2);
-//        return;
-//    }
-//    if (theFormFactorValues.contains(property)) {
-//        if( val.userType() != formFactorTypeId() ) return;
-//        FormFactorProperty ff_prop = val.value<FormFactorProperty>();
-//        theFormFactorValues[property] = ff_prop;
-//        QVariant v2;
-//        v2.setValue(ff_prop);
-//        emit propertyChanged(property);
-//        emit valueChanged(property, v2);
-//        return;
-//    }
     QtVariantPropertyManager::setValue(property, val);
 }
 
@@ -105,15 +82,6 @@ void MaterialVariantManager::initializeProperty(QtProperty *property)
         MaterialColorProperty m;
         m_MaterialColorValues[property] = m;
     }
-
-//    if (propertyType(property) == materialTypeId()) {
-//        MaterialProperty m;
-//        theMaterialValues[property] = m;
-//    }
-//    if (propertyType(property) == formFactorTypeId()) {
-//        FormFactorProperty m;
-//        theFormFactorValues[property] = m;
-//    }
     QtVariantPropertyManager::initializeProperty(property);
 }
 
@@ -121,7 +89,6 @@ void MaterialVariantManager::initializeProperty(QtProperty *property)
 void MaterialVariantManager::uninitializeProperty(QtProperty *property)
 {
     m_MaterialColorValues.remove(property);
-//    theFormFactorValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 

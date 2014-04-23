@@ -2,6 +2,7 @@
 #define MATERIALITEM_H
 
 
+#include "MaterialProperties.h"
 #include <QString>
 #include <QStringList>
 #include <QColor>
@@ -12,16 +13,6 @@
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
-
-#include "MaterialProperty.h"
-
-namespace MaterialProperties {
-const QString RefractiveIndex("Refractive index");
-const QString MagneticField("Magnetic field");
-const char Color[] = "Color";
-const char Name[]  = "Name";
-}
-
 
 
 class MaterialItem : public QObject
@@ -81,9 +72,7 @@ private:
 
     QString m_name;
     MaterialType m_type;
-
     static QStringList m_type_names;
-
     QMap<QString, MaterialItem *> m_sub_items;
 };
 
@@ -101,7 +90,6 @@ public:
 
     QString getTitleString()
     {
-
         return QString("(1.0 - %1, %2)").arg(property("delta").toString(), property("gamma").toString());
     }
 };
@@ -121,34 +109,10 @@ public:
 
     QString getTitleString()
     {
-
         return QString("(%1, %2, %3)").arg(property("Bx").toString(), property("By").toString(), property("Bz").toString());
     }
 };
 
-
-class MaterialColorProperty
-{
-public:
-    MaterialColorProperty() : m_color(Qt::red) {}
-    MaterialColorProperty(QColor color) : m_color(color) {}
-    QPixmap getPixmap() const {
-        QPixmap pixmap(10,10);
-        pixmap.fill(m_color);
-        return pixmap;
-    }
-    QColor getColor() const { return m_color; }
-    void setColor(QColor color) { m_color = color; }
-    QString getText() const {
-        return QString("[%1, %2, %3] (%4)")
-               .arg(m_color.red()).arg(m_color.green()).arg(m_color.blue()).arg(m_color.alpha());
-    }
-
-private:
-    QColor m_color;
-};
-
-Q_DECLARE_METATYPE(MaterialColorProperty)
 
 
 

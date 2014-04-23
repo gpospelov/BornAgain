@@ -28,7 +28,6 @@ MaterialColorPropertyEdit::MaterialColorPropertyEdit(QWidget *parent)
     layout->addWidget(m_textLabel);
     layout->addStretch(1);
     layout->addWidget(button);
-//    layout->insertSpacing(1,100);
 
     setFocusPolicy(Qt::StrongFocus);
     setAttribute(Qt::WA_InputMethodEnabled);
@@ -38,13 +37,6 @@ MaterialColorPropertyEdit::MaterialColorPropertyEdit(QWidget *parent)
 
 void MaterialColorPropertyEdit::buttonClicked()
 {
-    qDebug() << "MaterialColorPropertyEdit::buttonClicked()";
-//    MaterialProperty mat = MaterialBrowser::getMaterialProperty();
-//    if(mat != m_materialProperty && mat.isDefined() ) {
-//        setMaterialProperty(mat);
-//        emit materialColorPropertyChanged(m_materialProperty);
-//    }
-
     bool ok = false;
     QRgb oldRgba = m_colorProperty.getColor().rgba();
     QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
@@ -63,7 +55,6 @@ void MaterialColorPropertyEdit::setMaterialColorProperty(
     m_textLabel->setText(colorValueText(m_colorProperty.getColor()));
     m_pixmapLabel->setPixmap(m_colorProperty.getPixmap());
 }
-
 
 
 QString MaterialColorPropertyEdit::colorValueText(const QColor &c)

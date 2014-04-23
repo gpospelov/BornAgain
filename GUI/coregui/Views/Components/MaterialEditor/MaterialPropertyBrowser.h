@@ -44,13 +44,7 @@ public:
         }
     };
 
-
     MaterialItem *getSelectedMaterial();
-
-    QtTreePropertyBrowser *getPropertyBrowser() { return m_browser; }
-
-//    bool event(QEvent *e);
-//    bool eventFilter(QObject *object, QEvent *event);
 
 public slots:
     void onSelectionChanged(const QItemSelection&, const QItemSelection&);
@@ -59,8 +53,6 @@ private slots:
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void slotValueChanged(QtProperty *property, const QVariant &value);
-
-    void onCurrentBrowserItemChanged(QtBrowserItem *);
 
 private:
     void updateBrowser();
@@ -83,13 +75,7 @@ private:
     QMap<QtProperty *, MaterialItem *> m_top_property_to_material;
     QMap<MaterialItem *, QtVariantProperty *> m_top_material_to_property;
 
-//    QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
-//    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
-//        m_item_to_index_to_property;
-
     QMap<QtProperty *, SubItem> m_property_to_subitem;
-    QMap<SubItem, QtProperty *> m_subitem_to_property;
-
     QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
     QMap<SubItem, bool> m_subItemToExpanded;

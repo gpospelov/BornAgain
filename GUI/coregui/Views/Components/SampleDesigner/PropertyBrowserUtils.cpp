@@ -39,7 +39,8 @@ void MaterialPropertyEdit::buttonClicked()
 {
     std::cout << "MaterialPropertyEdit::buttonClicked() " << std::endl;
     MaterialProperty mat = MaterialEditor::selectMaterialProperty();
-    if(mat != m_materialProperty && mat.isDefined() ) {
+    //if(mat != m_materialProperty && mat.isDefined() ) {
+    if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);
     }

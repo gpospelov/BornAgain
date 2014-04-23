@@ -7,10 +7,6 @@
 #include <QPixmap>
 #include <QMetaType>
 
-#if QT_VERSION < 0x050000
-#define QStringLiteral QString
-#endif
-
 
 //! The MaterialProperty defines material property (name,color) to be used
 //! in LayerView, FormFactorView together with SamplePropertyEditor

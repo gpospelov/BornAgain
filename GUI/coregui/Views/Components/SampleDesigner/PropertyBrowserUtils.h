@@ -2,7 +2,7 @@
 #define PROPERTYBROWSERUTILS_H
 
 #include "FormFactorProperty.h"
-#include "MaterialProperty.h"
+#include "MaterialProperties.h"
 #include <QLabel>
 #include <QIcon>
 #include <QComboBox>

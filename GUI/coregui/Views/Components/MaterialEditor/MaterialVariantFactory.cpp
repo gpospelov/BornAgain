@@ -75,15 +75,6 @@ void MaterialVariantFactory::slotPropertyChanged(QtProperty *property,
             itEditor.next()->setMaterialColorProperty(mat);
         }
     }
-//    else if (m_property_to_form_factor_editors.contains(property)) {
-//        QList<FormFactorPropertyEdit *> editors =
-//                m_property_to_form_factor_editors[property];
-//        QListIterator<FormFactorPropertyEdit *> itEditor(editors);
-//        while (itEditor.hasNext()) {
-//            FormFactorProperty mat = value.value<FormFactorProperty>();
-//            itEditor.next()->setFormFactorProperty(mat);
-//        }
-//    }
     return;
 }
 

@@ -3,7 +3,7 @@
 
 
 #include <QObject>
-#include "MaterialProperty.h"
+#include "MaterialProperties.h"
 class MaterialModel;
 
 //! The MaterialEditor is the main class to access materials.

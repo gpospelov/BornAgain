@@ -34,7 +34,6 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent
     m_toolBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     m_statusBar = new QStatusBar;
-    //connect(m_tableModel, SIGNAL(SetDataMessage(QString)), this, SLOT(showMessage(QString)));
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
@@ -55,15 +54,12 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent
     buttonsLayout->addWidget(selectButton);
     buttonsLayout->addWidget(cancelButton);
 
-//    layout->insertSpacing(-1,20);
     layout->addLayout(buttonsLayout);
     layout->addWidget(m_statusBar);
-
 
     setLayout(layout);
 
     setupActions();
-    //m_propertyBrowser->getPropertyBrowser()->setCurrentItem(0);
 }
 
 

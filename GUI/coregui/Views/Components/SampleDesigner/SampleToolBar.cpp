@@ -1,11 +1,13 @@
 #include "SampleToolBar.h"
-#include "MaterialBrowser.h"
+#include "MaterialEditor.h"
+#include "MaterialProperty.h"
 #include <QIcon>
 #include <QAction>
 #include <QToolButton>
 #include <QToolBar>
 #include <QStyle>
-#include <iostream>
+#include <QDebug>
+
 
 #include "styledbar.h"
 
@@ -60,6 +62,8 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 
 void SampleToolBar::materialBrowserCall()
 {
-    std::cout << "SampleToolBar::materialBrowserCall() ->" << std::endl;
-    MaterialBrowser::BrowserViewCall();
+    //MaterialBrowser::BrowserViewCall();
+    MaterialProperty mp = MaterialEditor::selectMaterialProperty();
+    qDebug() << "SampleToolBar::materialBrowserCall()" << mp.getName() << mp.getColor();
+
 }

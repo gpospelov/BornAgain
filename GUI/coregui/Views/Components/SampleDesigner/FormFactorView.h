@@ -3,8 +3,8 @@
 
 #include "Units.h"
 #include "ConnectableView.h"
-#include "MaterialBrowser.h"
 #include "FormFactors.h"
+#include "MaterialProperty.h"
 #include <QGraphicsItem>
 #include <iostream>
 

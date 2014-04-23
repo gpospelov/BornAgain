@@ -1,6 +1,5 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
-#include "MaterialBrowser.h"
 #include "ParameterizedItem.h"
 #include "FormFactorProperty.h"
 #include <iostream>

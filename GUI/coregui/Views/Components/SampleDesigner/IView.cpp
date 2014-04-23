@@ -1,5 +1,6 @@
 #include "IView.h"
 #include "ParameterizedGraphicsItem.h"
+#include "MaterialProperties.h"
 #include <QString>
 #include <QDebug>
 

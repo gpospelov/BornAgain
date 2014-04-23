@@ -20,6 +20,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/SampleDesigner
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/JobQueueWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/OutputDataWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/Components/MaterialEditor
 )
 include_directories(${include_dirs})
 
@@ -31,6 +32,7 @@ file(GLOB source_files
     "Views/Components/SampleDesigner/*.cpp"
     "Views/Components/JobQueueWidgets/*.cpp"
     "Views/Components/OutputDataWidgets/*.cpp"
+    "Views/Components/MaterialEditor/*.cpp"
 )
 
 set(source_widgetbox
@@ -49,6 +51,7 @@ file(GLOB include_files
     "Views/Components/SampleDesigner/*.h"
     "Views/Components/JobQueueWidgets/*.h"
     "Views/Components/OutputDataWidgets/*.h"
+    "Views/Components/MaterialEditor/*.h"
 )
 
 set(include_widgetbox

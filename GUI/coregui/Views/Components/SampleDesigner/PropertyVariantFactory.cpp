@@ -1,7 +1,6 @@
 #include "PropertyVariantFactory.h"
 #include "PropertyVariantManager.h"
 #include "PropertyBrowserUtils.h"
-#include "MaterialBrowser.h"
 
 
 PropertyVariantFactory::~PropertyVariantFactory()

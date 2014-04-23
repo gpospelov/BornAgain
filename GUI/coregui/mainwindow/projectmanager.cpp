@@ -71,6 +71,7 @@ void ProjectManager::createNewProject()
     m_project_document = new ProjectDocument();
     connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     m_project_document->setProjectName("Untitled");
+    m_project_document->setMaterialModel(m_mainWindow->getMaterialModel());
     m_project_document->setSessionModel(m_mainWindow->getSessionModel());
     m_project_document->setJobQueueModel(m_mainWindow->getJobQueueModel());
 }

@@ -9,9 +9,13 @@
 #include "SimulationView.h"
 #include "FitView.h"
 #include "JobQueueView.h"
+#include "TestView.h"
+#include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 #include "SimulationDataModel.h"
 #include "JobQueueModel.h"
+#include "MaterialModel.h"
+#include "MaterialEditor.h"
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
@@ -44,10 +48,15 @@ MainWindow::MainWindow(QWidget *parent)
     , mp_sim_data_model(0)
     , m_jobQueueModel(0)
     , m_sessionModel(0)
+    , m_materialModel(0)
+    , m_materialEditor(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
+
+    // initialize material model first
+    initMaterialModel();
 
     // initialize simulation data model first:
     initSimModel();
@@ -55,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
     initJobQueueModel();
 
     initSessionModel();
+
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -83,6 +93,9 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
+//    MaterialEditorWidget *materialWidget = new MaterialEditorWidget(m_materialModel, this);
+//    m_tabWidget->insertTab(5, materialWidget, QIcon(":/images/main_jobqueue.png"), "Jobs");
+
     m_tabWidget->setCurrentIndex(2);
 
     m_progressBar = new Manhattan::ProgressBar(this);
@@ -110,6 +123,7 @@ MainWindow::~MainWindow()
 //    delete m_actionManager;
 //    delete m_settings;
 //    m_settings = 0;
+    delete m_materialEditor;
 }
 
 
@@ -249,5 +263,20 @@ void MainWindow::initSessionModel()
     m_sessionModel->insertNewItem("Layer");
     m_sessionModel->insertNewItem("Layer");
 
+}
+
+
+void MainWindow::initMaterialModel()
+{
+    delete m_materialModel;
+    m_materialModel = new MaterialModel(this);
+    m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
+    m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
+    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMagneticMaterial);
+    m_materialModel->save("material.xml");
+
+//    m_materialModel->load("material.xml");
+
+    m_materialEditor = new MaterialEditor(m_materialModel);
 }
 

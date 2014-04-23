@@ -2,7 +2,6 @@
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
-#include "MaterialBrowser.h"
 #include "GUIHelpers.h"
 #include <ItemFactory.h>
 
@@ -24,14 +23,14 @@
 
 SampleView::SampleView(SessionModel *model, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_materialBrowser(MaterialBrowser::instance())
+//    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
     , m_session(model)
 {
     setObjectName(tr("SampleView"));
 
-    m_materialBrowser->setParent(this);
+//    m_materialBrowser->setParent(this);
 
     setCentralWidget(m_sampleDesigner->getCentralWidget());
 
@@ -67,7 +66,7 @@ SampleView::SampleView(SessionModel *model, QWidget *parent)
 SampleView::~SampleView()
 {
     delete m_sampleDesigner;
-    delete m_materialBrowser;
+//    delete m_materialBrowser;
 }
 
 //void SampleView::materialEditorCall()

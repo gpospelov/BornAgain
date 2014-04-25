@@ -9,7 +9,7 @@ int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
 
 
-QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRect &rect)
+QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRectF &rect)
 {
     QColor c = color;
     c.setAlpha(160);
@@ -21,7 +21,7 @@ QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRect &rec
 }
 
 
-QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRect &rect)
+QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRectF &rect)
 {
     QColor c = color;
     //c.setAlpha(200);
@@ -68,7 +68,7 @@ QPixmap DesignerHelper::getPixmapLayer() {
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(Qt::lightGray, rect));
+    painter.setBrush(DesignerHelper::getLayerGradient(Qt::green, rect));
     painter.drawRect(rect);
     return pixmap;
 }
@@ -80,7 +80,7 @@ QPixmap DesignerHelper::getPixmapMultiLayer() {
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(Qt::lightGray, rect));
+    painter.setBrush(DesignerHelper::getLayerGradient(QColor(75, 157, 249), rect));
     painter.drawRect(rect);
     painter.setPen(Qt::DashLine);
     painter.drawLine(0, DesignerHelper::getDefaultLayerHeight()*0.3, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultLayerHeight()*0.3);
@@ -91,12 +91,12 @@ QPixmap DesignerHelper::getPixmapMultiLayer() {
 
 QPixmap DesignerHelper::getPixmapParticleLayout()
 {
-    QRect rect(0,0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight());
+    QRect rect(0,0, DesignerHelper::getDefaultParticleLayoutWidth(), DesignerHelper::getDefaultParticleLayoutHeight());
     QPixmap pixmap(rect.width()+1, rect.height()+1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.setBrush(DesignerHelper::getDecorationGradient( QColor(135, 206, 50), rect));
     painter.drawRoundedRect(rect, 3, 3);
     return pixmap;
 }
@@ -122,7 +122,7 @@ QPixmap DesignerHelper::getPixmapParticle()
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.setBrush(DesignerHelper::getDecorationGradient(QColor(120, 165, 215), rect));
     painter.drawRoundedRect(rect, 5, 5);
     return pixmap;
 }
@@ -148,19 +148,19 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 {
     qDebug() << "    getDefaultBoundingRect " << name;
     if (name==QString("MultiLayer")) {
-        return QRect(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
+        return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
 
     } else  if (name==QString("Layer")) {
-        return QRect(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
+        return QRectF(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
 
     } else  if (name==QString("ParticleLayout")) {
-        return QRect(0, 0, getDefaultDecorationWidth(), getDefaultDecorationHeight());
+        return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
 
     } else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
-        return QRect(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
+        return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
 
     } else {
-        return QRect();
+        return QRectF();
     }
 
 }
@@ -171,5 +171,23 @@ QRectF DesignerHelper::getDefaultMultiLayerRect()
    return QRectF(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight());
 }
 
+
+int DesignerHelper::getLabelFontSize()
+{
+#ifdef Q_OS_MAC
+    return 12;
+#else
+    return 10;
+#endif
+}
+
+int DesignerHelper::getPortFontSize()
+{
+#ifdef Q_OS_MAC
+    return 10;
+#else
+    return 8;
+#endif
+}
 
 

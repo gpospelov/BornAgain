@@ -9,12 +9,12 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
     setName("ParticleLayout");
-    setLabel("Particle \ndecoration");
+    setLabel("Particle \nlayout");
     setColor(QColor(135, 206, 50));
-    setRectangle( QRect(0, 0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight()) );
+    setRectangle( DesignerHelper::getDefaultBoundingRect("ParticleLayout"));
     addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleFactory);
     addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
-    addPort("form factors", NodeEditorPort::Input, NodeEditorPort::FormFactor);
+    addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
     m_roundpar = 3;
 }
 

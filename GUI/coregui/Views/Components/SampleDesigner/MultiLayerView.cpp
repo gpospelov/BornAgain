@@ -16,7 +16,9 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     : ILayerView(parent)
 {
     setColor(QColor(Qt::blue));
-    setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
+
+    //setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
+    setRectangle(DesignerHelper::getDefaultBoundingRect("MultiLayer"));
     setToolTip(QString("MultiLayer"));
     setAcceptHoverEvents(false);
     setAcceptDrops(true);

@@ -31,7 +31,7 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeE
 
     QGraphicsTextItem *label = new QGraphicsTextItem(this);
     label->setPlainText(m_name);
-    QFont serifFont("Monospace", 10, QFont::Normal);
+    QFont serifFont("Monospace", DesignerHelper::getPortFontSize(), QFont::Normal);
     label->setFont(serifFont);
 
     if(isOutput()) {

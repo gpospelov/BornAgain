@@ -40,7 +40,7 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     double width = getRectangle().width()*0.9;
     double yoffset = 5; // space above the label
     double height = m_label_vspace - yoffset;
-    QFont serifFont("Monospace", 12, QFont::Normal);
+    QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
     painter->setFont(serifFont);
     QRect textRect( getRectangle().x() + (getRectangle().width()-width)/2., getRectangle().y() + yoffset, width, height );
     painter->drawText(textRect, Qt::AlignCenter, m_label);

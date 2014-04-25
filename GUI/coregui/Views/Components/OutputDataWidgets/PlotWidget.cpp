@@ -67,6 +67,7 @@ void PlotWidget::drawPlot(OutputDataItem *m_outputDataItem)
     const OutputData<double> *data = m_outputDataItem->getOutputData();
     if(data)
     {
+        qDebug() << "PlotWidget::drawPlot called";
         m_centralPlot->drawPlot(data);
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);

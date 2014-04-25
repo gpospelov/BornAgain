@@ -44,6 +44,16 @@ PropertyWidget::PropertyWidget(QWidget *parent)
 
 void PropertyWidget::setupPropertyWidget(CentralPlot *centralPlot, OutputDataItem *outputDataItem)
 {
+    qDebug() << "PropertyWidget::setupPropertyWidget called";
+
+    //if(m_current_item == outputdata) return;
+
+    QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
+    while (itProp != propertyToId.constEnd()) {
+        delete itProp.key();
+        itProp++;
+    }
+
     propertyToId.clear();
     idToProperty.clear();
 

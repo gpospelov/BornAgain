@@ -8,8 +8,8 @@ FormFactorView::FormFactorView(QGraphicsItem *parent)
     , m_weight(1.0)
 {
     setName("FormFactorView");
-    setColor(DesignerHelper::getDefaultFormFactorColor());
-    setRectangle( QRect(0, 0, DesignerHelper::getDefaultFormFactorWidth(), DesignerHelper::getDefaultFormFactorHeight()) );
+    setColor(DesignerHelper::getDefaultParticleColor());
+    setRectangle( QRect(0, 0, DesignerHelper::getDefaultParticleWidth(), DesignerHelper::getDefaultParticleHeight()) );
     addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
     addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
     m_roundpar = 5;

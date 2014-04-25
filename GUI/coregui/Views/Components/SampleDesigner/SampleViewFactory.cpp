@@ -15,7 +15,11 @@ QStringList SampleViewFactory::m_all_sample_names  = QStringList()
 
 bool SampleViewFactory::isValidName(const QString &name)
 {
-    return m_all_sample_names.contains(name);
+    if(name.startsWith("FormFactor")) {
+        return true;
+    } else {
+        return m_all_sample_names.contains(name);
+    }
 }
 
 

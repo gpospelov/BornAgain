@@ -42,9 +42,9 @@ public:
     static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*3; }
     static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*3; }
 
-    static int getDefaultFormFactorWidth() { return m_default_layer_height*3; }
-    static int getDefaultFormFactorHeight() { return m_default_layer_height*3; }
-    static QColor getDefaultFormFactorColor() { return QColor(Qt::lightGray); }
+    static int getDefaultParticleWidth() { return m_default_layer_height*3; }
+    static int getDefaultParticleHeight() { return m_default_layer_height*3; }
+    static QColor getDefaultParticleColor() { return QColor(Qt::lightGray); }
 
     static int getDefaultMaterialWidth() { return m_default_layer_height*1.2; }
     static int getDefaultMaterialHeight() { return m_default_layer_height*1.2; }
@@ -52,14 +52,14 @@ public:
 
     static QGradient getLayerGradient(const QColor &color, const QRect &rect);
     static QGradient getDecorationGradient(const QColor &color, const QRect &rect);
-    static QGradient getMaterialGradient(const QColor &color, const QRect &rect);
+//    static QGradient getMaterialGradient(const QColor &color, const QRect &rect);
 
     static QPixmap getSceneBackground();
     static QPixmap getPixmapLayer();
     static QPixmap getPixmapMultiLayer();
     static QPixmap getPixmapParticleLayout();
     static QPixmap getPixmapInterferenceFunction();
-    static QPixmap getPixmapFormFactor();
+    static QPixmap getPixmapParticle();
     static QPixmap getPixmapDefault();
 
     static QColor getRandomColor() { return QColor(qrand() % 256, qrand() % 256, qrand() % 256); }

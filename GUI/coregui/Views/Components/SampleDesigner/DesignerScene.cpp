@@ -131,6 +131,7 @@ void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first,
     m_block_selection = false;
 }
 
+
 //! propagate selection from model to scene
 void DesignerScene::onSessionSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
 {
@@ -379,7 +380,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 ParameterizedItem *new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
 
                 // propagating drop coordinates to ParameterizedItem
-                QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(mimeData->getClassName());
+                QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
                 new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
                 new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
             }

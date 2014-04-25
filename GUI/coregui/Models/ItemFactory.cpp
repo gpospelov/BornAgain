@@ -18,6 +18,7 @@
 #include "LayerItem.h"
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
+#include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("MultiLayer")
@@ -31,7 +32,7 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     if (model_name.isEmpty()) {
         return createEmptyItem();
     }
-    if (!m_all_item_names.contains(model_name)) {
+    if (!isValidName(model_name)) {
         return 0;
     }
     if (model_name==QString("MultiLayer")) {
@@ -46,6 +47,14 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     else if (model_name==QString("Particle")) {
         return new ParticleItem(parent);
     }
+    else if (model_name.startsWith("FormFactor")) {
+        ParticleItem *result = new ParticleItem(parent);
+        QString ffName = model_name;
+        ffName.remove("FormFactor");
+        result->addFormFactorProperty("Form Factor", ffName);
+        return result;
+    }
+
     return 0;
 }
 
@@ -57,5 +66,9 @@ ParameterizedItem *ItemFactory::createEmptyItem()
 
 bool ItemFactory::isValidName(const QString &name)
 {
-    return m_all_item_names.contains(name);
+    if(name.startsWith("FormFactor")) {
+        return true;
+    } else {
+        return m_all_item_names.contains(name);
+    }
 }

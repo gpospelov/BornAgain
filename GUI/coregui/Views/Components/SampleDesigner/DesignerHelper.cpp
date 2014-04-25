@@ -1,6 +1,7 @@
 #include "DesignerHelper.h"
 #include <QPainter>
 #include <QtGlobal>
+#include <QDebug>
 #include <cmath>
 #include <iostream>
 
@@ -36,15 +37,15 @@ QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRect
 }
 
 
-QGradient DesignerHelper::getMaterialGradient(const QColor &color, const QRect &rect)
-{
-    QRadialGradient result(-5.0, -5.0, rect.width()/2.);
-    result.setCenter(5, 5);
-    result.setFocalPoint(5, 5);
-    result.setColorAt(1, color.darker(150));
-    result.setColorAt(0, color.lighter(150));
-    return result;
-}
+//QGradient DesignerHelper::getMaterialGradient(const QColor &color, const QRect &rect)
+//{
+//    QRadialGradient result(-5.0, -5.0, rect.width()/2.);
+//    result.setCenter(5, 5);
+//    result.setFocalPoint(5, 5);
+//    result.setColorAt(1, color.darker(150));
+//    result.setColorAt(0, color.lighter(150));
+//    return result;
+//}
 
 
 QPixmap DesignerHelper::getSceneBackground()
@@ -114,9 +115,9 @@ QPixmap DesignerHelper::getPixmapInterferenceFunction()
 }
 
 
-QPixmap DesignerHelper::getPixmapFormFactor()
+QPixmap DesignerHelper::getPixmapParticle()
 {
-    QRect rect(0,0, DesignerHelper::getDefaultFormFactorWidth(), DesignerHelper::getDefaultFormFactorHeight());
+    QRect rect(0,0, DesignerHelper::getDefaultParticleWidth(), DesignerHelper::getDefaultParticleHeight());
     QPixmap pixmap(rect.width()+1, rect.height()+1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -145,6 +146,7 @@ int DesignerHelper::nanometerToScreen(double nanometer)
 
 QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 {
+    qDebug() << "    getDefaultBoundingRect " << name;
     if (name==QString("MultiLayer")) {
         return QRect(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
 
@@ -153,6 +155,9 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 
     } else  if (name==QString("ParticleLayout")) {
         return QRect(0, 0, getDefaultDecorationWidth(), getDefaultDecorationHeight());
+
+    } else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
+        return QRect(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
 
     } else {
         return QRect();

@@ -122,7 +122,8 @@ QPixmap DesignerHelper::getPixmapParticle()
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(QColor(120, 165, 215), rect));
+    //painter.setBrush(DesignerHelper::getDecorationGradient(QColor(120, 165, 215), rect));
+    painter.setBrush(DesignerHelper::getDecorationGradient(DesignerHelper::getDefaultParticleColor(), rect));
     painter.drawRoundedRect(rect, 5, 5);
     return pixmap;
 }

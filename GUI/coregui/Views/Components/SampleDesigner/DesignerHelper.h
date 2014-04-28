@@ -44,7 +44,7 @@ public:
 
     static int getDefaultParticleWidth() { return m_default_layer_height*3; }
     static int getDefaultParticleHeight() { return m_default_layer_height*4; }
-    static QColor getDefaultParticleColor() { return QColor(120, 165, 215); }
+    static QColor getDefaultParticleColor() { return QColor(210, 223, 237); }
 
     static int getDefaultMaterialWidth() { return m_default_layer_height*1.2; }
     static int getDefaultMaterialHeight() { return m_default_layer_height*1.2; }

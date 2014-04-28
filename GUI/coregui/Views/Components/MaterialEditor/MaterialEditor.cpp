@@ -75,3 +75,15 @@ MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
 }
 
 
+MaterialModel *MaterialEditor::getMaterialModel()
+{
+    Q_ASSERT(m_instance);
+    return m_instance->this_getMaterialModel();
+}
+
+
+MaterialModel *MaterialEditor::this_getMaterialModel()
+{
+    return m_materialModel;
+}
+

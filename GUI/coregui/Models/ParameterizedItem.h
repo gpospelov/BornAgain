@@ -81,7 +81,7 @@ public:
     //! get list of acceptable child object names
     QList<QString> acceptableChildItems() const { return m_valid_children; }
 
-    friend class ItemFactory;
+    //friend class ItemFactory;
 
     bool event(QEvent * e );
 
@@ -93,16 +93,17 @@ public:
 
     ParameterizedItem *createPropertyItem(QString name);
 
+    void addFormFactorProperty(const char *name, QString value);
+    explicit ParameterizedItem(const QString &model_type=QString(),
+                               ParameterizedItem *parent=0);
+    void setMaterialProperty();
+
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);
 
 protected:
-    explicit ParameterizedItem(const QString &model_type=QString(),
-                               ParameterizedItem *parent=0);
     void updatePropertyItem(QString name);
-    void setMaterialProperty();
-    void addFormFactorProperty(const char *name, QString value);
     QList<QString> m_valid_children;
 
 private:

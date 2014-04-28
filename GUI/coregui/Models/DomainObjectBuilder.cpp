@@ -72,9 +72,31 @@ Layer *DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
     return result;
 }
 
+
 ParticleLayout *DomainObjectBuilder::buildParticleLayout(
         const ParameterizedItem &item) const
 {
     ParticleLayout *result = TransformToDomain::createParticleLayout(item);
+    QList<ParameterizedItem *> children = item.childItems();
+    for (int i=0; i<children.size(); ++i) {
+        if (children[i]->modelType() == QString("Particle")) {
+            double depth(0), abundance(0);
+            boost::scoped_ptr<Particle>
+                    particle(buildParticle(*children[i], depth, abundance));
+            if (particle.get()) {
+                result->addParticle(*particle, depth, abundance);
+            }
+        }
+    }
+
     return result;
 }
+
+
+Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const
+{
+    Particle *particle = TransformToDomain::createParticle(item, depth, abundance);
+    return particle;
+}
+
+

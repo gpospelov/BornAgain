@@ -6,6 +6,8 @@
 #include "MaterialItem.h"
 #include "MaterialProperties.h"
 
+class IMaterial;
+
 namespace MaterialUtils
 {
 
@@ -14,6 +16,9 @@ MaterialProperty getMaterialProperty(MaterialItem *material);
 
 MaterialColorProperty suggestMaterialColorProperty(const QString &name);
 
+
+IMaterial *createDomainMaterial(const MaterialItem *material);
+IMaterial *createDomainMaterial(const QString &name);
 
 }
 

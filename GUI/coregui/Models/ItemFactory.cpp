@@ -47,13 +47,13 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     else if (model_name==QString("Particle")) {
         return new ParticleItem(parent);
     }
-    else if (model_name.startsWith("FormFactor")) {
-        ParticleItem *result = new ParticleItem(parent);
-        QString ffName = model_name;
-        ffName.remove("FormFactor");
-        result->addFormFactorProperty("Form Factor", ffName);
-        return result;
-    }
+//    else if (model_name.startsWith("FormFactor")) {
+//        ParticleItem *result = new ParticleItem(parent);
+//        QString ffName = model_name;
+//        ffName.remove("FormFactor");
+//        result->addFormFactorProperty("Form Factor", ffName);
+//        return result;
+//    }
 
     return 0;
 }

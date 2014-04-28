@@ -26,6 +26,7 @@
 #include "projectmanager.h"
 #include "progressbar.h"
 #include "SimulationRegistry.h"
+#include "DomainObjectBuilder.h"
 
 #include <QApplication>
 #include <iostream>
@@ -254,14 +255,28 @@ void MainWindow::initSessionModel()
     ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
     multilayer->setItemName("MultiLayer1");
 
-    m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
-    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer",
-                   m_sessionModel->indexOfItem(multilayer));
+    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
+
     ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
                    m_sessionModel->indexOfItem(layer));
-    m_sessionModel->insertNewItem("Particle",m_sessionModel->indexOfItem(layout));
-//    m_sessionModel->insertNewItem("Layer");
-//    m_sessionModel->insertNewItem("Layer");
+
+    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+    particle1->addFormFactorProperty("Form Factor", "Cylinder");
+
+    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+    particle2->addFormFactorProperty("Form Factor", "Prism3");
+
+    m_sessionModel->insertNewItem("Layer",
+                   m_sessionModel->indexOfItem(multilayer));
+
+
+    qDebug() << "";
+    qDebug() << "MainWindow::initSessionModel() ---> TransformToDomain";
+    DomainObjectBuilder builder;
+    builder.buildItem(*multilayer);
+
+    MultiLayer *dml = dynamic_cast<MultiLayer *>(builder.getSample());
+    dml->printSampleTree();
 
 }
 
@@ -271,11 +286,15 @@ void MainWindow::initMaterialModel()
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-    m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMagneticMaterial);
-    m_materialModel->save("material.xml");
 
-//    m_materialModel->load("material.xml");
+    MaterialItem *mAir = m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
+    mAir->setRefractiveIndex(0,0);
+
+    MaterialItem *mParticle = m_materialModel->addMaterial("Particle", MaterialItem::HomogeneousMaterial);
+    mParticle->setRefractiveIndex(6e-4, 2e-8);
+
+    MaterialItem *mSubstrate = m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
+    mSubstrate->setRefractiveIndex(6e-6, 2e-8);
 
     m_materialEditor = new MaterialEditor(m_materialModel);
 }

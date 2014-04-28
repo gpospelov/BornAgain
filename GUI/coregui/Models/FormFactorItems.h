@@ -17,167 +17,178 @@
 #define FORMFACTORITEMS_H
 
 #include "ParameterizedItem.h"
+class IFormFactor;
 
 
-class AnisoPyramidItem : public ParameterizedItem
+class FormFactorItem : public ParameterizedItem
+{
+    Q_OBJECT
+public:
+    explicit FormFactorItem(const QString name, ParameterizedItem *parent) : ParameterizedItem(name, parent){}
+    virtual IFormFactor *createFormFactor() const{ return 0;}
+    virtual ~FormFactorItem(){}
+};
+
+
+class AnisoPyramidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit AnisoPyramidItem(ParameterizedItem *parent=0);
-    ~AnisoPyramidItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class BoxItem : public ParameterizedItem
+class BoxItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit BoxItem(ParameterizedItem *parent=0);
-    ~BoxItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class ConeItem : public ParameterizedItem
+class ConeItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit ConeItem(ParameterizedItem *parent=0);
-    ~ConeItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class Cone6Item : public ParameterizedItem
+class Cone6Item : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit Cone6Item(ParameterizedItem *parent=0);
-    ~Cone6Item(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class CuboctahedronItem : public ParameterizedItem
+class CuboctahedronItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit CuboctahedronItem(ParameterizedItem *parent=0);
-    ~CuboctahedronItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class CylinderItem : public ParameterizedItem
+class CylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit CylinderItem(ParameterizedItem *parent=0);
-    ~CylinderItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class EllipsoidalCylinderItem : public ParameterizedItem
+class EllipsoidalCylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit EllipsoidalCylinderItem(ParameterizedItem *parent=0);
-    ~EllipsoidalCylinderItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class FullSphereItem : public ParameterizedItem
+class FullSphereItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit FullSphereItem(ParameterizedItem *parent=0);
-    ~FullSphereItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class FullSpheroidItem : public ParameterizedItem
+class FullSpheroidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit FullSpheroidItem(ParameterizedItem *parent=0);
-    ~FullSpheroidItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class HemiEllipsoidItem : public ParameterizedItem
+class HemiEllipsoidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit HemiEllipsoidItem(ParameterizedItem *parent=0);
-    ~HemiEllipsoidItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class Prism3Item : public ParameterizedItem
+class Prism3Item : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit Prism3Item(ParameterizedItem *parent=0);
-    ~Prism3Item(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class Prism6Item : public ParameterizedItem
+class Prism6Item : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit Prism6Item(ParameterizedItem *parent=0);
-    ~Prism6Item(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class PyramidItem : public ParameterizedItem
+class PyramidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit PyramidItem(ParameterizedItem *parent=0);
-    ~PyramidItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class Ripple1Item : public ParameterizedItem
+class Ripple1Item : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit Ripple1Item(ParameterizedItem *parent=0);
-    ~Ripple1Item(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class Ripple2Item : public ParameterizedItem
+class Ripple2Item : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit Ripple2Item(ParameterizedItem *parent=0);
-    ~Ripple2Item(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class TetrahedronItem : public ParameterizedItem
+class TetrahedronItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit TetrahedronItem(ParameterizedItem *parent=0);
-    ~TetrahedronItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class TruncatedSphereItem : public ParameterizedItem
+class TruncatedSphereItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit TruncatedSphereItem(ParameterizedItem *parent=0);
-    ~TruncatedSphereItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 
-class TruncatedSpheroidItem : public ParameterizedItem
+class TruncatedSpheroidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
     explicit TruncatedSpheroidItem(ParameterizedItem *parent=0);
-    ~TruncatedSpheroidItem(){}
+    IFormFactor *createFormFactor() const;
 };
 
 

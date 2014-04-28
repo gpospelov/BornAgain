@@ -40,7 +40,7 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     double width = getRectangle().width()*0.9;
     double yoffset = 5; // space above the label
     double height = m_label_vspace - yoffset;
-    QFont serifFont("Monospace", 12, QFont::Normal);
+    QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
     painter->setFont(serifFont);
     QRect textRect( getRectangle().x() + (getRectangle().width()-width)/2., getRectangle().y() + yoffset, width, height );
     painter->drawText(textRect, Qt::AlignCenter, m_label);
@@ -135,13 +135,13 @@ QList<QGraphicsItem *> ConnectableView::connectInputPort(ConnectableView *other)
     QList<QGraphicsItem *> result;
     foreach(QGraphicsItem *item, childItems()) {
         NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-        if (port && port->isInput() && !port->isConnected()) {
-//        if (port && port->isInput()) {
+//        if (port && port->isInput() && !port->isConnected()) {
+        if (port && port->isInput()) {
 
 
             foreach(QGraphicsItem *other_item, other->childItems()) {
                 NodeEditorPort *other_port= dynamic_cast<NodeEditorPort *>(other_item);
-                if(other_port && port->getPortType() == other_port->getPortType()) {
+                if(other_port && !other_port->isConnected(port) && port->getPortType() == other_port->getPortType()) {
 
 //                    // deleting old connection
 //                    if(port->isConnected()) port->deleteAllConnections();

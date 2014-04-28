@@ -31,7 +31,7 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeE
 
     QGraphicsTextItem *label = new QGraphicsTextItem(this);
     label->setPlainText(m_name);
-    QFont serifFont("Monospace", 10, QFont::Normal);
+    QFont serifFont("Monospace", DesignerHelper::getPortFontSize(), QFont::Normal);
     label->setFont(serifFont);
 
     if(isOutput()) {
@@ -39,17 +39,8 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeE
     } else {
         label->setPos(m_radius + m_margin, -label->boundingRect().height()/2);
     }
-
-//    QFont serifFont("Monospace", 10, QFont::Normal);
-//    QFontMetrics fm(serifFont);
-//    QRect text_rect = fm.boundingRect(m_name);
-//    qreal height = qMax(fm.height(), 2*m_radius);
-//    if(isOutput()) {
-//        m_rect = QRect(-m_radius-m_margin-text_rect.width(), -text_rect.height()/2., 2*m_radius+m_margin+text_rect.width(), text_rect.height());
-//    }else {
-//        m_rect = QRect(-m_radius, -height/2., 2*m_radius+m_margin+text_rect.width(), height);
-//    }
 }
+
 
 NodeEditorPort::~NodeEditorPort()
 {
@@ -132,27 +123,3 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::PortType port_type)
     }
 }
 
-
-//QRectF NodeEditorPort::boundingRect() const
-//{
-//    return m_rect;
-//}
-
-
-//void NodeEditorPort::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-//{
-//    Q_UNUSED(widget);
-//    painter->setPen(m_color.darker(180) );
-//    painter->setBrush(m_color);
-//    painter->drawEllipse(-m_radius, -m_radius, 2*m_radius, 2*m_radius);
-//    painter->setPen(Qt::black);
-//    QFont serifFont("Monospace", 10, QFont::Normal);
-//    QFontMetrics fm(serifFont);
-//    QRect rect = fm.boundingRect(m_name);
-//    painter->setFont(serifFont);
-//    if(isOutput()) {
-//        painter->drawText(-m_radius - m_margin - m_rect.width(), rect.height()/2, m_name);
-//    } else {
-//        painter->drawText(m_radius + m_margin, rect.height()/2, m_name);
-//    }
-//}

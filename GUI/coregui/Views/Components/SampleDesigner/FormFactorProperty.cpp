@@ -6,8 +6,24 @@ template<typename T> ParameterizedItem *createInstance() { return new T; }
 
 QMap<QString, ParameterizedItem *(*)()> initializeFormFactorMap() {
     QMap<QString, ParameterizedItem *(*)()> result;
+    result[QString("AnisoPyramid")] = &createInstance<AnisoPyramidItem>;
+    result[QString("Box")] = &createInstance<BoxItem>;
+    result[QString("Cone")] = &createInstance<ConeItem>;
+    result[QString("Cone6")] = &createInstance<Cone6Item>;
+    result[QString("Cuboctahedron")] = &createInstance<CuboctahedronItem>;
     result[QString("Cylinder")] = &createInstance<CylinderItem>;
+    result[QString("EllipsoidalCylinder")] = &createInstance<EllipsoidalCylinderItem>;
     result[QString("FullSphere")] = &createInstance<FullSphereItem>;
+    result[QString("FullSpheroid")] = &createInstance<FullSpheroidItem>;
+    result[QString("HemiEllipsoid")] = &createInstance<HemiEllipsoidItem>;
+    result[QString("Prism3")] = &createInstance<Prism3Item>;
+    result[QString("Prism6")] = &createInstance<Prism6Item>;
+    result[QString("Pyramid")] = &createInstance<PyramidItem>;
+    result[QString("Ripple1")] = &createInstance<Ripple1Item>;
+    result[QString("Ripple2")] = &createInstance<Ripple2Item>;
+    result[QString("Tetrahedron")] = &createInstance<TetrahedronItem>;
+    result[QString("TruncatedSphere")] = &createInstance<TruncatedSphereItem>;
+    result[QString("TruncatedSpheroid")] = &createInstance<TruncatedSpheroidItem>;
     return result;
 }
 }

@@ -34,8 +34,8 @@ public:
 
     virtual QString getName() const { return m_name; }
     virtual QColor getColor() const { return m_color; }
-    virtual QRect getRectangle() const { return m_rect;}
-    virtual void setRectangle(QRect rect) { m_rect = rect; }
+    virtual QRectF getRectangle() const { return m_rect;}
+    virtual void setRectangle(QRectF rect) { m_rect = rect; }
     virtual QString getLabel() const { return m_label; }
     virtual void setLabel(const QString &name);
 
@@ -51,7 +51,7 @@ protected:
 
     QString m_name;
     QColor m_color;
-    QRect m_rect;
+    QRectF m_rect;
     int m_roundpar;
     double m_label_vspace; // vertical space occupied by the label
     QString m_label;

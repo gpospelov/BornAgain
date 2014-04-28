@@ -107,10 +107,9 @@ QPixmap DesignerMimeData::getPixmap(const QString &name)
         return DesignerHelper::getPixmapParticleLayout();
     } else if(name == QString("InterferenceFunction1DParaCrystal") ) {
         return DesignerHelper::getPixmapInterferenceFunction();
-    } else if(name == QString("FormFactorFullSphere") ) {
-        return DesignerHelper::getPixmapFormFactor();
-    } else if(name == QString("FormFactorPyramid") ) {
-        return DesignerHelper::getPixmapFormFactor();
+
+    } else if(name.startsWith("FormFactor") ) {
+        return DesignerHelper::getPixmapParticle();
     }
     return DesignerHelper::getPixmapDefault();
 }

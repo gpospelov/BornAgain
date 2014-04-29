@@ -16,6 +16,7 @@
 #ifndef PARAMETERIZEDITEM_H_
 #define PARAMETERIZEDITEM_H_
 
+#include "MaterialItem.h"
 #include <QStandardItem>
 #include <QList>
 #include <QMap>
@@ -96,7 +97,8 @@ public:
     void addFormFactorProperty(const char *name, QString value);
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
-    void setMaterialProperty();
+
+    void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
 signals:
     void propertyChanged(QString propertyName);

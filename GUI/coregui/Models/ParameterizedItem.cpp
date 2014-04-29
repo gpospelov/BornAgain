@@ -104,11 +104,14 @@ void ParameterizedItem::updatePropertyItem(QString name)
     emit propertyItemChanged(name);
 }
 
-void ParameterizedItem::setMaterialProperty()
+void ParameterizedItem::setMaterialProperty(MaterialProperty material)
 {
-    MaterialProperty material = MaterialEditor::getDefaultMaterialProperty();
     QVariant mat_var;
-    mat_var.setValue(material);
+    if(material.isDefined()) {
+        mat_var.setValue(material);
+    } else {
+        mat_var.setValue(MaterialEditor::getDefaultMaterialProperty());
+    }
     setProperty("Material", mat_var);
 }
 

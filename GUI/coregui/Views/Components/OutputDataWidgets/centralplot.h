@@ -25,6 +25,7 @@ public:
     QCPColorMapData *getColorMapData() const;
     QString getStatusString() const;
     void setInterpolate(bool isInterpolate);
+    void resetView();
 
 private:
     void setupColorMap(CentralPlot * customPlot);
@@ -32,10 +33,7 @@ private:
     QCPColorMap *colorMap;
     QCPColorScale *colorScale;
     QString statusString;
-
-
-
-
+    QCPRange m_colorScaleRange;
 };
 
 #endif // CENTRALPLOT_H

@@ -19,7 +19,7 @@ public:
     explicit PlotWidget(QWidget *parent);
     virtual ~PlotWidget(){}
 
-    QSize minimumSizeHint() const { return QSize(800, 600); }
+    QSize minimumSizeHint() const { return QSize(600, 600); }
 
     int histogramSize;
 
@@ -29,9 +29,11 @@ public:
     void drawPlot(OutputDataItem *m_outputDataItem);
 
 
+
 private slots:
     void mousePress(QMouseEvent*event);
     void mouseMove(QMouseEvent*event);
+    void resetTriggered();
 
 
 private:
@@ -45,10 +47,6 @@ private:
     HistogramPlot *m_horizontalPlot;
     QLabel *statusLabel;
     PropertyWidget *m_propertyWidget;
-
-
-
-
 };
 
 #endif // PLOTWIDGET_H

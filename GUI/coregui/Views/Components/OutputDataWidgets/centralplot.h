@@ -25,7 +25,12 @@ public:
     QCPColorMapData *getColorMapData() const;
     QString getStatusString() const;
     void setInterpolate(bool isInterpolate);
+    void setZmin(double zmin);
+    void setZmax(double zmax);
     void resetView();
+
+signals:
+    void dataRangeChanged(QCPRange newRange);
 
 private:
     void setupColorMap(CentralPlot * customPlot);

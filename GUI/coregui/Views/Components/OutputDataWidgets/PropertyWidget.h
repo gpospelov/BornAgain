@@ -21,19 +21,21 @@ public:
 
     void setupPropertyWidget(CentralPlot *centralPlot, OutputDataItem *outputDataItem);
 
+public slots:
+    void onOutputDataItemModified();
+
+private slots:
+    void valueChanged(QtProperty *property, const QVariant &value);
 
 private:
     class QtVariantPropertyManager *m_variantManager;
     class QtTreePropertyBrowser *m_propertyBrowser;
-    OutputDataItem *m_outputDataItem;
     CentralPlot *m_centralPlot;
+    OutputDataItem *m_outputDataItem;
     QMap<QtProperty *, QString> propertyToId;
     QMap<QString, QtVariantProperty *> idToProperty;
     void addProperty(QtVariantProperty *property, const QString &id);
 
-
-private slots:
-    void valueChanged(QtProperty *property, const QVariant &value);
 };
 
 #endif // PROPERTYWIDGET_H

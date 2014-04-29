@@ -7,11 +7,12 @@ PlotWidget::PlotWidget(QWidget *parent)
     , m_centralPlot(new CentralPlot())
     , m_verticalPlot(new HistogramPlot(HistogramPlot::Vertical))
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
+    , m_outputDataItem(0)
 {
 
     connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
     connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
-
+    connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)));
 
     histogramSize = 150;
     int horizontalHeight = histogramSize-15;
@@ -63,17 +64,34 @@ PlotWidget::PlotWidget(QWidget *parent)
 }
 
 
-void PlotWidget::drawPlot(OutputDataItem *m_outputDataItem)
+void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 {
-    const OutputData<double> *data = m_outputDataItem->getOutputData();
+    if(m_outputDataItem == outputDataItem) {
+        updatePlot();
+        return;
+    }
+
+    m_outputDataItem = outputDataItem;
+
+    const OutputData<double> *data = outputDataItem->getOutputData();
     if(data)
     {
         qDebug() << "PlotWidget::drawPlot called";
         m_centralPlot->drawPlot(data);
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);
-        m_propertyWidget->setupPropertyWidget(m_centralPlot, m_outputDataItem);
+        m_propertyWidget->setupPropertyWidget(m_centralPlot, outputDataItem);
     }
+}
+
+
+void PlotWidget::updatePlot()
+{
+    Q_ASSERT(m_outputDataItem);
+    m_centralPlot->setInterpolate(m_outputDataItem->isInterpolated());
+    m_centralPlot->setZmin(m_outputDataItem->getZaxisMin());
+    m_centralPlot->setZmax(m_outputDataItem->getZaxisMax());
+
 }
 
 
@@ -144,3 +162,12 @@ void PlotWidget::mouseMove(QMouseEvent * event)
         this->m_verticalPlot->generateHistogram(histogramData.at(2), histogramData.at(3));
     }
 }
+
+
+void PlotWidget::onZaxisRangeChanged(QCPRange newRange)
+{
+    qDebug() << "PlotWidget::onZaxisRangeChanged" << newRange.lower << newRange.upper;
+    m_outputDataItem->setZaxisMin(newRange.lower);
+    m_outputDataItem->setZaxisMax(newRange.upper);
+}
+

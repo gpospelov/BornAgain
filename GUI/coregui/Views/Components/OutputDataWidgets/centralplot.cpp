@@ -204,6 +204,8 @@ void CentralPlot::drawPlot(const OutputData<double> *data)
     colorMap = new QCPColorMap(this->xAxis, this->yAxis);
     this->addPlottable(colorMap);
 
+    connect(colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
     colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
@@ -297,9 +299,32 @@ void CentralPlot::setInterpolate(bool isInterpolate)
     this->replot();
 }
 
+void CentralPlot::setZmin(double zmin)
+{
+    QCPRange range = getColorMap()->dataRange();
+    range.lower = zmin;
+    getColorMap()->setDataRange(range);
+    this->replot();
+}
+
+void CentralPlot::setZmax(double zmax)
+{
+    QCPRange range = getColorMap()->dataRange();
+    range.upper = zmax;
+    getColorMap()->setDataRange(range);
+    this->replot();
+}
+
+
 void CentralPlot::resetView()
 {
     this->colorMap->rescaleAxes();
     this->colorScale->setDataRange(m_colorScaleRange);
     this->replot();
 }
+
+
+//void CentralPlot::onDataRangeChanged(QCPRange newRange)
+//{
+//    qDebug() << "CentralPlot::onDataRangeChanged" << newRange.lower << newRange.upper;
+//}

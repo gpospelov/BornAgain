@@ -27,8 +27,8 @@ JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *model,QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    Manhattan::StyledBar *bar = new Manhattan::StyledBar;
-    mainLayout->addWidget(bar);
+    //Manhattan::StyledBar *bar = new Manhattan::StyledBar;
+    //mainLayout->addWidget(bar);
 //    mainLayout->addWidget(m_outputDataWidget);
     mainLayout->addWidget(m_stack);
 

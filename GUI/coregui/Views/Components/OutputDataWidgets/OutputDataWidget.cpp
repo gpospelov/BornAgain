@@ -30,6 +30,8 @@ OutputDataWidget::OutputDataWidget(QWidget *parent)
     m_plotWidget->hide();
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
     mainLayout->addWidget(m_plotWidget);
     setLayout(mainLayout);
 

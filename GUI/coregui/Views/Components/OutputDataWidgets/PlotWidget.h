@@ -9,6 +9,7 @@
 #include "OutputData.h"
 #include "PropertyWidget.h"
 #include "OutputDataItem.h"
+#include "OutputDataToolBar.h"
 
 
 class PlotWidget : public QWidget
@@ -34,6 +35,8 @@ private slots:
     void mousePress(QMouseEvent*event);
     void mouseMove(QMouseEvent*event);
     void resetTriggered();
+    void togglePropertypanel();
+    void savePlot();
 
 
 private:
@@ -47,6 +50,8 @@ private:
     HistogramPlot *m_horizontalPlot;
     QLabel *statusLabel;
     PropertyWidget *m_propertyWidget;
+    OutputDataToolBar *m_toolBar;
+    void connectSignals();
 };
 
 #endif // PLOTWIDGET_H

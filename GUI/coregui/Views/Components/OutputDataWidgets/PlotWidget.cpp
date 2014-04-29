@@ -7,6 +7,7 @@ PlotWidget::PlotWidget(QWidget *parent)
     , m_centralPlot(new CentralPlot())
     , m_verticalPlot(new HistogramPlot(HistogramPlot::Vertical))
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
+    , m_toolBar(new OutputDataToolBar(this))
 {
 
     connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
@@ -54,7 +55,12 @@ PlotWidget::PlotWidget(QWidget *parent)
     statusLabel->setMaximumHeight(35);
 
 
+    connectSignals();
+
     QVBoxLayout *vlayout = new QVBoxLayout(this);
+    vlayout->setMargin(0);
+    vlayout->setSpacing(0);
+    vlayout->addWidget(m_toolBar);
     vlayout->addWidget(m_splitter);
     vlayout->addWidget(statusLabel);
     this->setLayout(vlayout);
@@ -62,6 +68,14 @@ PlotWidget::PlotWidget(QWidget *parent)
 
 }
 
+
+void PlotWidget::connectSignals()
+{
+    m_toolBar = new OutputDataToolBar(this);
+
+}
+
+//void PlotWidget::togglePropertypanel()
 
 void PlotWidget::drawPlot(OutputDataItem *m_outputDataItem)
 {

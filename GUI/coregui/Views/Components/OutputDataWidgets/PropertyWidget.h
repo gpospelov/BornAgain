@@ -32,6 +32,7 @@ private:
     void addProperty(QtVariantProperty *property, const QString &id);
 
 
+
 private slots:
     void valueChanged(QtProperty *property, const QVariant &value);
 };

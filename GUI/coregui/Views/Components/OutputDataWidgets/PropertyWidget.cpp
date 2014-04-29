@@ -91,6 +91,7 @@ void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
 
     if (id == JobQueueXML::OutputDataInterpolatedAttribute) {
         m_centralPlot->setInterpolate(value.toBool());
+
         //m_outputDataItem->setInterpolated(value.toBool());
 
     }

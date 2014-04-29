@@ -14,9 +14,10 @@ PlotWidget::PlotWidget(QWidget *parent)
 
 
     histogramSize = 150;
+    int horizontalHeight = histogramSize-15;
 
     m_verticalPlot->setMaximumWidth(histogramSize);
-    m_horizontalPlot->setMaximumHeight(histogramSize);
+    m_horizontalPlot->setMaximumHeight(horizontalHeight);
 
 
     m_propertyWidget = new PropertyWidget(this);
@@ -109,6 +110,24 @@ void PlotWidget::toggleHistogram()
 void PlotWidget::mousePress(QMouseEvent *event)
 {
     qDebug() << event->pos().x() << " : " << event->pos().y();
+
+    if(event->button() == Qt::RightButton)
+    {
+        QAction *reserAct = new QAction(tr("&Reset View"), this);
+        connect(reserAct, SIGNAL(triggered()), this, SLOT(resetTriggered()));
+
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*> (event);
+        QMenu *menu = new QMenu(this);
+
+        menu->addAction(reserAct);
+        menu->exec(mouseEvent->globalPos());
+    }
+
+}
+
+void PlotWidget::resetTriggered()
+{
+    m_centralPlot->resetView();
 }
 
 

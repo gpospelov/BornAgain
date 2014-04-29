@@ -77,12 +77,15 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
     bars->setBrush(Qt::blue);
 
 
+    const QMargins margins(28,0,82,0);
+
+    this->axisRect()->setMargins(margins);
+    this->axisRect()->layout()->setMargins(margins);
 
     //this->yAxis->setAutoTicks(false);
     //this->yAxis->setAutoTickLabels(false);
     //this->yAxis->setTickVector(QVector<double>() << this->yAxis->range().lower << this->yAxis->range().upper);
     //this->yAxis->setTickVectorLabels(QVector<QString>() << "-1.0" << "1.0");
-
 
     this->replot();
 
@@ -120,6 +123,11 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
     bars->setWidth((yAxis->range().upper - yAxis->range().lower)/binSize);
     bars->setPen(Qt::NoPen);
     bars->setBrush(Qt::blue);
+
+    const QMargins margins(0,0,0,0);
+
+    this->axisRect()->setMargins(margins);
+    this->axisRect()->layout()->setMargins(margins);
 
     qDebug() << QString::number(this->xAxis->range().upper, 'e',0);
 

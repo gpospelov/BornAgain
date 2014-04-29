@@ -98,7 +98,7 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 
        double cellValue = data->cell(key, value);
        std::ostringstream ss;
-       ss << "[X: " << xPos << ", Y: " << yPos << "]\t[Key: " << key << ", Value: " << value << "] \t[Cell: " << cellValue << "]";
+       ss << "[X: " << xPos << ", Y: " << yPos << "]\t[nBinX: " << key << ", nBinY: " << value << "] \t[Value: " << cellValue << "]";
 
        statusString = QString::fromStdString(ss.str());
        //ui->cellPropertiesLabel->setText(QString::fromStdString(ss.str()));
@@ -194,8 +194,8 @@ void CentralPlot::drawPlot(const OutputData<double> *data)
 
     this->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
     this->axisRect()->setupFullAxesBox(true);
-    this->xAxis->setLabel("x");
-    this->yAxis->setLabel("y");
+    this->xAxis->setLabel("x-label");
+    this->yAxis->setLabel("y-label");
 
     const IAxis *axis_x = data->getAxis(0);
     const IAxis *axis_y = data->getAxis(1);
@@ -220,7 +220,7 @@ void CentralPlot::drawPlot(const OutputData<double> *data)
 
 
     // add a color scale:
-    QCPColorScale *colorScale = new QCPColorScale(this);
+    colorScale = new QCPColorScale(this);
     this->plotLayout()->addElement(0, 1, colorScale); // add it to the right of the main axis rect
 
     colorScale->setDataScaleType(QCPAxis::stLogarithmic);
@@ -236,10 +236,12 @@ void CentralPlot::drawPlot(const OutputData<double> *data)
     // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
     colorMap->rescaleDataRange();
 
+
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(this);
     this->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
     colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
+    m_colorScaleRange = colorScale->dataRange();
 
 
 //    QCPRange range2 = colorScale->dataRange();
@@ -292,5 +294,12 @@ QString CentralPlot::getStatusString() const
 void CentralPlot::setInterpolate(bool isInterpolate)
 {
     colorMap->setInterpolate(isInterpolate);
+    this->replot();
+}
+
+void CentralPlot::resetView()
+{
+    this->colorMap->rescaleAxes();
+    this->colorScale->setDataRange(m_colorScaleRange);
     this->replot();
 }

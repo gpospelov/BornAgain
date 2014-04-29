@@ -14,6 +14,14 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
+#include "MemberFunctionIntegrator.h"
+
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
+        SimulationParameters sim_params)
+: m_sim_params(sim_params)
+, m_integrate_bin(false)
+{
+}
 
 void IInterferenceFunctionStrategy::init(
         const SafePointerVector<FormFactorInfo>& form_factor_infos,
@@ -26,6 +34,9 @@ void IInterferenceFunctionStrategy::init(
 double IInterferenceFunctionStrategy::evaluate(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
+    if (m_integrate_bin) {
+        return integratedEvaluate(k_i, k_f_bin, alpha_f_bin);
+    }
     calculateFormFactorList(k_i, k_f_bin, alpha_f_bin);
     return evaluateForList(k_i, k_f_bin, m_ff00);
 }
@@ -112,6 +123,62 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
     m_ff01.clear();
     m_ff10.clear();
     m_ff11.clear();
+}
+
+double IInterferenceFunctionStrategy::integratedEvaluate(const cvector_t &k_i,
+    const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin) const
+{
+    cvector_t k_f_00 = k_f_bin.m_q_lower;
+    cvector_t k_f_11 = k_f_bin.m_q_upper;
+    complex_t xy_length0 = k_f_00.magxy();
+    complex_t xy_length1 = k_f_11.magxy();
+    cvector_t k_f_01(k_f_11.x()*xy_length0/xy_length1,
+                     k_f_11.y()*xy_length0/xy_length1,
+                     k_f_00.z());
+    cvector_t k_f_10(k_f_00.x()*xy_length1/xy_length0,
+                     k_f_00.y()*xy_length1/xy_length0,
+                     k_f_11.z());
+    IntegrationParamsAlpha alpha_pars;
+    alpha_pars.k_i = k_i;
+    alpha_pars.k_f00 = k_f_00;
+    alpha_pars.k_f01 = k_f_01;
+    alpha_pars.k_f10 = k_f_10;
+    alpha_pars.k_f11 = k_f_11;
+    alpha_pars.alpha_bin = alpha_f_bin;
+    MemberFunctionIntegrator<IInterferenceFunctionStrategy>::mem_function
+            p_alpha_function = &IInterferenceFunctionStrategy::integratePhi;
+    MemberFunctionIntegrator<IInterferenceFunctionStrategy>
+            alpha_integrator(p_alpha_function, this);
+    double result = alpha_integrator.integrate(0.0, 1.0, (void*)&alpha_pars);
+    return result;
+}
+
+double IInterferenceFunctionStrategy::integratePhi(
+        double zeta, void *params) const
+{
+    IntegrationParamsAlpha* pars = static_cast<IntegrationParamsAlpha*>(params);
+    IntegrationParamsPhi phi_pars;
+    phi_pars.k_i = pars->k_i;
+    phi_pars.k_f0 = pars->k_f00 + zeta*(pars->k_f10 - pars->k_f00);
+    phi_pars.k_f1 = pars->k_f01 + zeta*(pars->k_f11 - pars->k_f01);
+    phi_pars.alpha_bin = pars->alpha_bin;
+    MemberFunctionIntegrator<IInterferenceFunctionStrategy>::mem_function
+        p_phi_function = &IInterferenceFunctionStrategy::evaluate_with_fixed_kf;
+    MemberFunctionIntegrator<IInterferenceFunctionStrategy>
+            phi_integrator(p_phi_function, this);
+    double result = phi_integrator.integrate(0.0, 1.0, (void*)&phi_pars);
+    return result;
+}
+
+double IInterferenceFunctionStrategy::evaluate_with_fixed_kf(
+        double xi, void* params) const
+{
+    IntegrationParamsPhi* pars = static_cast<IntegrationParamsPhi*>(params);
+    cvector_t k_i = pars->k_i;
+    cvector_t k_f = pars->k_f0 + xi*(pars->k_f1 - pars->k_f0);
+    Bin1DCVector k_f_bin(k_f, k_f);
+    calculateFormFactorList(k_i, k_f_bin, pars->alpha_bin);
+    return evaluateForList(k_i, k_f_bin, m_ff00);
 }
 
 

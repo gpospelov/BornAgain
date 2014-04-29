@@ -47,6 +47,7 @@ bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
 {
     QList<QByteArray> property_names = dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
+        qDebug() << "MaterialItem::setMaterialProperty" << QString(property_names[i]);
         if(name == QString(property_names[i])) {
             setProperty(name.toAscii().data(), value);
             return true;
@@ -321,4 +322,13 @@ QString MaterialItem::readProperty(QXmlStreamReader *reader, MaterialItem *item)
     return parameter_name;
 }
 
+
+void MaterialItem::setRefractiveIndex(double delta, double beta)
+{
+    if(!property(MaterialProperties::RefractiveIndex.toAscii().data()).isValid())
+        throw GUIHelpers::Error("MaterialItem::setRefractiveIndex() -> Error! No such property");
+
+    m_sub_items[MaterialProperties::RefractiveIndex]->setMaterialProperty("delta", QString::number(delta));
+    m_sub_items[MaterialProperties::RefractiveIndex]->setMaterialProperty("beta", QString::number(beta));
+}
 

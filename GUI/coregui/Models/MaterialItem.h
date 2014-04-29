@@ -58,6 +58,8 @@ public:
     void readFrom(QXmlStreamReader *reader);
     QString readProperty(QXmlStreamReader *reader, MaterialItem *item);
 
+    void setRefractiveIndex(double delta, double beta);
+
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);
@@ -85,12 +87,12 @@ public:
     RefractiveIndexItem() : MaterialItem(MaterialProperties::RefractiveIndex, MaterialItem::SubItem)
     {
         setProperty("delta", QString("1e-3"));
-        setProperty("gamma", QString("1e-5"));
+        setProperty("beta", QString("1e-5"));
     }
 
     QString getTitleString()
     {
-        return QString("(1.0 - %1, %2)").arg(property("delta").toString(), property("gamma").toString());
+        return QString("(1.0 - %1, %2)").arg(property("delta").toString(), property("beta").toString());
     }
 };
 

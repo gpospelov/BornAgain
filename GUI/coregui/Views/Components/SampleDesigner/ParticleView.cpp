@@ -44,7 +44,6 @@ void ParticleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     QRect textRect( getRectangle().x() + (getRectangle().width()-width)/2., getRectangle().y() + yoffset, width, height );
     painter->drawText(textRect, Qt::AlignCenter, m_label);
 
-    //QRect target(getRectangle().width()/2 - 12, 25, 24, 24);
     QRect target(getRectangle().width()/2 - 16, 25, 32, 32);
     painter->drawPixmap(target, m_pixmap);
 }
@@ -63,7 +62,6 @@ void ParticleView::onPropertyChange(QString propertyName)
     if(propertyName == "Form Factor") {
         FormFactorProperty mp = getParameterizedItem()->property("Form Factor").value<FormFactorProperty>();
         QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(mp.getFormFactorName());
-        qDebug() << "ParticleView::onPropertyChange -> xxx" << mp.getFormFactorName() << filename;
         m_pixmap = QPixmap(filename);
         update();
     } else {

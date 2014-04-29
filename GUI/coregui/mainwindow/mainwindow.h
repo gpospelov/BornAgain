@@ -33,12 +33,13 @@ class MaterialModel;
 class MaterialEditor;
 
 
-//class MainWindow : public QMainWindow
 class MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
     
 public:
+    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab};
+
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
@@ -46,17 +47,16 @@ public:
     MaterialModel *getMaterialModel() { return m_materialModel; }
     SessionModel *getSessionModel() { return m_sessionModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
-
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
+    QSettings *getSettings() const { return m_settings; }
+    ActionManager *getActionManager() { return m_actionManager; }
+    ProjectManager *getProjectManager() { return m_projectManager; }
 
 public slots:
     void onChangeTabWidget(int index);
     void openRecentProject();
     void readSettings();
     void writeSettings();
-    QSettings *getSettings() const;
-    ActionManager *getActionManager() { return m_actionManager; }
-    ProjectManager *getProjectManager() { return m_projectManager; }
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
@@ -88,10 +88,11 @@ private:
     void initSessionModel();
     void initMaterialModel();
 
+    void updateSimModel();
+
     // dummy instrument creator
     Instrument *createDefaultInstrument();
-    ISample *createDefaultSample();
-
+//    ISample *createDefaultSample();
 };
 
 #endif // MAINWINDOW_H

@@ -23,6 +23,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "FormFactors.h"
 
 #endif // SAMPLES_H
 

@@ -14,7 +14,24 @@
 // ************************************************************************** //
 
 #include "TransformToDomain.h"
+#include "MaterialUtils.h"
+#include "GUIHelpers.h"
+#include "FormFactorProperty.h"
+#include "FormFactorItems.h"
+#include <QDebug>
 
+#include <boost/scoped_ptr.hpp>
+
+
+IMaterial *TransformToDomain::createDomainMaterial(const ParameterizedItem &item)
+{
+    QVariant v = item.property("Material");
+    if( !v.isValid() )
+        throw GUIHelpers::Error("TransformToDomain::createDomainMaterial() -> No material property");
+
+    MaterialProperty materialProperty = v.value<MaterialProperty>();
+    return MaterialUtils::createDomainMaterial(materialProperty.getName());
+}
 
 
 MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
@@ -24,7 +41,7 @@ MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
     double cross_corr_length =
             item.property("Cross Correlation Length").toDouble(&ok);
     if (ok) {
-        result->setCrossCorrLength(cross_corr_length);
+        if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
     }
     return result;
 }
@@ -39,6 +56,10 @@ Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
     if (ok) {
         result->setThickness(thickness);
     }
+
+    boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
+    result->setMaterial(*material.get());
+
     return result;
 }
 
@@ -50,3 +71,33 @@ ParticleLayout *TransformToDomain::createParticleLayout(
     ParticleLayout *result = new ParticleLayout();
     return result;
 }
+
+
+Particle *TransformToDomain::createParticle(const ParameterizedItem &item, double &depth, double &abundance)
+{
+    boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
+    Particle *result = new Particle(*material);
+    Q_ASSERT(item.property("Depth").isValid());
+    Q_ASSERT(item.property("Abundance").isValid());
+    depth = item.property("Depth").toDouble();
+    abundance = item.property("Abundance").toDouble();
+
+    ParameterizedItem *ffItem = item.getSubItems()["Form Factor"];
+    Q_ASSERT(ffItem);
+
+    IFormFactor *ff = createFormFactor(*ffItem);
+    result->setSimpleFormFactor(ff);
+
+    return result;
+}
+
+
+IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
+{
+    const FormFactorItem *ffItem = dynamic_cast<const FormFactorItem *>(&item);
+    Q_ASSERT(ffItem);
+    return ffItem->createFormFactor();
+}
+
+
+

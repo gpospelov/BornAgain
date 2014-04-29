@@ -106,8 +106,15 @@ void SimulationView::updateViewElements()
 {
     instrumentSelectionBox->clear();
     instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+
     sampleSelectionBox->clear();
-    sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
+    if(mp_simulation_data_model->getSampleList().isEmpty()) {
+        sampleSelectionBox->addItem("No sample to simulate yet");
+        sampleSelectionBox->setEnabled(false);
+    } else {
+        sampleSelectionBox->setEnabled(true);
+        sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
+    }
 }
 
 void SimulationView::onRunSimulation()
@@ -131,7 +138,7 @@ void SimulationView::onRunSimulation()
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
 
-    QString identifier = m_jobQueueModel->addJob("SimulationView", p_sim);
+    QString identifier = m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim);
     m_jobQueueModel->runJob(identifier);
 }
 

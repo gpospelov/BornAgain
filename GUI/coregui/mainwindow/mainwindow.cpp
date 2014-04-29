@@ -26,6 +26,7 @@
 #include "projectmanager.h"
 #include "progressbar.h"
 #include "SimulationRegistry.h"
+#include "DomainObjectBuilder.h"
 
 #include <QApplication>
 #include <iostream>
@@ -85,18 +86,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_fitView = new FitView();
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
 
-    m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
-    m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
-    m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
+    m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
+    m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
+    m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
-    m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
+    m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
-    m_tabWidget->insertTab(4, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-//    MaterialEditorWidget *materialWidget = new MaterialEditorWidget(m_materialModel, this);
-//    m_tabWidget->insertTab(5, materialWidget, QIcon(":/images/main_jobqueue.png"), "Jobs");
-
-    m_tabWidget->setCurrentIndex(2);
+    m_tabWidget->setCurrentIndex(SampleTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -118,11 +116,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 }
 
+
 MainWindow::~MainWindow()
 {
-//    delete m_actionManager;
-//    delete m_settings;
-//    m_settings = 0;
     delete m_materialEditor;
 }
 
@@ -153,23 +149,6 @@ void MainWindow::writeSettings()
 }
 
 
-QSettings *MainWindow::getSettings() const
-{
-    return m_settings;
-}
-
-//void MainWindow::newProject()
-//{
-//    m_projectManager->createNewProject();
-//}
-
-
-//void MainWindow::openProject()
-//{
-//    m_projectManager->openProject();
-//}
-
-
 void MainWindow::openRecentProject()
 {
     if (const QAction *action = qobject_cast<const QAction*>(sender())) {
@@ -185,7 +164,10 @@ void MainWindow::onChangeTabWidget(int index)
 {
     // update views which depend on others
     (void)index;
-    m_simulationView->updateViewElements();
+    if(index == SimulationTab) {
+        updateSimModel();
+        m_simulationView->updateViewElements();
+    }
 }
 
 
@@ -201,37 +183,37 @@ void MainWindow::initSimModel()
     if (mp_sim_data_model) delete mp_sim_data_model;
     mp_sim_data_model = new SimulationDataModel;
     mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
-    mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
+    //mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
 }
 
 Instrument *MainWindow::createDefaultInstrument()
 {
     Instrument *p_result = new Instrument;
-    p_result->setBeamParameters(0.1*Units::nanometer, 0.4*Units::degree, 0.0);
+    p_result->setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
     p_result->setBeamIntensity(1e7);
-    p_result->setDetectorParameters(100, 0.0, 3.0*Units::degree,
-                                    100, 0.0, 3.0*Units::degree);
+    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+                                    100, 0.0*Units::degree, 2.0*Units::degree);
     return p_result;
 }
 
-ISample *MainWindow::createDefaultSample()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    const IMaterial *mAir = MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
-    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    const IMaterial *mParticle = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(*mAir);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(*mSubstrate);
-    ParticleLayout particle_layout( new Particle(*mParticle, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-    air_layer.setLayout(particle_layout);
+//ISample *MainWindow::createDefaultSample()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    const IMaterial *mAir = MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
+//    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
+//    const IMaterial *mParticle = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
+//    Layer air_layer;
+//    air_layer.setMaterial(*mAir);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(*mSubstrate);
+//    ParticleLayout particle_layout( new Particle(*mParticle, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+//    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
+//    air_layer.setLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
+//    p_multi_layer->addLayer(air_layer);
+//    p_multi_layer->addLayer(substrate_layer);
+//    return p_multi_layer;
+//}
 
 
 void MainWindow::initJobQueueModel()
@@ -254,14 +236,24 @@ void MainWindow::initSessionModel()
     ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
     multilayer->setItemName("MultiLayer1");
 
-    m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
-    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer",
-                   m_sessionModel->indexOfItem(multilayer));
+    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
+    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
+
     ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
                    m_sessionModel->indexOfItem(layer));
-    m_sessionModel->insertNewItem("Particle",m_sessionModel->indexOfItem(layout));
-//    m_sessionModel->insertNewItem("Layer");
-//    m_sessionModel->insertNewItem("Layer");
+
+    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+    particle1->addFormFactorProperty("Form Factor", "Cylinder");
+    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+
+    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+    particle2->addFormFactorProperty("Form Factor", "Prism3");
+    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+
+    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
+                   m_sessionModel->indexOfItem(multilayer));
+    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
+
 
 }
 
@@ -271,12 +263,48 @@ void MainWindow::initMaterialModel()
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-    m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-    m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMagneticMaterial);
-    m_materialModel->save("material.xml");
 
-//    m_materialModel->load("material.xml");
+    MaterialItem *mAir = m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
+    mAir->setRefractiveIndex(0,0);
+
+    MaterialItem *mParticle = m_materialModel->addMaterial("Particle", MaterialItem::HomogeneousMaterial);
+    mParticle->setRefractiveIndex(6e-4, 2e-8);
+
+    MaterialItem *mSubstrate = m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
+    mSubstrate->setRefractiveIndex(6e-6, 2e-8);
 
     m_materialEditor = new MaterialEditor(m_materialModel);
+}
+
+
+void MainWindow::updateSimModel()
+{
+    Q_ASSERT(mp_sim_data_model);
+    Q_ASSERT(m_sessionModel);
+
+    qDebug() << " ";
+    qDebug() << "MainWindow::updateSimModel()" << m_sessionModel->rowCount( QModelIndex() );
+
+    mp_sim_data_model->clear();
+
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
+             qDebug() << item->itemName() << item->modelType();
+             if(item->modelType() == "MultiLayer") {
+                 DomainObjectBuilder builder;
+                 builder.buildItem(*item);
+                 MultiLayer *multilayer = dynamic_cast<MultiLayer *>(builder.getSample());
+                 multilayer->printSampleTree();
+                 if(multilayer) {
+                     mp_sim_data_model->addSample(item->itemName(), multilayer->clone());
+                 }
+             }
+         }
+    }
+
+    mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
 }
 

@@ -377,7 +377,17 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         } else {
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
             if(SampleViewFactory::isValidName(mimeData->getClassName())) {
-                ParameterizedItem *new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
+
+                ParameterizedItem *new_item(0);
+                if(mimeData->getClassName().startsWith("FormFactor")) {
+                    new_item = m_sessionModel->insertNewItem("Particle");
+                    QString ffName = mimeData->getClassName();
+                    ffName.remove("FormFactor");
+                    new_item->addFormFactorProperty("Form Factor", ffName);
+
+                } else {
+                    new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
+                }
 
                 // propagating drop coordinates to ParameterizedItem
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());

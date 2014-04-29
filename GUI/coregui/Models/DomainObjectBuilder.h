@@ -27,7 +27,7 @@ public:
 
     void buildItem(const ParameterizedItem &item);
 
-    const ISample *getSample() const {
+    ISample *getSample() {
         return mp_sample;
     }
 
@@ -35,6 +35,7 @@ private:
     MultiLayer *buildMultiLayer(const ParameterizedItem &item) const;
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
+    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
     ISample *mp_sample;
 };
 

@@ -17,10 +17,14 @@ public:
     static MaterialProperty getMaterialProperty(const QString &name);
     static MaterialProperty selectMaterialProperty();
     static MaterialProperty getDefaultMaterialProperty();
+
+    static MaterialModel *getMaterialModel();
+
 private:
     MaterialProperty this_selectMaterialProperty();
     MaterialProperty this_getMaterialProperty(const QString &name);
     MaterialProperty this_getDefaultMaterialProperty();
+    MaterialModel *this_getMaterialModel();
 
     static MaterialEditor *m_instance;
     MaterialModel *m_materialModel;

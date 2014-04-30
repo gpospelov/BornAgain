@@ -43,11 +43,7 @@ public:
     void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
-public slots:
-    void sceneToISample();
-
 private:
-    DesignerWidgetFactory *m_widgetFactory; //! factory to make views of ISample objects
     DesignerScene *m_designerScene; //! scene which holds all objects
     DesignerView *m_designerView;   //! graphical representation of scene with object
 };

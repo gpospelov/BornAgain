@@ -18,6 +18,9 @@
 
 class GUIObjectBuilder
 {
+public:
+    GUIObjectBuilder(){}
+    ~GUIObjectBuilder(){}
 
 };
 

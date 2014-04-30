@@ -29,6 +29,7 @@
 #include "DomainObjectBuilder.h"
 #include "GUIObjectBuilder.h"
 #include "SampleBuilderFactory.h"
+#include "GUIObjectBuilder.h"
 
 #include <QApplication>
 #include <iostream>
@@ -117,7 +118,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    testGUIObjectBuilder();
+    //testGUIObjectBuilder();
 
 }
 
@@ -302,6 +303,13 @@ void MainWindow::testGUIObjectBuilder()
 
     ISample *sample = builder->buildSample();
     sample->printSampleTree();
+
+    SessionModel *model = new SessionModel();
+
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateModel(model, sample);
+
+    model->save("new_model.xml");
 
 }
 

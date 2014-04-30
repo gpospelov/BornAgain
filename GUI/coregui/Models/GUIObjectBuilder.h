@@ -16,12 +16,34 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-class GUIObjectBuilder
+#include "ISampleVisitor.h"
+#include "Samples.h"
+#include <QMap>
+
+class SessionModel;
+class ParameterizedItem;
+
+class GUIObjectBuilder : public ISampleVisitor
 {
 public:
-    GUIObjectBuilder(){}
+    GUIObjectBuilder();
     ~GUIObjectBuilder(){}
 
+    void populateModel(SessionModel *model, ISample *sample);
+
+    using ISampleVisitor::visit;
+
+    virtual void visit(const ParticleLayout *);
+
+    virtual void visit(const Layer *);
+
+    virtual void visit(const MultiLayer *);
+
+private:
+    SessionModel *m_sessionModel;
+
+    //ParameterizedItem *m_parentItem;
+    QMap<int, ParameterizedItem *> m_levelToParent;
 };
 
 #endif // GUIOBJECTBUILDER_H

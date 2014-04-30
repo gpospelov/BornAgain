@@ -27,9 +27,12 @@ public:
 
 
     void toggleHistogram();
-    void drawPlot(OutputDataItem *m_outputDataItem);
+    void drawPlot(OutputDataItem *outputDataItem);
+    void updatePlot();
 
 
+public slots:
+    void onZaxisRangeChanged(QCPRange newRange);
 
 private slots:
     void mousePress(QMouseEvent*event);
@@ -52,6 +55,9 @@ private:
     PropertyWidget *m_propertyWidget;
     OutputDataToolBar *m_toolBar;
     void connectSignals();
+
+    OutputDataItem *m_outputDataItem;
+
 };
 
 #endif // PLOTWIDGET_H

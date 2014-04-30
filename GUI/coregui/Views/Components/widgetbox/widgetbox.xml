@@ -4,7 +4,7 @@
     <category name="Layers">
         
         
-        <categoryentry  name="Multi Layer" icon="images/sample_vspacer.png">
+        <categoryentry  name="Multi Layer" icon="images/MultiLayer.png">
             <widget class="MultiLayer">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -12,7 +12,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Layer" icon="images/sample_spacer.png">
+        <categoryentry name="Layer" icon="images/Layer.png">
             <widget class="Layer">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -25,28 +25,20 @@
     
     <category name="Particle layouts">
         
-        <categoryentry name="Basic particle layout" icon="images/sample_spacer.png">
+        <categoryentry name="Basic particle layout" icon="images/ParticleLayout.png">
             <widget class="ParticleLayout">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-        
-        <categoryentry  name="Particle Builder" icon="images/sample_vspacer.png">
-            <widget class="ParticleBuilder">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-        
+                
     </category>
     
     
     <category name="Interference functions">
         
-        <categoryentry name="1D paracrystal" icon="images/sample_spacer.png">
+        <categoryentry name="1D paracrystal" icon="images/ParaCrystal1D.png">
             <widget class="InterferenceFunction1DParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -54,7 +46,7 @@
             </widget>
         </categoryentry>
         
-        <categoryentry  name="2D paracrystal" icon="images/sample_vspacer.png">
+        <categoryentry  name="2D paracrystal" icon="images/ParaCrystal2D.png">
             <widget class="InterferenceFunction2DParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>

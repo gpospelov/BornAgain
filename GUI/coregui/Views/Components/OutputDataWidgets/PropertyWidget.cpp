@@ -9,7 +9,8 @@ PropertyWidget::PropertyWidget(QWidget *parent)
     , m_variantManager(new QtVariantPropertyManager(this))
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
 {
-    this->setMaximumWidth(250);
+    maxWidth = 250;
+    this->setMaximumWidth(maxWidth);
 
 
 
@@ -73,6 +74,11 @@ void PropertyWidget::setupPropertyWidget(CentralPlot *centralPlot, OutputDataIte
     property->setValue(outputDataItem->isInterpolated());
     addProperty(property, JobQueueXML::OutputDataInterpolatedAttribute);
 
+}
+
+int PropertyWidget::getWidth()
+{
+    return maxWidth;
 }
 
 void PropertyWidget::addProperty(QtVariantProperty *property, const QString &id)

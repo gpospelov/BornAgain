@@ -20,7 +20,7 @@ public:
     QSize minimumSizeHint() const { return QSize(150, 600); }
 
     void setupPropertyWidget(CentralPlot *centralPlot, OutputDataItem *outputDataItem);
-
+    int getWidth();
 
 private:
     class QtVariantPropertyManager *m_variantManager;
@@ -30,6 +30,7 @@ private:
     QMap<QtProperty *, QString> propertyToId;
     QMap<QString, QtVariantProperty *> idToProperty;
     void addProperty(QtVariantProperty *property, const QString &id);
+    int maxWidth;
 
 
 

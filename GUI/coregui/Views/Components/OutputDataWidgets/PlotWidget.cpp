@@ -72,10 +72,40 @@ PlotWidget::PlotWidget(QWidget *parent)
 void PlotWidget::connectSignals()
 {
     m_toolBar = new OutputDataToolBar(this);
+    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertypanel()));
+    connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
 
 }
 
-//void PlotWidget::togglePropertypanel()
+void PlotWidget::togglePropertypanel()
+{
+    qDebug() << "togglePropertypanel called";
+
+    QList<int> h_sizes_org = this->m_splitter->sizes();
+
+
+    int width = 0;
+
+    if(h_sizes_org.at(1) > 0)
+    {
+        width = 0;
+    }
+    else
+    {
+        width = m_propertyWidget->getWidth();
+    }
+
+    QList<int> h_sizes;
+    h_sizes.append(this->m_splitter->height() - width);
+    h_sizes.append(width);
+    this->m_splitter->setSizes(h_sizes);
+
+}
+
+void PlotWidget::savePlot()
+{
+
+}
 
 void PlotWidget::drawPlot(OutputDataItem *m_outputDataItem)
 {

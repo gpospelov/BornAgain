@@ -327,6 +327,15 @@ void register_FormFactorBox_class(){
                 , default_getHeight_function_type(&FormFactorBox_wrapper::default_getHeight) );
         
         }
+        { //::FormFactorBox::getLength
+        
+            typedef double ( ::FormFactorBox::*getLength_function_type )(  ) const;
+            
+            FormFactorBox_exposer.def( 
+                "getLength"
+                , getLength_function_type( &::FormFactorBox::getLength ) );
+        
+        }
         { //::FormFactorBox::getNumberOfStochasticParameters
         
             typedef int ( ::FormFactorBox::*getNumberOfStochasticParameters_function_type )(  ) const;

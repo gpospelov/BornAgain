@@ -1,5 +1,6 @@
 #include "GUIObjectBuilder.h"
 #include "SessionModel.h"
+#include "Units.h"
 #include <QDebug>
 
 
@@ -98,31 +99,197 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
 }
 
 
+void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "AnisoPyramid");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Width", sample->getWidth());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Alpha", Units::rad2deg(sample->getAlpha()));
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorBox *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Box");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Width", sample->getWidth());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorCone *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Cone");
+    ffItem->setProperty("Radius", sample->getRadius());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Alpha", Units::rad2deg(sample->getAlpha()));
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorCone6 *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Cone6");
+    ffItem->setProperty("Radius", sample->getRadius());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Alpha", Units::rad2deg(sample->getAlpha()));
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorCuboctahedron *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Cuboctahedron");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("HeightRatio", sample->getHeightRatio());
+    ffItem->setProperty("Alpha", Units::rad2deg(sample->getAlpha()));
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
 void GUIObjectBuilder::visit(const FormFactorCylinder *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const FormFactorCylinder *)" << getLevel();
     ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
-
     ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Cylinder");
     ffItem->setProperty("Radius", sample->getRadius());
     ffItem->setProperty("Height", sample->getHeight());
-
     m_levelToParent[getLevel()] = particleItem;
+}
 
+
+void GUIObjectBuilder::visit(const FormFactorEllipsoidalCylinder *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "EllipsoidalCylinder");
+    ffItem->setProperty("Radius_a", sample->getRadiusA());
+    ffItem->setProperty("Radius_b", sample->getRadiusB());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorFullSphere *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "FullSphere");
+    ffItem->setProperty("Radius", sample->getRadius());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorFullSpheroid *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "FullSpheroid");
+    ffItem->setProperty("Radius", sample->getRadius());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorHemiEllipsoid *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "HemiEllipsoid");
+    ffItem->setProperty("Radius_a", sample->getRadiusA());
+    ffItem->setProperty("Radius_b", sample->getRadiusB());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
 }
 
 
 void GUIObjectBuilder::visit(const FormFactorPrism3 *sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const FormFactorPrism3 *)" << getLevel();
     ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
-
     ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Prism3");
     ffItem->setProperty("Length", sample->getLength());
     ffItem->setProperty("Height", sample->getHeight());
-
     m_levelToParent[getLevel()] = particleItem;
+}
 
+
+void GUIObjectBuilder::visit(const FormFactorPrism6 *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Prism6");
+    ffItem->setProperty("Radius", sample->getRadius());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorPyramid *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Pyramid");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Alpha", Units::rad2deg(sample->getAlpha()));
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorRipple1 *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Ripple1");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Width", sample->getWidth());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorRipple2 *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Ripple2");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Width", sample->getWidth());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Asymmetry", sample->getAsymmetry());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorTetrahedron *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "Tetrahedron");
+    ffItem->setProperty("Length", sample->getLength());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Alpha", Units::rad2deg(sample->getAlpha()));
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorTruncatedSphere *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "TruncatedSphere");
+    ffItem->setProperty("Radius", sample->getRadius());
+    ffItem->setProperty("Height", sample->getHeight());
+    m_levelToParent[getLevel()] = particleItem;
+}
+
+
+void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
+{
+    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *ffItem = particleItem->addFormFactorProperty("Form Factor", "TruncatedSpheroid");
+    ffItem->setProperty("Radius", sample->getRadius());
+    ffItem->setProperty("Height", sample->getHeight());
+    ffItem->setProperty("Hfc", sample->getHeightFlattening());
+    m_levelToParent[getLevel()] = particleItem;
 }
 
 

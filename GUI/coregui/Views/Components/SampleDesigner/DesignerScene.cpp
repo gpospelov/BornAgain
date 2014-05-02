@@ -241,7 +241,8 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 //! aligns SampleView's on graphical canvas
 void DesignerScene::alignViews()
 {
-    SampleViewAligner::align(m_orderedViews, QPointF(400,400));
+    //SampleViewAligner::align(m_orderedViews, QPointF(400,400));
+    SampleViewAligner::align(m_orderedViews);
 }
 
 
@@ -397,7 +398,11 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
                 new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
             } else {
-                dropCompleteSample(mimeData->getClassName());
+                ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
+                QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
+                qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
+                topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+                topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
             }
         }
     }
@@ -429,10 +434,11 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
 }
 
 
-void DesignerScene::dropCompleteSample(const QString &name)
+//! create complete sample from domain's standard sample
+ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
 {
     qDebug() << "DesignerScene::dropCompleteSample()" << name;
-    if( !name.startsWith("Example_") ) return;
+    if( !name.startsWith("Example_") ) return 0;
 
     QString exampleName = name;
     exampleName.remove("Example_");
@@ -446,4 +452,5 @@ void DesignerScene::dropCompleteSample(const QString &name)
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateModel(m_sessionModel, sample.get());
 
+    return guiBuilder.getTopItem();
 }

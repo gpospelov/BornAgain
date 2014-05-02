@@ -283,7 +283,7 @@ Ripple2Item::Ripple2Item(ParameterizedItem *parent)
     setProperty("Length", 36.0);
     setProperty("Width", 25.0);
     setProperty("Height", 14.0);
-    setProperty("Assymetry", 3.0);
+    setProperty("Asymmetry", 3.0);
 }
 
 IFormFactor *Ripple2Item::createFormFactor() const
@@ -292,7 +292,7 @@ IFormFactor *Ripple2Item::createFormFactor() const
                 property("Length").toDouble(),
                 property("Width").toDouble(),
                 property("Height").toDouble(),
-                property("Assymetry").toDouble()
+                property("Asymmetry").toDouble()
                 );
 }
 

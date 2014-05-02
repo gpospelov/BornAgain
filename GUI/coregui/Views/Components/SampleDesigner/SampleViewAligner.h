@@ -11,7 +11,7 @@ class SampleViewAligner
 {
 public:
 
-    static void align(QList<IView *> views, QPointF reference);
+    static void align(QList<IView *> views);
 
 private:
     //! returns number of areas on graphics scene

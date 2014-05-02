@@ -33,25 +33,42 @@ public:
 
     using ISampleVisitor::visit;
 
-    void visit(const ParticleLayout *sample);
+    void visit(const ParticleLayout *);
 
-    void visit(const Layer *sample);
+    void visit(const Layer *);
 
     void visit(const LayerInterface *);
 
-    void visit(const MultiLayer *sample);
+    void visit(const MultiLayer *);
 
-    void visit(const Particle *sample);
+    void visit(const Particle *);
 
-    void visit(const ParticleInfo *sample);
+    void visit(const ParticleInfo *);
 
-    void visit(const FormFactorCylinder *sample);
-
-    void visit(const FormFactorPrism3 *sample);
+    void visit(const FormFactorAnisoPyramid *);
+    void visit(const FormFactorBox *);
+    void visit(const FormFactorCone *);
+    void visit(const FormFactorCone6 *);
+    void visit(const FormFactorCuboctahedron *);
+    void visit(const FormFactorCylinder *);
+    void visit(const FormFactorEllipsoidalCylinder *);
+    void visit(const FormFactorFullSphere *);
+    void visit(const FormFactorFullSpheroid *);
+    void visit(const FormFactorHemiEllipsoid *);
+    void visit(const FormFactorPrism3 *);
+    void visit(const FormFactorPrism6 *);
+    void visit(const FormFactorPyramid *);
+    void visit(const FormFactorRipple1 *);
+    void visit(const FormFactorRipple2 *);
+    void visit(const FormFactorTetrahedron *);
+    void visit(const FormFactorTruncatedSphere *);
+    void visit(const FormFactorTruncatedSpheroid *);
 
     void visit(const InterferenceFunctionNone *);
 
     void visit(const LayerRoughness *);
+
+    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
 
 private:
     SessionModel *m_sessionModel;

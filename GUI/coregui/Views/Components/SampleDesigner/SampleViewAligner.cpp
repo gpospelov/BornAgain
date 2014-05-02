@@ -26,8 +26,15 @@ QMap<QString, int> SampleViewAligner::m_typeToArea = initTypeToAreaMap();
 
 
 //! aligns Views according to predefined areas
-void SampleViewAligner::align(QList<IView *> views, QPointF reference)
+void SampleViewAligner::align(QList<IView *> views)
 {
+    if(views.isEmpty()) return;
+
+//    QPointF reference = views.at(0)->pos();
+//    if(reference.isNull()) reference = QPointF(400,400);
+
+    QPointF reference = QPointF(400,400);
+
     //qDebug() << "---------------------------------------";
     //qDebug() << "SampleViewAligner::align()" << reference;
     QMap<int, IView *> areaToView;
@@ -40,7 +47,7 @@ void SampleViewAligner::align(QList<IView *> views, QPointF reference)
 
     for(int i_level = 0; i_level <= getMaximumAreaNumber(); ++i_level) {
         QList<IView *> items = areaToView.values(i_level);
-        //qDebug() << "SampleViewAligner::align() i_level" << i_level << "size" << items.size();
+        qDebug() << "SampleViewAligner::align() i_level" << i_level << "size" << items.size() << reference;
         reference = placeItems(items, reference);
     }
 }

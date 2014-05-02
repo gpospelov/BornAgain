@@ -11,10 +11,13 @@
 #include "NodeEditor.h"
 #include "NodeEditorConnection.h"
 #include "DesignerMimeData.h"
+#include "SampleBuilderFactory.h"
+#include "GUIObjectBuilder.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
+#include <boost/scoped_ptr.hpp>
 
 
 DesignerScene::DesignerScene(QObject *parent)
@@ -393,6 +396,8 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
                 new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
                 new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+            } else {
+                dropCompleteSample(mimeData->getClassName());
             }
         }
     }
@@ -423,3 +428,22 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
     return false;
 }
 
+
+void DesignerScene::dropCompleteSample(const QString &name)
+{
+    qDebug() << "DesignerScene::dropCompleteSample()" << name;
+    if( !name.startsWith("Example_") ) return;
+
+    QString exampleName = name;
+    exampleName.remove("Example_");
+
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+
+    boost::scoped_ptr<ISample> sample(builder->buildSample());
+    sample->printSampleTree();
+
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateModel(m_sessionModel, sample.get());
+
+}

@@ -115,7 +115,7 @@ void ParameterizedItem::setMaterialProperty(MaterialProperty material)
     setProperty("Material", mat_var);
 }
 
-void ParameterizedItem::addFormFactorProperty(const char *name, QString value)
+ParameterizedItem * ParameterizedItem::addFormFactorProperty(const char *name, QString value)
 {
     FormFactorProperty ff_prop(value);
     if (ff_prop.isDefined()) {
@@ -125,4 +125,6 @@ void ParameterizedItem::addFormFactorProperty(const char *name, QString value)
     }
     ParameterizedItem *item = createPropertyItem(name);
     addPropertyItem(name, item);
+    return item;
 }
+

@@ -94,7 +94,7 @@ public:
 
     ParameterizedItem *createPropertyItem(QString name);
 
-    void addFormFactorProperty(const char *name, QString value);
+    ParameterizedItem *addFormFactorProperty(const char *name, QString value);
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 

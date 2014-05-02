@@ -158,6 +158,7 @@ ISample *SampleBuilderFactory::createSample(const std::string& name)
 {
     SampleBuilder_t builder(createItem(name));
     ISample *result = builder->buildSample();
+    result->setName(name);
     return result;
 }
 
@@ -165,5 +166,6 @@ ISample *SampleBuilderFactory::createSample(const std::string& name)
 SampleBuilder_t SampleBuilderFactory::createBuilder(const std::string& name)
 {
     SampleBuilder_t result(createItem(name));
+    result->setName(name);
     return result;
 }

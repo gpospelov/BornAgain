@@ -209,37 +209,14 @@
     <category name="Standard samples">
         
         <categoryentry name="IsGISAXS1 sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs01">
+            <widget class="Example_isgisaxs01">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
 
-        <categoryentry name="IsGISAXS4 1DDL sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs04_1DDL">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-    
-        <categoryentry name="IsGISAXS4 2DDL sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs04_2DDL">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-    
-        <categoryentry name="GUI Test sample" icon="images/sample_layers3.png">
-            <widget class="guitest">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
     </category>
-    
+        
 
 </widgetbox>

@@ -118,7 +118,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    testGUIObjectBuilder();
+    //testGUIObjectBuilder();
 
 }
 
@@ -220,26 +220,26 @@ void MainWindow::initSessionModel()
     delete m_sessionModel;
     m_sessionModel = new SessionModel();
 
-    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
-    multilayer->setItemName("MultiLayer1");
+//    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
+//    multilayer->setItemName("MultiLayer1");
 
-    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
-    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
+//    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
+//    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
 
-    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
-                   m_sessionModel->indexOfItem(layer));
+//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
+//                   m_sessionModel->indexOfItem(layer));
 
-    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-    particle1->addFormFactorProperty("Form Factor", "Cylinder");
-    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+//    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    particle1->addFormFactorProperty("Form Factor", "Cylinder");
+//    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
-    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-    particle2->addFormFactorProperty("Form Factor", "Prism3");
-    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+//    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    particle2->addFormFactorProperty("Form Factor", "Prism3");
+//    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
-    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
-                   m_sessionModel->indexOfItem(multilayer));
-    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
+//    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
+//                   m_sessionModel->indexOfItem(multilayer));
+//    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
 
 
 }
@@ -304,12 +304,12 @@ void MainWindow::testGUIObjectBuilder()
     ISample *sample = builder->buildSample();
     sample->printSampleTree();
 
-    SessionModel *model = new SessionModel();
+    //SessionModel *model = new SessionModel();
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateModel(model, sample);
+    guiBuilder.populateModel(m_sessionModel, sample);
 
-    model->save("new_model.xml");
+    //model->save("new_model.xml");
 
 }
 

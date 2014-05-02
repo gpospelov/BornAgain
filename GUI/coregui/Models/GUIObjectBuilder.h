@@ -33,15 +33,25 @@ public:
 
     using ISampleVisitor::visit;
 
-    virtual void visit(const ParticleLayout *sample);
+    void visit(const ParticleLayout *sample);
 
-    virtual void visit(const Layer *sample);
+    void visit(const Layer *sample);
 
-    virtual void visit(const MultiLayer *sample);
+    void visit(const LayerInterface *);
 
-    virtual void visit(const Particle *sample);
+    void visit(const MultiLayer *sample);
 
-    virtual void visit(const ParticleInfo *sample);
+    void visit(const Particle *sample);
+
+    void visit(const ParticleInfo *sample);
+
+    void visit(const FormFactorCylinder *sample);
+
+    void visit(const FormFactorPrism3 *sample);
+
+    void visit(const InterferenceFunctionNone *);
+
+    void visit(const LayerRoughness *);
 
 private:
     SessionModel *m_sessionModel;

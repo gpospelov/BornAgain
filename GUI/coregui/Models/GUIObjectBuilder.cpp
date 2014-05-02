@@ -1,6 +1,9 @@
 #include "GUIObjectBuilder.h"
 #include "SessionModel.h"
 #include "Units.h"
+#include "MaterialUtils.h"
+#include "MaterialEditor.h"
+#include "MaterialModel.h"
 #include <QDebug>
 
 
@@ -16,8 +19,11 @@ void GUIObjectBuilder::populateModel(SessionModel *model, ISample *sample)
 {
     Q_ASSERT(model);
     Q_ASSERT(sample);
-    qDebug() << "GUIObjectBuilder::populateModel()";
+
+    m_topSampleName = sample->getName().c_str();
     m_sessionModel = model;
+
+    qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
 
     //sample->accept(this);
     VisitSampleTree(*sample, *this);
@@ -32,9 +38,7 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sessionModel->insertNewItem("ParticleLayout", m_sessionModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
-
     m_levelToParent[getLevel()] = item;
-
 }
 
 
@@ -45,11 +49,9 @@ void GUIObjectBuilder::visit(const Layer *sample)
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
-    // TODO: set material
-    // TODO: set thickness
-
+    item->setProperty("Thickness", sample->getThickness());
+    item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
     m_levelToParent[getLevel()] = item;
-
 }
 
 
@@ -78,7 +80,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
 
     ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
     particleItem->setItemName(sample->getName().c_str());
-    // TODO: set material
+    particleItem->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
     m_levelToParent[getLevel()] = particleItem;
 
 }
@@ -93,9 +95,7 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     Q_ASSERT(item);
     item->setProperty("Depth", sample->getDepth());
     item->setProperty("Abundance", sample->getAbundance());
-
     m_levelToParent[getLevel()] = item;
-
 }
 
 
@@ -305,4 +305,25 @@ void GUIObjectBuilder::visit(const LayerRoughness *)
     qDebug() << "GUIObjectBuilder::visit(const LayerRoughness *)" << getLevel();
 
 }
+
+
+MaterialProperty GUIObjectBuilder::createMaterialFromDomain(const IMaterial *material)
+{
+    QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
+
+    MaterialProperty materialProperty = MaterialEditor::getMaterialProperty(materialName);
+    if(materialProperty.isDefined()) return materialProperty;
+
+    MaterialModel *model = MaterialEditor::getMaterialModel();
+
+    if(material->isScalarMaterial()) {
+      MaterialItem *materialItem  = model->addMaterial(materialName, MaterialItem::HomogeneousMaterial);
+      complex_t rindex = material->getRefractiveIndex();
+      materialItem->setRefractiveIndex(1-rindex.real(),rindex.imag());
+      return MaterialUtils::getMaterialProperty(materialItem);
+    }
+
+    return MaterialProperty();
+}
+
 

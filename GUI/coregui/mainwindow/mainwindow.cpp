@@ -299,15 +299,17 @@ void MainWindow::updateSimModel()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+    //SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
 
-    ISample *sample = builder->buildSample();
+    //ISample *sample = builder->buildSample();
+    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
+
     sample->printSampleTree();
 
     //SessionModel *model = new SessionModel();
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateModel(m_sessionModel, sample);
+    guiBuilder.populateModel(m_sessionModel, sample.get());
 
     //model->save("new_model.xml");
 

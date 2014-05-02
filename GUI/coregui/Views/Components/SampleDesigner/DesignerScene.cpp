@@ -444,9 +444,11 @@ ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
     exampleName.remove("Example_");
 
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+//    SampleBuilder_t builder = factory.createBuilder(exampleName.toAscii().data());
 
-    boost::scoped_ptr<ISample> sample(builder->buildSample());
+    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
+
+    //boost::scoped_ptr<ISample> sample(builder->buildSample());
     sample->printSampleTree();
 
     GUIObjectBuilder guiBuilder;

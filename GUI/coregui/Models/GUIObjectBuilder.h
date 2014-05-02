@@ -18,6 +18,7 @@
 
 #include "ISampleVisitor.h"
 #include "Samples.h"
+#include "MaterialProperty.h"
 #include <QMap>
 
 class SessionModel;
@@ -71,10 +72,13 @@ public:
     ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
 
 private:
+    MaterialProperty createMaterialFromDomain(const IMaterial *);
+
     SessionModel *m_sessionModel;
 
-    //ParameterizedItem *m_parentItem;
     QMap<int, ParameterizedItem *> m_levelToParent;
+
+    QString m_topSampleName;
 };
 
 #endif // GUIOBJECTBUILDER_H

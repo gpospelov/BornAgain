@@ -27,7 +27,7 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleLayout *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("MultiLayer", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sessionModel->insertNewItem("ParticleLayout", m_sessionModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
 
     m_levelToParent[getLevel()] = item;
@@ -40,7 +40,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
     qDebug() << "GUIObjectBuilder::visit(const Layer *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("MultiLayer", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     // TODO: set material
     // TODO: set thickness
@@ -77,12 +77,18 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
+    Q_ASSERT(parent);
+    qDebug() << "1.1" << parent->itemName() << m_sessionModel->indexOfItem(parent);
     ParameterizedItem *item = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(parent));
+    qDebug() << "1.2";
+    Q_ASSERT(item);
     item->setItemName(sample->getName().c_str());
     item->setProperty("Depth", sample->getDepth());
     item->setProperty("Abundance", sample->getAbundance());
+    qDebug() << "1.3";
 
     m_levelToParent[getLevel()] = item;
+    qDebug() << "1.4";
 
 }
 

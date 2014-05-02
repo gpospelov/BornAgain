@@ -3,6 +3,7 @@
 #include "SessionModel.h"
 #include "SampleViewFactory.h"
 #include "SampleViewAligner.h"
+#include "SampleViewAligner2.h"
 #include "IView.h"
 #include "LayerView.h"
 #include "ConnectableView.h"
@@ -242,7 +243,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 void DesignerScene::alignViews()
 {
     //SampleViewAligner::align(m_orderedViews, QPointF(400,400));
-    SampleViewAligner::align(m_orderedViews);
+    //SampleViewAligner::align(m_orderedViews);
 }
 
 

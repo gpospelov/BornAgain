@@ -3,21 +3,26 @@
 
 #include <QMap>
 #include <QModelIndex>
+#include <QPointF>
 class DesignerScene;
 class IView;
 class ConnectableView;
+class ParameterizedItem;
 
 class SampleViewAligner2
 {
 public:
-    SampleViewAligner2();
-    void align(DesignerScene *scene);
+    SampleViewAligner2(DesignerScene *scene);
+    void align();
 
-    void updateViews(const QModelIndex & parentIndex = QModelIndex());
+    void updateViews(const QModelIndex & parentIndex = QModelIndex(), QPointF reference = QPointF());
+
+    void alignSample(ParameterizedItem *item, QPointF reference);
 
     void updateForces();
     void calculateForces(ConnectableView *view);
     void advance();
+
 
 private:
 

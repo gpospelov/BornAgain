@@ -26,7 +26,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_sessionModel(0)
     , m_selectionModel(0)
     , m_block_selection(false)
-    , m_aligner(new SampleViewAligner2())
+    , m_aligner(new SampleViewAligner2(this))
 {
     setSceneRect(QRectF(-400, 0, 800, 800));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
@@ -38,6 +38,11 @@ DesignerScene::DesignerScene(QObject *parent)
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
+
+DesignerScene::~DesignerScene()
+{
+    delete m_aligner;
+}
 
 
 void DesignerScene::setSessionModel(SessionModel *model)
@@ -246,7 +251,7 @@ void DesignerScene::alignViews()
     //SampleViewAligner::align(m_orderedViews, QPointF(400,400));
     //SampleViewAligner::align(m_orderedViews);
     //SampleViewAligner2 aligner;
-    m_aligner->align(this);
+    //m_aligner->align();
 }
 
 
@@ -407,6 +412,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
                 topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
                 topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+                alignViews();
             }
         }
     }

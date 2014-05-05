@@ -22,16 +22,15 @@ QMap<QString, int> SampleViewAligner2::m_typeToArea = initTypeToAreaMap2();
 
 
 
-SampleViewAligner2::SampleViewAligner2()
-    : m_scene(0)
+SampleViewAligner2::SampleViewAligner2(DesignerScene *scene)
+    : m_scene(scene)
 {
 
 }
 
 
-void SampleViewAligner2::align(DesignerScene *scene)
+void SampleViewAligner2::align()
 {
-    m_scene = scene;
 
     m_views.clear();
     m_connectedViews.clear();
@@ -67,18 +66,18 @@ void SampleViewAligner2::calculateForces(ConnectableView *view)
 
     double C = 0.2;
     foreach(ConnectableView *other, m_views) {
-//        QPointF vec = view->mapToItem(other, other->boundingRect().center());
-//        qreal dx = view->boundingRect().center().x() - vec.x();
-//        qreal dy = view->boundingRect().center().y() - vec.y();
-        QPointF vec = view->mapToItem(other, 0, 0);
-        qreal dx = vec.x();
-        qreal dy = vec.y();
+        QPointF vec = view->mapToItem(other, other->boundingRect().center());
+        qreal dx = view->boundingRect().center().x() - vec.x();
+        qreal dy = view->boundingRect().center().y() - vec.y();
+//        QPointF vec = view->mapToItem(other, 0, 0);
+//        qreal dx = vec.x();
+//        qreal dy = vec.y();
 
         double l = (dx * dx + dy * dy);
         qDebug() << "    " << view->getParameterizedItem()->itemName() << other->getParameterizedItem()->itemName() << l;
         if (l > 0) {
-            xvel += (dx * 200.0) / l;
-            yvel += (dy * 200.0) / l;
+            xvel -= (dx * 200.0) / l;
+            yvel -= (dy * 200.0) / l;
         }
     }
     qDebug() << "pushing: xvel, yvel" << xvel << yvel ;
@@ -86,19 +85,19 @@ void SampleViewAligner2::calculateForces(ConnectableView *view)
     // pulling forces (attractive forces)
     double weight(100.0);
     foreach(ConnectableView *other, getConnectedViews(view)) {
-//        QPointF vec = view->mapToItem(other, other->boundingRect().center());
-//        qreal dx = view->boundingRect().center().x() - vec.x();
-//        qreal dy = view->boundingRect().center().y() - vec.y();
-        QPointF vec = view->mapToItem(other, 0, 0);
-        qreal dx = vec.x();
-        qreal dy = vec.y();
+        QPointF vec = view->mapToItem(other, other->boundingRect().center());
+        qreal dx = view->boundingRect().center().x() - vec.x();
+        qreal dy = view->boundingRect().center().y() - vec.y();
+//        QPointF vec = view->mapToItem(other, 0, 0);
+//        qreal dx = vec.x();
+//        qreal dy = vec.y();
         //qreal dx = vec.x();
         //qreal dy = vec.y();
         double l = (dx * dx + dy * dy);
 //        xvel += dx / weight;
 //        yvel += dy / weight;
-        xvel -= dx/weight;
-        yvel -= dy/weight;
+        xvel += dx/weight;
+        yvel += dy/weight;
         qDebug() << "     pull_forces" << view->getParameterizedItem()->itemName() << other->getParameterizedItem()->itemName() << vec.x() << vec.y();
     }
     qDebug() << "       pulling (attracting): xvel, yvel" << xvel << yvel;
@@ -117,7 +116,7 @@ void SampleViewAligner2::advance()
 }
 
 
-void SampleViewAligner2::updateViews(const QModelIndex & parentIndex)
+void SampleViewAligner2::updateViews(const QModelIndex & parentIndex, QPointF reference)
 {
     Q_ASSERT(m_scene);
     SessionModel *sessionModel = m_scene->getSessionModel();
@@ -126,33 +125,53 @@ void SampleViewAligner2::updateViews(const QModelIndex & parentIndex)
 
     if(!parentIndex.isValid()) {
         qDebug() << "Dumping model";
-
     }
 
-    QPointF reference(0,200);
+    //QPointF reference(0,200);
+    QPointF new_reference;
 
     for( int i_row = 0; i_row < sessionModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sessionModel->index( i_row, 0, parentIndex );
 
          if (ParameterizedItem *item = sessionModel->itemForIndex(itemIndex)){
-            qDebug() << "     " << i_row << item->itemName() << item->modelType() << item->childItemCount();
+             qDebug() << "     " << i_row << item->itemName() << item->modelType() << item->childItemCount() <<  "reference: " << reference;
 
             IView *view = m_scene->getViewForItem(item);
 
-            if(view && !view->parentObject()) {
+            if(view) {
+                qDebug() << " view->pos() " << view->pos();
+
+                if(reference.isNull()) reference = view->pos();
+
                 Q_ASSERT(dynamic_cast<ConnectableView *>(view));
-                int level = m_typeToArea[item->modelType()];
-                view->setPos(reference + QPointF(-level*100, 100*i_row));
+                //int level = m_typeToArea[item->modelType()];
+
                 m_views.append(dynamic_cast<ConnectableView *>(view));
+
+                //if(view->pos().isNull()) {
+                if(!view->parentObject()) {
+                    view->setPos(reference + QPointF(-140, 150*i_row));
+                }
+                new_reference = view->mapToScene(view->pos());
+                qDebug() << "   reference" << reference << new_reference;
+
             }
 
          } else {
              qDebug() << "not a parameterized graphics item";
          }
 
-         updateViews( itemIndex);
+         updateViews( itemIndex, new_reference);
      }
 }
+
+
+
+void SampleViewAligner2::alignSample(ParameterizedItem *item, QPointF reference)
+{
+
+}
+
 
 
 QList<ConnectableView *> SampleViewAligner2::getConnectedViews(ConnectableView *view)

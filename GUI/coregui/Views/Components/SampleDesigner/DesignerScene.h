@@ -24,7 +24,7 @@ class DesignerScene : public QGraphicsScene
 
 public:
     explicit DesignerScene(QObject *parent = 0);
-    virtual ~DesignerScene(){}
+    virtual ~DesignerScene();
 
     void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);

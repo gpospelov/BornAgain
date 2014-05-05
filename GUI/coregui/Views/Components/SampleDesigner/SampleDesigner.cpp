@@ -3,8 +3,7 @@
 #include "DesignerView.h"
 #include "MultiLayerView.h"
 #include "ISample.h"
-
-#include "SamplePrintVisitor.h"
+#include <QDebug>
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
@@ -32,3 +31,9 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
     if(model) m_designerScene->setSelectionModel(model);
 }
 
+
+void SampleDesigner::sceneToISample()
+{
+    qDebug() << "SampleDesigner::sceneToISample()";
+    m_designerScene->align();
+}

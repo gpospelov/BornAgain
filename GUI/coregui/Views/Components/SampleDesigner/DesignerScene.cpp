@@ -26,6 +26,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_sessionModel(0)
     , m_selectionModel(0)
     , m_block_selection(false)
+    , m_aligner(new SampleViewAligner2())
 {
     setSceneRect(QRectF(-400, 0, 800, 800));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
@@ -244,8 +245,8 @@ void DesignerScene::alignViews()
 {
     //SampleViewAligner::align(m_orderedViews, QPointF(400,400));
     //SampleViewAligner::align(m_orderedViews);
-    SampleViewAligner2 aligner;
-    aligner.align(this);
+    //SampleViewAligner2 aligner;
+    m_aligner->align(this);
 }
 
 
@@ -458,4 +459,11 @@ ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
     guiBuilder.populateModel(m_sessionModel, sample.get());
 
     return guiBuilder.getTopItem();
+}
+
+
+void DesignerScene::align()
+{
+    m_aligner->updateForces();
+    m_aligner->advance();
 }

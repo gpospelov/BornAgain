@@ -14,6 +14,7 @@ class IView;
 class QItemSelection;
 class NodeEditorConnection;
 class DesignerMimeData;
+class SampleViewAligner2;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -29,6 +30,10 @@ public:
     void setSelectionModel(QItemSelectionModel *model);
 
     SessionModel *getSessionModel() { return m_sessionModel; }
+
+    IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
+
+    void align();
 
 public slots:
     void onSceneSelectionChanged();
@@ -50,11 +55,13 @@ public slots:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void dropEvent(QGraphicsSceneDragDropEvent *event);
 
+
 protected:
     void drawForeground(QPainter* painter, const QRectF& rect);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
 private:
+
     IView *addViewForItem(ParameterizedItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
     void deleteViews(const QModelIndex & parentIndex);
@@ -76,6 +83,8 @@ private:
 
     QLineF m_layer_interface_line;
     //!< foreground line representing appropriate interface during lauer's movement
+
+    SampleViewAligner2 *m_aligner;
 };
 
 

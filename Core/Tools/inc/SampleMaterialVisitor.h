@@ -31,6 +31,8 @@ public:
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
+    using ISampleVisitor::visit;
+
     virtual void visit(const ISample *sample);
 
     virtual void visit(const ICompositeSample *sample);

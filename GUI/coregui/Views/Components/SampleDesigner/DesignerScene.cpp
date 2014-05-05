@@ -244,6 +244,8 @@ void DesignerScene::alignViews()
 {
     //SampleViewAligner::align(m_orderedViews, QPointF(400,400));
     //SampleViewAligner::align(m_orderedViews);
+    SampleViewAligner2 aligner;
+    aligner.align(this);
 }
 
 

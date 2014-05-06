@@ -10,13 +10,13 @@
 
 QColor MaterialUtils::suggestMaterialColor(const QString &name)
 {
-    if(name == QStringLiteral("Air") ) {
+    if(name.contains("Air") ) {
         return QColor(179, 242, 255);
-    } else if(name == QStringLiteral("Substrate") ) {
+    } else if(name.contains("Substrate") ) {
         return QColor(205,102,0);
-    } else if ( name == QStringLiteral("Default") ) {
+    } else if ( name.contains("Default") ) {
         return QColor(Qt::green);
-    } else if ( name == QStringLiteral("Particle") ) {
+    } else if ( name.contains("Particle") ) {
         return QColor(146, 198, 255);
     }
     return DesignerHelper::getRandomColor();

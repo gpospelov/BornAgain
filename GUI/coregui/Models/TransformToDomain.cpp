@@ -102,4 +102,19 @@ IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
 }
 
 
+IInterferenceFunction *TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
+{
+    IInterferenceFunction *result(0);
+
+    if(item.modelType() == "InterferenceFunction1DParaCrystal") {
+        result = new InterferenceFunction1DParaCrystal(
+                    item.property("PeakDistance").toDouble(),
+                    item.property("Width").toDouble(),
+                    item.property("CorrLength").toDouble()
+                    );
+    }
+
+    return result;
+}
+
 

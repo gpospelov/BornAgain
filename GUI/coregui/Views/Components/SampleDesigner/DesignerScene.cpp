@@ -3,7 +3,6 @@
 #include "SessionModel.h"
 #include "SampleViewFactory.h"
 #include "SampleViewAligner.h"
-#include "SampleViewAligner2.h"
 #include "IView.h"
 #include "LayerView.h"
 #include "ConnectableView.h"
@@ -26,7 +25,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_sessionModel(0)
     , m_selectionModel(0)
     , m_block_selection(false)
-    , m_aligner(new SampleViewAligner2(this))
+    , m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-400, 0, 800, 800));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
@@ -100,7 +99,6 @@ void DesignerScene::resetScene()
 {
     qDebug() << "DesignerScene::resetScene()";
     clear();
-    m_orderedViews.clear();
     m_ItemToView.clear();
     m_layer_interface_line = QLineF();
 }
@@ -109,7 +107,6 @@ void DesignerScene::resetScene()
 void DesignerScene::updateScene()
 {
     qDebug() << "DesignerScene::updateScene()";
-    m_orderedViews.clear();
     updateViews();
     alignViews();
 }
@@ -117,14 +114,12 @@ void DesignerScene::updateScene()
 
 void DesignerScene::onRowsInserted(const QModelIndex &/* parent */, int /* first */, int /* last */ )
 {
-    //qDebug() << "DesignerScene::onRowsInserted()" << parent;
     updateScene();
 }
 
 
 void DesignerScene::onRowsRemoved(const QModelIndex &/* parent */, int /* first */, int /* last */)
 {
-    //qDebug() << "DesignerScene::onRowsRemoved()" << parent;
     updateScene();
 }
 
@@ -207,7 +202,6 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
 
                 childView = addViewForItem(item);
                 if(childView) {
-                    m_orderedViews.push_back(childView);
                     if(parentView) parentView->addView(childView, i_row);
                 }
 

@@ -14,7 +14,7 @@ class IView;
 class QItemSelection;
 class NodeEditorConnection;
 class DesignerMimeData;
-class SampleViewAligner2;
+class SampleViewAligner;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -77,14 +77,10 @@ private:
     QMap<ParameterizedItem *, IView *> m_ItemToView;
     //!< COrrespondance of model's item and scene's view
 
-    QList<IView *> m_orderedViews;
-    //!< helper list of views in the order corresponding items appearing in
-    //!< the model for alignment purposes
-
     QLineF m_layer_interface_line;
     //!< foreground line representing appropriate interface during lauer's movement
 
-    SampleViewAligner2 *m_aligner;
+    SampleViewAligner *m_aligner;
 };
 
 

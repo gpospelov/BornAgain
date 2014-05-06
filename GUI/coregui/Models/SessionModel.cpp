@@ -496,6 +496,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
                                           ParameterizedItem *item) const
 {
+    Q_ASSERT(item);
     if (item != m_root_item) {
         writer->writeStartElement(SessionXML::ItemTag);
         writer->writeAttribute(SessionXML::ModelTypeAttribute,

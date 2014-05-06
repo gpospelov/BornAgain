@@ -643,15 +643,15 @@ void WidgetBoxTreeWidget::writeCategories(QXmlStreamWriter &writer, const Catego
 //    return -1;
 //}
 
-static inline bool isValidIcon(const QIcon &icon)
-{
-    if (!icon.isNull()) {
-        const QList<QSize> availableSizes = icon.availableSizes();
-        if (!availableSizes.empty())
-            return !availableSizes.front().isEmpty();
-    }
-    return false;
-}
+//static inline bool isValidIcon(const QIcon &icon)
+//{
+//    if (!icon.isNull()) {
+//        const QList<QSize> availableSizes = icon.availableSizes();
+//        if (!availableSizes.empty())
+//            return !availableSizes.front().isEmpty();
+//    }
+//    return false;
+//}
 
 WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() const
 {

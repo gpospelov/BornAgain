@@ -50,8 +50,8 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 //    Manhattan::StyledSeparator *sep = new Manhattan::StyledSeparator(this);
 //    addWidget(new Manhattan::StyledSeparator());
 
-    m_sceneToISampleAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Generate ISample"), this);
-    connect(m_sceneToISampleAction, SIGNAL(triggered()), this, SIGNAL(sceneToISample()));
+    m_sceneToISampleAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Smart align"), this);
+    connect(m_sceneToISampleAction, SIGNAL(triggered()), this, SIGNAL(smartAlign()));
     addAction(m_sceneToISampleAction);
 
 

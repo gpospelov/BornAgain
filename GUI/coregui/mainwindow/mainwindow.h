@@ -88,6 +88,8 @@ private:
     void initSessionModel();
     void initMaterialModel();
 
+    void testGUIObjectBuilder();
+
     void updateSimModel();
 
     // dummy instrument creator

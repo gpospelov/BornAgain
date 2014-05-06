@@ -49,16 +49,16 @@ struct FormFactorRipple2_wrapper : FormFactorRipple2, bp::wrapper< FormFactorRip
         return FormFactorRipple2::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual double getAsymetry(  ) const  {
-        if( bp::override func_getAsymetry = this->get_override( "getAsymetry" ) )
-            return func_getAsymetry(  );
+    virtual double getAsymmetry(  ) const  {
+        if( bp::override func_getAsymmetry = this->get_override( "getAsymmetry" ) )
+            return func_getAsymmetry(  );
         else
-            return this->FormFactorRipple2::getAsymetry(  );
+            return this->FormFactorRipple2::getAsymmetry(  );
     }
     
     
-    double default_getAsymetry(  ) const  {
-        return FormFactorRipple2::getAsymetry( );
+    double default_getAsymmetry(  ) const  {
+        return FormFactorRipple2::getAsymmetry( );
     }
 
     virtual double getHeight(  ) const  {
@@ -352,15 +352,15 @@ void register_FormFactorRipple2_class(){
                 , ( bp::arg("q") ) );
         
         }
-        { //::FormFactorRipple2::getAsymetry
+        { //::FormFactorRipple2::getAsymmetry
         
-            typedef double ( ::FormFactorRipple2::*getAsymetry_function_type )(  ) const;
-            typedef double ( FormFactorRipple2_wrapper::*default_getAsymetry_function_type )(  ) const;
+            typedef double ( ::FormFactorRipple2::*getAsymmetry_function_type )(  ) const;
+            typedef double ( FormFactorRipple2_wrapper::*default_getAsymmetry_function_type )(  ) const;
             
             FormFactorRipple2_exposer.def( 
-                "getAsymetry"
-                , getAsymetry_function_type(&::FormFactorRipple2::getAsymetry)
-                , default_getAsymetry_function_type(&FormFactorRipple2_wrapper::default_getAsymetry) );
+                "getAsymmetry"
+                , getAsymmetry_function_type(&::FormFactorRipple2::getAsymmetry)
+                , default_getAsymmetry_function_type(&FormFactorRipple2_wrapper::default_getAsymmetry) );
         
         }
         { //::FormFactorRipple2::getHeight

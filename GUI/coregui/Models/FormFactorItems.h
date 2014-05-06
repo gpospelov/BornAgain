@@ -19,7 +19,6 @@
 #include "ParameterizedItem.h"
 class IFormFactor;
 
-
 class FormFactorItem : public ParameterizedItem
 {
     Q_OBJECT

@@ -13,8 +13,6 @@ public:
 
     InterferenceFunctionView(QGraphicsItem *parent = 0);
 
-    virtual void accept(IViewVisitor *visitor) { visitor->visit(this); }
-
     int type() const { return Type; }
 };
 
@@ -32,9 +30,6 @@ public:
     enum { Type = DesignerHelper::InterferenceFunction1DParaType };
 
     InterferenceFunction1DParaCrystalView(QGraphicsItem *parent = 0);
-
-    //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(IViewVisitor *visitor) { visitor->visit(this); }
 
     int type() const { return Type; }
 

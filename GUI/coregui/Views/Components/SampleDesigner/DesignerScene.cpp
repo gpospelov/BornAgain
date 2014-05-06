@@ -11,10 +11,13 @@
 #include "NodeEditor.h"
 #include "NodeEditorConnection.h"
 #include "DesignerMimeData.h"
+#include "SampleBuilderFactory.h"
+#include "GUIObjectBuilder.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
+#include <boost/scoped_ptr.hpp>
 
 
 DesignerScene::DesignerScene(QObject *parent)
@@ -22,6 +25,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_sessionModel(0)
     , m_selectionModel(0)
     , m_block_selection(false)
+    , m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-400, 0, 800, 800));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
@@ -33,6 +37,11 @@ DesignerScene::DesignerScene(QObject *parent)
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
+
+DesignerScene::~DesignerScene()
+{
+    delete m_aligner;
+}
 
 
 void DesignerScene::setSessionModel(SessionModel *model)
@@ -90,7 +99,6 @@ void DesignerScene::resetScene()
 {
     qDebug() << "DesignerScene::resetScene()";
     clear();
-    m_orderedViews.clear();
     m_ItemToView.clear();
     m_layer_interface_line = QLineF();
 }
@@ -99,7 +107,6 @@ void DesignerScene::resetScene()
 void DesignerScene::updateScene()
 {
     qDebug() << "DesignerScene::updateScene()";
-    m_orderedViews.clear();
     updateViews();
     alignViews();
 }
@@ -107,14 +114,12 @@ void DesignerScene::updateScene()
 
 void DesignerScene::onRowsInserted(const QModelIndex &/* parent */, int /* first */, int /* last */ )
 {
-    //qDebug() << "DesignerScene::onRowsInserted()" << parent;
     updateScene();
 }
 
 
 void DesignerScene::onRowsRemoved(const QModelIndex &/* parent */, int /* first */, int /* last */)
 {
-    //qDebug() << "DesignerScene::onRowsRemoved()" << parent;
     updateScene();
 }
 
@@ -197,7 +202,6 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
 
                 childView = addViewForItem(item);
                 if(childView) {
-                    m_orderedViews.push_back(childView);
                     if(parentView) parentView->addView(childView, i_row);
                 }
 
@@ -238,7 +242,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 //! aligns SampleView's on graphical canvas
 void DesignerScene::alignViews()
 {
-    SampleViewAligner::align(m_orderedViews, QPointF(400,400));
+    m_aligner->alignSample(QModelIndex(), QPointF(200,200));
 }
 
 
@@ -393,6 +397,14 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
                 new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
                 new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+            } else {
+                ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
+                QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
+                //qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
+                //topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+                //topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+                QPointF reference(event->scenePos().x()-boundingRect.width()/2, event->scenePos().y()-boundingRect.height()/2);
+                m_aligner->alignSample(topItem, reference, true);
             }
         }
     }
@@ -423,3 +435,32 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
     return false;
 }
 
+
+//! create complete sample from domain's standard sample
+ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
+{
+    qDebug() << "DesignerScene::dropCompleteSample()" << name;
+    if( !name.startsWith("Example_") ) return 0;
+
+    QString exampleName = name;
+    exampleName.remove("Example_");
+
+    SampleBuilderFactory factory;
+//    SampleBuilder_t builder = factory.createBuilder(exampleName.toAscii().data());
+
+    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
+
+    //boost::scoped_ptr<ISample> sample(builder->buildSample());
+    sample->printSampleTree();
+
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateModel(m_sessionModel, sample.get());
+
+    return guiBuilder.getTopItem();
+}
+
+
+void DesignerScene::onSmartAlign()
+{
+    m_aligner->smartAlign();
+}

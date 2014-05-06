@@ -14,6 +14,7 @@ class IView;
 class QItemSelection;
 class NodeEditorConnection;
 class DesignerMimeData;
+class SampleViewAligner;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -23,12 +24,14 @@ class DesignerScene : public QGraphicsScene
 
 public:
     explicit DesignerScene(QObject *parent = 0);
-    virtual ~DesignerScene(){}
+    virtual ~DesignerScene();
 
     void setSessionModel(SessionModel *model);
     void setSelectionModel(QItemSelectionModel *model);
 
     SessionModel *getSessionModel() { return m_sessionModel; }
+
+    IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
 
 public slots:
     void onSceneSelectionChanged();
@@ -50,17 +53,22 @@ public slots:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void dropEvent(QGraphicsSceneDragDropEvent *event);
 
+    void onSmartAlign();
+
+
 protected:
     void drawForeground(QPainter* painter, const QRectF& rect);
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
 private:
+
     IView *addViewForItem(ParameterizedItem *item);
     void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
     void deleteViews(const QModelIndex & parentIndex);
     void alignViews();
     void removeItemViewFromScene(ParameterizedItem *item);
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
+    ParameterizedItem *dropCompleteSample(const QString &name);
 
     SessionModel *m_sessionModel;
     QItemSelectionModel *m_selectionModel;
@@ -69,12 +77,10 @@ private:
     QMap<ParameterizedItem *, IView *> m_ItemToView;
     //!< COrrespondance of model's item and scene's view
 
-    QList<IView *> m_orderedViews;
-    //!< helper list of views in the order corresponding items appearing in
-    //!< the model for alignment purposes
-
     QLineF m_layer_interface_line;
     //!< foreground line representing appropriate interface during lauer's movement
+
+    SampleViewAligner *m_aligner;
 };
 
 

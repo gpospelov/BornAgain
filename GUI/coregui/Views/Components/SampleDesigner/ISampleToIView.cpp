@@ -5,7 +5,6 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "ParticleLayoutView.h"
-#include "FormFactorView.h"
 #include "Particle.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
@@ -233,11 +232,11 @@ void ISampleToIView::visit(const FormFactorCrystal *)
 }
 
 
-void ISampleToIView::visit(const FormFactorCylinder *sample)
+void ISampleToIView::visit(const FormFactorCylinder *)
 {
-    FormFactorCylinderView *view = new FormFactorCylinderView();
-    view->setFormFactor(sample->clone());
-    m_sample_to_view[sample] = view;
+//    FormFactorCylinderView *view = new FormFactorCylinderView();
+//    view->setFormFactor(sample->clone());
+//    m_sample_to_view[sample] = view;
 }
 
 
@@ -247,11 +246,11 @@ void ISampleToIView::visit(const FormFactorEllipsoidalCylinder *)
 }
 
 
-void ISampleToIView::visit(const FormFactorFullSphere *sample)
+void ISampleToIView::visit(const FormFactorFullSphere *)
 {
-    FormFactorFullSphereView *view = new FormFactorFullSphereView();
-    view->setFormFactor(sample->clone());
-    m_sample_to_view[sample] = view;
+//    FormFactorFullSphereView *view = new FormFactorFullSphereView();
+//    view->setFormFactor(sample->clone());
+//    m_sample_to_view[sample] = view;
 }
 
 
@@ -284,11 +283,11 @@ void ISampleToIView::visit(const FormFactorLorentz *)
 }
 
 
-void ISampleToIView::visit(const FormFactorPrism3 *sample)
+void ISampleToIView::visit(const FormFactorPrism3 *)
 {
-    FormFactorPrism3View *view = new FormFactorPrism3View();
-    view->setFormFactor(sample->clone());
-    m_sample_to_view[sample] = view;
+//    FormFactorPrism3View *view = new FormFactorPrism3View();
+//    view->setFormFactor(sample->clone());
+//    m_sample_to_view[sample] = view;
 }
 
 
@@ -302,11 +301,11 @@ void ISampleToIView::visit(const FormFactorPrism6 *)
 }
 
 
-void ISampleToIView::visit(const FormFactorPyramid *sample)
+void ISampleToIView::visit(const FormFactorPyramid *)
 {
-    FormFactorPyramidView *view = new FormFactorPyramidView();
-    view->setFormFactor(sample->clone());
-    m_sample_to_view[sample] = view;
+//    FormFactorPyramidView *view = new FormFactorPyramidView();
+//    view->setFormFactor(sample->clone());
+//    m_sample_to_view[sample] = view;
 }
 
 void ISampleToIView::visit(const FormFactorRipple1 *)

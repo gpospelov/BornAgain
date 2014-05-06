@@ -161,6 +161,7 @@ public:
     ~QtVariantEditorFactory();
 protected:
     void connectPropertyManager(QtVariantPropertyManager *manager);
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
     void disconnectPropertyManager(QtVariantPropertyManager *manager);

@@ -45,7 +45,7 @@ public:
     virtual double getHeight() const { return m_height; }
     virtual double getWidth() const { return m_width; }
     virtual double getLength() const { return m_length; }
-    virtual double getAsymetry() const { return m_d; }
+    virtual double getAsymmetry() const { return m_d; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

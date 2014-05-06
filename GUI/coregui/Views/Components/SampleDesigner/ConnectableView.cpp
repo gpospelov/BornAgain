@@ -180,4 +180,3 @@ QList<ConnectableView *> ConnectableView::getConnectedInputItems() const
     return result;
 }
 
-

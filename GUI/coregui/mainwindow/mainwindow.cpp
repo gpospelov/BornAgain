@@ -27,6 +27,9 @@
 #include "progressbar.h"
 #include "SimulationRegistry.h"
 #include "DomainObjectBuilder.h"
+#include "GUIObjectBuilder.h"
+#include "SampleBuilderFactory.h"
+#include "GUIObjectBuilder.h"
 
 #include <QApplication>
 #include <iostream>
@@ -114,6 +117,9 @@ MainWindow::MainWindow(QWidget *parent)
     readSettings();
 
     m_projectManager->createNewProject();
+
+    testGUIObjectBuilder();
+
 }
 
 
@@ -196,25 +202,6 @@ Instrument *MainWindow::createDefaultInstrument()
     return p_result;
 }
 
-//ISample *MainWindow::createDefaultSample()
-//{
-//    MultiLayer *p_multi_layer = new MultiLayer();
-//    const IMaterial *mAir = MaterialManager::getHomogeneousMaterial("Air", 0., 0.);
-//    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("Substrate", 6e-6, 2e-8);
-//    const IMaterial *mParticle = MaterialManager::getHomogeneousMaterial("Particle", 6e-4, 2e-8);
-//    Layer air_layer;
-//    air_layer.setMaterial(*mAir);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(*mSubstrate);
-//    ParticleLayout particle_layout( new Particle(*mParticle, FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-//    particle_layout.addInterferenceFunction(new InterferenceFunctionNone());
-//    air_layer.setLayout(particle_layout);
-
-//    p_multi_layer->addLayer(air_layer);
-//    p_multi_layer->addLayer(substrate_layer);
-//    return p_multi_layer;
-//}
-
 
 void MainWindow::initJobQueueModel()
 {
@@ -233,26 +220,26 @@ void MainWindow::initSessionModel()
     delete m_sessionModel;
     m_sessionModel = new SessionModel();
 
-    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
-    multilayer->setItemName("MultiLayer1");
+//    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
+//    multilayer->setItemName("MultiLayer1");
 
-    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
-    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
+//    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
+//    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
 
-    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
-                   m_sessionModel->indexOfItem(layer));
+//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
+//                   m_sessionModel->indexOfItem(layer));
 
-    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-    particle1->addFormFactorProperty("Form Factor", "Cylinder");
-    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+//    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    particle1->addFormFactorProperty("Form Factor", "Cylinder");
+//    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
-    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-    particle2->addFormFactorProperty("Form Factor", "Prism3");
-    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+//    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    particle2->addFormFactorProperty("Form Factor", "Prism3");
+//    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
-    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
-                   m_sessionModel->indexOfItem(multilayer));
-    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
+//    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
+//                   m_sessionModel->indexOfItem(multilayer));
+//    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
 
 
 }
@@ -306,5 +293,25 @@ void MainWindow::updateSimModel()
     }
 
     mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
+}
+
+
+void MainWindow::testGUIObjectBuilder()
+{
+    SampleBuilderFactory factory;
+    //SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+
+    //ISample *sample = builder->buildSample();
+    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
+
+    sample->printSampleTree();
+
+    //SessionModel *model = new SessionModel();
+
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateModel(m_sessionModel, sample.get());
+
+    //model->save("new_model.xml");
+
 }
 

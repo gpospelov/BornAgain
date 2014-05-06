@@ -5,7 +5,7 @@
         <file>images/sample_editvlayout.png</file>
         <file>images/sample_spacer.png</file>
         <file>images/sample_vspacer.png</file>
-        <file>images/sample_layers2.png</file>        
+        <file>images/sample_layers2.png</file>
         <file>images/ff_anisopyramid_32.png</file>
         <file>images/ff_box_32.png</file>
         <file>images/ff_cone_32.png</file>
@@ -24,5 +24,11 @@
         <file>images/ff_tetrahedron_32.png</file>
         <file>images/ff_truncsphere_32.png</file>
         <file>images/ff_truncspheroid_32.png</file>
+        <file>images/sample_layers3.png</file>
+        <file>images/MultiLayer.png</file>
+        <file>images/Layer.png</file>
+        <file>images/ParaCrystal2D.png</file>
+        <file>images/ParaCrystal1D.png</file>
+        <file>images/ParticleLayout.png</file>
     </qresource>
 </RCC>

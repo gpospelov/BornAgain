@@ -18,12 +18,14 @@
 
 #include "ISampleVisitor.h"
 #include "Samples.h"
+#include "InterferenceFunctions.h"
 #include "MaterialProperty.h"
 #include <QMap>
 
 class SessionModel;
 class ParameterizedItem;
 
+//! Class to build SessionModel from domain's ISample
 class GUIObjectBuilder : public ISampleVisitor
 {
 public:
@@ -65,6 +67,7 @@ public:
     void visit(const FormFactorTruncatedSphere *);
     void visit(const FormFactorTruncatedSpheroid *);
 
+    void visit(const InterferenceFunction1DParaCrystal *);
     void visit(const InterferenceFunctionNone *);
 
     void visit(const LayerRoughness *);

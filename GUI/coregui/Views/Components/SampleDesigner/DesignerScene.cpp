@@ -12,7 +12,7 @@
 #include "NodeEditorConnection.h"
 #include "DesignerMimeData.h"
 #include "SampleBuilderFactory.h"
-#include "GUIObjectBuilder.h"
+#include "GUIExamplesFactory.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -380,7 +380,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         // other views can be droped on canvas anywhere
         } else {
             qDebug() << "DesignerScene::dropEvent() -> about to drop";
-            if(SampleViewFactory::isValidName(mimeData->getClassName())) {
+            if(SampleViewFactory::isValidItemName(mimeData->getClassName())) {
 
                 ParameterizedItem *new_item(0);
                 if(mimeData->getClassName().startsWith("FormFactor")) {
@@ -397,8 +397,10 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
                 new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
                 new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
-            } else {
-                ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
+
+            } else if(GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
+                ParameterizedItem *topItem = GUIExamplesFactory::createItems(mimeData->getClassName(), m_sessionModel);
+                //ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
                 //qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
                 //topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
@@ -437,27 +439,23 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
 
 
 //! create complete sample from domain's standard sample
-ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
-{
-    qDebug() << "DesignerScene::dropCompleteSample()" << name;
-    if( !name.startsWith("Example_") ) return 0;
+//ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
+//{
+//    qDebug() << "DesignerScene::dropCompleteSample()" << name;
+//    if( !name.startsWith("Example_") ) return 0;
 
-    QString exampleName = name;
-    exampleName.remove("Example_");
+//    QString exampleName = name;
+//    exampleName.remove("Example_");
 
-    SampleBuilderFactory factory;
-//    SampleBuilder_t builder = factory.createBuilder(exampleName.toAscii().data());
+//    SampleBuilderFactory factory;
+//    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
+//    //sample->printSampleTree();
 
-    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
+//    GUIObjectBuilder guiBuilder;
+//    guiBuilder.populateModel(m_sessionModel, sample.get());
 
-    //boost::scoped_ptr<ISample> sample(builder->buildSample());
-    sample->printSampleTree();
-
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateModel(m_sessionModel, sample.get());
-
-    return guiBuilder.getTopItem();
-}
+//    return guiBuilder.getTopItem();
+//}
 
 
 void DesignerScene::onSmartAlign()

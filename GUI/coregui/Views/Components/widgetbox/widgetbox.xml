@@ -208,14 +208,23 @@
     
     <category name="Standard samples">
         
-        <categoryentry name="IsGISAXS1 sample" icon="images/sample_layers2.png">
-            <widget class="Example_isgisaxs01">
+        <categoryentry name="Example #1" icon="images/sample_layers2.png">
+            <widget class="example01">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
 
+        <categoryentry name="Example #2" icon="images/sample_layers2.png">
+            <widget class="example02">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+        
+        
     </category>
         
 

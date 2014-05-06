@@ -21,11 +21,7 @@ public:
         ParticleLayoutType,
         InterferenceFunctionType,
         InterferenceFunction1DParaType,
-        FormFactorType,
-        FormFactorFullSphereType,
-        FormFactorPyramidType,
-        FormFactorCylinderType,
-        FormFactorPrism3Type
+        ParticleType
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

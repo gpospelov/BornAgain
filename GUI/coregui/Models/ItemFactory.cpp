@@ -18,13 +18,15 @@
 #include "LayerItem.h"
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
+#include "ParaCrystalItems.h"
 #include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("MultiLayer")
         << QString("Layer")
         << QString("ParticleLayout")
-        << QString("Particle");
+        << QString("Particle")
+        << QString("InterferenceFunction1DParaCrystal");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
@@ -46,6 +48,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     }
     else if (model_name==QString("Particle")) {
         return new ParticleItem(parent);
+    }
+    else if (model_name==QString("InterferenceFunction1DParaCrystal")) {
+        return new InterferenceFunction1DParaCrystalItem(parent);
     }
 //    else if (model_name.startsWith("FormFactor")) {
 //        ParticleItem *result = new ParticleItem(parent);

@@ -3,22 +3,23 @@
 #include "LayerView.h"
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
+#include "ParaCrystalViews.h"
 #include <QDebug>
 
 
-QStringList SampleViewFactory::m_all_sample_names  = QStringList()
+QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << QString("MultiLayer")
         << QString("Layer")
         << QString("ParticleLayout")
         << QString("Particle");
 
 
-bool SampleViewFactory::isValidName(const QString &name)
+bool SampleViewFactory::isValidItemName(const QString &name)
 {
     if(name.startsWith("FormFactor")) {
         return true;
     } else {
-        return m_all_sample_names.contains(name);
+        return m_valid_item_names.contains(name);
     }
 }
 
@@ -28,17 +29,17 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     if (name==QString("MultiLayer")) {
         return new MultiLayerView();
     }
-
-    if (name==QString("Layer")) {
+    else if (name==QString("Layer")) {
         return new LayerView();
     }
-
-    if (name==QString("ParticleLayout")) {
+    else if (name==QString("ParticleLayout")) {
         return new ParticleLayoutView();
     }
-
-    if (name==QString("Particle")) {
+    else if (name==QString("Particle")) {
         return new ParticleView();
+    }
+    else if (name==QString("InterferenceFunction1DParaCrystal")) {
+        return new InterferenceFunction1DParaCrystalView();
     }
 
     qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;

@@ -293,6 +293,26 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid *sample)
 }
 
 
+void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *)" << getLevel();
+
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+
+    ParameterizedItem *parent = m_levelToParent[getLevel()-1];
+    qDebug() << " " << parent->itemName() << parent->modelType();
+    Q_ASSERT(parent);
+    ParameterizedItem *item = m_sessionModel->insertNewItem("InterferenceFunction1DParaCrystal", m_sessionModel->indexOfItem(parent));
+    Q_ASSERT(item);
+    item->setProperty("PeakDistance", sample->getPeakDistance());
+    item->setProperty("Width", sample->getWidth());
+    item->setProperty("CorrLength", sample->getCorrLength());
+    m_levelToParent[getLevel()] = item;
+}
+
+
 void GUIObjectBuilder::visit(const InterferenceFunctionNone *)
 {
     qDebug() << "GUIObjectBuilder::visit(const InterferenceFunctionNone *)" << getLevel();

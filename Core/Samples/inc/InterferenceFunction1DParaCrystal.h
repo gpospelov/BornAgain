@@ -44,6 +44,12 @@ public:
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTGaussianCorrLength(double qpar) const;
 
+    double getPeakDistance() const { return m_peak_distance; }
+
+    double getWidth() const { return m_width; }
+
+    double getCorrLength() const { return m_corr_length; }
+
 protected:
     double m_peak_distance; //!< the distance to the first neighbor peak
     double m_width; //!< width parameter in the pair correlation function

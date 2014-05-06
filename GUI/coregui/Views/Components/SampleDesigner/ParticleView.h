@@ -11,7 +11,7 @@ class ParticleView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { Type = DesignerHelper::FormFactorType };
+    enum { Type = DesignerHelper::ParticleType };
 
     ParticleView(QGraphicsItem *parent = 0);
 

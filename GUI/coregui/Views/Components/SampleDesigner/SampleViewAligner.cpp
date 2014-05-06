@@ -167,9 +167,9 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
     SessionModel *sessionModel = m_scene->getSessionModel();
 
     IView *view = getViewForIndex(parentIndex);
-    if(view)
-        qDebug() << "SampleViewAligner2::alignSample" << view->getParameterizedItem()->modelType() << reference
-                 << view->pos() << view->mapToScene(view->pos());
+//    if(view)
+//        qDebug() << "SampleViewAligner2::alignSample" << view->getParameterizedItem()->modelType() << reference
+//                 << view->pos() << view->mapToScene(view->pos());
 
     if(view) {
         if( (force_alignment || view->pos().isNull()) && !view->parentObject())
@@ -182,12 +182,12 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
         }
     }
 
-    qDebug() << "   new_pos:" << reference;
+//    qDebug() << "   new_pos:" << reference;
 
     for( int i_row = 0; i_row < sessionModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sessionModel->index( i_row, 0, parentIndex );
          QPointF child_reference = reference + QPointF(-150, 150*i_row);
-         qDebug() << "   child_reference:" << child_reference;
+//         qDebug() << "   child_reference:" << child_reference;
          alignSample(itemIndex, child_reference, force_alignment);
     }
 }

@@ -2,6 +2,7 @@
 #include "ParticleView.h"
 #include "DesignerHelper.h"
 #include "ParameterizedItem.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 
@@ -13,17 +14,18 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     setColor(QColor(135, 206, 50));
     setRectangle( DesignerHelper::getDefaultBoundingRect("ParticleLayout"));
     addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleFactory);
-    addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
     addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
+    addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
     m_roundpar = 3;
 }
 
 
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
-    qDebug() << "ParticleLayoutView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName();
-    ParticleView *particle = dynamic_cast<ParticleView *>(childView);
-    Q_ASSERT(particle);
-    connectInputPort(particle);
-
+    qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::ParticleType;
+    if(childView->type() == DesignerHelper::ParticleType || childView->type() == DesignerHelper::InterferenceFunction1DParaType) {
+        connectInputPort(dynamic_cast<ConnectableView *>(childView));
+    } else {
+        throw GUIHelpers::Error("ParticleLayoutView::addView() -> Error. Unknown view");
+    }
 }

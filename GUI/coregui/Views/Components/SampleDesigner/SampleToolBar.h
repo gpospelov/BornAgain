@@ -20,7 +20,7 @@ signals:
     void zoomOut();
     void zoomFit();
     void clearAll();
-    void sceneToISample();
+    void smartAlign();
 
 public slots:
     void materialBrowserCall();

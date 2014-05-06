@@ -32,8 +32,7 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
 }
 
 
-void SampleDesigner::sceneToISample()
+void SampleDesigner::onSmartAlign()
 {
-    qDebug() << "SampleDesigner::sceneToISample()";
-    m_designerScene->align();
+    m_designerScene->onSmartAlign();
 }

@@ -44,7 +44,7 @@ public:
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:
-    void sceneToISample();
+    void onSmartAlign();
 
 private:
     DesignerScene *m_designerScene; //! scene which holds all objects

@@ -248,10 +248,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 //! aligns SampleView's on graphical canvas
 void DesignerScene::alignViews()
 {
-    //SampleViewAligner::align(m_orderedViews, QPointF(400,400));
-    //SampleViewAligner::align(m_orderedViews);
-    //SampleViewAligner2 aligner;
-    //m_aligner->align();
+    m_aligner->alignSample(QModelIndex(), QPointF(200,200));
 }
 
 
@@ -409,10 +406,11 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
             } else {
                 ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
-                qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
-                topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-                topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
-                alignViews();
+                //qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
+                //topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
+                //topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+                QPointF reference(event->scenePos().x()-boundingRect.width()/2, event->scenePos().y()-boundingRect.height()/2);
+                m_aligner->alignSample(topItem, reference, true);
             }
         }
     }
@@ -468,8 +466,7 @@ ParameterizedItem *DesignerScene::dropCompleteSample(const QString &name)
 }
 
 
-void DesignerScene::align()
+void DesignerScene::onSmartAlign()
 {
-    m_aligner->updateForces();
-    m_aligner->advance();
+    m_aligner->smartAlign();
 }

@@ -6,35 +6,30 @@
 #include <QPointF>
 class DesignerScene;
 class IView;
-class ConnectableView;
 class ParameterizedItem;
 
 class SampleViewAligner2
 {
 public:
     SampleViewAligner2(DesignerScene *scene);
-    void align();
 
-    void updateViews(const QModelIndex & parentIndex = QModelIndex(), QPointF reference = QPointF());
+    void alignSample(ParameterizedItem *item, QPointF reference = QPointF(), bool force_alignment = false);
+    void alignSample(const QModelIndex & parentIndex, QPointF reference = QPointF(), bool force_alignment = false);
 
-    void alignSample(ParameterizedItem *item, QPointF reference);
-
+    void smartAlign();
+    void updateViews(const QModelIndex & parentIndex = QModelIndex());
     void updateForces();
-    void calculateForces(ConnectableView *view);
+    void calculateForces(IView *view);
     void advance();
 
-
 private:
-
-    QList<ConnectableView *> getConnectedViews(ConnectableView *view);
+    IView *getViewForIndex(const QModelIndex &index);
+    QList<IView *> getConnectedViews(IView *view);
 
     DesignerScene *m_scene;
-    QList<ConnectableView *> m_views; //!< list of all views which are subject to align
-    QMap<ConnectableView *, QPointF> m_viewToPos;
-
+    QList<IView *> m_views; //!< list of all views which are subject to smart align
+    QMap<IView *, QPointF> m_viewToPos;
     static QMap<QString, int> m_typeToArea; //!< correspondance of ParameterizedItem's type and area on the screen,
-
-    QMap<ConnectableView *, QList<ConnectableView *> > m_connectedViews;
 };
 
 

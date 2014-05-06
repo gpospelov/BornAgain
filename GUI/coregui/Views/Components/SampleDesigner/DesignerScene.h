@@ -33,8 +33,6 @@ public:
 
     IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
 
-    void align();
-
 public slots:
     void onSceneSelectionChanged();
     void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
@@ -54,6 +52,8 @@ public slots:
 
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void dropEvent(QGraphicsSceneDragDropEvent *event);
+
+    void onSmartAlign();
 
 
 protected:

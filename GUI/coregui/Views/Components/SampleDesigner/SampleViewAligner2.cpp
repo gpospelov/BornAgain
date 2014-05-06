@@ -2,7 +2,6 @@
 #include "SessionModel.h"
 #include "DesignerScene.h"
 #include "IView.h"
-#include "ConnectableView.h"
 #include <QModelIndex>
 #include <QDebug>
 
@@ -25,23 +24,48 @@ QMap<QString, int> SampleViewAligner2::m_typeToArea = initTypeToAreaMap2();
 SampleViewAligner2::SampleViewAligner2(DesignerScene *scene)
     : m_scene(scene)
 {
-
+    Q_ASSERT(m_scene);
 }
 
 
-void SampleViewAligner2::align()
+void SampleViewAligner2::smartAlign()
 {
-
     m_views.clear();
-    m_connectedViews.clear();
 
     updateViews();
-    qDebug() << "SampleViewAligner2::align" << m_views.size();
+    updateForces();
+    advance();
+}
 
-//    for(int i=0; i<100; ++i) {
-//        updateForces();
-//        advance();
-//    }
+
+void SampleViewAligner2::updateViews(const QModelIndex & parentIndex)
+{
+    SessionModel *sessionModel = m_scene->getSessionModel();
+
+    qDebug() << "DesignerScene::updateViews()";
+
+    if(!parentIndex.isValid()) {
+        qDebug() << "Dumping model";
+    }
+
+    for( int i_row = 0; i_row < sessionModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = sessionModel->index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = sessionModel->itemForIndex(itemIndex)){
+             qDebug() << "     " << i_row << item->itemName() << item->modelType() << item->childItemCount();
+
+            IView *view = m_scene->getViewForItem(item);
+
+            if(view && !view->parentObject()) {
+                m_views.append(view);
+            }
+
+         } else {
+             qDebug() << "not a parameterized graphics item";
+         }
+
+         updateViews( itemIndex);
+     }
 }
 
 
@@ -49,13 +73,13 @@ void SampleViewAligner2::updateForces()
 {
     m_viewToPos.clear();
     qDebug() << "SampleViewAligner2::updateForces()";
-    foreach(ConnectableView *view, m_views) {
+    foreach(IView *view, m_views) {
         calculateForces(view);
     }
 }
 
 
-void SampleViewAligner2::calculateForces(ConnectableView *view)
+void SampleViewAligner2::calculateForces(IView *view)
 {
     qDebug() << "SampleViewAligner2::calculateForces()" << view->getParameterizedItem()->itemName() << view->pos() << "connected items:" << getConnectedViews(view).size();
     qreal xvel = 0;
@@ -65,7 +89,7 @@ void SampleViewAligner2::calculateForces(ConnectableView *view)
     // repulsive forces (ushing away)
 
     double C = 0.2;
-    foreach(ConnectableView *other, m_views) {
+    foreach(IView *other, m_views) {
         QPointF vec = view->mapToItem(other, other->boundingRect().center());
         qreal dx = view->boundingRect().center().x() - vec.x();
         qreal dy = view->boundingRect().center().y() - vec.y();
@@ -84,7 +108,7 @@ void SampleViewAligner2::calculateForces(ConnectableView *view)
 
     // pulling forces (attractive forces)
     double weight(100.0);
-    foreach(ConnectableView *other, getConnectedViews(view)) {
+    foreach(IView *other, getConnectedViews(view)) {
         QPointF vec = view->mapToItem(other, other->boundingRect().center());
         qreal dx = view->boundingRect().center().x() - vec.x();
         qreal dy = view->boundingRect().center().y() - vec.y();
@@ -110,74 +134,71 @@ void SampleViewAligner2::calculateForces(ConnectableView *view)
 
 void SampleViewAligner2::advance()
 {
-    foreach(ConnectableView *view, m_views) {
+    foreach(IView *view, m_views) {
         view->setPos(m_viewToPos[view]);
     }
 }
 
 
-void SampleViewAligner2::updateViews(const QModelIndex & parentIndex, QPointF reference)
+
+
+void SampleViewAligner2::alignSample(ParameterizedItem *item, QPointF reference, bool force_alignment)
 {
-    Q_ASSERT(m_scene);
+    Q_ASSERT(item);
+    alignSample(m_scene->getSessionModel()->indexOfItem(item), reference, force_alignment);
+}
+
+
+//! Aligns sample starting from reference point.
+//! If force_alignment=false, view position will be changed only if it has Null coordinate,
+//! if force_alignment=true the position will be changed anyway.
+//! Position of View which has parent item (like Layer) will remain unchainged.
+void SampleViewAligner2::alignSample(const QModelIndex & parentIndex, QPointF reference, bool force_alignment)
+{
     SessionModel *sessionModel = m_scene->getSessionModel();
 
-    qDebug() << "DesignerScene::align()";
+    IView *view = getViewForIndex(parentIndex);
+    if(view)
+        qDebug() << "SampleViewAligner2::alignSample" << view->getParameterizedItem()->modelType() << reference
+                 << view->pos() << view->mapToScene(view->pos());
 
-    if(!parentIndex.isValid()) {
-        qDebug() << "Dumping model";
+    if(view) {
+        if( (force_alignment || view->pos().isNull()) && !view->parentObject())
+            view->setPos(reference);
+
+        if(view->parentObject()) {
+            reference = view->mapToScene(view->pos());
+        } else {
+            reference = view->pos();
+        }
     }
 
-    //QPointF reference(0,200);
-    QPointF new_reference;
+    qDebug() << "   new_pos:" << reference;
 
     for( int i_row = 0; i_row < sessionModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sessionModel->index( i_row, 0, parentIndex );
-
-         if (ParameterizedItem *item = sessionModel->itemForIndex(itemIndex)){
-             qDebug() << "     " << i_row << item->itemName() << item->modelType() << item->childItemCount() <<  "reference: " << reference;
-
-            IView *view = m_scene->getViewForItem(item);
-
-            if(view) {
-                qDebug() << " view->pos() " << view->pos();
-
-                if(reference.isNull()) reference = view->pos();
-
-                Q_ASSERT(dynamic_cast<ConnectableView *>(view));
-                //int level = m_typeToArea[item->modelType()];
-
-                m_views.append(dynamic_cast<ConnectableView *>(view));
-
-                //if(view->pos().isNull()) {
-                if(!view->parentObject()) {
-                    view->setPos(reference + QPointF(-140, 150*i_row));
-                }
-                new_reference = view->mapToScene(view->pos());
-                qDebug() << "   reference" << reference << new_reference;
-
-            }
-
-         } else {
-             qDebug() << "not a parameterized graphics item";
-         }
-
-         updateViews( itemIndex, new_reference);
-     }
+         QPointF child_reference = reference + QPointF(-150, 150*i_row);
+         qDebug() << "   child_reference:" << child_reference;
+         alignSample(itemIndex, child_reference, force_alignment);
+    }
 }
 
 
-
-void SampleViewAligner2::alignSample(ParameterizedItem *item, QPointF reference)
+IView *SampleViewAligner2::getViewForIndex(const QModelIndex &index)
 {
-
+    SessionModel *sessionModel = m_scene->getSessionModel();
+    ParameterizedItem *item = sessionModel->itemForIndex(index);
+    if(IView *view = m_scene->getViewForItem(item)) {
+        return view;
+    }
+    return 0;
 }
 
 
-
-QList<ConnectableView *> SampleViewAligner2::getConnectedViews(ConnectableView *view)
+QList<IView *> SampleViewAligner2::getConnectedViews(IView *view)
 {
 
-    QList<ConnectableView *> result;
+    QList<IView *> result;
 
     ParameterizedItem *itemOfView = view->getParameterizedItem();
     //qDebug() << "SampleViewAligner2::getConnectedViews" << itemOfView->itemName() << " parent:" << itemOfView->parent();
@@ -202,10 +223,8 @@ QList<ConnectableView *> SampleViewAligner2::getConnectedViews(ConnectableView *
 
     foreach(ParameterizedItem *item, connected_items) {
         IView *view = m_scene->getViewForItem(item);
-        //qDebug() << item->itemName() << item->modelType();
         if(view) {
-            Q_ASSERT(dynamic_cast<ConnectableView *>(view));
-            result.append(dynamic_cast<ConnectableView *>(view));
+            result.append(view);
         }
 
     }

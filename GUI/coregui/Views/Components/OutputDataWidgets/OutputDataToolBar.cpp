@@ -20,7 +20,7 @@ OutputDataToolBar::OutputDataToolBar(QWidget *parent)
 
     setContentsMargins(0,0,0,0);
 
-    //m_togglePropertyPanelAction = new QAction(QIcon(":/OutputDataWidgets/images/next.png"), tr("Toogle Property Panel (P)"), this);
+
     m_togglePropertyPanelAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Toogle Property Panel (P)"), this);
     m_togglePropertyPanelAction->setShortcut(Qt::Key_P);
     connect(m_togglePropertyPanelAction, SIGNAL(triggered()), this, SIGNAL(togglePropertyPanel()));
@@ -28,15 +28,10 @@ OutputDataToolBar::OutputDataToolBar(QWidget *parent)
 
     addWidget(new Manhattan::StyledSeparator());
 
-    //m_savePlotAction = new QAction(QIcon(":/OutputDataWidgets/images/filesave.png"), tr("Save, Ctrl+S"), this);
-    m_savePlotAction = new QAction(QIcon(":/SampleDesigner/images/card--plus.png"), tr("Save, Ctrl+S"), this);
+    m_savePlotAction = new QAction(QIcon(":/SampleDesigner/images/filesave.png"), tr("Save, Ctrl+S"), this);
     m_savePlotAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
     connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlot()));
     addAction(m_savePlotAction);
-
-
-
-
 
 
 //    insertSeparator(m_clearAllAction);

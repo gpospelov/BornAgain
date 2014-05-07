@@ -4,7 +4,7 @@
 #include "qcustomplot.h"
 #include "qcpdocumentobject.h"
 #include <sstream>
-#include "OutputData.h"
+#include "OutputDataItem.h"
 
 class CentralPlot : public QCustomPlot
 {
@@ -17,7 +17,7 @@ public:
     void drawGraphOnMouseEvent(QPoint point);
     bool contains(QPoint point);
     QVector<QVector<double> > getHistogramData(QPoint point, bool isDrawLine = true);
-    void drawPlot(const OutputData<double> *data);
+    void drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient);
 
     //QCPColorScale *getColorScale() const;
     QCPColorMap *getColorMap() const;
@@ -28,6 +28,9 @@ public:
     void setZmin(double zmin);
     void setZmax(double zmax);
     void resetView();
+    void setGradient(QCPColorGradient gradient);
+    void setLogz(bool logz, bool isReplot  = true);
+    bool isLogz();
 
 signals:
     void dataRangeChanged(QCPRange newRange);
@@ -35,10 +38,12 @@ signals:
 private:
     void setupColorMap(CentralPlot * customPlot);
     void drawLineOverColorMap(double xPos, double yPos);
-    QCPColorMap *colorMap;
-    QCPColorScale *colorScale;
+    QCPColorMap *m_colorMap;
+    QCPColorScale *m_colorScale;
     QString statusString;
     QCPRange m_colorScaleRange;
+    OutputDataItem *m_outputDataItem;
+
 };
 
 #endif // CENTRALPLOT_H

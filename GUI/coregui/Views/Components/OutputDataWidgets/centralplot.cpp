@@ -175,8 +175,11 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 }
 
 
-void CentralPlot::drawPlot(const OutputData<double> *data)
+void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient)
 {
+    m_outputDataItem = outputDataItem;
+    const OutputData<double> *data = outputDataItem->getOutputData();
+
     Q_ASSERT(data);
 
     if(data->getRank() != 2) {
@@ -201,49 +204,52 @@ void CentralPlot::drawPlot(const OutputData<double> *data)
     const IAxis *axis_y = data->getAxis(1);
 
     // set up the QCPColorMap:
-    colorMap = new QCPColorMap(this->xAxis, this->yAxis);
-    this->addPlottable(colorMap);
+    m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
+    this->addPlottable(m_colorMap);
 
-    connect(colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+    connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
 
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
-    colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
-    colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
+    m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
+    m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
         std::vector<int> indices =
                 data->toCoordinates(it.getIndex());
         //qDebug() << *it;
-        colorMap->data()->setCell(indices[0], indices[1], *it);
+        m_colorMap->data()->setCell(indices[0], indices[1], *it);
         ++it;
     }
 
 
     // add a color scale:
-    colorScale = new QCPColorScale(this);
-    this->plotLayout()->addElement(0, 1, colorScale); // add it to the right of the main axis rect
+    m_colorScale = new QCPColorScale(this);
+    this->plotLayout()->addElement(0, 1, m_colorScale); // add it to the right of the main axis rect
 
-    colorScale->setDataScaleType(QCPAxis::stLogarithmic);
 
-    colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
-    colorMap->setColorScale(colorScale); // associate the color map with the color scale
+    this->setLogz(outputDataItem->isLogz(), false);
+
+
+    m_colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
+    m_colorMap->setColorScale(m_colorScale); // associate the color map with the color scale
 
     // set the color gradient of the color map to one of the presets:
-    colorMap->setGradient(QCPColorGradient::gpPolar);
+    //m_colorMap->setGradient(QCPColorGradient::gpPolar);
+    m_colorMap->setGradient(gradient);
     // we could have also created a QCPColorGradient instance and added own colors to
     // the gradient, see the documentation of QCPColorGradient for what's possible.
 
     // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
-    colorMap->rescaleDataRange();
+    m_colorMap->rescaleDataRange();
 
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(this);
     this->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
-    colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
-    m_colorScaleRange = colorScale->dataRange();
+    m_colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
+    m_colorScaleRange = m_colorScale->dataRange();
 
 
 //    QCPRange range2 = colorScale->dataRange();
@@ -275,17 +281,17 @@ void CentralPlot::drawPlot(const OutputData<double> *data)
 
 QCPColorMap *CentralPlot::getColorMap() const
 {
-    return this->colorMap;
+    return this->m_colorMap;
 }
 
 QCPRange CentralPlot::getColorScaleRange() const
 {
-    return this->colorMap->colorScale()->dataRange();
+    return this->m_colorMap->colorScale()->dataRange();
 }
 
 QCPColorMapData *CentralPlot::getColorMapData() const
 {
-    return this->colorMap->data();
+    return this->m_colorMap->data();
 }
 
 QString CentralPlot::getStatusString() const
@@ -295,7 +301,7 @@ QString CentralPlot::getStatusString() const
 
 void CentralPlot::setInterpolate(bool isInterpolate)
 {
-    colorMap->setInterpolate(isInterpolate);
+    m_colorMap->setInterpolate(isInterpolate);
     this->replot();
 }
 
@@ -318,11 +324,39 @@ void CentralPlot::setZmax(double zmax)
 
 void CentralPlot::resetView()
 {
-    this->colorMap->rescaleAxes();
-    this->colorScale->setDataRange(m_colorScaleRange);
+    this->m_colorMap->rescaleAxes();
+    this->m_colorScale->setDataRange(m_colorScaleRange);
     this->replot();
 }
 
+void CentralPlot::setGradient(QCPColorGradient gradient)
+{
+    m_colorMap->setGradient(gradient);
+    this->replot();
+}
+
+void CentralPlot::setLogz(bool logz, bool isReplot)
+{
+    if(logz)
+    {
+        m_colorScale->setDataScaleType(QCPAxis::stLogarithmic);
+    }
+    else
+    {
+        m_colorScale->setDataScaleType(QCPAxis::stLinear);
+    }
+
+    if(isReplot)
+    {
+        this->replot();
+    }
+
+}
+
+bool CentralPlot::isLogz()
+{
+    return m_outputDataItem->isLogz();
+}
 
 //void CentralPlot::onDataRangeChanged(QCPRange newRange)
 //{

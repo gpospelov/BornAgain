@@ -8,40 +8,12 @@ PropertyWidget::PropertyWidget(QWidget *parent)
     : QWidget(parent)
     , m_variantManager(new QtVariantPropertyManager(this))
     , m_propertyBrowser(new QtTreePropertyBrowser(this))
-    , m_centralPlot(0)
     , m_outputDataItem(0)
 {
     maxWidth = 250;
     this->setMaximumWidth(maxWidth);
-
-
-    /*QtVariantPropertyManager *variantManager = new QtVariantPropertyManager();
-    QtVariantProperty *priority = variantManager->addProperty(QVariant::Int, "Priority");
-
-    priority->setToolTip("Task Priority");
-
-    priority->setAttribute("minimum", 1);
-    priority->setAttribute("maximum", 5);
-    priority->setValue(3);
-
-    QtVariantProperty *reportType = variantManager->addProperty(QtVariantPropertyManager::enumTypeId(), "Report Type");
-    QStringList types;
-    types << "Bug" << "Suggestion" << "To Do";
-    reportType->setAttribute("enumNames", types);
-    reportType->setValue(1); // current value will be "Suggestion"
-
-    //QtVariantProperty *task1 = variantManager->addProperty(QtVariantPropertyManager::groupTypeId(), "Task 1");
-    //task1->addSubProperty(priority);
-    //task1->addSubProperty(reportType);
-
-    QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
-    QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
-    browser->setFactoryForManager(variantManager, variantFactory);
-
-    //browser->addProperty(task1);
-
-    browser->addProperty(priority);
-    browser->addProperty(reportType);*/
+    isProjection = true;
+    initGradientVector();
 
     m_variantManager = new QtVariantPropertyManager(this);
     connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
@@ -52,12 +24,26 @@ PropertyWidget::PropertyWidget(QWidget *parent)
 
 }
 
+void PropertyWidget::initGradientVector()
+{
+    m_gradientVector.append(QCPColorGradient::gpGrayscale);
+    m_gradientVector.append(QCPColorGradient::gpHot);
+    m_gradientVector.append(QCPColorGradient::gpCold);
+    m_gradientVector.append(QCPColorGradient::gpNight);
+    m_gradientVector.append(QCPColorGradient::gpCandy);
+    m_gradientVector.append(QCPColorGradient::gpGeography);
+    m_gradientVector.append(QCPColorGradient::gpIon);
+    m_gradientVector.append(QCPColorGradient::gpThermal);
+    m_gradientVector.append(QCPColorGradient::gpPolar);
+    m_gradientVector.append(QCPColorGradient::gpSpectrum);
+    m_gradientVector.append(QCPColorGradient::gpJet);
+    m_gradientVector.append(QCPColorGradient::gpHues);
+}
 
-void PropertyWidget::setupPropertyWidget(CentralPlot *centralPlot, OutputDataItem *outputDataItem)
+
+void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColorGradient gradient)
 {
     qDebug() << "PropertyWidget::setupPropertyWidget called";
-
-    m_centralPlot = centralPlot;
 
     if(m_outputDataItem == outputDataItem) return;
 
@@ -81,6 +67,11 @@ void PropertyWidget::setupPropertyWidget(CentralPlot *centralPlot, OutputDataIte
     property->setValue(outputDataItem->isInterpolated());
     addProperty(property, JobQueueXML::OutputDataInterpolatedAttribute);
 
+    property = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
+    property->setToolTip("Logz");
+    property->setValue(outputDataItem->isLogz());
+    addProperty(property, JobQueueXML::OutputDataLogzAttribute);
+
     property = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
     property->setValue(outputDataItem->getZaxisMin());
     property->setAttribute(QLatin1String("decimals"), 6);
@@ -90,6 +81,26 @@ void PropertyWidget::setupPropertyWidget(CentralPlot *centralPlot, OutputDataIte
     property->setValue(outputDataItem->getZaxisMax());
     property->setAttribute(QLatin1String("decimals"), 6);
     addProperty(property, JobQueueXML::OutputDataZmaxAttribute);
+
+    property = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
+    property->setToolTip("Projections");
+    property->setValue(isProjection);
+    addProperty(property, tr("Projections"));
+
+
+    int gradIndex = 0;
+    if(m_gradientVector.contains(gradient))
+    {
+        gradIndex = m_gradientVector.indexOf(gradient);
+    }
+
+    property = m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(), tr("Gradient"));
+    property->setToolTip("Gradient");
+    QStringList types;
+    types << "Grayscale" << "Hot" << "Cold" << "Night" << "Candy" << "Geography" << "Ion" << "Thermal" << "Polar" << "Spectrum" << "Jet" << "Hues";
+    property->setAttribute("enumNames", types);
+    property->setValue(gradIndex);
+    addProperty(property, tr("Gradient"));
 
 }
 
@@ -116,16 +127,27 @@ void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
 
     if (id == JobQueueXML::OutputDataInterpolatedAttribute) {
 
- 
-//        m_centralPlot->setInterpolate(value.toBool());
         m_outputDataItem->setInterpolated(value.toBool());
 
     } else if(id == JobQueueXML::OutputDataZminAttribute) {
+
         m_outputDataItem->setZaxisMin(value.toDouble());
 
     } else if(id == JobQueueXML::OutputDataZmaxAttribute) {
+
         m_outputDataItem->setZaxisMax(value.toDouble());
 
+    } else if (id == JobQueueXML::OutputDataLogzAttribute) {
+
+        m_outputDataItem->setLogz(value.toBool());
+
+    } else if(id == tr("Projections")) {
+
+        emit projectionsChanged(value.toBool());
+
+    } else if(id == tr("Gradient")) {
+
+        emit gradientChanged(m_gradientVector.at(value.toInt()));
 
     }
     //connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));

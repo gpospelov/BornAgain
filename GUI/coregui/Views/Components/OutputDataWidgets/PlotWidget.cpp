@@ -10,6 +10,7 @@ PlotWidget::PlotWidget(QWidget *parent)
     , m_toolBar(new OutputDataToolBar(this))
     , m_outputDataItem(0)
 {
+    m_gradient = QCPColorGradient::gpPolar;
 
     connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
     connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
@@ -23,6 +24,9 @@ PlotWidget::PlotWidget(QWidget *parent)
 
 
     m_propertyWidget = new PropertyWidget(this);
+    connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
+    connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+
 
     QWidget * emptyWidget = new QWidget();
     emptyWidget->setMaximumSize(histogramSize, histogramSize);
@@ -50,10 +54,10 @@ PlotWidget::PlotWidget(QWidget *parent)
     m_splitter->addWidget(m_splitterRight);
 
 
-    statusLabel = new QLabel(this);
-    statusLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
-    statusLabel->setMaximumHeight(35);
+    m_statusLabel = new QLabel(this);
+    m_statusLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
+    m_statusLabel->setMaximumHeight(35);
 
 
     connectSignals();
@@ -63,7 +67,7 @@ PlotWidget::PlotWidget(QWidget *parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_toolBar);
     vlayout->addWidget(m_splitter);
-    vlayout->addWidget(statusLabel);
+    vlayout->addWidget(m_statusLabel);
     this->setLayout(vlayout);
     //setCentralWidget(widget);
 
@@ -78,34 +82,34 @@ void PlotWidget::connectSignals()
 
 }
 
-void PlotWidget::togglePropertypanel()
-{
-    qDebug() << "togglePropertypanel called";
 
-    QList<int> h_sizes_org = this->m_splitter->sizes();
-
-
-    int width = 0;
-
-    if(h_sizes_org.at(1) > 0)
-    {
-        width = 0;
-    }
-    else
-    {
-        width = m_propertyWidget->getWidth();
-    }
-
-    QList<int> h_sizes;
-    h_sizes.append(this->m_splitter->height() - width);
-    h_sizes.append(width);
-    this->m_splitter->setSizes(h_sizes);
-
-}
 
 void PlotWidget::savePlot()
 {
 
+    QString filters("*.png;;*.jpg;;*.pdf");
+    QString defaultFilter("*.png");
+    QString defaultName = qApp->applicationDirPath().append("/untitled");
+
+    /* Static method approach */
+    QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
+        filters, &defaultFilter);
+
+    if (!fileName.isEmpty() && !defaultFilter.isEmpty())
+    {
+        if(defaultFilter == "*.pdf")
+        {
+            m_centralPlot->savePdf(fileName);
+        }
+        else if(defaultFilter == "*.jpg")
+        {
+            m_centralPlot->saveJpg(fileName);
+        }
+        else
+        {
+            m_centralPlot->savePng(fileName);
+        }
+    }
 }
 
 
@@ -118,14 +122,14 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 
     m_outputDataItem = outputDataItem;
 
-    const OutputData<double> *data = outputDataItem->getOutputData();
-    if(data)
+
+    if(outputDataItem)
     {
         qDebug() << "PlotWidget::drawPlot called";
-        m_centralPlot->drawPlot(data);
+        m_centralPlot->drawPlot(outputDataItem, m_gradient);
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);
-        m_propertyWidget->setupPropertyWidget(m_centralPlot, outputDataItem);
+        m_propertyWidget->setupPropertyWidget(outputDataItem, m_gradient);
     }
 }
 
@@ -136,38 +140,12 @@ void PlotWidget::updatePlot()
     m_centralPlot->setInterpolate(m_outputDataItem->isInterpolated());
     m_centralPlot->setZmin(m_outputDataItem->getZaxisMin());
     m_centralPlot->setZmax(m_outputDataItem->getZaxisMax());
+    m_centralPlot->setLogz(m_outputDataItem->isLogz());
+    m_verticalPlot->setLogz(m_outputDataItem->isLogz());
+    m_horizontalPlot->setLogz(m_outputDataItem->isLogz());
 
 }
 
-
-void PlotWidget::toggleHistogram()
-{
-
-    QList<int> h_sizes_org = this->m_splitter->sizes();
-    QList<int> v_sizes_org = this->m_splitterTop->sizes();
-
-    int width = 0;
-
-    if(h_sizes_org.at(1) > 0 || v_sizes_org.at(0) > 0)
-    {
-        width = 0;
-    }
-    else
-    {
-        width = this->histogramSize;
-    }
-
-    QList<int> h_sizes;
-    h_sizes.append(this->m_splitter->height() - width);
-    h_sizes.append(width);
-    this->m_splitter->setSizes(h_sizes);
-
-    QList<int> v_sizes;
-    v_sizes.append(width);
-    v_sizes.append(this->m_splitterTop->width()-width);
-    this->m_splitterTop->setSizes(v_sizes);
-
-}
 
 
 void PlotWidget::mousePress(QMouseEvent *event)
@@ -199,7 +177,7 @@ void PlotWidget::mouseMove(QMouseEvent * event)
     QPoint point = event->pos();
     QVector<QVector<double> > histogramData = this->m_centralPlot->getHistogramData(point, true);
 
-    statusLabel->setText(this->m_centralPlot->getStatusString());
+    m_statusLabel->setText(this->m_centralPlot->getStatusString());
 
     if(histogramData.size()>0)
     {
@@ -214,5 +192,65 @@ void PlotWidget::onZaxisRangeChanged(QCPRange newRange)
     qDebug() << "PlotWidget::onZaxisRangeChanged" << newRange.lower << newRange.upper;
     m_outputDataItem->setZaxisMin(newRange.lower);
     m_outputDataItem->setZaxisMax(newRange.upper);
+    m_verticalPlot->setColorScaleRange(newRange.lower, newRange.upper);
+    m_horizontalPlot->setColorScaleRange(newRange.lower, newRange.upper);
+
+}
+
+void PlotWidget::togglePropertypanel()
+{
+    qDebug() << "togglePropertypanel called";
+
+    QList<int> sizes_org = this->m_splitter->sizes();
+
+
+    int width = 0;
+
+    if(sizes_org.at(1) > 0)
+    {
+        width = 0;
+    }
+    else
+    {
+        width = m_propertyWidget->getWidth();
+    }
+
+    QList<int> sizes;
+    sizes.append(this->m_splitter->height() - width);
+    sizes.append(width);
+    this->m_splitter->setSizes(sizes);
+
+}
+
+void PlotWidget::projectionsChanged(bool projection)
+{
+    qDebug() << "PW Projections: " << projection;
+
+    int width;
+
+    if(projection)
+    {
+        width = this->histogramSize;
+    }
+    else
+    {
+        width = 0;
+    }
+
+    QList<int> h_sizes;
+    h_sizes.append(this->m_splitterLeft->height() - width);
+    h_sizes.append(width);
+    this->m_splitterLeft->setSizes(h_sizes);
+
+    QList<int> v_sizes;
+    v_sizes.append(width);
+    v_sizes.append(this->m_splitterTop->width()-width);
+    this->m_splitterTop->setSizes(v_sizes);
+}
+
+void PlotWidget::gradientChanged(QCPColorGradient gradient)
+{
+    m_gradient = gradient;
+    m_centralPlot->setGradient(gradient);
 }
 

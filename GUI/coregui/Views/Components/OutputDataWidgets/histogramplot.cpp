@@ -56,6 +56,8 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
     int binSize = data->keySize();
     QCPRange range = data->keyRange();
 
+    m_dataScaleAxis = this->yAxis;
+
     this->yAxis->setRange(min, max);
     this->xAxis->setRange(range.lower, range.upper);
     this->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
@@ -63,8 +65,10 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
 
     //set Logarithmic scale
     QCPRange colorScaleRange = centralPlot->getColorScaleRange();
-    this->yAxis->setScaleType(QCPAxis::stLogarithmic);
-    this->yAxis->setRange(1.0, colorScaleRange.upper);
+    //this->yAxis->setScaleType(QCPAxis::stLogarithmic);
+    this->setLogz(centralPlot->isLogz(), false);
+    //this->yAxis->setRange(1.0, colorScaleRange.upper);
+    this->yAxis->setRange(colorScaleRange.lower, colorScaleRange.upper);
     //end of logarithmic
 
 
@@ -105,6 +109,9 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
     //qDebug() << "Range" << range.lower;
 
     //qDebug() << "yyy vertical 1.0" << min << max << range.lower << range.upper;
+
+    m_dataScaleAxis = this->xAxis;
+
     this->xAxis->setRange(min, max);
     this->yAxis->setRange(range.lower, range.upper);
     this->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
@@ -113,8 +120,10 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
 
     //set Logarithmic scale
     QCPRange colorScaleRange = centralPlot->getColorScaleRange();
-    this->xAxis->setScaleType(QCPAxis::stLogarithmic);
-    this->xAxis->setRange(1.0, colorScaleRange.upper);
+    this->setLogz(centralPlot->isLogz(), false);
+    //this->xAxis->setScaleType(QCPAxis::stLogarithmic);
+    //this->xAxis->setRange(1.0, colorScaleRange.upper);
+    this->xAxis->setRange(colorScaleRange.lower, colorScaleRange.upper);
     //end of logarithmic
 
 
@@ -154,4 +163,32 @@ void HistogramPlot::generateHistogram(const QVector<double> x, const QVector<dou
     QCPBars * bars = (QCPBars *)this->plottable(0);
     bars->setData(x, y);
     this->replot();
+}
+
+void HistogramPlot::setLogz(bool logz, bool isReplot)
+{
+    if(m_dataScaleAxis)
+    {
+        if(logz)
+        {
+            m_dataScaleAxis->setScaleType(QCPAxis::stLogarithmic);
+        } else {
+            m_dataScaleAxis->setScaleType(QCPAxis::stLinear);
+        }
+
+        if(isReplot)
+        {
+            this->replot();
+        }
+    }
+
+}
+
+void HistogramPlot::setColorScaleRange(double lower, double upper)
+{
+    if(m_dataScaleAxis)
+    {
+        m_dataScaleAxis->setRange(lower, upper);
+        this->replot();
+    }
 }

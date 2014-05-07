@@ -23,10 +23,6 @@ public:
     QSize minimumSizeHint() const { return QSize(600, 600); }
 
     int histogramSize;
-
-
-
-    void toggleHistogram();
     void drawPlot(OutputDataItem *outputDataItem);
     void updatePlot();
 
@@ -40,6 +36,8 @@ private slots:
     void resetTriggered();
     void togglePropertypanel();
     void savePlot();
+    void projectionsChanged(bool projection);
+    void gradientChanged(QCPColorGradient gradient);
 
 
 private:
@@ -51,12 +49,13 @@ private:
     CentralPlot *m_centralPlot;
     HistogramPlot *m_verticalPlot;
     HistogramPlot *m_horizontalPlot;
-    QLabel *statusLabel;
+    QLabel *m_statusLabel;
     PropertyWidget *m_propertyWidget;
     OutputDataToolBar *m_toolBar;
     void connectSignals();
-
     OutputDataItem *m_outputDataItem;
+    QCPColorGradient m_gradient;
+
 
 };
 

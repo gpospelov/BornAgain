@@ -204,6 +204,7 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     const IAxis *axis_y = data->getAxis(1);
 
     // set up the QCPColorMap:
+
     m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
     this->addPlottable(m_colorMap);
 
@@ -214,12 +215,15 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
     m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
 
+
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
         std::vector<int> indices =
                 data->toCoordinates(it.getIndex());
         //qDebug() << *it;
+
         m_colorMap->data()->setCell(indices[0], indices[1], *it);
+
         ++it;
     }
 

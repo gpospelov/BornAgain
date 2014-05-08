@@ -163,6 +163,11 @@ void SamplePrintVisitor::visit(const IFormFactorBorn *)
     throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
 }
 
+void SamplePrintVisitor::visit(const FormFactorAnisoPyramid *sample)
+{
+    print_default(sample);
+}
+
 void SamplePrintVisitor::visit(const FormFactorBox *sample)
 {
     print_default(sample);
@@ -185,6 +190,10 @@ void SamplePrintVisitor::visit(const FormFactorCrystal *)
     throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorCrystal *) -> Error. Not implemented.");
 }
 
+void SamplePrintVisitor::visit(const FormFactorCuboctahedron *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
 {

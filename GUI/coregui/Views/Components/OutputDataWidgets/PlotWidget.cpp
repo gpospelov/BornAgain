@@ -1,10 +1,11 @@
 #include "PlotWidget.h"
 #include "minisplitter.h"
+#include <QVBoxLayout>
 
 
 PlotWidget::PlotWidget(QWidget *parent)
     : QWidget(parent)
-    , m_splitter(new QSplitter())
+    , m_splitter(new Manhattan::MiniSplitter(this))
     , m_centralPlot(new CentralPlot())
     , m_verticalPlot(new HistogramPlot(HistogramPlot::Vertical))
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
@@ -39,7 +40,7 @@ PlotWidget::PlotWidget(QWidget *parent)
     m_splitterTop = new QSplitter(this);
     m_splitterTop->addWidget(m_verticalPlot);
     m_splitterTop->addWidget(m_centralPlot);
-//    m_splitterTop->setStyleSheet("background-color:white;");
+    m_splitterTop->setStyleSheet("background-color:white;");
 
     m_splitterBottom= new QSplitter(this);
     m_splitterBottom->addWidget(emptyWidget);
@@ -51,21 +52,35 @@ PlotWidget::PlotWidget(QWidget *parent)
     m_splitterLeft->setOrientation(Qt::Vertical);
     m_splitterLeft->addWidget(m_splitterTop);
     m_splitterLeft->addWidget(m_splitterBottom);
-//    m_splitterLeft->setStyleSheet("background-color:white;");
+    m_splitterLeft->setStyleSheet("background-color:white;");
 
-    m_splitterRight = new Manhattan::MiniSplitter(this);
+    m_splitterRight = new QSplitter(this);
     m_splitterRight->addWidget(m_propertyWidget);
 //    m_splitterRight->setStyleSheet("background-color:white;");
 
-    m_splitter->addWidget(m_splitterLeft);
+
+    m_statusLabel = new QLabel(this);
+    //m_statusLabel->setFrameStyle(QFrame::Panel );
+    m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
+    //m_statusLabel->setMaximumHeight(35);
+    m_statusLabel->setStyleSheet("background-color:white;");
+    m_statusLabel->setMargin(3);
+
+    QWidget *leftPanel = new QWidget(this);
+    QVBoxLayout * vl = new QVBoxLayout(this);
+    vl->setMargin(0);
+    vl->setSpacing(0);
+    vl->addWidget(m_splitterLeft);
+    vl->addWidget(m_statusLabel);
+    leftPanel->setLayout(vl);
+
+
+    //m_splitter->addWidget(m_splitterLeft);
+    m_splitter->addWidget(leftPanel);
     m_splitter->addWidget(m_splitterRight);
 
 
-    m_statusLabel = new QLabel(this);
-    m_statusLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    m_statusLabel->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
-    m_statusLabel->setMaximumHeight(25);
-    m_statusLabel->setStyleSheet("background-color:white;");
+
 
 
     connectSignals();
@@ -75,7 +90,7 @@ PlotWidget::PlotWidget(QWidget *parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_toolBar);
     vlayout->addWidget(m_splitter);
-    vlayout->addWidget(m_statusLabel);
+    //vlayout->addWidget(m_statusLabel);
     this->setLayout(vlayout);
     //setCentralWidget(widget);
 

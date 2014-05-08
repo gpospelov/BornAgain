@@ -3,7 +3,7 @@
 #include "JobQueueItem.h"
 #include "JobItem.h"
 #include "OutputDataItem.h"
-#include "qcustomplot.h"
+#include "PlotWidget.h"
 
 #include <QVBoxLayout>
 #include <QModelIndex>
@@ -13,7 +13,7 @@
 OutputDataWidget::OutputDataWidget(QWidget *parent)
     : QWidget(parent)
     , m_jobQueueModel(0)
-    , m_customPlot(0)
+    , m_plotWidget(0)
     , m_currentJobItem(0)
     , m_data(0)
 {
@@ -25,12 +25,14 @@ OutputDataWidget::OutputDataWidget(QWidget *parent)
     setObjectName(QLatin1String("Job Properties"));
 //    setStyleSheet("background-color:white;");
 
-    m_customPlot = new QCustomPlot(this);
-    m_customPlot->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
-    m_customPlot->hide();
+    m_plotWidget = new PlotWidget(this);
+    m_plotWidget->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
+    m_plotWidget->hide();
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(m_customPlot);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+    mainLayout->addWidget(m_plotWidget);
     setLayout(mainLayout);
 
 }
@@ -46,19 +48,27 @@ void OutputDataWidget::setCurrentItem(JobItem *jobItem)
 
     OutputDataItem *dataItem = jobItem->getOutputDataItem();
 
-    if(!dataItem || !dataItem->getOutputData()) {
-        m_customPlot->hide();
+    if(jobItem->getStatus() != JobItem::Completed || !dataItem || !dataItem->getOutputData()) {
+        m_plotWidget->hide();
         return;
     }
 
-    m_customPlot->show();
-    Draw(dataItem->getOutputData());
+    m_plotWidget->show();
+    //m_plotWidget->drawPlot(dataItem->getOutputData());
+    m_plotWidget->drawPlot(dataItem);
+
+    /*if(data == m_data)
+        return;
+
+    m_data = data;*/
+
+    //Draw(dataItem->getOutputData());
 }
 
 
 void OutputDataWidget::onModifiedItem(JobItem *jobItem)
 {
-
+    qDebug() << "OutputDataWidget::onModifiedItem(JobItem *jobItem)";
     Q_ASSERT(m_currentJobItem == jobItem);
     setCurrentItem(jobItem);
 }
@@ -114,7 +124,7 @@ void OutputDataWidget::onModifiedItem(JobItem *jobItem)
 
 
 
-void OutputDataWidget::Draw(const OutputData<double> *data)
+/*void OutputDataWidget::Draw(const OutputData<double> *data)
 {
     Q_ASSERT(data);
 
@@ -185,5 +195,5 @@ void OutputDataWidget::Draw(const OutputData<double> *data)
     m_customPlot->rescaleAxes();
 
     m_customPlot->replot();
-}
+}*/
 

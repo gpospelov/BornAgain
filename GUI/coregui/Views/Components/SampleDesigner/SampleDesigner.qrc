@@ -49,8 +49,6 @@
         <file>images/ff_Tetrahedron_32.png</file>
         <file>images/ff_TruncatedSphere_32.png</file>
         <file>images/ff_TruncatedSpheroid_32.png</file>
+        <file>images/filesave.png</file>
     </qresource>
 </RCC>
-
-
-        

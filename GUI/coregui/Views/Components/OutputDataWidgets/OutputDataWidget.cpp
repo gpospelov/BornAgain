@@ -48,12 +48,10 @@ void OutputDataWidget::setCurrentItem(JobItem *jobItem)
 
     OutputDataItem *dataItem = jobItem->getOutputDataItem();
 
-    if(!dataItem || !dataItem->getOutputData()) {
+    if(jobItem->getStatus() != JobItem::Completed || !dataItem || !dataItem->getOutputData()) {
         m_plotWidget->hide();
         return;
     }
-
-
 
     m_plotWidget->show();
     //m_plotWidget->drawPlot(dataItem->getOutputData());
@@ -70,7 +68,7 @@ void OutputDataWidget::setCurrentItem(JobItem *jobItem)
 
 void OutputDataWidget::onModifiedItem(JobItem *jobItem)
 {
-
+    qDebug() << "OutputDataWidget::onModifiedItem(JobItem *jobItem)";
     Q_ASSERT(m_currentJobItem == jobItem);
     setCurrentItem(jobItem);
 }

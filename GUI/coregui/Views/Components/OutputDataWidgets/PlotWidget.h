@@ -24,11 +24,11 @@ public:
 
     int histogramSize;
     void drawPlot(OutputDataItem *outputDataItem);
-    void updatePlot();
 
 
 public slots:
     void onZaxisRangeChanged(QCPRange newRange);
+    void updatePlot();
 
 private slots:
     void mousePress(QMouseEvent*event);
@@ -56,6 +56,7 @@ private:
     OutputDataItem *m_outputDataItem;
     QCPColorGradient m_gradient;
 
+    bool m_block_plot_update;
 
 };
 

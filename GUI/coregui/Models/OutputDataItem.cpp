@@ -89,6 +89,15 @@ void OutputDataItem::setZaxisMax(double zmax)
     }
 }
 
+void OutputDataItem::setZaxisRange(double zmin, double zmax)
+{
+    if(m_zaxis_min != zmin || m_zaxis_max != zmax) {
+        m_zaxis_min = zmin;
+        m_zaxis_max = zmax;
+        emit modified();
+    }
+}
+
 
 void OutputDataItem::setLogz(bool logz)
 {

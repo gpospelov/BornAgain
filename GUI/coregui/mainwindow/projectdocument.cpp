@@ -60,7 +60,7 @@ ProjectDocument::ProjectDocument(const QString &path, const QString &name)
 
 void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    qDebug() << "ProjectDocument::onDataChanged()";
+    //qDebug() << "ProjectDocument::onDataChanged()";
     m_modified = true;
     emit modified();
 }

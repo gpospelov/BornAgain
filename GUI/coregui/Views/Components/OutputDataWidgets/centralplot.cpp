@@ -2,8 +2,13 @@
 #include <algorithm>
 #include <iostream>
 
+
+
 CentralPlot::CentralPlot()
-    :QCustomPlot()
+    : QCustomPlot()
+    , m_colorMap(0)
+    , m_colorScale(0)
+    , m_outputDataItem(0)
 {
     this->setObjectName(QStringLiteral("centralPlot"));
     //setupColorMap(this);
@@ -87,7 +92,9 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 
        //set status bar info
        QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
+       Q_ASSERT(colorMap);
        QCPColorMapData * data  = colorMap->data();
+       Q_ASSERT(data);
        int key = 0;
        int value = 0;
 
@@ -98,7 +105,7 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 
        double cellValue = data->cell(key, value);
        std::ostringstream ss;
-       ss << "[X: " << xPos << ", Y: " << yPos << "]\t[nBinX: " << key << ", nBinY: " << value << "] \t[Value: " << cellValue << "]";
+       ss << " [X: " << xPos << ", Y: " << yPos << "]\t[nBinX: " << key << ", nBinY: " << value << "] \t[Value: " << cellValue << "]";
 
        statusString = QString::fromStdString(ss.str());
        //ui->cellPropertiesLabel->setText(QString::fromStdString(ss.str()));
@@ -177,6 +184,8 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 
 void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient)
 {
+    Q_ASSERT(outputDataItem);
+    qDebug() << "CentralPlot::drawPlot";
     m_outputDataItem = outputDataItem;
     const OutputData<double> *data = outputDataItem->getOutputData();
 
@@ -189,7 +198,7 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
     OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
 
-    std::cout << "XXX min max" << (*it_min) << " "<< (*it_max) << std::endl;
+    std::cout << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max) << std::endl;
 
     this->clearPlottables();
     //m_customPlot->clearItems();
@@ -200,15 +209,19 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     this->xAxis->setLabel("x-label");
     this->yAxis->setLabel("y-label");
 
-    const IAxis *axis_x = data->getAxis(0);
-    const IAxis *axis_y = data->getAxis(1);
 
     // set up the QCPColorMap:
 
+    delete m_colorMap;
     m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
     this->addPlottable(m_colorMap);
 
     connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+
+
+    const IAxis *axis_x = data->getAxis(0);
+    const IAxis *axis_y = data->getAxis(1);
+
 
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
@@ -311,18 +324,25 @@ void CentralPlot::setInterpolate(bool isInterpolate)
 
 void CentralPlot::setZmin(double zmin)
 {
+
     QCPRange range = getColorMap()->dataRange();
-    range.lower = zmin;
-    getColorMap()->setDataRange(range);
-    this->replot();
+    qDebug() << "CentralPlot::setZmin " << zmin << range.lower;
+    if(zmin != range.lower) {
+        range.lower = zmin;
+        getColorMap()->setDataRange(range);
+        this->replot();
+    }
 }
 
 void CentralPlot::setZmax(double zmax)
 {
     QCPRange range = getColorMap()->dataRange();
-    range.upper = zmax;
-    getColorMap()->setDataRange(range);
-    this->replot();
+    qDebug() << "CentralPlot::setZmax " << zmax << range.upper;
+    if(zmax != range.upper) {
+        range.upper = zmax;
+        getColorMap()->setDataRange(range);
+        this->replot();
+    }
 }
 
 

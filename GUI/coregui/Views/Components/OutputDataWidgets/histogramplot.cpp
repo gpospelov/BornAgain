@@ -11,7 +11,10 @@ HistogramPlot::HistogramPlot(PlotType type)
 
 void HistogramPlot::setupMap(CentralPlot *centralPlot)
 {
+    qDebug() << "HistogramPlot::setupMap()";
+    Q_ASSERT(centralPlot);
     QCPColorMapData * data  = centralPlot->getColorMapData();
+    Q_ASSERT(data);
 
     double min = data->cell(0,0);
     double max= data->cell(0,0);

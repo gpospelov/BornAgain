@@ -89,7 +89,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
 
 void JobOutputDataWidget::dataChanged(const QModelIndex &, const QModelIndex &)
 {
-    qDebug() << "JobOutputDataWidget::dataChanged()";
+    //qDebug() << "JobOutputDataWidget::dataChanged()";
 }
 
 

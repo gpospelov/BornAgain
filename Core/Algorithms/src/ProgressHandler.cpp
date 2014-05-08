@@ -35,7 +35,7 @@ bool ProgressHandler::update(int n)
 
     m_nitems += n;
 
-    std::cout << "ProgressHandler::update " << m_nitems << std::endl;
+    //std::cout << "ProgressHandler::update " << m_nitems << std::endl;
     int progress = int(double(100*m_nitems)/double(m_nitems_max)); // in percents
     if(progress != m_current_progress) {
         m_current_progress = progress;
@@ -63,5 +63,5 @@ void ProgressHandler::init(Simulation *simulation, int param_combinations)
 
     //m_nitems_max *= 2; //diffuse and non diffuse case
 
-    std::cout << "ProgressHandler::init() -> m_nitems_max" << m_nitems_max << std::endl;
+    //std::cout << "ProgressHandler::init() -> m_nitems_max" << m_nitems_max << std::endl;
 }

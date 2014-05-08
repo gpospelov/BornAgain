@@ -19,7 +19,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
 
 JobRunner::~JobRunner()
 {
-    qDebug() << "JobRunner::~JobRunner()";
+    //qDebug() << "JobRunner::~JobRunner()";
 }
 
 
@@ -75,7 +75,7 @@ void JobRunner::runFakeSimulation()
 bool JobRunner::similationProgressCallback(int progress)
 {
     m_progress = progress;
-    qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
+    //qDebug() << "JobRunner::getSimilationProgress(int)" << progress;
     emit progressUpdate();
     return !m_terminate_flag;
 }

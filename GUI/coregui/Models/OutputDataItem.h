@@ -51,6 +51,7 @@ public slots:
     void setXaxisMax(double xmax);
     void setYaxisMin(double ymin);
     void setYaxisMax(double ymax);
+    void setZaxisRange(double zmin, double zmax);
     void setZaxisMin(double zmin);
     void setZaxisMax(double zmax);
     void setLogz(bool logz);

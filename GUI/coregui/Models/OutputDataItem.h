@@ -46,15 +46,15 @@ signals:
     void modified();
 
 public slots:
-    void setName(QString name) { m_name = name; emit modified();}
-    void setXaxisMin(double xmin) { m_xaxis_min = xmin; emit modified();}
-    void setXaxisMax(double xmax) { m_xaxis_max = xmax; emit modified();}
-    void setYaxisMin(double ymin) { m_yaxis_min = ymin; emit modified();}
-    void setYaxisMax(double ymax) { m_yaxis_max = ymax; emit modified();}
-    void setZaxisMin(double zmin) { m_zaxis_min = zmin; emit modified();}
-    void setZaxisMax(double zmax) { m_zaxis_max = zmax; emit modified();}
-    void setLogz(bool logz) { m_is_logz = logz; emit modified();}
-    void setInterpolated(bool interp) { m_is_interpolated = interp; emit modified();}
+    void setName(QString name);
+    void setXaxisMin(double xmin);
+    void setXaxisMax(double xmax);
+    void setYaxisMin(double ymin);
+    void setYaxisMax(double ymax);
+    void setZaxisMin(double zmin);
+    void setZaxisMax(double zmax);
+    void setLogz(bool logz);
+    void setInterpolated(bool interp);
 
 private:
     OutputData<double> *m_data; //!< simulation results

@@ -5,7 +5,8 @@
 
 PlotWidget::PlotWidget(QWidget *parent)
     : QWidget(parent)
-    , m_splitter(new Manhattan::MiniSplitter(this))
+    //, m_splitter(new Manhattan::MiniSplitter(this))
+    , m_splitter(new QSplitter(this))
     , m_centralPlot(new CentralPlot())
     , m_verticalPlot(new HistogramPlot(HistogramPlot::Vertical))
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
@@ -99,7 +100,7 @@ PlotWidget::PlotWidget(QWidget *parent)
 
 void PlotWidget::connectSignals()
 {
-    m_toolBar = new OutputDataToolBar(this);
+    //m_toolBar = new OutputDataToolBar(this);
     connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertypanel()));
     connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
 
@@ -250,7 +251,7 @@ void PlotWidget::onZaxisRangeChanged(QCPRange newRange)
 
 void PlotWidget::togglePropertypanel()
 {
-    qDebug() << "togglePropertypanel called";
+
 
     QList<int> sizes_org = this->m_splitter->sizes();
 
@@ -266,8 +267,10 @@ void PlotWidget::togglePropertypanel()
         width = m_propertyWidget->getWidth();
     }
 
+    qDebug() << "togglePropertypanel called: widget:" << this->m_splitter->width() << ", new: "<< width << ", org:" <<sizes_org.at(1);
+
     QList<int> sizes;
-    sizes.append(this->m_splitter->height() - width);
+    sizes.append(this->m_splitter->width() - width);
     sizes.append(width);
     this->m_splitter->setSizes(sizes);
 

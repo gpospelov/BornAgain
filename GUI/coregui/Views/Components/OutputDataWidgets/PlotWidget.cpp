@@ -3,27 +3,24 @@
 #include <QVBoxLayout>
 
 
-PlotWidget::PlotWidget(QWidget *parent)
+PlotWidget::PlotWidget(QWidget *parent, bool isCreateToolbar)
     : QWidget(parent)
-    , m_splitter(new Manhattan::MiniSplitter(this))
+    //, m_splitter(new Manhattan::MiniSplitter(this))
+    , m_splitter(new QSplitter(this))
     , m_centralPlot(new CentralPlot())
     , m_verticalPlot(new HistogramPlot(HistogramPlot::Vertical))
     , m_horizontalPlot(new HistogramPlot(HistogramPlot::Horizontal))
-    , m_toolBar(new OutputDataToolBar(this))
+    //, m_toolBar(new OutputDataToolBar(this))
     , m_outputDataItem(0)
     , m_block_plot_update(true)
 {
     m_gradient = QCPColorGradient::gpPolar;
 
-//    connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
-//    connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
-//    connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)));
-
+    isProjectionsVisible = true;
+    isPropertyWidgetVisible = true;
     histogramSize = 150;
-    int horizontalHeight = histogramSize-15;
+    //int horizontalHeight = histogramSize-15;
 
-    m_verticalPlot->setMaximumWidth(histogramSize);
-    m_horizontalPlot->setMaximumHeight(horizontalHeight);
 
 
     m_propertyWidget = new PropertyWidget(this);
@@ -32,7 +29,7 @@ PlotWidget::PlotWidget(QWidget *parent)
 
 
     QWidget * emptyWidget = new QWidget();
-    emptyWidget->setMaximumSize(histogramSize, histogramSize);
+    //emptyWidget->setMaximumSize(histogramSize, histogramSize);
     //emptyWidget->setStyleSheet("background-color:white;");
 
 
@@ -80,27 +77,49 @@ PlotWidget::PlotWidget(QWidget *parent)
     m_splitter->addWidget(m_splitterRight);
 
 
-
-
-
-    connectSignals();
-
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
-    vlayout->addWidget(m_toolBar);
+
+    if(isCreateToolbar)
+    {
+        m_toolBar = new OutputDataToolBar(this);
+        connectToobarSignals();
+        vlayout->addWidget(m_toolBar);
+    }
+
     vlayout->addWidget(m_splitter);
     //vlayout->addWidget(m_statusLabel);
     this->setLayout(vlayout);
     //setCentralWidget(widget);
 
+
+
+
+    QList<int> h1_sizes;
+    h1_sizes.append(histogramSize);
+    h1_sizes.append(600);
+    this->m_splitterBottom->setSizes(h1_sizes);
+
+    QList<int> h_sizes;
+    h_sizes.append(585);
+    h_sizes.append(histogramSize);
+    this->m_splitterLeft->setSizes(h_sizes);
+
+    QList<int> v_sizes;
+    v_sizes.append(histogramSize);
+    v_sizes.append(600);
+    this->m_splitterTop->setSizes(v_sizes);
+
 }
 
 
-void PlotWidget::connectSignals()
+void PlotWidget::connectToobarSignals()
 {
-    m_toolBar = new OutputDataToolBar(this);
-    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertypanel()));
+    //m_toolBar = new OutputDataToolBar(this);
+    connect(m_toolBar, SIGNAL(togglePropertyPanel()), this, SLOT(togglePropertyPanel()));
+    connect(m_toolBar, SIGNAL(toggleProjections()), this, SLOT(toggleProjections()));
+    connect(m_toolBar, SIGNAL(resetView()), this, SLOT(resetTriggered()));
     connect(m_toolBar, SIGNAL(savePlot()), this, SLOT(savePlot()));
 
 }
@@ -196,13 +215,46 @@ void PlotWidget::mousePress(QMouseEvent *event)
 
     if(event->button() == Qt::RightButton)
     {
-        QAction *reserAct = new QAction(tr("&Reset View"), this);
-        connect(reserAct, SIGNAL(triggered()), this, SLOT(resetTriggered()));
+
+        QString propertyPanelText = tr("&Property Panel");
+        /*if(isPropertyWidgetVisible)
+        {
+            propertyPanelText = tr("Hide &Property Panel");
+        }*/
+
+        QString projectionsText = tr("Pr&ojections");
+        /*if(isProjectionsVisible)
+        {
+            projectionsText = tr("Hide Pr&ojections");
+        }*/
+
+
+
+        propertyPanelAct = new QAction(propertyPanelText, this);
+        propertyPanelAct->setCheckable(true);
+        propertyPanelAct->setChecked(isPropertyWidgetVisible);
+        connect(propertyPanelAct, SIGNAL(triggered()), this, SLOT(togglePropertyPanel()));
+
+        projectionsAct = new QAction(projectionsText, this);
+        projectionsAct->setCheckable(true);
+        projectionsAct->setChecked(isProjectionsVisible);
+        connect(projectionsAct, SIGNAL(triggered()), this, SLOT(toggleProjections()));
+
+        resetAct = new QAction(tr("&Reset View"), this);
+        connect(resetAct, SIGNAL(triggered()), this, SLOT(resetTriggered()));
+
+        saveAct = new QAction(tr("&Save as"), this);
+        connect(saveAct, SIGNAL(triggered()), this, SLOT(savePlot()));
+
+
 
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*> (event);
         QMenu *menu = new QMenu(this);
 
-        menu->addAction(reserAct);
+        menu->addAction(propertyPanelAct);
+        menu->addAction(projectionsAct);
+        menu->addAction(resetAct);
+        menu->addAction(saveAct);
         menu->exec(mouseEvent->globalPos());
     }
 
@@ -248,9 +300,9 @@ void PlotWidget::onZaxisRangeChanged(QCPRange newRange)
 
 }
 
-void PlotWidget::togglePropertypanel()
+void PlotWidget::togglePropertyPanel()
 {
-    qDebug() << "togglePropertypanel called";
+
 
     QList<int> sizes_org = this->m_splitter->sizes();
 
@@ -260,22 +312,33 @@ void PlotWidget::togglePropertypanel()
     if(sizes_org.at(1) > 0)
     {
         width = 0;
+        isPropertyWidgetVisible = false;
     }
     else
     {
         width = m_propertyWidget->getWidth();
+        isPropertyWidgetVisible = true;
     }
 
+    qDebug() << "togglePropertypanel called: widget:" << this->m_splitter->width() << ", new: "<< width << ", org:" <<sizes_org.at(1);
+
     QList<int> sizes;
-    sizes.append(this->m_splitter->height() - width);
+    sizes.append(this->m_splitter->width() - width);
     sizes.append(width);
     this->m_splitter->setSizes(sizes);
 
 }
 
+void PlotWidget::toggleProjections()
+{
+    m_propertyWidget->toggleProjections();
+}
+
 void PlotWidget::projectionsChanged(bool projection)
 {
     qDebug() << "PW Projections: " << projection;
+
+    isProjectionsVisible = projection;
 
     int width;
 

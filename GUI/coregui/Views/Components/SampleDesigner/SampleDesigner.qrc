@@ -50,5 +50,8 @@
         <file>images/ff_TruncatedSphere_32.png</file>
         <file>images/ff_TruncatedSpheroid_32.png</file>
         <file>images/filesave.png</file>
+        <file>images/refresh.png</file>
+        <file>images/sidebar.png</file>
+        <file>images/application-resize-full.png</file>
     </qresource>
 </RCC>

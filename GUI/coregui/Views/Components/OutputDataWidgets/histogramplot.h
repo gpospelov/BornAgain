@@ -15,8 +15,7 @@ public:
     HistogramPlot(){}
     HistogramPlot(PlotType type);
 
-
-
+    //QSize sizeHint() const { return QSize(150, 600); }
 
     void generateHistogram(const QVector<double> x, const QVector<double> y);
     void setupMap(CentralPlot *centralPlot);
@@ -29,7 +28,6 @@ private:
     PlotType m_type;
     double min, max;
     QCPAxis *m_dataScaleAxis;
-
 
 };
 

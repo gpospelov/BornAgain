@@ -216,7 +216,7 @@ void MainWindow::initJobQueueModel()
     m_jobQueueModel = new JobQueueModel(this);
     SimulationRegistry registry;
     m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
-    //m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
+    m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
     //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 

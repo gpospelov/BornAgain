@@ -43,6 +43,7 @@ private:
     QString statusString;
     QCPRange m_colorScaleRange;
     OutputDataItem *m_outputDataItem;
+    QCPRange calculateDataRange();
 
 };
 

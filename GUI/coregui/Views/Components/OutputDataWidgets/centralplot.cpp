@@ -189,6 +189,8 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     m_outputDataItem = outputDataItem;
     const OutputData<double> *data = outputDataItem->getOutputData();
 
+
+
     Q_ASSERT(data);
 
     if(data->getRank() != 2) {
@@ -261,6 +263,8 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
     m_colorMap->rescaleDataRange();
 
+    m_colorMap->setDataRange(calculateDataRange());
+
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(this);
@@ -289,6 +293,41 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     this->rescaleAxes();
 
     this->replot();
+}
+
+QCPRange CentralPlot::calculateDataRange()
+{
+    //qDebug() << "ZMIN ZMAX" << m_colorMap->dataRange().lower<< ":" << m_colorMap->dataRange().upper;
+
+    if(!m_colorMap)
+    {
+        return QCPRange(0, 0);
+    }
+
+    double min, max;
+    QCPRange dataRange  = m_colorMap->dataRange();
+    min = dataRange.lower;
+    max = dataRange.upper;
+
+    if(m_outputDataItem->isLogz())
+    {
+        if(max>10000)
+        {
+            min = 1.0;
+            max = max*1.1;
+        }
+        else
+        {
+            max = max*1.1;
+            min = max/10000;
+        }
+    }
+    else
+    {
+        min = dataRange.lower;
+        max = dataRange.upper*1.1;
+    }
+    return QCPRange(min, max);
 }
 
 /*QCPColorScale *CentralPlot::getColorScale() const

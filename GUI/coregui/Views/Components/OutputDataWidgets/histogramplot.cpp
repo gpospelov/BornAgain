@@ -50,7 +50,8 @@ void HistogramPlot::setupMap(CentralPlot *centralPlot)
         }
     }
 
-    qDebug() << "Min: " << min << " Max: " << max;
+
+    qDebug() << "Min: " << min << " Max: " << max << log(max);
 
     if(m_type == this->Vertical)
     {
@@ -158,7 +159,7 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
     this->axisRect()->setMargins(margins);
     this->axisRect()->layout()->setMargins(margins);
 
-    qDebug() << QString::number(this->xAxis->range().upper, 'e',0);
+    //qDebug() << QString::number(this->xAxis->range().upper, 'e',0);
 
     //this->xAxis->setAutoTicks(false);
     //this->xAxis->setAutoTickLabels(false);

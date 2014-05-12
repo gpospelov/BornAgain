@@ -8,6 +8,8 @@
 #include <QApplication>
 #include <QWidget>
 #include <QMouseEvent>
+#include <QStyleOptionProgressBarV2>
+#include "hostosinfo.h"
 
 JobListViewDelegate::JobListViewDelegate(QWidget *parent)
     : QItemDelegate(parent)
@@ -35,18 +37,19 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     QString text = item->getName();
     QRect textRect = getTextRect(option.rect);
-    textRect.setHeight( 30);
+    //textRect.setHeight( 10);
     painter->drawText(textRect,text);
 
     QStyleOptionProgressBar progressBarOption;
     progressBarOption.state = QStyle::State_Enabled;
     progressBarOption.direction = QApplication::layoutDirection();
     progressBarOption.rect = getProgressBarRect(option.rect);
-    progressBarOption.fontMetrics = QApplication::fontMetrics();
+    //progressBarOption.rect = option.rect;
+    //progressBarOption.fontMetrics = QApplication::fontMetrics();
     progressBarOption.minimum = 0;
     progressBarOption.maximum = 100;
-    progressBarOption.textAlignment = Qt::AlignCenter;
-    progressBarOption.textVisible = true;
+    //progressBarOption.textAlignment = Qt::AlignCenter;
+    progressBarOption.textVisible = false;
 
     // Set the progress and text values of the style option.
     int progress = item->getProgress();
@@ -127,6 +130,12 @@ QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const
     int height = optionRect.height()*0.6;
     int x = optionRect.x() + optionRect.width()*0.5;
     int y = optionRect.y() + (optionRect.height() - height)/2.;
+    if( Utils::HostOsInfo::isMacHost() ) {
+        // for Mac the height of progress bar can't be made smaller
+        y = optionRect.y();
+        height = optionRect.height()*0.5;
+    }
+
     QRect result(x,y,width,height);
     return result;
 }

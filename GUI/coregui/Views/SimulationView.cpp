@@ -76,20 +76,20 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
     runSimulationButton = new QPushButton(tr("Run Simulation"));
 
     // run simulation with python script sample builder
-    runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));
+    //runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(inputDataGroup);
     mainLayout->addWidget(simulationParametersGroup);
     mainLayout->addWidget(runSimulationButton);
-    mainLayout->addWidget(runPyScriptSimulation);
+    //mainLayout->addWidget(runPyScriptSimulation);
     mainLayout->addStretch();
     setLayout(mainLayout);
 
     // signal and slots
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
-    connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
+    //connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
 }
 
 

@@ -15,6 +15,8 @@
 
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "GUIHelpers.h"
+#include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
 
@@ -87,16 +89,31 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
                 result->addParticle(*particle, depth, abundance);
             }
         }
-    }
+        else if(children[i]->modelType().startsWith("InterferenceFunction")) {
+            boost::scoped_ptr<IInterferenceFunction>
+                    interference(buildInterferenceFunction(*children[i]));
+            if (interference.get()) {
+                result->addInterferenceFunction(*interference);
+            }
+        }
 
+        else {
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
+        }
+    }
     return result;
 }
 
 
 Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const
 {
-    Particle *particle = TransformToDomain::createParticle(item, depth, abundance);
-    return particle;
+    Particle *result = TransformToDomain::createParticle(item, depth, abundance);
+    return result;
 }
 
+IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
+{
+    IInterferenceFunction *result = TransformToDomain::createInterferenceFunction(item);
+    return result;
+}
 

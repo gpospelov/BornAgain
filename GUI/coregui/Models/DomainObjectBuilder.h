@@ -17,6 +17,7 @@
 #define DOMAINOBJECTBUILDER_H
 
 #include "Samples.h"
+#include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
 
 class DomainObjectBuilder
@@ -36,6 +37,7 @@ private:
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
+    IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     ISample *mp_sample;
 };
 

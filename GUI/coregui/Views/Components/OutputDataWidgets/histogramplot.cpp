@@ -5,9 +5,24 @@ HistogramPlot::HistogramPlot(PlotType type)
     :QCustomPlot()
 {
     this->setObjectName(QStringLiteral("histogramPlot"));
-    //qDebug() << type;
+
     m_type = type;
+
 }
+
+/*QSize HistogramPlot::sizeHint() const {
+
+qDebug() << "Hist Size:" <<histogramSize;
+    if(m_type == this->Vertical)
+    {
+        return QSize(histogramSize, 600);
+    }
+    else
+    {
+        return QSize(600, histogramSize);
+    }
+
+}*/
 
 void HistogramPlot::setupMap(CentralPlot *centralPlot)
 {
@@ -35,14 +50,17 @@ void HistogramPlot::setupMap(CentralPlot *centralPlot)
         }
     }
 
-    qDebug() << "Min: " << min << " Max: " << max;
+
+    qDebug() << "Min: " << min << " Max: " << max << log(max);
 
     if(m_type == this->Vertical)
     {
+
         setupVerticalMap(centralPlot, min, max);
     }
     else
     {
+
         setupHorizontalMap(centralPlot, min, max);
     }
 }
@@ -141,7 +159,7 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
     this->axisRect()->setMargins(margins);
     this->axisRect()->layout()->setMargins(margins);
 
-    qDebug() << QString::number(this->xAxis->range().upper, 'e',0);
+    //qDebug() << QString::number(this->xAxis->range().upper, 'e',0);
 
     //this->xAxis->setAutoTicks(false);
     //this->xAxis->setAutoTickLabels(false);

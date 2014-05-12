@@ -17,11 +17,12 @@ public:
     explicit PropertyWidget(QWidget *parent);
     virtual ~PropertyWidget(){}
 
-    QSize minimumSizeHint() const { return QSize(150, 600); }
+    QSize minimumSizeHint() const { return QSize(230, 600); }
 
     void setupPropertyWidget(OutputDataItem *outputDataItem, QCPColorGradient gradient);
 
     int getWidth();
+    void toggleProjections();
 
 
 public slots:
@@ -46,6 +47,12 @@ private:
     bool isProjection;
     QVector<QCPColorGradient> m_gradientVector;
     void initGradientVector();
+    QtVariantProperty *projectionsProperty;
+    QtVariantProperty *interpolationProperty;
+    QtVariantProperty *logzProperty;
+    QtVariantProperty *zminProperty;
+    QtVariantProperty *zmaxProperty;
+    QtVariantProperty *gradientProperty;
 
 
 };

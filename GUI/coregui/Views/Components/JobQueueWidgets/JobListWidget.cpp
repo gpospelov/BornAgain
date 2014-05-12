@@ -15,9 +15,9 @@ JobListWidget::JobListWidget(QWidget *parent)
     , m_jobQueueModel(0)
     , m_listViewDelegate(new JobListViewDelegate(this))
     , m_listView(new QListView(this))
-    , m_submitButton(new QPushButton("Submit"))
-    , m_runButton(new QPushButton("Run"))
-    , m_saveButton(new QPushButton("Save"))
+//    , m_submitButton(new QPushButton("Submit"))
+//    , m_runButton(new QPushButton("Run"))
+//    , m_saveButton(new QPushButton("Save"))
 {
 //    setMinimumSize(128, 128);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -35,26 +35,26 @@ JobListWidget::JobListWidget(QWidget *parent)
     Manhattan::StyledBar *bar = new Manhattan::StyledBar;
     mainLayout->addWidget(bar);
 
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    buttonsLayout->addWidget(m_submitButton);
-    buttonsLayout->addWidget(m_runButton);
-    buttonsLayout->addWidget(m_saveButton);
-    buttonsLayout->addStretch(1);
+//    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+//    buttonsLayout->addWidget(m_submitButton);
+//    buttonsLayout->addWidget(m_runButton);
+//    buttonsLayout->addWidget(m_saveButton);
+//    buttonsLayout->addStretch(1);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setMargin(10);
     vlayout->setSpacing(10);
 
-    vlayout->addLayout(buttonsLayout);
+//    vlayout->addLayout(buttonsLayout);
     vlayout->addWidget(m_listView);
 
     mainLayout->addLayout(vlayout);
 
     setLayout(mainLayout);
 
-    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
-    connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-    connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
+//    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
+//    connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
+//    connect(m_runButton, SIGNAL(clicked()), this, SLOT(run()));
 
     setupContextMenu();
 }
@@ -95,7 +95,7 @@ void JobListWidget::submit()
 }
 
 
-void JobListWidget::run()
+void JobListWidget::runJob()
 {
     QModelIndexList indexList = m_listView->selectionModel()->selectedIndexes();
     if(!indexList.empty()) {
@@ -110,6 +110,11 @@ void JobListWidget::setupContextMenu()
     QAction *removeJobAction = new QAction(tr("Remove Job"), this);
     connect(removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
     m_listView->addAction(removeJobAction);
+
+    QAction *runJobAction = new QAction(tr("Run Job"), this);
+    connect(runJobAction, SIGNAL(triggered()), this, SLOT(runJob()));
+    m_listView->addAction(runJobAction);
+
 
 }
 

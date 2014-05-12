@@ -29,7 +29,7 @@ private:
     QComboBox *instrumentSelectionBox;
     QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;
-    QPushButton *runPyScriptSimulation;
+    //QPushButton *runPyScriptSimulation;
 };
 
 #endif // SIMULATIONVIEW_H

@@ -16,6 +16,7 @@ JobQueueView::JobQueueView(JobQueueModel *model, QWidget *parent)
     , m_splitter(new Manhattan::MiniSplitter(this))
     , m_jobSelector(new JobSelectorWidget(m_jobQueueModel, this))
     , m_jobOutputData(new JobOutputDataWidget(m_jobQueueModel, this))
+    , m_progressBar(0)
 {
     setObjectName("JobQueueView");
 
@@ -44,6 +45,7 @@ void JobQueueView::setProgressBar(Manhattan::ProgressBar *progressBar)
 
 void JobQueueView::updateGlobalProgressBar(int progress)
 {
+    Q_ASSERT(m_progressBar);
     if(progress<0 || progress >= 100) {
         m_progressBar->setFinished(true);
         m_progressBar->hide();

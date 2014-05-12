@@ -5,9 +5,24 @@ HistogramPlot::HistogramPlot(PlotType type)
     :QCustomPlot()
 {
     this->setObjectName(QStringLiteral("histogramPlot"));
-    //qDebug() << type;
+
     m_type = type;
+
 }
+
+/*QSize HistogramPlot::sizeHint() const {
+
+qDebug() << "Hist Size:" <<histogramSize;
+    if(m_type == this->Vertical)
+    {
+        return QSize(histogramSize, 600);
+    }
+    else
+    {
+        return QSize(600, histogramSize);
+    }
+
+}*/
 
 void HistogramPlot::setupMap(CentralPlot *centralPlot)
 {
@@ -39,10 +54,12 @@ void HistogramPlot::setupMap(CentralPlot *centralPlot)
 
     if(m_type == this->Vertical)
     {
+
         setupVerticalMap(centralPlot, min, max);
     }
     else
     {
+
         setupHorizontalMap(centralPlot, min, max);
     }
 }

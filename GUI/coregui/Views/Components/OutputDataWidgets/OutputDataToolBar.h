@@ -17,12 +17,17 @@ public:
 
 signals:
     void togglePropertyPanel();
+    void toggleProjections();
+    void resetView();
     void savePlot();
 
 
 private:
 
+
     QAction *m_togglePropertyPanelAction;
+    QAction *m_toggleProjectionsAction;
+    QAction *m_resetViewAction;
     QAction *m_savePlotAction;
 };
 

@@ -105,7 +105,7 @@ QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::
     JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
 
-    if(item->getRunPolicy() & JobItem::RunImmediately)
+    if( item->getRunPolicy() & (JobItem::RunImmediately | JobItem::RunInBackground) )
         runJob(queue_item->getIdentifier());
 
     return queue_item->getIdentifier();

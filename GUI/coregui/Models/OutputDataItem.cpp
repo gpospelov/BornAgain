@@ -16,6 +16,8 @@ OutputDataItem::OutputDataItem()
     , m_zaxis_max(0.0)
     , m_is_logz(true)
     , m_is_interpolated(true)
+    , m_xaxis_title("x-axis")
+    , m_yaxis_title("y-axis")
 {
 
 }
@@ -115,6 +117,22 @@ void OutputDataItem::setInterpolated(bool interp)
     }
 }
 
+void OutputDataItem::setXaxisTitle(QString xtitle)
+{
+    if(m_xaxis_title != xtitle) {
+        m_xaxis_title = xtitle;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setYaxisTitle(QString ytitle)
+{
+    if(m_yaxis_title != ytitle) {
+        m_yaxis_title = ytitle;
+        emit modified();
+    }
+}
+
 
 
 void OutputDataItem::writeTo(QXmlStreamWriter *writer)
@@ -130,6 +148,8 @@ void OutputDataItem::writeTo(QXmlStreamWriter *writer)
     writer->writeAttribute(JobQueueXML::OutputDataZmaxAttribute, QString::number(getZaxisMax()));
     writer->writeAttribute(JobQueueXML::OutputDataLogzAttribute, QString::number(isLogz()));
     writer->writeAttribute(JobQueueXML::OutputDataInterpolatedAttribute, QString::number(isInterpolated()));
+    writer->writeAttribute(JobQueueXML::OutputDataXtitleAttribute, getXaxisTitle());
+    writer->writeAttribute(JobQueueXML::OutputDataYtitleAttribute, getYaxisTitle());
     writer->writeEndElement(); // OutputDataTag
 
 }
@@ -169,5 +189,10 @@ void OutputDataItem::readFrom(QXmlStreamReader *reader)
 
     setInterpolated(reader->attributes()
             .value(JobQueueXML::OutputDataInterpolatedAttribute).toInt());
+
+    setXaxisTitle(reader->attributes()
+                  .value(JobQueueXML::OutputDataXtitleAttribute).toString());
+    setYaxisTitle(reader->attributes()
+                  .value(JobQueueXML::OutputDataYtitleAttribute).toString());
 
 }

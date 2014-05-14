@@ -208,8 +208,8 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
 
     this->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
     this->axisRect()->setupFullAxesBox(true);
-    this->xAxis->setLabel("x-label");
-    this->yAxis->setLabel("y-label");
+    this->xAxis->setLabel(outputDataItem->getXaxisTitle());
+    this->yAxis->setLabel(outputDataItem->getYaxisTitle());
 
 
     // set up the QCPColorMap:
@@ -429,6 +429,18 @@ void CentralPlot::showLinesOverMap(bool isLineVisible)
         this->graph(1)->setVisible(isLineVisible);
         this->replot();
     }
+}
+
+void CentralPlot::setXaxisTitle(QString xtitle)
+{
+    this->xAxis->setLabel(xtitle);
+    this->replot();
+}
+
+void CentralPlot::setYaxisTitle(QString ytitle)
+{
+    this->yAxis->setLabel(ytitle);
+    this->replot();
 }
 
 //void CentralPlot::onDataRangeChanged(QCPRange newRange)

@@ -36,6 +36,8 @@ namespace JobQueueXML
     const QString OutputDataZmaxAttribute("Zmax");
     const QString OutputDataLogzAttribute("Logz");
     const QString OutputDataInterpolatedAttribute("Interpolated");
+    const QString OutputDataXtitleAttribute("Xtitle");
+    const QString OutputDataYtitleAttribute("Ytitle");
 }
 
 

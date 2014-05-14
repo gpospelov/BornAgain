@@ -12,6 +12,7 @@ PropertyWidget::PropertyWidget(QWidget *parent)
 {
     maxWidth = 230;
     this->setMaximumWidth(maxWidth);
+
     isProjection = true;
     initGradientVector();
 
@@ -104,6 +105,14 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     gradientProperty->setValue(gradIndex);
     addProperty(gradientProperty, tr("Gradient"));
 
+    xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
+    xtitleProperty->setValue(outputDataItem->getXaxisTitle());
+    addProperty(xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
+
+    ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
+    ytitleProperty->setValue(outputDataItem->getYaxisTitle());
+    addProperty(ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
+
 }
 
 int PropertyWidget::getWidth()
@@ -151,6 +160,14 @@ void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
 
         emit gradientChanged(m_gradientVector.at(value.toInt()));
 
+    } else if(id == JobQueueXML::OutputDataXtitleAttribute) {
+
+        m_outputDataItem->setXaxisTitle(value.toString());
+
+    } else if(id == JobQueueXML::OutputDataYtitleAttribute) {
+
+        m_outputDataItem->setYaxisTitle(value.toString());
+
     }
     //connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
@@ -166,6 +183,8 @@ void PropertyWidget::onOutputDataItemModified()
     idToProperty[JobQueueXML::OutputDataInterpolatedAttribute]->setValue(m_outputDataItem->isInterpolated());
     idToProperty[JobQueueXML::OutputDataZminAttribute]->setValue(m_outputDataItem->getZaxisMin());
     idToProperty[JobQueueXML::OutputDataZmaxAttribute]->setValue(m_outputDataItem->getZaxisMax());
+    idToProperty[JobQueueXML::OutputDataXtitleAttribute]->setValue(m_outputDataItem->getXaxisTitle());
+    idToProperty[JobQueueXML::OutputDataYtitleAttribute]->setValue(m_outputDataItem->getYaxisTitle());
 
 }
 

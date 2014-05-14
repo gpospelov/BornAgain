@@ -53,7 +53,7 @@ PlotWidget::PlotWidget(QWidget *parent, bool isCreateToolbar)
 
     m_splitterRight = new QSplitter(this);
     m_splitterRight->addWidget(m_propertyWidget);
-//    m_splitterRight->setStyleSheet("background-color:white;");
+    //m_splitterRight->setStyleSheet("background-color:white;");
 
 
     m_statusLabel = new QLabel(this);
@@ -202,6 +202,8 @@ void PlotWidget::updatePlot()
     m_centralPlot->setLogz(m_outputDataItem->isLogz());
     m_verticalPlot->setLogz(m_outputDataItem->isLogz());
     m_horizontalPlot->setLogz(m_outputDataItem->isLogz());
+    m_centralPlot->setXaxisTitle(m_outputDataItem->getXaxisTitle());
+    m_centralPlot->setYaxisTitle(m_outputDataItem->getYaxisTitle());
 
 }
 
@@ -320,7 +322,7 @@ void PlotWidget::togglePropertyPanel()
         isPropertyWidgetVisible = true;
     }
 
-    qDebug() << "togglePropertypanel called: widget:" << this->m_splitter->width() << ", new: "<< width << ", org:" <<sizes_org.at(1);
+    //qDebug() << "togglePropertypanel called: widget:" << this->m_splitter->width() << ", new: "<< width << ", org:" <<sizes_org.at(1);
 
     QList<int> sizes;
     sizes.append(this->m_splitter->width() - width);
@@ -336,7 +338,7 @@ void PlotWidget::toggleProjections()
 
 void PlotWidget::projectionsChanged(bool projection)
 {
-    qDebug() << "PW Projections: " << projection;
+    //qDebug() << "PW Projections: " << projection;
 
     isProjectionsVisible = projection;
 
@@ -368,5 +370,6 @@ void PlotWidget::gradientChanged(QCPColorGradient gradient)
 {
     m_gradient = gradient;
     m_centralPlot->setGradient(gradient);
+
 }
 

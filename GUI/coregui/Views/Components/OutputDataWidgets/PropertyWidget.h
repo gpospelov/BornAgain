@@ -17,7 +17,7 @@ public:
     explicit PropertyWidget(QWidget *parent);
     virtual ~PropertyWidget(){}
 
-    QSize minimumSizeHint() const { return QSize(230, 600); }
+    QSize minimumSizeHint() const { return QSize(230, 800); }
 
     void setupPropertyWidget(OutputDataItem *outputDataItem, QCPColorGradient gradient);
 
@@ -53,6 +53,8 @@ private:
     QtVariantProperty *zminProperty;
     QtVariantProperty *zmaxProperty;
     QtVariantProperty *gradientProperty;
+    QtVariantProperty *xtitleProperty;
+    QtVariantProperty *ytitleProperty;
 
 
 };

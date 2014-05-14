@@ -53,3 +53,11 @@ void JobSelectorWidget::setModel(JobQueueModel *model)
     }
 }
 
+
+void JobSelectorWidget::makeJobItemSelected(JobItem *item)
+{
+    QModelIndex index = m_jobQueueModel->getIndexForJobItem(item);
+    Q_ASSERT(index.isValid());
+    m_jobListWidget->makeJobItemSelected(index);
+}
+

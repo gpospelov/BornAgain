@@ -197,6 +197,8 @@ void JobQueueData::onFinishedJob()
     getThread(runner->getIdentifier())->quit();
 
     assignForDeletion(runner);
+
+    emit focusRequest(jobItem);
 }
 
 

@@ -22,6 +22,8 @@ public:
     void setModel(JobQueueModel *model);
 //    QSize sizeHint() const { return QSize(128, 128); }
 
+public slots:
+    void makeJobItemSelected(const QModelIndex &index);
 
 private slots:
     void save();

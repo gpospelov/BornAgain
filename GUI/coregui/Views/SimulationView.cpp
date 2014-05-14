@@ -15,10 +15,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
-#include <QDateTime>
-#include <QFuture>
-#include <QFutureWatcher>
 #include <QtCore>
+#include <QMenu>
 
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
@@ -74,6 +72,10 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
 
     // run simulation button
     runSimulationButton = new QPushButton(tr("Run Simulation"));
+//    QMenu *simMenu = new QMenu(this);
+//    simMenu->addAction(tr("&Run Simulation"));
+//    simMenu->addAction(tr("&Run background Simulation"));
+//    runSimulationButton->setMenu(simMenu);
 
     // run simulation with python script sample builder
     //runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));

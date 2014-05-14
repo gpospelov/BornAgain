@@ -128,4 +128,11 @@ void JobListWidget::removeJob()
 }
 
 
+void JobListWidget::makeJobItemSelected(const QModelIndex &index)
+{
+    m_listView->selectionModel()->clearSelection();
+    m_listView->selectionModel()->select(index, QItemSelectionModel::Select);
+}
+
+
 

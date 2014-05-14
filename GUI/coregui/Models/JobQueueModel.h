@@ -81,6 +81,8 @@ public:
     const JobItem *getJobItemForIndex(const QModelIndex &index) const;
     JobItem *getJobItemForIndex(const QModelIndex &index);
 
+    QModelIndex getIndexForJobItem(const JobItem *item);
+
     JobQueueData *getJobQueueData() { return m_queue_data; }
 
 signals:

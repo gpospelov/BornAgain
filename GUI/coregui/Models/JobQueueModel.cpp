@@ -295,13 +295,15 @@ void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QI
 //! Method should be called to inform given model about changes in JobItem
 void JobQueueModel::onJobItemIsModified(JobItem *modified_item)
 {
-    QString identifier = m_queue_data->getIdentifierForJobItem(modified_item);
-    foreach(JobQueueItem *queue_item, m_jobs) {
-        if(queue_item->getIdentifier() == identifier) {
-            QModelIndex item_index = index(m_jobs.indexOf(queue_item), 0);
-            dataChanged(item_index, item_index);
-        }
-    }
+    QModelIndex itemIndex =  getIndexForJobItem(modified_item);
+    dataChanged(itemIndex, itemIndex);
+//    QString identifier = m_queue_data->getIdentifierForJobItem(modified_item);
+//    foreach(JobQueueItem *queue_item, m_jobs) {
+//        if(queue_item->getIdentifier() == identifier) {
+//            QModelIndex item_index = index(m_jobs.indexOf(queue_item), 0);
+//            dataChanged(item_index, item_index);
+//        }
+//    }
 }
 
 
@@ -326,6 +328,19 @@ const JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index) const
 JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
 {
     return const_cast<JobItem *>(static_cast<const JobQueueModel &>(*this).getJobItemForIndex(index));
+}
+
+
+QModelIndex JobQueueModel::getIndexForJobItem(const JobItem *item)
+{
+    QString identifier = m_queue_data->getIdentifierForJobItem(item);
+    foreach(JobQueueItem *queue_item, m_jobs) {
+        if(queue_item->getIdentifier() == identifier) {
+            return index(m_jobs.indexOf(queue_item), 0);
+        }
+    }
+
+    return QModelIndex();
 }
 
 

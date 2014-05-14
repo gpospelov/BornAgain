@@ -32,6 +32,7 @@ public:
 
 signals:
     void globalProgress(int);
+    void focusRequest(JobItem *item);
 
 public slots:
     void onStartedJob();

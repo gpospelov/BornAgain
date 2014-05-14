@@ -54,7 +54,7 @@ public:
 
 public slots:
     void onChangeTabWidget(int index);
-    void setActiveTab(int index);
+    void onFocusRequest(int index);
     void openRecentProject();
     void readSettings();
     void writeSettings();

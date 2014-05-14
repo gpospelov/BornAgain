@@ -31,6 +31,7 @@ public:
     void setGradient(QCPColorGradient gradient);
     void setLogz(bool logz, bool isReplot  = true);
     bool isLogz();
+    void showLinesOverMap(bool isLineVisible);
 
 signals:
     void dataRangeChanged(QCPRange newRange);

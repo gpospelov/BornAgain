@@ -360,6 +360,8 @@ void PlotWidget::projectionsChanged(bool projection)
     v_sizes.append(width);
     v_sizes.append(this->m_splitterTop->width()-width);
     this->m_splitterTop->setSizes(v_sizes);
+
+    m_centralPlot->showLinesOverMap(projection);
 }
 
 void PlotWidget::gradientChanged(QCPColorGradient gradient)

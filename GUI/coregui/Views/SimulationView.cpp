@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
 #include "JobQueueModel.h"
+#include "JobItem.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -140,8 +141,8 @@ void SimulationView::onRunSimulation()
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
 
-    QString identifier = m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim);
-    m_jobQueueModel->runJob(identifier);
+    QString identifier = m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
+    //m_jobQueueModel->runJob(identifier);
 }
 
 void SimulationView::onPythonJobLaunched()

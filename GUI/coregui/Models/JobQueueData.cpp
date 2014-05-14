@@ -15,11 +15,13 @@ int JobQueueData::m_job_index = 0;
 
 //! Creates JobQueueItem and corresponding JobItem.
 //! Created JobItem will be registered using unique identifier.
-JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation)
+JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 {
     JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
     if(jobName.isEmpty()) jobName = generateJobName();
-    m_job_items[result->getIdentifier()] = new JobItem(jobName);
+    JobItem *jobItem = new JobItem(jobName);
+    jobItem->setRunPolicy(run_policy);
+    m_job_items[result->getIdentifier()] = jobItem;
     if(simulation) m_simulations[result->getIdentifier()] = simulation;
     return result;
 }
@@ -198,7 +200,8 @@ void JobQueueData::onFinishedJob()
 
     assignForDeletion(runner);
 
-    emit focusRequest(jobItem);
+    if(jobItem->getRunPolicy() & JobItem::RunImmediately)
+        emit focusRequest(jobItem);
 }
 
 

@@ -2,6 +2,7 @@
 #define JOBQUEUEMODEL_H
 
 #include "JobQueueData.h"
+#include "JobItem.h"
 #include <QAbstractListModel>
 #include <QList>
 #include <QModelIndex>
@@ -63,7 +64,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-    QString addJob(QString jobName=QString(), Simulation *simulation=0);
+    QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
 
     void clear();
 

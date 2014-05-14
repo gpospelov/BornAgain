@@ -12,6 +12,7 @@
 JobItem::JobItem(QString name)
     : m_status(Idle)
     , m_progress(0)
+    , m_run_policy(SubmitOnly)
 {
     OutputDataItem *dataItem = new OutputDataItem();
     m_data_items.append(dataItem);

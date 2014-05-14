@@ -28,6 +28,13 @@ public:
         Canceled
     };
 
+    enum RunPolicy
+    {
+        SubmitOnly = 0x0001,
+        RunImmediately = 0x0002,
+        RunInBackground  = 0x0004
+    };
+
     JobItem(QString name);
     virtual ~JobItem();
 
@@ -51,6 +58,9 @@ public:
     bool isRunning() const { return m_status == Running; }
 
     OutputDataItem *getOutputDataItem(int n_item = 0);
+
+    RunPolicy getRunPolicy() const { return m_run_policy; }
+    void setRunPolicy(RunPolicy run_policy) { m_run_policy = run_policy; }
 
 signals:
     void modified(JobItem *);
@@ -77,6 +87,7 @@ private:
 
     QList<OutputDataItem *> m_data_items;
     QStringList m_status_list;
+    RunPolicy m_run_policy;
 };
 
 

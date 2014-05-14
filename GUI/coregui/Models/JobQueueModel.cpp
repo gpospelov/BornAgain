@@ -94,16 +94,19 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //! Creates and adds JobQueueItem in the list of jobs.
 //! Corresponding JobItem will be created too.
 //! Returns unique identifier of created job.
-QString JobQueueModel::addJob(QString jobName, Simulation *simulation)
+QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
-    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation);
+    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation, run_policy);
     m_jobs.append(queue_item);
     endInsertRows();
 
     JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+
+    if(item->getRunPolicy() & JobItem::RunImmediately)
+        runJob(queue_item->getIdentifier());
 
     return queue_item->getIdentifier();
 }

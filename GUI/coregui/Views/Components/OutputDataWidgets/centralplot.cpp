@@ -266,7 +266,7 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
 
     QCPRange newDataRange = calculateDataRange();
     m_colorMap->setDataRange(newDataRange);
-    //outputDataItem->setZaxisRange(newDataRange.lower, newDataRange.upper);
+    outputDataItem->setZaxisRange(newDataRange.lower, newDataRange.upper);
 
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
@@ -368,7 +368,7 @@ void CentralPlot::setZmin(double zmin)
 {
 
     QCPRange range = getColorMap()->dataRange();
-    qDebug() << "CentralPlot::setZmin " << zmin << range.lower;
+    //qDebug() << "CentralPlot::setZmin " << zmin << range.lower;
     if(zmin != range.lower) {
         range.lower = zmin;
         getColorMap()->setDataRange(range);
@@ -379,7 +379,7 @@ void CentralPlot::setZmin(double zmin)
 void CentralPlot::setZmax(double zmax)
 {
     QCPRange range = getColorMap()->dataRange();
-    qDebug() << "CentralPlot::setZmax " << zmax << range.upper;
+    //qDebug() << "CentralPlot::setZmax " << zmax << range.upper;
     if(zmax != range.upper) {
         range.upper = zmax;
         getColorMap()->setDataRange(range);

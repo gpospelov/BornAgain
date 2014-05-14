@@ -64,30 +64,30 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     m_outputDataItem = outputDataItem;
     connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
-    projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
-    projectionsProperty->setToolTip("Projections");
-    projectionsProperty->setValue(isProjection);
-    addProperty(projectionsProperty, tr("Projections"));
+    m_projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
+    m_projectionsProperty->setToolTip("Projections");
+    m_projectionsProperty->setValue(isProjection);
+    addProperty(m_projectionsProperty, tr("Projections"));
 
-    interpolationProperty = m_variantManager->addProperty(QVariant::Bool, tr("Interpolation"));
-    interpolationProperty->setToolTip("Interploation");
-    interpolationProperty->setValue(outputDataItem->isInterpolated());
-    addProperty(interpolationProperty, JobQueueXML::OutputDataInterpolatedAttribute);
+    m_interpolationProperty = m_variantManager->addProperty(QVariant::Bool, tr("Interpolation"));
+    m_interpolationProperty->setToolTip("Interploation");
+    m_interpolationProperty->setValue(outputDataItem->isInterpolated());
+    addProperty(m_interpolationProperty, JobQueueXML::OutputDataInterpolatedAttribute);
 
-    logzProperty = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
-    logzProperty->setToolTip("Logz");
-    logzProperty->setValue(outputDataItem->isLogz());
-    addProperty(logzProperty, JobQueueXML::OutputDataLogzAttribute);
+    m_logzProperty = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
+    m_logzProperty->setToolTip("Logz");
+    m_logzProperty->setValue(outputDataItem->isLogz());
+    addProperty(m_logzProperty, JobQueueXML::OutputDataLogzAttribute);
 
-    zminProperty = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
-    zminProperty->setValue(outputDataItem->getZaxisMin());
-    zminProperty->setAttribute(QLatin1String("decimals"), 6);
-    addProperty(zminProperty, JobQueueXML::OutputDataZminAttribute);
+    m_zminProperty = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
+    m_zminProperty->setValue(outputDataItem->getZaxisMin());
+    m_zminProperty->setAttribute(QLatin1String("decimals"), 6);
+    addProperty(m_zminProperty, JobQueueXML::OutputDataZminAttribute);
 
-    zmaxProperty = m_variantManager->addProperty(QVariant::Double, tr("zmax"));
-    zmaxProperty->setValue(outputDataItem->getZaxisMax());
-    zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
-    addProperty(zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
+    m_zmaxProperty = m_variantManager->addProperty(QVariant::Double, tr("zmax"));
+    m_zmaxProperty->setValue(outputDataItem->getZaxisMax());
+    m_zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
+    addProperty(m_zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
 
     qDebug() << "zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
 
@@ -99,21 +99,21 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
         gradIndex = m_gradientVector.indexOf(gradient);
     }
 
-    gradientProperty = m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(), tr("Gradient"));
-    gradientProperty->setToolTip("Gradient");
+    m_gradientProperty = m_variantManager->addProperty(QtVariantPropertyManager::enumTypeId(), tr("Gradient"));
+    m_gradientProperty->setToolTip("Gradient");
     QStringList types;
     types << "Grayscale" << "Hot" << "Cold" << "Night" << "Candy" << "Geography" << "Ion" << "Thermal" << "Polar" << "Spectrum" << "Jet" << "Hues";
-    gradientProperty->setAttribute("enumNames", types);
-    gradientProperty->setValue(gradIndex);
-    addProperty(gradientProperty, tr("Gradient"));
+    m_gradientProperty->setAttribute("enumNames", types);
+    m_gradientProperty->setValue(gradIndex);
+    addProperty(m_gradientProperty, tr("Gradient"));
 
-    xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
-    xtitleProperty->setValue(outputDataItem->getXaxisTitle());
-    addProperty(xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
+    m_xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
+    m_xtitleProperty->setValue(outputDataItem->getXaxisTitle());
+    addProperty(m_xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
 
-    ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
-    ytitleProperty->setValue(outputDataItem->getYaxisTitle());
-    addProperty(ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
+    m_ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
+    m_ytitleProperty->setValue(outputDataItem->getYaxisTitle());
+    addProperty(m_ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
 
 }
 
@@ -187,11 +187,12 @@ void PropertyWidget::onOutputDataItemModified()
     idToProperty[JobQueueXML::OutputDataZmaxAttribute]->setValue(m_outputDataItem->getZaxisMax());
     idToProperty[JobQueueXML::OutputDataXtitleAttribute]->setValue(m_outputDataItem->getXaxisTitle());
     idToProperty[JobQueueXML::OutputDataYtitleAttribute]->setValue(m_outputDataItem->getYaxisTitle());
+    idToProperty[JobQueueXML::OutputDataLogzAttribute]->setValue(m_outputDataItem->isLogz());
 
 }
 
 void PropertyWidget::toggleProjections()
 {
-  projectionsProperty->setValue(!isProjection);
+  m_projectionsProperty->setValue(!isProjection);
 }
 

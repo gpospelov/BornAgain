@@ -24,7 +24,6 @@ public:
     int getWidth();
     void toggleProjections();
 
-
 public slots:
     void onOutputDataItemModified();
 
@@ -47,14 +46,14 @@ private:
     bool isProjection;
     QVector<QCPColorGradient> m_gradientVector;
     void initGradientVector();
-    QtVariantProperty *projectionsProperty;
-    QtVariantProperty *interpolationProperty;
-    QtVariantProperty *logzProperty;
-    QtVariantProperty *zminProperty;
-    QtVariantProperty *zmaxProperty;
-    QtVariantProperty *gradientProperty;
-    QtVariantProperty *xtitleProperty;
-    QtVariantProperty *ytitleProperty;
+    QtVariantProperty *m_projectionsProperty;
+    QtVariantProperty *m_interpolationProperty;
+    QtVariantProperty *m_logzProperty;
+    QtVariantProperty *m_zminProperty;
+    QtVariantProperty *m_zmaxProperty;
+    QtVariantProperty *m_gradientProperty;
+    QtVariantProperty *m_xtitleProperty;
+    QtVariantProperty *m_ytitleProperty;
 
 
 };

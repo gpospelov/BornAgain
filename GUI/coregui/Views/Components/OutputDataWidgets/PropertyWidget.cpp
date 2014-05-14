@@ -12,6 +12,7 @@ PropertyWidget::PropertyWidget(QWidget *parent)
 {
     maxWidth = 230;
     this->setMaximumWidth(maxWidth);
+    this->setMinimumHeight(800);
 
     isProjection = true;
     initGradientVector();
@@ -88,6 +89,7 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
     addProperty(zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
 
+    qDebug() << "zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
 
 
 

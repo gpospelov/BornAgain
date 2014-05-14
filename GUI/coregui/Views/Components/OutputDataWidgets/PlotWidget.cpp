@@ -182,6 +182,8 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
         connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
         connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
         connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()));
+        connect(m_centralPlot, SIGNAL(xaxisRangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)));
+        connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)));
         m_block_plot_update = false;
     }
 }
@@ -371,5 +373,17 @@ void PlotWidget::gradientChanged(QCPColorGradient gradient)
     m_gradient = gradient;
     m_centralPlot->setGradient(gradient);
 
+}
+
+void PlotWidget::onXaxisRangeChanged(QCPRange newRange)
+{
+    //qDebug() << "onXaxisRangeChanged: "<<newRange.lower << newRange.upper;
+    m_horizontalPlot->setKeyAxisRange(newRange);
+}
+
+void PlotWidget::onYaxisRangeChanged(QCPRange newRange)
+{
+    //qDebug() << "onYaxisRangeChanged: "<<newRange.lower << newRange.upper;
+    m_verticalPlot->setKeyAxisRange(newRange);
 }
 

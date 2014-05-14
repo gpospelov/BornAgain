@@ -37,6 +37,8 @@ public:
 
 signals:
     void dataRangeChanged(QCPRange newRange);
+    void xaxisRangeChanged(QCPRange newRange);
+    void yaxisRangeChanged(QCPRange newRange);
 
 private:
     void setupColorMap(CentralPlot * customPlot);

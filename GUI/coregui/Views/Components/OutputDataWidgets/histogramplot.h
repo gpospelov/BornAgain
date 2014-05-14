@@ -21,6 +21,7 @@ public:
     void setupMap(CentralPlot *centralPlot);
     void setLogz(bool logz, bool isReplot = true);
     void setColorScaleRange(double lower, double upper);
+    void setKeyAxisRange(QCPRange newRange);
 
 private:
     void setupVerticalMap(CentralPlot *centralPlot, double min = 0, double max = 1);
@@ -28,6 +29,7 @@ private:
     PlotType m_type;
     double min, max;
     QCPAxis *m_dataScaleAxis;
+    QCPAxis *m_keyAxis;
 
 };
 

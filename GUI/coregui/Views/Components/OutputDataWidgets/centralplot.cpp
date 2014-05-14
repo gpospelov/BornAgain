@@ -211,7 +211,6 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     this->xAxis->setLabel(outputDataItem->getXaxisTitle());
     this->yAxis->setLabel(outputDataItem->getYaxisTitle());
 
-
     // set up the QCPColorMap:
 
     delete m_colorMap;
@@ -219,6 +218,8 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     this->addPlottable(m_colorMap);
 
     connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+    connect(this->xAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(xaxisRangeChanged(QCPRange)));
+    connect(this->yAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(yaxisRangeChanged(QCPRange)));
 
 
     const IAxis *axis_x = data->getAxis(0);
@@ -263,7 +264,9 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
     m_colorMap->rescaleDataRange();
 
-    m_colorMap->setDataRange(calculateDataRange());
+    QCPRange newDataRange = calculateDataRange();
+    m_colorMap->setDataRange(newDataRange);
+    //outputDataItem->setZaxisRange(newDataRange.lower, newDataRange.upper);
 
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):

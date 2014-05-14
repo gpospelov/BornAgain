@@ -421,6 +421,16 @@ bool CentralPlot::isLogz()
     return m_outputDataItem->isLogz();
 }
 
+void CentralPlot::showLinesOverMap(bool isLineVisible)
+{
+    if(this->graph(0) && this->graph(1))
+    {
+        this->graph(0)->setVisible(isLineVisible);
+        this->graph(1)->setVisible(isLineVisible);
+        this->replot();
+    }
+}
+
 //void CentralPlot::onDataRangeChanged(QCPRange newRange)
 //{
 //    qDebug() << "CentralPlot::onDataRangeChanged" << newRange.lower << newRange.upper;

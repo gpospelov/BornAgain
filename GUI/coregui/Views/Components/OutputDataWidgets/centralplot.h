@@ -32,9 +32,13 @@ public:
     void setLogz(bool logz, bool isReplot  = true);
     bool isLogz();
     void showLinesOverMap(bool isLineVisible);
+    void setXaxisTitle(QString xtitle);
+    void setYaxisTitle(QString ytitle);
 
 signals:
     void dataRangeChanged(QCPRange newRange);
+    void xaxisRangeChanged(QCPRange newRange);
+    void yaxisRangeChanged(QCPRange newRange);
 
 private:
     void setupColorMap(CentralPlot * customPlot);

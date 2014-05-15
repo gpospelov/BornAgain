@@ -42,6 +42,11 @@ public:
 
     void setOutputData(OutputData<double> *data);
 
+    QString getXaxisTitle() const { return m_xaxis_title;}
+
+    QString getYaxisTitle() const { return m_yaxis_title;}
+
+
 signals:
     void modified();
 
@@ -56,6 +61,9 @@ public slots:
     void setZaxisMax(double zmax);
     void setLogz(bool logz);
     void setInterpolated(bool interp);
+    void setXaxisTitle(QString xtitle);
+    void setYaxisTitle(QString ytitle);
+
 
 private:
     OutputData<double> *m_data; //!< simulation results
@@ -68,6 +76,8 @@ private:
     double m_zaxis_max;     //!< right bound of zaxis in a view
     bool m_is_logz;         //!< true if in logarithmic scale
     bool m_is_interpolated; //!< true if data in interpolated
+    QString m_xaxis_title;
+    QString m_yaxis_title;
 
 };
 

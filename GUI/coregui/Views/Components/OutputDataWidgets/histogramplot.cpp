@@ -67,7 +67,7 @@ void HistogramPlot::setupMap(CentralPlot *centralPlot)
 
 
 
-void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, double max)
+void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double /* min */, double /* max */)
 {
 
     this->clearPlottables();
@@ -78,11 +78,7 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
     QCPRange range = data->keyRange();
 
     m_dataScaleAxis = this->yAxis;
-
-    this->yAxis->setRange(min, max);
-    this->xAxis->setRange(range.lower, range.upper);
-    this->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
-    this->yAxis->setTickLabelFont(QFont(QFont().family(), 8));
+    m_keyAxis = this->xAxis;
 
     //set Logarithmic scale
     QCPRange colorScaleRange = centralPlot->getColorScaleRange();
@@ -91,6 +87,12 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
     //this->yAxis->setRange(1.0, colorScaleRange.upper);
     this->yAxis->setRange(colorScaleRange.lower, colorScaleRange.upper);
     //end of logarithmic
+
+    //this->yAxis->setRange(min, max);
+    this->xAxis->setRange(range.lower, range.upper);
+    this->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
+    this->yAxis->setTickLabelFont(QFont(QFont().family(), 8));
+
 
 
 
@@ -116,7 +118,7 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
 
 }
 
-void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, double max)
+void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double /* min */, double /* max */)
 {
 
     this->clearPlottables();
@@ -132,11 +134,8 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
     //qDebug() << "yyy vertical 1.0" << min << max << range.lower << range.upper;
 
     m_dataScaleAxis = this->xAxis;
+    m_keyAxis = this->yAxis;
 
-    this->xAxis->setRange(min, max);
-    this->yAxis->setRange(range.lower, range.upper);
-    this->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
-    this->yAxis->setTickLabelFont(QFont(QFont().family(), 8));
 
 
     //set Logarithmic scale
@@ -146,6 +145,11 @@ void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, doubl
     //this->xAxis->setRange(1.0, colorScaleRange.upper);
     this->xAxis->setRange(colorScaleRange.lower, colorScaleRange.upper);
     //end of logarithmic
+
+    //this->xAxis->setRange(min, max);
+    this->yAxis->setRange(range.lower, range.upper);
+    this->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
+    this->yAxis->setTickLabelFont(QFont(QFont().family(), 8));
 
 
     QCPBars *bars = new QCPBars(this->yAxis, this->xAxis);
@@ -212,4 +216,10 @@ void HistogramPlot::setColorScaleRange(double lower, double upper)
         m_dataScaleAxis->setRange(lower, upper);
         this->replot();
     }
+}
+
+void HistogramPlot::setKeyAxisRange(QCPRange newRange)
+{
+    m_keyAxis->setRange(newRange);
+    this->replot();
 }

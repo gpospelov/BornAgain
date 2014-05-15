@@ -39,6 +39,8 @@ private slots:
     void projectionsChanged(bool projection);
     void gradientChanged(QCPColorGradient gradient);
     void toggleProjections();
+    void onXaxisRangeChanged(QCPRange newRange);
+    void onYaxisRangeChanged(QCPRange newRange);
 
 private:
     QSplitter *m_splitter;

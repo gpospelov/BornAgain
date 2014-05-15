@@ -6,6 +6,7 @@
 #include <QtVariantPropertyManager>
 #include "FormFactorProperty.h"
 #include "MaterialProperties.h"
+#include "GroupProperty.h"
 class QObject;
 
 //! The ObjectVariantManager class provides and manages user defined
@@ -21,6 +22,7 @@ public:
     virtual bool isPropertyTypeSupported(int propertyType) const;
     static int materialTypeId();
     static int formFactorTypeId();
+    static int groupTypeId();
 
 public slots:
     virtual void setValue(QtProperty *property, const QVariant &val);
@@ -33,6 +35,7 @@ protected:
 private:
     QMap<const QtProperty *, MaterialProperty> theMaterialValues;
     QMap<const QtProperty *, FormFactorProperty> theFormFactorValues;
+    QMap<const QtProperty *, GroupProperty> theGroupValues;
 };
 
 #endif // OBJECTVARIANTMANAGER_H

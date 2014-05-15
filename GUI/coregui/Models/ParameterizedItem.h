@@ -100,6 +100,8 @@ public:
 
     void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
+    ParameterizedItem *addGroupProperty(const char *name, QString value);
+
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);

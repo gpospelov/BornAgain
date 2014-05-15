@@ -22,7 +22,8 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     setItemName("ParticleName");
 //    ParameterizedItem *p_ff = new CylinderItem();
 //    addSubItem("Form Factor", p_ff);
-    addFormFactorProperty("Form Factor", "Cylinder");
+//    addFormFactorProperty("Form Factor", "Cylinder");
+    addGroupProperty("Form Factor", "Cylinder");
     setMaterialProperty();
     setProperty("Depth", 0.0);
     setProperty("Abundance", 1.0);

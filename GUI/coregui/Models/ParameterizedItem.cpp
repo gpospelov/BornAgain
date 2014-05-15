@@ -16,6 +16,7 @@
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
 #include "FormFactorProperty.h"
+#include "GroupProperty.h"
 #include "MaterialEditor.h"
 
 #include <QEvent>
@@ -82,6 +83,12 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
         result = FormFactorProperty::createFormFactorItem(
                     ff_prop.getFormFactorName());
     }
+    if (val.userType() == PropertyVariantManager::groupTypeId()) {
+        GroupProperty group_prop = val.value<GroupProperty>();
+        result = group_prop.createCorrespondingItem(
+                    group_prop.getValue());
+    }
+
     return result;
 }
 
@@ -128,3 +135,16 @@ ParameterizedItem * ParameterizedItem::addFormFactorProperty(const char *name, Q
     return item;
 }
 
+ParameterizedItem * ParameterizedItem::addGroupProperty(const char *name, QString value)
+{
+    GroupProperty group_prop(QString(name), value);
+    Q_ASSERT(group_prop.isDefined());
+    if (group_prop.isDefined()) {
+        QVariant group_var;
+        group_var.setValue(group_prop);
+        setProperty(name, group_var);
+    }
+    ParameterizedItem *item = createPropertyItem(name);
+    addPropertyItem(name, item);
+    return item;
+}

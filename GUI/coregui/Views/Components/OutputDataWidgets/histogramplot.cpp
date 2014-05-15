@@ -67,7 +67,7 @@ void HistogramPlot::setupMap(CentralPlot *centralPlot)
 
 
 
-void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, double max)
+void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double /* min */, double /* max */)
 {
 
     this->clearPlottables();
@@ -118,7 +118,7 @@ void HistogramPlot::setupHorizontalMap(CentralPlot *centralPlot, double min, dou
 
 }
 
-void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double min, double max)
+void HistogramPlot::setupVerticalMap(CentralPlot *centralPlot, double /* min */, double /* max */)
 {
 
     this->clearPlottables();

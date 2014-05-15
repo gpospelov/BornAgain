@@ -19,10 +19,11 @@ public:
     GroupProperty(QString group_name=QString(), QString value=QString());
     virtual ~GroupProperty(){}
     QString getValue() const { return m_value; }
+    QString getGroupName() const { return m_group_name; }
 
     void setValue(const QString &name) { m_value = name; }
     bool operator!=(const GroupProperty &other) {
-        return getValue() != other.getValue();
+        return (getValue() != other.getValue()) || (getGroupName() != other.getGroupName()) ;
     }
     bool isDefined() { return m_value != QStringLiteral("Undefined"); }
 

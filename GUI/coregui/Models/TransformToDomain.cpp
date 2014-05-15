@@ -16,7 +16,6 @@
 #include "TransformToDomain.h"
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
-#include "FormFactorProperty.h"
 #include "FormFactorItems.h"
 #include <QDebug>
 

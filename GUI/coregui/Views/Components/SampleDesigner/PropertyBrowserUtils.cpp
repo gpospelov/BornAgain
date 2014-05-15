@@ -6,6 +6,7 @@
 #include <QFocusEvent>
 #include <QPixmap>
 #include <iostream>
+#include <QDebug>
 
 
 MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
@@ -56,29 +57,29 @@ void MaterialPropertyEdit::setMaterialProperty(
 }
 
 
-FormFactorPropertyEdit::FormFactorPropertyEdit(QWidget *parent)
+GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
     m_box = new QComboBox(this);
-    m_box->insertItems(0, FormFactorProperty::getFormFactorNames());
-    m_box->setCurrentText(m_formFactorProperty.getFormFactorName());
 
     connect(m_box, SIGNAL(currentTextChanged(QString)),
             this, SLOT(textChanged(QString)));
 }
 
-void FormFactorPropertyEdit::setFormFactorProperty(
-        const FormFactorProperty &formFactorProperty)
+void GroupPropertyEdit::setGroupProperty(
+        const GroupProperty &groupProperty)
 {
-    m_formFactorProperty = formFactorProperty;
-    m_box->setCurrentText(m_formFactorProperty.getFormFactorName());
+    if(!m_box->count()) m_box->insertItems(0, groupProperty.getValues());
+
+    m_groupProperty = groupProperty;
+    m_box->setCurrentText(m_groupProperty.getValue());
 }
 
-void FormFactorPropertyEdit::textChanged(QString text)
+void GroupPropertyEdit::textChanged(QString text)
 {
-    FormFactorProperty ff(text);
-    if (ff != m_formFactorProperty && ff.isDefined()) {
-        setFormFactorProperty(ff);
-        emit formFactorPropertyChanged(m_formFactorProperty);
+    GroupProperty ff(m_groupProperty.getGroupName(), text);
+    if (ff != m_groupProperty && ff.isDefined()) {
+        setGroupProperty(ff);
+        emit groupPropertyChanged(m_groupProperty);
     }
 }

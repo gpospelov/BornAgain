@@ -1,7 +1,6 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "ParameterizedItem.h"
-#include "FormFactorProperty.h"
 #include "GroupProperty.h"
 #include <iostream>
 
@@ -19,12 +18,6 @@ int PropertyVariantManager::materialTypeId()
     return result;
 }
 
-int PropertyVariantManager::formFactorTypeId()
-{
-    int result = qMetaTypeId<FormFactorProperty>();
-    return result;
-}
-
 int PropertyVariantManager::groupTypeId()
 {
     int result = qMetaTypeId<GroupProperty>();
@@ -34,8 +27,6 @@ int PropertyVariantManager::groupTypeId()
 bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
-        return true;
-    if (propertyType == formFactorTypeId())
         return true;
     if (propertyType == groupTypeId())
         return true;
@@ -47,8 +38,6 @@ int PropertyVariantManager::valueType(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return materialTypeId();
-    if (propertyType == formFactorTypeId())
-        return formFactorTypeId();
     if (propertyType == groupTypeId())
         return groupTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
@@ -60,11 +49,6 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
     if (theMaterialValues.contains(property)) {
         QVariant v;
         v.setValue(theMaterialValues[property]);
-        return v;
-    }
-    if (theFormFactorValues.contains(property)) {
-        QVariant v;
-        v.setValue(theFormFactorValues[property]);
         return v;
     }
     if (theGroupValues.contains(property)) {
@@ -80,9 +64,6 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
 {
     if (theMaterialValues.contains(property)) {
         return theMaterialValues[property].getName();
-    }
-    if (theFormFactorValues.contains(property)) {
-        return theFormFactorValues[property].getFormFactorName();
     }
     if (theGroupValues.contains(property)) {
         return theGroupValues[property].getValue();
@@ -112,16 +93,6 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
         emit valueChanged(property, v2);
         return;
     }
-    if (theFormFactorValues.contains(property)) {
-        if( val.userType() != formFactorTypeId() ) return;
-        FormFactorProperty ff_prop = val.value<FormFactorProperty>();
-        theFormFactorValues[property] = ff_prop;
-        QVariant v2;
-        v2.setValue(ff_prop);
-        emit propertyChanged(property);
-        emit valueChanged(property, v2);
-        return;
-    }
     if (theGroupValues.contains(property)) {
         if( val.userType() != groupTypeId() ) return;
         GroupProperty group_prop = val.value<GroupProperty>();
@@ -142,10 +113,6 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         MaterialProperty m;
         theMaterialValues[property] = m;
     }
-    if (propertyType(property) == formFactorTypeId()) {
-        FormFactorProperty m;
-        theFormFactorValues[property] = m;
-    }
     if (propertyType(property) == groupTypeId()) {
         GroupProperty m;
         theGroupValues[property] = m;
@@ -157,7 +124,6 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 void PropertyVariantManager::uninitializeProperty(QtProperty *property)
 {
     theMaterialValues.remove(property);
-    theFormFactorValues.remove(property);
     theGroupValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }

@@ -10,9 +10,9 @@ PropertyVariantFactory::~PropertyVariantFactory()
     QListIterator<MaterialPropertyEdit *> mat_it(mat_editors);
     while (mat_it.hasNext())
         delete mat_it.next();
-    QList<FormFactorPropertyEdit *> ff_editors =
-            m_form_factor_editor_to_property.keys();
-    QListIterator<FormFactorPropertyEdit *> ff_it(ff_editors);
+    QList<GroupPropertyEdit *> ff_editors =
+            m_group_editor_to_property.keys();
+    QListIterator<GroupPropertyEdit *> ff_it(ff_editors);
     while (ff_it.hasNext())
         delete ff_it.next();
 }
@@ -51,18 +51,18 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         return editor;
     }
     if (manager->propertyType(property) ==
-            PropertyVariantManager::formFactorTypeId()) {
-        FormFactorPropertyEdit *editor = new FormFactorPropertyEdit(parent);
+            PropertyVariantManager::groupTypeId()) {
+        GroupPropertyEdit *editor = new GroupPropertyEdit(parent);
         QVariant var = manager->value(property);
-        FormFactorProperty ff = var.value<FormFactorProperty>();
-        editor->setFormFactorProperty(ff);
+        GroupProperty ff = var.value<GroupProperty>();
+        editor->setGroupProperty(ff);
 
-        m_property_to_form_factor_editors[property].append(editor);
-        m_form_factor_editor_to_property[editor] = property;
+        m_property_to_group_editors[property].append(editor);
+        m_group_editor_to_property[editor] = property;
 
         connect(editor,
-                SIGNAL(formFactorPropertyChanged(const FormFactorProperty &)),
-                this, SLOT(slotSetValue(const FormFactorProperty &)));
+                SIGNAL(groupPropertyChanged(const GroupProperty &)),
+                this, SLOT(slotSetValue(const GroupProperty &)));
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
@@ -96,13 +96,13 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
             itEditor.next()->setMaterialProperty(mat);
         }
     }
-    else if (m_property_to_form_factor_editors.contains(property)) {
-        QList<FormFactorPropertyEdit *> editors =
-                m_property_to_form_factor_editors[property];
-        QListIterator<FormFactorPropertyEdit *> itEditor(editors);
+    else if (m_property_to_group_editors.contains(property)) {
+        QList<GroupPropertyEdit *> editors =
+                m_property_to_group_editors[property];
+        QListIterator<GroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-            FormFactorProperty mat = value.value<FormFactorProperty>();
-            itEditor.next()->setFormFactorProperty(mat);
+            GroupProperty mat = value.value<GroupProperty>();
+            itEditor.next()->setGroupProperty(mat);
         }
     }
     return;
@@ -128,12 +128,12 @@ void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const FormFactorProperty &value)
+void PropertyVariantFactory::slotSetValue(const GroupProperty &value)
 {
     QObject *object = sender();
-    QMap<FormFactorPropertyEdit *, QtProperty *>::ConstIterator itEditor =
-                m_form_factor_editor_to_property.constBegin();
-    while (itEditor != m_form_factor_editor_to_property.constEnd()) {
+    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+                m_group_editor_to_property.constBegin();
+    while (itEditor != m_group_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtVariantPropertyManager *manager = propertyManager(property);
@@ -164,16 +164,16 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         }
         mat_it_editor++;
     }
-    QMap<FormFactorPropertyEdit *, QtProperty *>::ConstIterator ff_it_editor =
-                m_form_factor_editor_to_property.constBegin();
-    while (ff_it_editor != m_form_factor_editor_to_property.constEnd()) {
+    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator ff_it_editor =
+                m_group_editor_to_property.constBegin();
+    while (ff_it_editor != m_group_editor_to_property.constEnd()) {
         if (ff_it_editor.key() == object) {
-            FormFactorPropertyEdit *editor = ff_it_editor.key();
+            GroupPropertyEdit *editor = ff_it_editor.key();
             QtProperty *property = ff_it_editor.value();
-            m_form_factor_editor_to_property.remove(editor);
-            m_property_to_form_factor_editors[property].removeAll(editor);
-            if (m_property_to_form_factor_editors[property].isEmpty())
-                m_property_to_form_factor_editors.remove(property);
+            m_group_editor_to_property.remove(editor);
+            m_property_to_group_editors[property].removeAll(editor);
+            if (m_property_to_group_editors[property].isEmpty())
+                m_property_to_group_editors.remove(property);
             return;
         }
         ff_it_editor++;

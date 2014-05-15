@@ -1,5 +1,5 @@
 #include "ParticleView.h"
-#include "FormFactorProperty.h"
+#include "GroupProperty.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -60,8 +60,8 @@ void ParticleView::onPropertyChange(QString propertyName)
 {
     Q_ASSERT(m_item);
     if(propertyName == "Form Factor") {
-        FormFactorProperty mp = getParameterizedItem()->property("Form Factor").value<FormFactorProperty>();
-        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(mp.getFormFactorName());
+        GroupProperty mp = getParameterizedItem()->property("Form Factor").value<GroupProperty>();
+        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(mp.getValue());
         m_pixmap = QPixmap(filename);
         update();
     } else {

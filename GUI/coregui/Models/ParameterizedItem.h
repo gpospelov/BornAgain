@@ -82,8 +82,6 @@ public:
     //! get list of acceptable child object names
     QList<QString> acceptableChildItems() const { return m_valid_children; }
 
-    //friend class ItemFactory;
-
     bool event(QEvent * e );
 
     QMap<QString, ParameterizedItem *> getSubItems() const {
@@ -94,7 +92,6 @@ public:
 
     ParameterizedItem *createPropertyItem(QString name);
 
-    ParameterizedItem *addFormFactorProperty(const char *name, QString value);
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 

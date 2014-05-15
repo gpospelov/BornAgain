@@ -15,7 +15,6 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
-#include "FormFactorProperty.h"
 #include "GroupProperty.h"
 #include "MaterialEditor.h"
 
@@ -78,11 +77,6 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
     qDebug() << "CreateSubItem: " << name;
     QByteArray name_byte_array = name.toUtf8();
     QVariant val = property(name_byte_array.constData());
-    if (val.userType() == PropertyVariantManager::formFactorTypeId()) {
-        FormFactorProperty ff_prop = val.value<FormFactorProperty>();
-        result = FormFactorProperty::createFormFactorItem(
-                    ff_prop.getFormFactorName());
-    }
     if (val.userType() == PropertyVariantManager::groupTypeId()) {
         GroupProperty group_prop = val.value<GroupProperty>();
         result = group_prop.createCorrespondingItem(
@@ -120,19 +114,6 @@ void ParameterizedItem::setMaterialProperty(MaterialProperty material)
         mat_var.setValue(MaterialEditor::getDefaultMaterialProperty());
     }
     setProperty("Material", mat_var);
-}
-
-ParameterizedItem * ParameterizedItem::addFormFactorProperty(const char *name, QString value)
-{
-    FormFactorProperty ff_prop(value);
-    if (ff_prop.isDefined()) {
-        QVariant ff_var;
-        ff_var.setValue(ff_prop);
-        setProperty(name, ff_var);
-    }
-    ParameterizedItem *item = createPropertyItem(name);
-    addPropertyItem(name, item);
-    return item;
 }
 
 ParameterizedItem * ParameterizedItem::addGroupProperty(const char *name, QString value)

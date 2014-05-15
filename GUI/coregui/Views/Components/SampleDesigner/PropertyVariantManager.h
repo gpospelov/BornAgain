@@ -4,7 +4,6 @@
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include <QtVariantPropertyManager>
-#include "FormFactorProperty.h"
 #include "MaterialProperties.h"
 #include "GroupProperty.h"
 class QObject;
@@ -21,7 +20,6 @@ public:
     virtual int valueType(int propertyType) const;
     virtual bool isPropertyTypeSupported(int propertyType) const;
     static int materialTypeId();
-    static int formFactorTypeId();
     static int groupTypeId();
 
 public slots:
@@ -34,7 +32,6 @@ protected:
     virtual void uninitializeProperty(QtProperty *property);
 private:
     QMap<const QtProperty *, MaterialProperty> theMaterialValues;
-    QMap<const QtProperty *, FormFactorProperty> theFormFactorValues;
     QMap<const QtProperty *, GroupProperty> theGroupValues;
 };
 

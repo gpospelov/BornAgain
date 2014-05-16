@@ -26,7 +26,8 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("Layer")
         << QString("ParticleLayout")
         << QString("Particle")
-        << QString("InterferenceFunction1DParaCrystal");
+        << QString("InterferenceFunction1DParaCrystal")
+        << QString("InterferenceFunction2DParaCrystal");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
@@ -51,6 +52,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     }
     else if (model_name==QString("InterferenceFunction1DParaCrystal")) {
         return new InterferenceFunction1DParaCrystalItem(parent);
+    }
+    else if (model_name==QString("InterferenceFunction2DParaCrystal")) {
+        return new InterferenceFunction2DParaCrystalItem(parent);
     }
 //    else if (model_name.startsWith("FormFactor")) {
 //        ParticleItem *result = new ParticleItem(parent);

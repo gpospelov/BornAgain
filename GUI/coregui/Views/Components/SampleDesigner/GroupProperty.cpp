@@ -1,5 +1,6 @@
 #include "GroupProperty.h"
 #include "FormFactorItems.h"
+#include "FTDistributionItems.h"
 
 namespace {
 template<typename T> ParameterizedItem *createInstance() { return new T; }
@@ -27,6 +28,15 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     formfactors[QString("TruncatedSphere")] = &createInstance<TruncatedSphereItem>;
     formfactors[QString("TruncatedSpheroid")] = &createInstance<TruncatedSpheroidItem>;
     result["Form Factor"] = formfactors;
+
+    QMap<QString, ParameterizedItem *(*)()> ft_distributions_2d;
+    ft_distributions_2d[QString("Cauchy 2D")] = &createInstance<FTDistribution2DCauchyItem>;
+    ft_distributions_2d[QString("Gauss 2D")] = &createInstance<FTDistribution2DGaussItem>;
+    ft_distributions_2d[QString("Voigt 2D")] = &createInstance<FTDistribution2DVoigtItem>;
+    result["PDF #1"] = ft_distributions_2d;
+    result["PDF #2"] = ft_distributions_2d;
+
+
     return result;
 }
 }

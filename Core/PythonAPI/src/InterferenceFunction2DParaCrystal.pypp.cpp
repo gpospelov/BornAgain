@@ -320,15 +320,6 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 , getLatticeOrientation_function_type( &::InterferenceFunction2DParaCrystal::getLatticeOrientation ) );
         
         }
-        { //::InterferenceFunction2DParaCrystal::getPropabilityDistributions
-        
-            typedef ::std::vector< const IFTDistribution2D* > ( ::InterferenceFunction2DParaCrystal::*getPropabilityDistributions_function_type )(  ) const;
-            
-            InterferenceFunction2DParaCrystal_exposer.def( 
-                "getPropabilityDistributions"
-                , getPropabilityDistributions_function_type( &::InterferenceFunction2DParaCrystal::getPropabilityDistributions ) );
-        
-        }
         { //::InterferenceFunction2DParaCrystal::setDomainSizes
         
             typedef void ( ::InterferenceFunction2DParaCrystal::*setDomainSizes_function_type )( double,double ) ;

@@ -254,6 +254,15 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::InterferenceFunction1DParaCrystal::getCorrLength
+        
+            typedef double ( ::InterferenceFunction1DParaCrystal::*getCorrLength_function_type )(  ) const;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "getCorrLength"
+                , getCorrLength_function_type( &::InterferenceFunction1DParaCrystal::getCorrLength ) );
+        
+        }
         { //::InterferenceFunction1DParaCrystal::getKappa
         
             typedef double ( ::InterferenceFunction1DParaCrystal::*getKappa_function_type )(  ) const;
@@ -263,6 +272,24 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 "getKappa"
                 , getKappa_function_type(&::InterferenceFunction1DParaCrystal::getKappa)
                 , default_getKappa_function_type(&InterferenceFunction1DParaCrystal_wrapper::default_getKappa) );
+        
+        }
+        { //::InterferenceFunction1DParaCrystal::getPeakDistance
+        
+            typedef double ( ::InterferenceFunction1DParaCrystal::*getPeakDistance_function_type )(  ) const;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "getPeakDistance"
+                , getPeakDistance_function_type( &::InterferenceFunction1DParaCrystal::getPeakDistance ) );
+        
+        }
+        { //::InterferenceFunction1DParaCrystal::getWidth
+        
+            typedef double ( ::InterferenceFunction1DParaCrystal::*getWidth_function_type )(  ) const;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "getWidth"
+                , getWidth_function_type( &::InterferenceFunction1DParaCrystal::getWidth ) );
         
         }
         { //::InterferenceFunction1DParaCrystal::setKappa

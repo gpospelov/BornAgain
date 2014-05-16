@@ -21,6 +21,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(Par
     setProperty("Damping_length", 0.0);
     setProperty("Domain_size_1", 20.0*Units::micrometer);
     setProperty("Domain_size_2", 20.0*Units::micrometer);
+    setProperty("IntegrationOverXi", true);
     addGroupProperty("PDF #1", "Cauchy 2D");
     addGroupProperty("PDF #2", "Cauchy 2D");
 

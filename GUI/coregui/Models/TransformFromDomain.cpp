@@ -31,6 +31,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Inter
     item->setProperty("Damping_length", sample->getDampingLength());
     item->setProperty("Domain_size_1", sample->getDomainSizes()[0]);
     item->setProperty("Domain_size_2", sample->getDomainSizes()[1]);
+    item->setProperty("IntegrationOverXi", sample->getIntegrationOverXi());
 
     std::vector<const IFTDistribution2D *> pdfs = sample->getPropabilityDistributions();
     for(size_t i=0; i<pdfs.size(); ++i) {

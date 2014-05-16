@@ -25,6 +25,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorTruncatedSpheroid.pypp.h"
 #include "StochasticSampledParameter.pypp.h"
 #include "HomogeneousMaterial.pypp.h"
+#include "vector_less__const_IFTDistribution2D_ptr___greater_.pypp.h"
 #include "FormFactorCone6.pypp.h"
 #include "vector_integer_t.pypp.h"
 #include "AxisDouble.pypp.h"
@@ -139,6 +140,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_longinteger_t_class();
     register_vector_integer_t_class();
     register_vdouble1d_t_class();
+    register_vector_less__const_IFTDistribution2D_ptr___greater__class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
     register_IAxis_class();

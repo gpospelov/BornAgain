@@ -266,6 +266,69 @@ void register_InterferenceFunction2DParaCrystal_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::InterferenceFunction2DParaCrystal::getAlphaLattice
+        
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getAlphaLattice_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getAlphaLattice"
+                , getAlphaLattice_function_type( &::InterferenceFunction2DParaCrystal::getAlphaLattice ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getDampingLength
+        
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getDampingLength_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getDampingLength"
+                , getDampingLength_function_type( &::InterferenceFunction2DParaCrystal::getDampingLength ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getDomainSizes
+        
+            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getDomainSizes_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getDomainSizes"
+                , getDomainSizes_function_type( &::InterferenceFunction2DParaCrystal::getDomainSizes ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getIntegrationOverXi
+        
+            typedef bool ( ::InterferenceFunction2DParaCrystal::*getIntegrationOverXi_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getIntegrationOverXi"
+                , getIntegrationOverXi_function_type( &::InterferenceFunction2DParaCrystal::getIntegrationOverXi ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getLatticeLengths
+        
+            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getLatticeLengths_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getLatticeLengths"
+                , getLatticeLengths_function_type( &::InterferenceFunction2DParaCrystal::getLatticeLengths ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getLatticeOrientation
+        
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getLatticeOrientation_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getLatticeOrientation"
+                , getLatticeOrientation_function_type( &::InterferenceFunction2DParaCrystal::getLatticeOrientation ) );
+        
+        }
+        { //::InterferenceFunction2DParaCrystal::getPropabilityDistributions
+        
+            typedef ::std::vector< const IFTDistribution2D* > ( ::InterferenceFunction2DParaCrystal::*getPropabilityDistributions_function_type )(  ) const;
+            
+            InterferenceFunction2DParaCrystal_exposer.def( 
+                "getPropabilityDistributions"
+                , getPropabilityDistributions_function_type( &::InterferenceFunction2DParaCrystal::getPropabilityDistributions ) );
+        
+        }
         { //::InterferenceFunction2DParaCrystal::setDomainSizes
         
             typedef void ( ::InterferenceFunction2DParaCrystal::*setDomainSizes_function_type )( double,double ) ;

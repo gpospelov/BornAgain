@@ -74,7 +74,7 @@ public:
     double getLatticeOrientation() const { return m_xi; }
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D *> getPropabilityDistributions() const;
-    bool getIntegrationFlag() const { return m_integrate_xi; }
+    bool getIntegrationOverXi() const { return m_integrate_xi; }
     double getDampingLength() const { return m_corr_length;}
 
 protected:

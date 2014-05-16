@@ -204,8 +204,10 @@ Instrument *MainWindow::createDefaultInstrument()
     Instrument *p_result = new Instrument;
     p_result->setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
     p_result->setBeamIntensity(1e7);
-    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-                                    100, 0.0*Units::degree, 2.0*Units::degree);
+//    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+//                                    100, 0.0*Units::degree, 2.0*Units::degree);
+    p_result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                                    100, 0.0*Units::degree, 2.0*Units::degree, true);
     return p_result;
 }
 
@@ -217,6 +219,7 @@ void MainWindow::initJobQueueModel()
     SimulationRegistry registry;
     m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
     m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
+    m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
     //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 

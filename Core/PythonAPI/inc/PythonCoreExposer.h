@@ -23,6 +23,7 @@
 #include "IStochasticParameter.h"
 #include "OutputData.h"
 #include "ISampleBuilder.h"
+#include "FTDistributions.h"
 
 //! this is special namespace to help Py++ generate correct names
 namespace pyplusplus {

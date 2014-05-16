@@ -21,6 +21,7 @@ public:
         ParticleLayoutType,
         InterferenceFunctionType,
         InterferenceFunction1DParaType,
+        InterferenceFunction2DParaType,
         ParticleType
     };
 
@@ -35,8 +36,8 @@ public:
     static int getDefaultParticleLayoutWidth() { return m_default_layer_height*3.5; }
     static int getDefaultParticleLayoutHeight() { return m_default_layer_height*4.5; }
 
-    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*3; }
-    static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*3; }
+    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*4; }
+    static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*4; }
 
     static int getDefaultParticleWidth() { return m_default_layer_height*3; }
     static int getDefaultParticleHeight() { return m_default_layer_height*4; }
@@ -55,7 +56,6 @@ public:
     static QPixmap getPixmapParticleLayout();
     static QPixmap getPixmapInterferenceFunction();
     static QPixmap getPixmapParticle();
-    static QPixmap getPixmapDefault();
 
     static QColor getRandomColor() { return QColor(qrand() % 256, qrand() % 256, qrand() % 256); }
 
@@ -68,8 +68,14 @@ public:
     //! to have reasonable graphics representation of layer in the form of QRect
     static int nanometerToScreen(double nanometer);
 
-    //! returns default bounding rectangle for given SampleView name
+    //! returns default bounding rectangle for given IvView name
     static QRectF getDefaultBoundingRect(const QString &name);
+
+    //! returns default color for IView with given name
+    static QColor getDefaultColor(const QString &name);
+
+    //! returns Mime pixmap for givew IView name
+    static QPixmap getMimePixmap(const QString &name);
 
     //! returns system dependent font size
     static int getLabelFontSize();

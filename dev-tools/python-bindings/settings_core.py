@@ -229,6 +229,9 @@ def ManualClassTunings(mb):
     cl.add_code("def( bp::self / bp::other< double >() )")
     cl.add_code("def( bp::self_ns::str( bp::self ) )")
     #
+    cl = mb.class_("InterferenceFunction2DParaCrystal")
+    cl.member_function("getPropabilityDistributions").exclude()
+    #
     cl = mb.class_("IParameterized")
     cl.member_function("registerParameter").include()
     cl.member_function("registerParameter").add_transformation( utils_build.from_address_custom( 1 ) )

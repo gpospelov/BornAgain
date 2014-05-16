@@ -1,8 +1,9 @@
 #ifndef PROPERTYBROWSERUTILS_H
 #define PROPERTYBROWSERUTILS_H
 
-#include "FormFactorProperty.h"
+//#include "FormFactorProperty.h"
 #include "MaterialProperties.h"
+#include "GroupProperty.h"
 #include <QLabel>
 #include <QIcon>
 #include <QComboBox>
@@ -27,25 +28,25 @@ private:
     MaterialProperty m_materialProperty;
 };
 
-//! The FormFactorPropertyEdit class provides PropertyVariantFactory with editing
-//! widget for MaterialProperty.
-class FormFactorPropertyEdit : public QWidget
+//! The GroupPropertyEdit class provides PropertyVariantFactory with editing
+//! widget for GroupProperty
+class GroupPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
-    FormFactorPropertyEdit(QWidget *parent = 0);
+    GroupPropertyEdit(QWidget *parent = 0);
 
-    void setFormFactorProperty(const FormFactorProperty &formFactorProperty);
-    FormFactorProperty getFormFactorProperty() const {
-        return m_formFactorProperty;
+    void setGroupProperty(const GroupProperty &groupProperty);
+    GroupProperty getGroupProperty() const {
+        return m_groupProperty;
     }
 signals:
-    void formFactorPropertyChanged(const FormFactorProperty &material);
+    void groupPropertyChanged(const GroupProperty &material);
 private slots:
     void textChanged(QString text);
 private:
     QComboBox *m_box;
-    FormFactorProperty m_formFactorProperty;
+    GroupProperty m_groupProperty;
 };
 
 #endif // PROPERTYBROWSERUTILS_H

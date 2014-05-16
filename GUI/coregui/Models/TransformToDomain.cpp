@@ -16,8 +16,8 @@
 #include "TransformToDomain.h"
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
-#include "FormFactorProperty.h"
 #include "FormFactorItems.h"
+#include "FTDistributionItems.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -104,17 +104,68 @@ IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
 
 IInterferenceFunction *TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
 {
-    IInterferenceFunction *result(0);
-
     if(item.modelType() == "InterferenceFunction1DParaCrystal") {
-        result = new InterferenceFunction1DParaCrystal(
+        InterferenceFunction1DParaCrystal *result = new InterferenceFunction1DParaCrystal(
                     item.property("PeakDistance").toDouble(),
                     item.property("Width").toDouble(),
                     item.property("CorrLength").toDouble()
                     );
+        return result;
+    }
+    else if(item.modelType() == "InterferenceFunction2DParaCrystal") {
+
+        ParameterizedItem *latticeItem = item.getSubItems()["Lattice type"];
+        Q_ASSERT(latticeItem);
+
+        double length_1(0), length_2(0), alpha_lattice(0.0);
+        if(latticeItem->modelType() == "BasicLatticeType") {
+            length_1 = latticeItem->property("Lattice_length_1").toDouble();
+            length_2 = latticeItem->property("Lattice_length_2").toDouble();
+            alpha_lattice = Units::deg2rad(item.property("Lattice_angle").toDouble());
+        }
+        else if(latticeItem->modelType() == "SquareLatticeType") {
+            length_1 = latticeItem->property("Lattice_length").toDouble();
+            length_2 = length_1;
+            alpha_lattice = M_PI/2.0;
+        }
+        else if(latticeItem->modelType() == "HexagonalLatticeType") {
+            length_1 = latticeItem->property("Lattice_length").toDouble();
+            length_2 = length_1;
+            alpha_lattice = 2*M_PI/3.0;
+        }
+        else {
+            throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
+        }
+
+        InterferenceFunction2DParaCrystal *result = new InterferenceFunction2DParaCrystal(
+                    length_1,
+                    length_2,
+                    alpha_lattice,
+                    Units::deg2rad(item.property("Rotation_angle").toDouble()),
+                    item.property("Damping_length").toDouble());
+        result->setDomainSizes(
+                    item.property("Domain_size_1").toDouble(),
+                    item.property("Domain_size_2").toDouble()
+                    );
+
+        result->setIntegrationOverXi(item.property("IntegrationOverXi").toBool());
+
+        ParameterizedItem *pdf1Item = item.getSubItems()["PDF #1"];
+        Q_ASSERT(pdf1Item);
+        boost::scoped_ptr<IFTDistribution2D> pdf1(dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
+        Q_ASSERT(pdf1.get());
+
+        ParameterizedItem *pdf2Item = item.getSubItems()["PDF #2"];
+        Q_ASSERT(pdf2Item);
+        boost::scoped_ptr<IFTDistribution2D> pdf2(dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
+        Q_ASSERT(pdf2.get());
+
+        result->setProbabilityDistributions(*pdf1, *pdf2);
+        return result;
     }
 
-    return result;
+    return 0;
 }
+
 
 

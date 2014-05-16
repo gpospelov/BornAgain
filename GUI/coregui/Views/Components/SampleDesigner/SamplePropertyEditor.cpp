@@ -3,7 +3,6 @@
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
 
-#include "FormFactorProperty.h"
 #include "qttreepropertybrowser.h"
 
 #include <QtProperty>

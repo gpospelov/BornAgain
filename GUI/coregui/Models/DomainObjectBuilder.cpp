@@ -114,6 +114,7 @@ Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, doub
 IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
 {
     IInterferenceFunction *result = TransformToDomain::createInterferenceFunction(item);
+    Q_ASSERT(result);
     return result;
 }
 

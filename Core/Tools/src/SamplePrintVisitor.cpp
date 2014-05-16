@@ -395,6 +395,14 @@ void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *sample)
 void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     print_default(sample);
+
+    std::vector<const IFTDistribution2D *> pdfs = sample->getPropabilityDistributions();
+
+    std::cout << get_indent() << ".... pdfs: " << (*pdfs[0]) << " " << (*pdfs[1]) << std::endl;
+//    if(pdfs[0]) std::cout << *pdfs[0];
+//    std::cout << std::endl;
+
+
 }
 
 

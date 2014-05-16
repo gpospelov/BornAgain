@@ -387,7 +387,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     new_item = m_sessionModel->insertNewItem("Particle");
                     QString ffName = mimeData->getClassName();
                     ffName.remove("FormFactor");
-                    new_item->addFormFactorProperty("Form Factor", ffName);
+                    new_item->addGroupProperty("Form Factor", ffName);
 
                 } else {
                     new_item = m_sessionModel->insertNewItem(mimeData->getClassName());

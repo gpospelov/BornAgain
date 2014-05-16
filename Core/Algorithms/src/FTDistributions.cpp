@@ -93,6 +93,11 @@ void FTDistribution1DVoigt::init_parameters()
     registerParameter("eta", &m_eta);
 }
 
+void IFTDistribution1D::print(std::ostream& ostr) const
+{
+    ostr << getName() << " " << *getParameterPool();
+}
+
 //==============2D====================
 
 void IFTDistribution2D::transformToStarBasis(double qX, double qY,
@@ -110,6 +115,12 @@ void IFTDistribution2D::init_parameters()
     registerParameter("coherence_length_x", &m_coherence_length_x);
     registerParameter("coherence_length_y", &m_coherence_length_y);
 }
+
+void IFTDistribution2D::print(std::ostream& ostr) const
+{
+    ostr << getName() << " " << *getParameterPool();
+}
+
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x,
         double coherence_length_y)

@@ -17,11 +17,12 @@
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
 #include "MaterialEditor.h"
+//#include "FormFactorProperty.h"
+#include "GroupProperty.h"
 
 #include <QFile>
 #include <QMimeData>
 #include <QDebug>
-#include <FormFactorProperty.h>
 
 namespace {
 const int MaxCompression = 9;
@@ -477,15 +478,25 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
         item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
     }
-    else if (parameter_type == "FormFactorProperty") {
+//    else if (parameter_type == "FormFactorProperty") {
+//        QString parameter_value = reader->attributes()
+//                .value(SessionXML::ParameterValueAttribute)
+//                .toString();
+//        FormFactorProperty ff_prop(parameter_value);
+//        QVariant ff_variant;
+//        ff_variant.setValue(ff_prop);
+//        item->setProperty(parameter_name.toUtf8().constData(), ff_variant);
+//    }
+    else if (parameter_type == "GroupProperty") {
         QString parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toString();
-        FormFactorProperty ff_prop(parameter_value);
-        QVariant ff_variant;
-        ff_variant.setValue(ff_prop);
-        item->setProperty(parameter_name.toUtf8().constData(), ff_variant);
+        GroupProperty group_prop(parameter_name, parameter_value);
+        QVariant group_variant;
+        group_variant.setValue(group_prop);
+        item->setProperty(parameter_name.toUtf8().constData(), group_variant);
     }
+
     else {
         throw GUIHelpers::Error(tr("SessionModel::readProperty: "
                                    "Parameter type not supported"));
@@ -543,12 +554,19 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 material_name);
         }
-        else if (type_name == QString("FormFactorProperty")) {
+//        else if (type_name == QString("FormFactorProperty")) {
+//            QString ff_name =
+//                    variant.value<FormFactorProperty>().getFormFactorName();
+//            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+//                                ff_name);
+//        }
+        else if (type_name == QString("GroupProperty")) {
             QString ff_name =
-                    variant.value<FormFactorProperty>().getFormFactorName();
+                    variant.value<GroupProperty>().getValue();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 ff_name);
         }
+
         else {
             throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
                                        "Parameter type not supported"));

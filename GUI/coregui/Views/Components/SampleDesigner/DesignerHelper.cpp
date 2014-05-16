@@ -37,17 +37,6 @@ QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRect
 }
 
 
-//QGradient DesignerHelper::getMaterialGradient(const QColor &color, const QRect &rect)
-//{
-//    QRadialGradient result(-5.0, -5.0, rect.width()/2.);
-//    result.setCenter(5, 5);
-//    result.setFocalPoint(5, 5);
-//    result.setColorAt(1, color.darker(150));
-//    result.setColorAt(0, color.lighter(150));
-//    return result;
-//}
-
-
 QPixmap DesignerHelper::getSceneBackground()
 {
     const int size= 10;
@@ -129,11 +118,6 @@ QPixmap DesignerHelper::getPixmapParticle()
 }
 
 
-QPixmap DesignerHelper::getPixmapDefault() {
-    return QPixmap(":/images/mode_exp.png");
-}
-
-
 // non-linear convertion of layer's thickness in nanometers to screen size to have reasonable graphics representation
 int DesignerHelper::nanometerToScreen(double nanometer)
 {
@@ -150,20 +134,61 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
     qDebug() << "    getDefaultBoundingRect " << name;
     if (name==QString("MultiLayer")) {
         return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
-
-    } else  if (name==QString("Layer")) {
+    }
+    else  if (name==QString("Layer")) {
         return QRectF(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
-
-    } else  if (name==QString("ParticleLayout")) {
+    }
+    else  if (name==QString("ParticleLayout")) {
         return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
-
-    } else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
+    }
+    else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
         return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
+    }
+    else  if (name.startsWith("InterferenceFunction")) {
+        return QRectF(0, 0, getDefaultInterferenceFunctionWidth(), getDefaultInterferenceFunctionHeight());
+    }
+    else {
+        return QRectF(0,0,50,50);
+    }
+}
 
-    } else {
-        return QRectF();
+
+QColor DesignerHelper::getDefaultColor(const QString &name)
+{
+    if (name==QString("MultiLayer")) {
+        //return QColor(Qt::blue);
+        return QColor(51, 116, 255);
+    } else  if (name==QString("Layer")) {
+        //return QColor(Qt::green);
+        return QColor(26, 156, 9);
+    }
+    else  if (name==QString("ParticleLayout")) {
+        return QColor(135, 206, 50);
+    }
+    else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
+        return QColor(210, 223, 237);
+    }
+    else  if (name.startsWith("InterferenceFunction")) {
+        return QColor(255, 236, 139);
+    }
+    else {
+        return QColor(Qt::lightGray);
     }
 
+}
+
+
+
+QPixmap DesignerHelper::getMimePixmap(const QString &name)
+{
+    QRectF rect = getDefaultBoundingRect(name);
+    QPixmap pixmap(rect.width()+1, rect.height()+1);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setPen(Qt::black);
+    painter.setBrush(DesignerHelper::getDecorationGradient(getDefaultColor(name), rect));
+    painter.drawRoundedRect(rect, 1, 1);
+    return pixmap;
 }
 
 

@@ -41,7 +41,7 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem(ParameterizedItem *parent)
     setItemName("FTDistribution2DVoigt");
     setProperty("Corr_length_x", 1.0);
     setProperty("Corr_length_y", 1.0);
-    setProperty("Eta", 0.0);
+    setProperty("Eta", 0.5);
 }
 
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const

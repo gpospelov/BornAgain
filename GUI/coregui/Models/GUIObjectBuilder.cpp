@@ -4,6 +4,7 @@
 #include "MaterialUtils.h"
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
+#include "TransformFromDomain.h"
 #include <QDebug>
 
 
@@ -302,6 +303,17 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
     item->setProperty("PeakDistance", sample->getPeakDistance());
     item->setProperty("Width", sample->getWidth());
     item->setProperty("CorrLength", sample->getCorrLength());
+    m_levelToParent[getLevel()] = item;
+}
+
+
+void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
+{
+    ParameterizedItem *parent = m_levelToParent[getLevel()-1];
+    Q_ASSERT(parent);
+    ParameterizedItem *item = m_sessionModel->insertNewItem("InterferenceFunction2DParaCrystal", m_sessionModel->indexOfItem(parent));
+    Q_ASSERT(item);    
+    TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParent[getLevel()] = item;
 }
 

@@ -5,6 +5,7 @@
 
 #include "ParameterizedGraphicsItem.h"
 
+
 class InterferenceFunction1DParaCrystalItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT

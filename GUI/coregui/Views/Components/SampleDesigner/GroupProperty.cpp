@@ -1,6 +1,7 @@
 #include "GroupProperty.h"
 #include "FormFactorItems.h"
 #include "FTDistributionItems.h"
+#include "LatticeTypeItems.h"
 
 namespace {
 template<typename T> ParameterizedItem *createInstance() { return new T; }
@@ -36,6 +37,11 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     result["PDF #1"] = ft_distributions_2d;
     result["PDF #2"] = ft_distributions_2d;
 
+    QMap<QString, ParameterizedItem *(*)()> lattice_types;
+    lattice_types[QString("Basic")] = &createInstance<BasicLatticeTypeItem>;
+    lattice_types[QString("Square")] = &createInstance<SquareLatticeTypeItem>;
+    lattice_types[QString("Hexagonal")] = &createInstance<HexagonalLatticeTypeItem>;
+    result["Lattice type"] = lattice_types;
 
     return result;
 }

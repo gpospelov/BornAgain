@@ -463,6 +463,13 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         item->setProperty(parameter_name.toUtf8().constData(),
                           parameter_value);
     }
+    else if (parameter_type == "bool") {
+        bool parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toInt();
+        item->setProperty(parameter_name.toUtf8().constData(),
+                          parameter_value);
+    }
     else if (parameter_type == "QString") {
         QString parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
@@ -478,15 +485,6 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
         item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
     }
-//    else if (parameter_type == "FormFactorProperty") {
-//        QString parameter_value = reader->attributes()
-//                .value(SessionXML::ParameterValueAttribute)
-//                .toString();
-//        FormFactorProperty ff_prop(parameter_value);
-//        QVariant ff_variant;
-//        ff_variant.setValue(ff_prop);
-//        item->setProperty(parameter_name.toUtf8().constData(), ff_variant);
-//    }
     else if (parameter_type == "GroupProperty") {
         QString parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
@@ -545,6 +543,10 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 QString::number(variant.toDouble(), 'e', 12));
         }
+        else if (type_name == QString("bool")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                QString::number(variant.toBool()));
+        }
         else if (type_name == QString("QString")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.toString());
@@ -554,12 +556,6 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 material_name);
         }
-//        else if (type_name == QString("FormFactorProperty")) {
-//            QString ff_name =
-//                    variant.value<FormFactorProperty>().getFormFactorName();
-//            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-//                                ff_name);
-//        }
         else if (type_name == QString("GroupProperty")) {
             QString ff_name =
                     variant.value<GroupProperty>().getValue();
@@ -569,7 +565,7 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
 
         else {
             throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
-                                       "Parameter type not supported"));
+                                       "Parameter type not supported ")+type_name);
         }
         if (sub_items.contains(QString(property_name))) {
             writePropertyItem(writer, sub_items[QString(property_name)]);

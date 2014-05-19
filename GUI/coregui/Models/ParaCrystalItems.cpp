@@ -19,8 +19,17 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(Par
     addGroupProperty("Lattice type", "Basic");
     setProperty("Rotation_angle", 0.0);
     setProperty("Damping_length", 0.0);
-    setProperty("Domain_size_1", 20.0*Units::micrometer);
-    setProperty("Domain_size_2", 20.0*Units::micrometer);
+
+    registerProperty("Domain_size_1",
+                     20.0*Units::micrometer,
+                     "Dimension of coherent domains of the paracrystal along the main X axis."
+                     );
+
+    registerProperty("Domain_size_2",
+                     20.0*Units::micrometer,
+                     "Dimension of coherent domains of the paracrystal along the main Y axis."
+                     );
+
     setProperty("IntegrationOverXi", true);
     addGroupProperty("PDF #1", "Cauchy 2D");
     addGroupProperty("PDF #2", "Cauchy 2D");

@@ -18,6 +18,7 @@
 
 #include "MaterialItem.h"
 #include <QStandardItem>
+#include <QStringList>
 #include <QList>
 #include <QMap>
 
@@ -99,6 +100,12 @@ public:
 
     ParameterizedItem *addGroupProperty(const char *name, QString value);
 
+    bool isHiddenProperty(const QString &name) const;
+    QString getPropertyToolTip(const QString &name) const;
+
+    enum PropertyVisibility {VisibleProperty, HiddenProperty };
+    void registerProperty(const QString &name, const QVariant &variant, const QString &tooltip = QString(), PropertyVisibility = VisibleProperty);
+
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);
@@ -106,6 +113,10 @@ signals:
 protected:
     void updatePropertyItem(QString name);
     QList<QString> m_valid_children;
+
+    QStringList m_valid_properties;
+    QStringList m_hidden_properties;
+    QMap<QString, QString> m_property_tooltip;
 
 private:
     QString m_model_type;

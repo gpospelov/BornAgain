@@ -129,3 +129,26 @@ ParameterizedItem * ParameterizedItem::addGroupProperty(const char *name, QStrin
     addPropertyItem(name, item);
     return item;
 }
+
+
+void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, const QString &tooltip, PropertyVisibility visibility)
+{
+    m_valid_properties << name;
+    QString wrappedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
+    wrappedToolTip += tooltip;
+    wrappedToolTip += QString("</FONT>");
+    m_property_tooltip[name] = wrappedToolTip;
+    if(visibility == HiddenProperty) m_hidden_properties << name;
+    setProperty(name.toAscii().data(), variant);
+}
+
+
+bool ParameterizedItem::isHiddenProperty(const QString &name) const
+{
+    return m_hidden_properties.contains(name);
+}
+
+QString ParameterizedItem::getPropertyToolTip(const QString &name) const
+{
+    return m_property_tooltip[name];
+}

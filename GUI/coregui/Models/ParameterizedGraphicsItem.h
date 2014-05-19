@@ -15,9 +15,9 @@ protected:
                                ParameterizedItem *parent=0)
         : ParameterizedItem(model_type, parent)
     {
-        setProperty("xpos", qreal(0.0));
-        setProperty("ypos", qreal(0.0));
-    }
+        registerProperty("xpos", qreal(0.0), QString(), ParameterizedItem::HiddenProperty);
+        registerProperty("ypos", qreal(0.0), QString(), ParameterizedItem::HiddenProperty);
+   }
 };
 
 #endif

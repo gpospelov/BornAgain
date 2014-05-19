@@ -1,6 +1,7 @@
 #include "TransformFromDomain.h"
 #include "ParameterizedItem.h"
 #include "InterferenceFunctions.h"
+#include "ParaCrystalItems.h"
 #include "FTDistributions.h"
 #include "Numeric.h"
 #include "Units.h"
@@ -15,19 +16,19 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Inter
 
     ParameterizedItem *latticeTypeItem(0);
     if( TransformFromDomain::isSquareLattice(sample)) {
-        latticeTypeItem = item->addGroupProperty("Lattice type", "Square");
+        latticeTypeItem = item->registerGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Square");
         latticeTypeItem->setProperty("Lattice_length", sample->getLatticeLengths()[0]);
     } else if( TransformFromDomain::isHexagonalLattice(sample)) {
-        latticeTypeItem = item->addGroupProperty("Lattice type", "Hexagonal");
+        latticeTypeItem = item->registerGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Hexagonal");
         latticeTypeItem->setProperty("Lattice_length", sample->getLatticeLengths()[0]);
     } else {
-        latticeTypeItem = item->addGroupProperty("Lattice type", "Basic");
+        latticeTypeItem = item->registerGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Basic");
         latticeTypeItem->setProperty("Lattice_length_1", sample->getLatticeLengths()[0]);
         latticeTypeItem->setProperty("Lattice_length_2", sample->getLatticeLengths()[1]);
         latticeTypeItem->setProperty("Lattice_angle", Units::rad2deg(sample->getAlphaLattice()));
     }
 
-    item->setProperty("Rotation_angle", Units::rad2deg(sample->getLatticeOrientation()));
+    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE, Units::rad2deg(sample->getLatticeOrientation()));
     item->setProperty("Damping_length", sample->getDampingLength());
     item->setProperty("Domain_size_1", sample->getDomainSizes()[0]);
     item->setProperty("Domain_size_2", sample->getDomainSizes()[1]);
@@ -38,17 +39,17 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Inter
         QString group_name = QString("PDF #%1").arg(QString::number(i+1));
         qDebug() << "    group_name" << group_name;
         if(const FTDistribution2DCauchy *pdf = dynamic_cast<const FTDistribution2DCauchy *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->addGroupProperty(group_name.toAscii().data(), "Cauchy 2D");
+            ParameterizedItem *pdfItem = item->registerGroupProperty(group_name.toAscii().data(), "Cauchy 2D");
             pdfItem->setProperty("Corr_length_x", pdf->getCoherenceLengthX());
             pdfItem->setProperty("Corr_length_y", pdf->getCoherenceLengthY());
         }
         else if(const FTDistribution2DGauss *pdf = dynamic_cast<const FTDistribution2DGauss *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->addGroupProperty(group_name.toAscii().data(), "Gauss 2D");
+            ParameterizedItem *pdfItem = item->registerGroupProperty(group_name.toAscii().data(), "Gauss 2D");
             pdfItem->setProperty("Corr_length_x", pdf->getCoherenceLengthX());
             pdfItem->setProperty("Corr_length_y", pdf->getCoherenceLengthY());
         }
         else if(const FTDistribution2DVoigt *pdf = dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->addGroupProperty(group_name.toAscii().data(), "Gauss 2D");
+            ParameterizedItem *pdfItem = item->registerGroupProperty(group_name.toAscii().data(), "Gauss 2D");
             pdfItem->setProperty("Corr_length_x", pdf->getCoherenceLengthX());
             pdfItem->setProperty("Corr_length_y", pdf->getCoherenceLengthY());
             pdfItem->setProperty("Eta", pdf->getEta());

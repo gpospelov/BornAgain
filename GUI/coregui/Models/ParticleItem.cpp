@@ -20,7 +20,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Particle"), parent)
 {
     setItemName("ParticleName");
-    addGroupProperty("Form Factor", "Cylinder");
+    registerGroupProperty("Form Factor", "Cylinder");
     setMaterialProperty();
     setProperty("Depth", 0.0);
     setProperty("Abundance", 1.0);

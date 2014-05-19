@@ -17,7 +17,7 @@
 #include "Exceptions.h"
 #include "GroupProperty.h"
 #include "MaterialEditor.h"
-
+#include "GUIHelpers.h"
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -116,30 +116,70 @@ void ParameterizedItem::setMaterialProperty(MaterialProperty material)
     setProperty("Material", mat_var);
 }
 
-ParameterizedItem * ParameterizedItem::addGroupProperty(const char *name, QString value)
+ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name, const QString &value)
 {
-    GroupProperty group_prop(QString(name), value);
+    qDebug() << "   XXX   registerGroupProperty " << name << value;
+    GroupProperty group_prop(name, value);
+
     Q_ASSERT(group_prop.isDefined());
     if (group_prop.isDefined()) {
         QVariant group_var;
         group_var.setValue(group_prop);
-        setProperty(name, group_var);
+        registerProperty(name, group_var);
     }
     ParameterizedItem *item = createPropertyItem(name);
     addPropertyItem(name, item);
     return item;
 }
 
+void ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
+{
+    GroupProperty group_prop(name, value);
+
+    Q_ASSERT(group_prop.isDefined());
+    if (group_prop.isDefined()) {
+        QVariant group_var;
+        group_var.setValue(group_prop);
+        setRegisteredProperty(name, group_var);
+    }
+    ParameterizedItem *item = createPropertyItem(name);
+    addPropertyItem(name, item);
+}
+
+
 
 void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, const QString &tooltip, PropertyVisibility visibility)
 {
-    m_valid_properties << name;
-    QString wrappedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
-    wrappedToolTip += tooltip;
-    wrappedToolTip += QString("</FONT>");
-    m_property_tooltip[name] = wrappedToolTip;
+    qDebug() << "   XXX   registerProperty " << name;
+    if(m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
+
+    m_registered_properties << name;
+
+    if(!tooltip.isEmpty()) {
+        QString wrappedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
+        wrappedToolTip += tooltip;
+        wrappedToolTip += QString("</FONT>");
+        m_property_tooltip[name] = wrappedToolTip;
+    }
     if(visibility == HiddenProperty) m_hidden_properties << name;
     setProperty(name.toAscii().data(), variant);
+}
+
+void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
+{
+    if( !m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Unknown property "+name);
+
+    setProperty(name.toUtf8().constData(), variant);
+}
+
+QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
+{
+    if( !m_registered_properties.contains(name))
+        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Unknown property "+name);
+
+    return property(name.toUtf8().constData());
 }
 
 

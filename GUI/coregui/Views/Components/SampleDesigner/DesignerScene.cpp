@@ -387,7 +387,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     new_item = m_sessionModel->insertNewItem("Particle");
                     QString ffName = mimeData->getClassName();
                     ffName.remove("FormFactor");
-                    new_item->addGroupProperty("Form Factor", ffName);
+                    new_item->setGroupProperty("Form Factor", ffName);
 
                 } else {
                     new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
@@ -395,16 +395,13 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
                 // propagating drop coordinates to ParameterizedItem
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
-                new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-                new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+                new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_XPOS, event->scenePos().x()-boundingRect.width()/2);
+                new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS, event->scenePos().y()-boundingRect.height()/2);
 
             } else if(GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
                 ParameterizedItem *topItem = GUIExamplesFactory::createItems(mimeData->getClassName(), m_sessionModel);
                 //ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
-                //qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
-                //topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-                //topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
                 QPointF reference(event->scenePos().x()-boundingRect.width()/2, event->scenePos().y()-boundingRect.height()/2);
                 m_aligner->alignSample(topItem, reference, true);
             }

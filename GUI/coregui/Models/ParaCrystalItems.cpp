@@ -12,26 +12,26 @@ InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(Par
 }
 
 
+const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE = "Lattice type";
+const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE = "Rotation_angle";
+
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("InterferenceFunction2DParaCrystal"), parent)
 {
     setItemName("InterferenceFunction2DParaCrystal");
-    addGroupProperty("Lattice type", "Basic");
-    setProperty("Rotation_angle", 0.0);
-    setProperty("Damping_length", 0.0);
+    registerGroupProperty(P_LATTICE_TYPE, "Basic");
 
+    registerProperty(P_ROTATION_ANGLE, 0.0);
+    registerProperty("Damping_length", 0.0);
     registerProperty("Domain_size_1",
                      20.0*Units::micrometer,
                      "Dimension of coherent domains of the paracrystal along the main X axis."
                      );
-
     registerProperty("Domain_size_2",
                      20.0*Units::micrometer,
                      "Dimension of coherent domains of the paracrystal along the main Y axis."
                      );
-
-    setProperty("IntegrationOverXi", true);
-    addGroupProperty("PDF #1", "Cauchy 2D");
-    addGroupProperty("PDF #2", "Cauchy 2D");
-
+    registerProperty("IntegrationOverXi", true);
+    registerGroupProperty("PDF #1", "Cauchy 2D");
+    registerGroupProperty("PDF #2", "Cauchy 2D");
 }

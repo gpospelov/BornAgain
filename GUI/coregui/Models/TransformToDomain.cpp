@@ -17,6 +17,7 @@
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
+#include "ParaCrystalItems.h"
 #include "FTDistributionItems.h"
 #include <QDebug>
 
@@ -114,7 +115,7 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
     }
     else if(item.modelType() == "InterferenceFunction2DParaCrystal") {
 
-        ParameterizedItem *latticeItem = item.getSubItems()["Lattice type"];
+        ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);
 
         double length_1(0), length_2(0), alpha_lattice(0.0);
@@ -141,7 +142,7 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
                     length_1,
                     length_2,
                     alpha_lattice,
-                    Units::deg2rad(item.property("Rotation_angle").toDouble()),
+                    Units::deg2rad(item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE).toDouble()),
                     item.property("Damping_length").toDouble());
         result->setDomainSizes(
                     item.property("Domain_size_1").toDouble(),

@@ -2,6 +2,7 @@
 #include "FormFactorItems.h"
 #include "FTDistributionItems.h"
 #include "LatticeTypeItems.h"
+#include "ParaCrystalItems.h"
 
 namespace {
 template<typename T> ParameterizedItem *createInstance() { return new T; }
@@ -41,7 +42,7 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     lattice_types[QString("Basic")] = &createInstance<BasicLatticeTypeItem>;
     lattice_types[QString("Square")] = &createInstance<SquareLatticeTypeItem>;
     lattice_types[QString("Hexagonal")] = &createInstance<HexagonalLatticeTypeItem>;
-    result["Lattice type"] = lattice_types;
+    result[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE] = lattice_types;
 
     return result;
 }

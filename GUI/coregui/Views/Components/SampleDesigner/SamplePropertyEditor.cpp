@@ -146,7 +146,10 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         if (m_manager->isPropertyTypeSupported(type)) {
             subProperty = m_manager->addProperty(type, prop_name);
             subProperty->setValue(prop_value);
-            subProperty->setToolTip(item->getPropertyToolTip(prop_name));
+
+            QString toolTip = item->getPropertyToolTip(prop_name);
+            if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+
             if (item->getSubItems().contains(prop_name)) {
                 ParameterizedItem *subitem = item->getSubItems()[prop_name];
                 if (subitem) {

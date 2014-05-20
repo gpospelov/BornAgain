@@ -3,6 +3,8 @@
 #include "InterferenceFunctions.h"
 #include "ParaCrystalItems.h"
 #include "FTDistributions.h"
+#include "FTDistributionItems.h"
+#include "LatticeTypeItems.h"
 #include "Numeric.h"
 #include "Units.h"
 #include "GUIHelpers.h"
@@ -16,43 +18,48 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Inter
 
     ParameterizedItem *latticeTypeItem(0);
     if( TransformFromDomain::isSquareLattice(sample)) {
-        latticeTypeItem = item->registerGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Square");
-        latticeTypeItem->setProperty("Lattice_length", sample->getLatticeLengths()[0]);
-    } else if( TransformFromDomain::isHexagonalLattice(sample)) {
-        latticeTypeItem = item->registerGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Hexagonal");
-        latticeTypeItem->setProperty("Lattice_length", sample->getLatticeLengths()[0]);
-    } else {
-        latticeTypeItem = item->registerGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Basic");
-        latticeTypeItem->setProperty("Lattice_length_1", sample->getLatticeLengths()[0]);
-        latticeTypeItem->setProperty("Lattice_length_2", sample->getLatticeLengths()[1]);
-        latticeTypeItem->setProperty("Lattice_angle", Units::rad2deg(sample->getAlphaLattice()));
+        latticeTypeItem = item->setGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Square");
+        latticeTypeItem->setRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH, sample->getLatticeLengths()[0]);
+    }
+    else if( TransformFromDomain::isHexagonalLattice(sample)) {
+        latticeTypeItem = item->setGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Hexagonal");
+        latticeTypeItem->setRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH, sample->getLatticeLengths()[0]);
+    }
+    else {
+        latticeTypeItem = item->setGroupProperty(InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Basic");
+        latticeTypeItem->setRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1, sample->getLatticeLengths()[0]);
+        latticeTypeItem->setRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2, sample->getLatticeLengths()[1]);
+        latticeTypeItem->setRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE, Units::rad2deg(sample->getAlphaLattice()));
     }
 
     item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE, Units::rad2deg(sample->getLatticeOrientation()));
-    item->setProperty("Damping_length", sample->getDampingLength());
-    item->setProperty("Domain_size_1", sample->getDomainSizes()[0]);
-    item->setProperty("Domain_size_2", sample->getDomainSizes()[1]);
-    item->setProperty("IntegrationOverXi", sample->getIntegrationOverXi());
+    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH, sample->getDampingLength());
+    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1, sample->getDomainSizes()[0]);
+    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2, sample->getDomainSizes()[1]);
+    item->setRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, sample->getIntegrationOverXi());
 
     std::vector<const IFTDistribution2D *> pdfs = sample->getPropabilityDistributions();
+
+    QStringList group_names;
+    group_names << InterferenceFunction2DParaCrystalItem::P_PDF1 << InterferenceFunction2DParaCrystalItem::P_PDF2;
+
     for(size_t i=0; i<pdfs.size(); ++i) {
-        QString group_name = QString("PDF #%1").arg(QString::number(i+1));
-        qDebug() << "    group_name" << group_name;
+        qDebug() << "    group_name" << group_names[i];
         if(const FTDistribution2DCauchy *pdf = dynamic_cast<const FTDistribution2DCauchy *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->registerGroupProperty(group_name.toAscii().data(), "Cauchy 2D");
-            pdfItem->setProperty("Corr_length_x", pdf->getCoherenceLengthX());
-            pdfItem->setProperty("Corr_length_y", pdf->getCoherenceLengthY());
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i], "Cauchy 2D");
+            pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());
+            pdfItem->setRegisteredProperty(FTDistribution2DCauchyItem::P_CORR_LENGTH_Y, pdf->getCoherenceLengthY());
         }
         else if(const FTDistribution2DGauss *pdf = dynamic_cast<const FTDistribution2DGauss *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->registerGroupProperty(group_name.toAscii().data(), "Gauss 2D");
-            pdfItem->setProperty("Corr_length_x", pdf->getCoherenceLengthX());
-            pdfItem->setProperty("Corr_length_y", pdf->getCoherenceLengthY());
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i], "Gauss 2D");
+            pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());
+            pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_Y, pdf->getCoherenceLengthY());
         }
         else if(const FTDistribution2DVoigt *pdf = dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->registerGroupProperty(group_name.toAscii().data(), "Gauss 2D");
-            pdfItem->setProperty("Corr_length_x", pdf->getCoherenceLengthX());
-            pdfItem->setProperty("Corr_length_y", pdf->getCoherenceLengthY());
-            pdfItem->setProperty("Eta", pdf->getEta());
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i], "Gauss 2D");
+            pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());
+            pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_Y, pdf->getCoherenceLengthY());
+            pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_ETA, pdf->getEta());
         }
         else {
             throw GUIHelpers::Error("TransformFromDomain::setItemFromSample(ParameterizedItem *item, const InterferenceFunction2DParaCrystal *sample) -> Error");

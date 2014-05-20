@@ -132,7 +132,7 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name
     return item;
 }
 
-void ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
+ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
     GroupProperty group_prop(name, value);
 
@@ -144,6 +144,7 @@ void ParameterizedItem::setGroupProperty(const QString &name, const QString &val
     }
     ParameterizedItem *item = createPropertyItem(name);
     addPropertyItem(name, item);
+    return item;
 }
 
 

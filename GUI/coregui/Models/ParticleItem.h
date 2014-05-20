@@ -22,8 +22,9 @@ class ParticleItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
+    static const QString P_FORM_FACTOR, P_DEPTH, P_ABUNDANCE;
     explicit ParticleItem(ParameterizedItem *parent=0);
-    ~ParticleItem();
+    ~ParticleItem(){}
 };
 
 #endif // PARTICLEITEM_H

@@ -239,11 +239,11 @@ void MainWindow::initSessionModel()
 //                   m_sessionModel->indexOfItem(layer));
 
 //    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-//    particle1->addFormFactorProperty("Form Factor", "Cylinder");
+//    particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
 //    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
 //    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-//    particle2->addFormFactorProperty("Form Factor", "Prism3");
+//    particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Prism3");
 //    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
 //    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",

@@ -99,7 +99,7 @@ public:
     void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
     ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
-    void setGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
     bool isHiddenProperty(const QString &name) const;
     QString getPropertyToolTip(const QString &name) const;

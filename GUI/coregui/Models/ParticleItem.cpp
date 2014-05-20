@@ -16,16 +16,18 @@
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
 
+const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
+const QString ParticleItem::P_DEPTH = "Depth";
+const QString ParticleItem::P_ABUNDANCE = "Abundance";
+
+
 ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Particle"), parent)
 {
     setItemName("ParticleName");
-    registerGroupProperty("Form Factor", "Cylinder");
+    registerGroupProperty(P_FORM_FACTOR, "Cylinder");
     setMaterialProperty();
-    setProperty("Depth", 0.0);
-    setProperty("Abundance", 1.0);
+    registerProperty(P_DEPTH, 0.0);
+    registerProperty(P_ABUNDANCE, 1.0);
 }
 
-ParticleItem::~ParticleItem()
-{
-}

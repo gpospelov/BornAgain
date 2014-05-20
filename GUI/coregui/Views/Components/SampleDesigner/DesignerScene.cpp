@@ -13,6 +13,7 @@
 #include "DesignerMimeData.h"
 #include "SampleBuilderFactory.h"
 #include "GUIExamplesFactory.h"
+#include "ParticleItem.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -292,7 +293,6 @@ void DesignerScene::deleteSelectedItems()
     // FIXME handle multiple selection
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
         if(IView *view = dynamic_cast<IView *>(graphicsItem)) {
-            qDebug() << "xxx";
             ParameterizedItem *item = view->getParameterizedItem();
             Q_ASSERT(item);
             m_sessionModel->removeRows(m_sessionModel->indexOfItem(item).row(), 1, m_sessionModel->indexOfItem(item->parent()));
@@ -387,7 +387,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     new_item = m_sessionModel->insertNewItem("Particle");
                     QString ffName = mimeData->getClassName();
                     ffName.remove("FormFactor");
-                    new_item->setGroupProperty("Form Factor", ffName);
+                    new_item->setGroupProperty(ParticleItem::P_FORM_FACTOR, ffName);
 
                 } else {
                     new_item = m_sessionModel->insertNewItem(mimeData->getClassName());

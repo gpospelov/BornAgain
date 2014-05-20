@@ -10,6 +10,7 @@ class InterferenceFunction1DParaCrystalItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
+    static const QString P_PEAK_DISTANCE, P_WIDTH, P_CORR_LENGTH;
     explicit InterferenceFunction1DParaCrystalItem(ParameterizedItem *parent=0);
     ~InterferenceFunction1DParaCrystalItem(){}
 };

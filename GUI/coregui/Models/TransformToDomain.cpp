@@ -19,6 +19,8 @@
 #include "FormFactorItems.h"
 #include "ParaCrystalItems.h"
 #include "ParticleItem.h"
+#include "LayerItem.h"
+#include "MultiLayerItem.h"
 #include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
 #include <QDebug>
@@ -40,12 +42,9 @@ IMaterial *TransformToDomain::createDomainMaterial(const ParameterizedItem &item
 MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
 {
     MultiLayer *result = new MultiLayer();
-    bool ok = false;
     double cross_corr_length =
-            item.property("Cross Correlation Length").toDouble(&ok);
-    if (ok) {
-        if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
-    }
+            item.getRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
+    if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
     result->setName(item.itemName().toAscii().data());
     return result;
 }
@@ -54,12 +53,9 @@ MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
 Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
 {
     Layer *result = new Layer();
-    bool ok = false;
     double thickness =
-            item.property("Thickness").toDouble(&ok);
-    if (ok) {
-        result->setThickness(thickness);
-    }
+            item.getRegisteredProperty(LayerItem::P_THICKNESS).toDouble();
+    result->setThickness(thickness);
 
     boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
     result->setMaterial(*material.get());

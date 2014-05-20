@@ -118,7 +118,7 @@ void ParameterizedItem::setMaterialProperty(MaterialProperty material)
 
 ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name, const QString &value)
 {
-    qDebug() << "   XXX   registerGroupProperty " << name << value;
+    qDebug() << "   XXX   registerGroupProperty " << modelType() << name << value;
     GroupProperty group_prop(name, value);
 
     Q_ASSERT(group_prop.isDefined());
@@ -151,7 +151,7 @@ ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, con
 
 void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, const QString &tooltip, PropertyVisibility visibility)
 {
-    qDebug() << "   XXX   registerProperty " << name;
+    qDebug() << "   XXX   registerProperty " << modelType() << name;
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
@@ -164,7 +164,7 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
         m_property_tooltip[name] = wrappedToolTip;
     }
     if(visibility == HiddenProperty) m_hidden_properties << name;
-    setProperty(name.toAscii().data(), variant);
+    setProperty(name.toUtf8().data(), variant);
 }
 
 void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)

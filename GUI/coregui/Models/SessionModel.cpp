@@ -456,12 +456,16 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     const QString parameter_type = reader->attributes()
             .value(SessionXML::ParameterTypeAttribute)
             .toString();
+    qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType() << parameter_name << parameter_type << parameter_name.toUtf8().constData();
     if (parameter_type == "double") {
         double parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toDouble();
+        qDebug() << "           SessionModel::readProperty " << parameter_name << parameter_type << parameter_value;
         item->setProperty(parameter_name.toUtf8().constData(),
                           parameter_value);
+        qDebug() << "     " << item->getRegisteredProperty(parameter_name).toDouble();
+//        item->setRegisteredProperty(parameter_name, parameter_value);
     }
     else if (parameter_type == "bool") {
         bool parameter_value = reader->attributes()
@@ -469,6 +473,8 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .toInt();
         item->setProperty(parameter_name.toUtf8().constData(),
                           parameter_value);
+//        item->setRegisteredProperty(parameter_name, parameter_value);
+
     }
     else if (parameter_type == "QString") {
         QString parameter_value = reader->attributes()
@@ -476,6 +482,8 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .toString();
         item->setProperty(parameter_name.toUtf8().constData(),
                           parameter_value);
+//        item->setRegisteredProperty(parameter_name, parameter_value);
+
     }
     else if (parameter_type == "MaterialProperty") {
         QString parameter_value = reader->attributes()
@@ -493,6 +501,8 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         QVariant group_variant;
         group_variant.setValue(group_prop);
         item->setProperty(parameter_name.toUtf8().constData(), group_variant);
+//        item->setRegisteredProperty(parameter_name, parameter_value);
+
     }
 
     else {

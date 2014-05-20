@@ -21,6 +21,8 @@
 #include "Samples.h"
 #include "InterferenceFunctions.h"
 #include "FormFactors.h"
+#include "ParticleItem.h"
+#include "FormFactorItems.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"
@@ -229,18 +231,19 @@ void MainWindow::initSessionModel()
     delete m_sessionModel;
     m_sessionModel = new SessionModel();
 
-//    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
-//    multilayer->setItemName("MultiLayer1");
+    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
+    multilayer->setItemName("MultiLayer1");
 
-//    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
-//    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
+    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
+    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
 
-//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
-//                   m_sessionModel->indexOfItem(layer));
+    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
+                   m_sessionModel->indexOfItem(layer));
 
-//    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-//    particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-//    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
+    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+    ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
+    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
+    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
 //    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
 //    particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Prism3");

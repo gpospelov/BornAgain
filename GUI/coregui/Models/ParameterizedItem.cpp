@@ -79,7 +79,6 @@ bool ParameterizedItem::event(QEvent * e )
         if (m_sub_items.contains(name)) {
             updatePropertyItem(name);
         }
-        qDebug() << " xxxxxxxxxxxxxxxxx propertyChanged->e,it";
         emit propertyChanged(name);
     }
     return QObject::event(e);

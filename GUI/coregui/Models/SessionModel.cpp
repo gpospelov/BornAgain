@@ -400,6 +400,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
             return 0;
     }
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+    connect(new_item, SIGNAL(propertyChanged(QString)), this, SLOT(onItemPropertyChange(QString)));
+
     Q_ASSERT(new_item);
     parent->insertChildItem(row, new_item);
     return new_item;
@@ -601,5 +603,16 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
         writeItemAndChildItems(writer, child_item);
     }
         writer->writeEndElement(); // ItemTag
+}
+
+
+void SessionModel::onItemPropertyChange(QString name)
+{
+    qDebug() << "SessionModel::onItemPropertyChange()" << name;
+    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
+    Q_ASSERT(item);
+    QModelIndex itemIndex = indexOfItem(item);
+    Q_ASSERT(itemIndex.isValid());
+    emit dataChanged(itemIndex, itemIndex);
 }
 

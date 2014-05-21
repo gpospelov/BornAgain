@@ -99,6 +99,9 @@ public:
 
     void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
 
+public slots:
+    void onItemPropertyChange(QString name);
+
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,

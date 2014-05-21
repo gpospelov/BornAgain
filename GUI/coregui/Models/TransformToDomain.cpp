@@ -17,6 +17,11 @@
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
+#include "ParaCrystalItems.h"
+#include "ParticleItem.h"
+#include "LayerItem.h"
+#include "MultiLayerItem.h"
+#include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
 #include <QDebug>
 
@@ -37,13 +42,10 @@ IMaterial *TransformToDomain::createDomainMaterial(const ParameterizedItem &item
 MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
 {
     MultiLayer *result = new MultiLayer();
-    bool ok = false;
     double cross_corr_length =
-            item.property("Cross Correlation Length").toDouble(&ok);
-    if (ok) {
-        if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
-    }
-    result->setName(item.itemName().toAscii().data());
+            item.getRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
+    if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
+    result->setName(item.itemName().toUtf8().constData());
     return result;
 }
 
@@ -51,16 +53,13 @@ MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
 Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
 {
     Layer *result = new Layer();
-    bool ok = false;
     double thickness =
-            item.property("Thickness").toDouble(&ok);
-    if (ok) {
-        result->setThickness(thickness);
-    }
+            item.getRegisteredProperty(LayerItem::P_THICKNESS).toDouble();
+    result->setThickness(thickness);
 
     boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
     result->setMaterial(*material.get());
-    result->setName(item.itemName().toAscii().data());
+    result->setName(item.itemName().toUtf8().constData());
 
     return result;
 }
@@ -79,12 +78,10 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item, doubl
 {
     boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
     Particle *result = new Particle(*material);
-    Q_ASSERT(item.property("Depth").isValid());
-    Q_ASSERT(item.property("Abundance").isValid());
-    depth = item.property("Depth").toDouble();
-    abundance = item.property("Abundance").toDouble();
+    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
 
-    ParameterizedItem *ffItem = item.getSubItems()["Form Factor"];
+    ParameterizedItem *ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
     Q_ASSERT(ffItem);
 
     IFormFactor *ff = createFormFactor(*ffItem);
@@ -106,30 +103,30 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
 {
     if(item.modelType() == "InterferenceFunction1DParaCrystal") {
         InterferenceFunction1DParaCrystal *result = new InterferenceFunction1DParaCrystal(
-                    item.property("PeakDistance").toDouble(),
-                    item.property("Width").toDouble(),
-                    item.property("CorrLength").toDouble()
+                    item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE).toDouble(),
+                    item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_WIDTH).toDouble(),
+                    item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_CORR_LENGTH).toDouble()
                     );
         return result;
     }
     else if(item.modelType() == "InterferenceFunction2DParaCrystal") {
 
-        ParameterizedItem *latticeItem = item.getSubItems()["Lattice type"];
+        ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);
 
         double length_1(0), length_2(0), alpha_lattice(0.0);
         if(latticeItem->modelType() == "BasicLatticeType") {
-            length_1 = latticeItem->property("Lattice_length_1").toDouble();
-            length_2 = latticeItem->property("Lattice_length_2").toDouble();
-            alpha_lattice = Units::deg2rad(item.property("Lattice_angle").toDouble());
+            length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
+            length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
+            alpha_lattice = Units::deg2rad(item.getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
         }
         else if(latticeItem->modelType() == "SquareLatticeType") {
-            length_1 = latticeItem->property("Lattice_length").toDouble();
+            length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = M_PI/2.0;
         }
         else if(latticeItem->modelType() == "HexagonalLatticeType") {
-            length_1 = latticeItem->property("Lattice_length").toDouble();
+            length_1 = latticeItem->getRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = 2*M_PI/3.0;
         }
@@ -141,21 +138,21 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
                     length_1,
                     length_2,
                     alpha_lattice,
-                    Units::deg2rad(item.property("Rotation_angle").toDouble()),
-                    item.property("Damping_length").toDouble());
+                    Units::deg2rad(item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE).toDouble()),
+                    item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH).toDouble());
         result->setDomainSizes(
-                    item.property("Domain_size_1").toDouble(),
-                    item.property("Domain_size_2").toDouble()
+                    item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1).toDouble(),
+                    item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2).toDouble()
                     );
 
-        result->setIntegrationOverXi(item.property("IntegrationOverXi").toBool());
+        result->setIntegrationOverXi(item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION).toBool());
 
-        ParameterizedItem *pdf1Item = item.getSubItems()["PDF #1"];
+        ParameterizedItem *pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
         Q_ASSERT(pdf1Item);
         boost::scoped_ptr<IFTDistribution2D> pdf1(dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
         Q_ASSERT(pdf1.get());
 
-        ParameterizedItem *pdf2Item = item.getSubItems()["PDF #2"];
+        ParameterizedItem *pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
         Q_ASSERT(pdf2Item);
         boost::scoped_ptr<IFTDistribution2D> pdf2(dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
         Q_ASSERT(pdf2.get());

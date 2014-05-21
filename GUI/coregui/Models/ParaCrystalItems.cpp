@@ -2,13 +2,27 @@
 #include "Units.h"
 
 
+const QString InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE = "PeakDistance";
+const QString InterferenceFunction1DParaCrystalItem::P_WIDTH = "Width";
+const QString InterferenceFunction1DParaCrystalItem::P_CORR_LENGTH = "CorrLength";
+
+const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE = "Lattice type";
+const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE = "Rotation_angle";
+const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH = "Damping_length";
+const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1 = "Domain_size_1";
+const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2 = "Domain_size_2";
+const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION = "IntegrationOverXi";
+const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
+const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
+
+
 InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("InterferenceFunction1DParaCrystal"), parent)
 {
     setItemName("InterferenceFunction1DParaCrystal");
-    setProperty("PeakDistance", 20.0);
-    setProperty("Width", 7.0);
-    setProperty("CorrLength", 1000.0);
+    registerProperty(P_PEAK_DISTANCE, 20.0);
+    registerProperty(P_WIDTH, 7.0);
+    registerProperty(P_CORR_LENGTH, 1000.0);
 }
 
 
@@ -16,13 +30,19 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(Par
     : ParameterizedGraphicsItem(QString("InterferenceFunction2DParaCrystal"), parent)
 {
     setItemName("InterferenceFunction2DParaCrystal");
-    addGroupProperty("Lattice type", "Basic");
-    setProperty("Rotation_angle", 0.0);
-    setProperty("Damping_length", 0.0);
-    setProperty("Domain_size_1", 20.0*Units::micrometer);
-    setProperty("Domain_size_2", 20.0*Units::micrometer);
-    setProperty("IntegrationOverXi", true);
-    addGroupProperty("PDF #1", "Cauchy 2D");
-    addGroupProperty("PDF #2", "Cauchy 2D");
+    registerGroupProperty(P_LATTICE_TYPE, "Basic");
 
+    registerProperty(P_DAMPING_LENGTH, 0.0);
+    registerProperty(P_DOMAIN_SIZE1,
+                     20.0*Units::micrometer,
+                     "Dimension of coherent domains of the paracrystal along the main X axis."
+                     );
+    registerProperty(P_DOMAIN_SIZE2,
+                     20.0*Units::micrometer,
+                     "Dimension of coherent domains of the paracrystal along the main Y axis."
+                     );
+    registerProperty(P_ROTATION_ANGLE, 0.0);
+    registerProperty(P_XI_INTEGRATION, true);
+    registerGroupProperty(P_PDF1, "Cauchy 2D");
+    registerGroupProperty(P_PDF2, "Cauchy 2D");
 }

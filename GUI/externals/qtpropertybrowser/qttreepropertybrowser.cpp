@@ -585,10 +585,10 @@ void QtTreePropertyBrowserPrivate::updateItem(QTreeWidgetItem *item)
     QtProperty *property = m_itemToIndex[item]->property();
     QIcon expandIcon;
     if (property->hasValue()) {
-        QString toolTip = property->toolTip();
-        if (toolTip.isEmpty())
-            toolTip = property->valueText();
-        item->setToolTip(1, toolTip);
+//        QString toolTip = property->toolTip();
+//        if (toolTip.isEmpty())
+//            toolTip = property->valueText();
+//        item->setToolTip(1, toolTip);
         item->setIcon(1, property->valueIcon());
         item->setText(1, property->valueText());
     } else if (markPropertiesWithoutValue() && !m_treeWidget->rootIsDecorated()) {
@@ -596,7 +596,14 @@ void QtTreePropertyBrowserPrivate::updateItem(QTreeWidgetItem *item)
     }
     item->setIcon(0, expandIcon);
     item->setFirstColumnSpanned(!property->hasValue());
-    item->setToolTip(0, property->propertyName());
+
+    // g.p.
+    QString toolTip = property->toolTip();
+    if (toolTip.isEmpty()) {
+        item->setToolTip(0, property->propertyName());
+    } else {
+        item->setToolTip(0, toolTip);
+    }
     item->setStatusTip(0, property->statusTip());
     item->setWhatsThis(0, property->whatsThis());
     item->setText(0, property->propertyName());

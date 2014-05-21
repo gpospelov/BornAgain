@@ -21,6 +21,8 @@
 #include "Samples.h"
 #include "InterferenceFunctions.h"
 #include "FormFactors.h"
+#include "ParticleItem.h"
+#include "FormFactorItems.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"
@@ -238,18 +240,27 @@ void MainWindow::initSessionModel()
 //    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
 //                   m_sessionModel->indexOfItem(layer));
 
+//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout");
+
 //    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-//    particle1->addFormFactorProperty("Form Factor", "Cylinder");
+
+//    ParameterizedItem *cylinder = particle1->getSubItems()[ParticleItem::P_FORM_FACTOR];
+//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
+
+//    m_sessionModel->moveParameterizedItem(particle1, 0);
+
+//    ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
+//    particle1->setRegisteredProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
+//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
 //    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
 //    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
-//    particle2->addFormFactorProperty("Form Factor", "Prism3");
+//    particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Prism3");
 //    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
 //    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
 //                   m_sessionModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
-
 
 }
 

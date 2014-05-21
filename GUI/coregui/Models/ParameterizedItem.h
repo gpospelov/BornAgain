@@ -18,6 +18,7 @@
 
 #include "MaterialItem.h"
 #include <QStandardItem>
+#include <QStringList>
 #include <QList>
 #include <QMap>
 
@@ -97,7 +98,19 @@ public:
 
     void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
-    ParameterizedItem *addGroupProperty(const char *name, QString value);
+    ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
+
+    bool isHiddenProperty(const QString &name) const;
+    QString getPropertyToolTip(const QString &name) const;
+
+    enum PropertyVisibility {VisibleProperty, HiddenProperty };
+    void registerProperty(const QString &name, const QVariant &variant, const QString &tooltip = QString(), PropertyVisibility = VisibleProperty);
+    void setRegisteredProperty(const QString &name, const QVariant &variant);
+    QVariant getRegisteredProperty(const QString &name) const;
+
+    void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
+    bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
 
 signals:
     void propertyChanged(QString propertyName);
@@ -107,12 +120,17 @@ protected:
     void updatePropertyItem(QString name);
     QList<QString> m_valid_children;
 
+    QStringList m_registered_properties;
+    QStringList m_hidden_properties;
+    QMap<QString, QString> m_property_tooltip;
+
 private:
     QString m_model_type;
     QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
+    bool m_block_property_change_event;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

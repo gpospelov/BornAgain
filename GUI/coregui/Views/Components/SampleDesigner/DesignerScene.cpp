@@ -13,6 +13,7 @@
 #include "DesignerMimeData.h"
 #include "SampleBuilderFactory.h"
 #include "GUIExamplesFactory.h"
+#include "ParticleItem.h"
 #include <QItemSelection>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -202,7 +203,10 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
 
                 childView = addViewForItem(item);
                 if(childView) {
-                    if(parentView) parentView->addView(childView, i_row);
+                    if(parentView) {
+                        qDebug() << "       DesignerScene::updateViews() -> adding child " << item->modelType() << " to parent" << parentView->getParameterizedItem()->modelType();
+                        parentView->addView(childView, i_row);
+                    }
                 }
 
          } else {
@@ -217,12 +221,12 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
 //! adds view for item, if it dosn't exists
 IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 {
-    qDebug() << "DesignerScene::addViewForItem() ->";
+    qDebug() << "DesignerScene::addViewForItem() ->" << item->modelType();
     Q_ASSERT(item);
 
     IView *view = m_ItemToView[item];
     if(!view) {
-        qDebug() << "Creating view for item" << item->itemName();
+        qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item" << item->modelType();
         view = SampleViewFactory::createSampleView(item->modelType());
         if(view) {
             m_ItemToView[item] = view;
@@ -231,7 +235,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
             return view;
         }
     } else {
-        qDebug() << "View for item exists." << item->itemName();
+        qDebug() << "       DesignerScene::addViewForItem() -> View for item exists." << item->modelType();
 
     }
     return view;
@@ -292,7 +296,6 @@ void DesignerScene::deleteSelectedItems()
     // FIXME handle multiple selection
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
         if(IView *view = dynamic_cast<IView *>(graphicsItem)) {
-            qDebug() << "xxx";
             ParameterizedItem *item = view->getParameterizedItem();
             Q_ASSERT(item);
             m_sessionModel->removeRows(m_sessionModel->indexOfItem(item).row(), 1, m_sessionModel->indexOfItem(item->parent()));
@@ -387,7 +390,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     new_item = m_sessionModel->insertNewItem("Particle");
                     QString ffName = mimeData->getClassName();
                     ffName.remove("FormFactor");
-                    new_item->addGroupProperty("Form Factor", ffName);
+                    new_item->setGroupProperty(ParticleItem::P_FORM_FACTOR, ffName);
 
                 } else {
                     new_item = m_sessionModel->insertNewItem(mimeData->getClassName());
@@ -395,16 +398,13 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
                 // propagating drop coordinates to ParameterizedItem
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(new_item->modelType());
-                new_item->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-                new_item->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
+                new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_XPOS, event->scenePos().x()-boundingRect.width()/2);
+                new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS, event->scenePos().y()-boundingRect.height()/2);
 
             } else if(GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
                 ParameterizedItem *topItem = GUIExamplesFactory::createItems(mimeData->getClassName(), m_sessionModel);
                 //ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
-                //qDebug() << ">>>>>>>>>>>>>>>> xxx " << topItem->modelType();
-                //topItem->setProperty("xpos", event->scenePos().x()-boundingRect.width()/2);
-                //topItem->setProperty("ypos", event->scenePos().y()-boundingRect.height()/2);
                 QPointF reference(event->scenePos().x()-boundingRect.width()/2, event->scenePos().y()-boundingRect.height()/2);
                 m_aligner->alignSample(topItem, reference, true);
             }

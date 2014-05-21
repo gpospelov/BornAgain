@@ -9,15 +9,11 @@ class ParameterizedGraphicsItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
+    static const QString P_XPOS, P_YPOS;
 
 protected:
     explicit ParameterizedGraphicsItem(const QString &model_type=QString(),
-                               ParameterizedItem *parent=0)
-        : ParameterizedItem(model_type, parent)
-    {
-        setProperty("xpos", qreal(0.0));
-        setProperty("ypos", qreal(0.0));
-    }
+                               ParameterizedItem *parent=0);
 };
 
 #endif

@@ -28,7 +28,7 @@ ParameterizedItem *GUIExamplesFactory::createItems(const QString &name, SessionM
     boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
 
     Q_ASSERT(sample.get());
-    sample->setName(name.toAscii().data());
+    sample->setName(name.toUtf8().constData());
     sample->printSampleTree();
 
     GUIObjectBuilder guiBuilder;

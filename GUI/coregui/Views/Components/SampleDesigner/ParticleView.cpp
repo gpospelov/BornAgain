@@ -1,4 +1,5 @@
 #include "ParticleView.h"
+#include "ParticleItem.h"
 #include "GroupProperty.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -52,15 +53,15 @@ void ParticleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 void ParticleView::setParameterizedItem(ParameterizedItem *item)
 {
     ConnectableView::setParameterizedItem(item);
-    onPropertyChange("Form Factor");
+    onPropertyChange(ParticleItem::P_FORM_FACTOR);
 }
 
 
 void ParticleView::onPropertyChange(QString propertyName)
 {
     Q_ASSERT(m_item);
-    if(propertyName == "Form Factor") {
-        GroupProperty mp = getParameterizedItem()->property("Form Factor").value<GroupProperty>();
+    if(propertyName == ParticleItem::P_FORM_FACTOR) {
+        GroupProperty mp = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty>();
         QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(mp.getValue());
         m_pixmap = QPixmap(filename);
         update();

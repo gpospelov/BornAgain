@@ -240,25 +240,18 @@ void MainWindow::initSessionModel()
 //    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
 //                   m_sessionModel->indexOfItem(layer));
 
-    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout");
+//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout");
 
-    //ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle");
-    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
 
-    ParameterizedItem *cylinder = particle1->getSubItems()[ParticleItem::P_FORM_FACTOR];
-    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
+//    ParameterizedItem *cylinder = particle1->getSubItems()[ParticleItem::P_FORM_FACTOR];
+//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
 
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << "mainwindow -> about to move item" << cylinder;
+//    m_sessionModel->moveParameterizedItem(particle1, 0);
 
-
-    m_sessionModel->moveParameterizedItem(particle1, 0);
-
-
-    //ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-    //particle1->setRegisteredProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-    //cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
+//    ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
+//    particle1->setRegisteredProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
+//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
 //    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
 //    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
@@ -268,7 +261,6 @@ void MainWindow::initSessionModel()
 //    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
 //                   m_sessionModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
-
 
 }
 

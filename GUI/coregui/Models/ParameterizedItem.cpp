@@ -24,11 +24,35 @@
 #include <QMetaEnum>
 #include <PropertyVariantManager.h>
 
+const QString ParameterizedItem::P_NAME = "Name";
 
+ParameterizedItem::ParameterizedItem(const QString &model_type,
+                                     ParameterizedItem *parent)
+    : m_model_type(model_type)
+    , m_parent(parent)
+    , m_block_property_change_event(false)
+{
+    if (m_parent) {
+        m_parent->addChildItem(this);
+    }
+
+    registerProperty(P_NAME, QString(), QString(), HiddenProperty);
+    setItemName(m_model_type);
+}
 
 ParameterizedItem::~ParameterizedItem()
 {
     qDeleteAll(m_children);
+}
+
+QString ParameterizedItem::itemName() const
+{
+    return getRegisteredProperty(P_NAME).toString();
+}
+
+void ParameterizedItem::setItemName(const QString &item_name)
+{
+    setRegisteredProperty(P_NAME, item_name);
 }
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
@@ -91,18 +115,6 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
     }
 
     return result;
-}
-
-ParameterizedItem::ParameterizedItem(const QString &model_type,
-                                     ParameterizedItem *parent)
-    : m_model_type(model_type)
-    , m_parent(parent)
-    , m_block_property_change_event(false)
-{
-    if (m_parent) {
-        m_parent->addChildItem(this);
-    }
-    setItemName(m_model_type);
 }
 
 void ParameterizedItem::updatePropertyItem(QString name)
@@ -213,4 +225,15 @@ bool ParameterizedItem::isHiddenProperty(const QString &name) const
 QString ParameterizedItem::getPropertyToolTip(const QString &name) const
 {
     return m_property_tooltip[name];
+}
+
+
+void ParameterizedItem::setPropertyVisibility(const QString &name, PropertyVisibility visibility)
+{
+    if(m_hidden_properties.contains(name)) {
+        if(visibility == VisibleProperty) m_hidden_properties.removeAll(name);
+    } else {
+        if(visibility == HiddenProperty) m_hidden_properties << name;
+
+    }
 }

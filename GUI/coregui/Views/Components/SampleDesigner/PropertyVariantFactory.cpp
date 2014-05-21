@@ -180,3 +180,8 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
     }
 }
 
+void PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)
+{
+
+}
+

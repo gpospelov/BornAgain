@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_settings(new QSettings(Constants::APPLICATION_NAME, Constants::APPLICATION_NAME, this))
     , mp_sim_data_model(0)
     , m_jobQueueModel(0)
-    , m_sessionModel(0)
+    , m_sampleModel(0)
     , m_materialModel(0)
     , m_materialEditor(0)
 {
@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     initJobQueueModel();
 
-    initSessionModel();
+    initSampleModel();
 
 
     QString baseName = QApplication::style()->objectName();
@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget = new Manhattan::FancyTabWidget();
     m_welcomeView = new WelcomeView();
     m_instrumentView = new InstrumentView(mp_sim_data_model);
-    m_sampleView = new SampleView(m_sessionModel);
+    m_sampleView = new SampleView(m_sampleModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_simulationView->setJobQueueModel(m_jobQueueModel);
@@ -226,40 +226,40 @@ void MainWindow::initJobQueueModel()
 }
 
 
-void MainWindow::initSessionModel()
+void MainWindow::initSampleModel()
 {
-    delete m_sessionModel;
-    m_sessionModel = new SessionModel();
+    delete m_sampleModel;
+    m_sampleModel = new SessionModel();
 
-//    ParameterizedItem *multilayer = m_sessionModel->insertNewItem("MultiLayer");
+//    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
 //    multilayer->setItemName("MultiLayer1");
 
-//    ParameterizedItem *layer = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(multilayer));
+//    ParameterizedItem *layer = m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(multilayer));
 //    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
 
-//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout",
-//                   m_sessionModel->indexOfItem(layer));
+//    ParameterizedItem *layout = m_sampleModel->insertNewItem("ParticleLayout",
+//                   m_sampleModel->indexOfItem(layer));
 
-//    ParameterizedItem *layout = m_sessionModel->insertNewItem("ParticleLayout");
+//    ParameterizedItem *layout = m_sampleModel->insertNewItem("ParticleLayout");
 
-//    ParameterizedItem *particle1 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    ParameterizedItem *particle1 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(layout));
 
 //    ParameterizedItem *cylinder = particle1->getSubItems()[ParticleItem::P_FORM_FACTOR];
 //    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
 
-//    m_sessionModel->moveParameterizedItem(particle1, 0);
+//    m_sampleModel->moveParameterizedItem(particle1, 0);
 
 //    ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
 //    particle1->setRegisteredProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
 //    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
 //    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
-//    ParameterizedItem *particle2 = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(layout));
+//    ParameterizedItem *particle2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(layout));
 //    particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Prism3");
 //    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
 
-//    ParameterizedItem *substrate = m_sessionModel->insertNewItem("Layer",
-//                   m_sessionModel->indexOfItem(multilayer));
+//    ParameterizedItem *substrate = m_sampleModel->insertNewItem("Layer",
+//                   m_sampleModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
 
 }
@@ -287,18 +287,18 @@ void MainWindow::initMaterialModel()
 void MainWindow::updateSimModel()
 {
     Q_ASSERT(mp_sim_data_model);
-    Q_ASSERT(m_sessionModel);
+    Q_ASSERT(m_sampleModel);
 
     qDebug() << " ";
-    qDebug() << "MainWindow::updateSimModel()" << m_sessionModel->rowCount( QModelIndex() );
+    qDebug() << "MainWindow::updateSimModel()" << m_sampleModel->rowCount( QModelIndex() );
 
     mp_sim_data_model->clear();
 
     QModelIndex parentIndex;
-    for( int i_row = 0; i_row < m_sessionModel->rowCount( parentIndex); ++i_row) {
-         QModelIndex itemIndex = m_sessionModel->index( i_row, 0, parentIndex );
+    for( int i_row = 0; i_row < m_sampleModel->rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = m_sampleModel->index( i_row, 0, parentIndex );
 
-         if (ParameterizedItem *item = m_sessionModel->itemForIndex(itemIndex)){
+         if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)){
              qDebug() << item->itemName() << item->modelType();
              if(item->modelType() == "MultiLayer") {
                  DomainObjectBuilder builder;
@@ -324,6 +324,6 @@ void MainWindow::testGUIObjectBuilder()
     sample->printSampleTree();
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateModel(m_sessionModel, sample.get());
+    guiBuilder.populateModel(m_sampleModel, sample.get());
 }
 

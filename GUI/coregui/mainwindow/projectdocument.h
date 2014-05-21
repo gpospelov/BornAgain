@@ -51,7 +51,7 @@ public:
 
     bool isModified() { return m_modified; }
     void setMaterialModel(MaterialModel *model);
-    void setSessionModel(SessionModel *model);
+    void setSampleModel(SessionModel *model);
     void setJobQueueModel(JobQueueModel *model);
 
     bool hasValidNameAndPath();
@@ -72,7 +72,7 @@ private:
     QString m_project_path;
     QString m_project_name;
     MaterialModel *m_materialModel;
-    SessionModel *m_sessionModel;
+    SessionModel *m_sampleModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;
 };

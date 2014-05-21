@@ -26,7 +26,7 @@ SampleView::SampleView(SessionModel *model, QWidget *parent)
 //    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_session(model)
+    , m_sampleModel(model)
 {
     setObjectName(tr("SampleView"));
 
@@ -83,7 +83,7 @@ void SampleView::initSubWindows()
     m_subWindows[WidgetBoxSubWindow] =
             SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    m_tree_view = SampleViewComponents::createTreeView(m_session, this);
+    m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
     m_subWindows[SampleTreeView] = m_tree_view;
 
     m_subWindows[PropertyEditorSubWindow] =
@@ -96,7 +96,7 @@ void SampleView::initSubWindows()
     ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
 
-    m_sampleDesigner->setSessionModel(m_session);
+    m_sampleDesigner->setSessionModel(m_sampleModel);
     m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel());
 }
 
@@ -147,9 +147,9 @@ void SampleView::resetToDefaultLayout()
 void SampleView::addItem(const QString &item_name)
 {
     QModelIndex currentIndex = getTreeView()->currentIndex();
-    ParameterizedItem * new_item = getSessionModel()->insertNewItem(
+    ParameterizedItem * new_item = getSampleModel()->insertNewItem(
                 item_name, currentIndex);
-    if (new_item) setCurrentIndex(getSessionModel()->indexOfItem(new_item));
+    if (new_item) setCurrentIndex(getSampleModel()->indexOfItem(new_item));
     setDirty();
     updateUi();
 }
@@ -158,10 +158,10 @@ void SampleView::deleteItem()
 {
     QModelIndex currentIndex = getTreeView()->currentIndex();
     if (!currentIndex.isValid()) return;
-    QModelIndex parent_index = getSessionModel()->parent(currentIndex);
+    QModelIndex parent_index = getSampleModel()->parent(currentIndex);
     int row = currentIndex.row();
     if (currentIndex.isValid()) {
-        getSessionModel()->removeRows(row, 1, parent_index);
+        getSampleModel()->removeRows(row, 1, parent_index);
         setDirty();
         updateUi();
     }
@@ -177,7 +177,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     if (!parent_index.isValid()) {
         addItemNames = ItemFactory::getAllItemNames();
     } else {
-        addItemNames = getSessionModel()->getAcceptableChildItems(parent_index);
+        addItemNames = getSampleModel()->getAcceptableChildItems(parent_index);
     }
     if (addItemNames.size() > 0) {
         foreach (QString item_name, addItemNames) {
@@ -239,9 +239,9 @@ void SampleView::setCurrentIndex(const QModelIndex &index)
     }
 }
 
-SessionModel *SampleView::getSessionModel()
+SessionModel *SampleView::getSampleModel()
 {
-    return m_session;
+    return m_sampleModel;
 }
 
 QTreeView *SampleView::getTreeView()

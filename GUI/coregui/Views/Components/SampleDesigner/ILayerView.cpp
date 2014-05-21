@@ -130,7 +130,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    SessionModel *model = designerScene->getSessionModel();
+    SessionModel *model = designerScene->getSampleModel();
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if(requested_parent == parentItem() && requested_row == model->indexOfItem(getParameterizedItem()).row()) {

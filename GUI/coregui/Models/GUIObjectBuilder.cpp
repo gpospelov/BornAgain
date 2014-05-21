@@ -14,7 +14,7 @@
 
 
 GUIObjectBuilder::GUIObjectBuilder()
-    : m_sessionModel(0)
+    : m_sampleModel(0)
 //    , m_parentItem(0)
 {
 
@@ -27,7 +27,7 @@ void GUIObjectBuilder::populateModel(SessionModel *model, ISample *sample)
     Q_ASSERT(sample);
 
     m_topSampleName = sample->getName().c_str();
-    m_sessionModel = model;
+    m_sampleModel = model;
 
     qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
 
@@ -42,7 +42,7 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleLayout *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("ParticleLayout", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("ParticleLayout", m_sampleModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     m_levelToParent[getLevel()] = item;
 }
@@ -53,7 +53,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
     qDebug() << "GUIObjectBuilder::visit(const Layer *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(LayerItem::P_THICKNESS, sample->getThickness());
     item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
@@ -72,7 +72,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const MultiLayer *)" << getLevel();
 
-    ParameterizedItem *item = m_sessionModel->insertNewItem("MultiLayer");
+    ParameterizedItem *item = m_sampleModel->insertNewItem("MultiLayer");
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->getCrossCorrLength());
     m_levelToParent[getLevel()] = item;
@@ -96,7 +96,7 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     item->setRegisteredProperty(ParticleItem::P_DEPTH, sample->getDepth());
     item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
@@ -302,7 +302,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
 {
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("InterferenceFunction1DParaCrystal", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("InterferenceFunction1DParaCrystal", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     item->setRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE, sample->getPeakDistance());
     item->setRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_WIDTH, sample->getWidth());
@@ -315,7 +315,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("InterferenceFunction2DParaCrystal", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("InterferenceFunction2DParaCrystal", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);    
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParent[getLevel()] = item;

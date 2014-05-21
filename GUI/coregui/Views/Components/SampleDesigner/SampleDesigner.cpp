@@ -22,7 +22,7 @@ SampleDesigner::~SampleDesigner()
 
 void SampleDesigner::setSessionModel(SessionModel *model)
 {
-    if(model) m_designerScene->setSessionModel(model);
+    if(model) m_designerScene->setSampleModel(model);
 }
 
 

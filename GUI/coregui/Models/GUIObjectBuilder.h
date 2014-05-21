@@ -78,7 +78,7 @@ public:
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
 
-    SessionModel *m_sessionModel;
+    SessionModel *m_sampleModel;
 
     QMap<int, ParameterizedItem *> m_levelToParent;
 

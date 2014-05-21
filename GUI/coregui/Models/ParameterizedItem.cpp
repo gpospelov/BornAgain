@@ -46,7 +46,7 @@ bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 // emmits signal on property change
 bool ParameterizedItem::event(QEvent * e )
 {
-    if(e->type() == QEvent::DynamicPropertyChange) {
+    if(e->type() == QEvent::DynamicPropertyChange && !getBlockPropertyChangeEvent()) {
         QDynamicPropertyChangeEvent *propertyEvent =
                 dynamic_cast<QDynamicPropertyChangeEvent *>(e);
         Q_ASSERT(e);
@@ -62,13 +62,18 @@ bool ParameterizedItem::event(QEvent * e )
 
 void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
 {
-    if (!item) return;
+    //if (!item) return;
+    Q_ASSERT(item);
+    qDebug() << "ParameterizedItem::addPropertyItem()" << name;
+
     if (m_sub_items.contains(name)) {
+        qDebug() << "       ParameterizedItem::addPropertyItem() -> item is already there" << name;
         delete m_sub_items[name];
         m_sub_items.remove(name);
     }
     m_sub_items[name] = item;
     item->m_parent = this;
+    qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
 ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
@@ -81,6 +86,8 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
         GroupProperty group_prop = val.value<GroupProperty>();
         result = group_prop.createCorrespondingItem(
                     group_prop.getValue());
+    } else {
+        throw GUIHelpers::Error("ParameterizedItem::createPropertyItem() -> Error unexpected behaviour");
     }
 
     return result;
@@ -90,6 +97,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
                                      ParameterizedItem *parent)
     : m_model_type(model_type)
     , m_parent(parent)
+    , m_block_property_change_event(false)
 {
     if (m_parent) {
         m_parent->addChildItem(this);
@@ -99,7 +107,12 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
 
 void ParameterizedItem::updatePropertyItem(QString name)
 {
-    if (!m_sub_items.contains(name)) return;
+    qDebug() << "ParameterizedItem::updatePropertyItem() ";
+    if (!m_sub_items.contains(name)) {
+        qDebug() << "           ParameterizedItem::updatePropertyItem() -> No such item";
+        return;
+        //throw GUIHelpers::Error("ParameterizedItem::updatePropertyItem -> Error. No such sub property.");
+    }
     ParameterizedItem *item = createPropertyItem(name);
     addPropertyItem(name, item);
     emit propertyItemChanged(name);
@@ -127,13 +140,18 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name
         group_var.setValue(group_prop);
         registerProperty(name, group_var);
     }
+    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
     ParameterizedItem *item = createPropertyItem(name);
+    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
     addPropertyItem(name, item);
     return item;
 }
 
 ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
+    qDebug() << "ParameterizedItem::setGroupProperty";
+    setBlockPropertyChangeEvent(true);
+
     GroupProperty group_prop(name, value);
 
     Q_ASSERT(group_prop.isDefined());
@@ -142,8 +160,11 @@ ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, con
         group_var.setValue(group_prop);
         setRegisteredProperty(name, group_var);
     }
+    setBlockPropertyChangeEvent(false);
+
     ParameterizedItem *item = createPropertyItem(name);
     addPropertyItem(name, item);
+    emit propertyItemChanged(name);
     return item;
 }
 
@@ -164,7 +185,7 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
         m_property_tooltip[name] = wrappedToolTip;
     }
     if(visibility == HiddenProperty) m_hidden_properties << name;
-    setProperty(name.toUtf8().data(), variant);
+    setProperty(name.toUtf8().constData(), variant);
 }
 
 void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)

@@ -15,6 +15,7 @@
 
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
+#include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_DEPTH = "Depth";
@@ -29,5 +30,6 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     setMaterialProperty();
     registerProperty(P_DEPTH, 0.0);
     registerProperty(P_ABUNDANCE, 1.0);
+    qDebug() << "ParticleItem ctor about to end";
 }
 

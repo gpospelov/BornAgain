@@ -109,6 +109,9 @@ public:
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
 
+    void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
+    bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
+
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);
@@ -127,6 +130,7 @@ private:
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
+    bool m_block_property_change_event;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

@@ -203,7 +203,10 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
 
                 childView = addViewForItem(item);
                 if(childView) {
-                    if(parentView) parentView->addView(childView, i_row);
+                    if(parentView) {
+                        qDebug() << "       DesignerScene::updateViews() -> adding child " << item->modelType() << " to parent" << parentView->getParameterizedItem()->modelType();
+                        parentView->addView(childView, i_row);
+                    }
                 }
 
          } else {
@@ -218,12 +221,12 @@ void DesignerScene::updateViews(const QModelIndex & parentIndex, IView *parentVi
 //! adds view for item, if it dosn't exists
 IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 {
-    qDebug() << "DesignerScene::addViewForItem() ->";
+    qDebug() << "DesignerScene::addViewForItem() ->" << item->modelType();
     Q_ASSERT(item);
 
     IView *view = m_ItemToView[item];
     if(!view) {
-        qDebug() << "Creating view for item" << item->itemName();
+        qDebug() << "       DesignerScene::addViewForItem() -> Creating view for item" << item->modelType();
         view = SampleViewFactory::createSampleView(item->modelType());
         if(view) {
             m_ItemToView[item] = view;
@@ -232,7 +235,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
             return view;
         }
     } else {
-        qDebug() << "View for item exists." << item->itemName();
+        qDebug() << "       DesignerScene::addViewForItem() -> View for item exists." << item->modelType();
 
     }
     return view;

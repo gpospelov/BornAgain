@@ -373,12 +373,13 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     QXmlStreamReader reader(xml_data);
     if (row == -1) row = new_parent->childItemCount();
 
-    qDebug() << "    >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
+    qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
     beginInsertRows(indexOfItem(new_parent), row, row);
     readItems(&reader, new_parent, row);
     endInsertRows();
 
-    qDebug() << "    >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
+    qDebug() << " ";
+    qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
 
     removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
 
@@ -407,6 +408,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
 void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                              int row)
 {
+    qDebug() << "SessionModel::readItems() ";
     bool inside_parameter_tag = false;
     QString parent_parameter_name;
     while (!reader->atEnd()) {
@@ -419,8 +421,8 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                         .value(SessionXML::ItemNameAttribute).toString();
                 if (inside_parameter_tag) {
                     ParameterizedItem *parent = item;
-                    item = parent->createPropertyItem(parent_parameter_name);
-                    parent->addPropertyItem(model_type, item);
+                    item = parent->getSubItems()[parent_parameter_name];
+                    Q_ASSERT(item);
                 }
                 else {
                     item = insertNewItem(model_type, item, row);
@@ -450,6 +452,7 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
 
 QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
 {
+    qDebug() << "SessionModel::readProperty() ";
     const QString parameter_name = reader->attributes()
             .value(SessionXML::ParameterNameAttribute)
             .toString();
@@ -500,9 +503,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         GroupProperty group_prop(parameter_name, parameter_value);
         QVariant group_variant;
         group_variant.setValue(group_prop);
-        item->setProperty(parameter_name.toUtf8().constData(), group_variant);
-//        item->setRegisteredProperty(parameter_name, parameter_value);
-
+        item->setGroupProperty(parameter_name, parameter_value);
     }
 
     else {

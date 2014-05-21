@@ -45,7 +45,7 @@ MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
     double cross_corr_length =
             item.getRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
-    result->setName(item.itemName().toAscii().data());
+    result->setName(item.itemName().toUtf8().constData());
     return result;
 }
 
@@ -59,7 +59,7 @@ Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
 
     boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
     result->setMaterial(*material.get());
-    result->setName(item.itemName().toAscii().data());
+    result->setName(item.itemName().toUtf8().constData());
 
     return result;
 }

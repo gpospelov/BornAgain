@@ -23,6 +23,8 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
     m_valid_children.append(QString("Layer"));
     m_valid_children.append(QString("MultiLayer"));
+
+    setPropertyVisibility(ParameterizedItem::P_NAME, ParameterizedItem::VisibleProperty);
 }
 
 MultiLayerItem::~MultiLayerItem()

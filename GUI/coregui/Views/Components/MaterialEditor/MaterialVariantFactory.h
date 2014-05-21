@@ -28,6 +28,8 @@ private slots:
     void slotPropertyChanged(QtProperty *property, const QVariant &value);
     void slotSetValue(const MaterialColorProperty &value);
     void slotEditorDestroyed(QObject *object);
+    void slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &);
+
 private:
     QMap<QtProperty *, QList<MaterialColorPropertyEdit *> >
         m_property_to_material_editors;

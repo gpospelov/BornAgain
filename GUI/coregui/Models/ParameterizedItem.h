@@ -28,16 +28,17 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
+    static const QString P_NAME;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
     QString modelType() const { return m_model_type; }
 
     //! retrieves the item's name
-    QString itemName() const { return m_item_name; }
+    QString itemName() const;
 
     //! sets the item's name
-    void setItemName(const QString &item_name) { m_item_name = item_name; }
+    void setItemName(const QString &item_name);
 
     //! retrieve parent item
     ParameterizedItem *parent() const { return m_parent; }
@@ -112,6 +113,7 @@ public:
     void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
     bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
 
+    void setPropertyVisibility(const QString &name, PropertyVisibility visibility);
 signals:
     void propertyChanged(QString propertyName);
     void propertyItemChanged(QString propertyName);
@@ -126,7 +128,7 @@ protected:
 
 private:
     QString m_model_type;
-    QString m_item_name;
+    //QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;

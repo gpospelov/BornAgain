@@ -36,6 +36,8 @@ const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
 }
 
+class IconProvider;
+
 class SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -99,6 +101,8 @@ public:
 
     void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
 
+    void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
+
 public slots:
     void onItemPropertyChange(QString name);
 
@@ -119,6 +123,8 @@ private:
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name
+
+    IconProvider *m_iconProvider;
 };
 
 #endif // SESSIONMODEL_H

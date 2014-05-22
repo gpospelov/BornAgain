@@ -2,7 +2,6 @@
 #include "SessionModel.h"
 #include "ParameterizedItem.h"
 #include <QListView>
-#include <QListWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QMenu>
@@ -16,12 +15,13 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    m_listWidget = new QListWidget;
-    m_listWidget->setViewMode(QListView::IconMode);
-    m_listWidget->setIconSize(QSize(96, 84));
-    m_listWidget->setMovement(QListView::Static);
-    m_listWidget->setMaximumWidth(200);
-    m_listWidget->setSpacing(12);
+//    m_listWidget = new QListWidget;
+    m_listView = new QListView;
+    m_listView->setViewMode(QListView::IconMode);
+    m_listView->setIconSize(QSize(96, 84));
+    m_listView->setMovement(QListView::Static);
+    m_listView->setMaximumWidth(200);
+    m_listView->setSpacing(12);
     //m_listView->setModel(m_instrumentModel);
 
     QMenu *addInstrumentMenu = new QMenu();
@@ -39,7 +39,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
     verticaLayout->setMargin(10);
     verticaLayout->setSpacing(10);
     verticaLayout->addWidget(addInstrumentButton);
-    verticaLayout->addWidget(m_listWidget, 3);
+    verticaLayout->addWidget(m_listView, 3);
 
     setLayout(verticaLayout);
 
@@ -57,39 +57,23 @@ void InstrumentSelectorWidget::onAddDefaultGISAS()
 void InstrumentSelectorWidget::setInstrumentModel(SessionModel *model)
 {
     Q_ASSERT(model);
+    Q_ASSERT(m_listView);
+
     if(model != m_instrumentModel) {
         m_instrumentModel = model;
-        //m_listView->setModel(model);
-        initFromModel();
+        m_listView->setModel(model);
 
+        connect(m_listView->selectionModel(),
+            SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
+            this,
+            SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) )
+        );
     }
 }
 
-
-void InstrumentSelectorWidget::initFromModel()
-{
-    Q_ASSERT(m_listWidget);
-
-    m_listWidget->clear();
-
-    QModelIndex parentIndex = QModelIndex();
-    for(int i_row=0; i_row<m_instrumentModel->rowCount(parentIndex); ++i_row) {
-        qDebug() << "InstrumentSelectorWidget::initFromModel()";
-
-        QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
-
-        if (ParameterizedItem *item = m_instrumentModel->itemForIndex(itemIndex)){
-
-            QListWidgetItem *configButton = new QListWidgetItem(m_listWidget);
-            configButton->setIcon(QIcon(":/images/config.png"));
-            configButton->setText(item->itemName());
-            configButton->setTextAlignment(Qt::AlignHCenter);
-            configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        }
-    }
-
-    m_listWidget->setCurrentRow(0);
-
-}
+//QItemSelectionModel *InstrumentSelectorWidget::getSelectionModel()
+//{
+//    return m_listView->selectionModel();
+//}
 
 

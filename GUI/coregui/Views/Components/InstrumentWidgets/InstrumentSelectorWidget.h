@@ -5,9 +5,9 @@
 #include <QWidget>
 class SessionModel;
 class QListView;
-class QListWidget;
 class QAction;
-
+class QItemSelectionModel;
+class QItemSelection;
 
 class InstrumentSelectorWidget : public QWidget
 {
@@ -21,14 +21,17 @@ public:
 
     void setInstrumentModel(SessionModel *model);
 
+//    QItemSelectionModel *getSelectionModel();
+
+signals:
+    void selectionChanged(const QItemSelection&, const QItemSelection&);
+
 public slots:
     void onAddDefaultGISAS();
 
 private:
-    void initFromModel();
-
     SessionModel *m_instrumentModel;
-    QListWidget *m_listWidget;
+    QListView *m_listView;
     QAction *m_addDefaultGisasAction;
 };
 

@@ -19,6 +19,7 @@
 #include "MaterialEditor.h"
 //#include "FormFactorProperty.h"
 #include "GroupProperty.h"
+#include "IconProvider.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -37,12 +38,14 @@ SessionModel::SessionModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_root_item(0)
     , m_name("DefaultName")
+    , m_iconProvider(0)
 {
 }
 
 SessionModel::~SessionModel()
 {
     delete m_root_item;
+    delete m_iconProvider;
 }
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
@@ -75,6 +78,9 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
             case ModelType: return item->modelType();
             default: return QVariant();
             }
+        }
+        else if(role == Qt::DecorationRole && m_iconProvider) {
+            return m_iconProvider->icon(item->modelType());
         }
     }
     return QVariant();

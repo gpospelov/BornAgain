@@ -3,18 +3,22 @@
 
 
 #include <QWidget>
-class SessionModel;
+#include <QLabel>
+
+class ParameterizedItem;
 
 class InstrumentEditorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentEditorWidget(SessionModel *model, QWidget *parent = 0);
+    InstrumentEditorWidget(QWidget *parent = 0);
     QSize sizeHint() const { return QSize(600, 600); }
 
+    void setInstrumentItem(ParameterizedItem *instrument);
+
 private:
-    SessionModel *m_instrumentModel;
+    QLabel *m_label;
 };
 
 #endif

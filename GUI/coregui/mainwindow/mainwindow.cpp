@@ -20,6 +20,7 @@
 #include "Instrument.h"
 #include "Units.h"
 #include "Samples.h"
+#include "IconProvider.h"
 #include "InterferenceFunctions.h"
 #include "FormFactors.h"
 #include "ParticleItem.h"
@@ -276,6 +277,7 @@ void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
     m_instrumentModel = new SessionModel();
+    m_instrumentModel->setIconProvider(new IconProvider());
 
     ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem("Instrument");
     instrument1->setItemName("Default GISAS");

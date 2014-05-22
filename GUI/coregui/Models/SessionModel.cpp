@@ -406,9 +406,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
             return 0;
     }
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-    connect(new_item, SIGNAL(propertyChanged(QString)), this, SLOT(onItemPropertyChange(QString)));
-
     Q_ASSERT(new_item);
+    connect(new_item, SIGNAL(propertyChanged(QString)), this, SLOT(onItemPropertyChange(QString)));
     parent->insertChildItem(row, new_item);
     return new_item;
 }

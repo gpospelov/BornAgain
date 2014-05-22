@@ -30,6 +30,7 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("ParticleLayout")
         << QString("Particle")
         << QString("InterferenceFunction1DParaCrystal")
+        << QString("InterferenceFunction2DParaCrystal")
         << QString("Instrument")
         << QString("Detector")
         << QString("Beam");
@@ -37,6 +38,7 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
+    //qDebug() << "ItemFactory::createItem() -> " << model_name << parent;
     if (model_name.isEmpty()) {
         return createEmptyItem();
     }

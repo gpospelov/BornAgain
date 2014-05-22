@@ -12,7 +12,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
-
+#include <QComboBox>
 
 
 

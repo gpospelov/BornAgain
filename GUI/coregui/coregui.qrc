@@ -19,5 +19,6 @@
         <file>images/main_sample.png</file>
         <file>images/main_jobqueue.png</file>
         <file>images/main_home.png</file>
+        <file>images/config.png</file>
     </qresource>
 </RCC>

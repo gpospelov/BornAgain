@@ -5,9 +5,12 @@
 class QSplitter;
 
 class InstrumentSelectorWidget;
-class InstrumentEditorWidget;
-
+//class InstrumentEditorWidget;
 class SessionModel;
+class QListView;
+class QStackedWidget;
+class QMenu;
+class QAction;
 
 class InstrumentView2 : public QWidget
 {
@@ -18,9 +21,13 @@ public:
 
 private:
     SessionModel *m_instrumentModel;
-    QSplitter *m_splitter;
+//    QSplitter *m_splitter;
     InstrumentSelectorWidget *m_instrumentSelector;
-    InstrumentEditorWidget *m_instrumentEditor;
+//    InstrumentEditorWidget *m_instrumentEditor;
+
+    QListView *m_listView;
+    QStackedWidget *m_stackWidget;
+
 };
 
 

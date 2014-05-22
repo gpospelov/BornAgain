@@ -24,6 +24,9 @@
 #include "FormFactors.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
+#include "InstrumentItem.h"
+#include "BeamItem.h"
+#include "DetectorItem.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"
@@ -273,6 +276,24 @@ void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
     m_instrumentModel = new SessionModel();
+
+    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem("Instrument");
+    instrument1->setItemName("Default GISAS");
+    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument1));
+    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument1));
+
+    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem("Instrument");
+    instrument2->setItemName("Instrument2");
+    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument2));
+    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument2));
+
+
+    m_instrumentModel->save("instrument.xml");
+    Q_UNUSED(detector1);
+    Q_UNUSED(beam1);
+    Q_UNUSED(detector2);
+    Q_UNUSED(beam2);
+
 }
 
 

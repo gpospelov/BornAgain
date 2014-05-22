@@ -19,6 +19,9 @@
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
 #include "ParaCrystalItems.h"
+#include "InstrumentItem.h"
+#include "BeamItem.h"
+#include "DetectorItem.h"
 #include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
@@ -27,7 +30,9 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("ParticleLayout")
         << QString("Particle")
         << QString("InterferenceFunction1DParaCrystal")
-        << QString("InterferenceFunction2DParaCrystal");
+        << QString("Instrument")
+        << QString("Detector")
+        << QString("Beam");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
@@ -55,6 +60,15 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     }
     else if (model_name==QString("InterferenceFunction2DParaCrystal")) {
         return new InterferenceFunction2DParaCrystalItem(parent);
+    }
+    else if (model_name==QString("Instrument")) {
+        return new InstrumentItem(parent);
+    }
+    else if (model_name==QString("Beam")) {
+        return new BeamItem(parent);
+    }
+    else if (model_name==QString("Detector")) {
+        return new DetectorItem(parent);
     }
 
     return 0;

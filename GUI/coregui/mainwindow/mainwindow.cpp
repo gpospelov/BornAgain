@@ -6,6 +6,7 @@
 #include "SampleView.h"
 #include "PyScriptView.h"
 #include "InstrumentView.h"
+#include "InstrumentView2.h"
 #include "SimulationView.h"
 #include "FitView.h"
 #include "JobQueueView.h"
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     , mp_sim_data_model(0)
     , m_jobQueueModel(0)
     , m_sampleModel(0)
+    , m_instrumentModel(0)
     , m_materialModel(0)
     , m_materialEditor(0)
 {
@@ -70,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     initSampleModel();
 
+    initInstrumentModel();
+
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -82,7 +86,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_tabWidget = new Manhattan::FancyTabWidget();
     m_welcomeView = new WelcomeView();
-    m_instrumentView = new InstrumentView(mp_sim_data_model);
+    //m_instrumentView = new InstrumentView(mp_sim_data_model);
+    m_instrumentView = new InstrumentView2(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
@@ -98,7 +103,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    m_tabWidget->setCurrentIndex(SampleTab);
+    m_tabWidget->setCurrentIndex(InstrumentTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -262,6 +267,12 @@ void MainWindow::initSampleModel()
 //                   m_sampleModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
 
+}
+
+void MainWindow::initInstrumentModel()
+{
+    delete m_instrumentModel;
+    m_instrumentModel = new SessionModel();
 }
 
 

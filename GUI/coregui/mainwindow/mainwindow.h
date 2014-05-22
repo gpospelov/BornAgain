@@ -14,6 +14,7 @@ namespace Manhattan {
 class TaskSelectorWidget;
 class WelcomeView;
 class InstrumentView;
+class InstrumentView2;
 class SampleView;
 class PyScriptView;
 class SimulationView;
@@ -65,7 +66,7 @@ protected:
 private:
     Manhattan::FancyTabWidget  *m_tabWidget;
     WelcomeView *m_welcomeView;
-    InstrumentView *m_instrumentView;
+    InstrumentView2 *m_instrumentView;
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
@@ -80,6 +81,7 @@ private:
     SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
     SessionModel *m_sampleModel; //!< model for all samples
+    SessionModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
 
@@ -87,6 +89,7 @@ private:
     void initSimModel();
     void initJobQueueModel();
     void initSampleModel();
+    void initInstrumentModel();
     void initMaterialModel();
 
     void testGUIObjectBuilder();

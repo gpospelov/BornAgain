@@ -35,7 +35,7 @@ ILayerView::ILayerView(QGraphicsItem *parent)
 
 
 //! Propagates change of 'Thickness' dynamic property to screen thickness of ILayerView.
-void ILayerView::onPropertyChange(QString propertyName)
+void ILayerView::onPropertyChange(const QString &propertyName)
 {
     Q_ASSERT(m_item);
     if(propertyName == LayerItem::P_THICKNESS) {

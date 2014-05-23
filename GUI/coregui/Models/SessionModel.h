@@ -104,7 +104,7 @@ public:
     void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
 
 public slots:
-    void onItemPropertyChange(QString name);
+    void onItemPropertyChange(const QString &name);
 
 private:
     ParameterizedItem *insertNewItem(QString model_type,

@@ -21,7 +21,7 @@
 #include "ParaCrystalItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
-#include "DetectorItem.h"
+#include "DetectorItems.h"
 #include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()

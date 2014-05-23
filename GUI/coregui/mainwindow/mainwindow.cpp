@@ -27,7 +27,7 @@
 #include "FormFactorItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
-#include "DetectorItem.h"
+#include "DetectorItems.h"
 #include "mainwindow_constants.h"
 #include "hostosinfo.h"
 #include "projectmanager.h"

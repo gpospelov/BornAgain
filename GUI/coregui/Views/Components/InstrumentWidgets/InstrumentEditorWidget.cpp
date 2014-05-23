@@ -1,6 +1,10 @@
 #include "InstrumentEditorWidget.h"
 #include "ParameterizedItem.h"
 #include "BeamItem.h"
+#include "DetectorItems.h"
+#include "DetectorEditorWidget.h"
+#include "PropertyVariantManager.h"
+#include "PropertyVariantFactory.h"
 #include <QBoxLayout>
 #include <QGroupBox>
 #include "qtvariantproperty.h"
@@ -15,6 +19,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     , m_label(new QLabel)
     , m_variantManager(new QtVariantPropertyManager(this))
     , m_propertyBrowser(0)
+    , m_detectorWidget(0)
 
 {
 
@@ -27,27 +32,36 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     m_propertyBrowser = new QtGroupBoxPropertyBrowser();
 
 
-    m_variantManager = new QtVariantPropertyManager(this);
+    //m_variantManager = new QtVariantPropertyManager(this);
+    m_variantManager = new PropertyVariantManager(this);
+
 //    connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
 //                this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 
-    QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
+    //QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
+    QtVariantEditorFactory *variantFactory = new PropertyVariantFactory();
 
     m_propertyBrowser->setFactoryForManager(m_variantManager, variantFactory);
 
 
-    QGroupBox *beamParamsGroup = new QGroupBox(tr("Beam Parameters"));
+    QGroupBox *beamParamsGroup = new QGroupBox(tr("Instrument Parameters"));
+    //beamParamsGroup->setCheckable(true);
 
     QVBoxLayout *beamParamsLayout = new QVBoxLayout;
     beamParamsLayout->addWidget(m_propertyBrowser);
 
     beamParamsGroup->setLayout(beamParamsLayout);
 
+    m_detectorWidget = new DetectorEditorWidget(this);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(beamParamsGroup);
+    mainLayout->addWidget(m_detectorWidget);
     mainLayout->addStretch();
 
+
     setLayout(mainLayout);
+
 
 }
 
@@ -71,6 +85,7 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 
     updateExpandState();
 
+
 //    QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
 //    while (itProp != propertyToId.constEnd()) {
 //        delete itProp.key();
@@ -89,20 +104,32 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 
 //    BeamItem *beamItem = instrument->getS
 
-    ParameterizedItem *beamItem;
+    BeamItem *beamItem(0);
+    DetectorItem *detectorItem(0);
     foreach(ParameterizedItem *item, instrument->childItems()) {
-        if(item->modelType() == QStringLiteral("Beam")) beamItem = item;
+        if(item->modelType() == QStringLiteral("Beam")) {
+            beamItem = dynamic_cast<BeamItem *>(item);
+        }
+        else if(item->modelType() == QStringLiteral("Detector")) {
+            detectorItem = dynamic_cast<DetectorItem *>(item);
+        }
     }
     Q_ASSERT(beamItem);
+    Q_ASSERT(detectorItem);
+
+    m_detectorWidget->initFromItem(detectorItem);
 
 
-    QString item_type = beamItem->modelType();
-    QtProperty *item_property = m_variantManager->addProperty(
-                QtVariantPropertyManager::groupTypeId(), item_type);
+    QtProperty *beamProperty = m_variantManager->addProperty(
+                QtVariantPropertyManager::groupTypeId(), "Beam Parameters");
+    addSubProperties(beamProperty, beamItem);
+    m_propertyBrowser->addProperty(beamProperty);
 
-    addSubProperties(item_property, beamItem);
-    m_propertyBrowser->addProperty(item_property);
 
+    QtProperty *detectorProperty = m_variantManager->addProperty(
+                QtVariantPropertyManager::groupTypeId(), "Detector Parameters");
+    addSubProperties(detectorProperty, detectorItem);
+    m_propertyBrowser->addProperty(detectorProperty);
 
 
 }
@@ -120,6 +147,8 @@ void InstrumentEditorWidget::addProperty(QtVariantProperty *property, const QStr
 
 void InstrumentEditorWidget::addSubProperties(QtProperty *item_property, ParameterizedItem *item)
 {
+    qDebug() << " ";
+    qDebug() << "   XXX InstrumentEditorWidget::addSubProperties()";
     Q_ASSERT(item_property);
     Q_ASSERT(item);
 

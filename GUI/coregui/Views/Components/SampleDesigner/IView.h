@@ -30,7 +30,7 @@ signals:
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
-    virtual void onPropertyChange(QString propertyName);
+    virtual void onPropertyChange(const QString &propertyName);
 
 protected:
     ParameterizedItem *m_item;

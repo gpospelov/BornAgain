@@ -161,7 +161,7 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name
 
 ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
-    qDebug() << "ParameterizedItem::setGroupProperty";
+    qDebug() << "ParameterizedItem::setGroupProperty" << name << value;
     setBlockPropertyChangeEvent(true);
 
     GroupProperty group_prop(name, value);
@@ -211,7 +211,7 @@ void ParameterizedItem::setRegisteredProperty(const QString &name, const QVarian
 QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 {
     if( !m_registered_properties.contains(name))
-        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Unknown property "+name);
+        throw GUIHelpers::Error("ParameterizedItem::getRegisteredProperty() -> Error. Unknown property "+name);
 
     return property(name.toUtf8().constData());
 }

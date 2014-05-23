@@ -57,7 +57,7 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 }
 
 
-void ParticleView::onPropertyChange(QString propertyName)
+void ParticleView::onPropertyChange(const QString &propertyName)
 {
     Q_ASSERT(m_item);
     if(propertyName == ParticleItem::P_FORM_FACTOR) {

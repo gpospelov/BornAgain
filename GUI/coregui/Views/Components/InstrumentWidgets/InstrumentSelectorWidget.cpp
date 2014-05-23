@@ -38,8 +38,8 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
     QVBoxLayout *verticaLayout = new QVBoxLayout;
     verticaLayout->setMargin(10);
     verticaLayout->setSpacing(10);
-    verticaLayout->addWidget(addInstrumentButton);
     verticaLayout->addWidget(m_listView, 3);
+    verticaLayout->addWidget(addInstrumentButton);
 
     setLayout(verticaLayout);
 

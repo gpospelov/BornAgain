@@ -19,6 +19,7 @@
 #include "MaterialEditor.h"
 //#include "FormFactorProperty.h"
 #include "GroupProperty.h"
+#include "ComboProperty.h"
 #include "IconProvider.h"
 
 #include <QFile>
@@ -407,7 +408,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
     Q_ASSERT(new_item);
-    connect(new_item, SIGNAL(propertyChanged(QString)), this, SLOT(onItemPropertyChange(QString)));
+    connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
     return new_item;
 }
@@ -513,8 +514,8 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
     }
 
     else {
-        throw GUIHelpers::Error(tr("SessionModel::readProperty: "
-                                   "Parameter type not supported"));
+        throw GUIHelpers::Error("SessionModel::readProperty: "
+                                   "Parameter type not supported"+parameter_type);
     }
     return parameter_name;
 }
@@ -579,6 +580,11 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 ff_name);
         }
+        else if (type_name == QString("ComboProperty")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                variant.value<ComboProperty>().getValue());
+
+        }
 
         else {
             throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
@@ -611,7 +617,7 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
 }
 
 
-void SessionModel::onItemPropertyChange(QString name)
+void SessionModel::onItemPropertyChange(const QString &name)
 {
     qDebug() << "SessionModel::onItemPropertyChange()" << name;
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());

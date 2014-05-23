@@ -19,7 +19,7 @@ void IView::setParameterizedItem(ParameterizedItem *item)
         m_item = item;
         setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
         setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
-        connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChange(QString)));
+        connect(m_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
     }
 }
 
@@ -44,7 +44,7 @@ void IView::onChangedY()
 }
 
 
-void IView::onPropertyChange(QString propertyName)
+void IView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParameterizedGraphicsItem::P_XPOS) {
         setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());

@@ -115,8 +115,8 @@ public:
 
     void setPropertyVisibility(const QString &name, PropertyVisibility visibility);
 signals:
-    void propertyChanged(QString propertyName);
-    void propertyItemChanged(QString propertyName);
+    void propertyChanged(const QString &propertyName);
+    void propertyItemChanged(const QString &propertyName);
 
 protected:
     void updatePropertyItem(QString name);

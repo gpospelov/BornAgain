@@ -7,6 +7,7 @@
 #include <QMap>
 
 class ParameterizedItem;
+class DetectorEditorWidget;
 class QtProperty;
 class QtVariantProperty;
 
@@ -51,6 +52,7 @@ private:
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
 
+    DetectorEditorWidget *m_detectorWidget;
 };
 
 #endif

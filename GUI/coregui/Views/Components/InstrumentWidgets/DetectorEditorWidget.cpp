@@ -107,6 +107,11 @@ void DetectorEditorWidget::updateWidgets()
     m_unitsCombo->addItems(units_property.getValues());
     m_unitsCombo->setCurrentText(units_property.getValue());
 
+    m_binningTypeCombo->clear();
+    ComboProperty binning_property = detectorTypeItem->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
+    m_binningTypeCombo->addItems(binning_property.getValues());
+    m_binningTypeCombo->setCurrentText(binning_property.getValue());
+
     m_block_signals = false;
 }
 

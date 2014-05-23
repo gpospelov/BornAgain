@@ -10,7 +10,8 @@ class DetectorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_DETECTOR_TYPE, P_AXES_UNITS, P_BINNING;
+    static const QString P_DETECTOR_TYPE, P_AXES_UNITS, P_BINNING,
+    P_XMIN, P_XMAX, P_NBINX, P_YMIN, P_YMAX, P_NBINY;
     explicit DetectorItem(ParameterizedItem *parent=0);
     ~DetectorItem(){}
 };

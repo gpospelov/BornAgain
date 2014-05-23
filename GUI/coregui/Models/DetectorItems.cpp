@@ -15,6 +15,9 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 {
     setItemName("Detector");
     registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
+
+//    registerProperty(P_NBINX, 100);
+//    registerProperty(P_NBINY, 100);
 }
 
 
@@ -24,8 +27,15 @@ XYDetectorItem::XYDetectorItem(ParameterizedItem *parent)
     setItemName("XYDetector");
 
     ComboProperty units;
-    units << "millimeters";
+    units << "Millimeters";
     registerProperty(DetectorItem::P_AXES_UNITS, units.getVariant());
+
+    ComboProperty binning;
+    binning << "Flat";
+    registerProperty(DetectorItem::P_BINNING, binning.getVariant());
+
+//    registerProperty(DetectorItem::P_XMIN, 0.0);
+//    registerProperty(DetectorItem::P_XMAX, 0.0);
 
 }
 
@@ -36,6 +46,11 @@ ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
     setItemName("ThetaPhiDetector");
 
     ComboProperty units;
-    units << "degrees" << "radians";
+    units << "Degrees" << "Radians";
     registerProperty(DetectorItem::P_AXES_UNITS, units.getVariant());
+
+    ComboProperty binning;
+    binning << "Flat" << "Flat in sin";
+    registerProperty(DetectorItem::P_BINNING, binning.getVariant());
+
 }

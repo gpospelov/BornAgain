@@ -40,6 +40,10 @@ public:
     GroupProperty getGroupProperty() const {
         return m_groupProperty;
     }
+
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
 signals:
     void groupPropertyChanged(const GroupProperty &material);
 private slots:

@@ -68,12 +68,13 @@ void InstrumentSelectorWidget::setInstrumentModel(SessionModel *model)
             this,
             SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) )
         );
+
     }
 }
 
-//QItemSelectionModel *InstrumentSelectorWidget::getSelectionModel()
-//{
-//    return m_listView->selectionModel();
-//}
+QItemSelectionModel *InstrumentSelectorWidget::getSelectionModel()
+{
+    return m_listView->selectionModel();
+}
 
 

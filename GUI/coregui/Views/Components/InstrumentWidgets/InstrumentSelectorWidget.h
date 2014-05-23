@@ -21,7 +21,7 @@ public:
 
     void setInstrumentModel(SessionModel *model);
 
-//    QItemSelectionModel *getSelectionModel();
+    QItemSelectionModel *getSelectionModel();
 
 signals:
     void selectionChanged(const QItemSelection&, const QItemSelection&);

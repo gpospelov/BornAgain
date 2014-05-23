@@ -49,6 +49,9 @@ InstrumentView2::InstrumentView2(SessionModel *model, QWidget *parent)
         );
 
 
+    QModelIndex itemIndex = m_instrumentModel->index(0,0,QModelIndex());
+    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
+
 }
 
 

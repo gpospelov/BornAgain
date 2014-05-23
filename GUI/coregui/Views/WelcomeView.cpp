@@ -1,4 +1,5 @@
 #include "WelcomeView.h"
+#include "qdebug.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>
@@ -51,8 +52,8 @@ WelcomeView::WelcomeView(MainWindow *parent)
 //    font.setPointSize(12);
 //    recentLabel->setFont(font);
 
-    QVBoxLayout *recentProjectLayout = new QVBoxLayout;
-    generateRecentProjectList(recentProjectLayout);
+    m_recentProjectLayout = new QVBoxLayout;
+    //generateRecentProjectList();
 
 
 
@@ -62,7 +63,7 @@ WelcomeView::WelcomeView(MainWindow *parent)
 //    recentProjectPanel->addStretch();
 
     QGroupBox *recentProjectsBox = new QGroupBox(tr("Recent Projects:"));
-    recentProjectsBox->setLayout(recentProjectLayout);
+    recentProjectsBox->setLayout(m_recentProjectLayout);
 
     QFrame* line = new QFrame();
     line->setFrameShape(QFrame::VLine);
@@ -79,10 +80,10 @@ WelcomeView::WelcomeView(MainWindow *parent)
 
     connect(newProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(newProject()));
     connect(openProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(openProject()));
-    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));
+    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));    
 }
 
-void WelcomeView::generateRecentProjectList(QVBoxLayout *layout)
+void WelcomeView::generateRecentProjectList()
 {
     /*m_recentProjectsMenu->clear();
 
@@ -108,6 +109,7 @@ void WelcomeView::generateRecentProjectList(QVBoxLayout *layout)
     bool hasRecentProjects = false;
 
     QCommandLinkButton *slotButtons[count];
+    QLabel *myLabel[count];
     m_signalMapper = new QSignalMapper(this);
 
     int i = 0;
@@ -116,19 +118,41 @@ void WelcomeView::generateRecentProjectList(QVBoxLayout *layout)
 
         slotButtons[i] = new QCommandLinkButton;
         slotButtons[i]->setText(Utils::withTildeHomePath(file));
+        slotButtons[i]->setText("<a href=\"#\">Click Here!</a>");
         //slotButtons[i]->setDescription("Recent description");
         slotButtons[i]->setFixedHeight(35);
+        //m_signalMapper->setMapping(slotButtons[i], file);
+        //connect(slotButtons[i], SIGNAL(clicked()), m_signalMapper, SLOT (map()));
+        //m_recentProjectLayout->addWidget(slotButtons[i]);
 
-        m_signalMapper->setMapping(slotButtons[i], file);
-        connect(slotButtons[i], SIGNAL(clicked()),
-                m_signalMapper, SLOT (map()));
+        QFont font;
+        font.setPointSize(10);
+        font.setBold(false);
+        //font.underline();
+
+        QString labelText;
+        labelText.append("<a href=\"#\" style=\"text-decoration:none;\">");
+        labelText.append( Utils::withTildeHomePath(file));
+        labelText.append("</a>");
+
+        myLabel[i] = new QLabel;
+        myLabel[i]->setText(labelText);
+        myLabel[i]->setTextFormat(Qt::RichText);
+        myLabel[i]->setTextInteractionFlags(Qt::TextBrowserInteraction);
+        //myLabel->setOpenExternalLinks(true);
+        myLabel[i]->setFont(font);
+        myLabel[i]->setFixedHeight(20);
+
+        m_signalMapper->setMapping(myLabel[i], file);
+        connect(myLabel[i], SIGNAL(linkActivated(QString)), m_signalMapper, SLOT (map()));
+
+        m_recentProjectLayout->addWidget(myLabel[i]);
 
 
-        layout->addWidget(slotButtons[i]);
         i++;
     }
 
-    layout->addStretch();
+    m_recentProjectLayout->addStretch();
 
     connect(m_signalMapper, SIGNAL(mapped(QString)),
             m_projectManager, SLOT(openProject(QString)));
@@ -143,4 +167,30 @@ void WelcomeView::onNewUser()
 {
     QUrl url(tr("http://www.google.com"));
     QDesktopServices::openUrl(url);
+}
+
+void WelcomeView::updateRecentProjectPanel()
+{
+    qDebug() << "WelcomeView::updateRecentProjectPanel called";
+    this->clearLayout(m_recentProjectLayout);
+    this->generateRecentProjectList();
+}
+
+void WelcomeView::clearLayout(QLayout* layout, bool deleteWidgets)
+{
+    if(layout)
+    {
+        while (QLayoutItem* item = layout->takeAt(0))
+        {
+            if (deleteWidgets)
+            {
+                if (QWidget* widget = item->widget())
+                    delete widget;
+            }
+            if (QLayout* childLayout = item->layout())
+                clearLayout(childLayout, deleteWidgets);
+            delete item;
+        }
+    }
+
 }

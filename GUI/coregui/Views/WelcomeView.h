@@ -24,6 +24,7 @@ public slots:
     //void onNewProject();
     //void onOpenProject();
     void onNewUser();
+    void updateRecentProjectPanel();
 
 private:
     QPushButton *newProjectButton;
@@ -31,8 +32,10 @@ private:
     QPushButton *newUsertButton;
     MainWindow *m_mainWindow;
     ProjectManager *m_projectManager;
-    void generateRecentProjectList(QVBoxLayout *layout);
+    void generateRecentProjectList();
     QSignalMapper *m_signalMapper;
+    QVBoxLayout *m_recentProjectLayout;
+    void clearLayout(QLayout* layout, bool deleteWidgets = true);
 };
 
 #endif // WELCOMEVIEW_H

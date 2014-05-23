@@ -175,6 +175,10 @@ void MainWindow::onChangeTabWidget(int index)
         updateSimModel();
         m_simulationView->updateViewElements();
     }
+    else if(index == WelcomeTab)
+    {
+        m_welcomeView->updateRecentProjectPanel();
+    }
 }
 
 

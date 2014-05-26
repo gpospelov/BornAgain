@@ -114,6 +114,7 @@ public:
     bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
 
     void setPropertyVisibility(const QString &name, PropertyVisibility visibility);
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);

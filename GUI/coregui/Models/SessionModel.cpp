@@ -147,6 +147,7 @@ bool SessionModel::setData(const QModelIndex &index,
     if (!index.isValid() || index.column()!=ItemName) return false;
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role==Qt::EditRole) {
+            qDebug() << "SessionModel::setData ";
             item->setItemName(value.toString());
         }
         else return false;

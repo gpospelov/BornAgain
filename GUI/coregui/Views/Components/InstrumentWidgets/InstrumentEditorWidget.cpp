@@ -3,106 +3,85 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DetectorEditorWidget.h"
-#include "PropertyVariantManager.h"
-#include "PropertyVariantFactory.h"
+#include "BeamEditorWidget.h"
+//#include "PropertyVariantManager.h"
+//#include "PropertyVariantFactory.h"
 #include <QBoxLayout>
 #include <QGroupBox>
-#include "qtvariantproperty.h"
-#include "qttreepropertybrowser.h"
-#include "qtbuttonpropertybrowser.h"
-#include "qtgroupboxpropertybrowser.h"
+#include <QComboBox>
+#include <QLineEdit>
+
+//#include "qtvariantproperty.h"
+//#include "qttreepropertybrowser.h"
+//#include "qtbuttonpropertybrowser.h"
+//#include "qtgroupboxpropertybrowser.h"
 #include <QDebug>
 
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     : QWidget(parent)
-    , m_label(new QLabel)
-    , m_variantManager(new QtVariantPropertyManager(this))
-    , m_propertyBrowser(0)
-    , m_detectorWidget(0)
-
+//    , m_label(new QLabel)
+//    , m_variantManager(new QtVariantPropertyManager(this))
+//    , m_propertyBrowser(0)
+    , m_nameLineEdit(new QLineEdit())
+    , m_typeComboBox(new QComboBox())
+    , m_beamWidget(new BeamEditorWidget(this))
+    , m_detectorWidget(new DetectorEditorWidget(this))
+    , m_currentItem(0)
+    , m_block_signals(false)
 {
 
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    m_typeComboBox->setMinimumWidth(300);
+    m_typeComboBox->addItem("Default GISAS Instrument");
 
-    //m_propertyBrowser = new QtTreePropertyBrowser(this);
-    //m_propertyBrowser = new QtButtonPropertyBrowser(this);
-    m_propertyBrowser = new QtGroupBoxPropertyBrowser();
+    QHBoxLayout *topLayout = new QHBoxLayout;
+    QGridLayout *nameAndTypeLayout = new QGridLayout;
+    nameAndTypeLayout->addWidget(new QLabel("Name"), 0, 0);
+    nameAndTypeLayout->addWidget(m_nameLineEdit, 0, 1);
+    nameAndTypeLayout->addWidget(new QLabel("Type"), 1, 0);
+    nameAndTypeLayout->addWidget(m_typeComboBox, 1, 1);
+    topLayout->addLayout(nameAndTypeLayout );
+    topLayout->addStretch(1);
 
-
-    //m_variantManager = new QtVariantPropertyManager(this);
-    m_variantManager = new PropertyVariantManager(this);
-
-//    connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-//                this, SLOT(valueChanged(QtProperty *, const QVariant &)));
-
-    //QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
-    QtVariantEditorFactory *variantFactory = new PropertyVariantFactory();
-
-    m_propertyBrowser->setFactoryForManager(m_variantManager, variantFactory);
-
-
-    QGroupBox *beamParamsGroup = new QGroupBox(tr("Instrument Parameters"));
-    //beamParamsGroup->setCheckable(true);
-
-    QVBoxLayout *beamParamsLayout = new QVBoxLayout;
-    beamParamsLayout->addWidget(m_propertyBrowser);
-
-    beamParamsGroup->setLayout(beamParamsLayout);
-
-    m_detectorWidget = new DetectorEditorWidget(this);
+    QGroupBox *instrumentGroup = new QGroupBox(tr("Instrument Parameters"));
+    QVBoxLayout *instrumentGroupLayout = new QVBoxLayout;
+    instrumentGroupLayout->addLayout(topLayout);
+    instrumentGroupLayout->addWidget(m_beamWidget);
+    instrumentGroupLayout->addWidget(m_detectorWidget);
+    instrumentGroup->setLayout(instrumentGroupLayout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(beamParamsGroup);
-    mainLayout->addWidget(m_detectorWidget);
+    mainLayout->addWidget(instrumentGroup);
     mainLayout->addStretch();
-
-
     setLayout(mainLayout);
 
-
+    connect(m_nameLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onChangedEditor(const QString &)));
 }
 
-
-void InstrumentEditorWidget::updateExpandState()
-{
-//    QList<QtBrowserItem *> list = m_propertyBrowser->topLevelItems();
-//    QListIterator<QtBrowserItem *> it(list);
-//    while (it.hasNext()) {
-//        QtBrowserItem *item = it.next();
-//        QtProperty *prop = item->property();
-//        idToExpanded[propertyToId[prop]] = m_propertyBrowser->isExpanded(item);
-//    }
-}
 
 
 
 void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 {
-//    m_label->setText(instrument->itemName());
+    Q_ASSERT(instrument);
 
-    updateExpandState();
+    if(instrument != m_currentItem) {
+        if(m_currentItem) {
+            disconnect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+            disconnect(m_currentItem, SIGNAL(propertyItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+        }
 
+        m_currentItem = instrument;
 
-//    QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
-//    while (itProp != propertyToId.constEnd()) {
-//        delete itProp.key();
-//        itProp++;
-//    }
-//    propertyToId.clear();
-//    idToProperty.clear();
+        connect(m_currentItem, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChanged(QString)));
+        connect(m_currentItem, SIGNAL(propertyItemChanged(QString)), this, SLOT(onPropertyChanged(QString)));
 
+        updateWidgets();
+    }
 
-//    QtVariantProperty *property;
-
-
-//    property = m_variantManager->addProperty(QVariant::String, tr("Name"));
-//    property->setValue(instrument->itemName());
-//    addProperty(property, ParameterizedItem::P_NAME);
-
-//    BeamItem *beamItem = instrument->getS
 
     BeamItem *beamItem(0);
     DetectorItem *detectorItem(0);
@@ -117,76 +96,39 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
     Q_ASSERT(beamItem);
     Q_ASSERT(detectorItem);
 
+    m_beamWidget->initFromItem(beamItem);
     m_detectorWidget->initFromItem(detectorItem);
 
-
-    QtProperty *beamProperty = m_variantManager->addProperty(
-                QtVariantPropertyManager::groupTypeId(), "Beam Parameters");
-    addSubProperties(beamProperty, beamItem);
-    m_propertyBrowser->addProperty(beamProperty);
-
-
-    QtProperty *detectorProperty = m_variantManager->addProperty(
-                QtVariantPropertyManager::groupTypeId(), "Detector Parameters");
-    addSubProperties(detectorProperty, detectorItem);
-    m_propertyBrowser->addProperty(detectorProperty);
-
-
 }
 
-void InstrumentEditorWidget::addProperty(QtVariantProperty *property, const QString &id)
+
+void InstrumentEditorWidget::onChangedEditor(const QString &)
 {
-//    propertyToId[property] = id;
-//    idToProperty[id] = property;
-//    QtBrowserItem *item = m_propertyBrowser->addProperty(property);
-////    if (idToExpanded.contains(id))
-////        m_propertyBrowser->setExpanded(item, idToExpanded[id]);
+    qDebug() << "InstrumentEditorWidget::onChangedEditor() ->";
+    Q_ASSERT(m_currentItem);
+    if(m_block_signals) return;
+    qDebug() << "          InstrumentEditorWidget::onChangedEditor(): " << m_nameLineEdit->text();
+    m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
 
-
-void InstrumentEditorWidget::addSubProperties(QtProperty *item_property, ParameterizedItem *item)
+void InstrumentEditorWidget::onPropertyChanged(const QString &)
 {
-    qDebug() << " ";
-    qDebug() << "   XXX InstrumentEditorWidget::addSubProperties()";
-    Q_ASSERT(item_property);
-    Q_ASSERT(item);
-
-    QList<QByteArray> property_names = item->dynamicPropertyNames();
-    for (int i = 0; i < property_names.length(); ++i) {
-        QString prop_name = QString(property_names[i]);
-        QVariant prop_value = item->property(prop_name.toUtf8().data());
-        int type = prop_value.type();
-        if (type == QVariant::UserType) {
-            type = prop_value.userType();
-        }
-        QtVariantProperty *subProperty = 0;
-        if (m_variantManager->isPropertyTypeSupported(type)) {
-            subProperty = m_variantManager->addProperty(type, prop_name);
-            subProperty->setValue(prop_value);
-            if(type == QVariant::Double) {
-                subProperty->setAttribute(QLatin1String("singleStep"), 0.1);
-                subProperty->setAttribute(QLatin1String("decimals"), 5);
-            }
-
-            if (item->getSubItems().contains(prop_name)) {
-                subProperty->setAttribute(QLatin1String("readOnly"), true);
-                ParameterizedItem *subitem = item->getSubItems()[prop_name];
-                if (subitem) {
-                    addSubProperties(subProperty, subitem);
-                }
-            }
-        }
-//        else {
-//            subProperty = m_readOnlyManager->addProperty(QVariant::String,
-//                                                         prop_name);
-//            subProperty->setValue(QLatin1String("< Unknown Type >"));
-//            subProperty->setEnabled(false);
-//        }
-        item_property->addSubProperty(subProperty);
-        SubItem subitem(item,prop_name);
-        m_property_to_subitem[subProperty] = subitem;
-        m_material_to_property[item][prop_name] = subProperty;
-    }
+    qDebug() << "InstrumentEditorWidget::onPropertyChanged() ->";
+    updateWidgets();
 }
+
+
+void InstrumentEditorWidget::updateWidgets()
+{
+    qDebug() << "InstrumentEditorWidget::updateWidgets() ->";
+    Q_ASSERT(m_currentItem);
+    m_block_signals = true;
+    m_nameLineEdit->setText(m_currentItem->itemName());
+    m_block_signals = false;
+}
+
+
+
+
 

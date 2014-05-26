@@ -26,13 +26,13 @@ public:
 signals:
     void selectionChanged(const QItemSelection&, const QItemSelection&);
 
-public slots:
-    void onAddDefaultGISAS();
+//public slots:
+//    void onAddDefaultGISAS();
 
 private:
     SessionModel *m_instrumentModel;
     QListView *m_listView;
-    QAction *m_addDefaultGisasAction;
+//    QAction *m_addDefaultGisasAction;
 };
 
 

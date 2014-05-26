@@ -24,22 +24,22 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
     m_listView->setSpacing(12);
     //m_listView->setModel(m_instrumentModel);
 
-    QMenu *addInstrumentMenu = new QMenu();
-    m_addDefaultGisasAction = new QAction(tr("Default GISAS instrument"), this);
-    m_addDefaultGisasAction->setStatusTip(tr("Add default GISAS instrument"));
-    connect(m_addDefaultGisasAction, SIGNAL(triggered()), this, SLOT(onAddDefaultGISAS()) );
-    addInstrumentMenu->addAction(m_addDefaultGisasAction);
+//    QMenu *addInstrumentMenu = new QMenu();
+//    m_addDefaultGisasAction = new QAction(tr("Default GISAS instrument"), this);
+//    m_addDefaultGisasAction->setStatusTip(tr("Add default GISAS instrument"));
+//    connect(m_addDefaultGisasAction, SIGNAL(triggered()), this, SLOT(onAddDefaultGISAS()) );
+//    addInstrumentMenu->addAction(m_addDefaultGisasAction);
 
-    QPushButton *addInstrumentButton = new QPushButton("Add new instrument");
-    addInstrumentButton->setMinimumHeight(30);
-    addInstrumentButton->setMenu(addInstrumentMenu);
+//    QPushButton *addInstrumentButton = new QPushButton("Add new instrument");
+//    addInstrumentButton->setMinimumHeight(30);
+//    addInstrumentButton->setMenu(addInstrumentMenu);
 
 
     QVBoxLayout *verticaLayout = new QVBoxLayout;
     verticaLayout->setMargin(10);
     verticaLayout->setSpacing(10);
     verticaLayout->addWidget(m_listView, 3);
-    verticaLayout->addWidget(addInstrumentButton);
+//    verticaLayout->addWidget(addInstrumentButton);
 
     setLayout(verticaLayout);
 
@@ -47,10 +47,10 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
 }
 
 
-void InstrumentSelectorWidget::onAddDefaultGISAS()
-{
-    qDebug() << "InstrumentSelectorWidget::onAddDefaultGISAS() ";
-}
+//void InstrumentSelectorWidget::onAddDefaultGISAS()
+//{
+//    qDebug() << "InstrumentSelectorWidget::onAddDefaultGISAS() ";
+//}
 
 
 

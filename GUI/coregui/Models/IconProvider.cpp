@@ -1,9 +1,9 @@
 #include "IconProvider.h"
 
 
-QIcon IconProvider::icon(const QString &name)
+QIcon IconProvider::icon(const QString &modelType)
 {
-    if(name == QStringLiteral("Instrument")) {
+    if(modelType == QStringLiteral("Instrument")) {
         return QIcon(":/images/config.png");
     }
     return QIcon();

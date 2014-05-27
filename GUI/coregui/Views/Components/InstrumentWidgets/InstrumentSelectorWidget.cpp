@@ -11,6 +11,7 @@
 InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget *parent)
     : QWidget(parent)
     , m_instrumentModel(0)
+    , m_listView(0)
 {
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
@@ -60,6 +61,9 @@ void InstrumentSelectorWidget::setInstrumentModel(SessionModel *model)
     Q_ASSERT(m_listView);
 
     if(model != m_instrumentModel) {
+        if(m_instrumentModel) {
+            disconnect(m_instrumentModel, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this, SLOT(onRowsInserted(const QModelIndex &,int,int)));
+        }
         m_instrumentModel = model;
         m_listView->setModel(model);
 
@@ -69,6 +73,7 @@ void InstrumentSelectorWidget::setInstrumentModel(SessionModel *model)
             SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) )
         );
 
+//        connect(m_instrumentModel, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this, SLOT(onRowsInserted(const QModelIndex &,int,int)));
     }
 }
 
@@ -76,5 +81,12 @@ QItemSelectionModel *InstrumentSelectorWidget::getSelectionModel()
 {
     return m_listView->selectionModel();
 }
+
+//void InstrumentSelectorWidget::onRowsInserted(const QModelIndex &parent, int first, int /* last */)
+//{
+//    QModelIndex indexToSelect = m_instrumentModel->index(first, 0, parent);
+//    qDebug() << "InstrumentSelectorWidget::onRowsInserted()" << indexToSelect;
+//    m_listView->selectionModel()->select(indexToSelect, QItemSelectionModel::Select);
+//}
 
 

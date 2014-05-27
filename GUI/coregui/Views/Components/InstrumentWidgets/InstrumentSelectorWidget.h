@@ -22,17 +22,17 @@ public:
     void setInstrumentModel(SessionModel *model);
 
     QItemSelectionModel *getSelectionModel();
+    QListView *getListView() { return m_listView; }
 
 signals:
     void selectionChanged(const QItemSelection&, const QItemSelection&);
 
-//public slots:
-//    void onAddDefaultGISAS();
+public slots:
+//    void onRowsInserted(const QModelIndex &parent, int first, int last);
 
 private:
     SessionModel *m_instrumentModel;
     QListView *m_listView;
-//    QAction *m_addDefaultGisasAction;
 };
 
 

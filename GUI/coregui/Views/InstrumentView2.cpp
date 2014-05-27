@@ -66,7 +66,9 @@ InstrumentView2::InstrumentView2(SessionModel *model, QWidget *parent)
 
 void InstrumentView2::onSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
 {
-    qDebug() << "InstrumentView2::onSelectionChanged()";
+    qDebug() << "InstrumentView2::onSelectionChanged()" << selected;
+    if(selected.indexes().isEmpty()) return;
+
     ParameterizedItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
     qDebug() << "InstrumentView2::onSelectionChanged()" << instrument->itemName();
 
@@ -103,20 +105,29 @@ void InstrumentView2::onRemoveInstrument()
 
 }
 
-void InstrumentView2::onRowsAboutToBeRemoved(QModelIndex index, int i1, int i2)
+void InstrumentView2::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /* last */)
 {
-    qDebug() << "InstrumentView2::onRowsAboutToBeRemoved()" << index << i1 << i2;
-    ParameterizedItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(i1,0,QModelIndex()));
+    qDebug() << "InstrumentView2::onRowsAboutToBeRemoved()";
+    ParameterizedItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
     Q_ASSERT(item);
     InstrumentEditorWidget *widget = m_instrumentToEditor[item];
     Q_ASSERT(widget);
+
+    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    while(it!=m_instrumentToEditor.end()) {
+        if(it.value() == widget) {
+            it = m_instrumentToEditor.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
     m_stackWidget->removeWidget(widget);
     delete widget;
 }
 
 void InstrumentView2::createActions()
 {
-    qDebug() << "InstrumentView2::createActions()";
     m_addInstrumentAction = new QAction(QIcon(":/images/append.png"), tr("Add new instrument"), this);
     connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
     m_toolBar->addAction(m_addInstrumentAction);
@@ -125,6 +136,9 @@ void InstrumentView2::createActions()
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
     m_toolBar->addAction(m_removeInstrumentAction);
 
-
+    Q_ASSERT(m_instrumentSelector->getListView());
+    m_instrumentSelector->getListView()->setContextMenuPolicy(Qt::ActionsContextMenu);
+    m_instrumentSelector->getListView()->addAction(m_addInstrumentAction);
+    m_instrumentSelector->getListView()->addAction(m_removeInstrumentAction);
 }
 

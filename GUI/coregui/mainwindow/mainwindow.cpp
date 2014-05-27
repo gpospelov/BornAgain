@@ -283,18 +283,18 @@ void MainWindow::initInstrumentModel()
     instrument1->setItemName("Default GISAS");
     ParameterizedItem *detector1 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument1));
     ParameterizedItem *beam1 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument1));
+    Q_UNUSED(detector1);
+    Q_UNUSED(beam1);
 
-    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem("Instrument");
-    instrument2->setItemName("Instrument2");
-    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument2));
-    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument2));
+//    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem("Instrument");
+//    instrument2->setItemName("Instrument2");
+//    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument2));
+//    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument2));
+    //    Q_UNUSED(detector2);
+    //    Q_UNUSED(beam2);
 
 
     m_instrumentModel->save("instrument.xml");
-    Q_UNUSED(detector1);
-    Q_UNUSED(beam1);
-    Q_UNUSED(detector2);
-    Q_UNUSED(beam2);
 
 }
 

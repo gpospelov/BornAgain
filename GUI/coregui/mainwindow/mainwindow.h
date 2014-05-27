@@ -93,12 +93,15 @@ private:
     void initInstrumentModel();
     void initMaterialModel();
 
+    void updateSimModel();
+    void updateSamples();
+    void updateInstruments();
+
     void testGUIObjectBuilder();
 
-    void updateSimModel();
 
     // dummy instrument creator
-    Instrument *createDefaultInstrument();
+//    Instrument *createDefaultInstrument();
 //    ISample *createDefaultSample();
 };
 

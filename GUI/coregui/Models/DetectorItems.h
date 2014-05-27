@@ -31,7 +31,7 @@ class ThetaPhiDetectorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_MODEL_TYPE;
+    static const QString P_MODEL_TYPE, P_PHI_MIN, P_PHI_MAX, P_NPHI, P_ALPHA_MIN, P_ALPHA_MAX, P_NALPHA;
     explicit ThetaPhiDetectorItem(ParameterizedItem *parent=0);
     ~ThetaPhiDetectorItem(){}
 

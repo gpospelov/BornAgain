@@ -110,4 +110,9 @@ bool AxisBin::equals(const IAxis& other) const
     return false;
 }
 
+void AxisBin::print(std::ostream& ostr) const
+{
+    ostr << "AxisBin '" << m_name << "'" << getSize() << " " << getMin() << " " << getMax();
+}
+
 

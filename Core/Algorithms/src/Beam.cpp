@@ -119,3 +119,8 @@ void Beam::initPolarization()
     m_polarization(1,1) = 0.5;
 }
 
+void Beam::print(std::ostream& ostr) const
+{
+    ostr << "Beam: '" << getName() << "' " << m_parameters;
+}
+

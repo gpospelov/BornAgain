@@ -87,6 +87,10 @@ void IParameterized::init_parameters()
                                   "Error! Method is not implemented");
 }
 
+void IParameterized::print(std::ostream& ostr) const
+{
+    ostr << "IParameterized:" << getName() << " " << m_parameters;
+}
 
 
 

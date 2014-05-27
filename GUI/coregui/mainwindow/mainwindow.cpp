@@ -206,21 +206,21 @@ void MainWindow::initSimModel()
 {
     if (mp_sim_data_model) delete mp_sim_data_model;
     mp_sim_data_model = new SimulationDataModel;
-    mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
+    //mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
     //mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
 }
 
-Instrument *MainWindow::createDefaultInstrument()
-{
-    Instrument *p_result = new Instrument;
-    p_result->setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
-    p_result->setBeamIntensity(1e7);
-//    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-//                                    100, 0.0*Units::degree, 2.0*Units::degree);
-    p_result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                    100, 0.0*Units::degree, 2.0*Units::degree, true);
-    return p_result;
-}
+//Instrument *MainWindow::createDefaultInstrument()
+//{
+//    Instrument *p_result = new Instrument;
+//    p_result->setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
+//    p_result->setBeamIntensity(1e7);
+////    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
+////                                    100, 0.0*Units::degree, 2.0*Units::degree);
+//    p_result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+//                                    100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    return p_result;
+//}
 
 
 void MainWindow::initJobQueueModel()
@@ -324,12 +324,17 @@ void MainWindow::updateSimModel()
 {
     Q_ASSERT(mp_sim_data_model);
     Q_ASSERT(m_sampleModel);
-
+    Q_ASSERT(m_instrumentModel);
     qDebug() << " ";
     qDebug() << "MainWindow::updateSimModel()" << m_sampleModel->rowCount( QModelIndex() );
-
     mp_sim_data_model->clear();
+    updateSamples();
+    updateInstruments();
+}
 
+
+void MainWindow::updateSamples()
+{
     QModelIndex parentIndex;
     for( int i_row = 0; i_row < m_sampleModel->rowCount( parentIndex); ++i_row) {
          QModelIndex itemIndex = m_sampleModel->index( i_row, 0, parentIndex );
@@ -338,17 +343,36 @@ void MainWindow::updateSimModel()
              qDebug() << item->itemName() << item->modelType();
              if(item->modelType() == "MultiLayer") {
                  DomainObjectBuilder builder;
-                 builder.buildItem(*item);
-                 MultiLayer *multilayer = dynamic_cast<MultiLayer *>(builder.getSample());
+                 MultiLayer *multilayer = builder.buildMultiLayer(*item);
                  multilayer->printSampleTree();
                  if(multilayer) {
-                     mp_sim_data_model->addSample(item->itemName(), multilayer->clone());
+                     mp_sim_data_model->addSample(item->itemName(), multilayer);
                  }
              }
          }
     }
+}
 
-    mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
+
+void MainWindow::updateInstruments()
+{
+    qDebug() << "MainWindow::updateInstruments()";
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
+
+         if (ParameterizedItem *item = m_instrumentModel->itemForIndex(itemIndex)){
+             qDebug() << "      MainWindow::updateInstruments()" << item->itemName() << item->modelType();
+             if(item->modelType() == "Instrument") {
+                 DomainObjectBuilder builder;
+                 Instrument *instrument = builder.buildInstrument(*item);
+                 std::cout << *instrument << std::endl;
+                 if(instrument) {
+                     mp_sim_data_model->addInstrument(item->itemName(), instrument);
+                 }
+             }
+         }
+    }
 }
 
 

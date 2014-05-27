@@ -237,3 +237,21 @@ void ParameterizedItem::setPropertyVisibility(const QString &name, PropertyVisib
 
     }
 }
+
+void ParameterizedItem::print() const
+{
+    qDebug() << "--- ParameterizedItem::print() ------------------------------------";
+    qDebug() << modelType() << itemName();
+    qDebug() << "--- SubItems ---";
+    for(QMap<QString, ParameterizedItem *>::const_iterator it=m_sub_items.begin(); it!=m_sub_items.end(); ++it) {
+        qDebug() << "   key:" << it.key() << " value:" << it.value()->modelType();
+    }
+    qDebug() << "--- Properties ---";
+    QList<QByteArray> property_names = dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString name(property_names[i]);
+        qDebug() << name << property(name.toUtf8().constData());
+    }
+    qDebug() << " ";
+
+}

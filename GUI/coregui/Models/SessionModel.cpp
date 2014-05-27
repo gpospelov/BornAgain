@@ -475,10 +475,14 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         double parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toDouble();
-        //qDebug() << "           SessionModel::readProperty " << parameter_name << parameter_type << parameter_value;
-//        item->setProperty(parameter_name.toUtf8().constData(),
-//                          parameter_value);
         item->setRegisteredProperty(parameter_name, parameter_value);
+
+    }
+    else if (parameter_type == "int") {
+            double parameter_value = reader->attributes()
+                    .value(SessionXML::ParameterValueAttribute)
+                    .toInt();
+            item->setRegisteredProperty(parameter_name, parameter_value);
     }
     else if (parameter_type == "bool") {
         bool parameter_value = reader->attributes()
@@ -575,6 +579,10 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
         if (type_name == QString("double")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 QString::number(variant.toDouble(), 'e', 12));
+        }
+        else if (type_name == QString("int")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                QString::number(variant.toInt()));
         }
         else if (type_name == QString("bool")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,

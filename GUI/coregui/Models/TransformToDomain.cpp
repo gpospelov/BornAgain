@@ -20,6 +20,10 @@
 #include "ParaCrystalItems.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
+#include "BeamItem.h"
+#include "GroupProperty.h"
+#include "ComboProperty.h"
+#include "DetectorItems.h"
 #include "MultiLayerItem.h"
 #include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
@@ -166,3 +170,66 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
 
 
 
+
+
+Instrument *TransformToDomain::createInstrument(const ParameterizedItem &item)
+{
+    qDebug() << "TransformToDomain::createInstrument";
+    Instrument *result = new Instrument();
+    result->setName(item.itemName().toUtf8().constData());
+    return result;
+}
+
+
+
+Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
+{
+    qDebug() << "TransformToDomain::createBeam";
+    Beam *result = new Beam();
+    result->setName(item.itemName().toUtf8().constData());
+    result->setIntensity(item.getRegisteredProperty(BeamItem::P_INTENSITY).toDouble());
+    double lambda = item.getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble();
+    double alpha_i = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble();
+    double phi_i = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble();
+    result->setCentralK( lambda, Units::deg2rad(alpha_i), Units::deg2rad(phi_i));
+    return result;
+}
+
+
+
+void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument)
+{
+    qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
+    item.print();
+
+    ParameterizedItem *subDetector = item.getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    Q_ASSERT(subDetector);
+
+    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
+    if (subDetector->modelType() == ThetaPhiDetectorItem::P_MODEL_TYPE) {
+        int nphi = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NPHI).toInt();
+        double phi_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN).toDouble();
+        double phi_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX).toDouble();
+        int nalpha = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA).toInt();
+        double alpha_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN).toDouble();
+        double alpha_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX).toDouble();
+        bool isgisaxs_style(true);
+
+        ComboProperty binning = subDetector->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
+        if(binning.getValue() == QStringLiteral("Flat")) isgisaxs_style = false;
+
+        ComboProperty units = subDetector->getRegisteredProperty(DetectorItem::P_AXES_UNITS).value<ComboProperty>();
+        if(units.getValue() == QStringLiteral("Degrees")) {
+            phi_min = Units::deg2rad(phi_min);
+            phi_max = Units::deg2rad(phi_max);
+            alpha_min = Units::deg2rad(alpha_min);
+            alpha_max = Units::deg2rad(alpha_max);
+        }
+
+        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max, isgisaxs_style);
+    }
+    else {
+        throw GUIHelpers::Error("TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "+subDetector->modelType());
+    }
+
+}

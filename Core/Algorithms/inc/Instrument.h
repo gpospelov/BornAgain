@@ -85,6 +85,8 @@ public:
 #endif
 
 protected:
+    virtual void print(std::ostream& ostr) const;
+
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 

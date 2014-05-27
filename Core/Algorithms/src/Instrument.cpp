@@ -144,4 +144,10 @@ void Instrument::init_parameters()
 {
 }
 
+void Instrument::print(std::ostream& ostr) const
+{
+    ostr << "Instrument: '" << getName() << "' " << m_parameters << std::endl;
+    ostr << "    " << m_beam << std::endl;
+    ostr << "    " << m_detector << std::endl;
+}
 

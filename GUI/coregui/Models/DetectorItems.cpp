@@ -8,7 +8,14 @@ const QString DetectorItem::P_AXES_UNITS = "Units";
 const QString DetectorItem::P_BINNING = "Binning";
 
 const QString XYDetectorItem::P_MODEL_TYPE = "X, Y plane";
+
 const QString ThetaPhiDetectorItem::P_MODEL_TYPE = "Theta, Phi plane";
+const QString ThetaPhiDetectorItem::P_NPHI = "Phi, nbins";
+const QString ThetaPhiDetectorItem::P_PHI_MIN = "Phi, min";
+const QString ThetaPhiDetectorItem::P_PHI_MAX = "Phi, max";
+const QString ThetaPhiDetectorItem::P_NALPHA = "Alpha, nbins";
+const QString ThetaPhiDetectorItem::P_ALPHA_MIN = "Alpha, min";
+const QString ThetaPhiDetectorItem::P_ALPHA_MAX = "Alpha, max";
 
 DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(QString("Detector"), parent)
@@ -46,11 +53,18 @@ ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
     setItemName("ThetaPhiDetector");
 
     ComboProperty units;
-    units << "Degrees" << "Radians";
+    units << "Degrees";
     registerProperty(DetectorItem::P_AXES_UNITS, units.getVariant());
 
     ComboProperty binning;
     binning << "Flat" << "Flat in sin";
     registerProperty(DetectorItem::P_BINNING, binning.getVariant());
 
+    registerProperty(P_NPHI, 100);
+    registerProperty(P_PHI_MIN, -1.0);
+    registerProperty(P_PHI_MAX,  1.0);
+    registerProperty(P_NALPHA, 100);
+    registerProperty(P_ALPHA_MIN, 0.0);
+    registerProperty(P_ALPHA_MAX,  2.0);
 }
+

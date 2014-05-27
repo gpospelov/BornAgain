@@ -17,6 +17,7 @@
 
 ProjectDocument::ProjectDocument()
     : m_materialModel(0)
+    , m_instrumentModel(0)
     , m_sampleModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
@@ -72,6 +73,15 @@ void ProjectDocument::setMaterialModel(MaterialModel *model)
         if(m_materialModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
         m_materialModel = model;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    }
+}
+
+void ProjectDocument::setInstrumentModel(SessionModel *model)
+{
+    if(model != m_instrumentModel) {
+        if(m_instrumentModel) disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        m_instrumentModel = model;
+        connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }
 }
 
@@ -156,6 +166,9 @@ bool ProjectDocument::readFrom(QIODevice *device)
     Q_ASSERT(m_materialModel);
     disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
+    Q_ASSERT(m_instrumentModel);
+    disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+
     Q_ASSERT(m_sampleModel);
     disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
@@ -170,14 +183,20 @@ bool ProjectDocument::readFrom(QIODevice *device)
 
             if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
-
-            } else if(reader.name() == MaterialXML::ModelTag) {
+            }
+            else if(reader.name() == MaterialXML::ModelTag) {
                 m_materialModel->readFrom(&reader);
 
-            } else if(reader.name() == SessionXML::ModelTag) {
+            }
+            else if(reader.name() == SessionXML::InstrumentModelTag) {
+                m_instrumentModel->readFrom(&reader);
+
+            }
+            else if(reader.name() == SessionXML::SampleModelTag) {
                 m_sampleModel->readFrom(&reader);
 
-            } else if(reader.name() == JobQueueXML::ModelTag) {
+            }
+            else if(reader.name() == JobQueueXML::ModelTag) {
                 m_jobQueueModel->readFrom(&reader);
             }
         }
@@ -187,6 +206,7 @@ bool ProjectDocument::readFrom(QIODevice *device)
         throw GUIHelpers::Error(reader.errorString());
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
@@ -209,6 +229,9 @@ bool ProjectDocument::writeTo(QIODevice *device)
 
     Q_ASSERT(m_materialModel);
     m_materialModel->writeTo(&writer);
+
+    Q_ASSERT(m_instrumentModel);
+    m_instrumentModel->writeTo(&writer);
 
     Q_ASSERT(m_sampleModel);
     m_sampleModel->writeTo(&writer);

@@ -46,6 +46,7 @@ public:
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
     MaterialModel *getMaterialModel() { return m_materialModel; }
+    SessionModel *getInstrumentModel() { return m_instrumentModel; }
     SessionModel *getSampleModel() { return m_sampleModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }

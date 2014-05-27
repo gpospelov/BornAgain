@@ -51,6 +51,7 @@ public:
 
     bool isModified() { return m_modified; }
     void setMaterialModel(MaterialModel *model);
+    void setInstrumentModel(SessionModel *model);
     void setSampleModel(SessionModel *model);
     void setJobQueueModel(JobQueueModel *model);
 
@@ -72,6 +73,7 @@ private:
     QString m_project_path;
     QString m_project_name;
     MaterialModel *m_materialModel;
+    SessionModel *m_instrumentModel;
     SessionModel *m_sampleModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;

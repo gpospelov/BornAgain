@@ -35,10 +35,11 @@ enum Column {
 };
 }
 
-SessionModel::SessionModel(QObject *parent)
+SessionModel::SessionModel(QString model_tag, QObject *parent)
     : QAbstractItemModel(parent)
     , m_root_item(0)
     , m_name("DefaultName")
+    , m_model_tag(model_tag)
     , m_iconProvider(0)
 {
 }
@@ -330,7 +331,7 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-    if(reader->name() != SessionXML::ModelTag) {
+    if(reader->name() != m_model_tag) {
         throw GUIHelpers::Error("SessioneModel::readFrom() -> Format error in p1");
     }
 
@@ -352,12 +353,12 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 
 void SessionModel::writeTo(QXmlStreamWriter *writer)
 {
-    writer->writeStartElement(SessionXML::ModelTag);
+    writer->writeStartElement(m_model_tag);
     writer->writeAttribute(SessionXML::ModelNameAttribute, m_name);
 
     writeItemAndChildItems(writer, m_root_item);
 
-    writer->writeEndElement(); // ModelTag
+    writer->writeEndElement(); // m_model_tag
 }
 
 
@@ -448,7 +449,7 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
             if (reader->name() == SessionXML::ItemTag) {
                 item = item->parent();
             }
-            if (reader->name() == SessionXML::ModelTag) {
+            if (reader->name() == m_model_tag) {
                 break;
             }
             if (reader->name() == SessionXML::ParameterTag) {
@@ -513,6 +514,18 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         group_variant.setValue(group_prop);
         item->setGroupProperty(parameter_name, parameter_value);
     }
+    else if (parameter_type == "ComboProperty") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+
+        ComboProperty combo_property = item->getRegisteredProperty(parameter_name).value<ComboProperty>();
+        combo_property.setValue(parameter_value);
+        QVariant combo_variant;
+        combo_variant.setValue(combo_property);
+        item->setRegisteredProperty(parameter_name, combo_variant);
+    }
+
 
     else {
         throw GUIHelpers::Error("SessionModel::readProperty: "

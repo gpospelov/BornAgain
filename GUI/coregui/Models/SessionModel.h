@@ -25,6 +25,8 @@
 namespace SessionXML {
 const QString MimeType = "application/org.bornagainproject.xml.item.z";
 const QString ModelTag("SessionModel");
+const QString InstrumentModelTag("InstrumentModel");
+const QString SampleModelTag("SampleModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");
@@ -43,7 +45,7 @@ class SessionModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    explicit SessionModel(QObject *parent=0);
+    explicit SessionModel(QString model_tag, QObject *parent=0);
     ~SessionModel();
 
     // Begin overriden methods from QAbstractItemModel
@@ -123,6 +125,7 @@ private:
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name
+    QString m_model_tag;  //!< model tag (SampleModel, InstrumentModel)
 
     IconProvider *m_iconProvider;
 };

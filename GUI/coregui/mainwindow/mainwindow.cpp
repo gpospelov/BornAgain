@@ -238,7 +238,7 @@ void MainWindow::initJobQueueModel()
 void MainWindow::initSampleModel()
 {
     delete m_sampleModel;
-    m_sampleModel = new SessionModel();
+    m_sampleModel = new SessionModel(SessionXML::SampleModelTag);
 
 //    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
 //    multilayer->setItemName("MultiLayer1");
@@ -276,7 +276,7 @@ void MainWindow::initSampleModel()
 void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
-    m_instrumentModel = new SessionModel();
+    m_instrumentModel = new SessionModel(SessionXML::InstrumentModelTag);
     m_instrumentModel->setIconProvider(new IconProvider());
 
     ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem("Instrument");

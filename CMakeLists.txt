@@ -17,6 +17,7 @@ option(BORNAGAIN_APP "Build test application" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 option(BORNAGAIN_MAN "Build a user manual" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)
+option(ROOT_SUPPORT "Build with dependencies from ROOT" ON)
 
 
 # --- Path for additional cmake modules ---

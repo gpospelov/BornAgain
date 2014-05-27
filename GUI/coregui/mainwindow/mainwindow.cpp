@@ -80,8 +80,12 @@ MainWindow::MainWindow(QWidget *parent)
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 
+    m_projectManager = new ProjectManager(this);
+    m_actionManager = new ActionManager(this);
+    readSettings();
+
     m_tabWidget = new Manhattan::FancyTabWidget();
-    m_welcomeView = new WelcomeView();
+    m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(mp_sim_data_model);
     m_sampleView = new SampleView(m_sessionModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
@@ -107,16 +111,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(m_tabWidget);
 
-    m_projectManager = new ProjectManager(this);
-    m_actionManager = new ActionManager(this);
-
     setAcceptDrops(true);
 
     // signals/slots
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
     connect(m_jobQueueView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
-    readSettings();
+
 
     m_projectManager->createNewProject();
 
@@ -175,6 +176,10 @@ void MainWindow::onChangeTabWidget(int index)
     if(index == SimulationTab) {
         updateSimModel();
         m_simulationView->updateViewElements();
+    }
+    else if(index == WelcomeTab)
+    {
+        m_welcomeView->updateRecentProjectPanel();
     }
 }
 

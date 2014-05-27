@@ -36,6 +36,7 @@ private:
     QSignalMapper *m_signalMapper;
     QVBoxLayout *m_recentProjectLayout;
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
+    int m_maxRecentItem;
 };
 
 #endif // WELCOMEVIEW_H

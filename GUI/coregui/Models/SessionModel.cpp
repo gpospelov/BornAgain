@@ -356,6 +356,7 @@ void SessionModel::writeTo(QXmlStreamWriter *writer)
     writer->writeStartElement(m_model_tag);
     writer->writeAttribute(SessionXML::ModelNameAttribute, m_name);
 
+    qDebug() << "SessionModel::writeTo";
     writeItemAndChildItems(writer, m_root_item);
 
     writer->writeEndElement(); // m_model_tag
@@ -521,9 +522,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
         ComboProperty combo_property = item->getRegisteredProperty(parameter_name).value<ComboProperty>();
         combo_property.setValue(parameter_value);
-        QVariant combo_variant;
-        combo_variant.setValue(combo_property);
-        item->setRegisteredProperty(parameter_name, combo_variant);
+        item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     }
 
 
@@ -537,6 +536,8 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
                                           ParameterizedItem *item) const
 {
+    if(!m_root_item) return;
+    qDebug() << "SessionModel::writeItemAndChildItems " << item << m_root_item;
     Q_ASSERT(item);
     if (item != m_root_item) {
         writer->writeStartElement(SessionXML::ItemTag);

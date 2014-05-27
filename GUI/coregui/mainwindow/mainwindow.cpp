@@ -240,6 +240,8 @@ void MainWindow::initSampleModel()
     delete m_sampleModel;
     m_sampleModel = new SessionModel(SessionXML::SampleModelTag);
 
+    //m_sampleModel->save("sample.xml");
+
 //    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
 //    multilayer->setItemName("MultiLayer1");
 

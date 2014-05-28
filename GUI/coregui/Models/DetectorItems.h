@@ -35,6 +35,8 @@ public:
     explicit ThetaPhiDetectorItem(ParameterizedItem *parent=0);
     ~ThetaPhiDetectorItem(){}
 
+    virtual void onPropertyChange(const QString &name);
+
 };
 
 

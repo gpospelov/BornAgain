@@ -79,10 +79,17 @@ bool ParameterizedItem::event(QEvent * e )
         if (m_sub_items.contains(name)) {
             updatePropertyItem(name);
         }
-        emit propertyChanged(name);
+        onPropertyChange(name);
     }
     return QObject::event(e);
 }
+
+void ParameterizedItem::onPropertyChange(const QString &name)
+{
+    qDebug() << "ParameterizedItem::onPropertyChange() -> before emit";
+    emit propertyChanged(name);
+}
+
 
 void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
 {

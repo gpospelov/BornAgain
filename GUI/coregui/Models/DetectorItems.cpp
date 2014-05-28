@@ -53,7 +53,7 @@ ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
     setItemName("ThetaPhiDetector");
 
     ComboProperty units;
-    units << "Degrees";
+    units << "Degrees" << "Radians";
     registerProperty(DetectorItem::P_AXES_UNITS, units.getVariant());
 
     ComboProperty binning;
@@ -66,5 +66,15 @@ ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
     registerProperty(P_NALPHA, 100);
     registerProperty(P_ALPHA_MIN, 0.0);
     registerProperty(P_ALPHA_MAX,  2.0);
+}
+
+
+void ThetaPhiDetectorItem::onPropertyChange(const QString &name)
+{
+    if(name == DetectorItem::P_AXES_UNITS) {
+
+    }
+    qDebug() << "ThetaPhiDetectorItem::onPropertyChange() -> before emit";
+    ParameterizedItem::onPropertyChange(name);
 }
 

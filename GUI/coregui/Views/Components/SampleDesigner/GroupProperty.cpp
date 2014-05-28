@@ -47,7 +47,7 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     result[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE] = lattice_types;
 
     QMap<QString, ParameterizedItem *(*)()> detector_types;
-    detector_types[XYDetectorItem::P_MODEL_TYPE] = &createInstance<XYDetectorItem>;
+    //detector_types[XYDetectorItem::P_MODEL_TYPE] = &createInstance<XYDetectorItem>;
     detector_types[ThetaPhiDetectorItem::P_MODEL_TYPE] = &createInstance<ThetaPhiDetectorItem>;
     result[DetectorItem::P_DETECTOR_TYPE] = detector_types;
 

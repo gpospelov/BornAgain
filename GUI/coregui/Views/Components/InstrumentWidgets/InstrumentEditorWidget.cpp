@@ -82,7 +82,6 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
         updateWidgets();
     }
 
-
     BeamItem *beamItem(0);
     DetectorItem *detectorItem(0);
     foreach(ParameterizedItem *item, instrument->childItems()) {
@@ -98,7 +97,6 @@ void InstrumentEditorWidget::setInstrumentItem(ParameterizedItem *instrument)
 
     m_beamWidget->initFromItem(beamItem);
     m_detectorWidget->initFromItem(detectorItem);
-
 }
 
 

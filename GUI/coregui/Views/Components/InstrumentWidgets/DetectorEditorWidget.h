@@ -6,6 +6,8 @@
 class QComboBox;
 class QLabel;
 class ParameterizedItem;
+class QSpinBox;
+class QDoubleSpinBox;
 
 class DetectorEditorWidget : public QWidget
 {
@@ -19,9 +21,12 @@ public:
 public slots:
     void onPropertyChanged(const QString &);
     void onDetectorTypeChanged(int);
+    void onAngleEditorChanged(const QString &);
 
 private:
     void updateWidgets();
+    void updateAngleUnits(const QString &units);
+    void setAngleUnits(QDoubleSpinBox *, const QString &units);
 
     QComboBox *m_detectorTypeCombo;
     QComboBox *m_unitsCombo;
@@ -30,6 +35,12 @@ private:
     QLabel *m_axis0Label;
     QLabel *m_axis1Label;
 
+    QDoubleSpinBox *m_phiMinEdit;
+    QDoubleSpinBox *m_phiMaxEdit;
+    QSpinBox *m_nphiEdit;
+    QDoubleSpinBox *m_alphaMinEdit;
+    QDoubleSpinBox *m_alphaMaxEdit;
+    QSpinBox *m_nalphaEdit;
 
     ParameterizedItem *m_currentItem;
 

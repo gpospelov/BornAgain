@@ -116,6 +116,8 @@ public:
     void setPropertyVisibility(const QString &name, PropertyVisibility visibility);
 
     void print() const;
+
+    virtual void onPropertyChange(const QString &name);
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);

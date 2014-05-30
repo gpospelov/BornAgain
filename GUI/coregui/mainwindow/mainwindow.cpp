@@ -6,7 +6,6 @@
 #include "SampleView.h"
 #include "PyScriptView.h"
 #include "InstrumentView.h"
-#include "InstrumentView2.h"
 #include "SimulationView.h"
 #include "FitView.h"
 #include "JobQueueView.h"
@@ -90,8 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_tabWidget = new Manhattan::FancyTabWidget();
     m_welcomeView = new WelcomeView();
-    //m_instrumentView = new InstrumentView(mp_sim_data_model);
-    m_instrumentView = new InstrumentView2(m_instrumentModel);
+    m_instrumentView = new InstrumentView(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);

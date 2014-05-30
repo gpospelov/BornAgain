@@ -43,7 +43,6 @@ private:
     QSpinBox *m_nalphaEdit;
 
     ParameterizedItem *m_currentItem;
-
     bool m_block_signals;
 };
 

@@ -4,25 +4,15 @@
 #include "DetectorItems.h"
 #include "DetectorEditorWidget.h"
 #include "BeamEditorWidget.h"
-//#include "PropertyVariantManager.h"
-//#include "PropertyVariantFactory.h"
 #include <QBoxLayout>
 #include <QGroupBox>
 #include <QComboBox>
 #include <QLineEdit>
-
-//#include "qtvariantproperty.h"
-//#include "qttreepropertybrowser.h"
-//#include "qtbuttonpropertybrowser.h"
-//#include "qtgroupboxpropertybrowser.h"
 #include <QDebug>
 
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     : QWidget(parent)
-//    , m_label(new QLabel)
-//    , m_variantManager(new QtVariantPropertyManager(this))
-//    , m_propertyBrowser(0)
     , m_nameLineEdit(new QLineEdit())
     , m_typeComboBox(new QComboBox())
     , m_beamWidget(new BeamEditorWidget(this))

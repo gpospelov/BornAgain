@@ -64,24 +64,17 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     detectorLayout->addWidget(m_alphaMaxEdit, 6, 2);
     detectorLayout->addWidget(m_nalphaEdit, 6, 3);
 
-
     detectorLayout->setColumnStretch(0,1);
     detectorLayout->setColumnStretch(1,3);
     detectorLayout->setColumnStretch(2,3);
     detectorLayout->setColumnStretch(3,1);
     detectorLayout->setColumnStretch(4,3);
-
-
-    //detectorLayout->columnStretch(0);
-
     detectorGroup->setLayout(detectorLayout);
 
-
+    // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(detectorGroup);
-
     setLayout(mainLayout);
-
 
     connect(m_detectorTypeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onDetectorTypeChanged(int)));
     connect(m_phiMinEdit, SIGNAL(valueChanged(QString)), this, SLOT(onAngleEditorChanged(QString)));
@@ -91,6 +84,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     connect(m_alphaMaxEdit, SIGNAL(valueChanged(QString)), this, SLOT(onAngleEditorChanged(QString)));
     connect(m_nalphaEdit, SIGNAL(valueChanged(QString)), this, SLOT(onAngleEditorChanged(QString)));
 }
+
 
 void DetectorEditorWidget::initFromItem(ParameterizedItem *item)
 {
@@ -166,34 +160,18 @@ void DetectorEditorWidget::updateWidgets()
 void DetectorEditorWidget::onPropertyChanged(const QString &name)
 {
     qDebug() << "DetectorEditorWidget::onPropertyChanged() -> " << name;
-
-//    qDebug() << "xxx 1.1";
-//    m_detectorTypeCombo->clear();
-//    GroupProperty detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR_TYPE).value<GroupProperty>();
-//    qDebug() << "xxx 1.2";
-//    m_detectorTypeCombo->addItems(detector_property.getValues());
-//    qDebug() << "xxx 1.3";
-//    m_detectorTypeCombo->setCurrentText(detector_property.getValue());
-//    qDebug() << "xxx 1.4";
-
-//    ParameterizedItem *detectorTypeItem = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
-//    Q_ASSERT(detectorTypeItem);
-//    m_unitsCombo->clear();
-//    ComboProperty units_property = detectorTypeItem->getRegisteredProperty(DetectorItem::P_AXES_UNITS).value<ComboProperty>();
-//    m_unitsCombo->addItems(units_property.getValues());
-//    m_unitsCombo->setCurrentText(units_property.getValue());
     updateWidgets();
 }
+
 
 void DetectorEditorWidget::onDetectorTypeChanged(int)
 {
     qDebug() << "DetectorEditorWidget::onDetectorTypeChanged() -> ";
     Q_ASSERT(m_currentItem);
     if(m_block_signals) return;
-
     m_currentItem->setGroupProperty(DetectorItem::P_DETECTOR_TYPE, m_detectorTypeCombo->currentText());
-
 }
+
 
 void DetectorEditorWidget::onAngleEditorChanged(const QString &)
 {

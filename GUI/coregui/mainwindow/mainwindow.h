@@ -14,7 +14,6 @@ namespace Manhattan {
 class TaskSelectorWidget;
 class WelcomeView;
 class InstrumentView;
-class InstrumentView2;
 class SampleView;
 class PyScriptView;
 class SimulationView;
@@ -67,7 +66,7 @@ protected:
 private:
     Manhattan::FancyTabWidget  *m_tabWidget;
     WelcomeView *m_welcomeView;
-    InstrumentView2 *m_instrumentView;
+    InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;

@@ -31,7 +31,8 @@ public slots:
 private:
     void updateWidgets();
     void setBlockSignals(bool flag);
-    void updateAngleLimits();
+    void updateAngleUnits(const QString &units);
+    void setAngleUnits(QDoubleSpinBox *, const QString &units);
 
     QLineEdit *m_intensityText;
     QDoubleValidator *m_intensityValidator;
@@ -40,16 +41,7 @@ private:
     QDoubleSpinBox *m_inclinationAngleSpinBox;
     QDoubleSpinBox *m_azimuthalAngleSpinBox;
     QComboBox *m_beamTypeCombo;
-
-//    QComboBox *m_detectorTypeCombo;
-//    QComboBox *m_unitsCombo;
-//    QComboBox *m_binningTypeCombo;
-
-//    QLabel *m_axis0Label;
-//    QLabel *m_axis1Label;
-
     BeamItem *m_currentItem;
-
     bool m_block_signals;
 };
 

@@ -79,10 +79,17 @@ bool ParameterizedItem::event(QEvent * e )
         if (m_sub_items.contains(name)) {
             updatePropertyItem(name);
         }
-        emit propertyChanged(name);
+        onPropertyChange(name);
     }
     return QObject::event(e);
 }
+
+void ParameterizedItem::onPropertyChange(const QString &name)
+{
+    qDebug() << "ParameterizedItem::onPropertyChange() -> before emit";
+    emit propertyChanged(name);
+}
+
 
 void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
 {
@@ -161,7 +168,7 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name
 
 ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
-    qDebug() << "ParameterizedItem::setGroupProperty";
+    qDebug() << "ParameterizedItem::setGroupProperty" << name << value;
     setBlockPropertyChangeEvent(true);
 
     GroupProperty group_prop(name, value);
@@ -211,7 +218,7 @@ void ParameterizedItem::setRegisteredProperty(const QString &name, const QVarian
 QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 {
     if( !m_registered_properties.contains(name))
-        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Unknown property "+name);
+        throw GUIHelpers::Error("ParameterizedItem::getRegisteredProperty() -> Error. Unknown property "+name);
 
     return property(name.toUtf8().constData());
 }
@@ -236,4 +243,22 @@ void ParameterizedItem::setPropertyVisibility(const QString &name, PropertyVisib
         if(visibility == HiddenProperty) m_hidden_properties << name;
 
     }
+}
+
+void ParameterizedItem::print() const
+{
+    qDebug() << "--- ParameterizedItem::print() ------------------------------------";
+    qDebug() << modelType() << itemName();
+    qDebug() << "--- SubItems ---";
+    for(QMap<QString, ParameterizedItem *>::const_iterator it=m_sub_items.begin(); it!=m_sub_items.end(); ++it) {
+        qDebug() << "   key:" << it.key() << " value:" << it.value()->modelType();
+    }
+    qDebug() << "--- Properties ---";
+    QList<QByteArray> property_names = dynamicPropertyNames();
+    for (int i = 0; i < property_names.length(); ++i) {
+        QString name(property_names[i]);
+        qDebug() << name << property(name.toUtf8().constData());
+    }
+    qDebug() << " ";
+
 }

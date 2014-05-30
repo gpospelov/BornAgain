@@ -1,6 +1,7 @@
 #include "GroupProperty.h"
 #include "FormFactorItems.h"
 #include "ParticleItem.h"
+#include "DetectorItems.h"
 #include "FTDistributionItems.h"
 #include "LatticeTypeItems.h"
 #include "ParaCrystalItems.h"
@@ -45,6 +46,11 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     lattice_types[QString("Hexagonal")] = &createInstance<HexagonalLatticeTypeItem>;
     result[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE] = lattice_types;
 
+    QMap<QString, ParameterizedItem *(*)()> detector_types;
+    //detector_types[XYDetectorItem::P_MODEL_TYPE] = &createInstance<XYDetectorItem>;
+    detector_types[ThetaPhiDetectorItem::P_MODEL_TYPE] = &createInstance<ThetaPhiDetectorItem>;
+    result[DetectorItem::P_DETECTOR_TYPE] = detector_types;
+
     return result;
 }
 }
@@ -71,7 +77,7 @@ int GroupProperty::index() const
     return toIndex(m_value);
 }
 
-int GroupProperty::toIndex(const QString value) const
+int GroupProperty::toIndex(const QString &value) const
 {
     QStringList name_list = getValues();
     for (int i = 0; i < name_list.size(); ++i) {
@@ -82,7 +88,7 @@ int GroupProperty::toIndex(const QString value) const
     return -1;
 }
 
-QString GroupProperty::toString(const int index) const
+QString GroupProperty::toString(int index) const
 {
     QStringList name_list = getValues();
     if (index<0 || index>=name_list.size()) {

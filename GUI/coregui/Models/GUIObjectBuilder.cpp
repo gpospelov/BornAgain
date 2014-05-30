@@ -2,6 +2,8 @@
 #include "SessionModel.h"
 #include "Units.h"
 #include "LayerItem.h"
+#include "BeamItem.h"
+#include "DetectorItems.h"
 #include "MultiLayerItem.h"
 #include "MaterialUtils.h"
 #include "MaterialEditor.h"
@@ -10,30 +12,72 @@
 #include "FormFactorItems.h"
 #include "ParaCrystalItems.h"
 #include "TransformFromDomain.h"
+#include "ComboProperty.h"
 #include <QDebug>
 
 
 GUIObjectBuilder::GUIObjectBuilder()
-    : m_sessionModel(0)
+    : m_sampleModel(0)
 //    , m_parentItem(0)
 {
 
 }
 
 
-void GUIObjectBuilder::populateModel(SessionModel *model, ISample *sample)
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SessionModel *sampleModel, ISample *sample)
 {
-    Q_ASSERT(model);
+    Q_ASSERT(sampleModel);
     Q_ASSERT(sample);
 
+    m_levelToParent.clear();
+
     m_topSampleName = sample->getName().c_str();
-    m_sessionModel = model;
+    m_sampleModel = sampleModel;
 
     qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
 
     //sample->accept(this);
     VisitSampleTree(*sample, *this);
+    return m_levelToParent[0];
+}
 
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(SessionModel *instrumentModel, Instrument *instrument)
+{
+    Q_UNUSED(instrumentModel);
+    Q_UNUSED(instrument);
+
+    ParameterizedItem *instrumentItem = instrumentModel->insertNewItem("Instrument");
+    instrumentItem->setItemName(instrument->getName().c_str());
+
+    Beam beam = instrument->getBeam();
+    ParameterizedItem *beamItem = instrumentModel->insertNewItem("Beam", instrumentModel->indexOfItem(instrumentItem));
+    beamItem->setRegisteredProperty(BeamItem::P_INTENSITY, beam.getIntensity());
+    beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH, beam.getWavelength());
+    beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, Units::rad2deg(-1.0*beam.getAlpha()));
+    beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE, Units::rad2deg(beam.getPhi()));
+
+    Detector detector = instrument->getDetector();
+    ParameterizedItem *detectorItem = instrumentModel->insertNewItem("Detector", instrumentModel->indexOfItem(instrumentItem));
+    ParameterizedItem *detectorSubItem = detectorItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    Q_ASSERT(detectorSubItem);
+
+    const IAxis &phi_axis = detector.getAxis(0);
+    const IAxis &alpha_axis = detector.getAxis(1);
+
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NPHI, (int)phi_axis.getSize());
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN, Units::rad2deg(phi_axis.getMin()));
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX,  Units::rad2deg(phi_axis.getMax()));
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA, (int)alpha_axis.getSize());
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN, Units::rad2deg(alpha_axis.getMin()));
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX,  Units::rad2deg(alpha_axis.getMax()));
+
+    if(instrument->getIsgisaxsStyle()) {
+        ComboProperty binning_property = detectorSubItem->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
+        binning_property.setValue("Flat in sin");
+        detectorSubItem->setRegisteredProperty(DetectorItem::P_BINNING, binning_property.getVariant());
+
+    }
+    return instrumentItem;
 }
 
 
@@ -42,7 +86,7 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleLayout *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("ParticleLayout", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("ParticleLayout", m_sampleModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     m_levelToParent[getLevel()] = item;
 }
@@ -53,7 +97,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
     qDebug() << "GUIObjectBuilder::visit(const Layer *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("Layer", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(LayerItem::P_THICKNESS, sample->getThickness());
     item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
@@ -72,7 +116,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const MultiLayer *)" << getLevel();
 
-    ParameterizedItem *item = m_sessionModel->insertNewItem("MultiLayer");
+    ParameterizedItem *item = m_sampleModel->insertNewItem("MultiLayer");
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->getCrossCorrLength());
     m_levelToParent[getLevel()] = item;
@@ -96,7 +140,7 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("Particle", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     item->setRegisteredProperty(ParticleItem::P_DEPTH, sample->getDepth());
     item->setRegisteredProperty(ParticleItem::P_ABUNDANCE, sample->getAbundance());
@@ -302,7 +346,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
 {
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("InterferenceFunction1DParaCrystal", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("InterferenceFunction1DParaCrystal", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     item->setRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE, sample->getPeakDistance());
     item->setRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_WIDTH, sample->getWidth());
@@ -315,7 +359,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sessionModel->insertNewItem("InterferenceFunction2DParaCrystal", m_sessionModel->indexOfItem(parent));
+    ParameterizedItem *item = m_sampleModel->insertNewItem("InterferenceFunction2DParaCrystal", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);    
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParent[getLevel()] = item;

@@ -35,7 +35,7 @@ ILayerView::ILayerView(QGraphicsItem *parent)
 
 
 //! Propagates change of 'Thickness' dynamic property to screen thickness of ILayerView.
-void ILayerView::onPropertyChange(QString propertyName)
+void ILayerView::onPropertyChange(const QString &propertyName)
 {
     Q_ASSERT(m_item);
     if(propertyName == LayerItem::P_THICKNESS) {
@@ -130,7 +130,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    SessionModel *model = designerScene->getSessionModel();
+    SessionModel *model = designerScene->getSampleModel();
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if(requested_parent == parentItem() && requested_row == model->indexOfItem(getParameterizedItem()).row()) {

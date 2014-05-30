@@ -76,12 +76,12 @@ bool ISample::containsMagneticMaterial() const
 
 }
 
-void ISample::print(std::ostream& ostr) const
-{
-    ostr << "ISample:" << getName() << "<" << this << ">{ " <<
-        "params={ " << m_parameters << " }";
-    ostr << " }";
-}
+//void ISample::print(std::ostream& ostr) const
+//{
+//    ostr << "ISample:" << getName() << "<" << this << ">{ " <<
+//        "params={ " << m_parameters << " }";
+//    ostr << " }";
+//}
 
 
 

@@ -32,8 +32,8 @@ public:
     }
 
     int index() const;
-    int toIndex(const QString value) const;
-    QString toString(const int index) const;
+    int toIndex(const QString &value) const;
+    QString toString(int index) const;
 
     ParameterizedItem *createCorrespondingItem(QString name);
 

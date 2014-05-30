@@ -66,7 +66,11 @@ public:
         return left.equals(right);
     }
 
+    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
+    { m.print(ostr); return ostr; }
+
 protected:
+    virtual void print(std::ostream& ostr) const=0;
     virtual bool equals(const IAxis& other) const;
     std::string m_name;  //!< axis label
 };

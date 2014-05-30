@@ -34,7 +34,7 @@ public:
         NumberOfSubWindows
     };
 
-    SampleView(SessionModel *model, QWidget *parent = 0);
+    SampleView(SessionModel *sampleModel, SessionModel *instrumentModel, QWidget *parent = 0);
     virtual ~SampleView();
 
 public slots:
@@ -56,7 +56,7 @@ private:
     void clearSignalMapper();
     void setCurrentIndex(const QModelIndex &index);
 
-    SessionModel *getSessionModel();
+    SessionModel *getSampleModel();
     QTreeView *getTreeView();
 
    // MaterialBrowser *m_materialBrowser;  // material editor
@@ -69,7 +69,8 @@ private:
     QMap<QString, QAction *> m_add_action_map;
     QAction *m_delete_item_action;
 
-    SessionModel *m_session;
+    SessionModel *m_sampleModel;
+    SessionModel *m_instrumentModel;
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;

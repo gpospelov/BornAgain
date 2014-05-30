@@ -4,6 +4,8 @@
 #include "ParameterizedItem.h"
 
 #include "qttreepropertybrowser.h"
+#include "qtgroupboxpropertybrowser.h"
+#include "qtbuttonpropertybrowser.h"
 
 #include <QtProperty>
 #include <QItemSelectionModel>
@@ -18,6 +20,9 @@ SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("PropertyEditor"));
+
+//    QtAbstractPropertyBrowser *browser = new QtGroupBoxPropertyBrowser();
+//    QtAbstractPropertyBrowser *browser = new QtButtonPropertyBrowser();
 
     QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
     browser->setRootIsDecorated(false);

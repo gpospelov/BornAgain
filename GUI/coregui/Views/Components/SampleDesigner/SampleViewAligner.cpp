@@ -6,19 +6,6 @@
 #include <QDebug>
 
 
-/*
-QMap<QString, int>  initTypeToAreaMap()
-{
-    QMap<QString, int> result;
-    result["MultiLayer"] = 0;
-    result["Layer"] = 0;
-    result["ParticleLayout"] = 1;
-    result["Particle"] = 2;
-    return result;
-}
-QMap<QString, int> SampleViewAligner::m_typeToArea = initTypeToAreaMap();
-*/
-
 
 SampleViewAligner::SampleViewAligner(DesignerScene *scene)
     : m_scene(scene)
@@ -41,9 +28,9 @@ void SampleViewAligner::smartAlign()
 //! which do not have parent view)
 void SampleViewAligner::updateViews(const QModelIndex & parentIndex)
 {
-    SessionModel *sessionModel = m_scene->getSessionModel();
-    for( int i_row = 0; i_row < sessionModel->rowCount( parentIndex ); ++i_row) {
-         QModelIndex itemIndex = sessionModel->index( i_row, 0, parentIndex );
+    SessionModel *sampleModel = m_scene->getSampleModel();
+    for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
          IView *view = getViewForIndex(itemIndex);
          if(view && !view->parentObject()) {
             m_views.append(view);
@@ -154,7 +141,7 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 void SampleViewAligner::alignSample(ParameterizedItem *item, QPointF reference, bool force_alignment)
 {
     Q_ASSERT(item);
-    alignSample(m_scene->getSessionModel()->indexOfItem(item), reference, force_alignment);
+    alignSample(m_scene->getSampleModel()->indexOfItem(item), reference, force_alignment);
 }
 
 
@@ -164,7 +151,7 @@ void SampleViewAligner::alignSample(ParameterizedItem *item, QPointF reference, 
 //! Position of View which has parent item (like Layer) will remain unchainged.
 void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF reference, bool force_alignment)
 {
-    SessionModel *sessionModel = m_scene->getSessionModel();
+    SessionModel *sampleModel = m_scene->getSampleModel();
 
     IView *view = getViewForIndex(parentIndex);
 //    if(view)
@@ -184,8 +171,8 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 
 //    qDebug() << "   new_pos:" << reference;
 
-    for( int i_row = 0; i_row < sessionModel->rowCount( parentIndex ); ++i_row) {
-         QModelIndex itemIndex = sessionModel->index( i_row, 0, parentIndex );
+    for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
          QPointF child_reference = reference + QPointF(-150, 150*i_row);
 //         qDebug() << "   child_reference:" << child_reference;
          alignSample(itemIndex, child_reference, force_alignment);
@@ -195,8 +182,8 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 
 IView *SampleViewAligner::getViewForIndex(const QModelIndex &index)
 {
-    SessionModel *sessionModel = m_scene->getSessionModel();
-    ParameterizedItem *item = sessionModel->itemForIndex(index);
+    SessionModel *sampleModel = m_scene->getSampleModel();
+    ParameterizedItem *item = sampleModel->itemForIndex(index);
     if(IView *view = m_scene->getViewForItem(item)) {
         return view;
     }

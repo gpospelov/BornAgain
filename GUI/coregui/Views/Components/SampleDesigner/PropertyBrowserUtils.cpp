@@ -83,3 +83,14 @@ void GroupPropertyEdit::textChanged(QString text)
         emit groupPropertyChanged(m_groupProperty);
     }
 }
+
+QSize GroupPropertyEdit::sizeHint() const
+{
+    return m_box->sizeHint();
+}
+
+QSize GroupPropertyEdit::minimumSizeHint() const
+{
+    return m_box->minimumSizeHint();
+}
+

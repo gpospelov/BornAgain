@@ -124,7 +124,13 @@ void SimulationView::setJobQueueModel(JobQueueModel *model)
 void SimulationView::updateViewElements()
 {
     instrumentSelectionBox->clear();
-    instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+    if(mp_simulation_data_model->getInstrumentList().isEmpty()) {
+        instrumentSelectionBox->addItem("No instrument defined yet");
+        instrumentSelectionBox->setEnabled(false);
+    } else {
+        instrumentSelectionBox->setEnabled(true);
+        instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+    }
 
     sampleSelectionBox->clear();
     if(mp_simulation_data_model->getSampleList().isEmpty()) {

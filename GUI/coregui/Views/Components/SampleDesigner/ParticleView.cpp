@@ -57,8 +57,9 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 }
 
 
-void ParticleView::onPropertyChange(QString propertyName)
+void ParticleView::onPropertyChange(const QString &propertyName)
 {
+    qDebug() << "ParticleView::onPropertyChange() ->";
     Q_ASSERT(m_item);
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
         GroupProperty mp = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty>();

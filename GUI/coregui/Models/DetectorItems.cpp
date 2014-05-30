@@ -71,10 +71,10 @@ ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
 
 void ThetaPhiDetectorItem::onPropertyChange(const QString &name)
 {
-    if(name == DetectorItem::P_AXES_UNITS) {
+//    if(name == DetectorItem::P_AXES_UNITS) {
 
-    }
-    qDebug() << "ThetaPhiDetectorItem::onPropertyChange() -> before emit";
+//    }
+//    qDebug() << "ThetaPhiDetectorItem::onPropertyChange() -> before emit";
     ParameterizedItem::onPropertyChange(name);
 }
 

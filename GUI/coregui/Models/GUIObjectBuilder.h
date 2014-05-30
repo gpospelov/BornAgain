@@ -32,7 +32,8 @@ public:
     GUIObjectBuilder();
     ~GUIObjectBuilder(){}
 
-    void populateModel(SessionModel *model, ISample *sample);
+    ParameterizedItem *populateSampleModel(SessionModel *sampleModel, ISample *sample);
+    ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel, Instrument *instrument);
 
     using ISampleVisitor::visit;
 
@@ -73,7 +74,7 @@ public:
 
     void visit(const LayerRoughness *);
 
-    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
+//    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
 
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);

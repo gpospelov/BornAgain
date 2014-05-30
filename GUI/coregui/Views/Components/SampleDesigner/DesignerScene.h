@@ -26,7 +26,8 @@ public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene();
 
-    void setSampleModel(SessionModel *model);
+    void setSampleModel(SessionModel *sampleModel);
+    void setInstrumentModel(SessionModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
     SessionModel *getSampleModel() { return m_sampleModel; }
@@ -71,6 +72,7 @@ private:
 //    ParameterizedItem *dropCompleteSample(const QString &name);
 
     SessionModel *m_sampleModel;
+    SessionModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 

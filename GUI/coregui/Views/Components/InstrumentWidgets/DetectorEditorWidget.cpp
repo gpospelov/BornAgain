@@ -97,10 +97,10 @@ void DetectorEditorWidget::initFromItem(ParameterizedItem *item)
     qDebug() << "DetectorEditorWidget::initFromItem()" << item->modelType();
 
     if(item != m_currentItem) {
-//        if(m_currentItem) {
-//            disconnect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString  &)));
-//            disconnect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-//        }
+        if(m_currentItem) {
+            disconnect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString  &)));
+            disconnect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+        }
 
         m_currentItem = item;
 

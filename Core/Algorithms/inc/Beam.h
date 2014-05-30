@@ -70,6 +70,10 @@ public:
     bool checkPolarization(const Eigen::Matrix2cd &polarization) const;
 #endif
 
+    double getWavelength() const { return m_lambda; }
+    double getAlpha() const { return m_alpha; }
+    double getPhi() const { return m_phi;}
+
 protected:
     virtual void print(std::ostream& ostr) const;
     //! Registers some class members for later access via parameter pool

@@ -2,6 +2,8 @@
 #include "SessionModel.h"
 #include "Units.h"
 #include "LayerItem.h"
+#include "BeamItem.h"
+#include "DetectorItems.h"
 #include "MultiLayerItem.h"
 #include "MaterialUtils.h"
 #include "MaterialEditor.h"
@@ -10,6 +12,7 @@
 #include "FormFactorItems.h"
 #include "ParaCrystalItems.h"
 #include "TransformFromDomain.h"
+#include "ComboProperty.h"
 #include <QDebug>
 
 
@@ -21,19 +24,60 @@ GUIObjectBuilder::GUIObjectBuilder()
 }
 
 
-void GUIObjectBuilder::populateModel(SessionModel *model, ISample *sample)
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SessionModel *sampleModel, ISample *sample)
 {
-    Q_ASSERT(model);
+    Q_ASSERT(sampleModel);
     Q_ASSERT(sample);
 
+    m_levelToParent.clear();
+
     m_topSampleName = sample->getName().c_str();
-    m_sampleModel = model;
+    m_sampleModel = sampleModel;
 
     qDebug() << "GUIObjectBuilder::populateModel()" << m_topSampleName;
 
     //sample->accept(this);
     VisitSampleTree(*sample, *this);
+    return m_levelToParent[0];
+}
 
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(SessionModel *instrumentModel, Instrument *instrument)
+{
+    Q_UNUSED(instrumentModel);
+    Q_UNUSED(instrument);
+
+    ParameterizedItem *instrumentItem = instrumentModel->insertNewItem("Instrument");
+    instrumentItem->setItemName(instrument->getName().c_str());
+
+    Beam beam = instrument->getBeam();
+    ParameterizedItem *beamItem = instrumentModel->insertNewItem("Beam", instrumentModel->indexOfItem(instrumentItem));
+    beamItem->setRegisteredProperty(BeamItem::P_INTENSITY, beam.getIntensity());
+    beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH, beam.getWavelength());
+    beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, Units::rad2deg(-1.0*beam.getAlpha()));
+    beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE, Units::rad2deg(beam.getPhi()));
+
+    Detector detector = instrument->getDetector();
+    ParameterizedItem *detectorItem = instrumentModel->insertNewItem("Detector", instrumentModel->indexOfItem(instrumentItem));
+    ParameterizedItem *detectorSubItem = detectorItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    Q_ASSERT(detectorSubItem);
+
+    const IAxis &phi_axis = detector.getAxis(0);
+    const IAxis &alpha_axis = detector.getAxis(1);
+
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NPHI, (int)phi_axis.getSize());
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN, Units::rad2deg(phi_axis.getMin()));
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX,  Units::rad2deg(phi_axis.getMax()));
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA, (int)alpha_axis.getSize());
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN, Units::rad2deg(alpha_axis.getMin()));
+    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX,  Units::rad2deg(alpha_axis.getMax()));
+
+    if(instrument->getIsgisaxsStyle()) {
+        ComboProperty binning_property = detectorSubItem->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
+        binning_property.setValue("Flat in sin");
+        detectorSubItem->setRegisteredProperty(DetectorItem::P_BINNING, binning_property.getVariant());
+
+    }
+    return instrumentItem;
 }
 
 

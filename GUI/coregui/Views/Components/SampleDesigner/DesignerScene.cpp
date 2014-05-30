@@ -24,6 +24,7 @@
 DesignerScene::DesignerScene(QObject *parent)
     : QGraphicsScene(parent)
     , m_sampleModel(0)
+    , m_instrumentModel(0)
     , m_selectionModel(0)
     , m_block_selection(false)
     , m_aligner(new SampleViewAligner(this))
@@ -45,11 +46,11 @@ DesignerScene::~DesignerScene()
 }
 
 
-void DesignerScene::setSampleModel(SessionModel *model)
+void DesignerScene::setSampleModel(SessionModel *sampleModel)
 {
-    Q_ASSERT(model);
+    Q_ASSERT(sampleModel);
 
-    if(model != m_sampleModel) {
+    if(sampleModel != m_sampleModel) {
 
         if(m_sampleModel) {
             disconnect(m_sampleModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
@@ -59,7 +60,7 @@ void DesignerScene::setSampleModel(SessionModel *model)
             disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
         }
 
-        m_sampleModel = model;
+        m_sampleModel = sampleModel;
 
         connect(m_sampleModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
         connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
@@ -70,6 +71,11 @@ void DesignerScene::setSampleModel(SessionModel *model)
         resetScene();
         updateScene();
     }
+}
+
+void DesignerScene::setInstrumentModel(SessionModel *instrumentModel)
+{
+    m_instrumentModel = instrumentModel;
 }
 
 
@@ -398,11 +404,15 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 new_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS, event->scenePos().y()-boundingRect.height()/2);
 
             } else if(GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
-                ParameterizedItem *topItem = GUIExamplesFactory::createItems(mimeData->getClassName(), m_sampleModel);
-                //ParameterizedItem *topItem = dropCompleteSample(mimeData->getClassName());
+                ParameterizedItem *topItem = GUIExamplesFactory::createSampleItems(mimeData->getClassName(), m_sampleModel);
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
                 QPointF reference(event->scenePos().x()-boundingRect.width()/2, event->scenePos().y()-boundingRect.height()/2);
                 m_aligner->alignSample(topItem, reference, true);
+
+                // building corresponding instrument
+                if(m_instrumentModel) {
+                    GUIExamplesFactory::createInstrumentItems(mimeData->getClassName(), m_instrumentModel);
+                }
             }
         }
     }

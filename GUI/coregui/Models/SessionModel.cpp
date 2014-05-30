@@ -279,11 +279,7 @@ void SessionModel::clear()
 void SessionModel::load(const QString &filename)
 {
     beginResetModel();
-    if (!filename.isEmpty())
-        m_filename = filename;
-    if (m_filename.isEmpty())
-        throw GUIHelpers::Error(tr("no filename specified"));
-    QFile file(m_filename);
+    QFile file(filename);
     if (!file.open(QIODevice::ReadOnly))
         throw GUIHelpers::Error(file.errorString());
     clear();
@@ -298,11 +294,7 @@ void SessionModel::load(const QString &filename)
 
 void SessionModel::save(const QString &filename)
 {
-    if (!filename.isEmpty())
-        m_filename = filename;
-    if (m_filename.isEmpty())
-        throw GUIHelpers::Error(tr("no filename specified"));
-    QFile file(m_filename);
+    QFile file(filename);
     if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
         throw GUIHelpers::Error(file.errorString());
 

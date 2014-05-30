@@ -84,6 +84,7 @@ public:
             OutputData<Eigen::Matrix2d> *p_polarized_intensity = 0) const;
 #endif
 
+    bool getIsgisaxsStyle() const { return m_isgisaxs_style; }
 protected:
     virtual void print(std::ostream& ostr) const;
 
@@ -92,6 +93,8 @@ protected:
 
     Detector m_detector;
     Beam m_beam;
+
+    bool m_isgisaxs_style;
 };
 
 inline Beam Instrument::getBeam() const

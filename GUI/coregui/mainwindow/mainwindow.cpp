@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_welcomeView = new WelcomeView();
     //m_instrumentView = new InstrumentView(mp_sim_data_model);
     m_instrumentView = new InstrumentView2(m_instrumentModel);
-    m_sampleView = new SampleView(m_sampleModel);
+    m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_simulationView->setJobQueueModel(m_jobQueueModel);
@@ -384,6 +384,6 @@ void MainWindow::testGUIObjectBuilder()
     sample->printSampleTree();
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateModel(m_sampleModel, sample.get());
+    guiBuilder.populateSampleModel(m_sampleModel, sample.get());
 }
 

@@ -16,10 +16,11 @@ BeamItem::BeamItem(ParameterizedItem *parent)
     registerProperty(P_INTENSITY, 1e+08);
     registerProperty(P_WAVELENGTH, 0.1);
     registerProperty(P_INCLINATION_ANGLE, 0.2);
-    registerProperty(P_AZIMUTHAL_ANGLE, 45.0);
+    registerProperty(P_AZIMUTHAL_ANGLE, 0.0);
 
     ComboProperty units;
-    units << "Degrees" << "Radians";
+    //units << "Degrees" << "Radians";
+    units << "Degrees";
     registerProperty(P_ANGLE_UNITS, units.getVariant());
 
 }

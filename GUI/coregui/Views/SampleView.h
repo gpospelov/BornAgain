@@ -34,7 +34,7 @@ public:
         NumberOfSubWindows
     };
 
-    SampleView(SessionModel *model, QWidget *parent = 0);
+    SampleView(SessionModel *sampleModel, SessionModel *instrumentModel, QWidget *parent = 0);
     virtual ~SampleView();
 
 public slots:
@@ -70,6 +70,7 @@ private:
     QAction *m_delete_item_action;
 
     SessionModel *m_sampleModel;
+    SessionModel *m_instrumentModel;
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;

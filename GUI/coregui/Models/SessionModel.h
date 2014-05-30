@@ -79,10 +79,9 @@ public:
     ParameterizedItem *insertNewItem(QString model_type,
                                      const QModelIndex &parent=QModelIndex(),
                                      int row=-1);
-    QString filename() const { return m_filename; }
-    void setFilename(const QString &filename) {
-        m_filename = filename;
-    }
+
+    QString getModelTag() const { return m_model_tag; }
+    QString getModelName() const { return m_name; }
 
     QList<QString> getAcceptableChildItems(const QModelIndex &parent) const;
 
@@ -121,12 +120,10 @@ private:
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer,
                            ParameterizedItem *item) const;
-    QString m_filename;
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name
     QString m_model_tag;  //!< model tag (SampleModel, InstrumentModel)
-
     IconProvider *m_iconProvider;
 };
 

@@ -20,7 +20,8 @@
 #include "BornAgainNamespace.h"
 
 Instrument::Instrument()
-: IParameterized("Instrument")
+    : IParameterized("Instrument")
+    , m_isgisaxs_style(false)
 {
     init_parameters();
 }
@@ -29,6 +30,7 @@ Instrument::Instrument(const Instrument& other)
 : IParameterized()
 , m_detector(other.m_detector)
 , m_beam(other.m_beam)
+, m_isgisaxs_style(other.m_isgisaxs_style)
 {
     setName(other.getName());
     init_parameters();
@@ -48,6 +50,7 @@ void Instrument::setDetectorParameters(
     size_t n_alpha, double alpha_f_min, double alpha_f_max,
     bool isgisaxs_style)
 {
+    m_isgisaxs_style = isgisaxs_style;
     if(phi_f_max <= phi_f_min) {
         throw LogicErrorException("Instrument::setDetectorParameters() -> Error! phi_f_max <= phi_f_min");
     }

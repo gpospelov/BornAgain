@@ -21,12 +21,13 @@
 #endif
 
 
-SampleView::SampleView(SessionModel *model, QWidget *parent)
+SampleView::SampleView(SessionModel *sampleModel, SessionModel *instrumentModel, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
 //    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_sampleModel(model)
+    , m_sampleModel(sampleModel)
+    , m_instrumentModel(instrumentModel)
 {
     setObjectName(tr("SampleView"));
 
@@ -96,7 +97,8 @@ void SampleView::initSubWindows()
     ae->setObjectName(tr("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
 
-    m_sampleDesigner->setSessionModel(m_sampleModel);
+    m_sampleDesigner->setSampleModel(m_sampleModel);
+    m_sampleDesigner->setInstrumentModel(m_instrumentModel);
     m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel());
 }
 

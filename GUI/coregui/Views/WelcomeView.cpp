@@ -141,8 +141,13 @@ void WelcomeView::generateRecentProjectList()
     recentProLabel->setFont(titleFont);
 
     QLabel *currentProName = new QLabel("Untitled");
-    if(m_projectManager->getDocument()) {
-        currentProName->setText(Utils::withTildeHomePath(m_projectManager->getDocument()->getProjectFileName()));
+    ProjectDocument *projectDocument = m_projectManager->getDocument();
+    if(projectDocument) {
+        if(projectDocument->hasValidNameAndPath()) {
+           currentProName->setText(Utils::withTildeHomePath(m_projectManager->getDocument()->getProjectFileName()));
+        } else {
+            currentProName->setText(m_projectManager->getDocument()->getProjectName());
+        }
     }
 
     m_recentProjectLayout->addWidget(currentProLabel);

@@ -63,6 +63,11 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func___getitem__( index );
     }
 
+    virtual void print( ::std::ostream & ostr ) const {
+        bp::override func_print = this->get_override( "print" );
+        func_print( boost::ref(ostr) );
+    }
+
 };
 
 void register_IAxis_class(){
@@ -155,6 +160,16 @@ void register_IAxis_class(){
                 "__getitem__"
                 , bp::pure_virtual( __getitem___function_type(&::IAxis::operator[]) )
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::IAxis::print
+        
+            typedef void ( IAxis_wrapper::*print_function_type )( ::std::ostream & ) const;
+            
+            IAxis_exposer.def( 
+                "print"
+                , print_function_type( &IAxis_wrapper::print )
+                , ( bp::arg("ostr") ) );
         
         }
         { //::IAxis::setName

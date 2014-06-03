@@ -131,4 +131,8 @@ bool AxisDouble::equals(const IAxis& other) const
     return false;
 }
 
+void AxisDouble::print(std::ostream& ostr) const
+{
+    ostr << "AxisDouble '" << m_name << "'" << getSize() << " " << getMin() << " " << getMax();
+}
 

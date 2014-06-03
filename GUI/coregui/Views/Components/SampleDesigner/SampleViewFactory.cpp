@@ -11,7 +11,9 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << QString("MultiLayer")
         << QString("Layer")
         << QString("ParticleLayout")
-        << QString("Particle");
+        << QString("Particle")
+        << QString("InterferenceFunction1DParaCrystal")
+        << QString("InterferenceFunction2DParaCrystal");
 
 
 bool SampleViewFactory::isValidItemName(const QString &name)
@@ -40,6 +42,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==QString("InterferenceFunction1DParaCrystal")) {
         return new InterferenceFunction1DParaCrystalView();
+    }
+    else if (name==QString("InterferenceFunction2DParaCrystal")) {
+        return new InterferenceFunction2DParaCrystalView();
     }
 
     qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;

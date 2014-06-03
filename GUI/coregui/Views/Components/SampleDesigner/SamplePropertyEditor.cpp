@@ -3,8 +3,9 @@
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
 
-#include "FormFactorProperty.h"
 #include "qttreepropertybrowser.h"
+#include "qtgroupboxpropertybrowser.h"
+#include "qtbuttonpropertybrowser.h"
 
 #include <QtProperty>
 #include <QItemSelectionModel>
@@ -19,6 +20,9 @@ SamplePropertyEditor::SamplePropertyEditor(QItemSelectionModel *selection_model,
 {
     setWindowTitle(QLatin1String("Property Editor"));
     setObjectName(QLatin1String("PropertyEditor"));
+
+//    QtAbstractPropertyBrowser *browser = new QtGroupBoxPropertyBrowser();
+//    QtAbstractPropertyBrowser *browser = new QtButtonPropertyBrowser();
 
     QtTreePropertyBrowser *browser = new QtTreePropertyBrowser(this);
     browser->setRootIsDecorated(false);
@@ -137,6 +141,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
+        if(item->isHiddenProperty(prop_name)) continue;
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = prop_value.type();
         if (type == QVariant::UserType) {
@@ -146,6 +151,10 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         if (m_manager->isPropertyTypeSupported(type)) {
             subProperty = m_manager->addProperty(type, prop_name);
             subProperty->setValue(prop_value);
+
+            QString toolTip = item->getPropertyToolTip(prop_name);
+            if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+
             if (item->getSubItems().contains(prop_name)) {
                 ParameterizedItem *subitem = item->getSubItems()[prop_name];
                 if (subitem) {
@@ -158,6 +167,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             subProperty->setValue(QLatin1String("< Unknown Type >"));
             subProperty->setEnabled(false);
         }
+
         item_property->addSubProperty(subProperty);
         ParameterizedItem *non_const_item =
                 const_cast<ParameterizedItem *>(item);

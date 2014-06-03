@@ -117,3 +117,10 @@ void MaterialVariantFactory::slotEditorDestroyed(QObject *object)
     }
 }
 
+
+void MaterialVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)
+{
+
+}
+
+

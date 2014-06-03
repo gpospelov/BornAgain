@@ -32,7 +32,6 @@ private:
     DesignerScene *m_scene;
     QList<IView *> m_views; //!< list of all views which are subject to smart align
     QMap<IView *, QPointF> m_viewToPos;
-    //static QMap<QString, int> m_typeToArea; //!< correspondance of ParameterizedItem's type and area on the screen,
 };
 
 

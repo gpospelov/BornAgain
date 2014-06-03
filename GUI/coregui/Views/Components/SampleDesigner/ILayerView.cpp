@@ -4,6 +4,7 @@
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
 #include "SessionModel.h"
+#include "LayerItem.h"
 #include "GUIHelpers.h"
 #include "MaterialProperty.h"
 #include <QGraphicsSceneMouseEvent>
@@ -34,11 +35,11 @@ ILayerView::ILayerView(QGraphicsItem *parent)
 
 
 //! Propagates change of 'Thickness' dynamic property to screen thickness of ILayerView.
-void ILayerView::onPropertyChange(QString propertyName)
+void ILayerView::onPropertyChange(const QString &propertyName)
 {
     Q_ASSERT(m_item);
-    if(propertyName == "Thickness") {
-        m_rect.setHeight(DesignerHelper::nanometerToScreen(m_item->property("Thickness").toDouble()));
+    if(propertyName == LayerItem::P_THICKNESS) {
+        m_rect.setHeight(DesignerHelper::nanometerToScreen(m_item->getRegisteredProperty(LayerItem::P_THICKNESS).toDouble()));
         setPortCoordinates();
         update();
         emit heightChanged();
@@ -129,7 +130,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    SessionModel *model = designerScene->getSessionModel();
+    SessionModel *model = designerScene->getSampleModel();
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if(requested_parent == parentItem() && requested_row == model->indexOfItem(getParameterizedItem()).row()) {

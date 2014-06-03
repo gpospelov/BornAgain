@@ -26,10 +26,11 @@ public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene();
 
-    void setSessionModel(SessionModel *model);
+    void setSampleModel(SessionModel *sampleModel);
+    void setInstrumentModel(SessionModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
-    SessionModel *getSessionModel() { return m_sessionModel; }
+    SessionModel *getSampleModel() { return m_sampleModel; }
 
     IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
 
@@ -70,7 +71,8 @@ private:
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
 //    ParameterizedItem *dropCompleteSample(const QString &name);
 
-    SessionModel *m_sessionModel;
+    SessionModel *m_sampleModel;
+    SessionModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 

@@ -25,6 +25,8 @@
 namespace SessionXML {
 const QString MimeType = "application/org.bornagainproject.xml.item.z";
 const QString ModelTag("SessionModel");
+const QString InstrumentModelTag("InstrumentModel");
+const QString SampleModelTag("SampleModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");
@@ -36,12 +38,14 @@ const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
 }
 
+class IconProvider;
+
 class SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
-    explicit SessionModel(QObject *parent=0);
+    explicit SessionModel(QString model_tag, QObject *parent=0);
     ~SessionModel();
 
     // Begin overriden methods from QAbstractItemModel
@@ -75,10 +79,9 @@ public:
     ParameterizedItem *insertNewItem(QString model_type,
                                      const QModelIndex &parent=QModelIndex(),
                                      int row=-1);
-    QString filename() const { return m_filename; }
-    void setFilename(const QString &filename) {
-        m_filename = filename;
-    }
+
+    QString getModelTag() const { return m_model_tag; }
+    QString getModelName() const { return m_name; }
 
     QList<QString> getAcceptableChildItems(const QModelIndex &parent) const;
 
@@ -99,6 +102,11 @@ public:
 
     void moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent = 0, int row = -1);
 
+    void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
+
+public slots:
+    void onItemPropertyChange(const QString &name);
+
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
@@ -112,10 +120,11 @@ private:
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer,
                            ParameterizedItem *item) const;
-    QString m_filename;
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name
+    QString m_model_tag;  //!< model tag (SampleModel, InstrumentModel)
+    IconProvider *m_iconProvider;
 };
 
 #endif // SESSIONMODEL_H

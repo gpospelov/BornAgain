@@ -40,7 +40,8 @@ public:
 
     QWidget *getCentralWidget() { return m_designerView; }
 
-    void setSessionModel(SessionModel *model);
+    void setSampleModel(SessionModel *sampleModel);
+    void setInstrumentModel(SessionModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:

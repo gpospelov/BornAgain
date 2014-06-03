@@ -20,9 +20,14 @@ SampleDesigner::~SampleDesigner()
 }
 
 
-void SampleDesigner::setSessionModel(SessionModel *model)
+void SampleDesigner::setSampleModel(SessionModel *sampleModel)
 {
-    if(model) m_designerScene->setSessionModel(model);
+    if(sampleModel) m_designerScene->setSampleModel(sampleModel);
+}
+
+void SampleDesigner::setInstrumentModel(SessionModel *instrumentModel)
+{
+    if(instrumentModel) m_designerScene->setInstrumentModel(instrumentModel);
 }
 
 

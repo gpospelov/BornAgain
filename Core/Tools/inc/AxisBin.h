@@ -64,6 +64,7 @@ public:
     std::vector<double> getVector() const { return m_value_vector; }
 
 protected:
+    virtual void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;
 private:
     std::vector<double> m_value_vector;  //!< vector containing the bin limits

@@ -241,4 +241,13 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
     }
 }
 
+void Detector::print(std::ostream& ostr) const
+{
+    ostr << "Detector: '" << getName() << "' " << m_parameters;
+    for(size_t i=0; i<m_axes.size(); ++i) {
+        ostr << "    IAxis:" << *m_axes[i] << std::endl;
+    }
+}
+
+
 

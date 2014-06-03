@@ -11,10 +11,10 @@ class SessionModel;
 class GUIExamplesFactory
 {
 public:
-
     static bool isValidExampleName(const QString &name);
 
-    static ParameterizedItem *createItems(const QString &name, SessionModel *model);
+    static ParameterizedItem *createSampleItems(const QString &name, SessionModel *sampleModel);
+    static ParameterizedItem *createInstrumentItems(const QString &name, SessionModel *instrumentModel);
 
 
 private:

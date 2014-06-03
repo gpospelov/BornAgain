@@ -69,6 +69,13 @@ public:
     virtual std::string addParametersToExternalPool(std::string path,
             ParameterPool *external_pool, int copy_number=-1) const;
 
+    std::vector<double> getLatticeLengths() const;
+    double getAlphaLattice() const { return m_alpha_lattice; }
+    double getLatticeOrientation() const { return m_xi; }
+    std::vector<double> getDomainSizes() const;
+    std::vector<const IFTDistribution2D *> getPropabilityDistributions() const;
+    bool getIntegrationOverXi() const { return m_integrate_xi; }
+    double getDampingLength() const { return m_corr_length;}
 
 protected:
     //! Registers some class members for later access via parameter pool

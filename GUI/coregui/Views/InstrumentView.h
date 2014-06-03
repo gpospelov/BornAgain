@@ -1,54 +1,47 @@
-#ifndef INSTRMANAGER_H
-#define INSTRMANAGER_H
+#ifndef INSTRUMENTVIEW_H
+#define INSTRUMENTVIEW_H
 
 #include <QWidget>
+#include <QMap>
+class InstrumentSelectorWidget;
+class InstrumentEditorWidget;
+class SessionModel;
+class QListView;
+class QStackedWidget;
+class QMenu;
+class QAction;
+class QItemSelection;
+class ParameterizedItem;
+class QToolBar;
 
-class SimulationDataModel;
-class Instrument;
-class QDoubleSpinBox;
-class QComboBox;
-class QPushButton;
-class QLineEdit;
-class QSpinBox;
-class QCheckBox;
+namespace Manhattan{
+    class StyledBar;
+}
 
 class InstrumentView : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentView(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
+    InstrumentView(SessionModel *model, QWidget *parent = 0);
 
 public slots:
+    void onSelectionChanged(const QItemSelection&, const QItemSelection&);
     void onAddInstrument();
-    void onSaveInstrument();
-    void onInstrumentSelectionChanged(int index);
-    void onInstrumentEntryChanged();
+    void onRemoveInstrument();
+    void onRowsAboutToBeRemoved(QModelIndex,int,int);
+
 private:
-    void updateEditBoxes();
-    void setToInstrumentData(Instrument *p_instrument);
-    void initInstrumentFromForm(Instrument *p_instrument);
-    void removeInstrumentName(QString name);
-    int saveDiscardCancel();
-    void setSignalBlock(bool block);
-    SimulationDataModel *mp_simulation_data_model;
-    Instrument *mp_cached_instrument;
-    QString m_cached_name;
-    // qt widgets:
-    QComboBox *instrumentBox;
-    QPushButton *addInstrumentButton;
-    QPushButton *saveInstrumentButton;
-    QLineEdit *beamIntensityEdit;
-    QDoubleSpinBox *beamWavelengthEdit;
-    QDoubleSpinBox *beamAlphaInEdit;
-    QDoubleSpinBox *beamPhiInEdit;
-    QDoubleSpinBox *detectorAlphaStartEdit;
-    QDoubleSpinBox *detectorAlphaEndEdit;
-    QSpinBox *detectorAlphaValuesEdit;
-    QDoubleSpinBox *detectorPhiStartEdit;
-    QDoubleSpinBox *detectorPhiEndEdit;
-    QSpinBox *detectorPhiValuesEdit;
-    QCheckBox *detectorAnglesIsGISAXSBox;
+    void createActions();
+
+    SessionModel *m_instrumentModel;
+    QToolBar *m_toolBar;
+    InstrumentSelectorWidget *m_instrumentSelector;
+    QStackedWidget *m_stackWidget;
+    QMap<ParameterizedItem *, InstrumentEditorWidget *> m_instrumentToEditor;
+    QAction *m_addInstrumentAction;
+    QAction *m_removeInstrumentAction;
 };
 
-#endif // INSTRMANAGER_H
+
+#endif

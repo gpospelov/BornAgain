@@ -19,6 +19,9 @@
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
 #include "ParaCrystalItems.h"
+#include "InstrumentItem.h"
+#include "BeamItem.h"
+#include "DetectorItems.h"
 #include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
@@ -26,11 +29,16 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("Layer")
         << QString("ParticleLayout")
         << QString("Particle")
-        << QString("InterferenceFunction1DParaCrystal");
+        << QString("InterferenceFunction1DParaCrystal")
+        << QString("InterferenceFunction2DParaCrystal")
+        << QString("Instrument")
+        << QString("Detector")
+        << QString("Beam");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
+    //qDebug() << "ItemFactory::createItem() -> " << model_name << parent;
     if (model_name.isEmpty()) {
         return createEmptyItem();
     }
@@ -52,13 +60,18 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     else if (model_name==QString("InterferenceFunction1DParaCrystal")) {
         return new InterferenceFunction1DParaCrystalItem(parent);
     }
-//    else if (model_name.startsWith("FormFactor")) {
-//        ParticleItem *result = new ParticleItem(parent);
-//        QString ffName = model_name;
-//        ffName.remove("FormFactor");
-//        result->addFormFactorProperty("Form Factor", ffName);
-//        return result;
-//    }
+    else if (model_name==QString("InterferenceFunction2DParaCrystal")) {
+        return new InterferenceFunction2DParaCrystalItem(parent);
+    }
+    else if (model_name==QString("Instrument")) {
+        return new InstrumentItem(parent);
+    }
+    else if (model_name==QString("Beam")) {
+        return new BeamItem(parent);
+    }
+    else if (model_name==QString("Detector")) {
+        return new DetectorItem(parent);
+    }
 
     return 0;
 }
@@ -71,9 +84,5 @@ ParameterizedItem *ItemFactory::createEmptyItem()
 
 bool ItemFactory::isValidName(const QString &name)
 {
-    if(name.startsWith("FormFactor")) {
-        return true;
-    } else {
-        return m_all_item_names.contains(name);
-    }
+    return m_all_item_names.contains(name);
 }

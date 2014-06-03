@@ -22,6 +22,7 @@
 
 DomainObjectBuilder::DomainObjectBuilder()
     : mp_sample(0)
+    , m_instrument(0)
 {
 
 }
@@ -29,16 +30,21 @@ DomainObjectBuilder::DomainObjectBuilder()
 DomainObjectBuilder::~DomainObjectBuilder()
 {
     delete mp_sample;
+    delete m_instrument;
 }
 
 void DomainObjectBuilder::buildItem(const ParameterizedItem &item)
 {
-    if (item.modelType() == QString("MultiLayer")) {
+    if (item.modelType() == QStringLiteral("MultiLayer")) {
         delete mp_sample;
         mp_sample = buildMultiLayer(item);
     }
+    else if(item.modelType() == QStringLiteral("MultiLayer")) {
+        delete m_instrument;
+        m_instrument = buildInstrument(item);
+    }
     else {
-        // not a suitable top level object (throw?)
+        throw GUIHelpers::Error("DomainObjectBuilder::buildItem() -> Error. Not a suitable top level object.");
     }
 }
 
@@ -114,6 +120,38 @@ Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, doub
 IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
 {
     IInterferenceFunction *result = TransformToDomain::createInterferenceFunction(item);
+    Q_ASSERT(result);
     return result;
 }
+
+
+Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) const
+{
+    qDebug() << "DomainObjectBuilder::buildInstrument";
+    Instrument *result = TransformToDomain::createInstrument(item);
+    QList<ParameterizedItem *> children = item.childItems();
+    for (int i=0; i<children.size(); ++i) {
+        qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
+        if (children[i]->modelType() == QString("Beam")) {
+            boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
+            if (P_beam.get()) {
+                result->setBeam(*P_beam);
+            }
+        }
+        else if (children[i]->modelType() == QString("Detector")) {
+            TransformToDomain::initInstrumentFromDetectorItem(*children[i], result);
+        }
+
+    }
+
+    return result;
+}
+
+Beam *DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
+{
+    qDebug() << "DomainObjectBuilder::buildBeam()";
+    Beam *result = TransformToDomain::createBeam(item);
+    return result;
+}
+
 

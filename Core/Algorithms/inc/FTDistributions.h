@@ -38,7 +38,11 @@ public:
     void setOmega(double omega) { m_omega = omega; }
     double getOmega() const { return m_omega; }
 
+    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution1D& m)
+    { m.print(ostr); return ostr; }
+
 protected:
+    virtual void print(std::ostream& ostr) const;
     virtual void init_parameters();
     double m_omega;
 };
@@ -136,7 +140,11 @@ public:
     void transformToStarBasis(double qX, double qY,
             double alpha, double a, double b, double& qa, double& qb) const;
 
+    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution2D& m)
+    { m.print(ostr); return ostr; }
+
 protected:
+    virtual void print(std::ostream& ostr) const;
     virtual void init_parameters();
     double m_coherence_length_x;
     double m_coherence_length_y;
@@ -194,6 +202,8 @@ public:
     virtual FTDistribution2DVoigt *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double getEta() const { return m_eta;}
 
 protected:
     virtual void init_parameters();

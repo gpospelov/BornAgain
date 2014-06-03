@@ -45,7 +45,8 @@ public:
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
     MaterialModel *getMaterialModel() { return m_materialModel; }
-    SessionModel *getSessionModel() { return m_sessionModel; }
+    SessionModel *getInstrumentModel() { return m_instrumentModel; }
+    SessionModel *getSampleModel() { return m_sampleModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     QSettings *getSettings() const { return m_settings; }
@@ -79,22 +80,27 @@ private:
 
     SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
-    SessionModel *m_sessionModel; //!< model for all samples
+    SessionModel *m_sampleModel; //!< model for all samples
+    SessionModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
 
     // dummy simulation model initializer for test purposes
     void initSimModel();
     void initJobQueueModel();
-    void initSessionModel();
+    void initSampleModel();
+    void initInstrumentModel();
     void initMaterialModel();
+
+    void updateSimModel();
+    void updateSamples();
+    void updateInstruments();
 
     void testGUIObjectBuilder();
 
-    void updateSimModel();
 
     // dummy instrument creator
-    Instrument *createDefaultInstrument();
+//    Instrument *createDefaultInstrument();
 //    ISample *createDefaultSample();
 };
 

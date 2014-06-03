@@ -27,7 +27,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 public slots:
-    void onPropertyChange(QString propertyName);
+    void onPropertyChange(const QString &propertyName);
 
 private:
     MultiLayerCandidate getMultiLayerCandidate();

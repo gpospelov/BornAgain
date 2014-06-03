@@ -100,6 +100,16 @@ void JobOutputDataWidget::onJobItemDelete(JobItem *item)
     if( !widget ) {
         throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
     }
+
+    QMap<JobItem *, OutputDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
+    while(it!=m_jobItemToPlotWidget.end()) {
+        if(it.value() == widget) {
+            it = m_jobItemToPlotWidget.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
     m_stack->removeWidget(widget);
     delete widget;
 }

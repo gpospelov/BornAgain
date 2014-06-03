@@ -17,4 +17,17 @@ public:
 };
 
 
+class InterferenceFunction2DParaCrystalView : public ConnectableView
+{
+    Q_OBJECT
+
+public:
+    enum { Type = DesignerHelper::InterferenceFunction2DParaType };
+
+    InterferenceFunction2DParaCrystalView(QGraphicsItem *parent = 0);
+
+    int type() const { return Type; }
+};
+
+
 #endif

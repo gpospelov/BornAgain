@@ -12,27 +12,6 @@
 #include "stringutils.h"
 
 
-ContainerWidget::ContainerWidget(QWidget *parent)
-    : QWidget(parent)
-{
-    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    setObjectName("containerWidget");
-    setContentsMargins(0,30,0,0);
-    setFixedWidth(800);
-    setStyleSheet(QString::fromUtf8("ContainerWidget#containerWidget\n"
-    "{\n"
-    "    border-left: 1px solid gray;\n"
-    "    border-right: 1px solid gray;\n"
-    "    background-color:white;\n"
-    "}\n"
-    ""));
-}
-
-QSize ContainerWidget::sizeHint() const
-{
-    return QSize(800,800);
-}
-
 
 WelcomeView::WelcomeView(MainWindow *parent)
     : m_mainWindow(parent)
@@ -119,33 +98,39 @@ WelcomeView::WelcomeView(MainWindow *parent)
     containerLayout->addWidget(itemContainerWidget);
     containerLayout->addStretch(1);
 
-    ContainerWidget *containerWidget = new ContainerWidget;
-    containerWidget->setLayout(containerLayout);
-
-//    containerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    containerWidget->setObjectName("containerWidget");
-//    containerWidget->setFixedWidth(800);
-//    containerWidget->setContentsMargins(0,30,0,0);
-//    containerWidget->setLayout(containerLayout);
-    containerWidget->setStyleSheet(QString::fromUtf8("#containerWidget\n"
+    QWidget *containerWidget = new QWidget;
+    containerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    containerWidget->setObjectName("containerWidget");
+    containerWidget->setMaximumWidth(800);
+    containerWidget->setContentsMargins(0,30,0,0);
+    containerWidget->setStyleSheet(QString::fromUtf8("QWidget#containerWidget\n"
     "{\n"
     "    border-left: 1px solid gray;\n"
     "    border-right: 1px solid gray;\n"
     "    background-color:white;\n"
     "}\n"
     ""));
+    containerWidget->setLayout(containerLayout);
+
+
+    QWidget *leftVerticalPanel = new QWidget;
+    QWidget *rightVerticalPanel = new QWidget;
 
     // main layout
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->setContentsMargins(0,0,0,0);
-    mainLayout->addStretch(1);
+    //mainLayout->addStretch(1);
+    mainLayout->addWidget(leftVerticalPanel);
     mainLayout->addWidget(containerWidget);
-    mainLayout->addStretch(1);
+    mainLayout->addWidget(rightVerticalPanel);
+//    mainLayout->addStretch(1);
     setLayout(mainLayout);
 
     connect(newProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(newProject()));
     connect(openProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(openProject()));
-    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));    
+    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));
+
+    updateRecentProjectPanel();
 }
 
 void WelcomeView::generateRecentProjectList()

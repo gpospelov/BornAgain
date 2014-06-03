@@ -13,15 +13,6 @@
 #include <QSignalMapper>
 
 
-class ContainerWidget : public QWidget
-{
-    Q_OBJECT
-public:
-    ContainerWidget(QWidget *parent = 0);
-    virtual ~ContainerWidget(){}
-    QSize sizeHint() const;
-};
-
 
 class WelcomeView : public QWidget
 {

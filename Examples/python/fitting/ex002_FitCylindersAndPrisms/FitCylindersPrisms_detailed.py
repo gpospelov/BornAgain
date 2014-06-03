@@ -129,7 +129,7 @@ class DrawObserver(IObserver):
             pylab.colorbar(im)
             pylab.title('Simulated data')
             # plotting difference map
-            diff_map = (real_data - simulated_data)/(real_data + 1)
+            diff_map = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
             pylab.subplot(2, 2, 3)
             im = pylab.imshow(numpy.rot90(diff_map, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
             pylab.colorbar(im)

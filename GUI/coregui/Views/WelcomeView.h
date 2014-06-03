@@ -12,6 +12,8 @@
 #include <QVBoxLayout>
 #include <QSignalMapper>
 
+
+
 class WelcomeView : public QWidget
 {
     Q_OBJECT
@@ -36,7 +38,6 @@ private:
     QSignalMapper *m_signalMapper;
     QVBoxLayout *m_recentProjectLayout;
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
-    int m_maxRecentItem;
 };
 
 #endif // WELCOMEVIEW_H

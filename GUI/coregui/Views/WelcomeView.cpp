@@ -1,32 +1,34 @@
 #include "WelcomeView.h"
-#include "qdebug.h"
+#include "DesignerHelper.h"
+#include "mainwindow_constants.h"
+#include "projectdocument.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QSizePolicy>
+#include <QDebug>
 #include "stringutils.h"
+#include <QGraphicsDropShadowEffect>
+
 
 
 WelcomeView::WelcomeView(MainWindow *parent)
     : m_mainWindow(parent)
 {
-
     QColor bgColor(240,240,240,255);
     QPalette palette;
     palette.setColor(QPalette::Background, bgColor);
     setAutoFillBackground(true);
     setPalette(palette);
 
-
-    m_maxRecentItem = 10;
-
     m_projectManager = m_mainWindow->getProjectManager();
     Q_ASSERT(m_projectManager);
 
     QFont buttonFont;
-    buttonFont.setPointSize(10);
+    buttonFont.setPointSize(DesignerHelper::getLabelFontSize());
     buttonFont.setBold(false);
 
     int buttonHeight = 45;
@@ -71,7 +73,6 @@ WelcomeView::WelcomeView(MainWindow *parent)
 
     m_recentProjectLayout = new QVBoxLayout;
     m_recentProjectLayout->setContentsMargins(30,0,0,0);
-    //generateRecentProjectList();
 
 
     QFrame* line = new QFrame();
@@ -85,80 +86,88 @@ WelcomeView::WelcomeView(MainWindow *parent)
     itemContainerLayout->addStretch(1);
 
 
-
     QWidget *itemContainerWidget = new QWidget;
     itemContainerWidget->setLayout(itemContainerLayout);
-    itemContainerWidget->setFixedHeight(350);
-
+    itemContainerWidget->setFixedHeight(430);
 
     QVBoxLayout *containerLayout = new QVBoxLayout;
     containerLayout->setMargin(0);
     containerLayout->addWidget(itemContainerWidget);
     containerLayout->addStretch(1);
 
-
-    QPalette palette2;
-    palette2.setColor(QPalette::Background, Qt::white);
-
     QWidget *containerWidget = new QWidget;
-    containerWidget->setAutoFillBackground(true);
-    containerWidget->setFixedWidth(700);
-    containerWidget->setPalette(palette2);
+    containerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    containerWidget->setObjectName("containerWidget");
+    containerWidget->setMaximumWidth(800);
     containerWidget->setContentsMargins(0,30,0,0);
+    containerWidget->setStyleSheet(QString::fromUtf8("QWidget#containerWidget\n"
+    "{\n"
+    "    border-left: 1px solid gray;\n"
+    "    border-right: 1px solid gray;\n"
+    "    background-color:white;\n"
+    "}\n"
+    ""));
     containerWidget->setLayout(containerLayout);
 
 
-    QFrame* leftLine = new QFrame();
-    leftLine->setFrameShape(QFrame::VLine);
-    leftLine->setFrameShadow(QFrame::Sunken);
-    leftLine->setContentsMargins(0,0,0,0);
-
-    QFrame* rightLine = new QFrame();
-    rightLine->setFrameShape(QFrame::VLine);
-    rightLine->setFrameShadow(QFrame::Sunken);
-
+    // main layout
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->setContentsMargins(0,0,0,0);
-    mainLayout->addStretch(1);
-    mainLayout->addWidget(leftLine);
+    mainLayout->addWidget(new QWidget);
     mainLayout->addWidget(containerWidget);
-    mainLayout->addWidget(rightLine);
-    mainLayout->addStretch(1);
-
+    mainLayout->addWidget(new QWidget);
     setLayout(mainLayout);
-
 
     connect(newProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(newProject()));
     connect(openProjectButton, SIGNAL(clicked()), m_projectManager, SLOT(openProject()));
-    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));    
+    connect(newUsertButton, SIGNAL(clicked()), this, SLOT(onNewUser()));
+
+    connect(m_projectManager, SIGNAL(modified()), this, SLOT(updateRecentProjectPanel()));
+
+    updateRecentProjectPanel();
 }
 
 void WelcomeView::generateRecentProjectList()
 {
-
-
-    //int count = m_projectManager->getRecentProjects().size();
-    //bool hasRecentProjects = false;
-
     QFont titleFont;
-    titleFont.setPointSize(10);
+    titleFont.setPointSize(DesignerHelper::getSectionFontSize());
     titleFont.setBold(true);
+
+
+    QLabel *currentProLabel = new QLabel("Current Project:");
+    currentProLabel->setFont(titleFont);
+
     QLabel *recentProLabel = new QLabel("Recent Projects:");
     recentProLabel->setFont(titleFont);
 
+    QLabel *currentProName = new QLabel("Untitled");
+    ProjectDocument *projectDocument = m_projectManager->getDocument();
+    if(projectDocument) {
+        if(projectDocument->hasValidNameAndPath()) {
+           currentProName->setText(Utils::withTildeHomePath(m_projectManager->getDocument()->getProjectFileName()));
+        } else {
+            currentProName->setText(m_projectManager->getDocument()->getProjectName());
+        }
+    }
+
+    m_recentProjectLayout->addWidget(currentProLabel);
+    m_recentProjectLayout->addWidget(currentProName);
+    m_recentProjectLayout->addSpacing(15);
+
     m_recentProjectLayout->addWidget(recentProLabel);
 
-    QCommandLinkButton *slotButtons[m_maxRecentItem];
+    QCommandLinkButton *slotButtons[Constants::MAX_RECENT_PROJECTS];
     //QLabel *myLabel[count];
     m_signalMapper = new QSignalMapper(this);
 
-
     int i = 0;
+
     foreach(QString file, m_projectManager->getRecentProjects() ) {
         //hasRecentProjects = true;
 
         QFont font;
-        font.setPointSize(9);
+        //font.setPointSize(9);
+        font.setPointSize(DesignerHelper::getLabelFontSize());
         font.setBold(false);
         //font.underline();
 
@@ -175,13 +184,9 @@ void WelcomeView::generateRecentProjectList()
         connect(slotButtons[i], SIGNAL(clicked()), m_signalMapper, SLOT (map()));
         m_recentProjectLayout->addWidget(slotButtons[i]);
 
-
         i++;
 
-        if(i == m_maxRecentItem)
-        {
-            break;
-        }
+        if(i == Constants::MAX_RECENT_PROJECTS) break;
     }
 
     m_recentProjectLayout->addStretch();

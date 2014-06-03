@@ -105,6 +105,7 @@ void ProjectManager::newProject()
         m_defaultProjectPath = dialog.getProjectPath();
         m_project_document->setProjectName(dialog.getProjectName());
         m_project_document->setProjectPath(dialog.getProjectPath());
+        emit modified();
     }
 
 }
@@ -152,6 +153,7 @@ void ProjectManager::openProject(QString fileName)
         createNewProject();
         m_project_document->setProjectFileName(fileName);
         m_project_document->load();
+        emit modified();
     }
 }
 

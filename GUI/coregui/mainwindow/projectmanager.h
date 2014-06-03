@@ -25,6 +25,11 @@ public:
 
     QStringList getRecentProjects();
 
+    ProjectDocument *getDocument() { return m_project_document; }
+
+signals:
+    void modified();
+
 public slots:
     void clearRecentProjects();
     void onDocumentModified();

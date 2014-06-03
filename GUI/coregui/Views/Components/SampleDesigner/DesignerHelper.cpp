@@ -198,6 +198,16 @@ QRectF DesignerHelper::getDefaultMultiLayerRect()
 }
 
 
+int DesignerHelper::getSectionFontSize()
+{
+#ifdef Q_OS_MAC
+    return 12;
+#else
+    return 10;
+#endif
+}
+
+
 int DesignerHelper::getLabelFontSize()
 {
 #ifdef Q_OS_MAC

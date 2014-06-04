@@ -43,7 +43,8 @@ public:
     ~MemberFunctionMCIntegrator();
 
     //! perform the actual integration over the ranges [min_array, max_array]
-    double integrate(double *min_array, double *max_array, void* params);
+    double integrate(double *min_array, double *max_array, void* params,
+                     size_t nbr_points);
 
 private:
     //! static function that can be passed to gsl integrator
@@ -81,7 +82,7 @@ template<class C> MemberFunctionMCIntegrator<C>::~MemberFunctionMCIntegrator()
 }
 
 template<class C> double MemberFunctionMCIntegrator<C>::integrate(
-        double *min_array, double *max_array, void* params)
+        double *min_array, double *max_array, void* params, size_t nbr_points)
 {
     assert(mp_object);
     assert(m_member_function);
@@ -94,7 +95,7 @@ template<class C> double MemberFunctionMCIntegrator<C>::integrate(
     f.params =& cb;
 
     double result, error;
-    gsl_monte_vegas_integrate (&f, min_array, max_array, m_dim, 100,
+    gsl_monte_vegas_integrate(&f, min_array, max_array, m_dim, nbr_points,
                                     m_random_gen, m_gsl_workspace, &result, &error);
     return result;
 }

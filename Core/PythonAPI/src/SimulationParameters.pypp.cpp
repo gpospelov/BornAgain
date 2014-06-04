@@ -39,6 +39,8 @@ void register_SimulationParameters_class(){
             .value("PARA1DFINITE", SimulationParameters::PARA1DFINITE)
             .export_values()
             ;
+        SimulationParameters_exposer.def_readwrite( "m_mc_integration", &SimulationParameters::m_mc_integration );
+        SimulationParameters_exposer.def_readwrite( "m_mc_points", &SimulationParameters::m_mc_points );
         SimulationParameters_exposer.def_readwrite( "me_framework", &SimulationParameters::me_framework );
         SimulationParameters_exposer.def_readwrite( "me_if_approx", &SimulationParameters::me_if_approx );
         SimulationParameters_exposer.def_readwrite( "me_lattice_type", &SimulationParameters::me_lattice_type );

@@ -179,6 +179,15 @@ void register_Instrument_class(){
                 , getIntensity_function_type( &::Instrument::getIntensity ) );
         
         }
+        { //::Instrument::getIsgisaxsStyle
+        
+            typedef bool ( ::Instrument::*getIsgisaxsStyle_function_type )(  ) const;
+            
+            Instrument_exposer.def( 
+                "getIsgisaxsStyle"
+                , getIsgisaxsStyle_function_type( &::Instrument::getIsgisaxsStyle ) );
+        
+        }
         { //::Instrument::matchDetectorParameters
         
             typedef void ( ::Instrument::*matchDetectorParameters_function_type )( ::OutputData< double > const & ) ;

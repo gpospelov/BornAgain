@@ -20,7 +20,6 @@
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
         SimulationParameters sim_params)
 : m_sim_params(sim_params)
-, m_integrate_bin(false)
 {
 }
 
@@ -35,7 +34,7 @@ void IInterferenceFunctionStrategy::init(
 double IInterferenceFunctionStrategy::evaluate(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
 {
-    if (m_integrate_bin) {
+    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
         return MCIntegratedEvaluate(k_i, k_f_bin, alpha_f_bin);
     }
     calculateFormFactorList(k_i, k_f_bin, alpha_f_bin);
@@ -181,7 +180,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
     double min_array[] = { 0.0, 0.0 };
     double max_array[] = { 1.0, 1.0 };
     double result = mc_integrator.integrate(min_array, max_array,
-                                            (void*)&mc_int_pars);
+                         (void*)&mc_int_pars, m_sim_params.m_mc_points);
     return result;
 }
 

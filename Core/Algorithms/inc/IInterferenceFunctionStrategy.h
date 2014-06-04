@@ -113,9 +113,6 @@ private:
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;
-
-    //! private flag for testing integration over q-bins
-    const bool m_integrate_bin;
 };
 
 inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t& k_i,

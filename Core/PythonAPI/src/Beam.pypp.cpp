@@ -142,6 +142,15 @@ void register_Beam_class(){
                 , ( bp::arg("up_fraction") ) );
         
         }
+        { //::Beam::getAlpha
+        
+            typedef double ( ::Beam::*getAlpha_function_type )(  ) const;
+            
+            Beam_exposer.def( 
+                "getAlpha"
+                , getAlpha_function_type( &::Beam::getAlpha ) );
+        
+        }
         { //::Beam::getCentralK
         
             typedef ::cvector_t ( ::Beam::*getCentralK_function_type )(  ) const;
@@ -158,6 +167,24 @@ void register_Beam_class(){
             Beam_exposer.def( 
                 "getIntensity"
                 , getIntensity_function_type( &::Beam::getIntensity ) );
+        
+        }
+        { //::Beam::getPhi
+        
+            typedef double ( ::Beam::*getPhi_function_type )(  ) const;
+            
+            Beam_exposer.def( 
+                "getPhi"
+                , getPhi_function_type( &::Beam::getPhi ) );
+        
+        }
+        { //::Beam::getWavelength
+        
+            typedef double ( ::Beam::*getWavelength_function_type )(  ) const;
+            
+            Beam_exposer.def( 
+                "getWavelength"
+                , getWavelength_function_type( &::Beam::getWavelength ) );
         
         }
         { //::Beam::operator=

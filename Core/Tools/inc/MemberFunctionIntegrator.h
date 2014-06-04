@@ -19,7 +19,7 @@
 #include "gsl/gsl_integration.h"
 #include <cassert>
 
-//! @class MemberComplexFunctionIntegrator
+//! @class MemberFunctionIntegrator
 //! @ingroup tools_internal
 //! @brief Template class to integrate class member functions in 1D space
 //!

@@ -25,6 +25,20 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
     m_listView->setSpacing(12);
     //m_listView->setModel(m_instrumentModel);
 
+    m_listView->setObjectName("listView");
+    m_listView->setStyleSheet(QString::fromUtf8("QListView#listView\n"
+    "{\n"
+    "   selection-background-color : rgb(98,100,105); \n"
+    "   selection-color: rgb(255,255,255);\n"
+    "   border: 1px solid rgb(98,100,105);\n"
+    "}\n"
+    ""));
+
+
+
+
+
+
 //    QMenu *addInstrumentMenu = new QMenu();
 //    m_addDefaultGisasAction = new QAction(tr("Default GISAS instrument"), this);
 //    m_addDefaultGisasAction->setStatusTip(tr("Add default GISAS instrument"));

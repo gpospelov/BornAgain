@@ -22,5 +22,7 @@
         <file>images/config.png</file>
         <file>images/append.png</file>
         <file>images/remove.png</file>
+        <file>images/gisas_instrument.png</file>
+        <file>images/gisas_instrument_bw.png</file>
     </qresource>
 </RCC>

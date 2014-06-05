@@ -7,7 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{placeins}
-%\usepackage[scaled=0.8]{beramono} % beramono or luximono give very nice ttfamily fonts
+%\usepackage[scaled=0.8]{beramono} 
 
 %-------------------------------------------------------------------------------
 %	PAGE LAYOUT
@@ -22,20 +22,11 @@
 \fancyhf{}
 
 \renewcommand{\sectionmark}[1]{\markright{#1}}
-%%Old version
-%\lhead{\bfseries \nouppercase{\leftmark}}
-%\rhead{\bfseries \nouppercase{\rightmark}}
-%\lfoot{}
-%\rfoot{\bfseries Page \thepage}
 
 \fancyhead[LO,RE]{Page \thepage}
 \fancyhead[LE]{\nouppercase{\leftmark}}
 \fancyhead[RO]{\nouppercase{\rightmark}}
-%%\fancyfoot[L,O]{}
-%%\lhead{Page \thepage} %\nouppercase{\leftmark}}
-%%\rhead{\nouppercase{\rightmark}}
-%%\lfoot{}
-%%\rfoot{}
+
 
 \headwidth=1.1\textwidth
 \renewcommand{\headrulewidth}{1pt}%{1.5pt}
@@ -51,12 +42,7 @@
 \fancyhead[LO,RE]{Page \thepage}
 \fancyhead[LE]{\nouppercase{\leftmark}}
 \fancyhead[RO]{\nouppercase{\rightmark}}
-%%\lhead{\bfseries \nouppercase{\leftmark}}
-%%\lhead{}%\nouppercase{\leftmark}}
-%%\rhead{}%\nouppercase{\rightmark}}
-%%\lfoot{}
-%%\rfoot{}%Page \thepage}
-%%\headwidth=1.1\textwidth
+
 \fancyhfoffset[L]{24pt}
 \fancyhfoffset[R]{24pt}
 }
@@ -67,14 +53,6 @@
                          \section{#2}%
                          \sectionmark{#1}%
                        }
-
-%%%%%%%%%
-%\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\thechapter.\ #1}}{}}
-%\renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}}
-%\newcommand{\helv}{\fontfamily{phv}\fontseries{b}\fontsize{9}{11}\selectfont}
-%\lhead[\helv \thepage]{\helv \rightmark}
-%\rhead[\helv \leftmark]{\helv \thepage}
-%\cfoot{}
 
 %-------------------------------------------------------------------------------
 %	OTHER PACKAGES 
@@ -100,6 +78,7 @@
 
 \usepackage{longtable,tabulary,tabularx}
 \usepackage{pdflscape}
+
 %-------------------------------------------------------------------------------
 %	TABULARY AND LONGTABLE http://tex.stackexchange.com/questions/78075/multi-page-with-tabulary
 %-------------------------------------------------------------------------------
@@ -150,7 +129,6 @@
 
 \newcommand{\reffig}[1]{figure \ref{fig:#1}}
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
-\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
 
 \newcommand{\Code}[1]{\texttt{#1}}
 \newcommand{\BornAgain}{\Code{BornAgain}}%
@@ -179,6 +157,35 @@
 
 \DeclareMathOperator{\sinc}{sinc}
 
+%vector notations
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
+\newcommand{\vectr}{\vect{r}}
+\newcommand{\vectk}{\vect{k}}
+\newcommand{\vectkt}{\vect{\widetilde{k}}}
+\newcommand{\vectq}{\vect{q}}
+
+%curly letters
+\newcommand{\curlf}{\ensuremath{\mathcal{F}}}
+\newcommand{\curlp}{\ensuremath{\mathcal{P}}}
+
+%basic QM notation (bra, ket, operators, ...)
+\newcommand{\oper}[1]{\ensuremath{\mathbf{\hat{#1}}}}
+\newcommand{\bra}[1]{\ensuremath{\langle #1 \vert}}
+\newcommand{\ket}[1]{\ensuremath{\vert #1 \rangle}}
+\newcommand{\braket}[3]{\ensuremath{\left\langle #1 \vert #2 \vert #3 \right\rangle}}
+\newcommand{\braketnoop}[2]{\ensuremath{\left\langle #1 \vert #2 \right\rangle}}
+
+%pair correlation functions
+\newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \vect{#3}_{#1} , \vect{#3}_{#2} \right)}}
+\newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \vect{#3}_{#1 #2} \right)}}
+
+%ensemble average
+\newcommand{\ensavg}[2]{\ensuremath{\left\langle #2 \right\rangle_{#1} }}
+
+%reference to equations
+\newcommand{\refeq}[1]{equation (\ref{eq:#1})}
+
 %-------------------------------------------------------------------------------
 %	TITLE PAGE
 %-------------------------------------------------------------------------------
@@ -205,7 +212,6 @@ Forschungszentrum J\"ulich GmbH
 
 \date{{}}
 
-
 %------------------------------------------------------------------------------
 %	DOCUMENT
 %------------------------------------------------------------------------------
@@ -223,17 +229,20 @@ Forschungszentrum J\"ulich GmbH
 \input{QuickStart}
 \input{Installation}
 \input{Simulation}
-%\input{ff}
+\input{Gui}
+\input{Theory}
 \input{Fitting}
 \input{SoftwareArchitecture}
-\input{SoftwareDesignOverview}
+%\input{SoftwareDesignOverview}
+
 \appendix
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 %\addtocontents{lof}{\protect\setcounter{tocdepth}{2}}
-
 \input{AppendixListings}
+\input{theoryapp}
 \input{ff}
-\input{interferences}
+%\input{interferences}
+%benchmarking - comparison with Isgisaxs
 %\input{AppendixPhysics}
 
 \bibliographystyle{switch}

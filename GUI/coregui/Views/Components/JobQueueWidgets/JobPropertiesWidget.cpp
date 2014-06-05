@@ -145,7 +145,7 @@ void JobPropertiesWidget::valueChanged(QtProperty *property, const QVariant &val
 //! to update properties of currently selected item if they were changed from outside
 void JobPropertiesWidget::dataChanged(const QModelIndex &index, const QModelIndex &)
 {
-    qDebug() << "JobPropertiesWidget::dataChanged()";
+    //qDebug() << "JobPropertiesWidget::dataChanged()";
     JobItem *jobItem = m_jobQueueModel->getJobItemForIndex(index);
     if(jobItem == m_currentItem) {
         idToProperty[JobQueueXML::JobNameAttribute]->setValue(jobItem->getName());

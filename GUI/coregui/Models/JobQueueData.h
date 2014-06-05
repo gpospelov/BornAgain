@@ -1,6 +1,7 @@
 #ifndef JOBQUEUEDATA_H
 #define JOBQUEUEDATA_H
 
+#include "JobItem.h"
 #include <QObject>
 #include <QString>
 #include <QMap>
@@ -19,7 +20,7 @@ class JobQueueData : public QObject
     Q_OBJECT
 public:
 
-    JobQueueItem *createJobQueueItem(QString jobName = QString(), Simulation *simulation = 0);
+    JobQueueItem *createJobQueueItem(QString jobName = QString(), Simulation *simulation = 0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
 
     const JobItem *getJobItem(QString identifier) const;
     JobItem *getJobItem(QString identifier);
@@ -32,6 +33,7 @@ public:
 
 signals:
     void globalProgress(int);
+    void focusRequest(JobItem *item);
 
 public slots:
     void onStartedJob();

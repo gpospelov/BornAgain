@@ -66,7 +66,11 @@ public:
     //! clear parameter pool
     virtual void clearParameterPool() { m_parameters.clear(); }
 
+    friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m)
+    { m.print(ostr); return ostr; }
+
 protected:
+    virtual void print(std::ostream& ostr) const;
     //! registers class parameters in the parameter pool
     virtual void init_parameters();
 

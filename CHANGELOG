@@ -1,3 +1,25 @@
+BornAgain-0.9.6, released 2014.06.04
+  > Summary: Diverse GUI items (OutputData Widget, basic simulation functionality) + big form factor issue
+  * Feature #597: Attach Instrument view to session model
+  * Feature #598: Implement OutputData widget
+  * Feature #599: Extend OutputData widget with projections
+  * Feature #603: Rafactor GUI version of MaterialManager
+  * Feature #610: Generate QStandardItem objects from the domain objects
+  * Feature #613: Complete correspondence between domain and GUI model objects
+  * Feature #622: Implement JobQueueModel and View
+  * Feature #629: Complete connection between SessionModel and JobQueueModel
+  * Feature #635: Integrate Mahadi's OutputDataWidget into JobQueueView
+  * Feature #646: Implement serialization of subitems of ParameterizedItem
+  * Feature #647: Implement serialization of MaterialManager
+  * Feature #648: Provide serialization of ParticleItem
+  * Feature #653: Implement ParticleView representing ParticleItem
+  * Feature #654: Complete IsGISAXS01 sample generation from GUI
+  * Feature #655: Implement parameterized items for 1D and 2D paracrystals
+  * Feature #657: Provide solution for form factor of big particles
+  * Feature #673: Provide editing of ParameterizedItem's name in property editor.
+  * Feature #678: Provide automatic switch to JobView after the job is completed.
+  * Feature #684: Test remote compilation via distcc
+
 BornAgain-0.9.5, released 2014.04.11
   > Summary: Refactoring in user API, working on GUI toward first beta.
   * Bug #605: Fitting examples under Windows doesn't update graphics in realtime

@@ -6,11 +6,31 @@ SimulationDataModel::SimulationDataModel()
 {
 }
 
+SimulationDataModel::~SimulationDataModel()
+{
+    clear();
+}
+
+
+void SimulationDataModel::clear()
+{
+    qDeleteAll(m_samples);
+    m_samples.clear();
+
+    qDeleteAll(m_sample_builders);
+    m_sample_builders.clear();
+
+    qDeleteAll(m_instruments);
+    m_instruments.clear();
+
+    qDeleteAll(m_simulation_parameters);
+    m_simulation_parameters.clear();
+}
+
+
 void SimulationDataModel::addSample(QString name, ISample *p_sample)
 {
-    if (!m_samples.contains(name)) {
-        m_samples.insert(name, p_sample);
-    }
+    m_samples.insertMulti(name, p_sample);
 }
 
 void SimulationDataModel::addSampleBuilder(QString name, ISampleBuilder *p_sample_builder)
@@ -22,9 +42,7 @@ void SimulationDataModel::addSampleBuilder(QString name, ISampleBuilder *p_sampl
 
 void SimulationDataModel::addInstrument(QString name, Instrument *p_instrument)
 {
-    if (!m_instruments.contains(name)) {
-        m_instruments.insert(name, p_instrument);
-    }
+    m_instruments.insertMulti(name, p_instrument);
 }
 
 void SimulationDataModel::changeInstrument(QString name, Instrument *p_instrument)

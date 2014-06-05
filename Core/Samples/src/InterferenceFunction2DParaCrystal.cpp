@@ -240,3 +240,31 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy,
 }
 
 
+std::vector<double> InterferenceFunction2DParaCrystal::getLatticeLengths() const
+{
+    std::vector<double> result;
+    result.resize(2);
+    result[0] = m_lattice_lengths[0];
+    result[1] = m_lattice_lengths[1];
+    return result;
+}
+
+std::vector<double> InterferenceFunction2DParaCrystal::getDomainSizes() const
+{
+    std::vector<double> result;
+    result.resize(2);
+    result[0] = m_domain_sizes[0];
+    result[1] = m_domain_sizes[1];
+    return result;
+}
+
+std::vector<const IFTDistribution2D *> InterferenceFunction2DParaCrystal::getPropabilityDistributions() const
+{
+    std::vector<const IFTDistribution2D *>  result;
+    result.resize(2);
+    result[0] = m_pdfs[0];
+    result[1] = m_pdfs[1];
+    return result;
+}
+
+

@@ -2,6 +2,7 @@
 #define JOBQUEUEMODEL_H
 
 #include "JobQueueData.h"
+#include "JobItem.h"
 #include <QAbstractListModel>
 #include <QList>
 #include <QModelIndex>
@@ -36,6 +37,8 @@ namespace JobQueueXML
     const QString OutputDataZmaxAttribute("Zmax");
     const QString OutputDataLogzAttribute("Logz");
     const QString OutputDataInterpolatedAttribute("Interpolated");
+    const QString OutputDataXtitleAttribute("Xtitle");
+    const QString OutputDataYtitleAttribute("Ytitle");
 }
 
 
@@ -63,7 +66,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,
                       int row, int column, const QModelIndex &parent);
 
-    QString addJob(QString jobName=QString(), Simulation *simulation=0);
+    QString addJob(QString jobName=QString(), Simulation *simulation=0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
 
     void clear();
 
@@ -80,6 +83,8 @@ public:
 
     const JobItem *getJobItemForIndex(const QModelIndex &index) const;
     JobItem *getJobItemForIndex(const QModelIndex &index);
+
+    QModelIndex getIndexForJobItem(const JobItem *item);
 
     JobQueueData *getJobQueueData() { return m_queue_data; }
 

@@ -8,6 +8,7 @@ class JobPropertiesWidget;
 class QSplitter;
 class QPushButton;
 class JobListWidget;
+class JobItem;
 
 
 //! Widget to select JobQueueItem in a list and display its properties
@@ -22,6 +23,9 @@ public:
 
     QSize sizeHint() const { return QSize(158, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
+
+public slots:
+    void makeJobItemSelected(JobItem *);
 
 private:
     JobQueueModel *m_jobQueueModel;

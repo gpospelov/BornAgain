@@ -19,13 +19,15 @@ public:
 
     int type() const { return Type; }
 
+    void setParameterizedItem(ParameterizedItem *item);
+
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 public slots:
-    void onPropertyChange(QString propertyName);
+    void onPropertyChange(const QString &propertyName);
 
 private:
     MultiLayerCandidate getMultiLayerCandidate();

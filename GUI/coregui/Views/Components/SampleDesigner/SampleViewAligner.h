@@ -1,33 +1,39 @@
 #ifndef SAMPLEVIEWALIGNER_H
 #define SAMPLEVIEWALIGNER_H
 
-
 #include <QMap>
-#include "IView.h"
+#include <QModelIndex>
+#include <QPointF>
+class DesignerScene;
+class IView;
+class ParameterizedItem;
 
 
-//! aligns IView's on graphics scene
+//! Makes alignment of sample droped on graphics scene.
+//! Implements additional algorithm for smart alignment.
 class SampleViewAligner
 {
 public:
+    SampleViewAligner(DesignerScene *scene);
 
-    static void align(QList<IView *> views, QPointF reference);
+    void alignSample(ParameterizedItem *item, QPointF reference = QPointF(), bool force_alignment = false);
+    void alignSample(const QModelIndex & parentIndex, QPointF reference = QPointF(), bool force_alignment = false);
+
+    void smartAlign();
+    void updateViews(const QModelIndex & parentIndex = QModelIndex());
+    void updateForces();
+    void calculateForces(IView *view);
+    void advance();
 
 private:
-    //! returns number of areas on graphics scene
-    static int getMaximumAreaNumber() { return 2;}
+    IView *getViewForIndex(const QModelIndex &index);
+    QList<IView *> getConnectedViews(IView *view);
 
-    //! place given items using given reference point
-    static QPointF placeItems(const QList<IView *> &items, QPointF reference);
-
-    //! returns total vertical space occupied by items
-    static qreal getTotalVerticalSpace(const QList<IView *> &items);
-
-    //! returns maximum horizontal space needed for items
-    static qreal getMaximumHorizontalSpace(const QList<IView *> &items);
-
-    static QMap<QString, int> m_typeToArea; //!< correspondance of ParameterizedItem's type and area on the screen,
+    DesignerScene *m_scene;
+    QList<IView *> m_views; //!< list of all views which are subject to smart align
+    QMap<IView *, QPointF> m_viewToPos;
 };
 
 
 #endif
+

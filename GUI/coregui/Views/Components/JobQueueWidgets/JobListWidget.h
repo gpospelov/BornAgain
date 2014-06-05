@@ -22,11 +22,13 @@ public:
     void setModel(JobQueueModel *model);
 //    QSize sizeHint() const { return QSize(128, 128); }
 
+public slots:
+    void makeJobItemSelected(const QModelIndex &index);
 
 private slots:
     void save();
     void submit();
-    void run();
+    void runJob();
     void removeJob();
 
 private:
@@ -35,9 +37,9 @@ private:
     JobQueueModel *m_jobQueueModel;
     JobListViewDelegate *m_listViewDelegate;
     QListView *m_listView;
-    QPushButton *m_submitButton;
-    QPushButton *m_runButton;
-    QPushButton *m_saveButton;
+//    QPushButton *m_submitButton;
+//    QPushButton *m_runButton;
+//    QPushButton *m_saveButton;
 };
 
 

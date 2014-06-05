@@ -1,16 +1,12 @@
 #include "SampleDesigner.h"
 #include "DesignerScene.h"
 #include "DesignerView.h"
-#include "DesignerWidgetFactory.h"
-#include "IViewToISample.h"
 #include "MultiLayerView.h"
 #include "ISample.h"
-
-#include "SamplePrintVisitor.h"
+#include <QDebug>
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
-    , m_widgetFactory(new DesignerWidgetFactory())
     , m_designerScene(0)
     , m_designerView(0)
 {
@@ -21,13 +17,17 @@ SampleDesigner::SampleDesigner(QWidget *parent)
 
 SampleDesigner::~SampleDesigner()
 {
-    delete m_widgetFactory;
 }
 
 
-void SampleDesigner::setSessionModel(SessionModel *model)
+void SampleDesigner::setSampleModel(SessionModel *sampleModel)
 {
-    if(model) m_designerScene->setSessionModel(model);
+    if(sampleModel) m_designerScene->setSampleModel(sampleModel);
+}
+
+void SampleDesigner::setInstrumentModel(SessionModel *instrumentModel)
+{
+    if(instrumentModel) m_designerScene->setInstrumentModel(instrumentModel);
 }
 
 
@@ -37,21 +37,7 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
 }
 
 
-
-void SampleDesigner::sceneToISample()
+void SampleDesigner::onSmartAlign()
 {
-//    SamplePrintVisitor print_visitor;
-
-//    MultiLayerView *view = getScene()->getMultiLayerView();
-//    std::cout << "SampleDesigner::sceneToISample() -> " << view<< std::endl;
-
-//    std::cout << "XXX --------" << std::endl;
-//    IViewToISample maker;
-//    ISample *isample = maker.makeISample(view);
-//    std::cout << "isample " << isample << std::endl;
-////    view->accept(&visitor);
-//    if(isample) {
-//        std::cout << "___________>>>" << std::endl;
-//        isample->accept(&print_visitor);
-//    }
+    m_designerScene->onSmartAlign();
 }

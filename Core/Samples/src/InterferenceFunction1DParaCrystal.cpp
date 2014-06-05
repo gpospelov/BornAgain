@@ -20,6 +20,7 @@ InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(double peak
     , m_width(width)
     , m_corr_length(corr_length)
     , m_use_corr_length(true)
+    , m_kappa(0.0)
 {
     setName("InterferenceFunction1DParaCrystal");
     if (m_corr_length==0.0) {

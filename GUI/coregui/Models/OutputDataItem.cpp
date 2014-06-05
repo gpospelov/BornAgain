@@ -16,6 +16,8 @@ OutputDataItem::OutputDataItem()
     , m_zaxis_max(0.0)
     , m_is_logz(true)
     , m_is_interpolated(true)
+    , m_xaxis_title("x-axis")
+    , m_yaxis_title("y-axis")
 {
 
 }
@@ -32,6 +34,107 @@ void OutputDataItem::setOutputData(OutputData<double> *data)
 }
 
 
+void OutputDataItem::setName(QString name)
+{
+    if(m_name != name) {
+        m_name = name;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setXaxisMin(double xmin)
+{
+    if(m_xaxis_min != xmin) {
+        m_xaxis_min = xmin;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setXaxisMax(double xmax)
+{
+    if(m_xaxis_max == xmax) {
+        m_xaxis_max = xmax;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setYaxisMin(double ymin)
+{
+    if(m_yaxis_min != ymin) {
+        m_yaxis_min = ymin;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setYaxisMax(double ymax)
+{
+    if(m_yaxis_max != ymax) {
+        m_yaxis_max = ymax;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setZaxisMin(double zmin)
+{
+    if(m_zaxis_min != zmin) {
+        m_zaxis_min = zmin;
+        emit modified();
+    }
+}
+
+
+void OutputDataItem::setZaxisMax(double zmax)
+{
+    if(m_zaxis_max != zmax) {
+        m_zaxis_max = zmax;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setZaxisRange(double zmin, double zmax)
+{
+    if(m_zaxis_min != zmin || m_zaxis_max != zmax) {
+        m_zaxis_min = zmin;
+        m_zaxis_max = zmax;
+        emit modified();
+    }
+}
+
+
+void OutputDataItem::setLogz(bool logz)
+{
+    if(m_is_logz != logz) {
+        m_is_logz = logz;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setInterpolated(bool interp)
+{
+    if(m_is_interpolated != interp) {
+        m_is_interpolated = interp;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setXaxisTitle(QString xtitle)
+{
+    if(m_xaxis_title != xtitle) {
+        m_xaxis_title = xtitle;
+        emit modified();
+    }
+}
+
+void OutputDataItem::setYaxisTitle(QString ytitle)
+{
+    if(m_yaxis_title != ytitle) {
+        m_yaxis_title = ytitle;
+        emit modified();
+    }
+}
+
+
+
 void OutputDataItem::writeTo(QXmlStreamWriter *writer)
 {
     Q_ASSERT(writer);
@@ -45,6 +148,8 @@ void OutputDataItem::writeTo(QXmlStreamWriter *writer)
     writer->writeAttribute(JobQueueXML::OutputDataZmaxAttribute, QString::number(getZaxisMax()));
     writer->writeAttribute(JobQueueXML::OutputDataLogzAttribute, QString::number(isLogz()));
     writer->writeAttribute(JobQueueXML::OutputDataInterpolatedAttribute, QString::number(isInterpolated()));
+    writer->writeAttribute(JobQueueXML::OutputDataXtitleAttribute, getXaxisTitle());
+    writer->writeAttribute(JobQueueXML::OutputDataYtitleAttribute, getYaxisTitle());
     writer->writeEndElement(); // OutputDataTag
 
 }
@@ -84,5 +189,10 @@ void OutputDataItem::readFrom(QXmlStreamReader *reader)
 
     setInterpolated(reader->attributes()
             .value(JobQueueXML::OutputDataInterpolatedAttribute).toInt());
+
+    setXaxisTitle(reader->attributes()
+                  .value(JobQueueXML::OutputDataXtitleAttribute).toString());
+    setYaxisTitle(reader->attributes()
+                  .value(JobQueueXML::OutputDataYtitleAttribute).toString());
 
 }

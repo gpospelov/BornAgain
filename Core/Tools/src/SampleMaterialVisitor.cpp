@@ -177,6 +177,11 @@ void SampleMaterialVisitor::visit(const IFormFactorBorn *)
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
 }
 
+void SampleMaterialVisitor::visit(const FormFactorAnisoPyramid *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorBox *) -> Error. Not implemented.");
+}
+
 
 void SampleMaterialVisitor::visit(const FormFactorBox *)
 {
@@ -199,6 +204,11 @@ void SampleMaterialVisitor::visit(const FormFactorCone6 *)
 void SampleMaterialVisitor::visit(const FormFactorCrystal *)
 {
 //    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorCrystal *) -> Error. Not implemented.");
+}
+
+void SampleMaterialVisitor::visit(const FormFactorCuboctahedron *)
+{
+//    throw NotImplementedException("SampleMaterialVisitor::visit(const FormFactorCylinder *) -> Error. Not implemented.");
 }
 
 

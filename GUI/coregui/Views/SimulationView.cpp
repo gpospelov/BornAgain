@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "PythonScriptSampleBuilder.h"
 #include "JobQueueModel.h"
+#include "JobItem.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -15,10 +16,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
-#include <QDateTime>
-#include <QFuture>
-#include <QFutureWatcher>
 #include <QtCore>
+#include <QMenu>
 
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
@@ -62,6 +61,14 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
     latticeTypeSelectionBox->addItem(tr("Lattice"));
     latticeTypeSelectionBox->addItem(tr("Para1D"));
     latticeTypeSelectionBox->addItem(tr("Para1DFinite"));
+    // run policy
+    QLabel *runPolicyLabel = new QLabel(tr("Run Policy:"));
+    runPolicySelectionBox = new QComboBox;
+    runPolicySelectionBox->addItem(tr("Immediately"));
+    runPolicySelectionBox->addItem(tr("In background"));
+    runPolicySelectionBox->addItem(tr("Submit only"));
+    runPolicySelectionBox->addItem(tr("Real time"));
+
       // layout
     QGridLayout *simulationParametersLayout = new QGridLayout;
     simulationParametersLayout->addWidget(frameworkLabel, 0, 0);
@@ -70,26 +77,38 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
     simulationParametersLayout->addWidget(interferenceFunctionSelectionBox, 1, 1);
     simulationParametersLayout->addWidget(latticeTypeLabel, 2, 0);
     simulationParametersLayout->addWidget(latticeTypeSelectionBox, 2, 1);
+    simulationParametersLayout->addWidget(runPolicyLabel, 3, 0);
+    simulationParametersLayout->addWidget(runPolicySelectionBox, 3, 1);
     simulationParametersGroup->setLayout(simulationParametersLayout);
 
+    QHBoxLayout *simButtonLayout = new QHBoxLayout;
     // run simulation button
     runSimulationButton = new QPushButton(tr("Run Simulation"));
+    runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
+    runSimulationButton->setMinimumWidth(100);
+    runSimulationButton->setMinimumHeight(50);
+
+    simButtonLayout->addStretch();
+    simButtonLayout->addWidget(runSimulationButton);
+    simButtonLayout->addStretch();
+
 
     // run simulation with python script sample builder
-    runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));
+    //runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(inputDataGroup);
     mainLayout->addWidget(simulationParametersGroup);
-    mainLayout->addWidget(runSimulationButton);
-    mainLayout->addWidget(runPyScriptSimulation);
+    //mainLayout->addWidget(runSimulationButton);
+    //mainLayout->addWidget(runPyScriptSimulation);
+    mainLayout->addLayout(simButtonLayout);
     mainLayout->addStretch();
     setLayout(mainLayout);
 
     // signal and slots
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
-    connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
+    //connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
 }
 
 
@@ -105,9 +124,22 @@ void SimulationView::setJobQueueModel(JobQueueModel *model)
 void SimulationView::updateViewElements()
 {
     instrumentSelectionBox->clear();
-    instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+    if(mp_simulation_data_model->getInstrumentList().isEmpty()) {
+        instrumentSelectionBox->addItem("No instrument defined yet");
+        instrumentSelectionBox->setEnabled(false);
+    } else {
+        instrumentSelectionBox->setEnabled(true);
+        instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+    }
+
     sampleSelectionBox->clear();
-    sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
+    if(mp_simulation_data_model->getSampleList().isEmpty()) {
+        sampleSelectionBox->addItem("No sample to simulate yet");
+        sampleSelectionBox->setEnabled(false);
+    } else {
+        sampleSelectionBox->setEnabled(true);
+        sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
+    }
 }
 
 void SimulationView::onRunSimulation()
@@ -131,8 +163,15 @@ void SimulationView::onRunSimulation()
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
 
-    QString identifier = m_jobQueueModel->addJob("SimulationView", p_sim);
-    m_jobQueueModel->runJob(identifier);
+    if(runPolicySelectionBox->currentText() == "Immediately") {
+        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunImmediately);
+    } else if(runPolicySelectionBox->currentText() == "In background") {
+        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::RunInBackground);
+    } else if(runPolicySelectionBox->currentText() == "Submit only") {
+        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
+    } else {
+        m_jobQueueModel->addJob(p_sample->getName().c_str(), p_sim, JobItem::SubmitOnly);
+    }
 }
 
 void SimulationView::onPythonJobLaunched()

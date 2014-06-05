@@ -1,4 +1,5 @@
 #include "projectdocument.h"
+#include "MaterialModel.h"
 #include "SessionModel.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
@@ -15,7 +16,9 @@
 
 
 ProjectDocument::ProjectDocument()
-    : m_sessionModel(0)
+    : m_materialModel(0)
+    , m_instrumentModel(0)
+    , m_sampleModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
 {
@@ -23,7 +26,7 @@ ProjectDocument::ProjectDocument()
 }
 
 ProjectDocument::ProjectDocument(const QString &projectFileName)
-    : m_sessionModel(0)
+    : m_sampleModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
 {
@@ -47,7 +50,8 @@ void ProjectDocument::setProjectFileName(const QString &projectFileName)
 ProjectDocument::ProjectDocument(const QString &path, const QString &name)
     : m_project_path(path)
     , m_project_name(name)
-    , m_sessionModel(0)
+    , m_materialModel(0)
+    , m_sampleModel(0)
     , m_jobQueueModel(0)
     , m_modified(false)
 {
@@ -57,18 +61,37 @@ ProjectDocument::ProjectDocument(const QString &path, const QString &name)
 
 void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    qDebug() << "ProjectDocument::onDataChanged()";
+    //qDebug() << "ProjectDocument::onDataChanged()";
     m_modified = true;
     emit modified();
 }
 
 
-void ProjectDocument::setSessionModel(SessionModel *model)
+void ProjectDocument::setMaterialModel(MaterialModel *model)
 {
-    if(model != m_sessionModel) {
-        if(m_sessionModel) disconnect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-        m_sessionModel = model;
-        connect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    if(model != m_materialModel) {
+        if(m_materialModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        m_materialModel = model;
+        connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    }
+}
+
+void ProjectDocument::setInstrumentModel(SessionModel *model)
+{
+    if(model != m_instrumentModel) {
+        if(m_instrumentModel) disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        m_instrumentModel = model;
+        connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    }
+}
+
+
+void ProjectDocument::setSampleModel(SessionModel *model)
+{
+    if(model != m_sampleModel) {
+        if(m_sampleModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        m_sampleModel = model;
+        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }
 }
 
@@ -140,8 +163,14 @@ bool ProjectDocument::load()
 
 bool ProjectDocument::readFrom(QIODevice *device)
 {
-    Q_ASSERT(m_sessionModel);
-    disconnect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    Q_ASSERT(m_materialModel);
+    disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+
+    Q_ASSERT(m_instrumentModel);
+    disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+
+    Q_ASSERT(m_sampleModel);
+    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
     Q_ASSERT(m_jobQueueModel);
     disconnect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
@@ -154,10 +183,20 @@ bool ProjectDocument::readFrom(QIODevice *device)
 
             if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
-            } else if(reader.name() == SessionXML::ModelTag) {
-                m_sessionModel->readFrom(&reader);
+            }
+            else if(reader.name() == MaterialXML::ModelTag) {
+                m_materialModel->readFrom(&reader);
 
-            } else if(reader.name() == JobQueueXML::ModelTag) {
+            }
+            else if(reader.name() == SessionXML::InstrumentModelTag) {
+                m_instrumentModel->readFrom(&reader);
+
+            }
+            else if(reader.name() == SessionXML::SampleModelTag) {
+                m_sampleModel->readFrom(&reader);
+
+            }
+            else if(reader.name() == JobQueueXML::ModelTag) {
                 m_jobQueueModel->readFrom(&reader);
             }
         }
@@ -166,7 +205,9 @@ bool ProjectDocument::readFrom(QIODevice *device)
     if (reader.hasError())
         throw GUIHelpers::Error(reader.errorString());
 
-    connect(m_sessionModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     connect(m_jobQueueModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
 
     return true;
@@ -186,8 +227,14 @@ bool ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
     writer.writeEndElement(); // InfoTag
 
-    Q_ASSERT(m_sessionModel);
-    m_sessionModel->writeTo(&writer);
+    Q_ASSERT(m_materialModel);
+    m_materialModel->writeTo(&writer);
+
+    Q_ASSERT(m_instrumentModel);
+    m_instrumentModel->writeTo(&writer);
+
+    Q_ASSERT(m_sampleModel);
+    m_sampleModel->writeTo(&writer);
 
     Q_ASSERT(m_jobQueueModel);
     m_jobQueueModel->writeTo(&writer);

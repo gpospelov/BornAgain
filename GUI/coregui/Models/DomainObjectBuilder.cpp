@@ -15,11 +15,14 @@
 
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
+#include "GUIHelpers.h"
+#include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
 
 DomainObjectBuilder::DomainObjectBuilder()
     : mp_sample(0)
+    , m_instrument(0)
 {
 
 }
@@ -27,16 +30,21 @@ DomainObjectBuilder::DomainObjectBuilder()
 DomainObjectBuilder::~DomainObjectBuilder()
 {
     delete mp_sample;
+    delete m_instrument;
 }
 
 void DomainObjectBuilder::buildItem(const ParameterizedItem &item)
 {
-    if (item.modelType() == QString("MultiLayer")) {
+    if (item.modelType() == QStringLiteral("MultiLayer")) {
         delete mp_sample;
         mp_sample = buildMultiLayer(item);
     }
+    else if(item.modelType() == QStringLiteral("MultiLayer")) {
+        delete m_instrument;
+        m_instrument = buildInstrument(item);
+    }
     else {
-        // not a suitable top level object (throw?)
+        throw GUIHelpers::Error("DomainObjectBuilder::buildItem() -> Error. Not a suitable top level object.");
     }
 }
 
@@ -72,9 +80,78 @@ Layer *DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
     return result;
 }
 
+
 ParticleLayout *DomainObjectBuilder::buildParticleLayout(
         const ParameterizedItem &item) const
 {
     ParticleLayout *result = TransformToDomain::createParticleLayout(item);
+    QList<ParameterizedItem *> children = item.childItems();
+    for (int i=0; i<children.size(); ++i) {
+        if (children[i]->modelType() == QString("Particle")) {
+            double depth(0), abundance(0);
+            boost::scoped_ptr<Particle>
+                    particle(buildParticle(*children[i], depth, abundance));
+            if (particle.get()) {
+                result->addParticle(*particle, depth, abundance);
+            }
+        }
+        else if(children[i]->modelType().startsWith("InterferenceFunction")) {
+            boost::scoped_ptr<IInterferenceFunction>
+                    interference(buildInterferenceFunction(*children[i]));
+            if (interference.get()) {
+                result->addInterferenceFunction(*interference);
+            }
+        }
+
+        else {
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
+        }
+    }
     return result;
 }
+
+
+Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const
+{
+    Particle *result = TransformToDomain::createParticle(item, depth, abundance);
+    return result;
+}
+
+IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const ParameterizedItem &item) const
+{
+    IInterferenceFunction *result = TransformToDomain::createInterferenceFunction(item);
+    Q_ASSERT(result);
+    return result;
+}
+
+
+Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) const
+{
+    qDebug() << "DomainObjectBuilder::buildInstrument";
+    Instrument *result = TransformToDomain::createInstrument(item);
+    QList<ParameterizedItem *> children = item.childItems();
+    for (int i=0; i<children.size(); ++i) {
+        qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
+        if (children[i]->modelType() == QString("Beam")) {
+            boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
+            if (P_beam.get()) {
+                result->setBeam(*P_beam);
+            }
+        }
+        else if (children[i]->modelType() == QString("Detector")) {
+            TransformToDomain::initInstrumentFromDetectorItem(*children[i], result);
+        }
+
+    }
+
+    return result;
+}
+
+Beam *DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
+{
+    qDebug() << "DomainObjectBuilder::buildBeam()";
+    Beam *result = TransformToDomain::createBeam(item);
+    return result;
+}
+
+

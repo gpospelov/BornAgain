@@ -63,8 +63,8 @@ public:
 
     virtual bool containsMagneticMaterial() const;
 
-protected:
-    virtual void print(std::ostream& ostr) const;
+//protected:
+//    virtual void print(std::ostream& ostr) const;
 };
 
 #endif // ISAMPLE_H

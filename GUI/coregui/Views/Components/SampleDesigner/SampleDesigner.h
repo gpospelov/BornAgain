@@ -40,14 +40,14 @@ public:
 
     QWidget *getCentralWidget() { return m_designerView; }
 
-    void setSessionModel(SessionModel *model);
+    void setSampleModel(SessionModel *sampleModel);
+    void setInstrumentModel(SessionModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:
-    void sceneToISample();
+    void onSmartAlign();
 
 private:
-    DesignerWidgetFactory *m_widgetFactory; //! factory to make views of ISample objects
     DesignerScene *m_designerScene; //! scene which holds all objects
     DesignerView *m_designerView;   //! graphical representation of scene with object
 };

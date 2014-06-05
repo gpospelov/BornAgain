@@ -18,20 +18,31 @@
 #include "LayerItem.h"
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
+#include "ParaCrystalItems.h"
+#include "InstrumentItem.h"
+#include "BeamItem.h"
+#include "DetectorItems.h"
+#include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("MultiLayer")
         << QString("Layer")
         << QString("ParticleLayout")
-        << QString("Particle");
+        << QString("Particle")
+        << QString("InterferenceFunction1DParaCrystal")
+        << QString("InterferenceFunction2DParaCrystal")
+        << QString("Instrument")
+        << QString("Detector")
+        << QString("Beam");
 
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
+    //qDebug() << "ItemFactory::createItem() -> " << model_name << parent;
     if (model_name.isEmpty()) {
         return createEmptyItem();
     }
-    if (!m_all_item_names.contains(model_name)) {
+    if (!isValidName(model_name)) {
         return 0;
     }
     if (model_name==QString("MultiLayer")) {
@@ -46,6 +57,22 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     else if (model_name==QString("Particle")) {
         return new ParticleItem(parent);
     }
+    else if (model_name==QString("InterferenceFunction1DParaCrystal")) {
+        return new InterferenceFunction1DParaCrystalItem(parent);
+    }
+    else if (model_name==QString("InterferenceFunction2DParaCrystal")) {
+        return new InterferenceFunction2DParaCrystalItem(parent);
+    }
+    else if (model_name==QString("Instrument")) {
+        return new InstrumentItem(parent);
+    }
+    else if (model_name==QString("Beam")) {
+        return new BeamItem(parent);
+    }
+    else if (model_name==QString("Detector")) {
+        return new DetectorItem(parent);
+    }
+
     return 0;
 }
 

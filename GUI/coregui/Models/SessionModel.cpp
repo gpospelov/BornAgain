@@ -16,7 +16,11 @@
 #include "SessionModel.h"
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
-#include "MaterialBrowser.h"
+#include "MaterialEditor.h"
+//#include "FormFactorProperty.h"
+#include "GroupProperty.h"
+#include "ComboProperty.h"
+#include "IconProvider.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -31,16 +35,19 @@ enum Column {
 };
 }
 
-SessionModel::SessionModel(QObject *parent)
+SessionModel::SessionModel(QString model_tag, QObject *parent)
     : QAbstractItemModel(parent)
     , m_root_item(0)
     , m_name("DefaultName")
+    , m_model_tag(model_tag)
+    , m_iconProvider(0)
 {
 }
 
 SessionModel::~SessionModel()
 {
     delete m_root_item;
+    delete m_iconProvider;
 }
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex &index) const
@@ -73,6 +80,9 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
             case ModelType: return item->modelType();
             default: return QVariant();
             }
+        }
+        else if(role == Qt::DecorationRole && m_iconProvider) {
+            return m_iconProvider->icon(item->modelType());
         }
     }
     return QVariant();
@@ -138,6 +148,7 @@ bool SessionModel::setData(const QModelIndex &index,
     if (!index.isValid() || index.column()!=ItemName) return false;
     if (ParameterizedItem *item = itemForIndex(index)) {
         if (role==Qt::EditRole) {
+            qDebug() << "SessionModel::setData ";
             item->setItemName(value.toString());
         }
         else return false;
@@ -268,11 +279,7 @@ void SessionModel::clear()
 void SessionModel::load(const QString &filename)
 {
     beginResetModel();
-    if (!filename.isEmpty())
-        m_filename = filename;
-    if (m_filename.isEmpty())
-        throw GUIHelpers::Error(tr("no filename specified"));
-    QFile file(m_filename);
+    QFile file(filename);
     if (!file.open(QIODevice::ReadOnly))
         throw GUIHelpers::Error(file.errorString());
     clear();
@@ -285,11 +292,38 @@ void SessionModel::load(const QString &filename)
 }
 
 
+void SessionModel::save(const QString &filename)
+{
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
+        throw GUIHelpers::Error(file.errorString());
+
+    QXmlStreamWriter writer(&file);
+    writer.setAutoFormatting(true);
+    writer.writeStartDocument();
+    writer.writeStartElement("BornAgain");
+    writer.writeAttribute("Version", "1.9");
+    writeItemAndChildItems(&writer, m_root_item);
+    writer.writeEndElement(); // BornAgain
+    writer.writeEndDocument();
+}
+
+
+ParameterizedItem *SessionModel::itemForIndex(const QModelIndex &index) const
+{
+    if (index.isValid()) {
+        if (ParameterizedItem *item = static_cast<ParameterizedItem *>(
+                    index.internalPointer()))
+            return item;
+    }
+    return m_root_item;
+}
+
 void SessionModel::readFrom(QXmlStreamReader *reader)
 {
     Q_ASSERT(reader);
 
-    if(reader->name() != SessionXML::ModelTag) {
+    if(reader->name() != m_model_tag) {
         throw GUIHelpers::Error("SessioneModel::readFrom() -> Format error in p1");
     }
 
@@ -309,37 +343,49 @@ void SessionModel::readFrom(QXmlStreamReader *reader)
 }
 
 
-void SessionModel::save(const QString &filename)
-{
-    if (!filename.isEmpty())
-        m_filename = filename;
-    if (m_filename.isEmpty())
-        throw GUIHelpers::Error(tr("no filename specified"));
-    QFile file(m_filename);
-    if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
-        throw GUIHelpers::Error(file.errorString());
-
-    QXmlStreamWriter writer(&file);
-    writer.setAutoFormatting(true);
-    writer.writeStartDocument();
-    writer.writeStartElement("BornAgain");
-    writer.writeAttribute("Version", "1.9");
-    writeItemAndChildItems(&writer, m_root_item);
-    writer.writeEndElement(); // BornAgain
-    writer.writeEndDocument();
-}
-
-
 void SessionModel::writeTo(QXmlStreamWriter *writer)
 {
-    writer->writeStartElement(SessionXML::ModelTag);
+    writer->writeStartElement(m_model_tag);
     writer->writeAttribute(SessionXML::ModelNameAttribute, m_name);
 
+    qDebug() << "SessionModel::writeTo";
     writeItemAndChildItems(writer, m_root_item);
 
-    writer->writeEndElement(); // ModelTag
+    writer->writeEndElement(); // m_model_tag
 }
 
+
+void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent, int row)
+{
+    qDebug() << "";
+    qDebug() << "";
+    qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
+
+    if(!new_parent) new_parent = m_root_item;
+
+    if(item->parent() == new_parent && indexOfItem(item).row() == row) {
+        qDebug() << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
+        return;
+    }
+
+    QByteArray xml_data;
+    QXmlStreamWriter writer(&xml_data);
+    writeItemAndChildItems(&writer, item);
+
+    QXmlStreamReader reader(xml_data);
+    if (row == -1) row = new_parent->childItemCount();
+
+    qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
+    beginInsertRows(indexOfItem(new_parent), row, row);
+    readItems(&reader, new_parent, row);
+    endInsertRows();
+
+    qDebug() << " ";
+    qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
+
+    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
+
+}
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
@@ -357,91 +403,138 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
     Q_ASSERT(new_item);
+    connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
     return new_item;
-}
-
-ParameterizedItem *SessionModel::itemForIndex(const QModelIndex &index) const
-{
-    if (index.isValid()) {
-        if (ParameterizedItem *item = static_cast<ParameterizedItem *>(
-                    index.internalPointer()))
-            return item;
-    }
-    return m_root_item;
 }
 
 void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                              int row)
 {
+    qDebug() << "SessionModel::readItems() ";
+    bool inside_parameter_tag = false;
+    QString parent_parameter_name;
     while (!reader->atEnd()) {
         reader->readNext();
         if (reader->isStartElement()) {
             if (reader->name() == SessionXML::ItemTag) {
                 const QString model_type = reader->attributes()
                         .value(SessionXML::ModelTypeAttribute).toString();
-                item = insertNewItem(model_type, item, row);
                 const QString item_name = reader->attributes()
                         .value(SessionXML::ItemNameAttribute).toString();
+                if (inside_parameter_tag) {
+                    ParameterizedItem *parent = item;
+                    item = parent->getSubItems()[parent_parameter_name];
+                    Q_ASSERT(item);
+                }
+                else {
+                    item = insertNewItem(model_type, item, row);
+                }
                 item->setItemName(item_name);
                 row = -1; // all but the first item should be appended
             }
             else if (reader->name() == SessionXML::ParameterTag) {
-                readProperty(reader, item);
+                parent_parameter_name = readProperty(reader, item);
+                inside_parameter_tag = true;
             }
         }
         else if (reader->isEndElement()) {
             if (reader->name() == SessionXML::ItemTag) {
                 item = item->parent();
             }
-            if (reader->name() == SessionXML::ModelTag) {
+            if (reader->name() == m_model_tag) {
                 break;
+            }
+            if (reader->name() == SessionXML::ParameterTag) {
+                inside_parameter_tag = false;
             }
         }
     }
 }
 
 
-void SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
+QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
 {
+    qDebug() << "SessionModel::readProperty() ";
     const QString parameter_name = reader->attributes()
             .value(SessionXML::ParameterNameAttribute)
             .toString();
     const QString parameter_type = reader->attributes()
             .value(SessionXML::ParameterTypeAttribute)
             .toString();
+    //qDebug() << "           SessionModel::readProperty " << item->itemName() << item->modelType() << parameter_name << parameter_type << parameter_name.toUtf8().constData();
     if (parameter_type == "double") {
         double parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toDouble();
-        item->setProperty(parameter_name.toUtf8().constData(),
-                          parameter_value);
+        item->setRegisteredProperty(parameter_name, parameter_value);
+
+    }
+    else if (parameter_type == "int") {
+            double parameter_value = reader->attributes()
+                    .value(SessionXML::ParameterValueAttribute)
+                    .toInt();
+            item->setRegisteredProperty(parameter_name, parameter_value);
+    }
+    else if (parameter_type == "bool") {
+        bool parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toInt();
+//        item->setProperty(parameter_name.toUtf8().constData(),
+//                          parameter_value);
+        item->setRegisteredProperty(parameter_name, parameter_value);
+
     }
     else if (parameter_type == "QString") {
         QString parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toString();
-        item->setProperty(parameter_name.toUtf8().constData(),
-                          parameter_value);
+//        item->setProperty(parameter_name.toUtf8().constData(),
+//                          parameter_value);
+        item->setRegisteredProperty(parameter_name, parameter_value);
+
     }
     else if (parameter_type == "MaterialProperty") {
         QString parameter_value = reader->attributes()
                 .value(SessionXML::ParameterValueAttribute)
                 .toString();
         QVariant mat_variant;
-        mat_variant.setValue(MaterialBrowser::getMaterialProperty());
-        item->setProperty(parameter_name.toUtf8().constData(),
-                          mat_variant);
+        mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
+        item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
     }
+    else if (parameter_type == "GroupProperty") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+        GroupProperty group_prop(parameter_name, parameter_value);
+        QVariant group_variant;
+        group_variant.setValue(group_prop);
+        item->setGroupProperty(parameter_name, parameter_value);
+    }
+    else if (parameter_type == "ComboProperty") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+
+        ComboProperty combo_property = item->getRegisteredProperty(parameter_name).value<ComboProperty>();
+        combo_property.setValue(parameter_value);
+        item->setRegisteredProperty(parameter_name, combo_property.getVariant());
+    }
+
+
     else {
-        throw GUIHelpers::Error(tr("SessionModel::readProperty: "
-                                   "Parameter type not supported"));
+        throw GUIHelpers::Error("SessionModel::readProperty: "
+                                   "Parameter type not supported"+parameter_type);
     }
+    return parameter_name;
 }
 
 void SessionModel::writeItemAndChildItems(QXmlStreamWriter *writer,
                                           ParameterizedItem *item) const
 {
+    if(!m_root_item) return;
+    qDebug() << "SessionModel::writeItemAndChildItems " << item << m_root_item;
+    Q_ASSERT(item);
     if (item != m_root_item) {
         writer->writeStartElement(SessionXML::ItemTag);
         writer->writeAttribute(SessionXML::ModelTypeAttribute,
@@ -466,6 +559,7 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
                                  ParameterizedItem *item,
                                  const char *property_name) const
 {
+    QMap<QString, ParameterizedItem *> sub_items = item->getSubItems();
     QVariant variant = item->property(property_name);
     if (variant.isValid()) {
         writer->writeStartElement(SessionXML::ParameterTag);
@@ -478,6 +572,14 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 QString::number(variant.toDouble(), 'e', 12));
         }
+        else if (type_name == QString("int")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                QString::number(variant.toInt()));
+        }
+        else if (type_name == QString("bool")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                QString::number(variant.toBool()));
+        }
         else if (type_name == QString("QString")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.toString());
@@ -487,43 +589,56 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 material_name);
         }
+        else if (type_name == QString("GroupProperty")) {
+            QString ff_name =
+                    variant.value<GroupProperty>().getValue();
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                ff_name);
+        }
+        else if (type_name == QString("ComboProperty")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                variant.value<ComboProperty>().getValue());
+
+        }
+
         else {
             throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
-                                       "Parameter type not supported"));
+                                       "Parameter type not supported ")+type_name);
+        }
+        if (sub_items.contains(QString(property_name))) {
+            writePropertyItem(writer, sub_items[QString(property_name)]);
         }
         writer->writeEndElement(); // end ParameterTag
     }
 }
 
-
-
-void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedItem *new_parent, int row)
+void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
+                                     ParameterizedItem *item) const
 {
-    qDebug() << "";
-    qDebug() << "";
-    qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
-
-    if(!new_parent) new_parent = m_root_item;
-
-    if(item->parent() == new_parent && indexOfItem(item).row() == row) {
-        qDebug() << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
-        return;
+    writer->writeStartElement(SessionXML::ItemTag);
+    writer->writeAttribute(SessionXML::ModelTypeAttribute,
+                           item->modelType());
+    writer->writeAttribute(SessionXML::ItemNameAttribute,
+                           item->itemName());
+    QListIterator<QByteArray> it(item->dynamicPropertyNames());
+    while (it.hasNext()) {
+        const char *name = it.next().constData();
+        writeProperty(writer, item, name);
     }
-
-    QByteArray xml_data;
-    QXmlStreamWriter writer(&xml_data);
-    writeItemAndChildItems(&writer, item);
-
-    QXmlStreamReader reader(xml_data);
-    if (row == -1) row = new_parent->childItemCount();
-
-    qDebug() << "    >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
-    beginInsertRows(indexOfItem(new_parent), row, row);
-    readItems(&reader, new_parent, row);
-    endInsertRows();
-
-    qDebug() << "    >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
-
-    removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
-
+    foreach (ParameterizedItem *child_item, item->childItems()) {
+        writeItemAndChildItems(writer, child_item);
+    }
+        writer->writeEndElement(); // ItemTag
 }
+
+
+void SessionModel::onItemPropertyChange(const QString &name)
+{
+    qDebug() << "SessionModel::onItemPropertyChange()" << name;
+    ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
+    Q_ASSERT(item);
+    QModelIndex itemIndex = indexOfItem(item);
+    Q_ASSERT(itemIndex.isValid());
+    emit dataChanged(itemIndex, itemIndex);
+}
+

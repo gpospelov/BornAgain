@@ -44,6 +44,8 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
+    virtual double getHeightFlattening() const { return m_height_flattening; }
+
     virtual double getRadius() const { return m_radius; }
 
     virtual double getHeightFullSpheroid() const

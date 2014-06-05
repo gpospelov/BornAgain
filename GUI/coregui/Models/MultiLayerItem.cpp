@@ -15,13 +15,16 @@
 
 #include "MultiLayerItem.h"
 
+const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
 
 MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("MultiLayer"), parent)
 {
-    setProperty("Cross Correlation Length", 0.0);
+    registerProperty(P_CROSS_CORR_LENGTH, 0.0);
     m_valid_children.append(QString("Layer"));
     m_valid_children.append(QString("MultiLayer"));
+
+    setPropertyVisibility(ParameterizedItem::P_NAME, ParameterizedItem::VisibleProperty);
 }
 
 MultiLayerItem::~MultiLayerItem()

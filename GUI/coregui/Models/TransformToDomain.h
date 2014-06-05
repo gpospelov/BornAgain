@@ -17,13 +17,22 @@
 #define TRANSFORMTODOMAIN_H
 
 #include "Samples.h"
+#include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
+#include "Instrument.h"
 
 namespace TransformToDomain
 {
+IMaterial *createDomainMaterial(const ParameterizedItem &item);
 MultiLayer *createMultiLayer(const ParameterizedItem &item);
 Layer *createLayer(const ParameterizedItem &item);
 ParticleLayout *createParticleLayout(const ParameterizedItem &item);
+Particle *createParticle(const ParameterizedItem &item, double &depth, double &abundance);
+IFormFactor *createFormFactor(const ParameterizedItem &item);
+IInterferenceFunction *createInterferenceFunction(const ParameterizedItem &item);
+Instrument *createInstrument(const ParameterizedItem &item);
+Beam *createBeam(const ParameterizedItem &item);
+void initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument);
 }
 
 #endif // TRANSFORMTODOMAIN_H

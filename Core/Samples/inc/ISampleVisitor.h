@@ -52,9 +52,11 @@ class FormFactorWeighted;
 // -
 class IFormFactorBorn;
 // -
+class FormFactorAnisoPyramid;
 class FormFactorBox;
 class FormFactorCone;
 class FormFactorCone6;
+class FormFactorCuboctahedron;
 class FormFactorCrystal;
 class FormFactorCylinder;
 class FormFactorEllipsoidalCylinder;
@@ -66,7 +68,6 @@ class FormFactorInfLongBox;
 class FormFactorInfLongRipple1;
 class FormFactorInfLongRipple2;
 class FormFactorLorentz;
-//class FormFactorParallelepiped;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
@@ -148,9 +149,11 @@ public:
 
     virtual void visit(const IFormFactorBorn *);
 
+    virtual void visit(const FormFactorAnisoPyramid *);
     virtual void visit(const FormFactorBox *);
     virtual void visit(const FormFactorCone *);
     virtual void visit(const FormFactorCone6 *);
+    virtual void visit(const FormFactorCuboctahedron *);
     virtual void visit(const FormFactorCrystal *);
     virtual void visit(const FormFactorCylinder *);
     virtual void visit(const FormFactorEllipsoidalCylinder *);

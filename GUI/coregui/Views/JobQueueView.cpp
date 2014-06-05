@@ -3,6 +3,7 @@
 #include "JobItem.h"
 #include "JobSelectorWidget.h"
 #include "JobOutputDataWidget.h"
+#include "mainwindow.h"
 #include "minisplitter.h"
 #include "progressbar.h"
 #include <QVBoxLayout>
@@ -16,6 +17,7 @@ JobQueueView::JobQueueView(JobQueueModel *model, QWidget *parent)
     , m_splitter(new Manhattan::MiniSplitter(this))
     , m_jobSelector(new JobSelectorWidget(m_jobQueueModel, this))
     , m_jobOutputData(new JobOutputDataWidget(m_jobQueueModel, this))
+    , m_progressBar(0)
 {
     setObjectName("JobQueueView");
 
@@ -29,6 +31,7 @@ JobQueueView::JobQueueView(JobQueueModel *model, QWidget *parent)
     setLayout(mainLayout);
 
     connect(m_jobQueueModel->getJobQueueData(), SIGNAL(globalProgress(int)), this, SLOT(updateGlobalProgressBar(int)));
+    connect(m_jobQueueModel->getJobQueueData(), SIGNAL(focusRequest(JobItem*)), this, SLOT(onFocusRequest(JobItem*)));
 }
 
 
@@ -44,6 +47,7 @@ void JobQueueView::setProgressBar(Manhattan::ProgressBar *progressBar)
 
 void JobQueueView::updateGlobalProgressBar(int progress)
 {
+    Q_ASSERT(m_progressBar);
     if(progress<0 || progress >= 100) {
         m_progressBar->setFinished(true);
         m_progressBar->hide();
@@ -54,4 +58,10 @@ void JobQueueView::updateGlobalProgressBar(int progress)
     }
 }
 
+
+void JobQueueView::onFocusRequest(JobItem *item)
+{
+    m_jobSelector->makeJobItemSelected(item);
+    emit focusRequest(MainWindow::JobTab);
+}
 

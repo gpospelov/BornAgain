@@ -4,7 +4,6 @@
 #include <QGraphicsObject>
 
 #include "DesignerHelper.h"
-#include "IViewVisitor.h"
 class ParameterizedItem;
 
 //! parent class for graphic representation of all ISample's
@@ -16,9 +15,6 @@ public:
 
     IView(QGraphicsItem *parent = 0);
     virtual ~IView(){}
-
-    //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(IViewVisitor *) {}
 
     int type() const { return Type; }
 
@@ -34,7 +30,7 @@ signals:
 public slots:
     virtual void onChangedX();
     virtual void onChangedY();
-    virtual void onPropertyChange(QString propertyName);
+    virtual void onPropertyChange(const QString &propertyName);
 
 protected:
     ParameterizedItem *m_item;

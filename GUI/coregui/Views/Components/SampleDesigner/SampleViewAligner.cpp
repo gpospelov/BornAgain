@@ -1,89 +1,194 @@
 #include "SampleViewAligner.h"
+#include "SessionModel.h"
+#include "DesignerScene.h"
 #include "IView.h"
-#include "ParameterizedItem.h"
+#include <QModelIndex>
 #include <QDebug>
 
 
-//! Initialises correspondance between ParameterizedItem's type and area on
-//! the screen.
+
+SampleViewAligner::SampleViewAligner(DesignerScene *scene)
+    : m_scene(scene)
+{
+    Q_ASSERT(m_scene);
+}
+
+
+//! Spring based implified algorithm for smart alignment
+void SampleViewAligner::smartAlign()
+{
+    m_views.clear();
+    updateViews();
+    updateForces();
+    advance();
+}
+
+
+//! Forms list of all views which are subject for smart alignment (i.e. views
+//! which do not have parent view)
+void SampleViewAligner::updateViews(const QModelIndex & parentIndex)
+{
+    SessionModel *sampleModel = m_scene->getSampleModel();
+    for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
+         IView *view = getViewForIndex(itemIndex);
+         if(view && !view->parentObject()) {
+            m_views.append(view);
+         }
+         updateViews( itemIndex);
+     }
+}
+
+
+//! Calculates forces acting on all views for smart alignment
+void SampleViewAligner::updateForces()
+{
+    m_viewToPos.clear();
+    foreach(IView *view, m_views) {
+        calculateForces(view);
+    }
+}
+
+
+//! Calculates forces acting on single view (simplified force directed spring algorithm)
+//! and deduce new position of views.
+void SampleViewAligner::calculateForces(IView *view)
+{
+    qreal xvel = 0;
+    qreal yvel = 0;
+
+    // repulsive forces which are pushing items away
+
+    double weight1(200.0);
+    foreach(IView *other, m_views) {
+        QPointF vec = view->mapToItem(other, other->boundingRect().center());
+        qreal dx = view->boundingRect().center().x() - vec.x();
+        qreal dy = view->boundingRect().center().y() - vec.y();
+        double l = (dx * dx + dy * dy);
+        if (l > 0) {
+            xvel -= (dx * weight1) / l;
+            yvel -= (dy * weight1) / l;
+        }
+    }
+
+    // attracting forces which are pulling views together
+    double weight2(100.0);
+    foreach(IView *other, getConnectedViews(view)) {
+        QPointF vec = view->mapToItem(other, other->boundingRect().center());
+        qreal dx = view->boundingRect().center().x() - vec.x();
+        qreal dy = view->boundingRect().center().y() - vec.y();
+        xvel += dx/weight2;
+        yvel += dy/weight2;
+    }
+
+    QPointF newPos = view->pos() + QPointF(xvel, yvel);
+    m_viewToPos[view] = newPos;
+}
+
+
+//! Applies calculated positions to views
+void SampleViewAligner::advance()
+{
+    foreach(IView *view, m_views) {
+        view->setPos(m_viewToPos[view]);
+    }
+}
+
+
+//! Returns list of views connected with given view for the subsequent force calculation.
 //!
-//! Area #0 correspond to the items located on the right side  of graphics
-//! scene (MultiLayer, Layer), area #1 corresponds to the items closer to the
-//! center (ParticleLayout), area #2 is reserved for FormFactors and
-//! interference functions, area #3 for transformations.
-QMap<QString, int>  initTypeToAreaMap()
+//! Weirdness of given function is due to the fact, that, for example, ParticleLayout view
+//! should interact not with Layer view, but with its parent - MultiLayer view.
+//! Similarly, MultiLayer is not interacting with its Layers, but directly with the ParticleLayout.
+QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 {
-    QMap<QString, int> result;
-    result["MultiLayer"] = 0;
-    result["Layer"] = 0;
-    result["ParticleLayout"] = 1;
-    result["Particle"] = 2;
+    QList<IView *> result;
+
+    ParameterizedItem *itemOfView = view->getParameterizedItem();
+
+    QList<ParameterizedItem *> connected_items;
+
+    if(itemOfView->parent()->modelType() == "Layer") {
+        // e.g. we are dealing here with ParticleLayout, so we will use directly MultiLayer to interact with
+        connected_items.append(itemOfView->parent()->parent());
+    } else {
+        connected_items.append(itemOfView->parent());
+    }
+
+    if(itemOfView->modelType() == "MultiLayer") {
+        // MultiLayer will not interact with its Layers, but with they children, e.g. with ParticleLayouts
+        foreach(ParameterizedItem *child,  itemOfView->childItems()) {
+            connected_items.append(child->childItems());
+        }
+    } else {
+        connected_items.append(itemOfView->childItems());
+
+    }
+
+    foreach(ParameterizedItem *item, connected_items) {
+        IView *view = m_scene->getViewForItem(item);
+        if(view) {
+            result.append(view);
+        }
+
+    }
+
     return result;
 }
 
 
-QMap<QString, int> SampleViewAligner::m_typeToArea = initTypeToAreaMap();
-
-
-//! aligns Views according to predefined areas
-void SampleViewAligner::align(QList<IView *> views, QPointF reference)
+//! Aligns sample starting from
+void SampleViewAligner::alignSample(ParameterizedItem *item, QPointF reference, bool force_alignment)
 {
-    //qDebug() << "---------------------------------------";
-    //qDebug() << "SampleViewAligner::align()" << reference;
-    QMap<int, IView *> areaToView;
-    foreach(IView *view, views) {
-        int area = m_typeToArea[view->getParameterizedItem()->modelType()];
-        //qDebug() << "area" << area << view->getSessionItem()->modelType();
-        if(!view->parentObject())
-            areaToView.insertMulti(area, view);
+    Q_ASSERT(item);
+    alignSample(m_scene->getSampleModel()->indexOfItem(item), reference, force_alignment);
+}
+
+
+//! Aligns sample starting from reference point.
+//! If force_alignment=false, view's position will be changed only if it has Null coordinate,
+//! if force_alignment=true the position will be changed anyway.
+//! Position of View which has parent item (like Layer) will remain unchainged.
+void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF reference, bool force_alignment)
+{
+    SessionModel *sampleModel = m_scene->getSampleModel();
+
+    IView *view = getViewForIndex(parentIndex);
+//    if(view)
+//        qDebug() << "SampleViewAligner2::alignSample" << view->getParameterizedItem()->modelType() << reference
+//                 << view->pos() << view->mapToScene(view->pos());
+
+    if(view) {
+        if( (force_alignment || view->pos().isNull()) && !view->parentObject())
+            view->setPos(reference);
+
+        if(view->parentObject()) {
+            reference = view->mapToScene(view->pos());
+        } else {
+            reference = view->pos();
+        }
     }
 
-    for(int i_level = 0; i_level <= getMaximumAreaNumber(); ++i_level) {
-        QList<IView *> items = areaToView.values(i_level);
-        //qDebug() << "SampleViewAligner::align() i_level" << i_level << "size" << items.size();
-        reference = placeItems(items, reference);
+//    qDebug() << "   new_pos:" << reference;
+
+    for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
+         QPointF child_reference = reference + QPointF(-150, 150*i_row);
+//         qDebug() << "   child_reference:" << child_reference;
+         alignSample(itemIndex, child_reference, force_alignment);
     }
 }
 
 
-QPointF SampleViewAligner::placeItems(const QList<IView *> &items,
-                                      QPointF reference)
+IView *SampleViewAligner::getViewForIndex(const QModelIndex &index)
 {
-    const double size_factor = 1.5;
-    const double vertical_gap(50);
-    qreal dy = getTotalVerticalSpace(items) + (items.size()-1)*vertical_gap;
-    qreal dx = size_factor*getMaximumHorizontalSpace(items);
-    reference.setX(reference.x() - dx );
-    //qDebug() << "SampleViewAligner::placeItems() dy:" << dy << " dx:" << dx << " reference:" << reference;
-    for(int i=0; i<items.size(); ++i) {
-        IView *view = items[i];
-        //qDebug() << "SampleViewAligner::placeItems()" << view->getSessionItem()->modelType() << view->parentObject();
-        QPointF pos = reference;
-        //qDebug() << "xxx " << view->x() << view->y() << (pos.y() - i*dy/items.size());
-        pos.setY(pos.y() - i*dy/items.size());
-        if(view->pos().isNull())
-            view->setPos(pos);
+    SessionModel *sampleModel = m_scene->getSampleModel();
+    ParameterizedItem *item = sampleModel->itemForIndex(index);
+    if(IView *view = m_scene->getViewForItem(item)) {
+        return view;
     }
-    return reference;
+    return 0;
 }
 
 
-qreal SampleViewAligner::getTotalVerticalSpace(const QList<IView *> &items)
-{
-    qreal result = 0;
-    for(int i=0; i<items.size(); ++i) {
-        result += items.at(i)->boundingRect().height();
-    }
-    return result;
-}
 
-
-qreal SampleViewAligner::getMaximumHorizontalSpace(const QList<IView *> &items)
-{
-    qreal result = 0;
-    for(int i=0; i<items.size(); ++i) {
-        qreal width = items.at(i)->boundingRect().width();
-        if(width > result) result = width;
-    }
-    return result;
-}

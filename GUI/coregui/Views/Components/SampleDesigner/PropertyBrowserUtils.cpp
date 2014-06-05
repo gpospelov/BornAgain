@@ -1,10 +1,12 @@
 #include "PropertyBrowserUtils.h"
+#include "MaterialEditor.h"
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QFileDialog>
 #include <QFocusEvent>
 #include <QPixmap>
 #include <iostream>
+#include <QDebug>
 
 
 MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
@@ -37,8 +39,9 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 void MaterialPropertyEdit::buttonClicked()
 {
     std::cout << "MaterialPropertyEdit::buttonClicked() " << std::endl;
-    MaterialProperty mat = MaterialBrowser::getMaterialProperty();
-    if(mat != m_materialProperty && mat.isDefined() ) {
+    MaterialProperty mat = MaterialEditor::selectMaterialProperty();
+    //if(mat != m_materialProperty && mat.isDefined() ) {
+    if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);
     }
@@ -54,29 +57,40 @@ void MaterialPropertyEdit::setMaterialProperty(
 }
 
 
-FormFactorPropertyEdit::FormFactorPropertyEdit(QWidget *parent)
+GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
     m_box = new QComboBox(this);
-    m_box->insertItems(0, FormFactorProperty::getFormFactorNames());
-    m_box->setCurrentText(m_formFactorProperty.getFormFactorName());
 
     connect(m_box, SIGNAL(currentTextChanged(QString)),
             this, SLOT(textChanged(QString)));
 }
 
-void FormFactorPropertyEdit::setFormFactorProperty(
-        const FormFactorProperty &formFactorProperty)
+void GroupPropertyEdit::setGroupProperty(
+        const GroupProperty &groupProperty)
 {
-    m_formFactorProperty = formFactorProperty;
-    m_box->setCurrentText(m_formFactorProperty.getFormFactorName());
+    if(!m_box->count()) m_box->insertItems(0, groupProperty.getValues());
+
+    m_groupProperty = groupProperty;
+    m_box->setCurrentText(m_groupProperty.getValue());
 }
 
-void FormFactorPropertyEdit::textChanged(QString text)
+void GroupPropertyEdit::textChanged(QString text)
 {
-    FormFactorProperty ff(text);
-    if (ff != m_formFactorProperty && ff.isDefined()) {
-        setFormFactorProperty(ff);
-        emit formFactorPropertyChanged(m_formFactorProperty);
+    GroupProperty ff(m_groupProperty.getGroupName(), text);
+    if (ff != m_groupProperty && ff.isDefined()) {
+        setGroupProperty(ff);
+        emit groupPropertyChanged(m_groupProperty);
     }
 }
+
+QSize GroupPropertyEdit::sizeHint() const
+{
+    return m_box->sizeHint();
+}
+
+QSize GroupPropertyEdit::minimumSizeHint() const
+{
+    return m_box->minimumSizeHint();
+}
+

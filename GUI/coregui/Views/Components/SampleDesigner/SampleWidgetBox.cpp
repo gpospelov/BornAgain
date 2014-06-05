@@ -15,7 +15,7 @@ SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent)
 {
     //Manhattan::StyledBar *bar = new Manhattan::StyledBar(this);
 
-    m_widgetBox = new qdesigner_internal::WidgetBox(core, this);
+    m_widgetBox = new qdesigner_internal::WidgetBox(m_core, this);
     m_widgetBox->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
     m_widgetBox->load();
     m_widgetBox->setWindowTitle(QLatin1String("Widget Box"));

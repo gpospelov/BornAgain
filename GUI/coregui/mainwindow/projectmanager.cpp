@@ -71,7 +71,9 @@ void ProjectManager::createNewProject()
     m_project_document = new ProjectDocument();
     connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     m_project_document->setProjectName("Untitled");
-    m_project_document->setSessionModel(m_mainWindow->getSessionModel());
+    m_project_document->setMaterialModel(m_mainWindow->getMaterialModel());
+    m_project_document->setInstrumentModel(m_mainWindow->getInstrumentModel());
+    m_project_document->setSampleModel(m_mainWindow->getSampleModel());
     m_project_document->setJobQueueModel(m_mainWindow->getJobQueueModel());
 }
 
@@ -103,6 +105,7 @@ void ProjectManager::newProject()
         m_defaultProjectPath = dialog.getProjectPath();
         m_project_document->setProjectName(dialog.getProjectName());
         m_project_document->setProjectPath(dialog.getProjectPath());
+        emit modified();
     }
 
 }
@@ -150,6 +153,7 @@ void ProjectManager::openProject(QString fileName)
         createNewProject();
         m_project_document->setProjectFileName(fileName);
         m_project_document->load();
+        emit modified();
     }
 }
 

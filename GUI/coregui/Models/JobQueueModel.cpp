@@ -94,16 +94,19 @@ bool JobQueueModel::setData(const QModelIndex &index, const QVariant &value, int
 //! Creates and adds JobQueueItem in the list of jobs.
 //! Corresponding JobItem will be created too.
 //! Returns unique identifier of created job.
-QString JobQueueModel::addJob(QString jobName, Simulation *simulation)
+QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
-    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation);
+    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation, run_policy);
     m_jobs.append(queue_item);
     endInsertRows();
 
     JobItem *item = m_queue_data->getJobItem(queue_item->getIdentifier());
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+
+    if( item->getRunPolicy() & (JobItem::RunImmediately | JobItem::RunInBackground) )
+        runJob(queue_item->getIdentifier());
 
     return queue_item->getIdentifier();
 }
@@ -295,13 +298,15 @@ void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QI
 //! Method should be called to inform given model about changes in JobItem
 void JobQueueModel::onJobItemIsModified(JobItem *modified_item)
 {
-    QString identifier = m_queue_data->getIdentifierForJobItem(modified_item);
-    foreach(JobQueueItem *queue_item, m_jobs) {
-        if(queue_item->getIdentifier() == identifier) {
-            QModelIndex item_index = index(m_jobs.indexOf(queue_item), 0);
-            dataChanged(item_index, item_index);
-        }
-    }
+    QModelIndex itemIndex =  getIndexForJobItem(modified_item);
+    dataChanged(itemIndex, itemIndex);
+//    QString identifier = m_queue_data->getIdentifierForJobItem(modified_item);
+//    foreach(JobQueueItem *queue_item, m_jobs) {
+//        if(queue_item->getIdentifier() == identifier) {
+//            QModelIndex item_index = index(m_jobs.indexOf(queue_item), 0);
+//            dataChanged(item_index, item_index);
+//        }
+//    }
 }
 
 
@@ -326,6 +331,19 @@ const JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index) const
 JobItem *JobQueueModel::getJobItemForIndex(const QModelIndex &index)
 {
     return const_cast<JobItem *>(static_cast<const JobQueueModel &>(*this).getJobItemForIndex(index));
+}
+
+
+QModelIndex JobQueueModel::getIndexForJobItem(const JobItem *item)
+{
+    QString identifier = m_queue_data->getIdentifierForJobItem(item);
+    foreach(JobQueueItem *queue_item, m_jobs) {
+        if(queue_item->getIdentifier() == identifier) {
+            return index(m_jobs.indexOf(queue_item), 0);
+        }
+    }
+
+    return QModelIndex();
 }
 
 

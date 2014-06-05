@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "OutputData.h"
 
-class QCustomPlot;
+class PlotWidget;
 class JobQueueModel;
 class JobItem;
 
@@ -28,7 +28,7 @@ private:
     void Draw(const OutputData<double> *data);
 
     JobQueueModel *m_jobQueueModel;
-    QCustomPlot *m_customPlot;
+    PlotWidget *m_plotWidget;
     JobItem *m_currentJobItem;
     const OutputData<double > *m_data;
 };

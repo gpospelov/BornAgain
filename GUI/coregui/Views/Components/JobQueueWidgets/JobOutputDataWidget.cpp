@@ -27,8 +27,8 @@ JobOutputDataWidget::JobOutputDataWidget(JobQueueModel *model,QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    Manhattan::StyledBar *bar = new Manhattan::StyledBar;
-    mainLayout->addWidget(bar);
+    //Manhattan::StyledBar *bar = new Manhattan::StyledBar;
+    //mainLayout->addWidget(bar);
 //    mainLayout->addWidget(m_outputDataWidget);
     mainLayout->addWidget(m_stack);
 
@@ -89,7 +89,7 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
 
 void JobOutputDataWidget::dataChanged(const QModelIndex &, const QModelIndex &)
 {
-    qDebug() << "JobOutputDataWidget::dataChanged()";
+    //qDebug() << "JobOutputDataWidget::dataChanged()";
 }
 
 
@@ -100,6 +100,16 @@ void JobOutputDataWidget::onJobItemDelete(JobItem *item)
     if( !widget ) {
         throw GUIHelpers::Error("JobOutputDataWidget::onJobItemDelete -> Can't find widget");
     }
+
+    QMap<JobItem *, OutputDataWidget *>::iterator it = m_jobItemToPlotWidget.begin();
+    while(it!=m_jobItemToPlotWidget.end()) {
+        if(it.value() == widget) {
+            it = m_jobItemToPlotWidget.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
     m_stack->removeWidget(widget);
     delete widget;
 }

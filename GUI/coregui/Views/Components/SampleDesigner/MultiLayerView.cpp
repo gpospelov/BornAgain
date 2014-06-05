@@ -16,7 +16,9 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     : ILayerView(parent)
 {
     setColor(QColor(Qt::blue));
-    setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
+
+    //setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
+    setRectangle(DesignerHelper::getDefaultBoundingRect("MultiLayer"));
     setToolTip(QString("MultiLayer"));
     setAcceptHoverEvents(false);
     setAcceptDrops(true);
@@ -229,12 +231,12 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 
         DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
         if(designerScene) {
-            SessionModel *sessionModel = designerScene->getSessionModel();
+            SessionModel *sampleModel = designerScene->getSampleModel();
 
             qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
-            sessionModel->insertNewItem(
+            sampleModel->insertNewItem(
                         mimeData->getClassName(),
-                        sessionModel->indexOfItem(this->getParameterizedItem()),
+                        sampleModel->indexOfItem(this->getParameterizedItem()),
                         getDropArea(event->pos())
                         );
         }

@@ -17,6 +17,8 @@
 #define DOMAINOBJECTBUILDER_H
 
 #include "Samples.h"
+#include "Instrument.h"
+#include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
 
 class DomainObjectBuilder
@@ -27,15 +29,21 @@ public:
 
     void buildItem(const ParameterizedItem &item);
 
-    const ISample *getSample() const {
-        return mp_sample;
-    }
+    ISample *getSample() { return mp_sample; }
+    Instrument *getInstrument() { return m_instrument; }
+
+    MultiLayer *buildMultiLayer(const ParameterizedItem &item) const;
+    Instrument *buildInstrument(const ParameterizedItem &item) const;
 
 private:
-    MultiLayer *buildMultiLayer(const ParameterizedItem &item) const;
     Layer *buildLayer(const ParameterizedItem &item) const;
     ParticleLayout *buildParticleLayout(const ParameterizedItem &item) const;
+    Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
+    IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
+    Beam *buildBeam(const ParameterizedItem &item) const;
+
     ISample *mp_sample;
+    Instrument *m_instrument;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

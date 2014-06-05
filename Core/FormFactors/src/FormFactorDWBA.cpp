@@ -15,6 +15,8 @@
 
 #include "FormFactorDWBA.h"
 
+#include <cmath>
+
 FormFactorDWBA::FormFactorDWBA(IFormFactor *p_form_factor)
     : IFormFactorDecorator(p_form_factor)
     , mp_specular_info(0)
@@ -57,21 +59,15 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
     // Retrieve the two different incoming wavevectors in the layer
     const ILayerRTCoefficients *p_in_coeff =
             mp_specular_info->getInCoefficients();
-    cvector_t k_i_R = k_i;
-    k_i_R.setZ(p_in_coeff->getScalarKz());
     cvector_t k_i_T = k_i;
-    k_i_T.setZ(-k_i_R.z());
-    // Retrieve the two different outgoing wavevectors in the layer
-    const ILayerRTCoefficients *p_out_lower = getOutCoeffs(alpha_f_bin.m_lower);
-    const ILayerRTCoefficients *p_out_upper = getOutCoeffs(alpha_f_bin.m_upper);
+    cvector_t k_i_R = k_i;
+    k_i_R.setZ(-k_i_T.z());
+
+    // Retrieve the two different outgoing wavevector bins in the layer
     Bin1DCVector k_f_T_bin = k_f_bin;
-    k_f_T_bin.m_q_lower.setZ(p_out_lower->getScalarKz());
-    k_f_T_bin.m_q_upper.setZ(p_out_upper->getScalarKz());
     Bin1DCVector k_f_R_bin = k_f_bin;
     k_f_R_bin.m_q_lower.setZ(-k_f_T_bin.m_q_lower.z());
     k_f_R_bin.m_q_upper.setZ(-k_f_T_bin.m_q_upper.z());
-
-
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface

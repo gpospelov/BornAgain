@@ -23,7 +23,7 @@ const char ICON_SAVEFILE[]         = ":/core/images/filesave.png";
 // settings groups
 const char S_PROJECTMANAGER[]      = "ProjectManager";
 
-const int MAX_RECENT_PROJECTS = 7;
+const int MAX_RECENT_PROJECTS = 10;
 
 const char MIME_JOBQUEUE[] = "application/org.bornagainproject.jobqueue";
 }

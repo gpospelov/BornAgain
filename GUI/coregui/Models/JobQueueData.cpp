@@ -15,11 +15,13 @@ int JobQueueData::m_job_index = 0;
 
 //! Creates JobQueueItem and corresponding JobItem.
 //! Created JobItem will be registered using unique identifier.
-JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation)
+JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
 {
     JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
     if(jobName.isEmpty()) jobName = generateJobName();
-    m_job_items[result->getIdentifier()] = new JobItem(jobName);
+    JobItem *jobItem = new JobItem(jobName);
+    jobItem->setRunPolicy(run_policy);
+    m_job_items[result->getIdentifier()] = jobItem;
     if(simulation) m_simulations[result->getIdentifier()] = simulation;
     return result;
 }
@@ -125,20 +127,20 @@ void JobQueueData::runJob(QString identifier)
 //! cancels running job
 void JobQueueData::cancelJob(QString identifier)
 {
-    qDebug() << "JobQueueData::cancelJob()";
+    //qDebug() << "JobQueueData::cancelJob()";
     if(getThread(identifier)) {
         JobRunner *runner = getRunner(identifier);
         runner->terminate();
         return;
     }
-    qDebug() << "JobQueueData::cancelJob() -> No thread is running";
+    //qDebug() << "JobQueueData::cancelJob() -> No thread is running";
 }
 
 
 //! remove job from list completely
 void JobQueueData::removeJob(QString identifier)
 {
-    qDebug() << "JobQueueData::removeJob";
+    //qDebug() << "JobQueueData::removeJob";
     cancelJob(identifier);
     // removing jobs
     for(QMap<QString, JobItem *>::iterator it=m_job_items.begin(); it!=m_job_items.end(); ++it) {
@@ -161,7 +163,7 @@ void JobQueueData::removeJob(QString identifier)
 
 void JobQueueData::onStartedJob()
 {
-    qDebug() << "JobQueueData::onStartedJob()";
+    //qDebug() << "JobQueueData::onStartedJob()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
@@ -175,7 +177,7 @@ void JobQueueData::onStartedJob()
 
 void JobQueueData::onFinishedJob()
 {
-    qDebug() << "JobQueueData::onFinishedJob()";
+    //qDebug() << "JobQueueData::onFinishedJob()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
@@ -197,12 +199,15 @@ void JobQueueData::onFinishedJob()
     getThread(runner->getIdentifier())->quit();
 
     assignForDeletion(runner);
+
+    if(jobItem->getRunPolicy() & JobItem::RunImmediately)
+        emit focusRequest(jobItem);
 }
 
 
 void JobQueueData::onFinishedThread()
 {
-    qDebug() << "JobQueueData::onFinishedThread()";
+    //qDebug() << "JobQueueData::onFinishedThread()";
     QThread *thread = qobject_cast<QThread *>(sender());
     assignForDeletion(thread);
 }
@@ -210,7 +215,7 @@ void JobQueueData::onFinishedThread()
 
 void JobQueueData::onProgressUpdate()
 {
-    qDebug() << "JobQueueData::ProgressUpdate()";
+    //qDebug() << "JobQueueData::onProgressUpdate()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());

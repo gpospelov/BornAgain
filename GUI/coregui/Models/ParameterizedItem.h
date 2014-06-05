@@ -16,7 +16,9 @@
 #ifndef PARAMETERIZEDITEM_H_
 #define PARAMETERIZEDITEM_H_
 
+#include "MaterialItem.h"
 #include <QStandardItem>
+#include <QStringList>
 #include <QList>
 #include <QMap>
 
@@ -26,16 +28,17 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
+    static const QString P_NAME;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
     QString modelType() const { return m_model_type; }
 
     //! retrieves the item's name
-    QString itemName() const { return m_item_name; }
+    QString itemName() const;
 
     //! sets the item's name
-    void setItemName(const QString &item_name) { m_item_name = item_name; }
+    void setItemName(const QString &item_name);
 
     //! retrieve parent item
     ParameterizedItem *parent() const { return m_parent; }
@@ -81,34 +84,59 @@ public:
     //! get list of acceptable child object names
     QList<QString> acceptableChildItems() const { return m_valid_children; }
 
-    friend class ItemFactory;
-
     bool event(QEvent * e );
 
     QMap<QString, ParameterizedItem *> getSubItems() const {
         return m_sub_items;
     }
 
-signals:
-    void propertyChanged(QString propertyName);
-    void subItemChanged(QString propertyName);
+    void addPropertyItem(QString name, ParameterizedItem *item);
 
-protected:
+    ParameterizedItem *createPropertyItem(QString name);
+
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
-    void addSubItem(QString name, ParameterizedItem *item);
-    ParameterizedItem *createSubItem(QString name);
-    void updateSubItem(QString name);
-    void setMaterialProperty();
-    void addFormFactorProperty(const char *name, QString value);
+
+    void setMaterialProperty(MaterialProperty material = MaterialProperty());
+
+    ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
+
+    bool isHiddenProperty(const QString &name) const;
+    QString getPropertyToolTip(const QString &name) const;
+
+    enum PropertyVisibility {VisibleProperty, HiddenProperty };
+    void registerProperty(const QString &name, const QVariant &variant, const QString &tooltip = QString(), PropertyVisibility = VisibleProperty);
+    void setRegisteredProperty(const QString &name, const QVariant &variant);
+    QVariant getRegisteredProperty(const QString &name) const;
+
+    void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
+    bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
+
+    void setPropertyVisibility(const QString &name, PropertyVisibility visibility);
+
+    void print() const;
+
+    virtual void onPropertyChange(const QString &name);
+signals:
+    void propertyChanged(const QString &propertyName);
+    void propertyItemChanged(const QString &propertyName);
+
+protected:
+    void updatePropertyItem(QString name);
     QList<QString> m_valid_children;
+
+    QStringList m_registered_properties;
+    QStringList m_hidden_properties;
+    QMap<QString, QString> m_property_tooltip;
 
 private:
     QString m_model_type;
-    QString m_item_name;
+    //QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
+    bool m_block_property_change_event;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

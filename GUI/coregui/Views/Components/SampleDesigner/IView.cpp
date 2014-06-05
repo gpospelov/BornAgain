@@ -1,5 +1,6 @@
 #include "IView.h"
 #include "ParameterizedGraphicsItem.h"
+#include "MaterialProperties.h"
 #include <QString>
 #include <QDebug>
 
@@ -16,11 +17,10 @@ void IView::setParameterizedItem(ParameterizedItem *item)
 {
     if(item) {
         m_item = item;
-        Q_ASSERT(m_item->property("xpos").isValid());
-        Q_ASSERT(m_item->property("ypos").isValid());
-        setX(m_item->property("xpos").toReal());
-        setY(m_item->property("ypos").toReal());
-        connect(m_item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyChange(QString)));
+        setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
+        setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
+        connect(m_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
+        connect(m_item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChange(const QString &)));
     }
 }
 
@@ -34,25 +34,23 @@ void IView::addView(IView *childView, int row)
 void IView::onChangedX()
 {
     Q_ASSERT(m_item);
-    Q_ASSERT(m_item->property("xpos").isValid());
-    m_item->setProperty("xpos", x());
+    m_item->setRegisteredProperty(ParameterizedGraphicsItem::P_XPOS, x());
 }
 
 
 void IView::onChangedY()
 {
     Q_ASSERT(m_item);
-    Q_ASSERT(m_item->property("ypos").isValid());
-    m_item->setProperty("ypos", y());
+    m_item->setRegisteredProperty(ParameterizedGraphicsItem::P_YPOS, y());
 }
 
 
-void IView::onPropertyChange(QString propertyName)
+void IView::onPropertyChange(const QString &propertyName)
 {
-    if(propertyName == QStringLiteral("xpos")) {
-        setX(m_item->property("xpos").toReal());
-    } else if(propertyName == QStringLiteral("ypos")) {
-        setY(m_item->property("ypos").toReal());
+    if(propertyName == ParameterizedGraphicsItem::P_XPOS) {
+        setX(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_XPOS).toReal());
+    } else if(propertyName == ParameterizedGraphicsItem::P_YPOS) {
+        setY(m_item->getRegisteredProperty(ParameterizedGraphicsItem::P_YPOS).toReal());
     }
 }
 

@@ -16,9 +16,74 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-class GUIObjectBuilder
-{
+#include "ISampleVisitor.h"
+#include "Samples.h"
+#include "InterferenceFunctions.h"
+#include "MaterialProperty.h"
+#include <QMap>
 
+class SessionModel;
+class ParameterizedItem;
+
+//! Class to build SessionModel from domain's ISample
+class GUIObjectBuilder : public ISampleVisitor
+{
+public:
+    GUIObjectBuilder();
+    ~GUIObjectBuilder(){}
+
+    ParameterizedItem *populateSampleModel(SessionModel *sampleModel, ISample *sample);
+    ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel, Instrument *instrument);
+
+    using ISampleVisitor::visit;
+
+    void visit(const ParticleLayout *);
+
+    void visit(const Layer *);
+
+    void visit(const LayerInterface *);
+
+    void visit(const MultiLayer *);
+
+    void visit(const Particle *);
+
+    void visit(const ParticleInfo *);
+
+    void visit(const FormFactorAnisoPyramid *);
+    void visit(const FormFactorBox *);
+    void visit(const FormFactorCone *);
+    void visit(const FormFactorCone6 *);
+    void visit(const FormFactorCuboctahedron *);
+    void visit(const FormFactorCylinder *);
+    void visit(const FormFactorEllipsoidalCylinder *);
+    void visit(const FormFactorFullSphere *);
+    void visit(const FormFactorFullSpheroid *);
+    void visit(const FormFactorHemiEllipsoid *);
+    void visit(const FormFactorPrism3 *);
+    void visit(const FormFactorPrism6 *);
+    void visit(const FormFactorPyramid *);
+    void visit(const FormFactorRipple1 *);
+    void visit(const FormFactorRipple2 *);
+    void visit(const FormFactorTetrahedron *);
+    void visit(const FormFactorTruncatedSphere *);
+    void visit(const FormFactorTruncatedSpheroid *);
+
+    void visit(const InterferenceFunction1DParaCrystal *);
+    void visit(const InterferenceFunction2DParaCrystal *);
+    void visit(const InterferenceFunctionNone *);
+
+    void visit(const LayerRoughness *);
+
+//    ParameterizedItem *getTopItem() { return m_levelToParent[0]; }
+
+private:
+    MaterialProperty createMaterialFromDomain(const IMaterial *);
+
+    SessionModel *m_sampleModel;
+
+    QMap<int, ParameterizedItem *> m_levelToParent;
+
+    QString m_topSampleName;
 };
 
 #endif // GUIOBJECTBUILDER_H

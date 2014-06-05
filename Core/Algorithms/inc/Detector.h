@@ -78,7 +78,9 @@ public:
             OutputData<Eigen::Matrix2d> *p_polarized_data,
             double sin_alpha_i) const;
 #endif
+
 protected:
+    virtual void print(std::ostream& ostr) const;
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}

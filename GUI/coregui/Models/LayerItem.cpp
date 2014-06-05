@@ -14,13 +14,14 @@
 // ************************************************************************** //
 
 #include "LayerItem.h"
-#include "MaterialBrowser.h"
+
+const QString LayerItem::P_THICKNESS = "Thickness";
 
 LayerItem::LayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Layer"), parent)
 {
     setItemName("LayerName");
-    setProperty("Thickness", 0.0);
+    registerProperty(P_THICKNESS, 0.0);
     setMaterialProperty();
     m_valid_children.append(QString("ParticleLayout"));
 }

@@ -31,7 +31,9 @@ class SimulationDataModel
 {
 public:
     SimulationDataModel();
-    ~SimulationDataModel() {}
+    ~SimulationDataModel();
+
+    void clear();
 
     //! retrieve a list of the contained samples
     //! \return a list containing the ISample objects

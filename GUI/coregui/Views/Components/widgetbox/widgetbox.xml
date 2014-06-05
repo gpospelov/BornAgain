@@ -4,7 +4,7 @@
     <category name="Layers">
         
         
-        <categoryentry  name="Multi Layer" icon="images/sample_vspacer.png">
+        <categoryentry  name="Multi Layer" icon="images/MultiLayer.png">
             <widget class="MultiLayer">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -12,7 +12,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Layer" icon="images/sample_spacer.png">
+        <categoryentry name="Layer" icon="images/Layer.png">
             <widget class="Layer">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -25,28 +25,20 @@
     
     <category name="Particle layouts">
         
-        <categoryentry name="Basic particle layout" icon="images/sample_spacer.png">
+        <categoryentry name="Basic particle layout" icon="images/ParticleLayout.png">
             <widget class="ParticleLayout">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-        
-        <categoryentry  name="Particle Builder" icon="images/sample_vspacer.png">
-            <widget class="ParticleBuilder">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-        
+                
     </category>
     
     
     <category name="Interference functions">
         
-        <categoryentry name="1D paracrystal" icon="images/sample_spacer.png">
+        <categoryentry name="1D paracrystal" icon="images/ParaCrystal1D.png">
             <widget class="InterferenceFunction1DParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -54,7 +46,7 @@
             </widget>
         </categoryentry>
         
-        <categoryentry  name="2D paracrystal" icon="images/sample_vspacer.png">
+        <categoryentry  name="2D paracrystal" icon="images/ParaCrystal2D.png">
             <widget class="InterferenceFunction2DParaCrystal">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -65,7 +57,7 @@
     </category>
     
     
-    <category name="Form factors">
+    <category name="Particles">
 
         <categoryentry name="Anysotropic pyramid" icon="images/ff_anisopyramid_32.png">
             <widget class="FormFactorAnisoPyramid">
@@ -216,38 +208,32 @@
     
     <category name="Standard samples">
         
-        <categoryentry name="IsGISAXS1 sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs01">
+        <categoryentry name="Example #1 (no interference)" icon="images/sample_layers2.png">
+            <widget class="example01">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
 
-        <categoryentry name="IsGISAXS4 1DDL sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs04_1DDL">
+        <categoryentry name="Example #2 (para 1D)" icon="images/sample_layers2.png">
+            <widget class="example02">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-    
-        <categoryentry name="IsGISAXS4 2DDL sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs04_2DDL">
+
+        <categoryentry name="Example #3 (para 2D)" icon="images/sample_layers2.png">
+            <widget class="example03">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
-    
-        <categoryentry name="GUI Test sample" icon="images/sample_layers3.png">
-            <widget class="guitest">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
+        
+        
     </category>
-    
+        
 
 </widgetbox>

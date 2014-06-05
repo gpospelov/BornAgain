@@ -163,6 +163,11 @@ void SamplePrintVisitor::visit(const IFormFactorBorn *)
     throw NotImplementedException("SamplePrintVisitor::visit(const IFormFactorBorn *) -> Error. Not implemented.");
 }
 
+void SamplePrintVisitor::visit(const FormFactorAnisoPyramid *sample)
+{
+    print_default(sample);
+}
+
 void SamplePrintVisitor::visit(const FormFactorBox *sample)
 {
     print_default(sample);
@@ -185,6 +190,10 @@ void SamplePrintVisitor::visit(const FormFactorCrystal *)
     throw NotImplementedException("SamplePrintVisitor::visit(const FormFactorCrystal *) -> Error. Not implemented.");
 }
 
+void SamplePrintVisitor::visit(const FormFactorCuboctahedron *sample)
+{
+    print_default(sample);
+}
 
 void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
 {
@@ -386,6 +395,14 @@ void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *sample)
 void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     print_default(sample);
+
+    std::vector<const IFTDistribution2D *> pdfs = sample->getPropabilityDistributions();
+
+    std::cout << get_indent() << ".... pdfs: " << (*pdfs[0]) << " " << (*pdfs[1]) << std::endl;
+//    if(pdfs[0]) std::cout << *pdfs[0];
+//    std::cout << std::endl;
+
+
 }
 
 

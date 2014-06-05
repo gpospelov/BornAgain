@@ -31,6 +31,8 @@ public:
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
+    using ISampleVisitor::visit;
+
     virtual void visit(const ISample *sample);
 
     virtual void visit(const ICompositeSample *sample);
@@ -65,10 +67,12 @@ public:
 
     virtual void visit(const IFormFactorBorn *sample);
 
+    virtual void visit(const FormFactorAnisoPyramid *sample);
     virtual void visit(const FormFactorBox *sample);
     virtual void visit(const FormFactorCone *sample);
     virtual void visit(const FormFactorCone6 *sample);
     virtual void visit(const FormFactorCrystal *sample);
+    virtual void visit(const FormFactorCuboctahedron *sample);
     virtual void visit(const FormFactorCylinder *sample);
     virtual void visit(const FormFactorEllipsoidalCylinder *sample);
     virtual void visit(const FormFactorFullSphere *sample);

@@ -13,6 +13,7 @@ class QPushButton;
 class JobQueueModel;
 class QDockWidget;
 class QSplitter;
+class JobItem;
 
 namespace Manhattan {
     class ProgressBar;
@@ -37,8 +38,12 @@ public:
 
     void setProgressBar(Manhattan::ProgressBar *progressBar);
 
+signals:
+    void focusRequest(int);
+
 public slots:
     void updateGlobalProgressBar(int);
+    void onFocusRequest(JobItem *);
 
 private:
     JobQueueModel *m_jobQueueModel;

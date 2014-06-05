@@ -75,6 +75,7 @@ public:
     std::vector<double> getVector() const { return m_sample_vector; }
 
 protected:
+    virtual void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;
 
 private:

@@ -33,8 +33,7 @@
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
-    IInterferenceFunctionStrategy(SimulationParameters sim_params)
-        : m_sim_params(sim_params) {}
+    IInterferenceFunctionStrategy(SimulationParameters sim_params);
     virtual ~IInterferenceFunctionStrategy() {}
     virtual void init(const SafePointerVector<FormFactorInfo>&
                       form_factor_infos,
@@ -60,6 +59,20 @@ protected:
     SimulationParameters m_sim_params; //!< simulation parameters
 
 private:
+    struct IntegrationParamsPhi {
+        cvector_t k_i;
+        cvector_t k_f0;
+        cvector_t k_f1;
+        Bin1D alpha_bin;
+    };
+    struct IntegrationParamsAlpha {
+        cvector_t k_i;
+        cvector_t k_f00;
+        cvector_t k_f01;
+        cvector_t k_f10;
+        cvector_t k_f11;
+        Bin1D alpha_bin;
+    };
     //! Returns mean form factor, possibly including their position information
     complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             Bin1D alpha_f_bin, bool use_position=false) const;
@@ -80,6 +93,23 @@ private:
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;
+
+    //! Perform an integration over the bin for the evaluation of the intensity
+    double integratedEvaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+            Bin1D alpha_f_bin) const;
+
+    //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
+    double MCIntegratedEvaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+            Bin1D alpha_f_bin) const;
+
+    //! Integrate over phi angle
+    double integratePhi(double zeta, void* params) const;
+
+    //! Evaluate for fixed angles
+    double evaluate_for_fixed_angles(double *angles, size_t dim, void* params) const;
+
+    //! Evaluate for fixed k_f
+    double evaluate_with_fixed_kf(double xi, void* params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;

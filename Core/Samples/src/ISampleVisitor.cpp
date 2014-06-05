@@ -163,6 +163,12 @@ void ISampleVisitor::visit(const IFormFactorBorn *)
 }
 
 
+void ISampleVisitor::visit(const FormFactorAnisoPyramid *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorAnisoPyramid *) -> Error. Not implemented.");
+}
+
+
 void ISampleVisitor::visit(const FormFactorBox *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorBox *) -> Error. Not implemented.");
@@ -178,6 +184,12 @@ void ISampleVisitor::visit(const FormFactorCone *)
 void ISampleVisitor::visit(const FormFactorCone6 *)
 {
     throw NotImplementedException("ISampleVisitor::visit(const FormFactorCone6 *) -> Error. Not implemented.");
+}
+
+
+void ISampleVisitor::visit(const FormFactorCuboctahedron *)
+{
+    throw NotImplementedException("ISampleVisitor::visit(const FormFactorCuboctahedron *) -> Error. Not implemented.");
 }
 
 

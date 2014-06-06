@@ -35,7 +35,7 @@ public:
     //! @param xi Angle between first basis vector and the x-axis of incoming beam.
     //! @param m_corr_length correlation length of paracrystal
     InterferenceFunction2DParaCrystal(double length_1, double length_2,
-            double alpha_lattice, double xi=0.0, double corr_length=0.0);
+            double alpha_lattice, double xi=0.0, double damping_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
 
     virtual InterferenceFunction2DParaCrystal *clone() const;
@@ -75,7 +75,7 @@ public:
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D *> getPropabilityDistributions() const;
     bool getIntegrationOverXi() const { return m_integrate_xi; }
-    double getDampingLength() const { return m_corr_length;}
+    double getDampingLength() const { return m_damping_length;}
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -88,8 +88,8 @@ protected:
     double m_xi; //!< Orientation of the lattice wrt beam axis x
     bool m_integrate_xi; //!< Integrate over the orientation xi
     IFTDistribution2D *m_pdfs[2];
-    double m_corr_length;
-    bool m_use_corr_length;
+    double m_damping_length;
+    bool m_use_damping_length;
     double m_domain_sizes[2]; //!< Coherence domain sizes
 private:
 

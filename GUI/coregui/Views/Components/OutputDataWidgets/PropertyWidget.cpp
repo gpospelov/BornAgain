@@ -180,6 +180,7 @@ void PropertyWidget::onOutputDataItemModified()
 {
     qDebug() << "PropertyWidget::onOutputDataItemModified()";
     OutputDataItem *item = qobject_cast<OutputDataItem *>(sender());
+    (void)item;
     Q_ASSERT(item == m_outputDataItem);
 
     idToProperty[JobQueueXML::OutputDataInterpolatedAttribute]->setValue(m_outputDataItem->isInterpolated());

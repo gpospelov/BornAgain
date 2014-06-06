@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ToolTipsData version="1.0">
+    <context name="SampleView">
+        
+        <class name="InterferenceFunction1DParaCrystal">
+            <property name="PeakDistance">
+                <tooltip>The distance to the peak</tooltip>                
+            </property>
+        </class>
+        
+        <class name="Layer">
+            <property name="Thickness">
+                <tooltip>Thickness of the layer</tooltip>                
+            </property>
+        </class>
+        
+    </context>
+</tooltips>
+

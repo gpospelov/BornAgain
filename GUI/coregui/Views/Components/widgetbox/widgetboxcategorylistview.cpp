@@ -252,6 +252,7 @@ void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget
             filter += className;
     }
     WidgetBoxCategoryEntry item(widget, filter, icon, editable);
+    item.toolTip = "xxx";
 //    const QDesignerWidgetDataBaseInterface *db = m_core->widgetDataBase();
 //    const int dbIndex = db->indexOfClassName(widget.name());
 //    if (dbIndex != -1) {

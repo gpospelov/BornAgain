@@ -36,6 +36,7 @@
 #include "GUIObjectBuilder.h"
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
+#include "tooltipdatabase.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -60,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_instrumentModel(0)
     , m_materialModel(0)
     , m_materialEditor(0)
+    , m_toolTipDataBase(new ToolTipDataBase(this))
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));

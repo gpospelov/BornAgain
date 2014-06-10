@@ -165,7 +165,7 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return std::exp(-sum_sq/4.0)/2.0;
+    return std::exp(-sum_sq/2.0);
 }
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,

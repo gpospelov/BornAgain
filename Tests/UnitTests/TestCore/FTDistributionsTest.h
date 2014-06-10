@@ -146,7 +146,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussConstructor)
     EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionGauss", iftd2D->getName());
-    EXPECT_NEAR(0.3855258, iftd2D->evaluate(0.2, 0.5),0.000001);
+    EXPECT_NEAR(0.5945205, iftd2D->evaluate(0.2, 0.5),0.000001);
 
     iftd2D->setGamma(3.0);
     EXPECT_EQ(3.0, iftd2D->getGamma());
@@ -165,7 +165,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussClone)
     EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionGauss", iftd2DClone->getName());
-    EXPECT_NEAR(0.279774, iftd2DClone->evaluate(0.2, 0.5),0.000001);
+    EXPECT_NEAR(0.3130945, iftd2DClone->evaluate(0.2, 0.5),0.000001);
 
     delete iftd2D;
     delete iftd2DClone;

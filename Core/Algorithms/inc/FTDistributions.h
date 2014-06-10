@@ -156,7 +156,8 @@ protected:
 //! @class FTDistribution2DCauchy
 //! @ingroup algorithms
 //! @brief 2 dimensional Cauchy distribution in Fourier space
-//! corresponds to exp(-r) in real space
+//! corresponds to a normalized exp(-r) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
@@ -173,7 +174,8 @@ public:
 //! @class FTDistribution2DGauss
 //! @ingroup algorithms
 //! @brief 2 dimensional Gauss distribution in Fourier space
-//! corresponds to exp(-r^2) in real space
+//! corresponds to normalized exp(-r^2/2) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
@@ -184,6 +186,47 @@ public:
     virtual FTDistribution2DGauss *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+};
+
+
+//! @class FTDistribution2DGate
+//! @ingroup algorithms
+//! @brief 2 dimensional gate distribution in Fourier space
+//! corresponds to normalized constant if r<1 (and 0 otherwise) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
+{
+public:
+    FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DGate() {}
+
+    virtual FTDistribution2DGate *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+};
+
+
+//! @class FTDistribution2DCone
+//! @ingroup algorithms
+//! @brief 2 dimensional cone distribution in Fourier space
+//! corresponds to 1-r if r<1 (and 0 otherwise) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
+{
+public:
+    FTDistribution2DCone(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DCone() {}
+
+    virtual FTDistribution2DCone *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+
+private:
+    //! second part of the integrand:
+    //! \f$u^2\cdot J_0(u)\f$
+    double coneIntegrand2(double value, void *params) const;
 };
 
 

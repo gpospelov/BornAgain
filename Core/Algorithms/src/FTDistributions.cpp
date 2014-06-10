@@ -168,6 +168,67 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
     return std::exp(-sum_sq/2.0);
 }
 
+FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
+        double coherence_length_y)
+: IFTDistribution2D(coherence_length_x, coherence_length_y)
+{
+    setName("2DDistributionGate");
+    init_parameters();
+}
+
+FTDistribution2DGate* FTDistribution2DGate::clone() const
+{
+    FTDistribution2DGate *p_clone = new FTDistribution2DGate(
+            m_coherence_length_x, m_coherence_length_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDistribution2DGate::evaluate(double qx, double qy) const
+{
+    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+    return MathFunctions::Bessel_C1(scaled_q)*2.0;
+}
+
+FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
+        double coherence_length_y)
+: IFTDistribution2D(coherence_length_x, coherence_length_y)
+{
+    setName("2DDistributionCone");
+    init_parameters();
+}
+
+FTDistribution2DCone* FTDistribution2DCone::clone() const
+{
+    FTDistribution2DCone *p_clone = new FTDistribution2DCone(
+            m_coherence_length_x, m_coherence_length_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDistribution2DCone::evaluate(double qx, double qy) const
+{
+    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+    if (scaled_q<Numeric::double_epsilon) {
+        return 1.0 - 3.0*scaled_q*scaled_q/40.0;
+    }
+    MemberFunctionIntegrator<FTDistribution2DCone>::mem_function
+        p_member_function = &FTDistribution2DCone::coneIntegrand2;
+    MemberFunctionIntegrator<FTDistribution2DCone>
+                integrator(p_member_function, this);
+    double integral = integrator.integrate(0.0, scaled_q, (void*)0);
+    return 6.0*(MathFunctions::Bessel_C1(scaled_q)
+                - integral/scaled_q/scaled_q/scaled_q);
+}
+
+double FTDistribution2DCone::coneIntegrand2(double value, void *params) const
+{
+    (void)params;
+    return value*value*MathFunctions::Bessel_J0(value);
+}
+
 FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,
         double coherence_length_y, double eta)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)

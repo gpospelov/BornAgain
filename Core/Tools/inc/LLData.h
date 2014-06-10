@@ -70,8 +70,10 @@ private:
     T *m_data_array;
 };
 
+#ifndef GCCXML_SKIP_THIS
 template <>
 Eigen::Matrix2d LLData<Eigen::Matrix2d>::getZeroElement() const;
+#endif
 
 // Global helper functions for arithmetic
 template <class T> LLData<T> operator+(const LLData<T>& left, const LLData<T>& right);

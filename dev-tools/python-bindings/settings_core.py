@@ -55,6 +55,8 @@ include_classes = [
     "FTDistribution2DCauchy",
     "FTDistribution1DGauss",
     "FTDistribution2DGauss",
+    "FTDistribution2DGate",
+    "FTDistribution2DCone",
     "FTDistribution1DVoigt",
     "FTDistribution2DVoigt",
     "FormFactorAnisoPyramid",

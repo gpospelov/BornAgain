@@ -33,6 +33,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IFormFactorBorn.pypp.h"
 #include "FormFactorEllipsoidalCylinder.pypp.h"
 #include "InterferenceFunctionNone.pypp.h"
+#include "FTDistribution2DGate.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "FormFactorTruncatedSpheroid.pypp.h"
 #include "Particle.pypp.h"
@@ -73,6 +74,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Layer.pypp.h"
 #include "FormFactorPyramid.pypp.h"
 #include "StochasticSampledParameter.pypp.h"
+#include "FTDistribution2DCone.pypp.h"
 #include "IFTDistribution1D.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "IDistribution1D.pypp.h"
@@ -166,6 +168,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FTDistribution1DVoigt_class();
     register_IFTDistribution2D_class();
     register_FTDistribution2DCauchy_class();
+    register_FTDistribution2DCone_class();
+    register_FTDistribution2DGate_class();
     register_FTDistribution2DGauss_class();
     register_FTDistribution2DVoigt_class();
     register_IFormFactor_class();

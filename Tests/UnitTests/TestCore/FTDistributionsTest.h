@@ -179,7 +179,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtConstructor)
     EXPECT_EQ(M_PI/2.0, iftd2D->getDelta());
     EXPECT_EQ(0.0, iftd2D->getGamma());
     EXPECT_EQ("2DDistributionVoigt", iftd2D->getName());
-    EXPECT_NEAR(0.4913253, iftd2D->evaluate(0.2, 0.5),0.000001);
+    EXPECT_NEAR(1.2228072, iftd2D->evaluate(0.2, 0.5),0.000001);
 
     iftd2D->setGamma(3.0);
     EXPECT_EQ(3.0, iftd2D->getGamma());
@@ -198,7 +198,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtClone)
     EXPECT_EQ(M_PI/2.0, iftd2DClone->getDelta());
     EXPECT_EQ(0.0, iftd2DClone->getGamma());
     EXPECT_EQ("2DDistributionVoigt", iftd2DClone->getName());
-    EXPECT_NEAR(-0.476936, iftd2DClone->evaluate(0.2, 0.5),0.000001);
+    EXPECT_NEAR(-0.6635305, iftd2DClone->evaluate(0.2, 0.5),0.000001);
 
     delete iftd2D;
     delete iftd2DClone;

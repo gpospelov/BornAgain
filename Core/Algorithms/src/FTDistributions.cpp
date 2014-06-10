@@ -189,7 +189,7 @@ double FTDistribution2DVoigt::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return m_eta*std::exp(-sum_sq/4.0)/2.0
+    return m_eta*std::exp(-sum_sq/2.0)
             + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
 }
 

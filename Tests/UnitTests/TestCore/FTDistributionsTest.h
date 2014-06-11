@@ -17,7 +17,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DCauchyConstructor)
     IFTDistribution1D * iftd1D = new FTDistribution1DCauchy(1.0);
     EXPECT_EQ(1.0, iftd1D->getOmega());
     EXPECT_EQ("1DDistributionCauchy", iftd1D->getName());
-    EXPECT_NEAR(0.942866, iftd1D->evaluate(0.2),0.000001);
+    EXPECT_NEAR(0.961538, iftd1D->evaluate(0.2),0.000001);
 
     iftd1D->setOmega(3.0);
     EXPECT_EQ(3.0, iftd1D->getOmega());
@@ -35,7 +35,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DCauchyClone)
 
     EXPECT_EQ(-5.0, iftd1DClone->getOmega());
     EXPECT_EQ("1DDistributionCauchy", iftd1DClone->getName());
-    EXPECT_NEAR(0.353553, iftd1DClone->evaluate(0.2),0.000001);
+    EXPECT_NEAR(0.5, iftd1DClone->evaluate(0.2),0.000001);
 
     delete iftd1D;
     delete iftd1DClone;
@@ -46,7 +46,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DGaussConstructor)
     IFTDistribution1D * iftd1D = new FTDistribution1DGauss(1.0);
     EXPECT_EQ(1.0, iftd1D->getOmega());
     EXPECT_EQ("1DDistributionGauss", iftd1D->getName());
-    EXPECT_NEAR(0.4950249, iftd1D->evaluate(0.2),0.000001);
+    EXPECT_NEAR(0.9801987, iftd1D->evaluate(0.2),0.000001);
 
     iftd1D->setOmega(3.0);
     EXPECT_EQ(3.0, iftd1D->getOmega());
@@ -61,7 +61,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DGaussClone)
 
     EXPECT_EQ(-5.0, iftd1DClone->getOmega());
     EXPECT_EQ("1DDistributionGauss", iftd1DClone->getName());
-    EXPECT_NEAR(0.389400, iftd1DClone->evaluate(0.2),0.000001);
+    EXPECT_NEAR(0.6065307, iftd1DClone->evaluate(0.2),0.000001);
 
     delete iftd1D;
     delete iftd1DClone;
@@ -72,7 +72,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DVoigtConstructor)
     IFTDistribution1D * iftd1D = new FTDistribution1DVoigt(1.0,1.7);
     EXPECT_EQ(1.0, iftd1D->getOmega());
     EXPECT_EQ("1DDistributionVoigt", iftd1D->getName());
-    EXPECT_NEAR(0.181536, iftd1D->evaluate(0.2),0.000001);
+    EXPECT_NEAR(0.993261, iftd1D->evaluate(0.2),0.000001);
 
     iftd1D->setOmega(3.0);
     EXPECT_EQ(3.0, iftd1D->getOmega());
@@ -87,7 +87,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DVoigtClone)
 
     EXPECT_EQ(-5.0, iftd1DClone->getOmega());
     EXPECT_EQ("1DDistributionVoigt", iftd1DClone->getName());
-    EXPECT_NEAR(0.152810, iftd1DClone->evaluate(0.2),0.000001);
+    EXPECT_NEAR(-0.096572, iftd1DClone->evaluate(0.2),0.000001);
 
     delete iftd1D;
     delete iftd1DClone;

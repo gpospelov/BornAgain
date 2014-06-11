@@ -43,7 +43,7 @@ FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
 double FTDistribution1DCauchy::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return std::pow(1.0 + sum_sq, -1.5);
+    return 1.0/(1.0 + sum_sq);
 }
 
 FTDistribution1DGauss::FTDistribution1DGauss(double omega)
@@ -62,7 +62,7 @@ FTDistribution1DGauss* FTDistribution1DGauss::clone() const
 double FTDistribution1DGauss::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return 0.5*std::exp(-sum_sq/4.0);
+    return std::exp(-sum_sq/2.0);
 }
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
@@ -83,8 +83,8 @@ FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const
 double FTDistribution1DVoigt::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return m_eta*std::exp(-sum_sq/4.0)/2.0
-            + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
+    return m_eta*std::exp(-sum_sq/2.0)
+            + (1.0 - m_eta)*1.0/(1.0 + sum_sq);
 }
 
 void FTDistribution1DVoigt::init_parameters()

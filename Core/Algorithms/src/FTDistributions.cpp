@@ -155,8 +155,7 @@ double FTDistribution2DCauchy::evaluate(double qx, double qy) const
 
 double FTDistribution2DCauchy::evaluateLattice(double qx, double qy) const
 {
-    return 2.0*M_PI*m_coherence_length_x*m_coherence_length_y
-            *evaluate(qx, qy);
+    return evaluate(qx, qy);
 }
 
 FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x,
@@ -186,7 +185,7 @@ double FTDistribution2DGauss::evaluateLattice(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return M_PI*m_coherence_length_x*m_coherence_length_y*std::exp(-sum_sq/4.0);
+    return std::exp(-sum_sq/4.0)/2.0;
 }
 
 FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
@@ -279,9 +278,8 @@ double FTDistribution2DVoigt::evaluateLattice(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return M_PI*m_coherence_length_x*m_coherence_length_y*
-        (m_eta*std::exp(-sum_sq/4.0)
-          + (1.0 - m_eta)*2.0*std::pow(1.0 + sum_sq, -1.5) );
+    return m_eta*std::exp(-sum_sq/4.0)/2.0
+           + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
 }
 
 void FTDistribution2DVoigt::init_parameters()

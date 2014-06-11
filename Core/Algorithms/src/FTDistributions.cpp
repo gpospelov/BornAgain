@@ -102,6 +102,30 @@ double FTDistribution1DTriangle::evaluate(double q) const
     return sincqw2*sincqw2;
 }
 
+FTDistribution1DCosine::FTDistribution1DCosine(double omega)
+    : IFTDistribution1D(omega)
+{
+    setName("1DDistributionCosine");
+    init_parameters();
+}
+
+FTDistribution1DCosine *FTDistribution1DCosine::clone() const
+{
+    FTDistribution1DCosine *p_clone = new FTDistribution1DCosine(m_omega);
+    return p_clone;
+}
+
+double FTDistribution1DCosine::evaluate(double q) const
+{
+    double qw = q*m_omega;
+    if (std::abs(qw/M_PI)-1.0 < Numeric::double_epsilon) {
+        return 0.5;
+    }
+    else {
+        return MathFunctions::Sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
+    }
+}
+
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 : IFTDistribution1D(omega)
 , m_eta(eta)

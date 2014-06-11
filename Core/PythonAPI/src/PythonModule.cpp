@@ -24,6 +24,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ILayout.pypp.h"
 #include "FormFactorCone6.pypp.h"
 #include "FormFactorTetrahedron.pypp.h"
+#include "FTDistribution1DCosine.pypp.h"
 #include "FTDistribution1DTriangle.pypp.h"
 #include "FormFactorWeighted.pypp.h"
 #include "DistributionGaussian.pypp.h"
@@ -166,6 +167,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_DistributionLorentz_class();
     register_IFTDistribution1D_class();
     register_FTDistribution1DCauchy_class();
+    register_FTDistribution1DCosine_class();
     register_FTDistribution1DGate_class();
     register_FTDistribution1DGauss_class();
     register_FTDistribution1DTriangle_class();

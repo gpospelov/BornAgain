@@ -117,6 +117,24 @@ public:
 };
 
 
+//! @class FTDistribution1DCosine
+//! @ingroup algorithms
+//! @brief 1 dimensional triangle distribution in Fourier space
+//! corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise)
+//! in real space
+
+class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
+{
+public:
+    FTDistribution1DCosine(double omega);
+    virtual ~FTDistribution1DCosine() {}
+
+    virtual FTDistribution1DCosine *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
 //! @class FTDistribution1DVoigt
 //! @ingroup algorithms
 //! @brief 1 dimensional Voigt distribution in Fourier space

@@ -23,7 +23,7 @@ MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
     mrtcDefault = * map.getCoefficients(1.0, 1.0);
 }
 
-TEST_F(MatrixSpecularInfoMapTest, getCoeffiecients)
+TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
     EXPECT_TRUE(NULL != map.getCoefficients(1.0, 1.0));
 

@@ -117,8 +117,8 @@ FTDistribution1DCosine *FTDistribution1DCosine::clone() const
 
 double FTDistribution1DCosine::evaluate(double q) const
 {
-    double qw = q*m_omega;
-    if (std::abs(qw/M_PI)-1.0 < Numeric::double_epsilon) {
+    double qw = std::abs(q*m_omega);
+    if (std::abs(qw/M_PI-1.0) < Numeric::double_epsilon) {
         return 0.5;
     }
     else {

@@ -100,6 +100,14 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 
 //==============2D====================
 
+double IFTDistribution2D::evaluateLattice(double qx, double qy) const
+{
+    (void)qx;
+    (void)qy;
+    throw NotImplementedException("IFTDistribution2D::evaluateLattice: This "
+         "distribution can not be used for the reciprocal lattice approach");
+}
+
 void IFTDistribution2D::transformToStarBasis(double qX, double qY,
         double alpha, double a, double b, double& qa, double& qb) const
 {
@@ -145,6 +153,12 @@ double FTDistribution2DCauchy::evaluate(double qx, double qy) const
     return std::pow(1.0 + sum_sq, -1.5);
 }
 
+double FTDistribution2DCauchy::evaluateLattice(double qx, double qy) const
+{
+    return 2.0*M_PI*m_coherence_length_x*m_coherence_length_y
+            *evaluate(qx, qy);
+}
+
 FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x,
         double coherence_length_y)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
@@ -166,6 +180,13 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
     return std::exp(-sum_sq/2.0);
+}
+
+double FTDistribution2DGauss::evaluateLattice(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y;
+    return M_PI*m_coherence_length_x*m_coherence_length_y*std::exp(-sum_sq/4.0);
 }
 
 FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
@@ -252,6 +273,15 @@ double FTDistribution2DVoigt::evaluate(double qx, double qy) const
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
     return m_eta*std::exp(-sum_sq/2.0)
             + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
+}
+
+double FTDistribution2DVoigt::evaluateLattice(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y;
+    return M_PI*m_coherence_length_x*m_coherence_length_y*
+        (m_eta*std::exp(-sum_sq/4.0)
+          + (1.0 - m_eta)*2.0*std::pow(1.0 + sum_sq, -1.5) );
 }
 
 void FTDistribution2DVoigt::init_parameters()

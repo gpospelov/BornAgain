@@ -87,7 +87,7 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(
     double gamma = m_lattice_params.m_xi + mp_pdf->getGamma();
     double delta = mp_pdf->getDelta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
-    return mp_pdf->evaluate(qp1, qp2);
+    return mp_pdf->evaluateLattice(qp1, qp2);
 }
 
 void InterferenceFunction2DLattice::transformToPrincipalAxes(double qx,

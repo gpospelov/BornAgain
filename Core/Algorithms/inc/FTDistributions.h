@@ -131,10 +131,15 @@ public:
     // get coherence length in Y-direction
     double getCoherenceLengthY() const { return m_coherence_length_y; }
 
-    //! evaluate IF for q in X,Y coordinates
-    //! A common factor of 2*pi*m_coherence_length_x*m_coherence_length_y is
-    //! applied by the caller if needed
+    //! evaluate Fourier transformed distribution for q in X,Y coordinates
+    //! the original distribution (in real space) is assumed to be normalized:
+    //! total integral is equal to 1
     virtual double evaluate(double qx, double qy) const=0;
+
+    //! evaluate Fourier transformed distribution for q in X,Y coordinates
+    //! the function is assumed to be normalized in reciprocal space:
+    //! total integral is (2pi)^2
+    virtual double evaluateLattice(double qx, double qy) const;
 
     //! transform back to a*, b* basis:
     void transformToStarBasis(double qX, double qY,
@@ -168,6 +173,8 @@ public:
     virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double evaluateLattice(double qx, double qy) const;
 };
 
 
@@ -186,6 +193,8 @@ public:
     virtual FTDistribution2DGauss *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double evaluateLattice(double qx, double qy) const;
 };
 
 
@@ -245,6 +254,8 @@ public:
     virtual FTDistribution2DVoigt *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double evaluateLattice(double qx, double qy) const;
 
     virtual double getEta() const { return m_eta;}
 

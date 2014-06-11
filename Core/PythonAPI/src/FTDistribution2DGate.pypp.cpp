@@ -92,6 +92,18 @@ struct FTDistribution2DGate_wrapper : FTDistribution2DGate, bp::wrapper< FTDistr
         return IParameterized::createParameterTree( );
     }
 
+    virtual double evaluateLattice( double qx, double qy ) const  {
+        if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
+            return func_evaluateLattice( qx, qy );
+        else
+            return this->IFTDistribution2D::evaluateLattice( qx, qy );
+    }
+    
+    
+    double default_evaluateLattice( double qx, double qy ) const  {
+        return IFTDistribution2D::evaluateLattice( qx, qy );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -211,6 +223,18 @@ void register_FTDistribution2DGate_class(){
                 , createParameterTree_function_type(&::IParameterized::createParameterTree)
                 , default_createParameterTree_function_type(&FTDistribution2DGate_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IFTDistribution2D::evaluateLattice
+        
+            typedef double ( ::IFTDistribution2D::*evaluateLattice_function_type )( double,double ) const;
+            typedef double ( FTDistribution2DGate_wrapper::*default_evaluateLattice_function_type )( double,double ) const;
+            
+            FTDistribution2DGate_exposer.def( 
+                "evaluateLattice"
+                , evaluateLattice_function_type(&::IFTDistribution2D::evaluateLattice)
+                , default_evaluateLattice_function_type(&FTDistribution2DGate_wrapper::default_evaluateLattice)
+                , ( bp::arg("qx"), bp::arg("qy") ) );
         
         }
         { //::IParameterized::printParameters

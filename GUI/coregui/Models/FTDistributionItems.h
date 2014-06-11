@@ -35,6 +35,24 @@ public:
 };
 
 
+class FTDistribution2DGateItem : public FTDistribution2DItem
+{
+    Q_OBJECT
+public:
+    explicit FTDistribution2DGateItem(ParameterizedItem *parent=0);
+    virtual IFTDistribution2D *createFTDistribution() const;
+};
+
+
+class FTDistribution2DConeItem : public FTDistribution2DItem
+{
+    Q_OBJECT
+public:
+    explicit FTDistribution2DConeItem(ParameterizedItem *parent=0);
+    virtual IFTDistribution2D *createFTDistribution() const;
+};
+
+
 class FTDistribution2DVoigtItem : public FTDistribution2DItem
 {
     Q_OBJECT

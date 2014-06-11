@@ -36,6 +36,8 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     QMap<QString, ParameterizedItem *(*)()> ft_distributions_2d;
     ft_distributions_2d[QString("Cauchy 2D")] = &createInstance<FTDistribution2DCauchyItem>;
     ft_distributions_2d[QString("Gauss 2D")] = &createInstance<FTDistribution2DGaussItem>;
+    ft_distributions_2d[QString("Gate 2D")] = &createInstance<FTDistribution2DGateItem>;
+    ft_distributions_2d[QString("Cone 2D")] = &createInstance<FTDistribution2DConeItem>;
     ft_distributions_2d[QString("Voigt 2D")] = &createInstance<FTDistribution2DVoigtItem>;
     result[InterferenceFunction2DParaCrystalItem::P_PDF1] = ft_distributions_2d;
     result[InterferenceFunction2DParaCrystalItem::P_PDF2] = ft_distributions_2d;

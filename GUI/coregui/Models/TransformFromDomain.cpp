@@ -55,6 +55,16 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const Inter
             pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());
             pdfItem->setRegisteredProperty(FTDistribution2DGaussItem::P_CORR_LENGTH_Y, pdf->getCoherenceLengthY());
         }
+        else if(const FTDistribution2DGate *pdf = dynamic_cast<const FTDistribution2DGate *>(pdfs[i])) {
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i], "Gate 2D");
+            pdfItem->setRegisteredProperty(FTDistribution2DGateItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());
+            pdfItem->setRegisteredProperty(FTDistribution2DGateItem::P_CORR_LENGTH_Y, pdf->getCoherenceLengthY());
+        }
+        else if(const FTDistribution2DCone *pdf = dynamic_cast<const FTDistribution2DCone *>(pdfs[i])) {
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i], "Cone 2D");
+            pdfItem->setRegisteredProperty(FTDistribution2DConeItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());
+            pdfItem->setRegisteredProperty(FTDistribution2DConeItem::P_CORR_LENGTH_Y, pdf->getCoherenceLengthY());
+        }
         else if(const FTDistribution2DVoigt *pdf = dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
             ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i], "Gauss 2D");
             pdfItem->setRegisteredProperty(FTDistribution2DVoigtItem::P_CORR_LENGTH_X, pdf->getCoherenceLengthX());

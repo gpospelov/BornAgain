@@ -24,6 +24,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ILayout.pypp.h"
 #include "FormFactorCone6.pypp.h"
 #include "FormFactorTetrahedron.pypp.h"
+#include "FTDistribution1DTriangle.pypp.h"
 #include "FormFactorWeighted.pypp.h"
 #include "DistributionGaussian.pypp.h"
 #include "IDetectorResolution.pypp.h"
@@ -41,6 +42,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorCrystal.pypp.h"
 #include "vector_longinteger_t.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
+#include "FTDistribution1DGate.pypp.h"
 #include "FormFactorAnisoPyramid.pypp.h"
 #include "MultiLayer.pypp.h"
 #include "IFormFactor.pypp.h"
@@ -164,7 +166,9 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_DistributionLorentz_class();
     register_IFTDistribution1D_class();
     register_FTDistribution1DCauchy_class();
+    register_FTDistribution1DGate_class();
     register_FTDistribution1DGauss_class();
+    register_FTDistribution1DTriangle_class();
     register_FTDistribution1DVoigt_class();
     register_IFTDistribution2D_class();
     register_FTDistribution2DCauchy_class();

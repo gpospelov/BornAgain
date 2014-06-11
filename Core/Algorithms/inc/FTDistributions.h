@@ -47,10 +47,11 @@ protected:
     double m_omega;
 };
 
+
 //! @class FTDistribution1DCauchy
 //! @ingroup algorithms
 //! @brief 1 dimensional Cauchy distribution in Fourier space
-//! corresponds to exp(-r) in real space
+//! corresponds to a normalized exp(-|x|) in real space
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
@@ -66,7 +67,7 @@ public:
 //! @class FTDistribution1DGauss
 //! @ingroup algorithms
 //! @brief 1 dimensional Gauss distribution in Fourier space
-//! corresponds to exp(-r^2) in real space
+//! corresponds to a normalized exp(-x^2) in real space
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
@@ -75,6 +76,42 @@ public:
     virtual ~FTDistribution1DGauss() {}
 
     virtual FTDistribution1DGauss *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
+//! @class FTDistribution1DGate
+//! @ingroup algorithms
+//! @brief 1 dimensional Gate distribution in Fourier space
+//! corresponds to a normalized constant if |x|<omega (and 0 otherwise)
+//! in real space
+
+class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
+{
+public:
+    FTDistribution1DGate(double omega);
+    virtual ~FTDistribution1DGate() {}
+
+    virtual FTDistribution1DGate *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
+//! @class FTDistribution1DTriangle
+//! @ingroup algorithms
+//! @brief 1 dimensional triangle distribution in Fourier space
+//! corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise)
+//! in real space
+
+class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
+{
+public:
+    FTDistribution1DTriangle(double omega);
+    virtual ~FTDistribution1DTriangle() {}
+
+    virtual FTDistribution1DTriangle *clone() const;
 
     virtual double evaluate(double q) const;
 };

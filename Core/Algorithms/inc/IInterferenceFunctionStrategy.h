@@ -94,22 +94,12 @@ private:
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;
 
-    //! Perform an integration over the bin for the evaluation of the intensity
-    double integratedEvaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin) const;
-
     //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
     double MCIntegratedEvaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             Bin1D alpha_f_bin) const;
 
-    //! Integrate over phi angle
-    double integratePhi(double zeta, void* params) const;
-
     //! Evaluate for fixed angles
     double evaluate_for_fixed_angles(double *angles, size_t dim, void* params) const;
-
-    //! Evaluate for fixed k_f
-    double evaluate_with_fixed_kf(double xi, void* params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;

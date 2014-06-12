@@ -150,6 +150,8 @@ public:
 
     virtual double evaluate(double q) const;
 
+    virtual double getEta() const { return m_eta;}
+
 protected:
     virtual void init_parameters();
     double m_eta;

@@ -5,9 +5,8 @@ import numpy
 import gzip
 
 sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
-
+    os.path.join(os.path.split(__file__)[0],
+                 '..', '..', '..', 'lib')))
 
 from libBornAgainCore import *
 
@@ -17,21 +16,23 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
-    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
-    
-	# collection of particles
-    ripple1_ff = FormFactorRipple1(100*nanometer,20*nanometer, 4*nanometer)
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
+    mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+    mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+
+    # collection of particles
+    ripple1_ff = FormFactorRipple1(100 * nanometer, 20 * nanometer, 4 * nanometer)
     ripple = Particle(mParticle, ripple1_ff)
 
     particle_layout = ParticleLayout()
     particle_layout.addParticle(ripple, 0.0, 1.0)
 
-    interference = InterferenceFunction1DParaCrystal (20*nanometer, 4*nanometer, 1e7*nanometer)
+    interference = InterferenceFunction1DParaCrystal(20 * nanometer, 1e7 * nanometer)
+    pdf = FTDistribution1DGauss(4 * nanometer)
+    interference.setProbabilityDistribution(pdf)
     particle_layout.addInterferenceFunction(interference)
-    
-	# air layer with particles and substrate form multi layer
+
+    # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
     air_layer.setLayout(particle_layout)
     substrate_layer = Layer(mSubstrate, 0)
@@ -41,21 +42,22 @@ def RunSimulation():
 
     # build and run experiment
     simulation = Simulation()
-    simulation.setDetectorParameters(100,-1.5*degree, 1.5*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.6*angstrom, 0.3*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -1.5 * degree, 1.5 * degree, 100, 0.0 * degree, 2.0 * degree, True)
+    simulation.setBeamParameters(1.6 * angstrom, 0.3 * degree, 0.0 * degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    ## intensity data
+    # # intensity data
     return simulation.getIntensityData().getArray()
+
 
 # ----------------------------------
 # read reference data from file
 # ----------------------------------
 def GetReferenceData():
     path = os.path.split(__file__)[0]
-    if path: path +="/"
-    f = gzip.open(path+'../../ReferenceData/BornAgain/test_ripple1.ima.gz', 'rb')
-    reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
+    if path: path += "/"
+    f = gzip.open(path + '../../ReferenceData/BornAgain/test_ripple1.ima.gz', 'rb')
+    reference = numpy.fromstring(f.read(), numpy.float64, sep=' ')
     f.close()
     return reference
 
@@ -67,18 +69,18 @@ def GetDifference(data, reference):
     reference = reference.reshape(data.shape)
     # calculating relative average difference
     data -= reference
-    diff=0.0
+    diff = 0.0
     epsilon = sys.float_info.epsilon
     for x, y in numpy.ndindex(data.shape):
         v1 = data[x][y]
         v2 = reference[x][y]
         if v1 <= epsilon and v2 <= epsilon:
             diff += 0.0
-        elif(v2 <= epsilon):
-            diff += abs(v1/epsilon)
+        elif (v2 <= epsilon):
+            diff += abs(v1 / epsilon)
         else:
-            diff += abs(v1/v2)
-    return diff/data.size
+            diff += abs(v1 / v2)
+    return diff / data.size
 
 
 # --------------------------------------------------------------
@@ -90,14 +92,14 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
+    if (diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "Ripple1", "Cosine ripple within the 1D-paracrystal model", status
 
 
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    name, description, status = runTest()
+    print name, description, status
+    if ("FAILED" in status): exit(1)

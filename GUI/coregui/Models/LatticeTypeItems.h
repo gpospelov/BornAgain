@@ -3,7 +3,6 @@
 
 #include "ParameterizedItem.h"
 
-
 class BasicLatticeTypeItem : public ParameterizedItem
 {
     Q_OBJECT
@@ -12,7 +11,6 @@ public:
     explicit BasicLatticeTypeItem(ParameterizedItem *parent=0);
     ~BasicLatticeTypeItem(){}
 };
-
 
 class SquareLatticeTypeItem : public ParameterizedItem
 {
@@ -23,7 +21,6 @@ public:
     ~SquareLatticeTypeItem(){}
 };
 
-
 class HexagonalLatticeTypeItem : public ParameterizedItem
 {
     Q_OBJECT
@@ -32,7 +29,5 @@ public:
     explicit HexagonalLatticeTypeItem(ParameterizedItem *parent=0);
     ~HexagonalLatticeTypeItem(){}
 };
-
-
 
 #endif

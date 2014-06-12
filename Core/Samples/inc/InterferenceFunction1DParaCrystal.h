@@ -23,7 +23,8 @@
 //! @ingroup interference
 //! @brief Interference function of 1D paracrystal.
 
-class BA_CORE_API_ InterferenceFunction1DParaCrystal : public IInterferenceFunction
+class BA_CORE_API_ InterferenceFunction1DParaCrystal
+        : public IInterferenceFunction
 {
 public:
 
@@ -45,14 +46,20 @@ public:
         m_domain_size = size;
     }
 
-    //! Gets the domain size
+    //! @brief Gets size of coherence domain
+    //! @param size: size in lattice direction
     double getDomainSize() const {
         return m_domain_size;
     }
 
-
+    //! @brief Sets size-spacing coupling parameter
+    //! @param kappa: size-spacing coupling parameter
     void setKappa(double kappa) { m_kappa = kappa; }
+
+    //! @brief Gets size-spacing coupling parameter
+    //! @param kappa: size-spacing coupling parameter
     virtual double getKappa() const { return m_kappa; }
+
     virtual double evaluate(const cvector_t& q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTPDF(double qpar) const;

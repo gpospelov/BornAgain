@@ -3,16 +3,17 @@
 
 class ParameterizedItem;
 class InterferenceFunction2DParaCrystal;
+class InterferenceFunction1DParaCrystal;
 
 namespace TransformFromDomain
 {
-
-void setItemFromSample(ParameterizedItem *item, const InterferenceFunction2DParaCrystal *sample);
+void setItemFromSample(ParameterizedItem *item,
+                       const InterferenceFunction2DParaCrystal *sample);
+void setItemFromSample(ParameterizedItem *item,
+                       const InterferenceFunction1DParaCrystal *sample);
 
 bool isSquareLattice(const InterferenceFunction2DParaCrystal *sample);
 bool isHexagonalLattice(const InterferenceFunction2DParaCrystal *sample);
-
-
 }
 
 #endif

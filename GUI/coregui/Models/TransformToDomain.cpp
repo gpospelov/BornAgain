@@ -36,23 +36,23 @@ IMaterial *TransformToDomain::createDomainMaterial(const ParameterizedItem &item
 {
     QVariant v = item.property("Material");
     if( !v.isValid() )
-        throw GUIHelpers::Error("TransformToDomain::createDomainMaterial() -> No material property");
+        throw GUIHelpers::Error("TransformToDomain::createDomainMaterial() -> "
+                                "No material property");
 
     MaterialProperty materialProperty = v.value<MaterialProperty>();
     return MaterialUtils::createDomainMaterial(materialProperty.getName());
 }
 
-
 MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)
 {
     MultiLayer *result = new MultiLayer();
     double cross_corr_length =
-            item.getRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
+            item.getRegisteredProperty(
+                MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if(cross_corr_length>0) result->setCrossCorrLength(cross_corr_length);
     result->setName(item.itemName().toUtf8().constData());
     return result;
 }
-
 
 Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
 {
@@ -68,7 +68,6 @@ Layer *TransformToDomain::createLayer(const ParameterizedItem &item)
     return result;
 }
 
-
 ParticleLayout *TransformToDomain::createParticleLayout(
         const ParameterizedItem &item)
 {
@@ -77,8 +76,8 @@ ParticleLayout *TransformToDomain::createParticleLayout(
     return result;
 }
 
-
-Particle *TransformToDomain::createParticle(const ParameterizedItem &item, double &depth, double &abundance)
+Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
+                                            double &depth, double &abundance)
 {
     boost::scoped_ptr<IMaterial> material(createDomainMaterial(item));
     Particle *result = new Particle(*material);
@@ -94,7 +93,6 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item, doubl
     return result;
 }
 
-
 IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
 {
     const FormFactorItem *ffItem = dynamic_cast<const FormFactorItem *>(&item);
@@ -102,14 +100,37 @@ IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
     return ffItem->createFormFactor();
 }
 
-
-IInterferenceFunction *TransformToDomain::createInterferenceFunction(const ParameterizedItem &item)
+IInterferenceFunction *TransformToDomain::createInterferenceFunction(
+        const ParameterizedItem &item)
 {
     if(item.modelType() == "InterferenceFunction1DParaCrystal") {
-        InterferenceFunction1DParaCrystal *result = new InterferenceFunction1DParaCrystal(
-                    item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE).toDouble(),
-                    item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_CORR_LENGTH).toDouble()
-                    );
+        double peak_distance = item.getRegisteredProperty(
+                    InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE)
+                .toDouble();
+        double damping_length = item.getRegisteredProperty(
+                    InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH)
+                .toDouble();
+        double domain_size = item.getRegisteredProperty(
+                    InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE)
+                .toDouble();
+        double kappa = item.getRegisteredProperty(
+                    InterferenceFunction1DParaCrystalItem::P_KAPPA)
+                .toDouble();
+
+        InterferenceFunction1DParaCrystal *result =
+                new InterferenceFunction1DParaCrystal(peak_distance,
+                                                      damping_length);
+        result->setDomainSize(domain_size);
+        result->setKappa(kappa);
+        ParameterizedItem *pdfItem = item.getSubItems()[
+                InterferenceFunction1DParaCrystalItem::P_PDF];
+        Q_ASSERT(pdfItem);
+        boost::scoped_ptr<IFTDistribution1D> pdf(
+                    dynamic_cast<FTDistribution1DItem *>(pdfItem)
+                    ->createFTDistribution());
+        Q_ASSERT(pdf.get());
+
+        result->setProbabilityDistribution(*pdf);
         return result;
     }
     else if(item.modelType() == "InterferenceFunction2DParaCrystal") {
@@ -167,10 +188,6 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
     return 0;
 }
 
-
-
-
-
 Instrument *TransformToDomain::createInstrument(const ParameterizedItem &item)
 {
     qDebug() << "TransformToDomain::createInstrument";
@@ -178,8 +195,6 @@ Instrument *TransformToDomain::createInstrument(const ParameterizedItem &item)
     result->setName(item.itemName().toUtf8().constData());
     return result;
 }
-
-
 
 Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
 {
@@ -193,8 +208,6 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
     result->setCentralK( lambda, Units::deg2rad(alpha_i), Units::deg2rad(phi_i));
     return result;
 }
-
-
 
 void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument)
 {

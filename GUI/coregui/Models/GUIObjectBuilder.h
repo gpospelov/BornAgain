@@ -32,8 +32,10 @@ public:
     GUIObjectBuilder();
     ~GUIObjectBuilder(){}
 
-    ParameterizedItem *populateSampleModel(SessionModel *sampleModel, ISample *sample);
-    ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel, Instrument *instrument);
+    ParameterizedItem *populateSampleModel(SessionModel *sampleModel,
+                                           ISample *sample);
+    ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel,
+                                               Instrument *instrument);
 
     using ISampleVisitor::visit;
 

@@ -17,7 +17,6 @@ BasicLatticeTypeItem::BasicLatticeTypeItem(ParameterizedItem *parent)
     registerProperty(P_LATTICE_ANGLE, 90.0);
 }
 
-
 SquareLatticeTypeItem::SquareLatticeTypeItem(ParameterizedItem *parent)
     : ParameterizedItem(QString("SquareLatticeType"), parent)
 {
@@ -25,11 +24,9 @@ SquareLatticeTypeItem::SquareLatticeTypeItem(ParameterizedItem *parent)
     registerProperty(P_LATTICE_LENGTH, 20.0);
 }
 
-
 HexagonalLatticeTypeItem::HexagonalLatticeTypeItem(ParameterizedItem *parent)
     : ParameterizedItem(QString("HexagonalLatticeType"), parent)
 {
     setItemName("HexagonalLatticeType");
     registerProperty(P_LATTICE_LENGTH, 20.0);
 }
-

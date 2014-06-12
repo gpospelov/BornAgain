@@ -148,9 +148,11 @@ void ParameterizedItem::setMaterialProperty(MaterialProperty material)
     setProperty("Material", mat_var);
 }
 
-ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name, const QString &value)
+ParameterizedItem * ParameterizedItem::registerGroupProperty(
+        const QString &name, const QString &value)
 {
-    qDebug() << "   XXX   registerGroupProperty " << modelType() << name << value;
+    qDebug() << "registerGroupProperty "
+             << modelType() << name << value;
     GroupProperty group_prop(name, value);
 
     Q_ASSERT(group_prop.isDefined());
@@ -166,7 +168,8 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(const QString &name
     return item;
 }
 
-ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
+ParameterizedItem * ParameterizedItem::setGroupProperty(
+        const QString &name, const QString &value)
 {
     qDebug() << "ParameterizedItem::setGroupProperty" << name << value;
     setBlockPropertyChangeEvent(true);

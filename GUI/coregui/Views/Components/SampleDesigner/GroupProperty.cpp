@@ -33,6 +33,15 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     formfactors[QString("TruncatedSpheroid")] = &createInstance<TruncatedSpheroidItem>;
     result[ParticleItem::P_FORM_FACTOR] = formfactors;
 
+    QMap<QString, ParameterizedItem *(*)()> ft_distributions_1d;
+    ft_distributions_1d[QString("Cauchy 1D")] = &createInstance<FTDistribution1DCauchyItem>;
+    ft_distributions_1d[QString("Gauss 1D")] = &createInstance<FTDistribution1DGaussItem>;
+    ft_distributions_1d[QString("Gate 1D")] = &createInstance<FTDistribution1DGateItem>;
+    ft_distributions_1d[QString("Triangle 1D")] = &createInstance<FTDistribution1DTriangleItem>;
+    ft_distributions_1d[QString("Cosine 1D")] = &createInstance<FTDistribution1DCosineItem>;
+    ft_distributions_1d[QString("Voigt 1D")] = &createInstance<FTDistribution1DVoigtItem>;
+    result[InterferenceFunction1DParaCrystalItem::P_PDF] = ft_distributions_1d;
+
     QMap<QString, ParameterizedItem *(*)()> ft_distributions_2d;
     ft_distributions_2d[QString("Cauchy 2D")] = &createInstance<FTDistribution2DCauchyItem>;
     ft_distributions_2d[QString("Gauss 2D")] = &createInstance<FTDistribution2DGaussItem>;

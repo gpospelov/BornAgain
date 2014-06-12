@@ -56,6 +56,18 @@ struct FTDistribution1DVoigt_wrapper : FTDistribution1DVoigt, bp::wrapper< FTDis
         return FTDistribution1DVoigt::evaluate( q );
     }
 
+    virtual double getEta(  ) const  {
+        if( bp::override func_getEta = this->get_override( "getEta" ) )
+            return func_getEta(  );
+        else
+            return this->FTDistribution1DVoigt::getEta(  );
+    }
+    
+    
+    double default_getEta(  ) const  {
+        return FTDistribution1DVoigt::getEta( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -177,6 +189,17 @@ void register_FTDistribution1DVoigt_class(){
                 , evaluate_function_type(&::FTDistribution1DVoigt::evaluate)
                 , default_evaluate_function_type(&FTDistribution1DVoigt_wrapper::default_evaluate)
                 , ( bp::arg("q") ) );
+        
+        }
+        { //::FTDistribution1DVoigt::getEta
+        
+            typedef double ( ::FTDistribution1DVoigt::*getEta_function_type )(  ) const;
+            typedef double ( FTDistribution1DVoigt_wrapper::*default_getEta_function_type )(  ) const;
+            
+            FTDistribution1DVoigt_exposer.def( 
+                "getEta"
+                , getEta_function_type(&::FTDistribution1DVoigt::getEta)
+                , default_getEta_function_type(&FTDistribution1DVoigt_wrapper::default_getEta) );
         
         }
         { //::IParameterized::areParametersChanged

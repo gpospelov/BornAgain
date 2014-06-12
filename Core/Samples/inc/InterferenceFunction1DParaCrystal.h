@@ -17,6 +17,7 @@
 #define INTERFERENCEFUNCTION1DPARACRYSTAL_H_
 
 #include "IInterferenceFunction.h"
+#include "FTDistributions.h"
 
 //! @class InterferenceFunction1DParaCrystal
 //! @ingroup interference
@@ -31,31 +32,50 @@ public:
     //! @param width Width parameter in the pair correlation function.
     //! @param m_corr_length Correlation length of paracrystal.
     InterferenceFunction1DParaCrystal(
-        double peak_distance, double width, double corr_length=0.0);
+        double peak_distance, double damping_length=0.0);
 
     virtual ~InterferenceFunction1DParaCrystal() {}
     virtual InterferenceFunction1DParaCrystal *clone() const;
 
     virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
+    //! @brief Sets size of coherence domain
+    //! @param size: size in lattice direction
+    void setDomainSize(double size) {
+        m_domain_size = size;
+    }
+
+    //! Gets the domain size
+    double getDomainSize() const {
+        return m_domain_size;
+    }
+
+
     void setKappa(double kappa) { m_kappa = kappa; }
     virtual double getKappa() const { return m_kappa; }
     virtual double evaluate(const cvector_t& q) const;
     //TODO: replace these with strategy pattern for different algorithms
-    complex_t FTGaussianCorrLength(double qpar) const;
+    complex_t FTPDF(double qpar) const;
+
+    //! Sets the Fourier transformed probability distribution of the
+    //! nearest particle
+    void setProbabilityDistribution(const IFTDistribution1D& pdf);
+
+    //! Gets the Fourier transformed probability distribution of the
+    //! nearest particle
+    const IFTDistribution1D *getPropabilityDistribution() const;
 
     double getPeakDistance() const { return m_peak_distance; }
 
-    double getWidth() const { return m_width; }
-
-    double getCorrLength() const { return m_corr_length; }
+    double getDampingLength() const { return m_damping_length; }
 
 protected:
     double m_peak_distance; //!< the distance to the first neighbor peak
-    double m_width; //!< width parameter in the pair correlation function
-    double m_corr_length; //!< correlation length of paracrystal
-    bool m_use_corr_length;
+    double m_damping_length; //!< damping length of paracrystal
+    IFTDistribution1D *mp_pdf; //!< pdf of nearest particle
+    bool m_use_damping_length;
     double m_kappa;
+    double m_domain_size;
 
 private:
     //! Registers some class members for later access via parameter pool

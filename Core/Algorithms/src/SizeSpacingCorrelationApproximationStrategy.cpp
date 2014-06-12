@@ -100,7 +100,7 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(
     if (p_iff==0) {
         throw ClassInitializationException("Wrong interference function for SSCA");
     }
-    return p_iff->FTGaussianCorrLength(qp);
+    return p_iff->FTPDF(qp);
 }
 
 complex_t

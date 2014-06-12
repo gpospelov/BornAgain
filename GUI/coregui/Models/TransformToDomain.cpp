@@ -108,7 +108,6 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(const Param
     if(item.modelType() == "InterferenceFunction1DParaCrystal") {
         InterferenceFunction1DParaCrystal *result = new InterferenceFunction1DParaCrystal(
                     item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE).toDouble(),
-                    item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_WIDTH).toDouble(),
                     item.getRegisteredProperty(InterferenceFunction1DParaCrystalItem::P_CORR_LENGTH).toDouble()
                     );
         return result;

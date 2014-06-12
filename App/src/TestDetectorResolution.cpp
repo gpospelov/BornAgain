@@ -63,14 +63,16 @@ void TestDetectorResolution::initializeSample()
     air_layer.setMaterial(air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(substrate_material);
-    IInterferenceFunction *p_interference_funtion =
+    InterferenceFunction1DParaCrystal *p_interference_function =
         new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
-            7*Units::nanometer, 1e7*Units::nanometer);
+            1e7*Units::nanometer);
+    FTDistribution1DGauss pdf(7*Units::nanometer);
+    p_interference_function->setProbabilityDistribution(pdf);
     ParticleLayout particle_layout(
         new Particle(particle_material,
                      FormFactorCylinder(5*Units::nanometer,
                                             5*Units::nanometer)));
-    particle_layout.addInterferenceFunction(p_interference_funtion);
+    particle_layout.addInterferenceFunction(p_interference_function);
 
     air_layer.setLayout(particle_layout);
 

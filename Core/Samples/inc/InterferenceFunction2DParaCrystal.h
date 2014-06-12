@@ -50,7 +50,8 @@ public:
             double domain_size_1=0.0, double domain_size_2=0.0);
 
     //! @brief Sets sizes of coherence domain
-    //! @param size_1
+    //! @param size_1: size in first lattice direction
+    //! @param size_2: size in second lattice direction
     void setDomainSizes(double size_1, double size_2) {
         m_domain_sizes[0] = size_1;
         m_domain_sizes[1] = size_2;
@@ -98,9 +99,6 @@ private:
 
     //! Returns interference function for fixed xi in 1d
     double interference1D(double qx, double qy, double xi, size_t index) const;
-
-    //! Calculates the geometric series of z to order N
-    complex_t geometricSum(complex_t z, int exponent) const;
 
     complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
 

@@ -40,7 +40,9 @@ ISample *IsGISAXS15Builder::buildSample() const
 
     InterferenceFunction1DParaCrystal *p_interference_function =
             new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,
-                    5*Units::nanometer, 1e3*Units::nanometer);
+                    1e3*Units::nanometer);
+    FTDistribution1DGauss pdf(5*Units::nanometer);
+    p_interference_function->setProbabilityDistribution(pdf);
     p_interference_function->setKappa(4.02698);
     ParticleLayout particle_layout;
 

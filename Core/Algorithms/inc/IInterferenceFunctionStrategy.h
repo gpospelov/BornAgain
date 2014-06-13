@@ -99,7 +99,7 @@ private:
             Bin1D alpha_f_bin) const;
 
     //! Evaluate for fixed angles
-    double evaluate_for_fixed_angles(double *angles, size_t dim, void* params) const;
+    double evaluate_for_fixed_kf(double *angles, size_t dim, void* params) const;
 
     //! cached form factor evaluations
     mutable std::vector<complex_t> m_ff00, m_ff01, m_ff10, m_ff11;

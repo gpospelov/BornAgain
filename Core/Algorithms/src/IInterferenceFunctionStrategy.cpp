@@ -146,7 +146,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
     mc_int_pars.k_f11 = k_f_11;
     mc_int_pars.alpha_bin = alpha_f_bin;
     MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>::mem_function
-        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles;
+        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf;
     MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>
         mc_integrator(p_function, this, 2);
     double min_array[] = { 0.0, 0.0 };
@@ -156,7 +156,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
     return result;
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *angles,
+double IInterferenceFunctionStrategy::evaluate_for_fixed_kf(double *angles,
         size_t dim, void *params) const
 {
     (void)dim;

@@ -7,7 +7,6 @@
 #include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "FitView.h"
 #include "JobQueueView.h"
 #include "TestView.h"
 #include "MaterialEditorWidget.h"
@@ -40,6 +39,9 @@
 
 #include <QApplication>
 #include <QStatusBar>
+#include <QSettings>
+#include <QCloseEvent>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
@@ -49,7 +51,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_scriptView(0)
     , m_simulationView(0)
-    , m_fitView(0)
     , m_jobQueueView(0)
     , m_progressBar(0)
     , m_actionManager(0)
@@ -100,7 +101,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_simulationView->setJobQueueModel(m_jobQueueModel);
-    m_fitView = new FitView();
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -108,7 +108,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
     m_tabWidget->setCurrentIndex(WelcomeTab);

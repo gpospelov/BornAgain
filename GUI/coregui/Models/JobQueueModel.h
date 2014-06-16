@@ -39,6 +39,7 @@ namespace JobQueueXML
     const QString OutputDataInterpolatedAttribute("Interpolated");
     const QString OutputDataXtitleAttribute("Xtitle");
     const QString OutputDataYtitleAttribute("Ytitle");
+    const QString MimeType("application/org.bornagainproject.jobqueue");
 }
 
 

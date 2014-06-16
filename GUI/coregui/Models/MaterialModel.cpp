@@ -1,7 +1,7 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "GUIHelpers.h"
-#include "DesignerHelper.h"
+//#include "DesignerHelper.h"
 #include <QFile>
 #include <QXmlStreamWriter>
 #include <QDebug>

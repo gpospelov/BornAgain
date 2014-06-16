@@ -30,6 +30,12 @@ QString ToolTipDataBase::getSampleViewToolTip(const QString &className, const QS
     return m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, className, propertyName);
 }
 
+QString ToolTipDataBase::getWidgetboxToolTip(const QString &propertyName)
+{
+    Q_ASSERT(m_instance);
+    return m_instance->this_getToolTip(ToolTipsXML::widgetboxContext, ToolTipsXML::widgetboxContext, propertyName);
+}
+
 
 void ToolTipDataBase::initDataBase()
 {

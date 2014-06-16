@@ -24,5 +24,14 @@
         </class>
         
     </context>
+    
+    <context name="Widgetbox">
+        <class name="Widgetbox">
+            <property name="FormFactorAnisoPyramid">
+                <tooltip>Anisotropic pyramid: truncated pyramid with rectangular base</tooltip>                
+            </property>
+        </class>
+    </context>
+
 </ToolTipsData>
 

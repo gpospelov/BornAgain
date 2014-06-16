@@ -14,6 +14,7 @@ const QString tooltipTag = "tooltip";
 const QString whatsthisTag = "whatsthis";
 const QString nameAttribute = "name";
 const QString sampleViewContext = "SampleView";
+const QString widgetboxContext = "Widgetbox";
 }
 
 
@@ -26,6 +27,7 @@ public:
     virtual ~ToolTipDataBase();
 
     static QString getSampleViewToolTip(const QString &className, const QString &propertyName);
+    static QString getWidgetboxToolTip(const QString &propertyName);
 
 private:
     void initDataBase();

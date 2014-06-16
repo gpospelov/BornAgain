@@ -40,6 +40,7 @@
 ****************************************************************************/
 
 #include "widgetboxcategorylistview.h"
+#include "tooltipdatabase.h"
 
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerWidgetDataBaseInterface>
@@ -61,7 +62,8 @@
 #include <QtCore/QList>
 #include <QtCore/QTextStream>
 #include <QtCore/QRegExp>
-#include <iostream>
+#include <QDebug>
+#include <QXmlStreamReader>
 
 static const char *widgetElementC = "widget";
 static const char *nameAttributeC = "name";
@@ -241,9 +243,6 @@ bool WidgetBoxCategoryModel::removeCustomWidgets()
 
 void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon,bool editable)
 {
-//    std::cout << "WidgetBoxCategoryModel::addWidget -> XXX Not implemented." << std::endl;
-//    return;
-
     // build item. Filter on name + class name if it is different and not a layout.
     QString filter = widget.name();
     if (!filter.contains(QStringLiteral("Layout")) && m_classNameRegExp.indexIn(widget.domXml()) != -1) {
@@ -252,7 +251,26 @@ void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget
             filter += className;
     }
     WidgetBoxCategoryEntry item(widget, filter, icon, editable);
-    item.toolTip = "xxx";
+
+    QXmlStreamReader reader(widget.domXml());
+    while (!reader.atEnd()) {
+        switch (reader.readNext()) {
+        case QXmlStreamReader::StartElement: {
+            const QStringRef tag = reader.name();
+            if (tag == "widget") {
+                const QXmlStreamAttributes attributes = reader.attributes();
+                QString className = attributes.value("class").toString();
+                QString toolTip = ToolTipDataBase::getWidgetboxToolTip(className);
+                if(!toolTip.isEmpty())
+                    item.toolTip = toolTip;
+            }
+            break;
+        }
+        default: break;
+        }
+    }
+
+
 //    const QDesignerWidgetDataBaseInterface *db = m_core->widgetDataBase();
 //    const int dbIndex = db->indexOfClassName(widget.name());
 //    if (dbIndex != -1) {

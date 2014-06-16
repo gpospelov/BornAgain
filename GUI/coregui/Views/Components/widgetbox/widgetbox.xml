@@ -59,7 +59,7 @@
     
     <category name="Particles">
 
-        <categoryentry name="Anysotropic pyramid" icon="images/ff_anisopyramid_32.png">
+        <categoryentry name="Anisotropic pyramid" icon="images/ff_anisopyramid_32.png">
             <widget class="FormFactorAnisoPyramid">
                 <property name="objectName">
                     <string notr="true">somestring</string>

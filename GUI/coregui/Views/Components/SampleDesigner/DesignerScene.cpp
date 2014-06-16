@@ -351,12 +351,12 @@ void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if(mimeData) {
         // Layer can be droped only on MultiLayer
-        if(mimeData->getClassName() == QString("Layer")) {
+        if(mimeData->getClassName() == QString("Layer") && isMultiLayerNearby(event)) {
             QGraphicsScene::dragMoveEvent(event);
         }
 
         // MultiLayer can be droped on another MultiLayer if there is one nearby
-        if(mimeData->getClassName() == QString("MultiLayer")
+        if( mimeData->getClassName() == QString("MultiLayer")
                 && isMultiLayerNearby(event)) {
             QGraphicsScene::dragMoveEvent(event);
         }
@@ -373,13 +373,17 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
     qDebug() << "DesignerScene::dropEvent()" << mimeData;
     if (mimeData) {
 
-        // layer can be dropped on MultiLayer only
-        if(mimeData->getClassName() == "Layer") {
-            qDebug() << "DesignerScene::dropEvent() dont want to drop" << mimeData;
-            QGraphicsScene::dropEvent(event);
+        //// layer can be dropped on MultiLayer only
+//        if(mimeData->getClassName() == "Layer") {
+//            qDebug() << "DesignerScene::dropEvent() dont want to drop" << mimeData;
+//            QGraphicsScene::dropEvent(event);
 
         // MultiLayer can be droped on another MultiLayer if there is one nearby
-        } else if(mimeData->getClassName() == "MultiLayer" && isMultiLayerNearby(event)) {
+        if(mimeData->getClassName() == "MultiLayer" && isMultiLayerNearby(event)) {
+            QGraphicsScene::dropEvent(event);
+
+        }
+        else if(mimeData->getClassName() == "Layer" && isMultiLayerNearby(event)) {
             QGraphicsScene::dropEvent(event);
 
         // other views can be droped on canvas anywhere

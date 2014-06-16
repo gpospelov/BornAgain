@@ -86,7 +86,7 @@ bool ParameterizedItem::event(QEvent * e )
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
-    qDebug() << "ParameterizedItem::onPropertyChange() -> before emit";
+    //qDebug() << "ParameterizedItem::onPropertyChange() -> before emit";
     emit propertyChanged(name);
 }
 
@@ -189,15 +189,16 @@ ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, con
 
 
 
-void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, PropertyVisibility visibility)
+void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, PropertyAttribute property_attribute)
 {
     qDebug() << "   XXX   ParameterizedItem::registerProperty() " << modelType() << name;
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
     m_registered_properties << name;
+    m_property_attribute[name] = property_attribute;
 
-    if(visibility == HiddenProperty) m_hidden_properties << name;
+    //if(visibility == HiddenProperty) m_hidden_properties << name;
     setProperty(name.toUtf8().constData(), variant);
 }
 
@@ -218,21 +219,16 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 }
 
 
-bool ParameterizedItem::isHiddenProperty(const QString &name) const
+void ParameterizedItem::setPropertyAttribute(const QString &name, ParameterizedItem::PropertyAttribute attribute)
 {
-    return m_hidden_properties.contains(name);
+    m_property_attribute[name] = attribute;
 }
 
-
-void ParameterizedItem::setPropertyVisibility(const QString &name, PropertyVisibility visibility)
+ParameterizedItem::PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
-    if(m_hidden_properties.contains(name)) {
-        if(visibility == VisibleProperty) m_hidden_properties.removeAll(name);
-    } else {
-        if(visibility == HiddenProperty) m_hidden_properties << name;
-
-    }
+    return m_property_attribute[name];
 }
+
 
 void ParameterizedItem::print() const
 {

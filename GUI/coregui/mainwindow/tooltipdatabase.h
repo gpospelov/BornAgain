@@ -8,7 +8,7 @@
 namespace ToolTipsXML {
 const QString modelTag = "ToolTipsData";
 const QString contextTag = "context";
-const QString classTag = "class";
+const QString categoryTag = "category";
 const QString propertyTag = "property";
 const QString tooltipTag = "tooltip";
 const QString whatsthisTag = "whatsthis";
@@ -31,8 +31,8 @@ public:
 
 private:
     void initDataBase();
-    QString getTag(const QString &contextName, const QString &className, const QString &propertyName);
-    void addToolTip(const QString &contextName, const QString &className, const QString &propertyName, const QString &tooltip);
+    QString getTag(const QString &contextName, const QString &categoryName, const QString &propertyName);
+    void addToolTip(const QString &contextName, const QString &categoryName, const QString &propertyName, const QString &tooltip);
     QString this_getToolTip(const QString &contextName, const QString &className, const QString &propertyName);
 
     static ToolTipDataBase *m_instance;

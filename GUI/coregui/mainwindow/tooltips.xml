@@ -2,35 +2,35 @@
 <ToolTipsData version="1.0">
     <context name="SampleView">
         
-        <class name="InterferenceFunction1DParaCrystal">
+        <category name="InterferenceFunction1DParaCrystal">
             <property name="PeakDistance">
                 <tooltip>The distance to the peak</tooltip>                
             </property>
-        </class>
+        </category>
 
-        <class name="InterferenceFunction2DParaCrystal">
+        <category name="InterferenceFunction2DParaCrystal">
             <property name="Domain_size_1">
                 <tooltip>Dimension of coherent domains of the paracrystal along the main X axis.</tooltip>                
             </property>
             <property name="Domain_size_2">
                 <tooltip>Dimension of coherent domains of the paracrystal along the main Y axis.</tooltip>                
             </property>
-        </class>
+        </category>
         
-        <class name="Layer">
+        <category name="Layer">
             <property name="Thickness">
                 <tooltip>Thickness of the layer in nm</tooltip>                
             </property>
-        </class>
+        </category>
         
     </context>
     
     <context name="Widgetbox">
-        <class name="Widgetbox">
+        <category name="Widgetbox">
             <property name="FormFactorAnisoPyramid">
-                <tooltip>Anisotropic pyramid: truncated pyramid with rectangular base</tooltip>                
+                <tooltip>Truncated pyramid with rectangular base</tooltip>                
             </property>
-        </class>
+        </category>
     </context>
 
 </ToolTipsData>

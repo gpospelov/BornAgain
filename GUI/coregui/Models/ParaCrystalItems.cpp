@@ -1,5 +1,6 @@
 #include "ParaCrystalItems.h"
 #include "Units.h"
+#include <QDebug>
 
 
 const QString InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE = "PeakDistance";
@@ -35,8 +36,21 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(Par
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
-    registerProperty(P_ROTATION_ANGLE, 0.0);
     registerProperty(P_XI_INTEGRATION, true);
+    registerProperty(P_ROTATION_ANGLE, 0.0, ParameterizedItem::DisabledProperty);
     registerGroupProperty(P_PDF1, "Cauchy 2D");
     registerGroupProperty(P_PDF2, "Cauchy 2D");
+}
+
+void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name)
+{
+    if(name == P_XI_INTEGRATION) {
+        if(getRegisteredProperty(P_XI_INTEGRATION).toBool()) {
+            setPropertyAttribute(P_ROTATION_ANGLE, ParameterizedItem::DisabledProperty);
+        } else {
+            setPropertyAttribute(P_ROTATION_ANGLE, ParameterizedItem::DefaultAttribute);
+        }
+    }
+    emit propertyChanged(P_ROTATION_ANGLE);
+    emit propertyChanged(name);
 }

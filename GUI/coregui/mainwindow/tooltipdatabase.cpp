@@ -56,36 +56,24 @@ void ToolTipDataBase::initDataBase()
                 continue;
             }
             if (tag == ToolTipsXML::contextTag) {
-                // <category name="SampleView">
                 const QXmlStreamAttributes attributes = reader.attributes();
                 contextName = attributes.value(ToolTipsXML::nameAttribute).toString();
-                //qDebug() << categoryName;
                 continue;
             }
-            if (tag == ToolTipsXML::classTag) {
+            if (tag == ToolTipsXML::categoryTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
                 className = attributes.value(ToolTipsXML::nameAttribute).toString();
-                //qDebug() << className;
-
                 continue;
             }
             if (tag == ToolTipsXML::propertyTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
                 propertyName = attributes.value(ToolTipsXML::nameAttribute).toString();
-                //qDebug() << propertyName;
-
                 continue;
             }
             if (tag == ToolTipsXML::tooltipTag) {
-                //const QXmlStreamAttributes attributes = reader.attributes();
-                //const QString propertyName = attributes.value(ToolTipsXML::nameAttribute).toString();
                 reader.readNext();
                 QString toolTip = reader.text().toString();
-                //qDebug() << reader.text();
                 addToolTip(contextName, className, propertyName, toolTip);
-
-
-
                 continue;
             }
             break;
@@ -102,19 +90,19 @@ void ToolTipDataBase::initDataBase()
 }
 
 
-QString ToolTipDataBase::getTag(const QString &contextName, const QString &className, const QString &propertyName)
+QString ToolTipDataBase::getTag(const QString &contextName, const QString &categoryName, const QString &propertyName)
 {
-    return QString("/%1/%2/%3").arg(contextName, className, propertyName);
+    return QString("/%1/%2/%3").arg(contextName, categoryName, propertyName);
 }
 
 
-void ToolTipDataBase::addToolTip(const QString &contextName, const QString &className, const QString &propertyName, const QString &tooltip)
+void ToolTipDataBase::addToolTip(const QString &contextName, const QString &categoryName, const QString &propertyName, const QString &tooltip)
 {
     if(!tooltip.isEmpty()) {
         QString formattedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
         formattedToolTip += tooltip;
         formattedToolTip += QString("</FONT>");
-        m_tagToToolTip[getTag(contextName, className, propertyName)] = formattedToolTip;
+        m_tagToToolTip[getTag(contextName, categoryName, propertyName)] = formattedToolTip;
     }
 }
 

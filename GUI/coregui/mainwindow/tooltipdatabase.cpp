@@ -5,7 +5,7 @@
 #include <QDebug>
 
 ToolTipDataBase *ToolTipDataBase::m_instance = 0;
-QMap<QString, QString > ToolTipDataBase::m_nameToTip = QMap();
+QMap<QString, QString > ToolTipDataBase::m_tagToToolTip = QMap<QString, QString >();
 
 
 ToolTipDataBase::ToolTipDataBase(QObject *parent)
@@ -23,6 +23,14 @@ ToolTipDataBase::~ToolTipDataBase()
     m_instance = 0;
 }
 
+
+QString ToolTipDataBase::getSampleViewToolTip(const QString &className, const QString &propertyName)
+{
+    Q_ASSERT(m_instance);
+    return m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, className, propertyName);
+}
+
+
 void ToolTipDataBase::initDataBase()
 {
     qDebug() << "ToolTipDataBase::initDataBase() ";
@@ -33,6 +41,7 @@ void ToolTipDataBase::initDataBase()
 
     QXmlStreamReader reader(&file);
 
+    QString contextName, className, propertyName;
     while (!reader.atEnd()) {
         switch (reader.readNext()) {
         case QXmlStreamReader::StartElement: {
@@ -40,32 +49,36 @@ void ToolTipDataBase::initDataBase()
             if (tag == ToolTipsXML::modelTag) {
                 continue;
             }
-            if (tag == ToolTipsXML::categoryTag) {
+            if (tag == ToolTipsXML::contextTag) {
                 // <category name="SampleView">
                 const QXmlStreamAttributes attributes = reader.attributes();
-                const QString categoryName = attributes.value(ToolTipsXML::nameAttribute).toString();
-                qDebug() << categoryName;
+                contextName = attributes.value(ToolTipsXML::nameAttribute).toString();
+                //qDebug() << categoryName;
                 continue;
             }
             if (tag == ToolTipsXML::classTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
-                const QString className = attributes.value(ToolTipsXML::nameAttribute).toString();
-                qDebug() << className;
+                className = attributes.value(ToolTipsXML::nameAttribute).toString();
+                //qDebug() << className;
 
                 continue;
             }
             if (tag == ToolTipsXML::propertyTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
-                const QString propertyName = attributes.value(ToolTipsXML::nameAttribute).toString();
-                qDebug() << propertyName;
+                propertyName = attributes.value(ToolTipsXML::nameAttribute).toString();
+                //qDebug() << propertyName;
 
                 continue;
             }
             if (tag == ToolTipsXML::tooltipTag) {
-                const QXmlStreamAttributes attributes = reader.attributes();
+                //const QXmlStreamAttributes attributes = reader.attributes();
                 //const QString propertyName = attributes.value(ToolTipsXML::nameAttribute).toString();
                 reader.readNext();
-                qDebug() << reader.text();
+                QString toolTip = reader.text().toString();
+                //qDebug() << reader.text();
+                addToolTip(contextName, className, propertyName, toolTip);
+
+
 
                 continue;
             }
@@ -80,5 +93,28 @@ void ToolTipDataBase::initDataBase()
 
     if (reader.hasError())
         throw GUIHelpers::Error(reader.errorString());
-    Q_ASSERT(0);
 }
+
+
+QString ToolTipDataBase::getTag(const QString &contextName, const QString &className, const QString &propertyName)
+{
+    return QString("/%1/%2/%3").arg(contextName, className, propertyName);
+}
+
+
+void ToolTipDataBase::addToolTip(const QString &contextName, const QString &className, const QString &propertyName, const QString &tooltip)
+{
+    if(!tooltip.isEmpty()) {
+        QString formattedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
+        formattedToolTip += tooltip;
+        formattedToolTip += QString("</FONT>");
+        m_tagToToolTip[getTag(contextName, className, propertyName)] = formattedToolTip;
+    }
+}
+
+
+QString ToolTipDataBase::this_getToolTip(const QString &contextName, const QString &className, const QString &propertyName)
+{
+    return m_tagToToolTip[getTag(contextName, className, propertyName)];
+}
+

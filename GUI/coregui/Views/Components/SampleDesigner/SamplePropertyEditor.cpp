@@ -2,6 +2,7 @@
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
+#include "tooltipdatabase.h"
 
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
@@ -152,7 +153,8 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             subProperty = m_manager->addProperty(type, prop_name);
             subProperty->setValue(prop_value);
 
-            QString toolTip = item->getPropertyToolTip(prop_name);
+            //QString toolTip = item->getPropertyToolTip(prop_name);
+            QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
             if (item->getSubItems().contains(prop_name)) {

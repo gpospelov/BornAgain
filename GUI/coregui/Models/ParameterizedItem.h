@@ -103,10 +103,9 @@ public:
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
     bool isHiddenProperty(const QString &name) const;
-    QString getPropertyToolTip(const QString &name) const;
 
     enum PropertyVisibility {VisibleProperty, HiddenProperty };
-    void registerProperty(const QString &name, const QVariant &variant, const QString &tooltip = QString(), PropertyVisibility = VisibleProperty);
+    void registerProperty(const QString &name, const QVariant &variant, PropertyVisibility = VisibleProperty);
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
 
@@ -128,11 +127,9 @@ protected:
 
     QStringList m_registered_properties;
     QStringList m_hidden_properties;
-    QMap<QString, QString> m_property_tooltip;
 
 private:
     QString m_model_type;
-    //QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;

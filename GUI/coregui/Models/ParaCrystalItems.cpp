@@ -33,14 +33,8 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(Par
     registerGroupProperty(P_LATTICE_TYPE, "Basic");
 
     registerProperty(P_DAMPING_LENGTH, 0.0);
-    registerProperty(P_DOMAIN_SIZE1,
-                     20.0*Units::micrometer,
-                     "Dimension of coherent domains of the paracrystal along the main X axis."
-                     );
-    registerProperty(P_DOMAIN_SIZE2,
-                     20.0*Units::micrometer,
-                     "Dimension of coherent domains of the paracrystal along the main Y axis."
-                     );
+    registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
+    registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_ROTATION_ANGLE, 0.0);
     registerProperty(P_XI_INTEGRATION, true);
     registerGroupProperty(P_PDF1, "Cauchy 2D");

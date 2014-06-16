@@ -36,7 +36,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
         m_parent->addChildItem(this);
     }
 
-    registerProperty(P_NAME, QString(), QString(), HiddenProperty);
+    registerProperty(P_NAME, QString(), HiddenProperty);
     setItemName(m_model_type);
 }
 
@@ -189,20 +189,14 @@ ParameterizedItem * ParameterizedItem::setGroupProperty(const QString &name, con
 
 
 
-void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, const QString &tooltip, PropertyVisibility visibility)
+void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, PropertyVisibility visibility)
 {
-    qDebug() << "   XXX   registerProperty " << modelType() << name;
+    qDebug() << "   XXX   ParameterizedItem::registerProperty() " << modelType() << name;
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
     m_registered_properties << name;
 
-    if(!tooltip.isEmpty()) {
-        QString wrappedToolTip = QString("<FONT COLOR=black>"); // to have automatic line wrap
-        wrappedToolTip += tooltip;
-        wrappedToolTip += QString("</FONT>");
-        m_property_tooltip[name] = wrappedToolTip;
-    }
     if(visibility == HiddenProperty) m_hidden_properties << name;
     setProperty(name.toUtf8().constData(), variant);
 }
@@ -227,11 +221,6 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 bool ParameterizedItem::isHiddenProperty(const QString &name) const
 {
     return m_hidden_properties.contains(name);
-}
-
-QString ParameterizedItem::getPropertyToolTip(const QString &name) const
-{
-    return m_property_tooltip[name];
 }
 
 

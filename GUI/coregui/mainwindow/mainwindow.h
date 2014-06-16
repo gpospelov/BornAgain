@@ -31,6 +31,7 @@ class JobQueueModel;
 class SessionModel;
 class MaterialModel;
 class MaterialEditor;
+class ToolTipDataBase;
 
 
 class MainWindow : public Manhattan::FancyMainWindow
@@ -84,6 +85,7 @@ private:
     SessionModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
+    ToolTipDataBase *m_toolTipDataBase;
 
     // dummy simulation model initializer for test purposes
     void initSimModel();

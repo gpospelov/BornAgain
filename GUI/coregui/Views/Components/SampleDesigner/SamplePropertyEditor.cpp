@@ -2,6 +2,7 @@
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
+#include "tooltipdatabase.h"
 
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
@@ -97,8 +98,12 @@ void SamplePropertyEditor::updateSubItems(QString name)
 
     disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
                this, SLOT(updateSubItems(QString)));
+    disconnect(m_item, SIGNAL(propertyChanged(QString)),
+               this, SLOT(updateSubItems(QString)));
     addItemProperties(m_item);
     connect(m_item, SIGNAL(propertyItemChanged(QString)),
+            this, SLOT(updateSubItems(QString)));
+    connect(m_item, SIGNAL(propertyChanged(QString)),
             this, SLOT(updateSubItems(QString)));
 }
 
@@ -123,6 +128,9 @@ void SamplePropertyEditor::setItem(ParameterizedItem *item)
     addItemProperties(m_item);
     connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
+    connect(m_item, SIGNAL(propertyChanged(QString)),
+            this, SLOT(updateSubItems(QString)));
+
 }
 
 void SamplePropertyEditor::addItemProperties(const ParameterizedItem *item)
@@ -141,7 +149,8 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        if(item->isHiddenProperty(prop_name)) continue;
+        if(item->getPropertyAttribute(prop_name) & ParameterizedItem::HiddenProperty) continue;
+
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = prop_value.type();
         if (type == QVariant::UserType) {
@@ -152,8 +161,12 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             subProperty = m_manager->addProperty(type, prop_name);
             subProperty->setValue(prop_value);
 
-            QString toolTip = item->getPropertyToolTip(prop_name);
+            QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+
+            if(item->getPropertyAttribute(prop_name) & ParameterizedItem::DisabledProperty) {
+                subProperty->setEnabled(false);
+            }
 
             if (item->getSubItems().contains(prop_name)) {
                 ParameterizedItem *subitem = item->getSubItems()[prop_name];

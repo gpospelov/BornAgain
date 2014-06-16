@@ -24,5 +24,6 @@
         <file>images/remove.png</file>
         <file>images/gisas_instrument.png</file>
         <file>images/gisas_instrument_bw.png</file>
+        <file>mainwindow/tooltips.xml</file>
     </qresource>
 </RCC>

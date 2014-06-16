@@ -36,9 +36,7 @@ InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
     setItemName("InterferenceFunction1DParaCrystal");
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
-    registerProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer,
-                     "Size of coherent domains of the paracrystal "
-                     "along the crystal axis.");
+    registerProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
     registerProperty(P_KAPPA, 0.0);
     registerGroupProperty(P_PDF, "Gauss 1D");
 }
@@ -53,14 +51,24 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     registerGroupProperty(P_LATTICE_TYPE, "Basic");
 
     registerProperty(P_DAMPING_LENGTH, 0.0);
-    registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer,
-                     "Dimension of coherent domains of the paracrystal "
-                     "along the main X axis.");
-    registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer,
-                     "Dimension of coherent domains of the paracrystal "
-                     "along the main Y axis.");
+    registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
+    registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_ROTATION_ANGLE, 0.0);
     registerProperty(P_XI_INTEGRATION, true);
     registerGroupProperty(P_PDF1, "Cauchy 2D");
     registerGroupProperty(P_PDF2, "Cauchy 2D");
+}
+
+
+void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name)
+{
+    if(name == P_XI_INTEGRATION) {
+        if(getRegisteredProperty(P_XI_INTEGRATION).toBool()) {
+            setPropertyAttribute(P_ROTATION_ANGLE, ParameterizedItem::DisabledProperty);
+        } else {
+            setPropertyAttribute(P_ROTATION_ANGLE, ParameterizedItem::DefaultAttribute);
+        }
+    }
+    emit propertyChanged(P_ROTATION_ANGLE);
+    emit propertyChanged(name);
 }

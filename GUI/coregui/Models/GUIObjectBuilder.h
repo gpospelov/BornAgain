@@ -30,7 +30,7 @@ class GUIObjectBuilder : public ISampleVisitor
 {
 public:
     GUIObjectBuilder();
-    ~GUIObjectBuilder(){}
+    virtual ~GUIObjectBuilder(){}
 
     ParameterizedItem *populateSampleModel(SessionModel *sampleModel,
                                            ISample *sample);

@@ -7,7 +7,7 @@ endif()
 set(executable_name BornAgain)
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/GUI/coregui/mainwindow
+    ${BornAgainGUI_INCLUDE_DIRS}
     ${ManhattanStyle_INCLUDE_DIRS}
 )
 

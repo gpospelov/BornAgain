@@ -99,12 +99,9 @@ qt5_use_modules(${library_name} Widgets Core Gui Script Designer PrintSupport)
 include_directories(
     ${qcustomplot_INCLUDE_DIRS}
     ${qtpropertybrowser_INCLUDE_DIRS}
-#    ${GQt_INCLUDE_DIRS}
-#    ${QtRoot_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
-#    ${ROOT_INCLUDE_DIR}
     ${ManhattanStyle_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
@@ -122,8 +119,6 @@ target_link_libraries(${library_name}
 )
 
 # --- Installation ---
-
-#install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 
 # system libraries: ROOT installation

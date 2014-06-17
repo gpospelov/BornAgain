@@ -8,7 +8,7 @@ if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
 endif()
 
-set(executable_name coregui)
+set(library_name BornAgainGUI)
 
 # --- source and include files ---
 set(include_dirs
@@ -78,9 +78,22 @@ set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
-add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
+#add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
-qt5_use_modules(${executable_name} Widgets Core Gui Script Designer PrintSupport)
+# --- making library ---
+add_library(
+    ${library_name}
+    SHARED
+    ${source_files} ${RC_SRCS} ${include_files}
+)
+set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set(${library_name}_LIBRARY_TYPE SHARED)
+# exposing library name and list of include directories outside
+set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
+
+
+qt5_use_modules(${library_name} Widgets Core Gui Script Designer PrintSupport)
 
 # --- dependencies ---
 include_directories(
@@ -98,22 +111,20 @@ include_directories(
 )
 
 
-target_link_libraries(${executable_name} 
+target_link_libraries(${library_name}
     ${ManhattanStyle_LIBRARY}
     ${qcustomplot_LIBRARY}
     ${qtpropertybrowser_LIBRARY}
-#    ${GQt_LIBRARY}
-#    ${QtRoot_LIBRARY}
     ${PYTHON_LIBRARY} 
     ${Boost_LIBRARIES}
-#    ${ROOT_LIBRARIES}
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
 )
 
 # --- Installation ---
 
-install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
+#install (TARGETS ${executable_name} DESTINATION ${destination_bin} COMPONENT Applications)
+install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 
 # system libraries: ROOT installation
 if(WIN32)

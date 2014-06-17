@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 #include "fancymainwindow.h"
-#include "mainwindow_constants.h"
-
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -97,11 +95,6 @@ private:
     void updateInstruments();
 
     void testGUIObjectBuilder();
-
-
-    // dummy instrument creator
-//    Instrument *createDefaultInstrument();
-//    ISample *createDefaultSample();
 };
 
 #endif // MAINWINDOW_H

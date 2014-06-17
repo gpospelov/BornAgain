@@ -36,6 +36,7 @@
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
 #include "tooltipdatabase.h"
+#include "mainwindow_constants.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -213,18 +214,6 @@ void MainWindow::initSimModel()
     //mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
     //mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
 }
-
-//Instrument *MainWindow::createDefaultInstrument()
-//{
-//    Instrument *p_result = new Instrument;
-//    p_result->setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
-//    p_result->setBeamIntensity(1e7);
-////    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-////                                    100, 0.0*Units::degree, 2.0*Units::degree);
-//    p_result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-//                                    100, 0.0*Units::degree, 2.0*Units::degree, true);
-//    return p_result;
-//}
 
 
 void MainWindow::initJobQueueModel()

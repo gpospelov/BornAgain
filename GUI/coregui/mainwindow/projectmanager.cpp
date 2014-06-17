@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "projectdocument.h"
 #include "actionmanager.h"
+#include "mainwindow_constants.h"
 #include "GUIHelpers.h"
 #include <QDir>
 #include <QFileDialog>

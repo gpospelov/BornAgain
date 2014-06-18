@@ -15,14 +15,7 @@ class TestFormFactorItems : public QObject {
 
 private slots:
     void test_AnisoPyramidItem();
-
-private:
 };
-
-
-
-#endif
-
 
 
 inline void TestFormFactorItems::test_AnisoPyramidItem()
@@ -51,4 +44,6 @@ inline void TestFormFactorItems::test_AnisoPyramidItem()
     QVERIFY(item2.getRegisteredProperty(AnisoPyramidItem::P_ALPHA).toDouble() == 70.0);
 }
 
+
+#endif
 

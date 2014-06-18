@@ -18,11 +18,11 @@
 #include "GroupProperty.h"
 #include "MaterialEditor.h"
 #include "GUIHelpers.h"
+#include "PropertyVariantManager.h"
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
 #include <QMetaEnum>
-#include <PropertyVariantManager.h>
 
 const QString ParameterizedItem::P_NAME = "Name";
 
@@ -114,6 +114,7 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
     QByteArray name_byte_array = name.toUtf8();
     QVariant val = property(name_byte_array.constData());
     if (val.userType() == PropertyVariantManager::groupTypeId()) {
+    //if (val.userType() == qMetaTypeId<GroupProperty>()) {
         GroupProperty group_prop = val.value<GroupProperty>();
         result = group_prop.createCorrespondingItem(
                     group_prop.getValue());

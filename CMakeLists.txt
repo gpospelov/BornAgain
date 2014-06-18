@@ -37,7 +37,6 @@ add_subdirectory(Tests/UnitTests/TestCore)
 add_subdirectory(ThirdParty/RootMinimizers)
 add_subdirectory(Fit)
 add_subdirectory(Tests/UnitTests/TestFit)
-add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
 
 if(ROOT_FOUND AND BORNAGAIN_APP)
     add_subdirectory(App)
@@ -47,8 +46,10 @@ if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
 endif()
 
+add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
+
 if(BORNAGAIN_MAN)
-	add_subdirectory(Doc/UserManual)
+    add_subdirectory(Doc/UserManual)
 endif()
 
 add_subdirectory(cmake) # trick to print the message

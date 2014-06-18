@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 #include "fancymainwindow.h"
-#include "mainwindow_constants.h"
-
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -18,7 +16,6 @@ class SampleView;
 class PyScriptView;
 class SimulationView;
 class JobView;
-class FitView;
 class JobQueueView;
 class SimulationDataModel;
 class Instrument;
@@ -71,7 +68,6 @@ private:
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
-    FitView * m_fitView;
     JobQueueView * m_jobQueueView;
     Manhattan::ProgressBar *m_progressBar;
 
@@ -99,11 +95,6 @@ private:
     void updateInstruments();
 
     void testGUIObjectBuilder();
-
-
-    // dummy instrument creator
-//    Instrument *createDefaultInstrument();
-//    ISample *createDefaultSample();
 };
 
 #endif // MAINWINDOW_H

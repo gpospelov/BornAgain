@@ -7,7 +7,6 @@
 #include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
-#include "FitView.h"
 #include "JobQueueView.h"
 #include "TestView.h"
 #include "MaterialEditorWidget.h"
@@ -37,9 +36,13 @@
 #include "SampleBuilderFactory.h"
 #include "GUIObjectBuilder.h"
 #include "tooltipdatabase.h"
+#include "mainwindow_constants.h"
 
 #include <QApplication>
 #include <QStatusBar>
+#include <QSettings>
+#include <QCloseEvent>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
@@ -49,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_scriptView(0)
     , m_simulationView(0)
-    , m_fitView(0)
     , m_jobQueueView(0)
     , m_progressBar(0)
     , m_actionManager(0)
@@ -100,7 +102,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_simulationView->setJobQueueModel(m_jobQueueModel);
-    m_fitView = new FitView();
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
@@ -108,7 +109,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
-    //m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
     m_tabWidget->setCurrentIndex(WelcomeTab);
@@ -215,18 +215,6 @@ void MainWindow::initSimModel()
     //mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
 }
 
-//Instrument *MainWindow::createDefaultInstrument()
-//{
-//    Instrument *p_result = new Instrument;
-//    p_result->setBeamParameters(0.1*Units::nanometer, 0.2*Units::degree, 0.0);
-//    p_result->setBeamIntensity(1e7);
-////    p_result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-////                                    100, 0.0*Units::degree, 2.0*Units::degree);
-//    p_result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-//                                    100, 0.0*Units::degree, 2.0*Units::degree, true);
-//    return p_result;
-//}
-
 
 void MainWindow::initJobQueueModel()
 {
@@ -234,7 +222,8 @@ void MainWindow::initJobQueueModel()
     m_jobQueueModel = new JobQueueModel(this);
     SimulationRegistry registry;
     m_jobQueueModel->addJob("isgisaxs01",registry.createItem("isgisaxs01"));
-    m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
+    //m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
+    m_jobQueueModel->addJob("isgisaxs04_1ddl",registry.createItem("isgisaxs04_1DDL"));
     m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
     //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
@@ -384,7 +373,7 @@ void MainWindow::updateInstruments()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
+    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs04_1DDL"));
 
     sample->printSampleTree();
 

@@ -1,7 +1,12 @@
 # CMakeLists.txt file for building and running TestGUI functional tests
 
+find_package(Qt5Widgets REQUIRED)
+
+
 set(list_of_tests
-    "GUIExample01"
+    "TestGUI01"
+    "TestGUI02"
+    "TestGUI03"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
@@ -13,16 +18,16 @@ endif()
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
-    ${BornAgainFit_INCLUDE_DIRS}
+    ${BornAgainGUI_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
 )
 
-find_package(Qt5Widgets REQUIRED)
-
 foreach(_test ${list_of_tests})
-    BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainFit_LIBRARY} ${BornAgainCore_LIBRARY})
-    BORNAGAIN_ADD_TEST(${_test})
+   BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainGUI_LIBRARY})
+   qt5_use_modules(${_test} Widgets Core Gui Script Designer PrintSupport)
+
+   BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
 endforeach()
 
 

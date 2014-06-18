@@ -4,7 +4,11 @@ Collection of fitting tests for libBornAgainFit library.
 Different geometries, number of fit parameters, variety of minimizers
 and minimization strategies.
 
-List of tests
+Tests are executed automatically when user builds the whole project with 'check' target
+cmake; make check
+
+--- List of tests ---
+
 testfit01.py - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.
 testfit02.py - Fitting using sample builder
 

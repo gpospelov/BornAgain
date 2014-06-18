@@ -44,6 +44,7 @@ endif()
 
 if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
+    add_subdirectory(Tests/UnitTests/TestGUI)
 endif()
 
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)

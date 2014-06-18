@@ -169,14 +169,15 @@ void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)
     ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
     ParameterizedItem *ffItem = particleItem->setGroupProperty(
         ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
-    ffItem->setRegisteredProperty(AnisoPyramidItem::P_LENGTH,
-                                  sample->getLength());
-    ffItem->setRegisteredProperty(AnisoPyramidItem::P_WIDTH,
-                                  sample->getWidth());
-    ffItem->setRegisteredProperty(AnisoPyramidItem::P_HEIGHT,
-                                  sample->getHeight());
-    ffItem->setRegisteredProperty(AnisoPyramidItem::P_ALPHA,
-                                  Units::rad2deg(sample->getAlpha()));
+//    ffItem->setRegisteredProperty(AnisoPyramidItem::P_LENGTH,
+//                                  sample->getLength());
+//    ffItem->setRegisteredProperty(AnisoPyramidItem::P_WIDTH,
+//                                  sample->getWidth());
+//    ffItem->setRegisteredProperty(AnisoPyramidItem::P_HEIGHT,
+//                                  sample->getHeight());
+//    ffItem->setRegisteredProperty(AnisoPyramidItem::P_ALPHA,
+//                                  Units::rad2deg(sample->getAlpha()));
+    TransformFromDomain::setItemFromSample(ffItem, sample);
     m_levelToParent[getLevel()] = particleItem;
 }
 

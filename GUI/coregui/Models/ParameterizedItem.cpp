@@ -195,14 +195,13 @@ ParameterizedItem * ParameterizedItem::setGroupProperty(
 
 void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, PropertyAttribute property_attribute)
 {
-    qDebug() << "   XXX   ParameterizedItem::registerProperty() " << modelType() << name;
+    //qDebug() << "   XXX   ParameterizedItem::registerProperty() " << modelType() << name;
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
     m_registered_properties << name;
     m_property_attribute[name] = property_attribute;
 
-    //if(visibility == HiddenProperty) m_hidden_properties << name;
     setProperty(name.toUtf8().constData(), variant);
 }
 

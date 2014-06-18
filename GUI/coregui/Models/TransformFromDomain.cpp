@@ -8,9 +8,25 @@
 #include "Numeric.h"
 #include "Units.h"
 #include "GUIHelpers.h"
+#include "FormFactors.h"
+#include "FormFactorItems.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
+
+
+void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
+                       const FormFactorAnisoPyramid *sample)
+{
+    item->setRegisteredProperty(AnisoPyramidItem::P_LENGTH,
+                                  sample->getLength());
+    item->setRegisteredProperty(AnisoPyramidItem::P_WIDTH,
+                                  sample->getWidth());
+    item->setRegisteredProperty(AnisoPyramidItem::P_HEIGHT,
+                                  sample->getHeight());
+    item->setRegisteredProperty(AnisoPyramidItem::P_ALPHA,
+                                  Units::rad2deg(sample->getAlpha()));
+}
 
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,

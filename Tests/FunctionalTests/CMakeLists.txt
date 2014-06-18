@@ -23,10 +23,10 @@ if(BORNAGAIN_GUI)
 endif()
 
 add_subdirectory(TestCore)
-#add_subdirectory(TestFit)
-#if(BORNAGAIN_PYTHON)
-#    add_subdirectory(TestPyCore)
-#    add_subdirectory(TestPyFit)
-#endif()
+add_subdirectory(TestFit)
+if(BORNAGAIN_PYTHON)
+    add_subdirectory(TestPyCore)
+    add_subdirectory(TestPyFit)
+endif()
 
 

@@ -394,12 +394,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
     ParameterizedItem *item = m_sampleModel->insertNewItem(
         "InterferenceFunction1DParaCrystal", m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
-    item->setRegisteredProperty(
-                InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE,
-                sample->getPeakDistance());
-    item->setRegisteredProperty(
-                InterferenceFunction1DParaCrystalItem::P_DAMPING_LENGTH,
-                sample->getDampingLength());
+    TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParent[getLevel()] = item;
 }
 

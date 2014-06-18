@@ -32,13 +32,10 @@ GUIFunctionalTest::~GUIFunctionalTest()
 void GUIFunctionalTest::runTest()
 {
     assert(m_reference_simulation);
-    std::cout << "1.1" << std::endl;
-    createDomainSimulation();
-    std::cout << "1.2" << std::endl;
     m_reference_simulation->runSimulation();
-    std::cout << "1.3" << std::endl;
+
+    createDomainSimulation();
     m_domain_simulation->runSimulation();
-    std::cout << "1.4" << std::endl;
 }
 
 
@@ -59,7 +56,6 @@ int GUIFunctionalTest::analyseResults()
 //! returns new simulation from
 void GUIFunctionalTest::createDomainSimulation()
 {
-    assert(m_reference_simulation);
     assert(m_reference_simulation->getSample());
     // initializing necessary GUI
     boost::scoped_ptr<SessionModel> sampleModel(new SessionModel(SessionXML::SampleModelTag));

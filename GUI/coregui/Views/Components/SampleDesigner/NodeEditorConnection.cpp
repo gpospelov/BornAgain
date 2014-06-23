@@ -43,6 +43,7 @@ void NodeEditorConnection::setPort1(NodeEditorPort *p)
 {
 	m_port1 = p;
 	m_port1->connections().append(this);
+    setPos1(p->scenePos());
 }
 
 
@@ -50,6 +51,7 @@ void NodeEditorConnection::setPort2(NodeEditorPort *p)
 {
 	m_port2 = p;
 	m_port2->connections().append(this);
+    setPos2(p->scenePos());
 }
 
 

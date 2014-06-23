@@ -7,6 +7,7 @@
 class QPainter;
 class QStyleOptionGraphicsItem;
 class QWidget;
+class NodeEditorPort;
 
 //! view of ISample's with rectangular shape and node functionality
 class ConnectableView : public IView
@@ -24,7 +25,8 @@ public:
     virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
 
     //! connect input port of given view with appropriate output port(s) of other item, returns list of created connections
-    virtual QList<QGraphicsItem *> connectInputPort(ConnectableView *other);
+    //virtual QList<QGraphicsItem *> connectInputPort(ConnectableView *other);
+    void connectInputPort(ConnectableView *other, int port_number);
 
     //! returns list of items connected to all input ports
     virtual QList<ConnectableView *> getConnectedInputItems() const;
@@ -35,6 +37,8 @@ public:
     virtual void setRectangle(QRectF rect) { m_rect = rect; }
     virtual QString getLabel() const { return m_label; }
     virtual void setLabel(const QString &name);
+
+    QList<NodeEditorPort *> getOutputPorts() { return m_output_ports; }
 
 public slots:
     virtual void setName(const QString &name) { m_name = name; }
@@ -52,6 +56,9 @@ protected:
     int m_roundpar;
     double m_label_vspace; // vertical space occupied by the label
     QString m_label;
+
+    QList<NodeEditorPort *> m_input_ports;
+    QList<NodeEditorPort *> m_output_ports;
 };
 
 

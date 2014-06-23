@@ -18,6 +18,7 @@
 #include "LayerItem.h"
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
+#include "ParticleCoreShellItem.h"
 #include "ParaCrystalItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
@@ -29,6 +30,7 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("Layer")
         << QString("ParticleLayout")
         << QString("Particle")
+        << QString("ParticleCoreShell")
         << QString("InterferenceFunction1DParaCrystal")
         << QString("InterferenceFunction2DParaCrystal")
         << QString("Instrument")
@@ -56,6 +58,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     }
     else if (model_name==QString("Particle")) {
         return new ParticleItem(parent);
+    }
+    else if (model_name==QString("ParticleCoreShell")) {
+        return new ParticleCoreShellItem(parent);
     }
     else if (model_name==QString("InterferenceFunction1DParaCrystal")) {
         return new InterferenceFunction1DParaCrystalItem(parent);

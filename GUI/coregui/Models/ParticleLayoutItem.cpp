@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayoutItem.h"
+#include "ParticleCoreShellItem.h"
 
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("ParticleLayout"), parent)
@@ -21,6 +22,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     m_valid_children.append(QString("Particle"));
     m_valid_children.append(QString("InterferenceFunction1DParaCrystal"));
     m_valid_children.append(QString("InterferenceFunction2DParaCrystal"));
+    m_valid_children.append(ParticleCoreShellItem::P_TYPE_NAME);
 }
 
 

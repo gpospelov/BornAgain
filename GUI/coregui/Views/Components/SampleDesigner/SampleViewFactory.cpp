@@ -3,6 +3,7 @@
 #include "LayerView.h"
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
+#include "ParticleCoreShellView.h"
 #include "ParaCrystalViews.h"
 #include <QDebug>
 
@@ -12,6 +13,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << QString("Layer")
         << QString("ParticleLayout")
         << QString("Particle")
+        << QString("ParticleCoreShell")
         << QString("InterferenceFunction1DParaCrystal")
         << QString("InterferenceFunction2DParaCrystal");
 
@@ -39,6 +41,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==QString("Particle")) {
         return new ParticleView();
+    }
+    else if (name==QString("ParticleCoreShell")) {
+        return new ParticleCoreShellView();
     }
     else if (name==QString("InterferenceFunction1DParaCrystal")) {
         return new InterferenceFunction1DParaCrystalView();

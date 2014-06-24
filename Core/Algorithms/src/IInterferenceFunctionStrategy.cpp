@@ -45,6 +45,9 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::evaluatePol(
         const cvector_t& k_i, const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
         Bin1D phi_f_bin) const
 {
+    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
+        return MCIntegratedEvaluatePol(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
+    }
     Eigen::Matrix2d result;
     calculateFormFactorLists(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
     result(0,0) = evaluateForList(k_i, k_f_bin, m_ff00);
@@ -128,23 +131,9 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
         const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin) const
 {
-    cvector_t k_f_00 = k_f_bin.m_q_lower;
-    cvector_t k_f_11 = k_f_bin.m_q_upper;
-    complex_t xy_length0 = k_f_00.magxy();
-    complex_t xy_length1 = k_f_11.magxy();
-    cvector_t k_f_01(k_f_11.x()*xy_length0/xy_length1,
-                     k_f_11.y()*xy_length0/xy_length1,
-                     k_f_00.z());
-    cvector_t k_f_10(k_f_00.x()*xy_length1/xy_length0,
-                     k_f_00.y()*xy_length1/xy_length0,
-                     k_f_11.z());
-    IntegrationParamsAlpha mc_int_pars;
-    mc_int_pars.k_i = k_i;
-    mc_int_pars.k_f00 = k_f_00;
-    mc_int_pars.k_f01 = k_f_01;
-    mc_int_pars.k_f10 = k_f_10;
-    mc_int_pars.k_f11 = k_f_11;
-    mc_int_pars.alpha_bin = alpha_f_bin;
+    Bin1D phi_bin;
+    IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, k_f_bin,
+        alpha_f_bin, phi_bin);
     MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>::mem_function
         p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf;
     MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>
@@ -156,12 +145,66 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
     return result;
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_kf(double *angles,
+Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
+        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+{
+    Eigen::Matrix2d result;
+    IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, k_f_bin,
+        alpha_f_bin, phi_f_bin);
+    MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>::mem_function
+        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol;
+    MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>
+        mc_integrator(p_function, this, 2);
+    double min_array[] = { 0.0, 0.0 };
+    double max_array[] = { 1.0, 1.0 };
+
+    mc_int_pars.index = 0;
+    result(0,0) = mc_integrator.integrate(min_array, max_array,
+                       (void*)&mc_int_pars, m_sim_params.m_mc_points);
+    mc_int_pars.index = 1;
+    result(0,1) = mc_integrator.integrate(min_array, max_array,
+                       (void*)&mc_int_pars, m_sim_params.m_mc_points);
+    mc_int_pars.index = 2;
+    result(1,0) = mc_integrator.integrate(min_array, max_array,
+                       (void*)&mc_int_pars, m_sim_params.m_mc_points);
+    mc_int_pars.index = 3;
+    result(1,1) = mc_integrator.integrate(min_array, max_array,
+                       (void*)&mc_int_pars, m_sim_params.m_mc_points);
+    return result;
+}
+
+IInterferenceFunctionStrategy::IntegrationParamsAlpha
+IInterferenceFunctionStrategy::getIntegrationParams(const cvector_t &k_i,
+    const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+{
+    cvector_t k_f_00 = k_f_bin.m_q_lower;
+    cvector_t k_f_11 = k_f_bin.m_q_upper;
+    complex_t xy_length0 = k_f_00.magxy();
+    complex_t xy_length1 = k_f_11.magxy();
+    cvector_t k_f_01(k_f_11.x()*xy_length0/xy_length1,
+                     k_f_11.y()*xy_length0/xy_length1,
+                     k_f_00.z());
+    cvector_t k_f_10(k_f_00.x()*xy_length1/xy_length0,
+                     k_f_00.y()*xy_length1/xy_length0,
+                     k_f_11.z());
+    IntegrationParamsAlpha result;
+    result.k_i = k_i;
+    result.k_f00 = k_f_00;
+    result.k_f01 = k_f_01;
+    result.k_f10 = k_f_10;
+    result.k_f11 = k_f_11;
+    result.alpha_bin = alpha_f_bin;
+    result.phi_bin = phi_f_bin;
+    return result;
+}
+
+double IInterferenceFunctionStrategy::evaluate_for_fixed_kf(double *fractions,
         size_t dim, void *params) const
 {
     (void)dim;
-    double par0 = angles[0];
-    double par1 = angles[1];
+    double par0 = fractions[0];
+    double par1 = fractions[1];
 
     IntegrationParamsAlpha* pars = static_cast<IntegrationParamsAlpha*>(params);
     cvector_t k_i = pars->k_i;
@@ -172,4 +215,39 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_kf(double *angles,
     Bin1DCVector k_f_bin(k_f, k_f);
     calculateFormFactorList(k_i, k_f_bin, pars->alpha_bin);
     return evaluateForList(k_i, k_f_bin, m_ff00);
+}
+
+double IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol(
+        double *fractions, size_t dim, void *params) const
+{
+    (void)dim;
+    double par0 = fractions[0];
+    double par1 = fractions[1];
+
+    IntegrationParamsAlpha* pars = static_cast<IntegrationParamsAlpha*>(params);
+    cvector_t k_i = pars->k_i;
+    cvector_t k_f0 = pars->k_f00 + par0*(pars->k_f10 - pars->k_f00);
+    cvector_t k_f1 = pars->k_f01 + par0*(pars->k_f11 - pars->k_f01);
+    cvector_t k_f = k_f0 + par1*(k_f1 - k_f0);
+
+    Bin1DCVector k_f_bin(k_f, k_f);
+    calculateFormFactorLists(k_i, k_f_bin, pars->alpha_bin, pars->phi_bin);
+
+    double result = 0.0;
+    switch (pars->index)
+    {
+    case 0:
+        result = evaluateForList(k_i, k_f_bin, m_ff00);
+        break;
+    case 1:
+        result = evaluateForList(k_i, k_f_bin, m_ff01);
+        break;
+    case 2:
+        result = evaluateForList(k_i, k_f_bin, m_ff10);
+        break;
+    case 3:
+        result = evaluateForList(k_i, k_f_bin, m_ff11);
+        break;
+    }
+    return result;
 }

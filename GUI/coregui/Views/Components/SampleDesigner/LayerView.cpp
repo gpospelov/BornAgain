@@ -41,11 +41,11 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 
-void LayerView::addView(IView *childView, int row)
+void LayerView::addView(IView *childView, int /* row */)
 {
     qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName();
     ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
     Q_ASSERT(layout);
-    connectInputPort(layout, row);
+    connectInputPort(layout, 0);
 }
 

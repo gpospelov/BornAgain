@@ -407,6 +407,9 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
     endInsertRows();
+
+    ParameterizedItem *candidate_for_removal = parent->getCandidateForRemoval(new_item);
+    if(candidate_for_removal) moveParameterizedItem(candidate_for_removal, 0);
     return new_item;
 }
 

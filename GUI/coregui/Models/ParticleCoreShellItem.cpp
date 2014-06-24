@@ -15,7 +15,7 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     registerProperty(P_CORE_Y, 0.0);
     registerProperty(P_CORE_Z, 0.0);
 
-    m_valid_children.append(QString("Particle"));
+    addToValidChildren(QString("Particle"));
 }
 
 

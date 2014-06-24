@@ -121,19 +121,24 @@ public:
     void print() const;
 
     virtual void onPropertyChange(const QString &name);
+
+    ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
 
 protected:
+    void addToValidChildren(const QString &name, int nmax_children = 0);
     void updatePropertyItem(QString name);
-    QList<QString> m_valid_children;
 
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
+    QList<QString> m_valid_children;
+    QMap<QString, int> m_nmax_children; //!< maximum number of children of this type
     QString m_model_type;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;

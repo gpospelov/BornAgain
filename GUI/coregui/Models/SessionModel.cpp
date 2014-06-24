@@ -227,9 +227,9 @@ bool SessionModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
         QByteArray xml_data = qUncompress(data->data(SessionXML::MimeType));
         QXmlStreamReader reader(xml_data);
         if (row == -1) row = item->childItemCount();
-        beginInsertRows(parent, row, row);
+        //beginInsertRows(parent, row, row);
         readItems(&reader, item, row);
-        endInsertRows();
+        //endInsertRows();
         return true;
     }
     return false;
@@ -252,9 +252,9 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row==-1) row = parent_item->childItemCount();
-    beginInsertRows(parent, row, row);
+    //beginInsertRows(parent, row, row);
     ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row);
-    endInsertRows();
+    //endInsertRows();
     return new_item;
 }
 
@@ -376,9 +376,9 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     if (row == -1) row = new_parent->childItemCount();
 
     qDebug() << "   SessionModel::moveParameterizedItem()  >>> Beginning to insert indexOfItem(new_parent)" << indexOfItem(new_parent);
-    beginInsertRows(indexOfItem(new_parent), row, row);
+    //beginInsertRows(indexOfItem(new_parent), row, row);
     readItems(&reader, new_parent, row);
-    endInsertRows();
+    //endInsertRows();
 
     qDebug() << " ";
     qDebug() << "    SessionModel::moveParameterizedItem() >>> Now deleting indexOfItem(item).row()" << indexOfItem(item).row();
@@ -401,10 +401,12 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
         if (!parent->acceptsAsChild(model_type))
             return 0;
     }
+    beginInsertRows(indexOfItem(parent), row, row);
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
     Q_ASSERT(new_item);
     connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
+    endInsertRows();
     return new_item;
 }
 

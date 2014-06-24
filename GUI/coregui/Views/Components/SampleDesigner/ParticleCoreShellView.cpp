@@ -16,3 +16,7 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
 }
 
 
+void ParticleCoreShellView::addView(IView *childView, int row)
+{
+    connectInputPort(dynamic_cast<ConnectableView *>(childView), row);
+}

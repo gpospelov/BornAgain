@@ -14,6 +14,9 @@ public:
     ParticleCoreShellView(QGraphicsItem *parent = 0);
 
     int type() const { return Type; }
+
+    void addView(IView *childView, int row = 0);
+
 };
 
 

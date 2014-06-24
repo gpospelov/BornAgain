@@ -37,6 +37,7 @@
 #include "GUIObjectBuilder.h"
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
+#include "ParticleCoreShellItem.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -111,7 +112,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    m_tabWidget->setCurrentIndex(WelcomeTab);
+    //m_tabWidget->setCurrentIndex(WelcomeTab);
+    m_tabWidget->setCurrentIndex(SampleTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -266,6 +268,11 @@ void MainWindow::initSampleModel()
 //    ParameterizedItem *substrate = m_sampleModel->insertNewItem("Layer",
 //                   m_sampleModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
+
+    ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
+    ParameterizedItem *shell = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+
 
 }
 

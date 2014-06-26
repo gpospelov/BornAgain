@@ -361,7 +361,11 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     qDebug() << "";
     qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
 
-    if(!new_parent) new_parent = m_root_item;
+    if(new_parent) {
+        if(!new_parent->acceptsAsChild(item->modelType())) return;
+    } else {
+        new_parent = m_root_item;
+    }
 
     if(item->parent() == new_parent && indexOfItem(item).row() == row) {
         qDebug() << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
@@ -403,7 +407,10 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
     beginInsertRows(indexOfItem(parent), row, row);
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-    Q_ASSERT(new_item);
+
+    if(!new_item)
+        throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type "+ model_type);
+
     connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
     endInsertRows();

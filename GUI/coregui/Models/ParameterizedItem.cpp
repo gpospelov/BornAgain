@@ -25,6 +25,7 @@
 #include <QMetaEnum>
 
 const QString ParameterizedItem::P_NAME = "Name";
+const QString ParameterizedItem::P_SLOT = "Slot";
 
 ParameterizedItem::ParameterizedItem(const QString &model_type,
                                      ParameterizedItem *parent)
@@ -37,6 +38,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     }
 
     registerProperty(P_NAME, QString(), HiddenProperty);
+    registerProperty(P_SLOT, -1);
     setItemName(m_model_type);
 }
 

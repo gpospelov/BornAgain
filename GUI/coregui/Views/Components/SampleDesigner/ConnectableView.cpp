@@ -48,7 +48,6 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 }
 
 
-// adding port to the sample
 NodeEditorPort* ConnectableView::addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
 {
     NodeEditorPort *port = new NodeEditorPort(this, name, direction, port_type);
@@ -111,23 +110,12 @@ void ConnectableView::setLabel(const QString &name)
 
 int ConnectableView::getNumberOfPorts()
 {
-//    int result(0);
-//    foreach(QGraphicsItem *item, childItems()) {
-//        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-//        if (port) result++;
-//    }
     return m_input_ports.size() + m_output_ports.size();
 }
 
 
 int ConnectableView::getNumberOfOutputPorts()
 {
-//    int result(0);
-//    foreach(QGraphicsItem *item, childItems()) {
-//        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-//        if (port && port->isOutput()) result++;
-//    }
-//    return result;
     return m_output_ports.size();
 }
 
@@ -135,7 +123,6 @@ int ConnectableView::getNumberOfOutputPorts()
 int ConnectableView::getNumberOfInputPorts()
 {
     return m_input_ports.size();
-//    return getNumberOfPorts()-getNumberOfOutputPorts();
 }
 
 
@@ -190,31 +177,13 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
         NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
         conn->setPort2(input);
         conn->setPort1(output);
-//        conn->setPos2(input->scenePos());
-//        conn->setPos1(output->scenePos());
         conn->updatePath();
     }
 }
 
-
-
-
-//! returns list of items connected to all input ports
-QList<ConnectableView *> ConnectableView::getConnectedInputItems() const
+int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
-    QList<ConnectableView *> result;
-    foreach(QGraphicsItem *item, childItems()) {
-        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-        if (port && port->isInput()) {
-            for(int i=0; i<port->connections().size(); ++i) {
-                Q_ASSERT(port->connections().at(i)->port1()->parentItem());
-                ConnectableView *connected = dynamic_cast<ConnectableView *>(port->connections().at(i)->port1()->parentItem());
-                if(connected) {
-                    result.append(connected);
-                }
-            }
-        }
-    }
-    return result;
+    return m_input_ports.indexOf(port);
 }
+
 

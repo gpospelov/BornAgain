@@ -1,4 +1,6 @@
 #include "ParticleCoreShellView.h"
+#include "ParameterizedItem.h"
+#include <QDebug>
 
 
 ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
@@ -16,7 +18,10 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
 }
 
 
-void ParticleCoreShellView::addView(IView *childView, int row)
+void ParticleCoreShellView::addView(IView *childView, int /* row */)
 {
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), row);
+    int index = childView->getParameterizedItem()->getRegisteredProperty(ParameterizedItem::P_SLOT).toInt();
+    qDebug() << "ParticleCoreShellView::addView()" << index;
+    connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
+
 }

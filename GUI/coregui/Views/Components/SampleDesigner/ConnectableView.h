@@ -16,20 +16,9 @@ public:
     enum { Type = DesignerHelper::ISampleRectType };
     ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ConnectableView(){}
-
     int type() const { return Type; }
-
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
-
-    //! connect input port of given view with appropriate output port(s) of other item, returns list of created connections
-    //virtual QList<QGraphicsItem *> connectInputPort(ConnectableView *other);
-    void connectInputPort(ConnectableView *other, int port_number);
-
-    //! returns list of items connected to all input ports
-    virtual QList<ConnectableView *> getConnectedInputItems() const;
 
     virtual QString getName() const { return m_name; }
     virtual QColor getColor() const { return m_color; }
@@ -38,7 +27,16 @@ public:
     virtual QString getLabel() const { return m_label; }
     virtual void setLabel(const QString &name);
 
+    //! adds port to view
+    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
+
+    //! connects input port with given index with output port of other view
+    void connectInputPort(ConnectableView *other, int port_number);
+
+    QList<NodeEditorPort *> getInputPorts() { return m_output_ports; }
     QList<NodeEditorPort *> getOutputPorts() { return m_output_ports; }
+
+    int getInputPortIndex(NodeEditorPort *port);
 
 public slots:
     virtual void setName(const QString &name) { m_name = name; }
@@ -56,7 +54,6 @@ protected:
     int m_roundpar;
     double m_label_vspace; // vertical space occupied by the label
     QString m_label;
-
     QList<NodeEditorPort *> m_input_ports;
     QList<NodeEditorPort *> m_output_ports;
 };

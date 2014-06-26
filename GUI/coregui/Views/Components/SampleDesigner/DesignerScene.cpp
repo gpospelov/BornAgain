@@ -324,10 +324,11 @@ void DesignerScene::drawForeground(QPainter* painter, const QRectF& /* rect */)
 void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 {
     qDebug() << "DesignerScene::onEstablishedConnection()";
-    IView *parentView = dynamic_cast<IView *>(connection->getInputPort()->parentItem());
-    IView *childView = dynamic_cast<IView *>(connection->getOutputPort()->parentItem());
-    Q_ASSERT(parentView);
-    Q_ASSERT(childView);
+    ConnectableView *parentView = connection->getParentView();
+    ConnectableView *childView = connection->getChildView();
+
+    childView->getParameterizedItem()->setRegisteredProperty(ParameterizedItem::P_SLOT, parentView->getInputPortIndex(connection->getInputPort()));
+    qDebug() << parentView->getInputPortIndex(connection->getInputPort());
     delete connection; // deleting just created connection because it will be recreated from the model
     m_sampleModel->moveParameterizedItem(childView->getParameterizedItem(), parentView->getParameterizedItem());
 }

@@ -28,7 +28,7 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
-    static const QString P_NAME;
+    static const QString P_NAME, P_SLOT;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
@@ -63,11 +63,11 @@ public:
     QList<ParameterizedItem *> childItems() const { return m_children; }
 
     //! inserts a child item at specified row
-    void insertChildItem(int row, ParameterizedItem *item)
+    virtual void insertChildItem(int row, ParameterizedItem *item)
         { item->m_parent = this; m_children.insert(row, item); }
 
     //! append child item
-    void addChildItem(ParameterizedItem *item)
+    virtual void addChildItem(ParameterizedItem *item)
         { item->m_parent = this; m_children << item; }
 
     //! swap two child items
@@ -122,7 +122,7 @@ public:
 
     virtual void onPropertyChange(const QString &name);
 
-    ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
+    virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
 signals:
     void propertyChanged(const QString &propertyName);

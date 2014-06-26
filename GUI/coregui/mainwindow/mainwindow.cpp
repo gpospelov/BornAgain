@@ -270,8 +270,9 @@ void MainWindow::initSampleModel()
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
 
     ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
-    ParameterizedItem *shell = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
+//    ParameterizedItem *core = m_sampleModel->insertNewItem("Core Particle", m_sampleModel->indexOfItem(coreshell));
+//    ParameterizedItem *shell = m_sampleModel->insertNewItem("Shell Particle", m_sampleModel->indexOfItem(coreshell));
 
 
 }

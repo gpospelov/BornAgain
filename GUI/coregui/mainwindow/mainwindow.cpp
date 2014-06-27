@@ -65,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
+    , m_testView(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -104,6 +105,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_simulationView->setJobQueueModel(m_jobQueueModel);
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
+    m_testView = new TestView(this);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -111,8 +113,9 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
+    m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
-    //m_tabWidget->setCurrentIndex(WelcomeTab);
+
     m_tabWidget->setCurrentIndex(SampleTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);

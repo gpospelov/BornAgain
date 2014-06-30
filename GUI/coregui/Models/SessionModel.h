@@ -120,6 +120,9 @@ private:
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer,
                            ParameterizedItem *item) const;
+
+    void cleanItem(const QModelIndex &parent, int first, int last );
+
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name

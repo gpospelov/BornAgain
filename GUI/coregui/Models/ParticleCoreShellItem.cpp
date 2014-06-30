@@ -16,13 +16,14 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     registerProperty(P_CORE_Y, 0.0);
     registerProperty(P_CORE_Z, 0.0);
 
-    addToValidChildren(QString("Particle"));
-    addToValidChildren(QString("Core Particle"));
-    addToValidChildren(QString("Shell Particle"));
+    addToValidChildrenX(QString("Particle"), PortInfo::Port0, 1);
+    addToValidChildrenX(QString("Particle"), PortInfo::Port1, 1);
+//    addToValidChildren(QString("Core Particle"));
+//    addToValidChildren(QString("Shell Particle"));
 
-    m_coreshell.resize(2);
-    m_coreshell[0] = 0;
-    m_coreshell[1] = 0;
+//    m_coreshell.resize(2);
+//    m_coreshell[0] = 0;
+//    m_coreshell[1] = 0;
 }
 
 //void ParticleCoreShellItem::addChildItem(ParameterizedItem *item)

@@ -16,8 +16,8 @@ public:
 //    void addChildItem(ParameterizedItem *item);
 //    virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
-private:
-    QVector<ParameterizedItem *> m_coreshell;
+//private:
+//    QVector<ParameterizedItem *> m_coreshell;
 };
 
 

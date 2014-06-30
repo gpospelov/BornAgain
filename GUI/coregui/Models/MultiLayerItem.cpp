@@ -21,10 +21,9 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("MultiLayer"), parent)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-    addToValidChildren(QString("Layer"));
-    addToValidChildren(QString("MultiLayer"));
+    addToValidChildrenX(QString("Layer"));
+    addToValidChildrenX(QString("MultiLayer"));
 
-    //setPropertyVisibility(ParameterizedItem::P_NAME, ParameterizedItem::VisibleProperty);
     setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
 }
 

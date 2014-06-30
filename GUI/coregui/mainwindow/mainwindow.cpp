@@ -271,9 +271,19 @@ void MainWindow::initSampleModel()
 
     ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
     ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
-//    ParameterizedItem *core = m_sampleModel->insertNewItem("Core Particle", m_sampleModel->indexOfItem(coreshell));
-//    ParameterizedItem *shell = m_sampleModel->insertNewItem("Shell Particle", m_sampleModel->indexOfItem(coreshell));
 
+//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+//    core->setRegisteredProperty(ParameterizedItem::P_SLOT, 0);
+//    ParameterizedItem *shell = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+//    shell->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
+//    ParameterizedItem *shell2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+//    shell2->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
+
+//    qDebug() << " coreshell:" << coreshell << " core:" << core << " shell:" << shell << " shell2:" << shell2;
+//    ParameterizedItem *candidate = coreshell->getCandidateForRemoval(shell2);
+//    if(candidate) {
+//        qDebug() << candidate << candidate->modelType();
+//    }
 
 }
 

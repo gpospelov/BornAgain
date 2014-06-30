@@ -124,12 +124,20 @@ public:
 
     virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
 
+    class PortInfo {
+    public:
+        enum Keys { Port0, Port1, Port2};
+        PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
+        QStringList m_item_names;
+        int m_item_max_number;
+    };
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
 
 protected:
-    void addToValidChildren(const QString &name, int nmax_children = 0);
+    void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
     void updatePropertyItem(QString name);
 
     QStringList m_registered_properties;
@@ -138,7 +146,8 @@ protected:
 
 private:
     QList<QString> m_valid_children;
-    QMap<QString, int> m_nmax_children; //!< maximum number of children of this type
+    QMap<int, PortInfo> m_port_info;
+
     QString m_model_type;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;

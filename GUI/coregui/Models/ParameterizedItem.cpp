@@ -38,7 +38,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     }
 
     registerProperty(P_NAME, QString(), HiddenProperty);
-    registerProperty(P_SLOT, -1);
+    registerProperty(P_SLOT, 0);
     setItemName(m_model_type);
 }
 
@@ -97,25 +97,48 @@ void ParameterizedItem::onPropertyChange(const QString &name)
 ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *new_comer)
 {
     if(!new_comer) return 0;
-    int nmax_allowed_number = m_nmax_children[new_comer->modelType()];
-    if(nmax_allowed_number == 0) return 0;
-    QList<ParameterizedItem *> candidates;
+
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << "ParameterizedItem::getCandidateForRemoval() thid_model " << modelType()  << m_children.size() << " new_comer:" << new_comer->modelType();
+
+
+    QMap<int, QVector<ParameterizedItem *> > nport_to_nitems;
     foreach(ParameterizedItem *child, m_children) {
-        if(child->modelType() == new_comer->modelType() && child != new_comer) {
-            candidates.append(child);
-        }
+        int nport = child->getRegisteredProperty(P_SLOT).toInt();
+        nport_to_nitems[nport].push_back(child);
     }
-    //qDebug() << " ParameterizedItem::getCandidateForRemoval() " << nmax_allowed_number << candidates.size();
-    if(candidates.size() == nmax_allowed_number)
-        return candidates.back();
+
+    QMap<int, QVector<ParameterizedItem *> >::iterator it = nport_to_nitems.begin();
+    while(it!=nport_to_nitems.end()) {
+        qDebug() << it.key() << it.value().size();
+        int nport = it.key();
+        if(m_port_info.contains(nport)) {
+            if(m_port_info[nport].m_item_max_number != 0 && it.value().size() > m_port_info[nport].m_item_max_number) {
+                foreach(ParameterizedItem *item, it.value()) {
+                    if(item != new_comer) return item;
+                }
+            }
+        }
+
+        ++it;
+    }
+
     return 0;
 }
 
 
-void ParameterizedItem::addToValidChildren(const QString &name, int nmax_children)
+void ParameterizedItem::addToValidChildrenX(const QString &name, PortInfo::Keys nport, int nmax_items)
 {
     m_valid_children.append(name);
-    m_nmax_children[name] = nmax_children;
+
+    if(m_port_info.contains(nport)) {
+        m_port_info[nport].m_item_names << name;
+        m_port_info[nport].m_item_max_number = nmax_items;
+    } else {
+        m_port_info[nport] = PortInfo(name, nmax_items);
+    }
 }
 
 

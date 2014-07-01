@@ -23,3 +23,10 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     addToValidChildren(QString("Particle"), PortInfo::Port0, 1);
     addToValidChildren(QString("Particle"), PortInfo::Port1, 1);
 }
+
+void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    item->setPropertyAttribute(ParticleItem::P_ABUNDANCE, ParameterizedItem::DisabledProperty);
+    item->setPropertyAttribute(ParticleItem::P_DEPTH, ParameterizedItem::DisabledProperty);
+}

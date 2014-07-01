@@ -34,7 +34,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     , m_block_property_change_event(false)
 {
     if (m_parent) {
-        m_parent->addChildItem(this);
+        m_parent->insertChildItem(-1, this);
     }
 
     registerProperty(P_NAME, QString(), HiddenProperty);
@@ -55,6 +55,13 @@ QString ParameterizedItem::itemName() const
 void ParameterizedItem::setItemName(const QString &item_name)
 {
     setRegisteredProperty(P_NAME, item_name);
+}
+
+void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    if(row == -1) row = m_children.size();
+    item->m_parent = this;
+    m_children.insert(row, item);
 }
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)

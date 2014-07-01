@@ -63,12 +63,11 @@ public:
     QList<ParameterizedItem *> childItems() const { return m_children; }
 
     //! inserts a child item at specified row
-    virtual void insertChildItem(int row, ParameterizedItem *item)
-        { item->m_parent = this; m_children.insert(row, item); }
+    virtual void insertChildItem(int row, ParameterizedItem *item);
 
     //! append child item
-    virtual void addChildItem(ParameterizedItem *item)
-        { item->m_parent = this; m_children << item; }
+//    virtual void addChildItem(ParameterizedItem *item)
+//        { item->m_parent = this; m_children << item; }
 
     //! swap two child items
     void swapChildItems(int row_1, int row_2)

@@ -20,6 +20,7 @@
 #include "Instrument.h"
 #include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
+#include "ParticleCoreShell.h"
 
 class DomainObjectBuilder
 {
@@ -41,6 +42,7 @@ private:
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
     IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth, double &abundance) const;
 
     ISample *mp_sample;
     Instrument *m_instrument;

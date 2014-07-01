@@ -16,6 +16,7 @@
 #include "DomainObjectBuilder.h"
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
+#include "ParticleCoreShellItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -102,6 +103,16 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
                 result->addInterferenceFunction(*interference);
             }
         }
+        else if(children[i]->modelType() == ParticleCoreShellItem::P_TYPE_NAME) {
+            double depth(0), abundance(0);
+            boost::scoped_ptr<ParticleCoreShell>
+                    coreshell(buildParticleCoreShell(*children[i], depth, abundance));
+            if (coreshell.get()) {
+                result->addParticle(*coreshell, depth, abundance);
+            }
+        }
+
+
 
         else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
@@ -151,6 +162,33 @@ Beam *DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
 {
     qDebug() << "DomainObjectBuilder::buildBeam()";
     Beam *result = TransformToDomain::createBeam(item);
+    return result;
+}
+
+ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const ParameterizedItem &item, double &depth, double &abundance) const
+{
+    QList<ParameterizedItem *> children = item.childItems();
+    Particle *coreParticle(0);
+    Particle *shellParticle(0);
+    for (int i=0; i<children.size(); ++i) {
+        double tmp_depth(0), tmp_abundance(0);
+        int port = children[i]->getRegisteredProperty(ParameterizedItem::P_PORT).toInt();
+        if(port == ParameterizedItem::PortInfo::Port0) {
+            coreParticle = buildParticle(*children[i], tmp_depth, tmp_abundance);
+        }
+        else if(port == ParameterizedItem::PortInfo::Port1) {
+            shellParticle = buildParticle(*children[i], tmp_depth, tmp_abundance);
+        }
+        else {
+            throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error.");
+        }
+    }
+    if(!coreParticle || !shellParticle)
+        throw GUIHelpers::Error("DomainObjectBuilder::buildParticleCoreShell() -> Error. Logic error in p2.");
+
+    ParticleCoreShell *result = TransformToDomain::createParticleCoreShell(item, *coreParticle, *shellParticle, depth, abundance);
+    delete coreParticle;
+    delete shellParticle;
     return result;
 }
 

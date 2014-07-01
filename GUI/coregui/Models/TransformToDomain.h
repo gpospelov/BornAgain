@@ -28,6 +28,7 @@ MultiLayer *createMultiLayer(const ParameterizedItem &item);
 Layer *createLayer(const ParameterizedItem &item);
 ParticleLayout *createParticleLayout(const ParameterizedItem &item);
 Particle *createParticle(const ParameterizedItem &item, double &depth, double &abundance);
+ParticleCoreShell *createParticleCoreShell(const ParameterizedItem &item, const Particle &core, const Particle &shell, double &depth, double &abundance);
 IFormFactor *createFormFactor(const ParameterizedItem &item);
 IInterferenceFunction *createInterferenceFunction(const ParameterizedItem &item);
 Instrument *createInstrument(const ParameterizedItem &item);

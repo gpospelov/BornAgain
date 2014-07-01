@@ -103,9 +103,13 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleLayout *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
-    Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem("ParticleLayout",
+    ParameterizedItem *item(0);
+    if(parent) {
+        item = m_sampleModel->insertNewItem("ParticleLayout",
                                          m_sampleModel->indexOfItem(parent));
+    } else {
+        item = m_sampleModel->insertNewItem("ParticleLayout");
+    }
     item->setItemName(sample->getName().c_str());
     m_levelToParent[getLevel()] = item;
 }
@@ -145,6 +149,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
     qDebug() << "GUIObjectBuilder::visit(const Particle *)" << getLevel();
 
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
+    Q_ASSERT(parent);
 
     ParameterizedItem *particleItem(0);
     if(parent->modelType() == ParticleCoreShellItem::P_TYPE_NAME) {

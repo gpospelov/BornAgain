@@ -31,7 +31,7 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     formfactors[QString("Tetrahedron")] = &createInstance<TetrahedronItem>;
     formfactors[QString("TruncatedSphere")] = &createInstance<TruncatedSphereItem>;
     formfactors[QString("TruncatedSpheroid")] = &createInstance<TruncatedSpheroidItem>;
-    result[ParticleItem::P_FORM_FACTOR] = formfactors;
+    result["Form Factor"] = formfactors;
 
     QMap<QString, ParameterizedItem *(*)()> ft_distributions_1d;
     ft_distributions_1d[QString("Cauchy 1D")] = &createInstance<FTDistribution1DCauchyItem>;
@@ -40,7 +40,7 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     ft_distributions_1d[QString("Triangle 1D")] = &createInstance<FTDistribution1DTriangleItem>;
     ft_distributions_1d[QString("Cosine 1D")] = &createInstance<FTDistribution1DCosineItem>;
     ft_distributions_1d[QString("Voigt 1D")] = &createInstance<FTDistribution1DVoigtItem>;
-    result[InterferenceFunction1DParaCrystalItem::P_PDF] = ft_distributions_1d;
+    result["PDF"] = ft_distributions_1d;
 
     QMap<QString, ParameterizedItem *(*)()> ft_distributions_2d;
     ft_distributions_2d[QString("Cauchy 2D")] = &createInstance<FTDistribution2DCauchyItem>;
@@ -48,19 +48,19 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     ft_distributions_2d[QString("Gate 2D")] = &createInstance<FTDistribution2DGateItem>;
     ft_distributions_2d[QString("Cone 2D")] = &createInstance<FTDistribution2DConeItem>;
     ft_distributions_2d[QString("Voigt 2D")] = &createInstance<FTDistribution2DVoigtItem>;
-    result[InterferenceFunction2DParaCrystalItem::P_PDF1] = ft_distributions_2d;
-    result[InterferenceFunction2DParaCrystalItem::P_PDF2] = ft_distributions_2d;
+    result["PDF #1"] = ft_distributions_2d;
+    result["PDF #2"] = ft_distributions_2d;
 
     QMap<QString, ParameterizedItem *(*)()> lattice_types;
     lattice_types[QString("Basic")] = &createInstance<BasicLatticeTypeItem>;
     lattice_types[QString("Square")] = &createInstance<SquareLatticeTypeItem>;
     lattice_types[QString("Hexagonal")] = &createInstance<HexagonalLatticeTypeItem>;
-    result[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE] = lattice_types;
+    result["Lattice_type"] = lattice_types;
 
     QMap<QString, ParameterizedItem *(*)()> detector_types;
     //detector_types[XYDetectorItem::P_MODEL_TYPE] = &createInstance<XYDetectorItem>;
-    detector_types[ThetaPhiDetectorItem::P_MODEL_TYPE] = &createInstance<ThetaPhiDetectorItem>;
-    result[DetectorItem::P_DETECTOR_TYPE] = detector_types;
+    detector_types["Theta, Phi plane"] = &createInstance<ThetaPhiDetectorItem>;
+    result["Detector type"] = detector_types;
 
     return result;
 }

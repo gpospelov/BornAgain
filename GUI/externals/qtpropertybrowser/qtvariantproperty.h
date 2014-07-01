@@ -159,9 +159,9 @@ class QtVariantEditorFactory : public QtAbstractEditorFactory<QtVariantPropertyM
 public:
     QtVariantEditorFactory(QObject *parent = 0);
     ~QtVariantEditorFactory();
+    using QtAbstractEditorFactory<QtVariantPropertyManager>::createEditor;
 protected:
     void connectPropertyManager(QtVariantPropertyManager *manager);
-    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
                 QWidget *parent);
     void disconnectPropertyManager(QtVariantPropertyManager *manager);

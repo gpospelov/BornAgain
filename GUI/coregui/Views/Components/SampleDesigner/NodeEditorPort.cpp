@@ -108,7 +108,7 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::PortType port_type)
     case Interference:
        return QColor(Qt::yellow);
        break;
-    case ParticleFactory:
+    case ParticleLayout:
        return QColor(Qt::green);
        break;
     case FormFactor:

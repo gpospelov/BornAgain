@@ -13,7 +13,7 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     setLabel("Particle \nlayout");
     setColor(QColor(135, 206, 50));
     setRectangle( DesignerHelper::getDefaultBoundingRect("ParticleLayout"));
-    addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleFactory);
+    addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleLayout);
     addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
     addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
     m_roundpar = 3;
@@ -23,11 +23,14 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
     qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName() << childView->getParameterizedItem()->itemName() << childView->type() << DesignerHelper::ParticleType;
-    if(childView->type() == DesignerHelper::ParticleType
-            || childView->type() == DesignerHelper::InterferenceFunction1DParaType
+    if(childView->type() == DesignerHelper::ParticleType) {
+        connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
+    }
+    else if(childView->type() == DesignerHelper::InterferenceFunction1DParaType
             || childView->type() == DesignerHelper::InterferenceFunction2DParaType) {
-        connectInputPort(dynamic_cast<ConnectableView *>(childView));
-    } else {
+        connectInputPort(dynamic_cast<ConnectableView *>(childView), 1);
+    }
+    else {
         throw GUIHelpers::Error("ParticleLayoutView::addView() -> Error. Unknown view");
     }
 }

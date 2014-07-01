@@ -4,15 +4,19 @@
 #include "TestFormFactorItems.h"
 #include "TestFTDistributionItems.h"
 #include "TestParameterizedItem.h"
+#include "TestParticleItems.h"
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
+    Q_UNUSED(app);
 
-    TestFormFactorItems test1;
-    TestFTDistributionItems test2;
-    TestParameterizedItem test3;
+    TestFormFactorItems testFormFactorItems;
+    TestFTDistributionItems testFTDistributionItems;
+    TestParameterizedItem testParameterizedItem;
+    TestParticleItems testParticleItems;
 
-    return QTest::qExec(&test1, argc, argv) |
-           QTest::qExec(&test2, argc, argv) |
-           QTest::qExec(&test3, argc, argv);
+    return QTest::qExec(&testFormFactorItems, argc, argv) |
+           QTest::qExec(&testFTDistributionItems, argc, argv) |
+           QTest::qExec(&testParameterizedItem, argc, argv) |
+           QTest::qExec(&testParticleItems, argc, argv);
 }

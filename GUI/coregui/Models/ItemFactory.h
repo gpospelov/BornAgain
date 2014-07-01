@@ -29,9 +29,7 @@ public:
     static ParameterizedItem *createEmptyItem();
 
     //! retrieve list of all possible item names
-    static QList<QString> getAllItemNames() {
-        return m_all_item_names;
-    }
+    static QList<QString> getAllItemNames();
 
     //! returns true if item with given name can be created
     static bool isValidName(const QString &name);

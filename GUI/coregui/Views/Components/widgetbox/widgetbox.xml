@@ -205,6 +205,21 @@
         
     </category>
 
+
+    
+    <category name="Particle assemblies">
+
+        <categoryentry name="Core shell particle" icon="images/ParticleCoreShell.png">
+            <widget class="ParticleCoreShell">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+    </category>
+
+    
     
     <category name="Standard samples">
         
@@ -226,6 +241,14 @@
 
         <categoryentry name="Example #3 (para 2D)" icon="images/sample_layers2.png">
             <widget class="example03">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Example #4 (core shell particle)" icon="images/sample_layers2.png">
+            <widget class="example04">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

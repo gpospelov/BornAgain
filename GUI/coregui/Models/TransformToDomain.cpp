@@ -27,6 +27,8 @@
 #include "MultiLayerItem.h"
 #include "LatticeTypeItems.h"
 #include "FTDistributionItems.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleCoreShell.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -83,6 +85,7 @@ Particle *TransformToDomain::createParticle(const ParameterizedItem &item,
     Particle *result = new Particle(*material);
     depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    result->setName(item.itemName().toStdString());
 
     ParameterizedItem *ffItem = item.getSubItems()[ParticleItem::P_FORM_FACTOR];
     Q_ASSERT(ffItem);
@@ -244,4 +247,18 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
         throw GUIHelpers::Error("TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "+subDetector->modelType());
     }
 
+}
+
+
+ParticleCoreShell *TransformToDomain::createParticleCoreShell(const ParameterizedItem &item, const Particle &core, const Particle &shell, double &depth, double &abundance)
+{
+    depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
+    abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    kvector_t pos;
+    pos.setX(item.getRegisteredProperty(ParticleCoreShellItem::P_CORE_X).toDouble());
+    pos.setY(item.getRegisteredProperty(ParticleCoreShellItem::P_CORE_Y).toDouble());
+    pos.setZ(item.getRegisteredProperty(ParticleCoreShellItem::P_CORE_Z).toDouble());
+    ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
+    result->setName(item.itemName().toStdString());
+    return result;
 }

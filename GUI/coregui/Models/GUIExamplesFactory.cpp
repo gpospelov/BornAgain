@@ -13,6 +13,7 @@ QMap<QString, QString > init_NameToRegistry()
     result["example01"] = "isgisaxs01";
     result["example02"] = "isgisaxs04_1DDL";
     result["example03"] = "isgisaxs04_2DDL";
+    result["example04"] = "isgisaxs11";
     return result;
 }
 

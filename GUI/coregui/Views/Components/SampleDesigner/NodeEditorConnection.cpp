@@ -1,5 +1,6 @@
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
+#include "ConnectableView.h"
 #include <QBrush>
 #include <QPen>
 #include <QGraphicsScene>
@@ -43,6 +44,7 @@ void NodeEditorConnection::setPort1(NodeEditorPort *p)
 {
 	m_port1 = p;
 	m_port1->connections().append(this);
+    setPos1(p->scenePos());
 }
 
 
@@ -50,6 +52,7 @@ void NodeEditorConnection::setPort2(NodeEditorPort *p)
 {
 	m_port2 = p;
 	m_port2->connections().append(this);
+    setPos2(p->scenePos());
 }
 
 
@@ -112,5 +115,21 @@ void NodeEditorConnection::paint(QPainter *painter, const QStyleOptionGraphicsIt
     }
 
     painter->drawPath(path());
+}
+
+ConnectableView *NodeEditorConnection::getParentView()
+{
+    Q_ASSERT(getInputPort() != getOutputPort());
+    ConnectableView *result = dynamic_cast<ConnectableView *>(getInputPort()->parentItem());
+    Q_ASSERT(result);
+    return result;
+}
+
+ConnectableView *NodeEditorConnection::getChildView()
+{
+    Q_ASSERT(getInputPort() != getOutputPort());
+    ConnectableView *result = dynamic_cast<ConnectableView *>(getOutputPort()->parentItem());
+    Q_ASSERT(result);
+    return result;
 }
 

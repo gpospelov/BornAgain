@@ -30,5 +30,6 @@
         <file>images/ParaCrystal2D.png</file>
         <file>images/ParaCrystal1D.png</file>
         <file>images/ParticleLayout.png</file>
+        <file>images/ParticleCoreShell.png</file>
     </qresource>
 </RCC>

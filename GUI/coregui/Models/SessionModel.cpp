@@ -42,6 +42,8 @@ SessionModel::SessionModel(QString model_tag, QObject *parent)
     , m_model_tag(model_tag)
     , m_iconProvider(0)
 {
+    //connect(this, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
+
 }
 
 SessionModel::~SessionModel()
@@ -245,7 +247,8 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                const QModelIndex &parent,
-                                               int row)
+                                               int row,
+                                               ParameterizedItem::PortInfo::Keys port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -253,8 +256,10 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row==-1) row = parent_item->childItemCount();
     beginInsertRows(parent, row, row);
-    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row);
+    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row, port);
     endInsertRows();
+
+    cleanItem(indexOfItem(parent_item), row, row);
     return new_item;
 }
 
@@ -361,7 +366,12 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     qDebug() << "";
     qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
 
-    if(!new_parent) new_parent = m_root_item;
+    if(new_parent) {
+        if(!new_parent->acceptsAsChild(item->modelType())) return;
+    } else {
+        new_parent = m_root_item;
+        //item->setRegisteredProperty(ParameterizedItem::P_SLOT, -1);
+    }
 
     if(item->parent() == new_parent && indexOfItem(item).row() == row) {
         qDebug() << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same raw. ";
@@ -385,11 +395,13 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
     removeRows(indexOfItem(item).row(), 1, indexOfItem(item->parent()));
 
+    cleanItem(indexOfItem(new_parent), row, row);
 }
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
-                                               int row)
+                                               int row,
+                                               ParameterizedItem::PortInfo::Keys port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -401,10 +413,20 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
         if (!parent->acceptsAsChild(model_type))
             return 0;
     }
+    //beginInsertRows(indexOfItem(parent), row, row);
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
-    Q_ASSERT(new_item);
+    if(port != ParameterizedItem::PortInfo::PortDef)
+        new_item->setItemPort(port);
+
+    if(!new_item)
+        throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type "+ model_type);
+
     connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
+    //endInsertRows();
+
+//    ParameterizedItem *candidate_for_removal = parent->getCandidateForRemoval(new_item);
+//    if(candidate_for_removal) moveParameterizedItem(candidate_for_removal, 0);
     return new_item;
 }
 
@@ -628,7 +650,7 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
     foreach (ParameterizedItem *child_item, item->childItems()) {
         writeItemAndChildItems(writer, child_item);
     }
-        writer->writeEndElement(); // ItemTag
+    writer->writeEndElement(); // ItemTag
 }
 
 
@@ -642,3 +664,17 @@ void SessionModel::onItemPropertyChange(const QString &name)
     emit dataChanged(itemIndex, itemIndex);
 }
 
+void SessionModel::cleanItem(const QModelIndex &parent, int first, int /* last */)
+{
+    ParameterizedItem *parentItem = itemForIndex(parent);
+    Q_ASSERT(parentItem);
+    QModelIndex childIndex = index(first, 0, parent);
+    ParameterizedItem *childItem = itemForIndex(childIndex);
+    Q_ASSERT(childItem);
+
+    ParameterizedItem *candidate_for_removal = parentItem->getCandidateForRemoval(childItem);
+    if(candidate_for_removal) {
+        //qDebug() << " candidate_for_removal" << candidate_for_removal;
+        moveParameterizedItem(candidate_for_removal, 0);
+    }
+}

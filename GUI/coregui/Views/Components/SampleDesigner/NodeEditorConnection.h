@@ -11,6 +11,7 @@
 #include "DesignerHelper.h"
 
 class NodeEditorPort;
+class ConnectableView;
 
 class NodeEditorConnection : public QGraphicsPathItem
 {
@@ -35,6 +36,12 @@ public:
 	int type() const { return Type; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    //! returns parent view, i.e. the view which owns input port of given connection
+    ConnectableView *getParentView();
+
+    //! returns child view, i.e. the view which owns output port of given connection
+    ConnectableView *getChildView();
 
 private:
 	QPointF pos1;

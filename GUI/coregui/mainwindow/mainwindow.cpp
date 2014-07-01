@@ -37,6 +37,7 @@
 #include "GUIObjectBuilder.h"
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
+#include "ParticleCoreShellItem.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -111,7 +112,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
 
-    m_tabWidget->setCurrentIndex(WelcomeTab);
+    //m_tabWidget->setCurrentIndex(WelcomeTab);
+    m_tabWidget->setCurrentIndex(SampleTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -130,7 +132,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    //testGUIObjectBuilder();
+//    testGUIObjectBuilder();
 
 }
 
@@ -225,6 +227,7 @@ void MainWindow::initJobQueueModel()
     //m_jobQueueModel->addJob("isgisaxs02",registry.createItem("isgisaxs02"));
     m_jobQueueModel->addJob("isgisaxs04_1ddl",registry.createItem("isgisaxs04_1DDL"));
     m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
+    m_jobQueueModel->addJob("isgisaxs11",registry.createItem("isgisaxs11"));
     //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 
@@ -233,6 +236,8 @@ void MainWindow::initSampleModel()
 {
     delete m_sampleModel;
     m_sampleModel = new SessionModel(SessionXML::SampleModelTag);
+
+    //testGUIObjectBuilder();
 
     //m_sampleModel->save("sample.xml");
 
@@ -266,6 +271,22 @@ void MainWindow::initSampleModel()
 //    ParameterizedItem *substrate = m_sampleModel->insertNewItem("Layer",
 //                   m_sampleModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
+
+//    ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
+//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
+
+//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+//    core->setRegisteredProperty(ParameterizedItem::P_SLOT, 0);
+//    ParameterizedItem *shell = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+//    shell->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
+//    ParameterizedItem *shell2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
+//    shell2->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
+
+//    qDebug() << " coreshell:" << coreshell << " core:" << core << " shell:" << shell << " shell2:" << shell2;
+//    ParameterizedItem *candidate = coreshell->getCandidateForRemoval(shell2);
+//    if(candidate) {
+//        qDebug() << candidate << candidate->modelType();
+//    }
 
 }
 
@@ -373,7 +394,7 @@ void MainWindow::updateInstruments()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs04_1DDL"));
+    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs11"));
 
     sample->printSampleTree();
 

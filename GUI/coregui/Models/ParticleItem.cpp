@@ -26,10 +26,10 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Particle"), parent)
 {
     setItemName("ParticleName");
+    setItemPort(ParameterizedItem::PortInfo::Port0);
     registerGroupProperty(P_FORM_FACTOR, "Cylinder");
     setMaterialProperty();
     registerProperty(P_DEPTH, 0.0);
     registerProperty(P_ABUNDANCE, 1.0);
-    qDebug() << "ParticleItem ctor about to end";
 }
 

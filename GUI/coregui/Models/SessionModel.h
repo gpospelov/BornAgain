@@ -78,7 +78,7 @@ public:
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type,
                                      const QModelIndex &parent=QModelIndex(),
-                                     int row=-1);
+                                     int row=-1, ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
 
     QString getModelTag() const { return m_model_tag; }
     QString getModelName() const { return m_name; }
@@ -110,7 +110,8 @@ public slots:
 private:
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
-                                     int row=-1);
+                                     int row=-1,
+                                     ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
@@ -120,6 +121,9 @@ private:
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer,
                            ParameterizedItem *item) const;
+
+    void cleanItem(const QModelIndex &parent, int first, int last );
+
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name

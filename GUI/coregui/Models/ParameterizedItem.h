@@ -28,7 +28,7 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
-    static const QString P_NAME;
+    static const QString P_NAME, P_PORT;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
@@ -63,12 +63,11 @@ public:
     QList<ParameterizedItem *> childItems() const { return m_children; }
 
     //! inserts a child item at specified row
-    void insertChildItem(int row, ParameterizedItem *item)
-        { item->m_parent = this; m_children.insert(row, item); }
+    virtual void insertChildItem(int row, ParameterizedItem *item);
 
     //! append child item
-    void addChildItem(ParameterizedItem *item)
-        { item->m_parent = this; m_children << item; }
+//    virtual void addChildItem(ParameterizedItem *item)
+//        { item->m_parent = this; m_children << item; }
 
     //! swap two child items
     void swapChildItems(int row_1, int row_2)
@@ -121,19 +120,35 @@ public:
     void print() const;
 
     virtual void onPropertyChange(const QString &name);
+
+    virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
+
+    class PortInfo {
+    public:
+        enum Keys { PortDef=-1, Port0=0, Port1=1, Port2=2};
+        PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
+        QStringList m_item_names;
+        int m_item_max_number;
+    };
+
+    void setItemPort(PortInfo::Keys nport);
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
 
 protected:
+    void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
     void updatePropertyItem(QString name);
-    QList<QString> m_valid_children;
 
     QStringList m_registered_properties;
 
     QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
+    QList<QString> m_valid_children;
+    QMap<int, PortInfo> m_port_info;
+
     QString m_model_type;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;

@@ -48,6 +48,7 @@ public:
     void visit(const MultiLayer *);
 
     void visit(const Particle *);
+    void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);
 
@@ -84,7 +85,8 @@ private:
     SessionModel *m_sampleModel;
 
     QMap<int, ParameterizedItem *> m_levelToParent;
-
+    QMap<QString, double > m_propertyToValue;
+    QMap<ParameterizedItem *, const ISample *> m_itemToSample;
     QString m_topSampleName;
 };
 

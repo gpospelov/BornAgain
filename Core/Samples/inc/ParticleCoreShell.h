@@ -65,6 +65,8 @@ public:
     //! Returns the shell particle
     const Particle *getShellParticle() const { return mp_shell; }
 
+    kvector_t getRelativeCorePosition() const { return m_relative_core_position; }
+
 protected:
     void addAndRegisterCore(const Particle &core);
     void addAndRegisterShell(const Particle &shell);

@@ -26,7 +26,7 @@ public:
     {
         Default,
         Interference,
-        ParticleFactory,
+        ParticleLayout,
         FormFactor,
         GeometryTransformation
     };

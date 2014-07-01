@@ -25,6 +25,7 @@
 #include <QMetaEnum>
 
 const QString ParameterizedItem::P_NAME = "Name";
+const QString ParameterizedItem::P_PORT = "Port";
 
 ParameterizedItem::ParameterizedItem(const QString &model_type,
                                      ParameterizedItem *parent)
@@ -33,10 +34,11 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     , m_block_property_change_event(false)
 {
     if (m_parent) {
-        m_parent->addChildItem(this);
+        m_parent->insertChildItem(-1, this);
     }
 
     registerProperty(P_NAME, QString(), HiddenProperty);
+    registerProperty(P_PORT, -1, HiddenProperty);
     setItemName(m_model_type);
 }
 
@@ -53,6 +55,13 @@ QString ParameterizedItem::itemName() const
 void ParameterizedItem::setItemName(const QString &item_name)
 {
     setRegisteredProperty(P_NAME, item_name);
+}
+
+void ParameterizedItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    if(row == -1) row = m_children.size();
+    item->m_parent = this;
+    m_children.insert(row, item);
 }
 
 ParameterizedItem *ParameterizedItem::takeChildItem(int row)
@@ -88,6 +97,53 @@ void ParameterizedItem::onPropertyChange(const QString &name)
 {
     //qDebug() << "ParameterizedItem::onPropertyChange() -> before emit";
     emit propertyChanged(name);
+}
+
+
+// returns child which should be removed by the model due to over population of children of given type
+ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *new_comer)
+{
+    if(!new_comer) return 0;
+
+    QMap<int, QVector<ParameterizedItem *> > nport_to_nitems;
+    foreach(ParameterizedItem *child, m_children) {
+        int nport = child->getRegisteredProperty(P_PORT).toInt();
+        nport_to_nitems[nport].push_back(child);
+    }
+
+    QMap<int, QVector<ParameterizedItem *> >::iterator it = nport_to_nitems.begin();
+    while(it!=nport_to_nitems.end()) {
+        int nport = it.key();
+        if(m_port_info.contains(nport)) {
+            if(m_port_info[nport].m_item_max_number != 0 && it.value().size() > m_port_info[nport].m_item_max_number) {
+                foreach(ParameterizedItem *item, it.value()) {
+                    if(item != new_comer) return item;
+                }
+            }
+        }
+
+        ++it;
+    }
+
+    return 0;
+}
+
+void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
+{
+    setRegisteredProperty(P_PORT, nport);
+}
+
+
+void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::Keys nport, int nmax_items)
+{
+    m_valid_children.append(name);
+
+    if(m_port_info.contains(nport)) {
+        m_port_info[nport].m_item_names << name;
+        m_port_info[nport].m_item_max_number = nmax_items;
+    } else {
+        m_port_info[nport] = PortInfo(name, nmax_items);
+    }
 }
 
 

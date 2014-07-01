@@ -165,9 +165,13 @@ void GUIObjectBuilder::visit(const Particle *sample)
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit(const Particle *sample) -> Error. Logically should not be here");
         }
-    } else {
+    }
+    else if(parent->modelType() == QString("ParticleLayout")){
         particleItem = m_sampleModel->insertNewItem("Particle",
                                       m_sampleModel->indexOfItem(parent));
+    }
+    else {
+        throw GUIHelpers::Error("GUIObjectBuilder::visit(const Particle *sample) -> Logic error.");
     }
 
     if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
@@ -202,6 +206,10 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     coreshellItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
     coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     coreshellItem->setItemName(sample->getName().c_str());
+    kvector_t pos = sample->getRelativeCorePosition();
+    coreshellItem->setRegisteredProperty(ParticleCoreShellItem::P_CORE_X, pos.x());
+    coreshellItem->setRegisteredProperty(ParticleCoreShellItem::P_CORE_Y, pos.y());
+    coreshellItem->setRegisteredProperty(ParticleCoreShellItem::P_CORE_Z, pos.z());
 
     m_levelToParent[getLevel()] = coreshellItem;
     m_itemToSample[coreshellItem] = sample;
@@ -212,24 +220,8 @@ void GUIObjectBuilder::visit(const ParticleInfo *sample)
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-
-//    ParameterizedItem *item(0);
-
-//    if(dynamic_cast<const ParticleCoreShell *>(sample->getParticle())) {
-//        item = m_sampleModel->insertNewItem("ParticleCoreShell",
-//                                         m_sampleModel->indexOfItem(parent));
-//    } else {
-//        item = m_sampleModel->insertNewItem("Particle",
-//                                         m_sampleModel->indexOfItem(parent));
-//    }
-//    Q_ASSERT(item);
     m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
     m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
-
-//    item->setRegisteredProperty(ParticleItem::P_DEPTH,
-//                                sample->getDepth());
-//    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
-//                                sample->getAbundance());
     m_levelToParent[getLevel()] = parent;
 }
 

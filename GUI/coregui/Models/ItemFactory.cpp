@@ -63,12 +63,12 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     }
     else if (model_name==QString("Core Particle")) {
         ParameterizedItem *result = new ParticleItem(parent);
-        result->setRegisteredProperty(ParameterizedItem::P_SLOT, ParticleCoreShellItem::Core);
+        result->setRegisteredProperty(ParameterizedItem::P_PORT, ParticleCoreShellItem::Core);
         return result;
     }
     else if (model_name==QString("Shell Particle")) {
         ParameterizedItem *result = new ParticleItem(parent);
-        result->setRegisteredProperty(ParameterizedItem::P_SLOT, ParticleCoreShellItem::Shell);
+        result->setRegisteredProperty(ParameterizedItem::P_PORT, ParticleCoreShellItem::Shell);
         return result;
     }
     else if (model_name==QString("ParticleCoreShell")) {

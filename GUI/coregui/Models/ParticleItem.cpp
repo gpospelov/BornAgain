@@ -26,6 +26,7 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Particle"), parent)
 {
     setItemName("ParticleName");
+    setItemPort(ParameterizedItem::PortInfo::Port0);
     registerGroupProperty(P_FORM_FACTOR, "Cylinder");
     setMaterialProperty();
     registerProperty(P_DEPTH, 0.0);

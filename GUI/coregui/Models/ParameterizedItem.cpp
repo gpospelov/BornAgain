@@ -25,7 +25,7 @@
 #include <QMetaEnum>
 
 const QString ParameterizedItem::P_NAME = "Name";
-const QString ParameterizedItem::P_SLOT = "Slot";
+const QString ParameterizedItem::P_PORT = "Slot";
 
 ParameterizedItem::ParameterizedItem(const QString &model_type,
                                      ParameterizedItem *parent)
@@ -38,7 +38,7 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
     }
 
     registerProperty(P_NAME, QString(), HiddenProperty);
-    registerProperty(P_SLOT, 0);
+    registerProperty(P_PORT, -1);
     setItemName(m_model_type);
 }
 
@@ -98,21 +98,14 @@ ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *
 {
     if(!new_comer) return 0;
 
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << "ParameterizedItem::getCandidateForRemoval() thid_model " << modelType()  << m_children.size() << " new_comer:" << new_comer->modelType();
-
-
     QMap<int, QVector<ParameterizedItem *> > nport_to_nitems;
     foreach(ParameterizedItem *child, m_children) {
-        int nport = child->getRegisteredProperty(P_SLOT).toInt();
+        int nport = child->getRegisteredProperty(P_PORT).toInt();
         nport_to_nitems[nport].push_back(child);
     }
 
     QMap<int, QVector<ParameterizedItem *> >::iterator it = nport_to_nitems.begin();
     while(it!=nport_to_nitems.end()) {
-        qDebug() << it.key() << it.value().size();
         int nport = it.key();
         if(m_port_info.contains(nport)) {
             if(m_port_info[nport].m_item_max_number != 0 && it.value().size() > m_port_info[nport].m_item_max_number) {
@@ -128,8 +121,13 @@ ParameterizedItem *ParameterizedItem::getCandidateForRemoval(ParameterizedItem *
     return 0;
 }
 
+void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
+{
+    setRegisteredProperty(P_PORT, nport);
+}
 
-void ParameterizedItem::addToValidChildrenX(const QString &name, PortInfo::Keys nport, int nmax_items)
+
+void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::Keys nport, int nmax_items)
 {
     m_valid_children.append(name);
 

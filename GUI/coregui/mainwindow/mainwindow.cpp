@@ -132,7 +132,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-    //testGUIObjectBuilder();
+//    testGUIObjectBuilder();
 
 }
 
@@ -236,6 +236,8 @@ void MainWindow::initSampleModel()
     delete m_sampleModel;
     m_sampleModel = new SessionModel(SessionXML::SampleModelTag);
 
+    //testGUIObjectBuilder();
+
     //m_sampleModel->save("sample.xml");
 
 //    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
@@ -269,8 +271,8 @@ void MainWindow::initSampleModel()
 //                   m_sampleModel->indexOfItem(multilayer));
 //    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
 
-    ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
-    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
+//    ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
+//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
 
 //    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
 //    core->setRegisteredProperty(ParameterizedItem::P_SLOT, 0);
@@ -391,11 +393,13 @@ void MainWindow::updateInstruments()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs04_1DDL"));
+    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs11"));
 
     sample->printSampleTree();
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, sample.get());
+
+    Q_ASSERT(0);
 }
 

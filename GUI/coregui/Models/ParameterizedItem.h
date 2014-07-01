@@ -28,7 +28,7 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
-    static const QString P_NAME, P_SLOT;
+    static const QString P_NAME, P_PORT;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
@@ -126,11 +126,13 @@ public:
 
     class PortInfo {
     public:
-        enum Keys { Port0, Port1, Port2};
+        enum Keys { PortDef=-1, Port0=0, Port1=1, Port2=2};
         PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
         QStringList m_item_names;
         int m_item_max_number;
     };
+
+    void setItemPort(PortInfo::Keys nport);
 
 signals:
     void propertyChanged(const QString &propertyName);

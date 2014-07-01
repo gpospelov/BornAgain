@@ -247,7 +247,8 @@ QModelIndex SessionModel::indexOfItem(ParameterizedItem *item) const
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                const QModelIndex &parent,
-                                               int row)
+                                               int row,
+                                               ParameterizedItem::PortInfo::Keys port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -255,7 +256,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row==-1) row = parent_item->childItemCount();
     beginInsertRows(parent, row, row);
-    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row);
+    ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row, port);
     endInsertRows();
 
     cleanItem(indexOfItem(parent_item), row, row);
@@ -399,7 +400,8 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
 
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
-                                               int row)
+                                               int row,
+                                               ParameterizedItem::PortInfo::Keys port)
 {
     if (!m_root_item) {
         m_root_item = ItemFactory::createEmptyItem();
@@ -413,6 +415,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     }
     //beginInsertRows(indexOfItem(parent), row, row);
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+    if(port != ParameterizedItem::PortInfo::PortDef)
+        new_item->setItemPort(port);
 
     if(!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type "+ model_type);
@@ -660,30 +664,17 @@ void SessionModel::onItemPropertyChange(const QString &name)
     emit dataChanged(itemIndex, itemIndex);
 }
 
-void SessionModel::cleanItem(const QModelIndex &parent, int first, int last)
+void SessionModel::cleanItem(const QModelIndex &parent, int first, int /* last */)
 {
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << " ";
-    qDebug() << "SessionModel::onRowsInserted()";
-
-    //disconnect(this, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
-
     ParameterizedItem *parentItem = itemForIndex(parent);
     Q_ASSERT(parentItem);
     QModelIndex childIndex = index(first, 0, parent);
     ParameterizedItem *childItem = itemForIndex(childIndex);
     Q_ASSERT(childItem);
 
-    qDebug() << parentItem->modelType() << childItem->modelType();
-
     ParameterizedItem *candidate_for_removal = parentItem->getCandidateForRemoval(childItem);
     if(candidate_for_removal) {
-        qDebug() << " candidate_for_removal" << candidate_for_removal;
+        //qDebug() << " candidate_for_removal" << candidate_for_removal;
         moveParameterizedItem(candidate_for_removal, 0);
     }
-
-    //connect(this, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
-
 }

@@ -13,6 +13,9 @@
 #include "ParaCrystalItems.h"
 #include "TransformFromDomain.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
+#include "ParticleCoreShell.h"
+#include "ParticleCoreShellItem.h"
 #include <QDebug>
 
 
@@ -141,7 +144,34 @@ void GUIObjectBuilder::visit(const Particle *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const Particle *)" << getLevel();
 
-    ParameterizedItem *particleItem = m_levelToParent[getLevel()-1];
+    ParameterizedItem *parent = m_levelToParent[getLevel()-1];
+
+    ParameterizedItem *particleItem(0);
+    if(parent->modelType() == ParticleCoreShellItem::P_TYPE_NAME) {
+        const ParticleCoreShell *coreshell = dynamic_cast<const ParticleCoreShell *>(m_itemToSample[parent]);
+        Q_ASSERT(coreshell);
+        if(sample == coreshell->getCoreParticle()) {
+            particleItem = m_sampleModel->insertNewItem("Particle",
+                                      m_sampleModel->indexOfItem(parent), -1, ParameterizedItem::PortInfo::Port0);
+        }
+        else if(sample == coreshell->getShellParticle()) {
+            particleItem = m_sampleModel->insertNewItem("Particle",
+                                      m_sampleModel->indexOfItem(parent), -1, ParameterizedItem::PortInfo::Port1);
+        } else {
+            throw GUIHelpers::Error("GUIObjectBuilder::visit(const Particle *sample) -> Error. Logically should not be here");
+        }
+    } else {
+        particleItem = m_sampleModel->insertNewItem("Particle",
+                                      m_sampleModel->indexOfItem(parent));
+    }
+
+    if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
+        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No depth property.");
+    if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
+        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No abundance property.");
+
+    particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
+    particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     particleItem->setItemName(sample->getName().c_str());
     particleItem->setMaterialProperty(createMaterialFromDomain(
                                           sample->getMaterial()));
@@ -149,19 +179,53 @@ void GUIObjectBuilder::visit(const Particle *sample)
 
 }
 
+void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
+{
+    qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell *)" << getLevel();
+
+    ParameterizedItem *layoutItem = m_levelToParent[getLevel()-1];
+    Q_ASSERT(layoutItem);
+
+    ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem("ParticleCoreShell",
+                                                           m_sampleModel->indexOfItem(layoutItem));
+
+    if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
+        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No depth property.");
+    if(!m_propertyToValue.contains(ParticleItem::P_ABUNDANCE))
+        throw GUIHelpers::Error("GUIObjectBuilder::visit(const ParticleCoreShell *sample) -> Error. No abundance property.");
+
+    coreshellItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
+    coreshellItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
+    coreshellItem->setItemName(sample->getName().c_str());
+
+    m_levelToParent[getLevel()] = coreshellItem;
+    m_itemToSample[coreshellItem] = sample;
+}
+
 void GUIObjectBuilder::visit(const ParticleInfo *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const ParticleInfo *)" << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem("Particle",
-                                         m_sampleModel->indexOfItem(parent));
-    Q_ASSERT(item);
-    item->setRegisteredProperty(ParticleItem::P_DEPTH,
-                                sample->getDepth());
-    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
-                                sample->getAbundance());
-    m_levelToParent[getLevel()] = item;
+
+//    ParameterizedItem *item(0);
+
+//    if(dynamic_cast<const ParticleCoreShell *>(sample->getParticle())) {
+//        item = m_sampleModel->insertNewItem("ParticleCoreShell",
+//                                         m_sampleModel->indexOfItem(parent));
+//    } else {
+//        item = m_sampleModel->insertNewItem("Particle",
+//                                         m_sampleModel->indexOfItem(parent));
+//    }
+//    Q_ASSERT(item);
+    m_propertyToValue[ParticleItem::P_DEPTH] = sample->getDepth();
+    m_propertyToValue[ParticleItem::P_ABUNDANCE] = sample->getAbundance();
+
+//    item->setRegisteredProperty(ParticleItem::P_DEPTH,
+//                                sample->getDepth());
+//    item->setRegisteredProperty(ParticleItem::P_ABUNDANCE,
+//                                sample->getAbundance());
+    m_levelToParent[getLevel()] = parent;
 }
 
 void GUIObjectBuilder::visit(const FormFactorAnisoPyramid *sample)

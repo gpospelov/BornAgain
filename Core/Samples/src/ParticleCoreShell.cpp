@@ -25,6 +25,7 @@ ParticleCoreShell::ParticleCoreShell(const Particle& shell,
     , mp_core(0)
     , m_relative_core_position(relative_core_position)
 {
+    setName("ParticleCoreShell");
     addAndRegisterCore(core);
     addAndRegisterShell(shell);
 }
@@ -43,6 +44,7 @@ ParticleCoreShell *ParticleCoreShell::clone() const
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
+    p_new->setName(getName());
     return p_new;
 }
 
@@ -55,6 +57,7 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     if (mP_transform.get()) {
         p_new->mP_transform.reset(mP_transform->clone());
     }
+    p_new->setName(getName() + "_inv");
     return p_new;
 }
 

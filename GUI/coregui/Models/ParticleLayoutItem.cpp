@@ -19,10 +19,12 @@
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("ParticleLayout"), parent)
 {
-    addToValidChildrenX(QString("Particle"), PortInfo::Port0);
-    addToValidChildrenX(ParticleCoreShellItem::P_TYPE_NAME, PortInfo::Port0);
-    addToValidChildrenX(QString("InterferenceFunction1DParaCrystal"), PortInfo::Port1, 1);
-    addToValidChildrenX(QString("InterferenceFunction2DParaCrystal"), PortInfo::Port1, 1);
+    setItemName(QString("ParticleLayout"));
+    setItemPort(ParameterizedItem::PortInfo::Port0);
+    addToValidChildren(QString("Particle"), PortInfo::Port0);
+    addToValidChildren(ParticleCoreShellItem::P_TYPE_NAME, PortInfo::Port0);
+    addToValidChildren(QString("InterferenceFunction1DParaCrystal"), PortInfo::Port1, 1);
+    addToValidChildren(QString("InterferenceFunction2DParaCrystal"), PortInfo::Port1, 1);
 }
 
 

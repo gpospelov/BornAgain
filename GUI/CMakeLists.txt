@@ -2,13 +2,25 @@
 # CMakeLists.txt file for building BornAgain/GUI libraries and executable
 ############################################################################
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
+
+message(STATUS "Configuring BornAgain GUI")
 
 if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
 endif()
 
 find_package(Qt5Widgets REQUIRED)
+if(${Qt5Widgets_FOUND})
+    message(STATUS "  Found Qt5 version ${Qt5Widgets_VERSION_STRING}")
+    get_target_property(Qt5Widgets_location Qt5::Widgets LOCATION_Release)
+    message(STATUS "  ${Qt5Widgets_LIBRARIES} ${Qt5Widgets_location}")
+    get_target_property(Qt5Core_location Qt5::Core LOCATION_Release)
+    message(STATUS "  ${Qt5Core_LIBRARIES} ${Qt5Core_location}")
+    get_target_property(Qt5Gui_location Qt5::Gui LOCATION_Release)
+    message(STATUS "  ${Qt5Gui_LIBRARIES} ${Qt5Gui_location}")
+    message(STATUS "  Includes: ${Qt5Widgets_INCLUDE_DIRS}")
+endif()
 
 add_subdirectory(externals/qt-manhattan-style)
 add_subdirectory(externals/qcustomplot)

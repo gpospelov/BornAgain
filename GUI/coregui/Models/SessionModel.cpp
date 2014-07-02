@@ -398,6 +398,8 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     cleanItem(indexOfItem(new_parent), row, row);
 }
 
+
+
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
                                                int row,
@@ -413,7 +415,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
         if (!parent->acceptsAsChild(model_type))
             return 0;
     }
-    //beginInsertRows(indexOfItem(parent), row, row);
+
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
     if(port != ParameterizedItem::PortInfo::PortDef)
         new_item->setItemPort(port);
@@ -423,10 +425,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
 
     connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
-    //endInsertRows();
 
-//    ParameterizedItem *candidate_for_removal = parent->getCandidateForRemoval(new_item);
-//    if(candidate_for_removal) moveParameterizedItem(candidate_for_removal, 0);
     return new_item;
 }
 

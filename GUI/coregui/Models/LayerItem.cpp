@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "LayerItem.h"
+#include "LayerRoughnessItems.h"
 
 const QString LayerItem::P_THICKNESS = "Thickness";
+const QString LayerItem::P_ROUGHNESS = "Top roughness";
 
 LayerItem::LayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(QString("Layer"), parent)
@@ -23,6 +25,7 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     setItemName("LayerName");
     registerProperty(P_THICKNESS, 0.0);
     setMaterialProperty();
+    registerGroupProperty(P_ROUGHNESS, "Basic");
     addToValidChildren(QString("ParticleLayout"), PortInfo::Port0, 1);
 }
 

@@ -29,20 +29,28 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
 }
 
+ParameterizedItem *MultiLayerItem::takeChildItem(int row)
+{
+    ParameterizedItem *item = ParameterizedItem::takeChildItem(row);
+    updateLayers();
+    return item;
+}
+
 
 void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
 {
-    if(row == 0) {
-        qDebug() << " ";
-        qDebug() << " ";
-        qDebug() << " XXX MultiLayerItem::insertChildItem ";
-        item->print();
-        item->setGroupProperty(LayerItem::P_ROUGHNESS, "No");
-        item->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DisabledProperty);
-        qDebug() << " after";
-        item->print();
-
-    }
-
     ParameterizedItem::insertChildItem(row, item);
+    updateLayers();
 }
+
+void MultiLayerItem::updateLayers()
+{
+    for(int i = 0; i<childItemCount(); ++i) {
+        if(i == 0) {
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DisabledProperty);
+        } else {
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DefaultAttribute);
+        }
+    }
+}
+

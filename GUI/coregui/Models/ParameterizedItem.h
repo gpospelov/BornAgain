@@ -74,7 +74,7 @@ public:
         { m_children.swap(row_1, row_2); }
 
     //! take child item (this removes it from the current item)
-    ParameterizedItem *takeChildItem(int row);
+    virtual ParameterizedItem *takeChildItem(int row);
 
     //! indicates if the passed item can be set as
     //! a child item

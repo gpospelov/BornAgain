@@ -25,7 +25,7 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     setItemName("LayerName");
     registerProperty(P_THICKNESS, 0.0);
     setMaterialProperty();
-    registerGroupProperty(P_ROUGHNESS, "Basic");
+    registerGroupProperty(P_ROUGHNESS, "No");
     addToValidChildren(QString("ParticleLayout"), PortInfo::Port0, 1);
 }
 

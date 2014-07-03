@@ -16,6 +16,7 @@
 #include "GUIHelpers.h"
 #include "ParticleCoreShell.h"
 #include "ParticleCoreShellItem.h"
+#include "LayerRoughnessItems.h"
 #include <QDebug>
 
 
@@ -124,6 +125,22 @@ void GUIObjectBuilder::visit(const Layer *sample)
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(LayerItem::P_THICKNESS, sample->getThickness());
     item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
+
+    const MultiLayer *multilayer = dynamic_cast<const MultiLayer *>(m_itemToSample[parent]);
+    Q_ASSERT(multilayer);
+    int layer_index = multilayer->getIndexOfLayer(sample);
+    Q_ASSERT(layer_index != -1);
+    const LayerInterface *interface = multilayer->getLayerTopInterface(layer_index);
+    if(interface) {
+        const LayerRoughness *roughness = interface->getRoughness();
+        if(roughness) {
+            ParameterizedItem *roughnessItem = item->setGroupProperty(LayerItem::P_ROUGHNESS, "Basic");
+            roughnessItem->setRegisteredProperty(LayerRoughnessItem::P_SIGMA, roughness->getSigma());
+            roughnessItem->setRegisteredProperty(LayerRoughnessItem::P_HURST, roughness->getHurstParameter());
+            roughnessItem->setRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH, roughness->getLatteralCorrLength());
+        }
+    }
+
     m_levelToParent[getLevel()] = item;
 }
 
@@ -142,6 +159,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH,
                                 sample->getCrossCorrLength());
     m_levelToParent[getLevel()] = item;
+    m_itemToSample[item] = sample;
 }
 
 void GUIObjectBuilder::visit(const Particle *sample)

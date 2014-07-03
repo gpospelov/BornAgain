@@ -254,6 +254,14 @@
                 </property>
             </widget>
         </categoryentry>
+
+        <categoryentry name="Example #5 (correlated roughness)" icon="images/sample_layers2.png">
+            <widget class="example05">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
         
         
     </category>

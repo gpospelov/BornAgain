@@ -241,9 +241,9 @@ void MainWindow::initSampleModel()
 
     //m_sampleModel->save("sample.xml");
 
-    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
-    multilayer->setItemName("MultiLayer1");
-    m_sampleModel->insertNewItem("Layer");
+//    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
+//    multilayer->setItemName("MultiLayer1");
+//    m_sampleModel->insertNewItem("Layer");
 
 //    ParameterizedItem *layer = m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(multilayer));
 //    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));

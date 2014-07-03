@@ -16,11 +16,17 @@
 #ifndef DOMAINOBJECTBUILDER_H
 #define DOMAINOBJECTBUILDER_H
 
-#include "Samples.h"
-#include "Instrument.h"
-#include "InterferenceFunctions.h"
-#include "ParameterizedItem.h"
-#include "ParticleCoreShell.h"
+class ISample;
+class Instrument;
+class MultiLayer;
+class Layer;
+class ParticleLayout;
+class Particle;
+class IInterferenceFunction;
+class Beam;
+class ParticleCoreShell;
+class ParameterizedItem;
+class LayerRoughness;
 
 class DomainObjectBuilder
 {

@@ -29,6 +29,7 @@
 #include "FTDistributionItems.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
+#include "LayerRoughnessItems.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -261,4 +262,26 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
     ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
     result->setName(item.itemName().toStdString());
     return result;
+}
+
+
+LayerRoughness *TransformToDomain::createLayerRoughness(const ParameterizedItem &item)
+{
+    ParameterizedItem *roughnessItem = item.getSubItems()[LayerItem::P_ROUGHNESS];
+    Q_ASSERT(roughnessItem);
+    if(roughnessItem->modelType() == LayerZeroRoughnessItem::P_TYPE_NAME) {
+        return 0;
+    }
+    else if(roughnessItem->modelType() == LayerRoughnessItem::P_TYPE_NAME) {
+        LayerRoughness *result = new LayerRoughness(
+                    roughnessItem->getRegisteredProperty(LayerRoughnessItem::P_SIGMA).toDouble(),
+                    roughnessItem->getRegisteredProperty(LayerRoughnessItem::P_HURST).toDouble(),
+                    roughnessItem->getRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble()
+                    );
+        return result;
+    }
+    else {
+        throw GUIHelpers::Error("TransformToDomain::createLayerROughness() -> Error.");
+    }
+
 }

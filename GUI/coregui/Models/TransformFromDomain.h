@@ -5,6 +5,7 @@ class FormFactorAnisoPyramid;
 class ParameterizedItem;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunction1DParaCrystal;
+class LayerRoughness;
 
 namespace TransformFromDomain
 {
@@ -16,6 +17,8 @@ void setItemFromSample(ParameterizedItem *item,
 
 void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction1DParaCrystal *sample);
+
+void setItemFromSample(ParameterizedItem *item , const LayerRoughness *sample);
 
 bool isSquareLattice(const InterferenceFunction2DParaCrystal *sample);
 bool isHexagonalLattice(const InterferenceFunction2DParaCrystal *sample);

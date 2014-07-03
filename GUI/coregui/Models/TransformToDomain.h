@@ -33,6 +33,7 @@ IFormFactor *createFormFactor(const ParameterizedItem &item);
 IInterferenceFunction *createInterferenceFunction(const ParameterizedItem &item);
 Instrument *createInstrument(const ParameterizedItem &item);
 Beam *createBeam(const ParameterizedItem &item);
+LayerRoughness *createLayerRoughness(const ParameterizedItem &item);
 void initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument);
 }
 

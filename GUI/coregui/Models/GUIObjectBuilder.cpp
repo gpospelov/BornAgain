@@ -135,9 +135,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
         const LayerRoughness *roughness = interface->getRoughness();
         if(roughness) {
             ParameterizedItem *roughnessItem = item->setGroupProperty(LayerItem::P_ROUGHNESS, "Basic");
-            roughnessItem->setRegisteredProperty(LayerRoughnessItem::P_SIGMA, roughness->getSigma());
-            roughnessItem->setRegisteredProperty(LayerRoughnessItem::P_HURST, roughness->getHurstParameter());
-            roughnessItem->setRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH, roughness->getLatteralCorrLength());
+            TransformFromDomain::setItemFromSample(roughnessItem, roughness);
         }
     }
 

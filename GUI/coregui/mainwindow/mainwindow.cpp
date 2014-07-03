@@ -228,6 +228,7 @@ void MainWindow::initJobQueueModel()
     m_jobQueueModel->addJob("isgisaxs04_1ddl",registry.createItem("isgisaxs04_1DDL"));
     m_jobQueueModel->addJob("isgisaxs04_2ddl",registry.createItem("isgisaxs04_2DDL"));
     m_jobQueueModel->addJob("isgisaxs11",registry.createItem("isgisaxs11"));
+    m_jobQueueModel->addJob("LayerWithRoughness",registry.createItem("LayerWithRoughness"));
     //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 

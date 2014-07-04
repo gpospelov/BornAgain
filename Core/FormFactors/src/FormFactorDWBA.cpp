@@ -63,16 +63,20 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
     cvector_t k_i_R = k_i;
     k_i_R.setZ(-k_i_T.z());
 
+    // Get the correct specular coefficients for the outgoing wave
+    double alpha_f = alpha_f_bin.getMidPoint();
+    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+
     // Retrieve the two different outgoing wavevector bins in the layer
     Bin1DCVector k_f_T_bin = k_f_bin;
+    k_f_T_bin.m_q_lower.setZ(p_out_coeff->getScalarKz());
+    k_f_T_bin.m_q_upper.setZ(p_out_coeff->getScalarKz());
     Bin1DCVector k_f_R_bin = k_f_bin;
     k_f_R_bin.m_q_lower.setZ(-k_f_T_bin.m_q_lower.z());
     k_f_R_bin.m_q_upper.setZ(-k_f_T_bin.m_q_upper.z());
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface
-    double alpha_f = alpha_f_bin.getMidPoint();
-    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
     m_term_S = p_in_coeff->getScalarT()*mp_form_factor->evaluate(k_i_T,
             k_f_T_bin, alpha_f_bin) * p_out_coeff->getScalarT();
     m_term_RS = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_i_R,
@@ -82,5 +86,3 @@ void FormFactorDWBA::calculateTerms(const cvector_t& k_i,
     m_term_RSR = p_in_coeff->getScalarR()*mp_form_factor->evaluate(k_i_R,
             k_f_R_bin, alpha_f_bin) * p_out_coeff->getScalarR();
 }
-
-

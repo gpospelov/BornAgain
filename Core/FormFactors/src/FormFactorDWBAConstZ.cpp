@@ -27,8 +27,13 @@ complex_t FormFactorDWBAConstZ::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin, const Bin1D &alpha_f_bin) const
 {
     calculateTerms(k_i, k_f_bin, alpha_f_bin);
+
+    // Get the correct specular coefficients for the outgoing wave
+    double alpha_f = alpha_f_bin.getMidPoint();
+    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+
     complex_t k_iz = k_i.z();
-    complex_t k_fz = k_f_bin.getMidPoint().z();
+    complex_t k_fz = p_out_coeff->getScalarKz();
     m_term_S *= getDepthPhase(k_iz-k_fz);
     m_term_RS *= getDepthPhase(-k_iz-k_fz);
     m_term_SR *= getDepthPhase(k_iz+k_fz);

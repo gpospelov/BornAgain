@@ -23,8 +23,8 @@ ScalarSpecularInfoMapTest::ScalarSpecularInfoMapTest()
     ScalarRTCoefficients srtc;
     srtc.lambda = complex_t(1.0, 1.0);
     srtc.kz = complex_t(1.0, 1.0);
-    srtc.phi_psi(0) = complex_t(1.0, 1.0);
-    srtc.phi_psi(1) = complex_t(1.0, 1.0);
+    srtc.t_r(0) = complex_t(0.0, 0.5);
+    srtc.t_r(1) = complex_t(1.0, 0.5);
     map.addCoefficients(srtc, 1.0, 1.0);
 
 

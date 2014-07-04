@@ -58,7 +58,9 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t& q) const
         0.5;
     complex_t radial_part = 2*M_PI*R*R*J1_qrR_div_qrR;
 
-    return radial_part*z_part;
+    complex_t result = radial_part*z_part;
+
+    return result;
 }
 
 

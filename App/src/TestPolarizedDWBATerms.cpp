@@ -80,11 +80,11 @@ void TestPolarizedDWBATerms::initSpecularInfo()
 
     rt_coeffs.lambda = complex_t(0.1, 0.001);
     rt_coeffs.kz = 30.0*rt_coeffs.lambda;
-    rt_coeffs.phi_psi << complex_t(-0.2, 0.001), complex_t(0.9, 0.001);
+    rt_coeffs.t_r << complex_t(-0.2, 0.001), complex_t(0.9, 0.001);
     p_coeff_map->addCoefficients(rt_coeffs, m_alpha_f, 0.0);
 
     rt_coeffs.lambda = complex_t(0.2, 0.003);
     rt_coeffs.kz = -m_ki.z();
-    rt_coeffs.phi_psi << complex_t(-0.18, 0.001), complex_t(0.7, 0.001);
+    rt_coeffs.t_r << complex_t(-0.18, 0.001), complex_t(0.7, 0.001);
     mp_specular_info->addInCoefficients(new ScalarRTCoefficients(rt_coeffs));
 }

@@ -5,6 +5,7 @@
 #include "FTDistributionItems.h"
 #include "LatticeTypeItems.h"
 #include "ParaCrystalItems.h"
+#include "LayerRoughnessItems.h"
 
 namespace {
 template<typename T> ParameterizedItem *createInstance() { return new T; }
@@ -61,6 +62,11 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     //detector_types[XYDetectorItem::P_MODEL_TYPE] = &createInstance<XYDetectorItem>;
     detector_types["Theta, Phi plane"] = &createInstance<ThetaPhiDetectorItem>;
     result["Detector type"] = detector_types;
+
+    QMap<QString, ParameterizedItem *(*)()> roughnesses;
+    roughnesses[QString("No")] = &createInstance<LayerZeroRoughnessItem>;
+    roughnesses[QString("Basic")] = &createInstance<LayerRoughnessItem>;
+    result["Top roughness"] = roughnesses;
 
     return result;
 }

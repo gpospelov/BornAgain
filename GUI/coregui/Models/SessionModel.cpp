@@ -256,6 +256,8 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
     ParameterizedItem *parent_item = itemForIndex(parent);
     if (row==-1) row = parent_item->childItemCount();
     beginInsertRows(parent, row, row);
+//    ParameterizedItem *new_item = createNewItem(model_type, parent_item, row);
+//    insertNewItem(new_item, parent_item, row, port);
     ParameterizedItem *new_item = insertNewItem(model_type, parent_item, row, port);
     endInsertRows();
 
@@ -398,6 +400,57 @@ void SessionModel::moveParameterizedItem(ParameterizedItem *item, ParameterizedI
     cleanItem(indexOfItem(new_parent), row, row);
 }
 
+
+//ParameterizedItem *SessionModel::createNewItem(QString model_type,
+//                                               ParameterizedItem *parent, int row)
+//{
+//    if (!m_root_item) {
+//        m_root_item = ItemFactory::createEmptyItem();
+//    }
+//    if (!parent) parent = m_root_item;
+//    if (row == -1) row = parent->childItemCount();
+//    if (row < 0 || row > parent->childItemCount()) return 0;
+
+//    if (parent != m_root_item) {
+//        if (!parent->acceptsAsChild(model_type))
+//            return 0;
+//    }
+//    return ItemFactory::createItem(model_type);
+//}
+
+
+//void SessionModel::insertNewItem(ParameterizedItem *new_item,
+//                                               ParameterizedItem *parent,
+//                                               int row,
+//                                               ParameterizedItem::PortInfo::Keys port)
+//{
+//    if(!new_item)
+//        throw GUIHelpers::Error("SessionModel::insertNewItem() ->Attempt to insert zero item");
+
+////    Q_ASSERT(new_item);
+////    if (!m_root_item) {
+////        m_root_item = ItemFactory::createEmptyItem();
+////    }
+//    if (!parent) parent = m_root_item;
+//    if (row == -1) row = parent->childItemCount();
+//    if (row < 0 || row > parent->childItemCount()) return;
+////    if (parent != m_root_item) {
+////        if (!parent->acceptsAsChild(model_type))
+////            return 0;
+////    }
+
+
+////    ParameterizedItem *new_item = ItemFactory::createItem(model_type);
+//    if(port != ParameterizedItem::PortInfo::PortDef)
+//        new_item->setItemPort(port);
+
+
+//    connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
+//    parent->insertChildItem(row, new_item);
+
+////    return new_item;
+//}
+
 ParameterizedItem *SessionModel::insertNewItem(QString model_type,
                                                ParameterizedItem *parent,
                                                int row,
@@ -413,7 +466,7 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
         if (!parent->acceptsAsChild(model_type))
             return 0;
     }
-    //beginInsertRows(indexOfItem(parent), row, row);
+
     ParameterizedItem *new_item = ItemFactory::createItem(model_type);
     if(port != ParameterizedItem::PortInfo::PortDef)
         new_item->setItemPort(port);
@@ -423,16 +476,14 @@ ParameterizedItem *SessionModel::insertNewItem(QString model_type,
 
     connect(new_item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onItemPropertyChange(const QString &)));
     parent->insertChildItem(row, new_item);
-    //endInsertRows();
 
-//    ParameterizedItem *candidate_for_removal = parent->getCandidateForRemoval(new_item);
-//    if(candidate_for_removal) moveParameterizedItem(candidate_for_removal, 0);
     return new_item;
 }
 
 void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                              int row)
 {
+//    QList<ItemToInsert> items_to_insert;
     qDebug() << "SessionModel::readItems() ";
     bool inside_parameter_tag = false;
     QString parent_parameter_name;
@@ -445,12 +496,18 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                 const QString item_name = reader->attributes()
                         .value(SessionXML::ItemNameAttribute).toString();
                 if (inside_parameter_tag) {
+                    Q_ASSERT(item);
                     ParameterizedItem *parent = item;
                     item = parent->getSubItems()[parent_parameter_name];
-                    Q_ASSERT(item);
                 }
                 else {
+//                    ItemToInsert toInsert;
+//                    toInsert.parent = item;
                     item = insertNewItem(model_type, item, row);
+//                    item = createNewItem(model_type, item, row);
+//                    toInsert.child = item;
+//                    toInsert.row = row;
+//                    items_to_insert.append(toInsert);
                 }
                 item->setItemName(item_name);
                 row = -1; // all but the first item should be appended
@@ -472,6 +529,9 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
             }
         }
     }
+//    foreach(ItemToInsert toInsert, items_to_insert) {
+//        insertNewItem(toInsert.child, toInsert.parent, toInsert.row);
+//    }
 }
 
 

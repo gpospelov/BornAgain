@@ -236,6 +236,14 @@ MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
     return 0;
 }
 
+int MultiLayer::getIndexOfLayer(const Layer *layer) const
+{
+    for (size_t i=0; i<getNumberOfLayers(); ++i) {
+        if(layer == m_layers[i]) return i;
+    }
+    return -1;
+}
+
 void MultiLayer::print(std::ostream& ostr) const
 {
     ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";

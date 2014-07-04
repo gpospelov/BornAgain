@@ -17,6 +17,12 @@
 #include "TransformToDomain.h"
 #include "GUIHelpers.h"
 #include "ParticleCoreShellItem.h"
+#include "Samples.h"
+#include "Instrument.h"
+#include "InterferenceFunctions.h"
+#include "ParameterizedItem.h"
+#include "ParticleCoreShell.h"
+#include "LayerItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -40,7 +46,7 @@ void DomainObjectBuilder::buildItem(const ParameterizedItem &item)
         delete mp_sample;
         mp_sample = buildMultiLayer(item);
     }
-    else if(item.modelType() == QStringLiteral("MultiLayer")) {
+    else if(item.modelType() == QStringLiteral("Instrument")) {
         delete m_instrument;
         m_instrument = buildInstrument(item);
     }
@@ -57,8 +63,17 @@ MultiLayer *DomainObjectBuilder::buildMultiLayer(
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == QString("Layer")) {
             boost::scoped_ptr<Layer> P_layer(buildLayer(*children[i]));
+
+            ParameterizedItem *roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
+            Q_ASSERT(roughnessItem);
+            boost::scoped_ptr<LayerRoughness> P_roughness(TransformToDomain::createLayerRoughness(*roughnessItem));
+
             if (P_layer.get()) {
-                result->addLayer(*P_layer);
+                if(P_roughness.get()) {
+                    result->addLayerWithTopRoughness(*P_layer, *P_roughness);
+                } else {
+                    result->addLayer(*P_layer);
+                }
             }
         }
     }
@@ -191,5 +206,6 @@ ParticleCoreShell *DomainObjectBuilder::buildParticleCoreShell(const Parameteriz
     delete shellParticle;
     return result;
 }
+
 
 

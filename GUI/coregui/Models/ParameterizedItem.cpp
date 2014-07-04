@@ -154,7 +154,7 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     qDebug() << "ParameterizedItem::addPropertyItem()" << name;
 
     if (m_sub_items.contains(name)) {
-        qDebug() << "       ParameterizedItem::addPropertyItem() -> item is already there" << name;
+        qDebug() << "       ParameterizedItem::addPropertyItem() -> item is already there" << name << "replacing with " << item->modelType();
         delete m_sub_items[name];
         m_sub_items.remove(name);
     }
@@ -174,6 +174,7 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
         GroupProperty group_prop = val.value<GroupProperty>();
         result = group_prop.createCorrespondingItem(
                     group_prop.getValue());
+        qDebug() << "           " << group_prop.getValue();
     } else {
         throw GUIHelpers::Error("ParameterizedItem::createPropertyItem() -> Error unexpected behaviour");
     }
@@ -295,7 +296,7 @@ void ParameterizedItem::print() const
     qDebug() << modelType() << itemName();
     qDebug() << "--- SubItems ---";
     for(QMap<QString, ParameterizedItem *>::const_iterator it=m_sub_items.begin(); it!=m_sub_items.end(); ++it) {
-        qDebug() << "   key:" << it.key() << " value:" << it.value()->modelType();
+        qDebug() << "   key:" << it.key() << " value->modelType:" << it.value()->modelType();
     }
     qDebug() << "--- Properties ---";
     QList<QByteArray> property_names = dynamicPropertyNames();

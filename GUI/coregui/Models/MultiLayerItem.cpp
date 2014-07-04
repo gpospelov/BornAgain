@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "MultiLayerItem.h"
+#include "LayerItem.h"
+#include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
 
@@ -27,6 +29,28 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
 }
 
-MultiLayerItem::~MultiLayerItem()
+ParameterizedItem *MultiLayerItem::takeChildItem(int row)
 {
+    ParameterizedItem *item = ParameterizedItem::takeChildItem(row);
+    updateLayers();
+    return item;
 }
+
+
+void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    updateLayers();
+}
+
+void MultiLayerItem::updateLayers()
+{
+    for(int i = 0; i<childItemCount(); ++i) {
+        if(i == 0) {
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DisabledProperty);
+        } else {
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DefaultAttribute);
+        }
+    }
+}
+

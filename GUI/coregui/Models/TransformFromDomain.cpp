@@ -10,6 +10,8 @@
 #include "GUIHelpers.h"
 #include "FormFactors.h"
 #include "FormFactorItems.h"
+#include "LayerRoughness.h"
+#include "LayerRoughnessItems.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
@@ -251,4 +253,12 @@ bool TransformFromDomain::isHexagonalLattice(
         return true;
     }
     return false;
+}
+
+
+void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const LayerRoughness *sample)
+{
+    item->setRegisteredProperty(LayerRoughnessItem::P_SIGMA, sample->getSigma());
+    item->setRegisteredProperty(LayerRoughnessItem::P_HURST, sample->getHurstParameter());
+    item->setRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH, sample->getLatteralCorrLength());
 }

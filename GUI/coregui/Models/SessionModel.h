@@ -104,10 +104,18 @@ public:
 
     void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
 
+//    struct ItemToInsert {
+//        ParameterizedItem *child;
+//        ParameterizedItem *parent;
+//        int row;
+//    };
+
 public slots:
     void onItemPropertyChange(const QString &name);
 
 private:
+//    ParameterizedItem *createNewItem(QString model_type, ParameterizedItem *parent, int row = -1);
+
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
                                      int row=-1,

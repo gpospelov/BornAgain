@@ -22,6 +22,7 @@
 #include "InterferenceFunctions.h"
 #include "ParameterizedItem.h"
 #include "ParticleCoreShell.h"
+#include "LayerItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -62,7 +63,10 @@ MultiLayer *DomainObjectBuilder::buildMultiLayer(
     for (int i=0; i<children.size(); ++i) {
         if (children[i]->modelType() == QString("Layer")) {
             boost::scoped_ptr<Layer> P_layer(buildLayer(*children[i]));
-            boost::scoped_ptr<LayerRoughness> P_roughness(TransformToDomain::createLayerRoughness(*children[i]));
+
+            ParameterizedItem *roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
+            Q_ASSERT(roughnessItem);
+            boost::scoped_ptr<LayerRoughness> P_roughness(TransformToDomain::createLayerRoughness(*roughnessItem));
 
             if (P_layer.get()) {
                 if(P_roughness.get()) {

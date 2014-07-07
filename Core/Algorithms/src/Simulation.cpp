@@ -128,7 +128,6 @@ void Simulation::prepareSimulation()
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
-
     prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
@@ -365,7 +364,7 @@ void Simulation::runSingleSimulation()
     }
 
     msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
-//    std::cout << "Simulation::runSimulation(): n_batches = " <<
+    //std::cout << "Simulation::runSimulation(): n_batches = " <<
             m_thread_info.n_batches <<
             ", current batch = " << m_thread_info.current_batch <<
             ", n_threads = " << m_thread_info.n_threads <<

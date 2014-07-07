@@ -31,6 +31,7 @@ set(list_of_tests
     "LayerRoughness"
     "Ripple2"
     "Ripple1"
+    "BatchSimulation"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

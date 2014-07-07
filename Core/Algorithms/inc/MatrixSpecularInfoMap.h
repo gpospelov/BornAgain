@@ -17,6 +17,7 @@
 #define MATRIXSPECULARINFOMAP_H_
 
 #include "ISpecularInfoMap.h"
+#include "MatrixRTCoefficients.h"
 #include "Utils.h"
 
 
@@ -57,7 +58,7 @@ inline const MatrixRTCoefficients* MatrixSpecularInfoMap::getCoefficients(
         double alpha_f, double phi_f) const
 {
     const container_phi_t &phi_map = m_value_map.find(alpha_f);
-    return &phi_map.find(phi_f);
+    return new MatrixRTCoefficients(phi_map.find(phi_f));
 }
 
 

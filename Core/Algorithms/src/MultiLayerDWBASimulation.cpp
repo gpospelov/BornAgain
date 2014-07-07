@@ -123,32 +123,13 @@ void MultiLayerDWBASimulation::run()
 
 void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 {
-    SpecularMatrix specularCalculator;
-
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-
     double lambda = 2*M_PI/m_ki_real.mag();
 
-    // collect all alpha angles and calculate reflection/transmission
-    // coefficients
-    typedef Utils::UnorderedMap<double, SpecularMatrix::MultiLayerCoeff_t>
-        container_t;
-    container_t multi_layer_coeff_buffer;
-
-    std::set<double> alpha_set = getAlphaList();
-
-    double alpha;
-    kvector_t kvec;
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
-    for (std::set<double>::const_iterator it =
-             alpha_set.begin(); it != alpha_set.end(); ++it) {
-        alpha = *it;
-        kvec.setLambdaAlphaPhi(lambda, -alpha, 0.0);
-        specularCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        multi_layer_coeff_buffer[alpha] = coeffs;
-    }
     // the coefficients for the incoming wavevector are calculated on the
     // original sample
+    SpecularMatrix specularCalculator;
+    SpecularMatrix::MultiLayerCoeff_t coeffs;
     specularCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
 
     // run through layers and construct T,R functions
@@ -157,17 +138,10 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
         msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
-        ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap;
+        ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap(
+                    mp_multi_layer, i_layer, lambda);
         layer_coeff_map.addOutCoefficients(p_coeff_map);
 
-        // construct the reflection/transmission coefficients for this layer
-        for(Utils::UnorderedMap<double, SpecularMatrix::MultiLayerCoeff_t>::
-                const_iterator it_alpha = multi_layer_coeff_buffer.begin();
-                it_alpha != multi_layer_coeff_buffer.end(); ++it_alpha) {
-            alpha = (*it_alpha).first;
-            p_coeff_map->addCoefficients((*it_alpha).second[i_layer],
-                    alpha, 0.0);
-        }
         // add reflection/transmission coeffs from incoming beam
         layer_coeff_map.addInCoefficients(new ScalarRTCoefficients(
                 coeffs[i_layer]));

@@ -18,6 +18,7 @@
 
 #include "ISpecularInfoMap.h"
 #include "ScalarRTCoefficients.h"
+#include "MultiLayer.h"
 #include "Utils.h"
 
 
@@ -30,33 +31,17 @@
 class BA_CORE_API_ ScalarSpecularInfoMap : public ISpecularInfoMap
 {
 public:
-    ScalarSpecularInfoMap() {}
+    ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer,
+                          double wavelength);
     virtual ~ScalarSpecularInfoMap() {}
-
-    //! Adds amplitude coefficients for the given angles
-    void addCoefficients(const ScalarRTCoefficients &rt_coefficients,
-            double alpha_f, double phi_f);
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ScalarRTCoefficients *getCoefficients(
             double alpha_f, double phi_f) const;
 private:
-    Utils::UnorderedMap<double, ScalarRTCoefficients > m_value_map;
+    const MultiLayer *mp_multilayer;
+    const int m_layer;
+    double m_wavelength;
 };
-
-inline void ScalarSpecularInfoMap::addCoefficients(
-        const ScalarRTCoefficients& rt_coefficients, double alpha_f,
-        double phi_f)
-{
-    (void)phi_f;
-    m_value_map[alpha_f] = rt_coefficients;
-}
-
-inline const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(
-        double alpha_f, double phi_f) const
-{
-    (void)phi_f;
-    return &m_value_map.find(alpha_f);
-}
 
 #endif /* SCALARSPECULARINFOMAP_H_ */

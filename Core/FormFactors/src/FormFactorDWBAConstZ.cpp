@@ -15,6 +15,8 @@
 
 #include "FormFactorDWBAConstZ.h"
 
+#include <boost/scoped_ptr.hpp>
+
 FormFactorDWBAConstZ::FormFactorDWBAConstZ(
     IFormFactor* p_form_factor, double depth)
   : FormFactorDWBA(p_form_factor)
@@ -30,10 +32,11 @@ complex_t FormFactorDWBAConstZ::evaluate(
 
     // Get the correct specular coefficients for the outgoing wave
     double alpha_f = alpha_f_bin.getMidPoint();
-    const ILayerRTCoefficients *p_out_coeff = getOutCoeffs(alpha_f);
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeff(
+                getOutCoeffs(alpha_f));
 
     complex_t k_iz = k_i.z();
-    complex_t k_fz = p_out_coeff->getScalarKz();
+    complex_t k_fz = P_out_coeff->getScalarKz();
     m_term_S *= getDepthPhase(k_iz-k_fz);
     m_term_RS *= getDepthPhase(-k_iz-k_fz);
     m_term_SR *= getDepthPhase(k_iz+k_fz);

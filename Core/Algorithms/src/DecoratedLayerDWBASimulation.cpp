@@ -113,8 +113,9 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
-            if (std::abs(mp_specular_info->getOutCoefficients(alpha_f, 0.0)
-                    ->getScalarR())!=0.0 && alpha_f<0) {
+            boost::scoped_ptr<const ILayerRTCoefficients> P_RT_coeffs(
+                        mp_specular_info->getOutCoefficients(alpha_f, 0.0));
+            if (std::abs(P_RT_coeffs->getScalarR())!=0.0 && alpha_f<0) {
                 ++it_intensity;
                 continue;
             }

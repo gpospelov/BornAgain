@@ -19,6 +19,8 @@
 #include "IApplicationTest.h"
 #include "OutputData.h"
 
+#include <MultiLayer.h>
+
 class FormFactorDWBAPol;
 class FormFactorDWBA;
 class LayerSpecularInfo;
@@ -31,11 +33,14 @@ class TestPolarizedDWBATerms : public IApplicationTest
 {
 public:
     TestPolarizedDWBATerms();
-    virtual ~TestPolarizedDWBATerms(){}
+    virtual ~TestPolarizedDWBATerms() {
+        delete mp_multilayer;
+    }
     virtual void execute();
 private:
     void initWavevectors();
     void initSpecularInfo();
+    MultiLayer *mp_multilayer;
     FormFactorDWBAPol *mp_matrix_ff;
     FormFactorDWBA *mp_scalar_ff;
     cvector_t m_ki;

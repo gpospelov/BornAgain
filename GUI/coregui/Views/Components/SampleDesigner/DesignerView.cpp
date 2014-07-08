@@ -7,6 +7,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QShortcut>
+#include <QDebug>
 
 #include "LayerView.h"
 #include "LayerView.h"
@@ -17,31 +18,16 @@
 #include <iostream>
 
 
-DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
-    : QWidget(parent)
-    , m_graphicsView(0)
+DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent)
+    : QGraphicsView(scene, parent)
 {
-//    setMinimumSize(128, 128);
-//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-   setAcceptDrops(false);
-
-//   Manhattan::StyledBar *bar = new Manhattan::StyledBar;
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-//    layout->addWidget(bar);
-    m_graphicsView = new QGraphicsView(scene);
-    m_graphicsView->setAcceptDrops(true);
-
-    layout->addWidget(m_graphicsView);
-    setLayout(layout);
-
-    m_graphicsView->setRenderHint(QPainter::Antialiasing);
-    m_graphicsView->setMouseTracking(true);
-
+    setAcceptDrops(true);
+    setRenderHint(QPainter::Antialiasing);
+    setMouseTracking(true);
 //   QShortcut* shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
 //   connect(shortcut, SIGNAL(activated()), this, SLOT(deleteItem()));
+
+    setDragMode(QGraphicsView::RubberBandDrag);
 
 }
 
@@ -54,11 +40,12 @@ DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
 
 void DesignerView::scaleView(qreal scaleFactor)
 {
-    qreal factor = m_graphicsView->transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
+    qreal factor = transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
     if (factor < 0.07 || factor > 100)
         return;
 
-    m_graphicsView->scale(scaleFactor, scaleFactor);
+    //m_graphicsView->scale(scaleFactor, scaleFactor);
+    scale(scaleFactor, scaleFactor);
 }
 
 
@@ -76,19 +63,21 @@ void DesignerView::zoomOut()
 //! zoom view to show all items
 void DesignerView::zoomFit()
 {
-    m_graphicsView->fitInView(m_graphicsView->scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
+//    m_graphicsView->fitInView(m_graphicsView->scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
+    fitInView(scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
 }
 
 
 void DesignerView::clearAll()
 {
-    m_graphicsView->scene()->clear();
+    //m_graphicsView->scene()->clear();
+    scene()->clear();
 }
 
 
 void DesignerView::deleteSelectedItems()
 {
-    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(m_graphicsView->scene());
+    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     Q_ASSERT(designerScene);
     designerScene->deleteSelectedItems();
 }
@@ -100,6 +89,11 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Left:
         break;
     case Qt::Key_Space:
+        if(dragMode() != QGraphicsView::ScrollHandDrag && !event->isAutoRepeat()) {
+            setDragMode(QGraphicsView::ScrollHandDrag);
+            setInteractive(false);
+            qDebug() << "  space pressed" << event->isAutoRepeat();
+        }
         break;
     case Qt::Key_Delete:
         deleteSelectedItems();
@@ -111,3 +105,28 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
         QWidget::keyPressEvent(event);
     }
 }
+
+void DesignerView::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Space:
+
+        if(dragMode() == QGraphicsView::ScrollHandDrag && !event->isAutoRepeat()) {
+            setDragMode(QGraphicsView::RubberBandDrag);
+            setInteractive(true);
+            qDebug() << "  space released" << event->isAutoRepeat();
+        }
+        break;
+    default:
+        QWidget::keyPressEvent(event);
+    }
+
+}
+
+
+void DesignerView::mouseMoveEvent(QMouseEvent * event)
+{
+    QGraphicsView::mouseMoveEvent(event);
+}
+
+

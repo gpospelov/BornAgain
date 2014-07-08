@@ -1,7 +1,7 @@
 #ifndef DESIGNERVIEW_H
 #define DESIGNERVIEW_H
 
-#include <QWidget>
+#include<QGraphicsView>
 
 class QGraphicsView;
 class QGraphicsScene;
@@ -13,13 +13,13 @@ class QKeyEvent;
 //!
 //! Belongs to SampleDesigner
 //! Currently contains logic for zooming, deleting objects
-class DesignerView : public QWidget
+class DesignerView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
 
-    explicit DesignerView(QWidget *parent = 0, QGraphicsScene *scene=0);
+    explicit DesignerView(QGraphicsScene *scene, QWidget *parent = 0);
     virtual ~DesignerView(){}
 
 public slots:
@@ -34,9 +34,9 @@ protected:
 //    void wheelEvent(QWheelEvent *event);
     void scaleView(qreal scaleFactor);
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+    void mouseMoveEvent(QMouseEvent * event);
 
-private:
-    QGraphicsView *m_graphicsView;
 };
 
 #endif // DESIGNERVIEW_H

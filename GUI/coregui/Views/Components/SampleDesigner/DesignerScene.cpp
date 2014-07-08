@@ -144,35 +144,37 @@ void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first,
 
 
 //! propagate selection from model to scene
-void DesignerScene::onSessionSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
+void DesignerScene::onSessionSelectionChanged(const QItemSelection & /* selected */, const QItemSelection & /* deselected */)
 {
-    //qDebug() << "DesignerScene::onSessionSelectionChanged()";
-    QModelIndexList indices = selected.indexes();
-    if(indices.size()) {
-        ParameterizedItem *item = m_sampleModel->itemForIndex(indices.back());
-        Q_ASSERT(item);
-        IView *view = m_ItemToView[item];
-        //Q_ASSERT(view);
-        if(view) {
-            m_block_selection = true;
-            clearSelection();
-            view->setSelected(true);
-            m_block_selection = false;
-        } else {
-            qDebug() << "DesignerScene::onSessionSelectionChanged() -> Error! No such view";
+    if(m_block_selection) return;
+
+    qDebug() << "DesignerScene::onSessionSelectionChanged()";
+    m_block_selection = true;
+
+    for(QMap<ParameterizedItem *, IView *>::iterator it=m_ItemToView.begin(); it!= m_ItemToView.end(); ++it) {
+        QModelIndex index = m_sampleModel->indexOfItem(it.key());
+        if(index.isValid()) {
+            if(m_selectionModel->isSelected(index)) {
+                it.value()->setSelected(true);
+            } else {
+                it.value()->setSelected(false);
+            }
         }
     }
+
+    m_block_selection = false;
 }
 
 
 //! propagate selection from scene to model
 void DesignerScene::onSceneSelectionChanged()
 {
-    //qDebug() << "DesignerScene::onSceneSelectionChanged() 1.1";
+    qDebug() << "DesignerScene::onSceneSelectionChanged() 1.1";
     if(m_block_selection) return;
 
-    m_selectionModel->clearSelection();
+    m_block_selection = true;
 
+    m_selectionModel->clearSelection();
     QList<QGraphicsItem*> selected = selectedItems();
     for(int i=0; i<selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
@@ -181,9 +183,11 @@ void DesignerScene::onSceneSelectionChanged()
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
             Q_ASSERT(itemIndex.isValid());
             m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
-            break; // selection of only one item will be propagated to the model
+            //break; // selection of only one item will be propagated to the model
         }
     }
+
+    m_block_selection = false;
 }
 
 

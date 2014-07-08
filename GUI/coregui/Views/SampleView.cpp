@@ -226,6 +226,10 @@ void SampleView::connectSignals()
     connect(m_toolBar, SIGNAL(smartAlign()),
             m_sampleDesigner, SLOT(onSmartAlign()));
 
+    connect(m_toolBar, SIGNAL(sceneScaleChanged(QString)),
+            m_sampleDesigner->getView(), SLOT(onSceneScaleChanged(QString)));
+
+
     // connect context menu for tree view
     connect(m_tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(showContextMenu(const QPoint &)));

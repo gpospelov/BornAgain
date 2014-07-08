@@ -74,6 +74,17 @@ void DesignerView::clearAll()
     scene()->clear();
 }
 
+void DesignerView::onSceneScaleChanged(const QString &scale_string)
+{
+    qDebug() << "onSceneScaleChanged";
+    double newScale = scale_string.left(scale_string.indexOf(tr("%"))).toDouble() / 100.0;
+    QMatrix oldMatrix = matrix();
+    resetMatrix();
+    translate(oldMatrix.dx(), oldMatrix.dy());
+    scale(newScale, newScale);
+
+}
+
 
 void DesignerView::deleteSelectedItems()
 {

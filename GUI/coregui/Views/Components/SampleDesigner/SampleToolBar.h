@@ -6,6 +6,8 @@
 class QAction;
 class QToolButton;
 class QToolBar;
+class QComboBox;
+class QString;
 
 //! main tool bar on top of SampleView window
 class SampleToolBar : public QToolBar
@@ -21,9 +23,11 @@ signals:
     void zoomFit();
     void clearAll();
     void smartAlign();
+    void sceneScaleChanged(const QString &scale);
 
 public slots:
     void materialBrowserCall();
+
 
 private:
     QAction *m_materialBrowserAction;
@@ -32,6 +36,7 @@ private:
     QAction *m_zoomFitAction;
     QAction *m_clearAllAction;
     QAction *m_sceneToISampleAction;
+    QComboBox *m_scaleCombo;
 
 };
 

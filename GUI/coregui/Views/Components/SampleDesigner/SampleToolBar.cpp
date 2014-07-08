@@ -6,6 +6,7 @@
 #include <QToolButton>
 #include <QToolBar>
 #include <QStyle>
+#include <QComboBox>
 #include <QDebug>
 
 
@@ -53,6 +54,19 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     m_sceneToISampleAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Smart align"), this);
     connect(m_sceneToISampleAction, SIGNAL(triggered()), this, SIGNAL(smartAlign()));
     addAction(m_sceneToISampleAction);
+
+    addSeparator();
+
+    QComboBox *m_scaleCombo = new QComboBox;
+    QStringList scales;
+    scales << tr("50%") << tr("100%") << tr("150%");
+    m_scaleCombo->addItems(scales);
+    m_scaleCombo->setCurrentIndex(1);
+    addWidget(m_scaleCombo);
+    connect(m_scaleCombo, SIGNAL(currentIndexChanged(QString)),
+            this, SIGNAL(sceneScaleChanged(QString)));
+
+
 
 
 //    insertSeparator(m_clearAllAction);

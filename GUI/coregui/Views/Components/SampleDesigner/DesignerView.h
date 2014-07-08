@@ -28,6 +28,7 @@ public slots:
     void zoomFit();
     void deleteSelectedItems();
     void clearAll();
+    void onSceneScaleChanged(const QString &);
 
 
 protected:

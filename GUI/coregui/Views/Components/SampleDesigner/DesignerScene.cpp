@@ -299,13 +299,15 @@ void DesignerScene::removeItemViewFromScene(ParameterizedItem *item)
 void DesignerScene::deleteSelectedItems()
 {
     qDebug() << "DesignerScene::deleteSelectedItems()" << selectedItems().size();
-    // FIXME handle multiple selection
+
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    while(indexes.size()) {
+        m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        indexes = m_selectionModel->selectedIndexes();
+    }
+
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
-        if(IView *view = dynamic_cast<IView *>(graphicsItem)) {
-            ParameterizedItem *item = view->getParameterizedItem();
-            Q_ASSERT(item);
-            m_sampleModel->removeRows(m_sampleModel->indexOfItem(item).row(), 1, m_sampleModel->indexOfItem(item->parent()));
-        } else if(NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
+        if(NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
             removeConnection(connection);
         }
     }

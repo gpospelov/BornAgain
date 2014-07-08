@@ -51,8 +51,8 @@ public:
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
-    //! Returns intensity for a single detector element
-    void runSimulationElement(size_t index);
+    //! runs OpenMPI simulation
+    void runOMPISimulation();
 
     //! Normalize the detector counts
     void normalize();

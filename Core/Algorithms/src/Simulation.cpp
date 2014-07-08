@@ -22,6 +22,7 @@
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
+#include "OMPISimulation.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -169,26 +170,12 @@ void Simulation::runSimulation()
 
 }
 
-void Simulation::runSimulationElement(size_t index)
+void Simulation::runOMPISimulation()
 {
-    (void)index;  // to suppress unused-variable warning
-
-    prepareSimulation();
-    if( !mp_sample)
-        throw NullPointerException(
-            "Simulation::runSimulation() -> Error! No sample set.");
-    m_intensity_map.setAllTo(0);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-
-    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (!p_dwba_simulation)
-        throw NullPointerException("Simulation::runSimulation() -> "
-                                   "No dwba simulation");
-    p_dwba_simulation->init(*this);
-    p_dwba_simulation->run();
-    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
-    delete p_dwba_simulation;
+    OMPISimulation ompi;
+    ompi.runSimulation(this);
 }
+
 
 void Simulation::normalize()
 {

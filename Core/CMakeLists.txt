@@ -76,6 +76,12 @@ target_link_libraries(
     ${FFTW_LIBRARY}
     ${GSL_LIBRARIES}
 )
+
+if(OPENMPI_SUPPORT)
+    include_directories(${MPI_INCLUDE_PATH})
+    target_link_libraries(${library_name} ${MPI_LIBRARIES})
+endif()
+
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})
     target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
@@ -117,6 +123,7 @@ file(GLOB include_files
     "Geometry/inc/*.h"
     "Samples/inc/*.h"
     "Tools/inc/*.h"
+    "StandardSamples/*.h"
 )
 install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
 

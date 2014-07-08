@@ -235,6 +235,15 @@ void register_Simulation_class(){
                 , prepareSimulation_function_type( &::Simulation::prepareSimulation ) );
         
         }
+        { //::Simulation::runOMPISimulation
+        
+            typedef void ( ::Simulation::*runOMPISimulation_function_type )(  ) ;
+            
+            Simulation_exposer.def( 
+                "runOMPISimulation"
+                , runOMPISimulation_function_type( &::Simulation::runOMPISimulation ) );
+        
+        }
         { //::Simulation::runSimulation
         
             typedef void ( ::Simulation::*runSimulation_function_type )(  ) ;
@@ -242,16 +251,6 @@ void register_Simulation_class(){
             Simulation_exposer.def( 
                 "runSimulation"
                 , runSimulation_function_type( &::Simulation::runSimulation ) );
-        
-        }
-        { //::Simulation::runSimulationElement
-        
-            typedef void ( ::Simulation::*runSimulationElement_function_type )( ::std::size_t ) ;
-            
-            Simulation_exposer.def( 
-                "runSimulationElement"
-                , runSimulationElement_function_type( &::Simulation::runSimulationElement )
-                , ( bp::arg("index") ) );
         
         }
         { //::Simulation::setBeamIntensity

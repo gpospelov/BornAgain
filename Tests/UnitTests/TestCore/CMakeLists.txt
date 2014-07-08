@@ -24,6 +24,12 @@ target_link_libraries(TestCore
     ${GSL_LIBRARIES}
 )
 
+if(OPENMPI_SUPPORT)
+    include_directories(${MPI_INCLUDE_PATH})
+    target_link_libraries(TestCore ${MPI_LIBRARIES})
+endif()
+
+
 # to build executable right in lib directory to not to have problems with finding libBornAgainCore.dll under Windows
 set_property(TARGET TestCore PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 

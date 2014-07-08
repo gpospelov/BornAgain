@@ -120,8 +120,8 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
                 continue;
             }
             Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
-            *it_intensity = p_strategy->evaluate(k_ij, k_f_bin, alpha_bin)
-                          * total_surface_density;
+            *it_intensity = p_strategy->evaluate(
+                k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
             ++it_intensity;
         }
     }

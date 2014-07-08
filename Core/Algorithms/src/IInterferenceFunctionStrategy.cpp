@@ -14,12 +14,16 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "MemberFunctionIntegrator.h"
-#include "MemberFunctionMCIntegrator.h"
+#include "MemberFunctionMCMiserIntegrator.h"
+
+#include <boost/scoped_ptr.hpp>
+
+#include <ScalarRTCoefficients.h>
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
         SimulationParameters sim_params)
 : m_sim_params(sim_params)
+, mp_specular_info(0)
 {
 }
 
@@ -31,11 +35,21 @@ void IInterferenceFunctionStrategy::init(
     m_ifs = ifs;
 }
 
-double IInterferenceFunctionStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const
+void IInterferenceFunctionStrategy::setSpecularInfo(
+        const LayerSpecularInfo &specular_info)
 {
-    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 0) {
-        return MCIntegratedEvaluate(k_i, k_f_bin, alpha_f_bin);
+    if (mp_specular_info != &specular_info) {
+        delete mp_specular_info;
+        mp_specular_info = specular_info.clone();
+    }
+}
+
+double IInterferenceFunctionStrategy::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
+{
+    if (m_sim_params.m_mc_integration && m_sim_params.m_mc_points > 1
+        && (alpha_f_bin.getBinSize()!=0.0 || phi_f_bin.getBinSize()!=0.0) ) {
+        return MCIntegratedEvaluate(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
     }
     calculateFormFactorList(k_i, k_f_bin, alpha_f_bin);
     return evaluateForList(k_i, k_f_bin, m_ff00);
@@ -129,20 +143,26 @@ void IInterferenceFunctionStrategy::clearFormFactorLists() const
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(const cvector_t &k_i,
-        const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin) const
+        const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
-    Bin1D phi_bin;
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, k_f_bin,
-        alpha_f_bin, phi_bin);
-    MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>::mem_function
-        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf;
-    MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>
+        alpha_f_bin, phi_f_bin);
+    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function
+        p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_angles;
+    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>
         mc_integrator(p_function, this, 2);
     double min_array[] = { 0.0, 0.0 };
     double max_array[] = { 1.0, 1.0 };
     double result = mc_integrator.integrate(min_array, max_array,
                          (void*)&mc_int_pars, m_sim_params.m_mc_points);
-    return result;
+    double integration_constant;
+    if (alpha_f_bin.getBinSize()==0.0) {
+        integration_constant = 1.0/std::cos(alpha_f_bin.m_lower);
+    } else {
+        integration_constant = alpha_f_bin.getBinSize()
+                    /(std::sin(alpha_f_bin.m_upper) - std::sin(alpha_f_bin.m_lower));
+    }
+    return result*std::abs(integration_constant);
 }
 
 Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
@@ -152,9 +172,9 @@ Eigen::Matrix2d IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
     Eigen::Matrix2d result;
     IntegrationParamsAlpha mc_int_pars = getIntegrationParams(k_i, k_f_bin,
         alpha_f_bin, phi_f_bin);
-    MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>::mem_function
+    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>::mem_function
         p_function = &IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol;
-    MemberFunctionMCIntegrator<IInterferenceFunctionStrategy>
+    MemberFunctionMCMiserIntegrator<IInterferenceFunctionStrategy>
         mc_integrator(p_function, this, 2);
     double min_array[] = { 0.0, 0.0 };
     double max_array[] = { 1.0, 1.0 };
@@ -178,6 +198,8 @@ IInterferenceFunctionStrategy::IntegrationParamsAlpha
 IInterferenceFunctionStrategy::getIntegrationParams(const cvector_t &k_i,
     const Bin1DCVector &k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const
 {
+    kvector_t real_ki(k_i.x().real(), k_i.y().real(), k_i.z().real());
+
     cvector_t k_f_00 = k_f_bin.m_q_lower;
     cvector_t k_f_11 = k_f_bin.m_q_upper;
     complex_t xy_length0 = k_f_00.magxy();
@@ -194,12 +216,13 @@ IInterferenceFunctionStrategy::getIntegrationParams(const cvector_t &k_i,
     result.k_f01 = k_f_01;
     result.k_f10 = k_f_10;
     result.k_f11 = k_f_11;
+    result.wavelength = 2.0*M_PI/real_ki.mag();
     result.alpha_bin = alpha_f_bin;
     result.phi_bin = phi_f_bin;
     return result;
 }
 
-double IInterferenceFunctionStrategy::evaluate_for_fixed_kf(double *fractions,
+double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double *fractions,
         size_t dim, void *params) const
 {
     (void)dim;
@@ -208,13 +231,19 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_kf(double *fractions,
 
     IntegrationParamsAlpha* pars = static_cast<IntegrationParamsAlpha*>(params);
     cvector_t k_i = pars->k_i;
-    cvector_t k_f0 = pars->k_f00 + par0*(pars->k_f10 - pars->k_f00);
-    cvector_t k_f1 = pars->k_f01 + par0*(pars->k_f11 - pars->k_f01);
-    cvector_t k_f = k_f0 + par1*(k_f1 - k_f0);
+    cvector_t k_f;
+    double alpha = pars->alpha_bin.m_lower
+            + par0*(pars->alpha_bin.m_upper - pars->alpha_bin.m_lower);
+    double phi = pars->phi_bin.m_lower
+            + par1*(pars->phi_bin.m_upper - pars->phi_bin.m_lower);
+    k_f.setLambdaAlphaPhi(pars->wavelength, alpha, phi);
+    boost::scoped_ptr<const ILayerRTCoefficients> out_coeff(
+                mp_specular_info->getOutCoefficients(alpha, phi));
+    k_f.setZ(out_coeff->getScalarKz());
 
     Bin1DCVector k_f_bin(k_f, k_f);
     calculateFormFactorList(k_i, k_f_bin, pars->alpha_bin);
-    return evaluateForList(k_i, k_f_bin, m_ff00);
+    return std::cos(alpha)*evaluateForList(k_i, k_f_bin, m_ff00);
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_kf_pol(

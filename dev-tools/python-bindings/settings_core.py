@@ -215,8 +215,16 @@ def ManualClassTunings(mb):
     cl.member_function("setValue").include()
     cl.member_function("getValue").include()
     cl.member_function("isNull").include()
-    # 
-    #mb.free_function("GetOutputDataNdimensions").include()
+    #
+    funs = mb.free_functions()
+    for ff in funs:
+        if 'SetLevel' in ff.name:
+            ff.alias = 'SetMessageLevel'
+            ff.include()
+
+    #fun = mb.free_function("SetLevel")
+    #fun.alias = 'SetMessageLevel'
+    #fun.include()
     #mb.free_function("GetOutputData").include()
     #mb.free_function("GetPolarizedOutputDataComponent").include()
     #mb.free_function("GetOutputDataAxis").include()

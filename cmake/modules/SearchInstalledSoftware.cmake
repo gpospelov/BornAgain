@@ -1,5 +1,11 @@
 # Search for installed software required by BornAgain
 
+if(OPENMPI_SUPPORT)
+    message(STATUS "Configuring with OpenMPI support")
+    find_package(MPI REQUIRED)
+endif()
+
+
 # --- Eigen3 ---
 find_package(Eigen3 3.1.0)
 if(NOT EIGEN3_FOUND) 
@@ -91,6 +97,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     
     find_package(Numpy REQUIRED)
 endif()
+
 
 
 # --- ROOT ---

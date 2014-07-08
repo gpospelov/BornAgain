@@ -77,6 +77,28 @@ void register_free_functions(){
     
     }
 
+    { //::MSG::SetLevel
+    
+        typedef void ( *SetMessageLevel_function_type )( ::std::string const & );
+        
+        bp::def( 
+            "SetMessageLevel"
+            , SetMessageLevel_function_type( &::MSG::SetLevel )
+            , ( bp::arg("levelname") ) );
+    
+    }
+
+    { //::MSG::SetLevel
+    
+        typedef void ( *SetMessageLevel_function_type )( ::MSG::MessageLevel );
+        
+        bp::def( 
+            "SetMessageLevel"
+            , SetMessageLevel_function_type( &::MSG::SetLevel )
+            , ( bp::arg("level") ) );
+    
+    }
+
     { //::Units::deg2rad
     
         typedef double ( *deg2rad_function_type )( double );

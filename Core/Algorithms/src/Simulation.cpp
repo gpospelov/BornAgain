@@ -22,7 +22,7 @@
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
-#include "OMPISimulation.h"
+//#include "OMPISimulation.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -172,8 +172,8 @@ void Simulation::runSimulation()
 
 void Simulation::runOMPISimulation()
 {
-    OMPISimulation ompi;
-    ompi.runSimulation(this);
+//    OMPISimulation ompi;
+//    ompi.runSimulation(this);
 }
 
 

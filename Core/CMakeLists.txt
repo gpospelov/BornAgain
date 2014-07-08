@@ -77,7 +77,7 @@ target_link_libraries(
     ${GSL_LIBRARIES}
 )
 
-if(OPENMPI_SUPPORT)
+if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
     target_link_libraries(${library_name} ${MPI_LIBRARIES})
 endif()

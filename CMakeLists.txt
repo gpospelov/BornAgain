@@ -18,7 +18,7 @@ option(BORNAGAIN_GUI "Build a graphical user interface" OFF)
 option(BORNAGAIN_MAN "Build a user manual" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)
 option(ROOT_SUPPORT "Build with dependencies from ROOT" ON)
-option(OPENMPI_SUPPORT "Build with OpenMPI support" ON)
+option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
 
 
 # --- Path for additional cmake modules ---

@@ -29,7 +29,8 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_block_selection(false)
     , m_aligner(new SampleViewAligner(this))
 {
-    setSceneRect(QRectF(-400, 0, 800, 800));
+    //setSceneRect(QRectF(-400, 0, 800, 800));
+    setSceneRect(QRectF(-800, 0, 1600, 1600));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
 
     NodeEditor *nodeEditor = new NodeEditor(parent);
@@ -252,7 +253,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 //! aligns SampleView's on graphical canvas
 void DesignerScene::alignViews()
 {
-    m_aligner->alignSample(QModelIndex(), QPointF(200,200));
+    m_aligner->alignSample(QModelIndex(), QPointF(200,800));
 }
 
 

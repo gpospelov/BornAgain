@@ -25,8 +25,7 @@
 //! @class ScalarSpecularInfoMap
 //! @ingroup algorithms_internal
 //! @brief Implementation of ISpecularInfoMap for scalar valued reflection/
-//! transmission coefficients (the map contains values only for alpha_f,
-//! because of rotation symmetry in the xy-plane
+//! transmission coefficients
 
 class BA_CORE_API_ ScalarSpecularInfoMap : public ISpecularInfoMap
 {

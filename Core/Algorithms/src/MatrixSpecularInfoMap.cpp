@@ -13,27 +13,28 @@
 //
 // ************************************************************************** //
 
-#include "ScalarSpecularInfoMap.h"
-#include "SpecularMatrix.h"
+#include "MatrixSpecularInfoMap.h"
+#include "SpecularMagnetic.h"
+
+#include <boost/scoped_ptr.hpp>
 
 
-ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer,
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer,
                                              int layer, double wavelength)
-    : mp_multilayer(multilayer)
-    , m_layer(layer)
-    , m_wavelength(wavelength)
+: m_layer(layer)
+, m_wavelength(wavelength)
 {
+    mP_inverted_multilayer.reset(multilayer->cloneInvertB());
 }
 
-const ScalarRTCoefficients *ScalarSpecularInfoMap::getCoefficients(
+const MatrixRTCoefficients *MatrixSpecularInfoMap::getCoefficients(
         double alpha_f, double phi_f) const
 {
-    (void)phi_f;
-    SpecularMatrix specular_calculator;
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
+    SpecularMagnetic specular_calculator;
+    SpecularMagnetic::MultiLayerCoeff_t coeffs;
     kvector_t kvec;
     // phi has no effect on R,T, so just pass zero:
-    kvec.setLambdaAlphaPhi(m_wavelength, -alpha_f, 0.0);
-    specular_calculator.execute(*mp_multilayer, kvec, coeffs);
-    return new ScalarRTCoefficients(coeffs[m_layer]);
+    kvec.setLambdaAlphaPhi(m_wavelength, alpha_f, phi_f);
+    specular_calculator.execute(*mP_inverted_multilayer, -kvec, coeffs);
+    return new MatrixRTCoefficients(coeffs[m_layer]);
 }

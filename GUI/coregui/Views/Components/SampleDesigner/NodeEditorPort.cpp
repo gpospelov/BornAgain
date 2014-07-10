@@ -44,17 +44,19 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeE
 
 NodeEditorPort::~NodeEditorPort()
 {
-    foreach(NodeEditorConnection *conn, m_connections)
+    foreach(NodeEditorConnection *conn, m_connections) {
+        conn->setSelected(false);
 		delete conn;
+    }
 }
 
 
-void NodeEditorPort::deleteAllConnections()
-{
-    foreach(NodeEditorConnection *conn, m_connections)
-        delete conn;
-    m_connections.clear();
-}
+//void NodeEditorPort::deleteAllConnections()
+//{
+//    foreach(NodeEditorConnection *conn, m_connections)
+//        delete conn;
+//    m_connections.clear();
+//}
 
 
 bool NodeEditorPort::isOutput()

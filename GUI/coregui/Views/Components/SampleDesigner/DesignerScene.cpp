@@ -29,13 +29,14 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_block_selection(false)
     , m_aligner(new SampleViewAligner(this))
 {
-    setSceneRect(QRectF(-400, 0, 800, 800));
+    //setSceneRect(QRectF(-400, 0, 800, 800));
+    setSceneRect(QRectF(-800, 0, 1600, 1600));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
 
-    NodeEditor *nodeEditor = new NodeEditor(parent);
-    nodeEditor->install(this);
-    connect(nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this, SLOT(onEstablishedConnection(NodeEditorConnection*)));
-
+    m_nodeEditor = new NodeEditor(parent);
+    m_nodeEditor->install(this);
+    connect(m_nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this, SLOT(onEstablishedConnection(NodeEditorConnection*)));
+    connect(m_nodeEditor, SIGNAL(selectionModeChangeRequest(int)), this, SIGNAL(selectionModeChangeRequest(int)));
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
@@ -144,35 +145,37 @@ void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int first,
 
 
 //! propagate selection from model to scene
-void DesignerScene::onSessionSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
+void DesignerScene::onSessionSelectionChanged(const QItemSelection & /* selected */, const QItemSelection & /* deselected */)
 {
-    //qDebug() << "DesignerScene::onSessionSelectionChanged()";
-    QModelIndexList indices = selected.indexes();
-    if(indices.size()) {
-        ParameterizedItem *item = m_sampleModel->itemForIndex(indices.back());
-        Q_ASSERT(item);
-        IView *view = m_ItemToView[item];
-        //Q_ASSERT(view);
-        if(view) {
-            m_block_selection = true;
-            clearSelection();
-            view->setSelected(true);
-            m_block_selection = false;
-        } else {
-            qDebug() << "DesignerScene::onSessionSelectionChanged() -> Error! No such view";
+    if(m_block_selection) return;
+
+    qDebug() << "DesignerScene::onSessionSelectionChanged()";
+    m_block_selection = true;
+
+    for(QMap<ParameterizedItem *, IView *>::iterator it=m_ItemToView.begin(); it!= m_ItemToView.end(); ++it) {
+        QModelIndex index = m_sampleModel->indexOfItem(it.key());
+        if(index.isValid()) {
+            if(m_selectionModel->isSelected(index)) {
+                it.value()->setSelected(true);
+            } else {
+                it.value()->setSelected(false);
+            }
         }
     }
+
+    m_block_selection = false;
 }
 
 
 //! propagate selection from scene to model
 void DesignerScene::onSceneSelectionChanged()
 {
-    //qDebug() << "DesignerScene::onSceneSelectionChanged() 1.1";
+    qDebug() << "DesignerScene::onSceneSelectionChanged() 1.1";
     if(m_block_selection) return;
 
-    m_selectionModel->clearSelection();
+    m_block_selection = true;
 
+    m_selectionModel->clearSelection();
     QList<QGraphicsItem*> selected = selectedItems();
     for(int i=0; i<selected.size(); ++i) {
         IView *view = dynamic_cast<IView *>(selected[i]);
@@ -181,9 +184,11 @@ void DesignerScene::onSceneSelectionChanged()
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
             Q_ASSERT(itemIndex.isValid());
             m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
-            break; // selection of only one item will be propagated to the model
+            //break; // selection of only one item will be propagated to the model
         }
     }
+
+    m_block_selection = false;
 }
 
 
@@ -248,7 +253,7 @@ IView *DesignerScene::addViewForItem(ParameterizedItem *item)
 //! aligns SampleView's on graphical canvas
 void DesignerScene::alignViews()
 {
-    m_aligner->alignSample(QModelIndex(), QPointF(200,200));
+    m_aligner->alignSample(QModelIndex(), QPointF(200,800));
 }
 
 
@@ -294,17 +299,32 @@ void DesignerScene::removeItemViewFromScene(ParameterizedItem *item)
 //! propagates deletion of views on the scene to the model
 void DesignerScene::deleteSelectedItems()
 {
-    qDebug() << "DesignerScene::deleteSelectedItems()" << selectedItems().size();
-    // FIXME handle multiple selection
+    qDebug() << "DesignerScene::deleteSelectedItems() 1.1" << selectedItems().size();
+
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+
+    QList<IView *> views_which_will_be_deleted;
+    foreach(QModelIndex index, indexes) {
+        views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(index)]);
+    }
+
+    // deleting selected items on model side, corresponding views will be deleted automatically
+    // Since we don't know the order of items, we need this
+    while(indexes.size()) {
+        m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        indexes = m_selectionModel->selectedIndexes();
+    }
+
+    // Connections will be deleted automatically if one of connected views has been deleted.
+    // For the moment, we have to delete connections which are: 1) were selected 2) Do not connect views scheduled for deletion.
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
-        if(IView *view = dynamic_cast<IView *>(graphicsItem)) {
-            ParameterizedItem *item = view->getParameterizedItem();
-            Q_ASSERT(item);
-            m_sampleModel->removeRows(m_sampleModel->indexOfItem(item).row(), 1, m_sampleModel->indexOfItem(item->parent()));
-        } else if(NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
+        if(NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
+            if(views_which_will_be_deleted.contains(connection->getParentView()) ||
+                views_which_will_be_deleted.contains(connection->getChildView()) ) continue;
             removeConnection(connection);
         }
     }
+
 }
 
 

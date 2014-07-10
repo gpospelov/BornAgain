@@ -53,5 +53,13 @@
         <file>images/refresh.png</file>
         <file>images/sidebar.png</file>
         <file>images/application-resize-full.png</file>
+        <file>images/toolbar_hand.png</file>
+        <file>images/toolbar_pointer.png</file>
+        <file>images/toolbar_materialeditor.png</file>
+        <file>images/toolbar_recycle.png</file>
+        <file>images/toolbar_center.png</file>
+        <file>images/toolbar_redo.png</file>
+        <file>images/toolbar_unddo.png</file>
+        <file>images/toolbar_align.png</file>
     </qresource>
 </RCC>

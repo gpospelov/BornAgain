@@ -59,8 +59,6 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
-    qDebug() << "ParticleView::onPropertyChange() ->";
-    Q_ASSERT(m_item);
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
         GroupProperty mp = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty>();
         QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(mp.getValue());

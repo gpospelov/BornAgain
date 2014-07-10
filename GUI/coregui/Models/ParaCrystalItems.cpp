@@ -1,6 +1,6 @@
 #include "ParaCrystalItems.h"
 #include "Units.h"
-
+#include <QDebug>
 
 const QString InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE =
         "Peak_distance";
@@ -69,7 +69,10 @@ void InterferenceFunction2DParaCrystalItem::onPropertyChange(const QString &name
         } else {
             setPropertyAttribute(P_ROTATION_ANGLE, ParameterizedItem::DefaultAttribute);
         }
+        //emit propertyChanged(P_ROTATION_ANGLE);
+        ParameterizedItem::onPropertyChange(P_ROTATION_ANGLE);
+    } else {
+        ParameterizedItem::onPropertyChange(name);
     }
-    emit propertyChanged(P_ROTATION_ANGLE);
-    emit propertyChanged(name);
+
 }

@@ -144,6 +144,7 @@ void SampleView::resetToDefaultLayout()
         dockWidget->show();
 
     setTrackingEnabled(true);
+//    setTrackingEnabled(false);
 }
 
 void SampleView::addItem(const QString &item_name)
@@ -213,18 +214,26 @@ void SampleView::updateUi()
 
 void SampleView::connectSignals()
 {
+
+    connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
+
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(this);
+    connect(m_toolBar, SIGNAL(deleteItems()),
+            m_sampleDesigner->getView(), SLOT(deleteSelectedItems()));
+    connect(m_toolBar, SIGNAL(selectionMode(int)), m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
+    connect(m_sampleDesigner->getView(), SIGNAL(selectionModeChanged(int)),m_toolBar, SLOT(onViewSelectionMode(int)));
+    connect(m_toolBar, SIGNAL(centerView()), m_sampleDesigner->getView(), SLOT(onCenterView()));
+    connect(m_toolBar, SIGNAL(smartAlign()), m_sampleDesigner, SLOT(onSmartAlign()));
+    connect(m_toolBar, SIGNAL(changeScale(double)),
+            m_sampleDesigner->getView(), SLOT(onChangeScale(double)));
+
     connect(m_toolBar, SIGNAL(zoomOut()),
             m_sampleDesigner->getView(), SLOT(zoomOut()));
     connect(m_toolBar, SIGNAL(zoomIn()),
             m_sampleDesigner->getView(), SLOT(zoomIn()));
-    connect(m_toolBar, SIGNAL(zoomFit()),
-            m_sampleDesigner->getView(), SLOT(zoomFit()));
-    connect(m_toolBar, SIGNAL(clearAll()),
-            m_sampleDesigner->getView(), SLOT(clearAll()));
-    connect(m_toolBar, SIGNAL(smartAlign()),
-            m_sampleDesigner, SLOT(onSmartAlign()));
+
+    connect(m_sampleDesigner->getScene(), SIGNAL(selectionModeChangeRequest(int)), m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
 
     // connect context menu for tree view
     connect(m_tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),

@@ -555,9 +555,10 @@ void ManhattanStyle::drawPrimitive(PrimitiveElement element, const QStyleOption 
     case PE_IndicatorToolBarSeparator:
         {
             QColor separatorColor = Utils::StyleHelper::borderColor();
-            separatorColor.setAlpha(100);
+            //separatorColor.setAlpha(100);
             painter->setPen(separatorColor);
-            const int margin = 6;
+            //const int margin = 6; gp
+            const int margin = 2;
             if (option->state & State_Horizontal) {
                 const int offset = rect.width()/2;
                 painter->drawLine(rect.bottomLeft().x() + offset,

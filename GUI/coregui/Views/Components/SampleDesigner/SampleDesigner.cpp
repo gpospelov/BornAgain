@@ -11,7 +11,7 @@ SampleDesigner::SampleDesigner(QWidget *parent)
     , m_designerView(0)
 {
     m_designerScene = new DesignerScene(parent);
-    m_designerView = new DesignerView(parent, m_designerScene);
+    m_designerView = new DesignerView(m_designerScene, parent);
 }
 
 
@@ -39,5 +39,6 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
 
 void SampleDesigner::onSmartAlign()
 {
+    qDebug() << "SampleDesigner::onSmartAlign()";
     m_designerScene->onSmartAlign();
 }

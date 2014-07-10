@@ -144,6 +144,7 @@ void SampleView::resetToDefaultLayout()
         dockWidget->show();
 
     setTrackingEnabled(true);
+//    setTrackingEnabled(false);
 }
 
 void SampleView::addItem(const QString &item_name)
@@ -213,6 +214,9 @@ void SampleView::updateUi()
 
 void SampleView::connectSignals()
 {
+
+    connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
+
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(this);
     connect(m_toolBar, SIGNAL(deleteItems()),

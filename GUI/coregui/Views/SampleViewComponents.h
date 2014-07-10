@@ -9,21 +9,6 @@
 #include "SampleWidgetBox.h"
 #include "SessionModel.h"
 
-//class SampleWidgetBoxInterface : public QWidget
-//{
-//public:
-//    explicit SampleWidgetBoxInterface(QWidget *parent = 0) : QWidget(parent)
-//    {
-//        setMinimumSize(128, 128);
-//        setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    }
-//};
-
-//class SampleDesignerInterface;
-
-//typedef QDesignerWidgetBoxInterface SampleWidgetBoxInterface;
-
-
 
 class SampleInfoStreamInterface : public QWidget
 {

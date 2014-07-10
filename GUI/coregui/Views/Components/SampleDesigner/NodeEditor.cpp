@@ -1,6 +1,7 @@
 #include "NodeEditor.h"
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
+#include "DesignerView.h"
 #include <QGraphicsScene>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
@@ -47,6 +48,7 @@ bool NodeEditor::eventFilter(QObject *o, QEvent *e)
             QGraphicsItem *item = itemAt(me->scenePos());
             if (item && item->type() == NodeEditorPort::Type)
             {
+                emit selectionModeChangeRequest(DesignerView::SimpleSelectionMode);
                 conn = new NodeEditorConnection(0, scene);
                 conn->setPort1((NodeEditorPort*) item);
                 conn->setPos1(item->scenePos());
@@ -73,6 +75,8 @@ bool NodeEditor::eventFilter(QObject *o, QEvent *e)
     {
         if (conn && me->button() == Qt::LeftButton)
         {
+            emit selectionModeChangeRequest(DesignerView::RubberSelectionMode);
+
             QGraphicsItem *item = itemAt(me->scenePos());
             if (item && item->type() == NodeEditorPort::Type)
             {

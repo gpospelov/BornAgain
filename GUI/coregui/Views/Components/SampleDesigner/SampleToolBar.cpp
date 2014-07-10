@@ -130,7 +130,8 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 void SampleToolBar::onViewSelectionMode(int mode)
 {
     qDebug() << "SampleToolBar::onViewSelectionMode" << mode;
-    m_pointerModeGroup->button(mode)->setChecked(true);
+    if(mode == DesignerView::RubberSelectionMode || mode == DesignerView::HandDragMode)
+        m_pointerModeGroup->button(mode)->setChecked(true);
 }
 
 void SampleToolBar::onScaleComboChanged(const QString &scale_string)

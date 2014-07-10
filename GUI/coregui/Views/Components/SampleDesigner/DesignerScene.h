@@ -15,6 +15,7 @@ class QItemSelection;
 class NodeEditorConnection;
 class DesignerMimeData;
 class SampleViewAligner;
+class NodeEditor;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -33,6 +34,11 @@ public:
     SessionModel *getSampleModel() { return m_sampleModel; }
 
     IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
+
+    NodeEditor *getNodeEditor() { return m_nodeEditor;}
+
+signals:
+    void selectionModeChangeRequest(int);
 
 public slots:
     void onSceneSelectionChanged();
@@ -83,6 +89,8 @@ private:
     //!< foreground line representing appropriate interface during lauer's movement
 
     SampleViewAligner *m_aligner;
+
+    NodeEditor *m_nodeEditor;
 };
 
 

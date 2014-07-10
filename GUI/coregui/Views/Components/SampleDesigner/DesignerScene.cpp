@@ -33,10 +33,10 @@ DesignerScene::DesignerScene(QObject *parent)
     setSceneRect(QRectF(-800, 0, 1600, 1600));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
 
-    NodeEditor *nodeEditor = new NodeEditor(parent);
-    nodeEditor->install(this);
-    connect(nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this, SLOT(onEstablishedConnection(NodeEditorConnection*)));
-
+    m_nodeEditor = new NodeEditor(parent);
+    m_nodeEditor->install(this);
+    connect(m_nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this, SLOT(onEstablishedConnection(NodeEditorConnection*)));
+    connect(m_nodeEditor, SIGNAL(selectionModeChangeRequest(int)), this, SIGNAL(selectionModeChangeRequest(int)));
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 

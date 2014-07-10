@@ -29,6 +29,7 @@ public:
 	bool eventFilter(QObject *, QEvent *);
 
 signals:
+    void selectionModeChangeRequest(int);
     void connectionIsEstablished(NodeEditorConnection *);
 
 private:

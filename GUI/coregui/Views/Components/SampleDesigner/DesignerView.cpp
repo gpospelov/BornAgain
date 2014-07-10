@@ -10,14 +10,6 @@
 #include <QShortcut>
 #include <QDebug>
 
-#include "LayerView.h"
-#include "LayerView.h"
-
-#include "styledbar.h"
-
-#include <cmath>
-#include <iostream>
-
 
 DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent)
     : QGraphicsView(scene, parent)
@@ -25,12 +17,9 @@ DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent)
     setAcceptDrops(true);
     setRenderHint(QPainter::Antialiasing);
     setMouseTracking(true);
-//   QShortcut* shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
-//   connect(shortcut, SIGNAL(activated()), this, SLOT(deleteItem()));
-
     setDragMode(QGraphicsView::RubberBandDrag);
-
 }
+
 
 int DesignerView::getSelectionMode() const
 {
@@ -46,54 +35,6 @@ int DesignerView::getSelectionMode() const
     else {
         throw GUIHelpers::Error("DesignerView::getSelectionMode() -> Error.");
     }
-}
-
-
-//void SampleEditorView::wheelEvent(QWheelEvent *event)
-//{
-//    scaleView(std::pow((double)2, -event->delta() / 240.0));
-//}
-
-
-void DesignerView::scaleView(qreal scaleFactor)
-{
-    qreal factor = transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
-    if (factor < 0.07 || factor > 100)
-        return;
-
-    //m_graphicsView->scale(scaleFactor, scaleFactor);
-    scale(scaleFactor, scaleFactor);
-}
-
-
-void DesignerView::zoomIn()
-{
-    scaleView(1.1);
-}
-
-
-void DesignerView::zoomOut()
-{
-    scaleView(0.9);
-}
-
-//! zoom view to show all items
-void DesignerView::zoomFit()
-{
-//    m_graphicsView->fitInView(m_graphicsView->scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
-    fitInView(scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
-}
-
-
-void DesignerView::onSceneScaleChanged(const QString &scale_string)
-{
-    qDebug() << "onSceneScaleChanged";
-    double newScale = scale_string.left(scale_string.indexOf(tr("%"))).toDouble() / 100.0;
-    QMatrix oldMatrix = matrix();
-    resetMatrix();
-    translate(oldMatrix.dx(), oldMatrix.dy());
-    scale(newScale, newScale);
-
 }
 
 
@@ -121,12 +62,58 @@ void DesignerView::onSelectionMode(int mode)
 }
 
 
+void DesignerView::onCenterView()
+{
+    //fitInView(scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
+    centerOn(scene()->itemsBoundingRect().center());
+}
+
+
+void DesignerView::onChangeScale(double new_scale)
+{
+    qDebug() << "DesignerView::onScaleChanged()" << new_scale;
+    QMatrix oldMatrix = matrix();
+    resetMatrix();
+    translate(oldMatrix.dx(), oldMatrix.dy());
+    scale(new_scale, new_scale);
+}
+
+
 void DesignerView::deleteSelectedItems()
 {
     DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     Q_ASSERT(designerScene);
     designerScene->deleteSelectedItems();
 }
+
+
+void DesignerView::zoomIn()
+{
+    qDebug() << "DesignerView::zoomIn() -> Not implemented";
+}
+
+
+void DesignerView::zoomOut()
+{
+    qDebug() << "DesignerView::zoomOut() -> Not implemented";
+}
+
+
+//void SampleEditorView::wheelEvent(QWheelEvent *event)
+//{
+//    scaleView(std::pow((double)2, -event->delta() / 240.0));
+//}
+
+
+//void DesignerView::scaleView(qreal scaleFactor)
+//{
+//    qreal factor = transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
+//    if (factor < 0.07 || factor > 100)
+//        return;
+
+//    //m_graphicsView->scale(scaleFactor, scaleFactor);
+//    scale(scaleFactor, scaleFactor);
+//}
 
 
 void DesignerView::keyPressEvent(QKeyEvent *event)
@@ -151,6 +138,7 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     }
 }
 
+
 void DesignerView::keyReleaseEvent(QKeyEvent *event)
 {
     switch (event->key()) {
@@ -167,10 +155,5 @@ void DesignerView::keyReleaseEvent(QKeyEvent *event)
 
 }
 
-
-void DesignerView::mouseMoveEvent(QMouseEvent * event)
-{
-    QGraphicsView::mouseMoveEvent(event);
-}
 
 

@@ -21,32 +21,26 @@ public:
 signals:
     void deleteItems();
     void selectionMode(int);
-
-
-//    void zoomIn();
-//    void zoomOut();
-//    void zoomFit();
-//    void smartAlign();
-//    void sceneScaleChanged(const QString &scale);
+    void centerView();
+    void smartAlign();
+    void changeScale(double);
+    void zoomIn();
+    void zoomOut();
 
 public slots:
-    void onMaterialEditorCall();
     void onViewSelectionMode(int);
+    void onScaleComboChanged(const QString &);
+    void onMaterialEditorCall();
 
 private:
-//    QAction *m_materialBrowserAction;
-//    QAction *m_zoomInAction;
-//    QAction *m_zoomOutAction;
-//    QAction *m_zoomFitAction;
-//    QAction *m_clearAllAction;
-//    QAction *m_sceneToISampleAction;
-
     QButtonGroup *m_pointerModeGroup;
     QToolButton *m_removeButton;
-    QToolButton *m_materialEditorButton;
-
+    QToolButton *m_centerViewButton;
+    QToolButton *m_alignItemsButton;
     QComboBox *m_scaleCombo;
-
+    QToolButton *m_materialEditorButton;
+    QAction *m_zoomInAction;
+    QAction *m_zoomOutAction;
 };
 
 

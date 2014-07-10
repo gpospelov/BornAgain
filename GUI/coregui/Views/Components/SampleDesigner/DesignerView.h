@@ -30,20 +30,19 @@ signals:
 
 public slots:
     void onSelectionMode(int);
+    void onCenterView();
+    void onChangeScale(double);
+    void deleteSelectedItems();
 
     void zoomIn();
     void zoomOut();
-    void zoomFit();
-    void deleteSelectedItems();
-    void onSceneScaleChanged(const QString &);
 
 
 protected:
 //    void wheelEvent(QWheelEvent *event);
-    void scaleView(qreal scaleFactor);
+//    void scaleView(qreal scaleFactor);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-    void mouseMoveEvent(QMouseEvent * event);
 
 
 };

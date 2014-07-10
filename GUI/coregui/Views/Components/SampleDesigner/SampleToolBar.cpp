@@ -1,6 +1,7 @@
 #include "SampleToolBar.h"
 #include "MaterialEditor.h"
 #include "MaterialProperty.h"
+#include "DesignerView.h"
 #include <QIcon>
 #include <QAction>
 #include <QToolButton>
@@ -32,23 +33,25 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 //    addAction(m_materialBrowserAction);
 
 
-
     // Select & Pan
-    QToolButton *pointerButton = new QToolButton;
-    pointerButton->setCheckable(true);
-    pointerButton->setChecked(true);
-    pointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_pointer.png"));
-    QToolButton *panButton = new QToolButton;
-    panButton->setCheckable(true);
-    panButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_hand.png"));
+    QToolButton *selectionPointerButton = new QToolButton;
+    selectionPointerButton->setCheckable(true);
+    selectionPointerButton->setChecked(true);
+    selectionPointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_pointer.png"));
+    selectionPointerButton->setToolTip("Edit mode.");
 
-    QButtonGroup *pointerTypeGroup = new QButtonGroup(this);
-    pointerTypeGroup->addButton(pointerButton, 0);
-    pointerTypeGroup->addButton(panButton, 1);
-//    connect(pointerTypeGroup, SIGNAL(buttonClicked(int)),
-//            this, SLOT(pointerGroupClicked(int)));
-    addWidget(pointerButton);
-    addWidget(panButton);
+    QToolButton *handPointerButton = new QToolButton;
+    handPointerButton->setCheckable(true);
+    handPointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_hand.png"));
+    handPointerButton->setToolTip("Pan mode (space).");
+
+    m_pointerModeGroup = new QButtonGroup(this);
+    m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RubberSelectionMode);
+    m_pointerModeGroup->addButton(handPointerButton, DesignerView::HandDragMode);
+    connect(m_pointerModeGroup, SIGNAL(buttonClicked(int)),
+            this, SIGNAL(selectionMode(int)));
+    addWidget(selectionPointerButton);
+    addWidget(handPointerButton);
 
 
     // unddo redo
@@ -63,18 +66,18 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     redoButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_redo.png"));
     addWidget(redoButton);
 
-    // Erase item
+    // Remove item
     addWidget(new QLabel(" "));
     addSeparator();
     addWidget(new QLabel(" "));
-    addWidget(new QLabel(" "));
-//    addSeparator();
-//    addWidget(new QLabel(" "));
-    QToolButton *recycleButton = new QToolButton;
-    recycleButton->setText("Remove item");
-    recycleButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
-    recycleButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    addWidget(recycleButton);
+    m_removeButton = new QToolButton;
+    m_removeButton->setText("Remove item");
+    m_removeButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_removeButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_removeButton->setToolTip("Remove selected item and its child items (del).");
+
+    connect(m_removeButton, SIGNAL(clicked()), this, SIGNAL(deleteItems()));
+    addWidget(m_removeButton);
 
 
     // center
@@ -115,17 +118,18 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 
 
 
-
-
     // MaterialEditor
     addWidget(new QLabel(" "));
     addSeparator();
     addWidget(new QLabel(" "));
-    QToolButton *materialEditor = new QToolButton;
-    materialEditor->setText("Material Editor");
-    materialEditor->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
-    materialEditor->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    addWidget(materialEditor);
+    m_materialEditorButton = new QToolButton;
+    m_materialEditorButton->setText("Material Editor");
+    m_materialEditorButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
+    m_materialEditorButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_materialEditorButton->setToolTip("Open material editor (m).");
+    m_materialEditorButton->setShortcut(Qt::Key_M);
+    connect(m_materialEditorButton, SIGNAL(clicked()), this, SLOT(onMaterialEditorCall()));
+    addWidget(m_materialEditorButton);
 
 
     //
@@ -172,11 +176,11 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 
 //    m_clearAllAction = new QAction(QIcon(":/SampleDesigner/images/eraser.png"), tr("Clear all"), this);
 //    connect(m_clearAllAction, SIGNAL(triggered()), this, SIGNAL(clearAll()));
-//    addAction(m_clearAllAction);
 
 ////    insertSeparator(m_clearAllAction);
 ////    Manhattan::StyledSeparator *sep = new Manhattan::StyledSeparator(this);
 ////    addWidget(new Manhattan::StyledSeparator());
+    //    addAction(m_clearAllAction);
 
 //    m_sceneToISampleAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Smart align"), this);
 //    connect(m_sceneToISampleAction, SIGNAL(triggered()), this, SIGNAL(smartAlign()));
@@ -201,10 +205,30 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 }
 
 
-void SampleToolBar::materialBrowserCall()
+void SampleToolBar::onMaterialEditorCall()
 {
-    //MaterialBrowser::BrowserViewCall();
     MaterialProperty mp = MaterialEditor::selectMaterialProperty();
     qDebug() << "SampleToolBar::materialBrowserCall()" << mp.getName() << mp.getColor();
 
 }
+
+void SampleToolBar::onViewSelectionMode(int mode)
+{
+    qDebug() << "SampleToolBar::onViewSelectionMode" << mode;
+    m_pointerModeGroup->button(mode)->setChecked(true);
+}
+
+//void SampleToolBar::onPointerModeGroupClicked(int mode)
+//{
+//    qDebug() << "SampleToolBar::onPointerModeGroupClicked() ->";
+//    switch(mode) {
+//    case(SelectionPointer):
+//        emit selectionPointerMode();
+//        break;
+//    case(HandPointer):
+//        emit handPointerMode();
+//        break;
+//    default:
+//        break;
+//    }
+//}

@@ -1,6 +1,7 @@
 #include "DesignerView.h"
 #include "DesignerMimeData.h"
 #include "DesignerScene.h"
+#include "GUIHelpers.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -29,6 +30,22 @@ DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent)
 
     setDragMode(QGraphicsView::RubberBandDrag);
 
+}
+
+int DesignerView::getSelectionMode() const
+{
+    if (dragMode() == QGraphicsView::NoDrag) {
+        return SimpleSelectionMode;
+    }
+    else if(dragMode() == QGraphicsView::RubberBandDrag) {
+        return RubberSelectionMode;
+    }
+    else if(dragMode() == QGraphicsView::ScrollHandDrag) {
+        return HandDragMode;
+    }
+    else {
+        throw GUIHelpers::Error("DesignerView::getSelectionMode() -> Error.");
+    }
 }
 
 
@@ -68,12 +85,6 @@ void DesignerView::zoomFit()
 }
 
 
-void DesignerView::clearAll()
-{
-    //m_graphicsView->scene()->clear();
-    scene()->clear();
-}
-
 void DesignerView::onSceneScaleChanged(const QString &scale_string)
 {
     qDebug() << "onSceneScaleChanged";
@@ -83,6 +94,30 @@ void DesignerView::onSceneScaleChanged(const QString &scale_string)
     translate(oldMatrix.dx(), oldMatrix.dy());
     scale(newScale, newScale);
 
+}
+
+
+void DesignerView::onSelectionMode(int mode)
+{
+    switch(mode) {
+    case SimpleSelectionMode:
+        setDragMode(QGraphicsView::NoDrag);
+        setInteractive(true);
+        emit selectionModeChanged(SimpleSelectionMode);
+        break;
+    case RubberSelectionMode:
+        setDragMode(QGraphicsView::RubberBandDrag);
+        setInteractive(true);
+        emit selectionModeChanged(RubberSelectionMode);
+        break;
+    case HandDragMode:
+        setDragMode(QGraphicsView::ScrollHandDrag);
+        setInteractive(false);
+        emit selectionModeChanged(HandDragMode);
+        break;
+     default:
+        break;
+    }
 }
 
 
@@ -100,9 +135,8 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Left:
         break;
     case Qt::Key_Space:
-        if(dragMode() != QGraphicsView::ScrollHandDrag && !event->isAutoRepeat()) {
-            setDragMode(QGraphicsView::ScrollHandDrag);
-            setInteractive(false);
+        if( getSelectionMode() != HandDragMode && !event->isAutoRepeat()) {
+            onSelectionMode(HandDragMode);
             qDebug() << "  space pressed" << event->isAutoRepeat();
         }
         break;
@@ -122,9 +156,8 @@ void DesignerView::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Space:
 
-        if(dragMode() == QGraphicsView::ScrollHandDrag && !event->isAutoRepeat()) {
-            setDragMode(QGraphicsView::RubberBandDrag);
-            setInteractive(true);
+        if( getSelectionMode() != RubberSelectionMode && !event->isAutoRepeat()) {
+            onSelectionMode(RubberSelectionMode);
             qDebug() << "  space released" << event->isAutoRepeat();
         }
         break;

@@ -215,19 +215,24 @@ void SampleView::connectSignals()
 {
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(this);
-    connect(m_toolBar, SIGNAL(zoomOut()),
-            m_sampleDesigner->getView(), SLOT(zoomOut()));
-    connect(m_toolBar, SIGNAL(zoomIn()),
-            m_sampleDesigner->getView(), SLOT(zoomIn()));
-    connect(m_toolBar, SIGNAL(zoomFit()),
-            m_sampleDesigner->getView(), SLOT(zoomFit()));
-    connect(m_toolBar, SIGNAL(clearAll()),
-            m_sampleDesigner->getView(), SLOT(clearAll()));
-    connect(m_toolBar, SIGNAL(smartAlign()),
-            m_sampleDesigner, SLOT(onSmartAlign()));
+    connect(m_toolBar, SIGNAL(deleteItems()),
+            m_sampleDesigner->getView(), SLOT(deleteSelectedItems()));
+    connect(m_toolBar, SIGNAL(selectionMode(int)), m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
+    connect(m_sampleDesigner->getView(), SIGNAL(selectionModeChanged(int)),m_toolBar, SLOT(onViewSelectionMode(int)));
 
-    connect(m_toolBar, SIGNAL(sceneScaleChanged(QString)),
-            m_sampleDesigner->getView(), SLOT(onSceneScaleChanged(QString)));
+//    connect(m_toolBar, SIGNAL(zoomOut()),
+//            m_sampleDesigner->getView(), SLOT(zoomOut()));
+//    connect(m_toolBar, SIGNAL(zoomIn()),
+//            m_sampleDesigner->getView(), SLOT(zoomIn()));
+//    connect(m_toolBar, SIGNAL(zoomFit()),
+//            m_sampleDesigner->getView(), SLOT(zoomFit()));
+//    connect(m_toolBar, SIGNAL(clearAll()),
+//            m_sampleDesigner->getView(), SLOT(clearAll()));
+//    connect(m_toolBar, SIGNAL(smartAlign()),
+//            m_sampleDesigner, SLOT(onSmartAlign()));
+
+//    connect(m_toolBar, SIGNAL(sceneScaleChanged(QString)),
+//            m_sampleDesigner->getView(), SLOT(onSceneScaleChanged(QString)));
 
 
     // connect context menu for tree view

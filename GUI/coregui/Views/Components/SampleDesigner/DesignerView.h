@@ -22,12 +22,19 @@ public:
     explicit DesignerView(QGraphicsScene *scene, QWidget *parent = 0);
     virtual ~DesignerView(){}
 
+    enum SelectionModes { SimpleSelectionMode, RubberSelectionMode, HandDragMode};
+    int getSelectionMode() const;
+
+signals:
+    void selectionModeChanged(int);
+
 public slots:
+    void onSelectionMode(int);
+
     void zoomIn();
     void zoomOut();
     void zoomFit();
     void deleteSelectedItems();
-    void clearAll();
     void onSceneScaleChanged(const QString &);
 
 
@@ -37,6 +44,7 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void mouseMoveEvent(QMouseEvent * event);
+
 
 };
 

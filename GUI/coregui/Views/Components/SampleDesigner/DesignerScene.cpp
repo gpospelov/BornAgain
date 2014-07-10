@@ -299,19 +299,32 @@ void DesignerScene::removeItemViewFromScene(ParameterizedItem *item)
 //! propagates deletion of views on the scene to the model
 void DesignerScene::deleteSelectedItems()
 {
-    qDebug() << "DesignerScene::deleteSelectedItems()" << selectedItems().size();
+    qDebug() << "DesignerScene::deleteSelectedItems() 1.1" << selectedItems().size();
 
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
+
+    QList<IView *> views_which_will_be_deleted;
+    foreach(QModelIndex index, indexes) {
+        views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(index)]);
+    }
+
+    // deleting selected items on model side, corresponding views will be deleted automatically
+    // Since we don't know the order of items, we need this
     while(indexes.size()) {
         m_sampleModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
         indexes = m_selectionModel->selectedIndexes();
     }
 
+    // Connections will be deleted automatically if one of connected views has been deleted.
+    // For the moment, we have to delete connections which are: 1) were selected 2) Do not connect views scheduled for deletion.
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
         if(NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
+            if(views_which_will_be_deleted.contains(connection->getParentView()) ||
+                views_which_will_be_deleted.contains(connection->getChildView()) ) continue;
             removeConnection(connection);
         }
     }
+
 }
 
 

@@ -95,7 +95,6 @@ bool ParameterizedItem::event(QEvent * e )
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
-    //qDebug() << "ParameterizedItem::onPropertyChange() -> before emit";
     emit propertyChanged(name);
 }
 

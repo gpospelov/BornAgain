@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/MemberFunctionMCIntegrator.h
-//! @brief     Defines and implements template class MemberFunctionMCIntegrator.
+//! @file      Tools/inc/MemberFunctionMCMiserIntegrator.h
+//! @brief     Defines and implements template class MemberFunctionMCMiserIntegrator.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,18 @@
 //
 // ************************************************************************** //
 
-#ifndef MEMBERFUNCTIONMCINTEGRATOR_H
-#define MEMBERFUNCTIONMCINTEGRATOR_H
+#ifndef MEMBERFUNCTIONMCMISERINTEGRATOR_H
+#define MEMBERFUNCTIONMCMISERINTEGRATOR_H
 
-#include "gsl/gsl_monte_vegas.h"
+#include "gsl/gsl_monte_miser.h"
 
-//! @class MemberFunctionMCIntegrator
+//! @class MemberFunctionMCMiserIntegrator
 //! @ingroup tools_internal
-//! @brief Template class to use Monte Carlo integration of class member functions
+//! @brief Template class to use Monte Carlo MISER integration of class member functions
 //!
 //! Wrap integrator from GNU Scientific Library.
 
-template <class C> class MemberFunctionMCIntegrator
+template <class C> class MemberFunctionMCMiserIntegrator
 {
 public:
     //! member function type
@@ -38,9 +38,9 @@ public:
     };
 
     //! to integrate p_member_function, which must belong to p_object
-    MemberFunctionMCIntegrator(
+    MemberFunctionMCMiserIntegrator(
         mem_function p_member_function, const C *const p_object, size_t dim);
-    ~MemberFunctionMCIntegrator();
+    ~MemberFunctionMCMiserIntegrator();
 
     //! perform the actual integration over the ranges [min_array, max_array]
     double integrate(double *min_array, double *max_array, void* params,
@@ -56,18 +56,18 @@ private:
     mem_function m_member_function; //!< the member function to integrate
     const C *mp_object; //!< the object whose member function to integrate
     size_t m_dim; //!< dimension of the integration
-    gsl_monte_vegas_state *m_gsl_workspace;
+    gsl_monte_miser_state *m_gsl_workspace;
     gsl_rng *m_random_gen;
 };
 
-template<class C> MemberFunctionMCIntegrator<C>::MemberFunctionMCIntegrator(
+template<class C> MemberFunctionMCMiserIntegrator<C>::MemberFunctionMCMiserIntegrator(
         mem_function p_member_function, const C *const p_object, size_t dim)
 : m_member_function(p_member_function)
 , mp_object(p_object)
 , m_dim(dim)
 , m_gsl_workspace(0)
 {
-    m_gsl_workspace = gsl_monte_vegas_alloc(m_dim);
+    m_gsl_workspace = gsl_monte_miser_alloc(m_dim);
 
     const gsl_rng_type * random_type;
     gsl_rng_env_setup();
@@ -75,13 +75,13 @@ template<class C> MemberFunctionMCIntegrator<C>::MemberFunctionMCIntegrator(
     m_random_gen = gsl_rng_alloc(random_type);
 }
 
-template<class C> MemberFunctionMCIntegrator<C>::~MemberFunctionMCIntegrator()
+template<class C> MemberFunctionMCMiserIntegrator<C>::~MemberFunctionMCMiserIntegrator()
 {
-    gsl_monte_vegas_free(m_gsl_workspace);
+    gsl_monte_miser_free(m_gsl_workspace);
     gsl_rng_free(m_random_gen);
 }
 
-template<class C> double MemberFunctionMCIntegrator<C>::integrate(
+template<class C> double MemberFunctionMCMiserIntegrator<C>::integrate(
         double *min_array, double *max_array, void* params, size_t nbr_points)
 {
     assert(mp_object);
@@ -95,9 +95,9 @@ template<class C> double MemberFunctionMCIntegrator<C>::integrate(
     f.params =& cb;
 
     double result, error;
-    gsl_monte_vegas_integrate(&f, min_array, max_array, m_dim, nbr_points,
+    gsl_monte_miser_integrate(&f, min_array, max_array, m_dim, nbr_points,
                                     m_random_gen, m_gsl_workspace, &result, &error);
     return result;
 }
 
-#endif // MEMBERFUNCTIONMCINTEGRATOR_H
+#endif // MEMBERFUNCTIONMCMISERINTEGRATOR_H

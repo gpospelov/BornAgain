@@ -119,25 +119,11 @@ inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
 
 inline complex_t ScalarRTCoefficients::getScalarR() const
 {
-//    if (lambda==0.0) {
-//        if (phi_psi(1)==0.0) {
-//            return -1.0;
-//        }
-//        else return 0.0;
-//    }
-//    return (phi_psi(1)+phi_psi(0)/lambda)/2.0;
     return t_r(1);
 }
 
 inline complex_t ScalarRTCoefficients::getScalarT() const
 {
-//    if (lambda==0.0) {
-//        if (phi_psi(1)==0.0) {
-//            return 1.0;
-//        }
-//        else return phi_psi(1);
-//    }
-//    return (phi_psi(1)-phi_psi(0)/lambda)/2.0;
     return t_r(0);
 }
 

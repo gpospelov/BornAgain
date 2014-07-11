@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorDWBAPolConstZ.h"
+#include <boost/scoped_ptr.hpp>
 
 FormFactorDWBAPolConstZ::FormFactorDWBAPolConstZ(IFormFactor* p_formfactor,
         double depth)
@@ -44,15 +45,16 @@ Eigen::Matrix2cd FormFactorDWBAPolConstZ::evaluatePol(const cvector_t& k_i,
             mp_specular_info->getInCoefficients();
     double alpha_f = alpha_f_bin.getMidPoint();
     double phi_f = phi_f_bin.getMidPoint();
-    const ILayerRTCoefficients *p_out_coeffs =
-            mp_specular_info->getOutCoefficients(alpha_f, phi_f);
+    boost::scoped_ptr<const ILayerRTCoefficients> P_out_coeffs(
+                getOutCoeffs(alpha_f, phi_f));
+
     complex_t kiz_1R = in_coeff->getKz()(0);
     complex_t kiz_1T = -in_coeff->getKz()(0);
     complex_t kiz_2R = in_coeff->getKz()(1);
     complex_t kiz_2T = -in_coeff->getKz()(1);
-    complex_t kfz_1R = p_out_coeffs->getKz()(0);
+    complex_t kfz_1R = P_out_coeffs->getKz()(0);
     complex_t kfz_1T = -kfz_1R;
-    complex_t kfz_2R = p_out_coeffs->getKz()(1);;
+    complex_t kfz_2R = P_out_coeffs->getKz()(1);;
     complex_t kfz_2T = -kfz_2R;
     calculateTerms(k_i, k_f_bin, alpha_f_bin, phi_f_bin);
 

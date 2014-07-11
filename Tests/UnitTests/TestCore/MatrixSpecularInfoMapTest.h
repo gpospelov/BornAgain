@@ -5,59 +5,78 @@
 #include "MatrixSpecularInfoMap.h"
 #include "gtest/gtest.h"
 
+#include <boost/scoped_ptr.hpp>
 
 class MatrixSpecularInfoMapTest : public ::testing :: Test
 {
 protected:
     MatrixSpecularInfoMapTest();
-    virtual ~MatrixSpecularInfoMapTest(){}
+    virtual ~MatrixSpecularInfoMapTest() {
+        delete mp_multilayer;
+    }
 
-    MatrixRTCoefficients mrtcDefault;
-    MatrixSpecularInfoMap map;
+    MultiLayer *mp_multilayer;
 };
 
 MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
 {
-    map.addCoefficients(* new MatrixRTCoefficients(), 1.0, 1.0);
+    mp_multilayer = new MultiLayer;
 
-    mrtcDefault = * map.getCoefficients(1.0, 1.0);
+    HomogeneousMaterial air_material("Air", 0., 0.);
+    HomogeneousMaterial substrate_material("Substrate", 0.2, 0.02);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    mp_multilayer->addLayer(air_layer);
+    mp_multilayer->addLayer(substrate_layer);
 }
 
 TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
-    EXPECT_TRUE(NULL != map.getCoefficients(1.0, 1.0));
+    MatrixSpecularInfoMap map(mp_multilayer, 0, 2.0*M_PI);
+    boost::scoped_ptr<const MatrixRTCoefficients> rt_coeffs(
+                map.getCoefficients(1.0, 1.0));
+    complex_t R0 = complex_t(0.1750375, -0.0222467);
+    complex_t lambda0 = complex_t(0.841471, 0.0);
+    (void)R0;
+    (void)lambda0;
 
+    EXPECT_TRUE(NULL != rt_coeffs.get());
 
-    EXPECT_EQ(complex_t(0.5,0.0), mrtcDefault.T1plus()(0));
-    EXPECT_EQ(0.0, mrtcDefault.T1plus()(1));
+    EXPECT_EQ(0.0, rt_coeffs->T1plus()(0));
+    EXPECT_EQ(0.0, rt_coeffs->T1plus()(1));
 
-    EXPECT_EQ(0.0, mrtcDefault.T1min()(0));
-    EXPECT_EQ(complex_t(0.5,0.0), mrtcDefault.T1min()(1));
+    EXPECT_EQ(0.0, rt_coeffs->T1min()(0));
+    EXPECT_NEAR(1.0, rt_coeffs->T1min()(1).real(), 1e-6);
+    EXPECT_NEAR(0.0, rt_coeffs->T1min()(1).imag(), 1e-6);
 
+    EXPECT_NEAR(1.0, rt_coeffs->T2plus()(0).real(), 1e-6);
+    EXPECT_NEAR(0.0, rt_coeffs->T2plus()(0).imag(), 1e-6);
+    EXPECT_EQ(0.0, rt_coeffs->T2plus()(1));
 
-    EXPECT_EQ(complex_t(0.5,0.0), mrtcDefault.T2plus()(0));
-    EXPECT_EQ(0.0, mrtcDefault.T2plus()(1));
+    EXPECT_EQ(0.0, rt_coeffs->T2min()(0));
+    EXPECT_EQ(0.0, rt_coeffs->T2min()(1));
 
-    EXPECT_EQ(0.0, mrtcDefault.T2min()(0));
-    EXPECT_EQ(complex_t(0.5,0.0), mrtcDefault.T2min()(1));
+    EXPECT_EQ(0.0, rt_coeffs->R1plus()(0));
+    EXPECT_EQ(0.0, rt_coeffs->R1plus()(1));
 
-    EXPECT_EQ(complex_t(-0.5,0.0), mrtcDefault.R1plus()(0));
-    EXPECT_EQ(0.0, mrtcDefault.R1plus()(1));
+    EXPECT_EQ(0.0, rt_coeffs->R1min()(0));
+    EXPECT_NEAR(R0.real(), rt_coeffs->R1min()(1).real(), 1e-6);
+    EXPECT_NEAR(R0.imag(), rt_coeffs->R1min()(1).imag(), 1e-6);
 
-    EXPECT_EQ(0.0, mrtcDefault.R1min()(0));
-    EXPECT_EQ(complex_t(-0.5,0.0), mrtcDefault.R1min()(1));
+    EXPECT_NEAR(R0.real(), rt_coeffs->R2plus()(0).real(), 1e-6);
+    EXPECT_NEAR(R0.imag(), rt_coeffs->R2plus()(0).imag(), 1e-6);
+    EXPECT_EQ(0.0, rt_coeffs->R2plus()(1));
 
-    EXPECT_EQ(complex_t(-0.5,0.0), mrtcDefault.R2plus()(0));
-    EXPECT_EQ(0.0, mrtcDefault.R2plus()(1));
+    EXPECT_EQ(0.0, rt_coeffs->R2min()(0));
+    EXPECT_EQ(0.0, rt_coeffs->R2min()(1));
 
-    EXPECT_EQ(0.0, mrtcDefault.R2min()(0));
-    EXPECT_EQ(complex_t(-0.5,0.0), mrtcDefault.R2min()(1));
-
-    EXPECT_EQ(complex_t(0.0,0.0), mrtcDefault.getKz()(0));
-    EXPECT_EQ(complex_t(0.0,0.0), mrtcDefault.getKz()(1));
+    EXPECT_NEAR(lambda0.real(), rt_coeffs->getKz()(0).real(), 1e-6);
+    EXPECT_NEAR(lambda0.imag(), rt_coeffs->getKz()(0).imag(), 1e-6);
+    EXPECT_NEAR(lambda0.real(), rt_coeffs->getKz()(1).real(), 1e-6);
+    EXPECT_NEAR(lambda0.imag(), rt_coeffs->getKz()(1).imag(), 1e-6);
 }
-
-
 
 #endif //MATRIXSPECULARINFOMAPTEST_H
 

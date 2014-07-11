@@ -38,8 +38,9 @@ public:
     virtual void init(const SafePointerVector<FormFactorInfo>&
                       form_factor_infos,
                       const SafePointerVector<IInterferenceFunction>& ifs);
+    void setSpecularInfo(const LayerSpecularInfo& specular_info);
     double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
-            Bin1D alpha_f_bin) const;
+            Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
     //! Calculates a matrix valued intensity
     Eigen::Matrix2d evaluatePol(const cvector_t& k_i,
             const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin,
@@ -57,6 +58,7 @@ protected:
     SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
     SafePointerVector<IInterferenceFunction> m_ifs; //!< interference functions
     SimulationParameters m_sim_params; //!< simulation parameters
+    LayerSpecularInfo *mp_specular_info; //!< R and T coefficients for DWBA
 
 private:
     struct IntegrationParamsAlpha {
@@ -65,6 +67,7 @@ private:
         cvector_t k_f01;
         cvector_t k_f10;
         cvector_t k_f11;
+        double wavelength;
         Bin1D alpha_bin;
         Bin1D phi_bin;
         int index;
@@ -93,19 +96,19 @@ private:
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! intensity
     double MCIntegratedEvaluate(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin) const;
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the
     //! polarized intensity
     Eigen::Matrix2d MCIntegratedEvaluatePol(const cvector_t& k_i,
-            const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
+        const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Get the reciprocal integration region
     IntegrationParamsAlpha getIntegrationParams(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin, Bin1D alpha_f_bin, Bin1D phi_f_bin) const;
 
     //! Evaluate for fixed angles
-    double evaluate_for_fixed_kf(double *fractions, size_t dim, void* params) const;
+    double evaluate_for_fixed_angles(double *fractions, size_t dim, void* params) const;
 
     //! Evaluate polarized for fixed angles
     double evaluate_for_fixed_kf_pol(double *fractions, size_t dim, void* params) const;

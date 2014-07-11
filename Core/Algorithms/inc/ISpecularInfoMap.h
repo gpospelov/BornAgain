@@ -26,11 +26,16 @@
 class BA_CORE_API_ ISpecularInfoMap
 {
 public:
+    ISpecularInfoMap() {}
     virtual ~ISpecularInfoMap() {}
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients *getCoefficients(
             double alhpa_f, double phi_f) const=0;
+private:
+    // Prevent copy construction and assignment of derived classes
+    ISpecularInfoMap(const ISpecularInfoMap& other);
+    ISpecularInfoMap& operator=(const ISpecularInfoMap &other);
 };
 
 

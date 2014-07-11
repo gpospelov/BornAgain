@@ -17,48 +17,31 @@
 #define MATRIXSPECULARINFOMAP_H_
 
 #include "ISpecularInfoMap.h"
+#include "MatrixRTCoefficients.h"
+#include "MultiLayer.h"
 #include "Utils.h"
 
 
 //! @class MatrixSpecularInfoMap
 //! @ingroup algorithms_internal
 //! @brief Implementation of ISpecularInfoMap for matrix valued reflection/
-//! transmission coefficients (the map contains values for both alpha_f and
-//! phi_f, because of broken rotation symmetry in the xy-plane
+//! transmission coefficients
 
 class BA_CORE_API_ MatrixSpecularInfoMap : public ISpecularInfoMap
 {
 public:
-    MatrixSpecularInfoMap() {}
+    MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer,
+                          double wavelength);
     virtual ~MatrixSpecularInfoMap() {}
-
-    //! Adds amplitude coefficients for the given angles
-    void addCoefficients(const MatrixRTCoefficients &rt_coefficients,
-            double alpha_f, double phi_f);
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const MatrixRTCoefficients *getCoefficients(
             double alpha_f, double phi_f) const;
 private:
-    typedef Utils::UnorderedMap<double, MatrixRTCoefficients>
-        container_phi_t;
-    Utils::UnorderedMap<double, container_phi_t> m_value_map;
+    std::auto_ptr<MultiLayer> mP_inverted_multilayer;
+    const int m_layer;
+    double m_wavelength;
 };
-
-inline void MatrixSpecularInfoMap::addCoefficients(
-        const MatrixRTCoefficients& rt_coefficients, double alpha_f,
-        double phi_f)
-{
-    container_phi_t &phi_map = m_value_map[alpha_f];
-    phi_map[phi_f] = rt_coefficients;
-}
-
-inline const MatrixRTCoefficients* MatrixSpecularInfoMap::getCoefficients(
-        double alpha_f, double phi_f) const
-{
-    const container_phi_t &phi_map = m_value_map.find(alpha_f);
-    return &phi_map.find(phi_f);
-}
 
 
 #endif /* MATRIXSPECULARINFOMAP_H_ */

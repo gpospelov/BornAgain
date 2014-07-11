@@ -1,8 +1,6 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "ParameterizedItem.h"
-#include "GroupProperty.h"
-#include <iostream>
 
 
 PropertyVariantManager::PropertyVariantManager(QObject *parent)
@@ -24,11 +22,19 @@ int PropertyVariantManager::groupTypeId()
     return result;
 }
 
+int PropertyVariantManager::colorPropertyTypeId()
+{
+    int result = qMetaTypeId<ColorProperty>();
+    return result;
+}
+
 bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return true;
     if (propertyType == groupTypeId())
+        return true;
+    if (propertyType == colorPropertyTypeId())
         return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
@@ -40,6 +46,8 @@ int PropertyVariantManager::valueType(int propertyType) const
         return materialTypeId();
     if (propertyType == groupTypeId())
         return groupTypeId();
+    if (propertyType == colorPropertyTypeId())
+        return colorPropertyTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 
@@ -56,6 +64,11 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
         v.setValue(theGroupValues[property]);
         return v;
     }
+    if(m_ColorValues.contains(property)) {
+        QVariant v;
+        v.setValue(m_ColorValues[property]);
+        return v;
+    }
     return QtVariantPropertyManager::value(property);
 }
 
@@ -68,6 +81,9 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
     if (theGroupValues.contains(property)) {
         return theGroupValues[property].getValue();
     }
+    if (m_ColorValues.contains(property)) {
+        return m_ColorValues[property].getText();
+    }
     return QtVariantPropertyManager::valueText(property);
 }
 
@@ -76,6 +92,9 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 {
     if (theMaterialValues.contains(property)) {
         return QIcon(theMaterialValues[property].getPixmap());
+    }
+    if (m_ColorValues.contains(property)) {
+        return QIcon(m_ColorValues[property].getPixmap());
     }
     return QtVariantPropertyManager::valueIcon(property);
 }
@@ -103,6 +122,16 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
         emit valueChanged(property, v2);
         return;
     }
+    if (m_ColorValues.contains(property)) {
+        if( val.userType() != colorPropertyTypeId() ) return;
+        ColorProperty mat = val.value<ColorProperty>();
+        m_ColorValues[property] = mat;
+        QVariant v2;
+        v2.setValue(mat);
+        emit propertyChanged(property);
+        emit valueChanged(property, v2);
+        return;
+    }
     QtVariantPropertyManager::setValue(property, val);
 }
 
@@ -117,6 +146,11 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         GroupProperty m;
         theGroupValues[property] = m;
     }
+    if (propertyType(property) == colorPropertyTypeId()) {
+        ColorProperty m;
+        m_ColorValues[property] = m;
+    }
+
     QtVariantPropertyManager::initializeProperty(property);
 }
 
@@ -125,6 +159,7 @@ void PropertyVariantManager::uninitializeProperty(QtProperty *property)
 {
     theMaterialValues.remove(property);
     theGroupValues.remove(property);
+    m_ColorValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 

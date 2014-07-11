@@ -10,11 +10,19 @@ PropertyVariantFactory::~PropertyVariantFactory()
     QListIterator<MaterialPropertyEdit *> mat_it(mat_editors);
     while (mat_it.hasNext())
         delete mat_it.next();
+
     QList<GroupPropertyEdit *> ff_editors =
             m_group_editor_to_property.keys();
     QListIterator<GroupPropertyEdit *> ff_it(ff_editors);
     while (ff_it.hasNext())
         delete ff_it.next();
+
+    QList<ColorPropertyEdit *> color_editors =
+            m_color_editor_to_property.keys();
+    QListIterator<ColorPropertyEdit *> color_it(color_editors);
+    while (color_it.hasNext())
+        delete color_it.next();
+
 }
 
 void PropertyVariantFactory::connectPropertyManager(
@@ -26,7 +34,7 @@ void PropertyVariantFactory::connectPropertyManager(
     connect(manager, SIGNAL(attributeChanged(QtProperty *, const QString &,
                                              const QVariant &)),
                 this, SLOT(slotPropertyAttributeChanged(QtProperty *,
-                                    const QString &, const QVariant &)));
+                                    const QString &, const QVariant &)));    
     QtVariantEditorFactory::connectPropertyManager(manager);
 }
 
@@ -67,6 +75,23 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
     }
+    if (manager->propertyType(property) ==
+            PropertyVariantManager::colorPropertyTypeId()) {
+        ColorPropertyEdit *editor = new ColorPropertyEdit(parent);
+        QVariant var = manager->value(property);
+        ColorProperty mat = var.value<ColorProperty>();
+        editor->setColorProperty(mat);
+
+        m_property_to_color_editors[property].append(editor);
+        m_color_editor_to_property[editor] = property;
+
+        connect(editor, SIGNAL(colorPropertyChanged(const ColorProperty &)),
+                this, SLOT(slotSetValue(const ColorProperty &)));
+        connect(editor, SIGNAL(destroyed(QObject *)),
+                this, SLOT(slotEditorDestroyed(QObject *)));
+        return editor;
+    }
+
     return QtVariantEditorFactory::createEditor(manager, property, parent);
 }
 
@@ -105,7 +130,15 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
             itEditor.next()->setGroupProperty(mat);
         }
     }
-    return;
+    else if (m_property_to_color_editors.contains(property)) {
+        QList<ColorPropertyEdit *> editors =
+                m_property_to_color_editors[property];
+        QListIterator<ColorPropertyEdit *> itEditor(editors);
+        while (itEditor.hasNext()) {
+            ColorProperty mat = value.value<ColorProperty>();
+            itEditor.next()->setColorProperty(mat);
+        }
+    }
 }
 
 
@@ -147,6 +180,24 @@ void PropertyVariantFactory::slotSetValue(const GroupProperty &value)
     }
 }
 
+void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
+{
+    QObject *object = sender();
+    QMap<ColorPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+                m_color_editor_to_property.constBegin();
+    while (itEditor != m_color_editor_to_property.constEnd()) {
+        if (itEditor.key() == object) {
+            QtProperty *property = itEditor.value();
+            QtVariantPropertyManager *manager = propertyManager(property);
+            if (!manager) return;
+            QVariant var;
+            var.setValue(value);
+            manager->setValue(property, var);
+            return;
+        }
+        itEditor++;
+    }
+}
 
 void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 {
@@ -178,6 +229,21 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         }
         ff_it_editor++;
     }
+    QMap<ColorPropertyEdit *, QtProperty *>::ConstIterator color_it_editor =
+                m_color_editor_to_property.constBegin();
+    while (color_it_editor != m_color_editor_to_property.constEnd()) {
+        if (color_it_editor.key() == object) {
+            ColorPropertyEdit *editor = color_it_editor.key();
+            QtProperty *property = color_it_editor.value();
+            m_color_editor_to_property.remove(editor);
+            m_property_to_color_editors[property].removeAll(editor);
+            if (m_property_to_color_editors[property].isEmpty())
+                m_property_to_color_editors.remove(property);
+            return;
+        }
+        color_it_editor++;
+    }
+
 }
 
 void PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)

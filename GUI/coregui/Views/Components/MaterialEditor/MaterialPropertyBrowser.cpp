@@ -1,7 +1,7 @@
 #include "MaterialPropertyBrowser.h"
 #include "MaterialModel.h"
-#include "MaterialVariantManager.h"
-#include "MaterialVariantFactory.h"
+#include "PropertyVariantManager.h"
+#include "PropertyVariantFactory.h"
 #include "qttreepropertybrowser.h"
 #include <QtVariantPropertyManager>
 #include <QtProperty>
@@ -24,9 +24,10 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
 
 {
     m_browser = new QtTreePropertyBrowser(this);
-    m_readOnlyManager = new MaterialVariantManager(this);
-    m_variantManager = new MaterialVariantManager(this);
-    m_variantFactory = new MaterialVariantFactory(this);
+    m_readOnlyManager = new PropertyVariantManager(this);
+    m_variantManager = new PropertyVariantManager(this);
+    m_variantFactory = new PropertyVariantFactory(this);
+
     m_browser->setFactoryForManager(m_variantManager, m_variantFactory);
 
     connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),

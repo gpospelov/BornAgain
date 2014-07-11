@@ -4,6 +4,7 @@
 //#include "FormFactorProperty.h"
 #include "MaterialProperties.h"
 #include "GroupProperty.h"
+#include "ColorProperty.h"
 #include <QLabel>
 #include <QIcon>
 #include <QComboBox>
@@ -28,6 +29,7 @@ private:
     MaterialProperty m_materialProperty;
 };
 
+
 //! The GroupPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for GroupProperty
 class GroupPropertyEdit : public QWidget
@@ -51,6 +53,31 @@ private slots:
 private:
     QComboBox *m_box;
     GroupProperty m_groupProperty;
+};
+
+
+//! The ColorPropertyEdit class provides PropertyVariantFactory with editing
+//! widget for ColorProperty
+class ColorPropertyEdit : public QWidget
+{
+    Q_OBJECT
+public:
+    ColorPropertyEdit(QWidget *parent = 0);
+
+    void setColorProperty(const ColorProperty &colorProperty);
+    ColorProperty getColorProperty() const {return m_colorProperty; }
+
+    QString colorValueText(const QColor &c);
+
+signals:
+    void colorPropertyChanged(const ColorProperty &material_color);
+
+private slots:
+    void buttonClicked();
+private:
+    QLabel *m_textLabel;
+    QLabel *m_pixmapLabel;
+    ColorProperty m_colorProperty;
 };
 
 #endif // PROPERTYBROWSERUTILS_H

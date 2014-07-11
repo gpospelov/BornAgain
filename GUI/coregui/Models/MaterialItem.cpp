@@ -143,7 +143,7 @@ void MaterialItem::removeSubProperty(QString name)
 void MaterialItem::addColorProperty()
 {
     if(!property(MaterialProperties::Color).isValid()) {
-        MaterialColorProperty mat_color = MaterialUtils::suggestMaterialColorProperty(getName());
+        ColorProperty mat_color = MaterialUtils::suggestMaterialColorProperty(getName());
         QVariant mat_color_var;
         mat_color_var.setValue(mat_color);
         setProperty(MaterialProperties::Color, mat_color_var);
@@ -204,9 +204,9 @@ void MaterialItem::writeProperty(QXmlStreamWriter *writer, MaterialItem *item, c
             writer->writeAttribute(MaterialXML::ParameterValueAttribute,
                                 variant.toString());
         }
-        else if (type_name == QString("MaterialColorProperty")) {
+        else if (type_name == QString("ColorProperty")) {
             int r, g, b, a;
-            QColor material_color = variant.value<MaterialColorProperty>().getColor();
+            QColor material_color = variant.value<ColorProperty>().getColor();
             material_color.getRgb(&r, &g, &b, &a);
             writer->writeAttribute(MaterialXML::MaterialColorRedAttribute, QString::number(r));
             writer->writeAttribute(MaterialXML::MaterialColorGreenAttribute, QString::number(g));
@@ -310,7 +310,7 @@ QString MaterialItem::readProperty(QXmlStreamReader *reader, MaterialItem *item)
         int g = reader->attributes().value(MaterialXML::MaterialColorGreenAttribute).toInt();
         int b = reader->attributes().value(MaterialXML::MaterialColorBlueAttribute).toInt();
         int a = reader->attributes().value(MaterialXML::MaterialColorAlphaAttribute).toInt();
-        MaterialColorProperty color(QColor(r, g, b, a));
+        ColorProperty color(QColor(r, g, b, a));
         QVariant color_variant;
         color_variant.setValue(color);
         item->setProperty(MaterialProperties::Color, color_variant);

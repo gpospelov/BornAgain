@@ -6,6 +6,7 @@
 #include <QtVariantPropertyManager>
 #include "MaterialProperties.h"
 #include "GroupProperty.h"
+#include "ColorProperty.h"
 class QObject;
 
 //! The ObjectVariantManager class provides and manages user defined
@@ -21,6 +22,7 @@ public:
     virtual bool isPropertyTypeSupported(int propertyType) const;
     static int materialTypeId();
     static int groupTypeId();
+    static int colorPropertyTypeId();
 
 public slots:
     virtual void setValue(QtProperty *property, const QVariant &val);
@@ -33,6 +35,7 @@ protected:
 private:
     QMap<const QtProperty *, MaterialProperty> theMaterialValues;
     QMap<const QtProperty *, GroupProperty> theGroupValues;
+    QMap<const QtProperty *, ColorProperty> m_ColorValues;
 };
 
 #endif // OBJECTVARIANTMANAGER_H

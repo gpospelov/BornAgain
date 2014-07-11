@@ -30,14 +30,14 @@ MaterialProperty MaterialUtils::getMaterialProperty(MaterialItem *material)
         throw GUIHelpers::Error("MaterialUtils::getMaterialProperty() -> Error! It's a SubItem, not material.");
 
     QVariant v = material->property(MaterialProperties::Color);
-    MaterialColorProperty colorProperty = v.value<MaterialColorProperty>();
+    ColorProperty colorProperty = v.value<ColorProperty>();
     return MaterialProperty(material->getName(), colorProperty.getColor());
 }
 
 
-MaterialColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
+ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
 {
-    return MaterialColorProperty(MaterialUtils::suggestMaterialColor(name));
+    return ColorProperty(MaterialUtils::suggestMaterialColor(name));
 }
 
 

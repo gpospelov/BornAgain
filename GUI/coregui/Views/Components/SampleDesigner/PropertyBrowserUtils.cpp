@@ -5,9 +5,13 @@
 #include <QFileDialog>
 #include <QFocusEvent>
 #include <QPixmap>
-#include <iostream>
+#include <QRgb>
+#include <QColorDialog>
 #include <QDebug>
 
+// -----------------------------------------------------------------------------
+// MaterialPropertyEdit
+// -----------------------------------------------------------------------------
 
 MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     : QWidget(parent)
@@ -38,7 +42,6 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    std::cout << "MaterialPropertyEdit::buttonClicked() " << std::endl;
     MaterialProperty mat = MaterialEditor::selectMaterialProperty();
     //if(mat != m_materialProperty && mat.isDefined() ) {
     if(mat.isDefined() ) {
@@ -56,6 +59,9 @@ void MaterialPropertyEdit::setMaterialProperty(
     m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
 }
 
+// -----------------------------------------------------------------------------
+// GroupPropertyEdit
+// -----------------------------------------------------------------------------
 
 GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
@@ -94,3 +100,62 @@ QSize GroupPropertyEdit::minimumSizeHint() const
     return m_box->minimumSizeHint();
 }
 
+// -----------------------------------------------------------------------------
+// ColorPropertyEdit
+// -----------------------------------------------------------------------------
+
+ColorPropertyEdit::ColorPropertyEdit(QWidget *parent)
+    : QWidget(parent)
+{
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setMargin(2);
+    layout->setSpacing(2);
+
+    m_textLabel = new QLabel(this);
+    m_textLabel->setText(colorValueText(m_colorProperty.getColor()));
+
+    m_pixmapLabel = new QLabel(this);
+    m_pixmapLabel->setPixmap(m_colorProperty.getPixmap());
+
+    QToolButton *button = new QToolButton(this);
+    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
+                                      QSizePolicy::Preferred));
+    button->setText(QLatin1String("..."));
+    layout->insertSpacing(-1,1);
+    layout->addWidget(m_pixmapLabel);
+    layout->insertSpacing(-1,6);
+    layout->addWidget(m_textLabel);
+    layout->addStretch(1);
+    layout->addWidget(button);
+
+    setFocusPolicy(Qt::StrongFocus);
+    setAttribute(Qt::WA_InputMethodEnabled);
+    connect(button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+}
+
+
+void ColorPropertyEdit::buttonClicked()
+{
+    bool ok = false;
+    QRgb oldRgba = m_colorProperty.getColor().rgba();
+    QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
+    if (ok && newRgba != oldRgba) {
+        m_colorProperty.setColor(QColor::fromRgba(newRgba));
+        emit colorPropertyChanged(m_colorProperty);
+    }
+
+}
+
+void ColorPropertyEdit::setColorProperty(
+        const ColorProperty &colorProperty)
+{
+    m_colorProperty = colorProperty;
+    m_textLabel->setText(colorValueText(m_colorProperty.getColor()));
+    m_pixmapLabel->setPixmap(m_colorProperty.getPixmap());
+}
+
+QString ColorPropertyEdit::colorValueText(const QColor &c)
+{
+    return QString("[%1, %2, %3] (%4)")
+           .arg(c.red()).arg(c.green()).arg(c.blue()).arg(c.alpha());
+}

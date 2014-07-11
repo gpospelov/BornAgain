@@ -3,6 +3,7 @@
 
 #include <QMetaType>
 #include <QString>
+#include <QVariant>
 
 //! The ScientificDoubleProperty for ParameterizedItem and PropertyEditor
 //!
@@ -15,6 +16,12 @@ public:
     double getValue() const { return m_value;}
     void setValue(double value) { m_value = value; }
     QString getText() const { return QString::number(m_value,'g');}
+    QVariant getVariant() const {
+        QVariant result;
+        result.setValue(*this);
+        return result;
+    }
+
 private:
     double m_value;
 };

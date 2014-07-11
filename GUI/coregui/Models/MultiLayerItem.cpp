@@ -29,10 +29,9 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
 
     setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
 
-//    QVariant mat_var;
-//    ScientificDoubleProperty prop(1.1);
-//    mat_var.setValue(prop);
-//    setProperty("XXX", mat_var);
+    ScientificDoubleProperty prop(1.1);
+    registerProperty("XXX", prop.getVariant());
+
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)

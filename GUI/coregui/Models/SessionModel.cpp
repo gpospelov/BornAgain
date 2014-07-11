@@ -20,6 +20,7 @@
 //#include "FormFactorProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
+#include "ScientificDoubleProperty.h"
 #include "IconProvider.h"
 
 #include <QFile>
@@ -602,6 +603,14 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         combo_property.setValue(parameter_value);
         item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     }
+    else if (parameter_type == "ScientificDoubleProperty") {
+        double parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toDouble();
+
+        ScientificDoubleProperty scdouble_property(parameter_value);
+        item->setRegisteredProperty(parameter_name, scdouble_property.getVariant());
+    }
 
 
     else {
@@ -680,6 +689,11 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
         else if (type_name == QString("ComboProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.value<ComboProperty>().getValue());
+
+        }
+        else if (type_name == QString("ScientificDoubleProperty")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                variant.value<ScientificDoubleProperty>().getText());
 
         }
 

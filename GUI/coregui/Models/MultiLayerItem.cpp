@@ -15,6 +15,7 @@
 
 #include "MultiLayerItem.h"
 #include "LayerItem.h"
+#include "ScientificDoubleProperty.h"
 #include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
@@ -27,6 +28,11 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     addToValidChildren(QString("MultiLayer"));
 
     setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
+
+//    QVariant mat_var;
+//    ScientificDoubleProperty prop(1.1);
+//    mat_var.setValue(prop);
+//    setProperty("XXX", mat_var);
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)

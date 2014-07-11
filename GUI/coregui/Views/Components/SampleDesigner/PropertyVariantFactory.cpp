@@ -23,6 +23,12 @@ PropertyVariantFactory::~PropertyVariantFactory()
     while (color_it.hasNext())
         delete color_it.next();
 
+    QList<ScientificDoublePropertyEdit *> scdouble_editors =
+            m_scdouble_editor_to_property.keys();
+    QListIterator<ScientificDoublePropertyEdit *> scdouble_it(scdouble_editors);
+    while (scdouble_it.hasNext())
+        delete scdouble_it.next();
+
 }
 
 void PropertyVariantFactory::connectPropertyManager(
@@ -92,6 +98,26 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         return editor;
     }
 
+    if (manager->propertyType(property) ==
+            PropertyVariantManager::scientificDoubleTypeId()) {
+        ScientificDoublePropertyEdit *editor = new ScientificDoublePropertyEdit(parent);
+        QVariant var = manager->value(property);
+        ScientificDoubleProperty sc = var.value<ScientificDoubleProperty>();
+        editor->setScientificDoubleProperty(sc);
+
+        m_property_to_scdouble_editors[property].append(editor);
+        m_scdouble_editor_to_property[editor] = property;
+
+        connect(editor,
+                SIGNAL(scientificDoublePropertyChanged(const ScientificDoubleProperty &)),
+                this, SLOT(slotSetValue(const ScientificDoubleProperty &)));
+        connect(editor, SIGNAL(destroyed(QObject *)),
+                this, SLOT(slotEditorDestroyed(QObject *)));
+        return editor;
+    }
+
+
+
     return QtVariantEditorFactory::createEditor(manager, property, parent);
 }
 
@@ -139,6 +165,16 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
             itEditor.next()->setColorProperty(mat);
         }
     }
+    else if (m_property_to_scdouble_editors.contains(property)) {
+        QList<ScientificDoublePropertyEdit *> editors =
+                m_property_to_scdouble_editors[property];
+        QListIterator<ScientificDoublePropertyEdit *> itEditor(editors);
+        while (itEditor.hasNext()) {
+            ScientificDoubleProperty mat = value.value<ScientificDoubleProperty>();
+            itEditor.next()->setScientificDoubleProperty(mat);
+        }
+    }
+
 }
 
 
@@ -199,6 +235,25 @@ void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
     }
 }
 
+void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
+{
+    QObject *object = sender();
+    QMap<ScientificDoublePropertyEdit *, QtProperty *>::ConstIterator itEditor =
+                m_scdouble_editor_to_property.constBegin();
+    while (itEditor != m_scdouble_editor_to_property.constEnd()) {
+        if (itEditor.key() == object) {
+            QtProperty *property = itEditor.value();
+            QtVariantPropertyManager *manager = propertyManager(property);
+            if (!manager) return;
+            QVariant var;
+            var.setValue(value);
+            manager->setValue(property, var);
+            return;
+        }
+        itEditor++;
+    }
+}
+
 void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 {
     QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
@@ -243,6 +298,22 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         }
         color_it_editor++;
     }
+
+    QMap<ScientificDoublePropertyEdit *, QtProperty *>::ConstIterator scdouble_it_editor =
+                m_scdouble_editor_to_property.constBegin();
+    while (scdouble_it_editor != m_scdouble_editor_to_property.constEnd()) {
+        if (scdouble_it_editor.key() == object) {
+            ScientificDoublePropertyEdit *editor = scdouble_it_editor.key();
+            QtProperty *property = scdouble_it_editor.value();
+            m_scdouble_editor_to_property.remove(editor);
+            m_property_to_scdouble_editors[property].removeAll(editor);
+            if (m_property_to_scdouble_editors[property].isEmpty())
+                m_property_to_scdouble_editors.remove(property);
+            return;
+        }
+        scdouble_it_editor++;
+    }
+
 
 }
 

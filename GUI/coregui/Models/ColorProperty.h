@@ -1,11 +1,12 @@
 #ifndef COLORPROPERTY_H
 #define COLORPROPERTY_H
 
-
 #include <QMetaType>
 
-
 //! The ColorProperty for ParameterizedItem and PropertyEditor
+//!
+//! The reason is to have simple color editor in PropertyEditor instead of
+//! original one which is too sophisticated.
 class ColorProperty
 {
 public:

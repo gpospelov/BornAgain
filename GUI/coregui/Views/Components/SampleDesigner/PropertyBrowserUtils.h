@@ -1,13 +1,17 @@
 #ifndef PROPERTYBROWSERUTILS_H
 #define PROPERTYBROWSERUTILS_H
 
-//#include "FormFactorProperty.h"
+#include <QWidget>
 #include "MaterialProperties.h"
 #include "GroupProperty.h"
 #include "ColorProperty.h"
-#include <QLabel>
-#include <QIcon>
-#include <QComboBox>
+#include "ScientificDoubleProperty.h"
+
+class QLabel;
+class QIcon;
+class QComboBox;
+class QLineEdit;
+class QDoubleValidator;
 
 //! The MaterialPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for MaterialProperty.
@@ -78,6 +82,33 @@ private:
     QLabel *m_textLabel;
     QLabel *m_pixmapLabel;
     ColorProperty m_colorProperty;
+};
+
+
+//! The ScientificDoublePropertyEdit class provides PropertyVariantFactory with editing
+//! widget for ScientificDoubleProperty
+class ScientificDoublePropertyEdit : public QWidget
+{
+    Q_OBJECT
+public:
+    ScientificDoublePropertyEdit(QWidget *parent = 0);
+
+    void setScientificDoubleProperty(const ScientificDoubleProperty &doubleProperty);
+    ScientificDoubleProperty getScientificDoubleProperty() const {
+        return m_scientificDoubleProperty;
+    }
+
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+signals:
+    void scientificDoublePropertyChanged(const ScientificDoubleProperty &doubleProperty);
+private slots:
+    void onEditingFinished();
+private:
+    QLineEdit *m_lineEdit;
+    QDoubleValidator *m_validator;
+    ScientificDoubleProperty m_scientificDoubleProperty;
 };
 
 #endif // PROPERTYBROWSERUTILS_H

@@ -4,6 +4,11 @@
 #include <QToolButton>
 #include <QFileDialog>
 #include <QFocusEvent>
+#include <QLabel>
+#include <QIcon>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QDoubleValidator>
 #include <QPixmap>
 #include <QRgb>
 #include <QColorDialog>
@@ -158,4 +163,50 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 {
     return QString("[%1, %2, %3] (%4)")
            .arg(c.red()).arg(c.green()).arg(c.blue()).arg(c.alpha());
+}
+
+
+// -----------------------------------------------------------------------------
+// ColorPropertyEdit
+// -----------------------------------------------------------------------------
+
+
+ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
+    : QWidget(parent)
+{
+    m_lineEdit = new QLineEdit(this);
+
+    m_validator  = new QDoubleValidator(0.0, 1e+100, 2, this);
+    m_validator->setNotation(QDoubleValidator::ScientificNotation);
+    m_lineEdit->setValidator(m_validator);
+
+    connect(m_lineEdit, SIGNAL(editingFinished()),
+            this, SLOT(onEditingFinished()));
+}
+
+void ScientificDoublePropertyEdit::setScientificDoubleProperty(
+        const ScientificDoubleProperty &doubleProperty)
+{
+    m_lineEdit->setText(doubleProperty.getText());
+    m_scientificDoubleProperty = doubleProperty;
+}
+
+void ScientificDoublePropertyEdit::onEditingFinished()
+{
+    double new_value = m_lineEdit->text().toDouble();
+    if(new_value != m_scientificDoubleProperty.getValue()) {
+        ScientificDoubleProperty doubleProperty(new_value);
+        setScientificDoubleProperty(doubleProperty);
+        emit scientificDoublePropertyChanged(m_scientificDoubleProperty);
+    }
+}
+
+QSize ScientificDoublePropertyEdit::sizeHint() const
+{
+    return m_lineEdit->sizeHint();
+}
+
+QSize ScientificDoublePropertyEdit::minimumSizeHint() const
+{
+    return m_lineEdit->minimumSizeHint();
 }

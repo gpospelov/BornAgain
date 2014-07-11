@@ -11,6 +11,8 @@ class GroupPropertyEdit;
 class GroupProperty;
 class ColorPropertyEdit;
 class ColorProperty;
+class ScientificDoublePropertyEdit;
+class ScientificDoubleProperty;
 
 //! The PropertyVariantFactory class provides and manages user defined
 //! QVariant based properties.
@@ -34,6 +36,7 @@ private slots:
     void slotSetValue(const MaterialProperty &value);
     void slotSetValue(const GroupProperty &value);
     void slotSetValue(const ColorProperty &value);
+    void slotSetValue(const ScientificDoubleProperty &value);
     void slotEditorDestroyed(QObject *object);
     void slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &);
 
@@ -50,6 +53,12 @@ private:
         m_property_to_color_editors;
     QMap<ColorPropertyEdit *, QtProperty *>
         m_color_editor_to_property;
+
+    QMap<QtProperty *, QList<ScientificDoublePropertyEdit *> >
+        m_property_to_scdouble_editors;
+    QMap<ScientificDoublePropertyEdit *, QtProperty *>
+        m_scdouble_editor_to_property;
+
 };
 
 #endif // OBJECTVARIANTFACTORY_H

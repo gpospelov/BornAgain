@@ -28,6 +28,12 @@ int PropertyVariantManager::colorPropertyTypeId()
     return result;
 }
 
+int PropertyVariantManager::scientificDoubleTypeId()
+{
+    int result = qMetaTypeId<ScientificDoubleProperty>();
+    return result;
+}
+
 bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
@@ -35,6 +41,8 @@ bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
     if (propertyType == groupTypeId())
         return true;
     if (propertyType == colorPropertyTypeId())
+        return true;
+    if (propertyType == scientificDoubleTypeId())
         return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
@@ -48,41 +56,52 @@ int PropertyVariantManager::valueType(int propertyType) const
         return groupTypeId();
     if (propertyType == colorPropertyTypeId())
         return colorPropertyTypeId();
+    if (propertyType == scientificDoubleTypeId())
+        return scientificDoubleTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 
 
 QVariant PropertyVariantManager::value(const QtProperty *property) const
 {
-    if (theMaterialValues.contains(property)) {
+    if (m_theMaterialValues.contains(property)) {
         QVariant v;
-        v.setValue(theMaterialValues[property]);
+        v.setValue(m_theMaterialValues[property]);
         return v;
     }
-    if (theGroupValues.contains(property)) {
+    if (m_theGroupValues.contains(property)) {
         QVariant v;
-        v.setValue(theGroupValues[property]);
+        v.setValue(m_theGroupValues[property]);
         return v;
     }
-    if(m_ColorValues.contains(property)) {
+    if(m_theColorValues.contains(property)) {
         QVariant v;
-        v.setValue(m_ColorValues[property]);
+        v.setValue(m_theColorValues[property]);
         return v;
     }
+    if(m_theScientificDoubleValues.contains(property)) {
+        QVariant v;
+        v.setValue(m_theScientificDoubleValues[property]);
+        return v;
+    }
+
     return QtVariantPropertyManager::value(property);
 }
 
 
 QString PropertyVariantManager::valueText(const QtProperty *property) const
 {
-    if (theMaterialValues.contains(property)) {
-        return theMaterialValues[property].getName();
+    if (m_theMaterialValues.contains(property)) {
+        return m_theMaterialValues[property].getName();
     }
-    if (theGroupValues.contains(property)) {
-        return theGroupValues[property].getValue();
+    if (m_theGroupValues.contains(property)) {
+        return m_theGroupValues[property].getValue();
     }
-    if (m_ColorValues.contains(property)) {
-        return m_ColorValues[property].getText();
+    if (m_theColorValues.contains(property)) {
+        return m_theColorValues[property].getText();
+    }
+    if (m_theScientificDoubleValues.contains(property)) {
+        return m_theScientificDoubleValues[property].getText();
     }
     return QtVariantPropertyManager::valueText(property);
 }
@@ -90,11 +109,11 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
 
 QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 {
-    if (theMaterialValues.contains(property)) {
-        return QIcon(theMaterialValues[property].getPixmap());
+    if (m_theMaterialValues.contains(property)) {
+        return QIcon(m_theMaterialValues[property].getPixmap());
     }
-    if (m_ColorValues.contains(property)) {
-        return QIcon(m_ColorValues[property].getPixmap());
+    if (m_theColorValues.contains(property)) {
+        return QIcon(m_theColorValues[property].getPixmap());
     }
     return QtVariantPropertyManager::valueIcon(property);
 }
@@ -102,36 +121,47 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 
 void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
-    if (theMaterialValues.contains(property)) {
+    if (m_theMaterialValues.contains(property)) {
         if( val.userType() != materialTypeId() ) return;
         MaterialProperty mat = val.value<MaterialProperty>();
-        theMaterialValues[property] = mat;
+        m_theMaterialValues[property] = mat;
         QVariant v2;
         v2.setValue(mat);
         emit propertyChanged(property);
         emit valueChanged(property, v2);
         return;
     }
-    if (theGroupValues.contains(property)) {
+    if (m_theGroupValues.contains(property)) {
         if( val.userType() != groupTypeId() ) return;
         GroupProperty group_prop = val.value<GroupProperty>();
-        theGroupValues[property] = group_prop;
+        m_theGroupValues[property] = group_prop;
         QVariant v2;
         v2.setValue(group_prop);
         emit propertyChanged(property);
         emit valueChanged(property, v2);
         return;
     }
-    if (m_ColorValues.contains(property)) {
+    if (m_theColorValues.contains(property)) {
         if( val.userType() != colorPropertyTypeId() ) return;
         ColorProperty mat = val.value<ColorProperty>();
-        m_ColorValues[property] = mat;
+        m_theColorValues[property] = mat;
         QVariant v2;
         v2.setValue(mat);
         emit propertyChanged(property);
         emit valueChanged(property, v2);
         return;
     }
+    if (m_theScientificDoubleValues.contains(property)) {
+        if( val.userType() != scientificDoubleTypeId() ) return;
+        ScientificDoubleProperty double_prop = val.value<ScientificDoubleProperty>();
+        m_theScientificDoubleValues[property] = double_prop;
+        QVariant v2;
+        v2.setValue(double_prop);
+        emit propertyChanged(property);
+        emit valueChanged(property, v2);
+        return;
+    }
+
     QtVariantPropertyManager::setValue(property, val);
 }
 
@@ -140,15 +170,19 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 {
     if (propertyType(property) == materialTypeId()) {
         MaterialProperty m;
-        theMaterialValues[property] = m;
+        m_theMaterialValues[property] = m;
     }
     if (propertyType(property) == groupTypeId()) {
         GroupProperty m;
-        theGroupValues[property] = m;
+        m_theGroupValues[property] = m;
     }
     if (propertyType(property) == colorPropertyTypeId()) {
         ColorProperty m;
-        m_ColorValues[property] = m;
+        m_theColorValues[property] = m;
+    }
+    if (propertyType(property) == scientificDoubleTypeId()) {
+        ScientificDoubleProperty m;
+        m_theScientificDoubleValues[property] = m;
     }
 
     QtVariantPropertyManager::initializeProperty(property);
@@ -157,9 +191,10 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 
 void PropertyVariantManager::uninitializeProperty(QtProperty *property)
 {
-    theMaterialValues.remove(property);
-    theGroupValues.remove(property);
-    m_ColorValues.remove(property);
+    m_theMaterialValues.remove(property);
+    m_theGroupValues.remove(property);
+    m_theColorValues.remove(property);
+    m_theScientificDoubleValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 

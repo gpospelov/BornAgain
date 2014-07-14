@@ -68,6 +68,7 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     roughnesses[QString("Basic")] = &createInstance<LayerRoughnessItem>;
     result["Top roughness"] = roughnesses;
 
+
     return result;
 }
 }

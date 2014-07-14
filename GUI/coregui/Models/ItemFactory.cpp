@@ -30,8 +30,6 @@ QList<QString> ItemFactory::m_all_item_names = QList<QString>()
         << QString("Layer")
         << QString("ParticleLayout")
         << QString("Particle")
-        << QString("Core Particle")
-        << QString("Shell Particle")
         << QString("ParticleCoreShell")
         << QString("InterferenceFunction1DParaCrystal")
         << QString("InterferenceFunction2DParaCrystal")
@@ -60,16 +58,6 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     }
     else if (model_name==QString("Particle")) {
         return new ParticleItem(parent);
-    }
-    else if (model_name==QString("Core Particle")) {
-        ParameterizedItem *result = new ParticleItem(parent);
-        result->setRegisteredProperty(ParameterizedItem::P_PORT, ParticleCoreShellItem::Core);
-        return result;
-    }
-    else if (model_name==QString("Shell Particle")) {
-        ParameterizedItem *result = new ParticleItem(parent);
-        result->setRegisteredProperty(ParameterizedItem::P_PORT, ParticleCoreShellItem::Shell);
-        return result;
     }
     else if (model_name==QString("ParticleCoreShell")) {
         return new ParticleCoreShellItem(parent);
@@ -106,8 +94,6 @@ bool ItemFactory::isValidName(const QString &name)
 
 QList<QString> ItemFactory::getAllItemNames() {
     QList<QString> result = m_all_item_names;
-    result.removeOne("Core Particle");
-    result.removeOne("Shell Particle");
     return result;
 }
 

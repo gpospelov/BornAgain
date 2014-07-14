@@ -8,7 +8,7 @@ class OMPISimulation
 {
 public:
 
-    void runSimulation(const Simulation *simulation);
+    void runSimulation(Simulation *simulation);
 
 private:
     Simulation *m_simulation;

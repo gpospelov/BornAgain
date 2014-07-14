@@ -155,6 +155,8 @@ public:
     void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
 #endif
 
+    friend class OMPISimulation;
+
 protected:
     Simulation(const Simulation& other);
 

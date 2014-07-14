@@ -8,6 +8,9 @@ add_executable(batest batest.cpp)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
 
 # Find libraries
+message(STATUS "Configuring with OpenMPI support")
+find_package(MPI REQUIRED)
+
 
 # --- Eigen3 ---
 find_package(Eigen3 3.1.0 REQUIRED)
@@ -30,10 +33,12 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
     ${ROOT_INCLUDE_DIR}
     ${BORNAGAIN_INCLUDE_DIR}
+    ${MPI_INCLUDE_PATH}
 )
 
 target_link_libraries(batest
     ${Boost_LIBRARIES}
     ${BORNAGAIN_LIBRARIES}
     ${ROOT_LIBRARIES}
+    ${MPI_LIBRARIES}
 )

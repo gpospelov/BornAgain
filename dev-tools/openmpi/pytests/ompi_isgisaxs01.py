@@ -92,8 +92,9 @@ def run_simulation():
         print sumresult
 
     if(world_rank == 0):
-        pylab.imshow(numpy.rot90(sumresult + 1, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0])
-        pylab.show()
+        print sumresult
+        #pylab.imshow(numpy.rot90(sumresult + 1, 1), norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0])
+        #pylab.show()
 
 
 if __name__ == '__main__':

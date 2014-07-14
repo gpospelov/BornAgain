@@ -207,14 +207,15 @@ def run_simulation():
 
 
     if(world_rank == 0):
-        axis_phi = simulation.getIntensityData().getAxis(0)
-        axis_alpha = simulation.getIntensityData().getAxis(1)
-        im = pylab.imshow(numpy.rot90(sumresult+1, 1), norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e8),
-                 extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
-        pylab.show()
-        pylab.colorbar(im)
-        pylab.xlabel(r'$\phi_f$', fontsize=20)
-        pylab.ylabel(r'$\alpha_f$', fontsize=20)
+        print sumresult
+        #axis_phi = simulation.getIntensityData().getAxis(0)
+        #axis_alpha = simulation.getIntensityData().getAxis(1)
+        #im = pylab.imshow(numpy.rot90(sumresult+1, 1), norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e8),
+        #         extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
+        #pylab.show()
+        #pylab.colorbar(im)
+        #pylab.xlabel(r'$\phi_f$', fontsize=20)
+        #pylab.ylabel(r'$\alpha_f$', fontsize=20)
 
 
 

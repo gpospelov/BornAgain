@@ -51,7 +51,7 @@ public:
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
-    //! runs OpenMPI simulation
+    //! Run an OpenMPI simulation
     void runOMPISimulation();
 
     //! Normalize the detector counts

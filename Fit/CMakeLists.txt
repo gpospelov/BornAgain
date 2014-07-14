@@ -60,7 +60,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIRS}
     ${RootMinimizers_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
 )
@@ -69,6 +69,7 @@ target_link_libraries(
     ${BornAgainCore_LIBRARY}
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
+    ${GSL_LIBRARIES}
 )
 
 if(ROOT_FOUND)

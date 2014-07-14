@@ -38,7 +38,7 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- external dependencies ---
-include_directories(${GSL_INCLUDE_DIRS})
+include_directories(${GSL_INCLUDE_DIR})
 target_link_libraries(${library_name} ${GSL_LIBRARIES})
 
 # --- installation ---

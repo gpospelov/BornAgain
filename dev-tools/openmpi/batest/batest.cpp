@@ -3,6 +3,8 @@
 
 int main()
 {
+    MPI_Init(&argc, &argv);
+
 
     std::cout << "Hello World" << std::endl;
     

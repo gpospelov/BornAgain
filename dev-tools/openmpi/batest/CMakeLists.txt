@@ -13,7 +13,9 @@ find_package(MPI REQUIRED)
 
 
 # --- Eigen3 ---
-find_package(Eigen3 3.1.0 REQUIRED)
+#find_package(Eigen3 3.1.0 REQUIRED)
+set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/../../../ThirdParty/eigen3)
+
 
 # --- BOOST ---
 set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex thread)

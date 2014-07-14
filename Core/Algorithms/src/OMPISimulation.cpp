@@ -67,14 +67,6 @@ void OMPISimulation::runSimulation(Simulation * simulation)
 
         simulation->m_intensity_map.setRawDataVector(sum_of_raw);
 
-        OutputData<double> *result = simulation->getOutputData()->clone();
-
-        simulation->runSimulation();
-        OutputData<double> *reference = simulation->getOutputData()->clone();
-
-        double diff = OutputDataFunctions::GetDifference(*result,*reference);
-        std::cout << " Difference:" << diff << std::endl;
-
     }
 
 
@@ -86,7 +78,7 @@ void OMPISimulation::runSimulation(Simulation * simulation)
 // No OpenMPI support
 // -----------------------------------------------------------------------------
 
-void OMPISimulation::runSimulation(const Simulation * /* simulation */)
+void OMPISimulation::runSimulation(Simulation * /* simulation */)
 {
     throw RuntimeErrorException("OMPISimulation::runSimulation() -> Error! Can't run OpenMPI simulation. The package was compiled without OpenMPI support (compile with -DBORNAGAIN_OPENMPI=ON");
 }

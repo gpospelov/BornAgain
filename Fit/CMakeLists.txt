@@ -55,12 +55,11 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-
 # --- dependencies ---
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
 )

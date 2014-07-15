@@ -18,6 +18,7 @@
 . /etc/profile.d/modules.sh
 module load python/2.7_anaconda
 module load fftw/mpi/3.3
+module load gsl
 export LD_LIBRARY_PATH=/home/hpc/pr87me/di29sok/software/boost_1_55_0.gcc47/lib:/home/hpc/pr87me/di29sok/development/BornAgain/installed/lib:$LD_LIBRARY_PATH
 export PYTHONPATH=/home/hpc/pr87me/di29sok/development/BornAgain/installed/lib:$PYTHONPATH
 poe python ompi_meso_cpp.py

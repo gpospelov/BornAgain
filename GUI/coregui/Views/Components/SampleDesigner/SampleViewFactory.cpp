@@ -22,7 +22,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
 
 bool SampleViewFactory::isValidItemName(const QString &name)
 {
-    if(name.startsWith("FormFactor")) {
+    if(name.startsWith(Constants::FormFactorType)) {
         return true;
     } else {
         return m_valid_item_names.contains(name);

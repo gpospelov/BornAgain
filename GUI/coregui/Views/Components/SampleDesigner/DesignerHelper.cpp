@@ -142,7 +142,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
     else  if (name==Constants::ParticleLayoutType) {
         return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
     }
-    else  if (name.startsWith("FormFactor") || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
+    else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
         return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
     }
     else  if (name.startsWith("InterferenceFunction")) {
@@ -166,7 +166,7 @@ QColor DesignerHelper::getDefaultColor(const QString &name)
     else  if (name==Constants::ParticleLayoutType) {
         return QColor(135, 206, 50);
     }
-    else  if (name.startsWith("FormFactor") || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
+    else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
         return QColor(210, 223, 237);
     }
     else  if (name.startsWith("InterferenceFunction")) {

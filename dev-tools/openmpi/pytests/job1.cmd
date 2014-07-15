@@ -16,6 +16,8 @@
 #@ queue
 . /etc/profile
 . /etc/profile.d/modules.sh
+export MP_SINGLE_THREAD=no
+export OMP_NUM_THREADS=4
 module load python/2.7_anaconda
 module load fftw/mpi/3.3
 module load gsl

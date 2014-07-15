@@ -38,7 +38,7 @@ void OMPISimulation::runSimulation(Simulation * simulation)
 
 
     if(world_rank != 0) {
-        ThreadInfo threadInfo;
+        ThreadInfo threadInfo = simulation->m_thread_info;
         threadInfo.n_batches = world_size - 1;
         threadInfo.current_batch = world_rank - 1;
         msglog(MSG::DEBUG) << "Preparing to run simulation (current_batch = " << threadInfo.current_batch << " , n_batches = " << threadInfo.n_batches << ").";

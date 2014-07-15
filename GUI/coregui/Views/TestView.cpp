@@ -1,39 +1,16 @@
 #include "TestView.h"
-#include "TestViewDelegate.h"
 #include "qitemselectionmodel.h"
+#include "TestViewDelegate.h"
+#include "qdebug.h"
 
 TestView::TestView(QWidget *parent)
     : QWidget(parent)
-    //, m_delegate(new TestViewDelegate(this))
 {
-    /*QStandardItemModel *model = new QStandardItemModel(this);
-    model->setColumnCount(1);
-    model->setRowCount(5);
-    model->setData(model->index(0, 0), "some data0");
-    model->setData(model->index(1, 0), "some data1");
-    model->setData(model->index(2, 0), "some data2");
-    model->setData(model->index(3, 0), "some data3");
-    model->setData(model->index(4, 0), "some data4");*/
+
 
     QStandardItemModel *model = new QStandardItemModel(this);
     model->setHorizontalHeaderItem( 0, new QStandardItem( "Name" ) );
     model->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
-
-      /*for( int r=0; r<5; r++ )
-        for( int c=0; c<2; c++)
-        {
-          QStandardItem *item = new QStandardItem( QString("Row:%0, Column:%1").arg(r).arg(c) );
-
-          if( c == 0 )
-            for( int i=0; i<3; i++ )
-            {
-              QStandardItem *child = new QStandardItem( QString("Item %0").arg(i) );
-              child->setEditable( false );
-              item->appendRow( child );
-            }
-
-          model->setItem(r, c, item);
-        }*/
 
     QStandardItem *formFactorItem = new QStandardItem(QString("Form Factor"));
 
@@ -47,7 +24,12 @@ TestView::TestView(QWidget *parent)
     QStandardItem *heightTitleItem = new QStandardItem(QString("Height"));
     QStandardItem *heightValueItem = new QStandardItem();
     heightValueItem->setData(QVariant(20.0), Qt::EditRole);
-    heightValueItem->setEditable(false);
+    heightValueItem->setEditable(true);
+
+    QStandardItem *widthTitleItem = new QStandardItem(QString("Width"));
+    QStandardItem *widthValueItem = new QStandardItem();
+    widthValueItem->setData(QVariant(30.0), Qt::EditRole);
+    widthValueItem->setEditable(true);
 
 
 
@@ -62,6 +44,8 @@ TestView::TestView(QWidget *parent)
     formFactorItem->setChild(0,1,lengthValueItem);
     formFactorItem->setChild(1,0,heightTitleItem);
     formFactorItem->setChild(1,1,heightValueItem);
+    formFactorItem->setChild(2,0,widthTitleItem);
+    formFactorItem->setChild(2,1,widthValueItem);
 
 
     QStandardItem *particleItem = new QStandardItem( QString("Particle"));
@@ -72,18 +56,42 @@ TestView::TestView(QWidget *parent)
 
     model->setItem(0,0,layerItem);
 
+
+    //generate Tree View
     QTreeView *treeView = new QTreeView(this);
     treeView->setModel(model);
     treeView->setFixedWidth(350);
-    treeView->setColumnWidth(0,200);
-    //treeView->setColumnWidth(1,100);
+    treeView->setColumnWidth(0,180);
     treeView->expandAll();
 
     //QItemSelectionModel *selectionModel = treeView->selectionModel();
+    //m_delegate = new TestViewDelegate(this, treeView->selectionModel());
+    //treeView->setItemDelegateForColumn(1, m_delegate);
 
-    m_delegate = new TestViewDelegate(this, treeView->selectionModel());
+    treeView->setItemDelegate(new TestViewDelegate(1));
 
-    treeView->setItemDelegateForColumn(1, m_delegate);
+
+    //generate Table View
+    /*m_tableWidget = new QTableWidget(5, 2,this);
+    m_tableWidget->setItemDelegate(new TestViewDelegate(1));
+    m_tableWidget->setHorizontalHeaderLabels(
+            QStringList() << tr("Name") << tr("Value"));
+
+    m_tableWidget->setFixedWidth(350);
+    m_tableWidget->setColumnWidth(1,200);
+    m_tableWidget->setColumnWidth(0,100);
+
+    for (int row = 0; row < 5; ++row) {
+
+        QTableWidgetItem *item0 = new QTableWidgetItem(tr("test"));
+        m_tableWidget->setItem(row, 0, item0);
+
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        double itemValue = (double)row*10.0;
+        item1->setData(Qt::EditRole, QVariant(itemValue));
+        item1->setTextAlignment(Qt::AlignRight);
+        m_tableWidget->setItem(row, 1, item1);
+    }*/
 }
 
 

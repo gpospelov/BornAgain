@@ -5,195 +5,141 @@
 #include <QApplication>
 #include <QWidget>
 #include <QMouseEvent>
-#include "hostosinfo.h"
 #include <QStyleOptionSlider>
 #include <QAbstractItemModel>
+#include <cmath>
 
 
-TestViewDelegate::TestViewDelegate(QWidget *parent, QItemSelectionModel *selectionModel)
-    : QItemDelegate(parent),
-      m_slider(new QStyleOptionSlider),
-      m_selectionModel(selectionModel)
+
+TestViewDelegate::TestViewDelegate(int valueColumn, QObject *parent)
+    : QItemDelegate(parent)
+{
+    this->m_valueColumn = valueColumn;
+    this->m_multiplyFactor = 100;
+}
+
+void TestViewDelegate::paint(QPainter *painter,
+                          const QStyleOptionViewItem &option,
+                          const QModelIndex &index) const
 {
 
+    if (index.column() == m_valueColumn) {
+
+        if(index.parent().isValid() == false)
+        {
+            return;
+        }
+
+        double value = index.model()->data(index, Qt::EditRole).toDouble();
+        QString text(QString::number(value));
+
+        QStyleOptionViewItem myOption = option;
+        myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
+
+
+        drawDisplay(painter, myOption, myOption.rect, text);
+        drawFocus(painter, myOption, myOption.rect);
+    } else{
+        QItemDelegate::paint(painter, option, index);
+    }
 }
 
 
-
-void TestViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-                  const QModelIndex &index ) const
+QWidget *TestViewDelegate::createEditor(QWidget *parent,
+        const QStyleOptionViewItem &option,
+        const QModelIndex &index) const
 {
-
-    if(!m_selectionModel)
-    {
-        return QItemDelegate::paint(painter, option, index);
-    }
-    else if(!m_selectionModel->isSelected(index))
-    {
-        return QItemDelegate::paint(painter, option, index);
-    }
-    else if(!index.parent().isValid())
-    {
-        return QItemDelegate::paint(painter, option, index);
-    }
-
-    double currentValue = 0.0;
-    double minValue = 0.0;
-    double maxValue = 0.0;
-    //qDebug() << " ";
-    //qDebug() << "Curent index" << m_selectionModel->currentIndex().data(Qt::DisplayRole);
-    QModelIndexList selected_list = m_selectionModel->selectedIndexes();
-    if(selected_list.size()) {
-        QModelIndex selected = selected_list.back();
-        //qDebug() << selected << selected.parent();
-        const QAbstractItemModel *model = selected.model();
-        //qDebug() << model->data(selected, Qt::DisplayRole) << selected.data(Qt::DisplayRole);
-        qDebug() << model->data(selected, Qt::DisplayRole);
-
-        currentValue = model->data(selected, Qt::DisplayRole).toDouble();
+    if (index.column() == m_valueColumn) {
 
 
-        //minValue = currentValue - (currentValue*0.1);
-        //maxValue = currentValue + (currentValue*0.1);
-        minValue = currentValue - 1;
-        maxValue = currentValue + 1;
+        if(index.parent().isValid() == false)
+        {
+            return NULL;
+        }
 
-    }
+        double value = index.model()->data(index, Qt::EditRole).toDouble();
+        double sliderValue = value * m_multiplyFactor;
 
-    if (option.state & QStyle::State_Selected)
-    {
-        painter->fillRect(option.rect, option.palette.highlight());
-    }
+        double minValue = 0;
+        double maxValue = 0;
+        if(sliderValue == 0)
+        {
+            minValue = (m_multiplyFactor/10.0) * -1.0;
+            maxValue = (m_multiplyFactor/10.0);
+        }
+        else
+        {
+            minValue = sliderValue - std::abs(sliderValue*0.1);
+            maxValue = sliderValue + std::abs(sliderValue*0.1);
+        }
 
-    painter->save();
-
-    painter->setRenderHint(QPainter::Antialiasing, true);
-
-    QString text(QString::number(currentValue));
-    QRect textRect = getTextRect(option.rect);
-    //textRect.setHeight( 10);
-    painter->drawText(textRect,text);
-
-
-    if (option.state & QStyle::State_Selected)
-    {
-        m_slider->minimum = minValue;
-        m_slider->maximum = maxValue;
-
-        m_slider->state = QStyle::State_Enabled;
-        m_slider->direction = QApplication::layoutDirection();
-        m_slider->rect = getSliderRect(option.rect);
-        m_slider->type = QStyleOption::SO_Slider;
-
-
-        QApplication::style()->drawComplexControl(QStyle::CC_Slider, m_slider, painter);
-    }
-
-    m_slider->sliderPosition = (int)currentValue;
-
-    painter->restore();
+        m_valueBox = new QDoubleSpinBox();
+        m_valueBox->setFixedWidth(80);
+        m_valueBox->setMaximum(99999.00);
+        m_valueBox->setMinimum(-99999.00);
+        m_valueBox->setValue(value);
 
 
 
+        m_slider = new QSlider(Qt::Horizontal);
+        m_slider->setFocusPolicy(Qt::StrongFocus);
+        m_slider->setTickPosition(QSlider::NoTicks);
+        m_slider->setTickInterval(1);
+        m_slider->setSingleStep(1);
+        m_slider->setMinimum((int)std::floor(minValue));
+        m_slider->setMaximum((int)std::ceil(maxValue));
+        m_slider->setValue((int)sliderValue);
 
-}
+        connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
+        connect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
 
-/*void QSlider::paintEvent(QPaintEvent *)
-{
-    Q_D(QSlider);
-    QPainter p(this);
-    QStyleOptionSlider opt;
-    initStyleOption(&opt);
+        m_contentWidget = new QWidget(parent);
+        m_contentLayout = new QHBoxLayout(parent);
+        m_contentLayout->setMargin(0);
+        m_contentLayout->setSpacing(0);
+        m_contentLayout->addWidget(m_valueBox);
+        m_contentLayout->addWidget(m_slider);
 
-    opt.subControls = QStyle::SC_SliderGroove | QStyle::SC_SliderHandle;
-    if (d->tickPosition != NoTicks)
-        opt.subControls |= QStyle::SC_SliderTickmarks;
-    if (d->pressedControl) {
-        opt.activeSubControls = d->pressedControl;
-        opt.state |= QStyle::State_Sunken;
+        m_contentWidget->setLayout(m_contentLayout);
+
+        return m_contentWidget;
     } else {
-        opt.activeSubControls = d->hoverControl;
+        return QItemDelegate::createEditor(parent, option, index);
     }
-
-    style()->drawComplexControl(QStyle::CC_Slider, &opt, &p, this);
-}*/
-
-bool TestViewDelegate::editorEvent(QEvent *event,
-    QAbstractItemModel *model,
-    const QStyleOptionViewItem &option,
-    const QModelIndex &index)
-{
-    //return QItemDelegate::editorEvent(event, model, option, index);
-
-    QMouseEvent *mouseEvent = (QMouseEvent *)event;
-    int sliderPosition = this->pixelPosToRangeValue(mouseEvent->pos().x());
-    m_slider->sliderPosition = sliderPosition;
-    qDebug() << "TestViewDelegate: QStItem clicked: " << sliderPosition;
-
-    //model->setData(index, QVariant(sliderPosition), Qt::EditRole);
-
-
-
-    return true;
 }
 
-int TestViewDelegate::pixelPosToRangeValue(int pos) const
-{
-    //Q_Q(const QSlider);
-    //QStyleOptionSlider opt;//m_slider
-    //q->initStyleOption(&opt);
-    QRect gr = QApplication::style()->subControlRect(QStyle::CC_Slider, m_slider, QStyle::SC_SliderGroove);
-    QRect sr = QApplication::style()->subControlRect(QStyle::CC_Slider, m_slider, QStyle::SC_SliderHandle);
-    int sliderMin, sliderMax, sliderLength;
 
-    /*if (orientation == Qt::Horizontal) {
-        sliderLength = sr.width();
-        sliderMin = gr.x();
-        sliderMax = gr.right() - sliderLength + 1;
+void TestViewDelegate::sliderValueChanged(int position)
+{
+    double value = (double)position/m_multiplyFactor;
+    m_valueBox->setValue(value);
+}
+
+void TestViewDelegate::editorValueChanged(double value)
+{
+    qDebug() << "XXXX: new value: " << value;
+}
+
+void TestViewDelegate::setEditorData(QWidget *editor,
+                                  const QModelIndex &index) const
+{
+    if (index.column() == m_valueColumn) {
+        //as using custom widget, doing nothing here
     } else {
-        sliderLength = sr.height();
-        sliderMin = gr.y();
-        sliderMax = gr.bottom() - sliderLength + 1;
-    }*/
-
-    sliderLength = sr.width();
-    sliderMin = gr.x();
-    sliderMax = gr.right() - sliderLength + 1;
-    return QStyle::sliderValueFromPosition(m_slider->minimum, m_slider->maximum, pos - sliderMin,
-                                           sliderMax - sliderMin, m_slider->upsideDown);
-}
-
-
-
-//! returns rectangle for text
-QRect TestViewDelegate::getTextRect(QRect optionRect) const
-{
-    int width = optionRect.width()*0.4;
-    int height = optionRect.height();
-    int x = optionRect.x() + 3;
-    int y = optionRect.y();
-    QRect result(x,y,width,height);
-    return result;
-}
-
-
-//! returns rectangle for progress bar
-QRect TestViewDelegate::getSliderRect(QRect optionRect) const
-{
-    int width = optionRect.width()*0.4;
-    int height = optionRect.height()*0.6;
-    int x = optionRect.x() + optionRect.width()*0.5;
-    int y = optionRect.y() + (optionRect.height() - height)/2.;
-    if( Utils::HostOsInfo::isMacHost() ) {
-        y = optionRect.y();
-        height = optionRect.height()*0.5;
+        QItemDelegate::setEditorData(editor, index);
     }
-
-    QRect result(x,y,width,height);
-    return result;
 }
 
 
+void TestViewDelegate::setModelData(QWidget *editor,
+                                 QAbstractItemModel *model,
+                                 const QModelIndex &index) const
+{
+    if (index.column() == m_valueColumn) {
 
+        model->setData(index, m_valueBox->value());
 
-
+    } else {
+        QItemDelegate::setModelData(editor, model, index);
+    }
+}

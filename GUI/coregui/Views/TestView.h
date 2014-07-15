@@ -7,9 +7,11 @@
 #include <QSignalMapper>
 
 #include "qstandarditemmodel.h"
+#include <QTableWidget>
 
 class MaterialEditorView;
 class TestViewDelegate;
+class Track;
 
 //! TestView window to try things in mainwindow
 class TestView : public QWidget
@@ -22,6 +24,9 @@ public:
 private:
     QTreeView *m_treeView;
     TestViewDelegate *m_delegate;
+    QTableWidget *m_tableWidget;
+    QList<Track> *m_tracks;
+
 };
 
 

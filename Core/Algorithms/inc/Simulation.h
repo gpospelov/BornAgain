@@ -51,7 +51,7 @@ public:
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
-    //! runs OpenMPI simulation
+    //! Run an OpenMPI simulation
     void runOMPISimulation();
 
     //! Normalize the detector counts
@@ -154,6 +154,8 @@ public:
     //! initializes DWBA progress handler
     void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
 #endif
+
+    friend class OMPISimulation;
 
 protected:
     Simulation(const Simulation& other);

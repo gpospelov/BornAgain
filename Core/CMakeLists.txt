@@ -50,6 +50,11 @@ if(BORNAGAIN_PYTHON)
     add_definitions(-DBORNAGAIN_PYTHON)
 endif()
 
+if(BORNAGAIN_OPENMPI)
+    add_definitions(-DBORNAGAIN_OPENMPI)
+endif()
+
+
 # --- making library ---
 add_library(
     ${library_name}

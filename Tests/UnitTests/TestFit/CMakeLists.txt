@@ -25,6 +25,7 @@ target_link_libraries(TestFit
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${Boost_LIBRARIES}
+    ${GSL_LIBRARIES}
 )
 
 if(BORNAGAIN_OPENMPI)

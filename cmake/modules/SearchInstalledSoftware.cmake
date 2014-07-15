@@ -1,6 +1,6 @@
 # Search for installed software required by BornAgain
 
-if(OPENMPI_SUPPORT)
+if(BORNAGAIN_OPENMPI)
     message(STATUS "Configuring with OpenMPI support")
     find_package(MPI REQUIRED)
 endif()

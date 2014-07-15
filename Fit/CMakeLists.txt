@@ -55,7 +55,6 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-
 # --- dependencies ---
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
@@ -69,6 +68,7 @@ target_link_libraries(
     ${BornAgainCore_LIBRARY}
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
+    ${GSL_LIBRARIES}
 )
 
 if(ROOT_FOUND)

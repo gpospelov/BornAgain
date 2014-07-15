@@ -82,8 +82,8 @@ void FitSuite::link_fit_parameters()
 {
     ParameterPool *pool = m_fit_objects.createParameterTree();
     m_fit_parameters.link_to_pool(pool);
-    msglog(MSG::INFO) << "FitSuite::link_fit_parameters() -> Parameter pool:";
-    msglog(MSG::INFO) << *pool;
+    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
+    msglog(MSG::DEBUG2) << *pool;
     delete pool;
 }
 

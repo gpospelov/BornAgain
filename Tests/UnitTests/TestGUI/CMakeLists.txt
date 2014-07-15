@@ -27,8 +27,6 @@ add_executable( TestGUI ${source_files} ${include_files})
 
 target_link_libraries(TestGUI
     ${BornAgainCore_LIBRARY}
-#    ${Boost_LIBRARIES}
-#    ${GSL_LIBRARIES}
     ${BornAgainGUI_LIBRARY}
 )
 

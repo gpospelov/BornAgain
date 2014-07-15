@@ -21,7 +21,7 @@
 #include <cstdio>
 
 std::vector<std::string> MSG::Logger::m_level_names =
-        boost::assign::list_of("VERBOSE")("DEBUG")("INFO")("WARNING")("ERROR")("FATAL");
+        boost::assign::list_of("VERBOSE")("DEBUG2")("DEBUG")("INFO")("WARNING")("ERROR")("FATAL");
 
 MSG::MessageLevel MSG::Logger::m_logLevel = MSG::ERROR;
 

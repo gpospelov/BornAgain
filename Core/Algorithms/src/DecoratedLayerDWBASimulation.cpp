@@ -36,7 +36,7 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 
 void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 {
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::init()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::init()";
     DWBASimulation::init(simulation);
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->init(simulation);
@@ -45,7 +45,7 @@ void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 
 void DecoratedLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::run()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::run()";
     boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(
             createAndInitStrategy());
 
@@ -67,7 +67,7 @@ IInterferenceFunctionStrategy
 void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::calculateCoh...()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
     double wavelength = getWaveLength();
     double total_surface_density =
         mp_layer->getTotalParticleSurfaceDensity();
@@ -131,7 +131,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
 
 void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
 {
-    msglog(MSG::DEBUG) << "Calculating incoherent scattering...";
+    msglog(MSG::DEBUG2) << "Calculating incoherent scattering...";
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->setSpecularInfo(*mp_specular_info);
         mp_diffuseDWBA->setThreadInfo(m_thread_info);

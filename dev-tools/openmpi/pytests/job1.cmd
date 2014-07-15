@@ -3,7 +3,7 @@
 #@ job_type = parallel
 #@ class = test
 #@ node = 2
-#@ total_tasks=16
+#@ total_tasks=4
 #@ island_count=1
 #@ wall_clock_limit = 0:20:00
 #@ job_name = mytest

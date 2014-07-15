@@ -1,6 +1,7 @@
 from mpi4py import MPI # this line has to be first
 import numpy
 import matplotlib
+matplotlib.use('Agg')
 import pylab
 from math import degrees
 import math
@@ -172,6 +173,7 @@ def run_simulation():
     main function to run fitting
     """
     simulation = get_simulation()
+    SetMessageLevel("DEBUG")
 
     if(world_size == 1):
         print "Not an OpenMPI environment, run with 'mpirun -np 12 python ompi_sim_example.py'"
@@ -182,7 +184,6 @@ def run_simulation():
 
     else:
         if(world_rank != 0):
-            SetMessageLevel("DEBUG")
             thread_info = ThreadInfo()
             thread_info.n_batches = world_size - 1
             thread_info.current_batch = world_rank - 1
@@ -207,15 +208,19 @@ def run_simulation():
 
 
     if(world_rank == 0):
-        print sumresult
-        axis_phi = simulation.getIntensityData().getAxis(0)
-        axis_alpha = simulation.getIntensityData().getAxis(1)
-        im = pylab.imshow(numpy.rot90(sumresult+1, 1), norm=matplotlib.colors.LogNorm(),
+        simulation.normalize()
+        result = simulation.getIntensityData()
+        print result.getArray()
+        axis_phi = result.getAxis(0)
+        axis_alpha = result.getAxis(1)
+        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(),
                  extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
         pylab.colorbar(im)
         pylab.xlabel(r'$\phi_f$', fontsize=20)
         pylab.ylabel(r'$\alpha_f$', fontsize=20)
         pylab.show()
+        pylab.savefig("result.png")
+        OutputDataIOFactory.writeIntensityData(result, 'result.txt')
 
 
 

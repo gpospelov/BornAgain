@@ -48,7 +48,7 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
 
 void MultiLayerDWBASimulation::init(const Simulation& simulation)
 {
-    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::init()";
+    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::init()";
     DWBASimulation::init(simulation);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         LayerDWBASimulation *p_layer_dwba_sim =
@@ -84,7 +84,7 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 
 void MultiLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread "
+    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> Running thread "
                        << m_thread_info.current_thread;
     m_dwba_intensity.setAllTo(0.0);
     if (mp_polarization_output) {
@@ -115,7 +115,7 @@ void MultiLayerDWBASimulation::run()
     }
 
     if (!mp_polarization_output && mp_roughness_dwba_simulation) {
-        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> roughness";
+        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
         mp_roughness_dwba_simulation->run();
         addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
     }
@@ -135,7 +135,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run()"
+        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         ScalarSpecularInfoMap *p_coeff_map = new ScalarSpecularInfoMap(
@@ -177,7 +177,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
     // run through layers and add DWBA from each layer
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::runMagnetic()"
+        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic()"
                 "-> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         MatrixSpecularInfoMap *p_coeff_map = new MatrixSpecularInfoMap(

@@ -66,7 +66,7 @@ def run_simulation():
         exit(0)
 
     if(world_rank != 0):
-        #SetMessageLevel("DEBUG")
+        SetMessageLevel("DEBUG")
         thread_info = ThreadInfo()
         thread_info.n_batches = world_size - 1
         thread_info.current_batch = world_rank - 1

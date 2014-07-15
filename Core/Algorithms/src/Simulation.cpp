@@ -272,7 +272,7 @@ void Simulation::updateSample()
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            msglog(MSG::INFO) << "Simulation::updateSample() -> "
+            msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample);
         } else {
@@ -350,12 +350,11 @@ void Simulation::runSingleSimulation()
         }
     }
 
-    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
-    //std::cout << "Simulation::runSimulation(): n_batches = " <<
-            m_thread_info.n_batches <<
-            ", current batch = " << m_thread_info.current_batch <<
-            ", n_threads = " << m_thread_info.n_threads <<
-            ", sample: " << *mp_sample;
+//    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
+//            m_thread_info.n_batches <<
+//            ", current batch = " << m_thread_info.current_batch <<
+//            ", n_threads = " << m_thread_info.n_threads <<
+//            ", sample: " << *mp_sample;
 
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
@@ -376,13 +375,17 @@ void Simulation::runSingleSimulation()
             // Take optimal number of threads from the hardware.
             m_thread_info.n_threads =
                     (int)boost::thread::hardware_concurrency();
-            msglog(MSG::INFO) <<
-                "Simulation::runSimulation() -> Info. Number of threads " <<
-                m_thread_info.n_threads << " (taken from hardware concurrency)";
+            msglog(MSG::DEBUG)
+                << "Simulation::runSimulation() -> Info. Number of threads "
+                << m_thread_info.n_threads << " (taken from hardware concurrency)"
+                << ", n_batches = " << m_thread_info.n_batches
+                << ", current_batch = " << m_thread_info.current_batch;
         } else {
-            msglog(MSG::INFO) <<
-                "Simulation::runSimulation() -> Info. Number of threads " <<
-                m_thread_info.n_threads;
+            msglog(MSG::DEBUG)
+                << "Simulation::runSimulation() -> Info. Number of threads "
+                << m_thread_info.n_threads << " (ordered by user)"
+                << ", n_batches = " << m_thread_info.n_batches
+                << ", current_batch = " << m_thread_info.current_batch;
         }
         std::vector<boost::thread*> threads;
         std::vector<DWBASimulation*> simulations;

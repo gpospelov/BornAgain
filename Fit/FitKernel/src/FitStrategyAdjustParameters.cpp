@@ -31,20 +31,20 @@ void FitStrategyAdjustParameters::execute()
     // releasing all parameters
     if( m_release_all ) {
         for(FitSuiteParameters::iterator it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
-            msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName();
+            msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName();
             (*it)->setFixed(false);
         }
     }
 
     // fixing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_fix.begin(); it!= m_pars_to_fix.end(); ++it) {
-        msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
+        msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
         fitParameters->getParameter((*it))->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_release.begin(); it!= m_pars_to_release.end(); ++it) {
-        msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
+        msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
         fitParameters->getParameter((*it))->setFixed(false);
     }
 

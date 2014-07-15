@@ -58,9 +58,9 @@ FitParameter *FitSuiteParameters::getParameter(const std::string& name)
 void FitSuiteParameters::setValues(const double *pars_values)
 {
     if( !valuesAreDifferrent(pars_values) ) {
-        msglog(MSG::INFO) << "FitSuiteParameters::setValues() -> Warning! Small or absent change in parameter values.";
+        msglog(MSG::WARNING) << "FitSuiteParameters::setValues() -> Warning! Small or absent change in parameter values.";
         for(size_t i_par=0; i_par<m_parameters.size(); ++i_par) {
-            msglog(MSG::INFO) << "npar:"<< i_par << std::setprecision(10)
+            msglog(MSG::DEBUG2) << "npar:"<< i_par << std::setprecision(10)
                            << " current:" << m_parameters[i_par]->getValue()
                            << " new: " << pars_values[i_par]
                            << " diff:" << (m_parameters[i_par]->getValue() -pars_values[i_par])/Numeric::double_epsilon;

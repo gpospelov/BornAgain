@@ -1,6 +1,7 @@
 from mpi4py import MPI # this line has to be first
 import numpy
 import matplotlib
+matplotlib.use('Agg')
 import pylab
 from math import degrees
 import math
@@ -102,7 +103,7 @@ class MesoSampleBuilder(ISampleBuilder):
         substrate_layer.setMaterial(substrate_material)
         particle_decoration = ParticleLayout()
 
-        max_phi_rotation_steps = 180
+        max_phi_rotation_steps = 1
         max_tilt_rotation_steps = 1
 
         phi_step = 2.0*numpy.pi/3.0/max_phi_rotation_steps
@@ -173,49 +174,29 @@ def run_simulation():
     """
     simulation = get_simulation()
 
-    if(world_size == 1):
-        print "Not an OpenMPI environment, run with 'mpirun -np 12 python ompi_sim_example.py'"
-        print "For now continue without OpenMPI..."
-        simulation.runSimulation()
-        simulation.normalize()
-        sumresult = simulation.getIntensityData().getArray()
 
-    else:
-        if(world_rank != 0):
-            SetMessageLevel("DEBUG")
-            thread_info = ThreadInfo()
-            thread_info.n_batches = world_size - 1
-            thread_info.current_batch = world_rank - 1
-            print " xxx preparing to run ", thread_info.n_batches, thread_info.current_batch
-            simulation.setThreadInfo(thread_info)
-            simulation.runSimulation()
-            simulation.normalize()
+    #if(world_size == 1):
+    #    print "Not an OpenMPI environment, run with 'mpirun -np 12 python ompi_sim_example.py'"
+    #    exit(0)
 
-            comm.Send(simulation.getIntensityData().getArray())
+    SetMessageLevel("DEBUG")
 
-        if(world_rank == 0):
-            sumresult = simulation.getIntensityData().getArray()
-            sumresult = numpy.zeros(sumresult.shape)
-
-            print "preparing to receive"
-            for i_proc in range(1, world_size):
-                print "  ... receiving",i_proc
-                result = numpy.zeros(sumresult.shape)
-                comm.Recv(result, i_proc)
-                sumresult += result
-            print sumresult
-
+    simulation.runOMPISimulation()
 
     if(world_rank == 0):
-        print sumresult
-        axis_phi = simulation.getIntensityData().getAxis(0)
-        axis_alpha = simulation.getIntensityData().getAxis(1)
-        im = pylab.imshow(numpy.rot90(sumresult+1, 1), norm=matplotlib.colors.LogNorm(),
+        simulation.normalize()
+        result = simulation.getIntensityData()
+        print result.getArray()
+        axis_phi = result.getAxis(0)
+        axis_alpha = result.getAxis(1)
+        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(),
                  extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
         pylab.colorbar(im)
         pylab.xlabel(r'$\phi_f$', fontsize=20)
         pylab.ylabel(r'$\alpha_f$', fontsize=20)
         pylab.show()
+        pylab.savefig("result.png")
+        OutputDataIOFactory.writeIntensityData(result, 'result.txt')
 
 
 

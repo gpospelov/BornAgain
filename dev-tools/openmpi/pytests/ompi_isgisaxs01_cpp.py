@@ -65,33 +65,9 @@ def run_simulation():
         print "Not an OpenMPI environment, run with 'mpirun -np 12 python ompi_sim_example.py'"
         exit(0)
 
+    SetMessageLevel("DEBUG")
+
     simulation.runOMPISimulation()
-
-#    if(world_rank != 0):
-#        #SetMessageLevel("DEBUG")
-#        thread_info = ThreadInfo()
-#        thread_info.n_batches = world_size - 1
-#        thread_info.current_batch = world_rank - 1
-#        print " xxx preparing to run ", thread_info.n_batches, thread_info.current_batch
-#        simulation.setThreadInfo(thread_info)
-#        simulation.runSimulation()
-#        print "preparing to send"
-#        comm.Send(simulation.getIntensityData().getArray())
-
-#    if(world_rank == 0):
-#        #simulation.runSimulation()
-#        sumresult = simulation.getIntensityData().getArray()
-#        print sumresult
-#        sumresult = numpy.zeros(sumresult.shape)
-#        print sumresult
-
-#        print "preparing to receive"
-#        for i_proc in range(1, world_size):
-#            print "  ... receiving",i_proc
-#            result = numpy.zeros(sumresult.shape)
-#            comm.Recv(result, i_proc)
-#            sumresult += result
-#        print sumresult
 
     if(world_rank == 0):
         sumresult = simulation.getIntensityData().getArray()

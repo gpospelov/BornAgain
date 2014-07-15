@@ -26,13 +26,13 @@
 #include <QDebug>
 
 QList<QString> ItemFactory::m_all_item_names = QList<QString>()
-        << QString("MultiLayer")
-        << QString("Layer")
-        << QString("ParticleLayout")
-        << QString("Particle")
-        << QString("ParticleCoreShell")
-        << QString("InterferenceFunction1DParaCrystal")
-        << QString("InterferenceFunction2DParaCrystal")
+        << Constants::MultiLayerType
+        << Constants::LayerType
+        << Constants::ParticleLayoutType
+        << Constants::ParticleType
+        << Constants::ParticleCoreShellType
+        << Constants::InterferenceFunction1DParaCrystalType
+        << Constants::InterferenceFunction2DParaCrystalType
         << QString("Instrument")
         << QString("Detector")
         << QString("Beam");
@@ -47,25 +47,25 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
     if (!isValidName(model_name)) {
         return 0;
     }
-    if (model_name==QString("MultiLayer")) {
+    if (model_name==Constants::MultiLayerType) {
         return new MultiLayerItem(parent);
     }
-    else if (model_name==QString("Layer")) {
+    else if (model_name==Constants::LayerType) {
         return new LayerItem(parent);
     }
-    else if (model_name==QString("ParticleLayout")) {
+    else if (model_name==Constants::ParticleLayoutType) {
         return new ParticleLayoutItem(parent);
     }
-    else if (model_name==QString("Particle")) {
+    else if (model_name==Constants::ParticleType) {
         return new ParticleItem(parent);
     }
-    else if (model_name==QString("ParticleCoreShell")) {
+    else if (model_name==Constants::ParticleCoreShellType) {
         return new ParticleCoreShellItem(parent);
     }
-    else if (model_name==QString("InterferenceFunction1DParaCrystal")) {
+    else if (model_name==Constants::InterferenceFunction1DParaCrystalType) {
         return new InterferenceFunction1DParaCrystalItem(parent);
     }
-    else if (model_name==QString("InterferenceFunction2DParaCrystal")) {
+    else if (model_name==Constants::InterferenceFunction2DParaCrystalType) {
         return new InterferenceFunction2DParaCrystalItem(parent);
     }
     else if (model_name==QString("Instrument")) {

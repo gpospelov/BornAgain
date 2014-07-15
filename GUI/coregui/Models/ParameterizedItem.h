@@ -17,6 +17,7 @@
 #define PARAMETERIZEDITEM_H_
 
 #include "MaterialItem.h"
+#include "item_constants.h"
 #include <QStandardItem>
 #include <QStringList>
 #include <QList>

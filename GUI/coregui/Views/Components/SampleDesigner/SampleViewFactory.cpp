@@ -1,21 +1,23 @@
 #include "SampleViewFactory.h"
+#include "item_constants.h"
 #include "MultiLayerView.h"
 #include "LayerView.h"
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
 #include "ParticleCoreShellView.h"
 #include "ParaCrystalViews.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 
 QStringList SampleViewFactory::m_valid_item_names  = QStringList()
-        << QString("MultiLayer")
-        << QString("Layer")
-        << QString("ParticleLayout")
-        << QString("Particle")
-        << QString("ParticleCoreShell")
-        << QString("InterferenceFunction1DParaCrystal")
-        << QString("InterferenceFunction2DParaCrystal");
+        << Constants::MultiLayerType
+        << Constants::LayerType
+        << Constants::ParticleLayoutType
+        << Constants::ParticleType
+        << Constants::ParticleCoreShellType
+        << Constants::InterferenceFunction1DParaCrystalType
+        << Constants::InterferenceFunction2DParaCrystalType;
 
 
 bool SampleViewFactory::isValidItemName(const QString &name)
@@ -30,29 +32,31 @@ bool SampleViewFactory::isValidItemName(const QString &name)
 
 IView *SampleViewFactory::createSampleView(const QString &name)
 {
-    if (name==QString("MultiLayer")) {
+    if (name==Constants::MultiLayerType) {
         return new MultiLayerView();
     }
-    else if (name==QString("Layer")) {
+    else if (name==Constants::LayerType) {
         return new LayerView();
     }
-    else if (name==QString("ParticleLayout")) {
+    else if (name==Constants::ParticleLayoutType) {
         return new ParticleLayoutView();
     }
-    else if (name==QString("Particle")) {
+    else if (name==Constants::ParticleType) {
         return new ParticleView();
     }
-    else if (name==QString("ParticleCoreShell")) {
+    else if (name==Constants::ParticleCoreShellType) {
         return new ParticleCoreShellView();
     }
-    else if (name==QString("InterferenceFunction1DParaCrystal")) {
+    else if (name==Constants::InterferenceFunction1DParaCrystalType) {
         return new InterferenceFunction1DParaCrystalView();
     }
-    else if (name==QString("InterferenceFunction2DParaCrystal")) {
+    else if (name==Constants::InterferenceFunction2DParaCrystalType) {
         return new InterferenceFunction2DParaCrystalView();
     }
-
-    qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;
+    else {
+        //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;
+        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
+    }
 
     return 0;
 }

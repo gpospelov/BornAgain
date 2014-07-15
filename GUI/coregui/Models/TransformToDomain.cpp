@@ -107,7 +107,7 @@ IFormFactor *TransformToDomain::createFormFactor(const ParameterizedItem &item)
 IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         const ParameterizedItem &item)
 {
-    if(item.modelType() == "InterferenceFunction1DParaCrystal") {
+    if(item.modelType() == Constants::InterferenceFunction1DParaCrystalType) {
         double peak_distance = item.getRegisteredProperty(
                     InterferenceFunction1DParaCrystalItem::P_PEAK_DISTANCE)
                 .toDouble();
@@ -137,7 +137,7 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         result->setProbabilityDistribution(*pdf);
         return result;
     }
-    else if(item.modelType() == "InterferenceFunction2DParaCrystal") {
+    else if(item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
 
         ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);

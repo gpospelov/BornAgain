@@ -245,55 +245,8 @@ void MainWindow::initSampleModel()
 
     //m_sampleModel->save("sample.xml");
 
-    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
-    m_sampleModel->insertNewItem("MultiLayer");
-//    multilayer->setItemName("MultiLayer1");
-//    m_sampleModel->insertNewItem("Layer");
-
-//    ParameterizedItem *layer = m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(multilayer));
-//    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
-
-//    ParameterizedItem *layout = m_sampleModel->insertNewItem("ParticleLayout",
-//                   m_sampleModel->indexOfItem(layer));
-
-//    ParameterizedItem *layout = m_sampleModel->insertNewItem("ParticleLayout");
-
-//    ParameterizedItem *particle1 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(layout));
-
-//    ParameterizedItem *cylinder = particle1->getSubItems()[ParticleItem::P_FORM_FACTOR];
-//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
-
-//    m_sampleModel->moveParameterizedItem(particle1, 0);
-
-//    ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-//    particle1->setRegisteredProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
-//    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
-
-//    ParameterizedItem *particle2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(layout));
-//    particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Prism3");
-//    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
-
-//    ParameterizedItem *substrate = m_sampleModel->insertNewItem("Layer",
-//                   m_sampleModel->indexOfItem(multilayer));
-//    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
-
-//    ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
-//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
-
-//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-//    core->setRegisteredProperty(ParameterizedItem::P_SLOT, 0);
-//    ParameterizedItem *shell = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-//    shell->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
-//    ParameterizedItem *shell2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-//    shell2->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
-
-//    qDebug() << " coreshell:" << coreshell << " core:" << core << " shell:" << shell << " shell2:" << shell2;
-//    ParameterizedItem *candidate = coreshell->getCandidateForRemoval(shell2);
-//    if(candidate) {
-//        qDebug() << candidate << candidate->modelType();
-//    }
-
+    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
 }
 
 void MainWindow::initInstrumentModel()
@@ -362,7 +315,7 @@ void MainWindow::updateSamples()
 
          if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)){
              qDebug() << item->itemName() << item->modelType();
-             if(item->modelType() == "MultiLayer") {
+             if(item->modelType() == Constants::MultiLayerType) {
                  DomainObjectBuilder builder;
                  MultiLayer *multilayer = builder.buildMultiLayer(*item);
                  multilayer->printSampleTree();

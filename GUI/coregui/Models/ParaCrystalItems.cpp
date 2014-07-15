@@ -30,10 +30,10 @@ const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 
 InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
         ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("InterferenceFunction1DParaCrystal"),
+    : ParameterizedGraphicsItem(Constants::InterferenceFunction1DParaCrystalType,
                                 parent)
 {
-    setItemName("InterferenceFunction1DParaCrystal");
+    setItemName(Constants::InterferenceFunction1DParaCrystalType);
     setItemPort(ParameterizedItem::PortInfo::Port1);
     registerProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
@@ -45,10 +45,10 @@ InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
 
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
         ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("InterferenceFunction2DParaCrystal"),
+    : ParameterizedGraphicsItem(Constants::InterferenceFunction2DParaCrystalType,
                                 parent)
 {
-    setItemName("InterferenceFunction2DParaCrystal");
+    setItemName(Constants::InterferenceFunction2DParaCrystalType);
     setItemPort(ParameterizedItem::PortInfo::Port1);
     registerGroupProperty(P_LATTICE_TYPE, "Basic");
     registerProperty(P_DAMPING_LENGTH, 0.0);

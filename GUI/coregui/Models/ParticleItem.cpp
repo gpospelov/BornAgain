@@ -23,9 +23,9 @@ const QString ParticleItem::P_ABUNDANCE = "Abundance";
 
 
 ParticleItem::ParticleItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("Particle"), parent)
+    : ParameterizedGraphicsItem(Constants::ParticleType, parent)
 {
-    setItemName("ParticleName");
+    setItemName(Constants::ParticleType);
     setItemPort(ParameterizedItem::PortInfo::Port0);
     registerGroupProperty(P_FORM_FACTOR, "Cylinder");
     setMaterialProperty();

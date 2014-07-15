@@ -10,10 +10,10 @@
 ParticleView::ParticleView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
-    setName("Particle");
-    setLabel("Particle");
+    setName(Constants::ParticleType);
+    setLabel(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
-    setRectangle( QRect(0, 0, DesignerHelper::getDefaultParticleWidth(), DesignerHelper::getDefaultParticleHeight()) );
+    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
     addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
     addPort("rotation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
     m_roundpar = 5;

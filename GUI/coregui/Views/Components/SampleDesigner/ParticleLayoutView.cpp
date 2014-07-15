@@ -9,10 +9,10 @@
 ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     : ConnectableView(parent)
 {
-    setName("ParticleLayout");
+    setName(Constants::ParticleLayoutType);
     setLabel("Particle \nlayout");
     setColor(QColor(135, 206, 50));
-    setRectangle( DesignerHelper::getDefaultBoundingRect("ParticleLayout"));
+    setRectangle( DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
     addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleLayout);
     addPort("particle", NodeEditorPort::Input, NodeEditorPort::FormFactor);
     addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);

@@ -21,11 +21,11 @@
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
 
 MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("MultiLayer"), parent)
+    : ParameterizedGraphicsItem(Constants::MultiLayerType, parent)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-    addToValidChildren(QString("Layer"));
-    addToValidChildren(QString("MultiLayer"));
+    addToValidChildren(Constants::LayerType);
+    addToValidChildren(Constants::MultiLayerType);
 
     setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
 

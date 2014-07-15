@@ -106,10 +106,10 @@ void GUIObjectBuilder::visit(const ParticleLayout *sample)
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     ParameterizedItem *item(0);
     if(parent) {
-        item = m_sampleModel->insertNewItem("ParticleLayout",
+        item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType,
                                          m_sampleModel->indexOfItem(parent));
     } else {
-        item = m_sampleModel->insertNewItem("ParticleLayout");
+        item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType);
     }
     item->setItemName(sample->getName().c_str());
     m_levelToParent[getLevel()] = item;
@@ -120,7 +120,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
     qDebug() << "GUIObjectBuilder::visit(const Layer *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem("Layer",
+    ParameterizedItem *item = m_sampleModel->insertNewItem(Constants::LayerType,
                                          m_sampleModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(LayerItem::P_THICKNESS, sample->getThickness());
@@ -152,7 +152,7 @@ void GUIObjectBuilder::visit(const MultiLayer *sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const MultiLayer *)" << getLevel();
 
-    ParameterizedItem *item = m_sampleModel->insertNewItem("MultiLayer");
+    ParameterizedItem *item = m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(MultiLayerItem::P_CROSS_CORR_LENGTH,
                                 sample->getCrossCorrLength());
@@ -168,22 +168,22 @@ void GUIObjectBuilder::visit(const Particle *sample)
     Q_ASSERT(parent);
 
     ParameterizedItem *particleItem(0);
-    if(parent->modelType() == ParticleCoreShellItem::P_TYPE_NAME) {
+    if(parent->modelType() == Constants::ParticleCoreShellType) {
         const ParticleCoreShell *coreshell = dynamic_cast<const ParticleCoreShell *>(m_itemToSample[parent]);
         Q_ASSERT(coreshell);
         if(sample == coreshell->getCoreParticle()) {
-            particleItem = m_sampleModel->insertNewItem("Particle",
+            particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent), -1, ParameterizedItem::PortInfo::Port0);
         }
         else if(sample == coreshell->getShellParticle()) {
-            particleItem = m_sampleModel->insertNewItem("Particle",
+            particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent), -1, ParameterizedItem::PortInfo::Port1);
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit(const Particle *sample) -> Error. Logically should not be here");
         }
     }
-    else if(parent->modelType() == QString("ParticleLayout")){
-        particleItem = m_sampleModel->insertNewItem("Particle",
+    else if(parent->modelType() == Constants::ParticleLayoutType){
+        particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                       m_sampleModel->indexOfItem(parent));
     }
     else {
@@ -211,7 +211,7 @@ void GUIObjectBuilder::visit(const ParticleCoreShell *sample)
     ParameterizedItem *layoutItem = m_levelToParent[getLevel()-1];
     Q_ASSERT(layoutItem);
 
-    ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem("ParticleCoreShell",
+    ParameterizedItem *coreshellItem = m_sampleModel->insertNewItem(Constants::ParticleCoreShellType,
                                                            m_sampleModel->indexOfItem(layoutItem));
 
     if(!m_propertyToValue.contains(ParticleItem::P_DEPTH))
@@ -470,7 +470,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction1DParaCrystal *sample)
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        "InterferenceFunction1DParaCrystal", m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction1DParaCrystalType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParent[getLevel()] = item;
@@ -481,7 +481,7 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
     ParameterizedItem *item = m_sampleModel->insertNewItem(
-        "InterferenceFunction2DParaCrystal", m_sampleModel->indexOfItem(parent));
+        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent));
     Q_ASSERT(item);
     TransformFromDomain::setItemFromSample(item, sample);
     m_levelToParent[getLevel()] = item;

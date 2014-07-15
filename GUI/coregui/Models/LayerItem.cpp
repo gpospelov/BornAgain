@@ -20,13 +20,13 @@ const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 
 LayerItem::LayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("Layer"), parent)
+    : ParameterizedGraphicsItem(Constants::LayerType, parent)
 {
-    setItemName("LayerName");
+    setItemName(Constants::LayerType);
     registerProperty(P_THICKNESS, 0.0);
     setMaterialProperty();
     registerGroupProperty(P_ROUGHNESS, "No");
-    addToValidChildren(QString("ParticleLayout"), PortInfo::Port0, 1);
+    addToValidChildren(Constants::ParticleLayoutType, PortInfo::Port0, 1);
 }
 
 LayerItem::~LayerItem()

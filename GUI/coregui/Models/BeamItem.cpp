@@ -10,9 +10,9 @@ const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
 const QString BeamItem::P_ANGLE_UNITS = "Angle units";
 
 BeamItem::BeamItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString("Beam"), parent)
+    : ParameterizedItem(Constants::BeamType, parent)
 {
-    setItemName("Beam");
+    setItemName(Constants::BeamType);
     registerProperty(P_INTENSITY, 1e+08);
     registerProperty(P_WAVELENGTH, 0.1);
     registerProperty(P_INCLINATION_ANGLE, 0.2);

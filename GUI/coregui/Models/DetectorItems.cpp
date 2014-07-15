@@ -18,9 +18,9 @@ const QString ThetaPhiDetectorItem::P_ALPHA_MIN = "Alpha, min";
 const QString ThetaPhiDetectorItem::P_ALPHA_MAX = "Alpha, max";
 
 DetectorItem::DetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString("Detector"), parent)
+    : ParameterizedItem(Constants::DetectorType, parent)
 {
-    setItemName("Detector");
+    setItemName(Constants::DetectorType);
     registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
 
 //    registerProperty(P_NBINX, 100);

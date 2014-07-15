@@ -255,17 +255,17 @@ void MainWindow::initInstrumentModel()
     m_instrumentModel = new SessionModel(SessionXML::InstrumentModelTag);
     m_instrumentModel->setIconProvider(new IconProvider());
 
-    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem("Instrument");
+    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument1->setItemName("Default GISAS");
-    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument1));
-    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument1));
+    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
+    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
     Q_UNUSED(detector1);
     Q_UNUSED(beam1);
 
-//    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem("Instrument");
+//    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
 //    instrument2->setItemName("Instrument2");
-//    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument2));
-//    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument2));
+//    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument2));
+//    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument2));
     //    Q_UNUSED(detector2);
     //    Q_UNUSED(beam2);
 
@@ -337,7 +337,7 @@ void MainWindow::updateInstruments()
 
          if (ParameterizedItem *item = m_instrumentModel->itemForIndex(itemIndex)){
              qDebug() << "      MainWindow::updateInstruments()" << item->itemName() << item->modelType();
-             if(item->modelType() == "Instrument") {
+             if(item->modelType() == Constants::InstrumentType) {
                  DomainObjectBuilder builder;
                  Instrument *instrument = builder.buildInstrument(*item);
                  std::cout << *instrument << std::endl;

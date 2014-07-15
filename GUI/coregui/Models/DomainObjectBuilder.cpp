@@ -46,7 +46,7 @@ void DomainObjectBuilder::buildItem(const ParameterizedItem &item)
         delete mp_sample;
         mp_sample = buildMultiLayer(item);
     }
-    else if(item.modelType() == QStringLiteral("Instrument")) {
+    else if(item.modelType() == Constants::InstrumentType) {
         delete m_instrument;
         m_instrument = buildInstrument(item);
     }
@@ -158,13 +158,13 @@ Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) 
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
         qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
-        if (children[i]->modelType() == QString("Beam")) {
+        if (children[i]->modelType() == Constants::BeamType) {
             boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
             if (P_beam.get()) {
                 result->setBeam(*P_beam);
             }
         }
-        else if (children[i]->modelType() == QString("Detector")) {
+        else if (children[i]->modelType() == Constants::DetectorType) {
             TransformToDomain::initInstrumentFromDetectorItem(*children[i], result);
         }
 

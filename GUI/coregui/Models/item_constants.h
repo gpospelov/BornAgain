@@ -12,6 +12,9 @@ const QString ParticleLayoutType = "ParticleLayout";
 const QString ParticleCoreShellType = "ParticleCoreShell";
 const QString InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
 const QString InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
+const QString InstrumentType = "Instrument";
+const QString DetectorType = "Detector";
+const QString BeamType = "Beam";
 
 }
 

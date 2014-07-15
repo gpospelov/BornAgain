@@ -50,12 +50,12 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     Q_UNUSED(instrument);
 
     ParameterizedItem *instrumentItem =
-            instrumentModel->insertNewItem("Instrument");
+            instrumentModel->insertNewItem(Constants::InstrumentType);
     instrumentItem->setItemName(instrument->getName().c_str());
 
     Beam beam = instrument->getBeam();
     ParameterizedItem *beamItem = instrumentModel->insertNewItem(
-                "Beam", instrumentModel->indexOfItem(instrumentItem));
+                Constants::BeamType, instrumentModel->indexOfItem(instrumentItem));
     beamItem->setRegisteredProperty(BeamItem::P_INTENSITY,
                                     beam.getIntensity());
     beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
@@ -67,7 +67,7 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
 
     Detector detector = instrument->getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
-                "Detector", instrumentModel->indexOfItem(instrumentItem));
+                Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
     ParameterizedItem *detectorSubItem =
             detectorItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
     Q_ASSERT(detectorSubItem);

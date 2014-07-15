@@ -178,7 +178,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     QModelIndex parent_index = getTreeView()->indexAt(pnt);
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::getAllItemNames();
+        addItemNames = ItemFactory::getValidTopItemNames();
     } else {
         addItemNames = getSampleModel()->getAcceptableChildItems(parent_index);
     }

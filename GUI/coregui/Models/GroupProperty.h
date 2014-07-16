@@ -8,7 +8,7 @@ class ParameterizedItem;
 #include <QStringList>
 #include <QMap>
 #include <QMetaType>
-
+#include <QVariant>
 
 //! The GroupProperty defines ParameterizedItem's property with a value
 //! from predefined list
@@ -23,6 +23,8 @@ public:
     virtual ~GroupProperty(){}
     QString getValue() const { return m_value; }
     QString getGroupName() const { return m_group_name; }
+
+
 
     void setValue(const QString &name) { m_value = name; }
     bool operator!=(const GroupProperty &other) {
@@ -43,11 +45,29 @@ public:
     GroupType getGroupType() const { return m_group_type; }
     void setGroupType(GroupType type) { m_group_type = type; }
 
+    QString getGroupLabel() const { return m_group_label; }
+    void setGroupLabel(QString label) { m_group_label = label; }
+
+    QVariant getVariant() const {
+        QVariant result;
+        result.setValue(*this);
+        return result;
+    }
+
+    QString getText() const {
+        if(m_group_label.isEmpty()) {
+            return m_value;
+        } else {
+            return m_group_label;
+        }
+    }
+
 private:
     static GroupMap_t m_group_map;
     QString m_value;
     QString m_group_name;
     GroupType m_group_type;
+    QString m_group_label;
 };
 
 Q_DECLARE_METATYPE(GroupProperty)

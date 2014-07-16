@@ -14,3 +14,10 @@ VectorItem::VectorItem(ParameterizedItem *parent)
     registerProperty(P_Z, 0.0);
 }
 
+QString VectorItem::getItemLabel() const
+{
+    return QString("(%1, %2, %3)").arg(getRegisteredProperty(P_X).toDouble())
+                                  .arg(getRegisteredProperty(P_Y).toDouble())
+                                  .arg(getRegisteredProperty(P_Z).toDouble());
+}
+

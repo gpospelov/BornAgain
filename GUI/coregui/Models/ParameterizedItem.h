@@ -132,6 +132,11 @@ public:
 
     void setItemPort(PortInfo::Keys nport);
 
+    virtual QString getItemLabel() const { return QString("no label"); }
+
+public slots:
+    void onPropertyItemChanged(const QString &propertyName);
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);

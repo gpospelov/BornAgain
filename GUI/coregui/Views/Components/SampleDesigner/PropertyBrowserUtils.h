@@ -56,6 +56,7 @@ private slots:
     void textChanged(QString text);
 private:
     QComboBox *m_box;
+    QLabel *m_label;
     GroupProperty m_groupProperty;
 };
 

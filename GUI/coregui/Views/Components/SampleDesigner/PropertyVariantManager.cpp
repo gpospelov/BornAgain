@@ -95,7 +95,7 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
         return m_theMaterialValues[property].getName();
     }
     if (m_theGroupValues.contains(property)) {
-        return m_theGroupValues[property].getValue();
+        return m_theGroupValues[property].getText();
     }
     if (m_theColorValues.contains(property)) {
         return m_theColorValues[property].getText();

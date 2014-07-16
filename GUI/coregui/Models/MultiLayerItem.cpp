@@ -27,10 +27,14 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     addToValidChildren(Constants::LayerType);
     addToValidChildren(Constants::MultiLayerType);
 
-    setPropertyAttribute(ParameterizedItem::P_NAME, ParameterizedItem::DefaultAttribute);
+    setPropertyAttribute(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
 
     ScientificDoubleProperty prop(1.1);
     registerProperty("XXX", prop.getVariant());
+
+    registerGroupProperty("Vector", "VectorV");
+    setPropertyAttribute("Vector", PropertyAttribute("New label"));
+
 
 }
 
@@ -52,9 +56,9 @@ void MultiLayerItem::updateLayers()
 {
     for(int i = 0; i<childItemCount(); ++i) {
         if(i == 0) {
-            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DisabledProperty);
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, PropertyAttribute::DisabledProperty);
         } else {
-            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, ParameterizedItem::DefaultAttribute);
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, PropertyAttribute::VisibleProperty);
         }
     }
 }

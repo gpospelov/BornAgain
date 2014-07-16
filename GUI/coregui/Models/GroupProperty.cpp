@@ -6,6 +6,7 @@
 #include "LatticeTypeItems.h"
 #include "ParaCrystalItems.h"
 #include "LayerRoughnessItems.h"
+#include "VectorItem.h"
 
 namespace {
 template<typename T> ParameterizedItem *createInstance() { return new T; }
@@ -68,6 +69,11 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
     roughnesses[QString("Basic")] = &createInstance<LayerRoughnessItem>;
     result["Top roughness"] = roughnesses;
 
+    QMap<QString, ParameterizedItem *(*)()> vectors;
+    vectors[QString("VectorV")] = &createInstance<VectorItem>;
+    result["Vector"] = vectors;
+
+
 
     return result;
 }
@@ -77,9 +83,11 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
 GroupProperty::GroupMap_t GroupProperty::m_group_map =
         initializeFormFactorMap();
 
-GroupProperty::GroupProperty(QString group_name, QString value)
+GroupProperty::GroupProperty(QString group_name, QString value, QString label)
     : m_value("Undefined")
     , m_group_name("Undefined")
+    , m_group_type(ComboGroup)
+    , m_label(label)
 {
     if (m_group_map.contains(group_name)) {
         m_group_name = group_name;

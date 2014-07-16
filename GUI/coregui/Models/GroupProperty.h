@@ -1,8 +1,9 @@
 #ifndef GROUPPROPERTY_H
 #define GROUPPROPERTY_H
 
-#include "ParameterizedItem.h"
+//#include "ParameterizedItem.h"
 
+class ParameterizedItem;
 #include <QString>
 #include <QStringList>
 #include <QMap>
@@ -16,7 +17,9 @@ class GroupProperty
 public:
     typedef QMap<QString, QMap<QString, ParameterizedItem *(*)()> > GroupMap_t;
 
-    GroupProperty(QString group_name=QString(), QString value=QString());
+    enum GroupType {ComboGroup, FixedGroup};
+
+    GroupProperty(QString group_name=QString(), QString value=QString(), QString label=QString());
     virtual ~GroupProperty(){}
     QString getValue() const { return m_value; }
     QString getGroupName() const { return m_group_name; }
@@ -37,10 +40,18 @@ public:
 
     ParameterizedItem *createCorrespondingItem(QString name);
 
+    QString getGroupLabel() const { return m_label; }
+    void setGroupLabel(const QString &label) {m_label = label; }
+
+    GroupType getGroupType() const { return m_group_type; }
+    void setGroupType(GroupType type) { m_group_type = type; }
+
 private:
     static GroupMap_t m_group_map;
     QString m_value;
     QString m_group_name;
+    GroupType m_group_type;
+    QString m_label;
 };
 
 Q_DECLARE_METATYPE(GroupProperty)

@@ -23,6 +23,7 @@
 #include "InstrumentItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
+#include "VectorItem.h"
 #include <QDebug>
 
 namespace {
@@ -41,6 +42,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
+    result[Constants::VectorType] = &createInstance<VectorItem>;
 
     return result;
 }

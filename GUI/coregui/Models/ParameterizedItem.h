@@ -18,6 +18,8 @@
 
 #include "MaterialItem.h"
 #include "item_constants.h"
+#include "GroupProperty.h"
+#include "PropertyAttribute.h"
 #include <QStandardItem>
 #include <QStringList>
 #include <QList>
@@ -100,22 +102,18 @@ public:
     void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
     ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *registerFancyGroupProperty(const QString &name, const QString &value, const QString &label, GroupProperty::GroupType type=GroupProperty::ComboGroup);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    enum PropertyAttribute {
-        DefaultAttribute = 0x0000,
-        HiddenProperty = 0x0001,
-        DisabledProperty = 0x0002
-    };
-
-    void registerProperty(const QString &name, const QVariant &variant, PropertyAttribute property_attribute = DefaultAttribute);
+    void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
 
     void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
     bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
 
-    void setPropertyAttribute(const QString &name, PropertyAttribute attribute);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance);
     PropertyAttribute getPropertyAttribute(const QString &name) const;
 
     void print() const;

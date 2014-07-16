@@ -149,7 +149,8 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        if(item->getPropertyAttribute(prop_name) & ParameterizedItem::HiddenProperty) continue;
+        PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
+        if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
         int type = prop_value.type();
@@ -164,7 +165,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
             if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
 
-            if(item->getPropertyAttribute(prop_name) & ParameterizedItem::DisabledProperty) {
+            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
                 subProperty->setEnabled(false);
             }
 

@@ -36,6 +36,7 @@ const QString TetrahedronType = "Tetrahedron";
 const QString TruncatedSphereType = "TruncatedSphere";
 const QString TruncatedSpheroidType = "TruncatedSpheroid";
 
+const QString VectorType = "Vector";
 
 
 

@@ -37,8 +37,8 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
         m_parent->insertChildItem(-1, this);
     }
 
-    registerProperty(P_NAME, QString(), HiddenProperty);
-    registerProperty(P_PORT, -1, HiddenProperty);
+    registerProperty(P_NAME, QString(), PropertyAttribute::HiddenProperty);
+    registerProperty(P_PORT, -1, PropertyAttribute::HiddenProperty);
     setItemName(m_model_type);
 }
 
@@ -225,6 +225,27 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(
     return item;
 }
 
+ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &name, const QString &value, const QString &label, GroupProperty::GroupType type)
+{
+    qDebug() << "registerGroupProperty "
+             << modelType() << name << value;
+    GroupProperty group_prop(name, value, label);
+    Q_ASSERT(group_prop.isDefined());
+    group_prop.setGroupType(type);
+
+
+    if (group_prop.isDefined()) {
+        QVariant group_var;
+        group_var.setValue(group_prop);
+        registerProperty(name, group_var);
+    }
+    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
+    ParameterizedItem *item = createPropertyItem(name);
+    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
+    addPropertyItem(name, item);
+    return item;
+}
+
 ParameterizedItem * ParameterizedItem::setGroupProperty(
         const QString &name, const QString &value)
 {
@@ -249,14 +270,14 @@ ParameterizedItem * ParameterizedItem::setGroupProperty(
 
 
 
-void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, PropertyAttribute property_attribute)
+void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute)
 {
     //qDebug() << "   XXX   ParameterizedItem::registerProperty() " << modelType() << name;
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
     m_registered_properties << name;
-    m_property_attribute[name] = property_attribute;
+    m_property_attribute[name] = attribute;
 
     setProperty(name.toUtf8().constData(), variant);
 }
@@ -278,12 +299,21 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 }
 
 
-void ParameterizedItem::setPropertyAttribute(const QString &name, ParameterizedItem::PropertyAttribute attribute)
+void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute &attribute)
 {
     m_property_attribute[name] = attribute;
 }
 
-ParameterizedItem::PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
+void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance)
+{
+    if(m_property_attribute.contains(name)) {
+        m_property_attribute[name].setAppearance(appearance);
+    } else {
+        m_property_attribute[name] = PropertyAttribute(appearance);
+    }
+}
+
+PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
     return m_property_attribute[name];
 }

@@ -29,6 +29,7 @@ class SessionModel;
 class MaterialModel;
 class MaterialEditor;
 class ToolTipDataBase;
+class TestView;
 
 
 class MainWindow : public Manhattan::FancyMainWindow
@@ -36,7 +37,7 @@ class MainWindow : public Manhattan::FancyMainWindow
     Q_OBJECT
     
 public:
-    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab};
+    enum TabViewId { WelcomeTab, InstrumentTab, SampleTab, SimulationTab, JobTab, TestViewTab};
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -82,6 +83,8 @@ private:
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
+
+    TestView *m_testView;
 
     // dummy simulation model initializer for test purposes
     void initSimModel();

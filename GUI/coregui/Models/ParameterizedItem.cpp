@@ -225,14 +225,14 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(
     return item;
 }
 
-ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &name, const QString &value, const QString &label, GroupProperty::GroupType type)
+ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &name, const QString &value,  GroupProperty::GroupType type)
 {
     qDebug() << "registerGroupProperty "
              << modelType() << name << value;
-    GroupProperty group_prop(name, value, label);
+    GroupProperty group_prop(name, value);
     Q_ASSERT(group_prop.isDefined());
-    group_prop.setGroupType(type);
 
+    group_prop.setGroupType(type);
 
     if (group_prop.isDefined()) {
         QVariant group_var;

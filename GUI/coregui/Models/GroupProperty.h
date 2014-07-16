@@ -19,7 +19,7 @@ public:
 
     enum GroupType {ComboGroup, FixedGroup};
 
-    GroupProperty(QString group_name=QString(), QString value=QString(), QString label=QString());
+    GroupProperty(QString group_name=QString(), QString value=QString());
     virtual ~GroupProperty(){}
     QString getValue() const { return m_value; }
     QString getGroupName() const { return m_group_name; }
@@ -40,9 +40,6 @@ public:
 
     ParameterizedItem *createCorrespondingItem(QString name);
 
-    QString getGroupLabel() const { return m_label; }
-    void setGroupLabel(const QString &label) {m_label = label; }
-
     GroupType getGroupType() const { return m_group_type; }
     void setGroupType(GroupType type) { m_group_type = type; }
 
@@ -51,7 +48,6 @@ private:
     QString m_value;
     QString m_group_name;
     GroupType m_group_type;
-    QString m_label;
 };
 
 Q_DECLARE_METATYPE(GroupProperty)

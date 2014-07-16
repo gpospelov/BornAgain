@@ -150,6 +150,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
         PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
+
         if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
@@ -159,7 +160,13 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         }
         QtVariantProperty *subProperty = 0;
         if (m_manager->isPropertyTypeSupported(type)) {
-            subProperty = m_manager->addProperty(type, prop_name);
+
+            if(prop_attribute.getLabel().isEmpty()) {
+                subProperty = m_manager->addProperty(type, prop_name);
+            } else {
+                subProperty = m_manager->addProperty(type, prop_attribute.getLabel());
+            }
+
             subProperty->setValue(prop_value);
 
             QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);

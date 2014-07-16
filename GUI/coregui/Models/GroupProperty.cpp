@@ -83,11 +83,10 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
 GroupProperty::GroupMap_t GroupProperty::m_group_map =
         initializeFormFactorMap();
 
-GroupProperty::GroupProperty(QString group_name, QString value, QString label)
+GroupProperty::GroupProperty(QString group_name, QString value)
     : m_value("Undefined")
     , m_group_name("Undefined")
     , m_group_type(ComboGroup)
-    , m_label(label)
 {
     if (m_group_map.contains(group_name)) {
         m_group_name = group_name;

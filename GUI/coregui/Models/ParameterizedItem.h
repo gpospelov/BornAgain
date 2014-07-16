@@ -102,7 +102,7 @@ public:
     void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
     ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
-    ParameterizedItem *registerFancyGroupProperty(const QString &name, const QString &value, const QString &label, GroupProperty::GroupType type=GroupProperty::ComboGroup);
+    ParameterizedItem *registerFancyGroupProperty(const QString &name, const QString &value, GroupProperty::GroupType type=GroupProperty::ComboGroup);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
     void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());

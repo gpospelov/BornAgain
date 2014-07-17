@@ -153,6 +153,79 @@ QSize GroupPropertyEdit::minimumSizeHint() const
 }
 
 // -----------------------------------------------------------------------------
+// FancyGroupPropertyEdit
+// -----------------------------------------------------------------------------
+FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
+    : QWidget(parent)
+    , m_box(0)
+    , m_groupProperty(0)
+{
+    m_box = new QComboBox(this);
+
+//    connect(m_box, SIGNAL(currentTextChanged(QString)),
+//            this, SLOT(textChanged(QString)));
+    connect(m_box, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(indexChanged(int)));
+}
+
+void FancyGroupPropertyEdit::setFancyGroupProperty(
+        FancyGroupProperty *groupProperty)
+{
+    qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue();
+    if(groupProperty) {
+        qDebug() << m_box << m_box->count() << m_box->currentText();
+
+        m_groupProperty = groupProperty;
+        disconnect(m_box, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(indexChanged(int)));
+
+
+        if(!m_box->count()) m_box->insertItems(0, m_groupProperty->getValueLabels());
+        qDebug() << "XXX 1.1" << m_groupProperty->index();
+        m_box->setCurrentIndex(m_groupProperty->index());
+        qDebug() << "XXX 1.2";
+
+        connect(m_box, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(indexChanged(int)));
+
+    }
+}
+
+
+void FancyGroupPropertyEdit::textChanged(QString text)
+{
+//    FancyGroupPropertyEdit ff(m_groupProperty.getGroupName(), text);
+//    if (ff != m_groupProperty && ff.isDefined()) {
+//        setGroupProperty(ff);
+//        emit groupPropertyChanged(m_groupProperty);
+//    }
+    qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << text;
+    m_groupProperty->setValue(text);
+    emit fancyGroupPropertyChanged(m_groupProperty);
+}
+
+
+void FancyGroupPropertyEdit::indexChanged(int index)
+{
+    qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << index;
+    m_groupProperty->setValue(m_groupProperty->toString(index));
+    emit fancyGroupPropertyChanged(m_groupProperty);
+}
+
+
+QSize FancyGroupPropertyEdit::sizeHint() const
+{
+    return m_box->sizeHint();
+}
+
+QSize FancyGroupPropertyEdit::minimumSizeHint() const
+{
+    return m_box->minimumSizeHint();
+}
+
+
+
+// -----------------------------------------------------------------------------
 // ColorPropertyEdit
 // -----------------------------------------------------------------------------
 

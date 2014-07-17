@@ -38,6 +38,7 @@
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
 #include "ParticleCoreShellItem.h"
+#include "FancyGroupProperty.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -136,7 +137,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 
 //    testGUIObjectBuilder();
-
+    testProperties();
 }
 
 
@@ -362,3 +363,31 @@ void MainWindow::testGUIObjectBuilder()
     guiBuilder.populateSampleModel(m_sampleModel, sample.get());
 }
 
+
+
+void MainWindow::testProperties()
+{
+    qDebug() << "MainWindow::testProperties()";
+
+//    qRegisterMetaType<FancyGroupProperty*>("FancyGroupProperty*");
+
+
+//    ParameterizedItem *item = new ParameterizedItem();
+
+//    FancyGroupProperty *p_fgp = new FancyGroupProperty();
+//    QVariant var_p_fgp;
+//    var_p_fgp.setValue(p_fgp);
+
+//    qDebug() << "***" << var_p_fgp;
+
+//    item->setProperty("xxx",var_p_fgp);
+
+//    qDebug() << "AAA " << p_fgp->getName();
+
+
+//    FancyGroupProperty *fancy_property = item->property("xxx").value<FancyGroupProperty *>();
+//    qDebug() << "BBB " << fancy_property << item->property("xxx") << QMetaType::type("FancyGroupProperty*");
+//    qDebug() << "BBB " << fancy_property->getName();
+
+//    Q_ASSERT(0);
+}

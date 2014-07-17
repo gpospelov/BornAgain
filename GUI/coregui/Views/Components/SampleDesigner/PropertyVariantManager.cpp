@@ -34,6 +34,12 @@ int PropertyVariantManager::scientificDoubleTypeId()
     return result;
 }
 
+int PropertyVariantManager::fancyGroupTypeId()
+{
+    int result = qMetaTypeId<FancyGroupProperty *>();
+    return result;
+}
+
 bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
@@ -43,6 +49,8 @@ bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
     if (propertyType == colorPropertyTypeId())
         return true;
     if (propertyType == scientificDoubleTypeId())
+        return true;
+    if (propertyType == fancyGroupTypeId())
         return true;
     return QtVariantPropertyManager::isPropertyTypeSupported(propertyType);
 }
@@ -58,6 +66,8 @@ int PropertyVariantManager::valueType(int propertyType) const
         return colorPropertyTypeId();
     if (propertyType == scientificDoubleTypeId())
         return scientificDoubleTypeId();
+    if (propertyType == fancyGroupTypeId())
+        return fancyGroupTypeId();
     return QtVariantPropertyManager::valueType(propertyType);
 }
 
@@ -84,6 +94,11 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
         v.setValue(m_theScientificDoubleValues[property]);
         return v;
     }
+    if(m_theFancyGroupValues.contains(property)) {
+        QVariant v;
+        v.setValue(m_theFancyGroupValues[property]);
+        return v;
+    }
 
     return QtVariantPropertyManager::value(property);
 }
@@ -102,6 +117,9 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
     }
     if (m_theScientificDoubleValues.contains(property)) {
         return m_theScientificDoubleValues[property].getText();
+    }
+    if (m_theFancyGroupValues.contains(property)) {
+        return m_theFancyGroupValues[property]->getValue();
     }
     return QtVariantPropertyManager::valueText(property);
 }
@@ -161,6 +179,16 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
         emit valueChanged(property, v2);
         return;
     }
+    if (m_theFancyGroupValues.contains(property)) {
+        if( val.userType() != fancyGroupTypeId() ) return;
+        FancyGroupProperty *group_prop = val.value<FancyGroupProperty *>();
+        m_theFancyGroupValues[property] = group_prop;
+        QVariant v2;
+        v2.setValue(group_prop);
+        emit propertyChanged(property);
+        emit valueChanged(property, v2);
+        return;
+    }
 
     QtVariantPropertyManager::setValue(property, val);
 }
@@ -184,6 +212,10 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
         ScientificDoubleProperty m;
         m_theScientificDoubleValues[property] = m;
     }
+    // ???
+    if (propertyType(property) == fancyGroupTypeId()) {
+        m_theFancyGroupValues[property] = 0;
+    }
 
     QtVariantPropertyManager::initializeProperty(property);
 }
@@ -195,6 +227,7 @@ void PropertyVariantManager::uninitializeProperty(QtProperty *property)
     m_theGroupValues.remove(property);
     m_theColorValues.remove(property);
     m_theScientificDoubleValues.remove(property);
+    m_theFancyGroupValues.remove(property);
     QtVariantPropertyManager::uninitializeProperty(property);
 }
 

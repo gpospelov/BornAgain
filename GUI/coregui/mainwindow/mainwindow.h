@@ -98,6 +98,7 @@ private:
     void updateInstruments();
 
     void testGUIObjectBuilder();
+    void testProperties();
 };
 
 #endif // MAINWINDOW_H

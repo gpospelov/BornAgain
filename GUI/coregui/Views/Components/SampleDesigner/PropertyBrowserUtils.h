@@ -6,6 +6,7 @@
 #include "GroupProperty.h"
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
+#include "FancyGroupProperty.h"
 
 class QLabel;
 class QIcon;
@@ -59,6 +60,33 @@ private:
     QLabel *m_label;
     GroupProperty m_groupProperty;
 };
+
+
+
+class FancyGroupPropertyEdit : public QWidget
+{
+    Q_OBJECT
+public:
+    FancyGroupPropertyEdit(QWidget *parent = 0);
+
+    void setFancyGroupProperty(FancyGroupProperty *groupProperty);
+    FancyGroupProperty *getFancyGroupProperty() const {
+        return m_groupProperty;
+    }
+
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+signals:
+    void fancyGroupPropertyChanged(FancyGroupProperty *group_property);
+private slots:
+    void textChanged(QString text);
+    void indexChanged(int index);
+private:
+    QComboBox *m_box;
+    FancyGroupProperty *m_groupProperty;
+};
+
 
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing

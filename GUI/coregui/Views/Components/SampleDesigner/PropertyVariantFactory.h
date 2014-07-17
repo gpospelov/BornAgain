@@ -13,6 +13,8 @@ class ColorPropertyEdit;
 class ColorProperty;
 class ScientificDoublePropertyEdit;
 class ScientificDoubleProperty;
+class FancyGroupPropertyEdit;
+class FancyGroupProperty;
 
 //! The PropertyVariantFactory class provides and manages user defined
 //! QVariant based properties.
@@ -37,6 +39,7 @@ private slots:
     void slotSetValue(const GroupProperty &value);
     void slotSetValue(const ColorProperty &value);
     void slotSetValue(const ScientificDoubleProperty &value);
+    void slotSetValue(FancyGroupProperty *value);
     void slotEditorDestroyed(QObject *object);
     void slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &);
 
@@ -58,6 +61,12 @@ private:
         m_property_to_scdouble_editors;
     QMap<ScientificDoublePropertyEdit *, QtProperty *>
         m_scdouble_editor_to_property;
+
+    QMap<QtProperty *, QList<FancyGroupPropertyEdit *> >
+        m_property_to_fancygroup_editors;
+    QMap<FancyGroupPropertyEdit *, QtProperty *>
+        m_fancygroup_editor_to_property;
+
 
 };
 

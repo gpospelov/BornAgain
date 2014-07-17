@@ -33,10 +33,13 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     registerProperty("XXX", prop.getVariant());
 
     //registerGroupProperty("Vector", "VectorV");
-    registerFancyGroupProperty("Vector", "VectorV", GroupProperty::FixedGroup);
+    //registerFancyGroupProperty("Vector", "VectorV", GroupProperty::FixedGroup);
 
     //setPropertyAttribute("Vector", PropertyAttribute("New label"));
 
+    //registerFancyGroupProperty("Vector", "VectorV", GroupProperty::FixedGroup);
+
+    registerFancyGroupProperty(Constants::FormFactorGroup);
 
 }
 

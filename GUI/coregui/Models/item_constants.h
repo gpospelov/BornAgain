@@ -40,6 +40,8 @@ const QString VectorType = "Vector";
 
 
 
+const QString FormFactorGroup = "Form Factor";
+
 }
 
 

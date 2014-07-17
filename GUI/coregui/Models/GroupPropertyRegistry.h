@@ -4,18 +4,31 @@
 #include <QMap>
 #include <QString>
 
-class ParameterizedItem;
+class FancyGroupProperty;
+class SelectableGroupProperty;
+class FixedGroupProperty;
 
+//! The GroupPropertyRegistry constructs FancyGroupProperty or SelectableGroupProperty
+//! according to the given name of the group.
 class GroupPropertyRegistry
 {
 public:
-    GroupPropertyRegistry();
-    ~GroupPropertyRegistry();
+    //! correspondance of group name to ParameterizedItem's types to labels
+    typedef QMap<QString, QMap<QString, QString> > SelectableGroupMap_t;
+
+    GroupPropertyRegistry(){}
+    ~GroupPropertyRegistry(){}
+
+
+    static FancyGroupProperty *createGroupProperty(const QString &group_name);
 
 private:
-    static GroupPropertyRegistry *m_instance;
+    static SelectableGroupProperty *createSelectableGroupProperty(const QString &group_name);
+    static FixedGroupProperty *createFixedGroupProperty(const QString &group_name);
 
-    typedef QMap<QString, ParameterizedItem *(*)()> ObjectMap_t;
+    static SelectableGroupMap_t m_selectable_group_map;
+    //!< Contains correspondance of selectable group names to they content,
+    //!< namely item type and item label
 };
 
 

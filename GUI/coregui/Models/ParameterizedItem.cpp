@@ -19,6 +19,8 @@
 #include "MaterialEditor.h"
 #include "GUIHelpers.h"
 #include "PropertyVariantManager.h"
+#include "GroupPropertyRegistry.h"
+#include "FancyGroupProperty.h"
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -181,6 +183,25 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
+void ParameterizedItem::addFancyPropertyItem(QString name, ParameterizedItem *item)
+{
+    //if (!item) return;
+    Q_ASSERT(item);
+    qDebug() << "ParameterizedItem::addPropertyItem()" << name;
+
+    if (m_sub_items.contains(name)) {
+        qDebug() << "       ParameterizedItem::addPropertyItem() -> item is already there" << name << "replacing with " << item->modelType();
+        delete m_sub_items[name];
+        m_sub_items.remove(name);
+    }
+    m_sub_items[name] = item;
+    item->m_parent = this;
+    connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+
+    qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
+
+}
+
 ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
 {
     ParameterizedItem *result = 0;
@@ -188,7 +209,6 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
     QByteArray name_byte_array = name.toUtf8();
     QVariant val = property(name_byte_array.constData());
     if (val.userType() == PropertyVariantManager::groupTypeId()) {
-    //if (val.userType() == qMetaTypeId<GroupProperty>()) {
         GroupProperty group_prop = val.value<GroupProperty>();
         result = group_prop.createCorrespondingItem(
                     group_prop.getValue());
@@ -202,7 +222,7 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
 
 void ParameterizedItem::updatePropertyItem(QString name)
 {
-    qDebug() << "ParameterizedItem::updatePropertyItem() ";
+    qDebug() << "ParameterizedItem::updatePropertyItem() '" << name << "'";
     if (!m_sub_items.contains(name)) {
         qDebug() << "           ParameterizedItem::updatePropertyItem() -> No such item";
         return;
@@ -244,25 +264,35 @@ ParameterizedItem * ParameterizedItem::registerGroupProperty(
     return item;
 }
 
-ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &name, const QString &value,  GroupProperty::GroupType type)
+ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &name)
 {
-    qDebug() << "registerGroupProperty "
-             << modelType() << name << value;
-    GroupProperty group_prop(name, value);
-    Q_ASSERT(group_prop.isDefined());
+    qDebug() << "registerFancyGroupProperty "
+             << modelType() << name;
 
-    group_prop.setGroupType(type);
+    FancyGroupProperty *group_property = GroupPropertyRegistry::createGroupProperty(name);
+    group_property->setParent(this);
+    QVariant group_var;
+    group_var.setValue(group_property);
+    registerProperty(name, group_var);
 
-    if (group_prop.isDefined()) {
-        QVariant group_var;
-        group_var.setValue(group_prop);
-        registerProperty(name, group_var);
-    }
-    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
-    ParameterizedItem *item = createPropertyItem(name);
-    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
-    addPropertyItem(name, item);
-    return item;
+    ParameterizedItem *subItem = group_property->createCorrespondingItem();
+    addPropertyItem(name, subItem);
+
+//    GroupProperty group_prop(name, value);
+//    Q_ASSERT(group_prop.isDefined());
+
+//    group_prop.setGroupType(type);
+
+//    if (group_prop.isDefined()) {
+//        QVariant group_var;
+//        group_var.setValue(group_prop);
+//        registerProperty(name, group_var);
+//    }
+//    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
+//    ParameterizedItem *item = createPropertyItem(name);
+//    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
+//    addPropertyItem(name, item);
+    return subItem;
 }
 
 ParameterizedItem * ParameterizedItem::setGroupProperty(

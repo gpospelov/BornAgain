@@ -8,6 +8,8 @@
 #include "GroupProperty.h"
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
+#include "FancyGroupProperty.h"
+
 class QObject;
 
 //! The ObjectVariantManager class provides and manages user defined
@@ -25,6 +27,7 @@ public:
     static int groupTypeId();
     static int colorPropertyTypeId();
     static int scientificDoubleTypeId();
+    static int fancyGroupTypeId();
 
 public slots:
     virtual void setValue(QtProperty *property, const QVariant &val);
@@ -39,6 +42,7 @@ private:
     QMap<const QtProperty *, GroupProperty> m_theGroupValues;
     QMap<const QtProperty *, ColorProperty> m_theColorValues;
     QMap<const QtProperty *, ScientificDoubleProperty> m_theScientificDoubleValues;
+    QMap<const QtProperty *, FancyGroupProperty *> m_theFancyGroupValues;
 };
 
 #endif // OBJECTVARIANTMANAGER_H

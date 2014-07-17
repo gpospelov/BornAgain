@@ -24,6 +24,8 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "VectorItem.h"
+#include "GUIHelpers.h"
+#include "FormFactorItems.h"
 #include <QDebug>
 
 namespace {
@@ -43,6 +45,26 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
+
+    result[Constants::AnisoPyramidType] = &createInstance<AnisoPyramidItem>;
+    result[Constants::BoxType] = &createInstance<BoxItem>;
+    result[Constants::ConeType] = &createInstance<ConeItem>;
+    result[Constants::Cone6Type] = &createInstance<Cone6Item>;
+    result[Constants::CuboctahedronType] = &createInstance<CuboctahedronItem>;
+    result[Constants::CylinderType] = &createInstance<CylinderItem>;
+    result[Constants::EllipsoidalCylinderType] = &createInstance<EllipsoidalCylinderItem>;
+    result[Constants::FullSphereType] = &createInstance<FullSphereItem>;
+    result[Constants::FullSpheroidType] = &createInstance<FullSpheroidItem>;
+    result[Constants::HemiEllipsoidType] = &createInstance<HemiEllipsoidItem>;
+    result[Constants::Prism3Type] = &createInstance<Prism3Item>;
+    result[Constants::Prism6Type] = &createInstance<Prism6Item>;
+    result[Constants::PyramidType] = &createInstance<PyramidItem>;
+    result[Constants::Ripple1Type] = &createInstance<Ripple1Item>;
+    result[Constants::Ripple2Type] = &createInstance<Ripple2Item>;
+    result[Constants::TetrahedronType] = &createInstance<TetrahedronItem>;
+    result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
+    result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
+
 
     return result;
 }
@@ -64,11 +86,14 @@ ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
-    if (model_name.isEmpty()) {
-        return createEmptyItem();
-    }
+//    if (model_name.isEmpty()) {
+//        return createEmptyItem();
+//    }
 
-    if(!m_item_map.contains(model_name)) return 0;
+//    if(!m_item_map.contains(model_name)) return 0;
+
+    if(!m_item_map.contains(model_name))
+        throw GUIHelpers::Error("ItemFactory::createItem() -> Error. Not existing model name "+model_name);
 
     ParameterizedItem *result = m_item_map[model_name]();
     if(parent) {

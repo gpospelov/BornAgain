@@ -29,6 +29,13 @@ PropertyVariantFactory::~PropertyVariantFactory()
     while (scdouble_it.hasNext())
         delete scdouble_it.next();
 
+    QList<FancyGroupPropertyEdit *> fancy_editors =
+            m_fancygroup_editor_to_property.keys();
+    QListIterator<FancyGroupPropertyEdit *> fancy_it(fancy_editors);
+    while (fancy_it.hasNext())
+        delete fancy_it.next();
+
+
 }
 
 void PropertyVariantFactory::connectPropertyManager(
@@ -116,6 +123,24 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         return editor;
     }
 
+    if (manager->propertyType(property) ==
+            PropertyVariantManager::fancyGroupTypeId()) {
+        FancyGroupPropertyEdit *editor = new FancyGroupPropertyEdit(parent);
+        QVariant var = manager->value(property);
+        FancyGroupProperty *ff = var.value<FancyGroupProperty *>();
+        editor->setFancyGroupProperty(ff);
+
+        m_property_to_fancygroup_editors[property].append(editor);
+        m_fancygroup_editor_to_property[editor] = property;
+
+//        connect(editor,
+//                SIGNAL(fancyGroupPropertyChanged(FancyGroupProperty *)),
+//                this, SLOT(slotSetValue(FancyGroupProperty *)));
+        connect(editor, SIGNAL(destroyed(QObject *)),
+                this, SLOT(slotEditorDestroyed(QObject *)));
+        return editor;
+    }
+
 
 
     return QtVariantEditorFactory::createEditor(manager, property, parent);
@@ -172,6 +197,15 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
         while (itEditor.hasNext()) {
             ScientificDoubleProperty mat = value.value<ScientificDoubleProperty>();
             itEditor.next()->setScientificDoubleProperty(mat);
+        }
+    }
+    else if (m_property_to_fancygroup_editors.contains(property)) {
+        QList<FancyGroupPropertyEdit *> editors =
+                m_property_to_fancygroup_editors[property];
+        QListIterator<FancyGroupPropertyEdit *> itEditor(editors);
+        while (itEditor.hasNext()) {
+            FancyGroupProperty *mat = value.value<FancyGroupProperty *>();
+            itEditor.next()->setFancyGroupProperty(mat);
         }
     }
 
@@ -253,6 +287,28 @@ void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
         itEditor++;
     }
 }
+
+void PropertyVariantFactory::slotSetValue(FancyGroupProperty *value)
+{
+    QObject *object = sender();
+    QMap<FancyGroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+                m_fancygroup_editor_to_property.constBegin();
+    while (itEditor != m_fancygroup_editor_to_property.constEnd()) {
+        if (itEditor.key() == object) {
+            QtProperty *property = itEditor.value();
+            QtVariantPropertyManager *manager = propertyManager(property);
+            if (!manager) return;
+            QVariant var;
+            var.setValue(value);
+            manager->setValue(property, var);
+            return;
+        }
+        itEditor++;
+    }
+}
+
+
+
 
 void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
 {

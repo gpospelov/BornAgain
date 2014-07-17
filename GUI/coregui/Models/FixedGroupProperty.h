@@ -6,6 +6,12 @@
 class FixedGroupProperty : public FancyGroupProperty
 {
 public:
+    FixedGroupProperty() {}
+    ~FixedGroupProperty(){}
+
+    virtual GroupType type() const { return FixedGroupType; }
+
+    ParameterizedItem *createCorrespondingItem(const QString &name = QString());
 
 };
 

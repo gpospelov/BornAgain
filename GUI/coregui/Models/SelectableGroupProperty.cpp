@@ -29,6 +29,11 @@ QStringList SelectableGroupProperty::getValueLabels() const
     return m_group_map.values();
 }
 
+QString SelectableGroupProperty::getValueLabel() const
+{
+    return m_group_map[m_value];
+}
+
 void SelectableGroupProperty::setValue(const QString &value)
 {
     qDebug() << "SelectableGroupProperty::setValue() -> " << value;

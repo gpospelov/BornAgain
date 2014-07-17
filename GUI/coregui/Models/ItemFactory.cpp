@@ -86,6 +86,7 @@ ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
+    qDebug() << "ItemFactory::createItem" << model_name;
 //    if (model_name.isEmpty()) {
 //        return createEmptyItem();
 //    }

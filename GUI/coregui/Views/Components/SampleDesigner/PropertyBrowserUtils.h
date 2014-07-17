@@ -80,10 +80,12 @@ public:
 signals:
     void fancyGroupPropertyChanged(FancyGroupProperty *group_property);
 private slots:
-    void textChanged(QString text);
     void indexChanged(int index);
 private:
+    void processFixedGroup();
+    void processSelectableGroup();
     QComboBox *m_box;
+    QLabel *m_label;
     FancyGroupProperty *m_groupProperty;
 };
 

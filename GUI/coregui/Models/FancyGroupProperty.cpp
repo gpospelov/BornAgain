@@ -23,15 +23,15 @@ void FancyGroupProperty::setGroupName(const QString &group_name)
     m_group_name = group_name;
 }
 
-QString FancyGroupProperty::getGroupLabel() const
-{
-    return m_group_label;
-}
+//QString FancyGroupProperty::getGroupLabel() const
+//{
+//    return m_group_label;
+//}
 
-void FancyGroupProperty::setGroupLabel(const QString &group_label)
-{
-    m_group_label = group_label;
-}
+//void FancyGroupProperty::setGroupLabel(const QString &group_label)
+//{
+//    m_group_label = group_label;
+//}
 
 QString FancyGroupProperty::getValue() const
 {

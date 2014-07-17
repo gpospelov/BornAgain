@@ -11,6 +11,8 @@ public:
     SelectableGroupProperty() {}
     ~SelectableGroupProperty(){}
 
+    virtual GroupType type() const { return SelectableGroupType; }
+
     ParameterizedItem *createCorrespondingItem(const QString &name = QString());
 
 
@@ -18,6 +20,7 @@ public:
 
     QStringList getValues() const;
     QStringList getValueLabels() const;
+    QString getValueLabel() const;
 
     void setValue(const QString &value);
 

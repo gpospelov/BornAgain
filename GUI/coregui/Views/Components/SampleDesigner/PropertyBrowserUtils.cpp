@@ -158,14 +158,13 @@ QSize GroupPropertyEdit::minimumSizeHint() const
 FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
     , m_box(0)
+    , m_label(0)
     , m_groupProperty(0)
 {
-    m_box = new QComboBox(this);
+//    m_box = new QComboBox(this);
 
-//    connect(m_box, SIGNAL(currentTextChanged(QString)),
-//            this, SLOT(textChanged(QString)));
-    connect(m_box, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(indexChanged(int)));
+//    connect(m_box, SIGNAL(currentIndexChanged(int)),
+//            this, SLOT(indexChanged(int)));
 }
 
 void FancyGroupPropertyEdit::setFancyGroupProperty(
@@ -173,35 +172,42 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
 {
     qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue();
     if(groupProperty) {
-        qDebug() << m_box << m_box->count() << m_box->currentText();
-
         m_groupProperty = groupProperty;
-        disconnect(m_box, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(indexChanged(int)));
 
-
-        if(!m_box->count()) m_box->insertItems(0, m_groupProperty->getValueLabels());
-        qDebug() << "XXX 1.1" << m_groupProperty->index();
-        m_box->setCurrentIndex(m_groupProperty->index());
-        qDebug() << "XXX 1.2";
-
-        connect(m_box, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(indexChanged(int)));
+        if(groupProperty->type() == FancyGroupProperty::FixedGroupType) {
+            processFixedGroup();
+        }
+        else if(groupProperty->type() == FancyGroupProperty::SelectableGroupType) {
+            processSelectableGroup();
+        }
+        else {
+            throw GUIHelpers::Error(" FancyGroupPropertyEdit::setFancyGroupProperty() -> Error. Unknown group type");
+        }
 
     }
 }
 
 
-void FancyGroupPropertyEdit::textChanged(QString text)
+void FancyGroupPropertyEdit::processFixedGroup()
 {
-//    FancyGroupPropertyEdit ff(m_groupProperty.getGroupName(), text);
-//    if (ff != m_groupProperty && ff.isDefined()) {
-//        setGroupProperty(ff);
-//        emit groupPropertyChanged(m_groupProperty);
-//    }
-    qDebug() << "FancyGroupPropertyEdit::textChanged() -> " << text;
-    m_groupProperty->setValue(text);
-    emit fancyGroupPropertyChanged(m_groupProperty);
+    if(!m_label) m_label = new QLabel(this);
+    m_label->setText(m_groupProperty->getValueLabel());
+}
+
+
+void FancyGroupPropertyEdit::processSelectableGroup()
+{
+    if(!m_box) m_box = new QComboBox(this);
+
+    disconnect(m_box, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(indexChanged(int)));
+
+    if(!m_box->count()) m_box->insertItems(0, m_groupProperty->getValueLabels());
+    m_box->setCurrentIndex(m_groupProperty->index());
+
+    connect(m_box, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(indexChanged(int)));
+
 }
 
 
@@ -215,14 +221,25 @@ void FancyGroupPropertyEdit::indexChanged(int index)
 
 QSize FancyGroupPropertyEdit::sizeHint() const
 {
-    return m_box->sizeHint();
+    if(m_box) {
+        return m_box->sizeHint();
+    }
+    if(m_label) {
+        return m_label->sizeHint();
+    }
+    return QSize(10,10);
 }
 
 QSize FancyGroupPropertyEdit::minimumSizeHint() const
 {
-    return m_box->minimumSizeHint();
+    if(m_box) {
+        return m_box->minimumSizeHint();
+    }
+    if(m_label) {
+        return m_label->minimumSizeHint();
+    }
+    return QSize(10,10);
 }
-
 
 
 // -----------------------------------------------------------------------------

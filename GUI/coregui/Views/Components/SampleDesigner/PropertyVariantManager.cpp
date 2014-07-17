@@ -119,7 +119,7 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
         return m_theScientificDoubleValues[property].getText();
     }
     if (m_theFancyGroupValues.contains(property)) {
-        return m_theFancyGroupValues[property]->getValue();
+        return m_theFancyGroupValues[property]->getValueLabel();
     }
     return QtVariantPropertyManager::valueText(property);
 }

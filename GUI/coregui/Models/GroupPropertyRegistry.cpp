@@ -74,7 +74,9 @@ SelectableGroupProperty *GroupPropertyRegistry::createSelectableGroupProperty(co
     return result;
 }
 
-FixedGroupProperty *GroupPropertyRegistry::createFixedGroupProperty(const QString &/* group_name */)
+FixedGroupProperty *GroupPropertyRegistry::createFixedGroupProperty(const QString &group_name)
 {
-    return 0;
+    FixedGroupProperty *result = new FixedGroupProperty();
+    result->setGroupName(group_name);
+    return result;
 }

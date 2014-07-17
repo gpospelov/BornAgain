@@ -137,18 +137,20 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
 
 void ParameterizedItem::onPropertyItemChanged(const QString &propertyName)
 {
-    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
-    qDebug() << "ParameterizedItem::onPropertyItemChanged(), propertyItem " << propertyItem->modelType() << " property_name " << propertyName;
-    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
-        if(it.value() == propertyItem) {
-            qDebug() << "   found sender, group property" << it.key();
-            GroupProperty group_property = getRegisteredProperty(it.key()).value<GroupProperty>();
-            group_property.setGroupLabel(propertyItem->getItemLabel());
-            setRegisteredProperty(it.key(), group_property.getVariant());
-            return;
-        }
-    }
-    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() -> Error. No such propertyItem found");
+    qDebug() << "ParameterizedItem::onPropertyItemChanged()" << propertyName;
+
+//    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
+//    qDebug() << "ParameterizedItem::onPropertyItemChanged(), propertyItem " << propertyItem->modelType() << " property_name " << propertyName;
+//    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
+//        if(it.value() == propertyItem) {
+//            qDebug() << "   found sender, group property" << it.key();
+//            GroupProperty group_property = getRegisteredProperty(it.key()).value<GroupProperty>();
+//            group_property.setGroupLabel(propertyItem->getItemLabel());
+//            setRegisteredProperty(it.key(), group_property.getVariant());
+//            return;
+//        }
+//    }
+//    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() -> Error. No such propertyItem found");
 }
 
 
@@ -270,6 +272,7 @@ ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &
              << modelType() << name;
 
     FancyGroupProperty *group_property = GroupPropertyRegistry::createGroupProperty(name);
+    Q_ASSERT(group_property);
     group_property->setParent(this);
     QVariant group_var;
     group_var.setValue(group_property);

@@ -30,15 +30,26 @@ void TestViewDelegate::paint(QPainter *painter,
             return;
         }
 
-        double value = index.model()->data(index, Qt::EditRole).toDouble();
-        QString text(QString::number(value));
+        QVariant prop_value = index.model()->data(index, Qt::EditRole);
 
-        QStyleOptionViewItem myOption = option;
-        myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
+        int type = prop_value.type();
+        if (type == QVariant::Double) {
+            double value = prop_value.toDouble();
+            QString text(QString::number(value));
+
+            QStyleOptionViewItem myOption = option;
+            myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
 
 
-        drawDisplay(painter, myOption, myOption.rect, text);
-        drawFocus(painter, myOption, myOption.rect);
+            drawDisplay(painter, myOption, myOption.rect, text);
+            drawFocus(painter, myOption, myOption.rect);
+        }
+        else
+        {
+            return;
+        }
+
+
     } else{
         QItemDelegate::paint(painter, option, index);
     }

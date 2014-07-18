@@ -35,6 +35,11 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     formfactors[Constants::TruncatedSpheroidType] = "Truncated Spheroid";
     result[Constants::FormFactorGroup] = formfactors;
 
+    QMap<QString, QString> roughnesses;
+    roughnesses[Constants::LayerRoughnessType] = "Basic";
+    roughnesses[Constants::LayerZeroRoughnessType] = "No";
+    result[Constants::LayerRoughnessGroup] = roughnesses;
+
     return result;
 }
 
@@ -46,37 +51,42 @@ GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_
 
 FancyGroupProperty *GroupPropertyRegistry::createGroupProperty(const QString &group_name)
 {
+    FancyGroupProperty *result = new FancyGroupProperty(group_name);
+
     if(m_selectable_group_map.contains(group_name)) {
-        return createSelectableGroupProperty(group_name);
+        result->setGroupType(FancyGroupProperty::SelectableGroupType);
+        result->setGroupMap(m_selectable_group_map[group_name]);
     }
     else {
-        return createFixedGroupProperty(group_name);
+        result->setGroupType(FancyGroupProperty::FixedGroupType);
+        result->setValue(group_name);
+        QMap<QString, QString> group_map;
+        group_map[group_name] = "No label";
+        result->setGroupMap(group_map);
     }
-}
-
-
-SelectableGroupProperty *GroupPropertyRegistry::createSelectableGroupProperty(const QString &group_name)
-{
-    SelectableGroupProperty *result(0);
-
-    if(group_name == Constants::FormFactorGroup) {
-
-        result = new SelectableGroupProperty();
-
-    }
-    else {
-        throw GUIHelpers::Error("GroupPropertyRegistry::createSelectableGroupProperty() -> Error. Unknown group name"+group_name);
-    }
-
-    result->setGroupName(group_name);
-    result->setGroupMap(m_selectable_group_map[group_name]);
 
     return result;
 }
 
-FixedGroupProperty *GroupPropertyRegistry::createFixedGroupProperty(const QString &group_name)
-{
-    FixedGroupProperty *result = new FixedGroupProperty();
-    result->setGroupName(group_name);
-    return result;
-}
+
+//SelectableGroupProperty *GroupPropertyRegistry::createSelectableGroupProperty(const QString &group_name)
+//{
+//    if( !m_selectable_group_map.contains(group_name) )
+//        return 0;
+
+//    SelectableGroupProperty *result = new SelectableGroupProperty(group_name);
+//    result->setGroupMap(m_selectable_group_map[group_name]);
+//    return result;
+//}
+
+//FixedGroupProperty *GroupPropertyRegistry::createFixedGroupProperty(const QString &group_name)
+//{
+//    FixedGroupProperty *result = new FixedGroupProperty(group_name);
+//    QMap<QString, QString> group_map;
+//    group_map[group_name] = "No label";
+//    result->setGroupMap(group_map[group_name]);
+//    return result;
+//}
+
+
+

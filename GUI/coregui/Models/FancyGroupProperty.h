@@ -19,18 +19,16 @@ public:
         SelectableGroupType
     };
 
-    FancyGroupProperty(ParameterizedItem *parent = 0);
+    FancyGroupProperty(const QString &group_name);
     virtual ~FancyGroupProperty(){}
 
-    virtual GroupType type() const { return UndefinedGroupType; }
+    virtual GroupType type() const;
 
-    virtual ParameterizedItem *createCorrespondingItem(const QString &name=QString());
+    virtual void setParent(ParameterizedItem *parent);
+
+    virtual ParameterizedItem *createCorrespondingItem();
 
     virtual QString getGroupName() const;
-    virtual void setGroupName(const QString &group_name);
-
-//    virtual QString getGroupLabel() const;
-//    virtual void setGroupLabel(const QString &group_label);
 
     virtual QString getValue() const;
     virtual void setValue(const QString &value);
@@ -41,18 +39,24 @@ public:
     virtual QStringList getValues() const;
     virtual QStringList getValueLabels() const;
 
-    virtual void setParent(ParameterizedItem *parent);
-
     virtual int index() const;
     virtual int toIndex(const QString &value) const;
     virtual QString toString(int index) const;
 
+    QVariant getVariant();
+
+    friend class GroupPropertyRegistry;
+
 protected:
-    ParameterizedItem *m_parent;
+    void setGroupMap(const QMap<QString, QString> &group_map);
+    void setGroupType(GroupType group_type) { m_group_type = group_type; }
+
     QString m_group_name;
-//    QString m_group_label;
+    GroupType m_group_type;
+    ParameterizedItem *m_parent;
     QString m_value;
-    QString m_value_label;
+
+    QMap<QString, QString > m_group_map;
 };
 
 Q_DECLARE_METATYPE(FancyGroupProperty *)

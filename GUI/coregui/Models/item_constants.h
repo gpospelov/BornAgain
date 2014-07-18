@@ -38,9 +38,11 @@ const QString TruncatedSpheroidType = "TruncatedSpheroid";
 
 const QString VectorType = "Vector";
 
-
+const QString LayerRoughnessType = "LayerRoughness";
+const QString LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const QString FormFactorGroup = "Form Factor";
+const QString LayerRoughnessGroup = "Roughness";
 
 }
 

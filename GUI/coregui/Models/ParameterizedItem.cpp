@@ -274,14 +274,12 @@ ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &
              << modelType() << name;
 
     FancyGroupProperty *group_property = GroupPropertyRegistry::createGroupProperty(name);
-    Q_ASSERT(group_property);
+    registerProperty(name, group_property->getVariant());
     group_property->setParent(this);
-    QVariant group_var;
-    group_var.setValue(group_property);
-    registerProperty(name, group_var);
 
-    ParameterizedItem *subItem = group_property->createCorrespondingItem();
-    addPropertyItem(name, subItem);
+
+//    ParameterizedItem *subItem = group_property->createCorrespondingItem();
+//    addPropertyItem(name, subItem);
 
 //    GroupProperty group_prop(name, value);
 //    Q_ASSERT(group_prop.isDefined());
@@ -297,7 +295,8 @@ ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &
 //    ParameterizedItem *item = createPropertyItem(name);
 //    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
 //    addPropertyItem(name, item);
-    return subItem;
+//    return subItem;
+    return m_sub_items[name];
 }
 
 ParameterizedItem * ParameterizedItem::setGroupProperty(

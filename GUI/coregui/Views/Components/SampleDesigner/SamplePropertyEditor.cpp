@@ -131,24 +131,21 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
     if(!m_item) return;
 
     QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[m_item][property_name];
-    Q_ASSERT(variant_property);
+    if(variant_property) {
+        QVariant property_value = m_item->getRegisteredProperty(property_name);
 
-//    QVariant prop_value = m_item->property(property_name.toUtf8().data());
-    QVariant property_value = m_item->getRegisteredProperty(property_name);
-    Q_ASSERT(property_value.isValid());
-
-    disconnect(m_item, SIGNAL(propertyChanged(QString)),
+        disconnect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
-    disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
+        disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
 
-    variant_property->setValue(property_value);
+        variant_property->setValue(property_value);
 
-    connect(m_item, SIGNAL(propertyChanged(QString)),
+        connect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
-    connect(m_item, SIGNAL(propertyItemChanged(QString)),
+        connect(m_item, SIGNAL(propertyItemChanged(QString)),
             this, SLOT(updateSubItems(QString)));
-
+    }
 }
 
 

@@ -8,25 +8,14 @@ class SelectableGroupProperty : public FancyGroupProperty
 {
 public:
 
-    SelectableGroupProperty() {}
-    ~SelectableGroupProperty(){}
+//    SelectableGroupProperty() {}
+//    ~SelectableGroupProperty(){}
 
-    virtual GroupType type() const { return SelectableGroupType; }
+//    virtual GroupType type() const { return SelectableGroupType; }
 
-    ParameterizedItem *createCorrespondingItem(const QString &name = QString());
-
-
-    void setGroupMap(const QMap<QString, QString > &group_map);
-
-    QStringList getValues() const;
-    QStringList getValueLabels() const;
-    QString getValueLabel() const;
-
-    void setValue(const QString &value);
+//    void setValue(const QString &value);
 
 private:
-    QMap<QString, QString > m_group_map;
-    //!< Correspondance of item type to item label
 };
 
 

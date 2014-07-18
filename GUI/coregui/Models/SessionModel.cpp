@@ -22,6 +22,7 @@
 #include "ComboProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "IconProvider.h"
+#include "FancyGroupProperty.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -611,6 +612,19 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         ScientificDoubleProperty scdouble_property(parameter_value);
         item->setRegisteredProperty(parameter_name, scdouble_property.getVariant());
     }
+    else if (parameter_type == "FancyGroupProperty*") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+
+        FancyGroupProperty *group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty *>();
+        group_property->setValue(parameter_value);
+//        GroupProperty group_prop(parameter_name, parameter_value);
+//        QVariant group_variant;
+//        group_variant.setValue(group_prop);
+//        item->setGroupProperty(parameter_name, parameter_value);
+    }
+
 
 
     else {
@@ -695,6 +709,12 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.value<ScientificDoubleProperty>().getText());
 
+        }
+        else if (type_name == QString("FancyGroupProperty*")) {
+            QString ff_name =
+                    variant.value<FancyGroupProperty *>()->getValue();
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                ff_name);
         }
 
         else {

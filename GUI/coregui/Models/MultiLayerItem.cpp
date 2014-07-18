@@ -37,7 +37,7 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
 
     //registerFancyGroupProperty("Vector", "VectorV", GroupProperty::FixedGroup);
 
-    //registerFancyGroupProperty(Constants::FormFactorGroup);
+    registerFancyGroupProperty(Constants::FormFactorGroup);
     registerFancyGroupProperty(Constants::VectorType);
 
 

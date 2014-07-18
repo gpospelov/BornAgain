@@ -214,8 +214,8 @@ void MaterialItem::writeProperty(QXmlStreamWriter *writer, MaterialItem *item, c
             writer->writeAttribute(MaterialXML::MaterialColorAlphaAttribute, QString::number(a));
         }
         else {
-            throw GUIHelpers::Error(tr("MaterialItem::writeProperty: "
-                                       "Parameter type not supported"));
+            throw GUIHelpers::Error("MaterialItem::writeProperty: "
+                                       "Parameter type not supported"+type_name);
         }
         writer->writeEndElement(); // end ParameterTag
     }
@@ -305,7 +305,7 @@ QString MaterialItem::readProperty(QXmlStreamReader *reader, MaterialItem *item)
                 .toString();
         item->setMaterialProperty(parameter_name, parameter_value);
     }
-    else if (parameter_type == "MaterialColorProperty") {
+    else if (parameter_type == "ColorProperty") {
         int r = reader->attributes().value(MaterialXML::MaterialColorRedAttribute).toInt();
         int g = reader->attributes().value(MaterialXML::MaterialColorGreenAttribute).toInt();
         int b = reader->attributes().value(MaterialXML::MaterialColorBlueAttribute).toInt();
@@ -316,8 +316,8 @@ QString MaterialItem::readProperty(QXmlStreamReader *reader, MaterialItem *item)
         item->setProperty(MaterialProperties::Color, color_variant);
     }
     else {
-        throw GUIHelpers::Error(tr("MaterialItem::readProperty: "
-                                   "Parameter type not supported"));
+        throw GUIHelpers::Error("MaterialItem::readProperty: "
+                                   "Parameter type not supported"+parameter_type);
     }
     return parameter_name;
 }

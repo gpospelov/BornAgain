@@ -1,37 +1,40 @@
 #include "FancyGroupProperty.h"
 #include "GUIHelpers.h"
+#include "ItemFactory.h"
 
 
-FancyGroupProperty::FancyGroupProperty(ParameterizedItem *parent)
-    : m_parent(parent)
+FancyGroupProperty::FancyGroupProperty(const QString &group_name)
+    : m_group_name(group_name)
+    , m_group_type(UndefinedGroupType)
+    , m_parent(0)
 {
 
 }
 
-ParameterizedItem *FancyGroupProperty::createCorrespondingItem(const QString & /* name */)
+FancyGroupProperty::GroupType FancyGroupProperty::type() const
 {
-    return 0;
+    return m_group_type;
+}
+
+void FancyGroupProperty::setParent(ParameterizedItem *parent)
+{
+    Q_ASSERT(parent);
+    m_parent = parent;
+    m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
+}
+
+ParameterizedItem *FancyGroupProperty::createCorrespondingItem()
+{
+    ParameterizedItem *result = ItemFactory::createItem(getValue());
+    if(type() == FixedGroupType)
+        setValueLabel(result->getItemLabel());
+    return result;
 }
 
 QString FancyGroupProperty::getGroupName() const
 {
     return m_group_name;
 }
-
-void FancyGroupProperty::setGroupName(const QString &group_name)
-{
-    m_group_name = group_name;
-}
-
-//QString FancyGroupProperty::getGroupLabel() const
-//{
-//    return m_group_label;
-//}
-
-//void FancyGroupProperty::setGroupLabel(const QString &group_label)
-//{
-//    m_group_label = group_label;
-//}
 
 QString FancyGroupProperty::getValue() const
 {
@@ -40,39 +43,41 @@ QString FancyGroupProperty::getValue() const
 
 void FancyGroupProperty::setValue(const QString &value)
 {
+    if(value == getValue()) return;
+
     m_value = value;
+
+    if(m_parent) {
+        m_parent->addPropertyItem(getGroupName(), createCorrespondingItem());
+        emit m_parent->propertyItemChanged(getGroupName());
+    }
 }
 
 QString FancyGroupProperty::getValueLabel() const
 {
-    return (m_value_label.isEmpty() ? m_value : m_value_label);
+    return m_group_map[m_value];
 }
 
 void FancyGroupProperty::setValueLabel(const QString &value_label)
 {
-    m_value_label = value_label;
+    m_group_map[m_value] = value_label;
 }
+
 
 QStringList FancyGroupProperty::getValues() const
 {
-    throw GUIHelpers::Error("FancyGroupProperty::getValues() -> Error. Not implemented");
+    return m_group_map.keys();
 }
 
 QStringList FancyGroupProperty::getValueLabels() const
 {
-    throw GUIHelpers::Error("FancyGroupProperty::getValueLabels() -> Error. Not implemented");
-}
-
-void FancyGroupProperty::setParent(ParameterizedItem *parent)
-{
-    m_parent = parent;
+    return m_group_map.values();
 }
 
 int FancyGroupProperty::index() const
 {
     return toIndex(m_value);
 }
-
 
 int FancyGroupProperty::toIndex(const QString &value) const
 {
@@ -92,5 +97,18 @@ QString FancyGroupProperty::toString(int index) const
         return QString();
     }
     return name_list[index];
+}
+
+QVariant FancyGroupProperty::getVariant() {
+    QVariant result;
+    result.setValue(this);
+    return result;
+}
+
+
+void FancyGroupProperty::setGroupMap(const QMap<QString, QString> &group_map)
+{
+    m_group_map = group_map;
+    setValue(m_group_map.begin().key());
 }
 

@@ -26,6 +26,7 @@
 #include "VectorItem.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
+#include "LayerRoughnessItems.h"
 #include <QDebug>
 
 namespace {
@@ -64,6 +65,9 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::TetrahedronType] = &createInstance<TetrahedronItem>;
     result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
     result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
+
+    result[Constants::LayerRoughnessType] = &createInstance<LayerRoughnessItem>;
+    result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
 
     return result;

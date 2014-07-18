@@ -127,7 +127,7 @@ void SamplePropertyEditor::updateSubItems(const QString &name)
 
 void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
 {
-    qDebug() << "SamplePropertyEditor::onPropertyChanged() " << property_name;
+    qDebug() << "SamplePropertyEditor::onPropertyChanged() " << property_name ;
     if(!m_item) return;
 
     QtVariantProperty *variant_property = m_item_to_propertyname_to_qtvariantproperty[m_item][property_name];
@@ -139,11 +139,15 @@ void SamplePropertyEditor::onPropertyChanged(const QString &property_name)
 
     disconnect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
+    disconnect(m_item, SIGNAL(propertyItemChanged(QString)),
+            this, SLOT(updateSubItems(QString)));
 
     variant_property->setValue(property_value);
 
     connect(m_item, SIGNAL(propertyChanged(QString)),
                this, SLOT(onPropertyChanged(QString)));
+    connect(m_item, SIGNAL(propertyItemChanged(QString)),
+            this, SLOT(updateSubItems(QString)));
 
 }
 

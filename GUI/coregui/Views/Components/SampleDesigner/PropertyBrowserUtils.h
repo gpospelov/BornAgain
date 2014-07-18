@@ -68,6 +68,7 @@ class FancyGroupPropertyEdit : public QWidget
     Q_OBJECT
 public:
     FancyGroupPropertyEdit(QWidget *parent = 0);
+    ~FancyGroupPropertyEdit();
 
     void setFancyGroupProperty(FancyGroupProperty *groupProperty);
     FancyGroupProperty *getFancyGroupProperty() const {

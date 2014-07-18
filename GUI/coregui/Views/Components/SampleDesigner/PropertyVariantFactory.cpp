@@ -133,9 +133,9 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         m_property_to_fancygroup_editors[property].append(editor);
         m_fancygroup_editor_to_property[editor] = property;
 
-//        connect(editor,
-//                SIGNAL(fancyGroupPropertyChanged(FancyGroupProperty *)),
-//                this, SLOT(slotSetValue(FancyGroupProperty *)));
+        connect(editor,
+                SIGNAL(fancyGroupPropertyChanged(FancyGroupProperty *)),
+                this, SLOT(slotSetValue(FancyGroupProperty *)));
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
@@ -368,6 +368,21 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
             return;
         }
         scdouble_it_editor++;
+    }
+
+    QMap<FancyGroupPropertyEdit *, QtProperty *>::ConstIterator fancygroup_editor_it =
+                m_fancygroup_editor_to_property.constBegin();
+    while (fancygroup_editor_it != m_fancygroup_editor_to_property.constEnd()) {
+        if (fancygroup_editor_it.key() == object) {
+            FancyGroupPropertyEdit *editor = fancygroup_editor_it.key();
+            QtProperty *property = fancygroup_editor_it.value();
+            m_fancygroup_editor_to_property.remove(editor);
+            m_property_to_fancygroup_editors[property].removeAll(editor);
+            if (m_property_to_fancygroup_editors[property].isEmpty())
+                m_property_to_fancygroup_editors.remove(property);
+            return;
+        }
+        fancygroup_editor_it++;
     }
 
 

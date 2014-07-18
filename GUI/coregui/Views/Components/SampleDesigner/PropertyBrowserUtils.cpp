@@ -161,16 +161,23 @@ FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     , m_label(0)
     , m_groupProperty(0)
 {
+    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> created";
 //    m_box = new QComboBox(this);
 
 //    connect(m_box, SIGNAL(currentIndexChanged(int)),
-//            this, SLOT(indexChanged(int)));
+    //            this, SLOT(indexChanged(int)));
+}
+
+FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
+{
+    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> destroyed";
+
 }
 
 void FancyGroupPropertyEdit::setFancyGroupProperty(
         FancyGroupProperty *groupProperty)
 {
-    qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue();
+    qDebug() << "FancyGroupPropertyEdit::setFancyGroupProperty() ->" << groupProperty << groupProperty->getValue()  << groupProperty->getValueLabel();
     if(groupProperty) {
         m_groupProperty = groupProperty;
 
@@ -190,6 +197,7 @@ void FancyGroupPropertyEdit::setFancyGroupProperty(
 
 void FancyGroupPropertyEdit::processFixedGroup()
 {
+    qDebug() << "FancyGroupPropertyEdit::processFixedGroup()" << m_groupProperty->getValueLabel();
     if(!m_label) m_label = new QLabel(this);
     m_label->setText(m_groupProperty->getValueLabel());
 }

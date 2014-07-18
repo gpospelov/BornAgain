@@ -147,7 +147,7 @@ signals:
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
-    void updatePropertyItem(QString name);
+    void updatePropertyItem(const QString &name);
 
     QStringList m_registered_properties;
 

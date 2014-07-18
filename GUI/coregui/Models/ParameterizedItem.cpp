@@ -87,9 +87,9 @@ bool ParameterizedItem::event(QEvent * e )
         Q_ASSERT(e);
         QByteArray byte_array = propertyEvent->propertyName();
         QString name(byte_array.constData());
-        if (m_sub_items.contains(name)) {
-            updatePropertyItem(name);
-        }
+//        if (m_sub_items.contains(name)) {
+//            updatePropertyItem(name);
+//        }
         onPropertyChange(name);
     }
     return QObject::event(e);
@@ -97,6 +97,7 @@ bool ParameterizedItem::event(QEvent * e )
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
+    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
     emit propertyChanged(name);
 }
 
@@ -137,20 +138,21 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
 
 void ParameterizedItem::onPropertyItemChanged(const QString &propertyName)
 {
-    qDebug() << "ParameterizedItem::onPropertyItemChanged()" << propertyName;
+    qDebug() << "ParameterizedItem::onPropertyItemChanged()" << modelType() << propertyName;
 
-//    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
-//    qDebug() << "ParameterizedItem::onPropertyItemChanged(), propertyItem " << propertyItem->modelType() << " property_name " << propertyName;
-//    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
-//        if(it.value() == propertyItem) {
-//            qDebug() << "   found sender, group property" << it.key();
-//            GroupProperty group_property = getRegisteredProperty(it.key()).value<GroupProperty>();
-//            group_property.setGroupLabel(propertyItem->getItemLabel());
-//            setRegisteredProperty(it.key(), group_property.getVariant());
-//            return;
-//        }
-//    }
-//    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() -> Error. No such propertyItem found");
+    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
+    qDebug() << "ParameterizedItem::onPropertyItemChanged(), propertyItem " << propertyItem->modelType() << " property_name " << propertyName;
+    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
+        if(it.value() == propertyItem) {
+            qDebug() << "   found sender, group property" << it.key();
+            FancyGroupProperty *group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty *>();
+            group_property->setValueLabel(propertyItem->getItemLabel());
+            //setRegisteredProperty(it.key(), group_property.getVariant());
+            emit propertyChanged(it.key());
+            return;
+        }
+    }
+    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() -> Error. No such propertyItem found");
 }
 
 
@@ -222,7 +224,7 @@ ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
     return result;
 }
 
-void ParameterizedItem::updatePropertyItem(QString name)
+void ParameterizedItem::updatePropertyItem(const QString &name)
 {
     qDebug() << "ParameterizedItem::updatePropertyItem() '" << name << "'";
     if (!m_sub_items.contains(name)) {

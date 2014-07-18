@@ -33,6 +33,9 @@ public:
     QString getLabel() const { return m_label; }
     void setLabel(const QString &label) { m_label = label; }
 
+
+//    bool isHiddenProperty();
+
 private:
     Appearance m_appearance;
     QString m_label;

@@ -13,6 +13,8 @@ public:
 
     ParameterizedItem *createCorrespondingItem(const QString &name = QString());
 
+private:
+
 };
 
 #endif

@@ -25,8 +25,8 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     setItemName(Constants::LayerType);
     registerProperty(P_THICKNESS, 0.0);
     setMaterialProperty();
-    registerGroupProperty(P_ROUGHNESS, "No");
-//    registerFancyGroupProperty(Constants::LayerRoughnessGroup);
+//    registerGroupProperty(P_ROUGHNESS, "No");
+    registerFancyGroupProperty(Constants::LayerRoughnessGroup);
 
 
 

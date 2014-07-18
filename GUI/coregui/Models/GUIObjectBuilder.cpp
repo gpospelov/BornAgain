@@ -69,7 +69,7 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
                 Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
     ParameterizedItem *detectorSubItem =
-            detectorItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+            detectorItem->getSubItems()[Constants::DetectorGroup];
     Q_ASSERT(detectorSubItem);
 
     const IAxis &phi_axis = detector.getAxis(0);

@@ -126,8 +126,11 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
                                                       damping_length);
         result->setDomainSize(domain_size);
         result->setKappa(kappa);
+//        ParameterizedItem *pdfItem = item.getSubItems()[
+//                InterferenceFunction1DParaCrystalItem::P_PDF];
         ParameterizedItem *pdfItem = item.getSubItems()[
-                InterferenceFunction1DParaCrystalItem::P_PDF];
+                Constants::FTDistribution1DGroup];
+
         Q_ASSERT(pdfItem);
         boost::scoped_ptr<IFTDistribution1D> pdf(
                     dynamic_cast<FTDistribution1DItem *>(pdfItem)
@@ -175,12 +178,14 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
 
         result->setIntegrationOverXi(item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION).toBool());
 
-        ParameterizedItem *pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
+//        ParameterizedItem *pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
+        ParameterizedItem *pdf1Item = item.getSubItems()[Constants::FTDistribution2DGroupA];
         Q_ASSERT(pdf1Item);
         boost::scoped_ptr<IFTDistribution2D> pdf1(dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
         Q_ASSERT(pdf1.get());
 
-        ParameterizedItem *pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
+//        ParameterizedItem *pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
+        ParameterizedItem *pdf2Item = item.getSubItems()[Constants::FTDistribution2DGroupA];
         Q_ASSERT(pdf2Item);
         boost::scoped_ptr<IFTDistribution2D> pdf2(dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
         Q_ASSERT(pdf2.get());
@@ -218,11 +223,11 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
     item.print();
 
-    ParameterizedItem *subDetector = item.getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    ParameterizedItem *subDetector = item.getSubItems()[Constants::DetectorGroup];
     Q_ASSERT(subDetector);
 
     qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
-    if (subDetector->modelType() == ThetaPhiDetectorItem::P_MODEL_TYPE) {
+    if (subDetector->modelType() == Constants::ThetaPhiDetectorType) {
         int nphi = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NPHI).toInt();
         double phi_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN).toDouble();
         double phi_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX).toDouble();

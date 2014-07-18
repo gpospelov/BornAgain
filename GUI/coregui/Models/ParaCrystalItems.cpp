@@ -10,7 +10,7 @@ const QString InterferenceFunction1DParaCrystalItem::P_DOMAIN_SIZE =
         "Domain_size";
 const QString InterferenceFunction1DParaCrystalItem::P_KAPPA =
         "Size_space_coupling";
-const QString InterferenceFunction1DParaCrystalItem::P_PDF = "PDF";
+//const QString InterferenceFunction1DParaCrystalItem::P_PDF = "PDF";
 
 const QString InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE =
         "Lattice_type";
@@ -24,8 +24,8 @@ const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2 =
         "Domain_size_2";
 const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION =
         "Integration_over_xi";
-const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
-const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
+//const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
+//const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 
 
 InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
@@ -39,7 +39,9 @@ InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
     registerProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
     registerProperty(P_KAPPA, 0.0);
-    registerGroupProperty(P_PDF, "Gauss 1D");
+
+//    registerGroupProperty(P_PDF, "Gauss 1D");
+    registerFancyGroupProperty(Constants::FTDistribution1DGroup);
 }
 
 
@@ -50,14 +52,19 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
 {
     setItemName(Constants::InterferenceFunction2DParaCrystalType);
     setItemPort(ParameterizedItem::PortInfo::Port1);
-    registerGroupProperty(P_LATTICE_TYPE, "Basic");
+//    registerGroupProperty(P_LATTICE_TYPE, "Basic");
+    registerFancyGroupProperty(Constants::LatticeGroup);
+
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_XI_INTEGRATION, true);
     registerProperty(P_ROTATION_ANGLE, 0.0);
-    registerGroupProperty(P_PDF1, "Cauchy 2D");
-    registerGroupProperty(P_PDF2, "Cauchy 2D");
+//    registerGroupProperty(P_PDF1, "Cauchy 2D");
+//    registerGroupProperty(P_PDF2, "Cauchy 2D");
+    registerFancyGroupProperty(Constants::FTDistribution2DGroupA);
+    registerFancyGroupProperty(Constants::FTDistribution2DGroupB);
+
 }
 
 

@@ -248,25 +248,25 @@ void ParameterizedItem::setMaterialProperty(MaterialProperty material)
     setProperty("Material", mat_var);
 }
 
-ParameterizedItem * ParameterizedItem::registerGroupProperty(
-        const QString &name, const QString &value)
-{
-    qDebug() << "registerGroupProperty "
-             << modelType() << name << value;
-    GroupProperty group_prop(name, value);
+//ParameterizedItem * ParameterizedItem::registerGroupProperty(
+//        const QString &name, const QString &value)
+//{
+//    qDebug() << "registerGroupProperty "
+//             << modelType() << name << value;
+//    GroupProperty group_prop(name, value);
 
-    Q_ASSERT(group_prop.isDefined());
-    if (group_prop.isDefined()) {
-        QVariant group_var;
-        group_var.setValue(group_prop);
-        registerProperty(name, group_var);
-    }
-    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
-    ParameterizedItem *item = createPropertyItem(name);
-    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
-    addPropertyItem(name, item);
-    return item;
-}
+//    Q_ASSERT(group_prop.isDefined());
+//    if (group_prop.isDefined()) {
+//        QVariant group_var;
+//        group_var.setValue(group_prop);
+//        registerProperty(name, group_var);
+//    }
+//    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
+//    ParameterizedItem *item = createPropertyItem(name);
+//    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
+//    addPropertyItem(name, item);
+//    return item;
+//}
 
 ParameterizedItem *ParameterizedItem::registerFancyGroupProperty(const QString &name)
 {

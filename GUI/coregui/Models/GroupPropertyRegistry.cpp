@@ -40,6 +40,36 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     roughnesses[Constants::LayerZeroRoughnessType] = "No";
     result[Constants::LayerRoughnessGroup] = roughnesses;
 
+    QMap<QString, QString> detectors;
+    roughnesses[Constants::ThetaPhiDetectorType] = "Theta, Phi plane";
+    result[Constants::DetectorGroup] = detectors;
+
+    QMap<QString, QString> pdfs_1d;
+    pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
+    pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";
+    pdfs_1d[Constants::FTDistribution1DGateType] = "Triangle 1D";
+    pdfs_1d[Constants::FTDistribution1DCosineType] = "Cosine 1D";
+    pdfs_1d[Constants::FTDistribution1DVoigtType] = "Voigt 1D";
+    result[Constants::FTDistribution1DGroup] = pdfs_1d;
+
+    QMap<QString, QString> pdfs_2d;
+    pdfs_2d[Constants::FTDistribution2DCauchyType] = "Cauchy 2D";
+    pdfs_2d[Constants::FTDistribution2DGaussType] = "Gauss 2D";
+    pdfs_2d[Constants::FTDistribution2DGateType] = "Gate 2D";
+    pdfs_2d[Constants::FTDistribution2DConeType] = "Cone 2D";
+    pdfs_2d[Constants::FTDistribution2DVoigtType] = "Voigt 2D";
+    result[Constants::FTDistribution2DGroupA] = pdfs_2d;
+    result[Constants::FTDistribution2DGroupB] = pdfs_2d;
+
+    QMap<QString, QString> lattices;
+    lattices[Constants::BasicLatticeType] = "Basic";
+    lattices[Constants::SquareLatticeType] = "Square";
+    lattices[Constants::HexagonalLatticeType] = "Hexagonal";
+    result[Constants::LatticeGroup] = lattices;
+
+
+
+
     return result;
 }
 

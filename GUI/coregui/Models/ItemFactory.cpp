@@ -27,6 +27,8 @@
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
 #include "LayerRoughnessItems.h"
+#include "FTDistributionItems.h"
+#include "LatticeTypeItems.h"
 #include <QDebug>
 
 namespace {
@@ -68,6 +70,26 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::LayerRoughnessType] = &createInstance<LayerRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
+
+    result[Constants::DetectorType] = &createInstance<ThetaPhiDetectorItem>;
+
+    result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
+    result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;
+    result[Constants::FTDistribution1DGateType] = &createInstance<FTDistribution1DGateItem>;
+    result[Constants::FTDistribution1DTriangleType] = &createInstance<FTDistribution1DTriangleItem>;
+    result[Constants::FTDistribution1DCosineType] = &createInstance<FTDistribution1DCosineItem>;
+    result[Constants::FTDistribution1DVoigtType] = &createInstance<FTDistribution1DVoigtItem>;
+
+    result[Constants::FTDistribution2DCauchyType] = &createInstance<FTDistribution2DCauchyItem>;
+    result[Constants::FTDistribution2DGaussType] = &createInstance<FTDistribution2DGaussItem>;
+    result[Constants::FTDistribution2DGateType] = &createInstance<FTDistribution2DGateItem>;
+    result[Constants::FTDistribution2DConeType] = &createInstance<FTDistribution2DConeItem>;
+    result[Constants::FTDistribution2DVoigtType] = &createInstance<FTDistribution2DVoigtItem>;
+
+    result[Constants::BasicLatticeType] = &createInstance<BasicLatticeTypeItem>;
+    result[Constants::SquareLatticeType] = &createInstance<SquareLatticeTypeItem>;
+    result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeTypeItem>;
+
 
 
     return result;

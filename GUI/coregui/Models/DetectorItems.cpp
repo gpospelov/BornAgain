@@ -3,13 +3,11 @@
 #include "ComboProperty.h"
 #include <QDebug>
 
-const QString DetectorItem::P_DETECTOR_TYPE = "Detector type";
 const QString DetectorItem::P_AXES_UNITS = "Units";
 const QString DetectorItem::P_BINNING = "Binning";
 
 const QString XYDetectorItem::P_MODEL_TYPE = "X, Y plane";
 
-const QString ThetaPhiDetectorItem::P_MODEL_TYPE = "Theta, Phi plane";
 const QString ThetaPhiDetectorItem::P_NPHI = "Phi, nbins";
 const QString ThetaPhiDetectorItem::P_PHI_MIN = "Phi, min";
 const QString ThetaPhiDetectorItem::P_PHI_MAX = "Phi, max";
@@ -21,7 +19,8 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
     setItemName(Constants::DetectorType);
-    registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
+//    registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
+    registerFancyGroupProperty(Constants::DetectorGroup);
 
 //    registerProperty(P_NBINX, 100);
 //    registerProperty(P_NBINY, 100);
@@ -48,9 +47,9 @@ XYDetectorItem::XYDetectorItem(ParameterizedItem *parent)
 
 
 ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString(P_MODEL_TYPE), parent)
+    : ParameterizedItem(Constants::ThetaPhiDetectorType, parent)
 {
-    setItemName("ThetaPhiDetector");
+    setItemName(Constants::ThetaPhiDetectorType);
 
     ComboProperty units;
     units << "Degrees" << "Radians";

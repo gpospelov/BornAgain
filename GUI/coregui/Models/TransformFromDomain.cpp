@@ -83,8 +83,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             sample->getPropabilityDistributions();
 
     QStringList group_names;
-    group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
-                << InterferenceFunction2DParaCrystalItem::P_PDF2;
+//    group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
+//                << InterferenceFunction2DParaCrystalItem::P_PDF2;
+    group_names << Constants::FTDistribution2DGroupA << Constants::FTDistribution2DGroupB;
 
     for(size_t i=0; i<pdfs.size(); ++i) {
         qDebug() << "    group_name" << group_names[i];
@@ -172,7 +173,8 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 
     const IFTDistribution1D *ipdf = sample->getPropabilityDistribution();
 
-    QString group_name = InterferenceFunction1DParaCrystalItem::P_PDF;
+    //QString group_name = InterferenceFunction1DParaCrystalItem::P_PDF;
+    QString group_name = Constants::FTDistribution1DGroup;
 
     qDebug() << "    group_name" << group_name;
     if(const FTDistribution1DCauchy *pdf =

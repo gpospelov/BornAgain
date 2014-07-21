@@ -11,7 +11,7 @@ class MaterialEditor : public QObject
 {
     Q_OBJECT
 public:
-    MaterialEditor(MaterialModel *model);
+    MaterialEditor(MaterialModel *materialModel);
     virtual ~MaterialEditor();
 
     static MaterialProperty getMaterialProperty(const QString &name);

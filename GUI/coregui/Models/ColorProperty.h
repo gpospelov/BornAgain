@@ -24,6 +24,13 @@ public:
                .arg(m_color.red()).arg(m_color.green()).arg(m_color.blue()).arg(m_color.alpha());
     }
 
+    QVariant getVariant() const
+    {
+        QVariant variant;
+        variant.setValue(*this);
+        return variant;
+    }
+
 private:
     QColor m_color;
 };

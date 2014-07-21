@@ -1,14 +1,15 @@
 #include "MaterialEditor.h"
 #include "MaterialEditorWidget.h"
-#include "MaterialModel.h"
+//#include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "MaterialUtils.h"
+#include "SessionModel.h"
 #include <QDebug>
 
 MaterialEditor *MaterialEditor::m_instance = 0;
 
-MaterialEditor::MaterialEditor(MaterialModel *model)
-    : m_materialModel(model)
+MaterialEditor::MaterialEditor(MaterialModel *materialModel)
+    : m_materialModel(materialModel)
 {
     Q_ASSERT(!m_instance);
     m_instance = this;
@@ -49,9 +50,10 @@ MaterialProperty MaterialEditor::getMaterialProperty(const QString &name)
 
 MaterialProperty MaterialEditor::this_getMaterialProperty(const QString &name)
 {
-    MaterialItem *material = m_materialModel->getMaterial(name);
-    if(material)
-        return MaterialUtils::getMaterialProperty(material);
+    Q_ASSERT(0);
+//    MaterialItem *material = m_materialModel->getMaterial(name);
+//    if(material)
+//        return MaterialUtils::getMaterialProperty(material);
 
     return MaterialProperty();
 }
@@ -66,12 +68,13 @@ MaterialProperty MaterialEditor::getDefaultMaterialProperty()
 
 MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
 {
-    MaterialItem *material = m_materialModel->getMaterial("Default");
+    Q_ASSERT(0);
+//    MaterialItem *material = m_materialModel->getMaterial("Default");
 
-    if(!material)
-        material = m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
+//    if(!material)
+//        material = m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
 
-    return MaterialUtils::getMaterialProperty(material);
+//    return MaterialUtils::getMaterialProperty(material);
 }
 
 

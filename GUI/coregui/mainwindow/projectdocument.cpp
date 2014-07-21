@@ -67,11 +67,11 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 }
 
 
-void ProjectDocument::setMaterialModel(MaterialModel *model)
+void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
-    if(model != m_materialModel) {
+    if(materialModel != m_materialModel) {
         if(m_materialModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-        m_materialModel = model;
+        m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }
 }
@@ -184,7 +184,7 @@ bool ProjectDocument::readFrom(QIODevice *device)
             if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             }
-            else if(reader.name() == MaterialXML::ModelTag) {
+            else if(reader.name() == SessionXML::MaterialModelTag) {
                 m_materialModel->readFrom(&reader);
 
             }

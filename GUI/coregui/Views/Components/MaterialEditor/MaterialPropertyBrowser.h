@@ -17,6 +17,7 @@ class QtVariantProperty;
 class QModelIndex;
 class QtBrowserItem;
 class QItemSelection;
+class ParameterizedItem;
 
 
 //! Class which holds QtProperty tree browser to adjust material properties.
@@ -26,15 +27,15 @@ class MaterialPropertyBrowser : public QWidget
     Q_OBJECT
 
 public:
-    explicit MaterialPropertyBrowser(MaterialModel *model, QWidget *parent = 0);
+    explicit MaterialPropertyBrowser(MaterialModel *materialModel, QWidget *parent = 0);
     virtual ~MaterialPropertyBrowser(){}
 
-    void setModel(MaterialModel *model);
+    void setModel(MaterialModel *materialModel);
 
     struct SubItem {
-        SubItem(MaterialItem *owner=0, QString name = QString())
+        SubItem(ParameterizedItem *owner=0, QString name = QString())
             : m_owner(owner), m_name(name) {}
-        MaterialItem *m_owner;
+        ParameterizedItem *m_owner;
         QString m_name;
         friend bool operator <(const SubItem& left, const SubItem& right)
         {
@@ -59,7 +60,7 @@ private:
     void clearBrowser();
     void addMaterialProperties(MaterialItem *material);
     void updateMaterialProperties(MaterialItem *material);
-    void addSubProperties(QtProperty *property, MaterialItem *material);
+    void addSubProperties(QtProperty *property, ParameterizedItem *material);
     void removeSubProperties(QtProperty *property);
     void updateSubProperties(MaterialItem *material);
 
@@ -72,11 +73,11 @@ private:
     QtVariantPropertyManager *m_readOnlyManager;
     QtVariantEditorFactory *m_variantFactory;
 
-    QMap<QtProperty *, MaterialItem *> m_top_property_to_material;
-    QMap<MaterialItem *, QtVariantProperty *> m_top_material_to_property;
+    QMap<QtProperty *, ParameterizedItem *> m_top_property_to_material;
+    QMap<ParameterizedItem *, QtVariantProperty *> m_top_material_to_property;
 
     QMap<QtProperty *, SubItem> m_property_to_subitem;
-    QMap<MaterialItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
+    QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
 
     QMap<SubItem, bool> m_subItemToExpanded;
 

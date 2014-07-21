@@ -27,6 +27,7 @@ const QString MimeType = "application/org.bornagainproject.xml.item.z";
 const QString ModelTag("SessionModel");
 const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");
+const QString MaterialModelTag("MaterialModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");

@@ -26,10 +26,10 @@ class QCloseEvent;
 class QSettings;
 class JobQueueModel;
 class SessionModel;
-class MaterialModel;
 class MaterialEditor;
 class ToolTipDataBase;
 class TestView;
+class MaterialModel;
 
 
 class MainWindow : public Manhattan::FancyMainWindow

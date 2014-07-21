@@ -507,22 +507,23 @@ void GUIObjectBuilder::visit(const LayerRoughness *)
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
         const IMaterial *material)
 {
-    QString materialName = m_topSampleName + QString("_")
-            + QString(material->getName().c_str());
+    Q_ASSERT(0);
+//    QString materialName = m_topSampleName + QString("_")
+//            + QString(material->getName().c_str());
 
-    MaterialProperty materialProperty =
-            MaterialEditor::getMaterialProperty(materialName);
-    if(materialProperty.isDefined()) return materialProperty;
+//    MaterialProperty materialProperty =
+//            MaterialEditor::getMaterialProperty(materialName);
+//    if(materialProperty.isDefined()) return materialProperty;
 
-    MaterialModel *model = MaterialEditor::getMaterialModel();
+//    MaterialModel *model = MaterialEditor::getMaterialModel();
 
-    if(material->isScalarMaterial()) {
-      MaterialItem *materialItem  = model->addMaterial(materialName,
-                                       MaterialItem::HomogeneousMaterial);
-      complex_t rindex = material->getRefractiveIndex();
-      materialItem->setRefractiveIndex(1-rindex.real(),rindex.imag());
-      return MaterialUtils::getMaterialProperty(materialItem);
-    }
+//    if(material->isScalarMaterial()) {
+//      MaterialItem *materialItem  = model->addMaterial(materialName,
+//                                       MaterialItem::HomogeneousMaterial);
+//      complex_t rindex = material->getRefractiveIndex();
+//      materialItem->setRefractiveIndex(1-rindex.real(),rindex.imag());
+//      return MaterialUtils::getMaterialProperty(materialItem);
+//    }
 
-    return MaterialProperty();
+//    return MaterialProperty();
 }

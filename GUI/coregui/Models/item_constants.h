@@ -65,6 +65,9 @@ const ModelType BasicLatticeType = "BasicLatticeType";
 const ModelType SquareLatticeType = "SquareLatticeType";
 const ModelType HexagonalLatticeType = "HexagonalLatticeType";
 
+const ModelType MaterialType = "Material";
+
+const ModelType RefractiveIndexType = "RefractiveIndex";
 
 // --- Groups ------------------------------------------------------------------
 

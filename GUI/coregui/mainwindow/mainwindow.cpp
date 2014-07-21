@@ -271,17 +271,26 @@ void MainWindow::initInstrumentModel()
 void MainWindow::initMaterialModel()
 {
     delete m_materialModel;
-    m_materialModel = new MaterialModel(this);
-    m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
+//    m_materialModel = new SessionModel(SessionXML::MaterialModelTag);
+//    m_materialModel->insertNewItem(Constants::MaterialType);
+//    m_materialModel->insertNewItem(Constants::MaterialType);
 
-    MaterialItem *mAir = m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-    mAir->setRefractiveIndex(0,0);
+    m_materialModel = new MaterialModel();
+    m_materialModel->addMaterial("Default");
+    m_materialModel->addMaterial("Air");
 
-    MaterialItem *mParticle = m_materialModel->addMaterial("Particle", MaterialItem::HomogeneousMaterial);
-    mParticle->setRefractiveIndex(6e-4, 2e-8);
 
-    MaterialItem *mSubstrate = m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
-    mSubstrate->setRefractiveIndex(6e-6, 2e-8);
+//    m_materialModel = new MaterialModel(this);
+//    m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
+
+//    MaterialItem *mAir = m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
+//    mAir->setRefractiveIndex(0,0);
+
+//    MaterialItem *mParticle = m_materialModel->addMaterial("Particle", MaterialItem::HomogeneousMaterial);
+//    mParticle->setRefractiveIndex(6e-4, 2e-8);
+
+//    MaterialItem *mSubstrate = m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
+//    mSubstrate->setRefractiveIndex(6e-6, 2e-8);
 
     m_materialEditor = new MaterialEditor(m_materialModel);
 }

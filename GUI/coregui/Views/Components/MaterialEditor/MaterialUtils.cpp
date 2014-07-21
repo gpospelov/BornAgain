@@ -25,13 +25,14 @@ QColor MaterialUtils::suggestMaterialColor(const QString &name)
 
 MaterialProperty MaterialUtils::getMaterialProperty(MaterialItem *material)
 {
-    Q_ASSERT(material);
-    if(material->getType() == MaterialItem::SubItem)
-        throw GUIHelpers::Error("MaterialUtils::getMaterialProperty() -> Error! It's a SubItem, not material.");
+    Q_ASSERT(0);
+//    Q_ASSERT(material);
+//    if(material->getType() == MaterialItem::SubItem)
+//        throw GUIHelpers::Error("MaterialUtils::getMaterialProperty() -> Error! It's a SubItem, not material.");
 
-    QVariant v = material->property(MaterialProperties::Color);
-    ColorProperty colorProperty = v.value<ColorProperty>();
-    return MaterialProperty(material->getName(), colorProperty.getColor());
+//    QVariant v = material->property(MaterialProperties::Color);
+//    ColorProperty colorProperty = v.value<ColorProperty>();
+//    return MaterialProperty(material->getName(), colorProperty.getColor());
 }
 
 
@@ -43,36 +44,38 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
 
 IMaterial *MaterialUtils::createDomainMaterial(const MaterialItem *item)
 {
-    if(item->getType() == MaterialItem::SubItem)
-        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Unapropriate material type");
+    Q_ASSERT(0);
+//    if(item->getType() == MaterialItem::SubItem)
+//        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Unapropriate material type");
 
-    MaterialItem *refractiveIndex = item->getSubItems()[MaterialProperties::RefractiveIndex];
-    Q_ASSERT(refractiveIndex);
-    double delta = refractiveIndex->property("delta").toString().toDouble();
-    double beta = refractiveIndex->property("beta").toString().toDouble();
+//    MaterialItem *refractiveIndex = item->getSubItems()[MaterialProperties::RefractiveIndex];
+//    Q_ASSERT(refractiveIndex);
+//    double delta = refractiveIndex->property("delta").toString().toDouble();
+//    double beta = refractiveIndex->property("beta").toString().toDouble();
 
-    IMaterial *result(0);
-    if(item->getType() == MaterialItem::HomogeneousMaterial) {
-        result = new HomogeneousMaterial(item->getName().toStdString(), delta, beta);
+//    IMaterial *result(0);
+//    if(item->getType() == MaterialItem::HomogeneousMaterial) {
+//        result = new HomogeneousMaterial(item->getName().toStdString(), delta, beta);
 
-    } else if(item->getType() == MaterialItem::HomogeneousMagneticMaterial) {
-        MaterialItem *magneticField = item->getSubItems()[MaterialProperties::MagneticField];
-        Q_ASSERT(magneticField);
-        double Bx = magneticField->property("Bx").toDouble();
-        double By = magneticField->property("By").toDouble();
-        double Bz = magneticField->property("Bz").toDouble();
-        result = new HomogeneousMagneticMaterial(item->getName().toStdString(), delta, beta, kvector_t(Bx, By, Bz));
-    }
+//    } else if(item->getType() == MaterialItem::HomogeneousMagneticMaterial) {
+//        MaterialItem *magneticField = item->getSubItems()[MaterialProperties::MagneticField];
+//        Q_ASSERT(magneticField);
+//        double Bx = magneticField->property("Bx").toDouble();
+//        double By = magneticField->property("By").toDouble();
+//        double Bz = magneticField->property("Bz").toDouble();
+//        result = new HomogeneousMagneticMaterial(item->getName().toStdString(), delta, beta, kvector_t(Bx, By, Bz));
+//    }
 
-    return result;
+//    return result;
 }
 
 
 IMaterial *MaterialUtils::createDomainMaterial(const QString &name)
 {
-    MaterialModel *model = MaterialEditor::getMaterialModel();
-    MaterialItem *materialItem = model->getMaterial(name);
-    Q_ASSERT(materialItem);
-    return createDomainMaterial(materialItem);
+    Q_ASSERT(0);
+//    MaterialModel *model = MaterialEditor::getMaterialModel();
+//    MaterialItem *materialItem = model->getMaterial(name);
+//    Q_ASSERT(materialItem);
+//    return createDomainMaterial(materialItem);
 }
 

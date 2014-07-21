@@ -50,7 +50,7 @@ public:
     QString getProjectDir();
 
     bool isModified() { return m_modified; }
-    void setMaterialModel(MaterialModel *model);
+    void setMaterialModel(MaterialModel *materialModel);
     void setInstrumentModel(SessionModel *model);
     void setSampleModel(SessionModel *model);
     void setJobQueueModel(JobQueueModel *model);

@@ -29,6 +29,8 @@
 #include "LayerRoughnessItems.h"
 #include "FTDistributionItems.h"
 #include "LatticeTypeItems.h"
+#include "MaterialItem.h"
+#include "RefractiveIndexItem.h"
 #include <QDebug>
 
 namespace {
@@ -92,6 +94,9 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::SquareLatticeType] = &createInstance<SquareLatticeTypeItem>;
     result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeTypeItem>;
 
+    result[Constants::MaterialType] = &createInstance<MaterialItem>;
+
+    result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 
 
     return result;

@@ -1,5 +1,6 @@
 #include "MaterialPropertyBrowser.h"
 #include "MaterialModel.h"
+#include "MaterialItem.h"
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
 #include "qttreepropertybrowser.h"
@@ -15,7 +16,7 @@
 #include <qtpropertybrowser.h>
 
 
-MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *parent)
+MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *materialModel, QWidget *parent)
     : QWidget(parent)
     , m_materialModel(0)
     , m_browser(0)
@@ -38,7 +39,7 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
     layout->addWidget(m_browser);
     setLayout(layout);
 
-    setModel(model);
+    setModel(materialModel);
 
     // accessing selection model of private QTreeView of m_browser
     QItemSelectionModel *selectionModel(0);
@@ -57,11 +58,11 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
 }
 
 
-void MaterialPropertyBrowser::setModel(MaterialModel *model)
+void MaterialPropertyBrowser::setModel(MaterialModel *materialModel)
 {
-    Q_ASSERT(model);
-    if(model != m_materialModel) {
-        m_materialModel = model;
+    Q_ASSERT(materialModel);
+    if(materialModel != m_materialModel) {
+        m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
         connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
         updateBrowser();
@@ -108,8 +109,15 @@ void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
 
 void MaterialPropertyBrowser::updateBrowser()
 {
-    foreach(MaterialItem *material, m_materialModel->materials()) {
-        addMaterialProperties(material);
+    Q_ASSERT(m_materialModel);
+
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < m_materialModel->rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = m_materialModel->index( i_row, 0, parentIndex );
+
+         if (MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(itemIndex))){
+             addMaterialProperties(material);
+         }
     }
     updateExpandState(RestoreExpandState);
 }
@@ -147,7 +155,7 @@ void MaterialPropertyBrowser::updateMaterialProperties(MaterialItem *material)
 void MaterialPropertyBrowser::addMaterialProperties(MaterialItem *material)
 {
     QtVariantProperty *item_property = m_variantManager->addProperty(
-                QtVariantPropertyManager::enumTypeId(), material->getName());
+                QtVariantPropertyManager::enumTypeId(), material->itemName());
 
     item_property->setAttribute(QLatin1String("enumNames"), material->getMaterialTypes());
     item_property->setValue(int(material->getType()));
@@ -175,7 +183,7 @@ void MaterialPropertyBrowser::removeSubProperties(QtProperty *property)
 }
 
 
-void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, MaterialItem *material)
+void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, ParameterizedItem *material)
 {
     Q_ASSERT(material_property);
     Q_ASSERT(material);
@@ -199,7 +207,7 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Ma
 
             if (material->getSubItems().contains(prop_name)) {
                 subProperty->setAttribute(QLatin1String("readOnly"), true);
-                MaterialItem *subitem = material->getSubItems()[prop_name];
+                ParameterizedItem *subitem = material->getSubItems()[prop_name];
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }
@@ -261,14 +269,14 @@ void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
 
 MaterialItem *MaterialPropertyBrowser::getSelectedMaterial()
 {
-    if(m_browser->currentItem() && m_selection_changed) {
-        QtProperty *selected_property = m_browser->currentItem()->property();
-        if(selected_property) {
-            if(m_top_property_to_material.contains(selected_property))
-                return m_top_property_to_material[selected_property];
-        }
-    }
-    return 0;
+//    if(m_browser->currentItem() && m_selection_changed) {
+//        QtProperty *selected_property = m_browser->currentItem()->property();
+//        if(selected_property) {
+//            if(m_top_property_to_material.contains(selected_property))
+//                return m_top_property_to_material[selected_property];
+//        }
+//    }
+//    return 0;
 }
 
 

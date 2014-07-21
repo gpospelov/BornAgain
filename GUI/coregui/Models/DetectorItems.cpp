@@ -19,7 +19,6 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
     setItemName(Constants::DetectorType);
-//    registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
     registerFancyGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
 //    registerProperty(P_NBINX, 100);

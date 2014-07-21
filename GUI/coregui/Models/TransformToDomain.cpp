@@ -127,10 +127,8 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
                                                       damping_length);
         result->setDomainSize(domain_size);
         result->setKappa(kappa);
-//        ParameterizedItem *pdfItem = item.getSubItems()[
-//                InterferenceFunction1DParaCrystalItem::P_PDF];
         ParameterizedItem *pdfItem = item.getSubItems()[
-                Constants::FTDistribution1DGroup];
+                InterferenceFunction1DParaCrystalItem::P_PDF];
 
         Q_ASSERT(pdfItem);
         boost::scoped_ptr<IFTDistribution1D> pdf(
@@ -147,17 +145,17 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         Q_ASSERT(latticeItem);
 
         double length_1(0), length_2(0), alpha_lattice(0.0);
-        if(latticeItem->modelType() == "BasicLatticeType") {
+        if(latticeItem->modelType() == Constants::BasicLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
             length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
             alpha_lattice = Units::deg2rad(item.getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
         }
-        else if(latticeItem->modelType() == "SquareLatticeType") {
+        else if(latticeItem->modelType() == Constants::SquareLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = M_PI/2.0;
         }
-        else if(latticeItem->modelType() == "HexagonalLatticeType") {
+        else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = 2*M_PI/3.0;
@@ -222,7 +220,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
     item.print();
 
-    ParameterizedItem *subDetector = item.getSubItems()[Constants::DetectorGroup];
+    ParameterizedItem *subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
     qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
@@ -274,10 +272,10 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
 
 LayerRoughness *TransformToDomain::createLayerRoughness(const ParameterizedItem &roughnessItem)
 {
-    if(roughnessItem.modelType() == LayerZeroRoughnessItem::P_TYPE_NAME) {
+    if(roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
         return 0;
     }
-    else if(roughnessItem.modelType() == LayerRoughnessItem::P_TYPE_NAME) {
+    else if(roughnessItem.modelType() == Constants::LayerRoughnessType) {
         LayerRoughness *result = new LayerRoughness(
                     roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_SIGMA).toDouble(),
                     roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_HURST).toDouble(),

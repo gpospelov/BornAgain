@@ -179,10 +179,8 @@ void DetectorEditorWidget::onAngleEditorChanged(const QString &)
     qDebug() << "DetectorEditorWidget::onAngleEditorChanged() ->";
     if(m_block_signals) return;
     qDebug() << "DetectorEditorWidget::onAngleEditorChanged()";
-//    ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
     ParameterizedItem *subDetector = m_currentItem->getSubItems()[Constants::DetectorGroup];
     Q_ASSERT(subDetector);
-//    Q_ASSERT(subDetector->modelType() == ThetaPhiDetectorItem::P_MODEL_TYPE);
     Q_ASSERT(subDetector->modelType() == Constants::ThetaPhiDetectorType);
     subDetector->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN, m_phiMinEdit->value());
     subDetector->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX, m_phiMaxEdit->value());

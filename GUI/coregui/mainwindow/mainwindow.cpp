@@ -246,7 +246,7 @@ void MainWindow::initSampleModel()
 
     //m_sampleModel->save("sample.xml");
 
-    m_sampleModel->insertNewItem(Constants::MultiLayerType);
+//    m_sampleModel->insertNewItem(Constants::MultiLayerType);
     //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
     //m_sampleModel->insertNewItem(Constants::MultiLayerType);
 }

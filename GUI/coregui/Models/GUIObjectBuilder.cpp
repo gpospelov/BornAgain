@@ -70,7 +70,7 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
                 Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem));
     ParameterizedItem *detectorSubItem =
-            detectorItem->getSubItems()[Constants::DetectorGroup];
+            detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(detectorSubItem);
 
     const IAxis &phi_axis = detector.getAxis(0);
@@ -135,7 +135,7 @@ void GUIObjectBuilder::visit(const Layer *sample)
     if(interface) {
         const LayerRoughness *roughness = interface->getRoughness();
         if(roughness) {
-            ParameterizedItem *roughnessItem = item->setFancyGroupProperty(LayerItem::P_ROUGHNESS, "Basic");
+            ParameterizedItem *roughnessItem = item->setFancyGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerRoughnessType);
             TransformFromDomain::setItemFromSample(roughnessItem, roughness);
         }
     }

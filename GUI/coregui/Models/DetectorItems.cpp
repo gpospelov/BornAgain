@@ -6,7 +6,6 @@
 const QString DetectorItem::P_AXES_UNITS = "Units";
 const QString DetectorItem::P_BINNING = "Binning";
 
-const QString XYDetectorItem::P_MODEL_TYPE = "X, Y plane";
 
 const QString ThetaPhiDetectorItem::P_NPHI = "Phi, nbins";
 const QString ThetaPhiDetectorItem::P_PHI_MIN = "Phi, min";
@@ -28,9 +27,9 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 
 
 XYDetectorItem::XYDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString(P_MODEL_TYPE), parent)
+    : ParameterizedItem(Constants::XYDetectorType, parent)
 {
-    setItemName("XYDetector");
+    setItemName(Constants::XYDetectorType);
 
     ComboProperty units;
     units << "Millimeters";

@@ -21,7 +21,6 @@ class XYDetectorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_MODEL_TYPE;
     explicit XYDetectorItem(ParameterizedItem *parent=0);
     ~XYDetectorItem(){}
 

@@ -49,7 +49,7 @@ public:
 
 protected:
     void setGroupMap(const QMap<QString, QString> &group_map);
-    void setGroupType(GroupType group_type) { m_group_type = group_type; }
+    void setGroupType(GroupType group_type);
 
     QString m_group_name;
     GroupType m_group_type;

@@ -112,3 +112,8 @@ void FancyGroupProperty::setGroupMap(const QMap<QString, QString> &group_map)
     setValue(m_group_map.begin().key());
 }
 
+void FancyGroupProperty::setGroupType(FancyGroupProperty::GroupType group_type)
+{
+    m_group_type = group_type;
+}
+

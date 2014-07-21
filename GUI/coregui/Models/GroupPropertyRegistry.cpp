@@ -41,13 +41,14 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     result[Constants::LayerRoughnessGroup] = roughnesses;
 
     QMap<QString, QString> detectors;
-    roughnesses[Constants::ThetaPhiDetectorType] = "Theta, Phi plane";
+    detectors[Constants::ThetaPhiDetectorType] = "Theta, Phi plane";
     result[Constants::DetectorGroup] = detectors;
 
     QMap<QString, QString> pdfs_1d;
     pdfs_1d[Constants::FTDistribution1DCauchyType] = "Cauchy 1D";
     pdfs_1d[Constants::FTDistribution1DGaussType] = "Gauss 1D";
-    pdfs_1d[Constants::FTDistribution1DGateType] = "Triangle 1D";
+    pdfs_1d[Constants::FTDistribution1DGateType] = "Gate 1D";
+    pdfs_1d[Constants::FTDistribution1DTriangleType] = "Triangle 1D";
     pdfs_1d[Constants::FTDistribution1DCosineType] = "Cosine 1D";
     pdfs_1d[Constants::FTDistribution1DVoigtType] = "Voigt 1D";
     result[Constants::FTDistribution1DGroup] = pdfs_1d;

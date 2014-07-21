@@ -44,6 +44,7 @@ const QString LayerRoughnessType = "LayerRoughness";
 const QString LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const QString ThetaPhiDetectorType = "ThetaPhiDetector";
+const QString XYDetectorType  = "XYDetector";
 
 const QString FTDistribution1DCauchyType = "FTDistribution1DCauchy";
 const QString FTDistribution1DGaussType = "FTDistribution1DGauss";

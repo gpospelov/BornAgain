@@ -264,16 +264,7 @@ void MainWindow::initInstrumentModel()
     Q_UNUSED(detector1);
     Q_UNUSED(beam1);
 
-//    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-//    instrument2->setItemName("Instrument2");
-//    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument2));
-//    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument2));
-    //    Q_UNUSED(detector2);
-    //    Q_UNUSED(beam2);
-
-
-    m_instrumentModel->save("instrument.xml");
-
+    //m_instrumentModel->save("instrument.xml");
 }
 
 

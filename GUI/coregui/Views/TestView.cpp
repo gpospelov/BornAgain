@@ -15,6 +15,9 @@ TestView::TestView(SessionModel *sampleModel, QWidget *parent)
     treeView->setModel(getItemModelFromSessionModel());
     //treeView->setModel(getTestItemModel());
 
+    treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
+    //treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {background: cyan;}QTreeView::branch:has-siblings:adjoins-item {background: red;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {background: blue;}QTreeView::branch:closed:has-children:has-siblings {background: pink;}QTreeView::branch:has-children:!has-siblings:closed {background: gray;}QTreeView::branch:open:has-children:has-siblings {background: magenta;}QTreeView::branch:open:has-children:!has-siblings {background: green;}");
+
     treeView->setFixedWidth(450);
     treeView->setFixedHeight(600);
     treeView->setColumnWidth(0,250);

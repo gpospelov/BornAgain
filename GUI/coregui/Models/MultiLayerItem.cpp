@@ -32,14 +32,6 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     ScientificDoubleProperty prop(1.1);
     registerProperty("XXX", prop.getVariant());
 
-//    registerGroupProperty("Vector", "VectorV");
-//    setPropertyAttribute("Vector", PropertyAttribute("New label"));
-
-    //registerFancyGroupProperty("Vector", "VectorV", GroupProperty::FixedGroup);
-
-    registerFancyGroupProperty(Constants::FormFactorGroup);
-    registerFancyGroupProperty(Constants::VectorType);
-
 
 }
 

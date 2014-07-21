@@ -60,7 +60,10 @@ QString FancyGroupProperty::getValueLabel() const
 
 void FancyGroupProperty::setValueLabel(const QString &value_label)
 {
-    m_group_map[m_value] = value_label;
+    if(type() == FixedGroupType) {
+        m_group_map[m_value] = value_label;
+        if(m_parent) emit m_parent->propertyChanged(getGroupName());
+    }
 }
 
 

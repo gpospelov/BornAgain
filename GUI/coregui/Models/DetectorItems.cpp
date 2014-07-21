@@ -3,6 +3,7 @@
 #include "ComboProperty.h"
 #include <QDebug>
 
+const QString DetectorItem::P_DETECTOR = "Detector";
 const QString DetectorItem::P_AXES_UNITS = "Units";
 const QString DetectorItem::P_BINNING = "Binning";
 
@@ -19,7 +20,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 {
     setItemName(Constants::DetectorType);
 //    registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
-    registerFancyGroupProperty(Constants::DetectorGroup);
+    registerFancyGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
 //    registerProperty(P_NBINX, 100);
 //    registerProperty(P_NBINY, 100);

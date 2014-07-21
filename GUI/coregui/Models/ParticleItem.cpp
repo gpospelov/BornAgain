@@ -28,7 +28,9 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     setItemName(Constants::ParticleType);
     setItemPort(ParameterizedItem::PortInfo::Port0);
     //registerGroupProperty(P_FORM_FACTOR, Constants::CylinderType);
-    registerFancyGroupProperty(Constants::FormFactorGroup);
+    registerFancyGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
+
+
     setMaterialProperty();
     registerProperty(P_DEPTH, 0.0);
     registerProperty(P_ABUNDANCE, 1.0);

@@ -36,21 +36,21 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 {
     ParameterizedItem *latticeTypeItem(0);
     if( TransformFromDomain::isSquareLattice(sample)) {
-        latticeTypeItem = item->setGroupProperty(
+        latticeTypeItem = item->setFancyGroupProperty(
             InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Square");
         latticeTypeItem->setRegisteredProperty(
             SquareLatticeTypeItem::P_LATTICE_LENGTH,
             sample->getLatticeLengths()[0]);
     }
     else if( TransformFromDomain::isHexagonalLattice(sample)) {
-        latticeTypeItem = item->setGroupProperty(
+        latticeTypeItem = item->setFancyGroupProperty(
             InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Hexagonal");
         latticeTypeItem->setRegisteredProperty(
             HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
             sample->getLatticeLengths()[0]);
     }
     else {
-        latticeTypeItem = item->setGroupProperty(
+        latticeTypeItem = item->setFancyGroupProperty(
             InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Basic");
         latticeTypeItem->setRegisteredProperty(
             BasicLatticeTypeItem::P_LATTICE_LENGTH1,
@@ -83,15 +83,14 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             sample->getPropabilityDistributions();
 
     QStringList group_names;
-//    group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
-//                << InterferenceFunction2DParaCrystalItem::P_PDF2;
-    group_names << Constants::FTDistribution2DGroupA << Constants::FTDistribution2DGroupB;
+    group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
+                << InterferenceFunction2DParaCrystalItem::P_PDF2;
 
     for(size_t i=0; i<pdfs.size(); ++i) {
         qDebug() << "    group_name" << group_names[i];
         if(const FTDistribution2DCauchy *pdf =
                 dynamic_cast<const FTDistribution2DCauchy *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
                                                                 "Cauchy 2D");
             pdfItem->setRegisteredProperty(
                         FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
@@ -102,7 +101,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DGauss *pdf =
                 dynamic_cast<const FTDistribution2DGauss *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
                                                                 "Gauss 2D");
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGaussItem::P_CORR_LENGTH_X,
@@ -113,7 +112,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DGate *pdf =
                 dynamic_cast<const FTDistribution2DGate *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
                                                                 "Gate 2D");
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGateItem::P_CORR_LENGTH_X,
@@ -124,7 +123,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DCone *pdf =
                 dynamic_cast<const FTDistribution2DCone *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
                                                                 "Cone 2D");
             pdfItem->setRegisteredProperty(
                         FTDistribution2DConeItem::P_CORR_LENGTH_X,
@@ -135,7 +134,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DVoigt *pdf =
                 dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
                                                                 "Voigt 2D");
             pdfItem->setRegisteredProperty(
                         FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
@@ -179,7 +178,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     qDebug() << "    group_name" << group_name;
     if(const FTDistribution1DCauchy *pdf =
             dynamic_cast<const FTDistribution1DCauchy *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
                                                             "Cauchy 1D");
         pdfItem->setRegisteredProperty(
                     FTDistribution1DCauchyItem::P_CORR_LENGTH,
@@ -187,7 +186,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DGauss *pdf =
             dynamic_cast<const FTDistribution1DGauss *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
                                                             "Gauss 1D");
         pdfItem->setRegisteredProperty(
                     FTDistribution1DGaussItem::P_CORR_LENGTH,
@@ -195,7 +194,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DGate *pdf =
             dynamic_cast<const FTDistribution1DGate *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
                                                             "Gate 1D");
         pdfItem->setRegisteredProperty(
                     FTDistribution1DGateItem::P_CORR_LENGTH,
@@ -203,7 +202,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DTriangle *pdf =
             dynamic_cast<const FTDistribution1DTriangle *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
                                                             "Triangle 1D");
         pdfItem->setRegisteredProperty(
                     FTDistribution1DTriangleItem::P_CORR_LENGTH,
@@ -211,7 +210,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DCosine *pdf =
             dynamic_cast<const FTDistribution1DCosine *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
                                                             "Cosine 1D");
         pdfItem->setRegisteredProperty(
                     FTDistribution1DCosineItem::P_CORR_LENGTH,
@@ -219,7 +218,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DVoigt *pdf =
             dynamic_cast<const FTDistribution1DVoigt *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
                                                             "Voigt 1D");
         pdfItem->setRegisteredProperty(
                     FTDistribution1DVoigtItem::P_CORR_LENGTH,

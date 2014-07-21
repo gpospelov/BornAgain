@@ -1,6 +1,7 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
+#include "item_constants.h"
 #include <QMap>
 #include <QString>
 
@@ -17,7 +18,7 @@ public:
     //! correspondance of group name to ParameterizedItem's types to labels
     typedef QMap<QString, QMap<QString, QString> > SelectableGroupMap_t;
 
-    static FancyGroupProperty *createGroupProperty(const QString &group_name);
+    static FancyGroupProperty *createGroupProperty(const QString &group_name, const Constants::ModelType &group_model = Constants::ModelType());
 
 private:
 //    static SelectableGroupProperty *createSelectableGroupProperty(const QString &group_name, ParameterizedItem *parent = 0);

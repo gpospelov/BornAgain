@@ -585,15 +585,15 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         QVariant mat_variant;
         mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
         item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
-    }
-    else if (parameter_type == "GroupProperty") {
-        QString parameter_value = reader->attributes()
-                .value(SessionXML::ParameterValueAttribute)
-                .toString();
-        GroupProperty group_prop(parameter_name, parameter_value);
-        QVariant group_variant;
-        group_variant.setValue(group_prop);
-        item->setGroupProperty(parameter_name, parameter_value);
+//    }
+//    else if (parameter_type == "GroupProperty") {
+//        QString parameter_value = reader->attributes()
+//                .value(SessionXML::ParameterValueAttribute)
+//                .toString();
+//        GroupProperty group_prop(parameter_name, parameter_value);
+//        QVariant group_variant;
+//        group_variant.setValue(group_prop);
+//        item->setGroupProperty(parameter_name, parameter_value);
     }
     else if (parameter_type == "ComboProperty") {
         QString parameter_value = reader->attributes()
@@ -694,12 +694,12 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 material_name);
         }
-        else if (type_name == QString("GroupProperty")) {
-            QString ff_name =
-                    variant.value<GroupProperty>().getValue();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                ff_name);
-        }
+//        else if (type_name == QString("GroupProperty")) {
+//            QString ff_name =
+//                    variant.value<GroupProperty>().getValue();
+//            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+//                                ff_name);
+//        }
         else if (type_name == QString("ComboProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.value<ComboProperty>().getValue());

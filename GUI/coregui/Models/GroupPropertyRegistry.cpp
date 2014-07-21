@@ -59,8 +59,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     pdfs_2d[Constants::FTDistribution2DGateType] = "Gate 2D";
     pdfs_2d[Constants::FTDistribution2DConeType] = "Cone 2D";
     pdfs_2d[Constants::FTDistribution2DVoigtType] = "Voigt 2D";
-    result[Constants::FTDistribution2DGroupA] = pdfs_2d;
-    result[Constants::FTDistribution2DGroupB] = pdfs_2d;
+    result[Constants::FTDistribution2DGroup] = pdfs_2d;
 
     QMap<QString, QString> lattices;
     lattices[Constants::BasicLatticeType] = "Basic";
@@ -80,19 +79,22 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 GroupPropertyRegistry::SelectableGroupMap_t GroupPropertyRegistry::m_selectable_group_map = initializeSelectableGroupMap();
 
 
-FancyGroupProperty *GroupPropertyRegistry::createGroupProperty(const QString &group_name)
+FancyGroupProperty *GroupPropertyRegistry::createGroupProperty(const QString &group_name, const Constants::ModelType &group_model)
 {
+    Constants::ModelType groupModelType = group_model;
+    if(groupModelType.isEmpty()) groupModelType = group_name;
+
     FancyGroupProperty *result = new FancyGroupProperty(group_name);
 
-    if(m_selectable_group_map.contains(group_name)) {
+    if(m_selectable_group_map.contains(groupModelType)) {
         result->setGroupType(FancyGroupProperty::SelectableGroupType);
-        result->setGroupMap(m_selectable_group_map[group_name]);
+        result->setGroupMap(m_selectable_group_map[groupModelType]);
     }
     else {
         result->setGroupType(FancyGroupProperty::FixedGroupType);
-        result->setValue(group_name);
+        //result->setValue(group_n);
         QMap<QString, QString> group_map;
-        group_map[group_name] = "No label";
+        group_map[groupModelType] = "No label";
         result->setGroupMap(group_map);
     }
 

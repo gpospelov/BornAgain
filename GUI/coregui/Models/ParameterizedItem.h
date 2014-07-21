@@ -93,9 +93,9 @@ public:
     }
 
     void addPropertyItem(QString name, ParameterizedItem *item);
-    void addFancyPropertyItem(QString name, ParameterizedItem *item);
+//    void addFancyPropertyItem(QString name, ParameterizedItem *item);
 
-    ParameterizedItem *createPropertyItem(QString name);
+//    ParameterizedItem *createPropertyItem(QString name);
 
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
@@ -104,10 +104,12 @@ public:
 
 //    ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
 
-    ParameterizedItem *registerFancyGroupProperty(const QString &name);
+//    ParameterizedItem *registerFancyGroupProperty(const QString &group_name, const Constants::ModelType &group_model=Constants::ModelType());
+    ParameterizedItem *registerFancyGroupProperty(const QString &group_name, const Constants::ModelType &group_model);
 
 
-    ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
+    //    ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *setFancyGroupProperty(const QString &name, const QString &value);
 
     void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());
     void setRegisteredProperty(const QString &name, const QVariant &variant);
@@ -147,7 +149,7 @@ signals:
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
-    void updatePropertyItem(const QString &name);
+//    void updatePropertyItem(const QString &name);
 
     QStringList m_registered_properties;
 

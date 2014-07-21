@@ -7,72 +7,73 @@ namespace Constants {
 
 // --- Items -------------------------------------------------------------------
 
-const QString LayerType = "Layer";
-const QString MultiLayerType = "MultiLayer";
-const QString ParticleType = "Particle";
-const QString ParticleLayoutType = "ParticleLayout";
-const QString ParticleCoreShellType = "ParticleCoreShell";
-const QString InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
-const QString InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
-const QString InstrumentType = "Instrument";
-const QString DetectorType = "Detector";
-const QString BeamType = "Beam";
+typedef QString ModelType;
 
-const QString FormFactorType = "FormFactor";
-const QString AnisoPyramidType = "AnisoPyramid";
-const QString BoxType = "Box";
-const QString ConeType = "Cone";
-const QString Cone6Type = "Cone6";
-const QString CuboctahedronType = "Cuboctahedron";
-const QString CylinderType = "Cylinder";
-const QString EllipsoidalCylinderType = "EllipsoidalCylinder";
-const QString FullSphereType = "FullSphere";
-const QString FullSpheroidType = "FullSpheroid";
-const QString HemiEllipsoidType = "HemiEllipsoid";
-const QString Prism3Type = "Prism3";
-const QString Prism6Type = "Prism6";
-const QString PyramidType = "Pyramid";
-const QString Ripple1Type = "Ripple1";
-const QString Ripple2Type = "Ripple2";
-const QString TetrahedronType = "Tetrahedron";
-const QString TruncatedSphereType = "TruncatedSphere";
-const QString TruncatedSpheroidType = "TruncatedSpheroid";
+const ModelType LayerType = "Layer";
+const ModelType MultiLayerType = "MultiLayer";
+const ModelType ParticleType = "Particle";
+const ModelType ParticleLayoutType = "ParticleLayout";
+const ModelType ParticleCoreShellType = "ParticleCoreShell";
+const ModelType InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
+const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
+const ModelType InstrumentType = "Instrument";
+const ModelType DetectorType = "Detector";
+const ModelType BeamType = "Beam";
 
-const QString VectorType = "Vector";
+const ModelType FormFactorType = "FormFactor";
+const ModelType AnisoPyramidType = "AnisoPyramid";
+const ModelType BoxType = "Box";
+const ModelType ConeType = "Cone";
+const ModelType Cone6Type = "Cone6";
+const ModelType CuboctahedronType = "Cuboctahedron";
+const ModelType CylinderType = "Cylinder";
+const ModelType EllipsoidalCylinderType = "EllipsoidalCylinder";
+const ModelType FullSphereType = "FullSphere";
+const ModelType FullSpheroidType = "FullSpheroid";
+const ModelType HemiEllipsoidType = "HemiEllipsoid";
+const ModelType Prism3Type = "Prism3";
+const ModelType Prism6Type = "Prism6";
+const ModelType PyramidType = "Pyramid";
+const ModelType Ripple1Type = "Ripple1";
+const ModelType Ripple2Type = "Ripple2";
+const ModelType TetrahedronType = "Tetrahedron";
+const ModelType TruncatedSphereType = "TruncatedSphere";
+const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
 
-const QString LayerRoughnessType = "LayerRoughness";
-const QString LayerZeroRoughnessType = "LayerZeroRoughness";
+const ModelType VectorType = "Vector";
 
-const QString ThetaPhiDetectorType = "ThetaPhiDetector";
-const QString XYDetectorType  = "XYDetector";
+const ModelType LayerRoughnessType = "LayerRoughness";
+const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const QString FTDistribution1DCauchyType = "FTDistribution1DCauchy";
-const QString FTDistribution1DGaussType = "FTDistribution1DGauss";
-const QString FTDistribution1DGateType = "FTDistribution1DGate";
-const QString FTDistribution1DTriangleType = "FTDistribution1DTriangle";
-const QString FTDistribution1DCosineType = "FTDistribution1DCosine";
-const QString FTDistribution1DVoigtType = "FTDistribution1DVoigt";
+const ModelType ThetaPhiDetectorType = "ThetaPhiDetector";
+const ModelType XYDetectorType  = "XYDetector";
 
-const QString FTDistribution2DCauchyType = "FTDistribution2DCauchy";
-const QString FTDistribution2DGaussType = "FTDistribution2DGauss";
-const QString FTDistribution2DGateType = "FTDistribution2DGate";
-const QString FTDistribution2DConeType = "FTDistribution2DCone";
-const QString FTDistribution2DVoigtType = "FTDistribution2DVoigt";
+const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
+const ModelType FTDistribution1DGaussType = "FTDistribution1DGauss";
+const ModelType FTDistribution1DGateType = "FTDistribution1DGate";
+const ModelType FTDistribution1DTriangleType = "FTDistribution1DTriangle";
+const ModelType FTDistribution1DCosineType = "FTDistribution1DCosine";
+const ModelType FTDistribution1DVoigtType = "FTDistribution1DVoigt";
 
-const QString BasicLatticeType = "BasicLatticeType";
-const QString SquareLatticeType = "SquareLatticeType";
-const QString HexagonalLatticeType = "HexagonalLatticeType";
+const ModelType FTDistribution2DCauchyType = "FTDistribution2DCauchy";
+const ModelType FTDistribution2DGaussType = "FTDistribution2DGauss";
+const ModelType FTDistribution2DGateType = "FTDistribution2DGate";
+const ModelType FTDistribution2DConeType = "FTDistribution2DCone";
+const ModelType FTDistribution2DVoigtType = "FTDistribution2DVoigt";
+
+const ModelType BasicLatticeType = "BasicLatticeType";
+const ModelType SquareLatticeType = "SquareLatticeType";
+const ModelType HexagonalLatticeType = "HexagonalLatticeType";
 
 
 // --- Groups ------------------------------------------------------------------
 
-const QString FormFactorGroup = "Form Factor";
-const QString LayerRoughnessGroup = "Roughness";
-const QString DetectorGroup = "Detector group";
-const QString FTDistribution1DGroup = "PDF 1D";
-const QString FTDistribution2DGroupA = "PDF 2D #1";
-const QString FTDistribution2DGroupB = "PDF 2D #2";
-const QString LatticeGroup = "Lattice_type";
+const ModelType FormFactorGroup = "Form Factor";
+const ModelType LayerRoughnessGroup = "Roughness";
+const ModelType DetectorGroup = "Detector group";
+const ModelType FTDistribution1DGroup = "PDF 1D";
+const ModelType FTDistribution2DGroup = "PDF 2D";
+const ModelType LatticeGroup = "Lattice group";
 
 
 }

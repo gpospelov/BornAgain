@@ -3,9 +3,7 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-const QString ParticleCoreShellItem::P_CORE_X = "Core_X";
-const QString ParticleCoreShellItem::P_CORE_Y = "Core_Y";
-const QString ParticleCoreShellItem::P_CORE_Z = "Core_Z";
+const QString ParticleCoreShellItem::P_CORE_POS = "Core Position";
 
 
 ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
@@ -15,9 +13,8 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     setItemPort(ParameterizedItem::PortInfo::Port0);
     registerProperty(ParticleItem::P_DEPTH, 0.0);
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    registerProperty(P_CORE_X, 0.0);
-    registerProperty(P_CORE_Y, 0.0);
-    registerProperty(P_CORE_Z, 0.0);
+
+    registerFancyGroupProperty(P_CORE_POS, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::Port0, 1);
     addToValidChildren(Constants::ParticleType, PortInfo::Port1, 1);

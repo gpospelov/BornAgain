@@ -30,6 +30,7 @@
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
 #include "LayerRoughnessItems.h"
+#include "VectorItem.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -178,14 +179,12 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
 
         result->setIntegrationOverXi(item.getRegisteredProperty(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION).toBool());
 
-//        ParameterizedItem *pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
-        ParameterizedItem *pdf1Item = item.getSubItems()[Constants::FTDistribution2DGroupA];
+        ParameterizedItem *pdf1Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF1];
         Q_ASSERT(pdf1Item);
         boost::scoped_ptr<IFTDistribution2D> pdf1(dynamic_cast<FTDistribution2DItem *>(pdf1Item)->createFTDistribution());
         Q_ASSERT(pdf1.get());
 
-//        ParameterizedItem *pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
-        ParameterizedItem *pdf2Item = item.getSubItems()[Constants::FTDistribution2DGroupA];
+        ParameterizedItem *pdf2Item = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_PDF2];
         Q_ASSERT(pdf2Item);
         boost::scoped_ptr<IFTDistribution2D> pdf2(dynamic_cast<FTDistribution2DItem *>(pdf2Item)->createFTDistribution());
         Q_ASSERT(pdf2.get());
@@ -260,10 +259,13 @@ ParticleCoreShell *TransformToDomain::createParticleCoreShell(const Parameterize
 {
     depth = item.getRegisteredProperty(ParticleItem::P_DEPTH).toDouble();
     abundance = item.getRegisteredProperty(ParticleItem::P_ABUNDANCE).toDouble();
+    ParameterizedItem *vectorItem = item.getSubItems()[ParticleCoreShellItem::P_CORE_POS];
+    Q_ASSERT(vectorItem);
+
     kvector_t pos;
-    pos.setX(item.getRegisteredProperty(ParticleCoreShellItem::P_CORE_X).toDouble());
-    pos.setY(item.getRegisteredProperty(ParticleCoreShellItem::P_CORE_Y).toDouble());
-    pos.setZ(item.getRegisteredProperty(ParticleCoreShellItem::P_CORE_Z).toDouble());
+    pos.setX(vectorItem->getRegisteredProperty(VectorItem::P_X).toDouble());
+    pos.setY(vectorItem->getRegisteredProperty(VectorItem::P_Y).toDouble());
+    pos.setZ(vectorItem->getRegisteredProperty(VectorItem::P_Z).toDouble());
     ParticleCoreShell *result = new ParticleCoreShell(shell, core, pos);
     result->setName(item.itemName().toStdString());
     return result;

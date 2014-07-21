@@ -417,7 +417,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     new_item = m_sampleModel->insertNewItem(Constants::ParticleType);
                     QString ffName = mimeData->getClassName();
                     ffName.remove(Constants::FormFactorType);
-                    new_item->setGroupProperty(ParticleItem::P_FORM_FACTOR, ffName);
+                    new_item->setFancyGroupProperty(ParticleItem::P_FORM_FACTOR, ffName);
 
                 } else {
                     new_item = m_sampleModel->insertNewItem(mimeData->getClassName());

@@ -19,6 +19,27 @@ MaterialItem *MaterialModel::addMaterial(const QString &name)
     return materialItem;
 }
 
+void MaterialModel::removeMaterial(MaterialItem *item)
+{
+    QModelIndex materialIndex = indexOfItem(item);
+    removeRows(materialIndex.row(), 1, materialIndex.parent());
+
+    //bool MaterialModel::removeMaterial(MaterialItem *material)
+    //{
+    //    if(m_materials.contains(material)) {
+    //        int row = m_materials.indexOf(material);
+    //        beginRemoveRows(QModelIndex(), row, row);
+    //        m_materials.removeOne(material);
+    //        delete material;
+    //        endRemoveRows();
+    //        return true;
+    //    }
+    //    Q_ASSERT(0);
+    //    return false;
+    //}
+
+}
+
 
 
 

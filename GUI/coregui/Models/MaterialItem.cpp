@@ -2,38 +2,65 @@
 #include "ColorProperty.h"
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
+#include "ComboProperty.h"
+#include "GUIHelpers.h"
+#include <QDebug>
 
 
-const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
+const QString MaterialItem::P_MATERIAL_TYPE = "Material Type";
 const QString MaterialItem::P_COLOR = "Color";
-
-QStringList MaterialItem::m_material_types = QStringList()
-    << QString("Homogeneous Material")
-    << QString("Homogeneous Magnetic Material");
-
+const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
+const QString MaterialItem::P_MAGNETIC_FIELD = "Magnetic field";
 
 MaterialItem::MaterialItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MaterialType, parent)
-    , m_type(HomogeneousMaterial)
 {
     setItemName(Constants::MaterialType);
     setPropertyAttribute(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
+
+    ComboProperty types;
+    types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
+    registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute::HiddenProperty);
 
     registerFancyGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
+
+
 }
 
-QStringList MaterialItem::MaterialItem::getMaterialTypes() const
+void MaterialItem::setMaterialType(int index)
 {
-    return m_material_types;
+    ComboProperty combo_property = getRegisteredProperty(P_MATERIAL_TYPE).value<ComboProperty>();
+    QString previous_type = combo_property.getValue();
+    QString new_type = combo_property.toString(index);
+
+    if(previous_type != new_type) {
+        if(new_type == Constants::HomogeneousMagneticMaterialType) {
+            registerFancyGroupProperty(P_MAGNETIC_FIELD, Constants::MagneticFieldType);
+        } else {
+            removeRegisteredProperty(P_MAGNETIC_FIELD);
+        }
+
+        qDebug() << "MaterialItem::setMaterialType()" << index << combo_property.toString(index);
+        combo_property.setValue(new_type);
+        setRegisteredProperty(MaterialItem::P_MATERIAL_TYPE, combo_property.getVariant());
+    }
 }
 
-void MaterialItem::setType(MaterialType type)
-{
-    m_type = type;
-}
+//bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
+//{
+//    QList<QByteArray> property_names = dynamicPropertyNames();
+//    for (int i = 0; i < property_names.length(); ++i) {
+//        qDebug() << "MaterialItem::setMaterialProperty" << QString(property_names[i]);
+//        if(name == QString(property_names[i])) {
+//            setProperty(name.toAscii().data(), value);
+//            return true;
+//        }
+//    }
+//    throw GUIHelpers::Error("MaterialItem::setMaterialProperty() -> No property "+name);
+//}
 
 
 //void MaterialItem::setRefractiveIndex(double delta, double beta)

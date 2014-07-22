@@ -111,24 +111,22 @@ void MaterialEditorWidget::setupActions()
 
 void MaterialEditorWidget::addMaterial()
 {
-    Q_ASSERT(0);
     qDebug() << "MaterialEditorWidget::addMaterial() -> ";
-//    QString name = QString("unnamed%1").arg(m_IndexOfUnnamed);
-//    m_materialModel->addMaterial(name, MaterialItem::HomogeneousMaterial);
+    QString name = QString("unnamed%1").arg(m_IndexOfUnnamed);
+    m_materialModel->addMaterial(name);
     m_IndexOfUnnamed++;
 }
 
 
 void MaterialEditorWidget::removeMaterial()
 {
-    Q_ASSERT(0);
     qDebug() << "MaterialEditorWidget::removeMaterial() -> ";
-//    MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
-//    if(material) {
-//        m_materialModel->removeMaterial(material);
-//    } else {
-//        showMessage("Select material to remove");
-//    }
+    MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
+    if(material) {
+        m_materialModel->removeMaterial(material);
+    } else {
+        showMessage("Select material to remove");
+    }
 }
 
 

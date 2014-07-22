@@ -2,6 +2,9 @@
 #define COLORPROPERTY_H
 
 #include <QMetaType>
+#include <QColor>
+#include <QPixmap>
+#include <QVariant>
 
 //! The ColorProperty for ParameterizedItem and PropertyEditor
 //!

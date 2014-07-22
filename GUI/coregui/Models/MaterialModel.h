@@ -13,6 +13,7 @@ public:
     ~MaterialModel(){}
 
     MaterialItem *addMaterial(const QString &name);
+    void removeMaterial(MaterialItem *);
 
 };
 

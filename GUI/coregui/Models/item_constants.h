@@ -66,8 +66,12 @@ const ModelType SquareLatticeType = "SquareLatticeType";
 const ModelType HexagonalLatticeType = "HexagonalLatticeType";
 
 const ModelType MaterialType = "Material";
+const ModelType HomogeneousMaterialType = "Homogeneous Material";
+const ModelType HomogeneousMagneticMaterialType = "Homogeneous Magnetic Material";
 
 const ModelType RefractiveIndexType = "RefractiveIndex";
+
+const ModelType MagneticFieldType = "MagneticField";
 
 // --- Groups ------------------------------------------------------------------
 
@@ -77,6 +81,7 @@ const ModelType DetectorGroup = "Detector group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
+const ModelType MaterialGroup = "Material group";
 
 
 }

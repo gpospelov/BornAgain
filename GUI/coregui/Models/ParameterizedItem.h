@@ -115,6 +115,7 @@ public:
     void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
+    void removeRegisteredProperty(const QString &name);
 
     void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
     bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }

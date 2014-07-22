@@ -45,6 +45,15 @@ public:
         }
     };
 
+
+//    struct ItemIndexPair {
+//        ItemIndexPair(ParameterizedItem *item=0, int index=0)
+//            : m_item(item), m_index(index) {}
+//        ParameterizedItem *m_item;
+//        int m_index;
+//    };
+
+
     MaterialItem *getSelectedMaterial();
 
 public slots:
@@ -54,15 +63,16 @@ private slots:
     void onRowsInserted(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
     void slotValueChanged(QtProperty *property, const QVariant &value);
+    void onPropertyChanged(const QString &property_name);
 
 private:
     void updateBrowser();
     void clearBrowser();
-    void addMaterialProperties(MaterialItem *material);
-    void updateMaterialProperties(MaterialItem *material);
-    void addSubProperties(QtProperty *property, ParameterizedItem *material);
+    void addMaterialProperties(ParameterizedItem *material);
+//    void updateMaterialProperties(ParameterizedItem *material);
+    void addSubProperties(QtProperty *property, ParameterizedItem *item);
     void removeSubProperties(QtProperty *property);
-    void updateSubProperties(MaterialItem *material);
+//    void updateSubProperties(ParameterizedItem *material);
 
     enum ExpandAction { SaveExpandState, RestoreExpandState};
     void updateExpandState(ExpandAction action);
@@ -75,9 +85,17 @@ private:
 
     QMap<QtProperty *, ParameterizedItem *> m_top_property_to_material;
     QMap<ParameterizedItem *, QtVariantProperty *> m_top_material_to_property;
-
     QMap<QtProperty *, SubItem> m_property_to_subitem;
     QMap<ParameterizedItem *, QMap<QString, QtVariantProperty *> > m_material_to_property;
+
+
+//    QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
+//    QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
+//        m_item_to_index_to_property;
+
+//    QMap<const ParameterizedItem *, QMap<QString, QtVariantProperty *> >
+//        m_item_to_propertyname_to_qtvariantproperty;
+
 
     QMap<SubItem, bool> m_subItemToExpanded;
 

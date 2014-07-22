@@ -31,6 +31,7 @@
 #include "LatticeTypeItems.h"
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
+#include "MagneticFieldItem.h"
 #include <QDebug>
 
 namespace {
@@ -98,6 +99,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 
+    result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
     return result;
 }

@@ -9,23 +9,12 @@ class MaterialItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    enum MaterialType {
-        HomogeneousMaterial,
-        HomogeneousMagneticMaterial
-    };
 
-    static const QString P_REFRACTIVE_INDEX, P_COLOR;
+    static const QString P_MATERIAL_TYPE, P_COLOR, P_REFRACTIVE_INDEX, P_MAGNETIC_FIELD;
     explicit MaterialItem(ParameterizedItem *parent=0);
     ~MaterialItem(){}
-
-    QStringList getMaterialTypes() const;
-
-    int getType() { return m_type; }
-    void setType(MaterialType type);
-
-private:
-    MaterialType m_type;
-    static QStringList m_material_types;
+    void setMaterialType(int index);
+//    bool setMaterialProperty(QString name, const QVariant &value);
 };
 
 

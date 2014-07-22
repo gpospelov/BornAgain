@@ -28,10 +28,10 @@ QColor MaterialUtils::suggestMaterialColor(const QString &name)
 }
 
 
-MaterialProperty MaterialUtils::getMaterialProperty(MaterialItem *material)
-{
-    return MaterialProperty(material->getIdentifier());
-}
+//MaterialProperty MaterialUtils::getMaterialProperty(MaterialItem *material)
+//{
+//    return MaterialProperty(material->getIdentifier());
+//}
 
 
 MaterialProperty MaterialUtils::getDefaultMaterialProperty()

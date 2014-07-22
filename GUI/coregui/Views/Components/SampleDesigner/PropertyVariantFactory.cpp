@@ -1,6 +1,7 @@
 #include "PropertyVariantFactory.h"
 #include "PropertyVariantManager.h"
 #include "PropertyBrowserUtils.h"
+#include <QDebug>
 
 
 PropertyVariantFactory::~PropertyVariantFactory()
@@ -214,6 +215,7 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
 
 void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
 {
+    qDebug() << "PropertyVariantFactory::slotSetValue(const MaterialProperty &value)";
     QObject *object = sender();
     QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_material_editor_to_property.constBegin();

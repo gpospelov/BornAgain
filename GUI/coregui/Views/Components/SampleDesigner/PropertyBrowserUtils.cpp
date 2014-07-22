@@ -45,6 +45,11 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     connect(button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 }
 
+MaterialPropertyEdit::~MaterialPropertyEdit()
+{
+    qDebug() << "MaterialPropertyEdit::~MaterialPropertyEdit()";
+}
+
 
 void MaterialPropertyEdit::buttonClicked()
 {
@@ -54,6 +59,7 @@ void MaterialPropertyEdit::buttonClicked()
     //if(mat != m_materialProperty && mat.isDefined() ) {
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
+        qDebug() << "MaterialPropertyEdit::buttonClicked() -> emitting signal";
         emit materialPropertyChanged(m_materialProperty);
     }
 }

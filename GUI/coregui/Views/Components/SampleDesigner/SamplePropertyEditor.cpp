@@ -71,7 +71,7 @@ void SamplePropertyEditor::selectionChanged(const QItemSelection & selected,
 void SamplePropertyEditor::slotValueChanged(QtProperty *property,
                                             const QVariant &value)
 {
-    qDebug() << "SamplePropertyEditor::slotValueChanged()";
+    qDebug() << "SamplePropertyEditor::slotValueChanged()" << value;
     if (!m_property_to_item_index_pair.contains(property))
         return;
 
@@ -84,6 +84,7 @@ void SamplePropertyEditor::slotValueChanged(QtProperty *property,
         if (item_index_pair.m_index > prop_list.length()) {
             return;
         }
+        qDebug() << "setting ..." << prop_list[item_index_pair.m_index].constData();
         item_index_pair.m_item->setProperty(
             prop_list[item_index_pair.m_index].constData(), value);
     }

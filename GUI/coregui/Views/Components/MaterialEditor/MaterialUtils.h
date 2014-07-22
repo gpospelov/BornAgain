@@ -13,7 +13,7 @@ namespace MaterialUtils
 {
 
 QColor suggestMaterialColor(const QString &name);
-MaterialProperty getMaterialProperty(MaterialItem *material);
+//MaterialProperty getMaterialProperty(MaterialItem *material);
 MaterialProperty getDefaultMaterialProperty();
 ColorProperty suggestMaterialColorProperty(const QString &name);
 

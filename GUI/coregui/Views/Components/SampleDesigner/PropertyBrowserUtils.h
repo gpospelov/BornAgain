@@ -21,6 +21,7 @@ class MaterialPropertyEdit : public QWidget
     Q_OBJECT
 public:
     MaterialPropertyEdit(QWidget *parent = 0);
+    ~MaterialPropertyEdit();
 
     void setMaterialProperty(const MaterialProperty &materialProperty);
     MaterialProperty getMaterialProperty() const {return m_materialProperty; }

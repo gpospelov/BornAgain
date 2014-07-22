@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 
 
-PlotWidget::PlotWidget(QWidget *parent, bool isCreateToolbar)
+PlotWidget::PlotWidget(bool isCreateToolbar, QWidget *parent)
     : QWidget(parent)
     //, m_splitter(new Manhattan::MiniSplitter(this))
     , m_splitter(new QSplitter(this))
@@ -83,7 +83,7 @@ PlotWidget::PlotWidget(QWidget *parent, bool isCreateToolbar)
 
     if(isCreateToolbar)
     {
-        m_toolBar = new OutputDataToolBar(this);
+        m_toolBar = new OutputDataToolBar();
         connectToobarSignals();
         vlayout->addWidget(m_toolBar);
     }
@@ -385,5 +385,30 @@ void PlotWidget::onYaxisRangeChanged(QCPRange newRange)
 {
     //qDebug() << "onYaxisRangeChanged: "<<newRange.lower << newRange.upper;
     m_verticalPlot->setKeyAxisRange(newRange);
+}
+
+void PlotWidget::setProjectionsVisible(bool visible)
+{
+    projectionsChanged(visible);
+}
+
+void PlotWidget::setPropertyPanelVisible(bool visible)
+{
+    int width = 0;
+    isPropertyWidgetVisible = visible;
+
+    if(isPropertyWidgetVisible)
+    {
+        width = m_propertyWidget->getWidth();
+    }
+    else
+    {
+        width = 0;
+    }
+
+    QList<int> sizes;
+    sizes.append(this->m_splitter->width() - width);
+    sizes.append(width);
+    this->m_splitter->setSizes(sizes);
 }
 

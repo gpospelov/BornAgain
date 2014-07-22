@@ -2,26 +2,33 @@
 #include "qitemselectionmodel.h"
 #include "TestViewDelegate.h"
 #include "qdebug.h"
+#include "ItemLink.h"
 
 TestView::TestView(SessionModel *sampleModel, QWidget *parent)
     : QWidget(parent)
     , m_sampleModel(sampleModel)
 {
 
-    //iterateSessionModel();
+
+    m_itemModel = new QStandardItemModel(this);
+    m_itemModel->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
+    m_itemModel->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
+    updateItemModel();
+
     //generate Tree View
-    QTreeView *treeView = new QTreeView(this);
+    m_treeView = new QTreeView(this);
     //treeView->setModel(model);
-    treeView->setModel(getItemModelFromSessionModel());
+    //m_itemModel = getItemModelFromSessionModel();
+    m_treeView->setModel(m_itemModel);
     //treeView->setModel(getTestItemModel());
 
-    treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
+    m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
     //treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {background: cyan;}QTreeView::branch:has-siblings:adjoins-item {background: red;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {background: blue;}QTreeView::branch:closed:has-children:has-siblings {background: pink;}QTreeView::branch:has-children:!has-siblings:closed {background: gray;}QTreeView::branch:open:has-children:has-siblings {background: magenta;}QTreeView::branch:open:has-children:!has-siblings {background: green;}");
 
-    treeView->setFixedWidth(450);
-    treeView->setFixedHeight(600);
-    treeView->setColumnWidth(0,250);
-    treeView->expandAll();
+    m_treeView->setFixedWidth(380);
+    m_treeView->setFixedHeight(600);
+    m_treeView->setColumnWidth(0,220);
+    m_treeView->expandAll();
 
     //QItemSelectionModel *selectionModel = treeView->selectionModel();
     //m_delegate = new TestViewDelegate(this, treeView->selectionModel());
@@ -29,7 +36,7 @@ TestView::TestView(SessionModel *sampleModel, QWidget *parent)
 
 
 
-    treeView->setItemDelegate(new TestViewDelegate(1));
+    m_treeView->setItemDelegate(new TestViewDelegate(1));
 
 
     //generate Table View
@@ -104,13 +111,14 @@ QStandardItem *TestView::iterateSessionModel(const QModelIndex &parentIndex, QSt
                             QString childPropertyName = QString(childPropertyList[j]);
                             if(subItem->getPropertyAttribute(childPropertyName) & ParameterizedItem::HiddenProperty) continue;
 
-                            QVariant childPropertyValue = subItem->property(childPropertyName.toUtf8().data());
 
+
+                            QVariant childPropertyValue = subItem->property(childPropertyName.toUtf8().data());
                             int proValueType = childPropertyValue.type();
                             if (proValueType == QVariant::Double) {
                                 //qDebug() << "Items: "<<prop_name << prop_value.toDouble();
                                 isChildPropertyFound = true;
-                                insertRowIntoItem(childStandardItem, childPropertyName, childPropertyValue);
+                                insertRowIntoItem(childStandardItem, childPropertyName, childPropertyValue, subItem);
                             }
                         }
                         if(isChildPropertyFound)
@@ -165,10 +173,16 @@ void TestView::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *child
 
 }
 
-void TestView::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value)
+void TestView::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
 {
+    ItemLink itemLink(title, parameterizedItem);
+    QVariant itemLinkData;
+    itemLinkData.setValue(itemLink);
+
     QStandardItem *titleItem = new QStandardItem(title);
     QStandardItem *valueItem = new QStandardItem();
+
+    valueItem->setData(itemLinkData, Qt::UserRole);
     valueItem->setData(value, Qt::EditRole);
     valueItem->setEditable(true);
     insertRowIntoItem(parentItem, titleItem, valueItem);
@@ -223,6 +237,16 @@ QStandardItemModel *TestView::getTestItemModel()
 
 }
 
+void TestView::updateTreeView()
+{
+    updateItemModel();
+    m_treeView->expandAll();
+}
+
+void TestView::updateItemModel()
+{
+    m_itemModel->setItem(0, iterateSessionModel());
+}
 
 
 

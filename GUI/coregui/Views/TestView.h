@@ -10,9 +10,9 @@
 #include <QTableWidget>
 #include "SessionModel.h"
 
-class MaterialEditorView;
+
 class TestViewDelegate;
-class Track;
+class ParameterizedItem;
 
 //! TestView window to try things in mainwindow
 class TestView : public QWidget
@@ -21,18 +21,21 @@ class TestView : public QWidget
 
 public:
     TestView(SessionModel *sampleModel, QWidget *parent = 0);
+    void updateTreeView();
+
 
 private:
     QTreeView *m_treeView;
     TestViewDelegate *m_delegate;
     QTableWidget *m_tableWidget;
-    QList<Track> *m_tracks;
     SessionModel *m_sampleModel;
     QStandardItemModel *getItemModelFromSessionModel();
     QStandardItemModel *getTestItemModel();
     QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = NULL);
     void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = NULL);
-    void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value);
+    void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem = NULL);
+    QStandardItemModel *m_itemModel;
+    void updateItemModel();
 
 
 };

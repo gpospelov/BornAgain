@@ -12,27 +12,34 @@ QColor MaterialUtils::suggestMaterialColor(const QString &name)
 {
     if(name.contains("Air") ) {
         return QColor(179, 242, 255);
-    } else if(name.contains("Substrate") ) {
+    }
+    else if(name.contains("Substrate") ) {
         return QColor(205,102,0);
-    } else if ( name.contains("Default") ) {
+    }
+    else if ( name.contains("Default") ) {
         return QColor(Qt::green);
-    } else if ( name.contains("Particle") ) {
+    }
+    else if ( name.contains("Particle") ) {
         return QColor(146, 198, 255);
     }
-    return DesignerHelper::getRandomColor();
+    else {
+        return DesignerHelper::getRandomColor();
+    }
 }
 
 
 MaterialProperty MaterialUtils::getMaterialProperty(MaterialItem *material)
 {
-    Q_ASSERT(0);
-//    Q_ASSERT(material);
-//    if(material->getType() == MaterialItem::SubItem)
-//        throw GUIHelpers::Error("MaterialUtils::getMaterialProperty() -> Error! It's a SubItem, not material.");
+    return MaterialProperty(material->getIdentifier());
+}
 
-//    QVariant v = material->property(MaterialProperties::Color);
-//    ColorProperty colorProperty = v.value<ColorProperty>();
-//    return MaterialProperty(material->getName(), colorProperty.getColor());
+
+MaterialProperty MaterialUtils::getDefaultMaterialProperty()
+{
+    if(MaterialEditor::instance()) {
+        return MaterialEditor::getDefaultMaterialProperty();
+    }
+    return MaterialProperty();
 }
 
 
@@ -40,6 +47,30 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
 {
     return ColorProperty(MaterialUtils::suggestMaterialColor(name));
 }
+
+//! Returns the name of the Material corresponding to given material property
+//QString MaterialUtils::getMaterialName(const MaterialProperty &material_property)
+//{
+//    qDebug() << "MaterialUtils::getMaterialName()" << material_property;
+//    MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(material_property);
+//    if(materialItem) {
+//        return materialItem->itemName();
+//    } else {
+//        return QString("Undefined");
+//    }
+//}
+
+////! Returns color of the material corresponding to given material property
+//QColor MaterialUtils::getMaterialColor(const MaterialProperty &material_property)
+//{
+//    qDebug() << "MaterialUtils::getMaterialColor()" << material_property;
+//    MaterialItem *materialItem = MaterialEditor::getMaterialModel()->getMaterial(material_property);
+//    if(materialItem) {
+//        return materialItem->getColor();
+//    } else {
+//        return QColor(Qt::red);
+//    }
+//}
 
 
 IMaterial *MaterialUtils::createDomainMaterial(const MaterialItem *item)
@@ -78,4 +109,8 @@ IMaterial *MaterialUtils::createDomainMaterial(const QString &name)
 //    Q_ASSERT(materialItem);
 //    return createDomainMaterial(materialItem);
 }
+
+
+
+
 

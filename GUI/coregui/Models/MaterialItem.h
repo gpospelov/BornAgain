@@ -4,6 +4,7 @@
 
 
 #include "ParameterizedItem.h"
+#include <QColor>
 
 class MaterialItem : public ParameterizedItem
 {
@@ -14,7 +15,12 @@ public:
     explicit MaterialItem(ParameterizedItem *parent=0);
     ~MaterialItem(){}
     void setMaterialType(int index);
-//    bool setMaterialProperty(QString name, const QVariant &value);
+
+    QString getIdentifier() const { return m_identifier; }
+
+    QColor getColor() const;
+private:
+    QString m_identifier;
 };
 
 

@@ -1,7 +1,9 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
+#include "RefractiveIndexItem.h"
 #include "MaterialUtils.h"
-
+#include "MaterialProperty.h"
+#include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
@@ -9,10 +11,15 @@ MaterialModel::MaterialModel(QObject *parent)
 
 }
 
-MaterialItem *MaterialModel::addMaterial(const QString &name)
+MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
 {
     MaterialItem *materialItem = dynamic_cast<MaterialItem *>(insertNewItem(Constants::MaterialType));
     materialItem->setItemName(name);
+
+    RefractiveIndexItem *refractiveIndexItem = dynamic_cast<RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
+    Q_ASSERT(refractiveIndexItem);
+    refractiveIndexItem->setRegisteredProperty(RefractiveIndexItem::P_DELTA, delta);
+    refractiveIndexItem->setRegisteredProperty(RefractiveIndexItem::P_BETA, beta);
 
     materialItem->setRegisteredProperty(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 
@@ -38,6 +45,20 @@ void MaterialModel::removeMaterial(MaterialItem *item)
     //    return false;
     //}
 
+}
+
+MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
+{
+    qDebug() << "MaterialModel::getMaterial()";
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+
+         if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
+             if(material->getIdentifier() == property.getIdentifier()) return material;
+         }
+    }
+    return 0;
 }
 
 

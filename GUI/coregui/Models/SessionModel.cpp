@@ -23,6 +23,8 @@
 #include "ScientificDoubleProperty.h"
 #include "IconProvider.h"
 #include "FancyGroupProperty.h"
+#include "MaterialUtils.h"
+#include "MaterialProperty.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -690,9 +692,10 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
                                 variant.toString());
         }
         else if (type_name == QString("MaterialProperty")) {
-            QString material_name = variant.value<MaterialProperty>().getName();
+            MaterialProperty material_property = variant.value<MaterialProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                material_name);
+                                material_property.getName());
+
         }
 //        else if (type_name == QString("GroupProperty")) {
 //            QString ff_name =

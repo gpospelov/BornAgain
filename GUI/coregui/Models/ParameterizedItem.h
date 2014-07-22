@@ -101,7 +101,7 @@ public:
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 
-    void setMaterialProperty(MaterialProperty material = MaterialProperty());
+//    void setMaterialProperty(MaterialProperty material = MaterialProperty());
 
 //    ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
 

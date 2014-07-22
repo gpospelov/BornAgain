@@ -1,6 +1,5 @@
 #include "MagneticFieldItem.h"
 
-
 const QString MagneticFieldItem::P_BX = "Bx";
 const QString MagneticFieldItem::P_BY = "By";
 const QString MagneticFieldItem::P_BZ = "Bz";

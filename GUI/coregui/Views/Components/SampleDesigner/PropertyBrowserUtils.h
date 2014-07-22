@@ -2,7 +2,7 @@
 #define PROPERTYBROWSERUTILS_H
 
 #include <QWidget>
-#include "MaterialProperties.h"
+#include "MaterialProperty.h"
 #include "GroupProperty.h"
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"

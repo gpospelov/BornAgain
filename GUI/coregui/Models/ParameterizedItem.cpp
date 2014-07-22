@@ -239,16 +239,16 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
 //    emit propertyItemChanged(name);
 //}
 
-void ParameterizedItem::setMaterialProperty(MaterialProperty material)
-{
-    QVariant mat_var;
-    if(material.isDefined()) {
-        mat_var.setValue(material);
-    } else {
-        mat_var.setValue(MaterialEditor::getDefaultMaterialProperty());
-    }
-    setProperty("Material", mat_var);
-}
+//void ParameterizedItem::setMaterialProperty(MaterialProperty material)
+//{
+//    QVariant mat_var;
+//    if(material.isDefined()) {
+//        mat_var.setValue(material);
+//    } else {
+//        mat_var.setValue(MaterialEditor::getDefaultMaterialProperty());
+//    }
+//    setProperty("Material", mat_var);
+//}
 
 //ParameterizedItem * ParameterizedItem::registerGroupProperty(
 //        const QString &name, const QString &value)

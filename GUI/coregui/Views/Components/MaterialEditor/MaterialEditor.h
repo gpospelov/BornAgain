@@ -3,7 +3,7 @@
 
 
 #include <QObject>
-#include "MaterialProperties.h"
+#include "MaterialProperty.h"
 class MaterialModel;
 
 //! The MaterialEditor is the main class to access materials.
@@ -14,11 +14,14 @@ public:
     MaterialEditor(MaterialModel *materialModel);
     virtual ~MaterialEditor();
 
+    static MaterialEditor *instance();
+
     static MaterialProperty getMaterialProperty(const QString &name);
     static MaterialProperty selectMaterialProperty();
     static MaterialProperty getDefaultMaterialProperty();
 
     static MaterialModel *getMaterialModel();
+
 
 private:
     MaterialProperty this_selectMaterialProperty();

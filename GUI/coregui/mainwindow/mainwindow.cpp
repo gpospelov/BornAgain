@@ -276,8 +276,10 @@ void MainWindow::initMaterialModel()
 //    m_materialModel->insertNewItem(Constants::MaterialType);
 
     m_materialModel = new MaterialModel();
-    m_materialModel->addMaterial("Default");
-    m_materialModel->addMaterial("Air");
+    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
+    m_materialModel->addMaterial("Air", 0.0, 0.0);
+    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
+    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
 
 
 //    m_materialModel = new MaterialModel(this);

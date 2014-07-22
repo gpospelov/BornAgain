@@ -4,6 +4,7 @@
 #include "RefractiveIndexItem.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include <QUuid>
 #include <QDebug>
 
 
@@ -22,12 +23,12 @@ MaterialItem::MaterialItem(ParameterizedItem *parent)
     types << Constants::HomogeneousMaterialType << Constants::HomogeneousMagneticMaterialType;
     registerProperty(P_MATERIAL_TYPE, types.getVariant(), PropertyAttribute::HiddenProperty);
 
-    registerFancyGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
-
     ColorProperty color;
     registerProperty(P_COLOR, color.getVariant());
 
+    registerFancyGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
+    m_identifier = QUuid::createUuid().toString();
 }
 
 void MaterialItem::setMaterialType(int index)
@@ -47,6 +48,12 @@ void MaterialItem::setMaterialType(int index)
         combo_property.setValue(new_type);
         setRegisteredProperty(MaterialItem::P_MATERIAL_TYPE, combo_property.getVariant());
     }
+}
+
+QColor MaterialItem::getColor() const
+{
+    ColorProperty color_property = getRegisteredProperty(P_COLOR).value<ColorProperty>();
+    return color_property.getColor();
 }
 
 //bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)

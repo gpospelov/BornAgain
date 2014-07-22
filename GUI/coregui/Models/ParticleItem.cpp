@@ -15,11 +15,14 @@
 
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
+#include "MaterialUtils.h"
 #include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_DEPTH = "Depth";
 const QString ParticleItem::P_ABUNDANCE = "Abundance";
+const QString ParticleItem::P_MATERIAL = "Material";
+
 
 
 ParticleItem::ParticleItem(ParameterizedItem *parent)
@@ -30,8 +33,8 @@ ParticleItem::ParticleItem(ParameterizedItem *parent)
     //registerGroupProperty(P_FORM_FACTOR, Constants::CylinderType);
     registerFancyGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
 
+    registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
-    setMaterialProperty();
     registerProperty(P_DEPTH, 0.0);
     registerProperty(P_ABUNDANCE, 1.0);
 }

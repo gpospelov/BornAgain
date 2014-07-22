@@ -31,6 +31,8 @@
 #include "ParticleCoreShell.h"
 #include "LayerRoughnessItems.h"
 #include "VectorItem.h"
+#include "MaterialUtils.h"
+#include "MaterialProperty.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>

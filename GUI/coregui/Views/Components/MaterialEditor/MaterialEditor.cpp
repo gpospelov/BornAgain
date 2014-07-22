@@ -1,6 +1,6 @@
 #include "MaterialEditor.h"
 #include "MaterialEditorWidget.h"
-//#include "MaterialModel.h"
+#include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "MaterialUtils.h"
 #include "SessionModel.h"
@@ -19,6 +19,11 @@ MaterialEditor::MaterialEditor(MaterialModel *materialModel)
 MaterialEditor::~MaterialEditor()
 {
     m_instance = 0;
+}
+
+MaterialEditor *MaterialEditor::instance()
+{
+    return m_instance;
 }
 
 
@@ -65,16 +70,15 @@ MaterialProperty MaterialEditor::getDefaultMaterialProperty()
     return m_instance->this_getDefaultMaterialProperty();
 }
 
-
+//! Returns default MaterialProperty which is the signature of the first
+//! MaterialItem in the model.
 MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
 {
-    Q_ASSERT(0);
-//    MaterialItem *material = m_materialModel->getMaterial("Default");
-
-//    if(!material)
-//        material = m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-
-//    return MaterialUtils::getMaterialProperty(material);
+    Q_ASSERT(m_materialModel);
+    Q_ASSERT(m_materialModel->rowCount( QModelIndex() ));
+    QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
+    MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
+    return MaterialProperty(material->getIdentifier());
 }
 
 

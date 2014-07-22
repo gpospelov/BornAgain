@@ -14,17 +14,18 @@
 // ************************************************************************** //
 
 #include "LayerItem.h"
-#include "LayerRoughnessItems.h"
+#include "MaterialUtils.h"
 
 const QString LayerItem::P_THICKNESS = "Thickness";
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
+const QString LayerItem::P_MATERIAL = "Material";
 
 LayerItem::LayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::LayerType, parent)
 {
     setItemName(Constants::LayerType);
     registerProperty(P_THICKNESS, 0.0);
-    setMaterialProperty();
+    registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
     registerFancyGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::Port0, 1);

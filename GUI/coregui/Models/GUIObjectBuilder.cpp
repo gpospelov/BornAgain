@@ -125,7 +125,8 @@ void GUIObjectBuilder::visit(const Layer *sample)
                                          m_sampleModel->indexOfItem(parent));
     item->setItemName(sample->getName().c_str());
     item->setRegisteredProperty(LayerItem::P_THICKNESS, sample->getThickness());
-    item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
+    //item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
+    item->setRegisteredProperty(LayerItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
 
     const MultiLayer *multilayer = dynamic_cast<const MultiLayer *>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
@@ -199,8 +200,9 @@ void GUIObjectBuilder::visit(const Particle *sample)
     particleItem->setRegisteredProperty(ParticleItem::P_DEPTH, m_propertyToValue[ParticleItem::P_DEPTH]);
     particleItem->setRegisteredProperty(ParticleItem::P_ABUNDANCE, m_propertyToValue[ParticleItem::P_ABUNDANCE]);
     particleItem->setItemName(sample->getName().c_str());
-    particleItem->setMaterialProperty(createMaterialFromDomain(
-                                          sample->getMaterial()));
+//    particleItem->setMaterialProperty(createMaterialFromDomain(
+//                                          sample->getMaterial()));
+    particleItem->setRegisteredProperty(ParticleItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
     m_levelToParent[getLevel()] = particleItem;
 
 }

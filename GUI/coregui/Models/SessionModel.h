@@ -37,6 +37,13 @@ const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
+
+const QString IdentifierAttribute("Identifier");
+
+const QString ColorRedAttribute("Red");
+const QString ColorGreenAttribute("Green");
+const QString ColorBlueAttribute("Blue");
+const QString ColorAlphaAttribute("Alpha");
 }
 
 class IconProvider;

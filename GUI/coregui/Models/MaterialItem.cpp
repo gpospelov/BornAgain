@@ -12,6 +12,8 @@ const QString MaterialItem::P_MATERIAL_TYPE = "Material Type";
 const QString MaterialItem::P_COLOR = "Color";
 const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
 const QString MaterialItem::P_MAGNETIC_FIELD = "Magnetic field";
+const QString MaterialItem::P_IDENTIFIER = "Identifier";
+
 
 MaterialItem::MaterialItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::MaterialType, parent)
@@ -28,7 +30,7 @@ MaterialItem::MaterialItem(ParameterizedItem *parent)
 
     registerFancyGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    m_identifier = QUuid::createUuid().toString();
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString());
 }
 
 void MaterialItem::setMaterialType(int index)
@@ -50,11 +52,18 @@ void MaterialItem::setMaterialType(int index)
     }
 }
 
+QString MaterialItem::getIdentifier() const
+{
+    return getRegisteredProperty(P_IDENTIFIER).toString();
+}
+
+
 QColor MaterialItem::getColor() const
 {
     ColorProperty color_property = getRegisteredProperty(P_COLOR).value<ColorProperty>();
     return color_property.getColor();
 }
+
 
 //bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
 //{

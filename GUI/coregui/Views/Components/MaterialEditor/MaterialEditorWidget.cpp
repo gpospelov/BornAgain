@@ -134,7 +134,7 @@ MaterialProperty MaterialEditorWidget::getSelectedMaterialProperty()
 {
     MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
     if(material)
-        return MaterialUtils::getMaterialProperty(material);
+        return MaterialProperty(material->getIdentifier());
 
     return MaterialProperty();
 }

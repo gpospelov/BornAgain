@@ -1,7 +1,6 @@
 #ifndef MATERIALMODEL_H
 #define MATERIALMODEL_H
 
-
 #include "SessionModel.h"
 
 class MaterialItem;

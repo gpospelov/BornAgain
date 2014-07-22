@@ -61,6 +61,20 @@ MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
     return 0;
 }
 
+//MaterialProperty MaterialModel::getMaterialPropertyForName(const QString &name)
+//{
+//    QModelIndex parentIndex;
+//    for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
+//         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+
+//         if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
+//             if(material->getIdentifier() == property.getIdentifier()) return material;
+//         }
+//    }
+//    return 0;
+
+//}
+
 
 
 

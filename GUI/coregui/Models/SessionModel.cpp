@@ -581,12 +581,18 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
     }
     else if (parameter_type == "MaterialProperty") {
-        QString parameter_value = reader->attributes()
-                .value(SessionXML::ParameterValueAttribute)
+//        QString parameter_value = reader->attributes()
+//                .value(SessionXML::ParameterValueAttribute)
+//                .toString();
+        QString identifier = reader->attributes()
+                .value(SessionXML::IdentifierAttribute)
                 .toString();
-        QVariant mat_variant;
-        mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
-        item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
+
+//        QVariant mat_variant;
+//        mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
+
+        MaterialProperty material_property(identifier);
+        item->setProperty(parameter_name.toUtf8().constData(), material_property.getVariant());
 //    }
 //    else if (parameter_type == "GroupProperty") {
 //        QString parameter_value = reader->attributes()
@@ -626,8 +632,14 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 //        group_variant.setValue(group_prop);
 //        item->setGroupProperty(parameter_name, parameter_value);
     }
-
-
+    else if (parameter_type == "ColorProperty") {
+        int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
+        int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
+        int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
+        int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
+        ColorProperty color(QColor(r, g, b, a));
+        item->setRegisteredProperty(parameter_name, color.getVariant());
+    }
 
     else {
         throw GUIHelpers::Error("SessionModel::readProperty: "
@@ -695,6 +707,8 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             MaterialProperty material_property = variant.value<MaterialProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 material_property.getName());
+            writer->writeAttribute(SessionXML::IdentifierAttribute,
+                                material_property.getIdentifier());
 
         }
 //        else if (type_name == QString("GroupProperty")) {
@@ -718,6 +732,15 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
                     variant.value<FancyGroupProperty *>()->getValue();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 ff_name);
+        }
+        else if (type_name == QString("ColorProperty")) {
+            int r, g, b, a;
+            QColor material_color = variant.value<ColorProperty>().getColor();
+            material_color.getRgb(&r, &g, &b, &a);
+            writer->writeAttribute(SessionXML::ColorRedAttribute, QString::number(r));
+            writer->writeAttribute(SessionXML::ColorGreenAttribute, QString::number(g));
+            writer->writeAttribute(SessionXML::ColorBlueAttribute, QString::number(b));
+            writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
         }
 
         else {

@@ -16,6 +16,8 @@ public:
     void removeMaterial(MaterialItem *);
 
     MaterialItem *getMaterial(const MaterialProperty &property);
+    MaterialItem *getMaterial(const QString &material_name);
+
 };
 
 

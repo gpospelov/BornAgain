@@ -5,6 +5,9 @@
 #include "HomogeneousMagneticMaterial.h"
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
+#include "RefractiveIndexItem.h"
+#include "MagneticFieldItem.h"
+#include "ComboProperty.h"
 #include <QDebug>
 
 
@@ -73,9 +76,9 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
 //}
 
 
-IMaterial *MaterialUtils::createDomainMaterial(const MaterialItem *item)
-{
-    Q_ASSERT(0);
+//IMaterial *MaterialUtils::createDomainMaterial(const MaterialItem *item)
+//{
+//    Q_ASSERT(0);
 //    if(item->getType() == MaterialItem::SubItem)
 //        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Unapropriate material type");
 
@@ -98,19 +101,51 @@ IMaterial *MaterialUtils::createDomainMaterial(const MaterialItem *item)
 //    }
 
 //    return result;
-}
+//}
 
 
-IMaterial *MaterialUtils::createDomainMaterial(const QString &name)
-{
-    Q_ASSERT(0);
+//IMaterial *MaterialUtils::createDomainMaterial(const QString &name)
+//{
+//    Q_ASSERT(0);
 //    MaterialModel *model = MaterialEditor::getMaterialModel();
 //    MaterialItem *materialItem = model->getMaterial(name);
 //    Q_ASSERT(materialItem);
 //    return createDomainMaterial(materialItem);
+//}
+
+
+
+
+
+
+
+IMaterial *MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
+{
+    MaterialModel *model = MaterialEditor::getMaterialModel();
+    Q_ASSERT(model);
+
+    const MaterialItem *materialItem = model->getMaterial(material_property);
+    Q_ASSERT(materialItem);
+
+    const RefractiveIndexItem *refractiveIndexItem = dynamic_cast<const RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
+    double delta = refractiveIndexItem->getDelta();
+    double beta = refractiveIndexItem->getBeta();
+
+    IMaterial *result(0);
+    if(materialItem->isHomogeneousMaterial()) {
+        result = new HomogeneousMaterial(materialItem->itemName().toStdString(), delta, beta);
+    }
+    else if(materialItem->isHomogeneousMagneticMaterial()) {
+        const MagneticFieldItem *magneticField = dynamic_cast<const MagneticFieldItem *>(materialItem->getSubItems()[MaterialItem::P_MAGNETIC_FIELD]);
+        Q_ASSERT(magneticField);
+        double Bx = magneticField->getRegisteredProperty(MagneticFieldItem::P_BX).toDouble();
+        double By = magneticField->getRegisteredProperty(MagneticFieldItem::P_BY).toDouble();
+        double Bz = magneticField->getRegisteredProperty(MagneticFieldItem::P_BZ).toDouble();
+        result = new HomogeneousMagneticMaterial(materialItem->itemName().toStdString(), delta, beta, kvector_t(Bx, By, Bz));
+    }
+    else {
+        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Unknown material type.");
+    }
+
+    return result;
 }
-
-
-
-
-

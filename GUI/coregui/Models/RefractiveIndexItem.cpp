@@ -16,5 +16,16 @@ RefractiveIndexItem::RefractiveIndexItem(ParameterizedItem *parent)
 QString RefractiveIndexItem::getItemLabel() const
 {
     return QString("(1 - %1, %2)").arg(getRegisteredProperty(P_DELTA).toDouble())
-                                  .arg(getRegisteredProperty(P_BETA).toDouble());
+            .arg(getRegisteredProperty(P_BETA).toDouble());
+}
+
+double RefractiveIndexItem::getDelta() const
+{
+    return getRegisteredProperty(P_DELTA).toDouble();
+
+}
+
+double RefractiveIndexItem::getBeta() const
+{
+    return getRegisteredProperty(P_BETA).toDouble();
 }

@@ -20,8 +20,10 @@ ColorProperty suggestMaterialColorProperty(const QString &name);
 //QString getMaterialName(const MaterialProperty &material_property);
 //QColor getMaterialColor(const MaterialProperty &material_property);
 
-IMaterial *createDomainMaterial(const MaterialItem *material);
-IMaterial *createDomainMaterial(const QString &name);
+IMaterial *createDomainMaterial(const MaterialProperty &material_property);
+
+//IMaterial *createDomainMaterial(const MaterialItem *material);
+//IMaterial *createDomainMaterial(const QString &name);
 
 }
 

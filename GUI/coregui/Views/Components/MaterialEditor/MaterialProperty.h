@@ -13,7 +13,7 @@
 class MaterialProperty
 {
 public:
-    MaterialProperty(const QString &identifier=QString())
+    explicit MaterialProperty(const QString &identifier=QString())
         : m_identifier(identifier){}
 
     QString getIdentifier() const {

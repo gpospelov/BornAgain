@@ -40,13 +40,17 @@
 
 IMaterial *TransformToDomain::createDomainMaterial(const ParameterizedItem &item)
 {
-    QVariant v = item.property("Material");
-    if( !v.isValid() )
-        throw GUIHelpers::Error("TransformToDomain::createDomainMaterial() -> "
-                                "No material property");
+    MaterialProperty material_property;
+    if(item.modelType() == Constants::ParticleType) {
+        material_property = item.getRegisteredProperty(ParticleItem::P_MATERIAL).value<MaterialProperty>();
+    }
+    else if(item.modelType() == Constants::LayerType) {
+        material_property = item.getRegisteredProperty(LayerItem::P_MATERIAL).value<MaterialProperty>();
+    }
+    if(!material_property.isDefined())
+        throw GUIHelpers::Error("TransformToDomain::createDomainMaterial() -> Error. Unknown item to create material");
 
-    MaterialProperty materialProperty = v.value<MaterialProperty>();
-    return MaterialUtils::createDomainMaterial(materialProperty.getName());
+    return MaterialUtils::createDomainMaterial(material_property);
 }
 
 MultiLayer *TransformToDomain::createMultiLayer(const ParameterizedItem &item)

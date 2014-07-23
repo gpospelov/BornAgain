@@ -9,6 +9,7 @@
 #include "ParameterizedItem.h"
 #include "OutputDataFunctions.h"
 #include <boost/scoped_ptr.hpp>
+#include <QDebug>
 
 
 GUIFunctionalTest::GUIFunctionalTest(const std::string &name)

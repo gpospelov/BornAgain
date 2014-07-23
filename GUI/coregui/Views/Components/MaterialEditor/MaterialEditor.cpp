@@ -55,10 +55,9 @@ MaterialProperty MaterialEditor::getMaterialProperty(const QString &name)
 
 MaterialProperty MaterialEditor::this_getMaterialProperty(const QString &name)
 {
-    Q_ASSERT(0);
-//    MaterialItem *material = m_materialModel->getMaterial(name);
-//    if(material)
-//        return MaterialUtils::getMaterialProperty(material);
+    MaterialItem *material = m_materialModel->getMaterial(name);
+    if(material)
+        return MaterialProperty(material->getIdentifier());
 
     return MaterialProperty();
 }
@@ -75,10 +74,13 @@ MaterialProperty MaterialEditor::getDefaultMaterialProperty()
 MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
 {
     Q_ASSERT(m_materialModel);
-    Q_ASSERT(m_materialModel->rowCount( QModelIndex() ));
-    QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
-    MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
-    return MaterialProperty(material->getIdentifier());
+    if((m_materialModel->rowCount( QModelIndex() ) ) ) {
+        QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
+        MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
+        return MaterialProperty(material->getIdentifier());
+    } else {
+        return MaterialProperty();
+    }
 }
 
 

@@ -227,6 +227,8 @@ void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
             QVariant var;
             var.setValue(value);
             manager->setValue(property, var);
+            // FIXME g.p. Is it the right place to delete?
+            object->deleteLater();
             return;
         }
         itEditor++;
@@ -265,6 +267,8 @@ void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
             QVariant var;
             var.setValue(value);
             manager->setValue(property, var);
+            // FIXME g.p. Is it the right place to delete?
+            object->deleteLater();
             return;
         }
         itEditor++;

@@ -30,21 +30,6 @@ void MaterialModel::removeMaterial(MaterialItem *item)
 {
     QModelIndex materialIndex = indexOfItem(item);
     removeRows(materialIndex.row(), 1, materialIndex.parent());
-
-    //bool MaterialModel::removeMaterial(MaterialItem *material)
-    //{
-    //    if(m_materials.contains(material)) {
-    //        int row = m_materials.indexOf(material);
-    //        beginRemoveRows(QModelIndex(), row, row);
-    //        m_materials.removeOne(material);
-    //        delete material;
-    //        endRemoveRows();
-    //        return true;
-    //    }
-    //    Q_ASSERT(0);
-    //    return false;
-    //}
-
 }
 
 MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
@@ -56,6 +41,20 @@ MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
 
          if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
              if(material->getIdentifier() == property.getIdentifier()) return material;
+         }
+    }
+    return 0;
+}
+
+MaterialItem *MaterialModel::getMaterial(const QString &material_name)
+{
+    qDebug() << "MaterialModel::getMaterial()";
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
+         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+
+         if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
+             if(material->itemName() == material_name) return material;
          }
     }
     return 0;

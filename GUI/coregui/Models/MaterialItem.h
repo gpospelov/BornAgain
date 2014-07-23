@@ -19,6 +19,10 @@ public:
     QString getIdentifier() const;
 
     QColor getColor() const;
+
+    bool isHomogeneousMaterial() const;
+
+    bool isHomogeneousMagneticMaterial() const;
 };
 
 

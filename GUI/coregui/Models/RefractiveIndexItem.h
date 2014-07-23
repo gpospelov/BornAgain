@@ -12,6 +12,8 @@ public:
     explicit RefractiveIndexItem(ParameterizedItem *parent=0);
     ~RefractiveIndexItem(){}
     QString getItemLabel() const;
+    double getDelta() const;
+    double getBeta() const;
 };
 
 

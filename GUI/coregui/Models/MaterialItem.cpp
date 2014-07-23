@@ -64,6 +64,18 @@ QColor MaterialItem::getColor() const
     return color_property.getColor();
 }
 
+bool MaterialItem::isHomogeneousMaterial() const
+{
+    ComboProperty combo_property = getRegisteredProperty(MaterialItem::P_MATERIAL_TYPE).value<ComboProperty>();
+    return (combo_property.getValue() == Constants::HomogeneousMaterialType);
+}
+
+bool MaterialItem::isHomogeneousMagneticMaterial() const
+{
+    ComboProperty combo_property = getRegisteredProperty(MaterialItem::P_MATERIAL_TYPE).value<ComboProperty>();
+    return (combo_property.getValue() == Constants::HomogeneousMagneticMaterialType);
+}
+
 
 //bool MaterialItem::setMaterialProperty(QString name, const QVariant &value)
 //{

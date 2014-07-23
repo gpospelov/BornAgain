@@ -121,27 +121,20 @@ void GUIObjectBuilder::visit(const Layer *sample)
     qDebug() << "GUIObjectBuilder::visit(const Layer *)"  << getLevel();
     ParameterizedItem *parent = m_levelToParent[getLevel()-1];
     Q_ASSERT(parent);
-    ParameterizedItem *item = m_sampleModel->insertNewItem(Constants::LayerType,
-                                         m_sampleModel->indexOfItem(parent));
-    item->setItemName(sample->getName().c_str());
-    item->setRegisteredProperty(LayerItem::P_THICKNESS, sample->getThickness());
-    //item->setMaterialProperty(createMaterialFromDomain(sample->getMaterial()));
-    item->setRegisteredProperty(LayerItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
 
     const MultiLayer *multilayer = dynamic_cast<const MultiLayer *>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
     int layer_index = multilayer->getIndexOfLayer(sample);
     Q_ASSERT(layer_index != -1);
     const LayerInterface *interface = multilayer->getLayerTopInterface(layer_index);
-    if(interface) {
-        const LayerRoughness *roughness = interface->getRoughness();
-        if(roughness) {
-            ParameterizedItem *roughnessItem = item->setFancyGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerRoughnessType);
-            TransformFromDomain::setItemFromSample(roughnessItem, roughness);
-        }
-    }
 
-    m_levelToParent[getLevel()] = item;
+    ParameterizedItem *layerItem = m_sampleModel->insertNewItem(Constants::LayerType,
+                                         m_sampleModel->indexOfItem(parent));
+    layerItem->setRegisteredProperty(LayerItem::P_MATERIAL, createMaterialFromDomain(sample->getMaterial()).getVariant());
+
+    TransformFromDomain::setItemFromSample(layerItem, sample, interface);
+
+    m_levelToParent[getLevel()] = layerItem;
 }
 
 void GUIObjectBuilder::visit(const LayerInterface *)

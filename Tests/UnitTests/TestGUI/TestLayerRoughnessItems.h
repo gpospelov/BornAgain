@@ -17,15 +17,15 @@ private slots:
 
 inline void TestLayerRoughnessItems::test_LayerRoughnessToDomain()
 {
-    LayerRoughnessItem roughnessItem;
-    roughnessItem.setRegisteredProperty(LayerRoughnessItem::P_SIGMA, 10.0);
-    roughnessItem.setRegisteredProperty(LayerRoughnessItem::P_HURST, 20.0);
-    roughnessItem.setRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH, 30.0);
+    LayerBasicRoughnessItem roughnessItem;
+    roughnessItem.setRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA, 10.0);
+    roughnessItem.setRegisteredProperty(LayerBasicRoughnessItem::P_HURST, 20.0);
+    roughnessItem.setRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH, 30.0);
 
     LayerRoughness *roughness = TransformToDomain::createLayerRoughness(roughnessItem);
-    QCOMPARE(roughness->getSigma(), roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_SIGMA).toDouble());
-    QCOMPARE(roughness->getHurstParameter(), roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_HURST).toDouble());
-    QCOMPARE(roughness->getLatteralCorrLength(), roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
+    QCOMPARE(roughness->getSigma(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA).toDouble());
+    QCOMPARE(roughness->getHurstParameter(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_HURST).toDouble());
+    QCOMPARE(roughness->getLatteralCorrLength(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
     delete roughness;
 
     LayerZeroRoughnessItem zeroRoughnessItem;
@@ -35,11 +35,11 @@ inline void TestLayerRoughnessItems::test_LayerRoughnessToDomain()
 inline void TestLayerRoughnessItems::test_LayerRoughnessFromDomain()
 {
     LayerRoughness roughness(10.0, 20.0, 30.0);
-    LayerRoughnessItem roughnessItem;
+    LayerBasicRoughnessItem roughnessItem;
     TransformFromDomain::setItemFromSample(&roughnessItem, &roughness);
-    QCOMPARE(roughness.getSigma(), roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_SIGMA).toDouble());
-    QCOMPARE(roughness.getHurstParameter(), roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_HURST).toDouble());
-    QCOMPARE(roughness.getLatteralCorrLength(), roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
+    QCOMPARE(roughness.getSigma(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA).toDouble());
+    QCOMPARE(roughness.getHurstParameter(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_HURST).toDouble());
+    QCOMPARE(roughness.getLatteralCorrLength(), roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
 }
 
 

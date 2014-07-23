@@ -7,6 +7,9 @@
 #include "LatticeTypeItems.h"
 #include "Numeric.h"
 #include "Units.h"
+#include "LayerItem.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 #include "GUIHelpers.h"
 #include "FormFactors.h"
 #include "FormFactorItems.h"
@@ -256,9 +259,34 @@ bool TransformFromDomain::isHexagonalLattice(
 }
 
 
+void TransformFromDomain::setItemFromSample(ParameterizedItem *layerItem, const Layer *layer, const LayerInterface *top_interface)
+{
+    layerItem->setItemName(layer->getName().c_str());
+    layerItem->setRegisteredProperty(LayerItem::P_THICKNESS, layer->getThickness());
+    layerItem->setFancyGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+
+    if(top_interface) {
+        const LayerRoughness *roughness = top_interface->getRoughness();
+        if(TransformFromDomain::isValidRoughness(roughness)) {
+            ParameterizedItem *roughnessItem = layerItem->setFancyGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
+            TransformFromDomain::setItemFromSample(roughnessItem, roughness);
+        }
+    }
+}
+
+
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const LayerRoughness *sample)
 {
-    item->setRegisteredProperty(LayerRoughnessItem::P_SIGMA, sample->getSigma());
-    item->setRegisteredProperty(LayerRoughnessItem::P_HURST, sample->getHurstParameter());
-    item->setRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH, sample->getLatteralCorrLength());
+    item->setRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA, sample->getSigma());
+    item->setRegisteredProperty(LayerBasicRoughnessItem::P_HURST, sample->getHurstParameter());
+    item->setRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH, sample->getLatteralCorrLength());
+}
+
+
+//! Returns true if given roughness is non-zero roughness
+bool TransformFromDomain::isValidRoughness(const LayerRoughness *roughness)
+{
+    if(!roughness) return false;
+    if(roughness->getSigma() == 0  && roughness->getHurstParameter() == 0.0 && roughness->getLatteralCorrLength() == 0.0) return false;
+    return true;
 }

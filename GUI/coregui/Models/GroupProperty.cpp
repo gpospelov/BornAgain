@@ -66,7 +66,7 @@ GroupProperty::GroupMap_t initializeFormFactorMap() {
 
     QMap<QString, ParameterizedItem *(*)()> roughnesses;
     roughnesses[QString("No")] = &createInstance<LayerZeroRoughnessItem>;
-    roughnesses[QString("Basic")] = &createInstance<LayerRoughnessItem>;
+    roughnesses[QString("Basic")] = &createInstance<LayerBasicRoughnessItem>;
     result["Top roughness"] = roughnesses;
 
     QMap<QString, ParameterizedItem *(*)()> vectors;

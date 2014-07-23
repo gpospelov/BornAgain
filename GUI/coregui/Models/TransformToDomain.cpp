@@ -281,11 +281,11 @@ LayerRoughness *TransformToDomain::createLayerRoughness(const ParameterizedItem 
     if(roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
         return 0;
     }
-    else if(roughnessItem.modelType() == Constants::LayerRoughnessType) {
+    else if(roughnessItem.modelType() == Constants::LayerBasicRoughnessType) {
         LayerRoughness *result = new LayerRoughness(
-                    roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_SIGMA).toDouble(),
-                    roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_HURST).toDouble(),
-                    roughnessItem.getRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble()
+                    roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
+                    roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_HURST).toDouble(),
+                    roughnessItem.getRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble()
                     );
         return result;
     }

@@ -35,7 +35,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     result[Constants::FormFactorGroup] = formfactors;
 
     QMap<QString, QString> roughnesses;
-    roughnesses[Constants::LayerRoughnessType] = "Basic";
+    roughnesses[Constants::LayerBasicRoughnessType] = "Basic";
     roughnesses[Constants::LayerZeroRoughnessType] = "No";
     result[Constants::LayerRoughnessGroup] = roughnesses;
 

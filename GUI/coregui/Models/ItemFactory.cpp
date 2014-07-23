@@ -71,7 +71,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
     result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
 
-    result[Constants::LayerRoughnessType] = &createInstance<LayerRoughnessItem>;
+    result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
     result[Constants::DetectorType] = &createInstance<DetectorItem>;

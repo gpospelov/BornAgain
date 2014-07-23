@@ -9,14 +9,14 @@ LayerZeroRoughnessItem::LayerZeroRoughnessItem(ParameterizedItem *parent)
 }
 
 
-const QString LayerRoughnessItem::P_SIGMA = "Sigma";
-const QString LayerRoughnessItem::P_HURST = "Hurst parameter";
-const QString LayerRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
+const QString LayerBasicRoughnessItem::P_SIGMA = "Sigma";
+const QString LayerBasicRoughnessItem::P_HURST = "Hurst parameter";
+const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
 
-LayerRoughnessItem::LayerRoughnessItem(ParameterizedItem *parent)
-    : ParameterizedItem(Constants::LayerRoughnessType, parent)
+LayerBasicRoughnessItem::LayerBasicRoughnessItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::LayerBasicRoughnessType, parent)
 {
-    setItemName(Constants::LayerRoughnessType);
+    setItemName(Constants::LayerBasicRoughnessType);
     registerProperty(P_SIGMA, 1.0);
     registerProperty(P_HURST, 0.3);
     registerProperty(P_LATERAL_CORR_LENGTH, 5.0);

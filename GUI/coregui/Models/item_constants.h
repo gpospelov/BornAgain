@@ -42,7 +42,7 @@ const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
 
 const ModelType VectorType = "Vector";
 
-const ModelType LayerRoughnessType = "LayerRoughness";
+const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
 const ModelType ThetaPhiDetectorType = "ThetaPhiDetector";

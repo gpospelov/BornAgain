@@ -541,7 +541,8 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
 
 QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
 {
-    qDebug() << "SessionModel::readProperty() ";
+    qDebug() << "SessionModel::readProperty() for" << item;
+    if(item) qDebug() << item->modelType();
     const QString parameter_name = reader->attributes()
             .value(SessionXML::ParameterNameAttribute)
             .toString();
@@ -557,7 +558,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
     }
     else if (parameter_type == "int") {
-            double parameter_value = reader->attributes()
+            int parameter_value = reader->attributes()
                     .value(SessionXML::ParameterValueAttribute)
                     .toInt();
             item->setRegisteredProperty(parameter_name, parameter_value);

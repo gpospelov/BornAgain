@@ -94,7 +94,7 @@ void MaterialPropertyBrowser::onRowsRemoved(const QModelIndex & /*parent*/, int 
 void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
                                             const QVariant &value)
 {
-    qDebug() << "MaterialEditorWidget::slotValueChanged" << property << value;
+    //qDebug() << "MaterialEditorWidget::slotValueChanged" << property << value;
 
     if (!m_property_to_subitem.contains(property))
         return;

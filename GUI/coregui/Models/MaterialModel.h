@@ -8,8 +8,10 @@ class MaterialProperty;
 
 class MaterialModel : public SessionModel
 {
+    Q_OBJECT
+
 public:
-    MaterialModel(QObject *parent = 0);
+    explicit MaterialModel(QObject *parent = 0);
     ~MaterialModel(){}
 
     MaterialItem *addMaterial(const QString &name, double delta = 0.0, double beta = 0.0);
@@ -17,6 +19,9 @@ public:
 
     MaterialItem *getMaterial(const MaterialProperty &property);
     MaterialItem *getMaterial(const QString &material_name);
+
+//signals:
+//    void materialChanged(const MaterialProperty);
 
 };
 

@@ -203,9 +203,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::initModels()
 {
-    initSampleModel();
+    initMaterialModel(); // should be first
 
-    initMaterialModel();
+    initSampleModel();
 
     initJobQueueModel();
 
@@ -231,8 +231,12 @@ void MainWindow::initMaterialModel()
 
 void MainWindow::initSampleModel()
 {
+    Q_ASSERT(m_materialModel);
+
     delete m_sampleModel;
     m_sampleModel = new SampleModel();
+
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 
     //m_sampleModel->insertNewItem(Constants::MultiLayerType);
     //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);

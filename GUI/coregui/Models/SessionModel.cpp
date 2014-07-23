@@ -618,7 +618,9 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
                 .toDouble();
 
         ScientificDoubleProperty scdouble_property(parameter_value);
-        item->setRegisteredProperty(parameter_name, scdouble_property.getVariant());
+        QVariant v;
+        v.setValue(scdouble_property);
+        item->setRegisteredProperty(parameter_name, v);
     }
     else if (parameter_type == "FancyGroupProperty*") {
         QString parameter_value = reader->attributes()

@@ -81,7 +81,7 @@ private:
     QtTreePropertyBrowser *m_browser;
     QtVariantPropertyManager *m_variantManager;
     QtVariantPropertyManager *m_readOnlyManager;
-    QtVariantEditorFactory *m_variantFactory;
+    //QtVariantEditorFactory *m_variantFactory;
 
     QMap<QtProperty *, ParameterizedItem *> m_top_property_to_material;
     QMap<ParameterizedItem *, QtVariantProperty *> m_top_material_to_property;

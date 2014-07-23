@@ -2,6 +2,7 @@
 #include "ColorProperty.h"
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
+#include "ScientificDoubleProperty.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include <QUuid>
@@ -30,7 +31,8 @@ MaterialItem::MaterialItem(ParameterizedItem *parent)
 
     registerFancyGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
 
-    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString());
+    registerProperty(P_IDENTIFIER, QUuid::createUuid().toString(), PropertyAttribute::HiddenProperty);
+
 }
 
 void MaterialItem::setMaterialType(int index)

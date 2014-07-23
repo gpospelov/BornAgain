@@ -3,6 +3,7 @@
 #include "PropertyVariantFactory.h"
 #include "ParameterizedItem.h"
 #include "tooltipdatabase.h"
+#include "GUIHelpers.h"
 
 #include "qttreepropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
@@ -201,10 +202,9 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
         if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
 
         QVariant prop_value = item->property(prop_name.toUtf8().data());
-        int type = prop_value.type();
-        if (type == QVariant::UserType) {
-            type = prop_value.userType();
-        }
+        int type = GUIHelpers::getVariantType(prop_value);
+
+        qDebug() << "XXX " << item->modelType() << prop_name << type;
         QtVariantProperty *subProperty = 0;
         if (m_manager->isPropertyTypeSupported(type)) {
 
@@ -229,6 +229,7 @@ void SamplePropertyEditor::addSubProperties(QtProperty *item_property,
                     addSubProperties(subProperty, subitem);
                 }
             }
+
         } else {
             subProperty = m_read_only_manager->addProperty(QVariant::String,
                                                          prop_name);

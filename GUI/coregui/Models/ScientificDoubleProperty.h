@@ -12,7 +12,7 @@
 class ScientificDoubleProperty
 {
 public:
-    ScientificDoubleProperty(double value = 0) : m_value(value) {}
+    explicit ScientificDoubleProperty(double value = 0) : m_value(value) {}
     double getValue() const { return m_value;}
     void setValue(double value) { m_value = value; }
     QString getText() const { return QString::number(m_value,'g');}

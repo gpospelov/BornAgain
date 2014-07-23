@@ -5,6 +5,9 @@
 #include "PropertyVariantManager.h"
 #include "PropertyVariantFactory.h"
 #include "qttreepropertybrowser.h"
+#include "tooltipdatabase.h"
+#include "ScientificDoubleProperty.h"
+#include "GUIHelpers.h"
 #include <QtVariantPropertyManager>
 #include <QtProperty>
 #include <QtVariantProperty>
@@ -28,9 +31,12 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *materialModel, Q
     m_browser = new QtTreePropertyBrowser(this);
     m_readOnlyManager = new PropertyVariantManager(this);
     m_variantManager = new PropertyVariantManager(this);
-    m_variantFactory = new PropertyVariantFactory(this);
+//    m_variantFactory = new PropertyVariantFactory(this);
+//    m_browser->setFactoryForManager(m_variantManager, m_variantFactory);
 
-    m_browser->setFactoryForManager(m_variantManager, m_variantFactory);
+    QtVariantEditorFactory *factory = new PropertyVariantFactory();
+    m_browser->setFactoryForManager(m_variantManager, factory);
+
 
     connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
@@ -231,8 +237,6 @@ void MaterialPropertyBrowser::removeSubProperties(QtProperty *property)
 
 void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, ParameterizedItem *item)
 {
-    Q_ASSERT(material_property);
-    Q_ASSERT(item);
 
     QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
@@ -241,28 +245,34 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Pa
 
         if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
 
-
         QVariant prop_value = item->property(prop_name.toUtf8().data());
-        int type = prop_value.type();
-        if (type == QVariant::UserType) {
-            type = prop_value.userType();
-        }
+        int type = GUIHelpers::getVariantType(prop_value);
+
         QtVariantProperty *subProperty = 0;
         if (m_variantManager->isPropertyTypeSupported(type)) {
-            subProperty = m_variantManager->addProperty(type, prop_name);
+
+            if(prop_attribute.getLabel().isEmpty()) {
+                subProperty = m_variantManager->addProperty(type, prop_name);
+            } else {
+                subProperty = m_variantManager->addProperty(type, prop_attribute.getLabel());
+            }
+
             subProperty->setValue(prop_value);
-            if(type == QVariant::Double) {
-                subProperty->setAttribute(QLatin1String("singleStep"), 0.1);
-                subProperty->setAttribute(QLatin1String("decimals"), 5);
+
+            QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
+            if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+
+            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+                subProperty->setEnabled(false);
             }
 
             if (item->getSubItems().contains(prop_name)) {
-                subProperty->setAttribute(QLatin1String("readOnly"), true);
                 ParameterizedItem *subitem = item->getSubItems()[prop_name];
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }
             }
+
         } else {
             subProperty = m_readOnlyManager->addProperty(QVariant::String,
                                                          prop_name);

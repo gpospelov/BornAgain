@@ -347,8 +347,13 @@ void ParameterizedItem::registerProperty(const QString &name, const QVariant &va
 
 void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
 {
-    if( !m_registered_properties.contains(name))
-        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Unknown property "+name);
+    // check if variant of previous property coincides with new one
+    QVariant previous_variant = getRegisteredProperty(name);
+    if(GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
+        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new variant does not coincide.";
+        qDebug() << "New variant" << variant << ", previous " << previous_variant;
+        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new variant does not coincide.");
+    }
 
     setProperty(name.toUtf8().constData(), variant);
 }

@@ -39,6 +39,7 @@
 #include "mainwindow_constants.h"
 #include "ParticleCoreShellItem.h"
 #include "FancyGroupProperty.h"
+#include "ScientificDoubleProperty.h"
 
 #include <QApplication>
 #include <QStatusBar>

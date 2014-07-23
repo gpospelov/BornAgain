@@ -18,8 +18,9 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, doub
 
     RefractiveIndexItem *refractiveIndexItem = dynamic_cast<RefractiveIndexItem *>(materialItem->getSubItems()[MaterialItem::P_REFRACTIVE_INDEX]);
     Q_ASSERT(refractiveIndexItem);
-    refractiveIndexItem->setRegisteredProperty(RefractiveIndexItem::P_DELTA, delta);
-    refractiveIndexItem->setRegisteredProperty(RefractiveIndexItem::P_BETA, beta);
+
+    refractiveIndexItem->setDelta(delta);
+    refractiveIndexItem->setBeta(beta);
 
     materialItem->setRegisteredProperty(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 

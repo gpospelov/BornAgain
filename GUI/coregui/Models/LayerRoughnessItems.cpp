@@ -1,4 +1,5 @@
 #include "LayerRoughnessItems.h"
+#include "ScientificDoubleProperty.h"
 
 
 LayerZeroRoughnessItem::LayerZeroRoughnessItem(ParameterizedItem *parent)
@@ -19,4 +20,5 @@ LayerRoughnessItem::LayerRoughnessItem(ParameterizedItem *parent)
     registerProperty(P_SIGMA, 1.0);
     registerProperty(P_HURST, 0.3);
     registerProperty(P_LATERAL_CORR_LENGTH, 5.0);
+
 }

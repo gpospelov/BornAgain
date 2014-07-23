@@ -29,10 +29,6 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
 
     setPropertyAttribute(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
 
-    ScientificDoubleProperty prop(1.1);
-    registerProperty("XXX", prop.getVariant());
-
-
 }
 
 ParameterizedItem *MultiLayerItem::takeChildItem(int row)

@@ -30,6 +30,7 @@ class MaterialEditor;
 class ToolTipDataBase;
 class TestView;
 class MaterialModel;
+class SampleModel;
 
 
 class MainWindow : public Manhattan::FancyMainWindow
@@ -45,7 +46,7 @@ public:
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
     MaterialModel *getMaterialModel() { return m_materialModel; }
     SessionModel *getInstrumentModel() { return m_instrumentModel; }
-    SessionModel *getSampleModel() { return m_sampleModel; }
+    SampleModel *getSampleModel() { return m_sampleModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
     QSettings *getSettings() const { return m_settings; }
@@ -78,7 +79,7 @@ private:
 
     SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
-    SessionModel *m_sampleModel; //!< model for all samples
+    SampleModel *m_sampleModel; //!< model for all samples
     SessionModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
@@ -86,19 +87,18 @@ private:
 
     TestView *m_testView;
 
-    // dummy simulation model initializer for test purposes
-    void initSimModel();
-    void initJobQueueModel();
-    void initSampleModel();
-    void initInstrumentModel();
+    void initModels();
     void initMaterialModel();
+    void initSampleModel();
+    void initJobQueueModel();
+    void initSimModel();
+    void initInstrumentModel();
 
     void updateSimModel();
     void updateSamples();
     void updateInstruments();
 
     void testGUIObjectBuilder();
-    void testProperties();
 };
 
 #endif // MAINWINDOW_H

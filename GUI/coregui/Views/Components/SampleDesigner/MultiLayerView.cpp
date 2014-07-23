@@ -1,7 +1,7 @@
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
 #include "DesignerScene.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 #include "LayerView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
@@ -231,7 +231,7 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 
         DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
         if(designerScene) {
-            SessionModel *sampleModel = designerScene->getSampleModel();
+            SampleModel *sampleModel = designerScene->getSampleModel();
 
             qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
             sampleModel->insertNewItem(

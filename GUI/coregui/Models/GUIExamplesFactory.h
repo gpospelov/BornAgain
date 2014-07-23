@@ -6,6 +6,7 @@
 
 class ParameterizedItem;
 class SessionModel;
+class SampleModel;
 
 //! Class that generates GUI model from
 class GUIExamplesFactory
@@ -13,7 +14,7 @@ class GUIExamplesFactory
 public:
     static bool isValidExampleName(const QString &name);
 
-    static ParameterizedItem *createSampleItems(const QString &name, SessionModel *sampleModel);
+    static ParameterizedItem *createSampleItems(const QString &name, SampleModel *sampleModel);
     static ParameterizedItem *createInstrumentItems(const QString &name, SessionModel *instrumentModel);
 
 

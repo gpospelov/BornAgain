@@ -73,18 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
-    // initialize material model first
-    initMaterialModel();
-
-    // initialize simulation data model first:
-    initSimModel();
-
-    initJobQueueModel();
-
-    initSampleModel();
-
-    initInstrumentModel();
-
+    initModels();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -138,7 +127,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 
 //    testGUIObjectBuilder();
-    testProperties();
 }
 
 
@@ -213,14 +201,44 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-
-void MainWindow::initSimModel()
+void MainWindow::initModels()
 {
-    if (mp_sim_data_model) delete mp_sim_data_model;
-    mp_sim_data_model = new SimulationDataModel;
-    //mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
-    //mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
+    initSampleModel();
+
+    initMaterialModel();
+
+    initJobQueueModel();
+
+    initInstrumentModel();
+
+    initSimModel();
 }
+
+
+void MainWindow::initMaterialModel()
+{
+    delete m_materialModel;
+
+    m_materialModel = new MaterialModel();
+    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
+    m_materialModel->addMaterial("Air", 0.0, 0.0);
+    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
+    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
+
+    m_materialEditor = new MaterialEditor(m_materialModel);
+}
+
+
+void MainWindow::initSampleModel()
+{
+    delete m_sampleModel;
+    m_sampleModel = new SampleModel();
+
+    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+}
+
 
 
 void MainWindow::initJobQueueModel()
@@ -237,20 +255,6 @@ void MainWindow::initJobQueueModel()
     //m_jobQueueModel->addJob("mesocrystal01",registry.createItem("mesocrystal01"));
 }
 
-
-void MainWindow::initSampleModel()
-{
-    delete m_sampleModel;
-    m_sampleModel = new SessionModel(SessionXML::SampleModelTag);
-
-    //testGUIObjectBuilder();
-
-    //m_sampleModel->save("sample.xml");
-
-//    m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
-}
 
 void MainWindow::initInstrumentModel()
 {
@@ -269,33 +273,10 @@ void MainWindow::initInstrumentModel()
 }
 
 
-void MainWindow::initMaterialModel()
+void MainWindow::initSimModel()
 {
-    delete m_materialModel;
-//    m_materialModel = new SessionModel(SessionXML::MaterialModelTag);
-//    m_materialModel->insertNewItem(Constants::MaterialType);
-//    m_materialModel->insertNewItem(Constants::MaterialType);
-
-    m_materialModel = new MaterialModel();
-    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
-    m_materialModel->addMaterial("Air", 0.0, 0.0);
-    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
-    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
-
-
-//    m_materialModel = new MaterialModel(this);
-//    m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-
-//    MaterialItem *mAir = m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-//    mAir->setRefractiveIndex(0,0);
-
-//    MaterialItem *mParticle = m_materialModel->addMaterial("Particle", MaterialItem::HomogeneousMaterial);
-//    mParticle->setRefractiveIndex(6e-4, 2e-8);
-
-//    MaterialItem *mSubstrate = m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
-//    mSubstrate->setRefractiveIndex(6e-6, 2e-8);
-
-    m_materialEditor = new MaterialEditor(m_materialModel);
+    if (mp_sim_data_model) delete mp_sim_data_model;
+    mp_sim_data_model = new SimulationDataModel;
 }
 
 
@@ -366,31 +347,3 @@ void MainWindow::testGUIObjectBuilder()
     guiBuilder.populateSampleModel(m_sampleModel, sample.get());
 }
 
-
-
-void MainWindow::testProperties()
-{
-    qDebug() << "MainWindow::testProperties()";
-
-//    qRegisterMetaType<FancyGroupProperty*>("FancyGroupProperty*");
-
-
-//    ParameterizedItem *item = new ParameterizedItem();
-
-//    FancyGroupProperty *p_fgp = new FancyGroupProperty();
-//    QVariant var_p_fgp;
-//    var_p_fgp.setValue(p_fgp);
-
-//    qDebug() << "***" << var_p_fgp;
-
-//    item->setProperty("xxx",var_p_fgp);
-
-//    qDebug() << "AAA " << p_fgp->getName();
-
-
-//    FancyGroupProperty *fancy_property = item->property("xxx").value<FancyGroupProperty *>();
-//    qDebug() << "BBB " << fancy_property << item->property("xxx") << QMetaType::type("FancyGroupProperty*");
-//    qDebug() << "BBB " << fancy_property->getName();
-
-//    Q_ASSERT(0);
-}

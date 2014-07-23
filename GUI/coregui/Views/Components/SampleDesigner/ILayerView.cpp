@@ -3,7 +3,7 @@
 #include "DesignerHelper.h"
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 #include "LayerItem.h"
 #include "GUIHelpers.h"
 #include "MaterialProperty.h"
@@ -130,7 +130,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    SessionModel *model = designerScene->getSampleModel();
+    SampleModel *model = designerScene->getSampleModel();
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if(requested_parent == parentItem() && requested_row == model->indexOfItem(getParameterizedItem()).row()) {

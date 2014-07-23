@@ -1,6 +1,7 @@
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
 #include "SessionModel.h"
+#include "SampleModel.h"
 #include "SampleViewFactory.h"
 #include "SampleViewAligner.h"
 #include "IView.h"
@@ -47,7 +48,7 @@ DesignerScene::~DesignerScene()
 }
 
 
-void DesignerScene::setSampleModel(SessionModel *sampleModel)
+void DesignerScene::setSampleModel(SampleModel *sampleModel)
 {
     Q_ASSERT(sampleModel);
 

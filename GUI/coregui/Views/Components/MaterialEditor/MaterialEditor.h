@@ -5,6 +5,7 @@
 #include <QObject>
 #include "MaterialProperty.h"
 class MaterialModel;
+class SessionModel;
 
 //! The MaterialEditor is the main class to access materials.
 class MaterialEditor : public QObject
@@ -21,7 +22,6 @@ public:
     static MaterialProperty getDefaultMaterialProperty();
 
     static MaterialModel *getMaterialModel();
-
 
 private:
     MaterialProperty this_selectMaterialProperty();

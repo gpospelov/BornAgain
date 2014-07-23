@@ -4,6 +4,7 @@
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "OutputDataItem.h"
+#include "SampleModel.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -86,7 +87,7 @@ void ProjectDocument::setInstrumentModel(SessionModel *model)
 }
 
 
-void ProjectDocument::setSampleModel(SessionModel *model)
+void ProjectDocument::setSampleModel(SampleModel *model)
 {
     if(model != m_sampleModel) {
         if(m_sampleModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );

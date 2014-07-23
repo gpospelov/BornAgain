@@ -1,5 +1,6 @@
 #include "GUIObjectBuilder.h"
 #include "SessionModel.h"
+#include "SampleModel.h"
 #include "Units.h"
 #include "LayerItem.h"
 #include "BeamItem.h"
@@ -26,8 +27,7 @@ GUIObjectBuilder::GUIObjectBuilder()
 {
 }
 
-ParameterizedItem *GUIObjectBuilder::populateSampleModel(
-        SessionModel *sampleModel, ISample *sample)
+ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleModel, ISample *sample)
 {
     Q_ASSERT(sampleModel);
     Q_ASSERT(sample);

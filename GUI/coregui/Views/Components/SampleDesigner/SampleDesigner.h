@@ -40,7 +40,7 @@ public:
 
     QWidget *getCentralWidget() { return m_designerView; }
 
-    void setSampleModel(SessionModel *sampleModel);
+    void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(SessionModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 

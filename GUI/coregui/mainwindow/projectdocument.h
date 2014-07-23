@@ -10,7 +10,7 @@ class QModelIndex;
 class JobItem;
 class SessionModel;
 class MaterialModel;
-
+class SampleModel;
 
 namespace ProjectDocumentXML
 {
@@ -52,7 +52,7 @@ public:
     bool isModified() { return m_modified; }
     void setMaterialModel(MaterialModel *materialModel);
     void setInstrumentModel(SessionModel *model);
-    void setSampleModel(SessionModel *model);
+    void setSampleModel(SampleModel *model);
     void setJobQueueModel(JobQueueModel *model);
 
     bool hasValidNameAndPath();
@@ -74,7 +74,7 @@ private:
     QString m_project_name;
     MaterialModel *m_materialModel;
     SessionModel *m_instrumentModel;
-    SessionModel *m_sampleModel;
+    SampleModel *m_sampleModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;
 };

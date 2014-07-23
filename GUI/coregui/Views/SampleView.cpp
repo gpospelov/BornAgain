@@ -21,7 +21,7 @@
 #endif
 
 
-SampleView::SampleView(SessionModel *sampleModel, SessionModel *instrumentModel, QWidget *parent)
+SampleView::SampleView(SampleModel *sampleModel, SessionModel *instrumentModel, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
 //    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
@@ -250,7 +250,7 @@ void SampleView::setCurrentIndex(const QModelIndex &index)
     }
 }
 
-SessionModel *SampleView::getSampleModel()
+SampleModel *SampleView::getSampleModel()
 {
     return m_sampleModel;
 }

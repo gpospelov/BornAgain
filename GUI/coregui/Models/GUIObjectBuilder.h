@@ -23,6 +23,7 @@
 #include <QMap>
 
 class SessionModel;
+class SampleModel;
 class ParameterizedItem;
 
 //! Class to build SessionModel from domain's ISample
@@ -32,7 +33,7 @@ public:
     GUIObjectBuilder();
     virtual ~GUIObjectBuilder(){}
 
-    ParameterizedItem *populateSampleModel(SessionModel *sampleModel,
+    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
                                            ISample *sample);
     ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel,
                                                Instrument *instrument);
@@ -82,7 +83,7 @@ public:
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
 
-    SessionModel *m_sampleModel;
+    SampleModel *m_sampleModel;
 
     QMap<int, ParameterizedItem *> m_levelToParent;
     QMap<QString, double > m_propertyToValue;

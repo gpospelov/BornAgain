@@ -3,6 +3,7 @@
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
 #include "SessionModel.h"
+#include "SampleModel.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 
@@ -26,7 +27,7 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 }
 
 
-ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SessionModel *sampleModel)
+ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     if(sampleModel->getModelTag() != SessionXML::SampleModelTag ) {
         throw GUIHelpers::Error("GUIExamplesFactory::createSampleItems() -> Error. Not a SampleModelTag");

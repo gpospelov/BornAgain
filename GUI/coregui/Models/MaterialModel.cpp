@@ -65,6 +65,7 @@ MaterialItem *MaterialModel::getMaterial(const QString &material_name)
 
 
 
+
 //#include "MaterialItem.h"
 //#include "GUIHelpers.h"
 ////#include "DesignerHelper.h"

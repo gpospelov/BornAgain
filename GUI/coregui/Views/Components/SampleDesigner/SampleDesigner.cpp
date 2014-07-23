@@ -20,7 +20,7 @@ SampleDesigner::~SampleDesigner()
 }
 
 
-void SampleDesigner::setSampleModel(SessionModel *sampleModel)
+void SampleDesigner::setSampleModel(SampleModel *sampleModel)
 {
     if(sampleModel) m_designerScene->setSampleModel(sampleModel);
 }

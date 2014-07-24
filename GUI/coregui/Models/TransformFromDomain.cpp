@@ -39,21 +39,21 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
 {
     ParameterizedItem *latticeTypeItem(0);
     if( TransformFromDomain::isSquareLattice(sample)) {
-        latticeTypeItem = item->setFancyGroupProperty(
+        latticeTypeItem = item->setGroupProperty(
             InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, Constants::BasicLatticeType);
         latticeTypeItem->setRegisteredProperty(
             SquareLatticeTypeItem::P_LATTICE_LENGTH,
             sample->getLatticeLengths()[0]);
     }
     else if( TransformFromDomain::isHexagonalLattice(sample)) {
-        latticeTypeItem = item->setFancyGroupProperty(
+        latticeTypeItem = item->setGroupProperty(
             InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, Constants::HexagonalLatticeType);
         latticeTypeItem->setRegisteredProperty(
             HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
             sample->getLatticeLengths()[0]);
     }
     else {
-        latticeTypeItem = item->setFancyGroupProperty(
+        latticeTypeItem = item->setGroupProperty(
             InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, Constants::SquareLatticeType);
         latticeTypeItem->setRegisteredProperty(
             BasicLatticeTypeItem::P_LATTICE_LENGTH1,
@@ -93,7 +93,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         qDebug() << "    group_name" << group_names[i];
         if(const FTDistribution2DCauchy *pdf =
                 dynamic_cast<const FTDistribution2DCauchy *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
                                                                 Constants::FTDistribution2DCauchyType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
@@ -104,7 +104,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DGauss *pdf =
                 dynamic_cast<const FTDistribution2DGauss *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
                                                                 Constants::FTDistribution2DGaussType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGaussItem::P_CORR_LENGTH_X,
@@ -115,7 +115,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DGate *pdf =
                 dynamic_cast<const FTDistribution2DGate *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
                                                                 Constants::FTDistribution2DGateType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGateItem::P_CORR_LENGTH_X,
@@ -126,7 +126,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DCone *pdf =
                 dynamic_cast<const FTDistribution2DCone *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
                                                                 Constants::FTDistribution2DConeType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DConeItem::P_CORR_LENGTH_X,
@@ -137,7 +137,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         }
         else if(const FTDistribution2DVoigt *pdf =
                 dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
-            ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_names[i],
+            ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
                                                                 Constants::FTDistribution2DVoigtType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
@@ -180,7 +180,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     qDebug() << "    group_name" << group_name;
     if(const FTDistribution1DCauchy *pdf =
             dynamic_cast<const FTDistribution1DCauchy *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
                                                             Constants::FTDistribution1DCauchyType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DCauchyItem::P_CORR_LENGTH,
@@ -188,7 +188,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DGauss *pdf =
             dynamic_cast<const FTDistribution1DGauss *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
                                                             Constants::FTDistribution1DGaussType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DGaussItem::P_CORR_LENGTH,
@@ -196,7 +196,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DGate *pdf =
             dynamic_cast<const FTDistribution1DGate *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
                                                             Constants::FTDistribution1DGateType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DGateItem::P_CORR_LENGTH,
@@ -204,7 +204,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DTriangle *pdf =
             dynamic_cast<const FTDistribution1DTriangle *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
                                                             Constants::FTDistribution1DTriangleType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DTriangleItem::P_CORR_LENGTH,
@@ -212,7 +212,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DCosine *pdf =
             dynamic_cast<const FTDistribution1DCosine *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
                                                             Constants::FTDistribution1DCosineType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DCosineItem::P_CORR_LENGTH,
@@ -220,7 +220,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     }
     else if(const FTDistribution1DVoigt *pdf =
             dynamic_cast<const FTDistribution1DVoigt *>(ipdf)) {
-        ParameterizedItem *pdfItem = item->setFancyGroupProperty(group_name,
+        ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
                                                             Constants::FTDistribution1DVoigtType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DVoigtItem::P_CORR_LENGTH,
@@ -263,12 +263,12 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *layerItem, const 
 {
     layerItem->setItemName(layer->getName().c_str());
     layerItem->setRegisteredProperty(LayerItem::P_THICKNESS, layer->getThickness());
-    layerItem->setFancyGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+    layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
 
     if(top_interface) {
         const LayerRoughness *roughness = top_interface->getRoughness();
         if(TransformFromDomain::isValidRoughness(roughness)) {
-            ParameterizedItem *roughnessItem = layerItem->setFancyGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
+            ParameterizedItem *roughnessItem = layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
             TransformFromDomain::setItemFromSample(roughnessItem, roughness);
         }
     }

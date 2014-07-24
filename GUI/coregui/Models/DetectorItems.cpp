@@ -18,7 +18,7 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
     : ParameterizedItem(Constants::DetectorType, parent)
 {
     setItemName(Constants::DetectorType);
-    registerFancyGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
 //    registerProperty(P_NBINX, 100);
 //    registerProperty(P_NBINY, 100);

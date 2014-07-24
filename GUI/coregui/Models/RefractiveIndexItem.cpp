@@ -2,8 +2,8 @@
 #include "ScientificDoubleProperty.h"
 
 
-const QString RefractiveIndexItem::P_DELTA = "delta_XX";
-const QString RefractiveIndexItem::P_BETA = "beta_XX";
+const QString RefractiveIndexItem::P_DELTA = "delta";
+const QString RefractiveIndexItem::P_BETA = "beta";
 
 
 RefractiveIndexItem::RefractiveIndexItem(ParameterizedItem *parent)

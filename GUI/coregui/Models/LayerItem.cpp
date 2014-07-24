@@ -27,6 +27,6 @@ LayerItem::LayerItem(ParameterizedItem *parent)
     registerProperty(P_THICKNESS, 0.0);
     registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
-    registerFancyGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
+    registerGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
     addToValidChildren(Constants::ParticleLayoutType, PortInfo::Port0, 1);
 }

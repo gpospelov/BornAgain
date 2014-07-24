@@ -41,7 +41,7 @@ InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
     registerProperty(P_KAPPA, 0.0);
 
 //    registerGroupProperty(P_PDF, "Gauss 1D");
-    registerFancyGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
+    registerGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
 }
 
 
@@ -53,7 +53,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     setItemName(Constants::InterferenceFunction2DParaCrystalType);
     setItemPort(ParameterizedItem::PortInfo::Port1);
 //    registerGroupProperty(P_LATTICE_TYPE, "Basic");
-    registerFancyGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
+    registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
 
     registerProperty(P_DAMPING_LENGTH, 0.0);
     registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
@@ -62,8 +62,8 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     registerProperty(P_ROTATION_ANGLE, 0.0);
 //    registerGroupProperty(P_PDF1, "Cauchy 2D");
 //    registerGroupProperty(P_PDF2, "Cauchy 2D");
-    registerFancyGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
-    registerFancyGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
+    registerGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
+    registerGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
 
 }
 

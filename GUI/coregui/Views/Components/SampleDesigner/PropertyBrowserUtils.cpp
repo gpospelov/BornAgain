@@ -150,11 +150,6 @@ FancyGroupPropertyEdit::FancyGroupPropertyEdit(QWidget *parent)
     , m_label(0)
     , m_groupProperty(0)
 {
-    qDebug() << "FancyGroupPropertyEdit::~FancyGroupPropertyEditor() -> created";
-//    m_box = new QComboBox(this);
-
-//    connect(m_box, SIGNAL(currentIndexChanged(int)),
-    //            this, SLOT(indexChanged(int)));
 }
 
 FancyGroupPropertyEdit::~FancyGroupPropertyEdit()
@@ -310,7 +305,7 @@ ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
 {
     m_lineEdit = new QLineEdit(this);
 
-    m_validator  = new QDoubleValidator(0.0, 1e+100, 2, this);
+    m_validator  = new QDoubleValidator(0.0, 1e+100, 1000, this);
     m_validator->setNotation(QDoubleValidator::ScientificNotation);
     m_lineEdit->setValidator(m_validator);
 

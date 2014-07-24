@@ -172,7 +172,7 @@ void DetectorEditorWidget::onDetectorTypeChanged(int)
     Q_ASSERT(m_currentItem);
     if(m_block_signals) return;
 //    m_currentItem->setGroupProperty(DetectorItem::P_DETECTOR_TYPE, m_detectorTypeCombo->currentText());
-    m_currentItem->setFancyGroupProperty(Constants::DetectorGroup, m_detectorTypeCombo->currentText());
+    m_currentItem->setGroupProperty(Constants::DetectorGroup, m_detectorTypeCombo->currentText());
 }
 
 

@@ -14,7 +14,7 @@ ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
     registerProperty(ParticleItem::P_DEPTH, 0.0);
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
 
-    registerFancyGroupProperty(P_CORE_POS, Constants::VectorType);
+    registerGroupProperty(P_CORE_POS, Constants::VectorType);
 
     addToValidChildren(Constants::ParticleType, PortInfo::Port0, 1);
     addToValidChildren(Constants::ParticleType, PortInfo::Port1, 1);

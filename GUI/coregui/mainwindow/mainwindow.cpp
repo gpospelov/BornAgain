@@ -202,8 +202,21 @@ void MainWindow::onFocusRequest(int index)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    writeSettings();
-    event->accept();
+
+
+    if(m_projectManager->closeCurrentProject())
+    {
+        writeSettings();
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+    }
+
+
+
+
 }
 
 void MainWindow::initModels()

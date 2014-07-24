@@ -39,8 +39,7 @@ imports the features of \BornAgain\ software.
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
 def get_sample(): @\label{def_function}@
     """
-    Build and return the sample representing cylinders and pyramids on top of
-    substrate without interference.
+    Build and return the sample representing cylinders and pyramids on top of substrate without interference.
    """
     # defining materials @\label{material1}@
     m_air = HomogeneousMaterial("Air", 0.0, 0.0)  @\label{material2}@
@@ -52,14 +51,14 @@ Line~\ref{def_function} marks the beginning of the
 function to define our sample. Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
 materials using class \Code{HomogeneousMaterial}. The general syntax is the following 
 \begin{lstlisting}[language=python, style=eclipse,numbers=none]
-<material_name> =HomogeneousMaterial("name", delta, beta)
+<material_name> = HomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
 where \Code{name} is the name of the
 material associated with its complex refractive index
 n=1-\Code{delta} +i \Code{beta}. \Code{<material\_name>} is later used when
-referring to this particular material. The three defined materials in this example are \Code{Air} with a refractive
+referring to this particular material. The three materials defined in this example are \Code{Air} with a refractive
 index of 1 (\Code{delta = beta = 0}), a \Code{Substrate} associated with a complex refractive index
-equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of particles, whose refractive index is \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.
+equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of the particles, whose refractive index is \Code{n}$=1-6\times 10^{-4}+i2\times 10^{-8}$.
 
 
 % -----------------------------------------------------------------------------
@@ -112,7 +111,7 @@ addParticle(<particle_name>, depth, abundance)
 \end{lstlisting}
 where \Code{<particle\_name>} is the name used to define the particles
 (lines~\ref{particlescyl2} and \ref{particlesprism2}), \Code{depth}
-(default value =0)
+(default value = 0)
 is the vertical position, expressed in nanometers, of the particles in a given layer (the
 association with a particular layer will be done during the next step) and
 \Code{abundance} is the proportion of this type of particles, 
@@ -135,7 +134,7 @@ where $F_j$ is the form factor associated with the particle of type $j$.  The wa
 interfere imposes the horizontal distribution of
 the particles as
 the interference reflects the long or short-range order of the
-particles distribution (\textbf{see Theory}). On the contrary, the vertical position is
+particles distribution (see  \SecRef{sect:interf}). On the contrary, the vertical position is
 imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}.
 
 
@@ -218,10 +217,10 @@ setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f
 %  phi\_f\_max,\\ \phantom{setDetectorParameters(}n\_alpha, alpha\_f\_min, %alpha\_f\_max, isgisaxs\_style=false)}, \\
 
 \noindent where \Code{n\_phi=100} is the number of iterations for $\phi_f$,\\ \Code{phi\_f\_min=-1.0*degree} and \Code{phi\_f\_max=1.0*degree}
-are the minimum and maximum values respectively of $\phi_f$, \\ \Code{n\_alpha=100} is
+are the minimum and maximum values of $\phi_f$, respectively, \\ \Code{n\_alpha=100} is
 the number of iterations for $\alpha_f$,\\ \Code{alpha\_f\_min=0.0*degree} and \Code{alpha\_f\_max=2.0*degree} 
-are the minimum and maximum values respectively of
-$\alpha_f$. \\
+are the minimum and maximum values of
+$\alpha_f$, respectively. \\
 \Code{isgisaxs\_style=True} (default value = \Code{False}) is a boolean
 used to characterise the structure of the output data. If
 \Code{isgisaxs\_style=True}, the output data is binned at constant
@@ -229,8 +228,7 @@ values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it i
 at constant values of these two angles.\\
 
 
-\noindent For the beam the function to use is
-\Code{setBeamParameters(lambda, alpha\_i, phi\_i)}, where\\
+\noindent To characterize the beam we use function \Code{setBeamParameters(lambda, alpha\_i, phi\_i)}, where\\
 \Code{lambda=1.0*angstrom} is the incident beam wavelength,
 \Code{alpha\_i=0.2*degree} is the incident
 grazing angle on the surface of the sample,

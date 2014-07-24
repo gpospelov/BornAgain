@@ -129,6 +129,11 @@ set(UM_IMAGES
     Figures/1Dparacrystal.eps
     Figures/HSphere_2Dlattice.pdf
     Figures/HSphere_2DDL.pdf
+    Figures/drawingSSCA.eps
+    Figures/drawingLMA.eps
+    Figures/drawingDA.eps
+    Figures/drawing2Dparacrystal.eps
+    Figures/S_q_1Dparacrystal.eps
 )
 
 

@@ -1,11 +1,11 @@
-#include "TestView.h"
+#include "SampleTuningWidget.h"
 #include "qitemselectionmodel.h"
 #include "PropertyAttribute.h"
 #include "TestViewDelegate.h"
 #include "qdebug.h"
 #include "ItemLink.h"
 
-TestView::TestView(SessionModel *sampleModel, QWidget *parent)
+SampleTuningWidget::SampleTuningWidget(SessionModel *sampleModel, QWidget *parent)
     : QWidget(parent)
     , m_sampleModel(sampleModel)
 {
@@ -63,7 +63,7 @@ TestView::TestView(SessionModel *sampleModel, QWidget *parent)
     }*/
 }
 
-QStandardItem *TestView::iterateSessionModel(const QModelIndex &parentIndex, QStandardItem *parentItem)
+QStandardItem *SampleTuningWidget::iterateSessionModel(const QModelIndex &parentIndex, QStandardItem *parentItem)
 {
     Q_ASSERT(m_sampleModel);
 
@@ -159,18 +159,18 @@ QStandardItem *TestView::iterateSessionModel(const QModelIndex &parentIndex, QSt
 }
 
 
-QStandardItemModel *TestView::getItemModelFromSessionModel()
-{
+//QStandardItemModel *TestView::getItemModelFromSessionModel()
+//{
 
-    QStandardItemModel *model = new QStandardItemModel(this);
-    model->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
-    model->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
-    model->appendRow(iterateSessionModel());
+//    QStandardItemModel *model = new QStandardItemModel(this);
+//    model->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
+//    model->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
+//    model->appendRow(iterateSessionModel());
 
-    return model;
-}
+//    return model;
+//}
 
-void TestView::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
+void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
 {
     if(childValueItem == NULL)
     {
@@ -182,7 +182,7 @@ void TestView::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *child
 
 }
 
-void TestView::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
+void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
 {
     ItemLink itemLink(title, parameterizedItem);
     QVariant itemLinkData;
@@ -198,7 +198,7 @@ void TestView::insertRowIntoItem(QStandardItem *parentItem, QString title, QVari
 
 }
 
-QStandardItemModel *TestView::getTestItemModel()
+QStandardItemModel *SampleTuningWidget::getTestItemModel()
 {
     QStandardItemModel *model = new QStandardItemModel(this);
     model->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
@@ -246,13 +246,13 @@ QStandardItemModel *TestView::getTestItemModel()
 
 }
 
-void TestView::updateTreeView()
+void SampleTuningWidget::updateTreeView()
 {
     updateItemModel();
     m_treeView->expandAll();
 }
 
-void TestView::updateItemModel()
+void SampleTuningWidget::updateItemModel()
 {
     m_itemModel->setItem(0, iterateSessionModel());
 }

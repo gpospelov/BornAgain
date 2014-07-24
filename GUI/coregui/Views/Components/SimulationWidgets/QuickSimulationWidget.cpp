@@ -1,8 +1,8 @@
-#include "QuickSimulationView.h"
+#include "QuickSimulationWidget.h"
 #include "qdebug.h"
 #include "QHBoxLayout"
 
-QuickSimulationView::QuickSimulationView(SessionModel *sessionModel, QWidget *parent)
+QuickSimulationWidget::QuickSimulationWidget(SessionModel *sessionModel, QWidget *parent)
     : QWidget(parent)
     , m_sessionModel(sessionModel)
 {
@@ -19,7 +19,7 @@ QuickSimulationView::QuickSimulationView(SessionModel *sessionModel, QWidget *pa
     m_plotWidget->setPropertyPanelVisible(false);
     //m_plotWidget->setFixedWidth(600);
 
-    m_testView = new TestView(m_sessionModel);
+    m_testView = new SampleTuningWidget(m_sessionModel);
     m_testView->setFixedWidth(380);
     m_testView->setContentsMargins(0,0,0,0);
 
@@ -34,7 +34,7 @@ QuickSimulationView::QuickSimulationView(SessionModel *sessionModel, QWidget *pa
     setLayout(mainLayout);
 }
 
-void QuickSimulationView::updateViews()
+void QuickSimulationWidget::updateViews()
 {
     m_testView->updateTreeView();
 }

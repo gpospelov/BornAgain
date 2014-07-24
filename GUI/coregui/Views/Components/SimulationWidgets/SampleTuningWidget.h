@@ -1,5 +1,5 @@
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#ifndef SAMPLETUNINGWIDGET_H
+#define SAMPLETUNINGWIDGET_H
 
 #include <QWidget>
 #include <QTreeView>
@@ -14,13 +14,14 @@
 class TestViewDelegate;
 class ParameterizedItem;
 
+
 //! TestView window to try things in mainwindow
-class TestView : public QWidget
+class SampleTuningWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    TestView(SessionModel *sampleModel, QWidget *parent = 0);
+    SampleTuningWidget(SessionModel *sampleModel, QWidget *parent = 0);
     void updateTreeView();
 
 
@@ -29,7 +30,7 @@ private:
     TestViewDelegate *m_delegate;
     QTableWidget *m_tableWidget;
     SessionModel *m_sampleModel;
-    QStandardItemModel *getItemModelFromSessionModel();
+//    QStandardItemModel *getItemModelFromSessionModel();
     QStandardItemModel *getTestItemModel();
     QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = NULL);
     void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = NULL);

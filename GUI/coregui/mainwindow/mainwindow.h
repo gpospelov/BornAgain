@@ -28,10 +28,10 @@ class JobQueueModel;
 class InstrumentModel;
 class MaterialEditor;
 class ToolTipDataBase;
-class TestView;
+class SampleTuningWidget;
 class MaterialModel;
 class SampleModel;
-class SimulationTabView;
+class SimulationView;
 
 
 class MainWindow : public Manhattan::FancyMainWindow
@@ -86,8 +86,8 @@ private:
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;
 
-    TestView *m_testView;
-    SimulationTabView *m_simulationTabView;
+    SampleTuningWidget *m_testView;
+    SimulationView *m_simulationView;
 
     void initModels();
     void initMaterialModel();

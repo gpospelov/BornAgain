@@ -33,7 +33,7 @@ private:
     QStandardItemModel *getTestItemModel();
     QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = NULL);
     void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = NULL);
-    void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem = NULL);
+    void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem);
     QStandardItemModel *m_itemModel;
     void updateItemModel();
 

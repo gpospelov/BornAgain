@@ -156,7 +156,11 @@ void TestViewDelegate::setModelData(QWidget *editor,
 
         model->setData(index, m_valueBox->value());
         ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
-        link.getItem()->setRegisteredProperty(link.getName(), m_valueBox->value());
+
+        if(link.getItem() != NULL)
+        {
+            link.getItem()->setRegisteredProperty(link.getName(), m_valueBox->value());
+        }
 
     } else {
         QItemDelegate::setModelData(editor, model, index);

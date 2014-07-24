@@ -8,6 +8,7 @@
 #include <QStyleOptionSlider>
 #include <QAbstractItemModel>
 #include <cmath>
+#include "ItemLink.h"
 
 
 
@@ -31,6 +32,11 @@ void TestViewDelegate::paint(QPainter *painter,
         }
 
         QVariant prop_value = index.model()->data(index, Qt::EditRole);
+
+
+//        QVariant param_value = index.model()->data(index, Qt::UserRole);
+//        ItemLink itemLink = param_value.value<ItemLink>();
+//        qDebug() << "Item Link: " << itemLink.getName();
 
         int type = prop_value.type();
         if (type == QVariant::Double) {
@@ -149,6 +155,8 @@ void TestViewDelegate::setModelData(QWidget *editor,
     if (index.column() == m_valueColumn) {
 
         model->setData(index, m_valueBox->value());
+        ItemLink link = model->data(index, Qt::UserRole).value<ItemLink>();
+        link.getItem()->setRegisteredProperty(link.getName(), m_valueBox->value());
 
     } else {
         QItemDelegate::setModelData(editor, model, index);

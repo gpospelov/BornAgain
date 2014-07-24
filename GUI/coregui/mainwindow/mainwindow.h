@@ -14,7 +14,7 @@ class WelcomeView;
 class InstrumentView;
 class SampleView;
 class PyScriptView;
-class SimulationView;
+//class SimulationView;
 class JobView;
 class JobQueueView;
 class SimulationDataModel;
@@ -31,6 +31,7 @@ class ToolTipDataBase;
 class TestView;
 class MaterialModel;
 class SampleModel;
+class SimulationTabView;
 
 
 class MainWindow : public Manhattan::FancyMainWindow
@@ -69,7 +70,7 @@ private:
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
     PyScriptView *m_scriptView;
-    SimulationView *m_simulationView;
+    //SimulationView *m_simulationView;
     JobQueueView * m_jobQueueView;
     Manhattan::ProgressBar *m_progressBar;
 
@@ -86,6 +87,7 @@ private:
     ToolTipDataBase *m_toolTipDataBase;
 
     TestView *m_testView;
+    SimulationTabView *m_simulationTabView;
 
     void initModels();
     void initMaterialModel();

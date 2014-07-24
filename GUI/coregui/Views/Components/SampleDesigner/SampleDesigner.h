@@ -9,7 +9,8 @@
 class DesignerScene;
 class SamplePropertyEditor;
 class DesignerWidgetFactory;
-class SessionModel;
+class InstrumentModel;
+class SampleModel;
 
 //! sample designer interface
 class SampleDesignerInterface : public QObject
@@ -40,8 +41,8 @@ public:
 
     QWidget *getCentralWidget() { return m_designerView; }
 
-    void setSampleModel(SessionModel *sampleModel);
-    void setInstrumentModel(SessionModel *instrumentModel);
+    void setSampleModel(SampleModel *sampleModel);
+    void setInstrumentModel(InstrumentModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
 public slots:

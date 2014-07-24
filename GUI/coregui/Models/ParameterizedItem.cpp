@@ -15,10 +15,11 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
-#include "GroupProperty.h"
 #include "MaterialEditor.h"
 #include "GUIHelpers.h"
 #include "PropertyVariantManager.h"
+#include "GroupPropertyRegistry.h"
+#include "FancyGroupProperty.h"
 #include <QEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QDebug>
@@ -31,14 +32,13 @@ ParameterizedItem::ParameterizedItem(const QString &model_type,
                                      ParameterizedItem *parent)
     : m_model_type(model_type)
     , m_parent(parent)
-    , m_block_property_change_event(false)
 {
     if (m_parent) {
         m_parent->insertChildItem(-1, this);
     }
 
-    registerProperty(P_NAME, QString(), HiddenProperty);
-    registerProperty(P_PORT, -1, HiddenProperty);
+    registerProperty(P_NAME, QString(), PropertyAttribute::HiddenProperty);
+    registerProperty(P_PORT, -1, PropertyAttribute::HiddenProperty);
     setItemName(m_model_type);
 }
 
@@ -79,15 +79,15 @@ bool ParameterizedItem::acceptsAsChild(const QString &child_name) const
 // emmits signal on property change
 bool ParameterizedItem::event(QEvent * e )
 {
-    if(e->type() == QEvent::DynamicPropertyChange && !getBlockPropertyChangeEvent()) {
+    if(e->type() == QEvent::DynamicPropertyChange) {
         QDynamicPropertyChangeEvent *propertyEvent =
                 dynamic_cast<QDynamicPropertyChangeEvent *>(e);
         Q_ASSERT(e);
         QByteArray byte_array = propertyEvent->propertyName();
         QString name(byte_array.constData());
-        if (m_sub_items.contains(name)) {
-            updatePropertyItem(name);
-        }
+//        if (m_sub_items.contains(name)) {
+//            updatePropertyItem(name);
+//        }
         onPropertyChange(name);
     }
     return QObject::event(e);
@@ -95,6 +95,7 @@ bool ParameterizedItem::event(QEvent * e )
 
 void ParameterizedItem::onPropertyChange(const QString &name)
 {
+//    qDebug() << "ParameterizedItem::onPropertyChange()" << modelType() << name;
     emit propertyChanged(name);
 }
 
@@ -133,6 +134,21 @@ void ParameterizedItem::setItemPort(ParameterizedItem::PortInfo::Keys nport)
 }
 
 
+// to update label of FixedGroupProperty
+void ParameterizedItem::onPropertyItemChanged(const QString & /*propertyName*/)
+{
+    ParameterizedItem *propertyItem = qobject_cast<ParameterizedItem *>(sender());
+    for(QMap<QString, ParameterizedItem *>::iterator it=m_sub_items.begin(); it!= m_sub_items.end(); ++it) {
+        if(it.value() == propertyItem) {
+            FancyGroupProperty *group_property = getRegisteredProperty(it.key()).value<FancyGroupProperty *>();
+            group_property->setValueLabel(propertyItem->getItemLabel());
+            return;
+        }
+    }
+    throw GUIHelpers::Error("ParameterizedItem::onPropertyItemChanged() -> Error. No such propertyItem found");
+}
+
+
 void ParameterizedItem::addToValidChildren(const QString &name, PortInfo::Keys nport, int nmax_items)
 {
     m_valid_children.append(name);
@@ -159,115 +175,58 @@ void ParameterizedItem::addPropertyItem(QString name, ParameterizedItem *item)
     }
     m_sub_items[name] = item;
     item->m_parent = this;
+    connect(item, SIGNAL(propertyChanged(QString)), this, SLOT(onPropertyItemChanged(QString)));
+
     qDebug() << "ParameterizedItem::addPropertyItem() -> about to leave" << name;
 }
 
-ParameterizedItem *ParameterizedItem::createPropertyItem(QString name)
+
+ParameterizedItem *ParameterizedItem::registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model)
 {
-    ParameterizedItem *result = 0;
-    qDebug() << "CreateSubItem: " << name;
-    QByteArray name_byte_array = name.toUtf8();
-    QVariant val = property(name_byte_array.constData());
-    if (val.userType() == PropertyVariantManager::groupTypeId()) {
-    //if (val.userType() == qMetaTypeId<GroupProperty>()) {
-        GroupProperty group_prop = val.value<GroupProperty>();
-        result = group_prop.createCorrespondingItem(
-                    group_prop.getValue());
-        qDebug() << "           " << group_prop.getValue();
-    } else {
-        throw GUIHelpers::Error("ParameterizedItem::createPropertyItem() -> Error unexpected behaviour");
-    }
+    qDebug() << "registerFancyGroupProperty "
+             << modelType() << group_name;
 
-    return result;
-}
-
-void ParameterizedItem::updatePropertyItem(QString name)
-{
-    qDebug() << "ParameterizedItem::updatePropertyItem() ";
-    if (!m_sub_items.contains(name)) {
-        qDebug() << "           ParameterizedItem::updatePropertyItem() -> No such item";
-        return;
-        //throw GUIHelpers::Error("ParameterizedItem::updatePropertyItem -> Error. No such sub property.");
-    }
-    ParameterizedItem *item = createPropertyItem(name);
-    addPropertyItem(name, item);
-    emit propertyItemChanged(name);
-}
-
-void ParameterizedItem::setMaterialProperty(MaterialProperty material)
-{
-    QVariant mat_var;
-    if(material.isDefined()) {
-        mat_var.setValue(material);
-    } else {
-        mat_var.setValue(MaterialEditor::getDefaultMaterialProperty());
-    }
-    setProperty("Material", mat_var);
-}
-
-ParameterizedItem * ParameterizedItem::registerGroupProperty(
-        const QString &name, const QString &value)
-{
-    qDebug() << "registerGroupProperty "
-             << modelType() << name << value;
-    GroupProperty group_prop(name, value);
-
-    Q_ASSERT(group_prop.isDefined());
-    if (group_prop.isDefined()) {
-        QVariant group_var;
-        group_var.setValue(group_prop);
-        registerProperty(name, group_var);
-    }
-    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to create property item";
-    ParameterizedItem *item = createPropertyItem(name);
-    qDebug() << "   ParameterizedItem::registerGroupProperty() -> about to add property";
-    addPropertyItem(name, item);
-    return item;
-}
-
-ParameterizedItem * ParameterizedItem::setGroupProperty(
-        const QString &name, const QString &value)
-{
-    qDebug() << "ParameterizedItem::setGroupProperty" << name << value;
-    setBlockPropertyChangeEvent(true);
-
-    GroupProperty group_prop(name, value);
-
-    Q_ASSERT(group_prop.isDefined());
-    if (group_prop.isDefined()) {
-        QVariant group_var;
-        group_var.setValue(group_prop);
-        setRegisteredProperty(name, group_var);
-    }
-    setBlockPropertyChangeEvent(false);
-
-    ParameterizedItem *item = createPropertyItem(name);
-    addPropertyItem(name, item);
-    emit propertyItemChanged(name);
-    return item;
+    FancyGroupProperty *group_property = GroupPropertyRegistry::createGroupProperty(group_name, group_model);
+    registerProperty(group_name, group_property->getVariant());
+    group_property->setParent(this);
+    return m_sub_items[group_name];
 }
 
 
-
-void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, PropertyAttribute property_attribute)
+ParameterizedItem *ParameterizedItem::setGroupProperty(const QString &name, const QString &value)
 {
-    //qDebug() << "   XXX   ParameterizedItem::registerProperty() " << modelType() << name;
+    qDebug() << "ParameterizedItem::setFancyGroupProperty()" << name << value;
+    FancyGroupProperty *group_property = getRegisteredProperty(name).value<FancyGroupProperty *>();
+    group_property->setValue(value);
+    return m_sub_items[name];
+}
+
+
+void ParameterizedItem::registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute)
+{
     if(m_registered_properties.contains(name))
         throw GUIHelpers::Error("ParameterizedItem::registerProperty() -> Error. Already existing property "+name);
 
     m_registered_properties << name;
-    m_property_attribute[name] = property_attribute;
+    m_property_attribute[name] = attribute;
 
     setProperty(name.toUtf8().constData(), variant);
 }
+
 
 void ParameterizedItem::setRegisteredProperty(const QString &name, const QVariant &variant)
 {
-    if( !m_registered_properties.contains(name))
-        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Unknown property "+name);
+    // check if variant of previous property coincides with new one
+    QVariant previous_variant = getRegisteredProperty(name);
+    if(GUIHelpers::getVariantType(previous_variant) != GUIHelpers::getVariantType(variant)) {
+        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new variant does not coincide.";
+        qDebug() << "New variant" << variant << ", previous " << previous_variant;
+        throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new variant does not coincide.");
+    }
 
     setProperty(name.toUtf8().constData(), variant);
 }
+
 
 QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 {
@@ -278,12 +237,37 @@ QVariant ParameterizedItem::getRegisteredProperty(const QString &name) const
 }
 
 
-void ParameterizedItem::setPropertyAttribute(const QString &name, ParameterizedItem::PropertyAttribute attribute)
+void ParameterizedItem::removeRegisteredProperty(const QString &name)
+{
+    qDebug() << "ParameterizedItem::removeRegisteredProperty()" << name;
+    if (m_sub_items.contains(name)) {
+        qDebug() << "       ParameterizedItem::removeRegisteredProperty() -> Removing property iteme";
+        delete m_sub_items[name];
+        m_sub_items.remove(name);
+    }
+    m_registered_properties.removeOne(name);
+    m_property_attribute.remove(name);
+    setProperty(name.toUtf8().constData(), QVariant());
+}
+
+
+void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute &attribute)
 {
     m_property_attribute[name] = attribute;
 }
 
-ParameterizedItem::PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
+
+void ParameterizedItem::setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance)
+{
+    if(m_property_attribute.contains(name)) {
+        m_property_attribute[name].setAppearance(appearance);
+    } else {
+        m_property_attribute[name] = PropertyAttribute(appearance);
+    }
+}
+
+
+PropertyAttribute ParameterizedItem::getPropertyAttribute(const QString &name) const
 {
     return m_property_attribute[name];
 }

@@ -95,4 +95,15 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
     return messageBox->clickedButton() == deleteButton;
 }
 
+//! returns type of variant
+int getVariantType(const QVariant &variant)
+{
+    int result = variant.type();
+    if (result == QVariant::UserType) {
+        result = variant.userType();
+    }
+    return result;
+}
+
+
 } // namespace GUIHelpers

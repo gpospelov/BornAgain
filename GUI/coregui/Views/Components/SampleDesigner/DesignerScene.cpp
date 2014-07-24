@@ -1,6 +1,7 @@
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
+#include "SampleModel.h"
 #include "SampleViewFactory.h"
 #include "SampleViewAligner.h"
 #include "IView.h"
@@ -47,7 +48,7 @@ DesignerScene::~DesignerScene()
 }
 
 
-void DesignerScene::setSampleModel(SessionModel *sampleModel)
+void DesignerScene::setSampleModel(SampleModel *sampleModel)
 {
     Q_ASSERT(sampleModel);
 
@@ -74,7 +75,7 @@ void DesignerScene::setSampleModel(SessionModel *sampleModel)
     }
 }
 
-void DesignerScene::setInstrumentModel(SessionModel *instrumentModel)
+void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     m_instrumentModel = instrumentModel;
 }
@@ -372,12 +373,12 @@ void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if(mimeData) {
         // Layer can be droped only on MultiLayer
-        if(mimeData->getClassName() == QString("Layer") && isMultiLayerNearby(event)) {
+        if(mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
             QGraphicsScene::dragMoveEvent(event);
         }
 
         // MultiLayer can be droped on another MultiLayer if there is one nearby
-        if( mimeData->getClassName() == QString("MultiLayer")
+        if( mimeData->getClassName() == Constants::MultiLayerType
                 && isMultiLayerNearby(event)) {
             QGraphicsScene::dragMoveEvent(event);
         }
@@ -395,16 +396,16 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
     if (mimeData) {
 
         //// layer can be dropped on MultiLayer only
-//        if(mimeData->getClassName() == "Layer") {
+//        if(mimeData->getClassName() == Constants::LayerType) {
 //            qDebug() << "DesignerScene::dropEvent() dont want to drop" << mimeData;
 //            QGraphicsScene::dropEvent(event);
 
         // MultiLayer can be droped on another MultiLayer if there is one nearby
-        if(mimeData->getClassName() == "MultiLayer" && isMultiLayerNearby(event)) {
+        if(mimeData->getClassName() == Constants::MultiLayerType && isMultiLayerNearby(event)) {
             QGraphicsScene::dropEvent(event);
 
         }
-        else if(mimeData->getClassName() == "Layer" && isMultiLayerNearby(event)) {
+        else if(mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
             QGraphicsScene::dropEvent(event);
 
         // other views can be droped on canvas anywhere
@@ -413,10 +414,10 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
             if(SampleViewFactory::isValidItemName(mimeData->getClassName())) {
 
                 ParameterizedItem *new_item(0);
-                if(mimeData->getClassName().startsWith("FormFactor")) {
-                    new_item = m_sampleModel->insertNewItem("Particle");
+                if(mimeData->getClassName().startsWith(Constants::FormFactorType)) {
+                    new_item = m_sampleModel->insertNewItem(Constants::ParticleType);
                     QString ffName = mimeData->getClassName();
-                    ffName.remove("FormFactor");
+                    ffName.remove(Constants::FormFactorType);
                     new_item->setGroupProperty(ParticleItem::P_FORM_FACTOR, ffName);
 
                 } else {

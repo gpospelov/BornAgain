@@ -7,7 +7,7 @@
 
 #include "SamplePropertyEditor.h"
 #include "SampleWidgetBox.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 
 
 class SampleInfoStreamInterface : public QWidget
@@ -30,7 +30,7 @@ public:
     static SamplePropertyEditor *createPropertyEditor(
             QItemSelectionModel *selection_model, QWidget *parent);
     static ItemTreeView *createTreeView(
-            SessionModel *sample_model, QWidget *parent);
+            SampleModel *sample_model, QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);
 };
 

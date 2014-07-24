@@ -16,7 +16,9 @@
 #ifndef PARAMETERIZEDITEM_H_
 #define PARAMETERIZEDITEM_H_
 
-#include "MaterialItem.h"
+#include "item_constants.h"
+#include "PropertyAttribute.h"
+#include "MaterialProperty.h"
 #include <QStandardItem>
 #include <QStringList>
 #include <QList>
@@ -65,10 +67,6 @@ public:
     //! inserts a child item at specified row
     virtual void insertChildItem(int row, ParameterizedItem *item);
 
-    //! append child item
-//    virtual void addChildItem(ParameterizedItem *item)
-//        { item->m_parent = this; m_children << item; }
-
     //! swap two child items
     void swapChildItems(int row_1, int row_2)
         { m_children.swap(row_1, row_2); }
@@ -91,30 +89,19 @@ public:
 
     void addPropertyItem(QString name, ParameterizedItem *item);
 
-    ParameterizedItem *createPropertyItem(QString name);
-
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 
-    void setMaterialProperty(MaterialProperty material = MaterialProperty());
-
-    ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    enum PropertyAttribute {
-        DefaultAttribute = 0x0000,
-        HiddenProperty = 0x0001,
-        DisabledProperty = 0x0002
-    };
-
-    void registerProperty(const QString &name, const QVariant &variant, PropertyAttribute property_attribute = DefaultAttribute);
+    void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
+    void removeRegisteredProperty(const QString &name);
 
-    void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
-    bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
-
-    void setPropertyAttribute(const QString &name, PropertyAttribute attribute);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance);
     PropertyAttribute getPropertyAttribute(const QString &name) const;
 
     void print() const;
@@ -133,13 +120,17 @@ public:
 
     void setItemPort(PortInfo::Keys nport);
 
+    virtual QString getItemLabel() const { return QString("no label"); }
+
+public slots:
+    void onPropertyItemChanged(const QString &propertyName);
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
 
 protected:
     void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
-    void updatePropertyItem(QString name);
 
     QStringList m_registered_properties;
 
@@ -153,7 +144,6 @@ private:
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
-    bool m_block_property_change_event;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

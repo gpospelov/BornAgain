@@ -1,9 +1,10 @@
 #include "projectdocument.h"
 #include "MaterialModel.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "OutputDataItem.h"
+#include "SampleModel.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -67,16 +68,16 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 }
 
 
-void ProjectDocument::setMaterialModel(MaterialModel *model)
+void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
-    if(model != m_materialModel) {
+    if(materialModel != m_materialModel) {
         if(m_materialModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
-        m_materialModel = model;
+        m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }
 }
 
-void ProjectDocument::setInstrumentModel(SessionModel *model)
+void ProjectDocument::setInstrumentModel(InstrumentModel *model)
 {
     if(model != m_instrumentModel) {
         if(m_instrumentModel) disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
@@ -86,7 +87,7 @@ void ProjectDocument::setInstrumentModel(SessionModel *model)
 }
 
 
-void ProjectDocument::setSampleModel(SessionModel *model)
+void ProjectDocument::setSampleModel(SampleModel *model)
 {
     if(model != m_sampleModel) {
         if(m_sampleModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
@@ -184,7 +185,7 @@ bool ProjectDocument::readFrom(QIODevice *device)
             if (reader.name() == ProjectDocumentXML::InfoTag) {
                 //
             }
-            else if(reader.name() == MaterialXML::ModelTag) {
+            else if(reader.name() == SessionXML::MaterialModelTag) {
                 m_materialModel->readFrom(&reader);
 
             }

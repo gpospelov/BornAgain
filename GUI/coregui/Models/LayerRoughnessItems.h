@@ -8,19 +8,18 @@ class LayerZeroRoughnessItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_TYPE_NAME;
     explicit LayerZeroRoughnessItem(ParameterizedItem *parent=0);
     ~LayerZeroRoughnessItem(){}
 };
 
 
-class LayerRoughnessItem : public ParameterizedItem
+class LayerBasicRoughnessItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_TYPE_NAME, P_SIGMA, P_HURST, P_LATERAL_CORR_LENGTH;
-    explicit LayerRoughnessItem(ParameterizedItem *parent=0);
-    ~LayerRoughnessItem(){}
+    static const QString P_SIGMA, P_HURST, P_LATERAL_CORR_LENGTH;
+    explicit LayerBasicRoughnessItem(ParameterizedItem *parent=0);
+    ~LayerBasicRoughnessItem(){}
 };
 
 

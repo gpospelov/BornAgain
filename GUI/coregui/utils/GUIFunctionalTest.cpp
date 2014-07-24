@@ -1,7 +1,8 @@
 #include "GUIFunctionalTest.h"
 #include "SimulationRegistry.h"
 #include "GUIObjectBuilder.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
+#include "SampleModel.h"
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
 #include "Instrument.h"
@@ -9,6 +10,7 @@
 #include "ParameterizedItem.h"
 #include "OutputDataFunctions.h"
 #include <boost/scoped_ptr.hpp>
+#include <QDebug>
 
 
 GUIFunctionalTest::GUIFunctionalTest(const std::string &name)
@@ -58,8 +60,8 @@ void GUIFunctionalTest::createDomainSimulation()
 {
     assert(m_reference_simulation->getSample());
     // initializing necessary GUI
-    boost::scoped_ptr<SessionModel> sampleModel(new SessionModel(SessionXML::SampleModelTag));
-    boost::scoped_ptr<SessionModel> instrumentModel(new SessionModel(SessionXML::InstrumentModelTag));
+    boost::scoped_ptr<SampleModel> sampleModel(new SampleModel());
+    boost::scoped_ptr<InstrumentModel> instrumentModel(new InstrumentModel());
     boost::scoped_ptr<MaterialModel> materialModel(new MaterialModel());
     boost::scoped_ptr<MaterialEditor> materialEditor(new MaterialEditor(materialModel.get()));
 

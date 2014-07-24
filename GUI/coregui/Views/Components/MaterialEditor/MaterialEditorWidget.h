@@ -15,10 +15,10 @@ class MaterialEditorWidget : public QDialog
 
 public:
 
-    explicit MaterialEditorWidget(MaterialModel *model, QWidget *parent = 0);
+    explicit MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent = 0);
     virtual ~MaterialEditorWidget(){}
 
-    void setModel(MaterialModel *model);
+    void setModel(MaterialModel *materialModel);
 
     MaterialProperty getSelectedMaterialProperty();
 

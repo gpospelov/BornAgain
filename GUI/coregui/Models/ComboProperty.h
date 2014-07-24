@@ -43,6 +43,7 @@ public:
         return result;
     }
 
+    int getIndex() const { return toIndex(m_current_value); }
 private:
     QStringList m_values;
     QString m_current_value;

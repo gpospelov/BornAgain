@@ -3,7 +3,7 @@
 #include "DesignerHelper.h"
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 #include "LayerItem.h"
 #include "GUIHelpers.h"
 #include "MaterialProperty.h"
@@ -56,7 +56,7 @@ void ILayerView::onPropertyChange(const QString &propertyName)
 
 void ILayerView::setParameterizedItem(ParameterizedItem *item)
 {
-    QVariant v = item->property("Material");
+    QVariant v = item->property(LayerItem::P_MATERIAL.toUtf8().constData());
     if(v.isValid()) {
         MaterialProperty mp = v.value<MaterialProperty>();
         setColor(mp.getColor());
@@ -130,7 +130,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    SessionModel *model = designerScene->getSampleModel();
+    SampleModel *model = designerScene->getSampleModel();
 
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if(requested_parent == parentItem() && requested_row == model->indexOfItem(getParameterizedItem()).row()) {

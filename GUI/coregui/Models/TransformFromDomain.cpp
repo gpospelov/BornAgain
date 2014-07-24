@@ -7,6 +7,9 @@
 #include "LatticeTypeItems.h"
 #include "Numeric.h"
 #include "Units.h"
+#include "LayerItem.h"
+#include "Layer.h"
+#include "LayerInterface.h"
 #include "GUIHelpers.h"
 #include "FormFactors.h"
 #include "FormFactorItems.h"
@@ -37,21 +40,21 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     ParameterizedItem *latticeTypeItem(0);
     if( TransformFromDomain::isSquareLattice(sample)) {
         latticeTypeItem = item->setGroupProperty(
-            InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Square");
+            InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, Constants::BasicLatticeType);
         latticeTypeItem->setRegisteredProperty(
             SquareLatticeTypeItem::P_LATTICE_LENGTH,
             sample->getLatticeLengths()[0]);
     }
     else if( TransformFromDomain::isHexagonalLattice(sample)) {
         latticeTypeItem = item->setGroupProperty(
-            InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Hexagonal");
+            InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, Constants::HexagonalLatticeType);
         latticeTypeItem->setRegisteredProperty(
             HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
             sample->getLatticeLengths()[0]);
     }
     else {
         latticeTypeItem = item->setGroupProperty(
-            InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, "Basic");
+            InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE, Constants::SquareLatticeType);
         latticeTypeItem->setRegisteredProperty(
             BasicLatticeTypeItem::P_LATTICE_LENGTH1,
             sample->getLatticeLengths()[0]);
@@ -91,7 +94,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         if(const FTDistribution2DCauchy *pdf =
                 dynamic_cast<const FTDistribution2DCauchy *>(pdfs[i])) {
             ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
-                                                                "Cauchy 2D");
+                                                                Constants::FTDistribution2DCauchyType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
                         pdf->getCoherenceLengthX());
@@ -102,7 +105,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         else if(const FTDistribution2DGauss *pdf =
                 dynamic_cast<const FTDistribution2DGauss *>(pdfs[i])) {
             ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
-                                                                "Gauss 2D");
+                                                                Constants::FTDistribution2DGaussType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGaussItem::P_CORR_LENGTH_X,
                         pdf->getCoherenceLengthX());
@@ -113,7 +116,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         else if(const FTDistribution2DGate *pdf =
                 dynamic_cast<const FTDistribution2DGate *>(pdfs[i])) {
             ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
-                                                                "Gate 2D");
+                                                                Constants::FTDistribution2DGateType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGateItem::P_CORR_LENGTH_X,
                         pdf->getCoherenceLengthX());
@@ -124,7 +127,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         else if(const FTDistribution2DCone *pdf =
                 dynamic_cast<const FTDistribution2DCone *>(pdfs[i])) {
             ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
-                                                                "Cone 2D");
+                                                                Constants::FTDistribution2DConeType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DConeItem::P_CORR_LENGTH_X,
                         pdf->getCoherenceLengthX());
@@ -135,7 +138,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         else if(const FTDistribution2DVoigt *pdf =
                 dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
             ParameterizedItem *pdfItem = item->setGroupProperty(group_names[i],
-                                                                "Voigt 2D");
+                                                                Constants::FTDistribution2DVoigtType);
             pdfItem->setRegisteredProperty(
                         FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
                         pdf->getCoherenceLengthX());
@@ -178,7 +181,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     if(const FTDistribution1DCauchy *pdf =
             dynamic_cast<const FTDistribution1DCauchy *>(ipdf)) {
         ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
-                                                            "Cauchy 1D");
+                                                            Constants::FTDistribution1DCauchyType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DCauchyItem::P_CORR_LENGTH,
                     pdf->getOmega());
@@ -186,7 +189,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     else if(const FTDistribution1DGauss *pdf =
             dynamic_cast<const FTDistribution1DGauss *>(ipdf)) {
         ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
-                                                            "Gauss 1D");
+                                                            Constants::FTDistribution1DGaussType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DGaussItem::P_CORR_LENGTH,
                     pdf->getOmega());
@@ -194,7 +197,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     else if(const FTDistribution1DGate *pdf =
             dynamic_cast<const FTDistribution1DGate *>(ipdf)) {
         ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
-                                                            "Gate 1D");
+                                                            Constants::FTDistribution1DGateType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DGateItem::P_CORR_LENGTH,
                     pdf->getOmega());
@@ -202,7 +205,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     else if(const FTDistribution1DTriangle *pdf =
             dynamic_cast<const FTDistribution1DTriangle *>(ipdf)) {
         ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
-                                                            "Triangle 1D");
+                                                            Constants::FTDistribution1DTriangleType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DTriangleItem::P_CORR_LENGTH,
                     pdf->getOmega());
@@ -210,7 +213,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     else if(const FTDistribution1DCosine *pdf =
             dynamic_cast<const FTDistribution1DCosine *>(ipdf)) {
         ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
-                                                            "Cosine 1D");
+                                                            Constants::FTDistribution1DCosineType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DCosineItem::P_CORR_LENGTH,
                     pdf->getOmega());
@@ -218,7 +221,7 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
     else if(const FTDistribution1DVoigt *pdf =
             dynamic_cast<const FTDistribution1DVoigt *>(ipdf)) {
         ParameterizedItem *pdfItem = item->setGroupProperty(group_name,
-                                                            "Voigt 1D");
+                                                            Constants::FTDistribution1DVoigtType);
         pdfItem->setRegisteredProperty(
                     FTDistribution1DVoigtItem::P_CORR_LENGTH,
                     pdf->getOmega());
@@ -256,9 +259,34 @@ bool TransformFromDomain::isHexagonalLattice(
 }
 
 
+void TransformFromDomain::setItemFromSample(ParameterizedItem *layerItem, const Layer *layer, const LayerInterface *top_interface)
+{
+    layerItem->setItemName(layer->getName().c_str());
+    layerItem->setRegisteredProperty(LayerItem::P_THICKNESS, layer->getThickness());
+    layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+
+    if(top_interface) {
+        const LayerRoughness *roughness = top_interface->getRoughness();
+        if(TransformFromDomain::isValidRoughness(roughness)) {
+            ParameterizedItem *roughnessItem = layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
+            TransformFromDomain::setItemFromSample(roughnessItem, roughness);
+        }
+    }
+}
+
+
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item, const LayerRoughness *sample)
 {
-    item->setRegisteredProperty(LayerRoughnessItem::P_SIGMA, sample->getSigma());
-    item->setRegisteredProperty(LayerRoughnessItem::P_HURST, sample->getHurstParameter());
-    item->setRegisteredProperty(LayerRoughnessItem::P_LATERAL_CORR_LENGTH, sample->getLatteralCorrLength());
+    item->setRegisteredProperty(LayerBasicRoughnessItem::P_SIGMA, sample->getSigma());
+    item->setRegisteredProperty(LayerBasicRoughnessItem::P_HURST, sample->getHurstParameter());
+    item->setRegisteredProperty(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH, sample->getLatteralCorrLength());
+}
+
+
+//! Returns true if given roughness is non-zero roughness
+bool TransformFromDomain::isValidRoughness(const LayerRoughness *roughness)
+{
+    if(!roughness) return false;
+    if(roughness->getSigma() == 0  && roughness->getHurstParameter() == 0.0 && roughness->getLatteralCorrLength() == 0.0) return false;
+    return true;
 }

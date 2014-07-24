@@ -3,30 +3,26 @@
 #include "GUIHelpers.h"
 #include <QDebug>
 
-const QString ParticleCoreShellItem::P_TYPE_NAME = "ParticleCoreShell";
-const QString ParticleCoreShellItem::P_CORE_X = "Core_X";
-const QString ParticleCoreShellItem::P_CORE_Y = "Core_Y";
-const QString ParticleCoreShellItem::P_CORE_Z = "Core_Z";
+const QString ParticleCoreShellItem::P_CORE_POS = "Core Position";
 
 
 ParticleCoreShellItem::ParticleCoreShellItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(P_TYPE_NAME, parent)
+    : ParameterizedGraphicsItem(Constants::ParticleCoreShellType, parent)
 {
-    setItemName(P_TYPE_NAME);
+    setItemName(Constants::ParticleCoreShellType);
     setItemPort(ParameterizedItem::PortInfo::Port0);
     registerProperty(ParticleItem::P_DEPTH, 0.0);
     registerProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    registerProperty(P_CORE_X, 0.0);
-    registerProperty(P_CORE_Y, 0.0);
-    registerProperty(P_CORE_Z, 0.0);
 
-    addToValidChildren(QString("Particle"), PortInfo::Port0, 1);
-    addToValidChildren(QString("Particle"), PortInfo::Port1, 1);
+    registerGroupProperty(P_CORE_POS, Constants::VectorType);
+
+    addToValidChildren(Constants::ParticleType, PortInfo::Port0, 1);
+    addToValidChildren(Constants::ParticleType, PortInfo::Port1, 1);
 }
 
 void ParticleCoreShellItem::insertChildItem(int row, ParameterizedItem *item)
 {
     ParameterizedItem::insertChildItem(row, item);
-    item->setPropertyAttribute(ParticleItem::P_ABUNDANCE, ParameterizedItem::DisabledProperty);
-    item->setPropertyAttribute(ParticleItem::P_DEPTH, ParameterizedItem::DisabledProperty);
+    item->setPropertyAttribute(ParticleItem::P_ABUNDANCE, PropertyAttribute::DisabledProperty);
+    item->setPropertyAttribute(ParticleItem::P_DEPTH, PropertyAttribute::DisabledProperty);
 }

@@ -1,5 +1,5 @@
 #include "SampleViewAligner.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 #include "DesignerScene.h"
 #include "IView.h"
 #include <QModelIndex>
@@ -28,7 +28,7 @@ void SampleViewAligner::smartAlign()
 //! which do not have parent view)
 void SampleViewAligner::updateViews(const QModelIndex & parentIndex)
 {
-    SessionModel *sampleModel = m_scene->getSampleModel();
+    SampleModel *sampleModel = m_scene->getSampleModel();
     for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );
          IView *view = getViewForIndex(itemIndex);
@@ -108,14 +108,14 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
 
     QList<ParameterizedItem *> connected_items;
 
-    if(itemOfView->parent()->modelType() == "Layer") {
+    if(itemOfView->parent()->modelType() == Constants::LayerType) {
         // e.g. we are dealing here with ParticleLayout, so we will use directly MultiLayer to interact with
         connected_items.append(itemOfView->parent()->parent());
     } else {
         connected_items.append(itemOfView->parent());
     }
 
-    if(itemOfView->modelType() == "MultiLayer") {
+    if(itemOfView->modelType() == Constants::MultiLayerType) {
         // MultiLayer will not interact with its Layers, but with they children, e.g. with ParticleLayouts
         foreach(ParameterizedItem *child,  itemOfView->childItems()) {
             connected_items.append(child->childItems());
@@ -151,7 +151,7 @@ void SampleViewAligner::alignSample(ParameterizedItem *item, QPointF reference, 
 //! Position of View which has parent item (like Layer) will remain unchainged.
 void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF reference, bool force_alignment)
 {
-    SessionModel *sampleModel = m_scene->getSampleModel();
+    SampleModel *sampleModel = m_scene->getSampleModel();
 
     IView *view = getViewForIndex(parentIndex);
 //    if(view)
@@ -182,7 +182,7 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
 
 IView *SampleViewAligner::getViewForIndex(const QModelIndex &index)
 {
-    SessionModel *sampleModel = m_scene->getSampleModel();
+    SampleModel *sampleModel = m_scene->getSampleModel();
     ParameterizedItem *item = sampleModel->itemForIndex(index);
     if(IView *view = m_scene->getViewForItem(item)) {
         return view;

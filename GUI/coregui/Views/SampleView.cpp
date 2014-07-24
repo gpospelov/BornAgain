@@ -21,7 +21,7 @@
 #endif
 
 
-SampleView::SampleView(SessionModel *sampleModel, SessionModel *instrumentModel, QWidget *parent)
+SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
 //    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))
@@ -178,7 +178,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     QModelIndex parent_index = getTreeView()->indexAt(pnt);
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::getAllItemNames();
+        addItemNames = ItemFactory::getValidTopItemNames();
     } else {
         addItemNames = getSampleModel()->getAcceptableChildItems(parent_index);
     }
@@ -250,7 +250,7 @@ void SampleView::setCurrentIndex(const QModelIndex &index)
     }
 }
 
-SessionModel *SampleView::getSampleModel()
+SampleModel *SampleView::getSampleModel()
 {
     return m_sampleModel;
 }

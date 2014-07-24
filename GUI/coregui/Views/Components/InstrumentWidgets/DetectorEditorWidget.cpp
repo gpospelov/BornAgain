@@ -1,5 +1,5 @@
 #include "DetectorEditorWidget.h"
-#include "GroupProperty.h"
+#include "FancyGroupProperty.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
@@ -112,11 +112,13 @@ void DetectorEditorWidget::updateWidgets()
 
     m_block_signals = true;
     m_detectorTypeCombo->clear();
-    GroupProperty detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR_TYPE).value<GroupProperty>();
-    m_detectorTypeCombo->addItems(detector_property.getValues());
-    m_detectorTypeCombo->setCurrentText(detector_property.getValue());
+    //GroupProperty detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<GroupProperty>();
+    FancyGroupProperty *detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<FancyGroupProperty *>();
 
-    ParameterizedItem *detectorTypeItem = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    m_detectorTypeCombo->addItems(detector_property->getValues());
+    m_detectorTypeCombo->setCurrentText(detector_property->getValue());
+
+    ParameterizedItem *detectorTypeItem = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(detectorTypeItem);
     m_unitsCombo->clear();
     ComboProperty units_property = detectorTypeItem->getRegisteredProperty(DetectorItem::P_AXES_UNITS).value<ComboProperty>();
@@ -128,10 +130,10 @@ void DetectorEditorWidget::updateWidgets()
     m_binningTypeCombo->addItems(binning_property.getValues());
     m_binningTypeCombo->setCurrentText(binning_property.getValue());
 
-    ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-    if (subDetector->modelType() == ThetaPhiDetectorItem::P_MODEL_TYPE) {
+    if (subDetector->modelType() == Constants::ThetaPhiDetectorType) {
         int nphi = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NPHI).toInt();
         double phi_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN).toDouble();
         double phi_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX).toDouble();
@@ -169,7 +171,8 @@ void DetectorEditorWidget::onDetectorTypeChanged(int)
     qDebug() << "DetectorEditorWidget::onDetectorTypeChanged() -> ";
     Q_ASSERT(m_currentItem);
     if(m_block_signals) return;
-    m_currentItem->setGroupProperty(DetectorItem::P_DETECTOR_TYPE, m_detectorTypeCombo->currentText());
+//    m_currentItem->setGroupProperty(DetectorItem::P_DETECTOR_TYPE, m_detectorTypeCombo->currentText());
+    m_currentItem->setGroupProperty(Constants::DetectorGroup, m_detectorTypeCombo->currentText());
 }
 
 
@@ -178,9 +181,9 @@ void DetectorEditorWidget::onAngleEditorChanged(const QString &)
     qDebug() << "DetectorEditorWidget::onAngleEditorChanged() ->";
     if(m_block_signals) return;
     qDebug() << "DetectorEditorWidget::onAngleEditorChanged()";
-    ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR_TYPE];
+    ParameterizedItem *subDetector = m_currentItem->getSubItems()[Constants::DetectorGroup];
     Q_ASSERT(subDetector);
-    Q_ASSERT(subDetector->modelType() == ThetaPhiDetectorItem::P_MODEL_TYPE);
+    Q_ASSERT(subDetector->modelType() == Constants::ThetaPhiDetectorType);
     subDetector->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN, m_phiMinEdit->value());
     subDetector->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX, m_phiMaxEdit->value());
     subDetector->setRegisteredProperty(ThetaPhiDetectorItem::P_NPHI, m_nphiEdit->value());

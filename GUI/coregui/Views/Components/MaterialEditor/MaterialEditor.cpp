@@ -3,12 +3,13 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "MaterialUtils.h"
+#include "SessionModel.h"
 #include <QDebug>
 
 MaterialEditor *MaterialEditor::m_instance = 0;
 
-MaterialEditor::MaterialEditor(MaterialModel *model)
-    : m_materialModel(model)
+MaterialEditor::MaterialEditor(MaterialModel *materialModel)
+    : m_materialModel(materialModel)
 {
     Q_ASSERT(!m_instance);
     m_instance = this;
@@ -18,6 +19,11 @@ MaterialEditor::MaterialEditor(MaterialModel *model)
 MaterialEditor::~MaterialEditor()
 {
     m_instance = 0;
+}
+
+MaterialEditor *MaterialEditor::instance()
+{
+    return m_instance;
 }
 
 
@@ -51,7 +57,7 @@ MaterialProperty MaterialEditor::this_getMaterialProperty(const QString &name)
 {
     MaterialItem *material = m_materialModel->getMaterial(name);
     if(material)
-        return MaterialUtils::getMaterialProperty(material);
+        return MaterialProperty(material->getIdentifier());
 
     return MaterialProperty();
 }
@@ -63,15 +69,18 @@ MaterialProperty MaterialEditor::getDefaultMaterialProperty()
     return m_instance->this_getDefaultMaterialProperty();
 }
 
-
+//! Returns default MaterialProperty which is the signature of the first
+//! MaterialItem in the model.
 MaterialProperty MaterialEditor::this_getDefaultMaterialProperty()
 {
-    MaterialItem *material = m_materialModel->getMaterial("Default");
-
-    if(!material)
-        material = m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-
-    return MaterialUtils::getMaterialProperty(material);
+    Q_ASSERT(m_materialModel);
+    if((m_materialModel->rowCount( QModelIndex() ) ) ) {
+        QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
+        MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
+        return MaterialProperty(material->getIdentifier());
+    } else {
+        return MaterialProperty();
+    }
 }
 
 

@@ -1,25 +1,24 @@
 #include "LayerRoughnessItems.h"
+#include "ScientificDoubleProperty.h"
 
-
-const QString LayerZeroRoughnessItem::P_TYPE_NAME = "LayerZeroRoughness";
 
 LayerZeroRoughnessItem::LayerZeroRoughnessItem(ParameterizedItem *parent)
-    : ParameterizedItem(P_TYPE_NAME, parent)
+    : ParameterizedItem(Constants::LayerZeroRoughnessType, parent)
 {
-    setItemName(P_TYPE_NAME);
+    setItemName(Constants::LayerZeroRoughnessType);
 }
 
 
-const QString LayerRoughnessItem::P_TYPE_NAME = "LayerRoughness";
-const QString LayerRoughnessItem::P_SIGMA = "Sigma";
-const QString LayerRoughnessItem::P_HURST = "Hurst parameter";
-const QString LayerRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
+const QString LayerBasicRoughnessItem::P_SIGMA = "Sigma";
+const QString LayerBasicRoughnessItem::P_HURST = "Hurst parameter";
+const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
 
-LayerRoughnessItem::LayerRoughnessItem(ParameterizedItem *parent)
-    : ParameterizedItem(P_TYPE_NAME, parent)
+LayerBasicRoughnessItem::LayerBasicRoughnessItem(ParameterizedItem *parent)
+    : ParameterizedItem(Constants::LayerBasicRoughnessType, parent)
 {
-    setItemName(P_TYPE_NAME);
+    setItemName(Constants::LayerBasicRoughnessType);
     registerProperty(P_SIGMA, 1.0);
     registerProperty(P_HURST, 0.3);
     registerProperty(P_LATERAL_CORR_LENGTH, 5.0);
+
 }

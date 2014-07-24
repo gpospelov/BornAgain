@@ -1,4 +1,5 @@
 #include "DesignerHelper.h"
+#include "item_constants.h"
 #include <QPainter>
 #include <QtGlobal>
 #include <QDebug>
@@ -132,16 +133,16 @@ int DesignerHelper::nanometerToScreen(double nanometer)
 QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 {
     qDebug() << "    getDefaultBoundingRect " << name;
-    if (name==QString("MultiLayer")) {
+    if (name==Constants::MultiLayerType) {
         return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
     }
-    else  if (name==QString("Layer")) {
+    else  if (name==Constants::LayerType) {
         return QRectF(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
     }
-    else  if (name==QString("ParticleLayout")) {
+    else  if (name==Constants::ParticleLayoutType) {
         return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
     }
-    else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
+    else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
         return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
     }
     else  if (name.startsWith("InterferenceFunction")) {
@@ -155,17 +156,17 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 
 QColor DesignerHelper::getDefaultColor(const QString &name)
 {
-    if (name==QString("MultiLayer")) {
+    if (name==Constants::MultiLayerType) {
         //return QColor(Qt::blue);
         return QColor(51, 116, 255);
-    } else  if (name==QString("Layer")) {
+    } else  if (name==Constants::LayerType) {
         //return QColor(Qt::green);
         return QColor(26, 156, 9);
     }
-    else  if (name==QString("ParticleLayout")) {
+    else  if (name==Constants::ParticleLayoutType) {
         return QColor(135, 206, 50);
     }
-    else  if (name.startsWith("FormFactor") || name==QString("Particle")) {
+    else  if (name.startsWith(Constants::FormFactorType) || name==Constants::ParticleType || name==Constants::ParticleCoreShellType) {
         return QColor(210, 223, 237);
     }
     else  if (name.startsWith("InterferenceFunction")) {

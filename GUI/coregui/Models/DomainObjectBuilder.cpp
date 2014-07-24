@@ -42,11 +42,11 @@ DomainObjectBuilder::~DomainObjectBuilder()
 
 void DomainObjectBuilder::buildItem(const ParameterizedItem &item)
 {
-    if (item.modelType() == QStringLiteral("MultiLayer")) {
+    if (item.modelType() == Constants::MultiLayerType) {
         delete mp_sample;
         mp_sample = buildMultiLayer(item);
     }
-    else if(item.modelType() == QStringLiteral("Instrument")) {
+    else if(item.modelType() == Constants::InstrumentType) {
         delete m_instrument;
         m_instrument = buildInstrument(item);
     }
@@ -61,7 +61,7 @@ MultiLayer *DomainObjectBuilder::buildMultiLayer(
     MultiLayer *result = TransformToDomain::createMultiLayer(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
-        if (children[i]->modelType() == QString("Layer")) {
+        if (children[i]->modelType() == Constants::LayerType) {
             boost::scoped_ptr<Layer> P_layer(buildLayer(*children[i]));
 
             ParameterizedItem *roughnessItem = children[i]->getSubItems()[LayerItem::P_ROUGHNESS];
@@ -85,7 +85,7 @@ Layer *DomainObjectBuilder::buildLayer(const ParameterizedItem &item) const
     Layer *result = TransformToDomain::createLayer(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
-        if (children[i]->modelType() == QString("ParticleLayout")) {
+        if (children[i]->modelType() == Constants::ParticleLayoutType) {
             boost::scoped_ptr<ParticleLayout>
                     P_layout(buildParticleLayout(*children[i]));
             if (P_layout.get()) {
@@ -103,7 +103,7 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
     ParticleLayout *result = TransformToDomain::createParticleLayout(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
-        if (children[i]->modelType() == QString("Particle")) {
+        if (children[i]->modelType() == Constants::ParticleType) {
             double depth(0), abundance(0);
             boost::scoped_ptr<Particle>
                     particle(buildParticle(*children[i], depth, abundance));
@@ -118,7 +118,7 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
                 result->addInterferenceFunction(*interference);
             }
         }
-        else if(children[i]->modelType() == ParticleCoreShellItem::P_TYPE_NAME) {
+        else if(children[i]->modelType() == Constants::ParticleCoreShellType) {
             double depth(0), abundance(0);
             boost::scoped_ptr<ParticleCoreShell>
                     coreshell(buildParticleCoreShell(*children[i], depth, abundance));
@@ -158,13 +158,13 @@ Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) 
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
         qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
-        if (children[i]->modelType() == QString("Beam")) {
+        if (children[i]->modelType() == Constants::BeamType) {
             boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
             if (P_beam.get()) {
                 result->setBeam(*P_beam);
             }
         }
-        else if (children[i]->modelType() == QString("Detector")) {
+        else if (children[i]->modelType() == Constants::DetectorType) {
             TransformToDomain::initInstrumentFromDetectorItem(*children[i], result);
         }
 

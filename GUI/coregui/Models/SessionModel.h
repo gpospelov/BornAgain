@@ -27,6 +27,7 @@ const QString MimeType = "application/org.bornagainproject.xml.item.z";
 const QString ModelTag("SessionModel");
 const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");
+const QString MaterialModelTag("MaterialModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");
@@ -36,6 +37,13 @@ const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
+
+const QString IdentifierAttribute("Identifier");
+
+const QString ColorRedAttribute("Red");
+const QString ColorGreenAttribute("Green");
+const QString ColorBlueAttribute("Blue");
+const QString ColorAlphaAttribute("Alpha");
 }
 
 class IconProvider;

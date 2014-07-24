@@ -17,10 +17,12 @@
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
 #include "MaterialEditor.h"
-//#include "FormFactorProperty.h"
-#include "GroupProperty.h"
 #include "ComboProperty.h"
+#include "ScientificDoubleProperty.h"
 #include "IconProvider.h"
+#include "FancyGroupProperty.h"
+#include "MaterialUtils.h"
+#include "MaterialProperty.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -537,7 +539,8 @@ void SessionModel::readItems(QXmlStreamReader *reader, ParameterizedItem *item,
 
 QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *item)
 {
-    qDebug() << "SessionModel::readProperty() ";
+    qDebug() << "SessionModel::readProperty() for" << item;
+    if(item) qDebug() << item->modelType();
     const QString parameter_name = reader->attributes()
             .value(SessionXML::ParameterNameAttribute)
             .toString();
@@ -553,7 +556,7 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
     }
     else if (parameter_type == "int") {
-            double parameter_value = reader->attributes()
+            int parameter_value = reader->attributes()
                     .value(SessionXML::ParameterValueAttribute)
                     .toInt();
             item->setRegisteredProperty(parameter_name, parameter_value);
@@ -577,21 +580,27 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
 
     }
     else if (parameter_type == "MaterialProperty") {
-        QString parameter_value = reader->attributes()
-                .value(SessionXML::ParameterValueAttribute)
+//        QString parameter_value = reader->attributes()
+//                .value(SessionXML::ParameterValueAttribute)
+//                .toString();
+        QString identifier = reader->attributes()
+                .value(SessionXML::IdentifierAttribute)
                 .toString();
-        QVariant mat_variant;
-        mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
-        item->setProperty(parameter_name.toUtf8().constData(), mat_variant);
-    }
-    else if (parameter_type == "GroupProperty") {
-        QString parameter_value = reader->attributes()
-                .value(SessionXML::ParameterValueAttribute)
-                .toString();
-        GroupProperty group_prop(parameter_name, parameter_value);
-        QVariant group_variant;
-        group_variant.setValue(group_prop);
-        item->setGroupProperty(parameter_name, parameter_value);
+
+//        QVariant mat_variant;
+//        mat_variant.setValue(MaterialEditor::getMaterialProperty(parameter_value));
+
+        MaterialProperty material_property(identifier);
+        item->setProperty(parameter_name.toUtf8().constData(), material_property.getVariant());
+//    }
+//    else if (parameter_type == "GroupProperty") {
+//        QString parameter_value = reader->attributes()
+//                .value(SessionXML::ParameterValueAttribute)
+//                .toString();
+//        GroupProperty group_prop(parameter_name, parameter_value);
+//        QVariant group_variant;
+//        group_variant.setValue(group_prop);
+//        item->setGroupProperty(parameter_name, parameter_value);
     }
     else if (parameter_type == "ComboProperty") {
         QString parameter_value = reader->attributes()
@@ -602,7 +611,36 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         combo_property.setValue(parameter_value);
         item->setRegisteredProperty(parameter_name, combo_property.getVariant());
     }
+    else if (parameter_type == "ScientificDoubleProperty") {
+        double parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toDouble();
 
+        ScientificDoubleProperty scdouble_property(parameter_value);
+        QVariant v;
+        v.setValue(scdouble_property);
+        item->setRegisteredProperty(parameter_name, v);
+    }
+    else if (parameter_type == "FancyGroupProperty*") {
+        QString parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute)
+                .toString();
+
+        FancyGroupProperty *group_property = item->getRegisteredProperty(parameter_name).value<FancyGroupProperty *>();
+        group_property->setValue(parameter_value);
+//        GroupProperty group_prop(parameter_name, parameter_value);
+//        QVariant group_variant;
+//        group_variant.setValue(group_prop);
+//        item->setGroupProperty(parameter_name, parameter_value);
+    }
+    else if (parameter_type == "ColorProperty") {
+        int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
+        int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
+        int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
+        int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
+        ColorProperty color(QColor(r, g, b, a));
+        item->setRegisteredProperty(parameter_name, color.getVariant());
+    }
 
     else {
         throw GUIHelpers::Error("SessionModel::readProperty: "
@@ -667,20 +705,43 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
                                 variant.toString());
         }
         else if (type_name == QString("MaterialProperty")) {
-            QString material_name = variant.value<MaterialProperty>().getName();
+            MaterialProperty material_property = variant.value<MaterialProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                material_name);
+                                material_property.getName());
+            writer->writeAttribute(SessionXML::IdentifierAttribute,
+                                material_property.getIdentifier());
+
         }
-        else if (type_name == QString("GroupProperty")) {
-            QString ff_name =
-                    variant.value<GroupProperty>().getValue();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                ff_name);
-        }
+//        else if (type_name == QString("GroupProperty")) {
+//            QString ff_name =
+//                    variant.value<GroupProperty>().getValue();
+//            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+//                                ff_name);
+//        }
         else if (type_name == QString("ComboProperty")) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                 variant.value<ComboProperty>().getValue());
 
+        }
+        else if (type_name == QString("ScientificDoubleProperty")) {
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                variant.value<ScientificDoubleProperty>().getText());
+
+        }
+        else if (type_name == QString("FancyGroupProperty*")) {
+            QString ff_name =
+                    variant.value<FancyGroupProperty *>()->getValue();
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                ff_name);
+        }
+        else if (type_name == QString("ColorProperty")) {
+            int r, g, b, a;
+            QColor material_color = variant.value<ColorProperty>().getColor();
+            material_color.getRgb(&r, &g, &b, &a);
+            writer->writeAttribute(SessionXML::ColorRedAttribute, QString::number(r));
+            writer->writeAttribute(SessionXML::ColorGreenAttribute, QString::number(g));
+            writer->writeAttribute(SessionXML::ColorBlueAttribute, QString::number(b));
+            writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
         }
 
         else {

@@ -16,10 +16,10 @@ SamplePropertyEditor *SampleViewComponents::createPropertyEditor(
 }
 
 ItemTreeView *SampleViewComponents::createTreeView(
-        SessionModel *sample_model, QWidget *parent)
+        SampleModel *sampleModel, QWidget *parent)
 {
     ItemTreeView *tree_view = new ItemTreeView(parent);
-    tree_view->setModel(sample_model);
+    tree_view->setModel(sampleModel);
     return tree_view;
 }
 

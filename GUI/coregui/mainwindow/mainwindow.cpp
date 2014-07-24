@@ -14,6 +14,7 @@
 #include "SimulationDataModel.h"
 #include "JobQueueModel.h"
 #include "MaterialModel.h"
+#include "InstrumentModel.h"
 #include "MaterialEditor.h"
 #include "Instrument.h"
 #include "Units.h"
@@ -38,6 +39,9 @@
 #include "tooltipdatabase.h"
 #include "mainwindow_constants.h"
 #include "ParticleCoreShellItem.h"
+#include "FancyGroupProperty.h"
+#include "ScientificDoubleProperty.h"
+#include "SampleModel.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -71,18 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
 //    QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
 
-    // initialize material model first
-    initMaterialModel();
-
-    // initialize simulation data model first:
-    initSimModel();
-
-    initJobQueueModel();
-
-    initSampleModel();
-
-    initInstrumentModel();
-
+    initModels();
 
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -136,7 +129,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_projectManager->createNewProject();
 
 //    testGUIObjectBuilder();
-
 }
 
 
@@ -211,14 +203,48 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-
-void MainWindow::initSimModel()
+void MainWindow::initModels()
 {
-    if (mp_sim_data_model) delete mp_sim_data_model;
-    mp_sim_data_model = new SimulationDataModel;
-    //mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
-    //mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
+    initMaterialModel(); // should be first
+
+    initSampleModel();
+
+    initJobQueueModel();
+
+    initInstrumentModel();
+
+    initSimModel();
 }
+
+
+void MainWindow::initMaterialModel()
+{
+    delete m_materialModel;
+
+    m_materialModel = new MaterialModel();
+    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
+    m_materialModel->addMaterial("Air", 0.0, 0.0);
+    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
+    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
+
+    m_materialEditor = new MaterialEditor(m_materialModel);
+}
+
+
+void MainWindow::initSampleModel()
+{
+    Q_ASSERT(m_materialModel);
+
+    delete m_sampleModel;
+    m_sampleModel = new SampleModel();
+
+    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
+
+    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    //ParameterizedItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
+    //m_sampleModel->insertNewItem(Constants::MultiLayerType);
+}
+
 
 
 void MainWindow::initJobQueueModel()
@@ -236,108 +262,27 @@ void MainWindow::initJobQueueModel()
 }
 
 
-void MainWindow::initSampleModel()
-{
-    delete m_sampleModel;
-    m_sampleModel = new SessionModel(SessionXML::SampleModelTag);
-
-    //testGUIObjectBuilder();
-
-    //m_sampleModel->save("sample.xml");
-
-    ParameterizedItem *multilayer = m_sampleModel->insertNewItem("MultiLayer");
-    m_sampleModel->insertNewItem("MultiLayer");
-//    multilayer->setItemName("MultiLayer1");
-//    m_sampleModel->insertNewItem("Layer");
-
-//    ParameterizedItem *layer = m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(multilayer));
-//    layer->setMaterialProperty(MaterialEditor::getMaterialProperty("Air"));
-
-//    ParameterizedItem *layout = m_sampleModel->insertNewItem("ParticleLayout",
-//                   m_sampleModel->indexOfItem(layer));
-
-//    ParameterizedItem *layout = m_sampleModel->insertNewItem("ParticleLayout");
-
-//    ParameterizedItem *particle1 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(layout));
-
-//    ParameterizedItem *cylinder = particle1->getSubItems()[ParticleItem::P_FORM_FACTOR];
-//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
-
-//    m_sampleModel->moveParameterizedItem(particle1, 0);
-
-//    ParameterizedItem *cylinder = particle1->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-//    particle1->setRegisteredProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
-//    cylinder->setRegisteredProperty(CylinderItem::P_HEIGHT, 5.0);
-//    particle1->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
-
-//    ParameterizedItem *particle2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(layout));
-//    particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Prism3");
-//    particle2->setMaterialProperty(MaterialEditor::getMaterialProperty("Particle"));
-
-//    ParameterizedItem *substrate = m_sampleModel->insertNewItem("Layer",
-//                   m_sampleModel->indexOfItem(multilayer));
-//    substrate->setMaterialProperty(MaterialEditor::getMaterialProperty("Substrate"));
-
-//    ParameterizedItem *coreshell = m_sampleModel->insertNewItem("ParticleCoreShell");
-//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle");
-
-//    ParameterizedItem *core = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-//    core->setRegisteredProperty(ParameterizedItem::P_SLOT, 0);
-//    ParameterizedItem *shell = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-//    shell->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
-//    ParameterizedItem *shell2 = m_sampleModel->insertNewItem("Particle", m_sampleModel->indexOfItem(coreshell));
-//    shell2->setRegisteredProperty(ParameterizedItem::P_SLOT, 1);
-
-//    qDebug() << " coreshell:" << coreshell << " core:" << core << " shell:" << shell << " shell2:" << shell2;
-//    ParameterizedItem *candidate = coreshell->getCandidateForRemoval(shell2);
-//    if(candidate) {
-//        qDebug() << candidate << candidate->modelType();
-//    }
-
-}
-
 void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
-    m_instrumentModel = new SessionModel(SessionXML::InstrumentModelTag);
+    m_instrumentModel = new InstrumentModel();
     m_instrumentModel->setIconProvider(new IconProvider());
 
-    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem("Instrument");
+    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument1->setItemName("Default GISAS");
-    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument1));
-    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument1));
+    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
+    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
     Q_UNUSED(detector1);
     Q_UNUSED(beam1);
 
-//    ParameterizedItem *instrument2 = m_instrumentModel->insertNewItem("Instrument");
-//    instrument2->setItemName("Instrument2");
-//    ParameterizedItem *detector2 = m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument2));
-//    ParameterizedItem *beam2 = m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument2));
-    //    Q_UNUSED(detector2);
-    //    Q_UNUSED(beam2);
-
-
-    m_instrumentModel->save("instrument.xml");
-
+    //m_instrumentModel->save("instrument.xml");
 }
 
 
-void MainWindow::initMaterialModel()
+void MainWindow::initSimModel()
 {
-    delete m_materialModel;
-    m_materialModel = new MaterialModel(this);
-    m_materialModel->addMaterial("Default", MaterialItem::HomogeneousMaterial);
-
-    MaterialItem *mAir = m_materialModel->addMaterial("Air", MaterialItem::HomogeneousMaterial);
-    mAir->setRefractiveIndex(0,0);
-
-    MaterialItem *mParticle = m_materialModel->addMaterial("Particle", MaterialItem::HomogeneousMaterial);
-    mParticle->setRefractiveIndex(6e-4, 2e-8);
-
-    MaterialItem *mSubstrate = m_materialModel->addMaterial("Substrate", MaterialItem::HomogeneousMaterial);
-    mSubstrate->setRefractiveIndex(6e-6, 2e-8);
-
-    m_materialEditor = new MaterialEditor(m_materialModel);
+    if (mp_sim_data_model) delete mp_sim_data_model;
+    mp_sim_data_model = new SimulationDataModel;
 }
 
 
@@ -362,7 +307,7 @@ void MainWindow::updateSamples()
 
          if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)){
              qDebug() << item->itemName() << item->modelType();
-             if(item->modelType() == "MultiLayer") {
+             if(item->modelType() == Constants::MultiLayerType) {
                  DomainObjectBuilder builder;
                  MultiLayer *multilayer = builder.buildMultiLayer(*item);
                  multilayer->printSampleTree();
@@ -384,7 +329,7 @@ void MainWindow::updateInstruments()
 
          if (ParameterizedItem *item = m_instrumentModel->itemForIndex(itemIndex)){
              qDebug() << "      MainWindow::updateInstruments()" << item->itemName() << item->modelType();
-             if(item->modelType() == "Instrument") {
+             if(item->modelType() == Constants::InstrumentType) {
                  DomainObjectBuilder builder;
                  Instrument *instrument = builder.buildInstrument(*item);
                  std::cout << *instrument << std::endl;

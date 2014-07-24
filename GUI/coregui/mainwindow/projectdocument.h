@@ -8,9 +8,9 @@ class JobQueueModel;
 class QIODevice;
 class QModelIndex;
 class JobItem;
-class SessionModel;
+class InstrumentModel;
 class MaterialModel;
-
+class SampleModel;
 
 namespace ProjectDocumentXML
 {
@@ -50,9 +50,9 @@ public:
     QString getProjectDir();
 
     bool isModified() { return m_modified; }
-    void setMaterialModel(MaterialModel *model);
-    void setInstrumentModel(SessionModel *model);
-    void setSampleModel(SessionModel *model);
+    void setMaterialModel(MaterialModel *materialModel);
+    void setInstrumentModel(InstrumentModel *model);
+    void setSampleModel(SampleModel *model);
     void setJobQueueModel(JobQueueModel *model);
 
     bool hasValidNameAndPath();
@@ -73,8 +73,8 @@ private:
     QString m_project_path;
     QString m_project_name;
     MaterialModel *m_materialModel;
-    SessionModel *m_instrumentModel;
-    SessionModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
+    SampleModel *m_sampleModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;
 };

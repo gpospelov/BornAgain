@@ -14,7 +14,7 @@ class TestViewDelegate : public QItemDelegate
 public:
     TestViewDelegate(int valueColumn, QObject *parent = 0);
 
-    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
+    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {
         return QSize(option.rect.width(),25);
     }

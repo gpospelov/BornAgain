@@ -98,7 +98,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_simulationView->setJobQueueModel(m_jobQueueModel);
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
-    m_testView = new TestView(this);
+    m_testView = new TestView(m_sampleModel, this);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
@@ -345,7 +345,7 @@ void MainWindow::updateInstruments()
 void MainWindow::testGUIObjectBuilder()
 {
     SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs11"));
+    boost::scoped_ptr<ISample> sample(factory.createSample("isgisaxs01"));
 
     sample->printSampleTree();
 

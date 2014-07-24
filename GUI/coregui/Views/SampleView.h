@@ -10,9 +10,9 @@
 #include <QSignalMapper>
 #include <QItemSelectionModel>
 
-#include "SampleModel.h"
 
-
+class SampleModel;
+class InstrumentModel;
 class SampleDesignerInterface;
 class SampleDesigner;
 class SampleToolBar;
@@ -34,7 +34,7 @@ public:
         NumberOfSubWindows
     };
 
-    SampleView(SampleModel *sampleModel, SessionModel *instrumentModel, QWidget *parent = 0);
+    SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
     virtual ~SampleView();
 
 public slots:
@@ -70,7 +70,7 @@ private:
     QAction *m_delete_item_action;
 
     SampleModel *m_sampleModel;
-    SessionModel *m_instrumentModel;
+    InstrumentModel *m_instrumentModel;
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;

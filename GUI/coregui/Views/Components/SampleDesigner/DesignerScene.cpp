@@ -1,6 +1,6 @@
 #include "DesignerScene.h"
 #include "DesignerHelper.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "SampleViewFactory.h"
 #include "SampleViewAligner.h"
@@ -75,7 +75,7 @@ void DesignerScene::setSampleModel(SampleModel *sampleModel)
     }
 }
 
-void DesignerScene::setInstrumentModel(SessionModel *instrumentModel)
+void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     m_instrumentModel = instrumentModel;
 }

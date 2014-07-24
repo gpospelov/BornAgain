@@ -6,7 +6,7 @@
 #include <QModelIndex>
 #include <QMap>
 
-class SessionModel;
+class InstrumentModel;
 class SampleModel;
 class ParameterizedItem;
 class ParameterizedGraphicsItem;
@@ -29,7 +29,7 @@ public:
     virtual ~DesignerScene();
 
     void setSampleModel(SampleModel *sampleModel);
-    void setInstrumentModel(SessionModel *instrumentModel);
+    void setInstrumentModel(InstrumentModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
     SampleModel *getSampleModel() { return m_sampleModel; }
@@ -79,7 +79,7 @@ private:
 //    ParameterizedItem *dropCompleteSample(const QString &name);
 
     SampleModel *m_sampleModel;
-    SessionModel *m_instrumentModel;
+    InstrumentModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 

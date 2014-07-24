@@ -21,7 +21,7 @@
 #endif
 
 
-SampleView::SampleView(SampleModel *sampleModel, SessionModel *instrumentModel, QWidget *parent)
+SampleView::SampleView(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
 //    , m_materialBrowser(MaterialBrowser::instance())
     , m_sampleDesigner(new SampleDesigner(this))

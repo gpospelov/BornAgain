@@ -25,7 +25,7 @@ class ProjectManager;
 class QCloseEvent;
 class QSettings;
 class JobQueueModel;
-class SessionModel;
+class InstrumentModel;
 class MaterialEditor;
 class ToolTipDataBase;
 class TestView;
@@ -45,7 +45,7 @@ public:
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
     MaterialModel *getMaterialModel() { return m_materialModel; }
-    SessionModel *getInstrumentModel() { return m_instrumentModel; }
+    InstrumentModel *getInstrumentModel() { return m_instrumentModel; }
     SampleModel *getSampleModel() { return m_sampleModel; }
     JobQueueModel *getJobQueueModel() { return m_jobQueueModel; }
     Manhattan::ProgressBar *getProgressBar() { return m_progressBar; }
@@ -80,7 +80,7 @@ private:
     SimulationDataModel *mp_sim_data_model;
     JobQueueModel *m_jobQueueModel; //!< model for all jobs
     SampleModel *m_sampleModel; //!< model for all samples
-    SessionModel *m_instrumentModel; //!< model for all instruments
+    InstrumentModel *m_instrumentModel; //!< model for all instruments
     MaterialModel *m_materialModel; //!< model for all materials
     MaterialEditor *m_materialEditor;
     ToolTipDataBase *m_toolTipDataBase;

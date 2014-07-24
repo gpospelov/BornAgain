@@ -22,11 +22,11 @@
 #include "MaterialProperty.h"
 #include <QMap>
 
-class SessionModel;
+class InstrumentModel;
 class SampleModel;
 class ParameterizedItem;
 
-//! Class to build SessionModel from domain's ISample
+//! Class to build SampleModel and InstrumentModel from domain's ISample
 class GUIObjectBuilder : public ISampleVisitor
 {
 public:
@@ -35,7 +35,7 @@ public:
 
     ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
                                            ISample *sample);
-    ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel,
+    ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
                                                Instrument *instrument);
 
     using ISampleVisitor::visit;

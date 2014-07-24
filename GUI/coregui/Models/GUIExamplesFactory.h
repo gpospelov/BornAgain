@@ -5,7 +5,7 @@
 #include <QString>
 
 class ParameterizedItem;
-class SessionModel;
+class InstrumentModel;
 class SampleModel;
 
 //! Class that generates GUI model from
@@ -15,7 +15,7 @@ public:
     static bool isValidExampleName(const QString &name);
 
     static ParameterizedItem *createSampleItems(const QString &name, SampleModel *sampleModel);
-    static ParameterizedItem *createInstrumentItems(const QString &name, SessionModel *instrumentModel);
+    static ParameterizedItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
 
 
 private:

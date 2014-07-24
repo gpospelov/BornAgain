@@ -25,7 +25,7 @@ void SampleDesigner::setSampleModel(SampleModel *sampleModel)
     if(sampleModel) m_designerScene->setSampleModel(sampleModel);
 }
 
-void SampleDesigner::setInstrumentModel(SessionModel *instrumentModel)
+void SampleDesigner::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     if(instrumentModel) m_designerScene->setInstrumentModel(instrumentModel);
 }

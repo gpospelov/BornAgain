@@ -2,7 +2,7 @@
 #include "GUIObjectBuilder.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "GUIHelpers.h"
 #include <QDebug>
@@ -47,7 +47,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
     //return guiBuilder.getTopItem();
 }
 
-ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, SessionModel *instrumentModel)
+ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
 {
     if(instrumentModel->getModelTag() != SessionXML::InstrumentModelTag ) {
         throw GUIHelpers::Error("GUIExamplesFactory::createInstrumentItems() -> Error. Not an InstrumentModelTag");

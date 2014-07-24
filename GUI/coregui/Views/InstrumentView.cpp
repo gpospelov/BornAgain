@@ -1,5 +1,5 @@
 #include "InstrumentView.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
 #include "styledbar.h"
@@ -16,7 +16,7 @@
 #include <QToolBar>
 
 
-InstrumentView::InstrumentView(SessionModel *model, QWidget *parent)
+InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
     : QWidget(parent)
     , m_instrumentModel(model)
     , m_toolBar(new QToolBar(this))

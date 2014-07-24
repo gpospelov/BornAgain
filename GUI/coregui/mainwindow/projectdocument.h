@@ -8,7 +8,7 @@ class JobQueueModel;
 class QIODevice;
 class QModelIndex;
 class JobItem;
-class SessionModel;
+class InstrumentModel;
 class MaterialModel;
 class SampleModel;
 
@@ -51,7 +51,7 @@ public:
 
     bool isModified() { return m_modified; }
     void setMaterialModel(MaterialModel *materialModel);
-    void setInstrumentModel(SessionModel *model);
+    void setInstrumentModel(InstrumentModel *model);
     void setSampleModel(SampleModel *model);
     void setJobQueueModel(JobQueueModel *model);
 
@@ -73,7 +73,7 @@ private:
     QString m_project_path;
     QString m_project_name;
     MaterialModel *m_materialModel;
-    SessionModel *m_instrumentModel;
+    InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
     JobQueueModel *m_jobQueueModel;
     bool m_modified;

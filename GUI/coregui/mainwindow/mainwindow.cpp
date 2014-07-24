@@ -14,6 +14,7 @@
 #include "SimulationDataModel.h"
 #include "JobQueueModel.h"
 #include "MaterialModel.h"
+#include "InstrumentModel.h"
 #include "MaterialEditor.h"
 #include "Instrument.h"
 #include "Units.h"
@@ -40,6 +41,7 @@
 #include "ParticleCoreShellItem.h"
 #include "FancyGroupProperty.h"
 #include "ScientificDoubleProperty.h"
+#include "SampleModel.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -263,7 +265,7 @@ void MainWindow::initJobQueueModel()
 void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
-    m_instrumentModel = new SessionModel(SessionXML::InstrumentModelTag);
+    m_instrumentModel = new InstrumentModel();
     m_instrumentModel->setIconProvider(new IconProvider());
 
     ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);

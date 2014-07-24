@@ -56,7 +56,7 @@ void ILayerView::onPropertyChange(const QString &propertyName)
 
 void ILayerView::setParameterizedItem(ParameterizedItem *item)
 {
-    QVariant v = item->property("Material");
+    QVariant v = item->property(LayerItem::P_MATERIAL.toUtf8().constData());
     if(v.isValid()) {
         MaterialProperty mp = v.value<MaterialProperty>();
         setColor(mp.getColor());

@@ -1,5 +1,5 @@
 #include "GUIObjectBuilder.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "Units.h"
 #include "LayerItem.h"
@@ -44,8 +44,7 @@ ParameterizedItem *GUIObjectBuilder::populateSampleModel(SampleModel *sampleMode
     return m_levelToParent[0];
 }
 
-ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(
-        SessionModel *instrumentModel, Instrument *instrument)
+ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *instrumentModel, Instrument *instrument)
 {
     Q_UNUSED(instrumentModel);
     Q_UNUSED(instrument);

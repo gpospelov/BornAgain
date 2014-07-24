@@ -1,6 +1,6 @@
 #include "projectdocument.h"
 #include "MaterialModel.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "JobQueueModel.h"
 #include "JobItem.h"
 #include "OutputDataItem.h"
@@ -77,7 +77,7 @@ void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
     }
 }
 
-void ProjectDocument::setInstrumentModel(SessionModel *model)
+void ProjectDocument::setInstrumentModel(InstrumentModel *model)
 {
     if(model != m_instrumentModel) {
         if(m_instrumentModel) disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );

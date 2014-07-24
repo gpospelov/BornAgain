@@ -1,5 +1,5 @@
 #include "InstrumentSelectorWidget.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "ParameterizedItem.h"
 #include <QListView>
 #include <QVBoxLayout>
@@ -8,7 +8,7 @@
 #include <QAction>
 #include <QDebug>
 
-InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget *parent)
+InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidget *parent)
     : QWidget(parent)
     , m_instrumentModel(0)
     , m_listView(0)
@@ -69,7 +69,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(SessionModel *model, QWidget 
 
 
 
-void InstrumentSelectorWidget::setInstrumentModel(SessionModel *model)
+void InstrumentSelectorWidget::setInstrumentModel(InstrumentModel *model)
 {
     Q_ASSERT(model);
     Q_ASSERT(m_listView);

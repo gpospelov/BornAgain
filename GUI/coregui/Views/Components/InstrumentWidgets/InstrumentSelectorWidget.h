@@ -3,7 +3,7 @@
 
 
 #include <QWidget>
-class SessionModel;
+class InstrumentModel;
 class QListView;
 class QAction;
 class QItemSelectionModel;
@@ -14,12 +14,12 @@ class InstrumentSelectorWidget : public QWidget
     Q_OBJECT
 
 public:
-    InstrumentSelectorWidget(SessionModel *model, QWidget *parent = 0);
+    InstrumentSelectorWidget(InstrumentModel *model, QWidget *parent = 0);
 
     QSize sizeHint() const { return QSize(200, 600); }
     QSize minimumSizeHint() const { return QSize(128, 300); }
 
-    void setInstrumentModel(SessionModel *model);
+    void setInstrumentModel(InstrumentModel *model);
 
     QItemSelectionModel *getSelectionModel();
     QListView *getListView() { return m_listView; }
@@ -31,7 +31,7 @@ public slots:
 //    void onRowsInserted(const QModelIndex &parent, int first, int last);
 
 private:
-    SessionModel *m_instrumentModel;
+    InstrumentModel *m_instrumentModel;
     QListView *m_listView;
 };
 

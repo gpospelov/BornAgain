@@ -1,5 +1,4 @@
 #include "DetectorItems.h"
-#include "GroupProperty.h"
 #include "ComboProperty.h"
 #include <QDebug>
 

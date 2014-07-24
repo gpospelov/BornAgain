@@ -21,7 +21,6 @@
 #include "ParticleItem.h"
 #include "LayerItem.h"
 #include "BeamItem.h"
-#include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "MultiLayerItem.h"

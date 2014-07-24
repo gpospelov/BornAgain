@@ -45,11 +45,6 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     connect(button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 }
 
-MaterialPropertyEdit::~MaterialPropertyEdit()
-{
-    qDebug() << "MaterialPropertyEdit::~MaterialPropertyEdit()";
-}
-
 
 void MaterialPropertyEdit::buttonClicked()
 {
@@ -77,88 +72,74 @@ void MaterialPropertyEdit::setMaterialProperty(
 // GroupPropertyEdit
 // -----------------------------------------------------------------------------
 
-GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
-    : QWidget(parent)
-    , m_box(0)
-    , m_label(0)
-{
-//    m_box = new QComboBox(this);
-
-//    connect(m_box, SIGNAL(currentTextChanged(QString)),
-//            this, SLOT(textChanged(QString)));
-}
+//GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
+//    : QWidget(parent)
+//    , m_box(0)
+//    , m_label(0)
+//{
+//}
 
 //void GroupPropertyEdit::setGroupProperty(
 //        const GroupProperty &groupProperty)
 //{
-//    if(!m_box->count()) m_box->insertItems(0, groupProperty.getValues());
+//    if(groupProperty.getGroupType() == GroupProperty::ComboGroup) {
+//        if(!m_box) {
+//            m_box = new QComboBox(this);
 
-//    m_groupProperty = groupProperty;
-//    m_box->setCurrentText(m_groupProperty.getValue());
+//            connect(m_box, SIGNAL(currentTextChanged(QString)),
+//                    this, SLOT(textChanged(QString)));
+
+//        }
+//        if(!m_box->count()) m_box->insertItems(0, groupProperty.getValues());
+
+//        m_groupProperty = groupProperty;
+//        m_box->setCurrentText(m_groupProperty.getValue());
+//    }
+//    else if(groupProperty.getGroupType() == GroupProperty::FixedGroup) {
+//        if(!m_label) {
+//            m_label = new QLabel(this);
+//        }
+//        m_groupProperty = groupProperty;
+//        m_label->setText(m_groupProperty.getValue());
+
+//    }
+//    else {
+//        throw GUIHelpers::Error("GroupPropertyEdit::setGroupProperty() -> Error. Unknown group type.");
+
+//    }
 //}
 
 
-void GroupPropertyEdit::setGroupProperty(
-        const GroupProperty &groupProperty)
-{
-    if(groupProperty.getGroupType() == GroupProperty::ComboGroup) {
-        if(!m_box) {
-            m_box = new QComboBox(this);
+//void GroupPropertyEdit::textChanged(QString text)
+//{
+//    GroupProperty ff(m_groupProperty.getGroupName(), text);
+//    if (ff != m_groupProperty && ff.isDefined()) {
+//        setGroupProperty(ff);
+//        emit groupPropertyChanged(m_groupProperty);
+//    }
+//}
 
-            connect(m_box, SIGNAL(currentTextChanged(QString)),
-                    this, SLOT(textChanged(QString)));
+//QSize GroupPropertyEdit::sizeHint() const
+//{
+//    if(m_box) {
+//        return m_box->sizeHint();
+//    }
+//    if(m_label) {
+//        return m_label->sizeHint();
+//    }
+//    return QSize(10,10);
+//}
 
-        }
-        if(!m_box->count()) m_box->insertItems(0, groupProperty.getValues());
-
-        m_groupProperty = groupProperty;
-        m_box->setCurrentText(m_groupProperty.getValue());
-    }
-    else if(groupProperty.getGroupType() == GroupProperty::FixedGroup) {
-        if(!m_label) {
-            m_label = new QLabel(this);
-        }
-        m_groupProperty = groupProperty;
-        m_label->setText(m_groupProperty.getValue());
-
-    }
-    else {
-        throw GUIHelpers::Error("GroupPropertyEdit::setGroupProperty() -> Error. Unknown group type.");
-
-    }
-}
-
-
-void GroupPropertyEdit::textChanged(QString text)
-{
-    GroupProperty ff(m_groupProperty.getGroupName(), text);
-    if (ff != m_groupProperty && ff.isDefined()) {
-        setGroupProperty(ff);
-        emit groupPropertyChanged(m_groupProperty);
-    }
-}
-
-QSize GroupPropertyEdit::sizeHint() const
-{
-    if(m_box) {
-        return m_box->sizeHint();
-    }
-    if(m_label) {
-        return m_label->sizeHint();
-    }
-    return QSize(10,10);
-}
-
-QSize GroupPropertyEdit::minimumSizeHint() const
-{
-    if(m_box) {
-        return m_box->minimumSizeHint();
-    }
-    if(m_label) {
-        return m_label->minimumSizeHint();
-    }
-    return QSize(10,10);
-}
+//QSize GroupPropertyEdit::minimumSizeHint() const
+//{
+//    if(m_box) {
+//        return m_box->minimumSizeHint();
+//    }
+//    if(m_label) {
+//        return m_label->minimumSizeHint();
+//    }
+//    return QSize(10,10);
+//}
 
 // -----------------------------------------------------------------------------
 // FancyGroupPropertyEdit

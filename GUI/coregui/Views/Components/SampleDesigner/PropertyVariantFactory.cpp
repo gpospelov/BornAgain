@@ -12,11 +12,11 @@ PropertyVariantFactory::~PropertyVariantFactory()
     while (mat_it.hasNext())
         delete mat_it.next();
 
-    QList<GroupPropertyEdit *> ff_editors =
-            m_group_editor_to_property.keys();
-    QListIterator<GroupPropertyEdit *> ff_it(ff_editors);
-    while (ff_it.hasNext())
-        delete ff_it.next();
+//    QList<GroupPropertyEdit *> ff_editors =
+//            m_group_editor_to_property.keys();
+//    QListIterator<GroupPropertyEdit *> ff_it(ff_editors);
+//    while (ff_it.hasNext())
+//        delete ff_it.next();
 
     QList<ColorPropertyEdit *> color_editors =
             m_color_editor_to_property.keys();
@@ -72,23 +72,23 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
     }
-    if (manager->propertyType(property) ==
-            PropertyVariantManager::groupTypeId()) {
-        GroupPropertyEdit *editor = new GroupPropertyEdit(parent);
-        QVariant var = manager->value(property);
-        GroupProperty ff = var.value<GroupProperty>();
-        editor->setGroupProperty(ff);
+//    if (manager->propertyType(property) ==
+//            PropertyVariantManager::groupTypeId()) {
+//        GroupPropertyEdit *editor = new GroupPropertyEdit(parent);
+//        QVariant var = manager->value(property);
+//        GroupProperty ff = var.value<GroupProperty>();
+//        editor->setGroupProperty(ff);
 
-        m_property_to_group_editors[property].append(editor);
-        m_group_editor_to_property[editor] = property;
+//        m_property_to_group_editors[property].append(editor);
+//        m_group_editor_to_property[editor] = property;
 
-        connect(editor,
-                SIGNAL(groupPropertyChanged(const GroupProperty &)),
-                this, SLOT(slotSetValue(const GroupProperty &)));
-        connect(editor, SIGNAL(destroyed(QObject *)),
-                this, SLOT(slotEditorDestroyed(QObject *)));
-        return editor;
-    }
+//        connect(editor,
+//                SIGNAL(groupPropertyChanged(const GroupProperty &)),
+//                this, SLOT(slotSetValue(const GroupProperty &)));
+//        connect(editor, SIGNAL(destroyed(QObject *)),
+//                this, SLOT(slotEditorDestroyed(QObject *)));
+//        return editor;
+//    }
     if (manager->propertyType(property) ==
             PropertyVariantManager::colorPropertyTypeId()) {
         ColorPropertyEdit *editor = new ColorPropertyEdit(parent);
@@ -173,15 +173,15 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
             itEditor.next()->setMaterialProperty(mat);
         }
     }
-    else if (m_property_to_group_editors.contains(property)) {
-        QList<GroupPropertyEdit *> editors =
-                m_property_to_group_editors[property];
-        QListIterator<GroupPropertyEdit *> itEditor(editors);
-        while (itEditor.hasNext()) {
-            GroupProperty mat = value.value<GroupProperty>();
-            itEditor.next()->setGroupProperty(mat);
-        }
-    }
+//    else if (m_property_to_group_editors.contains(property)) {
+//        QList<GroupPropertyEdit *> editors =
+//                m_property_to_group_editors[property];
+//        QListIterator<GroupPropertyEdit *> itEditor(editors);
+//        while (itEditor.hasNext()) {
+//            GroupProperty mat = value.value<GroupProperty>();
+//            itEditor.next()->setGroupProperty(mat);
+//        }
+//    }
     else if (m_property_to_color_editors.contains(property)) {
         QList<ColorPropertyEdit *> editors =
                 m_property_to_color_editors[property];
@@ -235,24 +235,24 @@ void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const GroupProperty &value)
-{
-    QObject *object = sender();
-    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
-                m_group_editor_to_property.constBegin();
-    while (itEditor != m_group_editor_to_property.constEnd()) {
-        if (itEditor.key() == object) {
-            QtProperty *property = itEditor.value();
-            QtVariantPropertyManager *manager = propertyManager(property);
-            if (!manager) return;
-            QVariant var;
-            var.setValue(value);
-            manager->setValue(property, var);
-            return;
-        }
-        itEditor++;
-    }
-}
+//void PropertyVariantFactory::slotSetValue(const GroupProperty &value)
+//{
+//    QObject *object = sender();
+//    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+//                m_group_editor_to_property.constBegin();
+//    while (itEditor != m_group_editor_to_property.constEnd()) {
+//        if (itEditor.key() == object) {
+//            QtProperty *property = itEditor.value();
+//            QtVariantPropertyManager *manager = propertyManager(property);
+//            if (!manager) return;
+//            QVariant var;
+//            var.setValue(value);
+//            manager->setValue(property, var);
+//            return;
+//        }
+//        itEditor++;
+//    }
+//}
 
 void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
 {
@@ -332,20 +332,20 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         }
         mat_it_editor++;
     }
-    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator ff_it_editor =
-                m_group_editor_to_property.constBegin();
-    while (ff_it_editor != m_group_editor_to_property.constEnd()) {
-        if (ff_it_editor.key() == object) {
-            GroupPropertyEdit *editor = ff_it_editor.key();
-            QtProperty *property = ff_it_editor.value();
-            m_group_editor_to_property.remove(editor);
-            m_property_to_group_editors[property].removeAll(editor);
-            if (m_property_to_group_editors[property].isEmpty())
-                m_property_to_group_editors.remove(property);
-            return;
-        }
-        ff_it_editor++;
-    }
+//    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator ff_it_editor =
+//                m_group_editor_to_property.constBegin();
+//    while (ff_it_editor != m_group_editor_to_property.constEnd()) {
+//        if (ff_it_editor.key() == object) {
+//            GroupPropertyEdit *editor = ff_it_editor.key();
+//            QtProperty *property = ff_it_editor.value();
+//            m_group_editor_to_property.remove(editor);
+//            m_property_to_group_editors[property].removeAll(editor);
+//            if (m_property_to_group_editors[property].isEmpty())
+//                m_property_to_group_editors.remove(property);
+//            return;
+//        }
+//        ff_it_editor++;
+//    }
     QMap<ColorPropertyEdit *, QtProperty *>::ConstIterator color_it_editor =
                 m_color_editor_to_property.constBegin();
     while (color_it_editor != m_color_editor_to_property.constEnd()) {

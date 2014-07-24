@@ -15,7 +15,6 @@
 
 #include "ParameterizedItem.h"
 #include "Exceptions.h"
-#include "GroupProperty.h"
 #include "MaterialEditor.h"
 #include "GUIHelpers.h"
 #include "PropertyVariantManager.h"

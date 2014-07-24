@@ -16,9 +16,7 @@
 #ifndef PARAMETERIZEDITEM_H_
 #define PARAMETERIZEDITEM_H_
 
-//#include "MaterialItem.h"
 #include "item_constants.h"
-#include "GroupProperty.h"
 #include "PropertyAttribute.h"
 #include "MaterialProperty.h"
 #include <QStandardItem>

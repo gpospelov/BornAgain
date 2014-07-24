@@ -17,8 +17,6 @@
 #include "ItemFactory.h"
 #include "GUIHelpers.h"
 #include "MaterialEditor.h"
-//#include "FormFactorProperty.h"
-#include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "IconProvider.h"

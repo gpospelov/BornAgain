@@ -4,7 +4,6 @@
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include <QtVariantPropertyManager>
-#include "GroupProperty.h"
 #include "ColorProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "FancyGroupProperty.h"
@@ -39,7 +38,7 @@ protected:
     virtual void uninitializeProperty(QtProperty *property);
 private:
     QMap<const QtProperty *, MaterialProperty> m_theMaterialValues;
-    QMap<const QtProperty *, GroupProperty> m_theGroupValues;
+//    QMap<const QtProperty *, GroupProperty> m_theGroupValues;
     QMap<const QtProperty *, ColorProperty> m_theColorValues;
     QMap<const QtProperty *, ScientificDoubleProperty> m_theScientificDoubleValues;
     QMap<const QtProperty *, FancyGroupProperty *> m_theFancyGroupValues;

@@ -7,8 +7,8 @@
 
 class MaterialPropertyEdit;
 class MaterialProperty;
-class GroupPropertyEdit;
-class GroupProperty;
+//class GroupPropertyEdit;
+//class GroupProperty;
 class ColorPropertyEdit;
 class ColorProperty;
 class ScientificDoublePropertyEdit;
@@ -36,7 +36,7 @@ protected:
 private slots:
     void slotPropertyChanged(QtProperty *property, const QVariant &value);
     void slotSetValue(const MaterialProperty &value);
-    void slotSetValue(const GroupProperty &value);
+//    void slotSetValue(const GroupProperty &value);
     void slotSetValue(const ColorProperty &value);
     void slotSetValue(const ScientificDoubleProperty &value);
     void slotSetValue(FancyGroupProperty *value);
@@ -48,10 +48,10 @@ private:
         m_property_to_material_editors;
     QMap<MaterialPropertyEdit *, QtProperty *>
         m_material_editor_to_property;
-    QMap<QtProperty *, QList<GroupPropertyEdit *> >
-        m_property_to_group_editors;
-    QMap<GroupPropertyEdit *, QtProperty *>
-        m_group_editor_to_property;
+//    QMap<QtProperty *, QList<GroupPropertyEdit *> >
+//        m_property_to_group_editors;
+//    QMap<GroupPropertyEdit *, QtProperty *>
+//        m_group_editor_to_property;
     QMap<QtProperty *, QList<ColorPropertyEdit *> >
         m_property_to_color_editors;
     QMap<ColorPropertyEdit *, QtProperty *>

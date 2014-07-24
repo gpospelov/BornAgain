@@ -1,6 +1,6 @@
 #include "ParticleView.h"
 #include "ParticleItem.h"
-#include "GroupProperty.h"
+#include "FancyGroupProperty.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
@@ -60,8 +60,10 @@ void ParticleView::setParameterizedItem(ParameterizedItem *item)
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
     if(propertyName == ParticleItem::P_FORM_FACTOR) {
-        GroupProperty mp = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty>();
-        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(mp.getValue());
+        //GroupProperty mp = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<GroupProperty>();
+        FancyGroupProperty *group_property = getParameterizedItem()->getRegisteredProperty(ParticleItem::P_FORM_FACTOR).value<FancyGroupProperty *>();
+
+        QString filename = QString(":/SampleDesigner/images/ff_%1_32.png").arg(group_property->getValue());
         m_pixmap = QPixmap(filename);
         update();
     } else {

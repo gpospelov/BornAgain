@@ -1,5 +1,5 @@
 #include "DetectorEditorWidget.h"
-#include "GroupProperty.h"
+#include "FancyGroupProperty.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
@@ -112,9 +112,11 @@ void DetectorEditorWidget::updateWidgets()
 
     m_block_signals = true;
     m_detectorTypeCombo->clear();
-    GroupProperty detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<GroupProperty>();
-    m_detectorTypeCombo->addItems(detector_property.getValues());
-    m_detectorTypeCombo->setCurrentText(detector_property.getValue());
+    //GroupProperty detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<GroupProperty>();
+    FancyGroupProperty *detector_property = m_currentItem->getRegisteredProperty(DetectorItem::P_DETECTOR).value<FancyGroupProperty *>();
+
+    m_detectorTypeCombo->addItems(detector_property->getValues());
+    m_detectorTypeCombo->setCurrentText(detector_property->getValue());
 
     ParameterizedItem *detectorTypeItem = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(detectorTypeItem);

@@ -362,3 +362,14 @@
 
 | date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
 | 2014-04-11 13:27:09 | jcnsopc126 | linuxx8664gcc | 0  | 27.248   | 1.053        | 1.865        | 1.100        | 0.634        | 5.280        | 7.113        | 0.512        | 8.194        | 1.496        |
+
+# Release 0.9.5
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | magcyl2      |
+| 2014-04-11 13:27:09 | jcnsopc126 | linuxx8664gcc | 0  | 27.248   | 1.053        | 1.865        | 1.100        | 0.634        | 5.280        | 7.113        | 0.512        | 8.194        | 1.496        |
+
+# Release 0.9.6
+| 2014-07-24 10:43:37 | jcnsopc126 | linuxx8664gcc | 0  | 26.393   | 1.050        | 1.708        | 1.074        | 0.633        | 5.276        | 6.748        | 0.503        | 7.888        | 1.513        |
+
+# Our current development
+| 2014-07-24 15:11:58 | jcnsopc126 | linuxx8664gcc | 0  | 37.823   | 1.373        | 1.981        | 1.323        | 0.788        | 6.665        | 15.652       | 0.529        | 7.804        | 1.708        |
+

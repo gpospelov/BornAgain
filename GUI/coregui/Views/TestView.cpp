@@ -95,7 +95,7 @@ QStandardItem *TestView::iterateSessionModel(const QModelIndex &parentIndex, QSt
                 int type = propertyValue.type();
                 if (type == QVariant::Double) {
                     //qDebug() << "Items: "<<prop_name << prop_value.toDouble();
-                    insertRowIntoItem(standardItem, propertyName, propertyValue);
+                    insertRowIntoItem(standardItem, propertyName, propertyValue, item);
 
                 }
 

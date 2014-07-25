@@ -3,9 +3,12 @@
 #include "InstrumentModel.h"
 #include "PropertyAttribute.h"
 #include "SampleTuningDelegate.h"
+#include "GUIHelpers.h"
 #include "ItemLink.h"
 #include <QItemSelectionModel>
 #include <QDebug>
+
+
 
 SampleTuningWidget::SampleTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : QWidget(parent)
@@ -245,16 +248,22 @@ void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QString ti
 //}
 
 
-void SampleTuningWidget::updateTreeView()
+void SampleTuningWidget::updateTreeView(const QString &instrument, const QString &sample)
 {
-    m_treeView->setModel(0);
+    if(instrument != m_instrument_name || sample != m_sample_name) {
+        m_instrument_name = instrument;
+        m_sample_name = sample;
 
-    delete m_parameterModel;
-    m_parameterModel = createParameterModel();
+        m_treeView->setModel(0);
 
-    m_treeView->setModel(m_parameterModel);
-    m_treeView->expandAll();
+        delete m_parameterModel;
+        m_parameterModel = createParameterModel();
+
+        m_treeView->setModel(m_parameterModel);
+        m_treeView->expandAll();
+    }
 }
+
 
 QStandardItemModel *SampleTuningWidget::createParameterModel()
 {
@@ -262,7 +271,36 @@ QStandardItemModel *SampleTuningWidget::createParameterModel()
     result = new QStandardItemModel(this);
     result->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
     result->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
-    result->setItem(0, iterateSessionModel());
+
+    QStandardItem *multiLayerItem = new QStandardItem(m_sample_name);
+
+    QModelIndex multiLayerIndex = getMultiLayerIndex(m_sample_name);
+
+    result->setItem(0, iterateSessionModel(multiLayerIndex, multiLayerItem));
+    return result;
+}
+
+
+//! returns parent index of MultiLayer with given name
+QModelIndex SampleTuningWidget::getMultiLayerIndex(const QString &name)
+{
+    Q_ASSERT(m_sampleModel);
+
+    QModelIndex result;
+    for( int i_row = 0; i_row < m_sampleModel->rowCount( QModelIndex()); ++i_row) {
+         QModelIndex itemIndex = m_sampleModel->index( i_row, 0, QModelIndex() );
+
+         if (ParameterizedItem *item = m_sampleModel->itemForIndex(itemIndex)){
+             if(item->modelType() == Constants::MultiLayerType && item->itemName() == name) {
+                 result = itemIndex;
+             }
+         }
+    }
+
+    if(!result.isValid()) {
+        throw GUIHelpers::Error("SampleTuningWidget::getParentSampleIndex() -> Can't find the sample with given name" + name);
+    }
+
     return result;
 }
 

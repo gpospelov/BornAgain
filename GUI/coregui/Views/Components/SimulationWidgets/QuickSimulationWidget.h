@@ -2,6 +2,7 @@
 #define QUICKSIMULATIONWIDGET_H
 
 #include <QWidget>
+#include <QString>
 class SampleModel;
 class InstrumentModel;
 class SampleTuningWidget;
@@ -13,7 +14,7 @@ class QuickSimulationWidget : public QWidget
 
 public:
     QuickSimulationWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
-    void updateViews();
+    void updateViews(const QString &instrument, const QString &sample);
 
 private:
     SampleModel *m_sampleModel;

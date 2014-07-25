@@ -38,9 +38,9 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     setLayout(mainLayout);
 }
 
-void QuickSimulationWidget::updateViews()
+void QuickSimulationWidget::updateViews(const QString &instrument, const QString &sample)
 {
-    m_sampleTuningWidget->updateTreeView();
+    m_sampleTuningWidget->updateTreeView(instrument, sample);
 }
 
 

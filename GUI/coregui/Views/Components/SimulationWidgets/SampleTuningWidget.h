@@ -22,23 +22,29 @@ class SampleTuningWidget : public QWidget
 
 public:
     SampleTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
-    void updateTreeView();
+    void updateTreeView(const QString &instrument, const QString &sample);
 
 
 private:
     //QStandardItemModel *getItemModelFromSessionModel();
     // QStandardItemModel *getTestItemModel();
-    QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = NULL);
-    void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = NULL);
+    QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
+    void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
     void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem);
 
     QStandardItemModel *createParameterModel();
+
+    QModelIndex getMultiLayerIndex(const QString &name);
 
     QStandardItemModel *m_parameterModel;
     QTreeView *m_treeView;
     SampleTuningDelegate *m_delegate;
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
+
+    QString m_instrument_name;
+    QString m_sample_name;
+
 };
 
 

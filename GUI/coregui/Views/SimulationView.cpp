@@ -7,16 +7,22 @@
 #include "JobQueueModel.h"
 #include "QVBoxLayout"
 
-SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, JobQueueModel *jobQueueModel, SampleModel *sampleModel, QWidget *parent)
-    : QWidget(parent)
-    , mp_simulation_data_model(p_simulation_data_model)
-    , m_jobQueueModel(jobQueueModel)
-    , m_sampleModel(sampleModel)
+SimulationView::SimulationView(MainWindow *mainWindow)
+    : QWidget(mainWindow)
+    , mp_simulation_data_model(0)
+    , m_jobQueueModel(0)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
 {
+    mp_simulation_data_model = mainWindow->getSimulationDataModel();
+    m_jobQueueModel = mainWindow->getJobQueueModel();
+    m_sampleModel = mainWindow->getSampleModel();
+    m_instrumentModel = mainWindow->getInstrumentModel();
+
     m_simulationSetupWidget = new SimulationSetupWidget(mp_simulation_data_model);
     m_simulationSetupWidget->setJobQueueModel(m_jobQueueModel);
 
-    m_quickSimulationWidget = new QuickSimulationWidget(m_sampleModel);
+    m_quickSimulationWidget = new QuickSimulationWidget(m_sampleModel, m_instrumentModel);
 
     m_tabWidget = new QTabWidget();
     m_tabWidget->insertTab(SimulationSetupTab, m_simulationSetupWidget, tr("Simulation Params"));

@@ -1,4 +1,4 @@
-#include "TestViewDelegate.h"
+#include "SampleTuningDelegate.h"
 #include <QDebug>
 #include <QPainter>
 #include <QPaintDevice>
@@ -12,14 +12,14 @@
 
 
 
-TestViewDelegate::TestViewDelegate(int valueColumn, QObject *parent)
+SampleTuningDelegate::SampleTuningDelegate(int valueColumn, QObject *parent)
     : QItemDelegate(parent)
 {
     this->m_valueColumn = valueColumn;
     this->m_multiplyFactor = 100;
 }
 
-void TestViewDelegate::paint(QPainter *painter,
+void SampleTuningDelegate::paint(QPainter *painter,
                           const QStyleOptionViewItem &option,
                           const QModelIndex &index) const
 {
@@ -62,7 +62,7 @@ void TestViewDelegate::paint(QPainter *painter,
 }
 
 
-QWidget *TestViewDelegate::createEditor(QWidget *parent,
+QWidget *SampleTuningDelegate::createEditor(QWidget *parent,
         const QStyleOptionViewItem &option,
         const QModelIndex &index) const
 {
@@ -126,18 +126,18 @@ QWidget *TestViewDelegate::createEditor(QWidget *parent,
 }
 
 
-void TestViewDelegate::sliderValueChanged(int position)
+void SampleTuningDelegate::sliderValueChanged(int position)
 {
     double value = (double)position/m_multiplyFactor;
     m_valueBox->setValue(value);
 }
 
-void TestViewDelegate::editorValueChanged(double value)
+void SampleTuningDelegate::editorValueChanged(double value)
 {
     qDebug() << "XXXX: new value: " << value;
 }
 
-void TestViewDelegate::setEditorData(QWidget *editor,
+void SampleTuningDelegate::setEditorData(QWidget *editor,
                                   const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
@@ -148,7 +148,7 @@ void TestViewDelegate::setEditorData(QWidget *editor,
 }
 
 
-void TestViewDelegate::setModelData(QWidget *editor,
+void SampleTuningDelegate::setModelData(QWidget *editor,
                                  QAbstractItemModel *model,
                                  const QModelIndex &index) const
 {

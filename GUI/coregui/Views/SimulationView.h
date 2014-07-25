@@ -7,6 +7,7 @@
 #include "QuickSimulationWidget.h"
 #include <QTabWidget>
 
+class MainWindow;
 class SimulationDataModel;
 class JobQueueModel;
 class SampleModel;
@@ -18,7 +19,8 @@ class SimulationView : public QWidget
 
 public:
     enum TabViewId { SimulationSetupTab, QuickSimulationTab};
-    SimulationView(SimulationDataModel *p_simulation_data_model, JobQueueModel *jobQueueModel, SampleModel *sampleModel, QWidget *parent = 0);
+    SimulationView(MainWindow *mainWindow);
+
     void updateSimulationViewElements();
 
 public slots:
@@ -28,6 +30,7 @@ private:
     SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
     SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
 
     SimulationSetupWidget *m_simulationSetupWidget;
     QuickSimulationWidget *m_quickSimulationWidget;

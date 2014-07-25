@@ -2,21 +2,23 @@
 #define QUICKSIMULATIONWIDGET_H
 
 #include <QWidget>
-#include "SessionModel.h"
-#include "SampleTuningWidget.h"
-#include "PlotWidget.h"
+class SampleModel;
+class InstrumentModel;
+class SampleTuningWidget;
+class PlotWidget;
 
 class QuickSimulationWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    QuickSimulationWidget(SessionModel *sessionModel, QWidget *parent = 0);
+    QuickSimulationWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
     void updateViews();
 
 private:
-    SessionModel *m_sessionModel;
-    SampleTuningWidget *m_testView;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
+    SampleTuningWidget *m_sampleTuningWidget;
     PlotWidget *m_plotWidget;
 
 };

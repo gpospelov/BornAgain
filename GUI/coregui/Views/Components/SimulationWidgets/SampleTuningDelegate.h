@@ -1,5 +1,5 @@
-#ifndef TESTVIEWDELEGATE_H
-#define TESTVIEWDELEGATE_H
+#ifndef SAMPLETUNINGDELEGATE_H
+#define SAMPLETUNINGDELEGATE_H
 
 #include <QItemDelegate>
 #include <QRect>
@@ -7,12 +7,12 @@
 #include <QHBoxLayout>
 #include <QDoubleSpinBox>
 
-class TestViewDelegate : public QItemDelegate
+class SampleTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 
 public:
-    TestViewDelegate(int valueColumn, QObject *parent = 0);
+    SampleTuningDelegate(int valueColumn, QObject *parent = 0);
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {
@@ -41,4 +41,4 @@ private:
     double m_multiplyFactor;
 };
 
-#endif //TESTVIEWDELEGATE_H
+#endif //SAMPLETUNINGDELEGATE_H

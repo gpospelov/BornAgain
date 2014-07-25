@@ -120,26 +120,21 @@ void SimulationSetupWidget::setJobQueueModel(JobQueueModel *model)
     }
 }
 
+QString SimulationSetupWidget::getInstrumentSelection() const
+{
+    return instrumentSelectionBox->currentText();
+}
+
+QString SimulationSetupWidget::getSampleSelection() const
+{
+    return sampleSelectionBox->currentText();
+}
+
 
 void SimulationSetupWidget::updateViewElements()
 {
-    instrumentSelectionBox->clear();
-    if(mp_simulation_data_model->getInstrumentList().isEmpty()) {
-        instrumentSelectionBox->addItem("No instrument defined yet");
-        instrumentSelectionBox->setEnabled(false);
-    } else {
-        instrumentSelectionBox->setEnabled(true);
-        instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
-    }
-
-    sampleSelectionBox->clear();
-    if(mp_simulation_data_model->getSampleList().isEmpty()) {
-        sampleSelectionBox->addItem("No sample to simulate yet");
-        sampleSelectionBox->setEnabled(false);
-    } else {
-        sampleSelectionBox->setEnabled(true);
-        sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
-    }
+    updateSelectionBox(instrumentSelectionBox, mp_simulation_data_model->getInstrumentList().keys());
+    updateSelectionBox(sampleSelectionBox, mp_simulation_data_model->getSampleList().keys());
 }
 
 void SimulationSetupWidget::onRunSimulation()
@@ -203,5 +198,22 @@ void SimulationSetupWidget::onJobFinished()
 {
     QMessageBox::information(this, tr("Simulation Job Finished"),
                              tr("A simulation job has finished."));
+}
+
+void SimulationSetupWidget::updateSelectionBox(QComboBox *comboBox, QStringList itemList)
+{
+    QString previousItem = comboBox->currentText();
+
+    comboBox->clear();
+    if(itemList.isEmpty()) {
+        comboBox->setEnabled(false);
+        comboBox->addItem("Not yet defined");
+    } else {
+        comboBox->setEnabled(true);
+        qSort(itemList.begin(), itemList.end());
+        comboBox->addItems(itemList);
+        if(itemList.contains(previousItem))
+            comboBox->setCurrentIndex(itemList.indexOf(previousItem));
+    }
 }
 

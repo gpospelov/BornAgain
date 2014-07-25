@@ -18,12 +18,17 @@ public:
     void updateViewElements();
     void setJobQueueModel(JobQueueModel *model);
 
+    QString getInstrumentSelection() const;
+    QString getSampleSelection() const;
+
 public slots:
     void onRunSimulation();
     void onPythonJobLaunched();
     void onJobFinished();
 
 private:
+    void updateSelectionBox(QComboBox *comboBox, QStringList itemList);
+
     SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
     QComboBox *instrumentSelectionBox;

@@ -91,11 +91,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_tabWidget = new Manhattan::FancyTabWidget();
     m_welcomeView = new WelcomeView(this);
-    m_instrumentView = new InstrumentView(m_instrumentModel, this);
-    m_sampleView = new SampleView(m_sampleModel, m_instrumentModel, this);
+    m_instrumentView = new InstrumentView(m_instrumentModel);
+    m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
     //m_scriptView = new PyScriptView(mp_sim_data_model);
-    m_simulationView = new SimulationView(mp_sim_data_model, m_jobQueueModel, m_sampleModel, this);
-    m_jobQueueView = new JobQueueView(m_jobQueueModel, this);
+    m_simulationView = new SimulationView(this);
+    m_jobQueueView = new JobQueueView(m_jobQueueModel);
     //m_testView = new TestView(m_sampleModel, this);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");

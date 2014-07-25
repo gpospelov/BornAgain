@@ -1,26 +1,25 @@
 #include "SampleTuningWidget.h"
-#include "qitemselectionmodel.h"
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include "PropertyAttribute.h"
-#include "TestViewDelegate.h"
-#include "qdebug.h"
+#include "SampleTuningDelegate.h"
 #include "ItemLink.h"
+#include <QItemSelectionModel>
+#include <QDebug>
 
-SampleTuningWidget::SampleTuningWidget(SessionModel *sampleModel, QWidget *parent)
+SampleTuningWidget::SampleTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : QWidget(parent)
+    , m_parameterModel(0)
+    , m_treeView(0)
+    , m_delegate(new SampleTuningDelegate(1))
     , m_sampleModel(sampleModel)
+    , m_instrumentModel(instrumentModel)
 {
-
-
-    m_itemModel = new QStandardItemModel(this);
-    m_itemModel->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
-    m_itemModel->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
-    updateItemModel();
 
     //generate Tree View
     m_treeView = new QTreeView(this);
     //treeView->setModel(model);
     //m_itemModel = getItemModelFromSessionModel();
-    m_treeView->setModel(m_itemModel);
     //treeView->setModel(getTestItemModel());
 
     m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
@@ -37,7 +36,7 @@ SampleTuningWidget::SampleTuningWidget(SessionModel *sampleModel, QWidget *paren
 
 
 
-    m_treeView->setItemDelegate(new TestViewDelegate(1));
+    m_treeView->setItemDelegate(m_delegate);
 
 
     //generate Table View
@@ -198,63 +197,73 @@ void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QString ti
 
 }
 
-QStandardItemModel *SampleTuningWidget::getTestItemModel()
-{
-    QStandardItemModel *model = new QStandardItemModel(this);
-    model->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
-    model->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
+//QStandardItemModel *SampleTuningWidget::getTestItemModel()
+//{
+//    QStandardItemModel *model = new QStandardItemModel(this);
+//    model->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
+//    model->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
 
-    QStandardItem *formFactorItem = new QStandardItem(QString("Form Factor"));
-
-
-    QStandardItem *lengthTitleItem = new QStandardItem(QString("Length"));
-    QStandardItem *lengthValueItem = new QStandardItem();
-    lengthValueItem->setData(QVariant(10.0), Qt::EditRole);
-    lengthValueItem->setEditable(true);
-
-    QStandardItem *heightTitleItem = new QStandardItem(QString("Height"));
-    QStandardItem *heightValueItem = new QStandardItem();
-    heightValueItem->setData(QVariant(20.0), Qt::EditRole);
-    heightValueItem->setEditable(true);
-
-    QStandardItem *widthTitleItem = new QStandardItem(QString("Width"));
-    QStandardItem *widthValueItem = new QStandardItem();
-    widthValueItem->setData(QVariant(30.0), Qt::EditRole);
-    widthValueItem->setEditable(true);
-
-    QList<QStandardItem *> lengthList;
-    lengthList << lengthTitleItem << lengthValueItem;
-    formFactorItem->appendRow(lengthList);
-
-    //formFactorItem->setChild(0,0,lengthTitleItem);
-    //formFactorItem->setChild(0,1,lengthValueItem);
-    formFactorItem->setChild(1,0,heightTitleItem);
-    formFactorItem->setChild(1,1,heightValueItem);
-    formFactorItem->setChild(2,0,widthTitleItem);
-    formFactorItem->setChild(2,1,widthValueItem);
+//    QStandardItem *formFactorItem = new QStandardItem(QString("Form Factor"));
 
 
-    QStandardItem *particleItem = new QStandardItem( QString("Particle"));
-    particleItem->appendRow(formFactorItem);
+//    QStandardItem *lengthTitleItem = new QStandardItem(QString("Length"));
+//    QStandardItem *lengthValueItem = new QStandardItem();
+//    lengthValueItem->setData(QVariant(10.0), Qt::EditRole);
+//    lengthValueItem->setEditable(true);
 
-    QStandardItem *layerItem = new QStandardItem( QString("Multilayer"));
-    layerItem->appendRow(particleItem);
+//    QStandardItem *heightTitleItem = new QStandardItem(QString("Height"));
+//    QStandardItem *heightValueItem = new QStandardItem();
+//    heightValueItem->setData(QVariant(20.0), Qt::EditRole);
+//    heightValueItem->setEditable(true);
 
-    model->appendRow(layerItem);
+//    QStandardItem *widthTitleItem = new QStandardItem(QString("Width"));
+//    QStandardItem *widthValueItem = new QStandardItem();
+//    widthValueItem->setData(QVariant(30.0), Qt::EditRole);
+//    widthValueItem->setEditable(true);
 
-    return model;
+//    QList<QStandardItem *> lengthList;
+//    lengthList << lengthTitleItem << lengthValueItem;
+//    formFactorItem->appendRow(lengthList);
 
-}
+//    //formFactorItem->setChild(0,0,lengthTitleItem);
+//    //formFactorItem->setChild(0,1,lengthValueItem);
+//    formFactorItem->setChild(1,0,heightTitleItem);
+//    formFactorItem->setChild(1,1,heightValueItem);
+//    formFactorItem->setChild(2,0,widthTitleItem);
+//    formFactorItem->setChild(2,1,widthValueItem);
+
+
+//    QStandardItem *particleItem = new QStandardItem( QString("Particle"));
+//    particleItem->appendRow(formFactorItem);
+
+//    QStandardItem *layerItem = new QStandardItem( QString("Multilayer"));
+//    layerItem->appendRow(particleItem);
+
+//    model->appendRow(layerItem);
+
+//    return model;
+//}
+
 
 void SampleTuningWidget::updateTreeView()
 {
-    updateItemModel();
+    m_treeView->setModel(0);
+
+    delete m_parameterModel;
+    m_parameterModel = createParameterModel();
+
+    m_treeView->setModel(m_parameterModel);
     m_treeView->expandAll();
 }
 
-void SampleTuningWidget::updateItemModel()
+QStandardItemModel *SampleTuningWidget::createParameterModel()
 {
-    m_itemModel->setItem(0, iterateSessionModel());
+    QStandardItemModel *result(0);
+    result = new QStandardItemModel(this);
+    result->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
+    result->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
+    result->setItem(0, iterateSessionModel());
+    return result;
 }
 
 

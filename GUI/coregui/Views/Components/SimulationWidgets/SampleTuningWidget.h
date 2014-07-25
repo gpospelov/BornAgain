@@ -5,14 +5,14 @@
 #include <QTreeView>
 #include <QAction>
 #include <QSignalMapper>
-
-#include "qstandarditemmodel.h"
 #include <QTableWidget>
-#include "SessionModel.h"
+#include <QStandardItemModel>
 
 
-class TestViewDelegate;
+class SampleTuningDelegate;
 class ParameterizedItem;
+class SampleModel;
+class InstrumentModel;
 
 
 //! TestView window to try things in mainwindow
@@ -21,24 +21,24 @@ class SampleTuningWidget : public QWidget
     Q_OBJECT
 
 public:
-    SampleTuningWidget(SessionModel *sampleModel, QWidget *parent = 0);
+    SampleTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
     void updateTreeView();
 
 
 private:
-    QTreeView *m_treeView;
-    TestViewDelegate *m_delegate;
-    QTableWidget *m_tableWidget;
-    SessionModel *m_sampleModel;
-//    QStandardItemModel *getItemModelFromSessionModel();
-    QStandardItemModel *getTestItemModel();
+    //QStandardItemModel *getItemModelFromSessionModel();
+    // QStandardItemModel *getTestItemModel();
     QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = NULL);
     void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = NULL);
     void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem);
-    QStandardItemModel *m_itemModel;
-    void updateItemModel();
 
+    QStandardItemModel *createParameterModel();
 
+    QStandardItemModel *m_parameterModel;
+    QTreeView *m_treeView;
+    SampleTuningDelegate *m_delegate;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
 };
 
 

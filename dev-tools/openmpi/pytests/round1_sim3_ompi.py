@@ -110,7 +110,7 @@ class MesoSampleBuilder(ISampleBuilder):
         substrate_layer.setMaterial(substrate_material)
         particle_decoration = ParticleLayout()
 
-        max_phi_rotation_steps = 1
+        max_phi_rotation_steps = 180
         max_tilt_rotation_steps = 1
 
         phi_step = 2.0*numpy.pi/3.0/max_phi_rotation_steps

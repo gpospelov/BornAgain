@@ -3,14 +3,14 @@
 
 #include <QWidget>
 #include "qstandarditemmodel.h"
-#include "SessionModel.h"
 #include "SimulationSetupWidget.h"
 #include "QuickSimulationWidget.h"
 #include <QTabWidget>
 
 class SimulationDataModel;
 class JobQueueModel;
-
+class SampleModel;
+class InstrumentModel;
 
 class SimulationView : public QWidget
 {
@@ -18,7 +18,7 @@ class SimulationView : public QWidget
 
 public:
     enum TabViewId { SimulationSetupTab, QuickSimulationTab};
-    SimulationView(SimulationDataModel *p_simulation_data_model, JobQueueModel *jobQueueModel, SessionModel *sessionModel, QWidget *parent = 0);
+    SimulationView(SimulationDataModel *p_simulation_data_model, JobQueueModel *jobQueueModel, SampleModel *sampleModel, QWidget *parent = 0);
     void updateSimulationViewElements();
 
 public slots:
@@ -27,7 +27,7 @@ public slots:
 private:
     SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
-    SessionModel *m_sessionModel;
+    SampleModel *m_sampleModel;
 
     SimulationSetupWidget *m_simulationSetupWidget;
     QuickSimulationWidget *m_quickSimulationWidget;

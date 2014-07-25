@@ -1,21 +1,22 @@
 #include "SimulationView.h"
 #include "qdebug.h"
-
+#include "SampleModel.h"
+#include "InstrumentModel.h"
 #include "SimulationDataModel.h"
 #include "mainwindow.h"
 #include "JobQueueModel.h"
 #include "QVBoxLayout"
 
-SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, JobQueueModel *jobQueueModel, SessionModel *sessionModel, QWidget *parent)
+SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, JobQueueModel *jobQueueModel, SampleModel *sampleModel, QWidget *parent)
     : QWidget(parent)
     , mp_simulation_data_model(p_simulation_data_model)
     , m_jobQueueModel(jobQueueModel)
-    , m_sessionModel(sessionModel)
+    , m_sampleModel(sampleModel)
 {
     m_simulationSetupWidget = new SimulationSetupWidget(mp_simulation_data_model);
     m_simulationSetupWidget->setJobQueueModel(m_jobQueueModel);
 
-    m_quickSimulationWidget = new QuickSimulationWidget(m_sessionModel);
+    m_quickSimulationWidget = new QuickSimulationWidget(m_sampleModel);
 
     m_tabWidget = new QTabWidget();
     m_tabWidget->insertTab(SimulationSetupTab, m_simulationSetupWidget, tr("Simulation Params"));

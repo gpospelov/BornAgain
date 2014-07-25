@@ -129,6 +129,11 @@ void PlotWidget::connectToobarSignals()
 void PlotWidget::savePlot()
 {
 
+    if(isProjectionsVisible)
+    {
+        m_centralPlot->showLinesOverMap(false);
+    }
+
     QString filters("*.png;;*.jpg;;*.pdf");
     QString defaultFilter("*.png");
     QString defaultName = qApp->applicationDirPath().append("/untitled");
@@ -141,6 +146,7 @@ void PlotWidget::savePlot()
 
     if (!fileName.isEmpty() && !defaultFilter.isEmpty())
     {
+
         if(fileName.endsWith(tr(".pdf"), Qt::CaseInsensitive))
         {
             m_centralPlot->savePdf(fileName);
@@ -166,6 +172,10 @@ void PlotWidget::savePlot()
             m_centralPlot->savePng(fileName+extension);
         }
     }
+
+
+    m_centralPlot->showLinesOverMap(isProjectionsVisible);
+
 }
 
 

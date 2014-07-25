@@ -137,19 +137,33 @@ void PlotWidget::savePlot()
     QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
         filters, &defaultFilter);
 
+    QString extension =  defaultFilter.mid(1);
+
     if (!fileName.isEmpty() && !defaultFilter.isEmpty())
     {
-        if(defaultFilter == "*.pdf")
+        if(fileName.endsWith(tr(".pdf"), Qt::CaseInsensitive))
         {
             m_centralPlot->savePdf(fileName);
         }
-        else if(defaultFilter == "*.jpg")
+        else if(fileName.endsWith(tr(".jpg"), Qt::CaseInsensitive))
         {
             m_centralPlot->saveJpg(fileName);
         }
-        else
+        else if(fileName.endsWith(tr(".png"), Qt::CaseInsensitive))
         {
             m_centralPlot->savePng(fileName);
+        }
+        else if(defaultFilter == "*.pdf")
+        {
+            m_centralPlot->savePdf(fileName+extension);
+        }
+        else if(defaultFilter == "*.jpg")
+        {
+            m_centralPlot->saveJpg(fileName+extension);
+        }
+        else
+        {
+            m_centralPlot->savePng(fileName+extension);
         }
     }
 }

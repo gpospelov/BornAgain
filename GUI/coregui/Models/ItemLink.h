@@ -12,7 +12,7 @@ public:
     explicit ItemLink(const QString name = QString(), ParameterizedItem *item = 0);
     virtual ~ItemLink(){}
 
-    QString getName() const { return m_name; }
+    QString getPropertyName() const { return m_name; }
 
     ParameterizedItem *getItem() const { return m_item; }
     void setItem(QString name, ParameterizedItem *item);

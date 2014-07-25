@@ -19,8 +19,8 @@
 ****************************************************************************
 **           Author: Emanuel Eichhammer                                   **
 **  Website/Contact: http://www.qcustomplot.com/                          **
-**             Date: 14.03.14                                             **
-**          Version: 1.2.0                                                **
+**             Date: 07.04.14                                             **
+**          Version: 1.2.1                                                **
 ****************************************************************************/
 
 #include "qcustomplot.h"
@@ -5915,7 +5915,7 @@ void QCPAxis::draw(QCPPainter *painter)
   mAxisPainter->labelFont = getLabelFont();
   mAxisPainter->labelColor = getLabelColor();
   mAxisPainter->label = mLabel;
-  mAxisPainter->substituteExponent = mAutoTickLabels && mNumberBeautifulPowers;
+  mAxisPainter->substituteExponent = mAutoTickLabels && mNumberBeautifulPowers && mTickLabelType == ltNumber;
   mAxisPainter->tickPen = getTickPen();
   mAxisPainter->subTickPen = getSubTickPen();
   mAxisPainter->tickLabelFont = getTickLabelFont();
@@ -8575,7 +8575,7 @@ QCP::Interaction QCPAbstractItem::selectionCategory() const
 
 
 
-/*! \mainpage %QCustomPlot 1.2.0 Documentation
+/*! \mainpage %QCustomPlot 1.2.1 Documentation
 
   \image html qcp-doc-logo.png
   

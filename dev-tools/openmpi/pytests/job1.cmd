@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 #@ job_type = parallel
-#@ class = general
-#@ node = 10
+#@ class = test
+#@ node = 2
 #@ tasks_per_node = 4
 #@ island_count=1
 #@ wall_clock_limit = 1:00:00

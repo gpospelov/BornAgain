@@ -6,7 +6,7 @@ module load gcc/4.7
 module load cmake/2.8
 module load fftw/mpi/3.3
 module load gsl
-module load python/2.7_anaconda
+#module load python/2.7_anaconda
 
 export FFTW3=$FFTW_BASE
 export GSL_DIR=$GSL_BASE

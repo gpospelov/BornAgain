@@ -24,6 +24,12 @@ public:
     SampleTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent = 0);
     void updateTreeView(const QString &instrument, const QString &sample);
 
+    void setSampleModel(SampleModel *sampleModel);
+
+    void setInstrumentModel(InstrumentModel *instrumentModel);
+
+public slots:
+    void onModelChanged(const QModelIndex &first, const QModelIndex &second);
 
 private:
     //QStandardItemModel *getItemModelFromSessionModel();

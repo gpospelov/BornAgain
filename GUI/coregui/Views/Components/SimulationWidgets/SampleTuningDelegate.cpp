@@ -7,6 +7,11 @@
 #include <QMouseEvent>
 #include <QStyleOptionSlider>
 #include <QAbstractItemModel>
+#include <QRect>
+#include <QItemSelectionModel>
+#include <QHBoxLayout>
+#include <QDoubleSpinBox>
+
 #include <cmath>
 #include "ItemLink.h"
 
@@ -75,6 +80,9 @@ QWidget *SampleTuningDelegate::createEditor(QWidget *parent,
         }
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
+
+        m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
+
         double sliderValue = value * m_multiplyFactor;
 
         double minValue = 0;
@@ -134,7 +142,11 @@ void SampleTuningDelegate::sliderValueChanged(int position)
 
 void SampleTuningDelegate::editorValueChanged(double value)
 {
-    qDebug() << "XXXX: new value: " << value;
+    qDebug() << "SampleTuningDelegate::editorValueChanged() -> new value: " << value;
+    if(m_current_link.getItem()) {
+        qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
+        m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
+    }
 }
 
 void SampleTuningDelegate::setEditorData(QWidget *editor,
@@ -159,7 +171,8 @@ void SampleTuningDelegate::setModelData(QWidget *editor,
 
         if(link.getItem() != NULL)
         {
-            link.getItem()->setRegisteredProperty(link.getName(), m_valueBox->value());
+            qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
+            link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
         }
 
     } else {

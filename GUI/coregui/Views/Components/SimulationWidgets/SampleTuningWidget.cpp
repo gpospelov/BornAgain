@@ -15,9 +15,12 @@ SampleTuningWidget::SampleTuningWidget(SampleModel *sampleModel, InstrumentModel
     , m_parameterModel(0)
     , m_treeView(0)
     , m_delegate(new SampleTuningDelegate(1))
-    , m_sampleModel(sampleModel)
-    , m_instrumentModel(instrumentModel)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
 {
+
+    setSampleModel(sampleModel);
+    setInstrumentModel(instrumentModel);
 
     //generate Tree View
     m_treeView = new QTreeView(this);
@@ -258,10 +261,48 @@ void SampleTuningWidget::updateTreeView(const QString &instrument, const QString
 
         delete m_parameterModel;
         m_parameterModel = createParameterModel();
+        //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+
 
         m_treeView->setModel(m_parameterModel);
         m_treeView->expandAll();
     }
+}
+
+
+void SampleTuningWidget::setSampleModel(SampleModel *sampleModel)
+{
+    Q_ASSERT(sampleModel);
+    if(m_sampleModel != sampleModel) {
+
+        if(m_sampleModel)
+            disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+
+        m_sampleModel = sampleModel;
+        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+    }
+}
+
+
+void SampleTuningWidget::setInstrumentModel(InstrumentModel *instrumentModel)
+{
+    Q_ASSERT(instrumentModel);
+    if(m_instrumentModel != instrumentModel) {
+
+        if(m_instrumentModel)
+            disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+
+        m_instrumentModel = instrumentModel;
+        connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+    }
+
+}
+
+
+void SampleTuningWidget::onModelChanged(const QModelIndex & /* first */, const QModelIndex & /* second */)
+{
+    qDebug() << "SampleTuningWidget::onModelChanged()";
+
 }
 
 

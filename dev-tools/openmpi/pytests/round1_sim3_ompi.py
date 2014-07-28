@@ -31,11 +31,15 @@ class MesoSampleBuilder(ISampleBuilder):
         self.sample = None
         # parameters describing the sample
 
-        self.m_lattice_length_a = ctypes.c_double(1.246708e+01*nanometer)
-        self.m_lattice_length_c = ctypes.c_double(1.338787e+01*nanometer)
-        self.m_nanoparticle_radius = ctypes.c_double(4.848528e+00*nanometer)
+        #self.m_lattice_length_a = ctypes.c_double(1.246708e+01*nanometer)
+        #self.m_lattice_length_c = ctypes.c_double(1.338787e+01*nanometer)
+        #self.m_nanoparticle_radius = ctypes.c_double(4.848528e+00*nanometer)
+        self.m_lattice_length_a = ctypes.c_double(12.51*nanometer)
+        self.m_lattice_length_c = ctypes.c_double(30.75*nanometer)
+        self.m_nanoparticle_radius = ctypes.c_double(4.95*nanometer)
         self.m_sigma_nanoparticle_radius = ctypes.c_double(3.6720e-01*nanometer)
-        self.m_meso_height = ctypes.c_double(1.1221e+02*nanometer)
+        #self.m_meso_height = ctypes.c_double(1.1221e+02*nanometer)
+        self.m_meso_height = ctypes.c_double(500.0*nanometer)
         self.m_meso_radius = ctypes.c_double(9.4567e+02*nanometer)
         self.m_sigma_meso_height = ctypes.c_double(5.0*nanometer)
         self.m_sigma_meso_radius = ctypes.c_double(5.0*nanometer)
@@ -77,7 +81,7 @@ class MesoSampleBuilder(ISampleBuilder):
         return result
 
     def CreateLattice(self, a, c):
-        result = Lattice.createTrigonalLattice(a, c*2.3)
+        result = Lattice.createTrigonalLattice(a, c)
         result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3))
         return result
 
@@ -206,14 +210,15 @@ def run_simulation():
         print result.getArray()
         axis_phi = result.getAxis(0)
         axis_alpha = result.getAxis(1)
-        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e6),
+        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e7),
                  extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
         pylab.colorbar(im)
         pylab.xlabel(r'$\phi_f$', fontsize=20)
         pylab.ylabel(r'$\alpha_f$', fontsize=20)
         pylab.show()
-        pylab.savefig("result.png")
-        OutputDataIOFactory.writeIntensityData(result, 'result.txt')
+        pylab.savefig("result_round1_sim4_ompi.png")
+        OutputDataIOFactory.writeIntensityData(result, 'result_round1_sim4_ompi.txt')
+
 
     print "Time spent in node #", world_rank, "is", time() - start_time, "seconds"
 

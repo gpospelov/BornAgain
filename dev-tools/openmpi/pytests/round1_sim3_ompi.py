@@ -14,6 +14,14 @@ comm = MPI.COMM_WORLD
 world_size = comm.Get_size()
 world_rank = comm.Get_rank()
 
+a_nphi = 175
+a_phimin = 1.5023432874e-02
+a_phimax = 4.6949376788e-02
+a_nalpha = 245
+a_alphamin = 1.0879025216e-04
+a_alphamax = 4.4882507209e-02
+
+
 class MesoSampleBuilder(ISampleBuilder):
     """
     Meso crystal sample builder
@@ -23,11 +31,15 @@ class MesoSampleBuilder(ISampleBuilder):
         self.sample = None
         # parameters describing the sample
 
-        self.m_lattice_length_a = ctypes.c_double(1.246708e+01*nanometer)
-        self.m_lattice_length_c = ctypes.c_double(1.338787e+01*nanometer)
-        self.m_nanoparticle_radius = ctypes.c_double(4.848528e+00*nanometer)
+        #self.m_lattice_length_a = ctypes.c_double(1.246708e+01*nanometer)
+        #self.m_lattice_length_c = ctypes.c_double(1.338787e+01*nanometer)
+        #self.m_nanoparticle_radius = ctypes.c_double(4.848528e+00*nanometer)
+        self.m_lattice_length_a = ctypes.c_double(12.51*nanometer)
+        self.m_lattice_length_c = ctypes.c_double(30.75*nanometer)
+        self.m_nanoparticle_radius = ctypes.c_double(4.95*nanometer)
         self.m_sigma_nanoparticle_radius = ctypes.c_double(3.6720e-01*nanometer)
-        self.m_meso_height = ctypes.c_double(1.1221e+02*nanometer)
+        #self.m_meso_height = ctypes.c_double(1.1221e+02*nanometer)
+        self.m_meso_height = ctypes.c_double(500.0*nanometer)
         self.m_meso_radius = ctypes.c_double(9.4567e+02*nanometer)
         self.m_sigma_meso_height = ctypes.c_double(5.0*nanometer)
         self.m_sigma_meso_radius = ctypes.c_double(5.0*nanometer)
@@ -69,7 +81,7 @@ class MesoSampleBuilder(ISampleBuilder):
         return result
 
     def CreateLattice(self, a, c):
-        result = Lattice.createTrigonalLattice(a, c*2.3)
+        result = Lattice.createTrigonalLattice(a, c)
         result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3))
         return result
 
@@ -142,12 +154,13 @@ def get_simulation():
     # build and run experiment
     simulation = Simulation()
     simulation.setBeamParameters(1.77*angstrom, 0.4*degree, 0.0*degree)
+    simulation.setDetectorParameters(a_nphi, a_phimin, a_phimax, a_nalpha, a_alphamin, a_alphamax)
     simulation.setBeamIntensity(4.942287e+12)
 
-    #sim_params = SimulationParameters()
-    #sim_params.m_mc_integration = True
-    #sim_params.m_mc_points = 20
-    #simulation.setSimulationParameters(sim_params)
+    sim_params = SimulationParameters()
+    sim_params.m_mc_integration = True
+    sim_params.m_mc_points = 100
+    simulation.setSimulationParameters(sim_params)
 
     #simulation.setDetectorResolutionFunction(ResolutionFunction2DSimple(0.00025, 0.00025))
 
@@ -161,8 +174,8 @@ def get_simulation():
 
     sample_builder = MesoSampleBuilder()
     simulation.setSampleBuilder(sample_builder)
-    real_data = get_real_data()
-    simulation.setDetectorParameters(real_data)
+    #real_data = get_real_data()
+    #simulation.setDetectorParameters(real_data)
 
     return simulation
 
@@ -180,10 +193,16 @@ def run_simulation():
 
     SetMessageLevel("DEBUG")
 
+    start_time = 0
+    start_time = time()
+
+
     thread_info = ThreadInfo()
     thread_info.n_threads = 4
     simulation.setThreadInfo(thread_info)
     simulation.runOMPISimulation()
+
+    #simulation.runSimulation()
 
     if(world_rank == 0):
         simulation.normalize()
@@ -191,14 +210,17 @@ def run_simulation():
         print result.getArray()
         axis_phi = result.getAxis(0)
         axis_alpha = result.getAxis(1)
-        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(),
+        im = pylab.imshow(numpy.rot90(result.getArray()+1, 1), norm=matplotlib.colors.LogNorm(vmin=100, vmax=1e7),
                  extent=[axis_phi.getMin(), axis_phi.getMax(), axis_alpha.getMin(), axis_alpha.getMax()])
         pylab.colorbar(im)
         pylab.xlabel(r'$\phi_f$', fontsize=20)
         pylab.ylabel(r'$\alpha_f$', fontsize=20)
         pylab.show()
-        pylab.savefig("result.png")
-        OutputDataIOFactory.writeIntensityData(result, 'result.txt')
+        pylab.savefig("result_round1_sim4_ompi.png")
+        OutputDataIOFactory.writeIntensityData(result, 'result_round1_sim4_ompi.txt')
+
+
+    print "Time spent in node #", world_rank, "is", time() - start_time, "seconds"
 
 
 

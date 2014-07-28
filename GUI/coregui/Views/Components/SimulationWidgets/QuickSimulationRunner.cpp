@@ -34,6 +34,7 @@ void QuickSimulationRunner::runSimulation(Simulation *simulation)
 
 
     QString identifier = m_jobQueueData->createJob("QuickSimulation", simulation);
+    qDebug() << "QuickSimulationRunner::runSimulation() ->> created job" << identifier << m_jobQueueData->getJobItem(identifier);
 
     JobItem *item = m_jobQueueData->getJobItem(identifier);
     connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));

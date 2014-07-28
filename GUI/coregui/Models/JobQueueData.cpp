@@ -185,7 +185,7 @@ void JobQueueData::onStartedJob()
 
 void JobQueueData::onFinishedJob()
 {
-    //qDebug() << "JobQueueData::onFinishedJob()";
+    qDebug() << "JobQueueData::onFinishedJob()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());

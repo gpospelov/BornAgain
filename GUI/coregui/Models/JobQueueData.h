@@ -35,6 +35,7 @@ public:
 signals:
     void globalProgress(int);
     void focusRequest(JobItem *item);
+    void jobIsFinished(const QString &identifier);
 
 public slots:
     void onStartedJob();
@@ -47,6 +48,7 @@ public slots:
     void cancelJob(QString identifier);
     void removeJob(QString identifier);
 
+    friend class QuickSimulationRunner;
 private:
     void assignForDeletion(QThread *thread);
     void assignForDeletion(JobRunner *runner);

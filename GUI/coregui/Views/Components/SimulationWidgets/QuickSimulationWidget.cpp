@@ -10,7 +10,7 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     : QWidget(parent)
     , m_sampleModel(sampleModel)
     , m_instrumentModel(instrumentModel)
-    , m_quickSimulationRunner(new QuickSimulationRunner(this))
+    , m_quickSimulationRunner(0)
 {
 
     QColor bgColor(0,0,255,255);
@@ -24,6 +24,11 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     m_plotWidget->setProjectionsVisible(false);
     m_plotWidget->setPropertyPanelVisible(false);
     //m_plotWidget->setFixedWidth(600);
+
+
+    m_quickSimulationRunner = new QuickSimulationRunner(this);
+    m_quickSimulationRunner->setPlotWidget(m_plotWidget);
+
 
     m_modelTuningWidget = new ModelTuningWidget(m_sampleModel, m_instrumentModel);
     m_modelTuningWidget->setQuickSimulationRunner(m_quickSimulationRunner);

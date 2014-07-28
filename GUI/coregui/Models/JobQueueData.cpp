@@ -189,11 +189,7 @@ void JobQueueData::onFinishedJob()
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
-    if(runner->isTerminated()) {
-        jobItem->setStatus(JobItem::Canceled);
-    } else {
-        jobItem->setStatus(JobItem::Completed);
-    }
+
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
 
@@ -203,13 +199,22 @@ void JobQueueData::onFinishedJob()
         jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
     }
 
+    if(runner->isTerminated()) {
+        jobItem->setStatus(JobItem::Canceled);
+    } else {
+        jobItem->setStatus(JobItem::Completed);
+    }
+
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    assignForDeletion(runner);
-
     if(jobItem->getRunPolicy() & JobItem::RunImmediately)
         emit focusRequest(jobItem);
+
+    emit jobIsFinished(runner->getIdentifier());
+
+    assignForDeletion(runner);
+
 }
 
 

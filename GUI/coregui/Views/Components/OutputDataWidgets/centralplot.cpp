@@ -21,8 +21,12 @@ void CentralPlot::drawLineOverColorMap(double xPos, double yPos)
 {
     //qDebug() << "x:" << xPos;
 
+    // FIXME Why not dynamic_cast ?
     QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
+    Q_ASSERT(colorMap);
+
     QCPColorMapData * data  = colorMap->data();
+    Q_ASSERT(data);
 
     //draw line over plot
     QCPRange keyRange = data->keyRange();
@@ -203,6 +207,8 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     std::cout << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max) << std::endl;
 
     this->clearPlottables();
+    // FIXME Is it correct?
+    m_colorMap = 0;
     //m_customPlot->clearItems();
 
 
@@ -212,6 +218,12 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     this->yAxis->setLabel(outputDataItem->getYaxisTitle());
 
     // set up the QCPColorMap:
+
+    // FIXME why axes and color map connected here?
+    if(m_colorMap) {
+        disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+
+    }
 
     delete m_colorMap;
     m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);

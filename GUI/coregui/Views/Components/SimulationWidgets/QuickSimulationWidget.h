@@ -5,9 +5,14 @@
 #include <QString>
 class SampleModel;
 class InstrumentModel;
-class SampleTuningWidget;
+class ModelTuningWidget;
 class PlotWidget;
+class QuickSimulationRunner;
 
+
+//! The QuickSimulationWidget is the main widget to access quick simulation functionality.
+//! Resides on the second tab of the SimulationView. Holds widget for tuning model
+//! parameters and plot widget.
 class QuickSimulationWidget : public QWidget
 {
     Q_OBJECT
@@ -19,8 +24,9 @@ public:
 private:
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
-    SampleTuningWidget *m_sampleTuningWidget;
+    ModelTuningWidget *m_modelTuningWidget;
     PlotWidget *m_plotWidget;
+    QuickSimulationRunner *m_quickSimulationRunner;
 
 };
 

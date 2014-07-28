@@ -19,8 +19,9 @@ class JobQueueData : public QObject
 {
     Q_OBJECT
 public:
+    JobQueueData();
 
-    JobQueueItem *createJobQueueItem(QString jobName = QString(), Simulation *simulation = 0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
+    QString createJob(QString jobName = QString(), Simulation *simulation = 0, JobItem::RunPolicy run_policy = JobItem::SubmitOnly);
 
     const JobItem *getJobItem(QString identifier) const;
     JobItem *getJobItem(QString identifier);
@@ -59,7 +60,7 @@ private:
     QMap<QString, JobRunner *> m_runners; //! correspondance of JobIdentifier and JobRunner's
     QMap<QString, Simulation *> m_simulations; //! correspondance of JobIdentifier and simulation
 
-    static int m_job_index;
+    int m_job_index;
 };
 
 

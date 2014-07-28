@@ -153,11 +153,11 @@ IInterferenceFunction *DomainObjectBuilder::buildInterferenceFunction(const Para
 
 Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) const
 {
-    qDebug() << "DomainObjectBuilder::buildInstrument";
+//    qDebug() << "DomainObjectBuilder::buildInstrument";
     Instrument *result = TransformToDomain::createInstrument(item);
     QList<ParameterizedItem *> children = item.childItems();
     for (int i=0; i<children.size(); ++i) {
-        qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
+//        qDebug() << "   DomainObjectBuilder::buildInstrument" << children[i]->modelType();
         if (children[i]->modelType() == Constants::BeamType) {
             boost::scoped_ptr<Beam> P_beam(buildBeam(*children[i]));
             if (P_beam.get()) {
@@ -175,7 +175,7 @@ Instrument *DomainObjectBuilder::buildInstrument(const ParameterizedItem &item) 
 
 Beam *DomainObjectBuilder::buildBeam(const ParameterizedItem &item) const
 {
-    qDebug() << "DomainObjectBuilder::buildBeam()";
+//    qDebug() << "DomainObjectBuilder::buildBeam()";
     Beam *result = TransformToDomain::createBeam(item);
     return result;
 }

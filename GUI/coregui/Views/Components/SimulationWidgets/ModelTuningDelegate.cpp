@@ -1,4 +1,4 @@
-#include "SampleTuningDelegate.h"
+#include "ModelTuningDelegate.h"
 #include <QDebug>
 #include <QPainter>
 #include <QPaintDevice>
@@ -17,14 +17,14 @@
 
 
 
-SampleTuningDelegate::SampleTuningDelegate(int valueColumn, QObject *parent)
+ModelTuningDelegate::ModelTuningDelegate(int valueColumn, QObject *parent)
     : QItemDelegate(parent)
 {
     this->m_valueColumn = valueColumn;
     this->m_multiplyFactor = 100;
 }
 
-void SampleTuningDelegate::paint(QPainter *painter,
+void ModelTuningDelegate::paint(QPainter *painter,
                           const QStyleOptionViewItem &option,
                           const QModelIndex &index) const
 {
@@ -67,7 +67,7 @@ void SampleTuningDelegate::paint(QPainter *painter,
 }
 
 
-QWidget *SampleTuningDelegate::createEditor(QWidget *parent,
+QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         const QStyleOptionViewItem &option,
         const QModelIndex &index) const
 {
@@ -134,22 +134,24 @@ QWidget *SampleTuningDelegate::createEditor(QWidget *parent,
 }
 
 
-void SampleTuningDelegate::sliderValueChanged(int position)
+void ModelTuningDelegate::sliderValueChanged(int position)
 {
     double value = (double)position/m_multiplyFactor;
     m_valueBox->setValue(value);
 }
 
-void SampleTuningDelegate::editorValueChanged(double value)
+void ModelTuningDelegate::editorValueChanged(double value)
 {
-    qDebug() << "SampleTuningDelegate::editorValueChanged() -> new value: " << value;
+    //qDebug() << "SampleTuningDelegate::editorValueChanged() -> new value: " << value;
     if(m_current_link.getItem()) {
+        m_current_link.setValue(value);
         qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
-        m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
+        //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
+        emit currentLinkChanged(m_current_link);
     }
 }
 
-void SampleTuningDelegate::setEditorData(QWidget *editor,
+void ModelTuningDelegate::setEditorData(QWidget *editor,
                                   const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
@@ -160,7 +162,7 @@ void SampleTuningDelegate::setEditorData(QWidget *editor,
 }
 
 
-void SampleTuningDelegate::setModelData(QWidget *editor,
+void ModelTuningDelegate::setModelData(QWidget *editor,
                                  QAbstractItemModel *model,
                                  const QModelIndex &index) const
 {

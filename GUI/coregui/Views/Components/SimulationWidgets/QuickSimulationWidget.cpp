@@ -1,14 +1,16 @@
 #include "QuickSimulationWidget.h"
 #include "qdebug.h"
 #include "QHBoxLayout"
-#include "SampleTuningWidget.h"
+#include "ModelTuningWidget.h"
 #include "PlotWidget.h"
+#include "QuickSimulationRunner.h"
 
 
 QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : QWidget(parent)
     , m_sampleModel(sampleModel)
     , m_instrumentModel(instrumentModel)
+    , m_quickSimulationRunner(new QuickSimulationRunner(this))
 {
 
     QColor bgColor(0,0,255,255);
@@ -23,15 +25,16 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     m_plotWidget->setPropertyPanelVisible(false);
     //m_plotWidget->setFixedWidth(600);
 
-    m_sampleTuningWidget = new SampleTuningWidget(m_sampleModel, m_instrumentModel);
-    m_sampleTuningWidget->setFixedWidth(380);
-    m_sampleTuningWidget->setContentsMargins(0,0,0,0);
+    m_modelTuningWidget = new ModelTuningWidget(m_sampleModel, m_instrumentModel);
+    m_modelTuningWidget->setQuickSimulationRunner(m_quickSimulationRunner);
+    m_modelTuningWidget->setFixedWidth(380);
+    m_modelTuningWidget->setContentsMargins(0,0,0,0);
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addStretch();
     mainLayout->addWidget(m_plotWidget);
     mainLayout->addStretch();
-    mainLayout->addWidget(m_sampleTuningWidget);
+    mainLayout->addWidget(m_modelTuningWidget);
 
     mainLayout->setContentsMargins(0,0,0,0);
 
@@ -40,7 +43,7 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
 
 void QuickSimulationWidget::updateViews(const QString &instrument, const QString &sample)
 {
-    m_sampleTuningWidget->updateTreeView(instrument, sample);
+    m_modelTuningWidget->updateTreeView(instrument, sample);
 }
 
 

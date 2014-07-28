@@ -1,22 +1,27 @@
-#include "SampleTuningWidget.h"
+#include "ModelTuningWidget.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "PropertyAttribute.h"
-#include "SampleTuningDelegate.h"
+#include "ModelTuningDelegate.h"
 #include "GUIHelpers.h"
 #include "ItemLink.h"
+#include "QuickSimulationRunner.h"
+#include "QuickSimulationHelper.h"
+#include "Simulation.h"
 #include <QItemSelectionModel>
 #include <QDebug>
 
 
 
-SampleTuningWidget::SampleTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
+ModelTuningWidget::ModelTuningWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
     : QWidget(parent)
     , m_parameterModel(0)
     , m_treeView(0)
-    , m_delegate(new SampleTuningDelegate(1))
+    , m_delegate(new ModelTuningDelegate(1))
     , m_sampleModel(0)
     , m_instrumentModel(0)
+    , m_simulationRunner(0)
+    , m_update_in_progress(false)
 {
 
     setSampleModel(sampleModel);
@@ -43,6 +48,7 @@ SampleTuningWidget::SampleTuningWidget(SampleModel *sampleModel, InstrumentModel
 
 
     m_treeView->setItemDelegate(m_delegate);
+    connect(m_delegate, SIGNAL(currentLinkChanged(ItemLink)), this, SLOT(onCurrentLinkChanged(ItemLink)));
 
 
     //generate Table View
@@ -68,7 +74,7 @@ SampleTuningWidget::SampleTuningWidget(SampleModel *sampleModel, InstrumentModel
     }*/
 }
 
-QStandardItem *SampleTuningWidget::iterateSessionModel(const QModelIndex &parentIndex, QStandardItem *parentItem)
+QStandardItem *ModelTuningWidget::iterateSessionModel(const QModelIndex &parentIndex, QStandardItem *parentItem)
 {
     Q_ASSERT(m_sampleModel);
 
@@ -175,7 +181,7 @@ QStandardItem *SampleTuningWidget::iterateSessionModel(const QModelIndex &parent
 //    return model;
 //}
 
-void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
+void ModelTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem)
 {
     if(childValueItem == NULL)
     {
@@ -187,7 +193,7 @@ void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QStandardI
 
 }
 
-void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
+void ModelTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem)
 {
     ItemLink itemLink(title, parameterizedItem);
     QVariant itemLinkData;
@@ -251,7 +257,7 @@ void SampleTuningWidget::insertRowIntoItem(QStandardItem *parentItem, QString ti
 //}
 
 
-void SampleTuningWidget::updateTreeView(const QString &instrument, const QString &sample)
+void ModelTuningWidget::updateTreeView(const QString &instrument, const QString &sample)
 {
     if(instrument != m_instrument_name || sample != m_sample_name) {
         m_instrument_name = instrument;
@@ -270,43 +276,73 @@ void SampleTuningWidget::updateTreeView(const QString &instrument, const QString
 }
 
 
-void SampleTuningWidget::setSampleModel(SampleModel *sampleModel)
+void ModelTuningWidget::setSampleModel(SampleModel *sampleModel)
 {
     Q_ASSERT(sampleModel);
     if(m_sampleModel != sampleModel) {
 
-        if(m_sampleModel)
-            disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+//        if(m_sampleModel)
+//            disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
         m_sampleModel = sampleModel;
-        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+//        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
     }
 }
 
 
-void SampleTuningWidget::setInstrumentModel(InstrumentModel *instrumentModel)
+void ModelTuningWidget::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     Q_ASSERT(instrumentModel);
     if(m_instrumentModel != instrumentModel) {
 
-        if(m_instrumentModel)
-            disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+//        if(m_instrumentModel)
+//            disconnect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
         m_instrumentModel = instrumentModel;
-        connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
+//        connect(m_instrumentModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
     }
 
 }
 
+void ModelTuningWidget::setQuickSimulationRunner(QuickSimulationRunner *simulationRunner)
+{
+    m_simulationRunner = simulationRunner;
 
-void SampleTuningWidget::onModelChanged(const QModelIndex & /* first */, const QModelIndex & /* second */)
+}
+
+
+void ModelTuningWidget::onModelChanged(const QModelIndex & /* first */, const QModelIndex & /* second */)
 {
     qDebug() << "SampleTuningWidget::onModelChanged()";
 
 }
 
+void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
+{
+    Q_ASSERT(m_simulationRunner);
+    qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> ";
+    if(m_simulationRunner->isSimulationInProgress())
+        return;
 
-QStandardItemModel *SampleTuningWidget::createParameterModel()
+    if(m_update_in_progress)
+        return;
+
+    m_update_in_progress = true;
+    qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
+
+    link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
+
+    Simulation *simulation = QuickSimulationHelper::getSimulation(m_sampleModel, m_sample_name, m_instrumentModel, m_instrument_name);
+
+    qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> Ready to run simulation";
+    m_simulationRunner->runSimulation(simulation);
+
+
+    m_update_in_progress = false;
+}
+
+
+QStandardItemModel *ModelTuningWidget::createParameterModel()
 {
     QStandardItemModel *result(0);
     result = new QStandardItemModel(this);
@@ -323,7 +359,7 @@ QStandardItemModel *SampleTuningWidget::createParameterModel()
 
 
 //! returns parent index of MultiLayer with given name
-QModelIndex SampleTuningWidget::getMultiLayerIndex(const QString &name)
+QModelIndex ModelTuningWidget::getMultiLayerIndex(const QString &name)
 {
     Q_ASSERT(m_sampleModel);
 

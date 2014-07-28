@@ -66,11 +66,6 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     lattices[Constants::HexagonalLatticeType] = "Hexagonal";
     result[Constants::LatticeGroup] = lattices;
 
-//    QMap<QString, QString> materials;
-//    lattices[Constants::HomogeneousMaterialType] = "Homogeneous Material";
-//    lattices[Constants::HomogeneousMagneticMaterialType] = "Homogeneous Magnetic Material";
-//    result[Constants::MaterialGroup] = materials;
-
     return result;
 }
 

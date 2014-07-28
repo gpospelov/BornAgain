@@ -1,5 +1,5 @@
-#ifndef SAMPLETUNINGDELEGATE_H
-#define SAMPLETUNINGDELEGATE_H
+#ifndef MODELTUNINGDELEGATE_H
+#define MODELTUNINGDELEGATE_H
 
 #include <QItemDelegate>
 #include "ItemLink.h"
@@ -7,12 +7,12 @@
 class QDoubleSpinBox;
 class QHBoxLayout;
 
-class SampleTuningDelegate : public QItemDelegate
+class ModelTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 
 public:
-    SampleTuningDelegate(int valueColumn, QObject *parent = 0);
+    ModelTuningDelegate(int valueColumn, QObject *parent = 0);
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {
@@ -28,6 +28,8 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model,
                       const QModelIndex &index) const;
 
+signals:
+    void currentLinkChanged(ItemLink link);
 
 private slots:
     void sliderValueChanged(int position);

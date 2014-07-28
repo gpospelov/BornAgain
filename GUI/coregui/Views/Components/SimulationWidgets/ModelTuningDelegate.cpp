@@ -1,4 +1,4 @@
-#include "TestViewDelegate.h"
+#include "ModelTuningDelegate.h"
 #include <QDebug>
 #include <QPainter>
 #include <QPaintDevice>
@@ -7,19 +7,24 @@
 #include <QMouseEvent>
 #include <QStyleOptionSlider>
 #include <QAbstractItemModel>
+#include <QRect>
+#include <QItemSelectionModel>
+#include <QHBoxLayout>
+#include <QDoubleSpinBox>
+
 #include <cmath>
 #include "ItemLink.h"
 
 
 
-TestViewDelegate::TestViewDelegate(int valueColumn, QObject *parent)
+ModelTuningDelegate::ModelTuningDelegate(int valueColumn, QObject *parent)
     : QItemDelegate(parent)
 {
     this->m_valueColumn = valueColumn;
     this->m_multiplyFactor = 100;
 }
 
-void TestViewDelegate::paint(QPainter *painter,
+void ModelTuningDelegate::paint(QPainter *painter,
                           const QStyleOptionViewItem &option,
                           const QModelIndex &index) const
 {
@@ -62,7 +67,7 @@ void TestViewDelegate::paint(QPainter *painter,
 }
 
 
-QWidget *TestViewDelegate::createEditor(QWidget *parent,
+QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         const QStyleOptionViewItem &option,
         const QModelIndex &index) const
 {
@@ -75,6 +80,9 @@ QWidget *TestViewDelegate::createEditor(QWidget *parent,
         }
 
         double value = index.model()->data(index, Qt::EditRole).toDouble();
+
+        m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
+
         double sliderValue = value * m_multiplyFactor;
 
         double minValue = 0;
@@ -126,18 +134,24 @@ QWidget *TestViewDelegate::createEditor(QWidget *parent,
 }
 
 
-void TestViewDelegate::sliderValueChanged(int position)
+void ModelTuningDelegate::sliderValueChanged(int position)
 {
     double value = (double)position/m_multiplyFactor;
     m_valueBox->setValue(value);
 }
 
-void TestViewDelegate::editorValueChanged(double value)
+void ModelTuningDelegate::editorValueChanged(double value)
 {
-    qDebug() << "XXXX: new value: " << value;
+    //qDebug() << "SampleTuningDelegate::editorValueChanged() -> new value: " << value;
+    if(m_current_link.getItem()) {
+        m_current_link.setValue(value);
+        qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
+        //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
+        emit currentLinkChanged(m_current_link);
+    }
 }
 
-void TestViewDelegate::setEditorData(QWidget *editor,
+void ModelTuningDelegate::setEditorData(QWidget *editor,
                                   const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
@@ -148,7 +162,7 @@ void TestViewDelegate::setEditorData(QWidget *editor,
 }
 
 
-void TestViewDelegate::setModelData(QWidget *editor,
+void ModelTuningDelegate::setModelData(QWidget *editor,
                                  QAbstractItemModel *model,
                                  const QModelIndex &index) const
 {
@@ -159,7 +173,8 @@ void TestViewDelegate::setModelData(QWidget *editor,
 
         if(link.getItem() != NULL)
         {
-            link.getItem()->setRegisteredProperty(link.getName(), m_valueBox->value());
+            qDebug() << "SampleTuningDelegate::setModelData() -> setting property " << link.getPropertyName();
+            link.getItem()->setRegisteredProperty(link.getPropertyName(), m_valueBox->value());
         }
 
     } else {

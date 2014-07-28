@@ -181,6 +181,7 @@ void PlotWidget::savePlot()
 
 void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 {
+//    Q_ASSERT(outputDataItem);
     if(m_outputDataItem == outputDataItem) {
         qDebug() << "PlotWidget::drawPlot() -> Same outputDataItem !!!";
         //updatePlot();

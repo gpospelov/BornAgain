@@ -98,7 +98,8 @@ QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
-    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation, run_policy);
+    QString identifier = m_queue_data->createJob(jobName, simulation, run_policy);
+    JobQueueItem *queue_item = new JobQueueItem(identifier);
     m_jobs.append(queue_item);
     endInsertRows();
 

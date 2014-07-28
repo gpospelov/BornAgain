@@ -1,18 +1,18 @@
-#ifndef TESTVIEWDELEGATE_H
-#define TESTVIEWDELEGATE_H
+#ifndef MODELTUNINGDELEGATE_H
+#define MODELTUNINGDELEGATE_H
 
 #include <QItemDelegate>
-#include <QRect>
-#include <QItemSelectionModel>
-#include <QHBoxLayout>
-#include <QDoubleSpinBox>
+#include "ItemLink.h"
 
-class TestViewDelegate : public QItemDelegate
+class QDoubleSpinBox;
+class QHBoxLayout;
+
+class ModelTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 
 public:
-    TestViewDelegate(int valueColumn, QObject *parent = 0);
+    ModelTuningDelegate(int valueColumn, QObject *parent = 0);
 
     QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
     {
@@ -28,6 +28,9 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model,
                       const QModelIndex &index) const;
 
+signals:
+    void currentLinkChanged(ItemLink link);
+
 private slots:
     void sliderValueChanged(int position);
     void editorValueChanged(double value);
@@ -39,6 +42,7 @@ private:
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     double m_multiplyFactor;
+    mutable ItemLink m_current_link;
 };
 
-#endif //TESTVIEWDELEGATE_H
+#endif //SAMPLETUNINGDELEGATE_H

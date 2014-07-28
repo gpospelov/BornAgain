@@ -775,9 +775,9 @@ void SessionModel::writePropertyItem(QXmlStreamWriter *writer,
 }
 
 
-void SessionModel::onItemPropertyChange(const QString & /* name */)
+void SessionModel::onItemPropertyChange(const QString & name )
 {
-    //qDebug() << "SessionModel::onItemPropertyChange()" << name;
+    qDebug() << "SessionModel::onItemPropertyChange()" << name;
     ParameterizedItem *item = qobject_cast<ParameterizedItem *>(sender());
     Q_ASSERT(item);
     QModelIndex itemIndex = indexOfItem(item);

@@ -2,35 +2,42 @@
 #define SIMULATIONVIEW_H
 
 #include <QWidget>
-#include <QString>
+#include "qstandarditemmodel.h"
+#include "SimulationSetupWidget.h"
+#include "QuickSimulationWidget.h"
+#include <QTabWidget>
 
+class MainWindow;
 class SimulationDataModel;
-class QComboBox;
-class QPushButton;
 class JobQueueModel;
+class SampleModel;
+class InstrumentModel;
 
 class SimulationView : public QWidget
 {
     Q_OBJECT
 
 public:
-    SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
-    void updateViewElements();
-    void setJobQueueModel(JobQueueModel *model);
+    enum TabViewId { SimulationSetupTab, QuickSimulationTab};
+    SimulationView(MainWindow *mainWindow);
+
+    void updateSimulationViewElements();
 
 public slots:
-    void onRunSimulation();
-    void onPythonJobLaunched();
-    void onJobFinished();
+    void onChangeTabWidget(int index);
 
 private:
     SimulationDataModel *mp_simulation_data_model;
     JobQueueModel *m_jobQueueModel;
-    QComboBox *instrumentSelectionBox;
-    QComboBox *sampleSelectionBox;
-    QPushButton *runSimulationButton;
-    QComboBox *runPolicySelectionBox;
-    //QPushButton *runPyScriptSimulation;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
+
+    SimulationSetupWidget *m_simulationSetupWidget;
+    QuickSimulationWidget *m_quickSimulationWidget;
+    QTabWidget *m_tabWidget;
+
 };
 
+
 #endif // SIMULATIONVIEW_H
+

@@ -6,9 +6,8 @@
 #include "SampleView.h"
 #include "PyScriptView.h"
 #include "InstrumentView.h"
-//#include "SimulationView.h"
+#include "SimulationView.h"
 #include "JobQueueView.h"
-//#include "TestView.h"
 #include "MaterialEditorWidget.h"
 #include "stylehelper.h"
 #include "SimulationDataModel.h"
@@ -42,7 +41,7 @@
 #include "FancyGroupProperty.h"
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
-#include "SimulationTabView.h"
+//#include "TestView.h"
 
 #include <QApplication>
 #include <QStatusBar>
@@ -57,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_instrumentView(0)
     , m_sampleView(0)
     , m_scriptView(0)
-    //, m_simulationView(0)
+    , m_simulationView(0)
     , m_jobQueueView(0)
     , m_progressBar(0)
     , m_actionManager(0)
@@ -70,8 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_materialModel(0)
     , m_materialEditor(0)
     , m_toolTipDataBase(new ToolTipDataBase(this))
-    , m_testView(0)
-    , m_simulationTabView(0)
 {
 //    QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
 //    QCoreApplication::setApplicationVersion(QLatin1String(Constants::APPLICATION_VERSION));
@@ -96,20 +93,18 @@ MainWindow::MainWindow(QWidget *parent)
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(m_instrumentModel);
     m_sampleView = new SampleView(m_sampleModel, m_instrumentModel);
-    m_scriptView = new PyScriptView(mp_sim_data_model);
-    //m_simulationView = new SimulationView(mp_sim_data_model);
-    //m_simulationView->setJobQueueModel(m_jobQueueModel);
+    //m_scriptView = new PyScriptView(mp_sim_data_model);
+    m_simulationView = new SimulationView(this);
     m_jobQueueView = new JobQueueView(m_jobQueueModel);
-    m_testView = new TestView(m_sampleModel, this);
-    m_simulationTabView = new SimulationTabView(mp_sim_data_model, m_jobQueueModel, m_sampleModel);
+    //m_testView = new TestView(m_sampleModel, this);
 
     m_tabWidget->insertTab(WelcomeTab, m_welcomeView, QIcon(":/images/main_home.png"), "Welcome");
     m_tabWidget->insertTab(InstrumentTab, m_instrumentView, QIcon(":/images/main_instrument.png"), "Instrument");
     m_tabWidget->insertTab(SampleTab, m_sampleView, QIcon(":/images/main_sample.png"), "Sample");
     //m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_script.png"), "Python scripts");
-    m_tabWidget->insertTab(SimulationTab, m_simulationTabView, QIcon(":/images/main_simulation.png"), "Simulation");
+    m_tabWidget->insertTab(SimulationTab, m_simulationView, QIcon(":/images/main_simulation.png"), "Simulation");
     m_tabWidget->insertTab(JobTab, m_jobQueueView, QIcon(":/images/main_jobqueue.png"), "Jobs");
-    m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
+    //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
     m_tabWidget->setCurrentIndex(SampleTab);
@@ -131,13 +126,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_projectManager->createNewProject();
 
-//    testGUIObjectBuilder();
+    testGUIObjectBuilder();
 }
 
 
 MainWindow::~MainWindow()
 {
     delete m_materialEditor;
+    delete mp_sim_data_model;
 }
 
 
@@ -184,7 +180,7 @@ void MainWindow::onChangeTabWidget(int index)
     (void)index;
     if(index == SimulationTab) {
         updateSimModel();
-        m_simulationTabView->updateSimulationViewElements();
+        m_simulationView->updateSimulationViewElements();
     }
     else if(index == WelcomeTab)
     {
@@ -237,7 +233,7 @@ void MainWindow::initMaterialModel()
 {
     delete m_materialModel;
 
-    m_materialModel = new MaterialModel();
+    m_materialModel = new MaterialModel(this);
     m_materialModel->addMaterial("Default", 1e-3, 1e-5);
     m_materialModel->addMaterial("Air", 0.0, 0.0);
     m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
@@ -252,7 +248,7 @@ void MainWindow::initSampleModel()
     Q_ASSERT(m_materialModel);
 
     delete m_sampleModel;
-    m_sampleModel = new SampleModel();
+    m_sampleModel = new SampleModel(this);
 
     connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 
@@ -281,7 +277,7 @@ void MainWindow::initJobQueueModel()
 void MainWindow::initInstrumentModel()
 {
     delete m_instrumentModel;
-    m_instrumentModel = new InstrumentModel();
+    m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
 
     ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);

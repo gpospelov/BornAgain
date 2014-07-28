@@ -201,7 +201,7 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
 
 Instrument *TransformToDomain::createInstrument(const ParameterizedItem &item)
 {
-    qDebug() << "TransformToDomain::createInstrument";
+//    qDebug() << "TransformToDomain::createInstrument";
     Instrument *result = new Instrument();
     result->setName(item.itemName().toUtf8().constData());
     return result;
@@ -209,7 +209,7 @@ Instrument *TransformToDomain::createInstrument(const ParameterizedItem &item)
 
 Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
 {
-    qDebug() << "TransformToDomain::createBeam";
+//    qDebug() << "TransformToDomain::createBeam";
     Beam *result = new Beam();
     result->setName(item.itemName().toUtf8().constData());
     result->setIntensity(item.getRegisteredProperty(BeamItem::P_INTENSITY).toDouble());
@@ -222,13 +222,13 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
 
 void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &item, Instrument *instrument)
 {
-    qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
-    item.print();
+//    qDebug() << "TransformToDomain::initInstrumentWithDetectorItem()" << item.modelType();
+//    item.print();
 
     ParameterizedItem *subDetector = item.getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(subDetector);
 
-    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
+//    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
     if (subDetector->modelType() == Constants::ThetaPhiDetectorType) {
         int nphi = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NPHI).toInt();
         double phi_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN).toDouble();

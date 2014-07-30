@@ -1,3 +1,36 @@
+BornAgain-0.9.7, released 2014.07.31
+  > Summary: 
+    1) Further GUI development toward first beta scheduled for October, 2014.
+    2) Redesign of RT coefficient calculations to reduce numerical instabilities in very thick layers.
+    3) Improvements in Monte-Carlo integration to cope with highly oscillatory form factors of super large particles.
+    3) Experimental support for running BornAgain on high performance computing clusters under OpenMPI environment.
+  > Details:
+  * Bug #578: Initialization problem in LLData class
+  * Bug #706: Layer cannot be dropped from widgetbox to designer scene
+  * Bug #709: Take care of thick layers
+  * Feature #523: Expose to python MSG::SetLevel
+  * Feature #600: Provide compilation of BornAgain at lrz cluster
+  * Feature #604: Implement QStandartItemModel hierarchy
+  * Feature #663: Improve MaterialEditor logic
+  * Feature #675: Provide widgetbox with tooltips.
+  * Feature #679: Revise location of auto generated BAVersion and similar files
+  * Feature #681: Provide Paracrystal1D with possibility to set different probability distributions.
+  * Feature #687: Provide unit test machinery for GUI.
+  * Feature #688: Include GUI in nightly build
+  * Feature #694: Provide select all functionality for SampleView
+  * Feature #695: Provide panning functionality for SampleView
+  * Feature #696: Implement check for unsaved project and corresponding save/discard widget
+  * Feature #699: Implement ParameterModel and corresponding view delegates for real time SimulationView
+  * Feature #700: Implement core shell particles in GUI
+  * Feature #701: Implement layer roughness in GUI
+  * Feature #705: Implement Monte Carlo integration also for polarized simulations
+  * Feature #710: Provide toy OpenMPI application to run at LRZ
+  * Feature #713: Provide simplified OpenMPI support in runSimulation
+  * Feature #729: Integrate Mahadi's QuickSimulation widget into run simulation evironment.
+  * Documentation #691: Provide simple cartoons for concepts that are otherwise difficult to understand
+  * Refactoring #581: Check naming of the coherence length
+  * Testing #674: Provide functional test machinery for GUI.
+    
 BornAgain-0.9.6, released 2014.06.04
   > Summary: Diverse GUI items (OutputData Widget, basic simulation functionality) + big form factor issue
   * Feature #597: Attach Instrument view to session model

@@ -31,8 +31,12 @@ include(SearchInstalledSoftware)
 include(CheckCompiler)
 include(BornAgainConfiguration)
 
-
 #--- Recurse into the given subdirectories ---
+
+if(BORNAGAIN_MAN)
+    add_subdirectory(Doc/UserManual)
+endif()
+
 add_subdirectory(Core)
 add_subdirectory(ThirdParty/gtest)
 add_subdirectory(Tests/UnitTests/TestCore)
@@ -50,10 +54,6 @@ if(BORNAGAIN_GUI)
 endif()
 
 add_subdirectory(Tests/FunctionalTests)  # functional tests (make check)
-
-if(BORNAGAIN_MAN)
-    add_subdirectory(Doc/UserManual)
-endif()
 
 add_subdirectory(cmake) # trick to print the message
 

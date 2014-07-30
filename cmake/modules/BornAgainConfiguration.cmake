@@ -40,18 +40,20 @@ configure_file(
   "${CMAKE_SOURCE_DIR}/Core/Samples/inc/BAVersion.h"
 )
 
-# --- configure deployment script for release
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/release.sh.in" "${CMAKE_BINARY_DIR}/bin/release.sh")
-
 # --- configure user setup script
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.sh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.sh" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/thisbornagain.csh.in" "${CMAKE_BINARY_DIR}/bin/thisbornagain.csh" @ONLY)
 
-# --- configure project paths
-configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_SOURCE_DIR}/Core/Tools/inc/BAConfigure.h" @ONLY)
+if(BORNAGAIN_RELEASE)
+    # --- configure deployment script for release
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/release.sh.in" "${CMAKE_BINARY_DIR}/bin/release.sh")
 
-# --- configure Doxyfile
-configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
+    # --- configure project paths
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_SOURCE_DIR}/Core/Tools/inc/BAConfigure.h" @ONLY)
+
+    # --- configure Doxyfile
+    configure_file("${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in" "${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile" @ONLY)
+endif()
 
 # --- installation
 if(NOT WIN32)

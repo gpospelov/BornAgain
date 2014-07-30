@@ -19,6 +19,7 @@ option(BORNAGAIN_MAN "Build a user manual" OFF)
 option(BUILD_DEBIAN "Build a debian package" OFF)
 option(ROOT_SUPPORT "Build with dependencies from ROOT" ON)
 option(BORNAGAIN_OPENMPI "Build with OpenMPI support" OFF)
+option(BORNAGAIN_RELEASE "Special option for making release" OFF)
 
 
 # --- Path for additional cmake modules ---

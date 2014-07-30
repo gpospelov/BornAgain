@@ -53,7 +53,7 @@ endif()
 # --- configure project paths
 #configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_SOURCE_DIR}/Core/Tools/inc/BAConfigure.h" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/cmake/scripts/BAConfigure.h.in" "${CMAKE_BINARY_DIR}/BAConfigure.h" @ONLY)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I./")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_BINARY_DIR}")
 
 
 # --- installation

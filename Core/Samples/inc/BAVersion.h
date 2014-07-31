@@ -23,7 +23,7 @@
 namespace BornAgain {
     const int major_version_number = 0;
     const int minor_version_number = 9;
-    const int patch_version_number = 6;
+    const int patch_version_number = 7;
 
     inline int GetMajorVersionNumber() { return major_version_number; }
     inline int GetMinorVersionNumber() { return minor_version_number; }

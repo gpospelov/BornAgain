@@ -35,7 +35,7 @@ public:
     //! @param xi Angle between first basis vector and the x-axis of incoming beam.
     //! @param m_corr_length correlation length of paracrystal
     InterferenceFunction2DParaCrystal(double length_1, double length_2,
-            double alpha_lattice, double xi=0.0, double corr_length=0.0);
+            double alpha_lattice, double xi=0.0, double damping_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
 
     virtual InterferenceFunction2DParaCrystal *clone() const;
@@ -50,7 +50,8 @@ public:
             double domain_size_1=0.0, double domain_size_2=0.0);
 
     //! @brief Sets sizes of coherence domain
-    //! @param size_1
+    //! @param size_1: size in first lattice direction
+    //! @param size_2: size in second lattice direction
     void setDomainSizes(double size_1, double size_2) {
         m_domain_sizes[0] = size_1;
         m_domain_sizes[1] = size_2;
@@ -75,7 +76,7 @@ public:
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D *> getPropabilityDistributions() const;
     bool getIntegrationOverXi() const { return m_integrate_xi; }
-    double getDampingLength() const { return m_corr_length;}
+    double getDampingLength() const { return m_damping_length;}
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -88,8 +89,8 @@ protected:
     double m_xi; //!< Orientation of the lattice wrt beam axis x
     bool m_integrate_xi; //!< Integrate over the orientation xi
     IFTDistribution2D *m_pdfs[2];
-    double m_corr_length;
-    bool m_use_corr_length;
+    double m_damping_length;
+    bool m_use_damping_length;
     double m_domain_sizes[2]; //!< Coherence domain sizes
 private:
 
@@ -98,9 +99,6 @@ private:
 
     //! Returns interference function for fixed xi in 1d
     double interference1D(double qx, double qy, double xi, size_t index) const;
-
-    //! Calculates the geometric series of z to order N
-    complex_t geometricSum(complex_t z, int exponent) const;
 
     complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
 

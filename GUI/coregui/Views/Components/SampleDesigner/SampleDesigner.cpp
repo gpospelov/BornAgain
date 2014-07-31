@@ -11,7 +11,7 @@ SampleDesigner::SampleDesigner(QWidget *parent)
     , m_designerView(0)
 {
     m_designerScene = new DesignerScene(parent);
-    m_designerView = new DesignerView(parent, m_designerScene);
+    m_designerView = new DesignerView(m_designerScene, parent);
 }
 
 
@@ -20,12 +20,12 @@ SampleDesigner::~SampleDesigner()
 }
 
 
-void SampleDesigner::setSampleModel(SessionModel *sampleModel)
+void SampleDesigner::setSampleModel(SampleModel *sampleModel)
 {
     if(sampleModel) m_designerScene->setSampleModel(sampleModel);
 }
 
-void SampleDesigner::setInstrumentModel(SessionModel *instrumentModel)
+void SampleDesigner::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     if(instrumentModel) m_designerScene->setInstrumentModel(instrumentModel);
 }
@@ -39,5 +39,6 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model)
 
 void SampleDesigner::onSmartAlign()
 {
+    qDebug() << "SampleDesigner::onSmartAlign()";
     m_designerScene->onSmartAlign();
 }

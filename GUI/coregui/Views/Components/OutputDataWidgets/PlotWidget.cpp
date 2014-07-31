@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 
 
-PlotWidget::PlotWidget(QWidget *parent, bool isCreateToolbar)
+PlotWidget::PlotWidget(bool isCreateToolbar, QWidget *parent)
     : QWidget(parent)
     //, m_splitter(new Manhattan::MiniSplitter(this))
     , m_splitter(new QSplitter(this))
@@ -83,7 +83,7 @@ PlotWidget::PlotWidget(QWidget *parent, bool isCreateToolbar)
 
     if(isCreateToolbar)
     {
-        m_toolBar = new OutputDataToolBar(this);
+        m_toolBar = new OutputDataToolBar();
         connectToobarSignals();
         vlayout->addWidget(m_toolBar);
     }
@@ -129,6 +129,11 @@ void PlotWidget::connectToobarSignals()
 void PlotWidget::savePlot()
 {
 
+    if(isProjectionsVisible)
+    {
+        m_centralPlot->showLinesOverMap(false);
+    }
+
     QString filters("*.png;;*.jpg;;*.pdf");
     QString defaultFilter("*.png");
     QString defaultName = qApp->applicationDirPath().append("/untitled");
@@ -137,26 +142,46 @@ void PlotWidget::savePlot()
     QString fileName =QFileDialog::getSaveFileName(0, "Save Plot", defaultName,
         filters, &defaultFilter);
 
+    QString extension =  defaultFilter.mid(1);
+
     if (!fileName.isEmpty() && !defaultFilter.isEmpty())
     {
-        if(defaultFilter == "*.pdf")
+
+        if(fileName.endsWith(tr(".pdf"), Qt::CaseInsensitive))
         {
             m_centralPlot->savePdf(fileName);
         }
-        else if(defaultFilter == "*.jpg")
+        else if(fileName.endsWith(tr(".jpg"), Qt::CaseInsensitive))
         {
             m_centralPlot->saveJpg(fileName);
         }
-        else
+        else if(fileName.endsWith(tr(".png"), Qt::CaseInsensitive))
         {
             m_centralPlot->savePng(fileName);
         }
+        else if(defaultFilter == "*.pdf")
+        {
+            m_centralPlot->savePdf(fileName+extension);
+        }
+        else if(defaultFilter == "*.jpg")
+        {
+            m_centralPlot->saveJpg(fileName+extension);
+        }
+        else
+        {
+            m_centralPlot->savePng(fileName+extension);
+        }
     }
+
+
+    m_centralPlot->showLinesOverMap(isProjectionsVisible);
+
 }
 
 
 void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 {
+//    Q_ASSERT(outputDataItem);
     if(m_outputDataItem == outputDataItem) {
         qDebug() << "PlotWidget::drawPlot() -> Same outputDataItem !!!";
         //updatePlot();
@@ -385,5 +410,30 @@ void PlotWidget::onYaxisRangeChanged(QCPRange newRange)
 {
     //qDebug() << "onYaxisRangeChanged: "<<newRange.lower << newRange.upper;
     m_verticalPlot->setKeyAxisRange(newRange);
+}
+
+void PlotWidget::setProjectionsVisible(bool visible)
+{
+    projectionsChanged(visible);
+}
+
+void PlotWidget::setPropertyPanelVisible(bool visible)
+{
+    int width = 0;
+    isPropertyWidgetVisible = visible;
+
+    if(isPropertyWidgetVisible)
+    {
+        width = m_propertyWidget->getWidth();
+    }
+    else
+    {
+        width = 0;
+    }
+
+    QList<int> sizes;
+    sizes.append(this->m_splitter->width() - width);
+    sizes.append(width);
+    this->m_splitter->setSizes(sizes);
 }
 

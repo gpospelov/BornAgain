@@ -47,10 +47,11 @@ protected:
     double m_omega;
 };
 
+
 //! @class FTDistribution1DCauchy
 //! @ingroup algorithms
 //! @brief 1 dimensional Cauchy distribution in Fourier space
-//! corresponds to exp(-r) in real space
+//! corresponds to a normalized exp(-|x|) in real space
 
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
@@ -66,7 +67,7 @@ public:
 //! @class FTDistribution1DGauss
 //! @ingroup algorithms
 //! @brief 1 dimensional Gauss distribution in Fourier space
-//! corresponds to exp(-r^2) in real space
+//! corresponds to a normalized exp(-x^2) in real space
 
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
@@ -75,6 +76,60 @@ public:
     virtual ~FTDistribution1DGauss() {}
 
     virtual FTDistribution1DGauss *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
+//! @class FTDistribution1DGate
+//! @ingroup algorithms
+//! @brief 1 dimensional Gate distribution in Fourier space
+//! corresponds to a normalized constant if |x|<omega (and 0 otherwise)
+//! in real space
+
+class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
+{
+public:
+    FTDistribution1DGate(double omega);
+    virtual ~FTDistribution1DGate() {}
+
+    virtual FTDistribution1DGate *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
+//! @class FTDistribution1DTriangle
+//! @ingroup algorithms
+//! @brief 1 dimensional triangle distribution in Fourier space
+//! corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise)
+//! in real space
+
+class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
+{
+public:
+    FTDistribution1DTriangle(double omega);
+    virtual ~FTDistribution1DTriangle() {}
+
+    virtual FTDistribution1DTriangle *clone() const;
+
+    virtual double evaluate(double q) const;
+};
+
+
+//! @class FTDistribution1DCosine
+//! @ingroup algorithms
+//! @brief 1 dimensional triangle distribution in Fourier space
+//! corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise)
+//! in real space
+
+class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
+{
+public:
+    FTDistribution1DCosine(double omega);
+    virtual ~FTDistribution1DCosine() {}
+
+    virtual FTDistribution1DCosine *clone() const;
 
     virtual double evaluate(double q) const;
 };
@@ -94,6 +149,8 @@ public:
     virtual FTDistribution1DVoigt *clone() const;
 
     virtual double evaluate(double q) const;
+
+    virtual double getEta() const { return m_eta;}
 
 protected:
     virtual void init_parameters();
@@ -131,10 +188,15 @@ public:
     // get coherence length in Y-direction
     double getCoherenceLengthY() const { return m_coherence_length_y; }
 
-    //! evaluate IF for q in X,Y coordinates
-    //! A common factor of 2*pi*m_coherence_length_x*m_coherence_length_y is
-    //! applied by the caller if needed
+    //! evaluate Fourier transformed distribution for q in X,Y coordinates
+    //! the original distribution (in real space) is assumed to be normalized:
+    //! total integral is equal to 1
     virtual double evaluate(double qx, double qy) const=0;
+
+    //! evaluate Fourier transformed distribution for q in X,Y coordinates
+    //! the function is assumed to be normalized in reciprocal space:
+    //! total integral is (2pi)^2
+    virtual double evaluateLattice(double qx, double qy) const;
 
     //! transform back to a*, b* basis:
     void transformToStarBasis(double qX, double qY,
@@ -156,7 +218,8 @@ protected:
 //! @class FTDistribution2DCauchy
 //! @ingroup algorithms
 //! @brief 2 dimensional Cauchy distribution in Fourier space
-//! corresponds to exp(-r) in real space
+//! corresponds to a normalized exp(-r) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
@@ -167,13 +230,16 @@ public:
     virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double evaluateLattice(double qx, double qy) const;
 };
 
 
 //! @class FTDistribution2DGauss
 //! @ingroup algorithms
 //! @brief 2 dimensional Gauss distribution in Fourier space
-//! corresponds to exp(-r^2) in real space
+//! corresponds to normalized exp(-r^2/2) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
 
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
@@ -184,6 +250,49 @@ public:
     virtual FTDistribution2DGauss *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double evaluateLattice(double qx, double qy) const;
+};
+
+
+//! @class FTDistribution2DGate
+//! @ingroup algorithms
+//! @brief 2 dimensional gate distribution in Fourier space
+//! corresponds to normalized constant if r<1 (and 0 otherwise) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
+{
+public:
+    FTDistribution2DGate(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DGate() {}
+
+    virtual FTDistribution2DGate *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+};
+
+
+//! @class FTDistribution2DCone
+//! @ingroup algorithms
+//! @brief 2 dimensional cone distribution in Fourier space
+//! corresponds to 1-r if r<1 (and 0 otherwise) in real space
+//! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$
+
+class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
+{
+public:
+    FTDistribution2DCone(double coherence_length_x, double coherence_length_y);
+    virtual ~FTDistribution2DCone() {}
+
+    virtual FTDistribution2DCone *clone() const;
+
+    virtual double evaluate(double qx, double qy) const;
+
+private:
+    //! second part of the integrand:
+    //! \f$u^2\cdot J_0(u)\f$
+    double coneIntegrand2(double value, void *params) const;
 };
 
 
@@ -202,6 +311,8 @@ public:
     virtual FTDistribution2DVoigt *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual double evaluateLattice(double qx, double qy) const;
 
     virtual double getEta() const { return m_eta;}
 

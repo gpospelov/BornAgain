@@ -17,13 +17,16 @@ class PlotWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit PlotWidget(QWidget *parent, bool isCreateToolbar = true);
+    explicit PlotWidget(bool isCreateToolbar = true, QWidget *parent=0);
     virtual ~PlotWidget(){}
 
     QSize minimumSizeHint() const { return QSize(800, 800); }
 
     int histogramSize;
     void drawPlot(OutputDataItem *outputDataItem);
+
+    void setProjectionsVisible(bool visible);
+    void setPropertyPanelVisible(bool visible);
 
 
 public slots:
@@ -37,7 +40,7 @@ private slots:
     void togglePropertyPanel();
     void savePlot();
     void projectionsChanged(bool projection);
-    void gradientChanged(QCPColorGradient gradient);
+    void gradientChanged(QCPColorGradient gradient);    
     void toggleProjections();
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);

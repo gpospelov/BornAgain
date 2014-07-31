@@ -26,7 +26,7 @@ public:
     {
         Default,
         Interference,
-        ParticleFactory,
+        ParticleLayout,
         FormFactor,
         GeometryTransformation
     };
@@ -64,7 +64,7 @@ public:
 
     static QColor getPortTypeColor(NodeEditorPort::PortType port_type);
 
-    void deleteAllConnections();
+//    void deleteAllConnections();
 
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);

@@ -61,18 +61,15 @@ ISample *LayerRoughnessBuilder::buildSample() const
     Layer substrate_layer;
     substrate_layer.setMaterialAndThickness(substrate_material, 0);
 
-    LayerRoughness *roughness = new LayerRoughness();
-    roughness->setSigma(m_sigma);
-    roughness->setHurstParameter(m_hurst);
-    roughness->setLatteralCorrLength(m_latteralCorrLength);
+    LayerRoughness roughness(m_sigma, m_hurst, m_latteralCorrLength);
 
     multi_layer->addLayer(air_layer);
     for (int i = 0; i<5; ++i) {
-        multi_layer->addLayerWithTopRoughness(partA_layer, *roughness);
-        multi_layer->addLayerWithTopRoughness(partB_layer, *roughness);
+        multi_layer->addLayerWithTopRoughness(partA_layer, roughness);
+        multi_layer->addLayerWithTopRoughness(partB_layer, roughness);
     }
 
-    multi_layer->addLayerWithTopRoughness(substrate_layer, *roughness);
+    multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
     multi_layer->setCrossCorrLength(m_crossCorrLength);
     return multi_layer;
 }

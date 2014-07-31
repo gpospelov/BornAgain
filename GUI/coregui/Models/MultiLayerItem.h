@@ -24,7 +24,11 @@ class MultiLayerItem : public ParameterizedGraphicsItem
 public:
     static const QString P_CROSS_CORR_LENGTH;
     explicit MultiLayerItem(ParameterizedItem *parent=0);
-    ~MultiLayerItem();
+    ~MultiLayerItem(){}
+    ParameterizedItem *takeChildItem(int row);
+    void insertChildItem(int row, ParameterizedItem *item);
+private:
+    void updateLayers();
 };
 
 #endif // MULTILAYERITEM_H

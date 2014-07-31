@@ -22,18 +22,21 @@
 #include "MaterialProperty.h"
 #include <QMap>
 
-class SessionModel;
+class InstrumentModel;
+class SampleModel;
 class ParameterizedItem;
 
-//! Class to build SessionModel from domain's ISample
+//! Class to build SampleModel and InstrumentModel from domain's ISample
 class GUIObjectBuilder : public ISampleVisitor
 {
 public:
     GUIObjectBuilder();
-    ~GUIObjectBuilder(){}
+    virtual ~GUIObjectBuilder(){}
 
-    ParameterizedItem *populateSampleModel(SessionModel *sampleModel, ISample *sample);
-    ParameterizedItem *populateInstrumentModel(SessionModel *instrumentModel, Instrument *instrument);
+    ParameterizedItem *populateSampleModel(SampleModel *sampleModel,
+                                           ISample *sample);
+    ParameterizedItem *populateInstrumentModel(InstrumentModel *instrumentModel,
+                                               Instrument *instrument);
 
     using ISampleVisitor::visit;
 
@@ -46,6 +49,7 @@ public:
     void visit(const MultiLayer *);
 
     void visit(const Particle *);
+    void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);
 
@@ -79,10 +83,11 @@ public:
 private:
     MaterialProperty createMaterialFromDomain(const IMaterial *);
 
-    SessionModel *m_sampleModel;
+    SampleModel *m_sampleModel;
 
     QMap<int, ParameterizedItem *> m_levelToParent;
-
+    QMap<QString, double > m_propertyToValue;
+    QMap<ParameterizedItem *, const ISample *> m_itemToSample;
     QString m_topSampleName;
 };
 

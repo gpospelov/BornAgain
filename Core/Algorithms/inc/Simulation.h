@@ -51,8 +51,8 @@ public:
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
-    //! Returns intensity for a single detector element
-    void runSimulationElement(size_t index);
+    //! Run an OpenMPI simulation
+    void runOMPISimulation();
 
     //! Normalize the detector counts
     void normalize();
@@ -154,6 +154,8 @@ public:
     //! initializes DWBA progress handler
     void initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress);
 #endif
+
+    friend class OMPISimulation;
 
 protected:
     Simulation(const Simulation& other);

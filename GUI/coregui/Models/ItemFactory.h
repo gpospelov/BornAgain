@@ -16,11 +16,16 @@
 #ifndef ITEMFACTORY_H
 #define ITEMFACTORY_H
 
+#include <QMap>
+#include <QStringList>
 #include "ParameterizedItem.h"
 
 class ItemFactory
 {
 public:
+    typedef QMap<QString, ParameterizedItem *(*)()> ItemMap_t;
+
+
     //! create ParameterizedItem of specific type and parent
     static ParameterizedItem *createItem(const QString &model_name,
                                          ParameterizedItem *parent=0);
@@ -29,15 +34,11 @@ public:
     static ParameterizedItem *createEmptyItem();
 
     //! retrieve list of all possible item names
-    static QList<QString> getAllItemNames() {
-        return m_all_item_names;
-    }
-
-    //! returns true if item with given name can be created
-    static bool isValidName(const QString &name);
+    static QList<QString> getValidTopItemNames();
 
 private:
-    static QList<QString> m_all_item_names;
+    static QStringList m_valid_top_item_names;
+    static ItemMap_t m_item_map;
     ItemFactory() {}
     ~ItemFactory() {}
 };

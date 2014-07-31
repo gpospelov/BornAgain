@@ -54,10 +54,11 @@ ISample *IsGISAXS04Para1DBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    IInterferenceFunction *p_interference_function =
+    InterferenceFunction1DParaCrystal *p_interference_function =
             new InterferenceFunction1DParaCrystal(
-                    m_corr_peak_distance,m_corr_width, m_corr_length);
-
+                    m_corr_peak_distance, m_corr_length);
+    FTDistribution1DGauss pdf(m_corr_width);
+    p_interference_function->setProbabilityDistribution(pdf);
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
     ParticleLayout particle_layout( new Particle(

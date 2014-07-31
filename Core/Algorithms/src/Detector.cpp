@@ -193,52 +193,17 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
         throw LogicErrorException(
             "Simulation::getSolidAngle() -> "
             "Error! Can't determine size of detector cell.");
-    double dalpha(0), dphi(0);
-
-    double alpha_f = p_data->getValueOfAxis(BornAgain::ALPHA_AXIS_NAME, index);
-    double cos_alpha_f = std::cos(alpha_f);
-
-    if(alpha_size>1) {
-        if (alpha_index==0) {
-            dalpha = (*p_alpha_axis)[1] - (*p_alpha_axis)[0];
-        } else if (alpha_index==alpha_size-1) {
-            dalpha =
-                (*p_alpha_axis)[alpha_size-1] -
-                (*p_alpha_axis)[alpha_size-2];
-        } else {
-            dalpha =
-                ((*p_alpha_axis)[alpha_index+1] -
-                 (*p_alpha_axis)[alpha_index-1])/2.0;
-        }
-        dalpha = std::abs(dalpha);
-    } else {
-        msglog(MSG::WARNING) << "Simulation::getSolidAngle() -> "
-            "Only one bin on alpha_f axis, "
-            "size of the bin will be taken from phi_f axis";
+    double dsinalpha(1.0), dphi(1.0);
+    Bin1D alpha_bin = p_alpha_axis->getBin(alpha_index);
+    if (alpha_bin.getBinSize()) {
+        dsinalpha = std::abs(std::sin(alpha_bin.m_upper)
+                             -std::sin(alpha_bin.m_lower));
     }
-    if(phi_size > 1) {
-        if (phi_index==0) {
-            dphi = (*p_phi_axis)[1] - (*p_phi_axis)[0];
-        } else if (phi_index==phi_size-1) {
-            dphi = (*p_phi_axis)[phi_size-1] -
-                (*p_phi_axis)[phi_size-2];
-        } else {
-            dphi = ((*p_phi_axis)[phi_index+1] -
-                    (*p_phi_axis)[phi_index-1])/2.0;
-        }
-        dphi = std::abs(dphi);
-    } else {
-        msglog(MSG::WARNING) << "Simulation::getSolidAngle() -> "
-            "Only one bin on phi_f axis, "
-            "size of the bin will be taken from alpha_f axis.";
+    Bin1D phi_bin = p_phi_axis->getBin(phi_index);
+    if (phi_bin.getBinSize()) {
+        dphi = std::abs(phi_bin.m_upper - phi_bin.m_lower);
     }
-    if(!dalpha || !dphi) {
-        msglog(MSG::WARNING) << "Simulation::getSolidAngle() -> "
-            "Not defined normalization.";
-        return 1;
-    } else {
-        return cos_alpha_f*dalpha*dphi;
-    }
+    return dsinalpha*dphi;
 }
 
 void Detector::print(std::ostream& ostr) const

@@ -21,6 +21,8 @@
 
 #include <exception>
 
+class QVariant;
+
 namespace GUIHelpers
 {
 class Error : public std::exception
@@ -46,6 +48,9 @@ bool question(QWidget *parent, const QString &title,
         const QString &noText=QObject::tr("&No"));
 bool okToDelete(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
+
+int getVariantType(const QVariant &variant);
+
 }
 
 #endif // GUIHELPERS_H

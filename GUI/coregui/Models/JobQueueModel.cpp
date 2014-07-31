@@ -2,7 +2,7 @@
 #include "JobItem.h"
 #include "JobQueueItem.h"
 #include "JobRunner.h"
-#include "mainwindow_constants.h"
+//#include "mainwindow_constants.h"
 #include "Exceptions.h"
 #include "GUIHelpers.h"
 #include <QMimeData>
@@ -98,7 +98,8 @@ QString JobQueueModel::addJob(QString jobName, Simulation *simulation, JobItem::
 {
     int position = m_jobs.size();
     beginInsertRows(QModelIndex(), position, position);
-    JobQueueItem *queue_item = m_queue_data->createJobQueueItem(jobName, simulation, run_policy);
+    QString identifier = m_queue_data->createJob(jobName, simulation, run_policy);
+    JobQueueItem *queue_item = new JobQueueItem(identifier);
     m_jobs.append(queue_item);
     endInsertRows();
 
@@ -125,7 +126,7 @@ bool JobQueueModel::removeRows(int position, int rows, const QModelIndex &/* par
 
 QStringList JobQueueModel::mimeTypes() const
 {
-    return QStringList() << Constants::MIME_JOBQUEUE;
+    return QStringList() << JobQueueXML::MimeType;
 }
 
 
@@ -140,7 +141,7 @@ QMimeData *JobQueueModel::mimeData(const QModelIndexList &indices) const
     QByteArray encodedData;
     QDataStream dataStream(&encodedData, QIODevice::WriteOnly);
     dataStream << item->getIdentifier();
-    mimeData->setData(Constants::MIME_JOBQUEUE, encodedData);
+    mimeData->setData(JobQueueXML::MimeType, encodedData);
     return mimeData;
 }
 
@@ -151,7 +152,7 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     if (action == Qt::IgnoreAction)
         return true;
 
-    if(!data->hasFormat(Constants::MIME_JOBQUEUE) || column>0)
+    if(!data->hasFormat(JobQueueXML::MimeType) || column>0)
         return false;
 
     int beginRow;
@@ -162,7 +163,7 @@ bool JobQueueModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     else
         beginRow = rowCount(QModelIndex());
 
-    QByteArray encodedData = data->data(Constants::MIME_JOBQUEUE);
+    QByteArray encodedData = data->data(JobQueueXML::MimeType);
     QDataStream dataStream(&encodedData, QIODevice::ReadOnly);
     QString identifier;
     dataStream >> identifier;

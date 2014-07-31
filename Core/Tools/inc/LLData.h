@@ -18,6 +18,7 @@
 
 #include "Exceptions.h"
 #include "Numeric.h"
+#include "EigenCore.h"
 
 #include <algorithm>
 
@@ -63,10 +64,16 @@ private:
     int checkPositiveDimension(int dimension) const;
     size_t convertCoordinate(int *coordinate) const;
     void swapContents(LLData<T>& other);
+    T getZeroElement() const;
     size_t m_rank;
     int *m_dims;
     T *m_data_array;
 };
+
+#ifndef GCCXML_SKIP_THIS
+template <>
+BA_CORE_API_ Eigen::Matrix2d LLData<Eigen::Matrix2d>::getZeroElement() const;
+#endif
 
 // Global helper functions for arithmetic
 template <class T> LLData<T> operator+(const LLData<T>& left, const LLData<T>& right);
@@ -214,7 +221,7 @@ inline size_t LLData<T>::getTotalSize() const
 
 template<class T> T LLData<T>::getTotalSum() const
 {
-    T result = 0;
+    T result = getZeroElement();
     for (size_t i=0; i<getTotalSize(); ++i) {
         result += m_data_array[i];
     }
@@ -276,6 +283,12 @@ template<class T> void LLData<T>::swapContents(LLData<T>& other)
     std::swap(this->m_rank, other.m_rank);
     std::swap(this->m_dims, other.m_dims);
     std::swap(this->m_data_array, other.m_data_array);
+}
+
+template<class T> T LLData<T>::getZeroElement() const
+{
+    T result = 0;
+    return result;
 }
 
 template<class T> LLData<T> operator+(const LLData<T>& left, const LLData<T>& right)

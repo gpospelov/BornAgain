@@ -5,7 +5,7 @@
 #include <QMap>
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
-class SessionModel;
+class InstrumentModel;
 class QListView;
 class QStackedWidget;
 class QMenu;
@@ -23,7 +23,7 @@ class InstrumentView : public QWidget
     Q_OBJECT
 
 public:
-    InstrumentView(SessionModel *model, QWidget *parent = 0);
+    InstrumentView(InstrumentModel *model, QWidget *parent = 0);
 
 public slots:
     void onSelectionChanged(const QItemSelection&, const QItemSelection&);
@@ -34,7 +34,7 @@ public slots:
 private:
     void createActions();
 
-    SessionModel *m_instrumentModel;
+    InstrumentModel *m_instrumentModel;
     QToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
     QStackedWidget *m_stackWidget;

@@ -17,7 +17,9 @@ def get_sample():
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(m_particle, cylinder_ff)
-    interference = InterferenceFunction1DParaCrystal(20.0*nanometer, 7*nanometer, 1e3*nanometer)
+    interference = InterferenceFunction1DParaCrystal(20.0*nanometer, 1e3*nanometer)
+    pdf = FTDistribution1DGauss(7 * nanometer)
+    interference.setProbabilityDistribution(pdf)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder, 0.0, 1.0)
     particle_layout.addInterferenceFunction(interference)

@@ -11,19 +11,27 @@
 #include <QDebug>
 
 
-int JobQueueData::m_job_index = 0;
+//int JobQueueData::m_job_index = 0;
 
 //! Creates JobQueueItem and corresponding JobItem.
 //! Created JobItem will be registered using unique identifier.
-JobQueueItem *JobQueueData::createJobQueueItem(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
+JobQueueData::JobQueueData() : m_job_index(0)
 {
-    JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
+
+}
+
+//JobQueueItem *JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
+QString JobQueueData::createJob(QString jobName, Simulation *simulation, JobItem::RunPolicy run_policy)
+{
+//    JobQueueItem *result = new JobQueueItem(generateJobIdentifier());
+    QString identifier = generateJobIdentifier();
+
     if(jobName.isEmpty()) jobName = generateJobName();
     JobItem *jobItem = new JobItem(jobName);
     jobItem->setRunPolicy(run_policy);
-    m_job_items[result->getIdentifier()] = jobItem;
-    if(simulation) m_simulations[result->getIdentifier()] = simulation;
-    return result;
+    m_job_items[identifier] = jobItem;
+    if(simulation) m_simulations[identifier] = simulation;
+    return identifier;
 }
 
 
@@ -177,15 +185,11 @@ void JobQueueData::onStartedJob()
 
 void JobQueueData::onFinishedJob()
 {
-    //qDebug() << "JobQueueData::onFinishedJob()";
+    qDebug() << "JobQueueData::onFinishedJob()";
     JobRunner *runner = qobject_cast<JobRunner *>(sender());
     Q_ASSERT(runner);
     JobItem *jobItem = getJobItem(runner->getIdentifier());
-    if(runner->isTerminated()) {
-        jobItem->setStatus(JobItem::Canceled);
-    } else {
-        jobItem->setStatus(JobItem::Completed);
-    }
+
     QString end_time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
     jobItem->setEndTime(end_time);
 
@@ -195,13 +199,22 @@ void JobQueueData::onFinishedJob()
         jobItem->getOutputDataItem()->setOutputData(simulation->getIntensityData());
     }
 
+    if(runner->isTerminated()) {
+        jobItem->setStatus(JobItem::Canceled);
+    } else {
+        jobItem->setStatus(JobItem::Completed);
+    }
+
     // I tell to the thread to exit here (instead of connecting JobRunner::finished to the QThread::quit because of strange behaviour)
     getThread(runner->getIdentifier())->quit();
 
-    assignForDeletion(runner);
-
     if(jobItem->getRunPolicy() & JobItem::RunImmediately)
         emit focusRequest(jobItem);
+
+    emit jobIsFinished(runner->getIdentifier());
+
+    assignForDeletion(runner);
+
 }
 
 

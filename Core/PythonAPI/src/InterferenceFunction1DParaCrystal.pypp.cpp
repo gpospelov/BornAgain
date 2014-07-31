@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCrystal, bp::wrapper< InterferenceFunction1DParaCrystal > {
 
-    InterferenceFunction1DParaCrystal_wrapper(double peak_distance, double width, double corr_length=0.0 )
-    : InterferenceFunction1DParaCrystal( peak_distance, width, corr_length )
+    InterferenceFunction1DParaCrystal_wrapper(double peak_distance, double damping_length=0.0 )
+    : InterferenceFunction1DParaCrystal( peak_distance, damping_length )
       , bp::wrapper< InterferenceFunction1DParaCrystal >(){
         // constructor
     
@@ -218,15 +218,15 @@ void register_InterferenceFunction1DParaCrystal_class(){
 
     { //::InterferenceFunction1DParaCrystal
         typedef bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable > InterferenceFunction1DParaCrystal_exposer_t;
-        InterferenceFunction1DParaCrystal_exposer_t InterferenceFunction1DParaCrystal_exposer = InterferenceFunction1DParaCrystal_exposer_t( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) );
+        InterferenceFunction1DParaCrystal_exposer_t InterferenceFunction1DParaCrystal_exposer = InterferenceFunction1DParaCrystal_exposer_t( "InterferenceFunction1DParaCrystal", bp::init< double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("damping_length")=0.0 )) );
         bp::scope InterferenceFunction1DParaCrystal_scope( InterferenceFunction1DParaCrystal_exposer );
-        { //::InterferenceFunction1DParaCrystal::FTGaussianCorrLength
+        { //::InterferenceFunction1DParaCrystal::FTPDF
         
-            typedef ::complex_t ( ::InterferenceFunction1DParaCrystal::*FTGaussianCorrLength_function_type )( double ) const;
+            typedef ::complex_t ( ::InterferenceFunction1DParaCrystal::*FTPDF_function_type )( double ) const;
             
             InterferenceFunction1DParaCrystal_exposer.def( 
-                "FTGaussianCorrLength"
-                , FTGaussianCorrLength_function_type( &::InterferenceFunction1DParaCrystal::FTGaussianCorrLength )
+                "FTPDF"
+                , FTPDF_function_type( &::InterferenceFunction1DParaCrystal::FTPDF )
                 , ( bp::arg("qpar") ) );
         
         }
@@ -254,13 +254,22 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 , ( bp::arg("q") ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getCorrLength
+        { //::InterferenceFunction1DParaCrystal::getDampingLength
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*getCorrLength_function_type )(  ) const;
+            typedef double ( ::InterferenceFunction1DParaCrystal::*getDampingLength_function_type )(  ) const;
             
             InterferenceFunction1DParaCrystal_exposer.def( 
-                "getCorrLength"
-                , getCorrLength_function_type( &::InterferenceFunction1DParaCrystal::getCorrLength ) );
+                "getDampingLength"
+                , getDampingLength_function_type( &::InterferenceFunction1DParaCrystal::getDampingLength ) );
+        
+        }
+        { //::InterferenceFunction1DParaCrystal::getDomainSize
+        
+            typedef double ( ::InterferenceFunction1DParaCrystal::*getDomainSize_function_type )(  ) const;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "getDomainSize"
+                , getDomainSize_function_type( &::InterferenceFunction1DParaCrystal::getDomainSize ) );
         
         }
         { //::InterferenceFunction1DParaCrystal::getKappa
@@ -283,13 +292,24 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 , getPeakDistance_function_type( &::InterferenceFunction1DParaCrystal::getPeakDistance ) );
         
         }
-        { //::InterferenceFunction1DParaCrystal::getWidth
+        { //::InterferenceFunction1DParaCrystal::getPropabilityDistribution
         
-            typedef double ( ::InterferenceFunction1DParaCrystal::*getWidth_function_type )(  ) const;
+            typedef ::IFTDistribution1D const * ( ::InterferenceFunction1DParaCrystal::*getPropabilityDistribution_function_type )(  ) const;
             
             InterferenceFunction1DParaCrystal_exposer.def( 
-                "getWidth"
-                , getWidth_function_type( &::InterferenceFunction1DParaCrystal::getWidth ) );
+                "getPropabilityDistribution"
+                , getPropabilityDistribution_function_type( &::InterferenceFunction1DParaCrystal::getPropabilityDistribution )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::InterferenceFunction1DParaCrystal::setDomainSize
+        
+            typedef void ( ::InterferenceFunction1DParaCrystal::*setDomainSize_function_type )( double ) ;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "setDomainSize"
+                , setDomainSize_function_type( &::InterferenceFunction1DParaCrystal::setDomainSize )
+                , ( bp::arg("size") ) );
         
         }
         { //::InterferenceFunction1DParaCrystal::setKappa
@@ -300,6 +320,16 @@ void register_InterferenceFunction1DParaCrystal_class(){
                 "setKappa"
                 , setKappa_function_type( &::InterferenceFunction1DParaCrystal::setKappa )
                 , ( bp::arg("kappa") ) );
+        
+        }
+        { //::InterferenceFunction1DParaCrystal::setProbabilityDistribution
+        
+            typedef void ( ::InterferenceFunction1DParaCrystal::*setProbabilityDistribution_function_type )( ::IFTDistribution1D const & ) ;
+            
+            InterferenceFunction1DParaCrystal_exposer.def( 
+                "setProbabilityDistribution"
+                , setProbabilityDistribution_function_type( &::InterferenceFunction1DParaCrystal::setProbabilityDistribution )
+                , ( bp::arg("pdf") ) );
         
         }
         { //::IParameterized::areParametersChanged

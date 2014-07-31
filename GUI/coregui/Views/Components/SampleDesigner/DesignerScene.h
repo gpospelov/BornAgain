@@ -6,7 +6,8 @@
 #include <QModelIndex>
 #include <QMap>
 
-class SessionModel;
+class InstrumentModel;
+class SampleModel;
 class ParameterizedItem;
 class ParameterizedGraphicsItem;
 class QItemSelectionModel;
@@ -15,6 +16,7 @@ class QItemSelection;
 class NodeEditorConnection;
 class DesignerMimeData;
 class SampleViewAligner;
+class NodeEditor;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -26,13 +28,18 @@ public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene();
 
-    void setSampleModel(SessionModel *sampleModel);
-    void setInstrumentModel(SessionModel *instrumentModel);
+    void setSampleModel(SampleModel *sampleModel);
+    void setInstrumentModel(InstrumentModel *instrumentModel);
     void setSelectionModel(QItemSelectionModel *model);
 
-    SessionModel *getSampleModel() { return m_sampleModel; }
+    SampleModel *getSampleModel() { return m_sampleModel; }
 
     IView *getViewForItem(ParameterizedItem *item) { return m_ItemToView[item]; }
+
+    NodeEditor *getNodeEditor() { return m_nodeEditor;}
+
+signals:
+    void selectionModeChangeRequest(int);
 
 public slots:
     void onSceneSelectionChanged();
@@ -71,8 +78,8 @@ private:
     bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
 //    ParameterizedItem *dropCompleteSample(const QString &name);
 
-    SessionModel *m_sampleModel;
-    SessionModel *m_instrumentModel;
+    SampleModel *m_sampleModel;
+    InstrumentModel *m_instrumentModel;
     QItemSelectionModel *m_selectionModel;
     bool m_block_selection;
 
@@ -83,6 +90,8 @@ private:
     //!< foreground line representing appropriate interface during lauer's movement
 
     SampleViewAligner *m_aligner;
+
+    NodeEditor *m_nodeEditor;
 };
 
 

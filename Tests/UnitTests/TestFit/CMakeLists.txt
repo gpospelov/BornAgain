@@ -25,7 +25,14 @@ target_link_libraries(TestFit
     ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
     ${Boost_LIBRARIES}
+    ${GSL_LIBRARIES}
 )
+
+if(BORNAGAIN_OPENMPI)
+    include_directories(${MPI_INCLUDE_PATH})
+    target_link_libraries(TestFit ${MPI_LIBRARIES})
+endif()
+
 
 # to build executable right in lib directory to not to have problems with finding libBornAgainCore.dll under Windows
 set_property(TARGET TestFit PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

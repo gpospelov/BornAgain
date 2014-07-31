@@ -54,7 +54,7 @@ public:
 
     complex_t lambda;         //!< positive eigenvalue of transfer matrix
     complex_t kz;             //!< z-part of the wavevector
-    Eigen::Vector2cd phi_psi; //!< boundary values of the amplitude
+    Eigen::Vector2cd t_r;     //!< boundary values of transmitted and reflected wave
     Eigen::Matrix2cd l;       //!< transfer matrix
 
 private:
@@ -69,6 +69,7 @@ inline ScalarRTCoefficients::ScalarRTCoefficients()
     m_plus(1) = 0.0;
     m_min(0) = 0.0;
     m_min(1) = complex_t(1.0, 0.0);
+    t_r << complex_t(1.0, 0.0), complex_t(0.0, 0.0);
 }
 
 inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const
@@ -118,23 +119,12 @@ inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
 
 inline complex_t ScalarRTCoefficients::getScalarR() const
 {
-    if (lambda==0.0) {
-        if (phi_psi(1)==0.0) {
-            return -1.0;
-        }
-        else return 0.0;
-    }
-    return (phi_psi(1)+phi_psi(0)/lambda)/2.0;}
+    return t_r(1);
+}
 
 inline complex_t ScalarRTCoefficients::getScalarT() const
 {
-    if (lambda==0.0) {
-        if (phi_psi(1)==0.0) {
-            return 1.0;
-        }
-        else return phi_psi(1);
-    }
-    return (phi_psi(1)-phi_psi(0)/lambda)/2.0;
+    return t_r(0);
 }
 
 #endif /* SCALARRTCOEFFICIENTS_H_ */

@@ -4,6 +4,7 @@
 
 #include <QWidget>
 #include <QMap>
+#include <QString>
 
 class SampleDesignerInterface;
 class QItemSelectionModel;
@@ -43,11 +44,15 @@ public slots:
 
 private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
-    void updateSubItems(QString name);
+    void updateSubItems(const QString &name);
+    void onPropertyChanged(const QString &property_name);
 
 private:
     //! assigns item to the property editor
     void setItem(ParameterizedItem *item);
+
+    //! clear editor
+    void clearEditor();
 
     ParameterizedItem *m_item; //! object to modify
 
@@ -56,6 +61,10 @@ private:
     QMap<QtProperty *, ItemIndexPair>     m_property_to_item_index_pair;
     QMap<const ParameterizedItem *, QMap<int, QtVariantProperty *> >
         m_item_to_index_to_property;
+
+    QMap<const ParameterizedItem *, QMap<QString, QtVariantProperty *> >
+        m_item_to_propertyname_to_qtvariantproperty;
+
 
     QtAbstractPropertyBrowser    *m_browser;
     QtVariantPropertyManager *m_manager;

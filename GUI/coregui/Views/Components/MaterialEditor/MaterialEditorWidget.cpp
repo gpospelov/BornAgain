@@ -14,10 +14,10 @@
 
 int MaterialEditorWidget::m_IndexOfUnnamed = 0;
 
-MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent)
+MaterialEditorWidget::MaterialEditorWidget(MaterialModel *materialModel, QWidget *parent)
     : QDialog(parent)
-    , m_materialModel(model)
-    , m_propertyBrowser(new MaterialPropertyBrowser(model, this))
+    , m_materialModel(materialModel)
+    , m_propertyBrowser(new MaterialPropertyBrowser(materialModel, this))
     , m_statusBar(0)
     , m_toolBar(0)
 {
@@ -63,12 +63,12 @@ MaterialEditorWidget::MaterialEditorWidget(MaterialModel *model, QWidget *parent
 }
 
 
-void MaterialEditorWidget::setModel(MaterialModel *model)
+void MaterialEditorWidget::setModel(MaterialModel *materialModel)
 {
-    Q_ASSERT(model);
-    if(model != m_materialModel) {
-        m_materialModel = model;
-        m_propertyBrowser->setModel(model);
+    Q_ASSERT(materialModel);
+    if(materialModel != m_materialModel) {
+        m_materialModel = materialModel;
+        m_propertyBrowser->setModel(materialModel);
     }
 
 }
@@ -113,7 +113,7 @@ void MaterialEditorWidget::addMaterial()
 {
     qDebug() << "MaterialEditorWidget::addMaterial() -> ";
     QString name = QString("unnamed%1").arg(m_IndexOfUnnamed);
-    m_materialModel->addMaterial(name, MaterialItem::HomogeneousMaterial);
+    m_materialModel->addMaterial(name);
     m_IndexOfUnnamed++;
 }
 
@@ -134,7 +134,7 @@ MaterialProperty MaterialEditorWidget::getSelectedMaterialProperty()
 {
     MaterialItem *material = m_propertyBrowser->getSelectedMaterial();
     if(material)
-        return MaterialUtils::getMaterialProperty(material);
+        return MaterialProperty(material->getIdentifier());
 
     return MaterialProperty();
 }

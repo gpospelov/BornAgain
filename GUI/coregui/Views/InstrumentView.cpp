@@ -1,5 +1,5 @@
 #include "InstrumentView.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
 #include "InstrumentEditorWidget.h"
 #include "styledbar.h"
@@ -16,7 +16,7 @@
 #include <QToolBar>
 
 
-InstrumentView::InstrumentView(SessionModel *model, QWidget *parent)
+InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
     : QWidget(parent)
     , m_instrumentModel(model)
     , m_toolBar(new QToolBar(this))
@@ -75,10 +75,10 @@ void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QI
 void InstrumentView::onAddInstrument()
 {
     qDebug() << "InstrumentView::onAddInstrument()";
-    ParameterizedItem *instrument = m_instrumentModel->insertNewItem("Instrument");
+    ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName("Default GISAS");
-    m_instrumentModel->insertNewItem("Detector", m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem("Beam", m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 
 }
 

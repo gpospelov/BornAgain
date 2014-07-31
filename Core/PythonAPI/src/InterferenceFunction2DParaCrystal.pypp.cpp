@@ -18,8 +18,8 @@ namespace bp = boost::python;
 
 struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCrystal, bp::wrapper< InterferenceFunction2DParaCrystal > {
 
-    InterferenceFunction2DParaCrystal_wrapper(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0 )
-    : InterferenceFunction2DParaCrystal( length_1, length_2, alpha_lattice, xi, corr_length )
+    InterferenceFunction2DParaCrystal_wrapper(double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0 )
+    : InterferenceFunction2DParaCrystal( length_1, length_2, alpha_lattice, xi, damping_length )
       , bp::wrapper< InterferenceFunction2DParaCrystal >(){
         // constructor
     
@@ -218,7 +218,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
 
     { //::InterferenceFunction2DParaCrystal
         typedef bp::class_< InterferenceFunction2DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable > InterferenceFunction2DParaCrystal_exposer_t;
-        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("corr_length")=0.0 )) );
+        InterferenceFunction2DParaCrystal_exposer_t InterferenceFunction2DParaCrystal_exposer = InterferenceFunction2DParaCrystal_exposer_t( "InterferenceFunction2DParaCrystal", bp::init< double, double, double, bp::optional< double, double > >(( bp::arg("length_1"), bp::arg("length_2"), bp::arg("alpha_lattice"), bp::arg("xi")=0.0, bp::arg("damping_length")=0.0 )) );
         bp::scope InterferenceFunction2DParaCrystal_scope( InterferenceFunction2DParaCrystal_exposer );
         { //::InterferenceFunction2DParaCrystal::clone
         

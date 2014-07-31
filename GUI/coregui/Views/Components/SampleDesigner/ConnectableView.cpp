@@ -2,6 +2,7 @@
 #include "DesignerHelper.h"
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
+#include "GUIHelpers.h"
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -47,10 +48,18 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 }
 
 
-// adding port to the sample
 NodeEditorPort* ConnectableView::addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
 {
     NodeEditorPort *port = new NodeEditorPort(this, name, direction, port_type);
+    if(direction == NodeEditorPort::Input) {
+        m_input_ports.append(port);
+    }
+    else if(direction == NodeEditorPort::Output) {
+        m_output_ports.append(port);
+    }
+    else {
+        throw GUIHelpers::Error("ConnectableView::addPort() -> Unknown port type");
+    }
     setPortCoordinates();
     return port;
 }
@@ -101,82 +110,80 @@ void ConnectableView::setLabel(const QString &name)
 
 int ConnectableView::getNumberOfPorts()
 {
-    int result(0);
-    foreach(QGraphicsItem *item, childItems()) {
-        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-        if (port) result++;
-    }
-    return result;
+    return m_input_ports.size() + m_output_ports.size();
 }
 
 
 int ConnectableView::getNumberOfOutputPorts()
 {
-    int result(0);
-    foreach(QGraphicsItem *item, childItems()) {
-        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-        if (port && port->isOutput()) result++;
-    }
-    return result;
+    return m_output_ports.size();
 }
 
 
 int ConnectableView::getNumberOfInputPorts()
 {
-    return getNumberOfPorts()-getNumberOfOutputPorts();
+    return m_input_ports.size();
 }
 
 
 // connect input port of given view with appropriate output port(s) of other item
 // returns list of created connection
-QList<QGraphicsItem *> ConnectableView::connectInputPort(ConnectableView *other)
+//QList<QGraphicsItem *> ConnectableView::connectInputPort(ConnectableView *other)
+//{
+//    Q_ASSERT(other);
+//    QList<QGraphicsItem *> result;
+//    foreach(QGraphicsItem *item, childItems()) {
+//        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
+////        if (port && port->isInput() && !port->isConnected()) {
+//        if (port && port->isInput()) {
+
+
+//            foreach(QGraphicsItem *other_item, other->childItems()) {
+//                NodeEditorPort *other_port= dynamic_cast<NodeEditorPort *>(other_item);
+//                if(other_port && !other_port->isConnected(port) && port->getPortType() == other_port->getPortType()) {
+
+////                    // deleting old connection
+////                    if(port->isConnected()) port->deleteAllConnections();
+
+//                    NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
+//                    conn->setPort2(port);
+//                    conn->setPort1(other_port);
+//                    conn->setPos2(port->scenePos());
+//                    conn->setPos1(other_port->scenePos());
+//                    conn->updatePath();
+//                    result.append(conn);
+//                }
+//            }
+//        }
+//    }
+//    return result;
+//}
+
+
+void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
 {
     Q_ASSERT(other);
-    QList<QGraphicsItem *> result;
-    foreach(QGraphicsItem *item, childItems()) {
-        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-//        if (port && port->isInput() && !port->isConnected()) {
-        if (port && port->isInput()) {
 
+    if(port_number >= m_input_ports.size())
+        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong input port number");
 
-            foreach(QGraphicsItem *other_item, other->childItems()) {
-                NodeEditorPort *other_port= dynamic_cast<NodeEditorPort *>(other_item);
-                if(other_port && !other_port->isConnected(port) && port->getPortType() == other_port->getPortType()) {
+    if(other->getOutputPorts().size() != 1)
+        throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
 
-//                    // deleting old connection
-//                    if(port->isConnected()) port->deleteAllConnections();
+    NodeEditorPort *input = m_input_ports.at(port_number);
+    NodeEditorPort *output = other->getOutputPorts().at(0);
 
-                    NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
-                    conn->setPort2(port);
-                    conn->setPort1(other_port);
-                    conn->setPos2(port->scenePos());
-                    conn->setPos1(other_port->scenePos());
-                    conn->updatePath();
-                    result.append(conn);
-                }
-            }
-        }
+    if(!input->isConnected(output)) {
+        NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
+        conn->setPort2(input);
+        conn->setPort1(output);
+        conn->updatePath();
     }
-    return result;
 }
 
-
-//! returns list of items connected to all input ports
-QList<ConnectableView *> ConnectableView::getConnectedInputItems() const
+int ConnectableView::getInputPortIndex(NodeEditorPort *port)
 {
-    QList<ConnectableView *> result;
-    foreach(QGraphicsItem *item, childItems()) {
-        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
-        if (port && port->isInput()) {
-            for(int i=0; i<port->connections().size(); ++i) {
-                Q_ASSERT(port->connections().at(i)->port1()->parentItem());
-                ConnectableView *connected = dynamic_cast<ConnectableView *>(port->connections().at(i)->port1()->parentItem());
-                if(connected) {
-                    result.append(connected);
-                }
-            }
-        }
-    }
-    return result;
+    return m_input_ports.indexOf(port);
 }
+
 

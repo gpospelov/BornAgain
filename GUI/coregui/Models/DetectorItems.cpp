@@ -1,15 +1,12 @@
 #include "DetectorItems.h"
-#include "GroupProperty.h"
 #include "ComboProperty.h"
 #include <QDebug>
 
-const QString DetectorItem::P_DETECTOR_TYPE = "Detector type";
+const QString DetectorItem::P_DETECTOR = "Detector";
 const QString DetectorItem::P_AXES_UNITS = "Units";
 const QString DetectorItem::P_BINNING = "Binning";
 
-const QString XYDetectorItem::P_MODEL_TYPE = "X, Y plane";
 
-const QString ThetaPhiDetectorItem::P_MODEL_TYPE = "Theta, Phi plane";
 const QString ThetaPhiDetectorItem::P_NPHI = "Phi, nbins";
 const QString ThetaPhiDetectorItem::P_PHI_MIN = "Phi, min";
 const QString ThetaPhiDetectorItem::P_PHI_MAX = "Phi, max";
@@ -18,10 +15,10 @@ const QString ThetaPhiDetectorItem::P_ALPHA_MIN = "Alpha, min";
 const QString ThetaPhiDetectorItem::P_ALPHA_MAX = "Alpha, max";
 
 DetectorItem::DetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString("Detector"), parent)
+    : ParameterizedItem(Constants::DetectorType, parent)
 {
-    setItemName("Detector");
-    registerGroupProperty(P_DETECTOR_TYPE, ThetaPhiDetectorItem::P_MODEL_TYPE);
+    setItemName(Constants::DetectorType);
+    registerGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
 //    registerProperty(P_NBINX, 100);
 //    registerProperty(P_NBINY, 100);
@@ -29,9 +26,9 @@ DetectorItem::DetectorItem(ParameterizedItem *parent)
 
 
 XYDetectorItem::XYDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString(P_MODEL_TYPE), parent)
+    : ParameterizedItem(Constants::XYDetectorType, parent)
 {
-    setItemName("XYDetector");
+    setItemName(Constants::XYDetectorType);
 
     ComboProperty units;
     units << "Millimeters";
@@ -48,9 +45,9 @@ XYDetectorItem::XYDetectorItem(ParameterizedItem *parent)
 
 
 ThetaPhiDetectorItem::ThetaPhiDetectorItem(ParameterizedItem *parent)
-    : ParameterizedItem(QString(P_MODEL_TYPE), parent)
+    : ParameterizedItem(Constants::ThetaPhiDetectorType, parent)
 {
-    setItemName("ThetaPhiDetector");
+    setItemName(Constants::ThetaPhiDetectorType);
 
     ComboProperty units;
     units << "Degrees" << "Radians";

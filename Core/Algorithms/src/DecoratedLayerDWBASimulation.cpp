@@ -36,7 +36,7 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 
 void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 {
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::init()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::init()";
     DWBASimulation::init(simulation);
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->init(simulation);
@@ -45,7 +45,7 @@ void DecoratedLayerDWBASimulation::init(const Simulation& simulation)
 
 void DecoratedLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::run()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::run()";
     boost::scoped_ptr<const IInterferenceFunctionStrategy> P_strategy(
             createAndInitStrategy());
 
@@ -67,7 +67,7 @@ IInterferenceFunctionStrategy
 void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy *p_strategy)
 {
-    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::calculateCoh...()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
     double wavelength = getWaveLength();
     double total_surface_density =
         mp_layer->getTotalParticleSurfaceDensity();
@@ -113,14 +113,15 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
             Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
                 BornAgain::ALPHA_AXIS_NAME, it_intensity.getIndex());
             double alpha_f = alpha_bin.getMidPoint();
-            if (std::abs(mp_specular_info->getOutCoefficients(alpha_f, 0.0)
-                    ->getScalarR())!=0.0 && alpha_f<0) {
+            boost::scoped_ptr<const ILayerRTCoefficients> P_RT_coeffs(
+                        mp_specular_info->getOutCoefficients(alpha_f, 0.0));
+            if (std::abs(P_RT_coeffs->getScalarR())!=0.0 && alpha_f<0) {
                 ++it_intensity;
                 continue;
             }
             Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
-            *it_intensity = p_strategy->evaluate(k_ij, k_f_bin, alpha_bin)
-                          * total_surface_density;
+            *it_intensity = p_strategy->evaluate(
+                k_ij, k_f_bin, alpha_bin, phi_bin) * total_surface_density;
             ++it_intensity;
         }
     }
@@ -130,7 +131,7 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
 
 void DecoratedLayerDWBASimulation::calculateInCoherentIntensity()
 {
-    msglog(MSG::DEBUG) << "Calculating incoherent scattering...";
+    msglog(MSG::DEBUG2) << "Calculating incoherent scattering...";
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->setSpecularInfo(*mp_specular_info);
         mp_diffuseDWBA->setThreadInfo(m_thread_info);

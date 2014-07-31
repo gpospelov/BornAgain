@@ -192,7 +192,11 @@ ISample *TestRipple2::TestSampleBuilder::buildSample() const
 
     ParticleLayout particle_layout;
 	particle_layout.addParticle(ripple,0.0,1.0);
-    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
+    InterferenceFunction1DParaCrystal *p_interference_function =
+            new InterferenceFunction1DParaCrystal(m_interf_distance,
+                    1e7*Units::nanometer); // peak_distance, corr_length
+    FTDistribution1DGauss pdf(m_interf_width);
+    p_interference_function->setProbabilityDistribution(pdf);
     particle_layout.addInterferenceFunction(p_interference_function);
 
     // making layer holding all whose nano particles

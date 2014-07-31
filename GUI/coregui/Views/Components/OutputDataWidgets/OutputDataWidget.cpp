@@ -25,7 +25,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent)
     setObjectName(QLatin1String("Job Properties"));
 //    setStyleSheet("background-color:white;");
 
-    m_plotWidget = new PlotWidget(this, true);
+    m_plotWidget = new PlotWidget(true, this);
     m_plotWidget->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
     m_plotWidget->hide();
 

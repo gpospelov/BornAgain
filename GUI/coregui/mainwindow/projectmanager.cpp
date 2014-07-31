@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "projectdocument.h"
 #include "actionmanager.h"
+#include "mainwindow_constants.h"
 #include "GUIHelpers.h"
 #include <QDir>
 #include <QFileDialog>
@@ -30,6 +31,7 @@ ProjectManager::~ProjectManager()
 //! Returns false if saving was canceled.
 bool ProjectManager::closeCurrentProject()
 {
+    bool returnVal = true;
     if(m_project_document && m_project_document->isModified()) {
         QMessageBox msgBox;
         msgBox.setText("The project has been modified.");
@@ -41,24 +43,27 @@ bool ProjectManager::closeCurrentProject()
         switch (ret) {
           case QMessageBox::Save:
               qDebug() << "QMessageBox::Save";
-              saveProject();
+              returnVal = saveModifiedProject();
               break;
           case QMessageBox::Discard:
             qDebug() << "QMessageBox::Discard";
               break;
           case QMessageBox::Cancel:
             qDebug() << "QMessageBox::Cancel";
-            return false;
+            returnVal = false;
               break;
           default:
               break;
         }
     }
 
-    delete m_project_document;
-    m_project_document = 0;
+    if(returnVal)
+    {
+        delete m_project_document;
+        m_project_document = 0;
+    }
 
-    return true;
+    return returnVal;
 }
 
 
@@ -135,6 +140,35 @@ void ProjectManager::saveProject()
     }
 }
 
+bool ProjectManager::saveModifiedProject()
+{
+    Q_ASSERT(m_project_document);
+    qDebug() << "ProjectManager::saveProject()";
+
+    if(m_project_document->hasValidNameAndPath()) {
+        m_project_document->save();
+        addToRecentProjects();
+    } else {
+        NewProjectDialog dialog(m_mainWindow);
+        // give projectDialog something to start with
+        dialog.setProjectPath(getDefaultProjectPath());
+        dialog.setProjectName(getUntitledProjectName());
+
+        if (dialog.exec() == QDialog::Accepted) {
+            m_defaultProjectPath = dialog.getProjectPath();
+            m_project_document->setProjectName(dialog.getProjectName());
+            m_project_document->setProjectPath(dialog.getProjectPath());
+            m_project_document->save();
+            addToRecentProjects();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
 
 
 //! Opens existing project. If fileName is empty, will popup file selection dialog

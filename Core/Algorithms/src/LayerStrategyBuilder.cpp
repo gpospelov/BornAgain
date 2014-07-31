@@ -94,6 +94,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
                 "Could not create appropriate strategy");
     }
     p_result->init(m_ff_infos, m_ifs);
+    p_result->setSpecularInfo(*mp_specular_info);
     return p_result;
 }
 

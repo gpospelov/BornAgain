@@ -22,12 +22,12 @@
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
         double length_1, double length_2, double alpha_lattice, double xi,
-        double corr_length)
-: m_alpha_lattice(alpha_lattice)
-, m_xi(xi)
-, m_integrate_xi(false)
-, m_corr_length(corr_length)
-, m_use_corr_length(true)
+        double damping_length)
+    : m_alpha_lattice(alpha_lattice)
+    , m_xi(xi)
+    , m_integrate_xi(false)
+    , m_damping_length(damping_length)
+    , m_use_damping_length(true)
 {
     m_lattice_lengths[0] = length_1;
     m_lattice_lengths[1] = length_2;
@@ -36,8 +36,8 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     m_domain_sizes[0] = 0.0;
     m_domain_sizes[1] = 0.0;
     setName("InterferenceFunction2DParaCrystal");
-    if (m_corr_length==0.0) {
-        m_use_corr_length = false;
+    if (m_damping_length==0.0) {
+        m_use_damping_length = false;
     }
     init_parameters();
 }
@@ -51,7 +51,7 @@ InterferenceFunction2DParaCrystal
 *InterferenceFunction2DParaCrystal::clone() const {
     InterferenceFunction2DParaCrystal *result =
             new InterferenceFunction2DParaCrystal(m_lattice_lengths[0],
-                    m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
+                 m_lattice_lengths[1], m_alpha_lattice, m_xi, m_damping_length);
     result->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
     if(m_pdfs[0] && m_pdfs[1])
         result->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
@@ -145,7 +145,7 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     registerParameter("lattice_length_2", &m_lattice_lengths[1]);
     registerParameter("lattice_angle", &m_alpha_lattice);
     registerParameter("lattice_orientation", &m_xi);
-    registerParameter("corr_length", &m_corr_length);
+    registerParameter("damping_length", &m_damping_length);
     registerParameter("domain_size_1", &m_domain_sizes[0]);
     registerParameter("domain_size_2", &m_domain_sizes[1]);
 }
@@ -183,7 +183,7 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy,
             result = nd;
         }
         else if (std::abs(1.0-fp)*nd < 2e-4) {
-            double intermediate = geometricSum(fp, n).real()/nd;
+            double intermediate = MathFunctions::geometricSum(fp, n).real()/nd;
             result = 1.0 + 2.0*intermediate;
         }
         else {
@@ -202,24 +202,6 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy,
     return result;
 }
 
-complex_t InterferenceFunction2DParaCrystal::geometricSum(complex_t z,
-        int exponent) const
-{
-    if (exponent<1) {
-        throw LogicErrorException(
-                "InterferenceFunction2DParaCrystal::geometricSeries:"
-                " exponent should be > 0");
-    }
-    complex_t result(0.0, 0.0);
-    double nd = (double)exponent;
-    --exponent;
-    while (exponent>0) {
-        result += std::pow(z, exponent)*(nd-exponent);
-        --exponent;
-    }
-    return result;
-}
-
 complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy,
         double xi, size_t index) const
 {
@@ -233,8 +215,8 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy,
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     double amplitude = m_pdfs[index]->evaluate(qp1, qp2);
     complex_t result = phase*amplitude;
-    if (m_use_corr_length) {
-        result *= std::exp(-m_lattice_lengths[index]/m_corr_length);
+    if (m_use_damping_length) {
+        result *= std::exp(-m_lattice_lengths[index]/m_damping_length);
     }
     return result;
 }

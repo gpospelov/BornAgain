@@ -1,5 +1,4 @@
 #include "BeamEditorWidget.h"
-#include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
 #include "BeamItem.h"

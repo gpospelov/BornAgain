@@ -98,11 +98,11 @@ TEST_F(LLDataTest, TotalSum)
     EXPECT_DOUBLE_EQ( db_data_3d->getTotalSum(), 1500.0);
 
     matrix_data_2d->setAll(Eigen::Matrix2d::Identity());
-    //EXPECT_T(60 * Eigen::Matrix2d::Identity(), matrix_data_2d->getTotalSum());
+    EXPECT_EQ(600 * Eigen::Matrix2d::Identity(), matrix_data_2d->getTotalSum());
 }
 
 TEST_F(LLDataTest, GetDimensions) {
-//	EXPECT_EQ( int_data_0d->getDimensions(), NULL);
+    EXPECT_EQ( int_data_0d->getDimensions(), (int*)0);
 	EXPECT_EQ( fl_data_1d->getDimensions()[0], 10);
 	EXPECT_EQ( db_data_3d->getDimensions()[1], 15);
     EXPECT_EQ( matrix_data_2d->getDimensions()[1], 30);

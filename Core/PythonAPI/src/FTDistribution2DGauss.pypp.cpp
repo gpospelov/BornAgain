@@ -56,6 +56,18 @@ struct FTDistribution2DGauss_wrapper : FTDistribution2DGauss, bp::wrapper< FTDis
         return FTDistribution2DGauss::evaluate( qx, qy );
     }
 
+    virtual double evaluateLattice( double qx, double qy ) const  {
+        if( bp::override func_evaluateLattice = this->get_override( "evaluateLattice" ) )
+            return func_evaluateLattice( qx, qy );
+        else
+            return this->FTDistribution2DGauss::evaluateLattice( qx, qy );
+    }
+    
+    
+    double default_evaluateLattice( double qx, double qy ) const  {
+        return FTDistribution2DGauss::evaluateLattice( qx, qy );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -176,6 +188,18 @@ void register_FTDistribution2DGauss_class(){
                 "evaluate"
                 , evaluate_function_type(&::FTDistribution2DGauss::evaluate)
                 , default_evaluate_function_type(&FTDistribution2DGauss_wrapper::default_evaluate)
+                , ( bp::arg("qx"), bp::arg("qy") ) );
+        
+        }
+        { //::FTDistribution2DGauss::evaluateLattice
+        
+            typedef double ( ::FTDistribution2DGauss::*evaluateLattice_function_type )( double,double ) const;
+            typedef double ( FTDistribution2DGauss_wrapper::*default_evaluateLattice_function_type )( double,double ) const;
+            
+            FTDistribution2DGauss_exposer.def( 
+                "evaluateLattice"
+                , evaluateLattice_function_type(&::FTDistribution2DGauss::evaluateLattice)
+                , default_evaluateLattice_function_type(&FTDistribution2DGauss_wrapper::default_evaluateLattice)
                 , ( bp::arg("qx"), bp::arg("qy") ) );
         
         }

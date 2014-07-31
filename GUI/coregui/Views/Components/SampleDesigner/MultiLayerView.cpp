@@ -1,7 +1,7 @@
 #include "MultiLayerView.h"
 #include "ParameterizedItem.h"
 #include "DesignerScene.h"
-#include "SessionModel.h"
+#include "SampleModel.h"
 #include "LayerView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
@@ -18,8 +18,8 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     setColor(QColor(Qt::blue));
 
     //setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
-    setRectangle(DesignerHelper::getDefaultBoundingRect("MultiLayer"));
-    setToolTip(QString("MultiLayer"));
+    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::MultiLayerType));
+    setToolTip(Constants::MultiLayerType);
     setAcceptHoverEvents(false);
     setAcceptDrops(true);
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
@@ -231,7 +231,7 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 
         DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
         if(designerScene) {
-            SessionModel *sampleModel = designerScene->getSampleModel();
+            SampleModel *sampleModel = designerScene->getSampleModel();
 
             qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
             sampleModel->insertNewItem(

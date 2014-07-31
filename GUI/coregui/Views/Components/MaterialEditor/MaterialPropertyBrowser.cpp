@@ -1,8 +1,13 @@
 #include "MaterialPropertyBrowser.h"
 #include "MaterialModel.h"
-#include "MaterialVariantManager.h"
-#include "MaterialVariantFactory.h"
+#include "MaterialItem.h"
+#include "ComboProperty.h"
+#include "PropertyVariantManager.h"
+#include "PropertyVariantFactory.h"
 #include "qttreepropertybrowser.h"
+#include "tooltipdatabase.h"
+#include "ScientificDoubleProperty.h"
+#include "GUIHelpers.h"
 #include <QtVariantPropertyManager>
 #include <QtProperty>
 #include <QtVariantProperty>
@@ -15,7 +20,7 @@
 #include <qtpropertybrowser.h>
 
 
-MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *parent)
+MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *materialModel, QWidget *parent)
     : QWidget(parent)
     , m_materialModel(0)
     , m_browser(0)
@@ -24,10 +29,14 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
 
 {
     m_browser = new QtTreePropertyBrowser(this);
-    m_readOnlyManager = new MaterialVariantManager(this);
-    m_variantManager = new MaterialVariantManager(this);
-    m_variantFactory = new MaterialVariantFactory(this);
-    m_browser->setFactoryForManager(m_variantManager, m_variantFactory);
+    m_readOnlyManager = new PropertyVariantManager(this);
+    m_variantManager = new PropertyVariantManager(this);
+//    m_variantFactory = new PropertyVariantFactory(this);
+//    m_browser->setFactoryForManager(m_variantManager, m_variantFactory);
+
+    QtVariantEditorFactory *factory = new PropertyVariantFactory();
+    m_browser->setFactoryForManager(m_variantManager, factory);
+
 
     connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));
@@ -37,7 +46,7 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
     layout->addWidget(m_browser);
     setLayout(layout);
 
-    setModel(model);
+    setModel(materialModel);
 
     // accessing selection model of private QTreeView of m_browser
     QItemSelectionModel *selectionModel(0);
@@ -56,11 +65,11 @@ MaterialPropertyBrowser::MaterialPropertyBrowser(MaterialModel *model, QWidget *
 }
 
 
-void MaterialPropertyBrowser::setModel(MaterialModel *model)
+void MaterialPropertyBrowser::setModel(MaterialModel *materialModel)
 {
-    Q_ASSERT(model);
-    if(model != m_materialModel) {
-        m_materialModel = model;
+    Q_ASSERT(materialModel);
+    if(materialModel != m_materialModel) {
+        m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(rowsInserted(QModelIndex, int,int)), this, SLOT(onRowsInserted(QModelIndex, int,int)));
         connect(m_materialModel, SIGNAL(rowsRemoved(QModelIndex, int,int)), this, SLOT(onRowsRemoved(QModelIndex, int,int)));
         updateBrowser();
@@ -85,30 +94,80 @@ void MaterialPropertyBrowser::onRowsRemoved(const QModelIndex & /*parent*/, int 
 void MaterialPropertyBrowser::slotValueChanged(QtProperty *property,
                                             const QVariant &value)
 {
-    qDebug() << "MaterialEditorWidget::slotValueChanged" << property << value;
+    //qDebug() << "MaterialEditorWidget::slotValueChanged" << property << value;
 
     if (!m_property_to_subitem.contains(property))
         return;
 
+    qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.1";
     if(m_top_property_to_material.contains(property)) {
-        MaterialItem *material = m_top_property_to_material[property];
-        material->setType(MaterialItem::MaterialType(value.toInt()));
+        qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.2";
+        MaterialItem *material = dynamic_cast<MaterialItem *>(m_top_property_to_material[property]);
+        disconnect(material, SIGNAL(propertyChanged(QString)),
+               this, SLOT(onPropertyChanged(QString)));
+        material->setMaterialType(value.toInt());
         removeSubProperties(property);
         addSubProperties(property, material);
+        connect(material, SIGNAL(propertyChanged(QString)),
+               this, SLOT(onPropertyChanged(QString)));
+
         return;
     }
 
-    MaterialItem *material = m_property_to_subitem[property].m_owner;
-    material->setMaterialProperty(property->propertyName(), value);
-    updateMaterialProperties(material);
+    qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.3";
+    //MaterialItem *material = dynamic_cast<MaterialItem *>(m_property_to_subitem[property].m_owner);
+    ParameterizedItem *item = m_property_to_subitem[property].m_owner;
+    Q_ASSERT(item);
+    qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.4";
+    item->setRegisteredProperty(property->propertyName(), value);
+    qDebug() << "MaterialEditorWidget::slotValueChanged() -> 1.5";
+//    updateMaterialProperties(item);
+
+}
+
+void MaterialPropertyBrowser::onPropertyChanged(const QString &property_name)
+{
+    ParameterizedItem *parentItem = qobject_cast<ParameterizedItem *>(sender());
+
+
+    if(m_top_material_to_property.contains(parentItem)) {
+        m_top_material_to_property[parentItem]->setPropertyName(parentItem->itemName());
+    }
+
+
+    qDebug() << "MaterialPropertyBrowser::onPropertyChanged()" << property_name << parentItem->modelType();
+
+    QtVariantProperty *variant_property = m_material_to_property[parentItem][property_name];
+    if(variant_property) {
+        QVariant property_value = parentItem->getRegisteredProperty(property_name);
+
+        disconnect(parentItem, SIGNAL(propertyChanged(QString)),
+               this, SLOT(onPropertyChanged(QString)));
+
+        variant_property->setValue(property_value);
+
+        connect(parentItem, SIGNAL(propertyChanged(QString)),
+               this, SLOT(onPropertyChanged(QString)));
+    }
+
 
 }
 
 
 void MaterialPropertyBrowser::updateBrowser()
 {
-    foreach(MaterialItem *material, m_materialModel->materials()) {
-        addMaterialProperties(material);
+    Q_ASSERT(m_materialModel);
+
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < m_materialModel->rowCount( parentIndex); ++i_row) {
+         QModelIndex itemIndex = m_materialModel->index( i_row, 0, parentIndex );
+
+         if (MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(itemIndex))){             
+             addMaterialProperties(material);
+             connect(material, SIGNAL(propertyChanged(QString)),
+                    this, SLOT(onPropertyChanged(QString)));
+
+         }
     }
     updateExpandState(RestoreExpandState);
 }
@@ -129,27 +188,29 @@ void MaterialPropertyBrowser::clearBrowser()
 }
 
 
-void MaterialPropertyBrowser::updateMaterialProperties(MaterialItem *material)
-{
-    if(m_top_material_to_property.contains(material)) {
-        m_top_material_to_property[material]->setPropertyName(material->property("Name").toString());
-    }
+//void MaterialPropertyBrowser::updateMaterialProperties(ParameterizedItem *material)
+//{
+//    if(m_top_material_to_property.contains(material)) {
+//        m_top_material_to_property[material]->setPropertyName(material->itemName());
+//    }
 
-    QMap<MaterialItem *, QtVariantProperty *>::iterator it = m_top_material_to_property.begin();
-    while(it!=m_top_material_to_property.end()) {
-        updateSubProperties(it.key());
-        ++it;
-    }
-}
+////    QMap<ParameterizedItem *, QtVariantProperty *>::iterator it = m_top_material_to_property.begin();
+////    while(it!=m_top_material_to_property.end()) {
+////        updateSubProperties(it.key());
+////        ++it;
+////    }
+//}
 
 
-void MaterialPropertyBrowser::addMaterialProperties(MaterialItem *material)
+void MaterialPropertyBrowser::addMaterialProperties(ParameterizedItem *material)
 {
     QtVariantProperty *item_property = m_variantManager->addProperty(
-                QtVariantPropertyManager::enumTypeId(), material->getName());
+                QtVariantPropertyManager::enumTypeId(), material->itemName());
 
-    item_property->setAttribute(QLatin1String("enumNames"), material->getMaterialTypes());
-    item_property->setValue(int(material->getType()));
+    ComboProperty combo_property = material->getRegisteredProperty(MaterialItem::P_MATERIAL_TYPE).value<ComboProperty>();
+
+    item_property->setAttribute(QLatin1String("enumNames"), combo_property.getValues());
+    item_property->setValue(combo_property.getIndex());
 
     addSubProperties(item_property, material);
     m_browser->addProperty(item_property);
@@ -174,35 +235,44 @@ void MaterialPropertyBrowser::removeSubProperties(QtProperty *property)
 }
 
 
-void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, MaterialItem *material)
+void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, ParameterizedItem *item)
 {
-    Q_ASSERT(material_property);
-    Q_ASSERT(material);
 
-    QList<QByteArray> property_names = material->dynamicPropertyNames();
+    QList<QByteArray> property_names = item->dynamicPropertyNames();
     for (int i = 0; i < property_names.length(); ++i) {
         QString prop_name = QString(property_names[i]);
-        QVariant prop_value = material->property(prop_name.toUtf8().data());
-        int type = prop_value.type();
-        if (type == QVariant::UserType) {
-            type = prop_value.userType();
-        }
+        PropertyAttribute prop_attribute = item->getPropertyAttribute(prop_name);
+
+        if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
+
+        QVariant prop_value = item->property(prop_name.toUtf8().data());
+        int type = GUIHelpers::getVariantType(prop_value);
+
         QtVariantProperty *subProperty = 0;
         if (m_variantManager->isPropertyTypeSupported(type)) {
-            subProperty = m_variantManager->addProperty(type, prop_name);
-            subProperty->setValue(prop_value);
-            if(type == QVariant::Double) {
-                subProperty->setAttribute(QLatin1String("singleStep"), 0.1);
-                subProperty->setAttribute(QLatin1String("decimals"), 5);
+
+            if(prop_attribute.getLabel().isEmpty()) {
+                subProperty = m_variantManager->addProperty(type, prop_name);
+            } else {
+                subProperty = m_variantManager->addProperty(type, prop_attribute.getLabel());
             }
 
-            if (material->getSubItems().contains(prop_name)) {
-                subProperty->setAttribute(QLatin1String("readOnly"), true);
-                MaterialItem *subitem = material->getSubItems()[prop_name];
+            subProperty->setValue(prop_value);
+
+            QString toolTip = ToolTipDataBase::getSampleViewToolTip(item->modelType(), prop_name);
+            if(!toolTip.isEmpty()) subProperty->setToolTip(toolTip);
+
+            if(prop_attribute.getAppearance() & PropertyAttribute::DisabledProperty) {
+                subProperty->setEnabled(false);
+            }
+
+            if (item->getSubItems().contains(prop_name)) {
+                ParameterizedItem *subitem = item->getSubItems()[prop_name];
                 if (subitem) {
                     addSubProperties(subProperty, subitem);
                 }
             }
+
         } else {
             subProperty = m_readOnlyManager->addProperty(QVariant::String,
                                                          prop_name);
@@ -210,31 +280,33 @@ void MaterialPropertyBrowser::addSubProperties(QtProperty *material_property, Ma
             subProperty->setEnabled(false);
         }
         material_property->addSubProperty(subProperty);
-        SubItem subitem(material,prop_name);
+        SubItem subitem(item,prop_name);
         m_property_to_subitem[subProperty] = subitem;
-        m_material_to_property[material][prop_name] = subProperty;
+        m_material_to_property[item][prop_name] = subProperty;
     }
 }
 
 
-void MaterialPropertyBrowser::updateSubProperties(MaterialItem *material)
-{
-    if(m_material_to_property.contains(material)) {
 
-        QList<QByteArray> property_names = material->dynamicPropertyNames();
-        for (int i = 0; i < property_names.length(); ++i) {
-            QString prop_name = QString(property_names[i]);
-            QVariant prop_value = material->property(prop_name.toUtf8().data());
 
-            if(m_material_to_property[material].contains(prop_name)) {
-                QtVariantProperty *vproperty = m_material_to_property[material][prop_name];
-                if (material->getSubItems().contains(prop_name)) {
-                    vproperty->setValue(prop_value);
-                }
-            }
-        }
-    }
-}
+//void MaterialPropertyBrowser::updateSubProperties(ParameterizedItem *material)
+//{
+////    if(m_material_to_property.contains(material)) {
+
+////        QList<QByteArray> property_names = material->dynamicPropertyNames();
+////        for (int i = 0; i < property_names.length(); ++i) {
+////            QString prop_name = QString(property_names[i]);
+////            QVariant prop_value = material->property(prop_name.toUtf8().data());
+
+////            if(m_material_to_property[material].contains(prop_name)) {
+////                QtVariantProperty *vproperty = m_material_to_property[material][prop_name];
+////                if (material->getSubItems().contains(prop_name)) {
+////                    vproperty->setValue(prop_value);
+////                }
+////            }
+////        }
+////    }
+//}
 
 
 void MaterialPropertyBrowser::updateExpandState(ExpandAction action)
@@ -264,8 +336,8 @@ MaterialItem *MaterialPropertyBrowser::getSelectedMaterial()
         QtProperty *selected_property = m_browser->currentItem()->property();
         if(selected_property) {
             if(m_top_property_to_material.contains(selected_property))
-                return m_top_property_to_material[selected_property];
-        }
+                return dynamic_cast<MaterialItem *>(m_top_property_to_material[selected_property]);
+       }
     }
     return 0;
 }

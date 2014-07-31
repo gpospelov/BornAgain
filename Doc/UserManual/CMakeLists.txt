@@ -5,7 +5,7 @@ project(UserManual NONE)
 # user manual version number will be automatically propagated into tes
 set(UM_VERSION_MAJOR 0)
 set(UM_VERSION_MINOR 2)
-set(UM_VERSION_PATCH 4)
+set(UM_VERSION_PATCH 5)
 
 
 set(LATEX_COMPILER_FLAGS
@@ -129,6 +129,11 @@ set(UM_IMAGES
     Figures/1Dparacrystal.eps
     Figures/HSphere_2Dlattice.pdf
     Figures/HSphere_2DDL.pdf
+    Figures/drawingSSCA.eps
+    Figures/drawingLMA.eps
+    Figures/drawingDA.eps
+    Figures/drawing2Dparacrystal.eps
+    Figures/S_q_1Dparacrystal.eps
 )
 
 

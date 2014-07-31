@@ -22,5 +22,13 @@
         <file>images/config.png</file>
         <file>images/append.png</file>
         <file>images/remove.png</file>
+        <file>images/gisas_instrument.png</file>
+        <file>images/gisas_instrument_bw.png</file>
+        <file>mainwindow/tooltips.xml</file>
+        <file>images/treeview-branch-closed.png</file>
+        <file>images/treeview-branch-end.png</file>
+        <file>images/treeview-branch-more.png</file>
+        <file>images/treeview-branch-open.png</file>
+        <file>images/treeview-vline.png</file>
     </qresource>
 </RCC>

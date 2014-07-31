@@ -102,6 +102,7 @@
 #include "Types.h"
 #include "Units.h"
 #include "BAVersion.h"
+#include "MessageService.h"
 
 //! file containig additional exposers
 #include "PythonCoreExposer.h"

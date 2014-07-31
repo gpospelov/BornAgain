@@ -64,33 +64,44 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     m_outputDataItem = outputDataItem;
     connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
+     qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
+
     m_projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
     m_projectionsProperty->setToolTip("Projections");
     m_projectionsProperty->setValue(isProjection);
     addProperty(m_projectionsProperty, tr("Projections"));
+
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.2";
 
     m_interpolationProperty = m_variantManager->addProperty(QVariant::Bool, tr("Interpolation"));
     m_interpolationProperty->setToolTip("Interploation");
     m_interpolationProperty->setValue(outputDataItem->isInterpolated());
     addProperty(m_interpolationProperty, JobQueueXML::OutputDataInterpolatedAttribute);
 
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.3";
+
     m_logzProperty = m_variantManager->addProperty(QVariant::Bool, tr("Logz"));
     m_logzProperty->setToolTip("Logz");
     m_logzProperty->setValue(outputDataItem->isLogz());
     addProperty(m_logzProperty, JobQueueXML::OutputDataLogzAttribute);
+
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.4";
 
     m_zminProperty = m_variantManager->addProperty(QVariant::Double, tr("zmin"));
     m_zminProperty->setValue(outputDataItem->getZaxisMin());
     m_zminProperty->setAttribute(QLatin1String("decimals"), 6);
     addProperty(m_zminProperty, JobQueueXML::OutputDataZminAttribute);
 
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.5";
+
     m_zmaxProperty = m_variantManager->addProperty(QVariant::Double, tr("zmax"));
     m_zmaxProperty->setValue(outputDataItem->getZaxisMax());
     m_zmaxProperty->setAttribute(QLatin1String("decimals"), 6);
     addProperty(m_zmaxProperty, JobQueueXML::OutputDataZmaxAttribute);
 
-    qDebug() << "zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> zxmin zxmax" << outputDataItem->getZaxisMin() << outputDataItem->getZaxisMax();
 
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.6";
 
 
     int gradIndex = 0;
@@ -107,13 +118,19 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     m_gradientProperty->setValue(gradIndex);
     addProperty(m_gradientProperty, tr("Gradient"));
 
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.7";
+
     m_xtitleProperty = m_variantManager->addProperty(QVariant::String, tr("x-title"));
     m_xtitleProperty->setValue(outputDataItem->getXaxisTitle());
     addProperty(m_xtitleProperty, JobQueueXML::OutputDataXtitleAttribute);
 
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.8";
+
     m_ytitleProperty = m_variantManager->addProperty(QVariant::String, tr("y-title"));
     m_ytitleProperty->setValue(outputDataItem->getYaxisTitle());
     addProperty(m_ytitleProperty, JobQueueXML::OutputDataYtitleAttribute);
+
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.9";
 
 }
 
@@ -180,6 +197,7 @@ void PropertyWidget::onOutputDataItemModified()
 {
     qDebug() << "PropertyWidget::onOutputDataItemModified()";
     OutputDataItem *item = qobject_cast<OutputDataItem *>(sender());
+    (void)item;
     Q_ASSERT(item == m_outputDataItem);
 
     idToProperty[JobQueueXML::OutputDataInterpolatedAttribute]->setValue(m_outputDataItem->isInterpolated());

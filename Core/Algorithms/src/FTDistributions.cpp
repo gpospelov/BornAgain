@@ -43,7 +43,7 @@ FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
 double FTDistribution1DCauchy::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return std::pow(1.0 + sum_sq, -1.5);
+    return 1.0/(1.0 + sum_sq);
 }
 
 FTDistribution1DGauss::FTDistribution1DGauss(double omega)
@@ -62,7 +62,68 @@ FTDistribution1DGauss* FTDistribution1DGauss::clone() const
 double FTDistribution1DGauss::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return 0.5*std::exp(-sum_sq/4.0);
+    return std::exp(-sum_sq/2.0);
+}
+
+FTDistribution1DGate::FTDistribution1DGate(double omega)
+    : IFTDistribution1D(omega)
+{
+    setName("1DDistributionGate");
+    init_parameters();
+}
+
+FTDistribution1DGate *FTDistribution1DGate::clone() const
+{
+    FTDistribution1DGate *p_clone = new FTDistribution1DGate(m_omega);
+    return p_clone;
+}
+
+double FTDistribution1DGate::evaluate(double q) const
+{
+    return MathFunctions::Sinc(q*m_omega);
+}
+
+FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
+    : IFTDistribution1D(omega)
+{
+    setName("1DDistributionTriangle");
+    init_parameters();
+}
+
+FTDistribution1DTriangle *FTDistribution1DTriangle::clone() const
+{
+    FTDistribution1DTriangle *p_clone = new FTDistribution1DTriangle(m_omega);
+    return p_clone;
+}
+
+double FTDistribution1DTriangle::evaluate(double q) const
+{
+    double sincqw2 = MathFunctions::Sinc(q*m_omega/2.0);
+    return sincqw2*sincqw2;
+}
+
+FTDistribution1DCosine::FTDistribution1DCosine(double omega)
+    : IFTDistribution1D(omega)
+{
+    setName("1DDistributionCosine");
+    init_parameters();
+}
+
+FTDistribution1DCosine *FTDistribution1DCosine::clone() const
+{
+    FTDistribution1DCosine *p_clone = new FTDistribution1DCosine(m_omega);
+    return p_clone;
+}
+
+double FTDistribution1DCosine::evaluate(double q) const
+{
+    double qw = std::abs(q*m_omega);
+    if (std::abs(qw/M_PI-1.0) < Numeric::double_epsilon) {
+        return 0.5;
+    }
+    else {
+        return MathFunctions::Sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
+    }
 }
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
@@ -83,8 +144,8 @@ FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const
 double FTDistribution1DVoigt::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
-    return m_eta*std::exp(-sum_sq/4.0)/2.0
-            + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
+    return m_eta*std::exp(-sum_sq/2.0)
+            + (1.0 - m_eta)*1.0/(1.0 + sum_sq);
 }
 
 void FTDistribution1DVoigt::init_parameters()
@@ -99,6 +160,14 @@ void IFTDistribution1D::print(std::ostream& ostr) const
 }
 
 //==============2D====================
+
+double IFTDistribution2D::evaluateLattice(double qx, double qy) const
+{
+    (void)qx;
+    (void)qy;
+    throw NotImplementedException("IFTDistribution2D::evaluateLattice: This "
+         "distribution can not be used for the reciprocal lattice approach");
+}
 
 void IFTDistribution2D::transformToStarBasis(double qX, double qY,
         double alpha, double a, double b, double& qa, double& qb) const
@@ -145,6 +214,11 @@ double FTDistribution2DCauchy::evaluate(double qx, double qy) const
     return std::pow(1.0 + sum_sq, -1.5);
 }
 
+double FTDistribution2DCauchy::evaluateLattice(double qx, double qy) const
+{
+    return evaluate(qx, qy);
+}
+
 FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x,
         double coherence_length_y)
 : IFTDistribution2D(coherence_length_x, coherence_length_y)
@@ -165,7 +239,75 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
+    return std::exp(-sum_sq/2.0);
+}
+
+double FTDistribution2DGauss::evaluateLattice(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y;
     return std::exp(-sum_sq/4.0)/2.0;
+}
+
+FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x,
+        double coherence_length_y)
+: IFTDistribution2D(coherence_length_x, coherence_length_y)
+{
+    setName("2DDistributionGate");
+    init_parameters();
+}
+
+FTDistribution2DGate* FTDistribution2DGate::clone() const
+{
+    FTDistribution2DGate *p_clone = new FTDistribution2DGate(
+            m_coherence_length_x, m_coherence_length_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDistribution2DGate::evaluate(double qx, double qy) const
+{
+    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+    return MathFunctions::Bessel_C1(scaled_q)*2.0;
+}
+
+FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x,
+        double coherence_length_y)
+: IFTDistribution2D(coherence_length_x, coherence_length_y)
+{
+    setName("2DDistributionCone");
+    init_parameters();
+}
+
+FTDistribution2DCone* FTDistribution2DCone::clone() const
+{
+    FTDistribution2DCone *p_clone = new FTDistribution2DCone(
+            m_coherence_length_x, m_coherence_length_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
+}
+
+double FTDistribution2DCone::evaluate(double qx, double qy) const
+{
+    double scaled_q = std::sqrt(qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y);
+    if (scaled_q<Numeric::double_epsilon) {
+        return 1.0 - 3.0*scaled_q*scaled_q/40.0;
+    }
+    MemberFunctionIntegrator<FTDistribution2DCone>::mem_function
+        p_member_function = &FTDistribution2DCone::coneIntegrand2;
+    MemberFunctionIntegrator<FTDistribution2DCone>
+                integrator(p_member_function, this);
+    double integral = integrator.integrate(0.0, scaled_q, (void*)0);
+    return 6.0*(MathFunctions::Bessel_C1(scaled_q)
+                - integral/scaled_q/scaled_q/scaled_q);
+}
+
+double FTDistribution2DCone::coneIntegrand2(double value, void *params) const
+{
+    (void)params;
+    return value*value*MathFunctions::Bessel_J0(value);
 }
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x,
@@ -189,8 +331,16 @@ double FTDistribution2DVoigt::evaluate(double qx, double qy) const
 {
     double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
             + qy*qy*m_coherence_length_y*m_coherence_length_y;
-    return m_eta*std::exp(-sum_sq/4.0)/2.0
+    return m_eta*std::exp(-sum_sq/2.0)
             + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
+}
+
+double FTDistribution2DVoigt::evaluateLattice(double qx, double qy) const
+{
+    double sum_sq = qx*qx*m_coherence_length_x*m_coherence_length_x
+            + qy*qy*m_coherence_length_y*m_coherence_length_y;
+    return m_eta*std::exp(-sum_sq/4.0)/2.0
+           + (1.0 - m_eta)*std::pow(1.0 + sum_sq, -1.5);
 }
 
 void FTDistribution2DVoigt::init_parameters()
@@ -198,4 +348,3 @@ void FTDistribution2DVoigt::init_parameters()
     IFTDistribution2D::init_parameters();
     registerParameter("eta", &m_eta);
 }
-

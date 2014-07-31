@@ -2,7 +2,8 @@
 #include "GUIObjectBuilder.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationRegistry.h"
-#include "SessionModel.h"
+#include "InstrumentModel.h"
+#include "SampleModel.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 
@@ -13,6 +14,8 @@ QMap<QString, QString > init_NameToRegistry()
     result["example01"] = "isgisaxs01";
     result["example02"] = "isgisaxs04_1DDL";
     result["example03"] = "isgisaxs04_2DDL";
+    result["example04"] = "isgisaxs11";
+    result["example05"] = "LayerWithRoughness";
     return result;
 }
 
@@ -24,7 +27,7 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 }
 
 
-ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SessionModel *sampleModel)
+ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
 {
     if(sampleModel->getModelTag() != SessionXML::SampleModelTag ) {
         throw GUIHelpers::Error("GUIExamplesFactory::createSampleItems() -> Error. Not a SampleModelTag");
@@ -44,7 +47,7 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Se
     //return guiBuilder.getTopItem();
 }
 
-ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, SessionModel *instrumentModel)
+ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)
 {
     if(instrumentModel->getModelTag() != SessionXML::InstrumentModelTag ) {
         throw GUIHelpers::Error("GUIExamplesFactory::createInstrumentItems() -> Error. Not an InstrumentModelTag");

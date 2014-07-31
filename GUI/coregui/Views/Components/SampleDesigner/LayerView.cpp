@@ -12,11 +12,11 @@ LayerView::LayerView(QGraphicsItem *parent)
     : ILayerView(parent)
 {
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
-    setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
-    setName(QString("Layer"));
+    setName(Constants::LayerType);
+    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::LayerType));
     setToolTip(QString("%1\n%2").arg("Layer").arg("A layer with thickness and material.\nCan be connected with ParticleLayout."));
     setAcceptDrops(false);
-    addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleFactory);
+    addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleLayout);
 }
 
 
@@ -46,6 +46,6 @@ void LayerView::addView(IView *childView, int /* row */)
     qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getParameterizedItem()->itemName();
     ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
     Q_ASSERT(layout);
-    connectInputPort(layout);
+    connectInputPort(layout, 0);
 }
 

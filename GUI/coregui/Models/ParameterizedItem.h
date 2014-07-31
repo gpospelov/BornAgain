@@ -16,7 +16,9 @@
 #ifndef PARAMETERIZEDITEM_H_
 #define PARAMETERIZEDITEM_H_
 
-#include "MaterialItem.h"
+#include "item_constants.h"
+#include "PropertyAttribute.h"
+#include "MaterialProperty.h"
 #include <QStandardItem>
 #include <QStringList>
 #include <QList>
@@ -28,7 +30,7 @@ class ParameterizedItem : public QObject
 {
     Q_OBJECT
 public:
-    static const QString P_NAME;
+    static const QString P_NAME, P_PORT;
     virtual ~ParameterizedItem();
 
     //! retrieves the model type
@@ -63,19 +65,14 @@ public:
     QList<ParameterizedItem *> childItems() const { return m_children; }
 
     //! inserts a child item at specified row
-    void insertChildItem(int row, ParameterizedItem *item)
-        { item->m_parent = this; m_children.insert(row, item); }
-
-    //! append child item
-    void addChildItem(ParameterizedItem *item)
-        { item->m_parent = this; m_children << item; }
+    virtual void insertChildItem(int row, ParameterizedItem *item);
 
     //! swap two child items
     void swapChildItems(int row_1, int row_2)
         { m_children.swap(row_1, row_2); }
 
     //! take child item (this removes it from the current item)
-    ParameterizedItem *takeChildItem(int row);
+    virtual ParameterizedItem *takeChildItem(int row);
 
     //! indicates if the passed item can be set as
     //! a child item
@@ -92,51 +89,61 @@ public:
 
     void addPropertyItem(QString name, ParameterizedItem *item);
 
-    ParameterizedItem *createPropertyItem(QString name);
-
     explicit ParameterizedItem(const QString &model_type=QString(),
                                ParameterizedItem *parent=0);
 
-    void setMaterialProperty(MaterialProperty material = MaterialProperty());
-
-    ParameterizedItem *registerGroupProperty(const QString &name, const QString &value);
+    ParameterizedItem *registerGroupProperty(const QString &group_name, const Constants::ModelType &group_model);
     ParameterizedItem *setGroupProperty(const QString &name, const QString &value);
 
-    bool isHiddenProperty(const QString &name) const;
-    QString getPropertyToolTip(const QString &name) const;
-
-    enum PropertyVisibility {VisibleProperty, HiddenProperty };
-    void registerProperty(const QString &name, const QVariant &variant, const QString &tooltip = QString(), PropertyVisibility = VisibleProperty);
+    void registerProperty(const QString &name, const QVariant &variant, const PropertyAttribute &attribute = PropertyAttribute());
     void setRegisteredProperty(const QString &name, const QVariant &variant);
     QVariant getRegisteredProperty(const QString &name) const;
+    void removeRegisteredProperty(const QString &name);
 
-    void setBlockPropertyChangeEvent(bool flag) {m_block_property_change_event = flag; }
-    bool getBlockPropertyChangeEvent() const { return m_block_property_change_event; }
-
-    void setPropertyVisibility(const QString &name, PropertyVisibility visibility);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute &attribute);
+    void setPropertyAttribute(const QString &name, const PropertyAttribute::Appearance &appearance);
+    PropertyAttribute getPropertyAttribute(const QString &name) const;
 
     void print() const;
 
     virtual void onPropertyChange(const QString &name);
+
+    virtual ParameterizedItem *getCandidateForRemoval(ParameterizedItem *new_comer);
+
+    class PortInfo {
+    public:
+        enum Keys { PortDef=-1, Port0=0, Port1=1, Port2=2};
+        PortInfo(const QString &name=QString(), int nmax_items=0) : m_item_names(name), m_item_max_number(nmax_items){}
+        QStringList m_item_names;
+        int m_item_max_number;
+    };
+
+    void setItemPort(PortInfo::Keys nport);
+
+    virtual QString getItemLabel() const { return QString("no label"); }
+
+public slots:
+    void onPropertyItemChanged(const QString &propertyName);
+
 signals:
     void propertyChanged(const QString &propertyName);
     void propertyItemChanged(const QString &propertyName);
 
 protected:
-    void updatePropertyItem(QString name);
-    QList<QString> m_valid_children;
+    void addToValidChildren(const QString &name, PortInfo::Keys nport = PortInfo::Port0, int nmax_children = 0);
 
     QStringList m_registered_properties;
-    QStringList m_hidden_properties;
-    QMap<QString, QString> m_property_tooltip;
+
+    QMap<QString, PropertyAttribute> m_property_attribute;
 
 private:
+    QList<QString> m_valid_children;
+    QMap<int, PortInfo> m_port_info;
+
     QString m_model_type;
-    //QString m_item_name;
     ParameterizedItem *m_parent;
     QList<ParameterizedItem *> m_children;
     QMap<QString, ParameterizedItem *> m_sub_items;
-    bool m_block_property_change_event;
 };
 
 #endif /* PARAMETERIZEDITEM_H_ */

@@ -22,9 +22,9 @@ class LayerItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    static const QString P_THICKNESS;
+    static const QString P_THICKNESS, P_ROUGHNESS, P_MATERIAL;
     explicit LayerItem(ParameterizedItem *parent=0);
-    ~LayerItem();
+    ~LayerItem(){}
 };
 
 #endif // LAYERITEM_H

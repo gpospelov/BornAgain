@@ -22,6 +22,7 @@
 #include "OutputDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "ProgressHandlerDWBA.h"
+#include "OMPISimulation.h"
 
 #include "Macros.h"
 GCC_DIAG_OFF(strict-aliasing);
@@ -128,7 +129,6 @@ void Simulation::prepareSimulation()
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
-
     prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
@@ -170,26 +170,12 @@ void Simulation::runSimulation()
 
 }
 
-void Simulation::runSimulationElement(size_t index)
+void Simulation::runOMPISimulation()
 {
-    (void)index;  // to suppress unused-variable warning
-
-    prepareSimulation();
-    if( !mp_sample)
-        throw NullPointerException(
-            "Simulation::runSimulation() -> Error! No sample set.");
-    m_intensity_map.setAllTo(0);
-    m_polarization_output.setAllTo(Eigen::Matrix2d::Zero());
-
-    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (!p_dwba_simulation)
-        throw NullPointerException("Simulation::runSimulation() -> "
-                                   "No dwba simulation");
-    p_dwba_simulation->init(*this);
-    p_dwba_simulation->run();
-    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
-    delete p_dwba_simulation;
+    OMPISimulation ompi;
+    ompi.runSimulation(this);
 }
+
 
 void Simulation::normalize()
 {
@@ -286,7 +272,7 @@ void Simulation::updateSample()
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            msglog(MSG::INFO) << "Simulation::updateSample() -> "
+            msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
                 "OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample);
         } else {
@@ -364,12 +350,11 @@ void Simulation::runSingleSimulation()
         }
     }
 
-    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
-//    std::cout << "Simulation::runSimulation(): n_batches = " <<
-            m_thread_info.n_batches <<
-            ", current batch = " << m_thread_info.current_batch <<
-            ", n_threads = " << m_thread_info.n_threads <<
-            ", sample: " << *mp_sample;
+//    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_batches = " <<
+//            m_thread_info.n_batches <<
+//            ", current batch = " << m_thread_info.current_batch <<
+//            ", n_threads = " << m_thread_info.n_threads <<
+//            ", sample: " << *mp_sample;
 
     if (m_thread_info.n_threads<0) m_thread_info.n_threads = 1;
     if(m_thread_info.n_threads==1) {
@@ -390,13 +375,17 @@ void Simulation::runSingleSimulation()
             // Take optimal number of threads from the hardware.
             m_thread_info.n_threads =
                     (int)boost::thread::hardware_concurrency();
-            msglog(MSG::INFO) <<
-                "Simulation::runSimulation() -> Info. Number of threads " <<
-                m_thread_info.n_threads << " (taken from hardware concurrency)";
+            msglog(MSG::DEBUG)
+                << "Simulation::runSimulation() -> Info. Number of threads "
+                << m_thread_info.n_threads << " (taken from hardware concurrency)"
+                << ", n_batches = " << m_thread_info.n_batches
+                << ", current_batch = " << m_thread_info.current_batch;
         } else {
-            msglog(MSG::INFO) <<
-                "Simulation::runSimulation() -> Info. Number of threads " <<
-                m_thread_info.n_threads;
+            msglog(MSG::DEBUG)
+                << "Simulation::runSimulation() -> Info. Number of threads "
+                << m_thread_info.n_threads << " (ordered by user)"
+                << ", n_batches = " << m_thread_info.n_batches
+                << ", current_batch = " << m_thread_info.current_batch;
         }
         std::vector<boost::thread*> threads;
         std::vector<DWBASimulation*> simulations;

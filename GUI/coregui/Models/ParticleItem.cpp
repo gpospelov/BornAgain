@@ -15,21 +15,27 @@
 
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
+#include "MaterialUtils.h"
 #include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_DEPTH = "Depth";
 const QString ParticleItem::P_ABUNDANCE = "Abundance";
+const QString ParticleItem::P_MATERIAL = "Material";
+
 
 
 ParticleItem::ParticleItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("Particle"), parent)
+    : ParameterizedGraphicsItem(Constants::ParticleType, parent)
 {
-    setItemName("ParticleName");
-    registerGroupProperty(P_FORM_FACTOR, "Cylinder");
-    setMaterialProperty();
+    setItemName(Constants::ParticleType);
+    setItemPort(ParameterizedItem::PortInfo::Port0);
+    //registerGroupProperty(P_FORM_FACTOR, Constants::CylinderType);
+    registerGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
+
+    registerProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
+
     registerProperty(P_DEPTH, 0.0);
     registerProperty(P_ABUNDANCE, 1.0);
-    qDebug() << "ParticleItem ctor about to end";
 }
 

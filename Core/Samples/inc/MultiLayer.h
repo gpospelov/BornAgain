@@ -122,6 +122,9 @@ public:
     //! ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
+    //! returns lyaer index
+    int getIndexOfLayer(const Layer *layer) const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

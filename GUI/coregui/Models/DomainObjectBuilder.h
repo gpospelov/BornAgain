@@ -16,10 +16,17 @@
 #ifndef DOMAINOBJECTBUILDER_H
 #define DOMAINOBJECTBUILDER_H
 
-#include "Samples.h"
-#include "Instrument.h"
-#include "InterferenceFunctions.h"
-#include "ParameterizedItem.h"
+class ISample;
+class Instrument;
+class MultiLayer;
+class Layer;
+class ParticleLayout;
+class Particle;
+class IInterferenceFunction;
+class Beam;
+class ParticleCoreShell;
+class ParameterizedItem;
+class LayerRoughness;
 
 class DomainObjectBuilder
 {
@@ -41,6 +48,7 @@ private:
     Particle *buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const;
     IInterferenceFunction *buildInterferenceFunction(const ParameterizedItem &item) const;
     Beam *buildBeam(const ParameterizedItem &item) const;
+    ParticleCoreShell *buildParticleCoreShell(const ParameterizedItem &item, double &depth, double &abundance) const;
 
     ISample *mp_sample;
     Instrument *m_instrument;

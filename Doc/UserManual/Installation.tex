@@ -74,7 +74,7 @@ sudo apt-get install git cmake libgsl0-dev libboost-all-dev libfftw3-dev python-
 \noindent
 Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
-sudo apt-get install libroot-* root-plugin-* root-system-* ttf-root-installer libeigen3-dev python-matplotlib python-matplotlib-tk
+sudo apt-get install ``libroot-*'' ``root-plugin-*'' ``root-system-*'' ttf-root-installer libeigen3-dev python-matplotlib python-matplotlib-tk
 \end{lstlisting}
 \vspace*{3mm}
 
@@ -98,7 +98,7 @@ sudo zypper install git-core cmake gsl-devel boost-devel fftw3-devel python-deve
 \noindent
 Installing the optional packages
 \begin{lstlisting}[language=shell, style=commandline]
-sudo zypper install libroot-* root-plugin-* root-system-* root-ttf libeigen3-devel python-matplotlib
+sudo zypper ``install libroot-*'' ``root-plugin-*'' ``root-system-*'' root-ttf libeigen3-devel python-matplotlib
 \end{lstlisting}
 \vspace*{3mm}
 
@@ -228,13 +228,13 @@ into  the installation directory.
 make install
 \end{lstlisting}
 
-After installation is completed, the location of \BornAgain\ libraries needs to be included into
+After the installation is completed, the location of \BornAgain\ libraries needs to be included into your
 \Code{LD\_LIBRARY\_PATH} and \Code{PYTHONPATH} environment variables.
 This can be done by running \BornAgain\ setup script in the terminal session
 \begin{lstlisting}[language=shell, style=commandline]
 source <install_dir>/bin/thisbornagain.sh
 \end{lstlisting}
-Conveniently, given call can be placed in your \Code{.bashrc} file.
+Conveniently, a given call can be placed in your \Code{.bashrc} file.
 
 
 \subsubsection{Troubleshooting}
@@ -283,8 +283,7 @@ the installation of \BornAgain.
 
 
 \subsubsection{If you have Python already installed}
-You might want to keep using this installation and to install missed modules.
-Required libraries can be found at
+You might want to keep using this installation and to install the missing modules. Therequired libraries can be found at
 \begin{lstlisting}[language=shell, style=commandline]
 matlab:
 http://matplotlib.org/downloads.html
@@ -304,7 +303,7 @@ Double-click on it to start the installation process. And then follow the instru
 {\bf Step IV: $~$ run an example} \newline
 Run an example located in \BornAgain\ installation directory:
 \begin{lstlisting}[language=shell, style=commandline]
-python C:/BornAgain-0.9.4/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py
+python C:/BornAgain-<Version>/Examples/python/simulation/ex001_CylindersAndPrisms/CylindersAndPrisms.py
 \end{lstlisting}
 
 

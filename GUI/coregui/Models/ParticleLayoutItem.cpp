@@ -14,13 +14,17 @@
 // ************************************************************************** //
 
 #include "ParticleLayoutItem.h"
+#include "ParticleCoreShellItem.h"
 
 ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("ParticleLayout"), parent)
+    : ParameterizedGraphicsItem(Constants::ParticleLayoutType, parent)
 {
-    m_valid_children.append(QString("Particle"));
-    m_valid_children.append(QString("InterferenceFunction1DParaCrystal"));
-    m_valid_children.append(QString("InterferenceFunction2DParaCrystal"));
+    setItemName(Constants::ParticleLayoutType);
+    setItemPort(ParameterizedItem::PortInfo::Port0);
+    addToValidChildren(Constants::ParticleType, PortInfo::Port0);
+    addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
+    addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::Port1, 1);
+    addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::Port1, 1);
 }
 
 

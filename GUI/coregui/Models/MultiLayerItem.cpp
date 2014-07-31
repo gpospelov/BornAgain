@@ -14,19 +14,45 @@
 // ************************************************************************** //
 
 #include "MultiLayerItem.h"
+#include "LayerItem.h"
+#include "ScientificDoubleProperty.h"
+#include <QDebug>
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
 
 MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
-    : ParameterizedGraphicsItem(QString("MultiLayer"), parent)
+    : ParameterizedGraphicsItem(Constants::MultiLayerType, parent)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
-    m_valid_children.append(QString("Layer"));
-    m_valid_children.append(QString("MultiLayer"));
+    addToValidChildren(Constants::LayerType);
+    addToValidChildren(Constants::MultiLayerType);
 
-    setPropertyVisibility(ParameterizedItem::P_NAME, ParameterizedItem::VisibleProperty);
+    setPropertyAttribute(ParameterizedItem::P_NAME, PropertyAttribute::VisibleProperty);
+
 }
 
-MultiLayerItem::~MultiLayerItem()
+ParameterizedItem *MultiLayerItem::takeChildItem(int row)
 {
+    ParameterizedItem *item = ParameterizedItem::takeChildItem(row);
+    updateLayers();
+    return item;
 }
+
+
+void MultiLayerItem::insertChildItem(int row, ParameterizedItem *item)
+{
+    ParameterizedItem::insertChildItem(row, item);
+    updateLayers();
+}
+
+void MultiLayerItem::updateLayers()
+{
+    for(int i = 0; i<childItemCount(); ++i) {
+        if(i == 0) {
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, PropertyAttribute::DisabledProperty);
+        } else {
+            childAt(i)->setPropertyAttribute(LayerItem::P_ROUGHNESS, PropertyAttribute::VisibleProperty);
+        }
+    }
+}
+

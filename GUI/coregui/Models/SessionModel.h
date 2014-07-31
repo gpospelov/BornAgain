@@ -27,6 +27,7 @@ const QString MimeType = "application/org.bornagainproject.xml.item.z";
 const QString ModelTag("SessionModel");
 const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");
+const QString MaterialModelTag("MaterialModel");
 const QString ModelNameAttribute("Name");
 const QString ItemTag("Item");
 //const QString PropertyItemTag("PropertyItem");
@@ -36,6 +37,13 @@ const QString ParameterTag("Parameter");
 const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
+
+const QString IdentifierAttribute("Identifier");
+
+const QString ColorRedAttribute("Red");
+const QString ColorGreenAttribute("Green");
+const QString ColorBlueAttribute("Blue");
+const QString ColorAlphaAttribute("Alpha");
 }
 
 class IconProvider;
@@ -78,7 +86,7 @@ public:
     QModelIndex indexOfItem(ParameterizedItem *item) const;
     ParameterizedItem *insertNewItem(QString model_type,
                                      const QModelIndex &parent=QModelIndex(),
-                                     int row=-1);
+                                     int row=-1, ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
 
     QString getModelTag() const { return m_model_tag; }
     QString getModelName() const { return m_name; }
@@ -104,13 +112,22 @@ public:
 
     void setIconProvider(IconProvider *icon_provider) { m_iconProvider = icon_provider; }
 
+//    struct ItemToInsert {
+//        ParameterizedItem *child;
+//        ParameterizedItem *parent;
+//        int row;
+//    };
+
 public slots:
     void onItemPropertyChange(const QString &name);
 
 private:
+//    ParameterizedItem *createNewItem(QString model_type, ParameterizedItem *parent, int row = -1);
+
     ParameterizedItem *insertNewItem(QString model_type,
                                      ParameterizedItem *parent,
-                                     int row=-1);
+                                     int row=-1,
+                                     ParameterizedItem::PortInfo::Keys port = ParameterizedItem::PortInfo::PortDef);
     void readItems(QXmlStreamReader *reader, ParameterizedItem *item,
                    int row=-1);
     QString readProperty(QXmlStreamReader *reader, ParameterizedItem *item);
@@ -120,6 +137,9 @@ private:
                        const char *property_name) const;
     void writePropertyItem(QXmlStreamWriter *writer,
                            ParameterizedItem *item) const;
+
+    void cleanItem(const QModelIndex &parent, int first, int last );
+
     ParameterizedItem *m_root_item;
     QString m_dragged_item_type;
     QString m_name; //!< model name

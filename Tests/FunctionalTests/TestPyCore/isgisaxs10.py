@@ -5,8 +5,8 @@ import numpy
 import gzip
 
 sys.path.append(os.path.abspath(
-                os.path.join(os.path.split(__file__)[0],
-                '..', '..', '..', 'lib')))
+    os.path.join(os.path.split(__file__)[0],
+                 '..', '..', '..', 'lib')))
 
 from libBornAgainCore import *
 
@@ -16,13 +16,15 @@ from libBornAgainCore import *
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
-    mSubstrate = HomogeneousMaterial("Substrate", 5e-6, 2e-8 )
-    mParticle = HomogeneousMaterial("Particle", 5e-5, 2e-8 )
+    mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
+    mSubstrate = HomogeneousMaterial("Substrate", 5e-6, 2e-8)
+    mParticle = HomogeneousMaterial("Particle", 5e-5, 2e-8)
     # collection of particles
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(5 * nanometer, 5 * nanometer)
     cylinder = Particle(mParticle, cylinder_ff)
-    interference = InterferenceFunction1DParaCrystal(20.0*nanometer,7*nanometer, 1e7*nanometer)
+    interference = InterferenceFunction1DParaCrystal(20.0 * nanometer, 1e7 * nanometer)
+    pdf = FTDistribution1DGauss(7 * nanometer)
+    interference.setProbabilityDistribution(pdf)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder, 0.0, 1.0)
     particle_layout.addInterferenceFunction(interference)
@@ -35,8 +37,8 @@ def RunSimulation():
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
     simulation = Simulation()
-    simulation.setDetectorParameters(100,0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, 0.0 * degree, 2.0 * degree, 100, 0.0 * degree, 2.0 * degree, True)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     return simulation.getIntensityData().getArray()
@@ -47,9 +49,9 @@ def RunSimulation():
 # ----------------------------------
 def GetReferenceData():
     path = os.path.split(__file__)[0]
-    if path: path +="/"
-    f = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs10_reference.ima.gz', 'rb')
-    reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
+    if path: path += "/"
+    f = gzip.open(path + '../../ReferenceData/BornAgain/isgisaxs10_reference.ima.gz', 'rb')
+    reference = numpy.fromstring(f.read(), numpy.float64, sep=' ')
     f.close()
     return reference
 
@@ -61,18 +63,18 @@ def GetDifference(data, reference):
     reference = reference.reshape(data.shape)
     # calculating relative average difference
     data -= reference
-    diff=0.0
+    diff = 0.0
     epsilon = sys.float_info.epsilon
     for x, y in numpy.ndindex(data.shape):
         v1 = data[x][y]
         v2 = reference[x][y]
         if v1 <= epsilon and v2 <= epsilon:
             diff += 0.0
-        elif(v2 <= epsilon):
-            diff += abs(v1/epsilon)
+        elif (v2 <= epsilon):
+            diff += abs(v1 / epsilon)
         else:
-            diff += abs(v1/v2)
-    return diff/data.size
+            diff += abs(v1 / v2)
+    return diff / data.size
 
 
 # --------------------------------------------------------------
@@ -84,15 +86,15 @@ def runTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 2e-10  or numpy.isnan(diff)): status = "FAILED"
+    if (diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS10", "Cylinders with interference on top of substrate", status
 
 
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    name, description, status = runTest()
+    print name, description, status
+    if ("FAILED" in status): exit(1)
 

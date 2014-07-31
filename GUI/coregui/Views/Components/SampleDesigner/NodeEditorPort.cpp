@@ -44,17 +44,19 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name, NodeE
 
 NodeEditorPort::~NodeEditorPort()
 {
-    foreach(NodeEditorConnection *conn, m_connections)
+    foreach(NodeEditorConnection *conn, m_connections) {
+        conn->setSelected(false);
 		delete conn;
+    }
 }
 
 
-void NodeEditorPort::deleteAllConnections()
-{
-    foreach(NodeEditorConnection *conn, m_connections)
-        delete conn;
-    m_connections.clear();
-}
+//void NodeEditorPort::deleteAllConnections()
+//{
+//    foreach(NodeEditorConnection *conn, m_connections)
+//        delete conn;
+//    m_connections.clear();
+//}
 
 
 bool NodeEditorPort::isOutput()
@@ -108,7 +110,7 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::PortType port_type)
     case Interference:
        return QColor(Qt::yellow);
        break;
-    case ParticleFactory:
+    case ParticleLayout:
        return QColor(Qt::green);
        break;
     case FormFactor:

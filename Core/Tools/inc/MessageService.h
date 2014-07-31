@@ -28,7 +28,7 @@
 namespace MSG
 {
 
-enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
+enum MessageLevel { VERBOSE, DEBUG2, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 //! @class Logger
 //! @ingroup tools_internal

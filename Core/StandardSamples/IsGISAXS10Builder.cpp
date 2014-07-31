@@ -48,10 +48,11 @@ ISample *IsGISAXS10Builder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    IInterferenceFunction *p_interference_function =
+    InterferenceFunction1DParaCrystal *p_interference_function =
             new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
-                    7*Units::nanometer, 1e7*Units::nanometer);
-
+                    1e7*Units::nanometer);
+    FTDistribution1DGauss pdf(7*Units::nanometer);
+    p_interference_function->setProbabilityDistribution(pdf);
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
     ParticleLayout particle_layout(new Particle(particle_material, ff_cylinder));

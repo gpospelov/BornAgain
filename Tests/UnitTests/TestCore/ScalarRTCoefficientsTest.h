@@ -19,8 +19,8 @@ ScalarRTCoefficientsTest::ScalarRTCoefficientsTest()
 {
     scrtCustom.lambda = complex_t(1.0, 1.0);
     scrtCustom.kz = complex_t(1.0, 1.0);
-    scrtCustom.phi_psi(0) = complex_t(1.0, 1.0);
-    scrtCustom.phi_psi(1) = complex_t(1.0, 1.0);
+    scrtCustom.t_r(0) = complex_t(0.0, 0.5);
+    scrtCustom.t_r(1) = complex_t(1.0, 0.5);
 }
 
 TEST_F(ScalarRTCoefficientsTest, T1plus)
@@ -83,7 +83,7 @@ TEST_F(ScalarRTCoefficientsTest, R1min)
 {
     Eigen::Vector2cd vector = scrtDefault.R1min();
     EXPECT_EQ(0.0, vector(0));
-    EXPECT_EQ(complex_t(-1.0,0.0), vector(1));
+    EXPECT_EQ(complex_t(0.0,0.0), vector(1));
 
     Eigen::Vector2cd vector2 = scrtCustom.R1min();
     EXPECT_EQ(0.0, vector2(0));
@@ -93,7 +93,7 @@ TEST_F(ScalarRTCoefficientsTest, R1min)
 TEST_F(ScalarRTCoefficientsTest, R2plus)
 {
     Eigen::Vector2cd vector = scrtDefault.R2plus();
-    EXPECT_EQ(complex_t(-1.0,0.0), vector(0));
+    EXPECT_EQ(0.0, vector(0));
     EXPECT_EQ(0.0, vector(1));
 
     Eigen::Vector2cd vector2 = scrtCustom.R2plus();
@@ -126,7 +126,7 @@ TEST_F(ScalarRTCoefficientsTest, getKz)
 TEST_F(ScalarRTCoefficientsTest, getScalar)
 {
     EXPECT_EQ(complex_t(1.0,0.0), scrtDefault.getScalarT());
-    EXPECT_EQ(complex_t(-1.0,0.0), scrtDefault.getScalarR());
+    EXPECT_EQ(complex_t(0.0,0.0), scrtDefault.getScalarR());
     EXPECT_EQ(complex_t(0.0,0.0), scrtDefault.getScalarKz());
 
     EXPECT_EQ(complex_t(0.0,0.5), scrtCustom.getScalarT());

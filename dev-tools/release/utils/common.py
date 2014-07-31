@@ -49,6 +49,18 @@ def get_version():
     return version
 
 
+def get_checkrelease_dir():
+    return get_working_dir()+"/"+"checkrelease"
+
+
+def get_checkmaster_dir():
+    return get_checkrelease_dir()+"/"+"checkmaster"
+
+
+def get_checktarball_dir():
+    return get_checkrelease_dir()+"/"+"checktarball"
+
+
 def run_command(cmd):
     print ">>>", cmd
     returncode = os.system(cmd)

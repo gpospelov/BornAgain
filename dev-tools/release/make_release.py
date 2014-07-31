@@ -20,6 +20,7 @@ def main():
 
     if os.path.exists(get_working_dir()):
         print "Directory %s exists, continuing release process." % get_working_dir()
+        finalize_release()
     else:
         prepare_release()
 

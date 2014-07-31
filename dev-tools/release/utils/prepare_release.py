@@ -23,6 +23,9 @@ def make_directories():
     os.makedirs(get_build_dir())
     os.makedirs(get_upload_dir())
     os.makedirs(get_install_dir())
+    os.makedirs(get_checkrelease_dir())
+    os.makedirs(get_checktarball_dir())
+    os.makedirs(get_checkmaster_dir())
 
 
 def git_clone():

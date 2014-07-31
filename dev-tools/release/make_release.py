@@ -45,7 +45,6 @@ def get_manual_name():
         for line in fin:
             if "UM_VERSION" in line:
                 str = line.replace("(", "").replace(")", "")
-                #str = str.replace(")", "")
                 numbers.append([int(s) for s in str.split() if s.isdigit()][0])
     return "UserManual-%s.%s.%s.pdf" % (numbers[0], numbers[1], numbers[2])
 
@@ -106,6 +105,7 @@ def update_upload_dir():
     print "Updating directory for upload ..."
     run_command("mv %s/BornAgain*.tar.gz %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("mv %s/BornAgain*-win32.exe %s/old" % (get_upload_dir(), get_upload_dir()))
+    run_command("mv %s/UserManual-*.pdf %s/old" % (get_upload_dir(), get_upload_dir()))
     run_command("cp %s/BornAgain-%s.tar.gz %s" % (get_build_dir(), get_version(), get_upload_dir()))
     run_command("cp %s/CHANGELOG %s" % (get_source_dir(), get_upload_dir()))
     run_command("cp %s/Doc/UserManual/UserManual.pdf %s/%s" % (get_build_dir(), get_upload_dir(), get_manual_name()) )

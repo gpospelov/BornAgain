@@ -17,52 +17,97 @@
 
 #FIXME check windows
 IF(WIN32)
-    # JW tested with gsl-1.8, Windows XP, MSVS 7.1
-    SET(GSL_POSSIBLE_ROOT_DIRS
-        ${GSL_ROOT_DIR}
-        $ENV{GSL_ROOT_DIR}
-        ${GSL_DIR}
-        ${GSL_HOME}
-        $ENV{GSL_DIR}
-        $ENV{GSL_HOME}
-        $ENV{EXTRA}
-        "C:/Program Files/GnuWin32")
-
-    FIND_PATH(GSL_INCLUDE_DIR
+    find_path( GSL_INCLUDE_DIR
         NAMES gsl/gsl_cdf.h gsl/gsl_randist.h
-        PATHS ${GSL_POSSIBLE_ROOT_DIRS}
-        PATH_SUFFIXES include
-        DOC "GSL header include dir")
+        PATHS
+        $ENV{GSL_DIR}/include
+        "C:/opt/local/include"
+    )
+  
+    set(gsl_library_name gsl)
+    set(gslcblas_library_name cblas)
+        
+    if( GSL_INCLUDE_DIR )
+        # look for gsl library
+        find_library( GSL_LIBRARY
+            NAMES ${gsl_library_name}
+            PATHS
+            #$ENV{GSL_DIR}/lib
+            "C:/opt/local/lib"
+        )
+        
+        if( GSL_LIBRARY )
+            set( GSL_INCLUDE_DIRS ${GSL_INCLUDE_DIR} )
+            get_filename_component( GSL_LIBRARY_DIRS ${GSL_LIBRARY} PATH )
+            set( GSL_FOUND ON )
+        endif( GSL_LIBRARY )
+ 
+        # look for gsl cblas library
+        find_library( GSL_CBLAS_LIBRARY
+            NAMES ${gslcblas_library_name}
+            PATHS $ENV{GSL_DIR}/lib
+            "C:/opt/local/lib"
+        )
+    
+        if( GSL_CBLAS_LIBRARY )
+            set( GSL_CBLAS_FOUND ON )
+        endif( GSL_CBLAS_LIBRARY )
+ 
+        set( GSL_LIBRARIES ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} )
+        set( GSL_CFLAGS "-DGSL_DLL")
+    endif( GSL_INCLUDE_DIR )
+ 
+    mark_as_advanced(
+        GSL_INCLUDE_DIR
+        GSL_LIBRARY
+        GSL_CBLAS_LIBRARY
+    )
 
-    FIND_LIBRARY(GSL_GSL_LIBRARY
-        NAMES libgsl.dll.a gsl libgsl
-        PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
-        PATH_SUFFIXES lib
-        DOC "GSL library")
-
-    if(NOT GSL_GSL_LIBRARY)
-        FIND_FILE(GSL_GSL_LIBRARY
-            NAMES libgsl.dll.a
-            PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
-            PATH_SUFFIXES lib
-            DOC "GSL library")
-    endif(NOT GSL_GSL_LIBRARY)
-
-    FIND_LIBRARY(GSL_GSLCBLAS_LIBRARY
-        NAMES libgslcblas.dll.a gslcblas libgslcblas
-        PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
-        PATH_SUFFIXES lib
-        DOC "GSL cblas library dir")
-
-    if(NOT GSL_GSLCBLAS_LIBRARY)
-        FIND_FILE(GSL_GSLCBLAS_LIBRARY
-            NAMES libgslcblas.dll.a
-            PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
-            PATH_SUFFIXES lib
-            DOC "GSL library")
-    endif(NOT GSL_GSLCBLAS_LIBRARY)
-
-    SET(GSL_LIBRARIES ${GSL_GSL_LIBRARY})
+#     SET(GSL_POSSIBLE_ROOT_DIRS
+#         ${GSL_ROOT_DIR}
+#         $ENV{GSL_ROOT_DIR}
+#         ${GSL_DIR}
+#         ${GSL_HOME}
+#         $ENV{GSL_DIR}
+#         $ENV{GSL_HOME}
+#         $ENV{EXTRA}
+#         "C:/Program Files/GnuWin32")
+# 
+#     FIND_PATH(GSL_INCLUDE_DIR
+#         NAMES gsl/gsl_cdf.h gsl/gsl_randist.h
+#         PATHS ${GSL_POSSIBLE_ROOT_DIRS}
+#         PATH_SUFFIXES include
+#         DOC "GSL header include dir")
+# 
+#     FIND_LIBRARY(GSL_GSL_LIBRARY
+#         NAMES libgsl.dll.a gsl libgsl
+#         PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
+#         PATH_SUFFIXES lib
+#         DOC "GSL library")
+# 
+#     if(NOT GSL_GSL_LIBRARY)
+#         FIND_FILE(GSL_GSL_LIBRARY
+#             NAMES libgsl.dll.a
+#             PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
+#             PATH_SUFFIXES lib
+#             DOC "GSL library")
+#     endif(NOT GSL_GSL_LIBRARY)
+# 
+#     FIND_LIBRARY(GSL_GSLCBLAS_LIBRARY
+#         NAMES libgslcblas.dll.a gslcblas libgslcblas
+#         PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
+#         PATH_SUFFIXES lib
+#         DOC "GSL cblas library dir")
+# 
+#     if(NOT GSL_GSLCBLAS_LIBRARY)
+#         FIND_FILE(GSL_GSLCBLAS_LIBRARY
+#             NAMES libgslcblas.dll.a
+#             PATHS  ${GSL_POSSIBLE_ROOT_DIRS}
+#             PATH_SUFFIXES lib
+#             DOC "GSL library")
+#     endif(NOT GSL_GSLCBLAS_LIBRARY)
+# 
+#     SET(GSL_LIBRARIES ${GSL_GSL_LIBRARY})
 
 
 ELSE(WIN32)

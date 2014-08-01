@@ -39,6 +39,15 @@ void register_FitSuiteParameters_class(){
                 , clear_function_type( &::FitSuiteParameters::clear ) );
         
         }
+        { //::FitSuiteParameters::fixAll
+        
+            typedef void ( ::FitSuiteParameters::*fixAll_function_type )(  ) ;
+            
+            FitSuiteParameters_exposer.def( 
+                "fixAll"
+                , fixAll_function_type( &::FitSuiteParameters::fixAll ) );
+        
+        }
         { //::FitSuiteParameters::getErrors
         
             typedef ::std::vector< double > ( ::FitSuiteParameters::*getErrors_function_type )(  ) const;
@@ -141,6 +150,15 @@ void register_FitSuiteParameters_class(){
                 , printParameters_function_type( &::FitSuiteParameters::printParameters ) );
         
         }
+        { //::FitSuiteParameters::releaseAll
+        
+            typedef void ( ::FitSuiteParameters::*releaseAll_function_type )(  ) ;
+            
+            FitSuiteParameters_exposer.def( 
+                "releaseAll"
+                , releaseAll_function_type( &::FitSuiteParameters::releaseAll ) );
+        
+        }
         { //::FitSuiteParameters::setErrors
         
             typedef void ( ::FitSuiteParameters::*setErrors_function_type )( ::std::vector< double > const & ) ;
@@ -149,6 +167,16 @@ void register_FitSuiteParameters_class(){
                 "setErrors"
                 , setErrors_function_type( &::FitSuiteParameters::setErrors )
                 , ( bp::arg("pars_errors") ) );
+        
+        }
+        { //::FitSuiteParameters::setParametersFixed
+        
+            typedef void ( ::FitSuiteParameters::*setParametersFixed_function_type )( ::std::vector< std::string > const &,bool ) ;
+            
+            FitSuiteParameters_exposer.def( 
+                "setParametersFixed"
+                , setParametersFixed_function_type( &::FitSuiteParameters::setParametersFixed )
+                , ( bp::arg("pars"), bp::arg("is_fixed") ) );
         
         }
         { //::FitSuiteParameters::setValues

@@ -97,6 +97,18 @@ class BA_CORE_API_ FitSuite : public IObservable
     AttFitting &getAttributes() { return m_fit_attributes; }
     void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
 
+    //! Returns fit parameter with given name
+    FitParameter *getFitParameter(const std::string &name);
+
+    //! Set all parameters to fixed
+    void fixAllParameters();
+
+    //! Set all parameters to released
+    void releaseAllParameters();
+
+    //! Set fixed flag for parameters from the list
+    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
+
  private:
     //! disabled copy constructor and assignment operator
     FitSuite& operator=(const FitSuite& );

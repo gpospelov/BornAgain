@@ -141,6 +141,15 @@ void register_FitSuite_class(){
                 , clear_function_type( &::FitSuite::clear ) );
         
         }
+        { //::FitSuite::fixAllParameters
+        
+            typedef void ( ::FitSuite::*fixAllParameters_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "fixAllParameters"
+                , fixAllParameters_function_type( &::FitSuite::fixAllParameters ) );
+        
+        }
         { //::FitSuite::getAttributes
         
             typedef ::AttFitting & ( ::FitSuite::*getAttributes_function_type )(  ) ;
@@ -158,6 +167,17 @@ void register_FitSuite_class(){
             FitSuite_exposer.def( 
                 "getFitObjects"
                 , getFitObjects_function_type( &::FitSuite::getFitObjects )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::FitSuite::getFitParameter
+        
+            typedef ::FitParameter * ( ::FitSuite::*getFitParameter_function_type )( ::std::string const & ) ;
+            
+            FitSuite_exposer.def( 
+                "getFitParameter"
+                , getFitParameter_function_type( &::FitSuite::getFitParameter )
+                , ( bp::arg("name") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
@@ -259,6 +279,15 @@ void register_FitSuite_class(){
                 , printResults_function_type( &::FitSuite::printResults ) );
         
         }
+        { //::FitSuite::releaseAllParameters
+        
+            typedef void ( ::FitSuite::*releaseAllParameters_function_type )(  ) ;
+            
+            FitSuite_exposer.def( 
+                "releaseAllParameters"
+                , releaseAllParameters_function_type( &::FitSuite::releaseAllParameters ) );
+        
+        }
         { //::FitSuite::runFit
         
             typedef void ( ::FitSuite::*runFit_function_type )(  ) ;
@@ -288,6 +317,16 @@ void register_FitSuite_class(){
                 "setMinimizer"
                 , setMinimizer_function_type( &::FitSuite::setMinimizer )
                 , ( bp::arg("minimizer") ) );
+        
+        }
+        { //::FitSuite::setParametersFixed
+        
+            typedef void ( ::FitSuite::*setParametersFixed_function_type )( ::std::vector< std::string > const &,bool ) ;
+            
+            FitSuite_exposer.def( 
+                "setParametersFixed"
+                , setParametersFixed_function_type( &::FitSuite::setParametersFixed )
+                , ( bp::arg("pars"), bp::arg("is_fixed") ) );
         
         }
         { //::IObservable::attachObserver

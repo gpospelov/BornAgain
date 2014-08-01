@@ -171,4 +171,24 @@ void FitSuite::initPrint(int print_every_nth)
     attachObserver(observer);
 }
 
+FitParameter *FitSuite::getFitParameter(const std::string &name)
+{
+    return getFitParameters()->getParameter(name);
+}
+
+void FitSuite::fixAllParameters()
+{
+    getFitParameters()->fixAll();
+}
+
+void FitSuite::releaseAllParameters()
+{
+    getFitParameters()->releaseAll();
+}
+
+void FitSuite::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
+{
+    getFitParameters()->setParametersFixed(pars, is_fixed);
+}
+
 

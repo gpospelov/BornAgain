@@ -35,6 +35,7 @@ TEST_F(FixedBinAxisTest, IndexedAccessor)
     EXPECT_DOUBLE_EQ(-1.0, a2[0]);
     EXPECT_DOUBLE_EQ(0.0, a2[1]);
     EXPECT_DOUBLE_EQ(1.0, a2[2]);
+    ASSERT_THROW( a2[3], Exceptions::OutOfBoundsException);
 }
 
 TEST_F(FixedBinAxisTest, VectorOfUnitLength)

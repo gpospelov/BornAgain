@@ -19,22 +19,19 @@
 
 #include "IAxis.h"
 
-//! @class FixedBinAxis
+//! @class VariableBinAxis
 //! @ingroup tools
 //! @brief Axis with variable bin size.
 
 class BA_CORE_API_ VariableBinAxis : public IAxis
 {
 public:
-
-//    VariableBinAxis(std::string name);
-
     //! @brief VariableBinAxis constructor
     //! @param name Axis name
     //! @param nbins number of bins
-    //! @param value_vector Array of size nbins+1 containing low-edges for each
+    //! @param bin_edges Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
-    VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &value_vector);
+    VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_edges);
     virtual ~VariableBinAxis() {}
 
     VariableBinAxis *clone() const;
@@ -56,10 +53,8 @@ public:
 protected:
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;
-
-private:
     size_t m_nbins;
-    std::vector<double> m_value_vector;  //!< vector containing the bin limits
+    std::vector<double> m_bin_edges;  //!< vector containing the bin limits
 };
 
 

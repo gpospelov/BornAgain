@@ -48,7 +48,8 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_EQ(0.0, rt_coeffs->T1min()(0));
     EXPECT_EQ(complex_t(1.0,0.0), rt_coeffs->T1min()(1).real());
 
-    EXPECT_EQ(complex_t(1.0, 0.0), rt_coeffs->T2plus()(0));
+    EXPECT_NEAR(1.0, rt_coeffs->T2plus()(0).real(), 1e-6);
+    EXPECT_NEAR(0.0, rt_coeffs->T2plus()(0).imag(), 1e-6);
     EXPECT_EQ(0.0, rt_coeffs->T2plus()(1));
 
     EXPECT_EQ(0.0, rt_coeffs->T2min()(0));
@@ -73,7 +74,8 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.real(), rt_coeffs->getKz()(1).real(), 1e-6);
     EXPECT_NEAR(lambda0.imag(), rt_coeffs->getKz()(1).imag(), 1e-6);
 
-    EXPECT_EQ(complex_t(1.0,0.0), rt_coeffs->getScalarT());
+    EXPECT_NEAR(1.0, rt_coeffs->getScalarT().real(), 1e-6);
+    EXPECT_NEAR(0.0, rt_coeffs->getScalarT().imag(), 1e-6);
     EXPECT_NEAR(R0.real(), rt_coeffs->getScalarR().real(), 1e-6);
     EXPECT_NEAR(R0.imag(), rt_coeffs->getScalarR().imag(), 1e-6);
     EXPECT_NEAR(lambda0.real(), rt_coeffs->getScalarKz().real(), 1e-6);

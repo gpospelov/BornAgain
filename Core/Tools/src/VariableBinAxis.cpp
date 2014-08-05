@@ -35,12 +35,6 @@ VariableBinAxis *VariableBinAxis::clone() const
 }
 
 
-VariableBinAxis *VariableBinAxis::createDoubleBinSize() const
-{
-    throw Exceptions::NotImplementedException("VariableBinAxis::createDoubleBinSize() -> Not implemented");
-}
-
-
 size_t VariableBinAxis::getSize() const
 {
     return m_nbins;

@@ -36,8 +36,6 @@ public:
 
     VariableBinAxis *clone() const;
 
-    VariableBinAxis *createDoubleBinSize() const;
-
     size_t getSize() const;
 
     double operator[](size_t index) const;

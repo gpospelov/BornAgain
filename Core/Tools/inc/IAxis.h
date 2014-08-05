@@ -32,7 +32,7 @@ public:
     virtual IAxis *clone() const=0;
 
     //! Creates a new axis with half the number of bins
-    virtual IAxis *createDoubleBinSize() const=0;
+    virtual IAxis *createDoubleBinSize() const;
 
     //! destructor
     virtual ~IAxis() {}
@@ -74,6 +74,11 @@ protected:
     virtual bool equals(const IAxis& other) const;
     std::string m_name;  //!< axis label
 };
+
+inline IAxis *IAxis::createDoubleBinSize() const
+{
+    throw Exceptions::NotImplementedException("IAxis::createDoubleBinSize() -> Error. Not implemented.");
+}
 
 inline bool IAxis::equals(const IAxis& other) const
 {

@@ -49,6 +49,8 @@ public:
 
     size_t findClosestIndex(double value) const;
 
+    static AsymmetricBinAxis *createIsGISAXSAxis(std::string name, size_t nbins, double start, double end);
+
 protected:
     void init_bin_edges();
     void print(std::ostream& ostr) const;

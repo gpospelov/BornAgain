@@ -26,15 +26,12 @@ FixedBinAxis *FixedBinAxis::clone() const
     return result;
 }
 
-FixedBinAxis *FixedBinAxis::createDoubleBinSize() const
-{
-    throw Exceptions::NotImplementedException("FixedBinAxis::createDoubleBinSize() -> Not implemented");
-}
 
 size_t FixedBinAxis::getSize() const
 {
     return m_nbins;
 }
+
 
 double FixedBinAxis::operator[](size_t index) const
 {
@@ -44,6 +41,7 @@ double FixedBinAxis::operator[](size_t index) const
     double step = (m_end - m_start)/m_nbins;
     return m_start + (index + 0.5)*step;
 }
+
 
 Bin1D FixedBinAxis::getBin(size_t index) const
 {
@@ -55,15 +53,18 @@ Bin1D FixedBinAxis::getBin(size_t index) const
     return result;
 }
 
+
 double FixedBinAxis::getMin() const
 {
     return m_start;
 }
 
+
 double FixedBinAxis::getMax() const
 {
     return m_end;
 }
+
 
 size_t FixedBinAxis::findClosestIndex(double value) const
 {

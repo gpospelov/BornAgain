@@ -2,7 +2,7 @@
 #include "Exceptions.h"
 #include <iostream>
 #include <algorithm>
-
+#include <cassert>
 
 AsymmetricBinAxis::AsymmetricBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_centers)
     : IAxis(name)
@@ -62,12 +62,18 @@ Bin1D AsymmetricBinAxis::getBin(size_t index) const
     if(index >= m_nbins)
         throw Exceptions::OutOfBoundsException("AsymmetricBinAxis::getBin() -> Error. Wrong index.");
 
-    double left = m_bin_edges[index];
+//    double left = m_bin_edges[index];
     double center = m_bin_centers[index];
-    double right = m_bin_edges[index+1];
-    double bin_size_2 = std::min( std::abs(center - left), std::abs(center - right));
-    std::cout << "AAA left:" << left << " center:" << center << " right:" << right << " bin_size_2:" << bin_size_2 << std::endl;
-    Bin1D result = { center - bin_size_2, center + bin_size_2 };
+//    double right = m_bin_edges[index+1];
+//    double bin_size_2 = std::min( std::abs(center - left), std::abs(center - right));
+//    std::cout << "AAA left:" << left << " center:" << center << " right:" << right << " bin_size_2:" << bin_size_2 << std::endl;
+//    Bin1D result = { center - bin_size_2, center + bin_size_2 };
+//    if( result.getMidPoint() != center) {
+//        std::cout << result.getMidPoint() << " " << center << std::endl;
+//        assert(0);
+//    }
+
+    Bin1D result = { center, center };
     return result;
 }
 
@@ -120,14 +126,14 @@ void AsymmetricBinAxis::init_bin_edges()
         if(bin_size == 0) bin_size = 1.0;
         double xleft = m_bin_centers[i] - bin_size/2.;
         m_bin_edges.push_back(xleft);
-        std::cout << "XXX  i:" << i << " bin_size:" << bin_size << " bin_edge:" << m_bin_edges[i] << std::endl;
+//        std::cout << "XXX  i:" << i << " bin_size:" << bin_size << " bin_edge:" << m_bin_edges[i] << std::endl;
     }
     m_bin_edges.push_back(m_bin_centers.back() + bin_size/2.);
-    std::cout << "      XXX last bin, bin_size:" << bin_size << " bin_edge:" << m_bin_edges.back() << std::endl;
+//    std::cout << "      XXX last bin, bin_size:" << bin_size << " bin_edge:" << m_bin_edges.back() << std::endl;
 
-    for(size_t i=0; i<m_bin_edges.size(); ++i) {
-        std::cout << "   >>> " << i << " " << m_bin_edges[i] << std::endl;
-    }
+//    for(size_t i=0; i<m_bin_edges.size(); ++i) {
+//        std::cout << "   >>> " << i << " " << m_bin_edges[i] << std::endl;
+//    }
 }
 
 
@@ -155,5 +161,17 @@ bool AsymmetricBinAxis::equals(const IAxis& other) const
 
 
 
+AsymmetricBinAxis *AsymmetricBinAxis::createIsGISAXSAxis(std::string name, size_t nbins, double start, double end)
+{
+    std::vector<double> bin_centers;
+    double start_sin = std::sin(start);
+    double end_sin = std::sin(end);
+    double step = (end_sin-start_sin)/(nbins-1);
+    for(size_t i=0; i<nbins; ++i) {
+        bin_centers.push_back(std::asin(start_sin + step*i));
+    }
+
+    return new AsymmetricBinAxis(name, nbins, bin_centers);
+}
 
 

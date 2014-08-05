@@ -19,6 +19,8 @@
 #include "AxisDouble.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
+#include "AsymmetricBinAxis.h"
+#include "FixedBinAxis.h"
 
 #include <iostream>
 
@@ -64,13 +66,20 @@ void Detector::addAxis(const AxisParameters& axis_params)
                                  axis_params.m_range.getNSamples(),
                                  axis_params.m_range.getLowerBound(),
                                  axis_params.m_range.getUpperBound());
+//            p_new_axis = new FixedBinAxis(axis_params.m_name,
+//                                     axis_params.m_range.getNSamples(),
+//                                     axis_params.m_range.getLowerBound(),
+//                                     axis_params.m_range.getUpperBound());
+
         break;
     }
     case AxisParameters::E_ISGISAXS:
     {
-        AxisDouble *p_axis = new AxisDouble(axis_params.m_name);
-        initializeAnglesIsgisaxs(p_axis, axis_params.m_range);
-        p_new_axis = p_axis;
+//        AxisDouble *p_axis = new AxisDouble(axis_params.m_name);
+//        initializeAnglesIsgisaxs(p_axis, axis_params.m_range);
+//        p_new_axis = p_axis;
+        p_new_axis = AsymmetricBinAxis::createIsGISAXSAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
+
         break;
     }
     default:

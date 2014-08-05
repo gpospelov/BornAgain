@@ -39,8 +39,6 @@ public:
 
     FixedBinAxis *clone() const;
 
-    FixedBinAxis *createDoubleBinSize() const;
-
     size_t getSize() const;
 
     double operator[](size_t index) const;

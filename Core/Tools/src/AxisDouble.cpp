@@ -75,7 +75,6 @@ AxisDouble *AxisDouble::createDoubleBinSize() const
 Bin1D AxisDouble::getBin(size_t index) const
 {
     Bin1D result = { m_sample_vector[index] - m_bin_size/2.0, m_sample_vector[index] + m_bin_size/2.0 };
-//    std::cout << "AxisDouble::getBin lower:" << result.m_lower << " getMidPoint():" << result.getMidPoint() << " upper:" << result.m_upper << "getBinSize():" << result.getBinSize() << " m_bin_size:" << m_bin_size << std::endl;
     return result;
 }
 

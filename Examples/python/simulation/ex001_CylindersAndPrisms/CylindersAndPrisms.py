@@ -60,7 +60,7 @@ def run_simulation():
     pylab.colorbar(im)
     pylab.show()
 
-    OutputDataIOFactory.writeIntensityData(simulation.getIntensityData(), "b.txt")
+    OutputDataIOFactory.writeIntensityData(simulation.getIntensityData(), "a.txt")
 
 
 if __name__ == '__main__':

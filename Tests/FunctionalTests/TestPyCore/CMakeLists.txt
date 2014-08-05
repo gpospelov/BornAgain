@@ -5,6 +5,7 @@
 set(list_of_tests
     "intensitydata.py"
     "isgisaxs01.py"
+    "isgisaxs01_normalize.py"
     "isgisaxs02.py"
     "isgisaxs03.py"
     "isgisaxs04.py"

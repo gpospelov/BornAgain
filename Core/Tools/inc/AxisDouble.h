@@ -16,10 +16,7 @@
 #ifndef AXISDOUBLE_H_
 #define AXISDOUBLE_H_
 
-#include "WinDllMacros.h"
 #include "IAxis.h"
-
-//class AxisBin;  // forward declaration needed for conversion constructor
 #include "AxisBin.h"
 
 

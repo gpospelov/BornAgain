@@ -60,10 +60,12 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "DistributionCosine.pypp.h"
 #include "IResolutionFunction2D.pypp.h"
 #include "IFormFactorBorn.pypp.h"
+#include "VariableBinAxis.pypp.h"
 #include "MultiLayer.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "FTDistribution2DCauchy.pypp.h"
 #include "FTDistribution2DVoigt.pypp.h"
+#include "AngleBinAxis.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "cvector_t.pypp.h"
 #include "ParameterPool.pypp.h"
@@ -127,6 +129,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Simulation.pypp.h"
 #include "ISample.pypp.h"
 #include "IObserver.pypp.h"
+#include "FixedBinAxis.pypp.h"
 #include "ParticleBuilder.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
 #include "Lattice2DIFParameters.pypp.h"
@@ -147,6 +150,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
     register_IAxis_class();
+    register_AngleBinAxis_class();
     register_AxisBin_class();
     register_AxisDouble_class();
     register_IParameterized_class();
@@ -178,6 +182,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FTDistribution2DGate_class();
     register_FTDistribution2DGauss_class();
     register_FTDistribution2DVoigt_class();
+    register_FixedBinAxis_class();
     register_IFormFactor_class();
     register_IFormFactorBorn_class();
     register_FormFactorAnisoPyramid_class();
@@ -260,6 +265,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_StochasticDoubleGaussian_class();
     register_StochasticSampledParameter_class();
     register_ThreadInfo_class();
+    register_VariableBinAxis_class();
     register_global_variables();
     register_free_functions();
 

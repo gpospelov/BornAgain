@@ -28,9 +28,16 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func_clone(  );
     }
 
-    virtual ::IAxis * createDoubleBinSize(  ) const {
-        bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" );
-        return func_createDoubleBinSize(  );
+    virtual ::IAxis * createDoubleBinSize(  ) const  {
+        if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
+            return func_createDoubleBinSize(  );
+        else
+            return this->IAxis::createDoubleBinSize(  );
+    }
+    
+    
+    ::IAxis * default_createDoubleBinSize(  ) const  {
+        return IAxis::createDoubleBinSize( );
     }
 
     virtual ::std::size_t findClosestIndex( double value ) const {
@@ -89,10 +96,12 @@ void register_IAxis_class(){
         { //::IAxis::createDoubleBinSize
         
             typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
             
             IAxis_exposer.def( 
                 "createDoubleBinSize"
-                , bp::pure_virtual( createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize) )
+                , createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize)
+                , default_createDoubleBinSize_function_type(&IAxis_wrapper::default_createDoubleBinSize)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

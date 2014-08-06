@@ -16,9 +16,10 @@
 #ifndef OUTPUTDATAWRITESTRATEGY_H
 #define OUTPUTDATAWRITESTRATEGY_H
 
-#include "OutputData.h"
-#include "Types.h"
+#include "WinDllMacros.h"
 #include <string>
+
+template <class T> class OutputData;
 
 
 //! @class IOutputDataWriteStrategy
@@ -54,6 +55,16 @@ public:
 //! 1d array for x-axis, 1d array for y-axis, 2d array for data
 
 class OutputDataWriteStreamV1 : public IOutputDataWriteStrategy
+{
+public:
+    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+};
+
+//! @class OutputDataWriteStreamBA
+//! @ingroup tools_internal
+//! @brief Strategy to write OutputData to special BornAgain ASCII format
+
+class OutputDataWriteStreamBA : public IOutputDataWriteStrategy
 {
 public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);

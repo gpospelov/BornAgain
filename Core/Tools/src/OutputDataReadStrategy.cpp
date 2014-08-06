@@ -18,6 +18,8 @@
 #include "Exceptions.h"
 #include "Utils.h"
 #include "BornAgainNamespace.h"
+#include "OutputData.h"
+#include "OutputDataIOHelper.h"
 
 #include <iostream>
 #include <fstream>
@@ -170,4 +172,27 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     return p_result;
 }
 
+
+OutputData<double > *OutputDataReadStreamBA::readOutputData(std::istream &input_stream)
+{
+    OutputData<double > *result = new OutputData<double>;
+
+    std::string line;
+
+    while( std::getline(input_stream, line) )
+    {
+        if(line.empty()) continue;
+
+        if (line.find("axis") != std::string::npos) {
+            IAxis *axis = OutputDataIOHelper::createAxis(input_stream);
+            result->addAxis(*axis);
+        }
+
+        if (line.find("data") != std::string::npos) {
+            OutputDataIOHelper::fillOutputData(result, input_stream);
+        }
+    }
+
+    return result;
+}
 

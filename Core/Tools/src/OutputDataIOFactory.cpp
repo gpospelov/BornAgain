@@ -14,6 +14,10 @@
 // ************************************************************************** //
 
 #include "OutputDataIOFactory.h"
+#include "OutputDataReadStrategy.h"
+#include "OutputDataWriteStrategy.h"
+#include "OutputDataReader.h"
+#include "OutputDataWriter.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include "FileSystem.h"
@@ -38,6 +42,8 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
         read_strategy = new OutputDataReadStreamV1();
     } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".ima") {
         read_strategy = new OutputDataReadStreamIMA();
+    } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".baint") {
+        read_strategy = new OutputDataReadStreamBA();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
@@ -71,6 +77,8 @@ OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(
         write_strategy = new OutputDataWriteStreamIMA();
     }else if(Utils::FileSystem::GetFileExtension(file_name) == ".txt") {
         write_strategy = new OutputDataWriteStreamV1();
+    }else if(Utils::FileSystem::GetFileExtension(file_name) == ".baint") {
+        write_strategy = new OutputDataWriteStreamBA();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. "
                 "Don't know how to write file '" + file_name+std::string("'"));

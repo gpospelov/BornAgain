@@ -16,9 +16,10 @@
 #ifndef OUTPUTDATAREADSTRATEGY_H
 #define OUTPUTDATAREADSTRATEGY_H
 
-#include "OutputData.h"
-#include "Types.h"
 #include <string>
+#include "WinDllMacros.h"
+template <class T> class OutputData;
+
 
 //! @class IOutputDataReadStrategy
 //! @ingroup tools_internal
@@ -87,6 +88,15 @@ class OutputDataReadStreamV1 : public IOutputDataReadStrategy
 public:
     OutputData<double > *readOutputData(std::istream& file_stream);
 };
+
+//! Strategy to read BornAgain native IntensityData from ASCII file
+
+class OutputDataReadStreamBA : public IOutputDataReadStrategy
+{
+public:
+    OutputData<double > *readOutputData(std::istream& file_stream);
+};
+
 
 #endif // OUTPUTDATAREADSTRATEGY_H
 

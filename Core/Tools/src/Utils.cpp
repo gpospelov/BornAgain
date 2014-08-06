@@ -113,6 +113,15 @@ std::vector<std::string> Utils::String::Split(
     return tokens;
 }
 
+std::string Utils::String::ReplaceCharsWithSpaces(const std::string &text, const std::string &chars)
+{
+    std::string line = text;
+    for(size_t i=0; i<chars.size(); ++i) {
+        std::replace(line.begin(), line.end(), chars[i], ' ');
+    }
+    return line;
+}
+
 
 
 

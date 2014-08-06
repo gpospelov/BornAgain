@@ -1,5 +1,6 @@
 #include "FixedBinAxis.h"
 #include "Exceptions.h"
+#include <iomanip>
 
 FixedBinAxis::FixedBinAxis(std::string name)
     : IAxis(name)
@@ -82,7 +83,7 @@ size_t FixedBinAxis::findClosestIndex(double value) const
 
 void FixedBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "FixedBinAxis '" << m_name << "'" << getSize() << " " << getMin() << " " << getMax();
+    ostr << "FixedBinAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(10) << getMin() << ", " << getMax() << ")";
 }
 
 

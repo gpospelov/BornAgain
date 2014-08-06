@@ -14,8 +14,39 @@
 // ************************************************************************** //
 
 #include "OutputDataWriter.h"
+#include "OutputDataWriteStrategy.h"
+#include "OutputData.h"
 #include <fstream>
 #include <cassert>
+
+
+OutputDataWriter::OutputDataWriter()
+    : m_write_strategy(0)
+{
+
+}
+
+
+OutputDataWriter::OutputDataWriter(const std::string &file_name)
+    : m_file_name(file_name),
+      m_write_strategy(0)
+{
+
+}
+
+
+OutputDataWriter::OutputDataWriter(IOutputDataWriteStrategy *write_strategy)
+    : m_write_strategy(write_strategy)
+{
+
+}
+
+
+OutputDataWriter::~OutputDataWriter()
+{
+    delete m_write_strategy;
+}
+
 
 void OutputDataWriter::writeOutputData(const OutputData<double >& data)
 {
@@ -34,5 +65,13 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
 
     fout.close();
 }
+
+
+void OutputDataWriter::setStrategy(IOutputDataWriteStrategy *write_strategy)
+{
+    delete m_write_strategy;
+    m_write_strategy = write_strategy;
+}
+
 
 

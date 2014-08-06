@@ -2,7 +2,9 @@
 #define FIXEDBINAXISTEST_H
 
 #include "FixedBinAxis.h"
+#include "OutputDataIOHelper.h"
 #include "gtest/gtest.h"
+#include <iostream>
 
 class FixedBinAxisTest: public ::testing::Test
 {
@@ -128,6 +130,17 @@ TEST_F(FixedBinAxisTest, CheckClone)
     delete clone;
 }
 
+TEST_F(FixedBinAxisTest, IOStream)
+{
+    FixedBinAxis axis("name", 99, -1.2, 5.4);
+
+    std::ostringstream oss;
+    oss << axis;
+
+    FixedBinAxis *result = OutputDataIOHelper::createFixedBinAxis(oss.str());
+    EXPECT_TRUE(axis == *result);
+    delete result;
+}
 
 
 #endif

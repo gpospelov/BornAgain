@@ -16,8 +16,12 @@
 #ifndef OUTPUTDATAREADER_H
 #define OUTPUTDATAREADER_H
 
-#include "OutputDataReadStrategy.h"
 #include <string>
+#include "WinDllMacros.h"
+
+template <class T> class OutputData;
+class IOutputDataReadStrategy;
+
 
 //! @class OutputDataReader
 //! @ingroup tools
@@ -27,21 +31,17 @@ class BA_CORE_API_ OutputDataReader
 {
 public:
     OutputDataReader() : m_read_strategy(0) {}
-    OutputDataReader(const std::string& file_name) : m_file_name(file_name), m_read_strategy(0) {}
-    OutputDataReader(IOutputDataReadStrategy *read_strategy) : m_read_strategy(read_strategy) {}
-    virtual ~OutputDataReader() { delete m_read_strategy; }
+    OutputDataReader(const std::string& file_name);
+    OutputDataReader(IOutputDataReadStrategy *read_strategy);
+    virtual ~OutputDataReader();
 
     //! read output data from file (file name was set already from OutputDataIOFactory)
-//    OutputData<double > *getOutputData() { return getOutputData(m_file_name); }
     OutputData<double > *getOutputData();
 
     //! Sets concrete reading strategy
-    void setStrategy(IOutputDataReadStrategy *read_strategy) { delete m_read_strategy; m_read_strategy = read_strategy; }
+    void setStrategy(IOutputDataReadStrategy *read_strategy);
 
 private:
-//    //! read output data from file
-//    OutputData<double > *getOutputData(const std::string& file_name);
-
     std::string m_file_name;
     IOutputDataReadStrategy *m_read_strategy;
 };

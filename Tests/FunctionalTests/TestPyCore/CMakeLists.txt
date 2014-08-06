@@ -1,9 +1,10 @@
 ############################################################################
-# CMakeLists.txt file for building TestPyCore functional tests
+# CMakeLists.txt file for running TestPyCore functional tests
 ############################################################################
 
 set(list_of_tests
     "intensitydata.py"
+    "intensitydata_io.py"
     "isgisaxs01.py"
     "isgisaxs01_normalize.py"
     "isgisaxs02.py"

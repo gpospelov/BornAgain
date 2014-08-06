@@ -18,7 +18,7 @@ void register_OutputDataIOFactory_class(){
 
     { //::OutputDataIOFactory
         typedef bp::class_< OutputDataIOFactory > OutputDataIOFactory_exposer_t;
-        OutputDataIOFactory_exposer_t OutputDataIOFactory_exposer = OutputDataIOFactory_exposer_t( "OutputDataIOFactory", bp::init< >() );
+        OutputDataIOFactory_exposer_t OutputDataIOFactory_exposer = OutputDataIOFactory_exposer_t( "OutputDataIOFactory" );
         bp::scope OutputDataIOFactory_scope( OutputDataIOFactory_exposer );
         { //::OutputDataIOFactory::getReader
         

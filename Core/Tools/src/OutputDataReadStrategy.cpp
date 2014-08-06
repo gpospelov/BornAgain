@@ -181,8 +181,6 @@ OutputData<double > *OutputDataReadStreamBA::readOutputData(std::istream &input_
 
     while( std::getline(input_stream, line) )
     {
-        if(line.empty()) continue;
-
         if (line.find("axis") != std::string::npos) {
             IAxis *axis = OutputDataIOHelper::createAxis(input_stream);
             result->addAxis(*axis);

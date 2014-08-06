@@ -62,9 +62,11 @@ public:
     virtual size_t findClosestIndex(double value) const=0;
 
     //! test for equality
-    friend bool operator==(const IAxis& left, const IAxis& right) {
-        return left.equals(right);
-    }
+    friend bool operator==(const IAxis& left, const IAxis& right);
+
+//    friend bool operator==(const IAxis& left, const IAxis& right) {
+//        return left.equals(right);
+//    }
 
     friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
     { m.print(ostr); return ostr; }
@@ -83,6 +85,10 @@ inline IAxis *IAxis::createDoubleBinSize() const
 inline bool IAxis::equals(const IAxis& other) const
 {
     return getName()==other.getName();
+}
+
+inline bool operator==(const IAxis& left, const IAxis& right) {
+    return left.equals(right);
 }
 
 inline bool operator!=(const IAxis& left, const IAxis& right) {

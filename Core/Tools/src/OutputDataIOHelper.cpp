@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
 
+
+//! Creates axis of certain type from input stream
 IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
 {
     std::string line;
@@ -22,7 +24,8 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
 }
 
 
-// FixedBinAxis("axis0", 10, -1, 1)
+//! Create FixedBinAxis from string representation
+//! FixedBinAxis("axis0", 10, -1, 1)
 FixedBinAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 {
     boost::replace_all(line, FixedBinAxisType, "");
@@ -39,14 +42,11 @@ FixedBinAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
     if( !(iss >> name >> nbins >> start >> end) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string.");
 
-    std::cout << line << " " << name << " " << nbins << " " << start << " " << end << std::endl;
-    FixedBinAxis *result = new FixedBinAxis(name, nbins, start, end);
-    return result;
+    return new FixedBinAxis(name, nbins, start, end);
 }
 
 
-
-
+//! Fills output data raw buffer from input stream
 void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &input_stream)
 {
     std::string line;

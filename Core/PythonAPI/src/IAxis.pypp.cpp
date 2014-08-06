@@ -191,6 +191,9 @@ void register_IAxis_class(){
                 , ( bp::arg("name") ) );
         
         }
+        IAxis_exposer.def( bp::self != bp::self );
+        IAxis_exposer.def( bp::self_ns::str( bp::self ) );
+        IAxis_exposer.def( bp::self == bp::self );
     }
 
 }

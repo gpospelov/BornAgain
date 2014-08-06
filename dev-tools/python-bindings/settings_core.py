@@ -173,6 +173,9 @@ def ManualClassTunings(mb):
     mb.class_("AxisDouble").member_function("clone").exclude()
     mb.class_("AxisDouble").member_functions("createDoubleBinSize").exclude()
 
+    axis_operators = mb.free_operators( lambda decl: 'IAxis' in decl.decl_string )
+    axis_operators.include()
+
     mb.class_("Detector").member_functions("addAxis").exclude()
     #
     shared_ptrs = mb.decls(lambda decl: decl.name.startswith('shared_ptr<' ))

@@ -42,6 +42,7 @@ include_classes = [
     "FixedBinAxis",
     "VariableBinAxis",
     "AngleBinAxis",
+    "ConstKBinAxis",
     "BasicVector3D<double>",
     "BasicVector3D<std::complex<double> >",
     "Beam",

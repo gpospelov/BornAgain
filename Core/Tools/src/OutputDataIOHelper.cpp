@@ -1,6 +1,7 @@
 #include "OutputDataIOHelper.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
+#include "ConstKBinAxis.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include "OutputData.h"
@@ -22,6 +23,10 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
     else if(line.find(VariableBinAxisType) != std::string::npos)
     {
         return createVariableBinAxis(line);
+    }
+    else if(line.find(ConstKBinAxisType) != std::string::npos)
+    {
+        return createConstKBinAxis(line);
     }
     else {
         throw Exceptions::LogicErrorException("OutputDataIOHelper::createAxis() -> Error. Unknown axis '"+line+"'");
@@ -80,6 +85,33 @@ VariableBinAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string at p2.");
 
     return new VariableBinAxis(name, nbins, boundaries);
+}
+
+
+//! Create ConstKBinAxis from string representation
+//! ConstKBinAxis("axis0", 10, -1, 1)
+ConstKBinAxis *OutputDataIOHelper::createConstKBinAxis(std::string line)
+{
+    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")");
+    Utils::String::replaceItemsFromString(line, to_replace, " ");
+
+    std::string type, name;
+    size_t nbins(0);
+
+    std::istringstream iss(line);
+    if( !(iss >> type >> name >> nbins) )
+        throw Exceptions::FormatErrorException("OutputDataIOHelper::createConstKBinAxis() -> Error. Can't parse the string.");
+
+    std::vector<double> boundaries;
+    std::string value;
+    while( iss >> value) {
+        boundaries.push_back(std::strtod(value.c_str(), NULL));
+    }
+
+    if(boundaries.size() != 2)
+        throw Exceptions::FormatErrorException("OutputDataIOHelper::createConstKBinAxis() -> Error. Can't parse the string at p2.");
+
+    return new ConstKBinAxis(name, nbins, boundaries[0], boundaries[1]);
 }
 
 

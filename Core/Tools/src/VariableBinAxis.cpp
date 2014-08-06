@@ -29,6 +29,14 @@ VariableBinAxis::VariableBinAxis(std::string name, size_t nbins, const std::vect
 }
 
 
+VariableBinAxis::VariableBinAxis(std::string name)
+    : IAxis(name)
+    , m_nbins(0)
+{
+
+}
+
+
 VariableBinAxis *VariableBinAxis::clone() const
 {
     VariableBinAxis *result = new VariableBinAxis(getName(), m_nbins, m_bin_boundaries);
@@ -128,6 +136,8 @@ bool VariableBinAxis::equals(const IAxis& other) const
     }
     return false;
 }
+
+
 
 
 

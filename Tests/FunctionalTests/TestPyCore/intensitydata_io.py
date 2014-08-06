@@ -67,7 +67,7 @@ class OutputDataIOTest(unittest.TestCase):
         newdata = OutputDataIOFactory.readIntensityData("tmp.baint")
         self.assertTrue(is_the_same_data(data, newdata))
 
-    def testB_02_FixedBinAxis_2D(self):
+    def test_02_FixedBinAxis_2D(self):
         data = IntensityData()
         data.addAxis(FixedBinAxis("axis0", 9, -1.00000001, 1.0))
         data.addAxis(FixedBinAxis("axis1", 3, -4.0, 5.0))
@@ -76,7 +76,7 @@ class OutputDataIOTest(unittest.TestCase):
         newdata = OutputDataIOFactory.readIntensityData("tmp.baint")
         self.assertTrue(is_the_same_data(data, newdata))
 
-    def testC_03_FixedBinAxis_3D(self):
+    def test_03_FixedBinAxis_3D(self):
         data = IntensityData()
         data.addAxis(FixedBinAxis("axis0", 9, -1.00000001, 1.0))
         data.addAxis(FixedBinAxis("axis1", 1, -4.0, 5.0))
@@ -86,7 +86,7 @@ class OutputDataIOTest(unittest.TestCase):
         newdata = OutputDataIOFactory.readIntensityData("tmp.baint")
         self.assertTrue(is_the_same_data(data, newdata))
 
-    def testD_04_VariableBinAxis_1D(self):
+    def test_04_VariableBinAxis_1D(self):
         data = IntensityData()
         data.addAxis(VariableBinAxis("axis0", 10, get_boundaries_flat_in_sin(10, -5.0, 5.0)))
         fill_data(data)
@@ -107,6 +107,15 @@ class OutputDataIOTest(unittest.TestCase):
         data = IntensityData()
         data.addAxis(FixedBinAxis("axis0", 10, -5.0, 5.0))
         data.addAxis(VariableBinAxis("axis1", 3, get_boundaries_flat_in_sin(3, 0.0, 2.0)))
+        fill_data(data)
+        OutputDataIOFactory.writeIntensityData(data, "tmp.baint")
+        newdata = OutputDataIOFactory.readIntensityData("tmp.baint")
+        self.assertTrue(is_the_same_data(data, newdata))
+
+    def test_07_ConstKBinAxis_2D(self):
+        data = IntensityData()
+        data.addAxis(ConstKBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
+        data.addAxis(ConstKBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
         fill_data(data)
         OutputDataIOFactory.writeIntensityData(data, "tmp.baint")
         newdata = OutputDataIOFactory.readIntensityData("tmp.baint")

@@ -42,6 +42,8 @@
 #include "VariableBinAxisTest.h"
 #include "AsymmetricBinAxisTest.h"
 #include "AngleBinAxisTest.h"
+#include "ConstKBinAxisTest.h"
+#include "IsGisaxsAxisTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

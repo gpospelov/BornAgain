@@ -22,16 +22,19 @@
 class IAxis;
 class FixedBinAxis;
 class VariableBinAxis;
+class ConstKBinAxis;
 template <class T> class OutputData;
 
 namespace OutputDataIOHelper {
 
 const std::string FixedBinAxisType = "FixedBinAxis";
 const std::string VariableBinAxisType = "VariableBinAxis";
+const std::string ConstKBinAxisType = "ConstKBinAxis";
 
 IAxis *createAxis(std::istream &input_stream);
 FixedBinAxis *createFixedBinAxis(std::string line);
 VariableBinAxis *createVariableBinAxis(std::string line);
+ConstKBinAxis *createConstKBinAxis(std::string line);
 
 void fillOutputData(OutputData<double> *data, std::istream &input_stream);
 

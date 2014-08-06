@@ -54,6 +54,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "StochasticParameter_t.pypp.h"
 #include "StochasticDoubleGaussian.pypp.h"
 #include "FormFactorPrism6.pypp.h"
+#include "ConstKBinAxis.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
 #include "FormFactorPyramid.pypp.h"
 #include "FormFactorBox.pypp.h"
@@ -157,6 +158,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Beam_class();
     register_Bin1D_class();
     register_Bin1DCVector_class();
+    register_VariableBinAxis_class();
+    register_ConstKBinAxis_class();
     register_ICloneable_class();
     register_ISample_class();
     register_ICompositeSample_class();
@@ -265,7 +268,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_StochasticDoubleGaussian_class();
     register_StochasticSampledParameter_class();
     register_ThreadInfo_class();
-    register_VariableBinAxis_class();
     register_global_variables();
     register_free_functions();
 

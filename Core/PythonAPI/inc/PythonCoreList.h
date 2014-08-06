@@ -9,6 +9,7 @@
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "AngleBinAxis.h"
+#include "ConstKBinAxis.h"
 #include "BasicVector3D.h"
 #include "BAVersion.h"
 #include "Bin.h"

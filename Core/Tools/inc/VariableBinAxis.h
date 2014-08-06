@@ -29,7 +29,7 @@ public:
     //! @brief VariableBinAxis constructor
     //! @param name Axis name
     //! @param nbins number of bins
-    //! @param bin_edges Array of size nbins+1 containing low-edges for each
+    //! @param bin_boundaries Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
     VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_boundaries);
     virtual ~VariableBinAxis() {}
@@ -53,6 +53,8 @@ public:
     std::vector<double > getBinBoundaries() const;
 
 protected:
+    VariableBinAxis(std::string name);
+
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;
     size_t m_nbins;

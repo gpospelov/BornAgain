@@ -31,8 +31,7 @@ class InterferenceFunction2DLatticeItem : public ParameterizedGraphicsItem
 {
     Q_OBJECT
 public:
-    static const QString P_LATTICE_TYPE, P_ROTATION_ANGLE, P_DAMPING_LENGTH,
-                         P_DOMAIN_SIZE1, P_DOMAIN_SIZE2, P_PDF;
+    static const QString P_LATTICE_TYPE, P_ROTATION_ANGLE, P_PDF;
     explicit InterferenceFunction2DLatticeItem(ParameterizedItem *parent=0);
     ~InterferenceFunction2DLatticeItem(){}
 };

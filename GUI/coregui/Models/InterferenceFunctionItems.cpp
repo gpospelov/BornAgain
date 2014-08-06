@@ -31,12 +31,6 @@ const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE =
         "Lattice_type";
 const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
         "Rotation_angle";
-const QString InterferenceFunction2DLatticeItem::P_DAMPING_LENGTH =
-        "Damping_length";
-const QString InterferenceFunction2DLatticeItem::P_DOMAIN_SIZE1 =
-        "Domain_size_1";
-const QString InterferenceFunction2DLatticeItem::P_DOMAIN_SIZE2 =
-        "Domain_size_2";
 const QString InterferenceFunction2DLatticeItem::P_PDF = "PDF";
 
 InterferenceFunction1DParaCrystalItem::InterferenceFunction1DParaCrystalItem(
@@ -96,9 +90,6 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
     setItemPort(ParameterizedItem::PortInfo::Port1);
     registerGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
 
-    registerProperty(P_DAMPING_LENGTH, 0.0);
-    registerProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
-    registerProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     registerProperty(P_ROTATION_ANGLE, 0.0);
     registerGroupProperty(P_PDF, Constants::FTDistribution2DGroup);
 }

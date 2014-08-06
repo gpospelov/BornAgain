@@ -29,7 +29,7 @@ template <class T> class OutputData;
 class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
-    IOutputDataWriteStrategy() : m_precision(10) {}
+    IOutputDataWriteStrategy() : m_precision(12) {}
     virtual ~IOutputDataWriteStrategy(){}
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;

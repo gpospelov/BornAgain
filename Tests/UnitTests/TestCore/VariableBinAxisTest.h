@@ -2,6 +2,7 @@
 #define VARIABLEBINAXISTEST_H
 
 #include "VariableBinAxis.h"
+#include "OutputDataIOHelper.h"
 #include "gtest/gtest.h"
 
 class VariableBinAxisTest: public ::testing::Test
@@ -169,6 +170,52 @@ TEST_F(VariableBinAxisTest, CheckClone)
     VariableBinAxis *clone=a1.clone();
     EXPECT_TRUE(a1 == *clone);
     delete clone;
+}
+
+
+TEST_F(VariableBinAxisTest, IOStream)
+{
+    static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
+    std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    VariableBinAxis axis("name", 4, values);
+
+    std::ostringstream oss;
+    oss << axis;
+
+    VariableBinAxis *result = OutputDataIOHelper::createVariableBinAxis(oss.str());
+    EXPECT_TRUE(axis == *result);
+    delete result;
+}
+
+
+TEST_F(VariableBinAxisTest, BinCenters)
+{
+    static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
+    std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    VariableBinAxis axis("name", 4, values);
+
+    std::vector<double> centers = axis.getBinCenters();
+    EXPECT_EQ(4, centers.size());
+    EXPECT_DOUBLE_EQ(-0.75, centers[0]);
+    EXPECT_DOUBLE_EQ(0.0, centers[1]);
+    EXPECT_DOUBLE_EQ(0.75, centers[2]);
+    EXPECT_DOUBLE_EQ(1.5, centers[3]);
+}
+
+
+TEST_F(VariableBinAxisTest, BinBoundaries)
+{
+    static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
+    std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    VariableBinAxis axis("name", 4, values);
+
+    std::vector<double> boundaries = axis.getBinBoundaries();
+    EXPECT_EQ(5, boundaries.size());
+    EXPECT_DOUBLE_EQ(-1.0, boundaries[0]);
+    EXPECT_DOUBLE_EQ(-0.5, boundaries[1]);
+    EXPECT_DOUBLE_EQ(0.5, boundaries[2]);
+    EXPECT_DOUBLE_EQ(1.0, boundaries[3]);
+    EXPECT_DOUBLE_EQ(2.0, boundaries[4]);
 }
 
 

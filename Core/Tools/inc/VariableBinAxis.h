@@ -31,7 +31,7 @@ public:
     //! @param nbins number of bins
     //! @param bin_edges Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
-    VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_edges);
+    VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_boundaries);
     virtual ~VariableBinAxis() {}
 
     VariableBinAxis *clone() const;
@@ -48,11 +48,15 @@ public:
 
     size_t findClosestIndex(double value) const;
 
+    std::vector<double > getBinCenters() const;
+
+    std::vector<double > getBinBoundaries() const;
+
 protected:
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;
     size_t m_nbins;
-    std::vector<double> m_bin_edges;  //!< vector containing the bin limits
+    std::vector<double> m_bin_boundaries;  //!< vector containing the bin limits
 };
 
 

@@ -46,8 +46,8 @@ public:
     static std::vector<std::string> Split(const std::string& text,
                                           const std::string& delimeter);
 
-    //! Every character in 'text' which is contained in 'chars' will be replaced with space
-    static std::string ReplaceCharsWithSpaces(const std::string &text, const std::string &chars);
+    //! replace all occurences of items from string text with delimeter
+    static void replaceItemsFromString(std::string &text, const std::vector<std::string> &items, const std::string &replacement=std::string(""));
 };
 
 

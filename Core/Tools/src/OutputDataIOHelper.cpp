@@ -1,12 +1,13 @@
 #include "OutputDataIOHelper.h"
 #include "FixedBinAxis.h"
+#include "VariableBinAxis.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include "OutputData.h"
 #include <iostream>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-
+#include <boost/assign/list_of.hpp>
 
 //! Creates axis of certain type from input stream
 IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
@@ -18,6 +19,10 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
     {
         return createFixedBinAxis(line);
     }
+    else if(line.find(VariableBinAxisType) != std::string::npos)
+    {
+        return createVariableBinAxis(line);
+    }
     else {
         throw Exceptions::LogicErrorException("OutputDataIOHelper::createAxis() -> Error. Unknown axis '"+line+"'");
     }
@@ -28,21 +33,53 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
 //! FixedBinAxis("axis0", 10, -1, 1)
 FixedBinAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 {
-    boost::replace_all(line, FixedBinAxisType, "");
-    boost::replace_all(line, ",", " ");
-    boost::replace_all(line, "\"", " ");
-    boost::replace_all(line, "(", " ");
-    boost::replace_all(line, ")", " ");
+    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")");
+    Utils::String::replaceItemsFromString(line, to_replace, " ");
 
-    std::string name;
-    int nbins(0);
-    double start(0), end(0);
+    std::string type, name;
+    size_t nbins(0);
 
     std::istringstream iss(line);
-    if( !(iss >> name >> nbins >> start >> end) )
+    if( !(iss >> type >> name >> nbins) )
         throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string.");
 
-    return new FixedBinAxis(name, nbins, start, end);
+    std::vector<double> boundaries;
+    std::string value;
+    while( iss >> value) {
+        boundaries.push_back(std::strtod(value.c_str(), NULL));
+    }
+
+    if(boundaries.size() != 2)
+        throw Exceptions::FormatErrorException("OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string at p2.");
+
+    return new FixedBinAxis(name, nbins, boundaries[0], boundaries[1]);
+}
+
+
+//! Create VariableBinAxis from string representation
+//! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
+VariableBinAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
+{
+    std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")")("[")("]");
+    Utils::String::replaceItemsFromString(line, to_replace, " ");
+
+    std::string type, name;
+    size_t nbins(0);
+
+    std::istringstream iss(line);
+    if( !(iss >> type >> name >> nbins) )
+        throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string.");
+
+    std::vector<double> boundaries;
+    std::string value;
+    while( iss >> value) {
+        boundaries.push_back(std::strtod(value.c_str(), NULL));
+    }
+
+    if(boundaries.size() != nbins+1)
+        throw Exceptions::FormatErrorException("OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string at p2.");
+
+    return new VariableBinAxis(name, nbins, boundaries);
 }
 
 
@@ -65,4 +102,7 @@ void OutputDataIOHelper::fillOutputData(OutputData<double> *data, std::istream &
             ++it;
         }
     }
+
+    if(it!= data->end())
+        throw Exceptions::FormatErrorException("OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }

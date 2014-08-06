@@ -23,8 +23,8 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
         
     }
 
-    VariableBinAxis_wrapper(::std::string name, ::std::size_t nbins, ::std::vector< double > const & bin_edges )
-    : VariableBinAxis( name, nbins, boost::ref(bin_edges) )
+    VariableBinAxis_wrapper(::std::string name, ::std::size_t nbins, ::std::vector< double > const & bin_boundaries )
+    : VariableBinAxis( name, nbins, boost::ref(bin_boundaries) )
       , bp::wrapper< VariableBinAxis >(){
         // constructor
     
@@ -64,6 +64,30 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
         return VariableBinAxis::getBin( index );
+    }
+
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else
+            return this->VariableBinAxis::getBinBoundaries(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return VariableBinAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else
+            return this->VariableBinAxis::getBinCenters(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return VariableBinAxis::getBinCenters( );
     }
 
     virtual double getMax(  ) const  {
@@ -126,37 +150,13 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
         return IAxis::createDoubleBinSize( );
     }
 
-    virtual ::std::vector< double > getBinBoundaries(  ) const  {
-        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
-            return func_getBinBoundaries(  );
-        else
-            return this->IAxis::getBinBoundaries(  );
-    }
-    
-    
-    ::std::vector< double > default_getBinBoundaries(  ) const  {
-        return IAxis::getBinBoundaries( );
-    }
-
-    virtual ::std::vector< double > getBinCenters(  ) const  {
-        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
-            return func_getBinCenters(  );
-        else
-            return this->IAxis::getBinCenters(  );
-    }
-    
-    
-    ::std::vector< double > default_getBinCenters(  ) const  {
-        return IAxis::getBinCenters( );
-    }
-
 };
 
 void register_VariableBinAxis_class(){
 
     { //::VariableBinAxis
         typedef bp::class_< VariableBinAxis_wrapper, bp::bases< IAxis > > VariableBinAxis_exposer_t;
-        VariableBinAxis_exposer_t VariableBinAxis_exposer = VariableBinAxis_exposer_t( "VariableBinAxis", bp::init< std::string, std::size_t, std::vector< double > const & >(( bp::arg("name"), bp::arg("nbins"), bp::arg("bin_edges") )) );
+        VariableBinAxis_exposer_t VariableBinAxis_exposer = VariableBinAxis_exposer_t( "VariableBinAxis", bp::init< std::string, std::size_t, std::vector< double > const & >(( bp::arg("name"), bp::arg("nbins"), bp::arg("bin_boundaries") )) );
         bp::scope VariableBinAxis_scope( VariableBinAxis_exposer );
         { //::VariableBinAxis::clone
         
@@ -192,6 +192,28 @@ void register_VariableBinAxis_class(){
                 , getBin_function_type(&::VariableBinAxis::getBin)
                 , default_getBin_function_type(&VariableBinAxis_wrapper::default_getBin)
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::VariableBinAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            
+            VariableBinAxis_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::VariableBinAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&VariableBinAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::VariableBinAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            
+            VariableBinAxis_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::VariableBinAxis::getBinCenters)
+                , default_getBinCenters_function_type(&VariableBinAxis_wrapper::default_getBinCenters) );
         
         }
         { //::VariableBinAxis::getMax
@@ -249,28 +271,6 @@ void register_VariableBinAxis_class(){
                 , createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize)
                 , default_createDoubleBinSize_function_type(&VariableBinAxis_wrapper::default_createDoubleBinSize)
                 , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IAxis::getBinBoundaries
-        
-            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type )(  ) const;
-            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
-            
-            VariableBinAxis_exposer.def( 
-                "getBinBoundaries"
-                , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
-                , default_getBinBoundaries_function_type(&VariableBinAxis_wrapper::default_getBinBoundaries) );
-        
-        }
-        { //::IAxis::getBinCenters
-        
-            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type )(  ) const;
-            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
-            
-            VariableBinAxis_exposer.def( 
-                "getBinCenters"
-                , getBinCenters_function_type(&::IAxis::getBinCenters)
-                , default_getBinCenters_function_type(&VariableBinAxis_wrapper::default_getBinCenters) );
         
         }
     }

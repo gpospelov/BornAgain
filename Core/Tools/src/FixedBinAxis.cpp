@@ -104,7 +104,7 @@ std::vector<double> FixedBinAxis::getBinBoundaries() const
 
 void FixedBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "FixedBinAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(10) << getMin() << ", " << getMax() << ")";
+    ostr << "FixedBinAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(std::numeric_limits<double>::digits10+2) << getMin() << ", " << getMax() << ")";
 }
 
 

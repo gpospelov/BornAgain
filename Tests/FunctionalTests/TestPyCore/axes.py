@@ -53,6 +53,44 @@ class AxesTest(unittest.TestCase):
         self.assertAlmostEqual(0.5, boundaries[2])
         self.assertAlmostEqual(1.5, boundaries[3])
 
+    def test_VariableBinAxis_access(self):
+        values = [-1.5, -0.5, 0.5, 1.5]
+        axis = VariableBinAxis("name", 3, values)
+        self.assertEqual("name", axis.getName())
+        self.assertEqual(3, axis.getSize())
+        self.assertAlmostEqual(-1.0, axis[0])
+        self.assertAlmostEqual(0.0, axis[1])
+        self.assertAlmostEqual(1.0, axis[2])
+
+    def test_VariableBinAxis_equality(self):
+        values1 = [-1.0, -0.5, 0.5, 1.0, 2.0]
+        a1 = VariableBinAxis("name", 4, values1)
+        a2 = VariableBinAxis("name", 4, values1)
+        a3 = VariableBinAxis("nameX", 4, values1)
+        self.assertTrue( a1 == a2)
+        self.assertFalse( a1 == a3)
+        values2 = [-1.0, -0.5, 0.5, 1.1, 2.0]
+        a4 = VariableBinAxis("nameX", 4, values2)
+        self.assertFalse(a1 == a4)
+
+    def test_VariableBinAxis_boundaries(self):
+        values = [-1.0, -0.5, 0.5, 1.0, 2.0]
+        axis = VariableBinAxis("name", 4, values)
+        centers = axis.getBinCenters()
+        self.assertEqual(4, len(centers))
+        self.assertAlmostEqual(-0.75, centers[0])
+        self.assertAlmostEqual(0.0, centers[1])
+        self.assertAlmostEqual(0.75, centers[2])
+        self.assertAlmostEqual(1.5, centers[3])
+        boundaries = axis.getBinBoundaries()
+        self.assertEqual(5, len(boundaries))
+        self.assertAlmostEqual(-1.0, boundaries[0])
+        self.assertAlmostEqual(-0.5, boundaries[1])
+        self.assertAlmostEqual(0.5, boundaries[2])
+        self.assertAlmostEqual(1.0, boundaries[3])
+        self.assertAlmostEqual(2.0, boundaries[4])
+
+
 
 if __name__ == '__main__':
     unittest.main()

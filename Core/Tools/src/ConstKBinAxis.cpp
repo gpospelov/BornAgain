@@ -8,7 +8,7 @@ ConstKBinAxis::ConstKBinAxis(std::string name, size_t nbins, double start, doubl
     , m_start(start)
     , m_end(end)
 {
-    // FIXME How to defend agains angles given in degress by mistake?
+    // FIXME How to protect agains angles given in degrees by mistake?
     if(m_start >= m_end)
         throw Exceptions::LogicErrorException("ConstKBinAxis::ConstKBinAxis() -> Error. start >= end is not allowed.");
 

@@ -137,7 +137,7 @@ TEST_F(FixedBinAxisTest, IOStream)
     std::ostringstream oss;
     oss << axis;
 
-    FixedBinAxis *result = OutputDataIOHelper::createFixedBinAxis(oss.str());
+    FixedBinAxis *result = dynamic_cast<FixedBinAxis *>(OutputDataIOHelper::createFixedBinAxis(oss.str()));
     EXPECT_TRUE(axis == *result);
     delete result;
 }

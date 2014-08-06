@@ -71,7 +71,7 @@ TEST_F(ConstKBinAxisTest, IOStream)
     std::ostringstream oss;
     oss << m_axis;
 
-    ConstKBinAxis *result = OutputDataIOHelper::createConstKBinAxis(oss.str());
+    ConstKBinAxis *result = dynamic_cast<ConstKBinAxis *>(OutputDataIOHelper::createFixedBinAxis(oss.str()));
     EXPECT_TRUE(m_axis == *result);
     delete result;
 }

@@ -182,7 +182,7 @@ TEST_F(VariableBinAxisTest, IOStream)
     std::ostringstream oss;
     oss << axis;
 
-    VariableBinAxis *result = OutputDataIOHelper::createVariableBinAxis(oss.str());
+    VariableBinAxis *result = dynamic_cast<VariableBinAxis *>(OutputDataIOHelper::createVariableBinAxis(oss.str()));
     EXPECT_TRUE(axis == *result);
     delete result;
 }

@@ -1,7 +1,7 @@
 #include "TransformFromDomain.h"
 #include "ParameterizedItem.h"
 #include "InterferenceFunctions.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "FTDistributions.h"
 #include "FTDistributionItems.h"
 #include "LatticeTypeItems.h"

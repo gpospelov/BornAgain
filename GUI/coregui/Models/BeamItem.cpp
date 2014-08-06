@@ -1,5 +1,5 @@
 #include "BeamItem.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "ComboProperty.h"
 #include "Units.h"
 

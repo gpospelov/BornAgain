@@ -11,7 +11,7 @@
 #include "MaterialModel.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "TransformFromDomain.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"

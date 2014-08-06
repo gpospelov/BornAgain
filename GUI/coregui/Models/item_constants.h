@@ -16,6 +16,7 @@ const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
+const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";
 const ModelType InstrumentType = "Instrument";
 const ModelType DetectorType = "Detector";
 const ModelType BeamType = "Beam";

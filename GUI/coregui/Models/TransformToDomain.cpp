@@ -17,7 +17,7 @@
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
 #include "BeamItem.h"

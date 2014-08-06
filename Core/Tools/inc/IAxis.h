@@ -64,12 +64,12 @@ public:
     //! test for equality
     friend bool operator==(const IAxis& left, const IAxis& right);
 
-//    friend bool operator==(const IAxis& left, const IAxis& right) {
-//        return left.equals(right);
-//    }
-
     friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
     { m.print(ostr); return ostr; }
+
+    virtual std::vector<double > getBinCenters() const;
+
+    virtual  std::vector<double > getBinBoundaries() const;
 
 protected:
     virtual void print(std::ostream& ostr) const=0;
@@ -93,6 +93,16 @@ inline bool operator==(const IAxis& left, const IAxis& right) {
 
 inline bool operator!=(const IAxis& left, const IAxis& right) {
     return !(left == right);
+}
+
+inline std::vector<double> IAxis::getBinCenters() const
+{
+    throw Exceptions::NotImplementedException("IAxis::getBinCenters() -> Error. Not implemented.");
+}
+
+inline std::vector<double> IAxis::getBinBoundaries() const
+{
+    throw Exceptions::NotImplementedException("IAxis::getBinBoundaries() -> Error. Not implemented.");
 }
 
 //! global helper function for comparison of axes

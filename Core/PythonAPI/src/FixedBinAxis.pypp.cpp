@@ -73,6 +73,30 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         return FixedBinAxis::getBin( index );
     }
 
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else
+            return this->FixedBinAxis::getBinBoundaries(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return FixedBinAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else
+            return this->FixedBinAxis::getBinCenters(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return FixedBinAxis::getBinCenters( );
+    }
+
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
@@ -176,6 +200,28 @@ void register_FixedBinAxis_class(){
                 , getBin_function_type(&::FixedBinAxis::getBin)
                 , default_getBin_function_type(&FixedBinAxis_wrapper::default_getBin)
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::FixedBinAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::FixedBinAxis::*getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( FixedBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            
+            FixedBinAxis_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::FixedBinAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&FixedBinAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::FixedBinAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::FixedBinAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( FixedBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            
+            FixedBinAxis_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::FixedBinAxis::getBinCenters)
+                , default_getBinCenters_function_type(&FixedBinAxis_wrapper::default_getBinCenters) );
         
         }
         { //::FixedBinAxis::getMax

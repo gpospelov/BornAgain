@@ -142,5 +142,26 @@ TEST_F(FixedBinAxisTest, IOStream)
     delete result;
 }
 
+TEST_F(FixedBinAxisTest, BinCenters)
+{
+    FixedBinAxis axis("name", 3, -1.5, 1.5);
+    std::vector<double> centers = axis.getBinCenters();
+    EXPECT_EQ(3, centers.size());
+    EXPECT_DOUBLE_EQ(-1.0, centers[0]);
+    EXPECT_DOUBLE_EQ(0.0, centers[1]);
+    EXPECT_DOUBLE_EQ(1.0, centers[2]);
+}
+
+TEST_F(FixedBinAxisTest, BinBoundaries)
+{
+    FixedBinAxis axis("name", 3, -1.5, 1.5);
+    std::vector<double> boundaries = axis.getBinBoundaries();
+    EXPECT_EQ(4, boundaries.size());
+    EXPECT_DOUBLE_EQ(-1.5, boundaries[0]);
+    EXPECT_DOUBLE_EQ(-0.5, boundaries[1]);
+    EXPECT_DOUBLE_EQ(0.5, boundaries[2]);
+    EXPECT_DOUBLE_EQ(1.5, boundaries[3]);
+}
+
 
 #endif

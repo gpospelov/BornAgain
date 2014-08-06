@@ -50,6 +50,10 @@ public:
 
     size_t findClosestIndex(double value) const;
 
+    std::vector<double > getBinCenters() const;
+
+    std::vector<double > getBinBoundaries() const;
+
 protected:
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;

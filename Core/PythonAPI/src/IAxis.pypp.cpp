@@ -50,6 +50,30 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func_getBin( index );
     }
 
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else
+            return this->IAxis::getBinBoundaries(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return IAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else
+            return this->IAxis::getBinCenters(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return IAxis::getBinCenters( );
+    }
+
     virtual double getMax(  ) const {
         bp::override func_getMax = this->get_override( "getMax" );
         return func_getMax(  );
@@ -123,6 +147,28 @@ void register_IAxis_class(){
                 "getBin"
                 , bp::pure_virtual( getBin_function_type(&::IAxis::getBin) )
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::IAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            
+            IAxis_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&IAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::IAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            
+            IAxis_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::IAxis::getBinCenters)
+                , default_getBinCenters_function_type(&IAxis_wrapper::default_getBinCenters) );
         
         }
         { //::IAxis::getMax

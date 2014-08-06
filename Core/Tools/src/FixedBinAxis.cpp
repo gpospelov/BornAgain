@@ -80,6 +80,27 @@ size_t FixedBinAxis::findClosestIndex(double value) const
     return int( (value-m_start)/step);
 }
 
+std::vector<double> FixedBinAxis::getBinCenters() const
+{
+    std::vector<double> result;
+    result.resize(getSize(), 0.0);
+    for(size_t i=0; i<getSize(); ++i) {
+        result[i] = getBin(i).getMidPoint();
+    }
+    return result;
+}
+
+std::vector<double> FixedBinAxis::getBinBoundaries() const
+{
+    std::vector<double> result;
+    result.resize(getSize()+1, 0.0);
+    for(size_t i=0; i<getSize(); ++i) {
+        result[i] = getBin(i).m_lower;
+    }
+    result[getSize()] = getBin(getSize()-1).m_upper;
+    return result;
+}
+
 
 void FixedBinAxis::print(std::ostream& ostr) const
 {

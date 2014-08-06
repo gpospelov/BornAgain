@@ -126,6 +126,30 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
         return IAxis::createDoubleBinSize( );
     }
 
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else
+            return this->IAxis::getBinBoundaries(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return IAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else
+            return this->IAxis::getBinCenters(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return IAxis::getBinCenters( );
+    }
+
 };
 
 void register_VariableBinAxis_class(){
@@ -225,6 +249,28 @@ void register_VariableBinAxis_class(){
                 , createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize)
                 , default_createDoubleBinSize_function_type(&VariableBinAxis_wrapper::default_createDoubleBinSize)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            
+            VariableBinAxis_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&VariableBinAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::IAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            
+            VariableBinAxis_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::IAxis::getBinCenters)
+                , default_getBinCenters_function_type(&VariableBinAxis_wrapper::default_getBinCenters) );
         
         }
     }

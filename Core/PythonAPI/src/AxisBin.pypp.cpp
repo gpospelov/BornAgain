@@ -133,6 +133,30 @@ struct AxisBin_wrapper : AxisBin, bp::wrapper< AxisBin > {
         return AxisBin::operator[]( index );
     }
 
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else
+            return this->IAxis::getBinBoundaries(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return IAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else
+            return this->IAxis::getBinCenters(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return IAxis::getBinCenters( );
+    }
+
 };
 
 void register_AxisBin_class(){
@@ -262,6 +286,28 @@ void register_AxisBin_class(){
                 "push_back"
                 , push_back_function_type( &::AxisBin::push_back )
                 , ( bp::arg("limit") ) );
+        
+        }
+        { //::IAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( AxisBin_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            
+            AxisBin_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&AxisBin_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::IAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( AxisBin_wrapper::*default_getBinCenters_function_type )(  ) const;
+            
+            AxisBin_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::IAxis::getBinCenters)
+                , default_getBinCenters_function_type(&AxisBin_wrapper::default_getBinCenters) );
         
         }
     }

@@ -9,6 +9,7 @@ set(list_of_tests
     "TestGUI03"
     "TestGUI04"
     "TestGUI05"
+    "TestGUI06"
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

@@ -16,6 +16,7 @@ QMap<QString, QString > init_NameToRegistry()
     result["example03"] = "isgisaxs04_2DDL";
     result["example04"] = "isgisaxs11";
     result["example05"] = "LayerWithRoughness";
+    result["example06"] = "isgisaxs06a";
     return result;
 }
 

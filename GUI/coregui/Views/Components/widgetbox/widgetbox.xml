@@ -270,8 +270,15 @@
                 </property>
             </widget>
         </categoryentry>
-        
-        
+
+        <categoryentry name="Example #6 (2D Lattice)" icon="images/sample_layers2.png">
+            <widget class="example06">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
     </category>
         
 

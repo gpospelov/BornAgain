@@ -1,8 +1,6 @@
 #ifndef PARACRYSTALITEMS_H
 #define PARACRYSTALITEMS_H
 
-
-
 #include "ParameterizedGraphicsItem.h"
 
 
@@ -29,5 +27,13 @@ public:
 };
 
 
-#endif
+class InterferenceFunction2DLatticeItem : public ParameterizedGraphicsItem
+{
+    Q_OBJECT
+public:
+    static const QString P_LATTICE_TYPE, P_ROTATION_ANGLE, P_PDF;
+    explicit InterferenceFunction2DLatticeItem(ParameterizedItem *parent=0);
+    ~InterferenceFunction2DLatticeItem(){}
+};
 
+#endif

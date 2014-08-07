@@ -11,7 +11,7 @@
 #include "MaterialModel.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "TransformFromDomain.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
@@ -485,6 +485,17 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DParaCrystal *sample)
     m_levelToParent[getLevel()] = item;
 }
 
+void GUIObjectBuilder::visit(const InterferenceFunction2DLattice *sample)
+{
+    ParameterizedItem *parent = m_levelToParent[getLevel()-1];
+    Q_ASSERT(parent);
+    ParameterizedItem *item = m_sampleModel->insertNewItem(
+        Constants::InterferenceFunction2DLatticeType, m_sampleModel->indexOfItem(parent));
+    Q_ASSERT(item);
+    TransformFromDomain::setItemFromSample(item, sample);
+    m_levelToParent[getLevel()] = item;
+}
+
 void GUIObjectBuilder::visit(const InterferenceFunctionNone *)
 {
     qDebug() << "GUIObjectBuilder::visit(const InterferenceFunctionNone *)"
@@ -520,3 +531,5 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
 
     return MaterialProperty();
 }
+
+

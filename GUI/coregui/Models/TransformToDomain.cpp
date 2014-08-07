@@ -17,7 +17,7 @@
 #include "MaterialUtils.h"
 #include "GUIHelpers.h"
 #include "FormFactorItems.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
 #include "BeamItem.h"
@@ -153,7 +153,7 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         if(latticeItem->modelType() == Constants::BasicLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
             length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
-            alpha_lattice = Units::deg2rad(item.getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
+            alpha_lattice = Units::deg2rad(latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
         }
         else if(latticeItem->modelType() == Constants::SquareLatticeType) {
             length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
@@ -193,6 +193,42 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
         Q_ASSERT(pdf2.get());
 
         result->setProbabilityDistributions(*pdf1, *pdf2);
+        return result;
+    }
+    else if(item.modelType() == Constants::InterferenceFunction2DLatticeType) {
+
+        ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_LATTICE_TYPE];
+        Q_ASSERT(latticeItem);
+
+        Lattice2DIFParameters lattice_params;
+        if(latticeItem->modelType() == Constants::BasicLatticeType) {
+            lattice_params.m_length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
+            lattice_params.m_length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
+            lattice_params.m_angle = Units::deg2rad(latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
+        }
+        else if(latticeItem->modelType() == Constants::SquareLatticeType) {
+            lattice_params.m_length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            lattice_params.m_length_2 = lattice_params.m_length_1;
+            lattice_params.m_angle = M_PI/2.0;
+        }
+        else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
+            lattice_params.m_length_1 = latticeItem->getRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            lattice_params.m_length_2 = lattice_params.m_length_1;
+            lattice_params.m_angle = 2*M_PI/3.0;
+        }
+        else {
+            throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
+        }
+        lattice_params.m_xi = Units::deg2rad(item.getRegisteredProperty(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE).toDouble());
+
+        InterferenceFunction2DLattice *result = new InterferenceFunction2DLattice(lattice_params);
+
+        ParameterizedItem *pdfItem = item.getSubItems()[InterferenceFunction2DLatticeItem::P_PDF];
+        Q_ASSERT(pdfItem);
+        boost::scoped_ptr<IFTDistribution2D> pdf(dynamic_cast<FTDistribution2DItem *>(pdfItem)->createFTDistribution());
+        Q_ASSERT(pdf.get());
+
+        result->setProbabilityDistribution(*pdf);
         return result;
     }
 

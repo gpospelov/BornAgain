@@ -5,7 +5,7 @@
 #include "ParticleLayoutView.h"
 #include "ParticleView.h"
 #include "ParticleCoreShellView.h"
-#include "ParaCrystalViews.h"
+#include "InterferenceFunctionViews.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 
@@ -17,7 +17,8 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::ParticleType
         << Constants::ParticleCoreShellType
         << Constants::InterferenceFunction1DParaCrystalType
-        << Constants::InterferenceFunction2DParaCrystalType;
+        << Constants::InterferenceFunction2DParaCrystalType
+        << Constants::InterferenceFunction2DLatticeType;
 
 
 bool SampleViewFactory::isValidItemName(const QString &name)
@@ -52,6 +53,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==Constants::InterferenceFunction2DParaCrystalType) {
         return new InterferenceFunction2DParaCrystalView();
+    }
+    else if (name==Constants::InterferenceFunction2DLatticeType) {
+        return new InterferenceFunction2DLatticeView();
     }
     else {
         //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;

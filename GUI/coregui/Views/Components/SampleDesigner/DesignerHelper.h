@@ -22,6 +22,7 @@ public:
         InterferenceFunctionType,
         InterferenceFunction1DParaType,
         InterferenceFunction2DParaType,
+        InterferenceFunction2DLatticeType,
         ParticleType
     };
 

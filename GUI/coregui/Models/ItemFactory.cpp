@@ -19,7 +19,7 @@
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
 #include "ParticleCoreShellItem.h"
-#include "ParaCrystalItems.h"
+#include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
@@ -47,6 +47,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::InterferenceFunction1DParaCrystalType] = &createInstance<InterferenceFunction1DParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
+    result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
@@ -112,7 +113,8 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::ParticleType
         << Constants::ParticleCoreShellType
         << Constants::InterferenceFunction1DParaCrystalType
-        << Constants::InterferenceFunction2DParaCrystalType;
+        << Constants::InterferenceFunction2DParaCrystalType
+        << Constants::InterferenceFunction2DLatticeType;
 
 
 ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
@@ -122,14 +124,9 @@ ParameterizedItem *ItemFactory::createItem(const QString &model_name,
                                            ParameterizedItem *parent)
 {
     qDebug() << "ItemFactory::createItem" << model_name;
-//    if (model_name.isEmpty()) {
-//        return createEmptyItem();
-//    }
-
-//    if(!m_item_map.contains(model_name)) return 0;
 
     if(!m_item_map.contains(model_name))
-        throw GUIHelpers::Error("ItemFactory::createItem() -> Error. Not existing model name "+model_name);
+        throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
 
     ParameterizedItem *result = m_item_map[model_name]();
     if(parent) {

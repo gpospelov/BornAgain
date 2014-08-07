@@ -25,6 +25,7 @@ ParticleLayoutItem::ParticleLayoutItem(ParameterizedItem *parent)
     addToValidChildren(Constants::ParticleCoreShellType, PortInfo::Port0);
     addToValidChildren(Constants::InterferenceFunction1DParaCrystalType, PortInfo::Port1, 1);
     addToValidChildren(Constants::InterferenceFunction2DParaCrystalType, PortInfo::Port1, 1);
+    addToValidChildren(Constants::InterferenceFunction2DLatticeType, PortInfo::Port1, 1);
 }
 
 

@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     Simulation* simulation = sim_registry.createSimulation("isgisaxs06d");
 
     // loading reference data
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs06_reference_variants.ima.gz";
+    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs06_reference_variants.int.gz";
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
 
     // running simulation and copying data

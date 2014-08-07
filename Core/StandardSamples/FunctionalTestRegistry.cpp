@@ -51,47 +51,47 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
     add("isgisaxs06a",
         "2D lattice with disorders",
-        "isgisaxs06_reference_lattice.ima.gz", 2e-10);
+        "isgisaxs06_reference_lattice.int.gz", 2e-10);
     add("isgisaxs06b",
         "2D lattice centered",
-        "isgisaxs06_reference_centered.ima.gz", 2e-10);
+        "isgisaxs06_reference_centered.int.gz", 2e-10);
     add("isgisaxs06c",
         "2D lattice rotated",
-        "isgisaxs06_reference_rotated.ima.gz", 2e-10);
+        "isgisaxs06_reference_rotated.int.gz", 2e-10);
 // this test is complicated for given Registry, see Tests/FunctionalTest/TesCore/IsGISAXS06L4
 //    add("isgisaxs06_lattice4",
 //        "2D lattice variants",
-//        "isgisaxs06_reference_variants.ima.gz", 2e-10);
+//        "isgisaxs06_reference_variants.int.gz", 2e-10);
 
     add("isgisaxs07",
         "Mixture of different particles a la IsGISAXS morphology file",
-        "isgisaxs07_reference.ima.gz", 2e-10);
+        "isgisaxs07_reference.int.gz", 2e-10);
 
     add("isgisaxs08a",
         "2DDL paracrystal lattice",
-        "isgisaxs08_reference_2DDL_lattice.ima.gz", 3e-10);
+        "isgisaxs08_reference_2DDL_lattice.int.gz", 3e-10);
     add("isgisaxs08b",
         "2D paracrystal lattice with isotropic pdfs",
-        "isgisaxs08_reference_2DDL_lattice2.ima.gz", 2e-10);
+        "isgisaxs08_reference_2DDL_lattice2.int.gz", 2e-10);
 
     add("isgisaxs09a",
         "Pyramids on top of substrate",
-        "isgisaxs09_reference_pyramid_Z0.ima.gz", 2e-10);
+        "isgisaxs09_reference_pyramid_Z0.int.gz", 2e-10);
     add("isgisaxs09b",
         "Rotated pyramids on top of substrate",
-        "isgisaxs09_reference_pyramid_Z45.ima.gz", 2e-10);
+        "isgisaxs09_reference_pyramid_Z45.int.gz", 2e-10);
 
     add("isgisaxs10",
         "Cylinders with interference on top of substrate",
-        "isgisaxs10_reference.ima.gz", 2e-10);
+        "isgisaxs10_reference.int.gz", 2e-10);
 
     add("isgisaxs11",
         "Core shell nanoparticles",
-        "isgisaxs11_reference.ima.gz", 2e-10);
+        "isgisaxs11_reference.int.gz", 2e-10);
 
     add("isgisaxs15",
         "Size spacing correlation approximation",
-        "isgisaxs15_reference.ima.gz", 2e-10);
+        "isgisaxs15_reference.int.gz", 2e-10);
 
     add("mesocrystal01",
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles",

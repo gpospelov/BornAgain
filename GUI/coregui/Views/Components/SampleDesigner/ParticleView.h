@@ -23,6 +23,8 @@ public:
 
     void onPropertyChange(const QString &propertyName);
 
+    void addView(IView *childView, int row = 0); // to add Transformation
+
 private:
     QPixmap m_pixmap;
 

@@ -14,6 +14,7 @@ const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
+const ModelType TransformationType = "Transformation";
 const ModelType InterferenceFunction1DParaCrystalType = "InterferenceFunction1DParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "InterferenceFunction2DParaCrystal";
 const ModelType InterferenceFunction2DLatticeType = "InterferenceFunction2DLattice";

@@ -10,6 +10,7 @@
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
 #include "ParticleItem.h"
+#include "TransformationItem.h"
 #include "FormFactorItems.h"
 #include "InterferenceFunctionItems.h"
 #include "TransformFromDomain.h"

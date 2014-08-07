@@ -18,6 +18,7 @@
 #include "LayerItem.h"
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
+#include "TransformationItem.h"
 #include "ParticleCoreShellItem.h"
 #include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
@@ -44,6 +45,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerType] = &createInstance<LayerItem>;
     result[Constants::ParticleLayoutType] = &createInstance<ParticleLayoutItem>;
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
+    result[Constants::TransformationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::InterferenceFunction1DParaCrystalType] = &createInstance<InterferenceFunction1DParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
@@ -110,6 +112,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::LayerType
         << Constants::ParticleLayoutType
         << Constants::ParticleType
+        << Constants::TransformationType
         << Constants::ParticleCoreShellType
         << Constants::InterferenceFunction1DParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType

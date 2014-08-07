@@ -36,6 +36,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "OffSpecSimulation.h"
+#include "AxisDouble.h"
 
 #define protected public // needed to access the protected evaluate_for_q method
 #include "FormFactorInfLongBox.h"

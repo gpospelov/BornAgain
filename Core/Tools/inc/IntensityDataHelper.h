@@ -32,11 +32,15 @@ public:
     static void setRectangularMask(OutputData<double>& data,
         double x1, double y1, double x2, double y2);
 
-
     //! Sets elliptic mask to IntensityData to exclude all points outside the
     //! mask from analysis
     static void setEllipticMask(OutputData<double>& data,
         double xc, double yc, double rx, double ry);
+
+    //! Returns relative difference between two data sets
+    //! sum(result[i] - reference[i])/reference[i])
+    static double GetRelativeDifference(const OutputData<double> &result,
+                         const OutputData<double> &reference);
 
 };
 

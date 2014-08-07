@@ -20,6 +20,7 @@
 #include "BornAgainNamespace.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
+#include "AxisDouble.h"
 
 #include <iostream>
 #include <fstream>

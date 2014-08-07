@@ -20,6 +20,16 @@ void register_IntensityDataHelper_class(){
         typedef bp::class_< IntensityDataHelper > IntensityDataHelper_exposer_t;
         IntensityDataHelper_exposer_t IntensityDataHelper_exposer = IntensityDataHelper_exposer_t( "IntensityDataHelper" );
         bp::scope IntensityDataHelper_scope( IntensityDataHelper_exposer );
+        { //::IntensityDataHelper::GetRelativeDifference
+        
+            typedef double ( *GetRelativeDifference_function_type )( ::OutputData< double > const &,::OutputData< double > const & );
+            
+            IntensityDataHelper_exposer.def( 
+                "GetRelativeDifference"
+                , GetRelativeDifference_function_type( &::IntensityDataHelper::GetRelativeDifference )
+                , ( bp::arg("result"), bp::arg("reference") ) );
+        
+        }
         { //::IntensityDataHelper::setEllipticMask
         
             typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double );
@@ -40,6 +50,7 @@ void register_IntensityDataHelper_class(){
                 , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2") ) );
         
         }
+        IntensityDataHelper_exposer.staticmethod( "GetRelativeDifference" );
         IntensityDataHelper_exposer.staticmethod( "setEllipticMask" );
         IntensityDataHelper_exposer.staticmethod( "setRectangularMask" );
     }

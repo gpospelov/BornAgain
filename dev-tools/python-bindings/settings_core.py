@@ -169,8 +169,8 @@ exclude_patterns = []
 # AdditionalRules
 # -----------------------------------------------------------------------------
 def ManualClassTunings(mb):
-    mb.class_("AxisDouble").member_function("clone").exclude()
-    mb.class_("AxisDouble").member_functions("createDoubleBinSize").exclude()
+    #mb.class_("AxisDouble").member_function("clone").exclude()
+    #mb.class_("AxisDouble").member_functions("createDoubleBinSize").exclude()
 
     axis_operators = mb.free_operators( lambda decl: 'IAxis' in decl.decl_string )
     axis_operators.include()

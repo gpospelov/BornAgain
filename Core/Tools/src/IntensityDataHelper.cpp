@@ -17,3 +17,8 @@ void IntensityDataHelper::setEllipticMask(OutputData<double>& data,
     data.setMask(*mask1);
 }
 
+double IntensityDataHelper::GetRelativeDifference(const OutputData<double> &result, const OutputData<double> &reference)
+{
+    return OutputDataFunctions::GetDifference(result, reference);
+}
+

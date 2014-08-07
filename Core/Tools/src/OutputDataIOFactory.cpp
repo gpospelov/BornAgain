@@ -42,7 +42,7 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
         read_strategy = new OutputDataReadStreamV1();
     } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".ima") {
         read_strategy = new OutputDataReadStreamIMA();
-    } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".baint") {
+    } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamBA();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getReader() -> Error. "
@@ -77,7 +77,7 @@ OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(
         write_strategy = new OutputDataWriteStreamIMA();
     }else if(Utils::FileSystem::GetFileExtension(file_name) == ".txt") {
         write_strategy = new OutputDataWriteStreamV1();
-    }else if(Utils::FileSystem::GetFileExtension(file_name) == ".baint") {
+    }else if(Utils::FileSystem::GetFileExtension(file_name) == ".int") {
         write_strategy = new OutputDataWriteStreamBA();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. "

@@ -78,9 +78,6 @@ void Detector::addAxis(const AxisParameters& axis_params)
 //        AxisDouble *p_axis = new AxisDouble(axis_params.m_name);
 //        initializeAnglesIsgisaxs(p_axis, axis_params.m_range);
 //        p_new_axis = p_axis;
-//        p_new_axis = AsymmetricBinAxis::createIsGISAXSAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
-//        p_new_axis = AngleBinAxis::createIsGISAXSAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
-        std::cout << "XXX " << axis_params.m_name << " " << axis_params.m_range.getNSamples() << " " << axis_params.m_range.getLowerBound() << " " << axis_params.m_range.getUpperBound() << std::endl;
         p_new_axis = new CustomBinAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
 
         break;
@@ -176,21 +173,21 @@ void Detector::normalize(OutputData<double> *p_data,
     }
 }
 
-void Detector::initializeAnglesIsgisaxs(
-    AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
-{
-    if (axis_range.getNSamples()>1) {
-        double start_sin = std::sin(axis_range.getLowerBound());
-        double end_sin = std::sin(axis_range.getUpperBound());
-        double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
-        for(size_t i=0; i<axis_range.getNSamples(); ++i) {
-            p_axis->push_back(std::asin(start_sin + step*i));
-        }
-    }
-    else {
-        p_axis->push_back((axis_range.getUpperBound()-axis_range.getLowerBound())/2.0);
-    }
-}
+//void Detector::initializeAnglesIsgisaxs(
+//    AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
+//{
+//    if (axis_range.getNSamples()>1) {
+//        double start_sin = std::sin(axis_range.getLowerBound());
+//        double end_sin = std::sin(axis_range.getUpperBound());
+//        double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
+//        for(size_t i=0; i<axis_range.getNSamples(); ++i) {
+//            p_axis->push_back(std::asin(start_sin + step*i));
+//        }
+//    }
+//    else {
+//        p_axis->push_back((axis_range.getUpperBound()-axis_range.getLowerBound())/2.0);
+//    }
+//}
 
 double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
 {

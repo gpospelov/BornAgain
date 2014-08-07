@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MinimizerScan.h"
+#include "AxisDouble.h"
 #include <algorithm>
 
 //! Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.

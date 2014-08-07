@@ -21,6 +21,7 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "BornAgainNamespace.h"
+#include "AxisDouble.h"
 
 #include <cmath>
 #include <iostream>

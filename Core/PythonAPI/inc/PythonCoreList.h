@@ -83,6 +83,7 @@
 #include "OffSpecSimulation.h"
 #include "OutputData.h"
 #include "OutputDataIOFactory.h"
+#include "OutputDataFunctions.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "Particle.h"

@@ -15,6 +15,7 @@
 
 #include "IsGISAXSData.h"
 #include "BornAgainNamespace.h"
+#include "AxisDouble.h"
 #include <iostream>
 #include <fstream>
 

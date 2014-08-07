@@ -40,10 +40,8 @@
 #include "MathFunctionsTest.h"
 #include "FixedBinAxisTest.h"
 #include "VariableBinAxisTest.h"
-#include "AsymmetricBinAxisTest.h"
-#include "AngleBinAxisTest.h"
 #include "ConstKBinAxisTest.h"
-#include "IsGisaxsAxisTest.h"
+#include "CustomBinAxisTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

@@ -1,14 +1,14 @@
-#include "IsGisaxsAxis.h"
+#include "CustomBinAxis.h"
 #include "Units.h"
 #include <iomanip>
 
-IsGisaxsAxis::IsGisaxsAxis(std::string name, size_t nbins, double start, double end)
+CustomBinAxis::CustomBinAxis(std::string name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins)
     , m_start(start)
     , m_end(end)
 {
     if(m_start >= m_end)
-        throw Exceptions::LogicErrorException("IsGisaxsAxis::IsGisaxsAxis() -> Error. start >= end is not allowed.");
+        throw Exceptions::LogicErrorException("CustomBinAxis::CustomBinAxis() -> Error. start >= end is not allowed.");
 
     double start_sin = std::sin(start);
     double end_sin = std::sin(end);
@@ -33,36 +33,36 @@ IsGisaxsAxis::IsGisaxsAxis(std::string name, size_t nbins, double start, double 
 }
 
 
-IsGisaxsAxis *IsGisaxsAxis::clone() const
+CustomBinAxis *CustomBinAxis::clone() const
 {
-    return new IsGisaxsAxis(getName(), m_nbins, m_start, m_end);
+    return new CustomBinAxis(getName(), m_nbins, m_start, m_end);
 }
 
-Bin1D IsGisaxsAxis::getBin(size_t index) const
+Bin1D CustomBinAxis::getBin(size_t index) const
 {
     if(index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("IsGisaxsAxis::getBin() -> Error. Wrong index.");
+        throw Exceptions::OutOfBoundsException("CustomBinAxis::getBin() -> Error. Wrong index.");
 
     Bin1D result = { m_bin_centers[index], m_bin_centers[index] };
     return result;
 }
 
-std::vector<double> IsGisaxsAxis::getBinCenters() const
+std::vector<double> CustomBinAxis::getBinCenters() const
 {
     return m_bin_centers;
 }
 
 
-void IsGisaxsAxis::print(std::ostream &ostr) const
+void CustomBinAxis::print(std::ostream &ostr) const
 {
-    ostr << "IsGisaxsAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(std::numeric_limits<double>::digits10+2) << m_start << ", " << m_end << ")";
+    ostr << "CustomBinAxis(\"" << m_name << "\", " << getSize() << ", " << std::setprecision(std::numeric_limits<double>::digits10+2) << m_start << ", " << m_end << ")";
 }
 
 
-bool IsGisaxsAxis::equals(const IAxis &other) const
+bool CustomBinAxis::equals(const IAxis &other) const
 {
     if (!IAxis::equals(other)) return false;
-    if (const IsGisaxsAxis *otherAxis = dynamic_cast<const IsGisaxsAxis *>(&other)) {
+    if (const CustomBinAxis *otherAxis = dynamic_cast<const CustomBinAxis *>(&other)) {
         if (getSize() != otherAxis->getSize()) return false;
         if ( std::abs(m_start - otherAxis->m_start) > Numeric::double_epsilon) return false;
         if ( std::abs(m_end - otherAxis->m_end) > Numeric::double_epsilon) return false;

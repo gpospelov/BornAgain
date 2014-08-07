@@ -27,7 +27,7 @@ namespace OutputDataIOHelper {
 const std::string FixedBinAxisType = "FixedBinAxis";
 const std::string VariableBinAxisType = "VariableBinAxis";
 const std::string ConstKBinAxisType = "ConstKBinAxis";
-const std::string IsGisaxsAxisType = "IsGisaxsAxis";
+const std::string CustomBinAxisType = "CustomBinAxis";
 
 bool isSimilarToFixedBinAxisType(const std::string &line);
 bool isVariableBinAxisType(const std::string &line);

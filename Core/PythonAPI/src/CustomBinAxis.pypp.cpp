@@ -10,60 +10,60 @@ GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
-#include "IsGisaxsAxis.pypp.h"
+#include "CustomBinAxis.pypp.h"
 
 namespace bp = boost::python;
 
-struct IsGisaxsAxis_wrapper : IsGisaxsAxis, bp::wrapper< IsGisaxsAxis > {
+struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
 
-    IsGisaxsAxis_wrapper(IsGisaxsAxis const & arg )
-    : IsGisaxsAxis( arg )
-      , bp::wrapper< IsGisaxsAxis >(){
+    CustomBinAxis_wrapper(CustomBinAxis const & arg )
+    : CustomBinAxis( arg )
+      , bp::wrapper< CustomBinAxis >(){
         // copy constructor
         
     }
 
-    IsGisaxsAxis_wrapper(::std::string name, ::std::size_t nbins, double start, double end )
-    : IsGisaxsAxis( name, nbins, start, end )
-      , bp::wrapper< IsGisaxsAxis >(){
+    CustomBinAxis_wrapper(::std::string name, ::std::size_t nbins, double start, double end )
+    : CustomBinAxis( name, nbins, start, end )
+      , bp::wrapper< CustomBinAxis >(){
         // constructor
     
     }
 
-    virtual ::IsGisaxsAxis * clone(  ) const  {
+    virtual ::CustomBinAxis * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else
-            return this->IsGisaxsAxis::clone(  );
+            return this->CustomBinAxis::clone(  );
     }
     
     
-    ::IsGisaxsAxis * default_clone(  ) const  {
-        return IsGisaxsAxis::clone( );
+    ::CustomBinAxis * default_clone(  ) const  {
+        return CustomBinAxis::clone( );
     }
 
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
         else
-            return this->IsGisaxsAxis::getBin( index );
+            return this->CustomBinAxis::getBin( index );
     }
     
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
-        return IsGisaxsAxis::getBin( index );
+        return CustomBinAxis::getBin( index );
     }
 
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
         else
-            return this->IsGisaxsAxis::getBinCenters(  );
+            return this->CustomBinAxis::getBinCenters(  );
     }
     
     
     ::std::vector< double > default_getBinCenters(  ) const  {
-        return IsGisaxsAxis::getBinCenters( );
+        return CustomBinAxis::getBinCenters( );
     }
 
     virtual ::IAxis * createDoubleBinSize(  ) const  {
@@ -140,113 +140,113 @@ struct IsGisaxsAxis_wrapper : IsGisaxsAxis, bp::wrapper< IsGisaxsAxis > {
 
 };
 
-void register_IsGisaxsAxis_class(){
+void register_CustomBinAxis_class(){
 
-    { //::IsGisaxsAxis
-        typedef bp::class_< IsGisaxsAxis_wrapper, bp::bases< VariableBinAxis > > IsGisaxsAxis_exposer_t;
-        IsGisaxsAxis_exposer_t IsGisaxsAxis_exposer = IsGisaxsAxis_exposer_t( "IsGisaxsAxis", bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
-        bp::scope IsGisaxsAxis_scope( IsGisaxsAxis_exposer );
-        { //::IsGisaxsAxis::clone
+    { //::CustomBinAxis
+        typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis > > CustomBinAxis_exposer_t;
+        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        bp::scope CustomBinAxis_scope( CustomBinAxis_exposer );
+        { //::CustomBinAxis::clone
         
-            typedef ::IsGisaxsAxis * ( ::IsGisaxsAxis::*clone_function_type )(  ) const;
-            typedef ::IsGisaxsAxis * ( IsGisaxsAxis_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::CustomBinAxis * ( ::CustomBinAxis::*clone_function_type )(  ) const;
+            typedef ::CustomBinAxis * ( CustomBinAxis_wrapper::*default_clone_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "clone"
-                , clone_function_type(&::IsGisaxsAxis::clone)
-                , default_clone_function_type(&IsGisaxsAxis_wrapper::default_clone)
+                , clone_function_type(&::CustomBinAxis::clone)
+                , default_clone_function_type(&CustomBinAxis_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
-        { //::IsGisaxsAxis::getBin
+        { //::CustomBinAxis::getBin
         
-            typedef ::Bin1D ( ::IsGisaxsAxis::*getBin_function_type )( ::std::size_t ) const;
-            typedef ::Bin1D ( IsGisaxsAxis_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::CustomBinAxis::*getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( CustomBinAxis_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "getBin"
-                , getBin_function_type(&::IsGisaxsAxis::getBin)
-                , default_getBin_function_type(&IsGisaxsAxis_wrapper::default_getBin)
+                , getBin_function_type(&::CustomBinAxis::getBin)
+                , default_getBin_function_type(&CustomBinAxis_wrapper::default_getBin)
                 , ( bp::arg("index") ) );
         
         }
-        { //::IsGisaxsAxis::getBinCenters
+        { //::CustomBinAxis::getBinCenters
         
-            typedef ::std::vector< double > ( ::IsGisaxsAxis::*getBinCenters_function_type )(  ) const;
-            typedef ::std::vector< double > ( IsGisaxsAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::CustomBinAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( CustomBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "getBinCenters"
-                , getBinCenters_function_type(&::IsGisaxsAxis::getBinCenters)
-                , default_getBinCenters_function_type(&IsGisaxsAxis_wrapper::default_getBinCenters) );
+                , getBinCenters_function_type(&::CustomBinAxis::getBinCenters)
+                , default_getBinCenters_function_type(&CustomBinAxis_wrapper::default_getBinCenters) );
         
         }
         { //::IAxis::createDoubleBinSize
         
             typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
-            typedef ::IAxis * ( IsGisaxsAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( CustomBinAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "createDoubleBinSize"
                 , createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize)
-                , default_createDoubleBinSize_function_type(&IsGisaxsAxis_wrapper::default_createDoubleBinSize)
+                , default_createDoubleBinSize_function_type(&CustomBinAxis_wrapper::default_createDoubleBinSize)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::VariableBinAxis::findClosestIndex
         
             typedef ::std::size_t ( ::VariableBinAxis::*findClosestIndex_function_type )( double ) const;
-            typedef ::std::size_t ( IsGisaxsAxis_wrapper::*default_findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( CustomBinAxis_wrapper::*default_findClosestIndex_function_type )( double ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "findClosestIndex"
                 , findClosestIndex_function_type(&::VariableBinAxis::findClosestIndex)
-                , default_findClosestIndex_function_type(&IsGisaxsAxis_wrapper::default_findClosestIndex)
+                , default_findClosestIndex_function_type(&CustomBinAxis_wrapper::default_findClosestIndex)
                 , ( bp::arg("value") ) );
         
         }
         { //::VariableBinAxis::getBinBoundaries
         
             typedef ::std::vector< double > ( ::VariableBinAxis::*getBinBoundaries_function_type )(  ) const;
-            typedef ::std::vector< double > ( IsGisaxsAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( CustomBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "getBinBoundaries"
                 , getBinBoundaries_function_type(&::VariableBinAxis::getBinBoundaries)
-                , default_getBinBoundaries_function_type(&IsGisaxsAxis_wrapper::default_getBinBoundaries) );
+                , default_getBinBoundaries_function_type(&CustomBinAxis_wrapper::default_getBinBoundaries) );
         
         }
         { //::VariableBinAxis::getMax
         
             typedef double ( ::VariableBinAxis::*getMax_function_type )(  ) const;
-            typedef double ( IsGisaxsAxis_wrapper::*default_getMax_function_type )(  ) const;
+            typedef double ( CustomBinAxis_wrapper::*default_getMax_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "getMax"
                 , getMax_function_type(&::VariableBinAxis::getMax)
-                , default_getMax_function_type(&IsGisaxsAxis_wrapper::default_getMax) );
+                , default_getMax_function_type(&CustomBinAxis_wrapper::default_getMax) );
         
         }
         { //::VariableBinAxis::getMin
         
             typedef double ( ::VariableBinAxis::*getMin_function_type )(  ) const;
-            typedef double ( IsGisaxsAxis_wrapper::*default_getMin_function_type )(  ) const;
+            typedef double ( CustomBinAxis_wrapper::*default_getMin_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "getMin"
                 , getMin_function_type(&::VariableBinAxis::getMin)
-                , default_getMin_function_type(&IsGisaxsAxis_wrapper::default_getMin) );
+                , default_getMin_function_type(&CustomBinAxis_wrapper::default_getMin) );
         
         }
         { //::VariableBinAxis::getSize
         
             typedef ::std::size_t ( ::VariableBinAxis::*getSize_function_type )(  ) const;
-            typedef ::std::size_t ( IsGisaxsAxis_wrapper::*default_getSize_function_type )(  ) const;
+            typedef ::std::size_t ( CustomBinAxis_wrapper::*default_getSize_function_type )(  ) const;
             
-            IsGisaxsAxis_exposer.def( 
+            CustomBinAxis_exposer.def( 
                 "getSize"
                 , getSize_function_type(&::VariableBinAxis::getSize)
-                , default_getSize_function_type(&IsGisaxsAxis_wrapper::default_getSize) );
+                , default_getSize_function_type(&CustomBinAxis_wrapper::default_getSize) );
         
         }
     }

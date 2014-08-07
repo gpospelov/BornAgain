@@ -37,13 +37,10 @@ include_dirs = [
 ]
 
 include_classes = [
-    "AxisDouble",
-    "AxisBin",
     "FixedBinAxis",
     "VariableBinAxis",
-    "AngleBinAxis",
     "ConstKBinAxis",
-    "IsGisaxsAxis",
+    "CustomBinAxis",
     "BasicVector3D<double>",
     "BasicVector3D<std::complex<double> >",
     "Beam",

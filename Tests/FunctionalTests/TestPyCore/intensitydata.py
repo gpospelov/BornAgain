@@ -30,7 +30,7 @@ class IntensityDataTest(unittest.TestCase):
         self.assertEqual(0, data.totalSum())
 
     def test_create_1d_object(self):
-        axis0 = AxisDouble("angle", 20, 0.0, 20.)
+        axis0 = FixedBinAxis("angle", 20, 0.0, 20.)
         self.assertEqual(20, axis0.getSize())
         self.assertEqual(0.0, axis0.getMin())
         self.assertEqual(20.0, axis0.getMax())

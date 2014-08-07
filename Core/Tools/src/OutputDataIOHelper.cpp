@@ -2,7 +2,7 @@
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
 #include "ConstKBinAxis.h"
-#include "IsGisaxsAxis.h"
+#include "CustomBinAxis.h"
 #include "Exceptions.h"
 #include "Utils.h"
 #include "OutputData.h"
@@ -13,13 +13,13 @@
 
 
 //! Returns true if string representation of the axis contains one of
-//! FixedBinAxis, ConstKBinAxis or IsGisaxsBinAxis to parse it later in
+//! FixedBinAxis, ConstKBinAxis or CustomBinAxis to parse it later in
 //! similar way.
 bool OutputDataIOHelper::isSimilarToFixedBinAxisType(const std::string &line)
 {
     if(line.find(FixedBinAxisType) != std::string::npos ||
        line.find(ConstKBinAxisType) != std::string::npos ||
-       line.find(IsGisaxsAxisType) != std::string::npos)
+       line.find(CustomBinAxisType) != std::string::npos)
     {
         return true;
     }
@@ -61,7 +61,7 @@ IAxis *OutputDataIOHelper::createAxis(std::istream &input_stream)
 //! Create one of FixedBinAxis from string representation
 //! FixedBinAxis("axis0", 10, -1, 1)
 //! ConstKBinAxis("axis0", 10, -1, 1)
-//! IsGisaxsAxis("axis0", 10, -1, 1)
+//! CustomBinAxis("axis0", 10, -1, 1)
 IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 {
     std::vector<std::string> to_replace = boost::assign::list_of(",")("\"")("(")(")");
@@ -89,8 +89,8 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
     else if(type == ConstKBinAxisType) {
         return new ConstKBinAxis(name, nbins, boundaries[0], boundaries[1]);
     }
-    else if(type == IsGisaxsAxisType) {
-        return new IsGisaxsAxis(name, nbins, boundaries[0], boundaries[1]);
+    else if(type == CustomBinAxisType) {
+        return new CustomBinAxis(name, nbins, boundaries[0], boundaries[1]);
     }
     else {
         throw Exceptions::LogicErrorException("OutputDataIOHelper::createOneOfFixedBinAxis() -> Error. Unexpected place.");

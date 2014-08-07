@@ -3,9 +3,9 @@
 // BornAgain: simulate and fit scattering at grazing incidence
 //! @brief Automatically generated boost::python code for PythonCoreAPI
 
-#ifndef IsGisaxsAxis_hpp__pyplusplus_wrapper
-#define IsGisaxsAxis_hpp__pyplusplus_wrapper
+#ifndef CustomBinAxis_hpp__pyplusplus_wrapper
+#define CustomBinAxis_hpp__pyplusplus_wrapper
 
-void register_IsGisaxsAxis_class();
+void register_CustomBinAxis_class();
 
-#endif//IsGisaxsAxis_hpp__pyplusplus_wrapper
+#endif//CustomBinAxis_hpp__pyplusplus_wrapper

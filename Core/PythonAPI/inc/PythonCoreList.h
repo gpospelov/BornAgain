@@ -4,13 +4,10 @@
 //! list of files to process with Py++
 
 #include "IAxis.h"
-#include "AxisBin.h"
-#include "AxisDouble.h"
 #include "FixedBinAxis.h"
 #include "VariableBinAxis.h"
-#include "AngleBinAxis.h"
 #include "ConstKBinAxis.h"
-#include "IsGisaxsAxis.h"
+#include "CustomBinAxis.h"
 #include "BasicVector3D.h"
 #include "BAVersion.h"
 #include "Bin.h"

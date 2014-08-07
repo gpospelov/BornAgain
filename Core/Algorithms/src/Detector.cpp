@@ -19,10 +19,8 @@
 #include "AxisDouble.h"
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
-#include "AsymmetricBinAxis.h"
 #include "FixedBinAxis.h"
-#include "AngleBinAxis.h"
-#include "IsGisaxsAxis.h"
+#include "CustomBinAxis.h"
 
 #include <iostream>
 
@@ -83,7 +81,7 @@ void Detector::addAxis(const AxisParameters& axis_params)
 //        p_new_axis = AsymmetricBinAxis::createIsGISAXSAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
 //        p_new_axis = AngleBinAxis::createIsGISAXSAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
         std::cout << "XXX " << axis_params.m_name << " " << axis_params.m_range.getNSamples() << " " << axis_params.m_range.getLowerBound() << " " << axis_params.m_range.getUpperBound() << std::endl;
-        p_new_axis = new IsGisaxsAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
+        p_new_axis = new CustomBinAxis(axis_params.m_name, axis_params.m_range.getNSamples(), axis_params.m_range.getLowerBound(), axis_params.m_range.getUpperBound());
 
         break;
     }

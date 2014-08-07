@@ -29,7 +29,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "HomogeneousMaterial.pypp.h"
 #include "FormFactorCone6.pypp.h"
 #include "vector_integer_t.pypp.h"
-#include "AxisDouble.pypp.h"
 #include "FormFactorInfLongRipple2.pypp.h"
 #include "IAxis.pypp.h"
 #include "FormFactorTetrahedron.pypp.h"
@@ -44,7 +43,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ResolutionFunction2DSimple.pypp.h"
 #include "SimulationParameters.pypp.h"
 #include "FormFactorSphereUniformRadius.pypp.h"
-#include "AxisBin.pypp.h"
 #include "FormFactorGauss.pypp.h"
 #include "FormFactorFullSpheroid.pypp.h"
 #include "FormFactorAnisoPyramid.pypp.h"
@@ -66,7 +64,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "DistributionLorentz.pypp.h"
 #include "FTDistribution2DCauchy.pypp.h"
 #include "FTDistribution2DVoigt.pypp.h"
-#include "AngleBinAxis.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "cvector_t.pypp.h"
 #include "ParameterPool.pypp.h"
@@ -117,6 +114,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "FormFactorLorentz.pypp.h"
 #include "OutputDataIOFactory.pypp.h"
 #include "FTDistribution1DCauchy.pypp.h"
+#include "CustomBinAxis.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "InterferenceFunction1DParaCrystal.pypp.h"
 #include "InterferenceFunctionNone.pypp.h"
@@ -125,7 +123,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "PythonInterface_free_functions.pypp.h"
 #include "Lattice1DIFParameters.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
-#include "IsGisaxsAxis.pypp.h"
 #include "kvector_t.pypp.h"
 #include "FTDistribution1DVoigt.pypp.h"
 #include "Simulation.pypp.h"
@@ -151,14 +148,11 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
-    register_IAxis_class();
-    register_AngleBinAxis_class();
-    register_AxisBin_class();
-    register_AxisDouble_class();
     register_IParameterized_class();
     register_Beam_class();
     register_Bin1D_class();
     register_Bin1DCVector_class();
+    register_IAxis_class();
     register_VariableBinAxis_class();
     register_ConstKBinAxis_class();
     register_ICloneable_class();
@@ -166,6 +160,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ICompositeSample_class();
     register_IClusteredParticles_class();
     register_Crystal_class();
+    register_CustomBinAxis_class();
     register_Detector_class();
     register_IDistribution1D_class();
     register_DistributionCosine_class();
@@ -240,7 +235,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_InterferenceFunction2DLattice_class();
     register_InterferenceFunction2DParaCrystal_class();
     register_InterferenceFunctionNone_class();
-    register_IsGisaxsAxis_class();
     register_Lattice_class();
     register_Lattice1DIFParameters_class();
     register_Lattice2DIFParameters_class();

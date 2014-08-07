@@ -121,10 +121,10 @@ class OutputDataIOTest(unittest.TestCase):
         newdata = OutputDataIOFactory.readIntensityData("tmp.baint")
         self.assertTrue(is_the_same_data(data, newdata))
 
-    def test_08_IsGisaxsAxis_2D(self):
+    def test_08_CustomBinAxis_2D(self):
         data = IntensityData()
-        data.addAxis(IsGisaxsAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
-        data.addAxis(IsGisaxsAxis("axis1", 3, -4.0*degree, 5.0*degree))
+        data.addAxis(CustomBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
+        data.addAxis(CustomBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
         fill_data(data)
         OutputDataIOFactory.writeIntensityData(data, "tmp.baint")
         newdata = OutputDataIOFactory.readIntensityData("tmp.baint")

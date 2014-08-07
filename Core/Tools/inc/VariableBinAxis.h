@@ -53,11 +53,14 @@ public:
     std::vector<double > getBinBoundaries() const;
 
 protected:
-    VariableBinAxis(std::string name);
+    VariableBinAxis(std::string name, int nbins = 0);
+    void setBinBoundaries(const std::vector<double> &bin_boundaries);
 
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;
     size_t m_nbins;
+
+private:
     std::vector<double> m_bin_boundaries;  //!< vector containing the bin limits
 };
 

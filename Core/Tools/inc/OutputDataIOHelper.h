@@ -20,9 +20,6 @@
 #include <iostream>
 
 class IAxis;
-class FixedBinAxis;
-class VariableBinAxis;
-class ConstKBinAxis;
 template <class T> class OutputData;
 
 namespace OutputDataIOHelper {

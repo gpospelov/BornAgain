@@ -125,6 +125,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "PythonInterface_free_functions.pypp.h"
 #include "Lattice1DIFParameters.pypp.h"
 #include "FTDistribution1DGauss.pypp.h"
+#include "IsGisaxsAxis.pypp.h"
 #include "kvector_t.pypp.h"
 #include "FTDistribution1DVoigt.pypp.h"
 #include "Simulation.pypp.h"
@@ -239,6 +240,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_InterferenceFunction2DLattice_class();
     register_InterferenceFunction2DParaCrystal_class();
     register_InterferenceFunctionNone_class();
+    register_IsGisaxsAxis_class();
     register_Lattice_class();
     register_Lattice1DIFParameters_class();
     register_Lattice2DIFParameters_class();

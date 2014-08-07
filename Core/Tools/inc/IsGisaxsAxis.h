@@ -40,8 +40,11 @@ public:
 
     Bin1D getBin(size_t index) const;
 
+    std::vector<double > getBinCenters() const;
+
 protected:
     void print(std::ostream& ostr) const;
+    bool equals(const IAxis& other) const;
 
     double m_start;
     double m_end;

@@ -8,30 +8,17 @@
 VariableBinAxis::VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_boundaries)
     : IAxis(name)
     , m_nbins(nbins)
-    , m_bin_boundaries(bin_boundaries)
 {
-    if(m_nbins != m_bin_boundaries.size()-1)
+    if(m_nbins != bin_boundaries.size()-1)
         throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error! The size of value_vector should be of size [nbins+1].");
 
-    // checking that values are sorted
-    std::vector<double> sorted = bin_boundaries;
-    std::sort( sorted.begin(), sorted.end());
-    for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
-        if(sorted[i] != m_bin_boundaries[i])
-            throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error. Array with bin edges is not sorted.");
-    }
-
-    std::vector<double> vec = bin_boundaries;
-    vec.erase(std::unique(vec.begin(), vec.end()),vec.end());
-
-    if(vec.size() != bin_boundaries.size())
-       throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error. Array with bin edges contains repeating values.");
+    setBinBoundaries(bin_boundaries);
 }
 
 
-VariableBinAxis::VariableBinAxis(std::string name)
+VariableBinAxis::VariableBinAxis(std::string name, int nbins)
     : IAxis(name)
-    , m_nbins(0)
+    , m_nbins(nbins)
 {
 
 }
@@ -138,7 +125,21 @@ bool VariableBinAxis::equals(const IAxis& other) const
 }
 
 
+void VariableBinAxis::setBinBoundaries(const std::vector<double> &bin_boundaries)
+{
+    // checking that values are sorted
+    std::vector<double> vec_sorted = bin_boundaries;
+    std::sort( vec_sorted.begin(), vec_sorted.end());
+    for(size_t i=0; i<bin_boundaries.size(); ++i) {
+        if(vec_sorted[i] != bin_boundaries[i])
+            throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error. Array with bin edges is not sorted.");
+    }
 
+    std::vector<double> vec = bin_boundaries;
+    vec.erase(std::unique(vec.begin(), vec.end()),vec.end());
 
+    if(vec.size() != bin_boundaries.size())
+       throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error. Array with bin edges contains repeating values.");
 
-
+    m_bin_boundaries = bin_boundaries;
+}

@@ -181,12 +181,17 @@ void OutputDataWidget::gradientChanged(QCPColorGradient gradient)
 
 void OutputDataWidget::onPropertySplitterMoved(int pos, int index)
 {
+
     qDebug() << "OutputDataWidget::onPropertySplitterMoved";
+
     QList<int> sizes_org = this->m_splitter->sizes();
 
     if(sizes_org.at(index) != m_currentPropertyWidgetWidth)
     {
+
         qDebug() << "   OutputDataWidget::onPropertySplitterMoved" << m_propertyWidget->getWidth() << "::" << sizes_org.at(index);
+        qDebug() << m_propertyWidget->getWidth() << "::" << sizes_org.at(index);
+
         if(sizes_org.at(index) == m_propertyWidget->getWidth())
         {
             m_currentPropertyWidgetWidth = sizes_org.at(1);

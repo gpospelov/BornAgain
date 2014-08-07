@@ -50,6 +50,6 @@ void SimulationView::onChangeTabWidget(int index)
     }
     else if(index == QuickSimulationTab)
     {
-        m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
+        //m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
     }
 }

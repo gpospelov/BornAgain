@@ -146,9 +146,11 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
     qDebug() << "PlotWidget::drawPlot()";
 //    Q_ASSERT(outputDataItem);
     if(!outputDataItem) {
+
         qDebug() << "   PlotWidget::drawPlot() -> Zero item, disconnecting";
         disconnect();
         m_centralPlot->disconnect();
+
         m_outputDataItem = 0;
         return;
     }
@@ -179,12 +181,14 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);
         //m_propertyWidget->setupPropertyWidget(outputDataItem, m_gradient);
+
         connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
         connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)), Qt::UniqueConnection);
         connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)), Qt::UniqueConnection);
         connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()), Qt::UniqueConnection);
         connect(m_centralPlot, SIGNAL(xaxisRangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
         connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+
         m_block_plot_update = false;
     }
 }
@@ -192,11 +196,16 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 
 void PlotWidget::updatePlot()
 {
+
     qDebug() << "PlotWidget::updatePlot()";
     if(m_block_plot_update) {
         qDebug() << "   PlotWidget::updatePlot() -> blocked, no update";
         return;
     }
+
+    //qDebug() << "PlotWidget::updatePlot()";
+    if(m_block_plot_update) return;
+
 
     Q_ASSERT(m_outputDataItem);
     Q_ASSERT(m_centralPlot);
@@ -218,6 +227,7 @@ void PlotWidget::initContextMenu()
 {
     QString propertyPanelText = tr("&Property Panel");
     QString projectionsText = tr("Pr&ojections");
+
 
     propertyPanelAct = new QAction(propertyPanelText, this);
     propertyPanelAct->setCheckable(true);
@@ -254,7 +264,11 @@ void PlotWidget::mousePress(QMouseEvent *event)
 m_contextMenu->close();
     }
 
+
     qDebug() << "PlotWidget::mousePress" << event->pos().x() << " : " << event->pos().y();
+
+    qDebug() << event->pos().x() << " : " << event->pos().y();
+
 
     if(event->button() == Qt::RightButton && m_isContextMenuEnabled)
     {

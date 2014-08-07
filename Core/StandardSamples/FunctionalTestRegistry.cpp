@@ -26,28 +26,28 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 {
     add("isgisaxs01",
         "Mixture of cylinders and prisms without interference",
-        "isgisaxs01_reference.ima.gz", 2e-10);
+        "isgisaxs01_reference.int.gz", 2e-10);
 
     add("isgisaxs02",
         "Mixture cylinder particles with different size distribution",
-        "isgisaxs02_reference.ima.gz", 2e-10);
+        "isgisaxs02_reference.int.gz", 2e-10);
 
     add("isgisaxs03_ba",
         "Cylinder formfactor in BA",
-        "isgisaxs03_reference_BA.ima.gz", 2e-10);
+        "isgisaxs03_reference_BA.int.gz", 2e-10);
     add("isgisaxs03_dwba",
         "Cylinder formfactor in DWBA",
-        "isgisaxs03_reference_DWBA.ima.gz", 2e-10);
+        "isgisaxs03_reference_DWBA.int.gz", 2e-10);
     add("isgisaxs03_basize",
         "Cylinder formfactor in BA with size distribution",
-        "isgisaxs03_reference_BA_size.ima.gz", 2e-10);
+        "isgisaxs03_reference_BA_size.int.gz", 2e-10);
 
     add("isgisaxs04_1DDL",
         "1D paracrystal",
-        "isgisaxs04_reference_1DDL.ima.gz", 2e-10);
+        "isgisaxs04_reference_1DDL.int.gz", 2e-10);
     add("isgisaxs04_2DDL",
         "2D paracrystal",
-        "isgisaxs04_reference_2DDLh.ima.gz", 2e-10);
+        "isgisaxs04_reference_2DDLh.int.gz", 2e-10);
 
     add("isgisaxs06a",
         "2D lattice with disorders",

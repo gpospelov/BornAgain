@@ -20,6 +20,7 @@
 #include "MessageService.h"
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
+#include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
 
 #include <iostream>
@@ -62,14 +63,15 @@ void Detector::addAxis(const AxisParameters& axis_params)
     {
     case AxisParameters::E_DEFAULT:
     {
-        p_new_axis = new AxisBin(axis_params.m_name,
-                                 axis_params.m_range.getNSamples(),
-                                 axis_params.m_range.getLowerBound(),
-                                 axis_params.m_range.getUpperBound());
-//            p_new_axis = new FixedBinAxis(axis_params.m_name,
-//                                     axis_params.m_range.getNSamples(),
-//                                     axis_params.m_range.getLowerBound(),
-//                                     axis_params.m_range.getUpperBound());
+//        p_new_axis = new AxisBin(axis_params.m_name,
+//                                 axis_params.m_range.getNSamples(),
+//                                 axis_params.m_range.getLowerBound(),
+//                                 axis_params.m_range.getUpperBound());
+
+            p_new_axis = new ConstKBinAxis(axis_params.m_name,
+                                     axis_params.m_range.getNSamples(),
+                                     axis_params.m_range.getLowerBound(),
+                                     axis_params.m_range.getUpperBound());
 
         break;
     }

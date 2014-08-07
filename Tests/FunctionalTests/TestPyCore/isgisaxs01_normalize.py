@@ -49,14 +49,15 @@ def RunSimulation():
     simulation.runSimulation()
     simulation.normalize()
     ## intensity data
-    #return simulation.getIntensityData().getArray()
+    #return simulation.getIntensityData).getArray()
+    OutputDataIOFactory.writeIntensityData(simulation.getIntensityData(), "a.int")
     return simulation.getIntensityData()
 
 # ----------------------------------
 # read reference data from file
 # ----------------------------------
 def GetReferenceData():
-    return get_reference_data('isgisaxs01_normalize_reference.txt.gz')
+    return get_reference_data('isgisaxs01_normalize_reference.int.gz')
 
 
 # --------------------------------------------------------------
@@ -66,16 +67,17 @@ def runTest():
     result = RunSimulation()
     reference = GetReferenceData()
 
-    diff = get_difference(result.getArray(), reference.getArray())
+    diff = IntensityDataHelper.GetRelativeDifference(result, reference)
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS01", "Mixture of cylinders and prisms without interference", status, diff
+    if(diff > 1e-10 or numpy.isnan(diff)):
+        status = "FAILED"
+    return "IsGISAXS01", "Mixture of cylinders and prisms without interference", diff, status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status, diff = runTest()
-    print name,description,status, diff
+    name,description, diff, status = runTest()
+    print name,description, diff, status
     if("FAILED" in status) : exit(1)

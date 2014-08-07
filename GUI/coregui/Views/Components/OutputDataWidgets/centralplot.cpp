@@ -21,6 +21,11 @@ void CentralPlot::drawLineOverColorMap(double xPos, double yPos)
 {
     //qDebug() << "x:" << xPos;
 
+    if(!this->graph(0)->visible() || !this->graph(1)->visible())
+    {
+        return;
+    }
+
     // FIXME Why not dynamic_cast ?
     QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
     Q_ASSERT(colorMap);

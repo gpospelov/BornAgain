@@ -22,14 +22,16 @@ public slots:
     void itemClicked(JobItem *item);
     void dataChanged(const QModelIndex &, const QModelIndex &);
     void onJobItemDelete(JobItem *item);
+    void onJobItemFinished(const QString &identifier);
 
 private:
     JobQueueModel *m_jobQueueModel;
+    JobItem *m_currentJobItem;
 
-    //OutputDataWidget *m_outputDataWidget;
 
     QStackedWidget *m_stack;
     QMap<JobItem *, OutputDataWidget *> m_jobItemToPlotWidget;
+
 };
 
 

@@ -3,7 +3,7 @@
 #include "JobQueueData.h"
 #include "JobQueueItem.h"
 #include "JobItem.h"
-#include "PlotWidget.h"
+#include "OutputDataWidget.h"
 #include "GUIHelpers.h"
 #include <QDebug>
 
@@ -36,8 +36,8 @@ void QuickSimulationRunner::runSimulation(Simulation *simulation)
     QString identifier = m_jobQueueData->createJob("QuickSimulation", simulation);
     qDebug() << "QuickSimulationRunner::runSimulation() ->> created job" << identifier << m_jobQueueData->getJobItem(identifier);
 
-    JobItem *item = m_jobQueueData->getJobItem(identifier);
-    connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
+//    JobItem *item = m_jobQueueData->getJobItem(identifier);
+//    connect(item, SIGNAL(modified(JobItem*)), this, SLOT(onJobItemIsModified(JobItem*)));
 
     connect(m_jobQueueData, SIGNAL(jobIsFinished(QString)), this, SLOT(onFinishedJob(QString)));
 
@@ -52,9 +52,9 @@ bool QuickSimulationRunner::isSimulationInProgress() const
     return m_simulation_in_progress;
 }
 
-void QuickSimulationRunner::setPlotWidget(PlotWidget *plotWidget)
+void QuickSimulationRunner::setOutputDataWidget(OutputDataWidget *outputDataWidget)
 {
-    m_plotWidget = plotWidget;
+    m_outputDataWidget = outputDataWidget;
 }
 
 
@@ -67,8 +67,17 @@ void QuickSimulationRunner::onJobItemIsModified(JobItem *item)
 
 void QuickSimulationRunner::onFinishedJob(const QString &identifier)
 {
-    qDebug() << "QuickSimulationRunner::onFinishedJob()" << identifier;
+    qDebug() << "QuickSimulationRunner::onFinishedJob()" << identifier << m_current_identifier;
 
+    if(identifier != m_current_identifier) {
+        if(m_outputDataWidget)
+            m_outputDataWidget->setCurrentItem(0);
+
+        qDebug() << "QuickSimulationRunner::onFinishedJob() -> removing job" << identifier;
+        m_jobQueueData->removeJob(m_current_identifier);
+
+        m_current_identifier = identifier;
+    }
 
 
     qDebug() << " m_job_items" << m_jobQueueData->m_job_items.size()
@@ -78,7 +87,12 @@ void QuickSimulationRunner::onFinishedJob(const QString &identifier)
 
     JobItem *item = m_jobQueueData->getJobItem(identifier);
     qDebug() << "XXX " << item << item->getOutputDataItem();
-    m_plotWidget->drawPlot(item->getOutputDataItem());
+    if(!m_outputDataWidget)
+    {
+        m_outputDataWidget = new OutputDataWidget(0, false);
+        m_outputDataWidget->setPropertyPanelVisible(false);
+    }
+    m_outputDataWidget->setCurrentItem(item->getOutputDataItem());
 
     m_simulation_in_progress = false;
 }

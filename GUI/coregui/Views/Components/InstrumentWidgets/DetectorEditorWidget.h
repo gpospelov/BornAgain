@@ -21,6 +21,7 @@ public:
 public slots:
     void onPropertyChanged(const QString &);
     void onDetectorTypeChanged(int);
+    void onBinningTypeChanged(int);
     void onAngleEditorChanged(const QString &);
 
 private:

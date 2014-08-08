@@ -275,6 +275,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
         bool isgisaxs_style(true);
 
         ComboProperty binning = subDetector->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
+        qDebug() << binning.getValues() << binning.getValue();
         if(binning.getValue() == QStringLiteral("Flat")) isgisaxs_style = false;
 
         ComboProperty units = subDetector->getRegisteredProperty(DetectorItem::P_AXES_UNITS).value<ComboProperty>();

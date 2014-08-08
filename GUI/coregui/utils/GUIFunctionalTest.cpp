@@ -68,6 +68,7 @@ void GUIFunctionalTest::createDomainSimulation()
     // populating GUI models from domain
     boost::scoped_ptr<ISample> reference_sample(m_reference_simulation->getSample()->clone());
     boost::scoped_ptr<Instrument> reference_instrument(new Instrument(m_reference_simulation->getInstrument()));
+
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(sampleModel.get(), reference_sample.get());
     guiBuilder.populateInstrumentModel(instrumentModel.get(), reference_instrument.get());

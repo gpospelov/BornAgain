@@ -77,6 +77,7 @@ DetectorEditorWidget::DetectorEditorWidget(QWidget *parent)
     setLayout(mainLayout);
 
     connect(m_detectorTypeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onDetectorTypeChanged(int)));
+    connect(m_binningTypeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onBinningTypeChanged(int)));
     connect(m_phiMinEdit, SIGNAL(valueChanged(QString)), this, SLOT(onAngleEditorChanged(QString)));
     connect(m_phiMaxEdit, SIGNAL(valueChanged(QString)), this, SLOT(onAngleEditorChanged(QString)));
     connect(m_nphiEdit, SIGNAL(valueChanged(QString)), this, SLOT(onAngleEditorChanged(QString)));
@@ -173,6 +174,17 @@ void DetectorEditorWidget::onDetectorTypeChanged(int)
     if(m_block_signals) return;
 //    m_currentItem->setGroupProperty(DetectorItem::P_DETECTOR_TYPE, m_detectorTypeCombo->currentText());
     m_currentItem->setGroupProperty(Constants::DetectorGroup, m_detectorTypeCombo->currentText());
+}
+
+void DetectorEditorWidget::onBinningTypeChanged(int)
+{
+    if(m_block_signals) return;
+
+    ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR];
+
+    ComboProperty combo_property = subDetector->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
+    combo_property.setValue(m_binningTypeCombo->currentText());
+    subDetector->setRegisteredProperty(DetectorItem::P_BINNING, combo_property.getVariant());
 }
 
 

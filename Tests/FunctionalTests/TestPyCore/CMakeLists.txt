@@ -21,8 +21,8 @@ set(list_of_tests
     "polmagcylinders1.py"
     "polmagcylinders2.py"
     "layerwithroughness.py"
-    "ripple2.py"
-    "ripple2a.py"
+    "ripple2_sym.py"
+    "ripple2_asym.py"
     "ripple1.py"
 )
 

@@ -9,14 +9,14 @@ int main(int argc, char **argv)
     if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
 
     SimulationRegistry sim_registry;
-    Simulation* simulation = sim_registry.createSimulation("magcyl2");
+    Simulation* simulation = sim_registry.createSimulation("polmagcylinders2");
     simulation->runSimulation();
     simulation->normalize();
 
-    OutputData<double> *reference00 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "magcyl2_reference_00.txt.gz");
-    OutputData<double> *reference01 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "magcyl2_reference_01.txt.gz");
-    OutputData<double> *reference10 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "magcyl2_reference_10.txt.gz");
-    OutputData<double> *reference11 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "magcyl2_reference_11.txt.gz");
+    OutputData<double> *reference00 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_00.int.gz");
+    OutputData<double> *reference01 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_01.int.gz");
+    OutputData<double> *reference10 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_10.int.gz");
+    OutputData<double> *reference11 = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir()+ "polmagcylinders2_reference_11.int.gz");
 
     const double threshold(2e-10);
     double diff(0);
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     if( diff > threshold ) status_ok=false;
 
     std::cout << " diff " << diff << std::endl;
-    std::cout << "magcyl2" << " " << "Magnetic cylinders with non-zero magnetic field" << " " <<
+    std::cout << "polmagcylinders2" << " " << "Magnetic cylinders with non-zero magnetic field" << " " <<
             (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (status_ok ? 0 : 1);
 }

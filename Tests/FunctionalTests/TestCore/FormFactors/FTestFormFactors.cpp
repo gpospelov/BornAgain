@@ -115,23 +115,22 @@ int FunctionalTests::FTestFormFactors::analyseResults(const std::string &path_to
 {         
     const double threshold(2e-10);
     const char *reference_files[kNumberOfTests] =
-    {"isgi_reference_cylinder_BA.ima.gz",
-     "isgi_reference_box_BA.ima.gz",
-     "isgi_reference_cone_BA.ima.gz",
-     "isgi_reference_cone6_BA.ima.gz",
-     "isgi_reference_full_sphere_BA.ima.gz",
-     //"isgi_reference_parallelepiped_BA.ima.gz",
-     "isgi_reference_prism3_BA.ima.gz",
-     "isgi_reference_prism6_BA.ima.gz",
-     "isgi_reference_pyramid_BA.ima.gz",
-     "isgi_reference_sphere_BA.ima.gz",
-     "isgi_reference_tetrahedron_BA.ima.gz",
-     "isgi_reference_cuboctahedron_BA.ima.gz",
-     "isgi_reference_anisopyramid_BA.ima.gz",
-     "isgi_reference_ellipscylinder_BA.ima.gz",
-     "isgi_reference_full_spheroid_BA.ima.gz",
-     "isgi_reference_spheroid_BA.ima.gz",
-     "isgi_reference_hemiellipsoid_BA.ima.gz"};
+    {"ffba_cylinder_reference.int.gz",
+     "ffba_box_reference.int.gz",
+     "ffba_cone_reference.int.gz",
+     "ffba_cone6_reference.int.gz",
+     "ffba_fullsphere_reference.int.gz",
+     "ffba_prism3_reference.int.gz",
+     "ffba_prism6_reference.int.gz",
+     "ffba_pyramid_reference.int.gz",
+     "ffba_sphere_reference.int.gz",
+     "ffba_tetrahedron_reference.int.gz",
+     "ffba_cuboctahedron_reference.int.gz",
+     "ffba_anisopyramid_reference.int.gz",
+     "ffba_ellipscylinder_reference.int.gz",
+     "ffba_fullspheroid_reference.int.gz",
+     "ffba_spheroid_reference.int.gz",
+     "ffba_hemiellipsoid_reference.int.gz"};
     bool status_ok(true);
 
     // retrieving reference data and generated examples
@@ -171,6 +170,8 @@ std::string GetPathToData(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+    if(argc == 2) Utils::FileSystem::SetReferenceDataDir(argv[1]);
+
     FunctionalTests::FTestFormFactors test;
     //Cylinder
     FormFactorCylinder ff_cyl(5.0, 5.0);
@@ -257,7 +258,9 @@ int main(int argc, char **argv)
     IFormFactor* p_ff_hemiellipsoid=& ff_hemiellipsoid;
     test.run(p_ff_hemiellipsoid->clone());
 
-    return test.analyseResults(GetPathToData(argc, argv));
+//    std::string filename = Utils::FileSystem::GetReferenceDataDir() + m_info.m_reference_file;
+
+    return test.analyseResults(Utils::FileSystem::GetReferenceDataDir());
 }
 #endif
 

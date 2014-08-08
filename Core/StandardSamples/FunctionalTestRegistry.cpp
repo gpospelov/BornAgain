@@ -101,7 +101,7 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Polarized DWBA with zero magnetic field",
         "polmagcylinders1_reference.int.gz", 1e-10);
     // this test is complicated for given Registry
-  //  add("magcyl2",
+  //  add("polmagcylinders2",
   //      "Polarized DWBA with zero magnetic field",
   //      "isgi_cylinder_DWBA.ima.gz", 1e-10);
 
@@ -111,11 +111,11 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
     add("ripple2",
         "Triangular ripple within the 1D-paracrystal model",
-        "test_ripple2_sym.ima.gz", 2e-10);
+        "ripple2_sym_reference.int.gz", 1e-10);
 
     add("ripple1",
         "Cosine ripple within the 1D-paracrystal model",
-        "test_ripple1.ima.gz", 2e-10);
+        "ripple1_reference.int.gz", 1e-10);
 
 }
 

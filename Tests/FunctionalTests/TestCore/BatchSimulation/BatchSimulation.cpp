@@ -13,7 +13,7 @@ int TestBatchSimulation()
     SimulationRegistry sim_registry;
     Simulation *simulation = sim_registry.createSimulation("isgisaxs01");
 
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs01_reference.ima.gz";
+    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs01_reference.int.gz";
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
 
 

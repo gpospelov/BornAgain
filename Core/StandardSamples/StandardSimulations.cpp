@@ -428,14 +428,14 @@ Simulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 Simulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("magcyl2");
+    SampleBuilder_t builder = factory.createBuilder("polmagcylinders2");
 
     Simulation *result = new Simulation();
 
 
     result->setDetectorParameters(
         100, -1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree, true);
+        0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(1e7);
@@ -472,7 +472,7 @@ Simulation *StandardSimulations::Ripple2()
 
     Simulation *result = new Simulation();
 
-    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 
     result->setSampleBuilder( builder );
@@ -487,7 +487,7 @@ Simulation *StandardSimulations::Ripple1()
 
     Simulation *result = new Simulation();
 
-    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 
     result->setSampleBuilder( builder );

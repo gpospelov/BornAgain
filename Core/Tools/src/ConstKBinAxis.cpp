@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <iostream>
 
-ConstKBinAxis::ConstKBinAxis(std::string name, size_t nbins, double start, double end)
+ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins)
     , m_start(start)
     , m_end(end)

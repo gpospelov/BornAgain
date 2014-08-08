@@ -2,16 +2,8 @@
 #include "Exceptions.h"
 #include <iomanip>
 
-FixedBinAxis::FixedBinAxis(std::string name)
-    : IAxis(name)
-    , m_nbins(0)
-    , m_start(0)
-    , m_end(0)
-{
 
-}
-
-FixedBinAxis::FixedBinAxis(std::string name, size_t nbins, double start, double end)
+FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
     : IAxis(name)
     , m_nbins(nbins)
     , m_start(start)

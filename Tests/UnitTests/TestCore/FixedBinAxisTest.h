@@ -13,14 +13,6 @@ protected:
 
 };
 
-TEST_F(FixedBinAxisTest, DefaultIsEmpty)
-{
-    FixedBinAxis axis("angle");
-    EXPECT_EQ((size_t)0, axis.getSize());
-    EXPECT_EQ(0.0, axis.getMin());
-    EXPECT_EQ(0.0, axis.getMax());
-    EXPECT_EQ("angle", axis.getName());
-}
 
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {
@@ -105,10 +97,6 @@ TEST_F(FixedBinAxisTest, CheckBin)
 
 TEST_F(FixedBinAxisTest, CheckEquality)
 {
-    FixedBinAxis a1("axis");
-    FixedBinAxis a2("axis");
-    EXPECT_TRUE( a1 == a2);
-
     FixedBinAxis b1("axis", 99, -1.01, 3.3);
     FixedBinAxis b2("axis", 99, -1.01, 3.3);
     EXPECT_TRUE( b1 == b2);

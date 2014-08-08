@@ -26,7 +26,7 @@ class BA_CORE_API_ IAxis
 {
 public:
     //! constructors
-    IAxis(std::string name) : m_name(name) {}
+    IAxis(const std::string &name) : m_name(name) {}
 
     //! clone function
     virtual IAxis *clone() const=0;

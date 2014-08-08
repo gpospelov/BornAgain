@@ -23,7 +23,7 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
         
     }
 
-    ConstKBinAxis_wrapper(::std::string name, ::std::size_t nbins, double start, double end )
+    ConstKBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
     : ConstKBinAxis( name, nbins, start, end )
       , bp::wrapper< ConstKBinAxis >(){
         // constructor
@@ -144,7 +144,7 @@ void register_ConstKBinAxis_class(){
 
     { //::ConstKBinAxis
         typedef bp::class_< ConstKBinAxis_wrapper, bp::bases< VariableBinAxis > > ConstKBinAxis_exposer_t;
-        ConstKBinAxis_exposer_t ConstKBinAxis_exposer = ConstKBinAxis_exposer_t( "ConstKBinAxis", bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        ConstKBinAxis_exposer_t ConstKBinAxis_exposer = ConstKBinAxis_exposer_t( "ConstKBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope ConstKBinAxis_scope( ConstKBinAxis_exposer );
         { //::ConstKBinAxis::clone
         

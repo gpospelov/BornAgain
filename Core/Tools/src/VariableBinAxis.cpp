@@ -5,7 +5,7 @@
 #include <iomanip>
 
 
-VariableBinAxis::VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_boundaries)
+VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const std::vector<double> &bin_boundaries)
     : IAxis(name)
     , m_nbins(nbins)
 {
@@ -16,7 +16,7 @@ VariableBinAxis::VariableBinAxis(std::string name, size_t nbins, const std::vect
 }
 
 
-VariableBinAxis::VariableBinAxis(std::string name, int nbins)
+VariableBinAxis::VariableBinAxis(const std::string &name, int nbins)
     : IAxis(name)
     , m_nbins(nbins)
 {

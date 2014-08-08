@@ -31,7 +31,7 @@ public:
     //! @param nbins number of bins
     //! @param bin_boundaries Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
-    VariableBinAxis(std::string name, size_t nbins, const std::vector<double> &bin_boundaries);
+    VariableBinAxis(const std::string &name, size_t nbins, const std::vector<double> &bin_boundaries);
     virtual ~VariableBinAxis() {}
 
     VariableBinAxis *clone() const;
@@ -53,7 +53,7 @@ public:
     std::vector<double > getBinBoundaries() const;
 
 protected:
-    VariableBinAxis(std::string name, int nbins = 0);
+    VariableBinAxis(const std::string &name, int nbins = 0);
     void setBinBoundaries(const std::vector<double> &bin_boundaries);
 
     void print(std::ostream& ostr) const;

@@ -2,7 +2,7 @@
 #include "Units.h"
 #include <iomanip>
 
-CustomBinAxis::CustomBinAxis(std::string name, size_t nbins, double start, double end)
+CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins)
     , m_start(start)
     , m_end(end)

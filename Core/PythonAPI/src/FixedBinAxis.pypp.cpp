@@ -23,14 +23,7 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         
     }
 
-    FixedBinAxis_wrapper(::std::string name )
-    : FixedBinAxis( name )
-      , bp::wrapper< FixedBinAxis >(){
-        // constructor
-    
-    }
-
-    FixedBinAxis_wrapper(::std::string name, ::std::size_t nbins, double start, double end )
+    FixedBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
     : FixedBinAxis( name, nbins, start, end )
       , bp::wrapper< FixedBinAxis >(){
         // constructor
@@ -163,9 +156,8 @@ void register_FixedBinAxis_class(){
 
     { //::FixedBinAxis
         typedef bp::class_< FixedBinAxis_wrapper, bp::bases< IAxis > > FixedBinAxis_exposer_t;
-        FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", bp::init< std::string >(( bp::arg("name") )) );
+        FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope FixedBinAxis_scope( FixedBinAxis_exposer );
-        FixedBinAxis_exposer.def( bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         { //::FixedBinAxis::clone
         
             typedef ::FixedBinAxis * ( ::FixedBinAxis::*clone_function_type )(  ) const;

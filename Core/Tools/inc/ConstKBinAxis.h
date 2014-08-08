@@ -31,7 +31,7 @@ public:
     //! @param nbins number of bins
     //! @param start low edge of first bin
     //! @param end upper edge of last bin
-    ConstKBinAxis(std::string name, size_t nbins, double start, double end);
+    ConstKBinAxis(const std::string &name, size_t nbins, double start, double end);
     virtual ~ConstKBinAxis() {}
 
     ConstKBinAxis *clone() const;

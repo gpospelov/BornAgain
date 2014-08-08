@@ -26,14 +26,12 @@
 class BA_CORE_API_ FixedBinAxis : public IAxis
 {
 public:
-    FixedBinAxis(std::string name);
-
     //! @brief FixedBinAxis constructor
     //! @param name Axis name
     //! @param nbins number of bins
     //! @param start low edge of first bin
     //! @param end upper edge of last bin
-    FixedBinAxis(std::string name, size_t nbins, double start, double end);
+    FixedBinAxis(const std::string &name, size_t nbins, double start, double end);
     virtual ~FixedBinAxis() {}
 
     FixedBinAxis *clone() const;

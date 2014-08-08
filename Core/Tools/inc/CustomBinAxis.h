@@ -33,7 +33,7 @@ public:
     //! @param nbins number of bins
     //! @param start center of first bin (IsGisaxs convention)
     //! @param end center of last bin (IsGisaxs convention)
-    CustomBinAxis(std::string name, size_t nbins, double start, double end);
+    CustomBinAxis(const std::string &name, size_t nbins, double start, double end);
     virtual ~CustomBinAxis() {}
 
     CustomBinAxis *clone() const;

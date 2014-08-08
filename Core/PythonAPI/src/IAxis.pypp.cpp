@@ -16,7 +16,7 @@ namespace bp = boost::python;
 
 struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
 
-    IAxis_wrapper(::std::string name )
+    IAxis_wrapper(::std::string const & name )
     : IAxis( name )
       , bp::wrapper< IAxis >(){
         // constructor
@@ -105,7 +105,7 @@ void register_IAxis_class(){
 
     { //::IAxis
         typedef bp::class_< IAxis_wrapper, boost::noncopyable > IAxis_exposer_t;
-        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string >(( bp::arg("name") )) );
+        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IAxis_scope( IAxis_exposer );
         { //::IAxis::clone
         

@@ -23,7 +23,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         
     }
 
-    CustomBinAxis_wrapper(::std::string name, ::std::size_t nbins, double start, double end )
+    CustomBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
     : CustomBinAxis( name, nbins, start, end )
       , bp::wrapper< CustomBinAxis >(){
         // constructor
@@ -144,7 +144,7 @@ void register_CustomBinAxis_class(){
 
     { //::CustomBinAxis
         typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis > > CustomBinAxis_exposer_t;
-        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
+        CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope CustomBinAxis_scope( CustomBinAxis_exposer );
         { //::CustomBinAxis::clone
         

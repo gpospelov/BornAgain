@@ -16,22 +16,15 @@ void TestFunctionalTests::execute()
         FunctionalTest_t test = m_testRegistry.getTest(m_testNames[i]);
         test->getSimulation()->setProgramOptions(mp_options);
         test->runTest();
-        //test->analyseResults();
+        test->analyseResults();
 
         OutputDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
-//        double diff = OutputDataFunctions::GetDifference(*test->getResult(), *test->getReference());
-//        std::cout << "XXX " << diff << std::endl;
+        double diff = OutputDataFunctions::GetDifference(*test->getResult(), *test->getReference());
+        std::cout << "XXX " << diff << std::endl;
 
-//        for(size_t j=0; j<test->getResult()->getAllocatedSize(); ++j) {
-//            std::cout << "AAA " << j << " " << (*test->getResult())[j]
-//                         << " " << (*test->getReference())[j]
-//                         << " diff:" << ((*test->getResult())[j] - (*test->getReference())[j])/(*test->getReference())[j]
-//                            << std::endl;
-//        }
-
-//        IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
-//            *test->getReference(), test->getName(), test->getDescription());
+        IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
+            *test->getReference(), test->getName(), test->getDescription());
    }
 }
 

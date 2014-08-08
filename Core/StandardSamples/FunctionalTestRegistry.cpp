@@ -107,7 +107,7 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
     add("LayerWithRoughness",
         "Layers with correlated roughness",
-        "layer_with_roughness.ima.gz", 2e-10);
+        "roughness01_reference.int.gz", 1e-10);
 
     add("ripple2",
         "Triangular ripple within the 1D-paracrystal model",

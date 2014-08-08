@@ -456,7 +456,7 @@ Simulation *StandardSimulations::LayerWithRoughness()
 
     result->setDetectorParameters(
         100,-0.5*Units::degree, 0.5*Units::degree, 100,
-        0.0*Units::degree, 1.0*Units::degree, true);
+        0.0*Units::degree, 1.0*Units::degree);
     result->setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 

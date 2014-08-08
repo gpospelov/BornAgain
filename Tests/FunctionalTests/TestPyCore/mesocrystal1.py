@@ -180,10 +180,6 @@ def createSimulation():
     return simulation
 
 
-
-#-------------------------------------------------------------
-# main()
-#-------------------------------------------------------------
 if __name__ == '__main__':
     name, description, diff, status = runTest()
     print name, description, diff, status

@@ -97,9 +97,9 @@ FunctionalTestRegistry::Catalogue::Catalogue()
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
         "mesocrystal01_reference.int.gz", 1e-10, true);
 
-    add("magcyl1",
+    add("polmagcylinders1",
         "Polarized DWBA with zero magnetic field",
-        "isgi_cylinder_DWBA.ima.gz", 1e-10);
+        "polmagcylinders1_reference.int.gz", 1e-10);
     // this test is complicated for given Registry
   //  add("magcyl2",
   //      "Polarized DWBA with zero magnetic field",

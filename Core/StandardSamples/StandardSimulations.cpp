@@ -410,13 +410,12 @@ Simulation *StandardSimulations::MesoCrystal01()
 Simulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("magcyl1");
+    SampleBuilder_t builder = factory.createBuilder("polmagcylinders1");
 
     Simulation *result = new Simulation();
 
 	result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree,
-                                     true);
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
 

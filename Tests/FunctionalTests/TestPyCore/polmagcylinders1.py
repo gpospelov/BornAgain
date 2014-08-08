@@ -44,7 +44,7 @@ def RunSimulation():
 
     # build and run experiment
     simulation = Simulation()
-    simulation.setDetectorParameters(100,0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setDetectorParameters(100, 0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
@@ -57,17 +57,19 @@ def RunSimulation():
 # --------------------------------------------------------------
 def run_test():
     result = RunSimulation()
-    reference = get_reference_data('isgi_cylinder_DWBA.ima.gz')
+
+    reference = get_reference_data('polmagcylinders1_reference.int.gz')
 
     diff = get_difference(result.getArray(), reference.getArray())
+
     status = "OK"
     if diff > 2e-10:
         status = "FAILED"
-    return "PolarizedDWBAZeroMag", "functional test: polarized DWBA with zero magnetic field", status
+    return "PolarizedDWBAZeroMag", "Polarized DWBA with zero magnetic field", diff, status
 
 
 if __name__ == '__main__':
-    name, description, status = run_test()
-    print name, description, status
-    if "FAILED" in status:
+    name, description, diff, status = run_test()
+    print name, description, diff, status
+    if("FAILED" in status):
         exit(1)

@@ -92,7 +92,7 @@ SimulationRegistry::SimulationRegistry()
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles");
 
     registerItem(
-        "magcyl1", StandardSimulations::PolarizedDWBAMagCylinders1,
+        "polmagcylinders1", StandardSimulations::PolarizedDWBAMagCylinders1,
         "Polarized DWBA with zero magnetic field");
     registerItem(
         "magcyl2", StandardSimulations::PolarizedDWBAMagCylinders2,

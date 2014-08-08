@@ -56,6 +56,7 @@ def RunSimulation():
     ## intensity data
     return simulation.getIntensityData()
 
+
 # --------------------------------------------------------------
 # run test and analyse test results
 # --------------------------------------------------------------

@@ -43,6 +43,7 @@ FunctionalTest::~FunctionalTest()
 void FunctionalTest::runTest()
 {
     m_simulation->runSimulation();
+    if(m_info.m_normalize) m_simulation->normalize();
 }
 
 

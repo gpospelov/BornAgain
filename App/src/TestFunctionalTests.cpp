@@ -2,6 +2,7 @@
 #include "ProgramOptions.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataFunctions.h"
+#include "OutputDataIOFactory.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -15,7 +16,9 @@ void TestFunctionalTests::execute()
         FunctionalTest_t test = m_testRegistry.getTest(m_testNames[i]);
         test->getSimulation()->setProgramOptions(mp_options);
         test->runTest();
-        test->analyseResults();
+        //test->analyseResults();
+
+        OutputDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
 //        double diff = OutputDataFunctions::GetDifference(*test->getResult(), *test->getReference());
 //        std::cout << "XXX " << diff << std::endl;
@@ -27,8 +30,8 @@ void TestFunctionalTests::execute()
 //                            << std::endl;
 //        }
 
-        IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
-            *test->getReference(), test->getName(), test->getDescription());
+//        IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),
+//            *test->getReference(), test->getName(), test->getDescription());
    }
 }
 

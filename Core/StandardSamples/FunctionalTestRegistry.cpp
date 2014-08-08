@@ -95,7 +95,7 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
     add("mesocrystal01",
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
-        "mesocrystal1_reference_v2_nphi2.txt.gz", 1e-10);
+        "mesocrystal01_reference.int.gz", 1e-10, true);
 
     add("magcyl1",
         "Polarized DWBA with zero magnetic field",
@@ -121,14 +121,14 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 
 
 void FunctionalTestRegistry::Catalogue::add(const std::string &name,
-    const std::string &description, const std::string &reference, double threshold)
+    const std::string &description, const std::string &reference, double threshold, bool normalize)
 {
     catalogue_t::iterator it = m_data.find(name);
     if( it != m_data.end() ) {
         throw ExistingClassRegistrationException("FunctionalTestRegistry::Catalogue::add() -> "
                                                  "Error. Existing item " +name);
     }
-    m_data[name] = FunctionalTestInfo(name, description, reference, threshold);
+    m_data[name] = FunctionalTestInfo(name, description, reference, threshold, normalize);
 }
 
 
@@ -137,18 +137,10 @@ void FunctionalTestRegistry::Catalogue::print()
     std::cout << "--- FunctionalTestRegistry::Catalogue::print() ---" << std::endl;
     for(catalogue_t::iterator it = m_data.begin(); it!= m_data.end(); ++it) {
         FunctionalTestInfo &info = (*it).second;
-//        std::cout << std::setw(21) << std::left << info.m_name << " | "
-//                  << std::setw(34) << std::left << info.m_description << " | "
-//                  << std::setw(12) << std::left << info.m_reference_file << " | "
-//                  << std::setw(6) << std::left  << info.m_threshold << std::endl;
         std::cout << Utils::AdjustStringLength(info.m_name, 20) << " | "
                   << Utils::AdjustStringLength(info.m_description, 40) << " | "
                   << Utils::AdjustStringLength(info.m_reference_file, 40) << " | "
                   << std::setw(6) << std::left  << info.m_threshold << std::endl;
-
-
-
-
     }
 }
 
@@ -185,14 +177,6 @@ FunctionalTest_t FunctionalTestRegistry::getTest(const std::string &name)
     FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
     return test;
 }
-
-
-//FunctionalTest_t FunctionalTestRegistry::runTest(const std::string &name)
-//{
-//    FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
-//    test->runTest();
-//    return test;
-//}
 
 
 int FUNCTIONAL_TEST(const std::string &name)

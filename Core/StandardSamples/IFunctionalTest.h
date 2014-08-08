@@ -45,16 +45,19 @@ public:
         : m_threshold(0) {  }
 
     FunctionalTestInfo(const std::string &name, const std::string &description,
-              const std::string &reference, double threshold )
+              const std::string &reference, double threshold, bool normalize = false )
         : m_name(name)
         , m_description(description)
         , m_reference_file(reference)
-        , m_threshold(threshold) {  }
+        , m_threshold(threshold)
+        , m_normalize(normalize)
+    {  }
 
     std::string m_name;
     std::string m_description;
     std::string m_reference_file;
     double m_threshold;
+    bool m_normalize;
 };
 
 

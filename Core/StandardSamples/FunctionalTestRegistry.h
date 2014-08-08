@@ -36,7 +36,7 @@ public:
         typedef std::map<std::string, FunctionalTestInfo> catalogue_t;
         Catalogue();
         void add(const std::string &name, const std::string &description,
-                 const std::string &reference, double threshold);
+                 const std::string &reference, double threshold, bool normalize = false);
         void print();
         catalogue_t m_data;
         FunctionalTestInfo getInfo(const std::string &name);

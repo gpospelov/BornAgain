@@ -24,24 +24,18 @@
 
 void TestMesoCrystal1::execute()
 {
-
     SimulationRegistry sim_registry;
     Simulation *simulation = sim_registry.createSimulation("mesocrystal01");
+    simulation->setProgramOptions(mp_options);
 
     // loading reference data
-    //std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1b_reference.txt.gz";
-    //std::string filename = "dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    std::string filename = Utils::FileSystem::GetReferenceDataDir()+ "mesocrystal1_reference_v2_nphi180.txt.gz";
-    //std::string filename = Utils::FileSystem::GetPathToData("../Tests/ReferenceData/BornAgain/")+ "mesocrystal1_reference_v2_nphi2.txt.gz";
+    std::string filename = Utils::FileSystem::GetReferenceDataDir()+ "mesocrystal01_reference.int.gz";
 
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
 
-    simulation->setProgramOptions(mp_options);
-
     // setting detector axis as in reference data
-    simulation->setDetectorParameters(*reference);
-
-    simulation->getSampleBuilder()->setParameterValue("nphi_rotations", 180.);
+    //simulation->setDetectorParameters(*reference);
+    //simulation->getSampleBuilder()->setParameterValue("nphi_rotations", 180.);
 
     simulation->runSimulation();
     simulation->normalize();

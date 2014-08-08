@@ -390,8 +390,10 @@ Simulation *StandardSimulations::MesoCrystal01()
     Simulation *result = new Simulation();
     result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(5.0090e+12);
+//    result->setDetectorParameters(100, 0.5*Units::degree, 2.5*Units::degree,
+//                                     120, 0.0*Units::degree, 2.5*Units::degree);
 
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi2.txt.gz";
+    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal01_reference.int.gz";
     OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
     result->setDetectorParameters(*reference);
     delete reference;

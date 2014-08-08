@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
 
-    ConstKBinAxis_wrapper(ConstKBinAxis const & arg )
-    : ConstKBinAxis( arg )
-      , bp::wrapper< ConstKBinAxis >(){
-        // copy constructor
-        
-    }
-
     ConstKBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
     : ConstKBinAxis( name, nbins, start, end )
       , bp::wrapper< ConstKBinAxis >(){
@@ -143,7 +136,7 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
 void register_ConstKBinAxis_class(){
 
     { //::ConstKBinAxis
-        typedef bp::class_< ConstKBinAxis_wrapper, bp::bases< VariableBinAxis > > ConstKBinAxis_exposer_t;
+        typedef bp::class_< ConstKBinAxis_wrapper, bp::bases< VariableBinAxis >, boost::noncopyable > ConstKBinAxis_exposer_t;
         ConstKBinAxis_exposer_t ConstKBinAxis_exposer = ConstKBinAxis_exposer_t( "ConstKBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope ConstKBinAxis_scope( ConstKBinAxis_exposer );
         { //::ConstKBinAxis::clone

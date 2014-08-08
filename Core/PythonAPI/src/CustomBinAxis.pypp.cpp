@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
 
-    CustomBinAxis_wrapper(CustomBinAxis const & arg )
-    : CustomBinAxis( arg )
-      , bp::wrapper< CustomBinAxis >(){
-        // copy constructor
-        
-    }
-
     CustomBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
     : CustomBinAxis( name, nbins, start, end )
       , bp::wrapper< CustomBinAxis >(){
@@ -143,7 +136,7 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
 void register_CustomBinAxis_class(){
 
     { //::CustomBinAxis
-        typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis > > CustomBinAxis_exposer_t;
+        typedef bp::class_< CustomBinAxis_wrapper, bp::bases< VariableBinAxis >, boost::noncopyable > CustomBinAxis_exposer_t;
         CustomBinAxis_exposer_t CustomBinAxis_exposer = CustomBinAxis_exposer_t( "CustomBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope CustomBinAxis_scope( CustomBinAxis_exposer );
         { //::CustomBinAxis::clone

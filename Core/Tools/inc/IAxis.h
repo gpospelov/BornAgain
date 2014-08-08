@@ -75,6 +75,10 @@ protected:
     virtual void print(std::ostream& ostr) const=0;
     virtual bool equals(const IAxis& other) const;
     std::string m_name;  //!< axis label
+
+private:
+    IAxis(const IAxis& );
+    IAxis& operator=(const IAxis& );
 };
 
 inline IAxis *IAxis::createDoubleBinSize() const

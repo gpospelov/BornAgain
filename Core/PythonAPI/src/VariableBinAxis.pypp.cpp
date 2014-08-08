@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis > {
 
-    VariableBinAxis_wrapper(VariableBinAxis const & arg )
-    : VariableBinAxis( arg )
-      , bp::wrapper< VariableBinAxis >(){
-        // copy constructor
-        
-    }
-
     VariableBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, ::std::vector< double > const & bin_boundaries )
     : VariableBinAxis( name, nbins, boost::ref(bin_boundaries) )
       , bp::wrapper< VariableBinAxis >(){
@@ -155,7 +148,7 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
 void register_VariableBinAxis_class(){
 
     { //::VariableBinAxis
-        typedef bp::class_< VariableBinAxis_wrapper, bp::bases< IAxis > > VariableBinAxis_exposer_t;
+        typedef bp::class_< VariableBinAxis_wrapper, bp::bases< IAxis >, boost::noncopyable > VariableBinAxis_exposer_t;
         VariableBinAxis_exposer_t VariableBinAxis_exposer = VariableBinAxis_exposer_t( "VariableBinAxis", bp::init< std::string const &, std::size_t, std::vector< double > const & >(( bp::arg("name"), bp::arg("nbins"), bp::arg("bin_boundaries") )) );
         bp::scope VariableBinAxis_scope( VariableBinAxis_exposer );
         { //::VariableBinAxis::clone

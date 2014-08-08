@@ -16,13 +16,6 @@ namespace bp = boost::python;
 
 struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
 
-    FixedBinAxis_wrapper(FixedBinAxis const & arg )
-    : FixedBinAxis( arg )
-      , bp::wrapper< FixedBinAxis >(){
-        // copy constructor
-        
-    }
-
     FixedBinAxis_wrapper(::std::string const & name, ::std::size_t nbins, double start, double end )
     : FixedBinAxis( name, nbins, start, end )
       , bp::wrapper< FixedBinAxis >(){
@@ -155,7 +148,7 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
 void register_FixedBinAxis_class(){
 
     { //::FixedBinAxis
-        typedef bp::class_< FixedBinAxis_wrapper, bp::bases< IAxis > > FixedBinAxis_exposer_t;
+        typedef bp::class_< FixedBinAxis_wrapper, bp::bases< IAxis >, boost::noncopyable > FixedBinAxis_exposer_t;
         FixedBinAxis_exposer_t FixedBinAxis_exposer = FixedBinAxis_exposer_t( "FixedBinAxis", bp::init< std::string const &, std::size_t, double, double >(( bp::arg("name"), bp::arg("nbins"), bp::arg("start"), bp::arg("end") )) );
         bp::scope FixedBinAxis_scope( FixedBinAxis_exposer );
         { //::FixedBinAxis::clone

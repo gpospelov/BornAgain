@@ -89,7 +89,17 @@ class BA_CORE_API_ FitSuiteParameters
     //! Returns true if parameters have already given values
     bool valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const;
 
+    //! Print defined parameters
     void printParameters() const;
+
+    //! Fix all parameters
+    void fixAll();
+
+    //! Release all parameters
+    void releaseAll();
+
+    //! Set fixed flag for parameters from the list
+    void setParametersFixed(const std::vector<std::string> &pars, bool is_fixed);
 
  private:
     inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }

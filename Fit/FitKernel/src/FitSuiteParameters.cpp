@@ -163,4 +163,25 @@ void FitSuiteParameters::printParameters() const
     }
 }
 
+void FitSuiteParameters::fixAll()
+{
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+        (*it)->setFixed(true);
+    }
+}
+
+void FitSuiteParameters::releaseAll()
+{
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+        (*it)->setFixed(false);
+    }
+}
+
+void FitSuiteParameters::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
+{
+    for(size_t i=0; i<pars.size(); ++i) {
+        getParameter(pars[i])->setFixed(is_fixed);
+    }
+}
+
 

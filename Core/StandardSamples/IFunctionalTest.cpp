@@ -15,8 +15,8 @@
 
 #include "IFunctionalTest.h"
 #include "SimulationRegistry.h"
-#include "OutputDataIOFactory.h"
-#include "OutputDataFunctions.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataFunctions.h"
 #include "FileSystem.h"
 
 
@@ -29,7 +29,7 @@ FunctionalTest::FunctionalTest(const FunctionalTestInfo &info)
     m_simulation = sim_registry.createSimulation(getName());
 
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + m_info.m_reference_file;
-    m_reference = OutputDataIOFactory::readIntensityData(filename);
+    m_reference = IntensityDataIOFactory::readIntensityData(filename);
 }
 
 
@@ -43,6 +43,7 @@ FunctionalTest::~FunctionalTest()
 void FunctionalTest::runTest()
 {
     m_simulation->runSimulation();
+    if(m_info.m_normalize) m_simulation->normalize();
 }
 
 
@@ -50,7 +51,7 @@ int FunctionalTest::analyseResults()
 {
     assert(m_simulation);
     assert(m_reference);
-    double diff = OutputDataFunctions::GetDifference(*getResult(),*m_reference);
+    double diff = IntensityDataFunctions::GetRelativeDifference(*getResult(),*m_reference);
 
     std::cout << getName() << " " << getDescription() << " " << diff
               << " " << (diff>m_info.m_threshold ? "[FAILED]" : "[OK]") << std::endl;

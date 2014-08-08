@@ -26,109 +26,109 @@ FunctionalTestRegistry::Catalogue::Catalogue()
 {
     add("isgisaxs01",
         "Mixture of cylinders and prisms without interference",
-        "isgisaxs01_reference.ima.gz", 2e-10);
+        "isgisaxs01_reference.int.gz", 2e-10);
 
     add("isgisaxs02",
         "Mixture cylinder particles with different size distribution",
-        "isgisaxs02_reference.ima.gz", 2e-10);
+        "isgisaxs02_reference.int.gz", 2e-10);
 
     add("isgisaxs03_ba",
         "Cylinder formfactor in BA",
-        "isgisaxs03_reference_BA.ima.gz", 2e-10);
+        "isgisaxs03_reference_BA.int.gz", 2e-10);
     add("isgisaxs03_dwba",
         "Cylinder formfactor in DWBA",
-        "isgisaxs03_reference_DWBA.ima.gz", 2e-10);
+        "isgisaxs03_reference_DWBA.int.gz", 2e-10);
     add("isgisaxs03_basize",
         "Cylinder formfactor in BA with size distribution",
-        "isgisaxs03_reference_BA_size.ima.gz", 2e-10);
+        "isgisaxs03_reference_BA_size.int.gz", 2e-10);
 
     add("isgisaxs04_1DDL",
         "1D paracrystal",
-        "isgisaxs04_reference_1DDL.ima.gz", 2e-10);
+        "isgisaxs04_reference_1DDL.int.gz", 2e-10);
     add("isgisaxs04_2DDL",
         "2D paracrystal",
-        "isgisaxs04_reference_2DDLh.ima.gz", 2e-10);
+        "isgisaxs04_reference_2DDLh.int.gz", 2e-10);
 
     add("isgisaxs06a",
         "2D lattice with disorders",
-        "isgisaxs06_reference_lattice.ima.gz", 2e-10);
+        "isgisaxs06_reference_lattice.int.gz", 2e-10);
     add("isgisaxs06b",
         "2D lattice centered",
-        "isgisaxs06_reference_centered.ima.gz", 2e-10);
+        "isgisaxs06_reference_centered.int.gz", 2e-10);
     add("isgisaxs06c",
         "2D lattice rotated",
-        "isgisaxs06_reference_rotated.ima.gz", 2e-10);
+        "isgisaxs06_reference_rotated.int.gz", 2e-10);
 // this test is complicated for given Registry, see Tests/FunctionalTest/TesCore/IsGISAXS06L4
 //    add("isgisaxs06_lattice4",
 //        "2D lattice variants",
-//        "isgisaxs06_reference_variants.ima.gz", 2e-10);
+//        "isgisaxs06_reference_variants.int.gz", 2e-10);
 
     add("isgisaxs07",
         "Mixture of different particles a la IsGISAXS morphology file",
-        "isgisaxs07_reference.ima.gz", 2e-10);
+        "isgisaxs07_reference.int.gz", 2e-10);
 
     add("isgisaxs08a",
         "2DDL paracrystal lattice",
-        "isgisaxs08_reference_2DDL_lattice.ima.gz", 3e-10);
+        "isgisaxs08_reference_2DDL_lattice.int.gz", 3e-10);
     add("isgisaxs08b",
         "2D paracrystal lattice with isotropic pdfs",
-        "isgisaxs08_reference_2DDL_lattice2.ima.gz", 2e-10);
+        "isgisaxs08_reference_2DDL_lattice2.int.gz", 2e-10);
 
     add("isgisaxs09a",
         "Pyramids on top of substrate",
-        "isgisaxs09_reference_pyramid_Z0.ima.gz", 2e-10);
+        "isgisaxs09_reference_pyramid_Z0.int.gz", 2e-10);
     add("isgisaxs09b",
         "Rotated pyramids on top of substrate",
-        "isgisaxs09_reference_pyramid_Z45.ima.gz", 2e-10);
+        "isgisaxs09_reference_pyramid_Z45.int.gz", 2e-10);
 
     add("isgisaxs10",
         "Cylinders with interference on top of substrate",
-        "isgisaxs10_reference.ima.gz", 2e-10);
+        "isgisaxs10_reference.int.gz", 2e-10);
 
     add("isgisaxs11",
         "Core shell nanoparticles",
-        "isgisaxs11_reference.ima.gz", 2e-10);
+        "isgisaxs11_reference.int.gz", 2e-10);
 
     add("isgisaxs15",
         "Size spacing correlation approximation",
-        "isgisaxs15_reference.ima.gz", 2e-10);
+        "isgisaxs15_reference.int.gz", 2e-10);
 
     add("mesocrystal01",
         "Mesocrystals of cylindrical shape composed by spherical nanoparticles",
-        "mesocrystal1_reference_v2_nphi2.txt.gz", 1e-10);
+        "mesocrystal01_reference.int.gz", 1e-10, true);
 
-    add("magcyl1",
+    add("polmagcylinders1",
         "Polarized DWBA with zero magnetic field",
-        "isgi_cylinder_DWBA.ima.gz", 1e-10);
+        "polmagcylinders1_reference.int.gz", 1e-10);
     // this test is complicated for given Registry
-  //  add("magcyl2",
+  //  add("polmagcylinders2",
   //      "Polarized DWBA with zero magnetic field",
   //      "isgi_cylinder_DWBA.ima.gz", 1e-10);
 
     add("LayerWithRoughness",
         "Layers with correlated roughness",
-        "layer_with_roughness.ima.gz", 2e-10);
+        "roughness01_reference.int.gz", 1e-10);
 
     add("ripple2",
         "Triangular ripple within the 1D-paracrystal model",
-        "test_ripple2_sym.ima.gz", 2e-10);
+        "ripple2_sym_reference.int.gz", 1e-10);
 
     add("ripple1",
         "Cosine ripple within the 1D-paracrystal model",
-        "test_ripple1.ima.gz", 2e-10);
+        "ripple1_reference.int.gz", 1e-10);
 
 }
 
 
 void FunctionalTestRegistry::Catalogue::add(const std::string &name,
-    const std::string &description, const std::string &reference, double threshold)
+    const std::string &description, const std::string &reference, double threshold, bool normalize)
 {
     catalogue_t::iterator it = m_data.find(name);
     if( it != m_data.end() ) {
         throw ExistingClassRegistrationException("FunctionalTestRegistry::Catalogue::add() -> "
                                                  "Error. Existing item " +name);
     }
-    m_data[name] = FunctionalTestInfo(name, description, reference, threshold);
+    m_data[name] = FunctionalTestInfo(name, description, reference, threshold, normalize);
 }
 
 
@@ -137,18 +137,10 @@ void FunctionalTestRegistry::Catalogue::print()
     std::cout << "--- FunctionalTestRegistry::Catalogue::print() ---" << std::endl;
     for(catalogue_t::iterator it = m_data.begin(); it!= m_data.end(); ++it) {
         FunctionalTestInfo &info = (*it).second;
-//        std::cout << std::setw(21) << std::left << info.m_name << " | "
-//                  << std::setw(34) << std::left << info.m_description << " | "
-//                  << std::setw(12) << std::left << info.m_reference_file << " | "
-//                  << std::setw(6) << std::left  << info.m_threshold << std::endl;
         std::cout << Utils::AdjustStringLength(info.m_name, 20) << " | "
                   << Utils::AdjustStringLength(info.m_description, 40) << " | "
                   << Utils::AdjustStringLength(info.m_reference_file, 40) << " | "
                   << std::setw(6) << std::left  << info.m_threshold << std::endl;
-
-
-
-
     }
 }
 
@@ -185,14 +177,6 @@ FunctionalTest_t FunctionalTestRegistry::getTest(const std::string &name)
     FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
     return test;
 }
-
-
-//FunctionalTest_t FunctionalTestRegistry::runTest(const std::string &name)
-//{
-//    FunctionalTest_t test(new FunctionalTest(m_catalogue.getInfo(name)));
-//    test->runTest();
-//    return test;
-//}
 
 
 int FUNCTIONAL_TEST(const std::string &name)

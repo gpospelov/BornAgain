@@ -45,7 +45,9 @@ void FitSuiteObjects::runSimulations()
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         (*it)->getSimulation()->runSimulation();
-        if(m_simulation_normalize) (*it)->getSimulation()->normalize();
+        if(m_simulation_normalize) {
+            (*it)->getSimulation()->normalize();
+        }
     }
     m_chi_squared_value = calculateChiSquaredValue();
 }

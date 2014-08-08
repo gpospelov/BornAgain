@@ -19,7 +19,7 @@
 #include "Units.h"
 #include "IsGISAXSTools.h"
 #include "SimulationRegistry.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "FileSystem.h"
 
 

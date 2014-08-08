@@ -16,7 +16,7 @@
 #include "TestFormFactor.h"
 #include "Types.h"
 #include "DrawHelper.h"
-
+#include "FixedBinAxis.h"
 #include "TCanvas.h"
 #include "TH2.h"
 #include "TStyle.h"
@@ -30,8 +30,8 @@ TestFormFactor::TestFormFactor()
     : m_ff(50.0, 50.0)
 {
     mp_intensity_output = new OutputData<double>();
-    AxisDouble y_axis(std::string("detector y-axis"), 200, -4.0, 4.0);
-    AxisDouble z_axis(std::string("detector z-axis"), 200, 0.0, 4.0);
+    FixedBinAxis y_axis(std::string("detector y-axis"), 200, -4.0, 4.0);
+    FixedBinAxis z_axis(std::string("detector z-axis"), 200, 0.0, 4.0);
     mp_intensity_output->addAxis(y_axis);
     mp_intensity_output->addAxis(z_axis);
 }

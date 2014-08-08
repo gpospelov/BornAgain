@@ -37,8 +37,10 @@ include_dirs = [
 ]
 
 include_classes = [
-    "AxisDouble",
-    "AxisBin",
+    "FixedBinAxis",
+    "VariableBinAxis",
+    "ConstKBinAxis",
+    "CustomBinAxis",
     "BasicVector3D<double>",
     "BasicVector3D<std::complex<double> >",
     "Beam",
@@ -111,7 +113,7 @@ include_classes = [
     "IObservable",
     "IParameterized",
     "IResolutionFunction2D",
-    "IntensityDataHelper",
+    "IntensityDataFunctions",
     "ISample",
     "ISampleBuilder",
     #"SampleBuilder_t",
@@ -137,7 +139,7 @@ include_classes = [
     "MultiLayer",
     "OffSpecSimulation",
     "OutputData<double>",
-    "OutputDataIOFactory",
+    "IntensityDataIOFactory",
     "ParameterPool",
     "Particle",
     "ParticleCoreShell",
@@ -167,8 +169,11 @@ exclude_patterns = []
 # AdditionalRules
 # -----------------------------------------------------------------------------
 def ManualClassTunings(mb):
-    mb.class_("AxisDouble").member_function("clone").exclude()
-    mb.class_("AxisDouble").member_functions("createDoubleBinSize").exclude()
+    #mb.class_("AxisDouble").member_function("clone").exclude()
+    #mb.class_("AxisDouble").member_functions("createDoubleBinSize").exclude()
+
+    axis_operators = mb.free_operators( lambda decl: 'IAxis' in decl.decl_string )
+    axis_operators.include()
 
     mb.class_("Detector").member_functions("addAxis").exclude()
     #

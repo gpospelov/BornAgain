@@ -11,7 +11,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #include "numpy/arrayobject.h"
 #include "IFTDistribution2D.pypp.h"
-#include "IntensityDataHelper.pypp.h"
 #include "Detector.pypp.h"
 #include "FormFactorRipple2.pypp.h"
 #include "DistributionGaussian.pypp.h"
@@ -29,7 +28,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "HomogeneousMaterial.pypp.h"
 #include "FormFactorCone6.pypp.h"
 #include "vector_integer_t.pypp.h"
-#include "AxisDouble.pypp.h"
 #include "FormFactorInfLongRipple2.pypp.h"
 #include "IAxis.pypp.h"
 #include "FormFactorTetrahedron.pypp.h"
@@ -44,7 +42,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "ResolutionFunction2DSimple.pypp.h"
 #include "SimulationParameters.pypp.h"
 #include "FormFactorSphereUniformRadius.pypp.h"
-#include "AxisBin.pypp.h"
 #include "FormFactorGauss.pypp.h"
 #include "FormFactorFullSpheroid.pypp.h"
 #include "FormFactorAnisoPyramid.pypp.h"
@@ -54,16 +51,19 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "StochasticParameter_t.pypp.h"
 #include "StochasticDoubleGaussian.pypp.h"
 #include "FormFactorPrism6.pypp.h"
+#include "ConstKBinAxis.pypp.h"
 #include "InterferenceFunction2DLattice.pypp.h"
 #include "FormFactorPyramid.pypp.h"
 #include "FormFactorBox.pypp.h"
 #include "DistributionCosine.pypp.h"
 #include "IResolutionFunction2D.pypp.h"
 #include "IFormFactorBorn.pypp.h"
+#include "VariableBinAxis.pypp.h"
 #include "MultiLayer.pypp.h"
 #include "DistributionLorentz.pypp.h"
 #include "FTDistribution2DCauchy.pypp.h"
 #include "FTDistribution2DVoigt.pypp.h"
+#include "IntensityDataFunctions.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "cvector_t.pypp.h"
 #include "ParameterPool.pypp.h"
@@ -112,8 +112,8 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IInterferenceFunction.pypp.h"
 #include "SimpleSelectionRule.pypp.h"
 #include "FormFactorLorentz.pypp.h"
-#include "OutputDataIOFactory.pypp.h"
 #include "FTDistribution1DCauchy.pypp.h"
+#include "CustomBinAxis.pypp.h"
 #include "vector_kvector_t.pypp.h"
 #include "InterferenceFunction1DParaCrystal.pypp.h"
 #include "InterferenceFunctionNone.pypp.h"
@@ -127,6 +127,8 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Simulation.pypp.h"
 #include "ISample.pypp.h"
 #include "IObserver.pypp.h"
+#include "IntensityDataIOFactory.pypp.h"
+#include "FixedBinAxis.pypp.h"
 #include "ParticleBuilder.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
 #include "Lattice2DIFParameters.pypp.h"
@@ -146,18 +148,19 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
-    register_IAxis_class();
-    register_AxisBin_class();
-    register_AxisDouble_class();
     register_IParameterized_class();
     register_Beam_class();
     register_Bin1D_class();
     register_Bin1DCVector_class();
+    register_IAxis_class();
+    register_VariableBinAxis_class();
+    register_ConstKBinAxis_class();
     register_ICloneable_class();
     register_ISample_class();
     register_ICompositeSample_class();
     register_IClusteredParticles_class();
     register_Crystal_class();
+    register_CustomBinAxis_class();
     register_Detector_class();
     register_IDistribution1D_class();
     register_DistributionCosine_class();
@@ -178,6 +181,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FTDistribution2DGate_class();
     register_FTDistribution2DGauss_class();
     register_FTDistribution2DVoigt_class();
+    register_FixedBinAxis_class();
     register_IFormFactor_class();
     register_IFormFactorBorn_class();
     register_FormFactorAnisoPyramid_class();
@@ -225,7 +229,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
     register_Instrument_class();
-    register_IntensityDataHelper_class();
+    register_IntensityDataFunctions_class();
+    register_IntensityDataIOFactory_class();
     register_InterferenceFunction1DLattice_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunction2DLattice_class();
@@ -243,7 +248,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MultiLayer_class();
     register_OffSpecSimulation_class();
     register_IntensityData_class();
-    register_OutputDataIOFactory_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
     register_ParticleCoreShell_class();

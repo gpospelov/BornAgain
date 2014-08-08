@@ -19,7 +19,7 @@
 #include "Materials.h"
 #include "FormFactorBox.h"
 #include "Simulation.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "PositionParticleInfo.h"
 #include "Utils.h"
 #include "Units.h"

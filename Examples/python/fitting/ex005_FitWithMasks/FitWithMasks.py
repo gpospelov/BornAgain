@@ -132,8 +132,7 @@ def run_fitting():
 
     fit_suite = FitSuite()
 
-    IntensityDataHelper.setRectangularMask(real_data, -0.1*degree, 0.0*degree, 0.1*degree, 2.0*degree) # x1,y1,x2,y2
-    #IntensityDataHelper.setEllipticMask(real_data, 0.0*degree, 1.0*degree, 0.5*degree, 0.5*degree) # xc, yc, rx, ry
+    IntensityDataFunctions.setRectangularMask(real_data, -0.1*degree, 0.0*degree, 0.1*degree, 2.0*degree) # x1,y1,x2,y2
     fit_suite.addSimulationAndRealData(simulation, real_data)
 
     fit_suite.initPrint(10)

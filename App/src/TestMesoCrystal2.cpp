@@ -25,7 +25,7 @@
 #include "Simulation.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
-#include "IntensityDataHelper.h"
+#include "IntensityDataFunctions.h"
 #include "IsGISAXSTools.h"
 #include "LatticeBasis.h"
 #include "Materials.h"
@@ -34,7 +34,7 @@
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
 #include "FileSystem.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "OutputDataReader.h"
 #include "OutputDataFunctions.h"
 #include "ParticleLayout.h"
@@ -206,7 +206,7 @@ void TestMesoCrystal2::initializeRealData()
     //std::string file_name = "../support/input/001_ElisabethJosten/2013.01.03/004_230_P144_im_full_phitheta.txt.gz";
     std::string file_name = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi180.txt.gz";
 
-    m_real_data = OutputDataIOFactory::readIntensityData(file_name);
+    m_real_data = IntensityDataIOFactory::readIntensityData(file_name);
     //Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
     Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.0, 0.015, 0.09, 0.020);
     m_real_data->setMask(*mask1);

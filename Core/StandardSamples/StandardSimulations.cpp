@@ -19,7 +19,7 @@
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 #include "FileSystem.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 
 Simulation *StandardSimulations::IsGISAXS01()
 {
@@ -390,9 +390,11 @@ Simulation *StandardSimulations::MesoCrystal01()
     Simulation *result = new Simulation();
     result->setBeamParameters(1.77*Units::angstrom, 0.4*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(5.0090e+12);
+//    result->setDetectorParameters(100, 0.5*Units::degree, 2.5*Units::degree,
+//                                     120, 0.0*Units::degree, 2.5*Units::degree);
 
-    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal1_reference_v2_nphi2.txt.gz";
-    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
+    std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal01_reference.int.gz";
+    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
     result->setDetectorParameters(*reference);
     delete reference;
 
@@ -408,13 +410,12 @@ Simulation *StandardSimulations::MesoCrystal01()
 Simulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("magcyl1");
+    SampleBuilder_t builder = factory.createBuilder("polmagcylinders1");
 
     Simulation *result = new Simulation();
 
 	result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-                                     100, 0.0*Units::degree, 2.0*Units::degree,
-                                     true);
+                                     100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
 
@@ -427,14 +428,14 @@ Simulation *StandardSimulations::PolarizedDWBAMagCylinders1()
 Simulation *StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    SampleBuilder_t builder = factory.createBuilder("magcyl2");
+    SampleBuilder_t builder = factory.createBuilder("polmagcylinders2");
 
     Simulation *result = new Simulation();
 
 
     result->setDetectorParameters(
         100, -1.0*Units::degree, 1.0*Units::degree, 100,
-        0.0*Units::degree, 2.0*Units::degree, true);
+        0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     result->setBeamIntensity(1e7);
@@ -454,7 +455,7 @@ Simulation *StandardSimulations::LayerWithRoughness()
 
     result->setDetectorParameters(
         100,-0.5*Units::degree, 0.5*Units::degree, 100,
-        0.0*Units::degree, 1.0*Units::degree, true);
+        0.0*Units::degree, 1.0*Units::degree);
     result->setBeamParameters(
         1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
 
@@ -471,7 +472,7 @@ Simulation *StandardSimulations::Ripple2()
 
     Simulation *result = new Simulation();
 
-    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 
     result->setSampleBuilder( builder );
@@ -486,7 +487,7 @@ Simulation *StandardSimulations::Ripple1()
 
     Simulation *result = new Simulation();
 
-    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    result->setDetectorParameters(100, -1.5*Units::degree, 1.5*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree);
     result->setBeamParameters(1.6*Units::angstrom, 0.3*Units::degree, 0.0*Units::degree);
 
     result->setSampleBuilder( builder );

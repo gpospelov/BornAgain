@@ -24,8 +24,8 @@ typedef _object PyObject;
 #endif
 
 
-#include "AxisDouble.h"
 #include "Types.h"
+#include "FixedBinAxis.h"
 #include "LLData.h"
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
@@ -310,7 +310,7 @@ void OutputData<T>::addAxis(const std::string& name, size_t size,
             "OutputData<T>::addAxis(std::string name) -> "
             "Error! Attempt to add axis with already existing name '" +
             name+"'");
-    AxisDouble new_axis(name, size, start, end);
+    FixedBinAxis new_axis(name, size, start, end);
     addAxis(new_axis);
 }
 

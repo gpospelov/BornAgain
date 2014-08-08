@@ -16,7 +16,7 @@ namespace bp = boost::python;
 
 struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
 
-    IAxis_wrapper(::std::string name )
+    IAxis_wrapper(::std::string const & name )
     : IAxis( name )
       , bp::wrapper< IAxis >(){
         // constructor
@@ -28,9 +28,16 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func_clone(  );
     }
 
-    virtual ::IAxis * createDoubleBinSize(  ) const {
-        bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" );
-        return func_createDoubleBinSize(  );
+    virtual ::IAxis * createDoubleBinSize(  ) const  {
+        if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
+            return func_createDoubleBinSize(  );
+        else
+            return this->IAxis::createDoubleBinSize(  );
+    }
+    
+    
+    ::IAxis * default_createDoubleBinSize(  ) const  {
+        return IAxis::createDoubleBinSize( );
     }
 
     virtual ::std::size_t findClosestIndex( double value ) const {
@@ -41,6 +48,30 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual ::Bin1D getBin( ::std::size_t index ) const {
         bp::override func_getBin = this->get_override( "getBin" );
         return func_getBin( index );
+    }
+
+    virtual ::std::vector< double > getBinBoundaries(  ) const  {
+        if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
+            return func_getBinBoundaries(  );
+        else
+            return this->IAxis::getBinBoundaries(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinBoundaries(  ) const  {
+        return IAxis::getBinBoundaries( );
+    }
+
+    virtual ::std::vector< double > getBinCenters(  ) const  {
+        if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
+            return func_getBinCenters(  );
+        else
+            return this->IAxis::getBinCenters(  );
+    }
+    
+    
+    ::std::vector< double > default_getBinCenters(  ) const  {
+        return IAxis::getBinCenters( );
     }
 
     virtual double getMax(  ) const {
@@ -74,7 +105,7 @@ void register_IAxis_class(){
 
     { //::IAxis
         typedef bp::class_< IAxis_wrapper, boost::noncopyable > IAxis_exposer_t;
-        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string >(( bp::arg("name") )) );
+        IAxis_exposer_t IAxis_exposer = IAxis_exposer_t( "IAxis", bp::init< std::string const & >(( bp::arg("name") )) );
         bp::scope IAxis_scope( IAxis_exposer );
         { //::IAxis::clone
         
@@ -89,10 +120,12 @@ void register_IAxis_class(){
         { //::IAxis::createDoubleBinSize
         
             typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
             
             IAxis_exposer.def( 
                 "createDoubleBinSize"
-                , bp::pure_virtual( createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize) )
+                , createDoubleBinSize_function_type(&::IAxis::createDoubleBinSize)
+                , default_createDoubleBinSize_function_type(&IAxis_wrapper::default_createDoubleBinSize)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -114,6 +147,28 @@ void register_IAxis_class(){
                 "getBin"
                 , bp::pure_virtual( getBin_function_type(&::IAxis::getBin) )
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::IAxis::getBinBoundaries
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            
+            IAxis_exposer.def( 
+                "getBinBoundaries"
+                , getBinBoundaries_function_type(&::IAxis::getBinBoundaries)
+                , default_getBinBoundaries_function_type(&IAxis_wrapper::default_getBinBoundaries) );
+        
+        }
+        { //::IAxis::getBinCenters
+        
+            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            
+            IAxis_exposer.def( 
+                "getBinCenters"
+                , getBinCenters_function_type(&::IAxis::getBinCenters)
+                , default_getBinCenters_function_type(&IAxis_wrapper::default_getBinCenters) );
         
         }
         { //::IAxis::getMax
@@ -182,6 +237,9 @@ void register_IAxis_class(){
                 , ( bp::arg("name") ) );
         
         }
+        IAxis_exposer.def( bp::self != bp::self );
+        IAxis_exposer.def( bp::self_ns::str( bp::self ) );
+        IAxis_exposer.def( bp::self == bp::self );
     }
 
 }

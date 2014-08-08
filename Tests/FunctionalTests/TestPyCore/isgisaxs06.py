@@ -2,7 +2,8 @@
 import sys
 import os
 import numpy
-import gzip
+from utils import get_difference
+from utils import get_reference_data
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
@@ -59,7 +60,7 @@ def RunSimulation_lattice():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # ----------------------------------
@@ -113,7 +114,7 @@ def RunSimulation_centered():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # ----------------------------------
@@ -162,7 +163,7 @@ def RunSimulation_rotated():
 
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
+    return simulation.getIntensityData()
 
 
 # ----------------------------------
@@ -182,21 +183,21 @@ def RunSimulation_variants():
     simulation.setSimulationParameters(sim_params)
 
     # running simulation and copying data
-    OutputData_total = simulation.getIntensityData().getArray()
+    OutputData_total = simulation.getIntensityData()
     nbins = 3
     xi_min = 0.0*degree
     xi_max = 240.0*degree
     xi= StochasticSampledParameter(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max)
     #for size_t i in range(xi.getNbins()) :
-    for i in range(xi.getNbins()) :
+    for i in range(xi.getNbins()):
         xi_value = xi.getBinValue(i)
         probability = xi.getNormalizedProbability(i)
         p_sample =  buildSample(xi_value)
         simulation.setSample(p_sample)
         simulation.runSimulation()
 
-        single_output = simulation.getIntensityData().getArray()
-        single_output *= probability
+        single_output = simulation.getIntensityData()
+        single_output.scaleAll(probability)
         OutputData_total += single_output
 
     return OutputData_total
@@ -236,75 +237,44 @@ def buildSample(xi_value):
     return multi_layer
 
 
-# ----------------------------------
-# read reference data from file
-# ----------------------------------
-def GetReferenceData():
-    path = os.path.split(__file__)[0]
-    if path: path +="/"
-    flattice = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_lattice.ima.gz', 'rb')
-    referencelattice=numpy.fromstring(flattice.read(),numpy.float64,sep=' ')
-    flattice.close()
-    fcentered = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_centered.ima.gz', 'rb')
-    referencecentered=numpy.fromstring(fcentered.read(),numpy.float64,sep=' ')
-    fcentered.close()
-    frotated = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_rotated.ima.gz', 'rb')
-    referencerotated=numpy.fromstring(frotated.read(),numpy.float64,sep=' ')
-    frotated.close()
-    fvariants = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_variants.ima.gz', 'rb')
-    referencevariants=numpy.fromstring(fvariants.read(),numpy.float64,sep=' ')
-    fvariants.close()
-    reference=numpy.concatenate((referencelattice,referencecentered,referencerotated,referencevariants),axis=0)  
-    return reference
-
-
-# --------------------------------------------------------------
-# calculate numeric difference between result and reference data
-# --------------------------------------------------------------
-def GetDifference(data, reference):
-    reference = reference.reshape(data.shape)
-    # calculating relative average difference
-    data -= reference
-    diff=0.0
-    epsilon = sys.float_info.epsilon
-    for x, y in numpy.ndindex(data.shape):
-        v1 = data[x][y]
-        v2 = reference[x][y]
-        if v1 <= epsilon and v2 <= epsilon:
-            diff += 0.0
-        elif(v2 <= epsilon):
-            diff += abs(v1/epsilon)
-        else:
-            diff += abs(v1/v2)
-    return diff/data.size
-
 
 # --------------------------------------------------------------
 # run test and analyse test results
 # --------------------------------------------------------------
 def runTest():
     result_lattice = RunSimulation_lattice()
+    reference_lattice = get_reference_data("isgisaxs06_reference_lattice.int.gz")
+    diff = IntensityDataFunctions.GetRelativeDifference(result_lattice, reference_lattice)
+
     result_centered = RunSimulation_centered()
+    reference_centered = get_reference_data("isgisaxs06_reference_centered.int.gz")
+    diff += IntensityDataFunctions.GetRelativeDifference(result_centered, reference_centered)
+
     result_rotated = RunSimulation_rotated()
+    reference_rotated = get_reference_data("isgisaxs06_reference_rotated.int.gz")
+    diff += IntensityDataFunctions.GetRelativeDifference(result_rotated, reference_rotated)
+
     result_variants = RunSimulation_variants()
+    reference_variants = get_reference_data("isgisaxs06_reference_variants.int.gz")
+    diff += IntensityDataFunctions.GetRelativeDifference(result_variants, reference_variants)
 
-    result = numpy.concatenate((result_lattice,result_centered,result_rotated,result_variants),axis=0)
-    reference = GetReferenceData()
+    diff /=4
 
-    diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 2e-10 or numpy.isnan(diff)): status = "FAILED"
+    if(diff > 2e-10 or numpy.isnan(diff)):
+        status = "FAILED"
 
-    return "IsGISAXS06", "2D lattice with different disorder", status
+    return "IsGISAXS06", "2D lattice with different disorder", diff, status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print name,description,status
-    if("FAILED" in status) : exit(1)
+    name, description, diff, status = runTest()
+    print name, description, diff, status
+    if("FAILED" in status):
+        exit(1)
 
 
 

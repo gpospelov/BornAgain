@@ -1,10 +1,12 @@
 ############################################################################
-# CMakeLists.txt file for building TestPyCore functional tests
+# CMakeLists.txt file for running TestPyCore functional tests
 ############################################################################
 
 set(list_of_tests
     "intensitydata.py"
+    "intensitydata_io.py"
     "isgisaxs01.py"
+    "isgisaxs01_normalize.py"
     "isgisaxs02.py"
     "isgisaxs03.py"
     "isgisaxs04.py"
@@ -19,8 +21,8 @@ set(list_of_tests
     "polmagcylinders1.py"
     "polmagcylinders2.py"
     "layerwithroughness.py"
-    "ripple2.py"
-    "ripple2a.py"
+    "ripple2_sym.py"
+    "ripple2_asym.py"
     "ripple1.py"
 )
 

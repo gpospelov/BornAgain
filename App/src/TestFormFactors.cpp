@@ -15,7 +15,7 @@
 
 #include "TestFormFactors.h"
 #include "IsGISAXSTools.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "Units.h"
 #include "Utils.h"
 #include "Simulation.h"
@@ -153,7 +153,7 @@ void TestFormFactors::run_isgisaxs_simulation(IFormFactor *p_form_factor)
     simulation.setSample(multi_layer);
     simulation.runSimulation();
     std::cout << mp_form_factor->getName().substr(10) <<std::endl;
-    OutputDataIOFactory::writeIntensityData(*simulation.getOutputData(),
+    IntensityDataIOFactory::writeIntensityData(*simulation.getOutputData(),
                        "this_"+mp_form_factor->getName().substr(10)+"_BA.ima");
 }
 
@@ -287,9 +287,9 @@ void TestFormFactors::finalise()
     const double threshold(2e-10);
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::readIntensityData(
+        OutputData<double> *isgi_data = IntensityDataIOFactory::readIntensityData(
                 tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::readIntensityData(
+        OutputData<double> *our_data = IntensityDataIOFactory::readIntensityData(
                 tocompare[i].thisname);
 
         IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data,

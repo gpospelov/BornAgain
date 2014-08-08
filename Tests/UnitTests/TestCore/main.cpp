@@ -3,7 +3,6 @@
 #endif
 #include "gtest/gtest.h"
 
-#include "AxisDoubleTest.h"
 #include "BeamTest.h"
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
@@ -26,7 +25,6 @@
 #include "ParticleInfoTest.h"
 #include "LLDataTest.h"
 #include "TRangeTest.h"
-#include "AxisBinTest.h"
 #include "FTDistributionsTest.h"
 #include "MultiLayerTest.h"
 #include "ParticleLayoutTest.h"
@@ -38,6 +36,10 @@
 #include "ScalarSpecularInfoMapTest.h"
 #include "MatrixSpecularInfoMapTest.h"
 #include "MathFunctionsTest.h"
+#include "FixedBinAxisTest.h"
+#include "VariableBinAxisTest.h"
+#include "ConstKBinAxisTest.h"
+#include "CustomBinAxisTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

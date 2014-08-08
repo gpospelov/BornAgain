@@ -21,12 +21,13 @@
 #include "IsGISAXSData.h"
 #include "IsGISAXSTools.h"
 #include "Layer.h"
+#include "FixedBinAxis.h"
 #include "Materials.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
 #include "OutputDataFunctions.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
@@ -82,7 +83,7 @@ void TestInfLongRipple2::save_results()
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
     std::string filename(getOutputPath()+"test_inflongripple2.ima");
-    OutputDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
+    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
                                          filename);
 }
 
@@ -171,7 +172,7 @@ void TestInfLongRipple2::initializeSimulation()
     mp_simulation = new OffSpecSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(20, -1.0*Units::degree, 1.0*Units::degree, 200, 0.0*Units::degree, 5.2*Units::degree);
-    AxisDouble *alpha_i_axis = new AxisDouble("alpha_i", 200, 0.0*Units::degree, 5.2*Units::degree);
+    FixedBinAxis *alpha_i_axis = new FixedBinAxis("alpha_i", 200, 0.0*Units::degree, 5.2*Units::degree);
     mp_simulation->setBeamParameters(12.0*Units::angstrom, *alpha_i_axis, 0.0*Units::degree);
     mp_simulation->setBeamIntensity(1e9);
 

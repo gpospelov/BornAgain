@@ -114,6 +114,14 @@ std::vector<std::string> Utils::String::Split(
 }
 
 
+void Utils::String::replaceItemsFromString(std::string &text, const std::vector<std::string> &items, const std::string &replacement)
+{
+    for(size_t i=0; i<items.size(); ++i) {
+        boost::replace_all(text, items[i], replacement);
+    }
+}
+
+
 
 
 //! enables exception throw in the case of NaN, Inf

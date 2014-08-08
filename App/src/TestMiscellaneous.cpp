@@ -27,7 +27,7 @@
 #include "Crystal.h"
 #include "LatticeBasis.h"
 #include "MathFunctions.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "Utils.h"
 #include "Types.h"
 #include "MessageService.h"
@@ -268,7 +268,7 @@ void TestMiscellaneous::test_OutputDataIOFactory()
 {
     std::string file_name = Utils::FileSystem::GetHomePath()
       +"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputData<double > *data = OutputDataIOFactory::readIntensityData(file_name);
+    OutputData<double > *data = IntensityDataIOFactory::readIntensityData(file_name);
 
     TCanvas *c1 = new TCanvas("c1","c1",800, 800);
     c1->cd(); gPad->SetRightMargin(0.14);

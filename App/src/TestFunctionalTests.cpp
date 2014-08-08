@@ -1,8 +1,8 @@
 #include "TestFunctionalTests.h"
 #include "ProgramOptions.h"
 #include "IsGISAXSTools.h"
-#include "OutputDataFunctions.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataFunctions.h"
+#include "IntensityDataIOFactory.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,9 +18,9 @@ void TestFunctionalTests::execute()
         test->runTest();
         test->analyseResults();
 
-        OutputDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
+        IntensityDataIOFactory::writeIntensityData(*test->getSimulation()->getOutputData(), "a.int");
 
-        double diff = OutputDataFunctions::GetDifference(*test->getResult(), *test->getReference());
+        double diff = IntensityDataFunctions::GetRelativeDifference(*test->getResult(), *test->getReference());
         std::cout << "diff: " << diff << std::endl;
 
         IsGISAXSTools::drawOutputDataComparisonResults( *test->getResult(),

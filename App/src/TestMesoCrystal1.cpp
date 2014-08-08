@@ -19,7 +19,7 @@
 #include "Utils.h"
 #include "DrawHelper.h"
 #include "IsGISAXSTools.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "FileSystem.h"
 
 void TestMesoCrystal1::execute()
@@ -31,7 +31,7 @@ void TestMesoCrystal1::execute()
     // loading reference data
     std::string filename = Utils::FileSystem::GetReferenceDataDir()+ "mesocrystal01_reference.int.gz";
 
-    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
+    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
 
     // setting detector axis as in reference data
     //simulation->setDetectorParameters(*reference);
@@ -59,7 +59,7 @@ void TestMesoCrystal1::execute()
     IsGISAXSTools::drawOutputDataComparisonResults(
             *data, *reference, "found", "found params", 100, 1e6);
 
-    OutputDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
+    IntensityDataIOFactory::writeIntensityData(*data,"test_mesocrystal1.txt");
     delete data;
 
     delete simulation;

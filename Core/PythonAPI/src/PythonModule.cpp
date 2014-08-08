@@ -11,7 +11,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #include "numpy/arrayobject.h"
 #include "IFTDistribution2D.pypp.h"
-#include "IntensityDataHelper.pypp.h"
 #include "Detector.pypp.h"
 #include "FormFactorRipple2.pypp.h"
 #include "DistributionGaussian.pypp.h"
@@ -64,6 +63,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "DistributionLorentz.pypp.h"
 #include "FTDistribution2DCauchy.pypp.h"
 #include "FTDistribution2DVoigt.pypp.h"
+#include "IntensityDataFunctions.pypp.h"
 #include "ICompositeSample.pypp.h"
 #include "cvector_t.pypp.h"
 #include "ParameterPool.pypp.h"
@@ -112,7 +112,6 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "IInterferenceFunction.pypp.h"
 #include "SimpleSelectionRule.pypp.h"
 #include "FormFactorLorentz.pypp.h"
-#include "OutputDataIOFactory.pypp.h"
 #include "FTDistribution1DCauchy.pypp.h"
 #include "CustomBinAxis.pypp.h"
 #include "vector_kvector_t.pypp.h"
@@ -128,6 +127,7 @@ GCC_DIAG_ON(missing-field-initializers)
 #include "Simulation.pypp.h"
 #include "ISample.pypp.h"
 #include "IObserver.pypp.h"
+#include "IntensityDataIOFactory.pypp.h"
 #include "FixedBinAxis.pypp.h"
 #include "ParticleBuilder.pypp.h"
 #include "FormFactorSphereGaussianRadius.pypp.h"
@@ -229,7 +229,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
     register_Instrument_class();
-    register_IntensityDataHelper_class();
+    register_IntensityDataFunctions_class();
+    register_IntensityDataIOFactory_class();
     register_InterferenceFunction1DLattice_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunction2DLattice_class();
@@ -247,7 +248,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MultiLayer_class();
     register_OffSpecSimulation_class();
     register_IntensityData_class();
-    register_OutputDataIOFactory_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
     register_ParticleCoreShell_class();

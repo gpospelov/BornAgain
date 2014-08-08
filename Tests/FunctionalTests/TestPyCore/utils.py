@@ -48,6 +48,6 @@ def get_reference_data(filename):
     #reference = numpy.fromstring(f.read(), numpy.float64, sep=' ')
     #f.close()
     #return reference
-    return OutputDataIOFactory.readIntensityData(path+'../../ReferenceData/BornAgain/'+filename)
+    return IntensityDataIOFactory.readIntensityData(path+'../../ReferenceData/BornAgain/'+filename)
 
 

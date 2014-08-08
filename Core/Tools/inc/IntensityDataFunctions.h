@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/IntensityDataHelper.h
-//! @brief     Defines class IntensityDataHelper.
+//! @file      Tools/inc/IntensityDataFunctions.h
+//! @brief     Defines class IntensityDataFunctions.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,17 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAHELPER_H
-#define INTENSITYDATAHELPER_H
+#ifndef INTENSITYDATAFUNCTIONS_H
+#define INTENSITYDATAFUNCTIONS_H
 
 
 #include "OutputData.h"
 
-//! @class IntensityDataHelper
+//! @class IntensityDataFunctions
 //! @ingroup tools
 //! @brief Class holding collection of static methods to work with intensity data.
 
-class BA_CORE_API_ IntensityDataHelper
+class BA_CORE_API_ IntensityDataFunctions
 {
 public:
 

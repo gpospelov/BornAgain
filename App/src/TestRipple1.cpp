@@ -26,7 +26,7 @@
 #include "MultiLayer.h"
 #include "OutputData.h"
 #include "OutputDataFunctions.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
@@ -80,7 +80,7 @@ void TestRipple1::execute()
 void TestRipple1::save_results()
 {
     std::string filename(getOutputPath()+"test_ripple1.ima");
-    OutputDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
+    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
                                          filename);
     std::cout << "Data saved to " << filename << std::endl;
 }

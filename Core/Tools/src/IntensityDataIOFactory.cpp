@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "OutputDataReadStrategy.h"
 #include "OutputDataWriteStrategy.h"
 #include "OutputDataReader.h"
@@ -25,25 +25,21 @@
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
-OutputData<double > *OutputDataIOFactory::readIntensityData(
+OutputData<double > *IntensityDataIOFactory::readIntensityData(
         const std::string& file_name)
 {
     return getReader(file_name)->getOutputData();
 }
 
 
-OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
+IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
         const std::string& file_name)
 {
     OutputDataReader *reader = new OutputDataReader( file_name );
 
     IOutputDataReadStrategy *read_strategy(0);
-    if( Utils::FileSystem::GetFileMainExtension(file_name) == ".txt") {
-//        read_strategy = new OutputDataReadStreamV1();
-    } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".ima") {
-//        read_strategy = new OutputDataReadStreamIMA();
-    } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
-        read_strategy = new OutputDataReadStreamBA();
+    if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
+        read_strategy = new OutputDataReadStreamINT();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
@@ -61,24 +57,20 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
 /* ************************************************************************* */
 // writing output data
 /* ************************************************************************* */
-void OutputDataIOFactory::writeIntensityData(const OutputData<double>& data,
+void IntensityDataIOFactory::writeIntensityData(const OutputData<double>& data,
         const std::string& file_name)
 {
     return getWriter(file_name)->writeOutputData(data);
 }
 
-OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(
+IntensityDataIOFactory::OutputDataWriter_t IntensityDataIOFactory::getWriter(
         const std::string& file_name)
 {
     OutputDataWriter *writer = new OutputDataWriter( file_name );
 
     IOutputDataWriteStrategy *write_strategy(0);
-    if( Utils::FileSystem::GetFileExtension(file_name) == ".ima") {
-//        write_strategy = new OutputDataWriteStreamIMA();
-    }else if(Utils::FileSystem::GetFileExtension(file_name) == ".txt") {
-//        write_strategy = new OutputDataWriteStreamV1();
-    }else if(Utils::FileSystem::GetFileExtension(file_name) == ".int") {
-        write_strategy = new OutputDataWriteStreamBA();
+    if( Utils::FileSystem::GetFileExtension(file_name) == ".int") {
+        write_strategy = new OutputDataWriteStreamINT();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. "
                 "Don't know how to write file '" + file_name+std::string("'"));

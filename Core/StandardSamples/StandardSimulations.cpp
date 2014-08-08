@@ -19,7 +19,7 @@
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 #include "FileSystem.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 
 Simulation *StandardSimulations::IsGISAXS01()
 {
@@ -394,7 +394,7 @@ Simulation *StandardSimulations::MesoCrystal01()
 //                                     120, 0.0*Units::degree, 2.5*Units::degree);
 
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + "mesocrystal01_reference.int.gz";
-    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
+    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
     result->setDetectorParameters(*reference);
     delete reference;
 

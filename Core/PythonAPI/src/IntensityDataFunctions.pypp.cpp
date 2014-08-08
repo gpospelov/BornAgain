@@ -10,49 +10,49 @@ GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 #include "PythonCoreList.h"
-#include "IntensityDataHelper.pypp.h"
+#include "IntensityDataFunctions.pypp.h"
 
 namespace bp = boost::python;
 
-void register_IntensityDataHelper_class(){
+void register_IntensityDataFunctions_class(){
 
-    { //::IntensityDataHelper
-        typedef bp::class_< IntensityDataHelper > IntensityDataHelper_exposer_t;
-        IntensityDataHelper_exposer_t IntensityDataHelper_exposer = IntensityDataHelper_exposer_t( "IntensityDataHelper" );
-        bp::scope IntensityDataHelper_scope( IntensityDataHelper_exposer );
-        { //::IntensityDataHelper::GetRelativeDifference
+    { //::IntensityDataFunctions
+        typedef bp::class_< IntensityDataFunctions > IntensityDataFunctions_exposer_t;
+        IntensityDataFunctions_exposer_t IntensityDataFunctions_exposer = IntensityDataFunctions_exposer_t( "IntensityDataFunctions" );
+        bp::scope IntensityDataFunctions_scope( IntensityDataFunctions_exposer );
+        { //::IntensityDataFunctions::GetRelativeDifference
         
             typedef double ( *GetRelativeDifference_function_type )( ::OutputData< double > const &,::OutputData< double > const & );
             
-            IntensityDataHelper_exposer.def( 
+            IntensityDataFunctions_exposer.def( 
                 "GetRelativeDifference"
-                , GetRelativeDifference_function_type( &::IntensityDataHelper::GetRelativeDifference )
+                , GetRelativeDifference_function_type( &::IntensityDataFunctions::GetRelativeDifference )
                 , ( bp::arg("result"), bp::arg("reference") ) );
         
         }
-        { //::IntensityDataHelper::setEllipticMask
+        { //::IntensityDataFunctions::setEllipticMask
         
             typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double );
             
-            IntensityDataHelper_exposer.def( 
+            IntensityDataFunctions_exposer.def( 
                 "setEllipticMask"
-                , setEllipticMask_function_type( &::IntensityDataHelper::setEllipticMask )
+                , setEllipticMask_function_type( &::IntensityDataFunctions::setEllipticMask )
                 , ( bp::arg("data"), bp::arg("xc"), bp::arg("yc"), bp::arg("rx"), bp::arg("ry") ) );
         
         }
-        { //::IntensityDataHelper::setRectangularMask
+        { //::IntensityDataFunctions::setRectangularMask
         
             typedef void ( *setRectangularMask_function_type )( ::OutputData< double > &,double,double,double,double );
             
-            IntensityDataHelper_exposer.def( 
+            IntensityDataFunctions_exposer.def( 
                 "setRectangularMask"
-                , setRectangularMask_function_type( &::IntensityDataHelper::setRectangularMask )
+                , setRectangularMask_function_type( &::IntensityDataFunctions::setRectangularMask )
                 , ( bp::arg("data"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2") ) );
         
         }
-        IntensityDataHelper_exposer.staticmethod( "GetRelativeDifference" );
-        IntensityDataHelper_exposer.staticmethod( "setEllipticMask" );
-        IntensityDataHelper_exposer.staticmethod( "setRectangularMask" );
+        IntensityDataFunctions_exposer.staticmethod( "GetRelativeDifference" );
+        IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );
+        IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );
     }
 
 }

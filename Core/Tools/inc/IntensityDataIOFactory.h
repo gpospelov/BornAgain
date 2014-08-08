@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/inc/OutputDataIOFactory.h
-//! @brief     Defines class OutputDataIOFactory.
+//! @file      Tools/inc/IntensityDataIOFactory.h
+//! @brief     Defines class IntensityDataIOFactory.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAIOFACTORY_H
-#define OUTPUTDATAIOFACTORY_H
+#ifndef INTENSITYDATAIOFACTORY_H
+#define INTENSITYDATAIOFACTORY_H
 
 #include "WinDllMacros.h"
 #include "OutputDataReader.h"
@@ -25,11 +25,11 @@
 
 template <class T> class OutputData;
 
-//! @class OutputDataIOFactory
+//! @class IntensityDataIOFactory
 //! @ingroup tools
 //! @brief Reads OutputData from files in different format
 
-class BA_CORE_API_ OutputDataIOFactory
+class BA_CORE_API_ IntensityDataIOFactory
 {
 public:
     typedef boost::shared_ptr<OutputDataReader > OutputDataReader_t;

@@ -4,7 +4,7 @@
 #include "OutputData.h"
 #include <algorithm>
 #include "OutputDataFunctions.h"
-#include "IntensityDataHelper.h"
+#include "IntensityDataFunctions.h"
 #include "VariableBinAxis.h"
 #include "FixedBinAxis.h"
 #include "ThreadInfo.h"
@@ -229,7 +229,7 @@ TEST_F(OutputDataTest, SetRectangularMask)
     data.addAxis("x", 10, 0., 10.);
     data.addAxis("y", 6, 0., 6.);
     data.setAllTo(0.0);
-    IntensityDataHelper::setRectangularMask(data, 1.0, 1.0, 4.99, 2.99);
+    IntensityDataFunctions::setRectangularMask(data, 1.0, 1.0, 4.99, 2.99);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
         data[i] = i;
@@ -274,7 +274,7 @@ TEST_F(OutputDataTest, RectangularMaskVariableAxis)
         data[i] = i;
     }
 
-    IntensityDataHelper::setRectangularMask(data, -2.5, 1.5, 0.99, 4.99);
+    IntensityDataFunctions::setRectangularMask(data, -2.5, 1.5, 0.99, 4.99);
     int index(0);
 
     std::vector<double> xref = boost::assign::list_of(-2.5)(-2.5)(-1.0)(-1.0)(0.25)(0.25)(0.75)(0.75);
@@ -389,7 +389,7 @@ TEST_F(OutputDataTest, ThreadInfoMaskedIterator)
         (*it) = double(index++);
     }
 
-    IntensityDataHelper::setRectangularMask(data, 1.0, 1.0, 8.99, 2.99);
+    IntensityDataFunctions::setRectangularMask(data, 1.0, 1.0, 8.99, 2.99);
 
 
     const int nthreads = 4;

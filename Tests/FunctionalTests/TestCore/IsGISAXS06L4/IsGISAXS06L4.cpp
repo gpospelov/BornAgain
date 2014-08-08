@@ -1,9 +1,9 @@
 #include "SimulationRegistry.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "OutputDataFunctions.h"
+#include "IntensityDataFunctions.h"
 #include "FileSystem.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 
 int main(int argc, char **argv)
 {
@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
     // loading reference data
     std::string filename = Utils::FileSystem::GetReferenceDataDir() + "isgisaxs06_reference_variants.int.gz";
-    OutputData<double> *reference = OutputDataIOFactory::readIntensityData(filename);
+    OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(filename);
 
     // running simulation and copying data
     OutputData<double> *result = simulation->getIntensityData();
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
     const double threshold(2e-10);
     // Calculating average relative difference.
-    double diff = OutputDataFunctions::GetDifference(*result,*reference);
+    double diff = IntensityDataFunctions::GetRelativeDifference(*result,*reference);
 
     delete simulation;
     delete result;

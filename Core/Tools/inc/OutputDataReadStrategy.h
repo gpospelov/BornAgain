@@ -24,7 +24,6 @@ template <class T> class OutputData;
 //! @class IOutputDataReadStrategy
 //! @ingroup tools_internal
 //! @brief Interface for reading strategy of OutputData from file
-
 class BA_CORE_API_ IOutputDataReadStrategy
 {
 public:
@@ -42,7 +41,6 @@ private:
 //! @class IOutputDataReadStrategyDecorator
 //! @ingroup tools_internal
 //! @brief Interface for decoration of read strategies (e.g. gzip compression)
-
 class BA_CORE_API_ IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
 {
 public:
@@ -56,7 +54,6 @@ protected:
 //! @class OutputDataReadStreamGZip
 //! @ingroup tools_internal
 //! @brief Decorator to read outputdata from zipped files
-
 class BA_CORE_API_ OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
 {
 public:
@@ -69,29 +66,10 @@ public:
 };
 
 
-//! @class OutputDataReadStreamIMA
+//! @class OutputDataReadStreamGZip
 //! @ingroup tools_internal
-//! @brief Strategy to read OutputData from IsGISAXS *.ima files
-//! which contains 2D array in the form of [nX] lines of [nY] size
-
-//class BA_CORE_API_ OutputDataReadStreamIMA : public IOutputDataReadStrategy
-//{
-//public:
-//    OutputData<double > *readOutputData(std::istream& file_stream);
-//};
-
-////! Strategy to read OutputData from ASCII file
-////!  1d array for x-axis, 1d array for y-axis, 2d array for data expected
-
-//class OutputDataReadStreamV1 : public IOutputDataReadStrategy
-//{
-//public:
-//    OutputData<double > *readOutputData(std::istream& file_stream);
-//};
-
-//! Strategy to read BornAgain native IntensityData from ASCII file
-
-class OutputDataReadStreamBA : public IOutputDataReadStrategy
+//! @brief Strategy to read BornAgain native IntensityData from ASCII file
+class OutputDataReadStreamINT : public IOutputDataReadStrategy
 {
 public:
     OutputData<double > *readOutputData(std::istream& file_stream);

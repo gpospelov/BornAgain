@@ -2,8 +2,8 @@
 #include "Units.h"
 #include "Utils.h"
 #include "FileSystem.h"
-#include "IntensityDataHelper.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataFunctions.h"
+#include "IntensityDataIOFactory.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Materials.h"
@@ -71,9 +71,9 @@ int run_tests()
     bool success(true);
     for(std::map<IFormFactor *, std::string>::iterator it = test_map.begin(); it!= test_map.end(); ++it) {
         OutputData<double> *result = run_simulation(it->first);
-        OutputData<double> *reference = OutputDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir() + it->second);
+        OutputData<double> *reference = IntensityDataIOFactory::readIntensityData(Utils::FileSystem::GetReferenceDataDir() + it->second);
 
-        double diff = IntensityDataHelper::GetRelativeDifference(*result, *reference);
+        double diff = IntensityDataFunctions::GetRelativeDifference(*result, *reference);
         std::ostringstream sdiff;
         sdiff << std::setprecision(4) << diff;
 

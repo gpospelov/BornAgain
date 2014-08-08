@@ -93,7 +93,7 @@ class IntensityDataTest(unittest.TestCase):
         data.addAxis("y", 5, 0., 4.)
         for i in range(0, data.getAllocatedSize()):
             data[i] = i
-        IntensityDataHelper.setRectangularMask(data, 1.99, 0.99, 7.01, 3.01)
+        IntensityDataFunctions.setRectangularMask(data, 1.99, 0.99, 7.01, 3.01)
 
         nparr = data.getArray()
         value=0

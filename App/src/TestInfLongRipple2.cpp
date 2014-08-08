@@ -27,7 +27,7 @@
 #include "MultiLayer.h"
 #include "OutputData.h"
 #include "OutputDataFunctions.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "Particle.h"
 #include "ParticleBuilder.h"
 #include "ParticleLayout.h"
@@ -83,7 +83,7 @@ void TestInfLongRipple2::save_results()
     // run simulation for default sample parameters
     //mp_simulation->runSimulation();
     std::string filename(getOutputPath()+"test_inflongripple2.ima");
-    OutputDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
+    IntensityDataIOFactory::writeIntensityData(*(mp_simulation->getIntensityData()),
                                          filename);
 }
 

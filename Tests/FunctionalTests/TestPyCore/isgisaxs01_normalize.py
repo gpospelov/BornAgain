@@ -48,16 +48,7 @@ def RunSimulation():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     simulation.normalize()
-    ## intensity data
-    #return simulation.getIntensityData).getArray()
-    OutputDataIOFactory.writeIntensityData(simulation.getIntensityData(), "a.int")
     return simulation.getIntensityData()
-
-# ----------------------------------
-# read reference data from file
-# ----------------------------------
-def GetReferenceData():
-    return get_reference_data('isgisaxs01_normalize_reference.int.gz')
 
 
 # --------------------------------------------------------------
@@ -65,9 +56,9 @@ def GetReferenceData():
 # --------------------------------------------------------------
 def runTest():
     result = RunSimulation()
-    reference = GetReferenceData()
+    reference = get_reference_data('isgisaxs01_normalize_reference.int.gz')
 
-    diff = IntensityDataHelper.GetRelativeDifference(result, reference)
+    diff = IntensityDataFunctions.GetRelativeDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)):
         status = "FAILED"

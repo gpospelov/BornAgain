@@ -129,9 +129,9 @@ def runTest():
     resultDWBA = RunSimulationDWBA()
     resultBA_Size = RunSimulationBA_Size()
 
-    diff = IntensityDataHelper.GetRelativeDifference(resultBA, get_reference_data("isgisaxs03_reference_BA.int.gz"))
-    diff += IntensityDataHelper.GetRelativeDifference(resultBA_Size, get_reference_data("isgisaxs03_reference_BA_size.int.gz"))
-    diff += IntensityDataHelper.GetRelativeDifference(resultDWBA, get_reference_data("isgisaxs03_reference_DWBA.int.gz"))
+    diff = IntensityDataFunctions.GetRelativeDifference(resultBA, get_reference_data("isgisaxs03_reference_BA.int.gz"))
+    diff += IntensityDataFunctions.GetRelativeDifference(resultBA_Size, get_reference_data("isgisaxs03_reference_BA_size.int.gz"))
+    diff += IntensityDataFunctions.GetRelativeDifference(resultDWBA, get_reference_data("isgisaxs03_reference_DWBA.int.gz"))
     diff /= 3
 
     status = "OK"

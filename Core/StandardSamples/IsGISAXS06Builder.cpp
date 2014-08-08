@@ -22,7 +22,7 @@
 #include "Materials.h"
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
-#include "OutputDataIOFactory.h"
+#include "IntensityDataIOFactory.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
 #include "Utils.h"

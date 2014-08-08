@@ -36,7 +36,6 @@
 #include "Units.h"
 #include "Utils.h"
 #include "OffSpecSimulation.h"
-#include "AxisDouble.h"
 
 #define protected public // needed to access the protected evaluate_for_q method
 #include "FormFactorInfLongRipple1.h"
@@ -172,7 +171,7 @@ void TestInfLongRipple1::initializeSimulation()
     mp_simulation = new OffSpecSimulation(mp_options);
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(20, -1.0*Units::degree, 1.0*Units::degree, 200, 0.0*Units::degree, 5.2*Units::degree);
-    AxisDouble *alpha_i_axis = new AxisDouble("alpha_i", 200, 0.0*Units::degree, 5.2*Units::degree);
+    FixedBinAxis *alpha_i_axis = new FixedBinAxis("alpha_i", 200, 0.0*Units::degree, 5.2*Units::degree);
     mp_simulation->setBeamParameters(12.0*Units::angstrom, *alpha_i_axis, 0.0*Units::degree);
     mp_simulation->setBeamIntensity(1e9);
 

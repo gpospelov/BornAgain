@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "MinimizerScan.h"
-#include "AxisDouble.h"
 #include <algorithm>
 
 //! Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.
@@ -50,7 +49,7 @@ void MinimizerScan::construct_fcnvalues_map()
     for(size_t i_par=0; i_par < m_parameters.size(); i_par++ ) {
         const FitParameter *par = m_parameters[i_par];
         if( par->hasLowerLimit() && par->hasUpperLimit() ) {
-            AxisDouble axis(par->getName(), m_nbins, par->getLowerLimit(), par->getUpperLimit());
+            FixedBinAxis axis(par->getName(), m_nbins, par->getLowerLimit(), par->getUpperLimit());
             m_fcnvalues_map->addAxis(axis);
         }
     }

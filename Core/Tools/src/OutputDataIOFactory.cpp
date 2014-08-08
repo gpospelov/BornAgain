@@ -39,9 +39,9 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(
 
     IOutputDataReadStrategy *read_strategy(0);
     if( Utils::FileSystem::GetFileMainExtension(file_name) == ".txt") {
-        read_strategy = new OutputDataReadStreamV1();
+//        read_strategy = new OutputDataReadStreamV1();
     } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".ima") {
-        read_strategy = new OutputDataReadStreamIMA();
+//        read_strategy = new OutputDataReadStreamIMA();
     } else if ( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamBA();
     } else {
@@ -74,9 +74,9 @@ OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(
 
     IOutputDataWriteStrategy *write_strategy(0);
     if( Utils::FileSystem::GetFileExtension(file_name) == ".ima") {
-        write_strategy = new OutputDataWriteStreamIMA();
+//        write_strategy = new OutputDataWriteStreamIMA();
     }else if(Utils::FileSystem::GetFileExtension(file_name) == ".txt") {
-        write_strategy = new OutputDataWriteStreamV1();
+//        write_strategy = new OutputDataWriteStreamV1();
     }else if(Utils::FileSystem::GetFileExtension(file_name) == ".int") {
         write_strategy = new OutputDataWriteStreamBA();
     } else {

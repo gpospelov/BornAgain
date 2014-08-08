@@ -96,10 +96,6 @@ private:
     //! swap function
     void swapContent(Detector& other);
 
-    //! Initializes axis the way IsGISAXS does
-//    void initializeAnglesIsgisaxs(
-//        AxisDouble *p_axis, const TSampledRange<double>& axis_range) const;
-
     //! Returns the solid angle for the given data element
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 

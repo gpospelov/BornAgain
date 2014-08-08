@@ -15,7 +15,6 @@
 
 #include "IsGISAXSData.h"
 #include "BornAgainNamespace.h"
-#include "AxisDouble.h"
 #include <iostream>
 #include <fstream>
 
@@ -130,60 +129,61 @@ void IsGISAXSData::read_outfile(const std::string& filename, DataSet_t& dataset,
 
 //! Convert isgisaxs 1d scan to output data 2d object.
 
-OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData >& isgi_data)
+OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData >& /* isgi_data */)
 {
-    if(isgi_data.size() <2 ) throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Too short vector.");
+    throw Exceptions::NotImplementedException("IsGISAXSData::convert_isgi_scan");
+//    if(isgi_data.size() <2 ) throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Too short vector.");
 
-    // check if it is scan with fixed phi_f or with fixed alpha_f
-    bool fixed_phif(true);
-    bool fixed_alphaf(true);
-    // if values of phif accross data points are chainging, then phif is not fixed
-    for(size_t i_point=0; i_point<isgi_data.size()-1; ++i_point) {
-        if( isgi_data[i_point].phif != isgi_data[i_point+1].phif ) {
-            fixed_phif = false;
-            break;
-        }
-    }
-    // if values of alphaf accross data points are chainging, then alphaf is not fixed
-    for(size_t i_point=0; i_point<isgi_data.size()-1; ++i_point) {
-        if( isgi_data[i_point].alphaf != isgi_data[i_point+1].alphaf ) {
-            fixed_alphaf = false;
-            break;
-        }
-    }
-    if(fixed_phif == fixed_alphaf)
-        throw LogicErrorException(
-            "TestIsGISAXS12::convert_isgi_scan() -> "
-            "Error! Scan can't have both angle phif,alphaf fixed");
+//    // check if it is scan with fixed phi_f or with fixed alpha_f
+//    bool fixed_phif(true);
+//    bool fixed_alphaf(true);
+//    // if values of phif accross data points are chainging, then phif is not fixed
+//    for(size_t i_point=0; i_point<isgi_data.size()-1; ++i_point) {
+//        if( isgi_data[i_point].phif != isgi_data[i_point+1].phif ) {
+//            fixed_phif = false;
+//            break;
+//        }
+//    }
+//    // if values of alphaf accross data points are chainging, then alphaf is not fixed
+//    for(size_t i_point=0; i_point<isgi_data.size()-1; ++i_point) {
+//        if( isgi_data[i_point].alphaf != isgi_data[i_point+1].alphaf ) {
+//            fixed_alphaf = false;
+//            break;
+//        }
+//    }
+//    if(fixed_phif == fixed_alphaf)
+//        throw LogicErrorException(
+//            "TestIsGISAXS12::convert_isgi_scan() -> "
+//            "Error! Scan can't have both angle phif,alphaf fixed");
 
-    AxisDouble phi_axis(BornAgain::PHI_AXIS_NAME);
-    AxisDouble alpha_axis(BornAgain::ALPHA_AXIS_NAME);
-    if( fixed_phif) {
-        //m_isgi_fixed_phif = isgi_data.back().phif;
-        phi_axis.push_back(isgi_data.back().phif);
-        std::cout << "fixed phi " << isgi_data.back().phif << std::endl;
-        for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
-            alpha_axis.push_back(isgi_data[i_point].alphaf);
-        }
-    } else {
-        //m_isgi_fixed_alphaf = isgi_data.back().alphaf;
-        alpha_axis.push_back(isgi_data.back().alphaf);
-        for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
-            phi_axis.push_back(isgi_data[i_point].phif);
-        }
-    }
-    OutputData<double> *data = new OutputData<double >;
-    data->addAxis(phi_axis);
-    data->addAxis(alpha_axis);
-    data->setAllTo(0.0);
-    OutputData<double>::iterator it = data->begin();
-    int i_point(0);
-    while( it!= data->end()) {
-        (*it) = isgi_data[i_point].intensity;
-        ++i_point;
-        ++it;
-    }
-    return data;
+//    AxisDouble phi_axis(BornAgain::PHI_AXIS_NAME);
+//    AxisDouble alpha_axis(BornAgain::ALPHA_AXIS_NAME);
+//    if( fixed_phif) {
+//        //m_isgi_fixed_phif = isgi_data.back().phif;
+//        phi_axis.push_back(isgi_data.back().phif);
+//        std::cout << "fixed phi " << isgi_data.back().phif << std::endl;
+//        for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
+//            alpha_axis.push_back(isgi_data[i_point].alphaf);
+//        }
+//    } else {
+//        //m_isgi_fixed_alphaf = isgi_data.back().alphaf;
+//        alpha_axis.push_back(isgi_data.back().alphaf);
+//        for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
+//            phi_axis.push_back(isgi_data[i_point].phif);
+//        }
+//    }
+//    OutputData<double> *data = new OutputData<double >;
+//    data->addAxis(phi_axis);
+//    data->addAxis(alpha_axis);
+//    data->setAllTo(0.0);
+//    OutputData<double>::iterator it = data->begin();
+//    int i_point(0);
+//    while( it!= data->end()) {
+//        (*it) = isgi_data[i_point].intensity;
+//        ++i_point;
+//        ++it;
+//    }
+//    return data;
 }
 
 

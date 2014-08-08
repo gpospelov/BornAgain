@@ -74,20 +74,20 @@ public:
 //! @brief Strategy to read OutputData from IsGISAXS *.ima files
 //! which contains 2D array in the form of [nX] lines of [nY] size
 
-class BA_CORE_API_ OutputDataReadStreamIMA : public IOutputDataReadStrategy
-{
-public:
-    OutputData<double > *readOutputData(std::istream& file_stream);
-};
+//class BA_CORE_API_ OutputDataReadStreamIMA : public IOutputDataReadStrategy
+//{
+//public:
+//    OutputData<double > *readOutputData(std::istream& file_stream);
+//};
 
-//! Strategy to read OutputData from ASCII file
-//!  1d array for x-axis, 1d array for y-axis, 2d array for data expected
+////! Strategy to read OutputData from ASCII file
+////!  1d array for x-axis, 1d array for y-axis, 2d array for data expected
 
-class OutputDataReadStreamV1 : public IOutputDataReadStrategy
-{
-public:
-    OutputData<double > *readOutputData(std::istream& file_stream);
-};
+//class OutputDataReadStreamV1 : public IOutputDataReadStrategy
+//{
+//public:
+//    OutputData<double > *readOutputData(std::istream& file_stream);
+//};
 
 //! Strategy to read BornAgain native IntensityData from ASCII file
 

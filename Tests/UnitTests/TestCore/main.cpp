@@ -3,7 +3,6 @@
 #endif
 #include "gtest/gtest.h"
 
-#include "AxisDoubleTest.h"
 #include "BeamTest.h"
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
@@ -26,7 +25,6 @@
 #include "ParticleInfoTest.h"
 #include "LLDataTest.h"
 #include "TRangeTest.h"
-#include "AxisBinTest.h"
 #include "FTDistributionsTest.h"
 #include "MultiLayerTest.h"
 #include "ParticleLayoutTest.h"

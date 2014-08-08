@@ -6,6 +6,7 @@
 #include "OutputDataFunctions.h"
 #include "IntensityDataHelper.h"
 #include "VariableBinAxis.h"
+#include "FixedBinAxis.h"
 #include "ThreadInfo.h"
 #include <boost/assign/list_of.hpp>
 
@@ -31,9 +32,9 @@ OutputDataTest::OutputDataTest()
     zero_3d_coordinate.push_back(0);
     zero_3d_coordinate.push_back(0);
     zero_3d_coordinate.push_back(0);
-    AxisDouble angle_axis("angle", 20, 0.0, 0.1);
-    AxisDouble length_axis("length", 10, 0.0, 0.5);
-    AxisDouble index_axis("index", 10, 1, 10);
+    FixedBinAxis angle_axis("angle", 20, 0.0, 0.1);
+    FixedBinAxis length_axis("length", 10, 0.0, 0.5);
+    FixedBinAxis index_axis("index", 10, 1, 10);
     fl_data_1d.addAxis(angle_axis);
 
     db_data_3d.addAxis(angle_axis);

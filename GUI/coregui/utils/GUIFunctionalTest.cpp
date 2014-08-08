@@ -8,7 +8,7 @@
 #include "Instrument.h"
 #include "DomainObjectBuilder.h"
 #include "ParameterizedItem.h"
-#include "OutputDataFunctions.h"
+#include "IntensityDataFunctions.h"
 #include <boost/scoped_ptr.hpp>
 #include <QDebug>
 
@@ -43,7 +43,7 @@ void GUIFunctionalTest::runTest()
 
 int GUIFunctionalTest::analyseResults()
 {
-    double diff = OutputDataFunctions::GetDifference(*m_domain_simulation->getOutputData(),*m_reference_simulation->getOutputData());
+    double diff = IntensityDataFunctions::GetRelativeDifference(*m_domain_simulation->getOutputData(),*m_reference_simulation->getOutputData());
 
     std::cout << m_name<< " " << " " << diff
               << " " << (diff>m_threshold ? "[FAILED]" : "[OK]") << std::endl;

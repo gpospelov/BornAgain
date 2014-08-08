@@ -41,7 +41,7 @@ IntensityDataIOFactory::OutputDataReader_t IntensityDataIOFactory::getReader(
     if( Utils::FileSystem::GetFileMainExtension(file_name) == ".int") {
         read_strategy = new OutputDataReadStreamINT();
     } else {
-        throw LogicErrorException("OutputDataIOFactory::getReader() -> Error. "
+        throw LogicErrorException("IntensityDataIOFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
     }
 
@@ -72,7 +72,7 @@ IntensityDataIOFactory::OutputDataWriter_t IntensityDataIOFactory::getWriter(
     if( Utils::FileSystem::GetFileExtension(file_name) == ".int") {
         write_strategy = new OutputDataWriteStreamINT();
     } else {
-        throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. "
+        throw LogicErrorException("IntensityDataIOFactory::getWriter() -> Error. "
                 "Don't know how to write file '" + file_name+std::string("'"));
     }
 

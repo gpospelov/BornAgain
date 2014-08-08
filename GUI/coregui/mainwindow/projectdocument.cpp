@@ -5,6 +5,7 @@
 #include "JobItem.h"
 #include "OutputDataItem.h"
 #include "SampleModel.h"
+#include "IntensityDataIOFactory.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
@@ -277,7 +278,7 @@ void ProjectDocument::saveOutputData()
             QString filename = getProjectDir() + "/" + dataItem->getName();
             const OutputData<double> *data = dataItem->getOutputData();
             if(data) {
-                OutputDataIOFactory::writeIntensityData(*data, filename.toStdString());
+                IntensityDataIOFactory::writeIntensityData(*data, filename.toStdString());
             }
         }
 
@@ -297,7 +298,7 @@ void ProjectDocument::loadOutputData()
             QString filename = getProjectDir() + "/" + dataItem->getName();
             QFileInfo info(filename);
             if(info.exists()) {
-                jobItem->getOutputDataItem()->setOutputData(OutputDataIOFactory::readIntensityData(filename.toStdString()));
+                jobItem->getOutputDataItem()->setOutputData(IntensityDataIOFactory::readIntensityData(filename.toStdString()));
             }
         }
     }

@@ -43,7 +43,7 @@ void JobItem::setName(QString name)
     // setting names for OutputDataItem's
     int n_data(0);
     foreach(OutputDataItem *dataItem, m_data_items) {
-        QString dataFileName = QString("data_%1_%2.txt").arg(m_name, QString::number(n_data));
+        QString dataFileName = QString("data_%1_%2.int").arg(m_name, QString::number(n_data));
         dataItem->setName(dataFileName);
         ++n_data;
     }

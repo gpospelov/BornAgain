@@ -35,6 +35,18 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         return FixedBinAxis::clone( );
     }
 
+    virtual ::FixedBinAxis * createClippedAxis( double left, double right ) const  {
+        if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
+            return func_createClippedAxis( left, right );
+        else
+            return this->FixedBinAxis::createClippedAxis( left, right );
+    }
+    
+    
+    ::FixedBinAxis * default_createClippedAxis( double left, double right ) const  {
+        return FixedBinAxis::createClippedAxis( left, right );
+    }
+
     virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
@@ -131,6 +143,18 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
         return FixedBinAxis::operator[]( index );
     }
 
+    virtual bool contains( double value ) const  {
+        if( bp::override func_contains = this->get_override( "contains" ) )
+            return func_contains( value );
+        else
+            return this->IAxis::contains( value );
+    }
+    
+    
+    bool default_contains( double value ) const  {
+        return IAxis::contains( value );
+    }
+
     virtual ::IAxis * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
@@ -160,6 +184,19 @@ void register_FixedBinAxis_class(){
                 "clone"
                 , clone_function_type(&::FixedBinAxis::clone)
                 , default_clone_function_type(&FixedBinAxis_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::FixedBinAxis::createClippedAxis
+        
+            typedef ::FixedBinAxis * ( ::FixedBinAxis::*createClippedAxis_function_type )( double,double ) const;
+            typedef ::FixedBinAxis * ( FixedBinAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            
+            FixedBinAxis_exposer.def( 
+                "createClippedAxis"
+                , createClippedAxis_function_type(&::FixedBinAxis::createClippedAxis)
+                , default_createClippedAxis_function_type(&FixedBinAxis_wrapper::default_createClippedAxis)
+                , ( bp::arg("left"), bp::arg("right") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -252,6 +289,18 @@ void register_FixedBinAxis_class(){
                 , __getitem___function_type(&::FixedBinAxis::operator[])
                 , default___getitem___function_type(&FixedBinAxis_wrapper::default___getitem__)
                 , ( bp::arg("index") ) );
+        
+        }
+        { //::IAxis::contains
+        
+            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
+            typedef bool ( FixedBinAxis_wrapper::*default_contains_function_type )( double ) const;
+            
+            FixedBinAxis_exposer.def( 
+                "contains"
+                , contains_function_type(&::IAxis::contains)
+                , default_contains_function_type(&FixedBinAxis_wrapper::default_contains)
+                , ( bp::arg("value") ) );
         
         }
         { //::IAxis::createDoubleBinSize

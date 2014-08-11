@@ -1,7 +1,7 @@
 #include "IntensityDataFunctions.h"
 #include "OutputDataFunctions.h"
 #include "MathFunctions.h"
-
+#include <boost/scoped_ptr.hpp>
 
 void IntensityDataFunctions::setRectangularMask(OutputData<double>& data,
     double x1, double y1, double x2, double y2)
@@ -43,11 +43,39 @@ double IntensityDataFunctions::GetRelativeDifference(const OutputData<double> &r
 
 OutputData<double> *IntensityDataFunctions::createClippedDataSet(const OutputData<double> &origin, double x1, double y1, double x2, double y2)
 {
-//    if (origin.getRank() != 2) {
-//        throw LogicErrorException("IntensityDataFunctions::createClippedData()"
-//                " -> Error! Works only on two-dimensional data");
-//    }
+    if (origin.getRank() != 2) {
+        throw LogicErrorException("IntensityDataFunctions::createClippedData()"
+                " -> Error! Works only on two-dimensional data");
+    }
 
-    return 0;
+    OutputData<double > *result = new OutputData<double >;
+    for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
+        const IAxis *axis = origin.getAxis(i_axis);
+        IAxis *new_axis;
+        if(i_axis == 0) {
+            new_axis = axis->createClippedAxis(x1, x2);
+        } else {
+            new_axis = axis->createClippedAxis(y1, y2);
+        }
+        result->addAxis(*new_axis);
+        delete new_axis;
+    }
+    result->setAllTo(0.0);
+
+    OutputData<double>::const_iterator it_origin = origin.begin();
+    OutputData<double>::iterator it_result = result->begin();
+    while (it_origin != origin.end())
+    {
+        double x = origin.getValueOfAxis(0, it_origin.getIndex());
+        double y = origin.getValueOfAxis(1, it_origin.getIndex());
+        if(result->getAxis(0)->contains(x) && result->getAxis(1)->contains(y)) {
+            *it_result = *it_origin;
+            ++it_result;
+        }
+
+        ++it_origin;
+    }
+
+    return result;
 }
 

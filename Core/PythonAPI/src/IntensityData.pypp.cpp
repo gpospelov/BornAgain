@@ -181,6 +181,17 @@ void register_IntensityData_class(){
                 , ( bp::arg("axis_name"), bp::arg("index") ) );
         
         }
+        { //::OutputData< double >::getValueOfAxis
+        
+            typedef OutputData< double > exported_class_t;
+            typedef double ( exported_class_t::*getValueOfAxis_function_type )( ::std::size_t,::std::size_t ) const;
+            
+            IntensityData_exposer.def( 
+                "getValueOfAxis"
+                , getValueOfAxis_function_type( &::OutputData< double >::getValueOfAxis )
+                , ( bp::arg("axis_number"), bp::arg("index") ) );
+        
+        }
         { //::OutputData< double >::hasSameDimensions
         
             typedef OutputData< double > exported_class_t;

@@ -47,12 +47,18 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
 {
     qDebug() << "PropertyWidget::setupPropertyWidget called";
 
+    if(outputDataItem == 0) return;
+
     if(m_outputDataItem == outputDataItem) return;
 
     qDebug() << "PropertyWidget::setupPropertyWidget creating new";
 
-    if(m_outputDataItem)
-        disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+    qDebug() << "PropertyWidget::setupPropertyWidget disconnect";
+
+    //if(m_outputDataItem)
+        //disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
+
+
 
     QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
     while (itProp != propertyToId.constEnd()) {
@@ -64,9 +70,12 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
     idToProperty.clear();
 
     m_outputDataItem = outputDataItem;
+
+    qDebug() << "PropertyWidget::setupPropertyWidget connecting";
+
     connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
-    //qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
+    qDebug() << "PropertyWidget::setupPropertyWidget() -> XXX 1.1";
 
     m_projectionsProperty = m_variantManager->addProperty(QVariant::Bool, tr("Projections"));
     m_projectionsProperty->setToolTip("Projections");

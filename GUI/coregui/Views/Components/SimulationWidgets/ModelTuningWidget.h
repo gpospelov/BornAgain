@@ -32,6 +32,8 @@ public:
 
     void setQuickSimulationRunner(QuickSimulationRunner * simulationRunner);
 
+    void startSimulation();
+
 public slots:
     void onModelChanged(const QModelIndex &first, const QModelIndex &second);
     void onCurrentLinkChanged(ItemLink link);

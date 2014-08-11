@@ -10,6 +10,7 @@
 #include "Simulation.h"
 #include <QItemSelectionModel>
 #include <QDebug>
+#include <QVBoxLayout>
 
 
 
@@ -24,11 +25,17 @@ ModelTuningWidget::ModelTuningWidget(SampleModel *sampleModel, InstrumentModel *
     , m_update_in_progress(false)
 {
 
+    QColor bgColor(255,255,255,255);
+    QPalette palette;
+    palette.setColor(QPalette::Background, bgColor);
+    setAutoFillBackground(true);
+    setPalette(palette);
+
     setSampleModel(sampleModel);
     setInstrumentModel(instrumentModel);
 
     //generate Tree View
-    m_treeView = new QTreeView(this);
+    m_treeView = new QTreeView();
     //treeView->setModel(model);
     //m_itemModel = getItemModelFromSessionModel();
     //treeView->setModel(getTestItemModel());
@@ -36,10 +43,10 @@ ModelTuningWidget::ModelTuningWidget(SampleModel *sampleModel, InstrumentModel *
     m_treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image: url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: url(:/images/treeview-branch-open.png);}");
     //treeView->setStyleSheet("QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item {background: cyan;}QTreeView::branch:has-siblings:adjoins-item {background: red;}QTreeView::branch:!has-children:!has-siblings:adjoins-item {background: blue;}QTreeView::branch:closed:has-children:has-siblings {background: pink;}QTreeView::branch:has-children:!has-siblings:closed {background: gray;}QTreeView::branch:open:has-children:has-siblings {background: magenta;}QTreeView::branch:open:has-children:!has-siblings {background: green;}");
 
-    m_treeView->setFixedWidth(380);
-    m_treeView->setFixedHeight(600);
-    m_treeView->setColumnWidth(0,220);
-    m_treeView->expandAll();
+    //m_treeView->setFixedWidth(350);
+    //m_treeView->setFixedHeight(600);
+    //m_treeView->setColumnWidth(0,200);
+    //m_treeView->expandAll();
 
     //QItemSelectionModel *selectionModel = treeView->selectionModel();
     //m_delegate = new TestViewDelegate(this, treeView->selectionModel());
@@ -49,6 +56,13 @@ ModelTuningWidget::ModelTuningWidget(SampleModel *sampleModel, InstrumentModel *
 
     m_treeView->setItemDelegate(m_delegate);
     connect(m_delegate, SIGNAL(currentLinkChanged(ItemLink)), this, SLOT(onCurrentLinkChanged(ItemLink)));
+
+    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    vlayout->setMargin(0);
+    vlayout->setSpacing(0);
+    vlayout->addWidget(m_treeView);
+    vlayout->addStretch();
+    this->setLayout(vlayout);
 
 
     //generate Table View
@@ -72,6 +86,8 @@ ModelTuningWidget::ModelTuningWidget(SampleModel *sampleModel, InstrumentModel *
         item1->setTextAlignment(Qt::AlignRight);
         m_tableWidget->setItem(row, 1, item1);
     }*/
+
+
 }
 
 QStandardItem *ModelTuningWidget::iterateSessionModel(const QModelIndex &parentIndex, QStandardItem *parentItem)
@@ -270,8 +286,17 @@ void ModelTuningWidget::updateTreeView(const QString &instrument, const QString 
         //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
 
+        int height = this->parentWidget()->height();
+        //qDebug() << "XXX TreeView Height " << height << this->height();
+
         m_treeView->setModel(m_parameterModel);
+        m_treeView->setFixedWidth(320);
+        m_treeView->setFixedHeight(height);
+        m_treeView->setColumnWidth(0,170);
         m_treeView->expandAll();
+
+        startSimulation();
+
     }
 }
 
@@ -335,6 +360,26 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
     Simulation *simulation = QuickSimulationHelper::getSimulation(m_sampleModel, m_sample_name, m_instrumentModel, m_instrument_name);
 
     qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> Ready to run simulation";
+    m_simulationRunner->runSimulation(simulation);
+
+
+    m_update_in_progress = false;
+}
+
+void ModelTuningWidget::startSimulation()
+{
+    Q_ASSERT(m_simulationRunner);
+    qDebug() << "ModelTuningWidget::startSimulation()";
+    if(m_simulationRunner->isSimulationInProgress())
+        return;
+
+    if(m_update_in_progress)
+        return;
+
+    m_update_in_progress = true;
+
+    Simulation *simulation = QuickSimulationHelper::getSimulation(m_sampleModel, m_sample_name, m_instrumentModel, m_instrument_name);
+
     m_simulationRunner->runSimulation(simulation);
 
 

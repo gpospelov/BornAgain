@@ -6,8 +6,8 @@
 class SampleModel;
 class InstrumentModel;
 class ModelTuningWidget;
-class PlotWidget;
 class QuickSimulationRunner;
+class OutputDataWidget;
 
 
 //! The QuickSimulationWidget is the main widget to access quick simulation functionality.
@@ -25,8 +25,8 @@ private:
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
     ModelTuningWidget *m_modelTuningWidget;
-    PlotWidget *m_plotWidget;
     QuickSimulationRunner *m_quickSimulationRunner;
+    OutputDataWidget *m_outputDataWidget;
 
 };
 

@@ -23,6 +23,8 @@ public:
 
     int getWidth();
     void toggleProjections();
+    void connectSignals();
+    void disconnectSignals();
 
 public slots:
     void onOutputDataItemModified();
@@ -31,21 +33,20 @@ private slots:
     void valueChanged(QtProperty *property, const QVariant &value);
 
 signals:
-  void projectionsChanged(bool projection);
-  void gradientChanged(QCPColorGradient gradient);
+    void projectionsChanged(bool projection);
+    void gradientChanged(QCPColorGradient gradient);
 
 
 private:
+    void addProperty(QtVariantProperty *property, const QString &id);
+    void initGradientVector();
+
     class QtVariantPropertyManager *m_variantManager;
     class QtTreePropertyBrowser *m_propertyBrowser;
     OutputDataItem *m_outputDataItem;
     QMap<QtProperty *, QString> propertyToId;
     QMap<QString, QtVariantProperty *> idToProperty;
-    void addProperty(QtVariantProperty *property, const QString &id);
-    int maxWidth;
-    bool isProjection;
     QVector<QCPColorGradient> m_gradientVector;
-    void initGradientVector();
     QtVariantProperty *m_projectionsProperty;
     QtVariantProperty *m_interpolationProperty;
     QtVariantProperty *m_logzProperty;
@@ -54,6 +55,8 @@ private:
     QtVariantProperty *m_gradientProperty;
     QtVariantProperty *m_xtitleProperty;
     QtVariantProperty *m_ytitleProperty;
+    int m_maxWidth;
+    bool m_isProjection;
 
 
 };

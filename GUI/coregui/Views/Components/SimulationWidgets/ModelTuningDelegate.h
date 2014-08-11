@@ -43,6 +43,8 @@ private:
     mutable QHBoxLayout * m_contentLayout;
     double m_multiplyFactor;
     mutable ItemLink m_current_link;
+
+    void updateSlider(double value) const;
 };
 
 #endif //SAMPLETUNINGDELEGATE_H

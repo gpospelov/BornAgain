@@ -228,24 +228,23 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     // set up the QCPColorMap:
 
     // FIXME why axes and color map connected here?
-    if(m_colorMap) {
-        qDebug() << "CentralPlot::drawPlot 1.4";
-        disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+//    if(m_colorMap) {
+//        qDebug() << "CentralPlot::drawPlot 1.4";
+//        disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
 
+//    }
+
+    if(!m_colorMap) {
+        m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
+        this->addPlottable(m_colorMap);
+        connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(this->xAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(xaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(this->yAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(yaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
     }
-
-    delete m_colorMap;
-    m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
-    this->addPlottable(m_colorMap);
-
-    connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)), Qt::UniqueConnection);
-    connect(this->xAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(xaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
-    connect(this->yAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(yaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
 
 
     const IAxis *axis_x = data->getAxis(0);
     const IAxis *axis_y = data->getAxis(1);
-
 
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
@@ -270,8 +269,10 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     qDebug() << "CentralPlot::drawPlot 1.7";
 
     // add a color scale:
-    m_colorScale = new QCPColorScale(this);
-    this->plotLayout()->addElement(0, 1, m_colorScale); // add it to the right of the main axis rect
+    if(!m_colorScale) {
+        m_colorScale = new QCPColorScale(this);
+        this->plotLayout()->addElement(0, 1, m_colorScale); // add it to the right of the main axis rect
+    }
 
 
     this->setLogz(outputDataItem->isLogz(), false);

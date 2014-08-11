@@ -52,6 +52,8 @@ public:
 
     std::vector<double > getBinBoundaries() const;
 
+    VariableBinAxis *createClippedAxis(double left, double right) const;
+
 protected:
     VariableBinAxis(const std::string &name, int nbins = 0);
     void setBinBoundaries(const std::vector<double> &bin_boundaries);

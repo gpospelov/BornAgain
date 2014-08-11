@@ -152,4 +152,24 @@ TEST_F(FixedBinAxisTest, BinBoundaries)
 }
 
 
+TEST_F(FixedBinAxisTest, ClippedAxis)
+{
+    FixedBinAxis axis("name", 4, -1.0, 3.0);
+
+    FixedBinAxis *clip1 = axis.createClippedAxis(-0.5, 2.5);
+    EXPECT_EQ(clip1->getSize(), axis.getSize());
+    EXPECT_EQ(clip1->getMin(), axis.getMin());
+    EXPECT_EQ(clip1->getMax(), axis.getMax());
+    EXPECT_TRUE(*clip1 == axis);
+    delete clip1;
+
+    FixedBinAxis *clip2 = axis.createClippedAxis(0.0, 1.99);
+    EXPECT_EQ(clip2->getSize(), 2);
+    EXPECT_EQ(clip2->getMin(), 0.0);
+    EXPECT_EQ(clip2->getMax(), 2.0);
+    EXPECT_TRUE(*clip2 != axis);
+    delete clip2;
+}
+
+
 #endif

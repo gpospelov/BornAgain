@@ -40,3 +40,14 @@ double IntensityDataFunctions::GetRelativeDifference(const OutputData<double> &r
     return diff;
 }
 
+
+OutputData<double> *IntensityDataFunctions::createClippedDataSet(const OutputData<double> &origin, double x1, double y1, double x2, double y2)
+{
+//    if (origin.getRank() != 2) {
+//        throw LogicErrorException("IntensityDataFunctions::createClippedData()"
+//                " -> Error! Works only on two-dimensional data");
+//    }
+
+    return 0;
+}
+

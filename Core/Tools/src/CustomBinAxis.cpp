@@ -52,6 +52,11 @@ std::vector<double> CustomBinAxis::getBinCenters() const
     return m_bin_centers;
 }
 
+CustomBinAxis *CustomBinAxis::createClippedAxis(double /* left */, double /* right */) const
+{
+    throw Exceptions::NotImplementedException("VariableBinAxis::CustomBinAxis() -> Error. Not implemented.");
+}
+
 
 void CustomBinAxis::print(std::ostream &ostr) const
 {

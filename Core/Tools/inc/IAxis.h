@@ -71,6 +71,9 @@ public:
 
     virtual  std::vector<double > getBinBoundaries() const;
 
+    //! Creates a new clipped axis
+    virtual IAxis *createClippedAxis(double left, double right) const;
+
 protected:
     virtual void print(std::ostream& ostr) const=0;
     virtual bool equals(const IAxis& other) const;
@@ -108,6 +111,12 @@ inline std::vector<double> IAxis::getBinBoundaries() const
 {
     throw Exceptions::NotImplementedException("IAxis::getBinBoundaries() -> Error. Not implemented.");
 }
+
+inline IAxis *IAxis::createClippedAxis(double /* left */, double /* right */) const
+{
+    throw Exceptions::NotImplementedException("IAxis::createClippedAxis() -> Error. Not implemented.");
+}
+
 
 //! global helper function for comparison of axes
 inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)

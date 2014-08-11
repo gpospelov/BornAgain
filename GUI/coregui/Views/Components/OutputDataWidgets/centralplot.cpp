@@ -11,9 +11,41 @@ CentralPlot::CentralPlot()
     , m_outputDataItem(0)
 {
     this->setObjectName(QStringLiteral("centralPlot"));
-    //setupColorMap(this);
 
+    m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
+    this->addPlottable(m_colorMap);
 
+    // add a color scale:
+    m_colorScale = new QCPColorScale(this);
+    this->plotLayout()->addElement(0, 1, m_colorScale); // add it to the right of the main axis rect
+
+    m_colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
+    m_colorMap->setColorScale(m_colorScale); // associate the color map with the color scale
+
+    QPen pen;
+    pen.setWidth(1);
+    pen.setStyle(Qt::SolidLine);
+    pen.setColor(QColor(255, 255, 255, 130));
+
+    this->addGraph();
+    this->graph(0)->setPen(pen);
+
+    this->addGraph();
+    this->graph(1)->setPen(pen);
+
+    connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+    connect(this->xAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(xaxisRangeChanged(QCPRange)));
+    connect(this->yAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(yaxisRangeChanged(QCPRange)));
+
+}
+
+CentralPlot::~CentralPlot()
+{
+    disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
+    disconnect(this->xAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(xaxisRangeChanged(QCPRange)));
+    disconnect(this->yAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(yaxisRangeChanged(QCPRange)));
+
+    this->clearPlottables();
 }
 
 
@@ -27,10 +59,10 @@ void CentralPlot::drawLineOverColorMap(double xPos, double yPos)
     }
 
     // FIXME Why not dynamic_cast ?
-    QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
-    Q_ASSERT(colorMap);
+    //QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
+    Q_ASSERT(m_colorMap);
 
-    QCPColorMapData * data  = colorMap->data();
+    QCPColorMapData * data  = m_colorMap->data();
     Q_ASSERT(data);
 
     //draw line over plot
@@ -83,9 +115,6 @@ bool CentralPlot::contains(QPoint point)
     return this->xAxis->range().contains(xPos) && this->yAxis->range().contains(yPos);
 }
 
-
-
-//void CentralPlot::drawGraphOnMouseEvent(QPoint point, HistogramPlot *verticalPlot, HistogramPlot *horizontalPlot)
 QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDrawLine)
 {
 
@@ -100,9 +129,9 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
    {
 
        //set status bar info
-       QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
-       Q_ASSERT(colorMap);
-       QCPColorMapData * data  = colorMap->data();
+       //QCPColorMap * colorMap = (QCPColorMap *) this->plottable(0);
+       Q_ASSERT(m_colorMap);
+       QCPColorMapData * data  = m_colorMap->data();
        Q_ASSERT(data);
        int key = 0;
        int value = 0;
@@ -193,9 +222,8 @@ QVector<QVector<double> > CentralPlot::getHistogramData(QPoint point, bool isDra
 
 void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient)
 {
-//    disconnect();
     Q_ASSERT(outputDataItem);
-    qDebug() << "CentralPlot::drawPlot 1.1";
+    qDebug() << "CentralPlot::drawPlot";
     m_outputDataItem = outputDataItem;
     const OutputData<double> *data = outputDataItem->getOutputData();
 
@@ -212,48 +240,22 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
 
     std::cout << "CentralPlot::drawPlot min max" << (*it_min) << " "<< (*it_max) << std::endl;
 
-    this->clearPlottables();
-    qDebug() << "CentralPlot::drawPlot 1.2 after clearPlottable";
-    // FIXME Is it correct?
-    m_colorMap = 0;
-    //m_customPlot->clearItems();
 
-
-    qDebug() << "CentralPlot::drawPlot 1.3";
     this->setInteractions(QCP::iRangeDrag|QCP::iRangeZoom); // this will also allow rescaling the color scale by dragging/zooming
     this->axisRect()->setupFullAxesBox(true);
     this->xAxis->setLabel(outputDataItem->getXaxisTitle());
     this->yAxis->setLabel(outputDataItem->getYaxisTitle());
 
-    // set up the QCPColorMap:
-
-    // FIXME why axes and color map connected here?
-//    if(m_colorMap) {
-//        qDebug() << "CentralPlot::drawPlot 1.4";
-//        disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)));
-
-//    }
-
-    if(!m_colorMap) {
-        m_colorMap = new QCPColorMap(this->xAxis, this->yAxis);
-        this->addPlottable(m_colorMap);
-        connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this, SIGNAL(dataRangeChanged(QCPRange)), Qt::UniqueConnection);
-        connect(this->xAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(xaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
-        connect(this->yAxis,SIGNAL(rangeChanged(QCPRange)), this, SIGNAL(yaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
-    }
-
 
     const IAxis *axis_x = data->getAxis(0);
     const IAxis *axis_y = data->getAxis(1);
 
+
     int nx = axis_x->getSize();
     int ny = axis_y->getSize();
-    qDebug() << "CentralPlot::drawPlot 1.5";
-
     m_colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
     m_colorMap->data()->setRange(QCPRange(axis_x->getMin(), axis_x->getMax()), QCPRange(axis_y->getMin(), axis_y->getMax()));
 
-    qDebug() << "CentralPlot::drawPlot 1.6";
 
     OutputData<double>::const_iterator it = data->begin();
     while (it != data->end()) {
@@ -266,29 +268,11 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
         ++it;
     }
 
-    qDebug() << "CentralPlot::drawPlot 1.7";
-
-    // add a color scale:
-    if(!m_colorScale) {
-        m_colorScale = new QCPColorScale(this);
-        this->plotLayout()->addElement(0, 1, m_colorScale); // add it to the right of the main axis rect
-    }
-
 
     this->setLogz(outputDataItem->isLogz(), false);
 
-    qDebug() << "CentralPlot::drawPlot 1.8";
-
-    m_colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
-    m_colorMap->setColorScale(m_colorScale); // associate the color map with the color scale
-
-    // set the color gradient of the color map to one of the presets:
-    //m_colorMap->setGradient(QCPColorGradient::gpPolar);
     m_colorMap->setGradient(gradient);
-    // we could have also created a QCPColorGradient instance and added own colors to
-    // the gradient, see the documentation of QCPColorGradient for what's possible.
 
-    qDebug() << "CentralPlot::drawPlot 1.9";
 
     // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:
     m_colorMap->rescaleDataRange();
@@ -297,7 +281,6 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     m_colorMap->setDataRange(newDataRange);
     outputDataItem->setZaxisRange(newDataRange.lower, newDataRange.upper);
 
-    qDebug() << "CentralPlot::drawPlot 1.10";
 
     // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(this);
@@ -306,32 +289,10 @@ void CentralPlot::drawPlot(OutputDataItem *outputDataItem, QCPColorGradient grad
     m_colorScaleRange = m_colorScale->dataRange();
 
 
-//    QCPRange range2 = colorScale->dataRange();
-//    qDebug()<< "Color scale: Min Max" << range2.lower << range2.upper;
-
-    qDebug() << "CentralPlot::drawPlot 1.11";
-
-
-    QPen pen;
-    pen.setWidth(1);
-    pen.setStyle(Qt::SolidLine);
-    pen.setColor(QColor(255, 255, 255, 130));
-
-    qDebug() << "CentralPlot::drawPlot 1.12";
-
-    this->addGraph();
-    this->graph(0)->setPen(pen);
-
-    this->addGraph();
-    this->graph(1)->setPen(pen);
-    qDebug() << "CentralPlot::drawPlot 1.13";
-
     // rescale the key (x) and value (y) axes so the whole color map is visible:
     this->rescaleAxes();
-    qDebug() << "CentralPlot::drawPlot 1.14";
 
     this->replot();
-    qDebug() << "CentralPlot::drawPlot 1.15";
 }
 
 QCPRange CentralPlot::calculateDataRange()
@@ -369,10 +330,6 @@ QCPRange CentralPlot::calculateDataRange()
     return QCPRange(min, max);
 }
 
-/*QCPColorScale *CentralPlot::getColorScale() const
-{
-    return this->colorMap->colorScale();
-}*/
 
 QCPColorMap *CentralPlot::getColorMap() const
 {

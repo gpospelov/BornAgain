@@ -12,14 +12,14 @@ class CentralPlot : public QCustomPlot
 
 public:
     CentralPlot();
+    virtual ~CentralPlot();
 
-    //void drawGraphOnMouseEvent(QPoint point, HistogramPlot *verticalPlot, HistogramPlot *horizontalPlot);
     void drawGraphOnMouseEvent(QPoint point);
     bool contains(QPoint point);
     QVector<QVector<double> > getHistogramData(QPoint point, bool isDrawLine = true);
     void drawPlot(OutputDataItem *outputDataItem, QCPColorGradient gradient);
 
-    //QCPColorScale *getColorScale() const;
+
     QCPColorMap *getColorMap() const;
     QCPRange getColorScaleRange() const;
     QCPColorMapData *getColorMapData() const;
@@ -41,7 +41,6 @@ signals:
     void yaxisRangeChanged(QCPRange newRange);
 
 private:
-    void setupColorMap(CentralPlot * customPlot);
     void drawLineOverColorMap(double xPos, double yPos);
     QCPColorMap *m_colorMap;
     QCPColorScale *m_colorScale;

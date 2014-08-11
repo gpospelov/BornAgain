@@ -52,7 +52,6 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
 void QuickSimulationWidget::updateViews(const QString &instrument, const QString &sample)
 {
     m_modelTuningWidget->updateTreeView(instrument, sample);
-    m_modelTuningWidget->startSimulation();
 }
 
 

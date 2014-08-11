@@ -14,6 +14,8 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar)
     , m_plotWidget(0)
     , m_data(0)
 {
+    qDebug() << " ";
+    qDebug() << "OutputDataWidget::OutputDataWidget() -> c-tor";
 //    setModel(model);
 
     setMinimumSize(600, 600);
@@ -85,6 +87,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar)
 
 void OutputDataWidget::setCurrentItem(OutputDataItem *item)
 {
+    qDebug() << "OutputDataWidget::setCurrentItem()";
 
     m_plotWidget->drawPlot(item);
     //m_propertyWidget->setupPropertyWidget(item, m_gradient);
@@ -178,11 +181,12 @@ void OutputDataWidget::gradientChanged(QCPColorGradient gradient)
 
 void OutputDataWidget::onPropertySplitterMoved(int pos, int index)
 {
+    qDebug() << "OutputDataWidget::onPropertySplitterMoved";
     QList<int> sizes_org = this->m_splitter->sizes();
 
     if(sizes_org.at(index) != m_currentPropertyWidgetWidth)
     {
-        qDebug() << m_propertyWidget->getWidth() << "::" << sizes_org.at(index);
+        qDebug() << "   OutputDataWidget::onPropertySplitterMoved" << m_propertyWidget->getWidth() << "::" << sizes_org.at(index);
         if(sizes_org.at(index) == m_propertyWidget->getWidth())
         {
             m_currentPropertyWidgetWidth = sizes_org.at(1);

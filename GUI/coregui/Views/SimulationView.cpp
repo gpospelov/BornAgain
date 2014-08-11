@@ -39,7 +39,7 @@ SimulationView::SimulationView(MainWindow *mainWindow)
 void SimulationView::updateSimulationViewElements()
 {
     m_simulationSetupWidget->updateViewElements();
-    m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
+//    m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
 }
 
 void SimulationView::onChangeTabWidget(int index)
@@ -50,6 +50,6 @@ void SimulationView::onChangeTabWidget(int index)
     }
     else if(index == QuickSimulationTab)
     {
-        //m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
+        m_quickSimulationWidget->updateViews(m_simulationSetupWidget->getInstrumentSelection(), m_simulationSetupWidget->getSampleSelection());
     }
 }

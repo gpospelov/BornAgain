@@ -143,9 +143,12 @@ void PlotWidget::savePlot()
 
 void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 {
+    qDebug() << "PlotWidget::drawPlot()";
 //    Q_ASSERT(outputDataItem);
     if(!outputDataItem) {
+        qDebug() << "   PlotWidget::drawPlot() -> Zero item, disconnecting";
         disconnect();
+        m_centralPlot->disconnect();
         m_outputDataItem = 0;
         return;
     }
@@ -158,11 +161,15 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
     }
 
     disconnect();
+    m_centralPlot->disconnect();
+
     m_outputDataItem = outputDataItem;
 
 
     if(outputDataItem)
     {
+        qDebug() << "       PlotWidget::drawPlot() -> preparing all connections";
+
         m_block_plot_update = true;
         qDebug() << "PlotWidget::drawPlot called";
 //        disconnect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)));
@@ -172,12 +179,12 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);
         //m_propertyWidget->setupPropertyWidget(outputDataItem, m_gradient);
-        connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)));
-        connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
-        connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
-        connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()));
-        connect(m_centralPlot, SIGNAL(xaxisRangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)));
-        connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)));
+        connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)), Qt::UniqueConnection);
+        connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)), Qt::UniqueConnection);
+        connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()), Qt::UniqueConnection);
+        connect(m_centralPlot, SIGNAL(xaxisRangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
         m_block_plot_update = false;
     }
 }
@@ -185,8 +192,11 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 
 void PlotWidget::updatePlot()
 {
-    //qDebug() << "PlotWidget::updatePlot()";
-    if(m_block_plot_update) return;
+    qDebug() << "PlotWidget::updatePlot()";
+    if(m_block_plot_update) {
+        qDebug() << "   PlotWidget::updatePlot() -> blocked, no update";
+        return;
+    }
 
     Q_ASSERT(m_outputDataItem);
     Q_ASSERT(m_centralPlot);
@@ -244,7 +254,7 @@ void PlotWidget::mousePress(QMouseEvent *event)
 m_contextMenu->close();
     }
 
-    qDebug() << event->pos().x() << " : " << event->pos().y();
+    qDebug() << "PlotWidget::mousePress" << event->pos().x() << " : " << event->pos().y();
 
     if(event->button() == Qt::RightButton && m_isContextMenuEnabled)
     {
@@ -283,6 +293,8 @@ void PlotWidget::mouseMove(QMouseEvent * event)
 
 void PlotWidget::onZaxisRangeChanged(QCPRange newRange)
 {
+    qDebug() << "PlotWidget::onZaxisRangeChanged()";
+
     //if(m_block_plot_update) return;
     m_block_plot_update = true;
     Q_ASSERT(m_verticalPlot);

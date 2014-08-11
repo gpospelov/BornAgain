@@ -19,7 +19,7 @@ JobRunner::JobRunner(QString identifier, Simulation *simulation)
 
 JobRunner::~JobRunner()
 {
-    //qDebug() << "JobRunner::~JobRunner()";
+    qDebug() << "JobRunner::~JobRunner()";
 }
 
 

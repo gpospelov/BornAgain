@@ -295,6 +295,8 @@ void ModelTuningWidget::updateTreeView(const QString &instrument, const QString 
         m_treeView->setColumnWidth(0,170);
         m_treeView->expandAll();
 
+        startSimulation();
+
     }
 }
 

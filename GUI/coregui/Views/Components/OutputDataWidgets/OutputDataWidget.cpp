@@ -90,7 +90,7 @@ void OutputDataWidget::setCurrentItem(OutputDataItem *item)
     qDebug() << "OutputDataWidget::setCurrentItem()";
 
     m_plotWidget->drawPlot(item);
-    //m_propertyWidget->setupPropertyWidget(item, m_gradient);
+    m_propertyWidget->setupPropertyWidget(item, m_gradient);
     //connectPropertyWidgetSignals(isPropertyWidgetVisible);
 
 }

@@ -20,8 +20,10 @@ class IntensityDataFunctionsTest : public ::testing::Test
 TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
 {
     OutputData<double> data;
-    data.addAxis(FixedBinAxis("axis0",10, -5.0, 5.0));
-    data.addAxis(FixedBinAxis("axis1",3, 0.0, 3.0));
+    FixedBinAxis axis0("axis0",10, -5.0, 5.0);
+    data.addAxis(axis0);
+    FixedBinAxis axis1("axis1",3, 0.0, 3.0);
+    data.addAxis(axis1);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
         data[i] = i;
@@ -44,8 +46,10 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
     std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
 
     OutputData<double> data;
-    data.addAxis(VariableBinAxis("axis0",4, values));
-    data.addAxis(VariableBinAxis("axis1",4, values));
+    VariableBinAxis axis0("axis0",4, values);
+    data.addAxis(axis0);
+    VariableBinAxis axis1("axis1",4, values);
+    data.addAxis(axis1);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
         data[i] = i;

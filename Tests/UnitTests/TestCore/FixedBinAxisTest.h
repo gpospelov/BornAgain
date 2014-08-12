@@ -164,7 +164,7 @@ TEST_F(FixedBinAxisTest, ClippedAxis)
     delete clip1;
 
     FixedBinAxis *clip2 = axis.createClippedAxis(0.0, 1.99);
-    EXPECT_EQ(clip2->getSize(), 2);
+    EXPECT_EQ(clip2->getSize(), size_t(2));
     EXPECT_EQ(clip2->getMin(), 0.0);
     EXPECT_EQ(clip2->getMax(), 2.0);
     EXPECT_TRUE(*clip2 != axis);

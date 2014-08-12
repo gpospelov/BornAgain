@@ -218,6 +218,40 @@ TEST_F(VariableBinAxisTest, BinBoundaries)
     EXPECT_DOUBLE_EQ(2.0, boundaries[4]);
 }
 
+TEST_F(VariableBinAxisTest, ClippedAxis)
+{
+    static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
+    std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    VariableBinAxis axis("name", 4, values);
+
+    VariableBinAxis *clip1 = axis.createClippedAxis(-1.0, 2.0);
+    EXPECT_TRUE(axis == *clip1);
+    delete clip1;
+
+    VariableBinAxis *clip2 = axis.createClippedAxis(-0.5, 1.5);
+    EXPECT_EQ(clip2->getSize(), 3);
+    EXPECT_EQ(clip2->getMin(), -0.5);
+    EXPECT_EQ(clip2->getMax(), 2.0);
+    std::vector<double> centers = clip2->getBinCenters();
+    EXPECT_EQ(centers[0], 0.0);
+    EXPECT_EQ(centers[1], 0.75);
+    EXPECT_EQ(centers[2], 1.5);
+    EXPECT_TRUE(axis != *clip2);
+    delete clip2;
+
+    VariableBinAxis *clip3 = axis.createClippedAxis(-0.5, 0.99);
+    EXPECT_EQ(clip3->getSize(), 2);
+    EXPECT_EQ(clip3->getMin(), -0.5);
+    EXPECT_EQ(clip3->getMax(), 1.0);
+    std::vector<double> boundaries = clip3->getBinBoundaries();
+    EXPECT_EQ(boundaries[0], -0.5);
+    EXPECT_EQ(boundaries[1], 0.5);
+    EXPECT_EQ(boundaries[2], 1.0);
+    delete clip3;
+
+
+}
+
 
 
 #endif

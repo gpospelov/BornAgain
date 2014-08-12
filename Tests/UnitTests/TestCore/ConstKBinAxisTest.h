@@ -46,6 +46,9 @@ TEST_F(ConstKBinAxisTest, TypicalAxis)
     EXPECT_EQ(m_start, m_axis.getMin());
     EXPECT_EQ(m_end, m_axis.getMax());
 
+    EXPECT_DOUBLE_EQ(m_start, m_axis.getBinBoundaries().front());
+    EXPECT_DOUBLE_EQ(m_end, m_axis.getBinBoundaries().back());
+
     for(size_t i=0; i<m_axis.getSize(); ++i) {
         EXPECT_DOUBLE_EQ( m_centers[i], m_axis[i]);
     }
@@ -76,37 +79,22 @@ TEST_F(ConstKBinAxisTest, IOStream)
     delete result;
 }
 
+//[-5.0, -3.99816897832528, -2.9975609824866662, -1.99786732193833, -0.9987818274427882, 0.0, 0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]
 
-//TEST_F(ConstKBinAxisTest, BinCenters)
-//{
-//    static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
-//    std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
-//    VariableBinAxis axis("name", 4, values);
+TEST_F(ConstKBinAxisTest, ClippedAxis)
+{
+    ConstKBinAxis *clip1 = m_axis.createClippedAxis(Units::deg2rad(-10.0), Units::deg2rad(10.0));
+    EXPECT_TRUE(*clip1 == m_axis);
+    delete clip1;
 
-//    std::vector<double> centers = axis.getBinCenters();
-//    EXPECT_EQ(4, centers.size());
-//    EXPECT_DOUBLE_EQ(-0.75, centers[0]);
-//    EXPECT_DOUBLE_EQ(0.0, centers[1]);
-//    EXPECT_DOUBLE_EQ(0.75, centers[2]);
-//    EXPECT_DOUBLE_EQ(1.5, centers[3]);
-//}
-
-
-//TEST_F(ConstKBinAxisTest, BinBoundaries)
-//{
-//    static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
-//    std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
-//    VariableBinAxis axis("name", 4, values);
-
-//    std::vector<double> boundaries = axis.getBinBoundaries();
-//    EXPECT_EQ(5, boundaries.size());
-//    EXPECT_DOUBLE_EQ(-1.0, boundaries[0]);
-//    EXPECT_DOUBLE_EQ(-0.5, boundaries[1]);
-//    EXPECT_DOUBLE_EQ(0.5, boundaries[2]);
-//    EXPECT_DOUBLE_EQ(1.0, boundaries[3]);
-//    EXPECT_DOUBLE_EQ(2.0, boundaries[4]);
-//}
-
-
+    ConstKBinAxis *clip2 = m_axis.createClippedAxis(Units::deg2rad(-3.0), Units::deg2rad(3.0));
+    EXPECT_EQ(clip2->getSize(), 8);
+    std::vector<double> boundaries = clip2->getBinBoundaries();
+    for(size_t i=0; i<boundaries.size(); ++i) {
+        EXPECT_EQ(boundaries[i], m_axis.getBin(1+i).m_lower);
+//        EXPECT_NEAR(boundaries[i], m_axis.getBin(1+i).m_lower, 1e-10);
+    }
+    delete clip2;
+}
 
 #endif

@@ -35,6 +35,18 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
         return CustomBinAxis::clone( );
     }
 
+    virtual ::CustomBinAxis * createClippedAxis( double left, double right ) const  {
+        if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
+            return func_createClippedAxis( left, right );
+        else
+            return this->CustomBinAxis::createClippedAxis( left, right );
+    }
+    
+    
+    ::CustomBinAxis * default_createClippedAxis( double left, double right ) const  {
+        return CustomBinAxis::createClippedAxis( left, right );
+    }
+
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
@@ -57,6 +69,18 @@ struct CustomBinAxis_wrapper : CustomBinAxis, bp::wrapper< CustomBinAxis > {
     
     ::std::vector< double > default_getBinCenters(  ) const  {
         return CustomBinAxis::getBinCenters( );
+    }
+
+    virtual bool contains( double value ) const  {
+        if( bp::override func_contains = this->get_override( "contains" ) )
+            return func_contains( value );
+        else
+            return this->IAxis::contains( value );
+    }
+    
+    
+    bool default_contains( double value ) const  {
+        return IAxis::contains( value );
     }
 
     virtual ::IAxis * createDoubleBinSize(  ) const  {
@@ -151,6 +175,19 @@ void register_CustomBinAxis_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::CustomBinAxis::createClippedAxis
+        
+            typedef ::CustomBinAxis * ( ::CustomBinAxis::*createClippedAxis_function_type )( double,double ) const;
+            typedef ::CustomBinAxis * ( CustomBinAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            
+            CustomBinAxis_exposer.def( 
+                "createClippedAxis"
+                , createClippedAxis_function_type(&::CustomBinAxis::createClippedAxis)
+                , default_createClippedAxis_function_type(&CustomBinAxis_wrapper::default_createClippedAxis)
+                , ( bp::arg("left"), bp::arg("right") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::CustomBinAxis::getBin
         
             typedef ::Bin1D ( ::CustomBinAxis::*getBin_function_type )( ::std::size_t ) const;
@@ -172,6 +209,18 @@ void register_CustomBinAxis_class(){
                 "getBinCenters"
                 , getBinCenters_function_type(&::CustomBinAxis::getBinCenters)
                 , default_getBinCenters_function_type(&CustomBinAxis_wrapper::default_getBinCenters) );
+        
+        }
+        { //::IAxis::contains
+        
+            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
+            typedef bool ( CustomBinAxis_wrapper::*default_contains_function_type )( double ) const;
+            
+            CustomBinAxis_exposer.def( 
+                "contains"
+                , contains_function_type(&::IAxis::contains)
+                , default_contains_function_type(&CustomBinAxis_wrapper::default_contains)
+                , ( bp::arg("value") ) );
         
         }
         { //::IAxis::createDoubleBinSize

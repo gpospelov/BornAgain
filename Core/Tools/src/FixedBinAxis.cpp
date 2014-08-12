@@ -93,6 +93,20 @@ std::vector<double> FixedBinAxis::getBinBoundaries() const
     return result;
 }
 
+FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
+{
+    if(left >= right)
+        throw LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
+
+    if(left < getMin()) left = getBin(0).getMidPoint();
+    if(right >= getMax()) right = getBin(getSize()-1).getMidPoint();
+
+    size_t nbin1 = findClosestIndex(left);
+    size_t nbin2 = findClosestIndex(right);
+
+    return new FixedBinAxis(getName(), nbin2-nbin1+1, getBin(nbin1).m_lower, getBin(nbin2).m_upper );
+}
+
 
 void FixedBinAxis::print(std::ostream& ostr) const
 {

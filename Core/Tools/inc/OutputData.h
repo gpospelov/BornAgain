@@ -152,6 +152,9 @@ public:
     //! Returns value of axis with given name at given index
     double getValueOfAxis(const std::string& axis_name, size_t index) const;
 
+    //! Returns value of axis with given axis_number at given index
+    double getValueOfAxis(size_t axis_number, size_t index) const;
+
     //! Returns bin of axis with given name and index
     Bin1D getBinOfAxis(const std::string& axis_name, size_t index) const;
 
@@ -556,6 +559,16 @@ double OutputData<T>::getValueOfAxis(
                 "OutputData<T>::getValueOfAxis() -> "
                 "Error! Axis with given name not found '" + axis_name + "'");
 }
+
+template <class T>
+double OutputData<T>::getValueOfAxis(
+    size_t axis_number, size_t index) const
+{
+    int axis_index = toCoordinate(index, axis_number);
+    return (*m_value_axes[axis_number])[axis_index];
+}
+
+
 
 template <class T>
 Bin1D OutputData<T>::getBinOfAxis(const std::string& axis_name, size_t index) const

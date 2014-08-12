@@ -42,6 +42,9 @@ public:
     static double GetRelativeDifference(const OutputData<double> &result,
                          const OutputData<double> &reference);
 
+    //! Returns new IntensityData objects which axes clipped to represent the specified rectangle
+    static OutputData<double> *createClippedDataSet(const OutputData<double> &origin, double x1, double y1, double x2, double y2);
+
 };
 
 

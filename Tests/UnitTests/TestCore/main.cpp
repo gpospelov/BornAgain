@@ -40,6 +40,7 @@
 #include "VariableBinAxisTest.h"
 #include "ConstKBinAxisTest.h"
 #include "CustomBinAxisTest.h"
+#include "IntensityDataFunctionsTest.h"
 
 struct ErrorStreamRedirect {
     ErrorStreamRedirect( std::streambuf * new_buffer )

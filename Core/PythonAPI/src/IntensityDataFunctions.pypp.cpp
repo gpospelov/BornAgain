@@ -30,6 +30,17 @@ void register_IntensityDataFunctions_class(){
                 , ( bp::arg("result"), bp::arg("reference") ) );
         
         }
+        { //::IntensityDataFunctions::createClippedDataSet
+        
+            typedef ::OutputData< double > * ( *createClippedDataSet_function_type )( ::OutputData< double > const &,double,double,double,double );
+            
+            IntensityDataFunctions_exposer.def( 
+                "createClippedDataSet"
+                , createClippedDataSet_function_type( &::IntensityDataFunctions::createClippedDataSet )
+                , ( bp::arg("origin"), bp::arg("x1"), bp::arg("y1"), bp::arg("x2"), bp::arg("y2") )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::IntensityDataFunctions::setEllipticMask
         
             typedef void ( *setEllipticMask_function_type )( ::OutputData< double > &,double,double,double,double );
@@ -51,6 +62,7 @@ void register_IntensityDataFunctions_class(){
         
         }
         IntensityDataFunctions_exposer.staticmethod( "GetRelativeDifference" );
+        IntensityDataFunctions_exposer.staticmethod( "createClippedDataSet" );
         IntensityDataFunctions_exposer.staticmethod( "setEllipticMask" );
         IntensityDataFunctions_exposer.staticmethod( "setRectangularMask" );
     }

@@ -97,6 +97,27 @@ std::vector<double> VariableBinAxis::getBinBoundaries() const
     return m_bin_boundaries;
 }
 
+VariableBinAxis *VariableBinAxis::createClippedAxis(double left, double right) const
+{
+
+    if(left >= right)
+        throw LogicErrorException("VariableBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
+
+    if(left < getMin()) left = getBin(0).getMidPoint();
+    if(right >= getMax()) right = getBin(getSize()-1).getMidPoint();
+
+    size_t nbin1 = findClosestIndex(left);
+    size_t nbin2 = findClosestIndex(right);
+
+    size_t new_nbins = nbin2-nbin1+1;
+    std::vector<double> new_boundaries;
+    for(size_t i=0; i<new_nbins+1; ++i) {
+        new_boundaries.push_back(m_bin_boundaries[nbin1 + i]);
+    }
+
+    return new VariableBinAxis(getName(), new_nbins, new_boundaries);
+}
+
 
 void VariableBinAxis::print(std::ostream& ostr) const
 {

@@ -28,6 +28,30 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
         return func_clone(  );
     }
 
+    virtual bool contains( double value ) const  {
+        if( bp::override func_contains = this->get_override( "contains" ) )
+            return func_contains( value );
+        else
+            return this->IAxis::contains( value );
+    }
+    
+    
+    bool default_contains( double value ) const  {
+        return IAxis::contains( value );
+    }
+
+    virtual ::IAxis * createClippedAxis( double arg0, double arg1 ) const  {
+        if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
+            return func_createClippedAxis( arg0, arg1 );
+        else
+            return this->IAxis::createClippedAxis( arg0, arg1 );
+    }
+    
+    
+    ::IAxis * default_createClippedAxis( double arg0, double arg1 ) const  {
+        return IAxis::createClippedAxis( arg0, arg1 );
+    }
+
     virtual ::IAxis * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
@@ -114,6 +138,31 @@ void register_IAxis_class(){
             IAxis_exposer.def( 
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::IAxis::clone) )
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IAxis::contains
+        
+            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
+            typedef bool ( IAxis_wrapper::*default_contains_function_type )( double ) const;
+            
+            IAxis_exposer.def( 
+                "contains"
+                , contains_function_type(&::IAxis::contains)
+                , default_contains_function_type(&IAxis_wrapper::default_contains)
+                , ( bp::arg("value") ) );
+        
+        }
+        { //::IAxis::createClippedAxis
+        
+            typedef ::IAxis * ( ::IAxis::*createClippedAxis_function_type )( double,double ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            
+            IAxis_exposer.def( 
+                "createClippedAxis"
+                , createClippedAxis_function_type(&::IAxis::createClippedAxis)
+                , default_createClippedAxis_function_type(&IAxis_wrapper::default_createClippedAxis)
+                , ( bp::arg("arg0"), bp::arg("arg1") )
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }

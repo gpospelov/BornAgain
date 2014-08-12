@@ -36,7 +36,11 @@ public:
 
     ConstKBinAxis *clone() const;
 
+    ConstKBinAxis *createClippedAxis(double left, double right) const;
+
 protected:
+    ConstKBinAxis(const std::string &name, size_t nbins);
+
     void print(std::ostream& ostr) const;
     bool equals(const IAxis& other) const;
 

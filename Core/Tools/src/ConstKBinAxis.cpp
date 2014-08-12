@@ -3,6 +3,15 @@
 #include <iomanip>
 #include <iostream>
 
+ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins)
+    : VariableBinAxis(name, nbins)
+    , m_start(0)
+    , m_end(0)
+{
+
+}
+
+
 ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins)
     , m_start(start)
@@ -28,6 +37,34 @@ ConstKBinAxis *ConstKBinAxis::clone() const
 {
     return new ConstKBinAxis(getName(), m_nbins, m_start, m_end);
 }
+
+ConstKBinAxis *ConstKBinAxis::createClippedAxis(double left, double right) const
+{
+    if(left >= right)
+        throw LogicErrorException("ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
+
+    if(left < getMin()) left = getBin(0).getMidPoint();
+    if(right >= getMax()) right = getBin(getSize()-1).getMidPoint();
+
+    size_t nbin1 = findClosestIndex(left);
+    size_t nbin2 = findClosestIndex(right);
+
+//    return new ConstKBinAxis(getName(), nbin2-nbin1+1, getBin(nbin1).m_lower, getBin(nbin2).m_upper );
+
+    size_t new_nbins = nbin2-nbin1+1;
+    std::vector<double> new_boundaries;
+    std::vector<double> old_boundaries = getBinBoundaries();
+    for(size_t i=0; i<new_nbins+1; ++i) {
+        new_boundaries.push_back(old_boundaries[nbin1 + i]);
+    }
+
+    ConstKBinAxis *result = new ConstKBinAxis(getName(), new_nbins);
+    result->m_start = new_boundaries.front();
+    result->m_end = new_boundaries.back();
+    result->setBinBoundaries(new_boundaries);
+    return result;
+}
+
 
 
 bool ConstKBinAxis::equals(const IAxis& other) const

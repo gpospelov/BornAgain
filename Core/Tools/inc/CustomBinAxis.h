@@ -42,6 +42,8 @@ public:
 
     std::vector<double > getBinCenters() const;
 
+    CustomBinAxis *createClippedAxis(double left, double right) const;
+
 protected:
     void print(std::ostream& ostr) const;
     bool equals(const IAxis& other) const;

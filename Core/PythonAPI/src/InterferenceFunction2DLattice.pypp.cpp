@@ -244,6 +244,25 @@ void register_InterferenceFunction2DLattice_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::InterferenceFunction2DLattice::getLatticeParameters
+        
+            typedef ::Lattice2DIFParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type )(  ) const;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "getLatticeParameters"
+                , getLatticeParameters_function_type( &::InterferenceFunction2DLattice::getLatticeParameters ) );
+        
+        }
+        { //::InterferenceFunction2DLattice::getProbabilityDistribution
+        
+            typedef ::IFTDistribution2D const * ( ::InterferenceFunction2DLattice::*getProbabilityDistribution_function_type )(  ) const;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "getProbabilityDistribution"
+                , getProbabilityDistribution_function_type( &::InterferenceFunction2DLattice::getProbabilityDistribution )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
         { //::InterferenceFunction2DLattice::setProbabilityDistribution
         
             typedef void ( ::InterferenceFunction2DLattice::*setProbabilityDistribution_function_type )( ::IFTDistribution2D const & ) ;

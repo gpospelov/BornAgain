@@ -52,6 +52,8 @@ public:
 
     std::vector<double > getBinBoundaries() const;
 
+    FixedBinAxis *createClippedAxis(double left, double right) const;
+
 protected:
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;

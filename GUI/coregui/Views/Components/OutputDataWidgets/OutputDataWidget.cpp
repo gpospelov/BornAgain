@@ -4,12 +4,12 @@
 #include "OutputDataToolBar.h"
 #include <QVBoxLayout>
 #include <QModelIndex>
+#include <QSplitter>
 #include <QMouseEvent>
-//#include <QSplitter>
 
 
 //OutputDataWidget::OutputDataWidget(JobQueueModel *model, QWidget *parent)
-OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool isCreatePropertyWidget)
+OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar)
     : QWidget(parent)
     , m_plotWidget(0)
     , m_data(0)
@@ -26,36 +26,29 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 
 
     m_gradient = QCPColorGradient::gpPolar;
+
+    m_isPropertyWidgetVisible = true;
     m_isProjectionsVisible = true;
 
 
 
 
 
-    m_plotWidget = new PlotWidget();
-    connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
-    connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));
+    m_plotWidget = new PlotWidget(this);
+    m_plotWidget->setObjectName(QString::fromUtf8("OutputDataWidget::customPlot"));
+    //connect(m_plotWidget, SIGNAL(isProjectionsChanged(bool)),this, SLOT(projectionsChanged(bool)));
 
-
-//    m_splitter = new QSplitter(this);
-//    m_splitter->setStyleSheet("background-color:white;");
-//    m_splitter->addWidget(m_plotWidget);
+    m_splitter = new QSplitter(this);
+    m_splitter->setStyleSheet("background-color:white;");
+    m_splitter->addWidget(m_plotWidget);
 
     m_propertyWidget = new PropertyWidget(this);
     connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
     connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+    m_splitter->addWidget(m_propertyWidget);
+    connect(m_splitter, SIGNAL(splitterMoved(int,int)), this, SLOT(onPropertySplitterMoved(int,int)));
+    m_currentPropertyWidgetWidth = m_propertyWidget->getWidth();
 
-    //m_splitter->addWidget(m_propertyWidget);
-    //connect(m_splitter, SIGNAL(splitterMoved(int,int)), this, SLOT(onPropertySplitterMoved(int,int)));
-    //m_currentPropertyWidgetWidth = m_propertyWidget->getWidth();
-
-
-    m_layout = new QHBoxLayout;
-    m_layout->setMargin(0);
-    m_layout->setSpacing(0);
-
-    m_layout->addWidget(m_plotWidget);
-    m_layout->addWidget(m_propertyWidget);
 
     m_mainLayout = new QVBoxLayout;
     m_mainLayout->setMargin(0);
@@ -69,25 +62,36 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
         m_mainLayout->addWidget(m_toolBar);
     }
 
-    m_mainLayout->addLayout(m_layout);
+    m_mainLayout->addWidget(m_splitter);
     setLayout(m_mainLayout);
-
-    m_propertyWidget->setVisible(isCreatePropertyWidget);
-
 }
+
+/*void OutputDataWidget::connectPropertyWidgetSignals(bool isConnect)
+{
+    if(m_propertyWidget)
+    {
+        if(isConnect)
+        {
+            connect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
+            connect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+        }
+        else
+        {
+            disconnect(m_propertyWidget, SIGNAL(projectionsChanged(bool)), this, SLOT(projectionsChanged(bool)));
+            disconnect(m_propertyWidget, SIGNAL(gradientChanged(QCPColorGradient)), this, SLOT(gradientChanged(QCPColorGradient)));
+        }
+    }
+
+}*/
 
 
 void OutputDataWidget::setCurrentItem(OutputDataItem *item)
 {
-    qDebug() << "OutputDataWidget::setCurrentItem()" << item;
-    m_currentOutputDataItem = item;
+    qDebug() << "OutputDataWidget::setCurrentItem()";
 
     m_plotWidget->drawPlot(item);
-
-    m_propertyWidget->updateData(item, m_gradient);
-
-
-    //connectPropertyWidgetSignals(isPropertyWidgetVisible);
+    m_propertyWidget->setupPropertyWidget(item, m_gradient);
+//    connectPropertyWidgetSignals(isPropertyWidgetVisible);
 
 }
 
@@ -102,56 +106,49 @@ void OutputDataWidget::connectToobarSignals()
 
 void OutputDataWidget::togglePropertyPanel()
 {
-    //qDebug() << "OutputDataWidget::togglePropertyPanel()";
-    setPropertyPanelVisible(!m_propertyWidget->isVisible());
+
+
+    QList<int> sizes_org = this->m_splitter->sizes();
+
+    if(sizes_org.at(1) > 0)
+    {
+        setPropertyPanelVisible(false);
+    }
+    else
+    {
+       setPropertyPanelVisible(true);
+    }
 
 }
 
 void OutputDataWidget::setPropertyPanelVisible(bool visible)
 {
-    //int width = 0;
+    int width = 0;
+    m_isPropertyWidgetVisible = visible;
     if(visible)
     {
-        //width = m_propertyWidget->getWidth();
-        m_propertyWidget->updateData(m_currentOutputDataItem, m_gradient);
+        width = m_propertyWidget->getWidth();
+        m_propertyWidget->connectSignals();
     }
     else
     {
-        //width = 0;
-        m_propertyWidget->updateData(0);
+        width = 0;
+        m_propertyWidget->disconnectSignals();
     }
-    m_propertyWidget->setVisible(visible);
-    m_plotWidget->setPropertyWidgetVisibilityFlag(visible);
+
+    m_currentPropertyWidgetWidth = width;
+    QList<int> sizes;
+    sizes.append(this->m_splitter->width() - width);
+    sizes.append(width);
+    this->m_splitter->setSizes(sizes);
+
+
 
 }
 
-/*void OutputDataWidget::onPropertySplitterMoved(int pos, int index)
-{
-
-    QList<int> sizes_org = this->m_splitter->sizes();
-
-    if(sizes_org.at(index) != m_currentPropertyWidgetWidth)
-    {
-
-        if(sizes_org.at(index) == m_propertyWidget->getWidth())
-        {
-            qDebug() << "OutputDataWidget::onPropertySplitterMoved() about to enable propertyWidget";
-            m_currentPropertyWidgetWidth = sizes_org.at(1);
-            m_propertyWidget->updateData(m_currentOutputDataItem, m_gradient);
-        }
-        else
-        {
-            qDebug() << "OutputDataWidget::onPropertySplitterMoved() about to disable propertyWidget";
-            m_currentPropertyWidgetWidth = 0;
-            m_propertyWidget->updateData(0, m_gradient);
-        }
-
-
-    }
-}*/
-
 void OutputDataWidget::toggleProjections()
 {
+    qDebug() << "OutputDataWidget::toggleProjections() ";
     m_propertyWidget->toggleProjections();
 }
 
@@ -169,14 +166,10 @@ void OutputDataWidget::savePlot()
 
 void OutputDataWidget::projectionsChanged(bool projection)
 {
-    if(m_isProjectionsVisible == projection)
-    {
-        return;
-    }
+    qDebug() << "PW Projections: " << projection;
 
     m_isProjectionsVisible = projection;
     m_plotWidget->projectionsChanged(projection);
-    m_propertyWidget->setProjections(projection);
 }
 
 void OutputDataWidget::gradientChanged(QCPColorGradient gradient)
@@ -186,7 +179,33 @@ void OutputDataWidget::gradientChanged(QCPColorGradient gradient)
 
 }
 
+void OutputDataWidget::onPropertySplitterMoved(int pos, int index)
+{
+    qDebug() << "OutputDataWidget::onPropertySplitterMoved";
+    QList<int> sizes_org = this->m_splitter->sizes();
 
+    if(sizes_org.at(index) != m_currentPropertyWidgetWidth)
+    {
+        qDebug() << "   OutputDataWidget::onPropertySplitterMoved" << m_propertyWidget->getWidth() << "::" << sizes_org.at(index);
+        if(sizes_org.at(index) == m_propertyWidget->getWidth())
+        {
+            m_currentPropertyWidgetWidth = sizes_org.at(1);
+            m_isPropertyWidgetVisible = true;
+            m_propertyWidget->connectSignals();
+
+        }
+        else
+        {
+            m_currentPropertyWidgetWidth = 0;
+            m_isPropertyWidgetVisible = false;
+            m_propertyWidget->disconnectSignals();
+        }
+
+
+    }
+
+
+}
 
 
 

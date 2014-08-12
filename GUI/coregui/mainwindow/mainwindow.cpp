@@ -108,7 +108,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
-    m_tabWidget->setCurrentIndex(SampleTab);
+    m_tabWidget->setCurrentIndex(InstrumentTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);

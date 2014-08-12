@@ -3,6 +3,7 @@
 #include "DetectorItems.h"
 #include "BeamItem.h"
 #include "Units.h"
+#include "AngleProperty.h"
 #include "GUIHelpers.h"
 #include <QLineEdit>
 #include <QBoxLayout>
@@ -109,7 +110,12 @@ void BeamEditorWidget::onChangedWavelength(const QString & /* text */)
 void BeamEditorWidget::onChangedAngle(const QString &)
 {
     if(m_block_signals) return;
-    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, m_inclinationAngleSpinBox->value());
+//    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, m_inclinationAngleSpinBox->value());
+
+    AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE2).value<AngleProperty>();
+    inclination_angle.setValue(m_inclinationAngleSpinBox->value());
+    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE2, inclination_angle.getVariant());
+
     m_currentItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE, m_azimuthalAngleSpinBox->value());
 }
 
@@ -130,19 +136,19 @@ void BeamEditorWidget::onAngleUnitsChanged(int)
     units_property.setValue(m_angleUnits->currentText());
     m_currentItem->setRegisteredProperty(BeamItem::P_ANGLE_UNITS, units_property.getVariant());
 
-    double alpha = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble();
-    double phi = m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble();
+//    double alpha = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble();
+//    double phi = m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble();
 
-    ComboProperty angle_units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<ComboProperty>();
-    updateAngleUnits(angle_units_property.getValue());
+//    ComboProperty angle_units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<ComboProperty>();
+//    updateAngleUnits(angle_units_property.getValue());
 
-    if(m_angleUnits->currentText() == "Degrees") {
-        m_inclinationAngleSpinBox->setValue(Units::rad2deg(alpha));
-        m_azimuthalAngleSpinBox->setValue(Units::rad2deg(phi));
-    } else {
-        m_inclinationAngleSpinBox->setValue(Units::deg2rad(alpha));
-        m_azimuthalAngleSpinBox->setValue(Units::deg2rad(phi));
-    }
+//    if(m_angleUnits->currentText() == "Degrees") {
+//        m_inclinationAngleSpinBox->setValue(Units::rad2deg(alpha));
+//        m_azimuthalAngleSpinBox->setValue(Units::rad2deg(phi));
+//    } else {
+//        m_inclinationAngleSpinBox->setValue(Units::deg2rad(alpha));
+//        m_azimuthalAngleSpinBox->setValue(Units::deg2rad(phi));
+//    }
 
 }
 
@@ -161,7 +167,18 @@ void BeamEditorWidget::updateWidgets()
     m_angleUnits->addItems(angle_units_property.getValues());
     m_angleUnits->setCurrentText(angle_units_property.getValue());
 
-    m_inclinationAngleSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble());
+
+    AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE2).value<AngleProperty>();
+    if(inclination_angle.inDegrees()) {
+        setAngleUnits(m_inclinationAngleSpinBox, "Degrees");
+    } else {
+        setAngleUnits(m_inclinationAngleSpinBox, "Radians");
+    }
+//    m_inclinationAngleSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble());
+    m_inclinationAngleSpinBox->setValue(inclination_angle.getValue());
+
+
+
     m_azimuthalAngleSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble());
 
     setBlockSignals(false);
@@ -195,7 +212,7 @@ void BeamEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const QString &unit
         editor->setSingleStep(0.0001);
         editor->setMinimum(Units::deg2rad(-90.0));
         editor->setMaximum(Units::deg2rad(90.0));
-        editor->setDecimals(5);
+        editor->setDecimals(6);
     }
     else {
         throw GUIHelpers::Error("BeamEditorWidget::setAngleUnits() ->");

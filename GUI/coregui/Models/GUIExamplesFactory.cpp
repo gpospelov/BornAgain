@@ -5,6 +5,7 @@
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "GUIHelpers.h"
+#include <boost/scoped_ptr.hpp>
 #include <QDebug>
 #include <boost/scoped_ptr.hpp>
 

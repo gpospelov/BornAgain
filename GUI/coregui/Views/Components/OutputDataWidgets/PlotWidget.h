@@ -27,7 +27,8 @@ public:
     void drawPlot(OutputDataItem *outputDataItem);
 
 signals:
-    void isProjectionsChanged(bool projection);
+    void projectionsVisibilityChanged(bool visible);
+    void propertyWidgetVisibilityChanged(bool visible);
 
 public slots:
     void onZaxisRangeChanged(QCPRange newRange);
@@ -37,6 +38,7 @@ public slots:
     void savePlot();
     void projectionsChanged(bool projection);
     void gradientChanged(QCPColorGradient gradient);
+    void propertyWidgetChanged(bool visible);
 
 private slots:
     void mousePress(QMouseEvent*event);

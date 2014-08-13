@@ -131,7 +131,7 @@ QStandardItem *ModelTuningWidget::iterateSessionModel(const QModelIndex &parentI
 
                     foreach (ParameterizedItem *subItem, subItems) {
 
-                        qDebug() << "Item: " << item->itemName() << "SubItem:" << subItem->itemName();
+                        //qDebug() << "Item: " << item->itemName() << "SubItem:" << subItem->itemName();
 
                         QStandardItem *childStandardItem = new QStandardItem(subItem->itemName());
 
@@ -290,7 +290,7 @@ void ModelTuningWidget::updateTreeView(const QString &instrument, const QString 
         //qDebug() << "XXX TreeView Height " << height << this->height();
 
         m_treeView->setModel(m_parameterModel);
-        m_treeView->setFixedWidth(320);
+        //m_treeView->setFixedWidth(320);
         m_treeView->setFixedHeight(height);
         m_treeView->setColumnWidth(0,170);
         m_treeView->expandAll();

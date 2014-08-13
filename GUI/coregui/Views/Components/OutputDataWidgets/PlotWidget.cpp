@@ -14,6 +14,8 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
     , m_outputDataItem(0)
     , m_block_plot_update(true)
 {
+    this->setObjectName(QStringLiteral("plotWidget"));
+
     m_gradient = QCPColorGradient::gpPolar;
 
     m_isProjectionsEnabled = true;
@@ -232,7 +234,8 @@ void PlotWidget::initContextMenu()
     propertyPanelAct = new QAction(propertyPanelText, this);
     propertyPanelAct->setCheckable(true);
     //propertyPanelAct->setChecked(isPropertyWidgetVisible);
-    //connect(propertyPanelAct, SIGNAL(triggered()), this, SLOT(togglePropertyPanel()));
+    connect(propertyPanelAct, SIGNAL(triggered(bool)), this, SLOT(propertyWidgetChanged(bool)));
+
 
     projectionsAct = new QAction(projectionsText, this);
     projectionsAct->setCheckable(true);
@@ -261,7 +264,7 @@ void PlotWidget::mousePress(QMouseEvent *event)
 
     if(m_contextMenu->isVisible())
     {
-m_contextMenu->close();
+        m_contextMenu->close();
     }
 
 
@@ -357,7 +360,7 @@ void PlotWidget::projectionsChanged(bool projection)
     this->m_splitterTop->setSizes(v_sizes);
 
     m_centralPlot->showLinesOverMap(projection);
-    //emit isProjectionsChanged(projection);
+    emit projectionsVisibilityChanged(projection);
 }
 
 void PlotWidget::gradientChanged(QCPColorGradient gradient)
@@ -377,6 +380,12 @@ void PlotWidget::onYaxisRangeChanged(QCPRange newRange)
 {
     //qDebug() << "onYaxisRangeChanged: "<<newRange.lower << newRange.upper;
     m_verticalPlot->setKeyAxisRange(newRange);
+}
+
+void PlotWidget::propertyWidgetChanged(bool visible)
+{
+    qDebug() << "PlotWidget::propertyWidgetVisibilityChanged" << visible;
+    emit propertyWidgetVisibilityChanged(visible);
 }
 
 

@@ -5,6 +5,7 @@
 #include "OutputDataWidget.h"
 #include "QuickSimulationRunner.h"
 #include "OutputDataWidget.h"
+#include <QSplitter>
 
 
 QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
@@ -20,12 +21,7 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     setAutoFillBackground(true);
     //setPalette(palette);
 
-    m_outputDataWidget = new OutputDataWidget(this, false);
-    m_outputDataWidget->setPropertyPanelVisible(false);
-    //m_plotWidget->setProjectionsVisible(false);
-    //m_plotWidget->setPropertyPanelVisible(false);
-    //m_plotWidget->setFixedWidth(600);
-
+    m_outputDataWidget = new OutputDataWidget(this, false, false);
 
     m_quickSimulationRunner = new QuickSimulationRunner(this);
     m_quickSimulationRunner->setOutputDataWidget(m_outputDataWidget);
@@ -33,17 +29,19 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
 
     m_modelTuningWidget = new ModelTuningWidget(m_sampleModel, m_instrumentModel);
     m_modelTuningWidget->setQuickSimulationRunner(m_quickSimulationRunner);
-    m_modelTuningWidget->setFixedWidth(320);
-    //m_modelTuningWidget->setFixedHeight(800);
+    //m_modelTuningWidget->setFixedWidth(320);
     m_modelTuningWidget->setContentsMargins(0,0,0,0);
 
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addStretch();
-    mainLayout->addWidget(m_outputDataWidget);
-    mainLayout->addStretch();
-    mainLayout->addWidget(m_modelTuningWidget);
 
-    mainLayout->setContentsMargins(0,0,0,0);
+    m_splitter = new QSplitter(this);
+    m_splitter->setStyleSheet("background-color:white;");
+    m_splitter->addWidget(m_outputDataWidget);
+    m_splitter->addWidget(m_modelTuningWidget);
+
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->addWidget(m_splitter);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
 
     setLayout(mainLayout);
 

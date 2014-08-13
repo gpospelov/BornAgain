@@ -15,7 +15,7 @@ class OutputDataItem : public QObject
     Q_OBJECT
 public:
     OutputDataItem();
-    virtual ~OutputDataItem(){}
+    virtual ~OutputDataItem();
 
     QString getName() const { return m_name;}
 

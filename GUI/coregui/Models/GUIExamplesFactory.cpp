@@ -6,6 +6,7 @@
 #include "SampleModel.h"
 #include "GUIHelpers.h"
 #include <QDebug>
+#include <boost/scoped_ptr.hpp>
 
 //! Defines correspondance between example name and real name of simulation from SimulationRegistry
 QMap<QString, QString > init_NameToRegistry()

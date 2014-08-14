@@ -42,6 +42,7 @@
 #include "ScientificDoubleProperty.h"
 #include "SampleModel.h"
 //#include "TestView.h"
+#include <boost/scoped_ptr.hpp>
 
 #include <QApplication>
 #include <QStatusBar>

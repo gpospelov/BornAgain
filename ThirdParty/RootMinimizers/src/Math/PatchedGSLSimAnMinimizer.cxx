@@ -10,7 +10,7 @@
 
 // Implementation file for class GSLSimAnMinimizer
 
-#include "Math/GSLSimAnMinimizer.h"
+#include "Math/PatchedGSLSimAnMinimizer.h"
 #include "Math/WrappedParamFunction.h"
 #include "Math/Error.h"
 

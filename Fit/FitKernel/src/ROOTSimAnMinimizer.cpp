@@ -38,15 +38,12 @@ void ROOTSimAnMinimizer::propagateOptions()
 {
     ROOTMinimizer::propagateOptions();
 
-    // FIXME
-    throw Exceptions::NotImplementedException("FIXME ASUP");
-
-//    ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
-//    m_options.getValue("ntries", pars.n_tries);
-//    m_options.getValue("niters_fixed_t", pars.iters_fixed_T);
-//    m_options.getValue("step_size", pars.step_size);
-//    m_options.getValue("k", pars.k);
-//    m_options.getValue("t_initial", pars.t_initial);
-//    m_options.getValue("mu", pars.mu);
-//    m_options.getValue("t_min", pars.t_min);
+    ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
+    m_options.getValue("ntries", pars.n_tries);
+    m_options.getValue("niters_fixed_t", pars.iters_fixed_T);
+    m_options.getValue("step_size", pars.step_size);
+    m_options.getValue("k", pars.k);
+    m_options.getValue("t_initial", pars.t_initial);
+    m_options.getValue("mu", pars.mu);
+    m_options.getValue("t_min", pars.t_min);
 }

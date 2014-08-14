@@ -3,9 +3,14 @@
 ############################################################################
 
 set(list_of_tests
-    "testfit01.py"
-    "testfit02.py"
+    "testfit_UsingBuilder.py"
+    "testfit_Genetic.py"
+    "testfit_GSLLMA.py"
+    "testfit_GSLMultiMin.py"
+    "testfit_GSLSimAn.py"
+    "testfit_Minuit2.py"
 )
+
 
 foreach(_test ${list_of_tests})
     #add_test(${_test} ${PYTHON_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/${_test}")

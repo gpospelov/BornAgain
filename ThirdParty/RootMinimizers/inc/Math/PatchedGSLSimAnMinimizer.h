@@ -107,6 +107,8 @@ public:
    //number of calls 
    unsigned int NCalls() const; 
 
+   ROOT::Math::GSLSimAnnealing& getSolver() { return fSolver; }
+
 
 protected: 
 

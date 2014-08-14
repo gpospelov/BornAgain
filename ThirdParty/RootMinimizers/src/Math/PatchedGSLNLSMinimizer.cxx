@@ -10,7 +10,7 @@
 
 // Implementation file for class GSLNLSMinimizer
 
-#include "Math/GSLNLSMinimizer.h"
+#include "Math/PatchedGSLNLSMinimizer.h"
 
 #include "Math/MinimTransformFunction.h"
 #include "Math/MultiNumGradFunction.h"

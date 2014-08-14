@@ -118,15 +118,18 @@ public:
    }
 
    void FdF (const double * x, double & f, double * g) const { 
-      unsigned int n = NDim(); 
-      std::copy(x,x+n,fX2.begin());
-      const double kEps = 1.0E-4;
-      f = DoEval(x); 
-      for (unsigned int i = 0; i < n; ++i) { 
-         fX2[i] += kEps;
-         g[i] =  ( DoEval(&fX2.front()) - f )/kEps;
-         fX2[i] = x[i];
-      }
+//      unsigned int n = NDim();
+//      std::copy(x,x+n,fX2.begin());
+//      const double kEps = 1.0E-4;
+//      f = DoEval(x);
+//      for (unsigned int i = 0; i < n; ++i) {
+//         fX2[i] += kEps;
+//         g[i] =  ( DoEval(&fX2.front()) - f )/kEps;
+//         fX2[i] = x[i];
+//      }
+       // G.P. Modifications to adjust to BornAgain
+       f = DoEval(x);
+       fChi2->DataElement(x, fIndex, g);
    } 
    
 

@@ -229,6 +229,15 @@ void register_FitSuite_class(){
                 , getNStrategy_function_type( &::FitSuite::getNStrategy ) );
         
         }
+        { //::FitSuite::getRunTime
+        
+            typedef double ( ::FitSuite::*getRunTime_function_type )(  ) const;
+            
+            FitSuite_exposer.def( 
+                "getRunTime"
+                , getRunTime_function_type( &::FitSuite::getRunTime ) );
+        
+        }
         { //::FitSuite::initPrint
         
             typedef void ( ::FitSuite::*initPrint_function_type )( int ) ;

@@ -26,10 +26,10 @@ cylinder_radius = 5*nanometer
 
 # minimizer name and type of minimization algorithm
 Minimizers = [ 
-    ("Minuit2", "Migrad"),
-    ("Minuit2", "Fumili"),
-    ("GSLMultiMin", "BFGS"),
-    ("GSLMultiMin", "SteepestDescent"),
+    #("Minuit2", "Migrad"),
+    #("Minuit2", "Fumili"),
+    #("GSLMultiMin", "BFGS"),
+    #("GSLMultiMin", "SteepestDescent"),
     ("GSLLMA", ""),
 #    ("GSLSimAn","")
 ]

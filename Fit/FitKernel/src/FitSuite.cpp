@@ -97,6 +97,8 @@ bool FitSuite::check_prerequisites() const
 
 void FitSuite::runFit()
 {
+    m_start_time =  boost::posix_time::microsec_clock::local_time();
+
     // check if all prerequisites are fullfilled before starting minimization
     check_prerequisites();
 
@@ -116,6 +118,7 @@ void FitSuite::runFit()
     m_is_last_iteration = true;
     notifyObservers();
 
+    m_end_time =  boost::posix_time::microsec_clock::local_time();
 }
 
 
@@ -189,6 +192,12 @@ void FitSuite::releaseAllParameters()
 void FitSuite::setParametersFixed(const std::vector<std::string> &pars, bool is_fixed)
 {
     getFitParameters()->setParametersFixed(pars, is_fixed);
+}
+
+double FitSuite::getRunTime() const
+{
+    boost::posix_time::time_duration diff = m_end_time - m_start_time;
+    return diff.total_milliseconds()/1000.;
 }
 
 

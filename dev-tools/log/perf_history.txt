@@ -391,4 +391,7 @@
 | 2014-08-08 12:59:08 | jcnsopc126 | linuxx8664gcc | 0  | 27.425   | 1.385        | 2.177        | 1.491        | 0.850        | 7.095        | 4.193        | 0.494        | 7.839        | 1.900        |
 | 2014-08-08 13:00:40 | jcnsopc126 | linuxx8664gcc | 0  | 26.856   | 1.333        | 2.174        | 1.467        | 0.833        | 6.910        | 4.074        | 0.494        | 7.756        | 1.815        |
 
+# before profiling
+| date                | hostname   | sysinfo       | tr | total    | isgisaxs02   | isgisaxs06a  | isgisaxs09b  | isgisaxs11   | isgisaxs15   | mesocrystal0 | specmatrix   | specmagnetic | polmagcylind |
+| 2014-08-13 14:26:00 | jcnsopc126 | linuxx8664gcc | 0  | 26.218   | 1.321        | 2.063        | 1.386        | 0.834        | 6.561        | 3.807        | 0.487        | 7.879        | 1.880        |
 

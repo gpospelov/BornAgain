@@ -10,8 +10,6 @@ public:
 
     void runSimulation(Simulation *simulation);
 
-private:
-    Simulation *m_simulation;
 };
 
 

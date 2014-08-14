@@ -40,16 +40,16 @@ class BA_CORE_API_ ROOTMinimizerHelper
 
  private:
     //! process single command
-    static bool processCommand(ROOT::Math::Minimizer *minimizer,
-            const std::string& command);
+//    static bool processCommand(ROOT::Math::Minimizer *minimizer,
+//            const std::string& command);
 
-    //! process single command common for all minimizers
-    static bool processCommandAll(ROOT::Math::Minimizer *minimizer,
-            const std::string& command);
+//    //! process single command common for all minimizers
+//    static bool processCommandAll(ROOT::Math::Minimizer *minimizer,
+//            const std::string& command);
 
-    //! process single command specific for GSL simulated annealing minimizer
-    static bool processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *minimizer,
-            const std::string& command);
+//    //! process single command specific for GSL simulated annealing minimizer
+//    static bool processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *minimizer,
+//            const std::string& command);
 
     //! Prints minimizer options
     static void printOptions(const ROOT::Math::Minimizer *minimizer);

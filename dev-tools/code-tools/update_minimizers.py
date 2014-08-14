@@ -60,10 +60,10 @@ def build_difference_map():
     for ba_file in ba_files:
         found_files = find_files_with_same_name(root_files, os.path.basename(ba_file))
         if len(found_files) == 1:
-            #cmd = "diff "+ba_file+" "+found_files[0]
-            #differs = os.system(cmd)
             if filecmp.cmp(ba_file, found_files[0]) == False:
+                cmd = "cp " + found_files[0] + " " + os.path.dirname(ba_file)
                 print ba_file, found_files[0]
+                #os.system(cmd)
         else:
             print ba_file, len(found_files)
 

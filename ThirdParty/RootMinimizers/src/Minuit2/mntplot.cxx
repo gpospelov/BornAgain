@@ -9,7 +9,7 @@
 
 /* mnplot.F -- translated by f2c (version 20010320).
    You must link the resulting object file with the libraries:
-	-lf2c -lm   (in that order)
+   -lf2c -lm   (in that order)
 */
 
 #include <math.h>
@@ -125,7 +125,8 @@ L50:
       cline[nx] = '\0';
       cline[nx+1] = '\0';
       cline[0]        = '.';
-      cline[nx-1]     = '.';
+      // not needed - but to avoid a wrongly reported compiler warning (see ROOT-6496)
+      if (nx>0) cline[nx-1]     = '.';
       cline[nxbest-1] = '.';
       if (i != 1 && i != nybest && i != ny) goto L320;
       for (j = 1; j <= nx; ++j) { cline[j-1] = '.'; }
@@ -159,7 +160,7 @@ L350:
       printf("                  %s",(const char*)ctemp);
       goto L400;
 L380:
-         //  	ctemp = cline;
+         //   ctemp = cline;
          memcpy(ctemp, cline, 120);
       printf(" %14.7g ..%s",yprt,(const char*)ctemp);
       linodd = 0;

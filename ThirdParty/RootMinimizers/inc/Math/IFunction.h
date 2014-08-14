@@ -315,6 +315,7 @@ namespace Math {
    @ingroup  GenFunc
 */ 
 
+
    class IGradientFunctionMultiDim : 
       virtual public IBaseFunctionMultiDim , 
       public IGradientMultiDim { 
@@ -407,8 +408,6 @@ namespace Math {
 
 
    }; 
-
-
 
  
 

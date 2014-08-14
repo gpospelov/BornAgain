@@ -17,7 +17,8 @@
 #define ROOTSIMANMINIMIZER_H
 
 #include "ROOTMinimizer.h"
-#include "PatchedGSLSimAnMinimizer.h"
+//#include "PatchedGSLSimAnMinimizer.h"
+#include "Math/GSLSimAnMinimizer.h"
 
 
 //! @class ROOTSimAnMinimizer
@@ -33,7 +34,8 @@ public:
 protected:
    virtual void propagateOptions();
 
-   ROOT::Patch::GSLSimAnMinimizer *m_siman_minimizer;
+//    ROOT::Patch::GSLSimAnMinimizer *m_siman_minimizer;
+    ROOT::Math::GSLSimAnMinimizer *m_siman_minimizer;
 };
 
 

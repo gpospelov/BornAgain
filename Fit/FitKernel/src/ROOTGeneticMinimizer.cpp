@@ -59,24 +59,27 @@ void ROOTGeneticMinimizer::propagateOptions()
         m_options.setMaxIterations(m_options.getIntValue("Steps"));
     }
 
-    // accessing minimizer
-    ROOT::Math::MinimizerOptions options = m_genetic_minimizer->Options();
+    // FIXME
+    throw Exceptions::NotImplementedException("ROOTGeneticMinimizer::propagateOptions() FIXME");
 
-    options.SetTolerance(m_options.getTolerance());
-    options.SetPrecision(m_options.getPrecision());
-    options.SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
-    options.SetMaxIterations(m_options.getMaxIterations());
+//    // accessing minimizer
+//    ROOT::Math::MinimizerOptions options = m_genetic_minimizer->Options();
 
-    ROOT::Math::IOptions *geneticOpt = options.ExtraOptions();
-    geneticOpt->SetValue("Cycles", m_options.getIntValue("Cycles"));
-    geneticOpt->SetValue("PopSize", m_options.getIntValue("PopSize"));
-    geneticOpt->SetValue("SC_rate", m_options.getIntValue("SC_rate"));
-    geneticOpt->SetValue("SC_steps", m_options.getIntValue("SC_steps"));
-    geneticOpt->SetValue("Steps", m_options.getIntValue("Steps") );
-    geneticOpt->SetValue("ConvCrit", 10.*m_options.getTolerance());
-    geneticOpt->SetValue("SC_factor", m_options.getRealValue("SC_factor"));
+//    options.SetTolerance(m_options.getTolerance());
+//    options.SetPrecision(m_options.getPrecision());
+//    options.SetMaxFunctionCalls(m_options.getMaxFunctionCalls());
+//    options.SetMaxIterations(m_options.getMaxIterations());
 
-    m_genetic_minimizer->SetOptions(options);
+//    ROOT::Math::IOptions *geneticOpt = options.ExtraOptions();
+//    geneticOpt->SetValue("Cycles", m_options.getIntValue("Cycles"));
+//    geneticOpt->SetValue("PopSize", m_options.getIntValue("PopSize"));
+//    geneticOpt->SetValue("SC_rate", m_options.getIntValue("SC_rate"));
+//    geneticOpt->SetValue("SC_steps", m_options.getIntValue("SC_steps"));
+//    geneticOpt->SetValue("Steps", m_options.getIntValue("Steps") );
+//    geneticOpt->SetValue("ConvCrit", 10.*m_options.getTolerance());
+//    geneticOpt->SetValue("SC_factor", m_options.getRealValue("SC_factor"));
+
+//    m_genetic_minimizer->SetOptions(options);
 
 }
 

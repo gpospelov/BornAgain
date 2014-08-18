@@ -58,7 +58,6 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-message("XXX ${RootMinimizers_INCLUDE_DIRS}")
 
 # --- dependencies ---
 include_directories(

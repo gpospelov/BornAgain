@@ -17,8 +17,7 @@
 #define ROOTMULTIFITMINIMIZER_H
 
 #include "ROOTMinimizer.h"
-//#include "PatchedGSLNLSMinimizer.h"
-#include "Math/GSLNLSMinimizer.h"
+#include "Math/PatchedGSLNLSMinimizer.h"
 
 //! @class ROOTLMAMinimizer
 //! @ingroup fitting_internal
@@ -35,7 +34,6 @@ public:
 protected:
    virtual void propagateOptions();
 
-//    ROOT::Patch::GSLNLSMinimizer *m_lma_minimizer;
     ROOT::Math::GSLNLSMinimizer *m_lma_minimizer;
 
 };

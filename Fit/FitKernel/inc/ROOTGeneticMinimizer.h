@@ -17,7 +17,7 @@
 #define ROOTGENETICMINIMIZER_H
 
 #include "ROOTMinimizer.h"
-#include "Math/GeneticMinimizer.h"
+#include "GeneticMinimizer.h"
 
 //! @class ROOTGeneticMinimizer
 //! @ingroup fitting_internal

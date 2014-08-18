@@ -146,7 +146,7 @@ MnUserCovariance MnUserTransformation::Int2extCovariance(const MnAlgebraicVector
       for(unsigned int j = i; j < vec.size(); j++) {
          double dxdj = 1.;
          if(fParameters[fExtOfInt[j]].HasLimits()) {
-            // 	dxdj = 0.5*fabs((fParameters[fExtOfInt[j]].Upper() - fParameters[fExtOfInt[j]].Lower())*cos(vec(j)));
+            //   dxdj = 0.5*fabs((fParameters[fExtOfInt[j]].Upper() - fParameters[fExtOfInt[j]].Lower())*cos(vec(j)));
             dxdj = DInt2Ext(j, vec(j));
          }
          result(i,j) = dxdi*cov(i,j)*dxdj;
@@ -159,7 +159,7 @@ MnUserCovariance MnUserTransformation::Int2extCovariance(const MnAlgebraicVector
 }
 
 double MnUserTransformation::Ext2int(unsigned int i, double val) const {
-   // return the external value for parameter i with value val
+   // return the internal value for parameter i with external value val
    
    if(fParameters[i].HasLimits()) {
       if(fParameters[i].HasUpperLimit() && fParameters[i].HasLowerLimit())
@@ -350,6 +350,13 @@ void MnUserTransformation::RemoveLimits(unsigned int n) {
    assert(n < fParameters.size()); 
    fParameters[n].RemoveLimits();
 }
+
+void MnUserTransformation::SetName(unsigned int n, const std::string & name) {
+   // set name for parameter n (external index)
+   assert(n < fParameters.size()); 
+   fParameters[n].SetName(name);
+}
+
 
 double MnUserTransformation::Value(unsigned int n) const {
    // get value for parameter n (external index)

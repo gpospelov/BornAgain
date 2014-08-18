@@ -87,8 +87,8 @@ def ManualClassTunings(mb):
     cl = mb.class_("IMinimizer")
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
-    cl.member_function("getAlgorithmName").exclude() # temporarily due to compilation problems under MSVC
-    cl.member_function("getMinimizerName").exclude() # temporarily due to compilation problems under MSVC
+    #cl.member_function("getAlgorithmName").exclude() # temporarily due to compilation problems under MSVC
+    #cl.member_function("getMinimizerName").exclude() # temporarily due to compilation problems under MSVC
     for fun in cl.member_functions():
         if "getOptions" in fun.name:
             if "::MinimizerOptions const & ( ::IMinimizer::* )(  ) const" in fun.decl_string:

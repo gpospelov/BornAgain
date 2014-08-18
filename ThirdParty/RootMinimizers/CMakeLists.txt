@@ -23,6 +23,13 @@ file(GLOB include_files
     "src/Math/*.h"
 )
 
+#if(NOT ROOT_FOUND)
+#    list(REMOVE_ITEM include_files GeneticMinimizer.h)
+#    list(REMOVE_ITEM source_files GeneticMinimizer.cxx)
+#endif()
+
+add_definitions(-DWARNINGMSG)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
 
 # --- making library ---

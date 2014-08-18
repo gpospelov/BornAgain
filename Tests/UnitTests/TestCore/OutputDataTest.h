@@ -246,7 +246,6 @@ TEST_F(OutputDataTest, SetRectangularMask)
         EXPECT_EQ(x, xref[index]);
         EXPECT_EQ(y, yref[index]);
         EXPECT_EQ(*it, vref[index]);
-        std::cout << x << " " << y << std::endl;
         ++index;
     }
     data.removeAllMasks();

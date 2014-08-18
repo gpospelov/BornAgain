@@ -18,7 +18,8 @@
 ROOTSimAnMinimizer::ROOTSimAnMinimizer(const std::string& minimizer_name, const std::string& algo_type)
     : ROOTMinimizer(minimizer_name, algo_type)
 {
-    m_siman_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
+//    m_siman_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
+    m_siman_minimizer = new ROOT::Math::GSLSimAnMinimizer();
     m_root_minimizer = m_siman_minimizer;
 
     m_options.addValue("ntries", 100);

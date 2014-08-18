@@ -49,16 +49,21 @@ else()
         mark_as_advanced(ROOT_CONFIG_EXECUTABLE)
 
         if(NOT ROOT_FIND_QUIETLY)
-            message(STATUS "Found ROOT ${ROOT_VERSION} in ${ROOTSYS}")
+            message(STATUS "Found ROOT framework ${ROOT_VERSION} in ${ROOTSYS}")
         endif()
     endif()
 endif()
 
 # check if ROOT installation is complete
-if(NOT EXISTS "${ROOT_INCLUDE_DIR}/Math/GeneticMinimizer.h")
-    message("--> ROOT installation is not complete. Can't find file ${ROOT_INCLUDE_DIR}/include/Math/GeneticMinimizer.h")
-    message("--> Switching ROOT OFF")
-    set(ROOT_FOUND FALSE)
+#if(NOT EXISTS "${ROOT_INCLUDE_DIR}/Math/GeneticMinimizer.h")
+#    message("--> ROOT installation is not complete. Can't find file ${ROOT_INCLUDE_DIR}/include/Math/GeneticMinimizer.h")
+#    message("--> Switching ROOT OFF")
+#    set(ROOT_FOUND FALSE)
+#endif()
+
+if(NOT ROOT_FOUND)
+    message(STATUS "ROOT framework not found. ")
+    message(STATUS "--> Genetic minimizer will be disabled. ")
 endif()
 
 #include(CMakeMacroParseArguments)

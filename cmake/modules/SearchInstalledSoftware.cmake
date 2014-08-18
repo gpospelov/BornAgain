@@ -99,8 +99,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 endif()
 
 
-
 # --- ROOT ---
 if(ROOT_SUPPORT)
-find_package(ROOT)
+    find_package(ROOT)
 endif()

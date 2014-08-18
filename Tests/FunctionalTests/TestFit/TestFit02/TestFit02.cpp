@@ -104,8 +104,8 @@ int TestFit02::run()
 Simulation *TestFit02::createSimulation()
 {
     Simulation *simulation = new Simulation();
-    simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
-            100 , 0.0*Units::degree, 2.0*Units::degree);
+    simulation->setDetectorParameters(50, 0.0*Units::degree, 2.0*Units::degree,
+            50 , 0.0*Units::degree, 2.0*Units::degree);
     simulation->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
             0.0*Units::degree);
     return simulation;

@@ -23,10 +23,12 @@ file(GLOB include_files
     "src/Math/*.h"
 )
 
-#if(NOT ROOT_FOUND)
-#    list(REMOVE_ITEM include_files GeneticMinimizer.h)
-#    list(REMOVE_ITEM source_files GeneticMinimizer.cxx)
-#endif()
+
+if(NOT ROOT_FOUND)
+    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/src/Math/GeneticMinimizer.cxx")
+    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/inc/Math/GeneticMinimizer.h")
+endif()
+
 
 add_definitions(-DWARNINGMSG)
 
@@ -47,6 +49,13 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # --- external dependencies ---
 include_directories(${GSL_INCLUDE_DIR})
 target_link_libraries(${library_name} ${GSL_LIBRARIES})
+
+if(ROOT_FOUND)
+    include_directories(
+        ${ROOT_INCLUDE_DIR}
+    )
+endif()
+
 
 # --- installation ---
 #install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)

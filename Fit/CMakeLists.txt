@@ -23,8 +23,8 @@ file(GLOB include_files
 if(NOT ROOT_FOUND)
     list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/ROOTGeneticMinimizer.cpp")
     list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/ROOTGeneticMinimizer.h")
-    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/GeneticMinimizer.cxx")
-    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/GeneticMinimizer.h")
+#    list(REMOVE_ITEM source_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/src/GeneticMinimizer.cxx")
+#    list(REMOVE_ITEM include_files "${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/inc/GeneticMinimizer.h")
 endif()
 
 if(BORNAGAIN_PYTHON)

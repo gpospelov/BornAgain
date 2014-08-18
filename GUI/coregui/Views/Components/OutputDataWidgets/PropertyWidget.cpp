@@ -18,8 +18,7 @@ PropertyWidget::PropertyWidget(QWidget *parent)
     initGradientVector();
 
     m_variantManager = new QtVariantPropertyManager(this);
-    connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
-                this, SLOT(valueChanged(QtProperty *, const QVariant &)));
+    connect(m_variantManager, SIGNAL(valueChanged(QtProperty *, const QVariant &)), this, SLOT(valueChanged(QtProperty *, const QVariant &)));
 
     QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory(this);
     m_propertyBrowser->setFactoryForManager(m_variantManager, variantFactory);
@@ -49,7 +48,7 @@ void PropertyWidget::updateData(OutputDataItem *outputDataItem, QCPColorGradient
     if(!outputDataItem)
     {
         qDebug() << "   PropertyWidget::updateData() 1.1" << outputDataItem;
-        disconnect();
+        //disconnect();
 
         if(m_outputDataItem)
         {
@@ -76,7 +75,7 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
 
 
 
-    disconnect();
+    //disconnect();
 
     QMap<QtProperty *, QString>::ConstIterator itProp = propertyToId.constBegin();
     while (itProp != propertyToId.constEnd()) {
@@ -89,6 +88,7 @@ void PropertyWidget::setupPropertyWidget(OutputDataItem *outputDataItem, QCPColo
 
     m_outputDataItem = outputDataItem;
     connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()), Qt::UniqueConnection);
+
 
     qDebug() << "PropertyWidget::setupPropertyWidget connecting";
 
@@ -181,7 +181,7 @@ void PropertyWidget::valueChanged(QtProperty *property, const QVariant &value)
 {
     QString id = propertyToId[property];
 
-    //qDebug() << "PropertyWidget::valueChanged: "<<id;
+    qDebug() << "PropertyWidget::valueChanged: "<<id;
 
     //disconnect(m_outputDataItem, SIGNAL(modified()), this, SLOT(onOutputDataItemModified()));
 
@@ -239,6 +239,12 @@ void PropertyWidget::onOutputDataItemModified()
 void PropertyWidget::toggleProjections()
 {
   m_projectionsProperty->setValue(!m_isProjection);
+}
+
+void PropertyWidget::setProjections(bool visible)
+{
+    if(m_isProjection!=visible)
+    m_projectionsProperty->setValue(visible);
 }
 
 /*void PropertyWidget::connectSignals()

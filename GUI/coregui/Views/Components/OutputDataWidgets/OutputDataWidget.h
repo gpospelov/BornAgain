@@ -21,7 +21,6 @@ public:
     void setCurrentItem(OutputDataItem *item);
 
 
-
 public slots:
 
     void resetTriggered();

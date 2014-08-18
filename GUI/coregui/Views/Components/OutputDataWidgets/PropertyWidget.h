@@ -24,6 +24,7 @@ public:
     int getWidth();
     void toggleProjections();
     void updateData(OutputDataItem *outputDataItem, QCPColorGradient gradient = QCPColorGradient::gpPolar);
+    void setProjections(bool visible);
 
 public slots:
     void onOutputDataItemModified();

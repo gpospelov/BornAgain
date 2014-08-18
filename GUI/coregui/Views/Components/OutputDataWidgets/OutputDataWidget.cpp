@@ -34,7 +34,7 @@ OutputDataWidget::OutputDataWidget(QWidget *parent, bool isCreateToolBar, bool i
 
     m_plotWidget = new PlotWidget();
     connect(m_plotWidget, SIGNAL(projectionsVisibilityChanged(bool)),this, SLOT(projectionsChanged(bool)));
-    connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(togglePropertyPanel()));
+    connect(m_plotWidget, SIGNAL(propertyWidgetVisibilityChanged(bool)),this, SLOT(setPropertyPanelVisible(bool)));
 
 
 //    m_splitter = new QSplitter(this);
@@ -102,19 +102,9 @@ void OutputDataWidget::connectToobarSignals()
 
 void OutputDataWidget::togglePropertyPanel()
 {
-    qDebug() << "OutputDataWidget::togglePropertyPanel()";
+    //qDebug() << "OutputDataWidget::togglePropertyPanel()";
     setPropertyPanelVisible(!m_propertyWidget->isVisible());
 
-//    QList<int> sizes_org = this->m_splitter->sizes();
-
-//    if(sizes_org.at(1) > 0)
-//    {
-//        setPropertyPanelVisible(false);
-//    }
-//    else
-//    {
-//       setPropertyPanelVisible(true);
-//    }
 }
 
 void OutputDataWidget::setPropertyPanelVisible(bool visible)
@@ -131,12 +121,7 @@ void OutputDataWidget::setPropertyPanelVisible(bool visible)
         m_propertyWidget->updateData(0);
     }
     m_propertyWidget->setVisible(visible);
-
-    //m_currentPropertyWidgetWidth = width;
-//    QList<int> sizes;
-//    sizes.append(this->m_splitter->width() - width);
-//    sizes.append(width);
-//    this->m_splitter->setSizes(sizes);
+    m_plotWidget->setPropertyWidgetVisibilityFlag(visible);
 
 }
 
@@ -167,7 +152,6 @@ void OutputDataWidget::setPropertyPanelVisible(bool visible)
 
 void OutputDataWidget::toggleProjections()
 {
-    qDebug() << "OutputDataWidget::toggleProjections() ";
     m_propertyWidget->toggleProjections();
 }
 
@@ -185,10 +169,14 @@ void OutputDataWidget::savePlot()
 
 void OutputDataWidget::projectionsChanged(bool projection)
 {
-    qDebug() << "PW Projections: " << projection;
+    if(m_isProjectionsVisible == projection)
+    {
+        return;
+    }
 
     m_isProjectionsVisible = projection;
     m_plotWidget->projectionsChanged(projection);
+    m_propertyWidget->setProjections(projection);
 }
 
 void OutputDataWidget::gradientChanged(QCPColorGradient gradient)

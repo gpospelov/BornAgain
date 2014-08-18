@@ -5,7 +5,9 @@
 #include "OutputDataWidget.h"
 #include "QuickSimulationRunner.h"
 #include "OutputDataWidget.h"
+#include "minisplitter.h"
 #include <QSplitter>
+
 
 
 QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, InstrumentModel *instrumentModel, QWidget *parent)
@@ -33,7 +35,7 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     m_modelTuningWidget->setContentsMargins(0,0,0,0);
 
 
-    m_splitter = new QSplitter(this);
+    m_splitter = new Manhattan::MiniSplitter(this);
     m_splitter->setStyleSheet("background-color:white;");
     m_splitter->addWidget(m_outputDataWidget);
     m_splitter->addWidget(m_modelTuningWidget);

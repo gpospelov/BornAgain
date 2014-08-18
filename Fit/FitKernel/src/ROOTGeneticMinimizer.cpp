@@ -59,12 +59,6 @@ void ROOTGeneticMinimizer::propagateOptions()
 {
     ROOTMinimizer::propagateOptions();
 
-//    if( m_options.getMaxIterations() > 0 && m_options.getMaxIterations() < m_options.getIntValue("Steps")) {
-//        msglog(MSG::WARNING) << "ROOTGeneticMinimizer::propagateOptions() -> Max iterations smaller than Steps. ";
-//        msglog(MSG::WARNING) << "Setting equal to steps " << m_options.getIntValue("Steps") << ".";
-//        m_options.setMaxIterations(m_options.getIntValue("Steps"));
-//    }
-
     // setting minimizer parameters
     ROOT::Math::GeneticMinimizerParameters pars;
     pars.fPopSize = m_options.getIntValue("PopSize");

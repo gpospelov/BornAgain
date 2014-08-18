@@ -76,6 +76,14 @@ void FitSuite::addFitStrategy(const IFitStrategy &strategy)
     addFitStrategy(strategy.clone());
 }
 
+void FitSuite::setMinimizer(IMinimizer *minimizer)
+{
+    delete m_minimizer;
+    m_minimizer = minimizer;
+    if(!m_minimizer) {
+        msglog(MSG::WARNING) << "FitSuite::setMinimizer() -> Warning. Attempt to set NULL minimizer.";
+    }
+}
 
 //! link FitMultiParameters with simulation parameters
 void FitSuite::link_fit_parameters()

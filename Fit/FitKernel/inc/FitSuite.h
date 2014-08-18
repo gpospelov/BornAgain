@@ -58,7 +58,7 @@ class BA_CORE_API_ FitSuite : public IObservable
     void addFitStrategy(const IFitStrategy &strategy);
 
     //! Sets minimizer
-    void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }
+    void setMinimizer(IMinimizer *minimizer);
     //! Returns minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 

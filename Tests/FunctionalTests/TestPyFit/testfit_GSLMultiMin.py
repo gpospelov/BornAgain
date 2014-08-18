@@ -18,10 +18,10 @@ class MinimizersTest_GSLMultiMin(unittest.TestCase):
         for i in range(0, len(fitpars)):
             self.assertAlmostEqual(fitpars[i], refpars[i], delta=1e-3)
 
-    def test_GSLMultiMin_SteepestDescent(self):
-        fitpars, refpars = fitting_utils.run_fit_suite("GSLMultiMin", "SteepestDescent")
-        for i in range(0, len(fitpars)):
-            self.assertAlmostEqual(fitpars[i], refpars[i], delta=1e-3)
+    #def test_GSLMultiMin_SteepestDescent(self):
+    #    fitpars, refpars = fitting_utils.run_fit_suite("GSLMultiMin", "SteepestDescent")
+    #    for i in range(0, len(fitpars)):
+    #        self.assertAlmostEqual(fitpars[i], refpars[i], delta=1e-3)
 
 
 if __name__ == '__main__':

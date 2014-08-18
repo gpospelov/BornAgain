@@ -8,6 +8,7 @@ class InstrumentModel;
 class ModelTuningWidget;
 class QuickSimulationRunner;
 class OutputDataWidget;
+class QSplitter;
 
 
 //! The QuickSimulationWidget is the main widget to access quick simulation functionality.
@@ -27,6 +28,7 @@ private:
     ModelTuningWidget *m_modelTuningWidget;
     QuickSimulationRunner *m_quickSimulationRunner;
     OutputDataWidget *m_outputDataWidget;
+    QSplitter *m_splitter;
 
 };
 

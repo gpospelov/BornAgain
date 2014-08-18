@@ -103,8 +103,8 @@ void QuickSimulationRunner::onFinishedJob(const QString &identifier)
     if(!m_outputDataWidget)
     {
         qDebug() << "      QuickSimulationRunner::onFinishedJob() -> Making new OutputDataWidget";
-        m_outputDataWidget = new OutputDataWidget(0, false);
-        m_outputDataWidget->setPropertyPanelVisible(false);
+        m_outputDataWidget = new OutputDataWidget(0, false, false);
+        //m_outputDataWidget->setPropertyPanelVisible(false);
     }
     m_outputDataWidget->setCurrentItem(item->getOutputDataItem());
 

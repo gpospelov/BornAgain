@@ -23,8 +23,8 @@ public:
 
     int getWidth();
     void toggleProjections();
-    void connectSignals();
-    void disconnectSignals();
+    void updateData(OutputDataItem *outputDataItem, QCPColorGradient gradient = QCPColorGradient::gpPolar);
+    void setProjections(bool visible);
 
 public slots:
     void onOutputDataItemModified();
@@ -57,8 +57,6 @@ private:
     QtVariantProperty *m_ytitleProperty;
     int m_maxWidth;
     bool m_isProjection;
-
-
 };
 
 #endif // PROPERTYWIDGET_H

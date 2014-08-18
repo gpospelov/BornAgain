@@ -8,7 +8,7 @@
 
 class PlotWidget;
 class PropertyWidget;
-class QSplitter;
+//class QSplitter;
 class OutputDataToolBar;
 
 
@@ -16,11 +16,10 @@ class OutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = true);
+    explicit OutputDataWidget(QWidget *parent = 0, bool isCreateToolBar = true, bool isCreatePropertyWidget = true);
 
     void setCurrentItem(OutputDataItem *item);
 
-    void setPropertyPanelVisible(bool visible);
 
 public slots:
 
@@ -30,7 +29,8 @@ public slots:
     void toggleProjections();
     void projectionsChanged(bool projection);
     void gradientChanged(QCPColorGradient gradient);
-    void onPropertySplitterMoved(int pos, int index);
+    //void onPropertySplitterMoved(int pos, int index);
+    void setPropertyPanelVisible(bool visible);
 
 private:
     void Draw(const OutputData<double> *data);
@@ -39,20 +39,16 @@ private:
     const OutputData<double > *m_data;
 
     PropertyWidget *m_propertyWidget;
-    QSplitter *m_splitter;
+    //QSplitter *m_splitter;
     OutputDataToolBar *m_toolBar;
     QCPColorGradient m_gradient;
     OutputDataItem *m_currentOutputDataItem;
-
-
     QVBoxLayout *m_mainLayout;
+    QHBoxLayout *m_layout;
 
-    bool m_isPropertyWidgetVisible;
     bool m_isProjectionsVisible;
-
+    //int m_currentPropertyWidgetWidth;
     void connectToobarSignals();
-    //void connectPropertyWidgetSignals(bool isConnect);
-    int m_currentPropertyWidgetWidth;
 
 };
 

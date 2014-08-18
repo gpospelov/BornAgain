@@ -14,8 +14,11 @@ PlotWidget::PlotWidget(QWidget *parent, bool isContextMenuEnabled)
     , m_outputDataItem(0)
     , m_block_plot_update(true)
 {
+    this->setObjectName(QStringLiteral("plotWidget"));
+
     m_gradient = QCPColorGradient::gpPolar;
 
+    m_isPropertyWidgetVisible = true;
     m_isProjectionsEnabled = true;
     m_isContextMenuEnabled = isContextMenuEnabled;
     histogramSize = 150;
@@ -146,9 +149,11 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
     qDebug() << "PlotWidget::drawPlot()";
 //    Q_ASSERT(outputDataItem);
     if(!outputDataItem) {
+
         qDebug() << "   PlotWidget::drawPlot() -> Zero item, disconnecting";
-        disconnect();
+        //disconnect();
         m_centralPlot->disconnect();
+        m_outputDataItem->disconnect();
         m_outputDataItem = 0;
         return;
     }
@@ -160,8 +165,9 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
         return;
     }
 
-    disconnect();
+    //disconnect();
     m_centralPlot->disconnect();
+    m_outputDataItem->disconnect();
 
     m_outputDataItem = outputDataItem;
 
@@ -172,19 +178,14 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 
         m_block_plot_update = true;
         qDebug() << "PlotWidget::drawPlot called";
-//        disconnect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)));
-//        disconnect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
- //       disconnect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
+
         m_centralPlot->drawPlot(outputDataItem, m_gradient);
         m_verticalPlot->setupMap(m_centralPlot);
         m_horizontalPlot->setupMap(m_centralPlot);
         //m_propertyWidget->setupPropertyWidget(outputDataItem, m_gradient);
-        connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
-        connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)), Qt::UniqueConnection);
-        connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)), Qt::UniqueConnection);
-        connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()), Qt::UniqueConnection);
-        connect(m_centralPlot, SIGNAL(xaxisRangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
-        connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+
+        connectSignals();
+
         m_block_plot_update = false;
     }
 }
@@ -192,11 +193,16 @@ void PlotWidget::drawPlot(OutputDataItem *outputDataItem)
 
 void PlotWidget::updatePlot()
 {
+
     qDebug() << "PlotWidget::updatePlot()";
     if(m_block_plot_update) {
         qDebug() << "   PlotWidget::updatePlot() -> blocked, no update";
         return;
     }
+
+    //qDebug() << "PlotWidget::updatePlot()";
+    if(m_block_plot_update) return;
+
 
     Q_ASSERT(m_outputDataItem);
     Q_ASSERT(m_centralPlot);
@@ -219,48 +225,52 @@ void PlotWidget::initContextMenu()
     QString propertyPanelText = tr("&Property Panel");
     QString projectionsText = tr("Pr&ojections");
 
-    propertyPanelAct = new QAction(propertyPanelText, this);
-    propertyPanelAct->setCheckable(true);
-    //propertyPanelAct->setChecked(isPropertyWidgetVisible);
-    //connect(propertyPanelAct, SIGNAL(triggered()), this, SLOT(togglePropertyPanel()));
 
-    projectionsAct = new QAction(projectionsText, this);
-    projectionsAct->setCheckable(true);
-    connect(projectionsAct, SIGNAL(triggered(bool)), this, SLOT(projectionsChanged(bool)));
-
-    resetAct = new QAction(tr("&Reset View"), this);
-    connect(resetAct, SIGNAL(triggered()), this, SLOT(resetTriggered()));
-
-    saveAct = new QAction(tr("&Save as"), this);
-    connect(saveAct, SIGNAL(triggered()), this, SLOT(savePlot()));
+    m_propertyPanelAction = new QAction(propertyPanelText, this);
+    m_propertyPanelAction->setCheckable(true);
+    connect(m_propertyPanelAction, SIGNAL(triggered(bool)), this, SIGNAL(propertyWidgetVisibilityChanged(bool)));
 
 
+    m_projectionsAction = new QAction(projectionsText, this);
+    m_projectionsAction->setCheckable(true);
+    connect(m_projectionsAction, SIGNAL(triggered(bool)), this, SLOT(projectionsChanged(bool)));
+
+    m_resetAction = new QAction(tr("&Reset View"), this);
+    connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetTriggered()));
+
+    m_saveAction = new QAction(tr("&Save as"), this);
+    connect(m_saveAction, SIGNAL(triggered()), this, SLOT(savePlot()));
 
 
-    m_contextMenu = new QMenu();
 
-    m_contextMenu->addAction(propertyPanelAct);
-    m_contextMenu->addAction(projectionsAct);
-    m_contextMenu->addAction(resetAct);
-    m_contextMenu->addAction(saveAct);
+
+
 }
 
 void PlotWidget::mousePress(QMouseEvent *event)
 {
     if(m_block_plot_update) return;
 
-    if(m_contextMenu->isVisible())
-    {
-m_contextMenu->close();
-    }
 
     qDebug() << "PlotWidget::mousePress" << event->pos().x() << " : " << event->pos().y();
 
+
+
     if(event->button() == Qt::RightButton && m_isContextMenuEnabled)
     {
-        projectionsAct->setChecked(m_isProjectionsEnabled);
-        m_mouseEvent = static_cast<QMouseEvent*> (event);
-        m_contextMenu->exec(m_mouseEvent->globalPos());
+        m_propertyPanelAction->setChecked(m_isPropertyWidgetVisible);
+        m_projectionsAction->setChecked(m_isProjectionsEnabled);
+
+        m_contextMenu = new QMenu();
+
+        m_contextMenu->addAction(m_propertyPanelAction);
+        m_contextMenu->addAction(m_projectionsAction);
+        m_contextMenu->addAction(m_resetAction);
+        m_contextMenu->addAction(m_saveAction);
+
+
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*> (event);
+        m_contextMenu->exec(mouseEvent->globalPos());
     }
 
 }
@@ -343,7 +353,7 @@ void PlotWidget::projectionsChanged(bool projection)
     this->m_splitterTop->setSizes(v_sizes);
 
     m_centralPlot->showLinesOverMap(projection);
-    //emit isProjectionsChanged(projection);
+    emit projectionsVisibilityChanged(projection);
 }
 
 void PlotWidget::gradientChanged(QCPColorGradient gradient)
@@ -363,6 +373,23 @@ void PlotWidget::onYaxisRangeChanged(QCPRange newRange)
 {
     //qDebug() << "onYaxisRangeChanged: "<<newRange.lower << newRange.upper;
     m_verticalPlot->setKeyAxisRange(newRange);
+}
+
+
+void PlotWidget::connectSignals()
+{
+    connect(m_centralPlot, SIGNAL(dataRangeChanged(QCPRange)), this, SLOT(onZaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+    connect(m_centralPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)), Qt::UniqueConnection);
+    connect(m_centralPlot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)), Qt::UniqueConnection);
+    connect(m_centralPlot, SIGNAL(xaxisRangeChanged(QCPRange)), this, SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+    connect(m_centralPlot, SIGNAL(yaxisRangeChanged(QCPRange)), this, SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+
+    connect(m_outputDataItem, SIGNAL(modified()), this, SLOT(updatePlot()), Qt::UniqueConnection);
+}
+
+void PlotWidget::setPropertyWidgetVisibilityFlag(bool visible)
+{
+    m_isPropertyWidgetVisible = visible;
 }
 
 

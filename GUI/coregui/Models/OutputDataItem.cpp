@@ -22,6 +22,11 @@ OutputDataItem::OutputDataItem()
 
 }
 
+OutputDataItem::~OutputDataItem()
+{
+    qDebug() << "OutputDataItem::~OutputDataItem()" << this;
+}
+
 
 void OutputDataItem::setOutputData(OutputData<double> *data)
 {

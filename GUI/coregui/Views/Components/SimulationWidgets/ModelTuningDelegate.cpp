@@ -1,4 +1,6 @@
 #include "ModelTuningDelegate.h"
+#include "ItemLink.h"
+
 #include <QDebug>
 #include <QPainter>
 #include <QPaintDevice>
@@ -11,9 +13,8 @@
 #include <QItemSelectionModel>
 #include <QHBoxLayout>
 #include <QDoubleSpinBox>
-
 #include <cmath>
-#include "ItemLink.h"
+
 
 
 
@@ -83,27 +84,14 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
-        double sliderValue = value * m_multiplyFactor;
 
-        double minValue = 0;
-        double maxValue = 0;
-        if(sliderValue == 0)
-        {
-            minValue = (m_multiplyFactor/10.0) * -1.0;
-            maxValue = (m_multiplyFactor/10.0);
-        }
-        else
-        {
-            minValue = sliderValue - std::abs(sliderValue*0.1);
-            maxValue = sliderValue + std::abs(sliderValue*0.1);
-        }
 
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setMaximum(99999.00);
-        m_valueBox->setMinimum(-99999.00);
+        m_valueBox->setMaximum(999999.00);
+        m_valueBox->setMinimum(-999999.00);
         m_valueBox->setValue(value);
-
+        connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
 
 
         m_slider = new QSlider(Qt::Horizontal);
@@ -111,12 +99,8 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
         m_slider->setTickPosition(QSlider::NoTicks);
         m_slider->setTickInterval(1);
         m_slider->setSingleStep(1);
-        m_slider->setMinimum((int)std::floor(minValue));
-        m_slider->setMaximum((int)std::ceil(maxValue));
-        m_slider->setValue((int)sliderValue);
 
-        connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
-        connect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
+        updateSlider(value);
 
         m_contentWidget = new QWidget(parent);
         m_contentLayout = new QHBoxLayout(parent);
@@ -127,10 +111,38 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         m_contentWidget->setLayout(m_contentLayout);
 
+
+
         return m_contentWidget;
     } else {
         return QItemDelegate::createEditor(parent, option, index);
     }
+}
+
+void ModelTuningDelegate::updateSlider(double value) const
+{
+    double sliderValue = value * m_multiplyFactor;
+
+    disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
+    double minValue = 0;
+    double maxValue = 0;
+    if(sliderValue == 0)
+    {
+        minValue = (m_multiplyFactor/10.0) * -1.0;
+        maxValue = (m_multiplyFactor/10.0);
+    }
+    else
+    {
+        minValue = sliderValue - std::abs(sliderValue*0.1);
+        maxValue = sliderValue + std::abs(sliderValue*0.1);
+    }
+
+    m_slider->setMinimum((int)std::floor(minValue));
+    m_slider->setMaximum((int)std::ceil(maxValue));
+    m_slider->setValue((int)sliderValue);
+
+    connect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
+
 }
 
 
@@ -142,10 +154,16 @@ void ModelTuningDelegate::sliderValueChanged(int position)
 
 void ModelTuningDelegate::editorValueChanged(double value)
 {
-    //qDebug() << "SampleTuningDelegate::editorValueChanged() -> new value: " << value;
+    double sliderValue = value * m_multiplyFactor;
+
+    if(sliderValue!= m_slider->value())
+    {
+        updateSlider(value);
+    }
+
     if(m_current_link.getItem()) {
         m_current_link.setValue(value);
-        qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
+        //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
         //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
         emit currentLinkChanged(m_current_link);
     }

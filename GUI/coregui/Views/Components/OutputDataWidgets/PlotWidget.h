@@ -25,9 +25,11 @@ public:
 
     int histogramSize;
     void drawPlot(OutputDataItem *outputDataItem);
+    void setPropertyWidgetVisibilityFlag(bool visible);
 
 signals:
-    void isProjectionsChanged(bool projection);
+    void projectionsVisibilityChanged(bool visible);
+    void propertyWidgetVisibilityChanged(bool visible);
 
 public slots:
     void onZaxisRangeChanged(QCPRange newRange);
@@ -56,16 +58,18 @@ private:
     OutputDataItem *m_outputDataItem;
     QCPColorGradient m_gradient;
     bool m_block_plot_update;
-    QAction *propertyPanelAct;
-    QAction *projectionsAct;
-    QAction *resetAct;
-    QAction *saveAct;
-    QMouseEvent *m_mouseEvent;
+    QAction *m_propertyPanelAction;
+    QAction *m_projectionsAction;
+    QAction *m_resetAction;
+    QAction *m_saveAction;
     QMenu *m_contextMenu;
+
+    void connectSignals();
 
 
     bool m_isProjectionsEnabled;
     bool m_isContextMenuEnabled;
+    bool m_isPropertyWidgetVisible;
 
 
 };

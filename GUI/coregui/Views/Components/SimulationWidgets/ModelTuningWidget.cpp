@@ -131,7 +131,7 @@ QStandardItem *ModelTuningWidget::iterateSessionModel(const QModelIndex &parentI
 
                     foreach (ParameterizedItem *subItem, subItems) {
 
-                        qDebug() << "Item: " << item->itemName() << "SubItem:" << subItem->itemName();
+                        //qDebug() << "Item: " << item->itemName() << "SubItem:" << subItem->itemName();
 
                         QStandardItem *childStandardItem = new QStandardItem(subItem->itemName());
 
@@ -290,12 +290,12 @@ void ModelTuningWidget::updateTreeView(const QString &instrument, const QString 
         //qDebug() << "XXX TreeView Height " << height << this->height();
 
         m_treeView->setModel(m_parameterModel);
-        m_treeView->setFixedWidth(320);
+        //m_treeView->setFixedWidth(320);
         m_treeView->setFixedHeight(height);
         m_treeView->setColumnWidth(0,170);
         m_treeView->expandAll();
 
-        startSimulation();
+        onCurrentLinkChanged(ItemLink());
 
     }
 }
@@ -353,33 +353,18 @@ void ModelTuningWidget::onCurrentLinkChanged(ItemLink link)
         return;
 
     m_update_in_progress = true;
-    qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
 
-    link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
+    if(link.getItem())
+    {
+        qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> Starting to tune model" << link.getItem()->modelType() << link.getPropertyName() << link.getValue();
+
+        link.getItem()->setRegisteredProperty(link.getPropertyName(), link.getValue());
+    }
+
 
     Simulation *simulation = QuickSimulationHelper::getSimulation(m_sampleModel, m_sample_name, m_instrumentModel, m_instrument_name);
 
     qDebug() << "SampleTuningWidget::onCurrentLinkChanged() -> Ready to run simulation";
-    m_simulationRunner->runSimulation(simulation);
-
-
-    m_update_in_progress = false;
-}
-
-void ModelTuningWidget::startSimulation()
-{
-    Q_ASSERT(m_simulationRunner);
-    qDebug() << "ModelTuningWidget::startSimulation()";
-    if(m_simulationRunner->isSimulationInProgress())
-        return;
-
-    if(m_update_in_progress)
-        return;
-
-    m_update_in_progress = true;
-
-    Simulation *simulation = QuickSimulationHelper::getSimulation(m_sampleModel, m_sample_name, m_instrumentModel, m_instrument_name);
-
     m_simulationRunner->runSimulation(simulation);
 
 

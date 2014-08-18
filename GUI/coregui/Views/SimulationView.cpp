@@ -1,11 +1,16 @@
 #include "SimulationView.h"
-#include "qdebug.h"
+#include "SimulationSetupWidget.h"
+#include "QuickSimulationWidget.h"
+#include "SimulationToolBar.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "SimulationDataModel.h"
-#include "mainwindow.h"
 #include "JobQueueModel.h"
-#include "QVBoxLayout"
+#include "qdebug.h"
+#include "mainwindow.h"
+#include <QTabWidget>
+#include <QVBoxLayout>
+
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -30,9 +35,14 @@ SimulationView::SimulationView(MainWindow *mainWindow)
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
 
+    m_toolBar = new SimulationToolBar(this);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSizeConstraint(QLayout::SetNoConstraint);
+    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_tabWidget);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
     setLayout(mainLayout);
 }
 

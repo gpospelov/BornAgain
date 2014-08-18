@@ -2,16 +2,17 @@
 #define SIMULATIONVIEW_H
 
 #include <QWidget>
-#include "qstandarditemmodel.h"
-#include "SimulationSetupWidget.h"
-#include "QuickSimulationWidget.h"
-#include <QTabWidget>
+
 
 class MainWindow;
 class SimulationDataModel;
 class JobQueueModel;
 class SampleModel;
 class InstrumentModel;
+class SimulationSetupWidget;
+class QuickSimulationWidget;
+class QTabWidget;
+class SimulationToolBar;
 
 class SimulationView : public QWidget
 {
@@ -35,6 +36,7 @@ private:
     SimulationSetupWidget *m_simulationSetupWidget;
     QuickSimulationWidget *m_quickSimulationWidget;
     QTabWidget *m_tabWidget;
+    SimulationToolBar *m_toolBar;
 
 };
 

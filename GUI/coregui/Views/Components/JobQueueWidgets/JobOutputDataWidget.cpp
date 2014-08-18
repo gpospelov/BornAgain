@@ -140,9 +140,8 @@ void JobOutputDataWidget::itemClicked(JobItem * item)
     if( !widget && item->getStatus() == JobItem::Completed) {
 
         qDebug() << "JobOutputDataWidget::itemClicked() -> creating";
-        widget = new OutputDataWidget();
+        widget = new OutputDataWidget(this, true, true);
         widget->setCurrentItem(item->getOutputDataItem());
-        //widget->setPropertyPanelVisible(true);
         m_stack->addWidget(widget);
         m_jobItemToPlotWidget[item] = widget;
 

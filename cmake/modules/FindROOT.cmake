@@ -62,8 +62,8 @@ endif()
 #endif()
 
 if(NOT ROOT_FOUND)
-    message("ROOT framework is not found. ")
-    message("--> Genetic minimizer will be disabled. ")
+    message(STATUS "ROOT framework not found. ")
+    message(STATUS "--> Genetic minimizer will be disabled. ")
 endif()
 
 #include(CMakeMacroParseArguments)

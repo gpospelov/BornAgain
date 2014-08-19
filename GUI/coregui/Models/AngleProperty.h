@@ -5,17 +5,17 @@
 #include <QStringList>
 #include <QMetaType>
 #include <QVariant>
-#include "Units.h"
 
-//! The AngleProperty keeps angle value together with units (radias, degrees)
+//! The AngleProperty keeps angle value together with units (radians, degrees)
 //! in which the angle should be presented to the user.
 class AngleProperty
 {
 public:
-    enum AngleUnits { Radians, Degrees};
-
-    AngleProperty(double angle_value = 0.0, AngleUnits angle_units = Radians);
+    AngleProperty(double angle_value = 0.0, const QString &angle_units = QString());
     ~AngleProperty(){}
+
+    QString getUnits() const;
+    void setUnits(const QString &units);
 
     bool inRadians() const;
 
@@ -31,75 +31,19 @@ public:
 
     double getValueInRadians() const;
 
+    QStringList getLabels() const;
+
+    static QVariant Degrees(double value = 0.0);
+    static QVariant Radians(double value = 0.0);
+
     QVariant getVariant() const;
 
 private:
     double m_angle_in_radians;
-    AngleUnits m_angle_units;
+    QString m_angle_units;
+    static QStringList m_labels;
 };
 
-
-inline AngleProperty::AngleProperty(double angle_value, AngleUnits angle_units)
-    : m_angle_in_radians(0)
-    , m_angle_units(angle_units)
-{
-    if(m_angle_units == AngleProperty::Radians) {
-        m_angle_in_radians = angle_value;
-    }
-    else {
-        m_angle_in_radians = Units::deg2rad(angle_value);
-    }
-}
-
-inline bool AngleProperty::inRadians() const
-{
-    return m_angle_units == Radians;
-}
-
-inline void AngleProperty::setInRadians()
-{
-    m_angle_units = Radians;
-}
-
-inline bool AngleProperty::inDegrees() const
-{
-    return m_angle_units == Degrees;
-}
-
-inline void AngleProperty::setInDegrees()
-{
-    m_angle_units = Degrees;
-}
-
-inline double AngleProperty::getValue() const
-{
-    return (m_angle_units == Radians ? m_angle_in_radians : Units::rad2deg(m_angle_in_radians));
-}
-
-inline void AngleProperty::setValue(double value)
-{
-    if(m_angle_units == Radians) {
-        m_angle_in_radians = value;
-    }
-    else {
-        m_angle_in_radians = Units::deg2rad(value);
-    }
-}
-
-inline double AngleProperty::getValueInRadians() const
-{
-    return m_angle_in_radians;
-}
-
-inline QVariant AngleProperty::getVariant() const
-{
-    QVariant result;
-    result.setValue(*this);
-    return result;
-}
-
 Q_DECLARE_METATYPE(AngleProperty)
-
-
 
 #endif

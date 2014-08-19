@@ -9,6 +9,7 @@ class QLineEdit;
 class QLabel;
 class BeamItem;
 class QDoubleValidator;
+class AngleProperty;
 
 class BeamEditorWidget : public QWidget
 {
@@ -31,8 +32,7 @@ public slots:
 private:
     void updateWidgets();
     void setBlockSignals(bool flag);
-    void updateAngleUnits(const QString &units);
-    void setAngleUnits(QDoubleSpinBox *, const QString &units);
+    void setAngleUnits(QDoubleSpinBox *, const AngleProperty &units, double min_deg = -90.0, double max_deg = 90.0);
 
     QLineEdit *m_intensityText;
     QDoubleValidator *m_intensityValidator;

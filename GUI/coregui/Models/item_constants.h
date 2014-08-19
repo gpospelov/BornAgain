@@ -84,6 +84,9 @@ const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 
+// --- Units -------------------------------------------------------------------
+const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsRadians = "Radians";
 
 }
 

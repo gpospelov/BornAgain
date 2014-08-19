@@ -18,7 +18,6 @@
 
 #include <QWidget>
 #include <QString>
-
 #include <exception>
 
 class QVariant;

@@ -106,4 +106,6 @@ int getVariantType(const QVariant &variant)
 }
 
 
+
+
 } // namespace GUIHelpers

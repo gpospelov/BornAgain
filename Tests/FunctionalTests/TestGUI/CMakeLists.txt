@@ -4,7 +4,7 @@ find_package(Qt5Widgets REQUIRED)
 
 
 set(list_of_tests
-#    "TestGUI01"
+    "TestGUI01"
 #    "TestGUI02"
 #    "TestGUI03"
 #    "TestGUI04"

@@ -267,28 +267,26 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
     Q_ASSERT(subDetector);
 
 //    qDebug() << "   TransformToDomain::initInstrumentWithDetectorItem()" << subDetector->modelType();
-    if (subDetector->modelType() == Constants::ThetaPhiDetectorType) {
-        int nphi = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NPHI).toInt();
-        double phi_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN).toDouble();
-        double phi_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX).toDouble();
-        int nalpha = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA).toInt();
-        double alpha_min = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN).toDouble();
-        double alpha_max = subDetector->getRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX).toDouble();
-        bool isgisaxs_style(true);
+    if (subDetector->modelType() == Constants::PhiAlphaDetectorType) {
+        int nphi = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NPHI).toInt();
 
-        ComboProperty binning = subDetector->getRegisteredProperty(DetectorItem::P_BINNING).value<ComboProperty>();
-        qDebug() << binning.getValues() << binning.getValue();
-        if(binning.getValue() == QStringLiteral("Flat")) isgisaxs_style = false;
+        AngleProperty phi_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN).value<AngleProperty>();
+        AngleProperty phi_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX).value<AngleProperty>();
+        double phi_min = phi_min_property.getValueInRadians();
+        double phi_max = phi_max_property.getValueInRadians();
 
-        ComboProperty units = subDetector->getRegisteredProperty(DetectorItem::P_AXES_UNITS).value<ComboProperty>();
-        if(units.getValue() == QStringLiteral("Degrees")) {
-            phi_min = Units::deg2rad(phi_min);
-            phi_max = Units::deg2rad(phi_max);
-            alpha_min = Units::deg2rad(alpha_min);
-            alpha_max = Units::deg2rad(alpha_max);
-        }
+        int nalpha = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA).toInt();
 
-        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max, isgisaxs_style);
+        AngleProperty alpha_min_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN).value<AngleProperty>();
+        AngleProperty alpha_max_property = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX).value<AngleProperty>();
+        double alpha_min = alpha_min_property.getValueInRadians();
+        double alpha_max = alpha_max_property.getValueInRadians();
+
+        ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
+        if(binning.getValue() != QStringLiteral("Const KBin"))
+            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
+
+        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max);
     }
     else {
         throw GUIHelpers::Error("TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "+subDetector->modelType());

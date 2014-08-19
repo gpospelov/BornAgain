@@ -494,3 +494,28 @@ Simulation *StandardSimulations::Ripple1()
 
     return result;
 }
+
+
+// -----------------------------------------------------------------------------
+// Examples for GUI
+// -----------------------------------------------------------------------------
+
+
+Simulation *StandardSimulations::gui_IsGISAXS01()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(
+        100,-1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+

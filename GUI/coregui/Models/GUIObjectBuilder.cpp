@@ -20,6 +20,8 @@
 #include "LayerRoughnessItems.h"
 #include "VectorItem.h"
 #include "AngleProperty.h"
+#include "ConstKBinAxis.h"
+#include "FixedBinAxis.h"
 #include <QDebug>
 
 
@@ -74,31 +76,37 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
             detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(detectorSubItem);
 
-    const IAxis &phi_axis = detector.getAxis(0);
-    const IAxis &alpha_axis = detector.getAxis(1);
+//    const IAxis &phi_axis = detector.getAxis(0);
+//    const IAxis &alpha_axis = detector.getAxis(1);
 
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NPHI,
-                                           (int)phi_axis.getSize());
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN,
-                                           Units::rad2deg(phi_axis.getMin()));
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX,
-                                           Units::rad2deg(phi_axis.getMax()));
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA,
-                                           (int)alpha_axis.getSize());
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN,
-                                           Units::rad2deg(alpha_axis.getMin()));
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX,
-                                           Units::rad2deg(alpha_axis.getMax()));
 
-    if(instrument->getIsgisaxsStyle()) {
-        ComboProperty binning_property =
-                detectorSubItem->getRegisteredProperty(
-                    DetectorItem::P_BINNING).value<ComboProperty>();
-        binning_property.setValue("Flat in sin");
-        detectorSubItem->setRegisteredProperty(
-                    DetectorItem::P_BINNING, binning_property.getVariant());
+    IAxis *phi_axis = detector.getAxis(0).clone();
 
-    }
+
+//    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_NPHI,
+//                                           (int)phi_axis.getSize());
+//    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN,
+//                                           Units::rad2deg(phi_axis.getMin()));
+//    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX,
+//                                           Units::rad2deg(phi_axis.getMax()));
+
+
+//    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA,
+//                                           (int)alpha_axis.getSize());
+//    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN,
+//                                           Units::rad2deg(alpha_axis.getMin()));
+//    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX,
+//                                           Units::rad2deg(alpha_axis.getMax()));
+
+//    if(instrument->getIsgisaxsStyle()) {
+//        ComboProperty binning_property =
+//                detectorSubItem->getRegisteredProperty(
+//                    DetectorItem::P_BINNING).value<ComboProperty>();
+//        binning_property.setValue("Flat in sin");
+//        detectorSubItem->setRegisteredProperty(
+//                    DetectorItem::P_BINNING, binning_property.getVariant());
+
+//    }
     return instrumentItem;
 }
 

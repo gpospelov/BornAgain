@@ -48,6 +48,8 @@ Simulation *PolarizedDWBAMagCylinders2();
 Simulation *LayerWithRoughness();
 Simulation *Ripple2();
 Simulation *Ripple1();
+Simulation *gui_IsGISAXS01();
+
 }
 
 

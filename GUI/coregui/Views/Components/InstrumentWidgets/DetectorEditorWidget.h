@@ -8,6 +8,7 @@ class QLabel;
 class ParameterizedItem;
 class QSpinBox;
 class QDoubleSpinBox;
+class AngleProperty;
 
 class DetectorEditorWidget : public QWidget
 {
@@ -21,13 +22,15 @@ public:
 public slots:
     void onPropertyChanged(const QString &);
     void onDetectorTypeChanged(int);
+    void onAngleUnitsChanged(int);
     void onBinningTypeChanged(int);
     void onAngleEditorChanged(const QString &);
 
 private:
     void updateWidgets();
-    void updateAngleUnits(const QString &units);
-    void setAngleUnits(QDoubleSpinBox *, const QString &units);
+//    void updateAngleUnits(const QString &units);
+//    void setAngleUnits(QDoubleSpinBox *, const QString &units);
+    void setAngleUnits(QDoubleSpinBox *editor, const AngleProperty &units, double min_deg = -90.0, double max_deg = 90.0);
 
     QComboBox *m_detectorTypeCombo;
     QComboBox *m_unitsCombo;

@@ -76,8 +76,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
     result[Constants::DetectorType] = &createInstance<DetectorItem>;
-    result[Constants::ThetaPhiDetectorType] = &createInstance<ThetaPhiDetectorItem>;
-    result[Constants::XYDetectorType] = &createInstance<XYDetectorItem>;
+    result[Constants::PhiAlphaDetectorType] = &createInstance<PhiAlphaDetectorItem>;
 
     result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
     result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;

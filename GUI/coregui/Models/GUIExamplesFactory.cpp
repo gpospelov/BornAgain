@@ -5,15 +5,15 @@
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "GUIHelpers.h"
+#include "Simulation.h"
 #include <boost/scoped_ptr.hpp>
 #include <QDebug>
-#include <boost/scoped_ptr.hpp>
 
 //! Defines correspondance between example name and real name of simulation from SimulationRegistry
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
-    result["example01"] = "isgisaxs01";
+    result["example01"] = "gui_isgisaxs01";
     result["example02"] = "isgisaxs04_1DDL";
     result["example03"] = "isgisaxs04_2DDL";
     result["example04"] = "isgisaxs11";
@@ -38,8 +38,14 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
 
     QString exampleName = m_name_to_registry[name];
 
-    SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
+    SimulationRegistry registry;
+    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toAscii().data()));
+    Q_ASSERT(simulation.get());
+
+    boost::scoped_ptr<ISample> sample(simulation->getSampleBuilder()->buildSample());
+
+//    SampleBuilderFactory factory;
+//    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
 
     Q_ASSERT(sample.get());
     sample->setName(name.toUtf8().constData());

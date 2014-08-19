@@ -110,6 +110,11 @@ SimulationRegistry::SimulationRegistry()
         "ripple1", StandardSimulations::Ripple1,
         "Cosine ripple within the 1D-paracrystal model");
 
+    // GUI examples
+    registerItem(
+        "gui_isgisaxs01", StandardSimulations::gui_IsGISAXS01,
+        "GUI: Mixture of cylinders and prisms without interference");
+
 }
 
 

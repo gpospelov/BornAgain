@@ -46,7 +46,7 @@ const ModelType VectorType = "Vector";
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType ThetaPhiDetectorType = "ThetaPhiDetector";
+const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
 const ModelType XYDetectorType  = "XYDetector";
 
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";

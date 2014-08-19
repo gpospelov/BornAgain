@@ -19,6 +19,7 @@
 #include "ParticleCoreShellItem.h"
 #include "LayerRoughnessItems.h"
 #include "VectorItem.h"
+#include "AngleProperty.h"
 #include <QDebug>
 
 
@@ -60,10 +61,11 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
                                     beam.getIntensity());
     beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
                                     beam.getWavelength());
+
     beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE,
-                                    Units::rad2deg(-1.0*beam.getAlpha()));
+                                    AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
     beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE,
-                                    Units::rad2deg(beam.getPhi()));
+                                    AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
 
     Detector detector = instrument->getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(

@@ -71,7 +71,6 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     connect(m_angleUnits, SIGNAL(currentIndexChanged(int)), this, SLOT(onAngleUnitsChanged(int)));
     connect(m_inclinationAngleSpinBox, SIGNAL(valueChanged(const QString &)), this, SLOT(onChangedAngle(const QString &)));
     connect(m_azimuthalAngleSpinBox, SIGNAL(valueChanged(const QString &)), this, SLOT(onChangedAngle(const QString &)));
-
 }
 
 void BeamEditorWidget::initFromItem(BeamItem *item)
@@ -87,7 +86,7 @@ void BeamEditorWidget::initFromItem(BeamItem *item)
         m_currentItem = item;
 
         connect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+//        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
 
         updateWidgets();
     }
@@ -110,7 +109,6 @@ void BeamEditorWidget::onChangedWavelength(const QString & /* text */)
 void BeamEditorWidget::onChangedAngle(const QString &)
 {
     if(m_block_signals) return;
-//    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, m_inclinationAngleSpinBox->value());
 
     AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
     inclination_angle.setValue(m_inclinationAngleSpinBox->value());
@@ -134,9 +132,9 @@ void BeamEditorWidget::onAngleUnitsChanged(int)
 {
     if(m_block_signals) return;
     qDebug() << "BeamEditorWidget::onAngleUnitsChanged(int) " << m_angleUnits->currentText();
-    AngleProperty units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<AngleProperty>();
-    units_property.setUnits(m_angleUnits->currentText());
-    m_currentItem->setRegisteredProperty(BeamItem::P_ANGLE_UNITS, units_property.getVariant());
+    AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+    inclination_angle.setUnits(m_angleUnits->currentText());
+    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, inclination_angle.getVariant());
 }
 
 
@@ -149,15 +147,15 @@ void BeamEditorWidget::updateWidgets()
     m_intensityText->setText(QString::number(m_currentItem->getRegisteredProperty(BeamItem::P_INTENSITY).toDouble()));
     m_wavelengthSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble());
 
-    m_angleUnits->clear();
-    AngleProperty angle_units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<AngleProperty>();
-    m_angleUnits->addItems(angle_units_property.getLabels());
-    m_angleUnits->setCurrentText(angle_units_property.getUnits());
-
     AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
-    setAngleUnits(m_inclinationAngleSpinBox, inclination_angle);
-
     AngleProperty azimuthal_angle = m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
+
+    // Units from inclination_agle will control azimuthal_angle too
+    m_angleUnits->clear();
+    m_angleUnits->addItems(inclination_angle.getLabels());
+    m_angleUnits->setCurrentText(inclination_angle.getUnits());
+
+    setAngleUnits(m_inclinationAngleSpinBox, inclination_angle);
     setAngleUnits(m_azimuthalAngleSpinBox, azimuthal_angle);
 
     setBlockSignals(false);

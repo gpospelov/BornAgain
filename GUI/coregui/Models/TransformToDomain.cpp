@@ -32,6 +32,7 @@
 #include "VectorItem.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
+#include "AngleProperty.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -250,9 +251,10 @@ Beam *TransformToDomain::createBeam(const ParameterizedItem &item)
     result->setName(item.itemName().toUtf8().constData());
     result->setIntensity(item.getRegisteredProperty(BeamItem::P_INTENSITY).toDouble());
     double lambda = item.getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble();
-    double alpha_i = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble();
-    double phi_i = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble();
-    result->setCentralK( lambda, Units::deg2rad(alpha_i), Units::deg2rad(phi_i));
+
+    AngleProperty inclination_angle = item.getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+    AngleProperty azimuthal_angle = item.getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
+    result->setCentralK( lambda, inclination_angle.getValueInRadians(), azimuthal_angle.getValueInRadians());
     return result;
 }
 

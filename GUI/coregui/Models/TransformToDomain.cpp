@@ -33,6 +33,8 @@
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
 #include "AngleProperty.h"
+#include "FixedBinAxis.h"
+#include "ConstKBinAxis.h"
 #include <QDebug>
 
 #include <boost/scoped_ptr.hpp>
@@ -283,10 +285,20 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
         double alpha_max = alpha_max_property.getValueInRadians();
 
         ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-        if(binning.getValue() != QStringLiteral("Const KBin"))
-            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
+        // FIXEM Get rid from hardcoded string
+//        if(binning.getValue() != QStringLiteral("Const KBin"))
+//            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
 
-        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max);
+        if(binning.getValue() == QStringLiteral("Const KBin")) {
+            instrument->setDetectorAxes(ConstKBinAxis("phi_x",nphi, phi_min, phi_max), ConstKBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
+        }else if(binning.getValue() == QStringLiteral("Fixed")) {
+            instrument->setDetectorAxes(FixedBinAxis("phi_x",nphi, phi_min, phi_max), FixedBinAxis("alpha_x", nalpha, alpha_min, alpha_max));
+        } else {
+            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Unknown axes");
+        }
+
+//        instrument->setDetectorParameters(nphi, phi_min, phi_max, nalpha, alpha_min, alpha_max);
+
     }
     else {
         throw GUIHelpers::Error("TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "+subDetector->modelType());

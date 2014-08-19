@@ -28,8 +28,6 @@ public slots:
 
 private:
     void updateWidgets();
-//    void updateAngleUnits(const QString &units);
-//    void setAngleUnits(QDoubleSpinBox *, const QString &units);
     void setAngleUnits(QDoubleSpinBox *editor, const AngleProperty &units, double min_deg = -90.0, double max_deg = 90.0);
 
     QComboBox *m_detectorTypeCombo;

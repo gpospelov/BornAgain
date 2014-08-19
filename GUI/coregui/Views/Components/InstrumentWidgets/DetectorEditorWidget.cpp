@@ -173,6 +173,7 @@ void DetectorEditorWidget::onDetectorTypeChanged(int)
     m_currentItem->setGroupProperty(Constants::DetectorGroup, m_detectorTypeCombo->currentText());
 }
 
+
 void DetectorEditorWidget::onAngleUnitsChanged(int)
 {
     if(m_block_signals) return;
@@ -231,38 +232,6 @@ void DetectorEditorWidget::onAngleEditorChanged(const QString &)
     subDetector->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX, alpha_max_property.getVariant());
 
 }
-
-
-//! Update angle limits for all angle editors depending on units: radians or degrees
-//void DetectorEditorWidget::updateAngleUnits(const QString &units)
-//{
-//    setAngleUnits(m_phiMinEdit, units);
-//    setAngleUnits(m_phiMaxEdit, units);
-//    setAngleUnits(m_alphaMinEdit, units);
-//    setAngleUnits(m_alphaMaxEdit, units);
-//}
-
-
-//! Sets angle units and corresponding limits for QDoubleSpinBox
-//void DetectorEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const QString &units)
-//{
-//    if(units == QStringLiteral("Degrees")) {
-//        editor->setSingleStep(0.01);
-//        editor->setMinimum(-90.0);
-//        editor->setMaximum(90.0);
-//        editor->setDecimals(3);
-//    }
-//    else if(units == QStringLiteral("Radians")) {
-//        editor->setSingleStep(0.0001);
-//        editor->setMinimum(Units::deg2rad(-90.0));
-//        editor->setMaximum(Units::deg2rad(90.0));
-//        editor->setDecimals(5);
-//    }
-//    else {
-//        throw GUIHelpers::Error("DetectorEditorWidget::setAngleUnits() ->");
-//    }
-//}
-
 
 
 void DetectorEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const AngleProperty &units, double min_deg, double max_deg)

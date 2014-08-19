@@ -179,15 +179,6 @@ void register_Instrument_class(){
                 , getIntensity_function_type( &::Instrument::getIntensity ) );
         
         }
-        { //::Instrument::getIsgisaxsStyle
-        
-            typedef bool ( ::Instrument::*getIsgisaxsStyle_function_type )(  ) const;
-            
-            Instrument_exposer.def( 
-                "getIsgisaxsStyle"
-                , getIsgisaxsStyle_function_type( &::Instrument::getIsgisaxsStyle ) );
-        
-        }
         { //::Instrument::matchDetectorParameters
         
             typedef void ( ::Instrument::*matchDetectorParameters_function_type )( ::OutputData< double > const & ) ;
@@ -226,6 +217,16 @@ void register_Instrument_class(){
                 "setBeamParameters"
                 , setBeamParameters_function_type( &::Instrument::setBeamParameters )
                 , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
+        
+        }
+        { //::Instrument::setDetectorAxes
+        
+            typedef void ( ::Instrument::*setDetectorAxes_function_type )( ::IAxis const &,::IAxis const & ) ;
+            
+            Instrument_exposer.def( 
+                "setDetectorAxes"
+                , setDetectorAxes_function_type( &::Instrument::setDetectorAxes )
+                , ( bp::arg("axis0"), bp::arg("axis1") ) );
         
         }
         { //::Instrument::setDetectorParameters

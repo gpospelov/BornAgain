@@ -15,9 +15,14 @@
 #include "FormFactorItems.h"
 #include "LayerRoughness.h"
 #include "LayerRoughnessItems.h"
+#include "ConstKBinAxis.h"
+#include "FixedBinAxis.h"
+#include "CustomBinAxis.h"
+#include "Detector.h"
 #include <QString>
 #include <QDebug>
 #include <vector>
+#include <boost/scoped_ptr.hpp>
 
 
 void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
@@ -395,4 +400,22 @@ bool TransformFromDomain::isHexagonalLattice(double length1, double length2, dou
         return true;
     }
     return false;
+}
+
+
+//! FIXME Remove hardcoded strings
+QString TransformFromDomain::getDetectorBinning(const Detector *detector)
+{
+    boost::scoped_ptr<IAxis> phi_axis(detector->getAxis(0).clone());
+    boost::scoped_ptr<IAxis> alpha_axis(detector->getAxis(1).clone());
+
+    if( dynamic_cast<ConstKBinAxis *>(phi_axis.get()) && dynamic_cast<ConstKBinAxis *>(alpha_axis.get())) {
+        return QString("Const KBin");
+    }
+    else if( dynamic_cast<FixedBinAxis *>(phi_axis.get()) && dynamic_cast<FixedBinAxis *>(alpha_axis.get())) {
+        return QString("Fixed");
+    }
+    else {
+        throw GUIHelpers::Error("TransformFromDomain::getDetectorBinning() -> Error. Can't determine detector binning");
+    }
 }

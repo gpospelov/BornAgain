@@ -19,6 +19,7 @@
 #include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
 #include "TransformationItem.h"
+#include "RotationItems.h"
 #include "ParticleCoreShellItem.h"
 #include "InterferenceFunctionItems.h"
 #include "InstrumentItem.h"
@@ -73,6 +74,11 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::TetrahedronType] = &createInstance<TetrahedronItem>;
     result[Constants::TruncatedSphereType] = &createInstance<TruncatedSphereItem>;
     result[Constants::TruncatedSpheroidType] = &createInstance<TruncatedSpheroidItem>;
+
+    result[Constants::XRotationType] = &createInstance<XRotationItem>;
+    result[Constants::YRotationType] = &createInstance<YRotationItem>;
+    result[Constants::ZRotationType] = &createInstance<ZRotationItem>;
+    result[Constants::EulerRotationType] = &createInstance<EulerRotationItem>;
 
     result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;

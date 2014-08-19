@@ -52,6 +52,7 @@ public:
     void visit(const ParticleCoreShell *);
 
     void visit(const ParticleInfo *);
+    void visit(const PositionParticleInfo *);
 
     void visit(const FormFactorAnisoPyramid *);
     void visit(const FormFactorBox *);
@@ -86,8 +87,9 @@ private:
 
     SampleModel *m_sampleModel;
 
-    QMap<int, ParameterizedItem *> m_levelToParent;
+    QMap<int, ParameterizedItem *> m_levelToParentItem;
     QMap<QString, double > m_propertyToValue;
+    QMap<QString, bool> m_sample_encountered;
     QMap<ParameterizedItem *, const ISample *> m_itemToSample;
     QString m_topSampleName;
 };

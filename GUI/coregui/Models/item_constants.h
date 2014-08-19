@@ -42,6 +42,11 @@ const ModelType TetrahedronType = "Tetrahedron";
 const ModelType TruncatedSphereType = "TruncatedSphere";
 const ModelType TruncatedSpheroidType = "TruncatedSpheroid";
 
+const ModelType XRotationType = "XRotation";
+const ModelType YRotationType = "YRotation";
+const ModelType ZRotationType = "ZRotation";
+const ModelType EulerRotationType = "EulerRotation";
+
 const ModelType VectorType = "Vector";
 
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
@@ -78,6 +83,7 @@ const ModelType MagneticFieldType = "MagneticField";
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
+const ModelType RotationGroup = "Rotation";
 const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType FTDistribution1DGroup = "PDF 1D";

@@ -149,22 +149,28 @@ IInterferenceFunction *TransformToDomain::createInterferenceFunction(
     }
     else if(item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
 
-        ParameterizedItem *latticeItem = item.getSubItems()[InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
+        ParameterizedItem *latticeItem = item.getSubItems()
+                [InterferenceFunction2DParaCrystalItem::P_LATTICE_TYPE];
         Q_ASSERT(latticeItem);
 
         double length_1(0), length_2(0), alpha_lattice(0.0);
         if(latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
-            length_2 = latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
-            alpha_lattice = Units::deg2rad(latticeItem->getRegisteredProperty(BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
+            length_1 = latticeItem->getRegisteredProperty(
+                        BasicLatticeTypeItem::P_LATTICE_LENGTH1).toDouble();
+            length_2 = latticeItem->getRegisteredProperty(
+                        BasicLatticeTypeItem::P_LATTICE_LENGTH2).toDouble();
+            alpha_lattice = Units::deg2rad(latticeItem->getRegisteredProperty(
+                        BasicLatticeTypeItem::P_LATTICE_ANGLE).toDouble());
         }
         else if(latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            length_1 = latticeItem->getRegisteredProperty(
+                        SquareLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = M_PI/2.0;
         }
         else if(latticeItem->modelType() == Constants::HexagonalLatticeType) {
-            length_1 = latticeItem->getRegisteredProperty(HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+            length_1 = latticeItem->getRegisteredProperty(
+                        HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = 2*M_PI/3.0;
         }

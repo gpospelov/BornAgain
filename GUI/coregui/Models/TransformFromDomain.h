@@ -16,9 +16,6 @@ class Detector;
 namespace TransformFromDomain
 {
 void setItemFromSample(ParameterizedItem *item,
-                       const FormFactorAnisoPyramid *sample);
-
-void setItemFromSample(ParameterizedItem *item,
                        const InterferenceFunction1DParaCrystal *sample);
 
 void setItemFromSample(ParameterizedItem *item,

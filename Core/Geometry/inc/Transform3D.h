@@ -28,6 +28,8 @@ namespace Geometry {
 
 class BA_CORE_API_ Transform3D {
 public:
+    enum RotationType { EULER, XAXIS, YAXIS, ZAXIS };
+
     //! Constructs unit transformation
     Transform3D();
 
@@ -52,6 +54,14 @@ public:
     //! Creates rotation around z-axis
     static Transform3D createRotateZ(double phi);
 
+    //! Creates rotation defined by Euler angles
+    static Transform3D createRotateEuler(double alpha,
+                                         double beta, double gamma);
+
+    //! Calculates the Euler angles corresponding to the rotation
+    void calculateEulerAngles(double *p_alpha, double *p_beta,
+                              double *p_gamma) const;
+
     //! Returns the inverse transformation.
     Transform3D *createInverse() const;
 
@@ -74,6 +84,9 @@ public:
     //! Composes two transformations
     Transform3D operator*(const Transform3D &other) const;
 
+    //! Retrieve the rotation type (general, around x, y or z-axis)
+    RotationType getRotationType() const;
+
     friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m)
     { m.print(ostr); return ostr; }
 
@@ -85,6 +98,9 @@ private:
     Eigen::Matrix3d m_matrix;
     Eigen::Matrix3d m_inverse_matrix;
 #endif
+    bool isXRotation() const;
+    bool isYRotation() const;
+    bool isZRotation() const;
 };
 
 }// namespace Geometry

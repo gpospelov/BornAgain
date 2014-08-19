@@ -126,9 +126,6 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
                 result->addParticle(*coreshell, depth, abundance);
             }
         }
-
-
-
         else {
             throw GUIHelpers::Error("DomainObjectBuilder::buildParticleLayout() -> Error! Not implemented");
         }
@@ -140,6 +137,19 @@ ParticleLayout *DomainObjectBuilder::buildParticleLayout(
 Particle *DomainObjectBuilder::buildParticle(const ParameterizedItem &item, double &depth, double &abundance) const
 {
     Particle *result = TransformToDomain::createParticle(item, depth, abundance);
+//    QList<ParameterizedItem *> children = item.childItems();
+//    for (int i=0; i<children.size(); ++i) {
+//        if (children[i]->modelType() == Constants::TransformationType) {
+//            boost::scoped_ptr<Particle>
+//                    particle(buildParticle(*children[i], depth, abundance));
+//            if (particle.get()) {
+//                result->addParticle(*particle, depth, abundance);
+//            }
+//        }
+//        else {
+//            throw GUIHelpers::Error("DomainObjectBuilder::buildParticle() -> Error! Not implemented");
+//        }
+//    }
     return result;
 }
 

@@ -14,6 +14,6 @@ TransformationItem::TransformationItem(ParameterizedItem *parent)
     setItemPort(ParameterizedItem::PortInfo::Port0);
 
     registerGroupProperty(P_POS, Constants::VectorType);
-    registerGroupProperty(P_ROT, Constants::VectorType);
+    registerGroupProperty(P_ROT, Constants::RotationGroup );
 }
 

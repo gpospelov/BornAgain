@@ -33,15 +33,6 @@ inline void TestFormFactorItems::test_AnisoPyramidItem()
     QVERIFY(ff->getHeight() == 13.0);
     QVERIFY( Numeric::areAlmostEqual(ff->getAlpha(), Units::deg2rad(60.0)));
     delete ff;
-
-    // from domain
-    FormFactorAnisoPyramid ff2(2.0, 1.6, 1.3, 70.0*Units::degree);
-    AnisoPyramidItem item2;
-    TransformFromDomain::setItemFromSample(&item2, &ff2);
-    QVERIFY(item2.getRegisteredProperty(AnisoPyramidItem::P_LENGTH).toDouble() == 2.0);
-    QVERIFY(item2.getRegisteredProperty(AnisoPyramidItem::P_WIDTH).toDouble() == 1.6);
-    QVERIFY(item2.getRegisteredProperty(AnisoPyramidItem::P_HEIGHT).toDouble() == 1.3);
-    QVERIFY(item2.getRegisteredProperty(AnisoPyramidItem::P_ALPHA).toDouble() == 70.0);
 }
 
 

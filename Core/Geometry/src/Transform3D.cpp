@@ -73,6 +73,30 @@ Geometry::Transform3D Geometry::Transform3D::createRotateZ(double phi)
     return Transform3D(matrix);
 }
 
+Geometry::Transform3D Geometry::Transform3D::createRotateEuler(double alpha,
+                           double beta, double gamma)
+{
+    Transform3D zrot = createRotateZ(alpha);
+    Transform3D xrot = createRotateX(beta);
+    Transform3D zrot2 = createRotateZ(gamma);
+    return zrot2*xrot*zrot;
+}
+
+void Geometry::Transform3D::calculateEulerAngles(double *p_alpha,
+    double *p_beta, double *p_gamma) const
+{
+    // First check if second angle is zero or pi
+    if (m_matrix(2,0)==0.0 && m_matrix(2,1)==0.0) {
+        *p_alpha = std::atan2(-m_matrix(0,1), m_matrix(0,0));
+        *p_beta = std::acos(m_matrix(2,2));
+        *p_gamma = 0.0;
+    } else {
+        *p_alpha = std::atan2(m_matrix(2,0), m_matrix(2,1));
+        *p_beta = std::acos(m_matrix(2,2));
+        *p_gamma = std::atan2(m_matrix(0,2), -m_matrix(1,2));
+    }
+}
+
 Geometry::Transform3D* Geometry::Transform3D::createInverse() const
 {
     return new Transform3D(m_inverse_matrix);
@@ -132,6 +156,15 @@ Geometry::Transform3D Geometry::Transform3D::operator*(
     return Geometry::Transform3D(product_matrix);
 }
 
+Geometry::Transform3D::RotationType Geometry::Transform3D::getRotationType()
+        const
+{
+    if (isXRotation()) return XAXIS;
+    if (isYRotation()) return YAXIS;
+    if (isZRotation()) return ZAXIS;
+    return EULER;
+}
+
 void Geometry::Transform3D::print(std::ostream& ostr) const
 {
     ostr << "Transform3D: " << m_matrix;
@@ -141,5 +174,35 @@ Geometry::Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
 : m_matrix(matrix)
 {
     m_inverse_matrix = m_matrix.inverse();
+}
+
+bool Geometry::Transform3D::isXRotation() const
+{
+    if (m_matrix(0,0) != 1.0) return false;
+    if (m_matrix(0,1) != 0.0) return false;
+    if (m_matrix(0,2) != 0.0) return false;
+    if (m_matrix(1,0) != 0.0) return false;
+    if (m_matrix(2,0) != 0.0) return false;
+    return true;
+}
+
+bool Geometry::Transform3D::isYRotation() const
+{
+    if (m_matrix(1,1) != 1.0) return false;
+    if (m_matrix(0,1) != 0.0) return false;
+    if (m_matrix(1,0) != 0.0) return false;
+    if (m_matrix(1,2) != 0.0) return false;
+    if (m_matrix(2,1) != 0.0) return false;
+    return true;
+}
+
+bool Geometry::Transform3D::isZRotation() const
+{
+    if (m_matrix(2,2) != 1.0) return false;
+    if (m_matrix(0,2) != 0.0) return false;
+    if (m_matrix(1,2) != 0.0) return false;
+    if (m_matrix(2,0) != 0.0) return false;
+    if (m_matrix(2,1) != 0.0) return false;
+    return true;
 }
 

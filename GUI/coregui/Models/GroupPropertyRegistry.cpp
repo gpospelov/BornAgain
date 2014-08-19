@@ -8,7 +8,7 @@
 
 namespace {
 
-// Correspondance of ParameterizedItem's types to they labels
+// Correspondance of ParameterizedItem's types to their labels
 GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 {
     GroupPropertyRegistry::SelectableGroupMap_t result;
@@ -33,6 +33,13 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     formfactors[Constants::TruncatedSphereType] = "Truncated Sphere";
     formfactors[Constants::TruncatedSpheroidType] = "Truncated Spheroid";
     result[Constants::FormFactorGroup] = formfactors;
+
+    QMap<QString, QString> rotations;
+    rotations[Constants::XRotationType] = "X axis Rotation";
+    rotations[Constants::YRotationType] = "Y axis Rotation";
+    rotations[Constants::ZRotationType] = "Z axis Rotation";
+    rotations[Constants::EulerRotationType] = "Euler Rotation";
+    result[Constants::RotationGroup] = rotations;
 
     QMap<QString, QString> roughnesses;
     roughnesses[Constants::LayerBasicRoughnessType] = "Basic";

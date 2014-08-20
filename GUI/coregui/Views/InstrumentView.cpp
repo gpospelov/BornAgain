@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QToolBar>
+#include <QRegExp>
 
 
 InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
@@ -48,9 +49,12 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
 
     createActions();
 
-    if(m_instrumentModel->rowCount(QModelIndex()) == 0)
+    if(m_instrumentModel->rowCount(QModelIndex()) == 0) {
         onAddInstrument();
-//    updateView();
+        onAddInstrument();
+        onAddInstrument();
+    }
+    updateView();
 }
 
 
@@ -58,7 +62,7 @@ void InstrumentView::updateView()
 {
     qDebug() << "InstrumentView::updateView()";
     m_instrumentSelector->updateSelection();
-    m_name_to_copy.clear();
+//    updateMapOfNames();
 }
 
 
@@ -169,7 +173,10 @@ void InstrumentView::createActions()
 //! If "Default GISAS" name already exists, then "Default GISAS (2)" will be proposed.
 QString InstrumentView::getNewInstrumentName(const QString &name)
 {
+    updateMapOfNames();
+
     int ncopies = m_name_to_copy[name];
+    qDebug() << "   InstrumentView::getNewInstrumentName()" << ncopies;
     if(ncopies == 0) {
         m_name_to_copy[name]=1;
         return name;
@@ -177,6 +184,30 @@ QString InstrumentView::getNewInstrumentName(const QString &name)
     else {
         m_name_to_copy[name]++;
         return QString("%1 (%2)").arg(name).arg(m_name_to_copy[name]);
+    }
+}
+
+
+//! construct map of instrument names defined in the model together with number
+//! of copies
+void InstrumentView::updateMapOfNames()
+{
+
+    m_name_to_copy.clear();
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex ); ++i_row) {
+        QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
+        QString name =  m_instrumentModel->itemForIndex(itemIndex)->itemName();
+        int ncopy(1);
+        QRegExp regexp("\\((.*)\\)");
+        if(regexp.indexIn(name) >= 0) {
+            ncopy = regexp.cap(1).toInt();
+        }
+        name.replace(regexp.cap(0),"");
+        name = name.trimmed();
+        m_name_to_copy[name] = ncopy;
+//        qDebug() << " ";
+//        qDebug() << "XXXXXXXXXXXXXXXX" << name << ncopy << regexp.cap(0);
     }
 }
 

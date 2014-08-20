@@ -37,6 +37,7 @@ public slots:
 private:
     void createActions();
     QString getNewInstrumentName(const QString &name);
+    void updateMapOfNames();
 
     InstrumentModel *m_instrumentModel;
     QToolBar *m_toolBar;

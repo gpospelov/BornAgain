@@ -34,6 +34,8 @@ void OutputDataItem::setOutputData(OutputData<double> *data)
         qDebug() << "OutputDataItem::setOutputData(OutputData<double> *data)";
         delete m_data;
         m_data = data;
+        m_xaxis_title = QString(data->getAxis(0)->getName().c_str());
+        m_yaxis_title = QString(data->getAxis(1)->getName().c_str());
         emit modified();
     }
 }

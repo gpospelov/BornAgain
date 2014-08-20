@@ -110,6 +110,29 @@ SimulationRegistry::SimulationRegistry()
         "ripple1", StandardSimulations::Ripple1,
         "Cosine ripple within the 1D-paracrystal model");
 
+    // GUI examples
+    registerItem(
+        "gui_isgisaxs01", StandardSimulations::gui_IsGISAXS01,
+        "GUI: Mixture of cylinders and prisms without interference");
+
+    registerItem(
+        "gui_isgisaxs04_1DDL", StandardSimulations::gui_IsGISAXS041DDL,
+        "GUI: IsGISAXS04 example, 1DDL structure factor");
+
+    registerItem(
+        "gui_isgisaxs04_2DDL", StandardSimulations::gui_IsGISAXS042DDL,
+        "GUI: IsGISAXS04 example, 2DDL structure factor");
+
+    registerItem(
+        "gui_isgisaxs11", StandardSimulations::gui_IsGISAXS11,
+        "GUI: Core shell nanoparticles");
+
+    registerItem(
+        "gui_isgisaxs06a", StandardSimulations::gui_IsGISAXS06L1,
+        "GUI: 2D lattice with disorders");
+
+
+
 }
 
 

@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QToolBar>
+#include <QRegExp>
 
 
 InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
@@ -43,18 +44,47 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
         SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
         );
 
+    connect(m_instrumentModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetView()));
     connect(m_instrumentModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
 
-    QModelIndex itemIndex = m_instrumentModel->index(0,0,QModelIndex());
-    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
     createActions();
+
+    if(m_instrumentModel->rowCount(QModelIndex()) == 0)
+        onAddInstrument();
+
+    updateView();
 }
 
 
-void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
+void InstrumentView::updateView()
 {
-    qDebug() << "InstrumentView::onSelectionChanged()" << selected;
-    if(selected.indexes().isEmpty()) return;
+    qDebug() << "InstrumentView::updateView()";
+    m_instrumentSelector->updateSelection();
+}
+
+
+void InstrumentView::resetView()
+{
+    qDebug() << "InstrumentView::resetView()";
+
+    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    while(it!=m_instrumentToEditor.end()) {
+        m_stackWidget->removeWidget(it.value());
+        delete it.value();
+        ++it;
+    }
+    m_instrumentToEditor.clear();
+    m_name_to_copy.clear();
+}
+
+
+void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected )
+{
+    qDebug() << "InstrumentView::onSelectionChanged()" << selected << deselected;
+    if(selected.indexes().isEmpty()) {
+        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected" << selected << deselected;
+        return;
+    }
 
     ParameterizedItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
     qDebug() << "InstrumentView::onSelectionChanged()" << instrument->itemName();
@@ -76,10 +106,14 @@ void InstrumentView::onAddInstrument()
 {
     qDebug() << "InstrumentView::onAddInstrument()";
     ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName("Default GISAS");
+    instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
-
+    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));    
+    QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
+    qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection";
+    m_instrumentSelector->getSelectionModel()->clearSelection();
+    qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection -> done.";
+    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
 }
 
 
@@ -129,5 +163,48 @@ void InstrumentView::createActions()
     m_instrumentSelector->getListView()->setContextMenuPolicy(Qt::ActionsContextMenu);
     m_instrumentSelector->getListView()->addAction(m_addInstrumentAction);
     m_instrumentSelector->getListView()->addAction(m_removeInstrumentAction);
+}
+
+
+//! returns name of instrument which is based on suggested name
+//! If "Default GISAS" name already exists, then "Default GISAS (2)" will be proposed.
+QString InstrumentView::getNewInstrumentName(const QString &name)
+{
+    updateMapOfNames();
+
+    int ncopies = m_name_to_copy[name];
+    qDebug() << "   InstrumentView::getNewInstrumentName()" << ncopies;
+    if(ncopies == 0) {
+        m_name_to_copy[name]=1;
+        return name;
+    }
+    else {
+        m_name_to_copy[name]++;
+        return QString("%1 (%2)").arg(name).arg(m_name_to_copy[name]);
+    }
+}
+
+
+//! construct map of instrument names defined in the model together with number
+//! of copies
+void InstrumentView::updateMapOfNames()
+{
+
+    m_name_to_copy.clear();
+    QModelIndex parentIndex;
+    for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex ); ++i_row) {
+        QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
+        QString name =  m_instrumentModel->itemForIndex(itemIndex)->itemName();
+        int ncopy(1);
+        QRegExp regexp("\\((.*)\\)");
+        if(regexp.indexIn(name) >= 0) {
+            ncopy = regexp.cap(1).toInt();
+        }
+        name.replace(regexp.cap(0),"");
+        name = name.trimmed();
+        m_name_to_copy[name] = ncopy;
+//        qDebug() << " ";
+//        qDebug() << "XXXXXXXXXXXXXXXX" << name << ncopy << regexp.cap(0);
+    }
 }
 

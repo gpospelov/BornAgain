@@ -108,7 +108,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget->insertTab(TestViewTab, m_testView, QIcon(":/images/main_simulation.png"), "Test");
 
 
-    m_tabWidget->setCurrentIndex(SampleTab);
+    m_tabWidget->setCurrentIndex(InstrumentTab);
 
     m_progressBar = new Manhattan::ProgressBar(this);
     m_tabWidget->addBottomCornerWidget(m_progressBar);
@@ -179,13 +179,17 @@ void MainWindow::onChangeTabWidget(int index)
 {
     // update views which depend on others
     (void)index;
-    if(index == SimulationTab) {
-        updateSimModel();
-        m_simulationView->updateSimulationViewElements();
-    }
-    else if(index == WelcomeTab)
+
+    if(index == WelcomeTab)
     {
         m_welcomeView->updateRecentProjectPanel();
+    }
+    else if (index == InstrumentTab) {
+        m_instrumentView->updateView();
+    }
+    else if(index == SimulationTab) {
+        updateSimModel();
+        m_simulationView->updateSimulationViewElements();
     }
 }
 
@@ -281,12 +285,12 @@ void MainWindow::initInstrumentModel()
     m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
 
-    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument1->setItemName("Default GISAS");
-    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
-    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
-    Q_UNUSED(detector1);
-    Q_UNUSED(beam1);
+//    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+//    instrument1->setItemName("Default GISAS");
+//    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
+//    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
+//    Q_UNUSED(detector1);
+//    Q_UNUSED(beam1);
 
     //m_instrumentModel->save("instrument.xml");
 }

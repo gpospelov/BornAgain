@@ -46,7 +46,7 @@ const ModelType VectorType = "Vector";
 const ModelType LayerBasicRoughnessType = "LayerBasicRoughness";
 const ModelType LayerZeroRoughnessType = "LayerZeroRoughness";
 
-const ModelType ThetaPhiDetectorType = "ThetaPhiDetector";
+const ModelType PhiAlphaDetectorType = "PhiAlphaDetector";
 const ModelType XYDetectorType  = "XYDetector";
 
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
@@ -84,6 +84,9 @@ const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 
+// --- Units -------------------------------------------------------------------
+const ModelType UnitsDegrees = "Degrees";
+const ModelType UnitsRadians = "Radians";
 
 }
 

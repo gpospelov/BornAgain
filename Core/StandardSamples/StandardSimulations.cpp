@@ -494,3 +494,102 @@ Simulation *StandardSimulations::Ripple1()
 
     return result;
 }
+
+
+// -----------------------------------------------------------------------------
+// Examples for GUI (no isgisaxs=true)
+// -----------------------------------------------------------------------------
+
+
+Simulation *StandardSimulations::gui_IsGISAXS01()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs01");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(
+        100,-1.0*Units::degree, 1.0*Units::degree, 100,
+        0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(
+        1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+
+Simulation *StandardSimulations::gui_IsGISAXS041DDL()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_1DDL");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::gui_IsGISAXS042DDL()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs04_2DDL");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::gui_IsGISAXS11()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs11");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+            0.0*Units::degree);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}
+
+Simulation *StandardSimulations::gui_IsGISAXS06L1()
+{
+    SampleBuilderFactory factory;
+    SampleBuilder_t builder = factory.createBuilder("isgisaxs06a");
+
+    Simulation *result = new Simulation();
+
+    result->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                100, 0.0*Units::degree, 2.0*Units::degree);
+    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree,
+                0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+    result->setSimulationParameters(sim_params);
+
+    result->setSampleBuilder( builder );
+
+    return result;
+}

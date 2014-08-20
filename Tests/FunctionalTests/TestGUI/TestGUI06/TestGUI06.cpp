@@ -2,7 +2,7 @@
 
 int main()
 {
-    return GUI_FUNCTIONAL_TEST("isgisaxs06a");
+    return GUI_FUNCTIONAL_TEST("gui_isgisaxs06a");
 }
 
 

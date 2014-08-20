@@ -23,6 +23,7 @@
 #include "FancyGroupProperty.h"
 #include "MaterialUtils.h"
 #include "MaterialProperty.h"
+#include "AngleProperty.h"
 
 #include <QFile>
 #include <QMimeData>
@@ -641,6 +642,14 @@ QString SessionModel::readProperty(QXmlStreamReader *reader, ParameterizedItem *
         ColorProperty color(QColor(r, g, b, a));
         item->setRegisteredProperty(parameter_name, color.getVariant());
     }
+    else if (parameter_type == "AngleProperty") {
+        double parameter_value = reader->attributes()
+                .value(SessionXML::ParameterValueAttribute).toDouble();
+        QString units = reader->attributes().value(SessionXML::AngleUnitsAttribute).toString();
+        AngleProperty angle_property(parameter_value, Constants::UnitsRadians);
+        angle_property.setUnits(units);
+        item->setRegisteredProperty(parameter_name, angle_property.getVariant());
+    }
 
     else {
         throw GUIHelpers::Error("SessionModel::readProperty: "
@@ -743,7 +752,13 @@ void SessionModel::writeProperty(QXmlStreamWriter *writer,
             writer->writeAttribute(SessionXML::ColorBlueAttribute, QString::number(b));
             writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
         }
-
+        else if (type_name == QString("AngleProperty")) {
+            double value = variant.value<AngleProperty>().getValueInRadians();
+            writer->writeAttribute(SessionXML::ParameterValueAttribute,
+                                QString::number(value,'g'));
+            writer->writeAttribute(SessionXML::AngleUnitsAttribute,
+                                variant.value<AngleProperty>().getUnits());
+        }
         else {
             throw GUIHelpers::Error(tr("SessionModel::writeProperty: "
                                        "Parameter type not supported ")+type_name);

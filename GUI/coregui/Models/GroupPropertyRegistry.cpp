@@ -40,7 +40,7 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     result[Constants::LayerRoughnessGroup] = roughnesses;
 
     QMap<QString, QString> detectors;
-    detectors[Constants::ThetaPhiDetectorType] = "Theta, Phi plane";
+    detectors[Constants::PhiAlphaDetectorType] = "[Phi, Alpha] plane";
     result[Constants::DetectorGroup] = detectors;
 
     QMap<QString, QString> pdfs_1d;

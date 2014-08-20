@@ -3,6 +3,7 @@
 #include "DetectorItems.h"
 #include "BeamItem.h"
 #include "Units.h"
+#include "AngleProperty.h"
 #include "GUIHelpers.h"
 #include <QLineEdit>
 #include <QBoxLayout>
@@ -70,7 +71,6 @@ BeamEditorWidget::BeamEditorWidget(QWidget *parent)
     connect(m_angleUnits, SIGNAL(currentIndexChanged(int)), this, SLOT(onAngleUnitsChanged(int)));
     connect(m_inclinationAngleSpinBox, SIGNAL(valueChanged(const QString &)), this, SLOT(onChangedAngle(const QString &)));
     connect(m_azimuthalAngleSpinBox, SIGNAL(valueChanged(const QString &)), this, SLOT(onChangedAngle(const QString &)));
-
 }
 
 void BeamEditorWidget::initFromItem(BeamItem *item)
@@ -86,7 +86,7 @@ void BeamEditorWidget::initFromItem(BeamItem *item)
         m_currentItem = item;
 
         connect(item, SIGNAL(propertyChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
-        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
+//        connect(item, SIGNAL(propertyItemChanged(const QString &)), this, SLOT(onPropertyChanged(const QString &)));
 
         updateWidgets();
     }
@@ -109,8 +109,14 @@ void BeamEditorWidget::onChangedWavelength(const QString & /* text */)
 void BeamEditorWidget::onChangedAngle(const QString &)
 {
     if(m_block_signals) return;
-    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, m_inclinationAngleSpinBox->value());
-    m_currentItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE, m_azimuthalAngleSpinBox->value());
+
+    AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+    inclination_angle.setValue(m_inclinationAngleSpinBox->value());
+    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, inclination_angle.getVariant());
+
+    AngleProperty azimuthal_angle = m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
+    azimuthal_angle.setValue(m_azimuthalAngleSpinBox->value());
+    m_currentItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE, azimuthal_angle.getVariant());
 }
 
 
@@ -126,24 +132,9 @@ void BeamEditorWidget::onAngleUnitsChanged(int)
 {
     if(m_block_signals) return;
     qDebug() << "BeamEditorWidget::onAngleUnitsChanged(int) " << m_angleUnits->currentText();
-    ComboProperty units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<ComboProperty>();
-    units_property.setValue(m_angleUnits->currentText());
-    m_currentItem->setRegisteredProperty(BeamItem::P_ANGLE_UNITS, units_property.getVariant());
-
-    double alpha = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble();
-    double phi = m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble();
-
-    ComboProperty angle_units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<ComboProperty>();
-    updateAngleUnits(angle_units_property.getValue());
-
-    if(m_angleUnits->currentText() == "Degrees") {
-        m_inclinationAngleSpinBox->setValue(Units::rad2deg(alpha));
-        m_azimuthalAngleSpinBox->setValue(Units::rad2deg(phi));
-    } else {
-        m_inclinationAngleSpinBox->setValue(Units::deg2rad(alpha));
-        m_azimuthalAngleSpinBox->setValue(Units::deg2rad(phi));
-    }
-
+    AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+    inclination_angle.setUnits(m_angleUnits->currentText());
+    m_currentItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE, inclination_angle.getVariant());
 }
 
 
@@ -156,13 +147,16 @@ void BeamEditorWidget::updateWidgets()
     m_intensityText->setText(QString::number(m_currentItem->getRegisteredProperty(BeamItem::P_INTENSITY).toDouble()));
     m_wavelengthSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_WAVELENGTH).toDouble());
 
-    m_angleUnits->clear();
-    ComboProperty angle_units_property = m_currentItem->getRegisteredProperty(BeamItem::P_ANGLE_UNITS).value<ComboProperty>();
-    m_angleUnits->addItems(angle_units_property.getValues());
-    m_angleUnits->setCurrentText(angle_units_property.getValue());
+    AngleProperty inclination_angle = m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).value<AngleProperty>();
+    AngleProperty azimuthal_angle = m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).value<AngleProperty>();
 
-    m_inclinationAngleSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_INCLINATION_ANGLE).toDouble());
-    m_azimuthalAngleSpinBox->setValue(m_currentItem->getRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE).toDouble());
+    // Units from inclination_agle will control azimuthal_angle too
+    m_angleUnits->clear();
+    m_angleUnits->addItems(inclination_angle.getLabels());
+    m_angleUnits->setCurrentText(inclination_angle.getUnits());
+
+    setAngleUnits(m_inclinationAngleSpinBox, inclination_angle);
+    setAngleUnits(m_azimuthalAngleSpinBox, azimuthal_angle);
 
     setBlockSignals(false);
 }
@@ -174,31 +168,21 @@ void BeamEditorWidget::setBlockSignals(bool flag)
 }
 
 
-//! Update angle limits for all angle editors depending on units: radians or degrees
-void BeamEditorWidget::updateAngleUnits(const QString &units)
+void BeamEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const AngleProperty &units, double min_deg, double max_deg)
 {
-    setAngleUnits(m_inclinationAngleSpinBox, units);
-    setAngleUnits(m_azimuthalAngleSpinBox, units);
-}
-
-
-//! Sets angle units and corresponding limits for QDoubleSpinBox
-void BeamEditorWidget::setAngleUnits(QDoubleSpinBox *editor, const QString &units)
-{
-    if(units == QStringLiteral("Degrees")) {
+    if(units.inDegrees()) {
         editor->setSingleStep(0.01);
-        editor->setMinimum(-90.0);
-        editor->setMaximum(90.0);
+        editor->setMinimum(min_deg);
+        editor->setMaximum(max_deg);
         editor->setDecimals(3);
-    }
-    else if(units == QStringLiteral("Radians")) {
-        editor->setSingleStep(0.0001);
-        editor->setMinimum(Units::deg2rad(-90.0));
-        editor->setMaximum(Units::deg2rad(90.0));
-        editor->setDecimals(5);
+        editor->setValue(units.getValue());
     }
     else {
-        throw GUIHelpers::Error("BeamEditorWidget::setAngleUnits() ->");
+        editor->setSingleStep(0.0001);
+        editor->setMinimum(Units::deg2rad(min_deg));
+        editor->setMaximum(Units::deg2rad(max_deg));
+        editor->setDecimals(6);
+        editor->setValue(units.getValue());
     }
 }
 

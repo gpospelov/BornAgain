@@ -19,6 +19,9 @@
 #include "ParticleCoreShellItem.h"
 #include "LayerRoughnessItems.h"
 #include "VectorItem.h"
+#include "AngleProperty.h"
+#include "ConstKBinAxis.h"
+#include "FixedBinAxis.h"
 #include <QDebug>
 
 
@@ -60,10 +63,11 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
                                     beam.getIntensity());
     beamItem->setRegisteredProperty(BeamItem::P_WAVELENGTH,
                                     beam.getWavelength());
+
     beamItem->setRegisteredProperty(BeamItem::P_INCLINATION_ANGLE,
-                                    Units::rad2deg(-1.0*beam.getAlpha()));
+                                    AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getAlpha())));
     beamItem->setRegisteredProperty(BeamItem::P_AZIMUTHAL_ANGLE,
-                                    Units::rad2deg(beam.getPhi()));
+                                    AngleProperty::Degrees(Units::rad2deg(-1.0*beam.getPhi())));
 
     Detector detector = instrument->getDetector();
     ParameterizedItem *detectorItem = instrumentModel->insertNewItem(
@@ -72,31 +76,27 @@ ParameterizedItem *GUIObjectBuilder::populateInstrumentModel(InstrumentModel *in
             detectorItem->getSubItems()[DetectorItem::P_DETECTOR];
     Q_ASSERT(detectorSubItem);
 
+
     const IAxis &phi_axis = detector.getAxis(0);
     const IAxis &alpha_axis = detector.getAxis(1);
 
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NPHI,
+    ComboProperty binning_property = detectorSubItem->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
+    binning_property.setValue(TransformFromDomain::getDetectorBinning(&detector));
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_BINNING, binning_property.getVariant());
+
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_NPHI,
                                            (int)phi_axis.getSize());
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MIN,
-                                           Units::rad2deg(phi_axis.getMin()));
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_PHI_MAX,
-                                           Units::rad2deg(phi_axis.getMax()));
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_NALPHA,
+
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MIN, AngleProperty::Degrees(Units::rad2deg(phi_axis.getMin())));
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_PHI_MAX, AngleProperty::Degrees(Units::rad2deg(phi_axis.getMax())));
+
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_NALPHA,
                                            (int)alpha_axis.getSize());
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MIN,
-                                           Units::rad2deg(alpha_axis.getMin()));
-    detectorSubItem->setRegisteredProperty(ThetaPhiDetectorItem::P_ALPHA_MAX,
-                                           Units::rad2deg(alpha_axis.getMax()));
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MIN,
+                                           AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMin())));
+    detectorSubItem->setRegisteredProperty(PhiAlphaDetectorItem::P_ALPHA_MAX,
+                                           AngleProperty::Degrees(Units::rad2deg(alpha_axis.getMax())));
 
-    if(instrument->getIsgisaxsStyle()) {
-        ComboProperty binning_property =
-                detectorSubItem->getRegisteredProperty(
-                    DetectorItem::P_BINNING).value<ComboProperty>();
-        binning_property.setValue("Flat in sin");
-        detectorSubItem->setRegisteredProperty(
-                    DetectorItem::P_BINNING, binning_property.getVariant());
-
-    }
     return instrumentItem;
 }
 

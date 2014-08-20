@@ -1,13 +1,13 @@
 #ifndef INSTRUMENT_SELECTOR_WIDGET_H
 #define INSTRUMENT_SELECTOR_WIDGET_H
 
-
 #include <QWidget>
 class InstrumentModel;
 class QListView;
 class QAction;
 class QItemSelectionModel;
 class QItemSelection;
+
 
 class InstrumentSelectorWidget : public QWidget
 {
@@ -28,7 +28,7 @@ signals:
     void selectionChanged(const QItemSelection&, const QItemSelection&);
 
 public slots:
-//    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void updateSelection();
 
 private:
     InstrumentModel *m_instrumentModel;

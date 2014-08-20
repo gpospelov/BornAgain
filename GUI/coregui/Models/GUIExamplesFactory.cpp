@@ -5,19 +5,20 @@
 #include "InstrumentModel.h"
 #include "SampleModel.h"
 #include "GUIHelpers.h"
-#include <QDebug>
+#include "Simulation.h"
 #include <boost/scoped_ptr.hpp>
+#include <QDebug>
 
 //! Defines correspondance between example name and real name of simulation from SimulationRegistry
 QMap<QString, QString > init_NameToRegistry()
 {
     QMap<QString, QString > result;
-    result["example01"] = "isgisaxs01";
-    result["example02"] = "isgisaxs04_1DDL";
-    result["example03"] = "isgisaxs04_2DDL";
-    result["example04"] = "isgisaxs11";
+    result["example01"] = "gui_isgisaxs01";
+    result["example02"] = "gui_isgisaxs04_1DDL";
+    result["example03"] = "gui_isgisaxs04_2DDL";
+    result["example04"] = "gui_isgisaxs11";
     result["example05"] = "LayerWithRoughness";
-    result["example06"] = "isgisaxs06a";
+    result["example06"] = "gui_isgisaxs06a";
     return result;
 }
 
@@ -37,8 +38,11 @@ ParameterizedItem *GUIExamplesFactory::createSampleItems(const QString &name, Sa
 
     QString exampleName = m_name_to_registry[name];
 
-    SampleBuilderFactory factory;
-    boost::scoped_ptr<ISample> sample(factory.createSample(exampleName.toAscii().data()));
+    SimulationRegistry registry;
+    boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toAscii().data()));
+    Q_ASSERT(simulation.get());
+
+    boost::scoped_ptr<ISample> sample(simulation->getSampleBuilder()->buildSample());
 
     Q_ASSERT(sample.get());
     sample->setName(name.toUtf8().constData());
@@ -56,6 +60,9 @@ ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name
     }
 
     QString exampleName = m_name_to_registry[name];
+    qDebug() << " ";
+    qDebug() << " ";
+    qDebug() << " GUIExamplesFactory::createInstrumentItems()" << name << exampleName;
 
     SimulationRegistry registry;
     boost::scoped_ptr<Simulation> simulation(registry.createItem(exampleName.toAscii().data()));
@@ -66,8 +73,6 @@ ParameterizedItem *GUIExamplesFactory::createInstrumentItems(const QString &name
     instrument->setName(instrumentName.toUtf8().constData());
 
     //simulation->setName(name.toUtf8().constData());
-    qDebug() << " ";
-    qDebug() << " GUIExamplesFactory::createInstrumentItems()";
 
     GUIObjectBuilder guiBuilder;
     return guiBuilder.populateInstrumentModel(instrumentModel, instrument.get());

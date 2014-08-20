@@ -28,6 +28,7 @@ signals:
     void selectionChanged(const QItemSelection&, const QItemSelection&);
 
 public slots:
+    void updateSelection();
 //    void onRowsInserted(const QModelIndex &parent, int first, int last);
 
 private:

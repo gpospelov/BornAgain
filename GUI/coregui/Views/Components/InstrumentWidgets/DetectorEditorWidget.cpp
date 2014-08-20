@@ -177,8 +177,9 @@ void DetectorEditorWidget::onDetectorTypeChanged(int)
 void DetectorEditorWidget::onAngleUnitsChanged(int)
 {
     if(m_block_signals) return;
-    qDebug() << "DetectorEditorWidget::onAngleUnitsChanged()";
+    qDebug() << "DetectorEditorWidget::onAngleUnitsChanged()" << m_currentItem;
     ParameterizedItem *subDetector = m_currentItem->getSubItems()[DetectorItem::P_DETECTOR];
+
 
     AngleProperty units = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_AXES_UNITS).value<AngleProperty>();
     units.setUnits(m_unitsCombo->currentText());

@@ -26,6 +26,8 @@ public:
     InstrumentView(InstrumentModel *model, QWidget *parent = 0);
 
 public slots:
+    void updateView();
+    void resetView();
     void onSelectionChanged(const QItemSelection&, const QItemSelection&);
     void onAddInstrument();
     void onRemoveInstrument();

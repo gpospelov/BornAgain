@@ -77,6 +77,7 @@ void InstrumentSelectorWidget::setInstrumentModel(InstrumentModel *model)
     if(model != m_instrumentModel) {
         if(m_instrumentModel) {
             disconnect(m_instrumentModel, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this, SLOT(onRowsInserted(const QModelIndex &,int,int)));
+//            disconnect(m_instrumentModel, SIGNAL(rowsInserted(const QModelIndex &, int, int)), this, SLOT(onRowsInserted(const QModelIndex &,int,int)));
         }
         m_instrumentModel = model;
         m_listView->setModel(model);
@@ -95,6 +96,19 @@ QItemSelectionModel *InstrumentSelectorWidget::getSelectionModel()
 {
     return m_listView->selectionModel();
 }
+
+
+//! select last item if no selection exists
+void InstrumentSelectorWidget::updateSelection()
+{
+    qDebug() << "InstrumentSelectorWidget::updateSelection()" << m_instrumentModel->rowCount(QModelIndex());
+    if(!getSelectionModel()->hasSelection()) {
+        QModelIndex itemIndex = m_instrumentModel->index(m_instrumentModel->rowCount(QModelIndex()) - 1,0,QModelIndex());
+        qDebug() << "       InstrumentSelectorWidget::updateSelection()" << itemIndex;
+        getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
+    }
+}
+
 
 //void InstrumentSelectorWidget::onRowsInserted(const QModelIndex &parent, int first, int /* last */)
 //{

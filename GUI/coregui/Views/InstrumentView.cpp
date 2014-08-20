@@ -43,18 +43,41 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
         SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
         );
 
+    connect(m_instrumentModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetView()));
     connect(m_instrumentModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
 
-    QModelIndex itemIndex = m_instrumentModel->index(0,0,QModelIndex());
-    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
     createActions();
+    updateView();
+}
+
+void InstrumentView::updateView()
+{
+    qDebug() << "InstrumentView::updateView()";
+    m_instrumentSelector->updateSelection();
 }
 
 
-void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection & /* deselected */)
+void InstrumentView::resetView()
 {
-    qDebug() << "InstrumentView::onSelectionChanged()" << selected;
-    if(selected.indexes().isEmpty()) return;
+    qDebug() << "InstrumentView::resetView()";
+
+    QMap<ParameterizedItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
+    while(it!=m_instrumentToEditor.end()) {
+        m_stackWidget->removeWidget(it.value());
+        delete it.value();
+        ++it;
+    }
+    m_instrumentToEditor.clear();
+}
+
+
+void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected )
+{
+    qDebug() << "InstrumentView::onSelectionChanged()" << selected << deselected;
+    if(selected.indexes().isEmpty()) {
+        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected" << selected << deselected;
+        return;
+    }
 
     ParameterizedItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
     qDebug() << "InstrumentView::onSelectionChanged()" << instrument->itemName();
@@ -78,8 +101,12 @@ void InstrumentView::onAddInstrument()
     ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName("Default GISAS");
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
-
+    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));    
+    QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
+    qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection";
+    m_instrumentSelector->getSelectionModel()->clearSelection();
+    qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection -> done.";
+    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
 }
 
 

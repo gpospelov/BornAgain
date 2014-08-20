@@ -179,13 +179,17 @@ void MainWindow::onChangeTabWidget(int index)
 {
     // update views which depend on others
     (void)index;
-    if(index == SimulationTab) {
-        updateSimModel();
-        m_simulationView->updateSimulationViewElements();
-    }
-    else if(index == WelcomeTab)
+
+    if(index == WelcomeTab)
     {
         m_welcomeView->updateRecentProjectPanel();
+    }
+    else if (index == InstrumentTab) {
+        m_instrumentView->updateView();
+    }
+    else if(index == SimulationTab) {
+        updateSimModel();
+        m_simulationView->updateSimulationViewElements();
     }
 }
 

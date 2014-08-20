@@ -44,6 +44,9 @@ const QString ColorRedAttribute("Red");
 const QString ColorGreenAttribute("Green");
 const QString ColorBlueAttribute("Blue");
 const QString ColorAlphaAttribute("Alpha");
+
+const QString AngleUnitsAttribute("Units");
+
 }
 
 class IconProvider;

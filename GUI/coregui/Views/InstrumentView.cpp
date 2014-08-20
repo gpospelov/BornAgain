@@ -49,11 +49,9 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
 
     createActions();
 
-    if(m_instrumentModel->rowCount(QModelIndex()) == 0) {
+    if(m_instrumentModel->rowCount(QModelIndex()) == 0)
         onAddInstrument();
-        onAddInstrument();
-        onAddInstrument();
-    }
+
     updateView();
 }
 
@@ -62,7 +60,6 @@ void InstrumentView::updateView()
 {
     qDebug() << "InstrumentView::updateView()";
     m_instrumentSelector->updateSelection();
-//    updateMapOfNames();
 }
 
 

@@ -21,8 +21,9 @@
 ModelTuningDelegate::ModelTuningDelegate(int valueColumn, QObject *parent)
     : QItemDelegate(parent)
 {
-    this->m_valueColumn = valueColumn;
-    this->m_multiplyFactor = 100;
+    m_valueColumn = valueColumn;
+    m_multiplyFactor = 100;
+    m_sliderRangeFactor = 10.0;
 }
 
 void ModelTuningDelegate::paint(QPainter *painter,
@@ -126,16 +127,24 @@ void ModelTuningDelegate::updateSlider(double value) const
     disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
     double minValue = 0;
     double maxValue = 0;
+
+    qDebug() << "ModelTuningDelegate::updateSlider() 1.1 values: " << sliderValue << m_sliderRangeFactor;
+
     if(sliderValue == 0)
     {
-        minValue = (m_multiplyFactor/10.0) * -1.0;
-        maxValue = (m_multiplyFactor/10.0);
+        minValue = m_multiplyFactor*(m_sliderRangeFactor/100) * -1.0;
+        maxValue = m_multiplyFactor*(m_sliderRangeFactor/100);
     }
     else
     {
-        minValue = sliderValue - std::abs(sliderValue*0.1);
-        maxValue = sliderValue + std::abs(sliderValue*0.1);
+        double factor = std::abs(sliderValue*(m_sliderRangeFactor/100));
+        minValue = sliderValue - factor;
+        maxValue = sliderValue + factor;
+
+        qDebug() << "ModelTuningDelegate::updateSlider() 1.2 factor: " << minValue << maxValue << factor;
     }
+
+
 
     m_slider->setMinimum((int)std::floor(minValue));
     m_slider->setMaximum((int)std::ceil(maxValue));
@@ -148,12 +157,21 @@ void ModelTuningDelegate::updateSlider(double value) const
 
 void ModelTuningDelegate::sliderValueChanged(int position)
 {
+    disconnect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
+
     double value = (double)position/m_multiplyFactor;
     m_valueBox->setValue(value);
+
+    qDebug() << "ModelTuningDelegate::sliderValueChanged() 1.1 factor: " << position << value;
+
+    connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
+
+    emitSignals(value);
 }
 
 void ModelTuningDelegate::editorValueChanged(double value)
 {
+    disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
     double sliderValue = value * m_multiplyFactor;
 
     if(sliderValue!= m_slider->value())
@@ -161,12 +179,9 @@ void ModelTuningDelegate::editorValueChanged(double value)
         updateSlider(value);
     }
 
-    if(m_current_link.getItem()) {
-        m_current_link.setValue(value);
-        //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
-        //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
-        emit currentLinkChanged(m_current_link);
-    }
+    connect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
+
+    emitSignals(value);
 }
 
 void ModelTuningDelegate::setEditorData(QWidget *editor,
@@ -198,4 +213,24 @@ void ModelTuningDelegate::setModelData(QWidget *editor,
     } else {
         QItemDelegate::setModelData(editor, model, index);
     }
+}
+
+void ModelTuningDelegate::emitSignals(double value)
+{
+    if(m_current_link.getItem()) {
+        m_current_link.setValue(value);
+        //qDebug() << "SampleTuningDelegate::editorValueChanged() -> Working on item " << m_current_link.getItem()->modelType() << m_current_link.getPropertyName();
+        //m_current_link.getItem()->setRegisteredProperty(m_current_link.getPropertyName(), m_valueBox->value());
+        emit currentLinkChanged(m_current_link);
+    }
+}
+
+void ModelTuningDelegate::setSliderRangeFactor(double value)
+{
+    if(m_sliderRangeFactor!=value)
+    {
+        qDebug() << "ModelTuningDelegate::setSliderRangeFactor" << value;
+        m_sliderRangeFactor = value;
+    }
+
 }

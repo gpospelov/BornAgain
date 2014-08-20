@@ -286,11 +286,8 @@ void ModelTuningWidget::updateTreeView(const QString &instrument, const QString 
         //connect(m_parameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onModelChanged(QModelIndex,QModelIndex)));
 
 
-        int height = this->parentWidget()->height();
-        //qDebug() << "XXX TreeView Height " << height << this->height();
-
+        int height = this->height();
         m_treeView->setModel(m_parameterModel);
-        //m_treeView->setFixedWidth(320);
         m_treeView->setFixedHeight(height);
         m_treeView->setColumnWidth(0,170);
         m_treeView->expandAll();
@@ -379,11 +376,14 @@ QStandardItemModel *ModelTuningWidget::createParameterModel()
     result->setHorizontalHeaderItem( 0, new QStandardItem( "Property" ) );
     result->setHorizontalHeaderItem( 1, new QStandardItem( "Value" ) );
 
-    QStandardItem *multiLayerItem = new QStandardItem(m_sample_name);
+    //Gennady
+//    QStandardItem *multiLayerItem = new QStandardItem(m_sample_name);
+//    QModelIndex multiLayerIndex = getMultiLayerIndex(m_sample_name);
+//    result->setItem(0, iterateSessionModel(multiLayerIndex, multiLayerItem));
 
-    QModelIndex multiLayerIndex = getMultiLayerIndex(m_sample_name);
+    //Mahadi
+    result->setItem(0, iterateSessionModel(QModelIndex(), new QStandardItem()));
 
-    result->setItem(0, iterateSessionModel(multiLayerIndex, multiLayerItem));
     return result;
 }
 
@@ -409,6 +409,11 @@ QModelIndex ModelTuningWidget::getMultiLayerIndex(const QString &name)
     }
 
     return result;
+}
+
+void ModelTuningWidget::setSliderRangeFactor(double value)
+{
+    m_delegate->setSliderRangeFactor(value);
 }
 
 

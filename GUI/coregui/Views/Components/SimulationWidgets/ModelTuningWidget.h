@@ -31,6 +31,7 @@ public:
     void setInstrumentModel(InstrumentModel *instrumentModel);
 
     void setQuickSimulationRunner(QuickSimulationRunner * simulationRunner);
+    void setSliderRangeFactor(double value);
 
 
 public slots:

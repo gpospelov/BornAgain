@@ -47,13 +47,18 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
     connect(m_instrumentModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)), this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
 
     createActions();
-    updateView();
+
+    if(m_instrumentModel->rowCount(QModelIndex()) == 0)
+        onAddInstrument();
+//    updateView();
 }
+
 
 void InstrumentView::updateView()
 {
     qDebug() << "InstrumentView::updateView()";
     m_instrumentSelector->updateSelection();
+    m_name_to_copy.clear();
 }
 
 
@@ -68,6 +73,7 @@ void InstrumentView::resetView()
         ++it;
     }
     m_instrumentToEditor.clear();
+    m_name_to_copy.clear();
 }
 
 
@@ -99,7 +105,7 @@ void InstrumentView::onAddInstrument()
 {
     qDebug() << "InstrumentView::onAddInstrument()";
     ParameterizedItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName("Default GISAS");
+    instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));    
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
@@ -156,5 +162,21 @@ void InstrumentView::createActions()
     m_instrumentSelector->getListView()->setContextMenuPolicy(Qt::ActionsContextMenu);
     m_instrumentSelector->getListView()->addAction(m_addInstrumentAction);
     m_instrumentSelector->getListView()->addAction(m_removeInstrumentAction);
+}
+
+
+//! returns name of instrument which is based on suggested name
+//! If "Default GISAS" name already exists, then "Default GISAS (2)" will be proposed.
+QString InstrumentView::getNewInstrumentName(const QString &name)
+{
+    int ncopies = m_name_to_copy[name];
+    if(ncopies == 0) {
+        m_name_to_copy[name]=1;
+        return name;
+    }
+    else {
+        m_name_to_copy[name]++;
+        return QString("%1 (%2)").arg(name).arg(m_name_to_copy[name]);
+    }
 }
 

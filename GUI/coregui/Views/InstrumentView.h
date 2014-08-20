@@ -2,6 +2,7 @@
 #define INSTRUMENTVIEW_H
 
 #include <QWidget>
+#include <QString>
 #include <QMap>
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
@@ -35,6 +36,7 @@ public slots:
 
 private:
     void createActions();
+    QString getNewInstrumentName(const QString &name);
 
     InstrumentModel *m_instrumentModel;
     QToolBar *m_toolBar;
@@ -43,6 +45,8 @@ private:
     QMap<ParameterizedItem *, InstrumentEditorWidget *> m_instrumentToEditor;
     QAction *m_addInstrumentAction;
     QAction *m_removeInstrumentAction;
+
+    QMap<QString, int> m_name_to_copy;
 };
 
 

@@ -285,12 +285,12 @@ void MainWindow::initInstrumentModel()
     m_instrumentModel = new InstrumentModel(this);
     m_instrumentModel->setIconProvider(new IconProvider());
 
-    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument1->setItemName("Default GISAS");
-    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
-    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
-    Q_UNUSED(detector1);
-    Q_UNUSED(beam1);
+//    ParameterizedItem *instrument1 = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+//    instrument1->setItemName("Default GISAS");
+//    ParameterizedItem *detector1 = m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument1));
+//    ParameterizedItem *beam1 = m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument1));
+//    Q_UNUSED(detector1);
+//    Q_UNUSED(beam1);
 
     //m_instrumentModel->save("instrument.xml");
 }

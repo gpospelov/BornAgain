@@ -24,7 +24,7 @@
 #include "Materials.h"
 #include "IsGISAXSTools.h"
 #include "ROOTMinimizer.h"
-#include "Math/GeneticMinimizer.h"
+//#include "Math/GeneticMinimizer.h"
 #include "Math/GenAlgoOptions.h"
 #include "FitStrategyAdjustMinimizer.h"
 

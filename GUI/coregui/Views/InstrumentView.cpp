@@ -25,6 +25,8 @@ InstrumentView::InstrumentView(InstrumentModel *model, QWidget *parent)
     , m_stackWidget(new QStackedWidget)
     , m_addInstrumentAction(0)
     , m_removeInstrumentAction(0)
+    , m_addInstrumentButton(0)
+    , m_removeInstrumentButton(0)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -151,13 +153,35 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
 
 void InstrumentView::createActions()
 {
-    m_addInstrumentAction = new QAction(QIcon(":/images/append.png"), tr("Add new instrument"), this);
-    connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
-    m_toolBar->addAction(m_addInstrumentAction);
+    m_addInstrumentButton = new QToolButton;
+    m_addInstrumentButton->setText("Add instrument");
+    m_addInstrumentButton->setIcon(QIcon(":/images/toolbar_newitem.png"));
+    m_addInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_addInstrumentButton->setToolTip("Add new instrument");
+    connect(m_addInstrumentButton, SIGNAL(clicked()), this, SLOT(onAddInstrument()));
+    m_toolBar->addWidget(m_addInstrumentButton);
 
-    m_removeInstrumentAction = new QAction(QIcon(":/images/remove.png"), tr("Remove currently selected instrument"), this);
+    m_toolBar->addWidget(new QLabel(" "));
+    m_toolBar->addSeparator();
+    m_toolBar->addWidget(new QLabel(" "));
+
+    m_removeInstrumentButton = new QToolButton;
+    m_removeInstrumentButton->setText("Remove instrument");
+    m_removeInstrumentButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_removeInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_removeInstrumentButton->setToolTip("Remove currently selected instrument");
+    connect(m_removeInstrumentButton, SIGNAL(clicked()), this, SLOT(onRemoveInstrument()));
+    m_toolBar->addWidget(m_removeInstrumentButton);
+
+    m_toolBar->addWidget(new QLabel(" "));
+    m_toolBar->addSeparator();
+    m_toolBar->addWidget(new QLabel(" "));
+
+    m_addInstrumentAction = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), tr("Add new instrument"), this);
+    connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
+
+    m_removeInstrumentAction = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"), tr("Remove currently selected instrument"), this);
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
-    m_toolBar->addAction(m_removeInstrumentAction);
 
     Q_ASSERT(m_instrumentSelector->getListView());
     m_instrumentSelector->getListView()->setContextMenuPolicy(Qt::ActionsContextMenu);

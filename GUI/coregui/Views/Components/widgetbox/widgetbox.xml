@@ -54,7 +54,7 @@
             </widget>
         </categoryentry>
         
-        <categoryentry  name="2D lattice" icon="images/ParaCrystal2D.png">
+        <categoryentry  name="2D lattice" icon="images/Lattice2D.png">
             <widget class="InterferenceFunction2DLattice">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -231,7 +231,7 @@
     
     <category name="Standard samples">
         
-        <categoryentry name="Example #1 (no interference)" icon="images/sample_layers2.png">
+        <categoryentry name="Example #1 (no interference)" icon="images/Transformation.png">
             <widget class="example01">
                 <property name="objectName">
                     <string notr="true">somestring</string>

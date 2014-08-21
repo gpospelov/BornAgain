@@ -30,5 +30,11 @@
         <file>images/treeview-branch-more.png</file>
         <file>images/treeview-branch-open.png</file>
         <file>images/treeview-vline.png</file>
+        <file>images/toolbar_newitem.png</file>
+        <file>images/toolbar_newitem_dark.png</file>
+        <file>images/toolbar_propertypanel.png</file>
+        <file>images/toolbar_projections.png</file>
+        <file>images/toolbar_save.png</file>
+        <file>images/toolbar_refresh.png</file>
     </qresource>
 </RCC>

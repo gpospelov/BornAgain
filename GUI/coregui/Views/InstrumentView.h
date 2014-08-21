@@ -14,6 +14,7 @@ class QAction;
 class QItemSelection;
 class ParameterizedItem;
 class QToolBar;
+class QToolButton;
 
 namespace Manhattan{
     class StyledBar;
@@ -46,6 +47,8 @@ private:
     QMap<ParameterizedItem *, InstrumentEditorWidget *> m_instrumentToEditor;
     QAction *m_addInstrumentAction;
     QAction *m_removeInstrumentAction;
+    QToolButton *m_addInstrumentButton;
+    QToolButton *m_removeInstrumentButton;
 
     QMap<QString, int> m_name_to_copy;
 };

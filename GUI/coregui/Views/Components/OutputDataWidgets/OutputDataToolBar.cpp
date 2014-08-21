@@ -4,6 +4,7 @@
 #include <QToolButton>
 #include <QToolBar>
 #include <QStyle>
+#include <QLabel>
 #include <iostream>
 
 #include "styledbar.h"
@@ -11,6 +12,12 @@
 //! main tool bar on top of SampleView window
 OutputDataToolBar::OutputDataToolBar(QWidget *parent)
     : QToolBar(parent)
+    , m_togglePropertyPanelButton(0)
+    , m_toggleProjectionsButton(0)
+    , m_resetViewButton(0)
+    , m_savePlotButton(0)
+
+
 {
     setMovable(false);
 
@@ -20,33 +27,59 @@ OutputDataToolBar::OutputDataToolBar(QWidget *parent)
 
     setContentsMargins(0,0,0,0);
 
+    // plot properties button
+    m_togglePropertyPanelButton = new QToolButton;
+    m_togglePropertyPanelButton->setText("Plot Properties");
+    m_togglePropertyPanelButton->setIcon(QIcon(":/images/toolbar_propertypanel.png"));
+    m_togglePropertyPanelButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_togglePropertyPanelButton->setToolTip("Toggle Property Panel, Ctrl+P");
+    m_togglePropertyPanelButton->setShortcut(Qt::CTRL + Qt::Key_P);
+    connect(m_togglePropertyPanelButton, SIGNAL(clicked()), this, SIGNAL(togglePropertyPanel()));
+    addWidget(m_togglePropertyPanelButton);
 
-    m_togglePropertyPanelAction = new QAction(QIcon(":/SampleDesigner/images/sidebar.png"), tr("Toogle Property Panel, Ctrl+P"), this);
-    m_togglePropertyPanelAction->setShortcut(Qt::CTRL + Qt::Key_P);
-    this->connect(m_togglePropertyPanelAction, SIGNAL(triggered()), this, SIGNAL(togglePropertyPanel()));
-    this->addAction(m_togglePropertyPanelAction);
+    addWidget(new QLabel(" "));
+    addSeparator();
+    addWidget(new QLabel(" "));
 
-    m_toggleProjectionsAction = new QAction(QIcon(":/SampleDesigner/images/application-resize-full.png"), tr("Toogle Projections, Ctrl+O"), this);
-    m_toggleProjectionsAction->setShortcut(Qt::CTRL + Qt::Key_O);
-    this->connect(m_toggleProjectionsAction, SIGNAL(triggered()), this, SIGNAL(toggleProjections()));
-    this->addAction(m_toggleProjectionsAction);
+    // projections button
+    m_toggleProjectionsButton = new QToolButton;
+    m_toggleProjectionsButton->setText("Projections");
+    m_toggleProjectionsButton->setIcon(QIcon(":/images/toolbar_projections.png"));
+    m_toggleProjectionsButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_toggleProjectionsButton->setToolTip("Toggle Projections, Ctrl+O");
+    m_toggleProjectionsButton->setShortcut(Qt::CTRL + Qt::Key_O);
+    connect(m_toggleProjectionsButton, SIGNAL(clicked()), this, SIGNAL(toggleProjections()));
+    addWidget(m_toggleProjectionsButton);
 
-    //this->addWidget(new Manhattan::StyledSeparator());
+    addWidget(new QLabel(" "));
+    addSeparator();
+    addWidget(new QLabel(" "));
 
-    m_resetViewAction = new QAction(QIcon(":/SampleDesigner/images/refresh.png"), tr("Reset View, Ctrl+R"), this);
-    m_resetViewAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
-    this->connect(m_resetViewAction, SIGNAL(triggered()), this, SIGNAL(resetView()));
-    this->addAction(m_resetViewAction);
+    // reset view button
+    m_resetViewButton = new QToolButton;
+    m_resetViewButton->setText("Reset View");
+    m_resetViewButton->setIcon(QIcon(":/images/toolbar_refresh.png"));
+    m_resetViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_resetViewButton->setToolTip("TReset View, Ctrl+R");
+    m_resetViewButton->setShortcut(Qt::CTRL + Qt::Key_R);
+    connect(m_resetViewButton, SIGNAL(clicked()), this, SIGNAL(resetView()));
+    addWidget(m_resetViewButton);
 
-    m_savePlotAction = new QAction(QIcon(":/SampleDesigner/images/filesave.png"), tr("Save, Ctrl+S"), this);
-    m_savePlotAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
-    this->connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlot()));
-    this->addAction(m_savePlotAction);
+    addWidget(new QLabel(" "));
+    addSeparator();
+    addWidget(new QLabel(" "));
 
+    // save plot button
+    m_savePlotButton = new QToolButton;
+    m_savePlotButton->setText("Save Plot");
+    m_savePlotButton->setIcon(QIcon(":/images/toolbar_save.png"));
+    m_savePlotButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_savePlotButton->setToolTip("Save Plot, Ctrl+S");
+    m_savePlotButton->setShortcut(Qt::CTRL + Qt::Key_S);
+    connect(m_savePlotButton, SIGNAL(clicked()), this, SIGNAL(savePlot()));
+    addWidget(m_savePlotButton);
 
-//    insertSeparator(m_clearAllAction);
-//    Manhattan::StyledSeparator *sep = new Manhattan::StyledSeparator(this);
-//    addWidget(new Manhattan::StyledSeparator());
-
-
+    addWidget(new QLabel(" "));
+    addSeparator();
+    addWidget(new QLabel(" "));
 }

@@ -14,6 +14,7 @@
 #include <QHBoxLayout>
 #include <QDoubleSpinBox>
 #include <cmath>
+#include <limits>
 
 
 
@@ -27,8 +28,8 @@ ModelTuningDelegate::ModelTuningDelegate(int valueColumn, QObject *parent)
 }
 
 void ModelTuningDelegate::paint(QPainter *painter,
-                          const QStyleOptionViewItem &option,
-                          const QModelIndex &index) const
+                                const QStyleOptionViewItem &option,
+                                const QModelIndex &index) const
 {
 
     if (index.column() == m_valueColumn) {
@@ -41,9 +42,9 @@ void ModelTuningDelegate::paint(QPainter *painter,
         QVariant prop_value = index.model()->data(index, Qt::EditRole);
 
 
-//        QVariant param_value = index.model()->data(index, Qt::UserRole);
-//        ItemLink itemLink = param_value.value<ItemLink>();
-//        qDebug() << "Item Link: " << itemLink.getName();
+        //        QVariant param_value = index.model()->data(index, Qt::UserRole);
+        //        ItemLink itemLink = param_value.value<ItemLink>();
+        //        qDebug() << "Item Link: " << itemLink.getName();
 
         int type = prop_value.type();
         if (type == QVariant::Double) {
@@ -70,8 +71,8 @@ void ModelTuningDelegate::paint(QPainter *painter,
 
 
 QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
-        const QStyleOptionViewItem &option,
-        const QModelIndex &index) const
+                                           const QStyleOptionViewItem &option,
+                                           const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
 
@@ -85,12 +86,27 @@ QWidget *ModelTuningDelegate::createEditor(QWidget *parent,
 
         m_current_link = index.model()->data(index, Qt::UserRole).value<ItemLink>();
 
+        m_lowerLimit = std::numeric_limits<double>::min();
+        m_upperLimit = std::numeric_limits<double>::max();
 
+        ParameterizedItem *item = m_current_link.getItem();
+        PropertyAttribute attribute = item->getPropertyAttribute(m_current_link.getPropertyName());
+        AttLimits limits = attribute.getLimits();
+        //qDebug() << "ModelTuningDelegate::createEditor(): limits: " << limits.hasLowerLimit() << limits.hasUpperLimit() << limits.getLowerLimit() << limits.getUpperLimit();
+        if(limits.hasLowerLimit())
+        {
+            m_lowerLimit = limits.getLowerLimit();
+        }
+        if(limits.hasUpperLimit())
+        {
+            m_upperLimit = limits.getUpperLimit();
+        }
 
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setMaximum(999999.00);
-        m_valueBox->setMinimum(-999999.00);
+        m_valueBox->setMinimum(m_lowerLimit);
+        m_valueBox->setMaximum(m_upperLimit);
+
         m_valueBox->setValue(value);
         connect(m_valueBox, SIGNAL(valueChanged(double)),this, SLOT(editorValueChanged(double)));
 
@@ -144,7 +160,15 @@ void ModelTuningDelegate::updateSlider(double value) const
         qDebug() << "ModelTuningDelegate::updateSlider() 1.2 factor: " << minValue << maxValue << factor;
     }
 
+    if(minValue < m_lowerLimit* m_multiplyFactor)
+    {
+        minValue = m_lowerLimit*m_multiplyFactor;
+    }
 
+    if(maxValue > m_upperLimit*m_multiplyFactor)
+    {
+        maxValue = m_upperLimit*m_multiplyFactor;
+    }
 
     m_slider->setMinimum((int)std::floor(minValue));
     m_slider->setMaximum((int)std::ceil(maxValue));
@@ -185,7 +209,7 @@ void ModelTuningDelegate::editorValueChanged(double value)
 }
 
 void ModelTuningDelegate::setEditorData(QWidget *editor,
-                                  const QModelIndex &index) const
+                                        const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
         //as using custom widget, doing nothing here
@@ -196,8 +220,8 @@ void ModelTuningDelegate::setEditorData(QWidget *editor,
 
 
 void ModelTuningDelegate::setModelData(QWidget *editor,
-                                 QAbstractItemModel *model,
-                                 const QModelIndex &index) const
+                                       QAbstractItemModel *model,
+                                       const QModelIndex &index) const
 {
     if (index.column() == m_valueColumn) {
 

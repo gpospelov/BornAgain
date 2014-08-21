@@ -112,7 +112,16 @@ QStandardItem *ModelTuningWidget::iterateSessionModel(const QModelIndex &parentI
             for (int i = 0; i < propertyNameList.length(); ++i) {
                 QString propertyName = QString(propertyNameList[i]);
 
-                PropertyAttribute prop_attribute = item->getPropertyAttribute(propertyName);
+                PropertyAttribute prop_attribute = item->getPropertyAttribute(propertyName);\
+
+
+                //Mahadi: limit test. have to remove later
+//                prop_attribute.setLimits(AttLimits::limited(0.0, 1000.0));
+//                item->setPropertyAttribute(propertyName, prop_attribute);
+//                AttLimits limits = prop_attribute.getLimits();
+//                qDebug() << "ModelTuningWidget::iterateSessionModel(): limits: " << limits.hasLowerLimit() << limits.hasUpperLimit();
+                //end of limit test
+
                 if(prop_attribute.getAppearance() & PropertyAttribute::HiddenProperty) continue;
 
                 //if(item->getPropertyAttribute(propertyName) & ParameterizedItem::HiddenProperty) continue;
@@ -382,7 +391,7 @@ QStandardItemModel *ModelTuningWidget::createParameterModel()
 //    result->setItem(0, iterateSessionModel(multiLayerIndex, multiLayerItem));
 
     //Mahadi
-    result->setItem(0, iterateSessionModel(QModelIndex(), new QStandardItem()));
+    result->setItem(0, iterateSessionModel(QModelIndex(), 0));
 
     return result;
 }

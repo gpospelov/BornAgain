@@ -45,6 +45,8 @@ private:
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     mutable ItemLink m_current_link;
+    mutable double m_lowerLimit;
+    mutable double m_upperLimit;
 
     void updateSlider(double value) const;
     void emitSignals(double value);

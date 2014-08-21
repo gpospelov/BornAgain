@@ -24,6 +24,7 @@ MultiLayerItem::MultiLayerItem(ParameterizedItem *parent)
     : ParameterizedGraphicsItem(Constants::MultiLayerType, parent)
 {
     registerProperty(P_CROSS_CORR_LENGTH, 0.0);
+
     addToValidChildren(Constants::LayerType);
     addToValidChildren(Constants::MultiLayerType);
 

@@ -1,11 +1,14 @@
 #include "QuickSimulationWidget.h"
-#include "qdebug.h"
-#include "QHBoxLayout"
+#include "QuickSimulationSettings.h"
 #include "ModelTuningWidget.h"
 #include "OutputDataWidget.h"
 #include "QuickSimulationRunner.h"
 #include "OutputDataWidget.h"
 #include "minisplitter.h"
+
+#include "qdebug.h"
+#include "QHBoxLayout"
+#include "QVBoxLayout"
 #include <QSplitter>
 
 
@@ -34,11 +37,23 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
     //m_modelTuningWidget->setFixedWidth(320);
     m_modelTuningWidget->setContentsMargins(0,0,0,0);
 
+    m_quickSimulationSettings = new QuickSimulationSettings();
+
+
+    QVBoxLayout *settingsLayout = new QVBoxLayout(this);
+    settingsLayout->addWidget(m_quickSimulationSettings);
+    settingsLayout->addWidget(m_modelTuningWidget);
+    settingsLayout->setMargin(0);
+    settingsLayout->setSpacing(0);
+
+    QWidget *settingsWidget = new QWidget();
+    settingsWidget->setLayout(settingsLayout);
+
 
     m_splitter = new Manhattan::MiniSplitter(this);
     m_splitter->setStyleSheet("background-color:white;");
     m_splitter->addWidget(m_outputDataWidget);
-    m_splitter->addWidget(m_modelTuningWidget);
+    m_splitter->addWidget(settingsWidget);
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addWidget(m_splitter);
@@ -47,11 +62,19 @@ QuickSimulationWidget::QuickSimulationWidget(SampleModel *sampleModel, Instrumen
 
     setLayout(mainLayout);
 
+    connect(m_quickSimulationSettings, SIGNAL(sliderRangeFactorChanged(double)), this, SLOT(sliderRangeChanged(double)));
+
 }
 
 void QuickSimulationWidget::updateViews(const QString &instrument, const QString &sample)
 {
     m_modelTuningWidget->updateTreeView(instrument, sample);
+}
+
+void QuickSimulationWidget::sliderRangeChanged(double value)
+{
+    //qDebug() << "QuickSimulationWidget::sliderRangeChanged" << value;
+    m_modelTuningWidget->setSliderRangeFactor(value);
 }
 
 

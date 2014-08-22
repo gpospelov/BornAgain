@@ -22,7 +22,7 @@ void register_ThreadInfo_class(){
         bp::scope ThreadInfo_scope( ThreadInfo_exposer );
         { //::ThreadInfo::getBeginIndex
         
-            typedef int ( ::ThreadInfo::*getBeginIndex_function_type )( int ) ;
+            typedef int ( ::ThreadInfo::*getBeginIndex_function_type)( int ) ;
             
             ThreadInfo_exposer.def( 
                 "getBeginIndex"
@@ -32,7 +32,7 @@ void register_ThreadInfo_class(){
         }
         { //::ThreadInfo::getEndIndex
         
-            typedef int ( ::ThreadInfo::*getEndIndex_function_type )( int ) ;
+            typedef int ( ::ThreadInfo::*getEndIndex_function_type)( int ) ;
             
             ThreadInfo_exposer.def( 
                 "getEndIndex"

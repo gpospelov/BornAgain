@@ -40,10 +40,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
-        else
+        else{
             this->FitStrategyReleaseParameters::clear(  );
+        }
     }
-    
     
     void default_clear(  ) {
         FitStrategyReleaseParameters::clear( );
@@ -52,10 +52,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual ::FitStrategyReleaseParameters * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FitStrategyReleaseParameters::clone(  );
+        }
     }
-    
     
     ::FitStrategyReleaseParameters * default_clone(  ) const  {
         return FitStrategyReleaseParameters::clone( );
@@ -64,10 +64,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void setReleased( ::std::vector< std::string > const & pars ) {
         if( bp::override func_setReleased = this->get_override( "setReleased" ) )
             func_setReleased( boost::ref(pars) );
-        else
+        else{
             this->FitStrategyReleaseParameters::setReleased( boost::ref(pars) );
+        }
     }
-    
     
     void default_setReleased( ::std::vector< std::string > const & pars ) {
         FitStrategyReleaseParameters::setReleased( boost::ref(pars) );
@@ -76,10 +76,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else
+        else{
             this->FitStrategyAdjustParameters::execute(  );
+        }
     }
-    
     
     void default_execute(  ) {
         FitStrategyAdjustParameters::execute( );
@@ -88,10 +88,10 @@ struct FitStrategyReleaseParameters_wrapper : FitStrategyReleaseParameters, bp::
     virtual void setPreserveOriginalValues( bool preserve_values ) {
         if( bp::override func_setPreserveOriginalValues = this->get_override( "setPreserveOriginalValues" ) )
             func_setPreserveOriginalValues( preserve_values );
-        else
+        else{
             this->FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
+        }
     }
-    
     
     void default_setPreserveOriginalValues( bool preserve_values ) {
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
@@ -108,8 +108,8 @@ void register_FitStrategyReleaseParameters_class(){
         FitStrategyReleaseParameters_exposer.def( bp::init< std::vector< std::string > const & >(( bp::arg("pars") )) );
         { //::FitStrategyReleaseParameters::clear
         
-            typedef void ( ::FitStrategyReleaseParameters::*clear_function_type )(  ) ;
-            typedef void ( FitStrategyReleaseParameters_wrapper::*default_clear_function_type )(  ) ;
+            typedef void ( ::FitStrategyReleaseParameters::*clear_function_type)(  ) ;
+            typedef void ( FitStrategyReleaseParameters_wrapper::*default_clear_function_type)(  ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "clear"
@@ -119,8 +119,8 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyReleaseParameters::clone
         
-            typedef ::FitStrategyReleaseParameters * ( ::FitStrategyReleaseParameters::*clone_function_type )(  ) const;
-            typedef ::FitStrategyReleaseParameters * ( FitStrategyReleaseParameters_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FitStrategyReleaseParameters * ( ::FitStrategyReleaseParameters::*clone_function_type)(  ) const;
+            typedef ::FitStrategyReleaseParameters * ( FitStrategyReleaseParameters_wrapper::*default_clone_function_type)(  ) const;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "clone"
@@ -131,8 +131,8 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyReleaseParameters::setReleased
         
-            typedef void ( ::FitStrategyReleaseParameters::*setReleased_function_type )( ::std::vector< std::string > const & ) ;
-            typedef void ( FitStrategyReleaseParameters_wrapper::*default_setReleased_function_type )( ::std::vector< std::string > const & ) ;
+            typedef void ( ::FitStrategyReleaseParameters::*setReleased_function_type)( ::std::vector< std::string > const & ) ;
+            typedef void ( FitStrategyReleaseParameters_wrapper::*default_setReleased_function_type)( ::std::vector< std::string > const & ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "setReleased"
@@ -143,8 +143,8 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyAdjustParameters::execute
         
-            typedef void ( ::FitStrategyAdjustParameters::*execute_function_type )(  ) ;
-            typedef void ( FitStrategyReleaseParameters_wrapper::*default_execute_function_type )(  ) ;
+            typedef void ( ::FitStrategyAdjustParameters::*execute_function_type)(  ) ;
+            typedef void ( FitStrategyReleaseParameters_wrapper::*default_execute_function_type)(  ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "execute"
@@ -154,7 +154,7 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyAdjustParameters::fix
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_function_type )( ::std::string ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_function_type)( ::std::string ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "fix"
@@ -165,7 +165,7 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyAdjustParameters::fix_all
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_all_function_type )(  ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_all_function_type)(  ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "fix_all"
@@ -175,7 +175,7 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyAdjustParameters::release
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_function_type )( ::std::string ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_function_type)( ::std::string ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "release"
@@ -186,7 +186,7 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyAdjustParameters::release_all
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_all_function_type )(  ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_all_function_type)(  ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "release_all"
@@ -196,8 +196,8 @@ void register_FitStrategyReleaseParameters_class(){
         }
         { //::FitStrategyAdjustParameters::setPreserveOriginalValues
         
-            typedef void ( ::FitStrategyAdjustParameters::*setPreserveOriginalValues_function_type )( bool ) ;
-            typedef void ( FitStrategyReleaseParameters_wrapper::*default_setPreserveOriginalValues_function_type )( bool ) ;
+            typedef void ( ::FitStrategyAdjustParameters::*setPreserveOriginalValues_function_type)( bool ) ;
+            typedef void ( FitStrategyReleaseParameters_wrapper::*default_setPreserveOriginalValues_function_type)( bool ) ;
             
             FitStrategyReleaseParameters_exposer.def( 
                 "setPreserveOriginalValues"

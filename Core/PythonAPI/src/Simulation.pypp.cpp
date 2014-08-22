@@ -28,10 +28,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual ::Simulation * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->Simulation::clone(  );
+        }
     }
-    
     
     ::Simulation * default_clone(  ) const  {
         return Simulation::clone( );
@@ -40,10 +40,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -52,10 +52,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -64,10 +64,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -76,10 +76,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -107,10 +107,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -119,10 +119,10 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -138,7 +138,7 @@ void register_Simulation_class(){
         bp::scope Simulation_scope( Simulation_exposer );
         { //::Simulation::addParameterDistribution
         
-            typedef void ( ::Simulation::*addParameterDistribution_function_type )( ::std::string const &,::IDistribution1D const &,::std::size_t,double ) ;
+            typedef void ( ::Simulation::*addParameterDistribution_function_type)( ::std::string const &,::IDistribution1D const &,::std::size_t,double ) ;
             
             Simulation_exposer.def( 
                 "addParameterDistribution"
@@ -148,8 +148,8 @@ void register_Simulation_class(){
         }
         { //::Simulation::clone
         
-            typedef ::Simulation * ( ::Simulation::*clone_function_type )(  ) const;
-            typedef ::Simulation * ( Simulation_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::Simulation * ( ::Simulation::*clone_function_type)(  ) const;
+            typedef ::Simulation * ( Simulation_wrapper::*default_clone_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "clone"
@@ -160,7 +160,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::getInstrument
         
-            typedef ::Instrument const & ( ::Simulation::*getInstrument_function_type )(  ) const;
+            typedef ::Instrument const & ( ::Simulation::*getInstrument_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "getInstrument"
@@ -170,7 +170,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::getIntensityData
         
-            typedef ::OutputData< double > * ( ::Simulation::*getIntensityData_function_type )(  ) const;
+            typedef ::OutputData< double > * ( ::Simulation::*getIntensityData_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "getIntensityData"
@@ -180,7 +180,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::getPolarizedIntensityData
         
-            typedef ::OutputData< double > * ( ::Simulation::*getPolarizedIntensityData_function_type )( int,int ) const;
+            typedef ::OutputData< double > * ( ::Simulation::*getPolarizedIntensityData_function_type)( int,int ) const;
             
             Simulation_exposer.def( 
                 "getPolarizedIntensityData"
@@ -191,7 +191,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::getSample
         
-            typedef ::ISample * ( ::Simulation::*getSample_function_type )(  ) const;
+            typedef ::ISample * ( ::Simulation::*getSample_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "getSample"
@@ -201,7 +201,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::getSampleBuilder
         
-            typedef ::SampleBuilder_t ( ::Simulation::*getSampleBuilder_function_type )(  ) const;
+            typedef ::SampleBuilder_t ( ::Simulation::*getSampleBuilder_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "getSampleBuilder"
@@ -210,7 +210,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::getSimulationParameters
         
-            typedef ::SimulationParameters ( ::Simulation::*getSimulationParameters_function_type )(  ) const;
+            typedef ::SimulationParameters ( ::Simulation::*getSimulationParameters_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "getSimulationParameters"
@@ -219,7 +219,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::normalize
         
-            typedef void ( ::Simulation::*normalize_function_type )(  ) ;
+            typedef void ( ::Simulation::*normalize_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "normalize"
@@ -228,7 +228,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::prepareSimulation
         
-            typedef void ( ::Simulation::*prepareSimulation_function_type )(  ) ;
+            typedef void ( ::Simulation::*prepareSimulation_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "prepareSimulation"
@@ -237,7 +237,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::runOMPISimulation
         
-            typedef void ( ::Simulation::*runOMPISimulation_function_type )(  ) ;
+            typedef void ( ::Simulation::*runOMPISimulation_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "runOMPISimulation"
@@ -246,7 +246,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::runSimulation
         
-            typedef void ( ::Simulation::*runSimulation_function_type )(  ) ;
+            typedef void ( ::Simulation::*runSimulation_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "runSimulation"
@@ -255,7 +255,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setBeamIntensity
         
-            typedef void ( ::Simulation::*setBeamIntensity_function_type )( double ) ;
+            typedef void ( ::Simulation::*setBeamIntensity_function_type)( double ) ;
             
             Simulation_exposer.def( 
                 "setBeamIntensity"
@@ -265,7 +265,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setBeamParameters
         
-            typedef void ( ::Simulation::*setBeamParameters_function_type )( double,double,double ) ;
+            typedef void ( ::Simulation::*setBeamParameters_function_type)( double,double,double ) ;
             
             Simulation_exposer.def( 
                 "setBeamParameters"
@@ -275,7 +275,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setDetectorParameters
         
-            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::OutputData< double > const & ) ;
+            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::OutputData< double > const & ) ;
             
             Simulation_exposer.def( 
                 "setDetectorParameters"
@@ -285,7 +285,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setDetectorParameters
         
-            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
+            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::std::size_t,double,double,::std::size_t,double,double,bool ) ;
             
             Simulation_exposer.def( 
                 "setDetectorParameters"
@@ -295,7 +295,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setDetectorParameters
         
-            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::DetectorParameters const & ) ;
+            typedef void ( ::Simulation::*setDetectorParameters_function_type)( ::DetectorParameters const & ) ;
             
             Simulation_exposer.def( 
                 "setDetectorParameters"
@@ -305,7 +305,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setDetectorResolutionFunction
         
-            typedef void ( ::Simulation::*setDetectorResolutionFunction_function_type )( ::IResolutionFunction2D const & ) ;
+            typedef void ( ::Simulation::*setDetectorResolutionFunction_function_type)( ::IResolutionFunction2D const & ) ;
             
             Simulation_exposer.def( 
                 "setDetectorResolutionFunction"
@@ -315,7 +315,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setInstrument
         
-            typedef void ( ::Simulation::*setInstrument_function_type )( ::Instrument const & ) ;
+            typedef void ( ::Simulation::*setInstrument_function_type)( ::Instrument const & ) ;
             
             Simulation_exposer.def( 
                 "setInstrument"
@@ -325,7 +325,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setSample
         
-            typedef void ( ::Simulation::*setSample_function_type )( ::ISample const & ) ;
+            typedef void ( ::Simulation::*setSample_function_type)( ::ISample const & ) ;
             
             Simulation_exposer.def( 
                 "setSample"
@@ -335,7 +335,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setSampleBuilder
         
-            typedef void ( ::Simulation::*setSampleBuilder_function_type )( ::SampleBuilder_t ) ;
+            typedef void ( ::Simulation::*setSampleBuilder_function_type)( ::SampleBuilder_t ) ;
             
             Simulation_exposer.def( 
                 "setSampleBuilder"
@@ -345,7 +345,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setSimulationParameters
         
-            typedef void ( ::Simulation::*setSimulationParameters_function_type )( ::SimulationParameters const & ) ;
+            typedef void ( ::Simulation::*setSimulationParameters_function_type)( ::SimulationParameters const & ) ;
             
             Simulation_exposer.def( 
                 "setSimulationParameters"
@@ -355,7 +355,7 @@ void register_Simulation_class(){
         }
         { //::Simulation::setThreadInfo
         
-            typedef void ( ::Simulation::*setThreadInfo_function_type )( ::ThreadInfo const & ) ;
+            typedef void ( ::Simulation::*setThreadInfo_function_type)( ::ThreadInfo const & ) ;
             
             Simulation_exposer.def( 
                 "setThreadInfo"
@@ -365,8 +365,8 @@ void register_Simulation_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Simulation_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( Simulation_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "areParametersChanged"
@@ -376,8 +376,8 @@ void register_Simulation_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Simulation_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( Simulation_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "clearParameterPool"
@@ -387,8 +387,8 @@ void register_Simulation_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Simulation_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( Simulation_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "createParameterTree"
@@ -399,8 +399,8 @@ void register_Simulation_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Simulation_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( Simulation_wrapper::*default_printParameters_function_type)(  ) const;
             
             Simulation_exposer.def( 
                 "printParameters"
@@ -420,8 +420,8 @@ void register_Simulation_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Simulation_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( Simulation_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             Simulation_exposer.def( 
                 "setParameterValue"
@@ -432,8 +432,8 @@ void register_Simulation_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Simulation_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( Simulation_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             Simulation_exposer.def( 
                 "setParametersAreChanged"

@@ -33,10 +33,10 @@ struct FitStrategyAdjustParameters_wrapper : FitStrategyAdjustParameters, bp::wr
     virtual void clear(  ) {
         if( bp::override func_clear = this->get_override( "clear" ) )
             func_clear(  );
-        else
+        else{
             this->FitStrategyAdjustParameters::clear(  );
+        }
     }
-    
     
     void default_clear(  ) {
         FitStrategyAdjustParameters::clear( );
@@ -45,10 +45,10 @@ struct FitStrategyAdjustParameters_wrapper : FitStrategyAdjustParameters, bp::wr
     virtual ::FitStrategyAdjustParameters * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FitStrategyAdjustParameters::clone(  );
+        }
     }
-    
     
     ::FitStrategyAdjustParameters * default_clone(  ) const  {
         return FitStrategyAdjustParameters::clone( );
@@ -57,10 +57,10 @@ struct FitStrategyAdjustParameters_wrapper : FitStrategyAdjustParameters, bp::wr
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else
+        else{
             this->FitStrategyAdjustParameters::execute(  );
+        }
     }
-    
     
     void default_execute(  ) {
         FitStrategyAdjustParameters::execute( );
@@ -69,10 +69,10 @@ struct FitStrategyAdjustParameters_wrapper : FitStrategyAdjustParameters, bp::wr
     virtual void setPreserveOriginalValues( bool preserve_values ) {
         if( bp::override func_setPreserveOriginalValues = this->get_override( "setPreserveOriginalValues" ) )
             func_setPreserveOriginalValues( preserve_values );
-        else
+        else{
             this->FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
+        }
     }
-    
     
     void default_setPreserveOriginalValues( bool preserve_values ) {
         FitStrategyAdjustParameters::setPreserveOriginalValues( preserve_values );
@@ -89,8 +89,8 @@ void register_FitStrategyAdjustParameters_class(){
         FitStrategyAdjustParameters_exposer.def( bp::init< >() );
         { //::FitStrategyAdjustParameters::clear
         
-            typedef void ( ::FitStrategyAdjustParameters::*clear_function_type )(  ) ;
-            typedef void ( FitStrategyAdjustParameters_wrapper::*default_clear_function_type )(  ) ;
+            typedef void ( ::FitStrategyAdjustParameters::*clear_function_type)(  ) ;
+            typedef void ( FitStrategyAdjustParameters_wrapper::*default_clear_function_type)(  ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "clear"
@@ -100,8 +100,8 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::clone
         
-            typedef ::FitStrategyAdjustParameters * ( ::FitStrategyAdjustParameters::*clone_function_type )(  ) const;
-            typedef ::FitStrategyAdjustParameters * ( FitStrategyAdjustParameters_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FitStrategyAdjustParameters * ( ::FitStrategyAdjustParameters::*clone_function_type)(  ) const;
+            typedef ::FitStrategyAdjustParameters * ( FitStrategyAdjustParameters_wrapper::*default_clone_function_type)(  ) const;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "clone"
@@ -112,8 +112,8 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::execute
         
-            typedef void ( ::FitStrategyAdjustParameters::*execute_function_type )(  ) ;
-            typedef void ( FitStrategyAdjustParameters_wrapper::*default_execute_function_type )(  ) ;
+            typedef void ( ::FitStrategyAdjustParameters::*execute_function_type)(  ) ;
+            typedef void ( FitStrategyAdjustParameters_wrapper::*default_execute_function_type)(  ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "execute"
@@ -123,7 +123,7 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::fix
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_function_type )( ::std::string ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_function_type)( ::std::string ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "fix"
@@ -134,7 +134,7 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::fix_all
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_all_function_type )(  ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*fix_all_function_type)(  ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "fix_all"
@@ -144,7 +144,7 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::release
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_function_type )( ::std::string ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_function_type)( ::std::string ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "release"
@@ -155,7 +155,7 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::release_all
         
-            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_all_function_type )(  ) ;
+            typedef ::FitStrategyAdjustParameters & ( ::FitStrategyAdjustParameters::*release_all_function_type)(  ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "release_all"
@@ -165,8 +165,8 @@ void register_FitStrategyAdjustParameters_class(){
         }
         { //::FitStrategyAdjustParameters::setPreserveOriginalValues
         
-            typedef void ( ::FitStrategyAdjustParameters::*setPreserveOriginalValues_function_type )( bool ) ;
-            typedef void ( FitStrategyAdjustParameters_wrapper::*default_setPreserveOriginalValues_function_type )( bool ) ;
+            typedef void ( ::FitStrategyAdjustParameters::*setPreserveOriginalValues_function_type)( bool ) ;
+            typedef void ( FitStrategyAdjustParameters_wrapper::*default_setPreserveOriginalValues_function_type)( bool ) ;
             
             FitStrategyAdjustParameters_exposer.def( 
                 "setPreserveOriginalValues"

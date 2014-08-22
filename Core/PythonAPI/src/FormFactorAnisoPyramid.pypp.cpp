@@ -28,10 +28,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::FormFactorAnisoPyramid * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorAnisoPyramid::clone(  );
+        }
     }
-    
     
     ::FormFactorAnisoPyramid * default_clone(  ) const  {
         return FormFactorAnisoPyramid::clone( );
@@ -40,10 +40,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
-        else
+        else{
             return this->FormFactorAnisoPyramid::evaluate_for_q( boost::ref(q) );
+        }
     }
-    
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorAnisoPyramid::evaluate_for_q( boost::ref(q) );
@@ -52,10 +52,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual double getAlpha(  ) const  {
         if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
             return func_getAlpha(  );
-        else
+        else{
             return this->FormFactorAnisoPyramid::getAlpha(  );
+        }
     }
-    
     
     double default_getAlpha(  ) const  {
         return FormFactorAnisoPyramid::getAlpha( );
@@ -64,10 +64,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->FormFactorAnisoPyramid::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return FormFactorAnisoPyramid::getHeight( );
@@ -76,10 +76,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual double getLength(  ) const  {
         if( bp::override func_getLength = this->get_override( "getLength" ) )
             return func_getLength(  );
-        else
+        else{
             return this->FormFactorAnisoPyramid::getLength(  );
+        }
     }
-    
     
     double default_getLength(  ) const  {
         return FormFactorAnisoPyramid::getLength( );
@@ -88,10 +88,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorAnisoPyramid::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorAnisoPyramid::getNumberOfStochasticParameters( );
@@ -100,10 +100,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual double getWidth(  ) const  {
         if( bp::override func_getWidth = this->get_override( "getWidth" ) )
             return func_getWidth(  );
-        else
+        else{
             return this->FormFactorAnisoPyramid::getWidth(  );
+        }
     }
-    
     
     double default_getWidth(  ) const  {
         return FormFactorAnisoPyramid::getWidth( );
@@ -112,10 +112,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void setAlpha( double alpha ) {
         if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
             func_setAlpha( alpha );
-        else
+        else{
             this->FormFactorAnisoPyramid::setAlpha( alpha );
+        }
     }
-    
     
     void default_setAlpha( double alpha ) {
         FormFactorAnisoPyramid::setAlpha( alpha );
@@ -124,10 +124,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void setHeight( double height ) {
         if( bp::override func_setHeight = this->get_override( "setHeight" ) )
             func_setHeight( height );
-        else
+        else{
             this->FormFactorAnisoPyramid::setHeight( height );
+        }
     }
-    
     
     void default_setHeight( double height ) {
         FormFactorAnisoPyramid::setHeight( height );
@@ -136,10 +136,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void setLength( double length ) {
         if( bp::override func_setLength = this->get_override( "setLength" ) )
             func_setLength( length );
-        else
+        else{
             this->FormFactorAnisoPyramid::setLength( length );
+        }
     }
-    
     
     void default_setLength( double length ) {
         FormFactorAnisoPyramid::setLength( length );
@@ -148,10 +148,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void setWidth( double width ) {
         if( bp::override func_setWidth = this->get_override( "setWidth" ) )
             func_setWidth( width );
-        else
+        else{
             this->FormFactorAnisoPyramid::setWidth( width );
+        }
     }
-    
     
     void default_setWidth( double width ) {
         FormFactorAnisoPyramid::setWidth( width );
@@ -160,10 +160,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -172,10 +172,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -184,10 +184,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -196,10 +196,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -208,10 +208,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
-    
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -220,10 +220,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -232,10 +232,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else
+        else{
             return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -244,10 +244,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -256,10 +256,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -268,10 +268,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactor::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
@@ -280,10 +280,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactorBorn::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactorBorn::getVolume( );
@@ -292,10 +292,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -304,10 +304,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -316,10 +316,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -347,10 +347,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -359,10 +359,10 @@ struct FormFactorAnisoPyramid_wrapper : FormFactorAnisoPyramid, bp::wrapper< For
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -378,8 +378,8 @@ void register_FormFactorAnisoPyramid_class(){
         bp::scope FormFactorAnisoPyramid_scope( FormFactorAnisoPyramid_exposer );
         { //::FormFactorAnisoPyramid::clone
         
-            typedef ::FormFactorAnisoPyramid * ( ::FormFactorAnisoPyramid::*clone_function_type )(  ) const;
-            typedef ::FormFactorAnisoPyramid * ( FormFactorAnisoPyramid_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorAnisoPyramid * ( ::FormFactorAnisoPyramid::*clone_function_type)(  ) const;
+            typedef ::FormFactorAnisoPyramid * ( FormFactorAnisoPyramid_wrapper::*default_clone_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "clone"
@@ -390,8 +390,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::evaluate_for_q
         
-            typedef ::complex_t ( ::FormFactorAnisoPyramid::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorAnisoPyramid_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorAnisoPyramid::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorAnisoPyramid_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "evaluate_for_q"
@@ -402,8 +402,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::getAlpha
         
-            typedef double ( ::FormFactorAnisoPyramid::*getAlpha_function_type )(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getAlpha_function_type )(  ) const;
+            typedef double ( ::FormFactorAnisoPyramid::*getAlpha_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getAlpha_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getAlpha"
@@ -413,8 +413,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::getHeight
         
-            typedef double ( ::FormFactorAnisoPyramid::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::FormFactorAnisoPyramid::*getHeight_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getHeight"
@@ -424,8 +424,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::getLength
         
-            typedef double ( ::FormFactorAnisoPyramid::*getLength_function_type )(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getLength_function_type )(  ) const;
+            typedef double ( ::FormFactorAnisoPyramid::*getLength_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getLength_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getLength"
@@ -435,8 +435,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorAnisoPyramid::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorAnisoPyramid_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorAnisoPyramid::*getNumberOfStochasticParameters_function_type)(  ) const;
+            typedef int ( FormFactorAnisoPyramid_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getNumberOfStochasticParameters"
@@ -446,8 +446,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::getWidth
         
-            typedef double ( ::FormFactorAnisoPyramid::*getWidth_function_type )(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getWidth_function_type )(  ) const;
+            typedef double ( ::FormFactorAnisoPyramid::*getWidth_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getWidth_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getWidth"
@@ -457,8 +457,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::setAlpha
         
-            typedef void ( ::FormFactorAnisoPyramid::*setAlpha_function_type )( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setAlpha_function_type )( double ) ;
+            typedef void ( ::FormFactorAnisoPyramid::*setAlpha_function_type)( double ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setAlpha_function_type)( double ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "setAlpha"
@@ -469,8 +469,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::setHeight
         
-            typedef void ( ::FormFactorAnisoPyramid::*setHeight_function_type )( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setHeight_function_type )( double ) ;
+            typedef void ( ::FormFactorAnisoPyramid::*setHeight_function_type)( double ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "setHeight"
@@ -481,8 +481,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::setLength
         
-            typedef void ( ::FormFactorAnisoPyramid::*setLength_function_type )( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setLength_function_type )( double ) ;
+            typedef void ( ::FormFactorAnisoPyramid::*setLength_function_type)( double ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setLength_function_type)( double ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "setLength"
@@ -493,8 +493,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::FormFactorAnisoPyramid::setWidth
         
-            typedef void ( ::FormFactorAnisoPyramid::*setWidth_function_type )( double ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setWidth_function_type )( double ) ;
+            typedef void ( ::FormFactorAnisoPyramid::*setWidth_function_type)( double ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setWidth_function_type)( double ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "setWidth"
@@ -505,8 +505,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "areParametersChanged"
@@ -516,8 +516,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "clearParameterPool"
@@ -527,8 +527,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorAnisoPyramid_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorAnisoPyramid_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "cloneInvertB"
@@ -539,8 +539,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "containsMagneticMaterial"
@@ -550,8 +550,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "createDistributedFormFactors"
@@ -563,8 +563,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorAnisoPyramid_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FormFactorAnisoPyramid_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "createParameterTree"
@@ -575,8 +575,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorAnisoPyramid_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorAnisoPyramid_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "evaluate"
@@ -587,8 +587,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorAnisoPyramid_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( FormFactorAnisoPyramid_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getCompositeSample"
@@ -599,8 +599,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorAnisoPyramid_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorAnisoPyramid_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getCompositeSample"
@@ -611,8 +611,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IFormFactor::getRadius
         
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getRadius"
@@ -622,8 +622,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IFormFactorBorn::getVolume
         
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorAnisoPyramid_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "getVolume"
@@ -633,8 +633,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IFormFactor::isDistributedFormFactor
         
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "isDistributedFormFactor"
@@ -644,8 +644,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_printParameters_function_type)(  ) const;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "printParameters"
@@ -655,8 +655,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "printSampleTree"
@@ -676,8 +676,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FormFactorAnisoPyramid_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "setParameterValue"
@@ -688,8 +688,8 @@ void register_FormFactorAnisoPyramid_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FormFactorAnisoPyramid_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FormFactorAnisoPyramid_exposer.def( 
                 "setParametersAreChanged"

@@ -28,10 +28,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::FormFactorCylinder * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorCylinder::clone(  );
+        }
     }
-    
     
     ::FormFactorCylinder * default_clone(  ) const  {
         return FormFactorCylinder::clone( );
@@ -40,10 +40,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
-        else
+        else{
             return this->FormFactorCylinder::evaluate_for_q( boost::ref(q) );
+        }
     }
-    
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorCylinder::evaluate_for_q( boost::ref(q) );
@@ -52,10 +52,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->FormFactorCylinder::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return FormFactorCylinder::getHeight( );
@@ -64,10 +64,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorCylinder::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorCylinder::getNumberOfStochasticParameters( );
@@ -76,10 +76,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->FormFactorCylinder::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return FormFactorCylinder::getRadius( );
@@ -88,10 +88,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void setHeight( double height ) {
         if( bp::override func_setHeight = this->get_override( "setHeight" ) )
             func_setHeight( height );
-        else
+        else{
             this->FormFactorCylinder::setHeight( height );
+        }
     }
-    
     
     void default_setHeight( double height ) {
         FormFactorCylinder::setHeight( height );
@@ -100,10 +100,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void setRadius( double radius ) {
         if( bp::override func_setRadius = this->get_override( "setRadius" ) )
             func_setRadius( radius );
-        else
+        else{
             this->FormFactorCylinder::setRadius( radius );
+        }
     }
-    
     
     void default_setRadius( double radius ) {
         FormFactorCylinder::setRadius( radius );
@@ -112,10 +112,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -124,10 +124,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -136,10 +136,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -148,10 +148,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -160,10 +160,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
-    
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -172,10 +172,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -184,10 +184,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else
+        else{
             return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -196,10 +196,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -208,10 +208,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -220,10 +220,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactorBorn::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactorBorn::getVolume( );
@@ -232,10 +232,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -244,10 +244,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -256,10 +256,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -287,10 +287,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -299,10 +299,10 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -318,8 +318,8 @@ void register_FormFactorCylinder_class(){
         bp::scope FormFactorCylinder_scope( FormFactorCylinder_exposer );
         { //::FormFactorCylinder::clone
         
-            typedef ::FormFactorCylinder * ( ::FormFactorCylinder::*clone_function_type )(  ) const;
-            typedef ::FormFactorCylinder * ( FormFactorCylinder_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorCylinder * ( ::FormFactorCylinder::*clone_function_type)(  ) const;
+            typedef ::FormFactorCylinder * ( FormFactorCylinder_wrapper::*default_clone_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "clone"
@@ -330,8 +330,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::FormFactorCylinder::evaluate_for_q
         
-            typedef ::complex_t ( ::FormFactorCylinder::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorCylinder::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
             
             FormFactorCylinder_exposer.def( 
                 "evaluate_for_q"
@@ -342,8 +342,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::FormFactorCylinder::getHeight
         
-            typedef double ( ::FormFactorCylinder::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::FormFactorCylinder::*getHeight_function_type)(  ) const;
+            typedef double ( FormFactorCylinder_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "getHeight"
@@ -353,8 +353,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::FormFactorCylinder::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorCylinder::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorCylinder_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorCylinder::*getNumberOfStochasticParameters_function_type)(  ) const;
+            typedef int ( FormFactorCylinder_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "getNumberOfStochasticParameters"
@@ -364,8 +364,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::FormFactorCylinder::getRadius
         
-            typedef double ( ::FormFactorCylinder::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::FormFactorCylinder::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorCylinder_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "getRadius"
@@ -375,8 +375,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::FormFactorCylinder::setHeight
         
-            typedef void ( ::FormFactorCylinder::*setHeight_function_type )( double ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setHeight_function_type )( double ) ;
+            typedef void ( ::FormFactorCylinder::*setHeight_function_type)( double ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_setHeight_function_type)( double ) ;
             
             FormFactorCylinder_exposer.def( 
                 "setHeight"
@@ -387,8 +387,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::FormFactorCylinder::setRadius
         
-            typedef void ( ::FormFactorCylinder::*setRadius_function_type )( double ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setRadius_function_type )( double ) ;
+            typedef void ( ::FormFactorCylinder::*setRadius_function_type)( double ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_setRadius_function_type)( double ) ;
             
             FormFactorCylinder_exposer.def( 
                 "setRadius"
@@ -399,8 +399,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorCylinder_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FormFactorCylinder_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FormFactorCylinder_exposer.def( 
                 "areParametersChanged"
@@ -410,8 +410,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FormFactorCylinder_exposer.def( 
                 "clearParameterPool"
@@ -421,8 +421,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorCylinder_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorCylinder_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "cloneInvertB"
@@ -433,8 +433,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorCylinder_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorCylinder_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "containsMagneticMaterial"
@@ -444,8 +444,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorCylinder_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorCylinder_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorCylinder_exposer.def( 
                 "createDistributedFormFactors"
@@ -457,8 +457,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorCylinder_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FormFactorCylinder_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "createParameterTree"
@@ -469,8 +469,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorCylinder_exposer.def( 
                 "evaluate"
@@ -481,8 +481,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorCylinder_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( FormFactorCylinder_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             FormFactorCylinder_exposer.def( 
                 "getCompositeSample"
@@ -493,8 +493,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorCylinder_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorCylinder_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "getCompositeSample"
@@ -505,8 +505,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IFormFactorBorn::getVolume
         
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorCylinder_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorCylinder_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "getVolume"
@@ -516,8 +516,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IFormFactor::isDistributedFormFactor
         
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorCylinder_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( FormFactorCylinder_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "isDistributedFormFactor"
@@ -527,8 +527,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorCylinder_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FormFactorCylinder_wrapper::*default_printParameters_function_type)(  ) const;
             
             FormFactorCylinder_exposer.def( 
                 "printParameters"
@@ -538,8 +538,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             FormFactorCylinder_exposer.def( 
                 "printSampleTree"
@@ -559,8 +559,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorCylinder_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FormFactorCylinder_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FormFactorCylinder_exposer.def( 
                 "setParameterValue"
@@ -571,8 +571,8 @@ void register_FormFactorCylinder_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorCylinder_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FormFactorCylinder_exposer.def( 
                 "setParametersAreChanged"

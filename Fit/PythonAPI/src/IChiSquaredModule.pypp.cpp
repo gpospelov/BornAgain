@@ -41,10 +41,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IFittingDataSelector const * getFittingDataSelector(  ) const  {
         if( bp::override func_getFittingDataSelector = this->get_override( "getFittingDataSelector" ) )
             return func_getFittingDataSelector(  );
-        else
+        else{
             return this->IChiSquaredModule::getFittingDataSelector(  );
+        }
     }
-    
     
     ::IFittingDataSelector const * default_getFittingDataSelector(  ) const  {
         return IChiSquaredModule::getFittingDataSelector( );
@@ -53,10 +53,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IIntensityFunction const * getIntensityFunction(  ) const  {
         if( bp::override func_getIntensityFunction = this->get_override( "getIntensityFunction" ) )
             return func_getIntensityFunction(  );
-        else
+        else{
             return this->IChiSquaredModule::getIntensityFunction(  );
+        }
     }
-    
     
     ::IIntensityFunction const * default_getIntensityFunction(  ) const  {
         return IChiSquaredModule::getIntensityFunction( );
@@ -65,10 +65,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IIntensityNormalizer const * getIntensityNormalizer(  ) const  {
         if( bp::override func_getIntensityNormalizer = this->get_override( "getIntensityNormalizer" ) )
             return func_getIntensityNormalizer(  );
-        else
+        else{
             return this->IChiSquaredModule::getIntensityNormalizer(  );
+        }
     }
-    
     
     ::IIntensityNormalizer const * default_getIntensityNormalizer(  ) const  {
         return IChiSquaredModule::getIntensityNormalizer( );
@@ -77,10 +77,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual ::IIntensityNormalizer * getIntensityNormalizer(  ) {
         if( bp::override func_getIntensityNormalizer = this->get_override( "getIntensityNormalizer" ) )
             return func_getIntensityNormalizer(  );
-        else
+        else{
             return this->IChiSquaredModule::getIntensityNormalizer(  );
+        }
     }
-    
     
     ::IIntensityNormalizer * default_getIntensityNormalizer(  ) {
         return IChiSquaredModule::getIntensityNormalizer( );
@@ -89,10 +89,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual double getResidualValue( ::std::size_t arg0 ) const  {
         if( bp::override func_getResidualValue = this->get_override( "getResidualValue" ) )
             return func_getResidualValue( arg0 );
-        else
+        else{
             return this->IChiSquaredModule::getResidualValue( arg0 );
+        }
     }
-    
     
     double default_getResidualValue( ::std::size_t arg0 ) const  {
         return IChiSquaredModule::getResidualValue( arg0 );
@@ -101,10 +101,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual void setFittingDataSelector( ::IFittingDataSelector const & selector ) {
         if( bp::override func_setFittingDataSelector = this->get_override( "setFittingDataSelector" ) )
             func_setFittingDataSelector( boost::ref(selector) );
-        else
+        else{
             this->IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
+        }
     }
-    
     
     void default_setFittingDataSelector( ::IFittingDataSelector const & selector ) {
         IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
@@ -113,10 +113,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual void setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
         if( bp::override func_setIntensityFunction = this->get_override( "setIntensityFunction" ) )
             func_setIntensityFunction( boost::ref(intensity_function) );
-        else
+        else{
             this->IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
+        }
     }
-    
     
     void default_setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
         IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
@@ -125,10 +125,10 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
     virtual void setIntensityNormalizer( ::IIntensityNormalizer const & data_normalizer ) {
         if( bp::override func_setIntensityNormalizer = this->get_override( "setIntensityNormalizer" ) )
             func_setIntensityNormalizer( boost::ref(data_normalizer) );
-        else
+        else{
             this->IChiSquaredModule::setIntensityNormalizer( boost::ref(data_normalizer) );
+        }
     }
-    
     
     void default_setIntensityNormalizer( ::IIntensityNormalizer const & data_normalizer ) {
         IChiSquaredModule::setIntensityNormalizer( boost::ref(data_normalizer) );
@@ -144,7 +144,7 @@ void register_IChiSquaredModule_class(){
         bp::scope IChiSquaredModule_scope( IChiSquaredModule_exposer );
         { //::IChiSquaredModule::calculateChiSquared
         
-            typedef double ( ::IChiSquaredModule::*calculateChiSquared_function_type )(  ) ;
+            typedef double ( ::IChiSquaredModule::*calculateChiSquared_function_type)(  ) ;
             
             IChiSquaredModule_exposer.def( 
                 "calculateChiSquared"
@@ -153,7 +153,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::clone
         
-            typedef ::IChiSquaredModule * ( ::IChiSquaredModule::*clone_function_type )(  ) const;
+            typedef ::IChiSquaredModule * ( ::IChiSquaredModule::*clone_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "clone"
@@ -163,7 +163,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::createChi2DifferenceMap
         
-            typedef ::OutputData<double> * ( ::IChiSquaredModule::*createChi2DifferenceMap_function_type )(  ) const;
+            typedef ::OutputData<double> * ( ::IChiSquaredModule::*createChi2DifferenceMap_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "createChi2DifferenceMap"
@@ -173,8 +173,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getFittingDataSelector
         
-            typedef ::IFittingDataSelector const * ( ::IChiSquaredModule::*getFittingDataSelector_function_type )(  ) const;
-            typedef ::IFittingDataSelector const * ( IChiSquaredModule_wrapper::*default_getFittingDataSelector_function_type )(  ) const;
+            typedef ::IFittingDataSelector const * ( ::IChiSquaredModule::*getFittingDataSelector_function_type)(  ) const;
+            typedef ::IFittingDataSelector const * ( IChiSquaredModule_wrapper::*default_getFittingDataSelector_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getFittingDataSelector"
@@ -185,8 +185,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getIntensityFunction
         
-            typedef ::IIntensityFunction const * ( ::IChiSquaredModule::*getIntensityFunction_function_type )(  ) const;
-            typedef ::IIntensityFunction const * ( IChiSquaredModule_wrapper::*default_getIntensityFunction_function_type )(  ) const;
+            typedef ::IIntensityFunction const * ( ::IChiSquaredModule::*getIntensityFunction_function_type)(  ) const;
+            typedef ::IIntensityFunction const * ( IChiSquaredModule_wrapper::*default_getIntensityFunction_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getIntensityFunction"
@@ -197,8 +197,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getIntensityNormalizer
         
-            typedef ::IIntensityNormalizer const * ( ::IChiSquaredModule::*getIntensityNormalizer_function_type )(  ) const;
-            typedef ::IIntensityNormalizer const * ( IChiSquaredModule_wrapper::*default_getIntensityNormalizer_function_type )(  ) const;
+            typedef ::IIntensityNormalizer const * ( ::IChiSquaredModule::*getIntensityNormalizer_function_type)(  ) const;
+            typedef ::IIntensityNormalizer const * ( IChiSquaredModule_wrapper::*default_getIntensityNormalizer_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getIntensityNormalizer"
@@ -209,8 +209,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getIntensityNormalizer
         
-            typedef ::IIntensityNormalizer * ( ::IChiSquaredModule::*getIntensityNormalizer_function_type )(  ) ;
-            typedef ::IIntensityNormalizer * ( IChiSquaredModule_wrapper::*default_getIntensityNormalizer_function_type )(  ) ;
+            typedef ::IIntensityNormalizer * ( ::IChiSquaredModule::*getIntensityNormalizer_function_type)(  ) ;
+            typedef ::IIntensityNormalizer * ( IChiSquaredModule_wrapper::*default_getIntensityNormalizer_function_type)(  ) ;
             
             IChiSquaredModule_exposer.def( 
                 "getIntensityNormalizer"
@@ -221,7 +221,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getRealData
         
-            typedef ::OutputData< double > const * ( ::IChiSquaredModule::*getRealData_function_type )(  ) const;
+            typedef ::OutputData< double > const * ( ::IChiSquaredModule::*getRealData_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getRealData"
@@ -231,8 +231,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getResidualValue
         
-            typedef double ( ::IChiSquaredModule::*getResidualValue_function_type )( ::std::size_t ) const;
-            typedef double ( IChiSquaredModule_wrapper::*default_getResidualValue_function_type )( ::std::size_t ) const;
+            typedef double ( ::IChiSquaredModule::*getResidualValue_function_type)( ::std::size_t ) const;
+            typedef double ( IChiSquaredModule_wrapper::*default_getResidualValue_function_type)( ::std::size_t ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getResidualValue"
@@ -243,7 +243,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getSimulationData
         
-            typedef ::OutputData< double > const * ( ::IChiSquaredModule::*getSimulationData_function_type )(  ) const;
+            typedef ::OutputData< double > const * ( ::IChiSquaredModule::*getSimulationData_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getSimulationData"
@@ -253,7 +253,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::getSquaredFunction
         
-            typedef ::ISquaredFunction const * ( ::IChiSquaredModule::*getSquaredFunction_function_type )(  ) const;
+            typedef ::ISquaredFunction const * ( ::IChiSquaredModule::*getSquaredFunction_function_type)(  ) const;
             
             IChiSquaredModule_exposer.def( 
                 "getSquaredFunction"
@@ -263,7 +263,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::setChiSquaredFunction
         
-            typedef void ( ::IChiSquaredModule::*setChiSquaredFunction_function_type )( ::ISquaredFunction const & ) ;
+            typedef void ( ::IChiSquaredModule::*setChiSquaredFunction_function_type)( ::ISquaredFunction const & ) ;
             
             IChiSquaredModule_exposer.def( 
                 "setChiSquaredFunction"
@@ -273,8 +273,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::setFittingDataSelector
         
-            typedef void ( ::IChiSquaredModule::*setFittingDataSelector_function_type )( ::IFittingDataSelector const & ) ;
-            typedef void ( IChiSquaredModule_wrapper::*default_setFittingDataSelector_function_type )( ::IFittingDataSelector const & ) ;
+            typedef void ( ::IChiSquaredModule::*setFittingDataSelector_function_type)( ::IFittingDataSelector const & ) ;
+            typedef void ( IChiSquaredModule_wrapper::*default_setFittingDataSelector_function_type)( ::IFittingDataSelector const & ) ;
             
             IChiSquaredModule_exposer.def( 
                 "setFittingDataSelector"
@@ -285,8 +285,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::setIntensityFunction
         
-            typedef void ( ::IChiSquaredModule::*setIntensityFunction_function_type )( ::IIntensityFunction const & ) ;
-            typedef void ( IChiSquaredModule_wrapper::*default_setIntensityFunction_function_type )( ::IIntensityFunction const & ) ;
+            typedef void ( ::IChiSquaredModule::*setIntensityFunction_function_type)( ::IIntensityFunction const & ) ;
+            typedef void ( IChiSquaredModule_wrapper::*default_setIntensityFunction_function_type)( ::IIntensityFunction const & ) ;
             
             IChiSquaredModule_exposer.def( 
                 "setIntensityFunction"
@@ -297,8 +297,8 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::setIntensityNormalizer
         
-            typedef void ( ::IChiSquaredModule::*setIntensityNormalizer_function_type )( ::IIntensityNormalizer const & ) ;
-            typedef void ( IChiSquaredModule_wrapper::*default_setIntensityNormalizer_function_type )( ::IIntensityNormalizer const & ) ;
+            typedef void ( ::IChiSquaredModule::*setIntensityNormalizer_function_type)( ::IIntensityNormalizer const & ) ;
+            typedef void ( IChiSquaredModule_wrapper::*default_setIntensityNormalizer_function_type)( ::IIntensityNormalizer const & ) ;
             
             IChiSquaredModule_exposer.def( 
                 "setIntensityNormalizer"
@@ -309,7 +309,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::setNdegreeOfFreedom
         
-            typedef void ( ::IChiSquaredModule::*setNdegreeOfFreedom_function_type )( int ) ;
+            typedef void ( ::IChiSquaredModule::*setNdegreeOfFreedom_function_type)( int ) ;
             
             IChiSquaredModule_exposer.def( 
                 "setNdegreeOfFreedom"
@@ -319,7 +319,7 @@ void register_IChiSquaredModule_class(){
         }
         { //::IChiSquaredModule::setRealAndSimulatedData
         
-            typedef void ( ::IChiSquaredModule::*setRealAndSimulatedData_function_type )( ::OutputData< double > const &,::OutputData< double > const & ) ;
+            typedef void ( ::IChiSquaredModule::*setRealAndSimulatedData_function_type)( ::OutputData< double > const &,::OutputData< double > const & ) ;
             
             IChiSquaredModule_exposer.def( 
                 "setRealAndSimulatedData"

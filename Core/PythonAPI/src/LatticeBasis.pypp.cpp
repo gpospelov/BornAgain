@@ -28,10 +28,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual void applyTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_applyTransformation = this->get_override( "applyTransformation" ) )
             func_applyTransformation( boost::ref(transform) );
-        else
+        else{
             this->Particle::applyTransformation( boost::ref(transform) );
+        }
     }
-    
     
     void default_applyTransformation( ::Geometry::Transform3D const & transform ) {
         Particle::applyTransformation( boost::ref(transform) );
@@ -40,10 +40,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -52,10 +52,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -64,10 +64,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -76,10 +76,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -88,10 +88,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::IMaterial const * getAmbientMaterial(  ) const  {
         if( bp::override func_getAmbientMaterial = this->get_override( "getAmbientMaterial" ) )
             return func_getAmbientMaterial(  );
-        else
+        else{
             return this->Particle::getAmbientMaterial(  );
+        }
     }
-    
     
     ::IMaterial const * default_getAmbientMaterial(  ) const  {
         return Particle::getAmbientMaterial( );
@@ -100,10 +100,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -112,10 +112,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -124,10 +124,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
-        else
+        else{
             return this->Particle::getMaterial(  );
+        }
     }
-    
     
     ::IMaterial const * default_getMaterial(  ) const  {
         return Particle::getMaterial( );
@@ -136,10 +136,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->Particle::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return Particle::getRefractiveIndex( );
@@ -148,10 +148,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
         if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
             return func_getSimpleFormFactor(  );
-        else
+        else{
             return this->Particle::getSimpleFormFactor(  );
+        }
     }
-    
     
     ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
         return Particle::getSimpleFormFactor( );
@@ -160,10 +160,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual bool hasDistributedFormFactor(  ) const  {
         if( bp::override func_hasDistributedFormFactor = this->get_override( "hasDistributedFormFactor" ) )
             return func_hasDistributedFormFactor(  );
-        else
+        else{
             return this->Particle::hasDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_hasDistributedFormFactor(  ) const  {
         return Particle::hasDistributedFormFactor( );
@@ -172,10 +172,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -184,10 +184,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -215,10 +215,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -227,10 +227,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -239,10 +239,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual void setTransformation( ::Geometry::Transform3D const & transform ) {
         if( bp::override func_setTransformation = this->get_override( "setTransformation" ) )
             func_setTransformation( boost::ref(transform) );
-        else
+        else{
             this->Particle::setTransformation( boost::ref(transform) );
+        }
     }
-    
     
     void default_setTransformation( ::Geometry::Transform3D const & transform ) {
         Particle::setTransformation( boost::ref(transform) );
@@ -251,10 +251,10 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
-    
     
     ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
@@ -270,7 +270,7 @@ void register_LatticeBasis_class(){
         bp::scope LatticeBasis_scope( LatticeBasis_exposer );
         { //::LatticeBasis::addParticle
         
-            typedef void ( ::LatticeBasis::*addParticle_function_type )( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
+            typedef void ( ::LatticeBasis::*addParticle_function_type)( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
             
             LatticeBasis_exposer.def( 
                 "addParticle"
@@ -280,8 +280,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::applyTransformation
         
-            typedef void ( ::Particle::*applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
-            typedef void ( LatticeBasis_wrapper::*default_applyTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::Particle::*applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( LatticeBasis_wrapper::*default_applyTransformation_function_type)( ::Geometry::Transform3D const & ) ;
             
             LatticeBasis_exposer.def( 
                 "applyTransformation"
@@ -292,8 +292,8 @@ void register_LatticeBasis_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( LatticeBasis_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( LatticeBasis_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             LatticeBasis_exposer.def( 
                 "areParametersChanged"
@@ -303,8 +303,8 @@ void register_LatticeBasis_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( LatticeBasis_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             LatticeBasis_exposer.def( 
                 "clearParameterPool"
@@ -314,8 +314,8 @@ void register_LatticeBasis_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( LatticeBasis_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( LatticeBasis_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "containsMagneticMaterial"
@@ -325,8 +325,8 @@ void register_LatticeBasis_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( LatticeBasis_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( LatticeBasis_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "createParameterTree"
@@ -337,8 +337,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::getAmbientMaterial
         
-            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type )(  ) const;
-            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getAmbientMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( ::Particle::*getAmbientMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getAmbientMaterial_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "getAmbientMaterial"
@@ -349,8 +349,8 @@ void register_LatticeBasis_class(){
         }
         { //::ICompositeSample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( LatticeBasis_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( LatticeBasis_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             LatticeBasis_exposer.def( 
                 "getCompositeSample"
@@ -361,8 +361,8 @@ void register_LatticeBasis_class(){
         }
         { //::ICompositeSample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( LatticeBasis_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( LatticeBasis_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "getCompositeSample"
@@ -373,8 +373,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::getMaterial
         
-            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type )(  ) const;
-            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getMaterial_function_type )(  ) const;
+            typedef ::IMaterial const * ( ::Particle::*getMaterial_function_type)(  ) const;
+            typedef ::IMaterial const * ( LatticeBasis_wrapper::*default_getMaterial_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "getMaterial"
@@ -385,8 +385,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::getRefractiveIndex
         
-            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type )(  ) const;
-            typedef ::complex_t ( LatticeBasis_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( ::Particle::*getRefractiveIndex_function_type)(  ) const;
+            typedef ::complex_t ( LatticeBasis_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "getRefractiveIndex"
@@ -396,8 +396,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::getSimpleFormFactor
         
-            typedef ::IFormFactor const * ( ::Particle::*getSimpleFormFactor_function_type )(  ) const;
-            typedef ::IFormFactor const * ( LatticeBasis_wrapper::*default_getSimpleFormFactor_function_type )(  ) const;
+            typedef ::IFormFactor const * ( ::Particle::*getSimpleFormFactor_function_type)(  ) const;
+            typedef ::IFormFactor const * ( LatticeBasis_wrapper::*default_getSimpleFormFactor_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "getSimpleFormFactor"
@@ -408,8 +408,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::hasDistributedFormFactor
         
-            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( LatticeBasis_wrapper::*default_hasDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::Particle::*hasDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( LatticeBasis_wrapper::*default_hasDistributedFormFactor_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "hasDistributedFormFactor"
@@ -419,8 +419,8 @@ void register_LatticeBasis_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( LatticeBasis_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( LatticeBasis_wrapper::*default_printParameters_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "printParameters"
@@ -430,8 +430,8 @@ void register_LatticeBasis_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( LatticeBasis_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             LatticeBasis_exposer.def( 
                 "printSampleTree"
@@ -451,8 +451,8 @@ void register_LatticeBasis_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( LatticeBasis_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( LatticeBasis_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             LatticeBasis_exposer.def( 
                 "setParameterValue"
@@ -463,8 +463,8 @@ void register_LatticeBasis_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( LatticeBasis_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( LatticeBasis_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             LatticeBasis_exposer.def( 
                 "setParametersAreChanged"
@@ -474,8 +474,8 @@ void register_LatticeBasis_class(){
         }
         { //::Particle::setTransformation
         
-            typedef void ( ::Particle::*setTransformation_function_type )( ::Geometry::Transform3D const & ) ;
-            typedef void ( LatticeBasis_wrapper::*default_setTransformation_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef void ( ::Particle::*setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
+            typedef void ( LatticeBasis_wrapper::*default_setTransformation_function_type)( ::Geometry::Transform3D const & ) ;
             
             LatticeBasis_exposer.def( 
                 "setTransformation"
@@ -486,8 +486,8 @@ void register_LatticeBasis_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( LatticeBasis_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( LatticeBasis_wrapper::*default_size_function_type)(  ) const;
             
             LatticeBasis_exposer.def( 
                 "size"

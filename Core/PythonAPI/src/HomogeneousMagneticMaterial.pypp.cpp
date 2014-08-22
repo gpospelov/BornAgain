@@ -40,10 +40,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual ::HomogeneousMagneticMaterial * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->HomogeneousMagneticMaterial::clone(  );
+        }
     }
-    
     
     ::HomogeneousMagneticMaterial * default_clone(  ) const  {
         return HomogeneousMagneticMaterial::clone( );
@@ -52,10 +52,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual ::IMaterial const * createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         if( bp::override func_createTransformedMaterial = this->get_override( "createTransformedMaterial" ) )
             return func_createTransformedMaterial( boost::ref(transform) );
-        else
+        else{
             return this->HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(transform) );
+        }
     }
-    
     
     ::IMaterial const * default_createTransformedMaterial( ::Geometry::Transform3D const & transform ) const  {
         return HomogeneousMagneticMaterial::createTransformedMaterial( boost::ref(transform) );
@@ -64,10 +64,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual bool isScalarMaterial(  ) const  {
         if( bp::override func_isScalarMaterial = this->get_override( "isScalarMaterial" ) )
             return func_isScalarMaterial(  );
-        else
+        else{
             return this->HomogeneousMagneticMaterial::isScalarMaterial(  );
+        }
     }
-    
     
     bool default_isScalarMaterial(  ) const  {
         return HomogeneousMagneticMaterial::isScalarMaterial( );
@@ -76,10 +76,10 @@ struct HomogeneousMagneticMaterial_wrapper : HomogeneousMagneticMaterial, bp::wr
     virtual ::complex_t getRefractiveIndex(  ) const  {
         if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
             return func_getRefractiveIndex(  );
-        else
+        else{
             return this->HomogeneousMaterial::getRefractiveIndex(  );
+        }
     }
-    
     
     ::complex_t default_getRefractiveIndex(  ) const  {
         return HomogeneousMaterial::getRefractiveIndex( );
@@ -96,8 +96,8 @@ void register_HomogeneousMagneticMaterial_class(){
         HomogeneousMagneticMaterial_exposer.def( bp::init< std::string const &, double, double, kvector_t const & >(( bp::arg("name"), bp::arg("refractive_index_delta"), bp::arg("refractive_index_beta"), bp::arg("magnetic_field") )) );
         { //::HomogeneousMagneticMaterial::clone
         
-            typedef ::HomogeneousMagneticMaterial * ( ::HomogeneousMagneticMaterial::*clone_function_type )(  ) const;
-            typedef ::HomogeneousMagneticMaterial * ( HomogeneousMagneticMaterial_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::HomogeneousMagneticMaterial * ( ::HomogeneousMagneticMaterial::*clone_function_type)(  ) const;
+            typedef ::HomogeneousMagneticMaterial * ( HomogeneousMagneticMaterial_wrapper::*default_clone_function_type)(  ) const;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "clone"
@@ -108,8 +108,8 @@ void register_HomogeneousMagneticMaterial_class(){
         }
         { //::HomogeneousMagneticMaterial::createTransformedMaterial
         
-            typedef ::IMaterial const * ( ::HomogeneousMagneticMaterial::*createTransformedMaterial_function_type )( ::Geometry::Transform3D const & ) const;
-            typedef ::IMaterial const * ( HomogeneousMagneticMaterial_wrapper::*default_createTransformedMaterial_function_type )( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( ::HomogeneousMagneticMaterial::*createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
+            typedef ::IMaterial const * ( HomogeneousMagneticMaterial_wrapper::*default_createTransformedMaterial_function_type)( ::Geometry::Transform3D const & ) const;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "createTransformedMaterial"
@@ -121,7 +121,7 @@ void register_HomogeneousMagneticMaterial_class(){
         }
         { //::HomogeneousMagneticMaterial::getMagneticField
         
-            typedef ::kvector_t ( ::HomogeneousMagneticMaterial::*getMagneticField_function_type )(  ) const;
+            typedef ::kvector_t ( ::HomogeneousMagneticMaterial::*getMagneticField_function_type)(  ) const;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "getMagneticField"
@@ -130,8 +130,8 @@ void register_HomogeneousMagneticMaterial_class(){
         }
         { //::HomogeneousMagneticMaterial::isScalarMaterial
         
-            typedef bool ( ::HomogeneousMagneticMaterial::*isScalarMaterial_function_type )(  ) const;
-            typedef bool ( HomogeneousMagneticMaterial_wrapper::*default_isScalarMaterial_function_type )(  ) const;
+            typedef bool ( ::HomogeneousMagneticMaterial::*isScalarMaterial_function_type)(  ) const;
+            typedef bool ( HomogeneousMagneticMaterial_wrapper::*default_isScalarMaterial_function_type)(  ) const;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "isScalarMaterial"
@@ -141,7 +141,7 @@ void register_HomogeneousMagneticMaterial_class(){
         }
         { //::HomogeneousMagneticMaterial::setMagneticField
         
-            typedef void ( ::HomogeneousMagneticMaterial::*setMagneticField_function_type )( ::kvector_t const & ) ;
+            typedef void ( ::HomogeneousMagneticMaterial::*setMagneticField_function_type)( ::kvector_t const & ) ;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "setMagneticField"
@@ -151,8 +151,8 @@ void register_HomogeneousMagneticMaterial_class(){
         }
         { //::HomogeneousMaterial::getRefractiveIndex
         
-            typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
-            typedef ::complex_t ( HomogeneousMagneticMaterial_wrapper::*default_getRefractiveIndex_function_type )(  ) const;
+            typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type)(  ) const;
+            typedef ::complex_t ( HomogeneousMagneticMaterial_wrapper::*default_getRefractiveIndex_function_type)(  ) const;
             
             HomogeneousMagneticMaterial_exposer.def( 
                 "getRefractiveIndex"

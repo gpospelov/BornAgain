@@ -26,10 +26,10 @@ struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -38,10 +38,10 @@ struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -50,10 +50,10 @@ struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -62,10 +62,10 @@ struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -74,10 +74,10 @@ struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -86,10 +86,10 @@ struct FitObject_wrapper : FitObject, bp::wrapper< FitObject > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -105,7 +105,7 @@ void register_FitObject_class(){
         bp::scope FitObject_scope( FitObject_exposer );
         { //::FitObject::calculateChiSquared
         
-            typedef double ( ::FitObject::*calculateChiSquared_function_type )(  ) ;
+            typedef double ( ::FitObject::*calculateChiSquared_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "calculateChiSquared"
@@ -114,7 +114,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getChiSquaredModule
         
-            typedef ::IChiSquaredModule const * ( ::FitObject::*getChiSquaredModule_function_type )(  ) const;
+            typedef ::IChiSquaredModule const * ( ::FitObject::*getChiSquaredModule_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getChiSquaredModule"
@@ -124,7 +124,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getChiSquaredModule
         
-            typedef ::IChiSquaredModule * ( ::FitObject::*getChiSquaredModule_function_type )(  ) ;
+            typedef ::IChiSquaredModule * ( ::FitObject::*getChiSquaredModule_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "getChiSquaredModule"
@@ -134,7 +134,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getRealData
         
-            typedef ::OutputData< double > const * ( ::FitObject::*getRealData_function_type )(  ) const;
+            typedef ::OutputData< double > const * ( ::FitObject::*getRealData_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getRealData"
@@ -144,7 +144,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSimulation
         
-            typedef ::Simulation const * ( ::FitObject::*getSimulation_function_type )(  ) const;
+            typedef ::Simulation const * ( ::FitObject::*getSimulation_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getSimulation"
@@ -154,7 +154,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSimulation
         
-            typedef ::Simulation * ( ::FitObject::*getSimulation_function_type )(  ) ;
+            typedef ::Simulation * ( ::FitObject::*getSimulation_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "getSimulation"
@@ -164,7 +164,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSimulationData
         
-            typedef ::OutputData< double > const * ( ::FitObject::*getSimulationData_function_type )(  ) const;
+            typedef ::OutputData< double > const * ( ::FitObject::*getSimulationData_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getSimulationData"
@@ -174,7 +174,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getSizeOfData
         
-            typedef ::std::size_t ( ::FitObject::*getSizeOfData_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitObject::*getSizeOfData_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getSizeOfData"
@@ -183,7 +183,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::getWeight
         
-            typedef double ( ::FitObject::*getWeight_function_type )(  ) const;
+            typedef double ( ::FitObject::*getWeight_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "getWeight"
@@ -192,7 +192,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::setChiSquaredModule
         
-            typedef void ( ::FitObject::*setChiSquaredModule_function_type )( ::IChiSquaredModule const & ) ;
+            typedef void ( ::FitObject::*setChiSquaredModule_function_type)( ::IChiSquaredModule const & ) ;
             
             FitObject_exposer.def( 
                 "setChiSquaredModule"
@@ -202,7 +202,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::setRealData
         
-            typedef void ( ::FitObject::*setRealData_function_type )( ::OutputData< double > const & ) ;
+            typedef void ( ::FitObject::*setRealData_function_type)( ::OutputData< double > const & ) ;
             
             FitObject_exposer.def( 
                 "setRealData"
@@ -212,7 +212,7 @@ void register_FitObject_class(){
         }
         { //::FitObject::setSimulation
         
-            typedef void ( ::FitObject::*setSimulation_function_type )( ::Simulation const & ) ;
+            typedef void ( ::FitObject::*setSimulation_function_type)( ::Simulation const & ) ;
             
             FitObject_exposer.def( 
                 "setSimulation"
@@ -222,8 +222,8 @@ void register_FitObject_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FitObject_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FitObject_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "areParametersChanged"
@@ -233,8 +233,8 @@ void register_FitObject_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FitObject_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FitObject_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "clearParameterPool"
@@ -244,8 +244,8 @@ void register_FitObject_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FitObject_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FitObject_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "createParameterTree"
@@ -256,8 +256,8 @@ void register_FitObject_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FitObject_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FitObject_wrapper::*default_printParameters_function_type)(  ) const;
             
             FitObject_exposer.def( 
                 "printParameters"
@@ -267,8 +267,8 @@ void register_FitObject_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FitObject_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FitObject_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FitObject_exposer.def( 
                 "setParameterValue"
@@ -279,8 +279,8 @@ void register_FitObject_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FitObject_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FitObject_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FitObject_exposer.def( 
                 "setParametersAreChanged"

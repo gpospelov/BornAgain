@@ -26,10 +26,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::VariableBinAxis * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->VariableBinAxis::clone(  );
+        }
     }
-    
     
     ::VariableBinAxis * default_clone(  ) const  {
         return VariableBinAxis::clone( );
@@ -38,10 +38,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::VariableBinAxis * createClippedAxis( double left, double right ) const  {
         if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
             return func_createClippedAxis( left, right );
-        else
+        else{
             return this->VariableBinAxis::createClippedAxis( left, right );
+        }
     }
-    
     
     ::VariableBinAxis * default_createClippedAxis( double left, double right ) const  {
         return VariableBinAxis::createClippedAxis( left, right );
@@ -50,10 +50,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else
+        else{
             return this->VariableBinAxis::findClosestIndex( value );
+        }
     }
-    
     
     ::std::size_t default_findClosestIndex( double value ) const  {
         return VariableBinAxis::findClosestIndex( value );
@@ -62,10 +62,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else
+        else{
             return this->VariableBinAxis::getBin( index );
+        }
     }
-    
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
         return VariableBinAxis::getBin( index );
@@ -74,10 +74,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::std::vector< double > getBinBoundaries(  ) const  {
         if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
             return func_getBinBoundaries(  );
-        else
+        else{
             return this->VariableBinAxis::getBinBoundaries(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinBoundaries(  ) const  {
         return VariableBinAxis::getBinBoundaries( );
@@ -86,10 +86,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
-        else
+        else{
             return this->VariableBinAxis::getBinCenters(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinCenters(  ) const  {
         return VariableBinAxis::getBinCenters( );
@@ -98,10 +98,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else
+        else{
             return this->VariableBinAxis::getMax(  );
+        }
     }
-    
     
     double default_getMax(  ) const  {
         return VariableBinAxis::getMax( );
@@ -110,10 +110,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else
+        else{
             return this->VariableBinAxis::getMin(  );
+        }
     }
-    
     
     double default_getMin(  ) const  {
         return VariableBinAxis::getMin( );
@@ -122,10 +122,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::std::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else
+        else{
             return this->VariableBinAxis::getSize(  );
+        }
     }
-    
     
     ::std::size_t default_getSize(  ) const  {
         return VariableBinAxis::getSize( );
@@ -134,10 +134,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual double operator[]( ::std::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
-        else
+        else{
             return this->VariableBinAxis::operator[]( index );
+        }
     }
-    
     
     double default___getitem__( ::std::size_t index ) const  {
         return VariableBinAxis::operator[]( index );
@@ -146,10 +146,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual bool contains( double value ) const  {
         if( bp::override func_contains = this->get_override( "contains" ) )
             return func_contains( value );
-        else
+        else{
             return this->IAxis::contains( value );
+        }
     }
-    
     
     bool default_contains( double value ) const  {
         return IAxis::contains( value );
@@ -158,10 +158,10 @@ struct VariableBinAxis_wrapper : VariableBinAxis, bp::wrapper< VariableBinAxis >
     virtual ::IAxis * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
-        else
+        else{
             return this->IAxis::createDoubleBinSize(  );
+        }
     }
-    
     
     ::IAxis * default_createDoubleBinSize(  ) const  {
         return IAxis::createDoubleBinSize( );
@@ -177,8 +177,8 @@ void register_VariableBinAxis_class(){
         bp::scope VariableBinAxis_scope( VariableBinAxis_exposer );
         { //::VariableBinAxis::clone
         
-            typedef ::VariableBinAxis * ( ::VariableBinAxis::*clone_function_type )(  ) const;
-            typedef ::VariableBinAxis * ( VariableBinAxis_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::VariableBinAxis * ( ::VariableBinAxis::*clone_function_type)(  ) const;
+            typedef ::VariableBinAxis * ( VariableBinAxis_wrapper::*default_clone_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "clone"
@@ -189,8 +189,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::createClippedAxis
         
-            typedef ::VariableBinAxis * ( ::VariableBinAxis::*createClippedAxis_function_type )( double,double ) const;
-            typedef ::VariableBinAxis * ( VariableBinAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            typedef ::VariableBinAxis * ( ::VariableBinAxis::*createClippedAxis_function_type)( double,double ) const;
+            typedef ::VariableBinAxis * ( VariableBinAxis_wrapper::*default_createClippedAxis_function_type)( double,double ) const;
             
             VariableBinAxis_exposer.def( 
                 "createClippedAxis"
@@ -202,8 +202,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::VariableBinAxis::*findClosestIndex_function_type )( double ) const;
-            typedef ::std::size_t ( VariableBinAxis_wrapper::*default_findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( ::VariableBinAxis::*findClosestIndex_function_type)( double ) const;
+            typedef ::std::size_t ( VariableBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
             
             VariableBinAxis_exposer.def( 
                 "findClosestIndex"
@@ -214,8 +214,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::getBin
         
-            typedef ::Bin1D ( ::VariableBinAxis::*getBin_function_type )( ::std::size_t ) const;
-            typedef ::Bin1D ( VariableBinAxis_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::VariableBinAxis::*getBin_function_type)( ::std::size_t ) const;
+            typedef ::Bin1D ( VariableBinAxis_wrapper::*default_getBin_function_type)( ::std::size_t ) const;
             
             VariableBinAxis_exposer.def( 
                 "getBin"
@@ -226,8 +226,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::getBinBoundaries
         
-            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinBoundaries_function_type )(  ) const;
-            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinBoundaries_function_type)(  ) const;
+            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinBoundaries_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "getBinBoundaries"
@@ -237,8 +237,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::getBinCenters
         
-            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinCenters_function_type )(  ) const;
-            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinCenters_function_type)(  ) const;
+            typedef ::std::vector< double > ( VariableBinAxis_wrapper::*default_getBinCenters_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "getBinCenters"
@@ -248,8 +248,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::getMax
         
-            typedef double ( ::VariableBinAxis::*getMax_function_type )(  ) const;
-            typedef double ( VariableBinAxis_wrapper::*default_getMax_function_type )(  ) const;
+            typedef double ( ::VariableBinAxis::*getMax_function_type)(  ) const;
+            typedef double ( VariableBinAxis_wrapper::*default_getMax_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "getMax"
@@ -259,8 +259,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::getMin
         
-            typedef double ( ::VariableBinAxis::*getMin_function_type )(  ) const;
-            typedef double ( VariableBinAxis_wrapper::*default_getMin_function_type )(  ) const;
+            typedef double ( ::VariableBinAxis::*getMin_function_type)(  ) const;
+            typedef double ( VariableBinAxis_wrapper::*default_getMin_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "getMin"
@@ -270,8 +270,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::getSize
         
-            typedef ::std::size_t ( ::VariableBinAxis::*getSize_function_type )(  ) const;
-            typedef ::std::size_t ( VariableBinAxis_wrapper::*default_getSize_function_type )(  ) const;
+            typedef ::std::size_t ( ::VariableBinAxis::*getSize_function_type)(  ) const;
+            typedef ::std::size_t ( VariableBinAxis_wrapper::*default_getSize_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "getSize"
@@ -281,8 +281,8 @@ void register_VariableBinAxis_class(){
         }
         { //::VariableBinAxis::operator[]
         
-            typedef double ( ::VariableBinAxis::*__getitem___function_type )( ::std::size_t ) const;
-            typedef double ( VariableBinAxis_wrapper::*default___getitem___function_type )( ::std::size_t ) const;
+            typedef double ( ::VariableBinAxis::*__getitem___function_type)( ::std::size_t ) const;
+            typedef double ( VariableBinAxis_wrapper::*default___getitem___function_type)( ::std::size_t ) const;
             
             VariableBinAxis_exposer.def( 
                 "__getitem__"
@@ -293,8 +293,8 @@ void register_VariableBinAxis_class(){
         }
         { //::IAxis::contains
         
-            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
-            typedef bool ( VariableBinAxis_wrapper::*default_contains_function_type )( double ) const;
+            typedef bool ( ::IAxis::*contains_function_type)( double ) const;
+            typedef bool ( VariableBinAxis_wrapper::*default_contains_function_type)( double ) const;
             
             VariableBinAxis_exposer.def( 
                 "contains"
@@ -305,8 +305,8 @@ void register_VariableBinAxis_class(){
         }
         { //::IAxis::createDoubleBinSize
         
-            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
-            typedef ::IAxis * ( VariableBinAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type)(  ) const;
+            typedef ::IAxis * ( VariableBinAxis_wrapper::*default_createDoubleBinSize_function_type)(  ) const;
             
             VariableBinAxis_exposer.def( 
                 "createDoubleBinSize"

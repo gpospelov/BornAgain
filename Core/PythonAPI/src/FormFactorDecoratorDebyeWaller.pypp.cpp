@@ -28,10 +28,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual ::FormFactorDecoratorDebyeWaller * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorDecoratorDebyeWaller::clone(  );
+        }
     }
-    
     
     ::FormFactorDecoratorDebyeWaller * default_clone(  ) const  {
         return FormFactorDecoratorDebyeWaller::clone( );
@@ -40,10 +40,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else
+        else{
             return this->FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -52,10 +52,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters( );
@@ -64,10 +64,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -76,10 +76,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -88,10 +88,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -100,10 +100,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -112,10 +112,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
-    
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -124,10 +124,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -136,10 +136,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -148,10 +148,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -160,10 +160,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->IFormFactorDecorator::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return IFormFactorDecorator::getHeight( );
@@ -172,10 +172,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactorDecorator::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactorDecorator::getRadius( );
@@ -184,10 +184,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactorDecorator::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactorDecorator::getVolume( );
@@ -196,10 +196,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->IFormFactor::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return IFormFactor::isDistributedFormFactor( );
@@ -208,10 +208,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -220,10 +220,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -251,10 +251,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -263,10 +263,10 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -282,8 +282,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         bp::scope FormFactorDecoratorDebyeWaller_scope( FormFactorDecoratorDebyeWaller_exposer );
         { //::FormFactorDecoratorDebyeWaller::clone
         
-            typedef ::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::*clone_function_type )(  ) const;
-            typedef ::FormFactorDecoratorDebyeWaller * ( FormFactorDecoratorDebyeWaller_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::*clone_function_type)(  ) const;
+            typedef ::FormFactorDecoratorDebyeWaller * ( FormFactorDecoratorDebyeWaller_wrapper::*default_clone_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "clone"
@@ -294,8 +294,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::FormFactorDecoratorDebyeWaller::evaluate
         
-            typedef ::complex_t ( ::FormFactorDecoratorDebyeWaller::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::FormFactorDecoratorDebyeWaller::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "evaluate"
@@ -306,8 +306,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorDecoratorDebyeWaller::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorDecoratorDebyeWaller_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorDecoratorDebyeWaller::*getNumberOfStochasticParameters_function_type)(  ) const;
+            typedef int ( FormFactorDecoratorDebyeWaller_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "getNumberOfStochasticParameters"
@@ -317,8 +317,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "areParametersChanged"
@@ -328,8 +328,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "clearParameterPool"
@@ -339,8 +339,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorDecoratorDebyeWaller_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorDecoratorDebyeWaller_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "cloneInvertB"
@@ -351,8 +351,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "containsMagneticMaterial"
@@ -362,8 +362,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IFormFactor::createDistributedFormFactors
         
-            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::IFormFactor::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "createDistributedFormFactors"
@@ -375,8 +375,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorDecoratorDebyeWaller_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FormFactorDecoratorDebyeWaller_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "createParameterTree"
@@ -387,8 +387,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorDecoratorDebyeWaller_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( FormFactorDecoratorDebyeWaller_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "getCompositeSample"
@@ -399,8 +399,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorDecoratorDebyeWaller_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorDecoratorDebyeWaller_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "getCompositeSample"
@@ -411,8 +411,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IFormFactorDecorator::getHeight
         
-            typedef double ( ::IFormFactorDecorator::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::IFormFactorDecorator::*getHeight_function_type)(  ) const;
+            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "getHeight"
@@ -422,8 +422,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IFormFactorDecorator::getRadius
         
-            typedef double ( ::IFormFactorDecorator::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::IFormFactorDecorator::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "getRadius"
@@ -433,8 +433,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IFormFactorDecorator::getVolume
         
-            typedef double ( ::IFormFactorDecorator::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::IFormFactorDecorator::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "getVolume"
@@ -444,8 +444,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IFormFactor::isDistributedFormFactor
         
-            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "isDistributedFormFactor"
@@ -455,8 +455,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_printParameters_function_type)(  ) const;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "printParameters"
@@ -466,8 +466,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "printSampleTree"
@@ -487,8 +487,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FormFactorDecoratorDebyeWaller_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "setParameterValue"
@@ -499,8 +499,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FormFactorDecoratorDebyeWaller_exposer.def( 
                 "setParametersAreChanged"

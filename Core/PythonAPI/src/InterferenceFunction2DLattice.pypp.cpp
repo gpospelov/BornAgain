@@ -28,10 +28,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual ::InterferenceFunction2DLattice * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->InterferenceFunction2DLattice::clone(  );
+        }
     }
-    
     
     ::InterferenceFunction2DLattice * default_clone(  ) const  {
         return InterferenceFunction2DLattice::clone( );
@@ -40,10 +40,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual double evaluate( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
-        else
+        else{
             return this->InterferenceFunction2DLattice::evaluate( boost::ref(q) );
+        }
     }
-    
     
     double default_evaluate( ::cvector_t const & q ) const  {
         return InterferenceFunction2DLattice::evaluate( boost::ref(q) );
@@ -52,10 +52,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -64,10 +64,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -76,10 +76,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -88,10 +88,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -100,10 +100,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -112,10 +112,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -124,10 +124,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -136,10 +136,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual double getKappa(  ) const  {
         if( bp::override func_getKappa = this->get_override( "getKappa" ) )
             return func_getKappa(  );
-        else
+        else{
             return this->IInterferenceFunction::getKappa(  );
+        }
     }
-    
     
     double default_getKappa(  ) const  {
         return IInterferenceFunction::getKappa( );
@@ -148,10 +148,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -160,10 +160,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -191,10 +191,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -203,10 +203,10 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -222,8 +222,8 @@ void register_InterferenceFunction2DLattice_class(){
         bp::scope InterferenceFunction2DLattice_scope( InterferenceFunction2DLattice_exposer );
         { //::InterferenceFunction2DLattice::clone
         
-            typedef ::InterferenceFunction2DLattice * ( ::InterferenceFunction2DLattice::*clone_function_type )(  ) const;
-            typedef ::InterferenceFunction2DLattice * ( InterferenceFunction2DLattice_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::InterferenceFunction2DLattice * ( ::InterferenceFunction2DLattice::*clone_function_type)(  ) const;
+            typedef ::InterferenceFunction2DLattice * ( InterferenceFunction2DLattice_wrapper::*default_clone_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "clone"
@@ -234,8 +234,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::InterferenceFunction2DLattice::evaluate
         
-            typedef double ( ::InterferenceFunction2DLattice::*evaluate_function_type )( ::cvector_t const & ) const;
-            typedef double ( InterferenceFunction2DLattice_wrapper::*default_evaluate_function_type )( ::cvector_t const & ) const;
+            typedef double ( ::InterferenceFunction2DLattice::*evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( InterferenceFunction2DLattice_wrapper::*default_evaluate_function_type)( ::cvector_t const & ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "evaluate"
@@ -246,7 +246,7 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::InterferenceFunction2DLattice::getLatticeParameters
         
-            typedef ::Lattice2DIFParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type )(  ) const;
+            typedef ::Lattice2DIFParameters ( ::InterferenceFunction2DLattice::*getLatticeParameters_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "getLatticeParameters"
@@ -255,7 +255,7 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::InterferenceFunction2DLattice::getProbabilityDistribution
         
-            typedef ::IFTDistribution2D const * ( ::InterferenceFunction2DLattice::*getProbabilityDistribution_function_type )(  ) const;
+            typedef ::IFTDistribution2D const * ( ::InterferenceFunction2DLattice::*getProbabilityDistribution_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "getProbabilityDistribution"
@@ -265,7 +265,7 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::InterferenceFunction2DLattice::setProbabilityDistribution
         
-            typedef void ( ::InterferenceFunction2DLattice::*setProbabilityDistribution_function_type )( ::IFTDistribution2D const & ) ;
+            typedef void ( ::InterferenceFunction2DLattice::*setProbabilityDistribution_function_type)( ::IFTDistribution2D const & ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "setProbabilityDistribution"
@@ -275,8 +275,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( InterferenceFunction2DLattice_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( InterferenceFunction2DLattice_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "areParametersChanged"
@@ -286,8 +286,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( InterferenceFunction2DLattice_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DLattice_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "clearParameterPool"
@@ -297,8 +297,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( InterferenceFunction2DLattice_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( InterferenceFunction2DLattice_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "cloneInvertB"
@@ -309,8 +309,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( InterferenceFunction2DLattice_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( InterferenceFunction2DLattice_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "containsMagneticMaterial"
@@ -320,8 +320,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( InterferenceFunction2DLattice_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( InterferenceFunction2DLattice_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "createParameterTree"
@@ -332,8 +332,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( InterferenceFunction2DLattice_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( InterferenceFunction2DLattice_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "getCompositeSample"
@@ -344,8 +344,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( InterferenceFunction2DLattice_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( InterferenceFunction2DLattice_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "getCompositeSample"
@@ -356,8 +356,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IInterferenceFunction::getKappa
         
-            typedef double ( ::IInterferenceFunction::*getKappa_function_type )(  ) const;
-            typedef double ( InterferenceFunction2DLattice_wrapper::*default_getKappa_function_type )(  ) const;
+            typedef double ( ::IInterferenceFunction::*getKappa_function_type)(  ) const;
+            typedef double ( InterferenceFunction2DLattice_wrapper::*default_getKappa_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "getKappa"
@@ -367,8 +367,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( InterferenceFunction2DLattice_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( InterferenceFunction2DLattice_wrapper::*default_printParameters_function_type)(  ) const;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "printParameters"
@@ -378,8 +378,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( InterferenceFunction2DLattice_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DLattice_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "printSampleTree"
@@ -399,8 +399,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( InterferenceFunction2DLattice_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( InterferenceFunction2DLattice_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "setParameterValue"
@@ -411,8 +411,8 @@ void register_InterferenceFunction2DLattice_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( InterferenceFunction2DLattice_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DLattice_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             InterferenceFunction2DLattice_exposer.def( 
                 "setParametersAreChanged"

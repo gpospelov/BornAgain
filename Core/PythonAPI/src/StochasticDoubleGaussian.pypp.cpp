@@ -26,10 +26,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual ::StochasticDoubleGaussian * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->StochasticDoubleGaussian::clone(  );
+        }
     }
-    
     
     ::StochasticDoubleGaussian * default_clone(  ) const  {
         return StochasticDoubleGaussian::clone( );
@@ -38,10 +38,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else
+        else{
             return this->StochasticDoubleGaussian::getFWHM(  );
+        }
     }
-    
     
     double default_getFWHM(  ) const  {
         return StochasticDoubleGaussian::getFWHM( );
@@ -50,10 +50,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual double probabilityDensity( double value ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( value );
-        else
+        else{
             return this->StochasticDoubleGaussian::probabilityDensity( value );
+        }
     }
-    
     
     double default_probabilityDensity( double value ) const  {
         return StochasticDoubleGaussian::probabilityDensity( value );
@@ -62,10 +62,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual void setToRandom(  ) {
         if( bp::override func_setToRandom = this->get_override( "setToRandom" ) )
             func_setToRandom(  );
-        else
+        else{
             this->StochasticDoubleGaussian::setToRandom(  );
+        }
     }
-    
     
     void default_setToRandom(  ) {
         StochasticDoubleGaussian::setToRandom( );
@@ -74,10 +74,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else
+        else{
             return this->StochasticParameter< double >::getRandom(  );
+        }
     }
-    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -86,10 +86,10 @@ struct StochasticDoubleGaussian_wrapper : StochasticDoubleGaussian, bp::wrapper<
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else
+        else{
             this->StochasticParameter< double >::setToAverage(  );
+        }
     }
-    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );
@@ -105,8 +105,8 @@ void register_StochasticDoubleGaussian_class(){
         bp::scope StochasticDoubleGaussian_scope( StochasticDoubleGaussian_exposer );
         { //::StochasticDoubleGaussian::clone
         
-            typedef ::StochasticDoubleGaussian * ( ::StochasticDoubleGaussian::*clone_function_type )(  ) const;
-            typedef ::StochasticDoubleGaussian * ( StochasticDoubleGaussian_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::StochasticDoubleGaussian * ( ::StochasticDoubleGaussian::*clone_function_type)(  ) const;
+            typedef ::StochasticDoubleGaussian * ( StochasticDoubleGaussian_wrapper::*default_clone_function_type)(  ) const;
             
             StochasticDoubleGaussian_exposer.def( 
                 "clone"
@@ -117,8 +117,8 @@ void register_StochasticDoubleGaussian_class(){
         }
         { //::StochasticDoubleGaussian::getFWHM
         
-            typedef double ( ::StochasticDoubleGaussian::*getFWHM_function_type )(  ) const;
-            typedef double ( StochasticDoubleGaussian_wrapper::*default_getFWHM_function_type )(  ) const;
+            typedef double ( ::StochasticDoubleGaussian::*getFWHM_function_type)(  ) const;
+            typedef double ( StochasticDoubleGaussian_wrapper::*default_getFWHM_function_type)(  ) const;
             
             StochasticDoubleGaussian_exposer.def( 
                 "getFWHM"
@@ -128,7 +128,7 @@ void register_StochasticDoubleGaussian_class(){
         }
         { //::StochasticDoubleGaussian::getStdDev
         
-            typedef double ( ::StochasticDoubleGaussian::*getStdDev_function_type )(  ) const;
+            typedef double ( ::StochasticDoubleGaussian::*getStdDev_function_type)(  ) const;
             
             StochasticDoubleGaussian_exposer.def( 
                 "getStdDev"
@@ -137,8 +137,8 @@ void register_StochasticDoubleGaussian_class(){
         }
         { //::StochasticDoubleGaussian::probabilityDensity
         
-            typedef double ( ::StochasticDoubleGaussian::*probabilityDensity_function_type )( double ) const;
-            typedef double ( StochasticDoubleGaussian_wrapper::*default_probabilityDensity_function_type )( double ) const;
+            typedef double ( ::StochasticDoubleGaussian::*probabilityDensity_function_type)( double ) const;
+            typedef double ( StochasticDoubleGaussian_wrapper::*default_probabilityDensity_function_type)( double ) const;
             
             StochasticDoubleGaussian_exposer.def( 
                 "probabilityDensity"
@@ -149,8 +149,8 @@ void register_StochasticDoubleGaussian_class(){
         }
         { //::StochasticDoubleGaussian::setToRandom
         
-            typedef void ( ::StochasticDoubleGaussian::*setToRandom_function_type )(  ) ;
-            typedef void ( StochasticDoubleGaussian_wrapper::*default_setToRandom_function_type )(  ) ;
+            typedef void ( ::StochasticDoubleGaussian::*setToRandom_function_type)(  ) ;
+            typedef void ( StochasticDoubleGaussian_wrapper::*default_setToRandom_function_type)(  ) ;
             
             StochasticDoubleGaussian_exposer.def( 
                 "setToRandom"
@@ -161,8 +161,8 @@ void register_StochasticDoubleGaussian_class(){
         { //::StochasticParameter< double >::getRandom
         
             typedef StochasticDoubleGaussian exported_class_t;
-            typedef double ( exported_class_t::*getRandom_function_type )(  ) ;
-            typedef double ( StochasticDoubleGaussian_wrapper::*default_getRandom_function_type )(  ) ;
+            typedef double ( exported_class_t::*getRandom_function_type)(  ) ;
+            typedef double ( StochasticDoubleGaussian_wrapper::*default_getRandom_function_type)(  ) ;
             
             StochasticDoubleGaussian_exposer.def( 
                 "getRandom"
@@ -173,8 +173,8 @@ void register_StochasticDoubleGaussian_class(){
         { //::StochasticParameter< double >::setToAverage
         
             typedef StochasticDoubleGaussian exported_class_t;
-            typedef void ( exported_class_t::*setToAverage_function_type )(  ) ;
-            typedef void ( StochasticDoubleGaussian_wrapper::*default_setToAverage_function_type )(  ) ;
+            typedef void ( exported_class_t::*setToAverage_function_type)(  ) ;
+            typedef void ( StochasticDoubleGaussian_wrapper::*default_setToAverage_function_type)(  ) ;
             
             StochasticDoubleGaussian_exposer.def( 
                 "setToAverage"

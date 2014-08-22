@@ -48,7 +48,7 @@ void register_ISquaredFunction_class(){
         bp::scope ISquaredFunction_scope( ISquaredFunction_exposer );
         { //::ISquaredFunction::calculateSquaredDifference
         
-            typedef double ( ::ISquaredFunction::*calculateSquaredDifference_function_type )( double,double ) const;
+            typedef double ( ::ISquaredFunction::*calculateSquaredDifference_function_type)( double,double ) const;
             
             ISquaredFunction_exposer.def( 
                 "calculateSquaredDifference"
@@ -58,7 +58,7 @@ void register_ISquaredFunction_class(){
         }
         { //::ISquaredFunction::calculateSquaredError
         
-            typedef double ( ::ISquaredFunction::*calculateSquaredError_function_type )( double,double ) const;
+            typedef double ( ::ISquaredFunction::*calculateSquaredError_function_type)( double,double ) const;
             
             ISquaredFunction_exposer.def( 
                 "calculateSquaredError"
@@ -68,7 +68,7 @@ void register_ISquaredFunction_class(){
         }
         { //::ISquaredFunction::clone
         
-            typedef ::ISquaredFunction * ( ::ISquaredFunction::*clone_function_type )(  ) const;
+            typedef ::ISquaredFunction * ( ::ISquaredFunction::*clone_function_type)(  ) const;
             
             ISquaredFunction_exposer.def( 
                 "clone"

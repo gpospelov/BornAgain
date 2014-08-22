@@ -22,7 +22,7 @@ void register_ParticleBuilder_class(){
         bp::scope ParticleBuilder_scope( ParticleBuilder_exposer );
         { //::ParticleBuilder::plantParticles
         
-            typedef void ( ::ParticleBuilder::*plantParticles_function_type )( ::ParticleLayout & ) ;
+            typedef void ( ::ParticleBuilder::*plantParticles_function_type)( ::ParticleLayout & ) ;
             
             ParticleBuilder_exposer.def( 
                 "plantParticles"
@@ -32,7 +32,7 @@ void register_ParticleBuilder_class(){
         }
         { //::ParticleBuilder::setPrototype
         
-            typedef void ( ::ParticleBuilder::*setPrototype_function_type )( ::Particle const &,::std::string,::StochasticParameter< double > const &,double ) ;
+            typedef void ( ::ParticleBuilder::*setPrototype_function_type)( ::Particle const &,::std::string,::StochasticParameter< double > const &,double ) ;
             
             ParticleBuilder_exposer.def( 
                 "setPrototype"

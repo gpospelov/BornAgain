@@ -3,9 +3,11 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
-
 if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
+endif()
+if(POLICY CMP0043)
+cmake_policy(SET CMP0043 NEW)
 endif()
 
 set(library_name BornAgainGUI)
@@ -126,65 +128,65 @@ install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Librar
 
 # system libraries: ROOT installation
 if(WIN32)
-    install(FILES 
-    ${ROOTSYS}/bin/libGpad.dll
-    ${ROOTSYS}/bin/libHist.dll
-    ${ROOTSYS}/bin/libGraf.dll
-    ${ROOTSYS}/bin/libGraf3d.dll
-    ${ROOTSYS}/bin/libTree.dll
-    ${ROOTSYS}/bin/libRint.dll
-    ${ROOTSYS}/bin/libPostscript.dll
-    ${ROOTSYS}/bin/libMatrix.dll
-    ${ROOTSYS}/bin/libMathCore.dll
-    ${ROOTSYS}/bin/libThread.dll
-    ${ROOTSYS}/bin/libCore.dll
-    ${ROOTSYS}/bin/libCint.dll
-    ${ROOTSYS}/bin/libRIO.dll
-    ${ROOTSYS}/bin/liblzma.dll
-    ${ROOTSYS}/bin/libNet.dll
-    ${ROOTSYS}/bin/libGui.dll
-    ${ROOTSYS}/bin/libHistPainter.dll
-    ${ROOTSYS}/bin/gdk-1.3.dll
-    ${ROOTSYS}/bin/glib-1.3.dll
-    ${ROOTSYS}/bin/iconv-1.3.dll
-    ${ROOTSYS}/bin/libWin32gdk.dll
-    ${ROOTSYS}/bin/libAsImage.dll
-    DESTINATION ${destination_lib} COMPONENT Libraries)
-    
-    install(FILES
-    ${ROOTSYS}/fonts/FreeSans.otf
-    ${ROOTSYS}/fonts/FreeSansBold.otf
-    ${ROOTSYS}/fonts/symbol.ttf
-    DESTINATION fonts COMPONENT Libraries)
-    
-    install(FILES
-    ${ROOTSYS}/icons/arrow.xpm
-    ${ROOTSYS}/icons/arrow_down.xpm
-    ${ROOTSYS}/icons/arrow_left.xpm
-    ${ROOTSYS}/icons/arrow_right.xpm
-    ${ROOTSYS}/icons/arrow_right2.xpm
-    ${ROOTSYS}/icons/arrow_up.xpm
-    DESTINATION icons COMPONENT Libraries)
-    
-    install(FILES
-    ${ROOTSYS}/etc/system.rootrc
-    ${ROOTSYS}/etc/root.mimes
-    DESTINATION etc COMPONENT Libraries)
-    
-    install(DIRECTORY
-    ${ROOTSYS}/etc/plugins/TGuiFactory
-    ${ROOTSYS}/etc/plugins/TImage
-    ${ROOTSYS}/etc/plugins/TView
-    ${ROOTSYS}/etc/plugins/TVirtualGraphPainter
-    ${ROOTSYS}/etc/plugins/TVirtualHistPainter
-    ${ROOTSYS}/etc/plugins/TVirtualPadPainter
-    ${ROOTSYS}/etc/plugins/TVirtualPS
-    ${ROOTSYS}/etc/plugins/TVirtualStreamerInfo
-    ${ROOTSYS}/etc/plugins/TVirtualX
-    DESTINATION etc/plugins COMPONENT Libraries)
-
-    # --- Qt ---
-    STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\root\ to C:/root/
+#     install(FILES 
+#     ${ROOTSYS}/bin/libGpad.dll
+#     ${ROOTSYS}/bin/libHist.dll
+#     ${ROOTSYS}/bin/libGraf.dll
+#     ${ROOTSYS}/bin/libGraf3d.dll
+#     ${ROOTSYS}/bin/libTree.dll
+#     ${ROOTSYS}/bin/libRint.dll
+#     ${ROOTSYS}/bin/libPostscript.dll
+#     ${ROOTSYS}/bin/libMatrix.dll
+#     ${ROOTSYS}/bin/libMathCore.dll
+#     ${ROOTSYS}/bin/libThread.dll
+#     ${ROOTSYS}/bin/libCore.dll
+#     ${ROOTSYS}/bin/libCint.dll
+#     ${ROOTSYS}/bin/libRIO.dll
+#     ${ROOTSYS}/bin/liblzma.dll
+#     ${ROOTSYS}/bin/libNet.dll
+#     ${ROOTSYS}/bin/libGui.dll
+#     ${ROOTSYS}/bin/libHistPainter.dll
+#     ${ROOTSYS}/bin/gdk-1.3.dll
+#     ${ROOTSYS}/bin/glib-1.3.dll
+#     ${ROOTSYS}/bin/iconv-1.3.dll
+#     ${ROOTSYS}/bin/libWin32gdk.dll
+#     ${ROOTSYS}/bin/libAsImage.dll
+#     DESTINATION ${destination_lib} COMPONENT Libraries)
+#     
+#     install(FILES
+#     ${ROOTSYS}/fonts/FreeSans.otf
+#     ${ROOTSYS}/fonts/FreeSansBold.otf
+#     ${ROOTSYS}/fonts/symbol.ttf
+#     DESTINATION fonts COMPONENT Libraries)
+#     
+#     install(FILES
+#     ${ROOTSYS}/icons/arrow.xpm
+#     ${ROOTSYS}/icons/arrow_down.xpm
+#     ${ROOTSYS}/icons/arrow_left.xpm
+#     ${ROOTSYS}/icons/arrow_right.xpm
+#     ${ROOTSYS}/icons/arrow_right2.xpm
+#     ${ROOTSYS}/icons/arrow_up.xpm
+#     DESTINATION icons COMPONENT Libraries)
+#     
+#     install(FILES
+#     ${ROOTSYS}/etc/system.rootrc
+#     ${ROOTSYS}/etc/root.mimes
+#     DESTINATION etc COMPONENT Libraries)
+#     
+#     install(DIRECTORY
+#     ${ROOTSYS}/etc/plugins/TGuiFactory
+#     ${ROOTSYS}/etc/plugins/TImage
+#     ${ROOTSYS}/etc/plugins/TView
+#     ${ROOTSYS}/etc/plugins/TVirtualGraphPainter
+#     ${ROOTSYS}/etc/plugins/TVirtualHistPainter
+#     ${ROOTSYS}/etc/plugins/TVirtualPadPainter
+#     ${ROOTSYS}/etc/plugins/TVirtualPS
+#     ${ROOTSYS}/etc/plugins/TVirtualStreamerInfo
+#     ${ROOTSYS}/etc/plugins/TVirtualX
+#     DESTINATION etc/plugins COMPONENT Libraries)
+# 
+#     # --- Qt ---
+#     STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\root\ to C:/root/
 
     install(FILES
     ${QTDIR}/bin/Qt5Widgets.DLL

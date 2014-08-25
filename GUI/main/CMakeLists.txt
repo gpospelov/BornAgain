@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
-
 if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
+endif()
+if(POLICY CMP0043)
+cmake_policy(SET CMP0043 NEW)
+endif()
+if(POLICY CMP0028)
+cmake_policy(SET CMP0028 OLD)
 endif()
 
 set(executable_name BornAgain)

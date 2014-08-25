@@ -3,12 +3,18 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
-
-message(STATUS "Configuring BornAgain GUI")
-
 if(POLICY CMP0020)
 cmake_policy(SET CMP0020 NEW)
 endif()
+if(POLICY CMP0043)
+cmake_policy(SET CMP0043 NEW)
+endif()
+
+message(STATUS "Configuring BornAgain GUI")
+
+#if(POLICY CMP0020)
+#cmake_policy(SET CMP0020 NEW)
+#endif()
 
 find_package(Qt5Widgets REQUIRED)
 if(${Qt5Widgets_FOUND})

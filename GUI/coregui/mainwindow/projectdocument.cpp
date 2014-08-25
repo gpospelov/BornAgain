@@ -63,7 +63,7 @@ ProjectDocument::ProjectDocument(const QString &path, const QString &name)
 
 void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 {
-    //qDebug() << "ProjectDocument::onDataChanged()";
+    qDebug() << "ProjectDocument::onDataChanged()";
     m_modified = true;
     emit modified();
 }
@@ -72,7 +72,7 @@ void ProjectDocument::onDataChanged(const QModelIndex &, const QModelIndex &)
 void ProjectDocument::setMaterialModel(MaterialModel *materialModel)
 {
     if(materialModel != m_materialModel) {
-        if(m_materialModel) disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
+        if(m_materialModel) disconnect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
         m_materialModel = materialModel;
         connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged(QModelIndex, QModelIndex)) );
     }

@@ -70,9 +70,11 @@ class FTDistribution2DItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_CORR_LENGTH_X, P_CORR_LENGTH_Y;
+    static const QString P_CORR_LENGTH_X, P_CORR_LENGTH_Y, P_GAMMA;
     explicit FTDistribution2DItem(const QString name, ParameterizedItem *parent)
-        : ParameterizedItem(name, parent){}
+        : ParameterizedItem(name, parent) {
+        registerProperty(P_GAMMA, 0.0);
+    }
     virtual IFTDistribution2D *createFTDistribution() const { return 0;}
     virtual ~FTDistribution2DItem(){}
 };

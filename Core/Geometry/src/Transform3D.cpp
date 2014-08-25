@@ -165,6 +165,13 @@ Geometry::Transform3D::RotationType Geometry::Transform3D::getRotationType()
     return EULER;
 }
 
+bool Geometry::Transform3D::isIdentity() const
+{
+    double alpha, beta, gamma;
+    calculateEulerAngles(&alpha, &beta, &gamma);
+    return (alpha==0.0 && beta==0.0 && gamma==0.0);
+}
+
 void Geometry::Transform3D::print(std::ostream& ostr) const
 {
     ostr << "Transform3D: " << m_matrix;

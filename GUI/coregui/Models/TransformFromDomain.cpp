@@ -173,6 +173,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             pdfItem->setRegisteredProperty(
                         FTDistribution2DCauchyItem::P_CORR_LENGTH_Y,
                         pdf->getCoherenceLengthY());
+            pdfItem->setRegisteredProperty(
+                        FTDistribution2DCauchyItem::P_GAMMA,
+                        Units::rad2deg(pdf->getGamma()) );
         }
         else if(const FTDistribution2DGauss *pdf =
                 dynamic_cast<const FTDistribution2DGauss *>(pdfs[i])) {
@@ -184,6 +187,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGaussItem::P_CORR_LENGTH_Y,
                         pdf->getCoherenceLengthY());
+            pdfItem->setRegisteredProperty(
+                        FTDistribution2DGaussItem::P_GAMMA,
+                        Units::rad2deg(pdf->getGamma()) );
         }
         else if(const FTDistribution2DGate *pdf =
                 dynamic_cast<const FTDistribution2DGate *>(pdfs[i])) {
@@ -195,6 +201,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             pdfItem->setRegisteredProperty(
                         FTDistribution2DGateItem::P_CORR_LENGTH_Y,
                         pdf->getCoherenceLengthY());
+            pdfItem->setRegisteredProperty(
+                        FTDistribution2DGateItem::P_GAMMA,
+                        Units::rad2deg(pdf->getGamma()) );
         }
         else if(const FTDistribution2DCone *pdf =
                 dynamic_cast<const FTDistribution2DCone *>(pdfs[i])) {
@@ -206,6 +215,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             pdfItem->setRegisteredProperty(
                         FTDistribution2DConeItem::P_CORR_LENGTH_Y,
                         pdf->getCoherenceLengthY());
+            pdfItem->setRegisteredProperty(
+                        FTDistribution2DConeItem::P_GAMMA,
+                        Units::rad2deg(pdf->getGamma()) );
         }
         else if(const FTDistribution2DVoigt *pdf =
                 dynamic_cast<const FTDistribution2DVoigt *>(pdfs[i])) {
@@ -217,6 +229,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
             pdfItem->setRegisteredProperty(
                         FTDistribution2DVoigtItem::P_CORR_LENGTH_Y,
                         pdf->getCoherenceLengthY());
+            pdfItem->setRegisteredProperty(
+                        FTDistribution2DVoigtItem::P_GAMMA,
+                        Units::rad2deg(pdf->getGamma()) );
             pdfItem->setRegisteredProperty(
                         FTDistribution2DVoigtItem::P_ETA, pdf->getEta());
         }
@@ -283,6 +298,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         pdfItem->setRegisteredProperty(
                     FTDistribution2DCauchyItem::P_CORR_LENGTH_Y,
                     pdf->getCoherenceLengthY());
+        pdfItem->setRegisteredProperty(
+                    FTDistribution2DCauchyItem::P_GAMMA,
+                    Units::rad2deg(pdf->getGamma()) );
     }
     else if(const FTDistribution2DGauss *pdf =
             dynamic_cast<const FTDistribution2DGauss *>(p_pdf)) {
@@ -294,6 +312,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         pdfItem->setRegisteredProperty(
                     FTDistribution2DGaussItem::P_CORR_LENGTH_Y,
                     pdf->getCoherenceLengthY());
+        pdfItem->setRegisteredProperty(
+                    FTDistribution2DGaussItem::P_GAMMA,
+                    Units::rad2deg(pdf->getGamma()) );
     }
     else if(const FTDistribution2DGate *pdf =
             dynamic_cast<const FTDistribution2DGate *>(p_pdf)) {
@@ -305,6 +326,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         pdfItem->setRegisteredProperty(
                     FTDistribution2DGateItem::P_CORR_LENGTH_Y,
                     pdf->getCoherenceLengthY());
+        pdfItem->setRegisteredProperty(
+                    FTDistribution2DGateItem::P_GAMMA,
+                    Units::rad2deg(pdf->getGamma()) );
     }
     else if(const FTDistribution2DCone *pdf =
             dynamic_cast<const FTDistribution2DCone *>(p_pdf)) {
@@ -316,6 +340,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         pdfItem->setRegisteredProperty(
                     FTDistribution2DConeItem::P_CORR_LENGTH_Y,
                     pdf->getCoherenceLengthY());
+        pdfItem->setRegisteredProperty(
+                    FTDistribution2DConeItem::P_GAMMA,
+                    Units::rad2deg(pdf->getGamma()) );
     }
     else if(const FTDistribution2DVoigt *pdf =
             dynamic_cast<const FTDistribution2DVoigt *>(p_pdf)) {
@@ -327,6 +354,9 @@ void TransformFromDomain::setItemFromSample(ParameterizedItem *item,
         pdfItem->setRegisteredProperty(
                     FTDistribution2DVoigtItem::P_CORR_LENGTH_Y,
                     pdf->getCoherenceLengthY());
+        pdfItem->setRegisteredProperty(
+                    FTDistribution2DVoigtItem::P_GAMMA,
+                    Units::rad2deg(pdf->getGamma()) );
         pdfItem->setRegisteredProperty(
                     FTDistribution2DVoigtItem::P_ETA, pdf->getEta());
     }

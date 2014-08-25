@@ -87,6 +87,9 @@ public:
     //! Retrieve the rotation type (general, around x, y or z-axis)
     RotationType getRotationType() const;
 
+    //! Determine if the transformation is trivial (identity)
+    bool isIdentity() const;
+
     friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m)
     { m.print(ostr); return ostr; }
 

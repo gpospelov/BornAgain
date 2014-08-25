@@ -20,7 +20,6 @@ SimulationToolBar::SimulationToolBar(QWidget *parent)
 
     setContentsMargins(0,0,0,0);
 
-    QAction *action = new QAction(QIcon(":/SampleDesigner/images/refresh.png"), tr("Reset View, Ctrl+R"), this);
-    this->addAction(action);
+    this->addAction(new QAction(0));
 
 }

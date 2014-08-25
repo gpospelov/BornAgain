@@ -8,7 +8,7 @@
 
 //! The AngleProperty keeps angle value together with units (radians, degrees)
 //! in which the angle should be presented to the user.
-class AngleProperty
+class BA_CORE_API_ AngleProperty
 {
 public:
     AngleProperty(double angle_value = 0.0, const QString &angle_units = QString());

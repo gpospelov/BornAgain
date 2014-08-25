@@ -3,7 +3,7 @@
 
 #include "FancyGroupProperty.h"
 
-class FixedGroupProperty : public FancyGroupProperty
+class BA_CORE_API_ FixedGroupProperty : public FancyGroupProperty
 {
 public:
 //    FixedGroupProperty() {}

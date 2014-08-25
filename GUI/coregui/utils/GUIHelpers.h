@@ -24,7 +24,7 @@ class QVariant;
 
 namespace GUIHelpers
 {
-class Error : public std::exception
+class BA_CORE_API_ Error : public std::exception
 {
 public:
     explicit Error(const QString &message) throw()
@@ -37,18 +37,18 @@ private:
     const char *message;
 };
 
-void information(QWidget *parent, const QString &title,
+void BA_CORE_API_ information(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
-void warning(QWidget *parent, const QString &title,
+void BA_CORE_API_ warning(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
-bool question(QWidget *parent, const QString &title,
+bool BA_CORE_API_ question(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString(),
         const QString &yesText=QObject::tr("&Yes"),
         const QString &noText=QObject::tr("&No"));
-bool okToDelete(QWidget *parent, const QString &title,
+bool BA_CORE_API_ okToDelete(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
 
-int getVariantType(const QVariant &variant);
+int BA_CORE_API_ getVariantType(const QVariant &variant);
 
 }
 

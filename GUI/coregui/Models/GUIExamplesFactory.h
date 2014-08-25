@@ -9,7 +9,7 @@ class InstrumentModel;
 class SampleModel;
 
 //! Class that generates GUI model from
-class GUIExamplesFactory
+class BA_CORE_API_ GUIExamplesFactory
 {
 public:
     static bool isValidExampleName(const QString &name);

@@ -20,7 +20,7 @@ class NodeEditor;
 
 
 //! Main class which represents SessionModel on graphics scene
-class DesignerScene : public QGraphicsScene
+class BA_CORE_API_ DesignerScene : public QGraphicsScene
 {
     Q_OBJECT
 

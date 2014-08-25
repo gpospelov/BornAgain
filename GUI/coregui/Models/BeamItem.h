@@ -4,7 +4,7 @@
 
 #include "ParameterizedItem.h"
 
-class BeamItem : public ParameterizedItem
+class BA_CORE_API_ BeamItem : public ParameterizedItem
 {
     Q_OBJECT
 public:

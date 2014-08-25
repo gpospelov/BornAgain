@@ -83,6 +83,10 @@ set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x040900)
 
+if(WIN32)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+endif()
+
 #add_executable(${executable_name} ${source_files} ${RC_SRCS} ${include_files})
 
 # --- making library ---

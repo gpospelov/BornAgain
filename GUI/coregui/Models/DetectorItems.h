@@ -4,7 +4,7 @@
 #include "ParameterizedItem.h"
 
 
-class DetectorItem : public ParameterizedItem
+class BA_CORE_API_ DetectorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:

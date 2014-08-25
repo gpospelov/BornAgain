@@ -7,7 +7,7 @@
 #include <QGraphicsItem>
 
 //! collection of static methods with SampleDesigner geometry settings
-class DesignerHelper
+class BA_CORE_API_ DesignerHelper
 {
 public:
 

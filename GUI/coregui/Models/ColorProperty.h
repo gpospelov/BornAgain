@@ -10,7 +10,7 @@
 //!
 //! The reason is to have simple color editor in PropertyEditor instead of
 //! original one which is too sophisticated.
-class ColorProperty
+class BA_CORE_API_ ColorProperty
 {
 public:
     ColorProperty() : m_color(Qt::red) {}

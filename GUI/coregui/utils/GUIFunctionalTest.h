@@ -2,12 +2,13 @@
 #define GUIFUNCTIONALTEST_H
 
 #include <string>
+#include "WinDllMacros.h"
 #include "OutputData.h"
 class Simulation;
 
 //! Simple test for converting domain simulation into GUI and back, and then
 //! comparing results of two simulations in domain space
-class GUIFunctionalTest
+class BA_CORE_API_ GUIFunctionalTest
 {
 public:
     enum TestResult { SUCCESS, FAILED};
@@ -26,7 +27,7 @@ private:
 };
 
 //! run functional tests with given name
-int GUI_FUNCTIONAL_TEST(const std::string &name);
+BA_CORE_API_ int GUI_FUNCTIONAL_TEST(const std::string &name);
 
 
 #endif

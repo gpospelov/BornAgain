@@ -11,7 +11,7 @@ class BeamItem;
 class QDoubleValidator;
 class AngleProperty;
 
-class BeamEditorWidget : public QWidget
+class BA_CORE_API_ BeamEditorWidget : public QWidget
 {
     Q_OBJECT
 

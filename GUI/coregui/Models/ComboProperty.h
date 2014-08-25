@@ -9,7 +9,7 @@
 //! from predefined list.
 //!
 //! This is a light version of GroupProperty without SubItem mechanism
-class ComboProperty
+class BA_CORE_API_ ComboProperty
 {
 public:
 

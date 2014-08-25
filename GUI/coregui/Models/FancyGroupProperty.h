@@ -9,7 +9,7 @@
 
 class ParameterizedItem;
 
-class FancyGroupProperty
+class BA_CORE_API_ FancyGroupProperty
 {
 public:
     enum GroupType

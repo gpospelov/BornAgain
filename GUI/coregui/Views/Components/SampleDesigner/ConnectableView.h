@@ -10,7 +10,7 @@ class QWidget;
 class NodeEditorPort;
 
 //! view of ISample's with rectangular shape and node functionality
-class ConnectableView : public IView
+class BA_CORE_API_ ConnectableView : public IView
 {
 public:
     enum { Type = DesignerHelper::ISampleRectType };

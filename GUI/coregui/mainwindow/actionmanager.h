@@ -14,7 +14,7 @@ class MainWindow;
 
 //! Class to handle MainWindow's menu and corresponding actions
 
-class ActionManager : public QObject
+class BA_CORE_API_ ActionManager : public QObject
 {
     Q_OBJECT
 public:

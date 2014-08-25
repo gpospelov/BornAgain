@@ -10,7 +10,7 @@ class QSpinBox;
 class QDoubleSpinBox;
 class AngleProperty;
 
-class DetectorEditorWidget : public QWidget
+class BA_CORE_API_ DetectorEditorWidget : public QWidget
 {
     Q_OBJECT
 

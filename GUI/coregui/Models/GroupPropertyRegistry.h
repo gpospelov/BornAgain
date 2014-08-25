@@ -12,7 +12,7 @@ class ParameterizedItem;
 
 //! The GroupPropertyRegistry constructs FancyGroupProperty or SelectableGroupProperty
 //! according to the given name of the group.
-class GroupPropertyRegistry
+class BA_CORE_API_ GroupPropertyRegistry
 {
 public:
     //! correspondance of group name to ParameterizedItem's types to labels

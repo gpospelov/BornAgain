@@ -19,7 +19,7 @@
 #include "ParameterizedItem.h"
 class IFormFactor;
 
-class FormFactorItem : public ParameterizedItem
+class BA_CORE_API_ FormFactorItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -29,7 +29,7 @@ public:
 };
 
 
-class AnisoPyramidItem : public FormFactorItem
+class BA_CORE_API_ AnisoPyramidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -39,7 +39,7 @@ public:
 };
 
 
-class BoxItem : public FormFactorItem
+class BA_CORE_API_ BoxItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -49,7 +49,7 @@ public:
 };
 
 
-class ConeItem : public FormFactorItem
+class BA_CORE_API_ ConeItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -59,7 +59,7 @@ public:
 };
 
 
-class Cone6Item : public FormFactorItem
+class BA_CORE_API_ Cone6Item : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -69,7 +69,7 @@ public:
 };
 
 
-class CuboctahedronItem : public FormFactorItem
+class BA_CORE_API_ CuboctahedronItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -79,7 +79,7 @@ public:
 };
 
 
-class CylinderItem : public FormFactorItem
+class BA_CORE_API_ CylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -89,7 +89,7 @@ public:
 };
 
 
-class EllipsoidalCylinderItem : public FormFactorItem
+class BA_CORE_API_ EllipsoidalCylinderItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -99,7 +99,7 @@ public:
 };
 
 
-class FullSphereItem : public FormFactorItem
+class BA_CORE_API_ FullSphereItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -109,7 +109,7 @@ public:
 };
 
 
-class FullSpheroidItem : public FormFactorItem
+class BA_CORE_API_ FullSpheroidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -119,7 +119,7 @@ public:
 };
 
 
-class HemiEllipsoidItem : public FormFactorItem
+class BA_CORE_API_ HemiEllipsoidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -129,7 +129,7 @@ public:
 };
 
 
-class Prism3Item : public FormFactorItem
+class BA_CORE_API_ Prism3Item : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -139,7 +139,7 @@ public:
 };
 
 
-class Prism6Item : public FormFactorItem
+class BA_CORE_API_ Prism6Item : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -149,7 +149,7 @@ public:
 };
 
 
-class PyramidItem : public FormFactorItem
+class BA_CORE_API_ PyramidItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -159,7 +159,7 @@ public:
 };
 
 
-class Ripple1Item : public FormFactorItem
+class BA_CORE_API_ Ripple1Item : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -169,7 +169,7 @@ public:
 };
 
 
-class Ripple2Item : public FormFactorItem
+class BA_CORE_API_ Ripple2Item : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -179,7 +179,7 @@ public:
 };
 
 
-class TetrahedronItem : public FormFactorItem
+class BA_CORE_API_ TetrahedronItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -189,7 +189,7 @@ public:
 };
 
 
-class TruncatedSphereItem : public FormFactorItem
+class BA_CORE_API_ TruncatedSphereItem : public FormFactorItem
 {
     Q_OBJECT
 public:
@@ -199,7 +199,7 @@ public:
 };
 
 
-class TruncatedSpheroidItem : public FormFactorItem
+class BA_CORE_API_ TruncatedSpheroidItem : public FormFactorItem
 {
     Q_OBJECT
 public:

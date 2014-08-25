@@ -28,7 +28,7 @@ class ParticleCoreShell;
 class ParameterizedItem;
 class LayerRoughness;
 
-class DomainObjectBuilder
+class BA_CORE_API_ DomainObjectBuilder
 {
 public:
     explicit DomainObjectBuilder();

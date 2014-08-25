@@ -39,14 +39,6 @@ public slots:
     void onCurrentLinkChanged(ItemLink link);
 
 private:
-    //QStandardItemModel *getItemModelFromSessionModel();
-    // QStandardItemModel *getTestItemModel();
-    QStandardItem *iterateSessionModel(const QModelIndex &parentIndex = QModelIndex(), QStandardItem *parentItem = 0);
-    void insertRowIntoItem(QStandardItem *parentItem, QStandardItem *childTitleItem, QStandardItem *childValueItem = 0);
-    void insertRowIntoItem(QStandardItem *parentItem, QString title, QVariant value, ParameterizedItem *parameterizedItem);
-
-    QStandardItemModel *createParameterModel();
-
     QModelIndex getMultiLayerIndex(const QString &name);
 
     QStandardItemModel *m_parameterModel;

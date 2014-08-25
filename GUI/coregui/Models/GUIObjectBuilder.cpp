@@ -173,11 +173,27 @@ void GUIObjectBuilder::visit(const Particle *sample)
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::Port0);
+            const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
+            if (p_transformation) {
+                ParameterizedItem *transformation_item =
+                        m_sampleModel->insertNewItem(
+                            Constants::TransformationType,
+                            m_sampleModel->indexOfItem(particleItem));
+                addRotationItem(p_transformation, transformation_item);
+            }
         }
         else if(sample == coreshell->getShellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                 m_sampleModel->indexOfItem(parent), -1,
                 ParameterizedItem::PortInfo::Port1);
+            const Geometry::Transform3D *p_transformation = sample->getPTransform3D();
+            if (p_transformation) {
+                ParameterizedItem *transformation_item =
+                        m_sampleModel->insertNewItem(
+                            Constants::TransformationType,
+                            m_sampleModel->indexOfItem(particleItem));
+                addRotationItem(p_transformation, transformation_item);
+            }
         } else {
             throw GUIHelpers::Error("GUIObjectBuilder::visit"
                 "(const Particle *sample) -> Error. Logically should not be here");
@@ -204,47 +220,7 @@ void GUIObjectBuilder::visit(const Particle *sample)
                 m_sample_encountered[Constants::TransformationType] = false;
             }
             if (p_transformation) {
-                Geometry::Transform3D::RotationType rot_type =
-                        p_transformation->getRotationType();
-                double alpha, beta, gamma;
-                p_transformation->calculateEulerAngles(&alpha, &beta, &gamma);
-                ParameterizedItem *p_rotation_item = 0;
-                switch (rot_type) {
-                case Geometry::Transform3D::XAXIS:
-                    p_rotation_item = transformation_item->setGroupProperty(
-                               TransformationItem::P_ROT,
-                               Constants::XRotationType);
-                    if (alpha>0.0) beta = -beta;
-                    p_rotation_item->setRegisteredProperty(
-                               XRotationItem::P_ANGLE, Units::rad2deg(beta));
-                    break;
-                case Geometry::Transform3D::YAXIS:
-                    p_rotation_item = transformation_item->setGroupProperty(
-                               TransformationItem::P_ROT,
-                               Constants::YRotationType);
-                    if (alpha>0.0 && alpha<3.14) beta = -beta;
-                    p_rotation_item->setRegisteredProperty(
-                               YRotationItem::P_ANGLE, Units::rad2deg(beta));
-                    break;
-                case Geometry::Transform3D::ZAXIS:
-                    p_rotation_item = transformation_item->setGroupProperty(
-                               TransformationItem::P_ROT,
-                               Constants::ZRotationType);
-                    p_rotation_item->setRegisteredProperty(
-                               ZRotationItem::P_ANGLE, Units::rad2deg(alpha));
-                    break;
-                default:
-                    p_rotation_item = transformation_item->setGroupProperty(
-                               TransformationItem::P_ROT,
-                               Constants::EulerRotationType);
-                    p_rotation_item->setRegisteredProperty(
-                               EulerRotationItem::P_ALPHA, Units::rad2deg(alpha));
-                    p_rotation_item->setRegisteredProperty(
-                               EulerRotationItem::P_BETA, Units::rad2deg(beta));
-                    p_rotation_item->setRegisteredProperty(
-                               EulerRotationItem::P_GAMMA, Units::rad2deg(gamma));
-                    break;
-                }
+                addRotationItem(p_transformation, transformation_item);
             }
         }
     }
@@ -612,6 +588,53 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     }
 
     return MaterialProperty();
+}
+
+void GUIObjectBuilder::addRotationItem(
+        const Geometry::Transform3D *p_transformation,
+        ParameterizedItem *transformation_item)
+{
+    Geometry::Transform3D::RotationType rot_type =
+            p_transformation->getRotationType();
+    double alpha, beta, gamma;
+    p_transformation->calculateEulerAngles(&alpha, &beta, &gamma);
+    ParameterizedItem *p_rotation_item = 0;
+    switch (rot_type) {
+    case Geometry::Transform3D::XAXIS:
+        p_rotation_item = transformation_item->setGroupProperty(
+                    TransformationItem::P_ROT,
+                    Constants::XRotationType);
+        if (alpha>0.0) beta = -beta;
+        p_rotation_item->setRegisteredProperty(
+                    XRotationItem::P_ANGLE, Units::rad2deg(beta));
+        break;
+    case Geometry::Transform3D::YAXIS:
+        p_rotation_item = transformation_item->setGroupProperty(
+                    TransformationItem::P_ROT,
+                    Constants::YRotationType);
+        if (alpha>0.0 && alpha<3.14) beta = -beta;
+        p_rotation_item->setRegisteredProperty(
+                    YRotationItem::P_ANGLE, Units::rad2deg(beta));
+        break;
+    case Geometry::Transform3D::ZAXIS:
+        p_rotation_item = transformation_item->setGroupProperty(
+                    TransformationItem::P_ROT,
+                    Constants::ZRotationType);
+        p_rotation_item->setRegisteredProperty(
+                    ZRotationItem::P_ANGLE, Units::rad2deg(alpha));
+        break;
+    default:
+        p_rotation_item = transformation_item->setGroupProperty(
+                    TransformationItem::P_ROT,
+                    Constants::EulerRotationType);
+        p_rotation_item->setRegisteredProperty(
+                    EulerRotationItem::P_ALPHA, Units::rad2deg(alpha));
+        p_rotation_item->setRegisteredProperty(
+                    EulerRotationItem::P_BETA, Units::rad2deg(beta));
+        p_rotation_item->setRegisteredProperty(
+                    EulerRotationItem::P_GAMMA, Units::rad2deg(gamma));
+        break;
+    }
 }
 
 

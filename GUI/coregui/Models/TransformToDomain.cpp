@@ -291,7 +291,7 @@ void TransformToDomain::initInstrumentFromDetectorItem(const ParameterizedItem &
         double alpha_max = alpha_max_property.getValueInRadians();
 
         ComboProperty binning = subDetector->getRegisteredProperty(PhiAlphaDetectorItem::P_BINNING).value<ComboProperty>();
-        // FIXEM Get rid from hardcoded string
+        // FIXME Get rid from hardcoded string
 //        if(binning.getValue() != QStringLiteral("Const KBin"))
 //            throw GUIHelpers::Error("TransformToDomain::initInstrumentFromDetectorItem() -> Not implemented");
 

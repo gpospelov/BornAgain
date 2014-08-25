@@ -288,6 +288,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Example #7 (Mixture of fixed particles)" icon="images/sample_layers2.png">
+            <widget class="example07">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
     </category>
 
 </widgetbox>

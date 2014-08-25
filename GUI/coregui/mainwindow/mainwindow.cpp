@@ -125,9 +125,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_jobQueueView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
 
 
-    m_projectManager->createNewProject();
-
+    //just for test
     testGUIObjectBuilder();
+
+    m_projectManager->createNewProject();
 }
 
 

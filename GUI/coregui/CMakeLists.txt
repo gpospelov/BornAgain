@@ -105,6 +105,7 @@ include_directories(
     ${qcustomplot_INCLUDE_DIRS}
     ${qtpropertybrowser_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
+    ${GSL_INCLUDE_DIR}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
     ${ManhattanStyle_INCLUDE_DIRS}

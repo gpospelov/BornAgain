@@ -19,7 +19,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
-#    ${GSL_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR}
     ${BornAgainGUI_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
 )

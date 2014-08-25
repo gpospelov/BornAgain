@@ -35,18 +35,6 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::clear( );
     }
 
-    virtual ::std::string getAlgorithmName(  ) const  {
-        if( bp::override func_getAlgorithmName = this->get_override( "getAlgorithmName" ) )
-            return func_getAlgorithmName(  );
-        else{
-            return this->IMinimizer::getAlgorithmName(  );
-        }
-    }
-    
-    ::std::string default_getAlgorithmName(  ) const  {
-        return IMinimizer::getAlgorithmName( );
-    }
-
     virtual double getErrorOfVariable( ::std::size_t arg0 ) const  {
         if( bp::override func_getErrorOfVariable = this->get_override( "getErrorOfVariable" ) )
             return func_getErrorOfVariable( arg0 );
@@ -81,18 +69,6 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
     
     double default_getMinValue(  ) const  {
         return IMinimizer::getMinValue( );
-    }
-
-    virtual ::std::string getMinimizerName(  ) const  {
-        if( bp::override func_getMinimizerName = this->get_override( "getMinimizerName" ) )
-            return func_getMinimizerName(  );
-        else{
-            return this->IMinimizer::getMinimizerName(  );
-        }
-    }
-    
-    ::std::string default_getMinimizerName(  ) const  {
-        return IMinimizer::getMinimizerName( );
     }
 
     virtual ::std::size_t getNCalls(  ) const  {
@@ -208,6 +184,30 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::setParameters( boost::ref(arg0) );
     }
 
+    virtual ::std::string getAlgorithmName(  ) const  {
+            if( bp::override func_getAlgorithmName = this->get_override( "getAlgorithmName" ) )
+                return boost::python::call<std::string>(func_getAlgorithmName(  ));
+            else{
+                return this->IMinimizer::getAlgorithmName(  );
+            }
+        }
+    
+        ::std::string default_getAlgorithmName(  ) const  {
+            return IMinimizer::getAlgorithmName( );
+        }
+
+    virtual ::std::string getMinimizerName(  ) const  {
+            if( bp::override func_getMinimizerName = this->get_override( "getMinimizerName" ) )
+                return boost::python::call<std::string>(func_getMinimizerName(  ));
+            else{
+                return this->IMinimizer::getMinimizerName(  );
+            }
+        }
+    
+        ::std::string default_getMinimizerName(  ) const  {
+            return IMinimizer::getMinimizerName( );
+        }
+
 };
 
 void register_IMinimizer_class(){
@@ -225,17 +225,6 @@ void register_IMinimizer_class(){
                 "clear"
                 , clear_function_type(&::IMinimizer::clear)
                 , default_clear_function_type(&IMinimizer_wrapper::default_clear) );
-        
-        }
-        { //::IMinimizer::getAlgorithmName
-        
-            typedef ::std::string ( ::IMinimizer::*getAlgorithmName_function_type)(  ) const;
-            typedef ::std::string ( IMinimizer_wrapper::*default_getAlgorithmName_function_type)(  ) const;
-            
-            IMinimizer_exposer.def( 
-                "getAlgorithmName"
-                , getAlgorithmName_function_type(&::IMinimizer::getAlgorithmName)
-                , default_getAlgorithmName_function_type(&IMinimizer_wrapper::default_getAlgorithmName) );
         
         }
         { //::IMinimizer::getErrorOfVariable
@@ -270,17 +259,6 @@ void register_IMinimizer_class(){
                 "getMinValue"
                 , getMinValue_function_type(&::IMinimizer::getMinValue)
                 , default_getMinValue_function_type(&IMinimizer_wrapper::default_getMinValue) );
-        
-        }
-        { //::IMinimizer::getMinimizerName
-        
-            typedef ::std::string ( ::IMinimizer::*getMinimizerName_function_type)(  ) const;
-            typedef ::std::string ( IMinimizer_wrapper::*default_getMinimizerName_function_type)(  ) const;
-            
-            IMinimizer_exposer.def( 
-                "getMinimizerName"
-                , getMinimizerName_function_type(&::IMinimizer::getMinimizerName)
-                , default_getMinimizerName_function_type(&IMinimizer_wrapper::default_getMinimizerName) );
         
         }
         { //::IMinimizer::getNCalls
@@ -415,6 +393,14 @@ void register_IMinimizer_class(){
                 , ( bp::arg("arg0") ) );
         
         }
+        IMinimizer_exposer.def(
+                        "getAlgorithmName"
+                        , (::std::string ( ::IMinimizer::*)(  ) const)(&::IMinimizer::getAlgorithmName)
+                        , (::std::string ( IMinimizer_wrapper::*)(  ) const)(&IMinimizer_wrapper::default_getAlgorithmName) );
+        IMinimizer_exposer.def(
+                        "getMinimizerName"
+                        , (::std::string ( ::IMinimizer::*)(  ) const)(&::IMinimizer::getMinimizerName)
+                        , (::std::string ( IMinimizer_wrapper::*)(  ) const)(&IMinimizer_wrapper::default_getMinimizerName) );
     }
 
 }

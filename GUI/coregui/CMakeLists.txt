@@ -190,8 +190,8 @@ if(WIN32)
 #     ${ROOTSYS}/etc/plugins/TVirtualX
 #     DESTINATION etc/plugins COMPONENT Libraries)
 # 
-#     # --- Qt ---
-#     STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\root\ to C:/root/
+     # --- Qt ---
+     STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\Qt\ to C:/Qt/
 
     install(FILES
     ${QTDIR}/bin/Qt5Widgets.DLL
@@ -201,11 +201,11 @@ if(WIN32)
     ${QTDIR}/bin/Qt5WebKitWidgets.dll
     ${QTDIR}/bin/Qt5Designer.dll
     ${QTDIR}/bin/Qt5Xml.dll
-    ${QTDIR}/bin/libGLESv2.dll
-    ${QTDIR}/bin/libEGL.dll    
-    ${QTDIR}/bin/icuin51.dll
-    ${QTDIR}/bin/icuuc51.dll
-    ${QTDIR}/bin/icudt51.dll
+    #${QTDIR}/bin/libGLESv2.dll
+    #${QTDIR}/bin/libEGL.dll    
+    ${QTDIR}/bin/icuin52.dll
+    ${QTDIR}/bin/icuuc52.dll
+    ${QTDIR}/bin/icudt52.dll
     ${QTDIR}/bin/Qt5Multimedia.dll
     ${QTDIR}/bin/Qt5MultimediaWidgets.dll
     ${QTDIR}/bin/Qt5OpenGL.dll
@@ -215,7 +215,7 @@ if(WIN32)
     ${QTDIR}/bin/Qt5Quick.dll
     ${QTDIR}/bin/Qt5Sensors.dll
     ${QTDIR}/bin/Qt5Sql.dll
-    ${QTDIR}/bin/Qt5V8.dll
+    #${QTDIR}/bin/Qt5V8.dll
     ${QTDIR}/bin/Qt5WebKit.dll    
     DESTINATION ${destination_lib} COMPONENT Libraries)
 

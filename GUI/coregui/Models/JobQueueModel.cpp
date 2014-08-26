@@ -289,7 +289,7 @@ void JobQueueModel::readFrom(QXmlStreamReader *reader)
 void JobQueueModel::onSelectionChanged( const QItemSelection &selected, const QItemSelection & /*deselected*/)
 {
     qDebug() << "JobQueueModel::onSelectionChanged" << selected;
-    if(!selected.empty() and !selected.first().indexes().empty()) {
+    if(!selected.empty() &&  !selected.first().indexes().empty()) {
         QModelIndex index = selected.first().indexes().at(0);
         emit selectionChanged(getJobItemForIndex(index));
     }

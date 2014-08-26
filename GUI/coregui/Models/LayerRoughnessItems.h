@@ -4,7 +4,7 @@
 
 #include "ParameterizedItem.h"
 
-class LayerZeroRoughnessItem : public ParameterizedItem
+class BA_CORE_API_ LayerZeroRoughnessItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
@@ -13,11 +13,13 @@ public:
 };
 
 
-class LayerBasicRoughnessItem : public ParameterizedItem
+class BA_CORE_API_ LayerBasicRoughnessItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_SIGMA, P_HURST, P_LATERAL_CORR_LENGTH;
+    static const QString P_SIGMA;
+    static const QString P_HURST;
+    static const QString P_LATERAL_CORR_LENGTH;
     explicit LayerBasicRoughnessItem(ParameterizedItem *parent=0);
     ~LayerBasicRoughnessItem(){}
 };

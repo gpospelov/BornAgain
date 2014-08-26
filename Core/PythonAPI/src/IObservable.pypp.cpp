@@ -33,10 +33,10 @@ struct IObservable_wrapper : IObservable, bp::wrapper< IObservable > {
     virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
             func_attachObserver( obj );
-        else
+        else{
             this->IObservable::attachObserver( obj );
+        }
     }
-    
     
     void default_attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         IObservable::attachObserver( obj );
@@ -45,10 +45,10 @@ struct IObservable_wrapper : IObservable, bp::wrapper< IObservable > {
     virtual void notifyObservers(  ) {
         if( bp::override func_notifyObservers = this->get_override( "notifyObservers" ) )
             func_notifyObservers(  );
-        else
+        else{
             this->IObservable::notifyObservers(  );
+        }
     }
-    
     
     void default_notifyObservers(  ) {
         IObservable::notifyObservers( );
@@ -64,8 +64,8 @@ void register_IObservable_class(){
         bp::scope IObservable_scope( IObservable_exposer );
         { //::IObservable::attachObserver
         
-            typedef void ( ::IObservable::*attachObserver_function_type )( ::boost::shared_ptr< IObserver > ) ;
-            typedef void ( IObservable_wrapper::*default_attachObserver_function_type )( ::boost::shared_ptr< IObserver > ) ;
+            typedef void ( ::IObservable::*attachObserver_function_type)( ::boost::shared_ptr< IObserver > ) ;
+            typedef void ( IObservable_wrapper::*default_attachObserver_function_type)( ::boost::shared_ptr< IObserver > ) ;
             
             IObservable_exposer.def( 
                 "attachObserver"
@@ -76,8 +76,8 @@ void register_IObservable_class(){
         }
         { //::IObservable::notifyObservers
         
-            typedef void ( ::IObservable::*notifyObservers_function_type )(  ) ;
-            typedef void ( IObservable_wrapper::*default_notifyObservers_function_type )(  ) ;
+            typedef void ( ::IObservable::*notifyObservers_function_type)(  ) ;
+            typedef void ( IObservable_wrapper::*default_notifyObservers_function_type)(  ) ;
             
             IObservable_exposer.def( 
                 "notifyObservers"

@@ -33,10 +33,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual ::StochasticSampledParameter * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->StochasticSampledParameter::clone(  );
+        }
     }
-    
     
     ::StochasticSampledParameter * default_clone(  ) const  {
         return StochasticSampledParameter::clone( );
@@ -45,10 +45,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual double probabilityDensity( double value ) const  {
         if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
             return func_probabilityDensity( value );
-        else
+        else{
             return this->StochasticSampledParameter::probabilityDensity( value );
+        }
     }
-    
     
     double default_probabilityDensity( double value ) const  {
         return StochasticSampledParameter::probabilityDensity( value );
@@ -57,10 +57,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual void setToRandom(  ) {
         if( bp::override func_setToRandom = this->get_override( "setToRandom" ) )
             func_setToRandom(  );
-        else
+        else{
             this->StochasticSampledParameter::setToRandom(  );
+        }
     }
-    
     
     void default_setToRandom(  ) {
         StochasticSampledParameter::setToRandom( );
@@ -69,10 +69,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
-        else
+        else{
             return this->StochasticParameter< double >::getFWHM(  );
+        }
     }
-    
     
     double default_getFWHM(  ) const  {
         return StochasticParameter< double >::getFWHM( );
@@ -81,10 +81,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual double getRandom(  ) {
         if( bp::override func_getRandom = this->get_override( "getRandom" ) )
             return func_getRandom(  );
-        else
+        else{
             return this->StochasticParameter< double >::getRandom(  );
+        }
     }
-    
     
     double default_getRandom(  ) {
         return StochasticParameter< double >::getRandom( );
@@ -93,10 +93,10 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
-        else
+        else{
             this->StochasticParameter< double >::setToAverage(  );
+        }
     }
-    
     
     void default_setToAverage(  ) {
         StochasticParameter< double >::setToAverage( );
@@ -113,8 +113,8 @@ void register_StochasticSampledParameter_class(){
         StochasticSampledParameter_exposer.def( bp::init< StochasticParameter< double > const &, std::size_t, bp::optional< int > >(( bp::arg("par"), bp::arg("nbins"), bp::arg("nfwhm")=(int)(3) )) );
         { //::StochasticSampledParameter::clone
         
-            typedef ::StochasticSampledParameter * ( ::StochasticSampledParameter::*clone_function_type )(  ) const;
-            typedef ::StochasticSampledParameter * ( StochasticSampledParameter_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::StochasticSampledParameter * ( ::StochasticSampledParameter::*clone_function_type)(  ) const;
+            typedef ::StochasticSampledParameter * ( StochasticSampledParameter_wrapper::*default_clone_function_type)(  ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "clone"
@@ -125,7 +125,7 @@ void register_StochasticSampledParameter_class(){
         }
         { //::StochasticSampledParameter::getBinValue
         
-            typedef double ( ::StochasticSampledParameter::*getBinValue_function_type )( ::std::size_t ) const;
+            typedef double ( ::StochasticSampledParameter::*getBinValue_function_type)( ::std::size_t ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "getBinValue"
@@ -135,7 +135,7 @@ void register_StochasticSampledParameter_class(){
         }
         { //::StochasticSampledParameter::getNbins
         
-            typedef ::std::size_t ( ::StochasticSampledParameter::*getNbins_function_type )(  ) const;
+            typedef ::std::size_t ( ::StochasticSampledParameter::*getNbins_function_type)(  ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "getNbins"
@@ -144,7 +144,7 @@ void register_StochasticSampledParameter_class(){
         }
         { //::StochasticSampledParameter::getNormalizedProbability
         
-            typedef double ( ::StochasticSampledParameter::*getNormalizedProbability_function_type )( ::std::size_t ) const;
+            typedef double ( ::StochasticSampledParameter::*getNormalizedProbability_function_type)( ::std::size_t ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "getNormalizedProbability"
@@ -154,7 +154,7 @@ void register_StochasticSampledParameter_class(){
         }
         { //::StochasticSampledParameter::probabilityBinDensity
         
-            typedef double ( ::StochasticSampledParameter::*probabilityBinDensity_function_type )( ::std::size_t ) const;
+            typedef double ( ::StochasticSampledParameter::*probabilityBinDensity_function_type)( ::std::size_t ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "probabilityBinDensity"
@@ -164,8 +164,8 @@ void register_StochasticSampledParameter_class(){
         }
         { //::StochasticSampledParameter::probabilityDensity
         
-            typedef double ( ::StochasticSampledParameter::*probabilityDensity_function_type )( double ) const;
-            typedef double ( StochasticSampledParameter_wrapper::*default_probabilityDensity_function_type )( double ) const;
+            typedef double ( ::StochasticSampledParameter::*probabilityDensity_function_type)( double ) const;
+            typedef double ( StochasticSampledParameter_wrapper::*default_probabilityDensity_function_type)( double ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "probabilityDensity"
@@ -176,8 +176,8 @@ void register_StochasticSampledParameter_class(){
         }
         { //::StochasticSampledParameter::setToRandom
         
-            typedef void ( ::StochasticSampledParameter::*setToRandom_function_type )(  ) ;
-            typedef void ( StochasticSampledParameter_wrapper::*default_setToRandom_function_type )(  ) ;
+            typedef void ( ::StochasticSampledParameter::*setToRandom_function_type)(  ) ;
+            typedef void ( StochasticSampledParameter_wrapper::*default_setToRandom_function_type)(  ) ;
             
             StochasticSampledParameter_exposer.def( 
                 "setToRandom"
@@ -188,8 +188,8 @@ void register_StochasticSampledParameter_class(){
         { //::StochasticParameter< double >::getFWHM
         
             typedef StochasticSampledParameter exported_class_t;
-            typedef double ( exported_class_t::*getFWHM_function_type )(  ) const;
-            typedef double ( StochasticSampledParameter_wrapper::*default_getFWHM_function_type )(  ) const;
+            typedef double ( exported_class_t::*getFWHM_function_type)(  ) const;
+            typedef double ( StochasticSampledParameter_wrapper::*default_getFWHM_function_type)(  ) const;
             
             StochasticSampledParameter_exposer.def( 
                 "getFWHM"
@@ -200,8 +200,8 @@ void register_StochasticSampledParameter_class(){
         { //::StochasticParameter< double >::getRandom
         
             typedef StochasticSampledParameter exported_class_t;
-            typedef double ( exported_class_t::*getRandom_function_type )(  ) ;
-            typedef double ( StochasticSampledParameter_wrapper::*default_getRandom_function_type )(  ) ;
+            typedef double ( exported_class_t::*getRandom_function_type)(  ) ;
+            typedef double ( StochasticSampledParameter_wrapper::*default_getRandom_function_type)(  ) ;
             
             StochasticSampledParameter_exposer.def( 
                 "getRandom"
@@ -212,8 +212,8 @@ void register_StochasticSampledParameter_class(){
         { //::StochasticParameter< double >::setToAverage
         
             typedef StochasticSampledParameter exported_class_t;
-            typedef void ( exported_class_t::*setToAverage_function_type )(  ) ;
-            typedef void ( StochasticSampledParameter_wrapper::*default_setToAverage_function_type )(  ) ;
+            typedef void ( exported_class_t::*setToAverage_function_type)(  ) ;
+            typedef void ( StochasticSampledParameter_wrapper::*default_setToAverage_function_type)(  ) ;
             
             StochasticSampledParameter_exposer.def( 
                 "setToAverage"

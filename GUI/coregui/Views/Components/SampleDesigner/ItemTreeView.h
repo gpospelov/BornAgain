@@ -1,9 +1,10 @@
 #ifndef ITEMTREEVIEW_H
 #define ITEMTREEVIEW_H
 
+#include "WinDllMacros.h"
 #include <QTreeView>
 
-class ItemTreeView : public QTreeView
+class BA_CORE_API_ ItemTreeView : public QTreeView
 {
     Q_OBJECT
 public:

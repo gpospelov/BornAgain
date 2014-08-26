@@ -1,4 +1,10 @@
 cmake_minimum_required(VERSION 2.8.9)
+if(POLICY CMP0020)
+cmake_policy(SET CMP0020 NEW)
+endif()
+if(POLICY CMP0043)
+cmake_policy(SET CMP0043 NEW)
+endif()
 
 set(library_name qtpropertybrowser)
 
@@ -13,8 +19,9 @@ set(include_dirs
 
 include_directories(${include_dirs})
 
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
+if(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
+endif()
 
 set(resource_files
     "qtpropertybrowser.qrc"

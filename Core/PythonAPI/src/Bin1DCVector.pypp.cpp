@@ -24,7 +24,7 @@ void register_Bin1DCVector_class(){
         Bin1DCVector_exposer.def( bp::init< double, Bin1D const &, Bin1D const & >(( bp::arg("wavelength"), bp::arg("alpha_bin"), bp::arg("phi_bin") )) );
         { //::Bin1DCVector::getDelta
         
-            typedef ::cvector_t ( ::Bin1DCVector::*getDelta_function_type )(  ) const;
+            typedef ::cvector_t ( ::Bin1DCVector::*getDelta_function_type)(  ) const;
             
             Bin1DCVector_exposer.def( 
                 "getDelta"
@@ -33,7 +33,7 @@ void register_Bin1DCVector_class(){
         }
         { //::Bin1DCVector::getMidPoint
         
-            typedef ::cvector_t ( ::Bin1DCVector::*getMidPoint_function_type )(  ) const;
+            typedef ::cvector_t ( ::Bin1DCVector::*getMidPoint_function_type)(  ) const;
             
             Bin1DCVector_exposer.def( 
                 "getMidPoint"

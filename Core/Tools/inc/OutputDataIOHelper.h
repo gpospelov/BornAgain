@@ -16,6 +16,8 @@
 #ifndef OUTPUTDATAIOHELPER_H
 #define OUTPUTDATAIOHELPER_H
 
+
+#include "WinDllMacros.h"
 #include<string>
 #include <iostream>
 
@@ -29,14 +31,14 @@ const std::string VariableBinAxisType = "VariableBinAxis";
 const std::string ConstKBinAxisType = "ConstKBinAxis";
 const std::string CustomBinAxisType = "CustomBinAxis";
 
-bool isSimilarToFixedBinAxisType(const std::string &line);
-bool isVariableBinAxisType(const std::string &line);
+BA_CORE_API_ bool isSimilarToFixedBinAxisType(const std::string &line);
+BA_CORE_API_ bool isVariableBinAxisType(const std::string &line);
 
-IAxis *createAxis(std::istream &input_stream);
-IAxis *createFixedBinAxis(std::string line);
-IAxis *createVariableBinAxis(std::string line);
+BA_CORE_API_ IAxis *createAxis(std::istream &input_stream);
+BA_CORE_API_ IAxis *createFixedBinAxis(std::string line);
+BA_CORE_API_ IAxis *createVariableBinAxis(std::string line);
 
-void fillOutputData(OutputData<double> *data, std::istream &input_stream);
+BA_CORE_API_ void fillOutputData(OutputData<double> *data, std::istream &input_stream);
 
 }
 

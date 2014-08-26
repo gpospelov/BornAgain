@@ -1,13 +1,15 @@
 #ifndef DESIGNERHELPER_H
 #define DESIGNERHELPER_H
 
+#include "WinDllMacros.h"
+
 #include <QGradient>
 #include <QColor>
 #include <QRect>
 #include <QGraphicsItem>
 
 //! collection of static methods with SampleDesigner geometry settings
-class DesignerHelper
+class BA_CORE_API_ DesignerHelper
 {
 public:
 

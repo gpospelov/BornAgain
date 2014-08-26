@@ -31,10 +31,10 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual bool contains( double value ) const  {
         if( bp::override func_contains = this->get_override( "contains" ) )
             return func_contains( value );
-        else
+        else{
             return this->IAxis::contains( value );
+        }
     }
-    
     
     bool default_contains( double value ) const  {
         return IAxis::contains( value );
@@ -43,10 +43,10 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual ::IAxis * createClippedAxis( double arg0, double arg1 ) const  {
         if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
             return func_createClippedAxis( arg0, arg1 );
-        else
+        else{
             return this->IAxis::createClippedAxis( arg0, arg1 );
+        }
     }
-    
     
     ::IAxis * default_createClippedAxis( double arg0, double arg1 ) const  {
         return IAxis::createClippedAxis( arg0, arg1 );
@@ -55,10 +55,10 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual ::IAxis * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
-        else
+        else{
             return this->IAxis::createDoubleBinSize(  );
+        }
     }
-    
     
     ::IAxis * default_createDoubleBinSize(  ) const  {
         return IAxis::createDoubleBinSize( );
@@ -77,10 +77,10 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual ::std::vector< double > getBinBoundaries(  ) const  {
         if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
             return func_getBinBoundaries(  );
-        else
+        else{
             return this->IAxis::getBinBoundaries(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinBoundaries(  ) const  {
         return IAxis::getBinBoundaries( );
@@ -89,10 +89,10 @@ struct IAxis_wrapper : IAxis, bp::wrapper< IAxis > {
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
-        else
+        else{
             return this->IAxis::getBinCenters(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinCenters(  ) const  {
         return IAxis::getBinCenters( );
@@ -133,7 +133,7 @@ void register_IAxis_class(){
         bp::scope IAxis_scope( IAxis_exposer );
         { //::IAxis::clone
         
-            typedef ::IAxis * ( ::IAxis::*clone_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*clone_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "clone"
@@ -143,8 +143,8 @@ void register_IAxis_class(){
         }
         { //::IAxis::contains
         
-            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
-            typedef bool ( IAxis_wrapper::*default_contains_function_type )( double ) const;
+            typedef bool ( ::IAxis::*contains_function_type)( double ) const;
+            typedef bool ( IAxis_wrapper::*default_contains_function_type)( double ) const;
             
             IAxis_exposer.def( 
                 "contains"
@@ -155,8 +155,8 @@ void register_IAxis_class(){
         }
         { //::IAxis::createClippedAxis
         
-            typedef ::IAxis * ( ::IAxis::*createClippedAxis_function_type )( double,double ) const;
-            typedef ::IAxis * ( IAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            typedef ::IAxis * ( ::IAxis::*createClippedAxis_function_type)( double,double ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createClippedAxis_function_type)( double,double ) const;
             
             IAxis_exposer.def( 
                 "createClippedAxis"
@@ -168,8 +168,8 @@ void register_IAxis_class(){
         }
         { //::IAxis::createDoubleBinSize
         
-            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
-            typedef ::IAxis * ( IAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type)(  ) const;
+            typedef ::IAxis * ( IAxis_wrapper::*default_createDoubleBinSize_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "createDoubleBinSize"
@@ -180,7 +180,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::IAxis::*findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( ::IAxis::*findClosestIndex_function_type)( double ) const;
             
             IAxis_exposer.def( 
                 "findClosestIndex"
@@ -190,7 +190,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getBin
         
-            typedef ::Bin1D ( ::IAxis::*getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::IAxis::*getBin_function_type)( ::std::size_t ) const;
             
             IAxis_exposer.def( 
                 "getBin"
@@ -200,8 +200,8 @@ void register_IAxis_class(){
         }
         { //::IAxis::getBinBoundaries
         
-            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type )(  ) const;
-            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::IAxis::*getBinBoundaries_function_type)(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinBoundaries_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getBinBoundaries"
@@ -211,8 +211,8 @@ void register_IAxis_class(){
         }
         { //::IAxis::getBinCenters
         
-            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type )(  ) const;
-            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::IAxis::*getBinCenters_function_type)(  ) const;
+            typedef ::std::vector< double > ( IAxis_wrapper::*default_getBinCenters_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getBinCenters"
@@ -222,7 +222,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getMax
         
-            typedef double ( ::IAxis::*getMax_function_type )(  ) const;
+            typedef double ( ::IAxis::*getMax_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getMax"
@@ -231,7 +231,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getMin
         
-            typedef double ( ::IAxis::*getMin_function_type )(  ) const;
+            typedef double ( ::IAxis::*getMin_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getMin"
@@ -240,7 +240,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getName
         
-            typedef ::std::string ( ::IAxis::*getName_function_type )(  ) const;
+            typedef ::std::string ( ::IAxis::*getName_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getName"
@@ -249,7 +249,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::getSize
         
-            typedef ::std::size_t ( ::IAxis::*getSize_function_type )(  ) const;
+            typedef ::std::size_t ( ::IAxis::*getSize_function_type)(  ) const;
             
             IAxis_exposer.def( 
                 "getSize"
@@ -258,7 +258,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::operator[]
         
-            typedef double ( ::IAxis::*__getitem___function_type )( ::std::size_t ) const;
+            typedef double ( ::IAxis::*__getitem___function_type)( ::std::size_t ) const;
             
             IAxis_exposer.def( 
                 "__getitem__"
@@ -268,7 +268,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::print
         
-            typedef void ( IAxis_wrapper::*print_function_type )( ::std::ostream & ) const;
+            typedef void ( IAxis_wrapper::*print_function_type)( ::std::ostream & ) const;
             
             IAxis_exposer.def( 
                 "print"
@@ -278,7 +278,7 @@ void register_IAxis_class(){
         }
         { //::IAxis::setName
         
-            typedef void ( ::IAxis::*setName_function_type )( ::std::string ) ;
+            typedef void ( ::IAxis::*setName_function_type)( ::std::string ) ;
             
             IAxis_exposer.def( 
                 "setName"

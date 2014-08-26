@@ -1,11 +1,12 @@
 #ifndef JOBLISTVIEWDELEGATE_H
 #define JOBLISTVIEWDELEGATE_H
 
+#include "WinDllMacros.h"
 #include <QItemDelegate>
 #include <QRect>
 
 //! ViewDelegate to show progress bar JobQueuListView
-class JobListViewDelegate : public QItemDelegate
+class BA_CORE_API_ JobListViewDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:

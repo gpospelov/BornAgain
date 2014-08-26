@@ -1,7 +1,7 @@
 #ifndef TOOLTIP_DATABASE
 #define TOOLTIP_DATABASE
 
-
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QMap>
 
@@ -19,7 +19,7 @@ const QString widgetboxContext = "Widgetbox";
 
 
 //! The MaterialEditor is the main class to access materials.
-class ToolTipDataBase : public QObject
+class BA_CORE_API_ ToolTipDataBase : public QObject
 {
     Q_OBJECT
 public:

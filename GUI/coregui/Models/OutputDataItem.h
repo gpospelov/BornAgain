@@ -10,7 +10,7 @@ class QXmlStreamWriter;
 class QXmlStreamReader;
 
 //! Holds graphical settings for the representation of OutputData in a view
-class OutputDataItem : public QObject
+class BA_CORE_API_ OutputDataItem : public QObject
 {
     Q_OBJECT
 public:

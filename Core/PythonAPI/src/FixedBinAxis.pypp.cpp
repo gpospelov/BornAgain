@@ -26,10 +26,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::FixedBinAxis * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FixedBinAxis::clone(  );
+        }
     }
-    
     
     ::FixedBinAxis * default_clone(  ) const  {
         return FixedBinAxis::clone( );
@@ -38,10 +38,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::FixedBinAxis * createClippedAxis( double left, double right ) const  {
         if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
             return func_createClippedAxis( left, right );
-        else
+        else{
             return this->FixedBinAxis::createClippedAxis( left, right );
+        }
     }
-    
     
     ::FixedBinAxis * default_createClippedAxis( double left, double right ) const  {
         return FixedBinAxis::createClippedAxis( left, right );
@@ -50,10 +50,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else
+        else{
             return this->FixedBinAxis::findClosestIndex( value );
+        }
     }
-    
     
     ::std::size_t default_findClosestIndex( double value ) const  {
         return FixedBinAxis::findClosestIndex( value );
@@ -62,10 +62,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else
+        else{
             return this->FixedBinAxis::getBin( index );
+        }
     }
-    
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
         return FixedBinAxis::getBin( index );
@@ -74,10 +74,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::std::vector< double > getBinBoundaries(  ) const  {
         if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
             return func_getBinBoundaries(  );
-        else
+        else{
             return this->FixedBinAxis::getBinBoundaries(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinBoundaries(  ) const  {
         return FixedBinAxis::getBinBoundaries( );
@@ -86,10 +86,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
-        else
+        else{
             return this->FixedBinAxis::getBinCenters(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinCenters(  ) const  {
         return FixedBinAxis::getBinCenters( );
@@ -98,10 +98,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else
+        else{
             return this->FixedBinAxis::getMax(  );
+        }
     }
-    
     
     double default_getMax(  ) const  {
         return FixedBinAxis::getMax( );
@@ -110,10 +110,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else
+        else{
             return this->FixedBinAxis::getMin(  );
+        }
     }
-    
     
     double default_getMin(  ) const  {
         return FixedBinAxis::getMin( );
@@ -122,10 +122,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::std::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else
+        else{
             return this->FixedBinAxis::getSize(  );
+        }
     }
-    
     
     ::std::size_t default_getSize(  ) const  {
         return FixedBinAxis::getSize( );
@@ -134,10 +134,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual double operator[]( ::std::size_t index ) const  {
         if( bp::override func___getitem__ = this->get_override( "__getitem__" ) )
             return func___getitem__( index );
-        else
+        else{
             return this->FixedBinAxis::operator[]( index );
+        }
     }
-    
     
     double default___getitem__( ::std::size_t index ) const  {
         return FixedBinAxis::operator[]( index );
@@ -146,10 +146,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual bool contains( double value ) const  {
         if( bp::override func_contains = this->get_override( "contains" ) )
             return func_contains( value );
-        else
+        else{
             return this->IAxis::contains( value );
+        }
     }
-    
     
     bool default_contains( double value ) const  {
         return IAxis::contains( value );
@@ -158,10 +158,10 @@ struct FixedBinAxis_wrapper : FixedBinAxis, bp::wrapper< FixedBinAxis > {
     virtual ::IAxis * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
-        else
+        else{
             return this->IAxis::createDoubleBinSize(  );
+        }
     }
-    
     
     ::IAxis * default_createDoubleBinSize(  ) const  {
         return IAxis::createDoubleBinSize( );
@@ -177,8 +177,8 @@ void register_FixedBinAxis_class(){
         bp::scope FixedBinAxis_scope( FixedBinAxis_exposer );
         { //::FixedBinAxis::clone
         
-            typedef ::FixedBinAxis * ( ::FixedBinAxis::*clone_function_type )(  ) const;
-            typedef ::FixedBinAxis * ( FixedBinAxis_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FixedBinAxis * ( ::FixedBinAxis::*clone_function_type)(  ) const;
+            typedef ::FixedBinAxis * ( FixedBinAxis_wrapper::*default_clone_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "clone"
@@ -189,8 +189,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::createClippedAxis
         
-            typedef ::FixedBinAxis * ( ::FixedBinAxis::*createClippedAxis_function_type )( double,double ) const;
-            typedef ::FixedBinAxis * ( FixedBinAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            typedef ::FixedBinAxis * ( ::FixedBinAxis::*createClippedAxis_function_type)( double,double ) const;
+            typedef ::FixedBinAxis * ( FixedBinAxis_wrapper::*default_createClippedAxis_function_type)( double,double ) const;
             
             FixedBinAxis_exposer.def( 
                 "createClippedAxis"
@@ -202,8 +202,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::FixedBinAxis::*findClosestIndex_function_type )( double ) const;
-            typedef ::std::size_t ( FixedBinAxis_wrapper::*default_findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( ::FixedBinAxis::*findClosestIndex_function_type)( double ) const;
+            typedef ::std::size_t ( FixedBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
             
             FixedBinAxis_exposer.def( 
                 "findClosestIndex"
@@ -214,8 +214,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getBin
         
-            typedef ::Bin1D ( ::FixedBinAxis::*getBin_function_type )( ::std::size_t ) const;
-            typedef ::Bin1D ( FixedBinAxis_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::FixedBinAxis::*getBin_function_type)( ::std::size_t ) const;
+            typedef ::Bin1D ( FixedBinAxis_wrapper::*default_getBin_function_type)( ::std::size_t ) const;
             
             FixedBinAxis_exposer.def( 
                 "getBin"
@@ -226,8 +226,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getBinBoundaries
         
-            typedef ::std::vector< double > ( ::FixedBinAxis::*getBinBoundaries_function_type )(  ) const;
-            typedef ::std::vector< double > ( FixedBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::FixedBinAxis::*getBinBoundaries_function_type)(  ) const;
+            typedef ::std::vector< double > ( FixedBinAxis_wrapper::*default_getBinBoundaries_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "getBinBoundaries"
@@ -237,8 +237,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getBinCenters
         
-            typedef ::std::vector< double > ( ::FixedBinAxis::*getBinCenters_function_type )(  ) const;
-            typedef ::std::vector< double > ( FixedBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::FixedBinAxis::*getBinCenters_function_type)(  ) const;
+            typedef ::std::vector< double > ( FixedBinAxis_wrapper::*default_getBinCenters_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "getBinCenters"
@@ -248,8 +248,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getMax
         
-            typedef double ( ::FixedBinAxis::*getMax_function_type )(  ) const;
-            typedef double ( FixedBinAxis_wrapper::*default_getMax_function_type )(  ) const;
+            typedef double ( ::FixedBinAxis::*getMax_function_type)(  ) const;
+            typedef double ( FixedBinAxis_wrapper::*default_getMax_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "getMax"
@@ -259,8 +259,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getMin
         
-            typedef double ( ::FixedBinAxis::*getMin_function_type )(  ) const;
-            typedef double ( FixedBinAxis_wrapper::*default_getMin_function_type )(  ) const;
+            typedef double ( ::FixedBinAxis::*getMin_function_type)(  ) const;
+            typedef double ( FixedBinAxis_wrapper::*default_getMin_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "getMin"
@@ -270,8 +270,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::getSize
         
-            typedef ::std::size_t ( ::FixedBinAxis::*getSize_function_type )(  ) const;
-            typedef ::std::size_t ( FixedBinAxis_wrapper::*default_getSize_function_type )(  ) const;
+            typedef ::std::size_t ( ::FixedBinAxis::*getSize_function_type)(  ) const;
+            typedef ::std::size_t ( FixedBinAxis_wrapper::*default_getSize_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "getSize"
@@ -281,8 +281,8 @@ void register_FixedBinAxis_class(){
         }
         { //::FixedBinAxis::operator[]
         
-            typedef double ( ::FixedBinAxis::*__getitem___function_type )( ::std::size_t ) const;
-            typedef double ( FixedBinAxis_wrapper::*default___getitem___function_type )( ::std::size_t ) const;
+            typedef double ( ::FixedBinAxis::*__getitem___function_type)( ::std::size_t ) const;
+            typedef double ( FixedBinAxis_wrapper::*default___getitem___function_type)( ::std::size_t ) const;
             
             FixedBinAxis_exposer.def( 
                 "__getitem__"
@@ -293,8 +293,8 @@ void register_FixedBinAxis_class(){
         }
         { //::IAxis::contains
         
-            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
-            typedef bool ( FixedBinAxis_wrapper::*default_contains_function_type )( double ) const;
+            typedef bool ( ::IAxis::*contains_function_type)( double ) const;
+            typedef bool ( FixedBinAxis_wrapper::*default_contains_function_type)( double ) const;
             
             FixedBinAxis_exposer.def( 
                 "contains"
@@ -305,8 +305,8 @@ void register_FixedBinAxis_class(){
         }
         { //::IAxis::createDoubleBinSize
         
-            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
-            typedef ::IAxis * ( FixedBinAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type)(  ) const;
+            typedef ::IAxis * ( FixedBinAxis_wrapper::*default_createDoubleBinSize_function_type)(  ) const;
             
             FixedBinAxis_exposer.def( 
                 "createDoubleBinSize"

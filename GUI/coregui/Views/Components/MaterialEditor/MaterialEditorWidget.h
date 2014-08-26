@@ -2,14 +2,18 @@
 #define MATERIALEDITORWIDGET_H
 
 #include <QDialog>
+
 #include "MaterialProperty.h"
+#include "WinDllMacros.h"
+
+
 class MaterialModel;
 class MaterialPropertyBrowser;
 class QStatusBar;
 class QToolBar;
 
 //! Main widget of MaterialEditor
-class MaterialEditorWidget : public QDialog
+class BA_CORE_API_ MaterialEditorWidget : public QDialog
 {
     Q_OBJECT
 

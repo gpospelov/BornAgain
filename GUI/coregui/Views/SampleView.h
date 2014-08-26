@@ -1,6 +1,7 @@
 #ifndef SAMPLEMANAGER_H
 #define SAMPLEMANAGER_H
 
+#include "WinDllMacros.h"
 #include "fancymainwindow.h"
 #include <QWidget>
 #include <QMainWindow>
@@ -19,7 +20,7 @@ class SampleToolBar;
 class MaterialBrowser;
 
 
-class SampleView : public Manhattan::FancyMainWindow
+class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 

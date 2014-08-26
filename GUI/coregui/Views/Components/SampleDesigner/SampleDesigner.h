@@ -13,7 +13,7 @@ class InstrumentModel;
 class SampleModel;
 
 //! sample designer interface
-class SampleDesignerInterface : public QObject
+class BA_CORE_API_ SampleDesignerInterface : public QObject
 {
     Q_OBJECT
 
@@ -28,7 +28,7 @@ public:
 
 
 //! sample designer provide central window with graphic scene to drag and drop
-class SampleDesigner: public SampleDesignerInterface
+class BA_CORE_API_ SampleDesigner: public SampleDesignerInterface
 {
     Q_OBJECT
 

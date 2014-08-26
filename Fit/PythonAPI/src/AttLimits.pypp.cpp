@@ -33,10 +33,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual double getLowerLimit(  ) const  {
         if( bp::override func_getLowerLimit = this->get_override( "getLowerLimit" ) )
             return func_getLowerLimit(  );
-        else
+        else{
             return this->AttLimits::getLowerLimit(  );
+        }
     }
-    
     
     double default_getLowerLimit(  ) const  {
         return AttLimits::getLowerLimit( );
@@ -45,10 +45,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual double getUpperLimit(  ) const  {
         if( bp::override func_getUpperLimit = this->get_override( "getUpperLimit" ) )
             return func_getUpperLimit(  );
-        else
+        else{
             return this->AttLimits::getUpperLimit(  );
+        }
     }
-    
     
     double default_getUpperLimit(  ) const  {
         return AttLimits::getUpperLimit( );
@@ -57,10 +57,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual bool hasLowerAndUpperLimits(  ) const  {
         if( bp::override func_hasLowerAndUpperLimits = this->get_override( "hasLowerAndUpperLimits" ) )
             return func_hasLowerAndUpperLimits(  );
-        else
+        else{
             return this->AttLimits::hasLowerAndUpperLimits(  );
+        }
     }
-    
     
     bool default_hasLowerAndUpperLimits(  ) const  {
         return AttLimits::hasLowerAndUpperLimits( );
@@ -69,10 +69,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual bool hasLowerLimit(  ) const  {
         if( bp::override func_hasLowerLimit = this->get_override( "hasLowerLimit" ) )
             return func_hasLowerLimit(  );
-        else
+        else{
             return this->AttLimits::hasLowerLimit(  );
+        }
     }
-    
     
     bool default_hasLowerLimit(  ) const  {
         return AttLimits::hasLowerLimit( );
@@ -81,10 +81,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual bool hasUpperLimit(  ) const  {
         if( bp::override func_hasUpperLimit = this->get_override( "hasUpperLimit" ) )
             return func_hasUpperLimit(  );
-        else
+        else{
             return this->AttLimits::hasUpperLimit(  );
+        }
     }
-    
     
     bool default_hasUpperLimit(  ) const  {
         return AttLimits::hasUpperLimit( );
@@ -93,10 +93,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual bool isFixed(  ) const  {
         if( bp::override func_isFixed = this->get_override( "isFixed" ) )
             return func_isFixed(  );
-        else
+        else{
             return this->AttLimits::isFixed(  );
+        }
     }
-    
     
     bool default_isFixed(  ) const  {
         return AttLimits::isFixed( );
@@ -105,10 +105,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void removeLimits(  ) {
         if( bp::override func_removeLimits = this->get_override( "removeLimits" ) )
             func_removeLimits(  );
-        else
+        else{
             this->AttLimits::removeLimits(  );
+        }
     }
-    
     
     void default_removeLimits(  ) {
         AttLimits::removeLimits( );
@@ -117,10 +117,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void removeLowerLimit(  ) {
         if( bp::override func_removeLowerLimit = this->get_override( "removeLowerLimit" ) )
             func_removeLowerLimit(  );
-        else
+        else{
             this->AttLimits::removeLowerLimit(  );
+        }
     }
-    
     
     void default_removeLowerLimit(  ) {
         AttLimits::removeLowerLimit( );
@@ -129,10 +129,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void removeUpperLimit(  ) {
         if( bp::override func_removeUpperLimit = this->get_override( "removeUpperLimit" ) )
             func_removeUpperLimit(  );
-        else
+        else{
             this->AttLimits::removeUpperLimit(  );
+        }
     }
-    
     
     void default_removeUpperLimit(  ) {
         AttLimits::removeUpperLimit( );
@@ -141,10 +141,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void setFixed( bool is_fixed ) {
         if( bp::override func_setFixed = this->get_override( "setFixed" ) )
             func_setFixed( is_fixed );
-        else
+        else{
             this->AttLimits::setFixed( is_fixed );
+        }
     }
-    
     
     void default_setFixed( bool is_fixed ) {
         AttLimits::setFixed( is_fixed );
@@ -153,10 +153,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void setLimits( double xmin, double xmax ) {
         if( bp::override func_setLimits = this->get_override( "setLimits" ) )
             func_setLimits( xmin, xmax );
-        else
+        else{
             this->AttLimits::setLimits( xmin, xmax );
+        }
     }
-    
     
     void default_setLimits( double xmin, double xmax ) {
         AttLimits::setLimits( xmin, xmax );
@@ -165,10 +165,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void setLowerLimit( double value ) {
         if( bp::override func_setLowerLimit = this->get_override( "setLowerLimit" ) )
             func_setLowerLimit( value );
-        else
+        else{
             this->AttLimits::setLowerLimit( value );
+        }
     }
-    
     
     void default_setLowerLimit( double value ) {
         AttLimits::setLowerLimit( value );
@@ -177,10 +177,10 @@ struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
     virtual void setUpperLimit( double value ) {
         if( bp::override func_setUpperLimit = this->get_override( "setUpperLimit" ) )
             func_setUpperLimit( value );
-        else
+        else{
             this->AttLimits::setUpperLimit( value );
+        }
     }
-    
     
     void default_setUpperLimit( double value ) {
         AttLimits::setUpperLimit( value );
@@ -205,8 +205,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::getLowerLimit
         
-            typedef double ( ::AttLimits::*getLowerLimit_function_type )(  ) const;
-            typedef double ( AttLimits_wrapper::*default_getLowerLimit_function_type )(  ) const;
+            typedef double ( ::AttLimits::*getLowerLimit_function_type)(  ) const;
+            typedef double ( AttLimits_wrapper::*default_getLowerLimit_function_type)(  ) const;
             
             AttLimits_exposer.def( 
                 "getLowerLimit"
@@ -216,8 +216,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::getUpperLimit
         
-            typedef double ( ::AttLimits::*getUpperLimit_function_type )(  ) const;
-            typedef double ( AttLimits_wrapper::*default_getUpperLimit_function_type )(  ) const;
+            typedef double ( ::AttLimits::*getUpperLimit_function_type)(  ) const;
+            typedef double ( AttLimits_wrapper::*default_getUpperLimit_function_type)(  ) const;
             
             AttLimits_exposer.def( 
                 "getUpperLimit"
@@ -227,8 +227,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::hasLowerAndUpperLimits
         
-            typedef bool ( ::AttLimits::*hasLowerAndUpperLimits_function_type )(  ) const;
-            typedef bool ( AttLimits_wrapper::*default_hasLowerAndUpperLimits_function_type )(  ) const;
+            typedef bool ( ::AttLimits::*hasLowerAndUpperLimits_function_type)(  ) const;
+            typedef bool ( AttLimits_wrapper::*default_hasLowerAndUpperLimits_function_type)(  ) const;
             
             AttLimits_exposer.def( 
                 "hasLowerAndUpperLimits"
@@ -238,8 +238,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::hasLowerLimit
         
-            typedef bool ( ::AttLimits::*hasLowerLimit_function_type )(  ) const;
-            typedef bool ( AttLimits_wrapper::*default_hasLowerLimit_function_type )(  ) const;
+            typedef bool ( ::AttLimits::*hasLowerLimit_function_type)(  ) const;
+            typedef bool ( AttLimits_wrapper::*default_hasLowerLimit_function_type)(  ) const;
             
             AttLimits_exposer.def( 
                 "hasLowerLimit"
@@ -249,8 +249,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::hasUpperLimit
         
-            typedef bool ( ::AttLimits::*hasUpperLimit_function_type )(  ) const;
-            typedef bool ( AttLimits_wrapper::*default_hasUpperLimit_function_type )(  ) const;
+            typedef bool ( ::AttLimits::*hasUpperLimit_function_type)(  ) const;
+            typedef bool ( AttLimits_wrapper::*default_hasUpperLimit_function_type)(  ) const;
             
             AttLimits_exposer.def( 
                 "hasUpperLimit"
@@ -260,8 +260,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::isFixed
         
-            typedef bool ( ::AttLimits::*isFixed_function_type )(  ) const;
-            typedef bool ( AttLimits_wrapper::*default_isFixed_function_type )(  ) const;
+            typedef bool ( ::AttLimits::*isFixed_function_type)(  ) const;
+            typedef bool ( AttLimits_wrapper::*default_isFixed_function_type)(  ) const;
             
             AttLimits_exposer.def( 
                 "isFixed"
@@ -300,8 +300,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::removeLimits
         
-            typedef void ( ::AttLimits::*removeLimits_function_type )(  ) ;
-            typedef void ( AttLimits_wrapper::*default_removeLimits_function_type )(  ) ;
+            typedef void ( ::AttLimits::*removeLimits_function_type)(  ) ;
+            typedef void ( AttLimits_wrapper::*default_removeLimits_function_type)(  ) ;
             
             AttLimits_exposer.def( 
                 "removeLimits"
@@ -311,8 +311,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::removeLowerLimit
         
-            typedef void ( ::AttLimits::*removeLowerLimit_function_type )(  ) ;
-            typedef void ( AttLimits_wrapper::*default_removeLowerLimit_function_type )(  ) ;
+            typedef void ( ::AttLimits::*removeLowerLimit_function_type)(  ) ;
+            typedef void ( AttLimits_wrapper::*default_removeLowerLimit_function_type)(  ) ;
             
             AttLimits_exposer.def( 
                 "removeLowerLimit"
@@ -322,8 +322,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::removeUpperLimit
         
-            typedef void ( ::AttLimits::*removeUpperLimit_function_type )(  ) ;
-            typedef void ( AttLimits_wrapper::*default_removeUpperLimit_function_type )(  ) ;
+            typedef void ( ::AttLimits::*removeUpperLimit_function_type)(  ) ;
+            typedef void ( AttLimits_wrapper::*default_removeUpperLimit_function_type)(  ) ;
             
             AttLimits_exposer.def( 
                 "removeUpperLimit"
@@ -333,8 +333,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::setFixed
         
-            typedef void ( ::AttLimits::*setFixed_function_type )( bool ) ;
-            typedef void ( AttLimits_wrapper::*default_setFixed_function_type )( bool ) ;
+            typedef void ( ::AttLimits::*setFixed_function_type)( bool ) ;
+            typedef void ( AttLimits_wrapper::*default_setFixed_function_type)( bool ) ;
             
             AttLimits_exposer.def( 
                 "setFixed"
@@ -345,8 +345,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::setLimits
         
-            typedef void ( ::AttLimits::*setLimits_function_type )( double,double ) ;
-            typedef void ( AttLimits_wrapper::*default_setLimits_function_type )( double,double ) ;
+            typedef void ( ::AttLimits::*setLimits_function_type)( double,double ) ;
+            typedef void ( AttLimits_wrapper::*default_setLimits_function_type)( double,double ) ;
             
             AttLimits_exposer.def( 
                 "setLimits"
@@ -357,8 +357,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::setLowerLimit
         
-            typedef void ( ::AttLimits::*setLowerLimit_function_type )( double ) ;
-            typedef void ( AttLimits_wrapper::*default_setLowerLimit_function_type )( double ) ;
+            typedef void ( ::AttLimits::*setLowerLimit_function_type)( double ) ;
+            typedef void ( AttLimits_wrapper::*default_setLowerLimit_function_type)( double ) ;
             
             AttLimits_exposer.def( 
                 "setLowerLimit"
@@ -369,8 +369,8 @@ void register_AttLimits_class(){
         }
         { //::AttLimits::setUpperLimit
         
-            typedef void ( ::AttLimits::*setUpperLimit_function_type )( double ) ;
-            typedef void ( AttLimits_wrapper::*default_setUpperLimit_function_type )( double ) ;
+            typedef void ( ::AttLimits::*setUpperLimit_function_type)( double ) ;
+            typedef void ( AttLimits_wrapper::*default_setUpperLimit_function_type)( double ) ;
             
             AttLimits_exposer.def( 
                 "setUpperLimit"

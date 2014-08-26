@@ -1,10 +1,9 @@
 #ifndef ACTIONMANAGER_H
 #define ACTIONMANAGER_H
 
-
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QList>
-
 
 class QMenu;
 class QAction;
@@ -14,7 +13,7 @@ class MainWindow;
 
 //! Class to handle MainWindow's menu and corresponding actions
 
-class ActionManager : public QObject
+class BA_CORE_API_ ActionManager : public QObject
 {
     Q_OBJECT
 public:

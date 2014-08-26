@@ -38,10 +38,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual double getKappa(  ) const  {
         if( bp::override func_getKappa = this->get_override( "getKappa" ) )
             return func_getKappa(  );
-        else
+        else{
             return this->IInterferenceFunction::getKappa(  );
+        }
     }
-    
     
     double default_getKappa(  ) const  {
         return IInterferenceFunction::getKappa( );
@@ -50,10 +50,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -62,10 +62,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -74,10 +74,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -86,10 +86,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -98,10 +98,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -110,10 +110,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -122,10 +122,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -134,10 +134,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -146,10 +146,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -177,10 +177,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -189,10 +189,10 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -208,7 +208,7 @@ void register_IInterferenceFunction_class(){
         bp::scope IInterferenceFunction_scope( IInterferenceFunction_exposer );
         { //::IInterferenceFunction::clone
         
-            typedef ::IInterferenceFunction * ( ::IInterferenceFunction::*clone_function_type )(  ) const;
+            typedef ::IInterferenceFunction * ( ::IInterferenceFunction::*clone_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "clone"
@@ -218,7 +218,7 @@ void register_IInterferenceFunction_class(){
         }
         { //::IInterferenceFunction::evaluate
         
-            typedef double ( ::IInterferenceFunction::*evaluate_function_type )( ::cvector_t const & ) const;
+            typedef double ( ::IInterferenceFunction::*evaluate_function_type)( ::cvector_t const & ) const;
             
             IInterferenceFunction_exposer.def( 
                 "evaluate"
@@ -228,8 +228,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IInterferenceFunction::getKappa
         
-            typedef double ( ::IInterferenceFunction::*getKappa_function_type )(  ) const;
-            typedef double ( IInterferenceFunction_wrapper::*default_getKappa_function_type )(  ) const;
+            typedef double ( ::IInterferenceFunction::*getKappa_function_type)(  ) const;
+            typedef double ( IInterferenceFunction_wrapper::*default_getKappa_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "getKappa"
@@ -239,8 +239,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IInterferenceFunction_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IInterferenceFunction_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IInterferenceFunction_exposer.def( 
                 "areParametersChanged"
@@ -250,8 +250,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IInterferenceFunction_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IInterferenceFunction_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IInterferenceFunction_exposer.def( 
                 "clearParameterPool"
@@ -261,8 +261,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( IInterferenceFunction_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( IInterferenceFunction_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "cloneInvertB"
@@ -273,8 +273,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( IInterferenceFunction_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( IInterferenceFunction_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "containsMagneticMaterial"
@@ -284,8 +284,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IInterferenceFunction_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IInterferenceFunction_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "createParameterTree"
@@ -296,8 +296,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( IInterferenceFunction_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( IInterferenceFunction_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             IInterferenceFunction_exposer.def( 
                 "getCompositeSample"
@@ -308,8 +308,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( IInterferenceFunction_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( IInterferenceFunction_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "getCompositeSample"
@@ -320,8 +320,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IInterferenceFunction_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IInterferenceFunction_wrapper::*default_printParameters_function_type)(  ) const;
             
             IInterferenceFunction_exposer.def( 
                 "printParameters"
@@ -331,8 +331,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( IInterferenceFunction_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( IInterferenceFunction_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             IInterferenceFunction_exposer.def( 
                 "printSampleTree"
@@ -352,8 +352,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IInterferenceFunction_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IInterferenceFunction_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IInterferenceFunction_exposer.def( 
                 "setParameterValue"
@@ -364,8 +364,8 @@ void register_IInterferenceFunction_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IInterferenceFunction_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IInterferenceFunction_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IInterferenceFunction_exposer.def( 
                 "setParametersAreChanged"

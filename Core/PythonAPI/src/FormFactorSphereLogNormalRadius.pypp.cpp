@@ -28,10 +28,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::FormFactorSphereLogNormalRadius * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FormFactorSphereLogNormalRadius::clone(  );
+        }
     }
-    
     
     ::FormFactorSphereLogNormalRadius * default_clone(  ) const  {
         return FormFactorSphereLogNormalRadius::clone( );
@@ -40,10 +40,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else
+        else{
             this->FormFactorSphereLogNormalRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
     }
-    
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::std::size_t nbr_samples ) const  {
         FormFactorSphereLogNormalRadius::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
@@ -52,10 +52,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
-        else
+        else{
             return this->FormFactorSphereLogNormalRadius::evaluate_for_q( boost::ref(q) );
+        }
     }
-    
     
     ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorSphereLogNormalRadius::evaluate_for_q( boost::ref(q) );
@@ -64,10 +64,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
-        else
+        else{
             return this->FormFactorSphereLogNormalRadius::getHeight(  );
+        }
     }
-    
     
     double default_getHeight(  ) const  {
         return FormFactorSphereLogNormalRadius::getHeight( );
@@ -76,10 +76,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
-        else
+        else{
             return this->FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters(  );
+        }
     }
-    
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters( );
@@ -88,10 +88,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
-        else
+        else{
             return this->FormFactorSphereLogNormalRadius::isDistributedFormFactor(  );
+        }
     }
-    
     
     bool default_isDistributedFormFactor(  ) const  {
         return FormFactorSphereLogNormalRadius::isDistributedFormFactor( );
@@ -100,10 +100,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -112,10 +112,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -124,10 +124,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -136,10 +136,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -148,10 +148,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -160,10 +160,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
-        else
+        else{
             return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
+        }
     }
-    
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, ::Bin1D const & alpha_f_bin ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), boost::ref(alpha_f_bin) );
@@ -172,10 +172,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -184,10 +184,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -196,10 +196,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
-        else
+        else{
             return this->IFormFactor::getRadius(  );
+        }
     }
-    
     
     double default_getRadius(  ) const  {
         return IFormFactor::getRadius( );
@@ -208,10 +208,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
-        else
+        else{
             return this->IFormFactorBorn::getVolume(  );
+        }
     }
-    
     
     double default_getVolume(  ) const  {
         return IFormFactorBorn::getVolume( );
@@ -220,10 +220,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -232,10 +232,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -263,10 +263,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -275,10 +275,10 @@ struct FormFactorSphereLogNormalRadius_wrapper : FormFactorSphereLogNormalRadius
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -294,8 +294,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         bp::scope FormFactorSphereLogNormalRadius_scope( FormFactorSphereLogNormalRadius_exposer );
         { //::FormFactorSphereLogNormalRadius::clone
         
-            typedef ::FormFactorSphereLogNormalRadius * ( ::FormFactorSphereLogNormalRadius::*clone_function_type )(  ) const;
-            typedef ::FormFactorSphereLogNormalRadius * ( FormFactorSphereLogNormalRadius_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FormFactorSphereLogNormalRadius * ( ::FormFactorSphereLogNormalRadius::*clone_function_type)(  ) const;
+            typedef ::FormFactorSphereLogNormalRadius * ( FormFactorSphereLogNormalRadius_wrapper::*default_clone_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "clone"
@@ -306,8 +306,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::FormFactorSphereLogNormalRadius::createDistributedFormFactors
         
-            typedef void ( ::FormFactorSphereLogNormalRadius::*createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
-            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_createDistributedFormFactors_function_type )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( ::FormFactorSphereLogNormalRadius::*createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_createDistributedFormFactors_function_type)( ::std::vector< IFormFactor* > &,::std::vector< double > &,::std::size_t ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "createDistributedFormFactors"
@@ -319,8 +319,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::FormFactorSphereLogNormalRadius::evaluate_for_q
         
-            typedef ::complex_t ( ::FormFactorSphereLogNormalRadius::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
-            typedef ::complex_t ( FormFactorSphereLogNormalRadius_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( ::FormFactorSphereLogNormalRadius::*evaluate_for_q_function_type)( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorSphereLogNormalRadius_wrapper::*default_evaluate_for_q_function_type)( ::cvector_t const & ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "evaluate_for_q"
@@ -331,8 +331,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::FormFactorSphereLogNormalRadius::getHeight
         
-            typedef double ( ::FormFactorSphereLogNormalRadius::*getHeight_function_type )(  ) const;
-            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getHeight_function_type )(  ) const;
+            typedef double ( ::FormFactorSphereLogNormalRadius::*getHeight_function_type)(  ) const;
+            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getHeight_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "getHeight"
@@ -342,8 +342,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::FormFactorSphereLogNormalRadius::getNumberOfStochasticParameters
         
-            typedef int ( ::FormFactorSphereLogNormalRadius::*getNumberOfStochasticParameters_function_type )(  ) const;
-            typedef int ( FormFactorSphereLogNormalRadius_wrapper::*default_getNumberOfStochasticParameters_function_type )(  ) const;
+            typedef int ( ::FormFactorSphereLogNormalRadius::*getNumberOfStochasticParameters_function_type)(  ) const;
+            typedef int ( FormFactorSphereLogNormalRadius_wrapper::*default_getNumberOfStochasticParameters_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "getNumberOfStochasticParameters"
@@ -353,8 +353,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::FormFactorSphereLogNormalRadius::isDistributedFormFactor
         
-            typedef bool ( ::FormFactorSphereLogNormalRadius::*isDistributedFormFactor_function_type )(  ) const;
-            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_isDistributedFormFactor_function_type )(  ) const;
+            typedef bool ( ::FormFactorSphereLogNormalRadius::*isDistributedFormFactor_function_type)(  ) const;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_isDistributedFormFactor_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "isDistributedFormFactor"
@@ -364,8 +364,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "areParametersChanged"
@@ -375,8 +375,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "clearParameterPool"
@@ -386,8 +386,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( FormFactorSphereLogNormalRadius_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( FormFactorSphereLogNormalRadius_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "cloneInvertB"
@@ -398,8 +398,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "containsMagneticMaterial"
@@ -409,8 +409,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( FormFactorSphereLogNormalRadius_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( FormFactorSphereLogNormalRadius_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "createParameterTree"
@@ -421,8 +421,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IFormFactorBorn::evaluate
         
-            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
-            typedef ::complex_t ( FormFactorSphereLogNormalRadius_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
+            typedef ::complex_t ( FormFactorSphereLogNormalRadius_wrapper::*default_evaluate_function_type)( ::cvector_t const &,::Bin1DCVector const &,::Bin1D const & ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "evaluate"
@@ -433,8 +433,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( FormFactorSphereLogNormalRadius_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( FormFactorSphereLogNormalRadius_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "getCompositeSample"
@@ -445,8 +445,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( FormFactorSphereLogNormalRadius_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( FormFactorSphereLogNormalRadius_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "getCompositeSample"
@@ -457,8 +457,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IFormFactor::getRadius
         
-            typedef double ( ::IFormFactor::*getRadius_function_type )(  ) const;
-            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getRadius_function_type )(  ) const;
+            typedef double ( ::IFormFactor::*getRadius_function_type)(  ) const;
+            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getRadius_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "getRadius"
@@ -468,8 +468,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IFormFactorBorn::getVolume
         
-            typedef double ( ::IFormFactorBorn::*getVolume_function_type )(  ) const;
-            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getVolume_function_type )(  ) const;
+            typedef double ( ::IFormFactorBorn::*getVolume_function_type)(  ) const;
+            typedef double ( FormFactorSphereLogNormalRadius_wrapper::*default_getVolume_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "getVolume"
@@ -479,8 +479,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_printParameters_function_type)(  ) const;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "printParameters"
@@ -490,8 +490,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "printSampleTree"
@@ -511,8 +511,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( FormFactorSphereLogNormalRadius_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "setParameterValue"
@@ -523,8 +523,8 @@ void register_FormFactorSphereLogNormalRadius_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( FormFactorSphereLogNormalRadius_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             FormFactorSphereLogNormalRadius_exposer.def( 
                 "setParametersAreChanged"

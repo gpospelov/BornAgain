@@ -4,11 +4,12 @@
 
 #include "ParameterizedItem.h"
 
-class RefractiveIndexItem : public ParameterizedItem
+class BA_CORE_API_ RefractiveIndexItem : public ParameterizedItem
 {
     Q_OBJECT
 public:
-    static const QString P_DELTA, P_BETA;
+    static const QString P_DELTA;
+    static const QString P_BETA;
     explicit RefractiveIndexItem(ParameterizedItem *parent=0);
     ~RefractiveIndexItem(){}
     QString getItemLabel() const;

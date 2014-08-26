@@ -26,10 +26,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void link_fit_parameters(  ) {
         if( bp::override func_link_fit_parameters = this->get_override( "link_fit_parameters" ) )
             func_link_fit_parameters(  );
-        else
+        else{
             this->FitSuite::link_fit_parameters(  );
+        }
     }
-    
     
     void default_link_fit_parameters(  ) {
         FitSuite::link_fit_parameters( );
@@ -38,10 +38,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void minimize(  ) {
         if( bp::override func_minimize = this->get_override( "minimize" ) )
             func_minimize(  );
-        else
+        else{
             this->FitSuite::minimize(  );
+        }
     }
-    
     
     void default_minimize(  ) {
         FitSuite::minimize( );
@@ -50,10 +50,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void runFit(  ) {
         if( bp::override func_runFit = this->get_override( "runFit" ) )
             func_runFit(  );
-        else
+        else{
             this->FitSuite::runFit(  );
+        }
     }
-    
     
     void default_runFit(  ) {
         FitSuite::runFit( );
@@ -62,10 +62,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         if( bp::override func_attachObserver = this->get_override( "attachObserver" ) )
             func_attachObserver( obj );
-        else
+        else{
             this->IObservable::attachObserver( obj );
+        }
     }
-    
     
     void default_attachObserver( ::boost::shared_ptr< IObserver > obj ) {
         IObservable::attachObserver( obj );
@@ -74,10 +74,10 @@ struct FitSuite_wrapper : FitSuite, bp::wrapper< FitSuite > {
     virtual void notifyObservers(  ) {
         if( bp::override func_notifyObservers = this->get_override( "notifyObservers" ) )
             func_notifyObservers(  );
-        else
+        else{
             this->IObservable::notifyObservers(  );
+        }
     }
-    
     
     void default_notifyObservers(  ) {
         IObservable::notifyObservers( );
@@ -94,7 +94,7 @@ void register_FitSuite_class(){
         FitSuite_exposer.def( bp::init< >() );
         { //::FitSuite::addFitParameter
         
-            typedef void ( ::FitSuite::*addFitParameter_function_type )( ::std::string const &,double,double,::AttLimits const &,double ) ;
+            typedef void ( ::FitSuite::*addFitParameter_function_type)( ::std::string const &,double,double,::AttLimits const &,double ) ;
             
             FitSuite_exposer.def( 
                 "addFitParameter"
@@ -104,7 +104,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::addFitParameter
         
-            typedef void ( ::FitSuite::*addFitParameter_function_type )( ::std::string const &,double,::AttLimits const &,double ) ;
+            typedef void ( ::FitSuite::*addFitParameter_function_type)( ::std::string const &,double,::AttLimits const &,double ) ;
             
             FitSuite_exposer.def( 
                 "addFitParameter"
@@ -114,7 +114,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::addFitStrategy
         
-            typedef void ( ::FitSuite::*addFitStrategy_function_type )( ::IFitStrategy const & ) ;
+            typedef void ( ::FitSuite::*addFitStrategy_function_type)( ::IFitStrategy const & ) ;
             
             FitSuite_exposer.def( 
                 "addFitStrategy"
@@ -124,7 +124,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::addSimulationAndRealData
         
-            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type )( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) ;
+            typedef void ( ::FitSuite::*addSimulationAndRealData_function_type)( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) ;
             
             FitSuite_exposer.def( 
                 "addSimulationAndRealData"
@@ -134,7 +134,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::clear
         
-            typedef void ( ::FitSuite::*clear_function_type )(  ) ;
+            typedef void ( ::FitSuite::*clear_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "clear"
@@ -143,7 +143,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::fixAllParameters
         
-            typedef void ( ::FitSuite::*fixAllParameters_function_type )(  ) ;
+            typedef void ( ::FitSuite::*fixAllParameters_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "fixAllParameters"
@@ -152,7 +152,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getAttributes
         
-            typedef ::AttFitting & ( ::FitSuite::*getAttributes_function_type )(  ) ;
+            typedef ::AttFitting & ( ::FitSuite::*getAttributes_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "getAttributes"
@@ -162,7 +162,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getFitObjects
         
-            typedef ::FitSuiteObjects * ( ::FitSuite::*getFitObjects_function_type )(  ) ;
+            typedef ::FitSuiteObjects * ( ::FitSuite::*getFitObjects_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "getFitObjects"
@@ -172,7 +172,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getFitParameter
         
-            typedef ::FitParameter * ( ::FitSuite::*getFitParameter_function_type )( ::std::string const & ) ;
+            typedef ::FitParameter * ( ::FitSuite::*getFitParameter_function_type)( ::std::string const & ) ;
             
             FitSuite_exposer.def( 
                 "getFitParameter"
@@ -183,7 +183,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getFitParameters
         
-            typedef ::FitSuiteParameters * ( ::FitSuite::*getFitParameters_function_type )(  ) ;
+            typedef ::FitSuiteParameters * ( ::FitSuite::*getFitParameters_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "getFitParameters"
@@ -193,7 +193,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getFitStrategies
         
-            typedef ::FitSuiteStrategies * ( ::FitSuite::*getFitStrategies_function_type )(  ) ;
+            typedef ::FitSuiteStrategies * ( ::FitSuite::*getFitStrategies_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "getFitStrategies"
@@ -203,7 +203,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getMinimizer
         
-            typedef ::IMinimizer * ( ::FitSuite::*getMinimizer_function_type )(  ) ;
+            typedef ::IMinimizer * ( ::FitSuite::*getMinimizer_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "getMinimizer"
@@ -213,7 +213,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getNCalls
         
-            typedef ::std::size_t ( ::FitSuite::*getNCalls_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitSuite::*getNCalls_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "getNCalls"
@@ -222,7 +222,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getNStrategy
         
-            typedef ::std::size_t ( ::FitSuite::*getNStrategy_function_type )(  ) const;
+            typedef ::std::size_t ( ::FitSuite::*getNStrategy_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "getNStrategy"
@@ -231,7 +231,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::getRunTime
         
-            typedef double ( ::FitSuite::*getRunTime_function_type )(  ) const;
+            typedef double ( ::FitSuite::*getRunTime_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "getRunTime"
@@ -240,7 +240,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::initPrint
         
-            typedef void ( ::FitSuite::*initPrint_function_type )( int ) ;
+            typedef void ( ::FitSuite::*initPrint_function_type)( int ) ;
             
             FitSuite_exposer.def( 
                 "initPrint"
@@ -250,7 +250,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::isLastIteration
         
-            typedef bool ( ::FitSuite::*isLastIteration_function_type )(  ) const;
+            typedef bool ( ::FitSuite::*isLastIteration_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "isLastIteration"
@@ -259,8 +259,8 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::link_fit_parameters
         
-            typedef void ( ::FitSuite::*link_fit_parameters_function_type )(  ) ;
-            typedef void ( FitSuite_wrapper::*default_link_fit_parameters_function_type )(  ) ;
+            typedef void ( ::FitSuite::*link_fit_parameters_function_type)(  ) ;
+            typedef void ( FitSuite_wrapper::*default_link_fit_parameters_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "link_fit_parameters"
@@ -270,8 +270,8 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::minimize
         
-            typedef void ( ::FitSuite::*minimize_function_type )(  ) ;
-            typedef void ( FitSuite_wrapper::*default_minimize_function_type )(  ) ;
+            typedef void ( ::FitSuite::*minimize_function_type)(  ) ;
+            typedef void ( FitSuite_wrapper::*default_minimize_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "minimize"
@@ -281,7 +281,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::printResults
         
-            typedef void ( ::FitSuite::*printResults_function_type )(  ) const;
+            typedef void ( ::FitSuite::*printResults_function_type)(  ) const;
             
             FitSuite_exposer.def( 
                 "printResults"
@@ -290,7 +290,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::releaseAllParameters
         
-            typedef void ( ::FitSuite::*releaseAllParameters_function_type )(  ) ;
+            typedef void ( ::FitSuite::*releaseAllParameters_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "releaseAllParameters"
@@ -299,8 +299,8 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::runFit
         
-            typedef void ( ::FitSuite::*runFit_function_type )(  ) ;
-            typedef void ( FitSuite_wrapper::*default_runFit_function_type )(  ) ;
+            typedef void ( ::FitSuite::*runFit_function_type)(  ) ;
+            typedef void ( FitSuite_wrapper::*default_runFit_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "runFit"
@@ -310,7 +310,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::setAttributes
         
-            typedef void ( ::FitSuite::*setAttributes_function_type )( ::AttFitting const & ) ;
+            typedef void ( ::FitSuite::*setAttributes_function_type)( ::AttFitting const & ) ;
             
             FitSuite_exposer.def( 
                 "setAttributes"
@@ -320,7 +320,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::setMinimizer
         
-            typedef void ( ::FitSuite::*setMinimizer_function_type )( ::IMinimizer * ) ;
+            typedef void ( ::FitSuite::*setMinimizer_function_type)( ::IMinimizer * ) ;
             
             FitSuite_exposer.def( 
                 "setMinimizer"
@@ -330,7 +330,7 @@ void register_FitSuite_class(){
         }
         { //::FitSuite::setParametersFixed
         
-            typedef void ( ::FitSuite::*setParametersFixed_function_type )( ::std::vector< std::string > const &,bool ) ;
+            typedef void ( ::FitSuite::*setParametersFixed_function_type)( ::std::vector< std::string > const &,bool ) ;
             
             FitSuite_exposer.def( 
                 "setParametersFixed"
@@ -340,8 +340,8 @@ void register_FitSuite_class(){
         }
         { //::IObservable::attachObserver
         
-            typedef void ( ::IObservable::*attachObserver_function_type )( ::boost::shared_ptr< IObserver > ) ;
-            typedef void ( FitSuite_wrapper::*default_attachObserver_function_type )( ::boost::shared_ptr< IObserver > ) ;
+            typedef void ( ::IObservable::*attachObserver_function_type)( ::boost::shared_ptr< IObserver > ) ;
+            typedef void ( FitSuite_wrapper::*default_attachObserver_function_type)( ::boost::shared_ptr< IObserver > ) ;
             
             FitSuite_exposer.def( 
                 "attachObserver"
@@ -352,8 +352,8 @@ void register_FitSuite_class(){
         }
         { //::IObservable::notifyObservers
         
-            typedef void ( ::IObservable::*notifyObservers_function_type )(  ) ;
-            typedef void ( FitSuite_wrapper::*default_notifyObservers_function_type )(  ) ;
+            typedef void ( ::IObservable::*notifyObservers_function_type)(  ) ;
+            typedef void ( FitSuite_wrapper::*default_notifyObservers_function_type)(  ) ;
             
             FitSuite_exposer.def( 
                 "notifyObservers"

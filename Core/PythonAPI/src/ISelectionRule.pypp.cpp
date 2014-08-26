@@ -43,7 +43,7 @@ void register_ISelectionRule_class(){
         bp::scope ISelectionRule_scope( ISelectionRule_exposer );
         { //::ISelectionRule::clone
         
-            typedef ::ISelectionRule * ( ::ISelectionRule::*clone_function_type )(  ) const;
+            typedef ::ISelectionRule * ( ::ISelectionRule::*clone_function_type)(  ) const;
             
             ISelectionRule_exposer.def( 
                 "clone"
@@ -53,7 +53,7 @@ void register_ISelectionRule_class(){
         }
         { //::ISelectionRule::coordinateSelected
         
-            typedef bool ( ::ISelectionRule::*coordinateSelected_function_type )( ::IndexVector3D const & ) const;
+            typedef bool ( ::ISelectionRule::*coordinateSelected_function_type)( ::IndexVector3D const & ) const;
             
             ISelectionRule_exposer.def( 
                 "coordinateSelected"

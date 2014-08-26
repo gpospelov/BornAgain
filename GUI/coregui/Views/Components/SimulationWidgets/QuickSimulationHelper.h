@@ -1,6 +1,7 @@
 #ifndef QUICKSIMULATIONHELPER_H
 #define QUICKSIMULATIONHELPER_H
 
+#include "WinDllMacros.h"
 #include <QString>
 #include <QModelIndex>
 
@@ -19,7 +20,7 @@ class QVariant;
 //! functions for QuickSimulation widgets.
 //! Provides generation of domain simulations out of GUI models during sample
 //! and instrument real time tuning.
-class QuickSimulationHelper
+class BA_CORE_API_ QuickSimulationHelper
 {
 public:
 

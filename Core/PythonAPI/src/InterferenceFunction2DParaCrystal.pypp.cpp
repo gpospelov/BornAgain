@@ -28,10 +28,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual ::InterferenceFunction2DParaCrystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->InterferenceFunction2DParaCrystal::clone(  );
+        }
     }
-    
     
     ::InterferenceFunction2DParaCrystal * default_clone(  ) const  {
         return InterferenceFunction2DParaCrystal::clone( );
@@ -40,10 +40,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual double evaluate( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
-        else
+        else{
             return this->InterferenceFunction2DParaCrystal::evaluate( boost::ref(q) );
+        }
     }
-    
     
     double default_evaluate( ::cvector_t const & q ) const  {
         return InterferenceFunction2DParaCrystal::evaluate( boost::ref(q) );
@@ -52,10 +52,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -64,10 +64,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -76,10 +76,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual ::ISample * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ISample::cloneInvertB(  );
+        }
     }
-    
     
     ::ISample * default_cloneInvertB(  ) const  {
         return ISample::cloneInvertB( );
@@ -88,10 +88,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -100,10 +100,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -112,10 +112,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ISample::getCompositeSample( );
@@ -124,10 +124,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ISample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ISample::getCompositeSample( );
@@ -136,10 +136,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual double getKappa(  ) const  {
         if( bp::override func_getKappa = this->get_override( "getKappa" ) )
             return func_getKappa(  );
-        else
+        else{
             return this->IInterferenceFunction::getKappa(  );
+        }
     }
-    
     
     double default_getKappa(  ) const  {
         return IInterferenceFunction::getKappa( );
@@ -148,10 +148,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -160,10 +160,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -191,10 +191,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -203,10 +203,10 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -222,8 +222,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         bp::scope InterferenceFunction2DParaCrystal_scope( InterferenceFunction2DParaCrystal_exposer );
         { //::InterferenceFunction2DParaCrystal::clone
         
-            typedef ::InterferenceFunction2DParaCrystal * ( ::InterferenceFunction2DParaCrystal::*clone_function_type )(  ) const;
-            typedef ::InterferenceFunction2DParaCrystal * ( InterferenceFunction2DParaCrystal_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::InterferenceFunction2DParaCrystal * ( ::InterferenceFunction2DParaCrystal::*clone_function_type)(  ) const;
+            typedef ::InterferenceFunction2DParaCrystal * ( InterferenceFunction2DParaCrystal_wrapper::*default_clone_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "clone"
@@ -256,8 +256,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::evaluate
         
-            typedef double ( ::InterferenceFunction2DParaCrystal::*evaluate_function_type )( ::cvector_t const & ) const;
-            typedef double ( InterferenceFunction2DParaCrystal_wrapper::*default_evaluate_function_type )( ::cvector_t const & ) const;
+            typedef double ( ::InterferenceFunction2DParaCrystal::*evaluate_function_type)( ::cvector_t const & ) const;
+            typedef double ( InterferenceFunction2DParaCrystal_wrapper::*default_evaluate_function_type)( ::cvector_t const & ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "evaluate"
@@ -268,7 +268,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getAlphaLattice
         
-            typedef double ( ::InterferenceFunction2DParaCrystal::*getAlphaLattice_function_type )(  ) const;
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getAlphaLattice_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getAlphaLattice"
@@ -277,7 +277,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getDampingLength
         
-            typedef double ( ::InterferenceFunction2DParaCrystal::*getDampingLength_function_type )(  ) const;
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getDampingLength_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getDampingLength"
@@ -286,7 +286,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getDomainSizes
         
-            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getDomainSizes_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getDomainSizes_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getDomainSizes"
@@ -295,7 +295,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getIntegrationOverXi
         
-            typedef bool ( ::InterferenceFunction2DParaCrystal::*getIntegrationOverXi_function_type )(  ) const;
+            typedef bool ( ::InterferenceFunction2DParaCrystal::*getIntegrationOverXi_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getIntegrationOverXi"
@@ -304,7 +304,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getLatticeLengths
         
-            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getLatticeLengths_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::InterferenceFunction2DParaCrystal::*getLatticeLengths_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getLatticeLengths"
@@ -313,7 +313,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::getLatticeOrientation
         
-            typedef double ( ::InterferenceFunction2DParaCrystal::*getLatticeOrientation_function_type )(  ) const;
+            typedef double ( ::InterferenceFunction2DParaCrystal::*getLatticeOrientation_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getLatticeOrientation"
@@ -322,7 +322,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::setDomainSizes
         
-            typedef void ( ::InterferenceFunction2DParaCrystal::*setDomainSizes_function_type )( double,double ) ;
+            typedef void ( ::InterferenceFunction2DParaCrystal::*setDomainSizes_function_type)( double,double ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setDomainSizes"
@@ -332,7 +332,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::setIntegrationOverXi
         
-            typedef void ( ::InterferenceFunction2DParaCrystal::*setIntegrationOverXi_function_type )( bool ) ;
+            typedef void ( ::InterferenceFunction2DParaCrystal::*setIntegrationOverXi_function_type)( bool ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setIntegrationOverXi"
@@ -342,7 +342,7 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::InterferenceFunction2DParaCrystal::setProbabilityDistributions
         
-            typedef void ( ::InterferenceFunction2DParaCrystal::*setProbabilityDistributions_function_type )( ::IFTDistribution2D const &,::IFTDistribution2D const & ) ;
+            typedef void ( ::InterferenceFunction2DParaCrystal::*setProbabilityDistributions_function_type)( ::IFTDistribution2D const &,::IFTDistribution2D const & ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setProbabilityDistributions"
@@ -352,8 +352,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "areParametersChanged"
@@ -363,8 +363,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "clearParameterPool"
@@ -374,8 +374,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::ISample::cloneInvertB
         
-            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type )(  ) const;
-            typedef ::ISample * ( InterferenceFunction2DParaCrystal_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ISample * ( ::ISample::*cloneInvertB_function_type)(  ) const;
+            typedef ::ISample * ( InterferenceFunction2DParaCrystal_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "cloneInvertB"
@@ -386,8 +386,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "containsMagneticMaterial"
@@ -397,8 +397,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( InterferenceFunction2DParaCrystal_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( InterferenceFunction2DParaCrystal_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "createParameterTree"
@@ -409,8 +409,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( InterferenceFunction2DParaCrystal_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ISample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( InterferenceFunction2DParaCrystal_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getCompositeSample"
@@ -421,8 +421,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::ISample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( InterferenceFunction2DParaCrystal_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( InterferenceFunction2DParaCrystal_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getCompositeSample"
@@ -433,8 +433,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IInterferenceFunction::getKappa
         
-            typedef double ( ::IInterferenceFunction::*getKappa_function_type )(  ) const;
-            typedef double ( InterferenceFunction2DParaCrystal_wrapper::*default_getKappa_function_type )(  ) const;
+            typedef double ( ::IInterferenceFunction::*getKappa_function_type)(  ) const;
+            typedef double ( InterferenceFunction2DParaCrystal_wrapper::*default_getKappa_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "getKappa"
@@ -444,8 +444,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_printParameters_function_type)(  ) const;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "printParameters"
@@ -455,8 +455,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "printSampleTree"
@@ -476,8 +476,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( InterferenceFunction2DParaCrystal_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setParameterValue"
@@ -488,8 +488,8 @@ void register_InterferenceFunction2DParaCrystal_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( InterferenceFunction2DParaCrystal_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             InterferenceFunction2DParaCrystal_exposer.def( 
                 "setParametersAreChanged"

@@ -38,10 +38,10 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -50,10 +50,10 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -62,10 +62,10 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -74,10 +74,10 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -105,10 +105,10 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -117,10 +117,10 @@ struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IReso
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -136,7 +136,7 @@ void register_IResolutionFunction2D_class(){
         bp::scope IResolutionFunction2D_scope( IResolutionFunction2D_exposer );
         { //::IResolutionFunction2D::clone
         
-            typedef ::IResolutionFunction2D * ( ::IResolutionFunction2D::*clone_function_type )(  ) const;
+            typedef ::IResolutionFunction2D * ( ::IResolutionFunction2D::*clone_function_type)(  ) const;
             
             IResolutionFunction2D_exposer.def( 
                 "clone"
@@ -146,7 +146,7 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IResolutionFunction2D::evaluateCDF
         
-            typedef double ( ::IResolutionFunction2D::*evaluateCDF_function_type )( double,double ) const;
+            typedef double ( ::IResolutionFunction2D::*evaluateCDF_function_type)( double,double ) const;
             
             IResolutionFunction2D_exposer.def( 
                 "evaluateCDF"
@@ -156,8 +156,8 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IResolutionFunction2D_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IResolutionFunction2D_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IResolutionFunction2D_exposer.def( 
                 "areParametersChanged"
@@ -167,8 +167,8 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IResolutionFunction2D_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IResolutionFunction2D_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IResolutionFunction2D_exposer.def( 
                 "clearParameterPool"
@@ -178,8 +178,8 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IResolutionFunction2D_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IResolutionFunction2D_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IResolutionFunction2D_exposer.def( 
                 "createParameterTree"
@@ -190,8 +190,8 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IResolutionFunction2D_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IResolutionFunction2D_wrapper::*default_printParameters_function_type)(  ) const;
             
             IResolutionFunction2D_exposer.def( 
                 "printParameters"
@@ -211,8 +211,8 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IResolutionFunction2D_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IResolutionFunction2D_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IResolutionFunction2D_exposer.def( 
                 "setParameterValue"
@@ -223,8 +223,8 @@ void register_IResolutionFunction2D_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IResolutionFunction2D_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IResolutionFunction2D_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IResolutionFunction2D_exposer.def( 
                 "setParametersAreChanged"

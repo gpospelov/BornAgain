@@ -28,10 +28,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual ::ParticleInfo * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->ParticleInfo::clone(  );
+        }
     }
-    
     
     ::ParticleInfo * default_clone(  ) const  {
         return ParticleInfo::clone( );
@@ -40,10 +40,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual ::ParticleInfo * cloneInvertB(  ) const  {
         if( bp::override func_cloneInvertB = this->get_override( "cloneInvertB" ) )
             return func_cloneInvertB(  );
-        else
+        else{
             return this->ParticleInfo::cloneInvertB(  );
+        }
     }
-    
     
     ::ParticleInfo * default_cloneInvertB(  ) const  {
         return ParticleInfo::cloneInvertB( );
@@ -52,10 +52,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -64,10 +64,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -76,10 +76,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual bool containsMagneticMaterial(  ) const  {
         if( bp::override func_containsMagneticMaterial = this->get_override( "containsMagneticMaterial" ) )
             return func_containsMagneticMaterial(  );
-        else
+        else{
             return this->ISample::containsMagneticMaterial(  );
+        }
     }
-    
     
     bool default_containsMagneticMaterial(  ) const  {
         return ISample::containsMagneticMaterial( );
@@ -88,10 +88,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -100,10 +100,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual ::ICompositeSample * getCompositeSample(  ) {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample * default_getCompositeSample(  ) {
         return ICompositeSample::getCompositeSample( );
@@ -112,10 +112,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
-        else
+        else{
             return this->ICompositeSample::getCompositeSample(  );
+        }
     }
-    
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
@@ -124,10 +124,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -136,10 +136,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual void printSampleTree(  ) {
         if( bp::override func_printSampleTree = this->get_override( "printSampleTree" ) )
             func_printSampleTree(  );
-        else
+        else{
             this->ISample::printSampleTree(  );
+        }
     }
-    
     
     void default_printSampleTree(  ) {
         ISample::printSampleTree( );
@@ -167,10 +167,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -179,10 +179,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -191,10 +191,10 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     virtual ::std::size_t size(  ) const  {
         if( bp::override func_size = this->get_override( "size" ) )
             return func_size(  );
-        else
+        else{
             return this->ICompositeSample::size(  );
+        }
     }
-    
     
     ::std::size_t default_size(  ) const  {
         return ICompositeSample::size( );
@@ -210,8 +210,8 @@ void register_ParticleInfo_class(){
         bp::scope ParticleInfo_scope( ParticleInfo_exposer );
         { //::ParticleInfo::clone
         
-            typedef ::ParticleInfo * ( ::ParticleInfo::*clone_function_type )(  ) const;
-            typedef ::ParticleInfo * ( ParticleInfo_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::ParticleInfo * ( ::ParticleInfo::*clone_function_type)(  ) const;
+            typedef ::ParticleInfo * ( ParticleInfo_wrapper::*default_clone_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "clone"
@@ -222,8 +222,8 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::cloneInvertB
         
-            typedef ::ParticleInfo * ( ::ParticleInfo::*cloneInvertB_function_type )(  ) const;
-            typedef ::ParticleInfo * ( ParticleInfo_wrapper::*default_cloneInvertB_function_type )(  ) const;
+            typedef ::ParticleInfo * ( ::ParticleInfo::*cloneInvertB_function_type)(  ) const;
+            typedef ::ParticleInfo * ( ParticleInfo_wrapper::*default_cloneInvertB_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "cloneInvertB"
@@ -234,7 +234,7 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::getAbundance
         
-            typedef double ( ::ParticleInfo::*getAbundance_function_type )(  ) const;
+            typedef double ( ::ParticleInfo::*getAbundance_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "getAbundance"
@@ -243,7 +243,7 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::getDepth
         
-            typedef double ( ::ParticleInfo::*getDepth_function_type )(  ) const;
+            typedef double ( ::ParticleInfo::*getDepth_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "getDepth"
@@ -252,7 +252,7 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::getParticle
         
-            typedef ::Particle const * ( ::ParticleInfo::*getParticle_function_type )(  ) const;
+            typedef ::Particle const * ( ::ParticleInfo::*getParticle_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "getParticle"
@@ -262,7 +262,7 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::setAbundance
         
-            typedef void ( ::ParticleInfo::*setAbundance_function_type )( double ) ;
+            typedef void ( ::ParticleInfo::*setAbundance_function_type)( double ) ;
             
             ParticleInfo_exposer.def( 
                 "setAbundance"
@@ -272,7 +272,7 @@ void register_ParticleInfo_class(){
         }
         { //::ParticleInfo::setDepth
         
-            typedef void ( ::ParticleInfo::*setDepth_function_type )( double ) ;
+            typedef void ( ::ParticleInfo::*setDepth_function_type)( double ) ;
             
             ParticleInfo_exposer.def( 
                 "setDepth"
@@ -282,8 +282,8 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( ParticleInfo_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( ParticleInfo_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             ParticleInfo_exposer.def( 
                 "areParametersChanged"
@@ -293,8 +293,8 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( ParticleInfo_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( ParticleInfo_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             ParticleInfo_exposer.def( 
                 "clearParameterPool"
@@ -304,8 +304,8 @@ void register_ParticleInfo_class(){
         }
         { //::ISample::containsMagneticMaterial
         
-            typedef bool ( ::ISample::*containsMagneticMaterial_function_type )(  ) const;
-            typedef bool ( ParticleInfo_wrapper::*default_containsMagneticMaterial_function_type )(  ) const;
+            typedef bool ( ::ISample::*containsMagneticMaterial_function_type)(  ) const;
+            typedef bool ( ParticleInfo_wrapper::*default_containsMagneticMaterial_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "containsMagneticMaterial"
@@ -315,8 +315,8 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ParticleInfo_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ParticleInfo_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "createParameterTree"
@@ -327,8 +327,8 @@ void register_ParticleInfo_class(){
         }
         { //::ICompositeSample::getCompositeSample
         
-            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) ;
-            typedef ::ICompositeSample * ( ParticleInfo_wrapper::*default_getCompositeSample_function_type )(  ) ;
+            typedef ::ICompositeSample * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) ;
+            typedef ::ICompositeSample * ( ParticleInfo_wrapper::*default_getCompositeSample_function_type)(  ) ;
             
             ParticleInfo_exposer.def( 
                 "getCompositeSample"
@@ -339,8 +339,8 @@ void register_ParticleInfo_class(){
         }
         { //::ICompositeSample::getCompositeSample
         
-            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type )(  ) const;
-            typedef ::ICompositeSample const * ( ParticleInfo_wrapper::*default_getCompositeSample_function_type )(  ) const;
+            typedef ::ICompositeSample const * ( ::ICompositeSample::*getCompositeSample_function_type)(  ) const;
+            typedef ::ICompositeSample const * ( ParticleInfo_wrapper::*default_getCompositeSample_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "getCompositeSample"
@@ -351,8 +351,8 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( ParticleInfo_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( ParticleInfo_wrapper::*default_printParameters_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "printParameters"
@@ -362,8 +362,8 @@ void register_ParticleInfo_class(){
         }
         { //::ISample::printSampleTree
         
-            typedef void ( ::ISample::*printSampleTree_function_type )(  ) ;
-            typedef void ( ParticleInfo_wrapper::*default_printSampleTree_function_type )(  ) ;
+            typedef void ( ::ISample::*printSampleTree_function_type)(  ) ;
+            typedef void ( ParticleInfo_wrapper::*default_printSampleTree_function_type)(  ) ;
             
             ParticleInfo_exposer.def( 
                 "printSampleTree"
@@ -383,8 +383,8 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( ParticleInfo_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ParticleInfo_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             ParticleInfo_exposer.def( 
                 "setParameterValue"
@@ -395,8 +395,8 @@ void register_ParticleInfo_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( ParticleInfo_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ParticleInfo_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             ParticleInfo_exposer.def( 
                 "setParametersAreChanged"
@@ -406,8 +406,8 @@ void register_ParticleInfo_class(){
         }
         { //::ICompositeSample::size
         
-            typedef ::std::size_t ( ::ICompositeSample::*size_function_type )(  ) const;
-            typedef ::std::size_t ( ParticleInfo_wrapper::*default_size_function_type )(  ) const;
+            typedef ::std::size_t ( ::ICompositeSample::*size_function_type)(  ) const;
+            typedef ::std::size_t ( ParticleInfo_wrapper::*default_size_function_type)(  ) const;
             
             ParticleInfo_exposer.def( 
                 "size"

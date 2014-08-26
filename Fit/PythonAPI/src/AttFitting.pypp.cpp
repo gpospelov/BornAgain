@@ -22,7 +22,7 @@ void register_AttFitting_class(){
         bp::scope AttFitting_scope( AttFitting_exposer );
         { //::AttFitting::getDerivEpsilon
         
-            typedef double ( ::AttFitting::*getDerivEpsilon_function_type )(  ) const;
+            typedef double ( ::AttFitting::*getDerivEpsilon_function_type)(  ) const;
             
             AttFitting_exposer.def( 
                 "getDerivEpsilon"
@@ -31,7 +31,7 @@ void register_AttFitting_class(){
         }
         { //::AttFitting::getStepFactor
         
-            typedef double ( ::AttFitting::*getStepFactor_function_type )(  ) const;
+            typedef double ( ::AttFitting::*getStepFactor_function_type)(  ) const;
             
             AttFitting_exposer.def( 
                 "getStepFactor"
@@ -40,7 +40,7 @@ void register_AttFitting_class(){
         }
         { //::AttFitting::setDerivEpsilon
         
-            typedef void ( ::AttFitting::*setDerivEpsilon_function_type )( double ) ;
+            typedef void ( ::AttFitting::*setDerivEpsilon_function_type)( double ) ;
             
             AttFitting_exposer.def( 
                 "setDerivEpsilon"
@@ -50,7 +50,7 @@ void register_AttFitting_class(){
         }
         { //::AttFitting::setStepFactor
         
-            typedef void ( ::AttFitting::*setStepFactor_function_type )( double ) ;
+            typedef void ( ::AttFitting::*setStepFactor_function_type)( double ) ;
             
             AttFitting_exposer.def( 
                 "setStepFactor"

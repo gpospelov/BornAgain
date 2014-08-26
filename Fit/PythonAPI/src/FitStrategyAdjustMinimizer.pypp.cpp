@@ -33,10 +33,10 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
     virtual ::FitStrategyAdjustMinimizer * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->FitStrategyAdjustMinimizer::clone(  );
+        }
     }
-    
     
     ::FitStrategyAdjustMinimizer * default_clone(  ) const  {
         return FitStrategyAdjustMinimizer::clone( );
@@ -45,10 +45,10 @@ struct FitStrategyAdjustMinimizer_wrapper : FitStrategyAdjustMinimizer, bp::wrap
     virtual void execute(  ) {
         if( bp::override func_execute = this->get_override( "execute" ) )
             func_execute(  );
-        else
+        else{
             this->FitStrategyAdjustMinimizer::execute(  );
+        }
     }
-    
     
     void default_execute(  ) {
         FitStrategyAdjustMinimizer::execute( );
@@ -64,8 +64,8 @@ void register_FitStrategyAdjustMinimizer_class(){
         bp::scope FitStrategyAdjustMinimizer_scope( FitStrategyAdjustMinimizer_exposer );
         { //::FitStrategyAdjustMinimizer::clone
         
-            typedef ::FitStrategyAdjustMinimizer * ( ::FitStrategyAdjustMinimizer::*clone_function_type )(  ) const;
-            typedef ::FitStrategyAdjustMinimizer * ( FitStrategyAdjustMinimizer_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::FitStrategyAdjustMinimizer * ( ::FitStrategyAdjustMinimizer::*clone_function_type)(  ) const;
+            typedef ::FitStrategyAdjustMinimizer * ( FitStrategyAdjustMinimizer_wrapper::*default_clone_function_type)(  ) const;
             
             FitStrategyAdjustMinimizer_exposer.def( 
                 "clone"
@@ -76,8 +76,8 @@ void register_FitStrategyAdjustMinimizer_class(){
         }
         { //::FitStrategyAdjustMinimizer::execute
         
-            typedef void ( ::FitStrategyAdjustMinimizer::*execute_function_type )(  ) ;
-            typedef void ( FitStrategyAdjustMinimizer_wrapper::*default_execute_function_type )(  ) ;
+            typedef void ( ::FitStrategyAdjustMinimizer::*execute_function_type)(  ) ;
+            typedef void ( FitStrategyAdjustMinimizer_wrapper::*default_execute_function_type)(  ) ;
             
             FitStrategyAdjustMinimizer_exposer.def( 
                 "execute"
@@ -87,7 +87,7 @@ void register_FitStrategyAdjustMinimizer_class(){
         }
         { //::FitStrategyAdjustMinimizer::getMinimizer
         
-            typedef ::IMinimizer * ( ::FitStrategyAdjustMinimizer::*getMinimizer_function_type )(  ) ;
+            typedef ::IMinimizer * ( ::FitStrategyAdjustMinimizer::*getMinimizer_function_type)(  ) ;
             
             FitStrategyAdjustMinimizer_exposer.def( 
                 "getMinimizer"
@@ -97,7 +97,7 @@ void register_FitStrategyAdjustMinimizer_class(){
         }
         { //::FitStrategyAdjustMinimizer::setMinimizer
         
-            typedef void ( ::FitStrategyAdjustMinimizer::*setMinimizer_function_type )( ::IMinimizer * ) ;
+            typedef void ( ::FitStrategyAdjustMinimizer::*setMinimizer_function_type)( ::IMinimizer * ) ;
             
             FitStrategyAdjustMinimizer_exposer.def( 
                 "setMinimizer"

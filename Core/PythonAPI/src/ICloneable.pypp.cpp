@@ -38,7 +38,7 @@ void register_ICloneable_class(){
         bp::scope ICloneable_scope( ICloneable_exposer );
         { //::ICloneable::clone
         
-            typedef ::ICloneable * ( ::ICloneable::*clone_function_type )(  ) const;
+            typedef ::ICloneable * ( ::ICloneable::*clone_function_type)(  ) const;
             
             ICloneable_exposer.def( 
                 "clone"

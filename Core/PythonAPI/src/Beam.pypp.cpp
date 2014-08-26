@@ -35,10 +35,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -47,10 +47,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -59,10 +59,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -71,10 +71,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -102,10 +102,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -114,10 +114,10 @@ struct Beam_wrapper : Beam, bp::wrapper< Beam > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -134,7 +134,7 @@ void register_Beam_class(){
         Beam_exposer.def( bp::init< Beam const & >(( bp::arg("other") )) );
         { //::Beam::SetSpinUpFraction
         
-            typedef void ( ::Beam::*SetSpinUpFraction_function_type )( double ) ;
+            typedef void ( ::Beam::*SetSpinUpFraction_function_type)( double ) ;
             
             Beam_exposer.def( 
                 "SetSpinUpFraction"
@@ -144,7 +144,7 @@ void register_Beam_class(){
         }
         { //::Beam::getAlpha
         
-            typedef double ( ::Beam::*getAlpha_function_type )(  ) const;
+            typedef double ( ::Beam::*getAlpha_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getAlpha"
@@ -153,7 +153,7 @@ void register_Beam_class(){
         }
         { //::Beam::getCentralK
         
-            typedef ::cvector_t ( ::Beam::*getCentralK_function_type )(  ) const;
+            typedef ::cvector_t ( ::Beam::*getCentralK_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getCentralK"
@@ -162,7 +162,7 @@ void register_Beam_class(){
         }
         { //::Beam::getIntensity
         
-            typedef double ( ::Beam::*getIntensity_function_type )(  ) const;
+            typedef double ( ::Beam::*getIntensity_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getIntensity"
@@ -171,7 +171,7 @@ void register_Beam_class(){
         }
         { //::Beam::getPhi
         
-            typedef double ( ::Beam::*getPhi_function_type )(  ) const;
+            typedef double ( ::Beam::*getPhi_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getPhi"
@@ -180,7 +180,7 @@ void register_Beam_class(){
         }
         { //::Beam::getWavelength
         
-            typedef double ( ::Beam::*getWavelength_function_type )(  ) const;
+            typedef double ( ::Beam::*getWavelength_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "getWavelength"
@@ -189,7 +189,7 @@ void register_Beam_class(){
         }
         { //::Beam::operator=
         
-            typedef ::Beam & ( ::Beam::*assign_function_type )( ::Beam const & ) ;
+            typedef ::Beam & ( ::Beam::*assign_function_type)( ::Beam const & ) ;
             
             Beam_exposer.def( 
                 "assign"
@@ -200,7 +200,7 @@ void register_Beam_class(){
         }
         { //::Beam::setCentralK
         
-            typedef void ( ::Beam::*setCentralK_function_type )( double,double,double ) ;
+            typedef void ( ::Beam::*setCentralK_function_type)( double,double,double ) ;
             
             Beam_exposer.def( 
                 "setCentralK"
@@ -210,7 +210,7 @@ void register_Beam_class(){
         }
         { //::Beam::setIntensity
         
-            typedef void ( ::Beam::*setIntensity_function_type )( double ) ;
+            typedef void ( ::Beam::*setIntensity_function_type)( double ) ;
             
             Beam_exposer.def( 
                 "setIntensity"
@@ -220,8 +220,8 @@ void register_Beam_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Beam_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( Beam_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             Beam_exposer.def( 
                 "areParametersChanged"
@@ -231,8 +231,8 @@ void register_Beam_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Beam_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( Beam_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             Beam_exposer.def( 
                 "clearParameterPool"
@@ -242,8 +242,8 @@ void register_Beam_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Beam_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( Beam_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "createParameterTree"
@@ -254,8 +254,8 @@ void register_Beam_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Beam_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( Beam_wrapper::*default_printParameters_function_type)(  ) const;
             
             Beam_exposer.def( 
                 "printParameters"
@@ -275,8 +275,8 @@ void register_Beam_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Beam_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( Beam_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             Beam_exposer.def( 
                 "setParameterValue"
@@ -287,8 +287,8 @@ void register_Beam_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Beam_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( Beam_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             Beam_exposer.def( 
                 "setParametersAreChanged"

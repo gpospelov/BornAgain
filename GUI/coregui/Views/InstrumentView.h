@@ -1,9 +1,11 @@
 #ifndef INSTRUMENTVIEW_H
 #define INSTRUMENTVIEW_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QString>
 #include <QMap>
+
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
@@ -20,7 +22,7 @@ namespace Manhattan{
     class StyledBar;
 }
 
-class InstrumentView : public QWidget
+class BA_CORE_API_ InstrumentView : public QWidget
 {
     Q_OBJECT
 

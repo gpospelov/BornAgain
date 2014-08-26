@@ -28,10 +28,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual ::ResolutionFunction2DSimple * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->ResolutionFunction2DSimple::clone(  );
+        }
     }
-    
     
     ::ResolutionFunction2DSimple * default_clone(  ) const  {
         return ResolutionFunction2DSimple::clone( );
@@ -40,10 +40,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual double evaluateCDF( double x, double y ) const  {
         if( bp::override func_evaluateCDF = this->get_override( "evaluateCDF" ) )
             return func_evaluateCDF( x, y );
-        else
+        else{
             return this->ResolutionFunction2DSimple::evaluateCDF( x, y );
+        }
     }
-    
     
     double default_evaluateCDF( double x, double y ) const  {
         return ResolutionFunction2DSimple::evaluateCDF( x, y );
@@ -52,10 +52,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -64,10 +64,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -76,10 +76,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -88,10 +88,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -119,10 +119,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -131,10 +131,10 @@ struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrap
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -150,8 +150,8 @@ void register_ResolutionFunction2DSimple_class(){
         bp::scope ResolutionFunction2DSimple_scope( ResolutionFunction2DSimple_exposer );
         { //::ResolutionFunction2DSimple::clone
         
-            typedef ::ResolutionFunction2DSimple * ( ::ResolutionFunction2DSimple::*clone_function_type )(  ) const;
-            typedef ::ResolutionFunction2DSimple * ( ResolutionFunction2DSimple_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::ResolutionFunction2DSimple * ( ::ResolutionFunction2DSimple::*clone_function_type)(  ) const;
+            typedef ::ResolutionFunction2DSimple * ( ResolutionFunction2DSimple_wrapper::*default_clone_function_type)(  ) const;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "clone"
@@ -162,8 +162,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::ResolutionFunction2DSimple::evaluateCDF
         
-            typedef double ( ::ResolutionFunction2DSimple::*evaluateCDF_function_type )( double,double ) const;
-            typedef double ( ResolutionFunction2DSimple_wrapper::*default_evaluateCDF_function_type )( double,double ) const;
+            typedef double ( ::ResolutionFunction2DSimple::*evaluateCDF_function_type)( double,double ) const;
+            typedef double ( ResolutionFunction2DSimple_wrapper::*default_evaluateCDF_function_type)( double,double ) const;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "evaluateCDF"
@@ -174,8 +174,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( ResolutionFunction2DSimple_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( ResolutionFunction2DSimple_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "areParametersChanged"
@@ -185,8 +185,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( ResolutionFunction2DSimple_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( ResolutionFunction2DSimple_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "clearParameterPool"
@@ -196,8 +196,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ResolutionFunction2DSimple_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( ResolutionFunction2DSimple_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "createParameterTree"
@@ -208,8 +208,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( ResolutionFunction2DSimple_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( ResolutionFunction2DSimple_wrapper::*default_printParameters_function_type)(  ) const;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "printParameters"
@@ -229,8 +229,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( ResolutionFunction2DSimple_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( ResolutionFunction2DSimple_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "setParameterValue"
@@ -241,8 +241,8 @@ void register_ResolutionFunction2DSimple_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( ResolutionFunction2DSimple_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( ResolutionFunction2DSimple_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             ResolutionFunction2DSimple_exposer.def( 
                 "setParametersAreChanged"

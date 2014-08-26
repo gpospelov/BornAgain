@@ -51,7 +51,7 @@ void register_IFitStrategy_class(){
         IFitStrategy_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         { //::IFitStrategy::clone
         
-            typedef ::IFitStrategy * ( ::IFitStrategy::*clone_function_type )(  ) const;
+            typedef ::IFitStrategy * ( ::IFitStrategy::*clone_function_type)(  ) const;
             
             IFitStrategy_exposer.def( 
                 "clone"
@@ -61,7 +61,7 @@ void register_IFitStrategy_class(){
         }
         { //::IFitStrategy::execute
         
-            typedef void ( ::IFitStrategy::*execute_function_type )(  ) ;
+            typedef void ( ::IFitStrategy::*execute_function_type)(  ) ;
             
             IFitStrategy_exposer.def( 
                 "execute"

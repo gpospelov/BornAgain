@@ -1,6 +1,7 @@
 #ifndef BEAM_EDITOR_WIDGET_H
 #define BEAM_EDITOR_WIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class QComboBox;
@@ -11,7 +12,7 @@ class BeamItem;
 class QDoubleValidator;
 class AngleProperty;
 
-class BeamEditorWidget : public QWidget
+class BA_CORE_API_ BeamEditorWidget : public QWidget
 {
     Q_OBJECT
 

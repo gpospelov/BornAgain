@@ -38,10 +38,10 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -50,10 +50,10 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -62,10 +62,10 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -74,10 +74,10 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -105,10 +105,10 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -117,10 +117,10 @@ struct IFTDistribution1D_wrapper : IFTDistribution1D, bp::wrapper< IFTDistributi
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -136,7 +136,7 @@ void register_IFTDistribution1D_class(){
         bp::scope IFTDistribution1D_scope( IFTDistribution1D_exposer );
         { //::IFTDistribution1D::clone
         
-            typedef ::IFTDistribution1D * ( ::IFTDistribution1D::*clone_function_type )(  ) const;
+            typedef ::IFTDistribution1D * ( ::IFTDistribution1D::*clone_function_type)(  ) const;
             
             IFTDistribution1D_exposer.def( 
                 "clone"
@@ -146,7 +146,7 @@ void register_IFTDistribution1D_class(){
         }
         { //::IFTDistribution1D::evaluate
         
-            typedef double ( ::IFTDistribution1D::*evaluate_function_type )( double ) const;
+            typedef double ( ::IFTDistribution1D::*evaluate_function_type)( double ) const;
             
             IFTDistribution1D_exposer.def( 
                 "evaluate"
@@ -156,7 +156,7 @@ void register_IFTDistribution1D_class(){
         }
         { //::IFTDistribution1D::getOmega
         
-            typedef double ( ::IFTDistribution1D::*getOmega_function_type )(  ) const;
+            typedef double ( ::IFTDistribution1D::*getOmega_function_type)(  ) const;
             
             IFTDistribution1D_exposer.def( 
                 "getOmega"
@@ -165,7 +165,7 @@ void register_IFTDistribution1D_class(){
         }
         { //::IFTDistribution1D::setOmega
         
-            typedef void ( ::IFTDistribution1D::*setOmega_function_type )( double ) ;
+            typedef void ( ::IFTDistribution1D::*setOmega_function_type)( double ) ;
             
             IFTDistribution1D_exposer.def( 
                 "setOmega"
@@ -175,8 +175,8 @@ void register_IFTDistribution1D_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IFTDistribution1D_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IFTDistribution1D_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IFTDistribution1D_exposer.def( 
                 "areParametersChanged"
@@ -186,8 +186,8 @@ void register_IFTDistribution1D_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IFTDistribution1D_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IFTDistribution1D_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IFTDistribution1D_exposer.def( 
                 "clearParameterPool"
@@ -197,8 +197,8 @@ void register_IFTDistribution1D_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IFTDistribution1D_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IFTDistribution1D_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IFTDistribution1D_exposer.def( 
                 "createParameterTree"
@@ -209,8 +209,8 @@ void register_IFTDistribution1D_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IFTDistribution1D_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IFTDistribution1D_wrapper::*default_printParameters_function_type)(  ) const;
             
             IFTDistribution1D_exposer.def( 
                 "printParameters"
@@ -230,8 +230,8 @@ void register_IFTDistribution1D_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IFTDistribution1D_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IFTDistribution1D_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IFTDistribution1D_exposer.def( 
                 "setParameterValue"
@@ -242,8 +242,8 @@ void register_IFTDistribution1D_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IFTDistribution1D_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IFTDistribution1D_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IFTDistribution1D_exposer.def( 
                 "setParametersAreChanged"

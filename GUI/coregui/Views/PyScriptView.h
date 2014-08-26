@@ -1,6 +1,7 @@
 #ifndef PYSCRIPTVIEW_H
 #define PYSCRIPTVIEW_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <QString>
 
@@ -8,7 +9,7 @@ class SimulationDataModel;
 class QPushButton;
 class QTextEdit;
 
-class PyScriptView : public QWidget
+class BA_CORE_API_ PyScriptView : public QWidget
 {
     Q_OBJECT
 

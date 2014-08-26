@@ -23,7 +23,7 @@ void register_INamed_class(){
         INamed_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         { //::INamed::getName
         
-            typedef ::std::string ( ::INamed::*getName_function_type )(  ) const;
+            typedef ::std::string ( ::INamed::*getName_function_type)(  ) const;
             
             INamed_exposer.def( 
                 "getName"
@@ -32,7 +32,7 @@ void register_INamed_class(){
         }
         { //::INamed::setName
         
-            typedef void ( ::INamed::*setName_function_type )( ::std::string ) ;
+            typedef void ( ::INamed::*setName_function_type)( ::std::string ) ;
             
             INamed_exposer.def( 
                 "setName"

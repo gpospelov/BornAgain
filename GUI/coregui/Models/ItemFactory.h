@@ -20,7 +20,7 @@
 #include <QStringList>
 #include "ParameterizedItem.h"
 
-class ItemFactory
+class BA_CORE_API_ ItemFactory
 {
 public:
     typedef QMap<QString, ParameterizedItem *(*)()> ItemMap_t;

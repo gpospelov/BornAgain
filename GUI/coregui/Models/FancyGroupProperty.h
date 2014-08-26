@@ -1,7 +1,7 @@
 #ifndef FANCYGROUPPROPERTY_H
 #define FANCYGROUPPROPERTY_H
 
-
+#include "WinDllMacros.h"
 #include <QString>
 #include <QMap>
 #include <QMetaType>
@@ -9,7 +9,7 @@
 
 class ParameterizedItem;
 
-class FancyGroupProperty
+class BA_CORE_API_ FancyGroupProperty
 {
 public:
     enum GroupType

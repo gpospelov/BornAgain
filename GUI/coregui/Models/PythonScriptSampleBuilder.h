@@ -6,7 +6,7 @@
 
 #include <QFileInfo>
 
-class PythonScriptSampleBuilder : public ISampleBuilder
+class BA_CORE_API_ PythonScriptSampleBuilder : public ISampleBuilder
 {
 public:
     PythonScriptSampleBuilder(QString script_path);

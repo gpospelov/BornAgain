@@ -17,8 +17,7 @@ class InstrumentModel;
 class QuickSimulationRunner;
 
 
-//! TestView window to try things in mainwindow
-class ModelTuningWidget : public QWidget
+class BA_CORE_API_ ModelTuningWidget : public QWidget
 {
     Q_OBJECT
 

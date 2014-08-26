@@ -3,7 +3,7 @@
 
 #include "SessionModel.h"
 
-class InstrumentModel : public SessionModel
+class BA_CORE_API_ InstrumentModel : public SessionModel
 {
     Q_OBJECT
 

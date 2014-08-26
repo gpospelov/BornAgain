@@ -1,6 +1,7 @@
 #ifndef SIMULATIONTOOLBAR_H
 #define SIMULATIONTOOLBAR_H
 
+#include "WinDllMacros.h"
 #include <QToolBar>
 
 class QAction;
@@ -8,7 +9,7 @@ class QToolButton;
 class QToolBar;
 
 //! main tool bar on top of SampleView window
-class SimulationToolBar : public QToolBar
+class BA_CORE_API_ SimulationToolBar : public QToolBar
 {
     Q_OBJECT
 

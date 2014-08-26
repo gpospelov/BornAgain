@@ -18,7 +18,7 @@ class FancyGroupProperty;
 
 //! The PropertyVariantFactory class provides and manages user defined
 //! QVariant based properties.
-class PropertyVariantFactory : public QtVariantEditorFactory
+class BA_CORE_API_ PropertyVariantFactory : public QtVariantEditorFactory
 {
     Q_OBJECT
 public:

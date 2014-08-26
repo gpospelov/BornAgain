@@ -215,7 +215,7 @@ QStandardItem *QuickSimulationHelper::iterateSessionModel(SampleModel *sampleMod
 
 QStandardItem *QuickSimulationHelper::iterateInstrumentModel(InstrumentModel *instrumentModel)
 {
-    QStandardItem *standardItem;
+    QStandardItem *standardItem(0);
 
     QModelIndex itemIndex = instrumentModel->index(0,0,QModelIndex());
     ParameterizedItem *instrument = instrumentModel->itemForIndex(itemIndex);

@@ -28,10 +28,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual ::IDistribution1D * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->IDistribution1D::clone(  );
+        }
     }
-    
     
     ::IDistribution1D * default_clone(  ) const  {
         return IDistribution1D::clone( );
@@ -55,10 +55,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -67,10 +67,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -79,10 +79,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -91,10 +91,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -122,10 +122,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -134,10 +134,10 @@ struct IDistribution1D_wrapper : IDistribution1D, bp::wrapper< IDistribution1D >
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -153,8 +153,8 @@ void register_IDistribution1D_class(){
         bp::scope IDistribution1D_scope( IDistribution1D_exposer );
         { //::IDistribution1D::clone
         
-            typedef ::IDistribution1D * ( ::IDistribution1D::*clone_function_type )(  ) const;
-            typedef ::IDistribution1D * ( IDistribution1D_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::IDistribution1D * ( ::IDistribution1D::*clone_function_type)(  ) const;
+            typedef ::IDistribution1D * ( IDistribution1D_wrapper::*default_clone_function_type)(  ) const;
             
             IDistribution1D_exposer.def( 
                 "clone"
@@ -165,7 +165,7 @@ void register_IDistribution1D_class(){
         }
         { //::IDistribution1D::generateValueList
         
-            typedef ::std::vector<double, std::allocator<double> > ( ::IDistribution1D::*generateValueList_function_type )( ::std::size_t,double ) const;
+            typedef ::std::vector<double, std::allocator<double> > ( ::IDistribution1D::*generateValueList_function_type)( ::std::size_t,double ) const;
             
             IDistribution1D_exposer.def( 
                 "generateValueList"
@@ -175,7 +175,7 @@ void register_IDistribution1D_class(){
         }
         { //::IDistribution1D::getMean
         
-            typedef double ( ::IDistribution1D::*getMean_function_type )(  ) const;
+            typedef double ( ::IDistribution1D::*getMean_function_type)(  ) const;
             
             IDistribution1D_exposer.def( 
                 "getMean"
@@ -184,7 +184,7 @@ void register_IDistribution1D_class(){
         }
         { //::IDistribution1D::probabilityDensity
         
-            typedef double ( ::IDistribution1D::*probabilityDensity_function_type )( double ) const;
+            typedef double ( ::IDistribution1D::*probabilityDensity_function_type)( double ) const;
             
             IDistribution1D_exposer.def( 
                 "probabilityDensity"
@@ -194,8 +194,8 @@ void register_IDistribution1D_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( IDistribution1D_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( IDistribution1D_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             IDistribution1D_exposer.def( 
                 "areParametersChanged"
@@ -205,8 +205,8 @@ void register_IDistribution1D_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( IDistribution1D_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( IDistribution1D_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             IDistribution1D_exposer.def( 
                 "clearParameterPool"
@@ -216,8 +216,8 @@ void register_IDistribution1D_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( IDistribution1D_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( IDistribution1D_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             IDistribution1D_exposer.def( 
                 "createParameterTree"
@@ -228,8 +228,8 @@ void register_IDistribution1D_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( IDistribution1D_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( IDistribution1D_wrapper::*default_printParameters_function_type)(  ) const;
             
             IDistribution1D_exposer.def( 
                 "printParameters"
@@ -249,8 +249,8 @@ void register_IDistribution1D_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( IDistribution1D_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( IDistribution1D_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             IDistribution1D_exposer.def( 
                 "setParameterValue"
@@ -261,8 +261,8 @@ void register_IDistribution1D_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( IDistribution1D_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( IDistribution1D_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             IDistribution1D_exposer.def( 
                 "setParametersAreChanged"

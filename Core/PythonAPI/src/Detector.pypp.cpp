@@ -35,10 +35,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
-        else
+        else{
             return this->IParameterized::areParametersChanged(  );
+        }
     }
-    
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
@@ -47,10 +47,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     virtual void clearParameterPool(  ) {
         if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
             func_clearParameterPool(  );
-        else
+        else{
             this->IParameterized::clearParameterPool(  );
+        }
     }
-    
     
     void default_clearParameterPool(  ) {
         IParameterized::clearParameterPool( );
@@ -59,10 +59,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
-        else
+        else{
             return this->IParameterized::createParameterTree(  );
+        }
     }
-    
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
@@ -71,10 +71,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
-        else
+        else{
             this->IParameterized::printParameters(  );
+        }
     }
-    
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
@@ -102,10 +102,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
-        else
+        else{
             return this->IParameterized::setParameterValue( name, value );
+        }
     }
-    
     
     bool default_setParameterValue( ::std::string const & name, double value ) {
         return IParameterized::setParameterValue( name, value );
@@ -114,10 +114,10 @@ struct Detector_wrapper : Detector, bp::wrapper< Detector > {
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
-        else
+        else{
             this->IParameterized::setParametersAreChanged(  );
+        }
     }
-    
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
@@ -134,7 +134,7 @@ void register_Detector_class(){
         Detector_exposer.def( bp::init< Detector const & >(( bp::arg("other") )) );
         { //::Detector::clear
         
-            typedef void ( ::Detector::*clear_function_type )(  ) ;
+            typedef void ( ::Detector::*clear_function_type)(  ) ;
             
             Detector_exposer.def( 
                 "clear"
@@ -143,7 +143,7 @@ void register_Detector_class(){
         }
         { //::Detector::getAxis
         
-            typedef ::IAxis const & ( ::Detector::*getAxis_function_type )( ::std::size_t ) const;
+            typedef ::IAxis const & ( ::Detector::*getAxis_function_type)( ::std::size_t ) const;
             
             Detector_exposer.def( 
                 "getAxis"
@@ -154,7 +154,7 @@ void register_Detector_class(){
         }
         { //::Detector::getDetectorResolutionFunction
         
-            typedef ::IDetectorResolution const * ( ::Detector::*getDetectorResolutionFunction_function_type )(  ) const;
+            typedef ::IDetectorResolution const * ( ::Detector::*getDetectorResolutionFunction_function_type)(  ) const;
             
             Detector_exposer.def( 
                 "getDetectorResolutionFunction"
@@ -164,7 +164,7 @@ void register_Detector_class(){
         }
         { //::Detector::getDimension
         
-            typedef ::std::size_t ( ::Detector::*getDimension_function_type )(  ) const;
+            typedef ::std::size_t ( ::Detector::*getDimension_function_type)(  ) const;
             
             Detector_exposer.def( 
                 "getDimension"
@@ -173,7 +173,7 @@ void register_Detector_class(){
         }
         { //::Detector::operator=
         
-            typedef ::Detector & ( ::Detector::*assign_function_type )( ::Detector const & ) ;
+            typedef ::Detector & ( ::Detector::*assign_function_type)( ::Detector const & ) ;
             
             Detector_exposer.def( 
                 "assign"
@@ -184,8 +184,8 @@ void register_Detector_class(){
         }
         { //::IParameterized::areParametersChanged
         
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( Detector_wrapper::*default_areParametersChanged_function_type )(  ) ;
+            typedef bool ( ::IParameterized::*areParametersChanged_function_type)(  ) ;
+            typedef bool ( Detector_wrapper::*default_areParametersChanged_function_type)(  ) ;
             
             Detector_exposer.def( 
                 "areParametersChanged"
@@ -195,8 +195,8 @@ void register_Detector_class(){
         }
         { //::IParameterized::clearParameterPool
         
-            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
-            typedef void ( Detector_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            typedef void ( ::IParameterized::*clearParameterPool_function_type)(  ) ;
+            typedef void ( Detector_wrapper::*default_clearParameterPool_function_type)(  ) ;
             
             Detector_exposer.def( 
                 "clearParameterPool"
@@ -206,8 +206,8 @@ void register_Detector_class(){
         }
         { //::IParameterized::createParameterTree
         
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( Detector_wrapper::*default_createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type)(  ) const;
+            typedef ::ParameterPool * ( Detector_wrapper::*default_createParameterTree_function_type)(  ) const;
             
             Detector_exposer.def( 
                 "createParameterTree"
@@ -218,8 +218,8 @@ void register_Detector_class(){
         }
         { //::IParameterized::printParameters
         
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( Detector_wrapper::*default_printParameters_function_type )(  ) const;
+            typedef void ( ::IParameterized::*printParameters_function_type)(  ) const;
+            typedef void ( Detector_wrapper::*default_printParameters_function_type)(  ) const;
             
             Detector_exposer.def( 
                 "printParameters"
@@ -239,8 +239,8 @@ void register_Detector_class(){
         }
         { //::IParameterized::setParameterValue
         
-            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
-            typedef bool ( Detector_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( ::IParameterized::*setParameterValue_function_type)( ::std::string const &,double ) ;
+            typedef bool ( Detector_wrapper::*default_setParameterValue_function_type)( ::std::string const &,double ) ;
             
             Detector_exposer.def( 
                 "setParameterValue"
@@ -251,8 +251,8 @@ void register_Detector_class(){
         }
         { //::IParameterized::setParametersAreChanged
         
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( Detector_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
+            typedef void ( ::IParameterized::*setParametersAreChanged_function_type)(  ) ;
+            typedef void ( Detector_wrapper::*default_setParametersAreChanged_function_type)(  ) ;
             
             Detector_exposer.def( 
                 "setParametersAreChanged"

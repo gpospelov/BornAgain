@@ -26,10 +26,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::ConstKBinAxis * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
-        else
+        else{
             return this->ConstKBinAxis::clone(  );
+        }
     }
-    
     
     ::ConstKBinAxis * default_clone(  ) const  {
         return ConstKBinAxis::clone( );
@@ -38,10 +38,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::ConstKBinAxis * createClippedAxis( double left, double right ) const  {
         if( bp::override func_createClippedAxis = this->get_override( "createClippedAxis" ) )
             return func_createClippedAxis( left, right );
-        else
+        else{
             return this->ConstKBinAxis::createClippedAxis( left, right );
+        }
     }
-    
     
     ::ConstKBinAxis * default_createClippedAxis( double left, double right ) const  {
         return ConstKBinAxis::createClippedAxis( left, right );
@@ -50,10 +50,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual bool contains( double value ) const  {
         if( bp::override func_contains = this->get_override( "contains" ) )
             return func_contains( value );
-        else
+        else{
             return this->IAxis::contains( value );
+        }
     }
-    
     
     bool default_contains( double value ) const  {
         return IAxis::contains( value );
@@ -62,10 +62,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::IAxis * createDoubleBinSize(  ) const  {
         if( bp::override func_createDoubleBinSize = this->get_override( "createDoubleBinSize" ) )
             return func_createDoubleBinSize(  );
-        else
+        else{
             return this->IAxis::createDoubleBinSize(  );
+        }
     }
-    
     
     ::IAxis * default_createDoubleBinSize(  ) const  {
         return IAxis::createDoubleBinSize( );
@@ -74,10 +74,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::std::size_t findClosestIndex( double value ) const  {
         if( bp::override func_findClosestIndex = this->get_override( "findClosestIndex" ) )
             return func_findClosestIndex( value );
-        else
+        else{
             return this->VariableBinAxis::findClosestIndex( value );
+        }
     }
-    
     
     ::std::size_t default_findClosestIndex( double value ) const  {
         return VariableBinAxis::findClosestIndex( value );
@@ -86,10 +86,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::Bin1D getBin( ::std::size_t index ) const  {
         if( bp::override func_getBin = this->get_override( "getBin" ) )
             return func_getBin( index );
-        else
+        else{
             return this->VariableBinAxis::getBin( index );
+        }
     }
-    
     
     ::Bin1D default_getBin( ::std::size_t index ) const  {
         return VariableBinAxis::getBin( index );
@@ -98,10 +98,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::std::vector< double > getBinBoundaries(  ) const  {
         if( bp::override func_getBinBoundaries = this->get_override( "getBinBoundaries" ) )
             return func_getBinBoundaries(  );
-        else
+        else{
             return this->VariableBinAxis::getBinBoundaries(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinBoundaries(  ) const  {
         return VariableBinAxis::getBinBoundaries( );
@@ -110,10 +110,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::std::vector< double > getBinCenters(  ) const  {
         if( bp::override func_getBinCenters = this->get_override( "getBinCenters" ) )
             return func_getBinCenters(  );
-        else
+        else{
             return this->VariableBinAxis::getBinCenters(  );
+        }
     }
-    
     
     ::std::vector< double > default_getBinCenters(  ) const  {
         return VariableBinAxis::getBinCenters( );
@@ -122,10 +122,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual double getMax(  ) const  {
         if( bp::override func_getMax = this->get_override( "getMax" ) )
             return func_getMax(  );
-        else
+        else{
             return this->VariableBinAxis::getMax(  );
+        }
     }
-    
     
     double default_getMax(  ) const  {
         return VariableBinAxis::getMax( );
@@ -134,10 +134,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual double getMin(  ) const  {
         if( bp::override func_getMin = this->get_override( "getMin" ) )
             return func_getMin(  );
-        else
+        else{
             return this->VariableBinAxis::getMin(  );
+        }
     }
-    
     
     double default_getMin(  ) const  {
         return VariableBinAxis::getMin( );
@@ -146,10 +146,10 @@ struct ConstKBinAxis_wrapper : ConstKBinAxis, bp::wrapper< ConstKBinAxis > {
     virtual ::std::size_t getSize(  ) const  {
         if( bp::override func_getSize = this->get_override( "getSize" ) )
             return func_getSize(  );
-        else
+        else{
             return this->VariableBinAxis::getSize(  );
+        }
     }
-    
     
     ::std::size_t default_getSize(  ) const  {
         return VariableBinAxis::getSize( );
@@ -165,8 +165,8 @@ void register_ConstKBinAxis_class(){
         bp::scope ConstKBinAxis_scope( ConstKBinAxis_exposer );
         { //::ConstKBinAxis::clone
         
-            typedef ::ConstKBinAxis * ( ::ConstKBinAxis::*clone_function_type )(  ) const;
-            typedef ::ConstKBinAxis * ( ConstKBinAxis_wrapper::*default_clone_function_type )(  ) const;
+            typedef ::ConstKBinAxis * ( ::ConstKBinAxis::*clone_function_type)(  ) const;
+            typedef ::ConstKBinAxis * ( ConstKBinAxis_wrapper::*default_clone_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "clone"
@@ -177,8 +177,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::ConstKBinAxis::createClippedAxis
         
-            typedef ::ConstKBinAxis * ( ::ConstKBinAxis::*createClippedAxis_function_type )( double,double ) const;
-            typedef ::ConstKBinAxis * ( ConstKBinAxis_wrapper::*default_createClippedAxis_function_type )( double,double ) const;
+            typedef ::ConstKBinAxis * ( ::ConstKBinAxis::*createClippedAxis_function_type)( double,double ) const;
+            typedef ::ConstKBinAxis * ( ConstKBinAxis_wrapper::*default_createClippedAxis_function_type)( double,double ) const;
             
             ConstKBinAxis_exposer.def( 
                 "createClippedAxis"
@@ -190,8 +190,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::IAxis::contains
         
-            typedef bool ( ::IAxis::*contains_function_type )( double ) const;
-            typedef bool ( ConstKBinAxis_wrapper::*default_contains_function_type )( double ) const;
+            typedef bool ( ::IAxis::*contains_function_type)( double ) const;
+            typedef bool ( ConstKBinAxis_wrapper::*default_contains_function_type)( double ) const;
             
             ConstKBinAxis_exposer.def( 
                 "contains"
@@ -202,8 +202,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::IAxis::createDoubleBinSize
         
-            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type )(  ) const;
-            typedef ::IAxis * ( ConstKBinAxis_wrapper::*default_createDoubleBinSize_function_type )(  ) const;
+            typedef ::IAxis * ( ::IAxis::*createDoubleBinSize_function_type)(  ) const;
+            typedef ::IAxis * ( ConstKBinAxis_wrapper::*default_createDoubleBinSize_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "createDoubleBinSize"
@@ -214,8 +214,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::findClosestIndex
         
-            typedef ::std::size_t ( ::VariableBinAxis::*findClosestIndex_function_type )( double ) const;
-            typedef ::std::size_t ( ConstKBinAxis_wrapper::*default_findClosestIndex_function_type )( double ) const;
+            typedef ::std::size_t ( ::VariableBinAxis::*findClosestIndex_function_type)( double ) const;
+            typedef ::std::size_t ( ConstKBinAxis_wrapper::*default_findClosestIndex_function_type)( double ) const;
             
             ConstKBinAxis_exposer.def( 
                 "findClosestIndex"
@@ -226,8 +226,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::getBin
         
-            typedef ::Bin1D ( ::VariableBinAxis::*getBin_function_type )( ::std::size_t ) const;
-            typedef ::Bin1D ( ConstKBinAxis_wrapper::*default_getBin_function_type )( ::std::size_t ) const;
+            typedef ::Bin1D ( ::VariableBinAxis::*getBin_function_type)( ::std::size_t ) const;
+            typedef ::Bin1D ( ConstKBinAxis_wrapper::*default_getBin_function_type)( ::std::size_t ) const;
             
             ConstKBinAxis_exposer.def( 
                 "getBin"
@@ -238,8 +238,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::getBinBoundaries
         
-            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinBoundaries_function_type )(  ) const;
-            typedef ::std::vector< double > ( ConstKBinAxis_wrapper::*default_getBinBoundaries_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinBoundaries_function_type)(  ) const;
+            typedef ::std::vector< double > ( ConstKBinAxis_wrapper::*default_getBinBoundaries_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "getBinBoundaries"
@@ -249,8 +249,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::getBinCenters
         
-            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinCenters_function_type )(  ) const;
-            typedef ::std::vector< double > ( ConstKBinAxis_wrapper::*default_getBinCenters_function_type )(  ) const;
+            typedef ::std::vector< double > ( ::VariableBinAxis::*getBinCenters_function_type)(  ) const;
+            typedef ::std::vector< double > ( ConstKBinAxis_wrapper::*default_getBinCenters_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "getBinCenters"
@@ -260,8 +260,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::getMax
         
-            typedef double ( ::VariableBinAxis::*getMax_function_type )(  ) const;
-            typedef double ( ConstKBinAxis_wrapper::*default_getMax_function_type )(  ) const;
+            typedef double ( ::VariableBinAxis::*getMax_function_type)(  ) const;
+            typedef double ( ConstKBinAxis_wrapper::*default_getMax_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "getMax"
@@ -271,8 +271,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::getMin
         
-            typedef double ( ::VariableBinAxis::*getMin_function_type )(  ) const;
-            typedef double ( ConstKBinAxis_wrapper::*default_getMin_function_type )(  ) const;
+            typedef double ( ::VariableBinAxis::*getMin_function_type)(  ) const;
+            typedef double ( ConstKBinAxis_wrapper::*default_getMin_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "getMin"
@@ -282,8 +282,8 @@ void register_ConstKBinAxis_class(){
         }
         { //::VariableBinAxis::getSize
         
-            typedef ::std::size_t ( ::VariableBinAxis::*getSize_function_type )(  ) const;
-            typedef ::std::size_t ( ConstKBinAxis_wrapper::*default_getSize_function_type )(  ) const;
+            typedef ::std::size_t ( ::VariableBinAxis::*getSize_function_type)(  ) const;
+            typedef ::std::size_t ( ConstKBinAxis_wrapper::*default_getSize_function_type)(  ) const;
             
             ConstKBinAxis_exposer.def( 
                 "getSize"

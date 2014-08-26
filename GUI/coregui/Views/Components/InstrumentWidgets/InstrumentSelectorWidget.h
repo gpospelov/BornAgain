@@ -1,6 +1,7 @@
 #ifndef INSTRUMENT_SELECTOR_WIDGET_H
 #define INSTRUMENT_SELECTOR_WIDGET_H
 
+#include "WinDllMacros.h"
 #include <QWidget>
 class InstrumentModel;
 class QListView;
@@ -9,7 +10,7 @@ class QItemSelectionModel;
 class QItemSelection;
 
 
-class InstrumentSelectorWidget : public QWidget
+class BA_CORE_API_ InstrumentSelectorWidget : public QWidget
 {
     Q_OBJECT
 
